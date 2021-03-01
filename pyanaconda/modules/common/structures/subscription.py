@@ -535,3 +535,59 @@ class AttachedSubscription(DBusData):
     @consumed_entitlement_count.setter
     def consumed_entitlement_count(self, consumed_entitlement_count: Int):
         self._consumed_entitlement_count = consumed_entitlement_count
+
+
+class OrganizationData(DBusData):
+    """Data about a single organization in the Red Hat account system.
+
+    A Red Hat account is expected to be member of an organization,
+    with some accounts being members of more than one organization.
+    """
+
+    def __init__(self):
+        self._organization_id = ""
+        self._name = ""
+        self._simple_content_access_enabled = ""
+
+    @property
+    def organization_id(self) -> Str:
+        """Id of the organization.
+
+        Example: "abc123efg456"
+
+        :return: organization id
+        :rtype: str
+        """
+        return self._organization_id
+
+    @organization_id.setter
+    def organization_id(self, organization_id: Str):
+        self._organization_id = organization_id
+
+    @property
+    def name(self) -> Str:
+        """Name of the organization.
+
+        Example: "Foo Organization"
+
+        :return: organization name
+        :rtype: str
+        """
+        return self._name
+
+    @name.setter
+    def name(self, name: Str):
+        self._name = name
+
+    @property
+    def simple_content_access_enabled(self) -> Bool:
+        """Is Simple Content Access is enabled for this organization ?
+
+        :return: if Simple Content Access is enabled
+        :rtype: bool
+        """
+        return self._simple_content_access_enabled
+
+    @simple_content_access_enabled.setter
+    def simple_content_access_enabled(self, enabled: Str):
+        self._simple_content_access_enabled = enabled

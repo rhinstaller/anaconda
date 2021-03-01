@@ -50,7 +50,7 @@ from pyanaconda.modules.subscription.initialization import StartRHSMTask
 from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
     RegisterWithUsernamePasswordTask, RegisterWithOrganizationKeyTask, \
     UnregisterTask, AttachSubscriptionTask, SystemPurposeConfigurationTask, \
-    ParseAttachedSubscriptionsTask
+    ParseAttachedSubscriptionsTask, ParseOrganizationDataTask
 from pyanaconda.modules.subscription.rhsm_observer import RHSMObserver
 
 
@@ -722,6 +722,26 @@ class SubscriptionService(KickstartService):
         task.succeeded_signal.connect(
             lambda: self._set_system_subscription_data(task.get_result())
         )
+        return task
+
+    def parse_organization_data_with_task(self):
+        """Parse organization data with task.
+
+        Parse data about organizations the currently used Red Hat account is a member of.
+        This data is available as JSON strings via the RHSM DBus API.
+
+        :return: a DBus path of a runtime task
+        """
+
+        # NOTE: we access self._subscription_request directly
+        #       to avoid the sensitive data clearing happening
+        #       in the subscription_request property getter
+        username = self._subscription_request.account_username
+        password = self._subscription_request.account_password.value
+        register_server_proxy = self.rhsm_observer.get_proxy(RHSM_REGISTER_SERVER)
+        task = ParseOrganizationDataTask(rhsm_register_server_proxy=register_server_proxy,
+                                         username=username,
+                                         password=password)
         return task
 
     def collect_requirements(self):

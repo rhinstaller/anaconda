@@ -36,7 +36,7 @@ from pyanaconda.modules.common.errors.installation import InsightsConnectError, 
 from pyanaconda.modules.common.errors.subscription import RegistrationError, \
     SubscriptionError
 from pyanaconda.modules.common.structures.subscription import SystemPurposeData, \
-    SubscriptionRequest, AttachedSubscription
+    SubscriptionRequest, AttachedSubscription, OrganizationData
 from pyanaconda.modules.common.constants.services import RHSM
 from pyanaconda.modules.common.constants.objects import RHSM_REGISTER
 
@@ -46,7 +46,7 @@ from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, 
 from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
     RHSMPrivateBus, RegisterWithUsernamePasswordTask, RegisterWithOrganizationKeyTask, \
     UnregisterTask, AttachSubscriptionTask, SystemPurposeConfigurationTask, \
-    ParseAttachedSubscriptionsTask
+    ParseAttachedSubscriptionsTask, ParseOrganizationDataTask
 
 import gi
 gi.require_version("Gio", "2.0")
@@ -894,3 +894,147 @@ class ParseAttachedSubscriptionsTaskTestCase(unittest.TestCase):
         # check the result that has been returned is as expected
         self.assertEqual(result.attached_subscriptions, [subscription1, subscription2])
         self.assertEqual(result.system_purpose_data, system_purpose_data)
+
+
+class ParseOrganizationDataTaskTestCase(unittest.TestCase):
+    """Test the group data parsing task."""
+
+    def org_data_json_parsing_test(self):
+        """Test the organization data JSON parsing method of ParseOrganizationDataTask."""
+        parse_method = ParseOrganizationDataTask._parse_org_data_json
+        # the parsing method should be able to survive also getting an empty string,
+        # resulting in an empty list being returned
+        struct = get_native(
+            OrganizationData.to_structure_list(parse_method(""))
+        )
+        self.assertEqual(struct, [])
+
+        # try data with single organization
+        single_org_data = [
+            {
+                "id": "123abc",
+                "displayName": "Foo Org",
+                "contentAccessMode": "entitlement"
+            }
+        ]
+        single_org_data_json = json.dumps(single_org_data)
+        expected_struct_list = [
+            {
+                "organization-id": "123abc",
+                "name": "Foo Org",
+                "simple-content-access-enabled": False,
+            }
+        ]
+
+        struct = get_native(
+            OrganizationData.to_structure_list(parse_method(single_org_data_json))
+        )
+        self.assertEqual(struct, expected_struct_list)
+
+        # try multiple organizations:
+        # - one in entitlement (classic) mode
+        # - one in Simple Content Access mode
+        # - one in unknown unexpected mode (should fall back to entitlement/classic mode)
+        multiple_org_data = [
+            {
+                "id": "123a",
+                "displayName": "Foo Org",
+                "contentAccessMode": "entitlement"
+            },
+            {
+                "id": "123b",
+                "displayName": "Bar Org",
+                "contentAccessMode": "org_environment"
+            },
+            {
+                "id": "123c",
+                "displayName": "Baz Org",
+                "contentAccessMode": "something_else"
+            }
+        ]
+        multiple_org_data_json = json.dumps(multiple_org_data)
+        expected_struct_list = [
+            {
+                "organization-id": "123a",
+                "name": "Foo Org",
+                "simple-content-access-enabled": False,
+            },
+            {
+                "organization-id": "123b",
+                "name": "Bar Org",
+                "simple-content-access-enabled": True,
+            },
+            {
+                "organization-id": "123c",
+                "name": "Baz Org",
+                "simple-content-access-enabled": False,
+            }
+        ]
+        structs = get_native(
+            OrganizationData.to_structure_list(parse_method(multiple_org_data_json))
+        )
+        self.assertEqual(structs, expected_struct_list)
+
+    @patch("os.environ.get", return_value="en_US.UTF-8")
+    @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")
+    def get_org_data_test(self, private_bus, environ_get):
+        """Test the ParseOrganizationDataTask."""
+        # register server proxy
+        register_server_proxy = Mock()
+        # private register proxy
+        get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
+        private_register_proxy = get_proxy.return_value
+        # mock the GetOrgs JSON output
+        multiple_org_data = [
+            {
+                "id": "123a",
+                "displayName": "Foo Org",
+                "contentAccessMode": "entitlement"
+            },
+            {
+                "id": "123b",
+                "displayName": "Bar Org",
+                "contentAccessMode": "org_environment"
+            },
+            {
+                "id": "123c",
+                "displayName": "Baz Org",
+                "contentAccessMode": "something_else"
+            }
+        ]
+        multiple_org_data_json = json.dumps(multiple_org_data)
+        private_register_proxy.GetOrgs.return_value = multiple_org_data_json
+
+        # instantiate the task and run it
+        task = ParseOrganizationDataTask(rhsm_register_server_proxy=register_server_proxy,
+                                         username="foo_user",
+                                         password="bar_password")
+        org_data_structs = task.run()
+        # check the structs based on the JSON data look as expected
+        expected_struct_list = [
+            {
+                "organization-id": "123a",
+                "name": "Foo Org",
+                "simple-content-access-enabled": False,
+            },
+            {
+                "organization-id": "123b",
+                "name": "Bar Org",
+                "simple-content-access-enabled": True,
+            },
+            {
+                "organization-id": "123c",
+                "name": "Baz Org",
+                "simple-content-access-enabled": False,
+            }
+        ]
+        structs = get_native(
+            OrganizationData.to_structure_list(org_data_structs)
+        )
+        self.assertEqual(structs, expected_struct_list)
+
+        # check the private register proxy Register method was called correctly
+        private_register_proxy.GetOrgs.assert_called_once_with("foo_user",
+                                                               "bar_password",
+                                                               {},
+                                                               "en_US.UTF-8")

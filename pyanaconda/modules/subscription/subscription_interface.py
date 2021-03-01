@@ -20,11 +20,30 @@
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.modules.common.structures.subscription import SystemPurposeData, \
-    SubscriptionRequest, AttachedSubscription
+    SubscriptionRequest, AttachedSubscription, OrganizationData
 from pyanaconda.modules.common.containers import TaskContainer
-from dasbus.server.interface import dbus_interface
+from pyanaconda.modules.common.task import TaskInterface
+from dasbus.server.interface import dbus_interface, dbus_class
 from dasbus.server.property import emits_properties_changed
 from dasbus.typing import *  # pylint: disable=wildcard-import
+
+
+@dbus_class
+class ParseOrganizationDataTaskInterface(TaskInterface):
+    """The interface for a organization data parsing task
+
+    Such a task returns a list of organization data objects.
+    """
+    @staticmethod
+    def convert_result(values) -> Variant:
+        """Convert the list of org data DBus structs.
+
+        Convert list of org data DBus structs to variant.
+
+        :param value: a validation report
+        :return: a variant with the structure
+        """
+        return get_variant(List[Structure], OrganizationData.to_structure_list(values))
 
 
 @dbus_interface(SUBSCRIPTION.interface_name)
@@ -201,4 +220,13 @@ class SubscriptionInterface(KickstartModuleInterface):
         """
         return TaskContainer.to_object_path(
             self.implementation.parse_attached_subscriptions_with_task()
+        )
+
+    def ParseOrganizationDataWithTask(self) -> ObjPath:
+        """Parse organization data using a runtime DBus task.
+
+        :return: a DBus path of an installation task
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.parse_organization_data_with_task()
         )

@@ -31,9 +31,12 @@ from pyanaconda.modules.common.constants.objects import RHSM_REGISTER
 from pyanaconda.modules.common.errors.subscription import RegistrationError, \
     UnregistrationError, SubscriptionError
 from pyanaconda.modules.common.structures.subscription import AttachedSubscription, \
-    SystemPurposeData
+    SystemPurposeData, OrganizationData
 from pyanaconda.modules.subscription import system_purpose
+from pyanaconda.modules.subscription.subscription_interface import \
+    ParseOrganizationDataTaskInterface
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.glib import Variant
 
 import gi
 gi.require_version("Gio", "2.0")
@@ -570,3 +573,113 @@ class ParseAttachedSubscriptionsTask(Task):
         # return the DBus structures as a named tuple
         return SystemSubscriptionData(attached_subscriptions=attached_subscriptions,
                                       system_purpose_data=system_purpose_data)
+
+
+class ParseOrganizationDataTask(Task):
+    """Parse data about organizations the given Red Hat account is a member of.
+
+    NOTE: While most Red Hat accounts are a memeber of a single organization,
+          there is a number of Red Hat accounts that are a member of more than one.
+    """
+
+    # content access constants
+    SCA_ENABLED_STRING = "org_environment"
+    SCA_NOT_ENABLED_STRING = "entitlement"
+
+    def __init__(self, rhsm_register_server_proxy, username, password):
+        """Create a new organization data parsing task.
+
+        :param rhsm_register_server_proxy: DBus proxy for the RHSM RegisterServer object
+        :param str username: Red Hat account username
+        :param str password: Red Hat account password
+        """
+        super().__init__()
+        self._rhsm_register_server_proxy = rhsm_register_server_proxy
+        self._username = username
+        self._password = password
+
+    @property
+    def name(self):
+        return "Parse organization data"
+
+    @staticmethod
+    def _parse_org_data_json(org_data_json):
+        """Parse JSON data about organizations this Red Hat account belongs to.
+
+        As an account might be a member of multiple organizations,
+        the JSON data is an array of dictionaries, with one dictionary per organization.
+
+        :param str org_data_json: JSON describing organizations the given account belongs to
+        :return: data about the organizations the account belongs to
+        :rtype: list of OrganizationData instances
+        """
+        try:
+            org_json = json.loads(org_data_json)
+        except json.decoder.JSONDecodeError:
+            log.warning("subscription: failed to parse GetOrgs() JSON output")
+            # empty system purpose data is better than an installation ending crash
+            return []
+
+        org_data_list = []
+        for single_org in org_json:
+            org_data = OrganizationData()
+            # machine readable organization id
+            org_data.organization_id = single_org.get("id", "")
+            # human readable organization name
+            org_data.name = single_org.get("displayName", "")
+            # content access mode, where:
+            # - "entitlement" means regular mode requiring entitlements to be attached
+            # - "org_environment" means Simple Content Access mode
+            simple_content_access_enabled = False
+            content_access_mode = single_org.get("contentAccessMode", "")
+            if content_access_mode == ParseOrganizationDataTask.SCA_ENABLED_STRING:
+                # running in Simple Content Access mode
+                org_data.simple_content_access_enabled = True
+            elif content_access_mode == ParseOrganizationDataTask.SCA_NOT_ENABLED_STRING:
+                # "classic" non-SCA content access mode requiring entitlements to be attached
+                org_data.simple_content_access_enabled = False
+            else:
+                # unknown content access mode, log a warning and default to non-SCA
+                org_string = "{}/{}".format(org_data.name, org_data.organization_id)
+                log.warning("subscription: unknown content access mode {} for organization {},"
+                            "falling back to non SCA mode".format(content_access_mode, org_string))
+                org_data.simple_content_access_enabled = False
+            # finally, append to the list
+            org_data_list.append(org_data)
+
+        return org_data_list
+
+    def run(self):
+        """Parse organization data for a Red Hat account username and password.
+
+        :raises: RegistrationError if calling the RHSM DBus API returns an error
+        """
+        log.debug("subscription: getting data about organizations")
+        with RHSMPrivateBus(self._rhsm_register_server_proxy) as private_bus:
+            try:
+                locale = os.environ.get("LANG", "")
+                private_register_proxy = private_bus.get_proxy(RHSM.service_name,
+                                                               RHSM_REGISTER.object_path)
+
+                org_data_json = private_register_proxy.GetOrgs(self._username,
+                                                               self._password,
+                                                               {},
+                                                               locale)
+
+                log.debug("subscription: got organization data (%d characters)",
+                          len(org_data_json))
+
+                # parse the JSON strings into list of DBus data objects
+                org_data = self._parse_org_data_json(org_data_json)
+
+                # return the DBus structure list
+                return org_data
+            except DBusError as e:
+                log.debug("subscription: failed to get organization data: %s", str(e))
+                # GetOrgs() is used in an advisory role at the moment, so the call failing is not
+                # considered critical - just return an empty list.
+                return []
+
+    def for_publication(self):
+        """Return a DBus representation."""
+        return ParseOrganizationDataTaskInterface(self)
