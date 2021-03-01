@@ -18,8 +18,9 @@
 #
 from abc import ABCMeta, abstractmethod
 
-from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.modules.common.constants.services import PAYLOADS
 
 log = get_module_logger(__name__)
 
@@ -35,7 +36,10 @@ class Payload(metaclass=ABCMeta):
         """
         self.data = data
 
-        # A DBus proxy of the payload.
+        # A DBus proxy of the Payloads service.
+        self._service_proxy = PAYLOADS.get_proxy()
+
+        # A DBus proxy of the active payload.
         self._payload_proxy = None
 
     def set_from_opts(self, opts):
@@ -58,6 +62,14 @@ class Payload(metaclass=ABCMeta):
         :return: a DBus proxy
         """
         return self._payload_proxy
+
+    @property
+    def service_proxy(self):
+        """The DBus proxy of the Payloads service.
+
+        :return: a DBus proxy
+        """
+        return self._service_proxy
 
     def get_source_proxy(self):
         """Get the DBus proxy of the installation source (if any).
