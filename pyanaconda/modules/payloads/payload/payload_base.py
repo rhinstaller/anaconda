@@ -22,6 +22,7 @@ from abc import ABCMeta, abstractmethod
 from dasbus.server.publishable import Publishable
 
 from pyanaconda.core.signal import Signal
+from pyanaconda.modules.common.errors.general import UnavailableValueError
 from pyanaconda.modules.common.errors.payload import IncompatibleSourceError, SourceSetupError
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.payloads.base.initialization import SetUpSourcesTask, TearDownSourcesTask
@@ -41,6 +42,7 @@ class PayloadBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         super().__init__()
         self._sources = []
         self.sources_changed = Signal()
+        self._kernel_version_list = None
 
     @property
     @abstractmethod
@@ -132,6 +134,30 @@ class PayloadBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
             total += source.required_space
 
         return total
+
+    def get_kernel_version_list(self):
+        """Get the kernel versions list.
+
+        The kernel version list doesn't have to be available
+        before the payload installation.
+
+        :return: a list of kernel versions
+        :raises UnavailableValueError: if the list is not available
+        """
+        if self._kernel_version_list is None:
+            raise UnavailableValueError("The kernel version list is not available.")
+
+        return self._kernel_version_list
+
+    def set_kernel_version_list(self, kernels):
+        """Set the kernel versions list.
+
+        This function should be called by one of the installation tasks.
+
+        :param kernels: a list of kernel versions
+        """
+        self._kernel_version_list = kernels
+        log.debug("The kernel version list is set to: %s", kernels)
 
     @abstractmethod
     def pre_install_with_tasks(self):

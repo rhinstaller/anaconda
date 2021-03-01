@@ -38,3 +38,9 @@ class InvalidValueError(AnacondaError):
 class UnsupportedValueError(AnacondaError):
     """Value passed is not supported."""
     pass
+
+
+@dbus_error("UnavailableValueError", namespace=ANACONDA_NAMESPACE)
+class UnavailableValueError(AnacondaError):
+    """The requested value is not available."""
+    pass

@@ -18,7 +18,6 @@
 # Red Hat, Inc.
 #
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.signal import Signal
 from pyanaconda.core.constants import INSTALL_TREE
 
 from pyanaconda.modules.common.errors.payload import SourceSetupError, IncompatibleSourceError
@@ -39,9 +38,8 @@ class LiveOSModule(PayloadBase):
 
     def __init__(self):
         super().__init__()
-
-        self._kernel_version_list = []
-        self.kernel_version_list_changed = Signal()
+        # FIXME: Set up the kernel version list somewhere else from a task.
+        self.set_kernel_version_list(get_kernel_version_list(INSTALL_TREE))
 
     def for_publication(self):
         """Get the interface used to publish this source."""
@@ -155,24 +153,3 @@ class LiveOSModule(PayloadBase):
         return [
             CopyDriverDisksFilesTask(conf.target.system_root)
         ]
-
-    def update_kernel_version_list(self):
-        """Update list of kernel versions.
-
-        Source have to be set-up first.
-        """
-        self.set_kernel_version_list(get_kernel_version_list(INSTALL_TREE))
-
-    @property
-    def kernel_version_list(self):
-        """Get list of kernel versions.
-
-        :rtype: [str]
-        """
-        return self._kernel_version_list
-
-    def set_kernel_version_list(self, kernel_version_list):
-        """Set list of kernel versions."""
-        self._kernel_version_list = kernel_version_list
-        self.kernel_version_list_changed.emit(self._kernel_version_list)
-        log.debug("List of kernel versions is set to '%s'", self._kernel_version_list)
