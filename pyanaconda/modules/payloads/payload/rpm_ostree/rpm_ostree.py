@@ -64,21 +64,13 @@ class RPMOSTreeModule(PayloadBase):
         for source in self.sources:
             source.setup_kickstart(data)
 
-    def pre_install_with_tasks(self):
-        """Execute preparation steps.
-
-        :return: list of tasks
-        """
-        # TODO: Implement this method
-        pass
-
     def install_with_tasks(self):
         """Install the payload.
 
         :return: list of tasks
         """
         # TODO: Implement this method
-        pass
+        return []
 
     def post_install_with_tasks(self):
         """Execute post installation steps.
@@ -86,4 +78,4 @@ class RPMOSTreeModule(PayloadBase):
         :return: list of tasks
         """
         # TODO: Implement this method
-        pass
+        return []

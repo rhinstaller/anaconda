@@ -142,6 +142,66 @@ class PayloadsService(KickstartService):
         """
         return SourceFactory.create_source(source_type)
 
+    def is_network_required(self):
+        """Do the sources require a network?
+
+        :return: True or False
+        """
+        return bool(self.active_payload) and self.active_payload.is_network_required()
+
+    def calculate_required_space(self):
+        """Calculate space required for the installation.
+
+        :return: required size in bytes
+        :rtype: int
+        """
+        total = 0
+
+        if self.active_payload:
+            total += self.active_payload.calculate_required_space()
+
+        return total
+
+    def get_kernel_version_list(self):
+        """Get the kernel versions list.
+
+        The kernel version list doesn't have to be available
+        before the payload installation.
+
+        :return: a list of kernel versions
+        :raises UnavailableValueError: if the list is not available
+        """
+        kernel_version_list = []
+
+        if self.active_payload:
+            kernel_version_list += self.active_payload.get_kernel_version_list()
+
+        return kernel_version_list
+
+    def install_with_tasks(self):
+        """Return a list of installation tasks.
+
+        :return: list of tasks
+        """
+        tasks = []
+
+        if self.active_payload:
+            tasks += self.active_payload.install_with_tasks()
+
+        return tasks
+
+    def post_install_with_tasks(self):
+        """Return a list of post-installation tasks.
+
+        :return: a list of tasks
+        """
+        tasks = []
+
+        if self.active_payload:
+            tasks += self.active_payload.post_install_with_tasks()
+
+        return tasks
+
     def teardown_with_tasks(self):
         """Returns teardown tasks for this module.
 
@@ -150,6 +210,6 @@ class PayloadsService(KickstartService):
         tasks = []
 
         if self.active_payload:
-            tasks.extend(self.active_payload.tear_down_with_tasks())
+            tasks += self.active_payload.tear_down_with_tasks()
 
         return tasks

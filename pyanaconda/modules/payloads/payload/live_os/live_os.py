@@ -129,20 +129,19 @@ class LiveOSModule(PayloadBase):
 
         return task
 
-    def pre_install_with_tasks(self):
-        """Execute preparation steps."""
-        self._check_source_availability("Pre install task failed - source is not available!")
-
-        return [PrepareSystemForInstallationTask(conf.target.system_root)]
-
     def install_with_tasks(self):
         """Install the payload."""
         self._check_source_availability("Installation task failed - source is not available!")
 
-        return [InstallFromImageTask(
-            self._image_source,
-            conf.target.system_root
-        )]
+        return [
+            PrepareSystemForInstallationTask(
+                conf.target.system_root
+            ),
+            InstallFromImageTask(
+                self._image_source,
+                conf.target.system_root
+            )
+        ]
 
     def post_install_with_tasks(self):
         """Execute post installation steps.
@@ -151,5 +150,7 @@ class LiveOSModule(PayloadBase):
         :rtype: List
         """
         return [
-            CopyDriverDisksFilesTask(conf.target.system_root)
+            CopyDriverDisksFilesTask(
+                conf.target.system_root
+            )
         ]

@@ -22,7 +22,8 @@ from dasbus.server.property import emits_properties_changed
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.modules.common.base import KickstartModuleInterface
-from pyanaconda.modules.common.containers import PayloadSourceContainer, PayloadContainer
+from pyanaconda.modules.common.containers import PayloadSourceContainer, PayloadContainer, \
+    TaskContainer
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 
@@ -91,4 +92,39 @@ class PayloadsInterface(KickstartModuleInterface):
         """
         return PayloadSourceContainer.to_object_path(
             self.implementation.create_source(SourceType(source_type))
+        )
+
+    def IsNetworkRequired(self) -> Bool:
+        """Do the sources require a network?
+
+        :return: True or False
+        """
+        return self.implementation.is_network_required()
+
+    def CalculateRequiredSpace(self) -> UInt64:
+        """Calculate space required for the installation.
+
+        :return: required size in bytes
+        :rtype: int
+        """
+        return self.implementation.calculate_required_space()
+
+    def GetKernelVersionList(self) -> List[Str]:
+        """Get the kernel versions list.
+
+        The kernel version list doesn't have to be available
+        before the payload installation.
+
+        :return: a list of kernel versions
+        :raises UnavailableValueError: if the list is not available
+        """
+        return self.implementation.get_kernel_version_list()
+
+    def PostInstallWithTasks(self) -> List[ObjPath]:
+        """Return a list of post-installation tasks.
+
+        :return: a list of object paths of installation tasks
+        """
+        return TaskContainer.to_object_path_list(
+            self.implementation.post_install_with_tasks()
         )

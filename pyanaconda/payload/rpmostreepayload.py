@@ -83,7 +83,7 @@ class RPMOSTreePayload(Payload):
     @property
     def needs_network(self):
         """Test ostree repository if it requires network."""
-        return self.proxy.IsNetworkRequired()
+        return self.service_proxy.IsNetworkRequired()
 
     def setup(self):
         """Do any payload-specific setup."""

@@ -111,37 +111,39 @@ class LiveImageInterfaceTestCase(unittest.TestCase):
     def type_test(self):
         self.shared_tests.check_type(PayloadType.LIVE_IMAGE)
 
+
+class LiveImageModuleTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.module = LiveImageModule()
+
     def calculate_required_space_test(self):
-        """Test CalculateRequiredTest."""
-        self.assertEqual(self.live_image_interface.CalculateRequiredSpace(), 0)
+        """Test the calculate_required_space method."""
+        self.assertEqual(self.module.calculate_required_space(), 0)
 
         source = SourceFactory.create_source(SourceType.LIVE_IMAGE)
-        self.live_image_module.add_source(source)
+        self.module.add_source(source)
 
-        self.assertEqual(self.live_image_interface.CalculateRequiredSpace(), 1024 * 1024 * 1024)
+        self.assertEqual(self.module.calculate_required_space(), 1024 * 1024 * 1024)
 
-    # TODO: Add set_source and supported_sources like in Live OS payload when source is available
-
-    @patch_dbus_publish_object
-    def prepare_system_for_installation_task_test(self, publisher):
-        """Test Live Image is able to create a prepare installation task."""
+    def install_with_task_from_tar_test(self):
+        """Test Live Image install with tasks from tarfile."""
         # task_path = self.live_image_interface.PreInstallWithTasks()
         # check_task_creation_list(self, task_path, publisher, [SetupInstallationSourceImageTask])
-        self.assertEqual(self.live_image_interface.PreInstallWithTasks(), [])
 
-    @patch_dbus_publish_object
-    def install_with_task_from_tar_test(self, publisher):
-        """Test Live Image install with tasks from tarfile."""
         # task_path = self.live_image_interface.InstallWithTasks()
         # check_task_creation_list(self, task_path, publisher, [InstallFromTarTask])
-        self.assertEqual(self.live_image_interface.InstallWithTasks(), [])
+        self.assertEqual(self.module.install_with_tasks(), [])
 
     @patch_dbus_publish_object
     def install_with_task_from_image_test(self, publisher):
         """Test Live Image install with tasks from image."""
+        # task_path = self.live_image_interface.PreInstallWithTasks()
+        # check_task_creation_list(self, task_path, publisher, [SetupInstallationSourceImageTask])
+
         # task_path = self.live_image_interface.InstallWithTasks()
         # check_task_creation_list(self, task_path, publisher, [InstallFromImageTask])
-        self.assertEqual(self.live_image_interface.InstallWithTasks(), [])
+        self.assertEqual(self.module.install_with_tasks(), [])
 
     @patch_dbus_publish_object
     def post_install_with_tasks_test(self, publisher):
@@ -164,4 +166,4 @@ class LiveImageInterfaceTestCase(unittest.TestCase):
         #     self.assertEqual(object_path, task_paths[i])
         #     self.assertIsInstance(obj, TaskInterface)
         #     self.assertIsInstance(obj.implementation, task_classes[i])
-        self.assertEqual(self.live_image_interface.PostInstallWithTasks(), [])
+        self.assertEqual(self.module.post_install_with_tasks(), [])

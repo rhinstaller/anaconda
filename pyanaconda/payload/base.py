@@ -121,6 +121,7 @@ class Payload(metaclass=ABCMeta):
     ###
     def pre_install(self):
         """Perform pre-installation tasks."""
+        # FIXME: Merge the pre-installation tasks with the installation tasks.
         from pyanaconda.modules.payloads.base.initialization import PrepareSystemForInstallationTask
         PrepareSystemForInstallationTask(conf.target.system_root).run()
 
