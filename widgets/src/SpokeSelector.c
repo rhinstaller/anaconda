@@ -291,6 +291,7 @@ static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
     spoke->priv->title_label = gtk_label_new(NULL);
     gtk_label_set_text_with_mnemonic(GTK_LABEL(spoke->priv->title_label), _(DEFAULT_TITLE));
     gtk_label_set_justify(GTK_LABEL(spoke->priv->title_label), GTK_JUSTIFY_LEFT);
+    gtk_label_set_line_wrap(GTK_LABEL(spoke->priv->title_label), TRUE);
     gtk_label_set_mnemonic_widget(GTK_LABEL(spoke->priv->title_label), GTK_WIDGET(spoke));
     gtk_label_set_xalign(GTK_LABEL(spoke->priv->title_label), 0.0);
     gtk_label_set_yalign(GTK_LABEL(spoke->priv->title_label), 1.0);

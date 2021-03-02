@@ -74,7 +74,7 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
         if not NormalTUISpoke.should_run(environment, data):
             return False
 
-        return context.payload.type == PAYLOAD_TYPE_DNF
+        return context.payload_type == PAYLOAD_TYPE_DNF
 
     def __init__(self, data, storage, payload):
         NormalTUISpoke.__init__(self, data, storage, payload)
