@@ -310,7 +310,7 @@ class GRUB2(BootLoader):
             return
 
         users_file = "%s%s/%s" % (conf.target.system_root, self.config_dir, self._passwd_file)
-        header = util.open_with_perm(users_file, "w", 0o700)
+        header = util.open_with_perm(users_file, "w", 0o600)
         # XXX FIXME: document somewhere that the username is "root"
         self._encrypt_password()
         password_line = "GRUB2_PASSWORD=" + self.encrypted_password
