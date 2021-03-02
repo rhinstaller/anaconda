@@ -19,8 +19,10 @@ import unittest
 from unittest.mock import patch, Mock, call
 
 from blivet.size import Size, ROUND_UP
+from dasbus.structure import compare_data
 
 from dnf.callback import STATUS_OK, STATUS_FAILED, PKG_SCRIPTLET
+from dnf.comps import Environment, Comps, Group
 from dnf.exceptions import MarkingErrors
 from dnf.package import Package
 from dnf.transaction import PKG_INSTALL, TRANS_POST, PKG_VERIFY
@@ -28,11 +30,14 @@ from dnf.repo import Repo
 
 from pyanaconda.core.constants import MULTILIB_POLICY_ALL
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
+from pyanaconda.modules.common.errors.payload import UnknownCompsEnvironmentError, \
+    UnknownCompsGroupError
+from pyanaconda.modules.common.structures.comps import CompsEnvironmentData, CompsGroupData
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 
 
-class DNFMangerTestCase(unittest.TestCase):
+class DNFManagerTestCase(unittest.TestCase):
     """Test the abstraction of the DNF base."""
 
     def setUp(self):
@@ -210,53 +215,6 @@ class DNFMangerTestCase(unittest.TestCase):
         size = self.dnf_manager.get_download_size()
 
         self.assertEqual(size, Size("450 MiB"))
-
-    def no_default_environment_test(self):
-        """Test the default_environment property with no environment."""
-        self.assertEqual(self.dnf_manager.default_environment, None)
-
-    def default_environment_test(self):
-        """Test the default_environment property with environments."""
-        env_1 = Mock(id="environment-1")
-        env_2 = Mock(id="environment-2")
-        env_3 = Mock(id="environment-3")
-
-        comps = Mock(environments=[env_1, env_2, env_3])
-        self.dnf_manager._base._comps = comps
-
-        self.assertEqual(self.dnf_manager.default_environment, "environment-1")
-
-    def default_configured_environment_test(self):
-        """Test the default_environment property with configuration."""
-        env_1 = Mock(id="environment-1")
-        env_2 = Mock(id="environment-2")
-        env_3 = Mock(id="environment-3")
-
-        comps = Mock(environments=[env_1, env_2, env_3])
-        self.dnf_manager._base._comps = comps
-
-        with patch("pyanaconda.modules.payloads.payload.dnf.dnf_manager.conf") as conf:
-            conf.payload.default_environment = "environment-2"
-            self.assertEqual(self.dnf_manager.default_environment, "environment-2")
-
-    def environments_test(self):
-        """Test the environments property."""
-        self.assertEqual(self.dnf_manager.environments, [])
-
-        # Fake environments.
-        env_1 = Mock(id="environment-1")
-        env_2 = Mock(id="environment-2")
-        env_3 = Mock(id="environment-3")
-
-        # Fake comps.
-        comps = Mock(environments=[env_1, env_2, env_3])
-
-        self.dnf_manager._base._comps = comps
-        self.assertEqual(self.dnf_manager.environments, [
-            "environment-1",
-            "environment-2",
-            "environment-3",
-        ])
 
     @patch("dnf.module.module_base.ModuleBase.enable")
     def enable_modules_test(self, module_base_enable):
@@ -596,3 +554,226 @@ class DNFMangerTestCase(unittest.TestCase):
         # Supported variables.
         self.assertNotEqual(self.dnf_manager.substitute("/$basearch"), "/$basearch")
         self.assertNotEqual(self.dnf_manager.substitute("/$releasever"), "/$releasever")
+
+
+class DNFManagerCompsTestCase(unittest.TestCase):
+    """Test the comps abstraction of the DNF base."""
+
+    def setUp(self):
+        self.maxDiff = None
+        self.dnf_manager = DNFManager()
+        self.dnf_manager._base._comps = self._create_comps()
+
+    @property
+    def comps(self):
+        """The mocked comps object."""
+        return self.dnf_manager._base._comps
+
+    def _create_comps(self):
+        """Create a mocked comps object."""
+        comps = Mock(spec=Comps)
+        comps.environments = []
+        comps.groups = []
+
+        def environment_by_pattern(name):
+            for e in comps.environments:
+                if name in (e.id, e.ui_name):
+                    return e
+
+            return None
+
+        comps.environment_by_pattern = environment_by_pattern
+
+        def group_by_pattern(name):
+            for e in comps.groups:
+                if name in (e.id, e.ui_name):
+                    return e
+
+            return None
+
+        comps.group_by_pattern = group_by_pattern
+        return comps
+
+    def _add_group(self, grp_id, visible=True):
+        """Add a mocked group with the specified id."""
+        group = Mock(spec=Group)
+        group.id = grp_id
+        group.ui_name = "The '{}' group".format(grp_id)
+        group.ui_description = "This is the '{}' group.".format(grp_id)
+        group.visible = visible
+
+        self.comps.groups.append(group)
+
+    def _add_environment(self, env_id, optional=(), default=()):
+        """Add a mocked environment with the specified id."""
+        environment = Mock(spec=Environment)
+        environment.id = env_id
+        environment.ui_name = "The '{}' environment".format(env_id)
+        environment.ui_description = "This is the '{}' environment.".format(env_id)
+        environment.option_ids = []
+
+        for opt_id in optional:
+            option = Mock()
+            option.name = opt_id
+            option.default = opt_id in default
+            environment.option_ids.append(option)
+
+        self.comps.environments.append(environment)
+
+    def groups_test(self):
+        """Test the groups property."""
+        self.assertEqual(self.dnf_manager.groups, [])
+
+        self._add_group("g1")
+        self._add_group("g2")
+        self._add_group("g3")
+
+        self.assertEqual(self.dnf_manager.groups, [
+            "g1", "g2", "g3",
+        ])
+
+    def resolve_group_test(self):
+        """Test the resolve_group method."""
+        self.assertEqual(self.dnf_manager.resolve_group(""), None)
+        self.assertEqual(self.dnf_manager.resolve_group("g1"), None)
+
+        self._add_group("g1")
+
+        self.assertEqual(self.dnf_manager.resolve_group("g1"), "g1")
+        self.assertEqual(self.dnf_manager.resolve_group("g2"), None)
+
+    def get_group_data_error_test(self):
+        """Test the failed get_group_data method."""
+        with self.assertRaises(UnknownCompsGroupError):
+            self.dnf_manager.get_group_data("g1")
+
+    def get_group_data_test(self):
+        """Test the get_group_data method."""
+        self._add_group("g1")
+
+        expected = CompsGroupData()
+        expected.id = "g1"
+        expected.name = "The 'g1' group"
+        expected.description = "This is the 'g1' group."
+
+        data = self.dnf_manager.get_group_data("g1")
+        self.assertIsInstance(data, CompsGroupData)
+        self.assertTrue(compare_data(data, expected))
+
+    def no_default_environment_test(self):
+        """Test the default_environment property with no environments."""
+        self.assertEqual(self.dnf_manager.default_environment, None)
+
+    def default_environment_test(self):
+        """Test the default_environment property with some environments."""
+        self._add_environment("e1")
+        self._add_environment("e2")
+        self._add_environment("e3")
+
+        with patch("pyanaconda.modules.payloads.payload.dnf.dnf_manager.conf") as conf:
+            # Choose the first environment.
+            conf.payload.default_environment = ""
+            self.assertEqual(self.dnf_manager.default_environment, "e1")
+
+            # Choose the configured environment.
+            conf.payload.default_environment = "e2"
+            self.assertEqual(self.dnf_manager.default_environment, "e2")
+
+    def environments_test(self):
+        """Test the environments property."""
+        self.assertEqual(self.dnf_manager.environments, [])
+
+        self._add_environment("e1")
+        self._add_environment("e2")
+        self._add_environment("e3")
+
+        self.assertEqual(self.dnf_manager.environments, [
+            "e1", "e2", "e3",
+        ])
+
+    def resolve_environment_test(self):
+        """Test the resolve_environment method."""
+        self.assertEqual(self.dnf_manager.resolve_environment(""), None)
+        self.assertEqual(self.dnf_manager.resolve_environment("e1"), None)
+
+        self._add_environment("e1")
+
+        self.assertEqual(self.dnf_manager.resolve_environment("e1"), "e1")
+        self.assertEqual(self.dnf_manager.resolve_environment("e2"), None)
+
+    def is_environment_valid_test(self):
+        """Test the is_environment_valid method."""
+        self.assertEqual(self.dnf_manager.is_environment_valid(""), False)
+        self.assertEqual(self.dnf_manager.is_environment_valid("e1"), False)
+
+        self._add_environment("e1")
+
+        self.assertEqual(self.dnf_manager.is_environment_valid("e1"), True)
+        self.assertEqual(self.dnf_manager.is_environment_valid("e2"), False)
+
+    def get_environment_data_error_test(self):
+        """Test the failed get_environment_data method."""
+        with self.assertRaises(UnknownCompsEnvironmentError):
+            self.dnf_manager.get_environment_data("e1")
+
+    def get_environment_data_test(self):
+        """Test the get_environment_data method."""
+        self._add_environment("e1")
+
+        expected = CompsEnvironmentData()
+        expected.id = "e1"
+        expected.name = "The 'e1' environment"
+        expected.description = "This is the 'e1' environment."
+
+        data = self.dnf_manager.get_environment_data("e1")
+        self.assertIsInstance(data, CompsEnvironmentData)
+        self.assertTrue(compare_data(data, expected))
+
+    def get_environment_data_visible_groups_test(self):
+        """Test the get_environment_data method with visible groups."""
+        self._add_group("g1")
+        self._add_group("g2", visible=False)
+        self._add_group("g3")
+        self._add_group("g4", visible=False)
+
+        self._add_environment("e1")
+
+        data = self.dnf_manager.get_environment_data("e1")
+        self.assertEqual(data.visible_groups, ["g1", "g3"])
+
+    def get_environment_data_optional_groups_test(self):
+        """Test the get_environment_data method with optional groups."""
+        self._add_group("g1")
+        self._add_group("g2")
+        self._add_group("g3")
+        self._add_group("g4")
+
+        self._add_environment("e1", optional=["g1", "g3"])
+
+        data = self.dnf_manager.get_environment_data("e1")
+        self.assertEqual(data.optional_groups, ["g1", "g3"])
+
+    def get_environment_data_default_groups_test(self):
+        """Test the get_environment_data method with default groups."""
+        self._add_group("g1")
+        self._add_group("g2")
+        self._add_group("g3")
+        self._add_group("g4")
+
+        self._add_environment("e1", optional=["g1", "g2", "g3"], default=["g1", "g3"])
+
+        data = self.dnf_manager.get_environment_data("e1")
+        self.assertEqual(data.default_groups, ["g1", "g3"])
+
+    def environment_data_available_groups_test(self):
+        """Test the get_available_groups method."""
+        data = CompsEnvironmentData()
+        self.assertEqual(data.get_available_groups(), [])
+
+        data.optional_groups = ["g1", "g2", "g3"]
+        data.visible_groups = ["g3", "g4", "g5"]
+        data.default_groups = ["g1", "g3"]
+
+        self.assertEqual(data.get_available_groups(), [
+            "g1", "g2", "g3", "g4", "g5"
+        ])
