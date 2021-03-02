@@ -143,6 +143,22 @@ class DNFManager(object):
         base.conf.install_weak_deps = not data.weakdeps_excluded
 
     @property
+    def default_environment(self):
+        """Default environment.
+
+        :return: an identifier of an environment or None
+        """
+        environments = self.environments
+
+        if conf.payload.default_environment in environments:
+            return conf.payload.default_environment
+
+        if environments:
+            return environments[0]
+
+        return None
+
+    @property
     def environments(self):
         """Environments defined in comps.xml file.
 

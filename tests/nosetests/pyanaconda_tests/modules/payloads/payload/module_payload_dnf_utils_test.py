@@ -17,7 +17,7 @@
 #
 import unittest
 from textwrap import dedent
-from unittest.mock import patch, Mock, PropertyMock
+from unittest.mock import patch, Mock
 
 from blivet.size import Size
 
@@ -25,11 +25,9 @@ from pyanaconda.core.constants import GROUP_PACKAGE_TYPES_REQUIRED, GROUP_PACKAG
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.structures.packages import PackagesSelectionData
-from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package, \
-    get_product_release_version, get_default_environment, get_installation_specs, \
-    get_kernel_version_list, pick_download_location, calculate_required_space, \
-    get_free_space_map, _pick_mount_points
+    get_product_release_version, get_installation_specs, get_kernel_version_list, \
+    pick_download_location, calculate_required_space, get_free_space_map, _pick_mount_points
 
 from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy_with_cache
 
@@ -90,19 +88,6 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
     def get_product_release_version_dot_test(self):
         """Test the get_product_release_version function with a dot."""
         self.assertEqual(get_product_release_version(), "7.4")
-
-    @patch.object(DNFManager, 'environments', new_callable=PropertyMock)
-    def get_default_environment_test(self, mock_environments):
-        """Test the get_default_environment function"""
-        mock_environments.return_value = []
-        self.assertEqual(get_default_environment(DNFManager()), None)
-
-        mock_environments.return_value = [
-            "environment-1",
-            "environment-2",
-            "environment-3",
-        ]
-        self.assertEqual(get_default_environment(DNFManager()), "environment-1")
 
     def get_installation_specs_default_test(self):
         """Test the get_installation_specs function with defaults."""
