@@ -56,7 +56,7 @@ jobs:
             ci_tag: 'f34-devel'
           - release: f34-release
             target_branch: 'f34-release'
-            ci_tag: 'f34-devel'
+            ci_tag: 'f34-release'
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
       CONTAINER_BUILD_ARGS: '${{ matrix.build-args }}'
@@ -126,7 +126,7 @@ jobs:
             ci_tag: 'f34-devel'
           - release: f34-release
             target_branch: 'f34-release'
-            ci_tag: 'f34-devel'
+            ci_tag: 'f34-release'
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
       CONTAINER_BUILD_ARGS: '${{ matrix.build-args }}'
