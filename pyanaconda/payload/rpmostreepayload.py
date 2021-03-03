@@ -209,10 +209,10 @@ class RPMOSTreePayloadWithFlatpaks(RPMOSTreePayload):
         super().__init__(*args, **kwargs)
 
         # find Flatpak installation size and cache it
-        from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_initialization import \
+        from pyanaconda.modules.payloads.source.flatpak.initialization import \
             GetFlatpaksSizeTask
         task = GetFlatpaksSizeTask(conf.target.system_root)
-        self._flatpak_required_size = task.run()
+        self._flatpak_required_size = Size(task.run())
 
     @property
     def space_required(self):
