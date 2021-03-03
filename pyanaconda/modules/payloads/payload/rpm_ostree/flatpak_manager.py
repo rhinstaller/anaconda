@@ -26,8 +26,8 @@ from abc import ABC, abstractmethod
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.core.glib import GError, VariantType, Variant, Bytes
+from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.progress import progressQ
-from pyanaconda.payload.errors import FlatpakInstallError
 
 gi.require_version("Flatpak", "1.0")
 gi.require_version("Gio", "2.0")
@@ -175,8 +175,8 @@ class FlatpakManager(object):
 
         try:
             self._transaction.run()
-        except GError as exn:
-            raise FlatpakInstallError(str(exn)) from exn
+        except GError as e:
+            raise PayloadInstallationError("Failed to install flatpaks: {}".format(e)) from e
 
     def _stuff_refs_to_transaction(self):
         for ref in self._remote_refs_list.get_refs_full_format():
