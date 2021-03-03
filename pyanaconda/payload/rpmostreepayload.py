@@ -25,7 +25,6 @@ from pyanaconda.modules.common.structures.rpm_ostree import RPMOSTreeConfigurati
 from pyanaconda.progress import progressQ
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload import utils as payload_utils
-from pyanaconda.payload.errors import PayloadInstallError
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.ui.lib.payload import get_payload, get_source, set_up_sources, tear_down_sources
 
@@ -140,16 +139,13 @@ class RPMOSTreePayload(Payload):
         task = SetSystemRootTask(conf.target.physical_root)
         task.run()
 
-        try:
-            from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
-                CopyBootloaderDataTask
-            task = CopyBootloaderDataTask(
-                sysroot=conf.target.system_root,
-                physroot=conf.target.physical_root
-            )
-            task.run()
-        except (OSError, RuntimeError) as e:
-            raise PayloadInstallError("Failed to copy bootloader data: %s" % e) from e
+        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
+            CopyBootloaderDataTask
+        task = CopyBootloaderDataTask(
+            sysroot=conf.target.system_root,
+            physroot=conf.target.physical_root
+        )
+        task.run()
 
     def _prepare_mount_targets(self, data):
         """ Prepare the ostree root """
