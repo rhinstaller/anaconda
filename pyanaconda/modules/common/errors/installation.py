@@ -81,6 +81,12 @@ class StorageInstallationError(InstallationError):
     pass
 
 
+@dbus_error("PayloadInstallationError", namespace=ANACONDA_NAMESPACE)
+class PayloadInstallationError(InstallationError):
+    """Exception for the payload installation errors."""
+    pass
+
+
 @dbus_error("InsightsClientMissingError", namespace=ANACONDA_NAMESPACE)
 class InsightsClientMissingError(InstallationError):
     """Exception for missing Red Hat Insights utility."""

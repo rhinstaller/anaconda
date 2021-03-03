@@ -42,9 +42,3 @@ class SourceTearDownError(AnacondaError):
 class IncompatibleSourceError(AnacondaError):
     """Error raised when payload does not support given source."""
     pass
-
-
-@dbus_error("InstallError", namespace=PAYLOADS_NAMESPACE)
-class InstallError(AnacondaError):
-    """Error raised during payload installation."""
-    pass

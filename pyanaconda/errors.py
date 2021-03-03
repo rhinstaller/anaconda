@@ -19,7 +19,7 @@
 from pyanaconda.core.i18n import _, C_
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.errors.installation import BootloaderInstallationError, \
-    StorageInstallationError, NonCriticalInstallationError
+    StorageInstallationError, NonCriticalInstallationError, PayloadInstallationError
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.errors.storage import UnusableStorageError
 from pyanaconda.payload.errors import PayloadInstallError, DependencyError, PayloadSetupError
@@ -109,6 +109,7 @@ class ErrorHandler(object):
 
             # Payload DBus errors
             SourceSetupError.__name__: self._payload_setup_handler,
+            PayloadInstallationError.__name__: self._payload_install_handler,
 
             # General installation errors.
             NonCriticalInstallationError.__name__: self._non_critical_error_handler,
