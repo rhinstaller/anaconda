@@ -273,8 +273,8 @@ if __name__ == "__main__":
     # The note should in most cases end on TTY1.
     startup_utils.print_startup_note(options=opts)
 
-    from pyanaconda.ui.context import context
-    anaconda = context.anaconda
+    from pyanaconda.anaconda import Anaconda
+    anaconda = Anaconda()
     util.setup_translations()
 
     # reset python's default SIGINT handler
@@ -419,6 +419,10 @@ if __name__ == "__main__":
     # Some post-install parts of anaconda are implemented as kickstart
     # scripts.  Add those to the ksdata now.
     kickstart.appendPostScripts(ksdata)
+
+    # Set up the UI context.
+    from pyanaconda.ui.context import context
+    context.payload_type = anaconda.payload.type
 
     # Set up the payload from the cmdline options.
     anaconda.payload.set_from_opts(opts)

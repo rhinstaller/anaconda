@@ -73,7 +73,7 @@ class LangsupportSpoke(NormalSpoke, LangLocaleHandler):
             return False
 
         # Don't show the language support spoke on live media.
-        return context.payload.type not in PAYLOAD_LIVE_TYPES
+        return context.payload_type not in PAYLOAD_LIVE_TYPES
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)

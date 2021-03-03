@@ -228,7 +228,8 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
         store.set(commonLangsItr, 0, "", 1, "", 2, "", 3, True)
 
         # setup the "best" locale
-        locale = localization.setup_locale(locales[0], self._l12_module)
+        best_locale = locales[0] if locales else DEFAULT_LANG
+        locale = localization.setup_locale(best_locale, self._l12_module)
         self._set_lang(locale)
         self._select_locale(self._l12_module.Language)
 

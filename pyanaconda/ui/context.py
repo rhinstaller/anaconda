@@ -18,8 +18,6 @@
 
 __all__ = ["context"]
 
-from pyanaconda.anaconda import Anaconda
-
 
 class UserInterfaceContext(object):
     """The context of the user interface.
@@ -28,27 +26,27 @@ class UserInterfaceContext(object):
     of the user interface. The goal is to replace all
     these objects with this one.
 
+    WARNING: This class is also used by the Initial Setup tool.
+    Please keep that in mind when doing any API breaking changes.
+
     We might replace this object with a DBus module in
     the future.
     """
 
     def __init__(self):
-        self._anaconda = Anaconda()
+        self._payload_type = None
 
     @property
-    def anaconda(self) -> Anaconda:
-        """The Anaconda object."""
-        return self._anaconda
+    def payload_type(self):
+        """The type of the payload.
 
-    @property
-    def data(self):
-        """The kickstart data."""
-        return self._anaconda.ksdata
+        :return: a string or None
+        """
+        return self._payload_type
 
-    @property
-    def payload(self):
-        """The payload object."""
-        return self._anaconda.payload
+    @payload_type.setter
+    def payload_type(self, value):
+        self._payload_type = value
 
 
 context = UserInterfaceContext()

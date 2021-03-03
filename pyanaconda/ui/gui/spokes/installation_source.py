@@ -413,7 +413,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         if not NormalSpoke.should_run(environment, data):
             return False
 
-        return context.payload.type == PAYLOAD_TYPE_DNF
+        return context.payload_type == PAYLOAD_TYPE_DNF
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
