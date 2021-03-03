@@ -235,7 +235,7 @@ class DNFPayload(Payload):
     @property
     def needs_network(self):
         """Test base and additional repositories if they require network."""
-        return (self.proxy.IsNetworkRequired() or
+        return (self.service_proxy.IsNetworkRequired() or
                 any(self._repo_needs_network(repo) for repo in self.data.repo.dataList()))
 
     def _repo_needs_network(self, repo):

@@ -160,14 +160,6 @@ class PayloadBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         log.debug("The kernel version list is set to: %s", kernels)
 
     @abstractmethod
-    def pre_install_with_tasks(self):
-        """Execute preparation steps.
-
-        :return: list of tasks
-        """
-        pass
-
-    @abstractmethod
     def install_with_tasks(self):
         """Install the payload.
 

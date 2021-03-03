@@ -17,19 +17,24 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.payloads.constants import PayloadType
-from pyanaconda.modules.payloads.source.factory import SourceFactory
-from pyanaconda.modules.payloads.payload.factory import PayloadFactory
+from pyanaconda.modules.payloads.installation import PrepareSystemForInstallationTask, \
+    CopyDriverDisksFilesTask
 from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
+from pyanaconda.modules.payloads.payload.factory import PayloadFactory
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
+from pyanaconda.modules.payloads.source.factory import SourceFactory
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
+
+__all__ = ["PayloadsService"]
 
 
 class PayloadsService(KickstartService):
@@ -142,6 +147,76 @@ class PayloadsService(KickstartService):
         """
         return SourceFactory.create_source(source_type)
 
+    def is_network_required(self):
+        """Do the sources require a network?
+
+        :return: True or False
+        """
+        return bool(self.active_payload) and self.active_payload.is_network_required()
+
+    def calculate_required_space(self):
+        """Calculate space required for the installation.
+
+        :return: required size in bytes
+        :rtype: int
+        """
+        total = 0
+
+        if self.active_payload:
+            total += self.active_payload.calculate_required_space()
+
+        return total
+
+    def get_kernel_version_list(self):
+        """Get the kernel versions list.
+
+        The kernel version list doesn't have to be available
+        before the payload installation.
+
+        :return: a list of kernel versions
+        :raises UnavailableValueError: if the list is not available
+        """
+        kernel_version_list = []
+
+        if self.active_payload:
+            kernel_version_list += self.active_payload.get_kernel_version_list()
+
+        return kernel_version_list
+
+    def install_with_tasks(self):
+        """Return a list of installation tasks.
+
+        :return: list of tasks
+        """
+        if not self.active_payload:
+            return []
+
+        tasks = [
+            PrepareSystemForInstallationTask(
+                sysroot=conf.target.system_root
+            )
+        ]
+
+        tasks += self.active_payload.install_with_tasks()
+        return tasks
+
+    def post_install_with_tasks(self):
+        """Return a list of post-installation tasks.
+
+        :return: a list of tasks
+        """
+        if not self.active_payload:
+            return []
+
+        tasks = [
+            CopyDriverDisksFilesTask(
+                sysroot=conf.target.system_root
+            )
+        ]
+
+        tasks += self.active_payload.post_install_with_tasks()
+        return tasks
+
     def teardown_with_tasks(self):
         """Returns teardown tasks for this module.
 
@@ -150,6 +225,6 @@ class PayloadsService(KickstartService):
         tasks = []
 
         if self.active_payload:
-            tasks.extend(self.active_payload.tear_down_with_tasks())
+            tasks += self.active_payload.tear_down_with_tasks()
 
         return tasks

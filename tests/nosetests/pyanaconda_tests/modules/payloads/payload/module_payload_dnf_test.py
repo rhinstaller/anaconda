@@ -30,7 +30,7 @@ from pyanaconda.core.kickstart.specification import KickstartSpecificationHandle
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_DNF
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData, \
     PackagesConfigurationData
-from pyanaconda.modules.payloads.constants import PayloadType, SourceType
+from pyanaconda.modules.payloads.constants import PayloadType, SourceType, SourceState
 from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
@@ -554,3 +554,27 @@ class DNFInterfaceTestCase(unittest.TestCase):
         }]
 
         self.assertEqual(self.interface.GetRepoConfigurations(), expected)
+
+
+class DNFModuleTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.module = DNFModule()
+
+    def _create_source(self, source_type, state=SourceState.UNREADY):
+        """Create a new source with a mocked state."""
+        return PayloadSharedTest.prepare_source(source_type, state)
+
+    def is_network_required_test(self):
+        """Test the is_network_required method."""
+        self.assertEqual(self.module.is_network_required(), False)
+
+        source1 = self._create_source(SourceType.CDROM)
+        self.module.set_sources([source1])
+
+        self.assertEqual(self.module.is_network_required(), False)
+
+        source2 = self._create_source(SourceType.NFS)
+        self.module.set_sources([source1, source2])
+
+        self.assertEqual(self.module.is_network_required(), True)

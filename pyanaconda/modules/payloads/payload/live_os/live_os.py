@@ -23,8 +23,7 @@ from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.modules.common.errors.payload import SourceSetupError, IncompatibleSourceError
 from pyanaconda.modules.payloads.constants import SourceType, PayloadType
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
-from pyanaconda.modules.payloads.base.initialization import PrepareSystemForInstallationTask, \
-    CopyDriverDisksFilesTask, SetUpSourcesTask, TearDownSourcesTask
+from pyanaconda.modules.payloads.base.initialization import SetUpSourcesTask, TearDownSourcesTask
 from pyanaconda.modules.payloads.base.installation import InstallFromImageTask
 from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list
 from pyanaconda.modules.payloads.payload.live_os.live_os_interface import LiveOSInterface
@@ -129,20 +128,16 @@ class LiveOSModule(PayloadBase):
 
         return task
 
-    def pre_install_with_tasks(self):
-        """Execute preparation steps."""
-        self._check_source_availability("Pre install task failed - source is not available!")
-
-        return [PrepareSystemForInstallationTask(conf.target.system_root)]
-
     def install_with_tasks(self):
         """Install the payload."""
         self._check_source_availability("Installation task failed - source is not available!")
 
-        return [InstallFromImageTask(
-            self._image_source,
-            conf.target.system_root
-        )]
+        return [
+            InstallFromImageTask(
+                self._image_source,
+                conf.target.system_root
+            )
+        ]
 
     def post_install_with_tasks(self):
         """Execute post installation steps.
@@ -150,6 +145,4 @@ class LiveOSModule(PayloadBase):
         :returns: list of paths.
         :rtype: List
         """
-        return [
-            CopyDriverDisksFilesTask(conf.target.system_root)
-        ]
+        return []

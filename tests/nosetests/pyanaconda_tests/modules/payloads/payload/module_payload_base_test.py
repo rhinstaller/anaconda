@@ -23,7 +23,6 @@
 import unittest
 from unittest.mock import patch
 
-from pyanaconda.modules.common.errors.general import UnavailableValueError
 from pyanaconda.modules.payloads.base.initialization import SetUpSourcesTask, TearDownSourcesTask
 from pyanaconda.modules.payloads.source.factory import SourceFactory
 from pyanaconda.modules.common.errors.payload import IncompatibleSourceError, SourceSetupError
@@ -159,31 +158,6 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
         self.shared_tests.set_and_check_sources([source1])
 
     @patch_dbus_publish_object
-    def is_network_required_test(self, publisher):
-        """Test IsNetworkRequired."""
-        self.assertEqual(self.interface.IsNetworkRequired(), False)
-
-        source1 = self.shared_tests.prepare_source(SourceType.CDROM, state=SourceState.UNREADY)
-        self.shared_tests.set_sources([source1])
-
-        self.assertEqual(self.interface.IsNetworkRequired(), False)
-
-        source2 = self.shared_tests.prepare_source(SourceType.NFS, state=SourceState.UNREADY)
-        self.shared_tests.set_sources([source1, source2])
-
-        self.assertEqual(self.interface.IsNetworkRequired(), True)
-
-    @patch_dbus_publish_object
-    def calculate_required_space_test(self, publisher):
-        """Test CalculateRequiredTest."""
-        self.assertEqual(self.interface.CalculateRequiredSpace(), 0)
-
-        source1 = self.shared_tests.prepare_source(SourceType.CDROM, state=SourceState.UNREADY)
-        self.shared_tests.set_sources([source1])
-
-        self.assertEqual(self.interface.CalculateRequiredSpace(), 0)
-
-    @patch_dbus_publish_object
     def set_up_sources_with_task_test(self, publisher):
         """Test SetUpSourcesWithTask."""
         source = SourceFactory.create_source(SourceType.CDROM)
@@ -202,11 +176,3 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
         task_path = self.interface.TearDownSourcesWithTask()
         obj = check_task_creation(self, task_path, publisher, TearDownSourcesTask)
         self.assertEqual(obj.implementation._sources, [source])
-
-    def get_kernel_version_list_test(self):
-        """Test GetKernelVersionList."""
-        with self.assertRaises(UnavailableValueError):
-            self.interface.GetKernelVersionList()
-
-        self.module.set_kernel_version_list(["k1", "k2", "k3"])
-        self.assertEqual(self.interface.GetKernelVersionList(), ["k1", "k2", "k3"])

@@ -17,6 +17,9 @@
 #
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
+import os
+from tempfile import TemporaryDirectory
+from textwrap import dedent
 from unittest import TestCase
 from unittest.mock import patch, create_autospec, DEFAULT
 
@@ -27,11 +30,13 @@ from tests.nosetests.pyanaconda_tests.modules.payloads.payload.module_payload_sh
 
 from pyanaconda.core.constants import SOURCE_TYPE_LIVE_OS_IMAGE
 from pyanaconda.modules.common.containers import PayloadContainer
+from pyanaconda.modules.common.errors.general import UnavailableValueError
 from pyanaconda.modules.common.errors.payload import SourceSetupError, SourceTearDownError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
-from pyanaconda.modules.payloads.base.initialization import PrepareSystemForInstallationTask, \
-    SetUpSourcesTask, TearDownSourcesTask
+from pyanaconda.modules.payloads.base.initialization import SetUpSourcesTask, TearDownSourcesTask
+from pyanaconda.modules.payloads.installation import PrepareSystemForInstallationTask, \
+    CopyDriverDisksFilesTask
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 from pyanaconda.modules.payloads.payloads import PayloadsService
@@ -167,6 +172,73 @@ class PayloadsInterfaceTestCase(TestCase):
         with self.assertRaises(ValueError):
             self.payload_interface.CreateSource("NotASource")
 
+    def is_network_required_test(self):
+        """Test the IsNetworkRequired method."""
+        self.assertEqual(self.payload_interface.IsNetworkRequired(), False)
+
+        payload = self.payload_module.create_payload(PayloadType.DNF)
+        self.payload_module.activate_payload(payload)
+
+        self.assertEqual(self.payload_interface.IsNetworkRequired(), False)
+
+        source = self.payload_module.create_source(SourceType.NFS)
+        payload.set_sources([source])
+
+        self.assertEqual(self.payload_interface.IsNetworkRequired(), True)
+
+    def calculate_required_space_test(self):
+        """Test the CalculateRequiredTest method."""
+        self.assertEqual(self.payload_interface.CalculateRequiredSpace(), 0)
+
+        payload = self.payload_module.create_payload(PayloadType.LIVE_IMAGE)
+        self.payload_module.activate_payload(payload)
+
+        self.assertEqual(self.payload_interface.CalculateRequiredSpace(), 0)
+
+        source = self.payload_module.create_source(SourceType.LIVE_IMAGE)
+        payload.set_sources([source])
+
+        self.assertEqual(self.payload_interface.CalculateRequiredSpace(), 1024 * 1024 * 1024)
+
+    def get_kernel_version_list_test(self):
+        """Test the GetKernelVersionList method."""
+        self.assertEqual(self.payload_interface.GetKernelVersionList(), [])
+
+        payload = self.payload_module.create_payload(PayloadType.DNF)
+        self.payload_module.activate_payload(payload)
+
+        with self.assertRaises(UnavailableValueError):
+            self.payload_interface.GetKernelVersionList()
+
+        payload.set_kernel_version_list(["k1", "k2", "k3"])
+        self.assertEqual(self.payload_interface.GetKernelVersionList(), ["k1", "k2", "k3"])
+
+    @patch_dbus_publish_object
+    def install_with_tasks_test(self, publisher):
+        """Test the InstallWithTasks method."""
+        self.assertEqual(self.payload_interface.InstallWithTasks(), [])
+
+        payload = self.payload_module.create_payload(PayloadType.DNF)
+        self.payload_module.activate_payload(payload)
+
+        tasks_paths = self.payload_interface.InstallWithTasks()
+        check_task_creation_list(self, tasks_paths, publisher, [
+            PrepareSystemForInstallationTask
+        ])
+
+    @patch_dbus_publish_object
+    def post_install_with_tasks_test(self, publisher):
+        """Test the PostInstallWithTasks method."""
+        self.assertEqual(self.payload_interface.PostInstallWithTasks(), [])
+
+        payload = self.payload_module.create_payload(PayloadType.DNF)
+        self.payload_module.activate_payload(payload)
+
+        tasks_paths = self.payload_interface.PostInstallWithTasks()
+        check_task_creation_list(self, tasks_paths, publisher, [
+            CopyDriverDisksFilesTask
+        ])
+
     @patch_dbus_publish_object
     def tear_down_with_tasks_test(self, publisher):
         """Test the TeardownWithTasks method."""
@@ -183,20 +255,50 @@ class PayloadsInterfaceTestCase(TestCase):
         check_task_creation_list(self, task_paths, publisher, [TearDownSourcesTask])
 
 
+class PrepareSystemForInstallationTaskTestCase(TestCase):
+
+    def run_test(self):
+        """Run the PrepareSystemForInstallationTask task."""
+        with TemporaryDirectory() as sysroot:
+            task = PrepareSystemForInstallationTask(sysroot=sysroot)
+            task.run()
+
+            root_dir = os.path.join(sysroot, "/root")
+            self.assertTrue(os.path.isdir(root_dir))
+
+    @patch('pyanaconda.modules.payloads.installation.kernel_arguments', {})
+    def run_without_denylist_test(self):
+        """Run the task without a denylist."""
+        with TemporaryDirectory() as sysroot:
+            task = PrepareSystemForInstallationTask(sysroot=sysroot)
+            task.run()
+
+            denylist_file = os.path.join(sysroot, "etc/modprobe.d/anaconda-denylist.conf")
+            self.assertFalse(os.path.isfile(denylist_file))
+
+    @patch('pyanaconda.modules.payloads.installation.kernel_arguments',
+           {"modprobe.blacklist": "mod1 mod2 nonono_mod"})
+    def run_with_denylist_test(self):
+        """Run the task with a denylist."""
+        expected_content = dedent("""
+         # Module denylist written by anaconda
+         blacklist mod1
+         blacklist mod2
+         blacklist nonono_mod
+         """).lstrip()
+
+        with TemporaryDirectory() as sysroot:
+            task = PrepareSystemForInstallationTask(sysroot=sysroot)
+            task.run()
+
+            denylist_file = os.path.join(sysroot, "etc/modprobe.d/anaconda-denylist.conf")
+            self.assertTrue(os.path.isfile(denylist_file))
+
+            with open(denylist_file, "rt") as f:
+                self.assertEqual(expected_content, f.read())
+
+
 class PayloadSharedTasksTest(TestCase):
-
-    @patch('pyanaconda.modules.payloads.base.initialization.write_module_denylist')
-    @patch('pyanaconda.modules.payloads.base.initialization.create_root_dir')
-    def prepare_system_for_install_task_test(self, create_root_dir_mock,
-                                             write_module_denylist_mock):
-        """Test task prepare system for installation."""
-        # the dir won't be used because of mock
-        task = PrepareSystemForInstallationTask("/some/dir")
-
-        task.run()
-
-        create_root_dir_mock.assert_called_once()
-        write_module_denylist_mock.assert_called_once()
 
     def set_up_sources_task_test(self):
         """Test task to set up installation sources."""

@@ -15,57 +15,12 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import os
-
-from tempfile import TemporaryDirectory
-from textwrap import dedent
 from unittest.case import TestCase
-from unittest.mock import patch
 
-from pyanaconda.modules.payloads.base.utils import create_root_dir, write_module_denylist, \
-    get_dir_size, sort_kernel_version_list
+from pyanaconda.modules.payloads.base.utils import get_dir_size, sort_kernel_version_list
 
 
 class PayloadBaseUtilsTest(TestCase):
-
-    def create_root_test(self):
-        """Test payload create root directory function."""
-        with TemporaryDirectory() as temp:
-            create_root_dir(temp)
-
-            root_dir = os.path.join(temp, "/root")
-
-            self.assertTrue(os.path.isdir(root_dir))
-
-    @patch('pyanaconda.modules.payloads.base.utils.kernel_arguments',
-           {"modprobe.blacklist": "mod1 mod2 nonono_mod"})
-    def write_module_denylist_test(self):
-        """Test write kernel module denylist to the install root."""
-        with TemporaryDirectory() as temp:
-            write_module_denylist(temp)
-
-            denylist_file = os.path.join(temp, "etc/modprobe.d/anaconda-denylist.conf")
-
-            self.assertTrue(os.path.isfile(denylist_file))
-
-            with open(denylist_file, "rt") as f:
-                expected_content = """
-                # Module denylist written by anaconda
-                blacklist mod1
-                blacklist mod2
-                blacklist nonono_mod
-                """
-                self.assertEqual(dedent(expected_content).lstrip(), f.read())
-
-    @patch('pyanaconda.modules.payloads.base.utils.kernel_arguments', {})
-    def write_empty_module_denylist_test(self):
-        """Test write kernel module denylist to the install root -- empty list."""
-        with TemporaryDirectory() as temp:
-            write_module_denylist(temp)
-
-            denylist_file = os.path.join(temp, "etc/modprobe.d/anaconda-denylist.conf")
-
-            self.assertFalse(os.path.isfile(denylist_file))
 
     def get_dir_size_test(self):
         """Test the get_dir_size function."""

@@ -255,21 +255,13 @@ class DNFModule(PayloadBase):
 
         return structures
 
-    def pre_install_with_tasks(self):
-        """Execute preparation steps.
-
-        :return: list of tasks
-        """
-        # TODO: Implement this method
-        pass
-
     def install_with_tasks(self):
         """Install the payload.
 
         :return: list of tasks
         """
         # TODO: Implement this method
-        pass
+        return []
 
     def post_install_with_tasks(self):
         """Execute post installation steps.
@@ -277,4 +269,4 @@ class DNFModule(PayloadBase):
         :return: list of tasks
         """
         # TODO: Implement this method
-        pass
+        return []

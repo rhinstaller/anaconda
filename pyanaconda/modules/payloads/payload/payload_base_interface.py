@@ -79,59 +79,6 @@ class PayloadBaseInterface(ModuleInterfaceTemplate, metaclass=ABCMeta):
             )
         )
 
-    def IsNetworkRequired(self) -> Bool:
-        """Do the sources require a network?
-
-        :return: True or False
-        """
-        return self.implementation.is_network_required()
-
-    def CalculateRequiredSpace(self) -> UInt64:
-        """Calculate space required for the installation.
-
-        :return: required size in bytes
-        :rtype: int
-        """
-        return self.implementation.calculate_required_space()
-
-    def GetKernelVersionList(self) -> List[Str]:
-        """Get the kernel versions list.
-
-        The kernel version list doesn't have to be available
-        before the payload installation.
-
-        :return: a list of kernel versions
-        :raises UnavailableValueError: if the list is not available
-        """
-        return self.implementation.get_kernel_version_list()
-
-    def PreInstallWithTasks(self) -> List[ObjPath]:
-        """Execute preparation steps.
-
-        FIXME: Temporary -- installation methods will be provided only by the main service
-        """
-        return TaskContainer.to_object_path_list(
-            self.implementation.pre_install_with_tasks()
-        )
-
-    def InstallWithTasks(self) -> List[ObjPath]:
-        """Install the payload.
-
-        FIXME: Temporary -- installation methods will be provided only by the main service
-        """
-        return TaskContainer.to_object_path_list(
-            self.implementation.install_with_tasks()
-        )
-
-    def PostInstallWithTasks(self) -> List[ObjPath]:
-        """Execute post installation steps.
-
-        FIXME: Temporary -- installation methods will be provided only by the main service
-        """
-        return TaskContainer.to_object_path_list(
-            self.implementation.post_install_with_tasks()
-        )
-
     def SetUpSourcesWithTask(self) -> ObjPath:
         """Set up installation sources."""
         return TaskContainer.to_object_path(

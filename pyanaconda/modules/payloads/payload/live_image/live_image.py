@@ -67,12 +67,13 @@ class LiveImageModule(PayloadBase):
         for source in self.sources:
             source.setup_kickstart(data)
 
-    def pre_install_with_tasks(self):
-        """Execute preparation steps.
+    def install_with_tasks(self):
+        """Execute preparation and installation steps.
 
         * Download the image
         * Check the checksum
         * Mount the image
+        * Install the image
         """
         # task = SetupInstallationSourceImageTask(
         #     self.url,
@@ -85,20 +86,7 @@ class LiveImageModule(PayloadBase):
         # )
         # task.succeeded_signal.connect(lambda: self.set_image_path(task.get_result()))
         # return [task]
-        return []
 
-    def post_install_with_tasks(self):
-        """Execute post installation steps.
-
-        * Copy Driver Disk files to the resulting system
-        """
-        # return [
-        #     CopyDriverDisksFilesTask(conf.target.system_root)
-        # ]
-        return []
-
-    def install_with_tasks(self):
-        """Install the payload."""
         # if url_target_is_tarfile(self._url):
         #     task = InstallFromTarTask(
         #         self.image_path,
@@ -118,4 +106,11 @@ class LiveImageModule(PayloadBase):
         # )
         #
         # return [task, task2]
+        return []
+
+    def post_install_with_tasks(self):
+        """Execute post installation steps.
+
+        * Copy Driver Disk files to the resulting system
+        """
         return []
