@@ -8,8 +8,7 @@ on:
 jobs:
   refresh-containers:
     name: Refresh anaconda containers
-    # FIXME: Switch to newer 20.04 when crun 0.18 will be available see issue https://github.com/containers/podman/issues/9442 is resolved
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     # we need to have matrix to cover all branches because schedule is run only on default branch
     # we can add here fedora branches (e.g. f33-devel) to cover their support when needed
     strategy:
@@ -35,6 +34,34 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: ${{ matrix.branch }}
+
+      # FIXME: Remove when crun 0.18 will be available by default, see issue https://github.com/containers/podman/issues/9442
+      - name: Install newest crun from source (workaround for ELN)
+        if: matrix.container-tag == 'eln'
+        run: |
+          set -eux
+          echo "Currently installed crun version:"
+          crun --version
+
+          # abort this step if crun was updated already on the host
+          CRUN_VERSION=$(crun --version | grep "^crun version 0.17")
+          echo "$CRUN_VERSION"
+          [ -z "$CRUN_VERSION" ] && exit 17
+
+          echo "Build newer crun version:"
+          git clone https://github.com/containers/crun.git
+          sudo apt-get install -y make git gcc build-essential pkgconf libtool \
+              libsystemd-dev libcap-dev libseccomp-dev libyajl-dev \
+              go-md2man libtool autoconf python3 automake
+          cd crun
+          git checkout 0.18
+          ./autogen.sh
+          ./configure --prefix=/usr/
+          make
+          sudo make install
+
+          echo "New crun version:"
+          crun --version
 
       - name: Build anaconda-${{ matrix.container-type }} container
         run: |
