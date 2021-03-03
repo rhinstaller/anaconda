@@ -24,7 +24,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.regexes import VERSION_DIGITS
 from pyanaconda.core.util import is_lpae_available, decode_bytes
-from pyanaconda.modules.common.structures.payload import PackagesConfigurationData
+from pyanaconda.modules.common.structures.packages import PackagesSelectionData
 from pyanaconda.product import productName, productVersion
 from pyanaconda.modules.payloads.base.utils import sort_kernel_version_list
 
@@ -90,10 +90,10 @@ def get_product_release_version():
     return release_version
 
 
-def get_installation_specs(data: PackagesConfigurationData, default_environment=None):
+def get_installation_specs(data: PackagesSelectionData, default_environment=None):
     """Get specifications of packages, groups and modules for installation.
 
-    :param data: a packages configuration data
+    :param data: a packages selection data
     :param default_environment: a default environment to install
     :return: a tuple of specification lists for inclusion and exclusion
     """

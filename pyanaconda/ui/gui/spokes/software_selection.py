@@ -107,7 +107,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._addon_states = {}
 
         # Get the packages configuration.
-        self._selection = self.payload.get_packages_data()
+        self._selection = self.payload.get_packages_selection()
 
         # Whether we are using package selections from a kickstart
         self._kickstarted = flags.automatedInstall and self.payload.proxy.PackagesKickstarted
@@ -193,7 +193,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
             self._selection.groups.append(group_name)
 
         log.debug("Setting new software selection: %s", self._selection)
-        self.payload.set_packages_data(self._selection)
+        self.payload.set_packages_selection(self._selection)
 
         hubQ.send_not_ready(self.__class__.__name__)
         hubQ.send_not_ready("SourceSpoke")
@@ -383,7 +383,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         threadMgr.wait(constants.THREAD_PAYLOAD)
 
         # Get the packages configuration.
-        self._selection = self.payload.get_packages_data()
+        self._selection = self.payload.get_packages_selection()
 
         # Set up the environment.
         if not self._selection.environment \

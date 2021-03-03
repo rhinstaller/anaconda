@@ -33,8 +33,9 @@ import libdnf.conf
 
 from glob import glob
 
-from pyanaconda.modules.common.structures.payload import RepoConfigurationData, \
-    PackagesConfigurationData
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.modules.common.structures.packages import PackagesConfigurationData, \
+    PackagesSelectionData
 from pyanaconda.modules.payloads.payload.dnf.initialization import configure_dnf_logging
 from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
     SetRPMMacrosTask
@@ -174,9 +175,9 @@ class DNFPayload(Payload):
 
         # Set up packages.
         if opts.multiLib:
-            packages = self.get_packages_data()
-            packages.multilib_policy = MULTILIB_POLICY_ALL
-            self.set_packages_data(packages)
+            configuration = self.get_packages_configuration()
+            configuration.multilib_policy = MULTILIB_POLICY_ALL
+            self.set_packages_configuration(configuration)
 
         # Reset all the other things now that we have new configuration.
         self._configure()
@@ -203,16 +204,28 @@ class DNFPayload(Payload):
         source_proxy = self.get_source_proxy()
         return source_proxy.Type
 
-    def get_packages_data(self) -> PackagesConfigurationData:
+    def get_packages_configuration(self) -> PackagesConfigurationData:
         """Get the DBus data with the packages configuration."""
         return PackagesConfigurationData.from_structure(
-            self.proxy.Packages
+            self.proxy.PackagesConfiguration
         )
 
-    def set_packages_data(self, data: PackagesConfigurationData):
+    def set_packages_configuration(self, data: PackagesConfigurationData):
         """Set the DBus data with the packages configuration."""
-        return self.proxy.SetPackages(
+        return self.proxy.SetPackagesConfiguration(
             PackagesConfigurationData.to_structure(data)
+        )
+
+    def get_packages_selection(self) -> PackagesSelectionData:
+        """Get the DBus data with the packages selection."""
+        return PackagesSelectionData.from_structure(
+            self.proxy.PackagesSelection
+        )
+
+    def set_packages_selection(self, data: PackagesSelectionData):
+        """Set the DBus data with the packages selection."""
+        return self.proxy.SetPackagesSelection(
+            PackagesSelectionData.to_structure(data)
         )
 
     def is_ready(self):
@@ -323,14 +336,14 @@ class DNFPayload(Payload):
         log.debug("applying DNF package/group/module selection")
 
         # Get the packages configuration data.
-        data = self.get_packages_data()
+        selection = self.get_packages_selection()
 
         # Get the default environment.
         default_environment = get_default_environment(self._dnf_manager)
 
         # Get the installation specs.
         include_list, exclude_list = get_installation_specs(
-            data, default_environment
+            selection, default_environment
         )
 
         # Add the kernel package.
@@ -374,7 +387,7 @@ class DNFPayload(Payload):
 
     def _configure(self):
         self._dnf_manager.reset_base()
-        self._dnf_manager.configure_base(self.get_packages_data())
+        self._dnf_manager.configure_base(self.get_packages_configuration())
         self._dnf_manager.configure_proxy(self._get_proxy_url())
         self._dnf_manager.dump_configuration()
 
@@ -855,10 +868,10 @@ class DNFPayload(Payload):
         progress_message(N_('Starting package installation process'))
 
         # Get the packages configuration data.
-        data = self.get_packages_data()
+        configuration = self.get_packages_configuration()
 
         # Add the rpm macros to the global transaction environment
-        task = SetRPMMacrosTask(data)
+        task = SetRPMMacrosTask(configuration)
         task.run()
 
         self.check_software_selection()

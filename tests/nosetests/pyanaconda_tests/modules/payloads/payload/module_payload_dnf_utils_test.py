@@ -19,7 +19,7 @@ import unittest
 from unittest.mock import patch, Mock, PropertyMock
 
 from pyanaconda.core.constants import GROUP_PACKAGE_TYPES_REQUIRED, GROUP_PACKAGE_TYPES_ALL
-from pyanaconda.modules.common.structures.payload import PackagesConfigurationData
+from pyanaconda.modules.common.structures.packages import PackagesSelectionData
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package, \
     get_product_release_version, get_default_environment, get_installation_specs, \
@@ -98,18 +98,18 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
 
     def get_installation_specs_default_test(self):
         """Test the get_installation_specs function with defaults."""
-        data = PackagesConfigurationData()
+        data = PackagesSelectionData()
         self.assertEqual(get_installation_specs(data), (["@core"], []))
 
     def get_installation_specs_nocore_test(self):
         """Test the get_installation_specs function without core."""
-        data = PackagesConfigurationData()
+        data = PackagesSelectionData()
         data.core_group_enabled = False
         self.assertEqual(get_installation_specs(data), ([], ["@core"]))
 
     def get_installation_specs_environment_test(self):
         """Test the get_installation_specs function with environment."""
-        data = PackagesConfigurationData()
+        data = PackagesSelectionData()
         data.environment = "environment-1"
 
         self.assertEqual(get_installation_specs(data), (
@@ -128,7 +128,7 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
 
     def get_installation_specs_packages_test(self):
         """Test the get_installation_specs function with packages."""
-        data = PackagesConfigurationData()
+        data = PackagesSelectionData()
         data.packages = ["p1", "p2", "p3"]
         data.excluded_packages = ["p4", "p5", "p6"]
 
@@ -138,7 +138,7 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
 
     def get_installation_specs_groups_test(self):
         """Test the get_installation_specs function with groups."""
-        data = PackagesConfigurationData()
+        data = PackagesSelectionData()
 
         data.groups = ["g1", "g2", "g3"]
         data.excluded_groups = ["g4", "g5", "g6"]

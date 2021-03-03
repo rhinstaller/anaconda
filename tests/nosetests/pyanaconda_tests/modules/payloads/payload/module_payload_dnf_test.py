@@ -28,8 +28,9 @@ from pyanaconda.core.constants import SOURCE_TYPE_CDROM, SOURCE_TYPE_HDD, SOURCE
     GROUP_PACKAGE_TYPES_ALL, MULTILIB_POLICY_ALL
 from pyanaconda.core.kickstart.specification import KickstartSpecificationHandler
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_DNF
-from pyanaconda.modules.common.structures.payload import RepoConfigurationData, \
-    PackagesConfigurationData
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.modules.common.structures.packages import PackagesConfigurationData, \
+    PackagesSelectionData
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType, SourceState
 from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
@@ -402,8 +403,8 @@ class DNFInterfaceTestCase(unittest.TestCase):
         self.module.process_kickstart(data)
         self.assertEqual(self.interface.PackagesKickstarted, True)
 
-    def packages_property_test(self):
-        """Test the Packages property."""
+    def packages_selection_property_test(self):
+        """Test the PackagesSelection property."""
         data = {
             "core-group-enabled": get_variant(Bool, False),
             "default-environment-enabled": get_variant(Bool, False),
@@ -424,6 +425,27 @@ class DNFInterfaceTestCase(unittest.TestCase):
             "excluded-packages": get_variant(List[Str], [
                 "p3", "p4"
             ]),
+        }
+
+        self._check_dbus_property(
+            "PackagesSelection",
+            data
+        )
+
+    def packages_selection_data_test(self):
+        """Test the PackagesSelectionData structure."""
+        data = PackagesSelectionData.to_structure(
+            PackagesSelectionData()
+        )
+
+        self._check_dbus_property(
+            "PackagesSelection",
+            data
+        )
+
+    def packages_configuration_property_test(self):
+        """Test the PackagesConfiguration property."""
+        data = {
             "docs-excluded": get_variant(Bool, True),
             "weakdeps-excluded": get_variant(Bool, True),
             "missing-ignored": get_variant(Bool, True),
@@ -435,16 +457,18 @@ class DNFInterfaceTestCase(unittest.TestCase):
         }
 
         self._check_dbus_property(
-            "Packages",
+            "PackagesConfiguration",
             data
         )
 
+    def packages_configuration_data_test(self):
+        """Test the PackagesConfigurationData structure."""
         data = PackagesConfigurationData.to_structure(
             PackagesConfigurationData()
         )
 
         self._check_dbus_property(
-            "Packages",
+            "PackagesConfiguration",
             data
         )
 

@@ -24,7 +24,8 @@ from pyanaconda.core.constants import RPM_LANGUAGES_NONE, MULTILIB_POLICY_ALL, \
     DNF_DEFAULT_TIMEOUT, DNF_DEFAULT_RETRIES, GROUP_PACKAGE_TYPES_ALL, \
     GROUP_PACKAGE_TYPES_REQUIRED, RPM_LANGUAGES_ALL
 from pyanaconda.core.signal import Signal
-from pyanaconda.modules.common.structures.payload import PackagesConfigurationData
+from pyanaconda.modules.common.structures.packages import PackagesConfigurationData, \
+    PackagesSelectionData
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
@@ -39,8 +40,11 @@ class DNFModule(PayloadBase):
 
     def __init__(self):
         super().__init__()
-        self._packages = PackagesConfigurationData()
-        self.packages_changed = Signal()
+        self._packages_configuration = PackagesConfigurationData()
+        self.packages_configuration_changed = Signal()
+
+        self._packages_selection = PackagesSelectionData()
+        self.packages_selection_changed = Signal()
 
         self._packages_kickstarted = False
 
@@ -71,21 +75,38 @@ class DNFModule(PayloadBase):
         ]
 
     @property
-    def packages(self):
+    def packages_configuration(self):
         """The packages configuration.
 
         :return: an instance of PackagesConfigurationData
         """
-        return self._packages
+        return self._packages_configuration
 
-    def set_packages(self, packages):
+    def set_packages_configuration(self, data):
         """Set the packages configuration.
 
-        :param packages: an instance of PackagesConfigurationData
+        :param data: an instance of PackagesConfigurationData
         """
-        self._packages = packages
-        self.packages_changed.emit()
-        log.debug("Packages are set to '%s'.", packages)
+        self._packages_configuration = data
+        self.packages_configuration_changed.emit()
+        log.debug("Packages configuration is set to '%s'.", data)
+
+    @property
+    def packages_selection(self):
+        """The packages selection.
+
+        :return: an instance of PackagesSelectionData
+        """
+        return self._packages_selection
+
+    def set_packages_selection(self, data):
+        """Set the packages selection.
+
+        :param data: an instance of PackagesSelectionData
+        """
+        self._packages_selection = data
+        self.packages_selection_changed.emit()
+        log.debug("Packages selection is set to '%s'.", data)
 
     @property
     def packages_kickstarted(self):
@@ -105,7 +126,8 @@ class DNFModule(PayloadBase):
     def process_kickstart(self, data):
         """Process the kickstart data."""
         self._process_kickstart_sources(data)
-        self._process_kickstart_packages(data)
+        self._process_kickstart_packages_selection(data)
+        self._process_kickstart_packages_configuration(data)
 
     def _process_kickstart_sources(self, data):
         """Process the kickstart sources."""
@@ -118,81 +140,89 @@ class DNFModule(PayloadBase):
         source.process_kickstart(data)
         self.add_source(source)
 
-    def _process_kickstart_packages(self, data):
-        """Process the kickstart packages."""
-        packages = PackagesConfigurationData()
-        packages.core_group_enabled = not data.packages.nocore
-        packages.default_environment_enabled = data.packages.default
+    def _process_kickstart_packages_selection(self, data):
+        """Process the kickstart packages selection."""
+        selection = PackagesSelectionData()
+        selection.core_group_enabled = not data.packages.nocore
+        selection.default_environment_enabled = data.packages.default
 
         if data.packages.environment is not None:
-            packages.environment = data.packages.environment
+            selection.environment = data.packages.environment
 
-        packages.packages = data.packages.packageList
-        packages.excluded_packages = data.packages.excludedList
+        selection.packages = data.packages.packageList
+        selection.excluded_packages = data.packages.excludedList
 
         for group in data.packages.groupList:
-            packages.groups.append(group.name)
+            selection.groups.append(group.name)
 
             if group.include == GROUP_ALL:
-                packages.groups_package_types[group.name] = GROUP_PACKAGE_TYPES_ALL
+                selection.groups_package_types[group.name] = GROUP_PACKAGE_TYPES_ALL
 
             if group.include == GROUP_REQUIRED:
-                packages.groups_package_types[group.name] = GROUP_PACKAGE_TYPES_REQUIRED
+                selection.groups_package_types[group.name] = GROUP_PACKAGE_TYPES_REQUIRED
 
         for group in data.packages.excludedGroupList:
-            packages.excluded_groups.append(group.name)
+            selection.excluded_groups.append(group.name)
 
-        packages.docs_excluded = data.packages.excludeDocs
-        packages.weakdeps_excluded = data.packages.excludeWeakdeps
+        self.set_packages_selection(selection)
+        self.set_packages_kickstarted(data.packages.seen)
+
+    def _process_kickstart_packages_configuration(self, data):
+        """Process the kickstart packages configuration."""
+        configuration = PackagesConfigurationData()
+        configuration.docs_excluded = data.packages.excludeDocs
+        configuration.weakdeps_excluded = data.packages.excludeWeakdeps
 
         if data.packages.handleMissing == KS_MISSING_IGNORE:
-            packages.missing_ignored = True
+            configuration.missing_ignored = True
 
         if data.packages.handleBroken == KS_BROKEN_IGNORE:
-            packages.broken_ignored = True
+            configuration.broken_ignored = True
 
         if data.packages.instLangs == "":
-            packages.languages = RPM_LANGUAGES_NONE
+            configuration.languages = RPM_LANGUAGES_NONE
         elif data.packages.instLangs is not None:
-            packages.languages = data.packages.instLangs
+            configuration.languages = data.packages.instLangs
 
         if data.packages.multiLib:
-            packages.multilib_policy = MULTILIB_POLICY_ALL
+            configuration.multilib_policy = MULTILIB_POLICY_ALL
 
         if data.packages.timeout is not None:
-            packages.timeout = data.packages.timeout
+            configuration.timeout = data.packages.timeout
 
         if data.packages.retries is not None:
-            packages.retries = data.packages.retries
+            configuration.retries = data.packages.retries
 
-        self.set_packages(packages)
-        self.set_packages_kickstarted(data.packages.seen)
+        self.set_packages_configuration(configuration)
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
         self._set_up_kickstart_sources(data)
-        self._set_up_kickstart_packages(data)
+        self._set_up_kickstart_packages_selection(data)
+        self._set_up_kickstart_packages_configuration(data)
 
     def _set_up_kickstart_sources(self, data):
         """Set up the kickstart sources."""
         for source in self.sources:
             source.setup_kickstart(data)
 
-    def _set_up_kickstart_packages(self, data):
-        """Set up the kickstart packages."""
+    def _set_up_kickstart_packages_selection(self, data):
+        """Set up the kickstart packages selection."""
+        selection = self.packages_selection
+
         # The empty packages section won't be printed without seen set to True.
         data.packages.seen = True
-        data.packages.nocore = not self.packages.core_group_enabled
-        data.packages.default = self.packages.default_environment_enabled
+        data.packages.nocore = not selection.core_group_enabled
+        data.packages.default = selection.default_environment_enabled
 
-        if self.packages.environment:
-            data.packages.environment = self.packages.environment
+        if selection.environment:
+            data.packages.environment = selection.environment
 
-        data.packages.packageList = self.packages.packages
-        data.packages.excludedList = self.packages.excluded_packages
+        data.packages.packageList = selection.packages
+        data.packages.excludedList = selection.excluded_packages
 
-        for group_name in self.packages.groups:
-            package_types = self.packages.groups_package_types.get(
+        for group_name in selection.groups:
+            package_types = selection.groups_package_types.get(
                 group_name, []
             )
             group_include = GROUP_DEFAULT
@@ -209,34 +239,38 @@ class DNFModule(PayloadBase):
             )
             data.packages.groupList.append(group)
 
-        for group_name in self.packages.excluded_groups:
+        for group_name in selection.excluded_groups:
             group = data.packages.create_group(
                 name=group_name
             )
             data.packages.excludedGroupList.append(group)
 
-        data.packages.excludeDocs = self.packages.docs_excluded
-        data.packages.excludeWeakdeps = self.packages.weakdeps_excluded
+    def _set_up_kickstart_packages_configuration(self, data):
+        """Set up the kickstart packages configuration."""
+        configuration = self.packages_configuration
 
-        if self.packages.missing_ignored:
+        data.packages.excludeDocs = configuration.docs_excluded
+        data.packages.excludeWeakdeps = configuration.weakdeps_excluded
+
+        if configuration.missing_ignored:
             data.packages.handleMissing = KS_MISSING_IGNORE
 
-        if self.packages.broken_ignored:
+        if configuration.broken_ignored:
             data.packages.handleBroken = KS_BROKEN_IGNORE
 
-        if self.packages.languages == RPM_LANGUAGES_NONE:
+        if configuration.languages == RPM_LANGUAGES_NONE:
             data.packages.instLangs = ""
-        elif self.packages.languages != RPM_LANGUAGES_ALL:
-            data.packages.instLangs = self.packages.languages
+        elif configuration.languages != RPM_LANGUAGES_ALL:
+            data.packages.instLangs = configuration.languages
 
-        if self.packages.multilib_policy == MULTILIB_POLICY_ALL:
+        if configuration.multilib_policy == MULTILIB_POLICY_ALL:
             data.packages.multiLib = True
 
-        if self.packages.timeout != DNF_DEFAULT_TIMEOUT:
-            data.packages.timeout = self.packages.timeout
+        if configuration.timeout != DNF_DEFAULT_TIMEOUT:
+            data.packages.timeout = configuration.timeout
 
-        if self.packages.retries != DNF_DEFAULT_RETRIES:
-            data.packages.retries = self.packages.retries
+        if configuration.retries != DNF_DEFAULT_RETRIES:
+            data.packages.retries = configuration.retries
 
     def get_repo_configurations(self):
         """Get RepoConfiguration structures for all sources.

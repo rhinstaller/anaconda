@@ -22,7 +22,7 @@ from blivet.size import Size, ROUND_UP
 from dnf.exceptions import MarkingErrors
 
 from pyanaconda.core.constants import MULTILIB_POLICY_ALL
-from pyanaconda.modules.common.structures.payload import PackagesConfigurationData
+from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 
 
