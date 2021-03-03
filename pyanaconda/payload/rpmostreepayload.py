@@ -17,14 +17,10 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
-from subprocess import CalledProcessError
-
 from pyanaconda.core.constants import PAYLOAD_TYPE_RPM_OSTREE, SOURCE_TYPE_RPM_OSTREE
 from pyanaconda.modules.common.structures.rpm_ostree import RPMOSTreeConfigurationData
 from pyanaconda.progress import progressQ
 from pyanaconda.payload.base import Payload
-from pyanaconda.payload import utils as payload_utils
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.ui.lib.payload import get_payload, get_source, set_up_sources, tear_down_sources
 
@@ -161,13 +157,12 @@ class RPMOSTreePayload(Payload):
 
     def unsetup(self):
         """Invalidate a previously setup payload."""
-        super().unsetup()
-
-        for mount in reversed(self._internal_mounts):
-            try:
-                payload_utils.unmount(mount)
-            except CalledProcessError as e:
-                log.debug("unmounting %s failed: %s", mount, str(e))
+        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
+            TearDownOSTreeMountTargetsTask
+        task = TearDownOSTreeMountTargetsTask(
+            mount_points=self._internal_mounts
+        )
+        task.run()
 
         tear_down_sources(self.proxy)
 

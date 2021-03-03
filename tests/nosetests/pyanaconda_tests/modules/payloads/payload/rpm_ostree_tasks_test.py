@@ -28,7 +28,7 @@ from pyanaconda.payload.errors import PayloadInstallError
 from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
     PrepareOSTreeMountTargetsTask, CopyBootloaderDataTask, InitOSTreeFsAndRepoTask, \
     ChangeOSTreeRemoteTask, ConfigureBootloader, DeployOSTreeTask, PullRemoteAndDeleteTask, \
-    SetSystemRootTask
+    SetSystemRootTask, TearDownOSTreeMountTargetsTask
 
 
 def _make_config_data():
@@ -201,6 +201,50 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
         ])
         self.assertEqual(len(exec_mock.mock_calls), 20)
         mkdir_mock.assert_called_once_with("/sysroot/var/lib")
+
+
+class TearDownOSTreeMountTargetsTaskTestCase(unittest.TestCase):
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.blivet.util.umount")
+    def umount_none_test(self, umount_mock):
+        """Test the task for tearing down OSTree mount targets with no mount points."""
+        task = TearDownOSTreeMountTargetsTask([])
+        task.run()
+
+        umount_mock.assert_not_called()
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.blivet.util.umount")
+    def umount_all_test(self, umount_mock):
+        """Test the task for tearing down OSTree mount targets."""
+        task = TearDownOSTreeMountTargetsTask([
+            "/sysroot/usr",
+            "/sysroot/dev",
+            "/sysroot/proc",
+            "/sysroot/run",
+        ])
+        task.run()
+
+        umount_mock.assert_has_calls([
+            call("/sysroot/run"),
+            call("/sysroot/proc"),
+            call("/sysroot/dev"),
+            call("/sysroot/usr"),
+        ])
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.blivet.util.umount")
+    def umount_failure_test(self, umount_mock):
+        """Test a task for tearing down OSTree mount targets with a failure."""
+        umount_mock.side_effect = OSError("Fake!")
+
+        task = TearDownOSTreeMountTargetsTask([
+            "/sysroot/usr",
+         ])
+
+        with self.assertLogs(level="DEBUG") as cm:
+            task.run()
+
+        msg = "Unmounting /sysroot/usr has failed: Fake!"
+        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
 
 
 class CopyBootloaderDataTaskTestCase(unittest.TestCase):
