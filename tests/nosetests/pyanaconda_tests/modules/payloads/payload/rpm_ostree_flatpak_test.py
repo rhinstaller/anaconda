@@ -19,7 +19,8 @@ import unittest
 from unittest.mock import patch
 from tempfile import TemporaryDirectory
 
-from pyanaconda.payload.errors import PayloadInstallError, FlatpakInstallError
+from pyanaconda.modules.common.errors.installation import PayloadInstallationError
+from pyanaconda.payload.errors import FlatpakInstallError
 from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_installation import \
     InstallFlatpaksTask
 
@@ -45,6 +46,6 @@ class InstallFlatpakTaskTest(unittest.TestCase):
         fm_instance.install_all.side_effect = FlatpakInstallError
 
         with TemporaryDirectory() as temp:
-            with self.assertRaises(PayloadInstallError):
+            with self.assertRaises(PayloadInstallationError):
                 task = InstallFlatpaksTask(temp)
                 task.run()

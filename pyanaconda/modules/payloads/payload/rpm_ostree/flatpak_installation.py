@@ -16,8 +16,9 @@
 # Red Hat, Inc.
 #
 from pyanaconda.core.i18n import _
+from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.modules.common.task import Task
-from pyanaconda.payload.errors import PayloadInstallError, FlatpakInstallError
+from pyanaconda.payload.errors import FlatpakInstallError
 from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager import FlatpakManager
 
 
@@ -47,7 +48,7 @@ class InstallFlatpaksTask(Task):
         try:
             flatpak_manager.install_all()
         except FlatpakInstallError as e:
-            raise PayloadInstallError("Failed to install flatpaks: {}".format(e)) from e
+            raise PayloadInstallationError("Failed to install flatpaks: {}".format(e)) from e
 
         self.report_progress(_("Post-installation flatpak tasks"))
 
