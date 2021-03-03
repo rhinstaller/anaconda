@@ -35,19 +35,19 @@ def create_root_dir(sysroot):
     mkdirChain(os.path.join(sysroot, "root"))
 
 
-def write_module_blacklist(sysroot):
-    """Create module blacklist based on the user preference.
+def write_module_denylist(sysroot):
+    """Create module denylist based on the user preference.
 
     Copy modules from modprobe.blacklist=<module> on cmdline to
     /etc/modprobe.d/anaconda-blacklist.conf so that modules will
-    continue to be blacklisted when the system boots.
+    continue to be added to a denylist when the system boots.
     """
     if "modprobe.blacklist" not in kernel_arguments:
         return
 
     mkdirChain(os.path.join(sysroot, "etc/modprobe.d"))
     with open(os.path.join(sysroot, "etc/modprobe.d/anaconda-blacklist.conf"), "w") as f:
-        f.write("# Module blacklists written by anaconda\n")
+        f.write("# Module denylist written by anaconda\n")
         for module in kernel_arguments.get("modprobe.blacklist").split():
             f.write("blacklist %s\n" % module)
 

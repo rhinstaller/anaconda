@@ -185,10 +185,10 @@ class PayloadsInterfaceTestCase(TestCase):
 
 class PayloadSharedTasksTest(TestCase):
 
-    @patch('pyanaconda.modules.payloads.base.initialization.write_module_blacklist')
+    @patch('pyanaconda.modules.payloads.base.initialization.write_module_denylist')
     @patch('pyanaconda.modules.payloads.base.initialization.create_root_dir')
     def prepare_system_for_install_task_test(self, create_root_dir_mock,
-                                             write_module_blacklist_mock):
+                                             write_module_denylist_mock):
         """Test task prepare system for installation."""
         # the dir won't be used because of mock
         task = PrepareSystemForInstallationTask("/some/dir")
@@ -196,7 +196,7 @@ class PayloadSharedTasksTest(TestCase):
         task.run()
 
         create_root_dir_mock.assert_called_once()
-        write_module_blacklist_mock.assert_called_once()
+        write_module_denylist_mock.assert_called_once()
 
     def set_up_sources_task_test(self):
         """Test task to set up installation sources."""

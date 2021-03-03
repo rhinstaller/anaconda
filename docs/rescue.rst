@@ -48,7 +48,7 @@ Examples of use
 
 - adding driver using ``inst.dd`` boot option (or ``driverdisk`` kickstart
   command)
-- blacklisting a driver with ``modprobe.blacklist`` boot option
+- adding a driver to a denylist with ``modprobe.blacklist`` boot option
 - examining and repairing storage using partitioning or lvm tools present in
   the installer image
 - repairing or reinstalling the bootloader
