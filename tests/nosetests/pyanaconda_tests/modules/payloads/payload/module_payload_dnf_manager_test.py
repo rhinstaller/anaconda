@@ -16,9 +16,10 @@
 # Red Hat, Inc.
 #
 import unittest
-from unittest.mock import patch, Mock
+from unittest.mock import patch, Mock, call
 
 from blivet.size import Size, ROUND_UP
+from dnf.callback import STATUS_OK, STATUS_FAILED
 from dnf.exceptions import MarkingErrors
 
 from pyanaconda.core.constants import MULTILIB_POLICY_ALL
@@ -297,3 +298,89 @@ class DNFMangerTestCase(unittest.TestCase):
                 include_list=["@g1", "p1"],
                 exclude_list=["@g2", "p2"]
             )
+
+    @patch("dnf.base.Base.download_packages")
+    @patch("dnf.base.Base.transaction")
+    def download_packages_test(self, transaction, download_packages):
+        """Test the download_packages method."""
+        callback = Mock()
+        transaction.install_set = ["p1", "p2", "p3"]
+        download_packages.side_effect = self._download_packages
+
+        self.dnf_manager.download_packages(callback)
+
+        callback.assert_has_calls([
+            call('Downloading 3 RPMs, 25 B / 300 B (8%) done.'),
+            call('Downloading 3 RPMs, 75 B / 300 B (25%) done.'),
+            call('Downloading 3 RPMs, 100 B / 300 B (33%) done.'),
+            call('Downloading 3 RPMs, 125 B / 300 B (41%) done.'),
+            call('Downloading 3 RPMs, 175 B / 300 B (58%) done.'),
+            call('Downloading 3 RPMs, 200 B / 300 B (66%) done.'),
+            call('Downloading 3 RPMs, 225 B / 300 B (75%) done.'),
+            call('Downloading 3 RPMs, 275 B / 300 B (91%) done.'),
+            call('Downloading 3 RPMs, 300 B / 300 B (100%) done.')
+        ])
+
+    def _download_packages(self, packages, progress):
+        """Simulate the download of packages."""
+        progress.start(total_files=3, total_size=300)
+
+        for name in packages:
+            payload = Mock()
+            payload.__str__ = Mock(return_value=name)
+            payload.download_size = 100
+
+            progress.last_time = 0
+            progress.progress(payload, 25)
+
+            progress.last_time += 3600
+            progress.progress(payload, 50)
+
+            progress.last_time = 0
+            progress.progress(payload, 75)
+
+            progress.last_time = 0
+            progress.end(payload, STATUS_OK, "Message!")
+
+        self.assertEqual(progress.downloads, {
+            "p1": 100,
+            "p2": 100,
+            "p3": 100
+        })
+
+    @patch("dnf.base.Base.download_packages")
+    @patch("dnf.base.Base.transaction")
+    def download_packages_failed_test(self, transaction, download_packages):
+        """Test the download_packages method with failed packages."""
+        callback = Mock()
+        transaction.install_set = ["p1", "p2", "p3"]
+        download_packages.side_effect = self._download_packages_failed
+
+        self.dnf_manager.download_packages(callback)
+
+        callback.assert_has_calls([
+            call('Downloading 3 RPMs, 25 B / 300 B (8%) done.'),
+            call('Downloading 3 RPMs, 50 B / 300 B (16%) done.'),
+            call('Downloading 3 RPMs, 75 B / 300 B (25%) done.')
+        ])
+
+    def _download_packages_failed(self, packages, progress):
+        """Simulate the failed download of packages."""
+        progress.start(total_files=3, total_size=300)
+
+        for name in packages:
+            payload = Mock()
+            payload.__str__ = Mock(return_value=name)
+            payload.download_size = 100
+
+            progress.last_time = 0
+            progress.progress(payload, 25)
+
+            progress.last_time = 0
+            progress.end(payload, STATUS_FAILED, "Message!")
+
+        self.assertEqual(progress.downloads, {
+            "p1": 25,
+            "p2": 25,
+            "p3": 25
+        })

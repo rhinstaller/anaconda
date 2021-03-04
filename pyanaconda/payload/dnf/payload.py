@@ -38,7 +38,7 @@ from pyanaconda.modules.common.structures.packages import PackagesConfigurationD
     PackagesSelectionData
 from pyanaconda.modules.payloads.payload.dnf.initialization import configure_dnf_logging
 from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
-    SetRPMMacrosTask
+    SetRPMMacrosTask, DownloadPackagesTask
 from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements, \
     collect_platform_requirements, collect_driver_disk_requirements, collect_remote_requirements, \
     apply_requirements
@@ -68,7 +68,6 @@ from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload.dnf.utils import DNF_PACKAGE_CACHE_DIR_SUFFIX, \
     YUM_REPOS_DIR, do_transaction, get_df_map, pick_mount_point
-from pyanaconda.payload.dnf.download_progress import DownloadProgress
 from pyanaconda.payload.dnf.repomd import RepoMDMetaHash
 from pyanaconda.payload.errors import MetadataError, PayloadError, NoSuchGroup, DependencyError, \
     PayloadInstallError, PayloadSetupError
@@ -864,6 +863,10 @@ class DNFPayload(Payload):
             + collect_driver_disk_requirements()
         )
 
+    def _progress_cb(self, step, message):
+        """Callback for task progress reporting."""
+        progressQ.send_message(message)
+
     def install(self):
         progress_message(N_('Starting package installation process'))
 
@@ -881,17 +884,13 @@ class DNFPayload(Payload):
             log.info("Removing existing package download "
                      "location: %s", self._download_location)
             shutil.rmtree(self._download_location)
-        pkgs_to_download = self._base.transaction.install_set  # pylint: disable=no-member
-        log.info('Downloading packages to %s.', self._download_location)
-        progressQ.send_message(_('Downloading packages'))
-        progress = DownloadProgress()
-        try:
-            self._base.download_packages(pkgs_to_download, progress)
-        except dnf.exceptions.DownloadError as e:
-            msg = 'Failed to download the following packages: %s' % str(e)
-            raise PayloadInstallError(msg) from None
 
-        log.info('Downloading packages finished.')
+        log.info('Downloading packages to %s.', self._download_location)
+
+        # Download the packages.
+        task = DownloadPackagesTask(self._dnf_manager)
+        task.progress_changed_signal.connect(self._progress_cb)
+        task.run()
 
         pre_msg = (N_("Preparing transaction from installation source"))
         progress_message(pre_msg)

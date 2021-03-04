@@ -28,8 +28,10 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import DNF_DEFAULT_TIMEOUT, DNF_DEFAULT_RETRIES
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.util import get_os_release_value
+from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 from pyanaconda.modules.payloads.constants import DNF_REPO_DIRS
+from pyanaconda.modules.payloads.payload.dnf.download_progress import DownloadProgress
 from pyanaconda.modules.payloads.payload.dnf.utils import get_product_release_version
 
 log = get_module_logger(__name__)
@@ -269,3 +271,18 @@ class DNFManager(object):
         return exception.error_group_specs \
             or exception.error_pkg_specs \
             or exception.module_depsolv_errors
+
+    def download_packages(self, callback):
+        """Download the packages.
+
+        :param callback: a callback for progress reporting
+        :raise PayloadInstallationError: if the download fails
+        """
+        packages = self._base.transaction.install_set
+        progress = DownloadProgress(callback=callback)
+
+        try:
+            self._base.download_packages(packages, progress)
+        except dnf.exceptions.DownloadError as e:
+            msg = "Failed to download the following packages: " + str(e)
+            raise PayloadInstallationError(msg) from None
