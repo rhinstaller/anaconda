@@ -21,6 +21,5 @@ from pyanaconda.product import productName, productVersion
 
 log = get_packaging_logger()
 
-DNF_PACKAGE_CACHE_DIR_SUFFIX = 'dnf.package.cache'
 YUM_REPOS_DIR = "/etc/yum.repos.d/"
 USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)

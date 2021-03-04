@@ -25,7 +25,7 @@ from pyanaconda.core.constants import RPM_LANGUAGES_NONE
 from pyanaconda.core.util import join_paths
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
-    SetRPMMacrosTask, DownloadPackagesTask, InstallPackagesTask
+    SetRPMMacrosTask, DownloadPackagesTask, InstallPackagesTask, PrepareDownloadLocationTask
 
 
 class SetRPMMacrosTaskTestCase(unittest.TestCase):
@@ -266,3 +266,31 @@ class InstallPackagesTaskTestCase(unittest.TestCase):
         callback("Installing p1")
         callback("Installing p2")
         callback("Installing p3")
+
+
+class PrepareDownloadLocationTaskTestCase(unittest.TestCase):
+
+    @patch("pyanaconda.modules.payloads.payload.dnf.installation.pick_download_location")
+    def run_test(self, pick_location):
+        """Run the PrepareDownloadLocationTask class."""
+        dnf_manager = Mock()
+
+        with tempfile.TemporaryDirectory() as path:
+            # Mock the download location.
+            pick_location.return_value = path
+
+            # Create files in the download location.
+            os.mknod(os.path.join(path, "f1"))
+            os.mknod(os.path.join(path, "f2"))
+            os.mknod(os.path.join(path, "f3"))
+
+            task = PrepareDownloadLocationTask(dnf_manager)
+            self.assertEqual(task.run(), path)
+
+            # The manager should apply the location.
+            dnf_manager.set_download_location.assert_called_once_with(path)
+
+            # The files should be deleted.
+            self.assertFalse(os.path.exists(os.path.join(path, "f1")))
+            self.assertFalse(os.path.exists(os.path.join(path, "f2")))
+            self.assertFalse(os.path.exists(os.path.join(path, "f3")))

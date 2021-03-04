@@ -24,6 +24,7 @@ import rpm
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.regexes import VERSION_DIGITS
 from pyanaconda.core.util import is_lpae_available, decode_bytes, join_paths, execWithCapture
@@ -32,6 +33,8 @@ from pyanaconda.product import productName, productVersion
 from pyanaconda.modules.payloads.base.utils import sort_kernel_version_list
 
 log = get_module_logger(__name__)
+
+DNF_PACKAGE_CACHE_DIR_SUFFIX = 'dnf.package.cache'
 
 
 def get_default_environment(dnf_manager):
@@ -284,3 +287,32 @@ def _pick_mount_points(mount_points, download_size, install_size):
             sufficient.add(mount_point)
 
     return sufficient
+
+
+def pick_download_location(dnf_manager):
+    """Pick the download location.
+
+    :param dnf_manager: the DNF manager
+    :return: a path to the download location
+    """
+    download_size = dnf_manager.get_download_size()
+    install_size = dnf_manager.get_installation_size()
+    mount_points = get_df_map()
+
+    path = pick_mount_point(
+        mount_points,
+        download_size,
+        install_size,
+        download_only=True
+    )
+
+    if path is None:
+        raise RuntimeError(
+            "Not enough disk space to download the "
+            "packages; size {}.".format(download_size)
+        )
+
+    log.info("Mount point %s picked as download location", path)
+    location = util.join_paths(path, DNF_PACKAGE_CACHE_DIR_SUFFIX)
+
+    return location

@@ -32,7 +32,7 @@ from pyanaconda.modules.common.structures.packages import PackagesConfigurationD
     PackagesSelectionData
 from pyanaconda.modules.payloads.payload.dnf.initialization import configure_dnf_logging
 from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
-    SetRPMMacrosTask, DownloadPackagesTask, InstallPackagesTask
+    SetRPMMacrosTask, DownloadPackagesTask, InstallPackagesTask, PrepareDownloadLocationTask
 from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements, \
     collect_platform_requirements, collect_driver_disk_requirements, collect_remote_requirements, \
     apply_requirements
@@ -60,7 +60,7 @@ from pyanaconda.modules.common.errors.storage import DeviceSetupError, MountFile
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
-from pyanaconda.payload.dnf.utils import DNF_PACKAGE_CACHE_DIR_SUFFIX, YUM_REPOS_DIR
+from pyanaconda.payload.dnf.utils import YUM_REPOS_DIR
 from pyanaconda.payload.dnf.repomd import RepoMDMetaHash
 from pyanaconda.payload.errors import MetadataError, PayloadError, NoSuchGroup, DependencyError, \
     PayloadSetupError
@@ -366,29 +366,6 @@ class DNFPayload(Payload):
             progressQ.send_quit(1)
             util.ipmi_abort(scripts=self.data.scripts)
             sys.exit(1)
-
-    def _pick_download_location(self):
-        download_size = self._dnf_manager.get_download_size()
-        install_size = self._dnf_manager.get_installation_size()
-        df_map = get_df_map()
-        mpoint = pick_mount_point(
-            df_map,
-            download_size,
-            install_size,
-            download_only=True
-        )
-        if mpoint is None:
-            msg = ("Not enough disk space to download the "
-                   "packages; size %s." % download_size)
-            raise PayloadError(msg)
-
-        log.info("Mountpoint %s picked as download location", mpoint)
-        pkgdir = '%s/%s' % (mpoint, DNF_PACKAGE_CACHE_DIR_SUFFIX)
-        with self._repos_lock:
-            for repo in self._base.repos.iter_enabled():
-                repo.pkgdir = pkgdir
-
-        return pkgdir
 
     def _sync_metadata(self, dnf_repo):
         try:
@@ -843,14 +820,10 @@ class DNFPayload(Payload):
         task.run()
 
         self.check_software_selection()
-        download_location = self._pick_download_location()
 
-        if os.path.exists(download_location):
-            log.info("Removing existing package download "
-                     "location: %s", download_location)
-            shutil.rmtree(download_location)
-
-        log.info('Downloading packages to %s.', download_location)
+        # Set up the download location.
+        task = PrepareDownloadLocationTask(self._dnf_manager)
+        download_location = task.run()
 
         # Download the packages.
         task = DownloadPackagesTask(self._dnf_manager)

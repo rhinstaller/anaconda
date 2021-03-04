@@ -312,6 +312,14 @@ class DNFManager(object):
             or exception.error_pkg_specs \
             or exception.module_depsolv_errors
 
+    def set_download_location(self, path):
+        """Set up the location for downloading the packages.
+
+        :param path: a path to the package directory
+        """
+        for repo in self._base.repos.iter_enabled():
+            repo.pkgdir = path
+
     def download_packages(self, callback):
         """Download the packages.
 

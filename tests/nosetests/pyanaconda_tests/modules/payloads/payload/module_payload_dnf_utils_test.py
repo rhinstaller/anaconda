@@ -26,7 +26,7 @@ from pyanaconda.modules.common.structures.packages import PackagesSelectionData
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package, \
     get_product_release_version, get_default_environment, get_installation_specs, \
-    get_kernel_version_list, pick_mount_point, get_df_map
+    get_kernel_version_list, pick_mount_point, get_df_map, pick_download_location
 
 
 class DNFUtilsPackagesTestCase(unittest.TestCase):
@@ -292,3 +292,24 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
             download_only=False
         )
         self.assertEqual(path, None)
+
+    @patch("pyanaconda.modules.payloads.payload.dnf.utils.pick_mount_point")
+    def pick_download_location_test(self, mount_point_picker):
+        """Test the pick_download_location function."""
+        mount_point_picker.return_value = "/my/download/path"
+        path = pick_download_location(Mock())
+        self.assertEqual(path, "/my/download/path/dnf.package.cache")
+
+    @patch("pyanaconda.modules.payloads.payload.dnf.utils.pick_mount_point")
+    def pick_download_location_failed_test(self, mount_point_picker):
+        """Test the failed pick_download_location function."""
+        mount_point_picker.return_value = None
+
+        dnf_manager = Mock()
+        dnf_manager.get_download_size.return_value = Size(100)
+
+        with self.assertRaises(RuntimeError) as cm:
+            pick_download_location(dnf_manager)
+
+        msg = "Not enough disk space to download the packages; size 100 B."
+        self.assertEqual(str(cm.exception), msg)
