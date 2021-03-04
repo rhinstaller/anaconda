@@ -21,7 +21,6 @@ import operator
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_packaging_logger
-from pyanaconda.payload.dnf.transaction_progress import TransactionProgress
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.product import productName, productVersion
@@ -96,21 +95,3 @@ def pick_mount_point(df, download_size, install_size, download_only):
     else:
         # default to the biggest one:
         return sorted_mpoints[0][0]
-
-
-def do_transaction(base, queue_instance):
-    # Execute the DNF transaction and catch any errors. An error doesn't
-    # always raise a BaseException, so presence of 'quit' without a preceeding
-    # 'post' message also indicates a problem.
-    try:
-        display = TransactionProgress(queue_instance)
-        base.do_transaction(display=display)
-        exit_reason = "DNF quit"
-    except BaseException as e:  # pylint: disable=broad-except
-        log.error('The transaction process has ended abruptly')
-        log.info(e)
-        import traceback
-        exit_reason = str(e) + traceback.format_exc()
-    finally:
-        base.close()  # Always close this base.
-        queue_instance.put(('quit', str(exit_reason)))

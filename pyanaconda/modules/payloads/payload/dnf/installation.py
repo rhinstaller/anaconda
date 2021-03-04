@@ -107,6 +107,27 @@ class DownloadPackagesTask(Task):
         self._dnf_manager.download_packages(self.report_progress)
 
 
+class InstallPackagesTask(Task):
+    """The installation task for installing the packages."""
+
+    def __init__(self, dnf_manager):
+        """Create a new task.
+
+        :param dnf_manager: a DNF manager
+        """
+        super().__init__()
+        self._dnf_manager = dnf_manager
+
+    @property
+    def name(self):
+        return "Install packages"
+
+    def run(self):
+        """Run the task."""
+        self.report_progress(_("Preparing transaction from installation source"))
+        self._dnf_manager.install_packages(self.report_progress)
+
+
 class ImportRPMKeysTask(Task):
     """The installation task for import of the RPM keys."""
 

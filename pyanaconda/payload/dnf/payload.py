@@ -17,7 +17,6 @@
 # Red Hat, Inc.
 #
 import configparser
-import multiprocessing
 import os
 import shutil
 import sys
@@ -38,7 +37,7 @@ from pyanaconda.modules.common.structures.packages import PackagesConfigurationD
     PackagesSelectionData
 from pyanaconda.modules.payloads.payload.dnf.initialization import configure_dnf_logging
 from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
-    SetRPMMacrosTask, DownloadPackagesTask
+    SetRPMMacrosTask, DownloadPackagesTask, InstallPackagesTask
 from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements, \
     collect_platform_requirements, collect_driver_disk_requirements, collect_remote_requirements, \
     apply_requirements
@@ -55,7 +54,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, \
     SOURCE_TYPE_URL, SOURCE_TYPE_CDROM, URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, \
     URL_TYPE_METALINK, SOURCE_REPO_FILE_TYPES, SOURCE_TYPE_CDN, MULTILIB_POLICY_ALL
-from pyanaconda.core.i18n import N_, _
+from pyanaconda.core.i18n import N_
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import RepoData
@@ -67,10 +66,10 @@ from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload.dnf.utils import DNF_PACKAGE_CACHE_DIR_SUFFIX, \
-    YUM_REPOS_DIR, do_transaction, get_df_map, pick_mount_point
+    YUM_REPOS_DIR, get_df_map, pick_mount_point
 from pyanaconda.payload.dnf.repomd import RepoMDMetaHash
 from pyanaconda.payload.errors import MetadataError, PayloadError, NoSuchGroup, DependencyError, \
-    PayloadInstallError, PayloadSetupError
+    PayloadSetupError
 from pyanaconda.payload.image import find_first_iso_image, find_optical_install_media
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
 from pyanaconda.product import productName, productVersion
@@ -892,43 +891,11 @@ class DNFPayload(Payload):
         task.progress_changed_signal.connect(self._progress_cb)
         task.run()
 
-        pre_msg = (N_("Preparing transaction from installation source"))
-        progress_message(pre_msg)
+        # Install the packages.
+        task = InstallPackagesTask(self._dnf_manager)
+        task.progress_changed_signal.connect(self._progress_cb)
+        task.run()
 
-        queue_instance = multiprocessing.Queue()
-        process = multiprocessing.Process(target=do_transaction,
-                                          args=(self._base, queue_instance))
-        process.start()
-        (token, msg) = queue_instance.get()
-        # When the installation works correctly it will get 'install' updates
-        # followed by a 'post' message and then a 'quit' message.
-        # If the installation fails it will send 'quit' without 'post'
-        while token:
-            if token == 'install':
-                msg = _("Installing %s") % msg
-                progressQ.send_message(msg)
-            elif token == 'configure':
-                msg = _("Configuring %s") % msg
-                progressQ.send_message(msg)
-            elif token == 'verify':
-                msg = _("Verifying %s") % msg
-                progressQ.send_message(msg)
-            elif token == 'log':
-                log.info(msg)
-            elif token == 'post':
-                msg = (N_("Performing post-installation setup tasks"))
-                progressQ.send_message(msg)
-            elif token == 'done':
-                break  # Installation finished successfully
-            elif token == 'quit':
-                msg = ("Payload error - DNF installation has ended up abruptly: %s" % msg)
-                raise PayloadError(msg)
-            elif token == 'error':
-                raise PayloadInstallError("DNF error: %s" % msg)
-
-            (token, msg) = queue_instance.get()
-
-        process.join()
         # Don't close the mother base here, because we still need it.
         if os.path.exists(self._download_location):
             log.info("Cleaning up downloaded packages: "
