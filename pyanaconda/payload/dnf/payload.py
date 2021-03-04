@@ -100,7 +100,6 @@ class DNFPayload(Payload):
         self._environment_addons = {}
 
         self._dnf_manager = DNFManager()
-        self._download_location = None
         self._updates_enabled = True
 
         # Configure the DNF logging.
@@ -845,14 +844,14 @@ class DNFPayload(Payload):
         task.run()
 
         self.check_software_selection()
-        self._download_location = self._pick_download_location()
+        download_location = self._pick_download_location()
 
-        if os.path.exists(self._download_location):
+        if os.path.exists(download_location):
             log.info("Removing existing package download "
-                     "location: %s", self._download_location)
-            shutil.rmtree(self._download_location)
+                     "location: %s", download_location)
+            shutil.rmtree(download_location)
 
-        log.info('Downloading packages to %s.', self._download_location)
+        log.info('Downloading packages to %s.', download_location)
 
         # Download the packages.
         task = DownloadPackagesTask(self._dnf_manager)
@@ -865,17 +864,17 @@ class DNFPayload(Payload):
         task.run()
 
         # Don't close the mother base here, because we still need it.
-        if os.path.exists(self._download_location):
+        if os.path.exists(download_location):
             log.info("Cleaning up downloaded packages: "
-                     "%s", self._download_location)
-            shutil.rmtree(self._download_location)
+                     "%s", download_location)
+            shutil.rmtree(download_location)
         else:
             # Some installation sources, such as NFS, don't need to download packages to
             # local storage, so the download location might not always exist. So for now
             # warn about this, at least until the RFE in bug 1193121 is implemented and
             # we don't have to care about clearing the download location ourselves.
             log.warning("Can't delete nonexistent download "
-                        "location: %s", self._download_location)
+                        "location: %s", download_location)
 
     def _get_repo(self, repo_id):
         """Return the yum repo object."""
