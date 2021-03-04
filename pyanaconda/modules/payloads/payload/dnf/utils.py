@@ -28,6 +28,8 @@ from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.regexes import VERSION_DIGITS
 from pyanaconda.core.util import is_lpae_available, decode_bytes, join_paths, execWithCapture
+from pyanaconda.modules.common.constants.objects import DEVICE_TREE
+from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.structures.packages import PackagesSelectionData
 from pyanaconda.product import productName, productVersion
 from pyanaconda.modules.payloads.base.utils import sort_kernel_version_list
@@ -219,6 +221,30 @@ def get_df_map():
     return mapping
 
 
+def get_sysroot_df_map():
+    """Get the file system disk space usage of the scheduled system.
+
+    :return: a dictionary of mount points and their available space
+    """
+    device_tree = STORAGE.get_proxy(DEVICE_TREE)
+    mount_points = {}
+
+    for mount_point in device_tree.GetMountPoints():
+        # we can ignore swap
+        if not mount_point.startswith('/'):
+            continue
+
+        free_space = Size(
+            device_tree.GetFileSystemFreeSpace([mount_point])
+        )
+        mount_point = os.path.normpath(
+            conf.target.system_root + mount_point
+        )
+        mount_points[mount_point] = free_space
+
+    return mount_points
+
+
 def pick_mount_point(mount_points, download_size, install_size, download_only=False):
     """Pick a mount point for the package installation.
 
@@ -316,3 +342,34 @@ def pick_download_location(dnf_manager):
     location = util.join_paths(path, DNF_PACKAGE_CACHE_DIR_SUFFIX)
 
     return location
+
+
+def calculate_required_space(dnf_manager):
+    """Calculate the space required for the installation.
+
+    :param DNFManager dnf_manager: the DNF manager
+    :return Size: the required space
+    """
+    installation_size = dnf_manager.get_installation_size()
+    download_size = dnf_manager.get_download_size()
+
+    mount_points = get_sysroot_df_map()
+    mount_points.update(get_df_map())
+
+    mount_point = pick_mount_point(
+        mount_points,
+        download_size,
+        installation_size,
+        download_only=False
+    )
+
+    if not mount_point or mount_point.startswith(conf.target.system_root):
+        log.debug("The install and download space is required.")
+        required_space = installation_size + download_size
+    else:
+        log.debug("Use the %s mount point for the %s download.", mount_point, download_size)
+        log.debug("Only the install space is required.")
+        required_space = installation_size
+
+    log.debug("The package installation requires %s.", required_space)
+    return required_space

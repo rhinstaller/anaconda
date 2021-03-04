@@ -38,7 +38,7 @@ from pyanaconda.modules.payloads.payload.dnf.requirements import collect_languag
     apply_requirements
 from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package, \
     get_product_release_version, get_default_environment, get_installation_specs, \
-    get_kernel_version_list, get_df_map, pick_mount_point
+    get_kernel_version_list, calculate_required_space
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 
@@ -53,8 +53,7 @@ from pyanaconda.core.i18n import N_
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import RepoData
-from pyanaconda.modules.common.constants.objects import DEVICE_TREE
-from pyanaconda.modules.common.constants.services import STORAGE, SUBSCRIPTION
+from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.payloads.source.utils import has_network_protocol
 from pyanaconda.modules.common.errors.storage import DeviceSetupError, MountFilesystemError
 from pyanaconda.modules.common.util import is_module_available
@@ -619,30 +618,7 @@ class DNFPayload(Payload):
 
     @property
     def space_required(self):
-        device_tree = STORAGE.get_proxy(DEVICE_TREE)
-        size = self._dnf_manager.get_installation_size()
-        download_size = self._dnf_manager.get_download_size()
-        valid_points = get_df_map()
-        root_mpoint = conf.target.system_root
-
-        for key in payload_utils.get_mount_points():
-            new_key = key
-            if key.endswith('/'):
-                new_key = key[:-1]
-            # we can ignore swap
-            if key.startswith('/') and ((root_mpoint + new_key) not in valid_points):
-                valid_points[root_mpoint + new_key] = device_tree.GetFileSystemFreeSpace([key])
-
-        m_point = pick_mount_point(valid_points, download_size, size, download_only=False)
-        if not m_point or m_point == root_mpoint:
-            # download and install to the same mount point
-            size = size + download_size
-            log.debug("Install + download space required %s", size)
-        else:
-            log.debug("Download space required %s for mpoint %s (non-chroot)",
-                      download_size, m_point)
-            log.debug("Installation space required %s", size)
-        return size
+        return calculate_required_space(self._dnf_manager)
 
     def _is_group_visible(self, grpid):
         grp = self._base.comps.group_by_pattern(grpid)

@@ -21,12 +21,18 @@ from unittest.mock import patch, Mock, PropertyMock
 
 from blivet.size import Size
 
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import GROUP_PACKAGE_TYPES_REQUIRED, GROUP_PACKAGE_TYPES_ALL
+from pyanaconda.modules.common.constants.objects import DEVICE_TREE
+from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.structures.packages import PackagesSelectionData
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package, \
     get_product_release_version, get_default_environment, get_installation_specs, \
-    get_kernel_version_list, pick_mount_point, get_df_map, pick_download_location
+    get_kernel_version_list, pick_mount_point, get_df_map, pick_download_location, \
+    calculate_required_space, get_sysroot_df_map
+
+from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy_with_cache
 
 
 class DNFUtilsPackagesTestCase(unittest.TestCase):
@@ -313,3 +319,52 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
 
         msg = "Not enough disk space to download the packages; size 100 B."
         self.assertEqual(str(cm.exception), msg)
+
+    @patch_dbus_get_proxy_with_cache
+    def get_sysroot_df_map_test(self, proxy_getter):
+        """Test the get_sysroot_df_map function."""
+        mount_points = {
+            '/': Size("100 KiB"),
+            '/boot': Size("200 KiB"),
+            '/home': Size("300 KiB"),
+        }
+
+        def get_mount_points():
+            return list(mount_points.keys())
+
+        def get_free_space(paths):
+            return sum(map(mount_points.get, paths))
+
+        device_tree = STORAGE.get_proxy(DEVICE_TREE)
+        device_tree.GetMountPoints.side_effect = get_mount_points
+        device_tree.GetFileSystemFreeSpace.side_effect = get_free_space
+
+        self.assertEqual(get_sysroot_df_map(), {
+            '/mnt/sysroot': Size("100 KiB"),
+            '/mnt/sysroot/boot': Size("200 KiB"),
+            '/mnt/sysroot/home': Size("300 KiB"),
+        })
+
+    @patch_dbus_get_proxy_with_cache
+    @patch("pyanaconda.modules.payloads.payload.dnf.utils.pick_mount_point")
+    def calculate_required_space_test(self, mount_point_picker, proxy_getter):
+        """Test the calculate_required_space function."""
+        download_size = Size(100)
+        installation_size = Size(200)
+        total_size = Size(300)
+
+        device_tree = STORAGE.get_proxy(DEVICE_TREE)
+        device_tree.GetMountPoints.return_value = {}
+
+        dnf_manager = Mock()
+        dnf_manager.get_download_size.return_value = download_size
+        dnf_manager.get_installation_size.return_value = installation_size
+
+        mount_point_picker.return_value = None
+        self.assertEqual(calculate_required_space(dnf_manager), total_size)
+
+        mount_point_picker.return_value = conf.target.system_root
+        self.assertEqual(calculate_required_space(dnf_manager), total_size)
+
+        mount_point_picker.return_value = "/my/path"
+        self.assertEqual(calculate_required_space(dnf_manager), installation_size)
