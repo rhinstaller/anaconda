@@ -1192,6 +1192,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
                 else:
                     return _("Remote directory is required")
 
+            if ":" not in url_string or len(url_string.split(":")) != 2:
+                return _("NFS server must be specified as \"SERVER:/PATH\". "
+                         "Only one colon is allowed in the url string.")
+
         return InputCheck.CHECK_OK
 
     def _check_url_entry(self, inputcheck):
