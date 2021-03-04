@@ -210,7 +210,7 @@ class DeviceConfigurations(object):
     def _find_connection_uuid_of_device(self, device):
         """Find uuid of connection that should be bound to the device.
 
-        Assumes existence of no more than one config file per non-slave physical
+        Assumes existence of no more than one config file per non-port physical
         device.
 
         :param device: NetworkManager device object
@@ -247,7 +247,7 @@ class DeviceConfigurations(object):
                 log.debug("config file connection for %s: %s", iface, config_uuid)
 
             for c in cons:
-                # Ignore slave connections
+                # Ignore port connections
                 if c.get_setting_connection() and c.get_setting_connection().get_slave_type():
                     continue
                 candidate_uuid = c.get_uuid()
@@ -338,10 +338,10 @@ class DeviceConfigurations(object):
         elif device_type not in supported_device_types:
             decline_reason = "unsupported type"
 
-        # Ignore slave connections
+        # Ignore port connections
         elif device_type == NM.DeviceType.ETHERNET:
             if con_setting and con_setting.get_master():
-                decline_reason = "slave connection"
+                decline_reason = "port connection"
 
         # Wireless settings are handled in scope of configuration of its device
         elif device_type == NM.DeviceType.WIFI:

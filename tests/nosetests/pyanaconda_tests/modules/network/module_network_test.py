@@ -447,9 +447,9 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         self._mock_nm_active_connections(
             [
                 (True, ["ens3"]),
-                # Slave of bond0
+                # port of bond0
                 (True, ["ens5"]),
-                # Slave of bond0
+                # port of bond0
                 (True, ["ens7"]),
                 (True, ["bond0"]),
                 (False, ["ens11"]),

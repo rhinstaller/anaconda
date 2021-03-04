@@ -166,21 +166,21 @@ class DumpMissingConfigFilesTask(Task):
         """Return a DBus representation."""
         return NetworkInitializationTaskInterface(self)
 
-    def _select_persistent_connection_for_device(self, device, cons, allow_slaves=False):
+    def _select_persistent_connection_for_device(self, device, cons, allow_ports=False):
         """Select the connection suitable to store configuration for the device."""
         iface = device.get_iface()
         ac = device.get_active_connection()
         if ac:
             con = ac.get_connection()
             if con.get_interface_name() == iface and con in cons:
-                if allow_slaves or not con.get_setting_connection().get_master():
+                if allow_ports or not con.get_setting_connection().get_master():
                     return con
             else:
                 log.debug("%s: active connection for %s can't be used as persistent",
                           self.name, iface)
         for con in cons:
             if con.get_interface_name() == iface:
-                if allow_slaves or not con.get_setting_connection().get_master():
+                if allow_ports or not con.get_setting_connection().get_master():
                     return con
         return None
 
@@ -202,7 +202,7 @@ class DumpMissingConfigFilesTask(Task):
         log.debug("%s: updating addr-gen-mode of connection %s for %s",
                   self.name, con.get_uuid(), iface)
         s_ipv6 = con.get_setting_ip6_config()
-        # For example slave connections do not have ipv6 setting present
+        # For example port connections do not have ipv6 setting present
         if s_ipv6:
             s_ipv6.set_property(NM.SETTING_IP6_CONFIG_ADDR_GEN_MODE,
                                 NM.SettingIP6ConfigAddrGenMode.EUI64)
@@ -235,16 +235,16 @@ class DumpMissingConfigFilesTask(Task):
             n_cons = len(cons)
             con = None
 
-            device_is_slave = any(con.get_setting_connection().get_master() for con in cons)
-            if device_is_slave:
-                # We have to dump persistent ifcfg files for slaves created in initramfs
+            device_is_port = any(con.get_setting_connection().get_master() for con in cons)
+            if device_is_port:
+                # We have to dump persistent ifcfg files for ports created in initramfs
                 if n_cons == 1 and self._is_initramfs_connection(cons[0], iface):
-                    log.debug("%s: device %s has an initramfs slave connection",
+                    log.debug("%s: device %s has an initramfs port connection",
                               self.name, iface)
                     con = self._select_persistent_connection_for_device(
-                        device, cons, allow_slaves=True)
+                        device, cons, allow_ports=True)
                 else:
-                    log.debug("%s: creating default connection for slave device %s",
+                    log.debug("%s: creating default connection for port device %s",
                               self.name, iface)
 
             if not con:
@@ -287,7 +287,7 @@ class DumpMissingConfigFilesTask(Task):
             else:
                 log.debug("%s: none of the connections can be dumped as persistent",
                           self.name)
-                if n_cons > 1 and not device_is_slave:
+                if n_cons > 1 and not device_is_port:
                     log.warning("%s: unexpected number of connections, not dumping any",
                                 self.name)
                     continue
