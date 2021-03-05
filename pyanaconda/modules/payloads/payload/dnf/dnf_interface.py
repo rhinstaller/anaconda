@@ -22,8 +22,9 @@ from dasbus.server.property import emits_properties_changed
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_DNF
-from pyanaconda.modules.common.structures.payload import RepoConfigurationData, \
-    PackagesConfigurationData
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.modules.common.structures.packages import PackagesConfigurationData, \
+    PackagesSelectionData
 from pyanaconda.modules.payloads.payload.payload_base_interface import PayloadBaseInterface
 
 __all__ = ["DNFInterface"]
@@ -36,26 +37,53 @@ class DNFInterface(PayloadBaseInterface):
     def connect_signals(self):
         """Connect the signals."""
         super().connect_signals()
-        self.watch_property("Packages", self.implementation.packages_changed)
+        self.watch_property(
+            "PackagesConfiguration",
+            self.implementation.packages_configuration_changed
+        )
+        self.watch_property(
+            "PackagesSelection",
+            self.implementation.packages_selection_changed
+        )
 
     @property
-    def Packages(self) -> Structure:
+    def PackagesConfiguration(self) -> Structure:
         """The packages configuration.
 
         :return: a structure of the type PackagesConfigurationData
         """
         return PackagesConfigurationData.to_structure(
-            self.implementation.packages
+            self.implementation.packages_configuration
         )
 
     @emits_properties_changed
-    def SetPackages(self, data: Structure):
+    def SetPackagesConfiguration(self, data: Structure):
         """Set the packages configuration.
 
         :param data: a structure of the type PackagesConfigurationData
         """
-        self.implementation.set_packages(
+        self.implementation.set_packages_configuration(
             PackagesConfigurationData.from_structure(data)
+        )
+
+    @property
+    def PackagesSelection(self) -> Structure:
+        """The packages selection.
+
+        :return: a structure of the type PackagesSelectionData
+        """
+        return PackagesSelectionData.to_structure(
+            self.implementation.packages_selection
+        )
+
+    @emits_properties_changed
+    def SetPackagesSelection(self, data: Structure):
+        """Set the packages selection.
+
+        :param: a structure of the type PackagesSelectionData
+        """
+        self.implementation.set_packages_selection(
+            PackagesSelectionData.from_structure(data)
         )
 
     @property

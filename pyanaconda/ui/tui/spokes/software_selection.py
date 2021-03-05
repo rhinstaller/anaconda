@@ -66,7 +66,7 @@ class SoftwareSpoke(NormalTUISpoke):
         self._tx_id = None
 
         # Get the packages configuration.
-        self._selection = self.payload.get_packages_data()
+        self._selection = self.payload.get_packages_selection()
 
         # are we taking values (package list) from a kickstart file?
         self._kickstarted = flags.automatedInstall and self.payload.proxy.PackagesKickstarted
@@ -197,7 +197,7 @@ class SoftwareSpoke(NormalTUISpoke):
         threadMgr.wait(THREAD_SOFTWARE_WATCHER)
 
         # Get the packages configuration.
-        self._selection = self.payload.get_packages_data()
+        self._selection = self.payload.get_packages_selection()
 
         return True
 
@@ -317,7 +317,7 @@ class SoftwareSpoke(NormalTUISpoke):
         # FIXME: Remove invalid groups from selected groups.
 
         log.debug("Setting new software selection: %s", self._selection)
-        self.payload.set_packages_data(self._selection)
+        self.payload.set_packages_selection(self._selection)
 
     def execute(self):
         """Execute the changes."""
