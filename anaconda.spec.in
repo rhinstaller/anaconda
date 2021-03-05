@@ -367,6 +367,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Mar 05 2021 Radek Vykydal <rvykydal@redhat.com> - 33.16.4.12-1
+- Pull in new translations (rvykydal)
+  Related: rhbz#1899672
+
 * Thu Feb 04 2021 Radek Vykydal <rvykydal@redhat.com> - 33.16.4.11-1
 - Take dnf substitutions from installer environment configuration (rvykydal)
   Resolves: rhbz#1920735
