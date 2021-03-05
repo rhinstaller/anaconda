@@ -144,7 +144,7 @@ class DNFPayload(Payload):
         """
         # Set the source based on opts.method if it isn't already set
         # - opts.method is currently set by command line/boot options
-        if opts.method and (not self.proxy.Sources or self.is_source_default()):
+        if opts.method and (not self.proxy.Sources or self._is_source_default()):
             try:
                 source = SourceFactory.parse_repo_cmdline_string(opts.method)
             except PayloadSourceTypeUnrecognized:
@@ -432,7 +432,7 @@ class DNFPayload(Payload):
         except dnf.exceptions.RepoError as e:
             id_ = dnf_repo.id
             log.info('_sync_metadata: addon repo error: %s', e)
-            self.disable_repo(id_)
+            self._disable_repo(id_)
             self.verbose_errors.append(str(e))
         log.debug('repo %s: _sync_metadata success from %s', dnf_repo.id,
                   dnf_repo.baseurl or dnf_repo.mirrorlist or dnf_repo.metalink)
@@ -501,7 +501,7 @@ class DNFPayload(Payload):
         return [r.name for r in self.data.repo.dataList()]
 
     @property
-    def enabled_repos(self):
+    def _enabled_repos(self):
         """A list of names of the enabled repos."""
         enabled = []
         for repo in self.addons:
@@ -520,7 +520,7 @@ class DNFPayload(Payload):
 
         return repo
 
-    def add_repo(self, ksrepo):
+    def _add_repo_to_dnf_and_ks(self, ksrepo):
         """Add an enabled repo to dnf and kickstart repo lists.
 
         Add the repo given by the pykickstart Repo object ksrepo to the
@@ -534,13 +534,13 @@ class DNFPayload(Payload):
         :returns: None
         """
         if ksrepo.enabled:
-            self._add_repo(ksrepo)
+            self._add_repo_to_dnf(ksrepo)
             self._fetch_md(ksrepo.name)
 
         # Add the repo to the ksdata so it'll appear in the output ks file.
         self.data.repo.dataList().append(ksrepo)
 
-    def _add_repo(self, ksrepo):
+    def _add_repo_to_dnf(self, ksrepo):
         """Add a repo to the dnf repo object.
 
         :param ksrepo: Kickstart Repository to add
@@ -613,7 +613,7 @@ class DNFPayload(Payload):
                 self._base.repos.add(repo)
 
         if not ksrepo.enabled:
-            self.disable_repo(repo.id)
+            self._disable_repo(repo.id)
 
         log.info("added repo: '%s' - %s", ksrepo.name, url or mirrorlist or metalink)
 
@@ -638,7 +638,7 @@ class DNFPayload(Payload):
         log.info("enabled repo: '%s' - %s and got repomd", repo.id,
                  repo.baseurl or repo.mirrorlist or repo.metalink)
 
-    def remove_repo(self, repo_id):
+    def _remove_repo(self, repo_id):
         repos = self.data.repo.dataList()
         try:
             idx = [repo.name for repo in repos].index(repo_id)
@@ -674,7 +674,7 @@ class DNFPayload(Payload):
                 ks_repo = self.data.RepoData(name=repo_name,
                                              baseurl="file://" + repo,
                                              enabled=True)
-                self.add_repo(ks_repo)
+                self._add_repo_to_dnf_and_ks(ks_repo)
 
     @property
     def space_required(self):
@@ -739,16 +739,16 @@ class DNFPayload(Payload):
         # Enable or disable updates.
         if self._updates_enabled:
             for repo in conf.payload.updates_repositories:
-                self.enable_repo(repo)
+                self._enable_repo(repo)
         else:
             for repo in conf.payload.updates_repositories:
-                self.disable_repo(repo)
+                self._disable_repo(repo)
 
         # Disable updates-testing.
-        self.disable_repo("updates-testing")
-        self.disable_repo("updates-testing-modular")
+        self._disable_repo("updates-testing")
+        self._disable_repo("updates-testing-modular")
 
-    def disable_repo(self, repo_id):
+    def _disable_repo(self, repo_id):
         try:
             self._base.repos[repo_id].disable()
             log.info("Disabled '%s'", repo_id)
@@ -759,7 +759,7 @@ class DNFPayload(Payload):
         if repo:
             repo.enabled = False
 
-    def enable_repo(self, repo_id):
+    def _enable_repo(self, repo_id):
         try:
             self._base.repos[repo_id].enable()
             log.info("Enabled '%s'", repo_id)
@@ -943,7 +943,7 @@ class DNFPayload(Payload):
             log.warning("Can't delete nonexistent download "
                         "location: %s", self._download_location)
 
-    def get_repo(self, repo_id):
+    def _get_repo(self, repo_id):
         """Return the yum repo object."""
         return self._base.repos[repo_id]
 
@@ -974,16 +974,16 @@ class DNFPayload(Payload):
                 return False
         return True
 
-    def reset(self):
+    def _reset_configuration(self):
         tear_down_sources(self.proxy)
-        self.reset_additional_repos()
+        self._reset_additional_repos()
         self._install_tree_metadata = None
         self.tx_id = None
         self._dnf_manager.clear_cache()
         self._dnf_manager.configure_proxy(self._get_proxy_url())
         self._repoMD_list = []
 
-    def reset_additional_repos(self):
+    def _reset_additional_repos(self):
         for name in self._find_mounted_additional_repos():
             installation_dir = INSTALL_TREE + "-" + name
             self._unmount_source_directory(installation_dir)
@@ -1010,7 +1010,7 @@ class DNFPayload(Payload):
             else:
                 payload_utils.unmount(mount_point, raise_exc=True)
 
-    def is_source_default(self):
+    def _is_source_default(self):
         """Report if the current source type is the default source type.
 
         NOTE: If no source was set previously a new default one
@@ -1021,7 +1021,7 @@ class DNFPayload(Payload):
     def update_base_repo(self, fallback=True, checkmount=True):
         """Update the base repository from the DBus source."""
         log.info("Configuring the base repo")
-        self.reset()
+        self._reset_configuration()
 
         disabled_treeinfo_repo_names = self._cleanup_old_treeinfo_repositories()
 
@@ -1031,7 +1031,7 @@ class DNFPayload(Payload):
 
         # Change the default source to CDROM if there is a valid install media.
         # FIXME: Set up the default source earlier.
-        if checkmount and self.is_source_default() and find_optical_install_media():
+        if checkmount and self._is_source_default() and find_optical_install_media():
             source_type = SOURCE_TYPE_CDROM
             source_proxy = create_source(source_type)
             set_source(self.proxy, source_proxy)
@@ -1095,7 +1095,7 @@ class DNFPayload(Payload):
                     sslclientcert=data.ssl_configuration.client_cert_path,
                     sslclientkey=data.ssl_configuration.client_key_path
                 )
-                self._add_repo(base_ksrepo)
+                self._add_repo_to_dnf(base_ksrepo)
                 self._fetch_md(base_ksrepo.name)
             except (MetadataError, PayloadError) as e:
                 log.error("base repo (%s/%s) not valid -- removing it",
@@ -1106,7 +1106,7 @@ class DNFPayload(Payload):
                 if not fallback:
                     with self._repos_lock:
                         for repo in self._base.repos.iter_enabled():
-                            self.disable_repo(repo.id)
+                            self._disable_repo(repo.id)
                     return
 
                 # Fallback to the default source
@@ -1163,7 +1163,7 @@ class DNFPayload(Payload):
                                         "the pre-defined repositories" %
                                         ksrepo.name)
 
-            self._add_repo(ksrepo)
+            self._add_repo_to_dnf(ksrepo)
 
         with self._repos_lock:
 
@@ -1171,12 +1171,12 @@ class DNFPayload(Payload):
             for repo in self._base.repos.iter_enabled():
                 id_ = repo.id
                 if 'source' in id_ or 'debuginfo' in id_:
-                    self.disable_repo(id_)
+                    self._disable_repo(id_)
                 elif constants.isFinal and 'rawhide' in id_:
-                    self.disable_repo(id_)
+                    self._disable_repo(id_)
 
             # fetch md for enabled repos
-            enabled_repos = self.enabled_repos
+            enabled_repos = self._enabled_repos
             for repo_name in self.addons:
                 if repo_name in enabled_repos:
                     self._fetch_md(repo_name)
@@ -1431,7 +1431,7 @@ class DNFPayload(Payload):
                     log.debug("Adding new treeinfo repository: %s enabled: %s",
                               repo_md.name, repo_enabled)
 
-                    self.add_repo(repo)
+                    self._add_repo_to_dnf_and_ks(repo)
 
     def _cleanup_old_treeinfo_repositories(self):
         """Remove all old treeinfo repositories before loading new ones.
@@ -1452,7 +1452,7 @@ class DNFPayload(Payload):
                 if not repo.enabled:
                     disabled_repo_names.append(ks_repo_name)
 
-                self.remove_repo(ks_repo_name)
+                self._remove_repo(ks_repo_name)
 
         return disabled_repo_names
 
@@ -1530,7 +1530,7 @@ class DNFPayload(Payload):
                 continue
 
             try:
-                repo = self.get_repo(ks_repo.name)
+                repo = self._get_repo(ks_repo.name)
                 if not repo:
                     continue
             except (dnf.exceptions.RepoError, KeyError):
