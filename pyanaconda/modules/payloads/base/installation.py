@@ -16,7 +16,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.common.errors.payload import InstallError
+from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.util import execWithRedirect
 
@@ -46,7 +46,7 @@ class InstallFromImageTask(Task):
         # TODO: remove this check for None when Live Image payload will support sources
         # The None check is just a temporary hack that Live OS has source but Live Image don't
         if self._source is not None and not self._source.get_state():
-            raise InstallError("Source is not set up!")
+            raise PayloadInstallationError("Source is not set up!")
 
         cmd = "rsync"
         # preserve: permissions, owners, groups, ACL's, xattrs, times,
@@ -70,4 +70,4 @@ class InstallFromImageTask(Task):
             log.info(msg)
 
         if err or rc == 11:
-            raise InstallError(err or msg)
+            raise PayloadInstallationError(err or msg)

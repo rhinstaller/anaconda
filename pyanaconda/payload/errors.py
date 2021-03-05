@@ -47,7 +47,3 @@ class DependencyError(PayloadError):
 # installation
 class PayloadInstallError(PayloadError):
     pass
-
-
-class FlatpakInstallError(PayloadError):
-    pass

@@ -17,8 +17,9 @@
 #
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.task import Task
-from pyanaconda.payload.errors import PayloadInstallError, FlatpakInstallError
 from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager import FlatpakManager
+
+__all__ = ["InstallFlatpaksTask"]
 
 
 class InstallFlatpaksTask(Task):
@@ -38,19 +39,13 @@ class InstallFlatpaksTask(Task):
 
     def run(self):
         self.report_progress(_("Starting Flatpak installation"))
-
         flatpak_manager = FlatpakManager(self._sysroot)
 
         # Initialize new repo on the installed system
         flatpak_manager.initialize_with_system_path()
-
-        try:
-            flatpak_manager.install_all()
-        except FlatpakInstallError as e:
-            raise PayloadInstallError("Failed to install flatpaks: {}".format(e)) from e
+        flatpak_manager.install_all()
 
         self.report_progress(_("Post-installation flatpak tasks"))
-
         flatpak_manager.add_remote("fedora", "oci+https://registry.fedoraproject.org")
         flatpak_manager.replace_installed_refs_remote("fedora")
         flatpak_manager.remove_remote(FlatpakManager.LOCAL_REMOTE_NAME)

@@ -25,7 +25,7 @@ from tempfile import TemporaryDirectory
 
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.modules.common.errors.payload import InstallError
+from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.modules.payloads.base.installation import InstallFromImageTask
 from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list
 
@@ -118,7 +118,7 @@ class LiveTasksTestCase(unittest.TestCase):
         exec_with_redirect.side_effect = OSError("mock exception")
 
         with self.assertLogs(level="ERROR") as cm:
-            with self.assertRaises(InstallError):
+            with self.assertRaises(PayloadInstallationError):
                 InstallFromImageTask(dest_path, source).run()
 
             self.assertTrue(any(map(lambda x: "mock exception" in x, cm.output)))
@@ -139,7 +139,7 @@ class LiveTasksTestCase(unittest.TestCase):
         exec_with_redirect.return_value = 11
 
         with self.assertLogs(level="INFO") as cm:
-            with self.assertRaises(InstallError):
+            with self.assertRaises(PayloadInstallationError):
                 InstallFromImageTask(dest_path, source).run()
 
             self.assertTrue(any(map(lambda x: "exited with code 11" in x, cm.output)))

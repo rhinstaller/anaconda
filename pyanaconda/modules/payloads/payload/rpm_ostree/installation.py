@@ -20,12 +20,12 @@ import blivet.util
 
 from subprocess import CalledProcessError
 
-from pyanaconda.payload.errors import PayloadInstallError
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import format_size_full, create_new_context, Variant, GError
 from pyanaconda.core.i18n import _
 from pyanaconda.core.util import execWithRedirect, mkdirChain, set_system_root
+from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE, BOOTLOADER
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -43,11 +43,11 @@ log = get_module_logger(__name__)
 def safe_exec_with_redirect(cmd, argv, **kwargs):
     """Like util.execWithRedirect, but treat errors as fatal.
 
-    :raise: PayloadInstallError if the call fails for any reason
+    :raise: PayloadInstallationError if the call fails for any reason
     """
     rc = execWithRedirect(cmd, argv, **kwargs)
     if rc != 0:
-        raise PayloadInstallError("{} {} exited with code {}".format(cmd, argv, rc))
+        raise PayloadInstallationError("{} {} exited with code {}".format(cmd, argv, rc))
 
 
 class PrepareOSTreeMountTargetsTask(Task):
@@ -231,12 +231,12 @@ class CopyBootloaderDataTask(Task):
     def run(self):
         """Run the installation task.
 
-        :raise PayloadInstallError: if the installation fails
+        :raise PayloadInstallationError: if the installation fails
         """
         try:
             self._run()
         except (OSError, RuntimeError) as e:
-            raise PayloadInstallError("Failed to copy bootloader data: {}".format(e)) from e
+            raise PayloadInstallationError("Failed to copy bootloader data: {}".format(e)) from e
 
     def _run(self):
         """Copy bootloader data files from the deployment checkout to the target root.
@@ -460,7 +460,7 @@ class PullRemoteAndDeleteTask(Task):
 
         All pulls in our code follow the pattern pull + delete.
 
-        :raise: PayloadInstallError if the pull fails
+        :raise: PayloadInstallationError if the pull fails
         """
         # pull requires this for some reason
         mainctx = create_new_context()
@@ -504,7 +504,7 @@ class PullRemoteAndDeleteTask(Task):
                                    Variant('a{sv}', pull_opts),
                                    progress, cancellable)
         except GError as e:
-            raise PayloadInstallError("Failed to pull from repository: %s" % e) from e
+            raise PayloadInstallationError("Failed to pull from repository: %s" % e) from e
 
         log.info("ostree pull: %s", progress.get_status() or "")
         self.report_progress(_("Preparing deployment of {}").format(ref))

@@ -22,9 +22,8 @@ import unittest
 from unittest.mock import patch, call, MagicMock
 
 from pyanaconda.core.glib import Variant, GError
+from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.modules.common.structures.rpm_ostree import RPMOSTreeConfigurationData
-from pyanaconda.payload.errors import PayloadInstallError
-
 from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
     PrepareOSTreeMountTargetsTask, CopyBootloaderDataTask, InitOSTreeFsAndRepoTask, \
     ChangeOSTreeRemoteTask, ConfigureBootloader, DeployOSTreeTask, PullRemoteAndDeleteTask, \
@@ -263,7 +262,7 @@ class CopyBootloaderDataTaskTestCase(unittest.TestCase):
 
         task = CopyBootloaderDataTask("/sysroot", "/physroot")
 
-        with self.assertRaises(PayloadInstallError) as cm:
+        with self.assertRaises(PayloadInstallationError) as cm:
             task.run()
 
         self.assertEqual(str(cm.exception), "Failed to copy bootloader data: Fake!")
@@ -594,7 +593,7 @@ class PullRemoteAndDeleteTaskTestCase(unittest.TestCase):
         repo_mock.pull_with_options.side_effect = [GError("blah")]
 
         with patch.object(PullRemoteAndDeleteTask, "report_progress") as progress_mock:
-            with self.assertRaises(PayloadInstallError) as ex:
+            with self.assertRaises(PayloadInstallationError) as ex:
                 task = PullRemoteAndDeleteTask(data)
                 task.run()
 

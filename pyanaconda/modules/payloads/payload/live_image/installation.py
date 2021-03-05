@@ -16,7 +16,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.common.errors.payload import InstallError
+from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.core.util import execWithRedirect
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -56,4 +56,4 @@ class InstallFromTarTask(Task):
             log.info(msg)
 
         if err:
-            raise InstallError(err or msg)
+            raise PayloadInstallationError(err or msg)
