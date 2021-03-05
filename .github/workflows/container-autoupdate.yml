@@ -8,7 +8,7 @@ on:
 jobs:
   refresh-containers:
     name: Refresh anaconda containers
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     # we need to have matrix to cover all branches because schedule is run only on default branch
     # we can add here fedora branches (e.g. f33-devel) to cover their support when needed
     strategy:
@@ -43,11 +43,6 @@ jobs:
           echo "Currently installed crun version:"
           crun --version
 
-          # abort this step if crun was updated already on the host
-          CRUN_VERSION=$(crun --version | grep "^crun version 0.17")
-          echo "$CRUN_VERSION"
-          [ -z "$CRUN_VERSION" ] && exit 17
-
           echo "Build newer crun version:"
           git clone https://github.com/containers/crun.git
           sudo apt-get install -y make git gcc build-essential pkgconf libtool \
@@ -59,6 +54,10 @@ jobs:
           ./configure --prefix=/usr/
           make
           sudo make install
+
+          # remove crun folder because otherwise pylint will start the check there
+          cd ..
+          rm -rf crun
 
           echo "New crun version:"
           crun --version
