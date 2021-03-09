@@ -230,7 +230,7 @@ def copy_resolv_conf_to_root(root="/"):
     dst_dir = os.path.dirname(dst)
     if not os.path.isdir(dst_dir):
         util.mkdirChain(dst_dir)
-    shutil.copyfile(src, dst)
+    shutil.copyfile(src, dst, follow_symlinks=False)
 
 
 def run_network_initialization_task(task_path):
