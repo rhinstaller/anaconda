@@ -15,14 +15,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import os
-import operator
-
-from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_packaging_logger
-from pyanaconda.core import util
-from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.product import productName, productVersion
 
 log = get_packaging_logger()
@@ -30,68 +24,3 @@ log = get_packaging_logger()
 DNF_PACKAGE_CACHE_DIR_SUFFIX = 'dnf.package.cache'
 YUM_REPOS_DIR = "/etc/yum.repos.d/"
 USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)
-
-
-def get_df_map():
-    """Return (mountpoint -> size available) mapping."""
-    output = util.execWithCapture('df', ['--output=target,avail'])
-    output = output.rstrip()
-    lines = output.splitlines()
-    structured = {}
-    for line in lines:
-        key, val = line.rsplit(maxsplit=1)
-        if not key.startswith('/'):
-            continue
-        structured[key] = Size(int(val) * 1024)
-
-    # Add /var/tmp/ if this is a directory or image installation
-    if not conf.target.is_hardware:
-        var_tmp = os.statvfs("/var/tmp")
-        structured["/var/tmp"] = Size(var_tmp.f_frsize * var_tmp.f_bfree)
-    return structured
-
-
-def pick_mount_point(df, download_size, install_size, download_only):
-    reasonable_mpoints = {
-        '/var/tmp',
-        conf.target.system_root,
-        os.path.join(conf.target.system_root, 'home'),
-        os.path.join(conf.target.system_root, 'tmp'),
-        os.path.join(conf.target.system_root, 'var'),
-    }
-
-    requested = download_size
-    requested_root = requested + install_size
-    root_mpoint = conf.target.system_root
-    log.debug('Input mount points: %s', df)
-    log.info('Estimated size: download %s & install %s', requested,
-             (requested_root - requested))
-
-    # Find sufficient mountpoint to download and install packages.
-    sufficients = {key: val for (key, val) in df.items()
-                   if ((key != root_mpoint and val > requested) or val > requested_root) and
-                   key in reasonable_mpoints}
-
-    # If no sufficient mountpoints for download and install were found and we are looking
-    # for download mountpoint only, ignore install size and try to find mountpoint just
-    # to download packages. This fallback is required when user skipped space check.
-    if not sufficients and download_only:
-        sufficients = {key: val for (key, val) in df.items() if val > requested and
-                       key in reasonable_mpoints}
-        if sufficients:
-            log.info('Sufficient mountpoint for download only found: %s', sufficients)
-    elif sufficients:
-        log.info('Sufficient mountpoints found: %s', sufficients)
-
-    if not sufficients:
-        log.debug("No sufficient mountpoints found")
-        return None
-
-    sorted_mpoints = sorted(sufficients.items(), key=operator.itemgetter(1), reverse=True)
-
-    # try to pick something else than root mountpoint for downloading
-    if download_only and len(sorted_mpoints) >= 2 and sorted_mpoints[0][0] == root_mpoint:
-        return sorted_mpoints[1][0]
-    else:
-        # default to the biggest one:
-        return sorted_mpoints[0][0]

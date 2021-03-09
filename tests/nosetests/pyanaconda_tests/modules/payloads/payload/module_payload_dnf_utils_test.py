@@ -16,14 +16,17 @@
 # Red Hat, Inc.
 #
 import unittest
+from textwrap import dedent
 from unittest.mock import patch, Mock, PropertyMock
+
+from blivet.size import Size
 
 from pyanaconda.core.constants import GROUP_PACKAGE_TYPES_REQUIRED, GROUP_PACKAGE_TYPES_ALL
 from pyanaconda.modules.common.structures.packages import PackagesSelectionData
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package, \
     get_product_release_version, get_default_environment, get_installation_specs, \
-    get_kernel_version_list
+    get_kernel_version_list, pick_mount_point, get_df_map
 
 
 class DNFUtilsPackagesTestCase(unittest.TestCase):
@@ -189,3 +192,103 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
             '7.8.16-200.fc32.x86_64',
             '8.8.18-200.fc32.x86_64'
         ])
+
+    @patch("pyanaconda.modules.payloads.payload.dnf.utils.execWithCapture")
+    def get_df_map_test(self, exec_mock):
+        """Test the get_df_map function."""
+        output = """
+        Mounted on        Avail
+        /dev                100
+        /dev/shm            200
+        /run                300
+        /                   400
+        /tmp                500
+        /boot               600
+        /home               700
+        /boot/efi           800
+        """
+        exec_mock.return_value = dedent(output).strip()
+
+        self.assertEqual(get_df_map(), {
+            '/dev': Size("100 KiB"),
+            '/dev/shm': Size("200 KiB"),
+            '/run': Size("300 KiB"),
+            '/': Size("400 KiB"),
+            '/tmp': Size("500 KiB"),
+            '/boot': Size("600 KiB"),
+            '/home': Size("700 KiB"),
+            '/boot/efi': Size("800 KiB"),
+        })
+
+    @patch("os.statvfs")
+    @patch("pyanaconda.modules.payloads.payload.dnf.utils.conf")
+    @patch("pyanaconda.modules.payloads.payload.dnf.utils.execWithCapture")
+    def get_df_map_image_test(self, exec_mock, conf_mock, statvfs_mock):
+        """Test the get_df_map function."""
+        output = """
+        Mounted on        Avail
+        /                   100
+        /boot               200
+        """
+        exec_mock.return_value = dedent(output).strip()
+        conf_mock.target.is_hardware = False
+        statvfs_mock.return_value = Mock(f_frsize=1024, f_bfree=300)
+
+        self.assertEqual(get_df_map(), {
+            '/': Size("100 KiB"),
+            '/boot': Size("200 KiB"),
+            '/var/tmp': Size("300 KiB"),
+        })
+
+    def pick_mount_point_download_only_test(self):
+        """Test the pick_mount_point function for download only."""
+        df_map = {
+            "/mnt/sysroot/not_used": Size("20 G"),
+            "/mnt/sysroot/home": Size("2 G"),
+            "/mnt/sysroot": Size("5 G")
+        }
+
+        # Choose the biggest mount point that can be used for download.
+        path = pick_mount_point(
+            df_map,
+            download_size=Size("1.5 G"),
+            install_size=Size("1.8 G"),
+            download_only=True
+        )
+        self.assertEqual(path, "/mnt/sysroot/home")
+
+        # Choose the root, because there are no other available
+        # mount points. Even when the root isn't big enough.
+        path = pick_mount_point(
+            df_map,
+            download_size=Size("2.5 G"),
+            install_size=Size("3.0 G"),
+            download_only=True
+        )
+        self.assertEqual(path, "/mnt/sysroot")
+
+    def pick_mount_point_test(self):
+        """Test the pick_mount_point function."""
+        df_map = {
+            "/mnt/sysroot/not_used": Size("20 G"),
+            "/mnt/sysroot/home": Size("2 G"),
+            "/mnt/sysroot": Size("6 G")
+        }
+
+        # Choose the root.
+        path = pick_mount_point(
+            df_map,
+            download_size=Size("1.5 G"),
+            install_size=Size("3 G"),
+            download_only=False
+        )
+        self.assertEqual(path, "/mnt/sysroot")
+
+        # No suitable location is found.
+        path = pick_mount_point(
+            df_map,
+            download_size=Size("2.5 G"),
+            install_size=Size("5 G"),
+            download_only=False
+        )
+        self.assertEqual(path, None)
