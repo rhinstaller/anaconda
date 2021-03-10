@@ -46,21 +46,41 @@ jobs:
           echo "launch arguments are: $LAUNCH_ARGS"
           echo "::set-output name=launch_args::${LAUNCH_ARGS}"
 
+      - name: Generate parameters according to target branch
+        id: generate-parameters
+        run: |
+          FEDVERS=34 # replace this number for next Fedora
+          TARGET_BRANCH="${{ fromJson(steps.pr_api.outputs.data).base.ref }}"
+
+          REF_DEVEL='f'$FEDVERS'-devel'
+          REF_RELEASE='f'$FEDVERS'-release'
+
+          if [ "$TARGET_BRANCH" == "$REF_DEVEL" ] || [ "$TARGET_BRANCH" == "$REF_RELEASE" ] ; then
+            echo "::set-output name=lorax_build_container::fedora:$FEDVERS" ;
+          elif [ "$TARGET_BRANCH" == "master" ] ; then
+            echo "::set-output name=lorax_build_container::fedora:rawhide" ;
+          else
+            echo "Branch $TARGET_BRANCH is not configured to run kickstart tests, aborting."
+            exit 0
+          fi
+
     outputs:
       allowed_user: ${{ steps.check_user_perm.outputs.allowed_user }}
       base_ref: ${{ fromJson(steps.pr_api.outputs.data).base.ref }}
       sha: ${{ fromJson(steps.pr_api.outputs.data).head.sha }}
       launch_args: ${{ steps.parse_launch_args.outputs.launch_args }}
+      lorax_build_container: ${{ steps.generate-parameters.outputs.lorax_build_container }}
 
   run:
     needs: pr-info
-    # only do this for master for now; once we have RHEL 8/9 boot.iso builds working, also support these
-    if: needs.pr-info.outputs.base_ref == 'master' && needs.pr-info.outputs.allowed_user == 'true' && needs.pr-info.outputs.launch_args != ''
+    # only do this for Fedora for now; once we have RHEL 8/9 boot.iso builds working, also support these
+    if: needs.pr-info.outputs.lorax_build_container != '' && needs.pr-info.outputs.allowed_user == 'true' && needs.pr-info.outputs.launch_args != ''
     runs-on: [self-hosted, kstest]
     timeout-minutes: 300
     env:
-       LORAX_BUILD_CONTAINER: fedora:rawhide
+       LORAX_BUILD_CONTAINER: ${{ needs.pr-info.outputs.lorax_build_container }}
        STATUS_NAME: kickstart-test
+       TARGET_BRANCH: ${{ needs.pr-info.outputs.base_ref }}
     steps:
       # we post statuses manually as this does not run from a pull_request event
       # https://developer.github.com/v3/repos/statuses/#create-a-status
@@ -93,12 +113,12 @@ jobs:
           ref: ${{ needs.pr-info.outputs.sha }}
           fetch-depth: 0
 
-      - name: Rebase to current master
+      - name: Rebase to current ${{ env.TARGET_BRANCH }}
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git log --oneline -1 origin/master
-          git rebase origin/master
+          git log --oneline -1 origin/${{ env.TARGET_BRANCH }}
+          git rebase origin/${{ env.TARGET_BRANCH }}
 
       - name: Check out kickstart-tests
         uses: actions/checkout@v2
@@ -117,7 +137,7 @@ jobs:
       #    scripts/makeupdates
       #    gzip -cd updates.img | cpio -tv
 
-      - name: Build boot.iso from Rawhide and this branch
+      - name: Build boot.iso from Fedora and this branch
         run: |
           mkdir -p kickstart-tests/data/images
           # We have to pre-create loop devices because they are not namespaced in kernel so
