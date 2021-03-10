@@ -225,9 +225,9 @@ Name={}
         :param overwrite: overwrite existing configuration file
         :type overwrite: bool
         """
-        self._copy_file_to_root(root, self.RESOLV_CONF_FILE_PATH)
+        self._copy_file_to_root(root, self.RESOLV_CONF_FILE_PATH, follow_symlinks=False)
 
-    def _copy_file_to_root(self, root, config_file, overwrite=False):
+    def _copy_file_to_root(self, root, config_file, overwrite=False, follow_symlinks=True):
         """Copy the file to target system.
 
         :param root: path to the root of the target system
@@ -244,7 +244,7 @@ Name={}
             return
         if not os.path.isdir(os.path.dirname(fpath)):
             util.mkdirChain(os.path.dirname(fpath))
-        shutil.copy(config_file, fpath)
+        shutil.copy(config_file, fpath, follow_symlinks=follow_symlinks)
 
     def _copy_device_config_files(self, root):
         """Copy network device config files to target system.
