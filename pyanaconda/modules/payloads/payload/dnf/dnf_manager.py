@@ -23,6 +23,7 @@ import traceback
 
 import dnf
 import dnf.exceptions
+import dnf.module.module_base
 
 from blivet.size import Size
 
@@ -237,6 +238,40 @@ class DNFManager(object):
         shutil.rmtree(DNF_PLUGINCONF_DIR, ignore_errors=True)
         self._base.reset(sack=True, repos=True)
         log.debug("The DNF cache has been cleared.")
+
+    def enable_modules(self, module_specs):
+        """Mark module streams for enabling.
+
+        Mark module streams matching the module_specs list and also
+        all required modular dependencies for enabling. For specs
+        that do not specify the stream, the default stream is used.
+
+        :param module_specs: a list of specs
+        """
+        log.debug("Enabling modules: %s", module_specs)
+
+        try:
+            module_base = dnf.module.module_base.ModuleBase(self._base)
+            module_base.enable(module_specs)
+        except dnf.exceptions.MarkingErrors as e:
+            log.debug("Some packages, groups or modules are missing or broken:\n%s", e)
+            raise
+
+    def disable_modules(self, module_specs):
+        """Mark modules for disabling.
+
+        Mark modules matching the module_specs list for disabling.
+        Only the name part of the module specification is relevant.
+
+        :param module_specs: a list of specs to disable
+        """
+        log.debug("Disabling modules: %s", module_specs)
+        try:
+            module_base = dnf.module.module_base.ModuleBase(self._base)
+            module_base.disable(module_specs)
+        except dnf.exceptions.MarkingErrors as e:
+            log.debug("Some packages, groups or modules are missing or broken:\n%s", e)
+            raise
 
     def apply_specs(self, include_list, exclude_list):
         """Mark packages, groups and modules for installation.

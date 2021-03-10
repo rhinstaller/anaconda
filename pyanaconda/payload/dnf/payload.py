@@ -21,13 +21,8 @@ import os
 import shutil
 import sys
 import threading
-import dnf
-import dnf.logging
 import dnf.exceptions
-import dnf.module
-import dnf.module.module_base
 import dnf.repo
-import dnf.subject
 import libdnf.conf
 
 from glob import glob
@@ -293,30 +288,14 @@ class DNFPayload(Payload):
         # Get the packages configuration data.
         selection = self.get_packages_selection()
 
-        # convert data from kickstart to module specs
-        module_specs_to_enable = selection.modules
-        module_specs_to_disable = selection.disabled_modules
-
-        # forward the module specs to disable to DNF
-        log.debug("disabling modules: %s", module_specs_to_disable)
         try:
-            module_base = dnf.module.module_base.ModuleBase(self._base)
-            module_base.disable(module_specs_to_disable)
+            self._dnf_manager.disable_modules(selection.disabled_modules)
         except dnf.exceptions.MarkingErrors as e:
-            log.debug(
-                "ModuleBase.disable(): some packages, groups "
-                "or modules are missing or broken:\n%s", e
-            )
             self._handle_marking_error(e)
 
-        # forward the module specs to enable to DNF
-        log.debug("enabling modules: %s", module_specs_to_enable)
         try:
-            module_base = dnf.module.module_base.ModuleBase(self._base)
-            module_base.enable(module_specs_to_enable)
+            self._dnf_manager.enable_modules(selection.modules)
         except dnf.exceptions.MarkingErrors as e:
-            log.debug("ModuleBase.enable(): some packages, groups "
-                      "or modules are missing or broken:\n%s", e)
             self._handle_marking_error(e)
 
     def _apply_selections(self):
