@@ -290,23 +290,12 @@ class DNFPayload(Payload):
 
     def _process_module_command(self):
         """Enable/disable modules (if any)."""
-        # convert data from kickstart to module specs
-        module_specs_to_enable = []
-        module_specs_to_disable = []
-        for module in self.data.module.dataList():
-            # stream definition is optional
-            if module.stream:
-                module_spec = "{name}:{stream}".format(
-                    name=module.name,
-                    stream=module.stream
-                )
-            else:
-                module_spec = module.name
+        # Get the packages configuration data.
+        selection = self.get_packages_selection()
 
-            if module.enable:
-                module_specs_to_enable.append(module_spec)
-            else:
-                module_specs_to_disable.append(module_spec)
+        # convert data from kickstart to module specs
+        module_specs_to_enable = selection.modules
+        module_specs_to_disable = selection.disabled_modules
 
         # forward the module specs to disable to DNF
         log.debug("disabling modules: %s", module_specs_to_disable)

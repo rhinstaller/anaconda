@@ -178,6 +178,25 @@ class DNFKSTestCase(unittest.TestCase):
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_URL)
 
+    def module_kickstart_test(self):
+        ks_in = """
+        module --name=nodejs
+        module --name=django --stream=1.6
+        module --name=postgresql --disable
+        module --name=mysql --stream=8.0 --disable
+        """
+        ks_out = """
+        module --name=nodejs
+        module --name=django --stream=1.6
+        module --name=postgresql --disable
+        module --name=mysql --stream=8.0 --disable
+
+        %packages
+
+        %end
+        """
+        self.shared_ks_tests.check_kickstart(ks_in, ks_out)
+
     def packages_section_empty_kickstart_test(self):
         """Test the empty packages section."""
         ks_in = """
@@ -424,6 +443,12 @@ class DNFInterfaceTestCase(unittest.TestCase):
             ]),
             "excluded-packages": get_variant(List[Str], [
                 "p3", "p4"
+            ]),
+            "modules": get_variant(List[Str], [
+                "m1", "m2:latest", "m3:1.01"
+            ]),
+            "disabled-modules": get_variant(List[Str], [
+                "m4", "m5:master", "m6:10"
             ]),
         }
 

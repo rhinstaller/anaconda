@@ -64,6 +64,7 @@ class PayloadsInterfaceTestCase(TestCase):
             "harddrive",
             "hmc",
             "liveimg",
+            "module",
             "nfs",
             "ostreesetup",
             "url"

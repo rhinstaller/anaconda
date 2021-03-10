@@ -65,9 +65,14 @@ class PayloadKickstartSpecification(KickstartSpecification):
         "harddrive": COMMANDS.HardDrive,
         "hmc": COMMANDS.Hmc,
         "liveimg": COMMANDS.Liveimg,
+        "module": COMMANDS.Module,
         "nfs": COMMANDS.NFS,
         "ostreesetup": COMMANDS.OSTreeSetup,
         "url": COMMANDS.Url
+    }
+
+    commands_data = {
+        "ModuleData": COMMANDS.ModuleData
     }
 
     sections = {

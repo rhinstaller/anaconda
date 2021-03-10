@@ -164,6 +164,17 @@ class DNFModule(PayloadBase):
         for group in data.packages.excludedGroupList:
             selection.excluded_groups.append(group.name)
 
+        for module in data.module.dataList():
+            name = module.name
+
+            if module.stream:
+                name += ":" + module.stream
+
+            if module.enable:
+                selection.modules.append(name)
+            else:
+                selection.disabled_modules.append(name)
+
         self.set_packages_selection(selection)
         self.set_packages_kickstarted(data.packages.seen)
 
@@ -244,6 +255,24 @@ class DNFModule(PayloadBase):
                 name=group_name
             )
             data.packages.excludedGroupList.append(group)
+
+        for name in selection.modules:
+            self._set_up_kickstart_module_data(data, name)
+
+        for name in selection.disabled_modules:
+            self._set_up_kickstart_module_data(data, name, False)
+
+    @staticmethod
+    def _set_up_kickstart_module_data(data, name, enabled=True):
+        """Set up the kickstart data for the module command."""
+        names = name.split(":", maxsplit=1) + [""]
+
+        module = data.ModuleData()
+        module.name = names[0]
+        module.stream = names[1]
+        module.enable = enabled
+
+        data.module.dataList().append(module)
 
     def _set_up_kickstart_packages_configuration(self, data):
         """Set up the kickstart packages configuration."""
