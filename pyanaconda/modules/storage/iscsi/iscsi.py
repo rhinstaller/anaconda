@@ -215,6 +215,8 @@ class ISCSIModule(KickstartBaseModule):
 
         FIXME: This is just a temporary method.
         """
+        log.debug("Getting dracut arguments for iSCSI node %s", node)
+
         if self.is_node_from_ibft(node):
             return ["rd.iscsi.firmware"]
 
