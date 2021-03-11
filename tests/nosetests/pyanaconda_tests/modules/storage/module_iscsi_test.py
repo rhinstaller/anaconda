@@ -161,3 +161,69 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
         """Test WriteConfiguration."""
         self.iscsi_interface.WriteConfiguration()
         iscsi.write.assert_called_once_with(conf.target.system_root, None)
+
+    @patch('pyanaconda.modules.storage.iscsi.iscsi.iscsi')
+    def get_dracut_arguments_test(self, iscsi):
+        """Test the get_dracut_arguments function."""
+        blivet_node = Mock()
+        blivet_node.name = self._node.name
+        blivet_node.address = self._node.address
+        blivet_node.port = int(self._node.port)
+        blivet_node.iface = self._node.iface
+
+        # The node is iBFT node
+        iscsi.ibft_nodes = [blivet_node]
+        self.assertEqual(
+            self.iscsi_interface.GetDracutArguments(Node.to_structure(self._node)),
+            ["rd.iscsi.firmware"]
+        )
+
+        # The node is not found
+        iscsi.ibft_nodes = []
+        iscsi.get_node.return_value = None
+        self.assertEqual(
+            self.iscsi_interface.GetDracutArguments(Node.to_structure(self._node)),
+            []
+        )
+
+        iscsi.ifaces = {
+            "iface0": "ens3",
+            "iface1": "ens7",
+        }
+
+        # The node is active
+        iscsi.get_node.return_value = blivet_node
+        blivet_node.username = ""
+        blivet_node.r_username = ""
+        blivet_node.password = ""
+        blivet_node.r_password = ""
+        iscsi.initiator = "iqn.1994-05.com.redhat:blablabla"
+        self.assertEqual(
+            self.iscsi_interface.GetDracutArguments(Node.to_structure(self._node)),
+            ["netroot=iscsi:@10.43.136.67::3260:iface0:ens3::iqn.2014-08.com.example:t1",
+             "rd.iscsi.initiator=iqn.1994-05.com.redhat:blablabla"]
+        )
+
+        # The node is active, with default interface
+        iscsi.get_node.return_value = blivet_node
+        blivet_node.iface = "default"
+        iscsi.initiator = "iqn.1994-05.com.redhat:blablabla"
+        self.assertEqual(
+            self.iscsi_interface.GetDracutArguments(Node.to_structure(self._node)),
+            ["netroot=iscsi:@10.43.136.67::3260::iqn.2014-08.com.example:t1",
+             "rd.iscsi.initiator=iqn.1994-05.com.redhat:blablabla"]
+        )
+
+        # The node is active, with offload interface, and reverse chap
+        iscsi.get_node.return_value = blivet_node
+        blivet_node.username = "uname"
+        blivet_node.r_username = "r_uname"
+        blivet_node.password = "passwd"
+        blivet_node.r_password = "r_passwd"
+        blivet_node.iface = "qedi.a6:26:77:80:00:63"
+        iscsi.initiator = "iqn.1994-05.com.redhat:blablabla"
+        self.assertEqual(
+            self.iscsi_interface.GetDracutArguments(Node.to_structure(self._node)),
+            ["netroot=iscsi:uname:passwd:r_uname:r_passwd@10.43.136.67::3260:qedi.a6:26:77:80:00:63:qedi.a6:26:77:80:00:63::iqn.2014-08.com.example:t1",
+             "rd.iscsi.initiator=iqn.1994-05.com.redhat:blablabla"]
+        )
