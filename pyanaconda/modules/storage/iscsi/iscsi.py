@@ -220,6 +220,10 @@ class ISCSIModule(KickstartBaseModule):
 
         blivet_node = iscsi.get_node(node.name, node.address, node.port, node.iface)
 
+        if not blivet_node:
+            log.error("No iSCSI node %s found for device", node)
+            return []
+
         address = blivet_node.address
         # surround ipv6 addresses with []
         if ":" in address:
