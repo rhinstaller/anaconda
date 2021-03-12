@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.36.0 -->
 <interface>
   <requires lib="gtk+" version="3.12"/>
   <requires lib="AnacondaWidgets" version="1.0"/>
@@ -40,6 +40,11 @@
   </object>
   <object class="GtkTreeModelFilter" id="daysFilter">
     <property name="child_model">days</property>
+  </object>
+  <object class="GtkImage" id="delImage">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">list-remove-symbolic</property>
   </object>
   <object class="GtkImage" id="downImage">
     <property name="visible">True</property>
@@ -87,8 +92,6 @@
       <column type="gboolean"/>
       <!-- column-name working -->
       <column type="gint"/>
-      <!-- column-name use -->
-      <column type="gboolean"/>
       <!-- column-name object -->
       <column type="PyObject"/>
     </columns>
@@ -147,8 +150,8 @@
           <object class="GtkLabel" id="configHeadingLabel">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="xalign">0</property>
             <property name="label" translatable="yes">Add and mark for usage NTP servers</property>
+            <property name="xalign">0</property>
             <attributes>
               <attribute name="font-desc" value="Sans Bold 12"/>
             </attributes>
@@ -198,6 +201,26 @@
                 <property name="fill">True</property>
                 <property name="padding">4</property>
                 <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="delButton">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="image">delImage</property>
+                <signal name="clicked" handler="on_del_clicked" swapped="no"/>
+                <child internal-child="accessible">
+                  <object class="AtkObject" id="delButton-atkobject">
+                    <property name="AtkObject::accessible-name" translatable="yes">Remove NTP Server</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="padding">4</property>
+                <property name="position">2</property>
               </packing>
             </child>
           </object>
@@ -261,8 +284,8 @@
                       <object class="GtkCellRendererText" id="hostnameRenderer">
                         <property name="editable">True</property>
                         <signal name="edited" handler="on_server_edited" swapped="no"/>
-                        <signal name="editing-started" handler="on_server_editing_started" swapped="no"/>
                         <signal name="editing-canceled" handler="on_server_editing_canceled" swapped="no"/>
+                        <signal name="editing-started" handler="on_server_editing_started" swapped="no"/>
                       </object>
                       <attributes>
                         <attribute name="text">0</attribute>
@@ -304,19 +327,6 @@
                     </child>
                   </object>
                 </child>
-                <child>
-                  <object class="GtkTreeViewColumn" id="removeColumn">
-                    <property name="title" translatable="yes">Use</property>
-                    <child>
-                      <object class="GtkCellRendererToggle" id="removeRenderer">
-                        <signal name="toggled" handler="on_use_server_toggled" swapped="no"/>
-                      </object>
-                      <attributes>
-                        <attribute name="active">4</attribute>
-                      </attributes>
-                    </child>
-                  </object>
-                </child>
               </object>
             </child>
           </object>
@@ -332,6 +342,9 @@
       <action-widget response="0">cancelButton</action-widget>
       <action-widget response="1">okButton</action-widget>
     </action-widgets>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child internal-child="accessible">
       <object class="AtkObject" id="ntpConfigDialog-atkobject">
         <property name="AtkObject::accessible-name" translatable="yes">Configure NTP</property>
@@ -396,7 +409,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">1</property>
-                        <property name="xscale">0.94999998807907104</property>
+                        <property name="xscale">0.949999988079071</property>
                         <child>
                           <object class="GtkBox" id="headerBox">
                             <property name="visible">True</property>
