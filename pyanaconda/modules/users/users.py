@@ -88,6 +88,8 @@ class UsersService(KickstartService):
             self.set_can_change_root_password(False)
             self._rootpw_seen = True
 
+        self.set_root_password_ssh_login_allowed(data.rootpw.sshlogin)
+
         user_data_list = []
         for user_ksdata in data.user.userList:
             user_data_list.append(self._ksdata_to_user_data(user_ksdata))
@@ -115,6 +117,7 @@ class UsersService(KickstartService):
         data.rootpw.password = self._root_password
         data.rootpw.isCrypted = self._root_password_is_crypted
         data.rootpw.lock = self.root_account_locked
+        data.rootpw.sshlogin = self.root_password_ssh_login_allowed
 
         for user_data in self.users:
             data.user.userList.append(self._user_data_to_ksdata(data.UserData(),
