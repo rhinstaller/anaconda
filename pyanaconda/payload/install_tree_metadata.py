@@ -31,6 +31,10 @@ log = get_packaging_logger()
 MAX_TREEINFO_DOWNLOAD_RETRIES = 6
 
 
+class FileNotDownloadedError(Exception):
+    pass
+
+
 class InstallTreeMetadata(object):
     # TODO: Add tests for InstallTreeMetadata class
 
@@ -71,7 +75,7 @@ class InstallTreeMetadata(object):
         :param headers: Additional headers of the request.
         :returns: True if the install tree repo metadata was successfully loaded. False otherwise.
 
-        :raise: IOError is thrown in case of immediate failure.
+        :raise: FileNotDownloadedError is thrown in case of immediate failure.
         """
         # Retry treeinfo downloads with a progressively longer pause,
         # so NetworkManager have a chance setup a network and we have
@@ -120,7 +124,9 @@ class InstallTreeMetadata(object):
                 err_msg = ("Repo info download for %s failed after %d retries" %
                            (url, retry_count))
                 log.error(err_msg)
-                raise IOError("Can't get .treeinfo file from the url {}".format(url))
+                raise FileNotDownloadedError(
+                    "Can't get .treeinfo file from the url {}".format(url)
+                )
 
         if response:
             # get the treeinfo contents
