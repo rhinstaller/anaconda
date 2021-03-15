@@ -920,7 +920,7 @@ class NetworkControlBox(GObject.GObject):
             ports = ""
             device = self.client.get_device_by_iface(dev_cfg.device_name)
             if device:
-                ports = ",".join(s.get_iface() for s in device.get_ports())
+                ports = ",".join(s.get_iface() for s in device.get_slaves())
             self._set_device_info_value("wired", "ports", ports)
 
     def _refresh_parent_vlanid(self, dev_cfg):
