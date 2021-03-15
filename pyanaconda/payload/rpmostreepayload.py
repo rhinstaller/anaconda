@@ -392,11 +392,26 @@ class RPMOSTreePayload(Payload):
         # matching NSS configuration inside Anaconda, and we can't "chroot" to
         # get it because that would require mounting the API filesystems in the
         # target.
+        cmd = "systemd-tmpfiles"
         for varsubdir in ('home', 'roothome', 'lib/rpm', 'opt', 'srv',
                           'usrlocal', 'mnt', 'media', 'spool', 'spool/mail'):
-            self._safe_exec_with_redirect("systemd-tmpfiles",
-                                          ["--create", "--boot", "--root=" + conf.target.system_root,
-                                           "--prefix=/var/" + varsubdir])
+            argv = ["--create", "--boot", "--root=" + conf.target.system_root,
+                    "--prefix=/var/" + varsubdir]
+
+            rc = util.execWithRedirect(cmd, argv)
+
+            # According to systemd-tmpfiles(8), the return values are:
+            #  0 → success
+            # 65 → so some lines had to be ignored, but no other errors
+            # 73 → configuration ok, but could not be created
+            #  1 → other error
+            # Therefore we ignore error 65, since this is coming from
+            # the payload itself and the actual execution of it was fine
+            if rc not in [0, 65]:
+                exn = PayloadInstallError(
+                    "{} failed for /var/{}".format(cmd, varsubdir))
+                if errors.errorHandler.cb(exn) == errors.ERROR_RAISE:
+                    raise exn
 
         # Handle mounts like /boot (except avoid /boot/efi; we just need the
         # toplevel), and any admin-specified points like /home (really
