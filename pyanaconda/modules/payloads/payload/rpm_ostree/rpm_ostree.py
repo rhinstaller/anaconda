@@ -96,8 +96,7 @@ class RPMOSTreeModule(PayloadBase):
             ),
             ChangeOSTreeRemoteTask(
                 data=ostree_source.configuration,
-                use_root=False,
-                root=conf.target.physical_root
+                physroot=conf.target.physical_root
             ),
             PullRemoteAndDeleteTask(
                 data=ostree_source.configuration
@@ -166,8 +165,7 @@ class RPMOSTreeModule(PayloadBase):
         return [
             ChangeOSTreeRemoteTask(
                 data=ostree_source.configuration,
-                use_root=True,
-                root=conf.target.system_root
+                sysroot=conf.target.system_root
             ),
             ConfigureBootloader(
                 sysroot=conf.target.system_root,
