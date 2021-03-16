@@ -16,12 +16,16 @@
 # Red Hat, Inc.
 #
 import unittest
-from unittest.mock import patch, Mock
+from unittest.mock import patch, Mock, call
 
 from blivet.size import Size, ROUND_UP
+from dnf.callback import STATUS_OK, STATUS_FAILED, PKG_SCRIPTLET
 from dnf.exceptions import MarkingErrors
+from dnf.package import Package
+from dnf.transaction import PKG_INSTALL, TRANS_POST, PKG_VERIFY
 
 from pyanaconda.core.constants import MULTILIB_POLICY_ALL
+from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 
@@ -297,3 +301,177 @@ class DNFMangerTestCase(unittest.TestCase):
                 include_list=["@g1", "p1"],
                 exclude_list=["@g2", "p2"]
             )
+
+    @patch("dnf.base.Base.download_packages")
+    @patch("dnf.base.Base.transaction")
+    def download_packages_test(self, transaction, download_packages):
+        """Test the download_packages method."""
+        callback = Mock()
+        transaction.install_set = ["p1", "p2", "p3"]
+        download_packages.side_effect = self._download_packages
+
+        self.dnf_manager.download_packages(callback)
+
+        callback.assert_has_calls([
+            call('Downloading 3 RPMs, 25 B / 300 B (8%) done.'),
+            call('Downloading 3 RPMs, 75 B / 300 B (25%) done.'),
+            call('Downloading 3 RPMs, 100 B / 300 B (33%) done.'),
+            call('Downloading 3 RPMs, 125 B / 300 B (41%) done.'),
+            call('Downloading 3 RPMs, 175 B / 300 B (58%) done.'),
+            call('Downloading 3 RPMs, 200 B / 300 B (66%) done.'),
+            call('Downloading 3 RPMs, 225 B / 300 B (75%) done.'),
+            call('Downloading 3 RPMs, 275 B / 300 B (91%) done.'),
+            call('Downloading 3 RPMs, 300 B / 300 B (100%) done.')
+        ])
+
+    def _download_packages(self, packages, progress):
+        """Simulate the download of packages."""
+        progress.start(total_files=3, total_size=300)
+
+        for name in packages:
+            payload = Mock()
+            payload.__str__ = Mock(return_value=name)
+            payload.download_size = 100
+
+            progress.last_time = 0
+            progress.progress(payload, 25)
+
+            progress.last_time += 3600
+            progress.progress(payload, 50)
+
+            progress.last_time = 0
+            progress.progress(payload, 75)
+
+            progress.last_time = 0
+            progress.end(payload, STATUS_OK, "Message!")
+
+        self.assertEqual(progress.downloads, {
+            "p1": 100,
+            "p2": 100,
+            "p3": 100
+        })
+
+    @patch("dnf.base.Base.download_packages")
+    @patch("dnf.base.Base.transaction")
+    def download_packages_failed_test(self, transaction, download_packages):
+        """Test the download_packages method with failed packages."""
+        callback = Mock()
+        transaction.install_set = ["p1", "p2", "p3"]
+        download_packages.side_effect = self._download_packages_failed
+
+        self.dnf_manager.download_packages(callback)
+
+        callback.assert_has_calls([
+            call('Downloading 3 RPMs, 25 B / 300 B (8%) done.'),
+            call('Downloading 3 RPMs, 50 B / 300 B (16%) done.'),
+            call('Downloading 3 RPMs, 75 B / 300 B (25%) done.')
+        ])
+
+    def _download_packages_failed(self, packages, progress):
+        """Simulate the failed download of packages."""
+        progress.start(total_files=3, total_size=300)
+
+        for name in packages:
+            payload = Mock()
+            payload.__str__ = Mock(return_value=name)
+            payload.download_size = 100
+
+            progress.last_time = 0
+            progress.progress(payload, 25)
+
+            progress.last_time = 0
+            progress.end(payload, STATUS_FAILED, "Message!")
+
+        self.assertEqual(progress.downloads, {
+            "p1": 25,
+            "p2": 25,
+            "p3": 25
+        })
+
+    @patch("dnf.base.Base.do_transaction")
+    def install_packages_test(self, do_transaction):
+        """Test the install_packages method."""
+        calls = []
+        do_transaction.side_effect = self._install_packages
+
+        self.dnf_manager.install_packages(calls.append)
+
+        self.assertEqual(calls, [
+            'Installing p1.x86_64 (0/3)',
+            'Installing p2.x86_64 (1/3)',
+            'Installing p3.x86_64 (2/3)',
+            'Performing post-installation setup tasks',
+            'Configuring p1.x86_64',
+            'Configuring p2.x86_64',
+            'Configuring p3.x86_64',
+            'Verifying p1.x86_64 (1/3)',
+            'Verifying p2.x86_64 (2/3)',
+            'Verifying p3.x86_64 (3/3)',
+        ])
+
+    def _get_package(self, name):
+        """Get a mocked package of the specified name."""
+        package = Mock(spec=Package)
+        package.name = name
+        package.arch = "x86_64"
+        package.evr = "1.2-3"
+        package.buildtime = 100
+        package.returnIdSum.return_value = ("", "1a2b3c")
+        return package
+
+    def _install_packages(self, progress):
+        """Simulate the installation of packages."""
+        packages = list(map(self._get_package, ["p1", "p2", "p3"]))
+        ts_total = len(packages)
+
+        for ts_done, package in enumerate(packages):
+            progress.progress(package, PKG_INSTALL, 0, 100, ts_done, ts_total)
+            progress.progress(package, PKG_INSTALL, 50, 100, ts_done, ts_total)
+            progress.progress(package, PKG_SCRIPTLET, 75, 100, ts_done, ts_total)
+            progress.progress(package, PKG_INSTALL, 100, 100, ts_done + 1, ts_total)
+
+        progress.progress(None, TRANS_POST, None, None, None, None)
+
+        for ts_done, package in enumerate(packages):
+            progress.progress(package, PKG_SCRIPTLET, 100, 100, ts_done + 1, ts_total)
+
+        for ts_done, package in enumerate(packages):
+            progress.progress(package, PKG_VERIFY, 100, 100, ts_done + 1, ts_total)
+
+    @patch("dnf.base.Base.do_transaction")
+    def install_packages_failed_test(self, do_transaction):
+        """Test the failed install_packages method."""
+        calls = []
+        do_transaction.side_effect = self._install_packages_failed
+
+        with self.assertRaises(PayloadInstallationError) as cm:
+            self.dnf_manager.install_packages(calls.append)
+
+        msg = "An error occurred during the transaction: " \
+              "The p1 package couldn't be installed!"
+
+        self.assertEqual(str(cm.exception), msg)
+        self.assertEqual(calls, [])
+
+    def _install_packages_failed(self, progress):
+        """Simulate the failed installation of packages."""
+        progress.error("The p1 package couldn't be installed!")
+
+    @patch("dnf.base.Base.do_transaction")
+    def install_packages_quit_test(self, do_transaction):
+        """Test the terminated install_packages method."""
+        calls = []
+        do_transaction.side_effect = self._install_packages_quit
+
+        with self.assertRaises(RuntimeError) as cm:
+            self.dnf_manager.install_packages(calls.append)
+
+        msg = "The transaction process has ended abruptly: " \
+              "Something went wrong with the p1 package!"
+
+        self.assertIn(msg, str(cm.exception))
+        self.assertEqual(calls, [])
+
+    def _install_packages_quit(self, progress):
+        """Simulate the terminated installation of packages."""
+        raise IOError("Something went wrong with the p1 package!")

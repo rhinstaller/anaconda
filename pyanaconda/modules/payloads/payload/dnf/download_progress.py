@@ -20,11 +20,11 @@ import time
 
 import dnf
 import dnf.callback
+
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_packaging_logger
 from pyanaconda.core.i18n import _
-from pyanaconda.progress import progressQ
 
 log = get_packaging_logger()
 
@@ -43,40 +43,55 @@ def paced(fn):
 
 
 class DownloadProgress(dnf.callback.DownloadProgress):
-    def __init__(self):
+    """The class for receiving information about an ongoing download."""
+
+    def __init__(self, callback):
+        """Create a new instance.
+
+        :param callback: a progress reporting callback
+        """
         super().__init__()
+        self.callback = callback
         self.downloads = collections.defaultdict(int)
         self.last_time = time.time()
         self.total_files = 0
         self.total_size = Size(0)
+        self.downloaded_size = Size(0)
 
     @paced
-    def _update(self):
-        msg = _('Downloading %(total_files)s RPMs, '
-                '%(downloaded)s / %(total_size)s (%(percent)d%%) done.')
-        downloaded = Size(sum(self.downloads.values()))
-        vals = {
-            'downloaded': downloaded,
-            'percent': int(100 * downloaded / self.total_size),
-            'total_files': self.total_files,
-            'total_size': self.total_size
-        }
-        progressQ.send_message(msg % vals)
+    def _report_progress(self):
+        # Update the downloaded size.
+        self.downloaded_size = Size(sum(self.downloads.values()))
 
-    def end(self, dnf_payload, status, msg):  # pylint: disable=arguments-differ
-        nevra = str(dnf_payload)
+        # Report the progress.
+        msg = _(
+            'Downloading {total_files} RPMs, '
+            '{downloaded_size} / {total_size} '
+            '({total_percent}%) done.'
+        ).format(
+            downloaded_size=self.downloaded_size,
+            total_percent=int(100 * self.downloaded_size / self.total_size),
+            total_files=self.total_files,
+            total_size=self.total_size
+        )
+
+        self.callback(msg)
+
+    def end(self, payload, status, msg):
+        nevra = str(payload)
+
         if status is dnf.callback.STATUS_OK:
-            self.downloads[nevra] = dnf_payload.download_size
-            self._update()
+            self.downloads[nevra] = payload.download_size
+            self._report_progress()
             return
+
         log.warning("Failed to download '%s': %d - %s", nevra, status, msg)
 
-    def progress(self, dnf_payload, done):  # pylint: disable=arguments-differ
-        nevra = str(dnf_payload)
+    def progress(self, payload, done):
+        nevra = str(payload)
         self.downloads[nevra] = done
-        self._update()
+        self._report_progress()
 
-    # TODO: Remove pylint disable after DNF-2.5.0 will arrive in Fedora
-    def start(self, total_files, total_size, total_drpms=0):  # pylint: disable=arguments-differ
+    def start(self, total_files, total_size, total_drpms=0):
         self.total_files = total_files
         self.total_size = Size(total_size)

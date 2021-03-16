@@ -19,13 +19,13 @@ import os
 import tempfile
 import unittest
 
-from unittest.mock import patch, call
+from unittest.mock import patch, call, Mock
 
 from pyanaconda.core.constants import RPM_LANGUAGES_NONE
 from pyanaconda.core.util import join_paths
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
-    SetRPMMacrosTask
+    SetRPMMacrosTask, DownloadPackagesTask, InstallPackagesTask
 
 
 class SetRPMMacrosTaskTestCase(unittest.TestCase):
@@ -206,3 +206,63 @@ class ImportRPMKeysTaskTestCase(unittest.TestCase):
                 ["--import", "/etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-34-s390x"],
                 root=sysroot
             )
+
+
+class DownloadPackagesTaskTestCase(unittest.TestCase):
+
+    def run_test(self):
+        """Run the DownloadPackagesTask class."""
+        callback = Mock()
+
+        dnf_manager = Mock()
+        dnf_manager.download_packages.side_effect = self._download_packages
+
+        task = DownloadPackagesTask(dnf_manager)
+        task.progress_changed_signal.connect(callback)
+        task.run()
+
+        self.assertEqual(task.name, "Download packages")
+        dnf_manager.download_packages.assert_called_once_with(task.report_progress)
+
+        callback.assert_has_calls([
+            call(0, "Downloading packages"),
+            call(0, "Downloaded 0%"),
+            call(0, "Downloaded 50%"),
+            call(0, "Downloaded 100%"),
+        ])
+
+    def _download_packages(self, callback):
+        """Simulate the download of packages."""
+        callback("Downloaded 0%")
+        callback("Downloaded 50%")
+        callback("Downloaded 100%")
+
+
+class InstallPackagesTaskTestCase(unittest.TestCase):
+
+    def run_test(self):
+        """Run the InstallPackagesTask class."""
+        callback = Mock()
+
+        dnf_manager = Mock()
+        dnf_manager.install_packages.side_effect = self._install_packages
+
+        task = InstallPackagesTask(dnf_manager)
+        task.progress_changed_signal.connect(callback)
+        task.run()
+
+        self.assertEqual(task.name, "Install packages")
+        dnf_manager.install_packages.assert_called_once_with(task.report_progress)
+
+        callback.assert_has_calls([
+            call(0, "Preparing transaction from installation source"),
+            call(0, "Installing p1"),
+            call(0, "Installing p2"),
+            call(0, "Installing p3"),
+        ])
+
+    def _install_packages(self, callback):
+        """Simulate the installation of packages."""
+        callback("Installing p1")
+        callback("Installing p2")
+        callback("Installing p3")

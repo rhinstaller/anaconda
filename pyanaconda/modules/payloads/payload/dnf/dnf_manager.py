@@ -17,7 +17,10 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import multiprocessing
 import shutil
+import traceback
+
 import dnf
 import dnf.exceptions
 
@@ -28,8 +31,12 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import DNF_DEFAULT_TIMEOUT, DNF_DEFAULT_RETRIES
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.util import get_os_release_value
+from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 from pyanaconda.modules.payloads.constants import DNF_REPO_DIRS
+from pyanaconda.modules.payloads.payload.dnf.download_progress import DownloadProgress
+from pyanaconda.modules.payloads.payload.dnf.transaction_progress import TransactionProgress, \
+    process_transaction_progress
 from pyanaconda.modules.payloads.payload.dnf.utils import get_product_release_version
 
 log = get_module_logger(__name__)
@@ -269,3 +276,73 @@ class DNFManager(object):
         return exception.error_group_specs \
             or exception.error_pkg_specs \
             or exception.module_depsolv_errors
+
+    def download_packages(self, callback):
+        """Download the packages.
+
+        :param callback: a callback for progress reporting
+        :raise PayloadInstallationError: if the download fails
+        """
+        packages = self._base.transaction.install_set
+        progress = DownloadProgress(callback=callback)
+
+        try:
+            self._base.download_packages(packages, progress)
+        except dnf.exceptions.DownloadError as e:
+            msg = "Failed to download the following packages: " + str(e)
+            raise PayloadInstallationError(msg) from None
+
+    def install_packages(self, callback, timeout=20):
+        """Install the packages.
+
+        :param callback: a callback for progress reporting
+        :param timeout: a time out of a failed process in seconds
+        :raise PayloadInstallationError: if the installation fails
+        """
+        queue = multiprocessing.Queue()
+        display = TransactionProgress(queue)
+        process = multiprocessing.Process(
+            target=self._run_transaction,
+            args=(self._base, display)
+        )
+
+        # Start the transaction.
+        log.debug("Starting the transaction process...")
+        process.start()
+
+        try:
+            # Report the progress.
+            process_transaction_progress(queue, callback)
+
+            # Wait for the transaction to end.
+            process.join()
+        finally:
+            # Kill the transaction after the timeout.
+            process.join(timeout)
+            process.kill()
+            log.debug("The transaction process exited with %s.", process.exitcode)
+
+    @staticmethod
+    def _run_transaction(base, display):
+        """Run the DNF transaction.
+
+        Execute the DNF transaction and catch any errors. An error
+        doesn't always raise a BaseException, so presence of 'quit'
+        without a preceding 'done' message also indicates a problem.
+
+        :param base: the DNF base
+        :param display: the DNF progress-reporting object
+        """
+        log.debug("Running the transaction...")
+        exit_reason = None
+
+        try:
+            base.do_transaction(display)
+            exit_reason = "DNF done"
+        except BaseException as e:  # pylint: disable=broad-except
+            log.error("The transaction has ended abruptly: %s", str(e))
+            exit_reason = str(e) + traceback.format_exc()
+        finally:
+            log.debug("The transaction has ended.")
+            base.close()  # Always close this base.
+            display.quit(exit_reason or "DNF quit")

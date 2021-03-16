@@ -22,6 +22,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import RPM_LANGUAGES_NONE, RPM_LANGUAGES_ALL
+from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 from pyanaconda.modules.common.task import Task
 
@@ -84,6 +85,47 @@ class SetRPMMacrosTask(Task):
         for name, value in macros:
             log.debug("Set '%s' to '%s'.", name, value)
             rpm.addMacro(name, value)
+
+
+class DownloadPackagesTask(Task):
+    """The installation task for downloading the packages."""
+
+    def __init__(self, dnf_manager):
+        """Create a new task.
+
+        :param dnf_manager: a DNF manager
+        """
+        super().__init__()
+        self._dnf_manager = dnf_manager
+
+    @property
+    def name(self):
+        return "Download packages"
+
+    def run(self):
+        self.report_progress(_("Downloading packages"))
+        self._dnf_manager.download_packages(self.report_progress)
+
+
+class InstallPackagesTask(Task):
+    """The installation task for installing the packages."""
+
+    def __init__(self, dnf_manager):
+        """Create a new task.
+
+        :param dnf_manager: a DNF manager
+        """
+        super().__init__()
+        self._dnf_manager = dnf_manager
+
+    @property
+    def name(self):
+        return "Install packages"
+
+    def run(self):
+        """Run the task."""
+        self.report_progress(_("Preparing transaction from installation source"))
+        self._dnf_manager.install_packages(self.report_progress)
 
 
 class ImportRPMKeysTask(Task):
