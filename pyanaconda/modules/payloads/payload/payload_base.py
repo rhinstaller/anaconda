@@ -72,6 +72,18 @@ class PayloadBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         """
         return self._sources
 
+    def _get_source(self, source_type):
+        """Get an attached source object of the specified type.
+
+        :param SourceType source_type: a type of the source
+        :return: a source object or None
+        """
+        for source in self.sources:
+            if source.type == source_type:
+                return source
+
+        return None
+
     def set_sources(self, sources):
         """Set a new list of sources to this payload.
 

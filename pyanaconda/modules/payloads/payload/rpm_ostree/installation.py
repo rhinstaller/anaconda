@@ -53,9 +53,15 @@ def safe_exec_with_redirect(cmd, argv, **kwargs):
 class PrepareOSTreeMountTargetsTask(Task):
     """Task to prepare OSTree mount targets."""
 
-    def __init__(self, sysroot, physroot, source_config):
+    def __init__(self, sysroot, physroot, data):
+        """Create a new task.
+
+        :param str sysroot: a path to the system root
+        :param str physroot: a path to the physical root
+        :param data: an RPM OSTree configuration
+        """
         super().__init__()
-        self._source_config = source_config
+        self._data = data
         self._sysroot = sysroot
         self._physroot = physroot
         self._internal_mounts = []
@@ -118,7 +124,7 @@ class PrepareOSTreeMountTargetsTask(Task):
 
         :param [] existing_mount_points: a list of existing mount points
         """
-        var_root = '/ostree/deploy/' + self._source_config.osname + '/var'
+        var_root = '/ostree/deploy/' + self._data.osname + '/var'
         if existing_mount_points.get("/var") is None:
             self._setup_internal_bindmount(var_root, dest='/var', recurse=False)
         else:
@@ -220,6 +226,11 @@ class CopyBootloaderDataTask(Task):
     """Task to copy OSTree bootloader data."""
 
     def __init__(self, sysroot, physroot):
+        """Create a new task.
+
+        :param str sysroot: a path to the system root
+        :param str physroot: a path to the physical root
+        """
         super().__init__()
         self._sysroot = sysroot
         self._physroot = physroot
@@ -282,7 +293,7 @@ class InitOSTreeFsAndRepoTask(Task):
     def __init__(self, physroot):
         """Create a new task.
 
-        :param str sysroot: path to the physical root
+        :param str physroot: a path to the physical root
         """
         super().__init__()
         self._physroot = physroot
@@ -307,26 +318,66 @@ class InitOSTreeFsAndRepoTask(Task):
 class ChangeOSTreeRemoteTask(Task):
     """Task to change OSTree remote."""
 
-    def __init__(self, data, use_root, root):
+    def __init__(self, data, physroot=None, sysroot=None):
+        """Create a new task.
+
+        Specify the physical root to use it as sysroot, or the system
+        root to use it as sysroot. If you specify both roots, we will
+        use the system root.
+
+        :param str physroot: a path to the physical root or None
+        :param str sysroot: a path to the system root or None
+        """
         super().__init__()
         self._data = data
-        self._use_root = use_root
-        self._root = root
+        self._physroot = physroot
+        self._sysroot = sysroot
 
     @property
     def name(self):
         return "Change OSTree remote"
 
     def run(self):
-        cancellable = None
+        """Run the task.
 
-        sysroot_file = Gio.File.new_for_path(self._root)
+        At the beginning of the installation, we use the physical root
+        as sysroot, because we haven't yet made a deployment.
+
+        At the end of the installation, we use the system root as sysroot.
+        Following up on the "remote delete" earlier, we removed the remote
+        from /ostree/repo/config. But we want it in /etc, so re-add it to
+        /etc/ostree/remotes.d, using the sysroot path. However, we ignore
+        the case where the remote already exists, which occurs when the
+        content itself provides the remote config file. Note here we use
+        the deployment as sysroot, because it's that version of /etc that
+        we want.
+        """
+        sysroot_file = Gio.File.new_for_path(
+            self._sysroot or self._physroot
+        )
+
+        # Create a new object for the sysroot.
         sysroot = OSTree.Sysroot.new(sysroot_file)
-        sysroot.load(cancellable)
+        sysroot.load(cancellable=None)
+
+        # Retrieve the OSTree repository in the sysroot.
         repo = sysroot.get_repo(None)[1]
-        # We don't support resuming from interrupted installs
+
+        # We don't support resuming from interrupted installs.
         repo.set_disable_fsync(True)
 
+        # Add a remote if it doesn't exist.
+        repo.remote_change(
+            sysroot_file if self._sysroot else None,
+            OSTree.RepoRemoteChange.ADD_IF_NOT_EXISTS,
+            self._data.remote,
+            self._data.url,
+            self._get_remote_options(),
+            cancellable=None
+        )
+
+    def _get_remote_options(self):
+        """Get the remote options."""
         remote_options = {}
 
         if not self._data.gpg_verification_enabled:
@@ -335,26 +386,19 @@ class ChangeOSTreeRemoteTask(Task):
         if not conf.payload.verify_ssl:
             remote_options['tls-permissive'] = Variant('b', True)
 
-        if self._use_root:
-            root = sysroot_file
-        else:
-            root = None
-
-        repo.remote_change(root,
-                           OSTree.RepoRemoteChange.ADD_IF_NOT_EXISTS,
-                           self._data.remote,
-                           self._data.url,
-                           Variant('a{sv}', remote_options),
-                           cancellable)
+        return Variant('a{sv}', remote_options)
 
 
 class ConfigureBootloader(Task):
     """Task to configure bootloader after OSTree setup."""
 
-    def __init__(self, sysroot, is_dirinstall):
+    def __init__(self, sysroot):
+        """Create a new task.
+
+        :param str sysroot: a path to the system root
+        """
         super().__init__()
         self._sysroot = sysroot
-        self._is_dirinstall = is_dirinstall
 
     @property
     def name(self):
@@ -382,7 +426,7 @@ class ConfigureBootloader(Task):
         """
 
         # Skip kernel args setup for dirinstall, there is no bootloader or rootDevice setup.
-        if self._is_dirinstall:
+        if conf.target.is_directory:
             return
 
         bootloader = STORAGE.get_proxy(BOOTLOADER)
@@ -406,10 +450,15 @@ class ConfigureBootloader(Task):
 class DeployOSTreeTask(Task):
     """Task to deploy OSTree."""
 
-    def __init__(self, data, sysroot):
+    def __init__(self, data, physroot):
+        """Create a new task.
+
+        :param str physroot: a path to the physical root
+        :param data: an RPM OSTree configuration
+        """
         super().__init__()
         self._data = data
-        self._sysroot = sysroot
+        self._physroot = physroot
 
     @property
     def name(self):
@@ -424,7 +473,7 @@ class DeployOSTreeTask(Task):
         safe_exec_with_redirect(
             "ostree",
             ["admin",
-             "--sysroot=" + self._sysroot,
+             "--sysroot=" + self._physroot,
              "os-init",
              self._data.osname]
         )
@@ -434,7 +483,7 @@ class DeployOSTreeTask(Task):
         safe_exec_with_redirect(
             "ostree",
             ["admin",
-             "--sysroot=" + self._sysroot,
+             "--sysroot=" + self._physroot,
              "deploy",
              "--os=" + self._data.osname,
              self._data.remote + ':' + ref]
@@ -448,6 +497,10 @@ class PullRemoteAndDeleteTask(Task):
     """Task to pull an OSTree remote and delete it."""
 
     def __init__(self, data):
+        """Create a new task.
+
+        :param data: an RPM OSTree configuration
+        """
         super().__init__()
         self._data = data
 
@@ -545,8 +598,13 @@ class PullRemoteAndDeleteTask(Task):
 
 
 class SetSystemRootTask(Task):
+    """The installation task for setting up the system root."""
 
     def __init__(self, physroot):
+        """Create a new task.
+
+        :param str physroot: a path to the physical root
+        """
         super().__init__()
         self._physroot = physroot
 
@@ -555,6 +613,7 @@ class SetSystemRootTask(Task):
         return "Set OSTree system root"
 
     def run(self):
+        """Reload and find the path to the new deployment."""
         sysroot_file = Gio.File.new_for_path(self._physroot)
         sysroot = OSTree.Sysroot.new(sysroot_file)
         sysroot.load(None)

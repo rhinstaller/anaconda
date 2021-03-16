@@ -35,17 +35,17 @@ class InstallFlatpaksTask(Task):
 
     @property
     def name(self):
-        return "Install Flatpaks"
+        return "Install Flatpak applications"
 
     def run(self):
-        self.report_progress(_("Starting Flatpak installation"))
+        self.report_progress(_("Installing Flatpak applications"))
         flatpak_manager = FlatpakManager(self._sysroot)
 
         # Initialize new repo on the installed system
         flatpak_manager.initialize_with_system_path()
         flatpak_manager.install_all()
 
-        self.report_progress(_("Post-installation flatpak tasks"))
+        self.report_progress(_("Performing post-installation Flatpak tasks"))
         flatpak_manager.add_remote("fedora", "oci+https://registry.fedoraproject.org")
         flatpak_manager.replace_installed_refs_remote("fedora")
         flatpak_manager.remove_remote(FlatpakManager.LOCAL_REMOTE_NAME)

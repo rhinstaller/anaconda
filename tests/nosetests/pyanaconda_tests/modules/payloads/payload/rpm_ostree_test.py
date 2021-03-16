@@ -17,12 +17,19 @@
 #
 import unittest
 
-from pyanaconda.core.constants import SOURCE_TYPE_RPM_OSTREE
-from pyanaconda.modules.payloads.constants import PayloadType
+from pyanaconda.core.constants import SOURCE_TYPE_RPM_OSTREE, SOURCE_TYPE_FLATPAK
+from pyanaconda.modules.payloads.base.initialization import TearDownSourcesTask
+from pyanaconda.modules.payloads.constants import PayloadType, SourceType
+from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_installation import InstallFlatpaksTask
+from pyanaconda.modules.payloads.payload.rpm_ostree.installation import InitOSTreeFsAndRepoTask, \
+    ChangeOSTreeRemoteTask, PullRemoteAndDeleteTask, DeployOSTreeTask, SetSystemRootTask, \
+    PrepareOSTreeMountTargetsTask, CopyBootloaderDataTask, TearDownOSTreeMountTargetsTask, \
+    ConfigureBootloader
 from pyanaconda.modules.payloads.payload.rpm_ostree.rpm_ostree import RPMOSTreeModule
 from pyanaconda.modules.payloads.payload.rpm_ostree.rpm_ostree_interface import RPMOSTreeInterface
 from pyanaconda.modules.payloads.payloads import PayloadsService
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
+from pyanaconda.modules.payloads.source.factory import SourceFactory
 
 from tests.nosetests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
     PayloadSharedTest, PayloadKickstartSharedTest
@@ -48,7 +55,8 @@ class RPMOSTreeInterfaceTestCase(unittest.TestCase):
     def supported_sources_test(self):
         """Test the SupportedSourceTypes property."""
         self.assertEqual(self.interface.SupportedSourceTypes, [
-            SOURCE_TYPE_RPM_OSTREE
+            SOURCE_TYPE_RPM_OSTREE,
+            SOURCE_TYPE_FLATPAK,
         ])
 
 
@@ -98,3 +106,107 @@ class RPMOSTreeKickstartTestCase(unittest.TestCase):
         """
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_RPM_OSTREE)
+
+
+class RPMOSTreeModuleTestCase(unittest.TestCase):
+    """Test the RPM OSTree module."""
+
+    def setUp(self):
+        self.maxDiff = None
+        self.module = RPMOSTreeModule()
+
+    def _assert_is_instance_list(self, objects, classes):
+        """Check if objects are instances of classes."""
+        self.assertEqual(len(objects), len(classes))
+
+        for obj, cls in zip(objects, classes):
+            self.assertIsInstance(obj, cls)
+
+    def get_kernel_version_list_test(self):
+        """Test the get_kernel_version_list method."""
+        self.assertEqual(self.module.get_kernel_version_list(), [])
+
+    def install_with_tasks_test(self):
+        """Test the install_with_tasks method."""
+        self.assertEqual(self.module.install_with_tasks(), [])
+
+        rpm_source = SourceFactory.create_source(SourceType.RPM_OSTREE)
+        self.module.set_sources([rpm_source])
+
+        tasks = self.module.install_with_tasks()
+        self._assert_is_instance_list(tasks, [
+            InitOSTreeFsAndRepoTask,
+            ChangeOSTreeRemoteTask,
+            PullRemoteAndDeleteTask,
+            DeployOSTreeTask,
+            SetSystemRootTask,
+            CopyBootloaderDataTask,
+            PrepareOSTreeMountTargetsTask,
+        ])
+
+        flatpak_source = SourceFactory.create_source(SourceType.FLATPAK)
+        self.module.set_sources([rpm_source, flatpak_source])
+
+        tasks = self.module.install_with_tasks()
+        self._assert_is_instance_list(tasks, [
+            InitOSTreeFsAndRepoTask,
+            ChangeOSTreeRemoteTask,
+            PullRemoteAndDeleteTask,
+            DeployOSTreeTask,
+            SetSystemRootTask,
+            CopyBootloaderDataTask,
+            PrepareOSTreeMountTargetsTask,
+            InstallFlatpaksTask,
+        ])
+
+    def collect_mount_points_test(self):
+        """Collect mount points from successful tasks."""
+        rpm_source = SourceFactory.create_source(SourceType.RPM_OSTREE)
+        self.module.set_sources([rpm_source])
+        tasks = self.module.install_with_tasks()
+
+        for task in tasks:
+            # Fake the task results.
+            task_id = task.__class__.__name__
+            task._set_result([
+                "/path/{}/1".format(task_id),
+                "/path/{}/2".format(task_id)
+            ])
+
+            # Fake the task run.
+            task.succeeded_signal.emit()
+
+        self.assertEqual(self.module._internal_mounts, [
+            "/path/PrepareOSTreeMountTargetsTask/1",
+            "/path/PrepareOSTreeMountTargetsTask/2"
+        ])
+
+    def post_install_with_tasks_test(self):
+        """Test the post_install_with_tasks method."""
+        self.assertEqual(self.module.post_install_with_tasks(), [])
+
+        rpm_source = SourceFactory.create_source(SourceType.RPM_OSTREE)
+        self.module.set_sources([rpm_source])
+
+        tasks = self.module.post_install_with_tasks()
+        self._assert_is_instance_list(tasks, [
+            ChangeOSTreeRemoteTask,
+            ConfigureBootloader,
+        ])
+
+    def tear_down_with_tasks_test(self):
+        """Test the tear_down_with_tasks method."""
+        rpm_source = SourceFactory.create_source(SourceType.RPM_OSTREE)
+
+        self.module.set_sources([rpm_source])
+        self.module._add_internal_mounts(["/path/1", "/path/2"])
+
+        tasks = self.module.tear_down_with_tasks()
+
+        self._assert_is_instance_list(tasks, [
+            TearDownSourcesTask,
+            TearDownOSTreeMountTargetsTask
+        ])
+
+        self.assertEqual(tasks[0]._sources, [rpm_source])
+        self.assertEqual(tasks[1]._internal_mounts, ["/path/1", "/path/2"])

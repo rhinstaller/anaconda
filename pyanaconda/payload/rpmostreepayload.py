@@ -17,14 +17,17 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.constants import PAYLOAD_TYPE_RPM_OSTREE, SOURCE_TYPE_RPM_OSTREE
-from pyanaconda.modules.common.structures.rpm_ostree import RPMOSTreeConfigurationData
+from blivet.size import Size
+
+from dasbus.client.proxy import get_object_path
+
+from pyanaconda.core.constants import PAYLOAD_TYPE_RPM_OSTREE, SOURCE_TYPE_RPM_OSTREE, \
+    SOURCE_TYPE_FLATPAK
+from pyanaconda.modules.common.constants.services import PAYLOADS
+from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.progress import progressQ
 from pyanaconda.payload.base import Payload
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.ui.lib.payload import get_payload, get_source, set_up_sources, tear_down_sources
-
-from blivet.size import Size
+from pyanaconda.ui.lib.payload import get_payload, get_source, set_up_sources, create_source
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -36,8 +39,18 @@ class RPMOSTreePayload(Payload):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._payload_proxy = get_payload(self.type)
-        self._remoteOptions = None
-        self._internal_mounts = []
+
+    def set_from_opts(self, opts):
+        """Add the flatpak source if available."""
+        flatpak_source = create_source(SOURCE_TYPE_FLATPAK)
+
+        if not flatpak_source.IsAvailable():
+            log.debug("The flatpak source is not available.")
+            return
+
+        sources = self.proxy.Sources
+        sources.append(get_object_path(flatpak_source))
+        self.proxy.SetSources(sources)
 
     @property
     def type(self):
@@ -54,26 +67,15 @@ class RPMOSTreePayload(Payload):
         source_proxy = self.get_source_proxy()
         return source_proxy.Type
 
-    def _get_source_configuration(self):
-        """Get the configuration of the RPM OSTree source.
-
-        :return: an instance of RPMOSTreeConfigurationData
-        """
-        source_proxy = self.get_source_proxy()
-
-        return RPMOSTreeConfigurationData.from_structure(
-            source_proxy.Configuration
-        )
-
     @property
     def kernel_version_list(self):
-        # OSTree handles bootloader configuration
-        return []
+        """Get the kernel version list."""
+        return self.service_proxy.GetKernelVersionList()
 
     @property
     def space_required(self):
-        # We don't have this data with OSTree at the moment
-        return Size("500 MB")
+        """Get the required space."""
+        return Size(self.service_proxy.CalculateRequiredSpace())
 
     @property
     def needs_network(self):
@@ -81,157 +83,38 @@ class RPMOSTreePayload(Payload):
         return self.service_proxy.IsNetworkRequired()
 
     def setup(self):
-        """Do any payload-specific setup."""
-        super().setup()
+        """Set up the sources."""
         set_up_sources(self.proxy)
 
-    def _progress_cb(self, step, message):
-        """Callback for task progress reporting."""
-        progressQ.send_message(message)
+    def pre_install(self):
+        """Run the pre-installation tasks."""
+        log.debug("Nothing to do in the pre-install step.")
 
     def install(self):
-        # This is top installation method
-        # TODO: Broke this to pieces when ostree payload is migrated to the DBus solution
-        data = self._get_source_configuration()
-
-        # download and install the ostree image
-        self._install(data)
-
-        # prepare mountpoints of the installed system
-        self._prepare_mount_targets(data)
-
-    def _install(self, data):
-        log.info("executing ostreesetup=%r", data)
-
-        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
-            InitOSTreeFsAndRepoTask
-        task = InitOSTreeFsAndRepoTask(conf.target.physical_root)
-        task.run()
-
-        # Here, we use the physical root as sysroot, because we haven't
-        # yet made a deployment.
-        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
-            ChangeOSTreeRemoteTask
-        task = ChangeOSTreeRemoteTask(
-            data,
-            use_root=False,
-            root=conf.target.physical_root
-        )
-        task.run()
-
-        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
-            PullRemoteAndDeleteTask
-        task = PullRemoteAndDeleteTask(data)
-        task.progress_changed_signal.connect(self._progress_cb)
-        task.run()
-
-        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import DeployOSTreeTask
-        task = DeployOSTreeTask(data, conf.target.physical_root)
-        task.progress_changed_signal.connect(self._progress_cb)
-        task.run()
-
-        # Reload now that we've deployed, find the path to the new deployment
-        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import SetSystemRootTask
-        task = SetSystemRootTask(conf.target.physical_root)
-        task.run()
-
-        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
-            CopyBootloaderDataTask
-        task = CopyBootloaderDataTask(
-            sysroot=conf.target.system_root,
-            physroot=conf.target.physical_root
-        )
-        task.run()
-
-    def _prepare_mount_targets(self, data):
-        """ Prepare the ostree root """
-        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
-            PrepareOSTreeMountTargetsTask
-        task = PrepareOSTreeMountTargetsTask(
-            sysroot=conf.target.system_root,
-            physroot=conf.target.physical_root,
-            source_config=data
-        )
-        bindmounts = task.run()
-        self._internal_mounts.extend(bindmounts)
-
-    def unsetup(self):
-        """Invalidate a previously setup payload."""
-        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
-            TearDownOSTreeMountTargetsTask
-        task = TearDownOSTreeMountTargetsTask(
-            mount_points=self._internal_mounts
-        )
-        task.run()
-
-        tear_down_sources(self.proxy)
+        """Run the installation tasks."""
+        task_paths = self.service_proxy.InstallWithTasks()
+        self._run_tasks(task_paths, self._progress_cb)
 
     def post_install(self):
-        super().post_install()
-        data = self._get_source_configuration()
+        """Run the post-installation tasks."""
+        task_paths = self.service_proxy.PostInstallWithTasks()
+        self._run_tasks(task_paths)
 
-        # Following up on the "remote delete" earlier, we removed the remote from
-        # /ostree/repo/config.  But we want it in /etc, so re-add it to /etc/ostree/remotes.d,
-        # using the sysroot path.
-        #
-        # However, we ignore the case where the remote already exists, which occurs when the
-        # content itself provides the remote config file.
-        #
-        # Note here we use the deployment as sysroot, because it's that version of /etc that we
-        # want.
-
-        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
-            ChangeOSTreeRemoteTask
-        task = ChangeOSTreeRemoteTask(
-            data,
-            use_root=True,
-            root=conf.target.system_root
-        )
-        task.run()
-
-        # Handle bootloader configuration
-        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
-            ConfigureBootloader
-        task = ConfigureBootloader(
-            sysroot=conf.target.system_root,
-            is_dirinstall=conf.target.is_directory
-        )
-        task.run()
-
-
-class RPMOSTreePayloadWithFlatpaks(RPMOSTreePayload):
-
-    def __init__(self, *args, **kwargs):
-        """Variant of rpmostree payload with flatpak support.
-
-        This variant will be used if flatpaks are available for system.
-        """
-        super().__init__(*args, **kwargs)
-
-        # find Flatpak installation size and cache it
-        from pyanaconda.modules.payloads.source.flatpak.initialization import \
-            GetFlatpaksSizeTask
-        task = GetFlatpaksSizeTask(conf.target.system_root)
-        self._flatpak_required_size = Size(task.run())
-
-    @property
-    def space_required(self):
-        return super().space_required + self._flatpak_required_size
-
-    def install(self):
-        # install ostree payload first
-        super().install()
-
-        # then flatpaks
-        self._flatpak_install()
+    def unsetup(self):
+        """Tear down the sources and the payload."""
+        task_paths = self.service_proxy.TeardownWithTasks()
+        self._run_tasks(task_paths)
 
     def _progress_cb(self, step, message):
         """Callback for task progress reporting."""
         progressQ.send_message(message)
 
-    def _flatpak_install(self):
-        from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_installation import \
-            InstallFlatpaksTask
-        task = InstallFlatpaksTask(conf.target.system_root)
-        task.progress_changed_signal.connect(self._progress_cb)
-        task.run()
+    def _run_tasks(self, task_paths, progress_cb=None):
+        """Run the given remote tasks of the Payload module."""
+        for task_path in task_paths:
+            task_proxy = PAYLOADS.get_proxy(task_path)
+
+            if progress_cb:
+                task_proxy.ProgressChanged.connect(progress_cb)
+
+            sync_run_task(task_proxy)

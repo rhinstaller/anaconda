@@ -17,6 +17,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet.size import Size
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.core.signal import Signal
@@ -86,8 +88,7 @@ class RPMOSTreeSourceModule(PayloadSourceBase):
         :return: required size in bytes
         :rtype: int
         """
-        # TODO: Implement this method.
-        return 0
+        return Size("500 MB").get_bytes()
 
     def get_state(self):
         """Get state of this source."""
