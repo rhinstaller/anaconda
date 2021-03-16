@@ -95,27 +95,27 @@ class RPMOSTreeModule(PayloadBase):
                 physroot=conf.target.physical_root
             ),
             ChangeOSTreeRemoteTask(
-                data=ostree_source.configuration,
-                physroot=conf.target.physical_root
+                physroot=conf.target.physical_root,
+                data=ostree_source.configuration
             ),
             PullRemoteAndDeleteTask(
                 data=ostree_source.configuration
             ),
             DeployOSTreeTask(
-                data=ostree_source.configuration,
-                sysroot=conf.target.physical_root
+                physroot=conf.target.physical_root,
+                data=ostree_source.configuration
             ),
             SetSystemRootTask(
                 physroot=conf.target.physical_root
             ),
             CopyBootloaderDataTask(
-                sysroot=conf.target.system_root,
-                physroot=conf.target.physical_root
+                physroot=conf.target.physical_root,
+                sysroot=conf.target.system_root
             ),
             PrepareOSTreeMountTargetsTask(
-                sysroot=conf.target.system_root,
                 physroot=conf.target.physical_root,
-                source_config=ostree_source.configuration
+                sysroot=conf.target.system_root,
+                data=ostree_source.configuration
             )
         ]
 
@@ -169,7 +169,6 @@ class RPMOSTreeModule(PayloadBase):
             ),
             ConfigureBootloader(
                 sysroot=conf.target.system_root,
-                is_dirinstall=conf.target.is_directory
             )
         ]
 

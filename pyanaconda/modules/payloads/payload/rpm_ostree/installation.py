@@ -53,9 +53,15 @@ def safe_exec_with_redirect(cmd, argv, **kwargs):
 class PrepareOSTreeMountTargetsTask(Task):
     """Task to prepare OSTree mount targets."""
 
-    def __init__(self, sysroot, physroot, source_config):
+    def __init__(self, sysroot, physroot, data):
+        """Create a new task.
+
+        :param str sysroot: a path to the system root
+        :param str physroot: a path to the physical root
+        :param data: an RPM OSTree configuration
+        """
         super().__init__()
-        self._source_config = source_config
+        self._data = data
         self._sysroot = sysroot
         self._physroot = physroot
         self._internal_mounts = []
@@ -118,7 +124,7 @@ class PrepareOSTreeMountTargetsTask(Task):
 
         :param [] existing_mount_points: a list of existing mount points
         """
-        var_root = '/ostree/deploy/' + self._source_config.osname + '/var'
+        var_root = '/ostree/deploy/' + self._data.osname + '/var'
         if existing_mount_points.get("/var") is None:
             self._setup_internal_bindmount(var_root, dest='/var', recurse=False)
         else:
@@ -220,6 +226,11 @@ class CopyBootloaderDataTask(Task):
     """Task to copy OSTree bootloader data."""
 
     def __init__(self, sysroot, physroot):
+        """Create a new task.
+
+        :param str sysroot: a path to the system root
+        :param str physroot: a path to the physical root
+        """
         super().__init__()
         self._sysroot = sysroot
         self._physroot = physroot
@@ -282,7 +293,7 @@ class InitOSTreeFsAndRepoTask(Task):
     def __init__(self, physroot):
         """Create a new task.
 
-        :param str sysroot: path to the physical root
+        :param str physroot: a path to the physical root
         """
         super().__init__()
         self._physroot = physroot
@@ -381,10 +392,13 @@ class ChangeOSTreeRemoteTask(Task):
 class ConfigureBootloader(Task):
     """Task to configure bootloader after OSTree setup."""
 
-    def __init__(self, sysroot, is_dirinstall):
+    def __init__(self, sysroot):
+        """Create a new task.
+
+        :param str sysroot: a path to the system root
+        """
         super().__init__()
         self._sysroot = sysroot
-        self._is_dirinstall = is_dirinstall
 
     @property
     def name(self):
@@ -412,7 +426,7 @@ class ConfigureBootloader(Task):
         """
 
         # Skip kernel args setup for dirinstall, there is no bootloader or rootDevice setup.
-        if self._is_dirinstall:
+        if conf.target.is_directory:
             return
 
         bootloader = STORAGE.get_proxy(BOOTLOADER)
@@ -436,10 +450,15 @@ class ConfigureBootloader(Task):
 class DeployOSTreeTask(Task):
     """Task to deploy OSTree."""
 
-    def __init__(self, data, sysroot):
+    def __init__(self, data, physroot):
+        """Create a new task.
+
+        :param str physroot: a path to the physical root
+        :param data: an RPM OSTree configuration
+        """
         super().__init__()
         self._data = data
-        self._sysroot = sysroot
+        self._physroot = physroot
 
     @property
     def name(self):
@@ -454,7 +473,7 @@ class DeployOSTreeTask(Task):
         safe_exec_with_redirect(
             "ostree",
             ["admin",
-             "--sysroot=" + self._sysroot,
+             "--sysroot=" + self._physroot,
              "os-init",
              self._data.osname]
         )
@@ -464,7 +483,7 @@ class DeployOSTreeTask(Task):
         safe_exec_with_redirect(
             "ostree",
             ["admin",
-             "--sysroot=" + self._sysroot,
+             "--sysroot=" + self._physroot,
              "deploy",
              "--os=" + self._data.osname,
              self._data.remote + ':' + ref]
@@ -478,6 +497,10 @@ class PullRemoteAndDeleteTask(Task):
     """Task to pull an OSTree remote and delete it."""
 
     def __init__(self, data):
+        """Create a new task.
+
+        :param data: an RPM OSTree configuration
+        """
         super().__init__()
         self._data = data
 
@@ -580,7 +603,7 @@ class SetSystemRootTask(Task):
     def __init__(self, physroot):
         """Create a new task.
 
-        :param str physroot: path to the physical root
+        :param str physroot: a path to the physical root
         """
         super().__init__()
         self._physroot = physroot

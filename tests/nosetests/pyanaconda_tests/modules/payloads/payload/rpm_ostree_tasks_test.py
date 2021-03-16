@@ -473,7 +473,7 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
             os.makedirs(sysroot + "/boot/grub2")
             os.mknod(sysroot + "/boot/grub2/grub.cfg")
 
-            task = ConfigureBootloader(sysroot, is_dirinstall=False)
+            task = ConfigureBootloader(sysroot)
             task.run()
 
             rename_mock.assert_called_once_with(
@@ -508,7 +508,7 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
             os.makedirs(sysroot + "/boot/grub2")
             os.mknod(sysroot + "/boot/grub2/grub.cfg")
 
-            task = ConfigureBootloader(sysroot, is_dirinstall=False)
+            task = ConfigureBootloader(sysroot)
             task.run()
 
             rename_mock.assert_called_once_with(
@@ -528,21 +528,16 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.safe_exec_with_redirect")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.rename")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.symlink")
-    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
-    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.DeviceData")
-    def dir_run_test(self, devdata_mock, storage_mock, symlink_mock, rename_mock, exec_mock):
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.conf")
+    def dir_run_test(self, conf_mock, symlink_mock, rename_mock, exec_mock):
         """Test OSTree bootloader config task, dirinstall"""
-        proxy_mock = storage_mock.get_proxy()
-        proxy_mock.GetArguments.return_value = ["BOOTLOADER-ARGS"]
-        proxy_mock.GetFstabSpec.return_value = "FSTAB-SPEC"
-        proxy_mock.GetRootDevice.return_value = "device-name"
-        devdata_mock.from_structure.return_value.type = "something-non-btrfs-subvolume-ish"
+        conf_mock.target.is_directory = True
 
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(sysroot + "/boot/grub2")
             os.mknod(sysroot + "/boot/grub2/grub.cfg")
 
-            task = ConfigureBootloader(sysroot, is_dirinstall=True)
+            task = ConfigureBootloader(sysroot)
             task.run()
 
             rename_mock.assert_called_once_with(
