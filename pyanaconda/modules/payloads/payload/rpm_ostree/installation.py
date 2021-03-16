@@ -360,34 +360,59 @@ class InitOSTreeFsAndRepoTask(Task):
 class ChangeOSTreeRemoteTask(Task):
     """Task to change OSTree remote."""
 
-    def __init__(self, data, use_root, root):
+    def __init__(self, data, physroot=None, sysroot=None):
+        """Create a new task.
+
+        Specify the physical root to use it as sysroot, or the system
+        root to use it as sysroot. If you specify both roots, we will
+        use the system root.
+
+        :param str physroot: a path to the physical root or None
+        :param str sysroot: a path to the system root or None
+        """
         super().__init__()
         self._data = data
-        self._use_root = use_root
-        self._root = root
+        self._physroot = physroot
+        self._sysroot = sysroot
 
     @property
     def name(self):
         return "Change OSTree remote"
 
     def run(self):
-        cancellable = None
+        """Run the task.
 
-        sysroot_file = Gio.File.new_for_path(self._root)
+        At the beginning of the installation, we use the physical root
+        as sysroot, because we haven't yet made a deployment.
+
+        At the end of the installation, we use the system root as sysroot.
+        Following up on the "remote delete" earlier, we removed the remote
+        from /ostree/repo/config. But we want it in /etc, so re-add it to
+        /etc/ostree/remotes.d, using the sysroot path. However, we ignore
+        the case where the remote already exists, which occurs when the
+        content itself provides the remote config file. Note here we use
+        the deployment as sysroot, because it's that version of /etc that
+        we want.
+        """
+        sysroot_file = Gio.File.new_for_path(
+            self._sysroot or self._physroot
+        )
+
+        # Create a new object for the sysroot.
         sysroot = OSTree.Sysroot.new(sysroot_file)
-        sysroot.load(cancellable)
-        repo = sysroot.get_repo(None)[1]
-        # We don't support resuming from interrupted installs
-        repo.set_disable_fsync(True)
+        sysroot.load(cancellable=None)
 
-        # Remote is set or it should be named as stateroot is
-        remote = self._data.remote or _get_stateroot(self._data)
+        # Retrieve the OSTree repository in the sysroot.
+        repo = sysroot.get_repo(None)[1]
+
+        # We don't support resuming from interrupted installs.
+        repo.set_disable_fsync(True)
 
         # Add a remote if it doesn't exist.
         repo.remote_change(
             sysroot_file if self._sysroot else None,
             OSTree.RepoRemoteChange.ADD_IF_NOT_EXISTS,
-            remote,
+            self._data.remote,
             self._data.url,
             self._get_remote_options(),
             cancellable=None
@@ -403,17 +428,7 @@ class ChangeOSTreeRemoteTask(Task):
         if not conf.payload.verify_ssl:
             remote_options['tls-permissive'] = Variant('b', True)
 
-        if self._use_root:
-            root = sysroot_file
-        else:
-            root = None
-
-        repo.remote_change(root,
-                           OSTree.RepoRemoteChange.ADD_IF_NOT_EXISTS,
-                           self._data.remote,
-                           self._data.url,
-                           Variant('a{sv}', remote_options),
-                           cancellable)
+        return Variant('a{sv}', remote_options)
 
 
 class ConfigureBootloader(Task):

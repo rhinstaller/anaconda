@@ -100,17 +100,16 @@ class RPMOSTreeModule(PayloadBase):
                 physroot=conf.target.physical_root
             ),
             ChangeOSTreeRemoteTask(
-                data=data,
+                data=ostree_source.configuration,
                 physroot=conf.target.physical_root
-            )
-        ]
+            )]
 
         # separate pulling of the container will be handled by deployment on the container
         # otherwise handled by Deploy task
         if not data.is_container():
             tasks.append(
                 PullRemoteAndDeleteTask(
-                    data=data,
+                    data=ostree_source.configuration
                 ))
 
         tasks += [
