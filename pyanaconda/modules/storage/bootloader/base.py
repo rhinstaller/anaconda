@@ -784,12 +784,16 @@ class BootLoader(object):
                     continue
 
                 if isinstance(dep, blivet.devices.FcoeDiskDevice):
+                    log.debug("Getting dracut arguments for FCoE device %s", dep)
                     setup_args = fcoe_proxy.GetDracutArguments(dep.nic)
                 elif isinstance(dep, blivet.devices.iScsiDiskDevice):
                     # (partial) offload devices do not need setup in dracut
                     if not dep.offload:
+                        log.debug("Getting dracut arguments for iSCSI device %s", dep)
                         node = _get_iscsi_node_from_device(dep)
                         setup_args = iscsi_proxy.GetDracutArguments(Node.to_structure(node))
+                    else:
+                        log.debug("No need for dracut arguments for offload iSCSI device %s", dep)
                 else:
                     setup_args = dep.dracut_setup_args()
 

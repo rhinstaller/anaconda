@@ -81,6 +81,8 @@ class FCOEModule(KickstartBaseModule):
 
         FIXME: This is just a temporary method taken from blivet.
         """
+        log.debug("Getting dracut arguments for FCoE nic %s", nic)
+
         dcb = True
 
         for _nic, _dcb, _auto_vlan in fcoe().nics:
