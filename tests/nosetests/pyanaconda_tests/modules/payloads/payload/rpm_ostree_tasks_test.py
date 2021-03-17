@@ -46,9 +46,11 @@ def _make_config_data():
 
 class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
 
-    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.safe_exec_with_redirect")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
     def setup_internal_bindmount_test(self, exec_mock):
         """Test OSTree mount target prepare task _setup_internal_bindmount()"""
+        exec_mock.return_value = 0
+
         data = _make_config_data()
         task = PrepareOSTreeMountTargetsTask("/sysroot", "/physroot", data)
         self.assertEqual(len(task._internal_mounts), 0)
@@ -92,11 +94,13 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
         task._internal_mounts.clear()
         exec_mock.reset_mock()
 
-    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.safe_exec_with_redirect")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.mkdirChain")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
     def run_with_var_test(self, storage_mock, mkdir_mock, exec_mock):
         """Test OSTree mount target prepare task run() with /var"""
+        exec_mock.return_value = 0
+
         data = _make_config_data()
         devicetree_mock = storage_mock.get_proxy()
 
@@ -147,11 +151,13 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
         self.assertEqual(len(exec_mock.mock_calls), 20)
         mkdir_mock.assert_called_once_with("/sysroot/var/lib")
 
-    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.safe_exec_with_redirect")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.mkdirChain")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
     def run_without_var_test(self, storage_mock, mkdir_mock, exec_mock):
         """Test OSTree mount target prepare task run() without /var"""
+        exec_mock.side_effect = [0] * 7 + [0, 65] * 5 + [0] * 3
+
         data = _make_config_data()
         devicetree_mock = storage_mock.get_proxy()
 
@@ -200,6 +206,27 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
         ])
         self.assertEqual(len(exec_mock.mock_calls), 20)
         mkdir_mock.assert_called_once_with("/sysroot/var/lib")
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.mkdirChain")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
+    def run_failed_test(self, storage_mock, mkdir_mock, exec_mock):
+        """Test the failed OSTree mount target prepare task."""
+        exec_mock.return_value = 1
+
+        data = _make_config_data()
+        devicetree_mock = storage_mock.get_proxy()
+
+        devicetree_mock.GetMountPoints.return_value = {
+            "/": "somewhere", "/etc": "elsewhere", "/home": "here"
+        }
+        task = PrepareOSTreeMountTargetsTask("/sysroot", "/physroot", data)
+
+        with self.assertRaises(PayloadInstallationError) as cm:
+            task.run()
+
+        msg = "The command 'mount --bind /sysroot/usr /sysroot/usr' exited with the code 1."
+        self.assertEqual(str(cm.exception), msg)
 
 
 class TearDownOSTreeMountTargetsTaskTestCase(unittest.TestCase):
@@ -270,12 +297,14 @@ class CopyBootloaderDataTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.path.isdir")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.listdir")
-    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.safe_exec_with_redirect")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.path.islink")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.unlink")
     def run_noefi_noefidir_nolink_test(
             self, unlink_mock, islink_mock, exec_mock, listdir_mock, isdir_mock, storage_mock):
         """Test OSTree bootloader copy task run() with no EFI, no efi dir, and no links"""
+        exec_mock.return_value = 0
+
         bootloader_mock = storage_mock.get_proxy()
         bootloader_mock.IsEFI.return_value = False
 
@@ -294,12 +323,14 @@ class CopyBootloaderDataTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.path.isdir")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.listdir")
-    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.safe_exec_with_redirect")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.path.islink")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.unlink")
     def run_noefi_efidir_link_test(
             self, unlink_mock, islink_mock, exec_mock, listdir_mock, isdir_mock, storage_mock):
         """Test OSTree bootloader copy task run() with no EFI but efi dir and link"""
+        exec_mock.return_value = 0
+
         bootloader_mock = storage_mock.get_proxy()
         bootloader_mock.IsEFI.return_value = False
 
@@ -318,12 +349,14 @@ class CopyBootloaderDataTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.path.isdir")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.listdir")
-    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.safe_exec_with_redirect")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.path.islink")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.unlink")
     def run_efi_nolink_test(
             self, unlink_mock, islink_mock, exec_mock, listdir_mock, isdir_mock, storage_mock):
         """Test OSTree bootloader copy task run() with EFI, efi dir, and no links"""
+        exec_mock.return_value = 0
+
         bootloader_mock = storage_mock.get_proxy()
         bootloader_mock.IsEFI.return_value = True
 
@@ -343,12 +376,14 @@ class CopyBootloaderDataTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.path.isdir")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.listdir")
-    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.safe_exec_with_redirect")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.path.islink")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.unlink")
     def run_noefi_notadir_test(
             self, unlink_mock, islink_mock, exec_mock, listdir_mock, isdir_mock, storage_mock):
         """Test OSTree bootloader copy task run() with non-directory source of data"""
+        exec_mock.return_value = 0
+
         bootloader_mock = storage_mock.get_proxy()
         bootloader_mock.IsEFI.return_value = False
 
@@ -366,9 +401,11 @@ class CopyBootloaderDataTaskTestCase(unittest.TestCase):
 
 
 class InitOSTreeFsAndRepoTaskTestCase(unittest.TestCase):
-    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.safe_exec_with_redirect")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
     def run_test(self, exec_mock):
         """Test OSTree fs and repo init task"""
+        exec_mock.return_value = 0
+
         task = InitOSTreeFsAndRepoTask("/physroot")
         task.run()
         exec_mock.assert_called_once_with(
@@ -456,13 +493,15 @@ class ChangeOSTreeRemoteTaskTestCase(unittest.TestCase):
 
 
 class ConfigureBootloaderTaskTestCase(unittest.TestCase):
-    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.safe_exec_with_redirect")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.rename")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.symlink")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.DeviceData")
     def btrfs_run_test(self, devdata_mock, storage_mock, symlink_mock, rename_mock, exec_mock):
         """Test OSTree bootloader config task, no BTRFS"""
+        exec_mock.return_value = 0
+
         proxy_mock = storage_mock.get_proxy()
         proxy_mock.GetArguments.return_value = ["BOOTLOADER-ARGS"]
         proxy_mock.GetFstabSpec.return_value = "FSTAB-SPEC"
@@ -491,13 +530,15 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
                 root=sysroot
             )
 
-    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.safe_exec_with_redirect")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.rename")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.symlink")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.DeviceData")
     def nonbtrfs_run_test(self, devdata_mock, storage_mock, symlink_mock, rename_mock, exec_mock):
         """Test OSTree bootloader config task, no BTRFS"""
+        exec_mock.return_value = 0
+
         proxy_mock = storage_mock.get_proxy()
         proxy_mock.GetArguments.return_value = ["BOOTLOADER-ARGS"]
         proxy_mock.GetFstabSpec.return_value = "FSTAB-SPEC"
@@ -525,12 +566,13 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
                 root=sysroot
             )
 
-    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.safe_exec_with_redirect")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.rename")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.symlink")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.conf")
     def dir_run_test(self, conf_mock, symlink_mock, rename_mock, exec_mock):
         """Test OSTree bootloader config task, dirinstall"""
+        exec_mock.return_value = 0
         conf_mock.target.is_directory = True
 
         with tempfile.TemporaryDirectory() as sysroot:
@@ -552,9 +594,10 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
 
 
 class DeployOSTreeTaskTestCase(unittest.TestCase):
-    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.safe_exec_with_redirect")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
     def run_test(self, exec_mock):
         """Test OSTree deploy task"""
+        exec_mock.return_value = 0
         data = _make_config_data()
 
         task = DeployOSTreeTask(data, "/sysroot")
