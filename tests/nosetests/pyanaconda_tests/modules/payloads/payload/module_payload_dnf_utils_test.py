@@ -29,8 +29,8 @@ from pyanaconda.modules.common.structures.packages import PackagesSelectionData
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package, \
     get_product_release_version, get_default_environment, get_installation_specs, \
-    get_kernel_version_list, pick_mount_point, get_df_map, pick_download_location, \
-    calculate_required_space, get_sysroot_df_map
+    get_kernel_version_list, pick_mount_point, pick_download_location, \
+    calculate_required_space, get_free_space_map
 
 from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy_with_cache
 
@@ -200,8 +200,8 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         ])
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.execWithCapture")
-    def get_df_map_test(self, exec_mock):
-        """Test the get_df_map function."""
+    def get_free_space_test(self, exec_mock):
+        """Test the get_free_space function."""
         output = """
         Mounted on        Avail
         /dev                100
@@ -215,7 +215,7 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         """
         exec_mock.return_value = dedent(output).strip()
 
-        self.assertEqual(get_df_map(), {
+        self.assertEqual(get_free_space_map(), {
             '/dev': Size("100 KiB"),
             '/dev/shm': Size("200 KiB"),
             '/run': Size("300 KiB"),
@@ -229,8 +229,8 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
     @patch("os.statvfs")
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.conf")
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.execWithCapture")
-    def get_df_map_image_test(self, exec_mock, conf_mock, statvfs_mock):
-        """Test the get_df_map function."""
+    def get_free_space_image_test(self, exec_mock, conf_mock, statvfs_mock):
+        """Test the get_free_space function."""
         output = """
         Mounted on        Avail
         /                   100
@@ -240,7 +240,7 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         conf_mock.target.is_hardware = False
         statvfs_mock.return_value = Mock(f_frsize=1024, f_bfree=300)
 
-        self.assertEqual(get_df_map(), {
+        self.assertEqual(get_free_space_map(), {
             '/': Size("100 KiB"),
             '/boot': Size("200 KiB"),
             '/var/tmp': Size("300 KiB"),
@@ -320,13 +320,20 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         msg = "Not enough disk space to download the packages; size 100 B."
         self.assertEqual(str(cm.exception), msg)
 
+    @patch("pyanaconda.modules.payloads.payload.dnf.utils.execWithCapture")
     @patch_dbus_get_proxy_with_cache
-    def get_sysroot_df_map_test(self, proxy_getter):
-        """Test the get_sysroot_df_map function."""
+    def get_combined_free_space_test(self, proxy_getter, exec_mock):
+        """Test the get_free_space function with the combined options."""
+        output = """
+        Mounted on        Avail
+        /                   100
+        /tmp                200
+        """
+        exec_mock.return_value = dedent(output).strip()
+
         mount_points = {
-            '/': Size("100 KiB"),
-            '/boot': Size("200 KiB"),
-            '/home': Size("300 KiB"),
+            '/': Size("300 KiB"),
+            '/boot': Size("400 KiB"),
         }
 
         def get_mount_points():
@@ -339,11 +346,24 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         device_tree.GetMountPoints.side_effect = get_mount_points
         device_tree.GetFileSystemFreeSpace.side_effect = get_free_space
 
-        self.assertEqual(get_sysroot_df_map(), {
-            '/mnt/sysroot': Size("100 KiB"),
-            '/mnt/sysroot/boot': Size("200 KiB"),
-            '/mnt/sysroot/home': Size("300 KiB"),
+        self.assertEqual(get_free_space_map(current=True, scheduled=False), {
+            '/': Size("100 KiB"),
+            '/tmp': Size("200 KiB"),
         })
+
+        self.assertEqual(get_free_space_map(current=False, scheduled=True), {
+            '/mnt/sysroot': Size("300 KiB"),
+            '/mnt/sysroot/boot': Size("400 KiB"),
+        })
+
+        self.assertEqual(get_free_space_map(current=True, scheduled=True), {
+            '/': Size("100 KiB"),
+            '/tmp': Size("200 KiB"),
+            '/mnt/sysroot': Size("300 KiB"),
+            '/mnt/sysroot/boot': Size("400 KiB"),
+        })
+
+        self.assertEqual(get_free_space_map(current=False, scheduled=False), {})
 
     @patch_dbus_get_proxy_with_cache
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.pick_mount_point")

@@ -194,8 +194,26 @@ def get_kernel_version_list():
     return files
 
 
-def get_df_map():
-    """Get the file system disk space usage.
+def get_free_space_map(current=True, scheduled=False):
+    """Get the available file system disk space.
+
+    :param bool current: use information about current mount points
+    :param bool scheduled: use information about scheduled mount points
+    :return: a dictionary of mount points and their available space
+    """
+    mount_points = {}
+
+    if scheduled:
+        mount_points.update(_get_scheduled_free_space_map())
+
+    if current:
+        mount_points.update(_get_current_free_space_map())
+
+    return mount_points
+
+
+def _get_current_free_space_map():
+    """Get the available file system disk space of the current system.
 
     :return: a dictionary of mount points and their available space
     """
@@ -221,8 +239,8 @@ def get_df_map():
     return mapping
 
 
-def get_sysroot_df_map():
-    """Get the file system disk space usage of the scheduled system.
+def _get_scheduled_free_space_map():
+    """Get the available file system disk space of the scheduled system.
 
     :return: a dictionary of mount points and their available space
     """
@@ -323,7 +341,7 @@ def pick_download_location(dnf_manager):
     """
     download_size = dnf_manager.get_download_size()
     install_size = dnf_manager.get_installation_size()
-    mount_points = get_df_map()
+    mount_points = get_free_space_map()
 
     path = pick_mount_point(
         mount_points,
@@ -353,8 +371,7 @@ def calculate_required_space(dnf_manager):
     installation_size = dnf_manager.get_installation_size()
     download_size = dnf_manager.get_download_size()
 
-    mount_points = get_sysroot_df_map()
-    mount_points.update(get_df_map())
+    mount_points = get_free_space_map(scheduled=True)
 
     mount_point = pick_mount_point(
         mount_points,
