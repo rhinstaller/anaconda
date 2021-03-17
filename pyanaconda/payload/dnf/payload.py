@@ -59,7 +59,6 @@ from pyanaconda.modules.common.errors.storage import DeviceSetupError, MountFile
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
-from pyanaconda.payload.dnf.utils import YUM_REPOS_DIR
 from pyanaconda.payload.dnf.repomd import RepoMDMetaHash
 from pyanaconda.payload.errors import MetadataError, PayloadError, NoSuchGroup, DependencyError, \
     PayloadSetupError
@@ -70,11 +69,12 @@ from pyanaconda.progress import progressQ, progress_message
 from pyanaconda.ui.lib.payload import get_payload, get_source, create_source, set_source, \
     set_up_sources, tear_down_sources
 
-log = get_packaging_logger()
+__all__ = ["DNFPayload"]
 
+YUM_REPOS_DIR = "/etc/yum.repos.d/"
 USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)
 
-__all__ = ["DNFPayload"]
+log = get_packaging_logger()
 
 
 class DNFPayload(Payload):
