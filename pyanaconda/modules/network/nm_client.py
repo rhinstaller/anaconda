@@ -950,6 +950,50 @@ def activate_connection_sync(nm_client, connection, device):
     return ret
 
 
+def clone_connection_sync(nm_client, connection, con_id=None, uuid=None):
+    """Clone a connection synchronously.
+
+    :param connection: NetworkManager connection
+    :type connection: NM.RemoteConnection
+    :param con_id: id of the cloned connection
+    :type con_id: str
+    :param uuid: uuid of the cloned connection (None to be generated)
+    :type uuid: str
+    :return: NetworkManager connection or None on timeout
+    :rtype: NM.RemoteConnection
+    """
+    sync_queue = Queue()
+
+    def finish_callback(nm_client, result, sync_queue):
+        con, result = nm_client.add_connection2_finish(result)
+        log.debug("connection %s cloned:\n%s", con.get_uuid(),
+                  con.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
+        sync_queue.put(con)
+
+    cloned_connection = NM.SimpleConnection.new_clone(connection)
+    s_con = cloned_connection.get_setting_connection()
+    s_con.props.uuid = uuid or NM.utils_uuid_generate()
+    s_con.props.id = con_id or "{}-clone".format(connection.get_id())
+    nm_client.add_connection2(
+        cloned_connection.to_dbus(NM.ConnectionSerializationFlags.ALL),
+        (NM.SettingsAddConnection2Flags.TO_DISK |
+         NM.SettingsAddConnection2Flags.BLOCK_AUTOCONNECT),
+        None,
+        False,
+        None,
+        finish_callback,
+        sync_queue
+    )
+
+    try:
+        ret = sync_queue.get(timeout=CONNECTION_ACTIVATION_TIMEOUT)
+    except Empty:
+        log.error("Cloning of a connection timed out.")
+        ret = None
+
+    return ret
+
+
 def get_dracut_arguments_from_connection(nm_client, connection, iface, target_ip,
                                          hostname, ibft=False):
     """Get dracut arguments for the iface and SAN target from NM connection.
