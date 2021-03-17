@@ -107,11 +107,15 @@ class DeviceTreeSchedulerModule(DeviceTreeModule):
     def get_container_free_space(self, container_name):
         """Get total free space in the specified container.
 
+        If Blivet returns a negative size, return zero.
+
         :param container_name: a name of the container
         :return: a size in bytes
         """
         container = self._get_device(container_name)
-        return Size(getattr(container, "free_space", 0)).get_bytes()
+        free_space = getattr(container, "free_space", 0)
+        free_space = max(0, free_space)
+        return Size(free_space).get_bytes()
 
     def generate_system_name(self):
         """Generate a name of the new installation.
