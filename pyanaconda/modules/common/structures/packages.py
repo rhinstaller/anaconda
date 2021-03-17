@@ -38,6 +38,8 @@ class PackagesSelectionData(DBusData):
         self._excluded_groups = []
         self._packages = []
         self._excluded_packages = []
+        self._modules = []
+        self._disabled_modules = []
 
     @property
     def core_group_enabled(self) -> Bool:
@@ -169,6 +171,42 @@ class PackagesSelectionData(DBusData):
     @excluded_packages.setter
     def excluded_packages(self, value: List[Str]):
         self._excluded_packages = value
+
+    @property
+    def modules(self) -> List[Str]:
+        """A list of modules to enable.
+
+        Supported format of values:
+
+            NAME         Specify the module name.
+            NAME:STREAM  Specify the module and stream names.
+
+        :return: a list of modules
+        :rtype: [str]
+        """
+        return self._modules
+
+    @modules.setter
+    def modules(self, value: List[Str]):
+        self._modules = value
+
+    @property
+    def disabled_modules(self) -> List[Str]:
+        """A list of modules to disable.
+
+        Supported format of values:
+
+            NAME         Specify the module name.
+            NAME:STREAM  Specify the module and stream names.
+
+        :return: a list of modules
+        :rtype: [str]
+        """
+        return self._disabled_modules
+
+    @disabled_modules.setter
+    def disabled_modules(self, value: List[Str]):
+        self._disabled_modules = value
 
 
 class PackagesConfigurationData(DBusData):

@@ -228,6 +228,50 @@ class DNFMangerTestCase(unittest.TestCase):
             "environment-3",
         ])
 
+    @patch("dnf.module.module_base.ModuleBase.enable")
+    def enable_modules_test(self, module_base_enable):
+        """Test the enable_modules method."""
+        self.dnf_manager.enable_modules(
+            module_specs=["m1", "m2:latest"]
+        )
+        module_base_enable.assert_called_once_with(
+            ["m1", "m2:latest"]
+        )
+
+    @patch("dnf.module.module_base.ModuleBase.enable")
+    def enable_modules_error_test(self, module_base_enable):
+        """Test the failed enable_modules method."""
+        module_base_enable.side_effect = MarkingErrors(
+            module_depsolv_errors=["e1", "e2"]
+        )
+
+        with self.assertRaises(MarkingErrors):
+            self.dnf_manager.enable_modules(
+                module_specs=["m1", "m2:latest"]
+            )
+
+    @patch("dnf.module.module_base.ModuleBase.disable")
+    def disable_modules_test(self, module_base_disable):
+        """Test the enable_modules method."""
+        self.dnf_manager.disable_modules(
+            module_specs=["m1", "m2:latest"]
+        )
+        module_base_disable.assert_called_once_with(
+            ["m1", "m2:latest"]
+        )
+
+    @patch("dnf.module.module_base.ModuleBase.disable")
+    def disable_modules_error_test(self, module_base_disable):
+        """Test the failed enable_modules method."""
+        module_base_disable.side_effect = MarkingErrors(
+            module_depsolv_errors=["e1", "e2"]
+        )
+
+        with self.assertRaises(MarkingErrors):
+            self.dnf_manager.disable_modules(
+                module_specs=["m1", "m2:latest"]
+            )
+
     @patch("dnf.base.Base.install_specs")
     def apply_specs_test(self, install_specs):
         """Test the apply_specs method."""

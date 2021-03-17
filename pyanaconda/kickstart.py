@@ -321,7 +321,6 @@ class AnacondaKickstartSpecification(KickstartSpecification):
         "autostep": COMMANDS.AutoStep,
         "cmdline": COMMANDS.DisplayMode,
         "driverdisk": COMMANDS.DriverDisk,
-        "module": COMMANDS.Module,
         "eula": COMMANDS.Eula,
         "graphical": COMMANDS.DisplayMode,
         "halt": COMMANDS.Reboot,
@@ -342,7 +341,6 @@ class AnacondaKickstartSpecification(KickstartSpecification):
 
     commands_data = {
         "DriverDiskData": COMMANDS.DriverDiskData,
-        "ModuleData": COMMANDS.ModuleData,
         "RepoData": RepoData,
         "SshPwData": COMMANDS.SshPwData,
     }
