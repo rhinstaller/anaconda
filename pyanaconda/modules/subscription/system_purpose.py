@@ -52,7 +52,7 @@ def get_valid_fields(valid_fields_file_path=VALID_FIELDS_FILE_PATH):
                 valid_roles = valid_fields_json.get("role", [])
                 valid_slas = valid_fields_json.get("service_level_agreement", [])
                 valid_usage_types = valid_fields_json.get("usage", [])
-        except (IOError, json.JSONDecodeError):
+        except (OSError, json.JSONDecodeError):
             log.exception("parsing of syspurpose valid fields file at %s failed",
                           valid_fields_file_path)
     else:

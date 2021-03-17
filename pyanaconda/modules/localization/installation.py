@@ -67,9 +67,9 @@ class LanguageInstallationTask(Task):
             with open(fpath, "w") as fobj:
                 fobj.write('LANG="{}"\n'.format(lang))
 
-        except IOError as ioerr:
-            msg = "Cannot write language configuration file: {}".format(ioerr.strerror)
-            raise LanguageInstallationError(msg) from ioerr
+        except OSError as e:
+            msg = "Cannot write language configuration file: {}".format(e.strerror)
+            raise LanguageInstallationError(msg) from e
 
 
 class KeyboardInstallationTask(Task):
@@ -173,7 +173,7 @@ def write_x_configuration(localed_wrapper, x_layouts, switch_options, x_conf_dir
         rooted_xconf_file_path = os.path.normpath(root + "/" + xconf_file_path)
         try:
             shutil.copy2(xconf_file_path, rooted_xconf_file_path)
-        except IOError as ioerr:
+        except OSError as ioerr:
             log.error("Cannot copy X layouts configuration file %s to target system: %s.",
                       xconf_file_path, ioerr.strerror)
 
@@ -209,6 +209,6 @@ def write_vc_configuration(vc_keymap, root):
             # characters, so we have to tell it to use a better one
             fobj.write('FONT="%s"\n' % vc_font)
 
-    except IOError as ioerr:
-        msg = "Cannot write vconsole configuration file: {}".format(ioerr.strerror)
-        raise KeyboardInstallationError(msg) from ioerr
+    except OSError as e:
+        msg = "Cannot write vconsole configuration file: {}".format(e.strerror)
+        raise KeyboardInstallationError(msg) from e

@@ -143,7 +143,7 @@ class EFIGRUB(EFIBase, GRUB2):
         try:
             f = open("/sys/firmware/efi/fw_platform_size", "r")
             value = f.readline().strip()
-        except IOError:
+        except OSError:
             log.info("Reading /sys/firmware/efi/fw_platform_size failed, "
                      "defaulting to 64-bit install.")
             value = '64'

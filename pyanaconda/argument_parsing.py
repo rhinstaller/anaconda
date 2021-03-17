@@ -64,7 +64,7 @@ def get_help_width():
     try:
         data = fcntl.ioctl(sys.stdout, termios.TIOCGWINSZ, '1234')
         columns = int(struct.unpack('hh', data)[1])
-    except (IOError, ValueError) as e:
+    except (OSError, ValueError) as e:
         log.info("Unable to determine terminal width: %s", e)
         print("terminal size detection failed, using default width")
         return DEFAULT_HELP_WIDTH
@@ -367,7 +367,7 @@ class HelpTextParser(object):
                 with open(self._path) as lines:
                     for parsed_option, parsed_text in self.read(lines):
                         self._help_text[parsed_option] = parsed_text
-            except IOError as e:
+            except OSError as e:
                 log.error("error reading help text file %s: %s", self._path, e)
 
         return self._help_text.get(option, "")

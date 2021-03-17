@@ -213,7 +213,7 @@ class ConfigureSELinuxTask(Task):
             selinux_cfg.read()
             selinux_cfg.set(("SELINUX", self.SELINUX_STATES[self._selinux_mode]))
             selinux_cfg.write()
-        except IOError as msg:
+        except OSError as msg:
             log.error("SELinux configuration failed: %s", msg)
 
 

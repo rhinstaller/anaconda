@@ -80,7 +80,7 @@ class KernelArguments():
             try:
                 self.read_string(open(f).read())
                 readfiles.append(f)
-            except IOError:
+            except OSError:
                 continue
 
         return readfiles

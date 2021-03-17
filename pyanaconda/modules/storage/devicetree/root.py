@@ -196,7 +196,7 @@ def _release_from_redhat_release(fn):
     with open(fn) as f:
         try:
             relstr = f.readline().strip()
-        except (IOError, AttributeError):
+        except (OSError, AttributeError):
             relstr = ""
 
     # get the release name and version
