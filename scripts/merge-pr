@@ -130,7 +130,7 @@ def main():
         p = subprocess.Popen(['git', 'credential', 'fill'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
         p.stdin.write(github_cred)
         (stdin, _stderr) = p.communicate()
-    except (OSError, IOError) as e:
+    except OSError as e:
         print("Unable to get github credentials: %s" % e)
         sys.exit(1)
 
@@ -164,7 +164,7 @@ def main():
             p = subprocess.Popen(['git', 'credential', 'approve'], stdin=subprocess.PIPE)
             p.stdin.write(stdin)
             p.communicate()
-        except (OSError, IOError) as e:
+        except OSError as e:
             print("Unable to save github credentials: %s" % e)
             sys.exit(1)
 
