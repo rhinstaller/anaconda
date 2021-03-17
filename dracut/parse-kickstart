@@ -71,7 +71,7 @@ def readsysfile(f):
     '''Return the contents of f, or "" if missing.'''
     try:
         val = open(f).readline().strip()
-    except IOError:
+    except OSError:
         val = ""
     return val
 
@@ -81,7 +81,7 @@ def read_cmdline(f):
     args = OrderedDict()
     try:
         lines = open(f).readlines()
-    except IOError:
+    except OSError:
         lines = []
     # pylint: disable=redefined-outer-name
     for line in lines:
@@ -102,7 +102,7 @@ def first_device_with_link():
             with open(dev_dir+"/carrier") as f:
                 if f.read().strip() == ARPHRD_ETHER:
                     return os.path.basename(dev_dir)
-        except IOError:
+        except OSError:
             pass
 
     return ""
