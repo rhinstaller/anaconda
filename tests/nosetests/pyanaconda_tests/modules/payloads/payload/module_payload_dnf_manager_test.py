@@ -543,3 +543,13 @@ class DNFMangerTestCase(unittest.TestCase):
         self.assertEqual(r1.pkgdir, "/my/download/location")
         self.assertEqual(r2.pkgdir, "/my/download/location")
         self.assertEqual(r3.pkgdir, "/my/download/location")
+
+    def download_location_test(self):
+        """Test the download_location property."""
+        self.assertEqual(self.dnf_manager.download_location, None)
+
+        self.dnf_manager.set_download_location("/my/location")
+        self.assertEqual(self.dnf_manager.download_location, "/my/location")
+
+        self.dnf_manager.reset_base()
+        self.assertEqual(self.dnf_manager.download_location, None)

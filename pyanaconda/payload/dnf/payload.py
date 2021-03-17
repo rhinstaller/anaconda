@@ -18,7 +18,6 @@
 #
 import configparser
 import os
-import shutil
 import sys
 import threading
 import dnf.exceptions
@@ -32,7 +31,8 @@ from pyanaconda.modules.common.structures.packages import PackagesConfigurationD
     PackagesSelectionData
 from pyanaconda.modules.payloads.payload.dnf.initialization import configure_dnf_logging
 from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
-    SetRPMMacrosTask, DownloadPackagesTask, InstallPackagesTask, PrepareDownloadLocationTask
+    SetRPMMacrosTask, DownloadPackagesTask, InstallPackagesTask, PrepareDownloadLocationTask, \
+    CleanUpDownloadLocationTask
 from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements, \
     collect_platform_requirements, collect_driver_disk_requirements, collect_remote_requirements, \
     apply_requirements
@@ -799,7 +799,7 @@ class DNFPayload(Payload):
 
         # Set up the download location.
         task = PrepareDownloadLocationTask(self._dnf_manager)
-        download_location = task.run()
+        task.run()
 
         # Download the packages.
         task = DownloadPackagesTask(self._dnf_manager)
@@ -811,18 +811,11 @@ class DNFPayload(Payload):
         task.progress_changed_signal.connect(self._progress_cb)
         task.run()
 
+        # Clean up the download location.
+        task = CleanUpDownloadLocationTask(self._dnf_manager)
+        task.run()
+
         # Don't close the mother base here, because we still need it.
-        if os.path.exists(download_location):
-            log.info("Cleaning up downloaded packages: "
-                     "%s", download_location)
-            shutil.rmtree(download_location)
-        else:
-            # Some installation sources, such as NFS, don't need to download packages to
-            # local storage, so the download location might not always exist. So for now
-            # warn about this, at least until the RFE in bug 1193121 is implemented and
-            # we don't have to care about clearing the download location ourselves.
-            log.warning("Can't delete nonexistent download "
-                        "location: %s", download_location)
 
     def _get_repo(self, repo_id):
         """Return the yum repo object."""

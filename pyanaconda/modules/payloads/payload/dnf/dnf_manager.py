@@ -64,6 +64,7 @@ class DNFManager(object):
         self.__base = None
         self._ignore_missing_packages = False
         self._ignore_broken_packages = False
+        self._download_location = None
 
     @property
     def _base(self):
@@ -108,6 +109,7 @@ class DNFManager(object):
         self.__base = None
         self._ignore_missing_packages = False
         self._ignore_broken_packages = False
+        self._download_location = None
         log.debug("The DNF base has been reset.")
 
     def configure_base(self, data: PackagesConfigurationData):
@@ -312,6 +314,11 @@ class DNFManager(object):
             or exception.error_pkg_specs \
             or exception.module_depsolv_errors
 
+    @property
+    def download_location(self):
+        """The location for the package download."""
+        return self._download_location
+
     def set_download_location(self, path):
         """Set up the location for downloading the packages.
 
@@ -319,6 +326,8 @@ class DNFManager(object):
         """
         for repo in self._base.repos.iter_enabled():
             repo.pkgdir = path
+
+        self._download_location = path
 
     def download_packages(self, callback):
         """Download the packages.
@@ -328,6 +337,8 @@ class DNFManager(object):
         """
         packages = self._base.transaction.install_set
         progress = DownloadProgress(callback=callback)
+
+        log.info("Downloading packages to %s.", self.download_location)
 
         try:
             self._base.download_packages(packages, progress)

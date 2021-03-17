@@ -120,6 +120,38 @@ class PrepareDownloadLocationTask(Task):
         return path
 
 
+class CleanUpDownloadLocationTask(Task):
+    """The installation task for cleaning up the download location."""
+
+    def __init__(self, dnf_manager):
+        """Create a new task.
+
+        :param dnf_manager: a DNF manager
+        """
+        super().__init__()
+        self._dnf_manager = dnf_manager
+
+    @property
+    def name(self):
+        return "Remove downloaded packages"
+
+    def run(self):
+        """Run the task.
+
+        Some installation sources, such as NFS, don't need to download packages to
+        local storage, so the download location might not always exist. See the bug
+        1193121 for more information.
+        """
+        path = self._dnf_manager.download_location
+
+        if not os.path.exists(path):
+            log.warning("The download location %s doesn't exist.", path)
+            return
+
+        log.info("Removing downloaded packages from %s.", path)
+        shutil.rmtree(path)
+
+
 class DownloadPackagesTask(Task):
     """The installation task for downloading the packages."""
 
