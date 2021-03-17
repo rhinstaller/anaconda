@@ -38,14 +38,17 @@ from gi.repository import RpmOstree, OSTree, Gio
 log = get_module_logger(__name__)
 
 
-def safe_exec_with_redirect(cmd, argv, **kwargs):
+def safe_exec_with_redirect(cmd, argv, successful_return_codes=(0,), **kwargs):
     """Like util.execWithRedirect, but treat errors as fatal.
 
     :raise: PayloadInstallError if the call fails for any reason
     """
     rc = execWithRedirect(cmd, argv, **kwargs)
-    if rc != 0:
-        raise PayloadInstallError("{} {} exited with code {}".format(cmd, argv, rc))
+
+    if rc not in successful_return_codes:
+        raise PayloadInstallError(
+            "The command '{}' exited with the code {}.".format(" ".join([cmd] + argv), rc)
+        )
 
 
 class PrepareOSTreeMountTargetsTask(Task):
@@ -137,12 +140,37 @@ class PrepareOSTreeMountTargetsTask(Task):
         mounting the API filesystems in the target.
         """
         mkdirChain(self._sysroot + '/var/lib')
+        self._create_tmpfiles('/var/home')
+        self._create_tmpfiles('/var/roothome')
+        self._create_tmpfiles('/var/lib/rpm')
+        self._create_tmpfiles('/var/opt')
+        self._create_tmpfiles('/var/srv')
+        self._create_tmpfiles('/var/usrlocal')
+        self._create_tmpfiles('/var/mnt')
+        self._create_tmpfiles('/var/media')
+        self._create_tmpfiles('/var/spool')
+        self._create_tmpfiles('/var/spool/mail')
 
-        for varsubdir in ('home', 'roothome', 'lib/rpm', 'opt', 'srv',
-                          'usrlocal', 'mnt', 'media', 'spool', 'spool/mail'):
-            safe_exec_with_redirect("systemd-tmpfiles",
-                                    ["--create", "--boot", "--root=" + self._sysroot,
-                                     "--prefix=/var/" + varsubdir])
+    def _create_tmpfiles(self, path):
+        """Run systemd-tmpfiles --create for the given path."""
+
+        # According to systemd-tmpfiles(8), the return values are:
+        #  0 → success
+        # 65 → so some lines had to be ignored, but no other errors
+        # 73 → configuration ok, but could not be created
+        #  1 → other error
+        # Therefore we ignore error 65, since this is coming from
+        # the payload itself and the actual execution of it was fine
+
+        safe_exec_with_redirect(
+            "systemd-tmpfiles", [
+                "--create",
+                "--boot",
+                "--root=" + self._sysroot,
+                "--prefix=" + path
+            ],
+            successful_return_codes=(0, 65)
+        )
 
     def _handle_api_mount_points(self):
         """Handle API mount points
