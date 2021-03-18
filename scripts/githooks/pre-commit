@@ -19,7 +19,7 @@ def is_python(filename):
         with open(filename) as testfile:
             if testfile.readline().startswith("#!/usr/bin/python"):
                 return True
-    except IOError:
+    except OSError:
         pass
 
     return False

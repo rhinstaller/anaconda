@@ -253,7 +253,7 @@ class AnacondaLog(object):
             logfile_handler.setLevel(minLevel)
             logfile_handler.setFormatter(logging.Formatter(fmtStr, DATE_FORMAT))
             addToLogger.addHandler(logfile_handler)
-        except IOError:
+        except OSError:
             pass
 
     def forwardToJournal(self, logr, log_formatter=None, log_filter=None):

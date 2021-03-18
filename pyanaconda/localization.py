@@ -450,7 +450,7 @@ def get_firmware_language(text_mode=False):
         n = "/sys/firmware/efi/efivars/PlatformLang-8be4df61-93ca-11d2-aa0d-00e098032b8c"
         with open(n, 'r') as f:
             d = f.read()
-    except IOError:
+    except OSError:
         return None
 
     # the contents of the file are:

@@ -88,9 +88,9 @@ def _write_config_file(root, path, content, error_msg, overwrite):
     try:
         with open(fpath, "w") as fobj:
             fobj.write(content)
-    except IOError as ioerr:
-        msg = "{}: {}".format(error_msg, ioerr.strerror)
-        raise NetworkInstallationError(msg) from ioerr
+    except OSError as e:
+        msg = "{}: {}".format(error_msg, e.strerror)
+        raise NetworkInstallationError(msg) from e
 
 
 class NetworkInstallationTask(Task):
@@ -213,9 +213,9 @@ Name={}
                 f.write("net.ipv6.conf.all.disable_ipv6=1\n")
                 f.write("net.ipv6.conf.default.disable_ipv6=1\n")
 
-        except IOError as ioerr:
-            msg = "Cannot disable ipv6 on the system: {}".format(ioerr.strerror)
-            raise NetworkInstallationError(msg) from ioerr
+        except OSError as e:
+            msg = "Cannot disable ipv6 on the system: {}".format(e.strerror)
+            raise NetworkInstallationError(msg) from e
 
     def _copy_resolv_conf(self, root, overwrite):
         """Copy resolf.conf file to target system.

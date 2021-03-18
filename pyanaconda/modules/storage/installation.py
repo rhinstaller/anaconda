@@ -321,7 +321,7 @@ class WriteConfigurationTask(Task):
                 device.format.escrow(escrow_dir,
                                      backup_passphrase)
 
-        except (IOError, RuntimeError) as e:
+        except (OSError, RuntimeError) as e:
             # TODO: real error handling
             log.error("failed to store encryption key: %s", e)
 

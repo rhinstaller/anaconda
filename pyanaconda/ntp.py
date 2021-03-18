@@ -153,9 +153,9 @@ def get_servers_from_config(conf_file_path=NTP_CONFIG_FILE):
 
                 servers.append(server)
 
-    except IOError as ioerr:
+    except OSError as e:
         msg = "Cannot open config file {} for reading ({})."
-        raise NTPconfigError(msg.format(conf_file_path, ioerr.strerror)) from ioerr
+        raise NTPconfigError(msg.format(conf_file_path, e.strerror)) from e
 
     return servers
 
@@ -176,23 +176,23 @@ def save_servers_to_config(servers, conf_file_path=NTP_CONFIG_FILE, out_file_pat
 
     try:
         old_conf_file = open(conf_file_path, "r")
-    except IOError as ioerr:
+    except OSError as e:
         msg = "Cannot open config file {} for reading ({})."
-        raise NTPconfigError(msg.format(conf_file_path, ioerr.strerror)) from ioerr
+        raise NTPconfigError(msg.format(conf_file_path, e.strerror)) from e
 
     if out_file_path:
         try:
             new_conf_file = open(out_file_path, "w")
-        except IOError as ioerr:
+        except OSError as e:
             msg = "Cannot open new config file {} for writing ({})."
-            raise NTPconfigError(msg.format(out_file_path, ioerr.strerror)) from ioerr
+            raise NTPconfigError(msg.format(out_file_path, e.strerror)) from e
     else:
         try:
             (fields, temp_path) = tempfile.mkstemp()
             new_conf_file = os.fdopen(fields, "w")
-        except IOError as ioerr:
+        except OSError as e:
             msg = "Cannot open temporary file {} for writing ({})."
-            raise NTPconfigError(msg.format(temp_path, ioerr.strerror)) from ioerr
+            raise NTPconfigError(msg.format(temp_path, e.strerror)) from e
 
     heading = "# These servers were defined in the installation:\n"
 

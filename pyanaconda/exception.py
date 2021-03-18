@@ -224,7 +224,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
             try:
                 dest = conf.target.system_root + "/root/%s" % os.path.basename(self.exnFile)
                 shutil.copyfile(self.exnFile, dest)
-            except (shutil.Error, IOError):
+            except (shutil.Error, OSError):
                 log.error("Failed to copy %s to %s/root", self.exnFile, conf.target.system_root)
 
         # run kickstart traceback scripts (if necessary)

@@ -583,7 +583,7 @@ class MakeBumpVer:
                         if job["name"] == targetJob:
                             ret = job["color"] == "blue"
                             break
-        except IOError:
+        except OSError:
             log.exception("Jenkins check failed!")
             return False
 

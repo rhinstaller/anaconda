@@ -70,7 +70,7 @@ def read_config(parser, path):
         with open(path, "r") as f:
             parser.read_file(f, path)
 
-    except (configparser.Error, IOError) as e:
+    except (configparser.Error, OSError) as e:
         raise ConfigurationFileError(str(e), path) from e
 
 
@@ -85,7 +85,7 @@ def write_config(parser, path):
         with open(path, "w") as f:
             parser.write(f)
 
-    except (configparser.Error, IOError) as e:
+    except (configparser.Error, OSError) as e:
         raise ConfigurationFileError(str(e), path) from e
 
 

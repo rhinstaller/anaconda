@@ -103,7 +103,7 @@ class ConfigureTimezoneTask(Task):
         try:
             with open(os.path.normpath(self._sysroot + "/etc/adjtime"), "r") as fobj:
                 lines = fobj.readlines()
-        except IOError:
+        except OSError:
             lines = ["0.0 0 0.0\n", "0\n"]
 
         try:
@@ -114,9 +114,9 @@ class ConfigureTimezoneTask(Task):
                     fobj.write("UTC\n")
                 else:
                     fobj.write("LOCAL\n")
-        except IOError as ioerr:
-            msg = "Error while writing /etc/adjtime file: {}".format(ioerr.strerror)
-            raise TimezoneConfigurationError(msg) from ioerr
+        except OSError as e:
+            msg = "Error while writing /etc/adjtime file: {}".format(e.strerror)
+            raise TimezoneConfigurationError(msg) from e
 
 
 class ConfigureNTPTask(Task):

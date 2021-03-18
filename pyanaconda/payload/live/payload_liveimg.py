@@ -101,6 +101,7 @@ class LiveImagePayload(BaseLivePayload):
             # Enough space for image and image * 3
             if response.headers.get('content-length'):
                 self._min_size = int(response.headers.get('content-length')) * 4
+            # FIXME: look up what is raised by Requests, replace IOError
         except IOError as e:
             log.error("Error opening liveimg: %s", e)
             error = e

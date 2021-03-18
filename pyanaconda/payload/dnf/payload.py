@@ -66,7 +66,7 @@ from pyanaconda.payload.dnf.repomd import RepoMDMetaHash
 from pyanaconda.payload.errors import MetadataError, PayloadError, NoSuchGroup, DependencyError, \
     PayloadSetupError
 from pyanaconda.payload.image import find_first_iso_image, find_optical_install_media
-from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
+from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata, FileNotDownloadedError
 from pyanaconda.product import productName, productVersion
 from pyanaconda.progress import progressQ, progress_message
 from pyanaconda.ui.lib.payload import get_payload, get_source, create_source, set_source, \
@@ -1262,7 +1262,7 @@ class DNFPayload(Payload):
         self._install_tree_metadata = InstallTreeMetadata()
         try:
             ret = self._install_tree_metadata.load_url(url, proxies, ssl_verify, ssl_cert, headers)
-        except IOError as e:
+        except FileNotDownloadedError as e:
             self._install_tree_metadata = None
             self.verbose_errors.append(str(e))
             log.warning("Install tree metadata fetching failed: %s", str(e))

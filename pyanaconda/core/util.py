@@ -647,7 +647,7 @@ def dracut_eject(device):
         f.write("eject %s\n" % (device,))
         f.close()
         log.info("Wrote dracut shutdown eject hook for %s", device)
-    except (IOError, OSError) as e:
+    except OSError as e:
         log.error("Error writing dracut shutdown eject hook for %s: %s", device, e)
 
 
@@ -797,7 +797,7 @@ def get_kernel_taint(flag):
     """
     try:
         tainted = int(open("/proc/sys/kernel/tainted").read())
-    except (IOError, ValueError):
+    except (OSError, ValueError):
         tainted = 0
 
     return bool(tainted & (1 << flag))
@@ -1012,7 +1012,7 @@ def detect_virtualized_platform():
     """
     try:
         platform = execWithCapture("systemd-detect-virt", []).strip()
-    except (IOError, AttributeError):
+    except (OSError, AttributeError):
         return None
 
     if platform == "none":
@@ -1402,7 +1402,7 @@ def is_smt_enabled():
 
     try:
         return int(open("/sys/devices/system/cpu/smt/active").read()) == 1
-    except (IOError, ValueError):
+    except (OSError, ValueError):
         log.warning("Failed to detect SMT.")
         return False
 

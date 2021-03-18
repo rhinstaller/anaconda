@@ -257,7 +257,7 @@ def read_lines(filename):
     """return a list containing each line in filename, with newlines removed."""
     try:
         return [line.rstrip('\n') for line in open(filename)]
-    except IOError:
+    except OSError:
         return []
 
 def save_repo(repo, target="/run/install"):
@@ -455,7 +455,7 @@ def load_drivers(moddict):
 def process_driver_disk(dev, interactive=False):
     try:
         return _process_driver_disk(dev, interactive=interactive)
-    except (subprocess.CalledProcessError, IOError) as e:
+    except (subprocess.CalledProcessError, OSError) as e:
         log.error("ERROR: %s", e)
         return {}
 
@@ -503,7 +503,7 @@ def process_driver_rpm(rpm, dev=None):
             return _process_driver_rpm_from_device(rpm, dev)
         else:
             return _process_driver_rpm(rpm)
-    except (subprocess.CalledProcessError, IOError) as e:
+    except (subprocess.CalledProcessError, OSError) as e:
         log.error("ERROR: %s", e)
         return {}
 

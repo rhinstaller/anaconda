@@ -201,7 +201,7 @@ def main():
         try:
             with open(options.output, 'w') as f:
                 f.write(config)
-        except IOError:
+        except OSError:
             print("Can't write into file %s" % options.output, file=sys.stderr)
             sys.exit(1)
         if options.stdout:

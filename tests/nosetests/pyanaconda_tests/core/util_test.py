@@ -907,7 +907,7 @@ class MiscTests(unittest.TestCase):
     def detect_virtualized_platform_test(self):
         """Test the function detect_virtualized_platform."""
         with patch('pyanaconda.core.util.execWithCapture') as execute:
-            execute.side_effect = IOError
+            execute.side_effect = OSError
             self.assertEqual(util.detect_virtualized_platform(), None)
 
         with patch('pyanaconda.core.util.execWithCapture') as execute:

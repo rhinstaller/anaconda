@@ -66,7 +66,7 @@ def makeFStab(instPath=""):
         if buf:
             f.write(buf)
         f.close()
-    except IOError as e:
+    except OSError as e:
         log.info("failed to write /etc/fstab: %s", e)
 
 
@@ -208,7 +208,7 @@ class Rescue(object):
             try:
                 fd = open("%s/.autorelabel" % conf.target.system_root, "w+")
                 fd.close()
-            except IOError as e:
+            except OSError as e:
                 log.warning("Error turning on selinux: %s", e)
 
         # set a libpath to use mounted fs
@@ -227,7 +227,7 @@ class Rescue(object):
         if not self.ro:
             try:
                 makeResolvConf(conf.target.system_root)
-            except(OSError, IOError) as e:
+            except OSError as e:
                 log.error("Error making resolv.conf: %s", e)
 
         # create /etc/fstab in ramdisk so it's easier to work with RO mounted fs

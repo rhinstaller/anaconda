@@ -117,7 +117,7 @@ class CopyDriverDisksFilesTask(Task):
         for f in glob(self.DD_FIRMWARE_DIR + "/*"):
             try:
                 shutil.copyfile(f, os.path.join(self._sysroot, "lib/firmware/"))
-            except IOError as e:
+            except OSError as e:
                 log.error("Could not copy firmware file %s: %s", f, e.strerror)
 
         # copy RPMS
@@ -129,7 +129,7 @@ class CopyDriverDisksFilesTask(Task):
         if os.path.exists(self.DD_DIR):
             try:
                 shutil.copytree(self.DD_DIR, os.path.join(self._sysroot, "root/DD"))
-            except IOError as e:
+            except (OSError, shutil.Error) as e:
                 log.error("failed to copy driver disk files: %s", e.strerror)
                 # XXX TODO: real error handling, as this is probably going to
                 #           prevent boot on some systems

@@ -113,12 +113,12 @@ class AnacondaDBusLauncher(object):
         self._dbus_daemon_process = startProgram(command, stderr=self._log_file, reset_lang=False)
 
         if self._dbus_daemon_process.poll() is not None:
-            raise IOError("DBus wasn't properly started!")
+            raise RuntimeError("DBus wasn't properly started!")
 
         address = self._dbus_daemon_process.stdout.readline().decode('utf-8').strip()
 
         if not address:
-            raise IOError("Unable to start DBus session!")
+            raise RuntimeError("Unable to start DBus session!")
 
         self._bus_address = address
 
