@@ -21,7 +21,6 @@ from unittest.mock import patch, Mock, PropertyMock
 
 from blivet.size import Size
 
-from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import GROUP_PACKAGE_TYPES_REQUIRED, GROUP_PACKAGE_TYPES_ALL
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -29,8 +28,8 @@ from pyanaconda.modules.common.structures.packages import PackagesSelectionData
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package, \
     get_product_release_version, get_default_environment, get_installation_specs, \
-    get_kernel_version_list, pick_mount_point, pick_download_location, \
-    calculate_required_space, get_free_space_map
+    get_kernel_version_list, pick_download_location, calculate_required_space, \
+    get_free_space_map, _pick_mount_points
 
 from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy_with_cache
 
@@ -246,73 +245,88 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
             '/var/tmp': Size("300 KiB"),
         })
 
-    def pick_mount_point_download_only_test(self):
-        """Test the pick_mount_point function for download only."""
-        df_map = {
-            "/mnt/sysroot/not_used": Size("20 G"),
-            "/mnt/sysroot/home": Size("2 G"),
-            "/mnt/sysroot": Size("5 G")
+    def pick_mount_points_test(self):
+        """Test the _pick_mount_points function."""
+        mount_points = {
+            "/": Size("1 G"),
+            "/home": Size("1 G"),
+            "/var/tmp": Size("1 G"),
+            "/mnt/sysroot": Size("1 G"),
+            "/mnt/sysroot/home": Size("1 G"),
+            "/mnt/sysroot/tmp": Size("1 G"),
+            "/mnt/sysroot/var": Size("1 G"),
+            "/mnt/sysroot/usr": Size("1 G"),
+
         }
 
-        # Choose the biggest mount point that can be used for download.
-        path = pick_mount_point(
-            df_map,
+        # All mount points are big enough.
+        # Choose all suitable mount points.
+        sufficient = _pick_mount_points(
+            mount_points,
+            download_size=Size("0.5 G"),
+            install_size=Size("0.5 G")
+        )
+        self.assertEqual(sufficient, {
+            "/var/tmp",
+            "/mnt/sysroot",
+            "/mnt/sysroot/home",
+            "/mnt/sysroot/tmp",
+            "/mnt/sysroot/var"
+        })
+
+        # No mount point is big enough for installation.
+        # Choose non-sysroot mount points for download.
+        sufficient = _pick_mount_points(
+            mount_points,
+            download_size=Size("0.5 G"),
+            install_size=Size("1.5 G")
+        )
+        self.assertEqual(sufficient, {
+            "/var/tmp",
+        })
+
+        # No mount point is big enough for installation or download.
+        sufficient = _pick_mount_points(
+            mount_points,
             download_size=Size("1.5 G"),
-            install_size=Size("1.8 G"),
-            download_only=True
+            install_size=Size("1.5 G")
         )
-        self.assertEqual(path, "/mnt/sysroot/home")
+        self.assertEqual(sufficient, set())
 
-        # Choose the root, because there are no other available
-        # mount points. Even when the root isn't big enough.
-        path = pick_mount_point(
-            df_map,
-            download_size=Size("2.5 G"),
-            install_size=Size("3.0 G"),
-            download_only=True
-        )
-        self.assertEqual(path, "/mnt/sysroot")
-
-    def pick_mount_point_test(self):
-        """Test the pick_mount_point function."""
-        df_map = {
-            "/mnt/sysroot/not_used": Size("20 G"),
-            "/mnt/sysroot/home": Size("2 G"),
-            "/mnt/sysroot": Size("6 G")
-        }
-
-        # Choose the root.
-        path = pick_mount_point(
-            df_map,
-            download_size=Size("1.5 G"),
-            install_size=Size("3 G"),
-            download_only=False
-        )
-        self.assertEqual(path, "/mnt/sysroot")
-
-        # No suitable location is found.
-        path = pick_mount_point(
-            df_map,
-            download_size=Size("2.5 G"),
-            install_size=Size("5 G"),
-            download_only=False
-        )
-        self.assertEqual(path, None)
-
-    @patch("pyanaconda.modules.payloads.payload.dnf.utils.pick_mount_point")
-    def pick_download_location_test(self, mount_point_picker):
+    @patch("pyanaconda.modules.payloads.payload.dnf.utils.get_free_space_map")
+    def pick_download_location_test(self, free_space_getter):
         """Test the pick_download_location function."""
-        mount_point_picker.return_value = "/my/download/path"
-        path = pick_download_location(Mock())
-        self.assertEqual(path, "/my/download/path/dnf.package.cache")
-
-    @patch("pyanaconda.modules.payloads.payload.dnf.utils.pick_mount_point")
-    def pick_download_location_failed_test(self, mount_point_picker):
-        """Test the failed pick_download_location function."""
-        mount_point_picker.return_value = None
+        download_size = Size(100)
+        installation_size = Size(200)
+        total_size = Size(300)
 
         dnf_manager = Mock()
-        dnf_manager.get_download_size.return_value = Size(100)
+        dnf_manager.get_download_size.return_value = download_size
+        dnf_manager.get_installation_size.return_value = installation_size
+
+        # Found mount points for download and install.
+        # Don't use /mnt/sysroot if possible.
+        free_space_getter.return_value = {
+            "/var/tmp": download_size,
+            "/mnt/sysroot": total_size,
+        }
+
+        path = pick_download_location(dnf_manager)
+        self.assertEqual(path, "/var/tmp/dnf.package.cache")
+
+        # Found mount points only for download.
+        # Use the biggest mount point.
+        free_space_getter.return_value = {
+            "/mnt/sysroot/tmp": download_size + 1,
+            "/mnt/sysroot/home": download_size,
+        }
+
+        path = pick_download_location(dnf_manager)
+        self.assertEqual(path, "/mnt/sysroot/tmp/dnf.package.cache")
+
+        # No mount point to use.
+        # Fail with an exception.
+        free_space_getter.return_value = {}
 
         with self.assertRaises(RuntimeError) as cm:
             pick_download_location(dnf_manager)
@@ -365,26 +379,40 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
 
         self.assertEqual(get_free_space_map(current=False, scheduled=False), {})
 
-    @patch_dbus_get_proxy_with_cache
-    @patch("pyanaconda.modules.payloads.payload.dnf.utils.pick_mount_point")
-    def calculate_required_space_test(self, mount_point_picker, proxy_getter):
+    @patch("pyanaconda.modules.payloads.payload.dnf.utils.get_free_space_map")
+    def calculate_required_space_test(self, free_space_getter):
         """Test the calculate_required_space function."""
         download_size = Size(100)
         installation_size = Size(200)
         total_size = Size(300)
 
-        device_tree = STORAGE.get_proxy(DEVICE_TREE)
-        device_tree.GetMountPoints.return_value = {}
-
         dnf_manager = Mock()
         dnf_manager.get_download_size.return_value = download_size
         dnf_manager.get_installation_size.return_value = installation_size
 
-        mount_point_picker.return_value = None
+        # No mount point to use.
+        # The total size is required.
+        free_space_getter.return_value = {}
         self.assertEqual(calculate_required_space(dnf_manager), total_size)
 
-        mount_point_picker.return_value = conf.target.system_root
+        # Found a mount point for download and install.
+        # The total size is required.
+        free_space_getter.return_value = {
+            "/mnt/sysroot/home": total_size
+        }
         self.assertEqual(calculate_required_space(dnf_manager), total_size)
 
-        mount_point_picker.return_value = "/my/path"
+        # Found a mount point for download.
+        # The installation size is required.
+        free_space_getter.return_value = {
+            "/var/tmp": download_size
+        }
         self.assertEqual(calculate_required_space(dnf_manager), installation_size)
+
+        # The biggest mount point can be used for download and install.
+        # The total size is required.
+        free_space_getter.return_value = {
+            "/var/tmp": download_size,
+            "/mnt/sysroot": total_size
+        }
+        self.assertEqual(calculate_required_space(dnf_manager), total_size)

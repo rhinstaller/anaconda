@@ -263,47 +263,6 @@ def _get_scheduled_free_space_map():
     return mount_points
 
 
-def pick_mount_point(mount_points, download_size, install_size, download_only=False):
-    """Pick a mount point for the package installation.
-
-    :param mount_points: a dictionary of mount points and their available spaces
-    :param download_size: a total size required for the package download
-    :param install_size: a total size required for the package installation
-    :param download_only: pick a mount point only for the package download
-    :return: a mount point or None
-    """
-    log.info("Pick a mount point for %s download, %s install, %s total.",
-             download_size, install_size, download_size + install_size)
-
-    # Find sufficient mount points.
-    sufficient = _pick_mount_points(
-        mount_points,
-        download_size,
-        install_size
-    )
-
-    # Or find sufficient mount points specifically for the download.
-    if download_only:
-
-        # Ignore the installation size.
-        if not sufficient:
-            sufficient = _pick_mount_points(
-                mount_points,
-                download_size,
-                install_size=0
-            )
-
-        # Ignore the system root if there are other mount points.
-        if len(sufficient) > 1:
-            sufficient.discard(conf.target.system_root)
-
-    # Choose the biggest sufficient mount point.
-    mount_point = max(sufficient, default=None, key=mount_points.get)
-
-    log.info("Pick a sufficient mount point: %s", mount_point)
-    return mount_point
-
-
 def _pick_mount_points(mount_points, download_size, install_size):
     """Pick mount points for the package installation.
 
@@ -324,13 +283,23 @@ def _pick_mount_points(mount_points, download_size, install_size):
         if mount_point not in suitable:
             continue
 
-        if size > (download_size + install_size):
+        if size >= (download_size + install_size):
+            log.debug("Considering %s (%s) for download and install.", mount_point, size)
             sufficient.add(mount_point)
 
-        elif mount_point != conf.target.system_root and size > download_size:
+        elif size >= download_size and not mount_point.startswith(conf.target.system_root):
+            log.debug("Considering %s (%s) for download.", mount_point, size)
             sufficient.add(mount_point)
 
     return sufficient
+
+
+def _get_biggest_mount_point(mount_points, sufficient):
+    """Get the biggest sufficient mount point.
+
+    :return: a mount point or None
+    """
+    return max(sufficient, default=None, key=mount_points.get)
 
 
 def pick_download_location(dnf_manager):
@@ -343,21 +312,36 @@ def pick_download_location(dnf_manager):
     install_size = dnf_manager.get_installation_size()
     mount_points = get_free_space_map()
 
-    path = pick_mount_point(
+    # Try to find mount points that are sufficient for download and install.
+    sufficient = _pick_mount_points(
         mount_points,
         download_size,
-        install_size,
-        download_only=True
+        install_size
     )
 
-    if path is None:
+    # Or find mount points that are sufficient only for download.
+    if not sufficient:
+        sufficient = _pick_mount_points(
+            mount_points,
+            download_size,
+            install_size=0
+        )
+
+    # Ignore the system root if there are other mount points.
+    if len(sufficient) > 1:
+        sufficient.discard(conf.target.system_root)
+
+    if not sufficient:
         raise RuntimeError(
             "Not enough disk space to download the "
             "packages; size {}.".format(download_size)
         )
 
-    log.info("Mount point %s picked as download location", path)
-    location = util.join_paths(path, DNF_PACKAGE_CACHE_DIR_SUFFIX)
+    # Choose the biggest sufficient mount point.
+    mount_point = _get_biggest_mount_point(mount_points, sufficient)
+
+    log.info("Mount point %s picked as download location", mount_point)
+    location = util.join_paths(mount_point, DNF_PACKAGE_CACHE_DIR_SUFFIX)
 
     return location
 
@@ -370,15 +354,17 @@ def calculate_required_space(dnf_manager):
     """
     installation_size = dnf_manager.get_installation_size()
     download_size = dnf_manager.get_download_size()
-
     mount_points = get_free_space_map(scheduled=True)
 
-    mount_point = pick_mount_point(
+    # Find sufficient mount points.
+    sufficient = _pick_mount_points(
         mount_points,
         download_size,
-        installation_size,
-        download_only=False
+        installation_size
     )
+
+    # Choose the biggest sufficient mount point.
+    mount_point = _get_biggest_mount_point(mount_points, sufficient)
 
     if not mount_point or mount_point.startswith(conf.target.system_root):
         log.debug("The install and download space is required.")
