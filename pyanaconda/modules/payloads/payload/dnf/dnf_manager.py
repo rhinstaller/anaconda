@@ -201,16 +201,13 @@ class DNFManager(object):
             # Number of files installed on the system.
             files_number += len(tsi.pkg.files)
 
-        log.debug("Space required for packages: %s", packages_size)
-
         # Calculate the files size depending on number of files.
         files_size = Size(files_number * DNF_EXTRA_SIZE_PER_FILE)
-        log.debug("Space required for installed files: %s", files_size)
 
         # Get the total size. Add another 10% as safeguard.
         total_space = Size((packages_size + files_size) * 1.1)
-        log.debug("Total required size: %s", total_space)
 
+        log.info("Total install size: %s", total_space)
         return total_space
 
     def get_download_size(self):
@@ -230,8 +227,8 @@ class DNFManager(object):
 
         # Get the total size. Reserve extra space.
         total_space = download_size + Size("150 MiB")
-        log.debug("Total download size: %s", total_space)
 
+        log.info("Total download size: %s", total_space)
         return total_space
 
     def clear_cache(self):
