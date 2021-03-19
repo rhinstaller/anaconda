@@ -324,15 +324,18 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
         #check if we are in the same epoch as the dialog (and the serversStore)
         #and if the server wasn't changed meanwhile
         if epoch_started == self._epoch:
-            actual_hostname = self._serversStore[itr][SERVER_HOSTNAME]
+            # rhbz#1938168 - when called on Spoke enter / refresh the store can
+            # be cleared by opening NTPConfigDialog
+            if self._serversStore.iter_is_valid(itr):
+                actual_hostname = self._serversStore[itr][SERVER_HOSTNAME]
 
-            if orig_hostname == actual_hostname:
-                if server_working:
-                    set_store_value((self._serversStore,
-                                     itr, SERVER_WORKING, constants.NTP_SERVER_OK))
-                else:
-                    set_store_value((self._serversStore,
-                                     itr, SERVER_WORKING, constants.NTP_SERVER_NOK))
+                if orig_hostname == actual_hostname:
+                    if server_working:
+                        set_store_value((self._serversStore,
+                                        itr, SERVER_WORKING, constants.NTP_SERVER_OK))
+                    else:
+                        set_store_value((self._serversStore,
+                                        itr, SERVER_WORKING, constants.NTP_SERVER_NOK))
         self._epoch_lock.release()
 
     @async_action_nowait
