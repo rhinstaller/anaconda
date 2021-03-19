@@ -198,7 +198,6 @@ Requires: tmux
 Requires: gdb
 # support for installation from image and live & live image installations
 Requires: rsync
-Recommends: zram-generator-defaults
 
 %description install-env-deps
 The anaconda-install-env-deps metapackage lists all installation environment dependencies.
