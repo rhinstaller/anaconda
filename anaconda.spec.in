@@ -81,7 +81,6 @@ BuildRequires: libtimezonemap-devel >= %{libtimezonemapver}
 BuildRequires: gdk-pixbuf2-devel
 BuildRequires: libxml2
 
-Requires: anaconda-core = %{version}-%{release}
 Requires: anaconda-gui = %{version}-%{release}
 Requires: anaconda-tui = %{version}-%{release}
 
