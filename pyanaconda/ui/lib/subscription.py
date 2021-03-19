@@ -19,6 +19,8 @@
 
 from enum import Enum
 
+from dasbus.typing import unwrap_variant
+
 from pyanaconda.threading import threadMgr
 
 from pyanaconda.core.constants import THREAD_WAIT_FOR_CONNECTING_NM, \
@@ -32,7 +34,8 @@ from pyanaconda.payload.manager import payloadMgr
 
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common import task
-from pyanaconda.modules.common.structures.subscription import SubscriptionRequest
+from pyanaconda.modules.common.structures.subscription import SubscriptionRequest, \
+    OrganizationData
 from pyanaconda.modules.common.structures.secret import SECRET_TYPE_HIDDEN, \
     SECRET_TYPE_TEXT
 from pyanaconda.modules.common.errors.subscription import RegistrationError, \
@@ -107,6 +110,40 @@ def check_cdn_is_installation_source(payload):
         # the CDN source pretty much only supports
         # DNF payload at the moment
         return False
+
+
+def check_simple_content_access_is_enabled():
+    """Check if the currently used Red Hat account has Simple Content Access enabled.
+
+    :type subscription_proxy: proxy for the Subscription DBus module
+    """
+    subscription_proxy = SUBSCRIPTION.get_proxy()
+
+    task_path = subscription_proxy.ParseOrganizationDataWithTask()
+    task_proxy = SUBSCRIPTION.get_proxy(task_path)
+    task.sync_run_task(task_proxy)
+    # GetResult() returns a variant, which we need to unwrap and then
+    # convert the list of structs to a list of actual data objects we can easily
+    # work with.
+    org_data_structs = unwrap_variant(task_proxy.GetResult())
+    org_data_list = OrganizationData.from_structure_list(org_data_structs)
+    if org_data_list:
+        if len(org_data_list) > 1:
+            log.warning("subscription thread: more than one organization returned "
+                        "for Red Hat account currently in use")
+            log.warning(org_data_list)
+        # On hosted Candlepin there should be exactly one organization per user account,
+        # on custom Candlepin instances there could be (and often are).
+        # For now just always pick the first one as the authoritative organization.
+        return org_data_list[0].simple_content_access_enabled
+    else:
+        log.warning("subscription thread: empty list of org data returned "
+                    "for the Red Hat account currently in use")
+        # If we for some reason got no organization data for a Red Hart account
+        # (which should not happen), we assume it is running in the "classic"
+        # entitlement based mode, not SCA.
+        return False
+
 
 # Asynchronous registration + subscription & unregistration handling
 #
@@ -264,10 +301,18 @@ def register_and_subscribe(payload, progress_callback=None, error_callback=None,
     # sufficient (though not necessarily valid)
     subscription_request_struct = subscription_proxy.SubscriptionRequest
     subscription_request = SubscriptionRequest.from_structure(subscription_request_struct)
+    sca_enabled = False
     task_path = None
     if subscription_request.type == SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD:
         if username_password_sufficient():
+            # looks like we have enough credentials to register with username & password,
+            # so assign the task path
             task_path = subscription_proxy.RegisterUsernamePasswordWithTask()
+            # and also check information about groups the Red Hat account belongs to as that might
+            # influence the registration process
+            if subscription_request.type == SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD:
+                sca_enabled = check_simple_content_access_is_enabled()
+
     elif subscription_request.type == SUBSCRIPTION_REQUEST_TYPE_ORG_KEY:
         if org_keys_sufficient():
             task_path = subscription_proxy.RegisterOrganizationKeyWithTask()
@@ -287,17 +332,21 @@ def register_and_subscribe(payload, progress_callback=None, error_callback=None,
         error_callback(_("Registration failed due to insufficient credentials."))
         return
 
-    # try to attach subscription
-    log.debug("subscription thread: attempting to auto attach an entitlement")
-    progress_callback(SubscriptionPhase.ATTACH_SUBSCRIPTION)
-    task_path = subscription_proxy.AttachSubscriptionWithTask()
-    task_proxy = SUBSCRIPTION.get_proxy(task_path)
-    try:
-        task.sync_run_task(task_proxy)
-    except SubscriptionError as e:
-        log.debug("subscription thread: failed to attach subscription: %s", e)
-        error_callback(str(e))
-        return
+    if sca_enabled:
+        # skip auto-attach as it is not necessary in Simple Content Access mode
+        log.debug("subscription thread: auto attach skipped due to Simple Content Access mode")
+    else:
+        # not in SCA mode - try to auto attach subscription
+        log.debug("subscription thread: attempting to auto attach an entitlement")
+        progress_callback(SubscriptionPhase.ATTACH_SUBSCRIPTION)
+        task_path = subscription_proxy.AttachSubscriptionWithTask()
+        task_proxy = SUBSCRIPTION.get_proxy(task_path)
+        try:
+            task.sync_run_task(task_proxy)
+        except SubscriptionError as e:
+            log.debug("subscription thread: failed to attach subscription: %s", e)
+            error_callback(str(e))
+            return
 
     # parse attached subscription data
     log.debug("subscription thread: parsing attached subscription data")

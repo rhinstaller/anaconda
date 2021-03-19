@@ -34,13 +34,15 @@ from pyanaconda.core.constants import RHSM_SYSPURPOSE_FILE_PATH, \
 
 from pyanaconda.modules.common.errors.subscription import UnregistrationError, \
     RegistrationError, SubscriptionError
-from pyanaconda.modules.common.structures.subscription import SubscriptionRequest
+from pyanaconda.modules.common.structures.subscription import SubscriptionRequest, \
+    OrganizationData
 
 from pyanaconda.core.subscription import check_system_purpose_set
 
 from pyanaconda.ui.lib.subscription import SubscriptionPhase, \
     register_and_subscribe, unregister, org_keys_sufficient, \
-    username_password_sufficient, check_cdn_is_installation_source
+    username_password_sufficient, check_cdn_is_installation_source, \
+    check_simple_content_access_is_enabled
 
 
 class CheckSystemPurposeSetTestCase(unittest.TestCase):
@@ -60,6 +62,136 @@ class CheckSystemPurposeSetTestCase(unittest.TestCase):
         # system purpose not set
         with tempfile.TemporaryDirectory() as sysroot:
             self.assertFalse(check_system_purpose_set(sysroot))
+
+    @patch("pyanaconda.modules.common.task.sync_run_task")
+    @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
+    def check_simple_content_access_is_enabled_sca_mode_test(self, get_proxy, run_task):
+        """Test the check_simple_content_access_is_enabled() helper function - SCA mode."""
+        # mock the module proxy
+        subscription_module_proxy = Mock()
+        # mock the org fetching DBus task
+        org_data_task_proxy = Mock()
+        # create some dummy data
+        org_data_1 = OrganizationData()
+        org_data_1.organization_id = "123b"
+        org_data_1.name = "Bar Org"
+        org_data_1.simple_content_access_enabled = True
+        # encode is as variant
+        org_data_task_proxy.GetResult.return_value = get_variant(
+            List[Structure], OrganizationData.to_structure_list([org_data_1])
+        )
+        # export the two proxies via side effects as the get_proxy() method gets called twice
+        get_proxy.side_effect = [subscription_module_proxy, org_data_task_proxy]
+        # run the function
+        self.assertTrue(check_simple_content_access_is_enabled())
+        # check we requested the right task
+        subscription_module_proxy.ParseOrganizationDataWithTask.assert_called_once()
+
+        # check we tried to run the task
+        run_task.assert_called()
+
+        # check we requested task results
+        org_data_task_proxy.GetResult.assert_called_once()
+
+    @patch("pyanaconda.modules.common.task.sync_run_task")
+    @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
+    def check_simple_content_access_is_enabled_non_sca_mode_test(self, get_proxy, run_task):
+        """Test the check_simple_content_access_is_enabled() helper function - non SCA mode."""
+        # mock the module proxy
+        subscription_module_proxy = Mock()
+        # mock the org fetching DBus task
+        org_data_task_proxy = Mock()
+        # create some dummy data
+        org_data_1 = OrganizationData()
+        org_data_1.organization_id = "123a"
+        org_data_1.name = "Bar Org"
+        org_data_1.simple_content_access_enabled = False
+        # encode is as variant
+        org_data_task_proxy.GetResult.return_value = get_variant(
+            List[Structure], OrganizationData.to_structure_list([org_data_1])
+        )
+        # export the two proxies via side effects as the get_proxy() method gets called twice
+        get_proxy.side_effect = [subscription_module_proxy, org_data_task_proxy]
+        # run the function
+        self.assertFalse(check_simple_content_access_is_enabled())
+        # check we requested the right task
+        subscription_module_proxy.ParseOrganizationDataWithTask.assert_called_once()
+
+        # check we tried to run the task
+        run_task.assert_called()
+
+        # check we requested task results
+        org_data_task_proxy.GetResult.assert_called_once()
+
+    @patch("pyanaconda.modules.common.task.sync_run_task")
+    @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
+    def check_simple_content_access_is_enabled_multiple_orgs_test(self, get_proxy, run_task):
+        """Test the check_simple_content_access_is_enabled() helper function - multiple orgs."""
+        # If multiple sets of organization data are returned, we pick the first one in the list.
+        # This is do to not fully supporting accounts that exist in multiple organizations.
+        # Once proper support for this is introduced, this case should no longer happen as
+        # either the account is a member of just one organization or a specific one was picked
+        # from a list presented to the user by Anaconda.
+
+        # mock the module proxy
+        subscription_module_proxy = Mock()
+        # mock the org fetching DBus task
+        org_data_task_proxy = Mock()
+        # create some dummy data
+        org_data_1 = OrganizationData()
+        org_data_1.organization_id = "123a"
+        org_data_1.name = "Bar Org"
+        org_data_1.simple_content_access_enabled = True
+
+        org_data_2 = OrganizationData()
+        org_data_2.organization_id = "123b"
+        org_data_2.name = "Baz Org"
+        org_data_2.simple_content_access_enabled = False
+
+        # encode is as variant
+        org_data_task_proxy.GetResult.return_value = get_variant(
+            List[Structure], OrganizationData.to_structure_list([org_data_1, org_data_2])
+        )
+        # export the two proxies via side effects as the get_proxy() method gets called twice
+        get_proxy.side_effect = [subscription_module_proxy, org_data_task_proxy]
+        # run the function
+        self.assertTrue(check_simple_content_access_is_enabled())
+        # check we requested the right task
+        subscription_module_proxy.ParseOrganizationDataWithTask.assert_called_once()
+
+        # check we tried to run the task
+        run_task.assert_called()
+
+        # check we requested task results
+        org_data_task_proxy.GetResult.assert_called_once()
+
+    @patch("pyanaconda.modules.common.task.sync_run_task")
+    @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
+    def check_simple_content_access_is_enabled_no_org_data_test(self, get_proxy, run_task):
+        """Test the check_simple_content_access_is_enabled() helper function - no org data."""
+        # This tests a case where GetOrgs() returns no data at all for the given Red Hat account.
+        # In such a case we assume SCA is not enabled.
+
+        # mock the module proxy
+        subscription_module_proxy = Mock()
+        # mock the org fetching DBus task
+        org_data_task_proxy = Mock()
+        # take an empty list and encode as variant
+        org_data_task_proxy.GetResult.return_value = get_variant(
+            List[Structure], OrganizationData.to_structure_list([])
+        )
+        # export the two proxies via side effects as the get_proxy() method gets called twice
+        get_proxy.side_effect = [subscription_module_proxy, org_data_task_proxy]
+        # run the function
+        self.assertFalse(check_simple_content_access_is_enabled())
+        # check we requested the right task
+        subscription_module_proxy.ParseOrganizationDataWithTask.assert_called_once()
+
+        # check we tried to run the task
+        run_task.assert_called()
+
+        # check we requested task results
+        org_data_task_proxy.GetResult.assert_called_once()
 
 
 class AsynchronousRegistrationTestCase(unittest.TestCase):
@@ -252,11 +384,13 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # and tried to run them
         run_task.assert_called()
 
+    @patch("pyanaconda.ui.lib.subscription.check_simple_content_access_is_enabled")
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def register_username_password_test(self, get_proxy, thread_mgr_wait, run_task, switch_source):
+    def register_username_password_test(self, get_proxy, thread_mgr_wait, run_task,
+                                        switch_source, check_sca_enabled):
         """Test the register_and_subscribe() helper method - username & password."""
         payload = Mock()
         source_proxy = payload.get_source_proxy.return_value
@@ -268,12 +402,16 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         subscription_proxy.IsRegistered = False
         # simulate subscription request
         subscription_proxy.SubscriptionRequest = self.PASSWORD_REQUEST
+        # simulate SCA not enabled
+        check_sca_enabled.return_value = False
         # run the function
         register_and_subscribe(payload=payload,
                                progress_callback=progress_callback,
                                error_callback=error_callback)
         # we should have waited on network
         thread_mgr_wait.assert_called_once_with(THREAD_WAIT_FOR_CONNECTING_NM)
+        # and checked for SCA mode
+        check_sca_enabled.assert_called_once()
         # system was no registered, so no unregistration phase
         print(error_callback.mock_calls)
         progress_callback.assert_has_calls(
@@ -445,12 +583,13 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # when we were not able to attach a subscription
         switch_source.assert_not_called()
 
+    @patch("pyanaconda.ui.lib.subscription.check_simple_content_access_is_enabled")
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
     def register_username_password_task_failed_test(self, get_proxy, thread_mgr_wait,
-                                                    run_task, switch_source):
+                                                    run_task, switch_source, check_sca_enabled):
         """Test the register_and_subscribe() helper method - username & password failed."""
         payload = Mock()
         progress_callback = Mock()
@@ -460,6 +599,8 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         subscription_proxy.IsRegistered = False
         # simulate subscription request
         subscription_proxy.SubscriptionRequest = self.PASSWORD_REQUEST
+        # simulate SCA not enabled
+        check_sca_enabled.return_value = False
         # make the first (registration) task fail
         run_task.side_effect = [True, RegistrationError("registration failed")]
         # run the function
@@ -468,6 +609,8 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
                                error_callback=error_callback)
         # we should have waited on network
         thread_mgr_wait.assert_called_once_with(THREAD_WAIT_FOR_CONNECTING_NM)
+        # and checked for SCA mode
+        check_sca_enabled.assert_called_once()
         # there should be only the registration phase
         progress_callback.assert_has_calls(
             [call(SubscriptionPhase.REGISTER)]
@@ -626,11 +769,13 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # we told the payload not to restart
         restart_thread.assert_not_called()
 
+    @patch("pyanaconda.ui.lib.subscription.check_simple_content_access_is_enabled")
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def subscription_task_failed_test(self, get_proxy, thread_mgr_wait, run_task, switch_source):
+    def subscription_task_failed_test(self, get_proxy, thread_mgr_wait, run_task,
+                                      switch_source, check_sca_enabled):
         """Test the register_and_subscribe() helper method - failed to attach subscription."""
         payload = Mock()
         progress_callback = Mock()
@@ -640,6 +785,8 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         subscription_proxy.IsRegistered = False
         # simulate subscription request
         subscription_proxy.SubscriptionRequest = self.PASSWORD_REQUEST
+        # simulate SCA not enabled
+        check_sca_enabled.return_value = False
         # make the second (subscription) task fail
         run_task.side_effect = [True, True, SubscriptionError("failed to attach subscription")]
         # run the function
@@ -648,6 +795,8 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
                                error_callback=error_callback)
         # we should have waited on network
         thread_mgr_wait.assert_called_once_with(THREAD_WAIT_FOR_CONNECTING_NM)
+        # and checked for SCA mode
+        check_sca_enabled.assert_called_once()
         # there should be only the registration & subscription phase
         progress_callback.assert_has_calls(
             [call(SubscriptionPhase.REGISTER),
@@ -806,11 +955,13 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         ostree_payload.type = PAYLOAD_TYPE_RPM_OSTREE
         self.assertFalse(check_cdn_is_installation_source(ostree_payload))
 
+    @patch("pyanaconda.ui.lib.subscription.check_simple_content_access_is_enabled")
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def unsupported_payload_reg_test(self, get_proxy, thread_mgr_wait, run_task, switch_source):
+    def unsupported_payload_reg_test(self, get_proxy, thread_mgr_wait, run_task,
+                                     switch_source, check_sca_enabled):
         """Test registration handles unsupported payload."""
         payload = Mock()
         payload.type = PAYLOAD_TYPE_RPM_OSTREE
@@ -821,12 +972,16 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         subscription_proxy.IsRegistered = False
         # simulate subscription request
         subscription_proxy.SubscriptionRequest = self.PASSWORD_REQUEST
+        # simulate SCA not enabled
+        check_sca_enabled.return_value = False
         # run the function
         register_and_subscribe(payload=payload,
                                progress_callback=progress_callback,
                                error_callback=error_callback)
         # we should have waited on network
         thread_mgr_wait.assert_called_once_with(THREAD_WAIT_FOR_CONNECTING_NM)
+        # and checked for SCA mode
+        check_sca_enabled.assert_called_once()
         # system was no registered, so no unregistration phase
         print(error_callback.mock_calls)
         progress_callback.assert_has_calls(
@@ -879,13 +1034,14 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # payload is not supported
         switch_source.assert_not_called()
 
+    @patch("pyanaconda.ui.lib.subscription.check_simple_content_access_is_enabled")
     @patch("pyanaconda.payload.manager.payloadMgr.restart_thread")
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
     def register_payload_restart_test(self, get_proxy, thread_mgr_wait, run_task, switch_source,
-                                      restart_thread):
+                                      restart_thread, check_sca_enabled):
         """Test payload restart at registration."""
         payload = Mock()
         payload.type = PAYLOAD_TYPE_DNF
@@ -898,6 +1054,8 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         subscription_proxy.IsRegistered = False
         # simulate subscription request
         subscription_proxy.SubscriptionRequest = self.PASSWORD_REQUEST
+        # simulate SCA not enabled
+        check_sca_enabled.return_value = False
         # run the function
         register_and_subscribe(payload=payload,
                                progress_callback=progress_callback,
@@ -905,6 +1063,8 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
                                restart_payload=True)
         # we should have waited on network
         thread_mgr_wait.assert_called_once_with(THREAD_WAIT_FOR_CONNECTING_NM)
+        # and checked for SCA mode
+        check_sca_enabled.assert_called_once()
         # system was no registered, so no unregistration phase
         print(error_callback.mock_calls)
         progress_callback.assert_has_calls(
@@ -925,13 +1085,14 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # the payload to make it usable
         restart_thread.assert_called_once()
 
+    @patch("pyanaconda.ui.lib.subscription.check_simple_content_access_is_enabled")
     @patch("pyanaconda.payload.manager.payloadMgr.restart_thread")
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
     def register_payload_no_restart_test(self, get_proxy, thread_mgr_wait, run_task, switch_source,
-                                         restart_thread):
+                                         restart_thread, check_sca_enabled):
         """Test payload no restart at registration if not requested."""
         payload = Mock()
         payload.type = PAYLOAD_TYPE_DNF
@@ -944,6 +1105,8 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         subscription_proxy.IsRegistered = False
         # simulate subscription request
         subscription_proxy.SubscriptionRequest = self.PASSWORD_REQUEST
+        # simulate SCA not enabled
+        check_sca_enabled.return_value = False
         # run the function
         register_and_subscribe(payload=payload,
                                progress_callback=progress_callback,
@@ -951,6 +1114,8 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
                                restart_payload=False)
         # we should have waited on network
         thread_mgr_wait.assert_called_once_with(THREAD_WAIT_FOR_CONNECTING_NM)
+        # and checked for SCA mode
+        check_sca_enabled.assert_called_once()
         # system was no registered, so no unregistration phase
         print(error_callback.mock_calls)
         progress_callback.assert_has_calls(
@@ -970,13 +1135,14 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # told the helper method not to restart
         restart_thread.assert_not_called()
 
+    @patch("pyanaconda.ui.lib.subscription.check_simple_content_access_is_enabled")
     @patch("pyanaconda.payload.manager.payloadMgr.restart_thread")
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
     def register_no_payload_restart_test(self, get_proxy, thread_mgr_wait, run_task, switch_source,
-                                         restart_thread):
+                                         restart_thread, check_sca_enabled):
         """Test there is no payload restart during registration for non CDN source."""
         payload = Mock()
         payload.type = PAYLOAD_TYPE_DNF
@@ -989,6 +1155,8 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         subscription_proxy.IsRegistered = False
         # simulate subscription request
         subscription_proxy.SubscriptionRequest = self.PASSWORD_REQUEST
+        # simulate SCA not enabled
+        check_sca_enabled.return_value = False
         # run the function
         register_and_subscribe(payload=payload,
                                progress_callback=progress_callback,
@@ -996,6 +1164,8 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
                                restart_payload=True)
         # we should have waited on network
         thread_mgr_wait.assert_called_once_with(THREAD_WAIT_FOR_CONNECTING_NM)
+        # and checked for SCA mode
+        check_sca_enabled.assert_called_once()
         # system was no registered, so no unregistration phase
         print(error_callback.mock_calls)
         progress_callback.assert_has_calls(
@@ -1140,3 +1310,51 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # as we are on the URL source and we don't need to change
         # anything about it when we unregister
         restart_thread.assert_not_called()
+
+    @patch("pyanaconda.ui.lib.subscription.check_simple_content_access_is_enabled")
+    @patch("pyanaconda.ui.lib.subscription.switch_source")
+    @patch("pyanaconda.modules.common.task.sync_run_task")
+    @patch("pyanaconda.threading.threadMgr.wait")
+    @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
+    def register_username_password_sca_test(self, get_proxy, thread_mgr_wait,
+                                            run_task, switch_source, check_sca_enabled):
+        """Test the register_and_subscribe() helper method - username & password in SCA mode."""
+        payload = Mock()
+        source_proxy = payload.get_source_proxy.return_value
+        source_proxy.Type = SOURCE_TYPE_CLOSEST_MIRROR
+        progress_callback = Mock()
+        error_callback = Mock()
+        subscription_proxy = get_proxy.return_value
+        # simulate the system not being registered
+        subscription_proxy.IsRegistered = False
+        # simulate subscription request
+        subscription_proxy.SubscriptionRequest = self.PASSWORD_REQUEST
+        # simulate the system being in Simple Content Access mode
+        check_sca_enabled.return_value = True
+        # run the function
+        register_and_subscribe(payload=payload,
+                               progress_callback=progress_callback,
+                               error_callback=error_callback)
+        # we should have waited on network
+        thread_mgr_wait.assert_called_once_with(THREAD_WAIT_FOR_CONNECTING_NM)
+        # and checked for SCA mode
+        check_sca_enabled.assert_called_once()
+        # system was not registered, so no unregistration phase and in SCA mode,
+        # so also no subscription phase as everything happens automagically
+        # in the registration phase
+        progress_callback.assert_has_calls(
+            [call(SubscriptionPhase.REGISTER),
+             call(SubscriptionPhase.DONE)]
+        )
+        # we were successful, so no error callback calls
+        error_callback.assert_not_called()
+        # we should have requested the appropriate tasks
+        subscription_proxy.SetRHSMConfigWithTask.assert_called_once()
+        subscription_proxy.RegisterUsernamePasswordWithTask.assert_called_once()
+        subscription_proxy.ParseAttachedSubscriptionsWithTask.assert_called_once()
+        # and skipped the attach task
+        subscription_proxy.AttachSubscriptionWithTask.assert_not_called()
+        # not tried to set the CDN source
+        switch_source.assert_not_called()
+        # and tried to run them
+        run_task.assert_called()
