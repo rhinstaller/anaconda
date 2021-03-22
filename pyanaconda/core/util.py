@@ -33,6 +33,8 @@ import sys
 import types
 import inspect
 import functools
+import importlib.util
+import importlib.machinery
 import blivet.arch
 
 import requests
@@ -1179,8 +1181,6 @@ def collect(module_pattern, path, pred):
        :param pred: function which marks classes as good to import
        :type pred: function with one argument returning True or False
     """
-    import imp
-
     retval = []
     try:
         contents = os.listdir(path)
@@ -1201,12 +1201,19 @@ def collect(module_pattern, path, pred):
         except ValueError:
             mod_name = module_file
 
-        mod_info = None
         module = None
         module_path = None
 
         try:
-            (fo, module_path, module_flags) = imp.find_module(mod_name, [path])
+            # see what can be found
+            spec = importlib.machinery.PathFinder.find_spec(mod_name, [path])
+            module_path = spec.origin
+            candidate_name, dot, found_ext = module_path.rpartition(".")
+            if not dot:
+                continue
+            found_ext = dot + found_ext
+
+            # see what is already loaded
             module = sys.modules.get(module_pattern % mod_name)
 
             # do not load module if any module with the same name
@@ -1236,15 +1243,15 @@ def collect(module_pattern, path, pred):
                             sys.modules[module_part_name] = module_part
 
                     # load the collected module
-                    module = imp.load_module(module_pattern % mod_name,
-                                             fo, module_path, module_flags)
+                    module = importlib.util.module_from_spec(spec)
+                    sys.modules[mod_name] = module
+                    spec.loader.exec_module(module)
 
             # get the filenames without the extensions so we can compare those
             # with the .py[co]? equivalence in mind
             # - we do not have to care about files without extension as the
             #   condition at the beginning of the for loop filters out those
-            # - module_flags[0] contains the extension of the module imp found
-            candidate_name = module_path[:module_path.rindex(module_flags[0])]
+            # - found_ext contains the extension of the module importlib found
             loaded_name, loaded_ext = module.__file__.rsplit(".", 1)
 
             # restore the extension dot eaten by split
@@ -1258,12 +1265,12 @@ def collect(module_pattern, path, pred):
 
             # if the candidate file is .py[co]? and the loaded is not (.so)
             # skip the file as well
-            if module_flags[0].startswith(".py") and not loaded_ext.startswith(".py"):
+            if found_ext.startswith(".py") and not loaded_ext.startswith(".py"):
                 continue
 
             # if the candidate file is not .py[co]? and the loaded is
             # skip the file as well
-            if not module_flags[0].startswith(".py") and loaded_ext.startswith(".py"):
+            if not found_ext.startswith(".py") and loaded_ext.startswith(".py"):
                 continue
 
         except RemovedModuleError:
@@ -1277,9 +1284,6 @@ def collect(module_pattern, path, pred):
                 raise
             log.error("Failed to import module %s from path %s in collect: %s", mod_name, module_path, imperr)
             continue
-        finally:
-            if mod_info and mod_info[0]:  # pylint: disable=unsubscriptable-object
-                mod_info[0].close()  # pylint: disable=unsubscriptable-object
 
         p = lambda obj: inspect.isclass(obj) and pred(obj)
 
