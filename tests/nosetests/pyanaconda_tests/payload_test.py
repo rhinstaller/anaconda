@@ -25,66 +25,7 @@ import hashlib
 import shutil
 
 import pyanaconda.core.payload as util
-
-from blivet.size import Size
-
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.payload.dnf import utils
 from pyanaconda.payload.dnf.repomd import RepoMDMetaHash
-
-
-class PickLocation(unittest.TestCase):
-    def pick_download_location_test(self):
-        """Take the biggest mountpoint which can be used for download"""
-        df_map = {os.path.join(conf.target.system_root, "not_used"): Size("20 G"),
-                  os.path.join(conf.target.system_root, "home"): Size("2 G"),
-                  os.path.join(conf.target.system_root): Size("5 G")}
-        download_size = Size("1.5 G")
-        install_size = Size("1.8 G")
-
-        mpoint = utils.pick_mount_point(df_map, download_size, install_size, True)
-
-        self.assertEqual(mpoint, os.path.join(conf.target.system_root, "home"))
-
-    def pick_download_root_test(self):
-        """Take the root for download because there are no other available mountpoints
-           even when the root isn't big enough.
-
-           This is required when user skipped the space check.
-        """
-        df_map = {os.path.join(conf.target.system_root, "not_used"): Size("20 G"),
-                  os.path.join(conf.target.system_root, "home"): Size("2 G"),
-                  os.path.join(conf.target.system_root): Size("5 G")}
-        download_size = Size("2.5 G")
-        install_size = Size("3.0 G")
-
-        mpoint = utils.pick_mount_point(df_map, download_size, install_size, True)
-
-        self.assertEqual(mpoint, os.path.join(conf.target.system_root))
-
-    def pick_install_location_test(self):
-        """Take the root for download and install."""
-        df_map = {os.path.join(conf.target.system_root, "not_used"): Size("20 G"),
-                  os.path.join(conf.target.system_root, "home"): Size("2 G"),
-                  os.path.join(conf.target.system_root): Size("6 G")}
-        download_size = Size("1.5 G")
-        install_size = Size("3.0 G")
-
-        mpoint = utils.pick_mount_point(df_map, download_size, install_size, False)
-
-        self.assertEqual(mpoint, conf.target.system_root)
-
-    def pick_install_location_error_test(self):
-        """No suitable location is found."""
-        df_map = {os.path.join(conf.target.system_root, "not_used"): Size("20 G"),
-                  os.path.join(conf.target.system_root, "home"): Size("1 G"),
-                  os.path.join(conf.target.system_root): Size("4 G")}
-        download_size = Size("1.5 G")
-        install_size = Size("3.0 G")
-
-        mpoint = utils.pick_mount_point(df_map, download_size, install_size, False)
-
-        self.assertEqual(mpoint, None)
 
 
 class DummyRepo(object):

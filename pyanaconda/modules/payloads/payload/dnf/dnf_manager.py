@@ -64,6 +64,7 @@ class DNFManager(object):
         self.__base = None
         self._ignore_missing_packages = False
         self._ignore_broken_packages = False
+        self._download_location = None
 
     @property
     def _base(self):
@@ -108,6 +109,7 @@ class DNFManager(object):
         self.__base = None
         self._ignore_missing_packages = False
         self._ignore_broken_packages = False
+        self._download_location = None
         log.debug("The DNF base has been reset.")
 
     def configure_base(self, data: PackagesConfigurationData):
@@ -199,16 +201,13 @@ class DNFManager(object):
             # Number of files installed on the system.
             files_number += len(tsi.pkg.files)
 
-        log.debug("Space required for packages: %s", packages_size)
-
         # Calculate the files size depending on number of files.
         files_size = Size(files_number * DNF_EXTRA_SIZE_PER_FILE)
-        log.debug("Space required for installed files: %s", files_size)
 
         # Get the total size. Add another 10% as safeguard.
         total_space = Size((packages_size + files_size) * 1.1)
-        log.debug("Total required size: %s", total_space)
 
+        log.info("Total install size: %s", total_space)
         return total_space
 
     def get_download_size(self):
@@ -228,8 +227,8 @@ class DNFManager(object):
 
         # Get the total size. Reserve extra space.
         total_space = download_size + Size("150 MiB")
-        log.debug("Total download size: %s", total_space)
 
+        log.info("Total download size: %s", total_space)
         return total_space
 
     def clear_cache(self):
@@ -312,6 +311,21 @@ class DNFManager(object):
             or exception.error_pkg_specs \
             or exception.module_depsolv_errors
 
+    @property
+    def download_location(self):
+        """The location for the package download."""
+        return self._download_location
+
+    def set_download_location(self, path):
+        """Set up the location for downloading the packages.
+
+        :param path: a path to the package directory
+        """
+        for repo in self._base.repos.iter_enabled():
+            repo.pkgdir = path
+
+        self._download_location = path
+
     def download_packages(self, callback):
         """Download the packages.
 
@@ -320,6 +334,8 @@ class DNFManager(object):
         """
         packages = self._base.transaction.install_set
         progress = DownloadProgress(callback=callback)
+
+        log.info("Downloading packages to %s.", self.download_location)
 
         try:
             self._base.download_packages(packages, progress)

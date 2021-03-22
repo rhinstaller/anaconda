@@ -18,7 +18,6 @@
 #
 import configparser
 import os
-import shutil
 import sys
 import threading
 import dnf.exceptions
@@ -32,13 +31,14 @@ from pyanaconda.modules.common.structures.packages import PackagesConfigurationD
     PackagesSelectionData
 from pyanaconda.modules.payloads.payload.dnf.initialization import configure_dnf_logging
 from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
-    SetRPMMacrosTask, DownloadPackagesTask, InstallPackagesTask
+    SetRPMMacrosTask, DownloadPackagesTask, InstallPackagesTask, PrepareDownloadLocationTask, \
+    CleanUpDownloadLocationTask
 from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements, \
     collect_platform_requirements, collect_driver_disk_requirements, collect_remote_requirements, \
     apply_requirements
 from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package, \
     get_product_release_version, get_default_environment, get_installation_specs, \
-    get_kernel_version_list
+    get_kernel_version_list, calculate_required_space
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 
@@ -53,15 +53,12 @@ from pyanaconda.core.i18n import N_
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import RepoData
-from pyanaconda.modules.common.constants.objects import DEVICE_TREE
-from pyanaconda.modules.common.constants.services import STORAGE, SUBSCRIPTION
+from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.payloads.source.utils import has_network_protocol
 from pyanaconda.modules.common.errors.storage import DeviceSetupError, MountFilesystemError
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
-from pyanaconda.payload.dnf.utils import DNF_PACKAGE_CACHE_DIR_SUFFIX, \
-    YUM_REPOS_DIR, get_df_map, pick_mount_point
 from pyanaconda.payload.dnf.repomd import RepoMDMetaHash
 from pyanaconda.payload.errors import MetadataError, PayloadError, NoSuchGroup, DependencyError, \
     PayloadSetupError
@@ -72,11 +69,12 @@ from pyanaconda.progress import progressQ, progress_message
 from pyanaconda.ui.lib.payload import get_payload, get_source, create_source, set_source, \
     set_up_sources, tear_down_sources
 
-log = get_packaging_logger()
+__all__ = ["DNFPayload"]
 
+YUM_REPOS_DIR = "/etc/yum.repos.d/"
 USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)
 
-__all__ = ["DNFPayload"]
+log = get_packaging_logger()
 
 
 class DNFPayload(Payload):
@@ -100,7 +98,6 @@ class DNFPayload(Payload):
         self._environment_addons = {}
 
         self._dnf_manager = DNFManager()
-        self._download_location = None
         self._updates_enabled = True
 
         # Configure the DNF logging.
@@ -369,29 +366,6 @@ class DNFPayload(Payload):
             util.ipmi_abort(scripts=self.data.scripts)
             sys.exit(1)
 
-    def _pick_download_location(self):
-        download_size = self._dnf_manager.get_download_size()
-        install_size = self._dnf_manager.get_installation_size()
-        df_map = get_df_map()
-        mpoint = pick_mount_point(
-            df_map,
-            download_size,
-            install_size,
-            download_only=True
-        )
-        if mpoint is None:
-            msg = ("Not enough disk space to download the "
-                   "packages; size %s." % download_size)
-            raise PayloadError(msg)
-
-        log.info("Mountpoint %s picked as download location", mpoint)
-        pkgdir = '%s/%s' % (mpoint, DNF_PACKAGE_CACHE_DIR_SUFFIX)
-        with self._repos_lock:
-            for repo in self._base.repos.iter_enabled():
-                repo.pkgdir = pkgdir
-
-        return pkgdir
-
     def _sync_metadata(self, dnf_repo):
         try:
             dnf_repo.load()
@@ -644,30 +618,7 @@ class DNFPayload(Payload):
 
     @property
     def space_required(self):
-        device_tree = STORAGE.get_proxy(DEVICE_TREE)
-        size = self._dnf_manager.get_installation_size()
-        download_size = self._dnf_manager.get_download_size()
-        valid_points = get_df_map()
-        root_mpoint = conf.target.system_root
-
-        for key in payload_utils.get_mount_points():
-            new_key = key
-            if key.endswith('/'):
-                new_key = key[:-1]
-            # we can ignore swap
-            if key.startswith('/') and ((root_mpoint + new_key) not in valid_points):
-                valid_points[root_mpoint + new_key] = device_tree.GetFileSystemFreeSpace([key])
-
-        m_point = pick_mount_point(valid_points, download_size, size, download_only=False)
-        if not m_point or m_point == root_mpoint:
-            # download and install to the same mount point
-            size = size + download_size
-            log.debug("Install + download space required %s", size)
-        else:
-            log.debug("Download space required %s for mpoint %s (non-chroot)",
-                      download_size, m_point)
-            log.debug("Installation space required %s", size)
-        return size
+        return calculate_required_space(self._dnf_manager)
 
     def _is_group_visible(self, grpid):
         grp = self._base.comps.group_by_pattern(grpid)
@@ -845,14 +796,10 @@ class DNFPayload(Payload):
         task.run()
 
         self.check_software_selection()
-        self._download_location = self._pick_download_location()
 
-        if os.path.exists(self._download_location):
-            log.info("Removing existing package download "
-                     "location: %s", self._download_location)
-            shutil.rmtree(self._download_location)
-
-        log.info('Downloading packages to %s.', self._download_location)
+        # Set up the download location.
+        task = PrepareDownloadLocationTask(self._dnf_manager)
+        task.run()
 
         # Download the packages.
         task = DownloadPackagesTask(self._dnf_manager)
@@ -864,18 +811,11 @@ class DNFPayload(Payload):
         task.progress_changed_signal.connect(self._progress_cb)
         task.run()
 
+        # Clean up the download location.
+        task = CleanUpDownloadLocationTask(self._dnf_manager)
+        task.run()
+
         # Don't close the mother base here, because we still need it.
-        if os.path.exists(self._download_location):
-            log.info("Cleaning up downloaded packages: "
-                     "%s", self._download_location)
-            shutil.rmtree(self._download_location)
-        else:
-            # Some installation sources, such as NFS, don't need to download packages to
-            # local storage, so the download location might not always exist. So for now
-            # warn about this, at least until the RFE in bug 1193121 is implemented and
-            # we don't have to care about clearing the download location ourselves.
-            log.warning("Can't delete nonexistent download "
-                        "location: %s", self._download_location)
 
     def _get_repo(self, repo_id):
         """Return the yum repo object."""

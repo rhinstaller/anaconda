@@ -16,6 +16,8 @@
 # Red Hat, Inc.
 #
 import os
+import shutil
+
 import rpm
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -25,6 +27,7 @@ from pyanaconda.core.constants import RPM_LANGUAGES_NONE, RPM_LANGUAGES_ALL
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.payloads.payload.dnf.utils import pick_download_location
 
 log = get_module_logger(__name__)
 
@@ -85,6 +88,68 @@ class SetRPMMacrosTask(Task):
         for name, value in macros:
             log.debug("Set '%s' to '%s'.", name, value)
             rpm.addMacro(name, value)
+
+
+class PrepareDownloadLocationTask(Task):
+    """The installation task for setting up the download location."""
+
+    def __init__(self, dnf_manager):
+        """Create a new task.
+
+        :param dnf_manager: a DNF manager
+        """
+        super().__init__()
+        self._dnf_manager = dnf_manager
+
+    @property
+    def name(self):
+        return "Prepare the package download"
+
+    def run(self):
+        """Run the task.
+
+        :return: a path of the download location
+        """
+        path = pick_download_location(self._dnf_manager)
+
+        if os.path.exists(path):
+            log.info("Removing existing package download location: %s", path)
+            shutil.rmtree(path)
+
+        self._dnf_manager.set_download_location(path)
+        return path
+
+
+class CleanUpDownloadLocationTask(Task):
+    """The installation task for cleaning up the download location."""
+
+    def __init__(self, dnf_manager):
+        """Create a new task.
+
+        :param dnf_manager: a DNF manager
+        """
+        super().__init__()
+        self._dnf_manager = dnf_manager
+
+    @property
+    def name(self):
+        return "Remove downloaded packages"
+
+    def run(self):
+        """Run the task.
+
+        Some installation sources, such as NFS, don't need to download packages to
+        local storage, so the download location might not always exist. See the bug
+        1193121 for more information.
+        """
+        path = self._dnf_manager.download_location
+
+        if not os.path.exists(path):
+            log.warning("The download location %s doesn't exist.", path)
+            return
+
+        log.info("Removing downloaded packages from %s.", path)
+        shutil.rmtree(path)
 
 
 class DownloadPackagesTask(Task):

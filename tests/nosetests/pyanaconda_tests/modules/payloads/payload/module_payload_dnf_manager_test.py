@@ -19,10 +19,12 @@ import unittest
 from unittest.mock import patch, Mock, call
 
 from blivet.size import Size, ROUND_UP
+
 from dnf.callback import STATUS_OK, STATUS_FAILED, PKG_SCRIPTLET
 from dnf.exceptions import MarkingErrors
 from dnf.package import Package
 from dnf.transaction import PKG_INSTALL, TRANS_POST, PKG_VERIFY
+from dnf.repo import Repo
 
 from pyanaconda.core.constants import MULTILIB_POLICY_ALL
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
@@ -519,3 +521,35 @@ class DNFMangerTestCase(unittest.TestCase):
     def _install_packages_quit(self, progress):
         """Simulate the terminated installation of packages."""
         raise IOError("Something went wrong with the p1 package!")
+
+    def _add_repo(self, name, enabled=True):
+        """Add the DNF repo object."""
+        repo = Repo(name, self.dnf_manager._base.conf)
+        self.dnf_manager._base.repos.add(repo)
+
+        if enabled:
+            repo.enable()
+
+        return repo
+
+    def set_download_location_test(self):
+        """Test the set_download_location method."""
+        r1 = self._add_repo("r1")
+        r2 = self._add_repo("r2")
+        r3 = self._add_repo("r3")
+
+        self.dnf_manager.set_download_location("/my/download/location")
+
+        self.assertEqual(r1.pkgdir, "/my/download/location")
+        self.assertEqual(r2.pkgdir, "/my/download/location")
+        self.assertEqual(r3.pkgdir, "/my/download/location")
+
+    def download_location_test(self):
+        """Test the download_location property."""
+        self.assertEqual(self.dnf_manager.download_location, None)
+
+        self.dnf_manager.set_download_location("/my/location")
+        self.assertEqual(self.dnf_manager.download_location, "/my/location")
+
+        self.dnf_manager.reset_base()
+        self.assertEqual(self.dnf_manager.download_location, None)
