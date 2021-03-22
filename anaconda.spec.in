@@ -422,6 +422,26 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Mar 22 2021 Martin Kolman <mkolman@redhat.com> - 34.24.6-1
+- Check if the mount point exists before calling statvfs (#1824357) (vponcova)
+- Do not follow symlinks when copying /etc/resolv.conf (#1933454) (rvykydal)
+- Use the volume UUID to search for the GRUB config in btrfs partitions
+  (javierm)
+- Drop python3-syspurpose dependency (mkolman)
+- Fix copypaste typo in github owner tests (vslavik)
+- Modify owner tests for this f34-release branch (vslavik)
+- Fix running tests for the f34-devel branch (vslavik)
+- Wrap text in spoke title labels, if needed (vslavik)
+- Wrap welcome spoke title if needed (vslavik)
+- Choose the best locale more carefully (#1933384) (vponcova)
+- Make the user interface context safe for the initial setup (vponcova)
+- The network spoke should be visible in live spins (#1932961) (vponcova)
+- Ignore Pylint errors on DNF API (vslavik)
+- Ignore Pylint errors for PropertiesChanged.connect (vslavik)
+- Silence false Pylint warning (vslavik)
+- Ignore false Pylint errors for Enum subclasses (vslavik)
+- Determine GRUB directory relative path to use in config file (javierm)
+
 * Mon Feb 22 2021 Martin Kolman <mkolman@redhat.com> - 34.24.5-1
 - Add the "Encrypt my data" checkbox to the custom partitioning spoke
   (vponcova)
