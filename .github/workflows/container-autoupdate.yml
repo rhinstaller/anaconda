@@ -30,6 +30,9 @@ jobs:
       CI_TAG: '${{ matrix.container-tag }}'
     timeout-minutes: 60
     steps:
+      - name: Login to container registry
+        run: podman login -u ${{ secrets.QUAY_USERNAME }} -p ${{ secrets.QUAY_PASSWORD }} quay.io
+
       - name: Checkout anaconda repository
         uses: actions/checkout@v2
         with:
@@ -62,9 +65,6 @@ jobs:
             test-logs/nosetests.log
             test-logs/pylint/runpylint*.log
             test-logs/coverage-*.log
-
-      - name: Login to container registry
-        run: podman login -u ${{ secrets.QUAY_USERNAME }} -p ${{ secrets.QUAY_PASSWORD }} quay.io
 
         # we can hardcode the path to the image here because this will be executed only for master image
       - name: Add latest tag for master container
