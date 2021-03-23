@@ -22,7 +22,6 @@ import sys
 import threading
 import dnf.exceptions
 import dnf.repo
-import libdnf.conf
 
 from glob import glob
 
@@ -265,21 +264,6 @@ class DNFPayload(Payload):
         log.debug("Source doesn't require network for installation")
         return False
 
-    def _replace_vars(self, url):
-        """Replace url variables with their values.
-
-        :param url: url string to do replacement on
-        :type url:  string
-        :returns:   string with variables substituted
-        :rtype:     string or None
-
-        Currently supports $releasever and $basearch.
-        """
-        if url:
-            return libdnf.conf.ConfigParser.substitute(url, self._base.conf.substitutions)
-
-        return None
-
     def _process_module_command(self):
         """Enable/disable modules (if any)."""
         # Get the packages configuration data.
@@ -488,9 +472,9 @@ class DNFPayload(Payload):
         :returns: None
         """
         repo = dnf.repo.Repo(ksrepo.name, self._base.conf)
-        url = self._replace_vars(ksrepo.baseurl)
-        mirrorlist = self._replace_vars(ksrepo.mirrorlist)
-        metalink = self._replace_vars(ksrepo.metalink)
+        url = self._dnf_manager.substitute(ksrepo.baseurl)
+        mirrorlist = self._dnf_manager.substitute(ksrepo.mirrorlist)
+        metalink = self._dnf_manager.substitute(ksrepo.metalink)
 
         if url and url.startswith("nfs://"):
             (server, path) = url[6:].split(":", 1)
