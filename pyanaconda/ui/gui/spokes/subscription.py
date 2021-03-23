@@ -883,9 +883,8 @@ class SubscriptionSpoke(NormalSpoke):
 
         # check if the current installation source will be overriden
         # and remember it if it is the case
-        source_proxy = self.payload.get_source_proxy()
-        source_type = source_proxy.Type
-        if source_type in SOURCE_TYPES_OVERRIDEN_BY_CDN:
+        source_type = self.payload.source_type
+        if source_type is not None and source_type in SOURCE_TYPES_OVERRIDEN_BY_CDN:
             self._overridden_source_type = source_type
         else:
             # no override will happen, so clear the variable
