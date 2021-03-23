@@ -591,6 +591,16 @@ class FSSet(object):
             if read_only:
                 options = "%s,%s" % (options, read_only)
 
+            # Create /tmp with the right permissions (rhbz#1937626).
+            # It needs to be created right before we mount anything.
+            # Call chmod to enforce the mode.
+            if device.format.mountpoint == "/tmp":
+                path = os.path.join(root_path, "tmp")
+
+                if not os.path.exists(path):
+                    os.makedirs(path)
+                    os.chmod(path, 0o1777)
+
             device.setup()
             device.format.setup(
                 options=options,
