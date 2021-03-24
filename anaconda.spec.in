@@ -367,6 +367,21 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Mar 24 2021 Radek Vykydal <rvykydal@redhat.com> - 33.16.4.15-1
+- network: clone connections from intramfs to persistent config (rvykydal)
+  Resolves: rhbz#1910438
+- network: match also connections named by MAC created by NM in initramfs
+  (rvykydal)
+  Related: rhbz#1910438
+- network: do not reset ipv6.addr-gen-mode in tui network configuration
+  (rvykydal)
+  Related: rhbz#1873021
+- network: set addr-gen-mode of Anaconda default connections to eui64
+  (rvykydal)
+  Related: rhbz#1873021
+- network: default to addr-gen-mode eui64 (rvykydal)
+  Resolves: rhbz#1873021
+
 * Mon Mar 22 2021 Radek Vykydal <rvykydal@redhat.com> - 33.16.4.14-1
 - Fix crash in NTP servers GUI dialog on late network configuration (rvykydal)
   Resolves: rhbz#1938168
