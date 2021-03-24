@@ -23,7 +23,8 @@ from pyanaconda.modules.network.network_interface import NetworkInitializationTa
 from pyanaconda.modules.network.nm_client import get_device_name_from_network_data, \
     ensure_active_connection_for_device, update_connection_from_ksdata, \
     add_connection_from_ksdata, bound_hwaddr_of_device, get_connections_available_for_iface, \
-    update_connection_values, commit_changes_with_autoconnection_blocked, is_ibft_connection
+    update_connection_values, commit_changes_with_autoconnection_blocked, is_ibft_connection, \
+    clone_connection_sync
 from pyanaconda.modules.network.ifcfg import get_ifcfg_file_of_device, find_ifcfg_uuid_of_device, \
     get_master_slaves_from_ifcfgs
 from pyanaconda.modules.network.device_configuration import supported_wired_device_types, \
@@ -465,12 +466,17 @@ class DumpMissingIfcfgFilesTask(Task):
                               self.name, iface)
                     continue
 
-            # Devices activated in initramfs should have ONBOOT=yes
+            con = self._select_persistent_connection_for_device(device, cons)
+
             has_initramfs_con = any(self._is_initramfs_connection(con, iface) for con in cons)
             if has_initramfs_con:
                 log.debug("%s: device %s has initramfs connection", self.name, iface)
+                if not con and n_cons == 1:
+                    # Try to clone the persistent connection for the device
+                    # from the connection which should be a generic (not bound
+                    # to iface) connection created by NM in initramfs
+                    con = clone_connection_sync(self._nm_client, cons[0], con_id=iface)
 
-            con = self._select_persistent_connection_for_device(device, cons)
 
             if not con:
                 log.debug("%s: none of the connections can be dumped as persistent",
@@ -487,10 +493,25 @@ class DumpMissingIfcfgFilesTask(Task):
 
             if con:
                 self._update_connection(con, iface)
+                # Update some values of connection generated in initramfs so it
+                # can be used as persistent configuration.
                 if has_initramfs_con:
                     update_connection_values(
                         con,
-                        [("connection", NM.SETTING_CONNECTION_AUTOCONNECT, True)]
+                        [
+                            # Make sure ONBOOT is yes
+                            (NM.SETTING_CONNECTION_SETTING_NAME,
+                             NM.SETTING_CONNECTION_AUTOCONNECT,
+                             True),
+                            # Update cloned generic connection from initramfs
+                            (NM.SETTING_CONNECTION_SETTING_NAME,
+                             NM.SETTING_CONNECTION_MULTI_CONNECT,
+                             0),
+                            # Update cloned generic connection from initramfs
+                            (NM.SETTING_CONNECTION_SETTING_NAME,
+                             NM.SETTING_CONNECTION_WAIT_DEVICE_TIMEOUT,
+                             -1)
+                        ]
                     )
                 log.debug("%s: dumping connection %s to ifcfg file for %s",
                           self.name, con.get_uuid(), iface)
