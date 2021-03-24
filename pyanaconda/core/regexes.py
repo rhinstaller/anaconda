@@ -194,3 +194,6 @@ IPV6_ADDRESS_IN_DRACUT_IP_OPTION = re.compile(r'\[[^\]]+\]')
 
 # Octet of MAC address
 MAC_OCTET = re.compile(r'[a-fA-F0-9][a-fA-F0-9]')
+
+# Name of initramfs connection created by NM based on MAC
+NM_MAC_INITRAMFS_CONNECTION = re.compile(r'^([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})$')
