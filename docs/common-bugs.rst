@@ -323,7 +323,7 @@ Enabling root password SSH login via password.
 
 :Solution: It's really not good practice to enable password based SSH root login on a machine
     as the attacker only needs to guess a password for root and then gets full access to the machine.
-    For a user account the attacker needs to ques both the username and password and might only get to
+    For a user account the attacker needs to guess both the username and password and might only get to
     a non-admin user, making such an attack much harder and less worthwhile.
 
     This was the reasoning for the OpenSSH project `disabling password logins for root back in 2015
