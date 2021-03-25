@@ -165,6 +165,8 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         self._root_password_ssh_login_override.set_active(
             self._users_module.RootPasswordSSHLoginAllowed
         )
+        self.password_entry.set_sensitive(not self._lock.get_active())
+        self.password_confirmation_entry.set_sensitive(not self._lock.get_active())
         if not self._lock.get_active():
             # rerun checks so that we have a correct status message, if any
             self.checker.run_checks()
