@@ -18,7 +18,7 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
@@ -44,9 +44,42 @@ class FCOEInterfaceTestCase(unittest.TestCase):
         """Test the get nics method."""
         self.assertEqual(self.fcoe_interface.GetNics(), list())
 
-    def get_dracut_arguments_test(self):
+    @patch('pyanaconda.modules.storage.fcoe.fcoe.fcoe')
+    def get_dracut_arguments_test(self, fcoe):
         """Test the get dracut arguments method."""
+        # no nics / added FCoE targets
         self.assertEqual(self.fcoe_interface.GetDracutArguments("eth0"), list())
+
+        nics_mock = Mock()
+        nics_mock.nics = [
+            ("eth0", True, True),
+            ("eth1", True, True),
+            ("eth1", True, False),
+            ("eth2", False, True),
+        ]
+        nics_mock.added_nics = ["eth1", "eth2"]
+        fcoe.return_value = nics_mock
+
+        # FCoE added from EDD
+        self.assertEqual(
+            self.fcoe_interface.GetDracutArguments("eth0"),
+            ["fcoe=edd:dcb"]
+        )
+        # FCoE added manually (ks or ui), dcb
+        self.assertEqual(
+            self.fcoe_interface.GetDracutArguments("eth1"),
+            ["fcoe=eth1:dcb"]
+        )
+        # FCoE added manually (ks or ui), dcb, no autovlan
+        self.assertEqual(
+            self.fcoe_interface.GetDracutArguments("eth1"),
+            ["fcoe=eth1:dcb"]
+        )
+        # FCoE added manually (ks or ui), no dcb
+        self.assertEqual(
+            self.fcoe_interface.GetDracutArguments("eth2"),
+            ["fcoe=eth2:nodcb"]
+        )
 
     @patch_dbus_publish_object
     def discover_with_task_test(self, publisher):
