@@ -17,16 +17,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # restrict running of tests to users with admin or write permission for the repository
-      # see https://docs.github.com/en/free-pro-team@latest/rest/reference/repos#get-repository-permissions-for-a-user
-      # store output if user is allowed in allowed_user job output so it has to be checked in downstream job
-      - name: Check if user does have correct permissions
-        if: contains('admin write', fromJson(steps.user_permission.outputs.data).permission)
-        id: check_user_perm
-        run: |
-          echo "User '${{ github.event.sender.login }}' has permission '${{ fromJson(steps.user_permission.outputs.data).permission }}' allowed values: 'admin', 'write'"
-          echo "::set-output name=allowed_user::true"
-
       - name: Get information for pull request
         uses: octokit/request-action@v2.x
         id: pr_api
@@ -64,8 +54,16 @@ jobs:
             exit 0
           fi
 
+      - name: Comment on PR that the run have to be approved
+        uses: octokit/request-action@v2.x
+        with:
+          route: 'POST /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/comments'
+          accept: 'application/vnd.github.v3+json'
+          body: 'Requested workflow run has to be approved. You can do that [here](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     outputs:
-      allowed_user: ${{ steps.check_user_perm.outputs.allowed_user }}
       base_ref: ${{ fromJson(steps.pr_api.outputs.data).base.ref }}
       sha: ${{ fromJson(steps.pr_api.outputs.data).head.sha }}
       launch_args: ${{ steps.parse_launch_args.outputs.launch_args }}
@@ -73,8 +71,9 @@ jobs:
 
   run:
     needs: pr-info
+    environment: staging
     # only do this for Fedora for now; once we have RHEL 8/9 boot.iso builds working, also support these
-    if: needs.pr-info.outputs.lorax_build_container != '' && needs.pr-info.outputs.allowed_user == 'true' && needs.pr-info.outputs.launch_args != ''
+    if: needs.pr-info.outputs.lorax_build_container != '' && needs.pr-info.outputs.launch_args != ''
     runs-on: [self-hosted, kstest]
     timeout-minutes: 300
     env:
