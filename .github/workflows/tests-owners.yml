@@ -1,34 +1,9 @@
 name: Run validation tests for owners
-on: [push, pull_request_target]
+on: pull_request_target
 
 jobs:
-  pr-info:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Query author repository permissions
-        uses: octokit/request-action@v2.x
-        id: user_permission
-        with:
-          route: GET /repos/${{ github.repository }}/collaborators/${{ github.event.sender.login }}/permission
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # restrict running of tests to users with admin or write permission for the repository
-      # see https://docs.github.com/en/free-pro-team@latest/rest/reference/repos#get-repository-permissions-for-a-user
-      # store output if user is allowed in allowed_user job output so it has to be checked in downstream job
-      - name: Check if user does have correct permissions
-        if: contains('admin write', fromJson(steps.user_permission.outputs.data).permission)
-        id: check_user_perm
-        run: |
-          echo "User '${{ github.event.sender.login }}' has permission '${{ fromJson(steps.user_permission.outputs.data).permission }}' allowed values: 'admin', 'write'"
-          echo "::set-output name=allowed_user::true"
-
-    outputs:
-      allowed_user: ${{ steps.check_user_perm.outputs.allowed_user }}
-
   unit-tests:
-    needs: pr-info
-    if: needs.pr-info.outputs.allowed_user == 'true'
+    environment: staging
     runs-on: ubuntu-20.04
     timeout-minutes: 30
     strategy:
@@ -105,8 +80,7 @@ jobs:
           path: test-logs/*
 
   rpm-tests:
-    needs: pr-info
-    if: needs.pr-info.outputs.allowed_user == 'true'
+    environment: staging
     runs-on: ubuntu-20.04
     timeout-minutes: 30
     strategy:
