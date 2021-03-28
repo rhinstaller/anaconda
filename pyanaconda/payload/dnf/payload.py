@@ -518,6 +518,12 @@ class DNFPayload(Payload):
         if ksrepo.cost:
             repo.cost = ksrepo.cost
 
+        if ksrepo.priority:
+            repo.priority = ksrepo.priority
+
+        if ksrepo.modules_hotfixes:
+            repo.modules_hotfixes = ksrepo.modules_hotfixes
+
         if ksrepo.includepkgs:
             repo.include = ksrepo.includepkgs
 
