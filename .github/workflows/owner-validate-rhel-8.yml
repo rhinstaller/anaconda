@@ -32,20 +32,31 @@ jobs:
   unit-tests:
     needs: pr-info
     if: needs.pr-info.outputs.allowed_user == 'true'
-    runs-on: [self-hosted, ci-tasks, rhel-8]
+    runs-on: [self-hosted, kstest]
+    env:
+      TARGET_BRANCH_NAME: origin/rhel-8
     steps:
       - name: Clone repository
         uses: actions/checkout@v2
         with:
           ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
 
-      - name: Run test
+      - name: Rebase to current ${{ env.TARGET_BRANCH_NAME }}
         run: |
-          ./autogen.sh
-          ./configure
-          make
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git log --oneline -1 ${{ env.TARGET_BRANCH_NAME }}
+          git rebase ${{ env.TARGET_BRANCH_NAME }}
+
+      - name: Build CI test container
+        run: |
+          make -f Makefile.am anaconda-ci-build
+
+      - name: Run tests in container
+        run: |
           # put the log in the output, where it's easy to read and link to
-          make ci || { cat test-logs/test-suite.log; exit 1; }
+          make -f Makefile.am container-ci || { cat test-logs/test-suite.log; exit 1; }
 
       - name: Upload test and coverage logs
         if: always()
@@ -69,7 +80,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
 
-      - name: Rebase to current master
+      - name: Rebase to current ${{ env.TARGET_BRANCH_NAME }}
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
