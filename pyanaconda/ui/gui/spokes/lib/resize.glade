@@ -287,8 +287,8 @@
             </child>
             <child>
               <object class="GtkScale" id="resizeSlider">
+                <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="no_show_all">True</property>
                 <property name="margin_bottom">12</property>
                 <property name="adjustment">resizeAdjustment</property>
                 <property name="round_digits">0</property>
