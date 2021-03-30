@@ -16,34 +16,31 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-
 from enum import Enum
 
-from pyanaconda.threading import threadMgr
-
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import THREAD_WAIT_FOR_CONNECTING_NM, \
     SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD, SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, \
-    SOURCE_TYPE_HDD, SOURCE_TYPE_CDN, SOURCE_TYPES_OVERRIDEN_BY_CDN
+    SOURCE_TYPE_HDD, SOURCE_TYPE_CDN, SOURCE_TYPES_OVERRIDEN_BY_CDN, SECRET_TYPE_HIDDEN, \
+    SECRET_TYPE_TEXT, PAYLOAD_TYPE_DNF
 from pyanaconda.core.i18n import _
-from pyanaconda.core.constants import PAYLOAD_TYPE_DNF
-from pyanaconda.ui.lib.payload import create_source, set_source, tear_down_sources
-from pyanaconda.ui.lib.storage import unmark_protected_device
-from pyanaconda.payload.manager import payloadMgr
-
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common import task
 from pyanaconda.modules.common.structures.subscription import SubscriptionRequest
-from pyanaconda.modules.common.structures.secret import SECRET_TYPE_HIDDEN, \
-    SECRET_TYPE_TEXT
+from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.modules.common.errors.subscription import RegistrationError, \
     UnregistrationError, SubscriptionError
+from pyanaconda.payload.manager import payloadMgr
+from pyanaconda.threading import threadMgr
+from pyanaconda.ui.lib.payload import create_source, set_source, tear_down_sources
+from pyanaconda.ui.lib.storage import unmark_protected_device
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 # The following secret types mean a secret has been set
 # (and it is either in plaintext or hidden in the module).
 SECRET_SET_TYPES = (SECRET_TYPE_TEXT, SECRET_TYPE_HIDDEN)
+
 
 # Asynchronous subscription state tracking
 class SubscriptionPhase(Enum):
@@ -107,6 +104,21 @@ def check_cdn_is_installation_source(payload):
         # the CDN source pretty much only supports
         # DNF payload at the moment
         return False
+
+
+def is_cdn_registration_required(payload):
+    """Check if Red Hat CDN registration is required.
+
+    :param payload: the payload object
+    """
+    if not check_cdn_is_installation_source(payload):
+        return False
+
+    if not is_module_available(SUBSCRIPTION):
+        return False
+
+    subscription_proxy = SUBSCRIPTION.get_proxy()
+    return not subscription_proxy.IsSubscriptionAttached
 
 # Asynchronous registration + subscription & unregistration handling
 #
