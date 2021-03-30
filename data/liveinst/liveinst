@@ -18,19 +18,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-LIVE_INSTALL=0
 IMAGE_INSTALL=0
 
-if [ -z "$LIVECMD" ]; then
-    LIVE_INSTALL=1
-fi
-
-if [[ "$LIVECMD $*" =~ "--image" ]]; then
+if [[ "$LIVECMD $@" =~ "--image" ]]; then
     IMAGE_INSTALL=1
-fi
-
-if [[ "$LIVECMD $*" =~ "--liveinst" ]]; then
-    LIVE_INSTALL=1
 fi
 
 # Allow running another command in the place of anaconda, but in this same
@@ -42,8 +33,10 @@ ANACONDA="${LIVECMD:=anaconda --liveinst --graphical}"
 for i in raid0 raid1 raid5 raid6 raid456 raid10 dm-mod dm-zero dm-mirror dm-snapshot dm-multipath dm-round-robin vfat dm-crypt cbc sha256 lrw xts iscsi_tcp iscsi_ibft; do /sbin/modprobe $i 2>/dev/null ; done
 
 if [ -f /etc/system-release ]; then
-    export ANACONDA_PRODUCTNAME=$( cat /etc/system-release | sed -r -e 's/ *release.*//' )
-    export ANACONDA_PRODUCTVERSION=$( cat /etc/system-release | sed -r -e 's/^.* ([0-9\.]+).*$/\1/' )
+    ANACONDA_PRODUCTNAME=$( cat /etc/system-release | sed -r -e 's/ *release.*//' )
+    export ANACONDA_PRODUCTNAME
+    ANACONDA_PRODUCTVERSION=$( cat /etc/system-release | sed -r -e 's/^.* ([0-9\.]+).*$/\1/' )
+    export ANACONDA_PRODUCTVERSION
 fi
 
 # set PRODUCTVARIANT if this is a Fedora Workstation live image
@@ -58,7 +51,8 @@ if [ -f /etc/os-release ]; then
 fi
 
 if [ $IMAGE_INSTALL = 1 ]; then
-    export ANACONDA_PRODUCTVERSION=$(rpmquery -q --qf '%{VERSION}' anaconda | cut -d. -f1)
+    ANACONDA_PRODUCTVERSION=$(rpmquery -q --qf '%{VERSION}' anaconda | cut -d. -f1)
+    export ANACONDA_PRODUCTVERSION
 fi
 
 export ANACONDA_BUGURL=${ANACONDA_BUGURL:="https://bugzilla.redhat.com/bugzilla/"}
@@ -82,7 +76,7 @@ if [ -z "$(sestatus | grep enabled)" ]; then
 fi
 
 # Process cmdline args
-for opt in `cat /proc/cmdline` $*; do
+for opt in `cat /proc/cmdline` "$@"; do
     case $opt in
     xdriver=*)
         ANACONDA="$ANACONDA --$opt"
@@ -135,7 +129,7 @@ for opt in `cat /proc/cmdline` $*; do
 done
 
 # unmount anything that shouldn't be mounted prior to install
-anaconda-cleanup $ANACONDA $*
+anaconda-cleanup $ANACONDA "$@"
 
 # Set up the updates, if provided.
 if [ ! -z "$UPDATES" ]; then
@@ -165,9 +159,9 @@ fi
 export GDK_BACKEND=x11
 
 if [ -x /usr/bin/udisks ]; then
-    /usr/bin/udisks --inhibit -- $ANACONDA $*
+    /usr/bin/udisks --inhibit -- $ANACONDA "$@"
 else
-    $ANACONDA $*
+    $ANACONDA "$@"
 fi
 
 if [ -e /tmp/updates.img ]; then rm /tmp/updates.img; fi

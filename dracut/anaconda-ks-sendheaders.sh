@@ -1,4 +1,4 @@
-#/bin/sh
+#!/bin/sh
 # anaconda-ks-sendheaders.sh - set various HTTP headers for kickstarting
 
 [ -f /tmp/.ks_sendheaders ] && return
@@ -30,4 +30,5 @@ if getargbool 0 inst.ks.sendsn; then
     fi
 fi
 
-> /tmp/.ks_sendheaders
+# create marker file
+true > /tmp/.ks_sendheaders

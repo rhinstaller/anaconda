@@ -29,12 +29,14 @@ case "${kickstart%%:*}" in
     ;;
     file|path) # "file:<path>" - "path:<path>" is accepted but deprecated
         splitsep ":" "$kickstart" kstype kspath
+        # NOTE: kspath is filled by splitsep
+        # shellcheck disable=SC2154
         if [ -f "$kspath" ]; then
             info "anaconda: parsing kickstart $kspath"
             cp $kspath /tmp/ks.cfg
             parse_kickstart /tmp/ks.cfg
             [ "$root" = "anaconda-kickstart" ] && root=""
-            > /tmp/ks.cfg.done
+            true > /tmp/ks.cfg.done
         else
             warn "inst.ks='$kickstart'"
             warn "can't find $kspath!"

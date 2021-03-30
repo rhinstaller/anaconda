@@ -4,10 +4,14 @@ date=$(date +%F_%H%M%S)
 OUTDIR=/tmp/log-capture-${date}
 ARCHIVE=${1-/tmp/log-capture.tar.bz2}
 
-_to_log() { local OutputFile=$(tr ' /' '_' <<<"$@"); $@ >${OUTDIR}/${OutputFile}; }
+_to_log() {
+    local OutputFile
+    OutputFile=$(tr ' /' '_' <<<"$@")
+    "$@" >${OUTDIR}/${OutputFile}
+}
 
 mkdir -p ${OUTDIR}
-cd ${OUTDIR}
+cd ${OUTDIR} || { echo "log-capture script failed to cd to outputdir"; exit 1; }
 
 if [[ ! -f /tmp/ks.cfg ]];then
   echo "# No /tmp/ks.cfg present" > ${OUTDIR}/ks.cfg

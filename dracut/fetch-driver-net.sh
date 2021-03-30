@@ -2,9 +2,6 @@
 # fetch-driver-net - fetch driver from the network.
 # runs from the "initqueue/online" hook whenever a net interface comes online
 
-# initqueue/online hook passes interface name as $1
-netif="$1"
-
 # No dd_net was requested - exit
 [ -f /tmp/dd_net ] || return 0
 DD_NET=$(cat /tmp/dd_net)
@@ -36,7 +33,8 @@ for dd in $DD_NET; do
             info "Fetching RPM driverdisks from $dd directory"
 
             # Following variables are set by nfs_to_var:
-            local nfs="" server="" path="" options="" mntdir=""
+            # (can't use local here as we are not actually inside a function)
+            nfs="" server="" path="" options="" mntdir=""
             nfs_to_var "$dd"
 
             # Obtain mount directory and mount it

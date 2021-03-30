@@ -9,15 +9,21 @@ command -v getarg >/dev/null || . /lib/dracut-lib.sh
 netif="$1"
 
 # get repo info
+# NOTE: the root variable is set by dracut
+# shellcheck disable=SC2154
 splitsep ":" "$root" prefix repo
 
 # repo not set? make sure we are using fresh repo information
 if [ -z "$repo" ]; then
+     # NOTE: the hookdir variable is defined by dracut
+     # shellcheck disable=SC2154
      . $hookdir/cmdline/*parse-anaconda-repo.sh
      splitsep ":" "$root" prefix repo
 fi
 
 # no repo? non-net root? we're not needed here.
+# NOTE: prefix variable is set by splitsep dracut function call
+# shellcheck disable=SC2154
 [ "$prefix" = "anaconda-net" ] && [ -n "$repo" ] || return 0
 # already done? don't run again.
 [ -e /dev/root ] && return 0
@@ -46,7 +52,11 @@ case $repo in
         if str_starts "$repo" "nfs4:"; then
             repo=nfs:${repo#nfs4:}
             nfs_to_var "$repo" $netif
+            # NOTE: options variable is set by dracut nfs-lib.sh
+            # shellcheck disable=SC2154
             if ! strstr "$options" "vers="; then
+                # NOTE: server and path variables are set by dracut nfs-lib.sh
+                # shellcheck disable=SC2154
                 repo="nfs:${options:+$options,}nfsvers=4:$server:$path"
             fi
         else
@@ -59,6 +69,8 @@ case $repo in
             # END HACK. FIXME: Figure out what is up with nfs4, jeez
         fi
         if [ "${repo%.iso}" == "$repo" ]; then
+            # NOTE: repodir variable is set by anaconda-lib.sh
+            # shellcheck disable=SC2154
             mount_nfs "$repo" "$repodir" "$netif" || warn "Couldn't mount $repo"
             anaconda_live_root_dir $repodir
         else

@@ -2,6 +2,8 @@
 # module-setup.sh for anaconda
 
 check() {
+    # NOTE: the hostonly variable is set by dracut
+    # shellcheck disable=SC2154
     [[ $hostonly ]] && return 1
     return 255 # this module is optional
 }
@@ -30,6 +32,8 @@ install() {
     inst_binary /usr/libexec/anaconda/dd_extract /bin/dd_extract
 
     # anaconda
+    # NOTE: the moddir variable is set by dracut
+    # shellcheck disable=SC2154
     inst "$moddir/anaconda-lib.sh" "/lib/anaconda-lib.sh"
     inst_hook cmdline 25 "$moddir/parse-anaconda-options.sh"
     inst_hook cmdline 26 "$moddir/parse-anaconda-kickstart.sh"

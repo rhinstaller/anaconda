@@ -8,7 +8,7 @@ command -v wait_for_dd >/dev/null || . /lib/anaconda-lib.sh
 DD_OEMDRV=""
 if [ -f /tmp/dd_interactive ]; then
     initqueue --onetime --settled --name zz_dd_interactive \
-        systemctl start driver-updates@$(find_tty).service
+        systemctl start "driver-updates@$(find_tty).service"
 else
     # Only process OEMDRV in non-interactive mode
     DD_OEMDRV="LABEL=OEMDRV"
@@ -36,6 +36,8 @@ for dd in $DD_OEMDRV $DD_DISKS; do
         # this is a disk with path to specific RPM file on it
         if [ "${dd##*.}" = "rpm" ]; then
             splitsep ":" "$dd" dd_type dd_dev dd_path
+            # NOTE: dd_type and dd_dev variables are set by splitsep
+            # shellcheck disable=SC2154
             when_diskdev_appears "$(disk_to_dev_path $dd_type)" \
                 driver-updates --disk $dd_whitespace_fix \$devnode $dd_dev
         else
@@ -46,6 +48,8 @@ for dd in $DD_OEMDRV $DD_DISKS; do
 done
 
 # force us to wait at least until we've settled at least once
+# NOTE: the hookdir variable is defined by dracut
+# shellcheck disable=SC2154
 echo '> /tmp/settle.done' > $hookdir/initqueue/settled/settle_done.sh
 echo '[ -f /tmp/settle.done ]' > $hookdir/initqueue/finished/wait_for_settle.sh
 

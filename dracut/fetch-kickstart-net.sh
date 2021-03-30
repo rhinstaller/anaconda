@@ -12,6 +12,8 @@ netif="$1"
 [ -n "$kickstart" ] || return 0
 
 # user requested a specific device, but this isn't it - exit
+# NOTE: the ksdevice special variable holds the network device to use for fetching kickstart/stage2/etc
+# shellcheck disable=SC2154
 [ -n "$ksdevice" ] && [ "$ksdevice" != "$netif" ] && return 0
 
 command -v getarg >/dev/null || . /lib/dracut-lib.sh
@@ -67,6 +69,8 @@ esac
 
 # If we're doing sendmac, we need to run after anaconda-ks-sendheaders.sh
 if getargbool 0 inst.ks.sendmac kssendmac; then
+    # NOTE: the hookdir variable is defined by dracut
+    # shellcheck disable=SC2154
     newjob=$hookdir/initqueue/settled/fetch-ks-${netif}.sh
 else
     newjob=$hookdir/initqueue/fetch-ks-${netif}.sh

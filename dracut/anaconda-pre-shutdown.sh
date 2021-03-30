@@ -1,3 +1,4 @@
+#!/bin/bash
 # Fix mount loops that prevent unmount/eject.
 #
 # During startup, we mount our repo (e.g. the DVD) at $repodir or $isodir.
@@ -14,6 +15,8 @@
 
 . /lib/anaconda-lib.sh
 
+# NOTE: the repodir and isodir variables are defined in anaconda-lib.sh
+# shellcheck disable=SC2154
 for mnt in $repodir $isodir; do
     # systemd-shutdown puts old root at /oldroot
     oldmnt=/oldroot$mnt

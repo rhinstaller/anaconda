@@ -5,6 +5,8 @@
 . /lib/url-lib.sh
 
 # create the repodir and isodir that anaconda will look for
+# NOTE: the repodir and isodir variables are defined in anaconda-lib.sh
+# shellcheck disable=SC2154
 mkdir -p $repodir $isodir
 
 # add some modules

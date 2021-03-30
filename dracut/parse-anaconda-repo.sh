@@ -19,6 +19,8 @@ getargbool 0 inst.stage2.all && repo="urls"
 
 if [ -n "$repo" ]; then
     splitsep ":" "$repo" repotype rest
+    # NOTE: repodir is filled by splitsep
+    # shellcheck disable=SC2154
     case "$repotype" in
         http|https|ftp|nfs|nfs4)
             root="anaconda-net:$repo"
@@ -58,4 +60,6 @@ esac
 
 # We've got *some* root variable set.
 # Set rootok so we can move on to anaconda-genrules.sh.
+# NOTE: rootok is a special variable managed by dracut
+# shellcheck disable=SC2304
 rootok=1

@@ -12,6 +12,8 @@ do
   case $1 in
     # Set up the environment.
     --env)
+      # NOTE: yes, we want to export the contents of $2, not the variable itself
+      # shellcheck disable=SC2163
       export $2
       shift 2
     ;;

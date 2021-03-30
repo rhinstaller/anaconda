@@ -24,7 +24,8 @@ config_get() {
 }
 
 find_iso() {
-    local f="" p="" iso="" isodir="$1" tmpmnt=$(mkuniqdir /run/install tmpmnt)
+    local f="" p="" iso="" isodir="$1" tmpmnt=""
+    tmpmnt=$(mkuniqdir /run/install tmpmnt)
     for f in $isodir/*.iso; do
         [ -e $f ] || continue
         mount -o loop,ro $f $tmpmnt || continue
@@ -68,7 +69,7 @@ rulesfile="/etc/udev/rules.d/90-anaconda.rules"
 # try to find a usable runtime image from the repo mounted at $mnt.
 # if successful, move the mount(s) to $repodir/$isodir.
 anaconda_live_root_dir() {
-    local img="" iso="" srcdir="" mnt="$1" path="$2"
+    local img="" iso="" mnt="$1" path="$2"
     img=$(find_runtime $mnt/$path)
     if [ -n "$img" ]; then
         info "anaconda: found $img"
@@ -102,10 +103,10 @@ anaconda_net_root() {
         stage2=$(config_get stage2 mainimage < $treeinfo)
 
     # No treeinfo available.
-    [ -z "$treeinfo" ] && debug_msg $(cat /tmp/treeinfo_err)
+    [ -z "$treeinfo" ] && debug_msg "$(cat /tmp/treeinfo_err)"
 
     # Use the default local path to stage2.
-    if [ -z "$treeinfo" -o -z "$stage2" ]; then
+    if [ -z "$treeinfo" ] || [ -z "$stage2" ]; then
         warn "can't find installer main image path in .treeinfo"
         stage2="images/install.img"
     fi
@@ -118,11 +119,11 @@ anaconda_net_root() {
 
         # NOTE: Should be the same as anaconda_auto_updates()
         updates=$(fetch_url $repo/images/updates.img 2> /tmp/updates_err)
-        [ -z "$updates" ] && debug_msg $(cat /tmp/updates_err)
+        [ -z "$updates" ] && debug_msg "$(cat /tmp/updates_err)"
         [ -n "$updates" ] && unpack_updates_img $updates /updates
 
         product=$(fetch_url $repo/images/product.img 2> /tmp/product_err)
-        [ -z "$product" ] && debug_msg $(cat /tmp/product_err)
+        [ -z "$product" ] && debug_msg "$(cat /tmp/product_err)"
         [ -n "$product" ] && unpack_updates_img $product /updates
 
         anaconda_mount_sysroot $runtime
@@ -142,6 +143,8 @@ anaconda_mount_sysroot() {
             # Which means that the Squash filesystem is plain
             # and does not contain the embedded EXT4 inside.
             # Also known as flattened SquashFS or directly compressed SquashFS.
+            # NOTE: the hookdir variable is defined by dracut
+            # shellcheck disable=SC2154
             printf "mount -t overlay LiveOS_rootfs \
                    -o lowerdir=/run/rootfsbase,upperdir=/run/overlayfs,workdir=/run/ovlwork \
                    ${NEWROOT}" > ${hookdir}/mount/01-$$-anaconda.sh
@@ -184,7 +187,10 @@ unpack_updates_img() {
 copytree() {
     local src="$1" dest="$2"
     mkdir -p "$dest"; dest=$(readlink -f -q "$dest")
-    ( cd "$src"; cp -a . -t "$dest" )
+    (
+    cd "$src" ||  { echo "copytree() can't cd to $src"; return; }
+    cp -a . -t "$dest"
+    )
 }
 
 disk_to_dev_path() {
@@ -197,7 +203,8 @@ disk_to_dev_path() {
 }
 
 find_mount() {
-    local dev mnt etc wanted_dev="$(readlink -e -q $1)"
+    local dev mnt etc wanted_dev
+    wanted_dev="$(readlink -e -q $1)"
     while read dev mnt etc; do
         [ "$dev" = "$wanted_dev" ] && echo $mnt && return 0
     done < /proc/mounts
@@ -236,9 +243,9 @@ tell_user() {
         # NOTE: if we're doing graphical splash but we don't have all the
         # font-rendering libraries, no message will appear.
         plymouth display-message --text="$*"
-        echo "$*"     # this goes to journal only
+        echo "$@"     # this goes to journal only
     else
-        echo "$*" >&2 # this goes to journal+console
+        echo "$@" >&2 # this goes to journal+console
     fi
 }
 
@@ -258,7 +265,8 @@ dev_is_on_disk_with_iso9660() {
     local dev_name="${1}"
 
     # Get the path of the device.
-    local dev_path="$(udevadm info -q path --name ${dev_name})"
+    local dev_path
+    dev_path="$(udevadm info -q path --name ${dev_name})"
 
     # Is the device a partition?
     udevadm info -q property --path ${dev_path} | grep -q 'DEVTYPE=partition' || return 1
@@ -283,13 +291,16 @@ dev_is_on_disk_with_iso9660() {
 # For details see 40network/net-genrules.sh (and the rest of 40network).
 set_neednet() {
     # if there's no netroot, make sure /tmp/net.ifaces exists
-    [ -z "$netroot" ] && >> /tmp/net.ifaces
+    # shellcheck disable=SC2154
+    [ -z "$netroot" ] && true >> /tmp/net.ifaces
 }
 
 parse_kickstart() {
     PYTHONHASHSEED=42 /sbin/parse-kickstart $1 > /etc/cmdline.d/80-kickstart.conf
     unset CMDLINE  # re-read the commandline
     . /tmp/ks.info # save the parsed kickstart
+    # parsed_kickstart contains the parsed kickstart file provided by the user
+    # shellcheck disable=SC2154
     [ -e "$parsed_kickstart" ] && cp $parsed_kickstart /run/install/ks.cfg
 }
 
@@ -338,6 +349,8 @@ run_kickstart() {
     [ "$root" = "anaconda-kickstart" ] && root=""
 
     # don't look for the kickstart again
+    # NOTE: kickstart is an injected variable holding Anaconda-style URL for the kickstart
+    # shellcheck disable=SC2304
     kickstart=""
 
     # re-parse new cmdline stuff from the kickstart
@@ -372,40 +385,44 @@ run_kickstart() {
     # net: re-run online hooks
     if [ "$do_net" ]; then
         # If NetworkManager is used in initramfs
-        if [ -e $hookdir/cmdline/*-nm-config.sh ]; then
-            # First try to re-run online hooks on any online device.
-            # We don't want to reconfigure the network by applying kickstart config
-            # so use existing network connections if there are any.
-            # Based on nm-run.sh
-            for _i in /sys/class/net/*/
-            do
-                state=/run/NetworkManager/devices/$(cat $_i/ifindex)
-                grep -q connection-uuid= $state 2>/dev/null || continue
-                nm_connected_device_found="yes"
-                ifname=$(basename $_i)
-                source_hook initqueue/online $ifname
-            done
+        for file in $hookdir/cmdline/*-nm-config.sh ]; then
+        do
+            if [ -e "$file" ]; then
+                # First try to re-run online hooks on any online device.
+                # We don't want to reconfigure the network by applying kickstart config
+                # so use existing network connections if there are any.
+                # Based on nm-run.sh
+                for _i in /sys/class/net/*/
+                do
+                    state=/run/NetworkManager/devices/$(cat $_i/ifindex)
+                    grep -q connection-uuid= $state 2>/dev/null || continue
+                    nm_connected_device_found="yes"
+                    ifname=$(basename $_i)
+                    source_hook initqueue/online $ifname
+                done
 
-            if [ "${nm_connected_device_found}" != "yes" ]; then
-                # Configure NM based on the cmdline now updated with kickstart.
-                # The configuration will be applied by the next run of NM
-                # via settled hook in *-nm-run.sh script which also calls the
-                # online hooks.
-                . $hookdir/cmdline/*-nm-config.sh
+                if [ "${nm_connected_device_found}" != "yes" ]; then
+                    # Configure NM based on the cmdline now updated with kickstart.
+                    # The configuration will be applied by the next run of NM
+                    # via settled hook in *-nm-run.sh script which also calls the
+                    # online hooks.
+                    . $hookdir/cmdline/*-nm-config.sh
+                fi
+                break
+            else
+                # make dracut create the net udev rules (based on the new cmdline)
+                . $hookdir/pre-udev/*-net-genrules.sh
+                udevadm control --reload
+                udevadm trigger --action=add --subsystem-match=net
+                for netif in $(online_netdevs); do
+                    source_hook initqueue/online $netif
+                done
             fi
-        else
-            # make dracut create the net udev rules (based on the new cmdline)
-            . $hookdir/pre-udev/*-net-genrules.sh
-            udevadm control --reload
-            udevadm trigger --action=add --subsystem-match=net
-            for netif in $(online_netdevs); do
-                source_hook initqueue/online $netif
-            done
-        fi
+        done
     fi
 
     # and that's it - we're back to the mainloop.
-    > /tmp/ks.cfg.done # let wait_for_kickstart know that we're done.
+    true > /tmp/ks.cfg.done # let wait_for_kickstart know that we're done.
 }
 
 wait_for_kickstart() {

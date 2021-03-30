@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # save-initramfs - save a copy of initramfs for shutdown/eject, if needed
 
 command -v config_get >/dev/null || . /lib/anaconda-lib.sh
@@ -6,6 +6,8 @@ initramfs=""
 
 # First, check to see if we can find a copy of initramfs laying around
 for i in images/pxeboot/initrd.img ppc/ppc64/initrd.img images/initrd.img; do
+    # NOTE: the repodir variable is defined in anaconda-lib.sh
+    # shellcheck disable=SC2154
     [ -f $repodir/$i ] && initramfs=$repodir/$i && break
 done
 
@@ -23,5 +25,5 @@ fi
 
 # Make sure dracut-shutdown.service can find the initramfs later.
 mkdir -p $NEWROOT/boot
-ln -s $initramfs $NEWROOT/boot/initramfs-$(uname -r).img
+ln -s $initramfs "$NEWROOT/boot/initramfs-$(uname -r).img"
 # NOTE: $repodir must also be somewhere under /run for this to work correctly

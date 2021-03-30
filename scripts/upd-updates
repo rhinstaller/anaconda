@@ -25,7 +25,7 @@ isAnacondaGitDir() {
 
 usage() {
 	if [ $1 -ne 0 ]; then
-		>&2
+		true>&2
 	fi
 	echo "upd-updates <updates.img> [<file0> [<file1> [...]]]"
 	exit $1
@@ -48,7 +48,7 @@ if [ ! -f "$1" ]; then
 fi
 
 OK=no
-if [ -e "$TARGET" -a -w "$TARGET" -o -w $(dirname "$TARGET") ] ; then
+if [ -e "$TARGET" ] && [ -w "$TARGET" ] || [ -w "$(dirname "$TARGET")" ] ; then
 	OK=yes
 fi
 
@@ -61,7 +61,7 @@ if [ "$updateAll" == "no" ]; then
 	n=1
 	while [ -n "$(eval echo '${'$n'}')" ]; do
 		arg="$(eval echo '${'$n'}')"
-		[ ${arg} == "--help" -o ${arg} == "-h" ] && usage 0
+		[ ${arg} == "--help" ] || [ ${arg} == "-h" ] && usage 0
 
 		if [ ! -r ${arg} ]; then
 			echo "upd-updates: cannot read ${arg}" 1>&2
@@ -78,29 +78,32 @@ if [ ! -d ${TMPDIR} ]; then
 fi
 
 if [ -e "$TARGET" ]; then
-	zcat "$TARGET" | ( cd $TMPDIR ; cpio -di --quiet -dm --unconditional )
+	zcat "$TARGET" | (cd $TMPDIR || { echo "upd-updates can't cd to tmpdir"; exit 1; } ; cpio -di --quiet -dm --unconditional )
 	[ $? -eq 0 ] || exit 5
 fi
 
 if [ "$updateAll" == "yes" ]; then
 	# this may do the wrong thing if we have two files named the same...
 	# so, uh, don't do that.
+    # also files with spaces in the name could be problematic, so lets
+    # not have those as well, please ?
+    # shellcheck disable=SC2044
 	for oldfile in $(find "$TMPDIR" -type f) ; do
-		for newfile in $(find . -name $(basename $oldfile)) ; do
+		for newfile in $(find . -name "$(basename $oldfile)") ; do
 			if [ "$oldfile" -ot "$newfile" ]; then
 				cp -av "$newfile" "$oldfile"
 			fi
 		done
 	done
 else
-	echo ${@} | tr ' ' '\0' | tr -d '\n' | \
+	echo "${@}" | tr ' ' '\0' | tr -d '\n' | \
 		cpio --null -H newc --quiet -o | \
-		( cd $TMPDIR ; cpio -di --quiet -dm --unconditional )
+		( cd $TMPDIR || { echo "upd-updates can't cd to tmpdir"; exit 1; }; cpio -di --quiet -dm --unconditional )
 
 	[ $? -eq 0 ] || exit 6
 fi
 
-(cd $TMPDIR ; find . -depth -print0 | cpio -H newc --quiet --null -o ) | \
+(cd $TMPDIR || { echo "upd-updates can't cd to tmpdir"; exit 1; }  ; find . -depth -print0 | cpio -H newc --quiet --null -o ) | \
 	gzip -9 > "$TARGET"
 
 [ $? -eq 0 ] || exit 7

@@ -13,7 +13,7 @@ for i in /sys/class/net/*/device/modalias; do
         exit 0
     fi
     # Get kernel mods on which the interface is dependent
-    d=$(modprobe -R $(cat "$i"))
+    d="$(modprobe -R $(cat "$i"))"
 
     # Test if this is the mod we are looking for. If so return name of the interface.
     if [[ " $d " == *\ $driver\ * ]]; then

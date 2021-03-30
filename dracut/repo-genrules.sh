@@ -4,23 +4,25 @@
 
 . /lib/anaconda-lib.sh
 
+# NOTE: the root variable appears to be a special variable set by either dracut or Anaconda
+# shellcheck disable=SC2154
 case "$root" in
   anaconda-disk:*)
     # anaconda-disk:<device>[:<path>]
     splitsep ":" "$root" f diskdev diskpath
     diskdev=$(disk_to_dev_path $diskdev)
     when_diskdev_appears $diskdev \
-        anaconda-diskroot \$env{DEVNAME} $diskpath
+        anaconda-diskroot "\$env{DEVNAME}" $diskpath
   ;;
   anaconda-auto-cd)
     # special catch-all rule for CDROMs
     when_any_cdrom_appears \
-        anaconda-diskroot \$env{DEVNAME}
+        anaconda-diskroot "\$env{DEVNAME}"
     # HACK: anaconda demands that CDROMs be mounted at /mnt/install/source
     ln -s repo /run/install/source
   ;;
   anaconda-hmc)
     when_any_hmcdrv_appears \
-        anaconda-hmcroot \$env{DEVNAME}
+        anaconda-hmcroot "\$env{DEVNAME}"
   ;;
 esac

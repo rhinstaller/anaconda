@@ -23,7 +23,7 @@ done
 
 shopt -u nullglob
 
-if [ "$ARCH" != "s390" -a "$ARCH" != "s390x" ]; then
+if [ "$ARCH" != "s390" ] && [ "$ARCH" != "s390x" ]; then
     MODULE_LIST+=" floppy edd iscsi_ibft "
 else
     MODULE_LIST+=" hmcdrv "

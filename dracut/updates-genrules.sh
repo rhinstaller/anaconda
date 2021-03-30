@@ -3,6 +3,8 @@
 
 . /lib/anaconda-lib.sh
 
+# NOTE: anac_updates is a special variable holding Anaconda-style URL for updates.img
+# shellcheck disable=SC2154
 updates=$anac_updates
 [ -n "$updates" ] || return
 case $updates in
@@ -17,8 +19,10 @@ case $updates in
         # accept hd:<dev>:<path> (or cdrom:<dev>:<path>)
         updates=${updates#hd:}; updates=${updates#cdrom:}
         splitsep ":" "$updates" dev path
+        # NOTE: the path variable is set by splitsep
+        # shellcheck disable=SC2154
         dev=$(disk_to_dev_path $dev)
-        when_diskdev_appears $dev fetch-updates-disk \$env{DEVNAME} $path
+        when_diskdev_appears $dev fetch-updates-disk "\$env{DEVNAME}" $path
         wait_for_updates
     ;;
 esac
