@@ -419,6 +419,16 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 30 2021 Martin Kolman <mkolman@redhat.com> - 34.24.7-1
+- network: match also connections named by MAC created by NM in initramfs
+  (rvykydal)
+- Create /tmp with the right permissions (#1937626) (vponcova)
+- Don't recommend zram-generator-defaults (#1938132) (vponcova)
+- Don't automatically execute the default partitioning (vponcova)
+- Fix the warning about working NTP servers (#1889180) (vponcova)
+- Remove implicit dependencies (vponcova)
+- Don't install anaconda-install-env-deps by default (vponcova)
+
 * Mon Mar 22 2021 Martin Kolman <mkolman@redhat.com> - 34.24.6-1
 - Check if the mount point exists before calling statvfs (#1824357) (vponcova)
 - Do not follow symlinks when copying /etc/resolv.conf (#1933454) (rvykydal)
