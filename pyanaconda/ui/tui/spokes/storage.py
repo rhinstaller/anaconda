@@ -103,6 +103,11 @@ class StorageSpoke(NormalTUISpoke):
 
         self._available_disks = []
         self._selected_disks = []
+
+        # Is the partitioning already configured?
+        self._is_preconfigured = bool(self._storage_module.CreatedPartitioning)
+
+        # Find a partitioning to use.
         self._partitioning = find_partitioning()
 
         self.errors = []
@@ -414,8 +419,8 @@ class StorageSpoke(NormalTUISpoke):
         # Update the selected disks.
         select_default_disks()
 
-        # Apply the partitioning in the automated installation.
-        if flags.automatedInstall:
+        # Automatically apply the preconfigured partitioning.
+        if flags.automatedInstall and self._is_preconfigured:
             self.execute()
 
         # Storage is ready.

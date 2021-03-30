@@ -631,6 +631,8 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
                 log.warning("Failed to load NTP servers configuration")
 
         self._ntp_servers_states = NTPServerStatusCache()
+        self._ntp_servers_states.changed.connect(self._update_ntp_server_warning)
+
         has_active_network = self._network_module.Connected
 
         if not has_active_network:
@@ -1128,11 +1130,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
                 switch.set_active(False)
                 return
             else:
-                self.clear_info()
-                working_server = self._get_working_server()
-
-                if working_server is None:
-                    self._show_no_ntp_server_warning()
+                self._update_ntp_server_warning()
 
             ret = util.start_service(NTP_SERVICE)
             self._set_date_time_setting_sensitive(False)
@@ -1162,11 +1160,17 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         servers = copy.deepcopy(self._ntp_servers)
         states = self._ntp_servers_states
 
+        # Temporarily disconnect the update callback.
+        states.changed.disconnect(self._update_ntp_server_warning)
+
         dialog = NTPConfigDialog(self.data, servers, states)
         dialog.refresh()
 
         with self.main_window.enlightbox(dialog.window):
             response = dialog.run()
+
+        # Connect the update callback again.
+        states.changed.connect(self._update_ntp_server_warning)
 
         if response == 1:
             self._timezone_module.SetTimeSources(
@@ -1174,9 +1178,15 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             )
 
             self._ntp_servers = servers
-            working_server = self._get_working_server()
+            self._update_ntp_server_warning()
 
-            if working_server is None:
-                self._show_no_ntp_server_warning()
-            else:
-                self.clear_info()
+    def _update_ntp_server_warning(self):
+        """Update the warning about working NTP servers."""
+        if not self._ntpSwitch.get_active():
+            return
+
+        self.clear_info()
+        working_server = self._get_working_server()
+
+        if working_server is None:
+            self._show_no_ntp_server_warning()

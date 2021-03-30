@@ -16,7 +16,9 @@
 # Red Hat, Inc.
 #
 import copy
+import re
 
+from pyanaconda.core.regexes import NM_MAC_INITRAMFS_CONNECTION
 from pyanaconda.modules.common.task import Task
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.network.network_interface import NetworkInitializationTaskInterface
@@ -308,4 +310,6 @@ class DumpMissingConfigFilesTask(Task):
         return new_configs
 
     def _is_initramfs_connection(self, con, iface):
-        return con.get_id() in ["Wired Connection", iface]
+        con_id = con.get_id()
+        return con_id in ["Wired Connection", iface] \
+            or re.match(NM_MAC_INITRAMFS_CONNECTION, con_id)

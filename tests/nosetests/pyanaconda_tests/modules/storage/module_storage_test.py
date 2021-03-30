@@ -1484,22 +1484,32 @@ class StorageTasksTestCase(unittest.TestCase):
         CreateStorageLayoutTask(storage).run()
         storage.assert_not_called()
 
-    @patch("pyanaconda.core.util.mkdirChain")
-    @patch("pyanaconda.core.util._run_program")
+    @patch("os.chmod")
     @patch("os.makedirs")
     @patch("blivet.util._run_program")
-    def mount_filesystems_test(self, blivet_run_program, makedirs, core_run_program, mkdirChain):
+    @patch("pyanaconda.core.util._run_program")
+    def mount_filesystems_test(self, core_run_program, blivet_run_program, makedirs, chmod):
         """Test MountFilesystemsTask."""
         storage = create_storage()
         storage._bootloader = Mock()
         blivet_run_program.return_value = (0, "")
         core_run_program.return_value = (0, "")
-        MountFilesystemsTask(storage).run()
-        # created the mount points
+
+        task = MountFilesystemsTask(storage)
+        task.run()
+
+        # created mount points
         makedirs.assert_any_call('/mnt/sysimage/dev', 0o755)
-        # sysimage mounts happened
-        blivet_run_program.assert_any_call(
-                ['mount', '-t', 'bind', '-o', 'bind,defaults', '/dev', '/mnt/sysimage/dev'])
+        makedirs.assert_any_call('/mnt/sysimage/tmp')
+
+        # fixed permissions
+        chmod.assert_any_call('/mnt/sysimage/tmp', 0o1777)
+
+        # mounted devices
+        blivet_run_program.assert_any_call([
+            'mount', '-t', 'bind', '-o', 'bind,defaults', '/dev', '/mnt/sysimage/dev'
+        ])
+
         # remounted the root filesystem
         core_run_program.assert_any_call(
                 ['mount', '--rbind', '/mnt/sysimage', '/mnt/sysroot'],

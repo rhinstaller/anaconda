@@ -27,9 +27,11 @@ import tempfile
 import shutil
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.async_utils import async_action_nowait
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.constants import NTP_SERVER_TIMEOUT, NTP_SERVER_QUERY, \
     THREAD_NTP_SERVER_CHECK, NTP_SERVER_OK, NTP_SERVER_NOK
+from pyanaconda.core.signal import Signal
 from pyanaconda.core.util import execWithRedirect
 from pyanaconda.modules.common.structures.timezone import TimeSourceData
 from pyanaconda.threading import threadMgr, AnacondaThread
@@ -231,6 +233,12 @@ class NTPServerStatusCache(object):
 
     def __init__(self):
         self._cache = {}
+        self._changed = Signal()
+
+    @property
+    def changed(self):
+        """The status changed signal."""
+        return self._changed
 
     def get_status(self, server):
         """Get the status of the given NTP server.
@@ -279,6 +287,15 @@ class NTPServerStatusCache(object):
         """
         self._cache[hostname] = status
 
+    @async_action_nowait
+    def _report_status_changed(self):
+        """Emit the status changed signal.
+
+        Run callbacks in the context of the main loop,
+        so they will not affect the running thread.
+        """
+        self._changed.emit()
+
     def _check_status(self, hostname, nts_enabled):
         """Check if an NTP server appears to be working.
 
@@ -293,3 +310,5 @@ class NTPServerStatusCache(object):
         else:
             log.debug("NTP server %s appears not to be working.", hostname)
             self._set_status(hostname, NTP_SERVER_NOK)
+
+        self._report_status_changed()
