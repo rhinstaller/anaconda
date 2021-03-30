@@ -17,32 +17,31 @@
 # Red Hat, Inc.
 #
 import sys
-import copy
-import gi
 
-from pyanaconda.flags import flags
-from pyanaconda.core.i18n import _, C_, CN_
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, THREAD_SOFTWARE_WATCHER, THREAD_PAYLOAD, \
     THREAD_CHECK_SOFTWARE
-from pyanaconda.payload.manager import payloadMgr, PayloadState
-from pyanaconda.payload.errors import NoSuchGroup, DependencyError, PayloadError
+from pyanaconda.core.i18n import _, C_, CN_
+from pyanaconda.core.util import ipmi_abort
+from pyanaconda.flags import flags
+from pyanaconda.payload.errors import DependencyError
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.core import util, constants
+from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.context import context
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
-from pyanaconda.ui.gui.utils import blockedHandler, escape_markup
-from pyanaconda.ui.categories.software import SoftwareCategory
+from pyanaconda.ui.gui.spokes.lib.software_selection import GroupListBoxRow, SeparatorRow, \
+    EnvironmentListBoxRow
+from pyanaconda.ui.lib.software import SoftwareSelectionCache, get_software_selection_status, \
+    is_software_selection_complete
 from pyanaconda.ui.lib.subscription import is_cdn_registration_required
 
-from pyanaconda.anaconda_loggers import get_module_logger
-log = get_module_logger(__name__)
-
+import gi
 gi.require_version("Gtk", "3.0")
-gi.require_version("Pango", "1.0")
-from gi.repository import Gtk, Pango
+from gi.repository import Gtk
 
+log = get_module_logger(__name__)
 
 __all__ = ["SoftwareSelectionSpoke"]
 
@@ -62,14 +61,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
     icon = "package-x-generic-symbolic"
     title = CN_("GUI|Spoke", "_Software Selection")
 
-    # Add-on selection states
-    # no user interaction with this add-on
-    _ADDON_DEFAULT = 0
-    # user selected
-    _ADDON_SELECTED = 1
-    # user de-selected
-    _ADDON_DESELECTED = 2
-
     @classmethod
     def should_run(cls, environment, data):
         """Don't run for any non-package payload."""
@@ -80,225 +71,37 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._error_msgs = None
+        self._errors = []
         self._tx_id = None
-        self._select_flag = False
 
+        # Get the packages selection data.
+        self._selection_cache = SoftwareSelectionCache(self._dnf_manager)
+        self._kickstarted = flags.automatedInstall and self.payload.proxy.PackagesKickstarted
+
+        # Get the UI elements.
         self._environment_list_box = self.builder.get_object("environmentListBox")
         self._addon_list_box = self.builder.get_object("addonListBox")
 
         # Connect viewport scrolling with listbox focus events
         environment_viewport = self.builder.get_object("environmentViewport")
-        addon_viewport = self.builder.get_object("addonViewport")
         self._environment_list_box.set_focus_vadjustment(
-            Gtk.Scrollable.get_vadjustment(environment_viewport))
+            Gtk.Scrollable.get_vadjustment(environment_viewport)
+        )
+
+        addon_viewport = self.builder.get_object("addonViewport")
         self._addon_list_box.set_focus_vadjustment(
-            Gtk.Scrollable.get_vadjustment(addon_viewport))
-
-        # Used to store how the user has interacted with add-ons for the default add-on
-        # selection logic. The dictionary keys are group IDs, and the values are selection
-        # state constants. See refresh_addons for how the values are used.
-        self._addon_states = {}
-
-        # Get the packages configuration.
-        self._selection = self.payload.get_packages_selection()
-
-        # Whether we are using package selections from a kickstart
-        self._kickstarted = flags.automatedInstall and self.payload.proxy.PackagesKickstarted
-
-        # Whether the payload is in an error state
-        self._error = False
-
-        # Register event listeners to update our status on payload events
-        payloadMgr.add_listener(PayloadState.DOWNLOADING_PKG_METADATA,
-                                self._downloading_package_md)
-        payloadMgr.add_listener(PayloadState.DOWNLOADING_GROUP_METADATA,
-                                self._downloading_group_md)
-        payloadMgr.add_listener(PayloadState.ERROR, self._payload_error)
-
-        # Add an invisible radio button so that we can show the environment
-        # list with no radio buttons ticked
-        self._fake_radio = Gtk.RadioButton(group=None)
-        self._fake_radio.set_active(True)
+            Gtk.Scrollable.get_vadjustment(addon_viewport)
+        )
 
     @property
     def _dnf_manager(self):
         """The DNF manager."""
         return self.payload.dnf_manager
 
-    # Payload event handlers
-    def _downloading_package_md(self):
-        # Reset the error state from previous payloads
-        self._error = False
-
-        hubQ.send_message(self.__class__.__name__, _(constants.PAYLOAD_STATUS_PACKAGE_MD))
-
-    def _downloading_group_md(self):
-        hubQ.send_message(self.__class__.__name__, _(constants.PAYLOAD_STATUS_GROUP_MD))
-
-    def get_environment_id(self, environment):
-        """Return the "machine readable" environment id
-
-        Alternatively we could have just "canonicalized" the
-        environment description to the "machine readable" format
-        when reading it from kickstart for the first time.
-        But this could result in input and output kickstart,
-        which would be rather confusing for the user.
-        So we don't touch the specification from kickstart
-        if it is valid and use this property when we need
-        the "machine readable" form.
-        """
-        if not environment:
-            # None means environment is not set, no need to try translate that to an id
-            return None
-        try:
-            return self.payload.environment_id(environment)
-        except NoSuchGroup:
-            return None
-
-    def is_environment_valid(self, environment):
-        """Return if the currently set environment is valid
-        (represents an environment known by the payload)
-        """
-        # None means the environment has not been set by the user,
-        # which means:
-        # * set the default environment during interactive installation
-        # * ask user to specify an environment during kickstart installation
-        if not environment:
-            return True
-        else:
-            return self.get_environment_id(environment) in self.payload.environments
-
-    def _payload_error(self):
-        self._error = True
-        hubQ.send_message(self.__class__.__name__, payloadMgr.error)
-
-    def apply(self):
-        """Apply the changes."""
-        self._kickstarted = False
-
-        # Clear packages data.
-        self._selection.packages = []
-        self._selection.excluded_packages = []
-
-        # Clear groups data.
-        self._selection.excluded_groups = []
-        self._selection.groups_package_types = {}
-
-        # Select new groups.
-        self._selection.groups = []
-
-        for group_name in self._get_selected_addons():
-            self._selection.groups.append(group_name)
-
-        log.debug("Setting new software selection: %s", self._selection)
-        self.payload.set_packages_selection(self._selection)
-
-        hubQ.send_not_ready(self.__class__.__name__)
-        hubQ.send_not_ready("SourceSpoke")
-
-    def execute(self):
-        """Execute the changes."""
-        threadMgr.add(AnacondaThread(
-            name=constants.THREAD_CHECK_SOFTWARE,
-            target=self.checkSoftwareSelection
-        ))
-
-    def checkSoftwareSelection(self):
-        hubQ.send_message(self.__class__.__name__, _("Checking software dependencies..."))
-        try:
-            self.payload.check_software_selection()
-        except DependencyError as e:
-            self._error_msgs = str(e)
-            hubQ.send_message(self.__class__.__name__, _("Error checking software dependencies"))
-            self._tx_id = None
-        else:
-            self._error_msgs = None
-            self._tx_id = self.payload.tx_id
-        finally:
-            hubQ.send_ready(self.__class__.__name__)
-            hubQ.send_ready("SourceSpoke")
-
     @property
-    def completed(self):
-        processing_done = bool(not threadMgr.get(constants.THREAD_CHECK_SOFTWARE) and
-                               not threadMgr.get(constants.THREAD_PAYLOAD) and
-                               not self._error_msgs and self.txid_valid)
-
-        # * we should always check processing_done before checking the other variables,
-        #   as they might be inconsistent until processing is finished
-        # * we can't let the installation proceed until a valid environment has been set
-        if processing_done:
-            if self._selection.environment:
-                # if we have environment it needs to be valid
-                return self.is_environment_valid(self._selection.environment)
-            # if we don't have environment we need to at least have the %packages
-            # section in kickstart
-            elif self._kickstarted:
-                return True
-            # no environment and no %packages section -> manual intervention is needed
-            else:
-                return False
-        else:
-            return False
-
-    @property
-    def mandatory(self):
-        return True
-
-    @property
-    def ready(self):
-        """Is the spoke ready?
-
-        By default, the software selection spoke is not ready. We have to
-        wait until the installation source spoke is completed. This could be
-        because the user filled something out, or because we're done fetching
-        repo metadata from the mirror list, or we detected a DVD/CD.
-        """
-        return not threadMgr.get(THREAD_SOFTWARE_WATCHER) \
-            and not threadMgr.get(THREAD_PAYLOAD) \
-            and not threadMgr.get(THREAD_CHECK_SOFTWARE) \
-            and self.payload.base_repo is not None
-
-    @property
-    def status(self):
-        """The status of the spoke."""
-        if self._error_msgs:
-            return _("Error checking software selection")
-
-        if is_cdn_registration_required(self.payload):
-            return _("Red Hat CDN requires registration.")
-
-        if not self.ready:
-            return _("Installation source not set up")
-
-        if not self.txid_valid:
-            return _("Source changed - please verify")
-
-        # kickstart installation
-        if flags.automatedInstall:
-            if self._kickstarted:
-                # %packages section is present in kickstart but environment is not set
-                if not self._selection.environment:
-                    return _("Custom software selected")
-                # environment is set to an invalid value
-                elif not self.is_environment_valid(self._selection.environment):
-                    return _("Invalid environment specified in kickstart")
-            # we have no packages section in the kickstart and no environment has been set
-            elif not self._selection.environment:
-                return _("Please confirm software selection")
-
-        if not flags.automatedInstall:
-            if not self._selection.environment:
-                # No environment yet set
-                return _("Please confirm software selection")
-            elif not self.is_environment_valid(self._selection.environment):
-                # selected environment is not valid, this can happen when a valid environment
-                # is selected (by default, manually or from kickstart) and then the installation
-                # source is switched to one where the selected environment is no longer valid
-                return _("Selected environment is not valid")
-
-        return self.payload.environment_description(self._selection.environment)[0]
+    def _selection(self):
+        """The packages selection."""
+        return self.payload.get_packages_selection()
 
     def initialize(self):
         """Initialize the spoke."""
@@ -306,13 +109,13 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self.initialize_start()
 
         threadMgr.add(AnacondaThread(
-            name=constants.THREAD_SOFTWARE_WATCHER,
+            name=THREAD_SOFTWARE_WATCHER,
             target=self._initialize
         ))
 
     def _initialize(self):
         """Initialize the spoke in a separate thread."""
-        threadMgr.wait(constants.THREAD_PAYLOAD)
+        threadMgr.wait(THREAD_PAYLOAD)
 
         # Initialize and check the software selection.
         self._initialize_selection()
@@ -325,15 +128,17 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     def _initialize_selection(self):
         """Initialize and check the software selection."""
-        if self._error or not self.payload.base_repo:
+        if not self.payload.base_repo:
             log.debug("Skip the initialization of the software selection.")
             return
 
         if not self._kickstarted:
-            # Set the environment.
-            self._selection.environment = self._dnf_manager.default_environment or ""
+            # Use the default environment.
+            self._selection_cache.select_environment(
+                self._dnf_manager.default_environment
+            )
 
-            # Apply the initial selection.
+            # Apply the default selection.
             self.apply()
 
         # Check the initial software selection.
@@ -342,280 +147,242 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # Wait for the software selection thread that might be started by execute().
         # We are already running in a thread, so it should not needlessly block anything
         # and only like this we can be sure we are really initialized.
-        threadMgr.wait(constants.THREAD_CHECK_SOFTWARE)
+        threadMgr.wait(THREAD_CHECK_SOFTWARE)
 
-    def _add_row(self, listbox, name, desc, button, clicked):
-        row = Gtk.ListBoxRow()
-        box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    @property
+    def ready(self):
+        """Is the spoke ready?
 
-        button.set_valign(Gtk.Align.START)
-        button.connect("toggled", clicked, row)
-        box.add(button)
+        By default, the software selection spoke is not ready. We have to
+        wait until the installation source spoke is completed. This could be
+        because the user filled something out, or because we're done fetching
+        repo metadata from the mirror list, or we detected a DVD/CD.
+        """
+        return not self._processing_data and self._source_is_set
 
-        label = Gtk.Label(label="<b>%s</b>\n%s" % (escape_markup(name), escape_markup(desc)),
-                          use_markup=True, wrap=True, wrap_mode=Pango.WrapMode.WORD_CHAR,
-                          hexpand=True, xalign=0, yalign=0.5)
-        box.add(label)
+    @property
+    def _source_is_set(self):
+        """Is the installation source set?"""
+        return self.payload.base_repo is not None
 
-        row.add(box)
-        listbox.insert(row, -1)
+    @property
+    def _source_has_changed(self):
+        """Has the installation source changed?"""
+        return self._tx_id != self.payload.tx_id
+
+    @property
+    def _processing_data(self):
+        """Is the spoke processing data?"""
+        return threadMgr.get(THREAD_SOFTWARE_WATCHER) \
+            or threadMgr.get(THREAD_PAYLOAD) \
+            or threadMgr.get(THREAD_CHECK_SOFTWARE)
+
+    @property
+    def status(self):
+        """The status of the spoke."""
+        if self._processing_data:
+            return _("Processing...")
+        if is_cdn_registration_required(self.payload):
+            return _("Red Hat CDN requires registration.")
+        if not self._source_is_set:
+            return _("Installation source not set up")
+        if self._source_has_changed:
+            return _("Source changed - please verify")
+        if self._errors:
+            return _("Error checking software selection")
+
+        return get_software_selection_status(
+            dnf_manager=self._dnf_manager,
+            selection=self._selection,
+            kickstarted=self._kickstarted
+        )
+
+    @property
+    def completed(self):
+        """Is the spoke complete?"""
+        return self.ready \
+            and not self._errors \
+            and not self._source_has_changed \
+            and is_software_selection_complete(
+                dnf_manager=self._dnf_manager,
+                selection=self._selection,
+                kickstarted=self._kickstarted
+            )
 
     def refresh(self):
         super().refresh()
-        threadMgr.wait(constants.THREAD_PAYLOAD)
+        threadMgr.wait(THREAD_PAYLOAD)
 
-        # Get the packages configuration.
-        self._selection = self.payload.get_packages_selection()
+        # Create a new software selection cache.
+        self._selection_cache = SoftwareSelectionCache(self._dnf_manager)
+        self._selection_cache.apply_selection_data(self._selection)
 
-        # Set up the environment.
-        if not self._selection.environment \
-                or not self.is_environment_valid(self._selection.environment):
-            self._selection.environment = self._dnf_manager.default_environment or ""
+        # Refresh up the UI.
+        self._refresh_environments()
+        self._refresh_groups()
 
-        # Create rows for all valid environments.
+        # Set up the info bar.
+        self.clear_info()
+
+        if self._errors:
+            self.set_warning(_(
+                "Error checking software dependencies. "
+                " <a href=\"\">Click for details.</a>"
+            ))
+
+    def _refresh_environments(self):
+        """Create rows for all available environments."""
         self._clear_listbox(self._environment_list_box)
 
-        for environment_id in self.payload.environments:
-            (name, desc) = self.payload.environment_description(environment_id)
+        for environment in self._selection_cache.available_environments:
+            # Get the environment data.
+            data = self._dnf_manager.get_environment_data(environment)
+            selected = self._selection_cache.is_environment_selected(environment)
 
-            # use the invisible radio button as a group for all environment
-            # radio buttons
-            radio = Gtk.RadioButton(group=self._fake_radio)
+            # Add a new environment row.
+            row = EnvironmentListBoxRow(data, selected)
+            self._environment_list_box.insert(row, -1)
 
-            # check if the selected environment (if any) does match the current row
-            # and tick the radio button if it does
-            radio.set_active(
-                self.is_environment_valid(self._selection.environment) and
-                self.get_environment_id(self._selection.environment) == environment_id
+        self._environment_list_box.show_all()
+
+    def _refresh_groups(self):
+        """Create rows for all available groups."""
+        self._clear_listbox(self._addon_list_box)
+
+        if self._selection_cache.environment:
+            # Get the environment data.
+            environment_data = self._dnf_manager.get_environment_data(
+                self._selection_cache.environment
             )
 
-            self._add_row(self._environment_list_box,
-                          name, desc, radio,
-                          self.on_radio_button_toggled)
+            # Add all optional groups.
+            for group in environment_data.optional_groups:
+                self._add_group_row(group)
 
-        # Set up states of selected groups.
-        self._addon_states = {}
+            # Add the separator.
+            if environment_data.optional_groups and environment_data.visible_groups:
+                self._addon_list_box.insert(SeparatorRow(), -1)
 
-        for group in self._selection.groups:
-            try:
-                group_id = self.payload.group_id(group)
-                self._mark_addon_selection(group_id, True)
-            except PayloadError as e:
-                log.warning(e)
+            # Add user visible groups that are not optional.
+            for group in environment_data.visible_groups:
+                if group in environment_data.optional_groups:
+                    continue
 
-        self.refresh_addons()
-        self._environment_list_box.show_all()
+                self._add_group_row(group)
+
         self._addon_list_box.show_all()
 
-    def _add_addon(self, grp):
-        (name, desc) = self.payload.group_description(grp)
+    def _add_group_row(self, group):
+        """Add a new row for the specified group."""
+        # Get the group data.
+        data = self._dnf_manager.get_group_data(group)
+        selected = self._selection_cache.is_group_selected(group)
 
-        if grp in self._addon_states:
-            # If the add-on was previously selected by the user, select it
-            if self._addon_states[grp] == self._ADDON_SELECTED:
-                selected = True
-            # If the add-on was previously de-selected by the user, de-select it
-            elif self._addon_states[grp] == self._ADDON_DESELECTED:
-                selected = False
-            # Otherwise, use the default state
-            else:
-                selected = self.payload.environment_option_is_default(
-                    self.get_environment_id(self._selection.environment), grp
-                )
-        else:
-            selected = self.payload.environment_option_is_default(
-                self.get_environment_id(self._selection.environment), grp
-            )
-
-        check = Gtk.CheckButton()
-        check.set_active(selected)
-        self._add_row(self._addon_list_box, name, desc, check, self.on_checkbox_toggled)
-
-    @property
-    def _add_sep(self):
-        """ Whether the addon list contains a separator. """
-        environment_id = self.get_environment_id(self._selection.environment)
-
-        return len(self.payload.environment_addons[environment_id][0]) > 0 and \
-            len(self.payload.environment_addons[environment_id][1]) > 0
-
-    def refresh_addons(self):
-        environment = self._selection.environment
-        environment_id = self.get_environment_id(self._selection.environment)
-
-        if environment and (environment_id in self.payload.environment_addons):
-            self._clear_listbox(self._addon_list_box)
-
-            # We have two lists:  One of addons specific to this environment,
-            # and one of all the others.  The environment-specific ones will be displayed
-            # first and then a separator, and then the generic ones.  This is to make it
-            # a little more obvious that the thing on the left side of the screen and the
-            # thing on the right side of the screen are related.
-            #
-            # If a particular add-on was previously selected or de-selected by the user, that
-            # state will be used. Otherwise, the add-on will be selected if it is a default
-            # for this environment.
-
-            for grp in self.payload.environment_addons[environment_id][0]:
-                self._add_addon(grp)
-
-            # This marks a separator in the view - only add it if there's both environment
-            # specific and generic addons.
-            if self._add_sep:
-                self._addon_list_box.insert(Gtk.Separator(), -1)
-
-            for grp in self.payload.environment_addons[environment_id][1]:
-                self._add_addon(grp)
-
-        self._select_flag = True
-
-        if self._error_msgs:
-            self.set_warning(_("Error checking software dependencies. "
-                               " <a href=\"\">Click for details.</a>"))
-        else:
-            self.clear_info()
-
-    def _all_addons(self):
-        environment_id = self.get_environment_id(self._selection.environment)
-
-        if environment_id in self.payload.environment_addons:
-            addons = copy.copy(self.payload.environment_addons[environment_id][0])
-
-            if self._add_sep:
-                addons.append('')
-
-            addons += self.payload.environment_addons[environment_id][1]
-        else:
-            addons = []
-
-        return addons
-
-    def _get_selected_addons(self):
-        retval = []
-        addons = self._all_addons()
-
-        for (ndx, row) in enumerate(self._addon_list_box.get_children()):
-            box = row.get_children()[0]
-
-            if isinstance(box, Gtk.Separator):
-                continue
-
-            button = box.get_children()[0]
-            if button.get_active():
-                retval.append(addons[ndx])
-
-        return retval
-
-    def _mark_addon_selection(self, grpid, selected):
-        # Mark selection or return its state to the default state
-        if selected:
-            if self.payload.environment_option_is_default(self._selection.environment, grpid):
-                self._addon_states[grpid] = self._ADDON_DEFAULT
-            else:
-                self._addon_states[grpid] = self._ADDON_SELECTED
-        else:
-            if not self.payload.environment_option_is_default(self._selection.environment, grpid):
-                self._addon_states[grpid] = self._ADDON_DEFAULT
-            else:
-                self._addon_states[grpid] = self._ADDON_DESELECTED
+        # Add a new group row.
+        row = GroupListBoxRow(data, selected)
+        self._addon_list_box.insert(row, -1)
 
     def _clear_listbox(self, listbox):
         for child in listbox.get_children():
             listbox.remove(child)
-            del(child)
+            del child
 
-    @property
-    def txid_valid(self):
-        return self._tx_id == self.payload.tx_id
-
-    # Signal handlers
-    def on_radio_button_toggled(self, radio, row):
-        # If the radio button toggled to inactive, don't reactivate the row
-        if not radio.get_active():
-            return
-        row.activate()
-
-    def on_environment_activated(self, listbox, row):
-        if not self._select_flag:
-            return
-
-        # GUI selections means that packages are no longer coming from kickstart
+    def apply(self):
+        """Apply the changes."""
         self._kickstarted = False
 
-        box = row.get_children()[0]
-        button = box.get_children()[0]
+        selection = self._selection_cache.get_selection_data()
+        log.debug("Setting new software selection: %s", selection)
 
-        with blockedHandler(button, self.on_radio_button_toggled):
-            button.set_active(True)
+        self.payload.set_packages_selection(selection)
 
-        # Mark the clicked environment as selected and update the screen.
-        self._selection.environment = self.payload.environments[row.get_index()]
-        self.refresh_addons()
-        self._addon_list_box.show_all()
+        hubQ.send_not_ready(self.__class__.__name__)
+        hubQ.send_not_ready("SourceSpoke")
 
-    def on_checkbox_toggled(self, button, row):
-        # Select the addon. The button is already toggled.
-        self._select_addon_at_row(row, button.get_active())
+    def execute(self):
+        """Execute the changes."""
+        threadMgr.add(AnacondaThread(
+            name=THREAD_CHECK_SOFTWARE,
+            target=self.check_software_selection
+        ))
+
+    def check_software_selection(self):
+        """Check the software selection."""
+        hubQ.send_message(self.__class__.__name__, _("Checking software dependencies..."))
+        try:
+            self.payload.check_software_selection()
+        except DependencyError as e:
+            log.warning("Transaction error %s", str(e))
+            self._errors = str(e)
+        else:
+            self._errors = None
+        finally:
+            self._tx_id = self.payload.tx_id
+            hubQ.send_ready(self.__class__.__name__)
+            hubQ.send_ready("SourceSpoke")
+
+    # Signal handlers
+    def on_environment_activated(self, listbox, row):
+        if not isinstance(row, EnvironmentListBoxRow):
+            return
+
+        # Mark the environment as selected.
+        environment = row.get_environment_id()
+        self._selection_cache.select_environment(environment)
+
+        # Update the row button.
+        row.toggle_button(True)
+
+        # Update the screen.
+        self._refresh_groups()
 
     def on_addon_activated(self, listbox, row):
         # Skip the separator.
-        box = row.get_children()[0]
-        if isinstance(box, Gtk.Separator):
+        if not isinstance(row, GroupListBoxRow):
             return
 
-        # Select the addon. The button is not toggled yet.
-        button = box.get_children()[0]
-        self._select_addon_at_row(row, not button.get_active())
+        # Mark the group as selected or deselected.
+        group = row.get_group_id()
+        selected = not self._selection_cache.is_group_selected(group)
 
-    def _select_addon_at_row(self, row, is_selected):
-        # GUI selections means that packages are no longer coming from kickstart.
-        self._kickstarted = False
+        if selected:
+            self._selection_cache.select_group(row.data.id)
+        else:
+            self._selection_cache.deselect_group(row.data.id)
 
-        # Activate the row.
-        with blockedHandler(row.get_parent(), self.on_addon_activated):
-            row.activate()
-
-        # Activate the button.
-        box = row.get_children()[0]
-        button = box.get_children()[0]
-        with blockedHandler(button, self.on_checkbox_toggled):
-            button.set_active(is_selected)
-
-        # Mark the selection.
-        addons = self._all_addons()
-        group = addons[row.get_index()]
-        self._mark_addon_selection(group, is_selected)
+        # Update the row button.
+        row.toggle_button(selected)
 
     def on_info_bar_clicked(self, *args):
-        if not self._error_msgs:
+        if not self._errors:
             return
 
-        label = _("The software marked for installation has the following errors.  "
-                  "This is likely caused by an error with your installation source.  "
-                  "You can quit the installer, change your software source, or change "
-                  "your software selections.")
-        dialog = DetailedErrorDialog(
-            self.data,
-            buttons=[C_("GUI|Software Selection|Error Dialog", "_Quit"),
-                     C_("GUI|Software Selection|Error Dialog", "_Modify Software Source"),
-                     C_("GUI|Software Selection|Error Dialog", "Modify _Selections")],
-            label=label)
+        label = _(
+            "The software marked for installation has the following errors.  "
+            "This is likely caused by an error with your installation source.  "
+            "You can quit the installer, change your software source, or change "
+            "your software selections."
+        )
+
+        buttons = [
+            C_("GUI|Software Selection|Error Dialog", "_Quit"),
+            C_("GUI|Software Selection|Error Dialog", "_Modify Software Source"),
+            C_("GUI|Software Selection|Error Dialog", "Modify _Selections")
+        ]
+
+        dialog = DetailedErrorDialog(self.data, buttons=buttons, label=label)
+
         with self.main_window.enlightbox(dialog.window):
-            dialog.refresh(self._error_msgs)
+            dialog.refresh(self._errors)
             rc = dialog.run()
 
         dialog.window.destroy()
 
         if rc == 0:
-            # Quit.
-            util.ipmi_abort(scripts=self.data.scripts)
+            # Quit the installation.
+            ipmi_abort(scripts=self.data.scripts)
             sys.exit(0)
         elif rc == 1:
             # Send the user to the installation source spoke.
             self.skipTo = "SourceSpoke"
             self.window.emit("button-clicked")
-        elif rc == 2:
-            # Close the dialog so the user can change selections.
-            pass
-        else:
-            pass
