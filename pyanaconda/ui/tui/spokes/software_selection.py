@@ -24,8 +24,6 @@ from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.payload.errors import DependencyError, NoSuchGroup
 from pyanaconda.core.i18n import N_, _
-from pyanaconda.core.configuration.anaconda import conf
-
 from pyanaconda.core.constants import THREAD_PAYLOAD, THREAD_CHECK_SOFTWARE, \
     THREAD_SOFTWARE_WATCHER, PAYLOAD_TYPE_DNF
 
@@ -75,6 +73,11 @@ class SoftwareSpoke(NormalTUISpoke):
         payloadMgr.add_listener(PayloadState.STARTED, self._payload_start)
         payloadMgr.add_listener(PayloadState.ERROR, self._payload_error)
 
+    @property
+    def _dnf_manager(self):
+        """The DNF manager."""
+        return self.payload.dnf_manager
+
     def initialize(self):
         """Initialize the spoke."""
         super().initialize()
@@ -103,7 +106,7 @@ class SoftwareSpoke(NormalTUISpoke):
 
         if not self._kickstarted:
             # Set the environment.
-            self.set_default_environment()
+            self._selection.environment = self._dnf_manager.default_environment or ""
 
             # Apply the initial selection.
             self.apply()
@@ -115,17 +118,6 @@ class SoftwareSpoke(NormalTUISpoke):
         # We are already running in a thread, so it should not needlessly block anything
         # and only like this we can be sure we are really initialized.
         threadMgr.wait(THREAD_CHECK_SOFTWARE)
-
-    def set_default_environment(self):
-        # If an environment was specified in the configuration, use that.
-        # Otherwise, select the first environment.
-        if self.payload.environments:
-            environments = self.payload.environments
-
-            if conf.payload.default_environment in environments:
-                self._selection.environment = conf.payload.default_environment
-            else:
-                self._selection.environment = environments[0]
 
     def _payload_start(self):
         self.errors = []

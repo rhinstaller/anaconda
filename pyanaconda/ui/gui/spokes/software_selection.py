@@ -24,12 +24,10 @@ from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, C_, CN_
 from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, THREAD_SOFTWARE_WATCHER, THREAD_PAYLOAD, \
     THREAD_CHECK_SOFTWARE
-from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.payload.errors import NoSuchGroup, DependencyError, PayloadError
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core import util, constants
-
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.context import context
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -126,6 +124,11 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # list with no radio buttons ticked
         self._fake_radio = Gtk.RadioButton(group=None)
         self._fake_radio.set_active(True)
+
+    @property
+    def _dnf_manager(self):
+        """The DNF manager."""
+        return self.payload.dnf_manager
 
     # Payload event handlers
     def _downloading_package_md(self):
@@ -338,7 +341,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         if not self._kickstarted:
             # Set the environment.
-            self.set_default_environment()
+            self._selection.environment = self._dnf_manager.default_environment or ""
 
             # Apply the initial selection.
             self.apply()
@@ -350,17 +353,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # We are already running in a thread, so it should not needlessly block anything
         # and only like this we can be sure we are really initialized.
         threadMgr.wait(constants.THREAD_CHECK_SOFTWARE)
-
-    def set_default_environment(self):
-        # If an environment was specified in the configuration, use that.
-        # Otherwise, select the first environment.
-        if self.payload.environments:
-            environments = self.payload.environments
-
-            if conf.payload.default_environment in environments:
-                self._selection.environment = conf.payload.default_environment
-            else:
-                self._selection.environment = environments[0]
 
     def _add_row(self, listbox, name, desc, button, clicked):
         row = Gtk.ListBoxRow()
@@ -388,7 +380,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # Set up the environment.
         if not self._selection.environment \
                 or not self.is_environment_valid(self._selection.environment):
-            self.set_default_environment()
+            self._selection.environment = self._dnf_manager.default_environment or ""
 
         # Create rows for all valid environments.
         self._clear_listbox(self._environment_list_box)
