@@ -338,6 +338,10 @@ class ResizeDialog(GUIObject):
         :param default_size: default value to set
         :type default_size: Size
         """
+        # Turn off wrapping of the displayed values.
+        layout = self._resize_slider.get_layout()
+        layout.set_width(-1)
+
         # Convert the Sizes to ints
         min_size = int(min_size)
         max_size = int(max_size)
@@ -623,4 +627,4 @@ class ResizeDialog(GUIObject):
     def on_resize_slider_format(self, scale, value):
         # This makes the value displayed under the slider prettier than just a
         # single number.
-        return str(Size(value))
+        return Size(value).human_readable(max_places=1)
