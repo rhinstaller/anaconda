@@ -287,12 +287,11 @@
             </child>
             <child>
               <object class="GtkScale" id="resizeSlider">
+                <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="no_show_all">True</property>
+                <property name="margin_top">12</property>
                 <property name="margin_bottom">12</property>
                 <property name="adjustment">resizeAdjustment</property>
-                <property name="round_digits">0</property>
-                <property name="digits">0</property>
                 <signal name="format-value" handler="on_resize_slider_format" swapped="no"/>
                 <signal name="value-changed" handler="on_resize_value_changed" swapped="no"/>
               </object>
