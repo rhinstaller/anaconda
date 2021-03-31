@@ -23,7 +23,6 @@ from pyanaconda.ui.lib.software import get_software_selection_status, \
     is_software_selection_complete, SoftwareSelectionCache
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.payload.errors import DependencyError
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.constants import THREAD_PAYLOAD, THREAD_CHECK_SOFTWARE, \
     THREAD_SOFTWARE_WATCHER, PAYLOAD_TYPE_DNF
@@ -61,8 +60,9 @@ class SoftwareSpoke(NormalTUISpoke):
         super().__init__(data, storage, payload)
         self.title = N_("Software selection")
         self._container = None
-        self.errors = []
         self._tx_id = None
+        self._errors = []
+        self._warnings = []
 
         # Get the packages configuration.
         self._selection_cache = SoftwareSelectionCache(self._dnf_manager)
@@ -160,8 +160,10 @@ class SoftwareSpoke(NormalTUISpoke):
             return _("Installation source not set up")
         if self._source_has_changed:
             return _("Source changed - please verify")
-        if self.errors:
+        if self._errors:
             return _("Error checking software selection")
+        if self._warnings:
+            return _("Warning checking software selection")
 
         return get_software_selection_status(
             dnf_manager=self._dnf_manager,
@@ -173,7 +175,7 @@ class SoftwareSpoke(NormalTUISpoke):
     def completed(self):
         """Is the spoke complete?"""
         return self.ready \
-            and not self.errors \
+            and not self._errors \
             and not self._source_has_changed \
             and is_software_selection_complete(
                 dnf_manager=self._dnf_manager,
@@ -230,6 +232,10 @@ class SoftwareSpoke(NormalTUISpoke):
         self.window.add_with_separator(TextWidget(_("Base environment")))
         self.window.add_with_separator(self._container)
 
+        if self._errors or self._warnings:
+            messages = "\n".join(self._errors or self._warnings)
+            self.window.add_with_separator(TextWidget(messages))
+
     def _select_environment(self, data):
         self._selection_cache.select_environment(data)
 
@@ -276,15 +282,24 @@ class SoftwareSpoke(NormalTUISpoke):
 
     def _check_software_selection(self):
         """Check the software selection."""
-        try:
-            self.payload.check_software_selection()
-        except DependencyError as e:
-            self.errors = [str(e)]
-            log.warning("Transaction error %s", str(e))
-        else:
-            self.errors = []
-        finally:
-            self._tx_id = self.payload.tx_id
+        self.payload.bump_tx_id()
+
+        # Run the validation task.
+        from pyanaconda.modules.payloads.payload.dnf.validation import CheckPackagesSelectionTask
+
+        task = CheckPackagesSelectionTask(
+            dnf_manager=self._dnf_manager,
+            selection=self._selection,
+        )
+
+        # Get the validation report.
+        report = task.run()
+
+        self._errors = list(report.error_messages)
+        self._warnings = list(report.warning_messages)
+        self._tx_id = self.payload.tx_id
+
+        print("\n".join(report.get_messages()))
 
     def closed(self):
         """The spoke has been closed."""
