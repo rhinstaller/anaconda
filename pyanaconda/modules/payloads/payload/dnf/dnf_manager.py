@@ -24,6 +24,7 @@ import traceback
 import dnf
 import dnf.exceptions
 import dnf.module.module_base
+import libdnf.conf
 
 from blivet.size import Size
 
@@ -182,6 +183,21 @@ class DNFManager(object):
     def dump_configuration(self):
         """Log the state of the DNF configuration."""
         log.debug("DNF configuration:\n%s", self._base.conf.dump())
+
+    def substitute(self, text):
+        """Replace variables with their values.
+
+        Currently supports $releasever and $basearch.
+
+        :param str text: a string to do replacement on
+        :return str: a string with substituted variables
+        """
+        if not text:
+            return ""
+
+        return libdnf.conf.ConfigParser.substitute(
+            text, self._base.conf.substitutions
+        )
 
     def get_installation_size(self):
         """Calculate the installation size.

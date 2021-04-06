@@ -553,3 +553,18 @@ class DNFMangerTestCase(unittest.TestCase):
 
         self.dnf_manager.reset_base()
         self.assertEqual(self.dnf_manager.download_location, None)
+
+    def substitute_test(self):
+        """Test the substitute method."""
+        # No variables.
+        self.assertEqual(self.dnf_manager.substitute(None), "")
+        self.assertEqual(self.dnf_manager.substitute(""), "")
+        self.assertEqual(self.dnf_manager.substitute("/"), "/")
+        self.assertEqual(self.dnf_manager.substitute("/text"), "/text")
+
+        # Unknown variables.
+        self.assertEqual(self.dnf_manager.substitute("/$unknown"), "/$unknown")
+
+        # Supported variables.
+        self.assertNotEqual(self.dnf_manager.substitute("/$basearch"), "/$basearch")
+        self.assertNotEqual(self.dnf_manager.substitute("/$releasever"), "/$releasever")
