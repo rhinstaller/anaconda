@@ -397,6 +397,13 @@ class ParseAttachedSubscriptionsTask(Task):
         """Return pretty human readable date based on date from the input JSON."""
         # fallback in case of the parsing fails
         date_string = date_from_json
+        # try to parse the date as ISO 8601 first
+        try:
+            date = datetime.datetime.strptime(date_from_json, "%Y-%m-%d")
+            # get a nice human readable date
+            return date.strftime("%b %d, %Y")
+        except ValueError:
+            pass
         try:
             # The start/end date in GetPools() output seems to be formatted as
             # "Locale’s appropriate date representation.".
