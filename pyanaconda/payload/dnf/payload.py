@@ -766,7 +766,7 @@ class DNFPayload(Payload):
         self._requirements.extend(
             collect_remote_requirements()
             + collect_language_requirements(self._dnf_manager)
-            + collect_platform_requirements(self._base)
+            + collect_platform_requirements(self._dnf_manager)
             + collect_driver_disk_requirements()
         )
 

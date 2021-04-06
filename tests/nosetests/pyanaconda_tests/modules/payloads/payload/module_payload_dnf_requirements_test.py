@@ -88,29 +88,27 @@ class DNFRequirementsTestCase(unittest.TestCase):
     @patch('pyanaconda.core.util.execWithCapture')
     def collect_platform_requirements_test(self, execute):
         """Test the function collect_platform_requirements."""
-        g1 = self._create_group("platform-vmware")
-        g2 = self._create_group("platform-kvm")
-        g3 = self._create_group("network-server")
-        g4 = self._create_group("virtualization")
-
-        base = Mock()
-        base.comps.groups_iter.return_value = [
-            g1, g2, g3, g4
+        dnf_manager = Mock(spec=DNFManager)
+        dnf_manager.groups = [
+            "platform-vmware",
+            "platform-kvm",
+            "network-server",
+            "virtualization"
         ]
 
         # No platform is detected.
         execute.return_value = None
-        requirements = collect_platform_requirements(base)
+        requirements = collect_platform_requirements(dnf_manager)
         self.assertEqual(requirements, [])
 
         # Unsupported platform is detected.
         execute.return_value = "qemu"
-        requirements = collect_platform_requirements(base)
+        requirements = collect_platform_requirements(dnf_manager)
         self.assertEqual(requirements, [])
 
         # Supported platform is detected.
         execute.return_value = "vmware"
-        requirements = collect_platform_requirements(base)
+        requirements = collect_platform_requirements(dnf_manager)
 
         r1 = self._create_requirement(
             name="platform-vmware",

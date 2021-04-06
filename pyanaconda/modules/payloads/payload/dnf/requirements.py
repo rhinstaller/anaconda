@@ -80,10 +80,10 @@ def collect_language_requirements(dnf_manager):
     return requirements
 
 
-def collect_platform_requirements(dnf_base):
+def collect_platform_requirements(dnf_manager):
     """Collect the requirements for the current platform.
 
-    :param dnf_base: a DNF base
+    :param dnf_manager: a DNF manager
     :return: a list of requirements
     """
     # Detect the current platform.
@@ -92,13 +92,10 @@ def collect_platform_requirements(dnf_base):
     if not platform:
         return []
 
-    # Get all available groups.
-    available_groups = [g.id for g in dnf_base.comps.groups_iter()]
-
     # Add a platform specific group.
     group = "platform-" + platform.lower()
 
-    if group not in available_groups:
+    if group not in dnf_manager.groups:
         log.warning("Platform group %s not available.", group)
         return []
 
