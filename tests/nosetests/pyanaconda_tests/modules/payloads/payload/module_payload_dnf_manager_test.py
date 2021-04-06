@@ -211,6 +211,34 @@ class DNFMangerTestCase(unittest.TestCase):
 
         self.assertEqual(size, Size("450 MiB"))
 
+    def no_default_environment_test(self):
+        """Test the default_environment property with no environment."""
+        self.assertEqual(self.dnf_manager.default_environment, None)
+
+    def default_environment_test(self):
+        """Test the default_environment property with environments."""
+        env_1 = Mock(id="environment-1")
+        env_2 = Mock(id="environment-2")
+        env_3 = Mock(id="environment-3")
+
+        comps = Mock(environments=[env_1, env_2, env_3])
+        self.dnf_manager._base._comps = comps
+
+        self.assertEqual(self.dnf_manager.default_environment, "environment-1")
+
+    def default_configured_environment_test(self):
+        """Test the default_environment property with configuration."""
+        env_1 = Mock(id="environment-1")
+        env_2 = Mock(id="environment-2")
+        env_3 = Mock(id="environment-3")
+
+        comps = Mock(environments=[env_1, env_2, env_3])
+        self.dnf_manager._base._comps = comps
+
+        with patch("pyanaconda.modules.payloads.payload.dnf.dnf_manager.conf") as conf:
+            conf.payload.default_environment = "environment-2"
+            self.assertEqual(self.dnf_manager.default_environment, "environment-2")
+
     def environments_test(self):
         """Test the environments property."""
         self.assertEqual(self.dnf_manager.environments, [])

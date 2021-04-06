@@ -36,8 +36,8 @@ from pyanaconda.modules.payloads.payload.dnf.requirements import collect_languag
     collect_platform_requirements, collect_driver_disk_requirements, collect_remote_requirements, \
     apply_requirements
 from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package, \
-    get_product_release_version, get_default_environment, get_installation_specs, \
-    get_kernel_version_list, calculate_required_space
+    get_product_release_version, get_installation_specs, get_kernel_version_list, \
+    calculate_required_space
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 
@@ -117,6 +117,11 @@ class DNFPayload(Payload):
 
         # Additional packages required by installer based on used features
         self._requirements = []
+
+    @property
+    def dnf_manager(self):
+        """The DNF manager."""
+        return self._dnf_manager
 
     @property
     def _base(self):
@@ -286,7 +291,7 @@ class DNFPayload(Payload):
         selection = self.get_packages_selection()
 
         # Get the default environment.
-        default_environment = get_default_environment(self._dnf_manager)
+        default_environment = self._dnf_manager.default_environment
 
         # Get the installation specs.
         include_list, exclude_list = get_installation_specs(

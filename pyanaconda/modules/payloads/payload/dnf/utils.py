@@ -39,19 +39,6 @@ log = get_module_logger(__name__)
 DNF_PACKAGE_CACHE_DIR_SUFFIX = 'dnf.package.cache'
 
 
-def get_default_environment(dnf_manager):
-    """Get a default environment.
-
-    :return: an id of an environment or None
-    """
-    environments = dnf_manager.environments
-
-    if environments:
-        return environments[0]
-
-    return None
-
-
 def get_kernel_package(dnf_base, exclude_list):
     """Get an installable kernel package.
 
