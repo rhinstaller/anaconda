@@ -34,6 +34,9 @@ from pyanaconda.core.constants import DNF_DEFAULT_TIMEOUT, DNF_DEFAULT_RETRIES
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.util import get_os_release_value
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
+from pyanaconda.modules.common.errors.payload import UnknownCompsEnvironmentError, \
+    UnknownCompsGroupError
+from pyanaconda.modules.common.structures.comps import CompsEnvironmentData, CompsGroupData
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 from pyanaconda.modules.payloads.constants import DNF_REPO_DIRS
 from pyanaconda.modules.payloads.payload.dnf.download_progress import DownloadProgress
@@ -166,6 +169,138 @@ class DNFManager(object):
         :return: a list of ids
         """
         return [env.id for env in self._base.comps.environments]
+
+    def _get_environment(self, environment_name):
+        """Translate the given environment name to a DNF object.
+
+        :param environment_name: an identifier of an environment
+        :return: a DNF object or None
+        """
+        if not environment_name:
+            return None
+
+        return self._base.comps.environment_by_pattern(environment_name)
+
+    def resolve_environment(self, environment_name):
+        """Translate the given environment name to a group ID.
+
+        :param environment_name: an identifier of an environment
+        :return: a string with the environment ID or None
+        """
+        env = self._get_environment(environment_name)
+
+        if not env:
+            return None
+
+        return env.id
+
+    def is_environment_valid(self, environment_name):
+        """Is the given environment valid?
+
+        FIXME: Could we use the resolve_environment method instead?
+
+        :param environment_name: an identifier of an environment
+        :return: True or False
+        """
+        environment_id = self.resolve_environment(environment_name)
+        return environment_id in self.environments
+
+    def get_environment_data(self, environment_name) -> CompsEnvironmentData:
+        """Get the data of the specified environment.
+
+        :param environment_name: an identifier of an environment
+        :return: an instance of CompsEnvironmentData
+        :raise: UnknownCompsEnvironmentError if no environment is found
+        """
+        env = self._get_environment(environment_name)
+
+        if not env:
+            raise UnknownCompsEnvironmentError(environment_name)
+
+        return self._get_environment_data(env)
+
+    def _get_environment_data(self, env) -> CompsEnvironmentData:
+        """Get the environment data.
+
+        :param env: a DNF representation of the environment
+        :return: an instance of CompsEnvironmentData
+        """
+        data = CompsEnvironmentData()
+        data.id = env.id or ""
+        data.name = env.ui_name or ""
+        data.description = env.ui_description or ""
+
+        optional = {i.name for i in env.option_ids}
+        default = {i.name for i in env.option_ids if i.default}
+
+        for grp in self._base.comps.groups:
+
+            if grp.id in optional:
+                data.optional_groups.append(grp.id)
+
+            if grp.visible:
+                data.visible_groups.append(grp.id)
+
+            if grp.id in default:
+                data.default_groups.append(grp.id)
+
+        return data
+
+    @property
+    def groups(self):
+        """Groups defined in comps.xml file.
+
+        :return: a list of IDs
+        """
+        return [g.id for g in self._base.comps.groups]
+
+    def _get_group(self, group_name):
+        """Translate the given group name into a DNF object.
+
+        :param group_name: an identifier of a group
+        :return: a DNF object or None
+        """
+        return self._base.comps.group_by_pattern(group_name)
+
+    def resolve_group(self, group_name):
+        """Translate the given group name into a group ID.
+
+        :param group_name: an identifier of a group
+        :return: a string with the group ID or None
+        """
+        grp = self._get_group(group_name)
+
+        if not grp:
+            return None
+
+        return grp.id
+
+    def get_group_data(self, group_name) -> CompsGroupData:
+        """Get the data of the specified group.
+
+        :param group_name: an identifier of a group
+        :return: an instance of CompsGroupData
+        :raise: UnknownCompsGroupError if no group is found
+        """
+        grp = self._get_group(group_name)
+
+        if not grp:
+            raise UnknownCompsGroupError(group_name)
+
+        return self._get_group_data(grp)
+
+    @staticmethod
+    def _get_group_data(grp) -> CompsGroupData:
+        """Get the group data.
+
+        :param grp: a DNF representation of the group
+        :return: an instance of CompsGroupData
+        """
+        data = CompsGroupData()
+        data.id = grp.id or ""
+        data.name = grp.ui_name or ""
+        data.description = grp.ui_description or ""
+        return data
 
     def configure_proxy(self, url):
         """Configure the proxy of the DNF base.

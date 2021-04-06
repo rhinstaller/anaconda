@@ -42,3 +42,15 @@ class SourceTearDownError(AnacondaError):
 class IncompatibleSourceError(AnacondaError):
     """Error raised when payload does not support given source."""
     pass
+
+
+@dbus_error("UnknownCompsEnvironmentError", namespace=PAYLOADS_NAMESPACE)
+class UnknownCompsEnvironmentError(AnacondaError):
+    """The comps environment is not recognized."""
+    pass
+
+
+@dbus_error("UnknownCompsGroupError", namespace=PAYLOADS_NAMESPACE)
+class UnknownCompsGroupError(AnacondaError):
+    """The comps group is not recognized."""
+    pass
