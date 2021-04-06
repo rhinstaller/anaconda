@@ -555,6 +555,25 @@ class DNFManagerTestCase(unittest.TestCase):
         self.assertNotEqual(self.dnf_manager.substitute("/$basearch"), "/$basearch")
         self.assertNotEqual(self.dnf_manager.substitute("/$releasever"), "/$releasever")
 
+    @patch("dnf.subject.Subject.get_best_query")
+    def is_package_available_test(self, get_best_query):
+        """Test the is_package_available method."""
+        self.dnf_manager._base._sack = Mock()
+        self.assertEqual(self.dnf_manager.is_package_available("kernel"), True)
+
+        # No package.
+        get_best_query.return_value = None
+        self.assertEqual(self.dnf_manager.is_package_available("kernel"), False)
+
+        # No metadata.
+        self.dnf_manager._base._sack = None
+
+        with self.assertLogs(level="WARNING") as cm:
+            self.assertEqual(self.dnf_manager.is_package_available("kernel"), False)
+
+        msg = "There is no metadata about packages!"
+        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+
 
 class DNFManagerCompsTestCase(unittest.TestCase):
     """Test the comps abstraction of the DNF base."""

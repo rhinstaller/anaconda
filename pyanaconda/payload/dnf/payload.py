@@ -299,7 +299,7 @@ class DNFPayload(Payload):
         )
 
         # Add the kernel package.
-        kernel_package = get_kernel_package(self._base, exclude_list)
+        kernel_package = get_kernel_package(self._dnf_manager, exclude_list)
 
         if kernel_package:
             include_list.append(kernel_package)
