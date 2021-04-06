@@ -25,22 +25,22 @@ from unittest.mock import patch, Mock, MagicMock, call
 
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
+from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy_with_cache
+
 from pyanaconda.core import util
 from pyanaconda.core.constants import RHSM_SYSPURPOSE_FILE_PATH, \
     THREAD_WAIT_FOR_CONNECTING_NM, SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD, \
     SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, SOURCE_TYPE_CLOSEST_MIRROR, \
     SOURCE_TYPE_CDN, SOURCE_TYPE_CDROM, PAYLOAD_TYPE_DNF, PAYLOAD_TYPE_RPM_OSTREE, \
     SOURCE_TYPE_URL
-
+from pyanaconda.core.subscription import check_system_purpose_set
+from pyanaconda.modules.common.constants.services import BOSS, SUBSCRIPTION
 from pyanaconda.modules.common.errors.subscription import UnregistrationError, \
     RegistrationError, SubscriptionError
 from pyanaconda.modules.common.structures.subscription import SubscriptionRequest
-
-from pyanaconda.core.subscription import check_system_purpose_set
-
 from pyanaconda.ui.lib.subscription import SubscriptionPhase, \
     register_and_subscribe, unregister, org_keys_sufficient, \
-    username_password_sufficient, check_cdn_is_installation_source
+    username_password_sufficient, check_cdn_is_installation_source, is_cdn_registration_required
 
 
 class CheckSystemPurposeSetTestCase(unittest.TestCase):
@@ -183,7 +183,6 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # run the function with insufficient authentication data
         request = SubscriptionRequest.from_structure(self.KEY_MISSING_REQUEST)
         self.assertFalse(org_keys_sufficient(subscription_request=request))
-
 
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
     def username_password_sufficient_test(self, get_proxy):
@@ -805,6 +804,32 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         ostree_payload = Mock()
         ostree_payload.type = PAYLOAD_TYPE_RPM_OSTREE
         self.assertFalse(check_cdn_is_installation_source(ostree_payload))
+
+    @patch_dbus_get_proxy_with_cache
+    def is_cdn_registration_required_test(self, proxy_getter):
+        """Test the is_cdn_registration_required function."""
+        dnf_payload = Mock()
+        dnf_payload.type = PAYLOAD_TYPE_DNF
+
+        source_proxy = dnf_payload.get_source_proxy.return_value
+        source_proxy.Type = SOURCE_TYPE_CDN
+
+        boss_proxy = BOSS.get_proxy()
+        boss_proxy.GetModules.return_value = [SUBSCRIPTION.service_name]
+
+        subscription_proxy = SUBSCRIPTION.get_proxy()
+        subscription_proxy.IsSubscriptionAttached = False
+
+        self.assertEqual(is_cdn_registration_required(dnf_payload), True)
+
+        subscription_proxy.IsSubscriptionAttached = True
+        self.assertEqual(is_cdn_registration_required(dnf_payload), False)
+
+        boss_proxy.GetModules.return_value = []
+        self.assertEqual(is_cdn_registration_required(dnf_payload), False)
+
+        source_proxy.Type = SOURCE_TYPE_CDROM
+        self.assertEqual(is_cdn_registration_required(dnf_payload), False)
 
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
