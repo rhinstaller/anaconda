@@ -21,7 +21,6 @@
 import glob
 import os
 import os.path
-import shlex
 import sys
 import tempfile
 import time
@@ -40,9 +39,8 @@ from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.constants.services import BOSS
 from pyanaconda.modules.common.structures.kickstart import KickstartReport
-from pyanaconda.pwpolicy import F34_PwPolicy, F34_PwPolicyData
 
-from pykickstart.base import BaseHandler, KickstartCommand, RemovedCommand
+from pykickstart.base import KickstartCommand, RemovedCommand
 from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL
 from pykickstart.errors import KickstartError, KickstartParseWarning, KickstartDeprecationWarning
 from pykickstart.ko import KickstartObject
@@ -156,6 +154,20 @@ class UselessSection(Section):
         self.sectionOpen = kwargs.get("sectionOpen")
 
 
+class DeprecatedSection(UselessSection):
+    """Kickstart section that was deprecated."""
+
+    def handleHeader(self, lineno, args):
+        """Issue a deprecation warning about the section."""
+        warnings.warn(_(
+            "The {} section has been deprecated. It "
+            "may be removed from future releases, which will "
+            "result in a fatal error when it is encountered. "
+            "Please modify your kickstart file to remove this "
+            "section."
+        ).format(self.sectionOpen), KickstartDeprecationWarning)
+
+
 class UselessCommand(KickstartCommand):
     """Kickstart command that was moved on DBus and doesn't do anything.
 
@@ -240,72 +252,6 @@ class RepoData(COMMANDS.RepoData):
 
     def is_harddrive_based(self):
         return self.partition is not None
-
-
-###
-### %anaconda Section
-###
-class AnacondaSectionHandler(BaseHandler):
-    """A handler for only the anaconda section's commands."""
-    commandMap = {
-        "pwpolicy": F34_PwPolicy
-    }
-
-    dataMap = {
-        "PwPolicyData": F34_PwPolicyData
-    }
-
-    def __init__(self):
-        super().__init__(mapping=self.commandMap, dataMapping=self.dataMap)
-
-    def __str__(self):
-        """Return the %anaconda section"""
-        retval = ""
-        # This dictionary should only be modified during __init__, so if it
-        # changes during iteration something has gone horribly wrong.
-        lst = sorted(self._writeOrder.keys())
-        for prio in lst:
-            for obj in self._writeOrder[prio]:
-                retval += str(obj)
-
-        if retval:
-            retval = "\n%anaconda\n" + retval + "%end\n"
-        return retval
-
-
-class AnacondaSection(Section):
-    """A section for anaconda specific commands."""
-    sectionOpen = "%anaconda"
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.cmdno = 0
-
-    def handleLine(self, line):
-        if not self.handler:
-            return
-
-        self.cmdno += 1
-        args = shlex.split(line, comments=True)
-        self.handler.currentCmd = args[0]
-        self.handler.currentLine = self.cmdno
-        return self.handler.dispatcher(args, self.cmdno)
-
-    def handleHeader(self, lineno, args):
-        """Process the arguments to the %anaconda header."""
-        Section.handleHeader(self, lineno, args)
-
-        warnings.warn(_(
-            "The %%anaconda section has been deprecated. It "
-            "may be removed from future releases, which will "
-            "result in a fatal error when it is encountered. "
-            "Please modify your kickstart file to remove this "
-            "section."
-        ), KickstartDeprecationWarning)
-
-    def finalize(self):
-        """Let %anaconda know no additional data will come."""
-        Section.finalize(self)
 
 
 ###
@@ -396,16 +342,13 @@ class AnacondaKSHandler(superclass):
         super().__init__(commandUpdates=commandUpdates, dataUpdates=dataUpdates)
         self.onPart = {}
 
-        # The %anaconda section uses its own handler for a limited set of commands
-        self.anaconda = AnacondaSectionHandler()
-
         # The %packages section is handled by the DBus module.
         self.packages = UselessObject()
 
     def __str__(self):
         proxy = BOSS.get_proxy()
         modules = proxy.GenerateKickstart().strip()
-        return super().__str__() + "\n" + modules + "\n\n" + str(self.anaconda)
+        return super().__str__() + "\n" + modules
 
 
 class AnacondaPreParser(KickstartParser):
@@ -426,7 +369,7 @@ class AnacondaPreParser(KickstartParser):
         self.registerSection(NullSection(self.handler, sectionOpen="%traceback"))
         self.registerSection(NullSection(self.handler, sectionOpen="%packages"))
         self.registerSection(NullSection(self.handler, sectionOpen="%addon"))
-        self.registerSection(NullSection(self.handler.anaconda, sectionOpen="%anaconda"))
+        self.registerSection(NullSection(self.handler, sectionOpen="%anaconda"))
 
 
 class AnacondaKSParser(KickstartParser):
@@ -449,7 +392,7 @@ class AnacondaKSParser(KickstartParser):
         self.registerSection(OnErrorScriptSection(self.handler, dataObj=self.scriptClass))
         self.registerSection(UselessSection(self.handler, sectionOpen="%packages"))
         self.registerSection(UselessSection(self.handler, sectionOpen="%addon"))
-        self.registerSection(AnacondaSection(self.handler.anaconda))
+        self.registerSection(DeprecatedSection(self.handler, sectionOpen="%anaconda"))
 
 
 def preScriptPass(f):
