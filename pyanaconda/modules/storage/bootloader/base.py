@@ -797,12 +797,13 @@ class BootLoader(object):
                 else:
                     setup_args = dep.dracut_setup_args()
 
+                done.append(dep)
+
                 if not setup_args:
                     continue
 
                 self.boot_args.update(setup_args)
                 self.dracut_args.update(setup_args)
-                done.append(dep)
 
                 # network configuration arguments
                 if isinstance(dep, NetworkStorageDevice):
