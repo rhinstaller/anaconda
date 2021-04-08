@@ -188,16 +188,15 @@ class StorageSpoke(NormalTUISpoke):
         # Get the available selected disks.
         self._selected_disks = filter_disks_by_names(self._available_disks, self._selected_disks)
 
+        # Get the available partitioning.
+        object_path = self._storage_module.CreatedPartitioning[-1]
+        self._partitioning = STORAGE.get_proxy(object_path)
+
         return True
 
     def refresh(self, args=None):
         """Prepare the content of the screen."""
         super().refresh(args)
-        threadMgr.wait(THREAD_STORAGE_WATCHER)
-
-        # Get the available partitioning.
-        object_path = self._storage_module.CreatedPartitioning[-1]
-        self._partitioning = STORAGE.get_proxy(object_path)
 
         # Create a new container.
         self._container = ListColumnContainer(1, spacing=1)
@@ -428,6 +427,13 @@ class StorageSpoke(NormalTUISpoke):
 
         # Report that the storage spoke has been initialized.
         self.initialize_done()
+
+    def closed(self):
+        """The spoke has been closed."""
+        super().closed()
+
+        # Run the setup method again on entry.
+        self.screen_ready = False
 
 
 class PartTypeSpoke(NormalTUISpoke):
