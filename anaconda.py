@@ -384,10 +384,6 @@ if __name__ == "__main__":
     # Parse the kickstart file.
     ksdata = startup_utils.parse_kickstart(kspath, strict_mode=opts.ksstrict)
 
-    # Set up the password policy.
-    from pyanaconda.pwpolicy import apply_password_policy_from_kickstart
-    apply_password_policy_from_kickstart(ksdata)
-
     # Pick up any changes from interactive-defaults.ks that would
     # otherwise be covered by the dracut KS parser.
     from pyanaconda.modules.common.constants.services import STORAGE

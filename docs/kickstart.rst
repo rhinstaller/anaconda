@@ -67,6 +67,8 @@ the kickstart, like this::
 
 .. note:: You can use the configuration option ``password_policies``.
 
+*Removed since Fedora 35.*
+
 
 installclass
 ------------
