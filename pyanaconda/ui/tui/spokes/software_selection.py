@@ -19,7 +19,8 @@
 from pyanaconda.flags import flags
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.context import context
-from pyanaconda.ui.lib.software import is_software_selection_complete
+from pyanaconda.ui.lib.software import is_software_selection_complete, \
+    get_software_selection_status
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload.manager import payloadMgr, PayloadState
@@ -148,7 +149,7 @@ class SoftwareSpoke(NormalTUISpoke):
 
     @property
     def status(self):
-        """ Where we are in the process """
+        """The status of the spoke."""
         if self.errors:
             return _("Error checking software selection")
         if not self.ready:
@@ -157,15 +158,12 @@ class SoftwareSpoke(NormalTUISpoke):
             return _("Installation source not set up")
         if not self.txid_valid:
             return _("Source changed - please verify")
-        if not self._selection.environment:
-            # KS installs with %packages will have an env selected, unless
-            # they did an install without a desktop environment. This should
-            # catch that one case.
-            if self._kickstarted:
-                return _("Custom software selected")
-            return _("Nothing selected")
 
-        return self.payload.environment_description(self._selection.environment)[0]
+        return get_software_selection_status(
+            dnf_manager=self._dnf_manager,
+            selection=self._selection,
+            kickstarted=self._kickstarted
+        )
 
     @property
     def completed(self):

@@ -18,9 +18,11 @@
 import unittest
 from unittest.mock import Mock
 
+from pyanaconda.modules.common.structures.comps import CompsEnvironmentData
 from pyanaconda.modules.common.structures.packages import PackagesSelectionData
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
-from pyanaconda.ui.lib.software import is_software_selection_complete
+from pyanaconda.ui.lib.software import is_software_selection_complete, \
+    get_software_selection_status
 
 
 class SoftwareSelectionUITestCase(unittest.TestCase):
@@ -46,3 +48,37 @@ class SoftwareSelectionUITestCase(unittest.TestCase):
 
         self.assertFalse(is_software_selection_complete(dnf_manager, selection))
         self.assertTrue(is_software_selection_complete(dnf_manager, selection, kickstarted=True))
+
+    def get_software_selection_status_test(self):
+        """Test the get_software_selection_status function."""
+        selection = PackagesSelectionData()
+        selection.environment = "e1"
+
+        environment_data = CompsEnvironmentData()
+        environment_data.name = "The e1 environment"
+
+        dnf_manager = Mock(spec=DNFManager)
+        dnf_manager.is_environment_valid.return_value = True
+        dnf_manager.get_environment_data.return_value = environment_data
+
+        status = get_software_selection_status(dnf_manager, selection)
+        self.assertEqual(status, "The e1 environment")
+
+        status = get_software_selection_status(dnf_manager, selection, kickstarted=True)
+        self.assertEqual(status, "The e1 environment")
+
+        dnf_manager.is_environment_valid.return_value = False
+
+        status = get_software_selection_status(dnf_manager, selection)
+        self.assertEqual(status, "Selected environment is not valid")
+
+        status = get_software_selection_status(dnf_manager, selection, kickstarted=True)
+        self.assertEqual(status, "Invalid environment specified in kickstart")
+
+        selection.environment = ""
+
+        status = get_software_selection_status(dnf_manager, selection)
+        self.assertEqual(status, "Please confirm software selection")
+
+        status = get_software_selection_status(dnf_manager, selection, kickstarted=True)
+        self.assertEqual(status, "Custom software selected")

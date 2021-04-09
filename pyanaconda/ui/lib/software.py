@@ -16,6 +16,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.i18n import _
 
 log = get_module_logger(__name__)
 
@@ -34,3 +35,33 @@ def is_software_selection_complete(dnf_manager, selection, kickstarted=False):
 
     # The selected environment has to be valid.
     return dnf_manager.is_environment_valid(selection.environment)
+
+
+def get_software_selection_status(dnf_manager, selection, kickstarted=False):
+    """Get the software selection status.
+
+    :param dnf_manager: a DNF manager
+    :param selection: a packages selection data
+    :param kickstarted: is the selection configured by a kickstart file?
+    :return: a translated string with the selection status
+    """
+    if kickstarted:
+        # The %packages section is present in kickstart, but environment is not set.
+        if not selection.environment:
+            return _("Custom software selected")
+        # The environment is set to an invalid value.
+        elif not dnf_manager.is_environment_valid(selection.environment):
+            return _("Invalid environment specified in kickstart")
+    else:
+        if not selection.environment:
+            # No environment is set.
+            return _("Please confirm software selection")
+        elif not dnf_manager.is_environment_valid(selection.environment):
+            # Selected environment is not valid, this can happen when a valid environment
+            # is selected (by default, manually or from kickstart) and then the installation
+            # source is switched to one where the selected environment is no longer valid.
+            return _("Selected environment is not valid")
+
+    # The valid environment is set.
+    environment_data = dnf_manager.get_environment_data(selection.environment)
+    return environment_data.name
