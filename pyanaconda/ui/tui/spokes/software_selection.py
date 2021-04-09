@@ -19,6 +19,7 @@
 from pyanaconda.flags import flags
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.context import context
+from pyanaconda.ui.lib.software import is_software_selection_complete
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload.manager import payloadMgr, PayloadState
@@ -168,18 +169,15 @@ class SoftwareSpoke(NormalTUISpoke):
 
     @property
     def completed(self):
-        """ Make sure our threads are done running and vars are set.
-
-           WARNING: This can be called before the spoke is finished initializing
-           if the spoke starts a thread. It should make sure it doesn't access
-           things until they are completely setup.
-        """
-        processing_done = self.ready and not self.errors and self.txid_valid
-
-        if flags.automatedInstall or self._kickstarted:
-            return processing_done and self.payload.base_repo and self.payload.proxy.PackagesKickstarted
-        else:
-            return processing_done and self.payload.base_repo and self._selection.environment
+        """Is the spoke complete?"""
+        return self.ready \
+            and not self.errors \
+            and self.txid_valid \
+            and is_software_selection_complete(
+                dnf_manager=self._dnf_manager,
+                selection=self._selection,
+                kickstarted=self._kickstarted
+            )
 
     def setup(self, args):
         """Set up the spoke right before it is used."""
