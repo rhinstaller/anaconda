@@ -156,6 +156,7 @@ BuildRequires: desktop-file-utils
 Requires: anaconda-gui = %{version}-%{release}
 Requires: usermode
 Requires: zenity
+Recommends: xhost
 
 %description live
 The anaconda-live package contains scripts, data and dependencies required
@@ -226,6 +227,16 @@ Requires: device-mapper-multipath
 %if 0%{?rhel} != 9
 Requires: zram-generator-defaults
 %endif
+# Display stuff moved from lorax templates
+Requires: xorg-x11-drivers
+Requires: xorg-x11-server-Xorg
+Requires: xrandr
+Requires: xrdb
+Requires: dbus-x11
+Requires: gsettings-desktop-schemas
+Requires: nm-connection-editor
+Requires: librsvg2
+Requires: metacity
 
 %description install-img-deps
 The anaconda-install-img-deps metapackage lists all boot.iso installation image dependencies.
