@@ -58,6 +58,10 @@ def get_kernel_package(dnf_base, exclude_list):
 
     # Find an installable one.
     for kernel_package in kernels:
+        if kernel_package in exclude_list:
+            log.info("kernel: excluded %s", kernel_package)
+            continue
+
         subject = dnf.subject.Subject(kernel_package)
         installable = bool(subject.get_best_query(dnf_base.sack))
 
