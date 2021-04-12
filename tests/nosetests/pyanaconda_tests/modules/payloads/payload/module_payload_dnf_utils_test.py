@@ -57,6 +57,9 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         kernel = get_kernel_package(dnf_base=Mock(), exclude_list=[])
         self.assertEqual(kernel, "kernel-lpae")
 
+        kernel = get_kernel_package(dnf_base=Mock(), exclude_list=["kernel-lpae"])
+        self.assertEqual(kernel, "kernel")
+
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.dnf")
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.is_lpae_available")
     def get_kernel_package_test(self, is_lpae, mock_dnf):
