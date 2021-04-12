@@ -408,6 +408,25 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Apr 12 2021 Martin Kolman <mkolman@redhat.com> - 35.12-1
+- Remove patches to avoid forcing inst. prefix on RHEL 9 (jkonecny)
+- Allow to exclude the kernel-lpae package (vponcova)
+- Remove the pwpolicy kickstart command (vponcova)
+- Do not generate dracut arguments multiple times for some storage devices
+  (rvykydal)
+- Run RHEL8 contributor tests on kstest runners (vslavik)
+- Add support for comps to the DNF manager (vponcova)
+- Add DBus structures for comps data (vponcova)
+- Add the is_cdn_registration_required function (vponcova)
+- Use the default_environment property in UI (vponcova)
+- Add the default_environment property to the DNF manager (vponcova)
+- Create the substitute method (vponcova)
+- Rename tests-owners to just tests (jkonecny)
+- Use GitHub environment gating for kstests workflow (jkonecny)
+- Replace our Fedora owners check by GH environments for our workflows
+  (jkonecny)
+- Fix a small typo in common bugs (jkonecny)
+
 * Wed Mar 31 2021 Martin Kolman <mkolman@redhat.com> - 35.11-1
 - Turn off wrapping of the scale values (vponcova)
 - Make the scale visible by default (#1943370) (vponcova)
