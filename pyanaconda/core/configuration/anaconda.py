@@ -19,6 +19,7 @@
 #
 import os
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.bootloader import BootloaderSection, BootloaderType
 from pyanaconda.core.configuration.license import LicenseSection
 from pyanaconda.core.configuration.network import NetworkSection
@@ -33,6 +34,7 @@ from pyanaconda.core.configuration.product import ProductLoader
 from pyanaconda.core.configuration.ui import UserInterfaceSection
 from pyanaconda.core.constants import ANACONDA_CONFIG_TMP, ANACONDA_CONFIG_DIR
 
+log = get_module_logger(__name__)
 
 __all__ = ["conf", "AnacondaConfiguration"]
 
@@ -226,11 +228,13 @@ class AnacondaConfiguration(Configuration):
             product_name = default_product
             variant_name = ""
 
-        # Or fail.
+        # Or use no product configuration.
         else:
-            raise ConfigurationError(
-                "Unable to find any suitable configuration files for this product."
+            log.warning(
+                "Unable to find any suitable configuration files for the detected "
+                "product and variant names. No product configuration will be used."
             )
+            return
 
         # Read the configuration files of the product.
         config_paths = loader.collect_configurations(product_name, variant_name)

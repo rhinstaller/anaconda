@@ -312,13 +312,14 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
     def set_from_no_product_test(self):
         conf = AnacondaConfiguration.from_defaults()
 
-        with self.assertRaises(ConfigurationError) as cm:
+        with self.assertLogs(level="WARNING") as cm:
             conf.set_from_product()
 
-        expected = "Unable to find any suitable configuration files " \
-                   "for this product."
+        expected = \
+            "Unable to find any suitable configuration files for the detected " \
+            "product and variant names. No product configuration will be used."
 
-        self.assertEqual(str(cm.exception), expected)
+        self.assertIn(expected, "\n".join(cm.output))
 
     @patch("pyanaconda.core.configuration.anaconda.ANACONDA_CONFIG_DIR", CONFIG_DIR)
     def set_from_requested_product_test(self):
@@ -354,16 +355,17 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
         conf = AnacondaConfiguration.from_defaults()
 
         # Test an unknown .buildstamp product.
-        with self.assertRaises(ConfigurationError) as cm:
+        with self.assertLogs(level="WARNING") as cm:
             conf.set_from_product(
                 buildstamp_product="Unknown product",
                 buildstamp_variant="Unknown variant",
             )
 
-        expected = "Unable to find any suitable configuration files " \
-                   "for this product."
+        expected = \
+            "Unable to find any suitable configuration files for the detected " \
+            "product and variant names. No product configuration will be used."
 
-        self.assertEqual(str(cm.exception), expected)
+        self.assertIn(expected, "\n".join(cm.output))
 
         # Test a known .buildstamp product.
         conf.set_from_product(
@@ -382,15 +384,16 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
         conf = AnacondaConfiguration.from_defaults()
 
         # Test an unknown default product.
-        with self.assertRaises(ConfigurationError) as cm:
+        with self.assertLogs(level="WARNING") as cm:
             conf.set_from_product(
                 default_product="Unknown product",
             )
 
-        expected = "Unable to find any suitable configuration files " \
-                   "for this product."
+        expected = \
+            "Unable to find any suitable configuration files for the detected " \
+            "product and variant names. No product configuration will be used."
 
-        self.assertEqual(str(cm.exception), expected)
+        self.assertIn(expected, "\n".join(cm.output))
 
         # Test a known default product.
         conf.set_from_product(
