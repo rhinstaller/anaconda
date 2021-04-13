@@ -316,6 +316,21 @@ Invalid partitioning in the output kickstart file
     Reassigning to blivet.
 :Example: `rhbz#1851230 <https://bugzilla.redhat.com/show_bug.cgi?id=1851230>`_
 
+The `ignoredisk --only-use` command hides installation sources
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:Issue: The installer fails to find an installation media on the USB drive if the `ignoredisk
+    --only-use=` command is specified in a kickstart file.
+:Workaround: You can use the `harddrive` command instead of the `cdrom` command. For example:
+
+        harddrive --partition=sda --dir=/
+
+    where `sda` is the name of the USB device, or use `LABEL`:
+
+        harddrive --partition=LABEL=CentOS-8-3-2011-x86_64-dvd --dir=/
+
+:Example: `rhbz#1945779 <https://bugzilla.redhat.com/show_bug.cgi?id=1945779>`_
+
 Enabling root password SSH login via password.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
