@@ -24,33 +24,9 @@ jobs:
         run: |
           sudo podman build --no-cache -t ${{ env.CI_CONTAINER }} anaconda/dockerfile/anaconda-rhel-copr
 
-      - name: Clone copr-builder repository
-        uses: actions/checkout@v2
-        with:
-          repository: vojtechtrefny/copr-builder
-          fetch-depth: 0
-          path: copr-builder
-
-      - name: Create copr-builder configuration
-        run: |
-          cat <<EOF > copr-builder/copr-builder-rhel.conf
-          [anaconda]
-          copr_user = rhinstaller-group
-          copr_repo = Anaconda
-          package = anaconda
-          git_url = https://github.com/rhinstaller/anaconda
-          git_branch = rhel-8
-          pre_archive_cmd = ./autogen.sh && ./configure
-          archive_cmd = make po-pull && make dist
-          EOF
-
-      - name: Copy token
-        run: |
-          cp /home/github/copr-rhel-token copr-builder/copr-rhel-token
-
       - name: Run copr-builder
         run: |
-          sudo podman run -i --rm --privileged -v `pwd`/copr-builder:/copr-builder:ro ${{ env.CI_CONTAINER }} <<EOF
+          sudo podman run -i --rm --privileged -v /home/github/copr-rhel-token:/copr-builder/copr-rhel-token:ro,z ${{ env.CI_CONTAINER }} <<EOF
           set -eux
           /copr-builder/copr-builder -v -c /copr-builder/copr-builder-rhel.conf -C /copr-builder/copr-rhel-token
           EOF

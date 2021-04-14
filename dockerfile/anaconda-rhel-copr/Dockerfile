@@ -5,9 +5,15 @@ FROM ${image}
 ARG git_branch=master
 LABEL maintainer=anaconda-list@redhat.com
 
-# Prepare environment and install build dependencies
+# Install build dependencies
 RUN set -e; \
-  dnf install -y python3-copr; \
+  dnf install -y python3-copr git; \
+  git clone --depth 1 https://github.com/vojtechtrefny/copr-builder.git /copr-builder
+
+COPY ["copr-builder-rhel.conf", "/copr-builder"]
+
+# Add certificates needed to connect to the COPR
+RUN set -e; \
   curl -k https://password.corp.redhat.com/cacert.crt -o /etc/pki/ca-trust/source/anchors/Red_Hat_IS_CA.crt; \
   curl -k https://password.corp.redhat.com/RH-IT-Root-CA.crt -o /etc/pki/ca-trust/source/anchors/Red_Hat_IT_Root_CA.crt; \
   curl -k https://engineering.redhat.com/Eng-CA.crt -o /etc/pki/ca-trust/source/anchors/Eng_Ops_CA.crt; \
@@ -15,6 +21,4 @@ RUN set -e; \
   ln -sf /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem /etc/pki/tls/certs/ca-bundle.crt; \
   update-ca-trust
 
-RUN mkdir -p /anaconda
-
-WORKDIR /anaconda
+WORKDIR /
