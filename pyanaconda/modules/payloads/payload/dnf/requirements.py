@@ -42,10 +42,10 @@ def collect_remote_requirements():
     )
 
 
-def collect_language_requirements(dnf_base):
+def collect_language_requirements(dnf_manager):
     """Collect requirements for supported languages.
 
-    :param dnf_base: a DNF base
+    :param dnf_manager: a DNF manager
     :return: a list of requirements
     """
     requirements = []
@@ -57,10 +57,10 @@ def collect_language_requirements(dnf_base):
     locales = [localization_proxy.Language] + localization_proxy.LanguageSupport
 
     # Find all available langpacks.
-    packages = dnf_base.sack.query().available().filter(name__glob="langpacks-*")
+    packages = dnf_manager.match_available_packages("langpacks-*")
 
     # Get all valid langcodes.
-    codes = [p.name.split('-', 1)[1] for p in packages]
+    codes = [p.split('-', 1)[1] for p in packages]
     codes = list(filter(is_valid_langcode, codes))
 
     # Find the best langpacks to install.
@@ -80,10 +80,10 @@ def collect_language_requirements(dnf_base):
     return requirements
 
 
-def collect_platform_requirements(dnf_base):
+def collect_platform_requirements(dnf_manager):
     """Collect the requirements for the current platform.
 
-    :param dnf_base: a DNF base
+    :param dnf_manager: a DNF manager
     :return: a list of requirements
     """
     # Detect the current platform.
@@ -92,13 +92,10 @@ def collect_platform_requirements(dnf_base):
     if not platform:
         return []
 
-    # Get all available groups.
-    available_groups = [g.id for g in dnf_base.comps.groups_iter()]
-
     # Add a platform specific group.
     group = "platform-" + platform.lower()
 
-    if group not in available_groups:
+    if group not in dnf_manager.groups:
         log.warning("Platform group %s not available.", group)
         return []
 

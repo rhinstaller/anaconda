@@ -15,8 +15,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import dnf.subject
-import dnf.const
 import fnmatch
 import os
 import rpm
@@ -39,10 +37,10 @@ log = get_module_logger(__name__)
 DNF_PACKAGE_CACHE_DIR_SUFFIX = 'dnf.package.cache'
 
 
-def get_kernel_package(dnf_base, exclude_list):
+def get_kernel_package(dnf_manager, exclude_list):
     """Get an installable kernel package.
 
-    :param dnf_base: a DNF base
+    :param dnf_manager: a DNF manager
     :param exclude_list: a list of excluded packages
     :return: a package name or None
     """
@@ -62,14 +60,12 @@ def get_kernel_package(dnf_base, exclude_list):
             log.info("kernel: excluded %s", kernel_package)
             continue
 
-        subject = dnf.subject.Subject(kernel_package)
-        installable = bool(subject.get_best_query(dnf_base.sack))
+        if not dnf_manager.is_package_available(kernel_package):
+            log.info("kernel: no such package %s", kernel_package)
+            continue
 
-        if installable:
-            log.info("kernel: selected %s", kernel_package)
-            return kernel_package
-
-        log.info("kernel: no such package %s", kernel_package)
+        log.info("kernel: selected %s", kernel_package)
+        return kernel_package
 
     log.error("kernel: failed to select a kernel from %s", kernels)
     return None

@@ -299,7 +299,7 @@ class DNFPayload(Payload):
         )
 
         # Add the kernel package.
-        kernel_package = get_kernel_package(self._base, exclude_list)
+        kernel_package = get_kernel_package(self._dnf_manager, exclude_list)
 
         if kernel_package:
             include_list.append(kernel_package)
@@ -765,8 +765,8 @@ class DNFPayload(Payload):
     def _collect_requirements(self):
         self._requirements.extend(
             collect_remote_requirements()
-            + collect_language_requirements(self._base)
-            + collect_platform_requirements(self._base)
+            + collect_language_requirements(self._dnf_manager)
+            + collect_platform_requirements(self._dnf_manager)
             + collect_driver_disk_requirements()
         )
 

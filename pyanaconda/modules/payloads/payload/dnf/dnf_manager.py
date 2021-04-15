@@ -24,6 +24,7 @@ import traceback
 import dnf
 import dnf.exceptions
 import dnf.module.module_base
+import dnf.subject
 import libdnf.conf
 
 from blivet.size import Size
@@ -404,6 +405,32 @@ class DNFManager(object):
         shutil.rmtree(DNF_PLUGINCONF_DIR, ignore_errors=True)
         self._base.reset(sack=True, repos=True)
         log.debug("The DNF cache has been cleared.")
+
+    def is_package_available(self, package_spec):
+        """Is the specified package available for the installation?
+
+        :param package_spec: a package spec
+        :return: True if the package can be installed, otherwise False
+        """
+        if not self._base.sack:
+            log.warning("There is no metadata about packages!")
+            return False
+
+        subject = dnf.subject.Subject(package_spec)
+        return bool(subject.get_best_query(self._base.sack))
+
+    def match_available_packages(self, pattern):
+        """Find available packages that match the specified pattern.
+
+        :param pattern: a pattern for package names
+        :return: a list of matched package names
+        """
+        if not self._base.sack:
+            log.warning("There is no metadata about packages!")
+            return []
+
+        packages = self._base.sack.query().available().filter(name__glob=pattern)
+        return [p.name for p in packages]
 
     def enable_modules(self, module_specs):
         """Mark module streams for enabling.

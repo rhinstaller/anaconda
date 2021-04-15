@@ -555,6 +555,53 @@ class DNFManagerTestCase(unittest.TestCase):
         self.assertNotEqual(self.dnf_manager.substitute("/$basearch"), "/$basearch")
         self.assertNotEqual(self.dnf_manager.substitute("/$releasever"), "/$releasever")
 
+    @patch("dnf.subject.Subject.get_best_query")
+    def is_package_available_test(self, get_best_query):
+        """Test the is_package_available method."""
+        self.dnf_manager._base._sack = Mock()
+        self.assertEqual(self.dnf_manager.is_package_available("kernel"), True)
+
+        # No package.
+        get_best_query.return_value = None
+        self.assertEqual(self.dnf_manager.is_package_available("kernel"), False)
+
+        # No metadata.
+        self.dnf_manager._base._sack = None
+
+        with self.assertLogs(level="WARNING") as cm:
+            self.assertEqual(self.dnf_manager.is_package_available("kernel"), False)
+
+        msg = "There is no metadata about packages!"
+        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+
+    def match_available_packages_test(self):
+        """Test the match_available_packages method"""
+        p1 = self._get_package("langpacks-cs")
+        p2 = self._get_package("langpacks-core-cs")
+        p3 = self._get_package("langpacks-core-font-cs")
+
+        sack = Mock()
+        sack.query.return_value.available.return_value.filter.return_value = [
+            p1, p2, p3
+        ]
+
+        # With metadata.
+        self.dnf_manager._base._sack = sack
+        self.assertEqual(self.dnf_manager.match_available_packages("langpacks-*"), [
+            "langpacks-cs",
+            "langpacks-core-cs",
+            "langpacks-core-font-cs"
+        ])
+
+        # No metadata.
+        self.dnf_manager._base._sack = None
+
+        with self.assertLogs(level="WARNING") as cm:
+            self.assertEqual(self.dnf_manager.match_available_packages("langpacks-*"), [])
+
+        msg = "There is no metadata about packages!"
+        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+
 
 class DNFManagerCompsTestCase(unittest.TestCase):
     """Test the comps abstraction of the DNF base."""

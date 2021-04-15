@@ -22,6 +22,7 @@ from unittest.mock import Mock, patch
 from pyanaconda.core.constants import REQUIREMENT_TYPE_PACKAGE, REQUIREMENT_TYPE_GROUP
 from pyanaconda.modules.common.constants.services import LOCALIZATION, BOSS
 from pyanaconda.modules.common.structures.requirement import Requirement
+from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements, \
     collect_platform_requirements, collect_driver_disk_requirements, collect_remote_requirements, \
     apply_requirements
@@ -29,12 +30,6 @@ from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy_with_cache
 
 
 class DNFRequirementsTestCase(unittest.TestCase):
-
-    def _create_package(self, name):
-        """Create a mocked package object."""
-        package = Mock()
-        package.name = name
-        return package
 
     def _create_group(self, name):
         """Create a mocked group object."""
@@ -64,22 +59,20 @@ class DNFRequirementsTestCase(unittest.TestCase):
         proxy.Language = "cs_CZ.UTF-8"
         proxy.LanguageSupport = ["en_GB.UTF-8", "sr_RS@cyrilic"]
 
-        p1 = self._create_package("langpacks-cs")
-        p2 = self._create_package("langpacks-core-cs")
-        p3 = self._create_package("langpacks-core-font-cs")
-        p4 = self._create_package("langpacks-en")
-        p5 = self._create_package("langpacks-en_GB")
-        p6 = self._create_package("langpacks-core-en")
-        p7 = self._create_package("langpacks-core-en_GB")
-        p8 = self._create_package("langpacks-core-font-en")
-
-        base = Mock()
-        base.sack.query.return_value.available.return_value.filter.return_value = [
-            p1, p2, p3, p4, p5, p6, p7, p8
+        dnf_manager = Mock(spec=DNFManager)
+        dnf_manager.match_available_packages.return_value = [
+            "langpacks-cs",
+            "langpacks-core-cs",
+            "langpacks-core-font-cs",
+            "langpacks-en",
+            "langpacks-en_GB",
+            "langpacks-core-en",
+            "langpacks-core-en_GB",
+            "langpacks-core-font-en"
         ]
 
         with self.assertLogs(level="WARNING") as cm:
-            requirements = collect_language_requirements(base)
+            requirements = collect_language_requirements(dnf_manager)
 
         r1 = self._create_requirement(
             "langpacks-cs", "Required to support the locale 'cs_CZ.UTF-8'."
@@ -95,29 +88,27 @@ class DNFRequirementsTestCase(unittest.TestCase):
     @patch('pyanaconda.core.util.execWithCapture')
     def collect_platform_requirements_test(self, execute):
         """Test the function collect_platform_requirements."""
-        g1 = self._create_group("platform-vmware")
-        g2 = self._create_group("platform-kvm")
-        g3 = self._create_group("network-server")
-        g4 = self._create_group("virtualization")
-
-        base = Mock()
-        base.comps.groups_iter.return_value = [
-            g1, g2, g3, g4
+        dnf_manager = Mock(spec=DNFManager)
+        dnf_manager.groups = [
+            "platform-vmware",
+            "platform-kvm",
+            "network-server",
+            "virtualization"
         ]
 
         # No platform is detected.
         execute.return_value = None
-        requirements = collect_platform_requirements(base)
+        requirements = collect_platform_requirements(dnf_manager)
         self.assertEqual(requirements, [])
 
         # Unsupported platform is detected.
         execute.return_value = "qemu"
-        requirements = collect_platform_requirements(base)
+        requirements = collect_platform_requirements(dnf_manager)
         self.assertEqual(requirements, [])
 
         # Supported platform is detected.
         execute.return_value = "vmware"
-        requirements = collect_platform_requirements(base)
+        requirements = collect_platform_requirements(dnf_manager)
 
         r1 = self._create_requirement(
             name="platform-vmware",
