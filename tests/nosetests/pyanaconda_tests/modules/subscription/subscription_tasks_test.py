@@ -748,6 +748,8 @@ class ParseAttachedSubscriptionsTaskTestCase(unittest.TestCase):
     def pretty_date_test(self):
         """Test the pretty date method of ParseAttachedSubscriptionsTask."""
         pretty_date_method = ParseAttachedSubscriptionsTask._pretty_date
+        # try to parse ISO 8601 first
+        self.assertEqual(pretty_date_method("2015-12-22"), "Dec 22, 2015")
         # the method expects short mm/dd/yy dates
         self.assertEqual(pretty_date_method("12/22/15"), "Dec 22, 2015")
         # returns the input if parsing fails
@@ -781,6 +783,15 @@ class ParseAttachedSubscriptionsTaskTestCase(unittest.TestCase):
                     "starts": "now",
                     "ends": "never",
                     "quantity_used": "1000"
+                },
+                {
+                    "subscription_name": "Foo Bar Beta NG",
+                    "service_level": "much wow",
+                    "sku": "ABC5678",
+                    "contract": "12344321",
+                    "starts": "2020-05-12",
+                    "ends": "never",
+                    "quantity_used": "1000"
                 }
             ]
 
@@ -802,6 +813,15 @@ class ParseAttachedSubscriptionsTaskTestCase(unittest.TestCase):
                 "sku": "ABC4321",
                 "contract": "87654321",
                 "start-date": "now",
+                "end-date": "never",
+                "consumed-entitlement-count": 1000
+            },
+            {
+                "name": "Foo Bar Beta NG",
+                "service-level": "much wow",
+                "sku": "ABC5678",
+                "contract": "12344321",
+                "start-date": "May 12, 2020",
                 "end-date": "never",
                 "consumed-entitlement-count": 1000
             }
