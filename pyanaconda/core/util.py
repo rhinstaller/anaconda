@@ -218,12 +218,14 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
     # Use a list so the value can be modified from the handler function
     x11_started = [False]
 
-    def sigusr1_handler(num, frame):
+    SIG42 = signal.SIGRTMIN + 8
+
+    def sig42_handler(num, frame):
         log.debug("X server has signalled a successful start.")
         x11_started[0] = True
 
     # Fail after, let's say a minute, in case something weird happens
-    # and we don't receive SIGUSR1
+    # and we don't receive SIGRTMIN+8 via the shim
     def sigalrm_handler(num, frame):
         # Check that it didn't make it under the wire
         if x11_started[0]:
@@ -231,20 +233,20 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
         log.error("Timeout trying to start %s", argv[0])
         raise ExitError("Timeout trying to start %s" % argv[0])
 
-    # preexec_fn to add the SIGUSR1 handler in the child
-    def sigusr1_preexec():
-        signal.signal(signal.SIGUSR1, signal.SIG_IGN)
+    # preexec_fn to add the SIGRTMIN+8 handler in the child
+    def sig42_preexec():
+        signal.signal(SIG42, signal.SIG_IGN)
 
     try:
-        old_sigusr1_handler = signal.signal(signal.SIGUSR1, sigusr1_handler)
         old_sigalrm_handler = signal.signal(signal.SIGALRM, sigalrm_handler)
+        signal.signal(SIG42, sig42_handler)
 
         # Start the timer
         log.debug("Setting timeout %s seconds for starting X.", timeout)
         signal.alarm(timeout)
 
         childproc = startProgram(argv, stdout=output_redirect, stderr=output_redirect,
-                                 preexec_fn=sigusr1_preexec)
+                                 preexec_fn=sig42_preexec)
         WatchProcesses.watch_process(childproc, argv[0])
 
         # Wait for SIGUSR1
@@ -254,7 +256,7 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
     finally:
         # Put everything back where it was
         signal.alarm(0)
-        signal.signal(signal.SIGUSR1, old_sigusr1_handler)
+        signal.signal(SIG42, signal.SIG_IGN)  # ignore it or die by unhandled signal later
         signal.signal(signal.SIGALRM, old_sigalrm_handler)
 
 

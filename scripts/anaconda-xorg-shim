@@ -1,0 +1,30 @@
+#!/usr/bin/python3
+
+# Xorg sends SIGUSR1, but we use that to force-run exception handler that terminates anaconda.
+# If we give up waiting on Xorg, and it still manages to start eventually, it kills us this way.
+# Hence this shim to translate the signal to something else.
+
+import signal
+import subprocess
+import sys
+import os
+
+
+def handler(num, frame):
+    handler_message = "Xorg signal shim received SIGUSR1 from Xorg, passing on as SIGRTMIN+8."
+    subprocess.run(["systemd-cat"], input=handler_message.encode("ascii"), check=True)
+    os.kill(os.getppid(), signal.SIGRTMIN + 8)
+
+
+def preexec():
+    # change signal mask for Xorg process, so that it knows to send it - see man Xserver
+    signal.signal(signal.SIGUSR1, signal.SIG_IGN)
+
+
+start_message = "Xorg signal shim started by {} as {}.".format(os.getppid(), os.getpid())
+subprocess.run(["systemd-cat"], input=start_message.encode("ascii"), check=True)
+params = ["/bin/Xorg"] + sys.argv[1:]
+old_handler = signal.signal(signal.SIGUSR1, handler)
+process = subprocess.Popen(params, preexec_fn=preexec)  # pylint:disable=subprocess-popen-preexec-fn
+process.wait()
+signal.signal(signal.SIGUSR1, old_handler)
