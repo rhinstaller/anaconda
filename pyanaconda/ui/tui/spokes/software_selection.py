@@ -19,10 +19,11 @@
 from pyanaconda.flags import flags
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.context import context
+from pyanaconda.ui.lib.software import get_software_selection_status, \
+    is_software_selection_complete, SoftwareSelectionCache
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.payload.manager import payloadMgr, PayloadState
-from pyanaconda.payload.errors import DependencyError, NoSuchGroup
+from pyanaconda.payload.errors import DependencyError
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.constants import THREAD_PAYLOAD, THREAD_CHECK_SOFTWARE, \
     THREAD_SOFTWARE_WATCHER, PAYLOAD_TYPE_DNF
@@ -40,7 +41,7 @@ __all__ = ["SoftwareSpoke"]
 
 
 class SoftwareSpoke(NormalTUISpoke):
-    """ Spoke used to read new value of text to represent source repo.
+    """The spoke for choosing the software.
 
        .. inheritance-diagram:: SoftwareSpoke
           :parts: 3
@@ -64,19 +65,20 @@ class SoftwareSpoke(NormalTUISpoke):
         self._tx_id = None
 
         # Get the packages configuration.
-        self._selection = self.payload.get_packages_selection()
+        self._selection_cache = SoftwareSelectionCache(self._dnf_manager)
 
-        # are we taking values (package list) from a kickstart file?
+        # Are we taking values (package list) from a kickstart file?
         self._kickstarted = flags.automatedInstall and self.payload.proxy.PackagesKickstarted
-
-        # Register event listeners to update our status on payload events
-        payloadMgr.add_listener(PayloadState.STARTED, self._payload_start)
-        payloadMgr.add_listener(PayloadState.ERROR, self._payload_error)
 
     @property
     def _dnf_manager(self):
         """The DNF manager."""
         return self.payload.dnf_manager
+
+    @property
+    def _selection(self):
+        """The packages selection."""
+        return self.payload.get_packages_selection()
 
     def initialize(self):
         """Initialize the spoke."""
@@ -100,15 +102,17 @@ class SoftwareSpoke(NormalTUISpoke):
 
     def _initialize_selection(self):
         """Initialize and check the software selection."""
-        if self.errors or not self.payload.base_repo:
+        if not self._source_is_set:
             log.debug("Skip the initialization of the software selection.")
             return
 
         if not self._kickstarted:
-            # Set the environment.
-            self._selection.environment = self._dnf_manager.default_environment or ""
+            # Use the default environment.
+            self._selection_cache.select_environment(
+                self._dnf_manager.default_environment
+            )
 
-            # Apply the initial selection.
+            # Apply the default selection.
             self.apply()
 
         # Check the initial software selection.
@@ -119,166 +123,6 @@ class SoftwareSpoke(NormalTUISpoke):
         # and only like this we can be sure we are really initialized.
         threadMgr.wait(THREAD_CHECK_SOFTWARE)
 
-    def _payload_start(self):
-        self.errors = []
-
-    def _payload_error(self):
-        self.errors = [payloadMgr.error]
-
-    def _translate_env_name_to_id(self, environment):
-        """ Return the id of the selected environment or None. """
-        if not environment:
-            # None means environment is not set, no need to try translate that to an id
-            return None
-        try:
-            return self.payload.environment_id(environment)
-        except NoSuchGroup:
-            return None
-
-    def _get_available_addons(self, environment_id):
-        """ Return all add-ons of the specific environment. """
-        addons = []
-
-        if environment_id in self.payload.environment_addons:
-            for addons_list in self.payload.environment_addons[environment_id]:
-                addons.extend(addons_list)
-
-        return addons
-
-    @property
-    def status(self):
-        """ Where we are in the process """
-        if self.errors:
-            return _("Error checking software selection")
-        if not self.ready:
-            return _("Processing...")
-        if not self.payload.base_repo:
-            return _("Installation source not set up")
-        if not self.txid_valid:
-            return _("Source changed - please verify")
-        if not self._selection.environment:
-            # KS installs with %packages will have an env selected, unless
-            # they did an install without a desktop environment. This should
-            # catch that one case.
-            if self._kickstarted:
-                return _("Custom software selected")
-            return _("Nothing selected")
-
-        return self.payload.environment_description(self._selection.environment)[0]
-
-    @property
-    def completed(self):
-        """ Make sure our threads are done running and vars are set.
-
-           WARNING: This can be called before the spoke is finished initializing
-           if the spoke starts a thread. It should make sure it doesn't access
-           things until they are completely setup.
-        """
-        processing_done = self.ready and not self.errors and self.txid_valid
-
-        if flags.automatedInstall or self._kickstarted:
-            return processing_done and self.payload.base_repo and self.payload.proxy.PackagesKickstarted
-        else:
-            return processing_done and self.payload.base_repo and self._selection.environment
-
-    def setup(self, args):
-        """Set up the spoke right before it is used."""
-        super().setup(args)
-
-        # Join the initialization thread to block on it
-        threadMgr.wait(THREAD_SOFTWARE_WATCHER)
-
-        # Get the packages configuration.
-        self._selection = self.payload.get_packages_selection()
-
-        return True
-
-    def refresh(self, args=None):
-        """ Refresh screen. """
-        NormalTUISpoke.refresh(self, args)
-
-        threadMgr.wait(THREAD_PAYLOAD)
-        self._container = None
-
-        if not self.payload.base_repo:
-            message = TextWidget(_("Installation source needs to be set up first."))
-            self.window.add_with_separator(message)
-            return
-
-        threadMgr.wait(THREAD_CHECK_SOFTWARE)
-        self._container = ListColumnContainer(2, columns_width=38, spacing=2)
-
-        if args is None:
-            msg = self._refresh_environments()
-        else:
-            msg = self._refresh_addons(args)
-
-        self.window.add_with_separator(TextWidget(msg))
-        self.window.add_with_separator(self._container)
-
-    def _refresh_environments(self):
-        environments = self.payload.environments
-
-        for env in environments:
-            name = self.payload.environment_description(env)[0]
-            selected = (env == self._selection.environment)
-            widget = CheckboxWidget(title="%s" % name, completed=selected)
-            self._container.add(widget, callback=self._set_environment_callback, data=env)
-
-        return _("Base environment")
-
-    def _refresh_addons(self, available_addons):
-        for addon_id in available_addons:
-            name = self.payload.group_description(addon_id)[0]
-            selected = addon_id in self._selection.groups
-            widget = CheckboxWidget(title="%s" % name, completed=selected)
-            self._container.add(widget, callback=self._set_addons_callback, data=addon_id)
-
-        if available_addons:
-            return _("Additional software for selected environment")
-        else:
-            return _("No additional software to select.")
-
-    def _set_environment_callback(self, data):
-        self._selection.environment = data
-
-    def _set_addons_callback(self, data):
-        if data not in self._selection.groups:
-            self._selection.groups.append(data)
-        else:
-            self._selection.groups.remove(data)
-
-    def input(self, args, key):
-        """ Handle the input; this chooses the desktop environment. """
-        if self._container is not None and self._container.process_user_input(key):
-            self.redraw()
-        else:
-            if key.lower() == Prompt.CONTINUE:
-
-                # No environment was selected, close
-                if not self._selection.environment:
-                    self.close()
-
-                # The environment was selected, switch screen
-                elif args is None:
-                    # Get addons for the selected environment
-                    environment = self._selection.environment
-                    environment_id = self._translate_env_name_to_id(environment)
-                    addons = self._get_available_addons(environment_id)
-
-                    # Switch the screen
-                    ScreenHandler.replace_screen(self, addons)
-
-                # The addons were selected, apply and close
-                else:
-                    self.apply()
-                    self.execute()
-                    self.close()
-            else:
-                return super().input(args, key)
-
-        return InputState.PROCESSED
-
     @property
     def ready(self):
         """Is the spoke ready?
@@ -288,28 +132,140 @@ class SoftwareSpoke(NormalTUISpoke):
         because the user filled something out, or because we're done fetching
         repo metadata from the mirror list, or we detected a DVD/CD.
         """
-        return not threadMgr.get(THREAD_SOFTWARE_WATCHER) \
-            and not threadMgr.get(THREAD_PAYLOAD) \
-            and not threadMgr.get(THREAD_CHECK_SOFTWARE) \
-            and self.payload.base_repo is not None
+        return not self._processing_data and self._source_is_set
+
+    @property
+    def _source_is_set(self):
+        """Is the installation source set?"""
+        return self.payload.base_repo is not None
+
+    @property
+    def _source_has_changed(self):
+        """Has the installation source changed?"""
+        return self._tx_id != self.payload.tx_id
+
+    @property
+    def _processing_data(self):
+        """Is the spoke processing data?"""
+        return threadMgr.get(THREAD_SOFTWARE_WATCHER) \
+            or threadMgr.get(THREAD_PAYLOAD) \
+            or threadMgr.get(THREAD_CHECK_SOFTWARE)
+
+    @property
+    def status(self):
+        """The status of the spoke."""
+        if self._processing_data:
+            return _("Processing...")
+        if not self._source_is_set:
+            return _("Installation source not set up")
+        if self._source_has_changed:
+            return _("Source changed - please verify")
+        if self.errors:
+            return _("Error checking software selection")
+
+        return get_software_selection_status(
+            dnf_manager=self._dnf_manager,
+            selection=self._selection,
+            kickstarted=self._kickstarted
+        )
+
+    @property
+    def completed(self):
+        """Is the spoke complete?"""
+        return self.ready \
+            and not self.errors \
+            and not self._source_has_changed \
+            and is_software_selection_complete(
+                dnf_manager=self._dnf_manager,
+                selection=self._selection,
+                kickstarted=self._kickstarted
+            )
+
+    def setup(self, args):
+        """Set up the spoke right before it is used."""
+        super().setup(args)
+
+        # Wait for the payload to be ready.
+        threadMgr.wait(THREAD_SOFTWARE_WATCHER)
+        threadMgr.wait(THREAD_PAYLOAD)
+
+        # Create a new software selection cache.
+        self._selection_cache = SoftwareSelectionCache(self._dnf_manager)
+        self._selection_cache.apply_selection_data(self._selection)
+
+        return True
+
+    def refresh(self, args=None):
+        """ Refresh screen. """
+        NormalTUISpoke.refresh(self, args)
+        self._container = None
+
+        if not self._source_is_set:
+            message = TextWidget(_("Installation source needs to be set up first."))
+            self.window.add_with_separator(message)
+            return
+
+        threadMgr.wait(THREAD_CHECK_SOFTWARE)
+        self._container = ListColumnContainer(
+            columns=2,
+            columns_width=38,
+            spacing=2
+        )
+
+        for environment in self._selection_cache.available_environments:
+            data = self._dnf_manager.get_environment_data(environment)
+            selected = self._selection_cache.is_environment_selected(environment)
+
+            widget = CheckboxWidget(
+                title=data.name,
+                completed=selected
+            )
+
+            self._container.add(
+                widget,
+                callback=self._select_environment,
+                data=data.id
+            )
+
+        self.window.add_with_separator(TextWidget(_("Base environment")))
+        self.window.add_with_separator(self._container)
+
+    def _select_environment(self, data):
+        self._selection_cache.select_environment(data)
+
+    def input(self, args, key):
+        """Handle the user input."""
+        if self._container is None:
+            return super().input(args, key)
+
+        if self._container.process_user_input(key):
+            return InputState.PROCESSED_AND_REDRAW
+
+        if key.lower() == Prompt.CONTINUE:
+            if self._selection_cache.environment:
+                # The environment was selected, switch the screen.
+                spoke = AdditionalSoftwareSpoke(
+                    self.data,
+                    self.storage,
+                    self.payload,
+                    self._selection_cache
+                )
+                ScreenHandler.push_screen_modal(spoke)
+                self.apply()
+                self.execute()
+
+            return InputState.PROCESSED_AND_CLOSE
+
+        return super().input(args, key)
 
     def apply(self):
         """Apply the changes."""
         self._kickstarted = False
 
-        # Clear packages data.
-        self._selection.packages = []
-        self._selection.excluded_packages = []
+        selection = self._selection_cache.get_selection_data()
+        log.debug("Setting new software selection: %s", selection)
 
-        # Clear groups data.
-        self._selection.excluded_groups = []
-        self._selection.groups_package_types = {}
-
-        # Select valid groups.
-        # FIXME: Remove invalid groups from selected groups.
-
-        log.debug("Setting new software selection: %s", self._selection)
-        self.payload.set_packages_selection(self._selection)
+        self.payload.set_packages_selection(selection)
 
     def execute(self):
         """Execute the changes."""
@@ -324,12 +280,79 @@ class SoftwareSpoke(NormalTUISpoke):
             self.payload.check_software_selection()
         except DependencyError as e:
             self.errors = [str(e)]
-            self._tx_id = None
             log.warning("Transaction error %s", str(e))
         else:
+            self.errors = []
+        finally:
             self._tx_id = self.payload.tx_id
 
+    def closed(self):
+        """The spoke has been closed."""
+        super().closed()
+
+        # Run the setup method again on entry.
+        self.screen_ready = False
+
+
+class AdditionalSoftwareSpoke(NormalTUISpoke):
+    """The spoke for choosing the additional software."""
+    category = SoftwareCategory
+
+    def __init__(self, data, storage, payload, selection_cache):
+        super().__init__(data, storage, payload)
+        self.title = N_("Software selection")
+        self._container = None
+        self._selection_cache = selection_cache
+
     @property
-    def txid_valid(self):
-        """ Whether we have a valid dnf tx id. """
-        return self._tx_id == self.payload.tx_id
+    def _dnf_manager(self):
+        """The DNF manager."""
+        return self.payload.dnf_manager
+
+    def refresh(self, args=None):
+        """Refresh the screen."""
+        NormalTUISpoke.refresh(self, args)
+
+        self._container = ListColumnContainer(
+            columns=2,
+            columns_width=38,
+            spacing=2
+        )
+
+        for group in self._selection_cache.available_groups:
+            data = self._dnf_manager.get_group_data(group)
+            selected = self._selection_cache.is_group_selected(group)
+
+            widget = CheckboxWidget(
+                title=data.name,
+                completed=selected
+            )
+
+            self._container.add(
+                widget,
+                callback=self._select_group,
+                data=data.id
+            )
+
+        if self._selection_cache.available_groups:
+            msg = _("Additional software for selected environment")
+        else:
+            msg = _("No additional software to select.")
+
+        self.window.add_with_separator(TextWidget(msg))
+        self.window.add_with_separator(self._container)
+
+    def _select_group(self, group):
+        if not self._selection_cache.is_group_selected(group):
+            self._selection_cache.select_group(group)
+        else:
+            self._selection_cache.deselect_group(group)
+
+    def input(self, args, key):
+        if self._container.process_user_input(key):
+            return InputState.PROCESSED_AND_REDRAW
+        else:
+            return super().input(args, key)
+
+    def apply(self):
+        pass
