@@ -108,6 +108,10 @@ class PrepareOSTreeMountTargetsTask(Task):
             safe_exec_with_redirect("mount", ["--bind", src, src])
             safe_exec_with_redirect("mount", ["--bind", "-o", "remount,ro", src, src])
         else:
+            # Create missing directories for user defined mount points
+            if not os.path.exists(dest):
+                mkdirChain(dest)
+
             # Recurse for non-ro binds so we pick up sub-mounts
             # like /sys/firmware/efi/efivars.
             if recurse:
