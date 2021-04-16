@@ -390,6 +390,9 @@ def ksnet_to_dracut(args, lineno, net, bootdev=False):
     if net.bridgeslaves:
         line.append("bridge=%s:%s" % (net.device, net.bridgeslaves))
 
+    if net.bondslaves:
+        line.append("bond=%s:%s:%s:%s" % (net.device, net.bondslaves, net.bondopts, net.mtu))
+
     return " ".join(line)
 
 def process_kickstart(ksfile):
