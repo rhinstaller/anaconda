@@ -160,7 +160,7 @@ def start_x11(xtimeout):
                  "-br", "-logfile", "/tmp/X.log",
                  ":%s" % constants.X_DISPLAY_NUMBER, "vt6", "-s", "1440", "-ac",
                  "-nolisten", "tcp", "-dpi", "96",
-                 "-noreset"],
+                 "-noreset", "-novtswitch", "-keeptty"],
                 output_redirect=subprocess.DEVNULL, timeout=xtimeout)
 
 

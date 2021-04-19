@@ -258,6 +258,8 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
         signal.alarm(0)
         signal.signal(SIG42, signal.SIG_IGN)  # ignore it or die by unhandled signal later
         signal.signal(signal.SIGALRM, old_sigalrm_handler)
+        if x11_started[0] and conf.system.can_switch_tty:
+            vtActivate(6)
 
 
 def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_output=True,

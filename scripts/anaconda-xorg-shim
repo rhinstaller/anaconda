@@ -25,6 +25,7 @@ start_message = "Xorg signal shim started by {} as {}.".format(os.getppid(), os.
 subprocess.run(["systemd-cat"], input=start_message.encode("ascii"), check=True)
 params = ["/bin/Xorg"] + sys.argv[1:]
 old_handler = signal.signal(signal.SIGUSR1, handler)
+import time; time.sleep(10)
 process = subprocess.Popen(params, preexec_fn=preexec)  # pylint:disable=subprocess-popen-preexec-fn
 process.wait()
 signal.signal(signal.SIGUSR1, old_handler)
