@@ -17,7 +17,6 @@
 #
 import os
 import shutil
-
 import rpm
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -25,9 +24,15 @@ from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import RPM_LANGUAGES_NONE, RPM_LANGUAGES_ALL
 from pyanaconda.core.i18n import _
+from pyanaconda.modules.common.errors.installation import PayloadInstallationError, \
+    NonCriticalInstallationError
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.payloads.payload.dnf.requirements import collect_remote_requirements, \
+    collect_language_requirements, collect_platform_requirements, \
+    collect_driver_disk_requirements, apply_requirements
 from pyanaconda.modules.payloads.payload.dnf.utils import pick_download_location
+from pyanaconda.modules.payloads.payload.dnf.validation import CheckPackagesSelectionTask
 
 log = get_module_logger(__name__)
 
@@ -88,6 +93,51 @@ class SetRPMMacrosTask(Task):
         for name, value in macros:
             log.debug("Set '%s' to '%s'.", name, value)
             rpm.addMacro(name, value)
+
+
+class ResolvePackagesTask(CheckPackagesSelectionTask):
+    """Installation task to resolve the software selection."""
+
+    @property
+    def name(self):
+        """The name of the task."""
+        return "Resolve packages"
+
+    def run(self):
+        """Run the task.
+
+        :raise PayloadInstallationError: if the selection cannot be resolved
+        :raise NonCriticalInstallationError: if the selection is resolved with warnings
+        """
+        report = super().run()
+
+        if report.error_messages:
+            message = "\n\n".join(report.error_messages)
+            log.error("The packages couldn't be resolved:\n\n%s", message)
+            raise PayloadInstallationError(message)
+
+        if report.warning_messages:
+            message = "\n\n".join(report.warning_messages)
+            log.warning("The packages were resolved with warnings:\n\n%s", message)
+            raise NonCriticalInstallationError(message)
+
+    @property
+    def _requirements(self):
+        """Requirements for installing packages and groups.
+
+        :return: a list of requirements
+        """
+        return collect_remote_requirements() \
+            + collect_language_requirements(self._dnf_manager) \
+            + collect_platform_requirements(self._dnf_manager) \
+            + collect_driver_disk_requirements()
+
+    def _collect_required_specs(self):
+        """Collect specs for the required software."""
+        super()._collect_required_specs()
+
+        # Apply requirements.
+        apply_requirements(self._requirements, self._include_list, self._exclude_list)
 
 
 class PrepareDownloadLocationTask(Task):

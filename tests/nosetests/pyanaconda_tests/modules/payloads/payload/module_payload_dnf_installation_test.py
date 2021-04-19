@@ -23,11 +23,16 @@ from unittest.mock import patch, call, Mock
 
 from pyanaconda.core.constants import RPM_LANGUAGES_NONE
 from pyanaconda.core.util import join_paths
-from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
-from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
+from pyanaconda.modules.common.errors.installation import NonCriticalInstallationError, \
+    PayloadInstallationError
+from pyanaconda.modules.common.structures.packages import PackagesConfigurationData, \
+    PackagesSelectionData
+from pyanaconda.modules.common.structures.requirement import Requirement
+from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, MissingSpecsError, \
+    BrokenSpecsError, InvalidSelectionError
 from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
     SetRPMMacrosTask, DownloadPackagesTask, InstallPackagesTask, PrepareDownloadLocationTask, \
-    CleanUpDownloadLocationTask
+    CleanUpDownloadLocationTask, ResolvePackagesTask
 
 
 class SetRPMMacrosTaskTestCase(unittest.TestCase):
@@ -331,3 +336,86 @@ class CleanUpDownloadLocationTaskTestCase(unittest.TestCase):
             self.assertFalse(os.path.exists(os.path.join(path, "f1")))
             self.assertFalse(os.path.exists(os.path.join(path, "f2")))
             self.assertFalse(os.path.exists(os.path.join(path, "f3")))
+
+
+class ResolvePackagesTaskTestCase(unittest.TestCase):
+
+    @patch("pyanaconda.modules.payloads.payload.dnf.installation.collect_driver_disk_requirements")
+    @patch("pyanaconda.modules.payloads.payload.dnf.installation.collect_platform_requirements")
+    @patch("pyanaconda.modules.payloads.payload.dnf.installation.collect_language_requirements")
+    @patch("pyanaconda.modules.payloads.payload.dnf.installation.collect_remote_requirements")
+    @patch("pyanaconda.modules.payloads.payload.dnf.validation.get_kernel_package")
+    def resolve_test(self, kernel_getter, req_getter1, req_getter2, req_getter3, req_getter4):
+        """Test the successful ResolvePackagesTask task."""
+        kernel_getter.return_value = None
+
+        req_getter1.return_value = [
+            Requirement.for_group("r1"),
+            Requirement.for_group("r2")
+        ]
+        req_getter2.return_value = [
+            Requirement.for_group("r3")
+        ]
+        req_getter3.return_value = [
+            Requirement.for_package("r4"),
+            Requirement.for_package("r5")
+        ]
+        req_getter4.return_value = [
+            Requirement.for_package("r6")
+        ]
+
+        selection = PackagesSelectionData()
+        selection.excluded_groups = ["r3"]
+        selection.excluded_packages = ["r6"]
+
+        dnf_manager = Mock()
+        dnf_manager.default_environment = None
+
+        task = ResolvePackagesTask(dnf_manager, selection)
+        task.run()
+
+        dnf_manager.clear_selection.assert_called_once_with()
+        dnf_manager.disable_modules.assert_called_once_with([])
+        dnf_manager.enable_modules.assert_called_once_with([])
+        dnf_manager.apply_specs.assert_called_once_with(
+            ["@core", "@r1", "@r2", "r4", "r5"], ["@r3", "r6"]
+        )
+        dnf_manager.resolve_selection.assert_called_once_with()
+
+    @patch("pyanaconda.modules.payloads.payload.dnf.installation.collect_driver_disk_requirements")
+    @patch("pyanaconda.modules.payloads.payload.dnf.installation.collect_platform_requirements")
+    @patch("pyanaconda.modules.payloads.payload.dnf.installation.collect_language_requirements")
+    @patch("pyanaconda.modules.payloads.payload.dnf.installation.collect_remote_requirements")
+    @patch("pyanaconda.modules.payloads.payload.dnf.validation.get_kernel_package")
+    def fail_test(self, kernel_getter, req_getter1, req_getter2, req_getter3, req_getter4):
+        """Test the failed ResolvePackagesTask task."""
+        kernel_getter.return_value = None
+        req_getter1.return_value = []
+        req_getter2.return_value = []
+        req_getter3.return_value = []
+        req_getter4.return_value = []
+
+        selection = PackagesSelectionData()
+
+        dnf_manager = Mock()
+        dnf_manager.default_environment = None
+
+        dnf_manager.disable_modules.side_effect = MissingSpecsError("e1")
+        dnf_manager.apply_specs.side_effect = MissingSpecsError("e2")
+
+        with self.assertRaises(NonCriticalInstallationError) as cm:
+            task = ResolvePackagesTask(dnf_manager, selection)
+            task.run()
+
+        expected = "e1\n\ne2"
+        self.assertEqual(str(cm.exception), expected)
+
+        dnf_manager.enable_modules.side_effect = BrokenSpecsError("e3")
+        dnf_manager.resolve_selection.side_effect = InvalidSelectionError("e4")
+
+        with self.assertRaises(PayloadInstallationError) as cm:
+            task = ResolvePackagesTask(dnf_manager, selection)
+            task.run()
+
+        expected = "e3\n\ne4"
+        self.assertEqual(str(cm.exception), expected)
