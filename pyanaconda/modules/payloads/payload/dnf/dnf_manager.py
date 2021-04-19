@@ -32,6 +32,7 @@ from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import DNF_DEFAULT_TIMEOUT, DNF_DEFAULT_RETRIES
+from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.util import get_os_release_value
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
@@ -60,6 +61,14 @@ DNF_PLUGINCONF_DIR = '/tmp/dnf.pluginconf'
 #   6KiB = 4KiB + 2KiB
 #
 DNF_EXTRA_SIZE_PER_FILE = Size("6 KiB")
+
+
+class DNFManagerError(Exception):
+    """General error for the DNF manager."""
+
+
+class InvalidSelectionError(DNFManagerError):
+    """The software selection couldn't be resolved."""
 
 
 class DNFManager(object):
@@ -504,6 +513,28 @@ class DNFManager(object):
         return exception.error_group_specs \
             or exception.error_pkg_specs \
             or exception.module_depsolv_errors
+
+    def resolve_selection(self):
+        """Resolve the software selection.
+
+        :raise InvalidSelectionError: if the selection cannot be resolved
+        """
+        log.debug("Resolving the software selection.",)
+
+        try:
+            self._base.resolve()
+        except dnf.exceptions.DepsolveError as e:
+            log.error("The software couldn't be resolved!\n%s", str(e))
+
+            message = _(
+                "The following software marked for installation has errors.\n"
+                "This is likely caused by an error with your installation source."
+            )
+
+            raise InvalidSelectionError(message + "\n\n" + str(e).strip()) from None
+
+        log.info("The software selection has been resolved (%d packages selected).",
+                 len(self._base.transaction))
 
     @property
     def download_location(self):

@@ -23,7 +23,7 @@ from dasbus.structure import compare_data
 
 from dnf.callback import STATUS_OK, STATUS_FAILED, PKG_SCRIPTLET
 from dnf.comps import Environment, Comps, Group
-from dnf.exceptions import MarkingErrors
+from dnf.exceptions import MarkingErrors, DepsolveError
 from dnf.package import Package
 from dnf.transaction import PKG_INSTALL, TRANS_POST, PKG_VERIFY
 from dnf.repo import Repo
@@ -34,7 +34,7 @@ from pyanaconda.modules.common.errors.payload import UnknownCompsEnvironmentErro
     UnknownCompsGroupError
 from pyanaconda.modules.common.structures.comps import CompsEnvironmentData, CompsGroupData
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
-from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
+from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, InvalidSelectionError
 
 
 class DNFManagerTestCase(unittest.TestCase):
@@ -601,6 +601,34 @@ class DNFManagerTestCase(unittest.TestCase):
 
         msg = "There is no metadata about packages!"
         self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+
+    @patch("dnf.base.Base.resolve")
+    def resolve_selection_test(self, resolve):
+        """Test the resolve_selection method."""
+        self.dnf_manager._base.transaction = [Mock(), Mock()]
+
+        with self.assertLogs(level="INFO") as cm:
+            self.dnf_manager.resolve_selection()
+
+        expected = "The software selection has been resolved (2 packages selected)."
+        self.assertIn(expected, "\n".join(cm.output))
+
+        resolve.assert_called_once()
+
+    @patch("dnf.base.Base.resolve")
+    def resolve_selection_failed_test(self, resolve):
+        """Test the failed resolve_selection method."""
+        resolve.side_effect = DepsolveError("e1")
+
+        with self.assertRaises(InvalidSelectionError) as cm:
+            self.dnf_manager.resolve_selection()
+
+        expected = \
+            "The following software marked for installation has errors.\n" \
+            "This is likely caused by an error with your installation source.\n\n" \
+            "e1"
+
+        self.assertEqual(expected, str(cm.exception))
 
 
 class DNFManagerCompsTestCase(unittest.TestCase):
