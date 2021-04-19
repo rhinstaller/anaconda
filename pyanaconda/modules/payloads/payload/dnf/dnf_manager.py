@@ -67,6 +67,14 @@ class DNFManagerError(Exception):
     """General error for the DNF manager."""
 
 
+class MissingSpecsError(DNFManagerError):
+    """Some packages, groups or modules are missing."""
+
+
+class BrokenSpecsError(DNFManagerError):
+    """Some packages, groups or modules are broken."""
+
+
 class InvalidSelectionError(DNFManagerError):
     """The software selection couldn't be resolved."""
 
@@ -449,6 +457,8 @@ class DNFManager(object):
         that do not specify the stream, the default stream is used.
 
         :param module_specs: a list of specs
+        :raise MissingSpecsError: if there are missing specs
+        :raise BrokenSpecsError: if there are broken specs
         """
         log.debug("Enabling modules: %s", module_specs)
 
@@ -456,8 +466,8 @@ class DNFManager(object):
             module_base = dnf.module.module_base.ModuleBase(self._base)
             module_base.enable(module_specs)
         except dnf.exceptions.MarkingErrors as e:
-            log.debug("Some packages, groups or modules are missing or broken:\n%s", e)
-            raise
+            log.error("Failed to enable modules!\n%s", str(e))
+            self._handle_marking_errors(e)
 
     def disable_modules(self, module_specs):
         """Mark modules for disabling.
@@ -466,23 +476,27 @@ class DNFManager(object):
         Only the name part of the module specification is relevant.
 
         :param module_specs: a list of specs to disable
+        :raise MissingSpecsError: if there are missing specs
+        :raise BrokenSpecsError: if there are broken specs
         """
         log.debug("Disabling modules: %s", module_specs)
         try:
             module_base = dnf.module.module_base.ModuleBase(self._base)
             module_base.disable(module_specs)
         except dnf.exceptions.MarkingErrors as e:
-            log.debug("Some packages, groups or modules are missing or broken:\n%s", e)
-            raise
+            log.error("Failed to disable modules!\n%s", str(e))
+            self._handle_marking_errors(e)
 
     def apply_specs(self, include_list, exclude_list):
         """Mark packages, groups and modules for installation.
 
         :param include_list: a list of specs for inclusion
         :param exclude_list: a list of specs for exclusion
+        :raise MissingSpecsError: if there are missing specs
+        :raise BrokenSpecsError: if there are broken specs
         """
-        log.debug("Transaction include list:\n%s", include_list)
-        log.debug("Transaction exclude list:\n%s", exclude_list)
+        log.info("Including specs: %s", include_list)
+        log.info("Excluding specs: %s", exclude_list)
 
         try:
             self._base.install_specs(
@@ -491,28 +505,41 @@ class DNFManager(object):
                 strict=not self._ignore_broken_packages
             )
         except dnf.exceptions.MarkingErrors as e:
-            log.debug("Some packages, groups or modules are missing or broken:\n%s", e)
+            log.error("Failed to apply specs!\n%s", str(e))
+            self._handle_marking_errors(e, self._ignore_missing_packages)
 
-            # The transaction is broken. Raise the exception.
-            if self._is_transaction_broken(e):
-                raise
+    def _handle_marking_errors(self, exception, ignore_missing_packages=False):
+        """Handle the dnf.exceptions.MarkingErrors exception.
 
-            # There are some missing specs, but we cannot ignore them.
-            if not self._ignore_missing_packages:
-                raise
+        :param exception: a exception
+        :param ignore_missing_packages: can missing specs be ignored?
+        :raise MissingSpecsError: if there are missing specs
+        :raise BrokenSpecsError: if there are broken specs
+        """
+        # There are only some missing specs. They can be ignored.
+        if self._is_missing_specs_error(exception):
 
-            # Ignore the missing specs.
-            log.info("Ignoring missing packages, groups or modules.")
+            if ignore_missing_packages:
+                log.info("Ignoring missing packages, groups or modules.")
+                return
 
-    def _is_transaction_broken(self, exception):
-        """Is the DNF transaction broken?
+            message = _("Some packages, groups or modules are missing.")
+            raise MissingSpecsError(message + "\n\n" + str(exception).strip()) from None
 
-        :param exception: an MarkingErrors exception
+        # There are some broken specs. Raise an exception.
+        message = _("Some packages, groups or modules are broken.")
+        raise BrokenSpecsError(message + "\n\n" + str(exception).strip()) from None
+
+    def _is_missing_specs_error(self, exception):
+        """Is it a missing specs error?
+
+        :param exception: an exception
         :return: True or False
         """
-        return exception.error_group_specs \
-            or exception.error_pkg_specs \
-            or exception.module_depsolv_errors
+        return isinstance(exception, dnf.exceptions.MarkingErrors) \
+            and not exception.error_group_specs \
+            and not exception.error_pkg_specs \
+            and not exception.module_depsolv_errors
 
     def resolve_selection(self):
         """Resolve the software selection.

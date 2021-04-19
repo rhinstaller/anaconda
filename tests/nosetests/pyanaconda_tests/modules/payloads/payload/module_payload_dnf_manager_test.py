@@ -34,7 +34,8 @@ from pyanaconda.modules.common.errors.payload import UnknownCompsEnvironmentErro
     UnknownCompsGroupError
 from pyanaconda.modules.common.structures.comps import CompsEnvironmentData, CompsGroupData
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
-from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, InvalidSelectionError
+from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, \
+    InvalidSelectionError, BrokenSpecsError, MissingSpecsError
 
 
 class DNFManagerTestCase(unittest.TestCase):
@@ -233,7 +234,7 @@ class DNFManagerTestCase(unittest.TestCase):
             module_depsolv_errors=["e1", "e2"]
         )
 
-        with self.assertRaises(MarkingErrors):
+        with self.assertRaises(BrokenSpecsError):
             self.dnf_manager.enable_modules(
                 module_specs=["m1", "m2:latest"]
             )
@@ -255,7 +256,7 @@ class DNFManagerTestCase(unittest.TestCase):
             module_depsolv_errors=["e1", "e2"]
         )
 
-        with self.assertRaises(MarkingErrors):
+        with self.assertRaises(BrokenSpecsError):
             self.dnf_manager.disable_modules(
                 module_specs=["m1", "m2:latest"]
             )
@@ -281,7 +282,17 @@ class DNFManagerTestCase(unittest.TestCase):
             error_group_specs=["@g1"]
         )
 
-        with self.assertRaises(MarkingErrors):
+        with self.assertRaises(BrokenSpecsError):
+            self.dnf_manager.apply_specs(
+                include_list=["@g1", "p1"],
+                exclude_list=["@g2", "p2"]
+            )
+
+        install_specs.side_effect = MarkingErrors(
+            no_match_group_specs=["@g1"]
+        )
+
+        with self.assertRaises(MissingSpecsError):
             self.dnf_manager.apply_specs(
                 include_list=["@g1", "p1"],
                 exclude_list=["@g2", "p2"]
@@ -328,7 +339,7 @@ class DNFManagerTestCase(unittest.TestCase):
             error_pkg_specs=["p1"]
         )
 
-        with self.assertRaises(MarkingErrors):
+        with self.assertRaises(BrokenSpecsError):
             self.dnf_manager.apply_specs(
                 include_list=["@g1", "p1"],
                 exclude_list=["@g2", "p2"]
