@@ -630,6 +630,10 @@ class DNFManagerTestCase(unittest.TestCase):
 
         self.assertEqual(expected, str(cm.exception))
 
+    def clear_selection_test(self):
+        """Test the clear_selection method."""
+        self.dnf_manager.clear_selection()
+
 
 class DNFManagerCompsTestCase(unittest.TestCase):
     """Test the comps abstraction of the DNF base."""

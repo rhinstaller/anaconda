@@ -536,6 +536,11 @@ class DNFManager(object):
         log.info("The software selection has been resolved (%d packages selected).",
                  len(self._base.transaction))
 
+    def clear_selection(self):
+        """Clear the software selection."""
+        self._base.reset(goal=True)
+        log.debug("The software selection has been cleared.")
+
     @property
     def download_location(self):
         """The location for the package download."""
