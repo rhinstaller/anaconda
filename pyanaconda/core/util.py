@@ -271,8 +271,10 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
         # If X did not make it, stop caring and get rid of it
         if not x11_started[0] and childproc:
             WatchProcesses.unwatch_process(childproc)
-            childproc.terminate()
-            childproc.wait()
+            # Do kill() it with SIGKILL, because terminate() with SIGTERM is only scheduled and
+            # waits until it can be handled which is too late, by then Xorg already sends us the
+            # SIGUSR1 signal of doom.
+            childproc.kill()
 
         # Put back the exception-handler-testing handler
         signal.signal(signal.SIGUSR1, old_sigusr1_handler)
