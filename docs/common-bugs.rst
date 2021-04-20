@@ -24,6 +24,15 @@ Missing logs
     You can find them during the installation in ``/tmp`` or on the installed system in
     ``/var/log/anaconda/``.
 
+Issue when running in Virtualbox
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:Issue: An error is reported for Anaconda running in Virtualbox.
+:Solution: Virtualbox is known to cause problems for the whole system. Possible effects include
+    include disappearing devices, memory corruption, missing D-Bus endpoints. Is is not possible
+    to guarantee anything in such environment, including running Anaconda.
+:Example: `rhbz#1918248 <https://bugzilla.redhat.com/show_bug.cgi?id=1918248>`_
+
 DBus issues
 -----------
 
