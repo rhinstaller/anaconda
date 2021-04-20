@@ -320,21 +320,23 @@ class ProductConfigurationTestCase(unittest.TestCase):
 
         self.assertListEqual(difference, expected_difference)
 
-    def _compare_product_files(self, file_name, other_file_name):
+    def _compare_product_files(self, file_name, other_file_name, ignored_sections=()):
         parser = create_parser()
         read_config(parser, os.path.join(PRODUCT_DIR, file_name))
 
         other_parser = create_parser()
         read_config(other_parser, os.path.join(PRODUCT_DIR, other_file_name))
 
-        # The defined sections should be the same.
-        self.assertEqual(parser.sections(), other_parser.sections())
+        # Ignore the specified and product-related sections.
+        ignored_sections += ("Product", "Base Product")
 
-        for section in parser.sections():
-            # Skip the product-related sections.
-            if section in ("Product", "Base Product"):
-                continue
+        sections = set(parser.sections()).difference(ignored_sections)
+        other_sections = set(other_parser.sections()).difference(ignored_sections)
 
+        # Otherwise, the defined sections should be the same.
+        self.assertEqual(sections, other_sections)
+
+        for section in sections:
             # The defined options should be the same.
             self.assertEqual(parser.options(section), other_parser.options(section))
 
@@ -344,7 +346,7 @@ class ProductConfigurationTestCase(unittest.TestCase):
 
     def ovirt_and_rhvh_test(self):
         """Test the similarity of oVirt Node Next with Red Hat Virtualization Host."""
-        self._compare_product_files("rhvh.conf", "ovirt.conf")
+        self._compare_product_files("rhvh.conf", "ovirt.conf", ignored_sections=("License", ))
 
     def valid_product_test(self):
         content = dedent("""
