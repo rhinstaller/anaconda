@@ -46,10 +46,13 @@ def _make_config_data():
 
 class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
 
+    @patch("os.path.exists")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.mkdirChain")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
-    def setup_internal_bindmount_test(self, exec_mock):
+    def setup_internal_bindmount_test(self, exec_mock, mkdir_mock, exists_mock):
         """Test OSTree mount target prepare task _setup_internal_bindmount()"""
         exec_mock.return_value = 0
+        exists_mock.return_value = True
 
         data = _make_config_data()
         task = PrepareOSTreeMountTargetsTask("/sysroot", "/physroot", data)
@@ -59,6 +62,7 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
         task._setup_internal_bindmount("/src")
         exec_mock.assert_called_once_with("mount", ["--rbind", "/physroot/src", "/sysroot/src"])
         self.assertListEqual(task._internal_mounts, ["/sysroot/src"])
+        mkdir_mock.assert_not_called()
         task._internal_mounts.clear()
         exec_mock.reset_mock()
 
@@ -66,6 +70,7 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
         task._setup_internal_bindmount("/src", "/dest", True, False, True)
         exec_mock.assert_called_once_with("mount", ["--rbind", "/physroot/src", "/sysroot/dest"])
         self.assertListEqual(task._internal_mounts, ["/sysroot/dest"])
+        mkdir_mock.assert_not_called()
         task._internal_mounts.clear()
         exec_mock.reset_mock()
 
@@ -73,6 +78,7 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
         task._setup_internal_bindmount("/src", "/dest", False, False, True)
         exec_mock.assert_called_once_with("mount", ["--rbind", "/sysroot/src", "/sysroot/dest"])
         self.assertListEqual(task._internal_mounts, ["/sysroot/dest"])
+        mkdir_mock.assert_not_called()
         task._internal_mounts.clear()
         exec_mock.reset_mock()
 
@@ -84,6 +90,7 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
         ])
         self.assertEqual(len(exec_mock.mock_calls), 2)
         self.assertListEqual(task._internal_mounts, ["/physroot/src"])
+        mkdir_mock.assert_not_called()
         task._internal_mounts.clear()
         exec_mock.reset_mock()
 
@@ -91,13 +98,26 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
         task._setup_internal_bindmount("/src", "/dest", True, False, False)
         exec_mock.assert_called_once_with("mount", ["--bind", "/physroot/src", "/sysroot/dest"])
         self.assertListEqual(task._internal_mounts, ["/sysroot/dest"])
+        mkdir_mock.assert_not_called()
         task._internal_mounts.clear()
         exec_mock.reset_mock()
+
+        # with user defined mount point
+        # directory for the mount point doesn't exists yet, we should create it
+        exists_mock.return_value = False
+        task._setup_internal_bindmount("/src", "/dest", True, False, False)
+        exec_mock.assert_called_once_with("mount", ["--bind", "/physroot/src", "/sysroot/dest"])
+        self.assertListEqual(task._internal_mounts, ["/sysroot/dest"])
+        mkdir_mock.assert_called_with("/sysroot/dest")
+        task._internal_mounts.clear()
+        exec_mock.reset_mock()
+        exists_mock.return_value = True
 
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.mkdirChain")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
-    def run_with_var_test(self, storage_mock, mkdir_mock, exec_mock):
+    @patch("os.path.exists", returns=True)
+    def run_with_var_test(self, exist_mock, storage_mock, mkdir_mock, exec_mock):
         """Test OSTree mount target prepare task run() with /var"""
         exec_mock.return_value = 0
 
@@ -154,7 +174,8 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.mkdirChain")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
-    def run_without_var_test(self, storage_mock, mkdir_mock, exec_mock):
+    @patch("os.path.exists", returns=True)
+    def run_without_var_test(self, exists_mock, storage_mock, mkdir_mock, exec_mock):
         """Test OSTree mount target prepare task run() without /var"""
         exec_mock.side_effect = [0] * 7 + [0, 65] * 5 + [0] * 3
 
