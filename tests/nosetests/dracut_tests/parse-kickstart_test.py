@@ -191,13 +191,11 @@ network --device team0 --activate --bootproto static --ip=10.34.102.222 --netmas
 
     def network_bridge_test(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
-            ks_file.write("""network --device=link --bootproto=dhcp --activate
-network --device br0 --activate --bootproto dhcp --bridgeslaves=eth0 --bridgeopts=stp=6.0,forward_delay=2
-""")
+            ks_file.write("""network --device br0 --activate --bootproto dhcp --bridgeslaves=eth0 --bridgeopts=stp=6.0,forward_delay=2""")
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
-            self.assertRegex(lines[0], r"ip=[^\s:]+:dhcp: bootdev=[^\s:]+", lines)
+            self.assertEqual(lines[0], "ip=br0:dhcp: bootdev=br0 bridge=br0:eth0")
 
     def network_ipv6_only_test(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
