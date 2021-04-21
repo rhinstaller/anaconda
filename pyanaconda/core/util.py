@@ -45,7 +45,7 @@ from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.core.constants import DRACUT_SHUTDOWN_EJECT, \
     IPMI_ABORTED, X_TIMEOUT, TAINT_HARDWARE_UNSUPPORTED, TAINT_SUPPORT_REMOVED, \
     WARNING_HARDWARE_UNSUPPORTED, WARNING_SUPPORT_REMOVED
-from pyanaconda.errors import RemovedModuleError, ExitError
+from pyanaconda.errors import RemovedModuleError
 
 from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.anaconda_loggers import get_module_logger, get_program_logger
@@ -202,6 +202,15 @@ def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subp
                             preexec_fn=preexec, cwd=root, env=env, **kwargs)
 
 
+class X11Status:
+    """Status of Xorg launch.
+
+    Values of an instance can be modified from the handler functions.
+    """
+    def __init__(self):
+        self.started = False
+
+
 def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
     """ Start X and return once X is ready to accept connections.
 
@@ -215,23 +224,23 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
         :param output_redirect: file or file descriptor to redirect stdout and stderr to
         :param timeout: Number of seconds to timing out.
     """
-    # Use a list so the value can be modified from the handler function
-    x11_started = [False]
+    x11_status = X11Status()
 
     def sigusr1_handler(num, frame):
         log.debug("X server has signalled a successful start.")
-        x11_started[0] = True
+        x11_status.started = True
 
     # Fail after, let's say a minute, in case something weird happens
     # and we don't receive SIGUSR1
     def sigalrm_handler(num, frame):
         # Check that it didn't make it under the wire
-        if x11_started[0]:
+        if x11_status.started:
             return
         log.error("Timeout trying to start %s", argv[0])
-        raise ExitError("Timeout trying to start %s" % argv[0])
+        raise TimeoutError("Timeout trying to start %s" % argv[0])
 
-    # preexec_fn to add the SIGUSR1 handler in the child
+    # preexec_fn to add the SIGUSR1 handler in the child we are starting
+    # see man page XServer(1), section "signals"
     def sigusr1_preexec():
         signal.signal(signal.SIGUSR1, signal.SIG_IGN)
 
@@ -247,8 +256,8 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
                                  preexec_fn=sigusr1_preexec)
         WatchProcesses.watch_process(childproc, argv[0])
 
-        # Wait for SIGUSR1
-        while not x11_started[0]:
+        # Wait for SIGUSR1 or SIGALRM
+        while not x11_status.started:
             signal.pause()
 
     finally:
