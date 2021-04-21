@@ -209,6 +209,10 @@ class X11Status:
     """
     def __init__(self):
         self.started = False
+        self.timed_out = False
+
+    def needs_waiting(self):
+        return not (self.started or self.timed_out)
 
 
 def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
@@ -226,7 +230,8 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
     """
     x11_status = X11Status()
 
-    def sigusr1_handler(num, frame):
+    # Handle successful start before timeout
+    def sigusr1_success_handler(num, frame):
         log.debug("X server has signalled a successful start.")
         x11_status.started = True
 
@@ -236,8 +241,18 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
         # Check that it didn't make it under the wire
         if x11_status.started:
             return
+        x11_status.timed_out = True
+        signal.signal(signal.SIGUSR1, sigusr1_too_late_handler)
         log.error("Timeout trying to start %s", argv[0])
+        log.debug("Exception handler test suspended to prevent accidental activation by delayed "
+                  "Xorg start. All further SIGUSR1 will be handled with suspicion.")
         raise TimeoutError("Timeout trying to start %s" % argv[0])
+
+    # Handle delayed start after timeout
+    def sigusr1_too_late_handler(num, frame):
+        if x11_status.timed_out:
+            log.debug("SIGUSR1 received after X server timeout. Switching back to tty1.")
+            vtActivate(1)
 
     # preexec_fn to add the SIGUSR1 handler in the child we are starting
     # see man page XServer(1), section "signals"
@@ -245,7 +260,7 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
         signal.signal(signal.SIGUSR1, signal.SIG_IGN)
 
     try:
-        old_sigusr1_handler = signal.signal(signal.SIGUSR1, sigusr1_handler)
+        old_sigusr1_handler = signal.signal(signal.SIGUSR1, sigusr1_success_handler)
         old_sigalrm_handler = signal.signal(signal.SIGALRM, sigalrm_handler)
 
         # Start the timer
@@ -257,13 +272,14 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
         WatchProcesses.watch_process(childproc, argv[0])
 
         # Wait for SIGUSR1 or SIGALRM
-        while not x11_status.started:
+        while x11_status.needs_waiting():
             signal.pause()
 
     finally:
-        # Put everything back where it was
+        # Put everything back where it was, if possible
         signal.alarm(0)
-        signal.signal(signal.SIGUSR1, old_sigusr1_handler)
+        if x11_status.started:
+            signal.signal(signal.SIGUSR1, old_sigusr1_handler)
         signal.signal(signal.SIGALRM, old_sigalrm_handler)
 
 
