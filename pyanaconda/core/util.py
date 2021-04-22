@@ -247,8 +247,10 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
     # Handle delayed start after timeout
     def sigusr1_too_late_handler(num, frame):
         if x11_status.timed_out:
-            log.debug("SIGUSR1 received after X server timeout. Switching back to tty1.")
+            log.debug("SIGUSR1 received after X server timeout. Switching back to tty1. "
+                      "SIGUSR1 now again initiates test of exception reporting.")
             vtActivate(1)
+            signal.signal(signal.SIGUSR1, old_sigusr1_handler)
 
     # preexec_fn to add the SIGUSR1 handler in the child we are starting
     # see man page XServer(1), section "signals"
@@ -281,8 +283,12 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
             signal.signal(signal.SIGUSR1, old_sigusr1_handler)
         elif x11_status.timed_out:
             signal.signal(signal.SIGUSR1, sigusr1_too_late_handler)
+            # Kill Xorg because from now on we will not use it. It will exit only after sending
+            # the signal, but at least we don't have to track that.
+            WatchProcesses.unwatch_process(childproc)
+            childproc.terminate()
             log.debug("Exception handler test suspended to prevent accidental activation by "
-                      "delayed Xorg start. All further SIGUSR1 will be handled with suspicion.")
+                      "delayed Xorg start. Next SIGUSR1 will be handled as delayed Xorg start.")
             # Raise an exception to notify the caller that things went wrong. This affects
             # particularly pyanaconda.display.do_startup_x11_actions(), where the window manager
             # is started immediately after this. The WM would just wait forever.
