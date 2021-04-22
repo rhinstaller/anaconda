@@ -242,11 +242,7 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
         if x11_status.started:
             return
         x11_status.timed_out = True
-        signal.signal(signal.SIGUSR1, sigusr1_too_late_handler)
         log.error("Timeout trying to start %s", argv[0])
-        log.debug("Exception handler test suspended to prevent accidental activation by delayed "
-                  "Xorg start. All further SIGUSR1 will be handled with suspicion.")
-        raise TimeoutError("Timeout trying to start %s" % argv[0])
 
     # Handle delayed start after timeout
     def sigusr1_too_late_handler(num, frame):
@@ -276,11 +272,21 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
             signal.pause()
 
     finally:
-        # Put everything back where it was, if possible
+        # Stop the timer
         signal.alarm(0)
+        signal.signal(signal.SIGALRM, old_sigalrm_handler)
+
+        # Handle outcome of X start attempt
         if x11_status.started:
             signal.signal(signal.SIGUSR1, old_sigusr1_handler)
-        signal.signal(signal.SIGALRM, old_sigalrm_handler)
+        elif x11_status.timed_out:
+            signal.signal(signal.SIGUSR1, sigusr1_too_late_handler)
+            log.debug("Exception handler test suspended to prevent accidental activation by "
+                      "delayed Xorg start. All further SIGUSR1 will be handled with suspicion.")
+            # Raise an exception to notify the caller that things went wrong. This affects
+            # particularly pyanaconda.display.do_startup_x11_actions(), where the window manager
+            # is started immediately after this. The WM would just wait forever.
+            raise TimeoutError("Timeout trying to start %s" % argv[0])
 
 
 def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_output=True,
