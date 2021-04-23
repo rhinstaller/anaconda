@@ -9,25 +9,24 @@ on:
 jobs:
   build:
     name: copr-builder
-    runs-on: [self-hosted, ci-tasks, rhel-8]
+    runs-on: [self-hosted, kstest]
+    env:
+      CI_CONTAINER: rhinstaller/anaconda-rhel-copr:rhel-8
     steps:
-      - name: Checkout copr-builder repository
+      - name: Clone anaconda repository
         uses: actions/checkout@v2
         with:
-          repository: vojtechtrefny/copr-builder
+          ref: master
+          fetch-depth: 0
+          path: anaconda
 
-      - name: Create copr-builder configuration
+      - name: Build the build container
         run: |
-          cat <<EOF > copr-builder-rhel.conf
-          [anaconda]
-          copr_user = rhinstaller-group
-          copr_repo = Anaconda
-          package = anaconda
-          git_url = https://github.com/rhinstaller/anaconda
-          git_branch = rhel-8
-          pre_archive_cmd = ./autogen.sh && ./configure
-          archive_cmd = make po-pull && make dist
-          EOF
+          sudo podman build --no-cache -t ${{ env.CI_CONTAINER }} anaconda/dockerfile/anaconda-rhel-copr
 
       - name: Run copr-builder
-        run: ./copr-builder -v -c copr-builder-rhel.conf -C /copr-rhel
+        run: |
+          sudo podman run -i --rm --privileged -v /home/github/copr-rhel-token:/copr-builder/copr-rhel-token:ro,z ${{ env.CI_CONTAINER }} <<EOF
+          set -eux
+          /copr-builder/copr-builder -v -c /copr-builder/copr-builder-rhel.conf -C /copr-builder/copr-rhel-token
+          EOF
