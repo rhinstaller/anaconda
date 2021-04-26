@@ -37,7 +37,8 @@ from pyanaconda.modules.storage.disk_initialization import DiskInitializationCon
 from pyanaconda.modules.storage.platform import platform, PLATFORM_MOUNT_POINTS
 from pyanaconda.product import productName, productVersion
 from pyanaconda.modules.storage.devicetree.root import Root
-from pyanaconda.modules.storage.devicetree.utils import get_supported_filesystems
+from pyanaconda.modules.storage.devicetree.utils import get_supported_filesystems, \
+    is_supported_filesystem
 from pyanaconda.core.storage import DEVICE_TEXT_MAP, PARTITION_ONLY_FORMAT_TYPES, \
     NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES, SUPPORTED_DEVICE_TYPES
 
@@ -966,7 +967,8 @@ def generate_device_factory_permissions(storage, request: DeviceFactoryRequest):
 
     permissions.reformat = \
         device.raw_device.exists \
-        and not device.raw_device.format_immutable
+        and not device.raw_device.format_immutable \
+        and is_supported_filesystem(request.format_type)
 
     permissions.device_size = \
         device.resizable or (
