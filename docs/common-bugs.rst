@@ -214,6 +214,29 @@ Undetected partitions
 :Solution: Duplicate of the bug 1825067.
 :Example: `rhbz#1828188 <https://bugzilla.redhat.com/show_bug.cgi?id=1828188>`_
 
+Too little memory for LUKS setup
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:Issue: Anaconda crashes with an exception: ``No such interface “org.freedesktop.DBus.Properties” on object at path /org/fedoraproject/Anaconda/Modules/Storage/Task/`` .
+:Solution: The installation environment does not have enough memory to run LUKS setup, and its
+    crash resets the Storage module. In logs, the following lines can be found:
+
+    - ``WARNING:blivet:Less than (...) MiB RAM is currently free, LUKS2 format may fail.``
+    - ``ui.gui.spokes.storage: Partitioning has been applied: ValidationReport(error_messages=[], warning_messages=['The available memory is less than 128 MiB which can be too small for LUKS2 format. It may fail.'])``
+    - ``Activating service name='org.fedoraproject.Anaconda.Modules.Storage'`` (present more than once)
+
+    Note that the user must have ignored a warning in the GUI.
+
+:Workaround:
+  There are several possible workarounds:
+
+  - Use more memory for the machine,
+  - use ``--pbkdf*`` options in kickstart file,
+  - change LUKS version to ``LUKS1``,
+  - disable encryption.
+
+:Example: `rhbz#1902464 <https://bugzilla.redhat.com/show_bug.cgi?id=1902464>`_
+
 Bootloader issues
 -----------------
 
