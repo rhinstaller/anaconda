@@ -19,14 +19,14 @@ jobs:
     metadata:
       targets:
         - fedora-rawhide
-        - fedora-eln
+#        - fedora-eln
 
   - job: copr_build
     trigger: commit
     metadata:
       targets:
         - fedora-rawhide
-        - fedora-eln
+#        - fedora-eln
       branch: master
       owner: "@rhinstaller"
       project: Anaconda
