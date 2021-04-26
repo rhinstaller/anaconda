@@ -331,6 +331,31 @@ The `ignoredisk --only-use` command hides installation sources
 
 :Example: `rhbz#1945779 <https://bugzilla.redhat.com/show_bug.cgi?id=1945779>`_
 
+Missing options of the `repo` command
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:Issue: The `repo` kickstart command doesn't support the requested configuration options.
+:Workaround: We get a lot of feature requests for the `repo` command, but we don't really want
+    to support every repo configuration option. Please, use a repo file to configure the repo.
+
+    For example::
+
+        # Enable the custom repo.
+        repo --name "my-custom-repo"
+
+        %pre
+        # Generate the custom repo file.
+        cat >> /etc/anaconda.repos.d/custom.repo << EOF
+
+        [my-custom-repo]
+        name=My Custom Repository
+        baseurl=http://my/custom/repo/url/
+        priority=10
+        module_hotfixes=1
+
+        EOF
+        %end
+
 Enabling root password SSH login via password.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
