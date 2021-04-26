@@ -73,6 +73,10 @@ class DeviceTreeViewerInterface(InterfaceTemplate):
     def GetFormatData(self, name: Str) -> Structure:
         """Get the device format data.
 
+        Return data about a format of the specified device.
+
+        For example: sda1
+
         :param name: a name of the device
         :return: a structure with format data
         """
@@ -80,6 +84,8 @@ class DeviceTreeViewerInterface(InterfaceTemplate):
 
     def GetFormatTypeData(self, name: Str) -> Structure:
         """Get the format type data.
+
+        Return data about the specified format type.
 
         For example: ext4
 
