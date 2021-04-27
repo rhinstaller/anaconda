@@ -68,7 +68,7 @@ check_depr_args "blacklist=" "inst.blacklist=%s"
 check_depr_arg "nofirewire" "inst.blacklist=firewire_ohci"
 
 # ssh
-check_depr_arg "sshd" "inst.sshd"
+check_removed_no_inst_arg "sshd" "inst.sshd"
 
 # serial was never supposed to be used for anything!
 check_removed_arg serial "To change the console use 'console=' instead."
