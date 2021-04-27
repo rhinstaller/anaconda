@@ -184,10 +184,6 @@ def _prepare_configuration(payload, ksdata):
         security_proxy = SECURITY.get_proxy()
         configuration_queue.append_dbus_tasks(SECURITY, [security_proxy.JoinRealmWithTask()])
 
-    post_scripts = TaskQueue("Post installation scripts", N_("Running post-installation scripts"))
-    post_scripts.append(Task("Run post installation scripts", runPostScripts, (ksdata.scripts,)))
-    configuration_queue.append(post_scripts)
-
     # setup kexec reboot if requested
     if flags.flags.kexec:
         kexec_setup = TaskQueue("Kexec setup", N_("Setting up kexec"))
@@ -211,6 +207,17 @@ def _prepare_configuration(payload, ksdata):
     # only add write_configs to the main queue if we actually store some kickstarts/configs
     if write_configs.task_count:
         configuration_queue.append(write_configs)
+
+    post_scripts = TaskQueue(
+        "Post installation scripts",
+        N_("Running post-installation scripts")
+    )
+    post_scripts.append(Task(
+        "Run post installation scripts",
+        runPostScripts,
+        (ksdata.scripts,)
+    ))
+    configuration_queue.append(post_scripts)
 
     return configuration_queue
 
