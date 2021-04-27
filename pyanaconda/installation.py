@@ -183,7 +183,10 @@ def _prepare_configuration(payload, ksdata):
         configuration_queue.append(kexec_setup)
 
     # write anaconda related configs & kickstarts
-    write_configs = TaskQueue("Write configs and kickstarts", N_("Storing configuration files and kickstarts"))
+    write_configs = TaskQueue(
+        "Write configs and kickstarts",
+        N_("Storing configuration files and kickstarts")
+    )
 
     # Write the kickstart file to the installed system (or, copy the input
     # kickstart file over if one exists).
@@ -193,7 +196,7 @@ def _prepare_configuration(payload, ksdata):
         log.warning("Writing of the output kickstart to installed system has been disabled"
                     " by the nosave option.")
     else:
-       # write anaconda related configs & kickstarts
+        # write anaconda related configs & kickstarts
         write_configs.append(Task("Store kickstarts", _writeKS, (ksdata,)))
 
     # only add write_configs to the main queue if we actually store some kickstarts/configs
@@ -237,8 +240,10 @@ def _prepare_installation(payload, ksdata):
 
         # Use a queue with a single task as only TaskQueues have the status_message
         # property used for setting the progress status in the UI.
-        wait_for_threads = TaskQueue("Wait for threads to finish",
-                                     N_("Waiting for %s threads to finish") % (threadMgr.running - 1))
+        wait_for_threads = TaskQueue(
+            "Wait for threads to finish",
+            N_("Waiting for %s threads to finish") % (threadMgr.running - 1)
+        )
 
         wait_for_threads.append(Task("Wait for all threads to finish", wait_for_all_treads))
         installation_queue.append(wait_for_threads)
@@ -251,7 +256,10 @@ def _prepare_installation(payload, ksdata):
         installation_queue.append(save_hwclock)
 
     # setup the installation environment
-    setup_environment = TaskQueue("Installation environment setup", N_("Setting up the installation environment"))
+    setup_environment = TaskQueue(
+        "Installation environment setup",
+        N_("Setting up the installation environment")
+    )
 
     boss_proxy = BOSS.get_proxy()
     for service_name, object_path in boss_proxy.CollectConfigureRuntimeTasks():
@@ -285,7 +293,10 @@ def _prepare_installation(payload, ksdata):
 
     # Run %pre-install scripts with the filesystem mounted and no packages
     pre_install_scripts = TaskQueue("Pre-install scripts", N_("Running pre-installation scripts"))
-    pre_install_scripts.append(Task("Run %pre-install scripts", runPreInstallScripts, (ksdata.scripts,)))
+    pre_install_scripts.append(Task(
+        "Run %pre-install scripts",
+        runPreInstallScripts, (ksdata.scripts,)
+    ))
     installation_queue.append(pre_install_scripts)
 
     # Do various pre-installation tasks
@@ -340,7 +351,10 @@ def _prepare_installation(payload, ksdata):
     bootloader_install.append(Task("Install bootloader", run_install_bootloader))
     installation_queue.append(bootloader_install)
 
-    post_install = TaskQueue("Post-installation setup tasks", (N_("Performing post-installation setup tasks")))
+    post_install = TaskQueue(
+        "Post-installation setup tasks",
+        (N_("Performing post-installation setup tasks"))
+    )
     post_install.append(Task("Run post-installation setup tasks", payload.post_install))
     installation_queue.append(post_install)
 
@@ -348,7 +362,10 @@ def _prepare_installation(payload, ksdata):
     snapshot_proxy = STORAGE.get_proxy(SNAPSHOT)
 
     if snapshot_proxy.IsRequested(SNAPSHOT_WHEN_POST_INSTALL):
-        snapshot_creation = TaskQueue("Creating post installation snapshots", N_("Creating snapshots"))
+        snapshot_creation = TaskQueue(
+            "Creating post installation snapshots",
+            N_("Creating snapshots")
+        )
         snapshot_task = snapshot_proxy.CreateWithTask(SNAPSHOT_WHEN_POST_INSTALL)
         snapshot_creation.append_dbus_tasks(STORAGE, [snapshot_task])
         installation_queue.append(snapshot_creation)
