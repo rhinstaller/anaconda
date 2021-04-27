@@ -65,7 +65,7 @@ was removed. Please use $new_arg instead."
 }
 
 # ssh
-check_depr_arg "sshd" "inst.sshd"
+check_removed_no_inst_arg "sshd" "inst.sshd"
 
 # serial was never supposed to be used for anything!
 check_removed_arg serial "To change the console use 'console=' instead."
