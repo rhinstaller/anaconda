@@ -419,6 +419,39 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 27 2021 Martin Kolman <mkolman@redhat.com> - 35.13-1
+- Disable ELN for our unit and rpm tests (jkonecny)
+- Disable ELN builds for Packit (jkonecny)
+- Fix unit test for previous commit (sbonazzo)
+- Add hotfix for Ubuntu hosts for container refresh (jkonecny)
+- ovirt / rhv: drop swap partition (sbonazzo)
+- Fix the broken rootless podman on Ubuntu 20.04 20210419.1 (vponcova)
+- Increase the minimal suggested size for /boot (vslavik)
+- Support bond device activated in initramfs from kickstart (rvykydal)
+- fix tests for RHV (sbonazzo)
+- rhvh: fix EULA path for RHV-H (sbonazzo)
+- Adapt tests to the new ostree user defined mount points (#1906735) (jkonecny)
+- Fix RPMOSTree mount to the non-existing directory (#1906735) (jkonecny)
+- Use the software selection cache in TUI (vponcova)
+- Add the SoftwareSelectionCache class (vponcova)
+- Add the get_software_selection_status function (vponcova)
+- Add the is_software_selection_complete function (vponcova)
+- Clean up the collect_platform_requirements function (vponcova)
+- Add the match_available_packages method to the DNF manager (vponcova)
+- Add the is_package_available method to the DNF manager (vponcova)
+- Remove product-specific data from the Anaconda stylesheet (vponcova)
+- s: make it better (vslavik)
+- Replace use of imp with importlib in collect() (vslavik)
+- Document the issue about the ignoredisk command and installation sources
+  (vponcova)
+- Describe the common bug in the Issue paragraph (vponcova)
+- Run RHEL COPR builds on kstest (vslavik)
+- Allow to use no default product configuration (#1947939) (vponcova)
+- Make sure rhsm.service is running at Anaconda startup (mkolman)
+- Add display-related dependencies (vslavik)
+- Set up the Storage spoke in TUI on every entry (vponcova)
+- subscription: allow dates in ISO 8601 format (ptoscano)
+
 * Mon Apr 12 2021 Martin Kolman <mkolman@redhat.com> - 35.12-1
 - Remove patches to avoid forcing inst. prefix on RHEL 9 (jkonecny)
 - Allow to exclude the kernel-lpae package (vponcova)
