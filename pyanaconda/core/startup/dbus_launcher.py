@@ -92,7 +92,8 @@ class AnacondaDBusLauncher(object):
         if not os.path.exists(dirname):
             os.makedirs(dirname)
 
-        log.info("Writing a temporary configuration loaded from: %s", conf.get_sources())
+        log.info("Configuration loaded from: %s", conf.get_sources())
+        log.info("Writing the runtime configuration to: %s", ANACONDA_CONFIG_TMP)
         conf.write(ANACONDA_CONFIG_TMP)
 
     def _remove_temporary_config(self):
