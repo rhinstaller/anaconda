@@ -59,7 +59,7 @@ from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload.dnf.repomd import RepoMDMetaHash
-from pyanaconda.payload.errors import MetadataError, PayloadError, NoSuchGroup, DependencyError, \
+from pyanaconda.payload.errors import MetadataError, PayloadError, DependencyError, \
     PayloadSetupError
 from pyanaconda.payload.image import find_first_iso_image, find_optical_install_media
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata, FileNotDownloadedError
@@ -88,13 +88,6 @@ class DNFPayload(Payload):
 
         self.tx_id = None
         self._install_tree_metadata = None
-
-        # Used to determine which add-ons to display for each environment.
-        # The dictionary keys are environment IDs. The dictionary values are two-tuples
-        # consisting of lists of add-on group IDs. The first list is the add-ons specific
-        # to the environment, and the second list is the other add-ons possible for the
-        # environment.
-        self._environment_addons = {}
 
         self._dnf_manager = DNFManager()
         self._updates_enabled = True
@@ -394,27 +387,6 @@ class DNFPayload(Payload):
         return None
 
     ###
-    # METHODS FOR WORKING WITH ENVIRONMENTS
-    ###
-
-    @property
-    def environments(self):
-        return self._dnf_manager.environments
-
-    @property
-    def environment_addons(self):
-        return self._environment_addons
-
-    ###
-    # METHODS FOR WORKING WITH GROUPS
-    ###
-
-    @property
-    def groups(self):
-        groups = self._base.comps.groups_iter()
-        return [g.id for g in groups]
-
-    ###
     # METHODS FOR WORKING WITH REPOSITORIES
     ###
 
@@ -609,12 +581,6 @@ class DNFPayload(Payload):
     def space_required(self):
         return calculate_required_space(self._dnf_manager)
 
-    def _is_group_visible(self, grpid):
-        grp = self._base.comps.group_by_pattern(grpid)
-        if grp is None:
-            raise NoSuchGroup(grpid)
-        return grp.visible
-
     def check_software_selection(self):
         log.info("checking software selection")
         self._bump_tx_id()
@@ -676,85 +642,12 @@ class DNFPayload(Payload):
         if repo:
             repo.enabled = True
 
-    def environment_description(self, environment_id):
-        env = self._base.comps.environment_by_pattern(environment_id)
-
-        if env is None:
-            raise NoSuchGroup(environment_id)
-
-        return (env.ui_name, env.ui_description)
-
-    def environment_id(self, environment):
-        """Return environment id for the environment specified by id or name."""
-        # the enviroment must be string or else DNF >=3 throws an assert error
-        if not isinstance(environment, str):
-            log.warning("environment_id() called with non-string "
-                        "argument: %s", environment)
-
-        env = self._base.comps.environment_by_pattern(environment)
-
-        if env is None:
-            raise NoSuchGroup(environment)
-
-        return env.id
-
-    def environment_has_option(self, environment_id, grpid):
-        env = self._base.comps.environment_by_pattern(environment_id)
-        if env is None:
-            raise NoSuchGroup(environment_id)
-        return grpid in (id_.name for id_ in env.option_ids)
-
-    def environment_option_is_default(self, environment_id, grpid):
-        env = self._base.comps.environment_by_pattern(environment_id)
-        if env is None:
-            raise NoSuchGroup(environment_id)
-
-        # Look for a group in the optionlist that matches the group_id and has
-        # default set
-        return any(grp for grp in env.option_ids if grp.name == grpid and grp.default)
-
-    def group_description(self, grpid):
-        """Return name/description tuple for the group specified by id."""
-        grp = self._base.comps.group_by_pattern(grpid)
-        if grp is None:
-            raise NoSuchGroup(grpid)
-        return (grp.ui_name, grp.ui_description or "")
-
-    def group_id(self, group_name):
-        """Translate group name to group ID.
-
-        :param group_name: Valid identifier for group specification.
-        :returns: Group ID.
-        :raise NoSuchGroup: If group_name doesn't exists.
-        :raise PayloadError: When Yum's groups are not available.
-        """
-        grp = self._base.comps.group_by_pattern(group_name)
-        if grp is None:
-            raise NoSuchGroup(group_name)
-        return grp.id
-
     def gather_repo_metadata(self):
         with self._repos_lock:
             for repo in self._base.repos.iter_enabled():
                 self._sync_metadata(repo)
         self._base.fill_sack(load_system_repo=False)
         self._base.read_comps(arch_filter=True)
-        self._refresh_environment_addons()
-
-    def _refresh_environment_addons(self):
-        log.info("Refreshing environment_addons")
-        self._environment_addons = {}
-
-        for environment in self.environments:
-            self._environment_addons[environment] = ([], [])
-
-            # Determine which groups are specific to this environment and which other groups
-            # are available in this environment.
-            for grp in self.groups:
-                if self.environment_has_option(environment, grp):
-                    self._environment_addons[environment][0].append(grp)
-                elif self._is_group_visible(grp):
-                    self._environment_addons[environment][1].append(grp)
 
     def pre_install(self):
         super().pre_install()
