@@ -204,11 +204,11 @@ class Aarch64EFIGRUB(EFIGRUB):
 
 class ArmEFIGRUB(EFIGRUB):
     _serial_consoles = ["ttyAMA", "ttyS"]
-    _efi_binary = "\\grubarm.efi"
+    _efi_binary = "\\shimarm.efi"
 
     def __init__(self):
         super().__init__()
-        self._packages32 = ["grub2-efi-arm"]
+        self._packages32 = ["grub2-efi-arm", "shim-arm"]
         self._is_32bit_firmware = True
 
 
