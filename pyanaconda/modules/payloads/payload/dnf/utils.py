@@ -57,17 +57,15 @@ def get_kernel_package(dnf_manager, exclude_list):
     # Find an installable one.
     for kernel_package in kernels:
         if kernel_package in exclude_list:
-            log.info("kernel: excluded %s", kernel_package)
             continue
 
         if not dnf_manager.is_package_available(kernel_package):
-            log.info("kernel: no such package %s", kernel_package)
+            log.info("No such package: %s", kernel_package)
             continue
 
-        log.info("kernel: selected %s", kernel_package)
         return kernel_package
 
-    log.error("kernel: failed to select a kernel from %s", kernels)
+    log.error("Failed to select a kernel from: %s", kernels)
     return None
 
 
@@ -100,26 +98,20 @@ def get_installation_specs(data: PackagesSelectionData, default_environment=None
 
     # Handle the environment.
     if data.default_environment_enabled and default_environment:
-        env = default_environment
-        log.info("selecting default environment: %s", env)
-        include_list.append("@{}".format(env))
+        log.info("Selecting default environment '%s'.", default_environment)
+        include_list.append("@{}".format(default_environment))
     elif data.environment:
-        env = data.environment
-        log.info("selected environment: %s", env)
-        include_list.append("@{}".format(env))
+        include_list.append("@{}".format(data.environment))
 
     # Handle the core group.
     if not data.core_group_enabled:
-        log.info("skipping core group due to %%packages "
-                 "--nocore; system may not be complete")
+        log.info("Skipping @core group; system may not be complete.")
         exclude_list.append("@core")
     else:
-        log.info("selected group: core")
         include_list.append("@core")
 
     # Handle groups.
     for group_name in data.excluded_groups:
-        log.debug("excluding group %s", group_name)
         exclude_list.append("@{}".format(group_name))
 
     for group_name in data.groups:
@@ -138,16 +130,13 @@ def get_installation_specs(data: PackagesSelectionData, default_environment=None
             # content of the DNF GROUP_PACKAGE_TYPES constant).
             group_spec = "@{}".format(group_name)
 
-        log.info("selected group: %s", group_name)
         include_list.append(group_spec)
 
     # Handle packages.
     for pkg_name in data.excluded_packages:
-        log.info("excluded package: %s", pkg_name)
         exclude_list.append(pkg_name)
 
     for pkg_name in data.packages:
-        log.info("selected package: %s", pkg_name)
         include_list.append(pkg_name)
 
     return include_list, exclude_list
