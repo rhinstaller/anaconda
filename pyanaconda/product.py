@@ -30,7 +30,6 @@ config.set("Main", "BugURL", os.environ.get("ANACONDA_BUGURL", "your distributio
 config.set("Main", "IsFinal", os.environ.get("ANACONDA_ISFINAL", "false"))
 config.set("Main", "Product", os.environ.get("ANACONDA_PRODUCTNAME", "anaconda"))
 config.set("Main", "Variant", os.environ.get("ANACONDA_PRODUCTVARIANT", ""))
-config.set("Main", "UUID", "")
 config.set("Main", "Version", os.environ.get("ANACONDA_PRODUCTVERSION", "bluesky"))
 
 # Now read in the .buildstamp file, wherever it may be.
@@ -41,7 +40,6 @@ bugUrl = config.get("Main", "BugURL")
 isFinal = config.getboolean("Main", "IsFinal")
 productName = config.get("Main", "Product")
 productVariant = config.get("Main", "Variant")
-productStamp = config.get("Main", "UUID")
 productVersion = config.get("Main", "Version")
 
 if productVersion == "development":
