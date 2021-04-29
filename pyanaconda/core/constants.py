@@ -33,7 +33,6 @@ ADDON_PATHS = ["/usr/share/anaconda/addons"]
 from pyanaconda import product
 productName = product.productName
 productVersion = product.productVersion
-productArch = product.productArch
 isFinal = product.isFinal
 
 # for use in device names, eg: "fedora", "rhel"
