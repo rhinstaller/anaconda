@@ -3,6 +3,9 @@ Anaconda
 
 Anaconda is the OS installer used by Fedora, RHEL, CentOS and other Linux distributions.
 
+.. image:: https://codecov.io/gh/poncovka/anaconda/branch/master/graph/badge.svg?token=MGKIY2KB8F
+    :alt: Coverage status
+    :target: https://codecov.io/gh/poncovka/anaconda
 
 .. image:: https://copr.fedorainfracloud.org/coprs/g/rhinstaller/Anaconda/package/anaconda/status_image/last_build.png
     :alt: Build status
