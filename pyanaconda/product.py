@@ -26,28 +26,20 @@ from pyanaconda.core.i18n import _
 # .buildstamp, environment, stupid last ditch hardcoded defaults.
 config = configparser.ConfigParser()
 config.add_section("Main")
-config.set("Main", "Arch", os.environ.get("ANACONDA_PRODUCTARCH", os.uname()[4]))
-config.set("Main", "BugURL", os.environ.get("ANACONDA_BUGURL", "your distribution provided bug reporting tool"))
 config.set("Main", "IsFinal", os.environ.get("ANACONDA_ISFINAL", "false"))
 config.set("Main", "Product", os.environ.get("ANACONDA_PRODUCTNAME", "anaconda"))
 config.set("Main", "Variant", os.environ.get("ANACONDA_PRODUCTVARIANT", ""))
-config.set("Main", "UUID", "")
 config.set("Main", "Version", os.environ.get("ANACONDA_PRODUCTVERSION", "bluesky"))
 
 # Now read in the .buildstamp file, wherever it may be.
 config.read(["/.buildstamp", os.environ.get("PRODBUILDPATH", "")])
 
 # Set up some variables we import throughout, applying a couple transforms as necessary.
-bugUrl = config.get("Main", "BugURL")
 isFinal = config.getboolean("Main", "IsFinal")
-productArch = config.get("Main", "Arch")
 productName = config.get("Main", "Product")
 productVariant = config.get("Main", "Variant")
-productStamp = config.get("Main", "UUID")
 productVersion = config.get("Main", "Version")
 
-if not productArch and productStamp.index(".") != -1:           # pylint: disable=no-member
-    productArch = productStamp[productStamp.index(".") + 1:]      # pylint: disable=no-member
 if productVersion == "development":
     productVersion = "rawhide"
 
