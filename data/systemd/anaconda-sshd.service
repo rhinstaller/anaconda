@@ -5,8 +5,7 @@ After=syslog.target network.target sshd-keygen.target
 Wants=sshd-keygen.target
 ConditionKernelCommandLine=|inst.sshd
 ConditionKernelCommandLine=!inst.sshd=0
-# TODO: use ConditionArchitecture in systemd v210 or later
-ConditionPathIsDirectory=|/sys/hypervisor/s390
+ConditionArchitecture=|s390x
 
 [Service]
 EnvironmentFile=-/etc/crypto-policies/back-ends/opensshserver.config
