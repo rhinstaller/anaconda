@@ -22,7 +22,7 @@ from pyanaconda.modules.common.errors.installation import BootloaderInstallation
     StorageInstallationError, NonCriticalInstallationError, PayloadInstallationError
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.errors.storage import UnusableStorageError
-from pyanaconda.payload.errors import PayloadInstallError, DependencyError, PayloadSetupError
+from pyanaconda.payload.errors import PayloadInstallError, PayloadSetupError
 
 
 class ScriptError(Exception):
@@ -103,7 +103,6 @@ class ErrorHandler(object):
             BootloaderInstallationError.__name__: self._bootloader_error_handler,
 
             # Payload errors
-            DependencyError.__name__: self._dependency_error_handler,
             PayloadSetupError.__name__: self._payload_setup_handler,
             PayloadInstallError.__name__: self._payload_install_handler,
 
@@ -113,9 +112,6 @@ class ErrorHandler(object):
 
             # General installation errors.
             NonCriticalInstallationError.__name__: self._non_critical_error_handler,
-
-            # DNF errors
-            "MarkingErrors": self._install_specs_handler,
         }
 
     def _storage_install_handler(self, exn):
@@ -142,29 +138,6 @@ class ErrorHandler(object):
         else:
             return ERROR_RAISE
 
-    def _install_specs_handler(self, exn):
-        broken_packages = exn.error_pkg_specs
-        broken_groups_modules = exn.error_group_specs
-        module_depsolv_errors = exn.module_depsolv_errors
-
-        # We use the nice exception string representation
-        # provided by DNF as the base of our error message.
-        message = "{}\n\n".format(exn)
-
-        # if we have at least one broken package, group or module we will abort the installation
-        if broken_packages or broken_groups_modules or module_depsolv_errors:
-            message = message + _("Some packages, groups or modules are broken, the installation "
-                                  "will be aborted.")
-            self.ui.showError(message)
-            return ERROR_RAISE
-        # "just" missing packages, groups or modules - we give the user an option to continue
-        else:
-            message = message + _("Would you like to ignore this and continue with installation?")
-            if self.ui.showYesNoQuestion(message):
-                return ERROR_CONTINUE
-            else:
-                return ERROR_RAISE
-
     def _script_error_handler(self, exn):
         message = _("There was an error running the kickstart script at line "
                     "%(lineno)s.  This is a fatal error and installation will be "
@@ -187,14 +160,6 @@ class ErrorHandler(object):
         message += "\n\n" + str(exn)
 
         self.ui.showError(message)
-        return ERROR_RAISE
-
-    def _dependency_error_handler(self, exn):
-        message = _("The following software marked for installation has errors.\n"
-                    "This is likely caused by an error with your installation source.")
-        details = str(exn)
-
-        self.ui.showDetailedError(message, details)
         return ERROR_RAISE
 
     def _bootloader_error_handler(self, exn):

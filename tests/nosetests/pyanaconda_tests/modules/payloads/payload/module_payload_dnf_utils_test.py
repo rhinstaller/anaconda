@@ -48,8 +48,8 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         with self.assertLogs(level="ERROR") as cm:
             kernel = get_kernel_package(dnf_manager, exclude_list=[])
 
-        msg = "kernel: failed to select a kernel"
-        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+        msg = "Failed to select a kernel"
+        self.assertIn(msg, "\n".join(cm.output))
         self.assertEqual(kernel, None)
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.is_lpae_available")

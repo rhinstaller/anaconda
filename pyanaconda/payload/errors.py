@@ -30,10 +30,6 @@ class PayloadSetupError(PayloadError):
     pass
 
 
-class DependencyError(PayloadError):
-    pass
-
-
 # installation
 class PayloadInstallError(PayloadError):
     pass

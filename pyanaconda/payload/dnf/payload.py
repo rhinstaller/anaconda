@@ -18,30 +18,26 @@
 #
 import configparser
 import os
-import sys
 import threading
 import dnf.exceptions
 import dnf.repo
 
 from glob import glob
 
+from pyanaconda.modules.common.errors.installation import NonCriticalInstallationError, \
+    InstallationError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData, \
     PackagesSelectionData
 from pyanaconda.modules.payloads.payload.dnf.initialization import configure_dnf_logging
 from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
     SetRPMMacrosTask, DownloadPackagesTask, InstallPackagesTask, PrepareDownloadLocationTask, \
-    CleanUpDownloadLocationTask
-from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements, \
-    collect_platform_requirements, collect_driver_disk_requirements, collect_remote_requirements, \
-    apply_requirements
-from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package, \
-    get_product_release_version, get_installation_specs, get_kernel_version_list, \
-    calculate_required_space
+    CleanUpDownloadLocationTask, ResolvePackagesTask
+from pyanaconda.modules.payloads.payload.dnf.utils import get_product_release_version, \
+    get_kernel_version_list, calculate_required_space
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 
-from pyanaconda import errors as errors
 from pyanaconda.anaconda_loggers import get_packaging_logger
 from pyanaconda.core import constants, util
 from pyanaconda.core.configuration.anaconda import conf
@@ -50,6 +46,7 @@ from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, \
     URL_TYPE_METALINK, SOURCE_REPO_FILE_TYPES, SOURCE_TYPE_CDN, MULTILIB_POLICY_ALL
 from pyanaconda.core.i18n import N_
 from pyanaconda.core.payload import ProxyString, ProxyStringError
+from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import RepoData
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
@@ -59,8 +56,7 @@ from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload.dnf.repomd import RepoMDMetaHash
-from pyanaconda.payload.errors import MetadataError, PayloadError, DependencyError, \
-    PayloadSetupError
+from pyanaconda.payload.errors import MetadataError, PayloadError, PayloadSetupError
 from pyanaconda.payload.image import find_first_iso_image, find_optical_install_media
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata, FileNotDownloadedError
 from pyanaconda.product import productName, productVersion
@@ -107,9 +103,6 @@ class DNFPayload(Payload):
 
         # save repomd metadata
         self._repoMD_list = []
-
-        # Additional packages required by installer based on used features
-        self._requirements = []
 
     @property
     def dnf_manager(self):
@@ -262,51 +255,7 @@ class DNFPayload(Payload):
         log.debug("Source doesn't require network for installation")
         return False
 
-    def _process_module_command(self):
-        """Enable/disable modules (if any)."""
-        # Get the packages configuration data.
-        selection = self.get_packages_selection()
-
-        try:
-            self._dnf_manager.disable_modules(selection.disabled_modules)
-        except dnf.exceptions.MarkingErrors as e:
-            self._handle_marking_error(e)
-
-        try:
-            self._dnf_manager.enable_modules(selection.modules)
-        except dnf.exceptions.MarkingErrors as e:
-            self._handle_marking_error(e)
-
-    def _apply_selections(self):
-        log.debug("applying DNF package/group/module selection")
-
-        # Get the packages configuration data.
-        selection = self.get_packages_selection()
-
-        # Get the default environment.
-        default_environment = self._dnf_manager.default_environment
-
-        # Get the installation specs.
-        include_list, exclude_list = get_installation_specs(
-            selection, default_environment
-        )
-
-        # Add the kernel package.
-        kernel_package = get_kernel_package(self._dnf_manager, exclude_list)
-
-        if kernel_package:
-            include_list.append(kernel_package)
-
-        # Apply requirements.
-        apply_requirements(self._requirements, include_list, exclude_list)
-
-        # Apply specs.
-        try:
-            self._dnf_manager.apply_specs(include_list, exclude_list)
-        except dnf.exceptions.MarkingErrors as e:
-            self._handle_marking_error(e)
-
-    def _bump_tx_id(self):
+    def bump_tx_id(self):
         if self.tx_id is None:
             self.tx_id = 1
         else:
@@ -335,18 +284,6 @@ class DNFPayload(Payload):
         self._dnf_manager.configure_base(self.get_packages_configuration())
         self._dnf_manager.configure_proxy(self._get_proxy_url())
         self._dnf_manager.dump_configuration()
-
-    def _handle_marking_error(self, exn):
-        # FIXME: Move this code outside the payload class.
-        log.error('DNF marking error: %r', exn)
-        if errors.errorHandler.cb(exn) == errors.ERROR_RAISE:
-            # The progress bar polls kind of slowly, thus installation could
-            # still continue for a bit before the quit message is processed.
-            # Doing a sys.exit also ensures the running thread quits before
-            # it can do anything else.
-            progressQ.send_quit(1)
-            util.ipmi_abort(scripts=self.data.scripts)
-            sys.exit(1)
 
     def _sync_metadata(self, dnf_repo):
         try:
@@ -581,26 +518,6 @@ class DNFPayload(Payload):
     def space_required(self):
         return calculate_required_space(self._dnf_manager)
 
-    def check_software_selection(self):
-        log.info("checking software selection")
-        self._bump_tx_id()
-        self._base.reset(goal=True)
-        self._process_module_command()
-        self._apply_selections()
-
-        try:
-            if self._base.resolve():
-                log.info("checking dependencies: success")
-            else:
-                log.info("empty transaction")
-        except dnf.exceptions.DepsolveError as e:
-            msg = str(e)
-            log.warning(msg)
-            raise DependencyError(msg) from e
-
-        log.info("%d packages selected totalling %s",
-                 len(self._base.transaction), self.space_required)
-
     def set_updates_enabled(self, state):
         """Enable or Disable the repos used to update closest mirror.
 
@@ -649,20 +566,6 @@ class DNFPayload(Payload):
         self._base.fill_sack(load_system_repo=False)
         self._base.read_comps(arch_filter=True)
 
-    def pre_install(self):
-        super().pre_install()
-
-        # Collect all package and group requirements.
-        self._collect_requirements()
-
-    def _collect_requirements(self):
-        self._requirements.extend(
-            collect_remote_requirements()
-            + collect_language_requirements(self._dnf_manager)
-            + collect_platform_requirements(self._dnf_manager)
-            + collect_driver_disk_requirements()
-        )
-
     def _progress_cb(self, step, message):
         """Callback for task progress reporting."""
         progressQ.send_message(message)
@@ -670,14 +573,26 @@ class DNFPayload(Payload):
     def install(self):
         progress_message(N_('Starting package installation process'))
 
-        # Get the packages configuration data.
+        # Get the packages configuration and selection data.
         configuration = self.get_packages_configuration()
+        selection = self.get_packages_selection()
 
         # Add the rpm macros to the global transaction environment
         task = SetRPMMacrosTask(configuration)
         task.run()
 
-        self.check_software_selection()
+        try:
+            # Resolve packages.
+            task = ResolvePackagesTask(self._dnf_manager, selection)
+            task.run()
+        except NonCriticalInstallationError as e:
+            # FIXME: This is a temporary workaround.
+            # Allow users to handle the error. If they don't want
+            # to continue with the installation, raise a different
+            # exception to make sure that we will not run the error
+            # handler again.
+            if error_handler.cb(e) == ERROR_RAISE:
+                raise InstallationError(str(e)) from e
 
         # Set up the download location.
         task = PrepareDownloadLocationTask(self._dnf_manager)

@@ -24,7 +24,6 @@ from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, THREAD_SOFTWARE_WATCHER,
 from pyanaconda.core.i18n import _, C_, CN_
 from pyanaconda.core.util import ipmi_abort
 from pyanaconda.flags import flags
-from pyanaconda.payload.errors import DependencyError
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.communication import hubQ
@@ -72,6 +71,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._errors = []
+        self._warnings = []
         self._tx_id = None
 
         # Get the packages selection data.
@@ -190,6 +190,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
             return _("Source changed - please verify")
         if self._errors:
             return _("Error checking software selection")
+        if self._warnings:
+            return _("Warning checking software selection")
 
         return get_software_selection_status(
             dnf_manager=self._dnf_manager,
@@ -227,6 +229,11 @@ class SoftwareSelectionSpoke(NormalSpoke):
         if self._errors:
             self.set_warning(_(
                 "Error checking software dependencies. "
+                " <a href=\"\">Click for details.</a>"
+            ))
+        elif self._warnings:
+            self.set_warning(_(
+                "Warning checking software dependencies. "
                 " <a href=\"\">Click for details.</a>"
             ))
 
@@ -303,23 +310,31 @@ class SoftwareSelectionSpoke(NormalSpoke):
         """Execute the changes."""
         threadMgr.add(AnacondaThread(
             name=THREAD_CHECK_SOFTWARE,
-            target=self.check_software_selection
+            target=self._check_software_selection
         ))
 
-    def check_software_selection(self):
-        """Check the software selection."""
+    def _check_software_selection(self):
         hubQ.send_message(self.__class__.__name__, _("Checking software dependencies..."))
-        try:
-            self.payload.check_software_selection()
-        except DependencyError as e:
-            log.warning("Transaction error %s", str(e))
-            self._errors = str(e)
-        else:
-            self._errors = None
-        finally:
-            self._tx_id = self.payload.tx_id
-            hubQ.send_ready(self.__class__.__name__)
-            hubQ.send_ready("SourceSpoke")
+        self.payload.bump_tx_id()
+
+        # Run the validation task.
+        from pyanaconda.modules.payloads.payload.dnf.validation import CheckPackagesSelectionTask
+
+        task = CheckPackagesSelectionTask(
+            dnf_manager=self._dnf_manager,
+            selection=self._selection,
+        )
+
+        # Get the validation report.
+        report = task.run()
+
+        log.debug("The selection has been checked: %s", report)
+        self._errors = list(report.error_messages)
+        self._warnings = list(report.warning_messages)
+        self._tx_id = self.payload.tx_id
+
+        hubQ.send_ready(self.__class__.__name__)
+        hubQ.send_ready("SourceSpoke")
 
     # Signal handlers
     def on_environment_activated(self, listbox, row):
@@ -354,9 +369,12 @@ class SoftwareSelectionSpoke(NormalSpoke):
         row.toggle_button(selected)
 
     def on_info_bar_clicked(self, *args):
-        if not self._errors:
-            return
+        if self._errors:
+            self._show_error_dialog()
+        elif self._warnings:
+            self._show_warning_dialog()
 
+    def _show_error_dialog(self):
         label = _(
             "The software marked for installation has the following errors.  "
             "This is likely caused by an error with your installation source.  "
@@ -373,7 +391,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
         dialog = DetailedErrorDialog(self.data, buttons=buttons, label=label)
 
         with self.main_window.enlightbox(dialog.window):
-            dialog.refresh(self._errors)
+            errors = "\n".join(self._errors)
+            dialog.refresh(errors)
             rc = dialog.run()
 
         dialog.window.destroy()
@@ -386,3 +405,23 @@ class SoftwareSelectionSpoke(NormalSpoke):
             # Send the user to the installation source spoke.
             self.skipTo = "SourceSpoke"
             self.window.emit("button-clicked")
+
+    def _show_warning_dialog(self):
+        label = _(
+            "The software marked for installation has the following warnings. "
+            "These are not fatal, but you may wish to make changes to your "
+            "software selections."
+        )
+
+        buttons = [
+            C_("GUI|Software Selection|Warning Dialog", "_OK")
+        ]
+
+        dialog = DetailedErrorDialog(self.data, buttons=buttons, label=label)
+
+        with self.main_window.enlightbox(dialog.window):
+            warnings = "\n".join(self._warnings)
+            dialog.refresh(warnings)
+            dialog.run()
+
+        dialog.window.destroy()
