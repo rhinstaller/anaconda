@@ -99,6 +99,9 @@ jobs:
           name: 'logs (${{ matrix.ci_tag }})'
           path: test-logs/*
 
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+
   rpm-tests:
     environment: staging
     runs-on: ubuntu-20.04
