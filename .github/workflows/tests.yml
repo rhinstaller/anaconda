@@ -1,35 +1,10 @@
-name: Run validation tests for owners
-on: [push, pull_request_target]
+name: Run validation tests
+on: pull_request_target
 
 jobs:
-  pr-info:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Query author repository permissions
-        uses: octokit/request-action@v2.x
-        id: user_permission
-        with:
-          route: GET /repos/${{ github.repository }}/collaborators/${{ github.event.sender.login }}/permission
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # restrict running of tests to users with admin or write permission for the repository
-      # see https://docs.github.com/en/free-pro-team@latest/rest/reference/repos#get-repository-permissions-for-a-user
-      # store output if user is allowed in allowed_user job output so it has to be checked in downstream job
-      - name: Check if user does have correct permissions
-        if: contains('admin write', fromJson(steps.user_permission.outputs.data).permission)
-        id: check_user_perm
-        run: |
-          echo "User '${{ github.event.sender.login }}' has permission '${{ fromJson(steps.user_permission.outputs.data).permission }}' allowed values: 'admin', 'write'"
-          echo "::set-output name=allowed_user::true"
-
-    outputs:
-      allowed_user: ${{ steps.check_user_perm.outputs.allowed_user }}
-
   unit-tests:
-    needs: pr-info
-    if: needs.pr-info.outputs.allowed_user == 'true'
-    runs-on: ubuntu-20.04
+    environment: staging
+    runs-on: [self-hosted, kstest]
     timeout-minutes: 30
     strategy:
       fail-fast: false
@@ -42,22 +17,11 @@ jobs:
         #     on -devel, run everything
         #     on -release, only -release
         #     on master, only master and ELN
-        #release: [master, eln, '', f34-release]
         release: ['']
         include:
-          #- release: master
-          #  target_branch: 'master'
-          #  ci_tag: 'master'
-          #- release: eln
-          #  target_branch: 'master'
-          #  ci_tag: 'eln'
-          #  build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
-          #- release: f34-devel
-          #  target_branch: 'f34-devel'
-          #  ci_tag: 'f34-devel'
           - release: ''
-            target_branch: 'f34-release'
-            ci_tag: 'f34-release'
+            target_branch: 'rhel-9'
+            ci_tag: 'rhel-9'
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
       CONTAINER_BUILD_ARGS: '${{ matrix.build-args }}'
@@ -78,18 +42,8 @@ jobs:
           git log --oneline -1 ${{ env.TARGET_BRANCH_NAME }}
           git rebase ${{ env.TARGET_BRANCH_NAME }}
 
-      - name: Check if rebuild of the container image is required
-        id: check-dockerfile-changed
-        run: |
-          changes=$(git diff $TARGET_BRANCH_NAME..HEAD -- dockerfile/anaconda-ci/ anaconda.spec.in scripts/testing/install_dependencies.sh)
-          # print for debugging
-          echo "$changes"
-          [ -z "$changes" ] || echo "::set-output name=changed::true"
-
       # build container if files for dockerfile changed in the PR
       - name: Build anaconda-ci container
-        # FIXME: always build ELN container, until we publish it to quay.io
-        if: steps.check-dockerfile-changed.outputs.changed || matrix.release == 'eln'
         run: make -f Makefile.am anaconda-ci-build
 
       - name: Run tests in anaconda-ci container
@@ -105,30 +59,18 @@ jobs:
           path: test-logs/*
 
   rpm-tests:
-    needs: pr-info
-    if: needs.pr-info.outputs.allowed_user == 'true'
-    runs-on: ubuntu-20.04
+    environment: staging
+    runs-on: [self-hosted, kstest]
     timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
         # For matrix details, see comments for the unit tests above.
-        #release: [master, eln, '', f34-release]
         release: ['']
         include:
-          #- release: master
-          #  target_branch: 'master'
-          #  ci_tag: 'master'
-          #- release: eln
-          #  target_branch: 'master'
-          #  ci_tag: 'eln'
-          #  build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
-          #- release: f34-devel
-          #  target_branch: 'f34-devel'
-          #  ci_tag: 'f34-devel'
           - release: ''
-            target_branch: 'f34-release'
-            ci_tag: 'f34-release'
+            target_branch: 'rhel-9'
+            ci_tag: 'rhel-9'
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
       CONTAINER_BUILD_ARGS: '${{ matrix.build-args }}'
