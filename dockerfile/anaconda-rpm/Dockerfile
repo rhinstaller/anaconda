@@ -6,6 +6,10 @@ ARG git_branch=rhel-9
 ARG copr_repo=rhinstaller-group/Anaconda
 LABEL maintainer=anaconda-list@redhat.com
 
+# Enable our repositories (RHEL 9 and overlays)
+RUN rm -f /etc/yum.repos.d/*.repo
+COPY *.repo /etc/yum.repos.d/
+
 # Prepare environment and install build dependencies
 RUN set -e; \
   dnf update -y; \
