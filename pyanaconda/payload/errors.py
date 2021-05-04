@@ -21,10 +21,6 @@ class PayloadError(Exception):
     pass
 
 
-class MetadataError(PayloadError):
-    pass
-
-
 # setup
 class PayloadSetupError(PayloadError):
     pass

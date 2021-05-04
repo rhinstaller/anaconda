@@ -35,7 +35,7 @@ from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTa
     CleanUpDownloadLocationTask, ResolvePackagesTask
 from pyanaconda.modules.payloads.payload.dnf.utils import get_product_release_version, \
     get_kernel_version_list, calculate_required_space
-from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
+from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, DNFManagerError
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 
 from pyanaconda.anaconda_loggers import get_packaging_logger
@@ -56,7 +56,7 @@ from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload.dnf.repomd import RepoMDMetaHash
-from pyanaconda.payload.errors import MetadataError, PayloadError, PayloadSetupError
+from pyanaconda.payload.errors import PayloadError, PayloadSetupError
 from pyanaconda.payload.image import find_first_iso_image, find_optical_install_media
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata, FileNotDownloadedError
 from pyanaconda.product import productName, productVersion
@@ -373,7 +373,7 @@ class DNFPayload(Payload):
         """
         if ksrepo.enabled:
             self._add_repo_to_dnf(ksrepo)
-            self._fetch_md(ksrepo.name)
+            self._dnf_manager.load_repository(ksrepo.name)
 
         # Add the repo to the ksdata so it'll appear in the output ks file.
         self.data.repo.dataList().append(ksrepo)
@@ -454,27 +454,6 @@ class DNFPayload(Payload):
             self._disable_repo(repo.id)
 
         log.info("added repo: '%s' - %s", ksrepo.name, url or mirrorlist or metalink)
-
-    def _fetch_md(self, repo_name):
-        """Download repo metadata
-
-        :param repo_name: name/id of repo to fetch
-        :type repo_name: str
-        :returns: None
-        """
-        repo = self._base.repos[repo_name]
-        repo.enable()
-        try:
-            # Load the metadata to verify that the repo is valid
-            repo.load()
-        except dnf.exceptions.RepoError as e:
-            repo.disable()
-            log.debug("repo: '%s' - %s failed to load repomd", repo.id,
-                      repo.baseurl or repo.mirrorlist or repo.metalink)
-            raise MetadataError(e) from e
-
-        log.info("enabled repo: '%s' - %s and got repomd", repo.id,
-                 repo.baseurl or repo.mirrorlist or repo.metalink)
 
     def _remove_repo(self, repo_id):
         repos = self.data.repo.dataList()
@@ -767,8 +746,8 @@ class DNFPayload(Payload):
                     sslclientkey=data.ssl_configuration.client_key_path
                 )
                 self._add_repo_to_dnf(base_ksrepo)
-                self._fetch_md(base_ksrepo.name)
-            except (MetadataError, PayloadError) as e:
+                self._dnf_manager.load_repository(base_ksrepo.name)
+            except (DNFManagerError, PayloadError) as e:
                 log.error("base repo (%s/%s) not valid -- removing it",
                           source_type, base_repo_url)
                 log.error("reason for repo removal: %s", e)
@@ -850,7 +829,7 @@ class DNFPayload(Payload):
             enabled_repos = self._enabled_repos
             for repo_name in self.addons:
                 if repo_name in enabled_repos:
-                    self._fetch_md(repo_name)
+                    self._dnf_manager.load_repository(repo_name)
 
     def _find_and_mount_iso(self, device, device_mount_dir, iso_path, iso_mount_dir):
         """Find and mount installation source from ISO on device.
