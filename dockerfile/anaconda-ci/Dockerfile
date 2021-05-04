@@ -41,14 +41,6 @@ RUN pip install \
   nose \
   rpmfluff
 
-# see https://github.com/martinpitt/anaconda/settings/actions/add-new-runner
-RUN mkdir actions-runner && cd actions-runner && \
-  URL_BASE=https://github.com/actions/runner/releases && \
-  LATEST_VER=$(basename $(curl -Ls -o /dev/null -w '%{url_effective}' $URL_BASE/latest)) && \
-  curl -L "$URL_BASE/download/$LATEST_VER/actions-runner-linux-x64-${LATEST_VER#v}.tar.gz" | tar xvz
-
 RUN mkdir /anaconda
 
 WORKDIR /anaconda
-
-COPY ["github-action-run-once", "/"]
