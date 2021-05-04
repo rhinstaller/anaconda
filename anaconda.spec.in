@@ -236,7 +236,7 @@ Requires: dbus-x11
 Requires: gsettings-desktop-schemas
 Requires: nm-connection-editor
 Requires: librsvg2
-Requires: metacity
+Requires: gnome-kiosk
 
 %description install-img-deps
 The anaconda-install-img-deps metapackage lists all boot.iso installation image dependencies.
@@ -266,7 +266,6 @@ Requires: system-logos
 
 # Needed to compile the gsettings files
 BuildRequires: gsettings-desktop-schemas
-BuildRequires: metacity
 
 %description gui
 This package contains graphical user interface for the Anaconda installer.
