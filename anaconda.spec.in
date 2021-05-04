@@ -408,6 +408,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 04 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.1-1
+- Remove support for boot arguments without the "inst." prefix (jkonecny)
+  Resolves: rhbz#1947376
+
 * Mon Apr 12 2021 Martin Kolman <mkolman@redhat.com> - 34.24.9-1
 - Allow to exclude the kernel-lpae package (vponcova)
 
