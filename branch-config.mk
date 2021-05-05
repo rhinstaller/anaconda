@@ -27,8 +27,8 @@ GIT_BRANCH ?= rhel-9
 L10N_DIR ?= rhel-9
 
 # Base container for our containers.
-BASE_CONTAINER ?=
+BASE_CONTAINER ?= registry-proxy.engineering.redhat.com/rh-osbs/ubi9:latest
 
 # COPR repo for use in container builds.
 # Can be @rhinstaller/Anaconda for master, or @rhinstaller/Anaconda-devel for branched Fedora.
-COPR_REPO ?=
+COPR_REPO ?= rhinstaller-group/Anaconda
