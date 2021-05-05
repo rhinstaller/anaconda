@@ -24,6 +24,6 @@ RUN set -e; \
   rpmspec -q --buildrequires /tmp/anaconda.spec | xargs -d '\n' dnf install -y; \
   mkdir /anaconda
 
-RUN pip install nose
+RUN pip install --no-cache-dir nose
 
 WORKDIR /anaconda
