@@ -445,7 +445,10 @@ class DNFPayload(Payload):
             repos.pop(idx)
 
     def add_driver_repos(self):
-        """Add driver repositories and packages."""
+        """Add driver repositories and packages.
+
+        FIXME: Don't run this code on every payload restart.
+        """
         # Drivers are loaded by anaconda-dracut, their repos are copied
         # into /run/install/DD-X where X is a number starting at 1. The list of
         # packages that were selected is in /run/install/dd_packages
@@ -466,12 +469,22 @@ class DNFPayload(Payload):
                 log.info("Running createrepo on %s", repo)
                 util.execWithRedirect("createrepo_c", [repo])
 
+            # Generate the repo name.
             repo_name = "DD-%d" % dir_num
-            if repo_name not in [r.name for r in self.data.repo.dataList()]:
-                ks_repo = self.data.RepoData(name=repo_name,
-                                             baseurl="file://" + repo,
-                                             enabled=True)
-                self._add_repo_to_dnf_and_ks(ks_repo)
+
+            # The repo has been already created (#1268357).
+            for ks_repo in self.data.repo.dataList():
+                if repo_name == ks_repo.name:
+                    continue
+
+            # Or create a new one.
+            ks_repo = self.data.RepoData(
+                name=repo_name,
+                baseurl="file://" + repo,
+                enabled=True
+            )
+
+            self._add_repo_to_dnf_and_ks(ks_repo)
 
     @property
     def space_required(self):
@@ -777,9 +790,7 @@ class DNFPayload(Payload):
                         log.debug("repo %s: fall back enabled from default repos", id_)
                         repo.enable()
 
-        for repo in [r.name for r in self.data.repo.dataList()]:
-            ksrepo = self.get_addon_repo(repo)
-
+        for ksrepo in self.data.repo.dataList():
             if ksrepo.is_harddrive_based():
                 ksrepo.baseurl = self._setup_harddrive_addon_repo(ksrepo)
 
@@ -806,14 +817,9 @@ class DNFPayload(Payload):
                     self._disable_repo(id_)
 
             # fetch md for enabled repos
-            enabled_repos = []
-            for repo in [r.name for r in self.data.repo.dataList()]:
-                if self.is_repo_enabled(repo):
-                    enabled_repos.append(repo)
-
-            for repo_name in [r.name for r in self.data.repo.dataList()]:
-                if repo_name in enabled_repos:
-                    self._dnf_manager.load_repository(repo_name)
+            for ks_repo in self.data.repo.dataList():
+                if self.is_repo_enabled(ks_repo.name):
+                    self._dnf_manager.load_repository(ks_repo.name)
 
     def _find_and_mount_iso(self, device, device_mount_dir, iso_path, iso_mount_dir):
         """Find and mount installation source from ISO on device.
@@ -1034,8 +1040,8 @@ class DNFPayload(Payload):
             if base_repo_url is not None:
                 existing_urls.append(base_repo_url)
 
-            for ksrepo in [r.name for r in self.data.repo.dataList()]:
-                baseurl = self.get_addon_repo(ksrepo).baseurl
+            for ks_repo in self.data.repo.dataList():
+                baseurl = ks_repo.baseurl
                 existing_urls.append(baseurl)
 
             enabled_repositories_from_treeinfo = conf.payload.enabled_repositories_from_treeinfo
@@ -1078,15 +1084,14 @@ class DNFPayload(Payload):
         """
         disabled_repo_names = []
 
-        for ks_repo_name in [r.name for r in self.data.repo.dataList()]:
-            repo = self.get_addon_repo(ks_repo_name)
-            if repo.treeinfo_origin:
-                log.debug("Removing old treeinfo repository %s", ks_repo_name)
+        for ks_repo in list(self.data.repo.dataList()):
+            if ks_repo.treeinfo_origin:
+                log.debug("Removing old treeinfo repository %s", ks_repo.name)
 
-                if not repo.enabled:
-                    disabled_repo_names.append(ks_repo_name)
+                if not ks_repo.enabled:
+                    disabled_repo_names.append(ks_repo.name)
 
-                self._remove_repo(ks_repo_name)
+                self._remove_repo(ks_repo.name)
 
         return disabled_repo_names
 
@@ -1158,7 +1163,10 @@ class DNFPayload(Payload):
     def post_install(self):
         """Perform post-installation tasks."""
         # Write selected kickstart repos to target system
-        for ks_repo in (ks for ks in (self.get_addon_repo(r) for r in [r.name for r in self.data.repo.dataList()]) if ks.install):
+        for ks_repo in self.data.repo.dataList():
+            if not ks_repo.install:
+                continue
+
             if ks_repo.baseurl.startswith("nfs://"):
                 log.info("Skip writing nfs repo %s to target system.", ks_repo.name)
                 continue
