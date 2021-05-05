@@ -328,16 +328,6 @@ class DNFPayload(Payload):
     # METHODS FOR WORKING WITH REPOSITORIES
     ###
 
-    @property
-    def _enabled_repos(self):
-        """A list of names of the enabled repos."""
-        enabled = []
-        for repo in [r.name for r in self.data.repo.dataList()]:
-            if self.is_repo_enabled(repo):
-                enabled.append(repo)
-
-        return enabled
-
     def get_addon_repo(self, repo_id):
         """Return a ksdata Repo instance matching the specified repo id."""
         repo = None
@@ -816,7 +806,11 @@ class DNFPayload(Payload):
                     self._disable_repo(id_)
 
             # fetch md for enabled repos
-            enabled_repos = self._enabled_repos
+            enabled_repos = []
+            for repo in [r.name for r in self.data.repo.dataList()]:
+                if self.is_repo_enabled(repo):
+                    enabled_repos.append(repo)
+
             for repo_name in [r.name for r in self.data.repo.dataList()]:
                 if repo_name in enabled_repos:
                     self._dnf_manager.load_repository(repo_name)
