@@ -18,7 +18,6 @@
 #
 import configparser
 import os
-import threading
 import dnf.exceptions
 import dnf.repo
 
@@ -95,12 +94,6 @@ class DNFPayload(Payload):
         # This will create a default source if there is none.
         self._configure()
 
-        # Protect access to _base.repos to ensure that the dictionary is not
-        # modified while another thread is attempting to iterate over it. The
-        # lock only needs to be held during operations that change the number
-        # of repos or that iterate over the repos.
-        self._repos_lock = threading.RLock()
-
         # save repomd metadata
         self._repoMD_list = []
 
@@ -116,6 +109,14 @@ class DNFPayload(Payload):
         FIXME: This is a temporary property.
         """
         return self._dnf_manager._base
+
+    @property
+    def _repos_lock(self):
+        """A lock for a dictionary of DNF repositories.
+
+        FIXME: This is a temporary property.
+        """
+        return self._dnf_manager._lock
 
     def set_from_opts(self, opts):
         """Set the payload from the Anaconda cmdline options.
@@ -326,12 +327,6 @@ class DNFPayload(Payload):
     ###
     # METHODS FOR WORKING WITH REPOSITORIES
     ###
-
-    @property
-    def repos(self):
-        """A list of repo identifiers, not objects themselves."""
-        with self._repos_lock:
-            return [r.id for r in self._base.repos.values()]
 
     @property
     def addons(self):

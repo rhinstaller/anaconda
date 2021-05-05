@@ -19,6 +19,7 @@
 #
 import multiprocessing
 import shutil
+import threading
 import traceback
 
 import dnf
@@ -88,6 +89,11 @@ class DNFManager(object):
 
     def __init__(self):
         self.__base = None
+        # Protect access to _base.repos to ensure that the dictionary is not
+        # modified while another thread is attempting to iterate over it. The
+        # lock only needs to be held during operations that change the number
+        # of repos or that iterate over the repos.
+        self._lock = threading.RLock()
         self._ignore_missing_packages = False
         self._ignore_broken_packages = False
         self._download_location = None
@@ -658,6 +664,15 @@ class DNFManager(object):
             log.debug("The transaction has ended.")
             base.close()  # Always close this base.
             display.quit(exit_reason or "DNF quit")
+
+    @property
+    def repositories(self):
+        """Available repositories.
+
+        :return: a list of IDs
+        """
+        with self._lock:
+            return [r.id for r in self._base.repos.values()]
 
     def _get_repository(self, repo_id):
         """Translate the given repository name to a DNF object.

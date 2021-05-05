@@ -885,12 +885,23 @@ class DNFManagerReposTestCase(unittest.TestCase):
     def _add_repo(self, repo_id):
         """Add a mocked repo with the specified id."""
         repo = Mock(spec=Repo)
+        repo.id = repo_id
         repo.baseurl = ["http://url/{}".format(repo_id)]
         repo.mirrorlist = None
         repo.metalink = None
 
         self.repos[repo_id] = repo
         return repo
+
+    def repositories_test(self):
+        """Test the repositories property."""
+        self.assertEqual(self.dnf_manager.repositories, [])
+
+        self._add_repo("r1")
+        self._add_repo("r2")
+        self._add_repo("r3")
+
+        self.assertEqual(self.dnf_manager.repositories, ["r1", "r2", "r3"])
 
     def load_repository_unknown_test(self):
         """Test the load_repository method with an unknown repo."""
