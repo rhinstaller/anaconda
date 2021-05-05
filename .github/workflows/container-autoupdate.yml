@@ -30,26 +30,6 @@ jobs:
       CI_TAG: '${{ matrix.container-tag }}'
     timeout-minutes: 60
     steps:
-      # FIXME: This is a temporary workaround for Ubuntu 20.04 20210419.1.
-      # See: https://github.com/actions/virtual-environments/issues/3229
-      - name: Fix the broken rootless podman on Ubuntu 20.04 20210419.1
-        run: |
-          # Create directories for a custom storage configuration file.
-          mkdir -p ~/.config/containers/
-
-          # Create a custom storage configuration file for the rootless mode.
-          cat > ~/.config/containers/storage.conf << EOF
-
-          [storage]
-          driver = "overlay"
-          graphroot = "/home/runner/.local/share/containers/storage"
-
-          [storage.options]
-          mount_program = "/usr/bin/fuse-overlayfs"
-          additionalimagestores = []
-
-          EOF
-
       - name: Checkout anaconda repository
         uses: actions/checkout@v2
         with:

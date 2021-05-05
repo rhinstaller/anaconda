@@ -39,26 +39,6 @@ jobs:
       TARGET_BRANCH_NAME: 'origin/${{ matrix.target_branch }}'
 
     steps:
-      # FIXME: This is a temporary workaround for Ubuntu 20.04 20210419.1.
-      # See: https://github.com/actions/virtual-environments/issues/3229
-      - name: Fix the broken rootless podman on Ubuntu 20.04 20210419.1
-        run: |
-          # Create directories for a custom storage configuration file.
-          mkdir -p ~/.config/containers/
-
-          # Create a custom storage configuration file for the rootless mode.
-          cat > ~/.config/containers/storage.conf << EOF
-
-          [storage]
-          driver = "overlay"
-          graphroot = "/home/runner/.local/share/containers/storage"
-
-          [storage.options]
-          mount_program = "/usr/bin/fuse-overlayfs"
-          additionalimagestores = []
-
-          EOF
-
       - name: Clone repository
         uses: actions/checkout@v2
         with:
@@ -129,26 +109,6 @@ jobs:
       TARGET_BRANCH_NAME: 'origin/${{ matrix.target_branch }}'
 
     steps:
-      # FIXME: This is a temporary workaround for Ubuntu 20.04 20210419.1.
-      # See: https://github.com/actions/virtual-environments/issues/3229
-      - name: Fix the broken rootless podman on Ubuntu 20.04 20210419.1
-        run: |
-          # Create directories for a custom storage configuration file.
-          mkdir -p ~/.config/containers/
-
-          # Create a custom storage configuration file for the rootless mode.
-          cat > ~/.config/containers/storage.conf << EOF
-
-          [storage]
-          driver = "overlay"
-          graphroot = "/home/runner/.local/share/containers/storage"
-
-          [storage.options]
-          mount_program = "/usr/bin/fuse-overlayfs"
-          additionalimagestores = []
-
-          EOF
-
       - name: Clone repository
         uses: actions/checkout@v2
         with:
