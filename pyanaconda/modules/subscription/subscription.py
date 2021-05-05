@@ -513,20 +513,23 @@ class SubscriptionService(KickstartService):
 
         :returns: list of installation tasks
         """
-        return [
-            RestoreRHSMDefaultsTask(
-                rhsm_config_proxy=self.rhsm_observer.get_proxy(RHSM_CONFIG)
-            ),
-            TransferSubscriptionTokensTask(
-                sysroot=conf.target.system_root,
-                transfer_subscription_tokens=self.subscription_attached
-            ),
-            ConnectToInsightsTask(
-                sysroot=conf.target.system_root,
-                subscription_attached=self.subscription_attached,
-                connect_to_insights=self.connect_to_insights
-            )
-        ]
+        try:
+            return [
+                RestoreRHSMDefaultsTask(
+                    rhsm_config_proxy=self.rhsm_observer.get_proxy(RHSM_CONFIG)
+                ),
+                TransferSubscriptionTokensTask(
+                    sysroot=conf.target.system_root,
+                    transfer_subscription_tokens=self.subscription_attached
+                ),
+                ConnectToInsightsTask(
+                    sysroot=conf.target.system_root,
+                    subscription_attached=self.subscription_attached,
+                    connect_to_insights=self.connect_to_insights
+                )
+            ]
+        except:
+            return []
 
     # RHSM DBus API access
 
