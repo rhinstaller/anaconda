@@ -196,8 +196,10 @@ class LocalizationService(KickstartService):
         """
         requirements = []
 
-        # Install support for non-ascii keyboard layouts (#1919483).
-        if self.vc_keymap and not langtable.supports_ascii(self.vc_keymap):
+        # Install support for non-ascii keyboard layouts (#1919483)
+        # and special case "fi" layout (#1955793)
+        if self.vc_keymap and (self.vc_keymap == "fi" or
+                               not langtable.supports_ascii(self.vc_keymap)):
             requirements.append(Requirement.for_package(
                 package_name="kbd-legacy",
                 reason="Required to support the '{}' keymap.".format(self.vc_keymap)
