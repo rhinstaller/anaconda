@@ -1230,7 +1230,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
         cnames = [constants.BASE_REPO_NAME] + constants.DEFAULT_REPOS + \
                  [r for r in self.payload.dnf_manager.repositories
-                  if r not in self.payload.addons]
+                  if r not in [r.name for r in self.data.repo.dataList()]]
         if repo_name in cnames:
             return _("Repository name conflicts with internal repository name.")
 
@@ -1425,7 +1425,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             ui_orig_names = [r[REPO_OBJ].orig_name for r in self._repo_store]
 
             # Remove repos from payload that were removed in the UI
-            for repo_name in [r for r in self.payload.addons if r not in ui_orig_names]:
+            for repo_name in [r for r in [r.name for r in self.data.repo.dataList()] if r not in ui_orig_names]:
                 repo = self.payload.get_addon_repo(repo_name)
                 # TODO: Need an API to do this w/o touching dnf (not add_repo)
                 # FIXME: Is this still needed for dnf?
@@ -1466,7 +1466,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
         with self._repo_store_lock:
             self._repo_store.clear()
-            repos = self.payload.addons
+            repos = [r.name for r in self.data.repo.dataList()]
             log.debug("Setting up repos: %s", repos)
             for name in repos:
                 repo = self.payload.get_addon_repo(name)

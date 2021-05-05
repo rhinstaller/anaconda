@@ -329,15 +329,10 @@ class DNFPayload(Payload):
     ###
 
     @property
-    def addons(self):
-        """A list of addon repo names."""
-        return [r.name for r in self.data.repo.dataList()]
-
-    @property
     def _enabled_repos(self):
         """A list of names of the enabled repos."""
         enabled = []
-        for repo in self.addons:
+        for repo in [r.name for r in self.data.repo.dataList()]:
             if self.is_repo_enabled(repo):
                 enabled.append(repo)
 
@@ -482,7 +477,7 @@ class DNFPayload(Payload):
                 util.execWithRedirect("createrepo_c", [repo])
 
             repo_name = "DD-%d" % dir_num
-            if repo_name not in self.addons:
+            if repo_name not in [r.name for r in self.data.repo.dataList()]:
                 ks_repo = self.data.RepoData(name=repo_name,
                                              baseurl="file://" + repo,
                                              enabled=True)
@@ -792,7 +787,7 @@ class DNFPayload(Payload):
                         log.debug("repo %s: fall back enabled from default repos", id_)
                         repo.enable()
 
-        for repo in self.addons:
+        for repo in [r.name for r in self.data.repo.dataList()]:
             ksrepo = self.get_addon_repo(repo)
 
             if ksrepo.is_harddrive_based():
@@ -822,7 +817,7 @@ class DNFPayload(Payload):
 
             # fetch md for enabled repos
             enabled_repos = self._enabled_repos
-            for repo_name in self.addons:
+            for repo_name in [r.name for r in self.data.repo.dataList()]:
                 if repo_name in enabled_repos:
                     self._dnf_manager.load_repository(repo_name)
 
@@ -1045,7 +1040,7 @@ class DNFPayload(Payload):
             if base_repo_url is not None:
                 existing_urls.append(base_repo_url)
 
-            for ksrepo in self.addons:
+            for ksrepo in [r.name for r in self.data.repo.dataList()]:
                 baseurl = self.get_addon_repo(ksrepo).baseurl
                 existing_urls.append(baseurl)
 
@@ -1089,7 +1084,7 @@ class DNFPayload(Payload):
         """
         disabled_repo_names = []
 
-        for ks_repo_name in self.addons:
+        for ks_repo_name in [r.name for r in self.data.repo.dataList()]:
             repo = self.get_addon_repo(ks_repo_name)
             if repo.treeinfo_origin:
                 log.debug("Removing old treeinfo repository %s", ks_repo_name)
@@ -1169,7 +1164,7 @@ class DNFPayload(Payload):
     def post_install(self):
         """Perform post-installation tasks."""
         # Write selected kickstart repos to target system
-        for ks_repo in (ks for ks in (self.get_addon_repo(r) for r in self.addons) if ks.install):
+        for ks_repo in (ks for ks in (self.get_addon_repo(r) for r in [r.name for r in self.data.repo.dataList()]) if ks.install):
             if ks_repo.baseurl.startswith("nfs://"):
                 log.info("Skip writing nfs repo %s to target system.", ks_repo.name)
                 continue
