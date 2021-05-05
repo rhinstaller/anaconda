@@ -418,6 +418,27 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed May 05 2021 Martin Kolman <mkolman@redhat.com> - 35.14-1
+- Document too little memory for LUKS setup (vslavik)
+- Remove redundant logging messages from the DNF module (vponcova)
+- Use the new support for checking the software selection in UI (vponcova)
+- Add an installation task for resolving the packages selection (vponcova)
+- Add a validation task for checking the packages selection (vponcova)
+- Handle marking errors in the DNF manager (vponcova)
+- Add the clear_selection method to the DNF manager (vponcova)
+- Add the resolve_selection method to the DNF manager (vponcova)
+- Remove the bugUrl variable (vponcova)
+- Remove the productStamp variable (vponcova)
+- Remove the productArch variable (vponcova)
+- Improve debug message about configuration loading and writing (jkonecny)
+- Enable closest mirror in CentOS Stream config (carl)
+- The kernel boot argument sshd is removed and should warn user (jkonecny)
+- Document the workaround for missing options of the repo command (vponcova)
+- Replace metacity with gnome-kiosk (rvykydal)
+- Drop deprecated support for comps from the DNF payload class (vponcova)
+- Use the software selection cache in GUI (vponcova)
+- Use new fedora-latest alias in COPR (jkonecny)
+
 * Tue Apr 27 2021 Martin Kolman <mkolman@redhat.com> - 35.13-1
 - Disable ELN for our unit and rpm tests (jkonecny)
 - Disable ELN builds for Packit (jkonecny)
