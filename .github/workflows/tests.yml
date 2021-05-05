@@ -63,8 +63,7 @@ jobs:
 
       # build container if files for dockerfile changed in the PR
       - name: Build anaconda-ci container
-        # FIXME: always build ELN container, until we publish it to quay.io
-        if: steps.check-dockerfile-changed.outputs.changed || matrix.release == 'eln'
+        if: steps.check-dockerfile-changed.outputs.changed
         run: make -f Makefile.am anaconda-ci-build
 
       - name: Run tests in anaconda-ci container
