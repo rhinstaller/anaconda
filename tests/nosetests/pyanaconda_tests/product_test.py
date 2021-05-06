@@ -236,14 +236,8 @@ class ProductConfigurationTestCase(unittest.TestCase):
             WORKSTATION_PARTITIONING
         )
         self._check_default_product(
-            "Fedora", "Workstation Live",
-            ["fedora.conf", "fedora-workstation.conf", "fedora-workstation-live.conf"],
-            WORKSTATION_PARTITIONING
-        )
-        self._check_default_product(
             "Fedora", "Silverblue",
-            ["fedora.conf", "fedora-workstation.conf", "fedora-workstation-live.conf",
-             "fedora-silverblue.conf"],
+            ["fedora.conf", "fedora-workstation.conf", "fedora-silverblue.conf"],
             WORKSTATION_PARTITIONING
         )
         self._check_default_product(
