@@ -88,7 +88,7 @@ def ask_vnc_question(anaconda, vnc_server, message):
     App.initialize()
     loop = App.get_event_loop()
     loop.set_quit_callback(tui_quit_callback)
-    spoke = AskVNCSpoke(anaconda.ksdata, message)
+    spoke = AskVNCSpoke(anaconda.ksdata, message=message)
     ScreenHandler.schedule_screen(spoke)
     App.run()
 
