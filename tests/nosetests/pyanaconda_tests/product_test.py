@@ -269,11 +269,6 @@ class ProductConfigurationTestCase(unittest.TestCase):
             ENTERPRISE_PARTITIONING
         )
         self._check_default_product(
-            "CentOS Linux", "",
-            ["rhel.conf", "centos-stream.conf", "centos.conf"],
-            ENTERPRISE_PARTITIONING
-        )
-        self._check_default_product(
             "RHVH", "",
             ["rhel.conf", "rhvh.conf"],
             VIRTUALIZATION_PARTITIONING
@@ -304,7 +299,7 @@ class ProductConfigurationTestCase(unittest.TestCase):
 
     def product_module_difference_centos_rhel_test(self):
         """Test for expected CentOS & RHEL module list differences."""
-        centos_config = self._get_config("CentOS Linux")
+        centos_config = self._get_config("CentOS Stream")
         centos_modules = centos_config.anaconda.kickstart_modules
 
         rhel_config = self._get_config("Red Hat Enterprise Linux")
