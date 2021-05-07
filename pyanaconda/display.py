@@ -168,9 +168,9 @@ def start_x11(xtimeout):
 def do_startup_x11_actions():
     """Start the window manager.
 
-    When metacity actually connects to the X server is unknowable, but
-    fortunately it doesn't matter. metacity does not need to be the first
-    connection to Xorg, and if anaconda starts up before metacity, metacity
+    When window manager actually connects to the X server is unknowable, but
+    fortunately it doesn't matter. Wm does not need to be the first
+    connection to Xorg, and if anaconda starts up before wm, wm
     will just take over and maximize the window and make everything right,
     fingers crossed.
     Add XDG_DATA_DIRS to the environment to pull in our overridden schema
@@ -184,7 +184,7 @@ def do_startup_x11_actions():
 
     childproc = util.startProgram(["gnome-kiosk", "--display", ":1", "--sm-disable", "--x11"],
                                   env_add={'XDG_DATA_DIRS': xdg_data_dirs})
-    WatchProcesses.watch_process(childproc, "metacity")
+    WatchProcesses.watch_process(childproc, "gnome-kiosk")
 
 
 def set_x_resolution(runres):
