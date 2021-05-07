@@ -310,28 +310,11 @@ class MakeBumpVer:
             print("*** Bugzilla query for %s failed.\n" % bug)
             return False
 
-        if bzentry.bug_status in ['MODIFIED', 'ON_QA']:
+        if bzentry.bug_status in ['POST', 'MODIFIED', 'ON_QA']:
             return True
         else:
-            print("*** Bug %s is not in MODIFIED or ON_QA." % bug)
+            print("*** Bug %s is not in POST, MODIFIED or ON_QA." % bug)
             print("***     Commit: %s" % commit)
-            print("***     %s\n" % summary)
-            return False
-
-    def _isRHELBugFixedInVersion(self, bug, commit, summary, fixedIn):
-        bzentry = self._queryBug(bug)
-
-        if not bzentry:
-            print("*** Bugzilla query for %s failed.\n" % bug)
-            return False
-
-        if bzentry.fixed_in == fixedIn:
-            return True
-        else:
-            print("*** Bug %s does not have correct Fixed In Version." % bug)
-            print("***     Found:     %s" % bzentry.fixed_in)
-            print("***     Expected:  %s" % fixedIn)
-            print("***     Commit:    %s" % commit)
             print("***     %s\n" % summary)
             return False
 
@@ -415,10 +398,6 @@ class MakeBumpVer:
                                                                  summary):
                                 bad = True
 
-                            if not self._isRHELBugFixedInVersion(ckbug, commit,
-                                                                 summary, fixedIn):
-                                bad = True
-
                             if not self._isRHELBugAcked(ckbug, commit, summary):
                                 bad = True
                     else:
@@ -461,10 +440,9 @@ class MakeBumpVer:
                             continue
 
                         not_correct = not self._isRHELBugInCorrectState(ckbug, commit, summary)
-                        not_fixed = not self._isRHELBugFixedInVersion(ckbug, commit, summary, fixedIn)
                         not_acked = not self._isRHELBugAcked(ckbug, commit, summary)
 
-                        if valid and action == 'Resolves' and (not_correct or not_fixed or not_acked):
+                        if valid and action == 'Resolves' and (not_correct or not_acked):
                             bad = True
                         elif valid and action == 'Related':
                             # A related bug needs to have acks, and if it is the same as the summary
