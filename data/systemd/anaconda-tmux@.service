@@ -2,7 +2,6 @@
 Description=Anaconda Text Console
 Requires=anaconda.service
 After=anaconda.target anaconda.service
-# TODO: use ConditionArchitecture in systemd v210 or later
 ConditionPathIsDirectory=!/sys/hypervisor/s390
 ConditionKernelCommandLine=!inst.notmux
 

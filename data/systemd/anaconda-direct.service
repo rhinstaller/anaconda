@@ -3,7 +3,6 @@ Description=the anaconda installation program
 Wants=instperf.service rsyslog.service systemd-udev-settle.service NetworkManager.service
 After=instperf.service rsyslog.service systemd-udev-settle.service NetworkManager.service anaconda-sshd.service
 Requires=anaconda.service
-# TODO: use ConditionArchitecture in systemd v210 or later
 ConditionPathIsDirectory=|/sys/hypervisor/s390
 ConditionKernelCommandLine=|inst.notmux
 
