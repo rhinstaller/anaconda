@@ -56,8 +56,8 @@ X_TIMEOUT_ADVICE = \
     "The default is 60 seconds.\n" \
     "Load the stage2 image into memory with the rd.live.ram boot option to decrease access " \
     "time.\n" \
-    "Enforce text mode when installing from remote media with the inst.text boot option."
-#  on RHEL also: "Use the customer portal download URL in ilo/drac devices for greater speed."
+    "Enforce text mode when installing from remote media with the inst.text boot option.\n" \
+    "Use the customer portal download URL in ilo/drac devices for greater speed."
 
 
 # Spice
