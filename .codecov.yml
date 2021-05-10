@@ -1,0 +1,38 @@
+codecov:
+  # Don't wait for all other statuses to pass.
+  require_ci_to_pass: false
+
+coverage:
+  # Shift the color range.
+  range: 50..90
+  # Set up the pull request status.
+  status:
+    patch:
+      # Disable the default status for the patch.
+      default: false
+    project:
+      # Disable the default status for the project.
+      default: false
+      # Show a status for the DBus API.
+      api:
+        paths:
+          - "pyanaconda/modules/**/*_interface.py"
+      # Show a status for the core.
+      core:
+        paths:
+          - "pyanaconda/"
+          - "!pyanaconda/ui/tui/"
+          - "!pyanaconda/ui/gui/"
+        threshold: 5%
+      # Show a status for the unit tests.
+      tests:
+        paths:
+          - "tests/nosetests"
+
+# Disable the pull request comment.
+comment: false
+
+# Ignore some paths.
+ignore:
+  - "translation-canary/"
+  - "widgets/"

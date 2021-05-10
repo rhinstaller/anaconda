@@ -15,7 +15,8 @@ copy_logs() {
     mkdir -p /anaconda/test-logs/
     # clean up from previous run
     rm -rf /anaconda/test-logs/*
-    find -name '*.log' -exec cp '{}' /anaconda/test-logs/ \;
+    # copy logs and coverage reports
+    find \( -name '*.log' -o -name 'coverage*.xml' \) -exec cp '{}' /anaconda/test-logs/ \;
 }
 trap copy_logs EXIT INT QUIT PIPE
 
