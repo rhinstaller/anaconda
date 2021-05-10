@@ -45,7 +45,8 @@ from pyanaconda.modules.payloads.constants import DNF_REPO_DIRS
 from pyanaconda.modules.payloads.payload.dnf.download_progress import DownloadProgress
 from pyanaconda.modules.payloads.payload.dnf.transaction_progress import TransactionProgress, \
     process_transaction_progress
-from pyanaconda.modules.payloads.payload.dnf.utils import get_product_release_version
+from pyanaconda.modules.payloads.payload.dnf.utils import get_product_release_version, \
+    calculate_hash
 
 log = get_module_logger(__name__)
 
@@ -97,6 +98,7 @@ class DNFManager(object):
         self._ignore_missing_packages = False
         self._ignore_broken_packages = False
         self._download_location = None
+        self._md_hashes = {}
 
     @property
     def _base(self):
@@ -142,6 +144,7 @@ class DNFManager(object):
         self._ignore_missing_packages = False
         self._ignore_broken_packages = False
         self._download_location = None
+        self._md_hashes = {}
         log.debug("The DNF base has been reset.")
 
     def configure_base(self, data: PackagesConfigurationData):
@@ -711,3 +714,52 @@ class DNFManager(object):
             raise MetadataError(str(e)) from None
 
         log.info("Loaded metadata from '%s'.", url)
+
+    def load_repomd_hashes(self):
+        """Load a hash of the repomd.xml file for each enabled repository."""
+        self._md_hashes = self._get_repomd_hashes()
+
+    def verify_repomd_hashes(self):
+        """Verify a hash of the repomd.xml file for each enabled repository.
+
+        This method tests if URL links from active repositories can be reached.
+        It is useful when network settings is changed so that we can verify if
+        repositories are still reachable.
+
+        :return: True if files haven't changed, otherwise False
+        """
+        return bool(self._md_hashes and self._md_hashes == self._get_repomd_hashes())
+
+    def _get_repomd_hashes(self):
+        """Get a dictionary of repomd.xml hashes.
+
+        :return: a dictionary of repo ids and repomd.xml hashes
+        """
+        md_hashes = {}
+
+        for repo in self._base.repos.iter_enabled():
+            content = self._get_repomd_content(repo)
+            md_hash = calculate_hash(content) if content else None
+            md_hashes[repo.id] = md_hash
+
+        log.debug("Loaded repomd.xml hashes: %s", md_hashes)
+        return md_hashes
+
+    def _get_repomd_content(self, repo):
+        """Get a content of a repomd.xml file.
+
+        :param repo: a DNF repo
+        :return: a content of the repomd.xml file
+        """
+        for url in repo.baseurl:
+            try:
+                repomd_url = "{}/repodata/repomd.xml".format(url)
+
+                with self._base.urlopen(repomd_url, repo=repo, mode="w+t") as f:
+                    return f.read()
+
+            except OSError as e:
+                log.debug("Can't download repomd.xml from: %s", str(e))
+                continue
+
+        return ""

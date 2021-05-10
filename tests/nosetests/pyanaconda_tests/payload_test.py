@@ -17,70 +17,9 @@
 #
 # Authors: Jiri Konecny <jkonecny@redhat.com>
 #
-
 import unittest
-import tempfile
-import os
-import hashlib
-import shutil
 
 import pyanaconda.core.payload as util
-from pyanaconda.payload.dnf.repomd import RepoMDMetaHash
-
-
-class DummyRepo(object):
-    def __init__(self):
-        self.id = "anaconda"
-        self.baseurl = []
-        self.sslverify = True
-
-
-class DNFPayloadMDCheckTests(unittest.TestCase):
-    def setUp(self):
-        self._content_repomd = """
-Content of the repomd.xml file
-
-or it should be. Nah it's just a test!
-"""
-        self._temp_dir = tempfile.mkdtemp(suffix="pyanaconda_tests")
-        os.makedirs(os.path.join(self._temp_dir, "repodata"))
-        self._md_file = os.path.join(self._temp_dir, "repodata", "repomd.xml")
-        with open(self._md_file, 'w') as f:
-            f.write(self._content_repomd)
-        self._dummyRepo = DummyRepo()
-        self._dummyRepo.baseurl = ["file://" + self._temp_dir]
-
-    def tearDown(self):
-        # remove the testing directory
-        shutil.rmtree(self._temp_dir)
-
-    def download_file_repomd_test(self):
-        """Test if we can download repomd.xml with file:// successfully."""
-        m = hashlib.sha256()
-        m.update(self._content_repomd.encode('ascii', 'backslashreplace'))
-        reference_digest = m.digest()
-
-        r = RepoMDMetaHash(self._dummyRepo, None)
-        r.store_repoMD_hash()
-
-        self.assertEqual(r.repoMD_hash, reference_digest)
-
-    def verify_repo_test(self):
-        """Test verification method."""
-        r = RepoMDMetaHash(self._dummyRepo, None)
-        r.store_repoMD_hash()
-
-        # test if repomd comparision works properly
-        self.assertTrue(r.verify_repoMD())
-
-        # test if repomd change will be detected
-        with open(self._md_file, 'a') as f:
-            f.write("This should not be here!")
-        self.assertFalse(r.verify_repoMD())
-
-        # test correct behavior when the repo file won't be available
-        os.remove(self._md_file)
-        self.assertFalse(r.verify_repoMD())
 
 
 class PayloadUtilsTests(unittest.TestCase):

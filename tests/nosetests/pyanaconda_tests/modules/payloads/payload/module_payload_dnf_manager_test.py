@@ -15,7 +15,9 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import os.path
 import unittest
+from tempfile import TemporaryDirectory
 from unittest.mock import patch, Mock, call
 
 from blivet.size import Size, ROUND_UP
@@ -918,3 +920,102 @@ class DNFManagerReposTestCase(unittest.TestCase):
 
         repo.load.assert_called_once()
         self.assertEqual(repo.enabled, True)
+
+    def _create_repo(self, repo, repo_dir):
+        """Generate fake metadata for the repo."""
+        # Create the repodata directory.
+        os.makedirs(os.path.join(repo_dir, "repodata"))
+
+        # Create the repomd.xml file.
+        md_path = os.path.join(repo_dir, "repodata", "repomd.xml")
+        md_content = "Metadata for {}.".format(repo.id)
+
+        with open(md_path, 'w') as f:
+            f.write(md_content)
+
+        # Set up the baseurl.
+        repo.baseurl.append("file://" + repo_dir)
+
+    def load_no_repomd_hashes_test(self):
+        """Test the load_repomd_hashes method with no repositories."""
+        self.dnf_manager.load_repomd_hashes()
+        self.assertEqual(self.dnf_manager._md_hashes, {})
+
+    def load_one_repomd_hash_test(self):
+        """Test the load_repomd_hashes method with one repository."""
+        with TemporaryDirectory() as d:
+            r1 = self._add_repo("r1")
+            self._create_repo(r1, d)
+
+            self.dnf_manager.load_repomd_hashes()
+            self.assertEqual(self.dnf_manager._md_hashes, {
+                'r1': b"\x90\xa0\xb7\xce\xc2H\x85#\xa3\xfci"
+                      b"\x9e+\xf4\xe2\x19D\xbc\x9b'\xeb\xb7"
+                      b"\x90\x1d\xcey\xb3\xd4p\xc3\x1d\xfb",
+            })
+
+    def load_repomd_hashes_test(self):
+        """Test the load_repomd_hashes method."""
+        with TemporaryDirectory() as d:
+            r1 = self._add_repo("r1")
+            r1.baseurl = [
+                "file://nonexistent/1",
+                "file://nonexistent/2",
+                "file://nonexistent/3",
+            ]
+            self._create_repo(r1, d + "/r1")
+
+            r2 = self._add_repo("r2")
+            r2.baseurl = [
+                "file://nonexistent/1",
+                "file://nonexistent/2",
+                "file://nonexistent/3",
+            ]
+
+            r3 = self._add_repo("r3")
+            r3.metalink = "file://metalink"
+
+            r4 = self._add_repo("r4")
+            r4.mirrorlist = "file://mirrorlist"
+
+            self.dnf_manager.load_repomd_hashes()
+
+            self.assertEqual(self.dnf_manager._md_hashes, {
+                'r1': b"\x90\xa0\xb7\xce\xc2H\x85#\xa3\xfci"
+                      b"\x9e+\xf4\xe2\x19D\xbc\x9b'\xeb\xb7"
+                      b"\x90\x1d\xcey\xb3\xd4p\xc3\x1d\xfb",
+                'r2': None,
+                'r3': None,
+                'r4': None,
+            })
+
+    def verify_repomd_hashes_test(self):
+        """Test the verify_repomd_hashes method."""
+        with TemporaryDirectory() as d:
+            # Test no repository.
+            self.assertEqual(self.dnf_manager.verify_repomd_hashes(), False)
+
+            # Create a repository.
+            r = self._add_repo("r1")
+            self._create_repo(r, d)
+
+            # Test no loaded repository.
+            self.assertEqual(self.dnf_manager.verify_repomd_hashes(), False)
+
+            # Test a loaded repository.
+            self.dnf_manager.load_repomd_hashes()
+            self.assertEqual(self.dnf_manager.verify_repomd_hashes(), True)
+
+            # Test a different content of metadata.
+            with open(os.path.join(d, "repodata", "repomd.xml"), 'w') as f:
+                f.write("Different metadata for r1.")
+
+            self.assertEqual(self.dnf_manager.verify_repomd_hashes(), False)
+
+            # Test a reloaded repository.
+            self.dnf_manager.load_repomd_hashes()
+            self.assertEqual(self.dnf_manager.verify_repomd_hashes(), True)
+
+            # Test the base reset.
+            self.dnf_manager.reset_base()
+            self.assertEqual(self.dnf_manager.verify_repomd_hashes(), False)

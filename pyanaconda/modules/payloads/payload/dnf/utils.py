@@ -16,6 +16,7 @@
 # Red Hat, Inc.
 #
 import fnmatch
+import hashlib
 import os
 import rpm
 
@@ -35,6 +36,16 @@ from pyanaconda.modules.payloads.base.utils import sort_kernel_version_list
 log = get_module_logger(__name__)
 
 DNF_PACKAGE_CACHE_DIR_SUFFIX = 'dnf.package.cache'
+
+
+def calculate_hash(data):
+    """Calculate hash from the given data.
+
+    :return: a string with the hash
+    """
+    m = hashlib.sha256()
+    m.update(data.encode('ascii', 'backslashreplace'))
+    return m.digest()
 
 
 def get_kernel_package(dnf_manager, exclude_list):
