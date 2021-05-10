@@ -37,7 +37,7 @@ from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.util import get_os_release_value
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.modules.common.errors.payload import UnknownCompsEnvironmentError, \
-    UnknownCompsGroupError
+    UnknownCompsGroupError, UnknownRepositoryError
 from pyanaconda.modules.common.structures.comps import CompsEnvironmentData, CompsGroupData
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 from pyanaconda.modules.payloads.constants import DNF_REPO_DIRS
@@ -65,6 +65,10 @@ DNF_EXTRA_SIZE_PER_FILE = Size("6 KiB")
 
 class DNFManagerError(Exception):
     """General error for the DNF manager."""
+
+
+class MetadataError(DNFManagerError):
+    """Metadata couldn't be loaded."""
 
 
 class MissingSpecsError(DNFManagerError):
@@ -654,3 +658,41 @@ class DNFManager(object):
             log.debug("The transaction has ended.")
             base.close()  # Always close this base.
             display.quit(exit_reason or "DNF quit")
+
+    def _get_repository(self, repo_id):
+        """Translate the given repository name to a DNF object.
+
+        :param repo_id: an identifier of a repository
+        :return: a DNF object
+        :raise: UnknownRepositoryError if no repo is found
+        """
+        repo = self._base.repos.get(repo_id)
+
+        if not repo:
+            raise UnknownRepositoryError(repo_id)
+
+        return repo
+
+    def load_repository(self, repo_id):
+        """Download repo metadata.
+
+        Enable the repo and load its metadata to verify that
+        the repo is valid. An invalid repo will be disabled.
+
+        :param str repo_id: an identifier of a repository
+        :raise: MetadataError if the metadata cannot be loaded
+        """
+        log.debug("Load metadata for the '%s' repository.", repo_id)
+
+        repo = self._get_repository(repo_id)
+        url = repo.baseurl or repo.mirrorlist or repo.metalink
+
+        try:
+            repo.enable()
+            repo.load()
+        except dnf.exceptions.RepoError as e:
+            log.debug("Failed to load metadata from '%s': %s", url, str(e))
+            repo.disable()
+            raise MetadataError(str(e)) from None
+
+        log.info("Loaded metadata from '%s'.", url)

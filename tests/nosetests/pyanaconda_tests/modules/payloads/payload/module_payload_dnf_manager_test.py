@@ -23,7 +23,7 @@ from dasbus.structure import compare_data
 
 from dnf.callback import STATUS_OK, STATUS_FAILED, PKG_SCRIPTLET
 from dnf.comps import Environment, Comps, Group
-from dnf.exceptions import MarkingErrors, DepsolveError
+from dnf.exceptions import MarkingErrors, DepsolveError, RepoError
 from dnf.package import Package
 from dnf.transaction import PKG_INSTALL, TRANS_POST, PKG_VERIFY
 from dnf.repo import Repo
@@ -31,11 +31,11 @@ from dnf.repo import Repo
 from pyanaconda.core.constants import MULTILIB_POLICY_ALL
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.modules.common.errors.payload import UnknownCompsEnvironmentError, \
-    UnknownCompsGroupError
+    UnknownCompsGroupError, UnknownRepositoryError
 from pyanaconda.modules.common.structures.comps import CompsEnvironmentData, CompsGroupData
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, \
-    InvalidSelectionError, BrokenSpecsError, MissingSpecsError
+    InvalidSelectionError, BrokenSpecsError, MissingSpecsError, MetadataError
 
 
 class DNFManagerTestCase(unittest.TestCase):
@@ -867,3 +867,55 @@ class DNFManagerCompsTestCase(unittest.TestCase):
         self.assertEqual(data.get_available_groups(), [
             "g1", "g2", "g3", "g4", "g5"
         ])
+
+
+class DNFManagerReposTestCase(unittest.TestCase):
+    """Test the repo abstraction of the DNF base."""
+
+    def setUp(self):
+        self.maxDiff = None
+        self.dnf_manager = DNFManager()
+        self.dnf_manager._base._repos = {}
+
+    @property
+    def repos(self):
+        """The mocked repos object."""
+        return self.dnf_manager._base._repos
+
+    def _add_repo(self, repo_id):
+        """Add a mocked repo with the specified id."""
+        repo = Mock(spec=Repo)
+        repo.baseurl = ["http://url/{}".format(repo_id)]
+        repo.mirrorlist = None
+        repo.metalink = None
+
+        self.repos[repo_id] = repo
+        return repo
+
+    def load_repository_unknown_test(self):
+        """Test the load_repository method with an unknown repo."""
+        with self.assertRaises(UnknownRepositoryError):
+            self.dnf_manager.load_repository("r1")
+
+    def load_repository_failed_test(self):
+        """Test the load_repository method with a failure."""
+        repo = self._add_repo("r1")
+        repo.load.side_effect = RepoError("Fake error!")
+
+        with self.assertRaises(MetadataError) as cm:
+            self.dnf_manager.load_repository("r1")
+
+        repo.enable.assert_called_once()
+        repo.load.assert_called_once()
+        repo.disable.assert_called_once()
+
+        self.assertEqual(str(cm.exception), "Fake error!")
+
+    def load_repository_test(self):
+        """Test the load_repository method."""
+        repo = self._add_repo("r1")
+        self.dnf_manager.load_repository("r1")
+
+        repo.enable.assert_called_once()
+        repo.load.assert_called_once()
+        repo.disable.assert_not_called()

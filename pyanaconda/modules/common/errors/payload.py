@@ -54,3 +54,9 @@ class UnknownCompsEnvironmentError(AnacondaError):
 class UnknownCompsGroupError(AnacondaError):
     """The comps group is not recognized."""
     pass
+
+
+@dbus_error("UnknownRepositoryError", namespace=PAYLOADS_NAMESPACE)
+class UnknownRepositoryError(AnacondaError):
+    """The repository is not recognized."""
+    pass
