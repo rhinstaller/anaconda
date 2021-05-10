@@ -408,6 +408,20 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon May 10 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.2-1
+- Revert "Add tests for the inst. prefix requirement" (rvykydal)
+  Related: rhbz#1947376
+- Do not require inst. prefixes for Anaconda boot arguments (jkonecny)
+  Related: rhbz#1947376
+- Revert "Do not support no inst. Anaconda boot args in systemd services"
+  (jkonecny)
+  Related: rhbz#1947376
+- Revert "Remove support for boot arguments without 'inst.' prefix from Dracut"
+  (jkonecny)
+  Related: rhbz#1947376
+- The kernel boot argument sshd is removed and should warn user (jkonecny)
+  Resolves: rhbz#1954672
+
 * Tue May 04 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.1-1
 - Remove support for boot arguments without the "inst." prefix (jkonecny)
   Resolves: rhbz#1947376
