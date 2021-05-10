@@ -28,7 +28,7 @@ case "${kickstart%%:*}" in
         wait_for_kickstart
     ;;
     "")
-        if [ -z "$kickstart" -a -z "$(getarg inst.ks=)" ]; then
+        if [ -z "$kickstart" -a -z "$(getarg ks= inst.ks=)" ]; then
             when_diskdev_appears $(disk_to_dev_path LABEL=OEMDRV) \
                 fetch-kickstart-disk \$env{DEVNAME} "/ks.cfg"
         fi

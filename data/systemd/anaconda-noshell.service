@@ -3,6 +3,7 @@ Description=Restrict Anaconda Text Console
 After=anaconda.service
 Before=anaconda-tmux@.service
 ConditionKernelCommandLine=|inst.noshell
+ConditionKernelCommandLine=|noshell
 
 [Service]
 Type=oneshot

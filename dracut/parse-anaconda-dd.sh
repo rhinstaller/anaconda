@@ -11,7 +11,7 @@
 rm -f /tmp/dd_interactive /tmp/dd_net /tmp/dd_disk /tmp/dd_todo
 
 # parse any dd/inst.dd args found
-for dd in $(getargs inst.dd=); do
+for dd in $(getargs dd= inst.dd=); do
     case "$dd" in
         # plain 'dd'/'inst.dd': Engage interactive mode!
         dd|inst.dd) echo menu > /tmp/dd_interactive ;;

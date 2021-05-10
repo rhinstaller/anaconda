@@ -39,7 +39,7 @@ run_checkisomd5() {
 
 dev="$1"
 path="$2" # optional, could be empty
-kickstart="$(getarg inst.ks=)"
+kickstart="$(getarg ks= inst.ks=)"
 
 # Log the device that triggered this job.
 debug_msg "Trying to find a root image on the device $dev."
