@@ -875,22 +875,11 @@ class DNFManagerReposTestCase(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
         self.dnf_manager = DNFManager()
-        self.dnf_manager._base._repos = {}
-
-    @property
-    def repos(self):
-        """The mocked repos object."""
-        return self.dnf_manager._base._repos
 
     def _add_repo(self, repo_id):
         """Add a mocked repo with the specified id."""
-        repo = Mock(spec=Repo)
-        repo.id = repo_id
-        repo.baseurl = ["http://url/{}".format(repo_id)]
-        repo.mirrorlist = None
-        repo.metalink = None
-
-        self.repos[repo_id] = repo
+        repo = Repo(repo_id, self.dnf_manager._base.conf)
+        self.dnf_manager._base.repos.add(repo)
         return repo
 
     def repositories_test(self):
@@ -911,22 +900,21 @@ class DNFManagerReposTestCase(unittest.TestCase):
     def load_repository_failed_test(self):
         """Test the load_repository method with a failure."""
         repo = self._add_repo("r1")
-        repo.load.side_effect = RepoError("Fake error!")
+        repo.load = Mock(side_effect=RepoError("Fake error!"))
 
         with self.assertRaises(MetadataError) as cm:
             self.dnf_manager.load_repository("r1")
 
-        repo.enable.assert_called_once()
         repo.load.assert_called_once()
-        repo.disable.assert_called_once()
-
+        self.assertEqual(repo.enabled, False)
         self.assertEqual(str(cm.exception), "Fake error!")
 
     def load_repository_test(self):
         """Test the load_repository method."""
         repo = self._add_repo("r1")
+        repo.load = Mock()
+
         self.dnf_manager.load_repository("r1")
 
-        repo.enable.assert_called_once()
         repo.load.assert_called_once()
-        repo.disable.assert_not_called()
+        self.assertEqual(repo.enabled, True)
