@@ -408,6 +408,24 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 11 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.3-1
+- Add RHEL-specific advice to X timeout message (vslavik)
+  Related: rhbz#1955306
+- Fix AskVNCSpoke call (vslavik)
+  Related: rhbz#1955306
+- Improve X startup error messages (vslavik)
+  Related: rhbz#1955306
+- Terminate X server after timeout and restore crash test handler (vslavik)
+  Related: rhbz#1955306
+- Reorganize control flow in startX (vslavik)
+  Related: rhbz#1955306
+- Handle SIGUSR1 correctly after Xorg timeout (vslavik)
+  Resolves: rhbz#1955306
+- Refactor minor details in startX (vslavik)
+  Related: rhbz#1955306
+- subscription: allow dates in ISO 8601 format (ptoscano)
+  Resolves: rhbz#1947447
+
 * Mon May 10 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.2-1
 - Revert "Add tests for the inst. prefix requirement" (rvykydal)
   Related: rhbz#1947376
