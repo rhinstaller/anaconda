@@ -1229,7 +1229,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             return _("Invalid repository name")
 
         cnames = [constants.BASE_REPO_NAME] + constants.DEFAULT_REPOS + \
-                 [r for r in self.payload.repos if r not in self.payload.addons]
+                 [r for r in self.payload.dnf_manager.repositories
+                  if r not in self.payload.addons]
         if repo_name in cnames:
             return _("Repository name conflicts with internal repository name.")
 
