@@ -94,7 +94,7 @@ class ParseKickstartTestCase(BaseTestCase):
         assert len(lines) == 3, lines
         assert lines[0] == "inst.repo=https://host.at.foo.com/path/to/tree", lines
         assert lines[1] == "rd.noverifyssl", lines
-        assert lines[2] == "proxy=http://localhost:8123", lines
+        assert lines[2] == "inst.proxy=http://localhost:8123", lines
 
     def test_updates(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
@@ -252,4 +252,4 @@ network --device=lo --vlanid=171 --interfacename=vlan171
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
-            assert lines[0] == "extlinux", lines
+            assert lines[0] == "inst.extlinux", lines
