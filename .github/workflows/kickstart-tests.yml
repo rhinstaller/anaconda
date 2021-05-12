@@ -107,7 +107,7 @@ jobs:
           sudo podman pull quay.io/rhinstaller/kstest-runner:latest
 
       - name: Clone repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.4
         with:
           ref: ${{ needs.pr-info.outputs.sha }}
           fetch-depth: 0
@@ -120,7 +120,7 @@ jobs:
           git rebase origin/${{ env.TARGET_BRANCH }}
 
       - name: Check out kickstart-tests
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.4
         with:
           repository: rhinstaller/kickstart-tests
           path: kickstart-tests
