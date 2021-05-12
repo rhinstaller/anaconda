@@ -1218,6 +1218,23 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             return _("Duplicate repository names.")
         return InputCheck.CHECK_OK
 
+    def _is_conflicting_repo_name(self, repo_name):
+        if repo_name == constants.BASE_REPO_NAME:
+            return True
+
+        if repo_name in constants.DEFAULT_REPOS:
+            return True
+
+        for ks_repo in self.data.repo.dataList():
+            if repo_name == ks_repo.name:
+                return False
+
+        for repo_id in self.payload.dnf_manager.repositories:
+            if repo_name == repo_id:
+                return True
+
+        return False
+
     def _check_repo_name(self, inputcheck):
         # Input object is name of the repository
         repo_name = self._get_repo_by_id(inputcheck.input_obj).name
@@ -1228,10 +1245,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         if not REPO_NAME_VALID.match(repo_name):
             return _("Invalid repository name")
 
-        cnames = [constants.BASE_REPO_NAME] + constants.DEFAULT_REPOS + \
-                 [r for r in self.payload.dnf_manager.repositories
-                  if r not in self.payload.addons]
-        if repo_name in cnames:
+        if self._is_conflicting_repo_name(repo_name):
             return _("Repository name conflicts with internal repository name.")
 
         return InputCheck.CHECK_OK
@@ -1425,8 +1439,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             ui_orig_names = [r[REPO_OBJ].orig_name for r in self._repo_store]
 
             # Remove repos from payload that were removed in the UI
-            for repo_name in [r for r in self.payload.addons if r not in ui_orig_names]:
-                repo = self.payload.get_addon_repo(repo_name)
+            for repo in list(self.data.repo.dataList()):
+                if repo.name in ui_orig_names:
+                    continue
+
                 # TODO: Need an API to do this w/o touching dnf (not add_repo)
                 # FIXME: Is this still needed for dnf?
                 self.payload.data.repo.dataList().remove(repo)
@@ -1466,16 +1482,14 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
         with self._repo_store_lock:
             self._repo_store.clear()
-            repos = self.payload.addons
-            log.debug("Setting up repos: %s", repos)
-            for name in repos:
-                repo = self.payload.get_addon_repo(name)
+            for repo in self.data.repo.dataList():
+                log.debug("Setting up repo: %s", repo.name)
                 ks_repo = self.data.RepoData.create_copy(repo)
                 # Track the original name, user may change .name
-                ks_repo.orig_name = name
+                ks_repo.orig_name = repo.name
                 # Add addon repository id for identification
                 ks_repo.repo_id = next(self._repo_counter)
-                self._repo_store.append([self.payload.is_repo_enabled(name),
+                self._repo_store.append([self.payload.is_repo_enabled(repo.name),
                                         ks_repo.name,
                                         ks_repo])
 
