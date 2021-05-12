@@ -38,7 +38,7 @@ RUN set -e; \
   rpmspec -q --requires /tmp/anaconda.spec | grep -v anaconda | xargs -d '\n' dnf install -y; \
   dnf clean all
 
-RUN pip install \
+RUN pip install --no-cache-dir \
   pocketlint \
   coverage \
   pycodestyle \

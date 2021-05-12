@@ -25,6 +25,6 @@ RUN set -e; \
   dnf clean all; \
   mkdir /anaconda
 
-RUN pip install nose
+RUN pip install --no-cache-dir nose
 
 WORKDIR /anaconda
