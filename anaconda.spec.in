@@ -197,30 +197,17 @@ pulling in all the install time dependencies as well.
 %package install-img-deps
 Summary: Installation image specific dependencies
 # This package must have no weak dependencies.
-Requires: udisks2-iscsi
-Requires: libblockdev-plugins-all >= %{libblockdevver}
-# active directory/freeipa join support
-Requires: realmd
-Requires: isomd5sum >= %{isomd5sumver}
+# Pull in most stuff with the -env- metapackage
+Requires: anaconda-install-env-deps = %{version}-%{release}
+# Require storage things that are only recommended in -env-
 %ifarch %{ix86} x86_64
 Requires: fcoe-utils >= %{fcoeutilsver}
 %endif
-# likely HFS+ resize support
 %ifarch %{ix86} x86_64
 %if ! 0%{?rhel}
 Requires: hfsplus-tools
 %endif
 %endif
-# kexec support
-Requires: kexec-tools
-# needed for proper driver disk support - if RPMs must be installed, a repo is needed
-Requires: createrepo_c
-# run's on TTY1 in install env
-Requires: tmux
-# install time crash handling
-Requires: gdb
-# support for installation from image and live & live image installations
-Requires: rsync
 # only WeakRequires elsewhere and not guaranteed to be present
 Requires: device-mapper-multipath
 # FIXME: do not require on RHEL until the package is ready
