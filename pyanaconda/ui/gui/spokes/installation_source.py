@@ -1176,6 +1176,15 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
                 else:
                     return _("NFS server is empty")
 
+            # Check first overall validity of format
+            if url_string.count(":") != 1:
+                if is_additional_repo and repo.name:
+                    return _("Repository %s has invalid NFS server, exactly one colon ':' must "
+                             "be present between host and directory") % repo.name
+                else:
+                    return _("Invalid NFS server, exactly one colon ':' must be present "
+                             "between host and directory")
+
             # Make sure the part before the colon looks like a hostname,
             # and that the path is not empty
             host, _colon, path = url_string.partition(':')
@@ -1191,10 +1200,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
                     return _("Repository %s required remote directory") % repo.name
                 else:
                     return _("Remote directory is required")
-
-            if ":" not in url_string or len(url_string.split(":")) != 2:
-                return _("NFS server must be specified as \"SERVER:/PATH\". "
-                         "Only one colon is allowed in the url string.")
 
         return InputCheck.CHECK_OK
 
