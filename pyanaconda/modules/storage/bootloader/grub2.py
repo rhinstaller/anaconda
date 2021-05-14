@@ -538,6 +538,13 @@ class GRUB2(BootLoader):
 
         return valid
 
+    def set_boot_password(self, bootloader_proxy):
+        if bootloader_proxy.IsPasswordSet:
+            if bootloader_proxy.IsPasswordEncrypted:
+                self.encrypted_password = bootloader_proxy.Password
+            else:
+                self.password = bootloader_proxy.Password
+
 
 class IPSeriesGRUB2(GRUB2):
     """IPSeries GRUBv2"""

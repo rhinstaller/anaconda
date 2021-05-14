@@ -23,6 +23,8 @@ from pyanaconda.modules.storage.bootloader.image import LinuxBootLoaderImage
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import decode_bytes, execWithRedirect
 from pyanaconda.product import productName
+from pyanaconda.modules.common.constants.objects import BOOTLOADER
+from pyanaconda.modules.common.constants.services import STORAGE
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -207,6 +209,10 @@ def install_boot_loader(storage):
 
     stage2_device = storage.bootloader.stage2_device
     log.info("boot loader stage2 target device is %s", stage2_device.name)
+
+    # Set up the bootloader password
+    bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
+    storage.bootloader.set_boot_password(bootloader_proxy)
 
     # Set up the arguments.
     # FIXME: do this from elsewhere?

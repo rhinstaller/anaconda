@@ -972,6 +972,9 @@ class BootLoader(object):
     def install(self, args=None):
         raise NotImplementedError()
 
+    def set_boot_password(self, bootloader_proxy):
+        pass
+
 
 def get_interface_hw_address(iface):
     """Get hardware address of network interface."""
