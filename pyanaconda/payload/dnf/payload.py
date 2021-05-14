@@ -54,7 +54,6 @@ from pyanaconda.modules.common.errors.storage import DeviceSetupError, MountFile
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
-from pyanaconda.payload.dnf.repomd import RepoMDMetaHash
 from pyanaconda.payload.errors import PayloadError, PayloadSetupError
 from pyanaconda.payload.image import find_first_iso_image, find_optical_install_media
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata, FileNotDownloadedError
@@ -93,9 +92,6 @@ class DNFPayload(Payload):
         # FIXME: Don't call this method before set_from_opts.
         # This will create a default source if there is none.
         self._configure()
-
-        # save repomd metadata
-        self._repoMD_list = []
 
     @property
     def dnf_manager(self):
@@ -222,7 +218,6 @@ class DNFPayload(Payload):
 
     def unsetup(self):
         self._configure()
-        self._repoMD_list = []
         self._install_tree_metadata = None
         tear_down_sources(self.proxy)
 
@@ -601,22 +596,6 @@ class DNFPayload(Payload):
             else:
                 return False
 
-    def verify_available_repositories(self):
-        """Verify availability of existing repositories.
-
-        This method tests if URL links from active repositories can be reached.
-        It is useful when network settings is changed so that we can verify if repositories
-        are still reachable.
-        """
-        if not self._repoMD_list:
-            return False
-
-        for repo in self._repoMD_list:
-            if not repo.verify_repoMD():
-                log.debug("Can't reach repo %s", repo.id)
-                return False
-        return True
-
     def _reset_configuration(self):
         tear_down_sources(self.proxy)
         self._reset_additional_repos()
@@ -624,7 +603,6 @@ class DNFPayload(Payload):
         self.tx_id = None
         self._dnf_manager.clear_cache()
         self._dnf_manager.configure_proxy(self._get_proxy_url())
-        self._repoMD_list = []
 
     def _reset_additional_repos(self):
         for name in self._find_mounted_additional_repos():
@@ -1146,19 +1124,6 @@ class DNFPayload(Payload):
 
             if ks_repo.excludepkgs:
                 f.write("exclude=%s\n" % ",".join(ks_repo.excludepkgs))
-
-    def post_setup(self):
-        """Perform post-setup tasks.
-
-        Save repomd hash to test if the repositories can be reached.
-        """
-        self._repoMD_list = []
-        proxy_url = self._get_proxy_url()
-
-        for repo in self._base.repos.iter_enabled():
-            repoMD = RepoMDMetaHash(repo, proxy_url)
-            repoMD.store_repoMD_hash()
-            self._repoMD_list.append(repoMD)
 
     def post_install(self):
         """Perform post-installation tasks."""

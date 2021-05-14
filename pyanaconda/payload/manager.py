@@ -205,7 +205,7 @@ class PayloadManager(object):
         if onlyOnChange:
             log.debug("Testing repositories availability")
             self._set_state(PayloadState.VERIFYING_AVAILABILITY)
-            if payload.verify_available_repositories():
+            if payload.dnf_manager.verify_repomd_hashes():
                 log.debug("Payload isn't restarted, repositories are still available.")
                 self._set_state(PayloadState.FINISHED)
                 return
@@ -240,7 +240,7 @@ class PayloadManager(object):
             return
 
         # run payload specific post configuration tasks
-        payload.post_setup()
+        payload.dnf_manager.load_repomd_hashes()
 
         self._set_state(PayloadState.FINISHED)
 
