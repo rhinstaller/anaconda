@@ -355,6 +355,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
         dev2 = StorageDevice(
             "dev2",
+            fmt=get_format("ext4", mountpoint="/boot"),
             size=Size("500 MiB"),
             serial="SERIAL",
             exists=True
@@ -370,7 +371,10 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             'object-description': 'blivet',
             'device-name': 'dev2',
             'device-description': 'dev2',
-            'attrs': {"serial": "SERIAL"},
+            'attrs': {
+                'serial': 'SERIAL',
+                'mount-point': '/boot'
+            },
         }
 
         self.assertEqual(get_native(self.interface.GetActions()), [
@@ -395,7 +399,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             'object-description': 'partition',
             'device-name': 'dev3',
             'device-description': 'dev3 on VENDOR MODEL',
-            'attrs': {},
+            'attrs': {'mount-point': '/home'},
         }
 
         action_4 = {

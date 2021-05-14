@@ -19,7 +19,6 @@
 #
 from abc import abstractmethod, ABC
 
-from blivet.deviceaction import ACTION_OBJECT_FORMAT
 from blivet.formats import get_format
 from blivet.size import Size
 
@@ -295,8 +294,8 @@ class DeviceTreeViewer(ABC):
         device = action.device
         data.device_name = device.name
 
-        if action.obj == ACTION_OBJECT_FORMAT:
-            data.attrs["mount-point"] = self._get_attribute(device.format, "mountpoint")
+        if action.is_create or action.is_device or action.is_format:
+            data.attrs["mount-point"] = self._get_attribute(action.format, "mountpoint")
 
         if getattr(device, "description", ""):
             data.attrs["serial"] = self._get_attribute(device, "serial")
