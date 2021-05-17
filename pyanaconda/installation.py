@@ -380,3 +380,5 @@ def run_installation(payload, ksdata):
 
     # done
     progress_complete()
+    # this message is automatically detected by QE tools, do not change it lightly
+    log.info("All tasks in the installation queue are done. Installation successfully finished.")
