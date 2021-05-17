@@ -339,7 +339,7 @@ if __name__ == "__main__":
         startup_utils.live_startup(anaconda)
 
     # Switch to tty1 on exception in case something goes wrong during X start.
-    # This way if, for example, metacity doesn't start, we switch back to a
+    # This way if, for example, window manager doesn't start, we switch back to a
     # text console with a traceback instead of being left looking at a blank
     # screen. python-meh will replace this excepthook with its own handler
     # once it gets going.
