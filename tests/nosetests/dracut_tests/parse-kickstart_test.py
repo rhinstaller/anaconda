@@ -129,11 +129,12 @@ class ParseKickstartTestCase(BaseTestCase):
 
     def network_test(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
-            ks_file.write("""network --device=link --bootproto=dhcp --activate""")
+            ks_file.write("""network --device=ens3 --bootproto=dhcp --activate""")
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
-            self.assertRegex(lines[0], r"ip=[^\s:]+:dhcp: bootdev=[^\s:]+", lines)
+            print(lines)
+            self.assertEqual(lines[0], "ip=ens3:dhcp: bootdev=ens3")
 
     def network_test_2(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
@@ -145,23 +146,11 @@ class ParseKickstartTestCase(BaseTestCase):
 
     def network_static_test(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
-            ks_file.write("""network --device=link --bootproto=dhcp --activate
-network --device=lo --bootproto=static --ip=10.0.2.15 --netmask=255.255.255.0 --gateway=10.0.2.254 --nameserver=10.0.2.10
-""")
+            ks_file.write("""network --device=ens3 --bootproto=static --ip=10.0.2.15 --netmask=255.255.255.0 --gateway=10.0.2.254 --nameserver=10.0.2.10""")
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
-            self.assertRegex(lines[0], r"ip=[^\s:]+:dhcp: bootdev=[^\s:]+", lines)
-
-    def network_team_test(self):
-        with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
-            ks_file.write("""network --device=link --bootproto=dhcp --activate
-network --device team0 --activate --bootproto static --ip=10.34.102.222 --netmask=255.255.255.0 --gateway=10.34.102.254 --nameserver=10.34.39.2 --teamslaves="p3p1'{\"prio\": -10, \"sticky\": true}'" --teamconfig="{\"runner\": {\"name\": \"activebackup\"}}"
-""")
-            ks_file.flush()
-            lines = self.execParseKickstart(ks_file.name)
-
-            self.assertRegex(lines[0], r"ip=[^\s:]+:dhcp: bootdev=[^\s:]+", lines)
+            self.assertEqual(lines[0], "ip=10.0.2.15::10.0.2.254:255.255.255.0::ens3:none: nameserver=10.0.2.10 bootdev=ens3")
 
     def network_bond_test(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
@@ -191,13 +180,11 @@ network --device team0 --activate --bootproto static --ip=10.34.102.222 --netmas
 
     def network_bridge_test(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
-            ks_file.write("""network --device=link --bootproto=dhcp --activate
-network --device br0 --activate --bootproto dhcp --bridgeslaves=eth0 --bridgeopts=stp=6.0,forward_delay=2
-""")
+            ks_file.write("""network --device br0 --activate --bootproto dhcp --bridgeslaves=eth0 --bridgeopts=stp=6.0,forward_delay=2""")
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
-            self.assertRegex(lines[0], r"ip=[^\s:]+:dhcp: bootdev=[^\s:]+", lines)
+            self.assertEqual(lines[0], "ip=br0:dhcp: bootdev=br0 bridge=br0:eth0")
 
     def network_ipv6_only_test(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
@@ -206,26 +193,6 @@ network --device br0 --activate --bootproto dhcp --bridgeslaves=eth0 --bridgeopt
             lines = self.execParseKickstart(ks_file.name)
 
             self.assertRegex(lines[0], r"ip=\[1:2:3:4:5:6:7:8\]:.*")
-
-    def network_vlanid_test(self):
-        with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
-            ks_file.write("""network --device=link --bootproto=dhcp --activate
-network --device=lo --vlanid=171
-""")
-            ks_file.flush()
-            lines = self.execParseKickstart(ks_file.name)
-
-            self.assertRegex(lines[0], r"ip=[^\s:]+:dhcp: bootdev=[^\s:]+", lines)
-
-    def network_vlan_interfacename_test(self):
-        with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
-            ks_file.write("""network --device=link --bootproto=dhcp --activate
-network --device=lo --vlanid=171 --interfacename=vlan171
-""")
-            ks_file.flush()
-            lines = self.execParseKickstart(ks_file.name)
-
-            self.assertRegex(lines[0], r"ip=[^\s:]+:dhcp: bootdev=[^\s:]+", lines)
 
     def displaymode_test(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
