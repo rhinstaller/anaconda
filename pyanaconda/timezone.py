@@ -22,9 +22,10 @@ configuration, valid timezones recognition etc.
 
 """
 
-import pytz
 import langtable
+import zoneinfo
 from collections import OrderedDict
+from functools import cache
 
 from pyanaconda.core import util
 from pyanaconda.core.constants import THREAD_STORAGE
@@ -38,8 +39,7 @@ from blivet import arch
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-# The following zones are not in pytz.common_timezones and
-# Etc category in pytz.all_timezones includes some more,
+# The Etc category in zoneinfo.available_timezones() includes some more,
 # however confusing ones (like UCT, GMT+0, GMT-0,...)
 ETC_ZONES = ['GMT+1', 'GMT+2', 'GMT+3', 'GMT+4', 'GMT+5', 'GMT+6', 'GMT+7',
              'GMT+8', 'GMT+9', 'GMT+10', 'GMT+11', 'GMT+12',
@@ -126,6 +126,18 @@ def get_preferred_timezone(territory):
     return timezones[0]
 
 
+@cache
+def all_timezones():
+    """
+    Get all timezones, but with the Etc zones reduced. Cached.
+
+    :rtype: set
+
+    """
+    etc_zones = {"Etc/" + zone for zone in ETC_ZONES}
+    return zoneinfo.available_timezones() | etc_zones
+
+
 def get_all_regions_and_timezones():
     """
     Get a dictionary mapping the regions to the list of their timezones.
@@ -136,7 +148,7 @@ def get_all_regions_and_timezones():
 
     result = OrderedDict()
 
-    for tz in pytz.common_timezones:
+    for tz in sorted(all_timezones()):
         parts = tz.split("/", 1)
 
         if len(parts) > 1:
@@ -144,7 +156,6 @@ def get_all_regions_and_timezones():
                 result[parts[0]] = set()
             result[parts[0]].add(parts[1])
 
-    result["Etc"] = set(ETC_ZONES)
     return result
 
 
@@ -157,9 +168,7 @@ def is_valid_timezone(timezone):
 
     """
 
-    etc_zones = ["Etc/" + zone for zone in ETC_ZONES]
-
-    return timezone in pytz.common_timezones + etc_zones
+    return timezone in all_timezones()
 
 
 def get_timezone(timezone):
@@ -170,4 +179,4 @@ def get_timezone(timezone):
     :rtype: datetime.tzinfo
     """
 
-    return pytz.timezone(timezone)
+    return zoneinfo.ZoneInfo(timezone)

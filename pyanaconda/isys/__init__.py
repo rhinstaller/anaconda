@@ -28,7 +28,7 @@ except ImportError:
 import blivet.arch
 import time
 import datetime
-import pytz
+import zoneinfo
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -88,7 +88,7 @@ def set_system_date_time(year=None, month=None, day=None, hour=None, minute=None
 
     """
 
-    utc = pytz.UTC
+    utc = zoneinfo.ZoneInfo(key='UTC')
     # If no timezone is set, use UTC
     if not tz:
         tz = utc
@@ -104,13 +104,12 @@ def set_system_date_time(year=None, month=None, day=None, hour=None, minute=None
     minute = minute if minute is not None else now.minute
     second = second if second is not None else now.second
 
-    set_date = tz.localize(datetime.datetime(year, month, day, hour, minute, second))
+    set_date = datetime.datetime(year, month, day, hour, minute, second, tzinfo=tz)
 
     # Calculate the number of seconds between this time and timestamp 0
-    # see pytz docs, search for "Converting between timezones"
     # pylint bug here: https://github.com/PyCQA/pylint/issues/1104
     # pylint: disable=no-value-for-parameter
-    epoch = utc.localize(datetime.datetime.utcfromtimestamp(0)).astimezone(tz)
+    epoch = datetime.datetime.fromtimestamp(0, tz=utc).astimezone(tz)
     timestamp = (set_date - epoch).total_seconds()
 
     set_system_time(int(timestamp))
