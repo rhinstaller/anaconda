@@ -121,19 +121,26 @@ class SubscriptionSpoke(NormalSpoke):
         # overriden source tracking
         self._overridden_source_type = None
 
+        self._spoke_initialized = False
+
     # common spoke properties
 
     @property
     def ready(self):
-        """The subscription spoke is ready once its initialization thread finishes.
+        """The subscription spoke is ready once the spoke initialization thread finishes.
 
-        We do this to avoid the Subscription spoke being set mandatory in cases
+        The spoke initialization thread waits for the subscription and payload initialization
+        threads, to avoid the Subscription spoke being set mandatory in cases
         where the current installation source is the CDN, but payload refresh is still
-        running and it might change to CDROM later one. We achieve this by waiting
-        for tha payload refresh thread to finish in the Subscription spoke initialization
-        thread.
+        running and it might change the installation source to CDROM later on.
+
+        NOTE: We don't actually wait for the spoke initialization thread to finish, we check
+              a variable it sets instead. This is due to the thread also sending the hub refresh
+              signal, which would trigger a race condition if the hub refresh is processed before
+              the spoke initialization thread finishes. Setting the variable and *then* sending
+              the hub refresh signal avoids this issue.
         """
-        return not threadMgr.get(THREAD_SUBSCRIPTION_SPOKE_INIT)
+        return self._spoke_initialized
 
 
     @property
@@ -635,7 +642,12 @@ class SubscriptionSpoke(NormalSpoke):
         self._update_registration_state()
         self._update_subscription_state()
 
-        # Send ready signal to main event loop
+        # we are done, mark the spoke as initialized
+        self._spoke_initialized = True
+
+        # Send ready signal to main event loop,
+        # which among other things refreshes the hub to make
+        # sure the Connect to Red Hat spokes shows up as ready.
         hubQ.send_ready(self.__class__.__name__)
 
         # report that we are done
