@@ -10,7 +10,7 @@ LABEL maintainer=anaconda-list@redhat.com
 COPY ["eln.repo", "/etc/yum.repos.d"]
 
 # Prepare environment and install build dependencies
-RUN set -e; \
+RUN set -ex; \
   if grep -q VARIANT.*eln /etc/os-release; then sed -i 's/enabled=0/enabled=1/' /etc/yum.repos.d/eln.repo; fi; \
   dnf update -y; \
   dnf install -y \
