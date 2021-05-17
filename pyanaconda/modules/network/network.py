@@ -327,7 +327,7 @@ class NetworkService(KickstartService):
         :param onboot_ifaces: list of network interfaces which should have ONBOOT=yes
         """
         onboot_ifaces_by_policy = []
-        if self._should_apply_onboot_policy() and \
+        if self.nm_available and self._should_apply_onboot_policy() and \
                 not self._has_any_onboot_yes_device(self._device_configurations):
             onboot_ifaces_by_policy = self._get_onboot_ifaces_by_policy(
                 conf.network.default_on_boot
@@ -351,9 +351,12 @@ class NetworkService(KickstartService):
         :param overwrite: overwrite existing configuration
         :return: a DBus path of an installation task
         """
-        disable_ipv6 = self.disable_ipv6 and devices_ignore_ipv6(self.nm_client,
-                                                                 supported_wired_device_types)
-        network_ifaces = [device.get_iface() for device in self.nm_client.get_devices()]
+        disable_ipv6 = False
+        network_ifaces = []
+        if self.nm_available:
+            disable_ipv6 = self.disable_ipv6 and devices_ignore_ipv6(self.nm_client,
+                                                                     supported_wired_device_types)
+            network_ifaces = [device.get_iface() for device in self.nm_client.get_devices()]
 
         task = NetworkInstallationTask(
             conf.target.system_root,
