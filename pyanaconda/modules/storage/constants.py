@@ -23,6 +23,29 @@ from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, CLEAR_PARTITIONS_AL
     CLEAR_PARTITIONS_LIST, CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_DEFAULT, BOOTLOADER_DISABLED, \
     BOOTLOADER_ENABLED, BOOTLOADER_SKIPPED, ISCSI_INTERFACE_UNSET, ISCSI_INTERFACE_DEFAULT,\
     ISCSI_INTERFACE_IFACENAME
+from pyanaconda.core.i18n import N_
+
+
+INCONSISTENT_SECTOR_SIZES_SUGGESTIONS = N_(
+    "Workarounds for manual installations:\n"
+    "* Select only the disks with the same sector size during manual "
+    "installation in graphical or text mode.\n"
+    "* When disks with inconsistent sector size are selected for "
+    "the installation, restrict each created LVM Volume Group to use "
+    "Physical Volumes with the same sector size. This can only be "
+    "done in graphical mode in the Custom partitioning spoke.\n"
+    "\n"
+    "Workarounds for kickstart installations:\n"
+    "* Restrict what disks are used for the partitioning by specifying "
+    "'ignoredisk --drives=..' or 'ignoredisk --only-use=..'.\n"
+    "* Specify what disks should be used for each created LVM Physical "
+    "Volume: partition pv.1 --ondisk=..'.\n"
+    "\n"
+    "General workarounds:\n"
+    "* Plain partitioning scheme can be used instead of LVM.\n"
+    "* Some drives support re-configuration of sector sizes, for example "
+    "by running 'hdparm --set-sector-size=<SIZE> <DEVICE>'.\n"
+)
 
 
 @unique

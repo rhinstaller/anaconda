@@ -15,15 +15,17 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from blivet.errors import StorageError
+from blivet.errors import StorageError, InconsistentPVSectorSize
 from blivet.size import Size
 
 from dasbus.structure import compare_data
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest
 from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.storage.constants import INCONSISTENT_SECTOR_SIZES_SUGGESTIONS
 from pyanaconda.modules.storage.partitioning.interactive.utils import destroy_device, \
     get_device_factory_arguments, revert_reformat, resize_device, reformat_device, \
     validate_label, change_encryption, rename_container
@@ -80,9 +82,19 @@ class ChangeDeviceTask(Task):
             else:
                 self._change_device()
 
+        except InconsistentPVSectorSize as e:
+            self._handle_storage_error(e, "\n\n".join([
+                _("Failed to change a device."),
+                str(e).strip(),
+                _(INCONSISTENT_SECTOR_SIZES_SUGGESTIONS)
+            ]))
         except StorageError as e:
-            log.error("Failed to change a device: %s", e)
-            raise StorageConfigurationError(str(e)) from e
+            self._handle_storage_error(e, str(e))
+
+    def _handle_storage_error(self, exception, message):
+        """Handle the storage error."""
+        log.error("Failed to change a device: %s", message)
+        raise StorageConfigurationError(message) from exception
 
     def _rename_container(self):
         """Rename the existing container."""
