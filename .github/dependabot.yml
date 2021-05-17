@@ -1,5 +1,8 @@
 # Dependabot will check our GitHub actions and if there will be a new version of any action
 # Dependabot will create a pull request to update these.
+#
+# FIXME: Unfortunately, the Dependabot is checking only the default branch right now.
+#        Could be solved by https://github.com/dependabot/dependabot-core/issues/2511.
 
 # Set update schedule for GitHub Actions
 version: 2
@@ -10,3 +13,7 @@ updates:
     schedule:
       # Check for updates to GitHub Actions every weekday
       interval: "daily"
+    labels:
+      - "infrastructure"
+    commit-message:
+      prefix: "(#infra)"
