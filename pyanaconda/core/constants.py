@@ -60,7 +60,8 @@ BASE_REPO_NAME = "anaconda"
 DEFAULT_REPOS = [productName.split('-')[0].lower(),
                  "fedora-modular-server",
                  "rawhide",
-                 "BaseOS"]
+                 "BaseOS",  # Used by RHEL
+                 "baseos"]  # Used by CentOS Stream
 
 # Get list of repo names which should be used as updates repos
 DEFAULT_UPDATE_REPOS = ["updates",
