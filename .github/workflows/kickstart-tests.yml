@@ -73,7 +73,6 @@ jobs:
 
   run:
     needs: pr-info
-    # only do this for Fedora for now; once we have RHEL 8/9 boot.iso builds working, also support these
     if: needs.pr-info.outputs.lorax_build_container != '' && needs.pr-info.outputs.allowed_user == 'true' && needs.pr-info.outputs.launch_args != ''
     runs-on: [self-hosted, kstest]
     timeout-minutes: 300
@@ -137,14 +136,18 @@ jobs:
       #    scripts/makeupdates
       #    gzip -cd updates.img | cpio -tv
 
-      - name: Build boot.iso from Fedora and this branch
+      - name: Set up for Lorax execution
         run: |
-          mkdir -p kickstart-tests/data/images
           # We have to pre-create loop devices because they are not namespaced in kernel so
           # podman can't access newly created ones. That caused failures of tests when runners
           # were rebooted.
           sudo mknod -m 0660 /dev/loop0 b 7 0  2> /dev/null || true
           sudo mknod -m 0660 /dev/loop1 b 7 1  2> /dev/null || true
+
+          mkdir -p kickstart-tests/data/images
+
+      - name: Build boot.iso from Fedora and this branch
+        run: |
           # /var/tmp tmpfs speeds up lorax and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
           sudo podman run -i --rm --privileged --tmpfs /var/tmp:rw,mode=1777 -v `pwd`:/source:ro -v `pwd`/kickstart-tests/data/images:/images:z ${{ env.LORAX_BUILD_CONTAINER }} <<EOF
           set -eux
