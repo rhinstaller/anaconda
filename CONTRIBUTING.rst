@@ -33,11 +33,13 @@ How to Contribute to the Anaconda Installer (the short version)
 
 - open a pull request for the ``<next Fedora number>-devel`` branch (f25-devel, etc.)
 - check the *Commit Messages* section below for how to format your commit messages
+- check the *Release Notes* section below for how to provide a release note
 
 2) I want to contribute to the RHEL Anaconda installer:
 
 - open a pull request for the ``<RHEL number>-branch``  branch (rhel7-branch, etc.)
 - check the *Commits for RHEL Branches* section below for how to format your commit messages
+- check the *Release Notes* section below for how to provide a release note
 
 If you want to contribute a change to both the upstream and RHEL Anaconda then follow both a) and b) separately.
 
@@ -167,6 +169,25 @@ or
 
 Use ``Resolves`` if the patch fixes the core issue which caused the bug.
 Use ``Related`` if the patch fixes an ancillary issue that is related to, but might not actually fix the bug.
+
+Release Notes
+^^^^^^^^^^^^^
+
+If you are submitting a patch that should be documented in the release notes, create a copy of the
+``docs/release-notes/template.rst`` file, modify its content and add the new file to your patch, so
+it can be reviewed and merged together with your changes.
+
+The template has the following content:
+
+.. include:: ./docs/release-notes/template.rst
+    :literal:
+
+After a final release (for example, Fedora GA), we will remove all release notes from
+``docs/release-notes/`` of the release branch and create a new file in ``docs/releases/``
+with their content.
+
+This change will be ported to upstream to remove the already documented release notes from
+``docs/release-notes/`` of the upstream branch. In a case of RHEL, port only the new release file.
 
 Pull Request Review
 ^^^^^^^^^^^^^^^^^^^^
