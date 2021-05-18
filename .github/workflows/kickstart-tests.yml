@@ -273,7 +273,11 @@ jobs:
       - name: Run kickstart tests with ${{ needs.pr-info.outputs.launch_args }} in container
         working-directory: kickstart-tests
         run: |
-          sudo TEST_JOBS=16 containers/runner/launch --skip-testtypes 'rhel-only,knownfailure' ${{ needs.pr-info.outputs.launch_args }}
+          sudo TEST_JOBS=16 containers/runner/launch \
+            --skip-testtypes 'fedora-only,knownfailure' \
+            --platform rhel9 \
+            --defaults $PWD/scripts/defaults-rhel9.sh \
+            ${{ needs.pr-info.outputs.launch_args }}
 
       - name: Collect logs
         if: always()
