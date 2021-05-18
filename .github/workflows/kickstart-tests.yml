@@ -55,10 +55,12 @@ jobs:
           REF_DEVEL='f'$FEDVERS'-devel'
           REF_RELEASE='f'$FEDVERS'-release'
 
-          if [ "$TARGET_BRANCH" == "$REF_DEVEL" ] || [ "$TARGET_BRANCH" == "$REF_RELEASE" ] ; then
-            echo "::set-output name=lorax_build_container::fedora:$FEDVERS" ;
-          elif [ "$TARGET_BRANCH" == "master" ] ; then
-            echo "::set-output name=lorax_build_container::fedora:rawhide" ;
+          if [ "$TARGET_BRANCH" == "$REF_DEVEL" ] || [ "$TARGET_BRANCH" == "$REF_RELEASE" ]; then
+            echo "::set-output name=lorax_build_container::fedora:$FEDVERS";
+          elif [ "$TARGET_BRANCH" == "master" ]; then
+            echo "::set-output name=lorax_build_container::fedora:rawhide";
+          elif [ "$TARGET_BRANCH" == "rhel-9" ]; then
+            echo "::set-output name=lorax_build_container::registry-proxy.engineering.redhat.com/rh-osbs/ubi9:latest";
           else
             echo "Branch $TARGET_BRANCH is not configured to run kickstart tests, aborting."
             exit 0
@@ -146,7 +148,8 @@ jobs:
 
           mkdir -p kickstart-tests/data/images
 
-      - name: Build boot.iso from Fedora and this branch
+      - name: Build boot.iso for Fedora branches
+        if: ${{ ! startsWith(needs.pr-info.outputs.base_ref, 'rhel-') }}
         run: |
           # /var/tmp tmpfs speeds up lorax and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
           sudo podman run -i --rm --privileged --tmpfs /var/tmp:rw,mode=1777 -v `pwd`:/source:ro -v `pwd`/kickstart-tests/data/images:/images:z ${{ env.LORAX_BUILD_CONTAINER }} <<EOF
@@ -176,6 +179,87 @@ jobs:
           # The download.fedoraproject.org automatic redirector often selects download-ib01.f.o. for GitHub's cloud, which is too unreliable; use a mirror
           # The --volid argument can cause different network interface naming: https://github.com/rhinstaller/kickstart-tests/issues/448
           lorax -p Fedora -v \$VERSION_ID -r \$VERSION_ID --volid Fedora-S-dvd-x86_64-rawh -s http://dl.fedoraproject.org/pub/fedora/linux/development/rawhide/Everything/x86_64/os/ -s file://\$PWD/result/build/01-rpm-build/ lorax
+          cp lorax/images/boot.iso /images/
+          echo "::endgroup::"
+          EOF
+
+      - name: Build RHEL-9 boot.iso
+        if: needs.pr-info.outputs.base_ref == 'rhel-9'
+        run: |
+          # /var/tmp tmpfs speeds up lorax and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
+          sudo podman run -i --rm --privileged --tmpfs /var/tmp:rw,mode=1777 -v `pwd`:/source:ro -v `pwd`/kickstart-tests/data/images:/images:z ${{ env.LORAX_BUILD_CONTAINER }} <<EOF
+          set -eux
+
+          # lorax must run on RHEL host to produce RHEL guest images :-(
+          # need to enable internal repos so that we don't need a subscription;
+          rm -f /etc/yum.repos.d/*
+          cat <<EOR > /etc/yum.repos.d/rhel9.repo
+          [RHEL-9-BaseOS]
+          name=baseos
+          baseurl=http://download.devel.redhat.com/rhel-9/nightly/RHEL-9-Beta/latest-RHEL-9/compose/BaseOS/\\\$basearch/os/
+          enabled=1
+          gpgcheck=0
+          install_weak_deps=0
+          module_hotfixes=1
+
+          [RHEL-9-AppStream]
+          name=appstream
+          baseurl=http://download.devel.redhat.com/rhel-9/nightly/RHEL-9-Beta/latest-RHEL-9/compose/AppStream/\\\$basearch/os/
+          enabled=1
+          gpgcheck=0
+          install_weak_deps=0
+          module_hotfixes=1
+
+          [RHEL-9-CRB]
+          name=crb
+          baseurl=http://download.devel.redhat.com/rhel-9/nightly/RHEL-9-Beta/latest-RHEL-9/compose/CRB/\\\$basearch/os/
+          enabled=1
+          gpgcheck=0
+          install_weak_deps=0
+          module_hotfixes=1
+
+          [RHEL-9-Buildroot]
+          name=buildroot
+          baseurl=http://download.devel.redhat.com/rhel-9/nightly/BUILDROOT-9-Beta/latest-BUILDROOT-9/compose/Buildroot/\\\$basearch/os/
+          enabled=1
+          gpgcheck=0
+          install_weak_deps=0
+          module_hotfixes=1
+          EOR
+
+          # /source from host is read-only, build in a copy
+          cp -a /source/ /tmp/
+          cd /tmp/source
+
+          # install build dependencies and lorax
+          echo "::group::Install build dependencies and lorax"
+          ./scripts/testing/install_dependencies.sh -y
+          dnf install -y createrepo_c lorax
+          echo "::endgroup::"
+
+          # build RPMs and repo for it; bump version so that it's higher than rawhide's
+          echo "::group::Build Anaconda RPMs and make a repository"
+          sed -ri '/AC_INIT/ s/\[[0-9.]+\]/[999999999]/' configure.ac
+          ./autogen.sh
+          ./configure
+          make rpms
+          createrepo_c result/build/01-rpm-build/
+          echo "::endgroup::"
+
+          # build boot.iso with our rpms
+          echo "::group::Build boot.iso with the RPMs"
+          . /etc/os-release
+          MAJOR_VERSION=\${VERSION_ID%%.*}
+          MINOR_VERSION=\${VERSION_ID#*.}
+          # The --volid argument can cause different network interface naming: https://github.com/rhinstaller/kickstart-tests/issues/448
+          lorax -p RHEL -v \$MAJOR_VERSION -r \$MINOR_VERSION --volid RHEL-\$MAJOR_VERSION-\$MINOR_VERSION-0-BaseOS-x86_64 \
+          --nomacboot \
+          -s http://download.devel.redhat.com/rhel-9/nightly/RHEL-9-Beta/latest-RHEL-9/compose/BaseOS/x86_64/os/ \
+          -s http://download.devel.redhat.com/rhel-9/nightly/RHEL-9-Beta/latest-RHEL-9/compose/AppStream/x86_64/os/ \
+          -s http://download.devel.redhat.com/rhel-9/nightly/RHEL-9-Beta/latest-RHEL-9/compose/CRB/\\\$basearch/os/ \
+          -s http://download.devel.redhat.com/rhel-9/nightly/BUILDROOT-9-Beta/latest-BUILDROOT-9/compose/Buildroot/x86_64/os/ \
+          -s file://\$PWD/result/build/01-rpm-build/ \
+          lorax
           cp lorax/images/boot.iso /images/
           echo "::endgroup::"
           EOF
