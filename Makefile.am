@@ -81,8 +81,10 @@ CONTAINER_REGISTRY ?= quay.io
 # anaconda-ci container
 CI_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-ci
 RPM_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-rpm
+ISO_CREATOR_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-iso-creator
 CI_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-ci
 RPM_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-rpm
+ISO_CREATOR_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-iso-creator
 CI_TAG := $(or $(CI_TAG),$(GIT_BRANCH))
 CI_TEST_ARGS ?= --rm -v $(srcdir):/anaconda:Z
 CI_CMD ?= make ci
@@ -181,6 +183,14 @@ anaconda-rpm-build:
 	--build-arg=copr_repo=$(COPR_REPO) \
 	-t $(RPM_NAME):$(CI_TAG) \
 	$(RPM_DOCKERFILE)
+
+anaconda-iso-creator-build:
+	$(CONTAINER_ENGINE) build \
+	$(CONTAINER_BUILD_ARGS) \
+	--build-arg=git_branch=$(GIT_BRANCH) \
+	--build-arg=image=$(BASE_CONTAINER) \
+	-t $(ISO_CREATOR_NAME):$(CI_TAG) \
+  $(ISO_CREATOR_DOCKERFILE)
 
 # User has to be logged first to be able to push the image.
 # See `podman login` for more info.
