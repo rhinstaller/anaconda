@@ -163,12 +163,12 @@ class InstalledFilesTestCase(RPMTestCase):
 
     def test_product_conf_dir(self):
         rpm_files = self._get_core_rpm_content()
-        rpm_files = filter(FileFilters.productd_only, rpm_files)
+        rpm_files = filter(FileFilters.profiled_only, rpm_files)
 
         src_files = self._apply_filters(
             [
                 FileFilters.src_data_only,
-                FileFilters.productd_only,
+                FileFilters.profiled_only,
                 FileFilters.confs_only,
             ], self._get_source_files()
         )
@@ -347,8 +347,8 @@ class FileFilters(object):
         return "/conf.d/" in path
 
     @staticmethod
-    def productd_only(path):
-        return "/product.d/" in path
+    def profiled_only(path):
+        return "/profile.d/" in path
 
     @staticmethod
     def confs_only(path):
