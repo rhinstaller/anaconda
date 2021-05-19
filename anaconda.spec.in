@@ -408,6 +408,11 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed May 19 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.5-1
+- Avoid a race condition during Connect to Red Hat spoke initialization
+  (mkolman)
+  Resolves: rhbz#1959383
+
 * Mon May 17 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.4-1
 - Support also gnome-kiosk window manager (rvykydal)
   Related: rhbz#1960682
