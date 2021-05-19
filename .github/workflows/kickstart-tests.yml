@@ -56,9 +56,9 @@ jobs:
           REF_RELEASE='f'$FEDVERS'-release'
 
           if [ "$TARGET_BRANCH" == "$REF_DEVEL" ] || [ "$TARGET_BRANCH" == "$REF_RELEASE" ] ; then
-            echo "::set-output name=lorax_build_container::fedora:$FEDVERS" ;
+            echo "::set-output name=base_container::fedora:$FEDVERS" ;
           elif [ "$TARGET_BRANCH" == "master" ] ; then
-            echo "::set-output name=lorax_build_container::fedora:rawhide" ;
+            echo "::set-output name=base_container::fedora:rawhide" ;
           else
             echo "Branch $TARGET_BRANCH is not configured to run kickstart tests, aborting."
             exit 0
@@ -69,16 +69,16 @@ jobs:
       base_ref: ${{ fromJson(steps.pr_api.outputs.data).base.ref }}
       sha: ${{ fromJson(steps.pr_api.outputs.data).head.sha }}
       launch_args: ${{ steps.parse_launch_args.outputs.launch_args }}
-      lorax_build_container: ${{ steps.generate-parameters.outputs.lorax_build_container }}
+      base_container: ${{ steps.generate-parameters.outputs.base_container }}
 
   run:
     needs: pr-info
     # only do this for Fedora for now; once we have RHEL 8/9 boot.iso builds working, also support these
-    if: needs.pr-info.outputs.lorax_build_container != '' && needs.pr-info.outputs.allowed_user == 'true' && needs.pr-info.outputs.launch_args != ''
+    if: needs.pr-info.outputs.base_container != '' && needs.pr-info.outputs.allowed_user == 'true' && needs.pr-info.outputs.launch_args != ''
     runs-on: [self-hosted, kstest]
     timeout-minutes: 300
     env:
-       LORAX_BUILD_CONTAINER: ${{ needs.pr-info.outputs.lorax_build_container }}
+       BASE_CONTAINER: ${{ needs.pr-info.outputs.base_container }}
        STATUS_NAME: kickstart-test
        TARGET_BRANCH: ${{ needs.pr-info.outputs.base_ref }}
     steps:
@@ -104,7 +104,7 @@ jobs:
 
       - name: Update container images used here
         run: |
-          sudo podman pull ${{ env.LORAX_BUILD_CONTAINER }}
+          sudo podman pull ${{ env.BASE_CONTAINER }}
           sudo podman pull quay.io/rhinstaller/kstest-runner:latest
 
       - name: Clone repository
@@ -146,7 +146,7 @@ jobs:
           sudo mknod -m 0660 /dev/loop0 b 7 0  2> /dev/null || true
           sudo mknod -m 0660 /dev/loop1 b 7 1  2> /dev/null || true
           # /var/tmp tmpfs speeds up lorax and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
-          sudo podman run -i --rm --privileged --tmpfs /var/tmp:rw,mode=1777 -v `pwd`:/source:ro -v `pwd`/kickstart-tests/data/images:/images:z ${{ env.LORAX_BUILD_CONTAINER }} <<EOF
+          sudo podman run -i --rm --privileged --tmpfs /var/tmp:rw,mode=1777 -v `pwd`:/source:ro -v `pwd`/kickstart-tests/data/images:/images:z ${{ env.BASE_CONTAINER }} <<EOF
           set -eux
           # /source from host is read-only, build in a copy
           cp -a /source/ /tmp/
