@@ -55,10 +55,10 @@ jobs:
           REF_DEVEL='f'$FEDVERS'-devel'
           REF_RELEASE='f'$FEDVERS'-release'
 
-          if [ "$TARGET_BRANCH" == "$REF_DEVEL" ] || [ "$TARGET_BRANCH" == "$REF_RELEASE" ] ; then
-            echo "::set-output name=base_container::fedora:$FEDVERS" ;
-          elif [ "$TARGET_BRANCH" == "master" ] ; then
-            echo "::set-output name=base_container::fedora:rawhide" ;
+          if [ "$TARGET_BRANCH" == "$REF_DEVEL" ] || [ "$TARGET_BRANCH" == "$REF_RELEASE" ]; then
+            echo "::set-output name=base_container::fedora:$FEDVERS";
+          elif [ "$TARGET_BRANCH" == "master" ]; then
+            echo "::set-output name=base_container::fedora:rawhide";
           else
             echo "Branch $TARGET_BRANCH is not configured to run kickstart tests, aborting."
             exit 0
