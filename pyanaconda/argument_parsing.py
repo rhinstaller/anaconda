@@ -419,11 +419,9 @@ def getArgumentParser(version_string, boot_cmdline=None):
     ap.add_argument("--noninteractive", dest="noninteractive", action="store_true",
                     help=help_parser.help_text("noninteractive"))
 
-    # Product and variant.
-    ap.add_argument("--product", dest="product_name", metavar="PRODUCT_NAME",
-                    default="", help=help_parser.help_text("product"))
-    ap.add_argument("--variant", dest="variant_name", metavar="VARIANT_NAME",
-                    default="", help=help_parser.help_text("variant"))
+    # Profile
+    ap.add_argument("--profile", dest="profile_id", metavar="PROFILE_ID",
+                    default="", help=help_parser.help_text("profile"))
 
     # Network
     ap.add_argument("--proxy", metavar='PROXY_URL', help=help_parser.help_text("proxy"))
