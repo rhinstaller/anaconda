@@ -55,10 +55,10 @@ jobs:
           REF_DEVEL='f'$FEDVERS'-devel'
           REF_RELEASE='f'$FEDVERS'-release'
 
-          if [ "$TARGET_BRANCH" == "$REF_DEVEL" ] || [ "$TARGET_BRANCH" == "$REF_RELEASE" ] ; then
-            echo "::set-output name=lorax_build_container::fedora:$FEDVERS" ;
-          elif [ "$TARGET_BRANCH" == "master" ] ; then
-            echo "::set-output name=lorax_build_container::fedora:rawhide" ;
+          if [ "$TARGET_BRANCH" == "$REF_DEVEL" ] || [ "$TARGET_BRANCH" == "$REF_RELEASE" ]; then
+            echo "::set-output name=base_container::fedora:$FEDVERS";
+          elif [ "$TARGET_BRANCH" == "master" ]; then
+            echo "::set-output name=base_container::fedora:rawhide";
           else
             echo "Branch $TARGET_BRANCH is not configured to run kickstart tests, aborting."
             exit 0
@@ -69,18 +69,20 @@ jobs:
       base_ref: ${{ fromJson(steps.pr_api.outputs.data).base.ref }}
       sha: ${{ fromJson(steps.pr_api.outputs.data).head.sha }}
       launch_args: ${{ steps.parse_launch_args.outputs.launch_args }}
-      lorax_build_container: ${{ steps.generate-parameters.outputs.lorax_build_container }}
+      base_container: ${{ steps.generate-parameters.outputs.base_container }}
 
   run:
     needs: pr-info
     # only do this for Fedora for now; once we have RHEL 8/9 boot.iso builds working, also support these
-    if: needs.pr-info.outputs.lorax_build_container != '' && needs.pr-info.outputs.allowed_user == 'true' && needs.pr-info.outputs.launch_args != ''
+    if: needs.pr-info.outputs.base_container != '' && needs.pr-info.outputs.allowed_user == 'true' && needs.pr-info.outputs.launch_args != ''
     runs-on: [self-hosted, kstest]
     timeout-minutes: 300
     env:
-       LORAX_BUILD_CONTAINER: ${{ needs.pr-info.outputs.lorax_build_container }}
+       BASE_CONTAINER: ${{ needs.pr-info.outputs.base_container }}
        STATUS_NAME: kickstart-test
        TARGET_BRANCH: ${{ needs.pr-info.outputs.base_ref }}
+       CONTAINER_TAG: 'lorax'
+       CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-iso-creator'
     steps:
       # we post statuses manually as this does not run from a pull_request event
       # https://developer.github.com/v3/repos/statuses/#create-a-status
@@ -101,11 +103,6 @@ jobs:
           sudo podman ps -q --all --filter='ancestor=kstest-runner' | xargs -tr sudo podman rm -f
           sudo podman volume rm --all || true
           sudo rm -rf * .git
-
-      - name: Update container images used here
-        run: |
-          sudo podman pull ${{ env.LORAX_BUILD_CONTAINER }}
-          sudo podman pull quay.io/rhinstaller/kstest-runner:latest
 
       - name: Clone repository
         uses: actions/checkout@v2
@@ -137,7 +134,17 @@ jobs:
       #    scripts/makeupdates
       #    gzip -cd updates.img | cpio -tv
 
-      - name: Build boot.iso from Fedora and this branch
+      - name: Update container images used here
+        run: |
+          sudo podman pull ${{ env.BASE_CONTAINER }}
+          sudo podman pull quay.io/rhinstaller/kstest-runner:latest
+
+      - name: Build anaconda-iso-creator container image
+        run: |
+          # set static tag to avoid complications when looking what tag is used
+          sudo make -f ./Makefile.am anaconda-iso-creator-build ${BASE_CONTAINER:+BASE_CONTAINER=}${BASE_CONTAINER:-} CI_TAG=$CONTAINER_TAG
+
+      - name: Prepare environment for lorax run
         run: |
           mkdir -p kickstart-tests/data/images
           # We have to pre-create loop devices because they are not namespaced in kernel so
@@ -145,43 +152,24 @@ jobs:
           # were rebooted.
           sudo mknod -m 0660 /dev/loop0 b 7 0  2> /dev/null || true
           sudo mknod -m 0660 /dev/loop1 b 7 1  2> /dev/null || true
+
+      - name: Build boot.iso
+        run: |
           # /var/tmp tmpfs speeds up lorax and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
-          sudo podman run -i --rm --privileged --tmpfs /var/tmp:rw,mode=1777 -v `pwd`:/source:ro -v `pwd`/kickstart-tests/data/images:/images:z ${{ env.LORAX_BUILD_CONTAINER }} <<EOF
-          set -eux
-          # /source from host is read-only, build in a copy
-          cp -a /source/ /tmp/
-          cd /tmp/source
-
-          # install build dependencies and lorax
-          echo "::group::Install build dependencies and lorax"
-          ./scripts/testing/install_dependencies.sh -y
-          dnf install -y createrepo_c lorax
-          echo "::endgroup::"
-
-          # build RPMs and repo for it; bump version so that it's higher than rawhide's
-          echo "::group::Build Anaconda RPMs and make a repository"
-          sed -ri '/AC_INIT/ s/\[[0-9.]+\]/[999999999]/' configure.ac
-          ./autogen.sh
-          ./configure
-          make rpms
-          createrepo_c result/build/01-rpm-build/
-          echo "::endgroup::"
-
-          # build boot.iso with our rpms
-          echo "::group::Build boot.iso with the RPMs"
-          . /etc/os-release
-          # The download.fedoraproject.org automatic redirector often selects download-ib01.f.o. for GitHub's cloud, which is too unreliable; use a mirror
-          # The --volid argument can cause different network interface naming: https://github.com/rhinstaller/kickstart-tests/issues/448
-          lorax -p Fedora -v \$VERSION_ID -r \$VERSION_ID --volid Fedora-S-dvd-x86_64-rawh -s http://dl.fedoraproject.org/pub/fedora/linux/development/rawhide/Everything/x86_64/os/ -s file://\$PWD/result/build/01-rpm-build/ lorax
-          cp lorax/images/boot.iso /images/
-          echo "::endgroup::"
-          EOF
+          sudo podman run -i --rm --privileged \
+            --tmpfs /var/tmp:rw,mode=1777 \
+            -v `pwd`:/anaconda:ro \
+            -v `pwd`/kickstart-tests/data/images:/images:z \
+            $CONTAINER_NAME:$CONTAINER_TAG
 
       - name: Clean up after lorax
         if: always()
         run: |
           sudo losetup -d /dev/loop0 2> /dev/null || true
           sudo losetup -d /dev/loop1 2> /dev/null || true
+
+          # remove boot.iso the build container image together with the container
+          sudo podman rmi -f $CONTAINER_NAME:$CONTAINER_TAG || true
 
       - name: Run kickstart tests with ${{ needs.pr-info.outputs.launch_args }} in container
         working-directory: kickstart-tests
