@@ -133,7 +133,7 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
         # If the user cleared the home directory, revert back to the
         # default
         if not homedir:
-            self.user.homedir = None
+            self.user.homedir = ""
         # If the user modified the home directory input, save that the
         # home directory has been modified and use the value.
         elif self._origHome != homedir:
