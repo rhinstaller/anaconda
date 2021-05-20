@@ -169,6 +169,17 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         self.assertEqual(requirements[0].type, "package")
         self.assertEqual(requirements[0].name, "kbd-legacy")
 
+        # "fi" keyboard layout is in kbd-legacy too (#1955793)
+        self.localization_interface.SetVirtualConsoleKeymap("fi")
+
+        requirements = Requirement.from_structure_list(
+            self.localization_interface.CollectRequirements()
+        )
+
+        self.assertEqual(len(requirements), 1)
+        self.assertEqual(requirements[0].type, "package")
+        self.assertEqual(requirements[0].name, "kbd-legacy")
+
     @patch_dbus_publish_object
     def install_with_task_test(self, publisher):
         """Test InstallWithTask."""
