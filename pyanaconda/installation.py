@@ -258,6 +258,15 @@ def _prepare_installation(payload, ksdata):
         task_proxy = DBus.get_proxy(service_name, object_path)
         setup_environment.append(DBusTask(task_proxy))
 
+    # Add configuration tasks for the Localization DBus module.
+    if is_module_available(LOCALIZATION):
+        localization_proxy = LOCALIZATION.get_proxy()
+        # Populate the missing keyboard values before the payload installation,
+        # so the module requirements can be generated for the right configuration.
+        # FIXME: Make sure that the module always returns right values.
+        populate_task = localization_proxy.PopulateMissingKeyboardConfigurationWithTask()
+        setup_environment.append_dbus_tasks(LOCALIZATION, [populate_task])
+
     installation_queue.append(setup_environment)
 
     # Do partitioning.
