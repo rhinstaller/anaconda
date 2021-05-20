@@ -35,7 +35,8 @@ jobs:
           #  ci_tag: 'f34-release'
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
-      CONTAINER_BUILD_ARGS: '${{ matrix.build-args }}'
+      # Always avoid using cache because cache is not correctly invalidated.
+      CONTAINER_BUILD_ARGS: '--no-cache ${{ matrix.build-args }}'
       TARGET_BRANCH_NAME: 'origin/${{ matrix.target_branch }}'
 
     steps:
@@ -107,7 +108,8 @@ jobs:
           #  ci_tag: 'f34-release'
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
-      CONTAINER_BUILD_ARGS: '${{ matrix.build-args }}'
+      # Always avoid using cache because cache is not correctly invalidated.
+      CONTAINER_BUILD_ARGS: '--no-cache ${{ matrix.build-args }}'
       TARGET_BRANCH_NAME: 'origin/${{ matrix.target_branch }}'
 
     steps:
