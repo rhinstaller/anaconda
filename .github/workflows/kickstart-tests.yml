@@ -46,11 +46,31 @@ jobs:
           echo "launch arguments are: $LAUNCH_ARGS"
           echo "::set-output name=launch_args::${LAUNCH_ARGS}"
 
+      - name: Set KS test arguments
+        id: ks_test_args
+        run: |
+          set -eux
+          TARGET_BRANCH="${{ fromJson(steps.pr_api.outputs.data).base.ref }}"
+
+          if [ "$TARGET_BRANCH" == "master" ]; then
+            echo "::set-output name=skip_tests::rhel-only"
+          elif [ $(echo "$TARGET_BRANCH" | grep -E "f[[:digit:]]*-(devel|release)") ]; then
+            echo "::set-output name=skip_tests::rhel-only"
+          elif [ "$TARGET_BRANCH" == "rhel-9" ]; then
+            echo "::set-output name=skip_tests::fedora-only"
+            echo "::set-output name=optional_test_args::--platform rhel9 --defaults ./scripts/defaults-rhel9.sh"
+          else
+            echo "Branch $TARGET_BRANCH is not supported by kickstart tests yet!"
+            exit 1
+          fi
+
     outputs:
       allowed_user: ${{ steps.check_user_perm.outputs.allowed_user }}
       base_ref: ${{ fromJson(steps.pr_api.outputs.data).base.ref }}
       sha: ${{ fromJson(steps.pr_api.outputs.data).head.sha }}
       launch_args: ${{ steps.parse_launch_args.outputs.launch_args }}
+      skip_tests: ${{ steps.ks_test_args.outputs.skip_tests }}
+      optional_test_args: ${{ steps.ks_test_args.outputs.optional_test_args }}
 
   run:
     needs: pr-info
@@ -63,6 +83,8 @@ jobs:
        TARGET_BRANCH: ${{ needs.pr-info.outputs.base_ref }}
        CONTAINER_TAG: 'lorax'
        CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-iso-creator'
+       SKIP_KS_TESTS: ${{ needs.pr-info.outputs.skip_tests }}
+       OPTIONAL_KS_TEST_ARGS: ${{ needs.pr-info.outputs.optional_test_args }}
     steps:
       # we post statuses manually as this does not run from a pull_request event
       # https://developer.github.com/v3/repos/statuses/#create-a-status
@@ -153,7 +175,7 @@ jobs:
       - name: Run kickstart tests with ${{ needs.pr-info.outputs.launch_args }} in container
         working-directory: kickstart-tests
         run: |
-          sudo TEST_JOBS=16 containers/runner/launch --skip-testtypes 'rhel-only,knownfailure' ${{ needs.pr-info.outputs.launch_args }}
+          sudo TEST_JOBS=16 containers/runner/launch --skip-testtypes "$SKIP_KS_TESTS,knownfailure" $OPTIONAL_KS_TEST_ARGS ${{ needs.pr-info.outputs.launch_args }}
 
       - name: Collect logs
         if: always()
