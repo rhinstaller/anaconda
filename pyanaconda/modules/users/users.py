@@ -389,7 +389,10 @@ class UsersService(KickstartService):
         for user in self.users:
             if not user.lock:
                 if "wheel" in user.groups:
-                    return True
+                    if user.password != "":
+                        return True
+                    else:
+                        return False
 
         # no admin user found
         return False
