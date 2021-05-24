@@ -42,8 +42,6 @@ class UsersInterface(KickstartModuleInterface):
                             self.implementation.root_password_is_set_changed)
         self.watch_property("IsRootAccountLocked",
                             self.implementation.root_account_locked_changed)
-        self.watch_property("RootPasswordSSHLoginAllowed",
-                            self.implementation.root_password_ssh_login_allowed_changed)
         self.watch_property("CanChangeRootPassword",
                             self.implementation.can_change_root_password_changed)
 
@@ -112,19 +110,6 @@ class UsersInterface(KickstartModuleInterface):
         :return: True, if the root account is locked, otherwise False
         """
         return self.implementation.root_account_locked
-
-    @emits_properties_changed
-    def SetRootPasswordSSHLoginAllowed(self, root_password_ssh_login_allowed: Bool):
-        """Allow or disallow the root from logging in via SSH with password authetication."""
-        self.implementation.set_root_password_ssh_login_allowed(root_password_ssh_login_allowed)
-
-    @property
-    def RootPasswordSSHLoginAllowed(self) -> Bool:
-        """Is logging in as root via SSH with password allowed ?
-
-        :return: True if root SSH loggin with password is allowed, False otherwise
-        """
-        return self.implementation.root_password_ssh_login_allowed
 
     @property
     def Users(self) -> List[Structure]:
