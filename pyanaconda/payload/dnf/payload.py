@@ -81,7 +81,6 @@ class DNFPayload(Payload):
         self._payload_proxy = get_payload(self.type)
 
         self.tx_id = None
-        self._install_tree_metadata = None
 
         self._dnf_manager = DNFManager()
         self._updates_enabled = True
@@ -218,7 +217,6 @@ class DNFPayload(Payload):
 
     def unsetup(self):
         self._configure()
-        self._install_tree_metadata = None
         tear_down_sources(self.proxy)
 
     @property
@@ -599,7 +597,6 @@ class DNFPayload(Payload):
     def _reset_configuration(self):
         tear_down_sources(self.proxy)
         self._reset_additional_repos()
-        self._install_tree_metadata = None
         self.tx_id = None
         self._dnf_manager.clear_cache()
         self._dnf_manager.configure_proxy(self._get_proxy_url())
@@ -695,12 +692,25 @@ class DNFPayload(Payload):
             base_repo_url = install_tree_url
 
             try:
-                self._refresh_install_tree(data)
-                self._base.conf.releasever = self._get_release_version(install_tree_url)
-                base_repo_url = self._get_base_repo_location(install_tree_url)
+                install_tree_metadata = self._get_install_tree_metadata(data)
+
+                self._base.conf.releasever = self._get_release_version(
+                    install_tree_metadata,
+                    install_tree_url
+                )
+                base_repo_url = self._get_base_repo_location(
+                    install_tree_metadata,
+                    install_tree_url
+                )
+
                 log.debug("releasever from %s is %s", base_repo_url, self._base.conf.releasever)
 
-                self._load_treeinfo_repositories(base_repo_url, disabled_treeinfo_repo_names, data)
+                self._load_treeinfo_repositories(
+                    install_tree_metadata,
+                    base_repo_url,
+                    disabled_treeinfo_repo_names,
+                    data
+                )
             except configparser.MissingSectionHeaderError as e:
                 log.error("couldn't set releasever from base repo (%s): %s", source_type, e)
 
@@ -908,13 +918,13 @@ class DNFPayload(Payload):
 
         return url
 
-    def _refresh_install_tree(self, data: RepoConfigurationData):
+    def _get_install_tree_metadata(self, data: RepoConfigurationData):
         """Refresh installation tree metadata."""
         if data.type != URL_TYPE_BASEURL:
-            return
+            return None
 
         if not data.url:
-            return
+            return None
 
         url = data.url
         proxy_url = data.proxy or None
@@ -943,25 +953,27 @@ class DNFPayload(Payload):
                          proxy_url, e)
 
         headers = {"user-agent": USER_AGENT}
-        self._install_tree_metadata = InstallTreeMetadata()
+        install_tree_metadata = InstallTreeMetadata()
+
         try:
-            ret = self._install_tree_metadata.load_url(url, proxies, ssl_verify, ssl_cert, headers)
+            ret = install_tree_metadata.load_url(url, proxies, ssl_verify, ssl_cert, headers)
         except FileNotDownloadedError as e:
-            self._install_tree_metadata = None
             self.verbose_errors.append(str(e))
             log.warning("Install tree metadata fetching failed: %s", str(e))
-            return
+            return None
 
         if not ret:
             log.warning("Install tree metadata can't be loaded!")
-            self._install_tree_metadata = None
+            return None
 
-    def _get_release_version(self, url):
+        return install_tree_metadata
+
+    def _get_release_version(self, install_tree_metadata, url):
         """Return the release version of the tree at the specified URL."""
         log.debug("getting release version from tree at %s", url)
 
-        if self._install_tree_metadata:
-            version = self._install_tree_metadata.get_release_version()
+        if install_tree_metadata:
+            version = install_tree_metadata.get_release_version()
             log.debug("using treeinfo release version of %s", version)
         else:
             version = get_product_release_version()
@@ -969,7 +981,7 @@ class DNFPayload(Payload):
 
         return version
 
-    def _get_base_repo_location(self, install_tree_url):
+    def _get_base_repo_location(self, install_tree_metadata, install_tree_url):
         """Try to find base repository from the treeinfo file.
 
         The URL can be installation tree root or a subfolder in the installation root.
@@ -994,8 +1006,8 @@ class DNFPayload(Payload):
         * If URL points to repo directly then no .treeinfo file is present. We will just use this
         repo.
         """
-        if self._install_tree_metadata:
-            repo_md = self._install_tree_metadata.get_base_repo_metadata()
+        if install_tree_metadata:
+            repo_md = install_tree_metadata.get_base_repo_metadata()
             if repo_md:
                 log.debug("Treeinfo points base repository to %s.", repo_md.path)
                 return repo_md.path
@@ -1003,7 +1015,8 @@ class DNFPayload(Payload):
         log.debug("No base repository found in treeinfo file. Using installation tree root.")
         return install_tree_url
 
-    def _load_treeinfo_repositories(self, base_repo_url, repo_names_to_disable, data):
+    def _load_treeinfo_repositories(self, install_tree_metadata, base_repo_url,
+                                    repo_names_to_disable, data):
         """Load new repositories from treeinfo file.
 
         :param base_repo_url: base repository url. This is not saved anywhere when the function
@@ -1012,7 +1025,7 @@ class DNFPayload(Payload):
         :type repo_names_to_disable: [str]
         :param data: repo configuration data
         """
-        if self._install_tree_metadata:
+        if install_tree_metadata:
             existing_urls = []
 
             if base_repo_url is not None:
@@ -1024,9 +1037,9 @@ class DNFPayload(Payload):
 
             enabled_repositories_from_treeinfo = conf.payload.enabled_repositories_from_treeinfo
 
-            for repo_md in self._install_tree_metadata.get_metadata_repos():
+            for repo_md in install_tree_metadata.get_metadata_repos():
                 if repo_md.path not in existing_urls:
-                    repo_treeinfo = self._install_tree_metadata.get_treeinfo_for(repo_md.name)
+                    repo_treeinfo = install_tree_metadata.get_treeinfo_for(repo_md.name)
 
                     # disable repositories disabled by user manually before
                     if repo_md.name in repo_names_to_disable:
