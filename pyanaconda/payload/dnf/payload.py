@@ -599,6 +599,7 @@ class DNFPayload(Payload):
         self._reset_additional_repos()
         self.tx_id = None
         self._dnf_manager.clear_cache()
+        self._dnf_manager.reset_substitution()
         self._dnf_manager.configure_proxy(self._get_proxy_url())
 
     def _reset_additional_repos(self):
@@ -694,16 +695,15 @@ class DNFPayload(Payload):
             try:
                 install_tree_metadata = self._get_install_tree_metadata(data)
 
-                self._base.conf.releasever = self._get_release_version(
-                    install_tree_metadata,
-                    install_tree_url
-                )
+                if install_tree_metadata:
+                    self._dnf_manager.configure_substitution(
+                        install_tree_metadata.get_release_version()
+                    )
+
                 base_repo_url = self._get_base_repo_location(
                     install_tree_metadata,
                     install_tree_url
                 )
-
-                log.debug("releasever from %s is %s", base_repo_url, self._base.conf.releasever)
 
                 self._load_treeinfo_repositories(
                     install_tree_metadata,
@@ -967,19 +967,6 @@ class DNFPayload(Payload):
             return None
 
         return install_tree_metadata
-
-    def _get_release_version(self, install_tree_metadata, url):
-        """Return the release version of the tree at the specified URL."""
-        log.debug("getting release version from tree at %s", url)
-
-        if install_tree_metadata:
-            version = install_tree_metadata.get_release_version()
-            log.debug("using treeinfo release version of %s", version)
-        else:
-            version = get_product_release_version()
-            log.debug("using default release version of %s", version)
-
-        return version
 
     def _get_base_repo_location(self, install_tree_metadata, install_tree_url):
         """Try to find base repository from the treeinfo file.
