@@ -535,7 +535,7 @@ class CreateNewPage(BasePage):
         label = Gtk.Label(
             label=C_(
                 "GUI|Custom Partitioning|Autopart Page",
-                "_Automatically created mount points can be encrypted by default:"
+                "_Encrypt automatically created mount points by default:"
             ),
             xalign=0,
             yalign=0.5,
