@@ -214,8 +214,6 @@ class Spoke(object, metaclass=ABCMeta):
         self._payload = payload
         self.applyOnSkip = False
 
-        self.visitedSinceApplied = True
-
         # entry and exit signals
         # - get the hub instance as a single argument
         self.entered = Signal()

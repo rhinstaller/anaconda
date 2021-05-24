@@ -61,6 +61,7 @@ class SummaryHub(TUIHub):
             sys.stdout.write(_("Starting automated install"))
             sys.stdout.flush()
             spokes = self._spokes.values()
+
             while not all(spoke.ready for spoke in spokes):
                 # Catch any asynchronous events (like storage crashing)
                 loop = App.get_event_loop()
@@ -70,9 +71,6 @@ class SummaryHub(TUIHub):
                 time.sleep(1)
 
             print('')
-            for spoke in spokes:
-                if spoke.changed:
-                    spoke.execute()
 
         return True
 
