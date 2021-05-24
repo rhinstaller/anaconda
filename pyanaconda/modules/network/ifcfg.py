@@ -426,7 +426,7 @@ def get_kickstart_network_data(ifcfg, nm_client, network_data_class, root_path="
                                                [ifcfg.get("DEVICE"), ifcfg.get("UUID")],
                                                root_path=root_path))
         for iface, uuid in slaves:
-            team_port_cfg = get_team_port_config_from_connection(nm_client, uuid)
+            team_port_cfg = get_team_port_config_from_connection(nm_client, uuid) or ""
             nd.teamslaves.append((iface, team_port_cfg))
         teamconfig = get_team_config_from_connection(nm_client, ifcfg.get("UUID"))
         if teamconfig:
