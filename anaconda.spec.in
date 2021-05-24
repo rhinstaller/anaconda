@@ -367,6 +367,29 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon May 24 2021 Radek Vykydal <rvykydal@redhat.com> - 33.16.5.2-1
+- Use modinfo to check ko before modprobe (t.feng94)
+  Resolves: rhbz#1577544
+- network: do not crash on team without IP config (rvykydal)
+  Resolves: rhbz#1929008
+- Add the "Encrypt my data" checkbox to the custom partitioning spoke
+  (vponcova)
+  Resolves: rhbz#1903786
+- Allow encryption of thin logical volumes (vponcova)
+  Resolves: rhbz#1877777
+- Don't automatically execute the default partitioning (vponcova)
+  Resolves: rhbz#1954408
+- Don't run the execute method in the kickstart installation in TUI by default
+  (vponcova)
+  Related: rhbz#1954408
+- Don't run the execute method in the kickstart installation in GUI by default
+  (vponcova)
+  Related: rhbz#1954408
+- Enable closest mirror in CentOS Stream config (carl)
+  Resolves: rhbz#1953698
+- Add CentOS Stream config (riehecky)
+  Resolves: rhbz#1953698
+
 * Wed May 19 2021 Radek Vykydal <rvykydal@redhat.com> - 33.16.5.1-1
 - subscription: allow dates in ISO 8601 format (ptoscano)
   Resolves: rhbz#1947445
