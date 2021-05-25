@@ -16,7 +16,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import configparser
 import os
 import dnf.exceptions
 import dnf.repo
@@ -32,8 +31,8 @@ from pyanaconda.modules.payloads.payload.dnf.initialization import configure_dnf
 from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
     SetRPMMacrosTask, DownloadPackagesTask, InstallPackagesTask, PrepareDownloadLocationTask, \
     CleanUpDownloadLocationTask, ResolvePackagesTask
-from pyanaconda.modules.payloads.payload.dnf.utils import get_product_release_version, \
-    get_kernel_version_list, calculate_required_space
+from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_version_list, \
+    calculate_required_space
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, DNFManagerError
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 
@@ -56,8 +55,8 @@ from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload.errors import PayloadError, PayloadSetupError
 from pyanaconda.payload.image import find_first_iso_image, find_optical_install_media
-from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata, FileNotDownloadedError
-from pyanaconda.product import productName, productVersion
+from pyanaconda.modules.payloads.payload.dnf.tree_info import TreeInfoMetadata, NoTreeInfoError, \
+    TreeInfoMetadataError
 from pyanaconda.progress import progressQ, progress_message
 from pyanaconda.ui.lib.payload import get_payload, get_source, create_source, set_source, \
     set_up_sources, tear_down_sources
@@ -65,7 +64,6 @@ from pyanaconda.ui.lib.payload import get_payload, get_source, create_source, se
 __all__ = ["DNFPayload"]
 
 YUM_REPOS_DIR = "/etc/yum.repos.d/"
-USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)
 
 log = get_packaging_logger()
 
@@ -693,26 +691,25 @@ class DNFPayload(Payload):
             base_repo_url = install_tree_url
 
             try:
-                install_tree_metadata = self._get_install_tree_metadata(data)
+                tree_info_metadata = TreeInfoMetadata()
+                tree_info_metadata.load_data(data)
 
-                if install_tree_metadata:
-                    self._dnf_manager.configure_substitution(
-                        install_tree_metadata.get_release_version()
-                    )
-
-                base_repo_url = self._get_base_repo_location(
-                    install_tree_metadata,
-                    install_tree_url
+                self._dnf_manager.configure_substitution(
+                    tree_info_metadata.release_version
                 )
 
+                base_repo_url = tree_info_metadata.get_base_repo_url()
+
                 self._load_treeinfo_repositories(
-                    install_tree_metadata,
+                    tree_info_metadata,
                     base_repo_url,
                     disabled_treeinfo_repo_names,
                     data
                 )
-            except configparser.MissingSectionHeaderError as e:
-                log.error("couldn't set releasever from base repo (%s): %s", source_type, e)
+            except NoTreeInfoError as e:
+                log.debug("No treeinfo metadata to use: %s", str(e))
+            except TreeInfoMetadataError as e:
+                log.warning("Couldn't use treeinfo metadata: %s", str(e))
 
             try:
                 base_ksrepo = self.data.RepoData(
@@ -918,91 +915,7 @@ class DNFPayload(Payload):
 
         return url
 
-    def _get_install_tree_metadata(self, data: RepoConfigurationData):
-        """Refresh installation tree metadata."""
-        if data.type != URL_TYPE_BASEURL:
-            return None
-
-        if not data.url:
-            return None
-
-        url = data.url
-        proxy_url = data.proxy or None
-
-        # ssl_verify can be:
-        #   - the path to a cert file
-        #   - True, to use the system's certificates
-        #   - False, to not verify
-        ssl_verify = (data.ssl_configuration.ca_cert_path
-                      or (conf.payload.verify_ssl and data.ssl_verification_enabled))
-        ssl_client_cert = data.ssl_configuration.client_cert_path or None
-        ssl_client_key = data.ssl_configuration.client_key_path or None
-        ssl_cert = (ssl_client_cert, ssl_client_key) if ssl_client_cert else None
-
-        log.debug("retrieving treeinfo from %s (proxy: %s ; ssl_verify: %s)",
-                  url, proxy_url, ssl_verify)
-
-        proxies = {}
-        if proxy_url:
-            try:
-                proxy = ProxyString(proxy_url)
-                proxies = {"http": proxy.url,
-                           "https": proxy.url}
-            except ProxyStringError as e:
-                log.info("Failed to parse proxy for _getTreeInfo %s: %s",
-                         proxy_url, e)
-
-        headers = {"user-agent": USER_AGENT}
-        install_tree_metadata = InstallTreeMetadata()
-
-        try:
-            ret = install_tree_metadata.load_url(url, proxies, ssl_verify, ssl_cert, headers)
-        except FileNotDownloadedError as e:
-            self.verbose_errors.append(str(e))
-            log.warning("Install tree metadata fetching failed: %s", str(e))
-            return None
-
-        if not ret:
-            log.warning("Install tree metadata can't be loaded!")
-            return None
-
-        return install_tree_metadata
-
-    def _get_base_repo_location(self, install_tree_metadata, install_tree_url):
-        """Try to find base repository from the treeinfo file.
-
-        The URL can be installation tree root or a subfolder in the installation root.
-        The structure of the installation root can be similar to this.
-
-        / -
-          | - .treeinfo
-          | - BaseRepo -
-          |            | - repodata
-          |            | - Packages
-          | - AddonRepo -
-                        | - repodata
-                        | - Packages
-
-        The .treeinfo file contains information where repositories are placed from the
-        installation root.
-
-        User can provide us URL to the installation root or directly to the repository folder.
-        Both options are valid.
-        * If the URL points to an installation root we need to find position of
-        repositories in the .treeinfo file.
-        * If URL points to repo directly then no .treeinfo file is present. We will just use this
-        repo.
-        """
-        if install_tree_metadata:
-            repo_md = install_tree_metadata.get_base_repo_metadata()
-            if repo_md:
-                log.debug("Treeinfo points base repository to %s.", repo_md.path)
-                return repo_md.path
-
-        log.debug("No base repository found in treeinfo file. Using installation tree root.")
-        return install_tree_url
-
-    def _load_treeinfo_repositories(self, install_tree_metadata, base_repo_url,
+    def _load_treeinfo_repositories(self, tree_info_metadata, base_repo_url,
                                     repo_names_to_disable, data):
         """Load new repositories from treeinfo file.
 
@@ -1012,44 +925,40 @@ class DNFPayload(Payload):
         :type repo_names_to_disable: [str]
         :param data: repo configuration data
         """
-        if install_tree_metadata:
-            existing_urls = []
+        existing_urls = []
 
-            if base_repo_url is not None:
-                existing_urls.append(base_repo_url)
+        if base_repo_url is not None:
+            existing_urls.append(base_repo_url)
 
-            for ks_repo in self.data.repo.dataList():
-                baseurl = ks_repo.baseurl
-                existing_urls.append(baseurl)
+        for ks_repo in self.data.repo.dataList():
+            baseurl = ks_repo.baseurl
+            existing_urls.append(baseurl)
 
-            enabled_repositories_from_treeinfo = conf.payload.enabled_repositories_from_treeinfo
+        for repo_md in tree_info_metadata.repositories:
+            if repo_md.path in existing_urls:
+                continue
 
-            for repo_md in install_tree_metadata.get_metadata_repos():
-                if repo_md.path not in existing_urls:
-                    repo_treeinfo = install_tree_metadata.get_treeinfo_for(repo_md.name)
+            # disable repositories disabled by user manually before
+            repo_enabled = repo_md.enabled \
+                and repo_md.name not in repo_names_to_disable
 
-                    # disable repositories disabled by user manually before
-                    if repo_md.name in repo_names_to_disable:
-                        repo_enabled = False
-                    else:
-                        repo_enabled = repo_treeinfo.type in enabled_repositories_from_treeinfo
+            repo = RepoData(
+                name=repo_md.name,
+                baseurl=repo_md.path,
+                noverifyssl=not data.ssl_verification_enabled,
+                proxy=data.proxy,
+                sslcacert=data.ssl_configuration.ca_cert_path,
+                sslclientcert=data.ssl_configuration.client_cert_path,
+                sslclientkey=data.ssl_configuration.client_key_path,
+                install=False,
+                enabled=repo_enabled
+            )
 
-                    repo = RepoData(
-                        name=repo_md.name,
-                        baseurl=repo_md.path,
-                        noverifyssl=not data.ssl_verification_enabled,
-                        proxy=data.proxy,
-                        sslcacert=data.ssl_configuration.ca_cert_path,
-                        sslclientcert=data.ssl_configuration.client_cert_path,
-                        sslclientkey=data.ssl_configuration.client_key_path,
-                        install=False,
-                        enabled=repo_enabled
-                    )
-                    repo.treeinfo_origin = True
-                    log.debug("Adding new treeinfo repository: %s enabled: %s",
-                              repo_md.name, repo_enabled)
+            repo.treeinfo_origin = True
+            log.debug("Adding new treeinfo repository: %s enabled: %s",
+                      repo_md.name, repo_enabled)
 
-                    self._add_repo_to_dnf_and_ks(repo)
+            self._add_repo_to_dnf_and_ks(repo)
 
     def _cleanup_old_treeinfo_repositories(self):
         """Remove all old treeinfo repositories before loading new ones.
