@@ -24,7 +24,6 @@ jobs:
             ci_tag: 'rhel-9'
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
-      CONTAINER_BUILD_ARGS: '${{ matrix.build-args }}'
       TARGET_BRANCH_NAME: 'origin/${{ matrix.target_branch }}'
 
     steps:
@@ -73,7 +72,6 @@ jobs:
             ci_tag: 'rhel-9'
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
-      CONTAINER_BUILD_ARGS: '${{ matrix.build-args }}'
       TARGET_BRANCH_NAME: 'origin/${{ matrix.target_branch }}'
 
     steps:
