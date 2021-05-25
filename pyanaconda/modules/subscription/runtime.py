@@ -86,13 +86,15 @@ SystemSubscriptionData = namedtuple("SystemSubscriptionData",
 class SystemPurposeConfigurationTask(Task):
     """Installation task for setting system purpose."""
 
-    def __init__(self, system_purpose_data):
+    def __init__(self, rhsm_syspurpose_proxy, system_purpose_data):
         """Create a new system purpose configuration task.
 
+        :param rhsm_syspurpose_proxy: DBus proxy for the RHSM Syspurpose object
         :param system_purpose_data: system purpose data DBus structure
         :type system_purpose_data: DBusData instance
         """
         super().__init__()
+        self._rhsm_syspurpose_proxy = rhsm_syspurpose_proxy
         self._system_purpose_data = system_purpose_data
 
     @property
@@ -105,6 +107,7 @@ class SystemPurposeConfigurationTask(Task):
         #   replaced by new data
         return system_purpose.give_the_system_purpose(
             sysroot="/",
+            rhsm_syspurpose_proxy=self._rhsm_syspurpose_proxy,
             role=self._system_purpose_data.role,
             sla=self._system_purpose_data.sla,
             usage=self._system_purpose_data.usage,
