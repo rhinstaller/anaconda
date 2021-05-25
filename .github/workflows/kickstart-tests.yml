@@ -46,22 +46,22 @@ jobs:
           echo "launch arguments are: $LAUNCH_ARGS"
           echo "::set-output name=launch_args::${LAUNCH_ARGS}"
 
-      - name: Generate parameters according to target branch
-        id: generate-parameters
+      - name: Set KS test arguments
+        id: ks_test_args
         run: |
-          FEDVERS=34 # replace this number for next Fedora
+          set -eux
           TARGET_BRANCH="${{ fromJson(steps.pr_api.outputs.data).base.ref }}"
 
-          REF_DEVEL='f'$FEDVERS'-devel'
-          REF_RELEASE='f'$FEDVERS'-release'
-
-          if [ "$TARGET_BRANCH" == "$REF_DEVEL" ] || [ "$TARGET_BRANCH" == "$REF_RELEASE" ]; then
-            echo "::set-output name=base_container::fedora:$FEDVERS";
-          elif [ "$TARGET_BRANCH" == "master" ]; then
-            echo "::set-output name=base_container::fedora:rawhide";
+          if [ "$TARGET_BRANCH" == "master" ]; then
+            echo "::set-output name=skip_tests::rhel-only"
+          elif [ $(echo "$TARGET_BRANCH" | grep -E "f[[:digit:]]*-(devel|release)") ]; then
+            echo "::set-output name=skip_tests::rhel-only"
+          elif [ "$TARGET_BRANCH" == "rhel-9" ]; then
+            echo "::set-output name=skip_tests::fedora-only"
+            echo "::set-output name=optional_test_args::--platform rhel9 --defaults ./scripts/defaults-rhel9.sh"
           else
-            echo "Branch $TARGET_BRANCH is not configured to run kickstart tests, aborting."
-            exit 0
+            echo "Branch $TARGET_BRANCH is not supported by kickstart tests yet!"
+            exit 1
           fi
 
     outputs:
@@ -69,20 +69,22 @@ jobs:
       base_ref: ${{ fromJson(steps.pr_api.outputs.data).base.ref }}
       sha: ${{ fromJson(steps.pr_api.outputs.data).head.sha }}
       launch_args: ${{ steps.parse_launch_args.outputs.launch_args }}
-      base_container: ${{ steps.generate-parameters.outputs.base_container }}
+      skip_tests: ${{ steps.ks_test_args.outputs.skip_tests }}
+      optional_test_args: ${{ steps.ks_test_args.outputs.optional_test_args }}
 
   run:
     needs: pr-info
     # only do this for Fedora for now; once we have RHEL 8/9 boot.iso builds working, also support these
-    if: needs.pr-info.outputs.base_container != '' && needs.pr-info.outputs.allowed_user == 'true' && needs.pr-info.outputs.launch_args != ''
+    if: needs.pr-info.outputs.allowed_user == 'true' && needs.pr-info.outputs.launch_args != ''
     runs-on: [self-hosted, kstest]
     timeout-minutes: 300
     env:
-       BASE_CONTAINER: ${{ needs.pr-info.outputs.base_container }}
        STATUS_NAME: kickstart-test
        TARGET_BRANCH: ${{ needs.pr-info.outputs.base_ref }}
        CONTAINER_TAG: 'lorax'
        CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-iso-creator'
+       SKIP_KS_TESTS: ${{ needs.pr-info.outputs.skip_tests }}
+       OPTIONAL_KS_TEST_ARGS: ${{ needs.pr-info.outputs.optional_test_args }}
     steps:
       # we post statuses manually as this does not run from a pull_request event
       # https://developer.github.com/v3/repos/statuses/#create-a-status
@@ -136,13 +138,12 @@ jobs:
 
       - name: Update container images used here
         run: |
-          sudo podman pull ${{ env.BASE_CONTAINER }}
           sudo podman pull quay.io/rhinstaller/kstest-runner:latest
 
       - name: Build anaconda-iso-creator container image
         run: |
           # set static tag to avoid complications when looking what tag is used
-          sudo make -f ./Makefile.am anaconda-iso-creator-build ${BASE_CONTAINER:+BASE_CONTAINER=}${BASE_CONTAINER:-} CI_TAG=$CONTAINER_TAG
+          sudo make -f ./Makefile.am anaconda-iso-creator-build CI_TAG=$CONTAINER_TAG
 
       - name: Prepare environment for lorax run
         run: |
@@ -174,7 +175,7 @@ jobs:
       - name: Run kickstart tests with ${{ needs.pr-info.outputs.launch_args }} in container
         working-directory: kickstart-tests
         run: |
-          sudo TEST_JOBS=16 containers/runner/launch --skip-testtypes 'rhel-only,knownfailure' ${{ needs.pr-info.outputs.launch_args }}
+          sudo TEST_JOBS=16 containers/runner/launch --skip-testtypes "$SKIP_KS_TESTS,knownfailure" $OPTIONAL_KS_TEST_ARGS ${{ needs.pr-info.outputs.launch_args }}
 
       - name: Collect logs
         if: always()
