@@ -29,7 +29,7 @@ from pyanaconda.modules.common.structures.sshkey import SshKeyData
 from pyanaconda.modules.users.kickstart import UsersKickstartSpecification
 from pyanaconda.modules.users.users_interface import UsersInterface
 from pyanaconda.modules.users.installation import SetRootPasswordTask, CreateUsersTask, \
-    CreateGroupsTask, SetSshKeysTask
+    CreateGroupsTask, SetSshKeysTask, ConfigureRootPasswordSSHLoginTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -49,6 +49,9 @@ class UsersService(KickstartService):
 
         self.root_account_locked_changed = Signal()
         self._root_account_locked = True
+
+        self._root_password_ssh_login_allowed = False
+        self.root_password_ssh_login_allowed_changed = Signal()
 
         self.users_changed = Signal()
         self._users = []
@@ -171,6 +174,16 @@ class UsersService(KickstartService):
             ssh_key_data_list=self.ssh_keys
         )
 
+    def configure_root_password_ssh_login_with_task(self):
+        """Return the root password SSH login configuration task.
+
+        :returns: a root password SSH login configuration task
+        """
+        return ConfigureRootPasswordSSHLoginTask(
+            sysroot=conf.target.system_root,
+            password_allowed=self.root_password_ssh_login_allowed
+        )
+
     def install_with_tasks(self):
         """Return the installation tasks of this module.
 
@@ -181,6 +194,7 @@ class UsersService(KickstartService):
             self.configure_users_with_task(),
             self.set_root_password_with_task(),
             self.set_ssh_keys_with_task(),
+            self.configure_root_password_ssh_login_with_task()
         ]
 
     def _ksdata_to_user_data(self, user_ksdata):
@@ -333,6 +347,25 @@ class UsersService(KickstartService):
     def root_account_locked(self):
         """Is the root account locked ?"""
         return self._root_account_locked
+
+    def set_root_password_ssh_login_allowed(self, root_password_ssh_login_allowed):
+        """Allow/disable root login via SSH with password.
+
+        (Login as root with key is always allowed)
+
+        param bool root_password_ssh_login_allowed: True to allow, False to disallow
+        """
+        self._root_password_ssh_login_allowed = root_password_ssh_login_allowed
+        self.root_password_ssh_login_allowed_changed.emit()
+        if root_password_ssh_login_allowed:
+            log.debug("SSH login as root with password will be allowed.")
+        else:
+            log.debug("SSH login as root with password will not be allowed.")
+
+    @property
+    def root_password_ssh_login_allowed(self):
+        """Is logging in as root via SSH with password allowed ?"""
+        return self._root_password_ssh_login_allowed
 
     @property
     def check_admin_user_exists(self):
