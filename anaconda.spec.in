@@ -407,6 +407,16 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 25 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.6-1
+- Revert "Drop the "Allow SSH root login with password" checkbox (mkolman)"
+  Resolves: rhbz#1855736
+- Add a log message for successful installation (vslavik)
+  Resolves: rhbz#1955312
+- Remove support for metacity (rvykydal)
+  Resolves: rhbz#1961104
+- Drop the "Allow SSH root login with password" checkbox (mkolman)
+  Resolves: rhbz#1855736
+
 * Wed May 19 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.5-1
 - Avoid a race condition during Connect to Red Hat spoke initialization
   (mkolman)
