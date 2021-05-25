@@ -404,6 +404,31 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed May 26 2021 Martin Kolman <mkolman@redhat.com> - 35.16-1
+- Add kickstart tests support for RHEL-9 branch (#infra) (jkonecny)
+- Add a log message for successful installation (vslavik)
+- Remove base container from kickstart-test workflow (#infra) (jkonecny)
+- Change the description of "Encrypt my data" in the custom partitioning spoke
+  (vponcova)
+- Use anaconda-iso-creator container to build boot.iso (#infra) (jkonecny)
+- Use consistent shell formatting in kickstart-tests workflow (#infra)
+  (jkonecny)
+- Rename lorax_build_container in kickstart-tests workflow (#infra) (jkonecny)
+- Add Dockerfile for lorax iso build with Anaconda (#infra) (jkonecny)
+- Remove the configuration file for Fedora Workstation Live (vponcova)
+- Rename the configuration file for CentOS Stream (vponcova)
+- Remove the configuration file for CentOS Linux (vponcova)
+- Don't set the home directory to None (#1960803) (vponcova)
+- Enable back ELN Anaconda daily builds (jkonecny)
+- Add nightly builds also for ELN containers (jkonecny)
+- Enable debug output when building containers (#infra) (jkonecny)
+- Show mount points for other types of actions (#1953134) (vponcova)
+- Populate the missing keyboard values before the payload installation
+  (vponcova)
+- Clarify how branches are merged back for contributors to pick a target
+  (javierm)
+- Install kbd-legacy if keyboard layout is "fi" (#1955793) (awilliam)
+
 * Mon May 17 2021 Martin Kolman <mkolman@redhat.com> - 35.15-1
 - Make the coverage status about tests informational (vponcova)
 - network: check NM availability before running some methods (#1937185)
