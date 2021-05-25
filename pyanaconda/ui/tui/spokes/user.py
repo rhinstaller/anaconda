@@ -224,7 +224,9 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     @property
     def mandatory(self):
         """Only mandatory if no admin user has been requested."""
-        return not self._users_module.CheckAdminUserExists()
+        return (not self._users_module.CheckAdminUserExists() or
+                (self._use_password and not bool(self.user.password or
+                                                 self.user.is_crypted)))
 
     @property
     def status(self):
