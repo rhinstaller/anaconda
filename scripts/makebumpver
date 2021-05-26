@@ -310,10 +310,10 @@ class MakeBumpVer:
             print("*** Bugzilla query for %s failed.\n" % bug)
             return False
 
-        if bzentry.bug_status in ['MODIFIED', 'ON_QA']:
+        if bzentry.bug_status in ['POST', 'MODIFIED', 'ON_QA']:
             return True
         else:
-            print("*** Bug %s is not in MODIFIED or ON_QA." % bug)
+            print("*** Bug %s is not in POST, MODIFIED or ON_QA." % bug)
             print("***     Commit: %s" % commit)
             print("***     %s\n" % summary)
             return False
@@ -355,6 +355,10 @@ class MakeBumpVer:
             summary = self._getCommitDetail(commit, "%s")[0]
             body = self._getCommitDetail(commit, "%b")
             author = self._getCommitDetail(commit, "%aE")[0]
+
+            if re.match(r".*(#infra).*", summary):
+                print("*** Ignoring (#infra) commit %s\n" % commit)
+                continue
 
             if self.rhel:
                 rhbz = set()
