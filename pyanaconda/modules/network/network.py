@@ -315,6 +315,12 @@ class NetworkService(KickstartService):
                 "prefixdevname",
                 reason="Necessary for persistent network device naming feature."
             ))
+        # biosdevname
+        if self._is_using_biosdevname(kernel_arguments):
+            requirements.append(Requirement.for_package(
+                "biosdevname",
+                reason="Necessary for biosdevname network device naming feature."
+            ))
 
         return requirements
 
@@ -697,3 +703,6 @@ class NetworkService(KickstartService):
 
     def _is_using_persistent_device_names(self, kernel_args):
         return 'net.ifnames.prefix' in kernel_args
+
+    def _is_using_biosdevname(self, kernel_args):
+        return kernel_args.get('biosdevname') == "1"
