@@ -31,6 +31,7 @@ from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_db
 
 from pyanaconda.core.constants import FIREWALL_DEFAULT, FIREWALL_ENABLED, \
         FIREWALL_DISABLED, FIREWALL_USE_SYSTEM_DEFAULTS
+from pyanaconda.core.kernel import KernelArguments
 from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.modules.common.constants.objects import FIREWALL
 from pyanaconda.modules.common.errors.installation import FirewallConfigurationError, \
@@ -596,6 +597,32 @@ class NetworkInterfaceTestCase(unittest.TestCase):
                 "reason": get_variant(Str, "Necessary for network team device configuration.")
             }
         ])
+
+    @patch("pyanaconda.modules.network.network.kernel_arguments")
+    def biosdevname_requirements_test(self, mocked_kernel_arguments):
+        """Test that biosdevevname boot option results in proper requirement."""
+
+        kernel_args = KernelArguments.from_string("biosdevname=1")
+        with patch("pyanaconda.modules.network.network.kernel_arguments", kernel_args):
+            # check that the biosdevname package is requested
+            self.assertEqual(self.network_interface.CollectRequirements(), [
+                {
+                    "type": get_variant(Str, "package"),
+                    "name": get_variant(Str, "biosdevname"),
+                    "reason": get_variant(
+                        Str,
+                        "Necessary for biosdevname network device naming feature."
+                    )
+                }
+            ])
+
+        kernel_args = KernelArguments.from_string("biosdevname=0")
+        with patch("pyanaconda.modules.network.network.kernel_arguments", kernel_args):
+            self.assertEqual(self.network_interface.CollectRequirements(), [])
+
+        kernel_args = KernelArguments.from_string("biosdevname")
+        with patch("pyanaconda.modules.network.network.kernel_arguments", kernel_args):
+            self.assertEqual(self.network_interface.CollectRequirements(), [])
 
     def kickstart_invalid_hostname_test(self):
         """Test that invalid hostname in kickstart is not accepted"""
