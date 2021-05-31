@@ -43,7 +43,7 @@ class IsModuleAvailableTestCase(unittest.TestCase):
             "org.fedoraproject.Anaconda.Modules.Payloads",
             "org.fedoraproject.Anaconda.Modules.Storage",
             "org.fedoraproject.Anaconda.Modules.Services",
-            "org.fedoraproject.Anaconda.Modules.Subscription",
+            "org.fedoraproject.Anaconda.Addons.Subscription",
          ]
         boss_proxy.GetModules.return_value = running_modules
         # call the function
