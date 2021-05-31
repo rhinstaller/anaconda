@@ -28,7 +28,6 @@ from blivet.formats import get_format
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.constants import UNSUPPORTED_FILESYSTEMS
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError
 from pyanaconda.modules.common.errors.storage import UnsupportedDeviceError, UnknownDeviceError
@@ -739,10 +738,7 @@ def collect_file_system_types(device):
     :return: a list of file system types
     """
     # Collect the supported filesystem types.
-    supported_types = {
-        fs_type for fs_type in get_supported_filesystems()
-        if fs_type not in UNSUPPORTED_FILESYSTEMS
-    }
+    supported_types = set(get_supported_filesystems())
 
     # Add possibly unsupported but still required file system types:
     # Add the device format type.

@@ -276,9 +276,6 @@ CMDLINE_FILES = [
 CMDLINE_APPEND = ["modprobe.blacklist", "ifname", "ip"]
 CMDLINE_LIST = ["addrepo"]
 
-# Filesystems which are not supported by Anaconda
-UNSUPPORTED_FILESYSTEMS = ("ntfs", "tmpfs")
-
 # Default to these units when reading user input when no units given
 SIZE_UNITS_DEFAULT = "MiB"
 
