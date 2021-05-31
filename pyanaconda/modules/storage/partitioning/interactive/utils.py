@@ -740,8 +740,8 @@ def collect_file_system_types(device):
     """
     # Collect the supported filesystem types.
     supported_types = {
-        fs.type for fs in get_supported_filesystems()
-        if fs.type not in UNSUPPORTED_FILESYSTEMS
+        fs_type for fs_type in get_supported_filesystems()
+        if fs_type not in UNSUPPORTED_FILESYSTEMS
     }
 
     # Add possibly unsupported but still required file system types:
