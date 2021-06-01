@@ -138,6 +138,11 @@ class AnacondaExceptionHandler(ExceptionHandler):
         """
 
         log.debug("running handleException")
+
+        with open("/tmp/lvm.log", "r") as f:
+            for line in f.readlines():
+                log.debug(line)
+
         exception_lines = traceback.format_exception(*dump_info.exc_info)
         log.critical("\n".join(exception_lines))
 
