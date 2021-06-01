@@ -71,15 +71,20 @@ class SetUpMountTask(Task, ABC):
     def run(self):
         """Run source setup."""
         log.debug("Mounting installation source")
-        self._check_mount()
+        if not self._check_mount():
+            task = TearDownMountTask(self._target_mount)
+            task.run()
         return self._do_mount()
 
     def _check_mount(self):
         """Check if the source is unmounted."""
         if os.path.ismount(self._target_mount):
-            raise SourceSetupError("The mount point {} is already in use.".format(
+            log.warning("The mount point {} is already in use. And it will be unmounted.".format(
                 self._target_mount
             ))
+            return False
+        else:
+            return True
 
     @abstractmethod
     def _do_mount(self):
