@@ -241,6 +241,9 @@ if __name__ == "__main__":
         stdout_log.warning("Kernel boot argument '%s' detected. "
                            "Did you want to use 'inst.%s' for the installer instead?",
                            arg, arg)
+    if removed_no_inst_args:
+        stdout_log.warning("All Anaconda kernel boot arguments are now required to use "
+                           "'inst.' prefix!")
 
     from pyanaconda import isys
 
