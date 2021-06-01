@@ -25,7 +25,6 @@ RUN set -ex; \
   libicu \
   lttng-ust \
   rpm-ostree \
-  patch \
   pykickstart \
   python3-pip \
   python3-lxml \
