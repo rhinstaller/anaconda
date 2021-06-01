@@ -3,10 +3,8 @@ Description=OpenSSH server daemon
 Before=anaconda.target
 After=syslog.target network.target sshd-keygen.target
 Wants=sshd-keygen.target
-ConditionKernelCommandLine=|sshd
 ConditionKernelCommandLine=|inst.sshd
 ConditionKernelCommandLine=!inst.sshd=0
-ConditionKernelCommandLine=!sshd=0
 # TODO: use ConditionArchitecture in systemd v210 or later
 ConditionPathIsDirectory=|/sys/hypervisor/s390
 
