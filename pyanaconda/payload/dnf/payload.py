@@ -37,7 +37,7 @@ from pyanaconda.modules.common.structures.payload import RepoConfigurationData, 
     PackagesConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.initialization import configure_dnf_logging
 from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
-    SetRPMMacrosTask
+    SetRPMMacrosTask, UpdateDNFConfigurationTask
 from pyanaconda.modules.payloads.payload.dnf.requirements import collect_language_requirements, \
     collect_platform_requirements, collect_driver_disk_requirements, collect_remote_requirements, \
     apply_requirements
@@ -1537,6 +1537,13 @@ class DNFPayload(Payload):
         task = ImportRPMKeysTask(
             sysroot=conf.target.system_root,
             gpg_keys=conf.payload.default_rpm_gpg_keys
+        )
+        task.run()
+
+        # Update the DNF configuration.
+        task = UpdateDNFConfigurationTask(
+            sysroot=conf.target.system_root,
+            data=self.get_packages_data()
         )
         task.run()
 
