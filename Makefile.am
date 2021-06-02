@@ -83,12 +83,15 @@ TEST_INST_BUILD_DIR = $(BUILD_RESULT_DIR)/02-test-install
 CONTAINER_ENGINE ?= podman
 CONTAINER_BUILD_ARGS ?= --no-cache
 CONTAINER_TEST_ARGS ?=
+CONTAINER_REGISTRY ?= quay.io
 
 # anaconda-ci container
 CI_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-ci
 RPM_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-rpm
-CI_NAME ?= rhinstaller/anaconda-ci
-RPM_NAME ?= rhinstaller/anaconda-rpm
+ISO_CREATOR_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-iso-creator
+CI_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-ci
+RPM_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-rpm
+ISO_CREATOR_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-iso-creator
 CI_TAG ?= $(GIT_BRANCH)
 CI_TEST_ARGS ?= --rm -v $(srcdir):/anaconda:Z
 CI_CMD ?= make ci
@@ -182,6 +185,14 @@ anaconda-ci-build:
 
 anaconda-rpm-build:
 	$(CONTAINER_ENGINE) build $(CONTAINER_BUILD_ARGS) -t $(RPM_NAME):$(CI_TAG) $(RPM_DOCKERFILE)
+
+anaconda-iso-creator-build:
+	$(CONTAINER_ENGINE) build \
+	$(CONTAINER_BUILD_ARGS) \
+	--build-arg=git_branch=$(GIT_BRANCH) \
+	--build-arg=image=registry.access.redhat.com/ubi8:latest \
+	-t $(ISO_CREATOR_NAME):$(CI_TAG) \
+  $(ISO_CREATOR_DOCKERFILE)
 
 bumpver: po-pull
 	@opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
