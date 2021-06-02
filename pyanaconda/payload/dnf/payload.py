@@ -42,6 +42,7 @@ from fnmatch import fnmatch
 from glob import glob
 
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.modules.payloads.payload.dnf.installation import UpdateDNFConfigurationTask
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE, GROUP_REQUIRED
 from pykickstart.parser import Group
@@ -2075,6 +2076,13 @@ class DNFPayload(Payload):
         # We don't need the mother base anymore. Close it.
         self._base.close()
         super().post_install()
+
+        # Update the DNF configuration.
+        task = UpdateDNFConfigurationTask(
+            sysroot=conf.target.system_root,
+            data=self.data
+        )
+        task.run()
 
     @property
     def kernel_version_list(self):
