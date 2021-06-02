@@ -5,9 +5,9 @@
 [ -f /tmp/ks.cfg.done ] && return
 
 # inst.ks: provide a "URI" for the kickstart file
-kickstart="$(getarg ks= inst.ks=)"
+kickstart="$(getarg inst.ks=)"
 if [ -z "$kickstart" ]; then
-    getargbool 0 ks inst.ks && kickstart='nfs:auto'
+    getargbool 0 inst.ks && kickstart='nfs:auto'
 fi
 # no root? the kickstart will probably tell us what our root device is.
 [ "$kickstart" ] && [ -z "$root" ] && root="anaconda-kickstart"
@@ -23,7 +23,7 @@ case "${kickstart%%:*}" in
         set_neednet
     ;;
     urls) # multiple network kickstarts?
-        locations="$(getargs ks= inst.ks=)"
+        locations="$(getargs inst.ks=)"
         get_urls "$locations" >/tmp/ks_urls
         set_neednet
     ;;

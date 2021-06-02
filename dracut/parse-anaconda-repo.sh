@@ -4,8 +4,8 @@
 # If there's a root= arg, we'll just use that
 getarg root= >/dev/null && return
 
-repo="$(getarg repo= inst.repo=)"
-stage2="$(getarg stage2= inst.stage2=)"
+repo="$(getarg inst.repo=)"
+stage2="$(getarg inst.stage2=)"
 
 arg="repo"
 # default to using repo, but if we have stage2=, use that
@@ -26,7 +26,7 @@ if [ -n "$repo" ]; then
         ;;
         urls)
             root="anaconda-net:urls"
-            locations="$(getargs stage2= inst.stage2=)"
+            locations="$(getargs inst.stage2=)"
             get_urls "$locations" >/tmp/stage2_urls
             set_neednet
         ;;
