@@ -13,5 +13,6 @@ Wants=anaconda-sshd.service
 Wants=anaconda-pre.service
 Wants=anaconda-fips.service
 Wants=systemd-logind.service
+Wants=brltty.service
 Wants=rhsm.service
 After=rhsm.service
