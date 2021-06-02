@@ -164,25 +164,21 @@ class DeviceTreeViewer(ABC):
     def get_format_data(self, device_name):
         """Get the device format data.
 
+        Return data about a format of the specified device.
+
+        For example: sda1
+
         :param device_name: a name of the device
         :return: an instance of DeviceFormatData
         """
         device = self._get_device(device_name)
         return self._get_format_data(device.format)
 
-    def get_format_type_data(self, format_name):
-        """Get the format type data.
-
-        For example: ext4
-
-        :param format_name: a name of the format type
-        :return: an instance of DeviceFormatData
-        """
-        fmt = get_format(format_name)
-        return self._get_format_data(fmt)
-
     def _get_format_data(self, fmt):
         """Get the format data.
+
+        Retrieve data about a device format from
+        the given format instance.
 
         :param fmt: an instance of DeviceFormat
         :return: an instance of DeviceFormatData
@@ -200,6 +196,34 @@ class DeviceTreeViewer(ABC):
 
         # Prune the attributes.
         data.attrs = self._prune_attributes(data.attrs)
+        return data
+
+    def get_format_type_data(self, format_name):
+        """Get the format type data.
+
+        Return data about the specified format type.
+
+        For example: ext4
+
+        :param format_name: a name of the format type
+        :return: an instance of DeviceFormatData
+        """
+        fmt = get_format(format_name)
+        return self._get_format_type_data(fmt)
+
+    def _get_format_type_data(self, fmt):
+        """Get the format type data.
+
+        Retrieve data about a format type from
+        the given format instance.
+
+        :param fmt: an instance of DeviceFormat
+        :return: an instance of DeviceFormatData
+        """
+        data = DeviceFormatData()
+        data.type = fmt.type or ""
+        data.mountable = fmt.mountable
+        data.description = fmt.name or ""
         return data
 
     def _get_device(self, name):
