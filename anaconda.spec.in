@@ -407,6 +407,18 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jun 02 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.7-1
+- Revert "Revert "Add tests for the inst. prefix requirement"" (jkonecny)
+  Related: rhbz#1947376
+- Revert "Revert "Do not support no inst. Anaconda boot args in systemd
+  services"" (jkonecny)
+  Resolves: rhbz#1947376
+- Revert "Do not require inst. prefixes for Anaconda boot arguments" (jkonecny)
+  Resolves: rhbz#1947376
+- Revert "Revert "Remove support for boot arguments without 'inst.' prefix from
+  Dracut"" (jkonecny)
+  Resolves: rhbz#1947376
+
 * Tue May 25 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.6-1
 - Revert "Drop the "Allow SSH root login with password" checkbox (mkolman)"
   Resolves: rhbz#1855736
