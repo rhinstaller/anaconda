@@ -186,6 +186,22 @@ class ParseKickstartTestCase(BaseTestCase):
 
             self.assertEqual(lines[0], "ip=br0:dhcp: bootdev=br0 bridge=br0:eth0")
 
+    def network_team_test(self):
+        with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
+            ks_file.write("network --bootproto=dhcp --device=team0 --ipv6=auto --teamslaves=\"ens7'{\\\"prio\\\":100,\\\"sticky\\\":true}',ens8'{\\\"prio\\\":200}'\" --teamconfig=\"{\\\"runner\\\":{\\\"name\\\":\\\"activebackup\\\",\\\"hwaddr_policy\\\":\\\"same_all\\\"},\\\"link_watch\\\":{\\\"name\\\":\\\"ethtool\\\"}}\"")
+            ks_file.flush()
+            lines = self.execParseKickstart(ks_file.name)
+
+            self.assertEqual(lines, [])
+
+    def network_vlan_test(self):
+        with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
+            ks_file.write("network --bootproto=dhcp --device=ens7 --ipv6=auto --vlanid=233")
+            ks_file.flush()
+            lines = self.execParseKickstart(ks_file.name)
+
+            self.assertEqual(lines, [])
+
     def network_ipv6_only_test(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
             ks_file.write("""network --noipv4 --hostname=blah.test.com --ipv6=1:2:3:4:5:6:7:8 --ipv6gateway=2001:beaf:cafe::1 --device lo --nameserver=1:1:1:1::,2:2:2:2::""")
