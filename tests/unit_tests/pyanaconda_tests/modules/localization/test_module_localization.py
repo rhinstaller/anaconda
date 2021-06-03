@@ -391,24 +391,73 @@ class LocalizationModuleTestCase(unittest.TestCase):
         self.assertEqual(self.localization_module.x_layouts, [])
 
 
-class LocalizationTasksTestCase(unittest.TestCase):
-    """Test tasks of the localization module."""
+class LanguageInstallationTaskTestCase(unittest.TestCase):
+    """Test the language installation task."""
 
-    def test_language_installation(self):
-        """Test the language installation task."""
-        # Prepare sysroot.
+    def _run_task(self, lang, expected):
+        """Run the installation task.
+
+        :param lang: a value for LANG locale variable
+        :param expected: a content of /etc/locale.conf
+        """
         with tempfile.TemporaryDirectory() as root:
-
             # Prepare for the installation task.
-            conf = root + "/etc/locale.conf"
-            os.makedirs(os.path.dirname(conf), exist_ok=True)
+            locale_conf = root + "/etc/locale.conf"
+            os.makedirs(os.path.dirname(locale_conf), exist_ok=True)
 
             # Run the installation task.
-            LanguageInstallationTask(root, "cs_CZ.UTF-8").run()
+            task = LanguageInstallationTask(root, lang)
+            task.run()
 
-            # Check the result.
-            with open(root + "/etc/locale.conf") as f:
-                self.assertEqual(f.read(), "LANG=\"cs_CZ.UTF-8\"\n")
+            # Check the configuration file.
+            with open(locale_conf) as f:
+                content = f.read()
+
+            self.assertEqual(content, expected)
+
+    @patch("pyanaconda.modules.localization.installation.execWithCapture")
+    def test_invalid_locale(self, exec_mock):
+        """Test an installation with an invalid locale."""
+        exec_mock.return_value = "C.utf8"
+
+        self._run_task("C.UTF-8", "LANG=\"C.UTF-8\"\n")
+        self._run_task("en_US", "LANG=\"C.UTF-8\"\n")
+        self._run_task("cs_CZ.UTF-8", "LANG=\"C.UTF-8\"\n")
+        self._run_task("en_GB.ISO8859-15@euro", "LANG=\"C.UTF-8\"\n")
+
+    @patch("pyanaconda.modules.localization.installation.execWithCapture")
+    def test_unknown_locale(self, exec_mock):
+        """Test an installation of a unknown locale."""
+        exec_mock.side_effect = OSError("Fake!")
+
+        self._run_task("C.UTF-8", "LANG=\"C.UTF-8\"\n")
+        self._run_task("en_US", "LANG=\"en_US\"\n")
+        self._run_task("cs_CZ.UTF-8", "LANG=\"cs_CZ.UTF-8\"\n")
+        self._run_task("en_GB.ISO8859-15@euro", "LANG=\"en_GB.ISO8859-15@euro\"\n")
+
+    @patch("pyanaconda.modules.localization.installation.execWithCapture")
+    def test_valid_locale(self, exec_mock):
+        """Test an installation of a valid locale."""
+        locales = """
+        C.utf8
+        cs_CZ
+        cs_CZ.iso88592
+        cs_CZ.utf8
+        en_US
+        en_US.iso88591
+        en_US.iso885915
+        en_US.utf8
+        """
+        exec_mock.return_value = dedent(locales).strip()
+
+        self._run_task("C.UTF-8", "LANG=\"C.UTF-8\"\n")
+        self._run_task("en_US", "LANG=\"en_US\"\n")
+        self._run_task("cs_CZ.UTF-8", "LANG=\"cs_CZ.UTF-8\"\n")
+        self._run_task("en_GB.ISO8859-15@euro", "LANG=\"en_GB.ISO8859-15@euro\"\n")
+
+
+class LocalizationTasksTestCase(unittest.TestCase):
+    """Test tasks of the localization module."""
 
     @patch("pyanaconda.modules.localization.runtime.conf")
     def test_apply_keyboard_task_cant_activate(self, mocked_conf):
