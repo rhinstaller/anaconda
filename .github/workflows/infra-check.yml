@@ -1,0 +1,52 @@
+# Check if only infrastructure files are changed when infrastructure label is set.
+name: infrastructure-check
+on:
+  pull_request_target:
+    types: [ "opened", "synchronize", "reopened", "labeled" ]
+
+jobs:
+  infra-check:
+    if: contains(github.event.pull_request.labels.*.name, 'infrastructure')
+    environment: staging
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Clone Anaconda repository
+        uses: actions/checkout@v2
+        with:
+          # otherwise we are testing target branch instead of the PR branch (see pull_request_target trigger)
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - name: Get list of changed files
+        run: |
+          set -eux
+          changed_files=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }}..HEAD)
+          # print for debugging
+          echo "$changed_files"
+
+          # load infrastructure file list
+          . .structure-config
+
+          failed_check="no"
+
+          for f in $changed_files; do
+            matched="no"
+
+            for infra_f in $INFRASTRUCTURE_FILES; do
+              if [[ "$f" =~ "$infra_f" ]]; then
+                matched="yes"
+                break
+              fi
+            done
+
+            if [ $matched == "no" ]; then
+              echo "$f is not part of the infrastructure"
+              failed_check="yes"
+            fi
+
+          done
+
+          if [ "$failed_check" == "yes" ]; then
+            exit 1
+          fi
