@@ -568,6 +568,35 @@ class DNFManagerTestCase(unittest.TestCase):
         self.assertNotEqual(self.dnf_manager.substitute("/$basearch"), "/$basearch")
         self.assertNotEqual(self.dnf_manager.substitute("/$releasever"), "/$releasever")
 
+    def configure_substitution_test(self):
+        """Test the configure_substitution function."""
+        self.dnf_manager.configure_substitution(
+            release_version="123"
+        )
+        self._check_substitutions({
+            "arch": "x86_64",
+            "basearch": "x86_64",
+            "releasever": "123"
+        })
+
+    def reset_substitution_test(self):
+        """Test the reset_substitution method."""
+        self.dnf_manager.configure_substitution(
+            release_version="123"
+        )
+        self._check_substitutions({
+            "arch": "x86_64",
+            "basearch": "x86_64",
+            "releasever": "123"
+        })
+
+        self.dnf_manager.reset_substitution()
+        self._check_substitutions({
+            "arch": "x86_64",
+            "basearch": "x86_64",
+            "releasever": "rawhide"
+        })
+
     @patch("dnf.subject.Subject.get_best_query")
     def is_package_available_test(self, get_best_query):
         """Test the is_package_available method."""

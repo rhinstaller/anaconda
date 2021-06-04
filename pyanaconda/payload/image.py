@@ -33,7 +33,8 @@ from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.storage import MountFilesystemError
 from pyanaconda.modules.common.structures.storage import DeviceData, DeviceFormatData
 from pyanaconda.payload import utils as payload_utils
-from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
+from pyanaconda.modules.payloads.payload.dnf.tree_info import TreeInfoMetadata, \
+    TreeInfoMetadataError
 
 from productmd.discinfo import DiscInfo
 
@@ -132,33 +133,13 @@ def find_first_iso_image(path, mount_path="/mnt/install/cdimage"):
 
 
 def _check_repodata(mount_path):
-    install_tree_meta = InstallTreeMetadata()
-    if not install_tree_meta.load_file(mount_path):
-        log.warning("Can't read install tree metadata!")
-
-    repo_md = install_tree_meta.get_base_repo_metadata()
-
-    if not repo_md:
-        repo_mds = install_tree_meta.get_metadata_repos()
-        repo_md = _search_for_install_root_repository(repo_mds)
-
-    if not repo_md:
-        log.debug("There is no usable repository available")
+    try:
+        tree_info_metadata = TreeInfoMetadata()
+        tree_info_metadata.load_file(mount_path)
+        return tree_info_metadata.verify_image_base_repo()
+    except TreeInfoMetadataError as e:
+        log.debug("Can't read install tree metadata: %s", str(e))
         return False
-
-    if repo_md.is_valid():
-        return True
-
-    log.debug("There is no valid repository available.")
-    return False
-
-
-def _search_for_install_root_repository(repos):
-    for repo in repos:
-        if repo.relative_path == ".":
-            return repo
-
-    return None
 
 
 def find_optical_install_media():

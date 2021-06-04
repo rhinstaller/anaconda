@@ -108,18 +108,20 @@ class DNFManager(object):
 
         return self.__base
 
-    @staticmethod
-    def _create_base():
+    @classmethod
+    def _create_base(cls):
         """Create a new DNF base."""
         base = dnf.Base()
         base.conf.cachedir = DNF_CACHE_DIR
         base.conf.pluginconfpath = DNF_PLUGINCONF_DIR
         base.conf.logdir = '/tmp/'
-        base.conf.releasever = get_product_release_version()
+
+        # Set the substitution variables.
+        cls._reset_substitution(base)
+
+        # Set the installation root.
         base.conf.installroot = conf.target.system_root
         base.conf.prepend_installroot('persistdir')
-        # Load variables substitutions configuration (rhbz#1920735)
-        base.conf.substitutions.update_from_etc("/")
 
         # Set the platform id based on the /os/release present
         # in the installation environment.
@@ -137,6 +139,15 @@ class DNFManager(object):
 
         log.debug("The DNF base has been created.")
         return base
+
+    @classmethod
+    def _reset_substitution(cls, base):
+        """Reset substitution variables of the given DNF base."""
+        # Set the default release version.
+        base.conf.releasever = get_product_release_version()
+
+        # Load variables from the host (rhbz#1920735).
+        base.conf.substitutions.update_from_etc("/")
 
     def reset_base(self):
         """Reset the DNF base."""
@@ -364,7 +375,13 @@ class DNFManager(object):
 
     def dump_configuration(self):
         """Log the state of the DNF configuration."""
-        log.debug("DNF configuration:\n%s", self._base.conf.dump())
+        log.debug(
+            "DNF configuration:"
+            "\n%s"
+            "\nsubstitutions = %s",
+            self._base.conf.dump().strip(),
+            self._base.conf.substitutions
+        )
 
     def substitute(self, text):
         """Replace variables with their values.
@@ -380,6 +397,19 @@ class DNFManager(object):
         return libdnf.conf.ConfigParser.substitute(
             text, self._base.conf.substitutions
         )
+
+    def configure_substitution(self, release_version):
+        """Set up the substitution variables.
+
+        :param release_version: a string for $releasever
+        """
+        self._base.conf.releasever = release_version
+        log.debug("The $releasever variable is set to '%s'.", release_version)
+
+    def reset_substitution(self):
+        """Reset the substitution variables."""
+        self._reset_substitution(self._base)
+        log.debug("The substitution variables have been reset.")
 
     def get_installation_size(self):
         """Calculate the installation size.
