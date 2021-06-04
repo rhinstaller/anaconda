@@ -393,6 +393,14 @@ def ksnet_to_dracut(args, lineno, net, bootdev=False):
     if net.bondslaves:
         line.append("bond=%s:%s:%s:%s" % (net.device, net.bondslaves, net.bondopts, net.mtu))
 
+    if net.teamslaves:
+        line = []
+        log.error("Network team configuration from kickstart in initramfs is not supported.")
+
+    if net.vlanid:
+        line = []
+        log.error("Network vlan configuration from kickstart in initramfs is not supported.")
+
     return " ".join(line)
 
 def process_kickstart(ksfile):
