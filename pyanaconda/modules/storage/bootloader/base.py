@@ -25,6 +25,7 @@ from blivet.formats.disklabel import DiskLabel
 from blivet.iscsi import iscsi
 from blivet.size import Size
 
+from pyanaconda.core.constants import BOOTLOADER_TIMEOUT_UNSET
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.network import iface_for_host_ip
 from pyanaconda.modules.storage.platform import platform, PLATFORM_DEVICE_TYPES, \
@@ -209,6 +210,8 @@ class BootLoader(object):
         # timeout in seconds
         self._timeout = None
         self.password = None
+        self.encrypted_password = None
+        self.secure = None
 
         # console/serial stuff
         self.console = ""
@@ -720,17 +723,60 @@ class BootLoader(object):
     def timeout(self, seconds):
         self._timeout = seconds
 
-    def set_boot_args(self, storage):
-        """Set up the boot command line."""
-        self._set_extra_boot_args()
+    def prepare(self, storage):
+        """Prepare the bootloader for the installation.
+
+        FIXME: Move this function into a task.
+        """
+        bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
+        self._update_flags(bootloader_proxy)
+        self._apply_password(bootloader_proxy)
+        self._apply_timeout(bootloader_proxy)
+        self._apply_zipl_secure_boot(bootloader_proxy)
+        self._set_extra_boot_args(bootloader_proxy)
         self._set_storage_boot_args(storage)
         self._preserve_some_boot_args()
         self._set_graphical_boot_args()
         self._set_security_boot_args()
 
-    def _set_extra_boot_args(self):
+    def _update_flags(self, bootloader_proxy):
+        """Update flags."""
+        if bootloader_proxy.KeepMBR:
+            log.debug("Don't update the MBR.")
+            self.keep_mbr = True
+
+        if bootloader_proxy.KeepBootOrder:
+            log.debug("Don't change the existing boot order.")
+            self.keep_boot_order = True
+
+    def _apply_password(self, bootloader_proxy):
+        """Set the password."""
+        if bootloader_proxy.IsPasswordSet:
+            log.debug("Applying bootloader password.")
+
+            if bootloader_proxy.IsPasswordEncrypted:
+                self.encrypted_password = bootloader_proxy.Password
+            else:
+                self.password = bootloader_proxy.Password
+
+    def _apply_timeout(self, bootloader_proxy):
+        """Set the timeout."""
+        timeout = bootloader_proxy.Timeout
+        if timeout != BOOTLOADER_TIMEOUT_UNSET:
+            log.debug("Applying bootloader timeout: %s", timeout)
+            self.timeout = timeout
+
+    def _apply_zipl_secure_boot(self, bootloader_proxy):
+        """Set up the ZIPL Secure Boot."""
+        if not blivet.arch.is_s390():
+            return
+
+        secure_boot = bootloader_proxy.ZIPLSecureBoot
+        log.debug("Applying ZIPL Secure Boot: %s", secure_boot)
+        self.secure = secure_boot
+
+    def _set_extra_boot_args(self, bootloader_proxy):
         """Set the extra boot args."""
-        bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
         self.boot_args.update(bootloader_proxy.ExtraArguments)
 
     def _set_storage_boot_args(self, storage):

@@ -387,7 +387,7 @@ class BootloaderTasksTestCase(unittest.TestCase):
         bootloader.write.assert_not_called()
 
         InstallBootloaderTask(storage, BootloaderMode.ENABLED).run()
-        bootloader.set_boot_args.assert_called_once()
+        bootloader.prepare.assert_called_once()
         bootloader.write.assert_called_once()
 
     @patch('pyanaconda.modules.storage.bootloader.utils.execWithRedirect')

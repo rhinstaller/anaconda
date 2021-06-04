@@ -23,7 +23,7 @@ from pykickstart.errors import KickstartParseError
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import BOOTLOADER_ENABLED, BOOTLOADER_SKIPPED, \
-    BOOTLOADER_LOCATION_PARTITION, BOOTLOADER_TIMEOUT_UNSET
+    BOOTLOADER_LOCATION_PARTITION
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -68,12 +68,8 @@ class BootloaderExecutor(object):
         # Update the disk list. Disks are already sorted by Blivet.
         storage.bootloader.set_disk_list([d for d in storage.disks if d.partitioned])
 
-        # Apply the settings.
-        self._update_flags(storage, bootloader_proxy)
+        # Apply settings related to boot devices.
         self._apply_location(storage, bootloader_proxy)
-        self._apply_password(storage, bootloader_proxy)
-        self._apply_timeout(storage, bootloader_proxy)
-        self._apply_zipl_secure_boot(storage, bootloader_proxy)
         self._apply_drive_order(storage, bootloader_proxy, dry_run=dry_run)
         self._apply_boot_drive(storage, bootloader_proxy, dry_run=dry_run)
 
@@ -81,16 +77,6 @@ class BootloaderExecutor(object):
         if not dry_run:
             storage.bootloader.stage2_device = storage.boot_device
             storage.bootloader.set_stage1_device(storage.devices)
-
-    def _update_flags(self, storage, bootloader_proxy):
-        """Update flags."""
-        if bootloader_proxy.KeepMBR:
-            log.debug("Don't update the MBR.")
-            storage.bootloader.keep_mbr = True
-
-        if bootloader_proxy.KeepBootOrder:
-            log.debug("Don't change the existing boot order.")
-            storage.bootloader.keep_boot_order = True
 
     def _apply_location(self, storage, bootloader_proxy):
         """Set the location."""
@@ -100,32 +86,6 @@ class BootloaderExecutor(object):
         storage.bootloader.set_preferred_stage1_type(
             "boot" if location == BOOTLOADER_LOCATION_PARTITION else "mbr"
         )
-
-    def _apply_password(self, storage, bootloader_proxy):
-        """Set the password."""
-        if bootloader_proxy.IsPasswordSet:
-            log.debug("Applying bootloader password.")
-
-            if bootloader_proxy.IsPasswordEncrypted:
-                storage.bootloader.encrypted_password = bootloader_proxy.Password
-            else:
-                storage.bootloader.password = bootloader_proxy.Password
-
-    def _apply_timeout(self, storage, bootloader_proxy):
-        """Set the timeout."""
-        timeout = bootloader_proxy.Timeout
-        if timeout != BOOTLOADER_TIMEOUT_UNSET:
-            log.debug("Applying bootloader timeout: %s", timeout)
-            storage.bootloader.timeout = timeout
-
-    def _apply_zipl_secure_boot(self, storage, bootloader_proxy):
-        """Set up the ZIPL Secure Boot."""
-        if not blivet.arch.is_s390():
-            return
-
-        secure_boot = bootloader_proxy.ZIPLSecureBoot
-        log.debug("Applying ZIPL Secure Boot: %s", secure_boot)
-        storage.bootloader.secure = secure_boot
 
     def _is_usable_disk(self, d):
         """Is the disk usable for the bootloader?
