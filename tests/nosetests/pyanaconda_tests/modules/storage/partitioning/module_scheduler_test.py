@@ -455,7 +455,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         permissions = self.interface.GenerateDeviceFactoryPermissions(request)
         self.assertEqual(get_native(permissions), {
             'mount-point': False,
-            'reformat': True,
+            'reformat': False,
             'format-type': True,
             'label': False,
             'device-type': False,

@@ -21,7 +21,7 @@ import requests
 from blivet import udev
 from blivet.size import Size
 from blivet.errors import StorageError
-from blivet.formats import device_formats
+from blivet.formats import device_formats, get_format
 from blivet.formats.fs import FS
 from bytesize.bytesize import ROUND_HALF_UP
 
@@ -35,23 +35,32 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
+def is_supported_filesystem(fmt_type):
+    """Is the filesystem supported?
+
+    Return True if the installer can create this filesystem.
+    Otherwise, return False.
+
+    :param fmt_type: a name of the formatting type
+    :return: True or False
+    """
+    fmt = get_format(fmt_type)
+
+    return fmt.type \
+        and fmt.supported \
+        and fmt.formattable \
+        and (isinstance(fmt, FS) or fmt.type in ["biosboot", "prepboot", "swap"]) \
+        and fmt.type not in ("ntfs", "tmpfs")
+
+
 def get_supported_filesystems():
     """Get the supported filesystems.
 
-    :return: a list of formats
+    Get a list of filesystems that can be created by the installer.
+
+    :return: a list of format types
     """
-    fs_types = []
-    for cls in device_formats.values():
-        obj = cls()
-
-        # btrfs is always handled by on_device_type_changed
-        supported_fs = (obj.supported and obj.formattable and
-                        (isinstance(obj, FS) or
-                         obj.type in ["biosboot", "prepboot", "swap"]))
-        if supported_fs:
-            fs_types.append(obj)
-
-    return fs_types
+    return list(filter(is_supported_filesystem, device_formats.keys()))
 
 
 def download_escrow_certificate(url):

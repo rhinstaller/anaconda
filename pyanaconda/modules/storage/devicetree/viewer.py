@@ -384,7 +384,7 @@ class DeviceTreeViewer(ABC):
 
         :return: a list of filesystem names
         """
-        return [fmt.type for fmt in get_supported_filesystems() if fmt.type]
+        return get_supported_filesystems()
 
     def get_required_device_size(self, required_space):
         """Get device size we need to get the required space on the device.

@@ -28,7 +28,6 @@ from blivet.formats import get_format
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.constants import UNSUPPORTED_FILESYSTEMS
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError
 from pyanaconda.modules.common.errors.storage import UnsupportedDeviceError, UnknownDeviceError
@@ -38,7 +37,8 @@ from pyanaconda.modules.storage.disk_initialization import DiskInitializationCon
 from pyanaconda.modules.storage.platform import platform, PLATFORM_MOUNT_POINTS
 from pyanaconda.product import productName, productVersion
 from pyanaconda.modules.storage.devicetree.root import Root
-from pyanaconda.modules.storage.devicetree.utils import get_supported_filesystems
+from pyanaconda.modules.storage.devicetree.utils import get_supported_filesystems, \
+    is_supported_filesystem
 from pyanaconda.core.storage import DEVICE_TEXT_MAP, PARTITION_ONLY_FORMAT_TYPES, \
     NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES, SUPPORTED_DEVICE_TYPES
 
@@ -739,10 +739,7 @@ def collect_file_system_types(device):
     :return: a list of file system types
     """
     # Collect the supported filesystem types.
-    supported_types = {
-        fs.type for fs in get_supported_filesystems()
-        if fs.type not in UNSUPPORTED_FILESYSTEMS
-    }
+    supported_types = set(get_supported_filesystems())
 
     # Add possibly unsupported but still required file system types:
     # Add the device format type.
@@ -970,7 +967,8 @@ def generate_device_factory_permissions(storage, request: DeviceFactoryRequest):
 
     permissions.reformat = \
         device.raw_device.exists \
-        and not device.raw_device.format_immutable
+        and not device.raw_device.format_immutable \
+        and is_supported_filesystem(request.format_type)
 
     permissions.device_size = \
         device.resizable or (
