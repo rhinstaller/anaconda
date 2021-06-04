@@ -208,9 +208,8 @@ def install_boot_loader(storage):
     stage2_device = storage.bootloader.stage2_device
     log.info("boot loader stage2 target device is %s", stage2_device.name)
 
-    # Set up the arguments.
-    # FIXME: do this from elsewhere?
-    storage.bootloader.set_boot_args(storage)
+    # Prepare the bootloader for the installation.
+    storage.bootloader.prepare(storage)
 
     # Install the bootloader.
     storage.bootloader.write()
