@@ -99,7 +99,7 @@ class SecurityInterface(KickstartModuleInterface):
 
         Authconfig is deprecated, use authselect.
 
-        Example: ['--passalgo=sha512', '--useshadow']
+        Example: ['--passalgo=yescrypt', '--useshadow']
 
         :param args: a list of arguments
         """

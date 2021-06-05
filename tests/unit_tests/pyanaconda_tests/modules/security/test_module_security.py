@@ -89,7 +89,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         """Test the authconfig property."""
         self._check_dbus_property(
             "Authconfig",
-            ["--passalgo=sha512", "--useshadow"]
+            ["--passalgo=yescrypt", "--useshadow"]
         )
 
     def test_fingerprint_auth_enabled(self):
@@ -142,22 +142,22 @@ class SecurityInterfaceTestCase(unittest.TestCase):
     def test_auth_kickstart(self):
         """Test the auth command."""
         ks_in = """
-        auth --passalgo=sha512 --useshadow
+        auth --passalgo=yescrypt --useshadow
         """
         ks_out = """
         # System authorization information
-        auth --passalgo=sha512 --useshadow
+        auth --passalgo=yescrypt --useshadow
         """
         self._test_kickstart(ks_in, ks_out)
 
     def test_authconfig_kickstart(self):
         """Test the authconfig command."""
         ks_in = """
-        authconfig --passalgo=sha512 --useshadow
+        authconfig --passalgo=yescrypt --useshadow
         """
         ks_out = """
         # System authorization information
-        auth --passalgo=sha512 --useshadow
+        auth --passalgo=yescrypt --useshadow
         """
         self._test_kickstart(ks_in, ks_out)
 
@@ -249,7 +249,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         realm.discovered = True
 
         authselect = ['select', 'sssd']
-        authconfig = ['--passalgo=sha512', '--useshadow']
+        authconfig = ['--passalgo=yescrypt', '--useshadow']
         fingerprint = True
 
         self.security_interface.SetRealm(RealmData.to_structure(realm))
@@ -398,7 +398,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
     def test_authselect_requirements(self):
         """Test that package requirements for authselect propagate correctly."""
 
-        self.security_interface.SetAuthconfig(['--passalgo=sha512', '--useshadow'])
+        self.security_interface.SetAuthconfig(['--passalgo=yescrypt', '--useshadow'])
         requirements = Requirement.from_structure_list(
             self.security_interface.CollectRequirements()
         )
@@ -906,7 +906,7 @@ class SecurityTasksTestCase(unittest.TestCase):
             execWithRedirect.reset_mock()
             task = ConfigureAuthconfigTask(
                 sysroot=sysroot,
-                authconfig_options=["--passalgo=sha512", "--useshadow"]
+                authconfig_options=["--passalgo=yescrypt", "--useshadow"]
             )
             with self.assertRaises(SecurityInstallationError):
                 task.run()
@@ -917,12 +917,12 @@ class SecurityTasksTestCase(unittest.TestCase):
             os.mknod(authconfig_path)
             task = ConfigureAuthconfigTask(
                 sysroot=sysroot,
-                authconfig_options=["--passalgo=sha512", "--useshadow"]
+                authconfig_options=["--passalgo=yescrypt", "--useshadow"]
             )
             task.run()
             execWithRedirect.assert_called_once_with(
                 AUTHCONFIG_TOOL_PATH,
-                ["--update", "--nostart", "--passalgo=sha512", "--useshadow"],
+                ["--update", "--nostart", "--passalgo=yescrypt", "--useshadow"],
                 root=sysroot
             )
             os.remove(authconfig_path)
