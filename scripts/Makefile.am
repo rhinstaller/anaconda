@@ -21,7 +21,8 @@ dist_scripts_SCRIPTS = upd-updates run-anaconda \
 
 dist_noinst_SCRIPTS  = upd-kernel makeupdates makebumpver
 
-dist_bin_SCRIPTS = analog anaconda-cleanup instperf anaconda-disable-nm-ibft-plugin
+dist_bin_SCRIPTS = analog anaconda-cleanup instperf anaconda-disable-nm-ibft-plugin \
+                   anaconda-nm-disable-autocons
 
 stage2scriptsdir = $(datadir)/$(PACKAGE_NAME)
 dist_stage2scripts_SCRIPTS = restart-anaconda
