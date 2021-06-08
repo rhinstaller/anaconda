@@ -9,6 +9,7 @@ jobs:
   refresh-containers:
     name: Refresh anaconda containers
     runs-on: ubuntu-20.04
+    environment: quay.io
     # we need to have matrix to cover all branches because schedule is run only on default branch
     # we can add here fedora branches (e.g. f33-devel) to cover their support when needed
     strategy:
