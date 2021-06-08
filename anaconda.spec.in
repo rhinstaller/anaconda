@@ -407,6 +407,15 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 08 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.8-1
+- Add unit test for biosdevname package requirement (rvykydal)
+  Related: rhbz#1964455
+- Require biosdevname package if biosdevname=1 boot option is set (rvykydal)
+  Resolves: rhbz#1964455
+- Replace the deprecated syspurpose CLI tool with SetSysrpose DBus call
+  (mkolman)
+  Resolves: rhbz#1939708
+
 * Wed Jun 02 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.7-1
 - Revert "Revert "Add tests for the inst. prefix requirement"" (jkonecny)
   Related: rhbz#1947376
