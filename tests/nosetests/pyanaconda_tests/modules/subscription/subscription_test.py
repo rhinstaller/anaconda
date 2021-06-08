@@ -19,12 +19,12 @@
 #
 import os
 import unittest
-from unittest.mock import patch, call, Mock
+from unittest.mock import patch, Mock
 import tempfile
 
 from dasbus.typing import *  # pylint: disable=wildcard-import
+from dasbus.error import DBusError
 
-from pyanaconda.core import util
 from pyanaconda.core.constants import SECRET_TYPE_NONE, SECRET_TYPE_HIDDEN, SECRET_TYPE_TEXT, \
     SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD, SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, \
     DEFAULT_SUBSCRIPTION_REQUEST_TYPE
@@ -37,7 +37,7 @@ from pyanaconda.modules.common.structures.subscription import SystemPurposeData,
 from pyanaconda.modules.subscription.subscription import SubscriptionService
 from pyanaconda.modules.subscription.subscription_interface import SubscriptionInterface
 from pyanaconda.modules.subscription.system_purpose import get_valid_fields, _normalize_field, \
-    _match_field, process_field, give_the_system_purpose, SYSPURPOSE_UTILITY_PATH
+    _match_field, process_field, give_the_system_purpose
 from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, \
     RestoreRHSMDefaultsTask, TransferSubscriptionTokensTask
 from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
@@ -165,73 +165,66 @@ class SystemPurposeLibraryTestCase(unittest.TestCase):
         self.assertEqual(process_field("PRODUCTION", [], "usage"), "PRODUCTION")
         self.assertEqual(process_field("foo", [], "usage"), "foo")
 
-    @patch("pyanaconda.core.util.execWithRedirect")
-    def set_system_pourpose_no_purpose_test(self, exec_with_redirect):
+    def set_system_pourpose_no_purpose_test(self):
         """Test that nothing is done if system has no purpose."""
         with tempfile.TemporaryDirectory() as sysroot:
+            # create fake RHSM Syspurpose DBus proxy
+            syspurpose_proxy = Mock()
             self.assertTrue(give_the_system_purpose(sysroot=sysroot,
+                                                    rhsm_syspurpose_proxy=syspurpose_proxy,
                                                     role="",
                                                     sla="",
                                                     usage="",
                                                     addons=[]))
-            exec_with_redirect.assert_not_called()
+            syspurpose_proxy.SetSyspurpose.assert_not_called()
 
-    @patch("pyanaconda.core.util.execWithRedirect")
-    def set_system_pourpose_no_syspurpose_test(self, exec_with_redirect):
-        """Test that nothing is done & False is returned if the syspurpose tool is missing."""
-        with tempfile.TemporaryDirectory() as sysroot:
-            self.assertFalse(give_the_system_purpose(sysroot=sysroot,
-                                                     role="foo",
-                                                     sla="bar",
-                                                     usage="baz",
-                                                     addons=["a", "b", "c"]))
-            exec_with_redirect.assert_not_called()
-
-    @patch("pyanaconda.core.util.execWithRedirect")
-    def set_system_pourpose_test(self, exec_with_redirect):
+    def set_system_pourpose_test(self):
         """Test that system purpose is set if syspurpose & data are both available."""
         with tempfile.TemporaryDirectory() as sysroot:
-            # create fake syspurpose tool file
-            utility_path = SYSPURPOSE_UTILITY_PATH
-            directory = os.path.split(utility_path)[0]
-            os.makedirs(util.join_paths(sysroot, directory))
-            os.mknod(util.join_paths(sysroot, utility_path))
-            # set return value to 0
-            exec_with_redirect.return_value = 0
+            # create fake RHSM Syspurpose DBus proxy
+            syspurpose_proxy = Mock()
             # set system purpose
             self.assertTrue(give_the_system_purpose(sysroot=sysroot,
+                                                    rhsm_syspurpose_proxy=syspurpose_proxy,
                                                     role="foo",
                                                     sla="bar",
                                                     usage="baz",
                                                     addons=["a", "b", "c"]))
             # check syspurpose invocations look correct
-            exec_with_redirect.assert_has_calls(
-                [call("syspurpose", ["set-role", "foo"], root=sysroot),
-                 call("syspurpose", ["set-sla", "bar"], root=sysroot),
-                 call("syspurpose", ["set-usage", "baz"], root=sysroot),
-                 call("syspurpose", ["add", "addons", "a", "b", "c"], root=sysroot)])
+            syspurpose_proxy.SetSyspurpose.assert_called_once_with(
+                {
+                    "role": get_variant(Str, "foo"),
+                    "service_level_agreement": get_variant(Str, "bar"),
+                    "usage": get_variant(Str, "baz"),
+                    "addons": get_variant(List[Str], ["a", "b", "c"])
+                },
+                'en_US.UTF-8'
+            )
 
-    @patch("pyanaconda.core.util.execWithRedirect")
-    def set_system_pourpose_failure_test(self, exec_with_redirect):
-        """Test that failure to invoke the syspurpose tool is handled correctly."""
+    def set_system_pourpose_failure_test(self):
+        """Test that exception raised by SetSyspurpose DBus call is handled correctly."""
         with tempfile.TemporaryDirectory() as sysroot:
-            # create fake syspurpose tool file
-            utility_path = SYSPURPOSE_UTILITY_PATH
-            directory = os.path.split(utility_path)[0]
-            os.makedirs(util.join_paths(sysroot, directory))
-            os.mknod(util.join_paths(sysroot, utility_path))
-            # set return value no non-zero
-            exec_with_redirect.return_value = 1
-            # set system purpose
+            # create fake RHSM Syspurpose DBus proxy
+            syspurpose_proxy = Mock()
+            # raise DBusError with error message in JSON
+            syspurpose_proxy.SetSyspurpose.side_effect = DBusError("syspurpose error")
+            # set system purpose & False is returned due to the exception
             self.assertFalse(give_the_system_purpose(sysroot=sysroot,
+                                                     rhsm_syspurpose_proxy=syspurpose_proxy,
                                                      role="foo",
                                                      sla="bar",
                                                      usage="baz",
                                                      addons=["a", "b", "c"]))
-            # check syspurpose invocations look correct
-            exec_with_redirect.assert_called_once_with("syspurpose",
-                                                       ["set-role", "foo"],
-                                                       root=sysroot)
+            # check the fake DBus method still was called correctly
+            syspurpose_proxy.SetSyspurpose.assert_called_once_with(
+                {
+                    "role": get_variant(Str, "foo"),
+                    "service_level_agreement": get_variant(Str, "bar"),
+                    "usage": get_variant(Str, "baz"),
+                    "addons": get_variant(List[Str], ["a", "b", "c"])
+                },
+                'en_US.UTF-8'
+            )
 
 
 class SubscriptionInterfaceTestCase(unittest.TestCase):
@@ -1006,6 +999,12 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         self.subscription_interface.SetSystemPurposeData(
             SystemPurposeData.to_structure(system_purpose_data)
         )
+        # mock the rhsm syspurpose proxy
+        observer = Mock()
+        observer.get_proxy = Mock()
+        self.subscription_module._rhsm_observer = observer
+        syspurpose_proxy = Mock()
+        observer.get_proxy.return_value = syspurpose_proxy
         # check the task is created correctly
         task_path = self.subscription_interface.SetSystemPurposeWithTask()
         obj = check_task_creation(self, task_path, publisher, SystemPurposeConfigurationTask)
@@ -1034,9 +1033,17 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         self.subscription_interface.SetSystemPurposeData(
             SystemPurposeData.to_structure(system_purpose_data)
         )
+        # mock the rhsm syspurpose proxy
+        observer = Mock()
+        observer.get_proxy = Mock()
+        self.subscription_module._rhsm_observer = observer
+        syspurpose_proxy = Mock()
+        observer.get_proxy.return_value = syspurpose_proxy
+        # call the method we are testing
         self.subscription_module._apply_syspurpose()
         mock_give_purpose.assert_called_once_with(
             sysroot="/",
+            rhsm_syspurpose_proxy=syspurpose_proxy,
             role="foo",
             sla="bar",
             usage="baz",
@@ -1463,6 +1470,13 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._connect_to_insights, True)
 
     def _test_kickstart(self, ks_in, ks_out):
+        # mock the rhsm syspurpose proxy that gets requested during
+        # the attempt to set system purpose data after a new kickstart has been set
+        observer = Mock()
+        observer.get_proxy = Mock()
+        self.subscription_module._rhsm_observer = observer
+        syspurpose_proxy = Mock()
+        observer.get_proxy.return_value = syspurpose_proxy
         check_kickstart_interface(self, self.subscription_interface, ks_in, ks_out)
 
     def ks_out_no_kickstart_test(self):
@@ -1643,13 +1657,16 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         syspurpose --role="FOO" --sla="BAR" --usage="BAZ" --addon="F Product" --addon="B Feature"
         '''
         self._test_kickstart(ks_in, ks_out)
+        # drill down to the mocked syspurpose proxy
+        syspurpose_proxy = self.subscription_module._rhsm_observer.get_proxy.return_value
         # the SystemPurposeConfigurationTask should have been called,
         # which calls give_the_system_purpose()
-        mock_give_purpose.assert_called_once_with(role="FOO",
+        mock_give_purpose.assert_called_once_with(sysroot="/",
+                                                  rhsm_syspurpose_proxy=syspurpose_proxy,
+                                                  role="FOO",
                                                   sla="BAR",
                                                   usage="BAZ",
-                                                  addons=['F Product', 'B Feature'],
-                                                  sysroot="/")
+                                                  addons=['F Product', 'B Feature'])
 
     @patch("pyanaconda.modules.subscription.system_purpose.give_the_system_purpose")
     def ks_no_apply_syspurpose_test(self, mock_give_purpose):
