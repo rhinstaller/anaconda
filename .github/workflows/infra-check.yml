@@ -50,3 +50,16 @@ jobs:
           if [ "$failed_check" == "yes" ]; then
             exit 1
           fi
+
+      - name: Check if all commits have (#infra)
+        run: |
+          set -eux
+
+          # match (#infra) at the end of the commit message
+          for i in "$(git log --oneline origin/${{ github.event.pull_request.base.ref }}..HEAD)"; do
+
+            if ! [[ $i =~ \(#infra\)$ ]]; then
+              echo "$i --> Is missing (#infra!)"
+              exit 1
+            fi
+          done
