@@ -480,7 +480,7 @@ class Task(BaseTask):
             if self.running or self.done:
                 if self.running:
                     # attempt to start a task that is already running
-                    log.error("Can't start task %s - already done.")
+                    log.error("Can't start task %s - already running.")
                 else:
                     # attempt to start a task that an already finished task
                     log.error("Can't start task %s - already done.")
