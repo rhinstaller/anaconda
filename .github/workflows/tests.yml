@@ -1,9 +1,11 @@
 name: Run validation tests
 on: pull_request_target
 
+permissions:
+  contents: read
+
 jobs:
   unit-tests:
-    environment: staging
     runs-on: ubuntu-20.04
     timeout-minutes: 30
     strategy:
@@ -83,7 +85,6 @@ jobs:
         uses: codecov/codecov-action@v1
 
   rpm-tests:
-    environment: staging
     runs-on: ubuntu-20.04
     timeout-minutes: 30
     strategy:
