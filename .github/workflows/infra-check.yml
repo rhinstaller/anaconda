@@ -4,10 +4,12 @@ on:
   pull_request_target:
     types: [ "opened", "synchronize", "reopened", "labeled" ]
 
+permissions:
+  contents: read
+
 jobs:
   infra-check:
     if: contains(github.event.pull_request.labels.*.name, 'infrastructure')
-    environment: staging
     runs-on: ubuntu-20.04
 
     steps:
