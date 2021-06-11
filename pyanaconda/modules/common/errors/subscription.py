@@ -37,3 +37,9 @@ class UnregistrationError(AnacondaError):
 class SubscriptionError(AnacondaError):
     """Subscription attempt failed."""
     pass
+
+
+@dbus_error("SatelliteProvisioningError", namespace=ANACONDA_NAMESPACE)
+class SatelliteProvisioningError(AnacondaError):
+    """Failed to provision the installation environment for Satellite."""
+    pass
