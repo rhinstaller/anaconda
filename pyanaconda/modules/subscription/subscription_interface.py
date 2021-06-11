@@ -43,6 +43,8 @@ class SubscriptionInterface(KickstartModuleInterface):
                             self.implementation.connect_to_insights_changed)
         self.watch_property("IsRegistered",
                             self.implementation.registered_changed)
+        self.watch_property("IsRegisteredToSatellite",
+                            self.implementation.registered_to_satellite_changed)
         self.watch_property("IsSubscriptionAttached",
                             self.implementation.subscription_attached_changed)
 
@@ -145,6 +147,11 @@ class SubscriptionInterface(KickstartModuleInterface):
         return self.implementation.registered
 
     @property
+    def IsRegisteredToSatellite(self) -> Bool:
+        """Report if the system is registered to a Satellite instance."""
+        return self.implementation.registered_to_satellite
+
+    @property
     def IsSubscriptionAttached(self) -> Bool:
         """Report if an entitlement has been successfully attached."""
         return self.implementation.subscription_attached
@@ -158,24 +165,6 @@ class SubscriptionInterface(KickstartModuleInterface):
             self.implementation.set_rhsm_config_with_task()
         )
 
-    def RegisterUsernamePasswordWithTask(self) -> ObjPath:
-        """Register with username & password using a runtime DBus task.
-
-        :return: a DBus path of an installation task
-        """
-        return TaskContainer.to_object_path(
-            self.implementation.register_username_password_with_task()
-        )
-
-    def RegisterOrganizationKeyWithTask(self) -> ObjPath:
-        """Register with organization & keys(s) using a runtime DBus task.
-
-        :return: a DBus path of an installation task
-        """
-        return TaskContainer.to_object_path(
-            self.implementation.register_organization_key_with_task()
-        )
-
     def UnregisterWithTask(self) -> ObjPath:
         """Unregister using a runtime DBus task.
 
@@ -185,20 +174,11 @@ class SubscriptionInterface(KickstartModuleInterface):
             self.implementation.unregister_with_task()
         )
 
-    def AttachSubscriptionWithTask(self) -> ObjPath:
-        """Attach subscription using a runtime DBus task.
+    def RegisterAndSubscribeWithTask(self) -> ObjPath:
+        """Register and subscribe with a runtime DBus task.
 
-        :return: a DBus path of an installation task
+        :return: a DBus path of a runtime task
         """
         return TaskContainer.to_object_path(
-            self.implementation.attach_subscription_with_task()
-        )
-
-    def ParseAttachedSubscriptionsWithTask(self) -> ObjPath:
-        """Parse attached subscriptions using a runtime DBus task.
-
-        :return: a DBus path of an installation task
-        """
-        return TaskContainer.to_object_path(
-            self.implementation.parse_attached_subscriptions_with_task()
+            self.implementation.register_and_subscribe_with_task()
         )
