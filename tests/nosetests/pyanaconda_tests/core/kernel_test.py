@@ -18,7 +18,7 @@
 
 import unittest
 from pyanaconda.core.kernel import KernelArguments, kernel_arguments
-import collections
+from collections.abc import Iterable
 
 
 class KernelArgumentsTests(unittest.TestCase):
@@ -77,7 +77,7 @@ class KernelArgumentsTests(unittest.TestCase):
 
         ka = KernelArguments.from_defaults()
         it = ka.items()
-        self.assertIsInstance(it, collections.Iterable)
+        self.assertIsInstance(it, Iterable)
         root_seen = False
         for k, v in it:  # pylint: disable=unused-variable
             if k == "root":
@@ -91,7 +91,7 @@ class KernelArgumentsTests(unittest.TestCase):
             "blah inst.foo=anything inst.nothing=indeed")
         it = ka.items_raw()
 
-        self.assertIsInstance(it, collections.Iterable)
+        self.assertIsInstance(it, Iterable)
 
         res = dict()
         for k, v in it:
