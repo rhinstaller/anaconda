@@ -78,7 +78,7 @@ class ConnectToInsightsTask(Task):
         log.debug("insights-connect-task: connecting to insights")
         rc = util.execWithRedirect(self.INSIGHTS_TOOL_PATH, ["--register"], root=self._sysroot)
         if rc:
-            raise InsightsConnectError("Connecting to Red Hat Insights failed.")
+            raise InsightsConnectError("Failed to connect to Red Hat Insights.")
 
 
 class RestoreRHSMDefaultsTask(Task):
