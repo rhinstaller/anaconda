@@ -43,8 +43,6 @@ RUN pip install --no-cache-dir \
   coverage \
   pycodestyle \
   dogtail \
-  nose-testconfig \
-  nose \
   rpmfluff
 
 RUN mkdir /anaconda
