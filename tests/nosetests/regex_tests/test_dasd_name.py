@@ -26,7 +26,7 @@ from pyanaconda.core.regexes import DASD_DEVICE_NUMBER
 
 class DASDNameRegexTestCase(unittest.TestCase):
 
-    def device_name_test(self):
+    def test_device_name(self):
         good_tests = [
                 '0.0.0000',
                 '0.0.abcd',

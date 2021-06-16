@@ -57,18 +57,18 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
         """Set offset +1 for each time name wasn't set to structure."""
         return self.url_source_module._url_source_name
 
-    def type_test(self):
+    def test_type(self):
         """Test URL source has a correct type specified."""
         self.assertEqual(SOURCE_TYPE_URL, self.url_source_interface.Type)
 
-    def description_test(self):
+    def test_description(self):
         """Test URL source description."""
         rc = RepoConfigurationData()
         rc.url = "http://example.com/"
         self.url_source_interface.SetRepoConfiguration(rc.to_structure(rc))
         self.assertEqual("http://example.com/", self.url_source_module.description)
 
-    def set_name_properties_test(self):
+    def test_set_name_properties(self):
         data = RepoConfigurationData()
         data.name = "Saitama"
 
@@ -77,7 +77,7 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
             RepoConfigurationData.to_structure(data)
         )
 
-    def name_uniqueness_properties_test(self):
+    def test_name_uniqueness_properties(self):
         module1 = URLSourceModule()
         interface1 = URLSourceInterface(module1)
 
@@ -89,7 +89,7 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
 
         self.assertNotEqual(conf1.name, conf2.name)
 
-    def set_url_base_source_properties_test(self):
+    def test_set_url_base_source_properties(self):
         data = RepoConfigurationData()
         data.url = "http://example.com/repo"
         data.type = URL_TYPE_BASEURL
@@ -99,7 +99,7 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
             RepoConfigurationData.to_structure(data)
         )
 
-    def set_url_mirrorlist_properties_test(self):
+    def test_set_url_mirrorlist_properties(self):
         data = RepoConfigurationData()
         data.url = "http://forthehorde.com/mirrorlist?url"
         data.type = URL_TYPE_MIRRORLIST
@@ -109,7 +109,7 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
             RepoConfigurationData.to_structure(data)
         )
 
-    def set_url_metalink_properties_test(self):
+    def test_set_url_metalink_properties(self):
         data = RepoConfigurationData()
         data.url = "https://alianceFTW/metalink?nopesir"
         data.type = URL_TYPE_METALINK
@@ -119,7 +119,7 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
             RepoConfigurationData.to_structure(data)
         )
 
-    def set_invalid_url_type_properties_test(self):
+    def test_set_invalid_url_type_properties(self):
         data = RepoConfigurationData()
         data.url = "http://test"
         data.type = "DOES-NOT-EXISTS"
@@ -136,7 +136,7 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
         self.assertEqual(old_data.url, "")
         self.assertEqual(old_data.type, URL_TYPE_BASEURL)
 
-    def enable_ssl_verification_properties_test(self):
+    def test_enable_ssl_verification_properties(self):
         data = RepoConfigurationData()
         data.ssl_verification_enabled = True
 
@@ -145,7 +145,7 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
             RepoConfigurationData.to_structure(data)
         )
 
-    def disable_ssl_verification_properties_test(self):
+    def test_disable_ssl_verification_properties(self):
         data = RepoConfigurationData()
         data.ssl_verification_enabled = False
 
@@ -154,7 +154,7 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
             RepoConfigurationData.to_structure(data)
         )
 
-    def set_ssl_configuration_properties_test(self):
+    def test_set_ssl_configuration_properties(self):
         data = RepoConfigurationData()
         ssl_conf = data.ssl_configuration
         ssl_conf.ca_cert_path = "file:///my/cool/cert"
@@ -166,14 +166,14 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
             RepoConfigurationData.to_structure(data)
         )
 
-    def ssl_configuration_is_empty_properties_test(self):
+    def test_ssl_configuration_is_empty_properties(self):
         repo_data = self.url_source_interface.RepoConfiguration
         repo_conf = RepoConfigurationData.from_structure(repo_data)
         ssl_conf = repo_conf.ssl_configuration
 
         self.assertTrue(ssl_conf.is_empty())
 
-    def ssl_configuration_is_not_empty_properties_test(self):
+    def test_ssl_configuration_is_not_empty_properties(self):
         ssl_conf = SSLConfigurationData()
         ssl_conf.ca_cert_path = "file:///my/root/house"
         ssl_conf.client_cert_path = "file:///badge/with/yellow/access"
@@ -191,7 +191,7 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
 
         self.assertFalse(repo_data_2.ssl_configuration.is_empty())
 
-    def set_proxy_properties_test(self):
+    def test_set_proxy_properties(self):
         data = RepoConfigurationData()
         data.proxy = "http://user:pass@super-cool-server.com"
 
@@ -200,7 +200,7 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
             RepoConfigurationData.to_structure(data)
         )
 
-    def set_invalid_proxy_properties_test(self):
+    def test_set_invalid_proxy_properties(self):
         data = RepoConfigurationData()
         data.proxy = "https:///no/server/hostname"
 
@@ -215,7 +215,7 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
         old_data = RepoConfigurationData.from_structure(old_data)
         self.assertEqual(old_data.proxy, "")
 
-    def set_cost_properties_test(self):
+    def test_set_cost_properties(self):
         data = RepoConfigurationData()
         data.cost = 2000
 
@@ -224,13 +224,13 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
             RepoConfigurationData.to_structure(data)
         )
 
-    def default_cost_properties_test(self):
+    def test_default_cost_properties(self):
         repo_conf = self.url_source_interface.RepoConfiguration
         repo_conf = RepoConfigurationData.from_structure(repo_conf)
 
         self.assertEqual(repo_conf.cost, DNF_DEFAULT_REPO_COST)
 
-    def set_excluded_packages_properties_test(self):
+    def test_set_excluded_packages_properties(self):
         data = RepoConfigurationData()
         data.exclude_packages = ["foo", "bar", "foobar", "<-yep it's merge of the two!"]
 
@@ -239,7 +239,7 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
             RepoConfigurationData.to_structure(data)
         )
 
-    def set_included_packages_properties_test(self):
+    def test_set_included_packages_properties(self):
         data = RepoConfigurationData()
         data.include_packages = ["python*", "perl", "rattlesnake", "<- what does not belong there"]
 
@@ -248,7 +248,7 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
             RepoConfigurationData.to_structure(data)
         )
 
-    def set_raw_repo_configuration_properties_test(self):
+    def test_set_raw_repo_configuration_properties(self):
         data = {
             "name": get_variant(Str, "RRRRRRRRRRrrrrrrrr!"),
             "url": get_variant(Str, "http://NaNaNaNaNaNa/Batmaaan"),
@@ -274,32 +274,32 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
             data
         )
 
-    def set_empty_repo_configuration_properties_test(self):
+    def test_set_empty_repo_configuration_properties(self):
         self._check_dbus_property(
             "RepoConfiguration",
             RepoConfigurationData.to_structure(RepoConfigurationData())
         )
 
-    def default_repo_configuration_properties_test(self):
+    def test_default_repo_configuration_properties(self):
         data = RepoConfigurationData()
         data.name = self._generate_repo_name()
 
         self.assertEqual(self.url_source_interface.RepoConfiguration,
                          RepoConfigurationData.to_structure(data))
 
-    def set_true_install_properties_test(self):
+    def test_set_true_install_properties(self):
         self._check_dbus_property(
             "InstallRepoEnabled",
             True
         )
 
-    def set_false_install_properties_test(self):
+    def test_set_false_install_properties(self):
         self._check_dbus_property(
             "InstallRepoEnabled",
             False
         )
 
-    def default_install_properties_test(self):
+    def test_default_install_properties(self):
         self.assertEqual(self.url_source_interface.InstallRepoEnabled, False)
 
 
@@ -309,7 +309,7 @@ class URLSourceTestCase(unittest.TestCase):
     def setUp(self):
         self.module = URLSourceModule()
 
-    def network_required_test(self):
+    def test_network_required(self):
         """Test the property network_required."""
         self.assertEqual(self.module.network_required, False)
 
@@ -325,32 +325,32 @@ class URLSourceTestCase(unittest.TestCase):
         self.module.repo_configuration.url = "ftp://my/path"
         self.assertEqual(self.module.network_required, True)
 
-    def required_space_test(self):
+    def test_required_space(self):
         """Test the required_space property."""
         self.assertEqual(self.module.required_space, 0)
 
-    def ready_state_test(self):
+    def test_ready_state(self):
         """Check ready state of URL source.
 
         It will be always True there is no state.
         """
         self.assertTrue(self.module.get_state())
 
-    def set_up_with_tasks_test(self):
+    def test_set_up_with_tasks(self):
         """Get set up tasks for url source.
 
         No task is required. Will be an empty list.
         """
         self.assertEqual(self.module.set_up_with_tasks(), [])
 
-    def tear_down_with_tasks_test(self):
+    def test_tear_down_with_tasks(self):
         """Get tear down tasks for url source.
 
         No task is required. Will be an empty list.
         """
         self.assertEqual(self.module.tear_down_with_tasks(), [])
 
-    def repr_test(self):
+    def test_repr(self):
         config = RepoConfigurationData()
         config.url = "http://some.example.com/repository"
         self.module.set_repo_configuration(config)

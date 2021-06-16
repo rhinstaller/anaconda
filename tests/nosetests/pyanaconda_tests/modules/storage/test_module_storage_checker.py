@@ -37,7 +37,7 @@ class StorageCheckerInterfaceTestCase(unittest.TestCase):
         self.interface = StorageCheckerInterface(self.module)
 
     @patch.dict(storage_checker.constraints)
-    def set_constraint_test(self):
+    def test_set_constraint(self):
         """Test SetConstraint."""
         self.interface.SetConstraint(
             STORAGE_MIN_RAM,
@@ -58,7 +58,7 @@ class StorageCheckerInterfaceTestCase(unittest.TestCase):
 
 class StorageCheckerVerificationTestCase(unittest.TestCase):
 
-    def lvm_verification_test(self):
+    def test_lvm_verification(self):
         """Test the LVM destruction test."""
         # VG that is destroyed correctly
         action1 = Mock()

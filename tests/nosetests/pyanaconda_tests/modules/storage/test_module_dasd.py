@@ -43,11 +43,11 @@ class DASDInterfaceTestCase(unittest.TestCase):
         self.dasd_interface = DASDInterface(self.dasd_module)
 
     @patch("pyanaconda.modules.storage.dasd.dasd.arch.is_s390", return_value=True)
-    def is_supported_test(self, is_supported):
+    def test_is_supported(self, is_supported):
         self.assertEqual(self.dasd_interface.IsSupported(), True)
 
     @patch_dbus_publish_object
-    def discover_with_task_test(self, publisher):
+    def test_discover_with_task(self, publisher):
         """Test DiscoverWithTask."""
         task_path = self.dasd_interface.DiscoverWithTask("0.0.A100")
 
@@ -56,7 +56,7 @@ class DASDInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._device_number, "0.0.A100")
 
     @patch_dbus_publish_object
-    def format_with_task_test(self, publisher):
+    def test_format_with_task(self, publisher):
         """Test the discover task."""
         task_path = self.dasd_interface.FormatWithTask(["/dev/sda", "/dev/sdb"])
 
@@ -65,7 +65,7 @@ class DASDInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._dasds, ["/dev/sda", "/dev/sdb"])
 
     @patch('pyanaconda.modules.storage.dasd.format.blockdev')
-    def find_formattable_test(self, blockdev):
+    def test_find_formattable(self, blockdev):
         """Test FindFormattable."""
         with self.assertRaises(UnavailableStorageError):
             self.dasd_interface.FindFormattable(["dev1"])
@@ -116,13 +116,13 @@ class DASDInterfaceTestCase(unittest.TestCase):
 class DASDTasksTestCase(unittest.TestCase):
     """Test DASD tasks."""
 
-    def discovery_fails_test(self):
+    def test_discovery_fails(self):
         """Test the failing discovery task."""
         with self.assertRaises(StorageDiscoveryError):
             DASDDiscoverTask("x.y.z").run()
 
     @patch('pyanaconda.modules.storage.dasd.discover.blockdev')
-    def discovery_test(self, blockdev):
+    def test_discovery(self, blockdev):
         """Test the discovery task."""
         DASDDiscoverTask("0.0.A100").run()
         blockdev.s390.sanitize_dev_input.assert_called_once_with("0.0.A100")
@@ -131,7 +131,7 @@ class DASDTasksTestCase(unittest.TestCase):
         blockdev.s390.dasd_online.assert_called_once_with(sanitized_input)
 
     @patch('pyanaconda.modules.storage.dasd.format.blockdev')
-    def format_test(self, blockdev):
+    def test_format(self, blockdev):
         """Test the format task."""
         DASDFormatTask(["/dev/sda", "/dev/sdb"]).run()
         blockdev.s390.dasd_format.assert_has_calls([

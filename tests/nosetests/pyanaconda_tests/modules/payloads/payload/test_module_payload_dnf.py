@@ -66,7 +66,7 @@ class DNFKSTestCase(unittest.TestCase):
             self.assertEqual(1, len(sources))
             self.assertEqual(sources[0].type.value, expected_source_type)
 
-    def cdrom_kickstart_test(self):
+    def test_cdrom_kickstart(self):
         ks_in = """
         cdrom
         """
@@ -81,7 +81,7 @@ class DNFKSTestCase(unittest.TestCase):
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_CDROM)
 
-    def hmc_kickstart_test(self):
+    def test_hmc_kickstart(self):
         ks_in = """
         hmc
         """
@@ -96,7 +96,7 @@ class DNFKSTestCase(unittest.TestCase):
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_HMC)
 
-    def harddrive_kickstart_test(self):
+    def test_harddrive_kickstart(self):
         ks_in = """
         harddrive --partition=nsa-device --dir=top-secret
         """
@@ -111,14 +111,14 @@ class DNFKSTestCase(unittest.TestCase):
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_HDD)
 
-    def harddrive_kickstart_failed_test(self):
+    def test_harddrive_kickstart_failed(self):
         ks_in = """
         harddrive --partition=nsa-device
         """
         self.shared_ks_tests.check_kickstart(ks_in, ks_valid=False, expected_publish_calls=0)
         self.assertEqual(self.interface.ActivePayload, "")
 
-    def nfs_kickstart_test(self):
+    def test_nfs_kickstart(self):
         ks_in = """
         nfs --server=gotham.city --dir=/secret/underground/base --opts=nomount
         """
@@ -133,7 +133,7 @@ class DNFKSTestCase(unittest.TestCase):
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_NFS)
 
-    def url_kickstart_test(self):
+    def test_url_kickstart(self):
         ks_in = """
         url --proxy=https://ClarkKent:suuuperrr@earth:1 --noverifyssl --url http://super/powers --sslcacert wardrobe.cert --sslclientcert private-wardrobe.cert --sslclientkey super-key.key
         """
@@ -148,7 +148,7 @@ class DNFKSTestCase(unittest.TestCase):
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_URL)
 
-    def url_mirrorlist_kickstart_test(self):
+    def test_url_mirrorlist_kickstart(self):
         ks_in = """
         url --mirrorlist http://cool/mirror
         """
@@ -163,7 +163,7 @@ class DNFKSTestCase(unittest.TestCase):
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_URL)
 
-    def url_metalink_kickstart_test(self):
+    def test_url_metalink_kickstart(self):
         ks_in = """
         url --metalink http://itsjustametanotrealstuff --proxy="https://ClarkKent:suuuperrr@earth:1" --sslcacert="wardrobe.cert"
         """
@@ -178,7 +178,7 @@ class DNFKSTestCase(unittest.TestCase):
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_URL)
 
-    def module_kickstart_test(self):
+    def test_module_kickstart(self):
         ks_in = """
         module --name=nodejs
         module --name=django --stream=1.6
@@ -197,7 +197,7 @@ class DNFKSTestCase(unittest.TestCase):
         """
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
 
-    def packages_section_empty_kickstart_test(self):
+    def test_packages_section_empty_kickstart(self):
         """Test the empty packages section."""
         ks_in = """
         %packages
@@ -212,7 +212,7 @@ class DNFKSTestCase(unittest.TestCase):
             ks_in, ks_out
         )
 
-    def packages_attributes_ignore_test(self):
+    def test_packages_attributes_ignore(self):
         """Test the packages section with attributes for ignoring."""
         ks_in = """
         %packages --ignoremissing --ignorebroken
@@ -227,7 +227,7 @@ class DNFKSTestCase(unittest.TestCase):
             ks_in, ks_out
         )
 
-    def packages_attributes_exclude_test(self):
+    def test_packages_attributes_exclude(self):
         """Test the packages section with attributes for exclusion."""
         ks_in = """
         %packages --excludedocs --nocore --inst-langs= --exclude-weakdeps
@@ -242,7 +242,7 @@ class DNFKSTestCase(unittest.TestCase):
             ks_in, ks_out
         )
 
-    def packages_attributes_other_kickstart_test(self):
+    def test_packages_attributes_other_kickstart(self):
         """Test the packages section with other attributes."""
         ks_in = """
         %packages --default --inst-langs en,es --multilib --timeout 10 --retries 5
@@ -258,7 +258,7 @@ class DNFKSTestCase(unittest.TestCase):
             ks_in, ks_out
         )
 
-    def packages_section_include_kickstart_test(self):
+    def test_packages_section_include_kickstart(self):
         """Test the packages section."""
         ks_in = """
         %packages
@@ -283,7 +283,7 @@ class DNFKSTestCase(unittest.TestCase):
             ks_in, ks_out
         )
 
-    def packages_section_complex_include_kickstart_test(self):
+    def test_packages_section_complex_include_kickstart(self):
         """Test the packages section with duplicates."""
         ks_in = """
         %packages
@@ -326,7 +326,7 @@ class DNFKSTestCase(unittest.TestCase):
             ks_in, ks_out
         )
 
-    def packages_section_exclude_kickstart_test(self):
+    def test_packages_section_exclude_kickstart(self):
         """Test the packages section with excludes."""
         ks_in = """
         %packages
@@ -343,7 +343,7 @@ class DNFKSTestCase(unittest.TestCase):
             ks_in, ks_out
         )
 
-    def packages_section_complex_exclude_kickstart_test(self):
+    def test_packages_section_complex_exclude_kickstart(self):
         """Test the packages section with complex exclude example."""
         ks_in = """
         %packages
@@ -383,10 +383,10 @@ class DNFInterfaceTestCase(unittest.TestCase):
                                               payload=self.module,
                                               payload_intf=self.interface)
 
-    def type_test(self):
+    def test_type(self):
         self.shared_tests.check_type(PayloadType.DNF)
 
-    def supported_sources_test(self):
+    def test_supported_sources(self):
         """Test DNF supported sources API."""
         self.assertEqual(
             [SOURCE_TYPE_CDROM,
@@ -407,7 +407,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
             *args, **kwargs
         )
 
-    def packages_kickstarted_property_test(self):
+    def test_packages_kickstarted_property(self):
         """Test the PackagesKickstarted property."""
         self.assertEqual(self.interface.PackagesKickstarted, False)
 
@@ -422,7 +422,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
         self.module.process_kickstart(data)
         self.assertEqual(self.interface.PackagesKickstarted, True)
 
-    def packages_selection_property_test(self):
+    def test_packages_selection_property(self):
         """Test the PackagesSelection property."""
         data = {
             "core-group-enabled": get_variant(Bool, False),
@@ -457,7 +457,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
             data
         )
 
-    def packages_selection_data_test(self):
+    def test_packages_selection_data(self):
         """Test the PackagesSelectionData structure."""
         data = PackagesSelectionData.to_structure(
             PackagesSelectionData()
@@ -468,7 +468,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
             data
         )
 
-    def packages_configuration_property_test(self):
+    def test_packages_configuration_property(self):
         """Test the PackagesConfiguration property."""
         data = {
             "docs-excluded": get_variant(Bool, True),
@@ -486,7 +486,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
             data
         )
 
-    def packages_configuration_data_test(self):
+    def test_packages_configuration_data(self):
         """Test the PackagesConfigurationData structure."""
         data = PackagesConfigurationData.to_structure(
             PackagesConfigurationData()
@@ -518,7 +518,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.source.cdrom.cdrom.CdromSourceModule.mount_point",
            new_callable=PropertyMock)
     @patch_dbus_publish_object
-    def cdrom_get_repo_configurations_test(self, publisher, mount_point):
+    def test_cdrom_get_repo_configurations(self, publisher, mount_point):
         """Test DNF GetRepoConfigurations for CDROM source."""
         mount_point.return_value = "/install_source/cdrom"
         source = self.shared_tests.prepare_source(SourceType.CDROM)
@@ -532,7 +532,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.source.hmc.hmc.HMCSourceModule.mount_point",
            new_callable=PropertyMock)
     @patch_dbus_publish_object
-    def hmc_get_repo_configurations_test(self, publisher, mount_point):
+    def test_hmc_get_repo_configurations(self, publisher, mount_point):
         """Test DNF GetRepoConfigurations for CDROM source."""
         mount_point.return_value = "/install_source/hmc"
         source = self.shared_tests.prepare_source(SourceType.HMC)
@@ -546,7 +546,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.source.nfs.nfs.NFSSourceModule.install_tree_path",
            new_callable=PropertyMock)
     @patch_dbus_publish_object
-    def nfs_get_repo_configurations_test(self, publisher, install_tree_path_mock):
+    def test_nfs_get_repo_configurations(self, publisher, install_tree_path_mock):
         """Test DNF GetRepoConfigurations for NFS source."""
         install_tree_path_mock.return_value = "/install_source/nfs"
         source = self.shared_tests.prepare_source(SourceType.NFS)
@@ -560,7 +560,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.source.harddrive.harddrive.HardDriveSourceModule.install_tree_path",
            new_callable=PropertyMock)
     @patch_dbus_publish_object
-    def harddrive_get_repo_configurations_test(self, publisher, install_tree_path_mock):
+    def test_harddrive_get_repo_configurations(self, publisher, install_tree_path_mock):
         """Test DNF GetRepoConfigurations for HARDDRIVE source."""
         install_tree_path_mock.return_value = "/install_source/harddrive"
         source = self.shared_tests.prepare_source(SourceType.HDD)
@@ -572,7 +572,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.interface.GetRepoConfigurations(), expected)
 
     @patch_dbus_publish_object
-    def url_get_repo_configurations_test(self, publisher):
+    def test_url_get_repo_configurations(self, publisher):
         """Test DNF GetRepoConfigurations for URL source."""
         source = self.shared_tests.prepare_source(SourceType.URL)
 
@@ -614,7 +614,7 @@ class DNFModuleTestCase(unittest.TestCase):
         """Create a new source with a mocked state."""
         return PayloadSharedTest.prepare_source(source_type, state)
 
-    def is_network_required_test(self):
+    def test_is_network_required(self):
         """Test the is_network_required method."""
         self.assertEqual(self.module.is_network_required(), False)
 

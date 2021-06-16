@@ -55,7 +55,7 @@ class InstallTasksTestCase(unittest.TestCase):
     def _set_var_6(self, value):
         self._test_variable6 = value
 
-    def task_test(self):
+    def test_task(self):
         """Check that task works correctly."""
         task = Task("foo", self._set_var_5, ("anaconda",))
         self.assertEqual(task.name, "foo")
@@ -88,7 +88,7 @@ class InstallTasksTestCase(unittest.TestCase):
         self.assertIs(self._test_variable4, task)
         self.assertIs(self._test_variable6, task)
 
-    def task_kwargs_test(self):
+    def test_task_kwargs(self):
         """Check that works correctly with kwargs."""
         def custom_function(arg1, foo=None):
             self._set_var_5((arg1, foo))
@@ -124,7 +124,7 @@ class InstallTasksTestCase(unittest.TestCase):
         self.assertIs(self._test_variable4, task)
         self.assertIs(self._test_variable6, task)
 
-    def task_no_args_test(self):
+    def test_task_no_args(self):
         """Check if task with no arguments works correctly."""
         task = Task("foo", self._increment_var1)
         self.assertEqual(task.name, "foo")
@@ -158,7 +158,7 @@ class InstallTasksTestCase(unittest.TestCase):
         self.assertIs(self._test_variable4, task)
         self.assertIs(self._test_variable6, task)
 
-    def task_subclass_light_test(self):
+    def test_task_subclass_light(self):
         """Check if a Task subclass with custom run_task() method works."""
         class CustomPayloadTask(Task):
             def __init__(self, name):
@@ -190,7 +190,7 @@ class InstallTasksTestCase(unittest.TestCase):
         self.assertIs(self._test_variable4, task)
         self.assertIs(self._test_variable6, task)
 
-    def task_subclass_heavy_test(self):
+    def test_task_subclass_heavy(self):
         """Check if a Task subclass with custom start() method works."""
         class CustomStartTask(Task):
             def __init__(self, name):
@@ -225,7 +225,7 @@ class InstallTasksTestCase(unittest.TestCase):
         self.assertIsNone(self._test_variable4)
         self.assertIsNone(self._test_variable6)
 
-    def task_subclass_kwargs_test(self):
+    def test_task_subclass_kwargs(self):
         """Check if kwarg passing works for Task subclasses."""
 
         class TestTask(Task):
@@ -244,7 +244,7 @@ class InstallTasksTestCase(unittest.TestCase):
         task.start()
         self.assertEqual(self._test_variable5, "anaconda")
 
-    def empty_task_queue_test(self):
+    def test_empty_task_queue(self):
         """Check that an empty task queue works correctly."""
         # first check if empty task queue works correctly
         task_queue = TaskQueue("foo", status_message="foo status message")
@@ -287,7 +287,7 @@ class InstallTasksTestCase(unittest.TestCase):
         # the queue is empty
         self.assertIsNone(self._test_variable6)
 
-    def task_queue_processing_test(self):
+    def test_task_queue_processing(self):
         """Check that task queue processing works correctly."""
         # callback counting functions
         def task_started_cb(*args):

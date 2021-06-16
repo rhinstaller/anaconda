@@ -22,7 +22,7 @@ from pyanaconda.modules.payloads.base.utils import get_dir_size, sort_kernel_ver
 
 class PayloadBaseUtilsTest(TestCase):
 
-    def get_dir_size_test(self):
+    def test_get_dir_size(self):
         """Test the get_dir_size function."""
 
         # dev null should have a size == 0
@@ -38,7 +38,7 @@ class PayloadBaseUtilsTest(TestCase):
         # TODO: mock some dirs and check if their size is
         # computed correctly
 
-    def sort_kernel_version_list_test(self):
+    def test_sort_kernel_version_list(self):
         """Test the sort_kernel_version_list function."""
         # Test fake versions.
         kernel_version_list = [

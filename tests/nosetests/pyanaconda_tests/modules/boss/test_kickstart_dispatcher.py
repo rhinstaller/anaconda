@@ -199,7 +199,7 @@ anaconda
 
 class KickstartElementTest(unittest.TestCase):
 
-    def kickstart_element_test(self):
+    def test_kickstart_element(self):
         """Tests creating of element and his type."""
 
         filename = "ks.cfg"
@@ -359,7 +359,7 @@ echo POST1
             (12, filename),
         ]
 
-    def tracked_kickstart_elements_filter_test(self):
+    def test_tracked_kickstart_elements_filter(self):
         """Test filtering of elements."""
 
         expected_elements = [self._element1, self._element2, self._element3,
@@ -394,7 +394,7 @@ echo POST1
         # nothing required - nothing got
         self.assertEqual(elements.get_elements(), [])
 
-    def tracked_kickstart_elements_tracking_test(self):
+    def test_tracked_kickstart_elements_tracking(self):
         """Test tracking of elements."""
 
         appended_elements = [self._element1, self._element2, self._element3,
@@ -423,7 +423,7 @@ echo POST1
                          set.difference(set(unprocessed_elements), set(firewall_elements)))
         self.assertEqual(elements.unprocessed_elements, [self._element6, self._element7])
 
-    def tracked_kickstart_elements_dump_kickstart_test(self):
+    def test_tracked_kickstart_elements_dump_kickstart(self):
         """Test dumping of elements into kickstart."""
 
         appended_elements = [self._element1, self._element2, self._element3,
@@ -436,7 +436,7 @@ echo POST1
         dumped_ks = elements.get_kickstart_from_elements(elements.all_elements)
         self.assertEqual(dumped_ks, self._expected_ks_content)
 
-    def tracked_kickstart_elements_get_refs_kickstart_test(self):
+    def test_tracked_kickstart_elements_get_refs_kickstart(self):
         """Test getting of element references."""
 
         appended_elements = [self._element1, self._element2, self._element3,
@@ -466,7 +466,7 @@ class SplitKickstartParserTest(unittest.TestCase):
             kickstart_section_without_end,
         ]
 
-    def simple_split_kickstart_parser_test(self):
+    def test_simple_split_kickstart_parser(self):
         """This test should demonstrate usage and output of the parser."""
         ks_content = """
 %pre
@@ -590,7 +590,7 @@ echo POST1
         result2_kickstart = result2.get_kickstart_from_elements(result2.all_elements)
         self.assertEqual(result1_kickstart, result2_kickstart)
 
-    def split_kickstart_parser_test(self):
+    def test_split_kickstart_parser(self):
         """Test splitting and dumping of various kickstart samples."""
         valid_sections = VALID_SECTIONS_ANACONDA
         handler = makeVersion()
@@ -598,7 +598,7 @@ echo POST1
         for kickstart_files, expected_output in self._kickstart_samples:
             self._split_kickstart_parser_test(ksparser, kickstart_files, expected_output)
 
-    def raising_kickstarts_split_test(self):
+    def test_raising_kickstarts_split(self):
         """Test of kickstarts expected to raise KickstartParseError."""
         valid_sections = VALID_SECTIONS_ANACONDA
         handler = makeVersion()
@@ -607,7 +607,7 @@ echo POST1
             _filename, content = kickstart_files[0]
             self.assertRaises(KickstartParseError, ksparser.split_from_string, content)
 
-    def split_from_string_filename_test(self):
+    def test_split_from_string_filename(self):
         """Test splitting kickstart supplied by string."""
         valid_sections = VALID_SECTIONS_ANACONDA
         handler = makeVersion()
@@ -625,7 +625,7 @@ echo POST1
         for element in result.all_elements:
             self.assertEqual(element.filename, filename)
 
-    def valid_sections_test(self):
+    def test_valid_sections(self):
         """Test setting of valid sections for the parser."""
         valid_sections = VALID_SECTIONS_ANACONDA
         handler = makeVersion()
@@ -645,7 +645,7 @@ echo POST1
         ksparser.valid_sections = valid_sections
         ksparser.split_from_string(content)
 
-    def invalid_command_test(self):
+    def test_invalid_command(self):
         """Test invalid command or option in kickstart.
 
         Invalid command or command option in kickstart does not raise
@@ -663,7 +663,7 @@ network --devce=ens9 --activate
         result = ksparser.split_from_string(ks_content)
         self.assertEqual(len(result.all_elements), 4)
 
-    def conflicting_commands_test(self):
+    def test_conflicting_commands(self):
         """Test conflicting commands in kickstart.
 
         Conflicting commands in kickstart do not raise KickstartParseError
@@ -686,7 +686,7 @@ autopart --encrypted --passphrase=starost --type=lvm
         result = ksparser.split_from_string(ks_content)
         self.assertEqual(len(result.all_elements), 7)
 
-    def missing_include_test(self):
+    def test_missing_include(self):
         """Test behaviour for missing kickstart include files."""
         ks_content = """
 network --device=ens3

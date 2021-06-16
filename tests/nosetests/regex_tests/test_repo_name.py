@@ -23,7 +23,7 @@ from regexcheck import regex_match
 from pyanaconda.core.regexes import REPO_NAME_VALID
 
 class RepoNameTestCase(unittest.TestCase):
-    def reponame_test(self):
+    def test_reponame(self):
         good_tests = [
                 'reponame',
                 'repoName',

@@ -43,19 +43,19 @@ class LiveOSSourceInterfaceTestCase(unittest.TestCase):
         self.callback = PropertiesChangedCallback()
         self.interface.PropertiesChanged.connect(self.callback)
 
-    def type_test(self):
+    def test_type(self):
         """Test Live OS source has a correct type specified."""
         self.assertEqual(SOURCE_TYPE_LIVE_OS_IMAGE, self.interface.Type)
 
-    def description_test(self):
+    def test_description(self):
         """Test NFS source description."""
         self.assertEqual("Live OS", self.interface.Description)
 
-    def image_path_empty_properties_test(self):
+    def test_image_path_empty_properties(self):
         """Test Live OS payload image path property when not set."""
         self.assertEqual(self.interface.ImagePath, "")
 
-    def image_path_properties_test(self):
+    def test_image_path_properties(self):
         """Test Live OS payload image path property is correctly set."""
         self.interface.SetImagePath("/my/supper/image/path")
         self.assertEqual(self.interface.ImagePath, "/my/supper/image/path")
@@ -65,7 +65,7 @@ class LiveOSSourceInterfaceTestCase(unittest.TestCase):
     # TODO: Make detection method coverage better
     @patch("pyanaconda.modules.payloads.source.live_os.live_os.stat")
     @patch("pyanaconda.modules.payloads.source.live_os.live_os.os.stat")
-    def detect_live_os_image_failed_block_device_test(self, os_stat_mock, stat_mock):
+    def test_detect_live_os_image_failed_block_device(self, os_stat_mock, stat_mock):
         """Test Live OS image detection failed block device check."""
         # we have to patch this even thought that result is used in another mock
         # otherwise we will skip the whole sequence
@@ -77,7 +77,7 @@ class LiveOSSourceInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.interface.DetectLiveOSImage(), "")
 
     @patch("pyanaconda.modules.payloads.source.live_os.live_os.os.stat")
-    def detect_live_os_image_failed_nothing_found_test(self, os_stat_mock):
+    def test_detect_live_os_image_failed_nothing_found(self, os_stat_mock):
         """Test Live OS image detection failed missing file."""
         # we have to patch this even thought that result is used in another mock
         # otherwise we will skip the whole sequence
@@ -87,7 +87,7 @@ class LiveOSSourceInterfaceTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.payloads.source.live_os.live_os.stat")
     @patch("pyanaconda.modules.payloads.source.live_os.live_os.os.stat")
-    def detect_live_os_image_test(self, os_stat_mock, stat_mock):
+    def test_detect_live_os_image(self, os_stat_mock, stat_mock):
         """Test Live OS image detection."""
         # we have to patch this even thought that result is used in another mock
         # otherwise we will skip the whole sequence
@@ -104,16 +104,16 @@ class LiveOSSourceTestCase(unittest.TestCase):
     def setUp(self):
         self.module = LiveOSSourceModule()
 
-    def network_required_test(self):
+    def test_network_required(self):
         """Test the property network_required."""
         self.assertEqual(self.module.network_required, False)
 
-    def required_space_test(self):
+    def test_required_space(self):
         """Test the required_space property."""
         self.assertEqual(self.module.required_space, 0)
 
     @patch("os.path.ismount")
-    def get_state_test(self, ismount_mock):
+    def test_get_state(self, ismount_mock):
         """Test LiveOS source state."""
         ismount_mock.return_value = False
         self.assertEqual(SourceState.UNREADY, self.module.get_state())
@@ -125,7 +125,7 @@ class LiveOSSourceTestCase(unittest.TestCase):
 
         ismount_mock.assert_called_once_with(self.module.mount_point)
 
-    def set_up_with_tasks_test(self):
+    def test_set_up_with_tasks(self):
         """Test Live OS Source set up call."""
         task_classes = [
             SetUpLiveOSSourceTask
@@ -141,7 +141,7 @@ class LiveOSSourceTestCase(unittest.TestCase):
         for i in range(task_number):
             self.assertIsInstance(tasks[i], task_classes[i])
 
-    def tear_down_with_tasks_test(self):
+    def test_tear_down_with_tasks(self):
         """Test Live OS Source ready state for tear down."""
         task_classes = [
             TearDownMountTask
@@ -157,14 +157,14 @@ class LiveOSSourceTestCase(unittest.TestCase):
         for i in range(task_number):
             self.assertIsInstance(tasks[i], task_classes[i])
 
-    def repr_test(self):
+    def test_repr(self):
         self.module.set_image_path("/some/path")
         self.assertEqual(repr(self.module), "Source(type='LIVE_OS_IMAGE', image='/some/path')")
 
 
 class LiveOSSourceTasksTestCase(unittest.TestCase):
 
-    def setup_install_source_task_name_test(self):
+    def test_setup_install_source_task_name(self):
         """Test Live OS Source setup installation source task name."""
         task = SetUpLiveOSSourceTask(
                 "/path/to/base/image",
@@ -177,7 +177,7 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.source.live_os.initialization.stat")
     @patch("os.stat")
     @patch_dbus_get_proxy
-    def setup_install_source_task_run_test(self, proxy_getter, os_stat, stat, mount):
+    def test_setup_install_source_task_run(self, proxy_getter, os_stat, stat, mount):
         """Test Live OS Source setup installation source task run."""
         device_tree = Mock()
         proxy_getter.return_value = device_tree
@@ -201,7 +201,7 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
         os_stat.assert_called_once_with("/resolved/path/to/base/image")
 
     @patch_dbus_get_proxy
-    def setup_install_source_task_missing_image_test(self, proxy_getter):
+    def test_setup_install_source_task_missing_image(self, proxy_getter):
         """Test Live OS Source setup installation source task missing image error."""
         device_tree = Mock()
         proxy_getter.return_value = device_tree
@@ -217,7 +217,7 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.source.live_os.initialization.stat")
     @patch("os.stat")
     @patch_dbus_get_proxy
-    def setup_install_source_task_invalid_block_dev_test(self, proxy_getter, os_stat, stat_mock):
+    def test_setup_install_source_task_invalid_block_dev(self, proxy_getter, os_stat, stat_mock):
         """Test Live OS Source setup installation source task with invalid block device error."""
         device_tree = Mock()
         proxy_getter.return_value = device_tree
@@ -244,7 +244,7 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.source.live_os.initialization.stat")
     @patch("os.stat")
     @patch_dbus_get_proxy
-    def setup_install_source_task_failed_to_mount_test(self, proxy_getter, os_stat, stat, mount):
+    def test_setup_install_source_task_failed_to_mount(self, proxy_getter, os_stat, stat, mount):
         """Test Live OS Source setup installation source task mount error."""
         device_tree = Mock()
         proxy_getter.return_value = device_tree

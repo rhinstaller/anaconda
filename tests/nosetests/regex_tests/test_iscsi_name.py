@@ -20,7 +20,7 @@ from regexcheck import regex_match
 from pyanaconda.core.regexes import ISCSI_IQN_NAME_REGEX, ISCSI_EUI_NAME_REGEX
 
 class iSCSIiqnnameRegexTestCase(unittest.TestCase):
-    def iqnname_test(self):
+    def test_iqnname(self):
         good_tests = [
                 'iqn.2014-15.com.example',
                 'iqn.2014-15.com.example:iscsi',
@@ -55,7 +55,7 @@ class iSCSIiqnnameRegexTestCase(unittest.TestCase):
 
 
 class iSCSIeuinameRegexTestCase(unittest.TestCase):
-    def euiname_test(self):
+    def test_euiname(self):
         good_tests = [
                 'eui.ABCDEF0123456789',
                 'eui.abcdef0123456789',

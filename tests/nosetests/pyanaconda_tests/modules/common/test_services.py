@@ -53,14 +53,14 @@ class ServicesInterfaceTestCase(unittest.TestCase):
         self.callback = PropertiesChangedCallback()
         self.services_interface.PropertiesChanged.connect(self.callback)
 
-    def kickstart_properties_test(self):
+    def test_kickstart_properties(self):
         """Test kickstart properties."""
         self.assertEqual(self.services_interface.KickstartCommands, ["firstboot", "services", "skipx", "xconfig"])
         self.assertEqual(self.services_interface.KickstartSections, [])
         self.assertEqual(self.services_interface.KickstartAddons, [])
         self.callback.assert_not_called()
 
-    def enabled_services_property_test(self):
+    def test_enabled_services_property(self):
         """Test the enabled services property."""
         self.services_interface.SetEnabledServices(["a", "b", "c"])
         self.assertEqual(self.services_interface.EnabledServices, ["a", "b", "c"])
@@ -68,7 +68,7 @@ class ServicesInterfaceTestCase(unittest.TestCase):
             SERVICES.interface_name, {'EnabledServices': ["a", "b", "c"]}, []
         )
 
-    def disabled_services_property_test(self):
+    def test_disabled_services_property(self):
         """Test the disabled services property."""
         self.services_interface.SetDisabledServices(["a", "b", "c"])
         self.assertEqual(self.services_interface.DisabledServices, ["a", "b", "c"])
@@ -76,12 +76,12 @@ class ServicesInterfaceTestCase(unittest.TestCase):
             SERVICES.interface_name, {'DisabledServices': ["a", "b", "c"]}, []
         )
 
-    def default_target_property_default_graphical_test(self):
+    def test_default_target_property_default_graphical(self):
         """Test the default target property - default value."""
         self.callback.assert_not_called()
         self.assertEqual(self.services_interface.DefaultTarget, "")
 
-    def default_target_property_graphical_test(self):
+    def test_default_target_property_graphical(self):
         """Test the default target property - set graphical target."""
         self.services_interface.SetDefaultTarget(GRAPHICAL_TARGET)
         self.assertEqual(self.services_interface.DefaultTarget, GRAPHICAL_TARGET)
@@ -89,7 +89,7 @@ class ServicesInterfaceTestCase(unittest.TestCase):
             SERVICES.interface_name, {'DefaultTarget': GRAPHICAL_TARGET}, []
         )
 
-    def default_target_property_text_test(self):
+    def test_default_target_property_text(self):
         """Test the default target property - set text target."""
         self.services_interface.SetDefaultTarget(TEXT_ONLY_TARGET)
         self.assertEqual(self.services_interface.DefaultTarget, TEXT_ONLY_TARGET)
@@ -97,7 +97,7 @@ class ServicesInterfaceTestCase(unittest.TestCase):
             SERVICES.interface_name, {'DefaultTarget': TEXT_ONLY_TARGET}, []
         )
 
-    def default_desktop_property_test(self):
+    def test_default_desktop_property(self):
         """Test the default desktop property."""
         self.services_interface.SetDefaultDesktop("KDE")
         self.assertEqual(self.services_interface.DefaultDesktop, "KDE")
@@ -105,7 +105,7 @@ class ServicesInterfaceTestCase(unittest.TestCase):
             SERVICES.interface_name, {'DefaultDesktop': "KDE"}, []
         )
 
-    def setup_on_boot_property_test(self):
+    def test_setup_on_boot_property(self):
         """Test the setup on boot property."""
         self.services_interface.SetSetupOnBoot(SETUP_ON_BOOT_DISABLED)
         self.assertEqual(self.services_interface.SetupOnBoot, SETUP_ON_BOOT_DISABLED)
@@ -113,7 +113,7 @@ class ServicesInterfaceTestCase(unittest.TestCase):
             SERVICES.interface_name, {'SetupOnBoot': SETUP_ON_BOOT_DISABLED}, []
         )
 
-    def post_install_tools_disabled_test(self):
+    def test_post_install_tools_disabled(self):
         """Test the post-install-tools-enabled property."""
         # should not be marked as disabled by default
         self.assertEqual(self.services_interface.PostInstallToolsEnabled, True)
@@ -133,7 +133,7 @@ class ServicesInterfaceTestCase(unittest.TestCase):
     def _test_kickstart(self, ks_in, ks_out):
         check_kickstart_interface(self, self.services_interface, ks_in, ks_out)
 
-    def no_kickstart_test(self):
+    def test_no_kickstart(self):
         """Test with no kickstart."""
         ks_in = None
         ks_out = ""
@@ -141,7 +141,7 @@ class ServicesInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.services_interface.SetupOnBoot, SETUP_ON_BOOT_DEFAULT)
         self.assertEqual(self.services_interface.PostInstallToolsEnabled, True)
 
-    def kickstart_empty_test(self):
+    def test_kickstart_empty(self):
         """Test with empty string."""
         ks_in = ""
         ks_out = ""
@@ -149,7 +149,7 @@ class ServicesInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.services_interface.SetupOnBoot, SETUP_ON_BOOT_DEFAULT)
         self.assertEqual(self.services_interface.PostInstallToolsEnabled, True)
 
-    def services_kickstart_test(self):
+    def test_services_kickstart(self):
         """Test the services command."""
         ks_in = """
         services --disabled=a,b,c --enabled=d,e,f
@@ -160,7 +160,7 @@ class ServicesInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    def skipx_kickstart_test(self):
+    def test_skipx_kickstart(self):
         """Test the skipx command."""
         ks_in = """
         skipx
@@ -171,7 +171,7 @@ class ServicesInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    def xconfig_kickstart_test(self):
+    def test_xconfig_kickstart(self):
         """Test the xconfig command."""
         ks_in = """
         xconfig --defaultdesktop GNOME --startxonboot
@@ -182,7 +182,7 @@ class ServicesInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    def firstboot_disabled_kickstart_test(self):
+    def test_firstboot_disabled_kickstart(self):
         """Test the firstboot command - disabled."""
         ks_in = """
         firstboot --disable
@@ -194,7 +194,7 @@ class ServicesInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.services_interface.SetupOnBoot, SETUP_ON_BOOT_DISABLED)
         self.assertEqual(self.services_interface.PostInstallToolsEnabled, False)
 
-    def firstboot_enabled_kickstart_test(self):
+    def test_firstboot_enabled_kickstart(self):
         """Test the firstboot command - enabled."""
         ks_in = """
         firstboot --enable
@@ -207,7 +207,7 @@ class ServicesInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.services_interface.SetupOnBoot, SETUP_ON_BOOT_ENABLED)
         self.assertEqual(self.services_interface.PostInstallToolsEnabled, True)
 
-    def firstboot_reconfig_kickstart_test(self):
+    def test_firstboot_reconfig_kickstart(self):
         """Test the firstboot command - reconfig."""
         ks_in = """
         firstboot --reconfig
@@ -235,7 +235,7 @@ class ServicesTasksTestCase(unittest.TestCase):
         self.services_interface.PropertiesChanged.connect(self.callback)
 
     @patch('pyanaconda.modules.services.installation.get_anaconda_version_string')
-    def enable_post_install_tools_test(self, version_getter):
+    def test_enable_post_install_tools(self, version_getter):
         version_getter.return_value = "1.0"
 
         content = dedent("""
@@ -257,7 +257,7 @@ class ServicesTasksTestCase(unittest.TestCase):
                 self.assertEqual(f.read().strip(), content.strip())
 
     @patch('pyanaconda.modules.services.installation.get_anaconda_version_string')
-    def disable_post_install_tools_test(self, version_getter):
+    def test_disable_post_install_tools(self, version_getter):
         version_getter.return_value = "1.0"
 
         content = dedent("""
@@ -281,7 +281,7 @@ class ServicesTasksTestCase(unittest.TestCase):
                 self.assertEqual(f.read().strip(), content.strip())
 
     @patch('pyanaconda.modules.services.installation.conf')
-    def skip_post_install_tools_test(self, conf):
+    def test_skip_post_install_tools(self, conf):
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(os.path.join(sysroot, "etc/sysconfig"))
 
@@ -304,7 +304,7 @@ class ServicesTasksTestCase(unittest.TestCase):
 
 
     @patch_dbus_publish_object
-    def install_with_tasks_default_test(self, publisher):
+    def test_install_with_tasks_default(self, publisher):
         """Test default install tasks behavior."""
         tasks = self.services_interface.InstallWithTasks()
         is_task_path = tasks[0]
@@ -362,7 +362,7 @@ class ServicesTasksTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._default_desktop, "")
 
     @patch_dbus_publish_object
-    def initial_setup_config_task_enable_test(self, publisher):
+    def test_initial_setup_config_task_enable(self, publisher):
         """Test the Initial Setup conifg task - enable."""
         self.services_interface.SetSetupOnBoot(SETUP_ON_BOOT_ENABLED)
         tasks = self.services_interface.InstallWithTasks()
@@ -380,7 +380,7 @@ class ServicesTasksTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._setup_on_boot, SetupOnBootAction.ENABLED)
 
     @patch_dbus_publish_object
-    def initial_setup_config_task_disable_test(self, publisher):
+    def test_initial_setup_config_task_disable(self, publisher):
         """Test the Initial Setup config task - disable."""
         self.services_interface.SetSetupOnBoot(SETUP_ON_BOOT_DISABLED)
         tasks = self.services_interface.InstallWithTasks()
@@ -398,7 +398,7 @@ class ServicesTasksTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._setup_on_boot, SetupOnBootAction.DISABLED)
 
     @patch_dbus_publish_object
-    def initial_setup_config_task_reconfig_test(self, publisher):
+    def test_initial_setup_config_task_reconfig(self, publisher):
         """Test the Initial Setup config task - reconfig."""
         self.services_interface.SetSetupOnBoot(SETUP_ON_BOOT_RECONFIG)
         tasks = self.services_interface.InstallWithTasks()
@@ -416,7 +416,7 @@ class ServicesTasksTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._setup_on_boot, SetupOnBootAction.RECONFIG)
 
     @patch_dbus_publish_object
-    def configure_services_task_test(self, publisher):
+    def test_configure_services_task(self, publisher):
         """Test the services configuration task."""
         self.services_interface.SetEnabledServices(["a", "b", "c"])
         self.services_interface.SetDisabledServices(["c", "e", "f"])
@@ -436,7 +436,7 @@ class ServicesTasksTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._disabled_services, ["c", "e", "f"])
 
     @patch_dbus_publish_object
-    def configure_systemd_target_task_text_test(self, publisher):
+    def test_configure_systemd_target_task_text(self, publisher):
         """Test the systemd default traget configuration task - text."""
         self.services_interface.SetDefaultTarget(TEXT_ONLY_TARGET)
         tasks = self.services_interface.InstallWithTasks()
@@ -454,7 +454,7 @@ class ServicesTasksTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._default_target, TEXT_ONLY_TARGET)
 
     @patch_dbus_publish_object
-    def configure_systemd_target_task_graphical_test(self, publisher):
+    def test_configure_systemd_target_task_graphical(self, publisher):
         """Test the systemd default traget configuration task - graphical."""
         self.services_interface.SetDefaultTarget(GRAPHICAL_TARGET)
         tasks = self.services_interface.InstallWithTasks()
@@ -472,7 +472,7 @@ class ServicesTasksTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._default_target, GRAPHICAL_TARGET)
 
     @patch_dbus_publish_object
-    def configure_default_desktop_task_test(self, publisher):
+    def test_configure_default_desktop_task(self, publisher):
         """Test the default desktop configuration task."""
         self.services_interface.SetDefaultDesktop("GNOME")
         tasks = self.services_interface.InstallWithTasks()

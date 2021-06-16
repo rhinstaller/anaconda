@@ -20,7 +20,7 @@ from pyanaconda import keyboard
 import unittest
 
 class ParsingAndJoiningTests(unittest.TestCase):
-    def layout_variant_parsing_test(self):
+    def test_layout_variant_parsing(self):
         """Should correctly parse keyboard layout and variant string specs."""
 
         # valid layout variant specs
@@ -58,7 +58,7 @@ class ParsingAndJoiningTests(unittest.TestCase):
         with self.assertRaises(keyboard.InvalidLayoutVariantSpec):
             layout, variant = keyboard.parse_layout_variant("cz (&*&*)")
 
-    def layout_variant_joining_test(self):
+    def test_layout_variant_joining(self):
         """Should correctly join keyboard layout and variant to a string spec."""
 
         # both layout and variant specified
@@ -68,7 +68,7 @@ class ParsingAndJoiningTests(unittest.TestCase):
         # no variant specified
         self.assertEqual(keyboard.join_layout_variant("cz"), "cz")
 
-    def layout_variant_parse_join_test(self):
+    def test_layout_variant_parse_join(self):
         """Parsing and joining valid layout and variant spec should have no effect."""
 
         specs = ("cz", "cz (qwerty)")
@@ -76,7 +76,7 @@ class ParsingAndJoiningTests(unittest.TestCase):
             (layout, variant) = keyboard.parse_layout_variant(spec)
             self.assertEqual(spec, keyboard.join_layout_variant(layout, variant))
 
-    def layout_variant_normalize_test(self):
+    def test_layout_variant_normalize(self):
         """Normalizing layout and variant strings should work as expected."""
 
         # no effect on normalized layout and variant string

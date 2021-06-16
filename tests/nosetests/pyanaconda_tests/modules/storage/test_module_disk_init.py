@@ -49,49 +49,49 @@ class DiskInitializationInterfaceTestCase(unittest.TestCase):
             *args, **kwargs
         )
 
-    def default_disk_label_property_test(self):
+    def test_default_disk_label_property(self):
         """Test the default disk label property."""
         self._check_dbus_property(
             "DefaultDiskLabel",
             "msdos"
         )
 
-    def format_unrecognized_enabled_property_test(self):
+    def test_format_unrecognized_enabled_property(self):
         """Test the can format unrecognized property."""
         self._check_dbus_property(
             "FormatUnrecognizedEnabled",
             False
         )
 
-    def can_initialize_label_property_test(self):
+    def test_can_initialize_label_property(self):
         """Test the can initialize label property."""
         self._check_dbus_property(
             "InitializeLabelsEnabled",
             False
         )
 
-    def format_ldl_enabled_property_test(self):
+    def test_format_ldl_enabled_property(self):
         """Test the can format LDL property."""
         self._check_dbus_property(
             "FormatLDLEnabled",
             True
         )
 
-    def initialization_mode_property_test(self):
+    def test_initialization_mode_property(self):
         """Test the type to clear property."""
         self._check_dbus_property(
             "InitializationMode",
             CLEAR_PARTITIONS_LINUX
         )
 
-    def devices_to_clear_property_test(self):
+    def test_devices_to_clear_property(self):
         """Test the devices to clear property."""
         self._check_dbus_property(
             "DevicesToClear",
             ["sda2", "sda3", "sdb1"]
         )
 
-    def drives_to_clear_property_test(self):
+    def test_drives_to_clear_property(self):
         """Test the drives to clear property."""
         self._check_dbus_property(
             "DrivesToClear",
@@ -106,7 +106,7 @@ class DiskInitializationModuleTestCase(unittest.TestCase):
         """Set up the module."""
         self.disk_init_module = DiskInitializationModule()
 
-    def storage_property_test(self):
+    def test_storage_property(self):
         """Test the storage property."""
         with self.assertRaises(UnavailableStorageError):
             self.assertIsNotNone(self.disk_init_module.storage)
@@ -115,7 +115,7 @@ class DiskInitializationModuleTestCase(unittest.TestCase):
         self.disk_init_module.on_storage_changed(storage)
         self.assertEqual(self.disk_init_module.storage, storage)
 
-    def setup_kickstart_test(self):
+    def test_setup_kickstart(self):
         """Test setup_kickstart with storage."""
         storage = create_storage()
         data = Mock()

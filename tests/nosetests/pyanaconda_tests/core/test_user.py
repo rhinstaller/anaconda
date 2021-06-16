@@ -36,7 +36,7 @@ class UserNameTests(unittest.TestCase):
     def _assert_username(self, name, expected_validity):
         self._assert_name(name, expected_validity)
 
-    def reserved_names_test(self):
+    def test_reserved_names(self):
         """Test the reserved names."""
         self._assert_username("root", False)
         self._assert_username("home", False)
@@ -44,7 +44,7 @@ class UserNameTests(unittest.TestCase):
 
         self._assert_username("foo", True)
 
-    def hyphen_test(self):
+    def test_hyphen(self):
         """Test names with a hyphen."""
         self._assert_username("-foo", False)
         self._assert_username("-f", False)
@@ -53,14 +53,14 @@ class UserNameTests(unittest.TestCase):
         self._assert_username("f-", True)
         self._assert_username("foo-", True)
 
-    def dots_test(self):
+    def test_dots(self):
         """Test dots."""
         self._assert_username(".", False)
         self._assert_username("..", False)
 
         self._assert_username("...", True)
 
-    def numbers_test(self):
+    def test_numbers(self):
         """Test numbers in names."""
         self._assert_username("1", False)
         self._assert_username("12", False)
@@ -70,7 +70,7 @@ class UserNameTests(unittest.TestCase):
         self._assert_username("12a", True)
         self._assert_username("123a", True)
 
-    def dolar_test(self):
+    def test_dolar(self):
         """Test a dolar in names."""
         self._assert_username("$", False)
         self._assert_username("$f", False)
@@ -79,7 +79,7 @@ class UserNameTests(unittest.TestCase):
         self._assert_username("f$", True)
         self._assert_username("foo$", True)
 
-    def chars_test(self):
+    def test_chars(self):
         """Test invalid characters."""
         self._assert_username("?", False)
         self._assert_username("f?", False)
@@ -90,7 +90,7 @@ class UserNameTests(unittest.TestCase):
         self._assert_username("fo-o", True)
         self._assert_username("fo9o", True)
 
-    def length_test(self):
+    def test_length(self):
         """Test the length of names."""
         self._assert_username("f" * 33, False)
 
@@ -103,15 +103,15 @@ class GroupNameTests(UserNameTests):
     def _check_name(self, name):
         return check_groupname(name)
 
-    def reserved_names_test(self):
+    def test_reserved_names(self):
         """There are no reserved names for groups."""
         self._assert_name("root", True)
         self._assert_name("home", True)
         self._assert_name("system", True)
 
-    def numbers_test(self):
+    def test_numbers(self):
         """Test numbers in names."""
-        super().numbers_test()
+        super().test_numbers()
         self._assert_name("0", False)
 
 
@@ -120,7 +120,7 @@ class GroupListTests(GroupNameTests):
     def _check_name(self, name):
         return check_grouplist(name)
 
-    def grouplist_test(self):
+    def test_grouplist(self):
         """Test a simple list of groups."""
         self._assert_name("", True)
         self._assert_name("foo", True)

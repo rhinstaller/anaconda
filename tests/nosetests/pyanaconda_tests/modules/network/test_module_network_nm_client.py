@@ -52,7 +52,7 @@ class NMClientTestCase(unittest.TestCase):
         return objects
 
     @patch("pyanaconda.modules.network.nm_client.get_iface_from_connection")
-    def get_ports_from_connections_test(self, get_iface_from_connection):
+    def test_get_ports_from_connections(self, get_iface_from_connection):
         nm_client = Mock()
 
         ENS3_UUID = "50f1ddc3-cfa5-441d-8afe-729213f5ca92"
@@ -127,7 +127,7 @@ class NMClientTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.network.nm_client.get_connections_available_for_iface")
     @patch("pyanaconda.modules.network.nm_client.get_ports_from_connections")
     @patch("pyanaconda.modules.network.nm_client.is_s390")
-    def get_dracut_arguments_from_connection_test(self, is_s390, get_ports_from_connections_mock,
+    def test_get_dracut_arguments_from_connection(self, is_s390, get_ports_from_connections_mock,
                                                   get_connections_available_for_iface):
         nm_client = Mock()
 
@@ -498,7 +498,7 @@ class NMClientTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.network.nm_client.is_config_file_for_system")
     @patch("pyanaconda.modules.network.nm_client.get_iface_from_hwaddr")
     @patch("pyanaconda.modules.network.nm_client.is_s390")
-    def get_config_file_connection_of_device_test(self, is_s390, get_iface_from_hwaddr,
+    def test_get_config_file_connection_of_device(self, is_s390, get_iface_from_hwaddr,
                                                   is_config_file_for_system,
                                                   get_vlan_interface_name_from_connection):
         nm_client = Mock()
@@ -723,7 +723,7 @@ class NMClientTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.network.nm_client.get_team_port_config_from_connection")
     @patch("pyanaconda.modules.network.nm_client.get_ports_from_connections")
     @patch("pyanaconda.modules.network.nm_client.get_iface_from_connection")
-    def get_kicstart_network_data_test(self, get_iface_from_connection,
+    def test_get_kicstart_network_data(self, get_iface_from_connection,
                                        get_ports_from_connections_mock,
                                        get_team_port_config_from_connection):
         """Test get_kickstart_network_data."""

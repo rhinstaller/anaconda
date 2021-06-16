@@ -220,7 +220,7 @@ class KickstartSpecificationTestCase(unittest.TestCase):
 
         return handler
 
-    def empty_specification_test(self):
+    def test_empty_specification(self):
         """Test an empty specification."""
         specification = self.SpecificationA
         self.parse_kickstart(specification, "")
@@ -228,7 +228,7 @@ class KickstartSpecificationTestCase(unittest.TestCase):
         with self.assertRaises(KickstartParseError):
             self.parse_kickstart(specification, "skipx")
 
-    def command_specification_test(self):
+    def test_command_specification(self):
         """Test a specification with a command."""
         specification = self.SpecificationB
         self.parse_kickstart(specification, "")
@@ -237,7 +237,7 @@ class KickstartSpecificationTestCase(unittest.TestCase):
         with self.assertRaises(KickstartParseError):
             self.parse_kickstart(specification, "xconfig")
 
-    def command_with_data_specification_test(self):
+    def test_command_with_data_specification(self):
         """Test a specification with a command and a data."""
         specification = self.SpecificationC
         self.parse_kickstart(specification, "")
@@ -246,7 +246,7 @@ class KickstartSpecificationTestCase(unittest.TestCase):
         with self.assertRaises(KickstartParseError):
             self.parse_kickstart(specification, "xconfig")
 
-    def section_specification_test(self):
+    def test_section_specification(self):
         """Test a specification with a section."""
         specification = self.SpecificationD
 
@@ -257,7 +257,7 @@ class KickstartSpecificationTestCase(unittest.TestCase):
         with self.assertRaises(KickstartParseError):
             self.parse_kickstart(specification, "xconfig")
 
-    def full_specification_test(self):
+    def test_full_specification(self):
         """Test a full specification."""
         specification = self.SpecificationE
 
@@ -279,7 +279,7 @@ class KickstartSpecificationTestCase(unittest.TestCase):
         with self.assertRaises(KickstartParseError):
             self.parse_kickstart(specification, "xconfig")
 
-    def first_addon_specification_test(self):
+    def test_first_addon_specification(self):
         specification = self.SpecificationF
 
         ks_in = """
@@ -320,7 +320,7 @@ class KickstartSpecificationTestCase(unittest.TestCase):
             %end
             """)
 
-    def second_addon_specification_test(self):
+    def test_second_addon_specification(self):
         specification = self.SpecificationF
 
         ks_in = """
@@ -352,7 +352,7 @@ class KickstartSpecificationTestCase(unittest.TestCase):
             %end
             """)
 
-    def addons_specification_test(self):
+    def test_addons_specification(self):
         specification = self.SpecificationF
 
         handler = self.parse_kickstart(specification, "", "")
@@ -435,7 +435,7 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
             print("Checking command {}...".format(name))
             self.assertIsInstance(children[name](), parents[name])
 
-    def version_test(self):
+    def test_version(self):
         """Check versions of kickstart commands and data objects."""
         for specification in self.SPECIFICATIONS:
             print("Checking specification {}...".format(specification.__name__))
@@ -446,7 +446,7 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
             self.assert_compare_versions(specification.commands_data,
                                          self.pykickstart_commands_data)
 
-    def all_commands_test(self):
+    def test_all_commands(self):
         """Check if we process all kickstart commands."""
         # Collect the specified commands.
         specified = set()
@@ -473,7 +473,7 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
         # Check the differences.
         self.assertEqual(specified, expected)
 
-    def disjoint_commands_test(self):
+    def test_disjoint_commands(self):
         """Check if the commands are specified at most once."""
         specified = set()
 
@@ -490,7 +490,7 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
 
                 specified.add(name)
 
-    def disjoint_commands_data_test(self):
+    def test_disjoint_commands_data(self):
         """Check if the commands data are specified at most once."""
         specified = set()
 
@@ -503,7 +503,7 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
 
                 specified.add(name)
 
-    def disjoint_sections_test(self):
+    def test_disjoint_sections(self):
         """Check if the sections are specified at most once."""
         specified = set()
 
@@ -516,7 +516,7 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
 
                 specified.add(name)
 
-    def handler_test(self):
+    def test_handler(self):
         """Check the specification handler."""
         for specification in self.SPECIFICATIONS:
             print("Checking specification {}...".format(specification.__name__))
@@ -528,7 +528,7 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
             for command in specification.commands:
                 getattr(handler.commands[command], "dataClass")
 
-    def parser_test(self):
+    def test_parser(self):
         """Check the specification parser."""
         for specification in self.SPECIFICATIONS:
             print("Checking specification {}...".format(specification.__name__))
@@ -540,7 +540,7 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
             # Read an empty string.
             parser.readKickstartFromString("")
 
-    def useless_command_map_test(self):
+    def test_useless_command_map(self):
         """Check kickstart commands marked as useless."""
         # Get a set of command names that are handled by the main process.
         anaconda_names = AnacondaKickstartSpecification.commands.keys()

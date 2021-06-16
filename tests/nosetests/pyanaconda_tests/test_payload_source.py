@@ -71,7 +71,7 @@ class TestValues(enum.Enum):
 
 class TestSourceFactoryTests(unittest.TestCase):
 
-    def parse_repo_cmdline_test(self):
+    def test_parse_repo_cmdline(self):
         for val in TestValues:
             klass = val.map_to_classes()
 
@@ -94,44 +94,44 @@ class TestSourceFactoryTests(unittest.TestCase):
                 self.assertFalse(ret, "Value {} should non be marked as {}".format(val.value,
                                                                                    type_str))
 
-    def is_cdrom_test(self):
+    def test_is_cdrom(self):
         self._check_is_methods(SourceFactory.is_cdrom,
                                [TestValues.cdrom, TestValues.cdrom_test],
                                "cdrom")
 
-    def is_harddrive_test(self):
+    def test_is_harddrive(self):
         self._check_is_methods(SourceFactory.is_harddrive,
                                [TestValues.harddrive, TestValues.harddrive_uuid,
                                 TestValues.harddrive_label],
                                "harddrive")
 
-    def is_nfs_test(self):
+    def test_is_nfs(self):
         self._check_is_methods(SourceFactory.is_nfs,
                                [TestValues.nfs_ks, TestValues.nfs_main_repo,
                                 TestValues.nfs_main_repo2],
                                "nfs")
 
-    def is_http_test(self):
+    def test_is_http(self):
         self._check_is_methods(SourceFactory.is_http,
                                [TestValues.http],
                                "http")
 
-    def is_https_test(self):
+    def test_is_https(self):
         self._check_is_methods(SourceFactory.is_https,
                                [TestValues.https],
                                "https")
 
-    def is_ftp_test(self):
+    def test_is_ftp(self):
         self._check_is_methods(SourceFactory.is_ftp,
                                [TestValues.ftp],
                                "ftp")
 
-    def is_file_test(self):
+    def test_is_file(self):
         self._check_is_methods(SourceFactory.is_file,
                                [TestValues.file],
                                "file")
 
-    def is_hmc_test(self):
+    def test_is_hmc(self):
         self._check_is_methods(SourceFactory.is_hmc,
                                [TestValues.hmc],
                                "hmc")
@@ -149,22 +149,22 @@ class TestSourceFactoryTests(unittest.TestCase):
         return source_proxy
 
     @patch_dbus_get_proxy_with_cache
-    def create_proxy_cdrom_test(self, proxy_getter):
+    def test_create_proxy_cdrom(self, proxy_getter):
         self._check_create_proxy(SOURCE_TYPE_CDROM, "cdrom")
 
     @patch_dbus_get_proxy_with_cache
-    def create_proxy_harddrive_test(self, proxy_getter):
+    def test_create_proxy_harddrive(self, proxy_getter):
         proxy = self._check_create_proxy(SOURCE_TYPE_HDD, "hd:/dev/sda2:/path/to/iso.iso")
         proxy.SetPartition.assert_called_once_with("/dev/sda2")
         proxy.SetDirectory.assert_called_once_with("/path/to/iso.iso")
 
     @patch_dbus_get_proxy_with_cache
-    def create_proxy_nfs_test(self, proxy_getter):
+    def test_create_proxy_nfs(self, proxy_getter):
         proxy = self._check_create_proxy(SOURCE_TYPE_NFS, "nfs:server.com:/path/to/install_tree")
         proxy.SetURL.assert_called_once_with("nfs:server.com:/path/to/install_tree")
 
     @patch_dbus_get_proxy_with_cache
-    def create_proxy_url_test(self, proxy_getter):
+    def test_create_proxy_url(self, proxy_getter):
         proxy = self._check_create_proxy(SOURCE_TYPE_URL, "http://server.example.com/test")
 
         repo_configuration = RepoConfigurationData()
@@ -176,7 +176,7 @@ class TestSourceFactoryTests(unittest.TestCase):
         )
 
     @patch_dbus_get_proxy_with_cache
-    def create_proxy_file_test(self, proxy_getter):
+    def test_create_proxy_file(self, proxy_getter):
         proxy = self._check_create_proxy(SOURCE_TYPE_URL, "file:///root/extremely_secret_file.txt")
 
         repo_configuration = RepoConfigurationData()
@@ -188,5 +188,5 @@ class TestSourceFactoryTests(unittest.TestCase):
         )
 
     @patch_dbus_get_proxy_with_cache
-    def create_proxy_hmc_test(self, proxy_getter):
+    def test_create_proxy_hmc(self, proxy_getter):
         self._check_create_proxy(SOURCE_TYPE_HMC, "hmc")

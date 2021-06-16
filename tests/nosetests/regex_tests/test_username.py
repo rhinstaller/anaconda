@@ -23,7 +23,7 @@ from regexcheck import regex_match
 from pyanaconda.core.regexes import GECOS_VALID, NAME_VALID, GROUPLIST_SIMPLE_VALID
 
 class UsernameRegexTestCase(unittest.TestCase):
-    def gecos_test(self):
+    def test_gecos(self):
         """Test a list of possible Full Name values."""
         # These are valid full names
         good_tests = [
@@ -41,7 +41,7 @@ class UsernameRegexTestCase(unittest.TestCase):
 
         self.assertTrue(regex_match(GECOS_VALID, good_tests, bad_tests))
 
-    def username_test(self):
+    def test_username(self):
         """Test a list of possible username values."""
         good_tests = [
                 'gburdell',
@@ -76,7 +76,7 @@ class UsernameRegexTestCase(unittest.TestCase):
         # The group name checks for the same thing as the user name
         self.assertTrue(regex_match(NAME_VALID, good_tests, bad_tests))
 
-    def grouplist_simple_test(self):
+    def test_grouplist_simple(self):
         good_tests = [
                 '',
                 'gburdell',

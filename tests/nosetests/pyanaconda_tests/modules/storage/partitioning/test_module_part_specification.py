@@ -26,7 +26,7 @@ from pyanaconda.modules.storage.partitioning.specification import PartSpec
 class PartitioningSpecificationTestCase(unittest.TestCase):
     """Test the PartSpec class."""
 
-    def is_partition_test(self):
+    def test_is_partition(self):
         """Test the is_partition method."""
         spec = PartSpec("/")
         self.assertEqual(spec.is_partition(AUTOPART_TYPE_PLAIN), True)
@@ -34,7 +34,7 @@ class PartitioningSpecificationTestCase(unittest.TestCase):
         self.assertEqual(spec.is_partition(AUTOPART_TYPE_LVM_THINP), True)
         self.assertEqual(spec.is_partition(AUTOPART_TYPE_BTRFS), True)
 
-    def is_volume_test(self):
+    def test_is_volume(self):
         """Test the is_volume method."""
         spec = PartSpec("/", lv=True)
         self.assertEqual(spec.is_volume(AUTOPART_TYPE_PLAIN), False)
@@ -54,7 +54,7 @@ class PartitioningSpecificationTestCase(unittest.TestCase):
         self.assertEqual(spec.is_volume(AUTOPART_TYPE_LVM_THINP), False)
         self.assertEqual(spec.is_volume(AUTOPART_TYPE_BTRFS), True)
 
-    def is_lvm_thin_volume_test(self):
+    def test_is_lvm_thin_volume(self):
         """Test the is_lvm_thin_volume method."""
         spec = PartSpec("/", lv=True)
         self.assertEqual(spec.is_lvm_thin_volume(AUTOPART_TYPE_PLAIN), False)

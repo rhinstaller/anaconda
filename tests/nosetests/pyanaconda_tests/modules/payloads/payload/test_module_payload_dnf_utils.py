@@ -35,12 +35,12 @@ from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy_with_cache
 
 class DNFUtilsPackagesTestCase(unittest.TestCase):
 
-    def get_kernel_package_excluded_test(self):
+    def test_get_kernel_package_excluded(self):
         """Test the get_kernel_package function with kernel excluded."""
         kernel = get_kernel_package(Mock(), exclude_list=["kernel"])
         self.assertEqual(kernel, None)
 
-    def get_kernel_package_unavailable_test(self):
+    def test_get_kernel_package_unavailable(self):
         """Test the get_kernel_package function with unavailable packages."""
         dnf_manager = Mock(spec=DNFManager)
         dnf_manager.is_package_available.return_value = False
@@ -53,7 +53,7 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         self.assertEqual(kernel, None)
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.is_lpae_available")
-    def get_kernel_package_lpae_test(self, is_lpae):
+    def test_get_kernel_package_lpae(self, is_lpae):
         """Test the get_kernel_package function with LPAE."""
         is_lpae.return_value = True
 
@@ -67,7 +67,7 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         self.assertEqual(kernel, "kernel")
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.is_lpae_available")
-    def get_kernel_package_test(self, is_lpae):
+    def test_get_kernel_package(self, is_lpae):
         """Test the get_kernel_package function."""
         is_lpae.return_value = False
 
@@ -78,32 +78,32 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         self.assertEqual(kernel, "kernel")
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.productVersion", "invalid")
-    def get_product_release_version_invalid_test(self):
+    def test_get_product_release_version_invalid(self):
         """Test the get_product_release_version function with an invalid value."""
         self.assertEqual(get_product_release_version(), "rawhide")
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.productVersion", "28")
-    def get_product_release_version_number_test(self):
+    def test_get_product_release_version_number(self):
         """Test the get_product_release_version function with a valid number."""
         self.assertEqual(get_product_release_version(), "28")
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.productVersion", "7.4")
-    def get_product_release_version_dot_test(self):
+    def test_get_product_release_version_dot(self):
         """Test the get_product_release_version function with a dot."""
         self.assertEqual(get_product_release_version(), "7.4")
 
-    def get_installation_specs_default_test(self):
+    def test_get_installation_specs_default(self):
         """Test the get_installation_specs function with defaults."""
         data = PackagesSelectionData()
         self.assertEqual(get_installation_specs(data), (["@core"], []))
 
-    def get_installation_specs_nocore_test(self):
+    def test_get_installation_specs_nocore(self):
         """Test the get_installation_specs function without core."""
         data = PackagesSelectionData()
         data.core_group_enabled = False
         self.assertEqual(get_installation_specs(data), ([], ["@core"]))
 
-    def get_installation_specs_environment_test(self):
+    def test_get_installation_specs_environment(self):
         """Test the get_installation_specs function with environment."""
         data = PackagesSelectionData()
         data.environment = "environment-1"
@@ -122,7 +122,7 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
             ["@environment-2", "@core"], []
         ))
 
-    def get_installation_specs_packages_test(self):
+    def test_get_installation_specs_packages(self):
         """Test the get_installation_specs function with packages."""
         data = PackagesSelectionData()
         data.packages = ["p1", "p2", "p3"]
@@ -132,7 +132,7 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
             ["@core", "p1", "p2", "p3"], ["p4", "p5", "p6"]
         ))
 
-    def get_installation_specs_groups_test(self):
+    def test_get_installation_specs_groups(self):
         """Test the get_installation_specs function with groups."""
         data = PackagesSelectionData()
 
@@ -159,7 +159,7 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         ))
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.rpm")
-    def get_kernel_version_list_test(self, mock_rpm):
+    def test_get_kernel_version_list(self, mock_rpm):
         """Test the get_kernel_version_list function."""
         hdr_1 = Mock(filenames=[
             "/boot/vmlinuz-0-rescue-dbe69c1b88f94a67b689e3f44b0550c8"
@@ -187,7 +187,7 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         ])
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.execWithCapture")
-    def get_free_space_test(self, exec_mock):
+    def test_get_free_space(self, exec_mock):
         """Test the get_free_space function."""
         output = """
         Mounted on        Avail
@@ -216,7 +216,7 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
     @patch("os.statvfs")
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.conf")
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.execWithCapture")
-    def get_free_space_image_test(self, exec_mock, conf_mock, statvfs_mock):
+    def test_get_free_space_image(self, exec_mock, conf_mock, statvfs_mock):
         """Test the get_free_space function."""
         output = """
         Mounted on        Avail
@@ -233,7 +233,7 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
             '/var/tmp': Size("300 KiB"),
         })
 
-    def pick_mount_points_test(self):
+    def test_pick_mount_points(self):
         """Test the _pick_mount_points function."""
         mount_points = {
             "/": Size("1 G"),
@@ -282,7 +282,7 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         self.assertEqual(sufficient, set())
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.get_free_space_map")
-    def pick_download_location_test(self, free_space_getter):
+    def test_pick_download_location(self, free_space_getter):
         """Test the pick_download_location function."""
         download_size = Size(100)
         installation_size = Size(200)
@@ -324,7 +324,7 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.execWithCapture")
     @patch_dbus_get_proxy_with_cache
-    def get_combined_free_space_test(self, proxy_getter, exec_mock):
+    def test_get_combined_free_space(self, proxy_getter, exec_mock):
         """Test the get_free_space function with the combined options."""
         output = """
         Mounted on        Avail
@@ -368,7 +368,7 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         self.assertEqual(get_free_space_map(current=False, scheduled=False), {})
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.get_free_space_map")
-    def calculate_required_space_test(self, free_space_getter):
+    def test_calculate_required_space(self, free_space_getter):
         """Test the calculate_required_space function."""
         download_size = Size(100)
         installation_size = Size(200)

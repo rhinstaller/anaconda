@@ -63,7 +63,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
             *args, **kwargs
         )
 
-    def kickstart_properties_test(self):
+    def test_kickstart_properties(self):
         """Test kickstart properties."""
         self.assertEqual(self.security_interface.KickstartCommands,
                          ["auth", "authconfig", "authselect", "selinux", "realm"])
@@ -71,35 +71,35 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.security_interface.KickstartAddons, [])
         self.callback.assert_not_called()
 
-    def selinux_property_test(self):
+    def test_selinux_property(self):
         """Test the selinux property."""
         self._check_dbus_property(
             "SELinux",
             SELINUX_ENFORCING
         )
 
-    def authselect_property_test(self):
+    def test_authselect_property(self):
         """Test the authselect property."""
         self._check_dbus_property(
             "Authselect",
             ["sssd", "with-mkhomedir"]
         )
 
-    def authconfig_property_test(self):
+    def test_authconfig_property(self):
         """Test the authconfig property."""
         self._check_dbus_property(
             "Authconfig",
             ["--passalgo=sha512", "--useshadow"]
         )
 
-    def fingerprint_auth_enabled_test(self):
+    def test_fingerprint_auth_enabled(self):
         """Test the fingerprint_auth_enabled property."""
         self._check_dbus_property(
             "FingerprintAuthEnabled",
             True
         )
 
-    def realm_property_test(self):
+    def test_realm_property(self):
         """Test the realm property."""
         realm = {
             "name": get_variant(Str, "domain.example.com"),
@@ -116,19 +116,19 @@ class SecurityInterfaceTestCase(unittest.TestCase):
     def _test_kickstart(self, ks_in, ks_out):
         check_kickstart_interface(self, self.security_interface, ks_in, ks_out)
 
-    def no_kickstart_test(self):
+    def test_no_kickstart(self):
         """Test with no kickstart."""
         ks_in = None
         ks_out = ""
         self._test_kickstart(ks_in, ks_out)
 
-    def kickstart_empty_test(self):
+    def test_kickstart_empty(self):
         """Test with empty string."""
         ks_in = ""
         ks_out = ""
         self._test_kickstart(ks_in, ks_out)
 
-    def selinux_kickstart_test(self):
+    def test_selinux_kickstart(self):
         """Test the selinux command."""
         ks_in = """
         selinux --permissive
@@ -139,7 +139,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    def auth_kickstart_test(self):
+    def test_auth_kickstart(self):
         """Test the auth command."""
         ks_in = """
         auth --passalgo=sha512 --useshadow
@@ -150,7 +150,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    def authconfig_kickstart_test(self):
+    def test_authconfig_kickstart(self):
         """Test the authconfig command."""
         ks_in = """
         authconfig --passalgo=sha512 --useshadow
@@ -161,7 +161,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    def authselect_kickstart_test(self):
+    def test_authselect_kickstart(self):
         """Test the authselect command."""
         ks_in = """
         authselect select sssd with-mkhomedir
@@ -172,7 +172,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    def realm_kickstart_test(self):
+    def test_realm_kickstart(self):
         """Test the realm command."""
         ks_in = """
         realm join --one-time-password=password --client-software=sssd domain.example.com
@@ -184,7 +184,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         self._test_kickstart(ks_in, ks_out)
 
     @patch_dbus_publish_object
-    def realm_discover_default_test(self, publisher):
+    def test_realm_discover_default(self, publisher):
         """Test module in default state with realm discover task."""
         realm_discover_task_path = self.security_interface.DiscoverRealmWithTask()
         obj = check_task_creation(self, realm_discover_task_path, publisher, RealmDiscoverTask)
@@ -192,7 +192,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._realm_data.discover_options, [])
 
     @patch_dbus_publish_object
-    def realm_discover_configured_test(self, publisher):
+    def test_realm_discover_configured(self, publisher):
         """Test module in configured state with realm discover task."""
         realm = RealmData()
         realm.name = "domain.example.com"
@@ -206,7 +206,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._realm_data.discover_options, ["--client-software=sssd"])
 
     @patch_dbus_publish_object
-    def install_with_tasks_default_test(self, publisher):
+    def test_install_with_tasks_default(self, publisher):
         """Test InstallWithTasks."""
         task_classes = [
             ConfigureSELinuxTask,
@@ -231,7 +231,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._authconfig_options, [])
 
     @patch_dbus_publish_object
-    def realm_join_default_test(self, publisher):
+    def test_realm_join_default(self, publisher):
         """Test module in default state with realm join task."""
         realm_join_task_path = self.security_interface.JoinRealmWithTask()
         obj = check_task_creation(self, realm_join_task_path, publisher, RealmJoinTask)
@@ -240,7 +240,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._realm_data.join_options, [])
 
     @patch_dbus_publish_object
-    def install_with_tasks_configured_test(self, publisher):
+    def test_install_with_tasks_configured(self, publisher):
         """Test install tasks - module in configured state."""
         realm = RealmData()
         realm.name = "domain.example.com"
@@ -281,7 +281,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._authconfig_options, authconfig)
 
     @patch_dbus_publish_object
-    def realm_join_configured_test(self, publisher):
+    def test_realm_join_configured(self, publisher):
         """Test module in configured state with realm join task."""
         realm = RealmData()
         realm.name = "domain.example.com"
@@ -298,7 +298,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._realm_data.join_options, ["--one-time-password=password"])
 
     @patch_dbus_publish_object
-    def realm_data_propagation_test(self, publisher):
+    def test_realm_data_propagation(self, publisher):
         """Test that realm data changes propagate to realm join task."""
         # We connect to the realm_changed signal and update the realm data holder
         # in the realm join task when the signal is triggered.
@@ -331,7 +331,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._realm_data.join_options, ["--one-time-password=password"])
 
     @patch_dbus_publish_object
-    def preconfigure_fips_with_task_test(self, publisher):
+    def test_preconfigure_fips_with_task(self, publisher):
         """Test the PreconfigureFIPSWithTask method."""
         task_path = self.security_interface.PreconfigureFIPSWithTask(PAYLOAD_TYPE_DNF)
         obj = check_task_creation(self, task_path, publisher, PreconfigureFIPSTask)
@@ -340,20 +340,20 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._fips_enabled, False)
 
     @patch_dbus_publish_object
-    def configure_fips_with_task_test(self, publisher):
+    def test_configure_fips_with_task(self, publisher):
         """Test the ConfigureFIPSWithTask method."""
         task_path = self.security_interface.ConfigureFIPSWithTask()
         obj = check_task_creation(self, task_path, publisher, ConfigureFIPSTask)
         self.assertEqual(obj.implementation._sysroot, "/mnt/sysroot")
         self.assertEqual(obj.implementation._fips_enabled, False)
 
-    def collect_requirements_default_test(self):
+    def test_collect_requirements_default(self):
         """Test requrements are empty by default."""
         reqs = self.security_interface.CollectRequirements()
         self.assertListEqual(reqs, [])
 
     @patch("pyanaconda.modules.security.security.kernel_arguments")
-    def fips_requirements_test(self, kernel_arguments_mock):
+    def test_fips_requirements(self, kernel_arguments_mock):
         """Test the package requirements for fips."""
         kernel_arguments_mock.is_enabled.return_value = True
         self.assertEqual(self.security_interface.CollectRequirements(), [
@@ -365,7 +365,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         ])
         kernel_arguments_mock.is_enabled.assert_called_once_with("fips")
 
-    def realmd_requirements_test(self):
+    def test_realmd_requirements(self):
         """Test that package requirements in realm data propagate correctly."""
         realm = RealmData()
         realm.name = "domain.example.com"
@@ -395,7 +395,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
             }
         ])
 
-    def authselect_requirements_test(self):
+    def test_authselect_requirements(self):
         """Test that package requirements for authselect propagate correctly."""
 
         self.security_interface.SetAuthconfig(['--passalgo=sha512', '--useshadow'])
@@ -438,7 +438,7 @@ class SecurityTasksTestCase(unittest.TestCase):
         self.callback = PropertiesChangedCallback()
         self.security_interface.PropertiesChanged.connect(self.callback)
 
-    def configure_selinux_task_disable_test(self):
+    def test_configure_selinux_task_disable(self):
         """Test SELinux configuration task - SELinux disabled."""
         content = """
         SELINUX=disabled
@@ -456,7 +456,7 @@ class SecurityTasksTestCase(unittest.TestCase):
             with open(os.path.join(sysroot, "etc/selinux/config")) as f:
                 self.assertEqual(f.read().strip(), content.strip())
 
-    def configure_selinux_task_enforcing_test(self):
+    def test_configure_selinux_task_enforcing(self):
         """Test SELinux configuration task - SELinux enforcing."""
         content = """
         SELINUX=enforcing
@@ -474,7 +474,7 @@ class SecurityTasksTestCase(unittest.TestCase):
             with open(os.path.join(sysroot, "etc/selinux/config")) as f:
                 self.assertEqual(f.read().strip(), content.strip())
 
-    def configure_selinux_task_permissive_test(self):
+    def test_configure_selinux_task_permissive(self):
         """Test SELinux configuration task - SELinux permissive."""
         content = """
         SELINUX=permissive
@@ -492,7 +492,7 @@ class SecurityTasksTestCase(unittest.TestCase):
             with open(os.path.join(sysroot, "etc/selinux/config")) as f:
                 self.assertEqual(f.read().strip(), content.strip())
 
-    def configure_selinux_task_default_test(self):
+    def test_configure_selinux_task_default(self):
         """Test SELinux configuration task - SELinux default."""
         content = """
         SELINUX=foo
@@ -514,7 +514,7 @@ class SecurityTasksTestCase(unittest.TestCase):
                 self.assertEqual(f.read().strip(), content.strip())
 
     @patch('pyanaconda.core.util.execWithCapture')
-    def realm_discover_success_task_test(self, execWithCapture):
+    def test_realm_discover_success_task(self, execWithCapture):
         """Test the realm discover setup task - success."""
         execWithCapture.return_value = """foo-domain-discovered
                                           required-package:package-foo
@@ -543,7 +543,7 @@ class SecurityTasksTestCase(unittest.TestCase):
             self.assertListEqual(new_realm_data.required_packages, ["realmd", "package-foo", "package-bar", "package-baz"])
 
     @patch('pyanaconda.core.util.execWithCapture')
-    def realm_discover_success_with_garbage_task_test(self, execWithCapture):
+    def test_realm_discover_success_with_garbage_task(self, execWithCapture):
         """Test the realm discover setup task - success with garbage in output."""
         execWithCapture.return_value = """foo-domain-discovered
                                           stuff-foo
@@ -577,7 +577,7 @@ class SecurityTasksTestCase(unittest.TestCase):
             self.assertListEqual(new_realm_data.required_packages, ["realmd", "package-foo", "package-bar", "package-baz"])
 
     @patch('pyanaconda.core.util.execWithCapture')
-    def realm_discover_success_no_extra_packages_with_garbage_task_test(self, execWithCapture):
+    def test_realm_discover_success_no_extra_packages_with_garbage_task(self, execWithCapture):
         """Test the realm discover setup task - success, no extra packages, garbage in output."""
         execWithCapture.return_value = """foo-domain-discovered
                                        stuff, stuff
@@ -607,7 +607,7 @@ class SecurityTasksTestCase(unittest.TestCase):
             self.assertListEqual(new_realm_data.required_packages, ["realmd"])
 
     @patch('pyanaconda.core.util.execWithCapture')
-    def realm_discover_failure_test(self, execWithCapture):
+    def test_realm_discover_failure(self, execWithCapture):
         """Test the realm discover setup task - discovery failed."""
         execWithCapture.return_value = ""
 
@@ -634,7 +634,7 @@ class SecurityTasksTestCase(unittest.TestCase):
             self.assertListEqual(new_realm_data.required_packages, ["realmd"])
 
     @patch('pyanaconda.core.util.execWithCapture')
-    def realm_discover_failure_with_exception_test(self, execWithCapture):
+    def test_realm_discover_failure_with_exception(self, execWithCapture):
         """Test the realm discover setup task - discovery failed with exception."""
         execWithCapture.return_value = ""
         execWithCapture.side_effect = OSError()
@@ -662,7 +662,7 @@ class SecurityTasksTestCase(unittest.TestCase):
             self.assertListEqual(new_realm_data.required_packages, [])
 
     @patch('pyanaconda.core.util.execWithCapture')
-    def realm_discover_no_realm_name_test(self, execWithCapture):
+    def test_realm_discover_no_realm_name(self, execWithCapture):
         """Test the realm discover setup task - no realm name."""
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(os.path.join(sysroot, "usr/bin"))
@@ -685,7 +685,7 @@ class SecurityTasksTestCase(unittest.TestCase):
             self.assertListEqual(new_realm_data.required_packages, [])
 
     @patch('pyanaconda.core.util.execWithRedirect')
-    def realm_join_test(self, execWithRedirect):
+    def test_realm_join(self, execWithRedirect):
         """Test the realm join install task."""
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(os.path.join(sysroot, "usr/bin"))
@@ -705,7 +705,7 @@ class SecurityTasksTestCase(unittest.TestCase):
                                                       '--no-password', '--bar', 'baz'])
 
     @patch('pyanaconda.core.util.execWithRedirect')
-    def realm_join_one_time_password_test(self, execWithRedirect):
+    def test_realm_join_one_time_password(self, execWithRedirect):
         """Test the realm join install task - one time password."""
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(os.path.join(sysroot, "usr/bin"))
@@ -726,7 +726,7 @@ class SecurityTasksTestCase(unittest.TestCase):
                                                       '--one-time-password', 'abcdefgh'])
 
     @patch('pyanaconda.core.util.execWithRedirect')
-    def realm_join_non_zero_return_value_test(self, execWithRedirect):
+    def test_realm_join_non_zero_return_value(self, execWithRedirect):
         """Test the realm join install task - non zero return value."""
         execWithRedirect.return_value = 1
 
@@ -749,7 +749,7 @@ class SecurityTasksTestCase(unittest.TestCase):
                                                       '--one-time-password', 'abcdefgh'])
 
     @patch('pyanaconda.core.util.execWithRedirect')
-    def realm_join_exception_test(self, execWithRedirect):
+    def test_realm_join_exception(self, execWithRedirect):
         """Test the realm join install task - exception."""
         execWithRedirect.side_effect = OSError()
 
@@ -772,7 +772,7 @@ class SecurityTasksTestCase(unittest.TestCase):
                                                       '--one-time-password', 'abcdefgh'])
 
     @patch('pyanaconda.core.util.execWithRedirect')
-    def realm_join_not_discovered_test(self, execWithRedirect):
+    def test_realm_join_not_discovered(self, execWithRedirect):
         """Test the realm join install task - no realm discovered."""
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(os.path.join(sysroot, "usr/bin"))
@@ -791,7 +791,7 @@ class SecurityTasksTestCase(unittest.TestCase):
             execWithRedirect.assert_not_called()
 
     @patch('pyanaconda.core.util.execWithRedirect')
-    def configure_fingerprint_auth_task_test(self, execWithRedirect):
+    def test_configure_fingerprint_auth_task(self, execWithRedirect):
         """Test the configure fingerprint task."""
         with tempfile.TemporaryDirectory() as sysroot:
 
@@ -860,7 +860,7 @@ class SecurityTasksTestCase(unittest.TestCase):
             os.remove(authselect_path)
 
     @patch('pyanaconda.core.util.execWithRedirect')
-    def configure_authselect_task_test(self, execWithRedirect):
+    def test_configure_authselect_task(self, execWithRedirect):
         """Test the configure authselect task."""
         with tempfile.TemporaryDirectory() as sysroot:
 
@@ -894,7 +894,7 @@ class SecurityTasksTestCase(unittest.TestCase):
             os.remove(authselect_path)
 
     @patch('pyanaconda.core.util.execWithRedirect')
-    def configure_authconfig_task_test(self, execWithRedirect):
+    def test_configure_authconfig_task(self, execWithRedirect):
         """Test the configure authconfig task."""
         with tempfile.TemporaryDirectory() as sysroot:
 
@@ -927,7 +927,7 @@ class SecurityTasksTestCase(unittest.TestCase):
             )
             os.remove(authconfig_path)
 
-    def preconfigure_fips_task_disabled_test(self):
+    def test_preconfigure_fips_task_disabled(self):
         """Test the PreconfigureFIPSTask task with disabled FIPS."""
         task = PreconfigureFIPSTask(
             sysroot="/mnt/sysroot",
@@ -941,7 +941,7 @@ class SecurityTasksTestCase(unittest.TestCase):
         msg = "FIPS is not enabled. Skipping."
         self.assertTrue(any(map(lambda x: msg in x, cm.output)))
 
-    def preconfigure_fips_task_payload_test(self):
+    def test_preconfigure_fips_task_payload(self):
         """Test the PreconfigureFIPSTask task with a wrong payload."""
         task = PreconfigureFIPSTask(
             sysroot="/mnt/sysroot",
@@ -955,7 +955,7 @@ class SecurityTasksTestCase(unittest.TestCase):
         msg = "Don't set up FIPS for the RPM_OSTREE payload."
         self.assertTrue(any(map(lambda x: msg in x, cm.output)))
 
-    def preconfigure_fips_task_error_test(self):
+    def test_preconfigure_fips_task_error(self):
         """Test the PreconfigureFIPSTask task with a wrong policy."""
         task = PreconfigureFIPSTask(
             sysroot="/mnt/sysroot",
@@ -971,7 +971,7 @@ class SecurityTasksTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.security.installation.shutil")
     @patch("pyanaconda.modules.security.installation.util")
-    def preconfigure_fips_task_test(self, mock_util, mock_shutil):
+    def test_preconfigure_fips_task(self, mock_util, mock_shutil):
         """Test the PreconfigureFIPSTask task."""
         task = PreconfigureFIPSTask(
             sysroot="/mnt/sysroot",
@@ -996,7 +996,7 @@ class SecurityTasksTestCase(unittest.TestCase):
             symlinks=True
         )
 
-    def configure_fips_task_disabled_test(self):
+    def test_configure_fips_task_disabled(self):
         """Test the ConfigureFIPSTask task with disabled FIPS."""
         task = ConfigureFIPSTask(
             sysroot="/mnt/sysroot",
@@ -1010,7 +1010,7 @@ class SecurityTasksTestCase(unittest.TestCase):
         self.assertTrue(any(map(lambda x: msg in x, cm.output)))
 
     @patch("pyanaconda.modules.security.installation.conf")
-    def configure_fips_task_image_test(self, mock_conf):
+    def test_configure_fips_task_image(self, mock_conf):
         """Test the ConfigureFIPSTask task with image."""
         task = ConfigureFIPSTask(
             sysroot="/mnt/sysroot",
@@ -1027,7 +1027,7 @@ class SecurityTasksTestCase(unittest.TestCase):
         self.assertTrue(any(map(lambda x: msg in x, cm.output)))
 
     @patch("pyanaconda.modules.security.installation.util")
-    def configure_fips_task_test(self, mock_util):
+    def test_configure_fips_task(self, mock_util):
         """Test the ConfigureFIPSTask task."""
         task = ConfigureFIPSTask(
             sysroot="/mnt/sysroot",

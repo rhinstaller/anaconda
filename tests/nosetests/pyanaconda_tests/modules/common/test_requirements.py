@@ -23,13 +23,13 @@ from pyanaconda.modules.common.structures.requirement import Requirement
 class ModuleRequirementsTestCase(unittest.TestCase):
     """Test the module requirements."""
 
-    def package_requirement_test(self):
+    def test_package_requirement(self):
         requirement = Requirement.for_package("package-name", "reason")
         self.assertEqual(requirement.type, "package")
         self.assertEqual(requirement.name, "package-name")
         self.assertEqual(requirement.reason, "reason")
 
-    def group_requirement_test(self):
+    def test_group_requirement(self):
         requirement = Requirement.for_group("group-name", "reason")
         self.assertEqual(requirement.type, "group")
         self.assertEqual(requirement.name, "group-name")

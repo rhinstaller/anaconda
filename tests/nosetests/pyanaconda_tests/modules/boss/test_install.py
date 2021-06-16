@@ -25,14 +25,14 @@ from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy
 class InstallManagerTestCase(unittest.TestCase):
     """Test the install manager."""
 
-    def install_with_no_modules_test(self):
+    def test_install_with_no_modules(self):
         """Install with no modules."""
         install_manager = InstallManager()
         install_manager.on_module_observers_changed([])
         proxies = install_manager.collect_install_system_tasks()
         self.assertEqual(proxies, [])
 
-    def install_with_no_tasks_test(self):
+    def test_install_with_no_tasks(self):
         """Install with no tasks."""
         observer = Mock()
         observer.is_service_available = True
@@ -45,7 +45,7 @@ class InstallManagerTestCase(unittest.TestCase):
         self.assertEqual(proxies, [])
 
     @patch_dbus_get_proxy
-    def install_one_task_test(self, proxy_getter):
+    def test_install_one_task(self, proxy_getter):
         """Install with one task."""
         observer = Mock()
         observer.is_service_available = True
@@ -64,7 +64,7 @@ class InstallManagerTestCase(unittest.TestCase):
         proxy_getter.assert_called_once_with("A", "/A/1")
 
     @patch_dbus_get_proxy
-    def install_three_tasks_test(self, proxy_getter):
+    def test_install_three_tasks(self, proxy_getter):
         """Install with three tasks."""
         observers = []
 
@@ -98,7 +98,7 @@ class InstallManagerTestCase(unittest.TestCase):
         ])
 
     @patch_dbus_get_proxy
-    def configure_runtime_test(self, proxy_getter):
+    def test_configure_runtime(self, proxy_getter):
         """Configure the runtime system with three tasks."""
         observers = []
 

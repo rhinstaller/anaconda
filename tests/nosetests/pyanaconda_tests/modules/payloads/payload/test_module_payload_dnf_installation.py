@@ -52,7 +52,7 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
         mock_rpm.addMacro.assert_has_calls(calls)
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
-    def set_rpm_macros_default_test(self, mock_rpm):
+    def test_set_rpm_macros_default(self, mock_rpm):
         data = PackagesConfigurationData()
 
         macros = [
@@ -63,7 +63,7 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
         self._check_macros(task, mock_rpm, macros)
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
-    def set_rpm_macros_exclude_docs_test(self, mock_rpm):
+    def test_set_rpm_macros_exclude_docs(self, mock_rpm):
         data = PackagesConfigurationData()
         data.docs_excluded = True
 
@@ -76,7 +76,7 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
         self._check_macros(task, mock_rpm, macros)
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
-    def set_rpm_macros_install_langs_test(self, mock_rpm):
+    def test_set_rpm_macros_install_langs(self, mock_rpm):
         data = PackagesConfigurationData()
         data.languages = "en,es"
 
@@ -89,7 +89,7 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
         self._check_macros(task, mock_rpm, macros)
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
-    def set_rpm_macros_no_install_langs_test(self, mock_rpm):
+    def test_set_rpm_macros_no_install_langs(self, mock_rpm):
         data = PackagesConfigurationData()
         data.languages = RPM_LANGUAGES_NONE
 
@@ -103,7 +103,7 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.os")
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
-    def set_rpm_macros_selinux_test(self, mock_rpm, mock_os):
+    def test_set_rpm_macros_selinux(self, mock_rpm, mock_os):
         mock_os.access.return_value = True
         data = PackagesConfigurationData()
 
@@ -117,7 +117,7 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.conf")
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
-    def set_rpm_macros_selinux_disabled_test(self, mock_rpm, mock_conf):
+    def test_set_rpm_macros_selinux_disabled(self, mock_rpm, mock_conf):
         mock_conf.security.selinux = 0
         data = PackagesConfigurationData()
 
@@ -137,7 +137,7 @@ class ImportRPMKeysTaskTestCase(unittest.TestCase):
         os.makedirs(join_paths(sysroot, "/usr/bin"))
         os.mknod(join_paths(sysroot, "/usr/bin/rpm"))
 
-    def import_no_keys_test(self):
+    def test_import_no_keys(self):
         """Import no GPG keys."""
         with tempfile.TemporaryDirectory() as sysroot:
             task = ImportRPMKeysTask(sysroot, [])
@@ -148,7 +148,7 @@ class ImportRPMKeysTaskTestCase(unittest.TestCase):
             msg = "No GPG keys to import."
             self.assertTrue(any(map(lambda x: msg in x, cm.output)))
 
-    def import_no_rpm_test(self):
+    def test_import_no_rpm(self):
         """Import GPG keys without installed rpm."""
         with tempfile.TemporaryDirectory() as sysroot:
             task = ImportRPMKeysTask(sysroot, ["key"])
@@ -160,7 +160,7 @@ class ImportRPMKeysTaskTestCase(unittest.TestCase):
             self.assertTrue(any(map(lambda x: msg in x, cm.output)))
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.util.execWithRedirect")
-    def import_error_test(self, mock_exec):
+    def test_import_error(self, mock_exec):
         """Import GPG keys with error."""
         mock_exec.return_value = 1
 
@@ -175,7 +175,7 @@ class ImportRPMKeysTaskTestCase(unittest.TestCase):
             self.assertTrue(any(map(lambda x: msg in x, cm.output)))
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.util.execWithRedirect")
-    def import_keys_test(self, mock_exec):
+    def test_import_keys(self, mock_exec):
         """Import GPG keys."""
         mock_exec.return_value = 0
 
@@ -194,7 +194,7 @@ class ImportRPMKeysTaskTestCase(unittest.TestCase):
             ])
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.util")
-    def import_substitution_test(self, mock_util):
+    def test_import_substitution(self, mock_util):
         """Import GPG keys with variables."""
         mock_util.execWithRedirect.return_value = 0
         mock_util.execWithCapture.return_value = "s390x"
@@ -217,7 +217,7 @@ class ImportRPMKeysTaskTestCase(unittest.TestCase):
 
 class DownloadPackagesTaskTestCase(unittest.TestCase):
 
-    def run_test(self):
+    def test_run(self):
         """Run the DownloadPackagesTask class."""
         callback = Mock()
 
@@ -247,7 +247,7 @@ class DownloadPackagesTaskTestCase(unittest.TestCase):
 
 class InstallPackagesTaskTestCase(unittest.TestCase):
 
-    def run_test(self):
+    def test_run(self):
         """Run the InstallPackagesTask class."""
         callback = Mock()
 
@@ -278,7 +278,7 @@ class InstallPackagesTaskTestCase(unittest.TestCase):
 class PrepareDownloadLocationTaskTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.pick_download_location")
-    def run_test(self, pick_location):
+    def test_run(self, pick_location):
         """Run the PrepareDownloadLocationTask class."""
         dnf_manager = Mock()
 
@@ -306,7 +306,7 @@ class PrepareDownloadLocationTaskTestCase(unittest.TestCase):
 class CleanUpDownloadLocationTaskTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.shutil")
-    def run_nonexistent_test(self, shutil_mock):
+    def test_run_nonexistent(self, shutil_mock):
         """Run the CleanUpDownloadLocationTask class for nonexistent location."""
         dnf_manager = DNFManager()
         dnf_manager.set_download_location("/my/nonexistent/path")
@@ -316,7 +316,7 @@ class CleanUpDownloadLocationTaskTestCase(unittest.TestCase):
 
         shutil_mock.rmtree.assert_not_called()
 
-    def run_test(self):
+    def test_run(self):
         """Run the CleanUpDownloadLocationTask class."""
         dnf_manager = DNFManager()
 
@@ -345,7 +345,7 @@ class ResolvePackagesTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.collect_language_requirements")
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.collect_remote_requirements")
     @patch("pyanaconda.modules.payloads.payload.dnf.validation.get_kernel_package")
-    def resolve_test(self, kernel_getter, req_getter1, req_getter2, req_getter3, req_getter4):
+    def test_resolve(self, kernel_getter, req_getter1, req_getter2, req_getter3, req_getter4):
         """Test the successful ResolvePackagesTask task."""
         kernel_getter.return_value = None
 
@@ -387,7 +387,7 @@ class ResolvePackagesTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.collect_language_requirements")
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.collect_remote_requirements")
     @patch("pyanaconda.modules.payloads.payload.dnf.validation.get_kernel_package")
-    def fail_test(self, kernel_getter, req_getter1, req_getter2, req_getter3, req_getter4):
+    def test_fail(self, kernel_getter, req_getter1, req_getter2, req_getter3, req_getter4):
         """Test the failed ResolvePackagesTask task."""
         kernel_getter.return_value = None
         req_getter1.return_value = []

@@ -60,7 +60,7 @@ class CccCategory(SpokeCategory):
 class CommonCodeTestCase(unittest.TestCase):
     """Test common UI code."""
 
-    def category_sorting_test(self):
+    def test_category_sorting(self):
         """Test category sorting works as expected."""
 
         category_list = [BbbCategory, CccCategory, AaaCategory]

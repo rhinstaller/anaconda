@@ -30,7 +30,7 @@ class ArgparseTest(unittest.TestCase):
         opts = ap.parse_args(argv, boot_cmdline=boot_cmdline)
         return (opts, ap.removed_no_inst_bootargs)
 
-    def without_inst_prefix_test(self):
+    def test_without_inst_prefix(self):
         boot_cmdline = KernelArguments.from_string("stage2=http://cool.server.com/test")
         opts, removed = self._parseCmdline([], boot_cmdline=boot_cmdline)
         self.assertEqual(opts.stage2, None)
@@ -43,7 +43,7 @@ class ArgparseTest(unittest.TestCase):
         self.assertFalse(opts.vnc)
         self.assertListEqual(removed, ["stage2", "vnc"])
 
-    def with_inst_prefix_test(self):
+    def test_with_inst_prefix(self):
         boot_cmdline = KernelArguments.from_string("inst.stage2=http://cool.server.com/test")
         opts, removed = self._parseCmdline([], boot_cmdline=boot_cmdline)
         self.assertEqual(opts.stage2, "http://cool.server.com/test")
@@ -56,7 +56,7 @@ class ArgparseTest(unittest.TestCase):
         self.assertTrue(opts.vnc)
         self.assertEqual(removed, [])
 
-    def inst_prefix_mixed_test(self):
+    def test_inst_prefix_mixed(self):
         boot_cmdline = KernelArguments.from_string("inst.stage2=http://cool.server.com/test "
                                                    "vnc")
         opts, removed = self._parseCmdline([], boot_cmdline=boot_cmdline)
@@ -64,7 +64,7 @@ class ArgparseTest(unittest.TestCase):
         self.assertFalse(opts.vnc)
         self.assertListEqual(removed, ["vnc"])
 
-    def display_mode_test(self):
+    def test_display_mode(self):
         opts, _removed = self._parseCmdline(['--cmdline'])
         self.assertEqual(opts.display_mode, DisplayModes.TUI)
         self.assertTrue(opts.noninteractive)
@@ -90,7 +90,7 @@ class ArgparseTest(unittest.TestCase):
         opts, _removed = self._parseCmdline([], boot_cmdline=boot_cmdline)
         self.assertEqual(opts.display_mode, DisplayModes.TUI)
 
-    def selinux_test(self):
+    def test_selinux(self):
         from pykickstart.constants import SELINUX_DISABLED, SELINUX_ENFORCING
         from pyanaconda.core.constants import SELINUX_DEFAULT
 
@@ -110,7 +110,7 @@ class ArgparseTest(unittest.TestCase):
         opts, _removed = self._parseCmdline(['--noselinux'])
         self.assertEqual(opts.selinux, SELINUX_DISABLED)
 
-    def dirinstall_test(self):
+    def test_dirinstall(self):
         # when not specified, dirinstall should evaluate to False
         opts, _removed = self._parseCmdline([])
         self.assertFalse(opts.dirinstall)
@@ -123,7 +123,7 @@ class ArgparseTest(unittest.TestCase):
         opts, _removed = self._parseCmdline(['--dirinstall=/what/ever'])
         self.assertEqual(opts.dirinstall, "/what/ever")
 
-    def storage_test(self):
+    def test_storage(self):
         conf = AnacondaConfiguration.from_defaults()
 
         opts, _removed = self._parseCmdline([])
@@ -138,7 +138,7 @@ class ArgparseTest(unittest.TestCase):
         self.assertEqual(conf.storage.dmraid, False)
         self.assertEqual(conf.storage.ibft, True)
 
-    def target_test(self):
+    def test_target(self):
         conf = AnacondaConfiguration.from_defaults()
 
         opts, _removed = self._parseCmdline([])
@@ -165,7 +165,7 @@ class ArgparseTest(unittest.TestCase):
         self.assertEqual(conf.target.is_directory, True)
         self.assertEqual(conf.target.physical_root, "/what/ever")
 
-    def system_test(self):
+    def test_system(self):
         conf = AnacondaConfiguration.from_defaults()
 
         opts, _removed = self._parseCmdline([])

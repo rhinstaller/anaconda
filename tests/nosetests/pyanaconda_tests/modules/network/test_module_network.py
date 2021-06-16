@@ -80,7 +80,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         self.callback = PropertiesChangedCallback()
         self.network_interface.PropertiesChanged.connect(self.callback)
 
-    def kickstart_properties_test(self):
+    def test_kickstart_properties(self):
         """Test kickstart properties."""
         self.assertEqual(self.network_interface.KickstartCommands, ["network", "firewall"])
         self.assertEqual(self.network_interface.KickstartSections, [])
@@ -96,7 +96,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.common.base.base.setlocale")
     @patch("pyanaconda.modules.common.base.base.os")
-    def set_locale_test(self, mocked_os, setlocale):
+    def test_set_locale(self, mocked_os, setlocale):
         """Test setting locale of the module."""
         from locale import LC_ALL
         import pyanaconda.core.util
@@ -107,7 +107,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         setlocale.assert_called_once_with(LC_ALL, locale)
         self.assertEqual(pyanaconda.core.util._child_env['LANG'], locale)
 
-    def hostname_property_test(self):
+    def test_hostname_property(self):
         """Test the hostname property."""
         self._check_dbus_property(
             "Hostname",
@@ -116,7 +116,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.network.network.conf")
     @patch('pyanaconda.core.dbus.SystemBus.get_proxy')
-    def get_current_hostname_test(self, proxy_getter, conf_mock):
+    def test_get_current_hostname(self, proxy_getter, conf_mock):
         """Test the GetCurrentHostname method."""
         hostname_mock = Mock()
         hostname_mock.Hostname = "dot.dot"
@@ -132,7 +132,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.network.network.conf")
     @patch('pyanaconda.core.dbus.SystemBus.get_proxy')
-    def set_current_hostname_test(self, proxy_getter, conf_mock):
+    def test_set_current_hostname(self, proxy_getter, conf_mock):
         """Test the SetCurrentHostname method."""
         hostname_mock = Mock()
         proxy_getter.return_value = hostname_mock
@@ -149,7 +149,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.network.network.conf")
     @patch('pyanaconda.core.dbus.SystemBus.get_proxy')
-    def current_hostname_changed_test(self, proxy_getter, conf_mock):
+    def test_current_hostname_changed(self, proxy_getter, conf_mock):
         """Test the CurrentHostnameChanged signal."""
         hostname_mock = Mock()
         hostname_mock.PropertiesChanged = Signal()
@@ -169,16 +169,16 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         hostname_mock.PropertiesChanged.emit("org.freedesktop.hostname1", changed_properties, [])
         hostname_changed.assert_called_once_with("dot.dot")
 
-    def connected_test(self):
+    def test_connected(self):
         """Test getting connectivity status does not fail."""
         connected = self.network_interface.Connected
         self.assertIn(connected, (True, False))
 
-    def connecting_test(self):
+    def test_connecting(self):
         """Test checking connecting status does not fail."""
         self.network_interface.IsConnecting()
 
-    def mocked_client_connectivity_test(self):
+    def test_mocked_client_connectivity(self):
         """Test connectivity properties with mocked NMClient."""
         nm_client = MockedNMClient()
         nm_client._connect_state_changed(self.network_module._nm_state_changed)
@@ -212,36 +212,36 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         self.callback.assert_called_with(NETWORK.interface_name, {'Connected': True}, [])
         self.assertFalse(self.network_interface.IsConnecting())
 
-    def nm_availability_test(self):
+    def test_nm_availability(self):
         self.network_module.nm_client = None
         self.assertTrue(self.network_interface.Connected)
         self.assertFalse(self.network_interface.IsConnecting())
 
-    def create_device_configurations_test(self):
+    def test_create_device_configurations(self):
         """Test creating device configurations does not fail."""
         self.network_interface.CreateDeviceConfigurations()
 
-    def get_device_configurations_test(self):
+    def test_get_device_configurations(self):
         """Test GetDeviceConfigurations."""
         self.assertListEqual(self.network_interface.GetDeviceConfigurations(), [])
 
-    def network_device_configuration_changed_test(self):
+    def test_network_device_configuration_changed(self):
         """Test NetworkDeviceConfigurationChanged."""
         self.network_interface.NetworkDeviceConfigurationChanged()
 
-    def get_dracut_arguments_test(self):
+    def test_get_dracut_arguments(self):
         """Test GetDracutArguments."""
         self.assertListEqual(
             self.network_interface.GetDracutArguments("ens3", "10.10.10.10", "", False), []
         )
 
-    def log_configuration_state_test(self):
+    def test_log_configuration_state(self):
         """Test LogConfigurationState."""
         self.network_interface.LogConfigurationState("message")
 
     @patch_dbus_publish_object
     @patch('pyanaconda.modules.network.network.devices_ignore_ipv6', return_value=True)
-    def install_network_with_task_test(self, devices_ignore_ipv6, publisher):
+    def test_install_network_with_task(self, devices_ignore_ipv6, publisher):
         """Test InstallNetworkWithTask."""
         self.network_module._disable_ipv6 = True
         self.network_module.nm_client = Mock()
@@ -269,7 +269,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         self.network_module.log_task_result.assert_called_once()
 
     @patch_dbus_publish_object
-    def configure_hostname_with_task_test(self, publisher):
+    def test_configure_hostname_with_task(self, publisher):
         """Test ConfigureHostnameWithTask."""
         self.network_module._hostname = "my_hostname"
 
@@ -283,7 +283,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
     @patch_dbus_publish_object
     @patch('pyanaconda.modules.network.installation.update_connection_values')
     @patch('pyanaconda.modules.network.installation.get_config_file_connection_of_device')
-    def configure_activation_on_boot_with_task_test(self, get_config_file_connection_of_device,
+    def test_configure_activation_on_boot_with_task(self, get_config_file_connection_of_device,
                                                     update_connection_values, publisher):
         """Test ConfigureActivationOnBootWithTask."""
         self.network_module.nm_client = Mock()
@@ -318,7 +318,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         self.network_module.get_supported_devices = Mock(return_value=ret_val)
 
     @patch_dbus_publish_object
-    def apply_kickstart_with_task_test(self, publisher):
+    def test_apply_kickstart_with_task(self, publisher):
         """Test ApplyKickstartWithTask."""
         self._mock_supported_devices([("ens3", "", 0)])
         task_path = self.network_interface.ApplyKickstartWithTask()
@@ -331,7 +331,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         self.network_module.log_task_result.assert_called_once()
 
     @patch_dbus_publish_object
-    def dump_missing_ifcfg_files_with_task_test(self, publisher):
+    def test_dump_missing_ifcfg_files_with_task(self, publisher):
         """Test DumpMissingConfigFilesWithTask."""
         task_path = self.network_interface.DumpMissingConfigFilesWithTask()
 
@@ -362,7 +362,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
             ret_val.append(dev)
         self.network_module.nm_client.get_devices.return_value = ret_val
 
-    def get_supported_devices_test(self):
+    def test_get_supported_devices(self):
         """Test GetSupportedDevices."""
         # No NM available
         self.network_module.nm_client = None
@@ -434,7 +434,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
             active_connections.append(con)
         self.network_module.nm_client.get_active_connections.return_value = active_connections
 
-    def get_activated_interfaces_test(self):
+    def test_get_activated_interfaces(self):
         """Test GetActivatedInterfaces."""
         # No NM available
         self.network_module.nm_client = None
@@ -467,21 +467,21 @@ class NetworkInterfaceTestCase(unittest.TestCase):
     def _test_kickstart(self, ks_in, ks_out, **kwargs):
         check_kickstart_interface(self, self.network_interface, ks_in, ks_out, **kwargs)
 
-    def no_kickstart_test(self):
+    def test_no_kickstart(self):
         """Test with no kickstart."""
         ks_in = None
         ks_out = """
         """
         self._test_kickstart(ks_in, ks_out)
 
-    def kickstart_empty_test(self):
+    def test_kickstart_empty(self):
         """Test with empty string."""
         ks_in = ""
         ks_out = """
         """
         self._test_kickstart(ks_in, ks_out)
 
-    def network_kickstart_test(self):
+    def test_network_kickstart(self):
         """Test the network command.
 
         In case of kickstart-only network configuration the original commands are
@@ -497,7 +497,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    def kickstart_firewall_basic_test(self):
+    def test_kickstart_firewall_basic(self):
         """Test basic firewall command usage."""
         ks_in = "firewall --enable --port=imap:tcp,1234:udp,47 --trust=eth0,eth1 --service=ptp,syslog,ssh --remove-service=tftp,ssh"
         ks_out = """
@@ -506,7 +506,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    def kickstart_firewall_disable_test(self):
+    def test_kickstart_firewall_disable(self):
         """Test firewall --disabled."""
         ks_in = "firewall --disabled"
         ks_out = """
@@ -515,7 +515,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    def kickstart_firewall_disable_with_options_test(self):
+    def test_kickstart_firewall_disable_with_options(self):
         """Test firewall --disabled with options."""
         # apparently Pykickstart dumps any additional options if --disabled is used
         ks_in = "firewall --disable --port=imap:tcp,1234:udp,47 --trust=eth0,eth1 --service=ptp,syslog,ssh --remove-service=tftp,ssh"
@@ -525,7 +525,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    def kickstart_firewall_use_system_defaults_test(self):
+    def test_kickstart_firewall_use_system_defaults(self):
         """Test firewall --use-system-defaults."""
         ks_in = "firewall --use-system-defaults"
         ks_out = """
@@ -534,7 +534,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    def kickstart_firewall_use_system_defaults_with_options_test(self):
+    def test_kickstart_firewall_use_system_defaults_with_options(self):
         """Test firewall --use-system-defaults."""
         # looks like --use-system-defaults also eats any additional options
         ks_in = "firewall --use-system-defaults --port=imap:tcp,1234:udp,47 --trust=eth0,eth1 --service=ptp,syslog,ssh --remove-service=tftp,ssh"
@@ -544,7 +544,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    def kickstart_firewall_service_options_test(self):
+    def test_kickstart_firewall_service_options(self):
         """Test firewall with individual service options.
 
         The firewall command supports enabling some well known services, such as ssh or smtp, via dedicated
@@ -557,11 +557,11 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    def default_requirements_test(self):
+    def test_default_requirements(self):
         """Test that by default no packages are required by the network module."""
         self.assertEqual(self.network_interface.CollectRequirements(), [])
 
-    def kickstart_firewall_package_requirements_test(self):
+    def test_kickstart_firewall_package_requirements(self):
         """Test that firewall command in kickstart results in request for firewalld package."""
 
         ks_in = "firewall --ftp --http --smtp --ssh"
@@ -578,7 +578,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
             }
         ])
 
-    def teamd_requirements_test(self):
+    def test_teamd_requirements(self):
         """Test that mocked team devices result in request for teamd package."""
 
         # mock a team device
@@ -599,7 +599,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         ])
 
     @patch("pyanaconda.modules.network.network.kernel_arguments")
-    def biosdevname_requirements_test(self, mocked_kernel_arguments):
+    def test_biosdevname_requirements(self, mocked_kernel_arguments):
         """Test that biosdevevname boot option results in proper requirement."""
 
         kernel_args = KernelArguments.from_string("biosdevname=1")
@@ -624,7 +624,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         with patch("pyanaconda.modules.network.network.kernel_arguments", kernel_args):
             self.assertEqual(self.network_interface.CollectRequirements(), [])
 
-    def kickstart_invalid_hostname_test(self):
+    def test_kickstart_invalid_hostname(self):
         """Test that invalid hostname in kickstart is not accepted"""
         ks_in = "network --hostname sorry_underscores_banned"
         ks_out = ""
@@ -651,7 +651,7 @@ class FirewallInterfaceTestCase(unittest.TestCase):
             *args, **kwargs
         )
 
-    def default_property_values_test(self):
+    def test_default_property_values(self):
         """Test the default firewall module values are as expected."""
         self.assertEqual(self.firewall_interface.FirewallMode, FIREWALL_DEFAULT)
         self.assertListEqual(self.firewall_interface.EnabledPorts, [])
@@ -659,21 +659,21 @@ class FirewallInterfaceTestCase(unittest.TestCase):
         self.assertListEqual(self.firewall_interface.EnabledServices, [])
         self.assertListEqual(self.firewall_interface.DisabledServices, [])
 
-    def set_use_system_defaults_test(self):
+    def test_set_use_system_defaults(self):
         """Test if the use-system-firewall-defaults option can be set."""
         self._check_dbus_property(
             "FirewallMode",
             FIREWALL_USE_SYSTEM_DEFAULTS,
         )
 
-    def disable_firewall_test(self):
+    def test_disable_firewall(self):
         """Test if firewall can be disabled."""
         self._check_dbus_property(
             "FirewallMode",
             FIREWALL_DISABLED,
         )
 
-    def toggle_firewall_test(self):
+    def test_toggle_firewall(self):
         """Test if firewall can be toggled."""
         self._check_dbus_property(
             "FirewallMode",
@@ -684,7 +684,7 @@ class FirewallInterfaceTestCase(unittest.TestCase):
             FIREWALL_ENABLED,
         )
 
-    def set_enabled_ports_test(self):
+    def test_set_enabled_ports(self):
         """Test if enabled ports can be set."""
         self._check_dbus_property(
             "EnabledPorts",
@@ -699,7 +699,7 @@ class FirewallInterfaceTestCase(unittest.TestCase):
             ["1337:udp","9001"],
         )
 
-    def set_trusts_test(self):
+    def test_set_trusts(self):
         """Tests if trusts can be set."""
         self._check_dbus_property(
             "Trusts",
@@ -714,7 +714,7 @@ class FirewallInterfaceTestCase(unittest.TestCase):
             ["virbr0", "wl01", "foo", "bar"],
         )
 
-    def set_enabled_services_test(self):
+    def test_set_enabled_services(self):
         """Tests if enabled services can be set."""
         self._check_dbus_property(
             "EnabledServices",
@@ -729,7 +729,7 @@ class FirewallInterfaceTestCase(unittest.TestCase):
             ["ptp", "syslog", "ssh"],
         )
 
-    def set_disabled_services_test(self):
+    def test_set_disabled_services(self):
         """Tests if disabled services can be set."""
         self._check_dbus_property(
             "DisabledServices",
@@ -748,7 +748,7 @@ class FirewallInterfaceTestCase(unittest.TestCase):
 class HostnameConfigurationTaskTestCase(unittest.TestCase):
     """Test the Hostname configuration DBus Task."""
 
-    def hostname_config_task_test(self):
+    def test_hostname_config_task(self):
 
         with tempfile.TemporaryDirectory() as sysroot:
             hostname_file_path = os.path.normpath(sysroot + HostnameConfigurationTask.HOSTNAME_CONF_FILE_PATH)
@@ -771,7 +771,7 @@ class HostnameConfigurationTaskTestCase(unittest.TestCase):
 
             shutil.rmtree(hostname_dir)
 
-    def hostname_config_dir_not_exist_test(self):
+    def test_hostname_config_dir_not_exist(self):
         """Test hostname configuration task with missing target system directory."""
         with tempfile.TemporaryDirectory() as sysroot:
 
@@ -800,7 +800,7 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
         self.firewall_interface.PropertiesChanged.connect(self.callback)
 
     @patch_dbus_publish_object
-    def firewall_config_task_basic_test(self, publisher):
+    def test_firewall_config_task_basic(self, publisher):
         """Test the Firewall configuration task - basic."""
         task_path = self.firewall_interface.InstallWithTask()
 
@@ -813,7 +813,7 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._trusts, [])
 
     @patch('pyanaconda.core.util.execInSysroot')
-    def firewall_config_task_enable_missing_tool_test(self, execInSysroot):
+    def test_firewall_config_task_enable_missing_tool(self, execInSysroot):
         """Test the Firewall configuration task - enable & missing firewall-offline-cmd."""
 
         with tempfile.TemporaryDirectory() as sysroot:
@@ -832,7 +832,7 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
             execInSysroot.assert_not_called()
 
     @patch('pyanaconda.core.util.execInSysroot')
-    def firewall_config_task_disable_missing_tool_test(self, execInSysroot):
+    def test_firewall_config_task_disable_missing_tool(self, execInSysroot):
         """Test the Firewall configuration task - disable & missing firewall-offline-cmd"""
 
         with tempfile.TemporaryDirectory() as sysroot:
@@ -850,7 +850,7 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
             execInSysroot.assert_not_called()
 
     @patch('pyanaconda.core.util.execInSysroot')
-    def firewall_config_task_default_missing_tool_test(self, execInSysroot):
+    def test_firewall_config_task_default_missing_tool(self, execInSysroot):
         """Test the Firewall configuration task - default & missing firewall-offline-cmd"""
 
         with tempfile.TemporaryDirectory() as sysroot:
@@ -868,7 +868,7 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
             execInSysroot.assert_not_called()
 
     @patch('pyanaconda.core.util.execInSysroot')
-    def firewall_config_task_system_defaults_missing_tool_test(self, execInSysroot):
+    def test_firewall_config_task_system_defaults_missing_tool(self, execInSysroot):
         """Test the Firewall configuration task - use-system-defaults & missing firewall-offline-cmd"""
 
         with tempfile.TemporaryDirectory() as sysroot:
@@ -886,7 +886,7 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
             execInSysroot.assert_not_called()
 
     @patch('pyanaconda.core.util.execInSysroot')
-    def firewall_config_task_default_test(self, execInSysroot):
+    def test_firewall_config_task_default(self, execInSysroot):
         """Test the Firewall configuration task - default."""
 
         with tempfile.TemporaryDirectory() as sysroot:
@@ -905,7 +905,7 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
                                                   ['--enabled', '--service=ssh'], root=sysroot)
 
     @patch('pyanaconda.core.util.execInSysroot')
-    def firewall_config_task_enable_test(self, execInSysroot):
+    def test_firewall_config_task_enable(self, execInSysroot):
         """Test the Firewall configuration task - enable."""
 
         with tempfile.TemporaryDirectory() as sysroot:
@@ -924,7 +924,7 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
             execInSysroot.assert_called_once_with('/usr/bin/firewall-offline-cmd', ['--enabled', '--service=ssh'], root=sysroot)
 
     @patch('pyanaconda.core.util.execInSysroot')
-    def firewall_config_task_enable_with_options_test(self, execInSysroot):
+    def test_firewall_config_task_enable_with_options(self, execInSysroot):
         """Test the Firewall configuration task - enable with options."""
 
         with tempfile.TemporaryDirectory() as sysroot:
@@ -946,7 +946,7 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
                                                   root=sysroot)
 
     @patch('pyanaconda.core.util.execInSysroot')
-    def firewall_config_task_disable_ssh_test(self, execInSysroot):
+    def test_firewall_config_task_disable_ssh(self, execInSysroot):
         """Test the Firewall configuration task - test SSH can be disabled."""
 
         with tempfile.TemporaryDirectory() as sysroot:
@@ -967,7 +967,7 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
                                                   root=sysroot)
 
     @patch('pyanaconda.core.util.execInSysroot')
-    def firewall_config_task_enable_disable_service_test(self, execInSysroot):
+    def test_firewall_config_task_enable_disable_service(self, execInSysroot):
         """Test the Firewall configuration task - test enabling & disabling the same service"""
 
         with tempfile.TemporaryDirectory() as sysroot:
@@ -988,7 +988,7 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
                                                   root=sysroot)
 
     @patch('pyanaconda.core.util.execInSysroot')
-    def firewall_config_task_disable_test(self, execInSysroot):
+    def test_firewall_config_task_disable(self, execInSysroot):
         """Test the Firewall configuration task - disable."""
 
         with tempfile.TemporaryDirectory() as sysroot:
@@ -1007,7 +1007,7 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
             execInSysroot.assert_called_once_with('/usr/bin/firewall-offline-cmd', ['--disabled', '--service=ssh'], root=sysroot)
 
     @patch('pyanaconda.core.util.execInSysroot')
-    def firewall_config_task_disable_with_options_test(self, execInSysroot):
+    def test_firewall_config_task_disable_with_options(self, execInSysroot):
         """Test the Firewall configuration task - disable with options."""
 
         with tempfile.TemporaryDirectory() as sysroot:
@@ -1030,7 +1030,7 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
                                                   root=sysroot)
 
     @patch('pyanaconda.core.util.execInSysroot')
-    def firewall_config_task_use_system_defaults_test(self, execInSysroot):
+    def test_firewall_config_task_use_system_defaults(self, execInSysroot):
         """Test the Firewall configuration task - use system defaults."""
 
         with tempfile.TemporaryDirectory() as sysroot:
@@ -1058,7 +1058,7 @@ class NetworkModuleTestCase(unittest.TestCase):
         # Set up the network module.
         self.network_module = NetworkService()
 
-    def apply_boot_options_ksdevice_test(self):
+    def test_apply_boot_options_ksdevice(self):
         """Test _apply_boot_options function for 'ksdevice'."""
         self.assertEqual(
             self.network_module.default_device_specification,
@@ -1083,7 +1083,7 @@ class NetworkModuleTestCase(unittest.TestCase):
             "ens3"
         )
 
-    def apply_boot_options_noipv6_test(self):
+    def test_apply_boot_options_noipv6(self):
         """Test _apply_boot_options function for 'noipv6'."""
         self.assertEqual(
             self.network_module.disable_ipv6,
@@ -1108,7 +1108,7 @@ class NetworkModuleTestCase(unittest.TestCase):
             True
         )
 
-    def apply_boot_options_bootif_test(self):
+    def test_apply_boot_options_bootif(self):
         """Test _apply_boot_options function for 'BOOTIF'."""
         self.assertEqual(
             self.network_module.bootif,
@@ -1140,7 +1140,7 @@ class NetworkModuleTestCase(unittest.TestCase):
             ""
         )
 
-    def apply_boot_options_ifname_test(self):
+    def test_apply_boot_options_ifname(self):
         """Test _apply_boot_options function for 'ifname'."""
         self.assertEqual(
             self.network_module.ifname_option_values,
@@ -1177,7 +1177,7 @@ class NetworkModuleTestCase(unittest.TestCase):
             ["bla", "bla"]
         )
 
-    def apply_boot_options_test(self):
+    def test_apply_boot_options(self):
         """Test _apply_boot_options for multiple options."""
         self.assertListEqual(
             [
@@ -1309,7 +1309,7 @@ class InstallationTaskTestCase(unittest.TestCase):
             ]
         )
 
-    def network_instalation_task_no_src_files_test(self):
+    def test_network_instalation_task_no_src_files(self):
         """Test the task for network installation with no src files."""
 
         self._create_all_expected_dirs()
@@ -1352,7 +1352,7 @@ class InstallationTaskTestCase(unittest.TestCase):
             """
         )
 
-    def network_instalation_task_all_src_files_test(self):
+    def test_network_instalation_task_all_src_files(self):
         """Test the task for network installation with all src files available."""
 
         self._create_all_expected_dirs()
@@ -1590,7 +1590,7 @@ class InstallationTaskTestCase(unittest.TestCase):
             (("71-net-ifnames-prefix-XYZ", "installer environment content"),)
         )
 
-    def network_installation_task_overwrite_test(self):
+    def test_network_installation_task_overwrite(self):
         """Test the task for network installation with overwrite."""
 
         self._create_all_expected_dirs()
@@ -1660,7 +1660,7 @@ class InstallationTaskTestCase(unittest.TestCase):
             """
         )
 
-    def network_installation_task_no_overwrite_test(self):
+    def test_network_installation_task_no_overwrite(self):
         """Test the task for network installation with no overwrite."""
 
         self._create_all_expected_dirs()
@@ -1727,7 +1727,7 @@ class InstallationTaskTestCase(unittest.TestCase):
             """
         )
 
-    def disable_ipv6_on_system_no_dir_test(self):
+    def test_disable_ipv6_on_system_no_dir(self):
         """Test disabling of ipv6 on system when target directory is missing."""
 
         # Create the task
@@ -1746,7 +1746,7 @@ class InstallationTaskTestCase(unittest.TestCase):
         with self.assertRaises(NetworkInstallationError):
             task._disable_ipv6_on_system(self._target_root)
 
-    def network_instalation_task_missing_target_dir_test(self):
+    def test_network_instalation_task_missing_target_dir(self):
         """Test the task for network installation with missing target system directory."""
 
         self._create_config_dirs(

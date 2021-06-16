@@ -45,19 +45,19 @@ class CommandVersionTestCase(unittest.TestCase):
 
             self.assertIsInstance(children[name](), parents[name])
 
-    def commands_test(self):
+    def test_commands(self):
         """Test that anaconda uses the right versions of kickstart commands"""
         anaconda_cmds = kickstart.commandMap
         pykickstart_cmds = kickstart.superclass.commandMap
         self.assert_compare_versions(anaconda_cmds, pykickstart_cmds)
 
-    def data_test(self):
+    def test_data(self):
         """Test that anaconda uses the right versions of kickstart data"""
         anaconda_data = kickstart.dataMap
         pykickstart_data = kickstart.superclass.dataMap
         self.assert_compare_versions(anaconda_data, pykickstart_data)
 
-    def dracut_commands_test(self):
+    def test_dracut_commands(self):
         """Test that dracut uses the right versions of kickstart commands"""
         # top_srcdir should have been set by nosetests.sh. If it wasn't, the KeyError
         # will fail the test.

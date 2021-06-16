@@ -63,7 +63,7 @@ class ModuleObserverTestCase(unittest.TestCase):
         observer._service_available.emit.assert_not_called()
         observer._service_available.reset_mock()
 
-    def module_observer_test(self):
+    def test_module_observer(self):
         """Test the module observer."""
         dbus = Mock()
         observer = ModuleObserver(dbus, "my.test.module")

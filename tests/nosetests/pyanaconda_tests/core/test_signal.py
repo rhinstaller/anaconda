@@ -40,7 +40,7 @@ class SignalTestCase(unittest.TestCase):
     def setUp(self):
         self.var = None
 
-    def method_test(self):
+    def test_method(self):
         """Test if a method can be correctly connected to a signal."""
         signal = Signal()
         foo = FooClass()
@@ -61,7 +61,7 @@ class SignalTestCase(unittest.TestCase):
         signal.emit("anaconda")
         self.assertEqual(foo.var, "baz")
 
-    def function_test(self):
+    def test_function(self):
         """Test if a local function can be correctly connected to a signal."""
 
         # create a local function
@@ -86,7 +86,7 @@ class SignalTestCase(unittest.TestCase):
         signal.emit("anaconda")
         self.assertEqual(self.var, "baz")
 
-    def lambda_test(self):
+    def test_lambda(self):
         """Test if a lambda can be correctly connected to a signal."""
         foo = FooClass()
         signal = Signal()
@@ -109,7 +109,7 @@ class SignalTestCase(unittest.TestCase):
         signal.emit("anaconda")
         self.assertEqual(foo.var, "baz")
 
-    def clear_test(self):
+    def test_clear(self):
         """Test if the clear() method correctly clears any connected callbacks."""
         def set_var(value):
             self.var = value
@@ -140,7 +140,7 @@ class SignalTestCase(unittest.TestCase):
         self.assertEqual(foo.var, "bar")
         self.assertEqual(lambda_foo.var, "bar")
 
-    def signal_chain_test(self):
+    def test_signal_chain(self):
         """Check if signals can be chained together."""
         foo = FooClass()
         self.assertIsNone(foo.var)

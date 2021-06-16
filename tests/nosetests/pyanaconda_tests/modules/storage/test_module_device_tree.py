@@ -53,7 +53,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         # Set the storage.
         self.module.on_storage_changed(create_storage())
 
-    def publication_test(self):
+    def test_publication(self):
         """Check the DBus representation."""
         self.assertIsInstance(self.module.for_publication(), DeviceTreeInterface)
 
@@ -66,7 +66,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         """Add a device to the device tree."""
         self.storage.devicetree._add_device(device)
 
-    def get_root_device_test(self):
+    def test_get_root_device(self):
         """Test GetRootDevice."""
         self.assertEqual(self.interface.GetRootDevice(), "")
 
@@ -75,7 +75,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
         self.assertEqual(self.interface.GetRootDevice(), "dev1")
 
-    def get_devices_test(self):
+    def test_get_devices(self):
         """Test GetDevices."""
         self.assertEqual(self.interface.GetDevices(), [])
 
@@ -93,7 +93,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
         self.assertEqual(self.interface.GetDevices(), ["dev1", "dev2"])
 
-    def get_disks_test(self):
+    def test_get_disks(self):
         """Test GetDisks."""
         self.assertEqual(self.interface.GetDisks(), [])
 
@@ -106,7 +106,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
         self.assertEqual(self.interface.GetDisks(), ["dev1"])
 
-    def get_mount_points_test(self):
+    def test_get_mount_points(self):
         """Test GetMountPoints."""
         self.assertEqual(self.interface.GetMountPoints(), {})
 
@@ -118,7 +118,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             "/home": "dev2"
         })
 
-    def get_device_data_test(self):
+    def test_get_device_data(self):
         """Test GetDeviceData."""
         self._add_device(DiskDevice(
             "dev1",
@@ -155,12 +155,12 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             )
         })
 
-    def get_unknown_device_data_test(self):
+    def test_get_unknown_device_data(self):
         """Test GetDeviceData for unknown."""
         with self.assertRaises(UnknownDeviceError):
             self.interface.GetDeviceData("dev1")
 
-    def get_dasd_device_data_test(self):
+    def test_get_dasd_device_data(self):
         """Test GetDeviceData for DASD."""
         self._add_device(DASDDevice(
             "dev1",
@@ -176,7 +176,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             "bus-id": "0.0.0201"
         }))
 
-    def get_fcoe_device_data_test(self):
+    def test_get_fcoe_device_data(self):
         """Test GetDeviceData for FCoE."""
         self._add_device(FcoeDiskDevice(
             "dev1",
@@ -193,7 +193,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             "path-id": "pci-0000:00:00.0-bla-1"
         }))
 
-    def get_iscsi_device_data_test(self):
+    def test_get_iscsi_device_data(self):
         """Test GetDeviceData for iSCSI."""
         self._add_device(iScsiDiskDevice(
             "dev1",
@@ -223,7 +223,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             "path-id": "pci-0000:00:00.0-bla-1"
         }))
 
-    def get_nvdimm_device_data_test(self):
+    def test_get_nvdimm_device_data(self):
         """Test GetDeviceData for NVDIMM."""
         self._add_device(NVDIMMNamespaceDevice(
             "dev1",
@@ -243,7 +243,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             "path-id": "pci-0000:00:00.0-bla-1"
         }))
 
-    def get_zfcp_device_data_test(self):
+    def test_get_zfcp_device_data(self):
         """Test GetDeviceData for zFCP."""
         self._add_device(ZFCPDiskDevice(
             "dev1",
@@ -262,7 +262,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             "hba-id": "0.0.010a"
         }))
 
-    def get_format_data_test(self):
+    def test_get_format_data(self):
         """Test GetFormatData."""
         fmt1 = get_format(
             "ext4",
@@ -306,7 +306,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             'description': get_variant(Str, 'LUKS'),
         })
 
-    def get_format_type_data_test(self):
+    def test_get_format_type_data(self):
         """Test GetFormatTypeData."""
         self.assertEqual(self.interface.GetFormatTypeData("swap"), {
             'type': get_variant(Str, 'swap'),
@@ -315,7 +315,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             'description': get_variant(Str, 'swap'),
         })
 
-    def get_all_format_type_data_test(self):
+    def test_get_all_format_type_data(self):
         """Test GetFormatTypeData for all format types."""
         for format_type in device_formats:
             data = DeviceFormatData.from_structure(
@@ -323,7 +323,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             )
             self.assertEqual(format_type or "", data.type)
 
-    def get_actions_test(self):
+    def test_get_actions(self):
         """Test GetActions."""
         self.assertEqual(self.interface.GetActions(), [])
 
@@ -419,7 +419,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             action_4,
           ])
 
-    def get_supported_file_systems_test(self):
+    def test_get_supported_file_systems(self):
         """Test GetSupportedFileSystems."""
         result = self.interface.GetSupportedFileSystems()
         self.assertIsInstance(result, list)
@@ -429,12 +429,12 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             self.assertIsInstance(fs, str)
             self.assertEqual(fs, get_format(fs).type)
 
-    def get_required_device_size_test(self):
+    def test_get_required_device_size(self):
         """Test GetRequiredDeviceSize."""
         required_size = self.interface.GetRequiredDeviceSize(Size("1 GiB").get_bytes())
         self.assertEqual(Size("1280 MiB").get_bytes(), required_size, Size(required_size))
 
-    def get_file_system_free_space_test(self):
+    def test_get_file_system_free_space(self):
         """Test GetFileSystemFreeSpace."""
         self._add_device(StorageDevice(
             "dev1",
@@ -457,7 +457,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
     @patch("blivet.formats.disklabel.DiskLabel.free", new_callable=PropertyMock)
     @patch("blivet.formats.disklabel.DiskLabel.get_platform_label_types")
-    def get_disk_free_space_test(self, label_types, free):
+    def test_get_disk_free_space(self, label_types, free):
         """Test GetDiskFreeSpace."""
         label_types.return_value = ["msdos", "gpt"]
         free.return_value = Size("4 GiB")
@@ -490,7 +490,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             self.interface.GetDiskFreeSpace(["dev1", "dev2", "devX"])
 
     @patch("blivet.formats.disklabel.DiskLabel.get_platform_label_types")
-    def get_disk_reclaimable_space_test(self, label_types):
+    def test_get_disk_reclaimable_space(self, label_types):
         """Test GetDiskReclaimableSpace."""
         label_types.return_value = ["msdos", "gpt"]
 
@@ -522,7 +522,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         with self.assertRaises(UnknownDeviceError):
             self.interface.GetDiskReclaimableSpace(["dev1", "dev2", "devX"])
 
-    def get_disk_total_space_test(self):
+    def test_get_disk_total_space(self):
         """Test GetDiskTotalSpace."""
         self._add_device(DiskDevice(
             "dev1",
@@ -542,7 +542,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         total_size = self.interface.GetDiskTotalSpace(["dev1", "dev2"])
         self.assertEqual(total_size, Size("10 GiB").get_bytes())
 
-    def resolve_device_test(self):
+    def test_resolve_device(self):
         """Test ResolveDevice."""
         self._add_device(DiskDevice("dev1"))
 
@@ -550,7 +550,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.interface.ResolveDevice("dev1"), "dev1")
         self.assertEqual(self.interface.ResolveDevice("/dev/dev1"), "dev1")
 
-    def get_ancestors_test(self):
+    def test_get_ancestors(self):
         """Test GetAncestors."""
         dev1 = StorageDevice("dev1")
         self._add_device(dev1)
@@ -574,7 +574,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.interface.GetAncestors(["dev2", "dev5"]), ["dev1", "dev4"])
 
     @patch.object(StorageDevice, "setup")
-    def setup_device_test(self, setup):
+    def test_setup_device(self, setup):
         """Test SetupDevice."""
         self._add_device(StorageDevice("dev1"))
 
@@ -582,7 +582,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         setup.assert_called_once()
 
     @patch.object(StorageDevice, "teardown")
-    def teardown_device_test(self, teardown):
+    def test_teardown_device(self, teardown):
         """Test TeardownDevice."""
         self._add_device(StorageDevice("dev1"))
 
@@ -590,7 +590,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         teardown.assert_called_once()
 
     @patch.object(FS, "mount")
-    def mount_device_test(self, mount):
+    def test_mount_device(self, mount):
         """Test MountDevice."""
         self._add_device(StorageDevice("dev1", fmt=get_format("ext4")))
 
@@ -607,7 +607,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         )
 
     @patch.object(FS, "mount")
-    def mount_device_with_options_test(self, mount):
+    def test_mount_device_with_options(self, mount):
         """Test MountDevice with options specified."""
         self._add_device(StorageDevice("dev1", fmt=get_format("ext4")))
 
@@ -624,7 +624,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         )
 
     @patch.object(FS, "unmount")
-    def unmount_device_test(self, unmount):
+    def test_unmount_device(self, unmount):
         """Test UnmountDevice."""
         self._add_device(StorageDevice("dev1", fmt=get_format("ext4")))
 
@@ -641,7 +641,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         )
 
     @patch.object(Iso9660FS, "check_module")
-    def find_install_media_test(self, check_module):
+    def test_find_install_media(self, check_module):
         """Test FindInstallMedia."""
         dev1 = OpticalDevice("dev1")
         dev1.size = Size("2 GiB")
@@ -664,7 +664,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.interface.FindOpticalMedia(), ["dev1", "dev2"])
 
     @patch.object(FS, "update_size_info")
-    def find_mountable_partitions_test(self, update_size_info):
+    def test_find_mountable_partitions(self, update_size_info):
         """Test FindMountablePartitions."""
         self._add_device(StorageDevice(
             "dev1",
@@ -680,7 +680,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
     @patch.object(LUKS, "setup")
     @patch.object(LUKSDevice, "teardown")
     @patch.object(LUKSDevice, "setup")
-    def unlock_device_test(self, device_setup, device_teardown, format_setup):
+    def test_unlock_device(self, device_setup, device_teardown, format_setup):
         """Test UnlockDevice."""
         self.storage.devicetree.populate = Mock()
         self.storage.devicetree.teardown_all = Mock()
@@ -706,7 +706,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         device_teardown.assert_called_once()
         self.assertFalse(dev2.format.has_key)
 
-    def find_unconfigured_luks_test(self):
+    def test_find_unconfigured_luks(self):
         """Test FindUnconfiguredLUKS."""
         self.assertEqual(self.interface.FindUnconfiguredLUKS(), [])
 
@@ -720,7 +720,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
         self.assertEqual(self.interface.FindUnconfiguredLUKS(), ["dev2"])
 
-    def set_device_passphrase_test(self):
+    def test_set_device_passphrase(self):
         """Test SetDevicePassphrase."""
         dev1 = StorageDevice("dev1", fmt=get_format("ext4"), size=Size("10 GiB"))
         self._add_device(dev1)
@@ -732,12 +732,12 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         self.interface.SetDevicePassphrase("dev2", "123456")
         self.assertEqual(self.interface.FindUnconfiguredLUKS(), [])
 
-    def get_fstab_spec_test(self):
+    def test_get_fstab_spec(self):
         """Test GetFstabSpec."""
         self._add_device(StorageDevice("dev1", fmt=get_format("ext4", uuid="123")))
         self.assertEqual(self.interface.GetFstabSpec("dev1"), "UUID=123")
 
-    def get_existing_systems_test(self):
+    def test_get_existing_systems(self):
         """Test GetExistingSystems."""
         self.assertEqual(self.interface.GetExistingSystems(), [])
 
@@ -757,7 +757,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         }])
 
     @patch_dbus_publish_object
-    def find_existing_systems_with_task_test(self, publisher):
+    def test_find_existing_systems_with_task(self, publisher):
         """Test FindExistingSystemsWithTask."""
         task_path = self.interface.FindExistingSystemsWithTask()
 
@@ -771,7 +771,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.storage.roots, roots)
 
     @patch_dbus_publish_object
-    def mount_existing_system_with_task_test(self, publisher):
+    def test_mount_existing_system_with_task(self, publisher):
         """Test MountExistingSystemWithTask."""
         self._add_device(StorageDevice("dev1", fmt=get_format("ext4")))
 
@@ -784,7 +784,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._read_only, True)
 
     @patch_dbus_publish_object
-    def find_devices_with_task_test(self, publisher):
+    def test_find_devices_with_task(self, publisher):
         """Test FindDevicesWithTask."""
         task_path = self.interface.FindDevicesWithTask()
 
@@ -792,7 +792,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
         self.assertEqual(obj.implementation._devicetree, self.module.storage.devicetree)
 
-    def get_device_mount_options_test(self):
+    def test_get_device_mount_options(self):
         """Test GetDeviceMountOptions."""
         dev1 = StorageDevice(
             "dev1",
@@ -805,7 +805,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         dev1.format.options = "defaults,ro"
         self.assertEqual(self.interface.GetDeviceMountOptions("dev1"), "defaults,ro")
 
-    def set_device_mount_options_test(self):
+    def test_set_device_mount_options(self):
         """Test SetDeviceMountOptions."""
         dev1 = StorageDevice(
             "dev1",
@@ -828,13 +828,13 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 class DeviceTreeTasksTestCase(unittest.TestCase):
     """Test the storage tasks."""
 
-    def find_existing_systems_test(self):
+    def test_find_existing_systems(self):
         storage = create_storage()
         task = FindExistingSystemsTask(storage.devicetree)
         self.assertEqual(task.run(), [])
 
     @patch('pyanaconda.modules.storage.devicetree.rescue.mount_existing_system')
-    def mount_existing_system_test(self, mount):
+    def test_mount_existing_system(self, mount):
         storage = create_storage()
         device = StorageDevice("dev1", fmt=get_format("ext4"))
         storage.devicetree._add_device(device)
@@ -848,7 +848,7 @@ class DeviceTreeTasksTestCase(unittest.TestCase):
             read_only=True
         )
 
-    def find_devices_test(self):
+    def test_find_devices(self):
         storage = Mock()
 
         task = FindDevicesTask(storage.devicetree)

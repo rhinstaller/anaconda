@@ -40,11 +40,11 @@ class CdromSourceInterfaceTestCase(unittest.TestCase):
         self.callback = PropertiesChangedCallback()
         self.interface.PropertiesChanged.connect(self.callback)
 
-    def type_test(self):
+    def test_type(self):
         """Test CD-ROM source has a correct type specified."""
         self.assertEqual(SOURCE_TYPE_CDROM, self.interface.Type)
 
-    def device_test(self):
+    def test_device(self):
         """Test CD-ROM source Device API."""
         self.assertEqual(self.interface.DeviceName, "")
 
@@ -61,12 +61,12 @@ class CdromSourceTestCase(unittest.TestCase):
         self.module = CdromSourceModule()
         self.interface = CdromSourceInterface(self.module)
 
-    def type_test(self):
+    def test_type(self):
         """Test CD-ROM source module has a correct type."""
         self.assertEqual(SourceType.CDROM, self.module.type)
 
     @patch("os.path.ismount")
-    def get_state_test(self, ismount_mock):
+    def test_get_state(self, ismount_mock):
         """Test CD-ROM source state."""
         ismount_mock.return_value = False
         self.assertEqual(SourceState.UNREADY, self.module.get_state())
@@ -78,22 +78,22 @@ class CdromSourceTestCase(unittest.TestCase):
 
         ismount_mock.assert_called_once_with(self.module.mount_point)
 
-    def description_test(self):
+    def test_description(self):
         """Hard drive source description."""
         self.assertEqual("Local media", self.interface.Description)
 
-    def network_required_test(self):
+    def test_network_required(self):
         """Test the property network_required."""
         self.assertEqual(self.module.network_required, False)
 
-    def required_space_test(self):
+    def test_required_space(self):
         """Test the required_space property."""
         self.assertEqual(self.module.required_space, 0)
 
-    def repr_test(self):
+    def test_repr(self):
         self.assertEqual(repr(self.module), "Source(type='CDROM')")
 
-    def set_up_with_tasks_test(self):
+    def test_set_up_with_tasks(self):
         """Test CD-ROM Source set up call."""
         task_classes = [
             SetUpCdromSourceTask
@@ -109,7 +109,7 @@ class CdromSourceTestCase(unittest.TestCase):
         for i in range(task_number):
             self.assertIsInstance(tasks[i], task_classes[i])
 
-    def tear_down_with_tasks_test(self):
+    def test_tear_down_with_tasks(self):
         """Test CD-ROM Source ready state for tear down."""
         task_classes = [
             TearDownMountTask
@@ -132,7 +132,7 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
 
     mount_location = "/mnt/put-cdrom-here"
 
-    def setup_install_source_task_name_test(self):
+    def test_setup_install_source_task_name(self):
         """Test CD-ROM Source setup installation source task name."""
         task = SetUpCdromSourceTask(self.mount_location)
 
@@ -230,7 +230,7 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.unmount")
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.mount")
     @patch_dbus_get_proxy
-    def priority_stage2_cdrom_test(self,
+    def test_priority_stage2_cdrom(self,
                                    proxy_getter,
                                    mount_mock,
                                    unmount_mock,
@@ -269,7 +269,7 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.unmount")
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.mount")
     @patch_dbus_get_proxy
-    def priority_stage2_unrecognized_source_cdrom_test(self,
+    def test_priority_stage2_unrecognized_source_cdrom(self,
                                                        proxy_getter,
                                                        mount_mock,
                                                        unmount_mock,
@@ -306,7 +306,7 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.unmount")
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.mount")
     @patch_dbus_get_proxy
-    def priority_stage2_not_hdd_source_cdrom_test(self,
+    def test_priority_stage2_not_hdd_source_cdrom(self,
                                                   proxy_getter,
                                                   mount_mock,
                                                   unmount_mock,
@@ -346,7 +346,7 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.unmount")
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.mount")
     @patch_dbus_get_proxy
-    def priority_stage2_cant_be_resolved_source_cdrom_test(self,
+    def test_priority_stage2_cant_be_resolved_source_cdrom(self,
                                                            proxy_getter,
                                                            mount_mock,
                                                            unmount_mock,
@@ -385,7 +385,7 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.unmount")
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.mount")
     @patch_dbus_get_proxy
-    def priority_stage2_not_optical_media_cdrom_test(self,
+    def test_priority_stage2_not_optical_media_cdrom(self,
                                                      proxy_getter,
                                                      mount_mock,
                                                      unmount_mock,
@@ -425,7 +425,7 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.unmount")
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.mount")
     @patch_dbus_get_proxy
-    def choose_from_multiple_cdroms_test(self,
+    def test_choose_from_multiple_cdroms(self,
                                          proxy_getter,
                                          mount_mock,
                                          unmount_mock,
@@ -468,7 +468,7 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.unmount")
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.mount")
     @patch_dbus_get_proxy
-    def failure_to_mount_test(self,
+    def test_failure_to_mount(self,
                               proxy_getter,
                               mount_mock,
                               unmount_mock,
@@ -501,7 +501,7 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.unmount")
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.mount")
     @patch_dbus_get_proxy
-    def no_cdrom_with_valid_source_test(self,
+    def test_no_cdrom_with_valid_source(self,
                                         proxy_getter,
                                         mount_mock,
                                         unmount_mock,

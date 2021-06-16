@@ -34,11 +34,11 @@ class SecretAgentTestCase(unittest.TestCase):
         """Set up the secret agent."""
         self.agent = SecretAgent(lambda x: True)
 
-    def save_secrets_test(self):
+    def test_save_secrets(self):
         """Test SaveSecrets method."""
         self.agent.SaveSecrets(None, None)
 
-    def validate_staticwep_test(self):
+    def test_validate_staticwep(self):
         """Test validate_staticwep method."""
         secret = {}
 
@@ -84,7 +84,7 @@ class SecretAgentTestCase(unittest.TestCase):
             secret['value'] = key
             self.assertFalse(self.agent._validate_staticwep(secret))
 
-    def validate_wpapsk_test(self):
+    def test_validate_wpapsk(self):
         """Test validate_wpapsk method."""
         secret = {}
 
@@ -120,7 +120,7 @@ class SecretAgentTestCase(unittest.TestCase):
             return True
         return ui_callback
 
-    def get_secrets_test(self):
+    def test_get_secrets(self):
         """Test GetSecrets method."""
         connection_hash = {
             'ipv4': {

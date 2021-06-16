@@ -31,7 +31,7 @@ def get_policy():
 
 
 class PasswordQuality(unittest.TestCase):
-    def password_empty_test(self):
+    def test_password_empty(self):
         """Check if quality of an empty password is reported correctly."""
         request = input_checking.PasswordCheckRequest()
         request.policy = get_policy()
@@ -54,7 +54,7 @@ class PasswordQuality(unittest.TestCase):
         self.assertEqual(check.result.password_quality, 0)
         self.assertIsNotNone(check.result.error_message)
 
-    def password_empty_ok_test(self):
+    def test_password_empty_ok(self):
         """Check if the empty_ok flag works correctly."""
         request = input_checking.PasswordCheckRequest()
         request.policy = get_policy()
@@ -103,7 +103,7 @@ class PasswordQuality(unittest.TestCase):
         self.assertEqual(check.result.password_quality, 0)
         self.assertIsNotNone(check.result.error_message)
 
-    def password_length_test(self):
+    def test_password_length(self):
         """Check if minimal password length is checked properly."""
         # first check if the default minimal password length is checked correctly
         # (should be 6 characters at the moment)
@@ -142,7 +142,7 @@ class PasswordQuality(unittest.TestCase):
         self.assertGreater(check.result.password_score, 0)
         self.assertNotEqual(check.result.status_text, _(constants.SecretStatus.TOO_SHORT.value))
 
-    def password_quality_test(self):
+    def test_password_quality(self):
         """Check if libpwquality gives reasonable numbers & score is assigned correctly."""
         # " " should give score 0 (<6 chars) & quality 0
         request = input_checking.PasswordCheckRequest()

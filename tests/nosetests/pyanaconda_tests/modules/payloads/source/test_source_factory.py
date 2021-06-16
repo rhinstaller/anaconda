@@ -26,7 +26,7 @@ from pyanaconda.modules.payloads.source.source_base_interface import PayloadSour
 class SourceFactoryTestCase(TestCase):
     """Test the source factory."""
 
-    def create_source_test(self):
+    def test_create_source(self):
         """Test SourceFactory create method."""
         for source_type in SourceType:
             module = SourceFactory.create_source(source_type)
@@ -34,7 +34,7 @@ class SourceFactoryTestCase(TestCase):
             self.assertIsInstance(module.for_publication(), PayloadSourceBaseInterface)
             self.assertEqual(module.type, source_type)
 
-    def failed_create_source_test(self):
+    def test_failed_create_source(self):
         """Test failed create method of the source factory."""
         with self.assertRaises(ValueError):
             SourceFactory.create_source("INVALID")

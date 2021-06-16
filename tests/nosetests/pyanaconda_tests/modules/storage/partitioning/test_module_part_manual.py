@@ -47,7 +47,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
         self.module = ManualPartitioningModule()
         self.interface = ManualPartitioningInterface(self.module)
 
-    def publication_test(self):
+    def test_publication(self):
         """Test the DBus representation."""
         self.assertIsInstance(self.module.for_publication(), ManualPartitioningInterface)
 
@@ -59,7 +59,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
             *args, **kwargs
         )
 
-    def mount_points_property_test(self):
+    def test_mount_points_property(self):
         """Test the mount points property."""
         self._check_dbus_property(
             "Requests",
@@ -117,12 +117,12 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
         """Add a device to the device tree."""
         self.module.storage.devicetree._add_device(device)
 
-    def gather_no_requests_test(self):
+    def test_gather_no_requests(self):
         """Test GatherRequests with no devices."""
         self.module.on_storage_changed(create_storage())
         self.assertEqual(self.interface.GatherRequests(), [])
 
-    def gather_unusable_requests_test(self):
+    def test_gather_unusable_requests(self):
         """Test GatherRequests with unusable devices."""
         self.module.on_storage_changed(create_storage())
 
@@ -153,7 +153,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
         self.module.on_selected_disks_changed(["dev1", "dev2"])
         self.assertEqual(self.interface.GatherRequests(), [])
 
-    def gather_requests_test(self):
+    def test_gather_requests(self):
         """Test GatherRequests."""
         self.module.on_storage_changed(create_storage())
 
@@ -188,7 +188,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
             }
         ])
 
-    def gather_requests_combination_test(self):
+    def test_gather_requests_combination(self):
         """Test GatherRequests with user requests."""
         self.module.on_storage_changed(create_storage())
 
@@ -241,7 +241,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
         ])
 
     @patch_dbus_publish_object
-    def configure_with_task_test(self, publisher):
+    def test_configure_with_task(self, publisher):
         """Test ConfigureWithTask."""
         self.module.on_storage_changed(Mock())
         task_path = self.interface.ConfigureWithTask()

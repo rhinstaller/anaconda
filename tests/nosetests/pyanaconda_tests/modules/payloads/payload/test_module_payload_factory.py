@@ -29,7 +29,7 @@ from pyanaconda.modules.payloads.payload.payload_base_interface import PayloadBa
 class PayloadFactoryTestCase(TestCase):
     """Test the payload factory."""
 
-    def create_payload_test(self):
+    def test_create_payload(self):
         """Test PayloadFactory create method."""
         for payload_type in PayloadType:
             module = PayloadFactory.create_payload(payload_type)
@@ -37,12 +37,12 @@ class PayloadFactoryTestCase(TestCase):
             self.assertIsInstance(module.for_publication(), PayloadBaseInterface)
             self.assertEqual(module.type, payload_type)
 
-    def failed_create_payload_test(self):
+    def test_failed_create_payload(self):
         """Test failed create method of the payload factory."""
         with self.assertRaises(ValueError):
             PayloadFactory.create_payload("INVALID")
 
-    def create_payload_from_ks_test(self):
+    def test_create_payload_from_ks(self):
         """Test PayloadFactory create from KS method."""
         self._check_payload_type(
             PayloadType.LIVE_IMAGE,

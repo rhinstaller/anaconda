@@ -219,7 +219,7 @@ class ProductConfigurationTestCase(unittest.TestCase):
 
         return config
 
-    def fedora_products_test(self):
+    def test_fedora_products(self):
         self._check_default_product(
             "Fedora", "",
             ["fedora.conf"],
@@ -251,7 +251,7 @@ class ProductConfigurationTestCase(unittest.TestCase):
             ENTERPRISE_PARTITIONING
         )
 
-    def rhel_products_test(self):
+    def test_rhel_products(self):
         self._check_default_product(
             "Red Hat Enterprise Linux", "",
             ["rhel.conf"],
@@ -278,7 +278,7 @@ class ProductConfigurationTestCase(unittest.TestCase):
             ENTERPRISE_PARTITIONING
         )
 
-    def product_module_list_difference_fedora_rhel_test(self):
+    def test_product_module_list_difference_fedora_rhel(self):
         """Test for expected Fedora & RHEL module list differences."""
         fedora_config = self._get_config("Fedora")
         fedora_modules = fedora_config.anaconda.kickstart_modules
@@ -291,7 +291,7 @@ class ProductConfigurationTestCase(unittest.TestCase):
 
         self.assertListEqual(difference, expected_difference)
 
-    def product_module_difference_centos_rhel_test(self):
+    def test_product_module_difference_centos_rhel(self):
         """Test for expected CentOS & RHEL module list differences."""
         centos_config = self._get_config("CentOS Stream")
         centos_modules = centos_config.anaconda.kickstart_modules
@@ -328,11 +328,11 @@ class ProductConfigurationTestCase(unittest.TestCase):
                 # The values of the options should be the same.
                 self.assertEqual(parser.get(section, key), other_parser.get(section, key))
 
-    def ovirt_and_rhvh_test(self):
+    def test_ovirt_and_rhvh(self):
         """Test the similarity of oVirt Node Next with Red Hat Virtualization Host."""
         self._compare_product_files("rhvh.conf", "ovirt.conf", ignored_sections=("License", ))
 
-    def valid_product_test(self):
+    def test_valid_product(self):
         content = dedent("""
         [Product]
         product_name = My Product
@@ -352,7 +352,7 @@ class ProductConfigurationTestCase(unittest.TestCase):
         path = self._load_product(content)
         self._check_product("My Next Product", "", [base_path, path])
 
-    def valid_variant_test(self):
+    def test_valid_variant(self):
         content = dedent("""
         [Product]
         product_name = My Product
@@ -375,7 +375,7 @@ class ProductConfigurationTestCase(unittest.TestCase):
         path = self._load_product(content)
         self._check_product("My Product", "My Next Variant", [base_path, path])
 
-    def invalid_product_test(self):
+    def test_invalid_product(self):
         with self.assertRaises(ConfigurationError):
             self._load_product("")
 
@@ -403,7 +403,7 @@ class ProductConfigurationTestCase(unittest.TestCase):
         with self.assertRaises(ConfigurationError):
             self._load_product(content)
 
-    def invalid_base_product_test(self):
+    def test_invalid_base_product(self):
         content = dedent("""
         [Product]
         product_name = My Product
@@ -418,7 +418,7 @@ class ProductConfigurationTestCase(unittest.TestCase):
 
         self.assertFalse(self._loader.check_product("My Product"))
 
-    def repeated_base_product_test(self):
+    def test_repeated_base_product(self):
         content = dedent("""
         [Product]
         product_name = My Product
@@ -433,7 +433,7 @@ class ProductConfigurationTestCase(unittest.TestCase):
 
         self.assertFalse(self._loader.check_product("My Product"))
 
-    def existing_product_test(self):
+    def test_existing_product(self):
         content = dedent("""
         [Product]
         product_name = My Product
@@ -444,11 +444,11 @@ class ProductConfigurationTestCase(unittest.TestCase):
         with self.assertRaises(ConfigurationError):
             self._load_product(content)
 
-    def find_nonexistent_product_test(self):
+    def test_find_nonexistent_product(self):
         self._loader.check_product("Nonexistent Product")
         self._loader.check_product("Nonexistent Product", "Nonexistent Variant")
 
-    def ignore_invalid_product_test(self):
+    def test_ignore_invalid_product(self):
         with tempfile.TemporaryDirectory() as config_dir:
 
             # A correct product config.
@@ -477,7 +477,7 @@ class ProductConfigurationTestCase(unittest.TestCase):
 
 class ProductFromBuildstampTests(unittest.TestCase):
 
-    def trim_product_version_for_ui_test(self):
+    def test_trim_product_version_for_ui(self):
         trimmed_versions = [
             ("8.0.0", "8.0"),
             ("rawhide", "rawhide"),

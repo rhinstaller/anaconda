@@ -29,7 +29,7 @@ class CheckPackagesSelectionTaskTestCase(unittest.TestCase):
     """Test the validation task for checking the packages selection."""
 
     @patch("pyanaconda.modules.payloads.payload.dnf.validation.get_kernel_package")
-    def check_no_selection_test(self, kernel_getter):
+    def test_check_no_selection(self, kernel_getter):
         kernel_getter.return_value = None
 
         dnf_manager = Mock()
@@ -50,7 +50,7 @@ class CheckPackagesSelectionTaskTestCase(unittest.TestCase):
         self.assertEqual(report.get_messages(), [])
 
     @patch("pyanaconda.modules.payloads.payload.dnf.validation.get_kernel_package")
-    def check_default_selection_test(self, kernel_getter):
+    def test_check_default_selection(self, kernel_getter):
         kernel_getter.return_value = "kernel"
 
         dnf_manager = Mock()
@@ -73,7 +73,7 @@ class CheckPackagesSelectionTaskTestCase(unittest.TestCase):
         self.assertEqual(report.get_messages(), [])
 
     @patch("pyanaconda.modules.payloads.payload.dnf.validation.get_kernel_package")
-    def check_selection_test(self, kernel_getter):
+    def test_check_selection(self, kernel_getter):
         kernel_getter.return_value = None
         dnf_manager = Mock()
 
@@ -108,7 +108,7 @@ class CheckPackagesSelectionTaskTestCase(unittest.TestCase):
         self.assertEqual(report.get_messages(), [])
 
     @patch("pyanaconda.modules.payloads.payload.dnf.validation.get_kernel_package")
-    def check_invalid_selection_test(self, kernel_getter):
+    def test_check_invalid_selection(self, kernel_getter):
         kernel_getter.return_value = None
         selection = PackagesSelectionData()
 

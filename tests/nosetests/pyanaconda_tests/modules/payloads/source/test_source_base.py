@@ -51,7 +51,7 @@ class DummySetUpMountTaskSubclass(SetUpMountTask):
 
 class MountingSourceMixinTestCase(unittest.TestCase):
 
-    def counter_test(self):
+    def test_counter(self):
         """Mount path in mount source base gets incremental numbers."""
         module = DummyMountingSourceSubclass()
         self.assertTrue(module.mount_point.startswith("/run/install/sources/mount-"))
@@ -63,7 +63,7 @@ class MountingSourceMixinTestCase(unittest.TestCase):
         self.assertEqual(first_counter, second_counter - 1)
 
     @patch("os.path.ismount")
-    def mount_state_test(self, ismount_mock):
+    def test_mount_state(self, ismount_mock):
         """Mount source state for set up."""
         ismount_mock.return_value = False
         module = DummyMountingSourceSubclass()
@@ -79,14 +79,14 @@ class MountingSourceMixinTestCase(unittest.TestCase):
 
 class TearDownMountTaskTestCase(unittest.TestCase):
 
-    def name_test(self):
+    def test_name(self):
         """Tear down mount source task name."""
         task = TearDownMountTask(mount_location)
         self.assertEqual(task.name, "Tear down mount installation source")
 
     @patch("pyanaconda.modules.payloads.source.mount_tasks.os.path.ismount", return_value=False)
     @patch("pyanaconda.modules.payloads.source.mount_tasks.unmount", return_value=True)
-    def run_success_test(self, unmount_mock, ismount_mock):
+    def test_run_success(self, unmount_mock, ismount_mock):
         """Tear down mount source task execution."""
         task = TearDownMountTask(mount_location)
         task.run()
@@ -95,7 +95,7 @@ class TearDownMountTaskTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.payloads.source.mount_tasks.os.path.ismount", return_value=True)
     @patch("pyanaconda.modules.payloads.source.mount_tasks.unmount", return_value=True)
-    def run_failure_test(self, unmount_mock, ismount_mock):
+    def test_run_failure(self, unmount_mock, ismount_mock):
         """Tear down mount source task failure."""
         task = TearDownMountTask(mount_location)
         with self.assertRaises(SourceTearDownError) as cm:
@@ -109,14 +109,14 @@ class TearDownMountTaskTestCase(unittest.TestCase):
 class SetUpMountTaskTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.payloads.source.mount_tasks.os.path.ismount", return_value=False)
-    def run_success_test(self, ismount_mock):
+    def test_run_success(self, ismount_mock):
         """Set up mount base task success case."""
         task = DummySetUpMountTaskSubclass(mount_location)
         task.run()
         ismount_mock.assert_called_once_with(mount_location)
 
     @patch("pyanaconda.modules.payloads.source.mount_tasks.os.path.ismount", return_value=True)
-    def run_failure_test(self, ismount_mock):
+    def test_run_failure(self, ismount_mock):
         """Set up mount base task when already mounted."""
         task = DummySetUpMountTaskSubclass(mount_location)
         with self.assertRaises(SourceSetupError) as cm:
@@ -131,7 +131,7 @@ class UtilitiesTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.source.utils.find_first_iso_image",
            return_value="skynet.iso")
     @patch("pyanaconda.modules.payloads.source.utils.mount")
-    def find_and_mount_iso_image_test(self,
+    def test_find_and_mount_iso_image(self,
                                       mount_mock,
                                       find_first_iso_image_mock,):
         """Test find_and_mount_iso_image basic run."""
@@ -152,7 +152,7 @@ class UtilitiesTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.payloads.source.utils.find_first_iso_image",
            return_value="")
-    def find_and_mount_iso_image_fail_find_test(self,
+    def test_find_and_mount_iso_image_fail_find(self,
                                                 find_first_iso_image_mock,):
         """Test find_and_mount_iso_image failure to find iso."""
         source_path = "/super/cool/secret/base"
@@ -168,7 +168,7 @@ class UtilitiesTestCase(unittest.TestCase):
            return_value="skynet.iso")
     @patch("pyanaconda.modules.payloads.source.utils.mount",
            side_effect=OSError)
-    def find_and_mount_iso_image_fail_mount_test(self,
+    def test_find_and_mount_iso_image_fail_mount(self,
                                                  mount_mock,
                                                  find_first_iso_image_mock,):
         """Test find_and_mount_iso_image failure to mount iso."""
@@ -187,7 +187,7 @@ class UtilitiesTestCase(unittest.TestCase):
 
         self.assertEqual(iso_name, "")
 
-    def verify_valid_repository_repo_success_test(self):
+    def test_verify_valid_repository_repo_success(self):
         """Test verify_valid_repository functionality success."""
         with TemporaryDirectory() as tmp:
             repodir_path = Path(tmp, "repodata")
@@ -197,7 +197,7 @@ class UtilitiesTestCase(unittest.TestCase):
 
             self.assertTrue(verify_valid_repository(tmp))
 
-    def verify_valid_repository_installtree_success_test(self):
+    def test_verify_valid_repository_installtree_success(self):
         """Test verify_valid_repository functionality for installation tree success."""
         with TemporaryDirectory() as tmp:
             treeinfo_path = Path(tmp, ".treeinfo")
@@ -211,7 +211,7 @@ class UtilitiesTestCase(unittest.TestCase):
 
             self.assertTrue(verify_valid_repository(tmp))
 
-    def verify_valid_repository_failed_test(self):
+    def test_verify_valid_repository_failed(self):
         """Test verify_valid_repository functionality failed."""
         with TemporaryDirectory() as tmp:
             repodir_path = Path(tmp, "repodata")

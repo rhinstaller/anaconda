@@ -56,23 +56,23 @@ class InteractivePartitioningInterfaceTestCase(unittest.TestCase):
         self.module = InteractivePartitioningModule()
         self.interface = InteractivePartitioningInterface(self.module)
 
-    def publication_test(self):
+    def test_publication(self):
         """Test the DBus representation."""
         self.assertIsInstance(self.module.for_publication(), InteractivePartitioningInterface)
 
     @patch_dbus_publish_object
-    def device_tree_test(self, publisher):
+    def test_device_tree(self, publisher):
         """Test the device tree."""
         self.module.on_storage_changed(create_storage())
         path = self.interface.GetDeviceTree()
         check_dbus_object_creation(self, path, publisher, DeviceTreeSchedulerModule)
 
-    def method_property_test(self):
+    def test_method_property(self):
         """Test Method property."""
         self.assertEqual(self.interface.PartitioningMethod, PARTITIONING_METHOD_INTERACTIVE)
 
     @patch_dbus_publish_object
-    def lazy_storage_test(self, publisher):
+    def test_lazy_storage(self, publisher):
         """Make sure that the storage playground is created lazily."""
         self.module.on_storage_changed(create_storage())
 
@@ -90,7 +90,7 @@ class InteractivePartitioningInterfaceTestCase(unittest.TestCase):
         self.assertIsNotNone(self.module._storage_playground)
 
     @patch_dbus_publish_object
-    def get_device_tree_test(self, publisher):
+    def test_get_device_tree(self, publisher):
         """Test GetDeviceTree."""
         DeviceTreeContainer._counter = 0
         self.module.on_storage_changed(create_storage())
@@ -116,7 +116,7 @@ class InteractivePartitioningInterfaceTestCase(unittest.TestCase):
         publisher.assert_not_called()
 
     @patch_dbus_publish_object
-    def configure_with_task_test(self, publisher):
+    def test_configure_with_task(self, publisher):
         """Test ConfigureWithTask."""
         self.module.on_storage_changed(create_storage())
         task_path = self.interface.ConfigureWithTask()
@@ -137,14 +137,14 @@ class InteractiveUtilsTestCase(unittest.TestCase):
         """Add a device to the device tree."""
         self.storage.devicetree._add_device(device)
 
-    def generate_device_factory_request_unsupported_test(self):
+    def test_generate_device_factory_request_unsupported(self):
         device = StorageDevice("dev1")
 
         with self.assertRaises(UnsupportedDeviceError):
             utils.generate_device_factory_request(self.storage, device)
 
     @patch("blivet.devices.dm.blockdev")
-    def generate_device_factory_request_partition_test(self, blockdev):
+    def test_generate_device_factory_request_partition(self, blockdev):
         disk = DiskDevice("dev2")
 
         request = utils.generate_device_factory_request(self.storage, disk)
@@ -197,7 +197,7 @@ class InteractiveUtilsTestCase(unittest.TestCase):
         })
 
     @patch("blivet.devices.dm.blockdev")
-    def generate_device_factory_request_lvm_test(self, blockdev):
+    def test_generate_device_factory_request_lvm(self, blockdev):
         pv1 = StorageDevice(
             "pv1",
             size=Size("1025 MiB"),
@@ -244,7 +244,7 @@ class InteractiveUtilsTestCase(unittest.TestCase):
         })
 
     @patch("blivet.devices.dm.blockdev")
-    def generate_device_factory_request_raid_test(self, blockdev):
+    def test_generate_device_factory_request_raid(self, blockdev):
         disk1 = DiskDevice(
             "dev1",
             fmt=get_format("mdmember")
@@ -281,7 +281,7 @@ class InteractiveUtilsTestCase(unittest.TestCase):
         })
 
     @patch("blivet.devices.dm.blockdev")
-    def generate_device_factory_request_btrfs_test(self, blockdev):
+    def test_generate_device_factory_request_btrfs(self, blockdev):
         dev1 = StorageDevice(
             "dev1",
             fmt=get_format("btrfs"),
@@ -320,7 +320,7 @@ class InteractiveUtilsTestCase(unittest.TestCase):
             "container-raid-level": get_variant(Str, "single"),
         })
 
-    def get_device_factory_arguments_test(self):
+    def test_get_device_factory_arguments(self):
         """Test get_device_factory_arguments."""
         dev1 = StorageDevice("dev1")
         self._add_device(dev1)

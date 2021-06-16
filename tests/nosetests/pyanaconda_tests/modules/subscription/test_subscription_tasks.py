@@ -57,7 +57,7 @@ class ConnectToInsightsTaskTestCase(unittest.TestCase):
     """Test the ConnectToInsights task."""
 
     @patch("pyanaconda.core.util.execWithRedirect")
-    def no_connect_test(self, exec_with_redirect):
+    def test_no_connect(self, exec_with_redirect):
         """Test that nothing is done if Insights connection is not requested."""
 
         with tempfile.TemporaryDirectory() as sysroot:
@@ -69,7 +69,7 @@ class ConnectToInsightsTaskTestCase(unittest.TestCase):
             exec_with_redirect.assert_not_called()
 
     @patch("pyanaconda.core.util.execWithRedirect")
-    def not_subscribed_test(self, exec_with_redirect):
+    def test_not_subscribed(self, exec_with_redirect):
         """Test that nothing is done if Insights is requested but system is not subscribed."""
 
         with tempfile.TemporaryDirectory() as sysroot:
@@ -81,7 +81,7 @@ class ConnectToInsightsTaskTestCase(unittest.TestCase):
             exec_with_redirect.assert_not_called()
 
     @patch("pyanaconda.core.util.execWithRedirect")
-    def utility_not_available_test(self, exec_with_redirect):
+    def test_utility_not_available(self, exec_with_redirect):
         """Test that the client-missing exception is raised if Insights client is missing."""
 
         with tempfile.TemporaryDirectory() as sysroot:
@@ -94,7 +94,7 @@ class ConnectToInsightsTaskTestCase(unittest.TestCase):
             exec_with_redirect.assert_not_called()
 
     @patch("pyanaconda.core.util.execWithRedirect")
-    def connect_error_test(self, exec_with_redirect):
+    def test_connect_error(self, exec_with_redirect):
         """Test that the expected exception is raised if the Insights client fails when called."""
         with tempfile.TemporaryDirectory() as sysroot:
             # create a fake insights client tool file
@@ -115,7 +115,7 @@ class ConnectToInsightsTaskTestCase(unittest.TestCase):
                                                        root=sysroot)
 
     @patch("pyanaconda.core.util.execWithRedirect")
-    def connect_test(self, exec_with_redirect):
+    def test_connect(self, exec_with_redirect):
         """Test that it is possible to connect to Insights."""
         with tempfile.TemporaryDirectory() as sysroot:
             # create a fake insights client tool file
@@ -146,7 +146,7 @@ class SystemPurposeConfigurationTaskTestCase(unittest.TestCase):
     """
 
     @patch("pyanaconda.modules.subscription.system_purpose.give_the_system_purpose")
-    def system_purpose_task_test(self, give_the_system_purpose):
+    def test_system_purpose_task(self, give_the_system_purpose):
         """Test the SystemPurposeConfigurationTask task - not yet set."""
         # prepare some system purpose data
         system_purpose_data = SystemPurposeData()
@@ -164,7 +164,7 @@ class SystemPurposeConfigurationTaskTestCase(unittest.TestCase):
 
     @patch("pyanaconda.core.subscription.check_system_purpose_set")
     @patch("pyanaconda.modules.subscription.system_purpose.give_the_system_purpose")
-    def system_purpose_task_already_set_test(self, give_the_system_purpose, check_set):
+    def test_system_purpose_task_already_set(self, give_the_system_purpose, check_set):
         """Test the SystemPurposeConfigurationTask task - already set."""
         # The task should still run give_the_system_purpose() even if system purpose
         # has already been set to make it possible to overwrite or clear existing data.
@@ -193,7 +193,7 @@ class SetRHSMConfigurationTaskTestCase(unittest.TestCase):
     keys to default values if they come in blank.
     """
 
-    def set_rhsm_config_tast_test(self):
+    def test_set_rhsm_config_tast(self):
         """Test the SetRHSMConfigurationTask task."""
         mock_config_proxy = Mock()
         # RHSM config default values
@@ -235,7 +235,7 @@ class SetRHSMConfigurationTaskTestCase(unittest.TestCase):
 
         mock_config_proxy.SetAll.assert_called_once_with(expected_dict, "")
 
-    def set_rhsm_config_tast_restore_default_value_test(self):
+    def test_set_rhsm_config_tast_restore_default_value(self):
         """Test the SetRHSMConfigurationTask task - restore default values."""
         mock_config_proxy = Mock()
         # RHSM config default values
@@ -283,7 +283,7 @@ class SetRHSMConfigurationTaskTestCase(unittest.TestCase):
 class RestoreRHSMDefaultsTaskTestCase(unittest.TestCase):
     """Test the RestoreRHSMDefaultsTask task."""
 
-    def restore_rhsm_log_level_task_test(self):
+    def test_restore_rhsm_log_level_task(self):
         """Test the RestoreRHSMDefaultsTask task."""
         mock_config_proxy = Mock()
         task = RestoreRHSMDefaultsTask(rhsm_config_proxy=mock_config_proxy)
@@ -297,7 +297,7 @@ class RestoreRHSMDefaultsTaskTestCase(unittest.TestCase):
 class TransferSubscriptionTokensTaskTestCase(unittest.TestCase):
     """Test the TransferSubscriptionTokensTask task."""
 
-    def copy_pem_files_test(self):
+    def test_copy_pem_files(self):
         """Test PEM file transfer method of the subscription token transfer task."""
         with tempfile.TemporaryDirectory() as sysroot:
             task = TransferSubscriptionTokensTask(sysroot=sysroot,
@@ -357,7 +357,7 @@ class TransferSubscriptionTokensTaskTestCase(unittest.TestCase):
                 self.assertEqual(set(os.listdir(output_dir)),
                                  set(["foo.pem", "bar.pem", "baz.pem"]))
 
-    def copy_file_test(self):
+    def test_copy_file(self):
         """Test copy file method of the subscription token transfer task."""
 
         with tempfile.TemporaryDirectory() as sysroot:
@@ -397,7 +397,7 @@ class TransferSubscriptionTokensTaskTestCase(unittest.TestCase):
                 # otherwise the directory should be empty
                 self.assertTrue(os.listdir(output_dir), ["foo.bar"])
 
-    def transfer_file_test(self):
+    def test_transfer_file(self):
         """Test the transfer file method of the subscription token transfer task."""
         with tempfile.TemporaryDirectory() as sysroot:
             task = TransferSubscriptionTokensTask(sysroot=sysroot,
@@ -425,7 +425,7 @@ class TransferSubscriptionTokensTaskTestCase(unittest.TestCase):
                 task._transfer_file("/etc/foo.conf", "config for FOO")
 
     @patch("os.path.exists")
-    def transfer_system_purpose_test(self, path_exists):
+    def test_transfer_system_purpose(self, path_exists):
         """Test system purpose transfer method of the subscription token transfer task."""
         # simulate syspurpose file existing
         path_exists.return_value = True
@@ -453,7 +453,7 @@ class TransferSubscriptionTokensTaskTestCase(unittest.TestCase):
             task._transfer_system_purpose()
             task._copy_file.assert_not_called()
 
-    def transfer_entitlement_keys_test(self):
+    def test_transfer_entitlement_keys(self):
         """Test the entitlement keys transfer method of the subscription token transfer task."""
         # simulate entitlement keys not existing
         with tempfile.TemporaryDirectory() as sysroot:
@@ -484,7 +484,7 @@ class TransferSubscriptionTokensTaskTestCase(unittest.TestCase):
             with self.assertRaises(SubscriptionTokenTransferError):
                 task._transfer_entitlement_keys()
 
-    def transfer_test(self):
+    def test_transfer(self):
         """Test transfer_tokens being True is handled correctly for token transfer task."""
 
         # If transfer_subscription_tokens is True, all token should be transferred.
@@ -509,7 +509,7 @@ class TransferSubscriptionTokensTaskTestCase(unittest.TestCase):
                  call('/etc/rhsm/rhsm.conf', 'RHSM config file')]
             )
 
-    def no_transfer_test(self):
+    def test_no_transfer(self):
         """Test transfer_tokens being False is handled correctly for token transfer task."""
 
         # if transfer_subscription_tokens is False, only system purpose tokens should be
@@ -537,7 +537,7 @@ class RHSMPrivateBusTestCase(unittest.TestCase):
     """
 
     @patch("os.environ.get", return_value="en_US.UTF-8")
-    def rhsm_private_bus_test(self, environ_get):
+    def test_rhsm_private_bus(self, environ_get):
         """Test the RHSMPrivateBus class."""
         # mock the register server proxy
         register_server_proxy = Mock()
@@ -584,7 +584,7 @@ class RegistrationTasksTestCase(unittest.TestCase):
 
     @patch("os.environ.get", return_value="en_US.UTF-8")
     @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")
-    def username_password_success_test(self, private_bus, environ_get):
+    def test_username_password_success(self, private_bus, environ_get):
         """Test the RegisterWithUsernamePasswordTask - success."""
         # register server proxy
         register_server_proxy = Mock()
@@ -606,7 +606,7 @@ class RegistrationTasksTestCase(unittest.TestCase):
 
     @patch("os.environ.get", return_value="en_US.UTF-8")
     @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")
-    def username_password_failure_test(self, private_bus, environ_get):
+    def test_username_password_failure(self, private_bus, environ_get):
         """Test the RegisterWithUsernamePasswordTask - failure."""
         # register server proxy
         register_server_proxy = Mock()
@@ -632,7 +632,7 @@ class RegistrationTasksTestCase(unittest.TestCase):
 
     @patch("os.environ.get", return_value="en_US.UTF-8")
     @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")
-    def org_key_success_test(self, private_bus, environ_get):
+    def test_org_key_success(self, private_bus, environ_get):
         """Test the RegisterWithOrganizationKeyTask - success."""
         # register server proxy
         register_server_proxy = Mock()
@@ -656,7 +656,7 @@ class RegistrationTasksTestCase(unittest.TestCase):
 
     @patch("os.environ.get", return_value="en_US.UTF-8")
     @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")
-    def org_key_failure_test(self, private_bus, environ_get):
+    def test_org_key_failure(self, private_bus, environ_get):
         """Test the RegisterWithOrganizationKeyTask - failure."""
         # register server proxy
         register_server_proxy = Mock()
@@ -686,7 +686,7 @@ class UnregisterTaskTestCase(unittest.TestCase):
     """Test the unregister task."""
 
     @patch("os.environ.get", return_value="en_US.UTF-8")
-    def unregister_success_test(self, environ_get):
+    def test_unregister_success(self, environ_get):
         """Test the UnregisterTask - success."""
         # register server proxy
         rhsm_unregister_proxy = Mock()
@@ -697,7 +697,7 @@ class UnregisterTaskTestCase(unittest.TestCase):
         rhsm_unregister_proxy.Unregister.assert_called_once_with({}, "en_US.UTF-8")
 
     @patch("os.environ.get", return_value="en_US.UTF-8")
-    def unregister_failure_test(self, environ_get):
+    def test_unregister_failure(self, environ_get):
         """Test the UnregisterTask - failure."""
         # register server proxy
         rhsm_unregister_proxy = Mock()
@@ -716,7 +716,7 @@ class AttachSubscriptionTaskTestCase(unittest.TestCase):
     """Test the subscription task."""
 
     @patch("os.environ.get", return_value="en_US.UTF-8")
-    def attach_subscription_task_success_test(self, environ_get):
+    def test_attach_subscription_task_success(self, environ_get):
         """Test the AttachSubscriptionTask - success."""
         rhsm_attach_proxy = Mock()
         task = AttachSubscriptionTask(rhsm_attach_proxy=rhsm_attach_proxy,
@@ -727,7 +727,7 @@ class AttachSubscriptionTaskTestCase(unittest.TestCase):
                                                              "en_US.UTF-8")
 
     @patch("os.environ.get", return_value="en_US.UTF-8")
-    def attach_subscription_task_failure_test(self, environ_get):
+    def test_attach_subscription_task_failure(self, environ_get):
         """Test the AttachSubscriptionTask - failure."""
         rhsm_attach_proxy = Mock()
         # raise DBusError with error message in JSON
@@ -745,7 +745,7 @@ class AttachSubscriptionTaskTestCase(unittest.TestCase):
 class ParseAttachedSubscriptionsTaskTestCase(unittest.TestCase):
     """Test the attached subscription parsing task."""
 
-    def pretty_date_test(self):
+    def test_pretty_date(self):
         """Test the pretty date method of ParseAttachedSubscriptionsTask."""
         pretty_date_method = ParseAttachedSubscriptionsTask._pretty_date
         # try to parse ISO 8601 first
@@ -756,7 +756,7 @@ class ParseAttachedSubscriptionsTaskTestCase(unittest.TestCase):
         ambiguous_date = "noon of the twenty first century"
         self.assertEqual(pretty_date_method(ambiguous_date), ambiguous_date)
 
-    def subscription_json_parsing_test(self):
+    def test_subscription_json_parsing(self):
         """Test the subscription JSON parsing method of ParseAttachedSubscriptionsTask."""
         parse_method = ParseAttachedSubscriptionsTask._parse_subscription_json
         # the method should be able to survive the RHSM DBus API returning an empty string,
@@ -833,7 +833,7 @@ class ParseAttachedSubscriptionsTaskTestCase(unittest.TestCase):
         # including date formatting
         self.assertEqual(structs, expected_structs)
 
-    def system_purpose_json_parsing_test(self):
+    def test_system_purpose_json_parsing(self):
         """Test the system purpose JSON parsing method of ParseAttachedSubscriptionsTask."""
         parse_method = ParseAttachedSubscriptionsTask._parse_system_purpose_json
         # the parsing method should be able to survive also getting an empty string
@@ -883,7 +883,7 @@ class ParseAttachedSubscriptionsTaskTestCase(unittest.TestCase):
         self.assertEqual(struct, expected_struct)
 
     @patch("os.environ.get", return_value="en_US.UTF-8")
-    def attach_subscription_task_success_test(self, environ_get):
+    def test_attach_subscription_task_success(self, environ_get):
         """Test the ParseAttachedSubscriptionsTask."""
         # prepare mock proxies the task is expected to interact with
         rhsm_entitlement_proxy = Mock()

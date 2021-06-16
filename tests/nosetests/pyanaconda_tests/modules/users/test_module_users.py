@@ -52,7 +52,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self.callback = PropertiesChangedCallback()
         self.users_interface.PropertiesChanged.connect(self.callback)
 
-    def kickstart_properties_test(self):
+    def test_kickstart_properties(self):
         """Test kickstart properties."""
         self.assertEqual(self.users_interface.KickstartCommands,
                          ["rootpw", "user", "group", "sshkey"])
@@ -68,7 +68,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
             *args, **kwargs
         )
 
-    def default_property_values_test(self):
+    def test_default_property_values(self):
         """Test the default user module values are as expected."""
         self.assertEqual(self.users_interface.Users, [])
         self.assertEqual(self.users_interface.Groups, [])
@@ -80,7 +80,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.users_interface.RootPasswordSSHLoginAllowed, False)
         self.assertEqual(self.users_interface.CanChangeRootPassword, True)
 
-    def users_property_test(self):
+    def test_users_property(self):
         """Test the Users property."""
         user_1 = {
             "name": get_variant(Str, "user1"),
@@ -115,7 +115,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
             [user_1, user_2]
         )
 
-    def groups_property_test(self):
+    def test_groups_property(self):
         """Test the Groups property."""
         group_1 = {
             "name": get_variant(Str, "group1"),
@@ -132,7 +132,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
             [group_1, group_2]
         )
 
-    def ssh_keys_property_test(self):
+    def test_ssh_keys_property(self):
         """Test the SshKeys property."""
         key_1 = {
             "key": get_variant(Str, "aaa"),
@@ -147,7 +147,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
             [key_1, key_2]
         )
 
-    def set_crypted_roopw_test(self):
+    def test_set_crypted_roopw(self):
         """Test if setting crypted root password works correctly."""
         self.users_interface.SetCryptedRootPassword("abcef")
 
@@ -157,7 +157,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.users_interface.IsRootAccountLocked, True)
         self.callback.assert_called_once_with(USERS.interface_name, {'IsRootPasswordSet': True}, [])
 
-    def set_crypted_roopw_and_unlock_test(self):
+    def test_set_crypted_roopw_and_unlock(self):
         """Test if setting crypted root password & unlocking it from kickstart works correctly."""
         self.users_interface.SetCryptedRootPassword("abcef")
 
@@ -177,7 +177,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.users_interface.IsRootAccountLocked, False)
         self.callback.assert_called_with(USERS.interface_name, {'IsRootAccountLocked': False}, [])
 
-    def lock_root_account_test(self):
+    def test_lock_root_account(self):
         """Test if root account can be locked via DBus correctly."""
         self.users_interface.SetRootAccountLocked(True)
 
@@ -185,7 +185,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.users_interface.IsRootAccountLocked, True)
         self.callback.assert_called_once_with(USERS.interface_name, {'IsRootAccountLocked': True}, [])
 
-    def clear_rootpw_test(self):
+    def test_clear_rootpw(self):
         """Test clearing of the root password."""
         # set the password to something
         self.users_interface.SetCryptedRootPassword("abcef")
@@ -203,7 +203,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self.callback.assert_called_with(USERS.interface_name, {'IsRootPasswordSet': False,
                                                                 'IsRootAccountLocked': True}, [])
 
-    def clear_unlocked_rootpw_test(self):
+    def test_clear_unlocked_rootpw(self):
         """Test clearing of unlocked root password."""
         # set the password to something
         self.users_interface.SetCryptedRootPassword("abcef")
@@ -224,7 +224,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self.callback.assert_called_with(USERS.interface_name, {'IsRootPasswordSet': False,
                                                                 'IsRootAccountLocked': True}, [])
 
-    def allow_root_password_ssh_login_test(self):
+    def test_allow_root_password_ssh_login(self):
         """Test if root password SSH login can be allowed."""
         self.users_interface.SetRootPasswordSSHLoginAllowed(True)
         self.assertEqual(self.users_interface.RootPasswordSSHLoginAllowed, True)
@@ -235,7 +235,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.users_interface.RootPasswordSSHLoginAllowed, False)
         self.callback.assert_called_once_with(USERS.interface_name, {'RootPasswordSSHLoginAllowed': False}, [])
 
-    def admin_user_detection_1_test(self):
+    def test_admin_user_detection_1(self):
         """Test that admin user detection works correctly - 3 admins."""
         # 2 admin users, unlocked root
         user1 = UserData()
@@ -253,7 +253,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self.users_interface.SetRootAccountLocked(False)
         self.assertTrue(self.users_interface.CheckAdminUserExists())
 
-    def admin_user_detection_2_test(self):
+    def test_admin_user_detection_2(self):
         """Test that admin user detection works correctly - 0 admins (case 1)."""
         # 2 locked admin users, locked root
         user1 = UserData()
@@ -271,7 +271,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self.users_interface.SetRootAccountLocked(True)
         self.assertFalse(self.users_interface.CheckAdminUserExists())
 
-    def admin_user_detection_3_test(self):
+    def test_admin_user_detection_3(self):
         """Test that admin user detection works correctly - 1 admin (case 2)."""
         # 2 locked admin users, unlocked root
         user1 = UserData()
@@ -289,7 +289,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self.users_interface.SetRootAccountLocked(False)
         self.assertTrue(self.users_interface.CheckAdminUserExists())
 
-    def admin_user_detection_4_test(self):
+    def test_admin_user_detection_4(self):
         """Test that admin user detection works correctly - 1 admin (case 3)."""
         # 1 locked admin user, 1 unlocked admin user, locked root
         user1 = UserData()
@@ -307,7 +307,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self.users_interface.SetRootAccountLocked(True)
         self.assertTrue(self.users_interface.CheckAdminUserExists())
 
-    def admin_user_detection_5_test(self):
+    def test_admin_user_detection_5(self):
         """Test that admin user detection works correctly - 1 admin (case 4)."""
         # 1 user, 1 unlocked admin user, locked root
         user1 = UserData()
@@ -325,7 +325,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self.users_interface.SetRootAccountLocked(True)
         self.assertTrue(self.users_interface.CheckAdminUserExists())
 
-    def admin_user_detection_6_test(self):
+    def test_admin_user_detection_6(self):
         """Test that admin user detection works correctly - 1 admin (case 5)."""
         # 2 users, unlocked root
         user1 = UserData()
@@ -346,7 +346,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
     def _test_kickstart(self, ks_in, ks_out, ks_tmp=None):
         check_kickstart_interface(self, self.users_interface, ks_in, ks_out, ks_tmp=ks_tmp)
 
-    def no_kickstart_test(self):
+    def test_no_kickstart(self):
         """Test with no kickstart."""
         ks_in = None
         ks_out = """
@@ -363,7 +363,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         # this should not be considered a valid admin user for interactive install
         self.assertFalse(self.users_interface.CheckAdminUserExists())
 
-    def kickstart_empty_test(self):
+    def test_kickstart_empty(self):
         """Test with empty string."""
         ks_in = ""
         ks_out = """
@@ -380,7 +380,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         # not a valid admin user from kickstart PoV
         self.assertFalse(self.users_interface.CheckAdminUserExists())
 
-    def kickstart_set_rootpw_test(self):
+    def test_kickstart_set_rootpw(self):
         """Test the setting root password via kickstart."""
         ks_in = """
         rootpw abcdef
@@ -399,7 +399,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         # but this should still be a valid admin user from kickstart PoV
         self.assertTrue(self.users_interface.CheckAdminUserExists())
 
-    def kickstart_set_plain_rootpw_test(self):
+    def test_kickstart_set_plain_rootpw(self):
         """Test the setting plaintext root password via kickstart."""
         ks_in = """
         rootpw --plaintext abcdef
@@ -410,7 +410,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    def kickstart_set_crypted_rootpw_test(self):
+    def test_kickstart_set_crypted_rootpw(self):
         """Test the setting crypted root password via kickstart."""
         ks_in = """
         rootpw --iscrypted abcdef
@@ -424,7 +424,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.users_interface.IsRootPasswordSet, True)
         self.assertEqual(self.users_interface.IsRootAccountLocked, False)
 
-    def kickstart_lock_root_account_test(self):
+    def test_kickstart_lock_root_account(self):
         """Test locking the root account via kickstart."""
         ks_in = """
         rootpw --lock
@@ -443,7 +443,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         # but this should still be a valid admin user from kickstart PoV
         self.assertTrue(self.users_interface.CheckAdminUserExists())
 
-    def kickstart_lock_root_account_with_password_test(self):
+    def test_kickstart_lock_root_account_with_password(self):
         """Test locking the root account with a password via kickstart."""
         ks_in = """
         rootpw abcdef --lock
@@ -462,7 +462,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         # but this should still be a valid admin user from kickstart PoV
         self.assertTrue(self.users_interface.CheckAdminUserExists())
 
-    def kickstart_user_test(self):
+    def test_kickstart_user(self):
         """Test kickstart user input and output."""
         ks_in = """
         user --name=user1 --password=abcedf
@@ -482,7 +482,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         # no a valid admin user exists from kickstart PoV
         self.assertFalse(self.users_interface.CheckAdminUserExists())
 
-    def kickstart_user_admin_test(self):
+    def test_kickstart_user_admin(self):
         """Test kickstart admin user input and output."""
         ks_in = """
         user --groups=wheel --name=user1 --password=abcedf
@@ -502,7 +502,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         # provides a valid admin user exists from kickstart PoV
         self.assertTrue(self.users_interface.CheckAdminUserExists())
 
-    def kickstart_users_test(self):
+    def test_kickstart_users(self):
         """Test kickstart users input and output."""
         ks_in = """
         user --name=user1 --homedir=user1_home --password=foo --shell=ksh --uid=123 --gecos=baz --gid=345 --groups=a,b,c,d --plaintext
@@ -518,7 +518,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    def kickstart_groups_test(self):
+    def test_kickstart_groups(self):
         """Test kickstart groups input and output."""
         ks_in = """
         group --name=group1 --gid=321
@@ -534,7 +534,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    def kickstart_ssh_keys_test(self):
+    def test_kickstart_ssh_keys(self):
         """Test kickstart ssh keys input and output."""
         ks_in = """
         sshkey --username=user1 "aaa"
@@ -551,7 +551,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self._test_kickstart(ks_in, ks_out)
 
     @patch_dbus_publish_object
-    def install_with_tasks_test(self, publisher):
+    def test_install_with_tasks(self, publisher):
         """Test InstallWithTasks."""
         task_classes = [
             CreateGroupsTask,
@@ -564,19 +564,19 @@ class UsersInterfaceTestCase(unittest.TestCase):
         check_task_creation_list(self, task_paths, publisher, task_classes)
 
     @patch_dbus_publish_object
-    def configure_groups_with_task_test(self, publisher):
+    def test_configure_groups_with_task(self, publisher):
         """Test ConfigureGroupsWithTask."""
         task_path = self.users_interface.ConfigureGroupsWithTask()
         check_task_creation(self, task_path, publisher, CreateGroupsTask)
 
     @patch_dbus_publish_object
-    def configure_users_with_task_test(self, publisher):
+    def test_configure_users_with_task(self, publisher):
         """Test ConfigureUsersWithTask."""
         task_path = self.users_interface.ConfigureUsersWithTask()
         check_task_creation(self, task_path, publisher, CreateUsersTask)
 
     @patch_dbus_publish_object
-    def set_root_password_with_task_test(self, publisher):
+    def test_set_root_password_with_task(self, publisher):
         """Test SetRootPasswordWithTask."""
         task_path = self.users_interface.SetRootPasswordWithTask()
         check_task_creation(self, task_path, publisher, SetRootPasswordTask)
@@ -585,7 +585,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
 class UsersDataTestCase(unittest.TestCase):
     """Test the UserData data holder class."""
 
-    def eq_test(self):
+    def test_eq(self):
         """Test that the __eq__() method works correctly for UserData instances."""
         # the comparison is name based
         user_data_1 = UserData()
@@ -627,7 +627,7 @@ class UsersDataTestCase(unittest.TestCase):
 
         self.assertTrue(user_data_a == user_data_b)
 
-    def has_admin_priviledges_test(self):
+    def test_has_admin_priviledges(self):
         """Test the has_admin_priviledges() method works correctly."""
 
         user_data = UserData()
@@ -652,7 +652,7 @@ class UsersDataTestCase(unittest.TestCase):
         user_data.groups = ["WHEEL", "Wheel"]
         self.assertFalse(user_data.has_admin_priviledges())
 
-    def set_admin_priviledges_test(self):
+    def test_set_admin_priviledges(self):
         """Test setting user admin privileges works correctly."""
         user_data = UserData()
         self.assertFalse(user_data.has_admin_priviledges())
@@ -699,7 +699,7 @@ class UsersDataTestCase(unittest.TestCase):
         self.assertIn("foo", user_data.groups)
         self.assertIn("bar", user_data.groups)
 
-    def getter_setter_test(self):
+    def test_getter_setter(self):
         """Test getters and setters for the User UID and GID values."""
         user_data = UserData()
         user_data.name = "user"
@@ -749,7 +749,7 @@ class UsersDataTestCase(unittest.TestCase):
 class GroupsDataTestCase(unittest.TestCase):
     """Test the GroupData data holder class."""
 
-    def getter_setter_test(self):
+    def test_getter_setter(self):
         """Test getters and setters for the Group GID values."""
         group_data = GroupData()
         group_data.name = "group"
@@ -787,14 +787,14 @@ class SharedUICodeTestCase(unittest.TestCase):
     The shared code calls the Users module interface so it makes sense to test it here.
     """
 
-    def get_empty_user_list_test(self):
+    def test_get_empty_user_list(self):
         """Test the shared get_user_list() method with no users."""
         users_module_mock = Mock()
         users_module_mock.Users = []
         user_data_list = get_user_list(users_module_mock)
         self.assertEqual(user_data_list, [])
 
-    def get_default_user_test(self):
+    def test_get_default_user(self):
         """Test that default user is correctly added by get_user_list()."""
         users_module_mock = Mock()
         users_module_mock.Users = []
@@ -804,7 +804,7 @@ class SharedUICodeTestCase(unittest.TestCase):
         self.assertIsInstance(user_data_list[0], UserData)
         self.assertTrue(compare_data(user_data_list[0], UserData()))
 
-    def get_user_list_test(self):
+    def test_get_user_list(self):
         """Test the shared get_user_list() method."""
         user1 = UserData()
         user1.name = "user1"
@@ -858,7 +858,7 @@ class SharedUICodeTestCase(unittest.TestCase):
         self.assertTrue(compare_data(user_data_list[1], user1))
         self.assertTrue(compare_data(user_data_list[2], user2))
 
-    def set_user_list_test(self):
+    def test_set_user_list(self):
         """Test the shared set_user_list() method."""
         user1 = UserData()
         user1.name = "user1"
@@ -914,7 +914,7 @@ class UsersModuleTasksTestCase(unittest.TestCase):
         self.callback = PropertiesChangedCallback()
         self.users_interface.PropertiesChanged.connect(self.callback)
 
-    def root_ssh_password_config_task_enabled_test(self):
+    def test_root_ssh_password_config_task_enabled(self):
         """Test the root password SSH login configuration task - enabled (write config file)."""
         # the config file should be written out when the override is enabled
         with tempfile.TemporaryDirectory() as sysroot:
@@ -944,7 +944,7 @@ class UsersModuleTasksTestCase(unittest.TestCase):
                 expected_content.strip()
             )
 
-    def root_ssh_password_config_task_disabled_test(self):
+    def test_root_ssh_password_config_task_disabled(self):
         """Test the root password SSH login configuration task - disabled (no config file)."""
         # the config file should not be written out when the override is disabled
         with tempfile.TemporaryDirectory() as sysroot:

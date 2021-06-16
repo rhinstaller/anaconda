@@ -55,24 +55,24 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
 
         return source
 
-    def type_test(self):
+    def test_type(self):
         self.shared_tests.check_type(PayloadType.LIVE_OS)
 
-    def supported_sources_test(self):
+    def test_supported_sources(self):
         """Test LiveOS supported sources API."""
         self.assertEqual(
             [SOURCE_TYPE_LIVE_OS_IMAGE],
             self.live_os_interface.SupportedSourceTypes)
 
     @patch_dbus_publish_object
-    def set_source_test(self, publisher):
+    def test_set_source(self, publisher):
         """Test if set source API of LiveOS payload."""
         sources = [self._prepare_source()]
 
         self.shared_tests.set_and_check_sources(sources)
 
     @patch_dbus_publish_object
-    def set_multiple_sources_fail_test(self, publisher):
+    def test_set_multiple_sources_fail(self, publisher):
         """Test LiveOS payload can't set multiple sources."""
         paths = [
             self._prepare_source(),
@@ -82,7 +82,7 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
         self.shared_tests.set_and_check_sources(paths, exception=IncompatibleSourceError)
 
     @patch_dbus_publish_object
-    def set_when_initialized_source_fail_test(self, publisher):
+    def test_set_when_initialized_source_fail(self, publisher):
         """Test LiveOS payload can't set new sources if the old ones are initialized."""
         source1 = self._prepare_source()
         source2 = self._prepare_source()
@@ -98,7 +98,7 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
         self.shared_tests.set_and_check_sources([source1])
 
     @patch_dbus_publish_object
-    def set_up_installation_sources_task_test(self, publisher):
+    def test_set_up_installation_sources_task(self, publisher):
         """Test Live OS is able to create a set up installation sources task."""
         self._prepare_and_use_source()
 
@@ -107,7 +107,7 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
         check_task_creation(self, task_path, publisher, SetUpSourcesTask)
 
     @patch_dbus_publish_object
-    def tear_down_installation_source_task_test(self, publisher):
+    def test_tear_down_installation_source_task(self, publisher):
         """Test Live OS is able to create a tear down installation sources task."""
         self._prepare_and_use_source()
 
@@ -125,11 +125,11 @@ class LiveOSModuleTestCase(unittest.TestCase):
         """Create a new source with a mocked state."""
         return PayloadSharedTest.prepare_source(SourceType.LIVE_OS_IMAGE, state)
 
-    def get_kernel_version_list_test(self):
+    def test_get_kernel_version_list(self):
         """Test the get_kernel_version_list method."""
         self.assertEqual(self.module.get_kernel_version_list(), [])
 
-    def install_with_task_test(self):
+    def test_install_with_task(self):
         """Test the install_with_tasks method."""
         source = self._create_source()
         self.module.set_sources([source])
@@ -138,12 +138,12 @@ class LiveOSModuleTestCase(unittest.TestCase):
         self.assertEqual(len(tasks), 1)
         self.assertIsInstance(tasks[0], InstallFromImageTask)
 
-    def install_with_task_no_source_test(self):
+    def test_install_with_task_no_source(self):
         """Test Live OS install with tasks with no source fail."""
         with self.assertRaises(SourceSetupError):
             self.module.install_with_tasks()
 
-    def post_install_with_tasks_test(self):
+    def test_post_install_with_tasks(self):
         """Test Live OS post installation configuration task."""
         tasks = self.module.post_install_with_tasks()
         self.assertEqual(len(tasks), 0)

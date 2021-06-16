@@ -48,11 +48,11 @@ class RPMOSTreeInterfaceTestCase(unittest.TestCase):
             payload_intf=self.interface
         )
 
-    def type_test(self):
+    def test_type(self):
         """Test the Type property."""
         self.shared_tests.check_type(PayloadType.RPM_OSTREE)
 
-    def supported_sources_test(self):
+    def test_supported_sources(self):
         """Test the SupportedSourceTypes property."""
         self.assertEqual(self.interface.SupportedSourceTypes, [
             SOURCE_TYPE_RPM_OSTREE,
@@ -84,7 +84,7 @@ class RPMOSTreeKickstartTestCase(unittest.TestCase):
             self.assertEqual(1, len(sources))
             self.assertEqual(sources[0].type.value, expected_source_type)
 
-    def ostree_kickstart_test(self):
+    def test_ostree_kickstart(self):
         ks_in = """
         ostreesetup --osname="fedora-atomic" --remote="fedora-atomic-28" --url="file:///ostree/repo" --ref="fedora/28/x86_64/atomic-host" --nogpg
         """
@@ -95,7 +95,7 @@ class RPMOSTreeKickstartTestCase(unittest.TestCase):
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_RPM_OSTREE)
 
-    def priority_kickstart_test(self):
+    def test_priority_kickstart(self):
         ks_in = """
         ostreesetup --osname="fedora-iot" --url="https://compose/iot/" --ref="fedora/iot"
         url --url="https://compose/Everything"
@@ -122,11 +122,11 @@ class RPMOSTreeModuleTestCase(unittest.TestCase):
         for obj, cls in zip(objects, classes):
             self.assertIsInstance(obj, cls)
 
-    def get_kernel_version_list_test(self):
+    def test_get_kernel_version_list(self):
         """Test the get_kernel_version_list method."""
         self.assertEqual(self.module.get_kernel_version_list(), [])
 
-    def install_with_tasks_test(self):
+    def test_install_with_tasks(self):
         """Test the install_with_tasks method."""
         self.assertEqual(self.module.install_with_tasks(), [])
 
@@ -159,7 +159,7 @@ class RPMOSTreeModuleTestCase(unittest.TestCase):
             InstallFlatpaksTask,
         ])
 
-    def collect_mount_points_test(self):
+    def test_collect_mount_points(self):
         """Collect mount points from successful tasks."""
         rpm_source = SourceFactory.create_source(SourceType.RPM_OSTREE)
         self.module.set_sources([rpm_source])
@@ -181,7 +181,7 @@ class RPMOSTreeModuleTestCase(unittest.TestCase):
             "/path/PrepareOSTreeMountTargetsTask/2"
         ])
 
-    def post_install_with_tasks_test(self):
+    def test_post_install_with_tasks(self):
         """Test the post_install_with_tasks method."""
         self.assertEqual(self.module.post_install_with_tasks(), [])
 
@@ -194,7 +194,7 @@ class RPMOSTreeModuleTestCase(unittest.TestCase):
             ConfigureBootloader,
         ])
 
-    def tear_down_with_tasks_test(self):
+    def test_tear_down_with_tasks(self):
         """Test the tear_down_with_tasks method."""
         rpm_source = SourceFactory.create_source(SourceType.RPM_OSTREE)
 

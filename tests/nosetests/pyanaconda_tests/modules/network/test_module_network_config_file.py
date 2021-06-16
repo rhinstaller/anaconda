@@ -47,7 +47,7 @@ class ConfigFileTestCase(unittest.TestCase):
                 print("Dumping{}".format(file_path))
                 f.write(content)
 
-    def get_config_files_paths_test(self):
+    def test_get_config_files_paths(self):
         """Test get_config_files_paths."""
         IFCFG_FILE_1 = os.path.join(IFCFG_DIR, "ifcfg-ens3")
         IFCFG_FILE_2 = os.path.join(IFCFG_DIR, "ifcfg-ens5")
@@ -100,7 +100,7 @@ class ConfigFileTestCase(unittest.TestCase):
         )
 
     @patch("pyanaconda.modules.network.config_file.get_config_files_paths")
-    def get_config_files_content_test(self, get_config_files_paths_mock):
+    def test_get_config_files_content(self, get_config_files_paths_mock):
         """Test get_config_files_content."""
         files = [
             ("/file1",
@@ -127,7 +127,7 @@ class ConfigFileTestCase(unittest.TestCase):
         content = get_config_files_content(self._root_dir)
         self.assertEqual(dedent(content).strip(), dedent(expected_content).strip())
 
-    def is_config_file_for_system_test(self):
+    def test_is_config_file_for_system(self):
         """Test is_config_file_for_system function."""
         self.assertTrue(
             is_config_file_for_system(os.path.join(KEYFILE_DIR, "ens3.nmconnection"))

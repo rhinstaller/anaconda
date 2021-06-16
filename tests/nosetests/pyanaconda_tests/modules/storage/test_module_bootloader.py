@@ -69,74 +69,74 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
             *args, **kwargs
         )
 
-    def get_default_type_test(self):
+    def test_get_default_type(self):
         """Test GetDefaultType."""
         self.assertEqual(self.bootloader_interface.GetDefaultType(), "DEFAULT")
 
-    def bootloader_mode_property_test(self):
+    def test_bootloader_mode_property(self):
         """Test the bootloader mode property."""
         self._check_dbus_property(
             "BootloaderMode",
             BOOTLOADER_SKIPPED
         )
 
-    def preferred_location_property_test(self):
+    def test_preferred_location_property(self):
         """Test the preferred location property."""
         self._check_dbus_property(
             "PreferredLocation",
             BOOTLOADER_LOCATION_PARTITION
         )
 
-    def drive_property_test(self):
+    def test_drive_property(self):
         """Test the drive property."""
         self._check_dbus_property(
             "Drive",
             "sda"
         )
 
-    def drive_order_property_test(self):
+    def test_drive_order_property(self):
         """Test the drive order property."""
         self._check_dbus_property(
             "DriveOrder",
             ["sda", "sdb"]
         )
 
-    def keep_mbr_property_test(self):
+    def test_keep_mbr_property(self):
         """Test the keep MBR property."""
         self._check_dbus_property(
             "KeepMBR",
             True
         )
 
-    def keep_boot_order_test(self):
+    def test_keep_boot_order(self):
         """Test the keep boot order property."""
         self._check_dbus_property(
             "KeepBootOrder",
             True
         )
 
-    def extra_arguments_property_test(self):
+    def test_extra_arguments_property(self):
         """Test the extra arguments property."""
         self._check_dbus_property(
             "ExtraArguments",
             ["hdd=ide-scsi", "ide=nodma"]
         )
 
-    def timeout_property_test(self):
+    def test_timeout_property(self):
         """Test the timeout property."""
         self._check_dbus_property(
             "Timeout",
             25
         )
 
-    def secure_boot_property_test(self):
+    def test_secure_boot_property(self):
         """Test the secure boot property."""
         self._check_dbus_property(
             "ZIPLSecureBoot",
             "auto"
         )
 
-    def password_property_test(self):
+    def test_password_property(self):
         """Test the password property."""
         self._check_dbus_property(
             "Password",
@@ -145,7 +145,7 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
             changed={'IsPasswordSet': True}
         )
 
-    def is_efi_test(self):
+    def test_is_efi(self):
         """Test IsEFI."""
         with self.assertRaises(UnavailableStorageError):
             self.bootloader_interface.IsEFI()
@@ -159,7 +159,7 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
         storage.bootloader = EFIGRUB()
         self.assertEqual(self.bootloader_interface.IsEFI(), True)
 
-    def get_arguments_test(self):
+    def test_get_arguments(self):
         """Test GetArguments."""
         with self.assertRaises(UnavailableStorageError):
             self.bootloader_interface.GetArguments()
@@ -171,7 +171,7 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
         storage.bootloader.boot_args.update(["x=1", "y=2"])
         self.assertEqual(self.bootloader_interface.GetArguments(), ["x=1", "y=2"])
 
-    def detect_windows_test(self):
+    def test_detect_windows(self):
         """Test DetectWindows."""
         with self.assertRaises(UnavailableStorageError):
             self.bootloader_interface.DetectWindows()
@@ -191,7 +191,7 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.bootloader_interface.DetectWindows(), True)
 
     @patch_dbus_publish_object
-    def install_bootloader_with_tasks_test(self, publisher):
+    def test_install_bootloader_with_tasks(self, publisher):
         """Test InstallBootloaderWithTasks."""
         storage = Mock()
         version = "4.17.7-200.fc28.x86_64"
@@ -212,7 +212,7 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
         check_task_creation_list(self, task_paths, publisher, task_classes)
 
     @patch_dbus_publish_object
-    def generate_initramfs_with_tasks_test(self, publisher):
+    def test_generate_initramfs_with_tasks(self, publisher):
         """Test GenerateInitramfsWithTasks."""
         storage = Mock()
         version = "4.17.7-200.fc28.x86_64"
@@ -236,7 +236,7 @@ class BootloaderTasksTestCase(unittest.TestCase):
     """Test tasks for the boot loader."""
 
     @patch('pyanaconda.modules.storage.bootloader.utils.execWithRedirect')
-    def create_rescue_images_test(self, exec_mock):
+    def test_create_rescue_images(self, exec_mock):
         """Test the installation task that creates rescue images."""
         version = "4.17.7-200.fc28.x86_64"
 
@@ -322,7 +322,7 @@ class BootloaderTasksTestCase(unittest.TestCase):
                 ),
             ])
 
-    def configure_test(self):
+    def test_configure(self):
         """Test the final configuration of the boot loader."""
         bootloader = Mock()
         storage = Mock(bootloader=bootloader)
@@ -368,7 +368,7 @@ class BootloaderTasksTestCase(unittest.TestCase):
         self.assertEqual(image.label, "anaconda")
         self.assertEqual(image.device, storage.root_device)
 
-    def install_test(self):
+    def test_install(self):
         """Test the installation task for the boot loader."""
         bootloader = Mock()
         storage = Mock(bootloader=bootloader)
@@ -384,7 +384,7 @@ class BootloaderTasksTestCase(unittest.TestCase):
         bootloader.write.assert_called_once()
 
     @patch('pyanaconda.modules.storage.bootloader.utils.execWithRedirect')
-    def create_bls_entries_test(self, exec_mock):
+    def test_create_bls_entries(self, exec_mock):
         """Test the installation task that creates BLS entries."""
         version = "4.17.7-200.fc28.x86_64"
         storage=Mock()
@@ -474,7 +474,7 @@ class BootloaderTasksTestCase(unittest.TestCase):
 
     @patch('pyanaconda.modules.storage.bootloader.utils.execWithRedirect')
     @patch('pyanaconda.modules.storage.bootloader.utils.conf')
-    def recreate_initrds_test(self, conf_mock, exec_mock):
+    def test_recreate_initrds(self, conf_mock, exec_mock):
         """Test the installation task that recreates initrds."""
         version = "4.17.7-200.fc28.x86_64"
 
@@ -557,7 +557,7 @@ class BootloaderTasksTestCase(unittest.TestCase):
     @patch('pyanaconda.modules.storage.bootloader.installation.conf')
     @patch('pyanaconda.modules.storage.bootloader.installation.InstallBootloaderTask')
     @patch('pyanaconda.modules.storage.bootloader.installation.ConfigureBootloaderTask')
-    def fix_btrfs_test(self, configure, install, conf):
+    def test_fix_btrfs(self, configure, install, conf):
         """Test the final configuration of the boot loader."""
         storage = create_storage()
         sysroot = "/tmp/sysroot"
@@ -648,7 +648,7 @@ class BootloaderTasksTestCase(unittest.TestCase):
     @patch('pyanaconda.modules.storage.bootloader.installation.conf')
     @patch("pyanaconda.modules.storage.bootloader.installation.arch.is_s390")
     @patch("pyanaconda.modules.storage.bootloader.installation.execInSysroot")
-    def fix_zipl_test(self, execute, is_s390, conf):
+    def test_fix_zipl(self, execute, is_s390, conf):
         """Test the installation task for the ZIPL fix."""
         is_s390.return_value = False
         conf.target.is_directory = False
@@ -674,19 +674,19 @@ class BootloaderTasksTestCase(unittest.TestCase):
 class BootLoaderFactoryTestCase(unittest.TestCase):
     """Test the boot loader factory."""
 
-    def create_boot_loader_test(self):
+    def test_create_boot_loader(self):
         """Test create_boot_loader."""
         boot_loader = BootLoaderFactory.create_boot_loader()
         self.assertIsNotNone(boot_loader)
         self.assertIsInstance(boot_loader, BootLoader)
 
-    def get_generic_class_test(self):
+    def test_get_generic_class(self):
         """Test get_generic_class."""
         cls = BootLoaderFactory.get_generic_class()
         self.assertEqual(cls, BootLoader)
 
     @reset_boot_loader_factory()
-    def get_default_class_test(self):
+    def test_get_default_class(self):
         """Test get_default_class."""
         cls = BootLoaderFactory.get_default_class()
         self.assertEqual(cls, None)
@@ -695,7 +695,7 @@ class BootLoaderFactoryTestCase(unittest.TestCase):
         cls = BootLoaderFactory.get_default_class()
         self.assertEqual(cls, EXTLINUX)
 
-    def get_class_by_name_test(self):
+    def test_get_class_by_name(self):
         """Test get_class_by_name."""
         cls = BootLoaderFactory.get_class_by_name("EXTLINUX")
         self.assertEqual(cls, EXTLINUX)
@@ -703,7 +703,7 @@ class BootLoaderFactoryTestCase(unittest.TestCase):
         cls = BootLoaderFactory.get_class_by_name("DEFAULT")
         self.assertEqual(cls, None)
 
-    def get_class_by_platform_test(self):
+    def test_get_class_by_platform(self):
         """Test get_class_by_platform."""
         # Test unknown platform.
         cls = BootLoaderFactory.get_class_by_platform(Mock())

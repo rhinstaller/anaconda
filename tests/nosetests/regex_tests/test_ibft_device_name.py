@@ -43,7 +43,7 @@ def _run_tests(testcase, expression, goodlist, badlist):
         testcase.fail()
 
 class IbftDeviceNameTestCase(unittest.TestCase):
-    def netmask_test(self):
+    def test_netmask(self):
         good_tests = [
                 'ibft0',
                 'ibft1',

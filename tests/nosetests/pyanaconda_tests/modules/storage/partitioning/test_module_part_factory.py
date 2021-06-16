@@ -33,7 +33,7 @@ from pyanaconda.modules.storage.partitioning.factory import PartitioningFactory
 class PartitioningFactoryTestCase(unittest.TestCase):
     """Test the partitioning factory."""
 
-    def create_partitioning_test(self):
+    def test_create_partitioning(self):
         """Test create_partitioning."""
         for method in PartitioningMethod:
             module = PartitioningFactory.create_partitioning(method)
@@ -41,14 +41,14 @@ class PartitioningFactoryTestCase(unittest.TestCase):
             self.assertIsInstance(module.for_publication(), PartitioningInterface)
             self.assertEqual(module.partitioning_method, method)
 
-    def failed_partitioning_test(self):
+    def test_failed_partitioning(self):
         """Test failed create_partitioning."""
         with self.assertRaises(ValueError):
             PartitioningFactory.create_partitioning("INVALID")
 
     @patch.object(BTRFS, "formattable", new_callable=PropertyMock)
     @patch.object(BTRFS, "supported", new_callable=PropertyMock)
-    def get_method_for_kickstart_test(self, supported, formattable):
+    def test_get_method_for_kickstart(self, supported, formattable):
         """Test get_method_for_kickstart."""
         supported.return_value = True
         formattable.return_value = True

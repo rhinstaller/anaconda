@@ -39,7 +39,7 @@ def _run_tests(testcase, expression, goodlist, badlist):
     testcase.assertEqual(errors, [])
 
 class IPv4NetmaskTestCase(unittest.TestCase):
-    def netmask_test(self):
+    def test_netmask(self):
         good_tests = [
                 '255.255.255.0',
                 '255.255.0.0',

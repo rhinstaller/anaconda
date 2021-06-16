@@ -43,15 +43,15 @@ class FlatpakSourceInterfaceTestCase(unittest.TestCase):
             *args, **kwargs
         )
 
-    def type_test(self):
+    def test_type(self):
         """Test the Type property."""
         self.assertEqual(self.interface.Type, SOURCE_TYPE_FLATPAK)
 
-    def description_test(self):
+    def test_description(self):
         """Test the Description property."""
         self.assertEqual(self.interface.Description, "Flatpak")
 
-    def is_available_test(self):
+    def test_is_available(self):
         """Test the IsAvailable method."""
         self.assertEqual(self.interface.IsAvailable(), False)
 
@@ -62,15 +62,15 @@ class FlatpakSourceTestCase(unittest.TestCase):
     def setUp(self):
         self.module = FlatpakSourceModule()
 
-    def type_test(self):
+    def test_type(self):
         """Test the type property."""
         self.assertEqual(self.module.type, SourceType.FLATPAK)
 
-    def network_required_test(self):
+    def test_network_required(self):
         """Test the network_required property."""
         self.assertEqual(self.module.network_required, False)
 
-    def required_space_test(self):
+    def test_required_space(self):
         """Test the required_space property."""
         self.assertEqual(self.module.required_space, 0)
 
@@ -78,7 +78,7 @@ class FlatpakSourceTestCase(unittest.TestCase):
         self.assertEqual(self.module.required_space, 1024)
 
     @patch("pyanaconda.modules.payloads.source.flatpak.flatpak.GetFlatpaksSizeTask.run")
-    def set_required_space_with_task_test(self, run_mock):
+    def test_set_required_space_with_task(self, run_mock):
         """Set the required_space property with a task."""
         run_mock.return_value = 1024
 
@@ -87,22 +87,22 @@ class FlatpakSourceTestCase(unittest.TestCase):
 
         self.assertEqual(self.module.required_space, 1024)
 
-    def get_state_test(self):
+    def test_get_state(self):
         """Test the source state."""
         self.assertEqual(self.module.get_state(), SourceState.NOT_APPLICABLE)
 
-    def set_up_with_tasks_test(self):
+    def test_set_up_with_tasks(self):
         """Test the set-up tasks."""
         tasks = self.module.set_up_with_tasks()
 
         self.assertEqual(len(tasks), 1)
         self.assertIsInstance(tasks[0], GetFlatpaksSizeTask)
 
-    def tear_down_with_tasks_test(self):
+    def test_tear_down_with_tasks(self):
         """Test the tear-down tasks."""
         self.assertEqual(self.module.tear_down_with_tasks(), [])
 
-    def repr_test(self):
+    def test_repr(self):
         """Test the string representation."""
         self.assertEqual(repr(self.module), "Source(type='FLATPAK')")
 
@@ -110,7 +110,7 @@ class FlatpakSourceTestCase(unittest.TestCase):
 class GetFlatpaksSizeTaskTest(unittest.TestCase):
 
     @patch("pyanaconda.modules.payloads.source.flatpak.initialization.FlatpakManager")
-    def run_success_test(self, fm_mock):
+    def test_run_success(self, fm_mock):
         """Test GetFlatpaksSizeTask"""
         fm_instance = fm_mock.return_value
         fm_instance.get_required_size.return_value = 123456789

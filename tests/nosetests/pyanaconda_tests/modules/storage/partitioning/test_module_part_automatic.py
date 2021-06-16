@@ -65,12 +65,12 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
             *args, **kwargs
         )
 
-    def publication_test(self):
+    def test_publication(self):
         """Test the DBus representation."""
         self.assertIsInstance(self.module.for_publication(), AutoPartitioningInterface)
 
     @patch_dbus_publish_object
-    def device_tree_test(self, publisher):
+    def test_device_tree(self, publisher):
         """Test the device tree."""
         self.module.on_storage_changed(Mock())
         path = self.interface.GetDeviceTree()
@@ -83,7 +83,7 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
         self.module.on_storage_changed(Mock())
         self.assertEqual(obj.implementation.storage, self.module.storage)
 
-    def request_property_test(self):
+    def test_request_property(self):
         """Test the property request."""
         request = {
             'partitioning-scheme': get_variant(Int, AUTOPART_TYPE_LVM_THINP),
@@ -105,7 +105,7 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
             request
         )
 
-    def requires_passphrase_test(self):
+    def test_requires_passphrase(self):
         """Test RequiresPassphrase."""
         self.assertEqual(self.interface.RequiresPassphrase(), False)
 
@@ -115,7 +115,7 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
         self.module.request.passphrase = "123456"
         self.assertEqual(self.interface.RequiresPassphrase(), False)
 
-    def reset_test(self):
+    def test_reset(self):
         """Test the reset of the storage."""
         with self.assertRaises(UnavailableStorageError):
             if self.module.storage:
@@ -131,7 +131,7 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
         self.assertIsNotNone(self.module._storage_playground)
 
     @patch_dbus_publish_object
-    def configure_with_task_test(self, publisher):
+    def test_configure_with_task(self, publisher):
         """Test ConfigureWithTask."""
         self.module.on_storage_changed(Mock())
         task_path = self.interface.ConfigureWithTask()
@@ -142,7 +142,7 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._request, self.module.request)
 
     @patch_dbus_publish_object
-    def validate_with_task_test(self, publisher):
+    def test_validate_with_task(self, publisher):
         """Test ValidateWithTask."""
         self.module.on_storage_changed(Mock())
         task_path = self.interface.ValidateWithTask()
@@ -179,14 +179,14 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
 class AutomaticPartitioningTaskTestCase(unittest.TestCase):
     """Test the automatic partitioning task."""
 
-    def no_luks_format_args_test(self):
+    def test_no_luks_format_args(self):
         storage = create_storage()
         request = PartitioningRequest()
 
         args = AutomaticPartitioningTask._get_luks_format_args(storage, request)
         self.assertEqual(args, {})
 
-    def luks1_format_args_test(self):
+    def test_luks1_format_args(self):
         storage = create_storage()
         storage._escrow_certificates["file:///tmp/escrow.crt"] = "CERTIFICATE"
 
@@ -208,7 +208,7 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
             "add_backup_passphrase": True,
         })
 
-    def luks2_format_args_test(self):
+    def test_luks2_format_args(self):
         storage = create_storage()
         request = PartitioningRequest()
         request.encrypted = True
@@ -237,7 +237,7 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
         self.assertEqual(pbkdf_args.time_ms, 100)
 
     @patch('pyanaconda.modules.storage.partitioning.automatic.utils.platform')
-    def get_default_partitioning_test(self, platform):
+    def test_get_default_partitioning(self, platform):
         platform.partitions = [PartSpec("/boot")]
         requests = get_default_partitioning()
 
@@ -245,7 +245,7 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
 
     @patch('pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning.suggest_swap_size')
     @patch('pyanaconda.modules.storage.partitioning.automatic.utils.platform')
-    def get_partitioning_test(self, platform, suggest_swap_size):
+    def test_get_partitioning(self, platform, suggest_swap_size):
         storage = create_storage()
 
         # Set the platform specs.
@@ -289,7 +289,7 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
 class AutomaticPartitioningUtilsTestCase(unittest.TestCase):
     """Test the automatic partitioning utils."""
 
-    def get_disks_for_implicit_partitions_test(self):
+    def test_get_disks_for_implicit_partitions(self):
         """Test the get_disks_for_implicit_partitions function."""
         # The /boot partition always requires a slot.
         requests = [

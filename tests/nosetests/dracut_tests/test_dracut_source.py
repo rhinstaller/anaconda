@@ -33,7 +33,7 @@ REPO_DIR = dirname(os.path.realpath(pyanaconda.__file__))
 @unittest.skipIf(REPO_DIR.startswith("/usr/lib"), "Could be run only on source files. Skipping.")
 class SourcesTestCase(unittest.TestCase):
 
-    def find_rw_mounts_test(self):
+    def test_find_rw_mounts(self):
         """Test that only RO mounts of install sources are in Dracut."""
         # everything what starts by string in this list will not be tested
         ignore_prefixes = ("Makefile", "README", "python-deps", "module-setup.sh")

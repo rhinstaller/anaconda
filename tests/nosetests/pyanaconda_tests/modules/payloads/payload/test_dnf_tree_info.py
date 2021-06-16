@@ -173,7 +173,7 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
 
         return root_path
 
-    def invalid_tree_info_test(self):
+    def test_invalid_tree_info(self):
         """Test an invalid treeinfo metadata."""
         with self.assertRaises(InvalidTreeInfoError) as cm:
             self._load_treeinfo(TREE_INFO_INVALID)
@@ -185,7 +185,7 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
         self.assertEqual(self.metadata.repositories, [])
         self.assertEqual(self.metadata.get_base_repo_url(), "")
 
-    def release_version_test(self):
+    def test_release_version(self):
         """Test the release_version property."""
         self._load_treeinfo(TREE_INFO_FEDORA)
         self.assertEqual(self.metadata.release_version, "34")
@@ -193,7 +193,7 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
         self._load_treeinfo(TREE_INFO_RHEL)
         self.assertEqual(self.metadata.release_version, "8.5")
 
-    def name_repo_test(self):
+    def test_name_repo(self):
         """Test the name property of the repo metadata."""
         self._load_treeinfo(TREE_INFO_RHEL)
         self.assertEqual(len(self.metadata.repositories), 2)
@@ -204,7 +204,7 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
         repo_md = self.metadata.repositories[1]
         self.assertEqual(repo_md.name, "BaseOS")
 
-    def path_repo_test(self):
+    def test_path_repo(self):
         """Test the path properties of the repo metadata."""
         root_path = self._load_treeinfo(TREE_INFO_FEDORA)
         self.assertEqual(len(self.metadata.repositories), 1)
@@ -225,7 +225,7 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
         self.assertEqual(repo_md.path, "/tmp/baseos")
 
     @patch("pyanaconda.modules.payloads.payload.dnf.tree_info.conf")
-    def enabled_repo_test(self, mock_conf):
+    def test_enabled_repo(self, mock_conf):
         """Test the enabled property of the repo metadata."""
         mock_conf.payload.enabled_repositories_from_treeinfo = ["variant"]
         self._load_treeinfo(TREE_INFO_CUSTOM)
@@ -242,7 +242,7 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
         self.assertEqual(repo_md.type, "variant")
         self.assertEqual(repo_md.enabled, True)
 
-    def valid_repo_test(self):
+    def test_valid_repo(self):
         """Test the valid property of the repo metadata."""
         with tempfile.TemporaryDirectory() as path:
             self._create_file(path, ".treeinfo", TREE_INFO_FEDORA)
@@ -254,7 +254,7 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
             self._create_directory(path, "repodata")
             self.assertEqual(repo_md.valid, True)
 
-    def verify_image_base_repo_test(self):
+    def test_verify_image_base_repo(self):
         """Test the verify_image_base_repo method."""
         # No repository.
         self.assertFalse(self.metadata.verify_image_base_repo())
@@ -284,7 +284,7 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
             self.metadata.load_file(path)
             self.assertTrue(self.metadata.verify_image_base_repo())
 
-    def get_base_repo_url_test(self):
+    def test_get_base_repo_url(self):
         """Test the get_base_repo_url method."""
         # Use the root repository.
         root_path = self._load_treeinfo(TREE_INFO_FEDORA)
@@ -294,7 +294,7 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
         self._load_treeinfo(TREE_INFO_RHEL)
         self.assertEqual(self.metadata.get_base_repo_url(), "/tmp/baseos")
 
-    def load_file_test(self):
+    def test_load_file(self):
         """Test the load_file method."""
         # No metadata file.
         with tempfile.TemporaryDirectory() as path:
@@ -313,7 +313,7 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
             self._create_file(path, "treeinfo", TREE_INFO_FEDORA)
             self.metadata.load_file(path)
 
-    def load_data_unsupported_url_test(self):
+    def test_load_data_unsupported_url(self):
         """Test the load_data method with an unsupported URL."""
         data = RepoConfigurationData()
         data.type = URL_TYPE_METALINK
@@ -323,7 +323,7 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
 
         self.assertEqual(str(cm.exception), "Unsupported type of URL (METALINK).")
 
-    def load_data_missing_url_test(self):
+    def test_load_data_missing_url(self):
         """Test the load_data method with a missing URL."""
         data = RepoConfigurationData()
         data.url = ""
@@ -333,7 +333,7 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
 
         self.assertEqual(str(cm.exception), "No URL specified.")
 
-    def load_data_failed_download_test(self):
+    def test_load_data_failed_download(self):
         """Test the load_data method with no metadata."""
         with tempfile.TemporaryDirectory() as path:
             data = RepoConfigurationData()
@@ -344,7 +344,7 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
 
             self.assertEqual(str(cm.exception), "Couldn't download treeinfo metadata.")
 
-    def load_data_no_metadata_test(self):
+    def test_load_data_no_metadata(self):
         """Test the load_data method with no metadata."""
         with tempfile.TemporaryDirectory() as path:
             data = RepoConfigurationData()
@@ -355,7 +355,7 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
 
             self.assertEqual(str(cm.exception), "No treeinfo metadata found (404).")
 
-    def load_data_test(self):
+    def test_load_data(self):
         """Test the load_data method."""
         # Load the .treeinfo file.
         with tempfile.TemporaryDirectory() as path:
@@ -376,7 +376,7 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
             self.metadata.load_data(data)
 
     @patch("requests.Session.get")
-    def load_data_ssl_test(self, session_getter):
+    def test_load_data_ssl(self, session_getter):
         """Test the load_data method with SSL configuration."""
         session_getter.return_value.__enter__.return_value = \
             Mock(status_code=200, text=TREE_INFO_FEDORA)
@@ -400,7 +400,7 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
         )
 
     @patch("requests.Session.get")
-    def load_data_proxy_test(self, session_getter):
+    def test_load_data_proxy(self, session_getter):
         """Test the load_data method with proxy configuration."""
         session_getter.return_value.__enter__.return_value = \
             Mock(status_code=200, text=TREE_INFO_FEDORA)
@@ -424,7 +424,7 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
         )
 
     @patch("requests.Session.get")
-    def load_data_invalid_proxy_test(self, session_getter):
+    def test_load_data_invalid_proxy(self, session_getter):
         """Test the load_data method with invalid proxy configuration."""
         session_getter.return_value.__enter__.return_value = \
             Mock(status_code=200, text=TREE_INFO_FEDORA)
