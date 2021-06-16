@@ -60,7 +60,7 @@ jobs:
           name: ${{ matrix.container-tag }}-${{ matrix.container-type }}-logs
           path: |
             test-logs/test-suite.log
-            test-logs/nosetests.log
+            test-logs/unit_tests.log
             test-logs/pylint/runpylint*.log
             test-logs/coverage-*.log
 
