@@ -30,7 +30,7 @@ from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_initialization impor
 
 class InstallFlatpakTaskTest(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_installation.FlatpakManager")
-    def run_success_test(self, fm_mock):
+    def test_run_success(self, fm_mock):
         """Test InstallFlatpakTask.run success"""
         fm_instance = fm_mock.return_value
 
@@ -43,7 +43,7 @@ class InstallFlatpakTaskTest(unittest.TestCase):
         fm_instance.remove_remote.assert_called_once()
 
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_installation.FlatpakManager")
-    def run_failure_test(self, fm_mock):
+    def test_run_failure(self, fm_mock):
         """Test InstallFlatpakTask.run failure"""
         fm_instance = fm_mock.return_value
         fm_instance.install_all.side_effect = FlatpakInstallError
@@ -56,7 +56,7 @@ class InstallFlatpakTaskTest(unittest.TestCase):
 
 class GetFlatpaksSizeTaskTest(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_initialization.FlatpakManager")
-    def run_success_test(self, fm_mock):
+    def test_run_success(self, fm_mock):
         """Test GetFlatpaksSizeTask"""
         fm_instance = fm_mock.return_value
         fm_instance.get_required_size.return_value = 123456789

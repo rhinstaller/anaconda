@@ -104,7 +104,7 @@ class SimpleUITestCase(unittest.TestCase):
             res[priority] = name
 
     @patch_dbus_get_proxy
-    def tui_test(self, proxy_getter):
+    def test_tui(self, proxy_getter):
         # Create the interface.
         from pyanaconda.ui.tui import TextUserInterface
         self.interface = TextUserInterface(self.storage, self.payload)
@@ -152,7 +152,7 @@ class SimpleUITestCase(unittest.TestCase):
     @patch("pyanaconda.ui.gui.meh")
     @patch("pyanaconda.ui.gui.MainWindow")
     @patch("pyanaconda.ui.gui.ANACONDA_WINDOW_GROUP")
-    def gui_test(self, window_group, window, meh, builder, proxy_getter):
+    def test_gui(self, window_group, window, meh, builder, proxy_getter):
         # Create the interface.
         from pyanaconda.ui.gui import GraphicalUserInterface
         self.interface = GraphicalUserInterface(self.storage, self.payload)
@@ -203,7 +203,7 @@ class SimpleUITestCase(unittest.TestCase):
         # This will ordering errors easier to spot.
         self._check_spokes_priority_uniqueness()
 
-    def correct_spokes_ordering_test(self):
+    def test_correct_spokes_ordering(self):
         # create fake spokes with the same priority
         hub = create_autospec(Hub)
 

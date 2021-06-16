@@ -22,7 +22,7 @@ from regexcheck import regex_group
 from pyanaconda.core.regexes import URL_PARSE
 
 class URLRegexTestCase(unittest.TestCase):
-    def url_regex_test(self):
+    def test_url_regex(self):
         """
         Run a list of possible URL values through the regex and check for
         correct results.

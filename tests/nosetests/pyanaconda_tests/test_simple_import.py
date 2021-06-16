@@ -63,7 +63,7 @@ class SimpleImportTestCase(unittest.TestCase):
         if missing:
             self.fail("Expected to import: {}".format(", ".join(missing)))
 
-    def import_pyanaconda_test(self):
+    def test_import_pyanaconda(self):
         """Import everything from pyanaconda.
 
         Import all submodules and randomly check some of them.

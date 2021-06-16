@@ -23,7 +23,7 @@ from pyanaconda.modules.storage.bootloader.base import BootLoaderArguments
 
 class BootLoaderArgsTestCase(unittest.TestCase):
 
-    def add_test(self):
+    def test_add(self):
         """BootLoaderArguments.add reorders things as expected."""
         args = BootLoaderArguments()
 
@@ -36,7 +36,7 @@ class BootLoaderArgsTestCase(unittest.TestCase):
         self.assertEqual(str(args), "second first")
         self.assertEqual(list(args), ["second", "first"])
 
-    def update_test(self):
+    def test_update(self):
         """BootLoaderArguments.update reorders things as expected."""
         args = BootLoaderArguments()
 
@@ -46,7 +46,7 @@ class BootLoaderArgsTestCase(unittest.TestCase):
         args.update(["three", "two"])
         self.assertEqual(str(args), "one a b c three two")
 
-    def ip_merge_test(self):
+    def test_ip_merge(self):
         """BootLoaderArguments.__str__ reorders ip= as expected."""
         args = BootLoaderArguments()
         args.update(["start", "blah"])

@@ -93,7 +93,7 @@ class BossInterfaceTestCase(unittest.TestCase):
         """Callback for a handler getter."""
         return object_proxy.object_handler
 
-    def get_modules_test(self):
+    def test_get_modules(self):
         """Test GetModules."""
         self.assertEqual(self.interface.GetModules(), [])
 
@@ -109,7 +109,7 @@ class BossInterfaceTestCase(unittest.TestCase):
         ])
 
     @patch_dbus_publish_object
-    def start_modules_with_task_test(self, publisher):
+    def test_start_modules_with_task(self, publisher):
         """Test StartModulesWithTask."""
         task_path = self.interface.StartModulesWithTask()
         task_proxy = check_task_creation(self, task_path, publisher, StartModulesTask)
@@ -123,7 +123,7 @@ class BossInterfaceTestCase(unittest.TestCase):
         task.succeeded_signal.emit()
         callback.assert_called_once_with(observers)
 
-    def read_kickstart_file_test(self):
+    def test_read_kickstart_file(self):
         """Test ReadKickstartFile."""
         with tempfile.NamedTemporaryFile("r+") as f:
             report = self.interface.ReadKickstartFile(f.name)
@@ -133,15 +133,15 @@ class BossInterfaceTestCase(unittest.TestCase):
             "warning-messages": get_variant(List[Structure], [])
         })
 
-    def generate_kickstart_test(self):
+    def test_generate_kickstart(self):
         """Test GenerateKickstart."""
         self.assertEqual(self.interface.GenerateKickstart(), "")
 
-    def set_locale_test(self):
+    def test_set_locale(self):
         """Test SetLocale."""
         self.assertEqual(self.interface.SetLocale(DEFAULT_LANG), None)
 
-    def collect_requirements_test(self):
+    def test_collect_requirements(self):
         """Test CollectRequirements."""
         self.assertEqual(self.interface.CollectRequirements(), [])
 
@@ -164,7 +164,7 @@ class BossInterfaceTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.boss.boss_interface.get_object_handler")
     @patch_dbus_get_proxy
-    def collect_configure_runtime_tasks_test(self, proxy_getter, handler_getter):
+    def test_collect_configure_runtime_tasks(self, proxy_getter, handler_getter):
         """Test CollectConfigureRuntimeTasks."""
         self.assertEqual(self.interface.CollectConfigureRuntimeTasks(), [])
 
@@ -184,7 +184,7 @@ class BossInterfaceTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.boss.boss_interface.get_object_handler")
     @patch_dbus_get_proxy
-    def collect_configure_bootloader_tasks_test(self, proxy_getter, handler_getter):
+    def test_collect_configure_bootloader_tasks(self, proxy_getter, handler_getter):
         """Test CollectConfigureBootloaderTasks."""
         version = "4.17.7-200.fc28.x86_64"
         self.assertEqual(self.interface.CollectConfigureBootloaderTasks([version]), [])
@@ -205,7 +205,7 @@ class BossInterfaceTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.boss.boss_interface.get_object_handler")
     @patch_dbus_get_proxy
-    def collect_install_system_tasks_test(self, proxy_getter, handler_getter):
+    def test_collect_install_system_tasks(self, proxy_getter, handler_getter):
         """Test CollectInstallSystemTasks."""
         self.assertEqual(self.interface.CollectInstallSystemTasks(), [])
 
@@ -223,6 +223,6 @@ class BossInterfaceTestCase(unittest.TestCase):
             ("B", "/task/4"),
         ])
 
-    def quit_test(self):
+    def test_quit(self):
         """Test Quit."""
         self.assertEqual(self.interface.Quit(), None)

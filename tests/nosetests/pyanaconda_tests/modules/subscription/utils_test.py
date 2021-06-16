@@ -26,10 +26,10 @@ from pyanaconda.modules.subscription.utils import flatten_rhsm_nested_dict
 class FlattenRHSMNestedDictTestCase(unittest.TestCase):
     """Test the RHSM nested dict flattening function."""
 
-    def empty_dict_test(self):
+    def test_empty_dict(self):
         """Test the flattening function can handle an empty dict being passed."""
         self.assertEqual(flatten_rhsm_nested_dict({}), {})
 
-    def nested_dict_test(self):
+    def test_nested_dict(self):
         """Test the flattening function can handle a nested dict being passed."""
         self.assertEqual(flatten_rhsm_nested_dict({"foo": {"bar": "baz"}}), {"foo.bar": "baz"})

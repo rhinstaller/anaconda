@@ -22,7 +22,7 @@ from unittest.mock import patch, Mock
 
 
 class TimezonesListings(unittest.TestCase):
-    def string_timezones_test(self):
+    def test_string_timezones(self):
         """Check if returned timezones are plain strings, not unicode objects."""
         for (region, zones) in timezone.get_all_regions_and_timezones().items():
             self.assertIsInstance(region, str)
@@ -30,7 +30,7 @@ class TimezonesListings(unittest.TestCase):
             for zone in zones:
                 self.assertIsInstance(zone, str)
 
-    def all_timezones_valid_test(self):
+    def test_all_timezones_valid(self):
         """Check if all returned timezones are considered valid timezones."""
 
         for (region, zones) in timezone.get_all_regions_and_timezones().items():
@@ -39,13 +39,13 @@ class TimezonesListings(unittest.TestCase):
 
 
 class TerritoryTimezones(unittest.TestCase):
-    def string_valid_territory_zone_test(self):
+    def test_string_valid_territory_zone(self):
         """Check if the returned value is string for a valid territory."""
 
         zone = timezone.get_preferred_timezone("CZ")
         self.assertIsInstance(zone, str)
 
-    def invalid_territory_zones_test(self):
+    def test_invalid_territory_zones(self):
         """Check if None is return for an invalid territory."""
 
         self.assertIsNone(timezone.get_preferred_timezone("nonexistent"))
@@ -55,14 +55,14 @@ class s390HWclock(unittest.TestCase):
 
     @patch('pyanaconda.timezone.arch.is_s390', return_value=True)
     @patch('pyanaconda.timezone.util.execWithRedirect')
-    def s390_save_hw_clock_test(self, exec_mock, s390_mock):
+    def test_s390_save_hw_clock(self, exec_mock, s390_mock):
         """Check that save_hw_clock does nothing on s390."""
         timezone.save_hw_clock(Mock())
         self.assertFalse(exec_mock.called)
 
     @patch('pyanaconda.timezone.arch.is_s390', return_value=True)
     @patch('pyanaconda.timezone.util.execWithRedirect')
-    def s390_time_initialize_test(self, exec_mock, s390_mock):
+    def test_s390_time_initialize(self, exec_mock, s390_mock):
         """Check that time_initialize doesn't call hwclock on s390."""
         timezone.time_initialize(Mock())
         self.assertFalse(exec_mock.called)

@@ -79,7 +79,7 @@ class PlatformTestCase(unittest.TestCase):
         self.assertEqual(platform.stage1_suggestion, error_message)
 
     @patch("pyanaconda.modules.storage.platform.arch")
-    def x86_test(self, arch):
+    def test_x86(self, arch):
         """Test the x86 platform."""
         self._reset_arch(arch)
         arch.is_x86.return_value = True
@@ -110,7 +110,7 @@ class PlatformTestCase(unittest.TestCase):
         )
 
     @patch("pyanaconda.modules.storage.platform.arch")
-    def s390x_test(self, arch):
+    def test_s390x(self, arch):
         """Test the s390x platform."""
         self._reset_arch(arch)
         arch.is_s390.return_value = True
@@ -140,7 +140,7 @@ class PlatformTestCase(unittest.TestCase):
         )
 
     @patch("pyanaconda.modules.storage.platform.arch")
-    def arm_test(self, arch):
+    def test_arm(self, arch):
         """Test the ARM platform."""
         self._reset_arch(arch)
         arch.is_arm.return_value = True
@@ -168,7 +168,7 @@ class PlatformTestCase(unittest.TestCase):
         )
 
     @patch("pyanaconda.modules.storage.platform.arch")
-    def efi_test(self, arch):
+    def test_efi(self, arch):
         """Test the EFI platform."""
         self._reset_arch(arch)
         arch.is_efi.return_value = True
@@ -204,7 +204,7 @@ class PlatformTestCase(unittest.TestCase):
         )
 
     @patch("pyanaconda.modules.storage.platform.arch")
-    def mac_efi_test(self, arch):
+    def test_mac_efi(self, arch):
         """Test the Mac EFI platform."""
         self._reset_arch(arch)
         arch.is_efi.return_value = True
@@ -242,7 +242,7 @@ class PlatformTestCase(unittest.TestCase):
         )
 
     @patch("pyanaconda.modules.storage.platform.arch")
-    def aarch64_efi_test(self, arch):
+    def test_aarch64_efi(self, arch):
         """Test the Aarch64 EFI platform."""
         self._reset_arch(arch)
         arch.is_efi.return_value = True
@@ -279,7 +279,7 @@ class PlatformTestCase(unittest.TestCase):
         )
 
     @patch("pyanaconda.modules.storage.platform.arch")
-    def arm_efi_test(self, arch):
+    def test_arm_efi(self, arch):
         """Test the ARM EFI platform."""
         self._reset_arch(arch)
         arch.is_efi.return_value = True
@@ -316,7 +316,7 @@ class PlatformTestCase(unittest.TestCase):
         )
 
     @patch("pyanaconda.modules.storage.platform.arch")
-    def new_world_ppc_test(self, arch):
+    def test_new_world_ppc(self, arch):
         """Test the New World PPC platform."""
         self._reset_arch(arch)
         arch.is_ppc.return_value = True
@@ -350,7 +350,7 @@ class PlatformTestCase(unittest.TestCase):
         )
 
     @patch("pyanaconda.modules.storage.platform.arch")
-    def iseries_ppc_test(self, arch):
+    def test_iseries_ppc(self, arch):
         """Test the iSeries PPC platform."""
         self._reset_arch(arch)
         arch.is_ppc.return_value = True
@@ -382,7 +382,7 @@ class PlatformTestCase(unittest.TestCase):
         )
 
     @patch("pyanaconda.modules.storage.platform.arch")
-    def pseries_ppc_test(self, arch):
+    def test_pseries_ppc(self, arch):
         """Test the pSeries PPC platform."""
         self._reset_arch(arch)
         arch.is_ppc.return_value = True
@@ -414,7 +414,7 @@ class PlatformTestCase(unittest.TestCase):
         )
 
     @patch("pyanaconda.modules.storage.platform.arch")
-    def power_nv_ppc_test(self, arch):
+    def test_power_nv_ppc(self, arch):
         """Test the Power NV PPC platform."""
         self._reset_arch(arch)
         arch.is_ppc.return_value = True
@@ -441,7 +441,7 @@ class PlatformTestCase(unittest.TestCase):
         )
 
     @patch("pyanaconda.modules.storage.platform.arch")
-    def ps3_ppc_test(self, arch):
+    def test_ps3_ppc(self, arch):
         """Test the PS3 PPC platform."""
         self._reset_arch(arch)
         arch.is_ppc.return_value = True
@@ -466,7 +466,7 @@ class PlatformTestCase(unittest.TestCase):
         )
 
     @patch("pyanaconda.modules.storage.platform.arch")
-    def unsupported_ppc_test(self, arch):
+    def test_unsupported_ppc(self, arch):
         """Test an unsupported PPC platform."""
         self._reset_arch(arch)
         arch.is_ppc.return_value = True
@@ -478,7 +478,7 @@ class PlatformTestCase(unittest.TestCase):
         self.assertEqual(str(cm.exception), "Unsupported PPC machine type: INVALID")
 
     @patch("pyanaconda.modules.storage.platform.arch")
-    def unsupported_platform_test(self, arch):
+    def test_unsupported_platform(self, arch):
         """Test an unsupported platform."""
         self._reset_arch(arch)
 

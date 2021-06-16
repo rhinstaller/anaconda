@@ -59,24 +59,24 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
 
         return source
 
-    def type_test(self):
+    def test_type(self):
         self.shared_tests.check_type(PayloadType.LIVE_OS)
 
-    def supported_sources_test(self):
+    def test_supported_sources(self):
         """Test LiveOS supported sources API."""
         self.assertEqual(
             [SOURCE_TYPE_LIVE_OS_IMAGE],
             self.live_os_interface.SupportedSourceTypes)
 
     @patch_dbus_publish_object
-    def set_source_test(self, publisher):
+    def test_set_source(self, publisher):
         """Test if set source API of LiveOS payload."""
         sources = [self._prepare_source()]
 
         self.shared_tests.set_and_check_sources(sources)
 
     @patch_dbus_publish_object
-    def set_multiple_sources_fail_test(self, publisher):
+    def test_set_multiple_sources_fail(self, publisher):
         """Test LiveOS payload can't set multiple sources."""
         paths = [
             self._prepare_source(),
@@ -86,7 +86,7 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
         self.shared_tests.set_and_check_sources(paths, exception=IncompatibleSourceError)
 
     @patch_dbus_publish_object
-    def set_when_initialized_source_fail_test(self, publisher):
+    def test_set_when_initialized_source_fail(self, publisher):
         """Test LiveOS payload can't set new sources if the old ones are initialized."""
         source1 = self._prepare_source()
         source2 = self._prepare_source()
@@ -102,7 +102,7 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
         self.shared_tests.set_and_check_sources([source1])
 
     @patch("pyanaconda.modules.payloads.payload.live_os.live_os.get_kernel_version_list")
-    def empty_kernel_version_list_test(self, get_kernel_version_list):
+    def test_empty_kernel_version_list(self, get_kernel_version_list):
         """Test Live OS empty get kernel version list."""
         self.assertEqual(self.live_os_interface.GetKernelVersionList(), [])
 
@@ -119,7 +119,7 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
         kernel_list_callback.assert_called_once_with([])
 
     @patch("pyanaconda.modules.payloads.payload.live_os.live_os.get_kernel_version_list")
-    def kernel_version_list_test(self, get_kernel_version_list):
+    def test_kernel_version_list(self, get_kernel_version_list):
         """Test Live OS get kernel version list."""
         kernel_list = ["kernel-abc", "magic-kernel.fc3000.x86_64", "sad-kernel"]
         get_kernel_version_list.return_value = kernel_list
@@ -135,7 +135,7 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
         kernel_list_callback.assert_called_once_with(kernel_list)
 
     @patch_dbus_publish_object
-    def set_up_installation_sources_task_test(self, publisher):
+    def test_set_up_installation_sources_task(self, publisher):
         """Test Live OS is able to create a set up installation sources task."""
         self._prepare_and_use_source()
 
@@ -144,7 +144,7 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
         check_task_creation(self, task_path, publisher, SetUpSourcesTask)
 
     @patch_dbus_publish_object
-    def prepare_system_for_installation_task_test(self, publisher):
+    def test_prepare_system_for_installation_task(self, publisher):
         """Test Live OS is able to create a prepare installation task."""
         self._prepare_and_use_source()
 
@@ -153,13 +153,13 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
         check_task_creation_list(self, task_path, publisher, [PrepareSystemForInstallationTask])
 
     @patch_dbus_publish_object
-    def prepare_system_for_installation_task_no_source_test(self, publisher):
+    def test_prepare_system_for_installation_task_no_source(self, publisher):
         """Test Live OS prepare installation task with no source fail."""
         with self.assertRaises(SourceSetupError):
             self.live_os_interface.PreInstallWithTasks()
 
     @patch_dbus_publish_object
-    def tear_down_installation_source_task_test(self, publisher):
+    def test_tear_down_installation_source_task(self, publisher):
         """Test Live OS is able to create a tear down installation sources task."""
         self._prepare_and_use_source()
 
@@ -168,7 +168,7 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
         check_task_creation(self, task_path, publisher, TearDownSourcesTask)
 
     @patch_dbus_publish_object
-    def install_with_task_test(self, publisher):
+    def test_install_with_task(self, publisher):
         """Test Live OS install with tasks."""
         self._prepare_and_use_source()
 
@@ -177,13 +177,13 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
         check_task_creation_list(self, task_path, publisher, [InstallFromImageTask])
 
     @patch_dbus_publish_object
-    def install_with_task_no_source_test(self, publisher):
+    def test_install_with_task_no_source(self, publisher):
         """Test Live OS install with tasks with no source fail."""
         with self.assertRaises(SourceSetupError):
             self.live_os_interface.InstallWithTasks()
 
     @patch_dbus_publish_object
-    def post_install_with_tasks_test(self, publisher):
+    def test_post_install_with_tasks(self, publisher):
         """Test Live OS post installation configuration task."""
         task_classes = [
             CopyDriverDisksFilesTask

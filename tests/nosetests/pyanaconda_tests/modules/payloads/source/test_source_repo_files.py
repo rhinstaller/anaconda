@@ -36,11 +36,11 @@ class RepoFilesSourceInterfaceTestCase(unittest.TestCase):
         self.module = RepoFilesSourceModule()
         self.interface = RepoFilesSourceInterface(self.module)
 
-    def type_test(self):
+    def test_type(self):
         """Test Repo files source has a correct type specified."""
         self.assertEqual(SOURCE_TYPE_REPO_FILES, self.interface.Type)
 
-    def description_test(self):
+    def test_description(self):
         """Test NFS source description."""
         self.assertEqual("Local repositories", self.interface.Description)
 
@@ -51,50 +51,50 @@ class RepoFilesSourceTestCase(unittest.TestCase):
         self.module = RepoFilesSourceModule()
         self.interface = RepoFilesSourceInterface(self.module)
 
-    def type_test(self):
+    def test_type(self):
         """Test Repo files source module has a correct type."""
         self.assertEqual(SourceType.REPO_FILES, self.module.type)
 
-    def network_required_test(self):
+    def test_network_required(self):
         """Test the property network_required."""
         self.assertEqual(self.module.network_required, True)
 
-    def required_space_test(self):
+    def test_required_space(self):
         """Test the required_space property."""
         self.assertEqual(self.module.required_space, 0)
 
-    def repr_test(self):
+    def test_repr(self):
         self.assertEqual(repr(self.module), "Source(type='REPO_FILES')")
 
-    def set_up_with_tasks_test(self):
+    def test_set_up_with_tasks(self):
         """Test Repo files Source set up call."""
         tasks = self.module.set_up_with_tasks()
         self.assertEqual(len(tasks), 1)
         self.assertIsInstance(tasks[0], SetUpRepoFilesSourceTask)
 
-    def tear_down_with_tasks_test(self):
+    def test_tear_down_with_tasks(self):
         """Test Repo files Source ready state for tear down."""
         tasks = self.module.tear_down_with_tasks()
         self.assertEqual([], tasks)
 
-    def ready_state_test(self):
+    def test_ready_state(self):
         """Test Repo files Source ready state for set up."""
         self.assertTrue(self.module.get_state())
 
 
 class RepoFilesSourceSetupTaskTestCase(unittest.TestCase):
 
-    def setup_install_source_task_name_test(self):
+    def test_setup_install_source_task_name(self):
         """Test Repo files Source setup installation source task name."""
         task = SetUpRepoFilesSourceTask([""])
         self.assertEqual(task.name, "Set up Repo files Installation Source")
 
-    def setup_install_source_task_success_test(self):
+    def test_setup_install_source_task_success(self):
         with TemporaryDirectory() as temp_dir_name:
             open(os.path.join(temp_dir_name, "somefile.repo"), "w").close()
             SetUpRepoFilesSourceTask([temp_dir_name]).run()
 
-    def setup_install_source_task_failure_test(self):
+    def test_setup_install_source_task_failure(self):
         with TemporaryDirectory() as temp_dir_name:
             with self.assertRaises(SourceSetupError, msg="repo files not found"):
                 SetUpRepoFilesSourceTask([temp_dir_name]).run()

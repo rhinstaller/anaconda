@@ -23,7 +23,7 @@ from pyanaconda.modules.common.structures.policy import PasswordPolicy
 class PasswordPolicyTestCase(unittest.TestCase):
     """Test the module requirements."""
 
-    def default_known_policy_test(self):
+    def test_default_known_policy(self):
         """Test the default policy data."""
         policy = PasswordPolicy.from_defaults("root")
         self.assertEqual(policy.min_quality, 1)
@@ -31,7 +31,7 @@ class PasswordPolicyTestCase(unittest.TestCase):
         self.assertEqual(policy.allow_empty, False)
         self.assertEqual(policy.is_strict, False)
 
-    def default_unknown_policy_test(self):
+    def test_default_unknown_policy(self):
         """Test the default policy data for unknown policy."""
         policy = PasswordPolicy.from_defaults("test")
         self.assertEqual(policy.min_quality, 0)
@@ -39,7 +39,7 @@ class PasswordPolicyTestCase(unittest.TestCase):
         self.assertEqual(policy.allow_empty, True)
         self.assertEqual(policy.is_strict, False)
 
-    def to_structure_dict_test(self):
+    def test_to_structure_dict(self):
         """Test the to_structure_dict method."""
         p1 = PasswordPolicy()
         p1.quality = 1
@@ -65,7 +65,7 @@ class PasswordPolicyTestCase(unittest.TestCase):
             "p3": PasswordPolicy.to_structure(p3),
         })
 
-    def from_structure_dict_test(self):
+    def test_from_structure_dict(self):
         """Test the from_structure_dict method."""
         s1 = {"min-quality": get_variant(Int, 1)}
         s2 = {"min-quality": get_variant(Int, 2)}

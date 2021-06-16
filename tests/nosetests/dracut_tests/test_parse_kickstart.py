@@ -52,7 +52,7 @@ class ParseKickstartTestCase(BaseTestCase):
             return str(e).splitlines()
         return str(output).splitlines()
 
-    def cdrom_test(self):
+    def test_cdrom(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
             ks_file.write("""cdrom """)
             ks_file.flush()
@@ -60,7 +60,7 @@ class ParseKickstartTestCase(BaseTestCase):
 
         self.assertEqual(lines[0], "inst.repo=cdrom", lines)
 
-    def harddrive_test(self):
+    def test_harddrive(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
             ks_file.write("""harddrive --partition=sda4 --dir=/path/to/tree""")
             ks_file.flush()
@@ -68,7 +68,7 @@ class ParseKickstartTestCase(BaseTestCase):
 
         self.assertEqual(lines[0], "inst.repo=hd:sda4:/path/to/tree", lines)
 
-    def nfs_test(self):
+    def test_nfs(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
             ks_file.write("""nfs --server=host.at.foo.com --dir=/path/to/tree --opts=nolock,timeo=50""")
             ks_file.flush()
@@ -84,7 +84,7 @@ class ParseKickstartTestCase(BaseTestCase):
 
         self.assertEqual(lines[0], "inst.repo=nfs:host.at.foo.com:/path/to/tree", lines)
 
-    def url_test(self):
+    def test_url(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
             ks_file.write("""url --url=https://host.at.foo.com/path/to/tree --noverifyssl --proxy=http://localhost:8123""")
             ks_file.flush()
@@ -95,7 +95,7 @@ class ParseKickstartTestCase(BaseTestCase):
         self.assertEqual(lines[1], "rd.noverifyssl", lines)
         self.assertEqual(lines[2], "proxy=http://localhost:8123", lines)
 
-    def updates_test(self):
+    def test_updates(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
             ks_file.write("""updates http://host.at.foo.com/path/to/updates.img""")
             ks_file.flush()
@@ -103,7 +103,7 @@ class ParseKickstartTestCase(BaseTestCase):
 
         self.assertEqual(lines[0], "live.updates=http://host.at.foo.com/path/to/updates.img", lines)
 
-    def mediacheck_test(self):
+    def test_mediacheck(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
             ks_file.write("""mediacheck""")
             ks_file.flush()
@@ -111,7 +111,7 @@ class ParseKickstartTestCase(BaseTestCase):
 
         self.assertEqual(lines[0], "rd.live.check", lines)
 
-    def driverdisk_test(self):
+    def test_driverdisk(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
             ks_file.write("""driverdisk sda5""")
             ks_file.flush()
@@ -127,7 +127,7 @@ class ParseKickstartTestCase(BaseTestCase):
 
         self.assertEqual(lines[0], "inst.dd=http://host.att.foo.com/path/to/dd", lines)
 
-    def network_test(self):
+    def test_network(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
             ks_file.write("""network --device=link --bootproto=dhcp --activate""")
             ks_file.flush()
@@ -143,7 +143,7 @@ class ParseKickstartTestCase(BaseTestCase):
 
             self.assertEqual(lines[0], "ifname=ksdev0:aa:bb:cc:dd:ee:ff ip=ksdev0:dhcp: bootdev=ksdev0", lines)
 
-    def network_static_test(self):
+    def test_network_static(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
             ks_file.write("""network --device=link --bootproto=dhcp --activate
 network --device=lo --bootproto=static --ip=10.0.2.15 --netmask=255.255.255.0 --gateway=10.0.2.254 --nameserver=10.0.2.10
@@ -153,7 +153,7 @@ network --device=lo --bootproto=static --ip=10.0.2.15 --netmask=255.255.255.0 --
 
             self.assertRegex(lines[0], r"ip=[^\s:]+:dhcp: bootdev=[^\s:]+", lines)
 
-    def network_team_test(self):
+    def test_network_team(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
             ks_file.write("""network --device=link --bootproto=dhcp --activate
 network --device team0 --activate --bootproto static --ip=10.34.102.222 --netmask=255.255.255.0 --gateway=10.34.102.254 --nameserver=10.34.39.2 --teamslaves="p3p1'{\"prio\": -10, \"sticky\": true}'" --teamconfig="{\"runner\": {\"name\": \"activebackup\"}}"
@@ -163,7 +163,7 @@ network --device team0 --activate --bootproto static --ip=10.34.102.222 --netmas
 
             self.assertRegex(lines[0], r"ip=[^\s:]+:dhcp: bootdev=[^\s:]+", lines)
 
-    def network_bond_test(self):
+    def test_network_bond(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
             ks_file.write("""network --device=link --bootproto=dhcp --activate
 network --device=eth0 --bootproto=dhcp --bondslaves=eth0,eth1
@@ -183,7 +183,7 @@ network --device=eth0 --bootproto=dhcp --bondslaves=eth0,eth1 --activate
 
             self.assertRegex(lines[0], r"ip=[^\s:]+:dhcp: bootdev=[^\s:]+", lines)
 
-    def network_bridge_test(self):
+    def test_network_bridge(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
             ks_file.write("""network --device=link --bootproto=dhcp --activate
 network --device br0 --activate --bootproto dhcp --bridgeslaves=eth0 --bridgeopts=stp=6.0,forward_delay=2
@@ -193,7 +193,7 @@ network --device br0 --activate --bootproto dhcp --bridgeslaves=eth0 --bridgeopt
 
             self.assertRegex(lines[0], r"ip=[^\s:]+:dhcp: bootdev=[^\s:]+", lines)
 
-    def network_ipv6_only_test(self):
+    def test_network_ipv6_only(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
             ks_file.write("""network --noipv4 --hostname=blah.test.com --ipv6=1:2:3:4:5:6:7:8 --ipv6gateway=2001:beaf:cafe::1 --device lo --nameserver=1:1:1:1::,2:2:2:2::""")
             ks_file.flush()
@@ -201,7 +201,7 @@ network --device br0 --activate --bootproto dhcp --bridgeslaves=eth0 --bridgeopt
 
             self.assertRegex(lines[0], r"ip=\[1:2:3:4:5:6:7:8\]:.*")
 
-    def network_vlanid_test(self):
+    def test_network_vlanid(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
             ks_file.write("""network --device=link --bootproto=dhcp --activate
 network --device=lo --vlanid=171
@@ -211,7 +211,7 @@ network --device=lo --vlanid=171
 
             self.assertRegex(lines[0], r"ip=[^\s:]+:dhcp: bootdev=[^\s:]+", lines)
 
-    def network_vlan_interfacename_test(self):
+    def test_network_vlan_interfacename(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
             ks_file.write("""network --device=link --bootproto=dhcp --activate
 network --device=lo --vlanid=171 --interfacename=vlan171
@@ -221,7 +221,7 @@ network --device=lo --vlanid=171 --interfacename=vlan171
 
             self.assertRegex(lines[0], r"ip=[^\s:]+:dhcp: bootdev=[^\s:]+", lines)
 
-    def displaymode_test(self):
+    def test_displaymode(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
             ks_file.write("""cmdline""")
             ks_file.flush()
@@ -245,7 +245,7 @@ network --device=lo --vlanid=171 --interfacename=vlan171
 
             self.assertEqual(lines[0], "inst.text", lines)
 
-    def bootloader_test(self):
+    def test_bootloader(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
             ks_file.write("""bootloader --extlinux """)
             ks_file.flush()

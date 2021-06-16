@@ -26,7 +26,7 @@ from pyanaconda.ui.gui.spokes.lib.subscription import handle_user_provided_value
 class SubscriptionSpokeHelpersTestCase(unittest.TestCase):
     """Test the helper functions of the Subscription spoke."""
 
-    def handle_user_provided_value_test(self):
+    def test_handle_user_provided_value(self):
         """Test the handle_user_provided_value() helper function."""
         valid_values = ["Self Support", "Standard", "Premium"]
         # user provided value matches one of the valid values

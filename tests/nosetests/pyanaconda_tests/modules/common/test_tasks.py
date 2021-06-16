@@ -106,7 +106,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         def run(self):
             pass
 
-    def properties_test(self):
+    def test_properties(self):
         """Test task properties."""
         self._set_up_task(self.SimpleTask())
 
@@ -115,7 +115,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.task_interface.Steps, 1)
         self.assertEqual(self.task_interface.Progress, (0, ""))
 
-    def simple_progress_reporting_test(self):
+    def test_simple_progress_reporting(self):
         """Test simple progress reporting."""
         self._set_up_task(self.SimpleTask())
 
@@ -138,7 +138,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         self.task.report_progress("F")
         self._check_progress_changed(1, "F")
 
-    def invalid_progress_reporting_test(self):
+    def test_invalid_progress_reporting(self):
         """Test invalid progress reporting."""
         self._set_up_task(self.SimpleTask())
 
@@ -174,7 +174,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         self.task.report_progress("G", step_number=0)
         self._check_progress_changed(1, "G")
 
-    def thread_name_test(self):
+    def test_thread_name(self):
         """Test the thread name of the task."""
         self.SimpleTask._thread_counter = 0
 
@@ -200,7 +200,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         def run(self):
             pass
 
-    def multistep_progress_reporting_test(self):
+    def test_multistep_progress_reporting(self):
         """Test multistep progress reporting."""
         self._set_up_task(self.MultiStepTask())
         self._check_steps(20)
@@ -246,7 +246,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
             if self.check_cancel():
                 raise AssertionError("The cancel flag should be False.")
 
-    def simple_run_test(self):
+    def test_simple_run(self):
         """Run a simple task."""
         self._set_up_task(self.RunningTask())
         self._run_task()
@@ -276,7 +276,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         def run(self):
             raise TaskFailedException()
 
-    def failed_run_test(self):
+    def test_failed_run(self):
         """Run a failing task."""
         self._set_up_task(self.FailingTask())
         self._run_task()
@@ -311,7 +311,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
             # Or raise the timeout error.
             raise TimeoutError()
 
-    def canceled_run_test(self):
+    def test_canceled_run(self):
         """Cancel a running task."""
         self._set_up_task(self.CanceledTask())
         self._run_and_cancel_task()
@@ -334,7 +334,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         while self.task_interface.IsRunning:
             sleep(1)
 
-    def run_canceled_test(self):
+    def test_run_canceled(self):
         """Run a canceled task."""
         self._set_up_task(self.FailingTask())
         self._cancel_and_run_task()
@@ -350,7 +350,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         while self.task_interface.IsRunning:
             sleep(1)
 
-    def sync_run_test(self):
+    def test_sync_run(self):
         """Run a task synchronously."""
         self._set_up_task(self.FailingTask())
         self._sync_run_test()
@@ -360,7 +360,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         with self.assertRaises(TaskFailedException):
             sync_run_task(self.task_interface)
 
-    def async_run_test(self):
+    def test_async_run(self):
         """Run a task asynchronously."""
         self._set_up_task(self.FailingTask())
         self._async_run_test()
@@ -373,7 +373,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         with self.assertRaises(TaskFailedException):
             task_proxy.Finish()
 
-    def install_with_no_tasks_test(self):
+    def test_install_with_no_tasks(self):
         """Install with no tasks."""
         self._set_up_task(DBusMetaTask("Task", []))
         self._check_steps(0)
@@ -381,7 +381,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         self._finish_task()
         self._check_no_result()
 
-    def install_with_one_task_test(self):
+    def test_install_with_one_task(self):
         """Install with one task."""
         self._set_up_task(
             DBusMetaTask("Task", [
@@ -394,7 +394,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         self._check_progress_changed(1, "Simple Task")
         self._check_no_result()
 
-    def install_with_failing_task_test(self):
+    def test_install_with_failing_task(self):
         """Install with one failing task."""
         self._set_up_task(
             DBusMetaTask("Task", [
@@ -407,7 +407,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         self._check_progress_changed(1, "Failing Task")
         self._check_no_result()
 
-    def install_with_canceled_task_test(self):
+    def test_install_with_canceled_task(self):
         """Install with one canceled task."""
         self._set_up_task(
             DBusMetaTask("Task", [
@@ -447,7 +447,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         def run(self):
             pass
 
-    def install_with_three_tasks_test(self):
+    def test_install_with_three_tasks(self):
         """Install with three tasks."""
         self._set_up_task(
             DBusMetaTask("Task", [
@@ -479,7 +479,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         def run(self):
             pass
 
-    def install_with_incomplete_tasks_test(self):
+    def test_install_with_incomplete_tasks(self):
         """Install with incomplete tasks."""
         self._set_up_task(
             DBusMetaTask("Task", [
@@ -525,7 +525,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         def convert_result(value):
             return get_variant(Int, value)
 
-    def get_result_test(self):
+    def test_get_result(self):
         """Run a task that returns a result."""
         self._set_up_task(self.ReturningTask(), self.ReturningTaskInterface)
         self._run_task()
@@ -537,7 +537,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         # The result is publishable.
         self.assertEqual(self.task_interface.GetResult(), get_variant(Int, 1))
 
-    def get_unpublishable_result_test(self):
+    def test_get_unpublishable_result(self):
         """Run a task that returns an unpublishable result."""
         self._set_up_task(self.ReturningTask())
         self._run_task()
@@ -550,7 +550,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         with self.assertRaises(NoResultError):
             self.task_interface.GetResult()
 
-    def get_no_result_test(self):
+    def test_get_no_result(self):
         """Run a task that returns no result."""
         self._set_up_task(self.NoReturningTask(), self.ReturningTaskInterface)
         self._run_task()
@@ -564,7 +564,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         with self.assertRaises(NoResultError):
             self.task_interface.GetResult()
 
-    def run_simple_task_with_signals_test(self):
+    def test_run_simple_task_with_signals(self):
         """Run a simple task directly with signals."""
         self._set_up_task(self.SimpleTask())
 
@@ -574,7 +574,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         self._check_progress_changed(1, "Simple Task")
         self.assertEqual(result, None)
 
-    def run_task_with_signals_test(self):
+    def test_run_task_with_signals(self):
         """Run a task that returns a result directly with signals."""
         self._set_up_task(self.ReturningTask())
 
@@ -584,7 +584,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         self._check_progress_changed(1, "Returning Task")
         self.assertEqual(result, 1)
 
-    def run_failed_task_with_signals_test(self):
+    def test_run_failed_task_with_signals(self):
         """Run a failing task directly with signals."""
         self._set_up_task(self.FailingTask())
 
@@ -594,7 +594,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         self._check_task_signals(failed=True, succeeded=False)
         self._check_progress_changed(1, "Failing Task")
 
-    def run_canceled_task_with_signals_test(self):
+    def test_run_canceled_task_with_signals(self):
         """Run a canceled task directly with signals."""
         self._set_up_task(self.FailingTask())
 

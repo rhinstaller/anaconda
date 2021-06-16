@@ -46,7 +46,7 @@ from pyanaconda.ui.lib.subscription import SubscriptionPhase, \
 class CheckSystemPurposeSetTestCase(unittest.TestCase):
     """Test the check_system_purpose_set helper function."""
 
-    def check_system_purpose_set_test(self):
+    def test_check_system_purpose_set(self):
         """Test the check_system_purpose_set() helper function."""
         # system purpose set
         with tempfile.TemporaryDirectory() as sysroot:
@@ -158,7 +158,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
     }
 
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def org_keys_sufficient_test(self, get_proxy):
+    def test_org_keys_sufficient(self, get_proxy):
         """Test the org_keys_sufficient() helper method."""
         subscription_proxy = get_proxy.return_value
         # simulate subscription request
@@ -167,7 +167,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         self.assertTrue(org_keys_sufficient())
 
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def org_keys_sufficient_not_sufficient_test(self, get_proxy):
+    def test_org_keys_sufficient_not_sufficient(self, get_proxy):
         """Test the org_keys_sufficient() helper method - not sufficient."""
         subscription_proxy = get_proxy.return_value
         # simulate subscription request
@@ -175,7 +175,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # run the function
         self.assertFalse(org_keys_sufficient())
 
-    def org_keys_sufficient_direct_request_test(self):
+    def test_org_keys_sufficient_direct_request(self):
         """Test the org_keys_sufficient() helper method - direct request."""
         # run the function with sufficient authentication data
         request = SubscriptionRequest.from_structure(self.KEY_REQUEST)
@@ -186,7 +186,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
 
 
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def username_password_sufficient_test(self, get_proxy):
+    def test_username_password_sufficient(self, get_proxy):
         """Test the username_password_sufficient() helper method."""
         subscription_proxy = get_proxy.return_value
         # simulate subscription request
@@ -195,7 +195,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         self.assertTrue(username_password_sufficient())
 
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def username_password_sufficient_not_sufficient_test(self, get_proxy):
+    def test_username_password_sufficient_not_sufficient(self, get_proxy):
         """Test the username_password_sufficient() helper method - not sufficient."""
         subscription_proxy = get_proxy.return_value
         # simulate subscription request
@@ -203,7 +203,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # run the function
         self.assertFalse(username_password_sufficient())
 
-    def username_password_sufficient_direct_request_test(self):
+    def test_username_password_sufficient_direct_request(self):
         """Test the username_password_sufficient() helper method - direct request."""
         # run the function with sufficient authentication data
         request = SubscriptionRequest.from_structure(self.PASSWORD_REQUEST)
@@ -216,7 +216,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def register_success_test(self, get_proxy, thread_mgr_wait, run_task, switch_source):
+    def test_register_success(self, get_proxy, thread_mgr_wait, run_task, switch_source):
         """Test the register_and_subscribe() helper method - success."""
         payload = Mock()
         progress_callback = Mock()
@@ -249,7 +249,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def unregister_register_test(self, get_proxy, thread_mgr_wait, run_task, switch_source):
+    def test_unregister_register(self, get_proxy, thread_mgr_wait, run_task, switch_source):
         """Test the register_and_subscribe() helper method - registered system."""
         payload = Mock()
         source_proxy = payload.get_source_proxy.return_value
@@ -287,7 +287,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def unregister_task_failed_test(self, get_proxy, thread_mgr_wait, run_task, switch_source):
+    def test_unregister_task_failed(self, get_proxy, thread_mgr_wait, run_task, switch_source):
         """Test the register_and_subscribe() helper method - unregistration failed."""
         payload = Mock()
         progress_callback = Mock()
@@ -324,7 +324,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def sat_provisioning__failed_test(self, get_proxy, thread_mgr_wait, run_task, switch_source):
+    def test_sat_provisioning_failed(self, get_proxy, thread_mgr_wait, run_task, switch_source):
         """Test the register_and_subscribe() helper method - Satellite provisioning failed."""
         payload = Mock()
         progress_callback = Mock()
@@ -360,7 +360,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def register_failed_test(self, get_proxy, thread_mgr_wait, run_task, switch_source):
+    def test_register_failed(self, get_proxy, thread_mgr_wait, run_task, switch_source):
         """Test the register_and_subscribe() helper method - failed to register."""
         payload = Mock()
         progress_callback = Mock()
@@ -397,7 +397,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def register_override_cdrom_test(self, get_proxy, thread_mgr_wait, run_task, switch_source,
+    def test_register_override_cdrom(self, get_proxy, thread_mgr_wait, run_task, switch_source,
                                      restart_thread):
         """Test the register_and_subscribe() helper method - override CDROM source."""
         payload = Mock()
@@ -447,7 +447,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def register_override_cdrom_no_restart_test(self, get_proxy, thread_mgr_wait, run_task,
+    def test_register_override_cdrom_no_restart(self, get_proxy, thread_mgr_wait, run_task,
                                                 switch_source, restart_thread):
         """Test the register_and_subscribe() helper method - override CDROM source, no restart."""
         payload = Mock()
@@ -495,7 +495,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def subscription_failed_test(self, get_proxy, thread_mgr_wait, run_task, switch_source):
+    def test_subscription_failed(self, get_proxy, thread_mgr_wait, run_task, switch_source):
         """Test the register_and_subscribe() helper method - failed to attach subscription."""
         payload = Mock()
         progress_callback = Mock()
@@ -529,7 +529,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def unregister_test(self, get_proxy, run_task):
+    def test_unregister(self, get_proxy, run_task):
         """Test the unregister() helper method."""
         payload = Mock()
         progress_callback = Mock()
@@ -557,7 +557,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def unregister_not_registered_test(self, get_proxy, run_task):
+    def test_unregister_not_registered(self, get_proxy, run_task):
         """Test the unregister() helper method - not registered."""
         # this is effectively a no-op
         payload = Mock()
@@ -582,7 +582,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def unregister_failed_test(self, get_proxy, run_task):
+    def test_unregister_failed(self, get_proxy, run_task):
         """Test the unregister() helper method - unregistration failed."""
         payload = Mock()
         progress_callback = Mock()
@@ -613,7 +613,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def unregister_back_to_cdrom_test(self, get_proxy, run_task, switch_source):
+    def test_unregister_back_to_cdrom(self, get_proxy, run_task, switch_source):
         """Test the unregister() helper method - roll back to CDROM source."""
         payload = Mock()
         payload.type = PAYLOAD_TYPE_DNF
@@ -650,7 +650,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # also we should have tried switching back to the CDROM source
         switch_source.assert_called_once_with(payload, SOURCE_TYPE_CDROM)
 
-    def check_cdn_is_installation_source_test(self):
+    def test_check_cdn_is_installation_source(self):
         """Test the check_cdn_is_installation_source function."""
         # check CDN is reported as used
         dnf_payload = Mock()
@@ -673,7 +673,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def unsupported_payload_reg_test(self, get_proxy, thread_mgr_wait, run_task, switch_source):
+    def test_unsupported_payload_reg(self, get_proxy, thread_mgr_wait, run_task, switch_source):
         """Test registration handles unsupported payload."""
         payload = Mock()
         payload.type = PAYLOAD_TYPE_RPM_OSTREE
@@ -707,7 +707,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def unsupported_payload_unregister_test(self, get_proxy, run_task, switch_source):
+    def test_unsupported_payload_unregister(self, get_proxy, run_task, switch_source):
         """Test that unregister() survives unsupported payload."""
         payload = Mock()
         payload.type = PAYLOAD_TYPE_RPM_OSTREE
@@ -742,7 +742,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def register_payload_restart_test(self, get_proxy, thread_mgr_wait, run_task, switch_source,
+    def test_register_payload_restart(self, get_proxy, thread_mgr_wait, run_task, switch_source,
                                       restart_thread):
         """Test payload restart at registration."""
         payload = Mock()
@@ -783,7 +783,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def register_payload_no_restart_test(self, get_proxy, thread_mgr_wait, run_task, switch_source,
+    def test_register_payload_no_restart(self, get_proxy, thread_mgr_wait, run_task, switch_source,
                                          restart_thread):
         """Test payload no restart at registration if not requested."""
         payload = Mock()
@@ -823,7 +823,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def register_no_payload_restart_test(self, get_proxy, thread_mgr_wait, run_task, switch_source,
+    def test_register_no_payload_restart(self, get_proxy, thread_mgr_wait, run_task, switch_source,
                                          restart_thread):
         """Test there is no payload restart during registration for non CDN source."""
         payload = Mock()
@@ -865,7 +865,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
     @patch("pyanaconda.payload.manager.payloadMgr.restart_thread")
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def unregister_payload_restart_CDN_test(self, get_proxy, run_task, restart_thread):
+    def test_unregister_payload_restart_CDN(self, get_proxy, run_task, restart_thread):
         """Test payload restart at unregistration - CDN source."""
         payload = Mock()
         payload.type = PAYLOAD_TYPE_DNF
@@ -904,7 +904,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
     @patch("pyanaconda.payload.manager.payloadMgr.restart_thread")
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def unregister_payload_restart_switched_test(self, get_proxy, run_task, restart_thread,
+    def test_unregister_payload_restart_switched(self, get_proxy, run_task, restart_thread,
                                                  switch_source):
         """Test payload restart at unregistration - source switched."""
         payload = Mock()
@@ -947,7 +947,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
     @patch("pyanaconda.payload.manager.payloadMgr.restart_thread")
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def unregister_on_payload_restart_test(self, get_proxy, run_task, restart_thread,
+    def test_unregister_on_payload_restart(self, get_proxy, run_task, restart_thread,
                                            switch_source):
         """Test payload restart at unregistration - no restart needed."""
         payload = Mock()

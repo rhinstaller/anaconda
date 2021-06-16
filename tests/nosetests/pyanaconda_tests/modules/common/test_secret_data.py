@@ -28,7 +28,7 @@ from pyanaconda.modules.common.structures.secret import SecretData, SecretDataLi
 class SecretDataTestCase(unittest.TestCase):
     """Test DBus structures with secrets."""
 
-    def get_string_test(self):
+    def test_get_string(self):
         """Test the string representation of SecretData."""
         data = SecretData()
         expected = "SecretData(type='NONE', value_set=False)"
@@ -45,7 +45,7 @@ class SecretDataTestCase(unittest.TestCase):
         self.assertEqual(str(data), expected)
         self.assertEqual(repr(data), expected)
 
-    def get_structure_test(self):
+    def test_get_structure(self):
         """Test the DBus structure with SecretData."""
         data = SecretData()
 
@@ -67,7 +67,7 @@ class SecretDataTestCase(unittest.TestCase):
         self.assertEqual(data.type, SECRET_TYPE_TEXT)
         self.assertEqual(data.value, "secret")
 
-    def set_secret_test(self):
+    def test_set_secret(self):
         """Test the set_secret method of SecretData."""
         data = SecretData()
         data.set_secret("secret")
@@ -78,7 +78,7 @@ class SecretDataTestCase(unittest.TestCase):
         self.assertEqual(data.type, SECRET_TYPE_NONE)
         self.assertEqual(data.value, "")
 
-    def hide_secret_test(self):
+    def test_hide_secret(self):
         """Test the hide_secret method of SecretData."""
         data = SecretData()
         data.hide_secret()
@@ -101,7 +101,7 @@ class SecretDataTestCase(unittest.TestCase):
 class SecretDataListTestCase(unittest.TestCase):
     """Test DBus structures with lists of secrets."""
 
-    def get_string_test(self):
+    def test_get_string(self):
         """Test the string representation of SecretDataList."""
         data = SecretDataList()
         expected = "SecretDataList(type='NONE', value_set=False)"
@@ -118,7 +118,7 @@ class SecretDataListTestCase(unittest.TestCase):
         self.assertEqual(str(data), expected)
         self.assertEqual(repr(data), expected)
 
-    def get_structure_test(self):
+    def test_get_structure(self):
         """Test the DBus structure with SecretDataList."""
         data = SecretDataList()
 
@@ -140,7 +140,7 @@ class SecretDataListTestCase(unittest.TestCase):
         self.assertEqual(data.type, SECRET_TYPE_TEXT)
         self.assertEqual(data.value, ["s1", "s2", "s3"])
 
-    def set_secret_test(self):
+    def test_set_secret(self):
         """Test the set_secret method of SecretDataList."""
         data = SecretDataList()
         data.set_secret(["s1", "s2", "s3"])
@@ -151,7 +151,7 @@ class SecretDataListTestCase(unittest.TestCase):
         self.assertEqual(data.type, SECRET_TYPE_NONE)
         self.assertEqual(data.value, [])
 
-    def hide_secret_test(self):
+    def test_hide_secret(self):
         """Test the hide_secret method of SecretDataList."""
         data = SecretDataList()
         data.hide_secret()
@@ -204,7 +204,7 @@ class DataWithSecretsTestCase(unittest.TestCase):
         def c(self, value):
             self._c = value
 
-    def get_string_test(self):
+    def test_get_string(self):
         """Test the string representation of complex data."""
         data = self.Data()
         data.a = "a"
@@ -231,7 +231,7 @@ class DataWithSecretsTestCase(unittest.TestCase):
         self.assertEqual(str(data), expected)
         self.assertEqual(repr(data), expected)
 
-    def hide_secrets_test(self):
+    def test_hide_secrets(self):
         """Test the function hide_secrets."""
         data = self.Data()
         data.a = "a"
@@ -252,7 +252,7 @@ class DataWithSecretsTestCase(unittest.TestCase):
             "c": {"type": SECRET_TYPE_HIDDEN, "value": []},
         })
 
-    def get_public_copy_test(self):
+    def test_get_public_copy(self):
         """Test the function hide_secrets."""
         data_1 = self.Data()
         data_1.a = "a"

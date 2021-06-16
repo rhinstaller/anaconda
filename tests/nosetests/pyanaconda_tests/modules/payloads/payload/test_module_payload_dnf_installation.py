@@ -45,7 +45,7 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
         mock_rpm.addMacro.assert_has_calls(calls)
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
-    def set_rpm_macros_default_test(self, mock_rpm):
+    def test_set_rpm_macros_default(self, mock_rpm):
         data = PackagesConfigurationData()
 
         macros = [
@@ -56,7 +56,7 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
         self._check_macros(task, mock_rpm, macros)
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
-    def set_rpm_macros_exclude_docs_test(self, mock_rpm):
+    def test_set_rpm_macros_exclude_docs(self, mock_rpm):
         data = PackagesConfigurationData()
         data.docs_excluded = True
 
@@ -69,7 +69,7 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
         self._check_macros(task, mock_rpm, macros)
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
-    def set_rpm_macros_install_langs_test(self, mock_rpm):
+    def test_set_rpm_macros_install_langs(self, mock_rpm):
         data = PackagesConfigurationData()
         data.languages = "en,es"
 
@@ -82,7 +82,7 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
         self._check_macros(task, mock_rpm, macros)
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
-    def set_rpm_macros_no_install_langs_test(self, mock_rpm):
+    def test_set_rpm_macros_no_install_langs(self, mock_rpm):
         data = PackagesConfigurationData()
         data.languages = RPM_LANGUAGES_NONE
 
@@ -96,7 +96,7 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.os")
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
-    def set_rpm_macros_selinux_test(self, mock_rpm, mock_os):
+    def test_set_rpm_macros_selinux(self, mock_rpm, mock_os):
         mock_os.access.return_value = True
         data = PackagesConfigurationData()
 
@@ -110,7 +110,7 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.conf")
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
-    def set_rpm_macros_selinux_disabled_test(self, mock_rpm, mock_conf):
+    def test_set_rpm_macros_selinux_disabled(self, mock_rpm, mock_conf):
         mock_conf.security.selinux = 0
         data = PackagesConfigurationData()
 
@@ -130,7 +130,7 @@ class ImportRPMKeysTaskTestCase(unittest.TestCase):
         os.makedirs(join_paths(sysroot, "/usr/bin"))
         os.mknod(join_paths(sysroot, "/usr/bin/rpm"))
 
-    def import_no_keys_test(self):
+    def test_import_no_keys(self):
         """Import no GPG keys."""
         with tempfile.TemporaryDirectory() as sysroot:
             task = ImportRPMKeysTask(sysroot, [])
@@ -141,7 +141,7 @@ class ImportRPMKeysTaskTestCase(unittest.TestCase):
             msg = "No GPG keys to import."
             self.assertTrue(any(map(lambda x: msg in x, cm.output)))
 
-    def import_no_rpm_test(self):
+    def test_import_no_rpm(self):
         """Import GPG keys without installed rpm."""
         with tempfile.TemporaryDirectory() as sysroot:
             task = ImportRPMKeysTask(sysroot, ["key"])
@@ -153,7 +153,7 @@ class ImportRPMKeysTaskTestCase(unittest.TestCase):
             self.assertTrue(any(map(lambda x: msg in x, cm.output)))
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.util.execWithRedirect")
-    def import_error_test(self, mock_exec):
+    def test_import_error(self, mock_exec):
         """Import GPG keys with error."""
         mock_exec.return_value = 1
 
@@ -168,7 +168,7 @@ class ImportRPMKeysTaskTestCase(unittest.TestCase):
             self.assertTrue(any(map(lambda x: msg in x, cm.output)))
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.util.execWithRedirect")
-    def import_keys_test(self, mock_exec):
+    def test_import_keys(self, mock_exec):
         """Import GPG keys."""
         mock_exec.return_value = 0
 
@@ -187,7 +187,7 @@ class ImportRPMKeysTaskTestCase(unittest.TestCase):
             ])
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.util")
-    def import_substitution_test(self, mock_util):
+    def test_import_substitution(self, mock_util):
         """Import GPG keys with variables."""
         mock_util.execWithRedirect.return_value = 0
         mock_util.execWithCapture.return_value = "s390x"

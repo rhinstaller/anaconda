@@ -42,7 +42,7 @@ class LiveImageKSTestCase(unittest.TestCase):
                                                        self.payload_module,
                                                        self.payload_module_interface)
 
-    def liveimg_simple_kickstart_test(self):
+    def test_liveimg_simple_kickstart(self):
         """Test the simple liveimg command."""
         ks_in = """
         liveimg --url http://my/super/path
@@ -53,7 +53,7 @@ class LiveImageKSTestCase(unittest.TestCase):
         """
         self.shared_tests.check_kickstart(ks_in, ks_out="", ks_tmp=ks_out)
 
-    def liveimg_proxy_kickstart_test(self):
+    def test_liveimg_proxy_kickstart(self):
         """Test the liveimg proxy parameter."""
         ks_in = """
         liveimg --url http://my/super/path --proxy=http://ultimate/proxy
@@ -64,7 +64,7 @@ class LiveImageKSTestCase(unittest.TestCase):
         """
         self.shared_tests.check_kickstart(ks_in, ks_out="", ks_tmp=ks_out)
 
-    def liveimg_checksum_kickstart_test(self):
+    def test_liveimg_checksum_kickstart(self):
         """Test the liveimg checksum parameter."""
         ks_in = """
         liveimg --url http://my/super/path --checksum=BATBATBATMAN!
@@ -75,7 +75,7 @@ class LiveImageKSTestCase(unittest.TestCase):
         """
         self.shared_tests.check_kickstart(ks_in, ks_out="", ks_tmp=ks_out)
 
-    def liveimg_noverifyssl_kickstart_test(self):
+    def test_liveimg_noverifyssl_kickstart(self):
         """Test the liveimg noverifyssl parameter."""
         ks_in = """
         liveimg --url http://my/super/path --noverifyssl
@@ -86,7 +86,7 @@ class LiveImageKSTestCase(unittest.TestCase):
         """
         self.shared_tests.check_kickstart(ks_in, ks_out="", ks_tmp=ks_out)
 
-    def liveimg_complex_kickstart_test(self):
+    def test_liveimg_complex_kickstart(self):
         """Test the liveimg all parameters."""
         ks_in = """
         liveimg --url http://my/super/path --proxy=http://NO!!!!! --checksum=ABCDEFG --noverifyssl
@@ -108,10 +108,10 @@ class LiveImageInterfaceTestCase(unittest.TestCase):
                                               payload=self.live_image_module,
                                               payload_intf=self.live_image_interface)
 
-    def type_test(self):
+    def test_type(self):
         self.shared_tests.check_type(PayloadType.LIVE_IMAGE)
 
-    def calculate_required_space_test(self):
+    def test_calculate_required_space(self):
         """Test CalculateRequiredTest."""
         self.assertEqual(self.live_image_interface.CalculateRequiredSpace(), 0)
 
@@ -123,28 +123,28 @@ class LiveImageInterfaceTestCase(unittest.TestCase):
     # TODO: Add set_source and supported_sources like in Live OS payload when source is available
 
     @patch_dbus_publish_object
-    def prepare_system_for_installation_task_test(self, publisher):
+    def test_prepare_system_for_installation_task(self, publisher):
         """Test Live Image is able to create a prepare installation task."""
         # task_path = self.live_image_interface.PreInstallWithTasks()
         # check_task_creation_list(self, task_path, publisher, [SetupInstallationSourceImageTask])
         self.assertEqual(self.live_image_interface.PreInstallWithTasks(), [])
 
     @patch_dbus_publish_object
-    def install_with_task_from_tar_test(self, publisher):
+    def test_install_with_task_from_tar(self, publisher):
         """Test Live Image install with tasks from tarfile."""
         # task_path = self.live_image_interface.InstallWithTasks()
         # check_task_creation_list(self, task_path, publisher, [InstallFromTarTask])
         self.assertEqual(self.live_image_interface.InstallWithTasks(), [])
 
     @patch_dbus_publish_object
-    def install_with_task_from_image_test(self, publisher):
+    def test_install_with_task_from_image(self, publisher):
         """Test Live Image install with tasks from image."""
         # task_path = self.live_image_interface.InstallWithTasks()
         # check_task_creation_list(self, task_path, publisher, [InstallFromImageTask])
         self.assertEqual(self.live_image_interface.InstallWithTasks(), [])
 
     @patch_dbus_publish_object
-    def post_install_with_tasks_test(self, publisher):
+    def test_post_install_with_tasks(self, publisher):
         """Test Live Image post installation configuration task."""
         # task_classes = [
         #     CopyDriverDisksFilesTask,

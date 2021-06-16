@@ -34,7 +34,7 @@ from pyanaconda.payload.dnf.repomd import RepoMDMetaHash
 
 
 class PickLocation(unittest.TestCase):
-    def pick_download_location_test(self):
+    def test_pick_download_location(self):
         """Take the biggest mountpoint which can be used for download"""
         df_map = {os.path.join(conf.target.system_root, "not_used"): Size("20 G"),
                   os.path.join(conf.target.system_root, "home"): Size("2 G"),
@@ -46,7 +46,7 @@ class PickLocation(unittest.TestCase):
 
         self.assertEqual(mpoint, os.path.join(conf.target.system_root, "home"))
 
-    def pick_download_root_test(self):
+    def test_pick_download_root(self):
         """Take the root for download because there are no other available mountpoints
            even when the root isn't big enough.
 
@@ -62,7 +62,7 @@ class PickLocation(unittest.TestCase):
 
         self.assertEqual(mpoint, os.path.join(conf.target.system_root))
 
-    def pick_install_location_test(self):
+    def test_pick_install_location(self):
         """Take the root for download and install."""
         df_map = {os.path.join(conf.target.system_root, "not_used"): Size("20 G"),
                   os.path.join(conf.target.system_root, "home"): Size("2 G"),
@@ -74,7 +74,7 @@ class PickLocation(unittest.TestCase):
 
         self.assertEqual(mpoint, conf.target.system_root)
 
-    def pick_install_location_error_test(self):
+    def test_pick_install_location_error(self):
         """No suitable location is found."""
         df_map = {os.path.join(conf.target.system_root, "not_used"): Size("20 G"),
                   os.path.join(conf.target.system_root, "home"): Size("1 G"),
@@ -113,7 +113,7 @@ or it should be. Nah it's just a test!
         # remove the testing directory
         shutil.rmtree(self._temp_dir)
 
-    def download_file_repomd_test(self):
+    def test_download_file_repomd(self):
         """Test if we can download repomd.xml with file:// successfully."""
         m = hashlib.sha256()
         m.update(self._content_repomd.encode('ascii', 'backslashreplace'))
@@ -124,7 +124,7 @@ or it should be. Nah it's just a test!
 
         self.assertEqual(r.repoMD_hash, reference_digest)
 
-    def verify_repo_test(self):
+    def test_verify_repo(self):
         """Test verification method."""
         r = RepoMDMetaHash(self._dummyRepo, None)
         r.store_repoMD_hash()
@@ -144,7 +144,7 @@ or it should be. Nah it's just a test!
 
 class PayloadUtilsTests(unittest.TestCase):
 
-    def parse_nfs_url_test(self):
+    def test_parse_nfs_url(self):
         """Test parseNfsUrl."""
 
         # empty NFS url should return 3 blanks
@@ -181,7 +181,7 @@ class PayloadUtilsTests(unittest.TestCase):
         self.assertEqual(util.parse_nfs_url(":"),
                          ("", "", ""))
 
-    def create_nfs_url_test(self):
+    def test_create_nfs_url(self):
         """Test create_nfs_url."""
 
         self.assertEqual(util.create_nfs_url("", ""), "")
@@ -199,7 +199,7 @@ class PayloadUtilsTests(unittest.TestCase):
         self.assertEqual(util.create_nfs_url("host", "/path/to/something", "options"),
                          "nfs:options:host:/path/to/something")
 
-    def nfs_combine_test(self):
+    def test_nfs_combine(self):
         """Test combination of parse and create nfs functions."""
 
         host = "host"
@@ -213,7 +213,7 @@ class PayloadUtilsTests(unittest.TestCase):
         (options, host, path) = util.parse_nfs_url(url)
         self.assertEqual(util.create_nfs_url(host, path, options), url)
 
-    def split_protocol_test(self):
+    def test_split_protocol(self):
         """Test split protocol test."""
 
         self.assertEqual(util.split_protocol("http://abc/cde"),

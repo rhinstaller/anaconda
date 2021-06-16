@@ -37,19 +37,19 @@ class FCOEInterfaceTestCase(unittest.TestCase):
         self.fcoe_interface = FCOEInterface(self.fcoe_module)
 
     @patch("pyanaconda.modules.storage.fcoe.fcoe.has_fcoe", return_value=True)
-    def is_supported_test(self, is_supported):
+    def test_is_supported(self, is_supported):
         self.assertEqual(self.fcoe_interface.IsSupported(), True)
 
-    def get_nics_test(self):
+    def test_get_nics(self):
         """Test the get nics method."""
         self.assertEqual(self.fcoe_interface.GetNics(), list())
 
-    def get_dracut_arguments_test(self):
+    def test_get_dracut_arguments(self):
         """Test the get dracut arguments method."""
         self.assertEqual(self.fcoe_interface.GetDracutArguments("eth0"), list())
 
     @patch_dbus_publish_object
-    def discover_with_task_test(self, publisher):
+    def test_discover_with_task(self, publisher):
         """Test the discover task."""
         task_path = self.fcoe_interface.DiscoverWithTask(
             "eth0",  # nic
@@ -64,7 +64,7 @@ class FCOEInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._auto_vlan, True)
 
     @patch('pyanaconda.modules.storage.fcoe.fcoe.fcoe')
-    def write_configuration_test(self, fcoe):
+    def test_write_configuration(self, fcoe):
         """Test WriteConfiguration."""
         self.fcoe_interface.WriteConfiguration()
         fcoe.write.assert_called_once_with(conf.target.system_root)
@@ -74,7 +74,7 @@ class FCOETasksTestCase(unittest.TestCase):
     """Test FCoE tasks."""
 
     @patch('pyanaconda.modules.storage.fcoe.discover.fcoe')
-    def discovery_fails_test(self, fcoe):
+    def test_discovery_fails(self, fcoe):
         """Test the failing discovery task."""
         fcoe.add_san.return_value = "Fake error message"
 
@@ -84,7 +84,7 @@ class FCOETasksTestCase(unittest.TestCase):
         self.assertEqual(str(cm.exception), "Fake error message")
 
     @patch('pyanaconda.modules.storage.fcoe.discover.fcoe')
-    def discovery_test(self, fcoe):
+    def test_discovery(self, fcoe):
         """Test the discovery task."""
         fcoe.add_san.return_value = ""
 

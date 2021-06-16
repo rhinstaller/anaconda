@@ -26,7 +26,7 @@ from pyanaconda.core.regexes import ZFCP_LUN_NUMBER, ZFCP_WWPN_NUMBER
 
 class ZFCPNameRegexTestCase(unittest.TestCase):
 
-    def lun_name_test(self):
+    def test_lun_name(self):
         good_tests = [
                 '0x0000000000000000',
                 '0x0123456789abcdef',
@@ -53,7 +53,7 @@ class ZFCPNameRegexTestCase(unittest.TestCase):
 
         self.assertTrue(regex_match(ZFCP_LUN_NUMBER, good_tests, bad_tests))
 
-    def wwpn_name_test(self):
+    def test_wwpn_name(self):
         good_tests = [
             '0x0000000000000000',
             '0x0123456789abcdef',

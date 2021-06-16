@@ -30,7 +30,7 @@ class StorageCheckerTests(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
 
-    def nocheck_test(self):
+    def test_nocheck(self):
         """Test a check with no checks."""
         checker = StorageChecker()
         report = checker.check(None)
@@ -40,7 +40,7 @@ class StorageCheckerTests(unittest.TestCase):
         self.assertListEqual(report.errors, [])
         self.assertListEqual(report.warnings, [])
 
-    def simple_error_test(self):
+    def test_simple_error(self):
         """Test an simple error report."""
         checker = StorageChecker()
 
@@ -54,7 +54,7 @@ class StorageCheckerTests(unittest.TestCase):
         self.assertListEqual(report.errors, ["error"])
         self.assertListEqual(report.warnings, [])
 
-    def simple_warning_test(self):
+    def test_simple_warning(self):
         """Test an simple warning report."""
         checker = StorageChecker()
 
@@ -67,7 +67,7 @@ class StorageCheckerTests(unittest.TestCase):
         self.assertListEqual(report.errors, [])
         self.assertListEqual(report.warnings, ["warning"])
 
-    def simple_info_test(self):
+    def test_simple_info(self):
         """Test simple info messages. """
         checker = StorageChecker()
         report = checker.check(None)
@@ -76,7 +76,7 @@ class StorageCheckerTests(unittest.TestCase):
             "Storage check finished with success."
         ])
 
-    def info_test(self):
+    def test_info(self):
         """Test info messages. """
         checker = StorageChecker()
 
@@ -105,7 +105,7 @@ class StorageCheckerTests(unittest.TestCase):
             "Storage check finished with failure(s)."
         ])
 
-    def simple_constraints_test(self):
+    def test_simple_constraints(self):
         """Test simple constraint adding."""
         checker = StorageChecker()
 
@@ -116,7 +116,7 @@ class StorageCheckerTests(unittest.TestCase):
         checker.add_constraint("x", None)
         self.assertRaises(KeyError, checker.add_constraint, "x", None)
 
-    def check_constraints_test(self):
+    def test_check_constraints(self):
         """Test constraints checking."""
         checker = StorageChecker()
 
@@ -135,7 +135,7 @@ class StorageCheckerTests(unittest.TestCase):
         report = checker.check(None)
         self.assertListEqual(report.warnings, ["{'x': 0}"])
 
-    def dictionary_constraints_test(self):
+    def test_dictionary_constraints(self):
         """Test the dictionary constraints."""
         checker = StorageChecker()
 
@@ -147,7 +147,7 @@ class StorageCheckerTests(unittest.TestCase):
         self.assertIn("x", checker.constraints)
         self.assertEqual(checker.constraints["x"], {"e": 4, "f": 5})
 
-    def complicated_test(self):
+    def test_complicated(self):
         """Run a complicated check."""
         checker = StorageChecker()
 
@@ -220,7 +220,7 @@ class StorageCheckerTests(unittest.TestCase):
         self.assertListEqual(report.errors, [])
         self.assertListEqual(report.warnings, [])
 
-    def default_settings_test(self):
+    def test_default_settings(self):
         """Check the default storage checker."""
         checker = StorageChecker()
         checker.set_default_constraints()

@@ -46,7 +46,7 @@ class BlivetPartitioningInterfaceTestCase(unittest.TestCase):
         self.interface = BlivetPartitioningInterface(self.module)
 
     @patch.dict('sys.modules')
-    def unsupported_partitioning_test(self):
+    def test_unsupported_partitioning(self):
         """Test the UnsupportedPartitioningError."""
         # Forget imported modules from pyanaconda and blivetgui.
         for name in list(sys.modules):
@@ -83,21 +83,21 @@ class BlivetPartitioningInterfaceTestCase(unittest.TestCase):
             blivet_module.send_request(request)
 
     @unittest.skipUnless(HAVE_BLIVET_GUI, "blivet-gui not installed")
-    def storage_handler_test(self):
+    def test_storage_handler(self):
         """Test the storage_handler property."""
         self.module.on_storage_changed(create_storage())
         self.assertIsNotNone(self.module.storage_handler)
         self.assertEqual(self.module.storage, self.module.storage_handler.storage)
 
     @unittest.skipUnless(HAVE_BLIVET_GUI, "blivet-gui not installed")
-    def request_handler_test(self):
+    def test_request_handler(self):
         """Test the request_handler property."""
         self.module.on_storage_changed(create_storage())
         self.assertIsNotNone(self.module.request_handler)
         self.assertEqual(self.module.storage_handler, self.module.request_handler.blivet_utils)
 
     @unittest.skipUnless(HAVE_BLIVET_GUI, "blivet-gui not installed")
-    def send_request_test(self):
+    def test_send_request(self):
         """Test SendRequest."""
         self.module.on_storage_changed(create_storage())
         request = pickle.dumps(("call", "get_disks", []))
@@ -110,7 +110,7 @@ class BlivetPartitioningInterfaceTestCase(unittest.TestCase):
         self.assertEqual(answer.id, 0)
 
     @patch_dbus_publish_object
-    def configure_with_task_test(self, publisher):
+    def test_configure_with_task(self, publisher):
         """Test ConfigureWithTask."""
         self.module.on_storage_changed(create_storage())
         task_path = self.interface.ConfigureWithTask()

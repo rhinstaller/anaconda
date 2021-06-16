@@ -47,7 +47,7 @@ class FSSetTestCase(unittest.TestCase):
         """Get format types of the given devices."""
         return [d.format.type for d in devices]
 
-    def system_filesystems_test(self):
+    def test_system_filesystems(self):
         """Test the system_filesystems property."""
         devices = self.fsset.system_filesystems
 
@@ -58,7 +58,7 @@ class FSSetTestCase(unittest.TestCase):
         self.assertEqual(devices, self.fsset.system_filesystems)
 
     @patch("pyanaconda.modules.storage.devicetree.fsset.platform", X86())
-    def collect_filesystems_test(self):
+    def test_collect_filesystems(self):
         """Test the collect_filesystems method."""
         devices = self.fsset.collect_filesystems()
         mount_points = self._get_mount_points(devices)
@@ -89,7 +89,7 @@ class FSSetTestCase(unittest.TestCase):
         ])
 
     @patch("pyanaconda.modules.storage.devicetree.fsset.platform", EFI())
-    def collect_filesystems_efi_test(self):
+    def test_collect_filesystems_efi(self):
         """Test the collect_filesystems method with EFI."""
         devices = self.fsset.collect_filesystems()
         mount_points = self._get_mount_points(devices)
@@ -122,7 +122,7 @@ class FSSetTestCase(unittest.TestCase):
         ])
 
     @patch("pyanaconda.modules.storage.devicetree.fsset.platform", X86())
-    def collect_filesystems_tmp_test(self):
+    def test_collect_filesystems_tmp(self):
         """Test the collect_filesystems method with /tmp."""
         self._add_device(StorageDevice("dev1", fmt=get_format("ext4", mountpoint="/tmp")))
 
@@ -155,7 +155,7 @@ class FSSetTestCase(unittest.TestCase):
         ])
 
     @patch("pyanaconda.modules.storage.devicetree.fsset.platform", X86())
-    def collect_filesystems_extra_test(self):
+    def test_collect_filesystems_extra(self):
         """Test the collect_filesystems method with additional devices."""
         self._add_device(StorageDevice("dev1", fmt=get_format("ext4", mountpoint="/boot")))
         self._add_device(StorageDevice("dev2", fmt=get_format("ext4", mountpoint="/")))

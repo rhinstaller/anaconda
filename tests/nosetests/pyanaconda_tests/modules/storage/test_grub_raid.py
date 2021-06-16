@@ -89,7 +89,7 @@ class GRUBRaidSimpleTest(unittest.TestCase):
 
         self.grub = GRUB2()
 
-    def grub_mbr_partition_test(self):
+    def test_grub_mbr_partition(self):
         """Test installing GRUB to a MBR stage1 and partition stage2"""
 
         # Test stage1 on sda (MBR), stage2 on sda3.
@@ -103,7 +103,7 @@ class GRUBRaidSimpleTest(unittest.TestCase):
 
         self.assertEqual(install_targets, expected_targets)
 
-    def grub_partition_partition_test(self):
+    def test_grub_partition_partition(self):
         """Test installing GRUB to a partition stage1 and partition stage2"""
 
         # Test stage1 on sda1 (biosboot), stage2 on sda3.
@@ -116,7 +116,7 @@ class GRUBRaidSimpleTest(unittest.TestCase):
 
         self.assertEqual(install_targets, expected_targets)
 
-    def grub_mbr_raid1_test(self):
+    def test_grub_mbr_raid1(self):
         """Test installing GRUB to a MBR stage1 and RAID1 stage2"""
 
         # Test stage1 on sda (MBR), stage2 on /boot RAID
@@ -130,7 +130,7 @@ class GRUBRaidSimpleTest(unittest.TestCase):
 
         self.assertEqual(install_targets, expected_targets)
 
-    def grub_partition_raid1_test(self):
+    def test_grub_partition_raid1(self):
         """Test installing GRUB to a partition stage1 and MBR stage2"""
 
         # Test stage1 on sda1 (biosboot), stage2 on /boot RAID
@@ -144,7 +144,7 @@ class GRUBRaidSimpleTest(unittest.TestCase):
 
         self.assertEqual(install_targets, expected_targets)
 
-    def grub_btrfs_test(self):
+    def test_grub_btrfs(self):
         """Test installing GRUB to a MBR stage1 and btrfs RAID stage2"""
 
         # Test stage1 on sda (MBR), stage2 on btrfs /boot RAID
@@ -159,7 +159,7 @@ class GRUBRaidSimpleTest(unittest.TestCase):
 
         self.assertEqual(install_targets, expected_targets)
 
-    def grub_partition_btrfs_test(self):
+    def test_grub_partition_btrfs(self):
         """Test installing GRUB to a partition stage1 and MBR stage2"""
 
         # Test stage1 on sda1 (biosboot), stage2 on btrfs /boot RAID

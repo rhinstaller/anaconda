@@ -29,7 +29,7 @@ class PayloadUITestCase(unittest.TestCase):
     """Test the UI functions and classes of the payload object."""
 
     @patch_dbus_get_proxy_with_cache
-    def create_payload_test(self, proxy_getter):
+    def test_create_payload(self, proxy_getter):
         """Test the create_payload function."""
         payloads_proxy = PAYLOADS.get_proxy()
         payloads_proxy.CreatePayload.return_value = "/my/path"
@@ -42,7 +42,7 @@ class PayloadUITestCase(unittest.TestCase):
         payloads_proxy.ActivatePayload.assert_called_once_with("/my/path")
 
     @patch_dbus_get_proxy_with_cache
-    def get_payload_test(self, proxy_getter):
+    def test_get_payload(self, proxy_getter):
         """Test the get_payload function."""
         payloads_proxy = PAYLOADS.get_proxy()
         payloads_proxy.ActivePayload = "/my/path1"
@@ -64,7 +64,7 @@ class PayloadUITestCase(unittest.TestCase):
         payloads_proxy.ActivatePayload.assert_called_once_with("/my/path2")
 
     @patch_dbus_get_proxy_with_cache
-    def create_source_test(self, proxy_getter):
+    def test_create_source(self, proxy_getter):
         """Test the create_source function."""
         payloads_proxy = PAYLOADS.get_proxy()
         payloads_proxy.CreateSource.return_value = "/my/source"
@@ -77,7 +77,7 @@ class PayloadUITestCase(unittest.TestCase):
 
     @patch("pyanaconda.ui.lib.payload.get_object_path")
     @patch_dbus_get_proxy_with_cache
-    def set_source_test(self, proxy_getter, get_object_path):
+    def test_set_source(self, proxy_getter, get_object_path):
         """Test the set_source function."""
         payload_proxy = PAYLOADS.get_proxy("/my/payload")
 
@@ -89,7 +89,7 @@ class PayloadUITestCase(unittest.TestCase):
 
     @patch("pyanaconda.ui.lib.payload.get_object_path")
     @patch_dbus_get_proxy_with_cache
-    def get_source_test(self, proxy_getter, get_object_path):
+    def test_get_source(self, proxy_getter, get_object_path):
         """Test the get_source function."""
         payload_proxy = PAYLOADS.get_proxy("/my/payload")
         source_proxy_1 = PAYLOADS.get_proxy("/my/source/1")
@@ -115,7 +115,7 @@ class PayloadUITestCase(unittest.TestCase):
         payload_proxy.SetSources.assert_called_once_with(["/my/source/4"])
 
     @patch_dbus_get_proxy_with_cache
-    def set_up_sources_test(self, proxy_getter):
+    def test_set_up_sources(self, proxy_getter):
         payload_proxy = PAYLOADS.get_proxy("/my/payload")
         payload_proxy.SetUpSourcesWithTask.return_value = "/my/task"
 
@@ -128,7 +128,7 @@ class PayloadUITestCase(unittest.TestCase):
         task_proxy.Finish.assert_called_once_with()
 
     @patch_dbus_get_proxy_with_cache
-    def tear_down_sources_test(self, proxy_getter):
+    def test_tear_down_sources(self, proxy_getter):
         payload_proxy = PAYLOADS.get_proxy("/my/payload")
         payload_proxy.TearDownSourcesWithTask.return_value = "/my/task"
 

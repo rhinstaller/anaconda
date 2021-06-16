@@ -50,11 +50,11 @@ class ResizableDeviceTreeTestCase(unittest.TestCase):
         """Add a device to the device tree."""
         self.storage.devicetree._add_device(device)
 
-    def publication_test(self):
+    def test_publication(self):
         """Test the DBus representation."""
         self.assertIsInstance(self.module.for_publication(), ResizableDeviceTreeInterface)
 
-    def is_device_partitioned_test(self):
+    def test_is_device_partitioned(self):
         """Test IsDevicePartitioned."""
         self.module.on_storage_changed(create_storage())
         self._add_device(DiskDevice(
@@ -69,7 +69,7 @@ class ResizableDeviceTreeTestCase(unittest.TestCase):
         self.assertEqual(self.interface.IsDevicePartitioned("dev2"), True)
 
     @patch.object(FS, "update_size_info")
-    def is_device_shrinkable_test(self, update_size_info):
+    def test_is_device_shrinkable(self, update_size_info):
         """Test IsDeviceShrinkable."""
         self.module.on_storage_changed(create_storage())
 
@@ -91,7 +91,7 @@ class ResizableDeviceTreeTestCase(unittest.TestCase):
         dev1.format._min_size = Size("10 GiB")
         self.assertEqual(self.interface.IsDeviceShrinkable("dev1"), False)
 
-    def get_device_partitions_test(self):
+    def test_get_device_partitions(self):
         """Test GetDevicePartitions."""
         self.module.on_storage_changed(create_storage())
         dev1 = DiskDevice(
@@ -115,7 +115,7 @@ class ResizableDeviceTreeTestCase(unittest.TestCase):
         self.assertEqual(self.interface.GetDevicePartitions("dev2"), ["dev3"])
         self.assertEqual(self.interface.GetDevicePartitions("dev3"), [])
 
-    def get_device_size_limits_test(self):
+    def test_get_device_size_limits(self):
         """Test GetDeviceSizeLimits."""
         self.module.on_storage_changed(create_storage())
         self._add_device(StorageDevice(
@@ -128,7 +128,7 @@ class ResizableDeviceTreeTestCase(unittest.TestCase):
         self.assertEqual(min_size, 0)
         self.assertEqual(max_size, 0)
 
-    def shrink_device_test(self):
+    def test_shrink_device(self):
         """Test ShrinkDevice."""
         self.module.on_storage_changed(create_storage())
 
@@ -156,7 +156,7 @@ class ResizableDeviceTreeTestCase(unittest.TestCase):
         self.interface.ShrinkDevice("sda1", Size("5 GiB").get_bytes())
         self.assertEqual(sda1.size, Size("3 GiB"))
 
-    def remove_device_test(self):
+    def test_remove_device(self):
         """Test RemoveDevice."""
         self.module.on_storage_changed(create_storage())
 

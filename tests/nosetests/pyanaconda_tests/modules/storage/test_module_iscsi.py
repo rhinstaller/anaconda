@@ -62,11 +62,11 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
         self.iscsi_interface.PropertiesChanged.connect(self.callback)
 
     @patch("pyanaconda.modules.storage.iscsi.iscsi.iscsi", available=True)
-    def is_supported_test(self, iscsi):
+    def test_is_supported(self, iscsi):
         self.assertEqual(self.iscsi_interface.IsSupported(), True)
 
     @patch('pyanaconda.modules.storage.iscsi.iscsi.iscsi')
-    def initator_property_test(self, iscsi):
+    def test_initator_property(self, iscsi):
         """Test Initiator property."""
         initiator_name = "iqn.1994-05.com.redhat:blabla"
         iscsi.initiator_set = False
@@ -81,12 +81,12 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
         )
 
     @patch('pyanaconda.modules.storage.iscsi.iscsi.iscsi')
-    def can_set_initiator_test(self, iscsi):
+    def test_can_set_initiator(self, iscsi):
         """Test CanSetInitiator method."""
         self.assertIsInstance(self.iscsi_interface.CanSetInitiator(), bool)
 
     @patch('pyanaconda.modules.storage.iscsi.iscsi.iscsi')
-    def get_interface_mode_test(self, iscsi):
+    def test_get_interface_mode(self, iscsi):
         """Test GetInterfaceMode method."""
         blivet_mode_values = ["none", "default", "bind"]
         for blivet_mode in blivet_mode_values + ["unexpected_value"]:
@@ -94,7 +94,7 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
             _mode = IscsiInterfacesMode(self.iscsi_interface.GetInterfaceMode())
 
     @patch('pyanaconda.modules.storage.iscsi.iscsi.iscsi')
-    def is_node_from_ibft_test(self, iscsi):
+    def test_is_node_from_ibft(self, iscsi):
         """Test IsNodeFromIbft method."""
         iscsi.ibft_nodes = []
         result = self.iscsi_interface.IsNodeFromIbft(
@@ -114,7 +114,7 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
         self.assertTrue(result)
 
     @patch('pyanaconda.modules.storage.iscsi.iscsi.iscsi')
-    def get_interface_test(self, iscsi):
+    def test_get_interface(self, iscsi):
         """Test GetInterface method."""
         iscsi.ifaces = {
             "iface0" : "ens3",
@@ -124,7 +124,7 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.iscsi_interface.GetInterface("nonexisting"), "")
 
     @patch_dbus_publish_object
-    def discover_with_task_test(self, publisher):
+    def test_discover_with_task(self, publisher):
         """Test the discover task."""
         interfaces_mode = "default"
         task_path = self.iscsi_interface.DiscoverWithTask(
@@ -142,7 +142,7 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._interfaces_mode, IscsiInterfacesMode.DEFAULT)
 
     @patch_dbus_publish_object
-    def login_with_task_test(self, publisher):
+    def test_login_with_task(self, publisher):
         """Test the login task."""
         task_path = self.iscsi_interface.LoginWithTask(
             Portal.to_structure(self._portal),
@@ -157,7 +157,7 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._node, self._node)
 
     @patch('pyanaconda.modules.storage.iscsi.iscsi.iscsi')
-    def write_configuration_test(self, iscsi):
+    def test_write_configuration(self, iscsi):
         """Test WriteConfiguration."""
         self.iscsi_interface.WriteConfiguration()
         iscsi.write.assert_called_once_with(conf.target.system_root, None)

@@ -45,11 +45,11 @@ class DNFMangerTestCase(unittest.TestCase):
         """Check the DNF substitutions."""
         self.assertEqual(dict(self.dnf_manager._base.conf.substitutions), substitutions)
 
-    def create_base_test(self):
+    def test_create_base(self):
         """Test the creation of the DNF base."""
         self.assertIsNotNone(self.dnf_manager._base)
 
-    def reset_base_test(self):
+    def test_reset_base(self):
         """Test the reset of the DNF base."""
         base_1 = self.dnf_manager._base
         self.assertEqual(self.dnf_manager._base, base_1)
@@ -59,11 +59,11 @@ class DNFMangerTestCase(unittest.TestCase):
         self.assertEqual(self.dnf_manager._base, base_2)
         self.assertNotEqual(self.dnf_manager._base, base_1)
 
-    def clear_cache_test(self):
+    def test_clear_cache(self):
         """Test the clear_cache method."""
         self.dnf_manager.clear_cache()
 
-    def set_default_configuration_test(self):
+    def test_set_default_configuration(self):
         """Test the default configuration of the DNF base."""
         self._check_configuration(
             "cachedir = /tmp/dnf.cache",
@@ -86,13 +86,13 @@ class DNFMangerTestCase(unittest.TestCase):
         })
 
     @patch("pyanaconda.modules.payloads.payload.dnf.dnf_manager.get_os_release_value")
-    def set_module_platform_id_test(self, get_platform_id):
+    def test_set_module_platform_id(self, get_platform_id):
         """Test the configuration of module_platform_id."""
         get_platform_id.return_value = "platform:f32"
         self.dnf_manager.reset_base()
         self._check_configuration("module_platform_id = platform:f32")
 
-    def configure_proxy_test(self):
+    def test_configure_proxy(self):
         """Test the proxy configuration."""
         self.dnf_manager.configure_proxy("http://user:pass@example.com/proxy")
         self._check_configuration(
@@ -122,7 +122,7 @@ class DNFMangerTestCase(unittest.TestCase):
             "proxy_password = ",
         )
 
-    def configure_base_test(self):
+    def test_configure_base(self):
         """Test the configuration of the DNF base."""
         data = PackagesConfigurationData()
 
@@ -155,7 +155,7 @@ class DNFMangerTestCase(unittest.TestCase):
         self.assertEqual(self.dnf_manager._ignore_broken_packages, True)
         self.assertEqual(self.dnf_manager._ignore_missing_packages, True)
 
-    def dump_configuration_test(self):
+    def test_dump_configuration(self):
         """Test the dump of the DNF configuration."""
         with self.assertLogs(level="DEBUG") as cm:
             self.dnf_manager.dump_configuration()
@@ -166,7 +166,7 @@ class DNFMangerTestCase(unittest.TestCase):
         msg = "installroot = /mnt/sysroot"
         self.assertTrue(any(map(lambda x: msg in x, cm.output)))
 
-    def get_installation_size_test(self):
+    def test_get_installation_size(self):
         """Test the get_installation_size method."""
         # No transaction.
         size = self.dnf_manager.get_installation_size()
@@ -187,7 +187,7 @@ class DNFMangerTestCase(unittest.TestCase):
 
         self.assertEqual(size, Size("528 KiB"))
 
-    def get_download_size_test(self):
+    def test_get_download_size(self):
         """Test the get_download_size method."""
         # No transaction.
         size = self.dnf_manager.get_download_size()
@@ -205,7 +205,7 @@ class DNFMangerTestCase(unittest.TestCase):
 
         self.assertEqual(size, Size("450 MiB"))
 
-    def environments_test(self):
+    def test_environments(self):
         """Test the environments property."""
         self.assertEqual(self.dnf_manager.environments, [])
 
@@ -225,7 +225,7 @@ class DNFMangerTestCase(unittest.TestCase):
         ])
 
     @patch("dnf.base.Base.install_specs")
-    def apply_specs_test(self, install_specs):
+    def test_apply_specs(self, install_specs):
         """Test the apply_specs method."""
         self.dnf_manager.apply_specs(
             include_list=["@g1", "p1"],
@@ -239,7 +239,7 @@ class DNFMangerTestCase(unittest.TestCase):
         )
 
     @patch("dnf.base.Base.install_specs")
-    def apply_specs_error_test(self, install_specs):
+    def test_apply_specs_error(self, install_specs):
         """Test the apply_specs method with an error."""
         install_specs.side_effect = MarkingErrors(
             error_group_specs=["@g1"]
@@ -252,7 +252,7 @@ class DNFMangerTestCase(unittest.TestCase):
             )
 
     @patch("dnf.base.Base.install_specs")
-    def apply_specs_ignore_broken_test(self, install_specs):
+    def test_apply_specs_ignore_broken(self, install_specs):
         """Test the apply_specs method with ignored broken packages."""
         self.dnf_manager._ignore_broken_packages = True
         self.dnf_manager.apply_specs(
@@ -267,7 +267,7 @@ class DNFMangerTestCase(unittest.TestCase):
         )
 
     @patch("dnf.base.Base.install_specs")
-    def apply_specs_ignore_missing_test(self, install_specs):
+    def test_apply_specs_ignore_missing(self, install_specs):
         """Test the apply_specs method with ignored missing packages."""
         self.dnf_manager._ignore_missing_packages = True
 

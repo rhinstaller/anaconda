@@ -50,7 +50,7 @@ SYSPURPOSE_VALID_VALUES_JSON_EMPTY = """
 class SystemPurposeLibraryTestCase(unittest.TestCase):
     """Test the system purpose data handling code."""
 
-    def system_purpose_valid_json_parsing_test(self):
+    def test_system_purpose_valid_json_parsing(self):
         """Test that the JSON file holding valid system purpose values is parsed correctly."""
         # check file missing completely
         # - use path in tempdir to a file that has not been created and thus does not exist
@@ -79,14 +79,14 @@ class SystemPurposeLibraryTestCase(unittest.TestCase):
             self.assertListEqual(slas, ["sla_a", "sla_b", "sla_c"])
             self.assertListEqual(usage_types, ["usage_a", "usage_b", "usage_c"])
 
-    def normalize_field_test(self):
+    def test_normalize_field(self):
         """Test that the system purpose valid field normalization works."""
         # this should basically just lower case the input
         self.assertEqual(_normalize_field("AAA"), "aaa")
         self.assertEqual(_normalize_field("Ab"), "ab")
         self.assertEqual(_normalize_field("A b C"), "a b c")
 
-    def match_field_test(self):
+    def test_match_field(self):
         """Test that the system purpose valid field matching works."""
         # The function is used on system purpose data from kickstart
         # and it tries to match the given value to a well known value
@@ -121,7 +121,7 @@ class SystemPurposeLibraryTestCase(unittest.TestCase):
             _match_field("Production Development", ["Production", "Development", "Testing"]),
         )
 
-    def process_field_test(self):
+    def test_process_field(self):
         """Test that the system purpose field processing works."""
 
         valid_values = ["Production", "Development", "Testing"]
@@ -144,7 +144,7 @@ class SystemPurposeLibraryTestCase(unittest.TestCase):
         self.assertEqual(process_field("PRODUCTION", [], "usage"), "PRODUCTION")
         self.assertEqual(process_field("foo", [], "usage"), "foo")
 
-    def set_system_pourpose_no_purpose_test(self):
+    def test_set_system_pourpose_no_purpose(self):
         """Test that nothing is done if system has no purpose."""
         with tempfile.TemporaryDirectory() as sysroot:
             # create fake RHSM Syspurpose DBus proxy
@@ -157,7 +157,7 @@ class SystemPurposeLibraryTestCase(unittest.TestCase):
                                                     addons=[]))
             syspurpose_proxy.SetSyspurpose.assert_not_called()
 
-    def set_system_pourpose_test(self):
+    def test_set_system_pourpose(self):
         """Test that system purpose is set if syspurpose & data are both available."""
         with tempfile.TemporaryDirectory() as sysroot:
             # create fake RHSM Syspurpose DBus proxy
@@ -180,7 +180,7 @@ class SystemPurposeLibraryTestCase(unittest.TestCase):
                 'en_US.UTF-8'
             )
 
-    def set_system_pourpose_failure_test(self):
+    def test_set_system_pourpose_failure(self):
         """Test that exception raised by SetSyspurpose DBus call is handled correctly."""
         with tempfile.TemporaryDirectory() as sysroot:
             # create fake RHSM Syspurpose DBus proxy

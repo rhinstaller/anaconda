@@ -50,7 +50,7 @@ class PayloadsInterfaceTestCase(TestCase):
                                                           self.payload_module,
                                                           self.payload_interface)
 
-    def kickstart_properties_test(self):
+    def test_kickstart_properties(self):
         """Test kickstart properties."""
         self.assertEqual(self.payload_interface.KickstartCommands, [
             "cdrom",
@@ -66,33 +66,33 @@ class PayloadsInterfaceTestCase(TestCase):
         ])
         self.assertEqual(self.payload_interface.KickstartAddons, [])
 
-    def no_kickstart_test(self):
+    def test_no_kickstart(self):
         """Test kickstart is not set to the payloads service."""
         ks_in = None
         ks_out = ""
         self.shared_ks_tests.check_kickstart(ks_in, ks_out, expected_publish_calls=0)
 
-    def kickstart_empty_test(self):
+    def test_kickstart_empty(self):
         """Test kickstart is empty for the payloads service."""
         ks_in = ""
         ks_out = ""
         self.shared_ks_tests.check_kickstart(ks_in, ks_out, expected_publish_calls=0)
 
-    def no_payload_set_test(self):
+    def test_no_payload_set(self):
         """Test empty string is returned when no payload is set."""
         self.assertEqual(self.payload_interface.ActivePayload, "")
 
-    def generate_kickstart_without_payload_test(self):
+    def test_generate_kickstart_without_payload(self):
         """Test kickstart parsing without payload set."""
         self.assertEqual(self.payload_interface.GenerateKickstart(), "")
 
-    def process_kickstart_with_no_payload_test(self):
+    def test_process_kickstart_with_no_payload(self):
         """Test kickstart processing when no payload set or created based on KS data."""
         self.payload_interface.ReadKickstart("")
         self.assertEqual(self.payload_interface.ActivePayload, "")
 
     @patch_dbus_publish_object
-    def create_dnf_payload_test(self, publisher):
+    def test_create_dnf_payload(self, publisher):
         """Test creation and publishing of the DNF payload module."""
         payload_path = self.payload_interface.CreatePayload(PayloadType.DNF.value)
         self.assertEqual(self.payload_interface.CreatedPayloads, [payload_path])
@@ -104,7 +104,7 @@ class PayloadsInterfaceTestCase(TestCase):
         publisher.assert_called_once()
 
     @patch_dbus_publish_object
-    def create_live_os_payload_test(self, publisher):
+    def test_create_live_os_payload(self, publisher):
         """Test creation and publishing of the Live OS payload module."""
         payload_path = self.payload_interface.CreatePayload(PayloadType.LIVE_OS.value)
         self.assertEqual(self.payload_interface.CreatedPayloads, [payload_path])
@@ -116,7 +116,7 @@ class PayloadsInterfaceTestCase(TestCase):
         publisher.assert_called_once()
 
     @patch_dbus_publish_object
-    def create_live_image_payload_test(self, publisher):
+    def test_create_live_image_payload(self, publisher):
         """Test creation and publishing of the Live image payload module."""
         payload_path = self.payload_interface.CreatePayload(PayloadType.LIVE_IMAGE.value)
         self.assertEqual(self.payload_interface.CreatedPayloads, [payload_path])
@@ -128,13 +128,13 @@ class PayloadsInterfaceTestCase(TestCase):
         publisher.assert_called_once()
 
     @patch_dbus_publish_object
-    def create_invalid_payload_test(self, publisher):
+    def test_create_invalid_payload(self, publisher):
         """Test creation of the not existing payload."""
         with self.assertRaises(ValueError):
             self.payload_interface.CreatePayload("NotAPayload")
 
     @patch_dbus_publish_object
-    def create_multiple_payloads_test(self, publisher):
+    def test_create_multiple_payloads(self, publisher):
         """Test creating two payloads."""
         path_1 = self.payload_interface.CreatePayload(PayloadType.DNF.value)
         self.assertEqual(self.payload_interface.CreatedPayloads, [path_1])
@@ -153,14 +153,14 @@ class PayloadsInterfaceTestCase(TestCase):
         self.assertEqual(publisher.call_count, 2)
 
     @patch_dbus_publish_object
-    def create_live_os_source_test(self, publisher):
+    def test_create_live_os_source(self, publisher):
         """Test creation of the Live OS source module."""
         source_path = self.payload_interface.CreateSource(SOURCE_TYPE_LIVE_OS_IMAGE)
 
         check_dbus_object_creation(self, source_path, publisher, LiveOSSourceModule)
 
     @patch_dbus_publish_object
-    def create_invalid_source_test(self, publisher):
+    def test_create_invalid_source(self, publisher):
         """Test creation of the not existing source."""
         with self.assertRaises(ValueError):
             self.payload_interface.CreateSource("NotASource")
@@ -170,7 +170,7 @@ class PayloadSharedTasksTest(TestCase):
 
     @patch('pyanaconda.modules.payloads.base.initialization.write_module_blacklist')
     @patch('pyanaconda.modules.payloads.base.initialization.create_root_dir')
-    def prepare_system_for_install_task_test(self, create_root_dir_mock,
+    def test_prepare_system_for_install_task(self, create_root_dir_mock,
                                              write_module_blacklist_mock):
         """Test task prepare system for installation."""
         # the dir won't be used because of mock
@@ -181,7 +181,7 @@ class PayloadSharedTasksTest(TestCase):
         create_root_dir_mock.assert_called_once()
         write_module_blacklist_mock.assert_called_once()
 
-    def set_up_sources_task_test(self):
+    def test_set_up_sources_task(self):
         """Test task to set up installation sources."""
         called_position = []
 
@@ -216,14 +216,14 @@ class PayloadSharedTasksTest(TestCase):
         set_up_task3.run_with_signals.assert_called_once()
         self.assertEqual(["source1", "task1", "task2", "source2", "task3"], called_position)
 
-    def set_up_sources_task_without_sources_test(self):
+    def test_set_up_sources_task_without_sources(self):
         """Test task to set up installation sources without sources set."""
         task = SetUpSourcesTask([])
 
         with self.assertRaises(SourceSetupError):
             task.run()
 
-    def set_up_sources_task_with_exception_test(self):
+    def test_set_up_sources_task_with_exception(self):
         """Test task to set up installation sources which raise exception."""
         set_up_task1 = create_autospec(Task)
         set_up_task2 = create_autospec(Task)
@@ -246,7 +246,7 @@ class PayloadSharedTasksTest(TestCase):
         set_up_task2.run_with_signals.assert_called_once()
         set_up_task3.run_with_signals.assert_not_called()
 
-    def tear_down_sources_task_test(self):
+    def test_tear_down_sources_task(self):
         """Test task to tear down installation sources."""
         called_position = []
 
@@ -281,14 +281,14 @@ class PayloadSharedTasksTest(TestCase):
         tear_down_task3.run.assert_called_once()
         self.assertEqual(["source1", "task1", "task2", "source2", "task3"], called_position)
 
-    def tear_down_sources_task_without_sources_test(self):
+    def test_tear_down_sources_task_without_sources(self):
         """Test task to tear down installation sources without sources set."""
         task = TearDownSourcesTask([])
 
         with self.assertRaises(SourceSetupError):
             task.run()
 
-    def tear_down_sources_task_error_processing_test(self):
+    def test_tear_down_sources_task_error_processing(self):
         """Test error processing task to tear down installation sources."""
         tear_down_task1 = create_autospec(Task)
         tear_down_task2 = create_autospec(Task)

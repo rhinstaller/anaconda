@@ -41,11 +41,11 @@ class RPMOSTreeInterfaceTestCase(unittest.TestCase):
             payload_intf=self.interface
         )
 
-    def type_test(self):
+    def test_type(self):
         """Test the Type property."""
         self.shared_tests.check_type(PayloadType.RPM_OSTREE)
 
-    def supported_sources_test(self):
+    def test_supported_sources(self):
         """Test the SupportedSourceTypes property."""
         self.assertEqual(self.interface.SupportedSourceTypes, [
             SOURCE_TYPE_RPM_OSTREE
@@ -76,7 +76,7 @@ class RPMOSTreeKickstartTestCase(unittest.TestCase):
             self.assertEqual(1, len(sources))
             self.assertEqual(sources[0].type.value, expected_source_type)
 
-    def ostree_kickstart_test(self):
+    def test_ostree_kickstart(self):
         ks_in = """
         ostreesetup --osname="fedora-atomic" --remote="fedora-atomic-28" --url="file:///ostree/repo" --ref="fedora/28/x86_64/atomic-host" --nogpg
         """
@@ -87,7 +87,7 @@ class RPMOSTreeKickstartTestCase(unittest.TestCase):
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_RPM_OSTREE)
 
-    def priority_kickstart_test(self):
+    def test_priority_kickstart(self):
         ks_in = """
         ostreesetup --osname="fedora-iot" --url="https://compose/iot/" --ref="fedora/iot"
         url --url="https://compose/Everything"

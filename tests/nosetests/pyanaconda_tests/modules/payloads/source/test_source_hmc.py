@@ -37,11 +37,11 @@ class HMCSourceInterfaceTestCase(unittest.TestCase):
         self.module = HMCSourceModule()
         self.interface = HMCSourceInterface(self.module)
 
-    def type_test(self):
+    def test_type(self):
         """Test the type of SE/HMC."""
         self.assertEqual(SOURCE_TYPE_HMC, self.interface.Type)
 
-    def description_test(self):
+    def test_description(self):
         """Test the description of SE/HMC."""
         self.assertEqual("Local media via SE/HMC", self.interface.Description)
 
@@ -52,16 +52,16 @@ class HMCSourceModuleTestCase(unittest.TestCase):
     def setUp(self):
         self.module = HMCSourceModule()
 
-    def network_required_test(self):
+    def test_network_required(self):
         """Test the property network_required."""
         self.assertEqual(self.module.network_required, False)
 
-    def required_space_test(self):
+    def test_required_space(self):
         """Test the required_space property."""
         self.assertEqual(self.module.required_space, 0)
 
     @patch("os.path.ismount")
-    def get_state_test(self, ismount_mock):
+    def test_get_state(self, ismount_mock):
         """Test SE/HMC source state."""
         ismount_mock.return_value = False
         self.assertEqual(SourceState.UNREADY, self.module.get_state())
@@ -73,7 +73,7 @@ class HMCSourceModuleTestCase(unittest.TestCase):
 
         ismount_mock.assert_called_once_with(self.module.mount_point)
 
-    def set_up_with_tasks_test(self):
+    def test_set_up_with_tasks(self):
         """Get tasks to set up SE/HMC."""
         tasks = self.module.set_up_with_tasks()
         self.assertEqual(len(tasks), 1)
@@ -82,7 +82,7 @@ class HMCSourceModuleTestCase(unittest.TestCase):
         self.assertIsInstance(task, SetUpHMCSourceTask)
         self.assertEqual(task._target_mount, self.module.mount_point)
 
-    def tear_down_with_tasks_test(self):
+    def test_tear_down_with_tasks(self):
         """Get tasks to tear down SE/HMC."""
         tasks = self.module.tear_down_with_tasks()
         self.assertEqual(len(tasks), 1)
@@ -90,7 +90,7 @@ class HMCSourceModuleTestCase(unittest.TestCase):
         task = tasks[0]
         self.assertIsInstance(task, TearDownMountTask)
 
-    def repr_test(self):
+    def test_repr(self):
         self.assertEqual(repr(self.module), "Source(type='HMC')")
 
 
@@ -98,7 +98,7 @@ class HMCSourceTasksTestCase(unittest.TestCase):
     """Test tasks of the SE/HMC source module."""
 
     @patch("pyanaconda.modules.payloads.source.hmc.initialization.execWithRedirect")
-    def set_up_with_tasks_test(self, execute):
+    def test_set_up_with_tasks(self, execute):
         """Set up SE/HMC."""
         with tempfile.TemporaryDirectory() as d:
             task = SetUpHMCSourceTask(d)

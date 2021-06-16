@@ -46,11 +46,11 @@ class CustomPartitioningInterfaceTestCase(unittest.TestCase):
         self.module = CustomPartitioningModule()
         self.interface = CustomPartitioningInterface(self.module)
 
-    def publication_test(self):
+    def test_publication(self):
         """Test the DBus representation."""
         self.assertIsInstance(self.module.for_publication(), CustomPartitioningInterface)
 
-    def data_test(self, ):
+    def test_data(self, ):
         """Test the data property."""
         with self.assertRaises(UnavailableDataError):
             if self.module.data:
@@ -61,7 +61,7 @@ class CustomPartitioningInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.module.data, data)
 
     @patch_dbus_publish_object
-    def configure_with_task_test(self, publisher):
+    def test_configure_with_task(self, publisher):
         """Test ConfigureWithTask."""
         self.module.on_storage_changed(Mock())
         self.module.process_kickstart(Mock())
@@ -96,7 +96,7 @@ class CustomPartitioningKickstartTestCase(unittest.TestCase):
         return handler
 
     @patch_dbus_publish_object
-    def requires_passphrase_test(self, publisher):
+    def test_requires_passphrase(self, publisher):
         """Test RequiresPassphrase."""
         self._process_kickstart("part /")
         self.assertEqual(self.interface.RequiresPassphrase(), False)

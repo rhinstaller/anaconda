@@ -40,7 +40,7 @@ class SnapshotInterfaceTestCase(unittest.TestCase):
         self.module = SnapshotModule()
         self.interface = SnapshotInterface(self.module)
 
-    def is_requested_test(self):
+    def test_is_requested(self):
         """Test IsRequested."""
         self.assertEqual(self.interface.IsRequested(SNAPSHOT_WHEN_PRE_INSTALL), False)
         self.assertEqual(self.interface.IsRequested(SNAPSHOT_WHEN_POST_INSTALL), False)
@@ -59,7 +59,7 @@ class SnapshotInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.interface.IsRequested(SNAPSHOT_WHEN_POST_INSTALL), True)
 
     @patch_dbus_publish_object
-    def create_with_task_test(self, publisher):
+    def test_create_with_task(self, publisher):
         """Test CreateWithTask."""
         with self.assertRaises(UnavailableStorageError):
             self.interface.CreateWithTask(SNAPSHOT_WHEN_PRE_INSTALL)
@@ -74,7 +74,7 @@ class SnapshotInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._when, SNAPSHOT_WHEN_PRE_INSTALL)
 
     @patch('pyanaconda.modules.storage.snapshot.snapshot.get_snapshot_device')
-    def verify_requests_test(self, device_getter):
+    def test_verify_requests(self, device_getter):
         """Test the verify_requests method."""
         report_error = Mock()
         report_warning = Mock()
@@ -95,13 +95,13 @@ class SnapshotInterfaceTestCase(unittest.TestCase):
 class SnapshotTasksTestCase(unittest.TestCase):
     """Test snapshot tasks."""
 
-    def get_snapshot_device_fail_test(self):
+    def test_get_snapshot_device_fail(self):
         """Test the snapshot device."""
         with self.assertRaises(KickstartParseError):
             get_snapshot_device(Mock(name="post-snapshot", origin="fedora/root"), Mock())
 
     @patch('pyanaconda.modules.storage.snapshot.device.LVMLogicalVolumeDevice')
-    def get_snapshot_device_test(self, device_class):
+    def test_get_snapshot_device(self, device_class):
         """Test the snapshot device."""
         device = Mock()
         device_class.return_value = device
@@ -113,7 +113,7 @@ class SnapshotTasksTestCase(unittest.TestCase):
         self.assertEqual(get_snapshot_device(request, devicetree), device)
 
     @patch('pyanaconda.modules.storage.snapshot.create.get_snapshot_device')
-    def creation_test(self, device_getter):
+    def test_creation(self, device_getter):
         """Test the creation task."""
         SnapshotCreateTask(Mock(), [], SNAPSHOT_WHEN_PRE_INSTALL).run()
         device_getter.assert_not_called()

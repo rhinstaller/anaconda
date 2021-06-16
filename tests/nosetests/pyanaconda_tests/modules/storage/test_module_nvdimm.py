@@ -49,19 +49,19 @@ class NVDIMMInterfaceTestCase(unittest.TestCase):
         self.nvdimm_module = NVDIMMModule()
         self.nvdimm_interface = NVDIMMInterface(self.nvdimm_module)
 
-    def is_supported_test(self):
+    def test_is_supported(self):
         self.assertEqual(self.nvdimm_interface.IsSupported(), True)
 
-    def get_devices_to_ignore_test(self):
+    def test_get_devices_to_ignore(self):
         """Test GetDevicesToIgnore."""
         self.assertEqual(self.nvdimm_interface.GetDevicesToIgnore(), [])
 
-    def set_namespaces_to_use_test(self):
+    def test_set_namespaces_to_use(self):
         """Test SetNamespacesToUse."""
         self.nvdimm_interface.SetNamespacesToUse(["namespace0.0", "namespace1.0"])
 
     @patch_dbus_publish_object
-    def reconfigure_with_task_test(self, publisher):
+    def test_reconfigure_with_task(self, publisher):
         """Test ReconfigureWithTask."""
         task_path = self.nvdimm_interface.ReconfigureWithTask("namespace0.0", "sector", 512)
 
@@ -84,13 +84,13 @@ class NVDIMMInterfaceTestCase(unittest.TestCase):
 class NVDIMMTasksTestCase(unittest.TestCase):
     """Test NVDIMM tasks."""
 
-    def failed_reconfiguration_test(self):
+    def test_failed_reconfiguration(self):
         """Test the reconfiguration test."""
         with self.assertRaises(StorageConfigurationError):
             NVDIMMReconfigureTask("namespace0.0", "sector", 512).run()
 
     @patch("pyanaconda.modules.storage.nvdimm.reconfigure.nvdimm")
-    def reconfiguration_test(self, nvdimm):
+    def test_reconfiguration(self, nvdimm):
         """Test the reconfiguration test."""
         NVDIMMReconfigureTask(
             "namespace0.0", "sector", sector_size=512
@@ -172,7 +172,7 @@ class NVDIMMKickstartTestCase(unittest.TestCase):
 
     # Test setting use from UI
 
-    def ksuse_use_test(self):
+    def test_ksuse_use(self):
         """Test updating of nvdimm commands based on device selection in UI."""
         input_ks = """
         nvdimm use --namespace=namespace0.0
@@ -186,7 +186,7 @@ class NVDIMMKickstartTestCase(unittest.TestCase):
         self._use(["namespace0.0"])
         self._check(expected_ks)
 
-    def ksuse_use2_test(self):
+    def test_ksuse_use2(self):
         """Test updating of nvdimm commands based on device selection in UI."""
         input_ks = """
         nvdimm use --namespace=namespace0.0
@@ -201,7 +201,7 @@ class NVDIMMKickstartTestCase(unittest.TestCase):
         self._use(["namespace0.0", "namespace1.0"])
         self._check(expected_ks)
 
-    def ksuse_use_none_test(self):
+    def test_ksuse_use_none(self):
         """Test updating of nvdimm commands based on device selection in UI."""
         input_ks = """
         nvdimm use --namespace=namespace0.0
@@ -213,7 +213,7 @@ class NVDIMMKickstartTestCase(unittest.TestCase):
         self._use([])
         self._check(expected_ks)
 
-    def ksnone_use2_test(self):
+    def test_ksnone_use2(self):
         """Test updating of nvdimm commands based on device selection in UI."""
         input_ks = """
         """
@@ -227,7 +227,7 @@ class NVDIMMKickstartTestCase(unittest.TestCase):
         self._use(["namespace0.0", "namespace1.0"])
         self._check(expected_ks)
 
-    def ksnone_repeated_use_test(self):
+    def test_ksnone_repeated_use(self):
         """Test updating of nvdimm commands based on device selection in UI."""
         input_ks = """
         """
@@ -241,7 +241,7 @@ class NVDIMMKickstartTestCase(unittest.TestCase):
         self._use(["namespace0.0"])
         self._check(expected_ks)
 
-    def ksnone_use_none_test(self):
+    def test_ksnone_use_none(self):
         """Test updating of nvdimm commands based on device selection in UI."""
         input_ks = """
         """
@@ -252,7 +252,7 @@ class NVDIMMKickstartTestCase(unittest.TestCase):
         self._use([])
         self._check(expected_ks)
 
-    def ksnone_repeated_use_2_test(self):
+    def test_ksnone_repeated_use_2(self):
         """Test updating of nvdimm commands based on device selection in UI."""
         input_ks = """
         """
@@ -267,7 +267,7 @@ class NVDIMMKickstartTestCase(unittest.TestCase):
         self._use(["namespace1.0"])
         self._check(expected_ks)
 
-    def ksuse_another_use_test(self):
+    def test_ksuse_another_use(self):
         """Test updating of nvdimm commands based on device selection in UI."""
         input_ks = """
         nvdimm use --namespace=namespace1.0
@@ -281,7 +281,7 @@ class NVDIMMKickstartTestCase(unittest.TestCase):
         self._use(["namespace0.0"])
         self._check(expected_ks)
 
-    def ksuse_none_test(self):
+    def test_ksuse_none(self):
         """Test updating of nvdimm commands based on device selection in UI."""
         input_ks = """
         nvdimm use --namespace=namespace1.0
@@ -293,7 +293,7 @@ class NVDIMMKickstartTestCase(unittest.TestCase):
         self._use([])
         self._check(expected_ks)
 
-    def ksreconfigure_use_test(self):
+    def test_ksreconfigure_use(self):
         """Test updating of nvdimm commands based on device selection in UI."""
         input_ks = """
         nvdimm reconfigure --namespace=namespace0.0 --mode=sector --sectorsize=512
@@ -307,7 +307,7 @@ class NVDIMMKickstartTestCase(unittest.TestCase):
         self._use(["namespace0.0"])
         self._check(expected_ks)
 
-    def ksreconfigure_use_none_test(self):
+    def test_ksreconfigure_use_none(self):
         """Test updating of nvdimm commands based on device selection in UI."""
         input_ks = """
         nvdimm reconfigure --namespace=namespace0.0 --mode=sector --sectorsize=512
@@ -322,7 +322,7 @@ class NVDIMMKickstartTestCase(unittest.TestCase):
         self._use([])
         self._check(expected_ks)
 
-    def ksreconfigure_another_use_test(self):
+    def test_ksreconfigure_another_use(self):
         """Test updating of nvdimm commands based on device selection in UI."""
         input_ks = """
         nvdimm reconfigure --namespace=namespace0.0 --mode=sector --sectorsize=512
@@ -337,7 +337,7 @@ class NVDIMMKickstartTestCase(unittest.TestCase):
         self._use(["namespace1.0"])
         self._check(expected_ks)
 
-    def ksreconfigure_ksuse_another_use_test(self):
+    def test_ksreconfigure_ksuse_another_use(self):
         """Test updating of nvdimm commands based on device selection in UI."""
         input_ks = """
         nvdimm reconfigure --namespace=namespace0.0 --mode=sector --sectorsize=512
@@ -352,7 +352,7 @@ class NVDIMMKickstartTestCase(unittest.TestCase):
         self._use(["namespace0.0"])
         self._check(expected_ks)
 
-    def ksreconfigure_2_use_1_test(self):
+    def test_ksreconfigure_2_use_1(self):
         """Test updating of nvdimm commands based on device selection in UI."""
         input_ks = """
         nvdimm reconfigure --namespace=namespace0.0 --mode=sector --sectorsize=512
@@ -371,7 +371,7 @@ class NVDIMMKickstartTestCase(unittest.TestCase):
     # Test reconfigure and use in UI
     # (if _reconfigure is done in UI, _use is always done as well)
 
-    def ksnone_reconfigure_use_test(self):
+    def test_ksnone_reconfigure_use(self):
         """Test updating of nvdimm commands based on device reconfiguration in UI."""
         input_ks = """
         """
@@ -385,7 +385,7 @@ class NVDIMMKickstartTestCase(unittest.TestCase):
         self._use(["namespace0.0"])
         self._check(expected_ks)
 
-    def ksnone_repeated_reconfigure_use_test(self):
+    def test_ksnone_repeated_reconfigure_use(self):
         """Test updating of nvdimm commands based on device reconfiguration in UI."""
         input_ks = """
         """
@@ -400,7 +400,7 @@ class NVDIMMKickstartTestCase(unittest.TestCase):
         self._use(["namespace0.0"])
         self._check(expected_ks)
 
-    def ksnone_repeated_reconfigure_repeated_use_test(self):
+    def test_ksnone_repeated_reconfigure_repeated_use(self):
         """Test updating of nvdimm commands based on device reconfiguration in UI."""
         input_ks = """
         """
@@ -418,7 +418,7 @@ class NVDIMMKickstartTestCase(unittest.TestCase):
         self._use(["namespace1.0"])
         self._check(expected_ks)
 
-    def ksuse_reconfigure_other_use_other_test(self):
+    def test_ksuse_reconfigure_other_use_other(self):
         """Test updating of nvdimm commands based on device reconfiguration in UI."""
         input_ks = """
         nvdimm use --namespace=namespace0.0
@@ -433,7 +433,7 @@ class NVDIMMKickstartTestCase(unittest.TestCase):
         self._use(["namespace1.0"])
         self._check(expected_ks)
 
-    def ksuse_2_reconfigure_1_use_2_test(self):
+    def test_ksuse_2_reconfigure_1_use_2(self):
         """Test updating of nvdimm commands based on device reconfiguration in UI."""
         input_ks = """
         nvdimm use --namespace=namespace0.0
@@ -450,7 +450,7 @@ class NVDIMMKickstartTestCase(unittest.TestCase):
         self._use(["namespace0.0", "namespace1.0"])
         self._check(expected_ks)
 
-    def ksuse_reconfigure_other_use_none_test(self):
+    def test_ksuse_reconfigure_other_use_none(self):
         """Test updating of nvdimm commands based on device reconfiguration in UI."""
         input_ks = """
         nvdimm use --namespace=namespace0.0
@@ -468,7 +468,7 @@ class NVDIMMKickstartTestCase(unittest.TestCase):
         self._check(expected_ks)
 
     @patch("pyanaconda.modules.storage.kickstart.device_matches")
-    def ksuse_blockdevs_test(self, device_matches):
+    def test_ksuse_blockdevs(self, device_matches):
         """Test using blockdevs."""
         input_ks = """
         nvdimm use --blockdev=pmem0,pmem2

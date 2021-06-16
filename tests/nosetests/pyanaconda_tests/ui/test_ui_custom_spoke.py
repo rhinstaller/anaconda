@@ -29,7 +29,7 @@ from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import generate_request
 class CustomStorageHelpersTestCase(unittest.TestCase):
     """Test the functions and classes of the custom spoke."""
 
-    def generate_request_description_test(self):
+    def test_generate_request_description(self):
         """Test generate_request_description."""
         request = DeviceFactoryRequest()
         request.device_spec = "dev3"

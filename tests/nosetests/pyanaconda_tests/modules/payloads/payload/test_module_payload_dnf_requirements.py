@@ -55,7 +55,7 @@ class DNFRequirementsTestCase(unittest.TestCase):
         self.assertEqual(str(requirements), str(expected))
 
     @patch_dbus_get_proxy_with_cache
-    def collect_language_requirements_test(self, proxy_getter):
+    def test_collect_language_requirements(self, proxy_getter):
         """Test the function collect_language_requirements."""
         boss = BOSS.get_proxy()
         boss.GetModules.return_value = [LOCALIZATION.service_name]
@@ -93,7 +93,7 @@ class DNFRequirementsTestCase(unittest.TestCase):
         self.assertTrue(any(map(lambda x: msg in x, cm.output)))
 
     @patch('pyanaconda.core.util.execWithCapture')
-    def collect_platform_requirements_test(self, execute):
+    def test_collect_platform_requirements(self, execute):
         """Test the function collect_platform_requirements."""
         g1 = self._create_group("platform-vmware")
         g2 = self._create_group("platform-kvm")
@@ -127,7 +127,7 @@ class DNFRequirementsTestCase(unittest.TestCase):
 
         self._compare_requirements(requirements, [r1])
 
-    def collect_driver_disk_requirements_test(self):
+    def test_collect_driver_disk_requirements(self):
         """Test the function collect_driver_disk_requirements."""
         requirements = collect_driver_disk_requirements("/non/existent/file")
         self.assertEqual(requirements, [])
@@ -153,7 +153,7 @@ class DNFRequirementsTestCase(unittest.TestCase):
             self._compare_requirements(requirements, [r1, r2, r3])
 
     @patch_dbus_get_proxy_with_cache
-    def collect_remote_requirements_test(self, proxy_getter):
+    def test_collect_remote_requirements(self, proxy_getter):
         """Test the function collect_remote_requirements."""
         r1 = self._create_requirement("a", "Required by A.")
         r2 = self._create_requirement("b", "Required by B.")
@@ -166,7 +166,7 @@ class DNFRequirementsTestCase(unittest.TestCase):
         requirements = collect_remote_requirements()
         self._compare_requirements(requirements, [r1, r2, r3])
 
-    def apply_requirements_invalid_requirement_test(self):
+    def test_apply_requirements_invalid_requirement(self):
         """Test the function apply_requirements with an invalid requirement."""
         r1 = self._create_requirement("a", "Required by A.", req_type="INVALID")
 
@@ -184,7 +184,7 @@ class DNFRequirementsTestCase(unittest.TestCase):
         self.assertEqual(exclude_list, [])
 
     @patch('pyanaconda.modules.payloads.payload.dnf.requirements.conf')
-    def apply_requirements_ignored_packages_test(self, conf_mock):
+    def test_apply_requirements_ignored_packages(self, conf_mock):
         """Test the function apply_requirements with ignored packages."""
         conf_mock.payload.ignored_packages = ["a"]
         r1 = self._create_requirement("a", "Required by A.")
@@ -203,7 +203,7 @@ class DNFRequirementsTestCase(unittest.TestCase):
         self.assertEqual(exclude_list, [])
 
     @patch('pyanaconda.modules.payloads.payload.dnf.requirements.conf')
-    def apply_requirements_excluded_packages_test(self, conf_mock):
+    def test_apply_requirements_excluded_packages(self, conf_mock):
         """Test the function apply_requirements with excluded packages."""
         conf_mock.payload.ignored_packages = []
         r1 = self._create_requirement("a", "Required by A.")
@@ -222,7 +222,7 @@ class DNFRequirementsTestCase(unittest.TestCase):
         self.assertEqual(exclude_list, ["a"])
 
     @patch('pyanaconda.modules.payloads.payload.dnf.requirements.conf')
-    def apply_requirements_test(self, conf_mock):
+    def test_apply_requirements(self, conf_mock):
         """Test the function apply_requirements."""
         conf_mock.payload.ignored_packages = []
 

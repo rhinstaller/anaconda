@@ -219,7 +219,7 @@ class KickstartManagerTestCase(unittest.TestCase):
         observer._is_service_available = available
         return observer
 
-    def distribute_test(self):
+    def test_distribute(self):
         manager = KickstartManager()
 
         module1 = TestModule(commands=["network", "firewall"])
@@ -264,7 +264,7 @@ class KickstartManagerTestCase(unittest.TestCase):
 
         self.assertEqual(manager.generate_kickstart(), self._m123_kickstart)
 
-    def nothing_to_parse_test(self):
+    def test_nothing_to_parse(self):
         ks_content = ""
         manager = KickstartManager()
         with self._create_ks_files([("ks.mgr.test.empty.cfg", ks_content)]) as filename:
@@ -275,7 +275,7 @@ class KickstartManagerTestCase(unittest.TestCase):
 
         self.assertEqual(manager.generate_kickstart(), "")
 
-    def unknown_section_split_test(self):
+    def test_unknown_section_split(self):
         ks_content = """
 network --device=ens3
 %unknown_section
@@ -295,7 +295,7 @@ blah
         self.assertEqual(error.line_number, 2)
         self.assertEqual(error.message, 'Unknown kickstart section: %unknown_section')
 
-    def missing_section_end_split_test(self):
+    def test_missing_section_end_split(self):
         ks_content = """
 network --device=ens3
 %packages
@@ -314,7 +314,7 @@ blah
         self.assertEqual(error.line_number, 3)
         self.assertEqual(error.message, 'Section %packages does not end with %end.')
 
-    def missing_include_split_test(self):
+    def test_missing_include_split(self):
         ks_content = """
 network --device=ens3
 %include missing_include.cfg

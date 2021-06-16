@@ -43,7 +43,7 @@ class UIInterfaceTestCase(unittest.TestCase):
             *args, **kwargs
         )
 
-    def default_password_policies_test(self):
+    def test_default_password_policies(self):
         """Test the password policies property."""
         policies = PasswordPolicy.from_structure_dict(
             self.interface.PasswordPolicies)
@@ -56,7 +56,7 @@ class UIInterfaceTestCase(unittest.TestCase):
             expected_policy = PasswordPolicy.from_defaults(name)
             self.assertTrue(compare_data(policy, expected_policy))
 
-    def password_policies_property_test(self):
+    def test_password_policies_property(self):
         """Test the password policies property."""
         policy = {
             "min-quality": get_variant(UInt16, 10),

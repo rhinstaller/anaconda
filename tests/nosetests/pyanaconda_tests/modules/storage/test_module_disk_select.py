@@ -48,14 +48,14 @@ class DiskSelectionInterfaceTestCase(unittest.TestCase):
             *args, **kwargs
         )
 
-    def selected_disks_property_test(self):
+    def test_selected_disks_property(self):
         """Test the selected disks property."""
         self._check_dbus_property(
             "SelectedDisks",
             ["sda", "sdb"]
         )
 
-    def validate_selected_disks_test(self):
+    def test_validate_selected_disks(self):
         """Test ValidateSelectedDisks."""
         storage = create_storage()
         self.disk_selection_module.on_storage_changed(storage)
@@ -133,28 +133,28 @@ class DiskSelectionInterfaceTestCase(unittest.TestCase):
 
         self.assertEqual(report.is_valid(), True)
 
-    def exclusive_disks_property_test(self):
+    def test_exclusive_disks_property(self):
         """Test the exclusive disks property."""
         self._check_dbus_property(
             "ExclusiveDisks",
             ["sda", "sdb"]
         )
 
-    def ignored_disks_property_test(self):
+    def test_ignored_disks_property(self):
         """Test the ignored disks property."""
         self._check_dbus_property(
             "IgnoredDisks",
             ["sda", "sdb"]
         )
 
-    def protected_disks_property_test(self):
+    def test_protected_disks_property(self):
         """Test the protected disks property."""
         self._check_dbus_property(
             "ProtectedDevices",
             ["sda", "sdb"]
         )
 
-    def disk_images_property_test(self):
+    def test_disk_images_property(self):
         """Test the protected disks property."""
         self._check_dbus_property(
             "DiskImages",
@@ -164,7 +164,7 @@ class DiskSelectionInterfaceTestCase(unittest.TestCase):
              }
         )
 
-    def get_usable_disks_test(self):
+    def test_get_usable_disks(self):
         """Test the GetUsableDisks method."""
         with self.assertRaises(UnavailableStorageError):
             self.disk_selection_interface.GetUsableDisks()

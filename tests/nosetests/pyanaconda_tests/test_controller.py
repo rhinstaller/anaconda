@@ -34,7 +34,7 @@ class InstallTasksTestCase(unittest.TestCase):
     def _increment_var1(self):
         self._test_variable1 += 1
 
-    def controller_test(self):
+    def test_controller(self):
         """Check that the module initialization controller works correctly."""
         module1 = TestModule()
         module2 = TestModule()
@@ -64,7 +64,7 @@ class InstallTasksTestCase(unittest.TestCase):
         # it really happened.
         self.assertEqual(self._test_variable1, 1)
 
-    def controller_robustness_test(self):
+    def test_controller_robustness(self):
         """Check of controller handles various edge cases."""
         module1 = TestModule()
         module2 = TestModule()

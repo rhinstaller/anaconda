@@ -22,7 +22,7 @@ import unittest
 
 class NetworkTests(unittest.TestCase):
 
-    def is_valid_hostname_test(self):
+    def test_is_valid_hostname(self):
         """Test hostname validation."""
 
         self.assertFalse(network.is_valid_hostname("")[0])
@@ -57,7 +57,7 @@ class NetworkTests(unittest.TestCase):
         self.assertFalse(network.is_valid_hostname("own.hostname.cannot.end.in.dot.",
                                                    local=True)[0])
 
-    def prefix2netmask2prefix_test(self):
+    def test_prefix2netmask2prefix(self):
         """Test netmask and prefix conversion."""
         lore = [
                 (0, "0.0.0.0"),
@@ -100,7 +100,7 @@ class NetworkTests(unittest.TestCase):
 
         self.assertEqual(network.prefix_to_netmask(33), "255.255.255.255")
 
-    def nm_check_ip_address_test(self,):
+    def test_nm_check_ip_address(self,):
         """Test IPv4 and IPv6 address checks."""
         good_IPv4_tests = [
                 '1.2.3.4',
@@ -225,7 +225,7 @@ class NetworkTests(unittest.TestCase):
             self.assertFalse(network.check_ip_address(i, version=6))
             self.assertFalse(network.check_ip_address(i, version=4))
 
-    def hostname_from_cmdline_test(self):
+    def test_hostname_from_cmdline(self):
         """Test extraction of hostname from cmdline."""
         cmdline = {"ip": "10.34.102.244::10.34.102.54:255.255.255.0:myhostname:ens9:none"}
         self.assertEqual(network.hostname_from_cmdline(cmdline), "myhostname")

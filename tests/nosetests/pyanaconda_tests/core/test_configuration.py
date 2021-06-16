@@ -66,11 +66,11 @@ class ConfigurationTestCase(unittest.TestCase):
 
         return parser
 
-    def read_test(self):
+    def test_read(self):
         parser = create_parser()
         self._read_content(parser)
 
-    def invalid_read_test(self):
+    def test_invalid_read(self):
         parser = create_parser()
 
         with self.assertRaises(ConfigurationFileError) as cm:
@@ -78,7 +78,7 @@ class ConfigurationTestCase(unittest.TestCase):
 
         self.assertEqual(cm.exception._filename, "nonexistent/path/to/file")
 
-    def write_test(self):
+    def test_write(self):
         parser = create_parser()
         self._read_content(parser)
 
@@ -90,7 +90,7 @@ class ConfigurationTestCase(unittest.TestCase):
             # Check the config file.
             self.assertEqual(f.read().strip(), self._content.strip())
 
-    def invalid_write_test(self):
+    def test_invalid_write(self):
         parser = create_parser()
 
         with self.assertRaises(ConfigurationFileError) as cm:
@@ -101,7 +101,7 @@ class ConfigurationTestCase(unittest.TestCase):
             "The following error has occurred while handling the configuration file"
         ))
 
-    def get_test(self):
+    def test_get(self):
         parser = create_parser()
         self._read_content(parser)
 
@@ -113,7 +113,7 @@ class ConfigurationTestCase(unittest.TestCase):
         self.assertEqual(get_option(parser, "Main", "integer", int), 1)
         self.assertEqual(get_option(parser, "Main", "boolean", bool), False)
 
-    def invalid_get_test(self):
+    def test_invalid_get(self):
         parser = create_parser()
         self._read_content(parser)
 
@@ -138,7 +138,7 @@ class ConfigurationTestCase(unittest.TestCase):
         self.assertEqual(cm.exception._section, "Unknown")
         self.assertEqual(cm.exception._option, "unknown")
 
-    def set_test(self):
+    def test_set(self):
         parser = create_parser()
         self._read_content(parser)
 
@@ -154,7 +154,7 @@ class ConfigurationTestCase(unittest.TestCase):
         self.assertEqual(get_option(parser, "Main", "integer", int), 2)
         self.assertEqual(get_option(parser, "Main", "boolean", bool), True)
 
-    def invalid_set_test(self):
+    def test_invalid_set(self):
         parser = create_parser()
         self._read_content(parser)
 
@@ -176,7 +176,7 @@ class ConfigurationTestCase(unittest.TestCase):
             "The following error has occurred while handling the option"
         ))
 
-    def configuration_test(self):
+    def test_configuration(self):
         config = Configuration()
 
         with tempfile.TemporaryDirectory() as directory:
@@ -215,23 +215,23 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
         namespaces.ADDONS_NAMESPACE,
     )))
 
-    def default_configuration_test(self):
+    def test_default_configuration(self):
         # Make sure that we are able to import conf.
         from pyanaconda.core.configuration.anaconda import conf
         self.assertEqual(conf.anaconda.debug, False)
 
-    def source_test(self):
+    def test_source(self):
         conf = AnacondaConfiguration()
         sources = conf.get_sources()
         self.assertEqual(sources, [])
 
-    def default_source_test(self):
+    def test_default_source(self):
         conf = AnacondaConfiguration.from_defaults()
         sources = conf.get_sources()
         self.assertEqual(len(sources), 1)
         self.assertEqual(sources[0], os.environ.get("ANACONDA_CONFIG_TMP"))
 
-    def default_validation_test(self):
+    def test_default_validation(self):
         conf = AnacondaConfiguration.from_defaults()
         conf.validate()
 
@@ -251,7 +251,7 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
         with self.assertRaises(ConfigurationError):
             conf.validate()
 
-    def read_test(self):
+    def test_read(self):
         conf = AnacondaConfiguration()
 
         with tempfile.NamedTemporaryFile("w") as f:
@@ -259,10 +259,10 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
             self.assertEqual(len(conf.get_sources()), 1)
             self.assertEqual(conf.get_sources()[0], f.name)
 
-    def default_read_test(self):
+    def test_default_read(self):
         AnacondaConfiguration.from_defaults()
 
-    def write_test(self):
+    def test_write(self):
         conf = AnacondaConfiguration()
 
         with tempfile.NamedTemporaryFile("r+") as f:
@@ -270,7 +270,7 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
             f.flush()
             self.assertFalse(f.read(), "The file should be empty.")
 
-    def default_write_test(self):
+    def test_default_write(self):
         conf = AnacondaConfiguration.from_defaults()
 
         with tempfile.NamedTemporaryFile("r+") as f:
@@ -278,7 +278,7 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
             f.flush()
             self.assertTrue(f.read(), "The file shouldn't be empty.")
 
-    def set_from_files_test(self):
+    def test_set_from_files(self):
         conf = AnacondaConfiguration.from_defaults()
         paths = []
 
@@ -329,7 +329,7 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
         self.assertEqual(file_paths, conf.get_sources())
 
     @patch("pyanaconda.core.configuration.anaconda.ANACONDA_CONFIG_DIR", CONFIG_DIR)
-    def set_from_no_product_test(self):
+    def test_set_from_no_product(self):
         conf = AnacondaConfiguration.from_defaults()
 
         with self.assertRaises(ConfigurationError) as cm:
@@ -341,7 +341,7 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
         self.assertEqual(str(cm.exception), expected)
 
     @patch("pyanaconda.core.configuration.anaconda.ANACONDA_CONFIG_DIR", CONFIG_DIR)
-    def set_from_requested_product_test(self):
+    def test_set_from_requested_product(self):
         conf = AnacondaConfiguration.from_defaults()
 
         # Test an unknown requested product.
@@ -370,7 +370,7 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
         ])
 
     @patch("pyanaconda.core.configuration.anaconda.ANACONDA_CONFIG_DIR", CONFIG_DIR)
-    def set_from_buildstamp_product_test(self):
+    def test_set_from_buildstamp_product(self):
         conf = AnacondaConfiguration.from_defaults()
 
         # Test an unknown .buildstamp product.
@@ -398,7 +398,7 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
         ])
 
     @patch("pyanaconda.core.configuration.anaconda.ANACONDA_CONFIG_DIR", CONFIG_DIR)
-    def set_from_default_product_test(self):
+    def test_set_from_default_product(self):
         conf = AnacondaConfiguration.from_defaults()
 
         # Test an unknown default product.
@@ -423,7 +423,7 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
         ])
 
     @patch("pyanaconda.core.configuration.anaconda.ANACONDA_CONFIG_DIR", CONFIG_DIR)
-    def set_from_detected_product_test(self):
+    def test_set_from_detected_product(self):
         conf = AnacondaConfiguration.from_defaults()
         conf.set_from_product(get_os_release_value("NAME"))
 
@@ -537,11 +537,11 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
         for pattern in conf.anaconda.optional_modules:
             self._check_pattern(pattern)
 
-    def bootloader_test(self):
+    def test_bootloader(self):
         conf = AnacondaConfiguration.from_defaults()
         self.assertIn("selinux", conf.bootloader.preserved_arguments)
 
-    def default_partitioning_test(self):
+    def test_default_partitioning(self):
         conf = AnacondaConfiguration.from_defaults()
         self.assertEqual(conf.storage.default_partitioning, [
             {
@@ -555,7 +555,7 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
             }
         ])
 
-    def convert_partitioning_test(self):
+    def test_convert_partitioning(self):
         convert_line = StorageSection._convert_partitioning_line
 
         self.assertEqual(convert_line("/ (min 1 GiB, max 2 GiB, free 20 GiB)"), {
@@ -592,11 +592,11 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             convert_line("/home  (max 2 GiB)")
 
-    def default_installation_source_test(self):
+    def test_default_installation_source(self):
         conf = AnacondaConfiguration.from_defaults()
         self.assertEqual(conf.payload.default_source, SOURCE_TYPE_CLOSEST_MIRROR)
 
-    def default_password_policies_test(self):
+    def test_default_password_policies(self):
         conf = AnacondaConfiguration.from_defaults()
         self.assertEqual(conf.ui.password_policies, [
             {
@@ -615,7 +615,7 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
             },
         ])
 
-    def convert_password_policy_test(self):
+    def test_convert_password_policy(self):
         convert_line = UserInterfaceSection._convert_policy_line
 
         self.assertEqual(convert_line("root (quality 100, length 10, empty, strict)"), {

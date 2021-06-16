@@ -47,14 +47,14 @@ class LiveUtilsTestCase(unittest.TestCase):
         if is_valid:
             self._kernel_test_valid_list.append(name[8:])
 
-    def kernel_list_empty_test(self):
+    def test_kernel_list_empty(self):
         """Test empty get kernel list function."""
         with TemporaryDirectory() as temp:
             result = get_kernel_version_list(temp)
 
         self.assertEqual(result, [])
 
-    def kernel_list_test(self):
+    def test_kernel_list(self):
         """Test get kernel list function."""
         with TemporaryDirectory() as temp:
 
@@ -77,7 +77,7 @@ class LiveUtilsTestCase(unittest.TestCase):
 class LiveTasksTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.payloads.base.installation.execWithRedirect")
-    def install_image_task_test(self, exec_with_redirect, ):
+    def test_install_image_task(self, exec_with_redirect, ):
         """Test installation from an image task."""
         dest_path = "/destination/path"
         source = Mock()
@@ -94,7 +94,7 @@ class LiveTasksTestCase(unittest.TestCase):
         exec_with_redirect.assert_called_once_with("rsync", expected_rsync_args)
 
     @patch("pyanaconda.modules.payloads.base.installation.execWithRedirect")
-    def install_image_task_source_unready_test(self, exec_with_redirect):
+    def test_install_image_task_source_unready(self, exec_with_redirect):
         """Test installation from an image task when source is not ready."""
         dest_path = "/destination/path"
         source = Mock()
@@ -111,7 +111,7 @@ class LiveTasksTestCase(unittest.TestCase):
         exec_with_redirect.assert_called_once_with("rsync", expected_rsync_args)
 
     @patch("pyanaconda.modules.payloads.base.installation.execWithRedirect")
-    def install_image_task_failed_exception_test(self, exec_with_redirect):
+    def test_install_image_task_failed_exception(self, exec_with_redirect):
         """Test installation from an image task with exception."""
         dest_path = "/destination/path"
         source = Mock()
@@ -132,7 +132,7 @@ class LiveTasksTestCase(unittest.TestCase):
         exec_with_redirect.assert_called_once_with("rsync", expected_rsync_args)
 
     @patch("pyanaconda.modules.payloads.base.installation.execWithRedirect")
-    def install_image_task_failed_return_code_test(self, exec_with_redirect):
+    def test_install_image_task_failed_return_code(self, exec_with_redirect):
         """Test installation from an image task with bad return code."""
         dest_path = "/destination/path"
         source = Mock()

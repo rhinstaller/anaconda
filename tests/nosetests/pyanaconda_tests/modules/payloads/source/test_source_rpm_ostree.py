@@ -44,15 +44,15 @@ class OSTreeSourceInterfaceTestCase(unittest.TestCase):
             *args, **kwargs
         )
 
-    def type_test(self):
+    def test_type(self):
         """Test the Type property."""
         self.assertEqual(SOURCE_TYPE_RPM_OSTREE, self.interface.Type)
 
-    def description_test(self):
+    def test_description(self):
         """Test the Description property."""
         self.assertEqual("RPM OSTree", self.interface.Description)
 
-    def configuration_test(self):
+    def test_configuration(self):
         """Test the configuration property."""
         data = {
             "osname": get_variant(Str, "fedora-atomic"),
@@ -74,11 +74,11 @@ class OSTreeSourceTestCase(unittest.TestCase):
     def setUp(self):
         self.module = RPMOSTreeSourceModule()
 
-    def type_test(self):
+    def test_type(self):
         """Test the type property."""
         self.assertEqual(SourceType.RPM_OSTREE, self.module.type)
 
-    def network_required_test(self):
+    def test_network_required(self):
         """Test the network_required property."""
         self.assertEqual(self.module.network_required, False)
 
@@ -91,23 +91,23 @@ class OSTreeSourceTestCase(unittest.TestCase):
         self.module.configuration.url = "https://my/path"
         self.assertEqual(self.module.network_required, True)
 
-    def required_space_test(self):
+    def test_required_space(self):
         """Test the required_space property."""
         self.assertEqual(self.module.required_space, 0)
 
-    def get_state_test(self):
+    def test_get_state(self):
         """Test the source state."""
         self.assertEqual(SourceState.NOT_APPLICABLE, self.module.get_state())
 
-    def set_up_with_tasks_test(self):
+    def test_set_up_with_tasks(self):
         """Test the set-up tasks."""
         self.assertEqual(self.module.set_up_with_tasks(), [])
 
-    def tear_down_with_tasks_test(self):
+    def test_tear_down_with_tasks(self):
         """Test the tear-down tasks."""
         self.assertEqual(self.module.tear_down_with_tasks(), [])
 
-    def repr_test(self):
+    def test_repr(self):
         """Test the string representation."""
         self.assertEqual(repr(self.module), str(
             "Source("

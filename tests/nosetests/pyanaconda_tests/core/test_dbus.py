@@ -62,13 +62,13 @@ class AnacondaDBusConnectionTestCase(unittest.TestCase):
             self._check_addressed_connection(message_bus, getter, "ADDRESS")
 
     @patch("dasbus.connection.Gio.DBusConnection.new_for_address_sync")
-    def anaconda_bus_test(self, getter):
+    def test_anaconda_bus(self, getter):
         """Test the anaconda bus."""
         message_bus = AnacondaMessageBus()
         self._check_anaconda_connection(message_bus, getter)
 
     @patch("dasbus.connection.Gio.DBusConnection.new_for_address_sync")
-    def default_bus_test(self, getter):
+    def test_default_bus(self, getter):
         """Test the default bus."""
         message_bus = DefaultMessageBus()
 

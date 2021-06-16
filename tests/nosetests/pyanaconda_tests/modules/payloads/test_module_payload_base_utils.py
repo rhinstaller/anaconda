@@ -28,7 +28,7 @@ from pyanaconda.modules.payloads.base.utils import create_root_dir, write_module
 
 class PayloadBaseUtilsTest(TestCase):
 
-    def create_root_test(self):
+    def test_create_root(self):
         """Test payload create root directory function."""
         with TemporaryDirectory() as temp:
             create_root_dir(temp)
@@ -39,7 +39,7 @@ class PayloadBaseUtilsTest(TestCase):
 
     @patch('pyanaconda.modules.payloads.base.utils.kernel_arguments',
            {"modprobe.blacklist": "mod1 mod2 nonono_mod"})
-    def write_module_blacklist_test(self):
+    def test_write_module_blacklist(self):
         """Test write kernel module blacklist to the install root."""
         with TemporaryDirectory() as temp:
             write_module_blacklist(temp)
@@ -58,7 +58,7 @@ class PayloadBaseUtilsTest(TestCase):
                 self.assertEqual(dedent(expected_content).lstrip(), f.read())
 
     @patch('pyanaconda.modules.payloads.base.utils.kernel_arguments', {})
-    def write_empty_module_blacklist_test(self):
+    def test_write_empty_module_blacklist(self):
         """Test write kernel module blacklist to the install root -- empty list."""
         with TemporaryDirectory() as temp:
             write_module_blacklist(temp)
@@ -67,7 +67,7 @@ class PayloadBaseUtilsTest(TestCase):
 
             self.assertFalse(os.path.isfile(blacklist_file))
 
-    def get_dir_size_test(self):
+    def test_get_dir_size(self):
         """Test the get_dir_size function."""
 
         # dev null should have a size == 0
@@ -83,7 +83,7 @@ class PayloadBaseUtilsTest(TestCase):
         # TODO: mock some dirs and check if their size is
         # computed correctly
 
-    def sort_kernel_version_list_test(self):
+    def test_sort_kernel_version_list(self):
         """Test the sort_kernel_version_list function."""
         # Test fake versions.
         kernel_version_list = [

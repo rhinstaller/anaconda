@@ -35,7 +35,7 @@ class BaseModuleTestCase(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
 
-    def read_kickstart_error_test(self):
+    def test_read_kickstart_error(self):
         """Test ReadKickstart with a custom error."""
 
         class Service(KickstartService):
@@ -59,7 +59,7 @@ class BaseModuleTestCase(unittest.TestCase):
 
         self.assertEqual(interface.ReadKickstart(""), report)
 
-    def read_kickstart_error_line_number_test(self):
+    def test_read_kickstart_error_line_number(self):
         """Test ReadKickstart with a custom error on a specified line."""
 
         class Service(KickstartService):
@@ -83,7 +83,7 @@ class BaseModuleTestCase(unittest.TestCase):
 
         self.assertEqual(interface.ReadKickstart(""), report)
 
-    def read_kickstart_warning_test(self):
+    def test_read_kickstart_warning(self):
         """Test ReadKickstart with a custom warning."""
 
         class Service(KickstartService):

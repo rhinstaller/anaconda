@@ -46,7 +46,7 @@ pwpolicy luks --strict --minlen=8 --minquality=50 --nochanges --emptyok
         self.handler = kickstart.AnacondaKSHandler()
         self.ksparser = kickstart.AnacondaKSParser(self.handler)
 
-    def pwpolicy_test(self):
+    def test_pwpolicy(self):
         with self.assertWarns(KickstartDeprecationWarning):
             self.ksparser.readKickstartFromString(self.ks)
 
@@ -58,7 +58,7 @@ pwpolicy luks --strict --minlen=8 --minquality=50 --nochanges --emptyok
             self.assertEqual(str(self.handler.anaconda.pwpolicy.get_policy(name)), eq_template % name)    # pylint: disable=no-member
 
     @patch_dbus_get_proxy
-    def apply_none_to_module_test(self, proxy_getter):
+    def test_apply_none_to_module(self, proxy_getter):
         ui_module = Mock()
         proxy_getter.return_value = ui_module
 
@@ -66,7 +66,7 @@ pwpolicy luks --strict --minlen=8 --minquality=50 --nochanges --emptyok
         ui_module.SetPasswordPolicies.assert_not_called()
 
     @patch_dbus_get_proxy
-    def apply_policies_to_module_test(self, proxy_getter):
+    def test_apply_policies_to_module(self, proxy_getter):
         ui_module = Mock()
         proxy_getter.return_value = ui_module
 
@@ -110,7 +110,7 @@ pwpolicy luks --strict --minlen=8 --minquality=50 --nochanges --emptyok
         )
 
     @patch_dbus_get_proxy
-    def apply_none_to_configuration_test(self, proxy_getter):
+    def test_apply_none_to_configuration(self, proxy_getter):
         anaconda_conf = AnacondaConfiguration.from_defaults()
 
         with patch("pyanaconda.pwpolicy.conf", anaconda_conf):
@@ -120,7 +120,7 @@ pwpolicy luks --strict --minlen=8 --minquality=50 --nochanges --emptyok
         self.assertEqual(anaconda_conf.ui.can_change_users, False)
 
     @patch_dbus_get_proxy
-    def apply_changesok_to_configuration_test(self, proxy_getter):
+    def test_apply_changesok_to_configuration(self, proxy_getter):
         anaconda_conf = AnacondaConfiguration.from_defaults()
 
         ks_in = """
@@ -140,7 +140,7 @@ pwpolicy luks --strict --minlen=8 --minquality=50 --nochanges --emptyok
         self.assertEqual(anaconda_conf.ui.can_change_users, True)
 
     @patch_dbus_get_proxy
-    def apply_nochanges_to_configuration_test(self, proxy_getter):
+    def test_apply_nochanges_to_configuration(self, proxy_getter):
         anaconda_conf = AnacondaConfiguration.from_defaults()
 
         ks_in = """

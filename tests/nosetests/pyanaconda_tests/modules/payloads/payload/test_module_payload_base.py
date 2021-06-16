@@ -45,23 +45,23 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
                                               payload=self.module,
                                               payload_intf=self.interface)
 
-    def type_test(self):
+    def test_type(self):
         self.shared_tests.check_type(PayloadType.DNF)
 
     @patch.object(DNFModule, "supported_source_types", [SourceType.URL])
-    def supported_sources_test(self):
+    def test_supported_sources(self):
         """Test supported sources API."""
         self.assertEqual(
             [SourceType.URL.value],
             self.interface.SupportedSourceTypes)
 
-    def sources_empty_test(self):
+    def test_sources_empty(self):
         """Test sources API for emptiness."""
         self.shared_tests.check_empty_sources()
 
     @patch.object(DNFModule, "supported_source_types", [SourceType.URL])
     @patch_dbus_publish_object
-    def set_source_test(self, publisher):
+    def test_set_source(self, publisher):
         """Test if set source API payload."""
         sources = [self.shared_tests.prepare_source(SourceType.URL)]
 
@@ -69,7 +69,7 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
 
     @patch.object(DNFModule, "supported_source_types", [SourceType.URL])
     @patch_dbus_publish_object
-    def add_source_test(self, publisher):
+    def test_add_source(self, publisher):
         """Test module API to add source."""
         source1 = self.shared_tests.prepare_source(SourceType.URL, SourceState.NOT_APPLICABLE)
 
@@ -84,7 +84,7 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
 
     @patch.object(DNFModule, "supported_source_types", [SourceType.URL])
     @patch_dbus_publish_object
-    def add_source_incompatible_source_failed_test(self, publisher):
+    def test_add_source_incompatible_source_failed(self, publisher):
         """Test module API to add source failed with incompatible source."""
         source1 = self.shared_tests.prepare_source(SourceType.URL, SourceState.NOT_APPLICABLE)
 
@@ -99,7 +99,7 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
 
     @patch.object(DNFModule, "supported_source_types", [SourceType.URL])
     @patch_dbus_publish_object
-    def add_source_ready_failed_test(self, publisher):
+    def test_add_source_ready_failed(self, publisher):
         """Test module API to add source failed with ready source."""
         source1 = self.shared_tests.prepare_source(SourceType.URL, SourceState.READY)
 
@@ -114,7 +114,7 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
 
     @patch.object(DNFModule, "supported_source_types", [SourceType.URL, SourceType.NFS])
     @patch_dbus_publish_object
-    def set_multiple_source_test(self, publisher):
+    def test_set_multiple_source(self, publisher):
         """Test payload setting multiple compatible sources."""
         sources = [
             self.shared_tests.prepare_source(SourceType.NFS),
@@ -126,7 +126,7 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
 
     @patch.object(DNFModule, "supported_source_types", [SourceType.URL])
     @patch_dbus_publish_object
-    def set_incompatible_source_test(self, publisher):
+    def test_set_incompatible_source(self, publisher):
         """Test payload setting incompatible sources."""
         sources = [self.shared_tests.prepare_source(SourceType.LIVE_OS_IMAGE)]
 
@@ -138,7 +138,7 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
 
     @patch.object(DNFModule, "supported_source_types", [SourceType.NFS, SourceType.URL])
     @patch_dbus_publish_object
-    def set_when_initialized_source_fail_test(self, publisher):
+    def test_set_when_initialized_source_fail(self, publisher):
         """Test payload can't set new sources if the old ones are initialized."""
         source1 = self.shared_tests.prepare_source(SourceType.NFS)
         source2 = self.shared_tests.prepare_source(SourceType.URL, state=SourceState.NOT_APPLICABLE)
@@ -158,7 +158,7 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
         self.shared_tests.set_and_check_sources([source1])
 
     @patch_dbus_publish_object
-    def is_network_required_test(self, publisher):
+    def test_is_network_required(self, publisher):
         """Test IsNetworkRequired."""
         self.assertEqual(self.interface.IsNetworkRequired(), False)
 
@@ -173,7 +173,7 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.interface.IsNetworkRequired(), True)
 
     @patch_dbus_publish_object
-    def calculate_required_space_test(self, publisher):
+    def test_calculate_required_space(self, publisher):
         """Test CalculateRequiredTest."""
         self.assertEqual(self.interface.CalculateRequiredSpace(), 0)
 
@@ -183,7 +183,7 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.interface.CalculateRequiredSpace(), 0)
 
     @patch_dbus_publish_object
-    def set_up_sources_with_task_test(self, publisher):
+    def test_set_up_sources_with_task(self, publisher):
         """Test SetUpSourcesWithTask."""
         source = SourceFactory.create_source(SourceType.CDROM)
         self.module.add_source(source)
@@ -193,7 +193,7 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._sources, [source])
 
     @patch_dbus_publish_object
-    def tear_down_sources_with_task_test(self, publisher):
+    def test_tear_down_sources_with_task(self, publisher):
         """Test TearDownSourcesWithTask."""
         source = SourceFactory.create_source(SourceType.CDROM)
         self.module.add_source(source)

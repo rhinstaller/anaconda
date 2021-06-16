@@ -23,7 +23,7 @@ import collections
 
 class KernelArgumentsTests(unittest.TestCase):
 
-    def value_retrieval_test(self):
+    def test_value_retrieval(self):
         """KernelArguments value retrieval test."""
 
         ka = KernelArguments.from_string(
@@ -55,14 +55,14 @@ class KernelArgumentsTests(unittest.TestCase):
         self.assertFalse(ka.is_enabled("thing"))  # not present
         self.assertFalse(ka.is_enabled("where"))  # not present
 
-    def real_parsing_and_adding_test(self):
+    def test_real_parsing_and_adding(self):
         """Test file spec handling in KernelArguments."""
 
         ka = KernelArguments()
         self.assertEqual(ka.read(["/proc/cmdlin*", "/nonexistent/file"]), ["/proc/cmdline"])
         self.assertEqual(ka.read("/another/futile/attempt"), [])
 
-    def special_argument_handling_test(self):
+    def test_special_argument_handling(self):
         """Test handling of special arguments in KernelArguments."""
 
         ka = KernelArguments.from_string("modprobe.blacklist=floppy modprobe.blacklist=reiserfs")
@@ -72,7 +72,7 @@ class KernelArgumentsTests(unittest.TestCase):
         ka.read_string("inst.ks=kickstart")
         self.assertEqual(ka.get("ks"), "kickstart")
 
-    def items_test(self):
+    def test_items(self):
         """Test KernelArguments access to contents with iterator."""
 
         ka = KernelArguments.from_defaults()
@@ -84,7 +84,7 @@ class KernelArgumentsTests(unittest.TestCase):
                 root_seen = True
         self.assertTrue(root_seen)
 
-    def items_raw_test(self):
+    def test_items_raw(self):
         """Test KernelArguments access to raw contents with iterator."""
 
         ka = KernelArguments.from_string(
@@ -103,6 +103,6 @@ class KernelArgumentsTests(unittest.TestCase):
 
         self.assertEqual(res["inst.nothing"], "indeed")
 
-    def shared_instance_test(self):
+    def test_shared_instance(self):
         """Test the kernel.kernel_arguments instance."""
         self.assertTrue("root" in kernel_arguments)

@@ -32,7 +32,7 @@ class SatelliteLibraryTestCase(unittest.TestCase):
     # script from the Satellite instance with one method, then runs it with the other
 
     @patch("pyanaconda.core.util.requests_session")
-    def script_download_no_prefix_test(self, get_session):
+    def test_script_download_no_prefix(self, get_session):
         """Test the download_satellite_provisioning_script function - no prefix."""
         # mock the Python Request session
         session = get_session.return_value.__enter__.return_value
@@ -54,7 +54,7 @@ class SatelliteLibraryTestCase(unittest.TestCase):
         result.close.assert_called_once()
 
     @patch("pyanaconda.core.util.requests_session")
-    def script_download_http_test(self, get_session):
+    def test_script_download_http(self, get_session):
         """Test the download_satellite_provisioning_script function - http prefix."""
         # mock the Python Request session
         session = get_session.return_value.__enter__.return_value
@@ -76,7 +76,7 @@ class SatelliteLibraryTestCase(unittest.TestCase):
         result.close.assert_called_once()
 
     @patch("pyanaconda.core.util.requests_session")
-    def script_download_https_test(self, get_session):
+    def test_script_download_https(self, get_session):
         """Test the download_satellite_provisioning_script function - https prefix."""
         # mock the Python Request session
         session = get_session.return_value.__enter__.return_value
@@ -98,7 +98,7 @@ class SatelliteLibraryTestCase(unittest.TestCase):
         result.close.assert_called_once()
 
     @patch("pyanaconda.core.util.requests_session")
-    def script_download_not_ok_test(self, get_session):
+    def test_script_download_not_ok(self, get_session):
         """Test the download_satellite_provisioning_script function - result not ok."""
         # mock the Python Request session
         session = get_session.return_value.__enter__.return_value
@@ -120,7 +120,7 @@ class SatelliteLibraryTestCase(unittest.TestCase):
         result.close.assert_called_once()
 
     @patch("pyanaconda.core.util.requests_session")
-    def script_download_exception_test(self, get_session):
+    def test_script_download_exception(self, get_session):
         """Test the download_satellite_provisioning_script function - exception."""
         # mock the Python Request session
         session = get_session.return_value.__enter__.return_value
@@ -138,7 +138,7 @@ class SatelliteLibraryTestCase(unittest.TestCase):
             timeout=NETWORK_CONNECTION_TIMEOUT
         )
 
-    def run_satellite_provisioning_script_no_script_test(self):
+    def test_run_satellite_provisioning_script_no_script(self):
         """Test the run_satellite_provisioning_script function - no script."""
         # if no script is provided, False should be returned
         self.assertFalse(run_satellite_provisioning_script(provisioning_script=None))
@@ -146,7 +146,7 @@ class SatelliteLibraryTestCase(unittest.TestCase):
     @patch('pyanaconda.modules.subscription.satellite.util.mkdirChain')
     @patch('tempfile.NamedTemporaryFile')
     @patch('pyanaconda.core.util.execWithRedirect')
-    def run_satellite_provisioning_script_success_test(self, exec_with_redirect,
+    def test_run_satellite_provisioning_script_success(self, exec_with_redirect,
                                                        named_tempfile, mkdirChain):
         """Test the run_satellite_provisioning_script function - success."""
         # simulate successful script run
@@ -173,7 +173,7 @@ class SatelliteLibraryTestCase(unittest.TestCase):
     @patch('pyanaconda.modules.subscription.satellite.util.mkdirChain')
     @patch('tempfile.NamedTemporaryFile')
     @patch('pyanaconda.core.util.execWithRedirect')
-    def run_satellite_provisioning_script_success_chroot_test(self,
+    def test_run_satellite_provisioning_script_success_chroot(self,
                                                               exec_with_redirect,
                                                               named_tempfile,
                                                               mkdirChain,
@@ -209,7 +209,7 @@ class SatelliteLibraryTestCase(unittest.TestCase):
     @patch('pyanaconda.modules.subscription.satellite.util.mkdirChain')
     @patch('tempfile.NamedTemporaryFile')
     @patch('pyanaconda.core.util.execWithRedirect')
-    def run_satellite_provisioning_script_failure_test(self, exec_with_redirect,
+    def test_run_satellite_provisioning_script_failure(self, exec_with_redirect,
                                                        named_tempfile, mkdirChain):
         """Test the run_satellite_provisioning_script function - failure."""
         # simulate unsuccessful script run

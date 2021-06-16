@@ -21,7 +21,7 @@ from pyanaconda.core.regexes import NM_MAC_INITRAMFS_CONNECTION
 
 
 class NMMacInitramfsConnectionTestCase(unittest.TestCase):
-    def initramfs_connection_test(self):
+    def test_initramfs_connection(self):
         good_tests = [
             '12:24:56:78:ab:cd',
             '12:24:56:78:AB:cd',

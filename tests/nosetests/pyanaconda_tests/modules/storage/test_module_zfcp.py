@@ -37,11 +37,11 @@ class ZFCPInterfaceTestCase(unittest.TestCase):
         self.zfcp_interface = ZFCPInterface(self.zfcp_module)
 
     @patch("pyanaconda.modules.storage.dasd.dasd.arch.is_s390", return_value=True)
-    def is_supported_test(self, is_supported):
+    def test_is_supported(self, is_supported):
         self.assertEqual(self.zfcp_interface.IsSupported(), True)
 
     @patch_dbus_publish_object
-    def discover_with_task_test(self, publisher):
+    def test_discover_with_task(self, publisher):
         """Test the discover task."""
         task_path = self.zfcp_interface.DiscoverWithTask(
             "0.0.fc00",
@@ -57,7 +57,7 @@ class ZFCPInterfaceTestCase(unittest.TestCase):
 
     @patch('pyanaconda.modules.storage.zfcp.zfcp.zfcp')
     @patch("pyanaconda.modules.storage.zfcp.zfcp.arch.is_s390", return_value=True)
-    def write_configuration_test(self, arch, zfcp):
+    def test_write_configuration(self, arch, zfcp):
         """Test WriteConfiguration."""
         self.zfcp_interface.WriteConfiguration()
         zfcp.write.assert_called_once_with(conf.target.system_root)
@@ -66,7 +66,7 @@ class ZFCPInterfaceTestCase(unittest.TestCase):
 class ZFCPTasksTestCase(unittest.TestCase):
     """Test zFCP tasks."""
 
-    def discovery_fails_test(self):
+    def test_discovery_fails(self):
         """Test the failing discovery task."""
 
         with self.assertRaises(StorageDiscoveryError):
@@ -80,7 +80,7 @@ class ZFCPTasksTestCase(unittest.TestCase):
 
     @patch('pyanaconda.modules.storage.zfcp.discover.zfcp')
     @patch('pyanaconda.modules.storage.zfcp.discover.blockdev')
-    def discovery_test(self, blockdev, zfcp):
+    def test_discovery(self, blockdev, zfcp):
         """Test the discovery task."""
         ZFCPDiscoverTask("0.0.fc00", "0x5105074308c212e9", "0x401040a000000000").run()
 

@@ -41,7 +41,7 @@ ANACONDA_TEST_DIR = '/tmp/anaconda_tests_dir'
 
 class UpcaseFirstLetterTests(unittest.TestCase):
 
-    def upcase_first_letter_test(self):
+    def test_upcase_first_letter(self):
         """Upcasing first letter should work as expected."""
 
         # no change
@@ -62,7 +62,7 @@ class UpcaseFirstLetterTests(unittest.TestCase):
 
 class RunSystemctlTests(unittest.TestCase):
 
-    def is_service_installed_test(self):
+    def test_is_service_installed(self):
         """Test the is_service_installed function."""
         with patch('pyanaconda.core.util.execWithCapture') as execute:
             execute.return_value = "fake.service enabled enabled"
@@ -87,7 +87,7 @@ class RunSystemctlTests(unittest.TestCase):
 
 
 class RunProgramTests(unittest.TestCase):
-    def run_program_test(self):
+    def test_run_program(self):
         """Test the _run_program method."""
 
         # correct calling should return rc==0
@@ -104,7 +104,7 @@ class RunProgramTests(unittest.TestCase):
         with self.assertRaises(OSError):
             util._run_program(['asdasdadasd'])
 
-    def run_program_binary_test(self):
+    def test_run_program_binary(self):
         """Test _run_program with binary output."""
 
         # Echo something that cannot be decoded as utf-8
@@ -113,7 +113,7 @@ class RunProgramTests(unittest.TestCase):
         self.assertEqual(retcode, 0)
         self.assertEqual(output, b'\xa0\xa1\xa2')
 
-    def exec_with_redirect_test(self):
+    def test_exec_with_redirect(self):
         """Test execWithRedirect."""
         # correct calling should return rc==0
         self.assertEqual(util.execWithRedirect('ls', []), 0)
@@ -121,7 +121,7 @@ class RunProgramTests(unittest.TestCase):
         # incorrect calling should return rc!=0
         self.assertNotEqual(util.execWithRedirect('ls', ['--asdasd']), 0)
 
-    def exec_with_capture_test(self):
+    def test_exec_with_capture(self):
         """Test execWithCapture."""
 
         # check some output is returned
@@ -130,7 +130,7 @@ class RunProgramTests(unittest.TestCase):
         # check no output is returned
         self.assertEqual(len(util.execWithCapture('true', [])), 0)
 
-    def exec_with_capture_no_stderr_test(self):
+    def test_exec_with_capture_no_stderr(self):
         """Test execWithCapture with no stderr"""
 
         with tempfile.NamedTemporaryFile(mode="w+t") as testscript:
@@ -148,13 +148,13 @@ echo "error" >&2
             # check that both output and error are captured
             self.assertEqual(util.execWithCapture("/bin/sh", [testscript.name]), "output\nerror\n")
 
-    def exec_with_capture_empty_test(self):
+    def test_exec_with_capture_empty(self):
         """Test execWithCapture with no output"""
 
         # check that the output is an empty string
         self.assertEqual(util.execWithCapture("/bin/sh", ["-c", "exit 0"]), "")
 
-    def exec_readlines_test(self):
+    def test_exec_readlines(self):
         """Test execReadlines."""
 
         # test no lines are returned
@@ -363,7 +363,7 @@ exit 0
                 self.assertEqual(next(rl_iterator), "three")
                 self.assertRaises(StopIteration, rl_iterator.__next__)
 
-    def start_program_preexec_fn_test(self):
+    def test_start_program_preexec_fn(self):
         """Test passing preexec_fn to startProgram."""
 
         marker_text = "yo wassup man"
@@ -386,7 +386,7 @@ exit 0
             testfile.seek(0, os.SEEK_SET)
             self.assertEqual(testfile.read(), marker_text)
 
-    def start_program_stdout_test(self):
+    def test_start_program_stdout(self):
         """Test redirecting stdout with startProgram."""
 
         marker_text = "yo wassup man"
@@ -403,7 +403,7 @@ exit 0
             testfile.seek(0, os.SEEK_SET)
             self.assertEqual(testfile.read().strip(), marker_text)
 
-    def start_program_reset_handlers_test(self):
+    def test_start_program_reset_handlers(self):
         """Test the reset_handlers parameter of startProgram."""
 
         with tempfile.NamedTemporaryFile(mode="w+t") as testscript:
@@ -434,7 +434,7 @@ while true ; do sleep 1 ; done
                 proc.communicate()
                 self.assertEqual(proc.returncode, -(signal.SIGTERM))
 
-    def exec_readlines_auto_kill_test(self):
+    def test_exec_readlines_auto_kill(self):
         """Test execReadlines with reading only part of the output"""
 
         with tempfile.NamedTemporaryFile(mode="w+t") as testscript:
@@ -463,7 +463,7 @@ done
             # Check that the process is gone
             self.assertIsNotNone(proc.poll())
 
-    def watch_process_test(self):
+    def test_watch_process(self):
         """Test watchProcess"""
 
         def test_still_running():
@@ -494,7 +494,7 @@ class MiscTests(unittest.TestCase):
         # remove the testing directory
         shutil.rmtree(ANACONDA_TEST_DIR)
 
-    def mkdir_chain_test(self):
+    def test_mkdir_chain(self):
         """Test mkdirChain."""
 
         # don't fail if directory path already exists
@@ -533,19 +533,19 @@ class MiscTests(unittest.TestCase):
         for p in test_paths:
             util.mkdirChain(p)
 
-    def get_active_console_test(self):
+    def test_get_active_console(self):
         """Test get_active_console."""
 
         # at least check if a string is returned
         self.assertIsInstance(util.get_active_console(), str)
 
-    def is_console_on_vt_test(self):
+    def test_is_console_on_vt(self):
         """Test isConsoleOnVirtualTerminal."""
 
         # at least check if a bool is returned
         self.assertIsInstance(util.isConsoleOnVirtualTerminal(), bool)
 
-    def vt_activate_test(self):
+    def test_vt_activate(self):
         """Test vtActivate."""
 
         # pylint: disable=no-member
@@ -564,7 +564,7 @@ class MiscTests(unittest.TestCase):
         finally:
             util.vtActivate.__globals__['execWithRedirect'] = _execWithRedirect
 
-    def strip_accents_test(self):
+    def test_strip_accents(self):
         """Test strip_accents."""
 
         # empty string
@@ -593,7 +593,7 @@ class MiscTests(unittest.TestCase):
         output_string = u"ASCI mestanek \u30a2\u30ca\u30b3\u30f3\u30bf Heizolrucksto\xdfabdampfung"
         self.assertEqual(util.strip_accents(input_string), output_string)
 
-    def cmp_obj_attrs_test(self):
+    def test_cmp_obj_attrs(self):
         """Test cmp_obj_attrs."""
 
         # pylint: disable=attribute-defined-outside-init
@@ -634,7 +634,7 @@ class MiscTests(unittest.TestCase):
         self.assertFalse(util.cmp_obj_attrs(b, a, ["b", "c"]))
         self.assertFalse(util.cmp_obj_attrs(b, a, ["c", "b"]))
 
-    def to_ascii_test(self):
+    def test_to_ascii(self):
         """Test _toASCII."""
 
         # check some conversions
@@ -647,7 +647,7 @@ class MiscTests(unittest.TestCase):
         _out = "Heizolruckstoabdampfung"
         self.assertEqual(util._toASCII("Heizölrückstoßabdämpfung"), _out)
 
-    def upper_ascii_test(self):
+    def test_upper_ascii(self):
         """Test upperASCII."""
 
         self.assertEqual(util.upperASCII(""), "")
@@ -660,7 +660,7 @@ class MiscTests(unittest.TestCase):
         self.assertEqual(util.upperASCII("Heizölrückstoßabdämpfung"), _out)
 
 
-    def lower_ascii_test(self):
+    def test_lower_ascii(self):
         """Test lowerASCII."""
         self.assertEqual(util.lowerASCII(""), "")
         self.assertEqual(util.lowerASCII("A"), "a")
@@ -671,7 +671,7 @@ class MiscTests(unittest.TestCase):
         _out = "heizolruckstoabdampfung"
         self.assertEqual(util.lowerASCII("Heizölrückstoßabdämpfung"), _out)
 
-    def have_word_match_test(self):
+    def test_have_word_match(self):
         """Test have_word_match."""
 
         self.assertTrue(util.have_word_match("word1 word2", "word1 word2 word3"))
@@ -698,7 +698,7 @@ class MiscTests(unittest.TestCase):
         self.assertTrue(util.have_word_match("fête", u"fête champêtre"))
         self.assertTrue(util.have_word_match(u"fête", "fête champêtre"))
 
-    def parent_dir_test(self):
+    def test_parent_dir(self):
         """Test the parent_dir function"""
         dirs = [("", ""), ("/", ""), ("/home/", ""), ("/home/bcl", "/home"), ("home/bcl", "home"),
                 ("/home/bcl/", "/home"), ("/home/extra/bcl", "/home/extra"),
@@ -707,7 +707,7 @@ class MiscTests(unittest.TestCase):
         for d, r in dirs:
             self.assertEqual(util.parent_dir(d), r)
 
-    def open_with_perm_test(self):
+    def test_open_with_perm(self):
         """Test the open_with_perm function"""
         # Create a directory for test files
         test_dir = tempfile.mkdtemp()
@@ -727,7 +727,7 @@ class MiscTests(unittest.TestCase):
         finally:
             shutil.rmtree(test_dir)
 
-    def touch_test(self):
+    def test_touch(self):
         """Test if the touch function correctly creates empty files"""
         test_dir = tempfile.mkdtemp()
         try:
@@ -743,7 +743,7 @@ class MiscTests(unittest.TestCase):
         finally:
             shutil.rmtree(test_dir)
 
-    def item_counter_test(self):
+    def test_item_counter(self):
         """Test the item_counter generator."""
         # normal usage
         counter = util.item_counter(3)
@@ -766,7 +766,7 @@ class MiscTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             next(counter)
 
-    def synchronized_decorator_test(self):
+    def test_synchronized_decorator(self):
         """Check that the @synchronized decorator works correctly."""
 
         # The @synchronized decorator work on methods of classes
@@ -806,11 +806,11 @@ class MiscTests(unittest.TestCase):
         with self.assertRaises(TypeError):
             test_function()
 
-    def sysroot_test(self):
+    def test_sysroot(self):
         self.assertEqual(conf.target.physical_root, "/mnt/sysimage")
         self.assertEqual(conf.target.system_root, "/mnt/sysroot")
 
-    def join_paths_test(self):
+    def test_join_paths(self):
         self.assertEqual(util.join_paths("/first/path/"),
                          "/first/path/")
         self.assertEqual(util.join_paths(""),
@@ -828,7 +828,7 @@ class MiscTests(unittest.TestCase):
         self.assertEqual(util.join_paths("first/path", "second/path"),
                          "first/path/second/path")
 
-    def decode_bytes_test(self):
+    def test_decode_bytes(self):
         self.assertEqual("STRING", util.decode_bytes("STRING"))
         self.assertEqual("BYTES", util.decode_bytes(b"BYTES"))
         self.assertRaises(ValueError, util.decode_bytes, None)
@@ -836,7 +836,7 @@ class MiscTests(unittest.TestCase):
         self.assertRaises(ValueError, util.decode_bytes, [])
 
     @patch.dict('sys.modules')
-    def get_anaconda_version_string_test(self):
+    def test_get_anaconda_version_string(self):
         # Forget imported modules from pyanaconda. We have to forget every parent module of
         # pyanaconda.version but this is just more robust and easier. Without this the
         # version module is already imported and it's not loaded again.
@@ -858,7 +858,7 @@ class MiscTests(unittest.TestCase):
         self.assertEqual(get_anaconda_version_string(), "1.0")
         self.assertEqual(get_anaconda_version_string(build_time_version=True), "1.0-1")
 
-    def get_os_relase_value_test(self):
+    def test_get_os_relase_value(self):
         """Test the get_release_value function."""
         with tempfile.TemporaryDirectory() as root:
             # prepare paths
@@ -904,7 +904,7 @@ class MiscTests(unittest.TestCase):
             version = util.get_os_release_value("VERSION_ID", root)
             self.assertEqual(version, None)
 
-    def detect_virtualized_platform_test(self):
+    def test_detect_virtualized_platform(self):
         """Test the function detect_virtualized_platform."""
         with patch('pyanaconda.core.util.execWithCapture') as execute:
             execute.side_effect = IOError
@@ -920,7 +920,7 @@ class MiscTests(unittest.TestCase):
 
     @patch("pyanaconda.core.util.open")
     @patch("pyanaconda.core.util.blivet.arch.is_arm")
-    def is_lpae_available_test(self, is_arm, mock_open):
+    def test_is_lpae_available(self, is_arm, mock_open):
         """Test the is_lpae_available function."""
         is_arm.return_value = False
         self.assertEqual(util.is_lpae_available(), False)
@@ -989,7 +989,7 @@ class LazyObjectTestCase(unittest.TestCase):
     def lazy_obj(self):
         return LazyObject(lambda: self.obj)
 
-    def get_set_test(self):
+    def test_get_set(self):
         self.assertIsNotNone(self.lazy_obj)
         self.assertIsNone(self._obj)
 
@@ -1008,7 +1008,7 @@ class LazyObjectTestCase(unittest.TestCase):
         self.assertEqual(self.obj.x, 100)
         self.assertEqual(self.lazy_obj.x, 100)
 
-    def eq_test(self):
+    def test_eq(self):
         a = object()
         lazy_a1 = LazyObject(lambda: a)
         lazy_a2 = LazyObject(lambda: a)
@@ -1025,7 +1025,7 @@ class LazyObjectTestCase(unittest.TestCase):
         self.assertEqual(lazy_a1, lazy_a1)
         self.assertEqual(lazy_a2, lazy_a2)
 
-    def neq_test(self):
+    def test_neq(self):
         a = object()
         lazy_a = LazyObject(lambda: a)
 
@@ -1038,7 +1038,7 @@ class LazyObjectTestCase(unittest.TestCase):
         self.assertNotEqual(lazy_a, lazy_b)
         self.assertNotEqual(lazy_b, lazy_a)
 
-    def hash_test(self):
+    def test_hash(self):
         a = object()
         lazy_a1 = LazyObject(lambda: a)
         lazy_a2 = LazyObject(lambda: a)

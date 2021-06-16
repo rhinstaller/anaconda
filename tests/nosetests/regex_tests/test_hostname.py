@@ -25,7 +25,7 @@ from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, \
                                     IPV4_PATTERN_WITHOUT_ANCHORS, IPV6_PATTERN_WITHOUT_ANCHORS
 
 class HostnameRegexTestCase(unittest.TestCase):
-    def hostname_test(self):
+    def test_hostname(self):
         good_tests = [
                 '0',
                 'a',
@@ -60,7 +60,7 @@ class HostnameRegexTestCase(unittest.TestCase):
             self.fail()
 
 class IPv4RegexTestCase(unittest.TestCase):
-    def ipv4_test(self):
+    def test_ipv4(self):
         good_tests = [
                 '1.2.3.4',
                 '0.0.0.0',
@@ -84,7 +84,7 @@ class IPv4RegexTestCase(unittest.TestCase):
 
 
 class IPv6RegexTestCase(unittest.TestCase):
-    def ipv6_test(self):
+    def test_ipv6(self):
         good_tests = [
                 '0000:0000:0000:0000:0000:0000:0000:0000',
                 '0000:0000:0000:0000:0000:0000:1.2.3.4',

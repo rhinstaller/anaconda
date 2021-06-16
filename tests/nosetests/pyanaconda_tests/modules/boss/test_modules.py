@@ -63,13 +63,13 @@ class ModuleManagerTestCase(unittest.TestCase):
         self.assertEqual([o.service_name for o in observers], service_names)
         return observers
 
-    def start_no_modules_test(self):
+    def test_start_no_modules(self):
         """Start no modules."""
         task = StartModulesTask(self._message_bus, [], [], [])
         self._check_started_modules(task, [])
 
     @patch("dasbus.client.observer.Gio")
-    def start_one_module_test(self, gio):
+    def test_start_one_module(self, gio):
         """Start one module."""
         service_names = [
             "org.fedoraproject.Anaconda.Modules.A"
@@ -89,7 +89,7 @@ class ModuleManagerTestCase(unittest.TestCase):
         observer.proxy.Ping.assert_called_once_with()
 
     @patch("dasbus.client.observer.Gio")
-    def start_modules_test(self, gio):
+    def test_start_modules(self, gio):
         """Start modules."""
         service_names = [
             "org.fedoraproject.Anaconda.Modules.A",
@@ -104,7 +104,7 @@ class ModuleManagerTestCase(unittest.TestCase):
             self.assertEqual(observer.is_addon, False)
 
     @patch("dasbus.client.observer.Gio")
-    def start_addons_test(self, gio):
+    def test_start_addons(self, gio):
         """Start addons."""
         service_namespaces = [
             "org.fedoraproject.Anaconda.Addons.*"
@@ -150,7 +150,7 @@ class ModuleManagerTestCase(unittest.TestCase):
 
         self._check_started_modules(task, service_names)
 
-    def start_module_failed_test(self):
+    def test_start_module_failed(self):
         """Fail to start a module."""
         service_names = [
             "org.fedoraproject.Anaconda.Modules.A",
@@ -176,7 +176,7 @@ class ModuleManagerTestCase(unittest.TestCase):
         self.assertEqual(str(cm.exception), expected)
 
     @patch("dasbus.client.observer.Gio")
-    def start_addon_failed_test(self, gio):
+    def test_start_addon_failed(self, gio):
         """Fail to start an add-on."""
         service_namespaces = [
             "org.fedoraproject.Anaconda.Addons.*"
@@ -206,7 +206,7 @@ class ModuleManagerTestCase(unittest.TestCase):
         self.assertEqual(task.run(), [])
 
     @patch("dasbus.client.observer.Gio")
-    def get_service_names_test(self, gio):
+    def test_get_service_names(self, gio):
         """Get service names of running modules."""
         self.assertEqual(self._manager.get_service_names(), [])
 

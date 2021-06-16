@@ -28,13 +28,13 @@ from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package, \
 
 class DNFUtilsPackagesTestCase(unittest.TestCase):
 
-    def get_kernel_package_excluded_test(self):
+    def test_get_kernel_package_excluded(self):
         """Test the get_kernel_package function with kernel excluded."""
         kernel = get_kernel_package(dnf_base=Mock(), exclude_list=["kernel"])
         self.assertEqual(kernel, None)
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.dnf")
-    def get_kernel_package_installable_test(self, mock_dnf):
+    def test_get_kernel_package_installable(self, mock_dnf):
         """Test the get_kernel_package function without installable packages."""
         subject = mock_dnf.subject.Subject.return_value
         subject.get_best_query.return_value = False
@@ -48,7 +48,7 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.dnf")
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.is_lpae_available")
-    def get_kernel_package_lpae_test(self, is_lpae, mock_dnf):
+    def test_get_kernel_package_lpae(self, is_lpae, mock_dnf):
         """Test the get_kernel_package function with LPAE."""
         subject = mock_dnf.subject.Subject.return_value
         subject.get_best_query.return_value = True
@@ -62,7 +62,7 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.dnf")
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.is_lpae_available")
-    def get_kernel_package_test(self, is_lpae, mock_dnf):
+    def test_get_kernel_package(self, is_lpae, mock_dnf):
         """Test the get_kernel_package function."""
         subject = mock_dnf.subject.Subject.return_value
         subject.get_best_query.return_value = True
@@ -72,22 +72,22 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         self.assertEqual(kernel, "kernel")
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.productVersion", "invalid")
-    def get_product_release_version_invalid_test(self):
+    def test_get_product_release_version_invalid(self):
         """Test the get_product_release_version function with an invalid value."""
         self.assertEqual(get_product_release_version(), "rawhide")
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.productVersion", "28")
-    def get_product_release_version_number_test(self):
+    def test_get_product_release_version_number(self):
         """Test the get_product_release_version function with a valid number."""
         self.assertEqual(get_product_release_version(), "28")
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.productVersion", "7.4")
-    def get_product_release_version_dot_test(self):
+    def test_get_product_release_version_dot(self):
         """Test the get_product_release_version function with a dot."""
         self.assertEqual(get_product_release_version(), "7.4")
 
     @patch.object(DNFManager, 'environments', new_callable=PropertyMock)
-    def get_default_environment_test(self, mock_environments):
+    def test_get_default_environment(self, mock_environments):
         """Test the get_default_environment function"""
         mock_environments.return_value = []
         self.assertEqual(get_default_environment(DNFManager()), None)
@@ -99,18 +99,18 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         ]
         self.assertEqual(get_default_environment(DNFManager()), "environment-1")
 
-    def get_installation_specs_default_test(self):
+    def test_get_installation_specs_default(self):
         """Test the get_installation_specs function with defaults."""
         data = PackagesConfigurationData()
         self.assertEqual(get_installation_specs(data), (["@core"], []))
 
-    def get_installation_specs_nocore_test(self):
+    def test_get_installation_specs_nocore(self):
         """Test the get_installation_specs function without core."""
         data = PackagesConfigurationData()
         data.core_group_enabled = False
         self.assertEqual(get_installation_specs(data), ([], ["@core"]))
 
-    def get_installation_specs_environment_test(self):
+    def test_get_installation_specs_environment(self):
         """Test the get_installation_specs function with environment."""
         data = PackagesConfigurationData()
         data.environment = "environment-1"
@@ -129,7 +129,7 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
             ["@environment-2", "@core"], []
         ))
 
-    def get_installation_specs_packages_test(self):
+    def test_get_installation_specs_packages(self):
         """Test the get_installation_specs function with packages."""
         data = PackagesConfigurationData()
         data.packages = ["p1", "p2", "p3"]
@@ -139,7 +139,7 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
             ["@core", "p1", "p2", "p3"], ["p4", "p5", "p6"]
         ))
 
-    def get_installation_specs_groups_test(self):
+    def test_get_installation_specs_groups(self):
         """Test the get_installation_specs function with groups."""
         data = PackagesConfigurationData()
 
@@ -166,7 +166,7 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         ))
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.rpm")
-    def get_kernel_version_list_test(self, mock_rpm):
+    def test_get_kernel_version_list(self, mock_rpm):
         """Test the get_kernel_version_list function."""
         hdr_1 = Mock(filenames=[
             "/boot/vmlinuz-0-rescue-dbe69c1b88f94a67b689e3f44b0550c8"

@@ -39,7 +39,7 @@ class StartRHSMTaskTestCase(unittest.TestCase):
 
     @patch_system_dbus_get_proxy
     @patch("pyanaconda.core.util.start_service")
-    def success_test(self, start_service, get_proxy):
+    def test_success(self, start_service, get_proxy):
         """Test StartRHSMTask - successful task."""
 
         # create the task
@@ -72,7 +72,7 @@ class StartRHSMTaskTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.common.constants.services.RHSM.get_proxy")
     @patch("pyanaconda.core.util.start_service")
-    def insecure_test(self, start_service, get_proxy):
+    def test_insecure(self, start_service, get_proxy):
         """Test StartRHSMTask - setting the server.insecure RHSM config key."""
         # create the task & disable SSL certificate validation
         task = StartRHSMTask(verify_ssl=False)
@@ -101,7 +101,7 @@ class StartRHSMTaskTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.common.constants.services.RHSM.get_proxy")
     @patch("pyanaconda.core.util.start_service")
-    def unit_start_failed_test(self, start_service, get_proxy):
+    def test_unit_start_failed(self, start_service, get_proxy):
         """Test StartRHSMTask - systemd unit failed to start."""
 
         # create the task
@@ -115,7 +115,7 @@ class StartRHSMTaskTestCase(unittest.TestCase):
         # check proxy was not requested
         get_proxy.assert_not_called()
 
-    def is_service_available_success_test(self):
+    def test_is_service_available_success(self):
         """Test StartRHSMTask - test is_service_available() - success."""
 
         # create the task
@@ -126,7 +126,7 @@ class StartRHSMTaskTestCase(unittest.TestCase):
         # test the method
         self.assertTrue(task.is_service_available(1))
 
-    def is_service_available_failure_test(self):
+    def test_is_service_available_failure(self):
         """Test StartRHSMTask - test is_service_available() - failure."""
 
         # create the task
@@ -138,7 +138,7 @@ class StartRHSMTaskTestCase(unittest.TestCase):
         self.assertFalse(task.is_service_available(1))
 
     @patch("pyanaconda.threading.threadMgr.get")
-    def is_service_available_timeout_test(self, thread_mgr_get):
+    def test_is_service_available_timeout(self, thread_mgr_get):
         """Test StartRHSMTask - test is_service_available() - timeout."""
 
         # put this into a variable to fit the patch invocation on single line
@@ -165,7 +165,7 @@ class StartRHSMTaskTestCase(unittest.TestCase):
             mock_thread.join.assert_called_once_with(1.0)
 
     @patch("pyanaconda.threading.threadMgr.get")
-    def is_service_available_waiting_test(self, thread_mgr_get):
+    def test_is_service_available_waiting(self, thread_mgr_get):
         """Test StartRHSMTask - test is_service_available() - waiting."""
 
         # put this into a variable to fit the patch invocation on single line
@@ -235,7 +235,7 @@ class RHSMObserverTestCase(unittest.TestCase):
         observer._service_available.reset_mock()
 
     @patch_system_dbus_get_proxy
-    def service_available_test(self, get_proxy):
+    def test_service_available(self, get_proxy):
         """Test that RHSMObserver returns proxy if service is available."""
 
         startup_check_method = Mock()
@@ -249,7 +249,7 @@ class RHSMObserverTestCase(unittest.TestCase):
         get_proxy.assert_called_once_with("com.redhat.RHSM1", "BAZ", "BAZ")
 
     @patch_system_dbus_get_proxy
-    def service_not_available_success_test(self, get_proxy):
+    def test_service_not_available_success(self, get_proxy):
         """Test that RHSMObserver checks service startup status and succeeds."""
 
         startup_check_method = Mock()
@@ -268,7 +268,7 @@ class RHSMObserverTestCase(unittest.TestCase):
         startup_check_method.assert_called_once_with(RHSM_SERVICE_TIMEOUT)
 
     @patch_system_dbus_get_proxy
-    def service_not_available_failure_test(self, get_proxy):
+    def test_service_not_available_failure(self, get_proxy):
         """Test that RHSMObserver checks service startup status and fails."""
 
         startup_check_method = Mock()

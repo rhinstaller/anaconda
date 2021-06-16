@@ -67,7 +67,7 @@ class UserCreateTest(unittest.TestCase):
                     return fields
         return None
 
-    def create_group_test(self):
+    def test_create_group(self):
         """Create a group."""
         users.create_group("test_group", root=self.tmpdir)
 
@@ -79,7 +79,7 @@ class UserCreateTest(unittest.TestCase):
         self.assertIsNotNone(fields)
         self.assertEqual(fields[0], "test_group")
 
-    def create_group_gid_test(self):
+    def test_create_group_gid(self):
         """Create a group with a specific GID."""
         users.create_group("test_group", gid=47, root=self.tmpdir)
 
@@ -89,7 +89,7 @@ class UserCreateTest(unittest.TestCase):
         self.assertEqual(fields[0], "test_group")
         self.assertEqual(fields[2], "47")
 
-    def create_group_exists_test(self):
+    def test_create_group_exists(self):
         """Create a group that already exists."""
         with open(self.tmpdir + "/etc/group", "w") as f:
             f.write("test_group:x:47:\n")
@@ -97,7 +97,7 @@ class UserCreateTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             users.create_group("test_group", root=self.tmpdir)
 
-    def create_group_gid_exists_test(self):
+    def test_create_group_gid_exists(self):
         """Create a group with a GID that already exists."""
         with open(self.tmpdir + "/etc/group", "w") as f:
             f.write("gid_used:x:47:\n")
@@ -105,7 +105,7 @@ class UserCreateTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             users.create_group("test_group", gid=47, root=self.tmpdir)
 
-    def create_user_test(self):
+    def test_create_user(self):
         """Create a user."""
         users.create_user("test_user", root=self.tmpdir)
 
@@ -146,7 +146,7 @@ class UserCreateTest(unittest.TestCase):
         self.assertIsNotNone(gshadow_fields)
         self.assertEqual(gshadow_fields[0], "test_user")
 
-    def create_user_text_options_test(self):
+    def test_create_user_text_options(self):
         """Create a user with the text fields set."""
         users.create_user("test_user", gecos="Test User", homedir="/home/users/testuser", shell="/bin/test", root=self.tmpdir)
 
@@ -160,7 +160,7 @@ class UserCreateTest(unittest.TestCase):
         # Check that the home directory was created
         self.assertTrue(os.path.isdir(self.tmpdir + "/home/users/testuser"))
 
-    def create_user_groups_test(self):
+    def test_create_user_groups(self):
         """Create a user with a list of groups."""
         # Create one of the groups
         users.create_group("test3", root=self.tmpdir)
@@ -179,7 +179,7 @@ class UserCreateTest(unittest.TestCase):
         grp_fields3 = self._readFields("/etc/group", "test3")
         self.assertEqual(grp_fields3[3], "test_user")
 
-    def create_user_groups_gid_conflict_test(self):
+    def test_create_user_groups_gid_conflict(self):
         """Create a user with a bad list of groups."""
         # Create one of the groups
         users.create_group("test3", gid=5000, root=self.tmpdir)
@@ -188,7 +188,7 @@ class UserCreateTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             users.create_user("test_user", groups=["test3(5002)"], root=self.tmpdir)
 
-    def create_user_password_test(self):
+    def test_create_user_password(self):
         """Create a user with a password."""
 
         users.create_user("test_user1", password="password", root=self.tmpdir)
@@ -210,7 +210,7 @@ class UserCreateTest(unittest.TestCase):
         self.assertIsNotNone(shadow_fields)
         self.assertEqual("", shadow_fields[1])
 
-    def create_user_lock_test(self):
+    def test_create_user_lock(self):
         """Create a locked user account."""
 
         # Create an empty, locked password
@@ -226,7 +226,7 @@ class UserCreateTest(unittest.TestCase):
         self.assertTrue(shadow_fields[1].startswith("!"))
         self.assertEqual(crypt.crypt("password", shadow_fields[1][1:]), shadow_fields[1][1:])
 
-    def create_user_uid_test(self):
+    def test_create_user_uid(self):
         """Create a user with a specific UID."""
 
         users.create_user("test_user", uid=1047, root=self.tmpdir)
@@ -234,7 +234,7 @@ class UserCreateTest(unittest.TestCase):
         self.assertIsNotNone(pwd_fields)
         self.assertEqual(pwd_fields[2], "1047")
 
-    def create_user_gid_test(self):
+    def test_create_user_gid(self):
         """Create a user with a specific GID."""
 
         users.create_user("test_user", gid=1047, root=self.tmpdir)
@@ -247,7 +247,7 @@ class UserCreateTest(unittest.TestCase):
         self.assertIsNotNone(grp_fields)
         self.assertEqual(grp_fields[2], "1047")
 
-    def create_user_exists_test(self):
+    def test_create_user_exists(self):
         """Create a user that already exists."""
         with open(self.tmpdir + "/etc/passwd", "w") as f:
             f.write("test_user:x:1000:1000::/:/bin/sh\n")
@@ -255,7 +255,7 @@ class UserCreateTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             users.create_user("test_user", root=self.tmpdir)
 
-    def create_user_uid_exists_test(self):
+    def test_create_user_uid_exists(self):
         """Create a user with a UID that already exists."""
         with open(self.tmpdir + "/etc/passwd", "w") as f:
             f.write("conflict:x:1000:1000::/:/bin/sh\n")
@@ -263,7 +263,7 @@ class UserCreateTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             users.create_user("test_user", uid=1000, root=self.tmpdir)
 
-    def create_user_gid_exists_test(self):
+    def test_create_user_gid_exists(self):
         """Create a user with a GID of an existing group."""
         users.create_group("test_group", gid=5000, root=self.tmpdir)
         users.create_user("test_user", gid=5000, root=self.tmpdir)
@@ -272,7 +272,7 @@ class UserCreateTest(unittest.TestCase):
         self.assertIsNotNone(passwd_fields)
         self.assertEqual(passwd_fields[3], "5000")
 
-    def set_user_ssh_key_test(self):
+    def test_set_user_ssh_key(self):
         keydata = "THIS IS TOTALLY A SSH KEY"
 
         users.create_user("test_user", homedir="/home/test_user", root=self.tmpdir)
@@ -285,7 +285,7 @@ class UserCreateTest(unittest.TestCase):
 
         self.assertEqual(keydata, output_keydata.strip())
 
-    def set_root_password_test(self):
+    def test_set_root_password(self):
         password = "password1"
 
         # Initialize a root user with an empty password, like the setup package would have
@@ -312,7 +312,7 @@ class UserCreateTest(unittest.TestCase):
         shadow_fields = self._readFields("/etc/shadow", "root")
         self.assertEqual(password, shadow_fields[1])
 
-    def create_user_reuse_home_test(self):
+    def test_create_user_reuse_home(self):
         # Create a user, reusing an old home directory
 
         os.makedirs(self.tmpdir + "/home/test_user")
@@ -328,7 +328,7 @@ class UserCreateTest(unittest.TestCase):
         self.assertEqual(stat_fields.st_uid, 1000)
         self.assertEqual(stat_fields.st_gid, 1000)
 
-    def create_user_gid_in_group_list_test(self):
+    def test_create_user_gid_in_group_list(self):
         """Create a user with a GID equal to that of one of the requested groups"""
 
         users.create_user("test_user", gid=1047, groups=["test_group(1047)"], root=self.tmpdir)

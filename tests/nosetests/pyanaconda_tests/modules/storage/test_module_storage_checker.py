@@ -44,7 +44,7 @@ class StorageCheckerInterfaceTestCase(unittest.TestCase):
         self.interface = StorageCheckerInterface(self.module)
 
     @patch.dict(storage_checker.constraints)
-    def set_constraint_test(self):
+    def test_set_constraint(self):
         """Test SetConstraint."""
         self.interface.SetConstraint(
             STORAGE_MIN_RAM,
@@ -65,7 +65,7 @@ class StorageCheckerInterfaceTestCase(unittest.TestCase):
 
 class StorageCheckerVerificationTestCase(unittest.TestCase):
 
-    def lvm_verification_test(self):
+    def test_lvm_verification(self):
         """Test the LVM destruction test."""
         # VG that is destroyed correctly
         action1 = Mock()
@@ -116,7 +116,7 @@ class StorageCheckerVerificationTestCase(unittest.TestCase):
             .format("PHYSDISK-2", "VOLGROUP-B")
         )
 
-    def get_opal_kernel_version_test(self):
+    def test_get_opal_kernel_version(self):
         """Test the function for getting the firmware kernel version."""
         patch_open = partial(patch, 'pyanaconda.modules.storage.checker.utils.open')
 
@@ -133,7 +133,7 @@ class StorageCheckerVerificationTestCase(unittest.TestCase):
         with patch_open(mock_open(read_data="v4.15.9-openpower1-p9e03417")):
             self.assertEqual(_get_opal_firmware_kernel_version(), "4.15.9-openpower1-p9e03417")
 
-    def check_opal_firmware_kernel_version_test(self):
+    def test_check_opal_firmware_kernel_version(self):
         """Test the function for checking the firmware kernel version."""
         check = partial(_check_opal_firmware_kernel_version)
 
@@ -152,13 +152,13 @@ class StorageCheckerVerificationTestCase(unittest.TestCase):
         self.assertTrue(check("6.0-openpower1-p59fd803", "5.10"))
 
     @patch("pyanaconda.modules.storage.checker.utils.arch")
-    def opal_verification_arch_test(self, mocked_arch):
+    def test_opal_verification_arch(self, mocked_arch):
         """Check verify_opal_compatibility with a different arch."""
         mocked_arch.get_arch.return_value = "x86_64"
         self._verify_opal_compatibility(message=None)
 
     @patch("pyanaconda.modules.storage.checker.utils.arch")
-    def opal_verification_platform_test(self, mocked_arch):
+    def test_opal_verification_platform(self, mocked_arch):
         """Check verify_opal_compatibility with a different platform."""
         mocked_arch.get_arch.return_value = "ppc64le"
         mocked_arch.is_powernv.return_value = False
@@ -166,7 +166,7 @@ class StorageCheckerVerificationTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.storage.checker.utils._get_opal_firmware_kernel_version")
     @patch("pyanaconda.modules.storage.checker.utils.arch")
-    def opal_verification_new_firmware_test(self, mocked_arch, version_getter):
+    def test_opal_verification_new_firmware(self, mocked_arch, version_getter):
         """Check verify_opal_compatibility with a newer firmware."""
         mocked_arch.get_arch.return_value = "ppc64le"
         mocked_arch.is_powernv.return_value = True
@@ -176,7 +176,7 @@ class StorageCheckerVerificationTestCase(unittest.TestCase):
     @patch.object(XFS, "mountable", new_callable=PropertyMock)
     @patch("pyanaconda.modules.storage.checker.utils._get_opal_firmware_kernel_version")
     @patch("pyanaconda.modules.storage.checker.utils.arch")
-    def opal_verification_old_firmware_test(self, mocked_arch, version_getter, xfs_mountable):
+    def test_opal_verification_old_firmware(self, mocked_arch, version_getter, xfs_mountable):
         """Check verify_opal_compatibility with an older firmware."""
         storage = create_storage()
 
