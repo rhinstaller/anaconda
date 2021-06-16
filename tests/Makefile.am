@@ -26,7 +26,8 @@
 # nosetests.sh. This script can be run in parallel with the other test scripts,
 # such as pylint.
 #
-# nosetests will be run for any python files found in a directory matching *_tests
+# unit tests will be run for any python files with prefix "test" found in the
+# tests/unit_tests directory
 
 AM_TESTS_ENVIRONMENT = top_srcdir="$(abs_top_srcdir)" top_builddir="$(abs_top_builddir)" ; . $(srcdir)/testenv.sh ;
 TEST_EXTENSIONS = .sh
@@ -55,7 +56,7 @@ dist_check_SCRIPTS = $(srcdir)/glade/*.py \
 		     $(srcdir)/gettext_tests/*.py \
 		     gettext_tests/canary_tests.sh \
 		     $(srcdir)/*_tests/*.py \
-		     $(srcdir)/nosetests/*_tests/*.py \
+		     $(srcdir)/unit_tests/*_tests/*.py \
 		     pep8/runpep8.sh
 
 TESTS = nosetests.sh \
