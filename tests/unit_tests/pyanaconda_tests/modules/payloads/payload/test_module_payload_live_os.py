@@ -21,9 +21,9 @@ import unittest
 
 from unittest.mock import Mock, patch
 
-from tests.nosetests.pyanaconda_tests import check_task_creation, check_task_creation_list, \
+from tests.unit_tests.pyanaconda_tests import check_task_creation, check_task_creation_list, \
     patch_dbus_publish_object, PropertiesChangedCallback
-from tests.nosetests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
+from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
     PayloadSharedTest
 
 from pyanaconda.core.constants import INSTALL_TREE, SOURCE_TYPE_LIVE_OS_IMAGE

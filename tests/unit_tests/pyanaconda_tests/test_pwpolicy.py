@@ -30,7 +30,7 @@ from pyanaconda.core.constants import PASSWORD_POLICY_ROOT, PASSWORD_POLICY_USER
 from pyanaconda.modules.common.structures.policy import PasswordPolicy
 from pyanaconda.pwpolicy import apply_password_policy_from_kickstart
 
-from tests.nosetests.pyanaconda_tests import patch_dbus_get_proxy
+from tests.unit_tests.pyanaconda_tests import patch_dbus_get_proxy
 
 
 class PwPolicyTestCase(unittest.TestCase):

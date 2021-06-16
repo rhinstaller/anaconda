@@ -23,7 +23,7 @@ from dasbus.typing import *  # pylint: disable=wildcard-import
 from pykickstart.errors import KickstartParseError, KickstartParseWarning, \
     KickstartDeprecationWarning
 
-from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation_list
+from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation_list
 
 from pyanaconda.modules.common.base import KickstartService, KickstartModuleInterface
 from pyanaconda.modules.common.task import Task

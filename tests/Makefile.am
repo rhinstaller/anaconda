@@ -19,11 +19,11 @@
 # same python environment. $top_srcdir and $top_builddir are added to the
 # environment so that tests can get their bearings. Tests need to be aware that
 # they may be run from within an arbitrary working directory.
-# 
+#
 # While automake claims that it doesn't support wildcards anywhere, they really
 # mean it with the parallel test harness. Rather than reverting back to the
-# serial harness, all of the nosetests-based checks will be run serially by
-# nosetests.sh. This script can be run in parallel with the other test scripts,
+# serial harness, all of the unit tests based checks will be run serially by
+# unit_tests.sh. This script can be run in parallel with the other test scripts,
 # such as pylint.
 #
 # unit tests will be run for any python files with prefix "test" found in the
@@ -47,8 +47,7 @@ PEP8_TARGETS ?= ""
 dist_check_SCRIPTS = $(srcdir)/glade/*.py \
 		     $(srcdir)/lib/*.py \
 		     $(srcdir)/lib/*.sh \
-		     nosetests.sh \
-		     nosetests_root.sh \
+		     unit_tests.sh \
 		     rpm_tests.sh \
 		     pylint/runpylint.py \
 		     cppcheck/runcppcheck.sh \
@@ -59,7 +58,7 @@ dist_check_SCRIPTS = $(srcdir)/glade/*.py \
 		     $(srcdir)/unit_tests/*_tests/*.py \
 		     pep8/runpep8.sh
 
-TESTS = nosetests.sh \
+TESTS = unit_tests.sh \
 	pylint/runpylint.py \
 	cppcheck/runcppcheck.sh \
 	gettext_tests/click.py \
