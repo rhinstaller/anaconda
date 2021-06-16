@@ -59,7 +59,7 @@ class CommandVersionTestCase(unittest.TestCase):
 
     def test_dracut_commands(self):
         """Test that dracut uses the right versions of kickstart commands"""
-        # top_srcdir should have been set by nosetests.sh. If it wasn't, the KeyError
+        # top_srcdir should have been set by unit_tests.sh. If it wasn't, the KeyError
         # will fail the test.
         parse_kickstart_path = os.path.join(os.environ['top_srcdir'], 'dracut', 'parse-kickstart')
 
