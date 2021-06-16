@@ -39,7 +39,7 @@ EXTRA_DIST = README.rst usercustomize.py
 EXTRA_DIST += $(top_srcdir)/translation-canary/translation_canary/*.py \
 	      $(top_srcdir)/translation-canary/translation_canary/*/*.py
 
-NOSE_TESTS_ARGS ?= ""
+UNIT_TESTS_PATTERN ?= ""
 RPM_TESTS_ARGS ?= ""
 PEP8_TARGETS ?= ""
 
