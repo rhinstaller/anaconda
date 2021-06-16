@@ -42,8 +42,6 @@ RUN pip install \
   coverage \
   pycodestyle \
   dogtail \
-  nose-testconfig \
-  nose \
   rpmfluff
 
 RUN mkdir /anaconda
