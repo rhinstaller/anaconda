@@ -8,7 +8,7 @@ fi
 
 # If no tests were selected by user or makefile, select all of them
 if [ $# -eq 0 ] && [ -z "$NOSE_TESTS_ARGS" ]; then
-    set -- $top_srcdir/tests/nosetests
+    set -- $top_srcdir/tests/unit_tests
 fi
 
 exec python3 -m unittest discover -t $top_srcdir -v -b -s $@ $NOSE_TESTS_ARGS
