@@ -38,6 +38,8 @@ from abc import ABCMeta, abstractmethod
 import os
 import unittest
 import copy
+# FIXME: Enable glade tests back when we found a way how to migrate them to python3 unittest
+# pylint: disable=import-error
 import nose
 
 from filelist import testfilelist

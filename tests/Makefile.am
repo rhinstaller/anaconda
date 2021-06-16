@@ -64,8 +64,8 @@ TESTS = unit_tests.sh \
 	gettext_tests/click.py \
 	gettext_tests/style_guide.py \
 	gettext_tests/contexts.py \
-	gettext_tests/canary_tests.sh \
-	glade/run_glade_tests.py
+	gettext_tests/canary_tests.sh
+# glade/run_glade_tests.py
 
 clean-local:
 	-rm -rf pylint/.pylint.d
