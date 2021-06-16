@@ -7,8 +7,8 @@ if [ -z "$top_srcdir" ]; then
 fi
 
 # If no tests were selected by user or makefile, select all of them
-if [ $# -eq 0 ] && [ -z "$NOSE_TESTS_ARGS" ]; then
+if [ $# -eq 0 ]; then
     set -- $top_srcdir/tests/unit_tests
 fi
 
-exec python3 -m unittest discover -t $top_srcdir -v -b -s $@ $NOSE_TESTS_ARGS
+exec python3 -m unittest discover -t $top_srcdir -v -b ${UNIT_TESTS_PATTERN:+-k $UNIT_TESTS_PATTERN} -s $@
