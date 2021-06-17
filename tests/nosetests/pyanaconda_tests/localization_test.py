@@ -259,6 +259,20 @@ class LangcodeLocaleMatchingTests(unittest.TestCase):
         self.assertIsNone(localization.find_best_locale_match("ja", ["blah"]))
         self.assertIsNone(localization.find_best_locale_match("blah", ["en_US.UTF-8"]))
 
+    def find_best_locale_match_posix_test(self):
+        """Finding best POSIX matches should work as expected."""
+        match = localization.find_best_locale_match("C", ["C.UTF-8"])
+        self.assertEqual(match, "C.UTF-8")
+
+        match = localization.find_best_locale_match("C.UTF-8", ["en_US"])
+        self.assertEqual(match, "en_US")
+
+        match = localization.find_best_locale_match("en_US", ["C.UTF-8"])
+        self.assertEqual(match, None)
+
+        match = localization.find_best_locale_match("cs_CZ", ["C.UTF-8"])
+        self.assertEqual(match, None)
+
     def resolve_date_format_test(self):
         """All locales' date formats should be properly resolved."""
         locales = (line.strip() for line in execWithCapture("locale", ["-a"]).splitlines())
