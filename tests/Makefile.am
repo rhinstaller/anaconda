@@ -40,7 +40,6 @@ EXTRA_DIST += $(top_srcdir)/translation-canary/translation_canary/*.py \
 	      $(top_srcdir)/translation-canary/translation_canary/*/*.py
 
 UNIT_TESTS_PATTERN ?= ""
-RPM_TESTS_ARGS ?= ""
 PEP8_TARGETS ?= ""
 
 # Test scripts need to be listed both here and in TESTS
