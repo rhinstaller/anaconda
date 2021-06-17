@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+# FIXME: Enable glade tests back when we found a way how to migrate them to python3 unittest
+# pylint: disable=import-error
 import nose
 import os
 import sys

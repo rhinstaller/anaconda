@@ -29,7 +29,7 @@ coverage:
       # Show a status for the unit tests.
       tests:
         paths:
-          - "tests/nosetests/"
+          - "tests/unit_tests/"
         informational: true
 
 # Disable the pull request comment.
