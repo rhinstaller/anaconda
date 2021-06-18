@@ -113,6 +113,17 @@ class Boss(Service):
         """
         return self._install_manager.collect_configure_runtime_tasks()
 
+    def collect_configure_bootloader_tasks(self, kernel_versions):
+        """Collect tasks for configuration of the bootloader.
+
+        FIXME: This method temporarily uses only addons.
+        FIXME: This is a temporary workaround. The method might change.
+
+        :param kernel_versions: a list of kernel versions
+        :return: a list of task proxies
+        """
+        return self._install_manager.collect_configure_bootloader_tasks(kernel_versions)
+
     def collect_install_system_tasks(self):
         """Collect tasks for installation of the system.
 
