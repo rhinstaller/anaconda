@@ -107,6 +107,19 @@ class BossInterface(InterfaceTemplate):
         proxies = self.implementation.collect_configure_runtime_tasks()
         return list(map(get_proxy_identification, proxies))
 
+    def CollectConfigureBootloaderTasks(self, kernel_versions: List[Str]) \
+            -> List[Tuple[BusName, ObjPath]]:
+        """Collect tasks for configuration of the bootloader.
+
+        FIXME: This method temporarily uses only addons.
+        FIXME: This is a temporary workaround. The method might change.
+
+        :param kernel_versions: a list of kernel versions
+        :return: a list of service names and object paths of tasks
+        """
+        proxies = self.implementation.collect_configure_bootloader_tasks(kernel_versions)
+        return list(map(get_proxy_identification, proxies))
+
     def CollectInstallSystemTasks(self) -> List[Tuple[BusName, ObjPath]]:
         """Collect tasks for installation of the system.
 
