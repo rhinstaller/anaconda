@@ -19,9 +19,14 @@ import unittest
 import warnings
 
 from dasbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.modules.common.base import KickstartService, KickstartModuleInterface
+
 from pykickstart.errors import KickstartParseError, KickstartParseWarning, \
     KickstartDeprecationWarning
+
+from tests.nosetests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation_list
+
+from pyanaconda.modules.common.base import KickstartService, KickstartModuleInterface
+from pyanaconda.modules.common.task import Task
 
 
 class BaseModuleTestCase(unittest.TestCase):
@@ -110,3 +115,35 @@ class BaseModuleTestCase(unittest.TestCase):
         }
 
         self.assertEqual(interface.ReadKickstart(""), report)
+
+    def test_default_configure_bootloader_with_tasks(self):
+        """Test the ConfigureBootloaderWithTasks method with defaults."""
+        service = KickstartService()
+        interface = KickstartModuleInterface(service)
+
+        tasks = interface.ConfigureBootloaderWithTasks(["1", "2", "3"])
+        self.assertEqual(tasks, [])
+
+    @patch_dbus_publish_object
+    def test_configure_bootloader_with_tasks(self, publisher):
+        """Test the ConfigureBootloaderWithTasks method."""
+        class Task1(Task):
+
+            @property
+            def name(self):
+                """The name of the task."""
+                return "Task 1"
+
+            def run(self):
+                """Nothing to do."""
+
+        class Service(KickstartService):
+            def configure_bootloader_with_tasks(self, kernel_versions):
+                """Return a list of installation tasks."""
+                return [Task1()]
+
+        service = Service()
+        interface = KickstartModuleInterface(service)
+
+        tasks = interface.ConfigureBootloaderWithTasks(["1", "2", "3"])
+        check_task_creation_list(self, tasks, publisher, [Task1])
