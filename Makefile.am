@@ -77,6 +77,8 @@ CONTAINER_BUILD_ARGS ?= --no-cache
 # HACK: bash's builtin `test -r` fails when running on Ubuntu host (GitHub) due to incompatible seccomp profile
 CONTAINER_TEST_ARGS ?= $(shell grep -q ID=ubuntu /etc/os-release && echo --security-opt=seccomp=unconfined)
 CONTAINER_REGISTRY ?= quay.io
+# Add additional args to the existing ones to container engine
+CONTAINER_ADD_ARGS ?=
 
 # anaconda-ci container
 CI_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-ci
@@ -169,6 +171,7 @@ release-and-tag:
 anaconda-ci-build:
 	$(CONTAINER_ENGINE) build \
 	$(CONTAINER_BUILD_ARGS) \
+	$(CONTAINER_ADD_ARGS) \
 	--build-arg=git_branch=$(GIT_BRANCH) \
 	--build-arg=image=$(BASE_CONTAINER) \
 	--build-arg=copr_repo=$(COPR_REPO) \
@@ -178,6 +181,7 @@ anaconda-ci-build:
 anaconda-rpm-build:
 	$(CONTAINER_ENGINE) build \
 	$(CONTAINER_BUILD_ARGS) \
+	$(CONTAINER_ADD_ARGS) \
 	--build-arg=git_branch=$(GIT_BRANCH) \
 	--build-arg=image=$(BASE_CONTAINER) \
 	--build-arg=copr_repo=$(COPR_REPO) \
@@ -187,6 +191,7 @@ anaconda-rpm-build:
 anaconda-iso-creator-build:
 	$(CONTAINER_ENGINE) build \
 	$(CONTAINER_BUILD_ARGS) \
+	$(CONTAINER_ADD_ARGS) \
 	--build-arg=git_branch=$(GIT_BRANCH) \
 	--build-arg=image=$(BASE_CONTAINER) \
 	-t $(ISO_CREATOR_NAME):$(CI_TAG) \
@@ -195,10 +200,14 @@ anaconda-iso-creator-build:
 # User has to be logged first to be able to push the image.
 # See `podman login` for more info.
 anaconda-ci-push:
-	$(CONTAINER_ENGINE) push $(CI_NAME):$(CI_TAG)
+	$(CONTAINER_ENGINE) push \
+	$(CONTAINER_ADD_ARGS) \
+	$(CI_NAME):$(CI_TAG)
 
 anaconda-rpm-push:
-	$(CONTAINER_ENGINE) push $(RPM_NAME):$(CI_TAG)
+	$(CONTAINER_ENGINE) push \
+	$(CONTAINER_ADD_ARGS) \
+	$(RPM_NAME):$(CI_TAG)
 
 bumpver: po-pull
 	@opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
@@ -250,18 +259,40 @@ ci:
 	fi
 
 container-ci:
-	$(CONTAINER_ENGINE) run --entrypoint /anaconda/dockerfile/anaconda-ci/run-build-and-arg $(CONTAINER_TEST_ARGS) $(CI_TEST_ARGS) $(CI_NAME):$(CI_TAG) $(CI_CMD)
+	$(CONTAINER_ENGINE) run \
+	--entrypoint /anaconda/dockerfile/anaconda-ci/run-build-and-arg \
+	$(CONTAINER_TEST_ARGS) \
+	$(CI_TEST_ARGS) \
+	$(CONTAINER_ADD_ARGS) \
+	$(CI_NAME):$(CI_TAG) \
+	$(CI_CMD)
 
 container-shell:
-	$(CONTAINER_ENGINE) run -it $(CONTAINER_TEST_ARGS) $(CI_TEST_ARGS) $(CI_NAME):$(CI_TAG)
+	$(CONTAINER_ENGINE) run -it \
+	$(CONTAINER_TEST_ARGS) \
+	$(CONTAINER_ADD_ARGS) \
+	$(CI_TEST_ARGS) \
+	$(CI_NAME):$(CI_TAG)
 
 container-rpm-test:
-	$(CONTAINER_ENGINE) run $(CONTAINER_TEST_ARGS) $(CI_TEST_ARGS) -v $(CI_DOCKERFILE)/run-build-and-arg:/run-build-and-arg $(RPM_NAME):$(CI_TAG) sh -exc ' \
+	$(CONTAINER_ENGINE) run \
+	$(CONTAINER_TEST_ARGS) \
+	$(CI_TEST_ARGS) \
+	-v $(CI_DOCKERFILE)/run-build-and-arg:/run-build-and-arg \
+	$(CONTAINER_ADD_ARGS) \
+	$(RPM_NAME):$(CI_TAG) \
+	sh -exc ' \
 	    /run-build-and-arg make run-rpm-tests-only; \
 	    dnf install -y /tmp/anaconda/result/build/01-rpm-build/*.rpm'
 
 container-rpms:
-	$(CONTAINER_ENGINE) run $(CONTAINER_TEST_ARGS) $(CI_TEST_ARGS) -v $(CI_DOCKERFILE)/run-build-and-arg:/run-build-and-arg $(RPM_NAME):$(CI_TAG) sh -exc ' \
+	$(CONTAINER_ENGINE) run \
+	$(CONTAINER_TEST_ARGS) \
+	$(CI_TEST_ARGS) \
+	-v $(CI_DOCKERFILE)/run-build-and-arg:/run-build-and-arg \
+	$(CONTAINER_ADD_ARGS) \
+	$(RPM_NAME):$(CI_TAG) \
+	sh -exc ' \
 			/run-build-and-arg make rpms && \
 			rm -rf ./result && \
 			cp -rv /tmp/anaconda/result ./'
