@@ -48,7 +48,7 @@ environment way see mock path below.
 ::
 
     make clean
-    ./autogen
+    ./autogen.sh
     ./configure
 
 6. create tarball
