@@ -84,6 +84,8 @@ CONTAINER_ENGINE ?= podman
 CONTAINER_BUILD_ARGS ?= --no-cache
 CONTAINER_TEST_ARGS ?=
 CONTAINER_REGISTRY ?= quay.io
+# Add additional args to the existing ones to container engine
+CONTAINER_ADD_ARGS ?=
 
 # anaconda-ci container
 CI_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-ci
@@ -181,14 +183,23 @@ release-and-tag:
 	$(MAKE) tag
 
 anaconda-ci-build:
-	$(CONTAINER_ENGINE) build $(CONTAINER_BUILD_ARGS) -t $(CI_NAME):$(CI_TAG) $(CI_DOCKERFILE)
+	$(CONTAINER_ENGINE) build \
+	$(CONTAINER_BUILD_ARGS) \
+	$(CONTAINER_ADD_ARGS) \
+	-t $(CI_NAME):$(CI_TAG) \
+	$(CI_DOCKERFILE)
 
 anaconda-rpm-build:
-	$(CONTAINER_ENGINE) build $(CONTAINER_BUILD_ARGS) -t $(RPM_NAME):$(CI_TAG) $(RPM_DOCKERFILE)
+	$(CONTAINER_ENGINE) build \
+	$(CONTAINER_BUILD_ARGS) \
+	$(CONTAINER_ADD_ARGS) \
+	-t $(RPM_NAME):$(CI_TAG) \
+	$(RPM_DOCKERFILE)
 
 anaconda-iso-creator-build:
 	$(CONTAINER_ENGINE) build \
 	$(CONTAINER_BUILD_ARGS) \
+	$(CONTAINER_ADD_ARGS) \
 	--build-arg=git_branch=$(GIT_BRANCH) \
 	--build-arg=image=registry.access.redhat.com/ubi8:latest \
 	-t $(ISO_CREATOR_NAME):$(CI_TAG) \
@@ -251,18 +262,40 @@ ci:
 	fi
 
 container-ci:
-	$(CONTAINER_ENGINE) run --entrypoint /anaconda/dockerfile/anaconda-ci/run-build-and-arg $(CONTAINER_TEST_ARGS) $(CI_TEST_ARGS) $(CI_NAME):$(CI_TAG) $(CI_CMD)
+	$(CONTAINER_ENGINE) run \
+	--entrypoint /anaconda/dockerfile/anaconda-ci/run-build-and-arg \
+	$(CONTAINER_TEST_ARGS) \
+	$(CI_TEST_ARGS) \
+	$(CONTAINER_ADD_ARGS) \
+	$(CI_NAME):$(CI_TAG) \
+	$(CI_CMD)
 
 container-shell:
-	$(CONTAINER_ENGINE) run -it $(CONTAINER_TEST_ARGS) $(CI_TEST_ARGS) $(CI_NAME):$(CI_TAG)
+	$(CONTAINER_ENGINE) run -it \
+	$(CONTAINER_TEST_ARGS) \
+	$(CONTAINER_ADD_ARGS) \
+	$(CI_TEST_ARGS) \
+	$(CI_NAME):$(CI_TAG)
 
 container-rpm-test:
-	$(CONTAINER_ENGINE) run -it $(CONTAINER_TEST_ARGS) $(CI_TEST_ARGS) -v $(CI_DOCKERFILE)/run-build-and-arg:/run-build-and-arg $(RPM_NAME):$(CI_TAG) sh -exc ' \
-		/run-build-and-arg make run-rpm-tests-only; \
-		dnf install -y /tmp/anaconda/result/build/01-rpm-build/*.rpm'
+	$(CONTAINER_ENGINE) run -it \
+	$(CONTAINER_TEST_ARGS) \
+	$(CI_TEST_ARGS) \
+	-v $(CI_DOCKERFILE)/run-build-and-arg:/run-build-and-arg \
+	$(CONTAINER_ADD_ARGS) \
+	$(RPM_NAME):$(CI_TAG) \
+	sh -exc ' \
+	    /run-build-and-arg make run-rpm-tests-only; \
+	    dnf install -y /tmp/anaconda/result/build/01-rpm-build/*.rpm'
 
 container-rpms:
-	$(CONTAINER_ENGINE) run $(CONTAINER_TEST_ARGS) $(CI_TEST_ARGS) -v $(CI_DOCKERFILE)/run-build-and-arg:/run-build-and-arg $(RPM_NAME):$(CI_TAG) sh -exc ' \
+	$(CONTAINER_ENGINE) run \
+	$(CONTAINER_TEST_ARGS) \
+	$(CI_TEST_ARGS) \
+	-v $(CI_DOCKERFILE)/run-build-and-arg:/run-build-and-arg \
+	$(CONTAINER_ADD_ARGS) \
+	$(RPM_NAME):$(CI_TAG) \
+	sh -exc ' \
 			/run-build-and-arg make rpms && \
 			rm -rf ./result && \
 			cp -rv /tmp/anaconda/result ./'
