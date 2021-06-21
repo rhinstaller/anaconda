@@ -110,7 +110,7 @@ for opt in `cat /proc/cmdline` $*; do
         ;;
     ks=*|kickstart=*|--ks=*|--kickstart=*|inst.ks=*|--inst.ks=*|inst.kickstart=*|--inst-kickstart=*)
         title="Configuration not supported"
-        text="Kickstart is not supported on live installs.  This installation will continue interactively."
+        text="Kickstart is not supported on Live ISO installs, please use netinstall or standard ISO.  This installation will continue interactively."
         if which zenity &> /dev/null; then
             zenity --warning --title="$title" --text="$text"
          else

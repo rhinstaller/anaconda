@@ -342,9 +342,18 @@ These issues are related to automated installations that use kickstart files.
 Automatic installation in Live OS
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-:Issue: The reporter would like to run a kickstart installation in Live OS.
+:Issue: The reporter would like to run a kickstart installation in Live OS. One of these messages
+    is displayed:
+    `Kickstart is not supported on Live ISO installs, please use netinstall or standard ISO.  This installation will continue interactively.`
+    Alternatively, before Fedora 35: `Kickstart is not supported on live installs.  This installation will continue interactively.`
+
 :Solution: Kickstart installations in Live OS are not supported. Please, run the installation with
-    ``boot.iso``.
+    one of the following types of images:
+
+    * netinstall ISO (such as the Server edition of Fedora)
+    * standard ISO
+    * ``boot.iso``
+
 :Example: `rhbz#1027160 <https://bugzilla.redhat.com/show_bug.cgi?id=1027160>`_
 
 Invalid partitioning in the output kickstart file
