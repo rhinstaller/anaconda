@@ -1,40 +1,37 @@
 #!/bin/bash
 #
-# Build Anaconda package from the current working directory repository and build a boot.
-# iso by lorax. The boot.iso will be stored in `/images/` directory.
+# Build a boot.iso by lorax. The boot.iso will be stored in the `/images/` directory.
+# We have to build the RPMs files of Anaconda first and then add them as volume
+# mount to /anaconda-rpms to the container (could be RO mount).
+#
+#   make -f ./Makefile.am container-rpms-scratch
 #
 # Input directory:
-# /anaconda (Anaconda repository with RO access)
+# /anaconda-rpms/ (Anaconda RPM files for the build)
 #
 # Output directory:
 # /images (Where the boot.iso will be stored)
 #
 
 set -eux
-# /anaconda from host should be read-only, build in a copy
-cp -a /anaconda/ /tmp/
-cd /tmp/anaconda
 
-# build RPMs and repo for it; bump version so that it's higher than rawhide's
-echo "::group::Build Anaconda RPMs and make a repository"
-sed -ri '/AC_INIT/ s/\[[0-9.]+\]/[999999999]/' configure.ac
-./autogen.sh
-./configure
-make rpms
-createrepo_c result/build/01-rpm-build/
-echo "::endgroup::"
+INPUT_RPMS=/anaconda-rpms/
+REPO_DIR=/tmp/anaconda-rpms/
+
+# create repo from provided Anaconda RPMs
+mkdir -p $REPO_DIR
+cp -a $INPUT_RPMS/* $REPO_DIR
+createrepo_c $REPO_DIR
 
 # build boot.iso with our rpms
-echo "::group::Build boot.iso with the RPMs"
 . /etc/os-release
 # The download.fedoraproject.org automatic redirector often selects download-ib01.f.o. for GitHub's cloud, which is too unreliable; use a mirror
 # The --volid argument can cause different network interface naming: https://github.com/rhinstaller/kickstart-tests/issues/448
 lorax -p Fedora -v $VERSION_ID -r $VERSION_ID \
       --volid Fedora-S-dvd-x86_64-rawh \
       -s http://dl.fedoraproject.org/pub/fedora/linux/development/rawhide/Everything/x86_64/os/ \
-      -s file://$PWD/result/build/01-rpm-build/ \
+      -s file://$REPO_DIR/ \
       $@ \
       lorax
 
 cp lorax/images/boot.iso /images/
-echo "::endgroup::"
