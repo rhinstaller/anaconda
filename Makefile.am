@@ -261,6 +261,12 @@ container-rpm-test:
 		/run-build-and-arg make run-rpm-tests-only; \
 		dnf install -y /tmp/anaconda/result/build/01-rpm-build/*.rpm'
 
+container-rpms:
+	$(CONTAINER_ENGINE) run $(CONTAINER_TEST_ARGS) $(CI_TEST_ARGS) -v $(CI_DOCKERFILE)/run-build-and-arg:/run-build-and-arg $(RPM_NAME):$(CI_TAG) sh -exc ' \
+			/run-build-and-arg make rpms && \
+			rm -rf ./result && \
+			cp -rv /tmp/anaconda/result ./'
+
 check-branching:
 # checking if branching can be finished and all the pieces are in place
 	@echo "===================================="
