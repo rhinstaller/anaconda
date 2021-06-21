@@ -50,6 +50,8 @@ uninstall-hook:
 srcdir ?= $(CURDIR)
 
 ARCHIVE_TAG   = $(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_RELEASE)
+# Set this to "true" if you want to have SRPM archive with test version
+TEST_BUILD	?= "false"
 
 # LOCALIZATION SETTINGS
 L10N_REPOSITORY ?= https://github.com/rhinstaller/anaconda-l10n.git
@@ -158,6 +160,9 @@ po-fallback:
 	-$(MAKE) po-pull
 
 scratch:
+	if [ "$(TEST_BUILD)" == "true" ]; then \
+		sed -ri '/AC_INIT/ s/\[[0-9.]+\]/[999999999]/' $(srcdir)/configure.ac; \
+	fi
 	$(MAKE) ARCHIVE_TAG=HEAD dist
 
 scratch-bumpver:
@@ -299,6 +304,9 @@ container-rpms:
 			/run-build-and-arg make rpms && \
 			rm -rf ./result && \
 			cp -rv /tmp/anaconda/result ./'
+
+container-rpms-scratch:
+	$(MAKE) -f ./Makefile.am CONTAINER_ADD_ARGS="-e TEST_BUILD=true" container-rpms
 
 check-branching:
 # checking if branching can be finished and all the pieces are in place
