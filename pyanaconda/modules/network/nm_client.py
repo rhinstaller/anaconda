@@ -1648,9 +1648,9 @@ def _update_team_kickstart_network_data(nm_client, iface, connection, network_da
     if ports:
         port_list = sorted((s_iface, s_uuid) for _name, s_iface, s_uuid in ports if s_iface)
 
-    for s_iface, s_uuid in port_list:
-        team_port_cfg = get_team_port_config_from_connection(nm_client, s_uuid) or ""
-        network_data.teamslaves.append((s_iface, team_port_cfg))
+        for s_iface, s_uuid in port_list:
+            team_port_cfg = get_team_port_config_from_connection(nm_client, s_uuid) or ""
+            network_data.teamslaves.append((s_iface, team_port_cfg))
 
     s_team = connection.get_setting_team()
     if s_team:

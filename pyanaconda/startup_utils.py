@@ -251,6 +251,7 @@ def prompt_for_ssh(options):
 
     ipstr = ip
 
+    name = None
     try:
         hinfo = socket.gethostbyaddr(ipstr)
     except socket.herror as e:
