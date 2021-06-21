@@ -241,7 +241,7 @@ class VncServer(object):
 
         # Lets start the xvnc.
         xvnccommand = [XVNC_BINARY_NAME, ":%s" % constants.X_DISPLAY_NUMBER,
-                       "-depth", "16", "-br",
+                       "-depth", "24", "-br",
                        "IdleTimeout=0", "-auth", "/dev/null", "-once",
                        "DisconnectClients=false", "desktop=%s" % (self.desktop,),
                        "SecurityTypes=%s" % SecurityTypes, "rfbauth=%s" % rfbauth]
