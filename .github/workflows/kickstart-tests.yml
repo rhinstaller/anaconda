@@ -85,7 +85,8 @@ jobs:
        STATUS_NAME: kickstart-test
        TARGET_BRANCH: ${{ needs.pr-info.outputs.base_ref }}
        CONTAINER_TAG: 'lorax'
-       CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-iso-creator'
+       ISO_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-iso-creator'
+       RPM_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-rpm'
        SKIP_KS_TESTS: ${{ needs.pr-info.outputs.skip_tests }}
        OPTIONAL_KS_TEST_ARGS: ${{ needs.pr-info.outputs.optional_test_args }}
     steps:
@@ -148,6 +149,16 @@ jobs:
           # set static tag to avoid complications when looking what tag is used
           sudo make -f ./Makefile.am anaconda-iso-creator-build CI_TAG=$CONTAINER_TAG
 
+      - name: Build anaconda-rpm container (for RPM build)
+        run: |
+          # set static tag to avoid complications when looking what tag is used
+          make -f ./Makefile.am anaconda-rpm-build CI_TAG=$CONTAINER_TAG
+
+      - name: Build Anaconda RPM files
+        run: |
+          # output of the build will be stored in ./result/build/01-rpm-build/*.rpm
+          make -f ./Makefile.am container-rpms-scratch CI_TAG=$CONTAINER_TAG
+
       - name: Prepare environment for lorax run
         run: |
           mkdir -p kickstart-tests/data/images
@@ -162,9 +173,9 @@ jobs:
           # /var/tmp tmpfs speeds up lorax and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
           sudo podman run -i --rm --privileged \
             --tmpfs /var/tmp:rw,mode=1777 \
-            -v `pwd`:/anaconda:ro \
+            -v `pwd`/result/build/01-rpm-build:/anaconda-rpms:ro \
             -v `pwd`/kickstart-tests/data/images:/images:z \
-            $CONTAINER_NAME:$CONTAINER_TAG
+            $ISO_BUILD_CONTAINER_NAME:$CONTAINER_TAG
 
       - name: Clean up after lorax
         if: always()
@@ -172,8 +183,9 @@ jobs:
           sudo losetup -d /dev/loop0 2> /dev/null || true
           sudo losetup -d /dev/loop1 2> /dev/null || true
 
-          # remove boot.iso the build container image together with the container
-          sudo podman rmi -f $CONTAINER_NAME:$CONTAINER_TAG || true
+          # remove container images together with the container
+          sudo podman rmi -f $ISO_BUILD_CONTAINER_NAME:$CONTAINER_TAG || true
+          sudo podman rmi -f $RPM_BUILD_CONTAINER_NAME:$CONTAINER_TAG || true
 
       - name: Run kickstart tests with ${{ needs.pr-info.outputs.launch_args }} in container
         working-directory: kickstart-tests
