@@ -13,11 +13,11 @@ case "${kickstart%%:*}" in
         if [ "$kstype" = "cdrom" ] && [ -z "$kspath" ]; then
             kspath="$ksdev"
             when_any_cdrom_appears \
-                fetch-kickstart-disk \$env{DEVNAME} "$kspath"
+                fetch-kickstart-disk "\$env{DEVNAME}" "$kspath"
         else
             ksdev=$(disk_to_dev_path $ksdev)
             when_diskdev_appears "$ksdev" \
-                fetch-kickstart-disk \$env{DEVNAME} "$kspath"
+                fetch-kickstart-disk "\$env{DEVNAME}" "$kspath"
         fi
         # "cdrom:" also means "wait forever for kickstart" because rhbz#1168902
         if [ "$kstype" = "cdrom" ]; then
@@ -30,7 +30,7 @@ case "${kickstart%%:*}" in
     "")
         if [ -z "$kickstart" -a -z "$(getarg inst.ks=)" ]; then
             when_diskdev_appears $(disk_to_dev_path LABEL=OEMDRV) \
-                fetch-kickstart-disk \$env{DEVNAME} "/ks.cfg"
+                fetch-kickstart-disk "\$env{DEVNAME}" "/ks.cfg"
         fi
     ;;
 esac

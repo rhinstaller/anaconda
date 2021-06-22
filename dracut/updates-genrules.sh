@@ -18,7 +18,7 @@ case $updates in
         updates=${updates#hd:}; updates=${updates#cdrom:}
         splitsep ":" "$updates" dev path
         dev=$(disk_to_dev_path $dev)
-        when_diskdev_appears $dev fetch-updates-disk \$env{DEVNAME} $path
+        when_diskdev_appears $dev fetch-updates-disk "\$env{DEVNAME}" $path
         wait_for_updates
     ;;
 esac
