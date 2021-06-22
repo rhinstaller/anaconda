@@ -277,6 +277,16 @@ class KickstartService(Service, KickstartBaseModule):
         """
         return []
 
+    def configure_bootloader_with_tasks(self, kernel_versions):
+        """Configure the bootloader after the payload installation with a list of tasks.
+
+        FIXME: This is a temporary workaround. The method might change.
+
+        :param kernel_versions: a list of kernel versions
+        :return: a list of tasks
+        """
+        return []
+
     def install_with_tasks(self):
         """Return installation tasks of this module.
 
