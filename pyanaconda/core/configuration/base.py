@@ -145,6 +145,14 @@ class Section(ABC):
         self._section_name = section_name
         self._parser = parser
 
+    def _has_option(self, option_name):
+        """Is the specified option defined?.
+
+        :param option_name: an option name
+        :return: True or False
+        """
+        return self._parser.has_option(self._section_name, option_name)
+
     def _get_option(self, option_name, converter=None):
         """Get a converted value of the option.
 
