@@ -19,8 +19,10 @@
 #
 
 import os
+import sys
 
 from dasbus.typing import get_variant, Str
+from pyanaconda.core.configuration.anaconda import conf
 
 from pyanaconda.core import util
 from pyanaconda.core.constants import RHSM_SERVICE_TIMEOUT
@@ -34,6 +36,26 @@ from pyanaconda.modules.subscription.constants import RHSM_SERVICE_NAME
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
+
+
+def check_initial_conditions():
+    """Can the Subscription service run?"""
+
+    # Exclude the dir and image installations.
+    if not conf.target.is_hardware:
+        log.debug(
+            "subscription: Unsupported type of the installation target. "
+            "The Subscription module won't be started."
+        )
+        sys.exit(1)
+
+    # Exclude environments without the rhsm service.
+    if not util.is_service_installed(RHSM_SERVICE_NAME, root="/"):
+        log.debug(
+            "subscription: The required rhsm systemd service is not available. "
+            "The Subscription module won't be started."
+        )
+        sys.exit(1)
 
 
 class StartRHSMTask(Task):
