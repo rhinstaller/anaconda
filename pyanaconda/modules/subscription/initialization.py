@@ -19,8 +19,10 @@
 #
 
 import os
+import sys
 
 from dasbus.typing import get_variant, Str
+from pyanaconda.core.configuration.anaconda import conf
 
 from pyanaconda.core import util
 from pyanaconda.core.constants import RHSM_SERVICE_TIMEOUT
@@ -33,11 +35,31 @@ from pyanaconda.modules.common.errors.task import NoResultError
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
+RHSM_SYSTEMD_UNIT_NAME = "rhsm.service"
+
+
+def check_initial_conditions():
+    """Can the Subscription service run?"""
+
+    # Exclude the dir and image installations.
+    if not conf.target.is_hardware:
+        log.debug(
+            "subscription: Unsupported type of the installation target. "
+            "The Subscription module won't be started."
+        )
+        sys.exit(1)
+
+    # Exclude environments without the rhsm service.
+    if not util.is_service_installed(RHSM_SYSTEMD_UNIT_NAME, root="/"):
+        log.debug(
+            "subscription: The required rhsm systemd service is not available. "
+            "The Subscription module won't be started."
+        )
+        sys.exit(1)
+
 
 class StartRHSMTask(Task):
     """Task for starting the RHSM DBus service."""
-
-    RHSM_SYSTEMD_UNIT_NAME = "rhsm.service"
 
     def __init__(self, verify_ssl=True):
         """Create a new task for starting the RHSM DBus service.
@@ -72,7 +94,7 @@ class StartRHSMTask(Task):
         # - this is blocking, but as we are effectively running in a thread
         # it should not be an issue
         # - if the return code is non-zero, return False immediately
-        rc = util.start_service(self.RHSM_SYSTEMD_UNIT_NAME)
+        rc = util.start_service(RHSM_SYSTEMD_UNIT_NAME)
         if rc:
             log.warning(
                 "subscription: RHSM systemd service failed to start with error code: %s",
