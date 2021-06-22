@@ -407,6 +407,29 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 22 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.9-1
+- Update the pixel depth of xvnc server from 16 to 24 (rvykydal)
+  Resolves: rhbz#1973607
+- Clean up the initialization of PartTypeSpoke (vponcova)
+  Resolves: rhbz#1938677
+- Use C.UTF-8 if the requested locale is unsupported (vponcova)
+  Resolves: rhbz#1958876
+- Don't match a non-POSIX locale with a POSIX langcode (vponcova)
+  Related: rhbz#1958876
+- Fix potential use of uninitialized variable (vslavik)
+  Resolves: rhbz#1938677
+- Fix potential use of uninitialized variable (vslavik)
+  Resolves: rhbz#1938677
+- Make it possible to skip install time Insights errors (mkolman)
+  Resolves: rhbz#1955296
+  Related: rhbz#1931069
+- Fix literal curly braces in dracut scripts (vslavik)
+  Resolves: rhbz#1938677
+- Fix logging messages (vslavik)
+  Resolves: rhbz#1938677
+- Fix broken hashbang (vslavik)
+  Resolves: rhbz#1938677
+
 * Tue Jun 08 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.8-1
 - Add unit test for biosdevname package requirement (rvykydal)
   Related: rhbz#1964455
