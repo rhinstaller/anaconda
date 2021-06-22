@@ -1,4 +1,4 @@
-#/bin/sh
+#!/bin/sh
 # anaconda-ks-sendheaders.sh - set various HTTP headers for kickstarting
 
 [ -f /tmp/.ks_sendheaders ] && return
