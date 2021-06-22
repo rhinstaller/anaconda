@@ -443,23 +443,27 @@ class PartTypeSpoke(NormalTUISpoke):
         self.title = N_("Partitioning Options")
         self._container = None
 
-        # Choose the initialization mode.
-        self._disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
-        self._orig_init_mode = self._disk_init_proxy.InitializationMode
-        self._init_mode = self._orig_init_mode
-        self._init_mode_list = sorted(INIT_MODES.keys())
-
-        if self._init_mode == CLEAR_PARTITIONS_DEFAULT:
-            self._init_mode = CLEAR_PARTITIONS_ALL
-
         # Choose the partitioning method.
         self._storage_module = storage_module
         self._partitioning = partitioning
         self._orig_part_method = self._partitioning.PartitioningMethod
         self._part_method = self._orig_part_method
 
-        if self._part_method == PARTITIONING_METHOD_MANUAL:
-            self._init_mode = CLEAR_PARTITIONS_NONE
+        # Choose the initialization mode.
+        self._disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
+        self._orig_init_mode = self._disk_init_proxy.InitializationMode
+        self._init_mode = self._get_init_mode()
+        self._init_mode_list = sorted(INIT_MODES.keys())
+
+    def _get_init_mode(self):
+        """Return the initial value of the initialization mode."""
+        if self._orig_part_method == PARTITIONING_METHOD_MANUAL:
+            return CLEAR_PARTITIONS_NONE
+
+        if self._orig_init_mode == CLEAR_PARTITIONS_DEFAULT:
+            return CLEAR_PARTITIONS_ALL
+
+        return self._orig_init_mode
 
     @property
     def indirect(self):
