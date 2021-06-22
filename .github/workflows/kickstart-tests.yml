@@ -203,6 +203,7 @@ jobs:
           path: |
             kickstart-tests/data/logs/kstest.log
             kickstart-tests/data/logs/kstest-*/*.log
+            kickstart-tests/data/additional_repo/*.rpm
 
       - name: Set result status
         if: always()
