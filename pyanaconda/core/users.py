@@ -43,13 +43,13 @@ def crypt_password(password):
     :returns: crypted representation of the original password
     :rtype: str
     """
-    cryptpw = crypt.crypt(password, crypt.METHOD_SHA512)
-
-    if cryptpw is None:
+    try:
+        cryptpw = crypt.crypt(password, crypt.METHOD_SHA512)
+    except OSError as exc:
         raise RuntimeError(_(
             "Unable to encrypt password: unsupported "
             "algorithm {}").format(crypt.METHOD_SHA512)
-        )
+        ) from exc
 
     return cryptpw
 
