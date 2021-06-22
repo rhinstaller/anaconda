@@ -119,47 +119,73 @@ def find_best_locale_match(locale, langcodes):
     :return: the best matching langcode from the list of None if none matches
     :rtype: str or None
     """
-    def score_value_pair(locale_value, langcode_value, weight):
-        if locale_value and langcode_value:
-            if locale_value == langcode_value:
-                # match
-                return weight
-            else:
-                # not match
-                return -weight
-        elif langcode_value and not locale_value:
-            # langcode has something the locale doesn't have
-            return -weight
-        return 0
-
+    # Parse the locale.
     if not is_valid_langcode(locale):
         return None
 
-    scores = []
+    locale_parsed = langtable.parse_locale(locale)
 
-    # get score for each langcode
+    # Get a score for each langcode.
+    scores = {}
+
     for langcode in langcodes:
         if not is_valid_langcode(langcode):
-            scores.append((langcode, 0))
+            continue
+
+        langcode_parsed = langtable.parse_locale(langcode)
+
+        # Don't match a non-POSIX locale with a POSIX langcode.
+        if langcode_parsed.variant == "POSIX" and locale_parsed.variant != "POSIX":
+            continue
+
+        score = _evaluate_locales(locale_parsed, langcode_parsed)
+
+        # Matches matching only script or encoding or both are not useful.
+        # The score of 100 requires at least territory to have matched.
+        if score <= 100:
+            continue
+
+        scores[langcode] = score
+
+    # Find the best one.
+    return max(scores.keys(), key=scores.get, default=None)
+
+
+def _evaluate_locales(locale, langcode):
+    """Compare a locale with a langcode.
+
+    :param locale: a parsed locale
+    :param langcode: a parsed langcode
+    :return: a score
+    """
+    return \
+        _evaluate_values(locale.language, langcode.language, 1000) + \
+        _evaluate_values(locale.territory, langcode.territory, 100) + \
+        _evaluate_values(locale.script, langcode.script, 10) + \
+        _evaluate_values(locale.variant, langcode.variant, 10) + \
+        _evaluate_values(locale.encoding, langcode.encoding, 1)
+
+
+def _evaluate_values(locale_value, langcode_value, weight):
+    """Compare a locale value with a langcode value.
+
+    :param locale_value: an item of the parsed locale
+    :param langcode_value: an item of the parsed langcode
+    :return: a score
+    """
+    if locale_value and langcode_value:
+        if locale_value == langcode_value:
+            # Match.
+            return weight
         else:
-            locale_parsed = langtable.parse_locale(locale)
-            langcode_parsed = langtable.parse_locale(langcode)
-            score = score_value_pair(locale_parsed.language, langcode_parsed.language, 1000) + \
-                    score_value_pair(locale_parsed.territory, langcode_parsed.territory, 100) + \
-                    score_value_pair(locale_parsed.script, langcode_parsed.script, 10) + \
-                    score_value_pair(locale_parsed.variant, langcode_parsed.variant, 10) + \
-                    score_value_pair(locale_parsed.encoding, langcode_parsed.encoding, 1)
-            scores.append((langcode, score))
+            # Not match.
+            return -weight
 
-    # find the best one
-    sorted_langcodes = sorted(scores, key=lambda item_score: item_score[1], reverse=True)
+    if langcode_value and not locale_value:
+        # The langcode has something the locale doesn't have.
+        return -weight
 
-    # matches matching only script or encoding or both are not useful
-    if sorted_langcodes and sorted_langcodes[0][1] > 100:
-        # 100 = requires at least territory to have matched
-        return sorted_langcodes[0][0]
-    else:
-        return None
+    return 0
 
 
 def setup_locale(locale, localization_proxy=None, text_mode=False):
