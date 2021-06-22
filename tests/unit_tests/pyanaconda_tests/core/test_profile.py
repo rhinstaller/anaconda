@@ -294,32 +294,6 @@ class ProfileConfigurationTestCase(unittest.TestCase):
             ENTERPRISE_PARTITIONING
         )
 
-    def test_profile_module_list_difference_fedora_rhel(self):
-        """Test for expected Fedora & RHEL module list differences."""
-        fedora_config = self._get_config("fedora")
-        fedora_modules = fedora_config.anaconda.kickstart_modules
-
-        rhel_config = self._get_config("rhel")
-        rhel_modules = rhel_config.anaconda.kickstart_modules
-
-        difference = list(set(rhel_modules) - set(fedora_modules))
-        expected_difference = ["org.fedoraproject.Anaconda.Modules.Subscription"]
-
-        self.assertListEqual(difference, expected_difference)
-
-    def test_profile_module_difference_centos_rhel(self):
-        """Test for expected CentOS & RHEL module list differences."""
-        centos_config = self._get_config("centos")
-        centos_modules = centos_config.anaconda.kickstart_modules
-
-        rhel_config = self._get_config("rhel")
-        rhel_modules = rhel_config.anaconda.kickstart_modules
-
-        difference = list(set(rhel_modules) - set(centos_modules))
-        expected_difference = ["org.fedoraproject.Anaconda.Modules.Subscription"]
-
-        self.assertListEqual(difference, expected_difference)
-
     def _compare_profile_files(self, file_name, other_file_name, ignored_sections=()):
         parser = create_parser()
         read_config(parser, os.path.join(PROFILE_DIR, file_name))
