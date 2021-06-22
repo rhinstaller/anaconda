@@ -45,9 +45,10 @@ class ModuleManager(object):
     def start_modules_with_task(self):
         """Start modules with the task."""
         task = StartModulesTask(
-            DBus,
-            conf.anaconda.kickstart_modules,
-            conf.anaconda.addons_enabled
+            message_bus=DBus,
+            activatable=conf.anaconda.activatable_modules,
+            forbidden=conf.anaconda.forbidden_modules,
+            optional=conf.anaconda.optional_modules,
         )
         task.succeeded_signal.connect(
             lambda: self.set_module_observers(task.get_result())
