@@ -20,6 +20,13 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
 
+      - name: Rebase to current
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git log --oneline -1 origin/${{ github.event.pull_request.base.ref }}
+          git rebase origin/${{ github.event.pull_request.base.ref }}
+
       - name: Get list of changed files
         run: |
           set -eux
