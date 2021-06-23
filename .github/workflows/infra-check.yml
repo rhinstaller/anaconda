@@ -27,7 +27,7 @@ jobs:
           git log --oneline -1 origin/${{ github.event.pull_request.base.ref }}
           git rebase origin/${{ github.event.pull_request.base.ref }}
 
-      - name: Get list of changed files
+      - name: Check if all changed files are infra related
         run: |
           changed_files=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }}..HEAD)
           # print for debugging
