@@ -21,12 +21,18 @@ have the visibility set to False.
 
 """
 
-from gladecheck import GladeTest
+from gladecheck import check_glade_files
+from unittest import TestCase
 
 PW_ID_INDICATORS = ("pw", "password", "passwd", "passphrase")
 
-class CheckPwVisibility(GladeTest):
-    def checkGlade(self, glade_tree):
+
+class CheckPwVisibility(TestCase):
+    def test_pw_visibility(self):
+        """Check that password GtkEntries have the visibility set to False"""
+        check_glade_files(self, self._check_pw_visibility)
+
+    def _check_pw_visibility(self, glade_tree):
         """Check that password GtkEntries have the visibility set to False"""
 
         for entry in glade_tree.xpath("//object[@class='GtkEntry']"):

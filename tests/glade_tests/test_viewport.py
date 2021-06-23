@@ -15,15 +15,22 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from gladecheck import GladeTest
+from gladecheck import check_glade_files
+from unittest import TestCase
+
 
 # I guess we could look at the introspected classes and see if they implement the Scrollable
 # interface but that sounds like kind of a pain
 SCROLLABLES = ["GtkIconView", "GtkLayout", "GtkTextView", "GtkToolPalette",
                "GtkTreeView", "GtkViewport"]
 
-class CheckViewport(GladeTest):
-    def checkGlade(self, glade_tree):
+
+class CheckViewport(TestCase):
+    def test_viewport(self):
+        """Check that widgets that implement GtkScrollable are not in a viewport."""
+        check_glade_files(self, self._check_viewport)
+
+    def _check_viewport(self, glade_tree):
         """Check that widgets that implement GtkScrollable are not in a viewport.
 
            If a widgets knows how to scroll itself we do not want to add an extra layer.

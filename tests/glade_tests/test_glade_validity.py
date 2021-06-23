@@ -15,10 +15,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from collections import Counter
-from gladecheck import GladeTest
+from gladecheck import check_glade_files
+from unittest import TestCase
 
-class CheckValidity(GladeTest):
-    def checkGlade(self, glade_tree):
+
+class CheckValidity(TestCase):
+    def test_validity_check(self):
+        """Check for common glade validity errors."""
+        check_glade_files(self, self._check_validity)
+
+    def _check_validity(self, glade_tree):
         """Check for common glade validity errors"""
         # Check for duplicate IDs
         # Build a Counter from a list of all ids and extract the ones with count > 1

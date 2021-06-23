@@ -15,12 +15,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from gladecheck import GladeTest
+from gladecheck import check_glade_files
+from unittest import TestCase
 
-class CheckInvisibleChar(GladeTest):
-    def checkGlade(self, glade_tree):
-        """
-        Check that the invisible_char in glade files is actually a char.
+
+class CheckInvisibleChar(TestCase):
+    def test_invisible_char(self):
+        """Check that the invisible_char in glade files is actually a char."""
+        check_glade_files(self, self._check_invisible_char)
+
+    def _check_invisible_char(self, glade_tree):
+        """Check that the invisible_char in glade files is actually a char.
 
         The invisible char is often non-ASCII and sometimes that gets clobbered.
         """

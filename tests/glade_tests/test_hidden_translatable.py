@@ -15,10 +15,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from gladecheck import GladeTest
+from gladecheck import check_glade_files
+from unittest import TestCase
 
-class CheckTranslatableTreeview(GladeTest):
-    def checkGlade(self, glade_tree):
+
+class CheckTranslatableComponents(TestCase):
+    def test_translatable_treeview(self):
+        """Check that unshown GtkTreeview column headers are not translatable."""
+        check_glade_files(self, self._check_translatable_treeview)
+
+    def _check_translatable_treeview(self, glade_tree):
         """Check that unshown GtkTreeview column headers are not translatable.
 
            These values are not displayed and should not be translated.
@@ -35,8 +41,11 @@ class CheckTranslatableTreeview(GladeTest):
         for translatable in glade_tree.xpath(".//object[@class='GtkTreeView' and ./property[@name='headers_visible' and ./text() = 'False']]/child/object[@class='GtkTreeViewColumn']/property[@name='title' and @translatable='yes']"):
             raise AssertionError("Translatable, hidden column found at %s:%d" % (translatable.base, translatable.sourceline))
 
-class CheckTranslatableNotebook(GladeTest):
-    def checkGlade(self, glade_tree):
+    def test_translatable_notebook(self):
+        """Check that unshown GtkNotebook tabs are not translatable."""
+        check_glade_files(self, self._check_translatable_notebook)
+
+    def _check_translatable_notebook(self, glade_tree):
         """Check that unshown GtkNotebook tabs are not translatable."""
 
         # Look for

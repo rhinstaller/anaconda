@@ -15,11 +15,28 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from gladecheck import GladeTest
+import os
+from gladecheck import check_glade_files
+from unittest import TestCase
 from iconcheck import icon_exists
 
-class CheckIcon(GladeTest):
-    def checkGlade(self, glade_tree):
+
+class CheckIcon(TestCase):
+    def test_icons(self):
+        """Check that all icons referenced from glade files are valid in the gnome icon theme."""
+        self._test_prerequisites()
+        check_glade_files(self, self._check_icons)
+
+    def _test_prerequisites(self):
+        """Check for prerequisites.
+
+        Used in check_icons.py via tests/lib/iconcheck.py
+        """
+        if os.system("rpm -q adwaita-icon-theme >/dev/null 2>&1") != 0:
+            raise FileNotFoundError("The 'adwaita-icon-theme' package must be installed "
+                                    "to run this test.")
+
+    def _check_icons(self, glade_tree):
         """Check that all icons referenced from glade files are valid in the gnome icon theme."""
         # Stock image names are deprecated
         stock_elements = glade_tree.xpath("//property[@name='stock' or @name='stock_id']")
