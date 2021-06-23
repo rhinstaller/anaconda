@@ -29,10 +29,11 @@ jobs:
 
       - name: Get list of changed files
         run: |
-          set -eux
           changed_files=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }}..HEAD)
           # print for debugging
+          echo "----- Changed files -----"
           echo "$changed_files"
+          echo "-------------------------"
 
           # load infrastructure file list
           . .structure-config
@@ -62,8 +63,6 @@ jobs:
 
       - name: Check if all commits have (#infra)
         run: |
-          set -eux
-
           # match (#infra) at the end of the commit message
           for i in "$(git log --oneline origin/${{ github.event.pull_request.base.ref }}..HEAD)"; do
 
