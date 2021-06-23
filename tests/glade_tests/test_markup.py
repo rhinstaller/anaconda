@@ -16,10 +16,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from gladecheck import GladeTest
+from gladecheck import check_glade_files
+from unittest import TestCase
 from pocketlint.pangocheck import markup_nodes, markup_match, markup_necessary
 
 from lxml import etree
+
 
 class PangoElementException(Exception):
     def __init__(self, element):
@@ -28,6 +30,7 @@ class PangoElementException(Exception):
 
     def __str__(self):
         return "Invalid element %s" % self.element
+
 
 def _validate_pango_markup(root):
     """Validate parsed pango markup.
@@ -41,10 +44,13 @@ def _validate_pango_markup(root):
     for child in root:
         _validate_pango_markup(child)
 
-class CheckMarkup(GladeTest):
-    translatable = True
 
-    def checkGlade(self, glade_tree):
+class CheckMarkup(TestCase):
+    def test_markup(self):
+        """Check the validity of Pango markup."""
+        check_glade_files(self, self._check_markup)
+
+    def _check_markup(self, glade_tree):
         """Check the validity of Pango markup."""
         lang = glade_tree.getroot().get("lang")
         if lang:

@@ -15,10 +15,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from gladecheck import GladeTest
+from gladecheck import check_glade_files
+from unittest import TestCase
 
-class CheckFormatString(GladeTest):
-    def checkGlade(self, glade_tree):
+
+class CheckFormatString(TestCase):
+    def test_format_strings(self):
+        """Reject translatable format string in glade."""
+        check_glade_files(self, self._check_format_strings)
+
+    def _check_format_strings(self, glade_tree):
         """Reject translatable format string in glade.
 
            Since format substitution is language-dependent, gettext is unable

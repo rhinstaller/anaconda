@@ -44,7 +44,7 @@ RPM_TESTS_ARGS ?= ""
 PEP8_TARGETS ?= ""
 
 # Test scripts need to be listed both here and in TESTS
-dist_check_SCRIPTS = $(srcdir)/glade/*.py \
+dist_check_SCRIPTS = $(srcdir)/glade_tests/*.py \
 		     $(srcdir)/lib/*.py \
 		     $(srcdir)/lib/*.sh \
 		     unit_tests.sh \
@@ -65,7 +65,7 @@ TESTS = unit_tests.sh \
 	gettext_tests/style_guide.py \
 	gettext_tests/contexts.py \
 	gettext_tests/canary_tests.sh \
-	glade/run_glade_tests.py
+	glade_tests.sh
 
 clean-local:
 	-rm -rf pylint/.pylint.d
