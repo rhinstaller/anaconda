@@ -86,7 +86,7 @@ CI_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-ci
 RPM_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-rpm
 ISO_CREATOR_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-iso-creator
 CI_TAG := $(or $(CI_TAG),$(GIT_BRANCH))
-CI_TEST_ARGS ?= --rm -v $(srcdir):/anaconda:Z
+CI_TEST_ARGS ?= --rm -v $(srcdir):/anaconda:z
 CI_CMD ?= make ci
 
 SKIP_BRANCHING_CHECK ?= "false"
