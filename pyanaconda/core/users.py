@@ -29,6 +29,7 @@ from pyanaconda.core.regexes import GROUPLIST_FANCY_PARSE, NAME_VALID, PORTABLE_
 import crypt
 from pyanaconda.core.i18n import _
 import re
+from random import SystemRandom as sr
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -43,13 +44,25 @@ def crypt_password(password):
     :returns: crypted representation of the original password
     :rtype: str
     """
-    cryptpw = crypt.crypt(password, crypt.METHOD_SHA512)
+    # yescrypt is not supported by Python's crypt module,
+    # so we need to generate the setting ourselves
+    b64 = "./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+    setting = "$y$j9T$" + "".join(sr().choice(b64) for sc in range(24))
 
-    if cryptpw is None:
-        raise RuntimeError(_(
-            "Unable to encrypt password: unsupported "
-            "algorithm {}").format(crypt.METHOD_SHA512)
-        )
+    # and try to compute the password hash using our yescrypt setting
+    try:
+        cryptpw = crypt.crypt(password, setting)
+
+    # Fallback to sha512crypt, if yescrypt is not supported
+    except OSError:
+        log.info("yescrypt is not supported, falling back to sha512crypt")
+        try:
+            cryptpw = crypt.crypt(password, crypt.METHOD_SHA512)
+        except OSError as exc:
+            raise RuntimeError(_(
+                "Unable to encrypt password: unsupported "
+                "algorithm {}").format(crypt.METHOD_SHA512)
+            ) from exc
 
     return cryptpw
 
