@@ -18,6 +18,6 @@
 # Red Hat, Inc.
 #
 
-from pykickstart.version import F34 as VERSION
+from pykickstart.version import RHEL9 as VERSION
 
 __all__ = ["VERSION"]
