@@ -19,7 +19,8 @@
 from pyanaconda.core.i18n import _, C_
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.errors.installation import BootloaderInstallationError, \
-    StorageInstallationError, NonCriticalInstallationError, PayloadInstallationError
+    StorageInstallationError, NonCriticalInstallationError, PayloadInstallationError, \
+    InsightsClientMissingError, InsightsConnectError
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.errors.storage import UnusableStorageError
 from pyanaconda.payload.errors import PayloadInstallError, PayloadSetupError
@@ -110,6 +111,10 @@ class ErrorHandler(object):
             SourceSetupError.__name__: self._payload_setup_handler,
             PayloadInstallationError.__name__: self._payload_install_handler,
 
+            # Subscription related errors
+            InsightsClientMissingError.__name__: self._insightsErrorHandler,
+            InsightsConnectError.__name__: self._insightsErrorHandler,
+
             # General installation errors.
             NonCriticalInstallationError.__name__: self._non_critical_error_handler,
         }
@@ -178,6 +183,17 @@ class ErrorHandler(object):
         message = _("The following error occurred during the installation:"
                     "\n\n{details}\n\nWould you like to ignore this and "
                     "continue with installation?").format(details=str(exn))
+
+        if self.ui.showYesNoQuestion(message):
+            return ERROR_CONTINUE
+        else:
+            return ERROR_RAISE
+
+    def _insightsErrorHandler(self, exn):
+        message = _("An error occurred during Red Hat Insights configuration. "
+                    "Would you like to ignore this and continue with "
+                    "installation?")
+        message += "\n\n" + str(exn)
 
         if self.ui.showYesNoQuestion(message):
             return ERROR_CONTINUE
