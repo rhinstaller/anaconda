@@ -105,14 +105,7 @@ def set_system_date_time(year=None, month=None, day=None, hour=None, minute=None
     second = second if second is not None else now.second
 
     set_date = datetime.datetime(year, month, day, hour, minute, second, tzinfo=tz)
-
-    # Calculate the number of seconds between this time and timestamp 0
-    # pylint bug here: https://github.com/PyCQA/pylint/issues/1104
-    # pylint: disable=no-value-for-parameter
-    epoch = datetime.datetime.fromtimestamp(0, tz=utc).astimezone(tz)
-    timestamp = (set_date - epoch).total_seconds()
-
-    set_system_time(int(timestamp))
+    set_system_time(int(set_date.timestamp()))
 
 
 def total_memory():

@@ -43,7 +43,8 @@ RUN pip install --no-cache-dir \
   coverage \
   pycodestyle \
   dogtail \
-  rpmfluff
+  rpmfluff \
+  freezegun
 
 RUN mkdir /anaconda
 
