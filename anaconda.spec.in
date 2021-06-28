@@ -407,6 +407,14 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jun 28 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.10-1
+- Remove kickstart btrfs support (mkolman)
+  Related: rhbz#1961087
+- Use RHEL9 versions of commands from RHEL9 handler (mkolman)
+  Related: rhbz#1961087
+- Use RHEL 9 handler (mkolman)
+  Resolves: rhbz#1961087
+
 * Tue Jun 22 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.9-1
 - Update the pixel depth of xvnc server from 16 to 24 (rvykydal)
   Resolves: rhbz#1973607
@@ -422,7 +430,6 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
   Resolves: rhbz#1938677
 - Make it possible to skip install time Insights errors (mkolman)
   Resolves: rhbz#1955296
-  Related: rhbz#1931069
 - Fix literal curly braces in dracut scripts (vslavik)
   Resolves: rhbz#1938677
 - Fix logging messages (vslavik)
