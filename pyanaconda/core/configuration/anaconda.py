@@ -30,7 +30,7 @@ from pyanaconda.core.configuration.storage_constraints import StorageConstraints
 from pyanaconda.core.configuration.system import SystemType, SystemSection
 from pyanaconda.core.configuration.target import TargetType, TargetSection
 from pyanaconda.core.configuration.base import Section, Configuration, ConfigurationError
-from pyanaconda.core.configuration.product import ProductLoader
+from pyanaconda.core.configuration.profile import ProfileLoader
 from pyanaconda.core.configuration.ui import UserInterfaceSection
 from pyanaconda.core.constants import ANACONDA_CONFIG_TMP, ANACONDA_CONFIG_DIR
 
@@ -180,64 +180,62 @@ class AnacondaConfiguration(Configuration):
         self.read(path)
         self.validate()
 
-    def set_from_product(self, requested_product="", requested_variant="",
-                         buildstamp_product="", buildstamp_variant="",
-                         default_product=""):
-        """Set the configuration from the product configuration files.
+    def set_from_profile(self, profile_id):
+        """Set the configuration from the requested profile configuration files.
 
-        We will use configuration files of a product requested by the user
-        if any. Otherwise, we will use a product specified by the .buildstamp
-        file or a default product.
+        We will use configuration files of a profile requested by the user.
+        The configuration files are loaded from /etc/anaconda/profile.d.
 
-        The configuration files are loaded from /etc/anaconda/product.d.
-
-        :param str requested_product: a name of the requested product
-        :param str requested_variant: a name of the requested variant
-        :param str buildstamp_product: a name of the product from .buildstamp
-        :param str buildstamp_variant: a name of the variant from .buildstamp
-        :param str default_product: a name of the default product
+        :param str profile_id: an id of the requested profile
         """
-        loader = ProductLoader()
-        loader.load_products(os.path.join(ANACONDA_CONFIG_DIR, "product.d"))
+        loader = self._get_profile_loader()
+        self._set_from_profile(loader, profile_id)
 
-        # Use the requested product name and variant name.
-        if requested_product:
+    def set_from_detected_profile(self, os_id, variant_id=None):
+        """Set the configuration from the detected profile configuration files.
 
-            if not loader.check_product(requested_product, requested_variant):
-                raise ConfigurationError(
-                    "Unable to find any suitable configuration files for "
-                    "the product name '{}' and the variant name '{}'."
-                    "".format(requested_product, requested_variant)
-                )
+        We will detect the profile by matching the provided os-release values.
+        The configuration files are loaded from /etc/anaconda/profile.d.
 
-            product_name = requested_product
-            variant_name = requested_variant
+        :param str os_id: an id of the operating system or None
+        :param str variant_id: an id of a specific variant of the operating system or None
+        """
+        loader = self._get_profile_loader()
+        profile_id = loader.detect_profile(os_id, variant_id)
 
-        # Or use the product name and the variant name from .buildstamp.
-        elif loader.check_product(buildstamp_product, buildstamp_variant):
-            product_name = buildstamp_product
-            variant_name = buildstamp_variant
-
-        # Or the product name from .buildstamp.
-        elif loader.check_product(buildstamp_product):
-            product_name = buildstamp_product
-            variant_name = ""
-
-        # Or use the default product name.
-        elif loader.check_product(default_product):
-            product_name = default_product
-            variant_name = ""
-
-        # Or use no product configuration.
+        if profile_id:
+            self._set_from_profile(loader, profile_id)
         else:
             log.warning(
                 "Unable to find any suitable configuration files for the detected "
-                "product and variant names. No product configuration will be used."
+                "os-release values. No profile configuration will be used."
             )
-            return
 
-        # Read the configuration files of the product.
-        config_paths = loader.collect_configurations(product_name, variant_name)
+    def _get_profile_loader(self):
+        """Load data about the available profile configuration files.
+
+        :return: a profile loader
+        """
+        loader = ProfileLoader()
+        loader.load_profiles(os.path.join(ANACONDA_CONFIG_DIR, "profile.d"))
+        return loader
+
+    def _set_from_profile(self, loader, profile_id):
+        """Set the configuration from the profile configuration files.
+
+        :param loader: a profile loader
+        :param profile_id: an of the requested profile
+        """
+        # Make sure that the selected profile is valid.
+        if not loader.check_profile(profile_id):
+            raise ConfigurationError(
+                "Unable to find any suitable configuration files "
+                "for the '{}' profile.".format(profile_id)
+            )
+
+        # Read the configuration files of the profile.
+        log.info("Load the '%s' profile configuration.", profile_id)
+        config_paths = loader.collect_configurations(profile_id)
 
         for config_path in config_paths:
             self.read(config_path)

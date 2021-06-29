@@ -198,14 +198,15 @@ if __name__ == "__main__":
     anaconda_logging.logger.setupVirtio(opts.virtiolog)
 
     # Load the remaining configuration after a logging is set up.
-    from pyanaconda import product
-    conf.set_from_product(
-        requested_product=opts.product_name,
-        requested_variant=opts.variant_name,
-        buildstamp_product=product.productName,
-        buildstamp_variant=product.productVariant,
-        default_product=util.get_os_release_value("NAME")
-    )
+    if opts.profile_id:
+        conf.set_from_profile(
+            opts.profile_id,
+        )
+    else:
+        conf.set_from_detected_profile(
+            util.get_os_release_value("ID"),
+            util.get_os_release_value("VARIANT_ID"),
+        )
 
     conf.set_from_files()
     conf.set_from_opts(opts)
