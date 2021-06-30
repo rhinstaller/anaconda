@@ -154,6 +154,11 @@ VIRTUALIZATION_PARTITIONING = [
         lv=True,
         thin=True,
         encrypted=True,
+    ),
+    PartSpec(
+        fstype="swap",
+        lv=True,
+        encrypted=True,
     )
 ]
 
