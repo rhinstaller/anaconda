@@ -367,6 +367,20 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jul 01 2021 Radek Vykydal <rvykydal@redhat.com> - 33.16.5.3-1
+- Check source type directly, not via DBus (mkolman)
+  Resolves: rhbz#1941578
+- Remove autostep functionality (vslavik)
+  Resolves: rhbz#1976913
+- Make it possible to skip install time Insights errors (mkolman)
+  Resolves: rhbz#1931069
+- Fix CDN button visibility (mkolman)
+  Resolves: rhbz#1903178
+- network: do not bind virtual devices to mac (rvykydal)
+  Resolves: rhbz#1963834
+- Add a log message for successful installation (vslavik)
+  Resolves: rhbz#1949487
+
 * Mon May 24 2021 Radek Vykydal <rvykydal@redhat.com> - 33.16.5.2-1
 - Use modinfo to check ko before modprobe (t.feng94)
   Resolves: rhbz#1577544
