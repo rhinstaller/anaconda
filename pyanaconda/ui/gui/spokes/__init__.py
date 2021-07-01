@@ -18,7 +18,6 @@
 
 from pyanaconda.ui import common
 from pyanaconda.ui.gui import GUIObject
-from pyanaconda.ui.gui.utils import gtk_call_once
 from pyanaconda.ui.lib.help import start_yelp
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -35,8 +34,6 @@ class StandaloneSpoke(GUIObject, common.StandaloneSpoke):
           :parts: 3
     """
 
-    handles_autostep = True
-
     def __init__(self, data, storage, payload):
         GUIObject.__init__(self, data)
         common.StandaloneSpoke.__init__(self, storage, payload)
@@ -46,11 +43,6 @@ class StandaloneSpoke(GUIObject, common.StandaloneSpoke):
 
     def _on_continue_clicked(self, window, user_data=None):
         self.apply()
-
-    def _doPostAutostep(self):
-        # we are done, re-emit the continue clicked signal we "consumed" previously
-        # so that the Anaconda GUI can switch to the next screen
-        gtk_call_once(self.window.emit, "continue-clicked")
 
 
 # Inherit abstract methods from common.NormalSpoke
