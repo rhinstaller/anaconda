@@ -725,10 +725,10 @@
                                 <property name="can_focus">False</property>
                                 <property name="spacing">4</property>
                                 <child>
-                                  <object class="GtkLabel" id="properly_subscribed_label">
+                                  <object class="GtkLabel" id="subscription_status_label">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">The system has been properly subscribed</property>
+                                    <property name="label">""</property>
                                     <attributes>
                                       <attribute name="weight" value="bold"/>
                                       <attribute name="scale" value="1.2"/>
