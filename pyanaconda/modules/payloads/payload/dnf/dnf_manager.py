@@ -632,7 +632,7 @@ class DNFManager(object):
         :param callback: a callback for progress reporting
         :raise PayloadInstallationError: if the download fails
         """
-        packages = self._base.transaction.install_set
+        packages = self._base.transaction.install_set  # pylint: disable=no-member
         progress = DownloadProgress(callback=callback)
 
         log.info("Downloading packages to %s.", self.download_location)
