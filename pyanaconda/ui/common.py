@@ -16,8 +16,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
-from abc import ABCMeta, abstractproperty
+from abc import ABCMeta, abstractmethod
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
@@ -223,7 +222,8 @@ class Spoke(object, metaclass=ABCMeta):
         self.entered.connect(self.entry_logger)
         self.exited.connect(self.exit_logger)
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def data(self):
         pass
 
@@ -555,7 +555,8 @@ class Hub(object, metaclass=ABCMeta):
         self.entered.connect(self.entry_logger)
         self.exited.connect(self.exit_logger)
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def data(self):
         pass
 

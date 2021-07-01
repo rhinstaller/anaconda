@@ -73,14 +73,14 @@ class BlivetPartitioningInterfaceTestCase(unittest.TestCase):
 
         # Handle the missing support.
         with self.assertRaises(UnsupportedPartitioningError):
-            self.assertFalse(blivet_module.storage_handler)
+            self.assertFalse(blivet_module.storage_handler)  # pylint: disable=no-member
 
         with self.assertRaises(UnsupportedPartitioningError):
-            self.assertFalse(blivet_module.request_handler)
+            self.assertFalse(blivet_module.request_handler)  # pylint: disable=no-member
 
         with self.assertRaises(UnsupportedPartitioningError):
             request = pickle.dumps(("call", "get_disks", []))
-            blivet_module.send_request(request)
+            blivet_module.send_request(request)  # pylint: disable=no-member
 
     @unittest.skipUnless(HAVE_BLIVET_GUI, "blivet-gui not installed")
     def test_storage_handler(self):

@@ -232,7 +232,7 @@ class AnacondaArgumentParser(ArgumentParser):
             option(self, namespace, val)
         return namespace
 
-    # pylint: disable=arguments-differ
+    # pylint: disable=arguments-renamed
     def parse_args(self, args=None, boot_cmdline=None):
         """
         Like ArgumentParser.parse_args(), but also parses the boot cmdline.

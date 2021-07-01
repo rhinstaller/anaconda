@@ -50,6 +50,7 @@ class QueueFactory(object):
         self.q = queue.Queue()
 
     def _makeMethod(self, constant, methodName, argc):
+        # pylint: disable=unused-private-member
         def __method(*args):
             if len(args) != argc:
                 raise TypeError("%s() takes exactly %d arguments (%d given)" %

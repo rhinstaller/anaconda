@@ -36,7 +36,8 @@
 #    class Mixin(object):
 #        __metaclass__ = ABCMeta
 #
-#        @abstractproperty
+#        @property
+#        @abstractmethod
 #        def data(self):
 #            pass
 #
@@ -53,7 +54,7 @@
 # Mixin.data, so UIObject.data satisfies the requirment that Mixin.data be
 # overriden.
 
-from abc import ABCMeta, abstractproperty, abstractmethod
+from abc import ABCMeta, abstractmethod
 
 from pyanaconda.core import constants
 from pyanaconda.core.payload import create_nfs_url
@@ -74,7 +75,8 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
     and cleanup any previous method set.
     """
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def payload(self):
         pass
 

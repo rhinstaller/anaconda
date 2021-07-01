@@ -26,7 +26,7 @@ This will run all the tests, including Python test coverage reports. To run
 just some tests you can pass parameters which will replace the current one. For
 example to run just some unit tests please do this::
 
-    make -f Makefile.am container-ci CI_CMD="make tests-units-only UNIT_TESTS_PATTERN='test_layout_variant_'"
+    make -f Makefile.am container-ci CI_CMD="make tests-unit-only UNIT_TESTS_PATTERN='test_layout_variant_'"
 
 The ``UNIT_TESTS_PATTERN`` variable is passed to `unittest discover -k`_. See
 the documentation for more info.

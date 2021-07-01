@@ -15,7 +15,11 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import unittest
+import importlib
 import os
+import shutil
+import sys
+import tempfile
 import warnings
 from pyanaconda import kickstart
 
@@ -62,19 +66,16 @@ class CommandVersionTestCase(unittest.TestCase):
         # top_srcdir should have been set by unit_tests.sh. If it wasn't, the KeyError
         # will fail the test.
         parse_kickstart_path = os.path.join(os.environ['top_srcdir'], 'dracut', 'parse-kickstart')
+        temp_module_name = "parse_kickstart_for_dracut_test"
 
-        import tempfile
-        with tempfile.NamedTemporaryFile() as parse_temp:
-            # Compile the file manually to a tempfile so that the import doesn't automatically
-            # crud up the source directory with parse-kickstartc
-            import py_compile
-            parse_temp = tempfile.NamedTemporaryFile()
-            py_compile.compile(parse_kickstart_path, parse_temp.name)
-            with open(parse_temp.name, "rb") as parse_temp_content:
-                # Use imp to pretend that hyphens are ok for module names
-                import imp
-                parse_module = imp.load_module('parse_kickstart', parse_temp_content,
-                                               parse_temp.name, ('', 'rb', imp.PY_COMPILED))
+        # Make sure we can import the script: Copy it to a temporary directory, to a file with no
+        # slashes in name, and extension .py.
+        with tempfile.TemporaryDirectory() as tempdir:
+            temp_file_path = tempdir + "/" + temp_module_name + ".py"
+            shutil.copyfile(parse_kickstart_path, temp_file_path)
+            sys.path.append(tempdir)
+            parse_module = importlib.import_module(temp_module_name)
+            sys.path.remove(tempdir)
 
         dracut_commands = parse_module.dracutCmds
         pykickstart_commands = kickstart.superclass.commandMap

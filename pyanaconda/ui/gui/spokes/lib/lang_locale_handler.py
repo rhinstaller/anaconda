@@ -22,20 +22,20 @@ screens handling languages or locales configuration.
 
 """
 
-import gi
-gi.require_version("Gtk", "3.0")
-gi.require_version("Pango", "1.0")
-gi.require_version("GdkPixbuf", "2.0")
-
-from abc import abstractproperty
-from gi.repository import Gtk, Pango, GdkPixbuf
+from abc import ABCMeta, abstractmethod
 
 from pyanaconda import localization
 from pyanaconda.core.util import strip_accents
 from pyanaconda.ui.gui.utils import set_treeview_selection, timed_action, override_cell_property
 
+import gi
+gi.require_version("Gtk", "3.0")
+gi.require_version("Pango", "1.0")
+gi.require_version("GdkPixbuf", "2.0")
+from gi.repository import Gtk, Pango, GdkPixbuf
 
-class LangLocaleHandler(object):
+
+class LangLocaleHandler(object, metaclass=ABCMeta):
     """
     Class that could be used as a mixin for screens handling languages or
     locales configuration.
@@ -61,7 +61,8 @@ class LangLocaleHandler(object):
 
         self._only_existing_locales = False
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def payload(self):
         """Get payload class."""
         pass
