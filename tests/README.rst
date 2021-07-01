@@ -264,6 +264,11 @@ represents a different class of tests. They are
     Some tests require root privileges and will be skipped if running as regular
     user!
 
+The `cppcheck` test is optional and is automatically skipped if the package is not available.
+
+The tests use the `automake "simple tests" framework <https://www.gnu.org/software/automake/manual/automake.html#Simple-Tests>`.
+The launcher scripts are listed under `TESTS` in `tests/Makefile.am`.
+
 .. _kickstart-tests: https://github.com/rhinstaller/kickstart-tests
 .. _quay.io: https://quay.io/repository/rhinstaller/anaconda-ci
 .. _unittest discover -k: https://docs.python.org/3/library/unittest.html#cmdoption-unittest-k
