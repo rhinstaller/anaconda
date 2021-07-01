@@ -35,14 +35,14 @@ jobs:
       additional_repos:
         - "copr://@storage/blivet-daily"
 
-  - job: copr_build
-    trigger: commit
-    metadata:
-      targets:
-        - fedora-latest
-      branch: f34-devel
-      owner: "@rhinstaller"
-      project: Anaconda-devel
-      preserve_project: True
-      additional_repos:
-        - "copr://@storage/blivet-daily"
+#  - job: copr_build
+#    trigger: commit
+#    metadata:
+#      targets:
+#        - fedora-latest
+#      branch: f34-devel
+#      owner: "@rhinstaller"
+#      project: Anaconda-devel
+#      preserve_project: True
+#      additional_repos:
+#        - "copr://@storage/blivet-daily"
