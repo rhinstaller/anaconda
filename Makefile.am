@@ -21,7 +21,7 @@ ACLOCAL_AMFLAGS = -I m4
 
 SUBDIRS = data docs dracut po pyanaconda scripts tests widgets utils
 
-EXTRA_DIST = COPYING .coveragerc
+EXTRA_DIST = COPYING
 
 # Include the xgettext wrapper so pot-update can be run from the source distribution
 # This is needed for make distcheck.
