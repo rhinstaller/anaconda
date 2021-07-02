@@ -37,6 +37,8 @@ RUN set -e; \
   dnf clean all
 
 RUN pip install \
+  "pylint==2.8.3" \
+  "astroid==2.5.6" \
   pocketlint \
   coverage \
   pycodestyle \
