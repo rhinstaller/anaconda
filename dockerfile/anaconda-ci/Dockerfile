@@ -20,7 +20,6 @@ RUN set -e; \
   e2fsprogs \
   git \
   bzip2 \
-  cppcheck \
   libicu \
   lttng-ust \
   rpm-ostree \
