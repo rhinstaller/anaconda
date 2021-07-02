@@ -245,7 +245,7 @@ represents a different class of tests. They are
   installation environment and load Anaconda;
 - *gettext/* - sanity tests of files used for translation; Written in Python and
   Bash;
-- *glade/* - sanity tests for .glade files. Written in Python;
+- *glade_tests/* - sanity tests for .glade files. Written in Python;
 - *rpm_tests/* - basic RPM sanity test. Checks if anaconda.rpm can be installed in
   a temporary directory without failing dependencies or other RPM issues and checks if
   all files are correctly present in the RPM;

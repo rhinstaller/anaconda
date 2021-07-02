@@ -14,10 +14,16 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from gladecheck import GladeTest
+from gladecheck import check_glade_files
+from unittest import TestCase
 
-class CheckMnemonics(GladeTest):
-    def checkGlade(self, glade_tree):
+
+class CheckMnemonics(TestCase):
+    def test_mnemonics(self):
+        """Check for widgets with keyboard accelerators but no mnemonic."""
+        check_glade_files(self, self._check_mnemonics)
+
+    def _check_mnemonics(self, glade_tree):
         """Check for widgets with keyboard accelerators but no mnemonic"""
 
         # Look for labels with use-underline=True and no mnemonic-widget
