@@ -21,7 +21,6 @@ RUN set -ex; \
   e2fsprogs \
   git \
   bzip2 \
-  cppcheck \
   libicu \
   lttng-ust \
   rpm-ostree \
@@ -31,8 +30,14 @@ RUN set -ex; \
   policycoreutils \
   python3-gobject-base \
   python3-pip; \
-  if ! grep -q VARIANT.*eln /etc/os-release; then dnf copr enable -y ${copr_repo}; dnf copr enable -y @storage/blivet-daily; else \
-  dnf copr enable -y ${copr_repo} fedora-eln-x86_64; dnf copr enable -y @storage/blivet-daily fedora-eln-x86_64; fi; \
+  if ! grep -q VARIANT.*eln /etc/os-release; then \
+    dnf copr enable -y ${copr_repo}; \
+    dnf copr enable -y @storage/blivet-daily; \
+    dnf -y install cppcheck; \
+  else \
+    dnf copr enable -y ${copr_repo} fedora-eln-x86_64; \
+    dnf copr enable -y @storage/blivet-daily fedora-eln-x86_64; \
+  fi; \
   curl -L https://raw.githubusercontent.com/rhinstaller/anaconda/${git_branch}/anaconda.spec.in | sed 's/@PACKAGE_VERSION@/0/; s/@PACKAGE_RELEASE@/0/; s/%{__python3}/python3/' > /tmp/anaconda.spec; \
   rpmspec -q --buildrequires /tmp/anaconda.spec | xargs -d '\n' dnf install -y; \
   rpmspec -q --requires /tmp/anaconda.spec | grep -v anaconda | xargs -d '\n' dnf install -y; \
