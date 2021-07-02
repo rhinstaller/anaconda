@@ -97,7 +97,7 @@ ANACONDA_PKG_CHECK_MODULES([LIBARCHIVE], [libarchive >= 3.0.4])
 SHUT_UP_GCC="-Wno-unused-result"
 
 # Add remaining compiler flags we want to use
-CFLAGS="$CFLAGS -Wall -Werror $SHUT_UP_GCC"
+CFLAGS="$CFLAGS -Wall -Werror $SHUT_UP_GCC -fanalyzer"
 
 
 # Perform arch related tests

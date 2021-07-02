@@ -9,8 +9,8 @@ fi
 . ${top_srcdir}/tests/lib/testlib.sh
 
 if ! type cppcheck > /dev/null 2>&1 ; then
-    echo "cppcheck must be installed"
-    exit 99
+    echo "SKIP - cppcheck must be installed to run it."
+    exit 77
 fi
 
 # If files were specified on the command line, use those. Otherwise, look
