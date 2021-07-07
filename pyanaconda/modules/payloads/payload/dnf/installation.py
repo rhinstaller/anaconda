@@ -22,7 +22,7 @@ import rpm
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import RPM_LANGUAGES_NONE, RPM_LANGUAGES_ALL
+from pyanaconda.core.constants import RPM_LANGUAGES_NONE, RPM_LANGUAGES_ALL, MULTILIB_POLICY_BEST
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError, \
     NonCriticalInstallationError
@@ -289,3 +289,51 @@ class ImportRPMKeysTask(Task):
 
             if rc:
                 log.error("Failed to import the GPG key.")
+
+
+class UpdateDNFConfigurationTask(Task):
+    """The installation task to update the dnf.conf file."""
+
+    def __init__(self, sysroot, data: PackagesConfigurationData):
+        """Create a new task.
+
+        :param sysroot: a path to the system root
+        :param data: a packages configuration data
+        """
+        super().__init__()
+        self._sysroot = sysroot
+        self._data = data
+
+    @property
+    def name(self):
+        return "Update DNF configuration"
+
+    def run(self):
+        """Run the task."""
+        if self._data.multilib_policy != MULTILIB_POLICY_BEST:
+            self._set_option("multilib_policy", self._data.multilib_policy)
+
+    def _set_option(self, option, value):
+        """Set a configuration option.
+
+        :param option: a name of the option
+        :param value: a value of the option
+        """
+        log.debug("Setting '%s' to '%s'.", option, value)
+
+        cmd = "dnf"
+        args = [
+            "config-manager",
+            "--save",
+            "--setopt={}={}".format(option, value),
+        ]
+
+        try:
+            rc = util.execWithRedirect(cmd, args, root=self._sysroot)
+        except OSError as e:
+            log.warning("Couldn't update the DNF configuration: %s", e)
+            return
+
+        if rc != 0:
+            log.warning("Failed to update the DNF configuration (%s).", rc)
+            return

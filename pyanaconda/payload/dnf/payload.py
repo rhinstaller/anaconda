@@ -30,7 +30,7 @@ from pyanaconda.modules.common.structures.packages import PackagesConfigurationD
 from pyanaconda.modules.payloads.payload.dnf.initialization import configure_dnf_logging
 from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
     SetRPMMacrosTask, DownloadPackagesTask, InstallPackagesTask, PrepareDownloadLocationTask, \
-    CleanUpDownloadLocationTask, ResolvePackagesTask
+    CleanUpDownloadLocationTask, ResolvePackagesTask, UpdateDNFConfigurationTask
 from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_version_list, \
     calculate_required_space
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, DNFManagerError
@@ -1066,6 +1066,13 @@ class DNFPayload(Payload):
         task = ImportRPMKeysTask(
             sysroot=conf.target.system_root,
             gpg_keys=conf.payload.default_rpm_gpg_keys
+        )
+        task.run()
+
+        # Update the DNF configuration.
+        task = UpdateDNFConfigurationTask(
+            sysroot=conf.target.system_root,
+            data=self.get_packages_configuration()
         )
         task.run()
 
