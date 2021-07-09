@@ -33,7 +33,7 @@ from pyanaconda.modules.security.kickstart import SecurityKickstartSpecification
 from pyanaconda.modules.security.security_interface import SecurityInterface
 from pyanaconda.modules.security.installation import ConfigureSELinuxTask, \
     RealmDiscoverTask, RealmJoinTask, ConfigureAuthselectTask, \
-    ConfigureAuthconfigTask, ConfigureFingerprintAuthTask, PreconfigureFIPSTask, ConfigureFIPSTask
+    ConfigureFingerprintAuthTask, PreconfigureFIPSTask, ConfigureFIPSTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -50,9 +50,6 @@ class SecurityService(KickstartService):
 
         self.authselect_changed = Signal()
         self._authselect_args = []
-
-        self.authconfig_changed = Signal()
-        self._authconfig_args = []
 
         self.fingerprint_auth_enabled_changed = Signal()
         self._fingerprint_auth_enabled = False
@@ -79,9 +76,6 @@ class SecurityService(KickstartService):
         if data.authselect.authselect:
             self.set_authselect(shlex.split(data.authselect.authselect))
 
-        if data.authconfig.authconfig:
-            self.set_authconfig(shlex.split(data.authconfig.authconfig))
-
         if data.realm.join_realm:
             realm = RealmData()
             realm.name = data.realm.join_realm
@@ -97,9 +91,6 @@ class SecurityService(KickstartService):
 
         if self.authselect:
             data.authselect.authselect = " ".join(self.authselect)
-
-        if self.authconfig:
-            data.authconfig.authconfig = " ".join(self.authconfig)
 
         if self.realm.name:
             data.realm.join_realm = self.realm.name
@@ -147,27 +138,6 @@ class SecurityService(KickstartService):
         self._authselect_args = args
         self.authselect_changed.emit()
         log.debug("Authselect is set to %s.", args)
-
-    @property
-    def authconfig(self):
-        """Arguments for the authconfig tool.
-
-        Authconfig is deprecated, use authselect.
-
-        :return: a list of arguments
-        """
-        return self._authconfig_args
-
-    def set_authconfig(self, args):
-        """Set the arguments for the authconfig tool.
-
-        Authconfig is deprecated, use authselect.
-
-        :param args: a list of arguments
-        """
-        self._authconfig_args = args
-        self.authconfig_changed.emit()
-        log.debug("Authconfig is set to %s.", args)
 
     @property
     def fingerprint_auth_enabled(self):
@@ -234,7 +204,7 @@ class SecurityService(KickstartService):
                 name, reason="Needed to join a realm."
             ))
 
-        # Add authselect / authconfig requirements
+        # Add authselect requirements
         if self.authselect or self.fingerprint_auth_enabled:
             # we need the authselect package in two cases:
             # - autselect command is used in kickstart
@@ -243,12 +213,6 @@ class SecurityService(KickstartService):
                 "authselect",
                 reason="Needed by authselect kickstart command & "
                 "for fingerprint authentication support."
-            ))
-
-        if self.authconfig:
-            requirements.append(Requirement.for_package(
-                "authselect-compat",
-                reason="Needed to support legacy authconfig kickstart command."
             ))
 
         return requirements
@@ -311,9 +275,5 @@ class SecurityService(KickstartService):
             ConfigureAuthselectTask(
                 sysroot=conf.target.system_root,
                 authselect_options=self.authselect
-            ),
-            ConfigureAuthconfigTask(
-                sysroot=conf.target.system_root,
-                authconfig_options=self.authconfig
             )
         ]

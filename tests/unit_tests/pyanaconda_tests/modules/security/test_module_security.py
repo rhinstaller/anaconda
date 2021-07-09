@@ -35,8 +35,8 @@ from pyanaconda.modules.security.security_interface import SecurityInterface
 from pyanaconda.modules.security.constants import SELinuxMode
 from pyanaconda.modules.security.installation import ConfigureSELinuxTask, \
     RealmDiscoverTask, RealmJoinTask, ConfigureFingerprintAuthTask, \
-    ConfigureAuthselectTask, ConfigureAuthconfigTask, AUTHSELECT_TOOL_PATH, \
-    AUTHCONFIG_TOOL_PATH, PAM_SO_64_PATH, PAM_SO_PATH, PreconfigureFIPSTask, ConfigureFIPSTask
+    ConfigureAuthselectTask, AUTHSELECT_TOOL_PATH, \
+    PAM_SO_64_PATH, PAM_SO_PATH, PreconfigureFIPSTask, ConfigureFIPSTask
 from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_kickstart_interface, \
     check_task_creation, check_task_creation_list, PropertiesChangedCallback, check_dbus_property
 from pyanaconda.modules.common.structures.requirement import Requirement
@@ -66,7 +66,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
     def test_kickstart_properties(self):
         """Test kickstart properties."""
         self.assertEqual(self.security_interface.KickstartCommands,
-                         ["auth", "authconfig", "authselect", "selinux", "realm"])
+                         ["authselect", "selinux", "realm"])
         self.assertEqual(self.security_interface.KickstartSections, [])
         self.assertEqual(self.security_interface.KickstartAddons, [])
         self.callback.assert_not_called()
@@ -83,13 +83,6 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         self._check_dbus_property(
             "Authselect",
             ["sssd", "with-mkhomedir"]
-        )
-
-    def test_authconfig_property(self):
-        """Test the authconfig property."""
-        self._check_dbus_property(
-            "Authconfig",
-            ["--passalgo=yescrypt", "--useshadow"]
         )
 
     def test_fingerprint_auth_enabled(self):
@@ -136,28 +129,6 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         ks_out = """
         # SELinux configuration
         selinux --permissive
-        """
-        self._test_kickstart(ks_in, ks_out)
-
-    def test_auth_kickstart(self):
-        """Test the auth command."""
-        ks_in = """
-        auth --passalgo=yescrypt --useshadow
-        """
-        ks_out = """
-        # System authorization information
-        auth --passalgo=yescrypt --useshadow
-        """
-        self._test_kickstart(ks_in, ks_out)
-
-    def test_authconfig_kickstart(self):
-        """Test the authconfig command."""
-        ks_in = """
-        authconfig --passalgo=yescrypt --useshadow
-        """
-        ks_out = """
-        # System authorization information
-        auth --passalgo=yescrypt --useshadow
         """
         self._test_kickstart(ks_in, ks_out)
 
@@ -212,7 +183,6 @@ class SecurityInterfaceTestCase(unittest.TestCase):
             ConfigureSELinuxTask,
             ConfigureFingerprintAuthTask,
             ConfigureAuthselectTask,
-            ConfigureAuthconfigTask,
         ]
         task_paths = self.security_interface.InstallWithTasks()
         task_objs = check_task_creation_list(self, task_paths, publisher, task_classes)
@@ -226,9 +196,6 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         # ConfigureAuthselectTask
         obj = task_objs[2]
         self.assertEqual(obj.implementation._authselect_options, [])
-        # ConfigureAuthconfigTask
-        obj = task_objs[3]
-        self.assertEqual(obj.implementation._authconfig_options, [])
 
     @patch_dbus_publish_object
     def test_realm_join_default(self, publisher):
@@ -249,20 +216,17 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         realm.discovered = True
 
         authselect = ['select', 'sssd']
-        authconfig = ['--passalgo=yescrypt', '--useshadow']
         fingerprint = True
 
         self.security_interface.SetRealm(RealmData.to_structure(realm))
         self.security_interface.SetSELinux(SELINUX_PERMISSIVE)
         self.security_interface.SetAuthselect(authselect)
-        self.security_interface.SetAuthconfig(authconfig)
         self.security_interface.SetFingerprintAuthEnabled(fingerprint)
 
         task_classes = [
             ConfigureSELinuxTask,
             ConfigureFingerprintAuthTask,
             ConfigureAuthselectTask,
-            ConfigureAuthconfigTask,
         ]
         task_paths = self.security_interface.InstallWithTasks()
         task_objs = check_task_creation_list(self, task_paths, publisher, task_classes)
@@ -276,9 +240,6 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         # ConfigureAuthselectTask
         obj = task_objs[2]
         self.assertEqual(obj.implementation._authselect_options, authselect)
-        # ConfigureAuthconfigTask
-        obj = task_objs[3]
-        self.assertEqual(obj.implementation._authconfig_options, authconfig)
 
     @patch_dbus_publish_object
     def test_realm_join_configured(self, publisher):
@@ -398,15 +359,6 @@ class SecurityInterfaceTestCase(unittest.TestCase):
     def test_authselect_requirements(self):
         """Test that package requirements for authselect propagate correctly."""
 
-        self.security_interface.SetAuthconfig(['--passalgo=yescrypt', '--useshadow'])
-        requirements = Requirement.from_structure_list(
-            self.security_interface.CollectRequirements()
-        )
-        self.assertEqual(len(requirements), 1)
-        self.assertEqual(requirements[0].type, "package")
-        self.assertEqual(requirements[0].name, "authselect-compat")
-
-        self.security_interface.SetAuthconfig([])
         self.security_interface.SetAuthselect(['select', 'sssd'])
         requirements = Requirement.from_structure_list(
             self.security_interface.CollectRequirements()
@@ -415,7 +367,6 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         self.assertEqual(requirements[0].type, "package")
         self.assertEqual(requirements[0].name, "authselect")
 
-        self.security_interface.SetAuthconfig([])
         self.security_interface.SetAuthselect([])
         self.security_interface.SetFingerprintAuthEnabled(True)
         requirements = Requirement.from_structure_list(
@@ -892,40 +843,6 @@ class SecurityTasksTestCase(unittest.TestCase):
                 root=sysroot
             )
             os.remove(authselect_path)
-
-    @patch('pyanaconda.core.util.execWithRedirect')
-    def test_configure_authconfig_task(self, execWithRedirect):
-        """Test the configure authconfig task."""
-        with tempfile.TemporaryDirectory() as sysroot:
-
-            authconfig_dir = os.path.normpath(sysroot + os.path.dirname(AUTHCONFIG_TOOL_PATH))
-            authconfig_path = os.path.normpath(sysroot + AUTHCONFIG_TOOL_PATH)
-            os.makedirs(authconfig_dir)
-
-            # The authconfig command is missing
-            execWithRedirect.reset_mock()
-            task = ConfigureAuthconfigTask(
-                sysroot=sysroot,
-                authconfig_options=["--passalgo=yescrypt", "--useshadow"]
-            )
-            with self.assertRaises(SecurityInstallationError):
-                task.run()
-            execWithRedirect.assert_not_called()
-
-            # The authconfig command is there
-            execWithRedirect.reset_mock()
-            os.mknod(authconfig_path)
-            task = ConfigureAuthconfigTask(
-                sysroot=sysroot,
-                authconfig_options=["--passalgo=yescrypt", "--useshadow"]
-            )
-            task.run()
-            execWithRedirect.assert_called_once_with(
-                AUTHCONFIG_TOOL_PATH,
-                ["--update", "--nostart", "--passalgo=yescrypt", "--useshadow"],
-                root=sysroot
-            )
-            os.remove(authconfig_path)
 
     def test_preconfigure_fips_task_disabled(self):
         """Test the PreconfigureFIPSTask task with disabled FIPS."""

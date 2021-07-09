@@ -23,8 +23,6 @@ from pyanaconda.core.kickstart import KickstartSpecification, commands as COMMAN
 class SecurityKickstartSpecification(KickstartSpecification):
 
     commands = {
-        "auth": COMMANDS.Authconfig,
-        "authconfig": COMMANDS.Authconfig,
         "authselect": COMMANDS.Authselect,
         "selinux": COMMANDS.SELinux,
         "realm": COMMANDS.Realm
