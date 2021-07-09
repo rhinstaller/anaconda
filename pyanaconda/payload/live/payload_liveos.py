@@ -78,9 +78,6 @@ class LiveOSPayload(BaseLivePayload):
         # Grab the kernel version list now so it's available after umount
         self._update_kernel_version_list()
 
-        source = os.statvfs(INSTALL_TREE)
-        self.source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
-
     def unsetup(self):
         super().unsetup()
 

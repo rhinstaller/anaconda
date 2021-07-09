@@ -145,10 +145,6 @@ class SetupInstallationSourceImageTask(Task):
         # Grab the kernel version list now so it's available after umount
         # self._update_kernel_version_list()
 
-        # FIXME: This should be done by the module
-        # # source = os.statvfs(mount_point)
-        # self.source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
-
     def run(self):
         """Run set up or installation source."""
         image_path_from_url = get_local_image_path_from_url(self._url)
@@ -156,10 +152,6 @@ class SetupInstallationSourceImageTask(Task):
             self._image_path = image_path_from_url
         else:
             self._download_image(self._url, self._image_path, self._session)
-
-        # TODO - do we use it at all in LiveImage
-        # Used to make install progress % look correct
-        # self._adj_size = os.stat(self.image_path).st_size
 
         if not url_target_is_tarfile(self._url):
             self._mount_image(self._image_path, self._image_mount_point)

@@ -18,7 +18,6 @@
 import glob
 import os
 import stat
-from threading import Lock
 
 import requests
 from blivet.size import Size
@@ -26,7 +25,7 @@ from pyanaconda.anaconda_loggers import get_packaging_logger
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_IMAGE, TAR_SUFFIX, \
-    NETWORK_CONNECTION_TIMEOUT, INSTALL_TREE, IMAGE_DIR, THREAD_LIVE_PROGRESS
+    NETWORK_CONNECTION_TIMEOUT, INSTALL_TREE, IMAGE_DIR
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.modules.payloads.payload.live_image.installation import VerifyImageChecksum, \
     InstallFromTarTask
@@ -35,7 +34,6 @@ from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.errors import PayloadInstallError, PayloadSetupError
 from pyanaconda.payload.live.download_progress import DownloadProgress
 from pyanaconda.payload.live.payload_base import BaseLivePayload
-from pyanaconda.threading import threadMgr, AnacondaThread
 
 log = get_packaging_logger()
 
@@ -201,9 +199,6 @@ class LiveImagePayload(BaseLivePayload):
         if error:
             raise PayloadInstallError(str(error))
 
-        # Used to make install progress % look correct
-        self._adj_size = os.stat(self.image_path)[stat.ST_SIZE]
-
         # Verify the checksum.
         task = VerifyImageChecksum(
             image_path=self.image_path,
@@ -257,9 +252,6 @@ class LiveImagePayload(BaseLivePayload):
 
             self._update_kernel_version_list()
 
-            source = os.statvfs(INSTALL_TREE)
-            self.source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
-
     def install(self):
         """ Install the payload if it is a tar.
             Otherwise fall back to rsync of INSTALL_TREE
@@ -269,26 +261,21 @@ class LiveImagePayload(BaseLivePayload):
             super().install()
             return
 
-        # Use 2x the archive's size to estimate the size of the install
-        # This is used to drive the progress display
-        self.source_size = os.stat(self.image_path)[stat.ST_SIZE] * 2
+        # Calculate the installation size of the archive.
+        # Use 2x the archive's size to estimate the size of the install.
+        size = os.stat(self.image_path)[stat.ST_SIZE] * 2
 
-        self.pct_lock = Lock()
-        self.pct = 0
-        threadMgr.add(AnacondaThread(name=THREAD_LIVE_PROGRESS,
-                                     target=self.progress))
+        # Install the archive.
+        with self._monitor_progress(size):
+            self._install_tar()
 
+    def _install_tar(self):
         # Run the installation task.
         task = InstallFromTarTask(
             sysroot=conf.target.system_root,
             tarfile=self.image_path
         )
         task.run()
-
-        # Wait for progress thread to finish
-        with self.pct_lock:
-            self.pct = 100
-        threadMgr.wait(THREAD_LIVE_PROGRESS)
 
     def post_install(self):
         """ Unmount and remove image
