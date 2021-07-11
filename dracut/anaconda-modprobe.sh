@@ -14,7 +14,7 @@ MODULE_LIST="cramfs squashfs iscsi_tcp "
 shopt -s nullglob
 
 SCSI_MODULES=/lib/modules/$KERNEL/kernel/drivers/scsi/device_handler/
-for m in $SCSI_MODULES/*.ko; do
+for m in $SCSI_MODULES/*.ko*; do
     # Shell spew to work around not having basename
     # Trim the paths off the prefix, then the . suffix
     a="${m##*/}"
