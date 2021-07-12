@@ -404,6 +404,26 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jul 12 2021 Martin Kolman <mkolman@redhat.com> - 35.19-1
+- Don't return None from is_supported_filesystem (#1979854) (vponcova)
+- Configure the multilib policy of the target system (vponcova)
+- Reorder imports to reduce linter warnings (vslavik)
+- Ignore falsy pylint missing member warning in dnf code (vslavik)
+- Silence false pylint warning (vslavik)
+- Don't use deprecated imp module in dracut test (vslavik)
+- Fix typo in docs (vslavik)
+- Replace (vslavik)
+- Ignore pylint mistakes about missing members in test (vslavik)
+- Remove the productVariant variable (vponcova)
+- Document the profile configuration files (vponcova)
+- Add support for the profile configuration files (#1974819) (vponcova)
+- Replace inst.product and inst.variant with inst.profile (vponcova)
+- Replace product configuration files with profiles (vponcova)
+- Appease pylint's belief that this is not a string (vslavik)
+- Update pylint directive for new warning name (vslavik)
+- Revert "Fix unit test for previous commit" (lveyde)
+- Revert "ovirt / rhv: drop swap partition" (lveyde)
+
 * Mon Jun 28 2021 Martin Kolman <mkolman@redhat.com> - 35.18-1
 - Use yescrypt hashing method for shadow passwords (besser82)
 - Intercept OSError thrown by crypt.crypt() on error. (besser82)
