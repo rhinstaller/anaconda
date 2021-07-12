@@ -15,7 +15,7 @@
 
 CLEANFILES = *~
 
-configdir           = $(sysconfdir)/$(PACKAGE_NAME)/product.d
+configdir           = $(sysconfdir)/$(PACKAGE_NAME)/profile.d
 dist_config_DATA    = *.conf
 
 MAINTAINERCLEANFILES = Makefile.in

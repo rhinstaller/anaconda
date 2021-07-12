@@ -28,7 +28,6 @@ config = configparser.ConfigParser()
 config.add_section("Main")
 config.set("Main", "IsFinal", os.environ.get("ANACONDA_ISFINAL", "false"))
 config.set("Main", "Product", os.environ.get("ANACONDA_PRODUCTNAME", "anaconda"))
-config.set("Main", "Variant", os.environ.get("ANACONDA_PRODUCTVARIANT", ""))
 config.set("Main", "Version", os.environ.get("ANACONDA_PRODUCTVERSION", "bluesky"))
 
 # Now read in the .buildstamp file, wherever it may be.
@@ -37,7 +36,6 @@ config.read(["/.buildstamp", os.environ.get("PRODBUILDPATH", "")])
 # Set up some variables we import throughout, applying a couple transforms as necessary.
 isFinal = config.getboolean("Main", "IsFinal")
 productName = config.get("Main", "Product")
-productVariant = config.get("Main", "Variant")
 productVersion = config.get("Main", "Version")
 
 if productVersion == "development":

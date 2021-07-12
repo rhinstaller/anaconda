@@ -14,13 +14,10 @@ text
 Force text mode installation. This also implies that the installed system will boot up in text mode
 instead of to the graphical login screen.
 
-product
-Set the name of a product (for example Fedora). Use the option variant to specify also the name
-of a variant (for example Workstation). The installer will be customized based on configuration
-files from /etc/anaconda/product.d/ that are specific for this product.
-
-variant
-Set the name of a variant. See the option product for more information.
+profile
+Use a profile configuration file with the specified profile id. The installer will be
+customized based on configuration files from /etc/anaconda/profile.d that are specific
+for this profile.
 
 proxy
 Use the given proxy settings when performing an installation from a HTTP/HTTPS/FTP source.

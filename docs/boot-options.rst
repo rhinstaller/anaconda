@@ -757,31 +757,22 @@ inst.nonibftiscsiboot
 
 Allows to place boot loader on iSCSI devices which were not configured in iBFT.
 
-Product options
+Profile options
 ^^^^^^^^^^^^^^^
 
-Use the options ``inst.product`` and ``inst.variant`` to specify a product. The installer will
-be customized based on configuration files from ``/etc/anaconda/product.d`` that are specific
-for this product.
+Use the ``inst.profile`` option to specify a configuration profile. The installer will be
+customized based on configuration files from ``/etc/anaconda/profile.d`` that are specific
+for this profile.
 
-.. inst.product:
+.. inst.profile:
 
-inst.product
+inst.profile
 ++++++++++++
 
-Set the name of a product.
+Specify a profile id of a configuration profile. The id should match the ``profile_id`` option
+of a configuration file in ``/etc/anaconda/profile.d``.
 
-For example: ``inst.product=Fedora``
-
-.. inst.variant:
-
-inst.variant
-++++++++++++
-Set the name of a variant. It is not allowed to specify a variant name without a product name,
-so use ``inst.product`` to specify the product as well.
-
-For example: ``inst.product=Fedora inst.variant=Workstation``
-
+For example: ``inst.profile=fedora-server``
 
 Third-party options
 ^^^^^^^^^^^^^^^^^^^
@@ -1004,3 +995,17 @@ repo=nfsiso:...
 Anaconda no longer needs explicit specification that a NFS location is an ISO image.
 The difference between an installable tree and a dir with an ``.iso`` file is now
 automatically detected, so this is the same as ``inst.repo=nfs:``...
+
+.. inst.product:
+
+inst.product
+++++++++++++
+
+Use the ``inst.profile`` option instead.
+
+.. inst.variant:
+
+inst.variant
+++++++++++++
+
+Use the ``inst.profile`` option instead.

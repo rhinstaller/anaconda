@@ -356,8 +356,8 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %config %{_sysconfdir}/%{name}/*
 %dir %{_sysconfdir}/%{name}/conf.d
 %config %{_sysconfdir}/%{name}/conf.d/*
-%dir %{_sysconfdir}/%{name}/product.d
-%config %{_sysconfdir}/%{name}/product.d/*
+%dir %{_sysconfdir}/%{name}/profile.d
+%config %{_sysconfdir}/%{name}/profile.d/*
 
 %files live
 %{_bindir}/liveinst
