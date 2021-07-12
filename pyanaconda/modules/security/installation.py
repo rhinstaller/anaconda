@@ -187,7 +187,7 @@ class ConfigureSELinuxTask(Task):
         """Create a new Initial Setup configuration task.
 
         :param str sysroot: a path to the root of the target system
-        :param int selinux_mode: SELinux mode id
+        :param SELinuxMode selinux_mode: a SELinux mode
 
         States are defined by the SELinuxMode enum as distinct integers.
         """
@@ -407,7 +407,7 @@ class ConfigureFingerprintAuthTask(Task):
             return
 
         if not self._is_fingerprint_configuration_supported():
-            log.debug("Fingerprint conifguration is not supported on target system.")
+            log.debug("Fingerprint configuration is not supported on target system.")
         else:
             log.debug("Enabling fingerprint authentication.")
             run_auth_tool(
