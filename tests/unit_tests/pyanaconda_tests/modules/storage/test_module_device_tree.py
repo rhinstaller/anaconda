@@ -26,7 +26,7 @@ from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_t
 from blivet.devices import StorageDevice, DiskDevice, DASDDevice, ZFCPDiskDevice, PartitionDevice, \
     LUKSDevice, iScsiDiskDevice, NVDIMMNamespaceDevice, FcoeDiskDevice, OpticalDevice
 from blivet.errors import StorageError, FSError
-from blivet.formats import get_format, device_formats
+from blivet.formats import get_format, device_formats, DeviceFormat
 from blivet.formats.fs import FS, Iso9660FS
 from blivet.formats.luks import LUKS
 from blivet.size import Size
@@ -34,7 +34,7 @@ from blivet.size import Size
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.errors.storage import UnknownDeviceError, MountFilesystemError
 from pyanaconda.modules.common.structures.storage import DeviceFormatData
-from pyanaconda.modules.storage.devicetree import DeviceTreeModule, create_storage
+from pyanaconda.modules.storage.devicetree import DeviceTreeModule, create_storage, utils
 from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface
 from pyanaconda.modules.storage.devicetree.populate import FindDevicesTask
 from pyanaconda.modules.storage.devicetree.rescue import FindExistingSystemsTask, \
@@ -855,3 +855,33 @@ class DeviceTreeTasksTestCase(unittest.TestCase):
         task.run()
 
         storage.devicetree.populate.assert_called_once_with()
+
+
+class DeviceTreeUtilsTestCase(unittest.TestCase):
+    """Test utilities for the device tree."""
+
+    @patch.object(DeviceFormat, "formattable", new_callable=PropertyMock)
+    @patch.object(DeviceFormat, "supported", new_callable=PropertyMock)
+    def test_is_supported_filesystem(self, supported, formattable):
+        """Test the is_supported_filesystem function."""
+        supported.return_value = True
+        formattable.return_value = False
+
+        self.assertEqual(utils.is_supported_filesystem("xfs"), False)
+
+        supported.return_value = False
+        formattable.return_value = True
+
+        self.assertEqual(utils.is_supported_filesystem("xfs"), False)
+
+        supported.return_value = True
+        formattable.return_value = True
+
+        self.assertEqual(utils.is_supported_filesystem("xfs"), True)
+        self.assertEqual(utils.is_supported_filesystem("swap"), True)
+        self.assertEqual(utils.is_supported_filesystem("biosboot"), True)
+
+        self.assertEqual(utils.is_supported_filesystem("unknown"), False)
+        self.assertEqual(utils.is_supported_filesystem("disklabel"), False)
+        self.assertEqual(utils.is_supported_filesystem("ntfs"), False)
+        self.assertEqual(utils.is_supported_filesystem("tmpfs"), False)

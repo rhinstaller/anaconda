@@ -46,11 +46,13 @@ def is_supported_filesystem(fmt_type):
     """
     fmt = get_format(fmt_type)
 
-    return fmt.type \
-        and fmt.supported \
-        and fmt.formattable \
-        and (isinstance(fmt, FS) or fmt.type in ["biosboot", "prepboot", "swap"]) \
+    return bool(
+        fmt.type
+        and fmt.supported
+        and fmt.formattable
+        and (isinstance(fmt, FS) or fmt.type in ["biosboot", "prepboot", "swap"])
         and fmt.type not in ("ntfs", "tmpfs")
+    )
 
 
 def get_supported_filesystems():
