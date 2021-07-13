@@ -18,13 +18,14 @@
 import os
 import shutil
 
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.constants import DEFAULT_VC_FONT
+from pyanaconda.core.util import join_paths, execWithCapture
+from pyanaconda.localization import get_locale_console_fonts, find_best_locale_match
 from pyanaconda.modules.common.errors.installation import LanguageInstallationError, \
     KeyboardInstallationError
 from pyanaconda.modules.common.task import Task
-from pyanaconda.core.constants import DEFAULT_VC_FONT
 from pyanaconda.modules.localization.localed import get_missing_keyboard_configuration
-from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.localization import get_locale_console_fonts
 
 log = get_module_logger(__name__)
 
@@ -37,6 +38,7 @@ class LanguageInstallationTask(Task):
     """Installation task for the language configuration."""
 
     LOCALE_CONF_FILE_PATH = "/etc/locale.conf"
+    LOCALE_FALLBACK = "C.UTF-8"
 
     def __init__(self, sysroot, lang):
         """Create a new task,
@@ -53,16 +55,50 @@ class LanguageInstallationTask(Task):
         return "Configure language"
 
     def run(self):
-        self._write_language_configuration(self._lang, self._sysroot)
+        """Run the installation task."""
+        lang = self._get_supported_language()
+        self._write_language_configuration(lang)
 
-    def _write_language_configuration(self, lang, root):
-        """Write language configuration to the $root/etc/locale.conf file.
+    def _get_supported_language(self):
+        """Return a supported locale.
 
-        :param lang: value for LANG locale variable
-        :param root: path to the root of the installed system
+        :return: a locale
+        """
+        if self._is_language_support_installed(self._lang):
+            return self._lang
+
+        log.debug("The '%s' locale is unsupported.", self._lang)
+        log.debug("Using the '%s' locale as a fallback.", self.LOCALE_FALLBACK)
+        return self.LOCALE_FALLBACK
+
+    def _is_language_support_installed(self, lang):
+        """Is the support for the specified language installed?
+
+        The language is considered to be supported if we are not
+        able to determine the supported locales due to missing tools.
+
+        :param lang: a value for the LANG locale variable
+        :return: False if the locale is known to be not supported, otherwise True
         """
         try:
-            fpath = os.path.normpath(root + self.LOCALE_CONF_FILE_PATH)
+            output = execWithCapture("locale", ["-a"], root=self._sysroot)
+        except OSError as e:
+            log.warning("Couldn't get supported locales: %s", e)
+            return True
+
+        match = find_best_locale_match(lang, output.splitlines())
+
+        log.debug("The '%s' locale matched '%s'.", lang, match)
+        return bool(match)
+
+    def _write_language_configuration(self, lang):
+        """Write language configuration to the /etc/locale.conf file.
+
+        :param lang: a value for the LANG locale variable
+        """
+        try:
+            fpath = join_paths(self._sysroot, self.LOCALE_CONF_FILE_PATH)
+            log.debug("Writing the '%s' locale to %s.", lang, fpath)
 
             with open(fpath, "w") as fobj:
                 fobj.write('LANG="{}"\n'.format(lang))

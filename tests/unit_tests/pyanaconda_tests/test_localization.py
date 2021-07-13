@@ -259,6 +259,20 @@ class LangcodeLocaleMatchingTests(unittest.TestCase):
         self.assertIsNone(localization.find_best_locale_match("ja", ["blah"]))
         self.assertIsNone(localization.find_best_locale_match("blah", ["en_US.UTF-8"]))
 
+    def test_find_best_locale_match_posix(self):
+        """Finding best POSIX matches should work as expected."""
+        match = localization.find_best_locale_match("C", ["C.UTF-8"])
+        self.assertEqual(match, "C.UTF-8")
+
+        match = localization.find_best_locale_match("C.UTF-8", ["en_US"])
+        self.assertEqual(match, "en_US")
+
+        match = localization.find_best_locale_match("en_US", ["C.UTF-8"])
+        self.assertEqual(match, None)
+
+        match = localization.find_best_locale_match("cs_CZ", ["C.UTF-8"])
+        self.assertEqual(match, None)
+
     # TODO: Remove this skip when environment is stable again.
     @unittest.skip("Getting: 'UnicodeDecodeError' on some environments.")
     def test_resolve_date_format(self):
