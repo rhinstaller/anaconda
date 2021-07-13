@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        container-tag: ['master', 'eln', 'f34-devel', 'f34-release']
+        container-tag: ['master', 'eln'] # 'f34-devel', 'f34-release'
         container-type: ['ci', 'rpm']
         include:
           - container-tag: master
@@ -23,10 +23,10 @@ jobs:
           - container-tag: eln
             branch: master
             base-container: 'quay.io/fedoraci/fedora:eln-x86_64'
-          - container-tag: f34-devel
-            branch: f34-devel
-          - container-tag: f34-release
-            branch: f34-release
+    #      - container-tag: f34-devel
+    #        branch: f34-devel
+    #      - container-tag: f34-release
+    #        branch: f34-release
     env:
       CI_TAG: '${{ matrix.container-tag }}'
     timeout-minutes: 60
