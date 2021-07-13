@@ -186,7 +186,7 @@ class SecurityService(KickstartService):
         """
         self._fingerprint_auth_enabled = fingerprint_auth_enabled
         self.fingerprint_auth_enabled_changed.emit()
-        log.debug("Fingerprint authentication enbled is set to %s.",
+        log.debug("Fingerprint authentication enabled is set to %s.",
                   self.fingerprint_auth_enabled)
 
     @property
