@@ -29,7 +29,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import join_paths
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.modules.payloads.payload.live_image.installation import VerifyImageChecksum, \
-    InstallFromImageTask
+    InstallFromImageTask, InstallFromTarTask
 from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list
 
 
@@ -154,6 +154,54 @@ class LiveTasksTestCase(unittest.TestCase):
                                "--exclude", "/etc/machine-id", INSTALL_TREE + "/", dest_path]
 
         exec_with_redirect.assert_called_once_with("rsync", expected_rsync_args)
+
+
+class InstallFromTarTaskTestCase(unittest.TestCase):
+    """Test the InstallFromTarTask class."""
+
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.execWithRedirect")
+    def test_install_tar_task(self, exec_with_redirect):
+        """Test installation from a tarball."""
+        exec_with_redirect.return_value = 0
+        task = InstallFromTarTask(
+            sysroot="/mnt/root",
+            tarfile="/source.tar"
+        )
+        task.run()
+
+        exec_with_redirect.assert_called_once_with("tar", [
+            "--numeric-owner",
+            "--selinux",
+            "--acls",
+            "--xattrs",
+            "--xattrs-include", "*",
+            "--exclude", "./dev/*",
+            "--exclude", "./proc/*",
+            "--exclude", "./tmp/*",
+            "--exclude", "./sys/*",
+            "--exclude", "./run/*",
+            "--exclude", "./boot/*rescue*",
+            "--exclude", "./boot/loader",
+            "--exclude", "./boot/efi/loader",
+            "--exclude", "./etc/machine-id",
+            "-xaf", "/source.tar",
+            "-C", "/mnt/root"
+        ])
+
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.execWithRedirect")
+    def test_install_tar_task_failed_exception(self, exec_with_redirect):
+        """Test installation from a tarball with an exception."""
+        exec_with_redirect.side_effect = OSError("Fake!")
+        task = InstallFromTarTask(
+            sysroot="/mnt/root",
+            tarfile="/source.tar"
+        )
+
+        with self.assertRaises(PayloadInstallationError) as cm:
+            task.run()
+
+        msg = "Failed to install tar: Fake!"
+        self.assertTrue(str(cm.exception), msg)
 
 
 class VerifyImageChecksumTestCase(unittest.TestCase):

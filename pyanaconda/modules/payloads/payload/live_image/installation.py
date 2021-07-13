@@ -86,37 +86,50 @@ class VerifyImageChecksum(Task):
 class InstallFromTarTask(Task):
     """Task to install the payload from tarball."""
 
-    def __init__(self, tarfile_path, dest_path):
+    def __init__(self, sysroot, tarfile):
+        """Create a new task.
+
+        :param sysroot: a path to the system root
+        :param tarfile: a path to the tarball
+        """
         super().__init__()
-        self._tarfile_path = tarfile_path
-        self._dest_path = dest_path
+        self._sysroot = sysroot
+        self._tarfile = tarfile
 
     @property
     def name(self):
         return "Install the payload from a tarball"
 
     def run(self):
-        """Run installation of the payload from a tarball."""
-        cmd = "tar"
-        # preserve: ACL's, xattrs, and SELinux context
-        args = ["--numeric-owner", "--selinux", "--acls", "--xattrs", "--xattrs-include", "*",
-                "--exclude", "./dev/*", "--exclude", "./proc/*", "--exclude", "./tmp/*",
-                "--exclude", "./sys/*", "--exclude", "./run/*", "--exclude", "./boot/*rescue*",
-                "--exclude", "./boot/loader", "--exclude", "./boot/efi/loader",
-                "--exclude", "./etc/machine-id", "-xaf", self._tarfile_path, "-C", self._dest_path]
-        try:
-            rc = execWithRedirect(cmd, args)
-        except (OSError, RuntimeError) as e:
-            msg = None
-            err = str(e)
-            log.error(err)
-        else:
-            err = None
-            msg = "%s exited with code %d" % (cmd, rc)
-            log.info(msg)
+        """Run installation of the payload from a tarball.
 
-        if err:
-            raise PayloadInstallationError(err or msg)
+        Preserve ACL's, xattrs, and SELinux context.
+        """
+        cmd = "tar"
+        args = [
+            "--numeric-owner",
+            "--selinux",
+            "--acls",
+            "--xattrs",
+            "--xattrs-include", "*",
+            "--exclude", "./dev/*",
+            "--exclude", "./proc/*",
+            "--exclude", "./tmp/*",
+            "--exclude", "./sys/*",
+            "--exclude", "./run/*",
+            "--exclude", "./boot/*rescue*",
+            "--exclude", "./boot/loader",
+            "--exclude", "./boot/efi/loader",
+            "--exclude", "./etc/machine-id",
+            "-xaf", self._tarfile,
+            "-C", self._sysroot
+        ]
+
+        try:
+            execWithRedirect(cmd, args)
+        except (OSError, RuntimeError) as e:
+            msg = "Failed to install tar: {}".format(e)
+            raise PayloadInstallationError(msg) from None
 
 
 class InstallFromImageTask(Task):
