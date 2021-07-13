@@ -18,7 +18,6 @@
 import hashlib
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.i18n import _
 from pyanaconda.core.util import execWithRedirect, lowerASCII
 from pyanaconda.modules.common.task import Task
@@ -135,47 +134,51 @@ class InstallFromTarTask(Task):
 class InstallFromImageTask(Task):
     """Task to install the payload from image."""
 
-    def __init__(self, dest_path, source=None):
+    def __init__(self, sysroot, mount_point):
         """Create a new task.
 
-        :param dest_path: installation destination root path
-        :type dest_path: str
+        :param sysroot: a path to the system root
+        :param mount_point: a path to the mounted image
         """
         super().__init__()
-        self._source = source
-        self._dest_path = dest_path
+        self._sysroot = sysroot
+        self._mount_point = mount_point
 
     @property
     def name(self):
         return "Install the payload from image"
 
     def run(self):
-        """Run installation of the payload from image."""
-        # TODO: remove this check for None when Live Image payload will support sources
-        # The None check is just a temporary hack that Live OS has source but Live Image don't
-        if self._source is not None and not self._source.get_state():
-            raise PayloadInstallationError("Source is not set up!")
+        """Run installation of the payload from image.
 
+        Preserve permissions, owners, groups, ACL's, xattrs, times,
+        symlinks and hardlinks. Go recursively, include devices and
+        special files. Don't cross file system boundaries.
+        """
         cmd = "rsync"
-        # preserve: permissions, owners, groups, ACL's, xattrs, times,
-        #           symlinks, hardlinks
-        # go recursively, include devices and special files, don't cross
-        # file system boundaries
-        # TODO: source will provide us source path instead of using constant here
-        args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/", "--exclude", "/tmp/*",
-                "--exclude", "/sys/", "--exclude", "/run/", "--exclude", "/boot/*rescue*",
-                "--exclude", "/boot/loader/", "--exclude", "/boot/efi/loader/",
-                "--exclude", "/etc/machine-id", INSTALL_TREE + "/", self._dest_path]
+        args = [
+            "-pogAXtlHrDx",
+            "--exclude", "/dev/",
+            "--exclude", "/proc/",
+            "--exclude", "/tmp/*",
+            "--exclude", "/sys/",
+            "--exclude", "/run/",
+            "--exclude", "/boot/*rescue*",
+            "--exclude", "/boot/loader/",
+            "--exclude", "/boot/efi/loader/",
+            "--exclude", "/etc/machine-id",
+            self._mount_point,
+            self._sysroot
+        ]
+
         try:
             rc = execWithRedirect(cmd, args)
         except (OSError, RuntimeError) as e:
-            msg = None
-            err = str(e)
-            log.error(err)
-        else:
-            err = None
-            msg = "%s exited with code %d" % (cmd, rc)
-            log.info(msg)
+            msg = "Failed to install image: {}".format(e)
+            raise PayloadInstallationError(msg) from None
 
-        if err or rc == 11:
-            raise PayloadInstallationError(err or msg)
+        if rc == 11:
+            raise PayloadInstallationError(
+                "Failed to install image: "
+                "{} exited with code {}".format(cmd, rc)
+            )

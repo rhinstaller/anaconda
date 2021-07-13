@@ -21,10 +21,9 @@ import os
 import tempfile
 import unittest
 
-from unittest.mock import patch, Mock
+from unittest.mock import patch
 from tempfile import TemporaryDirectory
 
-from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import join_paths
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
@@ -77,83 +76,63 @@ class LiveUtilsTestCase(unittest.TestCase):
             self.assertListEqual(kernel_list, self._kernel_test_valid_list)
 
 
-class LiveTasksTestCase(unittest.TestCase):
+class InstallFromImageTaskTestCase(unittest.TestCase):
+    """Test the InstallFromImageTask class."""
 
     @patch("pyanaconda.modules.payloads.payload.live_image.installation.execWithRedirect")
-    def test_install_image_task(self, exec_with_redirect, ):
+    def test_install_image_task(self, exec_with_redirect):
         """Test installation from an image task."""
-        dest_path = "/destination/path"
-        source = Mock()
         exec_with_redirect.return_value = 0
+        task = InstallFromImageTask(
+            sysroot="/mnt/root",
+            mount_point="/mnt/source"
+        )
+        task.run()
 
-        InstallFromImageTask(dest_path, source).run()
-
-        expected_rsync_args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/",
-                               "--exclude", "/tmp/*", "--exclude", "/sys/", "--exclude", "/run/",
-                               "--exclude", "/boot/*rescue*", "--exclude", "/boot/loader/",
-                               "--exclude", "/boot/efi/loader/",
-                               "--exclude", "/etc/machine-id", INSTALL_TREE + "/", dest_path]
-
-        exec_with_redirect.assert_called_once_with("rsync", expected_rsync_args)
-
-    @patch("pyanaconda.modules.payloads.payload.live_image.installation.execWithRedirect")
-    def test_install_image_task_source_unready(self, exec_with_redirect):
-        """Test installation from an image task when source is not ready."""
-        dest_path = "/destination/path"
-        source = Mock()
-        exec_with_redirect.return_value = 0
-
-        InstallFromImageTask(dest_path, source).run()
-
-        expected_rsync_args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/",
-                               "--exclude", "/tmp/*", "--exclude", "/sys/", "--exclude", "/run/",
-                               "--exclude", "/boot/*rescue*", "--exclude", "/boot/loader/",
-                               "--exclude", "/boot/efi/loader/",
-                               "--exclude", "/etc/machine-id", INSTALL_TREE + "/", dest_path]
-
-        exec_with_redirect.assert_called_once_with("rsync", expected_rsync_args)
+        exec_with_redirect.assert_called_once_with("rsync", [
+            "-pogAXtlHrDx",
+            "--exclude", "/dev/",
+            "--exclude", "/proc/",
+            "--exclude", "/tmp/*",
+            "--exclude", "/sys/",
+            "--exclude", "/run/",
+            "--exclude", "/boot/*rescue*",
+            "--exclude", "/boot/loader/",
+            "--exclude", "/boot/efi/loader/",
+            "--exclude", "/etc/machine-id",
+            "/mnt/source",
+            "/mnt/root"
+        ])
 
     @patch("pyanaconda.modules.payloads.payload.live_image.installation.execWithRedirect")
     def test_install_image_task_failed_exception(self, exec_with_redirect):
         """Test installation from an image task with exception."""
-        dest_path = "/destination/path"
-        source = Mock()
-        exec_with_redirect.side_effect = OSError("mock exception")
+        exec_with_redirect.side_effect = OSError("Fake!")
+        task = InstallFromImageTask(
+            sysroot="/mnt/root",
+            mount_point="/mnt/source"
+        )
 
-        with self.assertLogs(level="ERROR") as cm:
-            with self.assertRaises(PayloadInstallationError):
-                InstallFromImageTask(dest_path, source).run()
+        with self.assertRaises(PayloadInstallationError) as cm:
+            task.run()
 
-            self.assertTrue(any(map(lambda x: "mock exception" in x, cm.output)))
-
-        expected_rsync_args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/",
-                               "--exclude", "/tmp/*", "--exclude", "/sys/", "--exclude", "/run/",
-                               "--exclude", "/boot/*rescue*", "--exclude", "/boot/loader/",
-                               "--exclude", "/boot/efi/loader/",
-                               "--exclude", "/etc/machine-id", INSTALL_TREE + "/", dest_path]
-
-        exec_with_redirect.assert_called_once_with("rsync", expected_rsync_args)
+        msg = "Failed to install image: Fake!"
+        self.assertTrue(str(cm.exception), msg)
 
     @patch("pyanaconda.modules.payloads.payload.live_image.installation.execWithRedirect")
     def test_install_image_task_failed_return_code(self, exec_with_redirect):
         """Test installation from an image task with bad return code."""
-        dest_path = "/destination/path"
-        source = Mock()
         exec_with_redirect.return_value = 11
+        task = InstallFromImageTask(
+            sysroot="/mnt/root",
+            mount_point="/mnt/source"
+        )
 
-        with self.assertLogs(level="INFO") as cm:
-            with self.assertRaises(PayloadInstallationError):
-                InstallFromImageTask(dest_path, source).run()
+        with self.assertRaises(PayloadInstallationError) as cm:
+            task.run()
 
-            self.assertTrue(any(map(lambda x: "exited with code 11" in x, cm.output)))
-
-        expected_rsync_args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/",
-                               "--exclude", "/tmp/*", "--exclude", "/sys/", "--exclude", "/run/",
-                               "--exclude", "/boot/*rescue*", "--exclude", "/boot/loader/",
-                               "--exclude", "/boot/efi/loader/",
-                               "--exclude", "/etc/machine-id", INSTALL_TREE + "/", dest_path]
-
-        exec_with_redirect.assert_called_once_with("rsync", expected_rsync_args)
+        msg = "Failed to install image: rsync excited with code 11"
+        self.assertTrue(str(cm.exception), msg)
 
 
 class InstallFromTarTaskTestCase(unittest.TestCase):
