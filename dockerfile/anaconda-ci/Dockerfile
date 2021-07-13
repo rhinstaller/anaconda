@@ -18,7 +18,6 @@ RUN set -ex; \
   curl \
   /usr/bin/xargs \
   rpm-build \
-  e2fsprogs \
   git \
   bzip2 \
   rpm-ostree \
