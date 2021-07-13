@@ -16,14 +16,16 @@
 # Red Hat, Inc.
 #
 from abc import abstractmethod, ABCMeta
-from blivet.errors import StorageError
+from blivet.errors import StorageError, InconsistentPVSectorSize
 from pykickstart.errors import KickstartParseError
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.i18n import _
 from pyanaconda.modules.storage.bootloader import BootLoaderError
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError, \
     BootloaderConfigurationError
 from pyanaconda.modules.common.task.task import Task
+from pyanaconda.modules.storage.constants import INCONSISTENT_SECTOR_SIZES_SUGGESTIONS
 
 log = get_module_logger(__name__)
 
@@ -50,24 +52,48 @@ class PartitioningTask(Task, metaclass=ABCMeta):
         """Do the partitioning and handle the errors."""
         try:
             self._run(self._storage)
+        except InconsistentPVSectorSize as e:
+            self._handle_storage_error(e, "\n\n".join([
+                _("Failed to proceed with the installation."),
+                str(e).strip(),
+                _(INCONSISTENT_SECTOR_SIZES_SUGGESTIONS)
+            ]))
         except (StorageError, KickstartParseError, ValueError) as e:
-            log.error("Storage configuration has failed: %s", e)
-
-            # Reset the boot loader configuration.
-            # FIXME: Handle the boot loader reset in a better way.
-            self._storage.bootloader.reset()
-
-            raise StorageConfigurationError(str(e)) from e
+            self._handle_storage_error(e, str(e))
         except BootLoaderError as e:
-            log.error("Bootloader configuration has failed: %s", e)
-
-            # Reset the boot loader configuration.
-            # FIXME: Handle the boot loader reset in a better way.
-            self._storage.bootloader.reset()
-
-            raise BootloaderConfigurationError(str(e)) from e
+            self._handle_bootloader_error(e, str(e))
 
     @abstractmethod
     def _run(self, storage):
         """Do the partitioning."""
         pass
+
+    def _handle_storage_error(self, exception, message):
+        """Handle the storage error.
+
+        :param exception: an exception to handle
+        :param message: an error message to use
+        :raise: StorageConfigurationError
+        """
+        log.error("Storage configuration has failed: %s", message)
+
+        # Reset the boot loader configuration.
+        # FIXME: Handle the boot loader reset in a better way.
+        self._storage.bootloader.reset()
+
+        raise StorageConfigurationError(message) from exception
+
+    def _handle_bootloader_error(self, exception, message):
+        """Handle the bootloader error.
+
+        :param exception: an exception to handle
+        :param message: an error message to use
+        :raise: BootloaderConfigurationError
+        """
+        log.error("Bootloader configuration has failed: %s", message)
+
+        # Reset the boot loader configuration.
+        # FIXME: Handle the boot loader reset in a better way.
+        self._storage.bootloader.reset()
+
+        raise BootloaderConfigurationError(message) from exception

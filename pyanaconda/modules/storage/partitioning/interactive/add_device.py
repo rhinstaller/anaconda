@@ -16,13 +16,15 @@
 # Red Hat, Inc.
 #
 from blivet import devicefactory
-from blivet.errors import StorageError
+from blivet.errors import StorageError, InconsistentPVSectorSize
 from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.i18n import _
 from pyanaconda.core.util import lowerASCII
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest
 from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.storage.constants import INCONSISTENT_SECTOR_SIZES_SUGGESTIONS
 from pyanaconda.modules.storage.partitioning.interactive.utils import \
     get_container_raid_level_name, get_container_size_policy, get_device_factory_arguments
 from pyanaconda.core.storage import PARTITION_ONLY_FORMAT_TYPES
@@ -64,9 +66,16 @@ class AddDeviceTask(Task):
             # Trying to use a new container.
             self._add_device(self._storage, self._request, use_existing_container=False)
             return
+        except InconsistentPVSectorSize as e:
+            exception = e
+            message = "\n\n".join([
+                _("Failed to add a device."),
+                str(e).strip(),
+                _(INCONSISTENT_SECTOR_SIZES_SUGGESTIONS)
+            ])
         except StorageError as e:
-            # Keep the first error.
-            error = e
+            exception = e
+            message = str(e)
 
         try:
             # Trying to use an existing container.
@@ -76,8 +85,8 @@ class AddDeviceTask(Task):
             # Ignore the second error.
             pass
 
-        log.error("Failed to add a device: %s", error)
-        raise StorageConfigurationError(str(error))
+        log.error("Failed to add a device: %s", message)
+        raise StorageConfigurationError(message) from exception
 
     def _complete_device_factory_request(self, storage, request: DeviceFactoryRequest):
         """Complete the device factory request.
