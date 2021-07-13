@@ -273,8 +273,6 @@ class LangcodeLocaleMatchingTests(unittest.TestCase):
         match = localization.find_best_locale_match("cs_CZ", ["C.UTF-8"])
         self.assertEqual(match, None)
 
-    # TODO: Remove this skip when environment is stable again.
-    @unittest.skip("Getting: 'UnicodeDecodeError' on some environments.")
     def test_resolve_date_format(self):
         """All locales' date formats should be properly resolved."""
         locales = (line.strip() for line in execWithCapture("locale", ["-a"]).splitlines())
