@@ -31,8 +31,12 @@ RUN set -ex; \
   python3-gobject-base \
   python3-pip; \
   if ! grep -q VARIANT.*eln /etc/os-release; then \
-    dnf copr enable -y ${copr_repo}; \
-    dnf copr enable -y @storage/blivet-daily; \
+    BRANCH="${git_branch}"; \
+    if [ $BRANCH == "master" ]; then \
+      BRANCH="rawhide"; \
+    fi; \
+    dnf copr enable -y ${copr_repo} fedora-${BRANCH%%-*}-x86_64; \
+    dnf copr enable -y @storage/blivet-daily fedora-${BRANCH%%-*}-x86_64; \
     dnf -y install cppcheck; \
   else \
     dnf copr enable -y ${copr_repo} fedora-eln-x86_64; \
