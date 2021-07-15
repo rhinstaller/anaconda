@@ -83,6 +83,7 @@ class LangsupportSpoke(NormalSpoke, LangLocaleHandler):
         self._l12_module = LOCALIZATION.get_proxy()
 
     def initialize(self):
+        super().initialize()
         self.initialize_start()
         self._languageStore = self.builder.get_object("languageStore")
         self._languageEntry = self.builder.get_object("languageEntry")
