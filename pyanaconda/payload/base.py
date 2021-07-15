@@ -119,6 +119,12 @@ class Payload(metaclass=ABCMeta):
     ###
     # METHODS FOR INSTALLING THE PAYLOAD
     ###
+
+    def _progress_cb(self, step, message):
+        """Callback for task progress reporting."""
+        from pyanaconda.progress import progressQ
+        progressQ.send_message(message)
+
     def pre_install(self):
         """Perform pre-installation tasks."""
         # FIXME: Merge the pre-installation tasks with the installation tasks.

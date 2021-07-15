@@ -57,7 +57,7 @@ from pyanaconda.payload.errors import PayloadError, PayloadSetupError
 from pyanaconda.payload.image import find_first_iso_image, find_optical_install_media
 from pyanaconda.modules.payloads.payload.dnf.tree_info import TreeInfoMetadata, NoTreeInfoError, \
     TreeInfoMetadataError
-from pyanaconda.progress import progressQ, progress_message
+from pyanaconda.progress import progress_message
 from pyanaconda.ui.lib.payload import get_payload, get_source, create_source, set_source, \
     set_up_sources, tear_down_sources
 
@@ -528,10 +528,6 @@ class DNFPayload(Payload):
                 self._sync_metadata(repo)
         self._base.fill_sack(load_system_repo=False)
         self._base.read_comps(arch_filter=True)
-
-    def _progress_cb(self, step, message):
-        """Callback for task progress reporting."""
-        progressQ.send_message(message)
 
     def install(self):
         progress_message(N_('Starting package installation process'))
