@@ -5,6 +5,9 @@ on:
   # be able to start this action manually from a actions tab when needed
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   refresh-containers:
     name: Refresh anaconda containers

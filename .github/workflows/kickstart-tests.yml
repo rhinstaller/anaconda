@@ -4,6 +4,9 @@ on:
   issue_comment:
     types: [created]
 
+permissions:
+  contents: read
+
 jobs:
   pr-info:
     if: startsWith(github.event.comment.body, '/kickstart-test')
