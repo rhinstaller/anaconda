@@ -33,7 +33,6 @@ log = get_module_logger(__name__)
 
 REALM_TOOL_NAME = "realm"
 AUTHSELECT_TOOL_PATH = "/usr/bin/authselect"
-AUTHCONFIG_TOOL_PATH = "/usr/sbin/authconfig"
 PAM_SO_PATH = "/lib/security/pam_fprintd.so"
 PAM_SO_64_PATH = "/lib64/security/pam_fprintd.so"
 
@@ -356,7 +355,7 @@ class RealmJoinTask(Task):
 def run_auth_tool(cmd, args, root, required=True):
     """Run an authentication related tool.
 
-    This generally means either authselect or the legacy authconfig tool.
+    This generally means authselect.
     :param str cmd: path to the tool to be run
     :param list(str) args: list of arguments passed to the tool
     :param str root: a path to the root in which the tool should be run
@@ -441,37 +440,5 @@ class ConfigureAuthselectTask(Task):
             run_auth_tool(
                 AUTHSELECT_TOOL_PATH,
                 self._authselect_options + ["--force"],
-                self._sysroot
-            )
-
-
-class ConfigureAuthconfigTask(Task):
-    """Installation task for Authconfig configuration.
-
-    NOTE: Authconfig is deprecated, this is present temporarily
-          as long as we want to provide backward compatibility
-          for the authconfig command in kickstart.
-    """
-
-    def __init__(self, sysroot, authconfig_options):
-        """Create a new Authconfig configuration task.
-
-        :param str sysroot: a path to the root of the target system
-        :param list authconfig_options: options for authconfig
-        """
-        super().__init__()
-        self._sysroot = sysroot
-        self._authconfig_options = authconfig_options
-
-    @property
-    def name(self):
-        return "Authconfig configuration"
-
-    def run(self):
-        # Apply the authconfig options from the kickstart file (deprecated).
-        if self._authconfig_options:
-            run_auth_tool(
-                AUTHCONFIG_TOOL_PATH,
-                ["--update", "--nostart"] + self._authconfig_options,
                 self._sysroot
             )

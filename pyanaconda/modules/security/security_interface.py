@@ -35,7 +35,6 @@ class SecurityInterface(KickstartModuleInterface):
         super().connect_signals()
         self.watch_property("SELinux", self.implementation.selinux_changed)
         self.watch_property("Authselect", self.implementation.authselect_changed)
-        self.watch_property("Authconfig", self.implementation.authconfig_changed)
         self.watch_property(
             "FingerprintAuthEnabled", self.implementation.fingerprint_auth_enabled_changed
         )
@@ -82,28 +81,6 @@ class SecurityInterface(KickstartModuleInterface):
         :param args: a list of arguments
         """
         self.implementation.set_authselect(args)
-
-    @property
-    def Authconfig(self) -> List[Str]:
-        """Arguments for the authconfig tool.
-
-        Authconfig is deprecated, use authselect.
-
-        :return: a list of arguments
-        """
-        return self.implementation.authconfig
-
-    @emits_properties_changed
-    def SetAuthconfig(self, args: List[Str]):
-        """Set the arguments for the authconfig tool.
-
-        Authconfig is deprecated, use authselect.
-
-        Example: ['--passalgo=yescrypt', '--useshadow']
-
-        :param args: a list of arguments
-        """
-        self.implementation.set_authconfig(args)
 
     @property
     def Realm(self) -> Structure:

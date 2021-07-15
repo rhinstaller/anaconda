@@ -22,7 +22,6 @@
 # pylint:disable=unused-import
 
 # Supported kickstart commands.
-from pykickstart.commands.authconfig import F28_Authconfig as Authconfig
 from pykickstart.commands.authselect import F28_Authselect as Authselect
 from pykickstart.commands.autopart import F29_AutoPart as AutoPart
 from pykickstart.commands.autostep import F34_AutoStep as AutoStep
