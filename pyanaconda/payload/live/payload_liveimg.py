@@ -16,7 +16,6 @@
 # Red Hat, Inc.
 #
 import glob
-import hashlib
 import os
 import stat
 from threading import Lock
@@ -28,14 +27,13 @@ from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_IMAGE, TAR_SUFFIX, \
     NETWORK_CONNECTION_TIMEOUT, INSTALL_TREE, IMAGE_DIR, THREAD_LIVE_PROGRESS
-from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import ProxyString, ProxyStringError
+from pyanaconda.modules.payloads.payload.live_image.installation import VerifyImageChecksum
 from pyanaconda.modules.payloads.payload.live_image.utils import get_kernel_version_list_from_tar
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.errors import PayloadInstallError, PayloadSetupError
 from pyanaconda.payload.live.download_progress import DownloadProgress
 from pyanaconda.payload.live.payload_base import BaseLivePayload
-from pyanaconda.progress import progressQ
 from pyanaconda.threading import threadMgr, AnacondaThread
 
 log = get_packaging_logger()
@@ -205,21 +203,13 @@ class LiveImagePayload(BaseLivePayload):
         # Used to make install progress % look correct
         self._adj_size = os.stat(self.image_path)[stat.ST_SIZE]
 
-        if self.data.liveimg.checksum:
-            progressQ.send_message(_("Checking image checksum"))
-            sha256 = hashlib.sha256()
-            with open(self.image_path, "rb") as f:
-                while True:
-                    data = f.read(1024 * 1024)
-                    if not data:
-                        break
-                    sha256.update(data)
-            filesum = sha256.hexdigest()
-            log.debug("sha256 of %s is %s", self.data.liveimg.url, filesum)
-
-            if util.lowerASCII(self.data.liveimg.checksum) != filesum:
-                log.error("%s does not match checksum.", self.data.liveimg.checksum)
-                raise PayloadInstallError("Checksum of image does not match")
+        # Verify the checksum.
+        task = VerifyImageChecksum(
+            image_path=self.image_path,
+            checksum=self.data.liveimg.checksum
+        )
+        task.progress_changed_signal.connect(self._progress_cb)
+        task.run()
 
         # If this looks like a tarfile, skip trying to mount it
         if self.is_tarfile:
