@@ -171,7 +171,7 @@ class GUIObject(common.UIObject):
         """
         super().initialize()
 
-        if self.hide_help_button:
+        if self.hide_help_button or not conf.ui.help_directory:
             help_button = None
             # some GUI elements we might encounter do not even have the get_help_button method
             if hasattr(self.window, "get_help_button"):
