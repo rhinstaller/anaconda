@@ -1,0 +1,73 @@
+# Check if only infrastructure files are changed when infrastructure label is set.
+name: infrastructure-check
+on:
+  pull_request_target:
+    types: [ "opened", "synchronize", "reopened", "labeled" ]
+
+permissions:
+  contents: read
+
+jobs:
+  infra-check:
+    if: contains(github.event.pull_request.labels.*.name, 'infrastructure')
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Clone Anaconda repository
+        uses: actions/checkout@v2
+        with:
+          # otherwise we are testing target branch instead of the PR branch (see pull_request_target trigger)
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - name: Rebase to current
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git log --oneline -1 origin/${{ github.event.pull_request.base.ref }}
+          git rebase origin/${{ github.event.pull_request.base.ref }}
+
+      - name: Check if all changed files are infra related
+        run: |
+          changed_files=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }}..HEAD)
+          # print for debugging
+          echo "----- Changed files -----"
+          echo "$changed_files"
+          echo "-------------------------"
+
+          # load infrastructure file list
+          . .structure-config
+
+          failed_check="no"
+
+          for f in $changed_files; do
+            matched="no"
+
+            for infra_f in $INFRASTRUCTURE_FILES; do
+              if [[ "$f" =~ "$infra_f" ]]; then
+                matched="yes"
+                break
+              fi
+            done
+
+            if [ $matched == "no" ]; then
+              echo "$f is not part of the infrastructure"
+              failed_check="yes"
+            fi
+
+          done
+
+          if [ "$failed_check" == "yes" ]; then
+            exit 1
+          fi
+
+      - name: Check if all commits have (#infra)
+        run: |
+          # match (#infra) at the end of the commit message
+          for i in "$(git log --oneline origin/${{ github.event.pull_request.base.ref }}..HEAD)"; do
+
+            if ! [[ $i =~ \(#infra\)$ ]]; then
+              echo "$i --> Is missing (#infra!)"
+              exit 1
+            fi
+          done
