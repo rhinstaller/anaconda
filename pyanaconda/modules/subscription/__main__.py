@@ -17,9 +17,15 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+# Initialize the service.
 from pyanaconda.modules.common import init
 init()
 
+# Check the initial conditions.
+from pyanaconda.modules.subscription.initialization import check_initial_conditions
+check_initial_conditions()
+
+# Start the service.
 from pyanaconda.modules.subscription.subscription import SubscriptionService
 service = SubscriptionService()
 service.run()

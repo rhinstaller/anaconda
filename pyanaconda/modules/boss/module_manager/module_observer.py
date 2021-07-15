@@ -14,9 +14,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.anaconda_loggers import get_module_logger
-from dasbus.namespace import get_namespace_from_name, get_dbus_path
+from dasbus.namespace import get_namespace_from_name, get_dbus_path, get_dbus_name
 from dasbus.client.observer import DBusObserver, DBusObserverError
+
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.modules.common.constants.namespaces import ADDONS_NAMESPACE
 
 log = get_module_logger(__name__)
 
@@ -24,16 +26,15 @@ log = get_module_logger(__name__)
 class ModuleObserver(DBusObserver):
     """Observer of an Anaconda module."""
 
-    def __init__(self, message_bus, service_name, is_addon=False):
+    def __init__(self, message_bus, service_name):
         """Creates a module observer.
 
         :param message_bus: a message bus
         :param service_name: a DBus name of a service
-        :param is_addon: is the observed module an addon?
         """
         super().__init__(message_bus, service_name)
         self._proxy = None
-        self._is_addon = is_addon
+        self._is_addon = service_name.startswith(get_dbus_name(*ADDONS_NAMESPACE))
         self._namespace = get_namespace_from_name(service_name)
         self._object_path = get_dbus_path(*self._namespace)
 

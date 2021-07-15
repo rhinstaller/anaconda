@@ -21,9 +21,7 @@ from queue import SimpleQueue
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from dasbus.constants import DBUS_FLAG_NONE, DBUS_START_REPLY_SUCCESS
-from dasbus.namespace import get_dbus_name
 from pyanaconda.modules.boss.module_manager import ModuleObserver
-from pyanaconda.modules.common.constants.namespaces import ADDONS_NAMESPACE
 from pyanaconda.modules.common.errors.module import UnavailableModuleError
 from pyanaconda.modules.common.task import Task
 
@@ -40,17 +38,22 @@ class StartModulesTask(Task):
     method StartServiceByName is called.
     """
 
-    def __init__(self, message_bus, module_names, addons_enabled):
+    def __init__(self, message_bus, activatable, forbidden, optional):
         """Create a new task.
 
+        Anaconda modules are specified by their full DBus name or a prefix
+        of their DBus name that ends with '*'.
+
         :param message_bus: a message bus
-        :param module_names: a list of DBus names of modules
-        :param addons_enabled: True to enable addons, otherwise False
+        :param activatable: a list of modules that can be activated.
+        :param forbidden: a list of modules that are are not allowed to run
+        :param optional: a list of modules that are optional
         """
         super().__init__()
         self._message_bus = message_bus
-        self._module_names = module_names
-        self._addons_enabled = addons_enabled
+        self._activatable = activatable
+        self._forbidden = forbidden
+        self._optional = optional
         self._module_observers = []
         self._callbacks = SimpleQueue()
 
@@ -65,7 +68,7 @@ class StartModulesTask(Task):
         :return: a list of observers
         """
         # Collect the modules.
-        self._module_observers = self._find_modules() + self._find_addons()
+        self._module_observers = self._find_modules()
 
         # Asynchronously start the modules.
         self._start_modules(self._module_observers)
@@ -75,39 +78,45 @@ class StartModulesTask(Task):
 
         return self._module_observers
 
+    @staticmethod
+    def _match_module(name, patterns):
+        """Match a module with one of the specified patterns."""
+        for pattern in patterns:
+            # Match the name prefix.
+            if pattern.endswith("*") and name.startswith(pattern[:-1]):
+                return True
+
+            # Match the full name.
+            if name == pattern:
+                return True
+
+        return False
+
     def _find_modules(self):
-        """Find modules."""
+        """Find modules to start."""
         modules = []
-
-        for service_name in self._module_names:
-            log.debug("Found %s.", service_name)
-            modules.append(ModuleObserver(
-                self._message_bus,
-                service_name
-            ))
-
-        return modules
-
-    def _find_addons(self):
-        """Find additional modules."""
-        modules = []
-
-        if not self._addons_enabled:
-            return modules
 
         dbus = self._message_bus.proxy
         names = dbus.ListActivatableNames()
-        prefix = get_dbus_name(*ADDONS_NAMESPACE)
 
         for service_name in names:
-            if not service_name.startswith(prefix):
+            # Only activatable modules can be started.
+            if not self._match_module(service_name, self._activatable):
+                continue
+
+            # Forbidden modules are not allowed to run.
+            if self._match_module(service_name, self._forbidden):
+                log.debug(
+                    "Skip %s. The module won't be started, because it's "
+                    "marked as forbidden in the Anaconda configuration "
+                    "files.", service_name
+                )
                 continue
 
             log.debug("Found %s.", service_name)
             modules.append(ModuleObserver(
                 self._message_bus,
                 service_name,
-                is_addon=True
             ))
 
         return modules
@@ -188,13 +197,17 @@ class StartModulesTask(Task):
                     continue
 
             except UnavailableModuleError:
-                # The failure of an Anaconda module is fatal.
-                if not observer.is_addon:
+                # The failure of a required module is fatal.
+                if not self._match_module(observer.service_name, self._optional):
                     raise
 
-                # The failure of an add-on module is not fatal. Remove
+                # The failure of an optional module is not fatal. Remove
                 # it from the list of available modules and continue.
-                log.warning("Skipping %s.", observer)
+                log.debug(
+                    "Skip %s. The optional module has failed to start, "
+                    "so it won't be available during the installation.",
+                    observer.service_name
+                )
                 available.remove(observer)
 
             # The module is processed.
