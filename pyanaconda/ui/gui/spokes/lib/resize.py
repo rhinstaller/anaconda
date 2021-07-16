@@ -339,8 +339,11 @@ class ResizeDialog(GUIObject):
         :type default_size: Size
         """
         # Turn off wrapping of the displayed values.
+        # If the values are not being displayed (get_layout() return None)
+        # we don't need to turn off the wrapping as nothing will be displayed.
         layout = self._resize_slider.get_layout()
-        layout.set_width(-1)
+        if layout is not None:
+            layout.set_width(-1)
 
         # Convert the Sizes to ints
         min_size = int(min_size)
