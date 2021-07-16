@@ -4,6 +4,7 @@
 #
 # Execution example:
 #
+# make -f ./Makefile.am container-rpms-scratch # Create Anaconda RPM in `pwd`/result/... directory.
 # sudo make -f ./Makefile.am anaconda-iso-creator-build
 #
 # # pre-create loop devices because the container namespacing of /dev devices
@@ -11,7 +12,7 @@
 # sudo mknod -m 0660 /dev/loop1 b 7 1  2> /dev/null || true
 #
 # # /var/tmp tmpfs speeds up lorax and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
-# sudo podman run -i --rm --privileged --tmpfs /var/tmp:rw,mode=1777 -v `pwd`:/anaconda:ro -v `pwd`/output-dir:/images:z quay.io/rhinstaller/anaconda-iso-creator:master
+# sudo podman run -i --rm --privileged --tmpfs /var/tmp:rw,mode=1777 -v `pwd`/result/build/01-rpm-build:/anaconda-rpms:ro -v `pwd`/output-dir:/images:z quay.io/rhinstaller/anaconda-iso-creator:master
 #
 # note:
 # - add `--network=slirp4netns` if you need to share network with host computer to reach
@@ -40,8 +41,9 @@ RUN set -ex; \
 
 COPY ["lorax-build", "/"]
 
-RUN mkdir /anaconda
+RUN mkdir /lorax && \
+  mkdir /anaconda-rpms
 
-WORKDIR /anaconda
+WORKDIR /lorax
 
 ENTRYPOINT /lorax-build
