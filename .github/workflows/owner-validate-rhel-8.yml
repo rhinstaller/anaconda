@@ -3,6 +3,9 @@
 name: owner-unit-tests-rhel-8
 on: [pull_request_target]
 
+permissions:
+  contents: read
+
 jobs:
   pr-info:
     runs-on: ubuntu-latest
