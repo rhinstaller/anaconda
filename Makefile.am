@@ -197,7 +197,6 @@ anaconda-iso-creator-build:
 	$(CONTAINER_ENGINE) build \
 	$(CONTAINER_BUILD_ARGS) \
 	$(CONTAINER_ADD_ARGS) \
-	--build-arg=git_branch=$(GIT_BRANCH) \
 	--build-arg=image=$(BASE_CONTAINER) \
 	-t $(ISO_CREATOR_NAME):$(CI_TAG) \
   $(ISO_CREATOR_DOCKERFILE)
