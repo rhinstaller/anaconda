@@ -270,43 +270,47 @@ def try_populate_devicetree():
             break
 
 
-def apply_partitioning(partitioning, show_message):
+def apply_partitioning(partitioning, show_message_cb, reset_storage_cb):
     """Apply the given partitioning.
 
     :param partitioning: a DBus proxy of a partitioning
-    :param show_message: a callback for showing a message
+    :param show_message_cb: a callback for showing a message
+    :param reset_storage_cb: a callback for resetting the storage
     :return: an instance of ValidationReport
     """
+    log.debug("Applying partitioning")
     report = ValidationReport()
 
     try:
-        show_message(_("Saving storage configuration..."))
+        show_message_cb(_("Saving storage configuration..."))
         task_path = partitioning.ConfigureWithTask()
         task_proxy = STORAGE.get_proxy(task_path)
         sync_run_task(task_proxy)
     except StorageConfigurationError as e:
-        show_message(_("Failed to save storage configuration"))
+        show_message_cb(_("Failed to save storage configuration"))
         report.error_messages.append(str(e))
         reset_bootloader()
-        reset_storage(scan_all=True)
+        reset_storage_cb()
     except BootloaderConfigurationError as e:
-        show_message(_("Failed to save boot loader configuration"))
+        show_message_cb(_("Failed to save boot loader configuration"))
         report.error_messages.append(str(e))
         reset_bootloader()
     else:
-        show_message(_("Checking storage configuration..."))
+        show_message_cb(_("Checking storage configuration..."))
         task_path = partitioning.ValidateWithTask()
         task_proxy = STORAGE.get_proxy(task_path)
         sync_run_task(task_proxy)
 
         result = unwrap_variant(task_proxy.GetResult())
         report = ValidationReport.from_structure(result)
+        log.debug("Validation has been completed: %s", report)
 
         if report.is_valid():
             storage_proxy = STORAGE.get_proxy()
             storage_proxy.ApplyPartitioning(
                 get_object_path(partitioning)
             )
+            log.debug("Partitioning has been applied.")
 
     return report
 
