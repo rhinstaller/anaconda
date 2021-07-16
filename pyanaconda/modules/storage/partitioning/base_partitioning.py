@@ -17,7 +17,6 @@
 #
 from abc import abstractmethod, ABCMeta
 from blivet.errors import StorageError, InconsistentPVSectorSize
-from pykickstart.errors import KickstartParseError
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
@@ -58,7 +57,7 @@ class PartitioningTask(Task, metaclass=ABCMeta):
                 str(e).strip(),
                 _(INCONSISTENT_SECTOR_SIZES_SUGGESTIONS)
             ]))
-        except (StorageError, KickstartParseError, ValueError) as e:
+        except (StorageError, ValueError) as e:
             self._handle_storage_error(e, str(e))
         except BootLoaderError as e:
             self._handle_bootloader_error(e, str(e))

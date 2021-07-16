@@ -20,10 +20,11 @@
 import unittest
 from unittest.mock import patch, Mock
 
+from blivet.errors import StorageError
+
 from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
 
 from pykickstart.constants import SNAPSHOT_WHEN_POST_INSTALL, SNAPSHOT_WHEN_PRE_INSTALL
-from pykickstart.errors import KickstartParseError
 
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.storage.snapshot import SnapshotModule
@@ -86,7 +87,7 @@ class SnapshotInterfaceTestCase(unittest.TestCase):
         report_warning.assert_not_called()
 
         # Test failing check.
-        device_getter.side_effect = KickstartParseError("Fake error")
+        device_getter.side_effect = StorageError("Fake error")
         self.module.verify_requests(Mock(), Mock(), report_error, report_warning)
         report_error.assert_called_once_with("Fake error")
         report_warning.assert_not_called()
@@ -97,7 +98,7 @@ class SnapshotTasksTestCase(unittest.TestCase):
 
     def test_get_snapshot_device_fail(self):
         """Test the snapshot device."""
-        with self.assertRaises(KickstartParseError):
+        with self.assertRaises(StorageError):
             get_snapshot_device(Mock(name="post-snapshot", origin="fedora/root"), Mock())
 
     @patch('pyanaconda.modules.storage.snapshot.device.LVMLogicalVolumeDevice')

@@ -15,8 +15,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet.errors import StorageError
 from blivet.formats import get_format
-from pykickstart.errors import KickstartParseError
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
@@ -61,22 +61,24 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
 
         device = storage.devicetree.resolve_device(device_spec)
         if device is None:
-            raise KickstartParseError(_("Unknown or invalid device '%s' specified") % device_spec)
+            raise StorageError(
+                _("Unknown or invalid device '{}' specified").format(device_spec)
+            )
 
         if reformat:
             if format_type:
                 fmt = get_format(format_type)
 
                 if not fmt:
-                    raise KickstartParseError(
-                        _("Unknown or invalid format '%(format)s' specified for device "
-                          "'%(device)s'") % {"format": format_type, "device": device_spec}
+                    raise StorageError(
+                        _("Unknown or invalid format '{}' specified for "
+                          "device '{}'").format(format_type, device_spec)
                     )
             else:
                 old_fmt = device.format
 
                 if not old_fmt or old_fmt.type is None:
-                    raise KickstartParseError(_("No format on device '%s'") % device_spec)
+                    raise StorageError(_("No format on device '{}'").format(device_spec))
 
                 fmt = get_format(old_fmt.type)
             storage.format_device(device, fmt)

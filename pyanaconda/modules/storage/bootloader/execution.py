@@ -17,9 +17,8 @@
 #
 import blivet.arch
 from blivet.devices import iScsiDiskDevice
-from pyanaconda.modules.storage.bootloader.base import BootLoaderError
-from pykickstart.errors import KickstartParseError
 
+from pyanaconda.modules.storage.bootloader.base import BootLoaderError
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import BOOTLOADER_ENABLED, BOOTLOADER_SKIPPED, \
     BOOTLOADER_LOCATION_PARTITION
@@ -142,16 +141,16 @@ class BootloaderExecutor(object):
         matched_disks = device_matches(boot_drive, devicetree=storage.devicetree, disks_only=True)
 
         if not matched_disks:
-            raise KickstartParseError(_("No match found for given boot drive "
-                                        "\"{}\".").format(boot_drive))
+            raise BootLoaderError(_("No match found for given boot drive "
+                                    "\"{}\".").format(boot_drive))
 
         if len(matched_disks) > 1:
-            raise KickstartParseError(_("More than one match found for given boot drive "
-                                        "\"{}\".").format(boot_drive))
+            raise BootLoaderError(_("More than one match found for given boot drive "
+                                    "\"{}\".").format(boot_drive))
 
         if matched_disks[0] not in usable_disks:
-            raise KickstartParseError(_("Requested boot drive \"{}\" doesn't exist or cannot "
-                                        "be used.").format(boot_drive))
+            raise BootLoaderError(_("Requested boot drive \"{}\" doesn't exist or cannot "
+                                    "be used.").format(boot_drive))
 
     def _find_drive_with_stage1(self, storage, usable_disks):
         """Find a drive with a valid stage1 device."""
