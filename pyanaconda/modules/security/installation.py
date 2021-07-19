@@ -398,23 +398,27 @@ class ConfigureFingerprintAuthTask(Task):
         return "Configure fingerprint authentication"
 
     def _is_fingerprint_configuration_supported(self):
+        """Is the fingerprint configuration supported?"""
         return (os.path.exists(self._sysroot + PAM_SO_64_PATH) or
                 os.path.exists(self._sysroot + PAM_SO_PATH))
 
     def run(self):
+        """Run the task."""
         if not self._fingerprint_auth_enabled:
+            log.debug("Fingerprint configuration is not enabled. Skipping.")
             return
 
         if not self._is_fingerprint_configuration_supported():
-            log.debug("Fingerprint configuration is not supported on target system.")
-        else:
-            log.debug("Enabling fingerprint authentication.")
-            run_auth_tool(
-                AUTHSELECT_TOOL_PATH,
-                ["select", "sssd", "with-fingerprint", "with-silent-lastlog", "--force"],
-                self._sysroot,
-                required=False
-            )
+            log.debug("Fingerprint configuration is not supported on target system. Skipping.")
+            return
+
+        log.debug("Enabling fingerprint authentication.")
+        run_auth_tool(
+            AUTHSELECT_TOOL_PATH,
+            ["select", "sssd", "with-fingerprint", "with-silent-lastlog", "--force"],
+            self._sysroot,
+            required=False
+        )
 
 
 class ConfigureAuthselectTask(Task):
@@ -435,10 +439,13 @@ class ConfigureAuthselectTask(Task):
         return "Authselect configuration"
 
     def run(self):
-        # Apply the authselect options from the kickstart file.
-        if self._authselect_options:
-            run_auth_tool(
-                AUTHSELECT_TOOL_PATH,
-                self._authselect_options + ["--force"],
-                self._sysroot
-            )
+        """Run the task."""
+        if not self._authselect_options:
+            log.debug("Authselect is not configured. Skipping.")
+            return
+
+        run_auth_tool(
+            AUTHSELECT_TOOL_PATH,
+            self._authselect_options + ["--force"],
+            self._sysroot
+        )
