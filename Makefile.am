@@ -205,7 +205,6 @@ anaconda-iso-creator-build:
 	$(CONTAINER_ENGINE) build \
 	$(CONTAINER_BUILD_ARGS) \
 	$(CONTAINER_ADD_ARGS) \
-	--build-arg=git_branch=$(GIT_BRANCH) \
 	--build-arg=image=registry.access.redhat.com/ubi8:latest \
 	-t $(ISO_CREATOR_NAME):$(CI_TAG) \
   $(ISO_CREATOR_DOCKERFILE)
