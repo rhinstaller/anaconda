@@ -30,11 +30,7 @@ try:
 except ImportError:
     raise RemovedModuleError("This module is not supported!") from None
 
-from dasbus.client.proxy import get_object_path
-from dasbus.typing import unwrap_variant
-
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.helpers import StorageCheckHandler
 from pyanaconda.ui.categories.system import SystemCategory
@@ -42,11 +38,9 @@ from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
 from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, \
     PARTITIONING_METHOD_BLIVET
 from pyanaconda.core.i18n import _, CN_, C_
-from pyanaconda.ui.lib.storage import reset_bootloader, create_partitioning
+from pyanaconda.ui.lib.storage import create_partitioning, apply_partitioning
 from pyanaconda.threading import threadMgr
 from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.modules.common.errors.configuration import BootloaderConfigurationError
-from pyanaconda.modules.common.task import sync_run_task
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -219,35 +213,15 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
 
     def _do_check(self):
         self.clear_errors()
-        StorageCheckHandler.errors = []
-        StorageCheckHandler.warnings = []
 
-        try:
-            log.debug("Generating updated storage configuration")
-            task_path = self._partitioning.ConfigureWithTask()
-            task_proxy = STORAGE.get_proxy(task_path)
-            sync_run_task(task_proxy)
-        except BootloaderConfigurationError as e:
-            log.error("Storage configuration failed: %s", e)
-            StorageCheckHandler.errors = [str(e)]
-            reset_bootloader()
-        else:
-            log.debug("Checking storage configuration...")
-            task_path = self._partitioning.ValidateWithTask()
-            task_proxy = STORAGE.get_proxy(task_path)
-            sync_run_task(task_proxy)
+        report = apply_partitioning(
+            partitioning=self._partitioning,
+            show_message_cb=log.debug,
+            reset_storage_cb=self._reset_storage
+        )
 
-            result = unwrap_variant(task_proxy.GetResult())
-            report = ValidationReport.from_structure(result)
-
-            log.debug("Validation has been completed: %s", report)
-            StorageCheckHandler.errors = report.error_messages
-            StorageCheckHandler.warnings = report.warning_messages
-
-            if report.is_valid():
-                self._storage_module.ApplyPartitioning(
-                    get_object_path(self._partitioning)
-                )
+        StorageCheckHandler.errors = list(report.error_messages)
+        StorageCheckHandler.warnings = list(report.warning_messages)
 
         if self.errors:
             self.set_warning(_("Error checking storage configuration.  <a href=\"\">Click for details</a> or press Done again to continue."))

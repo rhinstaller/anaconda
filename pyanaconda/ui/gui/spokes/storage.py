@@ -50,7 +50,7 @@ from pyanaconda.ui.helpers import StorageCheckHandler
 from pyanaconda.ui.lib.format_dasd import DasdFormatting
 from pyanaconda.ui.lib.storage import find_partitioning, apply_partitioning, \
     select_default_disks, apply_disk_selection, get_disks_summary, create_partitioning, \
-    is_local_disk, filter_disks_by_names
+    is_local_disk, filter_disks_by_names, reset_storage
 from pyanaconda.ui.gui.spokes.lib.storage_dialogs import NeedSpaceDialog, NoSpaceDialog, \
     RESPONSE_CANCEL, RESPONSE_OK, RESPONSE_MODIFY_SW, RESPONSE_RECLAIM, RESPONSE_QUIT, \
     DASD_FORMAT_NO_CHANGE, DASD_FORMAT_REFRESH, DASD_FORMAT_RETURN_TO_HUB
@@ -239,9 +239,12 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         self._ready = False
         hubQ.send_not_ready(self.__class__.__name__)
 
-        report = apply_partitioning(self._partitioning, self._show_execute_message)
+        report = apply_partitioning(
+            partitioning=self._partitioning,
+            show_message_cb=self._show_execute_message,
+            reset_storage_cb=self._reset_storage
+        )
 
-        log.debug("Partitioning has been applied: %s", report)
         StorageCheckHandler.errors = list(report.error_messages)
         StorageCheckHandler.warnings = list(report.warning_messages)
 
@@ -251,6 +254,9 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     def _show_execute_message(self, msg):
         hubQ.send_message(self.__class__.__name__, msg)
         log.debug(msg)
+
+    def _reset_storage(self):
+        reset_storage(scan_all=True)
 
     @property
     def completed(self):

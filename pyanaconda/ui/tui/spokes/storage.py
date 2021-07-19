@@ -379,9 +379,12 @@ class StorageSpoke(NormalTUISpoke):
         apply_disk_selection(self._selected_disks, reset_boot_drive=True)
 
     def execute(self):
-        report = apply_partitioning(self._partitioning, self._show_execute_message)
+        report = apply_partitioning(
+            partitioning=self._partitioning,
+            show_message_cb=self._show_execute_message,
+            reset_storage_cb=self._reset_storage
+        )
 
-        log.debug("Partitioning has been applied: %s", report)
         self.errors = list(report.error_messages)
         self.warnings = list(report.warning_messages)
 
@@ -391,6 +394,9 @@ class StorageSpoke(NormalTUISpoke):
     def _show_execute_message(self, msg):
         print(msg)
         log.debug(msg)
+
+    def _reset_storage(self):
+        reset_storage(scan_all=True)
 
     def initialize(self):
         NormalTUISpoke.initialize(self)

@@ -27,9 +27,7 @@
 # - Activating reformat should always enable resize for existing devices.
 import copy
 
-from dasbus.client.proxy import get_object_path
 from dasbus.structure import compare_data
-from dasbus.typing import unwrap_variant
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
@@ -47,7 +45,7 @@ from pyanaconda.modules.common.structures.partitioning import PartitioningReques
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest, \
     DeviceFactoryPermissions
 from pyanaconda.product import productName, productVersion
-from pyanaconda.ui.lib.storage import reset_bootloader, create_partitioning
+from pyanaconda.ui.lib.storage import create_partitioning, apply_partitioning
 from pyanaconda.core.storage import DEVICE_TYPE_UNSUPPORTED, DEVICE_TEXT_MAP, \
     MOUNTPOINT_DESCRIPTIONS, NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES, device_type_from_autopart, \
     PROTECTED_FORMAT_TYPES, DEVICE_TYPE_BTRFS, DEVICE_TYPE_MD, Size
@@ -899,35 +897,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
     def _do_check(self):
         self.clear_errors()
-        StorageCheckHandler.errors = []
-        StorageCheckHandler.warnings = []
 
-        try:
-            log.debug("Generating updated storage configuration")
-            task_path = self._partitioning.ConfigureWithTask()
-            task_proxy = STORAGE.get_proxy(task_path)
-            sync_run_task(task_proxy)
-        except BootloaderConfigurationError as e:
-            log.error("Storage configuration failed: %s", e)
-            StorageCheckHandler.errors = [str(e)]
-            reset_bootloader()
-        else:
-            log.debug("Checking storage configuration...")
-            task_path = self._partitioning.ValidateWithTask()
-            task_proxy = STORAGE.get_proxy(task_path)
-            sync_run_task(task_proxy)
+        report = apply_partitioning(
+            partitioning=self._partitioning,
+            show_message_cb=log.debug,
+            reset_storage_cb=self._reset_storage
+        )
 
-            result = unwrap_variant(task_proxy.GetResult())
-            report = ValidationReport.from_structure(result)
-
-            log.debug("Validation has been completed: %s", report)
-            StorageCheckHandler.errors = report.error_messages
-            StorageCheckHandler.warnings = report.warning_messages
-
-            if report.is_valid():
-                self._storage_module.ApplyPartitioning(
-                    get_object_path(self._partitioning)
-                )
+        StorageCheckHandler.errors = list(report.error_messages)
+        StorageCheckHandler.warnings = list(report.warning_messages)
 
         if self.errors:
             self.set_warning(_(
