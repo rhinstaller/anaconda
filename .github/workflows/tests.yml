@@ -1,6 +1,9 @@
 name: Run validation tests
 on: pull_request_target
 
+permissions:
+  contents: read
+
 jobs:
   unit-tests:
     environment: staging
