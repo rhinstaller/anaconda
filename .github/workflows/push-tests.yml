@@ -6,6 +6,9 @@ on:
       - f[0-9]+-devel
       - f[0-9]+-release
 
+permissions:
+  contents: read
+
 jobs:
   unit-tests:
     runs-on: ubuntu-20.04
