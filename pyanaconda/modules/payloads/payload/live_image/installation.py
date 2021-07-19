@@ -15,12 +15,71 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.common.errors.installation import PayloadInstallationError
-from pyanaconda.core.util import execWithRedirect
+import hashlib
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.i18n import _
+from pyanaconda.core.util import execWithRedirect, lowerASCII
+from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.common.errors.installation import PayloadInstallationError
+
 log = get_module_logger(__name__)
+
+
+class VerifyImageChecksum(Task):
+    """Task to verify the checksum of the downloaded image."""
+
+    def __init__(self, image_path, checksum):
+        """Create a new task.
+
+        :param image_path: a path to the image
+        :param checksum: an expected sha256 checksum
+        """
+        super().__init__()
+        self._image_path = image_path
+        self._checksum = checksum
+
+    @property
+    def name(self):
+        return "Check the image checksum"
+
+    def run(self):
+        """Run the task."""
+        if not self._checksum:
+            log.debug("No checksum to verify.")
+            return
+
+        self.report_progress(_("Checking image checksum"))
+        expected_checksum = self._normalize_checksum(self._checksum)
+        calculated_checksum = self._calculate_checksum(self._image_path)
+
+        if expected_checksum != calculated_checksum:
+            log.error("'%s' does not match '%s'", calculated_checksum, expected_checksum)
+            raise PayloadInstallationError("Checksum of the image does not match.")
+
+        log.debug("Checksum of the image does match.")
+
+    @staticmethod
+    def _normalize_checksum(checksum):
+        """Normalize the given checksum."""
+        return lowerASCII(checksum)
+
+    @staticmethod
+    def _calculate_checksum(file_path):
+        """Calculate the file checksum."""
+        sha256 = hashlib.sha256()
+
+        with open(file_path, "rb") as f:
+            while True:
+                data = f.read(1024 * 1024)
+                if not data:
+                    break
+                sha256.update(data)
+
+        checksum = sha256.hexdigest()
+        log.debug("sha256 of %s: %s", file_path, checksum)
+        print(checksum)
+        return checksum
 
 
 class InstallFromTarTask(Task):

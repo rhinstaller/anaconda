@@ -16,12 +16,11 @@
 # Red Hat, Inc.
 #
 import glob
-import hashlib
 import os
 from requests.exceptions import RequestException
 
 from pyanaconda.core.constants import NETWORK_CONNECTION_TIMEOUT, IMAGE_DIR
-from pyanaconda.core.util import lowerASCII, execWithRedirect
+from pyanaconda.core.util import execWithRedirect
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payloads.payload.live_image.utils import get_local_image_path_from_url, \
@@ -36,19 +35,16 @@ class SetupInstallationSourceImageTask(Task):
     """Task to set up source image for installation.
 
     * Download the image if it is remote.
-    * Check the checksum.
     * Mount the image.
     """
 
-    def __init__(self, url, proxy, checksum, noverifyssl, image_path, image_mount_point, session):
+    def __init__(self, url, proxy, noverifyssl, image_path, image_mount_point, session):
         """Create a new task.
 
         :param url: installation source image url
         :type url: str
         :param proxy: proxy to be used to fetch the image
         :type proxy: str
-        :param checksum: checksum of the image
-        :type checksum: str
         :param image_path: destination path for image download
         :type image_path: str
         :param image_mount_point: Mount point of the source image
@@ -59,7 +55,6 @@ class SetupInstallationSourceImageTask(Task):
         super().__init__()
         self._url = url
         self._proxy = proxy
-        self._checksum = checksum
         self._noverifyssl = noverifyssl
         self._image_path = image_path
         self._session = session
@@ -109,22 +104,6 @@ class SetupInstallationSourceImageTask(Task):
                 error = "Failed to download {}, file doesn't exist".format(self._url)
                 log.error(error)
                 raise SourceSetupError(error)
-
-    def _check_image_sum(self, image_path, checksum):
-        self.report_progress("Checking image checksum")
-        sha256 = hashlib.sha256()
-        with open(image_path, "rb") as f:
-            while True:
-                data = f.read(1024 * 1024)
-                if not data:
-                    break
-                sha256.update(data)
-        filesum = sha256.hexdigest()
-        log.debug("sha256 of %s is %s", image_path, filesum)
-
-        if lowerASCII(checksum) != filesum:
-            log.error("%s does not match checksum of %s.", checksum, image_path)
-            raise SourceSetupError("Checksum of image {} does not match".format(image_path))
 
     def _mount_image(self, image_path, mount_point):
         # Work around inability to move shared filesystems.
@@ -181,9 +160,6 @@ class SetupInstallationSourceImageTask(Task):
         # TODO - do we use it at all in LiveImage
         # Used to make install progress % look correct
         # self._adj_size = os.stat(self.image_path).st_size
-
-        if self._checksum:
-            self._check_image_sum(self._image_path, self._checksum)
 
         if not url_target_is_tarfile(self._url):
             self._mount_image(self._image_path, self._image_mount_point)

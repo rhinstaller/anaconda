@@ -25,7 +25,6 @@ from pyanaconda.core.constants import PAYLOAD_TYPE_RPM_OSTREE, SOURCE_TYPE_RPM_O
     SOURCE_TYPE_FLATPAK
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.modules.common.task import sync_run_task
-from pyanaconda.progress import progressQ
 from pyanaconda.payload.base import Payload
 from pyanaconda.ui.lib.payload import get_payload, get_source, set_up_sources, create_source
 
@@ -104,10 +103,6 @@ class RPMOSTreePayload(Payload):
         """Tear down the sources and the payload."""
         task_paths = self.service_proxy.TeardownWithTasks()
         self._run_tasks(task_paths)
-
-    def _progress_cb(self, step, message):
-        """Callback for task progress reporting."""
-        progressQ.send_message(message)
 
     def _run_tasks(self, task_paths, progress_cb=None):
         """Run the given remote tasks of the Payload module."""

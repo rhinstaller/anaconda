@@ -18,6 +18,7 @@
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
 import os
+import tempfile
 import unittest
 
 from unittest.mock import patch, Mock
@@ -25,8 +26,10 @@ from tempfile import TemporaryDirectory
 
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.util import join_paths
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.modules.payloads.base.installation import InstallFromImageTask
+from pyanaconda.modules.payloads.payload.live_image.installation import VerifyImageChecksum
 from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list
 
 
@@ -151,3 +154,64 @@ class LiveTasksTestCase(unittest.TestCase):
                                "--exclude", "/etc/machine-id", INSTALL_TREE + "/", dest_path]
 
         exec_with_redirect.assert_called_once_with("rsync", expected_rsync_args)
+
+
+class VerifyImageChecksumTestCase(unittest.TestCase):
+    """Test the VerifyImageChecksum class."""
+
+    def _create_image(self, f):
+        """Create a fake image."""
+        f.write("IMAGE CONTENT")
+        f.flush()
+
+    def test_verify_no_checksum(self):
+        """Test the verification of a checksum."""
+        with tempfile.TemporaryDirectory() as d:
+            f_name = join_paths(d, "image")
+
+            task = VerifyImageChecksum(
+                image_path=f_name,
+                checksum=""
+            )
+
+            with self.assertLogs(level="DEBUG") as cm:
+                task.run()
+
+        msg = "No checksum to verify."
+        self.assertIn(msg, "\n".join(cm.output))
+
+    def test_verify_checksum(self):
+        """Test the verification of a checksum."""
+        checksum = \
+            "7190E29480A9081FD917E33990F00098" \
+            "DD9FBD348BC52B0775780348BDA3A617"
+
+        with tempfile.NamedTemporaryFile("w") as f:
+            self._create_image(f)
+
+            task = VerifyImageChecksum(
+                image_path=f.name,
+                checksum=checksum
+            )
+
+            with self.assertLogs(level="DEBUG") as cm:
+                task.run()
+
+        msg = "Checksum of the image does match."
+        self.assertIn(msg, "\n".join(cm.output))
+
+    def test_verify_wrong_checksum(self):
+        """Test the verification of a wrong checksum."""
+        with tempfile.NamedTemporaryFile("w") as f:
+            self._create_image(f)
+
+            task = VerifyImageChecksum(
+                image_path=f.name,
+                checksum="incorrect"
+            )
+
+            with self.assertRaises(PayloadInstallationError) as cm:
+                task.run()
+
+        msg = "Checksum of the image does not match."
+        self.assertEqual(str(cm.exception), msg)
