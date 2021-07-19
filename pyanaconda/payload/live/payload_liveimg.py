@@ -28,7 +28,8 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_IMAGE, TAR_SUFFIX, \
     NETWORK_CONNECTION_TIMEOUT, INSTALL_TREE, IMAGE_DIR, THREAD_LIVE_PROGRESS
 from pyanaconda.core.payload import ProxyString, ProxyStringError
-from pyanaconda.modules.payloads.payload.live_image.installation import VerifyImageChecksum
+from pyanaconda.modules.payloads.payload.live_image.installation import VerifyImageChecksum, \
+    InstallFromTarTask
 from pyanaconda.modules.payloads.payload.live_image.utils import get_kernel_version_list_from_tar
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.errors import PayloadInstallError, PayloadSetupError
@@ -277,26 +278,12 @@ class LiveImagePayload(BaseLivePayload):
         threadMgr.add(AnacondaThread(name=THREAD_LIVE_PROGRESS,
                                      target=self.progress))
 
-        cmd = "tar"
-        # preserve: ACL's, xattrs, and SELinux context
-        args = ["--numeric-owner", "--selinux", "--acls", "--xattrs", "--xattrs-include", "*",
-                "--exclude", "./dev/*", "--exclude", "./proc/*", "--exclude", "./tmp/*",
-                "--exclude", "./sys/*", "--exclude", "./run/*", "--exclude", "./boot/*rescue*",
-                "--exclude", "./boot/loader", "--exclude", "./boot/efi/loader",
-                "--exclude", "./etc/machine-id", "-xaf", self.image_path, "-C", conf.target.system_root]
-        try:
-            rc = util.execWithRedirect(cmd, args)
-        except (OSError, RuntimeError) as e:
-            msg = None
-            err = str(e)
-            log.error(err)
-        else:
-            err = None
-            msg = "%s exited with code %d" % (cmd, rc)
-            log.info(msg)
-
-        if err:
-            raise PayloadInstallError(err or msg)
+        # Run the installation task.
+        task = InstallFromTarTask(
+            sysroot=conf.target.system_root,
+            tarfile=self.image_path
+        )
+        task.run()
 
         # Wait for progress thread to finish
         with self.pct_lock:

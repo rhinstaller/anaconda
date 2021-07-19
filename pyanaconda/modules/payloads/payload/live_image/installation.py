@@ -85,34 +85,100 @@ class VerifyImageChecksum(Task):
 class InstallFromTarTask(Task):
     """Task to install the payload from tarball."""
 
-    def __init__(self, tarfile_path, dest_path):
+    def __init__(self, sysroot, tarfile):
+        """Create a new task.
+
+        :param sysroot: a path to the system root
+        :param tarfile: a path to the tarball
+        """
         super().__init__()
-        self._tarfile_path = tarfile_path
-        self._dest_path = dest_path
+        self._sysroot = sysroot
+        self._tarfile = tarfile
 
     @property
     def name(self):
         return "Install the payload from a tarball"
 
     def run(self):
-        """Run installation of the payload from a tarball."""
+        """Run installation of the payload from a tarball.
+
+        Preserve ACL's, xattrs, and SELinux context.
+        """
         cmd = "tar"
-        # preserve: ACL's, xattrs, and SELinux context
-        args = ["--numeric-owner", "--selinux", "--acls", "--xattrs", "--xattrs-include", "*",
-                "--exclude", "./dev/*", "--exclude", "./proc/*", "--exclude", "./tmp/*",
-                "--exclude", "./sys/*", "--exclude", "./run/*", "--exclude", "./boot/*rescue*",
-                "--exclude", "./boot/loader", "--exclude", "./boot/efi/loader",
-                "--exclude", "./etc/machine-id", "-xaf", self._tarfile_path, "-C", self._dest_path]
+        args = [
+            "--numeric-owner",
+            "--selinux",
+            "--acls",
+            "--xattrs",
+            "--xattrs-include", "*",
+            "--exclude", "./dev/*",
+            "--exclude", "./proc/*",
+            "--exclude", "./tmp/*",
+            "--exclude", "./sys/*",
+            "--exclude", "./run/*",
+            "--exclude", "./boot/*rescue*",
+            "--exclude", "./boot/loader",
+            "--exclude", "./boot/efi/loader",
+            "--exclude", "./etc/machine-id",
+            "-xaf", self._tarfile,
+            "-C", self._sysroot
+        ]
+
+        try:
+            execWithRedirect(cmd, args)
+        except (OSError, RuntimeError) as e:
+            msg = "Failed to install tar: {}".format(e)
+            raise PayloadInstallationError(msg) from None
+
+
+class InstallFromImageTask(Task):
+    """Task to install the payload from image."""
+
+    def __init__(self, sysroot, mount_point):
+        """Create a new task.
+
+        :param sysroot: a path to the system root
+        :param mount_point: a path to the mounted image
+        """
+        super().__init__()
+        self._sysroot = sysroot
+        self._mount_point = mount_point
+
+    @property
+    def name(self):
+        return "Install the payload from image"
+
+    def run(self):
+        """Run installation of the payload from image.
+
+        Preserve permissions, owners, groups, ACL's, xattrs, times,
+        symlinks and hardlinks. Go recursively, include devices and
+        special files. Don't cross file system boundaries.
+        """
+        cmd = "rsync"
+        args = [
+            "-pogAXtlHrDx",
+            "--exclude", "/dev/",
+            "--exclude", "/proc/",
+            "--exclude", "/tmp/*",
+            "--exclude", "/sys/",
+            "--exclude", "/run/",
+            "--exclude", "/boot/*rescue*",
+            "--exclude", "/boot/loader/",
+            "--exclude", "/boot/efi/loader/",
+            "--exclude", "/etc/machine-id",
+            self._mount_point,
+            self._sysroot
+        ]
+
         try:
             rc = execWithRedirect(cmd, args)
         except (OSError, RuntimeError) as e:
-            msg = None
-            err = str(e)
-            log.error(err)
-        else:
-            err = None
-            msg = "%s exited with code %d" % (cmd, rc)
-            log.info(msg)
+            msg = "Failed to install image: {}".format(e)
+            raise PayloadInstallationError(msg) from None
 
-        if err:
-            raise PayloadInstallationError(err or msg)
+        if rc == 11:
+            raise PayloadInstallationError(
+                "Failed to install image: "
+                "{} exited with code {}".format(cmd, rc)
+            )

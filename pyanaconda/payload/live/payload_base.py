@@ -24,6 +24,7 @@ from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE, THREAD_LIVE_PROGRESS
 from pyanaconda.core.i18n import _
+from pyanaconda.modules.payloads.payload.live_image.installation import InstallFromImageTask
 from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
@@ -100,28 +101,12 @@ class BaseLivePayload(Payload):
         threadMgr.add(AnacondaThread(name=THREAD_LIVE_PROGRESS,
                                      target=self.progress))
 
-        cmd = "rsync"
-        # preserve: permissions, owners, groups, ACL's, xattrs, times,
-        #           symlinks, hardlinks
-        # go recursively, include devices and special files, don't cross
-        # file system boundaries
-        args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/", "--exclude", "/tmp/*",
-                "--exclude", "/sys/", "--exclude", "/run/", "--exclude", "/boot/*rescue*",
-                "--exclude", "/boot/loader/", "--exclude", "/boot/efi/loader/",
-                "--exclude", "/etc/machine-id", INSTALL_TREE + "/", conf.target.system_root]
-        try:
-            rc = util.execWithRedirect(cmd, args)
-        except (OSError, RuntimeError) as e:
-            msg = None
-            err = str(e)
-            log.error(err)
-        else:
-            err = None
-            msg = "%s exited with code %d" % (cmd, rc)
-            log.info(msg)
-
-        if err or rc == 11:
-            raise PayloadInstallError(err or msg)
+        # Run the installation task.
+        task = InstallFromImageTask(
+            sysroot=conf.target.system_root,
+            mount_point=INSTALL_TREE + "/"
+        )
+        task.run()
 
         # Wait for progress thread to finish
         with self.pct_lock:
