@@ -18,7 +18,8 @@
 # Red Hat, Inc.
 #
 from blivet.devices import LVMLogicalVolumeDevice
-from pykickstart.errors import KickstartParseError
+from blivet.errors import StorageError
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 
@@ -40,18 +41,20 @@ def get_snapshot_device(request, devicetree):
     log.debug("Snapshot: name %s has origin %s", request.name, origin_dev)
 
     if origin_dev is None:
-        raise KickstartParseError(_("Snapshot: origin \"%s\" doesn't exist!")
-                                  % request.origin, lineno=request.lineno)
+        raise StorageError(
+            _("Snapshot: origin \"{}\" doesn't exist!").format(request.origin)
+        )
 
     if not origin_dev.is_thin_lv:
-        raise KickstartParseError(_("Snapshot: origin \"%(origin)s\" of snapshot "
-                                    "\"%(name)s\" is not a valid thin LV device.")
-                                  % {"origin": request.origin, "name": request.name},
-                                  lineno=request.lineno)
+        raise StorageError(
+            _("Snapshot: origin \"{}\" of snapshot \"{}\" is not a valid "
+              "thin LV device.").format(request.origin, request.name)
+        )
 
     if devicetree.get_device_by_name("%s-%s" % (origin_dev.vg.name, snap_name)):
-        raise KickstartParseError(_("Snapshot %s already exists.") % request.name,
-                                  lineno=request.lineno)
+        raise StorageError(
+            _("Snapshot {} already exists.").format(request.name)
+        )
     try:
         return LVMLogicalVolumeDevice(
             name=request.name,
@@ -60,4 +63,4 @@ def get_snapshot_device(request, devicetree):
             origin=origin_dev
         )
     except ValueError as e:
-        raise KickstartParseError(str(e), lineno=request.lineno) from e
+        raise StorageError(str(e)) from e

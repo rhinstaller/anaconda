@@ -17,9 +17,9 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet.errors import StorageError
 from pykickstart.constants import SNAPSHOT_WHEN_PRE_INSTALL, CLEARPART_TYPE_ALL, \
     SNAPSHOT_WHEN_POST_INSTALL
-from pykickstart.errors import KickstartParseError
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.dbus import DBus
@@ -121,7 +121,7 @@ class SnapshotModule(KickstartBaseModule):
             log.debug("Validating the snapshot request for: %s", request.name)
             try:
                 get_snapshot_device(request, storage.devicetree)
-            except KickstartParseError as e:
+            except (StorageError, ValueError) as e:
                 report_error(str(e))
 
     def create_with_task(self, when):

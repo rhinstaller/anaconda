@@ -25,8 +25,6 @@ from blivet.formats import device_formats, get_format
 from blivet.formats.fs import FS
 from bytesize.bytesize import ROUND_HALF_UP
 
-from pykickstart.errors import KickstartError
-
 from pyanaconda.core import util
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.constants.services import NETWORK
@@ -76,7 +74,9 @@ def download_escrow_certificate(url):
         network_proxy = NETWORK.get_proxy()
 
         if not network_proxy.Connected:
-            raise KickstartError(_("Escrow certificate %s requires the network.") % url)
+            raise StorageError(
+                _("Escrow certificate {} requires the network.").format(url)
+            )
 
     # Download the certificate.
     log.info("Downloading an escrow certificate from: %s", url)
@@ -84,11 +84,14 @@ def download_escrow_certificate(url):
     try:
         request = util.requests_session().get(url, verify=True)
     except requests.exceptions.SSLError as e:
-        raise KickstartError(_("SSL error while downloading the escrow certificate:\n\n%s") % e) \
-            from e
+        raise StorageError(
+            _("SSL error while downloading the escrow certificate:\n\n{}").format(str(e))
+        ) from e
     except requests.exceptions.RequestException as e:
-        raise KickstartError(_("The following error was encountered while downloading the "
-                               "escrow certificate:\n\n%s") % e) from e
+        raise StorageError(
+            _("The following error was encountered while downloading "
+              "the escrow certificate:\n\n{}").format(str(e))
+        ) from e
 
     try:
         certificate = request.content

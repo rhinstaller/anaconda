@@ -20,7 +20,7 @@ from blivet.deviceaction import ActionResizeFormat, ActionResizeDevice, ActionCr
 from blivet.devicelibs.lvm import LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
 from blivet.devices import LUKSDevice, LVMVolumeGroupDevice
 from blivet.devices.lvm import LVMCacheRequest
-from blivet.errors import StorageError, BTRFSValueError
+from blivet.errors import StorageError
 from blivet.formats import get_format
 from blivet.partitioning import do_partitioning, grow_lvm
 from blivet.size import Size
@@ -28,7 +28,6 @@ from blivet.static_data import luks_data
 from bytesize.bytesize import KiB
 from pykickstart.base import DeprecatedCommand
 from pykickstart.constants import AUTOPART_TYPE_PLAIN
-from pykickstart.errors import KickstartParseError
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
@@ -158,10 +157,10 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
                     break
 
             if not partition_data.disk:
-                raise KickstartParseError(
-                    _("No disk found for specified BIOS disk \"%s\".")
-                    % partition_data.onbiosdisk,
-                    lineno=partition_data.lineno
+                raise StorageError(
+                    _("No disk found for specified BIOS disk \"{}\".").format(
+                        partition_data.onbiosdisk
+                    )
                 )
 
         size = None
@@ -199,9 +198,8 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
             partition_data.mountpoint = ""
 
             if devicetree.get_device_by_name(kwargs["name"]):
-                raise KickstartParseError(
-                    _("RAID partition \"%s\" is defined multiple times.") % kwargs["name"],
-                    lineno=partition_data.lineno
+                raise StorageError(
+                    _("RAID partition \"{}\" is defined multiple times.").format(kwargs["name"])
                 )
 
             if partition_data.onPart:
@@ -212,9 +210,8 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
             partition_data.mountpoint = ""
 
             if devicetree.get_device_by_name(kwargs["name"]):
-                raise KickstartParseError(
-                    _("PV partition \"%s\" is defined multiple times.") % kwargs["name"],
-                    lineno=partition_data.lineno
+                raise StorageError(
+                    _("PV partition \"{}\" is defined multiple times.").format(kwargs["name"])
                 )
 
             if partition_data.onPart:
@@ -225,9 +222,8 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
             partition_data.mountpoint = ""
 
             if devicetree.get_device_by_name(kwargs["name"]):
-                raise KickstartParseError(
-                    _("Btrfs partition \"%s\" is defined multiple times.") % kwargs["name"],
-                    lineno=partition_data.lineno
+                raise StorageError(
+                    _("Btrfs partition \"{}\" is defined multiple times.").format(kwargs["name"])
                 )
 
             if partition_data.onPart:
@@ -247,28 +243,19 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
                 ty = storage.default_fstype
 
         if not size and partition_data.size:
-            try:
-                size = Size("%d MiB" % partition_data.size)
-            except ValueError as e:
-                raise KickstartParseError(
-                    _("The size \"%s\" is invalid.") % partition_data.size,
-                    lineno=partition_data.lineno
-                ) from e
+            size = self._get_size(partition_data.size, "MiB")
 
         # If this specified an existing request that we should not format,
         # quit here after setting up enough information to mount it later.
         if not partition_data.format:
             if not partition_data.onPart:
-                raise KickstartParseError(
-                    _("part --noformat must also use the --onpart option."),
-                    lineno=partition_data.lineno
-                )
+                raise StorageError(_("part --noformat must also use the --onpart option."))
 
             dev = devicetree.resolve_device(partition_data.onPart)
             if not dev:
-                raise KickstartParseError(
-                    _("Partition \"%s\" given in part command does not exist.")
-                    % partition_data.onPart, lineno=partition_data.lineno
+                raise StorageError(
+                    _("Partition \"{}\" given in part command does "
+                      "not exist.").format(partition_data.onPart)
                 )
 
             if partition_data.resize:
@@ -279,22 +266,14 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
                         devicetree.actions.add(ActionResizeFormat(dev, size))
                         devicetree.actions.add(ActionResizeDevice(dev, size))
                     except ValueError as e:
-                        raise KickstartParseError(
-                            _("Target size \"%(size)s\" for device \"%(device)s\" is invalid.") %
-                            {"size": partition_data.size, "device": dev.name},
-                            lineno=partition_data.lineno
-                        ) from e
+                        self._handle_invalid_target_size(e, partition_data.size, dev.name)
                 else:
                     # grow
                     try:
                         devicetree.actions.add(ActionResizeDevice(dev, size))
                         devicetree.actions.add(ActionResizeFormat(dev, size))
                     except ValueError as e:
-                        raise KickstartParseError(
-                            _("Target size \"%(size)s\" for device \"%(device)s\" is invalid.") %
-                            {"size": partition_data.size, "device": dev.name},
-                            lineno=partition_data.lineno
-                        ) from e
+                        self._handle_invalid_target_size(e, partition_data.size, dev.name)
 
             dev.format.mountpoint = partition_data.mountpoint
             dev.format.mountopts = partition_data.fsopts
@@ -311,9 +290,8 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
                                    create_options=partition_data.mkfsopts,
                                    size=size)
         if not kwargs["fmt"].type:
-            raise KickstartParseError(
-                _("The \"%s\" file system type is not supported.") % ty,
-                lineno=partition_data.lineno
+            raise StorageError(
+                _("The \"{}\" file system type is not supported.").format(ty)
             )
 
         # If we were given a specific disk to create the partition on, verify
@@ -327,45 +305,39 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
                 log.info("kickstart: part: promoting %s to %s", disk.name, mpath_device.name)
                 disk = mpath_device
             if not disk:
-                raise KickstartParseError(
-                    _("Disk \"%s\" given in part command does not exist.") % partition_data.disk,
-                    lineno=partition_data.lineno
+                raise StorageError(
+                    _("Disk \"{}\" given in part command does "
+                      "not exist.").format(partition_data.disk)
                 )
             if not disk.partitionable:
-                raise KickstartParseError(
-                    _("Cannot install to unpartitionable device \"%s\".") % partition_data.disk,
-                    lineno=partition_data.lineno
+                raise StorageError(
+                    _("Cannot install to unpartitionable device "
+                      "\"{}\".").format(partition_data.disk)
                 )
 
             if disk and disk.partitioned:
                 kwargs["parents"] = [disk]
             elif disk:
-                raise KickstartParseError(
-                    _("Disk \"%s\" in part command is not partitioned.") % partition_data.disk,
-                    lineno=partition_data.lineno
+                raise StorageError(
+                    _("Disk \"{}\" in part command is not "
+                      "partitioned.").format(partition_data.disk)
                 )
 
             if not kwargs["parents"]:
-                raise KickstartParseError(
-                    _("Disk \"%s\" given in part command does not exist.") % partition_data.disk,
-                    lineno=partition_data.lineno
+                raise StorageError(
+                    _("Disk \"{}\" given in part command does "
+                      "not exist.").format(partition_data.disk)
                 )
 
         kwargs["grow"] = partition_data.grow
         kwargs["size"] = size
+
         if partition_data.maxSizeMB:
-            try:
-                maxsize = Size("%d MiB" % partition_data.maxSizeMB)
-            except ValueError as e:
-                raise KickstartParseError(
-                    _("The maximum size \"%s\" is invalid.") % partition_data.maxSizeMB,
-                    lineno=partition_data.lineno
-                ) from e
+            maxsize = self._get_size(partition_data.maxSizeMB, "MiB")
         else:
             maxsize = None
 
         kwargs["maxsize"] = maxsize
-
         kwargs["primary"] = partition_data.primOnly
 
         add_fstab_swap = None
@@ -376,9 +348,9 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
         if partition_data.onPart:
             device = devicetree.resolve_device(partition_data.onPart)
             if not device:
-                raise KickstartParseError(
-                    _("Partition \"%s\" given in part command does not exist.")
-                    % partition_data.onPart, lineno=partition_data.lineno
+                raise StorageError(
+                    _("Partition \"{}\" given in part command does "
+                      "not exist.").format(partition_data.onPart)
                 )
 
             storage.devicetree.recursive_remove(device, remove_device=False)
@@ -387,11 +359,7 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
                 try:
                     devicetree.actions.add(ActionResizeDevice(device, size))
                 except ValueError as e:
-                    raise KickstartParseError(
-                        _("Target size \"%(size)s\" for device \"%(device)s\" is invalid.")
-                        % {"size": partition_data.size, "device": device.name},
-                        lineno=partition_data.lineno
-                    ) from e
+                    self._handle_invalid_target_size(e, partition_data.size, device.name)
 
             devicetree.actions.add(ActionCreateFormat(device, kwargs["fmt"]))
             if ty == "swap":
@@ -399,10 +367,7 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
         # tmpfs mounts are not disks and don't occupy a disk partition,
         # so handle them here
         elif partition_data.fstype == "tmpfs":
-            try:
-                request = storage.new_tmp_fs(**kwargs)
-            except (StorageError, ValueError) as e:
-                raise KickstartParseError(lineno=partition_data.lineno, msg=str(e)) from e
+            request = storage.new_tmp_fs(**kwargs)
             storage.create_device(request)
         else:
             # If a previous device has claimed this mount point, delete the
@@ -414,12 +379,9 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
             except KeyError:
                 pass
 
-            try:
-                request = storage.new_partition(**kwargs)
-            except (StorageError, ValueError) as e:
-                raise KickstartParseError(lineno=partition_data.lineno, msg=str(e)) from e
-
+            request = storage.new_partition(**kwargs)
             storage.create_device(request)
+
             if ty == "swap":
                 add_fstab_swap = request
 
@@ -518,9 +480,9 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
             data.onPart[kwargs["name"]] = devicename
 
             if devicetree.get_device_by_name(kwargs["name"]):
-                raise KickstartParseError(
-                    _("PV partition \"%s\" is defined multiple times.") % kwargs["name"],
-                    lineno=raid_data.lineno
+                raise StorageError(
+                    _("PV partition \"{}\" is defined multiple "
+                      "times.").format(kwargs["name"])
                 )
 
             raid_data.mountpoint = ""
@@ -530,9 +492,9 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
             data.onPart[kwargs["name"]] = devicename
 
             if devicetree.get_device_by_name(kwargs["name"]):
-                raise KickstartParseError(
-                    _("Btrfs partition \"%s\" is defined multiple times.") % kwargs["name"],
-                    lineno=raid_data.lineno
+                raise StorageError(
+                    _("Btrfs partition \"{}\" is defined multiple "
+                      "times.").format(kwargs["name"])
                 )
 
             raid_data.mountpoint = ""
@@ -546,26 +508,21 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
                 ty = storage.default_fstype
 
         # Sanity check mountpoint
-        if raid_data.mountpoint != "" and raid_data.mountpoint[0] != '/':
-            raise KickstartParseError(
-                _("The mount point \"%s\" is not valid.  It must start with a /.")
-                % raid_data.mountpoint, lineno=raid_data.lineno
-            )
+        self._check_mount_point(raid_data.mountpoint)
 
         # If this specifies an existing request that we should not format,
         # quit here after setting up enough information to mount it later.
         if not raid_data.format:
             if not devicename:
-                raise KickstartParseError(
-                    _("raid --noformat must also use the --device option."),
-                    lineno=raid_data.lineno
+                raise StorageError(
+                    _("raid --noformat must also use the --device option.")
                 )
 
             dev = devicetree.get_device_by_name(devicename)
             if not dev:
-                raise KickstartParseError(
-                    _("RAID device  \"%s\" given in raid command does not exist.") % devicename,
-                    lineno=raid_data.lineno
+                raise StorageError(
+                    _("RAID device  \"{}\" given in raid command does "
+                      "not exist.").format(devicename)
                 )
 
             dev.format.mountpoint = raid_data.mountpoint
@@ -588,16 +545,15 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
                     dev = None
 
             if dev and dev.format.type != "mdmember":
-                raise KickstartParseError(
-                    _("RAID device \"%(device)s\" has a format of \"%(format)s\", but should have "
-                      "a format of \"mdmember\".") % {"device": member, "format": dev.format.type},
-                    lineno=raid_data.lineno
+                raise StorageError(
+                    _("RAID device \"{}\" has a format of \"{}\", but should have "
+                      "a format of \"mdmember\".").format(member, dev.format.type)
                 )
 
             if not dev:
-                raise KickstartParseError(
-                    _("Tried to use undefined partition \"%s\" in RAID specification.") % member,
-                    lineno=raid_data.lineno
+                raise StorageError(
+                    _("Tried to use undefined partition \"{}\" in RAID "
+                      "specification.").format(member)
                 )
 
             raidmems.append(dev)
@@ -613,9 +569,8 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
         )
 
         if not kwargs["fmt"].type:
-            raise KickstartParseError(
-                _("The \"%s\" file system type is not supported.") % ty,
-                lineno=raid_data.lineno
+            raise StorageError(
+                _("The \"{}\" file system type is not supported.").format(ty)
             )
 
         kwargs["name"] = devicename
@@ -635,10 +590,11 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
         # options on pre-existing RAIDs.
         if raid_data.preexist:
             device = devicetree.get_device_by_name(devicename)
+
             if not device:
-                raise KickstartParseError(
-                    _("RAID volume \"%s\" specified with --useexisting does not exist.")
-                    % devicename, lineno=raid_data.lineno
+                raise StorageError(
+                    _("RAID volume \"{}\" specified with --useexisting does "
+                      "not exist.").format(devicename)
                 )
 
             storage.devicetree.recursive_remove(device, remove_device=False)
@@ -647,9 +603,8 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
                 add_fstab_swap = device
         else:
             if devicename and devicename in (a.name for a in storage.mdarrays):
-                raise KickstartParseError(
-                    _("The RAID volume name \"%s\" is already in use.") % devicename,
-                    lineno=raid_data.lineno
+                raise StorageError(
+                    _("The RAID volume name \"{}\" is already in use.").format(devicename)
                 )
 
             # If a previous device has claimed this mount point, delete the
@@ -661,12 +616,9 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
             except KeyError:
                 pass
 
-            try:
-                request = storage.new_mdarray(**kwargs)
-            except (StorageError, ValueError) as e:
-                raise KickstartParseError(str(e), lineno=raid_data.lineno) from e
-
+            request = storage.new_mdarray(**kwargs)
             storage.create_device(request)
+
             if ty == "swap":
                 add_fstab_swap = request
 
@@ -765,24 +717,23 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
                     dev = None
 
             if dev and dev.format.type != "lvmpv":
-                raise KickstartParseError(
-                    _("Physical volume \"%(device)s\" has a format of \"%(format)s\", but should "
-                      "have a format of \"lvmpv\".") % {"device": pv, "format": dev.format.type},
-                    lineno=volgroup_data.lineno)
+                raise StorageError(
+                    _("Physical volume \"{}\" has a format of \"{}\", but should "
+                      "have a format of \"lvmpv\".").format(pv, dev.format.type)
+                )
 
             if not dev:
-                raise KickstartParseError(
-                    _("Tried to use undefined partition \"%s\" in Volume Group specification")
-                    % pv, lineno=volgroup_data.lineno
+                raise StorageError(
+                    _("Tried to use undefined partition \"{}\" in Volume Group "
+                      "specification").format(pv)
                 )
 
             pvs.append(dev)
 
         if len(pvs) == 0 and not volgroup_data.preexist:
-            raise KickstartParseError(
-                _("Volume group \"%s\" defined without any physical volumes.  Either specify "
-                  "physical volumes or use --useexisting.") % volgroup_data.vgname,
-                lineno=volgroup_data.lineno
+            raise StorageError(
+                _("Volume group \"{}\" defined without any physical volumes. Either specify "
+                  "physical volumes or use --useexisting.").format(volgroup_data.vgname)
             )
 
         if volgroup_data.pesize == 0:
@@ -792,44 +743,36 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
         pesize = Size("%d KiB" % volgroup_data.pesize)
         possible_extents = LVMVolumeGroupDevice.get_supported_pe_sizes()
         if pesize not in possible_extents:
-            raise KickstartParseError(
-                _("Volume group given physical extent size of \"%(extentSize)s\", but must be one "
-                  "of:\n%(validExtentSizes)s.")
-                % {
-                    "extentSize": pesize,
-                    "validExtentSizes": ", ".join(str(e) for e in possible_extents)
-                },
-                lineno=volgroup_data.lineno
+            raise StorageError(
+                _("Volume group given physical extent size of \"{}\", but must be one "
+                  "of:\n{}.").format(pesize, ", ".join(str(e) for e in possible_extents))
             )
 
         # If --noformat or --useexisting was given, there's really nothing to do.
         if not volgroup_data.format or volgroup_data.preexist:
             if not volgroup_data.vgname:
-                raise KickstartParseError(
-                    _("volgroup --noformat and volgroup --useexisting must also use the --name= "
-                      "option."), lineno=volgroup_data.lineno
+                raise StorageError(
+                    _("volgroup --noformat and volgroup --useexisting must "
+                      "also use the --name= option.")
                 )
 
             dev = devicetree.get_device_by_name(volgroup_data.vgname)
             if not dev:
-                raise KickstartParseError(
-                    _("Volume group \"%s\" given in volgroup command does not exist.")
-                    % volgroup_data.vgname, lineno=volgroup_data.lineno
+                raise StorageError(
+                    _("Volume group \"{}\" given in volgroup command does "
+                      "not exist.").format(volgroup_data.vgname)
                 )
         elif volgroup_data.vgname in (vg.name for vg in storage.vgs):
-            raise KickstartParseError(
-                _("The volume group name \"%s\" is already in use.") % volgroup_data.vgname,
-                lineno=volgroup_data.lineno
+            raise StorageError(
+                _("The volume group name \"{}\" is already "
+                  "in use.").format(volgroup_data.vgname)
             )
         else:
-            try:
-                request = storage.new_vg(
-                    parents=pvs,
-                    name=volgroup_data.vgname,
-                    pe_size=pesize
-                )
-            except (StorageError, ValueError) as e:
-                raise KickstartParseError(lineno=volgroup_data.lineno, msg=str(e)) from e
+            request = storage.new_vg(
+                parents=pvs,
+                name=volgroup_data.vgname,
+                pe_size=pesize
+            )
 
             storage.create_device(request)
             if volgroup_data.reserved_space:
@@ -874,9 +817,8 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
         # FIXME: we should be running sanityCheck on partitioning that is not ks
         # autopart, but that's likely too invasive for #873135 at this moment
         if logvol_data.mountpoint == "/boot" and blivet.arch.is_s390():
-            raise KickstartParseError(
-                "/boot can not be of type 'lvmlv' on s390x",
-                lineno=logvol_data.lineno
+            raise StorageError(
+                _("/boot cannot be of type \"lvmlv\" on s390x")
             )
 
         # we might have truncated or otherwise changed the specified vg name
@@ -905,69 +847,57 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
 
         if size is None and not logvol_data.preexist:
             if not logvol_data.size:
-                raise KickstartParseError(
-                    "Size can not be decided on from kickstart nor obtained from device.",
-                    lineno=logvol_data.lineno
+                raise StorageError(
+                    _("Size cannot be decided on from kickstart nor obtained from device.")
                 )
-            try:
-                size = Size("%d MiB" % logvol_data.size)
-            except ValueError as e:
-                raise KickstartParseError(
-                    "The size \"%s\" is invalid." % logvol_data.size,
-                    lineno=logvol_data.lineno
-                ) from e
+
+            size = self._get_size(logvol_data.size, "MiB")
 
         if logvol_data.thin_pool:
             logvol_data.mountpoint = ""
             ty = None
 
         # Sanity check mountpoint
-        if logvol_data.mountpoint != "" and logvol_data.mountpoint[0] != '/':
-            raise KickstartParseError(
-                _("The mount point \"%s\" is not valid.  It must start with a /.")
-                % logvol_data.mountpoint, lineno=logvol_data.lineno
-            )
+        self._check_mount_point(logvol_data.mountpoint)
 
         # Check that the VG this LV is a member of has already been specified.
         vg = devicetree.get_device_by_name(vgname)
         if not vg:
-            raise KickstartParseError(
-                _("No volume group exists with the name \"%s\".  Specify volume groups before "
-                  "logical volumes.") % logvol_data.vgname, lineno=logvol_data.lineno
+            raise StorageError(
+                _("No volume group exists with the name \"{}\". Specify volume "
+                  "groups before logical volumes.").format(logvol_data.vgname)
             )
 
         # If cache PVs specified, check that they belong to the same VG this LV is a member of
         if logvol_data.cache_pvs:
             pv_devices = self._get_cache_pv_devices(devicetree, logvol_data)
             if not all(pv in vg.pvs for pv in pv_devices):
-                raise KickstartParseError(
-                    _("Cache PVs must belong to the same VG as the cached LV"),
-                    lineno=logvol_data.lineno
+                raise StorageError(
+                    _("Cache PVs must belong to the same VG as the cached LV")
                 )
 
         pool = None
         if logvol_data.thin_volume:
             pool = devicetree.get_device_by_name("%s-%s" % (vg.name, logvol_data.pool_name))
             if not pool:
-                raise KickstartParseError(
-                    _("No thin pool exists with the name \"%s\". Specify thin pools before thin "
-                      "volumes.") % logvol_data.pool_name, lineno=logvol_data.lineno
+                raise StorageError(
+                    _("No thin pool exists with the name \"{}\". Specify thin pools "
+                      "before thin volumes.").format(logvol_data.pool_name)
                 )
 
         # If this specifies an existing request that we should not format,
         # quit here after setting up enough information to mount it later.
         if not logvol_data.format:
             if not logvol_data.name:
-                raise KickstartParseError(
-                    _("logvol --noformat must also use the --name= option."),
-                    lineno=logvol_data.lineno
+                raise StorageError(
+                    _("logvol --noformat must also use the --name= option.")
                 )
 
             dev = devicetree.get_device_by_name("%s-%s" % (vg.name, logvol_data.name))
             if not dev:
-                raise KickstartParseError(
-                    _("Logical volume \"%s\" given in logvol command does not exist.")
-                    % logvol_data.name, lineno=logvol_data.lineno
+                raise StorageError(
+                    _("Logical volume \"{}\" given in logvol command does "
+                      "not exist.").format(logvol_data.name)
                 )
 
             if logvol_data.resize:
@@ -978,22 +908,14 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
                         devicetree.actions.add(ActionResizeFormat(dev, size))
                         devicetree.actions.add(ActionResizeDevice(dev, size))
                     except ValueError as e:
-                        raise KickstartParseError(
-                            _("Target size \"%(size)s\" for device \"%(device)s\" is invalid.")
-                            % {"size": logvol_data.size, "device": dev.name},
-                            lineno=logvol_data.lineno
-                        ) from e
+                        self._handle_invalid_target_size(e, logvol_data.size, dev.name)
                 else:
                     # grow
                     try:
                         devicetree.actions.add(ActionResizeDevice(dev, size))
                         devicetree.actions.add(ActionResizeFormat(dev, size))
                     except ValueError as e:
-                        raise KickstartParseError(
-                            _("Target size \"%(size)s\" for device \"%(device)s\" is invalid.")
-                            % {"size": logvol_data.size, "device": dev.name},
-                            lineno=logvol_data.lineno
-                        ) from e
+                        self._handle_invalid_target_size(e, logvol_data.size, dev.name)
 
             dev.format.mountpoint = logvol_data.mountpoint
             dev.format.mountopts = logvol_data.fsopts
@@ -1005,18 +927,15 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
         if not logvol_data.preexist:
             tmp = devicetree.get_device_by_name("%s-%s" % (vg.name, logvol_data.name))
             if tmp:
-                raise KickstartParseError(
-                    _("Logical volume name \"%(logvol)s\" is already in use in volume group "
-                      "\"%(volgroup)s\".") % {"logvol": logvol_data.name, "volgroup": vg.name},
-                    lineno=logvol_data.lineno
+                raise StorageError(
+                    _("Logical volume name \"{}\" is already in use in volume group "
+                      "\"{}\".").format(logvol_data.name, vg.name)
                 )
 
             if not logvol_data.percent and size and not logvol_data.grow and size < vg.pe_size:
-                raise KickstartParseError(
-                    _("Logical volume size \"%(logvolSize)s\" must be larger than the volume "
-                      "group extent size of \"%(extentSize)s\".")
-                    % {"logvolSize": size, "extentSize": vg.pe_size},
-                    lineno=logvol_data.lineno
+                raise StorageError(
+                    _("Logical volume size \"{}\" must be larger than the volume "
+                      "group extent size of \"{}\".").format(size, vg.pe_size)
                 )
 
         # Now get a format to hold a lot of these extra values.
@@ -1029,9 +948,8 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
             mountopts=logvol_data.fsopts
         )
         if not fmt.type and not logvol_data.thin_pool:
-            raise KickstartParseError(
-                _("The \"%s\" file system type is not supported.") % ty,
-                lineno=logvol_data.lineno
+            raise StorageError(
+                _("The \"{}\" file system type is not supported.").format(ty)
             )
 
         add_fstab_swap = None
@@ -1042,9 +960,9 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
         if logvol_data.preexist:
             device = devicetree.get_device_by_name("%s-%s" % (vg.name, logvol_data.name))
             if not device:
-                raise KickstartParseError(
-                    _("Logical volume \"%s\" given in logvol command does not exist.")
-                    % logvol_data.name, lineno=logvol_data.lineno
+                raise StorageError(
+                    _("Logical volume \"{}\" given in logvol command does "
+                      "not exist.").format(logvol_data.name)
                 )
 
             storage.devicetree.recursive_remove(device, remove_device=False)
@@ -1054,11 +972,7 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
                 try:
                     devicetree.actions.add(ActionResizeDevice(device, size))
                 except ValueError as e:
-                    raise KickstartParseError(
-                        _("Target size \"%(size)s\" for device \"%(device)s\" is invalid.") %
-                        {"size": logvol_data.size, "device": device.name},
-                        lineno=logvol_data.lineno
-                    ) from e
+                    self._handle_invalid_target_size(e, logvol_data.size, device.name)
 
             devicetree.actions.add(ActionCreateFormat(device, fmt))
             if ty == "swap":
@@ -1096,13 +1010,7 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
                     pool_args["chunk_size"] = Size("%d KiB" % logvol_data.chunk_size)
 
             if logvol_data.maxSizeMB:
-                try:
-                    maxsize = Size("%d MiB" % logvol_data.maxSizeMB)
-                except ValueError as e:
-                    raise KickstartParseError(
-                        _("The maximum size \"%s\" is invalid.") % logvol_data.maxSizeMB,
-                        lineno=logvol_data.lineno
-                    ) from e
+                maxsize = self._get_size(logvol_data.maxSizeMB, "MiB")
             else:
                 maxsize = None
 
@@ -1114,22 +1022,19 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
             else:
                 cache_request = None
 
-            try:
-                request = storage.new_lv(
-                    fmt=fmt,
-                    name=logvol_data.name,
-                    parents=parents,
-                    size=size,
-                    thin_pool=logvol_data.thin_pool,
-                    thin_volume=logvol_data.thin_volume,
-                    grow=logvol_data.grow,
-                    maxsize=maxsize,
-                    percent=logvol_data.percent,
-                    cache_request=cache_request,
-                    **pool_args
-                )
-            except (StorageError, ValueError) as e:
-                raise KickstartParseError(str(e), lineno=logvol_data.lineno) from e
+            request = storage.new_lv(
+                fmt=fmt,
+                name=logvol_data.name,
+                parents=parents,
+                size=size,
+                thin_pool=logvol_data.thin_pool,
+                thin_volume=logvol_data.thin_volume,
+                grow=logvol_data.grow,
+                maxsize=maxsize,
+                percent=logvol_data.percent,
+                cache_request=cache_request,
+                **pool_args
+            )
 
             storage.create_device(request)
             if ty == "swap":
@@ -1235,17 +1140,15 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
                     dev = None
 
             if dev and dev.format.type != "btrfs":
-                raise KickstartParseError(
-                    _("Btrfs partition \"%(device)s\" has a format of \"%(format)s\", but "
-                      "should have a format of \"btrfs\".")
-                    % {"device": member, "format": dev.format.type},
-                    lineno=btrfs_data.lineno
+                raise StorageError(
+                    _("Btrfs partition \"{}\" has a format of \"{}\", but should "
+                      "have a format of \"btrfs\".").format(member, dev.format.type)
                 )
 
             if not dev:
-                raise KickstartParseError(
-                    _("Tried to use undefined partition \"%s\" in Btrfs volume specification.")
-                    % member, lineno=btrfs_data.lineno
+                raise StorageError(
+                    _("Tried to use undefined partition \"{}\" in Btrfs volume "
+                      "specification.").format(member)
                 )
 
             members.append(dev)
@@ -1258,9 +1161,9 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
             name = None
 
         if len(members) == 0 and not btrfs_data.preexist:
-            raise KickstartParseError(
-                _("Btrfs volume defined without any member devices.  Either specify member "
-                  "devices or use --useexisting."), lineno=btrfs_data.lineno
+            raise StorageError(
+                _("Btrfs volume defined without any member devices. "
+                  "Either specify member devices or use --useexisting.")
             )
 
         # allow creating btrfs vols/subvols without specifying mountpoint
@@ -1268,11 +1171,7 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
             btrfs_data.mountpoint = ""
 
         # Sanity check mountpoint
-        if btrfs_data.mountpoint != "" and btrfs_data.mountpoint[0] != '/':
-            raise KickstartParseError(
-                _("The mount point \"%s\" is not valid.  It must start with a /.")
-                % btrfs_data.mountpoint, lineno=btrfs_data.lineno
-            )
+        self._check_mount_point(btrfs_data.mountpoint)
 
         # If a previous device has claimed this mount point, delete the
         # old one.
@@ -1286,24 +1185,39 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
         if btrfs_data.preexist:
             device = devicetree.resolve_device(btrfs_data.name)
             if not device:
-                raise KickstartParseError(
-                    _("Btrfs volume \"%s\" specified with --useexisting does not exist.")
-                    % btrfs_data.name, lineno=btrfs_data.lineno
+                raise StorageError(
+                    _("Btrfs volume \"{}\" specified with --useexisting "
+                      "does not exist.").format(btrfs_data.name)
                 )
 
             device.format.mountpoint = btrfs_data.mountpoint
         else:
-            try:
-                request = storage.new_btrfs(
-                    name=name,
-                    subvol=btrfs_data.subvol,
-                    mountpoint=btrfs_data.mountpoint,
-                    metadata_level=btrfs_data.metaDataLevel,
-                    data_level=btrfs_data.dataLevel,
-                    parents=members,
-                    create_options=btrfs_data.mkfsopts
-                )
-            except BTRFSValueError as e:
-                raise KickstartParseError(lineno=btrfs_data.lineno, msg=str(e)) from e
+            request = storage.new_btrfs(
+                name=name,
+                subvol=btrfs_data.subvol,
+                mountpoint=btrfs_data.mountpoint,
+                metadata_level=btrfs_data.metaDataLevel,
+                data_level=btrfs_data.dataLevel,
+                parents=members,
+                create_options=btrfs_data.mkfsopts
+            )
 
             storage.create_device(request)
+
+    def _get_size(self, number, unit):
+        """Get a size from the given number and unit."""
+        try:
+            return Size("{} {}".format(number, unit))
+        except ValueError as e:
+            raise StorageError(_("The size \"{}\" is invalid.").format(number)) from e
+
+    def _check_mount_point(self, mount_point):
+        """Check if the given mount point is valid."""
+        if mount_point != "" and mount_point[0] != '/':
+            msg = _("The mount point \"{}\" is not valid. It must start with a /.")
+            raise StorageError(msg.format(mount_point))
+
+    def _handle_invalid_target_size(self, exception, size, device):
+        """Handle an invalid target size."""
+        msg = _("Target size \"{size}\" for device \"{device}\" is invalid.")
+        raise StorageError(msg.format(size=size, device=device)) from exception
