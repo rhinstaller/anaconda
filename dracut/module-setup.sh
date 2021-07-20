@@ -68,6 +68,8 @@ install() {
     inst_simple "$moddir/driver-updates@.service" "/etc/systemd/system/driver-updates@.service"
     # rpm configuration file (needed by dd_extract)
     inst "/usr/lib/rpm/rpmrc"
+    # timeout script for errors reporting
+    inst_hook initqueue/timeout 50 "$moddir/anaconda-error-reporting.sh"
     # python deps for parse-kickstart. DOUBLE WOOOO
     PYTHONHASHSEED=42 $moddir/python-deps $moddir/parse-kickstart $moddir/driver_updates.py | while read dep; do
         case "$dep" in
