@@ -21,11 +21,11 @@ import unittest
 
 from unittest.mock import patch, call
 
-from pyanaconda.core.constants import RPM_LANGUAGES_NONE
+from pyanaconda.core.constants import RPM_LANGUAGES_NONE, MULTILIB_POLICY_ALL
 from pyanaconda.core.util import join_paths
 from pyanaconda.modules.common.structures.payload import PackagesConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
-    SetRPMMacrosTask
+    SetRPMMacrosTask, UpdateDNFConfigurationTask
 
 
 class SetRPMMacrosTaskTestCase(unittest.TestCase):
@@ -204,5 +204,76 @@ class ImportRPMKeysTaskTestCase(unittest.TestCase):
             mock_util.execWithRedirect.assert_called_once_with(
                 "rpm",
                 ["--import", "/etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-34-s390x"],
+                root=sysroot
+            )
+
+
+class UpdateDNFConfigurationTaskTestCase(unittest.TestCase):
+    """Test the UpdateDNFConfigurationTask class."""
+
+    @patch("pyanaconda.core.util.execWithRedirect")
+    def test_no_update(self, execute):
+        """Don't update the DNF configuration."""
+        with tempfile.TemporaryDirectory() as sysroot:
+            data = PackagesConfigurationData()
+
+            task = UpdateDNFConfigurationTask(sysroot, data)
+            task.run()
+
+            execute.assert_not_called()
+
+    @patch("pyanaconda.core.util.execWithRedirect")
+    def test_failed_update(self, execute):
+        """The update of the DNF configuration has failed."""
+        execute.return_value = 1
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            data = PackagesConfigurationData()
+            data.multilib_policy = MULTILIB_POLICY_ALL
+
+            task = UpdateDNFConfigurationTask(sysroot, data)
+
+            with self.assertLogs(level="WARNING") as cm:
+                task.run()
+
+            msg = "Failed to update the DNF configuration (1)."
+            self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+
+    @patch("pyanaconda.core.util.execWithRedirect")
+    def test_error_update(self, execute):
+        """The update of the DNF configuration has failed."""
+        execute.side_effect = OSError("Fake!")
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            data = PackagesConfigurationData()
+            data.multilib_policy = MULTILIB_POLICY_ALL
+
+            task = UpdateDNFConfigurationTask(sysroot, data)
+
+            with self.assertLogs(level="WARNING") as cm:
+                task.run()
+
+            msg = "Couldn't update the DNF configuration: Fake!"
+            self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+
+    @patch("pyanaconda.core.util.execWithRedirect")
+    def test_multilib_policy(self, execute):
+        """Update the multilib policy."""
+        execute.return_value = 0
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            data = PackagesConfigurationData()
+            data.multilib_policy = MULTILIB_POLICY_ALL
+
+            task = UpdateDNFConfigurationTask(sysroot, data)
+            task.run()
+
+            execute.assert_called_once_with(
+                "dnf",
+                [
+                    "config-manager",
+                    "--save",
+                    "--setopt=multilib_policy=all",
+                ],
                 root=sysroot
             )
