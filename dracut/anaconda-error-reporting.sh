@@ -12,6 +12,12 @@ warn "kernel cmdline. Please verify that you have specified "
 warn "inst.stage2 or inst.repo."
 warn "Please also note that the 'inst.' prefix is now mandatory."
 warn "#                                                         #"
+warn "####     Installer errors encountered during boot:     ####"
+warn "#                                                         #"
+while read -r line; do
+    warn "$line"
+done < /run/anaconda/initrd_errors.txt
+warn "#                                                         #"
 warn "############# Anaconda installer errors end ###############"
 
 sleep 1

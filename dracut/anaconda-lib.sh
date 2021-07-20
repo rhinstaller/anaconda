@@ -4,6 +4,16 @@ command -v unpack_img >/dev/null || . /lib/img-lib.sh
 command -v getarg >/dev/null || . /lib/dracut-lib.sh
 command -v fetch_url >/dev/null || . /lib/url-lib.sh
 
+# show critical error messages more visible to user
+warn_critical() {
+    local msg="$1"
+    if ! [ -d /run/anaconda ]; then
+        mkdir -p /run/anaconda
+    fi
+    echo "$msg" >> /run/anaconda/initrd_errors.txt
+    warn "$msg"
+}
+
 # config_get SECTION KEY < FILE
 # read an .ini-style config file, find the KEY in the given SECTION, and return
 # the value provided for that key.
