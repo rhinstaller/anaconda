@@ -75,6 +75,7 @@ class BossInterfaceTestCase(unittest.TestCase):
         module_proxy = Mock()
         module_proxy.ConfigureWithTasks.return_value = ["/task/1", "/task/2"]
         module_proxy.InstallWithTasks.return_value = ["/task/3", "/task/4"]
+        module_proxy.ConfigureBootloaderWithTasks.return_value = ["/task/5", "/task/6"]
         self._add_module(service_name, available=available, proxy=module_proxy)
 
     def _get_mocked_proxy(self, service_name, object_path):
@@ -179,6 +180,27 @@ class BossInterfaceTestCase(unittest.TestCase):
             ("A", "/task/2"),
             ("B", "/task/1"),
             ("B", "/task/2"),
+        ])
+
+    @patch("pyanaconda.modules.boss.boss_interface.get_object_handler")
+    @patch_dbus_get_proxy
+    def collect_configure_bootloader_tasks_test(self, proxy_getter, handler_getter):
+        """Test CollectConfigureBootloaderTasks."""
+        version = "4.17.7-200.fc28.x86_64"
+        self.assertEqual(self.interface.CollectConfigureBootloaderTasks([version]), [])
+
+        self._add_module_with_tasks("A")
+        self._add_module_with_tasks("B")
+        self._add_module_with_tasks("C", available=False)
+
+        proxy_getter.side_effect = self._get_mocked_proxy
+        handler_getter.side_effect = self._get_mocked_handler
+
+        self.assertEqual(self.interface.CollectConfigureBootloaderTasks([version]), [
+            ("A", "/task/5"),
+            ("A", "/task/6"),
+            ("B", "/task/5"),
+            ("B", "/task/6"),
         ])
 
     @patch("pyanaconda.modules.boss.boss_interface.get_object_handler")

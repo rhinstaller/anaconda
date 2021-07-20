@@ -143,6 +143,18 @@ class KickstartModuleInterface(KickstartModuleInterfaceTemplate):
             self.implementation.configure_with_tasks()
         )
 
+    def ConfigureBootloaderWithTasks(self, kernel_versions: List[Str]) -> List[ObjPath]:
+        """Configure the bootloader after the payload installation.
+
+        FIXME: This is a temporary workaround. The method might change.
+
+        :param kernel_versions: a list of kernel versions
+        :return: list of object paths of installation tasks
+        """
+        return TaskContainer.to_object_path_list(
+            self.implementation.configure_bootloader_with_tasks(kernel_versions)
+        )
+
     def InstallWithTasks(self) -> List[ObjPath]:
         """Returns installation tasks of this module.
 

@@ -312,6 +312,16 @@ def _prepare_installation(payload, ksdata):
     bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
     bootloader_install = TaskQueue("Bootloader installation", N_("Installing boot loader"))
 
+    def run_configure_bootloader():
+        tasks = boss_proxy.CollectConfigureBootloaderTasks(
+            payload.kernel_version_list
+        )
+
+        for service, task in tasks:
+            sync_run_task(DBus.get_proxy(service, task))
+
+    bootloader_install.append(Task("Configure bootloader", run_configure_bootloader))
+
     def run_install_bootloader():
         tasks = bootloader_proxy.InstallBootloaderWithTasks(
             payload.type,
