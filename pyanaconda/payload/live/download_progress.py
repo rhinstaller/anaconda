@@ -15,10 +15,15 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet.size import Size
+
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.progress import progressQ
 
 __all__ = ["DownloadProgress"]
+
+log = get_module_logger(__name__)
 
 
 class DownloadProgress(object):
@@ -37,6 +42,7 @@ class DownloadProgress(object):
             :param size:     length of the file
             :type size:      int
         """
+        log.debug("Downloading %s from %s.", Size(size), url)
         self.url = url
         self.size = size
         self._pct = -1
@@ -53,7 +59,10 @@ class DownloadProgress(object):
 
         if pct == self._pct:
             return
+
         self._pct = pct
+
+        log.debug("Downloaded %s (%s%%)", Size(bytes_read), pct)
         progressQ.send_message(_("Downloading %(url)s (%(pct)d%%)") %
                                {"url": self.url, "pct": pct})
 

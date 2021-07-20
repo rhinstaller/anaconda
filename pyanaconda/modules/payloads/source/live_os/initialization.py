@@ -53,7 +53,3 @@ class SetUpLiveOSSourceTask(SetUpMountTask):
         rc = mount(device_data.path, self._target_mount, fstype="auto", options="ro")
         if rc != 0:
             raise SourceSetupError("Failed to mount the install tree")
-
-        # FIXME: This should be done by the module
-        # source = os.statvfs(self._target_mount)
-        # self.source_size = source.f_frsize * (source.f_blocks - source.f_bfree)

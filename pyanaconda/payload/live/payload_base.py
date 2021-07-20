@@ -16,21 +16,18 @@
 # Red Hat, Inc.
 #
 import os
-from threading import Lock
-from time import sleep
 
 from pyanaconda.anaconda_loggers import get_packaging_logger
-from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import INSTALL_TREE, THREAD_LIVE_PROGRESS
+from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.payloads.payload.live_image.installation import InstallFromImageTask
+from pyanaconda.modules.payloads.payload.live_image.installation_progress import \
+    InstallationProgress
 from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
-from pyanaconda.payload.errors import PayloadInstallError
 from pyanaconda.progress import progressQ
-from pyanaconda.threading import threadMgr, AnacondaThread
 
 log = get_packaging_logger()
 
@@ -45,73 +42,32 @@ class BaseLivePayload(Payload):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Used to adjust size of sysroot when files are already present
-        self._adj_size = 0
-        self.pct = 0
-        self.pct_lock = None
-        self.source_size = 1
-
         self._kernel_version_list = []
-
-    def progress(self):
-        """Monitor the amount of disk space used on the target and source and
-           update the hub's progress bar.
-        """
-        mount_points = payload_utils.get_mount_points()
-        last_pct = -1
-
-        while self.pct < 100:
-            dest_size = self._get_destination_size(mount_points)
-
-            if dest_size >= self._adj_size:
-                dest_size -= self._adj_size
-
-            pct = int(100 * dest_size / self.source_size)
-            if pct != last_pct:
-                with self.pct_lock:
-                    self.pct = pct
-                last_pct = pct
-                progressQ.send_message(_("Installing software") + (" %d%%") %
-                                       (min(100, self.pct),))
-            sleep(0.777)
-
-    def _get_destination_size(self, mount_points):
-        # FIXME: Use get_df_map/get_free_space_map.
-        dest_size = 0
-
-        for mnt in mount_points:
-            mnt_path = util.join_paths(conf.target.system_root, mnt)
-
-            if not os.path.exists(mnt_path):
-                continue
-
-            mnt_stat = os.statvfs(mnt_path)
-            dest_size += mnt_stat.f_frsize * (mnt_stat.f_blocks - mnt_stat.f_bfree)
-
-        return dest_size
 
     def install(self):
         """ Install the payload. """
+        # Calculate the installation size of the image.
+        source = os.statvfs(INSTALL_TREE)
+        size = source.f_frsize * (source.f_blocks - source.f_bfree)
 
-        if self.source_size <= 0:
-            raise PayloadInstallError("Nothing to install")
+        # Install the image.
+        with self._monitor_progress(size):
+            self._install_image()
 
-        self.pct_lock = Lock()
-        self.pct = 0
-        threadMgr.add(AnacondaThread(name=THREAD_LIVE_PROGRESS,
-                                     target=self.progress))
+    def _monitor_progress(self, installation_size):
+        return InstallationProgress(
+            sysroot=conf.target.system_root,
+            callback=progressQ.send_message,
+            installation_size=installation_size,
+        )
 
+    def _install_image(self):
         # Run the installation task.
         task = InstallFromImageTask(
             sysroot=conf.target.system_root,
             mount_point=INSTALL_TREE + "/"
         )
         task.run()
-
-        # Wait for progress thread to finish
-        with self.pct_lock:
-            self.pct = 100
-        threadMgr.wait(THREAD_LIVE_PROGRESS)
 
     def post_install(self):
         """ Perform post-installation tasks. """
