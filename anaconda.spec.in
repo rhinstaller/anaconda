@@ -405,6 +405,24 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jul 20 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.11-1
+- Run installation tasks from ConfigureBootloaderWithTasks (vponcova)
+  Related: rhbz#1977348
+- Add the CollectConfigureBootloaderTasks method (vponcova)
+  Related: rhbz#1977348
+- Add the ConfigureBootloaderWithTasks method (vponcova)
+  Resolves: rhbz#1977348
+- Show suggestions for an error caused by inconsistent sector sizes (vponcova)
+  Resolves: rhbz#1955514
+- Configure the multilib policy of the target system (vponcova)
+  Resolves: rhbz#1962026
+- Enable the zram-generator service again (vponcova)
+  Resolves: rhbz#1975881
+- Enable NM autoconnections only if inst.ks and ip= is not used (rvykydal)
+  Resolves: rhbz#1978264
+- Disable NM autoconnections in Anaconda (rvykydal)
+  Resolves: rhbz#1978264
+
 * Mon Jun 28 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.10-1
 - Remove kickstart btrfs support (mkolman)
   Related: rhbz#1961087
