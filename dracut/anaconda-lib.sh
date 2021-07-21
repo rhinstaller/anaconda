@@ -139,7 +139,7 @@ anaconda_net_root() {
         return 0
     fi
 
-    warn "anaconda: failed to fetch stage2 from $repo"
+    warn_critical "anaconda: failed to fetch stage2 from $repo"
     return 1
 }
 
