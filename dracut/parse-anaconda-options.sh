@@ -32,8 +32,8 @@ set_http_header "X-Anaconda-System-Release" "$product"
 # convenience function to warn the user about old argument names.
 warn_renamed_arg() {
     local arg=""
-    arg="$(getarg $1)" && warn "'$1=$arg'" && \
-        warn "$1 has been deprecated and will be removed. Please use $2 instead."
+    arg="$(getarg $1)" && warn_critical "'$1=$arg'" && \
+        warn_critical "$1 has been deprecated and will be removed. Please use $2 instead."
 }
 
 # check for deprecated arg, warn user, and write new arg to /etc/cmdline
@@ -43,7 +43,7 @@ check_depr_arg() {
     arg="$(getarg $1)"
     [ "$arg" ] || return 1
     newval=$(printf "$2" "$arg")
-    [ "$quiet" ] || warn "'$1' is deprecated. Using '$newval' instead."
+    [ "$quiet" ] || warn_critical "'$1' is deprecated. Using '$newval' instead."
     echo "$newval" >> /etc/cmdline.d/75-anaconda-options.conf
 }
 check_depr_args() {
@@ -53,8 +53,8 @@ check_depr_args() {
 check_removed_arg() {
     local arg="$1"; shift
     if getarg "$arg" > /dev/null; then
-        warn "'$arg' is deprecated and has been removed."
-        [ -n "$*" ] && warn "$*"
+        warn_critical "'$arg' is deprecated and has been removed."
+        [ -n "$*" ] && warn_critical "$*"
     fi
 }
 

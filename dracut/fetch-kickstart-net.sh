@@ -60,7 +60,7 @@ case $kickstart in
         locations="$(</tmp/ks_urls)"
     ;;
     *)
-        warn "unknown network kickstart URL: $kickstart"
+        warn_critical "unknown network kickstart URL: $kickstart"
         return 1
     ;;
 esac
@@ -89,7 +89,7 @@ for kickstart in \$locations; do
         run_kickstart
         break
     else
-        warn "anaconda: failed to fetch kickstart from \$kickstart"
+        warn_critical "anaconda: failed to fetch kickstart from \$kickstart"
     fi
 done
 rm \$job # remove self from initqueue
