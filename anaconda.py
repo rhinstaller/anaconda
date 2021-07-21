@@ -259,6 +259,9 @@ if __name__ == "__main__":
     from pyanaconda.core.kernel import kernel_arguments
     (opts, depr) = parse_arguments(boot_cmdline=kernel_arguments)
 
+    if not opts.method:
+        opts.method = opts.stage2
+
     from pyanaconda.core.configuration.anaconda import conf
     conf.set_from_opts(opts)
 
