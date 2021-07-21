@@ -245,6 +245,9 @@ if __name__ == "__main__":
         stdout_log.warning("All Anaconda kernel boot arguments are now required to use "
                            "'inst.' prefix!")
 
+    # print errors encountered during boot
+    startup_utils.print_dracut_errors(stdout_log)
+
     from pyanaconda import isys
 
     util.ipmi_report(constants.IPMI_STARTED)
