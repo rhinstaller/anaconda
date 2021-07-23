@@ -44,7 +44,7 @@ SERVER_OBJECT = 5
 class NTPConfigDialog(GUIObject, GUIDialogInputCheckHandler):
     builderObjects = ["ntpConfigDialog", "addImage", "serversStore"]
     mainWidgetName = "ntpConfigDialog"
-    uiFile = "spokes/datetime_spoke.glade"
+    uiFile = "spokes/lib/ntp_dialog.glade"
 
     def __init__(self, data, servers, states):
         GUIObject.__init__(self, data)
