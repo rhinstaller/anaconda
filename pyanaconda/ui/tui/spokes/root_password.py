@@ -18,10 +18,11 @@
 #
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.ui.categories.user_settings import UserSettingsCategory
-from pyanaconda.ui.lib.services import is_reconfiguration_mode
 from pyanaconda.ui.tui.tuiobject import PasswordDialog
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.common import FirstbootSpokeMixIn
+from pyanaconda.ui.lib.users import check_setting_root_password_is_mandatory, \
+    check_root_password_entry_is_complete, get_root_password_status_message
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.modules.common.constants.services import USERS
@@ -59,10 +60,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     @property
     def completed(self):
-        return bool(
-            self._users_module.IsRootPasswordSet or
-            (self._users_module.IsRootAccountLocked and flags.automatedInstall)
-        )
+        return check_root_password_entry_is_complete(self._users_module)
 
     @property
     def showable(self):
@@ -70,23 +68,11 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     @property
     def mandatory(self):
-        """Only mandatory if no admin user has been requested."""
-        return not self._users_module.CheckAdminUserExists()
+        return check_setting_root_password_is_mandatory(self._users_module)
 
     @property
     def status(self):
-        if self._users_module.IsRootAccountLocked:
-            # reconfig mode currently allows re-enabling a locked root account if
-            # user sets a new root password
-            if is_reconfiguration_mode():
-                return _("Disabled. Set password to enable root account.")
-            else:
-                return _("Root account is disabled.")
-
-        elif self._users_module.IsRootPasswordSet:
-            return _("Password is set.")
-        else:
-            return _("Password is not set.")
+        return get_root_password_status_message(self._users_module)
 
     def refresh(self, args=None):
         NormalTUISpoke.refresh(self, args)

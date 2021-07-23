@@ -31,7 +31,8 @@ from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler
 from pyanaconda.ui.gui.utils import set_password_visibility
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.communication import hubQ
-from pyanaconda.ui.lib.services import is_reconfiguration_mode
+from pyanaconda.ui.lib.users import check_setting_root_password_is_mandatory, \
+    check_root_password_entry_is_complete, get_root_password_status_message
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -152,23 +153,11 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
     @property
     def status(self):
-        if self._users_module.IsRootAccountLocked:
-            # reconfig mode currently allows re-enabling a locked root account if
-            # user sets a new root password
-            if is_reconfiguration_mode():
-                return _("Disabled, set password to enable.")
-            else:
-                return _("Root account is disabled.")
-
-        elif self._users_module.IsRootPasswordSet:
-            return _("Root password is set")
-        else:
-            return _("Root password is not set")
+        return get_root_password_status_message(self._users_module)
 
     @property
     def mandatory(self):
-        """Only mandatory if no admin user has been requested."""
-        return not self._users_module.CheckAdminUserExists()
+        return check_setting_root_password_is_mandatory(self._users_module)
 
     def apply(self):
         pw = self.password
@@ -196,10 +185,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
     @property
     def completed(self):
-        return bool(
-            self._users_module.IsRootPasswordSet or
-            (self._users_module.IsRootAccountLocked and flags.automatedInstall)
-        )
+        return check_root_password_entry_is_complete(self._users_module)
 
     @property
     def sensitive(self):

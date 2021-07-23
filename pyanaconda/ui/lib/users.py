@@ -16,6 +16,10 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.flags import flags
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.i18n import N_, _
+from pyanaconda.ui.lib.services import is_reconfiguration_mode
 from pyanaconda.modules.common.structures.user import UserData
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -69,3 +73,69 @@ def set_user_list(users_module, user_data_list, remove_unset=False):
         user_data_list = [user for user in user_data_list if user.name]
 
     users_module.SetUsers(UserData.to_structure_list(user_data_list))
+
+
+def check_setting_root_password_is_mandatory(users_module):
+    """Check if setting the root password is mandatory.
+
+    Root password is by default considered mandatory only
+    if no admin-level user has been configured yet.
+
+    If root_password_must_be_set is set to True in the Anaconda config file,
+    root password must be set, regardless of an admin user existing or not.
+
+    :param users_module: Users DBus module proxy
+    :return: True if setting root password is mandatory, False otherwise
+    :rtype: bool
+    """
+    if conf.ui.root_password_must_be_set:
+        return not users_module.IsRootPasswordSet
+    else:
+        return not users_module.CheckAdminUserExists()
+
+
+def check_root_password_entry_is_complete(users_module):
+    """Check if root password configuration can be considered complete.
+
+    :param users_module: Users DBus module proxy
+    :return: True if root password entry is complete, False otherwise
+    :rtype: bool
+    """
+    # Completion conditions:
+    # - password is set
+    # - or this is automated installation and password is locked
+    # - is root_password_must_be_set is True in the config file,
+    #   password must be set even for an automated installation
+    return bool(
+        users_module.IsRootPasswordSet or
+        (users_module.IsRootAccountLocked and
+         flags.automatedInstall
+         and not conf.ui.root_password_must_be_set)
+    )
+
+
+def get_root_password_status_message(users_module):
+    """Get status message for the root password spoke.
+
+    Both GUI and TUI have the same status message, so it makes sense
+    to have it defined in a single place.
+
+    :param users_module: Users DBus module proxy
+    :return: root password spoke status message
+    :rtype: str
+    """
+    if users_module.IsRootAccountLocked:
+        # reconfig mode currently allows re-enabling a locked root account if
+        # user sets a new root password
+        if is_reconfiguration_mode():
+            return _("Disabled, set password to enable.")
+        # the root_password_must_be_set config file option overrides even
+        # locked account
+        elif conf.ui.root_password_must_be_set:
+            return _("Root password is not set")
+        else:
+            return _("Root account is disabled.")
+    elif users_module.IsRootPasswordSet:
+        return _("Root password is set")
+    else:
+        return _("Root password is not set")

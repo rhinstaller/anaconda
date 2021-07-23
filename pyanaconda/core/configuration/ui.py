@@ -69,3 +69,8 @@ class UserInterfaceSection(Section):
         :return: True or False
         """
         return self._get_option("decorated_window", bool)
+
+    @property
+    def root_password_must_be_set(self):
+        """Require root password to be set."""
+        return self._get_option("root_password_must_be_set", bool)
