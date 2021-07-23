@@ -1,6 +1,14 @@
-[RHEL-8-BuildRoot]
-name=buildroot
-baseurl=http://download.devel.redhat.com/brewroot/repos/rhel-8-build/latest/$basearch
+[RHEL-8-BaseOS]
+name=baseos
+baseurl=http://download.devel.redhat.com/rhel-8/nightly/RHEL-8/latest-RHEL-8/compose/BaseOS/$basearch/os/
+enabled=1
+gpgcheck=0
+install_weak_deps=0
+module_hotfixes=1
+
+[RHEL-8-AppStream]
+name=appstream
+baseurl=http://download.devel.redhat.com/rhel-8/nightly/RHEL-8/latest-RHEL-8/compose/AppStream/$basearch/os/
 enabled=1
 gpgcheck=0
 install_weak_deps=0
