@@ -716,7 +716,7 @@ boot option, "selinux" and "inst.selinux" are not the same. The "selinux" option
 is picked up by both the kernel and Anaconda, but "inst.selinux" is processed
 only by Anaconda. So when "selinux=0" is used, SELinux will be disabled both in
 the installation environment and in the installed system, but when
-"inst.selinux=0" is used SELinux will only be disabled in the installed system.
+"inst.selinux=0" is used SELinux will only be disabled in the installation environment.
 Also note that while SELinux is running in the installation environment by
 default, it is running in permissive mode so disabling it there does not make
 much sense.
