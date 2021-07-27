@@ -57,14 +57,14 @@ jobs:
           TARGET_BRANCH="${{ fromJson(steps.pr_api.outputs.data).base.ref }}"
 
           if [ "$TARGET_BRANCH" == "master" ]; then
-            echo "::set-output name=skip_tests::rhel-only"
+            echo "::set-output name=skip_tests::skip-on-fedora"
           elif [ $(echo "$TARGET_BRANCH" | grep -E "f[[:digit:]]*-(devel|release)") ]; then
-            echo "::set-output name=skip_tests::rhel-only"
+            echo "::set-output name=skip_tests::skip-on-fedora"
           elif [ "$TARGET_BRANCH" == "rhel-8" ]; then
-            echo "::set-output name=skip_tests::fedora-only,rhel-9-only"
+            echo "::set-output name=skip_tests::skip-on-rhel,skip-on-rhel-8"
             echo "::set-output name=optional_test_args::--platform rhel8 --defaults ./scripts/defaults-rhel8.sh"
           elif [ "$TARGET_BRANCH" == "rhel-9" ]; then
-            echo "::set-output name=skip_tests::fedora-only"
+            echo "::set-output name=skip_tests::skip-on-rhel,skip-on-rhel-9"
             echo "::set-output name=optional_test_args::--platform rhel9 --defaults ./scripts/defaults-rhel9.sh"
           else
             echo "Branch $TARGET_BRANCH is not supported by kickstart tests yet!"
