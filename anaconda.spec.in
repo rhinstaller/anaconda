@@ -209,9 +209,10 @@ Requires: hfsplus-tools
 %endif
 # only WeakRequires elsewhere and not guaranteed to be present
 Requires: device-mapper-multipath
-# FIXME: do not require on RHEL until the package is ready
-%if 0%{?rhel} != 9
+%if ! 0%{?rhel}
 Requires: zram-generator-defaults
+%else
+Requires: rust-zram-generator
 %endif
 # Display stuff moved from lorax templates
 Requires: xorg-x11-drivers
