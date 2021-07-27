@@ -18,10 +18,12 @@
 # Red Hat, Inc.
 #
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.boss.boss_interface import BossInterface
 from pyanaconda.modules.boss.module_manager import ModuleManager
 from pyanaconda.modules.boss.install_manager import InstallManager
+from pyanaconda.modules.boss.installation import CopyLogsTask
 from pyanaconda.modules.boss.kickstart_manager import KickstartManager
 from pyanaconda.modules.boss.user_interface import UIModule
 from pyanaconda.modules.common.base import Service
@@ -141,3 +143,11 @@ class Boss(Service):
         log.info("Setting locale of all modules to %s.", locale)
         super().set_locale(locale)
         self._module_manager.set_modules_locale(locale)
+
+    def copy_logs_with_task(self):
+        """Copy logs with an installation task.
+
+        :return: an installation task
+        """
+        task = CopyLogsTask(conf.target.system_root)
+        return task
