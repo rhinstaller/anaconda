@@ -1,5 +1,5 @@
 name: Run validation tests
-on: pull_request_target
+on: pull_request
 
 permissions:
   contents: read
@@ -45,6 +45,8 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v2
         with:
+          # TODO: Are we able to remove ref, fetch-depth and Rebase task? Seems that the checkout
+          # without ref is doing the rebase for us.
           # otherwise we are testing target branch instead of the PR branch (see pull_request_target trigger)
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
@@ -117,6 +119,8 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v2
         with:
+          # TODO: Are we able to remove ref, fetch-depth and Rebase task? Seems that the checkout
+          # without ref is doing the rebase for us.
           # otherwise we are testing target branch instead of the PR branch (see pull_request_target trigger)
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
