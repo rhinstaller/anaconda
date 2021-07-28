@@ -32,7 +32,6 @@ lorax -p RHEL -v $MAJOR_VERSION -r $MINOR_VERSION --volid RHEL-$MAJOR_VERSION-$M
       --nomacboot \
       -s http://download.devel.redhat.com/rhel-9/nightly/RHEL-9-Beta/latest-RHEL-9/compose/BaseOS/x86_64/os/ \
       -s http://download.devel.redhat.com/rhel-9/nightly/RHEL-9-Beta/latest-RHEL-9/compose/AppStream/x86_64/os/ \
-      -s http://download.devel.redhat.com/rhel-9/nightly/BUILDROOT-9-Beta/latest-BUILDROOT-9/compose/Buildroot/x86_64/os/ \
       -s file://$REPO_DIR/ \
       $@ \
       lorax
