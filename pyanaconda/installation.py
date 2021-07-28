@@ -81,8 +81,6 @@ def _copy_logs(*args):
     import glob
     import subprocess
 
-    NOSAVE_INPUT_KS_FILE = "/tmp/NOSAVE_INPUT_KS"
-    NOSAVE_LOGS_FILE = "/tmp/NOSAVE_LOGS"
     PRE_ANA_LOGS = "/tmp/pre-anaconda-logs"
     DNF_DEBUG_LOGS = "/root/debugdata"
 
@@ -92,9 +90,7 @@ def _copy_logs(*args):
 
     log.info("Copying logs from the installation environment...")
 
-    if os.path.exists(NOSAVE_LOGS_FILE):
-        os.remove(NOSAVE_LOGS_FILE)
-    else:
+    if not flags.flags.nosave_logs:
         os.mkdir(conf.target.system_root + "/var/log/anaconda")
         # copy log files from the list
         LOG_FILES_TO_COPY = [
@@ -131,9 +127,8 @@ def _copy_logs(*args):
 
     log.info("Copying generated kickstart file...")
 
-    if os.path.exists(NOSAVE_INPUT_KS_FILE):
+    if flags.flags.nosave_input_ks:
         log.info("Nosave used, skipping.")
-        os.remove(NOSAVE_INPUT_KS_FILE)
     else:
         copy_file_if_exists("/run/install/ks.cfg",
                             conf.target.system_root + "/root/original-ks.cfg")
