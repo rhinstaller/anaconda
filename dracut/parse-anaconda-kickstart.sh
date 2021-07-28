@@ -1,6 +1,8 @@
 #!/bin/bash
 # parse-anaconda-kickstart.sh: handle kickstart settings
 
+command -v warn_critical >/dev/null || . /lib/anaconda-lib.sh
+
 # no need to do this twice
 [ -f /tmp/ks.cfg.done ] && return
 
@@ -36,8 +38,8 @@ case "${kickstart%%:*}" in
             [ "$root" = "anaconda-kickstart" ] && root=""
             > /tmp/ks.cfg.done
         else
-            warn "inst.ks='$kickstart'"
-            warn "can't find $kspath!"
+            warn_critical "inst.ks='$kickstart'"
+            warn_critical "can't find $kspath!"
         fi
     ;;
 esac

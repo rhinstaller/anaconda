@@ -2,6 +2,8 @@
 # fetch-driver-net - fetch driver from the network.
 # runs from the "initqueue/online" hook whenever a net interface comes online
 
+command -v warn_critical >/dev/null || . /lib/anaconda-lib.sh
+
 # initqueue/online hook passes interface name as $1
 netif="$1"
 
@@ -24,7 +26,7 @@ for dd in $DD_NET; do
             echo "$dd" >> /tmp/dd_net.done # mark it done so we don't fetch it again
             driver-updates --net "$dd" "$driver"
         else
-            warn "Failed to fetch driver from $dd"
+            warn_critical "Failed to fetch driver from $dd"
         fi
 
     else

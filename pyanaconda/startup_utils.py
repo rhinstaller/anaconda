@@ -31,7 +31,7 @@ from pyanaconda.anaconda_loggers import get_stdout_logger, get_module_logger
 from pyanaconda.core import util, constants
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import TEXT_ONLY_TARGET, SETUP_ON_BOOT_DEFAULT, \
-    SETUP_ON_BOOT_ENABLED
+    SETUP_ON_BOOT_ENABLED, DRACUT_ERRORS_PATH
 from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.flags import flags
@@ -579,3 +579,20 @@ def initialize_security():
     # Enable fingerprint option by default (#481273).
     if not flags.automatedInstall:
         security_proxy.SetFingerprintAuthEnabled(True)
+
+
+def print_dracut_errors(stdout_logger):
+    """Print Anaconda critical warnings from Dracut to user before starting Anaconda.
+
+    :param stdout_logger: python logger to stdout
+    """
+    try:
+        with open(DRACUT_ERRORS_PATH, "rt") as fd:
+            section_name = "Installer errors encountered during boot"
+            msg = "\n{:#^70}\n{}\n{:#^70}".format(  # add starting \n because timestamp
+                " " + section_name + " ",           # start of the section
+                "".join(fd.readlines()),            # errors from Dracut
+                " " + section_name + " end ")       # end of the section
+            stdout_logger.warning(msg)
+    except OSError:
+        pass
