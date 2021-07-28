@@ -544,19 +544,27 @@ def getArgumentParser(version_string, boot_cmdline=None):
             if values:
                 options = values.split(",")
             if "all" in options:
+                setattr(namespace, "save_input_kickstart", False)
+                setattr(namespace, "save_output_kickstart", False)
+                setattr(namespace, "save_logs", False)
                 flags_instance.nosave_input_ks = True
                 flags_instance.nosave_output_ks = True
                 flags_instance.nosave_logs = True
             else:
                 if "all_ks" in options:
+                    setattr(namespace, "save_input_kickstart", False)
+                    setattr(namespace, "save_output_kickstart", False)
                     flags_instance.nosave_input_ks = True
                     flags_instance.nosave_output_ks = True
                 else:
                     if "input_ks" in options:
+                        setattr(namespace, "save_input_kickstart", False)
                         flags_instance.nosave_input_ks = True
                     if "output_ks" in options:
+                        setattr(namespace, "save_output_kickstart", False)
                         flags_instance.nosave_output_ks = True
                 if "logs" in options:
+                    setattr(namespace, "save_logs", False)
                     flags_instance.nosave_logs = True
 
     ap.add_argument("--nosave", action=ParseNosave, nargs="?", help=help_parser.help_text("nosave"))

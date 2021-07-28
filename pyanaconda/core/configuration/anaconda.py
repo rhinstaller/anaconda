@@ -131,6 +131,18 @@ class AnacondaSection(Section):
         """
         return self._get_option("optional_modules").split()
 
+    @property
+    def save_input_kickstart(self):
+        return self._get_option("save_input_kickstart")
+
+    @property
+    def save_output_kickstart(self):
+        return self._get_option("save_output_kickstart")
+
+    @property
+    def save_logs(self):
+        return self._get_option("save_logs")
+
 
 class AnacondaConfiguration(Configuration):
     """Representation of the Anaconda configuration."""
@@ -352,6 +364,14 @@ class AnacondaConfiguration(Configuration):
         """
         if opts.debug:
             self.anaconda._set_option("debug", True)
+
+        # Set "nosave flags".
+        if hasattr(opts, "save_input_kickstart"):
+            self.anaconda._set_option("save_input_kickstart", opts.save_input_kickstart)
+        if hasattr(opts, "save_output_kickstart"):
+            self.anaconda._set_option("save_output_kickstart", opts.save_output_kickstart)
+        if hasattr(opts, "save_logs"):
+            self.anaconda._set_option("save_logs", opts.save_logs)
 
         # Set the bootloader type.
         if opts.extlinux:
