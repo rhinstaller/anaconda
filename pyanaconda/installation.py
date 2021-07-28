@@ -74,15 +74,11 @@ def _writeKS(ksdata):
 def _copy_logs(*args):
     """Copy installation logs to the target system.
 
-    The code is based on the 99-copy-logs.ks post script
+    The code is based on the 99-copy-logs.ks post script which is replaced by this.
     """
     import os.path
     import shutil
     import glob
-    import subprocess
-
-    PRE_ANA_LOGS = "/tmp/pre-anaconda-logs"
-    DNF_DEBUG_LOGS = "/root/debugdata"
 
     def copy_file_if_exists(src, dest):
         if os.path.exists(src):
@@ -91,7 +87,7 @@ def _copy_logs(*args):
     log.info("Copying logs from the installation environment...")
 
     if conf.anaconda.save_logs:
-        os.mkdir(conf.target.system_root + "/var/log/anaconda")
+        util.mkdirChain(conf.target.system_root + "/var/log/anaconda/")
         # copy log files from the list
         LOG_FILES_TO_COPY = [
             "anaconda.log", "syslog", "X.log", "program.log", "packaging.log", "storage.log",
@@ -102,10 +98,12 @@ def _copy_logs(*args):
             dest_path = conf.target.system_root + "/var/log/anaconda/" + logfile
             copy_file_if_exists(src_path, dest_path)
         # copy logs from %pre scripts
+        PRE_ANA_LOGS = "/tmp/pre-anaconda-logs"
         if os.path.exists(PRE_ANA_LOGS):
             shutil.copytree(PRE_ANA_LOGS,
                             conf.target.system_root + "/var/log/anaconda/")
         # copy DNF debug data (if any)
+        DNF_DEBUG_LOGS = "/root/debugdata"
         if os.path.exists(DNF_DEBUG_LOGS):
             shutil.copytree(DNF_DEBUG_LOGS,
                             conf.target.system_root + "/var/log/anaconda/dnf_debugdata/")
@@ -113,15 +111,13 @@ def _copy_logs(*args):
         for logfile in glob.glob("/tmp/ks-script*.log"):
             shutil.copyfile(logfile,
                             conf.target.system_root + "/var/log/anaconda/" + os.path.basename(logfile))
-        # journalctl -b > $ANA_INSTALL_PATH/var/log/anaconda/journal.log
+        # dump journal
         with open(conf.target.system_root + "/var/log/anaconda/journal.log", "w") as logfile:
-            subprocess.run(["journalctl", "-b"],
-                           stdout=logfile)
-        # chmod 0600 $ANA_INSTALL_PATH/var/log/anaconda/*
-        subprocess.run(["chmod", "0600", conf.target.system_root + "/var/log/anaconda/*"],
-                       shell=True)  # needs shell to expand the glob
+            util.execWithRedirect("journalctl", ["-b"], stdout=logfile)
         copy_file_if_exists("/root/lorax-packages.log",
                             conf.target.system_root + "/var/log/anaconda/lorax-packages.log")
+        # set access bits
+        util.execInSysroot("bash", ["-c", "chmod 0600 /var/log/anaconda/*"])
 
     log.info("Done.")
 
@@ -136,7 +132,7 @@ def _copy_logs(*args):
 
     # Relabel the anaconda logs we've just copied, since they could be incorrectly labeled, like
     # hawkey.log: https://bugzilla.redhat.com/show_bug.cgi?id=1885772.
-    subprocess.run(["restorecon", "-ir", "/var/log/anaconda/"])
+    util.execInSysroot("restorecon", ["-ir", "/var/log/anaconda/"])
 
 
 def _prepare_configuration(payload, ksdata):
