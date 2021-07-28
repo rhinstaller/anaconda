@@ -219,11 +219,11 @@ if __name__ == "__main__":
         sys.exit(1)
 
     # check if input kickstart should be saved
-    if flags.nosave_input_ks:
+    if not conf.anaconda.save_input_kickstart:
         log.warning("Input kickstart will not be saved to the installed system due to the nosave option.")
 
     # check if logs should be saved
-    if flags.nosave_logs:
+    if not conf.anaconda.save_logs:
         log.warning("Installation logs will not be saved to the installed system due to the nosave option.")
 
     # see if we're on s390x and if we've got an ssh connection

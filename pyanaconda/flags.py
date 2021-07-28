@@ -43,10 +43,6 @@ class Flags(object):
         self.ksprompt = True
         self.rescue_mode = False
         self.kexec = False
-        # nosave options
-        self.nosave_input_ks = False
-        self.nosave_output_ks = False
-        self.nosave_logs = False
         # current runtime environments
         self.environs = [ANACONDA_ENVIRON]
         # Lock it down: no more creating new flags!

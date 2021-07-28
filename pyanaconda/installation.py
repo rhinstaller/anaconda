@@ -90,7 +90,7 @@ def _copy_logs(*args):
 
     log.info("Copying logs from the installation environment...")
 
-    if not flags.flags.nosave_logs:
+    if conf.anaconda.save_logs:
         os.mkdir(conf.target.system_root + "/var/log/anaconda")
         # copy log files from the list
         LOG_FILES_TO_COPY = [
@@ -127,7 +127,7 @@ def _copy_logs(*args):
 
     log.info("Copying generated kickstart file...")
 
-    if flags.flags.nosave_input_ks:
+    if not conf.anaconda.save_input_kickstart:
         log.info("Nosave used, skipping.")
     else:
         copy_file_if_exists("/run/install/ks.cfg",
@@ -258,7 +258,7 @@ def _prepare_configuration(payload, ksdata):
 
     # Write the kickstart file to the installed system (or, copy the input
     # kickstart file over if one exists).
-    if flags.flags.nosave_output_ks:
+    if not conf.anaconda.save_output_kickstart:
         # don't write the kickstart file to the installed system if this has
         # been disabled by the nosave option
         log.warning("Writing of the output kickstart to installed system has been disabled"
