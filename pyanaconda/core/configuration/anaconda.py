@@ -353,6 +353,14 @@ class AnacondaConfiguration(Configuration):
         if opts.debug:
             self.anaconda._set_option("debug", True)
 
+        # Set "nosave flags".
+        if "can_copy_input_kickstart" in opts:
+            self.target._set_option("can_copy_input_kickstart", opts.can_copy_input_kickstart)
+        if "can_save_output_kickstart" in opts:
+            self.target._set_option("can_save_output_kickstart", opts.can_save_output_kickstart)
+        if "can_save_installation_logs" in opts:
+            self.target._set_option("can_save_installation_logs", opts.can_save_installation_logs)
+
         # Set the bootloader type.
         if opts.extlinux:
             self.bootloader._set_option("type", BootloaderType.EXTLINUX.value)

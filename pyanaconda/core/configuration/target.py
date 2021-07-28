@@ -69,3 +69,18 @@ class TargetSection(Section):
         :return: True or False
         """
         return self._get_option("can_configure_network", bool)
+
+    @property
+    def can_copy_input_kickstart(self):
+        """Should we copy input kickstart to the new system?"""
+        return self._get_option("can_copy_input_kickstart", bool)
+
+    @property
+    def can_save_output_kickstart(self):
+        """Should we save kickstart equivalent to installation settings to the new system?"""
+        return self._get_option("can_save_output_kickstart", bool)
+
+    @property
+    def can_save_installation_logs(self):
+        """Should we save logs from the installation to the new system?"""
+        return self._get_option("can_save_installation_logs", bool)
