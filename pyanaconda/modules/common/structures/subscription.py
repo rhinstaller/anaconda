@@ -23,7 +23,8 @@ from pyanaconda.core.constants import DEFAULT_SUBSCRIPTION_REQUEST_TYPE
 
 from pyanaconda.modules.common.structures.secret import SecretData, SecretDataList
 
-__all__ = ["SystemPurposeData", "SubscriptionRequest"]
+__all__ = ["SystemPurposeData", "SubscriptionRequest", "AttachedSubscription"]
+
 
 class SystemPurposeData(DBusData):
     """System purpose data."""
@@ -112,11 +113,11 @@ class SystemPurposeData(DBusData):
         # addon ordering is not important
         if set(self.addons) != set(other_instance.addons):
             return False
-        elif(self.role != other_instance.role):
+        elif self.role != other_instance.role:
             return False
-        elif(self.sla != other_instance.sla):
+        elif self.sla != other_instance.sla:
             return False
-        elif(self.usage != other_instance.usage):
+        elif self.usage != other_instance.usage:
             return False
         else:
             return True
