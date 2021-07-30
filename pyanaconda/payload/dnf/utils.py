@@ -24,13 +24,11 @@ from pyanaconda.anaconda_loggers import get_packaging_logger
 from pyanaconda.payload.dnf.transaction_progress import TransactionProgress
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.product import productName, productVersion
 
 log = get_packaging_logger()
 
 DNF_PACKAGE_CACHE_DIR_SUFFIX = 'dnf.package.cache'
 YUM_REPOS_DIR = "/etc/yum.repos.d/"
-USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)
 
 
 def get_df_map():

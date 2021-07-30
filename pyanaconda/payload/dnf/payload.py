@@ -73,14 +73,11 @@ from pyanaconda.payload.errors import MetadataError, PayloadError, NoSuchGroup, 
     PayloadInstallError, PayloadSetupError
 from pyanaconda.payload.image import find_first_iso_image, find_optical_install_media
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
-from pyanaconda.product import productName, productVersion
 from pyanaconda.progress import progressQ, progress_message
 from pyanaconda.ui.lib.payload import get_payload, get_source, create_source, set_source, \
     set_up_sources, tear_down_sources
 
 log = get_packaging_logger()
-
-USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)
 
 __all__ = ["DNFPayload"]
 
@@ -1311,7 +1308,7 @@ class DNFPayload(Payload):
                 log.info("Failed to parse proxy for _getTreeInfo %s: %s",
                          proxy_url, e)
 
-        headers = {"user-agent": USER_AGENT}
+        headers = {"user-agent": constants.USER_AGENT}
         self._install_tree_metadata = InstallTreeMetadata()
         try:
             ret = self._install_tree_metadata.load_url(url, proxies, ssl_verify, ssl_cert, headers)

@@ -22,7 +22,7 @@ from requests import RequestException
 from pyanaconda.anaconda_loggers import get_packaging_logger
 from pyanaconda.core import util, constants
 from pyanaconda.core.payload import ProxyString, ProxyStringError
-from pyanaconda.payload.dnf.utils import USER_AGENT
+from pyanaconda.core.constants import USER_AGENT
 
 log = get_packaging_logger()
 
