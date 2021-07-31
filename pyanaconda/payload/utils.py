@@ -49,6 +49,9 @@ def get_device_path(device_name):
 
     device_tree = STORAGE.get_proxy(DEVICE_TREE)
     device_data = DeviceData.from_structure(device_tree.GetDeviceData(device_name))
+    if device_data.type == 'file' and device_data.children:
+        # resolve file path to associated loop device, if any
+        device_data = DeviceData.from_structure(device_tree.GetDeviceData(device_data.children[0]))
     return device_data.path
 
 
