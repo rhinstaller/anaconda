@@ -11,4 +11,4 @@ if [ $# -eq 0 ]; then
     set -- $top_srcdir/tests/unit_tests
 fi
 
-exec python3 -m unittest discover -t $top_srcdir -v -b ${UNIT_TESTS_PATTERN:+-k $UNIT_TESTS_PATTERN} -s $@
+exec pytest ${UNIT_TESTS_PATTERN:+-k $UNIT_TESTS_PATTERN} $@
