@@ -118,7 +118,7 @@ class InstallFromImageTaskTestCase(unittest.TestCase):
             task.run()
 
         msg = "Failed to install image: Fake!"
-        assert str(cm.value), msg
+        assert str(cm.value) == msg
 
     @patch("pyanaconda.modules.payloads.payload.live_image.installation.execWithRedirect")
     def test_install_image_task_failed_return_code(self, exec_with_redirect):
@@ -132,8 +132,8 @@ class InstallFromImageTaskTestCase(unittest.TestCase):
         with pytest.raises(PayloadInstallationError) as cm:
             task.run()
 
-        msg = "Failed to install image: rsync excited with code 11"
-        assert str(cm.value), msg
+        msg = "Failed to install image: rsync exited with code 11"
+        assert str(cm.value) == msg
 
 
 class InstallFromTarTaskTestCase(unittest.TestCase):
@@ -181,7 +181,7 @@ class InstallFromTarTaskTestCase(unittest.TestCase):
             task.run()
 
         msg = "Failed to install tar: Fake!"
-        assert str(cm.value), msg
+        assert str(cm.value) == msg
 
 
 class VerifyImageChecksumTestCase(unittest.TestCase):
