@@ -30,14 +30,12 @@ from pyanaconda.modules.payloads.constants import SourceState
 
 class PayloadKickstartSharedTest(object):
 
-    def __init__(self, test, payload_service, payload_service_intf):
+    def __init__(self, payload_service, payload_service_intf):
         """Setup shared payload testing object for testing kickstart.
 
-        :param test: instance of TestCase
         :param payload_service: main payload service module
         :param payload_service_intf: main payload service interface
         """
-        self._test = test
         self.payload_service = payload_service
         self.payload_service_interface = payload_service_intf
 
@@ -53,8 +51,7 @@ class PayloadKickstartSharedTest(object):
         :type expected_publish_calls: int
         """
         with patch('pyanaconda.core.dbus.DBus.publish_object') as publisher:
-            result = check_kickstart_interface(self._test,
-                                               self.payload_service_interface,
+            result = check_kickstart_interface(self.payload_service_interface,
                                                ks_in, ks_out, ks_valid, ks_tmp)
 
             if ks_valid and expected_publish_calls != 0:
@@ -72,16 +69,14 @@ class PayloadKickstartSharedTest(object):
 
 class PayloadSharedTest(object):
 
-    def __init__(self, test, payload, payload_intf):
+    def __init__(self, payload, payload_intf):
         """Setup shared payload test object for common payload testing.
 
-        :param test: instance of TestCase
         :param payload: payload module
         :type payload: instance of PayloadBase class
         :param payload_intf: payload module interface
         :type payload_intf: instance of PayloadBaseInterface class
         """
-        self._test = test
         self.payload = payload
         self.payload_interface = payload_intf
 

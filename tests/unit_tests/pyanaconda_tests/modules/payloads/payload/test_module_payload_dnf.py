@@ -49,8 +49,7 @@ class DNFKSTestCase(unittest.TestCase):
         self.module = PayloadsService()
         self.interface = PayloadsInterface(self.module)
 
-        self.shared_ks_tests = PayloadKickstartSharedTest(self,
-                                                          self.module,
+        self.shared_ks_tests = PayloadKickstartSharedTest(self.module,
                                                           self.interface)
 
     def _check_properties(self, expected_source_type):
@@ -359,8 +358,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
         self.module = DNFModule()
         self.interface = DNFInterface(self.module)
 
-        self.shared_tests = PayloadSharedTest(self,
-                                              payload=self.module,
+        self.shared_tests = PayloadSharedTest(payload=self.module,
                                               payload_intf=self.interface)
 
     def test_type(self):
@@ -380,7 +378,6 @@ class DNFInterfaceTestCase(unittest.TestCase):
 
     def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
-            self,
             PAYLOAD_DNF,
             self.interface,
             *args, **kwargs

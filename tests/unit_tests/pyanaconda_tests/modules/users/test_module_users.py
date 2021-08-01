@@ -61,7 +61,6 @@ class UsersInterfaceTestCase(unittest.TestCase):
 
     def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
-            self,
             USERS,
             self.users_interface,
             *args, **kwargs
@@ -343,7 +342,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         assert self.users_interface.CheckAdminUserExists()
 
     def _test_kickstart(self, ks_in, ks_out, ks_tmp=None):
-        check_kickstart_interface(self, self.users_interface, ks_in, ks_out, ks_tmp=ks_tmp)
+        check_kickstart_interface(self.users_interface, ks_in, ks_out, ks_tmp=ks_tmp)
 
     def test_no_kickstart(self):
         """Test with no kickstart."""
@@ -560,25 +559,25 @@ class UsersInterfaceTestCase(unittest.TestCase):
             ConfigureRootPasswordSSHLoginTask
         ]
         task_paths = self.users_interface.InstallWithTasks()
-        check_task_creation_list(self, task_paths, publisher, task_classes)
+        check_task_creation_list(task_paths, publisher, task_classes)
 
     @patch_dbus_publish_object
     def test_configure_groups_with_task(self, publisher):
         """Test ConfigureGroupsWithTask."""
         task_path = self.users_interface.ConfigureGroupsWithTask()
-        check_task_creation(self, task_path, publisher, CreateGroupsTask)
+        check_task_creation(task_path, publisher, CreateGroupsTask)
 
     @patch_dbus_publish_object
     def test_configure_users_with_task(self, publisher):
         """Test ConfigureUsersWithTask."""
         task_path = self.users_interface.ConfigureUsersWithTask()
-        check_task_creation(self, task_path, publisher, CreateUsersTask)
+        check_task_creation(task_path, publisher, CreateUsersTask)
 
     @patch_dbus_publish_object
     def test_set_root_password_with_task(self, publisher):
         """Test SetRootPasswordWithTask."""
         task_path = self.users_interface.SetRootPasswordWithTask()
-        check_task_creation(self, task_path, publisher, SetRootPasswordTask)
+        check_task_creation(task_path, publisher, SetRootPasswordTask)
 
 
 class UsersDataTestCase(unittest.TestCase):

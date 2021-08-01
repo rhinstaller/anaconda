@@ -53,7 +53,7 @@ class DASDInterfaceTestCase(unittest.TestCase):
         """Test DiscoverWithTask."""
         task_path = self.dasd_interface.DiscoverWithTask("0.0.A100")
 
-        obj = check_task_creation(self, task_path, publisher, DASDDiscoverTask)
+        obj = check_task_creation(task_path, publisher, DASDDiscoverTask)
 
         assert obj.implementation._device_number == "0.0.A100"
 
@@ -62,7 +62,7 @@ class DASDInterfaceTestCase(unittest.TestCase):
         """Test the discover task."""
         task_path = self.dasd_interface.FormatWithTask(["/dev/sda", "/dev/sdb"])
 
-        obj = check_task_creation(self, task_path, publisher, DASDFormatTask)
+        obj = check_task_creation(task_path, publisher, DASDFormatTask)
 
         assert obj.implementation._dasds == ["/dev/sda", "/dev/sdb"]
 

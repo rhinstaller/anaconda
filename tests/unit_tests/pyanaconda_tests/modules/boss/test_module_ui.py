@@ -37,7 +37,6 @@ class UIInterfaceTestCase(unittest.TestCase):
 
     def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
-            self,
             USER_INTERFACE,
             self.interface,
             *args, **kwargs

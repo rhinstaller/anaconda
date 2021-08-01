@@ -112,7 +112,7 @@ class BossInterfaceTestCase(unittest.TestCase):
     def test_start_modules_with_task(self, publisher):
         """Test StartModulesWithTask."""
         task_path = self.interface.StartModulesWithTask()
-        task_proxy = check_task_creation(self, task_path, publisher, StartModulesTask)
+        task_proxy = check_task_creation(task_path, publisher, StartModulesTask)
         task = task_proxy.implementation
 
         callback = Mock()

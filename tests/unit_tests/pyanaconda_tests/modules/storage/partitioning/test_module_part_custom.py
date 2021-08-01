@@ -69,7 +69,7 @@ class CustomPartitioningInterfaceTestCase(unittest.TestCase):
         self.module.process_kickstart(Mock())
         task_path = self.interface.ConfigureWithTask()
 
-        obj = check_task_creation(self, task_path, publisher, CustomPartitioningTask)
+        obj = check_task_creation(task_path, publisher, CustomPartitioningTask)
 
         assert obj.implementation._storage == self.module.storage
 

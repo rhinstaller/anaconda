@@ -38,8 +38,7 @@ class LiveImageKSTestCase(unittest.TestCase):
         self.payload_module = PayloadsService()
         self.payload_module_interface = PayloadsInterface(self.payload_module)
 
-        self.shared_tests = PayloadKickstartSharedTest(self,
-                                                       self.payload_module,
+        self.shared_tests = PayloadKickstartSharedTest(self.payload_module,
                                                        self.payload_module_interface)
 
     def test_liveimg_simple_kickstart(self):
@@ -104,8 +103,7 @@ class LiveImageInterfaceTestCase(unittest.TestCase):
         self.live_image_module = LiveImageModule()
         self.live_image_interface = LiveImageInterface(self.live_image_module)
 
-        self.shared_tests = PayloadSharedTest(self,
-                                              payload=self.live_image_module,
+        self.shared_tests = PayloadSharedTest(payload=self.live_image_module,
                                               payload_intf=self.live_image_interface)
 
     def test_type(self):

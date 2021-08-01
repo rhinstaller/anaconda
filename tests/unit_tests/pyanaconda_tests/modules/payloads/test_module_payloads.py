@@ -48,8 +48,7 @@ class PayloadsInterfaceTestCase(TestCase):
         self.payload_module = PayloadsService()
         self.payload_interface = PayloadsInterface(self.payload_module)
 
-        self.shared_ks_tests = PayloadKickstartSharedTest(self,
-                                                          self.payload_module,
+        self.shared_ks_tests = PayloadKickstartSharedTest(self.payload_module,
                                                           self.payload_interface)
 
     def test_kickstart_properties(self):
@@ -159,7 +158,7 @@ class PayloadsInterfaceTestCase(TestCase):
         """Test creation of the Live OS source module."""
         source_path = self.payload_interface.CreateSource(SOURCE_TYPE_LIVE_OS_IMAGE)
 
-        check_dbus_object_creation(self, source_path, publisher, LiveOSSourceModule)
+        check_dbus_object_creation(source_path, publisher, LiveOSSourceModule)
 
     @patch_dbus_publish_object
     def test_create_invalid_source(self, publisher):

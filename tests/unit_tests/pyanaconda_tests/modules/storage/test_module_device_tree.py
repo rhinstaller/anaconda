@@ -744,7 +744,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         """Test FindExistingSystemsWithTask."""
         task_path = self.interface.FindExistingSystemsWithTask()
 
-        obj = check_task_creation(self, task_path, publisher, FindExistingSystemsTask)
+        obj = check_task_creation(task_path, publisher, FindExistingSystemsTask)
 
         assert obj.implementation._devicetree == self.module.storage.devicetree
 
@@ -760,7 +760,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
         task_path = self.interface.MountExistingSystemWithTask("dev1", True)
 
-        obj = check_task_creation(self, task_path, publisher, MountExistingSystemTask)
+        obj = check_task_creation(task_path, publisher, MountExistingSystemTask)
 
         assert obj.implementation._storage == self.module.storage
         assert obj.implementation._device.name == "dev1"
@@ -771,7 +771,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         """Test FindDevicesWithTask."""
         task_path = self.interface.FindDevicesWithTask()
 
-        obj = check_task_creation(self, task_path, publisher, FindDevicesTask)
+        obj = check_task_creation(task_path, publisher, FindDevicesTask)
 
         assert obj.implementation._devicetree == self.module.storage.devicetree
 

@@ -72,7 +72,6 @@ class NFSSourceInterfaceTestCase(unittest.TestCase):
     def test_url_properties(self):
         """Test NFS source URL property is correctly set."""
         check_dbus_property(
-            self,
             PAYLOAD_SOURCE_NFS,
             self.interface,
             "URL",

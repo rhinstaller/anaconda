@@ -90,7 +90,6 @@ class NetworkInterfaceTestCase(unittest.TestCase):
 
     def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
-            self,
             NETWORK,
             self.network_interface,
             *args, **kwargs
@@ -256,7 +255,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
 
         task_path = self.network_interface.InstallNetworkWithTask(False)
 
-        obj = check_task_creation(self, task_path, publisher, NetworkInstallationTask)
+        obj = check_task_creation(task_path, publisher, NetworkInstallationTask)
 
         assert obj.implementation._disable_ipv6 == True
         assert obj.implementation._overwrite == False
@@ -275,7 +274,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
 
         task_path = self.network_interface.ConfigureHostnameWithTask(False)
 
-        obj = check_task_creation(self, task_path, publisher, HostnameConfigurationTask)
+        obj = check_task_creation(task_path, publisher, HostnameConfigurationTask)
 
         assert obj.implementation._overwrite == False
         assert obj.implementation._hostname == "my_hostname"
@@ -295,7 +294,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
             ["ens3"],
         )
 
-        obj = check_task_creation(self, task_path, publisher, ConfigureActivationOnBootTask)
+        obj = check_task_creation(task_path, publisher, ConfigureActivationOnBootTask)
 
         assert set(obj.implementation._onboot_ifaces) == \
             set(["ens3", "ens4"])
@@ -321,7 +320,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         self._mock_supported_devices([("ens3", "", 0)])
         task_path = self.network_interface.ApplyKickstartWithTask()
 
-        obj = check_task_creation(self, task_path, publisher, ApplyKickstartTask)
+        obj = check_task_creation(task_path, publisher, ApplyKickstartTask)
 
         self.network_module.log_task_result = Mock()
 
@@ -333,7 +332,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         """Test DumpMissingConfigFilesWithTask."""
         task_path = self.network_interface.DumpMissingConfigFilesWithTask()
 
-        obj = check_task_creation(self, task_path, publisher, DumpMissingConfigFilesTask)
+        obj = check_task_creation(task_path, publisher, DumpMissingConfigFilesTask)
 
         self.network_module.log_task_result = Mock()
 
@@ -449,7 +448,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
             ["ens3", "ens5", "ens7", "bond0", "devA", "devB"]
 
     def _test_kickstart(self, ks_in, ks_out, **kwargs):
-        check_kickstart_interface(self, self.network_interface, ks_in, ks_out, **kwargs)
+        check_kickstart_interface(self.network_interface, ks_in, ks_out, **kwargs)
 
     def test_no_kickstart(self):
         """Test with no kickstart."""
@@ -629,7 +628,6 @@ class FirewallInterfaceTestCase(unittest.TestCase):
 
     def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
-            self,
             FIREWALL,
             self.firewall_interface,
             *args, **kwargs
@@ -788,7 +786,7 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
         """Test the Firewall configuration task - basic."""
         task_path = self.firewall_interface.InstallWithTask()
 
-        obj = check_task_creation(self, task_path, publisher, ConfigureFirewallTask)
+        obj = check_task_creation(task_path, publisher, ConfigureFirewallTask)
 
         assert obj.implementation._firewall_mode == FirewallMode.DEFAULT
         assert obj.implementation._enabled_services == []

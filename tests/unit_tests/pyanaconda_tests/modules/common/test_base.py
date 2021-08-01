@@ -146,4 +146,4 @@ class BaseModuleTestCase(unittest.TestCase):
         interface = KickstartModuleInterface(service)
 
         tasks = interface.ConfigureBootloaderWithTasks(["1", "2", "3"])
-        check_task_creation_list(self, tasks, publisher, [Task1])
+        check_task_creation_list(tasks, publisher, [Task1])

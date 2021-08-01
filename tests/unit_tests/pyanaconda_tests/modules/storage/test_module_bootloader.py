@@ -64,7 +64,6 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
 
     def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
-            self,
             BOOTLOADER,
             self.bootloader_interface,
             *args, **kwargs
@@ -210,7 +209,7 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
             PAYLOAD_TYPE_LIVE_IMAGE, [version]
         )
 
-        check_task_creation_list(self, task_paths, publisher, task_classes)
+        check_task_creation_list(task_paths, publisher, task_classes)
 
     @patch_dbus_publish_object
     def test_generate_initramfs_with_tasks(self, publisher):
@@ -230,7 +229,7 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
             PAYLOAD_TYPE_LIVE_IMAGE, [version]
         )
 
-        check_task_creation_list(self, task_paths, publisher, task_classes)
+        check_task_creation_list(task_paths, publisher, task_classes)
 
 
 class BootloaderTasksTestCase(unittest.TestCase):

@@ -76,7 +76,6 @@ class StorageInterfaceTestCase(unittest.TestCase):
 
     def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
-            self,
             STORAGE,
             self.storage_interface,
             *args, **kwargs
@@ -134,7 +133,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """Test ScanDevicesWithTask."""
         task_path = self.storage_interface.ScanDevicesWithTask()
 
-        obj = check_task_creation(self, task_path, publisher, ScanDevicesTask)
+        obj = check_task_creation(task_path, publisher, ScanDevicesTask)
 
         assert obj.implementation._storage is not None
 
@@ -333,7 +332,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
     def test_write_configuration_with_task(self, publisher):
         """Test WriteConfigurationWithTask."""
         task_path = self.storage_interface.WriteConfigurationWithTask()
-        check_task_creation(self, task_path, publisher, WriteConfigurationTask)
+        check_task_creation(task_path, publisher, WriteConfigurationTask)
 
     @patch_dbus_publish_object
     def test_teardown_with_tasks(self, publisher):
@@ -387,7 +386,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         assert self.storage_interface.KickstartAddons == []
 
     def _test_kickstart(self, ks_in, ks_out, **kwargs):
-        check_kickstart_interface(self, self.storage_interface, ks_in, ks_out, **kwargs)
+        check_kickstart_interface(self.storage_interface, ks_in, ks_out, **kwargs)
 
     def test_no_kickstart(self):
         """Test with no kickstart."""

@@ -211,7 +211,7 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
 
         task_path = self.localization_interface.PopulateMissingKeyboardConfigurationWithTask()
 
-        obj = check_task_creation(self, task_path, publisher, GetMissingKeyboardConfigurationTask)
+        obj = check_task_creation(task_path, publisher, GetMissingKeyboardConfigurationTask)
         assert obj.implementation._vc_keymap == 'us'
         assert obj.implementation._x_layouts == ['cz', 'cz (qwerty)']
 
@@ -224,13 +224,13 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
 
         task_path = self.localization_interface.ApplyKeyboardWithTask()
 
-        obj = check_task_creation(self, task_path, publisher, ApplyKeyboardTask)
+        obj = check_task_creation(task_path, publisher, ApplyKeyboardTask)
         assert obj.implementation._vc_keymap == 'us'
         assert obj.implementation._x_layouts == ['cz', 'cz (qwerty)']
         assert obj.implementation._switch_options == ["grp:alt_shift_toggle"]
 
     def _test_kickstart(self, ks_in, ks_out):
-        check_kickstart_interface(self, self.localization_interface, ks_in, ks_out)
+        check_kickstart_interface(self.localization_interface, ks_in, ks_out)
 
     def test_no_kickstart(self):
         """Test with no kickstart."""

@@ -38,7 +38,6 @@ class OSTreeSourceInterfaceTestCase(unittest.TestCase):
 
     def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
-            self,
             PAYLOAD_SOURCE_RPM_OSTREE,
             self.interface,
             *args, **kwargs
