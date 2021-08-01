@@ -16,6 +16,8 @@
 # Red Hat, Inc.
 #
 import unittest
+import pytest
+
 from time import sleep
 from unittest.mock import Mock, call
 
@@ -60,12 +62,12 @@ class TaskInterfaceTestCase(unittest.TestCase):
         self.task_interface.Succeeded.connect(lambda: self.task_life_cycle.append("succeeded"))
 
         # Check the initial state.
-        self.assertEqual(self.task_interface.Progress, (0, ""))
-        self.assertEqual(self.task_life_cycle, [])
+        assert self.task_interface.Progress == (0, "")
+        assert self.task_life_cycle == []
         self._check_no_result()
 
     def _check_steps(self, steps=1):
-        self.assertEqual(self.task_interface.Steps, steps)
+        assert self.task_interface.Steps == steps
 
     def _check_task_signals(self, started=True, failed=False, succeeded=True, stopped=True):
         # Check the life cycle of the task.
@@ -80,21 +82,21 @@ class TaskInterfaceTestCase(unittest.TestCase):
         if stopped:
             expected.append("stopped")
 
-        self.assertListEqual(expected, self.task_life_cycle)
+        assert expected == self.task_life_cycle
 
     def _check_progress_changed(self, step, msg):
         # Check the Progress property.
-        self.assertEqual(self.task_interface.Progress, (step, msg))
+        assert self.task_interface.Progress == (step, msg)
 
         # Check the ProgressChanged signal.
         self.progress_changed_callback.assert_called_once_with(step, msg)
         self.progress_changed_callback.reset_mock()
 
     def _check_no_result(self):
-        with self.assertRaises(NoResultError):
+        with pytest.raises(NoResultError):
             self.task.get_result()
 
-        with self.assertRaises(NoResultError):
+        with pytest.raises(NoResultError):
             self.task_interface.GetResult()
 
     class SimpleTask(Task):
@@ -110,10 +112,10 @@ class TaskInterfaceTestCase(unittest.TestCase):
         """Test task properties."""
         self._set_up_task(self.SimpleTask())
 
-        self.assertEqual(self.task_interface.Name, "Simple Task")
-        self.assertEqual(self.task_interface.IsRunning, False)
-        self.assertEqual(self.task_interface.Steps, 1)
-        self.assertEqual(self.task_interface.Progress, (0, ""))
+        assert self.task_interface.Name == "Simple Task"
+        assert self.task_interface.IsRunning == False
+        assert self.task_interface.Steps == 1
+        assert self.task_interface.Progress == (0, "")
 
     def test_simple_progress_reporting(self):
         """Test simple progress reporting."""
@@ -179,13 +181,13 @@ class TaskInterfaceTestCase(unittest.TestCase):
         self.SimpleTask._thread_counter = 0
 
         task = self.SimpleTask()
-        self.assertEqual(task._thread_name, "AnaTaskThread-SimpleTask-1")
+        assert task._thread_name == "AnaTaskThread-SimpleTask-1"
 
         task = self.SimpleTask()
-        self.assertEqual(task._thread_name, "AnaTaskThread-SimpleTask-2")
+        assert task._thread_name == "AnaTaskThread-SimpleTask-2"
 
         task = self.SimpleTask()
-        self.assertEqual(task._thread_name, "AnaTaskThread-SimpleTask-3")
+        assert task._thread_name == "AnaTaskThread-SimpleTask-3"
 
     class MultiStepTask(Task):
 
@@ -286,7 +288,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
 
     def _finish_failed_task(self):
         """Finish a task."""
-        with self.assertRaises(TaskFailedException):
+        with pytest.raises(TaskFailedException):
             self.task_interface.Finish()
 
         self._check_task_signals(failed=True, succeeded=False)
@@ -357,7 +359,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
 
     @run_in_glib(TIMEOUT)
     def _sync_run_test(self):
-        with self.assertRaises(TaskFailedException):
+        with pytest.raises(TaskFailedException):
             sync_run_task(self.task_interface)
 
     def test_async_run(self):
@@ -370,7 +372,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         async_run_task(self.task_interface, self._async_callback)
 
     def _async_callback(self, task_proxy):
-        with self.assertRaises(TaskFailedException):
+        with pytest.raises(TaskFailedException):
             task_proxy.Finish()
 
     def test_install_with_no_tasks(self):
@@ -532,10 +534,10 @@ class TaskInterfaceTestCase(unittest.TestCase):
         self._finish_task()
 
         # The task provides a result.
-        self.assertEqual(self.task.get_result(), 1)
+        assert self.task.get_result() == 1
 
         # The result is publishable.
-        self.assertEqual(self.task_interface.GetResult(), get_variant(Int, 1))
+        assert self.task_interface.GetResult() == get_variant(Int, 1)
 
     def test_get_unpublishable_result(self):
         """Run a task that returns an unpublishable result."""
@@ -544,10 +546,10 @@ class TaskInterfaceTestCase(unittest.TestCase):
         self._finish_task()
 
         # The task provides a result.
-        self.assertEqual(self.task.get_result(), 1)
+        assert self.task.get_result() == 1
 
         # But the result is not publishable.
-        with self.assertRaises(NoResultError):
+        with pytest.raises(NoResultError):
             self.task_interface.GetResult()
 
     def test_get_no_result(self):
@@ -557,11 +559,11 @@ class TaskInterfaceTestCase(unittest.TestCase):
         self._finish_task()
 
         # The task provides no result.
-        with self.assertRaises(NoResultError):
-            self.assertEqual(self.task.get_result(), 1)
+        with pytest.raises(NoResultError):
+            assert self.task.get_result() == 1
 
         # The result is publishable, but there is no result.
-        with self.assertRaises(NoResultError):
+        with pytest.raises(NoResultError):
             self.task_interface.GetResult()
 
     def test_run_simple_task_with_signals(self):
@@ -572,7 +574,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
 
         self._check_task_signals()
         self._check_progress_changed(1, "Simple Task")
-        self.assertEqual(result, None)
+        assert result is None
 
     def test_run_task_with_signals(self):
         """Run a task that returns a result directly with signals."""
@@ -582,13 +584,13 @@ class TaskInterfaceTestCase(unittest.TestCase):
 
         self._check_task_signals()
         self._check_progress_changed(1, "Returning Task")
-        self.assertEqual(result, 1)
+        assert result == 1
 
     def test_run_failed_task_with_signals(self):
         """Run a failing task directly with signals."""
         self._set_up_task(self.FailingTask())
 
-        with self.assertRaises(TaskFailedException):
+        with pytest.raises(TaskFailedException):
             self.task.run_with_signals()
 
         self._check_task_signals(failed=True, succeeded=False)
@@ -602,4 +604,4 @@ class TaskInterfaceTestCase(unittest.TestCase):
         result = self.task.run_with_signals()
 
         self._check_task_signals(failed=False, succeeded=False)
-        self.assertEqual(result, None)
+        assert result is None

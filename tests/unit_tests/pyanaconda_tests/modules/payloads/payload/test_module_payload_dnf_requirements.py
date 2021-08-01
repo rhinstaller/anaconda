@@ -52,7 +52,7 @@ class DNFRequirementsTestCase(unittest.TestCase):
 
     def _compare_requirements(self, requirements, expected):
         """Compare the given lists of requirements."""
-        self.assertEqual(str(requirements), str(expected))
+        assert str(requirements) == str(expected)
 
     @patch_dbus_get_proxy_with_cache
     def test_collect_language_requirements(self, proxy_getter):
@@ -90,7 +90,7 @@ class DNFRequirementsTestCase(unittest.TestCase):
         self._compare_requirements(requirements, [r1, r2])
 
         msg = "Selected locale 'sr_RS@cyrilic' does not match any available langpacks."
-        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+        assert any(map(lambda x: msg in x, cm.output))
 
     @patch('pyanaconda.core.util.execWithCapture')
     def test_collect_platform_requirements(self, execute):
@@ -108,12 +108,12 @@ class DNFRequirementsTestCase(unittest.TestCase):
         # No platform is detected.
         execute.return_value = None
         requirements = collect_platform_requirements(base)
-        self.assertEqual(requirements, [])
+        assert requirements == []
 
         # Unsupported platform is detected.
         execute.return_value = "qemu"
         requirements = collect_platform_requirements(base)
-        self.assertEqual(requirements, [])
+        assert requirements == []
 
         # Supported platform is detected.
         execute.return_value = "vmware"
@@ -130,7 +130,7 @@ class DNFRequirementsTestCase(unittest.TestCase):
     def test_collect_driver_disk_requirements(self):
         """Test the function collect_driver_disk_requirements."""
         requirements = collect_driver_disk_requirements("/non/existent/file")
-        self.assertEqual(requirements, [])
+        assert requirements == []
 
         r1 = self._create_requirement(
             name="p1",
@@ -178,10 +178,10 @@ class DNFRequirementsTestCase(unittest.TestCase):
             apply_requirements(requirements, include_list, exclude_list)
 
         msg = "Unsupported type 'INVALID' of the requirement."
-        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+        assert any(map(lambda x: msg in x, cm.output))
 
-        self.assertEqual(include_list, [])
-        self.assertEqual(exclude_list, [])
+        assert include_list == []
+        assert exclude_list == []
 
     @patch('pyanaconda.modules.payloads.payload.dnf.requirements.conf')
     def test_apply_requirements_ignored_packages(self, conf_mock):
@@ -197,10 +197,10 @@ class DNFRequirementsTestCase(unittest.TestCase):
             apply_requirements(requirements, include_list, exclude_list)
 
         msg = "Requirement 'a' is ignored by the configuration."
-        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+        assert any(map(lambda x: msg in x, cm.output))
 
-        self.assertEqual(include_list, [])
-        self.assertEqual(exclude_list, [])
+        assert include_list == []
+        assert exclude_list == []
 
     @patch('pyanaconda.modules.payloads.payload.dnf.requirements.conf')
     def test_apply_requirements_excluded_packages(self, conf_mock):
@@ -216,10 +216,10 @@ class DNFRequirementsTestCase(unittest.TestCase):
             apply_requirements(requirements, include_list, exclude_list)
 
         msg = "Requirement 'a' is ignored because it's excluded."
-        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+        assert any(map(lambda x: msg in x, cm.output))
 
-        self.assertEqual(include_list, [])
-        self.assertEqual(exclude_list, ["a"])
+        assert include_list == []
+        assert exclude_list == ["a"]
 
     @patch('pyanaconda.modules.payloads.payload.dnf.requirements.conf')
     def test_apply_requirements(self, conf_mock):
@@ -239,10 +239,10 @@ class DNFRequirementsTestCase(unittest.TestCase):
             apply_requirements(requirements, include_list, exclude_list)
 
         msg = "Requirement 'a' is applied. Reason: Required by A."
-        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+        assert any(map(lambda x: msg in x, cm.output))
 
         msg = "Requirement '@c' is applied. Reason: Required by C."
-        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+        assert any(map(lambda x: msg in x, cm.output))
 
-        self.assertEqual(include_list, ["p1", "p2", "@g1", "@g2", "a", "@c"])
-        self.assertEqual(exclude_list, ["b", "@d"])
+        assert include_list == ["p1", "p2", "@g1", "@g2", "a", "@c"]
+        assert exclude_list == ["b", "@d"]

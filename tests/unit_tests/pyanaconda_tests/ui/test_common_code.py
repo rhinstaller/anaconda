@@ -68,4 +68,4 @@ class CommonCodeTestCase(unittest.TestCase):
         # then A & B as they have the same sort order but A comes before B
         # on the alphabet.
         expected_category_list = [CccCategory, AaaCategory, BbbCategory]
-        self.assertEqual(sort_categories(category_list), expected_category_list)
+        assert sort_categories(category_list) == expected_category_list

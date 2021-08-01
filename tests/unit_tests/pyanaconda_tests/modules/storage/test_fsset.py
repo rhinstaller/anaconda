@@ -52,10 +52,10 @@ class FSSetTestCase(unittest.TestCase):
         devices = self.fsset.system_filesystems
 
         # There are some devices in the list.
-        self.assertTrue(devices)
+        assert devices
 
         # The devices are always the same.
-        self.assertEqual(devices, self.fsset.system_filesystems)
+        assert devices == self.fsset.system_filesystems
 
     @patch("pyanaconda.modules.storage.devicetree.fsset.platform", X86())
     def test_collect_filesystems(self):
@@ -64,7 +64,7 @@ class FSSetTestCase(unittest.TestCase):
         mount_points = self._get_mount_points(devices)
         format_types = self._get_format_types(devices)
 
-        self.assertEqual(mount_points, [
+        assert mount_points == [
             '/dev',
             '/dev/pts',
             '/dev/shm',
@@ -74,9 +74,9 @@ class FSSetTestCase(unittest.TestCase):
             '/sys',
             '/sys/fs/selinux',
             '/tmp',
-        ])
+        ]
 
-        self.assertEqual(format_types, [
+        assert format_types == [
             'bind',
             'devpts',
             'tmpfs',
@@ -86,7 +86,7 @@ class FSSetTestCase(unittest.TestCase):
             'sysfs',
             'selinuxfs',
             'tmpfs',
-        ])
+        ]
 
     @patch("pyanaconda.modules.storage.devicetree.fsset.platform", EFI())
     def test_collect_filesystems_efi(self):
@@ -95,7 +95,7 @@ class FSSetTestCase(unittest.TestCase):
         mount_points = self._get_mount_points(devices)
         format_types = self._get_format_types(devices)
 
-        self.assertEqual(mount_points, [
+        assert mount_points == [
             '/dev',
             '/dev/pts',
             '/dev/shm',
@@ -106,9 +106,9 @@ class FSSetTestCase(unittest.TestCase):
             '/sys/firmware/efi/efivars',
             '/sys/fs/selinux',
             '/tmp',
-        ])
+        ]
 
-        self.assertEqual(format_types, [
+        assert format_types == [
             'bind',
             'devpts',
             'tmpfs',
@@ -119,7 +119,7 @@ class FSSetTestCase(unittest.TestCase):
             'efivarfs',
             'selinuxfs',
             'tmpfs',
-        ])
+        ]
 
     @patch("pyanaconda.modules.storage.devicetree.fsset.platform", X86())
     def test_collect_filesystems_tmp(self):
@@ -130,7 +130,7 @@ class FSSetTestCase(unittest.TestCase):
         mount_points = self._get_mount_points(devices)
         format_types = self._get_format_types(devices)
 
-        self.assertEqual(mount_points, [
+        assert mount_points == [
             '/dev',
             '/dev/pts',
             '/dev/shm',
@@ -140,9 +140,9 @@ class FSSetTestCase(unittest.TestCase):
             '/sys',
             '/sys/fs/selinux',
             '/tmp',
-        ])
+        ]
 
-        self.assertEqual(format_types, [
+        assert format_types == [
             'bind',
             'devpts',
             'tmpfs',
@@ -152,7 +152,7 @@ class FSSetTestCase(unittest.TestCase):
             'sysfs',
             'selinuxfs',
             'ext4',
-        ])
+        ]
 
     @patch("pyanaconda.modules.storage.devicetree.fsset.platform", X86())
     def test_collect_filesystems_extra(self):
@@ -167,7 +167,7 @@ class FSSetTestCase(unittest.TestCase):
         mount_points = self._get_mount_points(devices)
         format_types = self._get_format_types(devices)
 
-        self.assertEqual(mount_points, [
+        assert mount_points == [
             None,
             None,
             '/',
@@ -182,9 +182,9 @@ class FSSetTestCase(unittest.TestCase):
             '/sys',
             '/sys/fs/selinux',
             '/tmp',
-        ])
+        ]
 
-        self.assertEqual(format_types, [
+        assert format_types == [
             'swap',
             'swap',
             'ext4',
@@ -199,4 +199,4 @@ class FSSetTestCase(unittest.TestCase):
             'sysfs',
             'selinuxfs',
             'tmpfs',
-        ])
+        ]

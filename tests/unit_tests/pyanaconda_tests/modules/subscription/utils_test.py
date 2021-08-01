@@ -28,8 +28,8 @@ class FlattenRHSMNestedDictTestCase(unittest.TestCase):
 
     def test_empty_dict(self):
         """Test the flattening function can handle an empty dict being passed."""
-        self.assertEqual(flatten_rhsm_nested_dict({}), {})
+        assert flatten_rhsm_nested_dict({}) == {}
 
     def test_nested_dict(self):
         """Test the flattening function can handle a nested dict being passed."""
-        self.assertEqual(flatten_rhsm_nested_dict({"foo": {"bar": "baz"}}), {"foo.bar": "baz"})
+        assert flatten_rhsm_nested_dict({"foo": {"bar": "baz"}}) == {"foo.bar": "baz"}

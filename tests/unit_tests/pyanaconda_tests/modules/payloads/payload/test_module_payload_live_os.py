@@ -18,6 +18,7 @@
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
 import unittest
+import pytest
 
 from unittest.mock import Mock, patch
 
@@ -64,9 +65,8 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
 
     def test_supported_sources(self):
         """Test LiveOS supported sources API."""
-        self.assertEqual(
-            [SOURCE_TYPE_LIVE_OS_IMAGE],
-            self.live_os_interface.SupportedSourceTypes)
+        assert [SOURCE_TYPE_LIVE_OS_IMAGE] == \
+            self.live_os_interface.SupportedSourceTypes
 
     @patch_dbus_publish_object
     def test_set_source(self, publisher):
@@ -104,7 +104,7 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.payload.live_os.live_os.get_kernel_version_list")
     def test_empty_kernel_version_list(self, get_kernel_version_list):
         """Test Live OS empty get kernel version list."""
-        self.assertEqual(self.live_os_interface.GetKernelVersionList(), [])
+        assert self.live_os_interface.GetKernelVersionList() == []
 
         get_kernel_version_list.return_value = []
         kernel_list_callback = Mock()
@@ -115,7 +115,7 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
 
         get_kernel_version_list.assert_called_once_with(INSTALL_TREE)
 
-        self.assertEqual(self.live_os_interface.GetKernelVersionList(), [])
+        assert self.live_os_interface.GetKernelVersionList() == []
         kernel_list_callback.assert_called_once_with([])
 
     @patch("pyanaconda.modules.payloads.payload.live_os.live_os.get_kernel_version_list")
@@ -131,7 +131,7 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
 
         get_kernel_version_list.assert_called_once_with(INSTALL_TREE)
 
-        self.assertListEqual(self.live_os_interface.GetKernelVersionList(), kernel_list)
+        assert self.live_os_interface.GetKernelVersionList() == kernel_list
         kernel_list_callback.assert_called_once_with(kernel_list)
 
     @patch_dbus_publish_object
@@ -155,7 +155,7 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
     @patch_dbus_publish_object
     def test_prepare_system_for_installation_task_no_source(self, publisher):
         """Test Live OS prepare installation task with no source fail."""
-        with self.assertRaises(SourceSetupError):
+        with pytest.raises(SourceSetupError):
             self.live_os_interface.PreInstallWithTasks()
 
     @patch_dbus_publish_object
@@ -179,7 +179,7 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
     @patch_dbus_publish_object
     def test_install_with_task_no_source(self, publisher):
         """Test Live OS install with tasks with no source fail."""
-        with self.assertRaises(SourceSetupError):
+        with pytest.raises(SourceSetupError):
             self.live_os_interface.InstallWithTasks()
 
     @patch_dbus_publish_object
@@ -193,12 +193,12 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
 
         # Check the number of installation tasks.
         task_number = len(task_classes)
-        self.assertEqual(task_number, len(task_paths))
-        self.assertEqual(task_number, publisher.call_count)
+        assert task_number == len(task_paths)
+        assert task_number == publisher.call_count
 
         # Check the tasks.
         for i in range(task_number):
             object_path, obj = publisher.call_args_list[i][0]
-            self.assertEqual(object_path, task_paths[i])
-            self.assertIsInstance(obj, TaskInterface)
-            self.assertIsInstance(obj.implementation, task_classes[i])
+            assert object_path == task_paths[i]
+            assert isinstance(obj, TaskInterface)
+            assert isinstance(obj.implementation, task_classes[i])

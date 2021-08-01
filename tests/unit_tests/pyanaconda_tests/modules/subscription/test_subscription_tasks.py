@@ -19,7 +19,9 @@
 #
 import os
 import unittest
+import pytest
 import json
+
 from unittest.mock import patch, Mock, call
 
 import tempfile
@@ -93,7 +95,7 @@ class ConnectToInsightsTaskTestCase(unittest.TestCase):
             task = ConnectToInsightsTask(sysroot=sysroot,
                                          subscription_attached=True,
                                          connect_to_insights=True)
-            with self.assertRaises(InsightsClientMissingError):
+            with pytest.raises(InsightsClientMissingError):
                 task.run()
             # check that no attempt to call the Insights client has been attempted
             exec_with_redirect.assert_not_called()
@@ -112,7 +114,7 @@ class ConnectToInsightsTaskTestCase(unittest.TestCase):
                                          connect_to_insights=True)
             # make sure execWithRedirect has a non zero return code
             exec_with_redirect.return_value = 1
-            with self.assertRaises(InsightsConnectError):
+            with pytest.raises(InsightsConnectError):
                 task.run()
             # check that call to the insights client has been done with the expected parameters
             exec_with_redirect.assert_called_once_with('/usr/bin/insights-client',
@@ -362,31 +364,31 @@ class TransferSubscriptionTokensTaskTestCase(unittest.TestCase):
             with tempfile.TemporaryDirectory() as tempdir:
                 input_dir = os.path.join(tempdir, "input")
                 output_dir = os.path.join(tempdir, "output")
-                self.assertFalse(task._copy_pem_files(input_dir, output_dir))
+                assert not task._copy_pem_files(input_dir, output_dir)
 
             # input path is file
             with tempfile.TemporaryDirectory() as tempdir:
                 input_dir = os.path.join(tempdir, "input")
                 output_dir = os.path.join(tempdir, "output")
                 os.mknod(input_dir)
-                self.assertFalse(task._copy_pem_files(input_dir, output_dir))
+                assert not task._copy_pem_files(input_dir, output_dir)
 
             # input path directory empty & not_empty=True
             with tempfile.TemporaryDirectory() as tempdir:
                 input_dir = os.path.join(tempdir, "input")
                 output_dir = os.path.join(tempdir, "output")
                 os.mkdir(input_dir)
-                self.assertFalse(task._copy_pem_files(input_dir, output_dir, not_empty=True))
+                assert not task._copy_pem_files(input_dir, output_dir, not_empty=True)
 
             # input path directory empty & not_empty=False
             with tempfile.TemporaryDirectory() as tempdir:
                 input_dir = os.path.join(tempdir, "input")
                 output_dir = os.path.join(tempdir, "output")
                 os.mkdir(input_dir)
-                self.assertTrue(task._copy_pem_files(input_dir, output_dir, not_empty=False))
+                assert task._copy_pem_files(input_dir, output_dir, not_empty=False)
                 # the output dir should have been created and should be empty
-                self.assertTrue(os.path.isdir(output_dir))
-                self.assertEqual(os.listdir(output_dir), [])
+                assert os.path.isdir(output_dir)
+                assert os.listdir(output_dir) == []
 
             # test pem file transfer
             with tempfile.TemporaryDirectory() as tempdir:
@@ -406,11 +408,11 @@ class TransferSubscriptionTokensTaskTestCase(unittest.TestCase):
                 os.mknod(os.path.join(unrelated_subfolder, "subfolder.pem"))
                 os.mknod(os.path.join(unrelated_subfolder, "subfolder.txt"))
                 # the method should return True
-                self.assertTrue(task._copy_pem_files(input_dir, output_dir, not_empty=True))
+                assert task._copy_pem_files(input_dir, output_dir, not_empty=True)
                 # output folder should contain only the expected pem files
                 # - turn the two lists to sets to avoid ordering issues
-                self.assertEqual(set(os.listdir(output_dir)),
-                                 set(["foo.pem", "bar.pem", "baz.pem"]))
+                assert set(os.listdir(output_dir)) == \
+                    set(["foo.pem", "bar.pem", "baz.pem"])
 
     def test_copy_file(self):
         """Test copy file method of the subscription token transfer task."""
@@ -425,14 +427,14 @@ class TransferSubscriptionTokensTaskTestCase(unittest.TestCase):
                 output_dir = os.path.join(tempdir, "output")
                 input_file_path = os.path.join(input_dir, "foo.bar")
                 output_file_path = os.path.join(output_dir, "foo.bar")
-                self.assertFalse(task._copy_file(input_file_path, output_file_path))
+                assert not task._copy_file(input_file_path, output_file_path)
 
             # input path is a directory
             with tempfile.TemporaryDirectory() as tempdir:
                 input_dir = os.path.join(tempdir, "input")
                 output_dir = os.path.join(tempdir, "output")
                 os.mkdir(input_dir)
-                self.assertFalse(task._copy_file(input_file_path, output_file_path))
+                assert not task._copy_file(input_file_path, output_file_path)
 
             # test file transfer
             with tempfile.TemporaryDirectory() as tempdir:
@@ -445,12 +447,12 @@ class TransferSubscriptionTokensTaskTestCase(unittest.TestCase):
                 os.mknod(input_file_path)
                 os.mknod(unrelated_file_path)
                 # transfer should succeed
-                self.assertTrue(task._copy_file(input_file_path, output_file_path))
+                assert task._copy_file(input_file_path, output_file_path)
                 # output file at expected nested path should exist
                 output_file_path = os.path.join(output_dir, "foo.bar")
-                self.assertTrue(os.path.isfile(output_file_path))
+                assert os.path.isfile(output_file_path)
                 # otherwise the directory should be empty
-                self.assertTrue(os.listdir(output_dir), ["foo.bar"])
+                assert os.listdir(output_dir), ["foo.bar"]
 
     def test_transfer_file(self):
         """Test the transfer file method of the subscription token transfer task."""
@@ -476,7 +478,7 @@ class TransferSubscriptionTokensTaskTestCase(unittest.TestCase):
                                                   transfer_subscription_tokens=True)
             task._copy_file = Mock()
             task._copy_file.return_value = False
-            with self.assertRaises(SubscriptionTokenTransferError):
+            with pytest.raises(SubscriptionTokenTransferError):
                 task._transfer_file("/etc/foo.conf", "config for FOO")
 
     @patch("os.path.exists")
@@ -536,7 +538,7 @@ class TransferSubscriptionTokensTaskTestCase(unittest.TestCase):
                                                   transfer_subscription_tokens=True)
             task._copy_pem_files = Mock()
             task._copy_pem_files.return_value = False
-            with self.assertRaises(SubscriptionTokenTransferError):
+            with pytest.raises(SubscriptionTokenTransferError):
                 task._transfer_entitlement_keys()
 
     def test_transfer(self):
@@ -608,7 +610,7 @@ class RHSMPrivateBusTestCase(unittest.TestCase):
         with RHSMPrivateBus(register_server_proxy) as private_bus:
             # the private bus address should be set once we are
             # inside the context of the context manager
-            self.assertEqual(private_bus._private_bus_address, mock_address)
+            assert private_bus._private_bus_address == mock_address
             # the register server proxy Start method should have been called
             register_server_proxy.Start.assert_called_once_with("en_US.UTF-8")
             # now mock the backend of the bus instance to prevent it from
@@ -628,7 +630,7 @@ class RHSMPrivateBusTestCase(unittest.TestCase):
             # check correct proxy was requested from the connection
             connection.get_proxy.assert_called_once_with(RHSM.service_name,
                                                          RHSM_REGISTER.object_path)
-            self.assertEqual(private_register_proxy, connection.get_proxy.return_value)
+            assert private_register_proxy == connection.get_proxy.return_value
         # exit the context manager and check cleanup happened as expected
         disconnect.assert_called_once()
         register_server_proxy.Stop.assert_called_once_with("en_US.UTF-8")
@@ -677,7 +679,7 @@ class RegistrationTasksTestCase(unittest.TestCase):
                                                 username="foo_user",
                                                 password="bar_password",
                                                 organization="foo_org")
-        with self.assertRaises(RegistrationError):
+        with pytest.raises(RegistrationError):
             task.run()
         # check private register proxy Register method was called correctly
         private_register_proxy.Register.assert_called_with("foo_org",
@@ -756,7 +758,7 @@ class RegistrationTasksTestCase(unittest.TestCase):
                                                 organization="")
         # if we get more than one organization, we can's automatically decide which one to
         # use so we throw an exception to notify the user to pick one and try again
-        with self.assertRaises(MultipleOrganizationsError):
+        with pytest.raises(MultipleOrganizationsError):
             task.run()
 
     @patch("os.environ.get", return_value="en_US.UTF-8")
@@ -799,7 +801,7 @@ class RegistrationTasksTestCase(unittest.TestCase):
         task = RegisterWithOrganizationKeyTask(rhsm_register_server_proxy=register_server_proxy,
                                                organization="123456789",
                                                activation_keys=["foo", "bar", "baz"])
-        with self.assertRaises(RegistrationError):
+        with pytest.raises(RegistrationError):
             task.run()
         # check private register proxy RegisterWithActivationKeys method was called correctly
         private_register_proxy.RegisterWithActivationKeys.assert_called_with(
@@ -847,7 +849,7 @@ class UnregisterTaskTestCase(unittest.TestCase):
             registered_to_satellite=False,
             rhsm_configuration={}
         )
-        with self.assertRaises(DBusError):
+        with pytest.raises(DBusError):
             task.run()
         # check the RHSM observer was used correctly
         rhsm_observer.get_proxy.assert_called_once_with(RHSM_UNREGISTER)
@@ -872,7 +874,7 @@ class UnregisterTaskTestCase(unittest.TestCase):
             registered_to_satellite=True,
             rhsm_configuration={}
         )
-        with self.assertRaises(DBusError):
+        with pytest.raises(DBusError):
             task.run()
         # check the RHSM observer was used correctly
         rhsm_observer.get_proxy.assert_called_once_with(RHSM_UNREGISTER)
@@ -930,7 +932,7 @@ class AttachSubscriptionTaskTestCase(unittest.TestCase):
         rhsm_attach_proxy.AutoAttach.side_effect = DBusError(json_error)
         task = AttachSubscriptionTask(rhsm_attach_proxy=rhsm_attach_proxy,
                                       sla="foo_sla")
-        with self.assertRaises(SubscriptionError):
+        with pytest.raises(SubscriptionError):
             task.run()
         rhsm_attach_proxy.AutoAttach.assert_called_once_with("foo_sla",
                                                              {},
@@ -944,19 +946,19 @@ class ParseAttachedSubscriptionsTaskTestCase(unittest.TestCase):
         """Test the pretty date method of ParseAttachedSubscriptionsTask."""
         pretty_date_method = ParseAttachedSubscriptionsTask._pretty_date
         # try to parse ISO 8601 first
-        self.assertEqual(pretty_date_method("2015-12-22"), "Dec 22, 2015")
+        assert pretty_date_method("2015-12-22") == "Dec 22, 2015"
         # the method expects short mm/dd/yy dates
-        self.assertEqual(pretty_date_method("12/22/15"), "Dec 22, 2015")
+        assert pretty_date_method("12/22/15") == "Dec 22, 2015"
         # returns the input if parsing fails
         ambiguous_date = "noon of the twenty first century"
-        self.assertEqual(pretty_date_method(ambiguous_date), ambiguous_date)
+        assert pretty_date_method(ambiguous_date) == ambiguous_date
 
     def test_subscription_json_parsing(self):
         """Test the subscription JSON parsing method of ParseAttachedSubscriptionsTask."""
         parse_method = ParseAttachedSubscriptionsTask._parse_subscription_json
         # the method should be able to survive the RHSM DBus API returning an empty string,
         # as empty list of subscriptions is a lesser issue than crashed installation
-        self.assertEqual(parse_method(""), [])
+        assert parse_method("") == []
         # try parsing a json file containing two subscriptions
         # - to make this look sane, we write it as a dict that we then convert to JSON
         subscription_dict = {
@@ -1026,7 +1028,7 @@ class ParseAttachedSubscriptionsTaskTestCase(unittest.TestCase):
         )
         # check the content of the AttachedSubscription corresponds to the input JSON,
         # including date formatting
-        self.assertEqual(structs, expected_structs)
+        assert structs == expected_structs
 
     def test_system_purpose_json_parsing(self):
         """Test the system purpose JSON parsing method of ParseAttachedSubscriptionsTask."""
@@ -1041,7 +1043,7 @@ class ParseAttachedSubscriptionsTaskTestCase(unittest.TestCase):
         struct = get_native(
             SystemPurposeData.to_structure(parse_method(""))
         )
-        self.assertEqual(struct, expected_struct)
+        assert struct == expected_struct
         # try parsing expected complete system purpose data
         system_purpose_dict = {
             "role": "important",
@@ -1059,7 +1061,7 @@ class ParseAttachedSubscriptionsTaskTestCase(unittest.TestCase):
         struct = get_native(
             SystemPurposeData.to_structure(parse_method(system_purpose_json))
         )
-        self.assertEqual(struct, expected_struct)
+        assert struct == expected_struct
         # try also partial parsing, just in case
         system_purpose_dict = {
             "role": "important",
@@ -1075,7 +1077,7 @@ class ParseAttachedSubscriptionsTaskTestCase(unittest.TestCase):
         struct = get_native(
             SystemPurposeData.to_structure(parse_method(system_purpose_json))
         )
-        self.assertEqual(struct, expected_struct)
+        assert struct == expected_struct
 
     @patch("os.environ.get", return_value="en_US.UTF-8")
     def test_attach_subscription_task_success(self, environ_get):
@@ -1107,8 +1109,8 @@ class ParseAttachedSubscriptionsTaskTestCase(unittest.TestCase):
         task._parse_subscription_json.assert_called_once_with("foo")
         task._parse_system_purpose_json.assert_called_once_with("bar")
         # check the result that has been returned is as expected
-        self.assertEqual(result.attached_subscriptions, [subscription1, subscription2])
-        self.assertEqual(result.system_purpose_data, system_purpose_data)
+        assert result.attached_subscriptions == [subscription1, subscription2]
+        assert result.system_purpose_data == system_purpose_data
 
 
 class SatelliteTasksTestCase(unittest.TestCase):
@@ -1124,7 +1126,7 @@ class SatelliteTasksTestCase(unittest.TestCase):
             satellite_url="satellite.example.com",
             proxy_url="proxy.example.com",
         )
-        self.assertEqual(task.run(), "foo bar")
+        assert task.run() == "foo bar"
         # check the wrapped download function was called correctly
         download_function.assert_called_with(
             satellite_url="satellite.example.com",
@@ -1154,7 +1156,7 @@ class SatelliteTasksTestCase(unittest.TestCase):
         task = RunSatelliteProvisioningScriptTask(
             provisioning_script="foo bar"
         )
-        with self.assertRaises(SatelliteProvisioningError):
+        with pytest.raises(SatelliteProvisioningError):
             task.run()
         # check the wrapped run function was called correctly
         run_script_function.assert_called_with(
@@ -1176,7 +1178,7 @@ class SatelliteTasksTestCase(unittest.TestCase):
         # check the RHSM config proxy was called correctly
         config_proxy.GetAll.assert_called_once_with("")
         # check the DBus struct is correctly converted to a Python dict
-        self.assertEqual(conf_backup, {"foo": "bar"})
+        assert conf_backup == {"foo": "bar"}
 
     def test_rhsm_roll_back(self):
         """Test the RollBackSatelliteProvisioningTask."""
@@ -1225,7 +1227,7 @@ class SatelliteTasksTestCase(unittest.TestCase):
         # create the task and run it
         task = ProvisionTargetSystemForSatelliteTask(provisioning_script="foo")
         # check if the correct exception for a failure is raised
-        with self.assertRaises(SatelliteProvisioningError):
+        with pytest.raises(SatelliteProvisioningError):
             task.run()
         # make sure we did try to provision the system with
         run_script_function.assert_called_once_with(
@@ -1245,17 +1247,15 @@ class RegisterandSubscribeTestCase(unittest.TestCase):
         """Test proxy URL generation in RegisterAndSubscribeTask."""
         # no proxy data provided
         empty_request = SubscriptionRequest()
-        self.assertIsNone(RegisterAndSubscribeTask._get_proxy_url(empty_request))
+        assert RegisterAndSubscribeTask._get_proxy_url(empty_request) is None
         # proxy data provided in subscription request
         request_with_proxy_data = SubscriptionRequest()
         request_with_proxy_data.server_proxy_hostname = "proxy.example.com"
         request_with_proxy_data.server_proxy_user = "foo_user"
         request_with_proxy_data.server_proxy_password.set_secret("foo_password")
         request_with_proxy_data.server_proxy_port = 1234
-        self.assertEqual(
-            RegisterAndSubscribeTask._get_proxy_url(request_with_proxy_data),
+        assert RegisterAndSubscribeTask._get_proxy_url(request_with_proxy_data) == \
             "http://foo_user:foo_password@proxy.example.com:1234"
-        )
         # one more time without valid port set
         request_with_proxy_data = SubscriptionRequest()
         request_with_proxy_data.server_proxy_hostname = "proxy.example.com"
@@ -1263,10 +1263,8 @@ class RegisterandSubscribeTestCase(unittest.TestCase):
         request_with_proxy_data.server_proxy_password.set_secret("foo_password")
         request_with_proxy_data.server_proxy_port = -1
         # this should result in the default proxy port 3128 being used
-        self.assertEqual(
-            RegisterAndSubscribeTask._get_proxy_url(request_with_proxy_data),
+        assert RegisterAndSubscribeTask._get_proxy_url(request_with_proxy_data) == \
             "http://foo_user:foo_password@proxy.example.com:3128"
-        )
 
     @patch("pyanaconda.modules.subscription.runtime.DownloadSatelliteProvisioningScriptTask")
     def test_provision_system_for_satellite_skip(self, download_task):
@@ -1313,7 +1311,7 @@ class RegisterandSubscribeTestCase(unittest.TestCase):
         # make the mock download task fail
         download_task.side_effect = SatelliteProvisioningError()
         # run the provisioning method, check correct exception is raised
-        with self.assertRaises(SatelliteProvisioningError):
+        with pytest.raises(SatelliteProvisioningError):
             task._provision_system_for_satellite()
         # download task should have been instantiated
         download_task.assert_called_once_with(
@@ -1351,7 +1349,7 @@ class RegisterandSubscribeTestCase(unittest.TestCase):
         # make the mock backup task return mock RHSM config dict
         backup_task.return_value.run.return_value = {"foo": {"bar": "baz"}}
         # run the provisioning method, check correct exception is raised
-        with self.assertRaises(SatelliteProvisioningError):
+        with pytest.raises(SatelliteProvisioningError):
             task._provision_system_for_satellite()
         # download task should have been instantiated
         download_task.assert_called_once_with(
@@ -1447,7 +1445,7 @@ class RegisterandSubscribeTestCase(unittest.TestCase):
         # make the register task throw an exception
         register_username_task.return_value.run_with_signals.side_effect = RegistrationError()
         # check the exception is raised as expected
-        with self.assertRaises(RegistrationError):
+        with pytest.raises(RegistrationError):
             task.run()
         # check the register task was properly instantiated
         register_username_task.assert_called_once_with(
@@ -1482,7 +1480,7 @@ class RegisterandSubscribeTestCase(unittest.TestCase):
         # make the register task throw an exception
         register_org_task.return_value.run_with_signals.side_effect = RegistrationError()
         # check the exception is raised as expected
-        with self.assertRaises(RegistrationError):
+        with pytest.raises(RegistrationError):
             task.run()
         # check the register task was properly instantiated
         register_org_task.assert_called_once_with(
@@ -1654,7 +1652,7 @@ class RegisterandSubscribeTestCase(unittest.TestCase):
         # make the register task throw an exception
         register_task.return_value.run_with_signals.side_effect = RegistrationError()
         # run the main task, epxect registration error
-        with self.assertRaises(RegistrationError):
+        with pytest.raises(RegistrationError):
             task.run()
         # check satellite provisioning was attempted
         task._provision_system_for_satellite.assert_called_once_with()
@@ -1715,7 +1713,7 @@ class RegisterandSubscribeTestCase(unittest.TestCase):
         # make the subscription task throw an exception
         attach_task.return_value.run.side_effect = SubscriptionError()
         # run the main task, epxect registration error
-        with self.assertRaises(SubscriptionError):
+        with pytest.raises(SubscriptionError):
             task.run()
         # check satellite provisioning was attempted
         task._provision_system_for_satellite.assert_called_once_with()
@@ -1752,7 +1750,7 @@ class RetrieveOrganizationsTaskTestCase(unittest.TestCase):
         struct = get_native(
             OrganizationData.to_structure_list(parse_method(""))
         )
-        self.assertEqual(struct, [])
+        assert struct == []
 
         # try data with single organization
         single_org_data = [
@@ -1773,7 +1771,7 @@ class RetrieveOrganizationsTaskTestCase(unittest.TestCase):
         struct = get_native(
             OrganizationData.to_structure_list(parse_method(single_org_data_json))
         )
-        self.assertEqual(struct, expected_struct_list)
+        assert struct == expected_struct_list
 
         # try multiple organizations:
         # - one in entitlement (classic) mode
@@ -1814,7 +1812,7 @@ class RetrieveOrganizationsTaskTestCase(unittest.TestCase):
         structs = get_native(
             OrganizationData.to_structure_list(parse_method(multiple_org_data_json))
         )
-        self.assertEqual(structs, expected_struct_list)
+        assert structs == expected_struct_list
 
     @patch("os.environ.get", return_value="en_US.UTF-8")
     @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")
@@ -1869,7 +1867,7 @@ class RetrieveOrganizationsTaskTestCase(unittest.TestCase):
         structs = get_native(
             OrganizationData.to_structure_list(org_data_structs)
         )
-        self.assertEqual(structs, expected_struct_list)
+        assert structs == expected_struct_list
 
         # check the private register proxy Register method was called correctly
         private_register_proxy.GetOrgs.assert_called_once_with("foo_user",

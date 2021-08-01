@@ -18,6 +18,8 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
+import pytest
+
 from unittest.mock import patch
 
 from pyanaconda.core.configuration.anaconda import conf
@@ -38,15 +40,15 @@ class FCOEInterfaceTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.storage.fcoe.fcoe.has_fcoe", return_value=True)
     def test_is_supported(self, is_supported):
-        self.assertEqual(self.fcoe_interface.IsSupported(), True)
+        assert self.fcoe_interface.IsSupported() == True
 
     def test_get_nics(self):
         """Test the get nics method."""
-        self.assertEqual(self.fcoe_interface.GetNics(), list())
+        assert self.fcoe_interface.GetNics() == list()
 
     def test_get_dracut_arguments(self):
         """Test the get dracut arguments method."""
-        self.assertEqual(self.fcoe_interface.GetDracutArguments("eth0"), list())
+        assert self.fcoe_interface.GetDracutArguments("eth0") == list()
 
     @patch_dbus_publish_object
     def test_discover_with_task(self, publisher):
@@ -59,9 +61,9 @@ class FCOEInterfaceTestCase(unittest.TestCase):
 
         obj = check_task_creation(self, task_path, publisher, FCOEDiscoverTask)
 
-        self.assertEqual(obj.implementation._nic, "eth0")
-        self.assertEqual(obj.implementation._dcb, False)
-        self.assertEqual(obj.implementation._auto_vlan, True)
+        assert obj.implementation._nic == "eth0"
+        assert obj.implementation._dcb == False
+        assert obj.implementation._auto_vlan == True
 
     @patch('pyanaconda.modules.storage.fcoe.fcoe.fcoe')
     def test_write_configuration(self, fcoe):
@@ -78,10 +80,10 @@ class FCOETasksTestCase(unittest.TestCase):
         """Test the failing discovery task."""
         fcoe.add_san.return_value = "Fake error message"
 
-        with self.assertRaises(StorageDiscoveryError) as cm:
+        with pytest.raises(StorageDiscoveryError) as cm:
             FCOEDiscoverTask(nic="eth0", dcb=False, auto_vlan=True).run()
 
-        self.assertEqual(str(cm.exception), "Fake error message")
+        assert str(cm.value) == "Fake error message"
 
     @patch('pyanaconda.modules.storage.fcoe.discover.fcoe')
     def test_discovery(self, fcoe):

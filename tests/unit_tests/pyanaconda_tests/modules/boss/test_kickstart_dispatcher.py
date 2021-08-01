@@ -21,6 +21,7 @@
 import unittest
 import os
 import shlex
+import pytest
 from contextlib import contextmanager
 
 from pyanaconda.modules.boss.kickstart_manager.element import KickstartElement,\
@@ -208,39 +209,39 @@ class KickstartElementTest(unittest.TestCase):
         element = KickstartElement(["network", "--device=ens3", "--activate"],
                                    ["network --device=ens3 --activate\n"],
                                    4, filename)
-        self.assertEqual(element.filename, filename)
-        self.assertEqual(element.lineno, 4)
-        self.assertEqual(element.name, "network")
-        self.assertEqual(element.content, "network --device=ens3 --activate\n")
-        self.assertEqual(element.is_command(), True)
-        self.assertEqual(element.is_section(), False)
-        self.assertEqual(element.is_addon(), False)
+        assert element.filename == filename
+        assert element.lineno == 4
+        assert element.name == "network"
+        assert element.content == "network --device=ens3 --activate\n"
+        assert element.is_command() == True
+        assert element.is_section() == False
+        assert element.is_addon() == False
 
         # Ordinary section
         element = KickstartElement(["%post", "--nochroot", "--interpreter", "/usr/bin/bash"],
                                    ["echo POST1\n"],
                                    12, filename)
-        self.assertEqual(element.filename, filename)
-        self.assertEqual(element.lineno, 12)
-        self.assertEqual(element.name, "post")
-        self.assertEqual(element.content,
-                         "%post --nochroot --interpreter /usr/bin/bash\necho POST1\n%end\n")
-        self.assertEqual(element.is_command(), False)
-        self.assertEqual(element.is_section(), True)
-        self.assertEqual(element.is_addon(), False)
+        assert element.filename == filename
+        assert element.lineno == 12
+        assert element.name == "post"
+        assert element.content == \
+            "%post --nochroot --interpreter /usr/bin/bash\necho POST1\n%end\n"
+        assert element.is_command() == False
+        assert element.is_section() == True
+        assert element.is_addon() == False
 
         # Ordinary addon
         element = KickstartElement(["%addon", "scorched", "--planet=Earth"],
                                    ["nuke\n"],
                                    9, filename)
-        self.assertEqual(element.filename, filename)
-        self.assertEqual(element.lineno, 9)
-        self.assertEqual(element.name, "scorched")
-        self.assertEqual(element.content, "%addon scorched --planet=Earth\nnuke\n%end\n")
-        self.assertEqual(element.is_command(), False)
+        assert element.filename == filename
+        assert element.lineno == 9
+        assert element.name == "scorched"
+        assert element.content == "%addon scorched --planet=Earth\nnuke\n%end\n"
+        assert element.is_command() == False
         # NOTE We do not consider addon being a section
-        self.assertEqual(element.is_section(), False)
-        self.assertEqual(element.is_addon(), True)
+        assert element.is_section() == False
+        assert element.is_addon() == True
 
         # Some more special commands
 
@@ -248,11 +249,11 @@ class KickstartElementTest(unittest.TestCase):
         element = KickstartElement(["text"],
                                    ["text\n"],
                                    1, filename)
-        self.assertEqual(element.name, "text")
-        self.assertEqual(element.content, "text\n")
-        self.assertEqual(element.is_command(), True)
-        self.assertEqual(element.is_section(), False)
-        self.assertEqual(element.is_addon(), False)
+        assert element.name == "text"
+        assert element.content == "text\n"
+        assert element.is_command() == True
+        assert element.is_section() == False
+        assert element.is_addon() == False
 
         # Some more special sections
 
@@ -260,20 +261,20 @@ class KickstartElementTest(unittest.TestCase):
         element = KickstartElement(["%pre"],
                                    ["echo PRE\n"],
                                    1, filename)
-        self.assertEqual(element.name, "pre")
-        self.assertEqual(element.content, "%pre\necho PRE\n%end\n")
-        self.assertEqual(element.is_command(), False)
-        self.assertEqual(element.is_section(), True)
-        self.assertEqual(element.is_addon(), False)
+        assert element.name == "pre"
+        assert element.content == "%pre\necho PRE\n%end\n"
+        assert element.is_command() == False
+        assert element.is_section() == True
+        assert element.is_addon() == False
         # no body
         element = KickstartElement(["%packages", "--no-core"],
                                    [],
                                    1, filename)
-        self.assertEqual(element.name, "packages")
-        self.assertEqual(element.content, "%packages --no-core\n%end\n")
-        self.assertEqual(element.is_command(), False)
-        self.assertEqual(element.is_section(), True)
-        self.assertEqual(element.is_addon(), False)
+        assert element.name == "packages"
+        assert element.content == "%packages --no-core\n%end\n"
+        assert element.is_command() == False
+        assert element.is_section() == True
+        assert element.is_addon() == False
 
         # Some more special addons
 
@@ -281,20 +282,20 @@ class KickstartElementTest(unittest.TestCase):
         element = KickstartElement(["%addon", "pony", "--fly=True"],
                                    [],
                                    1, filename)
-        self.assertEqual(element.name, "pony")
-        self.assertEqual(element.content, "%addon pony --fly=True\n%end\n")
-        self.assertEqual(element.is_command(), False)
-        self.assertEqual(element.is_section(), False)
-        self.assertEqual(element.is_addon(), True)
+        assert element.name == "pony"
+        assert element.content == "%addon pony --fly=True\n%end\n"
+        assert element.is_command() == False
+        assert element.is_section() == False
+        assert element.is_addon() == True
         # no name! - we don't fail
         element = KickstartElement(["%addon"],
                                    ["blah\n"],
                                    1, filename)
-        self.assertEqual(element.name, "")
-        self.assertEqual(element.content, "%addon\nblah\n%end\n")
-        self.assertEqual(element.is_command(), False)
-        self.assertEqual(element.is_section(), False)
-        self.assertEqual(element.is_addon(), True)
+        assert element.name == ""
+        assert element.content == "%addon\nblah\n%end\n"
+        assert element.is_command() == False
+        assert element.is_section() == False
+        assert element.is_addon() == True
 
 
 class TrackedKickstartElementsTest(unittest.TestCase):
@@ -369,30 +370,29 @@ echo POST1
         for element in expected_elements:
             elements.append(element)
 
-        self.assertEqual(elements.all_elements, expected_elements)
+        assert elements.all_elements == expected_elements
 
         # filtering
         network_commands = elements.get_elements(commands=["network"])
-        self.assertEqual(network_commands, [self._element2, self._element3])
+        assert network_commands == [self._element2, self._element3]
 
         pony_addon = elements.get_elements(addons=["pony"])
-        self.assertEqual(pony_addon, [self._element4])
+        assert pony_addon == [self._element4]
 
         pre_sections = elements.get_elements(sections=["pre"])
-        self.assertEqual(pre_sections, [self._element1])
+        assert pre_sections == [self._element1]
         # addon is not considered a section
         addon_sections = elements.get_elements(sections=["addon"])
-        self.assertEqual(addon_sections, [])
+        assert addon_sections == []
 
         mixed_elements = elements.get_elements(commands=["network"],
                                                sections=["pre", "post"],
                                                addons=["pony"])
-        self.assertEqual(mixed_elements,
-                         [self._element1, self._element2, self._element3, self._element4,
-                          self._element7])
+        assert mixed_elements == \
+            [self._element1, self._element2, self._element3, self._element4, self._element7]
 
         # nothing required - nothing got
-        self.assertEqual(elements.get_elements(), [])
+        assert elements.get_elements() == []
 
     def test_tracked_kickstart_elements_tracking(self):
         """Test tracking of elements."""
@@ -409,19 +409,18 @@ echo POST1
                                                                addons=["pony"])
         unprocessed_elements = elements.unprocessed_elements
         # still keeping order of elements
-        self.assertEqual(unprocessed_elements,
-                         [self._element5, self._element6, self._element7])
+        assert unprocessed_elements == [self._element5, self._element6, self._element7]
         # nothing is missing
-        self.assertEqual(set(elements.all_elements),
-                         set.union(set(processed_elements), set(unprocessed_elements)))
+        assert set(elements.all_elements) == \
+            set.union(set(processed_elements), set(unprocessed_elements))
         # elements once processed remain processed if you just get them
         elements.get_elements(commands=["network"], sections=["pre"], addons=["pony"])
-        self.assertEqual(elements.unprocessed_elements, unprocessed_elements)
+        assert elements.unprocessed_elements == unprocessed_elements
         # processing some more elements - firewall command
         firewall_elements = elements.get_and_process_elements(commands=["firewall"])
-        self.assertEqual(set(elements.unprocessed_elements),
-                         set.difference(set(unprocessed_elements), set(firewall_elements)))
-        self.assertEqual(elements.unprocessed_elements, [self._element6, self._element7])
+        assert set(elements.unprocessed_elements) == \
+                         set.difference(set(unprocessed_elements), set(firewall_elements))
+        assert elements.unprocessed_elements == [self._element6, self._element7]
 
     def test_tracked_kickstart_elements_dump_kickstart(self):
         """Test dumping of elements into kickstart."""
@@ -434,7 +433,7 @@ echo POST1
             elements.append(element)
 
         dumped_ks = elements.get_kickstart_from_elements(elements.all_elements)
-        self.assertEqual(dumped_ks, self._expected_ks_content)
+        assert dumped_ks == self._expected_ks_content
 
     def test_tracked_kickstart_elements_get_refs_kickstart(self):
         """Test getting of element references."""
@@ -447,7 +446,7 @@ echo POST1
             elements.append(element)
 
         element_refs = elements.get_references_from_elements(elements.all_elements)
-        self.assertEqual(element_refs, self._expected_element_refs)
+        assert element_refs == self._expected_element_refs
 
 
 class SplitKickstartParserTest(unittest.TestCase):
@@ -509,10 +508,10 @@ echo POST1
         os.remove(filename)
 
         for element, expected in zip(result.all_elements, expected_result):
-            self.assertEqual(element.filename, filename)
-            self.assertEqual((element.name, element.content, element.lineno), expected)
+            assert element.filename == filename
+            assert (element.name, element.content, element.lineno) == expected
 
-        self.assertEqual(result.get_kickstart_from_elements(result.all_elements), ks_content)
+        assert result.get_kickstart_from_elements(result.all_elements) == ks_content
 
         # Reading kickstart from string
 
@@ -520,10 +519,10 @@ echo POST1
         result = ksparser.split_from_string(ks_content)
 
         for element, expected in zip(result.all_elements, expected_result):
-            self.assertEqual(element.filename, filename)
-            self.assertEqual((element.name, element.content, element.lineno), expected)
+            assert element.filename == filename
+            assert (element.name, element.content, element.lineno) == expected
 
-        self.assertEqual(result.get_kickstart_from_elements(result.all_elements), ks_content)
+        assert result.get_kickstart_from_elements(result.all_elements) == ks_content
 
         # Reading kickstart from string supplying filename
 
@@ -531,12 +530,12 @@ echo POST1
         result = ksparser.split_from_string(ks_content, filename=filename)
 
         for element, expected in zip(result.all_elements, expected_result):
-            self.assertEqual(element.filename, filename)
-            self.assertEqual((element.name, element.content, element.lineno), expected)
+            assert element.filename == filename
+            assert (element.name, element.content, element.lineno) == expected
 
         # Dumping kickstart
 
-        self.assertEqual(result.get_kickstart_from_elements(result.all_elements), ks_content)
+        assert result.get_kickstart_from_elements(result.all_elements) == ks_content
 
     @contextmanager
     def _create_ks_files(self, kickstart):
@@ -567,9 +566,9 @@ echo POST1
                 header = element.content.strip().split("\n")[0]
                 # Headers are not stored as source lines but go through shlex
                 # parsing before we can store them in result.
-                self.assertEqual(shlex.split(header), shlex.split(kickstart_line))
+                assert shlex.split(header) == shlex.split(kickstart_line)
             elif element.is_command():
-                self.assertEqual(element.content, kickstart_line)
+                assert element.content == kickstart_line
 
     def _split_kickstart_parser_test(self, ksparser, kickstart_files, expected_output=None):
         with self._create_ks_files(kickstart_files) as filename:
@@ -581,14 +580,14 @@ echo POST1
         result1_kickstart = result1.get_kickstart_from_elements(result1.all_elements)
         if expected_output is not None:
             # Compare with expected output kickstart
-            self.assertEqual(result1_kickstart, expected_output)
+            assert result1_kickstart == expected_output
 
         # Now do one more pass on resulting (flat) kickstart
         result2 = ksparser.split_from_string(result1_kickstart)
         # the result will be different in most cases because of different references
         # but the kickstart should be the same now
         result2_kickstart = result2.get_kickstart_from_elements(result2.all_elements)
-        self.assertEqual(result1_kickstart, result2_kickstart)
+        assert result1_kickstart == result2_kickstart
 
     def test_split_kickstart_parser(self):
         """Test splitting and dumping of various kickstart samples."""
@@ -605,7 +604,8 @@ echo POST1
         ksparser = SplitKickstartParser(handler, valid_sections)
         for kickstart_files in self._flat_kickstarts_raising:
             _filename, content = kickstart_files[0]
-            self.assertRaises(KickstartParseError, ksparser.split_from_string, content)
+            with pytest.raises(KickstartParseError):
+                ksparser.split_from_string(content)
 
     def test_split_from_string_filename(self):
         """Test splitting kickstart supplied by string."""
@@ -619,11 +619,11 @@ echo POST1
         # Kickstart from string has "<MAIN>" as filename
         result = ksparser.split_from_string(content)
         for element in result.all_elements:
-            self.assertEqual(element.filename, SplitKickstartParser.unknown_filename)
+            assert element.filename == SplitKickstartParser.unknown_filename
         # Or the value supplied by filename optional argument
         result = ksparser.split_from_string(content, filename=filename)
         for element in result.all_elements:
-            self.assertEqual(element.filename, filename)
+            assert element.filename == filename
 
     def test_valid_sections(self):
         """Test setting of valid sections for the parser."""
@@ -636,11 +636,12 @@ echo POST1
         returned_valid_sections = ksparser.valid_sections
         # valid_sections returns new list, not a reference to the internal object
         returned_valid_sections.append("%test")
-        self.assertNotEqual(returned_valid_sections, ksparser.valid_sections)
+        assert returned_valid_sections != ksparser.valid_sections
 
         ksparser.valid_sections = ["%packages"]
         # Invalid section raises exception
-        self.assertRaises(KickstartParseError, ksparser.split_from_string, content)
+        with pytest.raises(KickstartParseError):
+            ksparser.split_from_string(content)
         # setting valid sections back to the original, the exception is gone
         ksparser.valid_sections = valid_sections
         ksparser.split_from_string(content)
@@ -661,7 +662,7 @@ network --devce=ens9 --activate
         handler = makeVersion()
         ksparser = SplitKickstartParser(handler)
         result = ksparser.split_from_string(ks_content)
-        self.assertEqual(len(result.all_elements), 4)
+        assert len(result.all_elements) == 4
 
     def test_conflicting_commands(self):
         """Test conflicting commands in kickstart.
@@ -684,7 +685,7 @@ autopart --encrypted --passphrase=starost --type=lvm
         handler = makeVersion()
         ksparser = SplitKickstartParser(handler)
         result = ksparser.split_from_string(ks_content)
-        self.assertEqual(len(result.all_elements), 7)
+        assert len(result.all_elements) == 7
 
     def test_missing_include(self):
         """Test behaviour for missing kickstart include files."""
@@ -696,7 +697,8 @@ network --device=ens3
         handler = makeVersion()
         ksparser = SplitKickstartParser(handler)
         # By default raises error
-        self.assertRaises(KickstartError, ksparser.split_from_string, ks_content)
+        with pytest.raises(KickstartError):
+            ksparser.split_from_string(ks_content)
         # But can be configured not to
         ksparser = SplitKickstartParser(handler, missing_include_is_fatal=False)
         ksparser.split_from_string(ks_content)

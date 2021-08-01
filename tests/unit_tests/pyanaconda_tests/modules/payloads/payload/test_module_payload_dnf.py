@@ -55,15 +55,15 @@ class DNFKSTestCase(unittest.TestCase):
 
     def _check_properties(self, expected_source_type):
         payload = self.shared_ks_tests.get_payload()
-        self.assertIsInstance(payload, DNFModule)
+        assert isinstance(payload, DNFModule)
 
         # verify sources set
         if expected_source_type is None:
-            self.assertFalse(payload.sources)
+            assert not payload.sources
         else:
             sources = payload.sources
-            self.assertEqual(1, len(sources))
-            self.assertEqual(sources[0].type.value, expected_source_type)
+            assert 1 == len(sources)
+            assert sources[0].type.value == expected_source_type
 
     def test_cdrom_kickstart(self):
         ks_in = """
@@ -115,7 +115,7 @@ class DNFKSTestCase(unittest.TestCase):
         harddrive --partition=nsa-device
         """
         self.shared_ks_tests.check_kickstart(ks_in, ks_valid=False, expected_publish_calls=0)
-        self.assertEqual(self.interface.ActivePayload, "")
+        assert self.interface.ActivePayload == ""
 
     def test_nfs_kickstart(self):
         ks_in = """
@@ -368,16 +368,15 @@ class DNFInterfaceTestCase(unittest.TestCase):
 
     def test_supported_sources(self):
         """Test DNF supported sources API."""
-        self.assertEqual(
-            [SOURCE_TYPE_CDROM,
+        assert [SOURCE_TYPE_CDROM,
              SOURCE_TYPE_HDD,
              SOURCE_TYPE_HMC,
              SOURCE_TYPE_NFS,
              SOURCE_TYPE_REPO_FILES,
              SOURCE_TYPE_CLOSEST_MIRROR,
              SOURCE_TYPE_CDN,
-             SOURCE_TYPE_URL],
-            self.interface.SupportedSourceTypes)
+             SOURCE_TYPE_URL] == \
+            self.interface.SupportedSourceTypes
 
     def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
@@ -389,18 +388,18 @@ class DNFInterfaceTestCase(unittest.TestCase):
 
     def test_packages_kickstarted_property(self):
         """Test the PackagesKickstarted property."""
-        self.assertEqual(self.interface.PackagesKickstarted, False)
+        assert self.interface.PackagesKickstarted == False
 
         data = KickstartSpecificationHandler(
             PayloadKickstartSpecification
         )
 
         self.module.process_kickstart(data)
-        self.assertEqual(self.interface.PackagesKickstarted, False)
+        assert self.interface.PackagesKickstarted == False
 
         data.packages.seen = True
         self.module.process_kickstart(data)
-        self.assertEqual(self.interface.PackagesKickstarted, True)
+        assert self.interface.PackagesKickstarted == True
 
     def test_packages_property(self):
         """Test the Packages property."""
@@ -478,7 +477,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
 
         expected = [self._generate_expected_repo_configuration_dict("file:///install_source/cdrom")]
 
-        self.assertEqual(self.interface.GetRepoConfigurations(), expected)
+        assert self.interface.GetRepoConfigurations() == expected
 
     @patch("pyanaconda.modules.payloads.source.hmc.hmc.HMCSourceModule.mount_point",
            new_callable=PropertyMock)
@@ -492,7 +491,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
 
         expected = [self._generate_expected_repo_configuration_dict("file:///install_source/hmc")]
 
-        self.assertEqual(self.interface.GetRepoConfigurations(), expected)
+        assert self.interface.GetRepoConfigurations() == expected
 
     @patch("pyanaconda.modules.payloads.source.nfs.nfs.NFSSourceModule.install_tree_path",
            new_callable=PropertyMock)
@@ -506,7 +505,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
 
         expected = [self._generate_expected_repo_configuration_dict("file:///install_source/nfs")]
 
-        self.assertEqual(self.interface.GetRepoConfigurations(), expected)
+        assert self.interface.GetRepoConfigurations() == expected
 
     @patch("pyanaconda.modules.payloads.source.harddrive.harddrive.HardDriveSourceModule.install_tree_path",
            new_callable=PropertyMock)
@@ -520,7 +519,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
 
         expected = [self._generate_expected_repo_configuration_dict("file:///install_source/harddrive")]
 
-        self.assertEqual(self.interface.GetRepoConfigurations(), expected)
+        assert self.interface.GetRepoConfigurations() == expected
 
     @patch_dbus_publish_object
     def test_url_get_repo_configurations(self, publisher):
@@ -553,4 +552,4 @@ class DNFInterfaceTestCase(unittest.TestCase):
             "included-packages": get_variant(List[Str], [])
         }]
 
-        self.assertEqual(self.interface.GetRepoConfigurations(), expected)
+        assert self.interface.GetRepoConfigurations() == expected

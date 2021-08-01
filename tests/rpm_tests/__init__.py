@@ -23,9 +23,9 @@ class RPMTestCase(TestCase):
         """
         process_result = self.call_subprocess(cmd, cwd)
 
-        self.assertEqual(process_result.returncode, 0, msg="""
+        assert process_result.returncode == 0, """
         Bad return code when running:
-        {}""".format(cmd))
+        {}""".format(cmd)
 
         return process_result
 

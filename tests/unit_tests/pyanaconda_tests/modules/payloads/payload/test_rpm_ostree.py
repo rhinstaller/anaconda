@@ -47,9 +47,9 @@ class RPMOSTreeInterfaceTestCase(unittest.TestCase):
 
     def test_supported_sources(self):
         """Test the SupportedSourceTypes property."""
-        self.assertEqual(self.interface.SupportedSourceTypes, [
+        assert self.interface.SupportedSourceTypes == [
             SOURCE_TYPE_RPM_OSTREE
-        ])
+        ]
 
 
 class RPMOSTreeKickstartTestCase(unittest.TestCase):
@@ -67,14 +67,14 @@ class RPMOSTreeKickstartTestCase(unittest.TestCase):
 
     def _check_properties(self, expected_source_type):
         payload = self.shared_ks_tests.get_payload()
-        self.assertIsInstance(payload, RPMOSTreeModule)
+        assert isinstance(payload, RPMOSTreeModule)
 
         if expected_source_type is None:
-            self.assertFalse(payload.sources)
+            assert not payload.sources
         else:
             sources = payload.sources
-            self.assertEqual(1, len(sources))
-            self.assertEqual(sources[0].type.value, expected_source_type)
+            assert 1 == len(sources)
+            assert sources[0].type.value == expected_source_type
 
     def test_ostree_kickstart(self):
         ks_in = """

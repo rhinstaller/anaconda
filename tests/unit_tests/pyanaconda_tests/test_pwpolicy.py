@@ -50,12 +50,12 @@ pwpolicy luks --strict --minlen=8 --minquality=50 --nochanges --emptyok
         with self.assertWarns(KickstartDeprecationWarning):
             self.ksparser.readKickstartFromString(self.ks)
 
-        self.assertIsInstance(self.handler, kickstart.AnacondaKSHandler)
-        self.assertIsInstance(self.handler.anaconda, kickstart.AnacondaSectionHandler)
+        assert isinstance(self.handler, kickstart.AnacondaKSHandler)
+        assert isinstance(self.handler.anaconda, kickstart.AnacondaSectionHandler)
 
         eq_template = "pwpolicy %s --minlen=8 --minquality=50 --strict --nochanges --emptyok\n"
         for name in ["root", "user", "luks"]:
-            self.assertEqual(str(self.handler.anaconda.pwpolicy.get_policy(name)), eq_template % name)    # pylint: disable=no-member
+            assert str(self.handler.anaconda.pwpolicy.get_policy(name)) == eq_template % name    # pylint: disable=no-member
 
     @patch_dbus_get_proxy
     def test_apply_none_to_module(self, proxy_getter):
@@ -116,8 +116,8 @@ pwpolicy luks --strict --minlen=8 --minquality=50 --nochanges --emptyok
         with patch("pyanaconda.pwpolicy.conf", anaconda_conf):
             apply_password_policy_from_kickstart(self.handler)
 
-        self.assertEqual(anaconda_conf.ui.can_change_root, False)
-        self.assertEqual(anaconda_conf.ui.can_change_users, False)
+        assert anaconda_conf.ui.can_change_root is False
+        assert anaconda_conf.ui.can_change_users is False
 
     @patch_dbus_get_proxy
     def test_apply_changesok_to_configuration(self, proxy_getter):
@@ -136,8 +136,8 @@ pwpolicy luks --strict --minlen=8 --minquality=50 --nochanges --emptyok
         with patch("pyanaconda.pwpolicy.conf", anaconda_conf):
             apply_password_policy_from_kickstart(self.handler)
 
-        self.assertEqual(anaconda_conf.ui.can_change_root, True)
-        self.assertEqual(anaconda_conf.ui.can_change_users, True)
+        assert anaconda_conf.ui.can_change_root is True
+        assert anaconda_conf.ui.can_change_users is True
 
     @patch_dbus_get_proxy
     def test_apply_nochanges_to_configuration(self, proxy_getter):
@@ -156,5 +156,5 @@ pwpolicy luks --strict --minlen=8 --minquality=50 --nochanges --emptyok
         with patch("pyanaconda.pwpolicy.conf", anaconda_conf):
             apply_password_policy_from_kickstart(self.handler)
 
-        self.assertEqual(anaconda_conf.ui.can_change_root, False)
-        self.assertEqual(anaconda_conf.ui.can_change_users, False)
+        assert anaconda_conf.ui.can_change_root is False
+        assert anaconda_conf.ui.can_change_users is False

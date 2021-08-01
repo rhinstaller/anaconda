@@ -16,6 +16,8 @@
 # Red Hat, Inc.
 #
 import unittest
+import pytest
+
 from unittest.mock import patch, Mock
 
 from blivet.size import Size, ROUND_UP
@@ -39,25 +41,25 @@ class DNFMangerTestCase(unittest.TestCase):
         configuration = configuration.splitlines(keepends=False)
 
         for attribute in attributes:
-            self.assertIn(attribute, configuration)
+            assert attribute in configuration
 
     def _check_substitutions(self, substitutions):
         """Check the DNF substitutions."""
-        self.assertEqual(dict(self.dnf_manager._base.conf.substitutions), substitutions)
+        assert dict(self.dnf_manager._base.conf.substitutions) == substitutions
 
     def test_create_base(self):
         """Test the creation of the DNF base."""
-        self.assertIsNotNone(self.dnf_manager._base)
+        assert self.dnf_manager._base is not None
 
     def test_reset_base(self):
         """Test the reset of the DNF base."""
         base_1 = self.dnf_manager._base
-        self.assertEqual(self.dnf_manager._base, base_1)
+        assert self.dnf_manager._base == base_1
         self.dnf_manager.reset_base()
 
         base_2 = self.dnf_manager._base
-        self.assertEqual(self.dnf_manager._base, base_2)
-        self.assertNotEqual(self.dnf_manager._base, base_1)
+        assert self.dnf_manager._base == base_2
+        assert self.dnf_manager._base != base_1
 
     def test_clear_cache(self):
         """Test the clear_cache method."""
@@ -134,8 +136,8 @@ class DNFMangerTestCase(unittest.TestCase):
             "install_weak_deps = 1",
         )
 
-        self.assertEqual(self.dnf_manager._ignore_broken_packages, False)
-        self.assertEqual(self.dnf_manager._ignore_missing_packages, False)
+        assert self.dnf_manager._ignore_broken_packages == False
+        assert self.dnf_manager._ignore_missing_packages == False
 
         data.multilib_policy = MULTILIB_POLICY_ALL
         data.timeout = 100
@@ -152,8 +154,8 @@ class DNFMangerTestCase(unittest.TestCase):
             "install_weak_deps = 0",
         )
 
-        self.assertEqual(self.dnf_manager._ignore_broken_packages, True)
-        self.assertEqual(self.dnf_manager._ignore_missing_packages, True)
+        assert self.dnf_manager._ignore_broken_packages == True
+        assert self.dnf_manager._ignore_missing_packages == True
 
     def test_dump_configuration(self):
         """Test the dump of the DNF configuration."""
@@ -161,16 +163,16 @@ class DNFMangerTestCase(unittest.TestCase):
             self.dnf_manager.dump_configuration()
 
         msg = "DNF configuration:"
-        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+        assert any(map(lambda x: msg in x, cm.output))
 
         msg = "installroot = /mnt/sysroot"
-        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+        assert any(map(lambda x: msg in x, cm.output))
 
     def test_get_installation_size(self):
         """Test the get_installation_size method."""
         # No transaction.
         size = self.dnf_manager.get_installation_size()
-        self.assertEqual(size, Size("3000 MiB"))
+        assert size == Size("3000 MiB")
 
         # Fake transaction.
         tsi_1 = Mock()
@@ -185,13 +187,13 @@ class DNFMangerTestCase(unittest.TestCase):
         size = self.dnf_manager.get_installation_size()
         size = size.round_to_nearest("KiB", ROUND_UP)
 
-        self.assertEqual(size, Size("528 KiB"))
+        assert size == Size("528 KiB")
 
     def test_get_download_size(self):
         """Test the get_download_size method."""
         # No transaction.
         size = self.dnf_manager.get_download_size()
-        self.assertEqual(size, Size(0))
+        assert size == Size(0)
 
         # Fake transaction.
         tsi_1 = Mock()
@@ -203,11 +205,11 @@ class DNFMangerTestCase(unittest.TestCase):
         self.dnf_manager._base.transaction = [tsi_1, tsi_2]
         size = self.dnf_manager.get_download_size()
 
-        self.assertEqual(size, Size("450 MiB"))
+        assert size == Size("450 MiB")
 
     def test_environments(self):
         """Test the environments property."""
-        self.assertEqual(self.dnf_manager.environments, [])
+        assert self.dnf_manager.environments == []
 
         # Fake environments.
         env_1 = Mock(id="environment-1")
@@ -218,11 +220,11 @@ class DNFMangerTestCase(unittest.TestCase):
         comps = Mock(environments=[env_1, env_2, env_3])
 
         self.dnf_manager._base._comps = comps
-        self.assertEqual(self.dnf_manager.environments, [
+        assert self.dnf_manager.environments == [
             "environment-1",
             "environment-2",
             "environment-3",
-        ])
+        ]
 
     @patch("dnf.base.Base.install_specs")
     def test_apply_specs(self, install_specs):
@@ -245,7 +247,7 @@ class DNFMangerTestCase(unittest.TestCase):
             error_group_specs=["@g1"]
         )
 
-        with self.assertRaises(MarkingErrors):
+        with pytest.raises(MarkingErrors):
             self.dnf_manager.apply_specs(
                 include_list=["@g1", "p1"],
                 exclude_list=["@g2", "p2"]
@@ -292,7 +294,7 @@ class DNFMangerTestCase(unittest.TestCase):
             error_pkg_specs=["p1"]
         )
 
-        with self.assertRaises(MarkingErrors):
+        with pytest.raises(MarkingErrors):
             self.dnf_manager.apply_specs(
                 include_list=["@g1", "p1"],
                 exclude_list=["@g2", "p2"]

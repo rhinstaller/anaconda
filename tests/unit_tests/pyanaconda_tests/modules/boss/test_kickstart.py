@@ -242,27 +242,27 @@ class KickstartManagerTestCase(unittest.TestCase):
         with self._create_ks_files(self._kickstart_include) as filename:
             report = manager.read_kickstart_file(filename)
 
-        self.assertEqual(module1.kickstart, self._m1_kickstart)
-        self.assertEqual(module2.kickstart, self._m2_kickstart)
-        self.assertEqual(module3.kickstart, self._m3_kickstart)
-        self.assertEqual(module4.kickstart, "")
+        assert module1.kickstart == self._m1_kickstart
+        assert module2.kickstart == self._m2_kickstart
+        assert module3.kickstart == self._m3_kickstart
+        assert module4.kickstart == ""
 
-        self.assertEqual(report.is_valid(), False)
-        self.assertEqual(len(report.get_messages()), 2)
+        assert report.is_valid() == False
+        assert len(report.get_messages()) == 2
 
         error = report.get_messages()[0]
-        self.assertEqual(error.module_name, "1")
-        self.assertEqual(error.file_name, "ks.manager.test.include1.cfg")
-        self.assertEqual(error.line_number, 5)
-        self.assertEqual(error.message, "Mocked parse error: \"PARSE_ERROR\" found")
+        assert error.module_name == "1"
+        assert error.file_name == "ks.manager.test.include1.cfg"
+        assert error.line_number == 5
+        assert error.message == "Mocked parse error: \"PARSE_ERROR\" found"
 
         error = report.get_messages()[1]
-        self.assertEqual(error.module_name, "3")
-        self.assertEqual(error.file_name, "ks.manager.test.include.cfg")
-        self.assertEqual(error.line_number, 41)
-        self.assertEqual(error.message, "Mocked parse error: \"PARSE_ERROR\" found")
+        assert error.module_name == "3"
+        assert error.file_name == "ks.manager.test.include.cfg"
+        assert error.line_number == 41
+        assert error.message == "Mocked parse error: \"PARSE_ERROR\" found"
 
-        self.assertEqual(manager.generate_kickstart(), self._m123_kickstart)
+        assert manager.generate_kickstart() == self._m123_kickstart
 
     def test_nothing_to_parse(self):
         ks_content = ""
@@ -270,10 +270,10 @@ class KickstartManagerTestCase(unittest.TestCase):
         with self._create_ks_files([("ks.mgr.test.empty.cfg", ks_content)]) as filename:
             report = manager.read_kickstart_file(filename)
 
-        self.assertEqual(report.is_valid(), True)
-        self.assertEqual(len(report.get_messages()), 0)
+        assert report.is_valid() == True
+        assert len(report.get_messages()) == 0
 
-        self.assertEqual(manager.generate_kickstart(), "")
+        assert manager.generate_kickstart() == ""
 
     def test_unknown_section_split(self):
         ks_content = """
@@ -286,14 +286,14 @@ blah
         with self._create_ks_files([("ks.mgr.test.unknown_sect.cfg", ks_content)]) as filename:
             report = manager.read_kickstart_file(filename)
 
-        self.assertEqual(report.is_valid(), False)
-        self.assertEqual(len(report.get_messages()), 1)
+        assert report.is_valid() == False
+        assert len(report.get_messages()) == 1
 
         error = report.get_messages()[0]
-        self.assertEqual(error.module_name, "org.fedoraproject.Anaconda.Boss")
-        self.assertEqual(error.file_name, "ks.mgr.test.unknown_sect.cfg")
-        self.assertEqual(error.line_number, 2)
-        self.assertEqual(error.message, 'Unknown kickstart section: %unknown_section')
+        assert error.module_name == "org.fedoraproject.Anaconda.Boss"
+        assert error.file_name == "ks.mgr.test.unknown_sect.cfg"
+        assert error.line_number == 2
+        assert error.message == 'Unknown kickstart section: %unknown_section'
 
     def test_missing_section_end_split(self):
         ks_content = """
@@ -305,14 +305,14 @@ blah
         with self._create_ks_files([("ks.mgr.test.missing_end.cfg", ks_content)]) as filename:
             report = manager.read_kickstart_file(filename)
 
-        self.assertEqual(report.is_valid(), False)
-        self.assertEqual(len(report.get_messages()), 1)
+        assert report.is_valid() == False
+        assert len(report.get_messages()) == 1
 
         error = report.get_messages()[0]
-        self.assertEqual(error.module_name, "org.fedoraproject.Anaconda.Boss")
-        self.assertEqual(error.file_name, "ks.mgr.test.missing_end.cfg")
-        self.assertEqual(error.line_number, 3)
-        self.assertEqual(error.message, 'Section %packages does not end with %end.')
+        assert error.module_name == "org.fedoraproject.Anaconda.Boss"
+        assert error.file_name == "ks.mgr.test.missing_end.cfg"
+        assert error.line_number == 3
+        assert error.message == 'Section %packages does not end with %end.'
 
     def test_missing_include_split(self):
         ks_content = """
@@ -323,24 +323,16 @@ network --device=ens3
         with self._create_ks_files([("ks.mgr.test.missing_include.cfg", ks_content)]) as filename:
             report = manager.read_kickstart_file(filename)
 
-        self.assertEqual(report.is_valid(), False)
-        self.assertEqual(len(report.get_messages()), 1)
+        assert report.is_valid() == False
+        assert len(report.get_messages()) == 1
 
         error = report.get_messages()[0]
-        self.assertEqual(
-            error.module_name, "org.fedoraproject.Anaconda.Boss"
-        )
-        self.assertEqual(
-            error.file_name, "ks.mgr.test.missing_include.cfg"
-        )
-        self.assertEqual(
-            error.line_number, 0
-        )
-        self.assertEqual(
-            error.message,
-            "Unable to open input kickstart file: Error opening file: "
+        assert error.module_name == "org.fedoraproject.Anaconda.Boss"
+        assert error.file_name == "ks.mgr.test.missing_include.cfg"
+        assert error.line_number == 0
+        assert error.message == \
+            "Unable to open input kickstart file: Error opening file: " \
             "[Errno 2] No such file or directory: 'missing_include.cfg'"
-        )
 
 
 class TestModule(object):

@@ -45,12 +45,12 @@ class FlatpakTest(unittest.TestCase):
 
     def test_is_available(self):
         """Test check for flatpak availability of the system sources."""
-        self.assertFalse(FlatpakManager.is_source_available())
+        assert not FlatpakManager.is_source_available()
 
         with TemporaryDirectory() as temp:
             FlatpakManager.LOCAL_REMOTE_PATH = "file://" + temp
 
-            self.assertTrue(FlatpakManager.is_source_available())
+            assert FlatpakManager.is_source_available()
 
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager.Transaction")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager.Installation")
@@ -68,10 +68,10 @@ class FlatpakTest(unittest.TestCase):
 
         expected_remote_calls = [call.set_gpg_verify(False),
                                  call.set_url(flatpak.LOCAL_REMOTE_PATH)]
-        self.assertEqual(self._remote.method_calls, expected_remote_calls)
+        assert self._remote.method_calls == expected_remote_calls
 
         expected_remote_calls = [call.add_remote(self._remote, False, None)]
-        self.assertEqual(self._installation.method_calls, expected_remote_calls)
+        assert self._installation.method_calls == expected_remote_calls
 
     def test_cleanup_call_without_initialize(self):
         """Test the cleanup call without initialize."""
@@ -140,7 +140,7 @@ class FlatpakTest(unittest.TestCase):
 
         installation_size = flatpak.get_required_size()
 
-        self.assertEqual(installation_size, 5100)
+        assert installation_size == 5100
 
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager.Transaction")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager.Installation")
@@ -157,7 +157,7 @@ class FlatpakTest(unittest.TestCase):
 
         installation_size = flatpak.get_required_size()
 
-        self.assertEqual(installation_size, 0)
+        assert installation_size == 0
 
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager.Transaction")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager.Installation")
@@ -200,7 +200,7 @@ class FlatpakTest(unittest.TestCase):
                                            None),
                           call.run()]
 
-        self.assertEqual(self._transaction.mock_calls, expected_calls)
+        assert self._transaction.mock_calls == expected_calls
 
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager.Transaction")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager.Installation")
@@ -217,8 +217,8 @@ class FlatpakTest(unittest.TestCase):
         remote_cls.new.assert_called_with("hive")
         self._remote.set_gpg_verify.assert_called_with(True)
         self._remote.set_url("url://zerglings/home")
-        self.assertEqual(remote_cls.new.call_count, 2)
-        self.assertEqual(self._installation.add_remote.call_count, 2)
+        assert remote_cls.new.call_count == 2
+        assert self._installation.add_remote.call_count == 2
 
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager.Transaction")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager.Installation")
@@ -281,7 +281,7 @@ class FlatpakTest(unittest.TestCase):
             open_calls.append(call(ref_file_path, "wb"))
 
         # test that every file is read and written
-        self.assertEqual(open_mock.call_count, 2 * len(expected_refs))
+        assert open_mock.call_count == 2 * len(expected_refs)
 
         open_mock.has_calls(open_calls)
 

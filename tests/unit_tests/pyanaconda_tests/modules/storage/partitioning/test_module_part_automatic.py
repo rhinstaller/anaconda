@@ -18,6 +18,8 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
+import pytest
+
 from unittest.mock import Mock, patch
 
 from blivet.formats.luks import LUKS2PBKDFArgs
@@ -67,7 +69,7 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
 
     def test_publication(self):
         """Test the DBus representation."""
-        self.assertIsInstance(self.module.for_publication(), AutoPartitioningInterface)
+        assert isinstance(self.module.for_publication(), AutoPartitioningInterface)
 
     @patch_dbus_publish_object
     def test_device_tree(self, publisher):
@@ -75,13 +77,13 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
         self.module.on_storage_changed(Mock())
         path = self.interface.GetDeviceTree()
         obj = check_dbus_object_creation(self, path, publisher, ResizableDeviceTreeModule)
-        self.assertEqual(obj.implementation.storage, self.module.storage)
+        assert obj.implementation.storage == self.module.storage
 
         self.module.on_partitioning_reset()
-        self.assertEqual(obj.implementation.storage, self.module.storage)
+        assert obj.implementation.storage == self.module.storage
 
         self.module.on_storage_changed(Mock())
-        self.assertEqual(obj.implementation.storage, self.module.storage)
+        assert obj.implementation.storage == self.module.storage
 
     def test_request_property(self):
         """Test the property request."""
@@ -107,28 +109,28 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
 
     def test_requires_passphrase(self):
         """Test RequiresPassphrase."""
-        self.assertEqual(self.interface.RequiresPassphrase(), False)
+        assert self.interface.RequiresPassphrase() == False
 
         self.module.request.encrypted = True
-        self.assertEqual(self.interface.RequiresPassphrase(), True)
+        assert self.interface.RequiresPassphrase() == True
 
         self.module.request.passphrase = "123456"
-        self.assertEqual(self.interface.RequiresPassphrase(), False)
+        assert self.interface.RequiresPassphrase() == False
 
     def test_reset(self):
         """Test the reset of the storage."""
-        with self.assertRaises(UnavailableStorageError):
+        with pytest.raises(UnavailableStorageError):
             if self.module.storage:
                 self.fail("The storage shouldn't be available.")
 
         storage = Mock()
         self.module.on_storage_changed(storage)
 
-        self.assertEqual(self.module._current_storage, storage)
-        self.assertIsNone(self.module._storage_playground)
+        assert self.module._current_storage == storage
+        assert self.module._storage_playground is None
 
-        self.assertNotEqual(self.module.storage, storage)
-        self.assertIsNotNone(self.module._storage_playground)
+        assert self.module.storage != storage
+        assert self.module._storage_playground is not None
 
     @patch_dbus_publish_object
     def test_configure_with_task(self, publisher):
@@ -138,8 +140,8 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
 
         obj = check_task_creation(self, task_path, publisher, AutomaticPartitioningTask)
 
-        self.assertEqual(obj.implementation._storage, self.module.storage)
-        self.assertEqual(obj.implementation._request, self.module.request)
+        assert obj.implementation._storage == self.module.storage
+        assert obj.implementation._request == self.module.request
 
     @patch_dbus_publish_object
     def test_validate_with_task(self, publisher):
@@ -148,7 +150,7 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
         task_path = self.interface.ValidateWithTask()
 
         obj = check_task_creation(self, task_path, publisher, StorageValidateTask)
-        self.assertEqual(obj.implementation._storage, self.module.storage)
+        assert obj.implementation._storage == self.module.storage
 
         report = ValidationReport()
         report.error_messages = [
@@ -171,9 +173,9 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
             ])
         })
 
-        self.assertIsInstance(result, Variant)
-        self.assertEqual(get_native(result), get_native(expected_result))
-        self.assertTrue(result.equal(expected_result))
+        assert isinstance(result, Variant)
+        assert get_native(result) == get_native(expected_result)
+        assert result.equal(expected_result)
 
 
 class AutomaticPartitioningTaskTestCase(unittest.TestCase):
@@ -184,7 +186,7 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
         request = PartitioningRequest()
 
         args = AutomaticPartitioningTask._get_luks_format_args(storage, request)
-        self.assertEqual(args, {})
+        assert args == {}
 
     def test_luks1_format_args(self):
         storage = create_storage()
@@ -199,14 +201,14 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
         request.backup_passphrase_enabled = True
 
         args = AutomaticPartitioningTask._get_luks_format_args(storage, request)
-        self.assertEqual(args, {
+        assert args == {
             "passphrase": "passphrase",
             "cipher": "aes-xts-plain64",
             "luks_version": "luks1",
             "pbkdf_args": None,
             "escrow_cert": "CERTIFICATE",
             "add_backup_passphrase": True,
-        })
+        }
 
     def test_luks2_format_args(self):
         storage = create_storage()
@@ -222,26 +224,26 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
         args = AutomaticPartitioningTask._get_luks_format_args(storage, request)
         pbkdf_args = args.pop("pbkdf_args")
 
-        self.assertEqual(args, {
+        assert args == {
             "passphrase": "default",
             "cipher": "",
             "luks_version": "luks2",
             "escrow_cert": None,
             "add_backup_passphrase": False,
-        })
+        }
 
-        self.assertIsInstance(pbkdf_args, LUKS2PBKDFArgs)
-        self.assertEqual(pbkdf_args.type, "argon2i")
-        self.assertEqual(pbkdf_args.max_memory_kb, 256)
-        self.assertEqual(pbkdf_args.iterations, 1000)
-        self.assertEqual(pbkdf_args.time_ms, 100)
+        assert isinstance(pbkdf_args, LUKS2PBKDFArgs)
+        assert pbkdf_args.type == "argon2i"
+        assert pbkdf_args.max_memory_kb == 256
+        assert pbkdf_args.iterations == 1000
+        assert pbkdf_args.time_ms == 100
 
     @patch('pyanaconda.modules.storage.partitioning.automatic.utils.platform')
     def test_get_default_partitioning(self, platform):
         platform.partitions = [PartSpec("/boot")]
         requests = get_default_partitioning()
 
-        self.assertEqual(["/boot", "/", "/home"], [spec.mountpoint for spec in requests])
+        assert ["/boot", "/", "/home"] == [spec.mountpoint for spec in requests]
 
     @patch('pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning.suggest_swap_size')
     @patch('pyanaconda.modules.storage.partitioning.automatic.utils.platform')
@@ -265,25 +267,19 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
             excluded_mount_points=["/home", "/boot", "swap"]
         )
 
-        self.assertEqual(["/"], [spec.mountpoint for spec in requests])
+        assert ["/"] == [spec.mountpoint for spec in requests]
 
         requests = AutomaticPartitioningTask._get_partitioning(
             storage=storage,
             excluded_mount_points=[]
         )
 
-        self.assertEqual(
-            ["/boot", "/", "/home"],
+        assert ["/boot", "/", "/home"] == \
             [spec.mountpoint for spec in requests]
-        )
-        self.assertEqual(
-            ["xfs", "ext4", "ext4"],
+        assert ["xfs", "ext4", "ext4"] == \
             [spec.fstype for spec in requests]
-        )
-        self.assertEqual(
-            [Size("1GiB"), Size("1GiB"), Size("500MiB")],
+        assert [Size("1GiB"), Size("1GiB"), Size("500MiB")] == \
             [spec.size for spec in requests]
-        )
 
 
 class AutomaticPartitioningUtilsTestCase(unittest.TestCase):
@@ -322,14 +318,12 @@ class AutomaticPartitioningUtilsTestCase(unittest.TestCase):
         parted_disk_1 = disk_1.format.parted_disk
         parted_disk_2 = disk_2.format.parted_disk
 
-        self.assertEqual(
-            get_disks_for_implicit_partitions(
+        assert get_disks_for_implicit_partitions(
                 scheme=AUTOPART_TYPE_PLAIN,
                 disks=[disk_1, disk_2],
                 requests=requests
-            ),
+            ) == \
             []
-        )
 
         # Extended partitions are supported by the first disk.
         parted_disk_1.supportsFeature.return_value = True
@@ -340,39 +334,33 @@ class AutomaticPartitioningUtilsTestCase(unittest.TestCase):
         parted_disk_2.maxPrimaryPartitionCount = 3
         parted_disk_2.primaryPartitionCount = 2
 
-        self.assertEqual(
-            get_disks_for_implicit_partitions(
+        assert get_disks_for_implicit_partitions(
                 scheme=AUTOPART_TYPE_LVM_THINP,
                 disks=[disk_1, disk_2],
                 requests=requests
-            ),
+            ) == \
             [disk_1, disk_2]
-        )
 
         # Extended partitions are not supported by the first disk.
         parted_disk_1.supportsFeature.return_value = False
         parted_disk_1.maxPrimaryPartitionCount = 3
         parted_disk_1.primaryPartitionCount = 2
 
-        self.assertEqual(
-            get_disks_for_implicit_partitions(
+        assert get_disks_for_implicit_partitions(
                 scheme=AUTOPART_TYPE_LVM_THINP,
                 disks=[disk_1, disk_2],
                 requests=requests
-            ),
+            ) == \
             [disk_2]
-        )
 
         # Not empty slots for implicit partitions.
         parted_disk_1.supportsFeature.return_value = False
         parted_disk_1.maxPrimaryPartitionCount = 3
         parted_disk_1.primaryPartitionCount = 3
 
-        self.assertEqual(
-            get_disks_for_implicit_partitions(
+        assert get_disks_for_implicit_partitions(
                 scheme=AUTOPART_TYPE_LVM_THINP,
                 disks=[disk_1, disk_2],
                 requests=requests
-            ),
+            ) == \
             []
-        )

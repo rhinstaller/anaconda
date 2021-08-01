@@ -17,6 +17,8 @@
 #
 import tempfile
 import unittest
+import pytest
+
 from unittest.mock import patch, Mock
 
 from dasbus.typing import get_variant, Str, Bool
@@ -54,11 +56,11 @@ class LiveImageSourceInterfaceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Test the Type property."""
-        self.assertEqual(SOURCE_TYPE_LIVE_IMAGE, self.interface.Type)
+        assert SOURCE_TYPE_LIVE_IMAGE == self.interface.Type
 
     def test_description(self):
         """Test the Description property."""
-        self.assertEqual("Live image", self.interface.Description)
+        assert "Live image" == self.interface.Description
 
     def test_configuration(self):
         """Test the configuration property."""
@@ -83,51 +85,51 @@ class LiveImageSourceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Test the type property."""
-        self.assertEqual(SourceType.LIVE_IMAGE, self.module.type)
+        assert SourceType.LIVE_IMAGE == self.module.type
 
     def test_network_required(self):
         """Test the network_required property."""
-        self.assertEqual(self.module.network_required, False)
+        assert self.module.network_required == False
 
         self.module.configuration.url = "file://my/path"
-        self.assertEqual(self.module.network_required, False)
+        assert self.module.network_required == False
 
         self.module.configuration.url = "http://my/path"
-        self.assertEqual(self.module.network_required, True)
+        assert self.module.network_required == True
 
         self.module.configuration.url = "https://my/path"
-        self.assertEqual(self.module.network_required, True)
+        assert self.module.network_required == True
 
     def test_is_local(self):
         """Test the is_local property."""
         self.module.configuration.url = "file://my/path"
-        self.assertEqual(self.module.is_local, True)
+        assert self.module.is_local == True
 
         self.module.configuration.url = "http://my/path"
-        self.assertEqual(self.module.is_local, False)
+        assert self.module.is_local == False
 
     def test_get_state(self):
         """Test the source state."""
-        self.assertEqual(SourceState.NOT_APPLICABLE, self.module.get_state())
+        assert SourceState.NOT_APPLICABLE == self.module.get_state()
 
     def test_required_space(self):
         """Test the required_space property."""
-        self.assertEqual(self.module.required_space, 1024 * 1024 * 1024)
+        assert self.module.required_space == 1024 * 1024 * 1024
 
         self.module._required_space = 12345
-        self.assertEqual(self.module.required_space, 12345)
+        assert self.module.required_space == 12345
 
     def test_set_up_with_tasks(self):
         """Test the set-up tasks."""
         self.module.configuration.url = "file://my/path"
         tasks = self.module.set_up_with_tasks()
-        self.assertEqual(len(tasks), 1)
-        self.assertIsInstance(tasks[0], SetUpLocalImageSourceTask)
+        assert len(tasks) == 1
+        assert isinstance(tasks[0], SetUpLocalImageSourceTask)
 
         self.module.configuration.url = "http://my/path"
         tasks = self.module.set_up_with_tasks()
-        self.assertEqual(len(tasks), 1)
-        self.assertIsInstance(tasks[0], SetUpRemoteImageSourceTask)
+        assert len(tasks) == 1
+        assert isinstance(tasks[0], SetUpRemoteImageSourceTask)
 
     @patch.object(SetUpLocalImageSourceTask, "run")
     def test_handle_setup_task_result(self, runner):
@@ -140,21 +142,21 @@ class LiveImageSourceTestCase(unittest.TestCase):
             task.run_with_signals()
 
         runner.assert_called_once_with()
-        self.assertEqual(self.module.required_space, 12345)
+        assert self.module.required_space == 12345
 
     def test_tear_down_with_tasks(self):
         """Test the tear-down tasks."""
-        self.assertEqual(self.module.tear_down_with_tasks(), [])
+        assert self.module.tear_down_with_tasks() == []
 
     def test_repr(self):
         """Test the string representation."""
         self.module.configuration.url = "file://my/path"
-        self.assertEqual(repr(self.module), str(
+        assert repr(self.module) == str(
             "Source("
             "type='LIVE_IMAGE', "
             "url='file://my/path'"
             ")"
-        ))
+        )
 
 
 class SetUpLocalImageSourceTaskTestCase(unittest.TestCase):
@@ -166,10 +168,10 @@ class SetUpLocalImageSourceTaskTestCase(unittest.TestCase):
         configuration.url = "file:///my/invalid/path"
 
         task = SetUpLocalImageSourceTask(configuration)
-        with self.assertRaises(SourceSetupError) as cm:
+        with pytest.raises(SourceSetupError) as cm:
             task.run()
 
-        self.assertEqual(str(cm.exception), "File /my/invalid/path does not exist.")
+        assert str(cm.value) == "File /my/invalid/path does not exist."
 
     @patch("os.stat")
     def test_empty_image(self, os_stat):
@@ -185,8 +187,8 @@ class SetUpLocalImageSourceTaskTestCase(unittest.TestCase):
             result = task.run()
 
             # Check the result.
-            self.assertIsInstance(result, SetupImageResult)
-            self.assertEqual(result, SetupImageResult(None))
+            assert isinstance(result, SetupImageResult)
+            assert result == SetupImageResult(None)
 
     @patch("os.stat")
     def test_fake_image(self, os_stat):
@@ -206,8 +208,8 @@ class SetUpLocalImageSourceTaskTestCase(unittest.TestCase):
             result = task.run()
 
             # Check the result.
-            self.assertIsInstance(result, SetupImageResult)
-            self.assertEqual(result, SetupImageResult(3072))
+            assert isinstance(result, SetupImageResult)
+            assert result == SetupImageResult(3072)
 
 
 class SetUpRemoteImageSourceTaskTestCase(unittest.TestCase):
@@ -225,11 +227,11 @@ class SetUpRemoteImageSourceTaskTestCase(unittest.TestCase):
         configuration.url = "http://my/fake/path"
 
         task = SetUpRemoteImageSourceTask(configuration)
-        with self.assertRaises(SourceSetupError) as cm:
+        with pytest.raises(SourceSetupError) as cm:
             task.run()
 
         # Check the exception.
-        self.assertEqual(str(cm.exception), "Error while handling a request: Fake!")
+        assert str(cm.value) == "Error while handling a request: Fake!"
 
     @patch("pyanaconda.modules.payloads.source.live_image.initialization.requests_session")
     def test_invalid_response(self, session_getter):
@@ -244,11 +246,11 @@ class SetUpRemoteImageSourceTaskTestCase(unittest.TestCase):
         configuration.url = "http://my/fake/path"
 
         task = SetUpRemoteImageSourceTask(configuration)
-        with self.assertRaises(SourceSetupError) as cm:
+        with pytest.raises(SourceSetupError) as cm:
             task.run()
 
         # Check the exception.
-        self.assertEqual(str(cm.exception), "The request has failed: 303")
+        assert str(cm.value) == "The request has failed: 303"
 
     @patch("pyanaconda.modules.payloads.source.live_image.initialization.requests_session")
     def test_missing_size(self, session_getter):
@@ -268,8 +270,8 @@ class SetUpRemoteImageSourceTaskTestCase(unittest.TestCase):
         result = task.run()
 
         # Check the result.
-        self.assertIsInstance(result, SetupImageResult)
-        self.assertEqual(result, SetupImageResult(None))
+        assert isinstance(result, SetupImageResult)
+        assert result == SetupImageResult(None)
 
     @patch("pyanaconda.modules.payloads.source.live_image.initialization.requests_session")
     def test_fake_request(self, session_getter):
@@ -289,5 +291,5 @@ class SetUpRemoteImageSourceTaskTestCase(unittest.TestCase):
         result = task.run()
 
         # Check the result.
-        self.assertIsInstance(result, SetupImageResult)
-        self.assertEqual(result, SetupImageResult(4000))
+        assert isinstance(result, SetupImageResult)
+        assert result == SetupImageResult(4000)

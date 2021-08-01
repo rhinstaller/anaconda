@@ -16,6 +16,8 @@
 # Red Hat, Inc.
 #
 import unittest
+import pytest
+
 from unittest.mock import patch
 from tempfile import TemporaryDirectory
 
@@ -49,7 +51,7 @@ class InstallFlatpakTaskTest(unittest.TestCase):
         fm_instance.install_all.side_effect = FlatpakInstallError
 
         with TemporaryDirectory() as temp:
-            with self.assertRaises(PayloadInstallError):
+            with pytest.raises(PayloadInstallError):
                 task = InstallFlatpaksTask(temp)
                 task.run()
 
@@ -64,8 +66,8 @@ class GetFlatpaksSizeTaskTest(unittest.TestCase):
         with TemporaryDirectory() as temp:
             task = GetFlatpaksSizeTask(temp)
             result = task.run()
-            self.assertIsInstance(result, Size)
-            self.assertEqual(result, Size(123456789))
+            assert isinstance(result, Size)
+            assert result == Size(123456789)
 
         fm_instance.initialize_with_path.assert_called_once_with("/var/tmp/anaconda-flatpak-temp")
         fm_instance.get_required_size.assert_called_once()

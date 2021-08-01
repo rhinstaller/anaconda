@@ -39,38 +39,38 @@ KEY2="A single ' inside" # And comment "with quotes"
 
             config = SimpleConfigFile(testconfig.name)
             config.read()
-            self.assertEqual(config.get("ESSID"), "Example Network #1")
-            self.assertEqual(config.get("ESSID2"), "Network #2")
-            self.assertEqual(config.get("COMMENT"), "Save this string")
-            self.assertEqual(str(config), self.TEST_CONFIG)
+            assert config.get("ESSID") == "Example Network #1"
+            assert config.get("ESSID2") == "Network #2"
+            assert config.get("COMMENT") == "Save this string"
+            assert str(config) == self.TEST_CONFIG
 
     def test_unquote(self):
-        self.assertEqual(simpleconfig.unquote("plain string"), "plain string")
-        self.assertEqual(simpleconfig.unquote('"double quote"'), "double quote")
-        self.assertEqual(simpleconfig.unquote("'single quote'"), "single quote")
+        assert simpleconfig.unquote("plain string") == "plain string"
+        assert simpleconfig.unquote('"double quote"') == "double quote"
+        assert simpleconfig.unquote("'single quote'") == "single quote"
 
     def test_quote(self):
-        self.assertEqual(simpleconfig.quote("nospaces"), "nospaces")
-        self.assertEqual(simpleconfig.quote("plain string"), '"plain string"')
-        self.assertEqual(simpleconfig.quote("alwaysquote", always=True), '"alwaysquote"')
+        assert simpleconfig.quote("nospaces") == "nospaces"
+        assert simpleconfig.quote("plain string") == '"plain string"'
+        assert simpleconfig.quote("alwaysquote", always=True) == '"alwaysquote"'
 
     def test_set_and_get(self):
         """Setting and getting values"""
         scf = SimpleConfigFile()
         scf.set(('key1', 'value1'))
-        self.assertEqual(scf.get('key1'), 'value1')
+        assert scf.get('key1') == 'value1'
         scf.set(('KEY2', 'value2'))
-        self.assertEqual(scf.get('key2'), 'value2')
+        assert scf.get('key2') == 'value2'
         scf.set(('KEY3', 'value3'))
-        self.assertEqual(scf.get('KEY3'), 'value3')
+        assert scf.get('KEY3') == 'value3'
         scf.set(('key4', 'value4'))
-        self.assertEqual(scf.get('KEY4'), 'value4')
+        assert scf.get('KEY4') == 'value4'
 
     def test_unset(self):
         scf = SimpleConfigFile()
         scf.set(('key1', 'value1'))
         scf.unset(('key1'))
-        self.assertEqual(scf.get('key1'), '')
+        assert scf.get('key1') == ''
 
     def test_write(self):
         with tempfile.NamedTemporaryFile(mode="wt") as testconfig:
@@ -78,7 +78,7 @@ KEY2="A single ' inside" # And comment "with quotes"
             scf.set(('key1', 'value1'))
             scf.write(testconfig.name)
             testconfig.flush()
-            self.assertEqual(open(testconfig.name).read(), 'KEY1=value1\n')
+            assert open(testconfig.name).read() == 'KEY1=value1\n'
 
     def test_read(self):
         with tempfile.NamedTemporaryFile(mode="wt") as testconfig:
@@ -86,7 +86,7 @@ KEY2="A single ' inside" # And comment "with quotes"
             open(testconfig.name, 'w').write('KEY1="value1"\n')
             testconfig.flush()
             scf.read(testconfig.name)
-            self.assertEqual(scf.get('key1'), 'value1')
+            assert scf.get('key1') == 'value1'
 
     def test_read_write(self):
         with tempfile.NamedTemporaryFile(mode="wt") as testconfig:
@@ -97,7 +97,7 @@ KEY2="A single ' inside" # And comment "with quotes"
             scf.read(testconfig.name)
             scf.write(testconfig.name)
             testconfig.flush()
-            self.assertEqual(open(testconfig.name).read(), self.TEST_CONFIG)
+            assert open(testconfig.name).read() == self.TEST_CONFIG
 
     def test_read_write__perms(self):
         with tempfile.NamedTemporaryFile(mode="wt") as testconfig:
@@ -114,7 +114,7 @@ KEY2="A single ' inside" # And comment "with quotes"
 
             # Write uses a tmpfile and renames it in place
             # Make sure the permissions are still 0764
-            self.assertEqual(os.stat(testconfig.name).st_mode, 0o100764)
+            assert os.stat(testconfig.name).st_mode == 0o100764
 
     def test_write_new_keys(self):
         with tempfile.NamedTemporaryFile(mode="wt") as testconfig:
@@ -127,8 +127,7 @@ KEY2="A single ' inside" # And comment "with quotes"
             scf.write(testconfig.name)
             testconfig.flush()
 
-            self.assertEqual(open(testconfig.name).read(),
-                             self.TEST_CONFIG+"KEY1=value1\n")
+            assert open(testconfig.name).read() == self.TEST_CONFIG+"KEY1=value1\n"
 
     def test_remove_key(self):
         with tempfile.NamedTemporaryFile(mode="wt") as testconfig:
@@ -137,13 +136,13 @@ KEY2="A single ' inside" # And comment "with quotes"
 
             scf = SimpleConfigFile()
             scf.read(testconfig.name)
-            self.assertEqual(scf.get("BOOT"), "always")
+            assert scf.get("BOOT") == "always"
             scf.unset("BOOT")
             scf.write(testconfig.name)
             testconfig.flush()
             scf.reset()
             scf.read(testconfig.name)
-            self.assertEqual(scf.get("BOOT"), "")
+            assert scf.get("BOOT") == ""
 
     def test_use_tmp(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as testconfig:
@@ -159,10 +158,10 @@ KEY2="A single ' inside" # And comment "with quotes"
             scf.write(testconfig.name, use_tmp=True)
 
             # Check the new contents
-            self.assertEqual(open(testconfig.name).read(), 'KEY1=value2\n')
+            assert open(testconfig.name).read() == 'KEY1=value2\n'
 
             # Check that the original file handle still points to the old contents
-            self.assertEqual(testconfig.read(), 'KEY1=value1\n')
+            assert testconfig.read() == 'KEY1=value1\n'
 
     def test_use_tmp_multifs(self):
         # Open a file on a non-default filesystem
@@ -179,10 +178,10 @@ KEY2="A single ' inside" # And comment "with quotes"
             scf.write(testconfig.name, use_tmp=True)
 
             # Check the new contents
-            self.assertEqual(open(testconfig.name).read(), 'KEY1=value2\n')
+            assert open(testconfig.name).read() == 'KEY1=value2\n'
 
             # Check that the original file handle still points to the old contents
-            self.assertEqual(testconfig.read(), 'KEY1=value1\n')
+            assert testconfig.read() == 'KEY1=value1\n'
 
     def test_no_use_tmp(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as testconfig:
@@ -198,7 +197,7 @@ KEY2="A single ' inside" # And comment "with quotes"
             scf.write(testconfig.name, use_tmp=False)
 
             # Check the new contents
-            self.assertEqual(open(testconfig.name).read(), 'KEY1=value2\n')
+            assert open(testconfig.name).read() == 'KEY1=value2\n'
 
             # Check that the original file handle points to the replaced contents
-            self.assertEqual(testconfig.read(), 'KEY1=value2\n')
+            assert testconfig.read() == 'KEY1=value2\n'

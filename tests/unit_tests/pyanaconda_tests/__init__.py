@@ -101,7 +101,7 @@ def check_kickstart_interface(test, interface, ks_in, ks_out=None, ks_valid=True
         result = KickstartReport.from_structure(
             interface.ReadKickstart(ks_in)
         )
-        test.assertEqual(ks_valid, result.is_valid())
+        assert ks_valid == result.is_valid()
 
     if not ks_valid:
         return result
@@ -112,13 +112,13 @@ def check_kickstart_interface(test, interface, ks_in, ks_out=None, ks_valid=True
     # Generate a kickstart
     ks_out = dedent(ks_out).strip()
     ks_generated = clear_version_from_kickstart_string(interface.GenerateKickstart()).strip()
-    test.assertEqual(ks_out, ks_generated)
+    assert ks_out == ks_generated
 
     # Test the properties changed callback.
     if ks_in is not None:
         callback.assert_any_call(KICKSTART_MODULE.interface_name, {'Kickstarted': True}, [])
     else:
-        test.assertEqual(interface.Kickstarted, False)
+        assert interface.Kickstarted == False
         callback.assert_not_called()
 
     # Test the temporary kickstart.
@@ -126,7 +126,7 @@ def check_kickstart_interface(test, interface, ks_in, ks_out=None, ks_valid=True
         return
 
     ks_tmp = dedent(ks_tmp).strip()
-    test.assertEqual(ks_tmp, interface.GenerateTemporaryKickstart().strip())
+    assert ks_tmp == interface.GenerateTemporaryKickstart().strip()
 
     return result
 
@@ -177,7 +177,7 @@ def check_dbus_property(test, interface_id, interface, property_name,
     if not getter:
         getter = lambda: getattr(interface, property_name)
 
-    test.assertEqual(getter(), out_value)
+    assert getter() == out_value
 
 
 def check_task_creation(test, task_path, publisher, task_class, index=0):
@@ -191,7 +191,7 @@ def check_task_creation(test, task_path, publisher, task_class, index=0):
     :return: instance of the task
     """
     obj = check_dbus_object_creation(test, task_path, publisher, task_class, index)
-    test.assertIsInstance(obj, TaskInterface)
+    assert isinstance(obj, TaskInterface)
     return obj
 
 
@@ -210,8 +210,8 @@ def check_task_creation_list(test, task_paths, publisher, task_classes):
     task_count = len(task_paths)
 
     # Check the number of published tasks.
-    test.assertEqual(task_count, publisher.call_count)
-    test.assertEqual(task_count, len(task_classes))
+    assert task_count == publisher.call_count
+    assert task_count == len(task_classes)
 
     # Check each published task.
     for i in range(task_count):
@@ -231,12 +231,12 @@ def check_dbus_object_creation(test, path, publisher, klass, index=0):
     :param index: an index of the published object
     """
     # A valid index of a call should be less than the number of calls.
-    test.assertLess(index, publisher.call_count)
+    assert index < publisher.call_count
     object_path, obj = publisher.call_args_list[index][0]
 
-    test.assertEqual(path, object_path)
-    test.assertIsInstance(obj.implementation, klass)
-    test.assertIsInstance(obj, BasicInterfaceTemplate)
+    assert path == object_path
+    assert isinstance(obj.implementation, klass)
+    assert isinstance(obj, BasicInterfaceTemplate)
     return obj
 
 

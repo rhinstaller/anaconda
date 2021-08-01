@@ -19,6 +19,7 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
+import pytest
 import pyanaconda.modules.storage.checker.utils as checks
 
 from blivet.size import Size
@@ -35,10 +36,10 @@ class StorageCheckerTests(unittest.TestCase):
         checker = StorageChecker()
         report = checker.check(None)
 
-        self.assertEqual(report.success, True)
-        self.assertEqual(report.failure, False)
-        self.assertListEqual(report.errors, [])
-        self.assertListEqual(report.warnings, [])
+        assert report.success == True
+        assert report.failure == False
+        assert report.errors == []
+        assert report.warnings == []
 
     def test_simple_error(self):
         """Test an simple error report."""
@@ -50,9 +51,9 @@ class StorageCheckerTests(unittest.TestCase):
         checker.add_check(check)
         report = checker.check(None)
 
-        self.assertEqual(report.success, False)
-        self.assertListEqual(report.errors, ["error"])
-        self.assertListEqual(report.warnings, [])
+        assert report.success == False
+        assert report.errors == ["error"]
+        assert report.warnings == []
 
     def test_simple_warning(self):
         """Test an simple warning report."""
@@ -63,18 +64,18 @@ class StorageCheckerTests(unittest.TestCase):
 
         checker.add_check(check)
         report = checker.check(None)
-        self.assertEqual(report.success, False)
-        self.assertListEqual(report.errors, [])
-        self.assertListEqual(report.warnings, ["warning"])
+        assert report.success == False
+        assert report.errors == []
+        assert report.warnings == ["warning"]
 
     def test_simple_info(self):
         """Test simple info messages. """
         checker = StorageChecker()
         report = checker.check(None)
-        self.assertListEqual(report.info, [
+        assert report.info == [
             "Storage check started with constraints {}.",
             "Storage check finished with success."
-        ])
+        ]
 
     def test_info(self):
         """Test info messages. """
@@ -95,7 +96,7 @@ class StorageCheckerTests(unittest.TestCase):
         checker.add_check(skipped_check)
 
         report = checker.check(None, skip=(skipped_check,))
-        self.assertListEqual(report.info, [
+        assert report.info == [
             "Storage check started with constraints {'x': None}.",
             "Run sanity check error_check.",
             "Found sanity error: error",
@@ -103,18 +104,20 @@ class StorageCheckerTests(unittest.TestCase):
             "Found sanity warning: warning",
             "Skipped sanity check skipped_check.",
             "Storage check finished with failure(s)."
-        ])
+        ]
 
     def test_simple_constraints(self):
         """Test simple constraint adding."""
         checker = StorageChecker()
 
         # Try to add a new constraint with a wrong method.
-        self.assertRaises(KeyError, checker.set_constraint, "x", None)
+        with pytest.raises(KeyError):
+            checker.set_constraint("x", None)
 
         # Try to add a new constraint two times.
         checker.add_constraint("x", None)
-        self.assertRaises(KeyError, checker.add_constraint, "x", None)
+        with pytest.raises(KeyError):
+            checker.add_constraint("x", None)
 
     def test_check_constraints(self):
         """Test constraints checking."""
@@ -125,27 +128,27 @@ class StorageCheckerTests(unittest.TestCase):
 
         checker.add_check(check)
         report = checker.check(None)
-        self.assertListEqual(report.warnings, ["{}"])
+        assert report.warnings == ["{}"]
 
         checker.add_constraint("x", 1)
         report = checker.check(None)
-        self.assertListEqual(report.warnings, ["{'x': 1}"])
+        assert report.warnings == ["{'x': 1}"]
 
         checker.set_constraint("x", 0)
         report = checker.check(None)
-        self.assertListEqual(report.warnings, ["{'x': 0}"])
+        assert report.warnings == ["{'x': 0}"]
 
     def test_dictionary_constraints(self):
         """Test the dictionary constraints."""
         checker = StorageChecker()
 
         checker.add_constraint("x", {"a": 1, "b": 2, "c": 3})
-        self.assertIn("x", checker.constraints)
-        self.assertEqual(checker.constraints["x"], {"a": 1, "b": 2, "c": 3})
+        assert "x" in checker.constraints
+        assert checker.constraints["x"] == {"a": 1, "b": 2, "c": 3}
 
         checker.set_constraint("x", {"e": 4, "f": 5})
-        self.assertIn("x", checker.constraints)
-        self.assertEqual(checker.constraints["x"], {"e": 4, "f": 5})
+        assert "x" in checker.constraints
+        assert checker.constraints["x"] == {"e": 4, "f": 5}
 
     def test_complicated(self):
         """Run a complicated check."""
@@ -175,9 +178,9 @@ class StorageCheckerTests(unittest.TestCase):
 
         # Run the checker. OK
         report = checker.check(None)
-        self.assertEqual(report.success, True)
-        self.assertListEqual(report.errors, [])
-        self.assertListEqual(report.warnings, [])
+        assert report.success == True
+        assert report.errors == []
+        assert report.warnings == []
 
         # Set constraints to different values.
         checker.set_constraint("x", 0)
@@ -186,29 +189,29 @@ class StorageCheckerTests(unittest.TestCase):
 
         # Run the checker. FAIL
         report = checker.check(None)
-        self.assertEqual(report.success, False)
-        self.assertListEqual(report.errors, [
+        assert report.success == False
+        assert report.errors == [
             "x is not equal to 1",
             "y is not equal to 2",
             "z is not equal to 3"
-        ])
-        self.assertListEqual(report.warnings, [])
+        ]
+        assert report.warnings == []
 
         # Run the checker. Test SKIP.
         report = checker.check(None, skip=(check_y,))
-        self.assertEqual(report.success, False)
-        self.assertListEqual(report.errors, [
+        assert report.success == False
+        assert report.errors == [
             "x is not equal to 1",
             "z is not equal to 3"
-        ])
-        self.assertListEqual(report.warnings, [])
+        ]
+        assert report.warnings == []
 
         # Run the checker. Test CONSTRAINTS.
         constraints = {"x": 1, "y": 2, "z": 3}
         report = checker.check(None, constraints=constraints)
-        self.assertEqual(report.success, True)
-        self.assertListEqual(report.errors, [])
-        self.assertListEqual(report.warnings, [])
+        assert report.success == True
+        assert report.errors == []
+        assert report.warnings == []
 
         # Remove checks.
         checker.remove_check(check_x)
@@ -216,9 +219,9 @@ class StorageCheckerTests(unittest.TestCase):
         checker.remove_check(check_z)
 
         report = checker.check(None)
-        self.assertEqual(report.success, True)
-        self.assertListEqual(report.errors, [])
-        self.assertListEqual(report.warnings, [])
+        assert report.success == True
+        assert report.errors == []
+        assert report.warnings == []
 
     def test_default_settings(self):
         """Check the default storage checker."""
@@ -226,7 +229,7 @@ class StorageCheckerTests(unittest.TestCase):
         checker.set_default_constraints()
         checker.set_default_checks()
 
-        self.assertEqual(checker.constraints, {
+        assert checker.constraints == {
             checks.STORAGE_MIN_RAM:  Size("320 MiB"),
             checks.STORAGE_ROOT_DEVICE_TYPES: set(),
             checks.STORAGE_MIN_PARTITION_SIZES: {
@@ -253,9 +256,9 @@ class StorageCheckerTests(unittest.TestCase):
             },
             checks.STORAGE_SWAP_IS_RECOMMENDED: False,
             checks.STORAGE_LUKS2_MIN_RAM: Size("128 MiB"),
-        })
+        }
 
-        self.assertEqual(checker.checks, [
+        assert checker.checks == [
             checks.verify_root,
             checks.verify_s390_constraints,
             checks.verify_partition_formatting,
@@ -274,4 +277,4 @@ class StorageCheckerTests(unittest.TestCase):
             checks.verify_luks2_memory_requirements,
             checks.verify_mounted_partitions,
             checks.verify_lvm_destruction,
-        ])
+        ]

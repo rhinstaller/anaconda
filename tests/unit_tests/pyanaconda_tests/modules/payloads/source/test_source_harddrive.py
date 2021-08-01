@@ -16,6 +16,7 @@
 # Red Hat, Inc.
 #
 import unittest
+import pytest
 
 from pyanaconda.core.constants import SOURCE_TYPE_HDD
 from unittest.mock import patch, Mock
@@ -67,18 +68,18 @@ class HardDriveSourceInterfaceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Hard drive source has a correct type specified."""
-        self.assertEqual(SOURCE_TYPE_HDD, self.interface.Type)
+        assert SOURCE_TYPE_HDD == self.interface.Type
 
     def test_description(self):
         """Hard drive source description."""
         self.interface.SetPartition("device")
         self.interface.SetDirectory("/directory")
-        self.assertEqual("device:/directory", self.interface.Description)
+        assert "device:/directory" == self.interface.Description
 
     def test_empty_properties(self):
         """Hard drive source properties are empty when not set."""
-        self.assertEqual(self.interface.Partition, "")
-        self.assertEqual(self.interface.Directory, "")
+        assert self.interface.Partition == ""
+        assert self.interface.Directory == ""
 
     def test_setting_properties(self):
         """Hard drive source properties are correctly set."""
@@ -87,15 +88,15 @@ class HardDriveSourceInterfaceTestCase(unittest.TestCase):
 
     def test_iso_path(self):
         """Hard drive source has a correct iso path."""
-        self.assertEqual(self.interface.GetIsoPath(), "")
+        assert self.interface.GetIsoPath() == ""
 
         self.module._iso_name = "GLaDOS.iso"
         self.interface.SetDirectory("/super/secret/base")
-        self.assertEqual(self.interface.GetIsoPath(), "/super/secret/base/GLaDOS.iso")
+        assert self.interface.GetIsoPath() == "/super/secret/base/GLaDOS.iso"
 
         self.module._iso_name = ""
         self.interface.SetDirectory("/path/to/install/tree")
-        self.assertEqual(self.interface.GetIsoPath(), "")
+        assert self.interface.GetIsoPath() == ""
 
 
 class HardDriveSourceTestCase(unittest.TestCase):
@@ -105,11 +106,11 @@ class HardDriveSourceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Hard drive source module has a correct type."""
-        self.assertEqual(SourceType.HDD, self.module.type)
+        assert SourceType.HDD == self.module.type
 
     def test_network_required(self):
         """Test the property network_required."""
-        self.assertEqual(self.module.network_required, False)
+        assert self.module.network_required == False
 
     def test_set_up_with_tasks(self):
         """Hard drive source set up task type and amount."""
@@ -122,17 +123,17 @@ class HardDriveSourceTestCase(unittest.TestCase):
 
         # Check the number of the tasks
         task_number = len(task_classes)
-        self.assertEqual(task_number, len(tasks))
+        assert task_number == len(tasks)
 
         for i in range(task_number):
-            self.assertIsInstance(tasks[i], task_classes[i])
+            assert isinstance(tasks[i], task_classes[i])
 
     @patch("os.path.ismount")
     def test_ready_state(self, ismount):
         """Hard drive source ready state for set up."""
         ismount.return_value = False
 
-        self.assertEqual(self.module.get_state(), SourceState.UNREADY)
+        assert self.module.get_state() == SourceState.UNREADY
         ismount.assert_called_once_with(self.module._device_mount)
 
         ismount.reset_mock()
@@ -142,7 +143,7 @@ class HardDriveSourceTestCase(unittest.TestCase):
         task.get_result = Mock(return_value=SetupHardDriveResult("/my/path", ""))
         task.succeeded_signal.emit()
 
-        self.assertEqual(self.module.get_state(), SourceState.READY)
+        assert self.module.get_state() == SourceState.READY
         ismount.assert_called_once_with(self.module._device_mount)
 
     def test_return_handler(self):
@@ -153,8 +154,8 @@ class HardDriveSourceTestCase(unittest.TestCase):
         )
         task.succeeded_signal.emit()
 
-        self.assertEqual(self.module.install_tree_path, iso_mount_location)
-        self.assertEqual(self.module._iso_name, "iso_name.iso")
+        assert self.module.install_tree_path == iso_mount_location
+        assert self.module._iso_name == "iso_name.iso"
 
     def test_return_handler_without_iso(self):
         """Hard drive source setup result propagates back when no ISO is involved.
@@ -167,17 +168,15 @@ class HardDriveSourceTestCase(unittest.TestCase):
         )
         task.succeeded_signal.emit()
 
-        self.assertEqual(self.module.install_tree_path, iso_mount_location)
-        self.assertEqual(self.module._iso_name, "")
+        assert self.module.install_tree_path == iso_mount_location
+        assert self.module._iso_name == ""
 
     def test_repr(self):
         self.module.set_device("device")
         self.module.set_directory("directory")
         self.module._install_tree_path = "install-tree-path"
-        self.assertEqual(
-            repr(self.module),
+        assert repr(self.module) == \
             "Source(type='HDD', partition='device', directory='directory')"
-        )
 
 
 class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
@@ -185,7 +184,7 @@ class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
     def test_setup_install_source_task_name(self):
         """Hard drive source setup task name."""
         task = _create_setup_task()
-        self.assertEqual(task.name, "Set up Hard drive installation source")
+        assert task.name == "Set up Hard drive installation source"
 
     @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_and_mount_device",
            return_value=True)
@@ -205,7 +204,7 @@ class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
         find_and_mount_iso_image_mock.assert_called_once_with(
             device_mount_location + path_on_device, iso_mount_location
         )
-        self.assertEqual(result, SetupHardDriveResult(iso_mount_location, "skynet.iso"))
+        assert result == SetupHardDriveResult(iso_mount_location, "skynet.iso")
 
     @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_and_mount_device",
            return_value=True)
@@ -231,7 +230,7 @@ class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
         verify_valid_repository_mock.assert_called_once_with(
             device_mount_location + path_on_device
         )
-        self.assertEqual(result, SetupHardDriveResult(device_mount_location + path_on_device, ""))
+        assert result == SetupHardDriveResult(device_mount_location + path_on_device, "")
 
     @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_and_mount_device",
            return_value=True)
@@ -247,7 +246,7 @@ class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
                                       find_and_mount_device_mock):
         """Hard drive source setup failure to find anything."""
         task = _create_setup_task()
-        with self.assertRaises(SourceSetupError) as cm:
+        with pytest.raises(SourceSetupError) as cm:
             task.run()
 
         find_and_mount_device_mock.assert_called_once_with(
@@ -263,38 +262,38 @@ class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
         unmount_mock.assert_called_once_with(
             device_mount_location
         )
-        self.assertTrue(str(cm.exception).startswith(
+        assert str(cm.value).startswith(
             "Nothing useful found for Hard drive ISO source"
-        ))
+        )
 
     @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_and_mount_device",
            return_value=False)
     def test_failure_to_find_mount_device(self, find_and_mount_device_mock):
         """Hard drive source setup failure to find partition device."""
         task = _create_setup_task()
-        with self.assertRaises(SourceSetupError) as cm:
+        with pytest.raises(SourceSetupError) as cm:
             task.run()
 
         find_and_mount_device_mock.assert_called_once_with(
             device_spec,
             device_mount_location
         )
-        self.assertTrue(str(cm.exception).startswith(
+        assert str(cm.value).startswith(
             "Could not mount device specified as"
-        ))
+        )
 
     @patch("pyanaconda.modules.payloads.source.harddrive.initialization.os.path.ismount",
            return_value=True)
     def test_failure_mount_already_used(self, ismount_mock):
         """Hard drive source setup failure to mount partition device."""
         task = _create_setup_task()
-        with self.assertRaises(SourceSetupError) as cm:
+        with pytest.raises(SourceSetupError) as cm:
             task.run()
 
         ismount_mock.assert_called_once()  # must die on first check
-        self.assertTrue(str(cm.exception).startswith(
+        assert str(cm.value).startswith(
             "The mount point"
-        ))
+        )
 
 
 class HardDriveSourceTearDownTestCase(unittest.TestCase):
@@ -304,14 +303,14 @@ class HardDriveSourceTearDownTestCase(unittest.TestCase):
 
     def test_required_space(self):
         """Test the required_space property."""
-        self.assertEqual(self.source_module.required_space, 0)
+        assert self.source_module.required_space == 0
 
     def test_tear_down_task_order(self):
         """Hard drive source tear down task order."""
         tasks = self.source_module.tear_down_with_tasks()
-        self.assertEqual(len(tasks), 2)
-        self.assertIsInstance(tasks[0], TearDownMountTask)
-        self.assertIsInstance(tasks[1], TearDownMountTask)
+        assert len(tasks) == 2
+        assert isinstance(tasks[0], TearDownMountTask)
+        assert isinstance(tasks[1], TearDownMountTask)
         name_suffixes = ["-iso", "-device"]
         for task, fragment in zip(tasks, name_suffixes):
-            self.assertTrue(task._target_mount.endswith(fragment))
+            assert task._target_mount.endswith(fragment)

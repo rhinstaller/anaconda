@@ -20,6 +20,8 @@
 import unittest
 import tempfile
 import os
+import pytest
+
 from unittest.mock import patch
 
 from pyanaconda.core.configuration.target import TargetType
@@ -65,10 +67,10 @@ class SecurityInterfaceTestCase(unittest.TestCase):
 
     def test_kickstart_properties(self):
         """Test kickstart properties."""
-        self.assertEqual(self.security_interface.KickstartCommands,
-                         ["auth", "authconfig", "authselect", "selinux", "realm"])
-        self.assertEqual(self.security_interface.KickstartSections, [])
-        self.assertEqual(self.security_interface.KickstartAddons, [])
+        assert self.security_interface.KickstartCommands == \
+            ["auth", "authconfig", "authselect", "selinux", "realm"]
+        assert self.security_interface.KickstartSections == []
+        assert self.security_interface.KickstartAddons == []
         self.callback.assert_not_called()
 
     def test_selinux_property(self):
@@ -188,8 +190,8 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         """Test module in default state with realm discover task."""
         realm_discover_task_path = self.security_interface.DiscoverRealmWithTask()
         obj = check_task_creation(self, realm_discover_task_path, publisher, RealmDiscoverTask)
-        self.assertEqual(obj.implementation._realm_data.name, "")
-        self.assertEqual(obj.implementation._realm_data.discover_options, [])
+        assert obj.implementation._realm_data.name == ""
+        assert obj.implementation._realm_data.discover_options == []
 
     @patch_dbus_publish_object
     def test_realm_discover_configured(self, publisher):
@@ -202,8 +204,8 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         realm_discover_task_path = self.security_interface.DiscoverRealmWithTask()
 
         obj = check_task_creation(self, realm_discover_task_path, publisher, RealmDiscoverTask)
-        self.assertEqual(obj.implementation._realm_data.name, "domain.example.com")
-        self.assertEqual(obj.implementation._realm_data.discover_options, ["--client-software=sssd"])
+        assert obj.implementation._realm_data.name == "domain.example.com"
+        assert obj.implementation._realm_data.discover_options == ["--client-software=sssd"]
 
     @patch_dbus_publish_object
     def test_install_with_tasks_default(self, publisher):
@@ -219,25 +221,25 @@ class SecurityInterfaceTestCase(unittest.TestCase):
 
         # ConfigureSELinuxTask
         obj = task_objs[0]
-        self.assertEqual(obj.implementation._selinux_mode, SELinuxMode.DEFAULT)
+        assert obj.implementation._selinux_mode == SELinuxMode.DEFAULT
         # ConfigureFingerprintAuthTask
         obj = task_objs[1]
-        self.assertEqual(obj.implementation._fingerprint_auth_enabled, False)
+        assert obj.implementation._fingerprint_auth_enabled == False
         # ConfigureAuthselectTask
         obj = task_objs[2]
-        self.assertEqual(obj.implementation._authselect_options, [])
+        assert obj.implementation._authselect_options == []
         # ConfigureAuthconfigTask
         obj = task_objs[3]
-        self.assertEqual(obj.implementation._authconfig_options, [])
+        assert obj.implementation._authconfig_options == []
 
     @patch_dbus_publish_object
     def test_realm_join_default(self, publisher):
         """Test module in default state with realm join task."""
         realm_join_task_path = self.security_interface.JoinRealmWithTask()
         obj = check_task_creation(self, realm_join_task_path, publisher, RealmJoinTask)
-        self.assertEqual(obj.implementation._realm_data.discovered, False)
-        self.assertEqual(obj.implementation._realm_data.name, "")
-        self.assertEqual(obj.implementation._realm_data.join_options, [])
+        assert obj.implementation._realm_data.discovered == False
+        assert obj.implementation._realm_data.name == ""
+        assert obj.implementation._realm_data.join_options == []
 
     @patch_dbus_publish_object
     def test_install_with_tasks_configured(self, publisher):
@@ -269,16 +271,16 @@ class SecurityInterfaceTestCase(unittest.TestCase):
 
         # ConfigureSELinuxTask
         obj = task_objs[0]
-        self.assertEqual(obj.implementation._selinux_mode, SELinuxMode.PERMISSIVE)
+        assert obj.implementation._selinux_mode == SELinuxMode.PERMISSIVE
         # ConfigureFingerprintAuthTask
         obj = task_objs[1]
-        self.assertEqual(obj.implementation._fingerprint_auth_enabled, fingerprint)
+        assert obj.implementation._fingerprint_auth_enabled == fingerprint
         # ConfigureAuthselectTask
         obj = task_objs[2]
-        self.assertEqual(obj.implementation._authselect_options, authselect)
+        assert obj.implementation._authselect_options == authselect
         # ConfigureAuthconfigTask
         obj = task_objs[3]
-        self.assertEqual(obj.implementation._authconfig_options, authconfig)
+        assert obj.implementation._authconfig_options == authconfig
 
     @patch_dbus_publish_object
     def test_realm_join_configured(self, publisher):
@@ -293,9 +295,9 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         realm_join_task_path = self.security_interface.JoinRealmWithTask()
 
         obj = check_task_creation(self, realm_join_task_path, publisher, RealmJoinTask)
-        self.assertEqual(obj.implementation._realm_data.discovered, True)
-        self.assertEqual(obj.implementation._realm_data.name, "domain.example.com")
-        self.assertEqual(obj.implementation._realm_data.join_options, ["--one-time-password=password"])
+        assert obj.implementation._realm_data.discovered == True
+        assert obj.implementation._realm_data.name == "domain.example.com"
+        assert obj.implementation._realm_data.join_options == ["--one-time-password=password"]
 
     @patch_dbus_publish_object
     def test_realm_data_propagation(self, publisher):
@@ -312,9 +314,9 @@ class SecurityInterfaceTestCase(unittest.TestCase):
 
         # realm join - after task creation
         obj = check_task_creation(self, realm_join_task_path, publisher, RealmJoinTask)
-        self.assertEqual(obj.implementation._realm_data.discovered, False)
-        self.assertEqual(obj.implementation._realm_data.name, "domain.example.com")
-        self.assertEqual(obj.implementation._realm_data.join_options, [])
+        assert obj.implementation._realm_data.discovered == False
+        assert obj.implementation._realm_data.name == "domain.example.com"
+        assert obj.implementation._realm_data.join_options == []
 
         # change realm data and check the changes propagate to the realm join task
         realm2 = RealmData()
@@ -326,43 +328,43 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         self.security_interface.SetRealm(RealmData.to_structure(realm2))
 
         # realm join - after realm data update
-        self.assertEqual(obj.implementation._realm_data.discovered, True)
-        self.assertEqual(obj.implementation._realm_data.name, "domain.example.com")
-        self.assertEqual(obj.implementation._realm_data.join_options, ["--one-time-password=password"])
+        assert obj.implementation._realm_data.discovered == True
+        assert obj.implementation._realm_data.name == "domain.example.com"
+        assert obj.implementation._realm_data.join_options == ["--one-time-password=password"]
 
     @patch_dbus_publish_object
     def test_preconfigure_fips_with_task(self, publisher):
         """Test the PreconfigureFIPSWithTask method."""
         task_path = self.security_interface.PreconfigureFIPSWithTask(PAYLOAD_TYPE_DNF)
         obj = check_task_creation(self, task_path, publisher, PreconfigureFIPSTask)
-        self.assertEqual(obj.implementation._sysroot, "/mnt/sysroot")
-        self.assertEqual(obj.implementation._payload_type, PAYLOAD_TYPE_DNF)
-        self.assertEqual(obj.implementation._fips_enabled, False)
+        assert obj.implementation._sysroot == "/mnt/sysroot"
+        assert obj.implementation._payload_type == PAYLOAD_TYPE_DNF
+        assert obj.implementation._fips_enabled == False
 
     @patch_dbus_publish_object
     def test_configure_fips_with_task(self, publisher):
         """Test the ConfigureFIPSWithTask method."""
         task_path = self.security_interface.ConfigureFIPSWithTask()
         obj = check_task_creation(self, task_path, publisher, ConfigureFIPSTask)
-        self.assertEqual(obj.implementation._sysroot, "/mnt/sysroot")
-        self.assertEqual(obj.implementation._fips_enabled, False)
+        assert obj.implementation._sysroot == "/mnt/sysroot"
+        assert obj.implementation._fips_enabled == False
 
     def test_collect_requirements_default(self):
         """Test requrements are empty by default."""
         reqs = self.security_interface.CollectRequirements()
-        self.assertListEqual(reqs, [])
+        assert reqs == []
 
     @patch("pyanaconda.modules.security.security.kernel_arguments")
     def test_fips_requirements(self, kernel_arguments_mock):
         """Test the package requirements for fips."""
         kernel_arguments_mock.is_enabled.return_value = True
-        self.assertEqual(self.security_interface.CollectRequirements(), [
+        assert self.security_interface.CollectRequirements() == [
             {
                 "type": get_variant(Str, "package"),
                 "name": get_variant(Str, "/usr/bin/fips-mode-setup"),
                 "reason": get_variant(Str, "Required for FIPS compliance.")
             }
-        ])
+        ]
         kernel_arguments_mock.is_enabled.assert_called_once_with("fips")
 
     def test_realmd_requirements(self):
@@ -377,7 +379,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         self.security_interface.SetRealm(RealmData.to_structure(realm))
 
         # check that the teamd package is requested
-        self.assertEqual(self.security_interface.CollectRequirements(), [
+        assert self.security_interface.CollectRequirements() == [
             {
                 "type": get_variant(Str, "package"),
                 "name": get_variant(Str, "realmd"),
@@ -393,7 +395,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
                 "name": get_variant(Str, "bar"),
                 "reason": get_variant(Str, "Needed to join a realm.")
             }
-        ])
+        ]
 
     def test_authselect_requirements(self):
         """Test that package requirements for authselect propagate correctly."""
@@ -402,18 +404,18 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         requirements = Requirement.from_structure_list(
             self.security_interface.CollectRequirements()
         )
-        self.assertEqual(len(requirements), 1)
-        self.assertEqual(requirements[0].type, "package")
-        self.assertEqual(requirements[0].name, "authselect-compat")
+        assert len(requirements) == 1
+        assert requirements[0].type == "package"
+        assert requirements[0].name == "authselect-compat"
 
         self.security_interface.SetAuthconfig([])
         self.security_interface.SetAuthselect(['select', 'sssd'])
         requirements = Requirement.from_structure_list(
             self.security_interface.CollectRequirements()
         )
-        self.assertEqual(len(requirements), 1)
-        self.assertEqual(requirements[0].type, "package")
-        self.assertEqual(requirements[0].name, "authselect")
+        assert len(requirements) == 1
+        assert requirements[0].type == "package"
+        assert requirements[0].name == "authselect"
 
         self.security_interface.SetAuthconfig([])
         self.security_interface.SetAuthselect([])
@@ -421,9 +423,9 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         requirements = Requirement.from_structure_list(
             self.security_interface.CollectRequirements()
         )
-        self.assertEqual(len(requirements), 1)
-        self.assertEqual(requirements[0].type, "package")
-        self.assertEqual(requirements[0].name, "authselect")
+        assert len(requirements) == 1
+        assert requirements[0].type == "package"
+        assert requirements[0].name == "authselect"
 
 
 class SecurityTasksTestCase(unittest.TestCase):
@@ -454,7 +456,7 @@ class SecurityTasksTestCase(unittest.TestCase):
             ).run()
 
             with open(os.path.join(sysroot, "etc/selinux/config")) as f:
-                self.assertEqual(f.read().strip(), content.strip())
+                assert f.read().strip() == content.strip()
 
     def test_configure_selinux_task_enforcing(self):
         """Test SELinux configuration task - SELinux enforcing."""
@@ -472,7 +474,7 @@ class SecurityTasksTestCase(unittest.TestCase):
             ).run()
 
             with open(os.path.join(sysroot, "etc/selinux/config")) as f:
-                self.assertEqual(f.read().strip(), content.strip())
+                assert f.read().strip() == content.strip()
 
     def test_configure_selinux_task_permissive(self):
         """Test SELinux configuration task - SELinux permissive."""
@@ -490,7 +492,7 @@ class SecurityTasksTestCase(unittest.TestCase):
             ).run()
 
             with open(os.path.join(sysroot, "etc/selinux/config")) as f:
-                self.assertEqual(f.read().strip(), content.strip())
+                assert f.read().strip() == content.strip()
 
     def test_configure_selinux_task_default(self):
         """Test SELinux configuration task - SELinux default."""
@@ -511,7 +513,7 @@ class SecurityTasksTestCase(unittest.TestCase):
             ).run()
 
             with open(os.path.join(sysroot, "etc/selinux/config")) as f:
-                self.assertEqual(f.read().strip(), content.strip())
+                assert f.read().strip() == content.strip()
 
     @patch('pyanaconda.core.util.execWithCapture')
     def test_realm_discover_success_task(self, execWithCapture):
@@ -524,7 +526,7 @@ class SecurityTasksTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(os.path.join(sysroot, "usr/bin"))
             os.mknod(os.path.join(sysroot, "usr/bin/realm"))
-            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/realm")))
+            assert os.path.exists(os.path.join(sysroot, "usr/bin/realm"))
 
             realm_data = RealmData()
             realm_data.name = "foo-domain"
@@ -539,8 +541,8 @@ class SecurityTasksTestCase(unittest.TestCase):
                                                   filter_stderr=True)
 
             # check if the results returned by the task look correct
-            self.assertTrue(new_realm_data.discovered)
-            self.assertListEqual(new_realm_data.required_packages, ["realmd", "package-foo", "package-bar", "package-baz"])
+            assert new_realm_data.discovered
+            assert new_realm_data.required_packages == ["realmd", "package-foo", "package-bar", "package-baz"]
 
     @patch('pyanaconda.core.util.execWithCapture')
     def test_realm_discover_success_with_garbage_task(self, execWithCapture):
@@ -558,7 +560,7 @@ class SecurityTasksTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(os.path.join(sysroot, "usr/bin"))
             os.mknod(os.path.join(sysroot, "usr/bin/realm"))
-            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/realm")))
+            assert os.path.exists(os.path.join(sysroot, "usr/bin/realm"))
 
             realm_data = RealmData()
             realm_data.name = "foo-domain"
@@ -573,8 +575,8 @@ class SecurityTasksTestCase(unittest.TestCase):
                                                   filter_stderr=True)
 
             # check if the results returned by the task look correct
-            self.assertTrue(new_realm_data.discovered)
-            self.assertListEqual(new_realm_data.required_packages, ["realmd", "package-foo", "package-bar", "package-baz"])
+            assert new_realm_data.discovered
+            assert new_realm_data.required_packages == ["realmd", "package-foo", "package-bar", "package-baz"]
 
     @patch('pyanaconda.core.util.execWithCapture')
     def test_realm_discover_success_no_extra_packages_with_garbage_task(self, execWithCapture):
@@ -588,7 +590,7 @@ class SecurityTasksTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(os.path.join(sysroot, "usr/bin"))
             os.mknod(os.path.join(sysroot, "usr/bin/realm"))
-            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/realm")))
+            assert os.path.exists(os.path.join(sysroot, "usr/bin/realm"))
 
             realm_data = RealmData()
             realm_data.name = "foo-domain"
@@ -603,8 +605,8 @@ class SecurityTasksTestCase(unittest.TestCase):
                                                   filter_stderr=True)
 
             # check if the results returned by the task look correct
-            self.assertTrue(new_realm_data.discovered)
-            self.assertListEqual(new_realm_data.required_packages, ["realmd"])
+            assert new_realm_data.discovered
+            assert new_realm_data.required_packages == ["realmd"]
 
     @patch('pyanaconda.core.util.execWithCapture')
     def test_realm_discover_failure(self, execWithCapture):
@@ -614,7 +616,7 @@ class SecurityTasksTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(os.path.join(sysroot, "usr/bin"))
             os.mknod(os.path.join(sysroot, "usr/bin/realm"))
-            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/realm")))
+            assert os.path.exists(os.path.join(sysroot, "usr/bin/realm"))
 
             realm_data = RealmData()
             realm_data.name = "foo-domain"
@@ -629,9 +631,9 @@ class SecurityTasksTestCase(unittest.TestCase):
                                                   filter_stderr=True)
 
             # check if the results returned by the task look correct
-            self.assertFalse(new_realm_data.discovered)
+            assert not new_realm_data.discovered
             # if realm discover invocation fails to discover a realm, we still add realmd as a required package
-            self.assertListEqual(new_realm_data.required_packages, ["realmd"])
+            assert new_realm_data.required_packages == ["realmd"]
 
     @patch('pyanaconda.core.util.execWithCapture')
     def test_realm_discover_failure_with_exception(self, execWithCapture):
@@ -642,7 +644,7 @@ class SecurityTasksTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(os.path.join(sysroot, "usr/bin"))
             os.mknod(os.path.join(sysroot, "usr/bin/realm"))
-            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/realm")))
+            assert os.path.exists(os.path.join(sysroot, "usr/bin/realm"))
 
             realm_data = RealmData()
             realm_data.name = "foo-domain"
@@ -657,9 +659,9 @@ class SecurityTasksTestCase(unittest.TestCase):
                                                   filter_stderr=True)
 
             # check if the results returned by the task look correct
-            self.assertFalse(new_realm_data.discovered)
+            assert not new_realm_data.discovered
             # if realm discover invocation fails hard, we don't add realmd as a required package
-            self.assertListEqual(new_realm_data.required_packages, [])
+            assert new_realm_data.required_packages == []
 
     @patch('pyanaconda.core.util.execWithCapture')
     def test_realm_discover_no_realm_name(self, execWithCapture):
@@ -667,7 +669,7 @@ class SecurityTasksTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(os.path.join(sysroot, "usr/bin"))
             os.mknod(os.path.join(sysroot, "usr/bin/realm"))
-            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/realm")))
+            assert os.path.exists(os.path.join(sysroot, "usr/bin/realm"))
 
             realm_data = RealmData()
             realm_data.name = ""
@@ -680,9 +682,9 @@ class SecurityTasksTestCase(unittest.TestCase):
             execWithCapture.assert_not_called()
 
             # no realm name so it can not be discovered
-            self.assertFalse(new_realm_data.discovered)
+            assert not new_realm_data.discovered
             # if realm can't be discovered, we can't join it so no extra packages are needed
-            self.assertListEqual(new_realm_data.required_packages, [])
+            assert new_realm_data.required_packages == []
 
     @patch('pyanaconda.core.util.execWithRedirect')
     def test_realm_join(self, execWithRedirect):
@@ -690,7 +692,7 @@ class SecurityTasksTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(os.path.join(sysroot, "usr/bin"))
             os.mknod(os.path.join(sysroot, "usr/bin/realm"))
-            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/realm")))
+            assert os.path.exists(os.path.join(sysroot, "usr/bin/realm"))
 
             realm_data = RealmData()
             realm_data.name = "foo-realm"
@@ -710,7 +712,7 @@ class SecurityTasksTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(os.path.join(sysroot, "usr/bin"))
             os.mknod(os.path.join(sysroot, "usr/bin/realm"))
-            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/realm")))
+            assert os.path.exists(os.path.join(sysroot, "usr/bin/realm"))
 
             realm_data = RealmData()
             realm_data.name = "foo-realm"
@@ -733,7 +735,7 @@ class SecurityTasksTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(os.path.join(sysroot, "usr/bin"))
             os.mknod(os.path.join(sysroot, "usr/bin/realm"))
-            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/realm")))
+            assert os.path.exists(os.path.join(sysroot, "usr/bin/realm"))
 
             realm_data = RealmData()
             realm_data.name = "foo-realm"
@@ -756,7 +758,7 @@ class SecurityTasksTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(os.path.join(sysroot, "usr/bin"))
             os.mknod(os.path.join(sysroot, "usr/bin/realm"))
-            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/realm")))
+            assert os.path.exists(os.path.join(sysroot, "usr/bin/realm"))
 
             realm_data = RealmData()
             realm_data.name = "foo-realm"
@@ -777,7 +779,7 @@ class SecurityTasksTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(os.path.join(sysroot, "usr/bin"))
             os.mknod(os.path.join(sysroot, "usr/bin/realm"))
-            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/realm")))
+            assert os.path.exists(os.path.join(sysroot, "usr/bin/realm"))
 
             realm_data = RealmData()
             realm_data.name = "foo-realm"
@@ -874,7 +876,7 @@ class SecurityTasksTestCase(unittest.TestCase):
                 sysroot=sysroot,
                 authselect_options=["select", "sssd", "with-mkhomedir"]
             )
-            with self.assertRaises(SecurityInstallationError):
+            with pytest.raises(SecurityInstallationError):
                 task.run()
             execWithRedirect.assert_not_called()
 
@@ -908,7 +910,7 @@ class SecurityTasksTestCase(unittest.TestCase):
                 sysroot=sysroot,
                 authconfig_options=["--passalgo=sha512", "--useshadow"]
             )
-            with self.assertRaises(SecurityInstallationError):
+            with pytest.raises(SecurityInstallationError):
                 task.run()
             execWithRedirect.assert_not_called()
 
@@ -939,7 +941,7 @@ class SecurityTasksTestCase(unittest.TestCase):
             task.run()
 
         msg = "FIPS is not enabled. Skipping."
-        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+        assert any(map(lambda x: msg in x, cm.output))
 
     def test_preconfigure_fips_task_payload(self):
         """Test the PreconfigureFIPSTask task with a wrong payload."""
@@ -953,7 +955,7 @@ class SecurityTasksTestCase(unittest.TestCase):
             task.run()
 
         msg = "Don't set up FIPS for the RPM_OSTREE payload."
-        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+        assert any(map(lambda x: msg in x, cm.output))
 
     def test_preconfigure_fips_task_error(self):
         """Test the PreconfigureFIPSTask task with a wrong policy."""
@@ -963,11 +965,11 @@ class SecurityTasksTestCase(unittest.TestCase):
             fips_enabled=True,
         )
 
-        with self.assertRaises(SecurityInstallationError) as cm:
+        with pytest.raises(SecurityInstallationError) as cm:
             task.run()
 
         msg = "FIPS is not correctly set up in the installation environment."
-        self.assertEqual(str(cm.exception), msg)
+        assert str(cm.value) == msg
 
     @patch("pyanaconda.modules.security.installation.shutil")
     @patch("pyanaconda.modules.security.installation.util")
@@ -1007,7 +1009,7 @@ class SecurityTasksTestCase(unittest.TestCase):
             task.run()
 
         msg = "FIPS is not enabled. Skipping."
-        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+        assert any(map(lambda x: msg in x, cm.output))
 
     @patch("pyanaconda.modules.security.installation.conf")
     def test_configure_fips_task_image(self, mock_conf):
@@ -1024,7 +1026,7 @@ class SecurityTasksTestCase(unittest.TestCase):
             task.run()
 
         msg = "Don't set up FIPS on IMAGE."
-        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+        assert any(map(lambda x: msg in x, cm.output))
 
     @patch("pyanaconda.modules.security.installation.util")
     def test_configure_fips_task(self, mock_util):

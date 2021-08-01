@@ -20,6 +20,7 @@
 import os
 import tempfile
 import unittest
+import pytest
 from textwrap import dedent
 from unittest.mock import patch
 
@@ -183,17 +184,17 @@ class ProductConfigurationTestCase(unittest.TestCase):
 
     def _check_product(self, product_name, variant_name, file_paths):
         """Check a product."""
-        self.assertTrue(self._loader.check_product(product_name, variant_name))
+        assert self._loader.check_product(product_name, variant_name) is True
 
         config_paths = self._loader.collect_configurations(product_name, variant_name)
-        self.assertEqual(file_paths, config_paths)
+        assert file_paths == config_paths
 
     def _check_partitioning(self, config, partitioning):
         with patch("pyanaconda.modules.storage.partitioning.automatic.utils.platform") as platform:
             platform.partitions = []
 
             with patch("pyanaconda.modules.storage.partitioning.automatic.utils.conf", new=config):
-                self.assertEqual(get_default_partitioning(), partitioning)
+                assert get_default_partitioning() == partitioning
 
     def _check_default_product(self, product_name, variant_name, file_names, partitioning):
         """Check a default product."""
@@ -312,7 +313,7 @@ class ProductConfigurationTestCase(unittest.TestCase):
         read_config(other_parser, os.path.join(PRODUCT_DIR, other_file_name))
 
         # The defined sections should be the same.
-        self.assertEqual(parser.sections(), other_parser.sections())
+        assert parser.sections() == other_parser.sections()
 
         for section in parser.sections():
             # Skip the product-related sections.
@@ -320,11 +321,11 @@ class ProductConfigurationTestCase(unittest.TestCase):
                 continue
 
             # The defined options should be the same.
-            self.assertEqual(parser.options(section), other_parser.options(section))
+            assert parser.options(section) == other_parser.options(section)
 
             for key in parser.options(section):
                 # The values of the options should be the same.
-                self.assertEqual(parser.get(section, key), other_parser.get(section, key))
+                assert parser.get(section, key) == other_parser.get(section, key)
 
     def test_ovirt_and_rhvh(self):
         """Test the similarity of oVirt Node Next with Red Hat Virtualization Host."""
@@ -374,13 +375,13 @@ class ProductConfigurationTestCase(unittest.TestCase):
         self._check_product("My Product", "My Next Variant", [base_path, path])
 
     def test_invalid_product(self):
-        with self.assertRaises(ConfigurationError):
+        with pytest.raises(ConfigurationError):
             self._load_product("")
 
-        with self.assertRaises(ConfigurationError):
+        with pytest.raises(ConfigurationError):
             self._load_product("[Product]")
 
-        with self.assertRaises(ConfigurationError):
+        with pytest.raises(ConfigurationError):
             self._load_product("[Base Product]")
 
         content = dedent("""
@@ -389,7 +390,7 @@ class ProductConfigurationTestCase(unittest.TestCase):
 
         """)
 
-        with self.assertRaises(ConfigurationError):
+        with pytest.raises(ConfigurationError):
             self._load_product(content)
 
         content = dedent("""
@@ -398,7 +399,7 @@ class ProductConfigurationTestCase(unittest.TestCase):
 
         """)
 
-        with self.assertRaises(ConfigurationError):
+        with pytest.raises(ConfigurationError):
             self._load_product(content)
 
     def test_invalid_base_product(self):
@@ -411,10 +412,10 @@ class ProductConfigurationTestCase(unittest.TestCase):
         """)
         self._load_product(content)
 
-        with self.assertRaises(ConfigurationError):
+        with pytest.raises(ConfigurationError):
             self._loader.collect_configurations("My Product")
 
-        self.assertFalse(self._loader.check_product("My Product"))
+        assert self._loader.check_product("My Product") is False
 
     def test_repeated_base_product(self):
         content = dedent("""
@@ -426,10 +427,10 @@ class ProductConfigurationTestCase(unittest.TestCase):
         """)
         self._load_product(content)
 
-        with self.assertRaises(ConfigurationError):
+        with pytest.raises(ConfigurationError):
             self._loader.collect_configurations("My Product")
 
-        self.assertFalse(self._loader.check_product("My Product"))
+        assert self._loader.check_product("My Product") is False
 
     def test_existing_product(self):
         content = dedent("""
@@ -439,7 +440,7 @@ class ProductConfigurationTestCase(unittest.TestCase):
 
         self._load_product(content)
 
-        with self.assertRaises(ConfigurationError):
+        with pytest.raises(ConfigurationError):
             self._load_product(content)
 
     def test_find_nonexistent_product(self):
@@ -468,9 +469,9 @@ class ProductConfigurationTestCase(unittest.TestCase):
                 """))
 
             self._loader.load_products(config_dir)
-            self.assertTrue(self._loader.check_product("My Product 1"))
-            self.assertFalse(self._loader.check_product("My Product 2"))
-            self.assertFalse(self._loader.check_product("My Product 3"))
+            assert self._loader.check_product("My Product 1") is True
+            assert self._loader.check_product("My Product 2") is False
+            assert self._loader.check_product("My Product 3") is False
 
 
 class ProductFromBuildstampTests(unittest.TestCase):
@@ -485,4 +486,4 @@ class ProductFromBuildstampTests(unittest.TestCase):
         ]
 
         for original, trimmed in trimmed_versions:
-            self.assertEqual(trimmed, trim_product_version_for_ui(original))
+            assert trimmed == trim_product_version_for_ui(original)

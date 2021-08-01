@@ -15,6 +15,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import pytest
+
 from unittest.case import TestCase
 
 from pyanaconda.modules.payloads.constants import SourceType
@@ -30,11 +32,11 @@ class SourceFactoryTestCase(TestCase):
         """Test SourceFactory create method."""
         for source_type in SourceType:
             module = SourceFactory.create_source(source_type)
-            self.assertIsInstance(module, PayloadSourceBase)
-            self.assertIsInstance(module.for_publication(), PayloadSourceBaseInterface)
-            self.assertEqual(module.type, source_type)
+            assert isinstance(module, PayloadSourceBase)
+            assert isinstance(module.for_publication(), PayloadSourceBaseInterface)
+            assert module.type == source_type
 
     def test_failed_create_source(self):
         """Test failed create method of the source factory."""
-        with self.assertRaises(ValueError):
+        with pytest.raises(ValueError):
             SourceFactory.create_source("INVALID")

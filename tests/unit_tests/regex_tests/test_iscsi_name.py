@@ -51,7 +51,7 @@ class iSCSIiqnnameRegexTestCase(unittest.TestCase):
                 'iqn.2014-15.com.example:iscsi no space allowed',
                 ]
 
-        self.assertTrue(regex_match(ISCSI_IQN_NAME_REGEX, good_tests, bad_tests))
+        assert regex_match(ISCSI_IQN_NAME_REGEX, good_tests, bad_tests)
 
 
 class iSCSIeuinameRegexTestCase(unittest.TestCase):
@@ -71,4 +71,4 @@ class iSCSIeuinameRegexTestCase(unittest.TestCase):
                 'eui.AAAABBBBCCCCD4567'
                 ]
 
-        self.assertTrue(regex_match(ISCSI_EUI_NAME_REGEX, good_tests, bad_tests))
+        assert regex_match(ISCSI_EUI_NAME_REGEX, good_tests, bad_tests)

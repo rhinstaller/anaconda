@@ -16,6 +16,8 @@
 # Red Hat, Inc.
 #
 import unittest
+import pytest
+
 from unittest.mock import patch, Mock
 
 from pyanaconda.core.constants import SOURCE_TYPE_NFS
@@ -56,16 +58,16 @@ class NFSSourceInterfaceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Test NFS source has a correct type specified."""
-        self.assertEqual(SOURCE_TYPE_NFS, self.interface.Type)
+        assert SOURCE_TYPE_NFS == self.interface.Type
 
     def test_description(self):
         """Test NFS source description."""
         self.interface.SetURL("nfs:server:/path")
-        self.assertEqual("NFS server nfs:server:/path", self.interface.Description)
+        assert "NFS server nfs:server:/path" == self.interface.Description
 
     def test_url_empty_properties(self):
         """Test NFS source URL property when not set."""
-        self.assertEqual(self.interface.URL, "")
+        assert self.interface.URL == ""
 
     def test_url_properties(self):
         """Test NFS source URL property is correctly set."""
@@ -85,21 +87,21 @@ class NFSSourceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Test NFS source module has a correct type."""
-        self.assertEqual(SourceType.NFS, self.module.type)
+        assert SourceType.NFS == self.module.type
 
     def test_network_required(self):
         """Test the property network_required."""
-        self.assertEqual(self.module.network_required, True)
+        assert self.module.network_required == True
 
     def test_required_space(self):
         """Test the required_space property."""
-        self.assertEqual(self.module.required_space, 0)
+        assert self.module.required_space == 0
 
     @patch("os.path.ismount")
     def test_get_state(self, ismount_mock):
         """Test NFS source state."""
         ismount_mock.return_value = False
-        self.assertEqual(SourceState.UNREADY, self.module.get_state())
+        assert SourceState.UNREADY == self.module.get_state()
 
         ismount_mock.reset_mock()
         ismount_mock.return_value = True
@@ -107,7 +109,7 @@ class NFSSourceTestCase(unittest.TestCase):
         task = self.module.set_up_with_tasks()[0]
         task.get_result = Mock(return_value="/my/path")
         task.succeeded_signal.emit()
-        self.assertEqual(SourceState.READY, self.module.get_state())
+        assert SourceState.READY == self.module.get_state()
 
         ismount_mock.assert_called_once_with(self.module._device_mount)
 
@@ -122,10 +124,10 @@ class NFSSourceTestCase(unittest.TestCase):
 
         # Check the number of the tasks
         task_number = len(task_classes)
-        self.assertEqual(task_number, len(tasks))
+        assert task_number == len(tasks)
 
         for i in range(task_number):
-            self.assertIsInstance(tasks[i], task_classes[i])
+            assert isinstance(tasks[i], task_classes[i])
 
     def test_tear_down_with_tasks(self):
         """Test NFS Source ready state for tear down."""
@@ -139,22 +141,19 @@ class NFSSourceTestCase(unittest.TestCase):
 
         # check the number of tasks
         task_number = len(task_classes)
-        self.assertEqual(task_number, len(tasks))
+        assert task_number == len(tasks)
 
         for i in range(task_number):
-            self.assertIsInstance(tasks[i], task_classes[i])
+            assert isinstance(tasks[i], task_classes[i])
 
     def test_url_property(self):
         """Test NFS source URL property is correctly set."""
         self.module.set_url(NFS_URL)
-        self.assertEqual(NFS_URL, self.module.url)
+        assert NFS_URL == self.module.url
 
     def test_repr(self):
         self.module.set_url(NFS_URL)
-        self.assertEqual(
-            repr(self.module),
-            "Source(type='NFS', url='nfs:example.com:/some/path')"
-        )
+        assert repr(self.module) == "Source(type='NFS', url='nfs:example.com:/some/path')"
 
 
 class NFSSourceSetupTaskTestCase(unittest.TestCase):
@@ -162,7 +161,7 @@ class NFSSourceSetupTaskTestCase(unittest.TestCase):
     def test_setup_install_source_task_name(self):
         """Test NFS Source setup installation source task name."""
         task = SetUpNFSSourceTask(DEVICE_MOUNT_LOCATION, ISO_MOUNT_LOCATION, NFS_URL)
-        self.assertEqual(task.name, "Set up NFS installation source")
+        assert task.name == "Set up NFS installation source"
 
     @patch("pyanaconda.modules.payloads.source.nfs.initialization.find_and_mount_iso_image",
            return_value="trojan.iso")
@@ -182,7 +181,7 @@ class NFSSourceSetupTaskTestCase(unittest.TestCase):
         find_and_mount_iso_image_mock.assert_called_once_with(DEVICE_MOUNT_LOCATION,
                                                               ISO_MOUNT_LOCATION)
 
-        self.assertEqual(result, ISO_MOUNT_LOCATION)
+        assert result == ISO_MOUNT_LOCATION
 
     @patch("pyanaconda.modules.payloads.source.nfs.initialization.find_and_mount_iso_image",
            return_value="trojan.iso")
@@ -202,7 +201,7 @@ class NFSSourceSetupTaskTestCase(unittest.TestCase):
         find_and_mount_iso_image_mock.assert_called_once_with(DEVICE_MOUNT_LOCATION + "/super.iso",
                                                               ISO_MOUNT_LOCATION)
 
-        self.assertEqual(result, ISO_MOUNT_LOCATION)
+        assert result == ISO_MOUNT_LOCATION
 
     @patch("pyanaconda.modules.payloads.source.nfs.initialization.verify_valid_repository",
            return_value=True)
@@ -227,7 +226,7 @@ class NFSSourceSetupTaskTestCase(unittest.TestCase):
 
         verify_valid_repository_mock.assert_called_once_with(DEVICE_MOUNT_LOCATION)
 
-        self.assertEqual(result, DEVICE_MOUNT_LOCATION)
+        assert result == DEVICE_MOUNT_LOCATION
 
     @patch("pyanaconda.modules.payloads.source.nfs.initialization.find_and_mount_iso_image",
            return_value="trojan.iso")
@@ -269,7 +268,7 @@ class NFSSourceSetupTaskTestCase(unittest.TestCase):
         """Test NFS source setup failure"""
         task = SetUpNFSSourceTask(DEVICE_MOUNT_LOCATION, ISO_MOUNT_LOCATION, NFS_URL)
 
-        with self.assertRaises(SourceSetupError):
+        with pytest.raises(SourceSetupError):
             task.run()
 
         mount_mock.assert_called_once_with(NFS_ADDRESS, DEVICE_MOUNT_LOCATION, fstype="nfs",
@@ -289,7 +288,7 @@ class NFSSourceSetupTaskTestCase(unittest.TestCase):
         """Test NFS can't find anything to install from"""
         task = SetUpNFSSourceTask(DEVICE_MOUNT_LOCATION, ISO_MOUNT_LOCATION, NFS_URL)
 
-        with self.assertRaises(SourceSetupError):
+        with pytest.raises(SourceSetupError):
             task.run()
 
         mount_mock.assert_called_once_with(NFS_ADDRESS, DEVICE_MOUNT_LOCATION, fstype="nfs",
@@ -309,13 +308,13 @@ class NFSSourceSetupTaskTestCase(unittest.TestCase):
     def test_failure_mount_already_used(self, ismount_mock):
         """NFS source setup failure to mount partition device."""
         task = _create_setup_task()
-        with self.assertRaises(SourceSetupError) as cm:
+        with pytest.raises(SourceSetupError) as cm:
             task.run()
 
         ismount_mock.assert_called_once()  # must die on first check
-        self.assertTrue(str(cm.exception).startswith(
+        assert str(cm.value).startswith(
             "The mount point"
-        ))
+        )
 
 
 class NFSSourceTearDownTestCase(unittest.TestCase):
@@ -326,9 +325,9 @@ class NFSSourceTearDownTestCase(unittest.TestCase):
     def test_tear_down_task_order(self):
         """NFS source tear down task order."""
         tasks = self.source_module.tear_down_with_tasks()
-        self.assertEqual(len(tasks), 2)
-        self.assertIsInstance(tasks[0], TearDownMountTask)
-        self.assertIsInstance(tasks[1], TearDownMountTask)
+        assert len(tasks) == 2
+        assert isinstance(tasks[0], TearDownMountTask)
+        assert isinstance(tasks[1], TearDownMountTask)
         name_suffixes = ["-iso", "-device"]
         for task, fragment in zip(tasks, name_suffixes):
-            self.assertTrue(task._target_mount.endswith(fragment))
+            assert task._target_mount.endswith(fragment)

@@ -18,6 +18,7 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
+import pytest
 
 from blivet.devices import DiskDevice
 from blivet.formats import get_format
@@ -88,50 +89,50 @@ class DiskSelectionInterfaceTestCase(unittest.TestCase):
             self.disk_selection_interface.ValidateSelectedDisks([])
         )
 
-        self.assertEqual(report.is_valid(), True)
+        assert report.is_valid() == True
 
         report = ValidationReport.from_structure(
             self.disk_selection_interface.ValidateSelectedDisks(["devX"])
         )
 
-        self.assertEqual(report.is_valid(), False)
-        self.assertEqual(report.error_messages, [
+        assert report.is_valid() == False
+        assert report.error_messages == [
             "The selected disk devX is not recognized."
-        ])
-        self.assertEqual(report.warning_messages, [])
+        ]
+        assert report.warning_messages == []
 
         report = ValidationReport.from_structure(
             self.disk_selection_interface.ValidateSelectedDisks(["dev1"])
         )
 
-        self.assertEqual(report.is_valid(), False)
-        self.assertEqual(report.error_messages, [
+        assert report.is_valid() == False
+        assert report.error_messages == [
             "You selected disk dev1, which contains devices that also use "
             "unselected disks dev2, dev3. You must select or de-select "
             "these disks as a set."
-        ])
-        self.assertEqual(report.warning_messages, [])
+        ]
+        assert report.warning_messages == []
 
         report = ValidationReport.from_structure(
             self.disk_selection_interface.ValidateSelectedDisks(["dev1", "dev2"])
         )
 
-        self.assertEqual(report.is_valid(), False)
-        self.assertEqual(report.error_messages, [
+        assert report.is_valid() == False
+        assert report.error_messages == [
             "You selected disk dev1, which contains devices that also "
             "use unselected disk dev3. You must select or de-select "
             "these disks as a set.",
             "You selected disk dev2, which contains devices that also "
             "use unselected disk dev3. You must select or de-select "
             "these disks as a set."
-        ])
-        self.assertEqual(report.warning_messages, [])
+        ]
+        assert report.warning_messages == []
 
         report = ValidationReport.from_structure(
             self.disk_selection_interface.ValidateSelectedDisks(["dev1", "dev2", "dev3"])
         )
 
-        self.assertEqual(report.is_valid(), True)
+        assert report.is_valid() == True
 
     def test_exclusive_disks_property(self):
         """Test the exclusive disks property."""
@@ -166,8 +167,8 @@ class DiskSelectionInterfaceTestCase(unittest.TestCase):
 
     def test_get_usable_disks(self):
         """Test the GetUsableDisks method."""
-        with self.assertRaises(UnavailableStorageError):
+        with pytest.raises(UnavailableStorageError):
             self.disk_selection_interface.GetUsableDisks()
 
         self.disk_selection_module.on_storage_changed(create_storage())
-        self.assertEqual(self.disk_selection_interface.GetUsableDisks(), [])
+        assert self.disk_selection_interface.GetUsableDisks() == []

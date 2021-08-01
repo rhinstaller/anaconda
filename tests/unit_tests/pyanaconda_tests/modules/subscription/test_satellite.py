@@ -42,7 +42,7 @@ class SatelliteLibraryTestCase(unittest.TestCase):
         # run the download method
         script_text = download_satellite_provisioning_script("satellite.example.com")
         # check script text was returned
-        self.assertEqual("foo script text", script_text)
+        assert "foo script text" == script_text
         # check the session was called correctly
         session.get.assert_called_once_with(
             'http://satellite.example.com' + PROVISIONING_SCRIPT_SUB_PATH,
@@ -64,7 +64,7 @@ class SatelliteLibraryTestCase(unittest.TestCase):
         # run the download method
         script_text = download_satellite_provisioning_script("http://satellite.example.com")
         # check script text was returned
-        self.assertEqual("foo script text", script_text)
+        assert "foo script text" == script_text
         # check the session was called correctly
         session.get.assert_called_once_with(
             'http://satellite.example.com' + PROVISIONING_SCRIPT_SUB_PATH,
@@ -86,7 +86,7 @@ class SatelliteLibraryTestCase(unittest.TestCase):
         # run the download method
         script_text = download_satellite_provisioning_script("https://satellite.example.com")
         # check script text was returned
-        self.assertEqual("foo script text", script_text)
+        assert "foo script text" == script_text
         # check the session was called correctly
         session.get.assert_called_once_with(
             'https://satellite.example.com' + PROVISIONING_SCRIPT_SUB_PATH,
@@ -108,7 +108,7 @@ class SatelliteLibraryTestCase(unittest.TestCase):
         # run the download method
         script_text = download_satellite_provisioning_script("satellite.example.com")
         # if result has ok == False, None should be returned instead of script text
-        self.assertIsNone(script_text)
+        assert script_text is None
         # check the session was called correctly
         session.get.assert_called_once_with(
             'http://satellite.example.com' + PROVISIONING_SCRIPT_SUB_PATH,
@@ -128,7 +128,7 @@ class SatelliteLibraryTestCase(unittest.TestCase):
         # run the download method
         script_text = download_satellite_provisioning_script("satellite.example.com")
         # if requests throw an exception, None should be returned instead of script text
-        self.assertIsNone(script_text)
+        assert script_text is None
         # check the session was called correctly
         session.get.assert_called_once_with(
             'http://satellite.example.com' + PROVISIONING_SCRIPT_SUB_PATH,
@@ -141,7 +141,7 @@ class SatelliteLibraryTestCase(unittest.TestCase):
     def test_run_satellite_provisioning_script_no_script(self):
         """Test the run_satellite_provisioning_script function - no script."""
         # if no script is provided, False should be returned
-        self.assertFalse(run_satellite_provisioning_script(provisioning_script=None))
+        assert run_satellite_provisioning_script(provisioning_script=None) is False
 
     @patch('pyanaconda.modules.subscription.satellite.util.mkdirChain')
     @patch('tempfile.NamedTemporaryFile')
@@ -157,7 +157,7 @@ class SatelliteLibraryTestCase(unittest.TestCase):
         file_object.name = "totally_random_name"
         file_object = named_tempfile.return_value.__enter__.return_value
         # successful run should return True
-        self.assertTrue(run_satellite_provisioning_script(provisioning_script="foo script"))
+        assert run_satellite_provisioning_script(provisioning_script="foo script") is True
         # check temp directory was created successfully
         mkdirChain.assert_called_once_with("/tmp")
         # check the tempfile was created correctly
@@ -189,10 +189,8 @@ class SatelliteLibraryTestCase(unittest.TestCase):
         file_object.name = "totally_random_name"
         file_object = named_tempfile.return_value.__enter__.return_value
         # successful run should return True
-        self.assertTrue(
-            run_satellite_provisioning_script(provisioning_script="foo script",
-                                              run_on_target_system=True)
-        )
+        assert run_satellite_provisioning_script(provisioning_script="foo script",
+                                                 run_on_target_system=True) is True
         # check temp directory was created successfully
         mkdirChain.assert_called_once_with("/foo/sysroot/tmp")
         # check the tempfile was created correctly
@@ -220,7 +218,7 @@ class SatelliteLibraryTestCase(unittest.TestCase):
         file_object.name = "totally_random_name"
         file_object = named_tempfile.return_value.__enter__.return_value
         # failed run should return False
-        self.assertFalse(run_satellite_provisioning_script(provisioning_script="foo script"))
+        assert run_satellite_provisioning_script(provisioning_script="foo script") is False
         # check temp directory was created successfully
         mkdirChain.assert_called_once_with("/tmp")
         # check the tempfile was created correctly

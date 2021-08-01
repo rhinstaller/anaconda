@@ -87,7 +87,7 @@ class SelfTestCase(FileTestCaseBase):
         filepaths = ["sub/dir/test.file", "testfile"]
         self.makefiles(*filepaths)
         for f in filepaths:
-            self.assertTrue(os.path.exists(self.tmpdir+'/'+f))
+            assert os.path.exists(self.tmpdir+'/'+f)
 
 
 class TestCopyFiles(FileTestCaseBase):
@@ -97,7 +97,7 @@ class TestCopyFiles(FileTestCaseBase):
         self.makefiles("dest/file3")
         copy_files(files, self.destdir, self.srcdir)
         result = set(listfiles(self.destdir))
-        self.assertEqual(result, set(["file1", "subdir/file2", "file3"]))
+        assert result == set(["file1", "subdir/file2", "file3"])
 
     def test_overwrite(self):
         """copy_file: overwrite files in destdir if they have the same name"""
@@ -107,8 +107,8 @@ class TestCopyFiles(FileTestCaseBase):
         with open(dest, 'w') as outf:
             outf.write("destfile")
         copy_files([src], self.destdir, self.srcdir)
-        self.assertEqual(list(listfiles(self.destdir)), ["file1"])
-        self.assertEqual(open(dest).read(), "srcfile")
+        assert list(listfiles(self.destdir)) == ["file1"]
+        assert open(dest).read() == "srcfile"
 
     def test_samefile(self):
         """copy_file: skip files already in destdir"""
@@ -116,14 +116,14 @@ class TestCopyFiles(FileTestCaseBase):
         with open(dest, 'w') as outf:
             outf.write("destfile")
         copy_files([dest], self.destdir, "src")
-        self.assertEqual(list(listfiles(self.destdir)), ["file1"])
-        self.assertEqual(open(dest).read(), "destfile")
+        assert list(listfiles(self.destdir)) == ["file1"]
+        assert open(dest).read() == "destfile"
 
     def test_copy_to_parent(self):
         """copy_file: skip files in subdirs of destdir"""
         files = self.makefiles("dest/subdir/file1")
         copy_files(files, self.destdir, "src")
-        self.assertEqual(list(iter_files(self.destdir)), files)
+        assert list(iter_files(self.destdir)) == files
 
     def test_copy_kernel(self):
         """copy_file: strip leading module directories"""
@@ -131,7 +131,7 @@ class TestCopyFiles(FileTestCaseBase):
                                "src/lib/modules/3.2.1-900.fc47.x86_64/kernel/other.ko.xz")
         copy_files(files, self.destdir, self.srcdir+"/lib/modules")
         result = set(listfiles(self.destdir))
-        self.assertEqual(result, set(["subdir/module.ko", "other.ko.xz"]))
+        assert result == set(["subdir/module.ko", "other.ko.xz"])
 
 
 class TestIterFiles(FileTestCaseBase):
@@ -140,14 +140,14 @@ class TestIterFiles(FileTestCaseBase):
         files = set(self.makefiles("src/file1", "dest/file2", "src/sub/file3"))
         makedir(self.tmpdir+'/empty/dir')
         result = set(iter_files(self.tmpdir))
-        self.assertEqual(files, result)
+        assert files == result
 
     def test_pattern(self):
         """iter_files: match filename against glob pattern"""
         self.makefiles("src/file1.so", "src/sub.ko/file2")
         goodfiles = set(self.makefiles("src/sub/file1.ko", "src/file2.ko.xz"))
         result = set(iter_files(self.tmpdir, pattern="*.ko*"))
-        self.assertEqual(result, goodfiles)
+        assert result == goodfiles
 
 
 class TestMoveFiles(FileTestCaseBase):
@@ -155,8 +155,8 @@ class TestMoveFiles(FileTestCaseBase):
         """move_files: move files to destdir"""
         files = self.makefiles("src/file1", "src/subdir/file2")
         move_files(files, self.destdir, self.srcdir)
-        self.assertEqual(set(listfiles(self.destdir)), set(["file1", "subdir/file2"]))
-        self.assertEqual(list(iter_files(self.srcdir)), [])
+        assert set(listfiles(self.destdir)) == set(["file1", "subdir/file2"])
+        assert list(iter_files(self.srcdir)) == []
 
     def test_overwrite(self):
         """move_files: overwrite files with the same name"""
@@ -166,9 +166,9 @@ class TestMoveFiles(FileTestCaseBase):
         with open(dest, 'w') as outf:
             outf.write("destfile")
         move_files([src], self.destdir, self.srcdir)
-        self.assertEqual(list(listfiles(self.destdir)), ["file1"])
-        self.assertEqual(open(dest).read(), "srcfile")
-        self.assertEqual(list(iter_files(self.srcdir)), [])
+        assert list(listfiles(self.destdir)) == ["file1"]
+        assert open(dest).read() == "srcfile"
+        assert list(iter_files(self.srcdir)) == []
 
     def test_samefile(self):
         """move_files: leave files alone if they're already in destdir"""
@@ -176,14 +176,14 @@ class TestMoveFiles(FileTestCaseBase):
         with open(dest, 'w') as outf:
             outf.write("destfile")
         move_files([dest], self.destdir, self.srcdir)
-        self.assertEqual(list(listfiles(self.destdir)), ["file1"])
-        self.assertEqual(open(dest).read(), "destfile")
+        assert list(listfiles(self.destdir)) == ["file1"]
+        assert open(dest).read() == "destfile"
 
     def test_move_to_parent(self):
         """move_files: leave files alone if they're in a subdir of destdir"""
         files = set(self.makefiles("dest/subdir/file1", "dest/file2"))
         move_files(files, self.destdir, self.srcdir)
-        self.assertEqual(set(iter_files(self.destdir)), files)
+        assert set(iter_files(self.destdir)) == files
 
 
 class TestAppendLine(FileTestCaseBase):
@@ -192,7 +192,7 @@ class TestAppendLine(FileTestCaseBase):
         line = "this is a line of text with no newline"
         outfile = self.tmpdir+'/outfile'
         append_line(outfile, line)
-        self.assertEqual(open(outfile).read(), line+'\n')
+        assert open(outfile).read() == line+'\n'
 
     def test_append(self):
         """append_line: adds a line to the end of an existing file"""
@@ -203,7 +203,7 @@ class TestAppendLine(FileTestCaseBase):
                 outf.write(line+'\n')
         line = "this line contains a newline already\n"
         append_line(outfile, line)
-        self.assertEqual(open(outfile).read(), '\n'.join(oldlines+[line]))
+        assert open(outfile).read() == '\n'.join(oldlines+[line])
 
 
 from driver_updates import read_lines
@@ -211,11 +211,11 @@ class TestReadLine(FileTestCaseBase):
     def test_empty(self):
         """read_lines: return [] for empty file"""
         [empty] = self.makefiles("emptyfile")
-        self.assertEqual(read_lines(empty), [])
+        assert read_lines(empty) == []
 
     def test_missing(self):
         """read_lines: return [] for missing file"""
-        self.assertEqual(read_lines(self.tmpdir+'/no-such-file'),[])
+        assert read_lines(self.tmpdir+'/no-such-file') == []
 
     def test_readlines(self):
         """read_lines: returns a list of lines without trailing newlines"""
@@ -224,7 +224,7 @@ class TestReadLine(FileTestCaseBase):
         with open(outfile, 'w') as outf:
             outf.write(filedata)
         lines = read_lines(outfile)
-        self.assertEqual(lines, ['line one', 'line two','','line four'])
+        assert lines == ['line one', 'line two','','line four']
 
     def test_readline_and_append_line(self):
         """read_lines: returns items as passed to append_line"""
@@ -232,23 +232,23 @@ class TestReadLine(FileTestCaseBase):
         items = ["one", "two", "five"]
         for i in items:
             append_line(filename, i)
-        self.assertEqual(items, read_lines(filename))
+        assert items == read_lines(filename)
 
 
 class TestMkdirSeq(FileTestCaseBase):
     def test_basic(self):
         """mkdir_seq: first dir ends with 1"""
         newdir = mkdir_seq(self.srcdir+'/DD-')
-        self.assertEqual(newdir, self.srcdir+'/DD-1')
-        self.assertTrue(os.path.isdir(newdir))
+        assert newdir == self.srcdir+'/DD-1'
+        assert os.path.isdir(newdir)
 
     def test_one_exists(self):
         """mkdir_seq: increment number if file exists"""
         firstdir = mkdir_seq(self.srcdir+'/DD-')
         newdir = mkdir_seq(self.srcdir+'/DD-')
-        self.assertEqual(newdir, self.srcdir+'/DD-2')
-        self.assertTrue(os.path.isdir(newdir))
-        self.assertTrue(os.path.isdir(firstdir))
+        assert newdir == self.srcdir+'/DD-2'
+        assert os.path.isdir(newdir)
+        assert os.path.isdir(firstdir)
 
 
 from driver_updates import find_repos, save_repo, ARCH
@@ -276,8 +276,8 @@ class TestFindRepos(FileTestCaseBase):
         """find_repos: return RPM dir if a valid repo is found"""
         makerepo(self.tmpdir)
         repos = find_repos(self.tmpdir)
-        self.assertEqual(repos, [self.tmpdir+'/rpms/'+ARCH])
-        self.assertTrue(os.path.isdir(repos[0]))
+        assert repos == [self.tmpdir+'/rpms/'+ARCH]
+        assert os.path.isdir(repos[0])
 
     def test_multiple_subdirs(self):
         """find_repos: descend multiple subdirs if needed"""
@@ -285,7 +285,7 @@ class TestFindRepos(FileTestCaseBase):
         makerepo(self.tmpdir+'/sub/driver1')
         makerepo(self.tmpdir+'/sub/driver2')
         repos = find_repos(self.tmpdir)
-        self.assertEqual(len(repos),3)
+        assert len(repos) == 3
 
 
 class TestSaveRepo(FileTestCaseBase):
@@ -303,8 +303,8 @@ class TestSaveRepo(FileTestCaseBase):
                               "repodata/filelists.xml.gz",
                               "repodata/primary.xml.gz",
                               "repodata/other.xml.gz"])
-        self.assertEqual(set(listfiles(saved)), expected_files)
-        self.assertEqual(saved, os.path.join(self.destdir, "DD-1"))
+        assert set(listfiles(saved)) == expected_files
+        assert saved == os.path.join(self.destdir, "DD-1")
 
     def test_single_file(self):
         """save_repo: copies a single file to /run/install/DD-X"""
@@ -315,8 +315,8 @@ class TestSaveRepo(FileTestCaseBase):
         makefile(repo + '/fake-something3.rpm')
         saved = save_repo(file_path, target=self.destdir)
         # check that only the single file was copied
-        self.assertEqual(set(listfiles(saved)), set(["fake-something1.rpm"]))
-        self.assertEqual(saved, os.path.join(self.destdir, "DD-1"))
+        assert set(listfiles(saved)) == set(["fake-something1.rpm"])
+        assert saved == os.path.join(self.destdir, "DD-1")
 
     def test_multiple_repo_folders(self):
         """save_repo: copies directory contents to multiple /run/install/DD-X folders"""
@@ -349,12 +349,12 @@ class TestSaveRepo(FileTestCaseBase):
 
         # check that everything was copied correctly
         full_copy_expected_files = set(["fake-something1.rpm", "fake-something2.rpm", "fake-something3.rpm", "repodata"])
-        self.assertEqual(set(listfiles(saved1)), full_copy_expected_files)
-        self.assertEqual(saved1, os.path.join(self.destdir, "DD-1"))
-        self.assertEqual(set(listfiles(saved2)), full_copy_expected_files)
-        self.assertEqual(saved2, os.path.join(self.destdir, "DD-2"))
-        self.assertEqual(set(listfiles(saved3)), set(["fake-something2.rpm"]))
-        self.assertEqual(saved3, os.path.join(self.destdir, "DD-3"))
+        assert set(listfiles(saved1)) == full_copy_expected_files
+        assert saved1 == os.path.join(self.destdir, "DD-1")
+        assert set(listfiles(saved2)) == full_copy_expected_files
+        assert saved2 == os.path.join(self.destdir, "DD-2")
+        assert set(listfiles(saved3)) == set(["fake-something2.rpm"])
+        assert saved3 == os.path.join(self.destdir, "DD-3")
 
 from driver_updates import mount, umount, mounted
 class MountTestCase(unittest.TestCase):
@@ -367,7 +367,7 @@ class MountTestCase(unittest.TestCase):
         mountpoint = mount(dev)
         mkdir.assert_called_once_with('/media/DD-')
         check_call.assert_called_once_with(["mount", dev, mnt])
-        self.assertEqual(mnt, mountpoint)
+        assert mnt == mountpoint
 
     @mock.patch('driver_updates.mkdir_seq')
     @mock.patch('driver_updates.subprocess.check_call')
@@ -376,7 +376,7 @@ class MountTestCase(unittest.TestCase):
         dev, mnt = '/dev/fake', '/media/fake'
         mount(dev, mnt)
         check_call.assert_called_once_with(["mount", dev, mnt])
-        self.assertFalse(mkdir.called)
+        assert not mkdir.called
 
     @mock.patch('driver_updates.subprocess.call')
     def test_umount(self, call):
@@ -393,8 +393,8 @@ class MountTestCase(unittest.TestCase):
         mock_mount.return_value = mnt
         with mounted(dev, mnt) as mountpoint:
             mock_mount.assert_called_once_with(dev, mnt)
-            self.assertFalse(mock_umount.called)
-            self.assertEqual(mountpoint, mnt)
+            assert not mock_umount.called
+            assert mountpoint == mnt
         mock_umount.assert_called_once_with(mnt)
 
 
@@ -431,14 +431,14 @@ class DDUtilsTestCase(unittest.TestCase):
         anaconda, kernel = '19.0', os.uname()[2]
         result = dd_list(fake_module.repo)
         cmd = check_output.call_args[0][0]
-        self.assertIn(kernel, cmd)
-        self.assertIn(anaconda, cmd)
-        self.assertIn(fake_module.repo, cmd)
-        self.assertTrue(cmd[0].endswith("dd_list"))
-        self.assertEqual(len(result), 2)
+        assert kernel in cmd
+        assert anaconda in cmd
+        assert fake_module.repo in cmd
+        assert cmd[0].endswith("dd_list")
+        assert len(result) == 2
         mod, enh = sorted(result, key=lambda d: d.name)
-        self.assertEqual(mod.__dict__, fake_module.__dict__)
-        self.assertEqual(enh.__dict__, fake_enhancement.__dict__)
+        assert mod.__dict__ == fake_module.__dict__
+        assert enh.__dict__ == fake_enhancement.__dict__
 
     @mock.patch("driver_updates.subprocess.check_output")
     def test_dd_extract(self, check_output):
@@ -447,11 +447,11 @@ class DDUtilsTestCase(unittest.TestCase):
         outdir = "/output/dir"
         dd_extract(rpm, outdir)
         cmd = check_output.call_args[0][0]
-        self.assertIn(os.uname()[2], cmd)
-        self.assertIn(rpm, cmd)
-        self.assertIn(outdir, cmd)
-        self.assertIn("-blmf", cmd)
-        self.assertTrue(cmd[0].endswith("dd_extract"))
+        assert os.uname()[2] in cmd
+        assert rpm in cmd
+        assert outdir in cmd
+        assert "-blmf" in cmd
+        assert cmd[0].endswith("dd_extract")
 
 
 from driver_updates import extract_drivers, grab_driver_files, load_drivers
@@ -479,8 +479,8 @@ class ExtractDriversTestCase(unittest.TestCase):
         mock_extract.assert_called_once_with(
             fake_enhancement.source, "/updates"
         )
-        self.assertFalse(mock_append.called)
-        self.assertFalse(mock_save.called)
+        assert not mock_append.called
+        assert not mock_save.called
 
     def test_repo(self, mock_extract, mock_append, mock_save, *args):
         """extract_drivers(repos=[...]) extracts all drivers from named repos"""
@@ -517,18 +517,18 @@ class GrabDriverFilesTestCase(FileTestCaseBase):
                                  list_aliases=lambda _x: []):
             moddict = grab_driver_files(outdir)
 
-        self.assertEqual(moddict, {"funk": [], "lolfs": []})
+        assert moddict == {"funk": [], "lolfs": []}
         modfiles = set(['net/funk.ko', 'fs/lolfs.ko.xz'])
         fwfiles = set(['funk.fw', 'fs/lolfs.fw'])
         # modules/firmware are *not* in their old locations
-        self.assertEqual([f for f in modules+firmware if os.path.exists(f)], [])
+        assert [f for f in modules+firmware if os.path.exists(f)] == []
         # modules are in the system's updates dir
-        self.assertEqual(set(listfiles(mod_upd_dir)), modfiles)
+        assert set(listfiles(mod_upd_dir)) == modfiles
         # modules are also in outdir's updates dir
-        self.assertEqual(set(listfiles(outdir+'/'+mod_upd_dir)), modfiles)
+        assert set(listfiles(outdir+'/'+mod_upd_dir)) == modfiles
         # repeat for firmware
-        self.assertEqual(set(listfiles(fw_upd_dir)), fwfiles)
-        self.assertEqual(set(listfiles(outdir+'/'+fw_upd_dir)), fwfiles)
+        assert set(listfiles(fw_upd_dir)) == fwfiles
+        assert set(listfiles(outdir+'/'+fw_upd_dir)) == fwfiles
 
 
 class LoadDriversTestCase(unittest.TestCase):
@@ -671,7 +671,7 @@ class ProcessDriverDiskTestCase(unittest.TestCase):
         dev = '/dev/fake'
         self.mocks['extract_drivers'].return_value = False
         process_driver_disk(dev)
-        self.assertFalse(self.mocks['grab_driver_files'].called)
+        assert not self.mocks['grab_driver_files'].called
 
 
 from driver_updates import process_driver_rpm
@@ -707,8 +707,8 @@ class FinishedTestCase(FileTestCaseBase):
         requeststr = "WOW SOMETHING OR OTHER"
         mark_finished(requeststr, topdir=self.tmpdir)
         finished = self.tmpdir+'/dd_finished'
-        self.assertTrue(os.path.exists(finished))
-        self.assertEqual(read_lines(finished), [requeststr])
+        assert os.path.exists(finished)
+        assert read_lines(finished) == [requeststr]
 
     def test_all_finished(self):
         """all_finished: True if all lines from dd_todo are in dd_finished"""
@@ -716,17 +716,17 @@ class FinishedTestCase(FileTestCaseBase):
         requests = ['one', 'two', 'final thingy']
         with open(todo, 'w') as outf:
             outf.write(''.join(r+'\n' for r in requests))
-        self.assertEqual(set(read_lines(todo)), set(requests))
+        assert set(read_lines(todo)) == set(requests)
         for r in reversed(requests):
-            self.assertFalse(all_finished(topdir=self.tmpdir))
+            assert not all_finished(topdir=self.tmpdir)
             mark_finished(r, topdir=self.tmpdir)
-        self.assertTrue(all_finished(topdir=self.tmpdir))
+        assert all_finished(topdir=self.tmpdir)
 
     def test_extra_finished(self):
         """all_finished: True if dd_finished has more items than dd_todo"""
         self.test_all_finished()
         mark_finished("BONUS", topdir=self.tmpdir)
-        self.assertTrue(all_finished(topdir=self.tmpdir))
+        assert all_finished(topdir=self.tmpdir)
 
     def test_finish(self):
         """finish: mark request finished, and write dd.done if all complete"""
@@ -737,9 +737,9 @@ class FinishedTestCase(FileTestCaseBase):
             outf.write(''.join(r+'\n' for r in requests))
         for r in reversed(requests):
             print("marking %s" % r)
-            self.assertFalse(os.path.exists(done))
+            assert not os.path.exists(done)
             finish(r, topdir=self.tmpdir)
-        self.assertTrue(os.path.exists(done))
+        assert os.path.exists(done)
 
 
 from driver_updates import get_deviceinfo, DeviceInfo
@@ -785,18 +785,18 @@ class DeviceInfoTestCase(unittest.TestCase):
     def test_basic(self, get_disk_labels, check_output):
         """get_deviceinfo: parses DeviceInfo from blkid etc."""
         disks = get_deviceinfo()
-        self.assertEqual(len(disks), 4)
+        assert len(disks) == 4
         disks.sort(key=lambda d: d.device)
         loop, efi, boot, root = disks
-        self.assertEqual(vars(boot), vars(devicelist[0]))
-        self.assertEqual(vars(efi), vars(devicelist[1]))
-        self.assertEqual(vars(root), vars(devicelist[2]))
-        self.assertEqual(vars(loop), vars(devicelist[3]))
+        assert vars(boot) == vars(devicelist[0])
+        assert vars(efi) == vars(devicelist[1])
+        assert vars(root) == vars(devicelist[2])
+        assert vars(loop) == vars(devicelist[3])
 
     def test_shortdev(self):
         d = DeviceInfo(DEVNAME="/dev/disk/by-label/OEMDRV")
         with mock.patch("os.path.realpath", return_value="/dev/i2o/hdb"):
-            self.assertEqual(d.shortdev, "i2o/hdb")
+            assert d.shortdev == "i2o/hdb"
 
 # TODO: test TextMenu itself
 
@@ -814,14 +814,14 @@ class DeviceMenuTestCase(unittest.TestCase):
         """device_menu: 'c' exits the menu"""
         with mock.patch('driver_updates._input', side_effect=['c']):
             dev = device_menu()
-        self.assertEqual(dev, [])
-        self.assertEqual(self.mocks['get_deviceinfo'].call_count, 1)
+        assert dev == []
+        assert self.mocks['get_deviceinfo'].call_count == 1
 
     def test_device_menu_refresh(self):
         """device_menu: 'r' makes the menu refresh"""
         with mock.patch('driver_updates._input', side_effect=['r','c']):
             device_menu()
-        self.assertEqual(self.mocks['get_deviceinfo'].call_count, 2)
+        assert self.mocks['get_deviceinfo'].call_count == 2
 
     @mock.patch("sys.stdout", new_callable=StringIO)
     def test_device_menu(self, stdout):
@@ -830,16 +830,16 @@ class DeviceMenuTestCase(unittest.TestCase):
         with mock.patch('driver_updates._input', return_value=choose_num):
             result = device_menu()
         # if you hit '2' you should get the corresponding device from the list
-        self.assertEqual(len(result), 1)
+        assert len(result) == 1
         dev = result[0]
-        self.assertEqual(vars(dev), vars(devicelist[int(choose_num)-1]))
+        assert vars(dev) == vars(devicelist[int(choose_num)-1])
         # find the corresponding line on-screen
         screen = [l.strip() for l in stdout.getvalue().splitlines()]
         match = [l for l in screen if l.startswith(choose_num+')')]
-        self.assertEqual(len(match), 1)
+        assert len(match) == 1
         line = match.pop(0)
         # the device name (at least) should be on this line
-        self.assertIn(os.path.basename(dev.device), line)
+        assert os.path.basename(dev.device) in line
 
 
 from driver_updates import list_aliases
@@ -850,4 +850,4 @@ class ListAliasesTestCase(unittest.TestCase):
         alias_list = list_aliases(modname)
 
         check_output.assert_called_once_with(["modinfo", "-F", "alias", modname], universal_newlines=True)
-        self.assertEqual(alias_list, ["alias1", "alias2", modname])
+        assert alias_list == ["alias1", "alias2", modname]

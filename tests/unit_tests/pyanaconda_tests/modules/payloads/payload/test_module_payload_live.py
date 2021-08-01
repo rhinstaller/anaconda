@@ -19,6 +19,7 @@
 #
 import os
 import unittest
+import pytest
 
 from unittest.mock import patch, Mock
 from tempfile import TemporaryDirectory
@@ -52,7 +53,7 @@ class LiveUtilsTestCase(unittest.TestCase):
         with TemporaryDirectory() as temp:
             result = get_kernel_version_list(temp)
 
-        self.assertEqual(result, [])
+        assert result == []
 
     def test_kernel_list(self):
         """Test get kernel list function."""
@@ -71,7 +72,7 @@ class LiveUtilsTestCase(unittest.TestCase):
 
             kernel_list = get_kernel_version_list(temp)
 
-            self.assertListEqual(kernel_list, self._kernel_test_valid_list)
+            assert kernel_list == self._kernel_test_valid_list
 
 
 class LiveTasksTestCase(unittest.TestCase):
@@ -118,10 +119,10 @@ class LiveTasksTestCase(unittest.TestCase):
         exec_with_redirect.side_effect = OSError("mock exception")
 
         with self.assertLogs(level="ERROR") as cm:
-            with self.assertRaises(InstallError):
+            with pytest.raises(InstallError):
                 InstallFromImageTask(dest_path, source).run()
 
-            self.assertTrue(any(map(lambda x: "mock exception" in x, cm.output)))
+            assert any(map(lambda x: "mock exception" in x, cm.output))
 
         expected_rsync_args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/",
                                "--exclude", "/tmp/*", "--exclude", "/sys/", "--exclude", "/run/",
@@ -139,10 +140,10 @@ class LiveTasksTestCase(unittest.TestCase):
         exec_with_redirect.return_value = 11
 
         with self.assertLogs(level="INFO") as cm:
-            with self.assertRaises(InstallError):
+            with pytest.raises(InstallError):
                 InstallFromImageTask(dest_path, source).run()
 
-            self.assertTrue(any(map(lambda x: "exited with code 11" in x, cm.output)))
+            assert any(map(lambda x: "exited with code 11" in x, cm.output)) is True
 
         expected_rsync_args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/",
                                "--exclude", "/tmp/*", "--exclude", "/sys/", "--exclude", "/run/",

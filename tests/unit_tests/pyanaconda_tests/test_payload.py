@@ -23,6 +23,7 @@ import tempfile
 import os
 import hashlib
 import shutil
+import pytest
 
 import pyanaconda.core.payload as util
 
@@ -44,7 +45,7 @@ class PickLocation(unittest.TestCase):
 
         mpoint = utils.pick_mount_point(df_map, download_size, install_size, True)
 
-        self.assertEqual(mpoint, os.path.join(conf.target.system_root, "home"))
+        assert mpoint == os.path.join(conf.target.system_root, "home")
 
     def test_pick_download_root(self):
         """Take the root for download because there are no other available mountpoints
@@ -60,7 +61,7 @@ class PickLocation(unittest.TestCase):
 
         mpoint = utils.pick_mount_point(df_map, download_size, install_size, True)
 
-        self.assertEqual(mpoint, os.path.join(conf.target.system_root))
+        assert mpoint == os.path.join(conf.target.system_root)
 
     def test_pick_install_location(self):
         """Take the root for download and install."""
@@ -72,7 +73,7 @@ class PickLocation(unittest.TestCase):
 
         mpoint = utils.pick_mount_point(df_map, download_size, install_size, False)
 
-        self.assertEqual(mpoint, conf.target.system_root)
+        assert mpoint == conf.target.system_root
 
     def test_pick_install_location_error(self):
         """No suitable location is found."""
@@ -84,7 +85,7 @@ class PickLocation(unittest.TestCase):
 
         mpoint = utils.pick_mount_point(df_map, download_size, install_size, False)
 
-        self.assertEqual(mpoint, None)
+        assert mpoint is None
 
 
 class DummyRepo(object):
@@ -122,7 +123,7 @@ or it should be. Nah it's just a test!
         r = RepoMDMetaHash(self._dummyRepo, None)
         r.store_repoMD_hash()
 
-        self.assertEqual(r.repoMD_hash, reference_digest)
+        assert r.repoMD_hash == reference_digest
 
     def test_verify_repo(self):
         """Test verification method."""
@@ -130,16 +131,16 @@ or it should be. Nah it's just a test!
         r.store_repoMD_hash()
 
         # test if repomd comparision works properly
-        self.assertTrue(r.verify_repoMD())
+        assert r.verify_repoMD() is True
 
         # test if repomd change will be detected
         with open(self._md_file, 'a') as f:
             f.write("This should not be here!")
-        self.assertFalse(r.verify_repoMD())
+        assert r.verify_repoMD() is False
 
         # test correct behavior when the repo file won't be available
         os.remove(self._md_file)
-        self.assertFalse(r.verify_repoMD())
+        assert r.verify_repoMD() is False
 
 
 class PayloadUtilsTests(unittest.TestCase):
@@ -148,56 +149,56 @@ class PayloadUtilsTests(unittest.TestCase):
         """Test parseNfsUrl."""
 
         # empty NFS url should return 3 blanks
-        self.assertEqual(util.parse_nfs_url(""), ("", "", ""))
+        assert util.parse_nfs_url("") == ("", "", "")
 
         # the string is delimited by :, there is one prefix and 3 parts,
         # the prefix is discarded and all parts after the 3th part
         # are also discarded
-        self.assertEqual(util.parse_nfs_url("discard:options:host:path"),
-                         ("options", "host", "path"))
-        self.assertEqual(util.parse_nfs_url("discard:options:host:path:foo:bar"),
-                         ("options", "host", "path"))
-        self.assertEqual(util.parse_nfs_url(":options:host:path::"),
-                         ("options", "host", "path"))
-        self.assertEqual(util.parse_nfs_url(":::::"),
-                         ("", "", ""))
+        assert util.parse_nfs_url("discard:options:host:path") == \
+            ("options", "host", "path")
+        assert util.parse_nfs_url("discard:options:host:path:foo:bar") == \
+            ("options", "host", "path")
+        assert util.parse_nfs_url(":options:host:path::") == \
+            ("options", "host", "path")
+        assert util.parse_nfs_url(":::::") == \
+            ("", "", "")
 
         # if there is only prefix & 2 parts,
         # the two parts are host and path
-        self.assertEqual(util.parse_nfs_url("prefix:host:path"),
-                         ("", "host", "path"))
-        self.assertEqual(util.parse_nfs_url(":host:path"),
-                         ("", "host", "path"))
-        self.assertEqual(util.parse_nfs_url("::"),
-                         ("", "", ""))
+        assert util.parse_nfs_url("prefix:host:path") == \
+            ("", "host", "path")
+        assert util.parse_nfs_url(":host:path") == \
+            ("", "host", "path")
+        assert util.parse_nfs_url("::") == \
+            ("", "", "")
 
         # if there is only a prefix and single part,
         # the part is the host
 
-        self.assertEqual(util.parse_nfs_url("prefix:host"),
-                         ("", "host", ""))
-        self.assertEqual(util.parse_nfs_url(":host"),
-                         ("", "host", ""))
-        self.assertEqual(util.parse_nfs_url(":"),
-                         ("", "", ""))
+        assert util.parse_nfs_url("prefix:host") == \
+            ("", "host", "")
+        assert util.parse_nfs_url(":host") == \
+            ("", "host", "")
+        assert util.parse_nfs_url(":") == \
+            ("", "", "")
 
     def test_create_nfs_url(self):
         """Test create_nfs_url."""
 
-        self.assertEqual(util.create_nfs_url("", ""), "")
-        self.assertEqual(util.create_nfs_url("", "", None), "")
-        self.assertEqual(util.create_nfs_url("", "", ""), "")
+        assert util.create_nfs_url("", "") == ""
+        assert util.create_nfs_url("", "", None) == ""
+        assert util.create_nfs_url("", "", "") == ""
 
-        self.assertEqual(util.create_nfs_url("host", ""), "nfs:host:")
-        self.assertEqual(util.create_nfs_url("host", "", "options"), "nfs:options:host:")
+        assert util.create_nfs_url("host", "") == "nfs:host:"
+        assert util.create_nfs_url("host", "", "options") == "nfs:options:host:"
 
-        self.assertEqual(util.create_nfs_url("host", "path"), "nfs:host:path")
-        self.assertEqual(util.create_nfs_url("host", "/path", "options"), "nfs:options:host:/path")
+        assert util.create_nfs_url("host", "path") == "nfs:host:path"
+        assert util.create_nfs_url("host", "/path", "options") == "nfs:options:host:/path"
 
-        self.assertEqual(util.create_nfs_url("host", "/path/to/something"),
-                         "nfs:host:/path/to/something")
-        self.assertEqual(util.create_nfs_url("host", "/path/to/something", "options"),
-                         "nfs:options:host:/path/to/something")
+        assert util.create_nfs_url("host", "/path/to/something") == \
+            "nfs:host:/path/to/something"
+        assert util.create_nfs_url("host", "/path/to/something", "options") == \
+            "nfs:options:host:/path/to/something"
 
     def test_nfs_combine(self):
         """Test combination of parse and create nfs functions."""
@@ -207,28 +208,22 @@ class PayloadUtilsTests(unittest.TestCase):
         options = "options"
 
         url = util.create_nfs_url(host, path, options)
-        self.assertEqual(util.parse_nfs_url(url), (options, host, path))
+        assert util.parse_nfs_url(url) == (options, host, path)
 
         url = "nfs:options:host:/my/path"
         (options, host, path) = util.parse_nfs_url(url)
-        self.assertEqual(util.create_nfs_url(host, path, options), url)
+        assert util.create_nfs_url(host, path, options) == url
 
     def test_split_protocol(self):
         """Test split protocol test."""
 
-        self.assertEqual(util.split_protocol("http://abc/cde"),
-                         ("http://", "abc/cde"))
-        self.assertEqual(util.split_protocol("https://yay/yay"),
-                         ("https://", "yay/yay"))
-        self.assertEqual(util.split_protocol("ftp://ups/spu"),
-                         ("ftp://", "ups/spu"))
-        self.assertEqual(util.split_protocol("file:///test/file"),
-                         ("file://", "/test/file"))
-        self.assertEqual(util.split_protocol("nfs:ups/spu:/abc:opts"),
-                         ("", "nfs:ups/spu:/abc:opts"))
-        self.assertEqual(util.split_protocol("http:/typo/test"),
-                         ("", "http:/typo/test"))
-        self.assertEqual(util.split_protocol(""), ("", ""))
+        assert util.split_protocol("http://abc/cde") == ("http://", "abc/cde")
+        assert util.split_protocol("https://yay/yay") == ("https://", "yay/yay")
+        assert util.split_protocol("ftp://ups/spu") == ("ftp://", "ups/spu")
+        assert util.split_protocol("file:///test/file") == ("file://", "/test/file")
+        assert util.split_protocol("nfs:ups/spu:/abc:opts") == ("", "nfs:ups/spu:/abc:opts")
+        assert util.split_protocol("http:/typo/test") == ("", "http:/typo/test")
+        assert util.split_protocol("") == ("", "")
 
-        with self.assertRaises(ValueError):
+        with pytest.raises(ValueError):
             util.split_protocol("http://ftp://ups/this/is/not/correct")

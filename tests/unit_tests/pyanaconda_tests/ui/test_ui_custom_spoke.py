@@ -66,10 +66,10 @@ class CustomStorageHelpersTestCase(unittest.TestCase):
         }
         """).strip()
 
-        self.assertEqual(generate_request_description(request), expected)
+        assert generate_request_description(request) == expected
 
         original = copy.deepcopy(request)
-        self.assertEqual(generate_request_description(request, original), expected)
+        assert generate_request_description(request, original) == expected
 
         request.device_name = "dev4"
         request.disks = ["dev1"]
@@ -97,4 +97,4 @@ class CustomStorageHelpersTestCase(unittest.TestCase):
         }
         """).strip()
 
-        self.assertEqual(generate_request_description(request, original), expected)
+        assert generate_request_description(request, original) == expected

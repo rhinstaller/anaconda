@@ -18,6 +18,8 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
+import pytest
+
 from functools import partial
 from unittest.mock import patch, Mock, mock_open, PropertyMock
 
@@ -51,16 +53,16 @@ class StorageCheckerInterfaceTestCase(unittest.TestCase):
             get_variant(Int, 987 * 1024 * 1024)
         )
 
-        self.assertEqual(storage_checker.constraints[STORAGE_MIN_RAM], Size("987 MiB"))
+        assert storage_checker.constraints[STORAGE_MIN_RAM] == Size("987 MiB")
 
-        with self.assertRaises(UnsupportedValueError) as cm:
+        with pytest.raises(UnsupportedValueError) as cm:
             self.interface.SetConstraint(
                 STORAGE_LUKS2_MIN_RAM,
                 get_variant(Int, 987 * 1024 * 1024)
             )
 
-        self.assertEqual(str(cm.exception), "Constraint 'luks2_min_ram' is not supported.")
-        self.assertEqual(storage_checker.constraints[STORAGE_LUKS2_MIN_RAM], Size("128 MiB"))
+        assert str(cm.value) == "Constraint 'luks2_min_ram' is not supported."
+        assert storage_checker.constraints[STORAGE_LUKS2_MIN_RAM] == Size("128 MiB")
 
 
 class StorageCheckerVerificationTestCase(unittest.TestCase):
@@ -122,34 +124,34 @@ class StorageCheckerVerificationTestCase(unittest.TestCase):
 
         with patch_open() as m:
             m.side_effect = OSError("Error!")
-            self.assertEqual(_get_opal_firmware_kernel_version(), None)
+            assert _get_opal_firmware_kernel_version() is None
 
         with patch_open(mock_open(read_data=" 5.10.50\n")):
-            self.assertEqual(_get_opal_firmware_kernel_version(), "5.10.50")
+            assert _get_opal_firmware_kernel_version() == "5.10.50"
 
         with patch_open(mock_open(read_data="5.10.50-openpower1-p59fd803")):
-            self.assertEqual(_get_opal_firmware_kernel_version(), "5.10.50-openpower1-p59fd803")
+            assert _get_opal_firmware_kernel_version() == "5.10.50-openpower1-p59fd803"
 
         with patch_open(mock_open(read_data="v4.15.9-openpower1-p9e03417")):
-            self.assertEqual(_get_opal_firmware_kernel_version(), "4.15.9-openpower1-p9e03417")
+            assert _get_opal_firmware_kernel_version() == "4.15.9-openpower1-p9e03417"
 
     def test_check_opal_firmware_kernel_version(self):
         """Test the function for checking the firmware kernel version."""
         check = partial(_check_opal_firmware_kernel_version)
 
-        self.assertFalse(check(None, None))
-        self.assertFalse(check("", ""))
-        self.assertFalse(check("5.09", "5.10"))
-        self.assertFalse(check("5.9.1", "5.10"))
-        self.assertFalse(check("5.9.50-openpower1-p59fd803", "5.10"))
-        self.assertFalse(check("5.8", "5.10"))
-        self.assertFalse(check("4.0-openpower1-p59fd803", "5.10"))
+        assert check(None, None) is False
+        assert check("", "") is False
+        assert check("5.09", "5.10") is False
+        assert check("5.9.1", "5.10") is False
+        assert check("5.9.50-openpower1-p59fd803", "5.10") is False
+        assert check("5.8", "5.10") is False
+        assert check("4.0-openpower1-p59fd803", "5.10") is False
 
-        self.assertTrue(check("5.10", "5.10"))
-        self.assertTrue(check("5.10.1", "5.10"))
-        self.assertTrue(check("5.10.50-openpower1-p59fd803", "5.10"))
-        self.assertTrue(check("5.11", "5.10"))
-        self.assertTrue(check("6.0-openpower1-p59fd803", "5.10"))
+        assert check("5.10", "5.10") is True
+        assert check("5.10.1", "5.10") is True
+        assert check("5.10.50-openpower1-p59fd803", "5.10") is True
+        assert check("5.11", "5.10") is True
+        assert check("6.0-openpower1-p59fd803", "5.10") is True
 
     @patch("pyanaconda.modules.storage.checker.utils.arch")
     def test_opal_verification_arch(self, mocked_arch):

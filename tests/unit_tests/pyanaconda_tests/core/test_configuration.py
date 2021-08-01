@@ -20,6 +20,7 @@
 import os
 import tempfile
 import unittest
+import pytest
 from textwrap import dedent
 from unittest.mock import patch
 
@@ -73,10 +74,10 @@ class ConfigurationTestCase(unittest.TestCase):
     def test_invalid_read(self):
         parser = create_parser()
 
-        with self.assertRaises(ConfigurationFileError) as cm:
+        with pytest.raises(ConfigurationFileError) as cm:
             read_config(parser, "nonexistent/path/to/file")
 
-        self.assertEqual(cm.exception._filename, "nonexistent/path/to/file")
+        assert cm.value._filename == "nonexistent/path/to/file"
 
     def test_write(self):
         parser = create_parser()
@@ -88,55 +89,55 @@ class ConfigurationTestCase(unittest.TestCase):
             f.flush()
 
             # Check the config file.
-            self.assertEqual(f.read().strip(), self._content.strip())
+            assert f.read().strip() == self._content.strip()
 
     def test_invalid_write(self):
         parser = create_parser()
 
-        with self.assertRaises(ConfigurationFileError) as cm:
+        with pytest.raises(ConfigurationFileError) as cm:
             write_config(parser, "nonexistent/path/to/file")
 
-        self.assertEqual(cm.exception._filename, "nonexistent/path/to/file")
-        self.assertTrue(str(cm.exception).startswith(
+        assert cm.value._filename == "nonexistent/path/to/file"
+        assert str(cm.value).startswith(
             "The following error has occurred while handling the configuration file"
-        ))
+        )
 
     def test_get(self):
         parser = create_parser()
         self._read_content(parser)
 
-        self.assertEqual(get_option(parser, "Main", "string"), "Hello")
-        self.assertEqual(get_option(parser, "Main", "integer"), "1")
-        self.assertEqual(get_option(parser, "Main", "boolean"), "False")
+        assert get_option(parser, "Main", "string") == "Hello"
+        assert get_option(parser, "Main", "integer") == "1"
+        assert get_option(parser, "Main", "boolean") == "False"
 
-        self.assertEqual(get_option(parser, "Main", "string", str), "Hello")
-        self.assertEqual(get_option(parser, "Main", "integer", int), 1)
-        self.assertEqual(get_option(parser, "Main", "boolean", bool), False)
+        assert get_option(parser, "Main", "string", str) == "Hello"
+        assert get_option(parser, "Main", "integer", int) == 1
+        assert get_option(parser, "Main", "boolean", bool) == False
 
     def test_invalid_get(self):
         parser = create_parser()
         self._read_content(parser)
 
         # Invalid value.
-        with self.assertRaises(ConfigurationDataError) as cm:
+        with pytest.raises(ConfigurationDataError) as cm:
             get_option(parser, "Main", "string", bool)
 
-        self.assertEqual(cm.exception._section, "Main")
-        self.assertEqual(cm.exception._option, "string")
+        assert cm.value._section == "Main"
+        assert cm.value._option == "string"
 
         # Invalid option.
-        with self.assertRaises(ConfigurationDataError) as cm:
+        with pytest.raises(ConfigurationDataError) as cm:
             get_option(parser, "Main", "unknown")
 
-        self.assertEqual(cm.exception._section, "Main")
-        self.assertEqual(cm.exception._option, "unknown")
+        assert cm.value._section == "Main"
+        assert cm.value._option == "unknown"
 
         # Invalid section.
-        with self.assertRaises(ConfigurationDataError) as cm:
+        with pytest.raises(ConfigurationDataError) as cm:
             get_option(parser, "Unknown", "unknown")
 
-        self.assertEqual(cm.exception._section, "Unknown")
-        self.assertEqual(cm.exception._option, "unknown")
+        assert cm.value._section == "Unknown"
+        assert cm.value._option == "unknown"
 
     def test_set(self):
         parser = create_parser()
@@ -146,35 +147,35 @@ class ConfigurationTestCase(unittest.TestCase):
         set_option(parser, "Main", "integer", 2)
         set_option(parser, "Main", "boolean", True)
 
-        self.assertEqual(get_option(parser, "Main", "string"), "Hi")
-        self.assertEqual(get_option(parser, "Main", "integer"), "2")
-        self.assertEqual(get_option(parser, "Main", "boolean"), "True")
+        assert get_option(parser, "Main", "string") == "Hi"
+        assert get_option(parser, "Main", "integer") == "2"
+        assert get_option(parser, "Main", "boolean") == "True"
 
-        self.assertEqual(get_option(parser, "Main", "string", str), "Hi")
-        self.assertEqual(get_option(parser, "Main", "integer", int), 2)
-        self.assertEqual(get_option(parser, "Main", "boolean", bool), True)
+        assert get_option(parser, "Main", "string", str) == "Hi"
+        assert get_option(parser, "Main", "integer", int) == 2
+        assert get_option(parser, "Main", "boolean", bool) == True
 
     def test_invalid_set(self):
         parser = create_parser()
         self._read_content(parser)
 
         # Invalid option.
-        with self.assertRaises(ConfigurationDataError) as cm:
+        with pytest.raises(ConfigurationDataError) as cm:
             set_option(parser, "Main", "unknown", "value")
 
-        self.assertEqual(cm.exception._section, "Main")
-        self.assertEqual(cm.exception._option, "unknown")
+        assert cm.value._section == "Main"
+        assert cm.value._option == "unknown"
 
         # Invalid section.
-        with self.assertRaises(ConfigurationDataError) as cm:
+        with pytest.raises(ConfigurationDataError) as cm:
             set_option(parser, "Unknown", "unknown", "value")
 
-        self.assertEqual(cm.exception._section, "Unknown")
-        self.assertEqual(cm.exception._option, "unknown")
+        assert cm.value._section == "Unknown"
+        assert cm.value._option == "unknown"
 
-        self.assertTrue(str(cm.exception).startswith(
+        assert str(cm.value).startswith(
             "The following error has occurred while handling the option"
-        ))
+        )
 
     def test_configuration(self):
         config = Configuration()
@@ -187,10 +188,8 @@ class ConfigurationTestCase(unittest.TestCase):
 
             config.read_from_directory(directory)
 
-            self.assertEqual(
-                [os.path.relpath(path, directory) for path in config.get_sources()],
+            assert [os.path.relpath(path, directory) for path in config.get_sources()] == \
                 ["a.conf", "b.conf", "d.conf"]
-            )
 
 
 class AnacondaConfigurationTestCase(unittest.TestCase):
@@ -218,18 +217,18 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
     def test_default_configuration(self):
         # Make sure that we are able to import conf.
         from pyanaconda.core.configuration.anaconda import conf
-        self.assertEqual(conf.anaconda.debug, False)
+        assert conf.anaconda.debug == False
 
     def test_source(self):
         conf = AnacondaConfiguration()
         sources = conf.get_sources()
-        self.assertEqual(sources, [])
+        assert sources == []
 
     def test_default_source(self):
         conf = AnacondaConfiguration.from_defaults()
         sources = conf.get_sources()
-        self.assertEqual(len(sources), 1)
-        self.assertEqual(sources[0], os.environ.get("ANACONDA_CONFIG_TMP"))
+        assert len(sources) == 1
+        assert sources[0] == os.environ.get("ANACONDA_CONFIG_TMP")
 
     def test_default_validation(self):
         conf = AnacondaConfiguration.from_defaults()
@@ -238,17 +237,17 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
         # Set invalid value.
         parser = conf.get_parser()
         parser["Anaconda"]["debug"] = "string"
-        with self.assertRaises(ConfigurationError):
+        with pytest.raises(ConfigurationError):
             conf.validate()
 
         # Remove a required option.
         parser.remove_option("Anaconda", "debug")
-        with self.assertRaises(ConfigurationError):
+        with pytest.raises(ConfigurationError):
             conf.validate()
 
         # Remove a required section.
         parser.remove_section("Anaconda")
-        with self.assertRaises(ConfigurationError):
+        with pytest.raises(ConfigurationError):
             conf.validate()
 
     def test_read(self):
@@ -256,8 +255,8 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
 
         with tempfile.NamedTemporaryFile("w") as f:
             conf.read(f.name)
-            self.assertEqual(len(conf.get_sources()), 1)
-            self.assertEqual(conf.get_sources()[0], f.name)
+            assert len(conf.get_sources()) == 1
+            assert conf.get_sources()[0] == f.name
 
     def test_default_read(self):
         AnacondaConfiguration.from_defaults()
@@ -268,7 +267,7 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
         with tempfile.NamedTemporaryFile("r+") as f:
             conf.write(f.name)
             f.flush()
-            self.assertFalse(f.read(), "The file should be empty.")
+            assert not f.read(), "The file should be empty."
 
     def test_default_write(self):
         conf = AnacondaConfiguration.from_defaults()
@@ -276,7 +275,7 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
         with tempfile.NamedTemporaryFile("r+") as f:
             conf.write(f.name)
             f.flush()
-            self.assertTrue(f.read(), "The file shouldn't be empty.")
+            assert f.read(), "The file shouldn't be empty."
 
     def test_set_from_files(self):
         conf = AnacondaConfiguration.from_defaults()
@@ -309,43 +308,39 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
                     f.write("")
 
             # Check the paths.
-            self.assertEqual(
-                [os.path.relpath(path, d) for path in paths],
+            assert [os.path.relpath(path, d) for path in paths] == \
                 ["nonexistent", "empty", "a.conf", "conf.d"]
-            )
 
             conf._sources = []
             conf.set_from_files(paths)
 
             # Check the loaded files.
-            self.assertEqual(
-                [os.path.relpath(path, d) for path in conf.get_sources()],
+            assert [os.path.relpath(path, d) for path in conf.get_sources()] == \
                 ["a.conf", "conf.d/b.conf", "conf.d/c.conf"]
-            )
 
     def _check_configuration_sources(self, conf, file_names):
         """Check the loaded configuration sources."""
         file_paths = [os.path.join(CONFIG_DIR, path) for path in file_names]
-        self.assertEqual(file_paths, conf.get_sources())
+        assert file_paths == conf.get_sources()
 
     @patch("pyanaconda.core.configuration.anaconda.ANACONDA_CONFIG_DIR", CONFIG_DIR)
     def test_set_from_no_product(self):
         conf = AnacondaConfiguration.from_defaults()
 
-        with self.assertRaises(ConfigurationError) as cm:
+        with pytest.raises(ConfigurationError) as cm:
             conf.set_from_product()
 
         expected = "Unable to find any suitable configuration files " \
                    "for this product."
 
-        self.assertEqual(str(cm.exception), expected)
+        assert str(cm.value) == expected
 
     @patch("pyanaconda.core.configuration.anaconda.ANACONDA_CONFIG_DIR", CONFIG_DIR)
     def test_set_from_requested_product(self):
         conf = AnacondaConfiguration.from_defaults()
 
         # Test an unknown requested product.
-        with self.assertRaises(ConfigurationError) as cm:
+        with pytest.raises(ConfigurationError) as cm:
             conf.set_from_product(
                 requested_product="Unknown product",
                 requested_variant="Unknown variant",
@@ -355,7 +350,7 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
                    "for the product name 'Unknown product' and the " \
                    "variant name 'Unknown variant'."
 
-        self.assertEqual(str(cm.exception), expected)
+        assert expected == str(cm.value)
 
         # Test a known requested product.
         conf.set_from_product(
@@ -374,7 +369,7 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
         conf = AnacondaConfiguration.from_defaults()
 
         # Test an unknown .buildstamp product.
-        with self.assertRaises(ConfigurationError) as cm:
+        with pytest.raises(ConfigurationError) as cm:
             conf.set_from_product(
                 buildstamp_product="Unknown product",
                 buildstamp_variant="Unknown variant",
@@ -383,7 +378,7 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
         expected = "Unable to find any suitable configuration files " \
                    "for this product."
 
-        self.assertEqual(str(cm.exception), expected)
+        assert expected == str(cm.value)
 
         # Test a known .buildstamp product.
         conf.set_from_product(
@@ -402,7 +397,7 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
         conf = AnacondaConfiguration.from_defaults()
 
         # Test an unknown default product.
-        with self.assertRaises(ConfigurationError) as cm:
+        with pytest.raises(ConfigurationError) as cm:
             conf.set_from_product(
                 default_product="Unknown product",
             )
@@ -410,7 +405,7 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
         expected = "Unable to find any suitable configuration files " \
                    "for this product."
 
-        self.assertEqual(str(cm.exception), expected)
+        assert expected == str(cm.value)
 
         # Test a known default product.
         conf.set_from_product(
@@ -430,9 +425,9 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
     def _check_pattern(self, pattern):
         """Check the specified module pattern."""
         if pattern.endswith(".*"):
-            self.assertIn(pattern[:-2], self.MODULE_NAMESPACES)
+            assert pattern[:-2] in self.MODULE_NAMESPACES
         else:
-            self.assertIn(pattern, self.MODULE_NAMES)
+            assert pattern in self.MODULE_NAMES
 
     def test_activatable_modules(self):
         """Test the activatable_modules option."""
@@ -444,11 +439,10 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
     def test_kickstart_modules(self):
         """Test the kickstart_modules option."""
         conf = AnacondaConfiguration.from_defaults()
-        self.assertEqual(conf.anaconda.activatable_modules, [
+        assert conf.anaconda.activatable_modules == [
             "org.fedoraproject.Anaconda.Modules.*",
             "org.fedoraproject.Anaconda.Addons.*"
-
-        ])
+        ]
 
         parser = conf.get_parser()
         parser.read_string(dedent("""
@@ -461,12 +455,12 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
 
         """))
 
-        self.assertEqual(conf.anaconda.activatable_modules, [
+        assert conf.anaconda.activatable_modules == [
             "org.fedoraproject.Anaconda.Modules.Timezone",
             "org.fedoraproject.Anaconda.Modules.Localization",
             "org.fedoraproject.Anaconda.Modules.Security",
             "org.fedoraproject.Anaconda.Addons.*"
-        ])
+        ]
 
         for pattern in conf.anaconda.activatable_modules:
             self._check_pattern(pattern)
@@ -481,7 +475,7 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
     def test_addons_enabled_modules(self):
         """Test the addons_enabled option."""
         conf = AnacondaConfiguration.from_defaults()
-        self.assertEqual(conf.anaconda.forbidden_modules, [])
+        assert conf.anaconda.forbidden_modules == []
 
         parser = conf.get_parser()
         parser.read_string(dedent("""
@@ -494,11 +488,11 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
 
         """))
 
-        self.assertEqual(conf.anaconda.forbidden_modules, [
+        assert conf.anaconda.forbidden_modules == [
             "org.fedoraproject.Anaconda.Modules.Timezone",
             "org.fedoraproject.Anaconda.Modules.Localization",
             "org.fedoraproject.Anaconda.Modules.Security",
-        ])
+        ]
 
         parser.read_string(dedent("""
 
@@ -507,11 +501,11 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
 
         """))
 
-        self.assertEqual(conf.anaconda.forbidden_modules, [
+        assert conf.anaconda.forbidden_modules == [
             "org.fedoraproject.Anaconda.Modules.Timezone",
             "org.fedoraproject.Anaconda.Modules.Localization",
             "org.fedoraproject.Anaconda.Modules.Security",
-        ])
+        ]
 
         parser.read_string(dedent("""
 
@@ -520,12 +514,12 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
 
         """))
 
-        self.assertEqual(conf.anaconda.forbidden_modules, [
+        assert conf.anaconda.forbidden_modules == [
             "org.fedoraproject.Anaconda.Addons.*",
             "org.fedoraproject.Anaconda.Modules.Timezone",
             "org.fedoraproject.Anaconda.Modules.Localization",
             "org.fedoraproject.Anaconda.Modules.Security",
-        ])
+        ]
 
         for pattern in conf.anaconda.forbidden_modules:
             self._check_pattern(pattern)
@@ -539,11 +533,11 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
 
     def test_bootloader(self):
         conf = AnacondaConfiguration.from_defaults()
-        self.assertIn("selinux", conf.bootloader.preserved_arguments)
+        assert "selinux" in conf.bootloader.preserved_arguments
 
     def test_default_partitioning(self):
         conf = AnacondaConfiguration.from_defaults()
-        self.assertEqual(conf.storage.default_partitioning, [
+        assert conf.storage.default_partitioning == [
             {
                 'name': '/',
                 'min': Size("1024 MiB"),
@@ -553,52 +547,52 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
                 'min': Size("500 MiB"),
                 'free': Size("50 GiB"),
             }
-        ])
+        ]
 
     def test_convert_partitioning(self):
         convert_line = StorageSection._convert_partitioning_line
 
-        self.assertEqual(convert_line("/ (min 1 GiB, max 2 GiB, free 20 GiB)"), {
+        assert convert_line("/ (min 1 GiB, max 2 GiB, free 20 GiB)") == {
             "name": "/",
             "min": Size("1 GiB"),
             "max": Size("2 GiB"),
             "free": Size("20 GiB")
-        })
+        }
 
-        self.assertEqual(convert_line("/home (size 1 GiB)"), {
+        assert convert_line("/home (size 1 GiB)") == {
             "name": "/home",
             "size": Size("1 GiB")
-        })
+        }
 
-        self.assertEqual(convert_line("swap"), {
+        assert convert_line("swap") == {
             "name": "swap"
-        })
+        }
 
-        with self.assertRaises(ValueError):
+        with pytest.raises(ValueError):
             convert_line("")
 
-        with self.assertRaises(ValueError):
+        with pytest.raises(ValueError):
             convert_line("(size 1 GiB)")
 
-        with self.assertRaises(ValueError):
+        with pytest.raises(ValueError):
             convert_line("/home (size)")
 
-        with self.assertRaises(ValueError):
+        with pytest.raises(ValueError):
             convert_line("/home (invalid 1 GiB)")
 
-        with self.assertRaises(ValueError):
+        with pytest.raises(ValueError):
             convert_line("/home  (size 1 GiB, min 2 GiB)")
 
-        with self.assertRaises(ValueError):
+        with pytest.raises(ValueError):
             convert_line("/home  (max 2 GiB)")
 
     def test_default_installation_source(self):
         conf = AnacondaConfiguration.from_defaults()
-        self.assertEqual(conf.payload.default_source, SOURCE_TYPE_CLOSEST_MIRROR)
+        assert conf.payload.default_source == SOURCE_TYPE_CLOSEST_MIRROR
 
     def test_default_password_policies(self):
         conf = AnacondaConfiguration.from_defaults()
-        self.assertEqual(conf.ui.password_policies, [
+        assert conf.ui.password_policies == [
             {
                 'name': 'root',
                 "quality": 1,
@@ -613,41 +607,41 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
                 "quality": 1,
                 "length": 6,
             },
-        ])
+        ]
 
     def test_convert_password_policy(self):
         convert_line = UserInterfaceSection._convert_policy_line
 
-        self.assertEqual(convert_line("root (quality 100, length 10, empty, strict)"), {
+        assert convert_line("root (quality 100, length 10, empty, strict)") == {
             "name": "root",
             "quality": 100,
             "length": 10,
             "empty": True,
             "strict": True,
-        })
+        }
 
-        self.assertEqual(convert_line("luks (quality 100, length 10)"), {
+        assert convert_line("luks (quality 100, length 10)") == {
             "name": "luks",
             "quality": 100,
             "length": 10,
-        })
+        }
 
-        with self.assertRaises(ValueError):
+        with pytest.raises(ValueError):
             convert_line("")
 
-        with self.assertRaises(ValueError):
+        with pytest.raises(ValueError):
             convert_line("(empty)")
 
-        with self.assertRaises(ValueError):
+        with pytest.raises(ValueError):
             convert_line("user (quality)")
 
-        with self.assertRaises(ValueError):
+        with pytest.raises(ValueError):
             convert_line("user (invalid 100)")
 
         # Missing length.
-        with self.assertRaises(ValueError):
+        with pytest.raises(ValueError):
             convert_line("user (quality 100)")
 
         # Missing quality.
-        with self.assertRaises(ValueError):
+        with pytest.raises(ValueError):
             convert_line("user (length 10)")

@@ -39,7 +39,7 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
 
     def _check_macros(self, task, mock_rpm, expected_macros):
         """Check that the expected macros are set up."""
-        self.assertEqual(task._macros, expected_macros)
+        assert task._macros == expected_macros
 
         calls = [call(*macro) for macro in expected_macros]
         mock_rpm.addMacro.assert_has_calls(calls)
@@ -139,7 +139,7 @@ class ImportRPMKeysTaskTestCase(unittest.TestCase):
                 task.run()
 
             msg = "No GPG keys to import."
-            self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+            assert any(map(lambda x: msg in x, cm.output))
 
     def test_import_no_rpm(self):
         """Import GPG keys without installed rpm."""
@@ -150,7 +150,7 @@ class ImportRPMKeysTaskTestCase(unittest.TestCase):
                 task.run()
 
             msg = "Can not import GPG keys to RPM database"
-            self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+            assert any(map(lambda x: msg in x, cm.output))
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.util.execWithRedirect")
     def test_import_error(self, mock_exec):
@@ -165,7 +165,7 @@ class ImportRPMKeysTaskTestCase(unittest.TestCase):
                 task.run()
 
             msg = "Failed to import the GPG key."
-            self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+            assert any(map(lambda x: msg in x, cm.output))
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.util.execWithRedirect")
     def test_import_keys(self, mock_exec):
@@ -237,7 +237,7 @@ class UpdateDNFConfigurationTaskTestCase(unittest.TestCase):
                 task.run()
 
             msg = "Failed to update the DNF configuration (1)."
-            self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+            assert any(map(lambda x: msg in x, cm.output))
 
     @patch("pyanaconda.core.util.execWithRedirect")
     def test_error_update(self, execute):
@@ -254,7 +254,7 @@ class UpdateDNFConfigurationTaskTestCase(unittest.TestCase):
                 task.run()
 
             msg = "Couldn't update the DNF configuration: Fake!"
-            self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+            assert any(map(lambda x: msg in x, cm.output))
 
     @patch("pyanaconda.core.util.execWithRedirect")
     def test_multilib_policy(self, execute):

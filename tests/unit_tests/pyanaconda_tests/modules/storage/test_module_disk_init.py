@@ -18,6 +18,8 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
+import pytest
+
 from unittest.mock import Mock
 
 from pykickstart.constants import CLEARPART_TYPE_NONE
@@ -108,12 +110,12 @@ class DiskInitializationModuleTestCase(unittest.TestCase):
 
     def test_storage_property(self):
         """Test the storage property."""
-        with self.assertRaises(UnavailableStorageError):
-            self.assertIsNotNone(self.disk_init_module.storage)
+        with pytest.raises(UnavailableStorageError):
+            assert self.disk_init_module.storage is not None
 
         storage = Mock()
         self.disk_init_module.on_storage_changed(storage)
-        self.assertEqual(self.disk_init_module.storage, storage)
+        assert self.disk_init_module.storage == storage
 
     def test_setup_kickstart(self):
         """Test setup_kickstart with storage."""
@@ -124,6 +126,6 @@ class DiskInitializationModuleTestCase(unittest.TestCase):
         self.disk_init_module.set_initialization_mode(InitializationMode.CLEAR_NONE)
         self.disk_init_module.setup_kickstart(data)
 
-        self.assertEqual(data.clearpart.type, CLEARPART_TYPE_NONE)
-        self.assertEqual(data.clearpart.devices, [])
-        self.assertEqual(data.clearpart.drives, [])
+        assert data.clearpart.type == CLEARPART_TYPE_NONE
+        assert data.clearpart.devices == []
+        assert data.clearpart.drives == []

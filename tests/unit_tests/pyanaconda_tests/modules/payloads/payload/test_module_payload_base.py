@@ -21,6 +21,7 @@
 # this with an existing payload so use DNF just as dummy test payload.
 #
 import unittest
+import pytest
 from unittest.mock import patch
 
 from pyanaconda.modules.payloads.base.initialization import SetUpSourcesTask, TearDownSourcesTask
@@ -51,9 +52,7 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
     @patch.object(DNFModule, "supported_source_types", [SourceType.URL])
     def test_supported_sources(self):
         """Test supported sources API."""
-        self.assertEqual(
-            [SourceType.URL.value],
-            self.interface.SupportedSourceTypes)
+        assert [SourceType.URL.value] == self.interface.SupportedSourceTypes
 
     def test_sources_empty(self):
         """Test sources API for emptiness."""
@@ -92,7 +91,7 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
         self.shared_tests.set_and_check_sources(sources)
 
         source2 = self.shared_tests.prepare_source(SourceType.NFS)
-        with self.assertRaises(IncompatibleSourceError):
+        with pytest.raises(IncompatibleSourceError):
             self.module.add_source(source2)
 
         self.shared_tests.check_sources(sources)
@@ -107,7 +106,7 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
         self.shared_tests.set_and_check_sources(sources)
 
         source2 = self.shared_tests.prepare_source(SourceType.URL)
-        with self.assertRaises(SourceSetupError):
+        with pytest.raises(SourceSetupError):
             self.module.add_source(source2)
 
         self.shared_tests.check_sources(sources)
@@ -134,7 +133,7 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
 
         msg = "Source type {} is not supported by this payload.".format(
             SourceType.LIVE_OS_IMAGE.value)
-        self.assertEqual(str(cm.exception), msg)
+        assert str(cm.value) == msg
 
     @patch.object(DNFModule, "supported_source_types", [SourceType.NFS, SourceType.URL])
     @patch_dbus_publish_object
@@ -160,27 +159,27 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
     @patch_dbus_publish_object
     def test_is_network_required(self, publisher):
         """Test IsNetworkRequired."""
-        self.assertEqual(self.interface.IsNetworkRequired(), False)
+        assert self.interface.IsNetworkRequired() is False
 
         source1 = self.shared_tests.prepare_source(SourceType.CDROM, state=SourceState.UNREADY)
         self.shared_tests.set_sources([source1])
 
-        self.assertEqual(self.interface.IsNetworkRequired(), False)
+        assert self.interface.IsNetworkRequired() is False
 
         source2 = self.shared_tests.prepare_source(SourceType.NFS, state=SourceState.UNREADY)
         self.shared_tests.set_sources([source1, source2])
 
-        self.assertEqual(self.interface.IsNetworkRequired(), True)
+        assert self.interface.IsNetworkRequired() is True
 
     @patch_dbus_publish_object
     def test_calculate_required_space(self, publisher):
         """Test CalculateRequiredTest."""
-        self.assertEqual(self.interface.CalculateRequiredSpace(), 0)
+        assert self.interface.CalculateRequiredSpace() == 0
 
         source1 = self.shared_tests.prepare_source(SourceType.CDROM, state=SourceState.UNREADY)
         self.shared_tests.set_sources([source1])
 
-        self.assertEqual(self.interface.CalculateRequiredSpace(), 0)
+        assert self.interface.CalculateRequiredSpace() == 0
 
     @patch_dbus_publish_object
     def test_set_up_sources_with_task(self, publisher):
@@ -190,7 +189,7 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
 
         task_path = self.interface.SetUpSourcesWithTask()
         obj = check_task_creation(self, task_path, publisher, SetUpSourcesTask)
-        self.assertEqual(obj.implementation._sources, [source])
+        assert obj.implementation._sources == [source]
 
     @patch_dbus_publish_object
     def test_tear_down_sources_with_task(self, publisher):
@@ -200,4 +199,4 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
 
         task_path = self.interface.TearDownSourcesWithTask()
         obj = check_task_creation(self, task_path, publisher, TearDownSourcesTask)
-        self.assertEqual(obj.implementation._sources, [source])
+        assert obj.implementation._sources == [source]

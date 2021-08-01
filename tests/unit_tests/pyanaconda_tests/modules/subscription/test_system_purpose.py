@@ -57,34 +57,34 @@ class SystemPurposeLibraryTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tempdir:
             no_file = os.path.join(tempdir, "foo.json")
             roles, slas, usage_types = get_valid_fields(valid_fields_file_path=no_file)
-            self.assertListEqual(roles, [])
-            self.assertListEqual(slas, [])
-            self.assertListEqual(usage_types, [])
+            assert roles == []
+            assert slas == []
+            assert usage_types == []
 
         # check empty value list is handled correctly
         with tempfile.NamedTemporaryFile(mode="w+t") as testfile:
             testfile.write(SYSPURPOSE_VALID_VALUES_JSON_EMPTY)
             testfile.flush()
             roles, slas, usage_types = get_valid_fields(valid_fields_file_path=testfile.name)
-            self.assertListEqual(roles, [])
-            self.assertListEqual(slas, [])
-            self.assertListEqual(usage_types, [])
+            assert roles == []
+            assert slas == []
+            assert usage_types == []
 
         # check correctly populated json file is parsed correctly
         with tempfile.NamedTemporaryFile(mode="w+t") as testfile:
             testfile.write(SYSPURPOSE_VALID_VALUES_JSON)
             testfile.flush()
             roles, slas, usage_types = get_valid_fields(valid_fields_file_path=testfile.name)
-            self.assertListEqual(roles, ["role_a", "role_b", "role_c"])
-            self.assertListEqual(slas, ["sla_a", "sla_b", "sla_c"])
-            self.assertListEqual(usage_types, ["usage_a", "usage_b", "usage_c"])
+            assert roles == ["role_a", "role_b", "role_c"]
+            assert slas == ["sla_a", "sla_b", "sla_c"]
+            assert usage_types == ["usage_a", "usage_b", "usage_c"]
 
     def test_normalize_field(self):
         """Test that the system purpose valid field normalization works."""
         # this should basically just lower case the input
-        self.assertEqual(_normalize_field("AAA"), "aaa")
-        self.assertEqual(_normalize_field("Ab"), "ab")
-        self.assertEqual(_normalize_field("A b C"), "a b c")
+        assert _normalize_field("AAA") == "aaa"
+        assert _normalize_field("Ab") == "ab"
+        assert _normalize_field("A b C") == "a b c"
 
     def test_match_field(self):
         """Test that the system purpose valid field matching works."""
@@ -94,32 +94,17 @@ class SystemPurposeLibraryTestCase(unittest.TestCase):
         # in the GUI even if the user typosed the case or similar.
 
         # these should match
-        self.assertEqual(
-            _match_field("production", ["Production", "Development", "Testing"]),
-            "Production"
-        )
-        self.assertEqual(
-            _match_field("Production", ["Production", "Development", "Testing"]),
-            "Production"
-        )
-        self.assertEqual(
-            _match_field("DEVELOPMENT", ["Production", "Development", "Testing"]),
+        assert _match_field("production", ["Production", "Development", "Testing"]) == "Production"
+        assert _match_field("Production", ["Production", "Development", "Testing"]) == "Production"
+        assert _match_field("DEVELOPMENT", ["Production", "Development", "Testing"]) == \
             "Development"
-        )
 
         # these should not match but return the original value
-        self.assertIsNone(
-            _match_field("custom", ["Production", "Development", "Testing"]),
-        )
-        self.assertIsNone(
-            _match_field("Prod", ["Production", "Development", "Testing"]),
-        )
-        self.assertIsNone(
-            _match_field("Production 1", ["Production", "Development", "Testing"]),
-        )
-        self.assertIsNone(
-            _match_field("Production Development", ["Production", "Development", "Testing"]),
-        )
+        assert _match_field("custom", ["Production", "Development", "Testing"]) is None
+        assert _match_field("Prod", ["Production", "Development", "Testing"]) is None
+        assert _match_field("Production 1", ["Production", "Development", "Testing"]) is None
+        assert _match_field("Production Development", ["Production", "Development", "Testing"]) \
+            is None
 
     def test_process_field(self):
         """Test that the system purpose field processing works."""
@@ -127,34 +112,34 @@ class SystemPurposeLibraryTestCase(unittest.TestCase):
         valid_values = ["Production", "Development", "Testing"]
 
         # empty string
-        self.assertEqual(process_field("", valid_values, "usage"), "")
+        assert process_field("", valid_values, "usage") == ""
 
         # well known value with different case
-        self.assertEqual(process_field("production", valid_values, "usage"), "Production")
-        self.assertEqual(process_field("PRODUCTION", valid_values, "usage"), "Production")
+        assert process_field("production", valid_values, "usage") == "Production"
+        assert process_field("PRODUCTION", valid_values, "usage") == "Production"
 
         # well known value with matching case
-        self.assertEqual(process_field("Production", valid_values, "usage"), "Production")
+        assert process_field("Production", valid_values, "usage") == "Production"
 
         # fully custom value
-        self.assertEqual(process_field("foo", valid_values, "usage"), "foo")
-        self.assertEqual(process_field("foo BAR", valid_values, "usage"), "foo BAR")
+        assert process_field("foo", valid_values, "usage") == "foo"
+        assert process_field("foo BAR", valid_values, "usage") == "foo BAR"
 
         # empty list of well known values
-        self.assertEqual(process_field("PRODUCTION", [], "usage"), "PRODUCTION")
-        self.assertEqual(process_field("foo", [], "usage"), "foo")
+        assert process_field("PRODUCTION", [], "usage") == "PRODUCTION"
+        assert process_field("foo", [], "usage") == "foo"
 
     def test_set_system_pourpose_no_purpose(self):
         """Test that nothing is done if system has no purpose."""
         with tempfile.TemporaryDirectory() as sysroot:
             # create fake RHSM Syspurpose DBus proxy
             syspurpose_proxy = Mock()
-            self.assertTrue(give_the_system_purpose(sysroot=sysroot,
-                                                    rhsm_syspurpose_proxy=syspurpose_proxy,
-                                                    role="",
-                                                    sla="",
-                                                    usage="",
-                                                    addons=[]))
+            assert give_the_system_purpose(sysroot=sysroot,
+                                           rhsm_syspurpose_proxy=syspurpose_proxy,
+                                           role="",
+                                           sla="",
+                                           usage="",
+                                           addons=[]) is True
             syspurpose_proxy.SetSyspurpose.assert_not_called()
 
     def test_set_system_pourpose(self):
@@ -163,12 +148,12 @@ class SystemPurposeLibraryTestCase(unittest.TestCase):
             # create fake RHSM Syspurpose DBus proxy
             syspurpose_proxy = Mock()
             # set system purpose
-            self.assertTrue(give_the_system_purpose(sysroot=sysroot,
-                                                    rhsm_syspurpose_proxy=syspurpose_proxy,
-                                                    role="foo",
-                                                    sla="bar",
-                                                    usage="baz",
-                                                    addons=["a", "b", "c"]))
+            assert give_the_system_purpose(sysroot=sysroot,
+                                           rhsm_syspurpose_proxy=syspurpose_proxy,
+                                           role="foo",
+                                           sla="bar",
+                                           usage="baz",
+                                           addons=["a", "b", "c"]) is True
             # check syspurpose invocations look correct
             syspurpose_proxy.SetSyspurpose.assert_called_once_with(
                 {
@@ -188,12 +173,12 @@ class SystemPurposeLibraryTestCase(unittest.TestCase):
             # raise DBusError with error message in JSON
             syspurpose_proxy.SetSyspurpose.side_effect = DBusError("syspurpose error")
             # set system purpose & False is returned due to the exception
-            self.assertFalse(give_the_system_purpose(sysroot=sysroot,
-                                                     rhsm_syspurpose_proxy=syspurpose_proxy,
-                                                     role="foo",
-                                                     sla="bar",
-                                                     usage="baz",
-                                                     addons=["a", "b", "c"]))
+            assert give_the_system_purpose(sysroot=sysroot,
+                                           rhsm_syspurpose_proxy=syspurpose_proxy,
+                                           role="foo",
+                                           sla="bar",
+                                           usage="baz",
+                                           addons=["a", "b", "c"]) is False
             # check the fake DBus method still was called correctly
             syspurpose_proxy.SetSyspurpose.assert_called_once_with(
                 {

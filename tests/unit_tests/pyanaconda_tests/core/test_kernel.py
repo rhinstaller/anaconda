@@ -31,58 +31,58 @@ class KernelArgumentsTests(unittest.TestCase):
             "derp=no nobody=0")
 
         # test using "in" operator on the class
-        self.assertTrue("blah" in ka)
-        self.assertTrue("foo" in ka)
-        self.assertFalse("thisisnotthere" in ka)
-        self.assertFalse("body" in ka)
-        self.assertTrue("nobody" in ka)
+        assert "blah" in ka
+        assert "foo" in ka
+        assert not ("thisisnotthere" in ka)
+        assert not ("body" in ka)
+        assert "nobody" in ka
 
         # test the get() method
-        self.assertEqual(ka.get("foo"), "anything")
-        self.assertIsNone(ka.get("thisisnotthere"))
-        self.assertEqual(ka.get("thisisnotthere", "fallback"), "fallback")
+        assert ka.get("foo") == "anything"
+        assert ka.get("thisisnotthere") is None
+        assert ka.get("thisisnotthere", "fallback") == "fallback"
 
         # test the is_enabled() method
-        self.assertTrue(ka.is_enabled("blah"))  # present
-        self.assertTrue(ka.is_enabled("foo"))  # any value
-        self.assertTrue(ka.is_enabled("bar"))  # 1 = any value
-        self.assertFalse(ka.is_enabled("baz"))  # 0
-        self.assertTrue(ka.is_enabled("nowhere"))  # present
-        self.assertTrue(ka.is_enabled("nothing"))  # present
-        self.assertFalse(ka.is_enabled("beep"))  # off
-        self.assertTrue(ka.is_enabled("derp"))  # no = any value
-        self.assertFalse(ka.is_enabled("nobody"))  # 0
-        self.assertFalse(ka.is_enabled("thing"))  # not present
-        self.assertFalse(ka.is_enabled("where"))  # not present
+        assert ka.is_enabled("blah")  # present
+        assert ka.is_enabled("foo")  # any value
+        assert ka.is_enabled("bar")  # 1 = any value
+        assert not ka.is_enabled("baz")  # 0
+        assert ka.is_enabled("nowhere")  # present
+        assert ka.is_enabled("nothing")  # present
+        assert not ka.is_enabled("beep")  # off
+        assert ka.is_enabled("derp")  # no = any value
+        assert not ka.is_enabled("nobody")  # 0
+        assert not ka.is_enabled("thing")  # not present
+        assert not ka.is_enabled("where")  # not present
 
     def test_real_parsing_and_adding(self):
         """Test file spec handling in KernelArguments."""
 
         ka = KernelArguments()
-        self.assertEqual(ka.read(["/proc/cmdlin*", "/nonexistent/file"]), ["/proc/cmdline"])
-        self.assertEqual(ka.read("/another/futile/attempt"), [])
+        assert ka.read(["/proc/cmdlin*", "/nonexistent/file"]) == ["/proc/cmdline"]
+        assert ka.read("/another/futile/attempt") == []
 
     def test_special_argument_handling(self):
         """Test handling of special arguments in KernelArguments."""
 
         ka = KernelArguments.from_string("modprobe.blacklist=floppy modprobe.blacklist=reiserfs")
-        self.assertEqual(ka.get("modprobe.blacklist"), "floppy reiserfs")
+        assert ka.get("modprobe.blacklist") == "floppy reiserfs"
         ka.read_string("inst.addrepo=yum inst.addrepo=dnf")
-        self.assertEqual(ka.get("addrepo"), ["yum", "dnf"])
+        assert ka.get("addrepo") == ["yum", "dnf"]
         ka.read_string("inst.ks=kickstart")
-        self.assertEqual(ka.get("ks"), "kickstart")
+        assert ka.get("ks") == "kickstart"
 
     def test_items(self):
         """Test KernelArguments access to contents with iterator."""
 
         ka = KernelArguments.from_defaults()
         it = ka.items()
-        self.assertIsInstance(it, collections.Iterable)
+        assert isinstance(it, collections.Iterable)
         root_seen = False
         for k, v in it:  # pylint: disable=unused-variable
             if k == "root":
                 root_seen = True
-        self.assertTrue(root_seen)
+        assert root_seen
 
     def test_items_raw(self):
         """Test KernelArguments access to raw contents with iterator."""
@@ -91,18 +91,18 @@ class KernelArgumentsTests(unittest.TestCase):
             "blah inst.foo=anything inst.nothing=indeed")
         it = ka.items_raw()
 
-        self.assertIsInstance(it, collections.Iterable)
+        assert isinstance(it, collections.Iterable)
 
         res = dict()
         for k, v in it:
             res[k] = v
 
-        self.assertIn("inst.foo", res)
-        self.assertIn("blah", res)
-        self.assertIn("inst.nothing", res)
+        assert "inst.foo" in res
+        assert "blah" in res
+        assert "inst.nothing" in res
 
-        self.assertEqual(res["inst.nothing"], "indeed")
+        assert res["inst.nothing"] == "indeed"
 
     def test_shared_instance(self):
         """Test the kernel.kernel_arguments instance."""
-        self.assertTrue("root" in kernel_arguments)
+        assert "root" in kernel_arguments

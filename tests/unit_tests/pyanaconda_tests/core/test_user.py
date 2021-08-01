@@ -30,8 +30,8 @@ class UserNameTests(unittest.TestCase):
 
     def _assert_name(self, name, expected_validity):
         valid, message = self._check_name(name)
-        self.assertEqual(valid, expected_validity, message)
-        self.assertEqual(not valid, message is not None)
+        assert valid == expected_validity, message
+        assert (not valid) == (message is not None)
 
     def _assert_username(self, name, expected_validity):
         self._assert_name(name, expected_validity)

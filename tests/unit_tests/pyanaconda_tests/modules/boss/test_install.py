@@ -30,7 +30,7 @@ class InstallManagerTestCase(unittest.TestCase):
         install_manager = InstallManager()
         install_manager.on_module_observers_changed([])
         proxies = install_manager.collect_install_system_tasks()
-        self.assertEqual(proxies, [])
+        assert proxies == []
 
     def test_install_with_no_tasks(self):
         """Install with no tasks."""
@@ -42,7 +42,7 @@ class InstallManagerTestCase(unittest.TestCase):
         install_manager = InstallManager()
         install_manager.on_module_observers_changed([observer])
         proxies = install_manager.collect_install_system_tasks()
-        self.assertEqual(proxies, [])
+        assert proxies == []
 
     @patch_dbus_get_proxy
     def test_install_one_task(self, proxy_getter):
@@ -59,7 +59,7 @@ class InstallManagerTestCase(unittest.TestCase):
         install_manager = InstallManager()
         install_manager.on_module_observers_changed([observer])
         proxies = install_manager.collect_install_system_tasks()
-        self.assertEqual(proxies, [task_proxy])
+        assert proxies == [task_proxy]
 
         proxy_getter.assert_called_once_with("A", "/A/1")
 
@@ -89,7 +89,7 @@ class InstallManagerTestCase(unittest.TestCase):
         install_manager = InstallManager()
         install_manager.on_module_observers_changed(observers)
         proxies = install_manager.collect_install_system_tasks()
-        self.assertEqual(proxies, [task_proxy, task_proxy, task_proxy])
+        assert proxies == [task_proxy, task_proxy, task_proxy]
 
         proxy_getter.assert_has_calls([
             call("A", "/A/1"),
@@ -123,7 +123,7 @@ class InstallManagerTestCase(unittest.TestCase):
         install_manager = InstallManager()
         install_manager.on_module_observers_changed(observers)
         proxies = install_manager.collect_configure_runtime_tasks()
-        self.assertEqual(proxies, [task_proxy, task_proxy, task_proxy])
+        assert proxies == [task_proxy, task_proxy, task_proxy]
 
         proxy_getter.assert_has_calls([
             call("A", "/A/1"),

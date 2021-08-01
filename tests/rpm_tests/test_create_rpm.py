@@ -137,8 +137,8 @@ class InstalledFilesTestCase(RPMTestCase):
         self._check_files_in_rpm(src_files, rpm_files)
 
     def test_anaconda_conf_file(self):
-        self.assertIn("data/anaconda.conf", self._get_source_files())
-        self.assertIn("/etc/anaconda/anaconda.conf", self._get_core_rpm_content())
+        assert "data/anaconda.conf" in self._get_source_files()
+        assert "/etc/anaconda/anaconda.conf" in self._get_core_rpm_content()
 
     def test_anaconda_conf_dir(self):
         rpm_files = self._get_core_rpm_content()
@@ -232,11 +232,11 @@ class InstalledFilesTestCase(RPMTestCase):
         rpm_files = self._check_and_return_as_list(rpm_files)
 
         for f in src_files:
-            self.assertIn(f, rpm_files, "File '{}' is not packaged in rpm".format(f))
+            assert f in rpm_files, "File '{}' is not packaged in rpm".format(f)
 
     def _check_and_return_as_list(self, files_list):
         li = list(files_list)
-        self.assertNotEqual(len(li), 0, "No files to compare found!")
+        assert len(li) != 0, "No files to compare found!"
 
         return li
 

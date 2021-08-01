@@ -20,6 +20,7 @@
 
 
 import unittest
+import pytest
 import enum
 
 from pyanaconda.modules.common.constants.services import PAYLOADS
@@ -76,23 +77,22 @@ class TestSourceFactoryTests(unittest.TestCase):
             klass = val.map_to_classes()
 
             if klass is None:
-                with self.assertRaises(PayloadSourceTypeUnrecognized):
+                with pytest.raises(PayloadSourceTypeUnrecognized):
                     SourceFactory.parse_repo_cmdline_string(val.value)
                 continue
 
             source = SourceFactory.parse_repo_cmdline_string(val.value)
-            self.assertIsInstance(source, klass,
-                                  "Instance of source {} expected - get {}".format(klass, source))
+            assert isinstance(source, klass), \
+                "Instance of source {} expected - get {}".format(klass, source)
 
     def _check_is_methods(self, check_method, valid_array, type_str):
         for val in TestValues:
 
             ret = check_method(val.value)
             if val in valid_array:
-                self.assertTrue(ret, "Value {} is not marked as {}".format(val.value, type_str))
+                assert ret, "Value {} is not marked as {}".format(val.value, type_str)
             else:
-                self.assertFalse(ret, "Value {} should non be marked as {}".format(val.value,
-                                                                                   type_str))
+                assert not ret, "Value {} should non be marked as {}".format(val.value, type_str)
 
     def test_is_cdrom(self):
         self._check_is_methods(SourceFactory.is_cdrom,
@@ -144,7 +144,7 @@ class TestSourceFactoryTests(unittest.TestCase):
         source_proxy = source.create_proxy()
 
         payloads_proxy.CreateSource.assert_called_once_with(source_type)
-        self.assertEqual(source_proxy, PAYLOADS.get_proxy("my/source/1"))
+        assert source_proxy == PAYLOADS.get_proxy("my/source/1")
 
         return source_proxy
 

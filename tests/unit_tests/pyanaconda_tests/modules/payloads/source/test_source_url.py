@@ -18,6 +18,7 @@
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
 import unittest
+import pytest
 
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
@@ -59,14 +60,14 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Test URL source has a correct type specified."""
-        self.assertEqual(SOURCE_TYPE_URL, self.url_source_interface.Type)
+        assert SOURCE_TYPE_URL == self.url_source_interface.Type
 
     def test_description(self):
         """Test URL source description."""
         rc = RepoConfigurationData()
         rc.url = "http://example.com/"
         self.url_source_interface.SetRepoConfiguration(rc.to_structure(rc))
-        self.assertEqual("http://example.com/", self.url_source_module.description)
+        assert "http://example.com/" == self.url_source_module.description
 
     def test_set_name_properties(self):
         data = RepoConfigurationData()
@@ -87,7 +88,7 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
         conf1 = RepoConfigurationData.from_structure(interface1.RepoConfiguration)
         conf2 = RepoConfigurationData.from_structure(interface2.RepoConfiguration)
 
-        self.assertNotEqual(conf1.name, conf2.name)
+        assert conf1.name != conf2.name
 
     def test_set_url_base_source_properties(self):
         data = RepoConfigurationData()
@@ -124,7 +125,7 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
         data.url = "http://test"
         data.type = "DOES-NOT-EXISTS"
 
-        with self.assertRaises(InvalidValueError):
+        with pytest.raises(InvalidValueError):
             self._check_dbus_property(
                 "RepoConfiguration",
                 RepoConfigurationData.to_structure(data)
@@ -133,8 +134,8 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
         # new value shouldn't be set
         old_data = self.url_source_interface.RepoConfiguration
         old_data = RepoConfigurationData.from_structure(old_data)
-        self.assertEqual(old_data.url, "")
-        self.assertEqual(old_data.type, URL_TYPE_BASEURL)
+        assert old_data.url == ""
+        assert old_data.type == URL_TYPE_BASEURL
 
     def test_enable_ssl_verification_properties(self):
         data = RepoConfigurationData()
@@ -171,7 +172,7 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
         repo_conf = RepoConfigurationData.from_structure(repo_data)
         ssl_conf = repo_conf.ssl_configuration
 
-        self.assertTrue(ssl_conf.is_empty())
+        assert ssl_conf.is_empty()
 
     def test_ssl_configuration_is_not_empty_properties(self):
         ssl_conf = SSLConfigurationData()
@@ -189,7 +190,7 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
             self.url_source_interface.RepoConfiguration
         )
 
-        self.assertFalse(repo_data_2.ssl_configuration.is_empty())
+        assert not repo_data_2.ssl_configuration.is_empty()
 
     def test_set_proxy_properties(self):
         data = RepoConfigurationData()
@@ -204,7 +205,7 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
         data = RepoConfigurationData()
         data.proxy = "https:///no/server/hostname"
 
-        with self.assertRaises(InvalidValueError):
+        with pytest.raises(InvalidValueError):
             self._check_dbus_property(
                 "RepoConfiguration",
                 RepoConfigurationData.to_structure(data)
@@ -213,7 +214,7 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
         # new value shouldn't be set
         old_data = self.url_source_interface.RepoConfiguration
         old_data = RepoConfigurationData.from_structure(old_data)
-        self.assertEqual(old_data.proxy, "")
+        assert old_data.proxy == ""
 
     def test_set_cost_properties(self):
         data = RepoConfigurationData()
@@ -228,7 +229,7 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
         repo_conf = self.url_source_interface.RepoConfiguration
         repo_conf = RepoConfigurationData.from_structure(repo_conf)
 
-        self.assertEqual(repo_conf.cost, DNF_DEFAULT_REPO_COST)
+        assert repo_conf.cost == DNF_DEFAULT_REPO_COST
 
     def test_set_excluded_packages_properties(self):
         data = RepoConfigurationData()
@@ -284,8 +285,8 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
         data = RepoConfigurationData()
         data.name = self._generate_repo_name()
 
-        self.assertEqual(self.url_source_interface.RepoConfiguration,
-                         RepoConfigurationData.to_structure(data))
+        assert self.url_source_interface.RepoConfiguration == \
+            RepoConfigurationData.to_structure(data)
 
     def test_set_true_install_properties(self):
         self._check_dbus_property(
@@ -300,7 +301,7 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
         )
 
     def test_default_install_properties(self):
-        self.assertEqual(self.url_source_interface.InstallRepoEnabled, False)
+        assert self.url_source_interface.InstallRepoEnabled == False
 
 
 class URLSourceTestCase(unittest.TestCase):
@@ -311,50 +312,48 @@ class URLSourceTestCase(unittest.TestCase):
 
     def test_network_required(self):
         """Test the property network_required."""
-        self.assertEqual(self.module.network_required, False)
+        assert self.module.network_required == False
 
         self.module.repo_configuration.url = "http://my/path"
-        self.assertEqual(self.module.network_required, True)
+        assert self.module.network_required == True
 
         self.module.repo_configuration.url = "https://my/path"
-        self.assertEqual(self.module.network_required, True)
+        assert self.module.network_required == True
 
         self.module.repo_configuration.url = "file://my/path"
-        self.assertEqual(self.module.network_required, False)
+        assert self.module.network_required == False
 
         self.module.repo_configuration.url = "ftp://my/path"
-        self.assertEqual(self.module.network_required, True)
+        assert self.module.network_required == True
 
     def test_required_space(self):
         """Test the required_space property."""
-        self.assertEqual(self.module.required_space, 0)
+        assert self.module.required_space == 0
 
     def test_ready_state(self):
         """Check ready state of URL source.
 
         It will be always True there is no state.
         """
-        self.assertTrue(self.module.get_state())
+        assert self.module.get_state()
 
     def test_set_up_with_tasks(self):
         """Get set up tasks for url source.
 
         No task is required. Will be an empty list.
         """
-        self.assertEqual(self.module.set_up_with_tasks(), [])
+        assert self.module.set_up_with_tasks() == []
 
     def test_tear_down_with_tasks(self):
         """Get tear down tasks for url source.
 
         No task is required. Will be an empty list.
         """
-        self.assertEqual(self.module.tear_down_with_tasks(), [])
+        assert self.module.tear_down_with_tasks() == []
 
     def test_repr(self):
         config = RepoConfigurationData()
         config.url = "http://some.example.com/repository"
         self.module.set_repo_configuration(config)
-        self.assertEqual(
-            repr(self.module),
+        assert repr(self.module) == \
             "Source(type='URL', url='http://some.example.com/repository')"
-        )

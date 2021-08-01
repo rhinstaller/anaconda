@@ -63,7 +63,7 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.storage.iscsi.iscsi.iscsi", available=True)
     def test_is_supported(self, iscsi):
-        self.assertEqual(self.iscsi_interface.IsSupported(), True)
+        assert self.iscsi_interface.IsSupported() == True
 
     @patch('pyanaconda.modules.storage.iscsi.iscsi.iscsi')
     def test_initator_property(self, iscsi):
@@ -72,7 +72,7 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
         iscsi.initiator_set = False
         self.iscsi_interface.SetInitiator(initiator_name)
         iscsi.initiator = initiator_name
-        self.assertEqual(self.iscsi_interface.Initiator, initiator_name)
+        assert self.iscsi_interface.Initiator == initiator_name
         iscsi.initiator_set = True
         initiator_name2 = "iqn.1994-05.com.redhat:blablabla"
         self.iscsi_interface.SetInitiator(initiator_name2)
@@ -83,7 +83,7 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
     @patch('pyanaconda.modules.storage.iscsi.iscsi.iscsi')
     def test_can_set_initiator(self, iscsi):
         """Test CanSetInitiator method."""
-        self.assertIsInstance(self.iscsi_interface.CanSetInitiator(), bool)
+        assert isinstance(self.iscsi_interface.CanSetInitiator(), bool)
 
     @patch('pyanaconda.modules.storage.iscsi.iscsi.iscsi')
     def test_get_interface_mode(self, iscsi):
@@ -100,7 +100,7 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
         result = self.iscsi_interface.IsNodeFromIbft(
             Node.to_structure(self._node)
         )
-        self.assertFalse(result)
+        assert not result
 
         blivet_node = Mock()
         blivet_node.name = self._node.name
@@ -111,7 +111,7 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
         result = self.iscsi_interface.IsNodeFromIbft(
             Node.to_structure(self._node)
         )
-        self.assertTrue(result)
+        assert result
 
     @patch('pyanaconda.modules.storage.iscsi.iscsi.iscsi')
     def test_get_interface(self, iscsi):
@@ -120,8 +120,8 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
             "iface0" : "ens3",
             "iface1" : "ens7",
         }
-        self.assertEqual(self.iscsi_interface.GetInterface("iface0"), "ens3")
-        self.assertEqual(self.iscsi_interface.GetInterface("nonexisting"), "")
+        assert self.iscsi_interface.GetInterface("iface0") == "ens3"
+        assert self.iscsi_interface.GetInterface("nonexisting") == ""
 
     @patch_dbus_publish_object
     def test_discover_with_task(self, publisher):
@@ -135,11 +135,11 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
 
         obj = check_task_creation(self, task_path, publisher, ISCSIDiscoverTask)
 
-        self.assertIsInstance(obj, ISCSIDiscoverTaskInterface)
+        assert isinstance(obj, ISCSIDiscoverTaskInterface)
 
-        self.assertEqual(obj.implementation._portal, self._portal)
-        self.assertEqual(obj.implementation._credentials, self._credentials)
-        self.assertEqual(obj.implementation._interfaces_mode, IscsiInterfacesMode.DEFAULT)
+        assert obj.implementation._portal == self._portal
+        assert obj.implementation._credentials == self._credentials
+        assert obj.implementation._interfaces_mode == IscsiInterfacesMode.DEFAULT
 
     @patch_dbus_publish_object
     def test_login_with_task(self, publisher):
@@ -152,9 +152,9 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
 
         obj = check_task_creation(self, task_path, publisher, ISCSILoginTask)
 
-        self.assertEqual(obj.implementation._portal, self._portal)
-        self.assertEqual(obj.implementation._credentials, self._credentials)
-        self.assertEqual(obj.implementation._node, self._node)
+        assert obj.implementation._portal == self._portal
+        assert obj.implementation._credentials == self._credentials
+        assert obj.implementation._node == self._node
 
     @patch('pyanaconda.modules.storage.iscsi.iscsi.iscsi')
     def test_write_configuration(self, iscsi):

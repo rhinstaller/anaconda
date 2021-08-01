@@ -34,17 +34,17 @@ class SubscriptionSpokeHelpersTestCase(unittest.TestCase):
                            ("Standard", "Standard", True),
                            ("Premium", "Premium", False)]
         output = handle_user_provided_value("Standard", valid_values)
-        self.assertEqual(output, expected_output)
+        assert output == expected_output
         # user provided value does not match one of the valid values
         expected_output = [("Self Support", "Self Support", False),
                            ("Standard", "Standard", False),
                            ("Premium", "Premium", False),
                            ("Custom", "Other (Custom)", True)]
         output = handle_user_provided_value("Custom", valid_values)
-        self.assertEqual(output, expected_output)
+        assert output == expected_output
         # user provided empty string
         expected_output = [("Self Support", "Self Support", False),
                            ("Standard", "Standard", False),
                            ("Premium", "Premium", False)]
         output = handle_user_provided_value("", valid_values)
-        self.assertEqual(output, expected_output)
+        assert output == expected_output

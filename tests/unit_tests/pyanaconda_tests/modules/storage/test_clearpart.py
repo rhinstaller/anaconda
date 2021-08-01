@@ -82,119 +82,106 @@ class ClearPartTestCase(unittest.TestCase):
         # clearpart type none
         #
         self._config.initialization_mode = CLEAR_PARTITIONS_NONE
-        self.assertFalse(self._can_remove(sda1),
-                         msg="type none should not clear any partitions")
-        self.assertFalse(self._can_remove(sda2),
-                         msg="type none should not clear any partitions")
+        assert not self._can_remove(sda1), \
+            "type none should not clear any partitions"
+        assert not self._can_remove(sda2), \
+            "type none should not clear any partitions"
 
         self._config.initialize_labels = False
-        self.assertFalse(self._can_remove(sda),
-                         msg="type none should not clear non-empty disks")
-        self.assertFalse(self._can_remove(sdb),
-                         msg="type none should not clear formatting from "
-                             "unpartitioned disks")
+        assert not self._can_remove(sda), \
+            "type none should not clear non-empty disks"
+        assert not self._can_remove(sdb), \
+            "type none should not clear formatting from unpartitioned disks"
 
-        self.assertFalse(self._can_remove(sdc),
-                         msg="type none should not clear empty disk without "
-                             "initlabel")
-        self.assertFalse(self._can_remove(sdd),
-                         msg="type none should not clear empty partition table "
-                             "without initlabel")
+        assert not self._can_remove(sdc), \
+            "type none should not clear empty disk without initlabel"
+        assert not self._can_remove(sdd), \
+            "type none should not clear empty partition table without initlabel"
 
         self._config.initialize_labels = True
-        self.assertFalse(self._can_remove(sda),
-                         msg="type none should not clear non-empty disks even "
-                             "with initlabel")
-        self.assertFalse(self._can_remove(sdb),
-                         msg="type non should not clear formatting from "
-                             "unpartitioned disks even with initlabel")
-        self.assertTrue(self._can_remove(sdc),
-                        msg="type none should clear empty disks when initlabel "
-                            "is set")
-        self.assertTrue(self._can_remove(sdd),
-                        msg="type none should clear empty partition table when "
-                            "initlabel is set")
+        assert not self._can_remove(sda), \
+            "type none should not clear non-empty disks even with initlabel"
+        assert not self._can_remove(sdb), \
+            "type non should not clear formatting from unpartitioned disks even with initlabel"
+        assert self._can_remove(sdc), \
+            "type none should clear empty disks when initlabel is set"
+        assert self._can_remove(sdd), \
+            "type none should clear empty partition table when initlabel is set"
 
         #
         # clearpart type linux
         #
         self._config.initialization_mode = CLEAR_PARTITIONS_LINUX
-        self.assertTrue(self._can_remove(sda1),
-                        msg="type linux should clear partitions containing "
-                            "ext4 filesystems")
-        self.assertFalse(self._can_remove(sda2),
-                         msg="type linux should not clear partitions "
-                             "containing vfat filesystems")
+        assert self._can_remove(sda1), \
+            "type linux should clear partitions containing ext4 filesystems"
+        assert not self._can_remove(sda2), \
+            "type linux should not clear partitions containing vfat filesystems"
 
         self._config.initialize_labels = False
-        self.assertFalse(self._can_remove(sda),
-                         msg="type linux should not clear non-empty disklabels")
-        self.assertTrue(self._can_remove(sdb),
-                        msg="type linux should clear linux-native whole-disk "
-                            "formatting regardless of initlabel setting")
-        self.assertFalse(self._can_remove(sdc),
-                         msg="type linux should not clear unformatted disks "
-                             "unless initlabel is set")
-        self.assertFalse(self._can_remove(sdd),
-                         msg="type linux should not clear disks with empty "
-                             "partition tables unless initlabel is set")
+        assert not self._can_remove(sda), \
+            "type linux should not clear non-empty disklabels"
+        assert self._can_remove(sdb), \
+            "type linux should clear linux-native whole-disk " \
+            "formatting regardless of initlabel setting"
+        assert not self._can_remove(sdc), \
+            "type linux should not clear unformatted disks unless initlabel is set"
+        assert not self._can_remove(sdd), \
+            "type linux should not clear disks with empty " \
+            "partition tables unless initlabel is set"
 
         self._config.initialize_labels = True
-        self.assertFalse(self._can_remove(sda),
-                         msg="type linux should not clear non-empty disklabels")
-        self.assertTrue(self._can_remove(sdb),
-                        msg="type linux should clear linux-native whole-disk "
-                            "formatting regardless of initlabel setting")
-        self.assertTrue(self._can_remove(sdc),
-                        msg="type linux should clear unformatted disks when "
-                        "initlabel is set")
-        self.assertTrue(self._can_remove(sdd),
-                        msg="type linux should clear disks with empty "
-                        "partition tables when initlabel is set")
+        assert not self._can_remove(sda), \
+            "type linux should not clear non-empty disklabels"
+        assert self._can_remove(sdb), \
+            "type linux should clear linux-native whole-disk " \
+            "formatting regardless of initlabel setting"
+        assert self._can_remove(sdc), \
+            "type linux should clear unformatted disks when initlabel is set"
+        assert self._can_remove(sdd), \
+            "type linux should clear disks with empty " \
+            "partition tables when initlabel is set"
 
         sda1.protected = True
-        self.assertFalse(self._can_remove(sda1),
-                         msg="protected devices should never be cleared")
-        self.assertFalse(self._can_remove(sda),
-                         msg="disks containing protected devices should never "
-                             "be cleared")
+        assert not self._can_remove(sda1), \
+            "protected devices should never be cleared"
+        assert not self._can_remove(sda), \
+            "disks containing protected devices should never be cleared"
         sda1.protected = False
 
         #
         # clearpart type all
         #
         self._config.initialization_mode = CLEAR_PARTITIONS_ALL
-        self.assertTrue(self._can_remove(sda1),
-                        msg="type all should clear all partitions")
-        self.assertTrue(self._can_remove(sda2),
-                        msg="type all should clear all partitions")
+        assert self._can_remove(sda1), \
+            "type all should clear all partitions"
+        assert self._can_remove(sda2), \
+            "type all should clear all partitions"
 
         self._config.initialize_labels = False
-        self.assertTrue(self._can_remove(sda),
-                        msg="type all should initialize all disks")
-        self.assertTrue(self._can_remove(sdb),
-                        msg="type all should initialize all disks")
-        self.assertTrue(self._can_remove(sdc),
-                        msg="type all should initialize all disks")
-        self.assertTrue(self._can_remove(sdd),
-                        msg="type all should initialize all disks")
+        assert self._can_remove(sda), \
+            "type all should initialize all disks"
+        assert self._can_remove(sdb), \
+            "type all should initialize all disks"
+        assert self._can_remove(sdc), \
+            "type all should initialize all disks"
+        assert self._can_remove(sdd), \
+            "type all should initialize all disks"
 
         self._config.initialize_labels = True
-        self.assertTrue(self._can_remove(sda),
-                        msg="type all should initialize all disks")
-        self.assertTrue(self._can_remove(sdb),
-                        msg="type all should initialize all disks")
-        self.assertTrue(self._can_remove(sdc),
-                        msg="type all should initialize all disks")
-        self.assertTrue(self._can_remove(sdd),
-                        msg="type all should initialize all disks")
+        assert self._can_remove(sda), \
+            "type all should initialize all disks"
+        assert self._can_remove(sdb), \
+            "type all should initialize all disks"
+        assert self._can_remove(sdc), \
+            "type all should initialize all disks"
+        assert self._can_remove(sdd), \
+            "type all should initialize all disks"
 
         sda1.protected = True
-        self.assertFalse(self._can_remove(sda1),
-                         msg="protected devices should never be cleared")
-        self.assertFalse(self._can_remove(sda),
-                         msg="disks containing protected devices should never "
-                             "be cleared")
+        assert not self._can_remove(sda1), \
+            "protected devices should never be cleared"
+        assert not self._can_remove(sda), \
+            "disks containing protected devices should never be cleared"
         sda1.protected = False
 
         #
