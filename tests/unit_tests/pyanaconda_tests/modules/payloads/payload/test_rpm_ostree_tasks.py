@@ -570,7 +570,7 @@ class PullRemoteAndDeleteTaskTestCase(unittest.TestCase):
         repo_mock.pull_with_options.side_effect = [GError("blah")]
 
         with patch.object(PullRemoteAndDeleteTask, "report_progress") as progress_mock:
-            with pytest.raises(PayloadInstallError) as ex:
+            with pytest.raises(PayloadInstallError):
                 task = PullRemoteAndDeleteTask(data)
                 task.run()
 
