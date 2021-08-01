@@ -39,7 +39,7 @@ class UsernameRegexTestCase(unittest.TestCase):
         # These are invalid full names
         bad_tests = ['George:Burdell']
 
-        self.assertTrue(regex_match(GECOS_VALID, good_tests, bad_tests))
+        assert regex_match(GECOS_VALID, good_tests, bad_tests)
 
     def test_username(self):
         """Test a list of possible username values."""
@@ -74,7 +74,7 @@ class UsernameRegexTestCase(unittest.TestCase):
                 ]
 
         # The group name checks for the same thing as the user name
-        self.assertTrue(regex_match(NAME_VALID, good_tests, bad_tests))
+        assert regex_match(NAME_VALID, good_tests, bad_tests)
 
     def test_grouplist_simple(self):
         good_tests = [
@@ -106,4 +106,4 @@ class UsernameRegexTestCase(unittest.TestCase):
                 'gburdell, wheel,'
                 ]
 
-        self.assertTrue(regex_match(GROUPLIST_SIMPLE_VALID, good_tests, bad_tests))
+        assert regex_match(GROUPLIST_SIMPLE_VALID, good_tests, bad_tests)

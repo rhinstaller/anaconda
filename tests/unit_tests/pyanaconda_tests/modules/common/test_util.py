@@ -47,7 +47,7 @@ class IsModuleAvailableTestCase(unittest.TestCase):
          ]
         boss_proxy.GetModules.return_value = running_modules
         # call the function
-        self.assertTrue(is_module_available(SUBSCRIPTION))
+        assert is_module_available(SUBSCRIPTION)
 
     @patch("pyanaconda.modules.common.constants.services.BOSS.get_proxy")
     def test_is_module_not_available(self, get_proxy):
@@ -67,4 +67,4 @@ class IsModuleAvailableTestCase(unittest.TestCase):
          ]
         boss_proxy.GetModules.return_value = running_modules
         # call the function
-        self.assertFalse(is_module_available(SUBSCRIPTION))
+        assert not is_module_available(SUBSCRIPTION)

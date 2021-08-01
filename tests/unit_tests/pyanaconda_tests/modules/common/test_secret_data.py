@@ -32,30 +32,28 @@ class SecretDataTestCase(unittest.TestCase):
         """Test the string representation of SecretData."""
         data = SecretData()
         expected = "SecretData(type='NONE', value_set=False)"
-        self.assertEqual(str(data), expected)
-        self.assertEqual(repr(data), expected)
+        assert str(data) == expected
+        assert repr(data) == expected
 
         data.set_secret("secret")
         expected = "SecretData(type='TEXT', value_set=True)"
-        self.assertEqual(str(data), expected)
-        self.assertEqual(repr(data), expected)
+        assert str(data) == expected
+        assert repr(data) == expected
 
         data.hide_secret()
         expected = "SecretData(type='HIDDEN', value_set=False)"
-        self.assertEqual(str(data), expected)
-        self.assertEqual(repr(data), expected)
+        assert str(data) == expected
+        assert repr(data) == expected
 
     def test_get_structure(self):
         """Test the DBus structure with SecretData."""
         data = SecretData()
 
-        self.assertEqual(
-            SecretData.to_structure(data),
+        assert SecretData.to_structure(data) == \
             {
                 'type': get_variant(Str, SECRET_TYPE_NONE),
                 'value': get_variant(Str, "")
             }
-        )
 
         data = SecretData.from_structure(
             {
@@ -64,38 +62,38 @@ class SecretDataTestCase(unittest.TestCase):
             }
         )
 
-        self.assertEqual(data.type, SECRET_TYPE_TEXT)
-        self.assertEqual(data.value, "secret")
+        assert data.type == SECRET_TYPE_TEXT
+        assert data.value == "secret"
 
     def test_set_secret(self):
         """Test the set_secret method of SecretData."""
         data = SecretData()
         data.set_secret("secret")
-        self.assertEqual(data.type, SECRET_TYPE_TEXT)
-        self.assertEqual(data.value, "secret")
+        assert data.type == SECRET_TYPE_TEXT
+        assert data.value == "secret"
 
         data.set_secret(None)
-        self.assertEqual(data.type, SECRET_TYPE_NONE)
-        self.assertEqual(data.value, "")
+        assert data.type == SECRET_TYPE_NONE
+        assert data.value == ""
 
     def test_hide_secret(self):
         """Test the hide_secret method of SecretData."""
         data = SecretData()
         data.hide_secret()
-        self.assertEqual(data.type, SECRET_TYPE_NONE)
-        self.assertEqual(data.value, "")
+        assert data.type == SECRET_TYPE_NONE
+        assert data.value == ""
 
         data.type = SECRET_TYPE_TEXT
         data.value = "secret"
         data.hide_secret()
-        self.assertEqual(data.type, SECRET_TYPE_HIDDEN)
-        self.assertEqual(data.value, "")
+        assert data.type == SECRET_TYPE_HIDDEN
+        assert data.value == ""
 
         data.type = SECRET_TYPE_HIDDEN
         data.value = "secret"
         data.hide_secret()
-        self.assertEqual(data.type, SECRET_TYPE_HIDDEN)
-        self.assertEqual(data.value, "")
+        assert data.type == SECRET_TYPE_HIDDEN
+        assert data.value == ""
 
 
 class SecretDataListTestCase(unittest.TestCase):
@@ -105,30 +103,28 @@ class SecretDataListTestCase(unittest.TestCase):
         """Test the string representation of SecretDataList."""
         data = SecretDataList()
         expected = "SecretDataList(type='NONE', value_set=False)"
-        self.assertEqual(str(data), expected)
-        self.assertEqual(repr(data), expected)
+        assert str(data) == expected
+        assert repr(data) == expected
 
         data.set_secret("secret")
         expected = "SecretDataList(type='TEXT', value_set=True)"
-        self.assertEqual(str(data), expected)
-        self.assertEqual(repr(data), expected)
+        assert str(data) == expected
+        assert repr(data) == expected
 
         data.hide_secret()
         expected = "SecretDataList(type='HIDDEN', value_set=False)"
-        self.assertEqual(str(data), expected)
-        self.assertEqual(repr(data), expected)
+        assert str(data) == expected
+        assert repr(data) == expected
 
     def test_get_structure(self):
         """Test the DBus structure with SecretDataList."""
         data = SecretDataList()
 
-        self.assertEqual(
-            SecretDataList.to_structure(data),
+        assert SecretDataList.to_structure(data) == \
             {
                 'type': get_variant(Str, SECRET_TYPE_NONE),
                 'value': get_variant(List[Str], [])
             }
-        )
 
         data = SecretDataList.from_structure(
             {
@@ -137,38 +133,38 @@ class SecretDataListTestCase(unittest.TestCase):
             }
         )
 
-        self.assertEqual(data.type, SECRET_TYPE_TEXT)
-        self.assertEqual(data.value, ["s1", "s2", "s3"])
+        assert data.type == SECRET_TYPE_TEXT
+        assert data.value == ["s1", "s2", "s3"]
 
     def test_set_secret(self):
         """Test the set_secret method of SecretDataList."""
         data = SecretDataList()
         data.set_secret(["s1", "s2", "s3"])
-        self.assertEqual(data.type, SECRET_TYPE_TEXT)
-        self.assertEqual(data.value, ["s1", "s2", "s3"])
+        assert data.type == SECRET_TYPE_TEXT
+        assert data.value == ["s1", "s2", "s3"]
 
         data.set_secret(None)
-        self.assertEqual(data.type, SECRET_TYPE_NONE)
-        self.assertEqual(data.value, [])
+        assert data.type == SECRET_TYPE_NONE
+        assert data.value == []
 
     def test_hide_secret(self):
         """Test the hide_secret method of SecretDataList."""
         data = SecretDataList()
         data.hide_secret()
-        self.assertEqual(data.type, SECRET_TYPE_NONE)
-        self.assertEqual(data.value, [])
+        assert data.type == SECRET_TYPE_NONE
+        assert data.value == []
 
         data.type = SECRET_TYPE_TEXT
         data.value = ["s1", "s2", "s3"]
         data.hide_secret()
-        self.assertEqual(data.type, SECRET_TYPE_HIDDEN)
-        self.assertEqual(data.value, [])
+        assert data.type == SECRET_TYPE_HIDDEN
+        assert data.value == []
 
         data.type = SECRET_TYPE_HIDDEN
         data.value = ["s1", "s2", "s3"]
         data.hide_secret()
-        self.assertEqual(data.type, SECRET_TYPE_HIDDEN)
-        self.assertEqual(data.value, [])
+        assert data.type == SECRET_TYPE_HIDDEN
+        assert data.value == []
 
 
 class DataWithSecretsTestCase(unittest.TestCase):
@@ -217,8 +213,8 @@ class DataWithSecretsTestCase(unittest.TestCase):
             "b=SecretData(type='TEXT', value_set=True), " \
             "c=SecretDataList(type='TEXT', value_set=True))"
 
-        self.assertEqual(str(data), expected)
-        self.assertEqual(repr(data), expected)
+        assert str(data) == expected
+        assert repr(data) == expected
 
         hide_secrets(data)
 
@@ -228,8 +224,8 @@ class DataWithSecretsTestCase(unittest.TestCase):
             "b=SecretData(type='HIDDEN', value_set=False), " \
             "c=SecretDataList(type='HIDDEN', value_set=False))"
 
-        self.assertEqual(str(data), expected)
-        self.assertEqual(repr(data), expected)
+        assert str(data) == expected
+        assert repr(data) == expected
 
     def test_hide_secrets(self):
         """Test the function hide_secrets."""
@@ -238,19 +234,19 @@ class DataWithSecretsTestCase(unittest.TestCase):
         data.b.set_secret("b")
         data.c.set_secret(["c1", "c2", "c3"])
 
-        self.assertEqual(get_native(self.Data.to_structure(data)), {
+        assert get_native(self.Data.to_structure(data)) == {
             "a": "a",
             "b": {"type": SECRET_TYPE_TEXT, "value": "b"},
             "c": {"type": SECRET_TYPE_TEXT, "value": ["c1", "c2", "c3"]},
-        })
+        }
 
         hide_secrets(data)
 
-        self.assertEqual(get_native(self.Data.to_structure(data)), {
+        assert get_native(self.Data.to_structure(data)) == {
             "a": "a",
             "b": {"type": SECRET_TYPE_HIDDEN, "value": ""},
             "c": {"type": SECRET_TYPE_HIDDEN, "value": []},
-        })
+        }
 
     def test_get_public_copy(self):
         """Test the function hide_secrets."""
@@ -260,16 +256,16 @@ class DataWithSecretsTestCase(unittest.TestCase):
         data_1.c.set_secret(["c1", "c2", "c3"])
         data_2 = get_public_copy(data_1)
 
-        self.assertIsNot(data_1, data_2)
+        assert data_1 is not data_2
 
-        self.assertEqual(get_native(self.Data.to_structure(data_1)), {
+        assert get_native(self.Data.to_structure(data_1)) == {
             "a": "a",
             "b": {"type": SECRET_TYPE_TEXT, "value": "b"},
             "c": {"type": SECRET_TYPE_TEXT, "value": ["c1", "c2", "c3"]},
-        })
+        }
 
-        self.assertEqual(get_native(self.Data.to_structure(data_2)), {
+        assert get_native(self.Data.to_structure(data_2)) == {
             "a": "a",
             "b": {"type": SECRET_TYPE_HIDDEN, "value": ""},
             "c": {"type": SECRET_TYPE_HIDDEN, "value": []},
-        })
+        }

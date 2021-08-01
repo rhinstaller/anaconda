@@ -20,6 +20,7 @@
 import os
 import tempfile
 import unittest
+import pytest
 
 from unittest.mock import patch
 from tempfile import TemporaryDirectory
@@ -54,7 +55,7 @@ class LiveUtilsTestCase(unittest.TestCase):
         with TemporaryDirectory() as temp:
             result = get_kernel_version_list(temp)
 
-        self.assertEqual(result, [])
+        assert result == []
 
     def test_kernel_list(self):
         """Test get kernel list function."""
@@ -73,7 +74,7 @@ class LiveUtilsTestCase(unittest.TestCase):
 
             kernel_list = get_kernel_version_list(temp)
 
-            self.assertListEqual(kernel_list, self._kernel_test_valid_list)
+            assert kernel_list == self._kernel_test_valid_list
 
 
 class InstallFromImageTaskTestCase(unittest.TestCase):
@@ -113,11 +114,11 @@ class InstallFromImageTaskTestCase(unittest.TestCase):
             mount_point="/mnt/source"
         )
 
-        with self.assertRaises(PayloadInstallationError) as cm:
+        with pytest.raises(PayloadInstallationError) as cm:
             task.run()
 
         msg = "Failed to install image: Fake!"
-        self.assertTrue(str(cm.exception), msg)
+        assert str(cm.value), msg
 
     @patch("pyanaconda.modules.payloads.payload.live_image.installation.execWithRedirect")
     def test_install_image_task_failed_return_code(self, exec_with_redirect):
@@ -128,11 +129,11 @@ class InstallFromImageTaskTestCase(unittest.TestCase):
             mount_point="/mnt/source"
         )
 
-        with self.assertRaises(PayloadInstallationError) as cm:
+        with pytest.raises(PayloadInstallationError) as cm:
             task.run()
 
         msg = "Failed to install image: rsync excited with code 11"
-        self.assertTrue(str(cm.exception), msg)
+        assert str(cm.value), msg
 
 
 class InstallFromTarTaskTestCase(unittest.TestCase):
@@ -176,11 +177,11 @@ class InstallFromTarTaskTestCase(unittest.TestCase):
             tarfile="/source.tar"
         )
 
-        with self.assertRaises(PayloadInstallationError) as cm:
+        with pytest.raises(PayloadInstallationError) as cm:
             task.run()
 
         msg = "Failed to install tar: Fake!"
-        self.assertTrue(str(cm.exception), msg)
+        assert str(cm.value), msg
 
 
 class VerifyImageChecksumTestCase(unittest.TestCase):
@@ -205,7 +206,7 @@ class VerifyImageChecksumTestCase(unittest.TestCase):
                 task.run()
 
         msg = "No checksum to verify."
-        self.assertIn(msg, "\n".join(cm.output))
+        assert msg in "\n".join(cm.output)
 
     def test_verify_checksum(self):
         """Test the verification of a checksum."""
@@ -225,7 +226,7 @@ class VerifyImageChecksumTestCase(unittest.TestCase):
                 task.run()
 
         msg = "Checksum of the image does match."
-        self.assertIn(msg, "\n".join(cm.output))
+        assert msg in "\n".join(cm.output)
 
     def test_verify_wrong_checksum(self):
         """Test the verification of a wrong checksum."""
@@ -237,8 +238,8 @@ class VerifyImageChecksumTestCase(unittest.TestCase):
                 checksum="incorrect"
             )
 
-            with self.assertRaises(PayloadInstallationError) as cm:
+            with pytest.raises(PayloadInstallationError) as cm:
                 task.run()
 
         msg = "Checksum of the image does not match."
-        self.assertEqual(str(cm.exception), msg)
+        assert str(cm.value) == msg

@@ -66,7 +66,7 @@ class InstallationProgressTestCase(unittest.TestCase):
             call("Synchronizing writes to disk"),
             call("Installing software 0%")
         ]
-        self.assertEqual(callback.call_args_list, expected)
+        assert callback.call_args_list == expected
 
     @patch("time.sleep")
     @patch("os.statvfs")
@@ -107,4 +107,4 @@ class InstallationProgressTestCase(unittest.TestCase):
             call("Installing software 80%"),
             call("Installing software 100%"),
         ]
-        self.assertEqual(callback.call_args_list, expected)
+        assert callback.call_args_list == expected

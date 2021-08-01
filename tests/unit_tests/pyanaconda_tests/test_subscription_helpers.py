@@ -55,11 +55,11 @@ class CheckSystemPurposeSetTestCase(unittest.TestCase):
             directory = os.path.split(syspurpose_path)[0]
             os.makedirs(util.join_paths(sysroot, directory))
             os.mknod(util.join_paths(sysroot, syspurpose_path))
-            self.assertTrue(check_system_purpose_set(sysroot))
+            assert check_system_purpose_set(sysroot)
 
         # system purpose not set
         with tempfile.TemporaryDirectory() as sysroot:
-            self.assertFalse(check_system_purpose_set(sysroot))
+            assert not check_system_purpose_set(sysroot)
 
 
 class AsynchronousRegistrationTestCase(unittest.TestCase):
@@ -164,7 +164,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # simulate subscription request
         subscription_proxy.SubscriptionRequest = self.KEY_REQUEST
         # run the function
-        self.assertTrue(org_keys_sufficient())
+        assert org_keys_sufficient()
 
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
     def test_org_keys_sufficient_not_sufficient(self, get_proxy):
@@ -173,16 +173,16 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # simulate subscription request
         subscription_proxy.SubscriptionRequest = self.KEY_MISSING_REQUEST
         # run the function
-        self.assertFalse(org_keys_sufficient())
+        assert not org_keys_sufficient()
 
     def test_org_keys_sufficient_direct_request(self):
         """Test the org_keys_sufficient() helper method - direct request."""
         # run the function with sufficient authentication data
         request = SubscriptionRequest.from_structure(self.KEY_REQUEST)
-        self.assertTrue(org_keys_sufficient(subscription_request=request))
+        assert org_keys_sufficient(subscription_request=request)
         # run the function with insufficient authentication data
         request = SubscriptionRequest.from_structure(self.KEY_MISSING_REQUEST)
-        self.assertFalse(org_keys_sufficient(subscription_request=request))
+        assert not org_keys_sufficient(subscription_request=request)
 
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
     def test_username_password_sufficient(self, get_proxy):
@@ -191,7 +191,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # simulate subscription request
         subscription_proxy.SubscriptionRequest = self.PASSWORD_REQUEST
         # run the function
-        self.assertTrue(username_password_sufficient())
+        assert username_password_sufficient()
 
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
     def test_username_password_sufficient_not_sufficient(self, get_proxy):
@@ -200,16 +200,16 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # simulate subscription request
         subscription_proxy.SubscriptionRequest = self.PASSWORD_MISSING_REQUEST
         # run the function
-        self.assertFalse(username_password_sufficient())
+        assert not username_password_sufficient()
 
     def test_username_password_sufficient_direct_request(self):
         """Test the username_password_sufficient() helper method - direct request."""
         # run the function with sufficient authentication data
         request = SubscriptionRequest.from_structure(self.PASSWORD_REQUEST)
-        self.assertTrue(username_password_sufficient(subscription_request=request))
+        assert username_password_sufficient(subscription_request=request)
         # run the function with insufficient authentication data
         request = SubscriptionRequest.from_structure(self.PASSWORD_MISSING_REQUEST)
-        self.assertFalse(username_password_sufficient(subscription_request=request))
+        assert not username_password_sufficient(subscription_request=request)
 
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
@@ -793,17 +793,17 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         dnf_payload.type = PAYLOAD_TYPE_DNF
         source_proxy = dnf_payload.get_source_proxy.return_value
         source_proxy.Type = SOURCE_TYPE_CDN
-        self.assertTrue(check_cdn_is_installation_source(dnf_payload))
+        assert check_cdn_is_installation_source(dnf_payload)
         # check CDN is not reported as used
         dnf_payload = Mock()
         dnf_payload.type = PAYLOAD_TYPE_DNF
         source_proxy = dnf_payload.get_source_proxy.return_value
         source_proxy.Type = SOURCE_TYPE_CDROM
-        self.assertFalse(check_cdn_is_installation_source(dnf_payload))
+        assert not check_cdn_is_installation_source(dnf_payload)
         # check an unsupported (non DNF) source is handled correctly
         ostree_payload = Mock()
         ostree_payload.type = PAYLOAD_TYPE_RPM_OSTREE
-        self.assertFalse(check_cdn_is_installation_source(ostree_payload))
+        assert not check_cdn_is_installation_source(ostree_payload)
 
     @patch_dbus_get_proxy_with_cache
     def test_is_cdn_registration_required(self, proxy_getter):
@@ -820,16 +820,16 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         subscription_proxy = SUBSCRIPTION.get_proxy()
         subscription_proxy.IsSubscriptionAttached = False
 
-        self.assertEqual(is_cdn_registration_required(dnf_payload), True)
+        assert is_cdn_registration_required(dnf_payload) == True
 
         subscription_proxy.IsSubscriptionAttached = True
-        self.assertEqual(is_cdn_registration_required(dnf_payload), False)
+        assert is_cdn_registration_required(dnf_payload) == False
 
         boss_proxy.GetModules.return_value = []
-        self.assertEqual(is_cdn_registration_required(dnf_payload), False)
+        assert is_cdn_registration_required(dnf_payload) == False
 
         source_proxy.Type = SOURCE_TYPE_CDROM
-        self.assertEqual(is_cdn_registration_required(dnf_payload), False)
+        assert is_cdn_registration_required(dnf_payload) == False
 
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")

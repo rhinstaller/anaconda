@@ -58,35 +58,35 @@ class InstallTasksTestCase(unittest.TestCase):
     def test_task(self):
         """Check that task works correctly."""
         task = Task("foo", self._set_var_5, ("anaconda",))
-        self.assertEqual(task.name, "foo")
-        self.assertEqual(task.summary, "Task: foo")
-        self.assertIsNone(task.parent)
-        self.assertIsNone(task.elapsed_time)
+        assert task.name == "foo"
+        assert task.summary == "Task: foo"
+        assert task.parent is None
+        assert task.elapsed_time is None
         # check initial state of the testing variables
-        self.assertIsNone(self._test_variable4)
-        self.assertIsNone(self._test_variable5)
-        self.assertIsNone(self._test_variable6)
+        assert self._test_variable4 is None
+        assert self._test_variable5 is None
+        assert self._test_variable6 is None
         # check task state
-        self.assertFalse(task.done)
-        self.assertFalse(task.running)
+        assert not task.done
+        assert not task.running
         # connect callbacks
         task.started.connect(self._set_var_4)
         task.completed.connect(self._set_var_6)
         # check if the task is executed correctly
         task.start()
-        self.assertTrue(task.done)
-        self.assertFalse(task.running)
-        self.assertEqual(self._test_variable5, "anaconda")
-        self.assertIs(self._test_variable4, task)
-        self.assertIs(self._test_variable6, task)
+        assert task.done
+        assert not task.running
+        assert self._test_variable5 == "anaconda"
+        assert self._test_variable4 is task
+        assert self._test_variable6 is task
         # it should be possible to execute the task only once
         task.start()
-        self.assertTrue(task.done)
-        self.assertFalse(task.running)
-        self.assertIsNotNone(task.elapsed_time)
-        self.assertEqual(self._test_variable5, "anaconda")
-        self.assertIs(self._test_variable4, task)
-        self.assertIs(self._test_variable6, task)
+        assert task.done
+        assert not task.running
+        assert task.elapsed_time is not None
+        assert self._test_variable5 == "anaconda"
+        assert self._test_variable4 is task
+        assert self._test_variable6 is task
 
     def test_task_kwargs(self):
         """Check that works correctly with kwargs."""
@@ -94,69 +94,69 @@ class InstallTasksTestCase(unittest.TestCase):
             self._set_var_5((arg1, foo))
 
         task = Task("foo", custom_function, task_args=("anaconda",), task_kwargs={"foo": "bar"})
-        self.assertEqual(task.name, "foo")
-        self.assertEqual(task.summary, "Task: foo")
-        self.assertIsNone(task.parent)
-        self.assertIsNone(task.elapsed_time)
+        assert task.name == "foo"
+        assert task.summary == "Task: foo"
+        assert task.parent is None
+        assert task.elapsed_time is None
         # check initial state of the testing variables
-        self.assertIsNone(self._test_variable4)
-        self.assertIsNone(self._test_variable5)
-        self.assertIsNone(self._test_variable6)
+        assert self._test_variable4 is None
+        assert self._test_variable5 is None
+        assert self._test_variable6 is None
         # check task state
-        self.assertFalse(task.done)
-        self.assertFalse(task.running)
+        assert not task.done
+        assert not task.running
         # connect callbacks
         task.started.connect(self._set_var_4)
         task.completed.connect(self._set_var_6)
         # check if the task is executed correctly
         task.start()
-        self.assertTrue(task.done)
-        self.assertFalse(task.running)
-        self.assertEqual(self._test_variable5, ("anaconda", "bar"))
-        self.assertIs(self._test_variable4, task)
-        self.assertIs(self._test_variable6, task)
+        assert task.done
+        assert not task.running
+        assert self._test_variable5 == ("anaconda", "bar")
+        assert self._test_variable4 is task
+        assert self._test_variable6 is task
         # it should be possible to execute the task only once
         task.start()
-        self.assertTrue(task.done)
-        self.assertFalse(task.running)
-        self.assertIsNotNone(task.elapsed_time)
-        self.assertEqual(self._test_variable5, ("anaconda", "bar"))
-        self.assertIs(self._test_variable4, task)
-        self.assertIs(self._test_variable6, task)
+        assert task.done
+        assert not task.running
+        assert task.elapsed_time is not None
+        assert self._test_variable5 == ("anaconda", "bar")
+        assert self._test_variable4 is task
+        assert self._test_variable6 is task
 
     def test_task_no_args(self):
         """Check if task with no arguments works correctly."""
         task = Task("foo", self._increment_var1)
-        self.assertEqual(task.name, "foo")
-        self.assertEqual(task.summary, "Task: foo")
-        self.assertIsNone(task.parent)
-        self.assertIsNone(task.elapsed_time)
+        assert task.name == "foo"
+        assert task.summary == "Task: foo"
+        assert task.parent is None
+        assert task.elapsed_time is None
         # check initial state of the testing variables
-        self.assertEqual(self._test_variable1, 0)
-        self.assertIsNone(self._test_variable4)
-        self.assertIsNone(self._test_variable5)
-        self.assertIsNone(self._test_variable6)
+        assert self._test_variable1 == 0
+        assert self._test_variable4 is None
+        assert self._test_variable5 is None
+        assert self._test_variable6 is None
         # check task state
-        self.assertFalse(task.done)
-        self.assertFalse(task.running)
+        assert not task.done
+        assert not task.running
         # connect callbacks
         task.started.connect(self._set_var_4)
         task.completed.connect(self._set_var_6)
         # check if the task is executed correctly
         task.start()
-        self.assertTrue(task.done)
-        self.assertFalse(task.running)
-        self.assertEqual(self._test_variable1, 1)
-        self.assertIs(self._test_variable4, task)
-        self.assertIs(self._test_variable6, task)
+        assert task.done
+        assert not task.running
+        assert self._test_variable1 == 1
+        assert self._test_variable4 is task
+        assert self._test_variable6 is task
         # it should be possible to execute the task only once
         task.start()
-        self.assertTrue(task.done)
-        self.assertFalse(task.running)
-        self.assertIsNotNone(task.elapsed_time)
-        self.assertEqual(self._test_variable1, 1)
-        self.assertIs(self._test_variable4, task)
-        self.assertIs(self._test_variable6, task)
+        assert task.done
+        assert not task.running
+        assert task.elapsed_time is not None
+        assert self._test_variable1 == 1
+        assert self._test_variable4 is task
+        assert self._test_variable6 is task
 
     def test_task_subclass_light(self):
         """Check if a Task subclass with custom run_task() method works."""
@@ -179,16 +179,16 @@ class InstallTasksTestCase(unittest.TestCase):
         task.started.connect(self._set_var_4)
         task.completed.connect(self._set_var_6)
         # verify initial state
-        self.assertEqual(task.var1, 0)
-        self.assertIsNone(task.var2)
+        assert task.var1 == 0
+        assert task.var2 is None
         # run the custom task
         task.start()
         # verify that the custom payload was run
-        self.assertEqual(task.var1, 2)
-        self.assertEqual(task.var2, "anaconda")
+        assert task.var1 == 2
+        assert task.var2 == "anaconda"
         # verify that the started/completed signals were triggered
-        self.assertIs(self._test_variable4, task)
-        self.assertIs(self._test_variable6, task)
+        assert self._test_variable4 is task
+        assert self._test_variable6 is task
 
     def test_task_subclass_heavy(self):
         """Check if a Task subclass with custom start() method works."""
@@ -213,17 +213,17 @@ class InstallTasksTestCase(unittest.TestCase):
         task.started.connect(self._set_var_4)
         task.completed.connect(self._set_var_6)
         # verify initial state
-        self.assertEqual(task.var1, 0)
-        self.assertIsNone(task.var2)
+        assert task.var1 == 0
+        assert task.var2 is None
         # run the custom task
         task.start()
         # verify that the custom payload was run
-        self.assertEqual(task.var1, 2)
-        self.assertEqual(task.var2, "anaconda")
+        assert task.var1 == 2
+        assert task.var2 == "anaconda"
         # verify that the started/completed signals were *not* triggered
         # (as they are not called by the reimplemented start() method)
-        self.assertIsNone(self._test_variable4)
-        self.assertIsNone(self._test_variable6)
+        assert self._test_variable4 is None
+        assert self._test_variable6 is None
 
     def test_task_subclass_kwargs(self):
         """Check if kwarg passing works for Task subclasses."""
@@ -239,25 +239,25 @@ class InstallTasksTestCase(unittest.TestCase):
 
         # check that the kwarg has been propagated correctly
         task = TestTask("foo", self._set_var_5, ("anaconda",))
-        self.assertEqual(task.custom_option, "foo")
+        assert task.custom_option == "foo"
         # also check that the task still works as expected
         task.start()
-        self.assertEqual(self._test_variable5, "anaconda")
+        assert self._test_variable5 == "anaconda"
 
     def test_empty_task_queue(self):
         """Check that an empty task queue works correctly."""
         # first check if empty task queue works correctly
         task_queue = TaskQueue("foo", status_message="foo status message")
-        self.assertEqual(task_queue.name, "foo")
-        self.assertEqual(task_queue.status_message, "foo status message")
-        self.assertEqual(task_queue.task_count, 0)
-        self.assertEqual(task_queue.queue_count, 0)
-        self.assertIsNone(task_queue.current_task_number)
-        self.assertIsNone(task_queue.current_queue_number)
-        self.assertEqual(task_queue.progress, 0.0)
-        self.assertFalse(task_queue.running)
-        self.assertFalse(task_queue.done)
-        self.assertGreater(len(task_queue.summary), 0)
+        assert task_queue.name == "foo"
+        assert task_queue.status_message == "foo status message"
+        assert task_queue.task_count == 0
+        assert task_queue.queue_count == 0
+        assert task_queue.current_task_number is None
+        assert task_queue.current_queue_number is None
+        assert task_queue.progress == 0.0
+        assert not task_queue.running
+        assert not task_queue.done
+        assert len(task_queue.summary) > 0
         # connect started/completed callbacks
 
         # these should be triggered
@@ -273,19 +273,19 @@ class InstallTasksTestCase(unittest.TestCase):
         # it should be possible to start an empty task queue
         task_queue.start()
         # check state after the run
-        self.assertFalse(task_queue.running)
-        self.assertTrue(task_queue.done)
-        self.assertIsNone(task_queue.current_queue_number)
-        self.assertIsNone(task_queue.current_task_number)
-        self.assertEqual(task_queue.task_count, 0)
-        self.assertEqual(task_queue.queue_count, 0)
+        assert not task_queue.running
+        assert task_queue.done
+        assert task_queue.current_queue_number is None
+        assert task_queue.current_task_number is None
+        assert task_queue.task_count == 0
+        assert task_queue.queue_count == 0
         # started/completed signals should still be triggered, even
         # if the queue is empty
-        self.assertIs(self._test_variable4, task_queue)
-        self.assertIs(self._test_variable5, task_queue)
+        assert self._test_variable4 is task_queue
+        assert self._test_variable5 is task_queue
         # the nested queue/task signals should not be triggered if
         # the queue is empty
-        self.assertIsNone(self._test_variable6)
+        assert self._test_variable6 is None
 
     def test_task_queue_processing(self):
         """Check that task queue processing works correctly."""
@@ -303,10 +303,10 @@ class InstallTasksTestCase(unittest.TestCase):
             self._queue_completed_count += 1
 
         # verify initial content of callback counters
-        self.assertEqual(self._task_started_count, 0)
-        self.assertEqual(self._task_completed_count, 0)
-        self.assertEqual(self._queue_started_count, 0)
-        self.assertEqual(self._queue_completed_count, 0)
+        assert self._task_started_count == 0
+        assert self._task_completed_count == 0
+        assert self._queue_started_count == 0
+        assert self._queue_completed_count == 0
         # create some groups
         group1 = TaskQueue(name="group1", status_message="processing group1")
         group1.append(Task("increment var 1", self._increment_var1))
@@ -328,33 +328,33 @@ class InstallTasksTestCase(unittest.TestCase):
         # and one top-level task
         queue1.append(Task("increment var 1", self._increment_var1))
         # check that the groups have been added correctly
-        self.assertEqual(len(queue1), 4)
-        self.assertEqual(queue1[0].name, "group1")
-        self.assertEqual(len(queue1[0]), 1)
-        self.assertEqual(queue1[1].name, "group2")
-        self.assertEqual(len(queue1[1]), 2)
-        self.assertEqual(queue1[2].name, "group3")
-        self.assertEqual(len(queue1[2]), 0)
-        self.assertEqual(queue1.queue_count, 3)
-        self.assertEqual(queue1.task_count, 4)
+        assert len(queue1) == 4
+        assert queue1[0].name == "group1"
+        assert len(queue1[0]) == 1
+        assert queue1[1].name == "group2"
+        assert len(queue1[1]) == 2
+        assert queue1[2].name == "group3"
+        assert len(queue1[2]) == 0
+        assert queue1.queue_count == 3
+        assert queue1.task_count == 4
         # summary is generated recursively
-        self.assertTrue(bool(queue1.summary))
+        assert bool(queue1.summary)
         # start the queue
         queue1.start()
         # check if the tasks were correctly executed
-        self.assertEqual(self._test_variable1, 2)
-        self.assertEqual(self._test_variable2, 2)
-        self.assertEqual(self._test_variable3, 0)
+        assert self._test_variable1 == 2
+        assert self._test_variable2 == 2
+        assert self._test_variable3 == 0
         # check that the task & queue signals were triggered correctly
-        self.assertEqual(self._task_started_count, 4)
-        self.assertEqual(self._task_completed_count, 4)
-        self.assertEqual(self._queue_started_count, 3)
-        self.assertEqual(self._queue_completed_count, 3)
+        assert self._task_started_count == 4
+        assert self._task_completed_count == 4
+        assert self._queue_started_count == 3
+        assert self._queue_completed_count == 3
         # check queue state after execution
-        self.assertFalse(queue1.running)
-        self.assertTrue(queue1.done)
-        self.assertIsNone(queue1.current_task_number)
-        self.assertIsNone(queue1.current_queue_number)
+        assert not queue1.running
+        assert queue1.done
+        assert queue1.current_task_number is None
+        assert queue1.current_queue_number is None
         # create another queue and add some task groups and tasks to it
         group4 = TaskQueue(name="group 4", status_message="processing group4")
         group4.append(Task("increment var 1", self._increment_var1))
@@ -366,6 +366,6 @@ class InstallTasksTestCase(unittest.TestCase):
         # start the second queue
         queue2.start()
         # check the tasks also properly executed
-        self.assertEqual(self._test_variable1, 3)
-        self.assertEqual(self._test_variable2, 2)
-        self.assertEqual(self._test_variable3, 1)
+        assert self._test_variable1 == 3
+        assert self._test_variable2 == 2
+        assert self._test_variable3 == 1

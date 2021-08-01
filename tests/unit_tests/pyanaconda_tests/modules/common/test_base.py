@@ -57,7 +57,7 @@ class BaseModuleTestCase(unittest.TestCase):
             'warning-messages': get_variant(List[Structure], [])
         }
 
-        self.assertEqual(interface.ReadKickstart(""), report)
+        assert interface.ReadKickstart("") == report
 
     def test_read_kickstart_error_line_number(self):
         """Test ReadKickstart with a custom error on a specified line."""
@@ -81,7 +81,7 @@ class BaseModuleTestCase(unittest.TestCase):
             'warning-messages': get_variant(List[Structure], [])
         }
 
-        self.assertEqual(interface.ReadKickstart(""), report)
+        assert interface.ReadKickstart("") == report
 
     def test_read_kickstart_warning(self):
         """Test ReadKickstart with a custom warning."""
@@ -114,7 +114,7 @@ class BaseModuleTestCase(unittest.TestCase):
             'warning-messages': get_variant(List[Structure], [first_warning, second_warning])
         }
 
-        self.assertEqual(interface.ReadKickstart(""), report)
+        assert interface.ReadKickstart("") == report
 
     def test_default_configure_bootloader_with_tasks(self):
         """Test the ConfigureBootloaderWithTasks method with defaults."""
@@ -122,7 +122,7 @@ class BaseModuleTestCase(unittest.TestCase):
         interface = KickstartModuleInterface(service)
 
         tasks = interface.ConfigureBootloaderWithTasks(["1", "2", "3"])
-        self.assertEqual(tasks, [])
+        assert tasks == []
 
     @patch_dbus_publish_object
     def test_configure_bootloader_with_tasks(self, publisher):

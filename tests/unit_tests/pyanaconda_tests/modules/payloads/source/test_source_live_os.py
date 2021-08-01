@@ -18,6 +18,7 @@
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
 import unittest
+import pytest
 
 from unittest.mock import Mock, patch
 
@@ -45,20 +46,20 @@ class LiveOSSourceInterfaceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Test Live OS source has a correct type specified."""
-        self.assertEqual(SOURCE_TYPE_LIVE_OS_IMAGE, self.interface.Type)
+        assert SOURCE_TYPE_LIVE_OS_IMAGE == self.interface.Type
 
     def test_description(self):
         """Test NFS source description."""
-        self.assertEqual("Live OS", self.interface.Description)
+        assert "Live OS" == self.interface.Description
 
     def test_image_path_empty_properties(self):
         """Test Live OS payload image path property when not set."""
-        self.assertEqual(self.interface.ImagePath, "")
+        assert self.interface.ImagePath == ""
 
     def test_image_path_properties(self):
         """Test Live OS payload image path property is correctly set."""
         self.interface.SetImagePath("/my/supper/image/path")
-        self.assertEqual(self.interface.ImagePath, "/my/supper/image/path")
+        assert self.interface.ImagePath == "/my/supper/image/path"
         self.callback.assert_called_once_with(
             PAYLOAD_SOURCE_LIVE_OS.interface_name, {"ImagePath": "/my/supper/image/path"}, [])
 
@@ -74,7 +75,7 @@ class LiveOSSourceInterfaceTestCase(unittest.TestCase):
         stat_mock.S_ISBLK = Mock()
         stat_mock.S_ISBLK.return_value = False
 
-        self.assertEqual(self.interface.DetectLiveOSImage(), "")
+        assert self.interface.DetectLiveOSImage() == ""
 
     @patch("pyanaconda.modules.payloads.source.live_os.live_os.os.stat")
     def test_detect_live_os_image_failed_nothing_found(self, os_stat_mock):
@@ -83,7 +84,7 @@ class LiveOSSourceInterfaceTestCase(unittest.TestCase):
         # otherwise we will skip the whole sequence
         os_stat_mock.side_effect = FileNotFoundError()
 
-        self.assertEqual(self.interface.DetectLiveOSImage(), "")
+        assert self.interface.DetectLiveOSImage() == ""
 
     @patch("pyanaconda.modules.payloads.source.live_os.live_os.stat")
     @patch("pyanaconda.modules.payloads.source.live_os.live_os.os.stat")
@@ -96,7 +97,7 @@ class LiveOSSourceInterfaceTestCase(unittest.TestCase):
         detected_image = self.interface.DetectLiveOSImage()
         stat_mock.S_ISBLK.assert_called_once()
 
-        self.assertEqual(detected_image, "/dev/mapper/live-base")
+        assert detected_image == "/dev/mapper/live-base"
 
 
 class LiveOSSourceTestCase(unittest.TestCase):
@@ -106,22 +107,22 @@ class LiveOSSourceTestCase(unittest.TestCase):
 
     def test_network_required(self):
         """Test the property network_required."""
-        self.assertEqual(self.module.network_required, False)
+        assert self.module.network_required == False
 
     def test_required_space(self):
         """Test the required_space property."""
-        self.assertEqual(self.module.required_space, 0)
+        assert self.module.required_space == 0
 
     @patch("os.path.ismount")
     def test_get_state(self, ismount_mock):
         """Test LiveOS source state."""
         ismount_mock.return_value = False
-        self.assertEqual(SourceState.UNREADY, self.module.get_state())
+        assert SourceState.UNREADY == self.module.get_state()
 
         ismount_mock.reset_mock()
         ismount_mock.return_value = True
 
-        self.assertEqual(SourceState.READY, self.module.get_state())
+        assert SourceState.READY == self.module.get_state()
 
         ismount_mock.assert_called_once_with(self.module.mount_point)
 
@@ -136,10 +137,10 @@ class LiveOSSourceTestCase(unittest.TestCase):
 
         # Check the number of the tasks
         task_number = len(task_classes)
-        self.assertEqual(task_number, len(tasks))
+        assert task_number == len(tasks)
 
         for i in range(task_number):
-            self.assertIsInstance(tasks[i], task_classes[i])
+            assert isinstance(tasks[i], task_classes[i])
 
     def test_tear_down_with_tasks(self):
         """Test Live OS Source ready state for tear down."""
@@ -152,14 +153,14 @@ class LiveOSSourceTestCase(unittest.TestCase):
 
         # check the number of tasks
         task_number = len(task_classes)
-        self.assertEqual(task_number, len(tasks))
+        assert task_number == len(tasks)
 
         for i in range(task_number):
-            self.assertIsInstance(tasks[i], task_classes[i])
+            assert isinstance(tasks[i], task_classes[i])
 
     def test_repr(self):
         self.module.set_image_path("/some/path")
-        self.assertEqual(repr(self.module), "Source(type='LIVE_OS_IMAGE', image='/some/path')")
+        assert repr(self.module) == "Source(type='LIVE_OS_IMAGE', image='/some/path')"
 
 
 class LiveOSSourceTasksTestCase(unittest.TestCase):
@@ -171,7 +172,7 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
                 "/path/to/mount/source/image"
             )
 
-        self.assertEqual(task.name, "Set up Live OS Installation Source")
+        assert task.name == "Set up Live OS Installation Source"
 
     @patch("pyanaconda.modules.payloads.source.live_os.initialization.mount")
     @patch("pyanaconda.modules.payloads.source.live_os.initialization.stat")
@@ -208,7 +209,7 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
         device_tree.ResolveDevice = Mock()
         device_tree.ResolveDevice.return_value = ""
 
-        with self.assertRaises(SourceSetupError, msg="Failed to find liveOS image!"):
+        with pytest.raises(SourceSetupError):
             SetUpLiveOSSourceTask(
                 "/path/to/base/image",
                 "/path/to/mount/source/image"
@@ -233,8 +234,7 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
         stat_mock.S_ISBLK = Mock()
         stat_mock.S_ISBLK.return_value = False
 
-        with self.assertRaises(SourceSetupError,
-                               msg="/path/to/base/image is not a valid block device"):
+        with pytest.raises(SourceSetupError):
             SetUpLiveOSSourceTask(
                 "/path/to/base/image",
                 "/path/to/mount/source/image"
@@ -259,7 +259,7 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
 
         mount.return_value = -20
 
-        with self.assertRaises(SourceSetupError, msg="Failed to mount the install tree"):
+        with pytest.raises(SourceSetupError):
             SetUpLiveOSSourceTask(
                 "/path/to/base/image",
                 "/path/to/mount/source/image"

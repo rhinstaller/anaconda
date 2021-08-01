@@ -16,6 +16,7 @@
 # Red Hat, Inc.
 #
 import unittest
+import pytest
 from unittest.mock import Mock, patch
 
 from dasbus.constants import DBUS_START_REPLY_SUCCESS, DBUS_FLAG_NONE
@@ -60,7 +61,7 @@ class ModuleManagerTestCase(unittest.TestCase):
         task._callbacks.put((None, fake_callbacks))
         observers = task.run()
 
-        self.assertEqual([o.service_name for o in observers], service_names)
+        assert [o.service_name for o in observers] == service_names
         return observers
 
     def test_start_no_modules(self):
@@ -101,7 +102,7 @@ class ModuleManagerTestCase(unittest.TestCase):
         observers = self._check_started_modules(task, service_names)
 
         for observer in observers:
-            self.assertEqual(observer.is_addon, False)
+            assert observer.is_addon == False
 
     @patch("dasbus.client.observer.Gio")
     def test_start_addons(self, gio):
@@ -119,7 +120,7 @@ class ModuleManagerTestCase(unittest.TestCase):
         observers = self._check_started_modules(task, service_names)
 
         for observer in observers:
-            self.assertEqual(observer.is_addon, True)
+            assert observer.is_addon == True
 
     @patch("dasbus.client.observer.Gio")
     def test_start_modules_forbidden(self, gio):
@@ -169,11 +170,11 @@ class ModuleManagerTestCase(unittest.TestCase):
 
         task._callbacks.put((None, fake_callbacks))
 
-        with self.assertRaises(UnavailableModuleError) as cm:
+        with pytest.raises(UnavailableModuleError) as cm:
             task.run()
 
         expected = "Service org.fedoraproject.Anaconda.Modules.A has failed to start: Fake error!"
-        self.assertEqual(str(cm.exception), expected)
+        assert str(cm.value) == expected
 
     @patch("dasbus.client.observer.Gio")
     def test_start_addon_failed(self, gio):
@@ -203,12 +204,12 @@ class ModuleManagerTestCase(unittest.TestCase):
                 task._start_service_by_name_callback(call, observer)
 
         task._callbacks.put((None, fake_callbacks))
-        self.assertEqual(task.run(), [])
+        assert task.run() == []
 
     @patch("dasbus.client.observer.Gio")
     def test_get_service_names(self, gio):
         """Get service names of running modules."""
-        self.assertEqual(self._manager.get_service_names(), [])
+        assert self._manager.get_service_names() == []
 
         service_names = [
             "org.fedoraproject.Anaconda.Modules.A",
@@ -220,4 +221,4 @@ class ModuleManagerTestCase(unittest.TestCase):
         observers = self._check_started_modules(task, service_names)
 
         self._manager.set_module_observers(observers)
-        self.assertEqual(self._manager.get_service_names(), service_names)
+        assert self._manager.get_service_names() == service_names

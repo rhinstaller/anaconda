@@ -18,6 +18,7 @@
 
 from pyanaconda import keyboard
 import unittest
+import pytest
 
 class ParsingAndJoiningTests(unittest.TestCase):
     def test_layout_variant_parsing(self):
@@ -25,48 +26,47 @@ class ParsingAndJoiningTests(unittest.TestCase):
 
         # valid layout variant specs
         layout, variant = keyboard.parse_layout_variant("cz (qwerty)")
-        self.assertEqual(layout, "cz")
-        self.assertEqual(variant, "qwerty")
+        assert layout == "cz"
+        assert variant == "qwerty"
 
         layout, variant = keyboard.parse_layout_variant("cz (dvorak-ucw)")
-        self.assertEqual(layout, "cz")
-        self.assertEqual(variant, "dvorak-ucw")
+        assert layout == "cz"
+        assert variant == "dvorak-ucw"
 
         # a valid layout variant spec with no variant specified
         layout, variant = keyboard.parse_layout_variant("cz")
-        self.assertEqual(layout, "cz")
-        self.assertEqual(variant, "")
+        assert layout == "cz"
+        assert variant == ""
 
         # a valid layout variant spec containing a slash
         layout, variant = keyboard.parse_layout_variant("nec_vndr/jp")
-        self.assertEqual(layout, "nec_vndr/jp")
-        self.assertEqual(variant, "")
+        assert layout == "nec_vndr/jp"
+        assert variant == ""
 
         # an invalid layout variant spec (missing layout)
-        with self.assertRaises(keyboard.InvalidLayoutVariantSpec):
+        with pytest.raises(keyboard.InvalidLayoutVariantSpec):
             layout, variant = keyboard.parse_layout_variant("")
 
         # another invalid layout variant spec (invalid layout)
-        with self.assertRaises(keyboard.InvalidLayoutVariantSpec):
+        with pytest.raises(keyboard.InvalidLayoutVariantSpec):
             layout, variant = keyboard.parse_layout_variant("&*&%$")
 
         # another invalid layout variant spec (square brackets)
-        with self.assertRaises(keyboard.InvalidLayoutVariantSpec):
+        with pytest.raises(keyboard.InvalidLayoutVariantSpec):
             layout, variant = keyboard.parse_layout_variant("cz [qwerty]")
 
         # another invalid layout variant spec (invalid variant)
-        with self.assertRaises(keyboard.InvalidLayoutVariantSpec):
+        with pytest.raises(keyboard.InvalidLayoutVariantSpec):
             layout, variant = keyboard.parse_layout_variant("cz (&*&*)")
 
     def test_layout_variant_joining(self):
         """Should correctly join keyboard layout and variant to a string spec."""
 
         # both layout and variant specified
-        self.assertEqual(keyboard.join_layout_variant("cz", "qwerty"),
-                         "cz (qwerty)")
+        assert keyboard.join_layout_variant("cz", "qwerty") == "cz (qwerty)"
 
         # no variant specified
-        self.assertEqual(keyboard.join_layout_variant("cz"), "cz")
+        assert keyboard.join_layout_variant("cz") == "cz"
 
     def test_layout_variant_parse_join(self):
         """Parsing and joining valid layout and variant spec should have no effect."""
@@ -74,16 +74,16 @@ class ParsingAndJoiningTests(unittest.TestCase):
         specs = ("cz", "cz (qwerty)")
         for spec in specs:
             (layout, variant) = keyboard.parse_layout_variant(spec)
-            self.assertEqual(spec, keyboard.join_layout_variant(layout, variant))
+            assert spec == keyboard.join_layout_variant(layout, variant)
 
     def test_layout_variant_normalize(self):
         """Normalizing layout and variant strings should work as expected."""
 
         # no effect on normalized layout and variant string
-        self.assertEqual(keyboard.normalize_layout_variant("cz (qwerty)"), "cz (qwerty)")
-        self.assertEqual(keyboard.normalize_layout_variant("cz"), "cz")
+        assert keyboard.normalize_layout_variant("cz (qwerty)") == "cz (qwerty)"
+        assert keyboard.normalize_layout_variant("cz") == "cz"
 
         # normalize spaces
-        self.assertEqual(keyboard.normalize_layout_variant("cz(qwerty)"), "cz (qwerty)")
-        self.assertEqual(keyboard.normalize_layout_variant("cz ( qwerty )"), "cz (qwerty)")
-        self.assertEqual(keyboard.normalize_layout_variant("cz "), "cz")
+        assert keyboard.normalize_layout_variant("cz(qwerty)") == "cz (qwerty)"
+        assert keyboard.normalize_layout_variant("cz ( qwerty )") == "cz (qwerty)"
+        assert keyboard.normalize_layout_variant("cz ") == "cz"

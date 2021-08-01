@@ -24,6 +24,7 @@ from pyanaconda.core.constants import URL_TYPE_METALINK, NETWORK_CONNECTION_TIME
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.tree_info import TreeInfoMetadata, NoTreeInfoError, \
     InvalidTreeInfoError
+import pytest
 
 TREE_INFO_FEDORA = """
 [header]
@@ -175,54 +176,54 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
 
     def test_invalid_tree_info(self):
         """Test an invalid treeinfo metadata."""
-        with self.assertRaises(InvalidTreeInfoError) as cm:
+        with pytest.raises(InvalidTreeInfoError) as cm:
             self._load_treeinfo(TREE_INFO_INVALID)
 
         msg = "Invalid metadata: No option 'version' in section: 'release'"
-        self.assertEqual(str(cm.exception), msg)
+        assert str(cm.value) == msg
 
-        self.assertEqual(self.metadata.release_version, "")
-        self.assertEqual(self.metadata.repositories, [])
-        self.assertEqual(self.metadata.get_base_repo_url(), "")
+        assert self.metadata.release_version == ""
+        assert self.metadata.repositories == []
+        assert self.metadata.get_base_repo_url() == ""
 
     def test_release_version(self):
         """Test the release_version property."""
         self._load_treeinfo(TREE_INFO_FEDORA)
-        self.assertEqual(self.metadata.release_version, "34")
+        assert self.metadata.release_version == "34"
 
         self._load_treeinfo(TREE_INFO_RHEL)
-        self.assertEqual(self.metadata.release_version, "8.5")
+        assert self.metadata.release_version == "8.5"
 
     def test_name_repo(self):
         """Test the name property of the repo metadata."""
         self._load_treeinfo(TREE_INFO_RHEL)
-        self.assertEqual(len(self.metadata.repositories), 2)
+        assert len(self.metadata.repositories) == 2
 
         repo_md = self.metadata.repositories[0]
-        self.assertEqual(repo_md.name, "AppStream")
+        assert repo_md.name == "AppStream"
 
         repo_md = self.metadata.repositories[1]
-        self.assertEqual(repo_md.name, "BaseOS")
+        assert repo_md.name == "BaseOS"
 
     def test_path_repo(self):
         """Test the path properties of the repo metadata."""
         root_path = self._load_treeinfo(TREE_INFO_FEDORA)
-        self.assertEqual(len(self.metadata.repositories), 1)
+        assert len(self.metadata.repositories) == 1
 
         repo_md = self.metadata.repositories[0]
-        self.assertEqual(repo_md.relative_path, ".")
-        self.assertEqual(repo_md.path, root_path)
+        assert repo_md.relative_path == "."
+        assert repo_md.path == root_path
 
         self._load_treeinfo(TREE_INFO_RHEL)
-        self.assertEqual(len(self.metadata.repositories), 2)
+        assert len(self.metadata.repositories) == 2
 
         repo_md = self.metadata.repositories[0]
-        self.assertEqual(repo_md.relative_path, "../appstream")
-        self.assertEqual(repo_md.path, "/tmp/appstream")
+        assert repo_md.relative_path == "../appstream"
+        assert repo_md.path == "/tmp/appstream"
 
         repo_md = self.metadata.repositories[1]
-        self.assertEqual(repo_md.relative_path, "../baseos")
-        self.assertEqual(repo_md.path, "/tmp/baseos")
+        assert repo_md.relative_path == "../baseos"
+        assert repo_md.path == "/tmp/baseos"
 
     @patch("pyanaconda.modules.payloads.payload.dnf.tree_info.conf")
     def test_enabled_repo(self, mock_conf):
@@ -231,16 +232,16 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
         self._load_treeinfo(TREE_INFO_CUSTOM)
 
         repo_md = self.metadata.repositories[0]
-        self.assertEqual(repo_md.type, "addon")
-        self.assertEqual(repo_md.enabled, False)
+        assert repo_md.type == "addon"
+        assert repo_md.enabled == False
 
         repo_md = self.metadata.repositories[1]
-        self.assertEqual(repo_md.type, "optional")
-        self.assertEqual(repo_md.enabled, False)
+        assert repo_md.type == "optional"
+        assert repo_md.enabled == False
 
         repo_md = self.metadata.repositories[2]
-        self.assertEqual(repo_md.type, "variant")
-        self.assertEqual(repo_md.enabled, True)
+        assert repo_md.type == "variant"
+        assert repo_md.enabled == True
 
     def test_valid_repo(self):
         """Test the valid property of the repo metadata."""
@@ -249,59 +250,59 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
             self.metadata.load_file(path)
 
             repo_md = self.metadata.repositories[0]
-            self.assertEqual(repo_md.valid, False)
+            assert repo_md.valid == False
 
             self._create_directory(path, "repodata")
-            self.assertEqual(repo_md.valid, True)
+            assert repo_md.valid == True
 
     def test_verify_image_base_repo(self):
         """Test the verify_image_base_repo method."""
         # No repository.
-        self.assertFalse(self.metadata.verify_image_base_repo())
+        assert not self.metadata.verify_image_base_repo()
 
         with tempfile.TemporaryDirectory() as path:
             # No base or root repository.
             self._create_file(path, ".treeinfo", TREE_INFO_CUSTOM)
             self.metadata.load_file(path)
-            self.assertFalse(self.metadata.verify_image_base_repo())
+            assert not self.metadata.verify_image_base_repo()
 
         with tempfile.TemporaryDirectory() as path:
             # Invalid base repository.
             self._create_file(path, ".treeinfo", TREE_INFO_RHEL)
             self.metadata.load_file(path)
-            self.assertFalse(self.metadata.verify_image_base_repo())
+            assert not self.metadata.verify_image_base_repo()
 
         with tempfile.TemporaryDirectory() as path:
             # Invalid root repository.
             self._create_file(path, ".treeinfo", TREE_INFO_FEDORA)
             self.metadata.load_file(path)
-            self.assertFalse(self.metadata.verify_image_base_repo())
+            assert not self.metadata.verify_image_base_repo()
 
         with tempfile.TemporaryDirectory() as path:
             # Valid base or root repository.
             self._create_file(path, ".treeinfo", TREE_INFO_FEDORA)
             self._create_directory(path, "repodata")
             self.metadata.load_file(path)
-            self.assertTrue(self.metadata.verify_image_base_repo())
+            assert self.metadata.verify_image_base_repo()
 
     def test_get_base_repo_url(self):
         """Test the get_base_repo_url method."""
         # Use the root repository.
         root_path = self._load_treeinfo(TREE_INFO_FEDORA)
-        self.assertEqual(self.metadata.get_base_repo_url(), root_path)
+        assert self.metadata.get_base_repo_url() == root_path
 
         # Use the base repository.
         self._load_treeinfo(TREE_INFO_RHEL)
-        self.assertEqual(self.metadata.get_base_repo_url(), "/tmp/baseos")
+        assert self.metadata.get_base_repo_url() == "/tmp/baseos"
 
     def test_load_file(self):
         """Test the load_file method."""
         # No metadata file.
         with tempfile.TemporaryDirectory() as path:
-            with self.assertRaises(NoTreeInfoError) as cm:
+            with pytest.raises(NoTreeInfoError) as cm:
                 self.metadata.load_file(path)
 
-            self.assertEqual(str(cm.exception), "No treeinfo metadata found.")
+            assert str(cm.value) == "No treeinfo metadata found."
 
         # Load the .treeinfo file.
         with tempfile.TemporaryDirectory() as path:
@@ -318,20 +319,20 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
         data = RepoConfigurationData()
         data.type = URL_TYPE_METALINK
 
-        with self.assertRaises(NoTreeInfoError) as cm:
+        with pytest.raises(NoTreeInfoError) as cm:
             self.metadata.load_data(data)
 
-        self.assertEqual(str(cm.exception), "Unsupported type of URL (METALINK).")
+        assert str(cm.value) == "Unsupported type of URL (METALINK)."
 
     def test_load_data_missing_url(self):
         """Test the load_data method with a missing URL."""
         data = RepoConfigurationData()
         data.url = ""
 
-        with self.assertRaises(NoTreeInfoError) as cm:
+        with pytest.raises(NoTreeInfoError) as cm:
             self.metadata.load_data(data)
 
-        self.assertEqual(str(cm.exception), "No URL specified.")
+        assert str(cm.value) == "No URL specified."
 
     def test_load_data_failed_download(self):
         """Test the load_data method with no metadata."""
@@ -339,10 +340,10 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
             data = RepoConfigurationData()
             data.url = "invalid://" + path
 
-            with self.assertRaises(NoTreeInfoError) as cm:
+            with pytest.raises(NoTreeInfoError) as cm:
                 self.metadata.load_data(data)
 
-            self.assertEqual(str(cm.exception), "Couldn't download treeinfo metadata.")
+            assert str(cm.value) == "Couldn't download treeinfo metadata."
 
     def test_load_data_no_metadata(self):
         """Test the load_data method with no metadata."""
@@ -350,10 +351,10 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
             data = RepoConfigurationData()
             data.url = "file://" + path
 
-            with self.assertRaises(NoTreeInfoError) as cm:
+            with pytest.raises(NoTreeInfoError) as cm:
                 self.metadata.load_data(data)
 
-            self.assertEqual(str(cm.exception), "No treeinfo metadata found (404).")
+            assert str(cm.value) == "No treeinfo metadata found (404)."
 
     def test_load_data(self):
         """Test the load_data method."""

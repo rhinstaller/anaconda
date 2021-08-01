@@ -57,4 +57,4 @@ class DASDNameRegexTestCase(unittest.TestCase):
                 '',
                 ]
 
-        self.assertTrue(regex_match(DASD_DEVICE_NUMBER, good_tests, bad_tests))
+        assert regex_match(DASD_DEVICE_NUMBER, good_tests, bad_tests)

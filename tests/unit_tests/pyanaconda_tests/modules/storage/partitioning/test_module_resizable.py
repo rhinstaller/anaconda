@@ -18,6 +18,8 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
+import pytest
+
 from unittest.mock import patch
 
 from blivet.devices import StorageDevice, DiskDevice, PartitionDevice
@@ -52,7 +54,7 @@ class ResizableDeviceTreeTestCase(unittest.TestCase):
 
     def test_publication(self):
         """Test the DBus representation."""
-        self.assertIsInstance(self.module.for_publication(), ResizableDeviceTreeInterface)
+        assert isinstance(self.module.for_publication(), ResizableDeviceTreeInterface)
 
     def test_is_device_partitioned(self):
         """Test IsDevicePartitioned."""
@@ -65,8 +67,8 @@ class ResizableDeviceTreeTestCase(unittest.TestCase):
             fmt=get_format("disklabel")
         ))
 
-        self.assertEqual(self.interface.IsDevicePartitioned("dev1"), False)
-        self.assertEqual(self.interface.IsDevicePartitioned("dev2"), True)
+        assert self.interface.IsDevicePartitioned("dev1") == False
+        assert self.interface.IsDevicePartitioned("dev2") == True
 
     @patch.object(FS, "update_size_info")
     def test_is_device_shrinkable(self, update_size_info):
@@ -81,15 +83,15 @@ class ResizableDeviceTreeTestCase(unittest.TestCase):
         )
 
         self._add_device(dev1)
-        self.assertEqual(self.interface.IsDeviceShrinkable("dev1"), False)
+        assert self.interface.IsDeviceShrinkable("dev1") == False
 
         dev1._resizable = True
         dev1.format._resizable = True
         dev1.format._min_size = Size("1 GiB")
-        self.assertEqual(self.interface.IsDeviceShrinkable("dev1"), True)
+        assert self.interface.IsDeviceShrinkable("dev1") == True
 
         dev1.format._min_size = Size("10 GiB")
-        self.assertEqual(self.interface.IsDeviceShrinkable("dev1"), False)
+        assert self.interface.IsDeviceShrinkable("dev1") == False
 
     def test_get_device_partitions(self):
         """Test GetDevicePartitions."""
@@ -111,9 +113,9 @@ class ResizableDeviceTreeTestCase(unittest.TestCase):
         dev2.add_child(dev3)
         self._add_device(dev3)
 
-        self.assertEqual(self.interface.GetDevicePartitions("dev1"), [])
-        self.assertEqual(self.interface.GetDevicePartitions("dev2"), ["dev3"])
-        self.assertEqual(self.interface.GetDevicePartitions("dev3"), [])
+        assert self.interface.GetDevicePartitions("dev1") == []
+        assert self.interface.GetDevicePartitions("dev2") == ["dev3"]
+        assert self.interface.GetDevicePartitions("dev3") == []
 
     def test_get_device_size_limits(self):
         """Test GetDeviceSizeLimits."""
@@ -125,8 +127,8 @@ class ResizableDeviceTreeTestCase(unittest.TestCase):
         ))
 
         min_size, max_size = self.interface.GetDeviceSizeLimits("dev1")
-        self.assertEqual(min_size, 0)
-        self.assertEqual(max_size, 0)
+        assert min_size == 0
+        assert max_size == 0
 
     def test_shrink_device(self):
         """Test ShrinkDevice."""
@@ -146,15 +148,15 @@ class ResizableDeviceTreeTestCase(unittest.TestCase):
         self.module.storage.resize_device = resize_device
 
         sda1.protected = True
-        with self.assertRaises(ProtectedDeviceError):
+        with pytest.raises(ProtectedDeviceError):
             self.interface.ShrinkDevice("sda1", Size("3 GiB").get_bytes())
 
         sda1.protected = False
         self.interface.ShrinkDevice("sda1", Size("3 GiB").get_bytes())
-        self.assertEqual(sda1.size, Size("3 GiB"))
+        assert sda1.size == Size("3 GiB")
 
         self.interface.ShrinkDevice("sda1", Size("5 GiB").get_bytes())
-        self.assertEqual(sda1.size, Size("3 GiB"))
+        assert sda1.size == Size("3 GiB")
 
     def test_remove_device(self):
         """Test RemoveDevice."""
@@ -186,24 +188,24 @@ class ResizableDeviceTreeTestCase(unittest.TestCase):
         self.module.storage.devicetree._add_device(dev3)
 
         dev1.protected = True
-        with self.assertRaises(ProtectedDeviceError):
+        with pytest.raises(ProtectedDeviceError):
             self.interface.RemoveDevice("dev1")
 
-        self.assertIn(dev1, self.module.storage.devices)
-        self.assertIn(dev2, self.module.storage.devices)
-        self.assertIn(dev3, self.module.storage.devices)
+        assert dev1 in self.module.storage.devices
+        assert dev2 in self.module.storage.devices
+        assert dev3 in self.module.storage.devices
 
         dev1.protected = False
         dev2.protected = True
         self.interface.RemoveDevice("dev1")
 
-        self.assertIn(dev1, self.module.storage.devices)
-        self.assertIn(dev2, self.module.storage.devices)
-        self.assertNotIn(dev3, self.module.storage.devices)
+        assert dev1 in self.module.storage.devices
+        assert dev2 in self.module.storage.devices
+        assert dev3 not in self.module.storage.devices
 
         dev2.protected = False
         self.interface.RemoveDevice("dev1")
 
-        self.assertNotIn(dev1, self.module.storage.devices)
-        self.assertNotIn(dev2, self.module.storage.devices)
-        self.assertNotIn(dev3, self.module.storage.devices)
+        assert dev1 not in self.module.storage.devices
+        assert dev2 not in self.module.storage.devices
+        assert dev3 not in self.module.storage.devices

@@ -25,37 +25,37 @@ class NetworkTests(unittest.TestCase):
     def test_is_valid_hostname(self):
         """Test hostname validation."""
 
-        self.assertFalse(network.is_valid_hostname("")[0])
-        self.assertFalse(network.is_valid_hostname(None)[0])
+        assert not network.is_valid_hostname("")[0]
+        assert not network.is_valid_hostname(None)[0]
 
         # section length < 64
-        self.assertTrue(network.is_valid_hostname("h"*63)[0])
-        self.assertFalse(network.is_valid_hostname("h"*64)[0])
+        assert network.is_valid_hostname("h"*63)[0]
+        assert not network.is_valid_hostname("h"*64)[0]
 
         # length < 65
-        self.assertTrue(network.is_valid_hostname("section." * 7+"sectionx")[0])
-        self.assertFalse(network.is_valid_hostname("section." * 7+"sectionxx")[0])
+        assert network.is_valid_hostname("section." * 7+"sectionx")[0]
+        assert not network.is_valid_hostname("section." * 7+"sectionxx")[0]
 
-        self.assertFalse(network.is_valid_hostname(
-            "section.must.be..nonempty.")[0])
-        self.assertFalse(network.is_valid_hostname(
-            ".section.must.be.nonempty.")[0])
-        self.assertTrue(network.is_valid_hostname(
-            "section.can.contain.only.alphanums.012.or.hyp-hens")[0])
-        self.assertFalse(network.is_valid_hostname(
-            "section.can.contain.only.alphanums.012.or.hyp-hens!!!")[0])
-        self.assertFalse(network.is_valid_hostname(
-            "section.may.not.start.with.-hyphen")[0])
-        self.assertFalse(network.is_valid_hostname(
-            "section.may.not.end.with.hyphen-")[0])
+        assert not network.is_valid_hostname(
+            "section.must.be..nonempty.")[0]
+        assert not network.is_valid_hostname(
+            ".section.must.be.nonempty.")[0]
+        assert network.is_valid_hostname(
+            "section.can.contain.only.alphanums.012.or.hyp-hens")[0]
+        assert not network.is_valid_hostname(
+            "section.can.contain.only.alphanums.012.or.hyp-hens!!!")[0]
+        assert not network.is_valid_hostname(
+            "section.may.not.start.with.-hyphen")[0]
+        assert not network.is_valid_hostname(
+            "section.may.not.end.with.hyphen-")[0]
 
-        self.assertTrue(network.is_valid_hostname("0-0.")[0])
-        self.assertTrue(network.is_valid_hostname("0.")[0])
+        assert network.is_valid_hostname("0-0.")[0]
+        assert network.is_valid_hostname("0.")[0]
 
-        self.assertFalse(network.is_valid_hostname("Lennart's Laptop")[0])
+        assert not network.is_valid_hostname("Lennart's Laptop")[0]
 
-        self.assertFalse(network.is_valid_hostname("own.hostname.cannot.end.in.dot.",
-                                                   local=True)[0])
+        assert not network.is_valid_hostname("own.hostname.cannot.end.in.dot.",
+                                             local=True)[0]
 
     def test_prefix2netmask2prefix(self):
         """Test netmask and prefix conversion."""
@@ -95,10 +95,10 @@ class NetworkTests(unittest.TestCase):
                 (32, "255.255.255.255"),
                ]
         for prefix, netmask in lore:
-            self.assertEqual(network.prefix_to_netmask(prefix), netmask)
-            self.assertEqual(network.netmask_to_prefix(netmask), prefix)
+            assert network.prefix_to_netmask(prefix) == netmask
+            assert network.netmask_to_prefix(netmask) == prefix
 
-        self.assertEqual(network.prefix_to_netmask(33), "255.255.255.255")
+        assert network.prefix_to_netmask(33) == "255.255.255.255"
 
     def test_nm_check_ip_address(self,):
         """Test IPv4 and IPv6 address checks."""
@@ -203,56 +203,56 @@ class NetworkTests(unittest.TestCase):
 
         # test good IPv4
         for i in good_IPv4_tests:
-            self.assertTrue(network.check_ip_address(i, version=4))
-            self.assertTrue(network.check_ip_address(i))
-            self.assertFalse(network.check_ip_address(i, version=6))
+            assert network.check_ip_address(i, version=4)
+            assert network.check_ip_address(i)
+            assert not network.check_ip_address(i, version=6)
 
         # test bad Ipv4
         for i in bad_IPv4_tests:
-            self.assertFalse(network.check_ip_address(i))
-            self.assertFalse(network.check_ip_address(i, version=4))
-            self.assertFalse(network.check_ip_address(i, version=6))
+            assert not network.check_ip_address(i)
+            assert not network.check_ip_address(i, version=4)
+            assert not network.check_ip_address(i, version=6)
 
         # test good IPv6
         for i in good_IPv6_tests:
-            self.assertTrue(network.check_ip_address(i, version=6))
-            self.assertTrue(network.check_ip_address(i))
-            self.assertFalse(network.check_ip_address(i, version=4))
+            assert network.check_ip_address(i, version=6)
+            assert network.check_ip_address(i)
+            assert not network.check_ip_address(i, version=4)
 
         # test bad IPv6
         for i in bad_IPv6_tests:
-            self.assertFalse(network.check_ip_address(i))
-            self.assertFalse(network.check_ip_address(i, version=6))
-            self.assertFalse(network.check_ip_address(i, version=4))
+            assert not network.check_ip_address(i)
+            assert not network.check_ip_address(i, version=6)
+            assert not network.check_ip_address(i, version=4)
 
     def test_hostname_from_cmdline(self):
         """Test extraction of hostname from cmdline."""
         cmdline = {"ip": "10.34.102.244::10.34.102.54:255.255.255.0:myhostname:ens9:none"}
-        self.assertEqual(network.hostname_from_cmdline(cmdline), "myhostname")
+        assert network.hostname_from_cmdline(cmdline) == "myhostname"
         # ip takes precedence
         cmdline = {"ip": "10.34.102.244::10.34.102.54:255.255.255.0:myhostname:ens9:none",
                    "hostname": "hostname_bootopt"}
-        self.assertEqual(network.hostname_from_cmdline(cmdline), "myhostname")
+        assert network.hostname_from_cmdline(cmdline) == "myhostname"
         cmdline = {"ip": "ens3:dhcp"}
-        self.assertEqual(network.hostname_from_cmdline(cmdline), "")
+        assert network.hostname_from_cmdline(cmdline) == ""
         cmdline = {"ip": "ens3:dhcp:1500"}
-        self.assertEqual(network.hostname_from_cmdline(cmdline), "")
+        assert network.hostname_from_cmdline(cmdline) == ""
         cmdline = {"ip": "ens3:dhcp",
                    "hostname": "hostname_bootopt"}
-        self.assertEqual(network.hostname_from_cmdline(cmdline), "hostname_bootopt")
+        assert network.hostname_from_cmdline(cmdline) == "hostname_bootopt"
         # two ip configurations
         cmdline = {"ip": "ens3:dhcp 10.34.102.244::10.34.102.54:255.255.255.0:myhostname:ens9:none"}
-        self.assertEqual(network.hostname_from_cmdline(cmdline), "myhostname")
+        assert network.hostname_from_cmdline(cmdline) == "myhostname"
         # ipv6 configuration
         cmdline = {"ip": "[fd00:10:100::84:5]::[fd00:10:100::86:49]:80:myhostname:ens50:none"}
-        self.assertEqual(network.hostname_from_cmdline(cmdline), "myhostname")
+        assert network.hostname_from_cmdline(cmdline) == "myhostname"
         cmdline = {"ip": "[fd00:10:100::84:5]:::80:myhostname:ens50:none"}
-        self.assertEqual(network.hostname_from_cmdline(cmdline), "myhostname")
+        assert network.hostname_from_cmdline(cmdline) == "myhostname"
         cmdline = {"ip": "[fd00:10:100::84:5]::[fd00:10:100::86:49]:80::ens50:none"}
-        self.assertEqual(network.hostname_from_cmdline(cmdline), "")
+        assert network.hostname_from_cmdline(cmdline) == ""
         cmdline = {"ip": "[fd00:10:100::84:5]::[fd00:10:100::86:49]:80::ens50:none "
                          "ens3:dhcp 10.34.102.244::10.34.102.54:255.255.255.0:myhostname:ens9:none"}
-        self.assertEqual(network.hostname_from_cmdline(cmdline), "myhostname")
+        assert network.hostname_from_cmdline(cmdline) == "myhostname"
         # automatic ip= whith MAC address set
         cmdline = {"ip": "ens3:dhcp::52:54:00:12:34:56"}
-        self.assertEqual(network.hostname_from_cmdline(cmdline), "")
+        assert network.hostname_from_cmdline(cmdline) == ""

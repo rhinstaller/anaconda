@@ -43,4 +43,4 @@ class RepoNameTestCase(unittest.TestCase):
                 '[reponame]'
                 ]
 
-        self.assertTrue(regex_match(REPO_NAME_VALID, good_tests, bad_tests))
+        assert regex_match(REPO_NAME_VALID, good_tests, bad_tests)

@@ -16,6 +16,8 @@
 # Red Hat, Inc.
 #
 import unittest
+import pytest
+
 from dasbus.typing import get_variant, Int
 from pyanaconda.modules.common.structures.policy import PasswordPolicy
 
@@ -26,18 +28,18 @@ class PasswordPolicyTestCase(unittest.TestCase):
     def test_default_known_policy(self):
         """Test the default policy data."""
         policy = PasswordPolicy.from_defaults("root")
-        self.assertEqual(policy.min_quality, 1)
-        self.assertEqual(policy.min_length, 6)
-        self.assertEqual(policy.allow_empty, False)
-        self.assertEqual(policy.is_strict, False)
+        assert policy.min_quality == 1
+        assert policy.min_length == 6
+        assert policy.allow_empty == False
+        assert policy.is_strict == False
 
     def test_default_unknown_policy(self):
         """Test the default policy data for unknown policy."""
         policy = PasswordPolicy.from_defaults("test")
-        self.assertEqual(policy.min_quality, 0)
-        self.assertEqual(policy.min_length, 0)
-        self.assertEqual(policy.allow_empty, True)
-        self.assertEqual(policy.is_strict, False)
+        assert policy.min_quality == 0
+        assert policy.min_length == 0
+        assert policy.allow_empty == True
+        assert policy.is_strict == False
 
     def test_to_structure_dict(self):
         """Test the to_structure_dict method."""
@@ -51,7 +53,7 @@ class PasswordPolicyTestCase(unittest.TestCase):
         p3.quality = 3
 
         # Test an invalid argument.
-        with self.assertRaises(TypeError):
+        with pytest.raises(TypeError):
             PasswordPolicy.to_structure_dict([])
 
         # Test a valid argument.
@@ -59,11 +61,11 @@ class PasswordPolicyTestCase(unittest.TestCase):
             "p1": p1, "p2": p2, "p3": p3
         })
 
-        self.assertEqual(structures, {
+        assert structures == {
             "p1": PasswordPolicy.to_structure(p1),
             "p2": PasswordPolicy.to_structure(p2),
             "p3": PasswordPolicy.to_structure(p3),
-        })
+        }
 
     def test_from_structure_dict(self):
         """Test the from_structure_dict method."""
@@ -72,7 +74,7 @@ class PasswordPolicyTestCase(unittest.TestCase):
         s3 = {"min-quality": get_variant(Int, 3)}
 
         # Test an invalid argument.
-        with self.assertRaises(TypeError):
+        with pytest.raises(TypeError):
             PasswordPolicy.from_structure_dict([])
 
         # Test a valid argument.
@@ -80,7 +82,7 @@ class PasswordPolicyTestCase(unittest.TestCase):
             "s1": s1, "s2": s2, "s3": s3
         })
 
-        self.assertEqual(objects.keys(), {"s1", "s2", "s3"})
-        self.assertEqual(objects["s1"].min_quality, 1)
-        self.assertEqual(objects["s2"].min_quality, 2)
-        self.assertEqual(objects["s3"].min_quality, 3)
+        assert objects.keys() == {"s1", "s2", "s3"}
+        assert objects["s1"].min_quality == 1
+        assert objects["s2"].min_quality == 2
+        assert objects["s3"].min_quality == 3

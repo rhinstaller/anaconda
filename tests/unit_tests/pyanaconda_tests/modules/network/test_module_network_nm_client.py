@@ -98,31 +98,16 @@ class NMClientTestCase(unittest.TestCase):
         }
         get_iface_from_connection.side_effect = lambda nm_client, uuid: uuid_to_iface[uuid]
 
-        self.assertSetEqual(
-            get_ports_from_connections(nm_client, "team", []),
-            set()
-        )
-        self.assertSetEqual(
-            get_ports_from_connections(nm_client, "bridge", ["bridge0"]),
-            set()
-        )
-        self.assertSetEqual(
-            get_ports_from_connections(nm_client, "team", ["team2"]),
-            set()
-        )
+        assert get_ports_from_connections(nm_client, "team", []) == set()
+        assert get_ports_from_connections(nm_client, "bridge", ["bridge0"]) == set()
+        assert get_ports_from_connections(nm_client, "team", ["team2"]) == set()
         # Matching of any specification is enough
-        self.assertSetEqual(
-            get_ports_from_connections(nm_client, "team", ["team_nonexisting", TEAM1_UUID]),
+        assert get_ports_from_connections(nm_client, "team", ["team_nonexisting", TEAM1_UUID]) == \
             set([("ens11", "ens11", ENS11_UUID)])
-        )
-        self.assertSetEqual(
-            get_ports_from_connections(nm_client, "team", ["team0"]),
+        assert get_ports_from_connections(nm_client, "team", ["team0"]) == \
             set([("team_0_slave_1", "ens7", ENS7_UUID), ("team_0_slave_2", "ens8", ENS8_UUID)])
-        )
-        self.assertSetEqual(
-            get_ports_from_connections(nm_client, "team", [TEAM1_UUID]),
+        assert get_ports_from_connections(nm_client, "team", [TEAM1_UUID]) == \
             set([("ens11", "ens11", ENS11_UUID)])
-        )
 
     @patch("pyanaconda.modules.network.nm_client.get_connections_available_for_iface")
     @patch("pyanaconda.modules.network.nm_client.get_ports_from_connections")
@@ -141,11 +126,9 @@ class NMClientTestCase(unittest.TestCase):
             },
         ]
         con = self._get_mock_objects_from_attrs(cons_attrs)[0]
-        self.assertSetEqual(
-            get_dracut_arguments_from_connection(nm_client, con, "", "10.34.39.2",
-                                                 "my.host.name", ibft=True),
+        assert get_dracut_arguments_from_connection(nm_client, con, "", "10.34.39.2",
+                                                    "my.host.name", ibft=True) == \
             set(["rd.iscsi.ibft"])
-        )
 
         # ibft connection on s390 with missing s390 options
         is_s390.return_value = True
@@ -163,11 +146,9 @@ class NMClientTestCase(unittest.TestCase):
             },
         ]
         con = self._get_mock_objects_from_attrs(cons_attrs)[0]
-        self.assertSetEqual(
-            get_dracut_arguments_from_connection(nm_client, con, "", "10.34.39.2",
-                                                 "my.host.name", ibft=True),
+        assert get_dracut_arguments_from_connection(nm_client, con, "", "10.34.39.2",
+                                                    "my.host.name", ibft=True) == \
             set(["rd.iscsi.ibft"])
-        )
 
         # ibft connection on s390 with s390 options
         is_s390.return_value = True
@@ -187,12 +168,10 @@ class NMClientTestCase(unittest.TestCase):
             },
         ]
         con = self._get_mock_objects_from_attrs(cons_attrs)[0]
-        self.assertSetEqual(
-            get_dracut_arguments_from_connection(nm_client, con, "", "10.34.39.2",
-                                                 "my.host.name", ibft=True),
+        assert get_dracut_arguments_from_connection(nm_client, con, "", "10.34.39.2",
+                                                    "my.host.name", ibft=True) == \
             set(["rd.iscsi.ibft",
                  "rd.znet=qeth,0.0.0900,0.0.0901,0.0.0902,layer2=1,portname=FOOBAR,portno=0"])
-        )
 
         # IPv4 config auto, IPv6 config auto, mac address specified
         is_s390.return_value = False
@@ -219,19 +198,15 @@ class NMClientTestCase(unittest.TestCase):
         ]
         con = self._get_mock_objects_from_attrs(cons_attrs)[0]
         # IPv4 target
-        self.assertSetEqual(
-            get_dracut_arguments_from_connection(nm_client, con, "ens3", "10.34.39.2",
-                                                 "my.host.name", ibft=False),
+        assert get_dracut_arguments_from_connection(nm_client, con, "ens3", "10.34.39.2",
+                                                    "my.host.name", ibft=False) == \
             set(["ip=ens3:dhcp",
                  "ifname=ens3:11:11:11:11:11:aa"])
-        )
         # IPv6 target
-        self.assertSetEqual(
-            get_dracut_arguments_from_connection(nm_client, con, "ens3", "2001::cafe:beef",
-                                                 "my.host.name", ibft=False),
+        assert get_dracut_arguments_from_connection(nm_client, con, "ens3", "2001::cafe:beef",
+                                                    "my.host.name", ibft=False) == \
             set(["ip=ens3:auto6",
                  "ifname=ens3:11:11:11:11:11:aa"])
-        )
 
         # IPv4 config static, mac address not specified, s390
         is_s390.return_value = True
@@ -265,12 +240,10 @@ class NMClientTestCase(unittest.TestCase):
             },
         ]
         con = self._get_mock_objects_from_attrs(cons_attrs)[0]
-        self.assertSetEqual(
-            get_dracut_arguments_from_connection(nm_client, con, "ens4", "10.40.49.4",
-                                                 "my.host.name", ibft=False),
+        assert get_dracut_arguments_from_connection(nm_client, con, "ens4", "10.40.49.4",
+                                                    "my.host.name", ibft=False) == \
             set(["ip=10.34.39.44::10.34.39.2:255.255.255.0:my.host.name:ens4:none",
                  "rd.znet=qeth,0.0.0900,0.0.0901,0.0.0902,layer2=1,portname=FOOBAR,portno=0"])
-        )
 
         # IPv6 config dhcp
         is_s390.return_value = False
@@ -291,11 +264,9 @@ class NMClientTestCase(unittest.TestCase):
             },
         ]
         con = self._get_mock_objects_from_attrs(cons_attrs)[0]
-        self.assertSetEqual(
-            get_dracut_arguments_from_connection(nm_client, con, "ens3", "2001::cafe:beef",
-                                                 "my.host.name", ibft=False),
+        assert get_dracut_arguments_from_connection(nm_client, con, "ens3", "2001::cafe:beef",
+                                                    "my.host.name", ibft=False) == \
             set(["ip=ens3:dhcp6"])
-        )
 
         # IPv6 config manual
         is_s390.return_value = False
@@ -324,11 +295,9 @@ class NMClientTestCase(unittest.TestCase):
             },
         ]
         con = self._get_mock_objects_from_attrs(cons_attrs)[0]
-        self.assertSetEqual(
-            get_dracut_arguments_from_connection(nm_client, con, "ens3", "2001::cafe:beef",
-                                                 "my.host.name", ibft=False),
+        assert get_dracut_arguments_from_connection(nm_client, con, "ens3", "2001::cafe:beef",
+                                                    "my.host.name", ibft=False) == \
             set(["ip=[2001::5/64]::[2001::1]::my.host.name:ens3:none"])
-        )
 
         # IPv4 config auto, team
         is_s390.return_value = False
@@ -351,12 +320,10 @@ class NMClientTestCase(unittest.TestCase):
             ("ens8", "ens8", "ac4a0747-d1ea-4119-903b-18f3adad9116"),
         ])
         # IPv4 target
-        self.assertSetEqual(
-            get_dracut_arguments_from_connection(nm_client, con, "team0", "10.34.39.2",
-                                                 "my.host.name", ibft=False),
+        assert get_dracut_arguments_from_connection(nm_client, con, "team0", "10.34.39.2",
+                                                    "my.host.name", ibft=False) == \
             set(["ip=team0:dhcp",
                  "team=team0:ens7,ens8"])
-        )
 
         # IPv4 config auto, vlan, s390, parent specified by interface name
         is_s390.return_value = True
@@ -398,13 +365,11 @@ class NMClientTestCase(unittest.TestCase):
         parent_cons = self._get_mock_objects_from_attrs(parent_cons_attrs)
         get_connections_available_for_iface.return_value = parent_cons
         # IPv4 target
-        self.assertSetEqual(
-            get_dracut_arguments_from_connection(nm_client, con, "ens11.111", "10.34.39.2",
-                                                 "my.host.name", ibft=False),
+        assert get_dracut_arguments_from_connection(nm_client, con, "ens11.111", "10.34.39.2",
+                                                    "my.host.name", ibft=False) == \
             set(["ip=ens11.111:dhcp",
                  "vlan=ens11.111:ens11",
                  "rd.znet=qeth,0.0.0900,0.0.0901,0.0.0902,layer2=1,portname=FOOBAR,portno=0"])
-        )
 
         # IPv4 config auto, vlan, parent specified by connection uuid
         VLAN_PARENT_UUID = "5e6ead30-d133-4c8c-ba59-818c5ced6a7c"
@@ -436,12 +401,10 @@ class NMClientTestCase(unittest.TestCase):
         parent_con = self._get_mock_objects_from_attrs(parent_cons_attrs)[0]
         nm_client.get_connection_by_uuid.return_value = parent_con
         # IPv4 target
-        self.assertSetEqual(
-            get_dracut_arguments_from_connection(nm_client, con, "ens12.111", "10.34.39.2",
-                                                 "my.host.name", ibft=False),
+        assert get_dracut_arguments_from_connection(nm_client, con, "ens12.111", "10.34.39.2",
+                                                    "my.host.name", ibft=False) == \
             set(["ip=ens12.111:dhcp",
                  "vlan=ens12.111:ens12"])
-        )
 
         # IPv4 config auto, vlan, parent specified by connection uuid, s390 (we
         # need the parent connection in s390 case, not only parent iface)
@@ -486,13 +449,11 @@ class NMClientTestCase(unittest.TestCase):
         parent_cons = self._get_mock_objects_from_attrs(parent_cons_attrs)
         nm_client.get_connection_by_uuid.return_value = parent_con
         # IPv4 target
-        self.assertSetEqual(
-            get_dracut_arguments_from_connection(nm_client, con, "ens13.111", "10.34.39.2",
-                                                 "my.host.name", ibft=False),
+        assert get_dracut_arguments_from_connection(nm_client, con, "ens13.111", "10.34.39.2",
+                                                    "my.host.name", ibft=False) == \
             set(["ip=ens13.111:dhcp",
                  "vlan=ens13.111:ens13",
                  "rd.znet=qeth,0.0.0900,0.0.0901,0.0.0902,layer2=1,portname=FOOBAR,portno=0"])
-        )
 
     @patch("pyanaconda.modules.network.nm_client.get_vlan_interface_name_from_connection")
     @patch("pyanaconda.modules.network.nm_client.is_config_file_for_system")
@@ -640,35 +601,21 @@ class NMClientTestCase(unittest.TestCase):
 
         # No config files
         is_config_file_for_system.return_value = False
-        self.assertEqual(
-            get_config_file_connection_of_device(nm_client, "ens3"),
-            ""
-        )
+        assert get_config_file_connection_of_device(nm_client, "ens3") == ""
 
         is_config_file_for_system.return_value = True
         is_s390.return_value = False
 
         # ethernet
         # interface name has precedence
-        self.assertEqual(
-            get_config_file_connection_of_device(nm_client, "ens3"),
-            ENS3_UUID
-        )
+        assert get_config_file_connection_of_device(nm_client, "ens3") == ENS3_UUID
         # port conections are ignored
-        self.assertEqual(
-            get_config_file_connection_of_device(nm_client, "ens7"),
-            ENS7_UUID
-        )
+        assert get_config_file_connection_of_device(nm_client, "ens7") == ENS7_UUID
         # port conections are ignored
-        self.assertEqual(
-            get_config_file_connection_of_device(nm_client, "ens9"),
-            ""
-        )
+        assert get_config_file_connection_of_device(nm_client, "ens9") == ""
         # config bound to hwaddr
-        self.assertEqual(
-            get_config_file_connection_of_device(nm_client, "ens8", device_hwaddr=HWADDR_ENS8),
+        assert get_config_file_connection_of_device(nm_client, "ens8", device_hwaddr=HWADDR_ENS8) == \
             ENS8_UUID
-        )
         # config bound to hwaddr, no hint
         hwaddr_to_iface = {
             HWADDR_ENS3: "ens3",
@@ -676,49 +623,25 @@ class NMClientTestCase(unittest.TestCase):
             HWADDR_ENS11: "ens11",
         }
         get_iface_from_hwaddr.side_effect = lambda nm_client, hwaddr: hwaddr_to_iface[hwaddr]
-        self.assertEqual(
-            get_config_file_connection_of_device(nm_client, "ens11"),
-            ENS11_UUID
-        )
+        assert get_config_file_connection_of_device(nm_client, "ens11") == ENS11_UUID
         # config not bound
-        self.assertEqual(
-            get_config_file_connection_of_device(nm_client, "ens12"),
-            ""
-        )
+        assert get_config_file_connection_of_device(nm_client, "ens12") == ""
         # config not bound, use id (s390)
         is_s390.return_value = True
-        self.assertEqual(
-            get_config_file_connection_of_device(nm_client, "ens12"),
-            ENS12_UUID
-        )
+        assert get_config_file_connection_of_device(nm_client, "ens12") == ENS12_UUID
         is_s390.return_value = False
 
         # vlan
         get_vlan_interface_name_from_connection.return_value = "vlan222"
-        self.assertEqual(
-            get_config_file_connection_of_device(nm_client, "vlan222"),
-            VLAN222_UUID
-        )
+        assert get_config_file_connection_of_device(nm_client, "vlan222") == VLAN222_UUID
         # team
-        self.assertEqual(
-            get_config_file_connection_of_device(nm_client, "team0"),
-            TEAM0_UUID
-        )
+        assert get_config_file_connection_of_device(nm_client, "team0") == TEAM0_UUID
         # bond
-        self.assertEqual(
-            get_config_file_connection_of_device(nm_client, "bond0"),
-            BOND0_UUID
-        )
+        assert get_config_file_connection_of_device(nm_client, "bond0") == BOND0_UUID
         # bridge
-        self.assertEqual(
-            get_config_file_connection_of_device(nm_client, "bridge0"),
-            BRIDGE0_UUID
-        )
+        assert get_config_file_connection_of_device(nm_client, "bridge0") == BRIDGE0_UUID
         # infiniband, first wins
-        self.assertEqual(
-            get_config_file_connection_of_device(nm_client, "ens33"),
-            ENS33_UUID
-        )
+        assert get_config_file_connection_of_device(nm_client, "ens33") == ENS33_UUID
 
     @patch("pyanaconda.modules.network.nm_client.get_team_port_config_from_connection")
     @patch("pyanaconda.modules.network.nm_client.get_ports_from_connections")
@@ -982,4 +905,4 @@ class NMClientTestCase(unittest.TestCase):
                 expected_ks = dedent(expected_ks).strip()
             if generated_ks:
                 generated_ks = dedent(str(generated_ks)).strip()
-            self.assertEqual(generated_ks, expected_ks)
+            assert generated_ks == expected_ks

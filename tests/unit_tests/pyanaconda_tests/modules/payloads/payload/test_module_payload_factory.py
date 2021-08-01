@@ -15,6 +15,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import pytest
+
 from unittest.case import TestCase
 
 from pyanaconda.core.kickstart.specification import KickstartSpecificationHandler, \
@@ -33,13 +35,13 @@ class PayloadFactoryTestCase(TestCase):
         """Test PayloadFactory create method."""
         for payload_type in PayloadType:
             module = PayloadFactory.create_payload(payload_type)
-            self.assertIsInstance(module, PayloadBase)
-            self.assertIsInstance(module.for_publication(), PayloadBaseInterface)
-            self.assertEqual(module.type, payload_type)
+            assert isinstance(module, PayloadBase)
+            assert isinstance(module.for_publication(), PayloadBaseInterface)
+            assert module.type == payload_type
 
     def test_failed_create_payload(self):
         """Test failed create method of the payload factory."""
-        with self.assertRaises(ValueError):
+        with pytest.raises(ValueError):
             PayloadFactory.create_payload("INVALID")
 
     def test_create_payload_from_ks(self):
@@ -95,4 +97,4 @@ class PayloadFactoryTestCase(TestCase):
         handler = KickstartSpecificationHandler(specification)
         parser = KickstartSpecificationParser(handler, specification)
         parser.readKickstartFromString(kickstart)
-        self.assertEqual(payload_type, PayloadFactory.get_type_for_kickstart(handler))
+        assert payload_type == PayloadFactory.get_type_for_kickstart(handler)

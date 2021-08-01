@@ -47,7 +47,7 @@ class CommandVersionTestCase(unittest.TestCase):
             if isinstance(children[name](), kickstart.UselessCommand):
                 continue
 
-            self.assertIsInstance(children[name](), parents[name])
+            assert isinstance(children[name](), parents[name])
 
     def test_commands(self):
         """Test that anaconda uses the right versions of kickstart commands"""

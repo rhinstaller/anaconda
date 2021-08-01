@@ -59,9 +59,8 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
 
     def test_supported_sources(self):
         """Test LiveOS supported sources API."""
-        self.assertEqual(
-            [SOURCE_TYPE_LIVE_OS_IMAGE],
-            self.live_os_interface.SupportedSourceTypes)
+        assert [SOURCE_TYPE_LIVE_OS_IMAGE] == \
+            self.live_os_interface.SupportedSourceTypes
 
     @patch_dbus_publish_object
     def test_set_source(self, publisher):
@@ -126,7 +125,7 @@ class LiveOSModuleTestCase(unittest.TestCase):
 
     def test_get_kernel_version_list(self):
         """Test the get_kernel_version_list method."""
-        self.assertEqual(self.module.get_kernel_version_list(), [])
+        assert self.module.get_kernel_version_list() == []
 
     def test_install_with_task(self):
         """Test the install_with_tasks method."""
@@ -136,7 +135,7 @@ class LiveOSModuleTestCase(unittest.TestCase):
         # tasks = self.module.install_with_tasks()
         # self.assertEqual(len(tasks), 1)
         # self.assertIsInstance(tasks[0], InstallFromImageTask)
-        self.assertEqual(self.module.install_with_tasks(), [])
+        assert self.module.install_with_tasks() == []
 
     def test_install_with_task_no_source(self):
         """Test Live OS install with tasks with no source fail."""
@@ -147,4 +146,4 @@ class LiveOSModuleTestCase(unittest.TestCase):
     def test_post_install_with_tasks(self):
         """Test Live OS post installation configuration task."""
         tasks = self.module.post_install_with_tasks()
-        self.assertEqual(len(tasks), 0)
+        assert len(tasks) == 0

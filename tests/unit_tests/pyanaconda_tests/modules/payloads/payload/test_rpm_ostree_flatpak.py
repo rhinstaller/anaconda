@@ -16,6 +16,8 @@
 # Red Hat, Inc.
 #
 import unittest
+import pytest
+
 from unittest.mock import patch
 from tempfile import TemporaryDirectory
 
@@ -45,6 +47,6 @@ class InstallFlatpakTaskTest(unittest.TestCase):
         fm_instance.install_all.side_effect = PayloadInstallationError
 
         with TemporaryDirectory() as temp:
-            with self.assertRaises(PayloadInstallationError):
+            with pytest.raises(PayloadInstallationError):
                 task = InstallFlatpaksTask(temp)
                 task.run()

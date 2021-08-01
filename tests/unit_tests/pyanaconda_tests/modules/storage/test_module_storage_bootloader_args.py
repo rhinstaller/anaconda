@@ -29,12 +29,12 @@ class BootLoaderArgsTestCase(unittest.TestCase):
 
         args.add("first")
         args.add("second")
-        self.assertEqual(str(args), "first second")
-        self.assertEqual(list(args), ["first", "second"])
+        assert str(args) == "first second"
+        assert list(args) == ["first", "second"]
 
         args.add("first")
-        self.assertEqual(str(args), "second first")
-        self.assertEqual(list(args), ["second", "first"])
+        assert str(args) == "second first"
+        assert list(args) == ["second", "first"]
 
     def test_update(self):
         """BootLoaderArguments.update reorders things as expected."""
@@ -42,9 +42,9 @@ class BootLoaderArgsTestCase(unittest.TestCase):
 
         args.update(["one", "two", "three"])
         args.update("abc")
-        self.assertEqual(str(args), "one two three a b c")
+        assert str(args) == "one two three a b c"
         args.update(["three", "two"])
-        self.assertEqual(str(args), "one a b c three two")
+        assert str(args) == "one a b c three two"
 
     def test_ip_merge(self):
         """BootLoaderArguments.__str__ reorders ip= as expected."""
@@ -52,15 +52,9 @@ class BootLoaderArgsTestCase(unittest.TestCase):
         args.update(["start", "blah"])
         args.update(["ip=ens0p3:dhcp6", "ip=::::tester::dhcp", "ip=ens0p3:dhcp"])
         args.add("end")
-        self.assertEqual(
-            list(args),
+        assert list(args) == \
             ["start", "blah", "ip=ens0p3:dhcp6", "ip=::::tester::dhcp", "ip=ens0p3:dhcp", "end"]
-        )
-        self.assertEqual(
-            str(args),
+        assert str(args) == \
             "start blah ip=::::tester::dhcp end ip=ens0p3:dhcp,dhcp6"
-        )
-        self.assertEqual(
-            list(args),
+        assert list(args) == \
             ["start", "blah", "ip=::::tester::dhcp", "end", "ip=ens0p3:dhcp,dhcp6"]
-        )

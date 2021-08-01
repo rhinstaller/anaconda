@@ -119,12 +119,12 @@ class LiveImageModuleTestCase(unittest.TestCase):
 
     def test_calculate_required_space(self):
         """Test the calculate_required_space method."""
-        self.assertEqual(self.module.calculate_required_space(), 0)
+        assert self.module.calculate_required_space() == 0
 
         source = SourceFactory.create_source(SourceType.LIVE_IMAGE)
         self.module.add_source(source)
 
-        self.assertEqual(self.module.calculate_required_space(), 1024 * 1024 * 1024)
+        assert self.module.calculate_required_space() == 1024 * 1024 * 1024
 
     def test_install_with_task_from_tar(self):
         """Test Live Image install with tasks from tarfile."""
@@ -133,7 +133,7 @@ class LiveImageModuleTestCase(unittest.TestCase):
 
         # task_path = self.live_image_interface.InstallWithTasks()
         # check_task_creation_list(self, task_path, publisher, [InstallFromTarTask])
-        self.assertEqual(self.module.install_with_tasks(), [])
+        assert self.module.install_with_tasks() == []
 
     @patch_dbus_publish_object
     def test_install_with_task_from_image(self, publisher):
@@ -143,7 +143,7 @@ class LiveImageModuleTestCase(unittest.TestCase):
 
         # task_path = self.live_image_interface.InstallWithTasks()
         # check_task_creation_list(self, task_path, publisher, [InstallFromImageTask])
-        self.assertEqual(self.module.install_with_tasks(), [])
+        assert self.module.install_with_tasks() == []
 
     @patch_dbus_publish_object
     def test_post_install_with_tasks(self, publisher):
@@ -165,4 +165,4 @@ class LiveImageModuleTestCase(unittest.TestCase):
         #     self.assertEqual(object_path, task_paths[i])
         #     self.assertIsInstance(obj, TaskInterface)
         #     self.assertIsInstance(obj.implementation, task_classes[i])
-        self.assertEqual(self.module.post_install_with_tasks(), [])
+        assert self.module.post_install_with_tasks() == []

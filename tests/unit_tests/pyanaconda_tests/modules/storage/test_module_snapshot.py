@@ -18,6 +18,8 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
+import pytest
+
 from unittest.mock import patch, Mock
 
 from blivet.errors import StorageError
@@ -43,26 +45,26 @@ class SnapshotInterfaceTestCase(unittest.TestCase):
 
     def test_is_requested(self):
         """Test IsRequested."""
-        self.assertEqual(self.interface.IsRequested(SNAPSHOT_WHEN_PRE_INSTALL), False)
-        self.assertEqual(self.interface.IsRequested(SNAPSHOT_WHEN_POST_INSTALL), False)
+        assert self.interface.IsRequested(SNAPSHOT_WHEN_PRE_INSTALL) == False
+        assert self.interface.IsRequested(SNAPSHOT_WHEN_POST_INSTALL) == False
 
         self.module._requests = [Mock(when=SNAPSHOT_WHEN_PRE_INSTALL)]
-        self.assertEqual(self.interface.IsRequested(SNAPSHOT_WHEN_PRE_INSTALL), True)
-        self.assertEqual(self.interface.IsRequested(SNAPSHOT_WHEN_POST_INSTALL), False)
+        assert self.interface.IsRequested(SNAPSHOT_WHEN_PRE_INSTALL) == True
+        assert self.interface.IsRequested(SNAPSHOT_WHEN_POST_INSTALL) == False
 
         self.module._requests = [Mock(when=SNAPSHOT_WHEN_POST_INSTALL)]
-        self.assertEqual(self.interface.IsRequested(SNAPSHOT_WHEN_PRE_INSTALL), False)
-        self.assertEqual(self.interface.IsRequested(SNAPSHOT_WHEN_POST_INSTALL), True)
+        assert self.interface.IsRequested(SNAPSHOT_WHEN_PRE_INSTALL) == False
+        assert self.interface.IsRequested(SNAPSHOT_WHEN_POST_INSTALL) == True
 
         self.module._requests = [Mock(when=SNAPSHOT_WHEN_PRE_INSTALL),
                                  Mock(when=SNAPSHOT_WHEN_POST_INSTALL)]
-        self.assertEqual(self.interface.IsRequested(SNAPSHOT_WHEN_PRE_INSTALL), True)
-        self.assertEqual(self.interface.IsRequested(SNAPSHOT_WHEN_POST_INSTALL), True)
+        assert self.interface.IsRequested(SNAPSHOT_WHEN_PRE_INSTALL) == True
+        assert self.interface.IsRequested(SNAPSHOT_WHEN_POST_INSTALL) == True
 
     @patch_dbus_publish_object
     def test_create_with_task(self, publisher):
         """Test CreateWithTask."""
-        with self.assertRaises(UnavailableStorageError):
+        with pytest.raises(UnavailableStorageError):
             self.interface.CreateWithTask(SNAPSHOT_WHEN_PRE_INSTALL)
 
         self.module.on_storage_changed(Mock())
@@ -70,9 +72,9 @@ class SnapshotInterfaceTestCase(unittest.TestCase):
 
         obj = check_task_creation(self, task_path, publisher, SnapshotCreateTask)
 
-        self.assertEqual(obj.implementation._storage, self.module.storage)
-        self.assertEqual(obj.implementation._requests, [])
-        self.assertEqual(obj.implementation._when, SNAPSHOT_WHEN_PRE_INSTALL)
+        assert obj.implementation._storage == self.module.storage
+        assert obj.implementation._requests == []
+        assert obj.implementation._when == SNAPSHOT_WHEN_PRE_INSTALL
 
     @patch('pyanaconda.modules.storage.snapshot.snapshot.get_snapshot_device')
     def test_verify_requests(self, device_getter):
@@ -98,7 +100,7 @@ class SnapshotTasksTestCase(unittest.TestCase):
 
     def test_get_snapshot_device_fail(self):
         """Test the snapshot device."""
-        with self.assertRaises(StorageError):
+        with pytest.raises(StorageError):
             get_snapshot_device(Mock(name="post-snapshot", origin="fedora/root"), Mock())
 
     @patch('pyanaconda.modules.storage.snapshot.device.LVMLogicalVolumeDevice')
@@ -111,7 +113,7 @@ class SnapshotTasksTestCase(unittest.TestCase):
         devicetree.get_device_by_name.side_effect = [Mock(), None]
 
         request = Mock(name="post-snapshot", origin="fedora/root")
-        self.assertEqual(get_snapshot_device(request, devicetree), device)
+        assert get_snapshot_device(request, devicetree) == device
 
     @patch('pyanaconda.modules.storage.snapshot.create.get_snapshot_device')
     def test_creation(self, device_getter):

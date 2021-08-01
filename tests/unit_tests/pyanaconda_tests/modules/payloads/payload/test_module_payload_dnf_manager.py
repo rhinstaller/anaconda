@@ -17,6 +17,8 @@
 #
 import os.path
 import unittest
+import pytest
+
 from tempfile import TemporaryDirectory
 from unittest.mock import patch, Mock, call
 
@@ -53,25 +55,25 @@ class DNFManagerTestCase(unittest.TestCase):
         configuration = configuration.splitlines(keepends=False)
 
         for attribute in attributes:
-            self.assertIn(attribute, configuration)
+            assert attribute in configuration
 
     def _check_substitutions(self, substitutions):
         """Check the DNF substitutions."""
-        self.assertEqual(dict(self.dnf_manager._base.conf.substitutions), substitutions)
+        assert dict(self.dnf_manager._base.conf.substitutions) == substitutions
 
     def test_create_base(self):
         """Test the creation of the DNF base."""
-        self.assertIsNotNone(self.dnf_manager._base)
+        assert self.dnf_manager._base is not None
 
     def test_reset_base(self):
         """Test the reset of the DNF base."""
         base_1 = self.dnf_manager._base
-        self.assertEqual(self.dnf_manager._base, base_1)
+        assert self.dnf_manager._base == base_1
         self.dnf_manager.reset_base()
 
         base_2 = self.dnf_manager._base
-        self.assertEqual(self.dnf_manager._base, base_2)
-        self.assertNotEqual(self.dnf_manager._base, base_1)
+        assert self.dnf_manager._base == base_2
+        assert self.dnf_manager._base != base_1
 
     def test_clear_cache(self):
         """Test the clear_cache method."""
@@ -148,8 +150,8 @@ class DNFManagerTestCase(unittest.TestCase):
             "install_weak_deps = 1",
         )
 
-        self.assertEqual(self.dnf_manager._ignore_broken_packages, False)
-        self.assertEqual(self.dnf_manager._ignore_missing_packages, False)
+        assert self.dnf_manager._ignore_broken_packages == False
+        assert self.dnf_manager._ignore_missing_packages == False
 
         data.multilib_policy = MULTILIB_POLICY_ALL
         data.timeout = 100
@@ -166,8 +168,8 @@ class DNFManagerTestCase(unittest.TestCase):
             "install_weak_deps = 0",
         )
 
-        self.assertEqual(self.dnf_manager._ignore_broken_packages, True)
-        self.assertEqual(self.dnf_manager._ignore_missing_packages, True)
+        assert self.dnf_manager._ignore_broken_packages == True
+        assert self.dnf_manager._ignore_missing_packages == True
 
     def test_dump_configuration(self):
         """Test the dump of the DNF configuration."""
@@ -175,16 +177,16 @@ class DNFManagerTestCase(unittest.TestCase):
             self.dnf_manager.dump_configuration()
 
         msg = "DNF configuration:"
-        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+        assert any(map(lambda x: msg in x, cm.output))
 
         msg = "installroot = /mnt/sysroot"
-        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+        assert any(map(lambda x: msg in x, cm.output))
 
     def test_get_installation_size(self):
         """Test the get_installation_size method."""
         # No transaction.
         size = self.dnf_manager.get_installation_size()
-        self.assertEqual(size, Size("3000 MiB"))
+        assert size == Size("3000 MiB")
 
         # Fake transaction.
         tsi_1 = Mock()
@@ -199,13 +201,13 @@ class DNFManagerTestCase(unittest.TestCase):
         size = self.dnf_manager.get_installation_size()
         size = size.round_to_nearest("KiB", ROUND_UP)
 
-        self.assertEqual(size, Size("528 KiB"))
+        assert size == Size("528 KiB")
 
     def test_get_download_size(self):
         """Test the get_download_size method."""
         # No transaction.
         size = self.dnf_manager.get_download_size()
-        self.assertEqual(size, Size(0))
+        assert size == Size(0)
 
         # Fake transaction.
         tsi_1 = Mock()
@@ -217,7 +219,7 @@ class DNFManagerTestCase(unittest.TestCase):
         self.dnf_manager._base.transaction = [tsi_1, tsi_2]
         size = self.dnf_manager.get_download_size()
 
-        self.assertEqual(size, Size("450 MiB"))
+        assert size == Size("450 MiB")
 
     @patch("dnf.module.module_base.ModuleBase.enable")
     def test_enable_modules(self, module_base_enable):
@@ -236,7 +238,7 @@ class DNFManagerTestCase(unittest.TestCase):
             module_depsolv_errors=["e1", "e2"]
         )
 
-        with self.assertRaises(BrokenSpecsError):
+        with pytest.raises(BrokenSpecsError):
             self.dnf_manager.enable_modules(
                 module_specs=["m1", "m2:latest"]
             )
@@ -258,7 +260,7 @@ class DNFManagerTestCase(unittest.TestCase):
             module_depsolv_errors=["e1", "e2"]
         )
 
-        with self.assertRaises(BrokenSpecsError):
+        with pytest.raises(BrokenSpecsError):
             self.dnf_manager.disable_modules(
                 module_specs=["m1", "m2:latest"]
             )
@@ -284,7 +286,7 @@ class DNFManagerTestCase(unittest.TestCase):
             error_group_specs=["@g1"]
         )
 
-        with self.assertRaises(BrokenSpecsError):
+        with pytest.raises(BrokenSpecsError):
             self.dnf_manager.apply_specs(
                 include_list=["@g1", "p1"],
                 exclude_list=["@g2", "p2"]
@@ -294,7 +296,7 @@ class DNFManagerTestCase(unittest.TestCase):
             no_match_group_specs=["@g1"]
         )
 
-        with self.assertRaises(MissingSpecsError):
+        with pytest.raises(MissingSpecsError):
             self.dnf_manager.apply_specs(
                 include_list=["@g1", "p1"],
                 exclude_list=["@g2", "p2"]
@@ -341,7 +343,7 @@ class DNFManagerTestCase(unittest.TestCase):
             error_pkg_specs=["p1"]
         )
 
-        with self.assertRaises(BrokenSpecsError):
+        with pytest.raises(BrokenSpecsError):
             self.dnf_manager.apply_specs(
                 include_list=["@g1", "p1"],
                 exclude_list=["@g2", "p2"]
@@ -390,11 +392,11 @@ class DNFManagerTestCase(unittest.TestCase):
             progress.last_time = 0
             progress.end(payload, STATUS_OK, "Message!")
 
-        self.assertEqual(progress.downloads, {
+        assert progress.downloads == {
             "p1": 100,
             "p2": 100,
             "p3": 100
-        })
+        }
 
     @patch("dnf.base.Base.download_packages")
     @patch("dnf.base.Base.transaction")
@@ -427,11 +429,11 @@ class DNFManagerTestCase(unittest.TestCase):
             progress.last_time = 0
             progress.end(payload, STATUS_FAILED, "Message!")
 
-        self.assertEqual(progress.downloads, {
+        assert progress.downloads == {
             "p1": 25,
             "p2": 25,
             "p3": 25
-        })
+        }
 
     @patch("dnf.base.Base.do_transaction")
     def test_install_packages(self, do_transaction):
@@ -441,7 +443,7 @@ class DNFManagerTestCase(unittest.TestCase):
 
         self.dnf_manager.install_packages(calls.append)
 
-        self.assertEqual(calls, [
+        assert calls == [
             'Installing p1.x86_64 (0/3)',
             'Installing p2.x86_64 (1/3)',
             'Installing p3.x86_64 (2/3)',
@@ -452,7 +454,7 @@ class DNFManagerTestCase(unittest.TestCase):
             'Verifying p1.x86_64 (1/3)',
             'Verifying p2.x86_64 (2/3)',
             'Verifying p3.x86_64 (3/3)',
-        ])
+        ]
 
     def _get_package(self, name):
         """Get a mocked package of the specified name."""
@@ -489,14 +491,14 @@ class DNFManagerTestCase(unittest.TestCase):
         calls = []
         do_transaction.side_effect = self._install_packages_failed
 
-        with self.assertRaises(PayloadInstallationError) as cm:
+        with pytest.raises(PayloadInstallationError) as cm:
             self.dnf_manager.install_packages(calls.append)
 
         msg = "An error occurred during the transaction: " \
               "The p1 package couldn't be installed!"
 
-        self.assertEqual(str(cm.exception), msg)
-        self.assertEqual(calls, [])
+        assert str(cm.value) == msg
+        assert calls == []
 
     def _install_packages_failed(self, progress):
         """Simulate the failed installation of packages."""
@@ -508,14 +510,14 @@ class DNFManagerTestCase(unittest.TestCase):
         calls = []
         do_transaction.side_effect = self._install_packages_quit
 
-        with self.assertRaises(RuntimeError) as cm:
+        with pytest.raises(RuntimeError) as cm:
             self.dnf_manager.install_packages(calls.append)
 
         msg = "The transaction process has ended abruptly: " \
               "Something went wrong with the p1 package!"
 
-        self.assertIn(msg, str(cm.exception))
-        self.assertEqual(calls, [])
+        assert msg in str(cm.value)
+        assert calls == []
 
     def _install_packages_quit(self, progress):
         """Simulate the terminated installation of packages."""
@@ -539,34 +541,34 @@ class DNFManagerTestCase(unittest.TestCase):
 
         self.dnf_manager.set_download_location("/my/download/location")
 
-        self.assertEqual(r1.pkgdir, "/my/download/location")
-        self.assertEqual(r2.pkgdir, "/my/download/location")
-        self.assertEqual(r3.pkgdir, "/my/download/location")
+        assert r1.pkgdir == "/my/download/location"
+        assert r2.pkgdir == "/my/download/location"
+        assert r3.pkgdir == "/my/download/location"
 
     def test_download_location(self):
         """Test the download_location property."""
-        self.assertEqual(self.dnf_manager.download_location, None)
+        assert self.dnf_manager.download_location is None
 
         self.dnf_manager.set_download_location("/my/location")
-        self.assertEqual(self.dnf_manager.download_location, "/my/location")
+        assert self.dnf_manager.download_location == "/my/location"
 
         self.dnf_manager.reset_base()
-        self.assertEqual(self.dnf_manager.download_location, None)
+        assert self.dnf_manager.download_location is None
 
     def test_substitute(self):
         """Test the substitute method."""
         # No variables.
-        self.assertEqual(self.dnf_manager.substitute(None), "")
-        self.assertEqual(self.dnf_manager.substitute(""), "")
-        self.assertEqual(self.dnf_manager.substitute("/"), "/")
-        self.assertEqual(self.dnf_manager.substitute("/text"), "/text")
+        assert self.dnf_manager.substitute(None) == ""
+        assert self.dnf_manager.substitute("") == ""
+        assert self.dnf_manager.substitute("/") == "/"
+        assert self.dnf_manager.substitute("/text") == "/text"
 
         # Unknown variables.
-        self.assertEqual(self.dnf_manager.substitute("/$unknown"), "/$unknown")
+        assert self.dnf_manager.substitute("/$unknown") == "/$unknown"
 
         # Supported variables.
-        self.assertNotEqual(self.dnf_manager.substitute("/$basearch"), "/$basearch")
-        self.assertNotEqual(self.dnf_manager.substitute("/$releasever"), "/$releasever")
+        assert self.dnf_manager.substitute("/$basearch") != "/$basearch"
+        assert self.dnf_manager.substitute("/$releasever") != "/$releasever"
 
     def test_configure_substitution(self):
         """Test the configure_substitution function."""
@@ -601,20 +603,20 @@ class DNFManagerTestCase(unittest.TestCase):
     def test_is_package_available(self, get_best_query):
         """Test the is_package_available method."""
         self.dnf_manager._base._sack = Mock()
-        self.assertEqual(self.dnf_manager.is_package_available("kernel"), True)
+        assert self.dnf_manager.is_package_available("kernel") == True
 
         # No package.
         get_best_query.return_value = None
-        self.assertEqual(self.dnf_manager.is_package_available("kernel"), False)
+        assert self.dnf_manager.is_package_available("kernel") == False
 
         # No metadata.
         self.dnf_manager._base._sack = None
 
         with self.assertLogs(level="WARNING") as cm:
-            self.assertEqual(self.dnf_manager.is_package_available("kernel"), False)
+            assert self.dnf_manager.is_package_available("kernel") == False
 
         msg = "There is no metadata about packages!"
-        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+        assert any(map(lambda x: msg in x, cm.output))
 
     def test_match_available_packages(self):
         """Test the match_available_packages method"""
@@ -629,20 +631,20 @@ class DNFManagerTestCase(unittest.TestCase):
 
         # With metadata.
         self.dnf_manager._base._sack = sack
-        self.assertEqual(self.dnf_manager.match_available_packages("langpacks-*"), [
+        assert self.dnf_manager.match_available_packages("langpacks-*") == [
             "langpacks-cs",
             "langpacks-core-cs",
             "langpacks-core-font-cs"
-        ])
+        ]
 
         # No metadata.
         self.dnf_manager._base._sack = None
 
         with self.assertLogs(level="WARNING") as cm:
-            self.assertEqual(self.dnf_manager.match_available_packages("langpacks-*"), [])
+            assert self.dnf_manager.match_available_packages("langpacks-*") == []
 
         msg = "There is no metadata about packages!"
-        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+        assert any(map(lambda x: msg in x, cm.output))
 
     @patch("dnf.base.Base.resolve")
     def test_resolve_selection(self, resolve):
@@ -653,7 +655,7 @@ class DNFManagerTestCase(unittest.TestCase):
             self.dnf_manager.resolve_selection()
 
         expected = "The software selection has been resolved (2 packages selected)."
-        self.assertIn(expected, "\n".join(cm.output))
+        assert expected in "\n".join(cm.output)
 
         resolve.assert_called_once()
 
@@ -662,7 +664,7 @@ class DNFManagerTestCase(unittest.TestCase):
         """Test the failed resolve_selection method."""
         resolve.side_effect = DepsolveError("e1")
 
-        with self.assertRaises(InvalidSelectionError) as cm:
+        with pytest.raises(InvalidSelectionError) as cm:
             self.dnf_manager.resolve_selection()
 
         expected = \
@@ -670,7 +672,7 @@ class DNFManagerTestCase(unittest.TestCase):
             "This is likely caused by an error with your installation source.\n\n" \
             "e1"
 
-        self.assertEqual(expected, str(cm.exception))
+        assert expected == str(cm.value)
 
     def test_clear_selection(self):
         """Test the clear_selection method."""
@@ -744,29 +746,29 @@ class DNFManagerCompsTestCase(unittest.TestCase):
 
     def test_groups(self):
         """Test the groups property."""
-        self.assertEqual(self.dnf_manager.groups, [])
+        assert self.dnf_manager.groups == []
 
         self._add_group("g1")
         self._add_group("g2")
         self._add_group("g3")
 
-        self.assertEqual(self.dnf_manager.groups, [
+        assert self.dnf_manager.groups == [
             "g1", "g2", "g3",
-        ])
+        ]
 
     def test_resolve_group(self):
         """Test the resolve_group method."""
-        self.assertEqual(self.dnf_manager.resolve_group(""), None)
-        self.assertEqual(self.dnf_manager.resolve_group("g1"), None)
+        assert self.dnf_manager.resolve_group("") is None
+        assert self.dnf_manager.resolve_group("g1") is None
 
         self._add_group("g1")
 
-        self.assertEqual(self.dnf_manager.resolve_group("g1"), "g1")
-        self.assertEqual(self.dnf_manager.resolve_group("g2"), None)
+        assert self.dnf_manager.resolve_group("g1") == "g1"
+        assert self.dnf_manager.resolve_group("g2") is None
 
     def test_get_group_data_error(self):
         """Test the failed get_group_data method."""
-        with self.assertRaises(UnknownCompsGroupError):
+        with pytest.raises(UnknownCompsGroupError):
             self.dnf_manager.get_group_data("g1")
 
     def test_get_group_data(self):
@@ -779,12 +781,12 @@ class DNFManagerCompsTestCase(unittest.TestCase):
         expected.description = "This is the 'g1' group."
 
         data = self.dnf_manager.get_group_data("g1")
-        self.assertIsInstance(data, CompsGroupData)
-        self.assertTrue(compare_data(data, expected))
+        assert isinstance(data, CompsGroupData)
+        assert compare_data(data, expected)
 
     def test_no_default_environment(self):
         """Test the default_environment property with no environments."""
-        self.assertEqual(self.dnf_manager.default_environment, None)
+        assert self.dnf_manager.default_environment is None
 
     def test_default_environment(self):
         """Test the default_environment property with some environments."""
@@ -795,47 +797,47 @@ class DNFManagerCompsTestCase(unittest.TestCase):
         with patch("pyanaconda.modules.payloads.payload.dnf.dnf_manager.conf") as conf:
             # Choose the first environment.
             conf.payload.default_environment = ""
-            self.assertEqual(self.dnf_manager.default_environment, "e1")
+            assert self.dnf_manager.default_environment == "e1"
 
             # Choose the configured environment.
             conf.payload.default_environment = "e2"
-            self.assertEqual(self.dnf_manager.default_environment, "e2")
+            assert self.dnf_manager.default_environment == "e2"
 
     def test_environments(self):
         """Test the environments property."""
-        self.assertEqual(self.dnf_manager.environments, [])
+        assert self.dnf_manager.environments == []
 
         self._add_environment("e1")
         self._add_environment("e2")
         self._add_environment("e3")
 
-        self.assertEqual(self.dnf_manager.environments, [
+        assert self.dnf_manager.environments == [
             "e1", "e2", "e3",
-        ])
+        ]
 
     def test_resolve_environment(self):
         """Test the resolve_environment method."""
-        self.assertEqual(self.dnf_manager.resolve_environment(""), None)
-        self.assertEqual(self.dnf_manager.resolve_environment("e1"), None)
+        assert self.dnf_manager.resolve_environment("") is None
+        assert self.dnf_manager.resolve_environment("e1") is None
 
         self._add_environment("e1")
 
-        self.assertEqual(self.dnf_manager.resolve_environment("e1"), "e1")
-        self.assertEqual(self.dnf_manager.resolve_environment("e2"), None)
+        assert self.dnf_manager.resolve_environment("e1") == "e1"
+        assert self.dnf_manager.resolve_environment("e2") is None
 
     def test_is_environment_valid(self):
         """Test the is_environment_valid method."""
-        self.assertEqual(self.dnf_manager.is_environment_valid(""), False)
-        self.assertEqual(self.dnf_manager.is_environment_valid("e1"), False)
+        assert self.dnf_manager.is_environment_valid("") == False
+        assert self.dnf_manager.is_environment_valid("e1") == False
 
         self._add_environment("e1")
 
-        self.assertEqual(self.dnf_manager.is_environment_valid("e1"), True)
-        self.assertEqual(self.dnf_manager.is_environment_valid("e2"), False)
+        assert self.dnf_manager.is_environment_valid("e1") == True
+        assert self.dnf_manager.is_environment_valid("e2") == False
 
     def test_get_environment_data_error(self):
         """Test the failed get_environment_data method."""
-        with self.assertRaises(UnknownCompsEnvironmentError):
+        with pytest.raises(UnknownCompsEnvironmentError):
             self.dnf_manager.get_environment_data("e1")
 
     def test_get_environment_data(self):
@@ -848,8 +850,8 @@ class DNFManagerCompsTestCase(unittest.TestCase):
         expected.description = "This is the 'e1' environment."
 
         data = self.dnf_manager.get_environment_data("e1")
-        self.assertIsInstance(data, CompsEnvironmentData)
-        self.assertTrue(compare_data(data, expected))
+        assert isinstance(data, CompsEnvironmentData)
+        assert compare_data(data, expected)
 
     def test_get_environment_data_visible_groups(self):
         """Test the get_environment_data method with visible groups."""
@@ -861,7 +863,7 @@ class DNFManagerCompsTestCase(unittest.TestCase):
         self._add_environment("e1")
 
         data = self.dnf_manager.get_environment_data("e1")
-        self.assertEqual(data.visible_groups, ["g1", "g3"])
+        assert data.visible_groups == ["g1", "g3"]
 
     def test_get_environment_data_optional_groups(self):
         """Test the get_environment_data method with optional groups."""
@@ -873,7 +875,7 @@ class DNFManagerCompsTestCase(unittest.TestCase):
         self._add_environment("e1", optional=["g1", "g3"])
 
         data = self.dnf_manager.get_environment_data("e1")
-        self.assertEqual(data.optional_groups, ["g1", "g3"])
+        assert data.optional_groups == ["g1", "g3"]
 
     def test_get_environment_data_default_groups(self):
         """Test the get_environment_data method with default groups."""
@@ -885,20 +887,20 @@ class DNFManagerCompsTestCase(unittest.TestCase):
         self._add_environment("e1", optional=["g1", "g2", "g3"], default=["g1", "g3"])
 
         data = self.dnf_manager.get_environment_data("e1")
-        self.assertEqual(data.default_groups, ["g1", "g3"])
+        assert data.default_groups == ["g1", "g3"]
 
     def test_environment_data_available_groups(self):
         """Test the get_available_groups method."""
         data = CompsEnvironmentData()
-        self.assertEqual(data.get_available_groups(), [])
+        assert data.get_available_groups() == []
 
         data.optional_groups = ["g1", "g2", "g3"]
         data.visible_groups = ["g3", "g4", "g5"]
         data.default_groups = ["g1", "g3"]
 
-        self.assertEqual(data.get_available_groups(), [
+        assert data.get_available_groups() == [
             "g1", "g2", "g3", "g4", "g5"
-        ])
+        ]
 
 
 class DNFManagerReposTestCase(unittest.TestCase):
@@ -916,17 +918,17 @@ class DNFManagerReposTestCase(unittest.TestCase):
 
     def test_repositories(self):
         """Test the repositories property."""
-        self.assertEqual(self.dnf_manager.repositories, [])
+        assert self.dnf_manager.repositories == []
 
         self._add_repo("r1")
         self._add_repo("r2")
         self._add_repo("r3")
 
-        self.assertEqual(self.dnf_manager.repositories, ["r1", "r2", "r3"])
+        assert self.dnf_manager.repositories == ["r1", "r2", "r3"]
 
     def test_load_repository_unknown(self):
         """Test the load_repository method with an unknown repo."""
-        with self.assertRaises(UnknownRepositoryError):
+        with pytest.raises(UnknownRepositoryError):
             self.dnf_manager.load_repository("r1")
 
     def test_load_repository_failed(self):
@@ -934,12 +936,12 @@ class DNFManagerReposTestCase(unittest.TestCase):
         repo = self._add_repo("r1")
         repo.load = Mock(side_effect=RepoError("Fake error!"))
 
-        with self.assertRaises(MetadataError) as cm:
+        with pytest.raises(MetadataError) as cm:
             self.dnf_manager.load_repository("r1")
 
         repo.load.assert_called_once()
-        self.assertEqual(repo.enabled, False)
-        self.assertEqual(str(cm.exception), "Fake error!")
+        assert repo.enabled == False
+        assert str(cm.value) == "Fake error!"
 
     def test_load_repository(self):
         """Test the load_repository method."""
@@ -949,7 +951,7 @@ class DNFManagerReposTestCase(unittest.TestCase):
         self.dnf_manager.load_repository("r1")
 
         repo.load.assert_called_once()
-        self.assertEqual(repo.enabled, True)
+        assert repo.enabled == True
 
     def _create_repo(self, repo, repo_dir):
         """Generate fake metadata for the repo."""
@@ -969,7 +971,7 @@ class DNFManagerReposTestCase(unittest.TestCase):
     def test_load_no_repomd_hashes(self):
         """Test the load_repomd_hashes method with no repositories."""
         self.dnf_manager.load_repomd_hashes()
-        self.assertEqual(self.dnf_manager._md_hashes, {})
+        assert self.dnf_manager._md_hashes == {}
 
     def test_load_one_repomd_hash(self):
         """Test the load_repomd_hashes method with one repository."""
@@ -978,11 +980,11 @@ class DNFManagerReposTestCase(unittest.TestCase):
             self._create_repo(r1, d)
 
             self.dnf_manager.load_repomd_hashes()
-            self.assertEqual(self.dnf_manager._md_hashes, {
+            assert self.dnf_manager._md_hashes == {
                 'r1': b"\x90\xa0\xb7\xce\xc2H\x85#\xa3\xfci"
                       b"\x9e+\xf4\xe2\x19D\xbc\x9b'\xeb\xb7"
                       b"\x90\x1d\xcey\xb3\xd4p\xc3\x1d\xfb",
-            })
+            }
 
     def test_load_repomd_hashes(self):
         """Test the load_repomd_hashes method."""
@@ -1010,42 +1012,42 @@ class DNFManagerReposTestCase(unittest.TestCase):
 
             self.dnf_manager.load_repomd_hashes()
 
-            self.assertEqual(self.dnf_manager._md_hashes, {
+            assert self.dnf_manager._md_hashes == {
                 'r1': b"\x90\xa0\xb7\xce\xc2H\x85#\xa3\xfci"
                       b"\x9e+\xf4\xe2\x19D\xbc\x9b'\xeb\xb7"
                       b"\x90\x1d\xcey\xb3\xd4p\xc3\x1d\xfb",
                 'r2': None,
                 'r3': None,
                 'r4': None,
-            })
+            }
 
     def test_verify_repomd_hashes(self):
         """Test the verify_repomd_hashes method."""
         with TemporaryDirectory() as d:
             # Test no repository.
-            self.assertEqual(self.dnf_manager.verify_repomd_hashes(), False)
+            assert self.dnf_manager.verify_repomd_hashes() == False
 
             # Create a repository.
             r = self._add_repo("r1")
             self._create_repo(r, d)
 
             # Test no loaded repository.
-            self.assertEqual(self.dnf_manager.verify_repomd_hashes(), False)
+            assert self.dnf_manager.verify_repomd_hashes() == False
 
             # Test a loaded repository.
             self.dnf_manager.load_repomd_hashes()
-            self.assertEqual(self.dnf_manager.verify_repomd_hashes(), True)
+            assert self.dnf_manager.verify_repomd_hashes() == True
 
             # Test a different content of metadata.
             with open(os.path.join(d, "repodata", "repomd.xml"), 'w') as f:
                 f.write("Different metadata for r1.")
 
-            self.assertEqual(self.dnf_manager.verify_repomd_hashes(), False)
+            assert self.dnf_manager.verify_repomd_hashes() == False
 
             # Test a reloaded repository.
             self.dnf_manager.load_repomd_hashes()
-            self.assertEqual(self.dnf_manager.verify_repomd_hashes(), True)
+            assert self.dnf_manager.verify_repomd_hashes() == True
 
             # Test the base reset.
             self.dnf_manager.reset_base()
-            self.assertEqual(self.dnf_manager.verify_repomd_hashes(), False)
+            assert self.dnf_manager.verify_repomd_hashes() == False

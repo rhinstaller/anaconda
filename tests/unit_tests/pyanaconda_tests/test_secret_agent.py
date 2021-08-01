@@ -63,10 +63,10 @@ class SecretAgentTestCase(unittest.TestCase):
         ]
         for key in valid_keys:
             secret['value'] = key
-            self.assertTrue(self.agent._validate_staticwep(secret))
+            assert self.agent._validate_staticwep(secret)
         for key in invalid_keys:
             secret['value'] = key
-            self.assertFalse(self.agent._validate_staticwep(secret))
+            assert not self.agent._validate_staticwep(secret)
 
         secret['wep_key_type'] = NM.WepKeyType.PASSPHRASE
         valid_keys = [
@@ -79,10 +79,10 @@ class SecretAgentTestCase(unittest.TestCase):
         ]
         for key in valid_keys:
             secret['value'] = key
-            self.assertTrue(self.agent._validate_staticwep(secret))
+            assert self.agent._validate_staticwep(secret)
         for key in invalid_keys:
             secret['value'] = key
-            self.assertFalse(self.agent._validate_staticwep(secret))
+            assert not self.agent._validate_staticwep(secret)
 
     def test_validate_wpapsk(self):
         """Test validate_wpapsk method."""
@@ -105,10 +105,10 @@ class SecretAgentTestCase(unittest.TestCase):
         ]
         for key in valid_keys:
             secret['value'] = key
-            self.assertTrue(self.agent._validate_wpapsk(secret))
+            assert self.agent._validate_wpapsk(secret)
         for key in invalid_keys:
             secret['value'] = key
-            self.assertFalse(self.agent._validate_wpapsk(secret))
+            assert not self.agent._validate_wpapsk(secret)
 
     def _mock_secret_agent_dialog_ui_callback(self, entered_value):
         def ui_callback(content):
@@ -175,7 +175,7 @@ class SecretAgentTestCase(unittest.TestCase):
             hints,
             no_interaction_flags
         )
-        self.assertIsNone(result)
+        assert result is None
 
         # UI cancelled
         self.agent.set_ui_callback(lambda x: False)
@@ -186,7 +186,7 @@ class SecretAgentTestCase(unittest.TestCase):
             hints,
             allowed_interaction_flags
         )
-        self.assertEqual(result, {setting_name: {}})
+        assert result == {setting_name: {}}
 
         # Mock what SecretAgentDialog does in the iu callback
         secret_value = GLib.Variant('s', "mypassword")
@@ -204,7 +204,7 @@ class SecretAgentTestCase(unittest.TestCase):
             hints,
             allowed_interaction_flags
         )
-        self.assertEqual(result, {setting_name: {}})
+        assert result == {setting_name: {}}
         connection_hash['connection']['type'] = orig_type
 
         # WPA key management
@@ -217,7 +217,7 @@ class SecretAgentTestCase(unittest.TestCase):
             hints,
             allowed_interaction_flags
         )
-        self.assertEqual(result, {setting_name: {'psk': secret_value}})
+        assert result == {setting_name: {'psk': secret_value}}
         connection_hash['802-11-wireless-security']['key-mgmt'] = 'wpa-psk'
         result = self.agent.GetSecrets(
             connection_hash,
@@ -226,7 +226,7 @@ class SecretAgentTestCase(unittest.TestCase):
             hints,
             allowed_interaction_flags
         )
-        self.assertEqual(result, {setting_name: {'psk': secret_value}})
+        assert result == {setting_name: {'psk': secret_value}}
         connection_hash['802-11-wireless-security']['key-mgmt'] = orig_key_mgmt
 
         # WEP key management
@@ -239,7 +239,7 @@ class SecretAgentTestCase(unittest.TestCase):
             hints,
             allowed_interaction_flags
         )
-        self.assertEqual(result, {setting_name: {'wep-key0': secret_value}})
+        assert result == {setting_name: {'wep-key0': secret_value}}
         connection_hash['802-11-wireless-security']['key-mgmt'] = orig_key_mgmt
 
         # WPA-Enterprise
@@ -254,7 +254,7 @@ class SecretAgentTestCase(unittest.TestCase):
             hints,
             allowed_interaction_flags
         )
-        self.assertEqual(result, {setting_name: {'password': secret_value}})
+        assert result == {setting_name: {'password': secret_value}}
         connection_hash['802-11-wireless-security']['eap'] = ['tls']
         result = self.agent.GetSecrets(
             connection_hash,
@@ -263,6 +263,6 @@ class SecretAgentTestCase(unittest.TestCase):
             hints,
             allowed_interaction_flags
         )
-        self.assertEqual(result, {setting_name: {'private-key-password': secret_value}})
+        assert result == {setting_name: {'private-key-password': secret_value}}
         connection_hash['802-11-wireless-security'].pop('eap')
         connection_hash['802-11-wireless-security']['key-mgmt'] = orig_key_mgmt

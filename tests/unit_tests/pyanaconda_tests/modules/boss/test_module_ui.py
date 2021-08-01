@@ -49,12 +49,12 @@ class UIInterfaceTestCase(unittest.TestCase):
             self.interface.PasswordPolicies)
 
         expected_names = {"root", "user", "luks"}
-        self.assertEqual(policies.keys(), expected_names)
+        assert policies.keys() == expected_names
 
         for name in expected_names:
             policy = policies[name]
             expected_policy = PasswordPolicy.from_defaults(name)
-            self.assertTrue(compare_data(policy, expected_policy))
+            assert compare_data(policy, expected_policy)
 
     def test_password_policies_property(self):
         """Test the password policies property."""

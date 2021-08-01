@@ -49,7 +49,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
 
     def test_publication(self):
         """Test the DBus representation."""
-        self.assertIsInstance(self.module.for_publication(), ManualPartitioningInterface)
+        assert isinstance(self.module.for_publication(), ManualPartitioningInterface)
 
     def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
@@ -120,7 +120,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
     def test_gather_no_requests(self):
         """Test GatherRequests with no devices."""
         self.module.on_storage_changed(create_storage())
-        self.assertEqual(self.interface.GatherRequests(), [])
+        assert self.interface.GatherRequests() == []
 
     def test_gather_unusable_requests(self):
         """Test GatherRequests with unusable devices."""
@@ -132,7 +132,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
             size=Size(0)
         ))
 
-        self.assertEqual(self.interface.GatherRequests(), [])
+        assert self.interface.GatherRequests() == []
 
         # Add protected device.
         device = StorageDevice(
@@ -142,7 +142,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
 
         device.protected = True
         self._add_device(device)
-        self.assertEqual(self.interface.GatherRequests(), [])
+        assert self.interface.GatherRequests() == []
 
         # Add unselected disk.
         self._add_device(DiskDevice(
@@ -151,7 +151,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
         ))
 
         self.module.on_selected_disks_changed(["dev1", "dev2"])
-        self.assertEqual(self.interface.GatherRequests(), [])
+        assert self.interface.GatherRequests() == []
 
     def test_gather_requests(self):
         """Test GatherRequests."""
@@ -169,7 +169,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
             fmt=get_format("swap"))
         )
 
-        self.assertEqual(self.interface.GatherRequests(), [
+        assert self.interface.GatherRequests() == [
             {
                 'device-spec': get_variant(Str, '/dev/dev1'),
                 'format-options': get_variant(Str, ''),
@@ -186,7 +186,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
                 'mount-point': get_variant(Str, ''),
                 'reformat': get_variant(Bool, False)
             }
-        ])
+        ]
 
     def test_gather_requests_combination(self):
         """Test GatherRequests with user requests."""
@@ -221,7 +221,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
         self.module.set_requests([req1, req3])
 
         # Get requests for dev1 and dev2.
-        self.assertEqual(self.interface.GatherRequests(), [
+        assert self.interface.GatherRequests() == [
             {
                 'device-spec': get_variant(Str, '/dev/dev1'),
                 'format-options': get_variant(Str, '-L BOOT'),
@@ -238,7 +238,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
                 'mount-point': get_variant(Str, ''),
                 'reformat': get_variant(Bool, False)
             }
-        ])
+        ]
 
     @patch_dbus_publish_object
     def test_configure_with_task(self, publisher):
@@ -248,5 +248,5 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
 
         obj = check_task_creation(self, task_path, publisher, ManualPartitioningTask)
 
-        self.assertEqual(obj.implementation._storage, self.module.storage)
-        self.assertEqual(obj.implementation._requests, self.module.requests)
+        assert obj.implementation._storage == self.module.storage
+        assert obj.implementation._requests == self.module.requests

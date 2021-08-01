@@ -20,6 +20,8 @@
 import os
 import tempfile
 import unittest
+import pytest
+
 from shutil import copytree, copyfile
 from unittest.mock import patch
 
@@ -64,28 +66,28 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
 
     def test_kickstart_properties(self):
         """Test kickstart properties."""
-        self.assertEqual(self.timezone_interface.KickstartCommands, ["timezone", "timesource"])
-        self.assertEqual(self.timezone_interface.KickstartSections, [])
-        self.assertEqual(self.timezone_interface.KickstartAddons, [])
+        assert self.timezone_interface.KickstartCommands == ["timezone", "timesource"]
+        assert self.timezone_interface.KickstartSections == []
+        assert self.timezone_interface.KickstartAddons == []
         self.callback.assert_not_called()
 
     def test_timezone_property(self):
         """Test the Timezone property."""
         self.timezone_interface.SetTimezone("Europe/Prague")
-        self.assertEqual(self.timezone_interface.Timezone, "Europe/Prague")
+        assert self.timezone_interface.Timezone == "Europe/Prague"
         self.callback.assert_called_once_with(
             TIMEZONE.interface_name, {'Timezone': 'Europe/Prague'}, [])
 
     def test_utc_property(self):
         """Test the IsUtc property."""
         self.timezone_interface.SetIsUTC(True)
-        self.assertEqual(self.timezone_interface.IsUTC, True)
+        assert self.timezone_interface.IsUTC == True
         self.callback.assert_called_once_with(TIMEZONE.interface_name, {'IsUTC': True}, [])
 
     def test_ntp_property(self):
         """Test the NTPEnabled property."""
         self.timezone_interface.SetNTPEnabled(False)
-        self.assertEqual(self.timezone_interface.NTPEnabled, False)
+        assert self.timezone_interface.NTPEnabled == False
         self.callback.assert_called_once_with(TIMEZONE.interface_name, {'NTPEnabled': False}, [])
 
     def test_time_sources_property(self):
@@ -235,16 +237,16 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         requirements = Requirement.from_structure_list(
             self.timezone_interface.CollectRequirements()
         )
-        self.assertEqual(len(requirements), 1)
-        self.assertEqual(requirements[0].type, "package")
-        self.assertEqual(requirements[0].name, "chrony")
+        assert len(requirements) == 1
+        assert requirements[0].type == "package"
+        assert requirements[0].name == "chrony"
 
         # Check requirements with disabled NTP service.
         self.timezone_interface.SetNTPEnabled(False)
         requirements = Requirement.from_structure_list(
             self.timezone_interface.CollectRequirements()
         )
-        self.assertEqual(len(requirements), 0)
+        assert len(requirements) == 0
 
     @patch_dbus_publish_object
     def test_install_with_tasks_default(self, publisher):
@@ -258,12 +260,12 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
 
         # ConfigureTimezoneTask
         obj = task_objs[0]
-        self.assertEqual(obj.implementation._timezone, "America/New_York")
-        self.assertEqual(obj.implementation._is_utc, False)
+        assert obj.implementation._timezone == "America/New_York"
+        assert obj.implementation._is_utc == False
         # ConfigureNTPTask
         obj = task_objs[1]
-        self.assertEqual(obj.implementation._ntp_enabled, True)
-        self.assertEqual(obj.implementation._ntp_servers, [])
+        assert obj.implementation._ntp_enabled == True
+        assert obj.implementation._ntp_servers == []
 
     @patch_dbus_publish_object
     def test_install_with_tasks_configured(self, publisher):
@@ -297,15 +299,15 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
 
         # ConfigureTimezoneTask
         obj = task_objs[0]
-        self.assertEqual(obj.implementation._timezone, "Asia/Tokyo")
-        self.assertEqual(obj.implementation._is_utc, True)
+        assert obj.implementation._timezone == "Asia/Tokyo"
+        assert obj.implementation._is_utc == True
 
         # ConfigureNTPTask
         obj = task_objs[1]
-        self.assertEqual(obj.implementation._ntp_enabled, False)
-        self.assertEqual(len(obj.implementation._ntp_servers), 2)
-        self.assertTrue(compare_data(obj.implementation._ntp_servers[0], server))
-        self.assertTrue(compare_data(obj.implementation._ntp_servers[1], pool))
+        assert obj.implementation._ntp_enabled == False
+        assert len(obj.implementation._ntp_servers) == 2
+        assert compare_data(obj.implementation._ntp_servers[0], server)
+        assert compare_data(obj.implementation._ntp_servers[1], pool)
 
     def test_deprecated_warnings(self):
         response = self.timezone_interface.ReadKickstart("timezone --isUtc Europe/Bratislava")
@@ -315,8 +317,8 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
                   "Please modify your kickstart file to replace this option with " \
                   "its preferred alias --utc."
 
-        self.assertEqual(len(report.warning_messages), 1)
-        self.assertEqual(report.warning_messages[0].message, warning)
+        assert len(report.warning_messages) == 1
+        assert report.warning_messages[0].message == warning
 
 
 class TimezoneTasksTestCase(unittest.TestCase):
@@ -377,7 +379,7 @@ class TimezoneTasksTestCase(unittest.TestCase):
             self._setup_environment(sysroot, False, True)
             self._execute_task(sysroot, "Africa/Bissau", False)
             self._check_timezone_symlink(sysroot, "../usr/share/zoneinfo/Africa/Bissau")
-            self.assertFalse(os.path.exists(sysroot + "/etc/adjtime"))
+            assert not os.path.exists(sysroot + "/etc/adjtime")
         mock_is_s390.assert_called_once()
         # expected state: calling it only once in the check for architecture
 
@@ -388,7 +390,7 @@ class TimezoneTasksTestCase(unittest.TestCase):
             os.remove(sysroot + "/usr/share/zoneinfo/Asia/Ulaanbaatar")
             with self.assertLogs("anaconda.modules.timezone.installation", level="ERROR"):
                 self._execute_task(sysroot, "Asia/Ulaanbaatar", False)
-            self.assertFalse(os.path.exists(sysroot + "/etc/localtime"))
+            assert not os.path.exists(sysroot + "/etc/localtime")
 
     @patch("pyanaconda.modules.timezone.installation.os.symlink", side_effect=OSError)
     def test_timezone_task_symlink_failure(self, mock_os_symlink):
@@ -397,7 +399,7 @@ class TimezoneTasksTestCase(unittest.TestCase):
             self._setup_environment(sysroot, False, True)
             with self.assertLogs("anaconda.modules.timezone.installation", level="ERROR"):
                 self._execute_task(sysroot, "Asia/Ulaanbaatar", False)
-            self.assertFalse(os.path.exists(sysroot + "/etc/localtime"))
+            assert not os.path.exists(sysroot + "/etc/localtime")
 
     @patch('pyanaconda.modules.timezone.installation.open', side_effect=OSError)
     def test_timezone_task_write_adjtime_failure(self, mock_open):
@@ -405,11 +407,11 @@ class TimezoneTasksTestCase(unittest.TestCase):
         # Note the first open() in the target code should not fail due to mocking, but it would
         # anyway due to /etc/adjtime missing from env. setup, so it's ok if it does.
         with tempfile.TemporaryDirectory() as sysroot:
-            with self.assertRaises(TimezoneConfigurationError):
+            with pytest.raises(TimezoneConfigurationError):
                 self._setup_environment(sysroot, False, True)
                 self._execute_task(sysroot, "Atlantic/Faroe", False)
-            self.assertFalse(os.path.exists(sysroot + "/etc/adjtime"))
-            self.assertTrue(os.path.exists(sysroot + "/etc/localtime"))
+            assert not os.path.exists(sysroot + "/etc/adjtime")
+            assert os.path.exists(sysroot + "/etc/localtime")
 
     def _test_timezone_inputs(self, input_zone, input_isutc, make_adjtime, make_zoneinfo,
                               expected_symlink, expected_adjtime_last_line):
@@ -437,7 +439,7 @@ class TimezoneTasksTestCase(unittest.TestCase):
     def _check_timezone_symlink(self, sysroot, expected_symlink):
         """Check if the right timezone is set as the symlink."""
         link_target = os.readlink(sysroot + "/etc/localtime")
-        self.assertEqual(expected_symlink, link_target)
+        assert expected_symlink == link_target
 
     def _check_utc_lastline(self, sysroot, expected_adjtime_last_line):
         """Check that the UTC was saved"""
@@ -447,7 +449,7 @@ class TimezoneTasksTestCase(unittest.TestCase):
             # It must be last line because we write it so and nothing should have touched
             # it in test environment.
             last_line = lines[-1].strip()
-            self.assertEqual(expected_adjtime_last_line, last_line)
+            assert expected_adjtime_last_line == last_line
 
 
 class NTPTasksTestCase(unittest.TestCase):
@@ -582,7 +584,7 @@ class NTPTasksTestCase(unittest.TestCase):
                 all_lines = fobj.readlines()
 
             for line in expected_lines:
-                self.assertIn(line, all_lines)
+                assert line in all_lines
 
         elif not was_present:
-            self.assertFalse(os.path.exists(sysroot + NTP_CONFIG_FILE))
+            assert not os.path.exists(sysroot + NTP_CONFIG_FILE)

@@ -17,6 +17,7 @@
 #
 import tempfile
 import os
+import pytest
 
 import unittest
 from unittest.mock import patch, call, MagicMock
@@ -56,12 +57,12 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
 
         data = _make_config_data()
         task = PrepareOSTreeMountTargetsTask("/sysroot", "/physroot", data)
-        self.assertEqual(len(task._internal_mounts), 0)
+        assert len(task._internal_mounts) == 0
 
         # everything left out
         task._setup_internal_bindmount("/src")
         exec_mock.assert_called_once_with("mount", ["--rbind", "/physroot/src", "/sysroot/src"])
-        self.assertListEqual(task._internal_mounts, ["/sysroot/src"])
+        assert task._internal_mounts == ["/sysroot/src"]
         mkdir_mock.assert_not_called()
         task._internal_mounts.clear()
         exec_mock.reset_mock()
@@ -69,7 +70,7 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
         # all equal to defaults but present - same as above but dest is used
         task._setup_internal_bindmount("/src", "/dest", True, False, True)
         exec_mock.assert_called_once_with("mount", ["--rbind", "/physroot/src", "/sysroot/dest"])
-        self.assertListEqual(task._internal_mounts, ["/sysroot/dest"])
+        assert task._internal_mounts == ["/sysroot/dest"]
         mkdir_mock.assert_not_called()
         task._internal_mounts.clear()
         exec_mock.reset_mock()
@@ -77,7 +78,7 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
         # src_physical off - makes it sysroot->sysroot
         task._setup_internal_bindmount("/src", "/dest", False, False, True)
         exec_mock.assert_called_once_with("mount", ["--rbind", "/sysroot/src", "/sysroot/dest"])
-        self.assertListEqual(task._internal_mounts, ["/sysroot/dest"])
+        assert task._internal_mounts == ["/sysroot/dest"]
         mkdir_mock.assert_not_called()
         task._internal_mounts.clear()
         exec_mock.reset_mock()
@@ -88,8 +89,8 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
             call("mount", ["--bind", "/physroot/src", "/physroot/src"]),
             call("mount", ["--bind", "-o", "remount,ro", "/physroot/src", "/physroot/src"])
         ])
-        self.assertEqual(len(exec_mock.mock_calls), 2)
-        self.assertListEqual(task._internal_mounts, ["/physroot/src"])
+        assert len(exec_mock.mock_calls) == 2
+        assert task._internal_mounts == ["/physroot/src"]
         mkdir_mock.assert_not_called()
         task._internal_mounts.clear()
         exec_mock.reset_mock()
@@ -97,7 +98,7 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
         # recurse off - bind instead of rbind
         task._setup_internal_bindmount("/src", "/dest", True, False, False)
         exec_mock.assert_called_once_with("mount", ["--bind", "/physroot/src", "/sysroot/dest"])
-        self.assertListEqual(task._internal_mounts, ["/sysroot/dest"])
+        assert task._internal_mounts == ["/sysroot/dest"]
         mkdir_mock.assert_not_called()
         task._internal_mounts.clear()
         exec_mock.reset_mock()
@@ -107,7 +108,7 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
         exists_mock.return_value = False
         task._setup_internal_bindmount("/src", "/dest", True, False, False)
         exec_mock.assert_called_once_with("mount", ["--bind", "/physroot/src", "/sysroot/dest"])
-        self.assertListEqual(task._internal_mounts, ["/sysroot/dest"])
+        assert task._internal_mounts == ["/sysroot/dest"]
         mkdir_mock.assert_called_with("/sysroot/dest")
         task._internal_mounts.clear()
         exec_mock.reset_mock()
@@ -131,11 +132,9 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
         task = PrepareOSTreeMountTargetsTask("/sysroot", "/physroot", data)
         created_mount_points = task.run()
 
-        self.assertListEqual(
-            created_mount_points,
+        assert created_mount_points == \
             ["/sysroot/usr", "/sysroot/dev", "/sysroot/proc", "/sysroot/run", "/sysroot/sys",
              "/sysroot/var", "/sysroot/etc", "/sysroot/home", "/sysroot/sysroot"]
-        )
         exec_mock.assert_has_calls([
             call("mount", ["--bind", "/sysroot/usr", "/sysroot/usr"]),
             call("mount", ["--bind", "-o", "remount,ro", "/sysroot/usr", "/sysroot/usr"]),
@@ -168,7 +167,7 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
             call("mount", ["--bind", "/physroot/home", "/sysroot/home"]),
             call("mount", ["--bind", "/physroot/", "/sysroot/sysroot"])
         ])
-        self.assertEqual(len(exec_mock.mock_calls), 20)
+        assert len(exec_mock.mock_calls) == 20
         mkdir_mock.assert_called_once_with("/sysroot/var/lib")
 
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
@@ -188,11 +187,9 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
         task = PrepareOSTreeMountTargetsTask("/sysroot", "/physroot", data)
         created_mount_points = task.run()
 
-        self.assertListEqual(
-            created_mount_points,
+        assert created_mount_points == \
             ["/sysroot/usr", "/sysroot/dev", "/sysroot/proc", "/sysroot/run", "/sysroot/sys",
              "/sysroot/var", "/sysroot/etc", "/sysroot/home", "/sysroot/sysroot"]
-        )
         exec_mock.assert_has_calls([
             call("mount", ["--bind", "/sysroot/usr", "/sysroot/usr"]),
             call("mount", ["--bind", "-o", "remount,ro", "/sysroot/usr", "/sysroot/usr"]),
@@ -225,7 +222,7 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
             call("mount", ["--bind", "/physroot/home", "/sysroot/home"]),
             call("mount", ["--bind", "/physroot/", "/sysroot/sysroot"])
         ])
-        self.assertEqual(len(exec_mock.mock_calls), 20)
+        assert len(exec_mock.mock_calls) == 20
         mkdir_mock.assert_called_once_with("/sysroot/var/lib")
 
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
@@ -243,11 +240,11 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
         }
         task = PrepareOSTreeMountTargetsTask("/sysroot", "/physroot", data)
 
-        with self.assertRaises(PayloadInstallationError) as cm:
+        with pytest.raises(PayloadInstallationError) as cm:
             task.run()
 
         msg = "The command 'mount --bind /sysroot/usr /sysroot/usr' exited with the code 1."
-        self.assertEqual(str(cm.exception), msg)
+        assert str(cm.value) == msg
 
 
 class TearDownOSTreeMountTargetsTaskTestCase(unittest.TestCase):
@@ -291,7 +288,7 @@ class TearDownOSTreeMountTargetsTaskTestCase(unittest.TestCase):
             task.run()
 
         msg = "Unmounting /sysroot/usr has failed: Fake!"
-        self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+        assert any(map(lambda x: msg in x, cm.output))
 
 
 class CopyBootloaderDataTaskTestCase(unittest.TestCase):
@@ -310,10 +307,10 @@ class CopyBootloaderDataTaskTestCase(unittest.TestCase):
 
         task = CopyBootloaderDataTask("/sysroot", "/physroot")
 
-        with self.assertRaises(PayloadInstallationError) as cm:
+        with pytest.raises(PayloadInstallationError) as cm:
             task.run()
 
-        self.assertEqual(str(cm.exception), "Failed to copy bootloader data: Fake!")
+        assert str(cm.value) == "Failed to copy bootloader data: Fake!"
 
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.path.isdir")
@@ -458,14 +455,14 @@ class ChangeOSTreeRemoteTaskTestCase(unittest.TestCase):
         repo.remote_change.assert_called_once()
         args, kwargs = repo.remote_change.call_args
 
-        self.assertEqual(len(args), 5)
-        self.assertEqual(len(kwargs), 1)
+        assert len(args) == 5
+        assert len(kwargs) == 1
 
-        self.assertEqual(args[0], sysroot_file)
-        self.assertEqual(args[2], "remote")
-        self.assertEqual(args[3], "url")
-        self.assertEqual(args[4].unpack(), options or {})
-        self.assertEqual(kwargs["cancellable"], None)
+        assert args[0] == sysroot_file
+        assert args[2] == "remote"
+        assert args[3] == "url"
+        assert args[4].unpack() == (options or {})
+        assert kwargs["cancellable"] is None
 
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.Gio.File")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.OSTree.Sysroot")
@@ -650,17 +647,14 @@ class PullRemoteAndDeleteTaskTestCase(unittest.TestCase):
 
         context_mock.assert_called_once()
         async_new_mock.assert_called_once()
-        self.assertEqual(len(sysroot_new_mock.mock_calls), 4)
+        assert len(sysroot_new_mock.mock_calls) == 4
         # 1 above, 1 direct in run(), 2 on the result: load(), get_repo()
 
         repo_mock.pull_with_options.assert_called_once()
         name, args, kwargs = repo_mock.pull_with_options.mock_calls[0]
         opts = args[1]
-        self.assertEqual(type(opts), Variant)
-        self.assertDictEqual(
-            opts.unpack(),
-            {"refs": ["ref"]}
-        )
+        assert type(opts) == Variant
+        assert opts.unpack() == {"refs": ["ref"]}
         repo_mock.remote_delete.assert_called_once_with("remote", None)
 
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.create_new_context")
@@ -676,23 +670,20 @@ class PullRemoteAndDeleteTaskTestCase(unittest.TestCase):
         repo_mock.pull_with_options.side_effect = [GError("blah")]
 
         with patch.object(PullRemoteAndDeleteTask, "report_progress") as progress_mock:
-            with self.assertRaises(PayloadInstallationError) as ex:
+            with pytest.raises(PayloadInstallationError) as ex:
                 task = PullRemoteAndDeleteTask(data)
                 task.run()
 
         context_mock.assert_called_once()
         async_new_mock.assert_called_once()
-        self.assertEqual(len(sysroot_new_mock.mock_calls), 4)
+        assert len(sysroot_new_mock.mock_calls) == 4
         # 1 above, 1 direct in run(), 2 on the result: load(), get_repo()
 
         repo_mock.pull_with_options.assert_called_once()
         name, args, kwargs = repo_mock.pull_with_options.mock_calls[0]
         opts = args[1]
-        self.assertEqual(type(opts), Variant)
-        self.assertDictEqual(
-            opts.unpack(),
-            {"refs": ["ref"]}
-        )
+        assert type(opts) == Variant
+        assert opts.unpack() == {"refs": ["ref"]}
         repo_mock.remote_delete.assert_not_called()
 
     def test_pull_progress_report(self):
@@ -754,7 +745,7 @@ class SetSystemRootTaskTestCase(unittest.TestCase):
         task = SetSystemRootTask("/physroot")
         task.run()
 
-        self.assertEqual(len(new_sysroot_mock.mock_calls), 2+4)
+        assert len(new_sysroot_mock.mock_calls) == 2+4
         # 2 above: new, get_deployments;
         # 4 in run(): new(), load(), get_deployments(), get_deployment_directory()
         set_mock.assert_called_once()
