@@ -133,7 +133,7 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
             interfaces_mode
         )
 
-        obj = check_task_creation(self, task_path, publisher, ISCSIDiscoverTask)
+        obj = check_task_creation(task_path, publisher, ISCSIDiscoverTask)
 
         assert isinstance(obj, ISCSIDiscoverTaskInterface)
 
@@ -150,7 +150,7 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
             Node.to_structure(self._node),
         )
 
-        obj = check_task_creation(self, task_path, publisher, ISCSILoginTask)
+        obj = check_task_creation(task_path, publisher, ISCSILoginTask)
 
         assert obj.implementation._portal == self._portal
         assert obj.implementation._credentials == self._credentials

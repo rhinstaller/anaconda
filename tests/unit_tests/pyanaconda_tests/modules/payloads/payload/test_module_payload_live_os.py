@@ -38,8 +38,7 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
         self.live_os_module = LiveOSModule()
         self.live_os_interface = LiveOSInterface(self.live_os_module)
 
-        self.shared_tests = PayloadSharedTest(self,
-                                              payload=self.live_os_module,
+        self.shared_tests = PayloadSharedTest(payload=self.live_os_module,
                                               payload_intf=self.live_os_interface)
 
         self.callback = PropertiesChangedCallback()
@@ -102,7 +101,7 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
 
         task_path = self.live_os_interface.SetUpSourcesWithTask()
 
-        check_task_creation(self, task_path, publisher, SetUpSourcesTask)
+        check_task_creation(task_path, publisher, SetUpSourcesTask)
 
     @patch_dbus_publish_object
     def test_tear_down_installation_source_task(self, publisher):
@@ -111,7 +110,7 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
 
         task_path = self.live_os_interface.TearDownSourcesWithTask()
 
-        check_task_creation(self, task_path, publisher, TearDownSourcesTask)
+        check_task_creation(task_path, publisher, TearDownSourcesTask)
 
 
 class LiveOSModuleTestCase(unittest.TestCase):

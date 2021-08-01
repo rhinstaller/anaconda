@@ -45,7 +45,6 @@ class DiskInitializationInterfaceTestCase(unittest.TestCase):
 
     def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
-            self,
             DISK_INITIALIZATION,
             self.disk_init_interface,
             *args, **kwargs

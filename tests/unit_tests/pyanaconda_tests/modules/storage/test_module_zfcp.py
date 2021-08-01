@@ -51,7 +51,7 @@ class ZFCPInterfaceTestCase(unittest.TestCase):
             "0x401040a000000000"
         )
 
-        obj = check_task_creation(self, task_path, publisher, ZFCPDiscoverTask)
+        obj = check_task_creation(task_path, publisher, ZFCPDiscoverTask)
 
         assert obj.implementation._device_number == "0.0.fc00"
         assert obj.implementation._wwpn == "0x5105074308c212e9"

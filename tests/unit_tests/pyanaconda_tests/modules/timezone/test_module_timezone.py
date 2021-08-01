@@ -58,7 +58,6 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
 
     def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
-            self,
             TIMEZONE,
             self.timezone_interface,
             *args, **kwargs
@@ -110,7 +109,7 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         )
 
     def _test_kickstart(self, ks_in, ks_out):
-        check_kickstart_interface(self, self.timezone_interface, ks_in, ks_out)
+        check_kickstart_interface(self.timezone_interface, ks_in, ks_out)
 
     def test_no_kickstart(self):
         """Test with no kickstart."""
@@ -256,7 +255,7 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
             ConfigureNTPTask,
         ]
         task_paths = self.timezone_interface.InstallWithTasks()
-        task_objs = check_task_creation_list(self, task_paths, publisher, task_classes)
+        task_objs = check_task_creation_list(task_paths, publisher, task_classes)
 
         # ConfigureTimezoneTask
         obj = task_objs[0]
@@ -295,7 +294,7 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
             ConfigureNTPTask,
         ]
         task_paths = self.timezone_interface.InstallWithTasks()
-        task_objs = check_task_creation_list(self, task_paths, publisher, task_classes)
+        task_objs = check_task_creation_list(task_paths, publisher, task_classes)
 
         # ConfigureTimezoneTask
         obj = task_objs[0]

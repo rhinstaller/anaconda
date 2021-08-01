@@ -61,7 +61,6 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
 
     def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
-            self,
             AUTO_PARTITIONING,
             self.interface,
             *args, **kwargs
@@ -76,7 +75,7 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
         """Test the device tree."""
         self.module.on_storage_changed(Mock())
         path = self.interface.GetDeviceTree()
-        obj = check_dbus_object_creation(self, path, publisher, ResizableDeviceTreeModule)
+        obj = check_dbus_object_creation(path, publisher, ResizableDeviceTreeModule)
         assert obj.implementation.storage == self.module.storage
 
         self.module.on_partitioning_reset()
@@ -138,7 +137,7 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
         self.module.on_storage_changed(Mock())
         task_path = self.interface.ConfigureWithTask()
 
-        obj = check_task_creation(self, task_path, publisher, AutomaticPartitioningTask)
+        obj = check_task_creation(task_path, publisher, AutomaticPartitioningTask)
 
         assert obj.implementation._storage == self.module.storage
         assert obj.implementation._request == self.module.request
@@ -149,7 +148,7 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
         self.module.on_storage_changed(Mock())
         task_path = self.interface.ValidateWithTask()
 
-        obj = check_task_creation(self, task_path, publisher, StorageValidateTask)
+        obj = check_task_creation(task_path, publisher, StorageValidateTask)
         assert obj.implementation._storage == self.module.storage
 
         report = ValidationReport()

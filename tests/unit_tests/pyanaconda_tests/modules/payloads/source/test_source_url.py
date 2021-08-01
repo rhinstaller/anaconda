@@ -47,7 +47,6 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
             in_value["name"] = get_variant(Str, name)
 
         check_dbus_property(
-            self,
             PAYLOAD_SOURCE_URL,
             self.url_source_interface,
             property_name,

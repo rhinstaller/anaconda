@@ -84,7 +84,7 @@ class FCOEInterfaceTestCase(unittest.TestCase):
             True  # auto_vlan
         )
 
-        obj = check_task_creation(self, task_path, publisher, FCOEDiscoverTask)
+        obj = check_task_creation(task_path, publisher, FCOEDiscoverTask)
 
         assert obj.implementation._nic == "eth0"
         assert obj.implementation._dcb == False

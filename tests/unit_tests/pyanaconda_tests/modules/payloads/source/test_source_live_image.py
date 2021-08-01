@@ -48,7 +48,6 @@ class LiveImageSourceInterfaceTestCase(unittest.TestCase):
 
     def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
-            self,
             PAYLOAD_SOURCE_LIVE_IMAGE,
             self.interface,
             *args, **kwargs

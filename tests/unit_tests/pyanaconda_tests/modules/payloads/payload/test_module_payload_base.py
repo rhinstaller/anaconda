@@ -42,8 +42,7 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
         self.module = DNFModule()
         self.interface = DNFInterface(self.module)
 
-        self.shared_tests = PayloadSharedTest(self,
-                                              payload=self.module,
+        self.shared_tests = PayloadSharedTest(payload=self.module,
                                               payload_intf=self.interface)
 
     def test_type(self):
@@ -163,7 +162,7 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
         self.module.add_source(source)
 
         task_path = self.interface.SetUpSourcesWithTask()
-        obj = check_task_creation(self, task_path, publisher, SetUpSourcesTask)
+        obj = check_task_creation(task_path, publisher, SetUpSourcesTask)
         assert obj.implementation._sources == [source]
 
     @patch_dbus_publish_object
@@ -173,5 +172,5 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
         self.module.add_source(source)
 
         task_path = self.interface.TearDownSourcesWithTask()
-        obj = check_task_creation(self, task_path, publisher, TearDownSourcesTask)
+        obj = check_task_creation(task_path, publisher, TearDownSourcesTask)
         assert obj.implementation._sources == [source]

@@ -131,7 +131,7 @@ class ServicesInterfaceTestCase(unittest.TestCase):
         )
 
     def _test_kickstart(self, ks_in, ks_out):
-        check_kickstart_interface(self, self.services_interface, ks_in, ks_out)
+        check_kickstart_interface(self.services_interface, ks_in, ks_out)
 
     def test_no_kickstart(self):
         """Test with no kickstart."""

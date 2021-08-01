@@ -59,7 +59,6 @@ class SecurityInterfaceTestCase(unittest.TestCase):
 
     def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
-            self,
             SECURITY,
             self.security_interface,
             *args, **kwargs
@@ -109,7 +108,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         )
 
     def _test_kickstart(self, ks_in, ks_out):
-        check_kickstart_interface(self, self.security_interface, ks_in, ks_out)
+        check_kickstart_interface(self.security_interface, ks_in, ks_out)
 
     def test_no_kickstart(self):
         """Test with no kickstart."""
@@ -160,7 +159,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
     def test_realm_discover_default(self, publisher):
         """Test module in default state with realm discover task."""
         realm_discover_task_path = self.security_interface.DiscoverRealmWithTask()
-        obj = check_task_creation(self, realm_discover_task_path, publisher, RealmDiscoverTask)
+        obj = check_task_creation(realm_discover_task_path, publisher, RealmDiscoverTask)
         assert obj.implementation._realm_data.name == ""
         assert obj.implementation._realm_data.discover_options == []
 
@@ -174,7 +173,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         self.security_interface.SetRealm(RealmData.to_structure(realm))
         realm_discover_task_path = self.security_interface.DiscoverRealmWithTask()
 
-        obj = check_task_creation(self, realm_discover_task_path, publisher, RealmDiscoverTask)
+        obj = check_task_creation(realm_discover_task_path, publisher, RealmDiscoverTask)
         assert obj.implementation._realm_data.name == "domain.example.com"
         assert obj.implementation._realm_data.discover_options == ["--client-software=sssd"]
 
@@ -187,7 +186,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
             ConfigureAuthselectTask,
         ]
         task_paths = self.security_interface.InstallWithTasks()
-        task_objs = check_task_creation_list(self, task_paths, publisher, task_classes)
+        task_objs = check_task_creation_list(task_paths, publisher, task_classes)
 
         # ConfigureSELinuxTask
         obj = task_objs[0]
@@ -203,7 +202,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
     def test_realm_join_default(self, publisher):
         """Test module in default state with realm join task."""
         realm_join_task_path = self.security_interface.JoinRealmWithTask()
-        obj = check_task_creation(self, realm_join_task_path, publisher, RealmJoinTask)
+        obj = check_task_creation(realm_join_task_path, publisher, RealmJoinTask)
         assert obj.implementation._realm_data.discovered == False
         assert obj.implementation._realm_data.name == ""
         assert obj.implementation._realm_data.join_options == []
@@ -231,7 +230,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
             ConfigureAuthselectTask,
         ]
         task_paths = self.security_interface.InstallWithTasks()
-        task_objs = check_task_creation_list(self, task_paths, publisher, task_classes)
+        task_objs = check_task_creation_list(task_paths, publisher, task_classes)
 
         # ConfigureSELinuxTask
         obj = task_objs[0]
@@ -255,7 +254,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         self.security_interface.SetRealm(RealmData.to_structure(realm))
         realm_join_task_path = self.security_interface.JoinRealmWithTask()
 
-        obj = check_task_creation(self, realm_join_task_path, publisher, RealmJoinTask)
+        obj = check_task_creation(realm_join_task_path, publisher, RealmJoinTask)
         assert obj.implementation._realm_data.discovered == True
         assert obj.implementation._realm_data.name == "domain.example.com"
         assert obj.implementation._realm_data.join_options == ["--one-time-password=password"]
@@ -274,7 +273,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         realm_join_task_path = self.security_interface.JoinRealmWithTask()
 
         # realm join - after task creation
-        obj = check_task_creation(self, realm_join_task_path, publisher, RealmJoinTask)
+        obj = check_task_creation(realm_join_task_path, publisher, RealmJoinTask)
         assert obj.implementation._realm_data.discovered == False
         assert obj.implementation._realm_data.name == "domain.example.com"
         assert obj.implementation._realm_data.join_options == []
@@ -297,7 +296,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
     def test_preconfigure_fips_with_task(self, publisher):
         """Test the PreconfigureFIPSWithTask method."""
         task_path = self.security_interface.PreconfigureFIPSWithTask(PAYLOAD_TYPE_DNF)
-        obj = check_task_creation(self, task_path, publisher, PreconfigureFIPSTask)
+        obj = check_task_creation(task_path, publisher, PreconfigureFIPSTask)
         assert obj.implementation._sysroot == "/mnt/sysroot"
         assert obj.implementation._payload_type == PAYLOAD_TYPE_DNF
         assert obj.implementation._fips_enabled == False
@@ -306,7 +305,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
     def test_configure_fips_with_task(self, publisher):
         """Test the ConfigureFIPSWithTask method."""
         task_path = self.security_interface.ConfigureFIPSWithTask()
-        obj = check_task_creation(self, task_path, publisher, ConfigureFIPSTask)
+        obj = check_task_creation(task_path, publisher, ConfigureFIPSTask)
         assert obj.implementation._sysroot == "/mnt/sysroot"
         assert obj.implementation._fips_enabled == False
 

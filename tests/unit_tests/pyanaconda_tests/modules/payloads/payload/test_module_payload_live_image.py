@@ -38,8 +38,7 @@ class LiveImageKSTestCase(unittest.TestCase):
         self.payload_module = PayloadsService()
         self.payload_module_interface = PayloadsInterface(self.payload_module)
 
-        self.shared_tests = PayloadKickstartSharedTest(self,
-                                                       self.payload_module,
+        self.shared_tests = PayloadKickstartSharedTest(self.payload_module,
                                                        self.payload_module_interface)
 
     def test_liveimg_simple_kickstart(self):
@@ -104,8 +103,7 @@ class LiveImageInterfaceTestCase(unittest.TestCase):
         self.live_image_module = LiveImageModule()
         self.live_image_interface = LiveImageInterface(self.live_image_module)
 
-        self.shared_tests = PayloadSharedTest(self,
-                                              payload=self.live_image_module,
+        self.shared_tests = PayloadSharedTest(payload=self.live_image_module,
                                               payload_intf=self.live_image_interface)
 
     def test_type(self):
@@ -129,20 +127,20 @@ class LiveImageModuleTestCase(unittest.TestCase):
     def test_install_with_task_from_tar(self):
         """Test Live Image install with tasks from tarfile."""
         # task_path = self.live_image_interface.PreInstallWithTasks()
-        # check_task_creation_list(self, task_path, publisher, [SetupInstallationSourceImageTask])
+        # check_task_creation_list(task_path, publisher, [SetupInstallationSourceImageTask])
 
         # task_path = self.live_image_interface.InstallWithTasks()
-        # check_task_creation_list(self, task_path, publisher, [InstallFromTarTask])
+        # check_task_creation_list(task_path, publisher, [InstallFromTarTask])
         assert self.module.install_with_tasks() == []
 
     @patch_dbus_publish_object
     def test_install_with_task_from_image(self, publisher):
         """Test Live Image install with tasks from image."""
         # task_path = self.live_image_interface.PreInstallWithTasks()
-        # check_task_creation_list(self, task_path, publisher, [SetupInstallationSourceImageTask])
+        # check_task_creation_list(task_path, publisher, [SetupInstallationSourceImageTask])
 
         # task_path = self.live_image_interface.InstallWithTasks()
-        # check_task_creation_list(self, task_path, publisher, [InstallFromImageTask])
+        # check_task_creation_list(task_path, publisher, [InstallFromImageTask])
         assert self.module.install_with_tasks() == []
 
     @patch_dbus_publish_object

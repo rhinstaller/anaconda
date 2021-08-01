@@ -67,7 +67,7 @@ class NVDIMMInterfaceTestCase(unittest.TestCase):
         """Test ReconfigureWithTask."""
         task_path = self.nvdimm_interface.ReconfigureWithTask("namespace0.0", "sector", 512)
 
-        obj = check_task_creation(self, task_path, publisher, NVDIMMReconfigureTask)
+        obj = check_task_creation(task_path, publisher, NVDIMMReconfigureTask)
 
         assert obj.implementation._namespace == "namespace0.0"
         assert obj.implementation._mode == "sector"

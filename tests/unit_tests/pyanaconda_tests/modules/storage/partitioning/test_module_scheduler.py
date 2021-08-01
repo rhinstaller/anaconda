@@ -544,7 +544,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             PartitioningRequest.to_structure(request)
         )
 
-        obj = check_task_creation(self, task_path, publisher, InteractiveAutoPartitioningTask)
+        obj = check_task_creation(task_path, publisher, InteractiveAutoPartitioningTask)
         assert obj.implementation._storage == self.module.storage
         assert compare_data(obj.implementation._request, request)
 

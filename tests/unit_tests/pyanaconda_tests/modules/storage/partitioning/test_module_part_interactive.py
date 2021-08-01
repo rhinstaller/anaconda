@@ -67,7 +67,7 @@ class InteractivePartitioningInterfaceTestCase(unittest.TestCase):
         """Test the device tree."""
         self.module.on_storage_changed(create_storage())
         path = self.interface.GetDeviceTree()
-        check_dbus_object_creation(self, path, publisher, DeviceTreeSchedulerModule)
+        check_dbus_object_creation(path, publisher, DeviceTreeSchedulerModule)
 
     def test_method_property(self):
         """Test Method property."""
@@ -123,7 +123,7 @@ class InteractivePartitioningInterfaceTestCase(unittest.TestCase):
         self.module.on_storage_changed(create_storage())
         task_path = self.interface.ConfigureWithTask()
 
-        obj = check_task_creation(self, task_path, publisher, InteractivePartitioningTask)
+        obj = check_task_creation(task_path, publisher, InteractivePartitioningTask)
 
         assert obj.implementation._storage == self.module.storage
 

@@ -43,7 +43,6 @@ class DiskSelectionInterfaceTestCase(unittest.TestCase):
 
     def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
-            self,
             DISK_SELECTION,
             self.disk_selection_interface,
             *args, **kwargs

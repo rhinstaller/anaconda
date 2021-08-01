@@ -80,10 +80,9 @@ def clear_version_from_kickstart_string(ks_in):
     )
 
 
-def check_kickstart_interface(test, interface, ks_in, ks_out=None, ks_valid=True, ks_tmp=None):
+def check_kickstart_interface(interface, ks_in, ks_out=None, ks_valid=True, ks_tmp=None):
     """Test the parsing and generating of a kickstart module.
 
-    :param test: instance of TestCase
     :param interface: instance of KickstartModuleInterface
     :param ks_in: string with the input kickstart
     :param ks_out: string with the output kickstart
@@ -142,11 +141,10 @@ class PropertiesChangedCallback(Mock):
         )
 
 
-def check_dbus_property(test, interface_id, interface, property_name,
+def check_dbus_property(interface_id, interface, property_name,
                         in_value, out_value=None, getter=None, setter=None, changed=None):
     """Check DBus property.
 
-    :param test: instance of TestCase
     :param interface_id: instance of DBusInterfaceIdentifier
     :param interface: instance of a DBus interface
     :param property_name: a DBus property name
@@ -180,25 +178,23 @@ def check_dbus_property(test, interface_id, interface, property_name,
     assert getter() == out_value
 
 
-def check_task_creation(test, task_path, publisher, task_class, index=0):
+def check_task_creation(task_path, publisher, task_class, index=0):
     """Check that the DBus task is correctly created.
 
-    :param test: instance of TestCase
     :param task_path: DBus path of the task
     :param publisher: Mock instance of the publish_object method
     :param task_class: class of the tested task
     :param index: an index of the published object
     :return: instance of the task
     """
-    obj = check_dbus_object_creation(test, task_path, publisher, task_class, index)
+    obj = check_dbus_object_creation(task_path, publisher, task_class, index)
     assert isinstance(obj, TaskInterface)
     return obj
 
 
-def check_task_creation_list(test, task_paths, publisher, task_classes):
+def check_task_creation_list(task_paths, publisher, task_classes):
     """Check that the list of DBus task is correctly created.
 
-    :param test: instance of TestCase
     :param task_paths: DBus paths of the tasks
     :type task_paths: [str]
     :param publisher: Mock instance of the publish_object method
@@ -215,16 +211,15 @@ def check_task_creation_list(test, task_paths, publisher, task_classes):
 
     # Check each published task.
     for i in range(task_count):
-        task_proxy = check_task_creation(test, task_paths[i], publisher, task_classes[i], i)
+        task_proxy = check_task_creation(task_paths[i], publisher, task_classes[i], i)
         task_proxies.append(task_proxy)
 
     return task_proxies
 
 
-def check_dbus_object_creation(test, path, publisher, klass, index=0):
+def check_dbus_object_creation(path, publisher, klass, index=0):
     """Check that the custom DBus object is correctly created.
 
-    :param test: instance of TestCase
     :param path: DBus path of the published object
     :param publisher: Mock instance of the publish_object method
     :param klass: class of the tested DBus object

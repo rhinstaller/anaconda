@@ -70,7 +70,7 @@ class SnapshotInterfaceTestCase(unittest.TestCase):
         self.module.on_storage_changed(Mock())
         task_path = self.interface.CreateWithTask(SNAPSHOT_WHEN_PRE_INSTALL)
 
-        obj = check_task_creation(self, task_path, publisher, SnapshotCreateTask)
+        obj = check_task_creation(task_path, publisher, SnapshotCreateTask)
 
         assert obj.implementation._storage == self.module.storage
         assert obj.implementation._requests == []

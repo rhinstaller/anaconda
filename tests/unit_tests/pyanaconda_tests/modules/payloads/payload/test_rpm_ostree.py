@@ -43,7 +43,6 @@ class RPMOSTreeInterfaceTestCase(unittest.TestCase):
         self.interface = RPMOSTreeInterface(self.module)
 
         self.shared_tests = PayloadSharedTest(
-            test=self,
             payload=self.module,
             payload_intf=self.interface
         )
@@ -68,7 +67,6 @@ class RPMOSTreeKickstartTestCase(unittest.TestCase):
         self.module = PayloadsService()
         self.interface = PayloadsInterface(self.module)
         self.shared_ks_tests = PayloadKickstartSharedTest(
-            test=self,
             payload_service=self.module,
             payload_service_intf=self.interface
         )

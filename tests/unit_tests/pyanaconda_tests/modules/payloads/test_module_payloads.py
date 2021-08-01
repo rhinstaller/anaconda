@@ -55,8 +55,7 @@ class PayloadsInterfaceTestCase(TestCase):
         self.payload_module = PayloadsService()
         self.payload_interface = PayloadsInterface(self.payload_module)
 
-        self.shared_ks_tests = PayloadKickstartSharedTest(self,
-                                                          self.payload_module,
+        self.shared_ks_tests = PayloadKickstartSharedTest(self.payload_module,
                                                           self.payload_interface)
 
     def test_kickstart_properties(self):
@@ -167,7 +166,7 @@ class PayloadsInterfaceTestCase(TestCase):
         """Test creation of the Live OS source module."""
         source_path = self.payload_interface.CreateSource(SOURCE_TYPE_LIVE_OS_IMAGE)
 
-        check_dbus_object_creation(self, source_path, publisher, LiveOSSourceModule)
+        check_dbus_object_creation(source_path, publisher, LiveOSSourceModule)
 
     @patch_dbus_publish_object
     def test_create_invalid_source(self, publisher):
@@ -225,7 +224,7 @@ class PayloadsInterfaceTestCase(TestCase):
         self.payload_module.activate_payload(payload)
 
         tasks_paths = self.payload_interface.InstallWithTasks()
-        check_task_creation_list(self, tasks_paths, publisher, [
+        check_task_creation_list(tasks_paths, publisher, [
             PrepareSystemForInstallationTask
         ])
 
@@ -238,7 +237,7 @@ class PayloadsInterfaceTestCase(TestCase):
         self.payload_module.activate_payload(payload)
 
         tasks_paths = self.payload_interface.PostInstallWithTasks()
-        check_task_creation_list(self, tasks_paths, publisher, [
+        check_task_creation_list(tasks_paths, publisher, [
             CopyDriverDisksFilesTask
         ])
 
@@ -255,7 +254,7 @@ class PayloadsInterfaceTestCase(TestCase):
 
         publisher.reset_mock()
         task_paths = self.payload_interface.TeardownWithTasks()
-        check_task_creation_list(self, task_paths, publisher, [TearDownSourcesTask])
+        check_task_creation_list(task_paths, publisher, [TearDownSourcesTask])
 
 
 class PrepareSystemForInstallationTaskTestCase(TestCase):

@@ -53,7 +53,6 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
 
     def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
-            self,
             MANUAL_PARTITIONING,
             self.interface,
             *args, **kwargs
@@ -246,7 +245,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
         self.module.on_storage_changed(Mock())
         task_path = self.interface.ConfigureWithTask()
 
-        obj = check_task_creation(self, task_path, publisher, ManualPartitioningTask)
+        obj = check_task_creation(task_path, publisher, ManualPartitioningTask)
 
         assert obj.implementation._storage == self.module.storage
         assert obj.implementation._requests == self.module.requests
