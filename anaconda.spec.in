@@ -367,6 +367,24 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Aug 02 2021 Radek Vykydal <rvykydal@redhat.com> - 33.16.5.4-1
+- Disable anaconda-core's requirement on subscription-manager on CentOS (carl)
+  Resolves: rhbz#1984958
+- Show suggestions for an error caused by inconsistent sector sizes (vponcova)
+  Resolves: rhbz#1935722
+- Use a custom stylesheet to define CentOS-specific stylesheet data (carl)
+  Related: rhbz#1974149
+- Use RHEL help content for RHV/Ovirt (mkolman)
+  Resolves: rhbz#1915910
+- Move post installation scripts to the end of queue (lveyde)
+  Resolves: rhbz#1970879
+- Do not generate dracut arguments multiple times for some storage devices
+  (rvykydal)
+  Related: rhbz#1937208
+- Make failure in generating of dracut arguments for iSCSI device non-fatal.
+  (rvykydal)
+  Resolves: rhbz#1937208
+
 * Thu Jul 01 2021 Radek Vykydal <rvykydal@redhat.com> - 33.16.5.3-1
 - Check source type directly, not via DBus (mkolman)
   Resolves: rhbz#1941578
