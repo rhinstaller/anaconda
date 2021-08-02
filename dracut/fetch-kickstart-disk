@@ -40,5 +40,5 @@ if [ -f /tmp/ks.cfg ]; then
     parse_kickstart /tmp/ks.cfg
     run_kickstart
 else
-    warn "Can't get kickstart from $dev:$path"
+    warn_critical "Can't get kickstart from $dev:$path"
 fi

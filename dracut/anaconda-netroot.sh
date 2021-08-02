@@ -83,7 +83,7 @@ case $repo in
         done
     ;;
     *)
-        warn "unknown network repo URL: $repo"
+        warn_critical "unknown network repository URL: $repo"
         return 1
     ;;
 esac
