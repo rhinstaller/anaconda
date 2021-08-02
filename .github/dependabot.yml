@@ -14,6 +14,7 @@ updates:
       # Check for updates to GitHub Actions every weekday
       interval: "daily"
     labels:
+      # Don't merge the pull request without #infra.
+      # TODO: Add the (#infra) suffix once supported.
       - "infrastructure"
-    commit-message:
-      prefix: "(#infra)"
+      - "blocked"
