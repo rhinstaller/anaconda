@@ -139,6 +139,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
         return model[itr][3]
 
     def initialize(self):
+        super().initialize()
         self.initialize_start()
         self._languageStore = self.builder.get_object("languageStore")
         self._languageStoreFilter = self.builder.get_object("languageStoreFilter")
