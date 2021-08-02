@@ -405,6 +405,26 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Aug 02 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.12-1
+- Make critical warnings from Dracut more visible (jkonecny)
+  Resolves: rhbz#1983098
+- Print Dracut errors encountered during boot after Anaconda starts (jkonecny)
+  Resolves: rhbz#1983098
+- Add function to print critical warnings more visible during boot (jkonecny)
+  Related: rhbz#1983098
+- Add new error reporting hook when Dracut timeout (jkonecny)
+  Resolves: rhbz#1983098
+- Disable built-in help system on RHEL 9 for now (mkolman)
+  Resolves: rhbz#1949073
+- Make it possible to disable the built-in help system (mkolman)
+  Related: rhbz#1949073
+- Add a mechanism to hide help button per page (vslavik)
+  Related: rhbz#1949073
+- Make sure parent class initialize() method is run in spokes (mkolman)
+  Related: rhbz#1949073
+- Disable anaconda-core's requirement on subscription-manager on CentOS (carl)
+  Resolves: rhbz#1984959
+
 * Tue Jul 20 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.11-1
 - Run installation tasks from ConfigureBootloaderWithTasks (vponcova)
   Related: rhbz#1977348
