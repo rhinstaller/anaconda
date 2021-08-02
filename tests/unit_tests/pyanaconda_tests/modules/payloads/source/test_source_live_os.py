@@ -209,11 +209,13 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
         device_tree.ResolveDevice = Mock()
         device_tree.ResolveDevice.return_value = ""
 
-        with pytest.raises(SourceSetupError):
+        with pytest.raises(SourceSetupError) as cm:
             SetUpLiveOSSourceTask(
                 "/path/to/base/image",
                 "/path/to/mount/source/image"
             ).run()
+
+        assert str(cm.value) == "Failed to find liveOS image!"
 
     @patch("pyanaconda.modules.payloads.source.live_os.initialization.stat")
     @patch("os.stat")
@@ -259,8 +261,10 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
 
         mount.return_value = -20
 
-        with pytest.raises(SourceSetupError):
+        with pytest.raises(SourceSetupError) as cm:
             SetUpLiveOSSourceTask(
                 "/path/to/base/image",
                 "/path/to/mount/source/image"
             ).run()
+
+        assert str(cm.value) == "Failed to mount the install tree"
