@@ -15,14 +15,16 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import locale as locale_mod
+import unittest
+import pytest
+
+from unittest.mock import call, patch, MagicMock
+from io import StringIO
 
 from pyanaconda import localization
 from pyanaconda.core.constants import DEFAULT_LANG
 from pyanaconda.core.util import execWithCapture
-import locale as locale_mod
-import unittest
-from unittest.mock import call, patch, MagicMock
-from io import StringIO
 
 # pylint: disable=environment-modify
 # required due to mocking os.environ
@@ -34,68 +36,69 @@ class LangcodeLocaleParsingTests(unittest.TestCase):
 
     def test_is_valid(self):
 
-        self.assertTrue(localization.is_valid_langcode("en"))
-        self.assertTrue(localization.is_valid_langcode("eo"))
-        self.assertTrue(localization.is_valid_langcode("en_US"))
-        self.assertTrue(localization.is_valid_langcode("csb"))
-        self.assertTrue(localization.is_valid_langcode("cs_CZ.UTF-8@latin"))
-        self.assertTrue(localization.is_valid_langcode("ca_ES.UTF-8@valencia"))
+        assert localization.is_valid_langcode("en")
+        assert localization.is_valid_langcode("eo")
+        assert localization.is_valid_langcode("en_US")
+        assert localization.is_valid_langcode("csb")
+        assert localization.is_valid_langcode("cs_CZ.UTF-8@latin")
+        assert localization.is_valid_langcode("ca_ES.UTF-8@valencia")
 
-        self.assertTrue(localization.is_valid_langcode("cs_JA.iso8859-1@cyrl"))
+        assert localization.is_valid_langcode("cs_JA.iso8859-1@cyrl")
         # nonsensical but still valid - parses correctly and has a language name
 
-        self.assertFalse(localization.is_valid_langcode("blah"))
-        self.assertFalse(localization.is_valid_langcode(""))
-        self.assertFalse(localization.is_valid_langcode(None))
+        assert not localization.is_valid_langcode("blah")
+        assert not localization.is_valid_langcode("")
+        assert not localization.is_valid_langcode(None)
 
     def test_invalid_raise_decorator(self):
-        self.assertRaises(localization.InvalidLocaleSpec, localization.get_native_name, "blah")
-        self.assertRaises(localization.InvalidLocaleSpec, localization.is_supported_locale, "blah")
+        with pytest.raises(localization.InvalidLocaleSpec):
+            localization.get_native_name("blah")
+        with pytest.raises(localization.InvalidLocaleSpec):
+            localization.is_supported_locale("blah")
 
     def test_is_supported(self):
-        self.assertTrue(localization.is_supported_locale("en"))
-        self.assertTrue(localization.is_supported_locale("en_US"))
-        self.assertTrue(localization.locale_supported_in_console("en"))
-        self.assertTrue(localization.locale_supported_in_console("en_US"))
+        assert localization.is_supported_locale("en")
+        assert localization.is_supported_locale("en_US")
+        assert localization.locale_supported_in_console("en")
+        assert localization.locale_supported_in_console("en_US")
 
     def test_native_name(self):
-        self.assertEqual(localization.get_native_name("de"), "Deutsch")
-        self.assertEqual(localization.get_native_name("cs_CZ"), "Čeština (Česko)")
+        assert localization.get_native_name("de") == "Deutsch"
+        assert localization.get_native_name("cs_CZ") == "Čeština (Česko)"
 
     def test_english_name(self):
-        self.assertEqual(localization.get_english_name("de"), "German")
-        self.assertEqual(localization.get_english_name("cs_CZ"), "Czech (Czechia)")
+        assert localization.get_english_name("de") == "German"
+        assert localization.get_english_name("cs_CZ") == "Czech (Czechia)"
 
     def test_available_translations(self):
-        self.assertIn("en", localization.get_available_translations())
+        assert "en" in localization.get_available_translations()
 
     def test_territory_locales(self):
-        self.assertIn("en_US.UTF-8", localization.get_territory_locales("US"))
-        self.assertIn("en_GB.UTF-8", localization.get_territory_locales("GB"))
+        assert "en_US.UTF-8" in localization.get_territory_locales("US")
+        assert "en_GB.UTF-8" in localization.get_territory_locales("GB")
 
     def test_locale_keyboards(self):
-        self.assertEqual(localization.get_locale_keyboards("en_US"), ["us"])
-        self.assertEqual(localization.get_locale_keyboards("en_GB"), ["gb"])
+        assert localization.get_locale_keyboards("en_US") == ["us"]
+        assert localization.get_locale_keyboards("en_GB") == ["gb"]
 
     def test_common_keyboard_layouts(self):
         layouts = localization.get_common_keyboard_layouts()
-        self.assertIn("us", layouts)
-        self.assertIn("fr(oss)", layouts)
-        self.assertIn("de(nodeadkeys)", layouts)
+        assert "us" in layouts
+        assert "fr(oss)" in layouts
+        assert "de(nodeadkeys)" in layouts
 
     def test_locale_timezones(self):
-        self.assertIn("Europe/Oslo", localization.get_locale_timezones("no"))
+        assert "Europe/Oslo" in localization.get_locale_timezones("no")
 
     @patch.dict("pyanaconda.localization.os.environ", dict())
     def test_xlated_tz(self):
         localization.os.environ["LANG"] = "en_US"
-        self.assertEqual("Europe/Barcelona", localization.get_xlated_timezone("Europe/Barcelona"))
+        assert "Europe/Barcelona" == localization.get_xlated_timezone("Europe/Barcelona")
         localization.os.environ["LANG"] = "cs_CZ"
-        self.assertEqual("Evropa/Praha", localization.get_xlated_timezone("Europe/Prague"))
+        assert "Evropa/Praha" == localization.get_xlated_timezone("Europe/Prague")
         localization.os.environ["LANG"] = "blah"
-        self.assertRaises(localization.InvalidLocaleSpec,
-                          localization.get_xlated_timezone,
-                          "America/New_York")
+        with pytest.raises(localization.InvalidLocaleSpec):
+            localization.get_xlated_timezone("America/New_York")
 
 
 class SetupLocaleTest(unittest.TestCase):
@@ -118,7 +121,7 @@ class SetupLocaleTest(unittest.TestCase):
         setlocale_mock.assert_called_once_with(locale_mod.LC_ALL, "sk")
         set_modules_locale_mock.assert_called_once_with("sk")
 
-        self.assertEqual(locale, "sk")
+        assert locale == "sk"
 
     @patch.dict("pyanaconda.localization.os.environ", dict())
     @patch("pyanaconda.localization.locale_supported_in_console", return_value=False)
@@ -133,12 +136,12 @@ class SetupLocaleTest(unittest.TestCase):
         locale = localization.setup_locale("ja_JP", text_mode=True)
 
         locale_supported_in_console_mock.assert_called_once_with("ja_JP")
-        self.assertEqual(localization.os.environ["LANG"], DEFAULT_LANG)
+        assert localization.os.environ["LANG"] == DEFAULT_LANG
         setenv_mock.assert_called_once_with("LANG", DEFAULT_LANG)
         setlocale_mock.assert_called_once_with(locale_mod.LC_ALL, DEFAULT_LANG)
         set_modules_locale_mock.assert_called_once_with(DEFAULT_LANG)
 
-        self.assertEqual(locale, DEFAULT_LANG)
+        assert locale == DEFAULT_LANG
 
     @patch("pyanaconda.localization.setenv")
     @patch("pyanaconda.localization.locale_mod.setlocale", side_effect=[locale_mod.Error, None])
@@ -159,7 +162,7 @@ class SetupLocaleTest(unittest.TestCase):
         setlocale_mock.assert_called_with(locale_mod.LC_ALL, DEFAULT_LANG)
         set_modules_locale_mock.assert_called_once_with(DEFAULT_LANG)
 
-        self.assertEqual(locale, DEFAULT_LANG)
+        assert locale == DEFAULT_LANG
 
 
 class SetupLocaleEnvironmentTest(unittest.TestCase):
@@ -174,10 +177,10 @@ class SetupLocaleEnvironmentTest(unittest.TestCase):
 
         localization.setup_locale_environment("fr")
 
-        self.assertEqual("fr_FR.UTF-8", localization.os.environ["LANG"])
-        self.assertNotIn("LANGUAGE", localization.os.environ)
-        self.assertNotIn("LC_MESSAGES", localization.os.environ)
-        self.assertNotIn("LC_ALL", localization.os.environ)
+        assert "fr_FR.UTF-8" == localization.os.environ["LANG"]
+        assert "LANGUAGE" not in localization.os.environ
+        assert "LC_MESSAGES" not in localization.os.environ
+        assert "LC_ALL" not in localization.os.environ
 
         # mock a failure
         locales_mock.return_value = []
@@ -185,7 +188,7 @@ class SetupLocaleEnvironmentTest(unittest.TestCase):
 
         localization.setup_locale_environment("iu")
 
-        self.assertIn(DEFAULT_LANG, localization.os.environ["LANG"])
+        assert DEFAULT_LANG in localization.os.environ["LANG"]
 
     @patch.dict("pyanaconda.localization.os.environ", dict())
     def test_setup_locale_environment_vars(self):
@@ -197,16 +200,16 @@ class SetupLocaleEnvironmentTest(unittest.TestCase):
 
             localization.setup_locale_environment(None)
 
-            self.assertEqual("ko_KR.UTF-8", localization.os.environ["LANG"])
+            assert "ko_KR.UTF-8" == localization.os.environ["LANG"]
             if varname != "LANG":
-                self.assertNotIn(varname, localization.os.environ)
+                assert varname not in localization.os.environ
 
     @patch.dict("pyanaconda.localization.os.environ", {"LANG": "blah"})
     def test_setup_locale_environment_vars_invalid(self):
         """Test setup_locale_environment() with invalid environment variable input"""
         localization.setup_locale_environment(None)
 
-        self.assertEqual(DEFAULT_LANG, localization.os.environ["LANG"])
+        assert DEFAULT_LANG == localization.os.environ["LANG"]
 
     @patch("pyanaconda.localization.open")
     @patch.dict("pyanaconda.localization.os.environ", dict())
@@ -219,8 +222,8 @@ class SetupLocaleEnvironmentTest(unittest.TestCase):
 
         localization.setup_locale_environment(None)
 
-        self.assertTrue(open_mock.called)
-        self.assertIn("de", localization.os.environ["LANG"])
+        assert open_mock.called
+        assert "de" in localization.os.environ["LANG"]
 
     @patch("pyanaconda.localization.open")
     @patch.dict("pyanaconda.localization.os.environ", dict())
@@ -231,7 +234,7 @@ class SetupLocaleEnvironmentTest(unittest.TestCase):
 
         localization.setup_locale_environment(None)
 
-        self.assertEqual(DEFAULT_LANG, localization.os.environ["LANG"])
+        assert DEFAULT_LANG == localization.os.environ["LANG"]
 
 
 class LangcodeLocaleMatchingTests(unittest.TestCase):
@@ -242,36 +245,36 @@ class LangcodeLocaleMatchingTests(unittest.TestCase):
     def test_find_best_locale_match(self):
         """Finding best locale matches should work as expected."""
         # can find best matches
-        self.assertEqual(localization.find_best_locale_match("cs_CZ", ["cs", "cs_CZ", "en", "en_US"]), "cs_CZ")
-        self.assertEqual(localization.find_best_locale_match("cs", ["cs_CZ", "cs", "en", "en_US"]), "cs")
-        self.assertEqual(localization.find_best_locale_match("pt_BR", ["pt", "pt_BR"]), "pt_BR")
-        self.assertEqual(localization.find_best_locale_match("pt_BR", ["pt", "pt_BR", "pt_PT"]), "pt_BR")
-        self.assertEqual(localization.find_best_locale_match("cs_CZ.UTF-8", ["cs", "cs_CZ", "cs_CZ.UTF-8"]),
-                         "cs_CZ.UTF-8")
-        self.assertEqual(localization.find_best_locale_match("cs_CZ.UTF-8@latin",
-                                                             ["cs", "cs_CZ@latin", "cs_CZ.UTF-8"]), "cs_CZ@latin")
+        assert localization.find_best_locale_match("cs_CZ", ["cs", "cs_CZ", "en", "en_US"]) == "cs_CZ"
+        assert localization.find_best_locale_match("cs", ["cs_CZ", "cs", "en", "en_US"]) == "cs"
+        assert localization.find_best_locale_match("pt_BR", ["pt", "pt_BR"]) == "pt_BR"
+        assert localization.find_best_locale_match("pt_BR", ["pt", "pt_BR", "pt_PT"]) == "pt_BR"
+        assert localization.find_best_locale_match("cs_CZ.UTF-8", ["cs", "cs_CZ", "cs_CZ.UTF-8"]) == \
+            "cs_CZ.UTF-8"
+        assert localization.find_best_locale_match("cs_CZ.UTF-8@latin",
+                                                   ["cs", "cs_CZ@latin", "cs_CZ.UTF-8"]) == "cs_CZ@latin"
 
         # no matches
-        self.assertIsNone(localization.find_best_locale_match("pt_BR", ["en_BR", "en"]))
-        self.assertIsNone(localization.find_best_locale_match("cs_CZ.UTF-8", ["en", "en.UTF-8"]))
+        assert localization.find_best_locale_match("pt_BR", ["en_BR", "en"]) is None
+        assert localization.find_best_locale_match("cs_CZ.UTF-8", ["en", "en.UTF-8"]) is None
 
         # nonsense
-        self.assertIsNone(localization.find_best_locale_match("ja", ["blah"]))
-        self.assertIsNone(localization.find_best_locale_match("blah", ["en_US.UTF-8"]))
+        assert localization.find_best_locale_match("ja", ["blah"]) is None
+        assert localization.find_best_locale_match("blah", ["en_US.UTF-8"]) is None
 
     def test_find_best_locale_match_posix(self):
         """Finding best POSIX matches should work as expected."""
         match = localization.find_best_locale_match("C", ["C.UTF-8"])
-        self.assertEqual(match, "C.UTF-8")
+        assert match == "C.UTF-8"
 
         match = localization.find_best_locale_match("C.UTF-8", ["en_US"])
-        self.assertEqual(match, "en_US")
+        assert match == "en_US"
 
         match = localization.find_best_locale_match("en_US", ["C.UTF-8"])
-        self.assertEqual(match, None)
+        assert match is None
 
         match = localization.find_best_locale_match("cs_CZ", ["C.UTF-8"])
-        self.assertEqual(match, None)
+        assert match is None
 
     def test_resolve_date_format(self):
         """All locales' date formats should be properly resolved."""
@@ -280,4 +283,4 @@ class LangcodeLocaleMatchingTests(unittest.TestCase):
             locale_mod.setlocale(locale_mod.LC_ALL, locale)
             order = localization.resolve_date_format(1, 2, 3, fail_safe=False)[0]
             for i in (1, 2, 3):
-                self.assertIn(i, order)
+                assert i in order

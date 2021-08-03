@@ -100,7 +100,7 @@ class SimpleUITestCase(unittest.TestCase):
 
             if priority in res:
                 msg = "Spokes {} and {} have the same priority!".format(res[priority], name)
-                self.assertNotIn(priority, res, msg)
+                assert priority not in res, msg
             res[priority] = name
 
     @patch_dbus_get_proxy
@@ -111,18 +111,18 @@ class SimpleUITestCase(unittest.TestCase):
 
         # Check the hubs
         from pyanaconda.ui.tui.hubs.summary import SummaryHub
-        self.assertEqual(self.hubs, [SummaryHub])
+        assert self.hubs == [SummaryHub]
 
         # Check the actions classes.
-        self.assertEqual(self._get_action_class_names(), [
+        assert self._get_action_class_names() == [
             "UnsupportedHardwareSpoke",
             "KernelWarningSpoke",
             "SummaryHub",
             "ProgressSpoke"
-        ])
+        ]
 
         # Check the Summary hub.
-        self.assertEqual(self._get_category_names(SummaryHub), {
+        assert self._get_category_names(SummaryHub) == {
             'CustomizationCategory': [],
             'LocalizationCategory': [
                 'LangSpoke',
@@ -141,7 +141,7 @@ class SimpleUITestCase(unittest.TestCase):
                 'PasswordSpoke',
                 'UserSpoke'
             ]
-        })
+        }
 
         # Force us to always decide order of standalone spokes based on priority not by name.
         # This will ordering errors easier to spot.
@@ -159,15 +159,15 @@ class SimpleUITestCase(unittest.TestCase):
 
         # Check the hubs.
         from pyanaconda.ui.gui.hubs.summary import SummaryHub
-        self.assertEqual(self.hubs, [SummaryHub])
+        assert self.hubs == [SummaryHub]
 
         # Check the actions classes.
-        self.assertEqual(self._get_action_class_names(), [
+        assert self._get_action_class_names() == [
             'WelcomeLanguageSpoke',
             'NetworkStandaloneSpoke',
             'SummaryHub',
             'ProgressSpoke'
-        ])
+        ]
 
         # Check the Summary hub.
         cat_system = [
@@ -180,7 +180,7 @@ class SimpleUITestCase(unittest.TestCase):
         if not HAVE_BLIVET_GUI:
             cat_system.remove('BlivetGuiSpoke')
 
-        self.assertEqual(self._get_category_names(SummaryHub), {
+        assert self._get_category_names(SummaryHub) == {
             'CustomizationCategory': [],
             'LocalizationCategory': [
                 'DatetimeSpoke',
@@ -197,7 +197,6 @@ class SimpleUITestCase(unittest.TestCase):
                 'PasswordSpoke',
                 'UserSpoke'
             ]}
-        )
 
         # Force us to always decide order of standalone spokes based on priority not by name.
         # This will ordering errors easier to spot.
@@ -225,5 +224,5 @@ class SimpleUITestCase(unittest.TestCase):
         list1 = [SpokeC, SpokeB, SpokeE, SpokeD, SpokeA]
 
         # the input list ordering shouldn't matter sorting should be based on class names
-        self.assertEqual([SpokeA, SpokeB, SpokeC, hub, SpokeD, SpokeE],
-                         UserInterface._orderActionClasses(list1, [hub]))
+        assert [SpokeA, SpokeB, SpokeC, hub, SpokeD, SpokeE] == \
+            UserInterface._orderActionClasses(list1, [hub])

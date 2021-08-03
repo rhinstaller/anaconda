@@ -18,6 +18,8 @@
 # Red Hat Author(s): Radek Vykydal <rvykydal@redhat.com>
 #
 import unittest
+import pytest
+
 from textwrap import dedent
 from unittest.mock import patch, Mock
 
@@ -50,11 +52,11 @@ class NVDIMMInterfaceTestCase(unittest.TestCase):
         self.nvdimm_interface = NVDIMMInterface(self.nvdimm_module)
 
     def test_is_supported(self):
-        self.assertEqual(self.nvdimm_interface.IsSupported(), True)
+        assert self.nvdimm_interface.IsSupported() == True
 
     def test_get_devices_to_ignore(self):
         """Test GetDevicesToIgnore."""
-        self.assertEqual(self.nvdimm_interface.GetDevicesToIgnore(), [])
+        assert self.nvdimm_interface.GetDevicesToIgnore() == []
 
     def test_set_namespaces_to_use(self):
         """Test SetNamespacesToUse."""
@@ -65,20 +67,20 @@ class NVDIMMInterfaceTestCase(unittest.TestCase):
         """Test ReconfigureWithTask."""
         task_path = self.nvdimm_interface.ReconfigureWithTask("namespace0.0", "sector", 512)
 
-        obj = check_task_creation(self, task_path, publisher, NVDIMMReconfigureTask)
+        obj = check_task_creation(task_path, publisher, NVDIMMReconfigureTask)
 
-        self.assertEqual(obj.implementation._namespace, "namespace0.0")
-        self.assertEqual(obj.implementation._mode, "sector")
-        self.assertEqual(obj.implementation._sector_size, 512)
+        assert obj.implementation._namespace == "namespace0.0"
+        assert obj.implementation._mode == "sector"
+        assert obj.implementation._sector_size == 512
 
-        self.assertIsNone(self.nvdimm_module.find_action("namespace0.0"))
+        assert self.nvdimm_module.find_action("namespace0.0") is None
         obj.implementation.succeeded_signal.emit()
 
         action = self.nvdimm_module.find_action("namespace0.0")
-        self.assertEqual(action.action, NVDIMM_ACTION_RECONFIGURE)
-        self.assertEqual(action.namespace, "namespace0.0")
-        self.assertEqual(action.mode, "sector")
-        self.assertEqual(action.sectorsize, 512)
+        assert action.action == NVDIMM_ACTION_RECONFIGURE
+        assert action.namespace == "namespace0.0"
+        assert action.mode == "sector"
+        assert action.sectorsize == 512
 
 
 class NVDIMMTasksTestCase(unittest.TestCase):
@@ -86,7 +88,7 @@ class NVDIMMTasksTestCase(unittest.TestCase):
 
     def test_failed_reconfiguration(self):
         """Test the reconfiguration test."""
-        with self.assertRaises(StorageConfigurationError):
+        with pytest.raises(StorageConfigurationError):
             NVDIMMReconfigureTask("namespace0.0", "sector", 512).run()
 
     @patch("pyanaconda.modules.storage.nvdimm.reconfigure.nvdimm")
@@ -152,10 +154,8 @@ class NVDIMMKickstartTestCase(unittest.TestCase):
 
     def _check(self, expected_ks):
         """Check the generated kickstart."""
-        self.assertEqual(
-            clear_version_from_kickstart_string(self.storage_module.generate_kickstart()).strip(),
+        assert clear_version_from_kickstart_string(self.storage_module.generate_kickstart()).strip() == \
             dedent(expected_ks).strip()
-        )
 
     def _check_ignored(self, expected_devices):
         """Check the ignored devices."""
@@ -168,7 +168,7 @@ class NVDIMMKickstartTestCase(unittest.TestCase):
             }
 
             ignored_devices = self.nvdimm_module.get_devices_to_ignore()
-            self.assertEqual(sorted(ignored_devices), expected_devices)
+            assert sorted(ignored_devices) == expected_devices
 
     # Test setting use from UI
 

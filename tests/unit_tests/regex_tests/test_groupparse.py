@@ -48,4 +48,4 @@ class GroupParseTestCase(unittest.TestCase):
                  ("", ("", None)),
                  ]
 
-        self.assertTrue(regex_group(GROUPLIST_FANCY_PARSE, tests))
+        assert regex_group(GROUPLIST_FANCY_PARSE, tests)

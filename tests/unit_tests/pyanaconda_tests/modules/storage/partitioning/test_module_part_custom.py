@@ -18,6 +18,8 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
+import pytest
+
 from unittest.mock import Mock, PropertyMock, patch
 
 from blivet.devices import PartitionDevice
@@ -48,17 +50,17 @@ class CustomPartitioningInterfaceTestCase(unittest.TestCase):
 
     def test_publication(self):
         """Test the DBus representation."""
-        self.assertIsInstance(self.module.for_publication(), CustomPartitioningInterface)
+        assert isinstance(self.module.for_publication(), CustomPartitioningInterface)
 
     def test_data(self, ):
         """Test the data property."""
-        with self.assertRaises(UnavailableDataError):
+        with pytest.raises(UnavailableDataError):
             if self.module.data:
                 self.fail("The data should not be available.")
 
         data = Mock()
         self.module.process_kickstart(data)
-        self.assertEqual(self.module.data, data)
+        assert self.module.data == data
 
     @patch_dbus_publish_object
     def test_configure_with_task(self, publisher):
@@ -67,9 +69,9 @@ class CustomPartitioningInterfaceTestCase(unittest.TestCase):
         self.module.process_kickstart(Mock())
         task_path = self.interface.ConfigureWithTask()
 
-        obj = check_task_creation(self, task_path, publisher, CustomPartitioningTask)
+        obj = check_task_creation(task_path, publisher, CustomPartitioningTask)
 
-        self.assertEqual(obj.implementation._storage, self.module.storage)
+        assert obj.implementation._storage == self.module.storage
 
 
 class CustomPartitioningKickstartTestCase(unittest.TestCase):
@@ -99,11 +101,11 @@ class CustomPartitioningKickstartTestCase(unittest.TestCase):
     def test_requires_passphrase(self, publisher):
         """Test RequiresPassphrase."""
         self._process_kickstart("part /")
-        self.assertEqual(self.interface.RequiresPassphrase(), False)
+        assert self.interface.RequiresPassphrase() == False
         self._process_kickstart("part / --encrypted")
-        self.assertEqual(self.interface.RequiresPassphrase(), True)
+        assert self.interface.RequiresPassphrase() == True
         self.interface.SetPassphrase("123456")
-        self.assertEqual(self.interface.RequiresPassphrase(), False)
+        assert self.interface.RequiresPassphrase() == False
 
     @patch_dbus_get_proxy
     @patch.object(InstallerStorage, 'mountpoints', new_callable=PropertyMock)
@@ -119,13 +121,13 @@ class CustomPartitioningKickstartTestCase(unittest.TestCase):
 
         # set up the storage
         self.module.on_storage_changed(create_storage())
-        self.assertTrue(self.module.storage)
+        assert self.module.storage
 
         self.module.storage.bootloader.stage1_device = bootloader_device_obj
 
         # initialize ksdata
         ksdata = self._setup_kickstart()
-        self.assertIn("part prepboot", str(ksdata))
+        assert "part prepboot" in str(ksdata)
 
     @patch_dbus_get_proxy
     @patch.object(InstallerStorage, 'devices', new_callable=PropertyMock)
@@ -143,8 +145,8 @@ class CustomPartitioningKickstartTestCase(unittest.TestCase):
 
         # set up the storage
         self.module.on_storage_changed(create_storage())
-        self.assertTrue(self.module.storage)
+        assert self.module.storage
 
         # initialize ksdata
         ksdata = self._setup_kickstart()
-        self.assertIn("part biosboot", str(ksdata))
+        assert "part biosboot" in str(ksdata)

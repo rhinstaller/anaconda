@@ -47,7 +47,7 @@ class CheckPackagesSelectionTaskTestCase(unittest.TestCase):
         dnf_manager.enable_modules.assert_called_once_with([])
         dnf_manager.apply_specs.assert_called_once_with([], ["@core"])
         dnf_manager.resolve_selection.assert_called_once_with()
-        self.assertEqual(report.get_messages(), [])
+        assert report.get_messages() == []
 
     @patch("pyanaconda.modules.payloads.payload.dnf.validation.get_kernel_package")
     def test_check_default_selection(self, kernel_getter):
@@ -70,7 +70,7 @@ class CheckPackagesSelectionTaskTestCase(unittest.TestCase):
             ["@environment", "@core", "kernel"], []
         )
         dnf_manager.resolve_selection.assert_called_once_with()
-        self.assertEqual(report.get_messages(), [])
+        assert report.get_messages() == []
 
     @patch("pyanaconda.modules.payloads.payload.dnf.validation.get_kernel_package")
     def test_check_selection(self, kernel_getter):
@@ -105,7 +105,7 @@ class CheckPackagesSelectionTaskTestCase(unittest.TestCase):
             ["@core", "@g3", "@g4", "p3", "p4"]
         )
         dnf_manager.resolve_selection.assert_called_once_with()
-        self.assertEqual(report.get_messages(), [])
+        assert report.get_messages() == []
 
     @patch("pyanaconda.modules.payloads.payload.dnf.validation.get_kernel_package")
     def test_check_invalid_selection(self, kernel_getter):
@@ -121,5 +121,5 @@ class CheckPackagesSelectionTaskTestCase(unittest.TestCase):
         task = CheckPackagesSelectionTask(dnf_manager, selection)
         report = task.run()
 
-        self.assertEqual(report.error_messages, ["e2", "e4"])
-        self.assertEqual(report.warning_messages, ["e1", "e3"])
+        assert report.error_messages == ["e2", "e4"]
+        assert report.warning_messages == ["e1", "e3"]

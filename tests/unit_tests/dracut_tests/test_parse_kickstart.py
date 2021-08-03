@@ -20,6 +20,7 @@ import unittest
 import tempfile
 import shutil
 import subprocess
+import re
 
 class BaseTestCase(unittest.TestCase):
     def setUp(self):
@@ -58,7 +59,7 @@ class ParseKickstartTestCase(BaseTestCase):
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
-        self.assertEqual(lines[0], "inst.repo=cdrom", lines)
+        assert lines[0] == "inst.repo=cdrom", lines
 
     def test_harddrive(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
@@ -66,7 +67,7 @@ class ParseKickstartTestCase(BaseTestCase):
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
-        self.assertEqual(lines[0], "inst.repo=hd:sda4:/path/to/tree", lines)
+        assert lines[0] == "inst.repo=hd:sda4:/path/to/tree", lines
 
     def test_nfs(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
@@ -74,7 +75,7 @@ class ParseKickstartTestCase(BaseTestCase):
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
-        self.assertEqual(lines[0], "inst.repo=nfs:nolock,timeo=50:host.at.foo.com:/path/to/tree", lines)
+        assert lines[0] == "inst.repo=nfs:nolock,timeo=50:host.at.foo.com:/path/to/tree", lines
 
     def test_nfs_2(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
@@ -82,7 +83,7 @@ class ParseKickstartTestCase(BaseTestCase):
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
-        self.assertEqual(lines[0], "inst.repo=nfs:host.at.foo.com:/path/to/tree", lines)
+        assert lines[0] == "inst.repo=nfs:host.at.foo.com:/path/to/tree", lines
 
     def test_url(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
@@ -90,10 +91,10 @@ class ParseKickstartTestCase(BaseTestCase):
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
-        self.assertEqual(len(lines), 3, lines)
-        self.assertEqual(lines[0], "inst.repo=https://host.at.foo.com/path/to/tree", lines)
-        self.assertEqual(lines[1], "rd.noverifyssl", lines)
-        self.assertEqual(lines[2], "inst.proxy=http://localhost:8123", lines)
+        assert len(lines) == 3, lines
+        assert lines[0] == "inst.repo=https://host.at.foo.com/path/to/tree", lines
+        assert lines[1] == "rd.noverifyssl", lines
+        assert lines[2] == "inst.proxy=http://localhost:8123", lines
 
     def test_updates(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
@@ -101,7 +102,7 @@ class ParseKickstartTestCase(BaseTestCase):
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
-        self.assertEqual(lines[0], "live.updates=http://host.at.foo.com/path/to/updates.img", lines)
+        assert lines[0] == "live.updates=http://host.at.foo.com/path/to/updates.img", lines
 
     def test_mediacheck(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
@@ -109,7 +110,7 @@ class ParseKickstartTestCase(BaseTestCase):
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
-        self.assertEqual(lines[0], "rd.live.check", lines)
+        assert lines[0] == "rd.live.check", lines
 
     def test_driverdisk(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
@@ -117,7 +118,7 @@ class ParseKickstartTestCase(BaseTestCase):
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
-        self.assertEqual(lines[0], "inst.dd=hd:sda5")
+        assert lines[0] == "inst.dd=hd:sda5"
 
     def test_driverdisk_2(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
@@ -125,7 +126,7 @@ class ParseKickstartTestCase(BaseTestCase):
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
-        self.assertEqual(lines[0], "inst.dd=http://host.att.foo.com/path/to/dd", lines)
+        assert lines[0] == "inst.dd=http://host.att.foo.com/path/to/dd", lines
 
     def test_network(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
@@ -134,7 +135,7 @@ class ParseKickstartTestCase(BaseTestCase):
             lines = self.execParseKickstart(ks_file.name)
 
             print(lines)
-            self.assertEqual(lines[0], "ip=ens3:dhcp: bootdev=ens3")
+            assert lines[0] == "ip=ens3:dhcp: bootdev=ens3"
 
     def test_network_2(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
@@ -142,7 +143,7 @@ class ParseKickstartTestCase(BaseTestCase):
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
-            self.assertEqual(lines[0], "ifname=ksdev0:aa:bb:cc:dd:ee:ff ip=ksdev0:dhcp: bootdev=ksdev0", lines)
+            assert lines[0] == "ifname=ksdev0:aa:bb:cc:dd:ee:ff ip=ksdev0:dhcp: bootdev=ksdev0", lines
 
     def test_network_static(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
@@ -150,7 +151,7 @@ class ParseKickstartTestCase(BaseTestCase):
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
-            self.assertEqual(lines[0], "ip=10.0.2.15::10.0.2.254:255.255.255.0::ens3:none: nameserver=10.0.2.10 bootdev=ens3")
+            assert lines[0] == "ip=10.0.2.15::10.0.2.254:255.255.255.0::ens3:none: nameserver=10.0.2.10 bootdev=ens3"
 
     def test_network_bond(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
@@ -158,7 +159,7 @@ class ParseKickstartTestCase(BaseTestCase):
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
-            self.assertEqual(lines[0], "ip=bond0:dhcp:1500 bootdev=bond0 bond=bond0:enp4s0,enp7s0:mode=active-backup,primary=enp4s0:1500")
+            assert lines[0] == "ip=bond0:dhcp:1500 bootdev=bond0 bond=bond0:enp4s0,enp7s0:mode=active-backup,primary=enp4s0:1500"
 
     def test_network_bond_2(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
@@ -167,7 +168,7 @@ class ParseKickstartTestCase(BaseTestCase):
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
-            self.assertEqual(lines[0], "ip=bond0:dhcp: bootdev=bond0 bond=bond0:enp4s0,enp7s0::")
+            assert lines[0] == "ip=bond0:dhcp: bootdev=bond0 bond=bond0:enp4s0,enp7s0::"
 
     def test_network_bond_3(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
@@ -176,7 +177,7 @@ class ParseKickstartTestCase(BaseTestCase):
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
-            self.assertEqual(lines[0], "ip=bond0:dhcp:1500 bootdev=bond0 bond=bond0:enp4s0,enp7s0::1500")
+            assert lines[0] == "ip=bond0:dhcp:1500 bootdev=bond0 bond=bond0:enp4s0,enp7s0::1500"
 
     def test_network_bridge(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
@@ -184,7 +185,7 @@ class ParseKickstartTestCase(BaseTestCase):
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
-            self.assertEqual(lines[0], "ip=br0:dhcp: bootdev=br0 bridge=br0:eth0")
+            assert lines[0] == "ip=br0:dhcp: bootdev=br0 bridge=br0:eth0"
 
     def test_network_team(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
@@ -192,7 +193,7 @@ class ParseKickstartTestCase(BaseTestCase):
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
-            self.assertEqual(lines, [])
+            assert lines == []
 
     def test_network_vlan(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
@@ -200,7 +201,7 @@ class ParseKickstartTestCase(BaseTestCase):
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
-            self.assertEqual(lines, [])
+            assert lines == []
 
     def test_network_ipv6_only(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
@@ -208,7 +209,7 @@ class ParseKickstartTestCase(BaseTestCase):
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
-            self.assertRegex(lines[0], r"ip=\[1:2:3:4:5:6:7:8\]:.*")
+            assert re.search(r"ip=\[1:2:3:4:5:6:7:8\]:.*", lines[0])
 
     def test_displaymode(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
@@ -216,7 +217,7 @@ class ParseKickstartTestCase(BaseTestCase):
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
-            self.assertEqual(lines[0], "inst.cmdline", lines)
+            assert lines[0] == "inst.cmdline", lines
 
     def test_displaymode_2(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
@@ -224,7 +225,7 @@ class ParseKickstartTestCase(BaseTestCase):
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
-            self.assertEqual(lines[0], "inst.graphical", lines)
+            assert lines[0] == "inst.graphical", lines
 
     def test_displaymode_3(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
@@ -232,7 +233,7 @@ class ParseKickstartTestCase(BaseTestCase):
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
-            self.assertEqual(lines[0], "inst.text", lines)
+            assert lines[0] == "inst.text", lines
 
     def test_bootloader(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
@@ -240,4 +241,4 @@ class ParseKickstartTestCase(BaseTestCase):
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
-            self.assertEqual(lines[0], "inst.extlinux", lines)
+            assert lines[0] == "inst.extlinux", lines

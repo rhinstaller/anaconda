@@ -25,12 +25,12 @@ class ModuleRequirementsTestCase(unittest.TestCase):
 
     def test_package_requirement(self):
         requirement = Requirement.for_package("package-name", "reason")
-        self.assertEqual(requirement.type, "package")
-        self.assertEqual(requirement.name, "package-name")
-        self.assertEqual(requirement.reason, "reason")
+        assert requirement.type == "package"
+        assert requirement.name == "package-name"
+        assert requirement.reason == "reason"
 
     def test_group_requirement(self):
         requirement = Requirement.for_group("group-name", "reason")
-        self.assertEqual(requirement.type, "group")
-        self.assertEqual(requirement.name, "group-name")
-        self.assertEqual(requirement.reason, "reason")
+        assert requirement.type == "group"
+        assert requirement.name == "group-name"
+        assert requirement.reason == "reason"

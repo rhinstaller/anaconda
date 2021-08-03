@@ -16,6 +16,8 @@
 # Red Hat, Inc.
 #
 import unittest
+import pytest
+
 from textwrap import dedent
 from unittest.mock import patch, Mock
 
@@ -38,7 +40,7 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
     def test_get_kernel_package_excluded(self):
         """Test the get_kernel_package function with kernel excluded."""
         kernel = get_kernel_package(Mock(), exclude_list=["kernel"])
-        self.assertEqual(kernel, None)
+        assert kernel is None
 
     def test_get_kernel_package_unavailable(self):
         """Test the get_kernel_package function with unavailable packages."""
@@ -49,8 +51,8 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
             kernel = get_kernel_package(dnf_manager, exclude_list=[])
 
         msg = "Failed to select a kernel"
-        self.assertIn(msg, "\n".join(cm.output))
-        self.assertEqual(kernel, None)
+        assert msg in "\n".join(cm.output)
+        assert kernel is None
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.is_lpae_available")
     def test_get_kernel_package_lpae(self, is_lpae):
@@ -61,10 +63,10 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         dnf_manager.is_package_available.return_value = True
 
         kernel = get_kernel_package(dnf_manager, exclude_list=[])
-        self.assertEqual(kernel, "kernel-lpae")
+        assert kernel == "kernel-lpae"
 
         kernel = get_kernel_package(dnf_manager, exclude_list=["kernel-lpae"])
-        self.assertEqual(kernel, "kernel")
+        assert kernel == "kernel"
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.is_lpae_available")
     def test_get_kernel_package(self, is_lpae):
@@ -75,52 +77,52 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         dnf_manager.is_package_available.return_value = True
 
         kernel = get_kernel_package(dnf_manager, exclude_list=[])
-        self.assertEqual(kernel, "kernel")
+        assert kernel == "kernel"
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.productVersion", "invalid")
     def test_get_product_release_version_invalid(self):
         """Test the get_product_release_version function with an invalid value."""
-        self.assertEqual(get_product_release_version(), "rawhide")
+        assert get_product_release_version() == "rawhide"
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.productVersion", "28")
     def test_get_product_release_version_number(self):
         """Test the get_product_release_version function with a valid number."""
-        self.assertEqual(get_product_release_version(), "28")
+        assert get_product_release_version() == "28"
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.productVersion", "7.4")
     def test_get_product_release_version_dot(self):
         """Test the get_product_release_version function with a dot."""
-        self.assertEqual(get_product_release_version(), "7.4")
+        assert get_product_release_version() == "7.4"
 
     def test_get_installation_specs_default(self):
         """Test the get_installation_specs function with defaults."""
         data = PackagesSelectionData()
-        self.assertEqual(get_installation_specs(data), (["@core"], []))
+        assert get_installation_specs(data) == (["@core"], [])
 
     def test_get_installation_specs_nocore(self):
         """Test the get_installation_specs function without core."""
         data = PackagesSelectionData()
         data.core_group_enabled = False
-        self.assertEqual(get_installation_specs(data), ([], ["@core"]))
+        assert get_installation_specs(data) == ([], ["@core"])
 
     def test_get_installation_specs_environment(self):
         """Test the get_installation_specs function with environment."""
         data = PackagesSelectionData()
         data.environment = "environment-1"
 
-        self.assertEqual(get_installation_specs(data), (
+        assert get_installation_specs(data) == (
             ["@environment-1", "@core"], []
-        ))
+        )
 
         env = "environment-2"
-        self.assertEqual(get_installation_specs(data, default_environment=env), (
+        assert get_installation_specs(data, default_environment=env) == (
             ["@environment-1", "@core"], []
-        ))
+        )
 
         data.default_environment_enabled = True
-        self.assertEqual(get_installation_specs(data, default_environment=env), (
+        assert get_installation_specs(data, default_environment=env) == (
             ["@environment-2", "@core"], []
-        ))
+        )
 
     def test_get_installation_specs_packages(self):
         """Test the get_installation_specs function with packages."""
@@ -128,9 +130,9 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         data.packages = ["p1", "p2", "p3"]
         data.excluded_packages = ["p4", "p5", "p6"]
 
-        self.assertEqual(get_installation_specs(data), (
+        assert get_installation_specs(data) == (
             ["@core", "p1", "p2", "p3"], ["p4", "p5", "p6"]
-        ))
+        )
 
     def test_get_installation_specs_groups(self):
         """Test the get_installation_specs function with groups."""
@@ -145,7 +147,7 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
             "g6": GROUP_PACKAGE_TYPES_ALL,
         }
 
-        self.assertEqual(get_installation_specs(data), (
+        assert get_installation_specs(data) == (
             [
                 "@core",
                 "@g1/mandatory,conditional",
@@ -156,7 +158,7 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
                 "@g5",
                 "@g6"
             ]
-        ))
+        )
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.rpm")
     def test_get_kernel_version_list(self, mock_rpm):
@@ -178,13 +180,13 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         ts.dbMatch.return_value = [hdr_1, hdr_2]
 
         mock_rpm.TransactionSet.return_value = ts
-        self.assertEqual(get_kernel_version_list(), [
+        assert get_kernel_version_list() == [
             '5.8.15-201.fc32.x86_64',
             '5.8.16-200.fc32.x86_64',
             '6.8.15-201.fc32.x86_64',
             '7.8.16-200.fc32.x86_64',
             '8.8.18-200.fc32.x86_64'
-        ])
+        ]
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.execWithCapture")
     def test_get_free_space(self, exec_mock):
@@ -202,7 +204,7 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         """
         exec_mock.return_value = dedent(output).strip()
 
-        self.assertEqual(get_free_space_map(), {
+        assert get_free_space_map() == {
             '/dev': Size("100 KiB"),
             '/dev/shm': Size("200 KiB"),
             '/run': Size("300 KiB"),
@@ -211,7 +213,7 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
             '/boot': Size("600 KiB"),
             '/home': Size("700 KiB"),
             '/boot/efi': Size("800 KiB"),
-        })
+        }
 
     @patch("os.statvfs")
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.conf")
@@ -227,11 +229,11 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         conf_mock.target.is_hardware = False
         statvfs_mock.return_value = Mock(f_frsize=1024, f_bfree=300)
 
-        self.assertEqual(get_free_space_map(), {
+        assert get_free_space_map() == {
             '/': Size("100 KiB"),
             '/boot': Size("200 KiB"),
             '/var/tmp': Size("300 KiB"),
-        })
+        }
 
     def test_pick_mount_points(self):
         """Test the _pick_mount_points function."""
@@ -254,13 +256,13 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
             download_size=Size("0.5 G"),
             install_size=Size("0.5 G")
         )
-        self.assertEqual(sufficient, {
+        assert sufficient == {
             "/var/tmp",
             "/mnt/sysroot",
             "/mnt/sysroot/home",
             "/mnt/sysroot/tmp",
             "/mnt/sysroot/var"
-        })
+        }
 
         # No mount point is big enough for installation.
         # Choose non-sysroot mount points for download.
@@ -269,9 +271,9 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
             download_size=Size("0.5 G"),
             install_size=Size("1.5 G")
         )
-        self.assertEqual(sufficient, {
+        assert sufficient == {
             "/var/tmp",
-        })
+        }
 
         # No mount point is big enough for installation or download.
         sufficient = _pick_mount_points(
@@ -279,7 +281,7 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
             download_size=Size("1.5 G"),
             install_size=Size("1.5 G")
         )
-        self.assertEqual(sufficient, set())
+        assert sufficient == set()
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.get_free_space_map")
     def test_pick_download_location(self, free_space_getter):
@@ -300,7 +302,7 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         }
 
         path = pick_download_location(dnf_manager)
-        self.assertEqual(path, "/var/tmp/dnf.package.cache")
+        assert path == "/var/tmp/dnf.package.cache"
 
         # Found mount points only for download.
         # Use the biggest mount point.
@@ -310,17 +312,17 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         }
 
         path = pick_download_location(dnf_manager)
-        self.assertEqual(path, "/mnt/sysroot/tmp/dnf.package.cache")
+        assert path == "/mnt/sysroot/tmp/dnf.package.cache"
 
         # No mount point to use.
         # Fail with an exception.
         free_space_getter.return_value = {}
 
-        with self.assertRaises(RuntimeError) as cm:
+        with pytest.raises(RuntimeError) as cm:
             pick_download_location(dnf_manager)
 
         msg = "Not enough disk space to download the packages; size 100 B."
-        self.assertEqual(str(cm.exception), msg)
+        assert str(cm.value) == msg
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.execWithCapture")
     @patch_dbus_get_proxy_with_cache
@@ -348,24 +350,24 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         device_tree.GetMountPoints.side_effect = get_mount_points
         device_tree.GetFileSystemFreeSpace.side_effect = get_free_space
 
-        self.assertEqual(get_free_space_map(current=True, scheduled=False), {
+        assert get_free_space_map(current=True, scheduled=False) == {
             '/': Size("100 KiB"),
             '/tmp': Size("200 KiB"),
-        })
+        }
 
-        self.assertEqual(get_free_space_map(current=False, scheduled=True), {
+        assert get_free_space_map(current=False, scheduled=True) == {
             '/mnt/sysroot': Size("300 KiB"),
             '/mnt/sysroot/boot': Size("400 KiB"),
-        })
+        }
 
-        self.assertEqual(get_free_space_map(current=True, scheduled=True), {
+        assert get_free_space_map(current=True, scheduled=True) == {
             '/': Size("100 KiB"),
             '/tmp': Size("200 KiB"),
             '/mnt/sysroot': Size("300 KiB"),
             '/mnt/sysroot/boot': Size("400 KiB"),
-        })
+        }
 
-        self.assertEqual(get_free_space_map(current=False, scheduled=False), {})
+        assert get_free_space_map(current=False, scheduled=False) == {}
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.get_free_space_map")
     def test_calculate_required_space(self, free_space_getter):
@@ -381,21 +383,21 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         # No mount point to use.
         # The total size is required.
         free_space_getter.return_value = {}
-        self.assertEqual(calculate_required_space(dnf_manager), total_size)
+        assert calculate_required_space(dnf_manager) == total_size
 
         # Found a mount point for download and install.
         # The total size is required.
         free_space_getter.return_value = {
             "/mnt/sysroot/home": total_size
         }
-        self.assertEqual(calculate_required_space(dnf_manager), total_size)
+        assert calculate_required_space(dnf_manager) == total_size
 
         # Found a mount point for download.
         # The installation size is required.
         free_space_getter.return_value = {
             "/var/tmp": download_size
         }
-        self.assertEqual(calculate_required_space(dnf_manager), installation_size)
+        assert calculate_required_space(dnf_manager) == installation_size
 
         # The biggest mount point can be used for download and install.
         # The total size is required.
@@ -403,4 +405,4 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
             "/var/tmp": download_size,
             "/mnt/sysroot": total_size
         }
-        self.assertEqual(calculate_required_space(dnf_manager), total_size)
+        assert calculate_required_space(dnf_manager) == total_size

@@ -21,6 +21,8 @@ import unittest
 import tempfile
 import os
 import shutil
+import pytest
+
 from textwrap import dedent
 from unittest.mock import patch, Mock
 
@@ -82,13 +84,12 @@ class NetworkInterfaceTestCase(unittest.TestCase):
 
     def test_kickstart_properties(self):
         """Test kickstart properties."""
-        self.assertEqual(self.network_interface.KickstartCommands, ["network", "firewall"])
-        self.assertEqual(self.network_interface.KickstartSections, [])
-        self.assertEqual(self.network_interface.KickstartAddons, [])
+        assert self.network_interface.KickstartCommands == ["network", "firewall"]
+        assert self.network_interface.KickstartSections == []
+        assert self.network_interface.KickstartAddons == []
 
     def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
-            self,
             NETWORK,
             self.network_interface,
             *args, **kwargs
@@ -103,9 +104,9 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         locale = "en_US.UTF-8"
         mocked_os.environ = {}
         self.network_interface.SetLocale(locale)
-        self.assertEqual(mocked_os.environ["LANG"], locale)
+        assert mocked_os.environ["LANG"] == locale
         setlocale.assert_called_once_with(LC_ALL, locale)
-        self.assertEqual(pyanaconda.core.util._child_env['LANG'], locale)
+        assert pyanaconda.core.util._child_env['LANG'] == locale
 
     def test_hostname_property(self):
         """Test the hostname property."""
@@ -124,11 +125,11 @@ class NetworkInterfaceTestCase(unittest.TestCase):
 
         conf_mock.system.provides_system_bus = False
         self.network_module._connect_to_hostname_service()
-        self.assertEqual(self.network_interface.GetCurrentHostname(), "")
+        assert self.network_interface.GetCurrentHostname() == ""
 
         conf_mock.system.provides_system_bus = True
         self.network_module._connect_to_hostname_service()
-        self.assertEqual(self.network_interface.GetCurrentHostname(), "dot.dot")
+        assert self.network_interface.GetCurrentHostname() == "dot.dot"
 
     @patch("pyanaconda.modules.network.network.conf")
     @patch('pyanaconda.core.dbus.SystemBus.get_proxy')
@@ -172,7 +173,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
     def test_connected(self):
         """Test getting connectivity status does not fail."""
         connected = self.network_interface.Connected
-        self.assertIn(connected, (True, False))
+        assert connected in (True, False)
 
     def test_connecting(self):
         """Test checking connecting status does not fail."""
@@ -185,37 +186,37 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         self.network_module.nm_client = nm_client
 
         nm_client._set_state(NM.State.CONNECTED_LOCAL)
-        self.assertTrue(self.network_interface.Connected)
+        assert self.network_interface.Connected
 
         nm_client._set_state(NM.State.DISCONNECTED)
-        self.assertFalse(self.network_interface.Connected)
+        assert not self.network_interface.Connected
         self.callback.assert_called_with(NETWORK.interface_name, {'Connected': False}, [])
-        self.assertFalse(self.network_interface.IsConnecting())
+        assert not self.network_interface.IsConnecting()
 
         nm_client._set_state(NM.State.CONNECTED_SITE)
-        self.assertTrue(self.network_interface.Connected)
+        assert self.network_interface.Connected
         self.callback.assert_called_with(NETWORK.interface_name, {'Connected': True}, [])
-        self.assertFalse(self.network_interface.IsConnecting())
+        assert not self.network_interface.IsConnecting()
 
         nm_client._set_state(NM.State.CONNECTED_GLOBAL)
-        self.assertTrue(self.network_interface.Connected)
+        assert self.network_interface.Connected
         self.callback.assert_called_with(NETWORK.interface_name, {'Connected': True}, [])
-        self.assertFalse(self.network_interface.IsConnecting())
+        assert not self.network_interface.IsConnecting()
 
         nm_client._set_state(NM.State.CONNECTING)
-        self.assertFalse(self.network_interface.Connected)
+        assert not self.network_interface.Connected
         self.callback.assert_called_with(NETWORK.interface_name, {'Connected': False}, [])
-        self.assertTrue(self.network_interface.IsConnecting())
+        assert self.network_interface.IsConnecting()
 
         nm_client._set_state(NM.State.CONNECTED_LOCAL)
-        self.assertTrue(self.network_interface.Connected)
+        assert self.network_interface.Connected
         self.callback.assert_called_with(NETWORK.interface_name, {'Connected': True}, [])
-        self.assertFalse(self.network_interface.IsConnecting())
+        assert not self.network_interface.IsConnecting()
 
     def test_nm_availability(self):
         self.network_module.nm_client = None
-        self.assertTrue(self.network_interface.Connected)
-        self.assertFalse(self.network_interface.IsConnecting())
+        assert self.network_interface.Connected
+        assert not self.network_interface.IsConnecting()
 
     def test_create_device_configurations(self):
         """Test creating device configurations does not fail."""
@@ -223,7 +224,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
 
     def test_get_device_configurations(self):
         """Test GetDeviceConfigurations."""
-        self.assertListEqual(self.network_interface.GetDeviceConfigurations(), [])
+        assert self.network_interface.GetDeviceConfigurations() == []
 
     def test_network_device_configuration_changed(self):
         """Test NetworkDeviceConfigurationChanged."""
@@ -231,9 +232,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
 
     def test_get_dracut_arguments(self):
         """Test GetDracutArguments."""
-        self.assertListEqual(
-            self.network_interface.GetDracutArguments("ens3", "10.10.10.10", "", False), []
-        )
+        assert self.network_interface.GetDracutArguments("ens3", "10.10.10.10", "", False) == []
 
     def test_log_configuration_state(self):
         """Test LogConfigurationState."""
@@ -256,12 +255,12 @@ class NetworkInterfaceTestCase(unittest.TestCase):
 
         task_path = self.network_interface.InstallNetworkWithTask(False)
 
-        obj = check_task_creation(self, task_path, publisher, NetworkInstallationTask)
+        obj = check_task_creation(task_path, publisher, NetworkInstallationTask)
 
-        self.assertEqual(obj.implementation._disable_ipv6, True)
-        self.assertEqual(obj.implementation._overwrite, False)
-        self.assertEqual(obj.implementation._network_ifaces, ["ens3", "ens4", "ens5"])
-        self.assertEqual(obj.implementation._configure_persistent_device_names, True)
+        assert obj.implementation._disable_ipv6 == True
+        assert obj.implementation._overwrite == False
+        assert obj.implementation._network_ifaces == ["ens3", "ens4", "ens5"]
+        assert obj.implementation._configure_persistent_device_names == True
 
         self.network_module.log_task_result = Mock()
 
@@ -275,10 +274,10 @@ class NetworkInterfaceTestCase(unittest.TestCase):
 
         task_path = self.network_interface.ConfigureHostnameWithTask(False)
 
-        obj = check_task_creation(self, task_path, publisher, HostnameConfigurationTask)
+        obj = check_task_creation(task_path, publisher, HostnameConfigurationTask)
 
-        self.assertEqual(obj.implementation._overwrite, False)
-        self.assertEqual(obj.implementation._hostname, "my_hostname")
+        assert obj.implementation._overwrite == False
+        assert obj.implementation._hostname == "my_hostname"
 
     @patch_dbus_publish_object
     @patch('pyanaconda.modules.network.installation.update_connection_values')
@@ -295,12 +294,10 @@ class NetworkInterfaceTestCase(unittest.TestCase):
             ["ens3"],
         )
 
-        obj = check_task_creation(self, task_path, publisher, ConfigureActivationOnBootTask)
+        obj = check_task_creation(task_path, publisher, ConfigureActivationOnBootTask)
 
-        self.assertEqual(
-            set(obj.implementation._onboot_ifaces),
+        assert set(obj.implementation._onboot_ifaces) == \
             set(["ens3", "ens4"])
-        )
 
         self.network_module.log_task_result = Mock()
 
@@ -323,7 +320,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         self._mock_supported_devices([("ens3", "", 0)])
         task_path = self.network_interface.ApplyKickstartWithTask()
 
-        obj = check_task_creation(self, task_path, publisher, ApplyKickstartTask)
+        obj = check_task_creation(task_path, publisher, ApplyKickstartTask)
 
         self.network_module.log_task_result = Mock()
 
@@ -335,7 +332,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         """Test DumpMissingConfigFilesWithTask."""
         task_path = self.network_interface.DumpMissingConfigFilesWithTask()
 
-        obj = check_task_creation(self, task_path, publisher, DumpMissingConfigFilesTask)
+        obj = check_task_creation(task_path, publisher, DumpMissingConfigFilesTask)
 
         self.network_module.log_task_result = Mock()
 
@@ -366,10 +363,8 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         """Test GetSupportedDevices."""
         # No NM available
         self.network_module.nm_client = None
-        self.assertEqual(
-            self.network_interface.GetSupportedDevices(),
+        assert self.network_interface.GetSupportedDevices() == \
             []
-        )
 
         # Mocked NM
         self.network_module.nm_client = Mock()
@@ -385,38 +380,30 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         )
 
         devs_infos = self.network_interface.GetSupportedDevices()
-        self.assertDictEqual(
-            devs_infos[0],
+        assert devs_infos[0] == \
             {
                 'device-name': get_variant(Str, "ens3"),
                 'hw-address': get_variant(Str, "33:33:33:33:33:33"),
                 'device-type': get_variant(Int, NM.DeviceType.ETHERNET)
             }
-        )
-        self.assertDictEqual(
-            devs_infos[1],
+        assert devs_infos[1] == \
             {
                 'device-name': get_variant(Str, "ens4"),
                 'hw-address': get_variant(Str, "44:44:44:44:44:44"),
                 'device-type': get_variant(Int, NM.DeviceType.ETHERNET)
             }
-        )
-        self.assertDictEqual(
-            devs_infos[2],
+        assert devs_infos[2] == \
             {
                 'device-name': get_variant(Str, "ens5"),
                 'hw-address': get_variant(Str, "55:55:55:55:55:55"),
                 'device-type': get_variant(Int, NM.DeviceType.ETHERNET)
             }
-        )
-        self.assertDictEqual(
-            devs_infos[3],
+        assert devs_infos[3] == \
             {
                 'device-name': get_variant(Str, "team0"),
                 'hw-address': get_variant(Str, "33:33:33:33:33:33"),
                 'device-type': get_variant(Int, NM.DeviceType.TEAM)
             }
-        )
 
     def _mock_nm_active_connections(self, connection_specs):
         active_connections = []
@@ -438,10 +425,8 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         """Test GetActivatedInterfaces."""
         # No NM available
         self.network_module.nm_client = None
-        self.assertEqual(
-            self.network_interface.GetActivatedInterfaces(),
+        assert self.network_interface.GetActivatedInterfaces() == \
             []
-        )
 
         # Mocked NM
         self.network_module.nm_client = Mock()
@@ -459,13 +444,11 @@ class NetworkInterfaceTestCase(unittest.TestCase):
                 (True, [])
             ]
         )
-        self.assertListEqual(
-            self.network_interface.GetActivatedInterfaces(),
+        assert self.network_interface.GetActivatedInterfaces() == \
             ["ens3", "ens5", "ens7", "bond0", "devA", "devB"]
-        )
 
     def _test_kickstart(self, ks_in, ks_out, **kwargs):
-        check_kickstart_interface(self, self.network_interface, ks_in, ks_out, **kwargs)
+        check_kickstart_interface(self.network_interface, ks_in, ks_out, **kwargs)
 
     def test_no_kickstart(self):
         """Test with no kickstart."""
@@ -559,7 +542,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
 
     def test_default_requirements(self):
         """Test that by default no packages are required by the network module."""
-        self.assertEqual(self.network_interface.CollectRequirements(), [])
+        assert self.network_interface.CollectRequirements() == []
 
     def test_kickstart_firewall_package_requirements(self):
         """Test that firewall command in kickstart results in request for firewalld package."""
@@ -570,13 +553,13 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         firewall --enabled --service=ftp,http,smtp,ssh
         """
         self._test_kickstart(ks_in, ks_out)
-        self.assertEqual(self.network_interface.CollectRequirements(), [
+        assert self.network_interface.CollectRequirements() == [
             {
                 "type": get_variant(Str, "package"),
                 "name": get_variant(Str, "firewalld"),
                 "reason": get_variant(Str, "Requested by the firewall kickstart command.")
             }
-        ])
+        ]
 
     def test_teamd_requirements(self):
         """Test that mocked team devices result in request for teamd package."""
@@ -590,13 +573,13 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         )
 
         # check that the teamd package is requested
-        self.assertEqual(self.network_interface.CollectRequirements(), [
+        assert self.network_interface.CollectRequirements() == [
             {
                 "type": get_variant(Str, "package"),
                 "name": get_variant(Str, "teamd"),
                 "reason": get_variant(Str, "Necessary for network team device configuration.")
             }
-        ])
+        ]
 
     @patch("pyanaconda.modules.network.network.kernel_arguments")
     def test_biosdevname_requirements(self, mocked_kernel_arguments):
@@ -605,7 +588,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         kernel_args = KernelArguments.from_string("biosdevname=1")
         with patch("pyanaconda.modules.network.network.kernel_arguments", kernel_args):
             # check that the biosdevname package is requested
-            self.assertEqual(self.network_interface.CollectRequirements(), [
+            assert self.network_interface.CollectRequirements() == [
                 {
                     "type": get_variant(Str, "package"),
                     "name": get_variant(Str, "biosdevname"),
@@ -614,15 +597,15 @@ class NetworkInterfaceTestCase(unittest.TestCase):
                         "Necessary for biosdevname network device naming feature."
                     )
                 }
-            ])
+            ]
 
         kernel_args = KernelArguments.from_string("biosdevname=0")
         with patch("pyanaconda.modules.network.network.kernel_arguments", kernel_args):
-            self.assertEqual(self.network_interface.CollectRequirements(), [])
+            assert self.network_interface.CollectRequirements() == []
 
         kernel_args = KernelArguments.from_string("biosdevname")
         with patch("pyanaconda.modules.network.network.kernel_arguments", kernel_args):
-            self.assertEqual(self.network_interface.CollectRequirements(), [])
+            assert self.network_interface.CollectRequirements() == []
 
     def test_kickstart_invalid_hostname(self):
         """Test that invalid hostname in kickstart is not accepted"""
@@ -645,7 +628,6 @@ class FirewallInterfaceTestCase(unittest.TestCase):
 
     def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
-            self,
             FIREWALL,
             self.firewall_interface,
             *args, **kwargs
@@ -653,11 +635,11 @@ class FirewallInterfaceTestCase(unittest.TestCase):
 
     def test_default_property_values(self):
         """Test the default firewall module values are as expected."""
-        self.assertEqual(self.firewall_interface.FirewallMode, FIREWALL_DEFAULT)
-        self.assertListEqual(self.firewall_interface.EnabledPorts, [])
-        self.assertListEqual(self.firewall_interface.Trusts, [])
-        self.assertListEqual(self.firewall_interface.EnabledServices, [])
-        self.assertListEqual(self.firewall_interface.DisabledServices, [])
+        assert self.firewall_interface.FirewallMode == FIREWALL_DEFAULT
+        assert self.firewall_interface.EnabledPorts == []
+        assert self.firewall_interface.Trusts == []
+        assert self.firewall_interface.EnabledServices == []
+        assert self.firewall_interface.DisabledServices == []
 
     def test_set_use_system_defaults(self):
         """Test if the use-system-firewall-defaults option can be set."""
@@ -767,7 +749,7 @@ class HostnameConfigurationTaskTestCase(unittest.TestCase):
 
             with open(hostname_file_path, "r") as f:
                 content = f.read()
-            self.assertEqual(content, "{}\n".format(hostname))
+            assert content == "{}\n".format(hostname)
 
             shutil.rmtree(hostname_dir)
 
@@ -783,7 +765,7 @@ class HostnameConfigurationTaskTestCase(unittest.TestCase):
                 overwrite=True
             )
 
-            with self.assertRaises(NetworkInstallationError):
+            with pytest.raises(NetworkInstallationError):
                 task.run()
 
 
@@ -804,13 +786,13 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
         """Test the Firewall configuration task - basic."""
         task_path = self.firewall_interface.InstallWithTask()
 
-        obj = check_task_creation(self, task_path, publisher, ConfigureFirewallTask)
+        obj = check_task_creation(task_path, publisher, ConfigureFirewallTask)
 
-        self.assertEqual(obj.implementation._firewall_mode, FirewallMode.DEFAULT)
-        self.assertEqual(obj.implementation._enabled_services, [])
-        self.assertEqual(obj.implementation._disabled_services, [])
-        self.assertEqual(obj.implementation._enabled_ports, [])
-        self.assertEqual(obj.implementation._trusts, [])
+        assert obj.implementation._firewall_mode == FirewallMode.DEFAULT
+        assert obj.implementation._enabled_services == []
+        assert obj.implementation._disabled_services == []
+        assert obj.implementation._enabled_ports == []
+        assert obj.implementation._trusts == []
 
     @patch('pyanaconda.core.util.execInSysroot')
     def test_firewall_config_task_enable_missing_tool(self, execInSysroot):
@@ -826,7 +808,7 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
                                          enabled_ports = [],
                                          trusts = [])
             # should raise an exception
-            with self.assertRaises(FirewallConfigurationError):
+            with pytest.raises(FirewallConfigurationError):
                 task.run()
             # should not call execInSysroot
             execInSysroot.assert_not_called()
@@ -892,7 +874,7 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(os.path.join(sysroot, "usr/bin"))
             os.mknod(os.path.join(sysroot, "usr/bin/firewall-offline-cmd"))
-            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/firewall-offline-cmd")))
+            assert os.path.exists(os.path.join(sysroot, "usr/bin/firewall-offline-cmd"))
             task = ConfigureFirewallTask(sysroot=sysroot,
                                          firewall_mode = FirewallMode.DEFAULT,
                                          enabled_services = [],
@@ -911,7 +893,7 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(os.path.join(sysroot, "usr/bin"))
             os.mknod(os.path.join(sysroot, "usr/bin/firewall-offline-cmd"))
-            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/firewall-offline-cmd")))
+            assert os.path.exists(os.path.join(sysroot, "usr/bin/firewall-offline-cmd"))
 
             task = ConfigureFirewallTask(sysroot=sysroot,
                                          firewall_mode = FirewallMode.ENABLED,
@@ -930,7 +912,7 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(os.path.join(sysroot, "usr/bin"))
             os.mknod(os.path.join(sysroot, "usr/bin/firewall-offline-cmd"))
-            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/firewall-offline-cmd")))
+            assert os.path.exists(os.path.join(sysroot, "usr/bin/firewall-offline-cmd"))
 
             task = ConfigureFirewallTask(sysroot=sysroot,
                                          firewall_mode = FirewallMode.ENABLED,
@@ -952,7 +934,7 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(os.path.join(sysroot, "usr/bin"))
             os.mknod(os.path.join(sysroot, "usr/bin/firewall-offline-cmd"))
-            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/firewall-offline-cmd")))
+            assert os.path.exists(os.path.join(sysroot, "usr/bin/firewall-offline-cmd"))
 
             task = ConfigureFirewallTask(sysroot=sysroot,
                                          firewall_mode = FirewallMode.ENABLED,
@@ -973,7 +955,7 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(os.path.join(sysroot, "usr/bin"))
             os.mknod(os.path.join(sysroot, "usr/bin/firewall-offline-cmd"))
-            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/firewall-offline-cmd")))
+            assert os.path.exists(os.path.join(sysroot, "usr/bin/firewall-offline-cmd"))
 
             task = ConfigureFirewallTask(sysroot=sysroot,
                                          firewall_mode = FirewallMode.ENABLED,
@@ -994,7 +976,7 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(os.path.join(sysroot, "usr/bin"))
             os.mknod(os.path.join(sysroot, "usr/bin/firewall-offline-cmd"))
-            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/firewall-offline-cmd")))
+            assert os.path.exists(os.path.join(sysroot, "usr/bin/firewall-offline-cmd"))
 
             task = ConfigureFirewallTask(sysroot=sysroot,
                                          firewall_mode = FirewallMode.DISABLED,
@@ -1013,7 +995,7 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(os.path.join(sysroot, "usr/bin"))
             os.mknod(os.path.join(sysroot, "usr/bin/firewall-offline-cmd"))
-            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/firewall-offline-cmd")))
+            assert os.path.exists(os.path.join(sysroot, "usr/bin/firewall-offline-cmd"))
 
             task = ConfigureFirewallTask(sysroot=sysroot,
                                          firewall_mode = FirewallMode.DISABLED,
@@ -1036,7 +1018,7 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as sysroot:
             os.makedirs(os.path.join(sysroot, "usr/bin"))
             os.mknod(os.path.join(sysroot, "usr/bin/firewall-offline-cmd"))
-            self.assertTrue(os.path.exists(os.path.join(sysroot, "usr/bin/firewall-offline-cmd")))
+            assert os.path.exists(os.path.join(sysroot, "usr/bin/firewall-offline-cmd"))
 
             task = ConfigureFirewallTask(sysroot=sysroot,
                                          firewall_mode = FirewallMode.USE_SYSTEM_DEFAULTS,
@@ -1060,139 +1042,82 @@ class NetworkModuleTestCase(unittest.TestCase):
 
     def test_apply_boot_options_ksdevice(self):
         """Test _apply_boot_options function for 'ksdevice'."""
-        self.assertEqual(
-            self.network_module.default_device_specification,
-            DEFAULT_DEVICE_SPECIFICATION
-        )
+        assert self.network_module.default_device_specification == DEFAULT_DEVICE_SPECIFICATION
         mocked_kernel_args = {"something": "else"}
         self.network_module._apply_boot_options(mocked_kernel_args)
-        self.assertEqual(
-            self.network_module.default_device_specification,
-            DEFAULT_DEVICE_SPECIFICATION
-        )
+        assert self.network_module.default_device_specification == DEFAULT_DEVICE_SPECIFICATION
         mocked_kernel_args = {'ksdevice': "ens3"}
         self.network_module._apply_boot_options(mocked_kernel_args)
-        self.assertEqual(
-            self.network_module.default_device_specification,
-            "ens3"
-        )
+        assert self.network_module.default_device_specification == "ens3"
         mocked_kernel_args = {}
         self.network_module._apply_boot_options(mocked_kernel_args)
-        self.assertEqual(
-            self.network_module.default_device_specification,
-            "ens3"
-        )
+        assert self.network_module.default_device_specification == "ens3"
 
     def test_apply_boot_options_noipv6(self):
         """Test _apply_boot_options function for 'noipv6'."""
-        self.assertEqual(
-            self.network_module.disable_ipv6,
-            False
-        )
+        assert self.network_module.disable_ipv6 == False
         mocked_kernel_args = {"something": "else"}
         self.network_module._apply_boot_options(mocked_kernel_args)
-        self.assertEqual(
-            self.network_module.disable_ipv6,
-            False
-        )
+        assert self.network_module.disable_ipv6 == False
         mocked_kernel_args = {'noipv6': None}
         self.network_module._apply_boot_options(mocked_kernel_args)
-        self.assertEqual(
-            self.network_module.disable_ipv6,
-            True
-        )
+        assert self.network_module.disable_ipv6 == True
         mocked_kernel_args = {}
         self.network_module._apply_boot_options(mocked_kernel_args)
-        self.assertEqual(
-            self.network_module.disable_ipv6,
-            True
-        )
+        assert self.network_module.disable_ipv6 == True
 
     def test_apply_boot_options_bootif(self):
         """Test _apply_boot_options function for 'BOOTIF'."""
-        self.assertEqual(
-            self.network_module.bootif,
-            None
-        )
+        assert self.network_module.bootif is None
         mocked_kernel_args = {"something": "else"}
         self.network_module._apply_boot_options(mocked_kernel_args)
-        self.assertEqual(
-            self.network_module.bootif,
-            None
-        )
+        assert self.network_module.bootif is None
         mocked_kernel_args = {'BOOTIF': "01-f4-ce-46-2c-44-7a"}
         self.network_module._apply_boot_options(mocked_kernel_args)
-        self.assertEqual(
-            self.network_module.bootif,
-            "F4:CE:46:2C:44:7A"
-        )
+        assert self.network_module.bootif == "F4:CE:46:2C:44:7A"
         mocked_kernel_args = {}
         self.network_module._apply_boot_options(mocked_kernel_args)
-        self.assertEqual(
-            self.network_module.bootif,
-            "F4:CE:46:2C:44:7A"
-        )
+        assert self.network_module.bootif == "F4:CE:46:2C:44:7A"
         # Do not crash on trash
         mocked_kernel_args = {'BOOTIF': ""}
         self.network_module._apply_boot_options(mocked_kernel_args)
-        self.assertEqual(
-            self.network_module.bootif,
-            ""
-        )
+        assert self.network_module.bootif == ""
 
     def test_apply_boot_options_ifname(self):
         """Test _apply_boot_options function for 'ifname'."""
-        self.assertEqual(
-            self.network_module.ifname_option_values,
-            []
-        )
+        assert self.network_module.ifname_option_values == []
         mocked_kernel_args = {"something": "else"}
         self.network_module._apply_boot_options(mocked_kernel_args)
-        self.assertEqual(
-            self.network_module.ifname_option_values,
-            []
-        )
+        assert self.network_module.ifname_option_values == []
         mocked_kernel_args = {'ifname': "ens3f0:00:15:17:96:75:0a"}
         self.network_module._apply_boot_options(mocked_kernel_args)
-        self.assertEqual(
-            self.network_module.ifname_option_values,
-            ["ens3f0:00:15:17:96:75:0a"]
-        )
+        assert self.network_module.ifname_option_values == ["ens3f0:00:15:17:96:75:0a"]
         mocked_kernel_args = {'ifname': "ens3f0:00:15:17:96:75:0a ens3f1:00:15:17:96:75:0b"}
         self.network_module._apply_boot_options(mocked_kernel_args)
-        self.assertEqual(
-            self.network_module.ifname_option_values,
+        assert self.network_module.ifname_option_values == \
             ["ens3f0:00:15:17:96:75:0a", "ens3f1:00:15:17:96:75:0b"]
-        )
         mocked_kernel_args = {}
         self.network_module._apply_boot_options(mocked_kernel_args)
-        self.assertEqual(
-            self.network_module.ifname_option_values,
+        assert self.network_module.ifname_option_values == \
             ["ens3f0:00:15:17:96:75:0a", "ens3f1:00:15:17:96:75:0b"]
-        )
         mocked_kernel_args = {'ifname': "bla bla"}
         self.network_module._apply_boot_options(mocked_kernel_args)
-        self.assertEqual(
-            self.network_module.ifname_option_values,
-            ["bla", "bla"]
-        )
+        assert self.network_module.ifname_option_values == ["bla", "bla"]
 
     def test_apply_boot_options(self):
         """Test _apply_boot_options for multiple options."""
-        self.assertListEqual(
-            [
+        assert [
                 self.network_module.bootif,
                 self.network_module.ifname_option_values,
                 self.network_module.disable_ipv6,
                 self.network_module.default_device_specification,
-            ],
+            ] == \
             [
                 None,
                 [],
                 False,
                 DEFAULT_DEVICE_SPECIFICATION,
             ]
-        )
         mocked_kernel_args = {
             'something_else': None,
             'ifname': 'ens3f0:00:15:17:96:75:0a ens3f1:00:15:17:96:75:0b',
@@ -1202,20 +1127,18 @@ class NetworkModuleTestCase(unittest.TestCase):
             'ksdevice': 'ens11',
         }
         self.network_module._apply_boot_options(mocked_kernel_args)
-        self.assertListEqual(
-            [
+        assert [
                 self.network_module.bootif,
                 self.network_module.ifname_option_values,
                 self.network_module.disable_ipv6,
                 self.network_module.default_device_specification,
-            ],
+            ] == \
             [
                 "F4:CE:46:2C:44:7A",
                 ["ens3f0:00:15:17:96:75:0a", "ens3f1:00:15:17:96:75:0b"],
                 True,
                 "ens11",
             ]
-        )
 
 
 class InstallationTaskTestCase(unittest.TestCase):
@@ -1268,11 +1191,11 @@ class InstallationTaskTestCase(unittest.TestCase):
         mocked_conf_dir = os.path.join(self._target_mocked_root, conf_dir.lstrip("/"))
         with open(os.path.join(mocked_conf_dir, file_name), "r") as f:
             content = f.read().strip()
-        self.assertEqual(content, expected_content)
+        assert content == expected_content
 
     def _check_config_file_does_not_exist(self, conf_dir, file_name):
         mocked_conf_dir = os.path.join(self._target_mocked_root, conf_dir.lstrip("/"))
-        self.assertFalse(os.path.exists(os.path.join(mocked_conf_dir, file_name)))
+        assert not os.path.exists(os.path.join(mocked_conf_dir, file_name))
 
     def _mock_task_paths(self, task):
         # Mock the paths in the task
@@ -1743,7 +1666,7 @@ class InstallationTaskTestCase(unittest.TestCase):
         )
         self._mock_task_paths(task)
 
-        with self.assertRaises(NetworkInstallationError):
+        with pytest.raises(NetworkInstallationError):
             task._disable_ipv6_on_system(self._target_root)
 
     def test_network_instalation_task_missing_target_dir(self):

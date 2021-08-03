@@ -18,6 +18,7 @@
 import os
 import tempfile
 import unittest
+import pytest
 
 from unittest.mock import patch, call, Mock
 
@@ -46,7 +47,7 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
 
     def _check_macros(self, task, mock_rpm, expected_macros):
         """Check that the expected macros are set up."""
-        self.assertEqual(task._macros, expected_macros)
+        assert task._macros == expected_macros
 
         calls = [call(*macro) for macro in expected_macros]
         mock_rpm.addMacro.assert_has_calls(calls)
@@ -146,7 +147,7 @@ class ImportRPMKeysTaskTestCase(unittest.TestCase):
                 task.run()
 
             msg = "No GPG keys to import."
-            self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+            assert any(map(lambda x: msg in x, cm.output))
 
     def test_import_no_rpm(self):
         """Import GPG keys without installed rpm."""
@@ -157,7 +158,7 @@ class ImportRPMKeysTaskTestCase(unittest.TestCase):
                 task.run()
 
             msg = "Can not import GPG keys to RPM database"
-            self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+            assert any(map(lambda x: msg in x, cm.output))
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.util.execWithRedirect")
     def test_import_error(self, mock_exec):
@@ -172,7 +173,7 @@ class ImportRPMKeysTaskTestCase(unittest.TestCase):
                 task.run()
 
             msg = "Failed to import the GPG key."
-            self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+            assert any(map(lambda x: msg in x, cm.output))
 
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.util.execWithRedirect")
     def test_import_keys(self, mock_exec):
@@ -228,7 +229,7 @@ class DownloadPackagesTaskTestCase(unittest.TestCase):
         task.progress_changed_signal.connect(callback)
         task.run()
 
-        self.assertEqual(task.name, "Download packages")
+        assert task.name == "Download packages"
         dnf_manager.download_packages.assert_called_once_with(task.report_progress)
 
         callback.assert_has_calls([
@@ -258,7 +259,7 @@ class InstallPackagesTaskTestCase(unittest.TestCase):
         task.progress_changed_signal.connect(callback)
         task.run()
 
-        self.assertEqual(task.name, "Install packages")
+        assert task.name == "Install packages"
         dnf_manager.install_packages.assert_called_once_with(task.report_progress)
 
         callback.assert_has_calls([
@@ -292,15 +293,15 @@ class PrepareDownloadLocationTaskTestCase(unittest.TestCase):
             os.mknod(os.path.join(path, "f3"))
 
             task = PrepareDownloadLocationTask(dnf_manager)
-            self.assertEqual(task.run(), path)
+            assert task.run() == path
 
             # The manager should apply the location.
             dnf_manager.set_download_location.assert_called_once_with(path)
 
             # The files should be deleted.
-            self.assertFalse(os.path.exists(os.path.join(path, "f1")))
-            self.assertFalse(os.path.exists(os.path.join(path, "f2")))
-            self.assertFalse(os.path.exists(os.path.join(path, "f3")))
+            assert not os.path.exists(os.path.join(path, "f1"))
+            assert not os.path.exists(os.path.join(path, "f2"))
+            assert not os.path.exists(os.path.join(path, "f3"))
 
 
 class CleanUpDownloadLocationTaskTestCase(unittest.TestCase):
@@ -333,9 +334,9 @@ class CleanUpDownloadLocationTaskTestCase(unittest.TestCase):
             task.run()
 
             # The files should be deleted.
-            self.assertFalse(os.path.exists(os.path.join(path, "f1")))
-            self.assertFalse(os.path.exists(os.path.join(path, "f2")))
-            self.assertFalse(os.path.exists(os.path.join(path, "f3")))
+            assert not os.path.exists(os.path.join(path, "f1"))
+            assert not os.path.exists(os.path.join(path, "f2"))
+            assert not os.path.exists(os.path.join(path, "f3"))
 
 
 class ResolvePackagesTaskTestCase(unittest.TestCase):
@@ -403,22 +404,22 @@ class ResolvePackagesTaskTestCase(unittest.TestCase):
         dnf_manager.disable_modules.side_effect = MissingSpecsError("e1")
         dnf_manager.apply_specs.side_effect = MissingSpecsError("e2")
 
-        with self.assertRaises(NonCriticalInstallationError) as cm:
+        with pytest.raises(NonCriticalInstallationError) as cm:
             task = ResolvePackagesTask(dnf_manager, selection)
             task.run()
 
         expected = "e1\n\ne2"
-        self.assertEqual(str(cm.exception), expected)
+        assert str(cm.value) == expected
 
         dnf_manager.enable_modules.side_effect = BrokenSpecsError("e3")
         dnf_manager.resolve_selection.side_effect = InvalidSelectionError("e4")
 
-        with self.assertRaises(PayloadInstallationError) as cm:
+        with pytest.raises(PayloadInstallationError) as cm:
             task = ResolvePackagesTask(dnf_manager, selection)
             task.run()
 
         expected = "e3\n\ne4"
-        self.assertEqual(str(cm.exception), expected)
+        assert str(cm.value) == expected
 
 
 class UpdateDNFConfigurationTaskTestCase(unittest.TestCase):
@@ -450,7 +451,7 @@ class UpdateDNFConfigurationTaskTestCase(unittest.TestCase):
                 task.run()
 
             msg = "Failed to update the DNF configuration (1)."
-            self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+            assert any(map(lambda x: msg in x, cm.output))
 
     @patch("pyanaconda.core.util.execWithRedirect")
     def test_error_update(self, execute):
@@ -467,7 +468,7 @@ class UpdateDNFConfigurationTaskTestCase(unittest.TestCase):
                 task.run()
 
             msg = "Couldn't update the DNF configuration: Fake!"
-            self.assertTrue(any(map(lambda x: msg in x, cm.output)))
+            assert any(map(lambda x: msg in x, cm.output))
 
     @patch("pyanaconda.core.util.execWithRedirect")
     def test_multilib_policy(self, execute):

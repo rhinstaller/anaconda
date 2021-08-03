@@ -50,7 +50,8 @@ RUN pip install --no-cache-dir \
   pycodestyle \
   dogtail \
   rpmfluff \
-  freezegun
+  freezegun \
+  pytest
 
 RUN mkdir /anaconda
 

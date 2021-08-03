@@ -43,7 +43,6 @@ class RPMOSTreeInterfaceTestCase(unittest.TestCase):
         self.interface = RPMOSTreeInterface(self.module)
 
         self.shared_tests = PayloadSharedTest(
-            test=self,
             payload=self.module,
             payload_intf=self.interface
         )
@@ -54,10 +53,10 @@ class RPMOSTreeInterfaceTestCase(unittest.TestCase):
 
     def test_supported_sources(self):
         """Test the SupportedSourceTypes property."""
-        self.assertEqual(self.interface.SupportedSourceTypes, [
+        assert self.interface.SupportedSourceTypes == [
             SOURCE_TYPE_RPM_OSTREE,
             SOURCE_TYPE_FLATPAK,
-        ])
+        ]
 
 
 class RPMOSTreeKickstartTestCase(unittest.TestCase):
@@ -68,21 +67,20 @@ class RPMOSTreeKickstartTestCase(unittest.TestCase):
         self.module = PayloadsService()
         self.interface = PayloadsInterface(self.module)
         self.shared_ks_tests = PayloadKickstartSharedTest(
-            test=self,
             payload_service=self.module,
             payload_service_intf=self.interface
         )
 
     def _check_properties(self, expected_source_type):
         payload = self.shared_ks_tests.get_payload()
-        self.assertIsInstance(payload, RPMOSTreeModule)
+        assert isinstance(payload, RPMOSTreeModule)
 
         if expected_source_type is None:
-            self.assertFalse(payload.sources)
+            assert not payload.sources
         else:
             sources = payload.sources
-            self.assertEqual(1, len(sources))
-            self.assertEqual(sources[0].type.value, expected_source_type)
+            assert 1 == len(sources)
+            assert sources[0].type.value == expected_source_type
 
     def test_ostree_kickstart(self):
         ks_in = """
@@ -117,18 +115,18 @@ class RPMOSTreeModuleTestCase(unittest.TestCase):
 
     def _assert_is_instance_list(self, objects, classes):
         """Check if objects are instances of classes."""
-        self.assertEqual(len(objects), len(classes))
+        assert len(objects) == len(classes)
 
         for obj, cls in zip(objects, classes):
-            self.assertIsInstance(obj, cls)
+            assert isinstance(obj, cls)
 
     def test_get_kernel_version_list(self):
         """Test the get_kernel_version_list method."""
-        self.assertEqual(self.module.get_kernel_version_list(), [])
+        assert self.module.get_kernel_version_list() == []
 
     def test_install_with_tasks(self):
         """Test the install_with_tasks method."""
-        self.assertEqual(self.module.install_with_tasks(), [])
+        assert self.module.install_with_tasks() == []
 
         rpm_source = SourceFactory.create_source(SourceType.RPM_OSTREE)
         self.module.set_sources([rpm_source])
@@ -176,14 +174,14 @@ class RPMOSTreeModuleTestCase(unittest.TestCase):
             # Fake the task run.
             task.succeeded_signal.emit()
 
-        self.assertEqual(self.module._internal_mounts, [
+        assert self.module._internal_mounts == [
             "/path/PrepareOSTreeMountTargetsTask/1",
             "/path/PrepareOSTreeMountTargetsTask/2"
-        ])
+        ]
 
     def test_post_install_with_tasks(self):
         """Test the post_install_with_tasks method."""
-        self.assertEqual(self.module.post_install_with_tasks(), [])
+        assert self.module.post_install_with_tasks() == []
 
         rpm_source = SourceFactory.create_source(SourceType.RPM_OSTREE)
         self.module.set_sources([rpm_source])
@@ -208,5 +206,5 @@ class RPMOSTreeModuleTestCase(unittest.TestCase):
             TearDownOSTreeMountTargetsTask
         ])
 
-        self.assertEqual(tasks[0]._sources, [rpm_source])
-        self.assertEqual(tasks[1]._internal_mounts, ["/path/1", "/path/2"])
+        assert tasks[0]._sources == [rpm_source]
+        assert tasks[1]._internal_mounts == ["/path/1", "/path/2"]

@@ -33,4 +33,4 @@ class ProductFromBuildstampTests(unittest.TestCase):
         ]
 
         for original, trimmed in trimmed_versions:
-            self.assertEqual(trimmed, trim_product_version_for_ui(original))
+            assert trimmed == trim_product_version_for_ui(original)

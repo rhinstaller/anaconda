@@ -18,6 +18,8 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
+import pytest
+
 from unittest.mock import patch
 
 from pyanaconda.core.configuration.anaconda import conf
@@ -38,7 +40,7 @@ class ZFCPInterfaceTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.storage.dasd.dasd.arch.is_s390", return_value=True)
     def test_is_supported(self, is_supported):
-        self.assertEqual(self.zfcp_interface.IsSupported(), True)
+        assert self.zfcp_interface.IsSupported() == True
 
     @patch_dbus_publish_object
     def test_discover_with_task(self, publisher):
@@ -49,11 +51,11 @@ class ZFCPInterfaceTestCase(unittest.TestCase):
             "0x401040a000000000"
         )
 
-        obj = check_task_creation(self, task_path, publisher, ZFCPDiscoverTask)
+        obj = check_task_creation(task_path, publisher, ZFCPDiscoverTask)
 
-        self.assertEqual(obj.implementation._device_number, "0.0.fc00")
-        self.assertEqual(obj.implementation._wwpn, "0x5105074308c212e9")
-        self.assertEqual(obj.implementation._lun, "0x401040a000000000")
+        assert obj.implementation._device_number == "0.0.fc00"
+        assert obj.implementation._wwpn == "0x5105074308c212e9"
+        assert obj.implementation._lun == "0x401040a000000000"
 
     @patch('pyanaconda.modules.storage.zfcp.zfcp.zfcp')
     @patch("pyanaconda.modules.storage.zfcp.zfcp.arch.is_s390", return_value=True)
@@ -69,13 +71,13 @@ class ZFCPTasksTestCase(unittest.TestCase):
     def test_discovery_fails(self):
         """Test the failing discovery task."""
 
-        with self.assertRaises(StorageDiscoveryError):
+        with pytest.raises(StorageDiscoveryError):
             ZFCPDiscoverTask("", "", "").run()
 
-        with self.assertRaises(StorageDiscoveryError):
+        with pytest.raises(StorageDiscoveryError):
             ZFCPDiscoverTask("0.0.fc00", "", "").run()
 
-        with self.assertRaises(StorageDiscoveryError):
+        with pytest.raises(StorageDiscoveryError):
             ZFCPDiscoverTask("0.0.fc00", "0x5105074308c212e9", "").run()
 
     @patch('pyanaconda.modules.storage.zfcp.discover.zfcp')

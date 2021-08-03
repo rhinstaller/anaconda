@@ -37,7 +37,6 @@ class FlatpakSourceInterfaceTestCase(unittest.TestCase):
 
     def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
-            self,
             PAYLOAD_SOURCE_RPM_OSTREE,
             self.interface,
             *args, **kwargs
@@ -45,15 +44,15 @@ class FlatpakSourceInterfaceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Test the Type property."""
-        self.assertEqual(self.interface.Type, SOURCE_TYPE_FLATPAK)
+        assert self.interface.Type == SOURCE_TYPE_FLATPAK
 
     def test_description(self):
         """Test the Description property."""
-        self.assertEqual(self.interface.Description, "Flatpak")
+        assert self.interface.Description == "Flatpak"
 
     def test_is_available(self):
         """Test the IsAvailable method."""
-        self.assertEqual(self.interface.IsAvailable(), False)
+        assert self.interface.IsAvailable() == False
 
 
 class FlatpakSourceTestCase(unittest.TestCase):
@@ -64,18 +63,18 @@ class FlatpakSourceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Test the type property."""
-        self.assertEqual(self.module.type, SourceType.FLATPAK)
+        assert self.module.type == SourceType.FLATPAK
 
     def test_network_required(self):
         """Test the network_required property."""
-        self.assertEqual(self.module.network_required, False)
+        assert self.module.network_required == False
 
     def test_required_space(self):
         """Test the required_space property."""
-        self.assertEqual(self.module.required_space, 0)
+        assert self.module.required_space == 0
 
         self.module._set_required_space(1024)
-        self.assertEqual(self.module.required_space, 1024)
+        assert self.module.required_space == 1024
 
     @patch("pyanaconda.modules.payloads.source.flatpak.flatpak.GetFlatpaksSizeTask.run")
     def test_set_required_space_with_task(self, run_mock):
@@ -85,26 +84,26 @@ class FlatpakSourceTestCase(unittest.TestCase):
         for task in self.module.set_up_with_tasks():
             task.run_with_signals()
 
-        self.assertEqual(self.module.required_space, 1024)
+        assert self.module.required_space == 1024
 
     def test_get_state(self):
         """Test the source state."""
-        self.assertEqual(self.module.get_state(), SourceState.NOT_APPLICABLE)
+        assert self.module.get_state() == SourceState.NOT_APPLICABLE
 
     def test_set_up_with_tasks(self):
         """Test the set-up tasks."""
         tasks = self.module.set_up_with_tasks()
 
-        self.assertEqual(len(tasks), 1)
-        self.assertIsInstance(tasks[0], GetFlatpaksSizeTask)
+        assert len(tasks) == 1
+        assert isinstance(tasks[0], GetFlatpaksSizeTask)
 
     def test_tear_down_with_tasks(self):
         """Test the tear-down tasks."""
-        self.assertEqual(self.module.tear_down_with_tasks(), [])
+        assert self.module.tear_down_with_tasks() == []
 
     def test_repr(self):
         """Test the string representation."""
-        self.assertEqual(repr(self.module), "Source(type='FLATPAK')")
+        assert repr(self.module) == "Source(type='FLATPAK')"
 
 
 class GetFlatpaksSizeTaskTest(unittest.TestCase):
@@ -118,8 +117,8 @@ class GetFlatpaksSizeTaskTest(unittest.TestCase):
         with TemporaryDirectory() as temp:
             task = GetFlatpaksSizeTask(temp)
             result = task.run()
-            self.assertIsInstance(result, int)
-            self.assertEqual(result, 123456789)
+            assert isinstance(result, int)
+            assert result == 123456789
 
         fm_instance.initialize_with_path.assert_called_once_with("/var/tmp/anaconda-flatpak-temp")
         fm_instance.get_required_size.assert_called_once()

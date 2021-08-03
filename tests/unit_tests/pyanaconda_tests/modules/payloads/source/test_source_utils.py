@@ -30,7 +30,7 @@ class IsValidMethodTestCase(unittest.TestCase):
            return_value=StringIO("timestamp\ndescription\ntest-arch\n"))
     def test_success(self, open_mock, get_arch_mock):
         """Test installation disk validation - arch match."""
-        self.assertTrue(is_valid_install_disk("/some/dir"))
+        assert is_valid_install_disk("/some/dir")
 
     @patch("pyanaconda.modules.payloads.source.utils.get_arch",
            return_value="does-not-match")
@@ -38,7 +38,7 @@ class IsValidMethodTestCase(unittest.TestCase):
            return_value=StringIO("timestamp\ndescription\ntest-arch\n"))
     def test_fail_arch(self, open_mock, get_arch_mock):
         """Test installation disk validation - arch mismatch."""
-        self.assertFalse(is_valid_install_disk("/some/dir"))
+        assert not is_valid_install_disk("/some/dir")
 
     @patch("pyanaconda.modules.payloads.source.utils.get_arch")
     @patch("pyanaconda.modules.payloads.source.utils.open",
@@ -46,5 +46,5 @@ class IsValidMethodTestCase(unittest.TestCase):
     def test_fail_no_file(self, open_mock, get_arch_mock):
         """Test installation disk validation - no file."""
         # the exception is caught inside - check that get_arch() is not called instead
-        self.assertFalse(is_valid_install_disk("/some/dir"))
+        assert not is_valid_install_disk("/some/dir")
         get_arch_mock.assert_not_called()

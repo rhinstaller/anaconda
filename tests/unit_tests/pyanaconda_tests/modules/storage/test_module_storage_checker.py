@@ -18,6 +18,8 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
+import pytest
+
 from unittest.mock import patch, Mock
 
 from blivet.size import Size
@@ -44,16 +46,16 @@ class StorageCheckerInterfaceTestCase(unittest.TestCase):
             get_variant(Int, 987 * 1024 * 1024)
         )
 
-        self.assertEqual(storage_checker.constraints[STORAGE_MIN_RAM], Size("987 MiB"))
+        assert storage_checker.constraints[STORAGE_MIN_RAM] == Size("987 MiB")
 
-        with self.assertRaises(UnsupportedValueError) as cm:
+        with pytest.raises(UnsupportedValueError) as cm:
             self.interface.SetConstraint(
                 STORAGE_LUKS2_MIN_RAM,
                 get_variant(Int, 987 * 1024 * 1024)
             )
 
-        self.assertEqual(str(cm.exception), "Constraint 'luks2_min_ram' is not supported.")
-        self.assertEqual(storage_checker.constraints[STORAGE_LUKS2_MIN_RAM], Size("128 MiB"))
+        assert str(cm.value) == "Constraint 'luks2_min_ram' is not supported."
+        assert storage_checker.constraints[STORAGE_LUKS2_MIN_RAM] == Size("128 MiB")
 
 
 class StorageCheckerVerificationTestCase(unittest.TestCase):

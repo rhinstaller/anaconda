@@ -16,6 +16,7 @@
 # Red Hat, Inc.
 #
 import unittest
+import pytest
 from unittest.mock import patch
 
 from blivet.devicelibs import raid
@@ -52,14 +53,14 @@ class PlatformTestCase(unittest.TestCase):
             non_linux_format_types = []
 
         platform = get_platform()
-        self.assertEqual(platform.__class__, platform_cls)
-        self.assertEqual(platform.packages, packages)
-        self.assertEqual(platform.non_linux_format_types, non_linux_format_types)
+        assert platform.__class__ == platform_cls
+        assert platform.packages == packages
+        assert platform.non_linux_format_types == non_linux_format_types
 
     def _check_partitions(self, *partitions):
         """Check the platform-specific partitions."""
         platform = get_platform()
-        self.assertEqual(platform.partitions, list(partitions))
+        assert platform.partitions == list(partitions)
 
     def _check_constraints(self, descriptions, constraints, error_message):
         """Check the platform-specific constraints."""
@@ -74,9 +75,9 @@ class PlatformTestCase(unittest.TestCase):
         all_constraints.update(constraints)
 
         platform = get_platform()
-        self.assertEqual(platform.stage1_descriptions, descriptions)
-        self.assertEqual(platform.stage1_constraints, all_constraints)
-        self.assertEqual(platform.stage1_suggestion, error_message)
+        assert platform.stage1_descriptions == descriptions
+        assert platform.stage1_constraints == all_constraints
+        assert platform.stage1_suggestion == error_message
 
     @patch("pyanaconda.modules.storage.platform.arch")
     def test_x86(self, arch):
@@ -472,17 +473,17 @@ class PlatformTestCase(unittest.TestCase):
         arch.is_ppc.return_value = True
         arch.get_ppc_machine.return_value = "INVALID"
 
-        with self.assertRaises(SystemError) as cm:
+        with pytest.raises(SystemError) as cm:
             get_platform()
 
-        self.assertEqual(str(cm.exception), "Unsupported PPC machine type: INVALID")
+        assert str(cm.value) == "Unsupported PPC machine type: INVALID"
 
     @patch("pyanaconda.modules.storage.platform.arch")
     def test_unsupported_platform(self, arch):
         """Test an unsupported platform."""
         self._reset_arch(arch)
 
-        with self.assertRaises(SystemError) as cm:
+        with pytest.raises(SystemError) as cm:
             get_platform()
 
-        self.assertEqual(str(cm.exception), "Could not determine system architecture.")
+        assert str(cm.value) == "Could not determine system architecture."

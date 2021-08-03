@@ -38,8 +38,7 @@ class LiveImageKSTestCase(unittest.TestCase):
         self.payload_module = PayloadsService()
         self.payload_module_interface = PayloadsInterface(self.payload_module)
 
-        self.shared_tests = PayloadKickstartSharedTest(self,
-                                                       self.payload_module,
+        self.shared_tests = PayloadKickstartSharedTest(self.payload_module,
                                                        self.payload_module_interface)
 
     def test_liveimg_simple_kickstart(self):
@@ -104,8 +103,7 @@ class LiveImageInterfaceTestCase(unittest.TestCase):
         self.live_image_module = LiveImageModule()
         self.live_image_interface = LiveImageInterface(self.live_image_module)
 
-        self.shared_tests = PayloadSharedTest(self,
-                                              payload=self.live_image_module,
+        self.shared_tests = PayloadSharedTest(payload=self.live_image_module,
                                               payload_intf=self.live_image_interface)
 
     def test_type(self):
@@ -119,31 +117,31 @@ class LiveImageModuleTestCase(unittest.TestCase):
 
     def test_calculate_required_space(self):
         """Test the calculate_required_space method."""
-        self.assertEqual(self.module.calculate_required_space(), 0)
+        assert self.module.calculate_required_space() == 0
 
         source = SourceFactory.create_source(SourceType.LIVE_IMAGE)
         self.module.add_source(source)
 
-        self.assertEqual(self.module.calculate_required_space(), 1024 * 1024 * 1024)
+        assert self.module.calculate_required_space() == 1024 * 1024 * 1024
 
     def test_install_with_task_from_tar(self):
         """Test Live Image install with tasks from tarfile."""
         # task_path = self.live_image_interface.PreInstallWithTasks()
-        # check_task_creation_list(self, task_path, publisher, [SetupInstallationSourceImageTask])
+        # check_task_creation_list(task_path, publisher, [SetupInstallationSourceImageTask])
 
         # task_path = self.live_image_interface.InstallWithTasks()
-        # check_task_creation_list(self, task_path, publisher, [InstallFromTarTask])
-        self.assertEqual(self.module.install_with_tasks(), [])
+        # check_task_creation_list(task_path, publisher, [InstallFromTarTask])
+        assert self.module.install_with_tasks() == []
 
     @patch_dbus_publish_object
     def test_install_with_task_from_image(self, publisher):
         """Test Live Image install with tasks from image."""
         # task_path = self.live_image_interface.PreInstallWithTasks()
-        # check_task_creation_list(self, task_path, publisher, [SetupInstallationSourceImageTask])
+        # check_task_creation_list(task_path, publisher, [SetupInstallationSourceImageTask])
 
         # task_path = self.live_image_interface.InstallWithTasks()
-        # check_task_creation_list(self, task_path, publisher, [InstallFromImageTask])
-        self.assertEqual(self.module.install_with_tasks(), [])
+        # check_task_creation_list(task_path, publisher, [InstallFromImageTask])
+        assert self.module.install_with_tasks() == []
 
     @patch_dbus_publish_object
     def test_post_install_with_tasks(self, publisher):
@@ -165,4 +163,4 @@ class LiveImageModuleTestCase(unittest.TestCase):
         #     self.assertEqual(object_path, task_paths[i])
         #     self.assertIsInstance(obj, TaskInterface)
         #     self.assertIsInstance(obj.implementation, task_classes[i])
-        self.assertEqual(self.module.post_install_with_tasks(), [])
+        assert self.module.post_install_with_tasks() == []

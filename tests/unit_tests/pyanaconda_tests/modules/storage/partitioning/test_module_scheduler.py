@@ -18,6 +18,7 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
+import pytest
 import copy
 from unittest.mock import patch, Mock
 
@@ -70,14 +71,12 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
 
     def test_publication(self):
         """Test the DBus representation."""
-        self.assertIsInstance(self.module.for_publication(), DeviceTreeSchedulerInterface)
+        assert isinstance(self.module.for_publication(), DeviceTreeSchedulerInterface)
 
     def test_generate_system_name(self):
         """Test GenerateSystemName."""
-        self.assertEqual(
-            self.interface.GenerateSystemName(),
+        assert self.interface.GenerateSystemName() == \
             "New anaconda bluesky Installation"
-        )
 
     def test_generate_system_data(self):
         """Test GenerateSystemData."""
@@ -86,18 +85,18 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self._add_device(StorageDevice("dev3", fmt=get_format("swap")))
 
         os_data = self.interface.GenerateSystemData("dev1")
-        self.assertEqual(get_native(os_data), {
+        assert get_native(os_data) == {
             'mount-points': {'/boot': 'dev1', '/': 'dev2'},
             'os-name': 'New anaconda bluesky Installation',
             'swap-devices': ['dev3']
-        })
+        }
 
     def test_collect_new_devices(self):
         """Test CollectNewDevices."""
         self._add_device(StorageDevice("dev1", fmt=get_format("ext4", mountpoint="/boot")))
         self._add_device(StorageDevice("dev2", fmt=get_format("ext4", mountpoint="/")))
         self._add_device(StorageDevice("dev3", fmt=get_format("swap")))
-        self.assertEqual(self.interface.CollectNewDevices("dev1"), ["dev1", "dev2", "dev3"])
+        assert self.interface.CollectNewDevices("dev1") == ["dev1", "dev2", "dev3"]
 
     def test_collect_unused_devices(self):
         """Test CollectUnusedDevices."""
@@ -126,7 +125,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self._add_device(dev3)
         self._add_device(dev4)
 
-        self.assertEqual(self.interface.CollectUnusedDevices(), ["dev2", "dev3"])
+        assert self.interface.CollectUnusedDevices() == ["dev2", "dev3"]
 
     @patch.object(FS, "update_size_info")
     def test_collect_supported_systems(self, update_size_info):
@@ -157,22 +156,20 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         )]
 
         os_data_list = self.interface.CollectSupportedSystems()
-        self.assertEqual(get_native(os_data_list), [{
+        assert get_native(os_data_list) == [{
             'os-name': 'My Linux',
             'mount-points': {'/': 'dev2'},
             'swap-devices': ['dev3']
-        }])
+        }]
 
     def test_get_default_file_system(self):
         """Test GetDefaultFileSystem."""
-        self.assertEqual(self.interface.GetDefaultFileSystem(), "ext4")
+        assert self.interface.GetDefaultFileSystem() == "ext4"
 
     def test_get_supported_raid_levels(self):
         """Test GetSupportedRaidLevels."""
-        self.assertEqual(
-            self.interface.GetSupportedRaidLevels(DEVICE_TYPE_LVM),
+        assert self.interface.GetSupportedRaidLevels(DEVICE_TYPE_LVM) == \
             ['linear', 'raid1', 'raid10', 'raid4', 'raid5', 'raid6', 'striped']
-        )
 
     @patch('pyanaconda.modules.storage.partitioning.interactive.utils.get_format')
     @patch('pyanaconda.modules.storage.partitioning.interactive.utils.platform', new_callable=EFI)
@@ -188,19 +185,19 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             "dev2",
             fmt=get_format("ext4", mountpoint="/")
         ))
-        self.assertEqual(self.interface.CollectUnusedMountPoints(), [
+        assert self.interface.CollectUnusedMountPoints() == [
             '/boot/efi', '/home', '/var', 'swap', 'biosboot'
-        ])
+        ]
 
     def _check_report(self, report, error_message=None):
         """Check the given validation report."""
         errors = [error_message] if error_message else []
         warnings = []
 
-        self.assertEqual(get_native(report), {
+        assert get_native(report) == {
             "error-messages": errors,
             "warning-messages": warnings
-        })
+        }
 
     def test_validate_mount_point(self):
         """Test ValidateMountPoint."""
@@ -326,7 +323,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self._add_device(dev2)
 
         request = self.interface.GenerateDeviceFactoryRequest("dev2")
-        self.assertEqual(get_native(request), {
+        assert get_native(request) == {
             'device-spec': 'dev2',
             'disks': ['dev1'],
             'mount-point': '/',
@@ -344,7 +341,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             'container-size-policy': SIZE_POLICY_AUTO,
             'container-encrypted': False,
             'container-raid-level': '',
-        })
+        }
 
     def test_reset_device_factory_request(self):
         """Test reset_container_data."""
@@ -358,39 +355,39 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         request.container_raid_level = "raid1"
         request.reset_container_data()
 
-        self.assertEqual(compare_data(request, default), True)
+        assert compare_data(request, default) == True
 
     def test_get_default_luks_version(self):
         """Test GetDefaultLUKSVersion."""
-        self.assertEqual(self.interface.GetDefaultLUKSVersion(), "luks2")
+        assert self.interface.GetDefaultLUKSVersion() == "luks2"
 
     def test_generate_device_name(self):
         """Test GenerateDeviceName."""
-        self.assertEqual(self.interface.GenerateDeviceName("/home", "ext4"), "home")
+        assert self.interface.GenerateDeviceName("/home", "ext4") == "home"
 
     def test_get_file_systems_for_device(self):
         """Test GetFileSystemsForDevice."""
         self._add_device(StorageDevice("dev1", fmt=get_format("ext4")))
         result = self.interface.GetFileSystemsForDevice("dev1")
 
-        self.assertIsInstance(result, list)
-        self.assertNotEqual(len(result), 0)
-        self.assertIn("ext4", result)
+        assert isinstance(result, list)
+        assert len(result) != 0
+        assert "ext4" in result
 
         for fs in result:
-            self.assertIsInstance(fs, str)
-            self.assertEqual(fs, get_format(fs).type)
+            assert isinstance(fs, str)
+            assert fs == get_format(fs).type
 
     def test_get_device_types_for_device(self):
         """Test GetDeviceTypesForDevice."""
         self._add_device(DiskDevice("dev1"))
-        self.assertEqual(self.interface.GetDeviceTypesForDevice("dev1"), [
+        assert self.interface.GetDeviceTypesForDevice("dev1") == [
             DEVICE_TYPE_LVM,
             DEVICE_TYPE_MD,
             DEVICE_TYPE_PARTITION,
             DEVICE_TYPE_DISK,
             DEVICE_TYPE_LVM_THINP,
-        ])
+        ]
 
     def test_validate_device_factory_request(self):
         """Test ValidateDeviceFactoryRequest."""
@@ -453,7 +450,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
 
         request = self.interface.GenerateDeviceFactoryRequest("dev1")
         permissions = self.interface.GenerateDeviceFactoryPermissions(request)
-        self.assertEqual(get_native(permissions), {
+        assert get_native(permissions) == {
             'mount-point': False,
             'reformat': False,
             'format-type': True,
@@ -469,11 +466,11 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             'container-size-policy': False,
             'container-encrypted': False,
             'container-raid-level': False,
-        })
+        }
 
         request = self.interface.GenerateDeviceFactoryRequest("dev2")
         permissions = self.interface.GenerateDeviceFactoryPermissions(request)
-        self.assertEqual(get_native(permissions), {
+        assert get_native(permissions) == {
             'mount-point': True,
             'reformat': False,
             'format-type': True,
@@ -489,12 +486,12 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             'container-size-policy': False,
             'container-encrypted': False,
             'container-raid-level': False,
-        })
+        }
 
         dev2.protected = True
         permissions = self.interface.GenerateDeviceFactoryPermissions(request)
         for value in get_native(permissions).values():
-            self.assertEqual(value, False)
+            assert value == False
 
     def test_generate_device_factory_permissions_btrfs(self):
         """Test GenerateDeviceFactoryPermissions with btrfs."""
@@ -517,7 +514,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             request = self.interface.GenerateDeviceFactoryRequest(dev2.name)
             permissions = self.interface.GenerateDeviceFactoryPermissions(request)
 
-        self.assertEqual(get_native(permissions), {
+        assert get_native(permissions) == {
             'mount-point': False,
             'reformat': False,
             'format-type': False,
@@ -533,7 +530,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             'container-size-policy': True,
             'container-encrypted': True,
             'container-raid-level': True,
-        })
+        }
 
     @patch_dbus_publish_object
     def test_schedule_partitions_with_task(self, publisher):
@@ -547,9 +544,9 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             PartitioningRequest.to_structure(request)
         )
 
-        obj = check_task_creation(self, task_path, publisher, InteractiveAutoPartitioningTask)
-        self.assertEqual(obj.implementation._storage, self.module.storage)
-        self.assertTrue(compare_data(obj.implementation._request, request))
+        obj = check_task_creation(task_path, publisher, InteractiveAutoPartitioningTask)
+        assert obj.implementation._storage == self.module.storage
+        assert compare_data(obj.implementation._request, request)
 
     def test_destroy_device(self):
         """Test DestroyDevice."""
@@ -580,24 +577,24 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self.module.storage.devicetree._add_device(dev2)
         self.module.storage.devicetree._add_device(dev3)
 
-        with self.assertRaises(StorageConfigurationError):
+        with pytest.raises(StorageConfigurationError):
             self.interface.DestroyDevice("dev1")
 
-        self.assertIn(dev1, self.module.storage.devices)
-        self.assertIn(dev2, self.module.storage.devices)
-        self.assertIn(dev3, self.module.storage.devices)
+        assert dev1 in self.module.storage.devices
+        assert dev2 in self.module.storage.devices
+        assert dev3 in self.module.storage.devices
 
         self.interface.DestroyDevice("dev2")
 
-        self.assertNotIn(dev1, self.module.storage.devices)
-        self.assertNotIn(dev2, self.module.storage.devices)
-        self.assertIn(dev3, self.module.storage.devices)
+        assert dev1 not in self.module.storage.devices
+        assert dev2 not in self.module.storage.devices
+        assert dev3 in self.module.storage.devices
 
         self.interface.DestroyDevice("dev3")
 
-        self.assertNotIn(dev1, self.module.storage.devices)
-        self.assertNotIn(dev2, self.module.storage.devices)
-        self.assertNotIn(dev3, self.module.storage.devices)
+        assert dev1 not in self.module.storage.devices
+        assert dev2 not in self.module.storage.devices
+        assert dev3 not in self.module.storage.devices
 
     def test_reset_device(self):
         """Test ResetDevice."""
@@ -630,27 +627,27 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self.module.storage.devicetree._add_device(dev2)
         self.module.storage.devicetree._add_device(dev3)
 
-        with self.assertRaises(StorageConfigurationError):
+        with pytest.raises(StorageConfigurationError):
             self.interface.ResetDevice("dev1")
 
-        self.assertIn(dev1, self.module.storage.devices)
-        self.assertIn(dev2, self.module.storage.devices)
-        self.assertIn(dev3, self.module.storage.devices)
-        self.assertEqual(dev3.format.type, "xfs")
+        assert dev1 in self.module.storage.devices
+        assert dev2 in self.module.storage.devices
+        assert dev3 in self.module.storage.devices
+        assert dev3.format.type == "xfs"
 
         self.interface.ResetDevice("dev2")
 
-        self.assertNotIn(dev1, self.module.storage.devices)
-        self.assertNotIn(dev2, self.module.storage.devices)
-        self.assertIn(dev3, self.module.storage.devices)
-        self.assertEqual(dev3.format.type, "xfs")
+        assert dev1 not in self.module.storage.devices
+        assert dev2 not in self.module.storage.devices
+        assert dev3 in self.module.storage.devices
+        assert dev3.format.type == "xfs"
 
         self.interface.ResetDevice("dev3")
 
-        self.assertNotIn(dev1, self.module.storage.devices)
-        self.assertNotIn(dev2, self.module.storage.devices)
-        self.assertIn(dev3, self.module.storage.devices)
-        self.assertEqual(dev3.format.type, "ext4")
+        assert dev1 not in self.module.storage.devices
+        assert dev2 not in self.module.storage.devices
+        assert dev3 in self.module.storage.devices
+        assert dev3.format.type == "ext4"
 
     def test_is_device_locked(self):
         """Test IsDeviceLocked."""
@@ -676,9 +673,9 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self._add_device(dev2)
         self._add_device(dev3)
 
-        self.assertEqual(self.interface.IsDeviceLocked("dev1"), False)
-        self.assertEqual(self.interface.IsDeviceLocked("dev2"), False)
-        self.assertEqual(self.interface.IsDeviceLocked("dev3"), True)
+        assert self.interface.IsDeviceLocked("dev1") == False
+        assert self.interface.IsDeviceLocked("dev2") == False
+        assert self.interface.IsDeviceLocked("dev3") == True
 
     def test_check_completeness(self):
         """Test CheckCompleteness."""
@@ -742,8 +739,8 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self._add_device(dev1)
         self._add_device(dev2)
 
-        self.assertEqual(self.interface.IsDeviceEditable("dev1"), False)
-        self.assertEqual(self.interface.IsDeviceEditable("dev2"), True)
+        assert self.interface.IsDeviceEditable("dev1") == False
+        assert self.interface.IsDeviceEditable("dev2") == True
 
     def test_collect_containers(self):
         """Test CollectContainers."""
@@ -760,8 +757,8 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self._add_device(dev1)
         self._add_device(dev2)
 
-        self.assertEqual(self.interface.CollectContainers(DEVICE_TYPE_BTRFS), [dev2.name])
-        self.assertEqual(self.interface.CollectContainers(DEVICE_TYPE_LVM), [])
+        assert self.interface.CollectContainers(DEVICE_TYPE_BTRFS) == [dev2.name]
+        assert self.interface.CollectContainers(DEVICE_TYPE_LVM) == []
 
     def test_get_container_free_space(self):
         """Test GetContainerFreeSpace."""
@@ -779,11 +776,11 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self._add_device(dev2)
 
         free_space = self.interface.GetContainerFreeSpace("dev1")
-        self.assertEqual(free_space, 0)
+        assert free_space == 0
 
         free_space = self.interface.GetContainerFreeSpace("dev2")
-        self.assertGreater(free_space, Size("9 GiB").get_bytes())
-        self.assertLess(free_space, Size("10 GiB").get_bytes())
+        assert free_space > Size("9 GiB").get_bytes()
+        assert free_space < Size("10 GiB").get_bytes()
 
     @patch_dbus_get_proxy
     def test_generate_container_name(self, proxy_getter):
@@ -793,13 +790,13 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
 
         network_proxy.Hostname = "localhost"
         network_proxy.GetCurrentHostname.return_value = "localhost"
-        self.assertEqual(self.interface.GenerateContainerName(), "anaconda")
+        assert self.interface.GenerateContainerName() == "anaconda"
 
         network_proxy.GetCurrentHostname.return_value = "hostname"
-        self.assertEqual(self.interface.GenerateContainerName(), "anaconda_hostname")
+        assert self.interface.GenerateContainerName() == "anaconda_hostname"
 
         network_proxy.Hostname = "best.hostname"
-        self.assertEqual(self.interface.GenerateContainerName(), "anaconda_best")
+        assert self.interface.GenerateContainerName() == "anaconda_best"
 
     @patch_dbus_get_proxy
     def test_generate_container_data(self, proxy_getter):
@@ -848,11 +845,11 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             )
         )
 
-        self.assertEqual(request.container_spec, "testvg")
-        self.assertEqual(request.container_name, "testvg")
-        self.assertEqual(request.container_encrypted, False)
-        self.assertEqual(request.container_raid_level, "")
-        self.assertEqual(request.container_size_policy, Size("1.5 GiB").get_bytes())
+        assert request.container_spec == "testvg"
+        assert request.container_name == "testvg"
+        assert request.container_encrypted == False
+        assert request.container_raid_level == ""
+        assert request.container_size_policy == Size("1.5 GiB").get_bytes()
 
         request.device_type = DEVICE_TYPE_BTRFS
         request = DeviceFactoryRequest.from_structure(
@@ -861,11 +858,11 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             )
         )
 
-        self.assertEqual(request.container_spec, "")
-        self.assertEqual(request.container_name, "anaconda")
-        self.assertEqual(request.container_encrypted, False)
-        self.assertEqual(request.container_raid_level, "single")
-        self.assertEqual(request.container_size_policy, 0)
+        assert request.container_spec == ""
+        assert request.container_name == "anaconda"
+        assert request.container_encrypted == False
+        assert request.container_raid_level == "single"
+        assert request.container_size_policy == 0
 
         request.device_type = DEVICE_TYPE_PARTITION
         request = DeviceFactoryRequest.from_structure(
@@ -874,11 +871,11 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             )
         )
 
-        self.assertEqual(request.container_spec, "")
-        self.assertEqual(request.container_name, "")
-        self.assertEqual(request.container_encrypted, False)
-        self.assertEqual(request.container_raid_level, "")
-        self.assertEqual(request.container_size_policy, 0)
+        assert request.container_spec == ""
+        assert request.container_name == ""
+        assert request.container_encrypted == False
+        assert request.container_raid_level == ""
+        assert request.container_size_policy == 0
 
     def test_update_container_data(self):
         """Test UpdateContainerData."""
@@ -904,7 +901,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         request = DeviceFactoryRequest()
         request.device_type = DEVICE_TYPE_PARTITION
 
-        with self.assertRaises(StorageError):
+        with pytest.raises(StorageError):
             self.interface.UpdateContainerData(
                     DeviceFactoryRequest.to_structure(request),
                     "anaconda"
@@ -918,12 +915,12 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             )
         )
 
-        self.assertEqual(request.container_spec, "")
-        self.assertEqual(request.container_name, "anaconda")
-        self.assertEqual(request.container_encrypted, False)
-        self.assertEqual(request.container_raid_level, "single")
-        self.assertEqual(request.container_size_policy, 0)
-        self.assertEqual(request.disks, [])
+        assert request.container_spec == ""
+        assert request.container_name == "anaconda"
+        assert request.container_encrypted == False
+        assert request.container_raid_level == "single"
+        assert request.container_size_policy == 0
+        assert request.disks == []
 
         request.device_type = DEVICE_TYPE_LVM
         request = DeviceFactoryRequest.from_structure(
@@ -933,12 +930,12 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             )
         )
 
-        self.assertEqual(request.container_spec, "testvg")
-        self.assertEqual(request.container_name, "testvg")
-        self.assertEqual(request.container_encrypted, False)
-        self.assertEqual(request.container_raid_level, "")
-        self.assertEqual(request.container_size_policy, Size("1.5 GiB").get_bytes())
-        self.assertEqual(request.disks, [])
+        assert request.container_spec == "testvg"
+        assert request.container_name == "testvg"
+        assert request.container_encrypted == False
+        assert request.container_raid_level == ""
+        assert request.container_size_policy == Size("1.5 GiB").get_bytes()
+        assert request.disks == []
 
     def test_is_device(self):
         """Test IsDevice."""
@@ -949,13 +946,13 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             exists=True
         )
 
-        self.assertEqual(self.interface.IsDevice("dev1"), False)
+        assert self.interface.IsDevice("dev1") == False
 
         self._add_device(dev1)
-        self.assertEqual(self.interface.IsDevice("dev1"), True)
+        assert self.interface.IsDevice("dev1") == True
 
         dev1.complete = False
-        self.assertEqual(self.interface.IsDevice("dev1"), True)
+        assert self.interface.IsDevice("dev1") == True
 
         self.storage.devicetree.hide(dev1)
-        self.assertEqual(self.interface.IsDevice("dev1"), True)
+        assert self.interface.IsDevice("dev1") == True

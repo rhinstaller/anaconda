@@ -51,7 +51,7 @@ class ZFCPNameRegexTestCase(unittest.TestCase):
                 '',
                 ]
 
-        self.assertTrue(regex_match(ZFCP_LUN_NUMBER, good_tests, bad_tests))
+        assert regex_match(ZFCP_LUN_NUMBER, good_tests, bad_tests)
 
     def test_wwpn_name(self):
         good_tests = [
@@ -80,4 +80,4 @@ class ZFCPNameRegexTestCase(unittest.TestCase):
             '',
         ]
 
-        self.assertTrue(regex_match(ZFCP_WWPN_NUMBER, good_tests, bad_tests))
+        assert regex_match(ZFCP_WWPN_NUMBER, good_tests, bad_tests)

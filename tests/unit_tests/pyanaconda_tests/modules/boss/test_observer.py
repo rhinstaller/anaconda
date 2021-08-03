@@ -18,6 +18,7 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
+import pytest
 from unittest.mock import Mock
 
 from dasbus.client.observer import DBusObserverError
@@ -31,7 +32,7 @@ class ModuleObserverTestCase(unittest.TestCase):
         """Set up the observer."""
         observer._service_available = Mock()
         observer._service_unavailable = Mock()
-        self.assertFalse(observer.is_service_available)
+        assert not observer.is_service_available
 
     def _make_service_available(self, observer):
         """Make the service available."""
@@ -40,7 +41,7 @@ class ModuleObserverTestCase(unittest.TestCase):
 
     def _test_if_service_available(self, observer):
         """Test if service is available."""
-        self.assertTrue(observer.is_service_available)
+        assert observer.is_service_available
 
         observer._service_available.emit.assert_called_once_with(observer)
         observer._service_available.reset_mock()
@@ -55,7 +56,7 @@ class ModuleObserverTestCase(unittest.TestCase):
 
     def _test_if_service_unavailable(self, observer):
         """Test if service is unavailable."""
-        self.assertFalse(observer.is_service_available)
+        assert not observer.is_service_available
 
         observer._service_unavailable.emit.assert_called_once_with(observer)
         observer._service_unavailable.reset_mock()
@@ -70,24 +71,24 @@ class ModuleObserverTestCase(unittest.TestCase):
 
         # Setup the observer.
         self._setup_observer(observer)
-        self.assertIsNone(observer._proxy)
+        assert observer._proxy is None
 
-        with self.assertRaises(DBusObserverError):
+        with pytest.raises(DBusObserverError):
             observer.proxy.DoSomething()
 
         # Service available.
         self._make_service_available(observer)
-        self.assertIsNone(observer._proxy)
+        assert observer._proxy is None
 
         # Access the proxy.
         observer.proxy.DoSomething()
         dbus.get_proxy.assert_called_once_with("my.test.module", "/my/test/module")
-        self.assertIsNotNone(observer._proxy)
+        assert observer._proxy is not None
 
         # Service unavailable.
 
         self._make_service_unavailable(observer)
-        self.assertIsNone(observer._proxy)
+        assert observer._proxy is None
 
-        with self.assertRaises(DBusObserverError):
+        with pytest.raises(DBusObserverError):
             observer.proxy.DoSomething()

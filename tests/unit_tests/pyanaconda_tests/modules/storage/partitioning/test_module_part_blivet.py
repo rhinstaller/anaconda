@@ -21,6 +21,8 @@ import os
 import sys
 import pickle
 import unittest
+import pytest
+
 from unittest.mock import patch
 
 from pyanaconda.modules.storage.devicetree import create_storage
@@ -61,24 +63,24 @@ class BlivetPartitioningInterfaceTestCase(unittest.TestCase):
 
         # We should be able to create the Storage module
         storage_module = StorageService()
-        self.assertIsNotNone(storage_module.storage)
+        assert storage_module.storage is not None
 
         # We should be able to create the Blivet module.
         from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
         blivet_module = storage_module.create_partitioning(PartitioningMethod.BLIVET)
-        self.assertIsNotNone(blivet_module.storage)
+        assert blivet_module.storage is not None
 
         # Import the exception again.
         from pyanaconda.modules.common.errors.storage import UnsupportedPartitioningError
 
         # Handle the missing support.
-        with self.assertRaises(UnsupportedPartitioningError):
-            self.assertFalse(blivet_module.storage_handler)  # pylint: disable=no-member
+        with pytest.raises(UnsupportedPartitioningError):
+            assert not blivet_module.storage_handler  # pylint: disable=no-member
 
-        with self.assertRaises(UnsupportedPartitioningError):
-            self.assertFalse(blivet_module.request_handler)  # pylint: disable=no-member
+        with pytest.raises(UnsupportedPartitioningError):
+            assert not blivet_module.request_handler  # pylint: disable=no-member
 
-        with self.assertRaises(UnsupportedPartitioningError):
+        with pytest.raises(UnsupportedPartitioningError):
             request = pickle.dumps(("call", "get_disks", []))
             blivet_module.send_request(request)  # pylint: disable=no-member
 
@@ -86,15 +88,15 @@ class BlivetPartitioningInterfaceTestCase(unittest.TestCase):
     def test_storage_handler(self):
         """Test the storage_handler property."""
         self.module.on_storage_changed(create_storage())
-        self.assertIsNotNone(self.module.storage_handler)
-        self.assertEqual(self.module.storage, self.module.storage_handler.storage)
+        assert self.module.storage_handler is not None
+        assert self.module.storage == self.module.storage_handler.storage
 
     @unittest.skipUnless(HAVE_BLIVET_GUI, "blivet-gui not installed")
     def test_request_handler(self):
         """Test the request_handler property."""
         self.module.on_storage_changed(create_storage())
-        self.assertIsNotNone(self.module.request_handler)
-        self.assertEqual(self.module.storage_handler, self.module.request_handler.blivet_utils)
+        assert self.module.request_handler is not None
+        assert self.module.storage_handler == self.module.request_handler.blivet_utils
 
     @unittest.skipUnless(HAVE_BLIVET_GUI, "blivet-gui not installed")
     def test_send_request(self):
@@ -106,8 +108,8 @@ class BlivetPartitioningInterfaceTestCase(unittest.TestCase):
         answer = pickle.loads(answer)
 
         from blivetgui.communication.proxy_utils import ProxyID  # pylint: disable=import-error
-        self.assertIsInstance(answer, ProxyID)
-        self.assertEqual(answer.id, 0)
+        assert isinstance(answer, ProxyID)
+        assert answer.id == 0
 
     @patch_dbus_publish_object
     def test_configure_with_task(self, publisher):
@@ -115,6 +117,6 @@ class BlivetPartitioningInterfaceTestCase(unittest.TestCase):
         self.module.on_storage_changed(create_storage())
         task_path = self.interface.ConfigureWithTask()
 
-        obj = check_task_creation(self, task_path, publisher, InteractivePartitioningTask)
+        obj = check_task_creation(task_path, publisher, InteractivePartitioningTask)
 
-        self.assertEqual(obj.implementation._storage, self.module.storage)
+        assert obj.implementation._storage == self.module.storage

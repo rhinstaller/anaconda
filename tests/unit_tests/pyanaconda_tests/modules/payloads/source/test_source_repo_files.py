@@ -16,9 +16,10 @@
 # Red Hat, Inc.
 #
 import os
-from tempfile import TemporaryDirectory
-
 import unittest
+import pytest
+
+from tempfile import TemporaryDirectory
 
 from pyanaconda.core.constants import SOURCE_TYPE_REPO_FILES
 from pyanaconda.modules.common.errors.payload import SourceSetupError
@@ -38,11 +39,11 @@ class RepoFilesSourceInterfaceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Test Repo files source has a correct type specified."""
-        self.assertEqual(SOURCE_TYPE_REPO_FILES, self.interface.Type)
+        assert SOURCE_TYPE_REPO_FILES == self.interface.Type
 
     def test_description(self):
         """Test NFS source description."""
-        self.assertEqual("Local repositories", self.interface.Description)
+        assert "Local repositories" == self.interface.Description
 
 
 class RepoFilesSourceTestCase(unittest.TestCase):
@@ -53,33 +54,33 @@ class RepoFilesSourceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Test Repo files source module has a correct type."""
-        self.assertEqual(SourceType.REPO_FILES, self.module.type)
+        assert SourceType.REPO_FILES == self.module.type
 
     def test_network_required(self):
         """Test the property network_required."""
-        self.assertEqual(self.module.network_required, True)
+        assert self.module.network_required == True
 
     def test_required_space(self):
         """Test the required_space property."""
-        self.assertEqual(self.module.required_space, 0)
+        assert self.module.required_space == 0
 
     def test_repr(self):
-        self.assertEqual(repr(self.module), "Source(type='REPO_FILES')")
+        assert repr(self.module) == "Source(type='REPO_FILES')"
 
     def test_set_up_with_tasks(self):
         """Test Repo files Source set up call."""
         tasks = self.module.set_up_with_tasks()
-        self.assertEqual(len(tasks), 1)
-        self.assertIsInstance(tasks[0], SetUpRepoFilesSourceTask)
+        assert len(tasks) == 1
+        assert isinstance(tasks[0], SetUpRepoFilesSourceTask)
 
     def test_tear_down_with_tasks(self):
         """Test Repo files Source ready state for tear down."""
         tasks = self.module.tear_down_with_tasks()
-        self.assertEqual([], tasks)
+        assert [] == tasks
 
     def test_ready_state(self):
         """Test Repo files Source ready state for set up."""
-        self.assertTrue(self.module.get_state())
+        assert self.module.get_state()
 
 
 class RepoFilesSourceSetupTaskTestCase(unittest.TestCase):
@@ -87,7 +88,7 @@ class RepoFilesSourceSetupTaskTestCase(unittest.TestCase):
     def test_setup_install_source_task_name(self):
         """Test Repo files Source setup installation source task name."""
         task = SetUpRepoFilesSourceTask([""])
-        self.assertEqual(task.name, "Set up Repo files Installation Source")
+        assert task.name == "Set up Repo files Installation Source"
 
     def test_setup_install_source_task_success(self):
         with TemporaryDirectory() as temp_dir_name:
@@ -96,5 +97,7 @@ class RepoFilesSourceSetupTaskTestCase(unittest.TestCase):
 
     def test_setup_install_source_task_failure(self):
         with TemporaryDirectory() as temp_dir_name:
-            with self.assertRaises(SourceSetupError, msg="repo files not found"):
+            with pytest.raises(SourceSetupError) as cm:
                 SetUpRepoFilesSourceTask([temp_dir_name]).run()
+
+            assert str(cm.value) == "repo files not found"

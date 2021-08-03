@@ -16,6 +16,8 @@
 # Red Hat, Inc.
 #
 import unittest
+import pytest
+
 from unittest.mock import patch
 
 from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_OS, PAYLOAD_TYPE_DNF, SOURCE_TYPE_CDROM
@@ -37,7 +39,7 @@ class PayloadUITestCase(unittest.TestCase):
         payload_proxy = PAYLOADS.get_proxy("/my/path")
         payload_proxy.Type = PAYLOAD_TYPE_LIVE_OS
 
-        self.assertEqual(create_payload(PAYLOAD_TYPE_LIVE_OS), payload_proxy)
+        assert create_payload(PAYLOAD_TYPE_LIVE_OS) == payload_proxy
         payloads_proxy.CreatePayload.assert_called_once_with(PAYLOAD_TYPE_LIVE_OS)
         payloads_proxy.ActivatePayload.assert_called_once_with("/my/path")
 
@@ -55,12 +57,12 @@ class PayloadUITestCase(unittest.TestCase):
         payload_proxy_2.Type = PAYLOAD_TYPE_DNF
 
         # Get the active payload.
-        self.assertEqual(get_payload(PAYLOAD_TYPE_LIVE_OS), payload_proxy_1)
-        self.assertEqual(get_payload(PAYLOAD_TYPE_LIVE_OS), payload_proxy_1)
+        assert get_payload(PAYLOAD_TYPE_LIVE_OS) == payload_proxy_1
+        assert get_payload(PAYLOAD_TYPE_LIVE_OS) == payload_proxy_1
         payloads_proxy.ActivatePayload.assert_not_called()
 
         # Or create a new one.
-        self.assertEqual(get_payload(PAYLOAD_TYPE_DNF), payload_proxy_2)
+        assert get_payload(PAYLOAD_TYPE_DNF) == payload_proxy_2
         payloads_proxy.ActivatePayload.assert_called_once_with("/my/path2")
 
     @patch_dbus_get_proxy_with_cache
@@ -72,7 +74,7 @@ class PayloadUITestCase(unittest.TestCase):
         source_proxy = PAYLOADS.get_proxy("/my/source")
         source_proxy.Type = SOURCE_TYPE_CDROM
 
-        self.assertEqual(create_source(SOURCE_TYPE_CDROM), source_proxy)
+        assert create_source(SOURCE_TYPE_CDROM) == source_proxy
         payloads_proxy.CreateSource.assert_called_once_with(SOURCE_TYPE_CDROM)
 
     @patch("pyanaconda.ui.lib.payload.get_object_path")
@@ -95,13 +97,14 @@ class PayloadUITestCase(unittest.TestCase):
         source_proxy_1 = PAYLOADS.get_proxy("/my/source/1")
 
         payload_proxy.Sources = ["/my/source/1", "/my/source/2", "/my/source/3"]
-        self.assertEqual(get_source(payload_proxy), source_proxy_1)
+        assert get_source(payload_proxy) == source_proxy_1
 
         payload_proxy.Sources = ["/my/source/1"]
-        self.assertEqual(get_source(payload_proxy), source_proxy_1)
+        assert get_source(payload_proxy) == source_proxy_1
 
         payload_proxy.Sources = []
-        self.assertRaises(ValueError, get_source, payload_proxy)
+        with pytest.raises(ValueError):
+            get_source(payload_proxy)
 
         payloads_proxy = PAYLOADS.get_proxy()
         payloads_proxy.CreateSource.return_value = "/my/source/4"
@@ -110,7 +113,7 @@ class PayloadUITestCase(unittest.TestCase):
         get_object_path.return_value = "/my/source/4"
 
         payload_proxy.Sources = []
-        self.assertEqual(get_source(payload_proxy, SOURCE_TYPE_CDROM), source_proxy_4)
+        assert get_source(payload_proxy, SOURCE_TYPE_CDROM) == source_proxy_4
         payloads_proxy.CreateSource.assert_called_once_with(SOURCE_TYPE_CDROM)
         payload_proxy.SetSources.assert_called_once_with(["/my/source/4"])
 

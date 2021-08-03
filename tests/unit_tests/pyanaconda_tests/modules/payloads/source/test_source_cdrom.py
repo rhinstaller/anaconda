@@ -16,6 +16,8 @@
 # Red Hat, Inc.
 #
 import unittest
+import pytest
+
 from unittest.mock import call, DEFAULT, Mock, patch
 
 from pyanaconda.core.constants import SOURCE_TYPE_CDROM
@@ -42,17 +44,17 @@ class CdromSourceInterfaceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Test CD-ROM source has a correct type specified."""
-        self.assertEqual(SOURCE_TYPE_CDROM, self.interface.Type)
+        assert SOURCE_TYPE_CDROM == self.interface.Type
 
     def test_device(self):
         """Test CD-ROM source Device API."""
-        self.assertEqual(self.interface.DeviceName, "")
+        assert self.interface.DeviceName == ""
 
         task = self.module.set_up_with_tasks()[0]
         task.get_result = Mock(return_value="top_secret")
         task.succeeded_signal.emit()
 
-        self.assertEqual(self.interface.DeviceName, "top_secret")
+        assert self.interface.DeviceName == "top_secret"
 
 
 class CdromSourceTestCase(unittest.TestCase):
@@ -63,35 +65,35 @@ class CdromSourceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Test CD-ROM source module has a correct type."""
-        self.assertEqual(SourceType.CDROM, self.module.type)
+        assert SourceType.CDROM == self.module.type
 
     @patch("os.path.ismount")
     def test_get_state(self, ismount_mock):
         """Test CD-ROM source state."""
         ismount_mock.return_value = False
-        self.assertEqual(SourceState.UNREADY, self.module.get_state())
+        assert SourceState.UNREADY == self.module.get_state()
 
         ismount_mock.reset_mock()
         ismount_mock.return_value = True
 
-        self.assertEqual(SourceState.READY, self.module.get_state())
+        assert SourceState.READY == self.module.get_state()
 
         ismount_mock.assert_called_once_with(self.module.mount_point)
 
     def test_description(self):
         """Hard drive source description."""
-        self.assertEqual("Local media", self.interface.Description)
+        assert "Local media" == self.interface.Description
 
     def test_network_required(self):
         """Test the property network_required."""
-        self.assertEqual(self.module.network_required, False)
+        assert self.module.network_required == False
 
     def test_required_space(self):
         """Test the required_space property."""
-        self.assertEqual(self.module.required_space, 0)
+        assert self.module.required_space == 0
 
     def test_repr(self):
-        self.assertEqual(repr(self.module), "Source(type='CDROM')")
+        assert repr(self.module) == "Source(type='CDROM')"
 
     def test_set_up_with_tasks(self):
         """Test CD-ROM Source set up call."""
@@ -104,10 +106,10 @@ class CdromSourceTestCase(unittest.TestCase):
 
         # Check the number of the tasks
         task_number = len(task_classes)
-        self.assertEqual(task_number, len(tasks))
+        assert task_number == len(tasks)
 
         for i in range(task_number):
-            self.assertIsInstance(tasks[i], task_classes[i])
+            assert isinstance(tasks[i], task_classes[i])
 
     def test_tear_down_with_tasks(self):
         """Test CD-ROM Source ready state for tear down."""
@@ -120,10 +122,10 @@ class CdromSourceTestCase(unittest.TestCase):
 
         # check the number of tasks
         task_number = len(task_classes)
-        self.assertEqual(task_number, len(tasks))
+        assert task_number == len(tasks)
 
         for i in range(task_number):
-            self.assertIsInstance(tasks[i], task_classes[i])
+            assert isinstance(tasks[i], task_classes[i])
 
 
 class CdromSourceSetupTaskTestCase(unittest.TestCase):
@@ -136,7 +138,7 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
         """Test CD-ROM Source setup installation source task name."""
         task = SetUpCdromSourceTask(self.mount_location)
 
-        self.assertEqual(task.name, "Set up CD-ROM Installation Source")
+        assert task.name == "Set up CD-ROM Installation Source"
 
     @staticmethod
     def set_up_device_tree(num_cdroms):
@@ -194,36 +196,26 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
                                                 mount_mock,
                                                 "test{}".format(n))
 
-        self.assertEqual(device_tree_mock.GetDeviceData.call_count, num_called)
-        self.assertEqual(mount_mock.call_count, num_called)
+        assert device_tree_mock.GetDeviceData.call_count == num_called
+        assert mount_mock.call_count == num_called
 
     def _check_if_device_was_tried(self,
                                    device_tree_mock,
                                    mount_mock,
                                    device_name):
-        self.assertIn(
-            call(device_name),
-            device_tree_mock.GetDeviceData.mock_calls
-        )
+        assert call(device_name) in device_tree_mock.GetDeviceData.mock_calls
 
-        self.assertIn(
-            call("/dev/cdrom-{}".format(device_name), self.mount_location, "iso9660", "ro"),
+        assert call("/dev/cdrom-{}".format(device_name), self.mount_location, "iso9660", "ro") in \
             mount_mock.mock_calls
-        )
 
     def _check_if_device_was_not_tried(self,
                                        device_tree_mock,
                                        mount_mock,
                                        device_name):
-        self.assertNotIn(
-            call(device_name),
-            device_tree_mock.GetDeviceData.mock_calls
-        )
+        assert call(device_name) not in device_tree_mock.GetDeviceData.mock_calls
 
-        self.assertNotIn(
-            call("/dev/cdrom-{}".format(device_name), self.mount_location, "iso9660", "ro"),
+        assert call("/dev/cdrom-{}".format(device_name), self.mount_location, "iso9660", "ro") not in \
             mount_mock.mock_calls
-        )
 
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.kernel_arguments")
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.is_valid_install_disk")
@@ -262,7 +254,7 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
         unmount_mock.assert_not_called()
 
         # Test device name returned
-        self.assertEqual(result, "test1")
+        assert result == "test1"
 
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.kernel_arguments")
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.is_valid_install_disk")
@@ -293,13 +285,13 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
         self.assert_resolve_and_mount_calls(device_tree, mount_mock, 1, 1)
 
         # Only first was mounted
-        self.assertEqual(valid_mock.call_count, 1)
+        assert valid_mock.call_count == 1
 
         #  First device was used no unmount should be called
         unmount_mock.assert_not_called()
 
         # Test device name returned
-        self.assertEqual(result, "test0")
+        assert result == "test0"
 
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.kernel_arguments")
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.is_valid_install_disk")
@@ -333,13 +325,13 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
         self.assert_resolve_and_mount_calls(device_tree, mount_mock, 1, 1)
 
         # Only first was mounted
-        self.assertEqual(valid_mock.call_count, 1)
+        assert valid_mock.call_count == 1
 
         #  First device was used no unmount should be called
         unmount_mock.assert_not_called()
 
         # Test device name returned
-        self.assertEqual(result, "test0")
+        assert result == "test0"
 
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.kernel_arguments")
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.is_valid_install_disk")
@@ -372,13 +364,13 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
         self.assert_resolve_and_mount_calls(device_tree, mount_mock, 1, 1)
 
         # Only first was mounted
-        self.assertEqual(valid_mock.call_count, 1)
+        assert valid_mock.call_count == 1
 
         #  First device was used no unmount should be called
         unmount_mock.assert_not_called()
 
         # Test device name returned
-        self.assertEqual(result, "test0")
+        assert result == "test0"
 
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.kernel_arguments")
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.is_valid_install_disk")
@@ -412,13 +404,13 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
         self.assert_resolve_and_mount_calls(device_tree, mount_mock, 1, 1)
 
         # Only first was mounted
-        self.assertEqual(valid_mock.call_count, 1)
+        assert valid_mock.call_count == 1
 
         #  First device was used no unmount should be called
         unmount_mock.assert_not_called()
 
         # Test device name returned
-        self.assertEqual(result, "test0")
+        assert result == "test0"
 
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.kernel_arguments")
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.is_valid_install_disk")
@@ -453,7 +445,7 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
         self.assert_resolve_and_mount_calls(device_tree, mount_mock, 3, 1)
 
         # Only 2 & 3 were mounted
-        self.assertEqual(valid_mock.call_count, 2)
+        assert valid_mock.call_count == 2
         # It makes no sense to check how validation was called because all mounting is to the same
         # path.
 
@@ -461,7 +453,7 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
         unmount_mock.assert_called_once_with(self.mount_location)
 
         # Test device name returned
-        self.assertEqual(result, "test2")
+        assert result == "test2"
 
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.kernel_arguments")
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.is_valid_install_disk")
@@ -484,7 +476,7 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
         mount_mock.side_effect = PayloadSetupError("Mocked failure")
         valid_mock.return_value = True
 
-        with self.assertRaises(SourceSetupError) as cm:
+        with pytest.raises(SourceSetupError) as cm:
             task = SetUpCdromSourceTask(self.mount_location)
             task.run()
 
@@ -494,7 +486,7 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
         valid_mock.assert_not_called()
         unmount_mock.assert_not_called()
         # exception happened due to no disk
-        self.assertEqual(str(cm.exception), "Found no CD-ROM")
+        assert str(cm.value) == "Found no CD-ROM"
 
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.kernel_arguments")
     @patch("pyanaconda.modules.payloads.source.cdrom.initialization.is_valid_install_disk")
@@ -516,7 +508,7 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
         proxy_getter.return_value = device_tree
         valid_mock.return_value = False
 
-        with self.assertRaises(SourceSetupError) as cm:
+        with pytest.raises(SourceSetupError) as cm:
             task = SetUpCdromSourceTask(self.mount_location)
             task.run()
 
@@ -526,4 +518,4 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
         valid_mock.assert_called_once()
         unmount_mock.assert_called_once()
         # exception happened due to no disk
-        self.assertEqual(str(cm.exception), "Found no CD-ROM")
+        assert str(cm.value) == "Found no CD-ROM"

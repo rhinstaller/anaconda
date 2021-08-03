@@ -38,7 +38,6 @@ class OSTreeSourceInterfaceTestCase(unittest.TestCase):
 
     def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
-            self,
             PAYLOAD_SOURCE_RPM_OSTREE,
             self.interface,
             *args, **kwargs
@@ -46,11 +45,11 @@ class OSTreeSourceInterfaceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Test the Type property."""
-        self.assertEqual(SOURCE_TYPE_RPM_OSTREE, self.interface.Type)
+        assert SOURCE_TYPE_RPM_OSTREE == self.interface.Type
 
     def test_description(self):
         """Test the Description property."""
-        self.assertEqual("RPM OSTree", self.interface.Description)
+        assert "RPM OSTree" == self.interface.Description
 
     def test_configuration(self):
         """Test the configuration property."""
@@ -76,54 +75,54 @@ class OSTreeSourceTestCase(unittest.TestCase):
 
     def test_type(self):
         """Test the type property."""
-        self.assertEqual(SourceType.RPM_OSTREE, self.module.type)
+        assert SourceType.RPM_OSTREE == self.module.type
 
     def test_network_required(self):
         """Test the network_required property."""
-        self.assertEqual(self.module.network_required, False)
+        assert self.module.network_required == False
 
         self.module.configuration.url = "file://my/path"
-        self.assertEqual(self.module.network_required, False)
+        assert self.module.network_required == False
 
         self.module.configuration.url = "http://my/path"
-        self.assertEqual(self.module.network_required, True)
+        assert self.module.network_required == True
 
         self.module.configuration.url = "https://my/path"
-        self.assertEqual(self.module.network_required, True)
+        assert self.module.network_required == True
 
     def test_required_space(self):
         """Test the required_space property."""
-        self.assertEqual(self.module.required_space, 500000000)
+        assert self.module.required_space == 500000000
 
     def test_get_state(self):
         """Test the source state."""
-        self.assertEqual(SourceState.NOT_APPLICABLE, self.module.get_state())
+        assert SourceState.NOT_APPLICABLE == self.module.get_state()
 
     def test_set_up_with_tasks(self):
         """Test the set-up tasks."""
-        self.assertEqual(self.module.set_up_with_tasks(), [])
+        assert self.module.set_up_with_tasks() == []
 
     def test_tear_down_with_tasks(self):
         """Test the tear-down tasks."""
-        self.assertEqual(self.module.tear_down_with_tasks(), [])
+        assert self.module.tear_down_with_tasks() == []
 
     def test_repr(self):
         """Test the string representation."""
-        self.assertEqual(repr(self.module), str(
+        assert repr(self.module) == str(
             "Source("
             "type='RPM_OSTREE', "
             "osname='', "
             "url=''"
             ")"
-        ))
+        )
 
         self.module.configuration.osname = "fedora-atomic"
         self.module.configuration.url = "https://kojipkgs.fedoraproject.org/atomic/repo"
 
-        self.assertEqual(repr(self.module), str(
+        assert repr(self.module) == str(
             "Source("
             "type='RPM_OSTREE', "
             "osname='fedora-atomic', "
             "url='https://kojipkgs.fedoraproject.org/atomic/repo'"
             ")"
-        ))
+        )

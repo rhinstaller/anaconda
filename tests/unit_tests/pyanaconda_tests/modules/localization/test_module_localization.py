@@ -20,6 +20,8 @@
 import os
 import tempfile
 import unittest
+import pytest
+
 from unittest.mock import patch, Mock, call
 
 from textwrap import dedent
@@ -59,85 +61,85 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
 
     def test_kickstart_properties(self):
         """Test kickstart properties."""
-        self.assertEqual(self.localization_interface.KickstartCommands, ["keyboard", "lang"])
-        self.assertEqual(self.localization_interface.KickstartSections, [])
-        self.assertEqual(self.localization_interface.KickstartAddons, [])
+        assert self.localization_interface.KickstartCommands == ["keyboard", "lang"]
+        assert self.localization_interface.KickstartSections == []
+        assert self.localization_interface.KickstartAddons == []
         self.callback.assert_not_called()
 
     def test_language_property(self):
         """Test the Language property."""
         self.localization_interface.SetLanguage("cs_CZ.UTF-8")
-        self.assertEqual(self.localization_interface.Language, "cs_CZ.UTF-8")
+        assert self.localization_interface.Language == "cs_CZ.UTF-8"
         self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'Language': 'cs_CZ.UTF-8'}, [])
 
     def test_language_support_property(self):
         """Test the LanguageSupport property."""
         self.localization_interface.SetLanguageSupport(["fr_FR"])
-        self.assertEqual(self.localization_interface.LanguageSupport, ["fr_FR"])
+        assert self.localization_interface.LanguageSupport == ["fr_FR"]
         self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'LanguageSupport': ["fr_FR"]}, [])
 
     def test_vc_keymap_property(self):
         """Test the VirtualConsoleKeymap property."""
         self.localization_interface.SetVirtualConsoleKeymap("cz")
-        self.assertEqual(self.localization_interface.VirtualConsoleKeymap, "cz")
+        assert self.localization_interface.VirtualConsoleKeymap == "cz"
         self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'VirtualConsoleKeymap': 'cz'}, [])
 
     def test_x_layouts_property(self):
         """Test the XLayouts property."""
         self.localization_interface.SetXLayouts(["en", "cz(querty)"])
-        self.assertEqual(self.localization_interface.XLayouts, ["en", "cz(querty)"])
+        assert self.localization_interface.XLayouts == ["en", "cz(querty)"]
         self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'XLayouts': ["en", "cz(querty)"]}, [])
 
     def test_switch_options_property(self):
         """Test the LayoutSwitchOptions property."""
         self.localization_interface.SetLayoutSwitchOptions(["grp:alt_shift_toggle"])
-        self.assertEqual(self.localization_interface.LayoutSwitchOptions, ["grp:alt_shift_toggle"])
+        assert self.localization_interface.LayoutSwitchOptions == ["grp:alt_shift_toggle"]
         self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'LayoutSwitchOptions': ["grp:alt_shift_toggle"]}, [])
 
     def test_keyboard_seen(self):
         """Test the KeyboardKickstarted property."""
-        self.assertEqual(self.localization_interface.KeyboardKickstarted, False)
+        assert self.localization_interface.KeyboardKickstarted == False
         ks_in = """
         lang cs_CZ.UTF-8
         """
         ks_in = dedent(ks_in).strip()
         self.localization_interface.ReadKickstart(ks_in)
-        self.assertEqual(self.localization_interface.KeyboardKickstarted, False)
+        assert self.localization_interface.KeyboardKickstarted == False
         ks_in = """
         lang cs_CZ.UTF-8
         keyboard cz
         """
         ks_in = dedent(ks_in).strip()
         self.localization_interface.ReadKickstart(ks_in)
-        self.assertEqual(self.localization_interface.KeyboardKickstarted, True)
+        assert self.localization_interface.KeyboardKickstarted == True
 
     def test_language_seen(self):
         """Test the LanguageKickstarted property."""
-        self.assertEqual(self.localization_interface.LanguageKickstarted, False)
+        assert self.localization_interface.LanguageKickstarted == False
         ks_in = """
         keyboard cz
         """
         ks_in = dedent(ks_in).strip()
         self.localization_interface.ReadKickstart(ks_in)
-        self.assertEqual(self.localization_interface.LanguageKickstarted, False)
+        assert self.localization_interface.LanguageKickstarted == False
         ks_in = """
         keyboard cz
         lang cs_CZ.UTF-8
         """
         ks_in = dedent(ks_in).strip()
         self.localization_interface.ReadKickstart(ks_in)
-        self.assertEqual(self.localization_interface.LanguageKickstarted, True)
+        assert self.localization_interface.LanguageKickstarted == True
 
     def test_set_language_kickstarted(self):
         """Test SetLanguageKickstarted."""
         self.localization_interface.SetLanguageKickstarted(True)
-        self.assertEqual(self.localization_interface.LanguageKickstarted, True)
+        assert self.localization_interface.LanguageKickstarted == True
         self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'LanguageKickstarted': True}, [])
 
     def test_set_keyboard_kickstarted(self):
         """Test SetLanguageKickstarted."""
         self.localization_interface.SetKeyboardKickstarted(True)
-        self.assertEqual(self.localization_interface.KeyboardKickstarted, True)
+        assert self.localization_interface.KeyboardKickstarted == True
         self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'KeyboardKickstarted': True}, [])
 
     @patch("pyanaconda.modules.localization.runtime.try_to_load_keymap")
@@ -147,16 +149,16 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         # conf.system.can_activate_keyboard value is.
         mocked_load_keymap.return_value = True
         self.localization_interface.SetKeyboard("us")
-        self.assertEqual(self.localization_interface.VirtualConsoleKeymap, "us")
+        assert self.localization_interface.VirtualConsoleKeymap == "us"
 
     def test_collect_requirements(self):
         """Test the CollectRequirements method."""
         # No default requirements.
-        self.assertEqual(self.localization_interface.CollectRequirements(), [])
+        assert self.localization_interface.CollectRequirements() == []
 
         # No additional support for ascii keyboard layouts.
         self.localization_interface.SetVirtualConsoleKeymap("en")
-        self.assertEqual(self.localization_interface.CollectRequirements(), [])
+        assert self.localization_interface.CollectRequirements() == []
 
         # Additional support for non-ascii keyboard layouts.
         self.localization_interface.SetVirtualConsoleKeymap("ru")
@@ -165,9 +167,9 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
             self.localization_interface.CollectRequirements()
         )
 
-        self.assertEqual(len(requirements), 1)
-        self.assertEqual(requirements[0].type, "package")
-        self.assertEqual(requirements[0].name, "kbd-legacy")
+        assert len(requirements) == 1
+        assert requirements[0].type == "package"
+        assert requirements[0].name == "kbd-legacy"
 
         # "fi" keyboard layout is in kbd-legacy too (#1955793)
         self.localization_interface.SetVirtualConsoleKeymap("fi")
@@ -176,9 +178,9 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
             self.localization_interface.CollectRequirements()
         )
 
-        self.assertEqual(len(requirements), 1)
-        self.assertEqual(requirements[0].type, "package")
-        self.assertEqual(requirements[0].name, "kbd-legacy")
+        assert len(requirements) == 1
+        assert requirements[0].type == "package"
+        assert requirements[0].name == "kbd-legacy"
 
     @patch_dbus_publish_object
     def test_install_with_task(self, publisher):
@@ -197,20 +199,20 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         object_path = publisher.call_args_list[0][0][0]
         obj = publisher.call_args_list[0][0][1]
 
-        self.assertEqual(language_installation_task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-        self.assertIsInstance(obj.implementation, LanguageInstallationTask)
-        self.assertEqual(obj.implementation._lang, "cs_CZ.UTF-8")
+        assert language_installation_task_path == object_path
+        assert isinstance(obj, TaskInterface)
+        assert isinstance(obj.implementation, LanguageInstallationTask)
+        assert obj.implementation._lang == "cs_CZ.UTF-8"
 
         object_path = publisher.call_args_list[1][0][0]
         obj = publisher.call_args_list[1][0][1]
 
-        self.assertEqual(keyboard_installation_task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-        self.assertIsInstance(obj.implementation, KeyboardInstallationTask)
-        self.assertEqual(obj.implementation._x_layouts, ['cz', 'cz (qwerty)'])
-        self.assertEqual(obj.implementation._vc_keymap, 'us')
-        self.assertEqual(obj.implementation._switch_options, ["grp:alt_shift_toggle"])
+        assert keyboard_installation_task_path == object_path
+        assert isinstance(obj, TaskInterface)
+        assert isinstance(obj.implementation, KeyboardInstallationTask)
+        assert obj.implementation._x_layouts == ['cz', 'cz (qwerty)']
+        assert obj.implementation._vc_keymap == 'us'
+        assert obj.implementation._switch_options == ["grp:alt_shift_toggle"]
 
     @patch_dbus_publish_object
     def test_populate_missing_keyboard_configuration_with_task(self, publisher):
@@ -220,9 +222,9 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
 
         task_path = self.localization_interface.PopulateMissingKeyboardConfigurationWithTask()
 
-        obj = check_task_creation(self, task_path, publisher, GetMissingKeyboardConfigurationTask)
-        self.assertEqual(obj.implementation._vc_keymap, 'us')
-        self.assertEqual(obj.implementation._x_layouts, ['cz', 'cz (qwerty)'])
+        obj = check_task_creation(task_path, publisher, GetMissingKeyboardConfigurationTask)
+        assert obj.implementation._vc_keymap == 'us'
+        assert obj.implementation._x_layouts == ['cz', 'cz (qwerty)']
 
     @patch_dbus_publish_object
     def test_apply_keyboard_with_task(self, publisher):
@@ -233,13 +235,13 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
 
         task_path = self.localization_interface.ApplyKeyboardWithTask()
 
-        obj = check_task_creation(self, task_path, publisher, ApplyKeyboardTask)
-        self.assertEqual(obj.implementation._vc_keymap, 'us')
-        self.assertEqual(obj.implementation._x_layouts, ['cz', 'cz (qwerty)'])
-        self.assertEqual(obj.implementation._switch_options, ["grp:alt_shift_toggle"])
+        obj = check_task_creation(task_path, publisher, ApplyKeyboardTask)
+        assert obj.implementation._vc_keymap == 'us'
+        assert obj.implementation._x_layouts == ['cz', 'cz (qwerty)']
+        assert obj.implementation._switch_options == ["grp:alt_shift_toggle"]
 
     def _test_kickstart(self, ks_in, ks_out):
-        check_kickstart_interface(self, self.localization_interface, ks_in, ks_out)
+        check_kickstart_interface(self.localization_interface, ks_in, ks_out)
 
     def test_no_kickstart(self):
         """Test with no kickstart."""
@@ -370,25 +372,25 @@ class LocalizationModuleTestCase(unittest.TestCase):
         self.localization_module.set_vc_keymap("cz")
         self.localization_module.set_x_layouts([])
         self.localization_module.set_from_generic_keyboard_setting("us")
-        self.assertEqual(self.localization_module.vc_keymap, "cz")
-        self.assertEqual(self.localization_module.x_layouts, [])
+        assert self.localization_module.vc_keymap == "cz"
+        assert self.localization_module.x_layouts == []
 
         self.localization_module.set_vc_keymap("")
         self.localization_module.set_x_layouts(["cz"])
         self.localization_module.set_from_generic_keyboard_setting("us")
-        self.assertEqual(self.localization_module.vc_keymap, "")
-        self.assertEqual(self.localization_module.x_layouts, ["cz"])
+        assert self.localization_module.vc_keymap == ""
+        assert self.localization_module.x_layouts == ["cz"]
 
     def test_update_settings_from_task(self):
         """Test _update_settings_from_task."""
         result = (["cz (qwerty)"], "us")
         self.localization_module._update_settings_from_task(result)
-        self.assertEqual(self.localization_module.vc_keymap, "us")
-        self.assertEqual(self.localization_module.x_layouts, ["cz (qwerty)"])
+        assert self.localization_module.vc_keymap == "us"
+        assert self.localization_module.x_layouts == ["cz (qwerty)"]
         result = ([], "")
         self.localization_module._update_settings_from_task(result)
-        self.assertEqual(self.localization_module.vc_keymap, "")
-        self.assertEqual(self.localization_module.x_layouts, [])
+        assert self.localization_module.vc_keymap == ""
+        assert self.localization_module.x_layouts == []
 
 
 class LanguageInstallationTaskTestCase(unittest.TestCase):
@@ -413,7 +415,7 @@ class LanguageInstallationTaskTestCase(unittest.TestCase):
             with open(locale_conf) as f:
                 content = f.read()
 
-            self.assertEqual(content, expected)
+            assert content == expected
 
     @patch("pyanaconda.modules.localization.installation.execWithCapture")
     def test_invalid_locale(self, exec_mock):
@@ -472,7 +474,7 @@ class LocalizationTasksTestCase(unittest.TestCase):
             switch_options="grp:alt_shift_toggle"
         )
         result = task.run()
-        self.assertEqual(result, (x_layouts, vc_keymap))
+        assert result == (x_layouts, vc_keymap)
 
     @patch("pyanaconda.modules.localization.runtime.conf")
     def test_apply_keyboard_task_no_values(self, mocked_conf):
@@ -487,7 +489,7 @@ class LocalizationTasksTestCase(unittest.TestCase):
             switch_options="grp:alt_shift_toggle"
         )
         result = task.run()
-        self.assertEqual(result, (x_layouts, vc_keymap))
+        assert result == (x_layouts, vc_keymap)
 
     @patch("pyanaconda.modules.localization.runtime.write_vc_configuration")
     @patch("pyanaconda.modules.localization.runtime.conf")
@@ -518,7 +520,7 @@ class LocalizationTasksTestCase(unittest.TestCase):
             switch_options=switch_options
         )
         result = task.run()
-        self.assertEqual(result, (result_x_layouts, result_vc_keymap))
+        assert result == (result_x_layouts, result_vc_keymap)
 
     def test_apply_keyboard_task(self):
         """Test the ApplyKeyboardTask."""
@@ -591,7 +593,7 @@ class LocalizationTasksTestCase(unittest.TestCase):
             vc_keymap="",
         )
         result = task.run()
-        self.assertEqual(result, (x_layouts_result, vc_keymap_result))
+        assert result == (x_layouts_result, vc_keymap_result)
 
     def _get_missing_keyboard_configuration_test(self,
                                                  x_layouts,
@@ -609,7 +611,7 @@ class LocalizationTasksTestCase(unittest.TestCase):
             x_layouts,
             vc_keymap
         )
-        self.assertEqual(result, (result_x_layouts, result_vc_keymap))
+        assert result == (result_x_layouts, result_vc_keymap)
 
     def test_get_missing_keyboard_configuration(self):
         """Test the get_missing_keyboard_configuration."""
@@ -667,7 +669,7 @@ class LocalizationTasksTestCase(unittest.TestCase):
             keyboard=keyboard
         )
         result = task.run()
-        self.assertEqual(result, (result_x_layouts, result_vc_keymap))
+        assert result == (result_x_layouts, result_vc_keymap)
 
     def test_assign_generic_keyboard_setting_task(self):
 
@@ -717,17 +719,17 @@ class LocalizationTasksTestCase(unittest.TestCase):
         exec_with_redirect.return_value = 0
         rc = try_to_load_keymap(keymap)
         exec_with_redirect.assert_called_once_with("loadkeys", [keymap])
-        self.assertTrue(rc)
+        assert rc
 
         exec_with_redirect.reset_mock()
         exec_with_redirect.return_value = 1
         rc = try_to_load_keymap(keymap)
         exec_with_redirect.assert_called_once_with("loadkeys", [keymap])
-        self.assertFalse(rc)
+        assert not rc
 
         exec_with_redirect.reset_mock()
         exec_with_redirect.side_effect = OSError("mock exception")
-        with self.assertRaises(KeyboardConfigurationError):
+        with pytest.raises(KeyboardConfigurationError):
             rc = try_to_load_keymap(keymap)
         exec_with_redirect.assert_called_once_with("loadkeys", [keymap])
 
@@ -736,7 +738,7 @@ class LocalizationTasksTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as root:
             vc_keymap = "us"
             # /etc dir does not exist in root therefore the exception
-            with self.assertRaises(KeyboardInstallationError):
+            with pytest.raises(KeyboardInstallationError):
                 write_vc_configuration(vc_keymap, root)
 
         with tempfile.TemporaryDirectory() as root:
@@ -746,10 +748,8 @@ class LocalizationTasksTestCase(unittest.TestCase):
             fpath = os.path.normpath(root + VC_CONF_FILE_PATH)
             # Check the result.
             with open(fpath) as f:
-                self.assertEqual(
-                    f.read(),
+                assert f.read() == \
                     'KEYMAP="{}"\nFONT="{}"\n'.format(vc_keymap, DEFAULT_VC_FONT)
-                )
 
     @patch.dict(os.environ, {"LANG": "ru_RU.UTF-8"})
     def test_write_vc_configuration_env(self):
@@ -762,10 +762,8 @@ class LocalizationTasksTestCase(unittest.TestCase):
             fpath = os.path.normpath(root + VC_CONF_FILE_PATH)
             # Check the result.
             with open(fpath) as f:
-                self.assertEqual(
-                    f.read(),
+                assert f.read() == \
                     'KEYMAP="{}"\nFONT="{}"\n'.format(vc_keymap, vc_font)
-                )
 
     def test_write_x_configuration(self):
         """Test write_x_configuration_test."""
@@ -940,9 +938,9 @@ class LocaledWrapperTestCase(unittest.TestCase):
 
     def _guarded_localed_wrapper_calls_check(self, localed_wrapper):
         """Test that calls to LocaledWrapper are guarded not to fail."""
-        self.assertEqual(localed_wrapper.keymap, "")
-        self.assertEqual(localed_wrapper.options, [])
-        self.assertEqual(localed_wrapper.layouts_variants, [])
+        assert localed_wrapper.keymap == ""
+        assert localed_wrapper.options == []
+        assert localed_wrapper.layouts_variants == []
         localed_wrapper.set_keymap("cz")
         localed_wrapper.set_keymap("cz", convert=True)
         localed_wrapper.convert_keymap("cz")
@@ -969,26 +967,20 @@ class LocaledWrapperTestCase(unittest.TestCase):
         mocked_localed_proxy.X11Layout = "cz,fi,us,fr"
         mocked_localed_proxy.X11Variant = "qwerty,,euro"
         mocked_localed_proxy.X11Options = "grp:alt_shift_toggle,grp:ctrl_alt_toggle"
-        self.assertEqual(
-            localed_wrapper.keymap,
+        assert localed_wrapper.keymap == \
             "cz"
-        )
-        self.assertEqual(
-            localed_wrapper.layouts_variants,
+        assert localed_wrapper.layouts_variants == \
             ["cz (qwerty)", "fi", "us (euro)", "fr"]
-        )
-        self.assertEqual(
-            localed_wrapper.options,
+        assert localed_wrapper.options == \
             ["grp:alt_shift_toggle", "grp:ctrl_alt_toggle"]
-        )
 
         mocked_localed_proxy.VConsoleKeymap = ""
         mocked_localed_proxy.X11Layout = ""
         mocked_localed_proxy.X11Variant = ""
         mocked_localed_proxy.X11Options = ""
-        self.assertEqual(localed_wrapper.keymap, "")
-        self.assertEqual(localed_wrapper.options, [])
-        self.assertEqual(localed_wrapper.layouts_variants, [])
+        assert localed_wrapper.keymap == ""
+        assert localed_wrapper.options == []
+        assert localed_wrapper.layouts_variants == []
 
     @patch("pyanaconda.modules.localization.localed.SystemBus")
     @patch("pyanaconda.modules.localization.localed.LOCALED")

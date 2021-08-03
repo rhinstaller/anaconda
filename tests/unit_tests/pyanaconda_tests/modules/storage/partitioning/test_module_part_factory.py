@@ -18,6 +18,8 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
+import pytest
+
 from unittest.mock import patch, PropertyMock
 
 from blivet.formats.fs import BTRFS
@@ -37,13 +39,13 @@ class PartitioningFactoryTestCase(unittest.TestCase):
         """Test create_partitioning."""
         for method in PartitioningMethod:
             module = PartitioningFactory.create_partitioning(method)
-            self.assertIsInstance(module, PartitioningModule)
-            self.assertIsInstance(module.for_publication(), PartitioningInterface)
-            self.assertEqual(module.partitioning_method, method)
+            assert isinstance(module, PartitioningModule)
+            assert isinstance(module.for_publication(), PartitioningInterface)
+            assert module.partitioning_method == method
 
     def test_failed_partitioning(self):
         """Test failed create_partitioning."""
-        with self.assertRaises(ValueError):
+        with pytest.raises(ValueError):
             PartitioningFactory.create_partitioning("INVALID")
 
     @patch.object(BTRFS, "formattable", new_callable=PropertyMock)
@@ -96,4 +98,4 @@ class PartitioningFactoryTestCase(unittest.TestCase):
         handler = KickstartSpecificationHandler(specification)
         parser = KickstartSpecificationParser(handler, specification)
         parser.readKickstartFromString(kickstart)
-        self.assertEqual(method, PartitioningFactory.get_method_for_kickstart(handler))
+        assert method == PartitioningFactory.get_method_for_kickstart(handler)

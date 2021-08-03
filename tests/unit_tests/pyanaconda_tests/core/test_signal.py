@@ -44,22 +44,22 @@ class SignalTestCase(unittest.TestCase):
         """Test if a method can be correctly connected to a signal."""
         signal = Signal()
         foo = FooClass()
-        self.assertIsNone(foo.var)
+        assert foo.var is None
         # connect the signal
         signal.connect(foo.set_var)
         # trigger the signal
         signal.emit("bar")
         # check if the callback triggered correctly
-        self.assertEqual(foo.var, "bar")
+        assert foo.var == "bar"
         # try to trigger the signal again
         signal.emit("baz")
-        self.assertEqual(foo.var, "baz")
+        assert foo.var == "baz"
         # now try to disconnect the signal
         signal.disconnect(foo.set_var)
         # check that calling the signal again
         # no longer triggers the callback
         signal.emit("anaconda")
-        self.assertEqual(foo.var, "baz")
+        assert foo.var == "baz"
 
     def test_function(self):
         """Test if a local function can be correctly connected to a signal."""
@@ -69,28 +69,28 @@ class SignalTestCase(unittest.TestCase):
             self.var = value
 
         signal = Signal()
-        self.assertIsNone(self.var)
+        assert self.var is None
         # connect the signal
         signal.connect(set_var)
         # trigger the signal
         signal.emit("bar")
         # check if the callback triggered correctly
-        self.assertEqual(self.var, "bar")
+        assert self.var == "bar"
         # try to trigger the signal again
         signal.emit("baz")
-        self.assertEqual(self.var, "baz")
+        assert self.var == "baz"
         # now try to disconnect the signal
         signal.disconnect(set_var)
         # check that calling the signal again
         # no longer triggers the callback
         signal.emit("anaconda")
-        self.assertEqual(self.var, "baz")
+        assert self.var == "baz"
 
     def test_lambda(self):
         """Test if a lambda can be correctly connected to a signal."""
         foo = FooClass()
         signal = Signal()
-        self.assertIsNone(foo.var)
+        assert foo.var is None
         # connect the signal
         # pylint: disable=unnecessary-lambda
         lambda_instance = lambda x: foo.set_var(x)
@@ -98,16 +98,16 @@ class SignalTestCase(unittest.TestCase):
         # trigger the signal
         signal.emit("bar")
         # check if the callback triggered correctly
-        self.assertEqual(foo.var, "bar")
+        assert foo.var == "bar"
         # try to trigger the signal again
         signal.emit("baz")
-        self.assertEqual(foo.var, "baz")
+        assert foo.var == "baz"
         # now try to disconnect the signal
         signal.disconnect(lambda_instance)
         # check that calling the signal again
         # no longer triggers the callback
         signal.emit("anaconda")
-        self.assertEqual(foo.var, "baz")
+        assert foo.var == "baz"
 
     def test_clear(self):
         """Test if the clear() method correctly clears any connected callbacks."""
@@ -117,9 +117,9 @@ class SignalTestCase(unittest.TestCase):
         signal = Signal()
         foo = FooClass()
         lambda_foo = FooClass()
-        self.assertIsNone(foo.var)
-        self.assertIsNone(lambda_foo.var)
-        self.assertIsNone(self.var)
+        assert foo.var is None
+        assert lambda_foo.var is None
+        assert self.var is None
         # connect the callbacks
         signal.connect(set_var)
         signal.connect(foo.set_var)
@@ -128,22 +128,22 @@ class SignalTestCase(unittest.TestCase):
         # trigger the signal
         signal.emit("bar")
         # check that the callbacks were triggered
-        self.assertEqual(self.var, "bar")
-        self.assertEqual(foo.var, "bar")
-        self.assertEqual(lambda_foo.var, "bar")
+        assert self.var == "bar"
+        assert foo.var == "bar"
+        assert lambda_foo.var == "bar"
         # clear the callbacks
         signal.clear()
         # trigger the signal again
         signal.emit("anaconda")
         # check that the callbacks were not triggered
-        self.assertEqual(self.var, "bar")
-        self.assertEqual(foo.var, "bar")
-        self.assertEqual(lambda_foo.var, "bar")
+        assert self.var == "bar"
+        assert foo.var == "bar"
+        assert lambda_foo.var == "bar"
 
     def test_signal_chain(self):
         """Check if signals can be chained together."""
         foo = FooClass()
-        self.assertIsNone(foo.var)
+        assert foo.var is None
         signal1 = Signal()
         signal1.connect(foo.set_var)
         signal2 = Signal()
@@ -153,4 +153,4 @@ class SignalTestCase(unittest.TestCase):
         # trigger the chain
         signal3.emit("bar")
         # check if the initial callback was triggered
-        self.assertEqual(foo.var, "bar")
+        assert foo.var == "bar"

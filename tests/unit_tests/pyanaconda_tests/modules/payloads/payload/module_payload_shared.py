@@ -17,6 +17,8 @@
 #
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
+import pytest
+
 from unittest.mock import patch, Mock
 
 from tests.unit_tests.pyanaconda_tests import check_kickstart_interface
@@ -28,14 +30,12 @@ from pyanaconda.modules.payloads.constants import SourceState
 
 class PayloadKickstartSharedTest(object):
 
-    def __init__(self, test, payload_service, payload_service_intf):
+    def __init__(self, payload_service, payload_service_intf):
         """Setup shared payload testing object for testing kickstart.
 
-        :param test: instance of TestCase
         :param payload_service: main payload service module
         :param payload_service_intf: main payload service interface
         """
-        self._test = test
         self.payload_service = payload_service
         self.payload_service_interface = payload_service_intf
 
@@ -51,13 +51,12 @@ class PayloadKickstartSharedTest(object):
         :type expected_publish_calls: int
         """
         with patch('pyanaconda.core.dbus.DBus.publish_object') as publisher:
-            result = check_kickstart_interface(self._test,
-                                               self.payload_service_interface,
+            result = check_kickstart_interface(self.payload_service_interface,
                                                ks_in, ks_out, ks_valid, ks_tmp)
 
             if ks_valid and expected_publish_calls != 0:
                 publisher.assert_called()
-                self._test.assertEqual(publisher.call_count, expected_publish_calls)
+                assert publisher.call_count == expected_publish_calls
             else:
                 publisher.assert_not_called()
 
@@ -70,16 +69,14 @@ class PayloadKickstartSharedTest(object):
 
 class PayloadSharedTest(object):
 
-    def __init__(self, test, payload, payload_intf):
+    def __init__(self, payload, payload_intf):
         """Setup shared payload test object for common payload testing.
 
-        :param test: instance of TestCase
         :param payload: payload module
         :type payload: instance of PayloadBase class
         :param payload_intf: payload module interface
         :type payload_intf: instance of PayloadBaseInterface class
         """
-        self._test = test
         self.payload = payload
         self.payload_interface = payload_intf
 
@@ -90,7 +87,7 @@ class PayloadSharedTest(object):
         :type payload_type: value of the payload.base.constants.PayloadType enum
         """
         t = self.payload_interface.Type
-        self._test.assertEqual(t, payload_type.value)
+        assert t == payload_type.value
 
     @staticmethod
     def prepare_source(source_type, state=SourceState.READY):
@@ -106,7 +103,7 @@ class PayloadSharedTest(object):
 
     def check_empty_sources(self):
         """Default check for payload with no sources set."""
-        self._test.assertEqual([], self.payload_interface.Sources)
+        assert self.payload_interface.Sources == []
 
     def set_and_check_sources(self, test_sources, exception=None):
         """Default check to set sources.
@@ -136,7 +133,7 @@ class PayloadSharedTest(object):
         paths = PayloadSourceContainer.to_object_path_list(test_sources)
 
         if exception:
-            with self._test.assertRaises(exception) as cm:
+            with pytest.raises(exception) as cm:
                 self.payload_interface.SetSources(paths)
             return cm
 
@@ -152,4 +149,4 @@ class PayloadSharedTest(object):
         """
         expected_paths = PayloadSourceContainer.to_object_path_list(expected_sources)
 
-        self._test.assertEqual(self.payload_interface.Sources, expected_paths)
+        assert self.payload_interface.Sources == expected_paths

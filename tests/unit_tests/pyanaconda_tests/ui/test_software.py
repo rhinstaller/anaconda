@@ -38,18 +38,18 @@ class SoftwareSelectionUITestCase(unittest.TestCase):
         dnf_manager = Mock(spec=DNFManager)
         dnf_manager.is_environment_valid.return_value = True
 
-        self.assertTrue(is_software_selection_complete(dnf_manager, selection))
-        self.assertTrue(is_software_selection_complete(dnf_manager, selection, kickstarted=True))
+        assert is_software_selection_complete(dnf_manager, selection)
+        assert is_software_selection_complete(dnf_manager, selection, kickstarted=True)
 
         dnf_manager.is_environment_valid.return_value = False
 
-        self.assertFalse(is_software_selection_complete(dnf_manager, selection))
-        self.assertFalse(is_software_selection_complete(dnf_manager, selection, kickstarted=True))
+        assert not is_software_selection_complete(dnf_manager, selection)
+        assert not is_software_selection_complete(dnf_manager, selection, kickstarted=True)
 
         selection.environment = ""
 
-        self.assertFalse(is_software_selection_complete(dnf_manager, selection))
-        self.assertTrue(is_software_selection_complete(dnf_manager, selection, kickstarted=True))
+        assert not is_software_selection_complete(dnf_manager, selection)
+        assert is_software_selection_complete(dnf_manager, selection, kickstarted=True)
 
     def test_get_software_selection_status(self):
         """Test the get_software_selection_status function."""
@@ -64,26 +64,26 @@ class SoftwareSelectionUITestCase(unittest.TestCase):
         dnf_manager.get_environment_data.return_value = environment_data
 
         status = get_software_selection_status(dnf_manager, selection)
-        self.assertEqual(status, "The e1 environment")
+        assert status == "The e1 environment"
 
         status = get_software_selection_status(dnf_manager, selection, kickstarted=True)
-        self.assertEqual(status, "The e1 environment")
+        assert status == "The e1 environment"
 
         dnf_manager.is_environment_valid.return_value = False
 
         status = get_software_selection_status(dnf_manager, selection)
-        self.assertEqual(status, "Selected environment is not valid")
+        assert status == "Selected environment is not valid"
 
         status = get_software_selection_status(dnf_manager, selection, kickstarted=True)
-        self.assertEqual(status, "Invalid environment specified in kickstart")
+        assert status == "Invalid environment specified in kickstart"
 
         selection.environment = ""
 
         status = get_software_selection_status(dnf_manager, selection)
-        self.assertEqual(status, "Please confirm software selection")
+        assert status == "Please confirm software selection"
 
         status = get_software_selection_status(dnf_manager, selection, kickstarted=True)
-        self.assertEqual(status, "Custom software selected")
+        assert status == "Custom software selected"
 
 
 class SoftwareSelectionCacheTestCase(unittest.TestCase):
@@ -114,67 +114,67 @@ class SoftwareSelectionCacheTestCase(unittest.TestCase):
     def test_available_environments(self):
         """Test the available_environments property."""
         self.dnf_manager.environments = []
-        self.assertEqual(self.cache.available_environments, [])
+        assert self.cache.available_environments == []
 
         self.dnf_manager.environments = ["e1", "e2"]
-        self.assertEqual(self.cache.available_environments, ["e1", "e2"])
+        assert self.cache.available_environments == ["e1", "e2"]
 
     def test_is_environment_selected(self):
         """Test the is_environment_selected method."""
-        self.assertEqual(self.cache.is_environment_selected("e1"), False)
+        assert self.cache.is_environment_selected("e1") == False
 
         self.cache.select_environment("e1")
-        self.assertEqual(self.cache.is_environment_selected("e1"), True)
+        assert self.cache.is_environment_selected("e1") == True
 
         self.cache.select_environment("")
-        self.assertEqual(self.cache.is_environment_selected("e1"), False)
+        assert self.cache.is_environment_selected("e1") == False
 
     def test_environment(self):
         """Test the environment property."""
-        self.assertEqual(self.cache.environment, "")
+        assert self.cache.environment == ""
 
         self.cache.select_environment("e1")
-        self.assertEqual(self.cache.environment, "e1")
+        assert self.cache.environment == "e1"
 
     def test_available_groups(self):
         """Test the available_groups property."""
         self.cache.select_environment("e1")
-        self.assertEqual(self.cache.available_groups, ["g1", "g2", "g3", "g4", "g5"])
+        assert self.cache.available_groups == ["g1", "g2", "g3", "g4", "g5"]
 
         self.cache.select_environment("")
-        self.assertEqual(self.cache.available_groups, [])
+        assert self.cache.available_groups == []
 
     def test_groups(self):
         """Test the groups property."""
         self.environment_data.default_groups = ["g2", "g4"]
 
         self.cache.select_environment("e1")
-        self.assertEqual(self.cache.groups, ["g2", "g4"])
+        assert self.cache.groups == ["g2", "g4"]
 
         self.cache.select_group("g1")
-        self.assertEqual(self.cache.groups, ["g1", "g2", "g4"])
+        assert self.cache.groups == ["g1", "g2", "g4"]
 
         self.cache.deselect_group("g4")
-        self.assertEqual(self.cache.groups, ["g1", "g2"])
+        assert self.cache.groups == ["g1", "g2"]
 
     def test_is_group_selected(self):
         """Test the is_group_selected method."""
         self.environment_data.default_groups = ["g2", "g4"]
 
         self.cache.select_environment("e1")
-        self.assertEqual(self.cache.is_group_selected("g1"), False)
-        self.assertEqual(self.cache.is_group_selected("g4"), True)
-        self.assertEqual(self.cache.is_group_selected("g7"), False)
+        assert self.cache.is_group_selected("g1") == False
+        assert self.cache.is_group_selected("g4") == True
+        assert self.cache.is_group_selected("g7") == False
 
         self.cache.select_group("g1")
-        self.assertEqual(self.cache.is_group_selected("g1"), True)
-        self.assertEqual(self.cache.is_group_selected("g4"), True)
-        self.assertEqual(self.cache.is_group_selected("g7"), False)
+        assert self.cache.is_group_selected("g1") == True
+        assert self.cache.is_group_selected("g4") == True
+        assert self.cache.is_group_selected("g7") == False
 
         self.cache.deselect_group("g4")
-        self.assertEqual(self.cache.is_group_selected("g1"), True)
-        self.assertEqual(self.cache.is_group_selected("g4"), False)
-        self.assertEqual(self.cache.is_group_selected("g7"), False)
+        assert self.cache.is_group_selected("g1") == True
+        assert self.cache.is_group_selected("g4") == False
+        assert self.cache.is_group_selected("g7") == False
 
     def test_apply_selection_data(self):
         """Test the apply_selection_data method."""
@@ -183,8 +183,8 @@ class SoftwareSelectionCacheTestCase(unittest.TestCase):
         selection.groups = ["g1", "g2", "g3"]
 
         self.cache.apply_selection_data(selection)
-        self.assertEqual(self.cache.environment, "e1")
-        self.assertEqual(self.cache.groups, ["g1", "g2", "g3"])
+        assert self.cache.environment == "e1"
+        assert self.cache.groups == ["g1", "g2", "g3"]
 
     def test_apply_selection_data_default_environment(self):
         """Test the apply_selection_data method with a default environment."""
@@ -195,8 +195,8 @@ class SoftwareSelectionCacheTestCase(unittest.TestCase):
         selection.environment = "e2"
 
         self.cache.apply_selection_data(selection)
-        self.assertEqual(self.cache.environment, "e1")
-        self.assertEqual(self.cache.groups, [])
+        assert self.cache.environment == "e1"
+        assert self.cache.groups == []
 
     def test_apply_selection_data_invalid_environment(self):
         """Test the apply_selection_data method with an invalid environment."""
@@ -207,8 +207,8 @@ class SoftwareSelectionCacheTestCase(unittest.TestCase):
         selection.environment = "e2"
 
         self.cache.apply_selection_data(selection)
-        self.assertEqual(self.cache.environment, "")
-        self.assertEqual(self.cache.groups, [])
+        assert self.cache.environment == ""
+        assert self.cache.groups == []
 
     def test_apply_selection_data_invalid_groups(self):
         """Test the apply_selection_data method with invalid groups."""
@@ -219,8 +219,8 @@ class SoftwareSelectionCacheTestCase(unittest.TestCase):
         selection.groups = ["g1", "g2", "g3"]
 
         self.cache.apply_selection_data(selection)
-        self.assertEqual(self.cache.environment, "e1")
-        self.assertEqual(self.cache.groups, [])
+        assert self.cache.environment == "e1"
+        assert self.cache.groups == []
 
     def test_get_selection_data(self):
         """Test the get_selection_data method."""
@@ -234,7 +234,7 @@ class SoftwareSelectionCacheTestCase(unittest.TestCase):
         expected.groups = ["g1", "g2", "g3"]
 
         data = self.cache.get_selection_data()
-        self.assertTrue(compare_data(data, expected))
+        assert compare_data(data, expected)
 
     def test_default_selection(self):
         """Test the default environment and group selection."""
@@ -242,38 +242,38 @@ class SoftwareSelectionCacheTestCase(unittest.TestCase):
         self.environment_data.default_groups = ["g2", "g4"]
 
         self.cache.select_environment("e1")
-        self.assertEqual(self.cache.groups, ["g2", "g4"])
+        assert self.cache.groups == ["g2", "g4"]
 
         self.cache.select_group("g2")
-        self.assertEqual(self.cache.groups, ["g2", "g4"])
+        assert self.cache.groups == ["g2", "g4"]
 
         self.cache.select_group("g4")
-        self.assertEqual(self.cache.groups, ["g2", "g4"])
+        assert self.cache.groups == ["g2", "g4"]
 
         self.environment_data.id = "e2"
         self.environment_data.default_groups = ["g1", "g3", "g5"]
 
         self.cache.select_environment("e2")
-        self.assertEqual(self.cache.groups, ["g1", "g3", "g5"])
+        assert self.cache.groups == ["g1", "g3", "g5"]
 
     def test_selection(self):
         """Test the environment and group selection."""
         self.environment_data.id = "e1"
 
         self.cache.select_environment("e1")
-        self.assertEqual(self.cache.groups, [])
+        assert self.cache.groups == []
 
         self.cache.select_group("g2")
-        self.assertEqual(self.cache.groups, ["g2"])
+        assert self.cache.groups == ["g2"]
 
         self.cache.select_group("g4")
-        self.assertEqual(self.cache.groups, ["g2", "g4"])
+        assert self.cache.groups == ["g2", "g4"]
 
         self.environment_data.id = "e2"
         self.environment_data.default_groups = ["g1", "g3", "g5"]
 
         self.cache.select_environment("e2")
-        self.assertEqual(self.cache.groups, ["g1", "g2", "g3", "g4", "g5"])
+        assert self.cache.groups == ["g1", "g2", "g3", "g4", "g5"]
 
     def test_deselection(self):
         """Test the environment and group deselection."""
@@ -281,22 +281,22 @@ class SoftwareSelectionCacheTestCase(unittest.TestCase):
         self.environment_data.default_groups = ["g2", "g4"]
 
         self.cache.select_environment("e1")
-        self.assertEqual(self.cache.groups, ["g2", "g4"])
+        assert self.cache.groups == ["g2", "g4"]
 
         self.cache.select_group("g1")
-        self.assertEqual(self.cache.groups, ["g1", "g2", "g4"])
+        assert self.cache.groups == ["g1", "g2", "g4"]
 
         self.cache.deselect_group("g4")
-        self.assertEqual(self.cache.groups, ["g1", "g2"])
+        assert self.cache.groups == ["g1", "g2"]
 
         self.cache.select_group("g5")
-        self.assertEqual(self.cache.groups, ["g1", "g2", "g5"])
+        assert self.cache.groups == ["g1", "g2", "g5"]
 
         self.cache.deselect_group("g5")
-        self.assertEqual(self.cache.groups, ["g1", "g2"])
+        assert self.cache.groups == ["g1", "g2"]
 
         self.environment_data.id = "e2"
         self.environment_data.default_groups = ["g2", "g3", "g4", "g5"]
 
         self.cache.select_environment("e2")
-        self.assertEqual(self.cache.groups, ["g1", "g2", "g3"])
+        assert self.cache.groups == ["g1", "g2", "g3"]
