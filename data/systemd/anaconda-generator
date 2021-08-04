@@ -37,6 +37,7 @@ for tty in hvc0 hvc1 xvc0 hvsi0 hvsi1 hvsi2; do
     [ "$tty" = "$consoletty" ] && continue
     if [ -d /sys/class/tty/$tty ]; then
         service_on_tty anaconda-shell@.service $tty
+        break
     fi
 done
 
