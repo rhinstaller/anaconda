@@ -128,7 +128,7 @@ class GUIDialogInputCheckHandler(GUIInputCheckHandler, metaclass=ABCMeta):
        check result. A method on_ok_clicked is provided to determine whether
        the dialog can be exited, similar to on_back_clicked for spokes.
 
-       It's not possible (or at least not easy) to prent a GtkDialog from
+       It's not possible (or at least not easy) to prevent a GtkDialog from
        returning a response, so the caller of gtk_dialog_run needs to check
        whether the input is valid and decide based on that whether to destroy
        the dialog or call gtk_dialog_run again.
