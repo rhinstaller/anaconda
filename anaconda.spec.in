@@ -222,7 +222,7 @@ Requires: gdb
 Requires: rsync
 # only WeakRequires elsewhere and not guaranteed to be present
 Requires: device-mapper-multipath
-Requires: rust-zram-generator
+Requires: zram-generator
 
 %description install-img-deps
 The anaconda-install-img-deps metapackage lists all boot.iso installation image dependencies.
