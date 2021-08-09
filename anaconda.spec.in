@@ -212,7 +212,7 @@ Requires: device-mapper-multipath
 %if ! 0%{?rhel}
 Requires: zram-generator-defaults
 %else
-Requires: rust-zram-generator
+Requires: zram-generator
 %endif
 # Display stuff moved from lorax templates
 Requires: xorg-x11-drivers
