@@ -548,8 +548,8 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         # Skip the empty password checks if no username is set,
         # otherwise the user will not be able to leave the
         # spoke if password is not set but policy requires that.
-        self._empty_check.skip = not new_username
-        self._validity_check.skip = not new_username
+        self._empty_check.skip = not new_username or not self.password_required
+        self._validity_check.skip = not new_username or not self.password_required
         # Re-run the password checks against the new username
         self.checker.run_checks()
 
