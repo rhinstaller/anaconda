@@ -406,6 +406,13 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Aug 10 2021 Martin Kolman <mkolman@redhat.com> - 35.22-1
+- Fix dependency on zram-generator in RHEL (sgallagh)
+- tests: Fix failing ClearPartTestCase with latest blivet (vtrefny)
+- Add brltty to boot.iso with default configuration (vslavik)
+- Fix admin user password condition handling in TUI (854182924)
+- Fix typo in docstring (vslavik)
+
 * Thu Jul 29 2021 Martin Kolman <mkolman@redhat.com> - 35.21-1
 - Add release notes for packaging log in tmux (jkonecny)
 - Small fixes in the subscription structures (vponcova)
