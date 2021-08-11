@@ -405,6 +405,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Aug 11 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.13-1
+- Fix dependency on zram-generator (rvykydal)
+  Resolves: rhbz#1991617
+
 * Mon Aug 02 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.12-1
 - Make critical warnings from Dracut more visible (jkonecny)
   Resolves: rhbz#1983098
