@@ -54,7 +54,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
     category = UserSettingsCategory
 
     icon = "dialog-password-symbolic"
-    title = CN_("GUI|Spoke", "_Root Password")
+    title = CN_("GUI|Spoke", "_Root Account")
 
     @classmethod
     def should_run(cls, environment, data):
