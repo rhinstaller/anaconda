@@ -34,7 +34,7 @@ from pyanaconda.modules.common.structures.subscription import SubscriptionReques
 from pyanaconda.modules.common.structures.secret import SECRET_TYPE_HIDDEN, \
     SECRET_TYPE_TEXT
 from pyanaconda.modules.common.errors.subscription import RegistrationError, \
-    UnregistrationError, SubscriptionError, SatelliteProvisioningError
+    UnregistrationError, SubscriptionError, SatelliteProvisioningError, MultipleOrganizationsError
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -269,6 +269,13 @@ def register_and_subscribe(payload, progress_callback=None, error_callback=None,
         task.sync_run_task(task_proxy)
     except SatelliteProvisioningError as e:
         log.debug("registration attempt: Satellite provisioning failed: %s", e)
+        error_callback(e)
+        return
+    except MultipleOrganizationsError as e:
+        log.debug(
+            "registration attempt: please specify org id for current account and try again: %s",
+            e
+        )
         error_callback(e)
         return
     except RegistrationError as e:
