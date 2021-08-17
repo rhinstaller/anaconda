@@ -946,10 +946,10 @@ class SubscriptionSpoke(NormalSpoke):
         self._update_registration_state()
 
     @async_action_wait
-    def _subscription_error_callback(self, error_message):
+    def _subscription_error_callback(self, error):
         log.debug("Subscription GUI: registration & attach failed")
         # store the error message
-        self.registration_error = error_message
+        self.registration_error = str(error_message)
         # even if we fail, we are technically done,
         # so clear the phase
         self.registration_phase = None
