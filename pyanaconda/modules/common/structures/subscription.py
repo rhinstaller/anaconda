@@ -140,6 +140,7 @@ class SubscriptionRequest(DBusData):
         #   need to be set
         self._organization = ""
         self._redhat_account_username = ""
+        self._redhat_account_organization = ""
         # Candlepin instance
         self._server_hostname = ""
         # CDN base url
@@ -226,6 +227,27 @@ class SubscriptionRequest(DBusData):
     @account_username.setter
     def account_username(self, account_username: Str):
         self._redhat_account_username = account_username
+
+    @property
+    def account_organization(self) -> Str:
+        """Red Hat account organization for subscription purposes.
+
+        In case the account for the given username is member
+        of multiple organizations, organization id needs to
+        be specified as well or else the registration attempt
+        will not be successful. This account dependent organization
+        id is deliberately separate from the org + key org id
+        to avoid collisions and issues in the GUI when switching
+        between authentication types.
+
+        :return: Red Hat account organization id
+        :rtype: str
+        """
+        return self._redhat_account_organization
+
+    @account_organization.setter
+    def account_organization(self, account_organization: Str):
+        self._redhat_account_organization = account_organization
 
     @property
     def server_hostname(self) -> Str:
@@ -533,3 +555,45 @@ class AttachedSubscription(DBusData):
     @consumed_entitlement_count.setter
     def consumed_entitlement_count(self, consumed_entitlement_count: Int):
         self._consumed_entitlement_count = consumed_entitlement_count
+
+
+class OrganizationData(DBusData):
+    """Data about a single organization in the Red Hat account system.
+
+    A Red Hat account is expected to be member of an organization,
+    with some accounts being members of more than one organization.
+    """
+
+    def __init__(self):
+        self._id = ""
+        self._name = ""
+
+    @property
+    def id(self) -> Str:
+        """Id of the organization.
+
+        Example: "abc123efg456"
+
+        :return: organization id
+        :rtype: str
+        """
+        return self._id
+
+    @id.setter
+    def id(self, organization_id: Str):
+        self._id = organization_id
+
+    @property
+    def name(self) -> Str:
+        """Name of the organization.
+
+        Example: "Foo Organization"
+
+        :return: organization name
+        :rtype: str
+        """
+        return self._name
+
+    @name.setter
+    def name(self, organization_name: Str):
+        self._name = organization_name

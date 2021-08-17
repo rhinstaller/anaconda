@@ -43,3 +43,9 @@ class SubscriptionError(AnacondaError):
 class SatelliteProvisioningError(AnacondaError):
     """Failed to provision the installation environment for Satellite."""
     pass
+
+
+@dbus_error("MultipleOrganizationsError", namespace=ANACONDA_NAMESPACE)
+class MultipleOrganizationsError(AnacondaError):
+    """Account is member of more than one organization."""
+    pass

@@ -36,7 +36,8 @@ from pyanaconda.modules.subscription.subscription_interface import SubscriptionI
 from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, \
     RestoreRHSMDefaultsTask, TransferSubscriptionTokensTask, ProvisionTargetSystemForSatelliteTask
 from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
-    RegisterAndSubscribeTask, UnregisterTask, SystemPurposeConfigurationTask
+    RegisterAndSubscribeTask, UnregisterTask, SystemPurposeConfigurationTask, \
+    RetrieveOrganizationsTask
 
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_dbus_property, \
     PropertiesChangedCallback, patch_dbus_publish_object, check_task_creation_list, \
@@ -198,6 +199,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "type": DEFAULT_SUBSCRIPTION_REQUEST_TYPE,
             "organization": "",
             "account-username": "",
+            "account-organization": "",
             "server-hostname": "",
             "rhsm-baseurl": "",
             "server-proxy-hostname": "",
@@ -222,6 +224,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         full_request.type = SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
         full_request.organization = "123456789"
         full_request.account_username = "foo_user"
+        full_request.account_organization = "foo_account_org"
         full_request.server_hostname = "candlepin.foo.com"
         full_request.rhsm_baseurl = "cdn.foo.com"
         full_request.server_proxy_hostname = "proxy.foo.com"
@@ -235,6 +238,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "type": SUBSCRIPTION_REQUEST_TYPE_ORG_KEY,
             "organization": "123456789",
             "account-username": "foo_user",
+            "account-organization": "foo_account_org",
             "server-hostname": "candlepin.foo.com",
             "rhsm-baseurl": "cdn.foo.com",
             "server-proxy-hostname": "proxy.foo.com",
@@ -264,6 +268,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "type": SUBSCRIPTION_REQUEST_TYPE_ORG_KEY,
             "organization": "123456789",
             "account-username": "foo_user",
+            "account-organization": "foo_account_org",
             "server-hostname": "candlepin.foo.com",
             "rhsm-baseurl": "cdn.foo.com",
             "server-proxy-hostname": "proxy.foo.com",
@@ -293,6 +298,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "type": get_variant(Str, SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD),
             "organization": get_variant(Str, ""),
             "account-username": get_variant(Str, "foo_user"),
+            "account-organization": get_variant(Str, ""),
             "server-hostname": get_variant(Str, ""),
             "rhsm-baseurl": get_variant(Str, ""),
             "server-proxy-hostname": get_variant(Str, ""),
@@ -333,6 +339,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "type": get_variant(Str, SUBSCRIPTION_REQUEST_TYPE_ORG_KEY),
             "organization": get_variant(Str, "123456789"),
             "account-username": get_variant(Str, ""),
+            "account-organization": get_variant(Str, ""),
             "server-hostname": get_variant(Str, ""),
             "rhsm-baseurl": get_variant(Str, ""),
             "server-proxy-hostname": get_variant(Str, ""),
@@ -374,6 +381,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "type": get_variant(Str, SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD),
             "organization": get_variant(Str, ""),
             "account-username": get_variant(Str, ""),
+            "account-organization": get_variant(Str, ""),
             "server-hostname": get_variant(Str, ""),
             "rhsm-baseurl": get_variant(Str, ""),
             "server-proxy-hostname": get_variant(Str, "proxy.foo.bar"),
@@ -409,6 +417,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "type": get_variant(Str, SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD),
             "organization": get_variant(Str, ""),
             "account-username": get_variant(Str, ""),
+            "account-organization": get_variant(Str, ""),
             "server-hostname": get_variant(Str, "candlepin.foo.bar"),
             "rhsm-baseurl": get_variant(Str, "cdn.foo.bar"),
             "server-proxy-hostname": get_variant(Str, ""),
@@ -457,6 +466,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "type": get_variant(Str, SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD),
             "organization": get_variant(Str, ""),
             "account-username": get_variant(Str, "foo_user"),
+            "account-organization": get_variant(Str, ""),
             "server-hostname": get_variant(Str, ""),
             "rhsm-baseurl": get_variant(Str, ""),
             "server-proxy-hostname": get_variant(Str, ""),
@@ -506,6 +516,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "type": get_variant(Str, SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD),
             "organization": get_variant(Str, ""),
             "account-username": get_variant(Str, "foo_user"),
+            "account-organization": get_variant(Str, ""),
             "server-hostname": get_variant(Str, ""),
             "rhsm-baseurl": get_variant(Str, ""),
             "server-proxy-hostname": get_variant(Str, ""),
@@ -555,6 +566,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "type": get_variant(Str, SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD),
             "organization": get_variant(Str, ""),
             "account-username": get_variant(Str, "foo_user"),
+            "account-organization": get_variant(Str, ""),
             "server-hostname": get_variant(Str, ""),
             "rhsm-baseurl": get_variant(Str, ""),
             "server-proxy-hostname": get_variant(Str, ""),
@@ -595,6 +607,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         subscription_request = {
             "type": get_variant(Str, SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD),
             "account-username": get_variant(Str, "foo_user"),
+            "account-organization": get_variant(Str, ""),
             "account-password":
                 get_variant(Structure,
                             {"type": get_variant(Str, "HIDDEN"),
@@ -612,6 +625,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "type": get_variant(Str, SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD),
             "organization": get_variant(Str, ""),
             "account-username": get_variant(Str, "foo_user"),
+            "account-organization": get_variant(Str, ""),
             "server-hostname": get_variant(Str, ""),
             "rhsm-baseurl": get_variant(Str, ""),
             "server-proxy-hostname": get_variant(Str, ""),
@@ -990,6 +1004,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         full_request.type = SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
         full_request.organization = "123456789"
         full_request.account_username = "foo_user"
+        full_request.account_organization = "foo_account_organization"
         full_request.server_hostname = "candlepin.foo.com"
         full_request.rhsm_baseurl = "cdn.foo.com"
         full_request.server_proxy_hostname = "proxy.foo.com"
@@ -1021,6 +1036,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             "type": SUBSCRIPTION_REQUEST_TYPE_ORG_KEY,
             "organization": "123456789",
             "account-username": "foo_user",
+            "account-organization": "foo_account_organization",
             "server-hostname": "candlepin.foo.com",
             "rhsm-baseurl": "cdn.foo.com",
             "server-proxy-hostname": "proxy.foo.com",
@@ -1406,3 +1422,40 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         # the SystemPurposeConfigurationTask should have been called,
         # which calls give_the_system_purpose()
         mock_give_purpose.assert_not_called()
+
+    @patch_dbus_publish_object
+    def parse_organization_data_test(self, publisher):
+        """Test ParseOrganizationDataTask creation."""
+        # make sure the task gets dummy rhsm entitlement and syspurpose proxies
+
+        # prepare the module with dummy data
+        full_request = SubscriptionRequest()
+        full_request.type = SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD
+        full_request.organization = "123456789"
+        full_request.account_username = "foo_user"
+        full_request.server_hostname = "candlepin.foo.com"
+        full_request.rhsm_baseurl = "cdn.foo.com"
+        full_request.server_proxy_hostname = "proxy.foo.com"
+        full_request.server_proxy_port = 9001
+        full_request.server_proxy_user = "foo_proxy_user"
+        full_request.account_password.set_secret("foo_password")
+        full_request.activation_keys.set_secret(["key1", "key2", "key3"])
+        full_request.server_proxy_password.set_secret("foo_proxy_password")
+
+        self.subscription_interface.SetSubscriptionRequest(
+            SubscriptionRequest.to_structure(full_request)
+        )
+        # make sure the task gets dummy rhsm register server proxy
+        observer = Mock()
+        observer.get_proxy = Mock()
+        self.subscription_module._rhsm_observer = observer
+        register_server_proxy = Mock()
+        observer.get_proxy.return_value = register_server_proxy
+
+        # check the task is created correctly
+        task_path = self.subscription_interface.RetrieveOrganizationsWithTask()
+        obj = check_task_creation(self, task_path, publisher, RetrieveOrganizationsTask)
+        # check all the data got propagated to the module correctly
+        self.assertEqual(obj.implementation._rhsm_register_server_proxy, register_server_proxy)
+        self.assertEqual(obj.implementation._username, "foo_user")
+        self.assertEqual(obj.implementation._password, "foo_password")
