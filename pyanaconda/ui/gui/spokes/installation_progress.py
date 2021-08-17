@@ -48,6 +48,11 @@ class ProgressSpoke(StandaloneSpoke):
 
     postForHub = SummaryHub
 
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "installation-progress"
+
     def __init__(self, data, storage, payload):
         super().__init__(data, storage, payload)
         self._totalSteps = 0

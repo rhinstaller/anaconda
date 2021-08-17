@@ -105,6 +105,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     # If the user enters a smaller size, the GUI changes it to this value
     MIN_SIZE_ENTRY = Size("1 MiB")
 
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "interactive-partitioning"
+
     def __init__(self, data, storage, payload):
         StorageCheckHandler.__init__(self)
         NormalSpoke.__init__(self, data, storage, payload)

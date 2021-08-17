@@ -403,6 +403,11 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
     _hack = TimezoneMap.TimezoneMap()
     del(_hack)
 
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "date-time-configuration"
+
     @classmethod
     def should_run(cls, environment, data):
         """Should the spoke run?"""

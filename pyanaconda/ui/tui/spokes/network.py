@@ -205,6 +205,11 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         NM.DeviceType.INFINIBAND,
     ]
 
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "network-configuration"
+
     def __init__(self, data, storage, payload):
         NormalTUISpoke.__init__(self, data, storage, payload)
         self.title = N_("Network configuration")

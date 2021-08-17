@@ -509,6 +509,11 @@ class FilterSpoke(NormalSpoke):
 
     title = CN_("GUI|Spoke", "_Installation Destination")
 
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "storage-advanced-configuration"
+
     def __init__(self, *args):
         super().__init__(*args)
         self.applyOnSkip = True

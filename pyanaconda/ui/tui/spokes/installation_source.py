@@ -68,6 +68,11 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
 
     SET_NETWORK_INSTALL_MODE = "network_install"
 
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "software-source-configuration"
+
     @classmethod
     def should_run(cls, environment, data):
         """Don't run for any non-package payload."""

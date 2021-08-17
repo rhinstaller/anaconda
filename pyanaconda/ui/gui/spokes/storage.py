@@ -82,6 +82,11 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     icon = "drive-harddisk-symbolic"
     title = CN_("GUI|Spoke", "Installation _Destination")
 
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "storage-configuration"
+
     @classmethod
     def should_run(cls, environment, data):
         """Don't run the storage spoke on dir installations."""
