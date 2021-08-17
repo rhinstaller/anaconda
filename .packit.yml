@@ -32,8 +32,6 @@ jobs:
       owner: "@rhinstaller"
       project: Anaconda
       preserve_project: True
-      additional_repos:
-        - "copr://@storage/blivet-daily"
 
 #  - job: copr_build
 #    trigger: commit
