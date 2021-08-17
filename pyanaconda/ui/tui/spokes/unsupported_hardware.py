@@ -33,6 +33,11 @@ class UnsupportedHardwareSpoke(StandaloneTUISpoke):
     preForHub = SummaryHub
     priority = -10
 
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "unsupported-hardware-warning"
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.title = N_("Unsupported Hardware Detected")

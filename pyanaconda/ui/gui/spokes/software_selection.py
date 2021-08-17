@@ -60,6 +60,11 @@ class SoftwareSelectionSpoke(NormalSpoke):
     icon = "package-x-generic-symbolic"
     title = CN_("GUI|Spoke", "_Software Selection")
 
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "software-selection"
+
     @classmethod
     def should_run(cls, environment, data):
         """Don't run for any non-package payload."""

@@ -27,6 +27,8 @@ from blivet import arch
 
 from simpleline.render.widgets import TextWidget
 
+__all__ = ["ShellSpoke"]
+
 
 class ShellSpoke(NormalTUISpoke):
     """
@@ -34,6 +36,11 @@ class ShellSpoke(NormalTUISpoke):
           :parts: 3
     """
     category = SystemCategory
+
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "shell"
 
     def __init__(self, data, storage, payload):
         super().__init__(data, storage, payload)
