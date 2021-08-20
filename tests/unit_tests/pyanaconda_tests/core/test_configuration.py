@@ -438,6 +438,10 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
 
     def test_kickstart_modules(self):
         """Test the kickstart_modules option."""
+        message = \
+            "The kickstart_modules configuration option is " \
+            "deprecated and will be removed in in the future."
+
         conf = AnacondaConfiguration.from_defaults()
         assert conf.anaconda.activatable_modules == [
             "org.fedoraproject.Anaconda.Modules.*",
@@ -455,14 +459,17 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
 
         """))
 
-        assert conf.anaconda.activatable_modules == [
+        with pytest.warns(DeprecationWarning, match=message):
+            activatable_modules = conf.anaconda.activatable_modules
+
+        assert activatable_modules == [
             "org.fedoraproject.Anaconda.Modules.Timezone",
             "org.fedoraproject.Anaconda.Modules.Localization",
             "org.fedoraproject.Anaconda.Modules.Security",
             "org.fedoraproject.Anaconda.Addons.*"
         ]
 
-        for pattern in conf.anaconda.activatable_modules:
+        for pattern in activatable_modules:
             self._check_pattern(pattern)
 
     def test_forbidden_modules(self):
@@ -474,6 +481,10 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
 
     def test_addons_enabled_modules(self):
         """Test the addons_enabled option."""
+        message = \
+            "The addons_enabled configuration option is " \
+            "deprecated and will be removed in in the future."
+
         conf = AnacondaConfiguration.from_defaults()
         assert conf.anaconda.forbidden_modules == []
 
@@ -501,7 +512,10 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
 
         """))
 
-        assert conf.anaconda.forbidden_modules == [
+        with pytest.warns(DeprecationWarning, match=message):
+            forbidden_modules = conf.anaconda.forbidden_modules
+
+        assert forbidden_modules == [
             "org.fedoraproject.Anaconda.Modules.Timezone",
             "org.fedoraproject.Anaconda.Modules.Localization",
             "org.fedoraproject.Anaconda.Modules.Security",
@@ -514,14 +528,17 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
 
         """))
 
-        assert conf.anaconda.forbidden_modules == [
+        with pytest.warns(DeprecationWarning, match=message):
+            forbidden_modules = conf.anaconda.forbidden_modules
+
+        assert forbidden_modules == [
             "org.fedoraproject.Anaconda.Addons.*",
             "org.fedoraproject.Anaconda.Modules.Timezone",
             "org.fedoraproject.Anaconda.Modules.Localization",
             "org.fedoraproject.Anaconda.Modules.Security",
         ]
 
-        for pattern in conf.anaconda.forbidden_modules:
+        for pattern in forbidden_modules:
             self._check_pattern(pattern)
 
     def test_optional_modules(self):
