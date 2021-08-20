@@ -530,8 +530,7 @@ class FSSet(object):
                 try:
                     device.setup()
                     device.format.setup()
-                except (blockdev.SwapOldError, blockdev.SwapSuspendError,
-                        blockdev.SwapUnknownError, blockdev.SwapPagesizeError) as e:
+                except blockdev.SwapActivateError as e:
                     log.error("Failed to activate swap on '%s': %s", device.name, str(e))
                     break
                 else:
