@@ -185,7 +185,7 @@ class PasswordQuality(unittest.TestCase):
         request.password = "4naconda-"
         check = input_checking.PasswordValidityCheck()
         check.run(request)
-        assert check.result.error_message is ""
+        assert check.result.error_message == ""
 
         # "4naconda----" gives a quality of 52 on RHEL7
         request = input_checking.PasswordCheckRequest()
@@ -193,7 +193,7 @@ class PasswordQuality(unittest.TestCase):
         request.password = "4naconda----"
         check = input_checking.PasswordValidityCheck()
         check.run(request)
-        assert check.result.error_message is ""
+        assert check.result.error_message == ""
 
         # "----4naconda----" gives a quality of 80 on RHEL7
         request = input_checking.PasswordCheckRequest()
@@ -201,7 +201,7 @@ class PasswordQuality(unittest.TestCase):
         request.password = "----4naconda----"
         check = input_checking.PasswordValidityCheck()
         check.run(request)
-        assert check.result.error_message is ""
+        assert check.result.error_message == ""
 
         # "?----4naconda----?" gives a quality of 100 on RHEL7
         request = input_checking.PasswordCheckRequest()
@@ -214,7 +214,7 @@ class PasswordQuality(unittest.TestCase):
         assert check.result.password_score == 4  # quality > 90
         assert check.result.status_text == _(constants.SecretStatus.STRONG.value)
         assert check.result.password_quality == 100
-        assert check.result.error_message is ""
+        assert check.result.error_message == ""
 
         # a long enough strong password with minlen set
         request = input_checking.PasswordCheckRequest()
@@ -227,7 +227,7 @@ class PasswordQuality(unittest.TestCase):
         assert check.result.password_score == 4  # quality > 90
         assert check.result.status_text == _(constants.SecretStatus.STRONG.value)
         assert check.result.password_quality == 100
-        assert check.result.error_message is ""
+        assert check.result.error_message == ""
 
         # minimum password length overrides strong passwords for score and status
         request = input_checking.PasswordCheckRequest()
@@ -240,5 +240,5 @@ class PasswordQuality(unittest.TestCase):
         assert check.result.password_score == 0  # too short
         assert check.result.status_text == _(constants.SecretStatus.TOO_SHORT.value)
         assert check.result.password_quality == 0  # dependent on password length
-        assert check.result.error_message is \
+        assert check.result.error_message == \
             _(constants.SECRET_TOO_SHORT[constants.SecretType.PASSWORD])
