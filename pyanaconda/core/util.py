@@ -485,7 +485,7 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None, filter_st
         stderr = subprocess.STDOUT
 
     try:
-        proc = startProgram(argv, root=root, stdin=stdin, stderr=stderr, env_prune=env_prune, bufsize=1)
+        proc = startProgram(argv, root=root, stdin=stdin, stderr=stderr, env_prune=env_prune)
     except OSError as e:
         with program_log_lock:
             program_log.error("Error running %s: %s", argv[0], e.strerror)
