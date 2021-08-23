@@ -515,10 +515,8 @@ class MiscTests(unittest.TestCase):
         test_paths = [
             "foo",
             "foo/bar/baz",
-            u"foo/bar/baz",
             "",
             "čřščščřščř",
-            u"čřščščřščř",
             "asdasd asdasd",
             "! spam"
         ]
@@ -577,28 +575,27 @@ class MiscTests(unittest.TestCase):
         """Test strip_accents."""
 
         # empty string
-        assert util.strip_accents(u"") == u""
         assert util.strip_accents("") == ""
 
         # some Czech accents
-        assert util.strip_accents(u"ěščřžýáíéúů") == u"escrzyaieuu"
-        assert util.strip_accents(u"v češtině") == u"v cestine"
-        assert util.strip_accents(u"měšťánek rozšíří HÁČKY") == u"mestanek rozsiri HACKY"
-        assert util.strip_accents(u"nejneobhospodařovávatelnějšímu") == \
-            u"nejneobhospodarovavatelnejsimu"
+        assert util.strip_accents("ěščřžýáíéúů") == "escrzyaieuu"
+        assert util.strip_accents("v češtině") == "v cestine"
+        assert util.strip_accents("měšťánek rozšíří HÁČKY") == "mestanek rozsiri HACKY"
+        assert util.strip_accents("nejneobhospodařovávatelnějšímu") == \
+            "nejneobhospodarovavatelnejsimu"
 
         # some German umlauts
-        assert util.strip_accents(u"Lärmüberhörer") == u"Larmuberhorer"
-        assert util.strip_accents(u"Heizölrückstoßabdämpfung") == \
-            u"Heizolrucksto\xdfabdampfung"
+        assert util.strip_accents("Lärmüberhörer") == "Larmuberhorer"
+        assert util.strip_accents("Heizölrückstoßabdämpfung") == \
+            "Heizolrucksto\xdfabdampfung"
 
         # some Japanese
-        assert util.strip_accents(u"日本語") == u"\u65e5\u672c\u8a9e"
-        assert util.strip_accents(u"アナコンダ") == u"\u30a2\u30ca\u30b3\u30f3\u30bf" # Anaconda
+        assert util.strip_accents("日本語") == "\u65e5\u672c\u8a9e"
+        assert util.strip_accents("アナコンダ") == "\u30a2\u30ca\u30b3\u30f3\u30bf" # Anaconda
 
         # combined
-        input_string = u"ASCI měšťánek アナコンダ Heizölrückstoßabdämpfung"
-        output_string = u"ASCI mestanek \u30a2\u30ca\u30b3\u30f3\u30bf Heizolrucksto\xdfabdampfung"
+        input_string = "ASCI měšťánek アナコンダ Heizölrückstoßabdämpfung"
+        output_string = "ASCI mestanek \u30a2\u30ca\u30b3\u30f3\u30bf Heizolrucksto\xdfabdampfung"
         assert util.strip_accents(input_string) == output_string
 
     def test_cmp_obj_attrs(self):
@@ -703,8 +700,8 @@ class MiscTests(unittest.TestCase):
         assert not util.have_word_match(None, None)
 
         # Compare designated unicode and "standard" unicode string and make sure nothing crashes
-        assert util.have_word_match("fête", u"fête champêtre")
-        assert util.have_word_match(u"fête", "fête champêtre")
+        assert util.have_word_match("fête", "fête champêtre")
+        assert util.have_word_match("fête", "fête champêtre")
 
     def test_parent_dir(self):
         """Test the parent_dir function"""

@@ -97,7 +97,7 @@ class TUIObject(UIScreen, common.UIObject):
     def __init__(self, data):
         UIScreen.__init__(self)
         common.UIObject.__init__(self, data)
-        self.title = u"Default title"
+        self.title = "Default title"
 
     @property
     def showable(self):

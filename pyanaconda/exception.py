@@ -395,7 +395,7 @@ f%s(msg, non_ascii)
         eval(compile(code, "str_eval", "exec"))  # pylint: disable=eval-used
 
     # test non-ascii characters dumping
-    non_ascii = u'\u0159'
+    non_ascii = '\u0159'
 
     msg = "NOTABUG: testing exception handling"
 

@@ -85,7 +85,7 @@ class TextUserInterface(ui.UserInterface):
     ENVIRONMENT = "anaconda"
 
     def __init__(self, storage, payload,
-                 productTitle=u"Anaconda", isFinal=True,
+                 productTitle="Anaconda", isFinal=True,
                  quitMessage=QUIT_MESSAGE):
         """
         For detailed description of the arguments see
