@@ -29,24 +29,29 @@ from dasbus.error import DBusError
 
 from pyanaconda.core import util
 from pyanaconda.core.constants import SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, \
-    RHSM_SYSPURPOSE_FILE_PATH
+    RHSM_SYSPURPOSE_FILE_PATH, SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD
 
 from pyanaconda.modules.common.errors.installation import InsightsConnectError, \
     InsightsClientMissingError, SubscriptionTokenTransferError
 from pyanaconda.modules.common.errors.subscription import RegistrationError, \
-    SubscriptionError
+    SubscriptionError, SatelliteProvisioningError
 from pyanaconda.modules.common.structures.subscription import SystemPurposeData, \
     SubscriptionRequest, AttachedSubscription
 from pyanaconda.modules.common.constants.services import RHSM
-from pyanaconda.modules.common.constants.objects import RHSM_REGISTER
+from pyanaconda.modules.common.constants.objects import RHSM_REGISTER, RHSM_UNREGISTER, \
+    RHSM_CONFIG
 
 from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, \
-    RestoreRHSMDefaultsTask, TransferSubscriptionTokensTask
+    RestoreRHSMDefaultsTask, TransferSubscriptionTokensTask, ProvisionTargetSystemForSatelliteTask
 
 from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
     RHSMPrivateBus, RegisterWithUsernamePasswordTask, RegisterWithOrganizationKeyTask, \
     UnregisterTask, AttachSubscriptionTask, SystemPurposeConfigurationTask, \
-    ParseAttachedSubscriptionsTask
+    ParseAttachedSubscriptionsTask, DownloadSatelliteProvisioningScriptTask, \
+    RunSatelliteProvisioningScriptTask, BackupRHSMConfBeforeSatelliteProvisioningTask, \
+    RollBackSatelliteProvisioningTask, RegisterAndSubscribeTask
+from pyanaconda.modules.subscription.constants import SERVER_HOSTNAME_NOT_SATELLITE_PREFIX, \
+    RHSM_SERVICE_NAME
 
 import gi
 gi.require_version("Gio", "2.0")
@@ -199,7 +204,7 @@ class SetRHSMConfigurationTaskTestCase(unittest.TestCase):
     keys to default values if they come in blank.
     """
 
-    def set_rhsm_config_tast_test(self):
+    def set_rhsm_config_task_test(self):
         """Test the SetRHSMConfigurationTask task."""
         mock_config_proxy = Mock()
         # RHSM config default values
@@ -282,6 +287,50 @@ class SetRHSMConfigurationTaskTestCase(unittest.TestCase):
                          "server.proxy_user": get_variant(Str, "foo_proxy_user"),
                          "server.proxy_password": get_variant(Str, "foo_proxy_password"),
                          "rhsm.baseurl": get_variant(Str, "cdn.example.com")}
+
+        mock_config_proxy.SetAll.assert_called_once_with(expected_dict, "")
+
+    def set_rhsm_config_task_test_not_satellite(self):
+        """Test the SetRHSMConfigurationTask task - not-satellite prefix handling."""
+        # if the subscription request has the no-satellite prefix, it should be stripped
+        # before the server hostname value is sent to RHSM
+        mock_config_proxy = Mock()
+        # RHSM config default values
+        default_config = {
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_HOSTNAME: "server.example.com",
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_HOSTNAME: "proxy.example.com",
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_PORT: "1000",
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_USER: "foo_user",
+            SetRHSMConfigurationTask.CONFIG_KEY_SERVER_PROXY_PASSWORD: "foo_password",
+            SetRHSMConfigurationTask.CONFIG_KEY_RHSM_BASEURL: "cdn.example.com",
+            "key_anaconda_does_not_use_1": "foo1",
+            "key_anaconda_does_not_use_2": "foo2"
+        }
+        # a representative subscription request
+        request = SubscriptionRequest()
+        request.type = SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
+        request.organization = "123456789"
+        request.account_username = "foo_user"
+        request.server_hostname = SERVER_HOSTNAME_NOT_SATELLITE_PREFIX + "candlepin.foo.com"
+        request.rhsm_baseurl = "cdn.foo.com"
+        request.server_proxy_hostname = "proxy.foo.com"
+        request.server_proxy_port = 9001
+        request.server_proxy_user = "foo_proxy_user"
+        request.account_password.set_secret("foo_password")
+        request.activation_keys.set_secret(["key1", "key2", "key3"])
+        request.server_proxy_password.set_secret("foo_proxy_password")
+        # create a task
+        task = SetRHSMConfigurationTask(rhsm_config_proxy=mock_config_proxy,
+                                        rhsm_config_defaults=default_config,
+                                        subscription_request=request)
+        task.run()
+        # check that we tried to set the expected config keys via the RHSM config DBus API
+        expected_dict = {"server.hostname": get_variant(Str, "candlepin.foo.com"),
+                         "server.proxy_hostname": get_variant(Str, "proxy.foo.com"),
+                         "server.proxy_port": get_variant(Str, "9001"),
+                         "server.proxy_user": get_variant(Str, "foo_proxy_user"),
+                         "server.proxy_password": get_variant(Str, "foo_proxy_password"),
+                         "rhsm.baseurl": get_variant(Str, "cdn.foo.com")}
 
         mock_config_proxy.SetAll.assert_called_once_with(expected_dict, "")
 
@@ -691,31 +740,97 @@ class RegistrationTasksTestCase(unittest.TestCase):
 class UnregisterTaskTestCase(unittest.TestCase):
     """Test the unregister task."""
 
+    @patch("pyanaconda.modules.subscription.runtime.RollBackSatelliteProvisioningTask")
     @patch("os.environ.get", return_value="en_US.UTF-8")
-    def unregister_success_test(self, environ_get):
+    def unregister_success_test(self, environ_get, roll_back_task):
         """Test the UnregisterTask - success."""
-        # register server proxy
-        rhsm_unregister_proxy = Mock()
+        rhsm_observer = Mock()
         # instantiate the task and run it
-        task = UnregisterTask(rhsm_unregister_proxy=rhsm_unregister_proxy)
+        task = UnregisterTask(
+            rhsm_observer=rhsm_observer,
+            registered_to_satellite=False,
+            rhsm_configuration={}
+        )
         task.run()
         # check the unregister proxy Unregister method was called correctly
-        rhsm_unregister_proxy.Unregister.assert_called_once_with({}, "en_US.UTF-8")
+        rhsm_observer.get_proxy.assert_called_once_with(RHSM_UNREGISTER)
+        # registered_to_satellite is False, so roll back task should not run
+        roll_back_task.assert_not_called()
+        roll_back_task.return_value.run.assert_not_called()
 
+    @patch("pyanaconda.modules.subscription.runtime.RollBackSatelliteProvisioningTask")
     @patch("os.environ.get", return_value="en_US.UTF-8")
-    def unregister_failure_test(self, environ_get):
+    def unregister_failure_test(self, environ_get, roll_back_task):
         """Test the UnregisterTask - failure."""
-        # register server proxy
-        rhsm_unregister_proxy = Mock()
+        rhsm_observer = Mock()
+        rhsm_unregister_proxy = rhsm_observer.get_proxy.return_value
         # raise DBusError with error message in JSON
         json_error = '{"message": "Unregistration failed."}'
         rhsm_unregister_proxy.Unregister.side_effect = DBusError(json_error)
         # instantiate the task and run it
-        task = UnregisterTask(rhsm_unregister_proxy=rhsm_unregister_proxy)
+        task = UnregisterTask(
+            rhsm_observer=rhsm_observer,
+            registered_to_satellite=False,
+            rhsm_configuration={}
+        )
         with self.assertRaises(DBusError):
             task.run()
+        # check the RHSM observer was used correctly
+        rhsm_observer.get_proxy.assert_called_once_with(RHSM_UNREGISTER)
         # check the unregister proxy Unregister method was called correctly
         rhsm_unregister_proxy.Unregister.assert_called_once_with({}, "en_US.UTF-8")
+        # registered_to_satellite is False, so roll back task should not run
+        roll_back_task.assert_not_called()
+        roll_back_task.return_value.run.assert_not_called()
+
+    @patch("pyanaconda.modules.subscription.runtime.RollBackSatelliteProvisioningTask")
+    @patch("os.environ.get", return_value="en_US.UTF-8")
+    def unregister_failure_satellite_test(self, environ_get, roll_back_task):
+        """Test the UnregisterTask - unregister failure on Satellite."""
+        rhsm_observer = Mock()
+        rhsm_unregister_proxy = rhsm_observer.get_proxy.return_value
+        # raise DBusError with error message in JSON
+        json_error = '{"message": "Unregistration failed."}'
+        rhsm_unregister_proxy.Unregister.side_effect = DBusError(json_error)
+        # instantiate the task and run it
+        task = UnregisterTask(
+            rhsm_observer=rhsm_observer,
+            registered_to_satellite=True,
+            rhsm_configuration={}
+        )
+        with self.assertRaises(DBusError):
+            task.run()
+        # check the RHSM observer was used correctly
+        rhsm_observer.get_proxy.assert_called_once_with(RHSM_UNREGISTER)
+        # check the unregister proxy Unregister method was called correctly
+        rhsm_unregister_proxy.Unregister.assert_called_once_with({}, "en_US.UTF-8")
+        # registered_to_satellite is True, but unregistration failed before roll back
+        # could happen
+        roll_back_task.assert_not_called()
+        roll_back_task.return_value.run.assert_not_called()
+
+    @patch("pyanaconda.modules.subscription.runtime.RollBackSatelliteProvisioningTask")
+    @patch("os.environ.get", return_value="en_US.UTF-8")
+    def unregister_satellite_success_test(self, environ_get, roll_back_task):
+        """Test the UnregisterTask - Satellite rollback success."""
+        rhsm_observer = Mock()
+        unregister_proxy = Mock()
+        config_proxy = Mock()
+        rhsm_observer.get_proxy.side_effect = [unregister_proxy, config_proxy]
+        # instantiate the task and run it
+        mock_rhsm_configuration = {"foo": "bar"}
+        task = UnregisterTask(
+            rhsm_observer=rhsm_observer,
+            registered_to_satellite=True,
+            rhsm_configuration=mock_rhsm_configuration
+        )
+        task.run()
+        # check the unregister proxy Unregister method was called correctly
+        rhsm_observer.get_proxy.assert_has_calls([])
+        # registered_to_satellite is False, so roll back task should not run
+        roll_back_task.assert_called_once_with(rhsm_config_proxy=config_proxy,
+                                               rhsm_configuration=mock_rhsm_configuration)
+        roll_back_task.return_value.run.assert_called_once()
 
 
 class AttachSubscriptionTaskTestCase(unittest.TestCase):
@@ -920,3 +1035,501 @@ class ParseAttachedSubscriptionsTaskTestCase(unittest.TestCase):
         # check the result that has been returned is as expected
         self.assertEqual(result.attached_subscriptions, [subscription1, subscription2])
         self.assertEqual(result.system_purpose_data, system_purpose_data)
+
+
+class SatelliteTasksTestCase(unittest.TestCase):
+    """Test the Satellite support tasks."""
+
+    @patch("pyanaconda.modules.subscription.satellite.download_satellite_provisioning_script")
+    def satellite_provisioning_script_download_test(self, download_function):
+        """Test the DownloadSatelliteProvisioningScriptTask."""
+        # make the download function return a dummy script text
+        download_function.return_value = "foo bar"
+        # create the task and run it
+        task = DownloadSatelliteProvisioningScriptTask(
+            satellite_url="satellite.example.com",
+            proxy_url="proxy.example.com",
+        )
+        self.assertEqual(task.run(), "foo bar")
+        # check the wrapped download function was called correctly
+        download_function.assert_called_with(
+            satellite_url="satellite.example.com",
+            proxy_url="proxy.example.com",
+        )
+
+    @patch("pyanaconda.modules.subscription.satellite.run_satellite_provisioning_script")
+    def satellite_provisioning_run_script_test(self, run_script_function):
+        """Test the RunSatelliteProvisioningScriptTask - success."""
+        # create the task and run it
+        task = RunSatelliteProvisioningScriptTask(
+            provisioning_script="foo bar"
+        )
+        task.run()
+        # check the wrapped run function was called correctly
+        run_script_function.assert_called_with(
+            provisioning_script="foo bar",
+            run_on_target_system=False
+        )
+
+    @patch("pyanaconda.modules.subscription.satellite.run_satellite_provisioning_script")
+    def satellite_provisioning_run_script_failure_test(self, run_script_function):
+        """Test the RunSatelliteProvisioningScriptTask - failure."""
+        # make sure the run-script function raises the correct error
+        run_script_function.side_effect = SatelliteProvisioningError()
+        # create the task and run it
+        task = RunSatelliteProvisioningScriptTask(
+            provisioning_script="foo bar"
+        )
+        with self.assertRaises(SatelliteProvisioningError):
+            task.run()
+        # check the wrapped run function was called correctly
+        run_script_function.assert_called_with(
+            provisioning_script="foo bar",
+            run_on_target_system=False
+        )
+
+    def rhsm_config_backup_test(self):
+        """Test the BackupRHSMConfBeforeSatelliteProvisioningTask."""
+        # create mock RHSM config proxy
+        config_proxy = Mock()
+        # make it return a DBus struct
+        config_proxy.GetAll.return_value = {"foo": get_variant(Str, "bar")}
+        # create the task and run it
+        task = BackupRHSMConfBeforeSatelliteProvisioningTask(
+            rhsm_config_proxy=config_proxy
+        )
+        conf_backup = task.run()
+        # check the RHSM config proxy was called correctly
+        config_proxy.GetAll.assert_called_once_with("")
+        # check the DBus struct is correctly converted to a Python dict
+        self.assertEqual(conf_backup, {"foo": "bar"})
+
+    def rhsm_roll_back_test(self):
+        """Test the RollBackSatelliteProvisioningTask."""
+        # create mock RHSM config proxy
+        config_proxy = Mock()
+        # and mock RHSM configuration
+        rhsm_config = {"foo": "bar"}
+        # create the task and run it
+        task = RollBackSatelliteProvisioningTask(
+            rhsm_config_proxy=config_proxy,
+            rhsm_configuration=rhsm_config
+        )
+        task.run()
+        # check the RHSM config proxy was called correctly
+        config_proxy.SetAll.assert_called_once_with({"foo": get_variant(Str, "bar")}, "")
+
+    @patch("pyanaconda.modules.subscription.satellite.run_satellite_provisioning_script")
+    def provision_target_no_op_test(self, run_script_function):
+        """Test the ProvisionTargetSystemForSatelliteTask - no op."""
+        # create the task and run it
+        task = ProvisionTargetSystemForSatelliteTask(provisioning_script=None)
+        task.run()
+        # make sure we did not try to provision the system with
+        # registered_to_satellite == False
+        run_script_function.assert_not_called()
+
+    @patch("pyanaconda.modules.subscription.satellite.run_satellite_provisioning_script")
+    def provision_target_success_test(self, run_script_function):
+        """Test the ProvisionTargetSystemForSatelliteTask - success."""
+        # make the run script function return True, indicating success
+        run_script_function.return_value = True
+        # create the task and run it
+        task = ProvisionTargetSystemForSatelliteTask(provisioning_script="foo")
+        task.run()
+        # make sure we did try to provision the system with
+        run_script_function.assert_called_once_with(
+            provisioning_script="foo",
+            run_on_target_system=True
+        )
+
+    @patch("pyanaconda.modules.subscription.satellite.run_satellite_provisioning_script")
+    def provision_target_failure_test(self, run_script_function):
+        """Test the ProvisionTargetSystemForSatelliteTask - failure."""
+        # make the run script function return False, indicating failure
+        run_script_function.return_value = False
+        # create the task and run it
+        task = ProvisionTargetSystemForSatelliteTask(provisioning_script="foo")
+        # check if the correct exception for a failure is raised
+        with self.assertRaises(SatelliteProvisioningError):
+            task.run()
+        # make sure we did try to provision the system with
+        run_script_function.assert_called_once_with(
+            provisioning_script="foo",
+            run_on_target_system=True
+        )
+
+
+class RegisterandSubscribeTestCase(unittest.TestCase):
+    """Test the RegisterAndSubscribeTask orchestration task.
+
+    This task does orchestration of many individual tasks,
+    so it makes sense to have a separate test case for it.
+    """
+
+    def get_proxy_url_test(self):
+        """Test proxy URL generation in RegisterAndSubscribeTask."""
+        # no proxy data provided
+        empty_request = SubscriptionRequest()
+        self.assertIsNone(RegisterAndSubscribeTask._get_proxy_url(empty_request))
+        # proxy data provided in subscription request
+        request_with_proxy_data = SubscriptionRequest()
+        request_with_proxy_data.server_proxy_hostname = "proxy.example.com"
+        request_with_proxy_data.server_proxy_user = "foo_user"
+        request_with_proxy_data.server_proxy_password.set_secret("foo_password")
+        request_with_proxy_data.server_proxy_port = 1234
+        self.assertEqual(
+            RegisterAndSubscribeTask._get_proxy_url(request_with_proxy_data),
+            "http://foo_user:foo_password@proxy.example.com:1234"
+        )
+        # one more time without valid port set
+        request_with_proxy_data = SubscriptionRequest()
+        request_with_proxy_data.server_proxy_hostname = "proxy.example.com"
+        request_with_proxy_data.server_proxy_user = "foo_user"
+        request_with_proxy_data.server_proxy_password.set_secret("foo_password")
+        request_with_proxy_data.server_proxy_port = -1
+        # this should result in the default proxy port 3128 being used
+        self.assertEqual(
+            RegisterAndSubscribeTask._get_proxy_url(request_with_proxy_data),
+            "http://foo_user:foo_password@proxy.example.com:3128"
+        )
+
+    @patch("pyanaconda.modules.subscription.runtime.DownloadSatelliteProvisioningScriptTask")
+    def provision_system_for_satellite_skip_test(self, download_task):
+        """Test Satellite provisioning in RegisterAndSubscribeTask - skip."""
+        # create the task and related bits
+        subscription_request = SubscriptionRequest()
+        subscription_request.server_hostname = \
+            SERVER_HOSTNAME_NOT_SATELLITE_PREFIX + "something.else.example.com"
+        task = RegisterAndSubscribeTask(
+            rhsm_observer=Mock(),
+            subscription_request=subscription_request,
+            system_purpose_data=Mock(),
+            registered_callback=Mock(),
+            registered_to_satellite_callback=Mock(),
+            subscription_attached_callback=Mock(),
+            subscription_data_callback=Mock(),
+            satellite_script_callback=Mock(),
+            config_backup_callback=Mock()
+        )
+        # run the provisioning method
+        task._provision_system_for_satellite()
+        # detect if provisioning is skipped by checking if the
+        # DownloadSatelliteProvisioningScriptTask has been instantiated
+        download_task.assert_not_called()
+
+    @patch("pyanaconda.modules.subscription.runtime.DownloadSatelliteProvisioningScriptTask")
+    def provision_system_for_satellite_download_error_test(self, download_task):
+        """Test Satellite provisioning in RegisterAndSubscribeTask - script download error."""
+        # create the task and related bits
+        subscription_request = SubscriptionRequest()
+        subscription_request.server_hostname = "satellite.example.com"
+        satellite_script_callback = Mock()
+        task = RegisterAndSubscribeTask(
+            rhsm_observer=Mock(),
+            subscription_request=subscription_request,
+            system_purpose_data=Mock(),
+            registered_callback=Mock(),
+            registered_to_satellite_callback=Mock(),
+            subscription_attached_callback=Mock(),
+            subscription_data_callback=Mock(),
+            satellite_script_callback=satellite_script_callback,
+            config_backup_callback=Mock()
+        )
+        # make the mock download task fail
+        download_task.side_effect = SatelliteProvisioningError()
+        # run the provisioning method, check correct exception is raised
+        with self.assertRaises(SatelliteProvisioningError):
+            task._provision_system_for_satellite()
+        # download task should have been instantiated
+        download_task.assert_called_once_with(
+            satellite_url='satellite.example.com',
+            proxy_url=None)
+        # but the callback should not have been called due to the failure
+        satellite_script_callback.assert_not_called()
+
+    @patch("pyanaconda.core.util.restart_service")
+    @patch("pyanaconda.modules.subscription.runtime.RunSatelliteProvisioningScriptTask")
+    @patch("pyanaconda.modules.subscription.runtime.DownloadSatelliteProvisioningScriptTask")
+    def provision_sat_run_error_test(self, download_task, run_script_task, restart_service):
+        """Test Satellite provisioning in RegisterAndSubscribeTask - script run failed."""
+        # create the task and related bits
+        subscription_request = SubscriptionRequest()
+        subscription_request.server_hostname = "satellite.example.com"
+        satellite_script_callback = Mock()
+        task = RegisterAndSubscribeTask(
+            rhsm_observer=Mock(),
+            subscription_request=subscription_request,
+            system_purpose_data=Mock(),
+            registered_callback=Mock(),
+            registered_to_satellite_callback=Mock(),
+            subscription_attached_callback=Mock(),
+            subscription_data_callback=Mock(),
+            satellite_script_callback=satellite_script_callback,
+            config_backup_callback=Mock()
+        )
+        # make the mock download task return the script from its run() method
+        download_task.return_value.run.return_value = "foo bar script"
+        # make the mock run task fail
+        run_script_task.side_effect = SatelliteProvisioningError()
+        # run the provisioning method, check correct exception is raised
+        with self.assertRaises(SatelliteProvisioningError):
+            task._provision_system_for_satellite()
+        # download task should have been instantiated
+        download_task.assert_called_once_with(
+            satellite_url='satellite.example.com',
+            proxy_url=None)
+        # download callback should have been called
+        satellite_script_callback.assert_called_once()
+        # then the run script task should have been instantiated
+        run_script_task.assert_called_once_with(provisioning_script="foo bar script")
+        # but the next call to restart_service should not happen
+        # due to the exception being raised
+        restart_service.assert_not_called()
+
+    @patch("pyanaconda.core.util.restart_service")
+    @patch("pyanaconda.modules.subscription.runtime.RunSatelliteProvisioningScriptTask")
+    @patch("pyanaconda.modules.subscription.runtime.BackupRHSMConfBeforeSatelliteProvisioningTask")
+    @patch("pyanaconda.modules.subscription.runtime.DownloadSatelliteProvisioningScriptTask")
+    def provision_success_test(self, download_task, backup_task, run_script_task, restart_service):
+        """Test Satellite provisioning in RegisterAndSubscribeTask - success."""
+        # this tests a simulated successful end-to-end provisioning run, which contains
+        # some more bits that have been skipped in the previous tests for complexity:
+        # - check proxy URL propagates correctly
+        # - check the backup task (run between download and run tasks) is run correctly
+
+        # create the task and related bits
+        rhsm_observer = Mock()
+        subscription_request = SubscriptionRequest()
+        subscription_request.server_hostname = "satellite.example.com"
+        subscription_request.server_proxy_hostname = "proxy.example.com"
+        subscription_request.server_proxy_user = "foo_user"
+        subscription_request.server_proxy_password.set_secret("foo_password")
+        subscription_request.server_proxy_port = 1234
+        config_backup_callback = Mock()
+        satellite_script_callback = Mock()
+        task = RegisterAndSubscribeTask(
+            rhsm_observer=rhsm_observer,
+            subscription_request=subscription_request,
+            system_purpose_data=Mock(),
+            registered_callback=Mock(),
+            registered_to_satellite_callback=Mock(),
+            subscription_attached_callback=Mock(),
+            subscription_data_callback=Mock(),
+            satellite_script_callback=satellite_script_callback,
+            config_backup_callback=config_backup_callback
+        )
+        # make the mock download task return the script from its run() method
+        download_task.return_value.run.return_value = "foo bar script"
+        # make the mock backup task return mock RHSM config dict
+        backup_task.return_value.run.return_value = {"foo": "bar"}
+        # run the provisioning method
+        task._provision_system_for_satellite()
+        # download task should have been instantiated
+        download_task.assert_called_once_with(
+            satellite_url='satellite.example.com',
+            proxy_url='http://foo_user:foo_password@proxy.example.com:1234')
+        # download callback should have been called
+        satellite_script_callback.assert_called_once()
+        # next we should attempt to backup RHSM configuration, so that
+        # unregistration can correctly cleanup after a Satellite
+        # registration attempt
+        rhsm_observer.get_proxy.assert_called_once_with(RHSM_CONFIG)
+        backup_task.assert_called_once_with(rhsm_config_proxy=rhsm_observer.get_proxy.return_value)
+        config_backup_callback.assert_called_once_with({"foo": "bar"})
+        # then the run script task should have been instantiated
+        run_script_task.assert_called_once_with(provisioning_script="foo bar script")
+        # then the RHSM service restart should happen
+        restart_service.assert_called_once_with(RHSM_SERVICE_NAME)
+
+    @patch("pyanaconda.modules.subscription.runtime.RegisterWithUsernamePasswordTask")
+    def registration_error_username_password_test(self, register_username_task):
+        """Test RegisterAndSubscribeTask - username + password registration error."""
+        # create the task and related bits
+        rhsm_observer = Mock()
+        subscription_request = SubscriptionRequest()
+        subscription_request.type = SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD
+        subscription_request.account_username = "foo_user"
+        subscription_request.account_password.set_secret("foo_password")
+        task = RegisterAndSubscribeTask(
+            rhsm_observer=rhsm_observer,
+            subscription_request=subscription_request,
+            system_purpose_data=Mock(),
+            registered_callback=Mock(),
+            registered_to_satellite_callback=Mock(),
+            subscription_attached_callback=Mock(),
+            subscription_data_callback=Mock(),
+            satellite_script_callback=Mock(),
+            config_backup_callback=Mock()
+        )
+        # make the register task throw an exception
+        register_username_task.return_value.run_with_signals.side_effect = RegistrationError()
+        # check the exception is raised as expected
+        with self.assertRaises(RegistrationError):
+            task.run()
+        # check the register task was properly instantiated
+        register_username_task.assert_called_once_with(
+            rhsm_register_server_proxy=rhsm_observer.get_proxy.return_value,
+            username='foo_user',
+            password='foo_password'
+        )
+        # check the register task has been run
+        register_username_task.return_value.run_with_signals.assert_called_once()
+
+    @patch("pyanaconda.modules.subscription.runtime.RegisterWithOrganizationKeyTask")
+    def registration_error_org_key_test(self, register_org_task):
+        """Test RegisterAndSubscribeTask - org + key registration error."""
+        # create the task and related bits
+        rhsm_observer = Mock()
+        subscription_request = SubscriptionRequest()
+        subscription_request.type = SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
+        subscription_request.organization = "foo_org"
+        subscription_request.activation_keys.set_secret(["key1", "key2", "key3"])
+        task = RegisterAndSubscribeTask(
+            rhsm_observer=rhsm_observer,
+            subscription_request=subscription_request,
+            system_purpose_data=Mock(),
+            registered_callback=Mock(),
+            registered_to_satellite_callback=Mock(),
+            subscription_attached_callback=Mock(),
+            subscription_data_callback=Mock(),
+            satellite_script_callback=Mock(),
+            config_backup_callback=Mock()
+        )
+        # make the register task throw an exception
+        register_org_task.return_value.run_with_signals.side_effect = RegistrationError()
+        # check the exception is raised as expected
+        with self.assertRaises(RegistrationError):
+            task.run()
+        # check the register task was properly instantiated
+        register_org_task.assert_called_once_with(
+            rhsm_register_server_proxy=rhsm_observer.get_proxy.return_value,
+            organization='foo_org',
+            activation_keys=['key1', 'key2', 'key3']
+
+        )
+        # check the register task has been run
+        register_org_task.return_value.run_with_signals.assert_called_once()
+
+    @patch("pyanaconda.modules.subscription.runtime.ParseAttachedSubscriptionsTask")
+    @patch("pyanaconda.modules.subscription.runtime.AttachSubscriptionTask")
+    @patch("pyanaconda.modules.subscription.runtime.RegisterWithOrganizationKeyTask")
+    def registration_and_subscribe_test(self, register_task, attach_task, parse_task):
+        """Test RegisterAndSubscribeTask - success."""
+        # create the task and related bits
+        rhsm_observer = Mock()
+        rhsm_register_server = Mock()
+        rhsm_attach = Mock()
+        rhsm_entitlement = Mock()
+        rhsm_syspurpose = Mock()
+        rhsm_observer.get_proxy.side_effect = [
+            rhsm_register_server, rhsm_attach, rhsm_entitlement, rhsm_syspurpose
+        ]
+        subscription_request = SubscriptionRequest()
+        subscription_request.type = SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
+        subscription_request.organization = "foo_org"
+        subscription_request.activation_keys.set_secret(["key1", "key2", "key3"])
+        system_purpose_data = SystemPurposeData()
+        system_purpose_data.sla = "foo_sla"
+        subscription_attached_callback = Mock()
+        task = RegisterAndSubscribeTask(
+            rhsm_observer=rhsm_observer,
+            subscription_request=subscription_request,
+            system_purpose_data=system_purpose_data,
+            registered_callback=Mock(),
+            registered_to_satellite_callback=Mock(),
+            subscription_attached_callback=subscription_attached_callback,
+            subscription_data_callback=Mock(),
+            satellite_script_callback=Mock(),
+            config_backup_callback=Mock()
+        )
+        # mock the Satellite provisioning method
+        task._provision_system_for_satellite = Mock()
+        # run the main task
+        task.run()
+        # check satellite provisioning was not attempted
+        task._provision_system_for_satellite.assert_not_called()
+        # check the register task was properly instantiated and run
+        register_task.assert_called_once_with(
+            rhsm_register_server_proxy=rhsm_register_server,
+            organization='foo_org',
+            activation_keys=['key1', 'key2', 'key3']
+
+        )
+        register_task.return_value.run_with_signals.assert_called_once()
+        # check the subscription attach task has been properly instantiated and run
+        attach_task.assert_called_once_with(
+            rhsm_attach_proxy=rhsm_attach,
+            sla="foo_sla",
+        )
+        attach_task.return_value.run.assert_called_once()
+        # also check the callback was called correctly
+        subscription_attached_callback.assert_called_once_with(True)
+        # check the subscription parsing task has been properly instantiated and run
+        parse_task.assert_called_once_with(
+            rhsm_entitlement_proxy=rhsm_entitlement,
+            rhsm_syspurpose_proxy=rhsm_syspurpose
+        )
+        parse_task.return_value.run_with_signals.assert_called_once()
+
+    @patch("pyanaconda.modules.subscription.runtime.ParseAttachedSubscriptionsTask")
+    @patch("pyanaconda.modules.subscription.runtime.AttachSubscriptionTask")
+    @patch("pyanaconda.modules.subscription.runtime.RegisterWithOrganizationKeyTask")
+    def registration_and_subscribe_satellite_test(self, register_task, attach_task, parse_task):
+        """Test RegisterAndSubscribeTask - success with satellite provisioning."""
+        # create the task and related bits
+        rhsm_observer = Mock()
+        rhsm_register_server = Mock()
+        rhsm_attach = Mock()
+        rhsm_entitlement = Mock()
+        rhsm_syspurpose = Mock()
+        rhsm_observer.get_proxy.side_effect = [
+            rhsm_register_server, rhsm_attach, rhsm_entitlement, rhsm_syspurpose
+        ]
+        subscription_request = SubscriptionRequest()
+        subscription_request.type = SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
+        subscription_request.organization = "foo_org"
+        subscription_request.activation_keys.set_secret(["key1", "key2", "key3"])
+        subscription_request.server_hostname = "satellite.example.com"
+        system_purpose_data = SystemPurposeData()
+        system_purpose_data.sla = "foo_sla"
+        subscription_attached_callback = Mock()
+        task = RegisterAndSubscribeTask(
+            rhsm_observer=rhsm_observer,
+            subscription_request=subscription_request,
+            system_purpose_data=system_purpose_data,
+            registered_callback=Mock(),
+            registered_to_satellite_callback=Mock(),
+            subscription_attached_callback=subscription_attached_callback,
+            subscription_data_callback=Mock(),
+            satellite_script_callback=Mock(),
+            config_backup_callback=Mock()
+        )
+        # mock the Satellite provisioning method
+        task._provision_system_for_satellite = Mock()
+        # run the main task
+        task.run()
+        # check satellite provisioning was attempted
+        task._provision_system_for_satellite.assert_called_once_with()
+        # check the register task was properly instantiated and run
+        register_task.assert_called_once_with(
+            rhsm_register_server_proxy=rhsm_register_server,
+            organization='foo_org',
+            activation_keys=['key1', 'key2', 'key3']
+
+        )
+        register_task.return_value.run_with_signals.assert_called_once()
+        # check the subscription attach task has been properly instantiated and run
+        attach_task.assert_called_once_with(
+            rhsm_attach_proxy=rhsm_attach,
+            sla="foo_sla",
+        )
+        attach_task.return_value.run.assert_called_once()
+        # also check the callback was called correctly
+        subscription_attached_callback.assert_called_once_with(True)
+        # check the subscription parsing task has been properly instantiated and run
+        parse_task.assert_called_once_with(
+            rhsm_entitlement_proxy=rhsm_entitlement,
+            rhsm_syspurpose_proxy=rhsm_syspurpose
+        )
+        parse_task.return_value.run_with_signals.assert_called_once()
