@@ -117,7 +117,6 @@ class GUIObject(common.UIObject):
     focusWidgetName = None
 
     uiFile = ""
-    helpFile = None
     hide_help_button = False
     translationDomain = "anaconda"
 

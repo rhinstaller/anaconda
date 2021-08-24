@@ -47,7 +47,6 @@ class SoftwareSpoke(NormalTUISpoke):
        .. inheritance-diagram:: SoftwareSpoke
           :parts: 3
     """
-    helpFile = "SoftwareSpoke.txt"
     category = SoftwareCategory
 
     @staticmethod

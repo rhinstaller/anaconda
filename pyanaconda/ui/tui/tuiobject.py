@@ -92,8 +92,6 @@ class TUIObject(UIScreen, common.UIObject):
     """Base class for Anaconda specific TUI screens. Implements the
     common pyanaconda.ui.common.UIObject interface"""
 
-    helpFile = None
-
     def __init__(self, data):
         UIScreen.__init__(self)
         common.UIObject.__init__(self, data)

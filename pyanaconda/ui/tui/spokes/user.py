@@ -45,7 +45,6 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
        .. inheritance-diagram:: UserSpoke
           :parts: 3
     """
-    helpFile = "UserSpoke.txt"
     category = UserSettingsCategory
 
     @staticmethod

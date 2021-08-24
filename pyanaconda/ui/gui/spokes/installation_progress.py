@@ -44,8 +44,6 @@ class ProgressSpoke(StandaloneSpoke):
     builderObjects = ["progressWindow"]
     mainWidgetName = "progressWindow"
     uiFile = "spokes/installation_progress.glade"
-    helpFile = "ProgressHub.xml"
-
     postForHub = SummaryHub
 
     @staticmethod
