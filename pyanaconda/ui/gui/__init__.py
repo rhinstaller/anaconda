@@ -115,7 +115,6 @@ class GUIObject(common.UIObject):
     focusWidgetName = None
 
     uiFile = ""
-    helpFile = None
     translationDomain = "anaconda"
 
     def __init__(self, data):

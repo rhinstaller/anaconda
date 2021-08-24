@@ -1459,11 +1459,8 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
                       "liststore_add_device"]
     mainWidgetName = "networkWindow"
     uiFile = "spokes/network.glade"
-    helpFile = "NetworkSpoke.xml"
-
     title = CN_("GUI|Spoke", "_Network & Host Name")
     icon = "network-transmit-receive-symbolic"
-
     category = SystemCategory
 
     @staticmethod

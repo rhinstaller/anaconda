@@ -163,10 +163,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     mainWidgetName = "datetimeWindow"
     uiFile = "spokes/datetime_spoke.glade"
-    helpFile = "DateTimeSpoke.xml"
-
     category = LocalizationCategory
-
     icon = "preferences-system-time-symbolic"
     title = CN_("GUI|Spoke", "_Time & Date")
 

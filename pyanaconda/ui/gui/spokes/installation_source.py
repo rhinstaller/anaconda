@@ -400,8 +400,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
                       "dirImage", "repoStore"]
     mainWidgetName = "sourceWindow"
     uiFile = "spokes/installation_source.glade"
-    helpFile = "SourceSpoke.xml"
-
     category = SoftwareCategory
 
     icon = "media-optical-symbolic"

@@ -51,7 +51,6 @@ CallbackTimezoneArgs = namedtuple("CallbackTimezoneArgs", ["region", "timezone"]
 
 
 class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
-    helpFile = "DateTimeSpoke.txt"
     category = LocalizationCategory
 
     @staticmethod

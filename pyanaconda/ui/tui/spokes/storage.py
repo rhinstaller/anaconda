@@ -77,7 +77,6 @@ class StorageSpoke(NormalTUISpoke):
        .. inheritance-diagram:: StorageSpoke
           :parts: 3
     """
-    helpFile = "StorageSpoke.txt"
     category = SystemCategory
 
     @staticmethod
