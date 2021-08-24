@@ -406,6 +406,18 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Aug 24 2021 Martin Kolman <mkolman@redhat.com> - 35.22.1-1
+- Adjust configuration options for Fedora 35 (mkolman)
+- fsset: Ignore all swap activation errors in turn_on_swap (vtrefny)
+- Don't try to use line buffering in binary mode (vponcova)
+- Add release notes for NTP dialog change (vslavik)
+- Change the NTP server dialog design (vslavik)
+- Rename spoke to Root Account (vslavik)
+- Don't set default of gpt option at cmdline parsing (cheeselee)
+- Change the root password spoke GUI design (vslavik)
+- Add release notes for visible warnings from initrd (jkonecny)
+- Split NTP dialog to its own glade file (vslavik)
+
 * Tue Aug 10 2021 Martin Kolman <mkolman@redhat.com> - 35.22-1
 - Fix dependency on zram-generator in RHEL (sgallagh)
 - tests: Fix failing ClearPartTestCase with latest blivet (vtrefny)
