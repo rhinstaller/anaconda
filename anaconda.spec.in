@@ -405,6 +405,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Aug 24 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.14-1
+- Check source type directly, not via DBus (mkolman)
+  Resolves: rhbz#1955311
+- Move post installation scripts to the end of queue (lveyde)
+  Resolves: rhbz#1983922
+
 * Wed Aug 11 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.13-1
 - Fix dependency on zram-generator (rvykydal)
   Resolves: rhbz#1991617
