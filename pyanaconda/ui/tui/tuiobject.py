@@ -103,10 +103,6 @@ class TUIObject(UIScreen, common.UIObject):
     def showable(self):
         return True
 
-    @property
-    def has_help(self):
-        return self.helpFile is not None
-
     def refresh(self, args=None):
         """Put everything to display into self.window list."""
         UIScreen.refresh(self, args)

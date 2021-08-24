@@ -18,7 +18,7 @@
 
 from pyanaconda.ui import common
 from pyanaconda.ui.gui import GUIObject
-from pyanaconda.ui.lib.help import start_yelp, get_help_path
+from pyanaconda.ui.lib.help import show_graphical_help_for_screen
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -65,7 +65,7 @@ class NormalSpoke(GUIObject, common.NormalSpoke):
     def _on_help_clicked(self, window):
         # the help button has been clicked, start the yelp viewer with
         # content for the current spoke
-        start_yelp(get_help_path(self.helpFile))
+        show_graphical_help_for_screen(self.get_screen_id())
 
     def on_back_clicked(self, button):
         # Notify the hub that we're finished.
