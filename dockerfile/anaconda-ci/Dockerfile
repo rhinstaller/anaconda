@@ -1,9 +1,9 @@
-ARG image=registry.fedoraproject.org/fedora:rawhide
+ARG image=registry.fedoraproject.org/fedora:35
 FROM ${image}
 # FROM starts a new build stage with new ARGs. Put any ARGs after FROM unless required by the FROM itself.
 # see https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
-ARG git_branch=master
-ARG copr_repo=@rhinstaller/Anaconda
+ARG git_branch=f35-devel
+ARG copr_repo=@rhinstaller/Anaconda-devel
 LABEL maintainer=anaconda-list@redhat.com
 
 # On ELN, BaseOS+AppStream don't have all our build dependencies; this provides the "Everything" compose
