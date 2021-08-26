@@ -20,21 +20,21 @@ jobs:
         #     on -release, only -release
         #     on master, only master and ELN
         #release: [master, eln, '', f34-release]
-        release: ['']
+        release: ['', 'master', 'f35-release']
         include:
-          - release: ''
+          - release: 'master'
             target_branch: 'master'
             ci_tag: 'master'
           #- release: eln
           #  target_branch: 'master'
           #  ci_tag: 'eln'
           #  build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
-          #- release: f34-devel
-          #  target_branch: 'f34-devel'
-          #  ci_tag: 'f34-devel'
-          #- release: f34-release
-          #  target_branch: 'f34-release'
-          #  ci_tag: 'f34-release'
+          - release: ''
+            target_branch: 'f35-devel'
+            ci_tag: 'f35-devel'
+          - release: f35-release
+            target_branch: 'f35-release'
+            ci_tag: 'f35-release'
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
       # Always avoid using cache because cache is not correctly invalidated.
@@ -94,21 +94,21 @@ jobs:
       matrix:
         # For matrix details, see comments for the unit tests above.
         #release: [master, eln, '', f34-release]
-        release: ['']
+        release: ['', 'master', 'f35-release']
         include:
-          - release: ''
+          - release: 'master'
             target_branch: 'master'
             ci_tag: 'master'
           #- release: eln
           #  target_branch: 'master'
           #  ci_tag: 'eln'
           #  build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
-          #- release: f34-devel
-          #  target_branch: 'f34-devel'
-          #  ci_tag: 'f34-devel'
-          #- release: f34-release
-          #  target_branch: 'f34-release'
-          #  ci_tag: 'f34-release'
+          - release: ''
+            target_branch: 'f35-devel'
+            ci_tag: 'f35-devel'
+          - release: f35-release
+            target_branch: 'f35-release'
+            ci_tag: 'f35-release'
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
       # Always avoid using cache because cache is not correctly invalidated.
