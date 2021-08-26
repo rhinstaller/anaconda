@@ -20,7 +20,7 @@ jobs:
         #     on -release, only -release
         #     on master, only master and ELN
         #release: [master, eln, '', f34-release]
-        release: ['f35-release']
+        release: ['']
         include:
           #- release: ''
           #  target_branch: 'master'
@@ -32,7 +32,7 @@ jobs:
           #- release: f35-devel
           #  target_branch: 'f35-devel'
           #  ci_tag: 'f35-devel'
-          - release: f35-release
+          - release: ''
             target_branch: 'f35-release'
             ci_tag: 'f35-release'
     env:
@@ -94,7 +94,7 @@ jobs:
       matrix:
         # For matrix details, see comments for the unit tests above.
         #release: [master, eln, '', f34-release]
-        release: ['f35-release']
+        release: ['']
         include:
           #- release: ''
           #  target_branch: 'master'
@@ -106,7 +106,7 @@ jobs:
           #- release: f35-devel
           #  target_branch: 'f35-devel'
           #  ci_tag: 'f35-devel'
-          - release: f35-release
+          - release: ''
             target_branch: 'f35-release'
             ci_tag: 'f35-release'
     env:
