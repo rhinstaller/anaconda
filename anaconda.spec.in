@@ -407,6 +407,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Aug 26 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.15-1
+- Add dependency for bugzilla reporting plugin (vslavik)
+  Resolves: rhbz#1992991
+
 * Tue Aug 24 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.14-1
 - Check source type directly, not via DBus (mkolman)
   Resolves: rhbz#1955311
