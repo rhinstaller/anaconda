@@ -21,14 +21,14 @@
 
 # Name of the expected current git branch.
 # This could be master, fXX-devel, fXX-release, rhelX-branch, rhel-X ...
-GIT_BRANCH ?= f35-devel
+GIT_BRANCH ?= master
 
 # Directory for this anaconda branch in anaconda-l10n repository. This could be master, fXX, rhel-8 etc.
-L10N_DIR ?= f35
+L10N_DIR ?= master
 
 # Base container for our containers.
-BASE_CONTAINER ?= registry.fedoraproject.org/fedora:35
+BASE_CONTAINER ?= registry.fedoraproject.org/fedora:rawhide
 
 # COPR repo for use in container builds.
 # Can be @rhinstaller/Anaconda for master, or @rhinstaller/Anaconda-devel for branched Fedora.
-COPR_REPO ?= \@rhinstaller/Anaconda-devel
+COPR_REPO ?= \@rhinstaller/Anaconda

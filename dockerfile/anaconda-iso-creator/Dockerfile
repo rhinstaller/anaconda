@@ -19,7 +19,7 @@
 #   repositories (VPN for example)
 #
 
-ARG image=registry.fedoraproject.org/fedora:35
+ARG image=registry.fedoraproject.org/fedora:rawhide
 FROM ${image}
 # FROM starts a new build stage with new ARGs. Put any ARGs after FROM unless required by the FROM itself.
 # see https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact

@@ -1,8 +1,8 @@
-ARG image=quay.io/rhinstaller/anaconda-ci:35
+ARG image=quay.io/rhinstaller/anaconda-ci:master
 FROM ${image}
 # FROM starts a new build stage with new ARGs. Put any ARGs after FROM unless required by the FROM itself.
 # see https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
-ARG git_branch=f35-devel
+ARG git_branch=master
 LABEL maintainer=anaconda-list@redhat.com
 
 # Install build dependencies
