@@ -32,8 +32,10 @@ RUN set -ex; \
     if [ $BRANCH == "master" ]; then \
       BRANCH="rawhide"; \
     fi; \
-    dnf copr enable -y ${copr_repo} fedora-${BRANCH%%-*}-x86_64; \
-    dnf copr enable -y @storage/blivet-daily fedora-${BRANCH%%-*}-x86_64; \
+    BRANCH=${BRANCH%%-*}; \
+    BRANCH=${BRANCH#f}; \
+    dnf copr enable -y ${copr_repo} fedora-${BRANCH}-x86_64; \
+    dnf copr enable -y @storage/blivet-daily fedora-${BRANCH}-x86_64; \
     dnf -y install cppcheck; \
   else \
     dnf copr enable -y ${copr_repo} fedora-eln-x86_64; \
