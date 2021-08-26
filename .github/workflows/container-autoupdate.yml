@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        container-tag: ['master', 'eln'] # 'f34-devel', 'f34-release'
+        container-tag: ['master', 'eln', 'f35-devel', 'f35-release']
         container-type: ['ci', 'rpm']
         include:
           - container-tag: master
