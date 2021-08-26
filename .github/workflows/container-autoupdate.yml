@@ -26,10 +26,10 @@ jobs:
           - container-tag: eln
             branch: master
             base-container: 'quay.io/fedoraci/fedora:eln-x86_64'
-    #      - container-tag: f34-devel
-    #        branch: f34-devel
-    #      - container-tag: f34-release
-    #        branch: f34-release
+          - container-tag: f35-devel
+            branch: f35-devel
+          - container-tag: f35-release
+            branch: f35-release
     env:
       CI_TAG: '${{ matrix.container-tag }}'
     timeout-minutes: 60
