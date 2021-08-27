@@ -251,6 +251,18 @@ class ProfileConfigurationTestCase(unittest.TestCase):
             WORKSTATION_PARTITIONING
         )
         self._check_default_profile(
+            "fedora-kde",
+            ("fedora", "kde"),
+            ["fedora.conf", "fedora-kde.conf"],
+            WORKSTATION_PARTITIONING
+        )
+        self._check_default_profile(
+            "fedora-kinoite",
+            ("fedora", "kinoite"),
+            ["fedora.conf", "fedora-kde.conf", "fedora-kinoite.conf"],
+            WORKSTATION_PARTITIONING
+        )
+        self._check_default_profile(
             "fedora-iot",
             ("fedora", "iot"),
             ["fedora.conf", "fedora-iot.conf"],
