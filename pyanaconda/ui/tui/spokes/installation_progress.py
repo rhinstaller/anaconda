@@ -87,7 +87,7 @@ class ProgressSpoke(StandaloneTUISpoke):
             elif code == progressQ.PROGRESS_CODE_STEP:
                 # Instead of updating a progress bar, we just print a pip
                 # but print it without a new line.
-                print('.', flush=True)
+                print('.', flush=True, end='')
                 # Use _stepped as an indication to if we need a newline before
                 # the next message
                 self._stepped = True
