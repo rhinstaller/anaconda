@@ -19,7 +19,13 @@
 #   repositories (VPN for example)
 #
 
-ARG image=registry.fedoraproject.org/fedora:rawhide
+# The `image` arg will set base image for the build.
+# possible values:
+#   registry.fedoraproject.org/fedora:35
+#   registry.fedoraproject.org/fedora:rawhide
+#   registry-proxy.engineering.redhat.com/rh-osbs/ubi9:latest # private source
+#   registry.access.redhat.com/ubi8/ubi # public source
+ARG image
 FROM ${image}
 # FROM starts a new build stage with new ARGs. Put any ARGs after FROM unless required by the FROM itself.
 # see https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
