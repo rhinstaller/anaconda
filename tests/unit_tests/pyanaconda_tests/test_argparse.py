@@ -165,6 +165,55 @@ class ArgparseTest(unittest.TestCase):
         assert conf.target.is_directory == True
         assert conf.target.physical_root == "/what/ever"
 
+    def test_target_nosave(self):
+        conf = AnacondaConfiguration.from_defaults()
+        opts, _removed = self._parseCmdline([])
+        conf.set_from_opts(opts)
+
+        assert conf.target.can_copy_input_kickstart is True
+        assert conf.target.can_save_installation_logs is True
+        assert conf.target.can_save_output_kickstart is True
+
+        conf = AnacondaConfiguration.from_defaults()
+        opts, _removed = self._parseCmdline(['--nosave=all'])
+        conf.set_from_opts(opts)
+
+        assert conf.target.can_copy_input_kickstart is False
+        assert conf.target.can_save_installation_logs is False
+        assert conf.target.can_save_output_kickstart is False
+
+        conf = AnacondaConfiguration.from_defaults()
+        opts, _removed = self._parseCmdline(['--nosave=all_ks'])
+        conf.set_from_opts(opts)
+
+        assert conf.target.can_copy_input_kickstart is False
+        assert conf.target.can_save_installation_logs is True
+        assert conf.target.can_save_output_kickstart is False
+
+        conf = AnacondaConfiguration.from_defaults()
+        opts, _removed = self._parseCmdline(['--nosave=logs'])
+        conf.set_from_opts(opts)
+
+        assert conf.target.can_copy_input_kickstart is True
+        assert conf.target.can_save_installation_logs is False
+        assert conf.target.can_save_output_kickstart is True
+
+        conf = AnacondaConfiguration.from_defaults()
+        opts, _removed = self._parseCmdline(['--nosave=input_ks'])
+        conf.set_from_opts(opts)
+
+        assert conf.target.can_copy_input_kickstart is False
+        assert conf.target.can_save_installation_logs is True
+        assert conf.target.can_save_output_kickstart is True
+
+        conf = AnacondaConfiguration.from_defaults()
+        opts, _removed = self._parseCmdline(['--nosave=output_ks'])
+        conf.set_from_opts(opts)
+
+        assert conf.target.can_copy_input_kickstart is True
+        assert conf.target.can_save_installation_logs is True
+        assert conf.target.can_save_output_kickstart is False
+
     def test_system(self):
         conf = AnacondaConfiguration.from_defaults()
 
