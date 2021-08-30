@@ -28,7 +28,6 @@ import struct
 
 from argparse import ArgumentParser, ArgumentError, HelpFormatter, Namespace, Action, SUPPRESS
 
-from pyanaconda.flags import flags as flags_instance
 from pyanaconda.core.kernel import KernelArguments
 from pyanaconda.core.constants import DisplayModes, X_TIMEOUT, VIRTIO_PORT
 
@@ -547,25 +546,17 @@ def getArgumentParser(version_string, boot_cmdline=None):
                 namespace.can_copy_input_kickstart = False
                 namespace.can_save_output_kickstart = False
                 namespace.can_save_installation_logs = False
-                flags_instance.nosave_input_ks = True
-                flags_instance.nosave_output_ks = True
-                flags_instance.nosave_logs = True
             else:
                 if "all_ks" in options:
                     namespace.can_copy_input_kickstart = False
                     namespace.can_save_output_kickstart = False
-                    flags_instance.nosave_input_ks = True
-                    flags_instance.nosave_output_ks = True
                 else:
                     if "input_ks" in options:
                         namespace.can_copy_input_kickstart = False
-                        flags_instance.nosave_input_ks = True
                     if "output_ks" in options:
                         namespace.can_save_output_kickstart = False
-                        flags_instance.nosave_output_ks = True
                 if "logs" in options:
                     namespace.can_save_installation_logs = False
-                    flags_instance.nosave_logs = True
 
     ap.add_argument("--nosave", action=ParseNosave, nargs="?", help=help_parser.help_text("nosave"))
 
