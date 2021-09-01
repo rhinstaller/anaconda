@@ -41,6 +41,11 @@ productVersion = config.get("Main", "Version")
 if productVersion == "development":
     productVersion = "rawhide"
 
+# for use in device names, eg: "fedora", "rhel"
+shortProductName = productName.lower()          # pylint: disable=no-member
+if productName.count(" "):                      # pylint: disable=no-member
+    shortProductName = ''.join(s[0] for s in shortProductName.split())
+
 
 def trim_product_version_for_ui(version):
     """Trim off parts of version that should not be displayed in UI.

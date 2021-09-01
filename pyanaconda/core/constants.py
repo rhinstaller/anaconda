@@ -34,11 +34,7 @@ from pyanaconda import product
 productName = product.productName
 productVersion = product.productVersion
 isFinal = product.isFinal
-
-# for use in device names, eg: "fedora", "rhel"
-shortProductName = productName.lower()          # pylint: disable=no-member
-if productName.count(" "):                      # pylint: disable=no-member
-    shortProductName = ''.join(s[0] for s in shortProductName.split())
+shortProductName = product.shortProductName
 
 # The default virtio port.
 VIRTIO_PORT = "/dev/virtio-ports/org.fedoraproject.anaconda.log.0"
