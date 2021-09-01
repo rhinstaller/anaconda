@@ -671,8 +671,8 @@ class NetworkService(KickstartService):
         :type kernel_args: KernelArguments
         """
         log.debug("Applying boot options %s", kernel_args)
-        if 'ksdevice' in kernel_args:
-            self.default_device_specification = kernel_args.get('ksdevice')
+        if 'ks.device' in kernel_args:
+            self.default_device_specification = kernel_args.get('ks.device')
         if 'BOOTIF' in kernel_args:
             self.bootif = kernel_args.get('BOOTIF')[3:].replace("-", ":").upper()
         if 'ifname' in kernel_args:

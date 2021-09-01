@@ -1046,7 +1046,7 @@ class NetworkModuleTestCase(unittest.TestCase):
         mocked_kernel_args = {"something": "else"}
         self.network_module._apply_boot_options(mocked_kernel_args)
         assert self.network_module.default_device_specification == DEFAULT_DEVICE_SPECIFICATION
-        mocked_kernel_args = {'ksdevice': "ens3"}
+        mocked_kernel_args = {'ks.device': "ens3"}
         self.network_module._apply_boot_options(mocked_kernel_args)
         assert self.network_module.default_device_specification == "ens3"
         mocked_kernel_args = {}
@@ -1124,7 +1124,7 @@ class NetworkModuleTestCase(unittest.TestCase):
             'something': 'completely_else',
             'BOOTIF': '01-f4-ce-46-2c-44-7a',
             'noipv6': None,
-            'ksdevice': 'ens11',
+            'ks.device': 'ens11',
         }
         self.network_module._apply_boot_options(mocked_kernel_args)
         assert [

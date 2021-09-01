@@ -408,7 +408,7 @@ def process_kickstart(ksfile):
     try:
         # if the ksdevice key is present the first item must be there
         # and it should be only once (ignore the orthers)
-        handler.ksdevice = proc_cmdline['ksdevice'][0]
+        handler.ksdevice = proc_cmdline['inst.ks.device'][0]
     except KeyError:
         log.debug("ksdevice argument is not available")
     parser = KickstartParser(handler, missingIncludeIsFatal=False, errorsAreFatal=False)
