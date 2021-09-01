@@ -29,7 +29,7 @@ from blivet.devicelibs.crypto import DEFAULT_LUKS_VERSION
 from pyanaconda.core import util
 from pyanaconda.modules.storage.bootloader import BootLoaderFactory
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import shortProductName
+from pyanaconda.product import shortProductName
 from pyanaconda.modules.storage.devicetree.fsset import FSSet
 from pyanaconda.modules.storage.devicetree.utils import download_escrow_certificate, \
     find_live_backing_device
