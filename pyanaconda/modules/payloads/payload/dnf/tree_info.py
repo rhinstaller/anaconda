@@ -25,8 +25,8 @@ from requests import RequestException
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import URL_TYPE_BASEURL, NETWORK_CONNECTION_TIMEOUT, \
-    DEFAULT_REPOS, productName, productVersion
+from pyanaconda.core.constants import URL_TYPE_BASEURL, NETWORK_CONNECTION_TIMEOUT, DEFAULT_REPOS
+from pyanaconda.product import productName, productVersion
 from pyanaconda.core.payload import split_protocol, ProxyString, ProxyStringError
 from pyanaconda.core.util import requests_session, xprogressive_delay
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
