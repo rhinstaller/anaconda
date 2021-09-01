@@ -55,6 +55,7 @@ from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload.errors import PayloadError, PayloadSetupError
 from pyanaconda.payload.image import find_first_iso_image, find_optical_install_media
+from pyanaconda.product import isFinal
 from pyanaconda.modules.payloads.payload.dnf.tree_info import TreeInfoMetadata, NoTreeInfoError, \
     TreeInfoMetadataError
 from pyanaconda.progress import progress_message
@@ -794,7 +795,7 @@ class DNFPayload(Payload):
                 id_ = repo.id
                 if 'source' in id_ or 'debuginfo' in id_:
                     self._disable_repo(id_)
-                elif constants.isFinal and 'rawhide' in id_:
+                elif isFinal and 'rawhide' in id_:
                     self._disable_repo(id_)
 
             # fetch md for enabled repos
