@@ -16,30 +16,27 @@ mac_to_bootif() {
 
 # handle ksdevice (tell us which device to use for ip= stuff later)
 export ksdevice=""
-# TODO: Remove support for ksdevice. It's deprecated a long time already
-# this should be inst.ksdevice however, this is deprecated a long time so we don't have
-# any inst.ksdevice. Let's just ignore this for now.
-ksdev_val=$(getarg ksdevice=)
+ksdev_val=$(getarg inst.ks.device=)
 if [ -n "$ksdev_val" ]; then
     case "$ksdev_val" in
         link)
-            warn "'ksdevice=link' does nothing (it's the default behavior)"
+            warn "'inst.ks.device=link' does nothing (it's the default behavior)"
         ;;
         ibft)
-            warn "'ksdevice=ibft' is deprecated. Using 'ip=ibft' instead."
+            warn "'inst.ks.device=ibft' is deprecated. Using 'ip=ibft' instead."
             echo "ip=ibft" > $net_conf
         ;;
         bootif)
-            warn "'ksdevice=bootif' does nothing (BOOTIF is used by default if present)"
+            warn "'inst.ks.device=bootif' does nothing (BOOTIF is used by default if present)"
         ;;
         ??:??:??:??:??:??)
 
             BOOTIF=$(getarg 'BOOTIF=')
             if [ -n "$BOOTIF" ] ; then
-                warn "'ksdevice=<MAC>' is deprecated. Supplied BOOTIF takes precedence."
+                warn "'inst.ks.device=<MAC>' is deprecated. Supplied BOOTIF takes precedence."
             else
                 bootif=$(mac_to_bootif "$ksdev_val")
-                warn "'ksdevice=<MAC>' is deprecated. Using BOOTIF=$bootif instead."
+                warn "'inst.ks.device=<MAC>' is deprecated. Using BOOTIF=$bootif instead."
                 echo "BOOTIF=$bootif" > $net_conf
             fi
         ;;
