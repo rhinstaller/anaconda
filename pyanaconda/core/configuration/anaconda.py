@@ -365,6 +365,7 @@ class AnacondaConfiguration(Configuration):
         self.storage._set_option("ibft", opts.ibft)
         if hasattr(opts, "gpt"):
             self.storage._set_option("gpt", opts.gpt)
+        self.storage._set_option("allow_multipath_devices", opts.mpath)
         self.storage._set_option("multipath_friendly_names", opts.multipath_friendly_names)
 
         # Set up the rescue mode.

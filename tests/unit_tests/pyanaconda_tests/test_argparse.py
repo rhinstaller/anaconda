@@ -131,12 +131,14 @@ class ArgparseTest(unittest.TestCase):
 
         assert conf.storage.dmraid == True
         assert conf.storage.ibft == True
+        assert conf.storage.allow_multipath_devices == True
 
-        opts, _removed = self._parseCmdline(['--nodmraid', '--ibft'])
+        opts, _removed = self._parseCmdline(['--nodmraid', '--ibft', '--nompath'])
         conf.set_from_opts(opts)
 
         assert conf.storage.dmraid == False
         assert conf.storage.ibft == True
+        assert conf.storage.allow_multipath_devices == False
 
     def test_target(self):
         conf = AnacondaConfiguration.from_defaults()

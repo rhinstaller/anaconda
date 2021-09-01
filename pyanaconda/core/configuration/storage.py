@@ -66,6 +66,14 @@ class StorageSection(Section):
         return self._get_option("gpt", bool)
 
     @property
+    def allow_multipath_devices(self):
+        """Are multipath devices visible in GUI?
+
+        Can be overridden with the 'inst.nompath' boot option.
+        """
+        return self._get_option("allow_multipath_devices", bool)
+
+    @property
     def multipath_friendly_names(self):
         """Use user friendly names for multipath devices.
 

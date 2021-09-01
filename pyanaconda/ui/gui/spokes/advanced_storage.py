@@ -21,7 +21,7 @@ from collections import namedtuple
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.flags import flags
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import CN_, CP_
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.ui.lib.storage import apply_disk_selection, try_populate_devicetree, \
@@ -331,7 +331,7 @@ class MultipathPage(FilterPage):
         return False
 
     def visible_func(self, model, itr, *args):
-        if not flags.mpath:
+        if not conf.storage.allow_multipath_devices:
             return False
 
         return super().visible_func(model, itr, *args)
