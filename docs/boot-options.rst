@@ -999,13 +999,13 @@ automatically detected, so this is the same as ``inst.repo=nfs:``...
 .. inst.product:
 
 inst.product
-++++++++++++
+^^^^^^^^^^^^
 
 Use the ``inst.profile`` option instead.
 
 .. inst.variant:
 
 inst.variant
-++++++++++++
+^^^^^^^^^^^^
 
 Use the ``inst.profile`` option instead.
