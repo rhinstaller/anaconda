@@ -190,14 +190,14 @@ def _prepare_configuration(payload, ksdata):
 
     # Write the kickstart file to the installed system (or, copy the input
     # kickstart file over if one exists).
-    if flags.flags.nosave_output_ks:
+    if conf.target.can_save_output_kickstart:
+        # write anaconda related configs & kickstarts
+        write_configs.append(Task("Store kickstarts", _writeKS, (ksdata,)))
+    else:
         # don't write the kickstart file to the installed system if this has
         # been disabled by the nosave option
         log.warning("Writing of the output kickstart to installed system has been disabled"
                     " by the nosave option.")
-    else:
-        # write anaconda related configs & kickstarts
-        write_configs.append(Task("Store kickstarts", _writeKS, (ksdata,)))
 
     # only add write_configs to the main queue if we actually store some kickstarts/configs
     if write_configs.task_count:
