@@ -39,7 +39,7 @@ INCONSISTENT_SECTOR_SIZES_SUGGESTIONS = N_(
     "* Restrict what disks are used for the partitioning by specifying "
     "'ignoredisk --drives=..' or 'ignoredisk --only-use=..'.\n"
     "* Specify what disks should be used for each created LVM Physical "
-    "Volume: partition pv.1 --ondisk=..'.\n"
+    "Volume: 'partition pv.1 --ondisk=..'.\n"
     "\n"
     "General workarounds:\n"
     "* Plain partitioning scheme can be used instead of LVM.\n"
