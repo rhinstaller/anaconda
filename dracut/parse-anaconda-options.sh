@@ -93,7 +93,6 @@ check_removed_no_inst_arg "stage2" "inst.stage2"
 
 # kickstart
 check_removed_no_inst_arg "ks" "inst.ks"
-check_removed_no_inst_arg "ksdevice" "inst.ks.device"
 check_removed_no_inst_arg "kssendmac" "inst.ks.sendmac"
 check_removed_no_inst_arg "kssendsn" "inst.ks.sendsn"
 
