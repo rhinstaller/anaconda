@@ -892,6 +892,15 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     def on_ntp_switched(self, switch, *args):
         if switch.get_active():
+            # clean timer
+            if self._start_updating_timer:
+                self._start_updating_timer.cancel()
+                self._start_updating_timer = None
+
+            if self._update_datetime_timer:
+                self._update_datetime_timer.cancel()
+                self._update_datetime_timer = None
+
             #turned ON
             if not conf.system.can_set_time_synchronization:
                 #cannot touch runtime system, not much to do here
