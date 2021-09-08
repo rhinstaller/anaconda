@@ -682,19 +682,6 @@ Disable support for dmraid.
              it has some stale RAID metadata on it which must be removed using
              an appropriate tool (dmraid and/or wipefs).
 
-.. inst.nompath:
-
-inst.nompath
-^^^^^^^^^^^^
-
-Disable support for multipath devices. This is for systems on which a
-false-positive is encountered which erroneously identifies a normal block device
-as a multipath device. There is no other reason to use this option.
-
-.. warning:: Not for use with actual multipath hardware!  Using this to attempt
-             to install to a single path of a multipath is ill-advised, and not
-             supported.
-
 .. inst.gpt:
 
 inst.gpt
@@ -848,6 +835,15 @@ ksdevice
 
 ``ksdevice=<DEV>``
     Replaced with `bootdev`_
+
+.. inst.nompath:
+
+inst.nompath
+^^^^^^^^^^^^
+
+This was used to disable support for multipath devices. Anaconda did not
+support proper multipath disabling for a long time, the only thing this did
+was disable parts of GUI.
 
 Removed Options
 ---------------
