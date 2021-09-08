@@ -1466,6 +1466,11 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     category = SystemCategory
 
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "network-configuration"
+
     @classmethod
     def should_run(cls, environment, data):
         """Should the spoke run?"""
@@ -1621,6 +1626,11 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
     preForHub = SummaryHub
     priority = 10
+
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "network-pre-configuration"
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

@@ -30,6 +30,11 @@ class KernelWarningSpoke(StandaloneTUISpoke):
     """Spoke for kernel-related warnings."""
     preForHub = SummaryHub
 
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "kernel-warning"
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.title = N_("Warning: Processor has Simultaneous Multithreading (SMT) enabled")

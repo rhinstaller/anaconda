@@ -75,6 +75,11 @@ class SubscriptionSpoke(NormalSpoke):
     REGISTRATION_PAGE = 0
     SUBSCRIPTION_STATUS_PAGE = 1
 
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "subscription-configuration"
+
     @classmethod
     def should_run(cls, environment, data):
         """The Subscription spoke should run only if the Subscription module is available."""
