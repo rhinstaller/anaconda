@@ -406,6 +406,18 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Sep 09 2021 Martin Kolman <mkolman@redhat.com> - 36.2-1
+- Add missing apostrophe to suggestion (rffontenelle)
+- Add test for new "nosave" config members (vslavik)
+- Remove nosave flags, use conf instead (vslavik)
+- Add (no)save options to Anaconda section of config (vslavik)
+- Define a unique id in the main spokes and hubs (vponcova)
+- Add the Screen class (vponcova)
+- Print progress dots on one line in TUI (honza.stodola)
+- Cleanup unneeded NFS repo with rd.live.ram parameter (mmatsuya)
+- Include the anaconda-generator script in the updates image (vponcova)
+- Don't run shell on every found virtualization console (vponcova)
+
 * Tue Aug 24 2021 Martin Kolman <mkolman@redhat.com> - 36.1-1
 - fsset: Ignore all swap activation errors in turn_on_swap (vtrefny)
 - Don't try to use line buffering in binary mode (vponcova)
