@@ -154,7 +154,7 @@ def find_optical_install_media():
     """
     device_tree = STORAGE.get_proxy(DEVICE_TREE)
 
-    for dev in device_tree.FindOpticalMedia():
+    for dev in device_tree.FindMountablePartitions():
         mountpoint = tempfile.mkdtemp()
 
         try:

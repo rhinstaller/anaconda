@@ -51,13 +51,13 @@ class SetUpCdromSourceTask(SetUpMountTask):
         device_name = self._choose_installation_device(device_tree, device_candidates)
 
         if not device_name:
-            raise SourceSetupError("Found no CD-ROM")
+            raise SourceSetupError("Found no CD-ROM source")
 
         return device_name
 
     def _get_device_candidate_list(self, device_tree):
         stage2_device = self._probe_stage2_for_cdrom(device_tree)
-        device_candidates = device_tree.FindOpticalMedia()
+        device_candidates = device_tree.FindMountablePartitions()
 
         if stage2_device in device_candidates:
             device_candidates = [stage2_device] + device_candidates
@@ -97,7 +97,7 @@ class SetUpCdromSourceTask(SetUpMountTask):
         for dev_name in devices_candidates:
             try:
                 device_data = DeviceData.from_structure(device_tree.GetDeviceData(dev_name))
-                mount(device_data.path, self._target_mount, "iso9660", "ro")
+                mount(device_data.path, self._target_mount, "auto", "ro")
             except PayloadSetupError as e:
                 log.debug("Failed to mount %s: %s", dev_name, str(e))
                 continue
