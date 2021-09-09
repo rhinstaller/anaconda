@@ -238,7 +238,7 @@ inst.ks.all
 ^^^^^^^^^^^
 
 Use all locations of type ``http``, ``https`` or ``ftp`` specified with
-``inst.ks`` sequentially one by one until kickstart file is fetched. Other
+multiple ``inst.ks`` sequentially one by one until kickstart file is fetched. Other
 locations will be ignored.
 
 Without this option, only last location specified by ``inst.ks`` is used.
