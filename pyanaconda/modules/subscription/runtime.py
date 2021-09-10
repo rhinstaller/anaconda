@@ -20,19 +20,27 @@ import json
 import datetime
 from collections import namedtuple
 
-from dasbus.typing import get_variant, Str
+from dasbus.typing import get_variant, Str, get_native
 from dasbus.connection import MessageBus
 from dasbus.error import DBusError
 
 from pyanaconda.core.i18n import _
+from pyanaconda.core.constants import SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD, \
+    SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
+from pyanaconda.core import util
+from pyanaconda.core.payload import ProxyString
+from pyanaconda.ui.lib.subscription import username_password_sufficient, org_keys_sufficient
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.constants.services import RHSM
-from pyanaconda.modules.common.constants.objects import RHSM_REGISTER
+from pyanaconda.modules.common.constants.objects import RHSM_REGISTER, RHSM_REGISTER_SERVER, \
+    RHSM_UNREGISTER, RHSM_ATTACH, RHSM_ENTITLEMENT, RHSM_CONFIG, RHSM_SYSPURPOSE
 from pyanaconda.modules.common.errors.subscription import RegistrationError, \
-    UnregistrationError, SubscriptionError
+    UnregistrationError, SubscriptionError, SatelliteProvisioningError
 from pyanaconda.modules.common.structures.subscription import AttachedSubscription, \
     SystemPurposeData
-from pyanaconda.modules.subscription import system_purpose
+from pyanaconda.modules.subscription import system_purpose, satellite
+from pyanaconda.modules.subscription.constants import RHSM_SERVICE_NAME, \
+    SERVER_HOSTNAME_NOT_SATELLITE_PREFIX
 from pyanaconda.anaconda_loggers import get_module_logger
 
 import gi
@@ -176,8 +184,15 @@ class SetRHSMConfigurationTask(Task):
         # - all values need to be string variants
         # - proxy password is stored in SecretData instance and we need to retrieve
         #   its value
+        # - server host name might have a prefix indicating the given URL is not
+        #   a Satellite URL, drop that prefix before setting the value to RHSM
+
+        # drop the not-satellite prefix, if any
+        server_hostname = self._request.server_hostname.removeprefix(
+            SERVER_HOSTNAME_NOT_SATELLITE_PREFIX
+        )
         property_key_map = {
-            self.CONFIG_KEY_SERVER_HOSTNAME: self._request.server_hostname,
+            self.CONFIG_KEY_SERVER_HOSTNAME: server_hostname,
             self.CONFIG_KEY_SERVER_PROXY_HOSTNAME: self._request.server_proxy_hostname,
             self.CONFIG_KEY_SERVER_PROXY_PORT: str(self._request.server_proxy_port),
             self.CONFIG_KEY_SERVER_PROXY_USER: self._request.server_proxy_user,
@@ -310,13 +325,17 @@ class RegisterWithOrganizationKeyTask(Task):
 class UnregisterTask(Task):
     """Unregister the system."""
 
-    def __init__(self, rhsm_unregister_proxy):
+    def __init__(self, rhsm_observer, registered_to_satellite, rhsm_configuration):
         """Create a new unregistration task.
 
-        :param rhsm_unregister_proxy: DBus proxy for the RHSM Unregister object
+        :param rhsm_observer: DBus service observer for talking to RHSM
+        :param dict rhsm_configuration: flat "clean" RHSM configuration dict to restore
+        :param bool registered_to_satellite: were we registered to Satellite ?
         """
         super().__init__()
-        self._rhsm_unregister_proxy = rhsm_unregister_proxy
+        self._rhsm_observer = rhsm_observer
+        self._registered_to_satellite = registered_to_satellite
+        self._rhsm_configuration = rhsm_configuration
 
     @property
     def name(self):
@@ -324,18 +343,29 @@ class UnregisterTask(Task):
 
     def run(self):
         """Unregister the system."""
-        log.debug("subscription: unregistering the system")
+        log.debug("registration attempt: unregistering the system")
         try:
             locale = os.environ.get("LANG", "")
-            self._rhsm_unregister_proxy.Unregister({}, locale)
+            rhsm_unregister_proxy = self._rhsm_observer.get_proxy(RHSM_UNREGISTER)
+            rhsm_unregister_proxy.Unregister({}, locale)
             log.debug("subscription: the system has been unregistered")
         except DBusError as e:
-            log.exception("subscription: failed to unregister: %s", str(e))
+            log.error("registration attempt: failed to unregister: %s", str(e))
             exception_dict = json.loads(str(e))
             # return a generic error message in case the RHSM provided error message
             # is missing
             message = exception_dict.get("message", _("Unregistration failed."))
-            raise UnregistrationError(message) from None
+            raise UnregistrationError(message) from e
+
+        # in case we were Registered to Satellite, roll back Satellite provisioning as well
+        if self._registered_to_satellite:
+            log.debug("registration attempt: rolling back Satellite provisioning")
+            rollback_task = RollBackSatelliteProvisioningTask(
+                rhsm_config_proxy=self._rhsm_observer.get_proxy(RHSM_CONFIG),
+                rhsm_configuration=self._rhsm_configuration
+            )
+            rollback_task.run()
+            log.debug("registration attempt: Satellite provisioning rolled back")
 
 
 class AttachSubscriptionTask(Task):
@@ -580,3 +610,356 @@ class ParseAttachedSubscriptionsTask(Task):
         # return the DBus structures as a named tuple
         return SystemSubscriptionData(attached_subscriptions=attached_subscriptions,
                                       system_purpose_data=system_purpose_data)
+
+
+class DownloadSatelliteProvisioningScriptTask(Task):
+    """Download the provisioning script from a Satellite instance."""
+
+    def __init__(self, satellite_url, proxy_url):
+        """Create a new Satellite related task.
+
+        :param str satellite_url: URL to Satellite instace to download from
+        :param str proxy_url: proxy URL for the download attempt
+        """
+        super().__init__()
+        self._satellite_url = satellite_url
+        self._proxy_url = proxy_url
+
+    @property
+    def name(self):
+        return "Download Satellite provisioning script"
+
+    def run(self):
+        log.debug("subscription: downloading Satellite provisioning script")
+        return satellite.download_satellite_provisioning_script(
+            satellite_url=self._satellite_url,
+            proxy_url=self._proxy_url
+        )
+
+
+class RunSatelliteProvisioningScriptTask(Task):
+    """Run the provisioning script we downloaded from a Satellite instance."""
+
+    def __init__(self, provisioning_script):
+        """Create a new Satellite related task.
+
+        :param str provisioning_script: Satellite provisioning script in string form
+        """
+        super().__init__()
+        self._provisioning_script = provisioning_script
+
+    @property
+    def name(self):
+        return "Run Satellite provisioning script"
+
+    def run(self):
+        log.debug("subscription: running Satellite provisioning script"
+                  " in installation environment")
+
+        provisioning_success = satellite.run_satellite_provisioning_script(
+            provisioning_script=self._provisioning_script,
+            run_on_target_system=False
+        )
+
+        if provisioning_success:
+            log.debug("subscription: Satellite provisioning script executed successfully")
+        else:
+            message = "Failed to run Satellite provisioning script."
+            raise SatelliteProvisioningError(message)
+
+
+class BackupRHSMConfBeforeSatelliteProvisioningTask(Task):
+    """Backup the RHSM configuration state before the Satellite provisioning script is run.
+
+    The Satellite provisioning script sets arbitrary RHSM configuration options, which
+    we might need to roll back in case the user decides to unregister and then register
+    to a different Satellite instance or back to Hosted Candlepin.
+
+    So backup the RHSM configuration state just before we run the Satellite provisioning
+    script that changes the config file. This gives us a config snapshot we can then use
+    to restore the RHSM configuration to a "clean" state as needed.
+    """
+
+    def __init__(self, rhsm_config_proxy):
+        """Create a new Satellite related task.
+
+        :param rhsm_config_proxy: DBus proxy for the RHSM Config object
+        """
+        super().__init__()
+        self._rhsm_config_proxy = rhsm_config_proxy
+
+    @property
+    def name(self):
+        return "Save RHSM configuration before Satellite provisioning"
+
+    def run(self):
+        # retrieve a snapshot of "clean" RHSM configuration and return it
+        return get_native(self._rhsm_config_proxy.GetAll(""))
+
+
+class RollBackSatelliteProvisioningTask(Task):
+    """Roll back relevant parts of Satellite provisioning.
+
+    The current Anaconda GUI makes it possible to unregister and
+    change the Satellite URL as well as switch back from Satellite
+    to registration on Hosted Candlepin.
+
+    Due to this we need to be able to roll back changes to the RHSM
+    configuration done by the Satellite provisioning script.
+
+    To make this possible we first save a "clean" snapshot of the RHSM
+    config state so that this task can then restore the snapshot as
+    needed.
+
+    We don't actually uninstall the certs added by the provisioning
+    script, but they should not interfere with another run of a different
+    script & will be gone after the installation environment restarts.
+    """
+
+    def __init__(self, rhsm_config_proxy, rhsm_configuration):
+        """Create a new Satellite related task.
+
+        :param rhsm_config_proxy: DBus proxy for the RHSM Config object
+        :param dict rhsm_configuration: flat "clean" RHSM configuration dict to restore
+        """
+        super().__init__()
+        self._rhsm_config_proxy = rhsm_config_proxy
+        self._rhsm_configuration = rhsm_configuration
+
+    @property
+    def name(self):
+        return "Restore RHSM configuration after Satellite provisioning"
+
+    def run(self):
+        "Restore the full RHSM configuration back to clean values."""
+        # the SetAll() RHSM DBus API requires a dict of variants
+        config_dict = {}
+        for key, value in self._rhsm_configuration.items():
+            # if value is present in request, use it
+            config_dict[key] = get_variant(Str, value)
+        self._rhsm_config_proxy.SetAll(config_dict, "")
+
+
+class RegisterAndSubscribeTask(Task):
+    """Register and subscribe the installation environment.
+
+    NOTE: A separate installation task make sure all the subscription related tokens
+          and configuration files are transferred to the target system, to keep
+          the machine subscribed also after installation.
+
+          In case of registration to a Satellite instance another installation task
+          makes sure the system stays registered to Satellite after installation.
+    """
+
+    def __init__(self, rhsm_observer, subscription_request, system_purpose_data,
+                 registered_callback, registered_to_satellite_callback,
+                 subscription_attached_callback, subscription_data_callback,
+                 satellite_script_callback, config_backup_callback):
+        """Create a register-and-subscribe task.
+
+        :param rhsm_observer: DBus service observer for talking to RHSM
+        :param subscription_request: subscription request DBus struct
+        :param system_purpose_data: system purpose DBus struct
+
+        :param registered_callback: called when registration tasks finishes successfully
+        :param registered_to_satellite_callback: called after successful Satellite provisioning
+        :param subscription_attached_callback: called after subscription is attached
+        :param subscription_data_callback: called after subscription data is parsed
+        :param satellite_script_callback: called after Satellite provisioning script
+                                          has been downloaded
+        :param config_backup_callback: called when RHSM config data is ready to be backed up
+
+        :raises: SatelliteProvisioningError if Satellite provisioning fails
+        :raises: RegistrationError if registration fails
+        :raises: SubscriptionError if subscription fails to attach
+        """
+        super().__init__()
+        self._rhsm_observer = rhsm_observer
+        self._subscription_request = subscription_request
+        self._system_purpose_data = system_purpose_data
+        # callback for nested tasks
+        self._registered_callback = registered_callback
+        self._registered_to_satellite_callback = registered_to_satellite_callback
+        self._subscription_attached_callback = subscription_attached_callback
+        self._subscription_data_callback = subscription_data_callback
+        self._satellite_script_downloaded_callback = satellite_script_callback
+        self._config_backup_callback = config_backup_callback
+
+    @property
+    def name(self):
+        return "Register and subscribe"
+
+    @staticmethod
+    def _get_proxy_url(subscription_request):
+        """Construct proxy URL from proxy data (if any) in subscription request.
+
+        :param subscription_request: subscription request DBus struct
+        :return: proxy URL string or None if subscription request contains no usable proxy data
+        :rtype: Str or None
+        """
+        proxy_url = None
+        # construct proxy URL needed by the task from the
+        # proxy data in subscription request (if any)
+        # (it is logical to use the same proxy for provisioning
+        #  script download as for RHSM access)
+        if subscription_request.server_proxy_hostname:
+            proxy = ProxyString(host=subscription_request.server_proxy_hostname,
+                                username=subscription_request.server_proxy_user,
+                                password=subscription_request.server_proxy_password.value)
+            # only set port if valid in the struct (not -1):
+            if subscription_request.server_proxy_port != -1:
+                # ProxyString expects the port to be a string
+                proxy.port = str(subscription_request.server_proxy_port)
+                # refresh the ProxyString internal URL cache after setting the port number
+                proxy.parse_components()
+            proxy_url = str(proxy)
+        return proxy_url
+
+    def _provision_system_for_satellite(self):
+        """Provision the installation environment for a Satellite instance.
+
+        This method is speculatively run if custom server hostname has been
+        set by the user. Only if the URL specified by the server hostname
+        contains Satellite provisioning artifacts then actually provisioning
+        of installation environment will take place.
+
+        """
+        # First check if the server_hostname has the not-satellite prefix.
+        # If it does have the prefix, log the fact and skip Satellite provisioning.
+        if self._subscription_request.server_hostname.startswith(
+            SERVER_HOSTNAME_NOT_SATELLITE_PREFIX
+        ):
+            log.debug("registration attempt: server hostname marked as not Satellite URL")
+            log.debug("registration attempt: skipping Satellite provisioning")
+            return
+
+        # create the download task
+        provisioning_script = None
+        download_task = DownloadSatelliteProvisioningScriptTask(
+            satellite_url=self._subscription_request.server_hostname,
+            proxy_url=self._get_proxy_url(self._subscription_request)
+        )
+
+        # run the download task
+        try:
+            log.debug("registration attempt: downloading Satellite provisioning script")
+            provisioning_script = download_task.run()
+            log.debug("registration attempt: downloaded Satellite provisioning script")
+            self._satellite_script_downloaded_callback(provisioning_script)
+        except SatelliteProvisioningError as e:
+            log.debug("registration attempt: failed to download Satellite provisioning script")
+            # Failing to download the Satellite provisioning script for a user provided
+            # server hostname is an unrecoverable error (wrong URL or incorrectly configured
+            # Satellite instance), so we end there.
+            raise e
+
+        # before running the Satellite provisioning script we back up the current RHSM config
+        # file state, so that we can restore it if Satellite provisioning rollback become necessary
+        rhsm_config_proxy = self._rhsm_observer.get_proxy(RHSM_CONFIG)
+        backup_task = BackupRHSMConfBeforeSatelliteProvisioningTask(
+            rhsm_config_proxy=rhsm_config_proxy
+        )
+        self._config_backup_callback(backup_task.run())
+
+        # now run the Satellite provisioning script we just downloaded, so that the installation
+        # environment can talk to the Satellite instance the user has specified via custom
+        # server hostname
+        run_script_task = RunSatelliteProvisioningScriptTask(
+            provisioning_script=provisioning_script
+        )
+        run_script_task.succeeded_signal.connect(
+            lambda: self._registered_to_satellite_callback(True)
+        )
+        try:
+            log.debug("registration attempt: running Satellite provisioning script")
+            run_script_task.run_with_signals()
+            log.debug("registration attempt: Satellite provisioning script has been run")
+            # unfortunately the RHSM service apparently does not pick up the changes done
+            # by the provisioning script to rhsm.conf, so we need to restart the RHSM systemd
+            # service, which will make it re-read the config file
+            util.restart_service(RHSM_SERVICE_NAME)
+
+        except SatelliteProvisioningError as e:
+            log.debug("registration attempt: Satellite provisioning script run failed")
+            # Failing to run the Satellite provisioning script successfully,
+            # which is an unrecoverable error, so we end there.
+            raise e
+
+    def run(self):
+        """Try to register and subscribe the installation environment."""
+
+        # check authentication method has been set and credentials seem to be
+        # sufficient (though not necessarily valid)
+        register_task = None
+        if self._subscription_request.type == SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD:
+            if username_password_sufficient(self._subscription_request):
+                username = self._subscription_request.account_username
+                password = self._subscription_request.account_password.value
+                register_server_proxy = self._rhsm_observer.get_proxy(RHSM_REGISTER_SERVER)
+                register_task = RegisterWithUsernamePasswordTask(
+                        rhsm_register_server_proxy=register_server_proxy,
+                        username=username,
+                        password=password
+                )
+        elif self._subscription_request.type == SUBSCRIPTION_REQUEST_TYPE_ORG_KEY:
+            if org_keys_sufficient(self._subscription_request):
+                organization = self._subscription_request.organization
+                activation_keys = self._subscription_request.activation_keys.value
+                register_server_proxy = self._rhsm_observer.get_proxy(RHSM_REGISTER_SERVER)
+                register_task = RegisterWithOrganizationKeyTask(
+                    rhsm_register_server_proxy=register_server_proxy,
+                    organization=organization,
+                    activation_keys=activation_keys
+                )
+        if register_task:
+            # Now that we know we can do a registration attempt:
+            # 1) Connect task success callback.
+            register_task.succeeded_signal.connect(lambda: self._registered_callback(True))
+
+            # 2) Check if custom server hostname is set, which would indicate we are most
+            #    likely talking to a Satellite instance. If so, provision the installation
+            #    environment for that Satellite instance.
+            if self._subscription_request.server_hostname:
+                # if custom server hostname is set, attempt to provision the installation
+                # environment for Satellite
+                log.debug("registration attempt: provisioning system for Satellite")
+                self._provision_system_for_satellite()
+                # if we got there without an exception being raised, it was a success!
+                log.debug("registration attempt: system provisioned for Satellite")
+
+            # run the registration task
+            try:
+                register_task.run_with_signals()
+            except RegistrationError as e:
+                log.debug("registration attempt: registration attempt failed: %s", e)
+                log.debug("registration attempt: skipping auto attach due to registration error")
+                raise e
+            log.debug("registration attempt: registration succeeded")
+        else:
+            log.debug(
+                "registration attempt: credentials insufficient, skipping registration attempt"
+            )
+            raise RegistrationError(_("Registration failed due to insufficient credentials."))
+
+        # try to attach subscription
+        log.debug("registration attempt: attempting to auto attach an entitlement")
+        sla = self._system_purpose_data.sla
+        rhsm_attach_proxy = self._rhsm_observer.get_proxy(RHSM_ATTACH)
+        subscription_task = AttachSubscriptionTask(
+            rhsm_attach_proxy=rhsm_attach_proxy,
+            sla=sla
+        )
+        subscription_task.run()
+        # if we got this far without an exception then subscriptions have been attached
+        self._subscription_attached_callback(True)
+
+        # parse attached subscription data
+        log.debug("registration attempt: parsing attached subscription data")
+        rhsm_entitlement_proxy = self._rhsm_observer.get_proxy(RHSM_ENTITLEMENT)
+        rhsm_syspurpose_proxy = self._rhsm_observer.get_proxy(RHSM_SYSPURPOSE)
+        parse_task = ParseAttachedSubscriptionsTask(rhsm_entitlement_proxy=rhsm_entitlement_proxy,
+                                                    rhsm_syspurpose_proxy=rhsm_syspurpose_proxy)
+        parse_task.succeeded_signal.connect(
+            lambda: self._subscription_data_callback(parse_task.get_result())
+        )
+        parse_task.run_with_signals()

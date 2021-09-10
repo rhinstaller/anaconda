@@ -17,13 +17,10 @@
 #
 # Red Hat Author(s): Martin Kolman <mkolman@redhat.com>
 #
-import os
 import unittest
 from unittest.mock import patch, Mock
-import tempfile
 
 from dasbus.typing import *  # pylint: disable=wildcard-import
-from dasbus.error import DBusError
 
 from pyanaconda.core.constants import SECRET_TYPE_NONE, SECRET_TYPE_HIDDEN, SECRET_TYPE_TEXT, \
     SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD, SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, \
@@ -36,195 +33,14 @@ from pyanaconda.modules.common.structures.subscription import SystemPurposeData,
 
 from pyanaconda.modules.subscription.subscription import SubscriptionService
 from pyanaconda.modules.subscription.subscription_interface import SubscriptionInterface
-from pyanaconda.modules.subscription.system_purpose import get_valid_fields, _normalize_field, \
-    _match_field, process_field, give_the_system_purpose
 from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, \
-    RestoreRHSMDefaultsTask, TransferSubscriptionTokensTask
+    RestoreRHSMDefaultsTask, TransferSubscriptionTokensTask, ProvisionTargetSystemForSatelliteTask
 from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
-    RegisterWithUsernamePasswordTask, RegisterWithOrganizationKeyTask, \
-    UnregisterTask, AttachSubscriptionTask, SystemPurposeConfigurationTask, \
-    ParseAttachedSubscriptionsTask, SystemSubscriptionData
+    RegisterAndSubscribeTask, UnregisterTask, SystemPurposeConfigurationTask
 
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_dbus_property, \
     PropertiesChangedCallback, patch_dbus_publish_object, check_task_creation_list, \
     check_task_creation
-
-# content of a valid populated valid values json file for system purpose testing
-SYSPURPOSE_VALID_VALUES_JSON = """
-{
-"role" : ["role_a", "role_b", "role_c"],
-"service_level_agreement" : ["sla_a", "sla_b", "sla_c"],
-"usage" : ["usage_a", "usage_b", "usage_c"]
-}
-"""
-
-# content of a valid but not populated valid values json file for system purpose testing
-SYSPURPOSE_VALID_VALUES_JSON_EMPTY = """
-{
-"role" : [],
-"service_level_agreement" : [],
-"usage" : []
-}
-"""
-
-
-class SystemPurposeLibraryTestCase(unittest.TestCase):
-    """Test the system purpose data handling code."""
-
-    def system_purpose_valid_json_parsing_test(self):
-        """Test that the JSON file holding valid system purpose values is parsed correctly."""
-        # check file missing completely
-        # - use path in tempdir to a file that has not been created and thus does not exist
-        with tempfile.TemporaryDirectory() as tempdir:
-            no_file = os.path.join(tempdir, "foo.json")
-            roles, slas, usage_types = get_valid_fields(valid_fields_file_path=no_file)
-            self.assertListEqual(roles, [])
-            self.assertListEqual(slas, [])
-            self.assertListEqual(usage_types, [])
-
-        # check empty value list is handled correctly
-        with tempfile.NamedTemporaryFile(mode="w+t") as testfile:
-            testfile.write(SYSPURPOSE_VALID_VALUES_JSON_EMPTY)
-            testfile.flush()
-            roles, slas, usage_types = get_valid_fields(valid_fields_file_path=testfile.name)
-            self.assertListEqual(roles, [])
-            self.assertListEqual(slas, [])
-            self.assertListEqual(usage_types, [])
-
-        # check correctly populated json file is parsed correctly
-        with tempfile.NamedTemporaryFile(mode="w+t") as testfile:
-            testfile.write(SYSPURPOSE_VALID_VALUES_JSON)
-            testfile.flush()
-            roles, slas, usage_types = get_valid_fields(valid_fields_file_path=testfile.name)
-            self.assertListEqual(roles, ["role_a", "role_b", "role_c"])
-            self.assertListEqual(slas, ["sla_a", "sla_b", "sla_c"])
-            self.assertListEqual(usage_types, ["usage_a", "usage_b", "usage_c"])
-
-    def normalize_field_test(self):
-        """Test that the system purpose valid field normalization works."""
-        # this should basically just lower case the input
-        self.assertEqual(_normalize_field("AAA"), "aaa")
-        self.assertEqual(_normalize_field("Ab"), "ab")
-        self.assertEqual(_normalize_field("A b C"), "a b c")
-
-    def match_field_test(self):
-        """Test that the system purpose valid field matching works."""
-        # The function is used on system purpose data from kickstart
-        # and it tries to match the given value to a well known value
-        # from the valid field.json. This way we can pre-select values
-        # in the GUI even if the user typosed the case or similar.
-
-        # these should match
-        self.assertEqual(
-            _match_field("production", ["Production", "Development", "Testing"]),
-            "Production"
-        )
-        self.assertEqual(
-            _match_field("Production", ["Production", "Development", "Testing"]),
-            "Production"
-        )
-        self.assertEqual(
-            _match_field("DEVELOPMENT", ["Production", "Development", "Testing"]),
-            "Development"
-        )
-
-        # these should not match but return the original value
-        self.assertIsNone(
-            _match_field("custom", ["Production", "Development", "Testing"]),
-        )
-        self.assertIsNone(
-            _match_field("Prod", ["Production", "Development", "Testing"]),
-        )
-        self.assertIsNone(
-            _match_field("Production 1", ["Production", "Development", "Testing"]),
-        )
-        self.assertIsNone(
-            _match_field("Production Development", ["Production", "Development", "Testing"]),
-        )
-
-    def process_field_test(self):
-        """Test that the system purpose field processing works."""
-
-        valid_values = ["Production", "Development", "Testing"]
-
-        # empty string
-        self.assertEqual(process_field("", valid_values, "usage"), "")
-
-        # well known value with different case
-        self.assertEqual(process_field("production", valid_values, "usage"), "Production")
-        self.assertEqual(process_field("PRODUCTION", valid_values, "usage"), "Production")
-
-        # well known value with matching case
-        self.assertEqual(process_field("Production", valid_values, "usage"), "Production")
-
-        # fully custom value
-        self.assertEqual(process_field("foo", valid_values, "usage"), "foo")
-        self.assertEqual(process_field("foo BAR", valid_values, "usage"), "foo BAR")
-
-        # empty list of well known values
-        self.assertEqual(process_field("PRODUCTION", [], "usage"), "PRODUCTION")
-        self.assertEqual(process_field("foo", [], "usage"), "foo")
-
-    def set_system_pourpose_no_purpose_test(self):
-        """Test that nothing is done if system has no purpose."""
-        with tempfile.TemporaryDirectory() as sysroot:
-            # create fake RHSM Syspurpose DBus proxy
-            syspurpose_proxy = Mock()
-            self.assertTrue(give_the_system_purpose(sysroot=sysroot,
-                                                    rhsm_syspurpose_proxy=syspurpose_proxy,
-                                                    role="",
-                                                    sla="",
-                                                    usage="",
-                                                    addons=[]))
-            syspurpose_proxy.SetSyspurpose.assert_not_called()
-
-    def set_system_pourpose_test(self):
-        """Test that system purpose is set if syspurpose & data are both available."""
-        with tempfile.TemporaryDirectory() as sysroot:
-            # create fake RHSM Syspurpose DBus proxy
-            syspurpose_proxy = Mock()
-            # set system purpose
-            self.assertTrue(give_the_system_purpose(sysroot=sysroot,
-                                                    rhsm_syspurpose_proxy=syspurpose_proxy,
-                                                    role="foo",
-                                                    sla="bar",
-                                                    usage="baz",
-                                                    addons=["a", "b", "c"]))
-            # check syspurpose invocations look correct
-            syspurpose_proxy.SetSyspurpose.assert_called_once_with(
-                {
-                    "role": get_variant(Str, "foo"),
-                    "service_level_agreement": get_variant(Str, "bar"),
-                    "usage": get_variant(Str, "baz"),
-                    "addons": get_variant(List[Str], ["a", "b", "c"])
-                },
-                'en_US.UTF-8'
-            )
-
-    def set_system_pourpose_failure_test(self):
-        """Test that exception raised by SetSyspurpose DBus call is handled correctly."""
-        with tempfile.TemporaryDirectory() as sysroot:
-            # create fake RHSM Syspurpose DBus proxy
-            syspurpose_proxy = Mock()
-            # raise DBusError with error message in JSON
-            syspurpose_proxy.SetSyspurpose.side_effect = DBusError("syspurpose error")
-            # set system purpose & False is returned due to the exception
-            self.assertFalse(give_the_system_purpose(sysroot=sysroot,
-                                                     rhsm_syspurpose_proxy=syspurpose_proxy,
-                                                     role="foo",
-                                                     sla="bar",
-                                                     usage="baz",
-                                                     addons=["a", "b", "c"]))
-            # check the fake DBus method still was called correctly
-            syspurpose_proxy.SetSyspurpose.assert_called_once_with(
-                {
-                    "role": get_variant(Str, "foo"),
-                    "service_level_agreement": get_variant(Str, "bar"),
-                    "usage": get_variant(Str, "baz"),
-                    "addons": get_variant(List[Str], ["a", "b", "c"])
-                },
-                'en_US.UTF-8'
-            )
 
 
 class SubscriptionInterfaceTestCase(unittest.TestCase):
@@ -1220,188 +1036,86 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._rhsm_config_defaults, flat_default_config)
 
     @patch_dbus_publish_object
-    def register_with_username_password_test(self, publisher):
-        """Test RegisterWithUsernamePasswordTask creation."""
-        # prepare the module with dummy data
-        full_request = SubscriptionRequest()
-        full_request.type = SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
-        full_request.organization = "123456789"
-        full_request.account_username = "foo_user"
-        full_request.server_hostname = "candlepin.foo.com"
-        full_request.rhsm_baseurl = "cdn.foo.com"
-        full_request.server_proxy_hostname = "proxy.foo.com"
-        full_request.server_proxy_port = 9001
-        full_request.server_proxy_user = "foo_proxy_user"
-        full_request.account_password.set_secret("foo_password")
-        full_request.activation_keys.set_secret(["key1", "key2", "key3"])
-        full_request.server_proxy_password.set_secret("foo_proxy_password")
-
-        self.subscription_interface.SetSubscriptionRequest(
-            SubscriptionRequest.to_structure(full_request)
-        )
-        # make sure the task gets dummy rhsm register server proxy
-        observer = Mock()
-        observer.get_proxy = Mock()
-        self.subscription_module._rhsm_observer = observer
-        register_server_proxy = Mock()
-        observer.get_proxy.return_value = register_server_proxy
-
+    def register_and_subscribe_test(self, publisher):
+        """Test RegisterAndSubscribeTask creation - org + key."""
+        # prepare dummy objects for the task
+        rhsm_observer = Mock()
+        self.subscription_module._rhsm_observer = rhsm_observer
+        subscription_request = Mock()
+        self.subscription_module._subscription_request = subscription_request
+        system_purpose_data = Mock()
+        self.subscription_module._system_purpose_data = system_purpose_data
         # check the task is created correctly
-        task_path = self.subscription_interface.RegisterUsernamePasswordWithTask()
-        obj = check_task_creation(self, task_path, publisher, RegisterWithUsernamePasswordTask)
-        # check all the data got propagated to the module correctly
-        self.assertEqual(obj.implementation._rhsm_register_server_proxy, register_server_proxy)
-        self.assertEqual(obj.implementation._username, "foo_user")
-        self.assertEqual(obj.implementation._password, "foo_password")
+        task_path = self.subscription_interface.RegisterAndSubscribeWithTask()
+        obj = check_task_creation(self, task_path, publisher, RegisterAndSubscribeTask)
+        # check all the data got propagated to the task correctly
+        self.assertEqual(obj.implementation._rhsm_observer, rhsm_observer)
+        self.assertEqual(obj.implementation._subscription_request, subscription_request)
+        self.assertEqual(obj.implementation._system_purpose_data, system_purpose_data)
+        self.assertEqual(obj.implementation._registered_callback,
+                         self.subscription_module.set_registered)
+        self.assertEqual(obj.implementation._registered_to_satellite_callback,
+                         self.subscription_module.set_registered_to_satellite)
+        self.assertEqual(obj.implementation._subscription_attached_callback,
+                         self.subscription_module.set_subscription_attached)
+        self.assertEqual(obj.implementation._subscription_data_callback,
+                         self.subscription_module._set_system_subscription_data)
+        self.assertEqual(obj.implementation._satellite_script_downloaded_callback,
+                         self.subscription_module._set_satellite_provisioning_script)
+        self.assertEqual(obj.implementation._config_backup_callback,
+                         self.subscription_module._set_pre_satellite_rhsm_conf_snapshot)
         # trigger the succeeded signal
         obj.implementation.succeeded_signal.emit()
-        # check this set the registered property to True
-        self.assertTrue(self.subscription_interface.IsRegistered)
-
-    @patch_dbus_publish_object
-    def register_with_organization_key_test(self, publisher):
-        """Test RegisterWithOrganizationKeyTask creation."""
-        # prepare the module with dummy data
-        full_request = SubscriptionRequest()
-        full_request.type = SUBSCRIPTION_REQUEST_TYPE_ORG_KEY
-        full_request.organization = "123456789"
-        full_request.account_username = "foo_user"
-        full_request.server_hostname = "candlepin.foo.com"
-        full_request.rhsm_baseurl = "cdn.foo.com"
-        full_request.server_proxy_hostname = "proxy.foo.com"
-        full_request.server_proxy_port = 9001
-        full_request.server_proxy_user = "foo_proxy_user"
-        full_request.account_password.set_secret("foo_password")
-        full_request.activation_keys.set_secret(["key1", "key2", "key3"])
-        full_request.server_proxy_password.set_secret("foo_proxy_password")
-
-        self.subscription_interface.SetSubscriptionRequest(
-            SubscriptionRequest.to_structure(full_request)
-        )
-        # make sure the task gets dummy rhsm register server proxy
-        observer = Mock()
-        observer.get_proxy = Mock()
-        self.subscription_module._rhsm_observer = observer
-        register_server_proxy = Mock()
-        observer.get_proxy.return_value = register_server_proxy
-
-        # check the task is created correctly
-        task_path = self.subscription_interface.RegisterOrganizationKeyWithTask()
-        obj = check_task_creation(self, task_path, publisher, RegisterWithOrganizationKeyTask)
-        # check all the data got propagated to the module correctly
-        self.assertEqual(obj.implementation._rhsm_register_server_proxy, register_server_proxy)
-        self.assertEqual(obj.implementation._organization, "123456789")
-        self.assertEqual(obj.implementation._activation_keys, ["key1", "key2", "key3"])
-        # trigger the succeeded signal
-        obj.implementation.succeeded_signal.emit()
-        # check this set the registered property to True
-        self.assertTrue(self.subscription_interface.IsRegistered)
 
     @patch_dbus_publish_object
     def unregister_test(self, publisher):
         """Test UnregisterTask creation."""
         # simulate system being subscribed
         self.subscription_module.set_subscription_attached(True)
-        # make sure the task gets dummy rhsm unregister proxy
-        observer = Mock()
-        self.subscription_module._rhsm_observer = observer
-        rhsm_unregister_proxy = observer.get_proxy.return_value
+        # make sure the task gets dummy rhsm observer
+        rhsm_observer = Mock()
+        self.subscription_module._rhsm_observer = rhsm_observer
         # check the task is created correctly
         task_path = self.subscription_interface.UnregisterWithTask()
         obj = check_task_creation(self, task_path, publisher, UnregisterTask)
         # check all the data got propagated to the module correctly
-        self.assertEqual(obj.implementation._rhsm_unregister_proxy, rhsm_unregister_proxy)
+        self.assertEqual(obj.implementation._rhsm_observer, rhsm_observer)
+        self.assertEqual(obj.implementation._registered_to_satellite, False)
+        self.assertEqual(obj.implementation._rhsm_configuration, {})
         # trigger the succeeded signal
         obj.implementation.succeeded_signal.emit()
         # check this set the subscription-attached & registered properties to False
         self.assertFalse(self.subscription_interface.IsRegistered)
+        self.assertFalse(self.subscription_interface.IsRegisteredToSatellite)
         self.assertFalse(self.subscription_interface.IsSubscriptionAttached)
 
     @patch_dbus_publish_object
-    def attach_subscription_test(self, publisher):
-        """Test AttachSubscriptionTask creation."""
-        # create the SystemPurposeData structure
-        system_purpose_data = SystemPurposeData()
-        system_purpose_data.role = "foo"
-        system_purpose_data.sla = "bar"
-        system_purpose_data.usage = "baz"
-        system_purpose_data.addons = ["a", "b", "c"]
-        # feed it to the DBus interface
-        self.subscription_interface.SetSystemPurposeData(
-            SystemPurposeData.to_structure(system_purpose_data)
-        )
-        # make sure system is not subscribed
-        self.assertFalse(self.subscription_interface.IsSubscriptionAttached)
-        # make sure the task gets dummy rhsm attach proxy
-        observer = Mock()
-        self.subscription_module._rhsm_observer = observer
-        rhsm_attach_proxy = observer.get_proxy.return_value
-        # check the task is created correctly
-        task_path = self.subscription_interface.AttachSubscriptionWithTask()
-        obj = check_task_creation(self, task_path, publisher, AttachSubscriptionTask)
-        # check all the data got propagated to the module correctly
-        self.assertEqual(obj.implementation._rhsm_attach_proxy, rhsm_attach_proxy)
-        self.assertEqual(obj.implementation._sla, "bar")
-        # trigger the succeeded signal
-        obj.implementation.succeeded_signal.emit()
-        # check this set subscription_attached to True
-        self.assertTrue(self.subscription_interface.IsSubscriptionAttached)
-
-    @patch_dbus_publish_object
-    def parse_attached_subscriptions_test(self, publisher):
-        """Test ParseAttachedSubscriptionsTask creation."""
-        # make sure the task gets dummy rhsm entitlement and syspurpose proxies
-        observer = Mock()
-        self.subscription_module._rhsm_observer = observer
-        rhsm_entitlement_proxy = Mock()
-        rhsm_syspurpose_proxy = Mock()
-        # yes, this can be done
-        observer.get_proxy.side_effect = [rhsm_entitlement_proxy, rhsm_syspurpose_proxy]
-        # check the task is created correctly
-        task_path = self.subscription_interface.ParseAttachedSubscriptionsWithTask()
-        obj = check_task_creation(self, task_path, publisher, ParseAttachedSubscriptionsTask)
-        # check all the data got propagated to the module correctly
-        self.assertEqual(obj.implementation._rhsm_entitlement_proxy, rhsm_entitlement_proxy)
-        self.assertEqual(obj.implementation._rhsm_syspurpose_proxy, rhsm_syspurpose_proxy)
-        # prepare some testing data
-        subscription_structs = [
-            {
-                "name": get_variant(Str, "Foo Bar Beta"),
-                "service-level": get_variant(Str, "very good"),
-                "sku": get_variant(Str, "ABC1234"),
-                "contract": get_variant(Str, "12345678"),
-                "start-date": get_variant(Str, "May 12, 2020"),
-                "end-date": get_variant(Str, "May 12, 2021"),
-                "consumed-entitlement-count": get_variant(Int, 1)
-            },
-            {
-                "name": get_variant(Str, "Foo Bar Beta NG"),
-                "service-level": get_variant(Str, "even better"),
-                "sku": get_variant(Str, "ABC4321"),
-                "contract": get_variant(Str, "87654321"),
-                "start-date": get_variant(Str, "now"),
-                "end-date": get_variant(Str, "never"),
-                "consumed-entitlement-count": get_variant(Int, 1000)
-            }
-        ]
-        system_purpose_struct = {
-            "role": get_variant(Str, "foo"),
-            "sla": get_variant(Str, "bar"),
-            "usage": get_variant(Str, "baz"),
-            "addons": get_variant(List[Str], ["a", "b", "c"])
+    def unregister_satellite_test(self, publisher):
+        """Test UnregisterTask creation - system registered to Satellite."""
+        # simulate system being subscribed & registered to Satellite
+        self.subscription_module.set_subscription_attached(True)
+        self.subscription_module.set_registered_to_satellite(True)
+        # simulate RHSM config backup
+        self.subscription_module._rhsm_conf_before_satellite_provisioning = {
+            "foo":
+                {"bar": "baz"}
         }
-        # make sure this data is returned by get_result()
-        return_tuple = SystemSubscriptionData(
-            attached_subscriptions=AttachedSubscription.from_structure_list(subscription_structs),
-            system_purpose_data=SystemPurposeData.from_structure(system_purpose_struct)
-        )
-        obj.implementation.get_result = Mock()
-        obj.implementation.get_result.return_value = return_tuple
+        # make sure the task gets dummy rhsm unregister proxy
+        rhsm_observer = Mock()
+        self.subscription_module._rhsm_observer = rhsm_observer
+        # check the task is created correctly
+        task_path = self.subscription_interface.UnregisterWithTask()
+        obj = check_task_creation(self, task_path, publisher, UnregisterTask)
+        # check all the data got propagated to the module correctly
+        self.assertEqual(obj.implementation._registered_to_satellite, True)
+        self.assertEqual(obj.implementation._rhsm_configuration, {"foo.bar": "baz"})
+        self.assertEqual(obj.implementation._rhsm_observer, rhsm_observer)
         # trigger the succeeded signal
         obj.implementation.succeeded_signal.emit()
-        # check this set attached subscription and system purpose as expected
-        self.assertEqual(self.subscription_interface.AttachedSubscriptions, subscription_structs)
-        self.assertEqual(self.subscription_interface.SystemPurposeData, system_purpose_struct)
+        # check this set the subscription-attached & registered properties to False
+        self.assertFalse(self.subscription_interface.IsRegistered)
+        self.assertFalse(self.subscription_interface.IsRegisteredToSatellite)
+        self.assertFalse(self.subscription_interface.IsSubscriptionAttached)
 
     @patch_dbus_publish_object
     def install_with_tasks_default_test(self, publisher):
@@ -1416,6 +1130,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         task_classes = [
             RestoreRHSMDefaultsTask,
             TransferSubscriptionTokensTask,
+            ProvisionTargetSystemForSatelliteTask,
             ConnectToInsightsTask
         ]
         task_paths = self.subscription_interface.InstallWithTasks()
@@ -1429,8 +1144,12 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         obj = task_objs[1]
         self.assertEqual(obj.implementation._transfer_subscription_tokens, False)
 
-        # ConnectToInsightsTask
+        # ProvisionTargetSystemForSatelliteTask
         obj = task_objs[2]
+        self.assertEqual(obj.implementation._provisioning_script, None)
+
+        # ConnectToInsightsTask
+        obj = task_objs[3]
         self.assertEqual(obj.implementation._subscription_attached, False)
         self.assertEqual(obj.implementation._connect_to_insights, False)
 
@@ -1440,6 +1159,8 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
 
         self.subscription_interface.SetInsightsEnabled(True)
         self.subscription_module.set_subscription_attached(True)
+        self.subscription_module.set_registered_to_satellite(True)
+        self.subscription_module._satellite_provisioning_script = "foo script"
 
         # mock the rhsm config proxy
         observer = Mock()
@@ -1451,6 +1172,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         task_classes = [
             RestoreRHSMDefaultsTask,
             TransferSubscriptionTokensTask,
+            ProvisionTargetSystemForSatelliteTask,
             ConnectToInsightsTask
         ]
         task_paths = self.subscription_interface.InstallWithTasks()
@@ -1464,8 +1186,12 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         obj = task_objs[1]
         self.assertEqual(obj.implementation._transfer_subscription_tokens, True)
 
-        # ConnectToInsightsTask
+        # ProvisionTargetSystemForSatelliteTask
         obj = task_objs[2]
+        self.assertEqual(obj.implementation._provisioning_script, "foo script")
+
+        # ConnectToInsightsTask
+        obj = task_objs[3]
         self.assertEqual(obj.implementation._subscription_attached, True)
         self.assertEqual(obj.implementation._connect_to_insights, True)
 

@@ -32,7 +32,7 @@ from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, SOURCE_TYPE_HDD, SOURCE_
     URL_TYPE_METALINK, SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN
 from pyanaconda.core.process_watchers import PidWatcher
 from pyanaconda.flags import flags
-from pyanaconda.core.i18n import _, N_, CN_
+from pyanaconda.core.i18n import _, N_, CN_, C_
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.payload.image import find_optical_install_media, find_potential_hdiso_sources, \
@@ -436,6 +436,11 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self._network_module = NETWORK.get_proxy()
         self._device_tree = STORAGE.get_proxy(DEVICE_TREE)
 
+        # connect to the Subscription module, if possible
+        self._subscription_module = None
+        if is_module_available(SUBSCRIPTION):
+            self._subscription_module = SUBSCRIPTION.get_proxy()
+
     def apply(self):
         source_changed = self._update_payload_source()
         repo_changed = self._update_payload_repos()
@@ -445,7 +450,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         # attached there is no need to refresh the installation source,
         # as without the subscription tokens the refresh would fail anyway.
         if cdn_source and not self.subscribed:
-            log.debug("CDN source but no subscribtion attached - skipping payload restart.")
+            log.debug("CDN source but no subscription attached - skipping payload restart.")
         elif source_changed or repo_changed or self._error:
             payloadMgr.restart_thread(self.payload, checkmount=False)
         else:
@@ -646,16 +651,30 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         """Report if the system is currently subscribed.
 
         NOTE: This will be always False when the Subscription
-              module is no available.
+              module is not available.
 
         :return: True if subscribed, False otherwise
         :rtype: bool
         """
         subscribed = False
-        if is_module_available(SUBSCRIPTION):
-            subscription_proxy = SUBSCRIPTION.get_proxy()
-            subscribed = subscription_proxy.IsSubscriptionAttached
+        if self._subscription_module:
+            subscribed = self._subscription_module.IsSubscriptionAttached
         return subscribed
+
+    @property
+    def registered_to_satellite(self):
+        """Report if the system is registered to a Satellite instance.
+
+        NOTE: This will be always False when the Subscription
+              module is not available.
+
+        :return: True if registered to Satellite, False otherwise
+        :rtype: bool
+        """
+        registered_to_satellite = False
+        if self._subscription_module:
+            registered_to_satellite = self._subscription_module.IsRegisteredToSatellite
+        return registered_to_satellite
 
     @property
     def status(self):
@@ -668,9 +687,14 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         # will be displayed.
         source_proxy = self.payload.get_source_proxy()
         cdn_source = source_proxy.Type == SOURCE_TYPE_CDN
-        if cdn_source and not self.subscribed:
-            source_proxy = self.payload.get_source_proxy()
-            return source_proxy.Description
+        if cdn_source:
+            if self.registered_to_satellite:
+                # override the regular CDN source name to make it clear Satellite
+                # provided repositories are being used
+                return _("Satellite")
+            else:
+                source_proxy = self.payload.get_source_proxy()
+                return source_proxy.Description
         elif threadMgr.get(constants.THREAD_CHECK_SOFTWARE):
             return _("Checking software dependencies...")
         elif not self.ready:
@@ -858,7 +882,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         threadMgr.wait(constants.THREAD_PAYLOAD)
 
         # If there is the Subscriptiopn DBus module, make the CDN radio button visible
-        if is_module_available(SUBSCRIPTION):
+        if self._subscription_module:
             gtk_call_once(self._cdn_button.set_no_show_all, False)
 
         # Get the current source.
@@ -1080,6 +1104,26 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
         # Update the URL entry validation now that we're done messing with sensitivites
         self._update_url_entry_check()
+
+        # If subscription module is available we might need to refresh the label
+        # of the CDN/Satellite radio button, so that it properly describes what is providing
+        # the repositories available after registration.
+        #
+        # For registration to Red Hat hosted infrastructure (also called Hosted Candlepin) the
+        # global Red Hat CDN efficiently provides quick access to the repositories to customers
+        # across the world over the public Internet.
+        #
+        # If registered to a customer Satellite instance, it is the Satellite instance itself that
+        # provides the software repositories.
+        #
+        # This is an important distinction as Satellite instances are often used in environments
+        # not connected to the public Internet, so seeing the installation source being provided
+        # by Red Hat CDN which the machine might not be able to reach could be very confusing.
+        if self._subscription_module:
+            if self.registered_to_satellite:
+                self._cdn_button.set_label(C_("GUI|Software Source", "_Satellite"))
+            else:
+                self._cdn_button.set_label(C_("GUI|Software Source", "Red Hat _CDN"))
 
     def _setup_updates(self):
         """ Setup the state of the No Updates checkbox.
