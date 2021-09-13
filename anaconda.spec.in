@@ -367,6 +367,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Sep 13 2021 Radek Vykydal <rvykydal@redhat.com> - 33.16.5.5-1
+- Remove misleading warning about inst.ks.device replacing ksdevice (rvykydal)
+  Resolves: rhbz#2001913
+
 * Mon Aug 02 2021 Radek Vykydal <rvykydal@redhat.com> - 33.16.5.4-1
 - Disable anaconda-core's requirement on subscription-manager on CentOS (carl)
   Resolves: rhbz#1984958
