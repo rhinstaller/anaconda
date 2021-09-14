@@ -86,7 +86,7 @@ class CdromSourceTestCase(unittest.TestCase):
 
     def test_network_required(self):
         """Test the property network_required."""
-        assert self.module.network_required == False
+        assert self.module.network_required is False
 
     def test_required_space(self):
         """Test the required_space property."""

@@ -36,8 +36,8 @@ class StorageCheckerTests(unittest.TestCase):
         checker = StorageChecker()
         report = checker.check(None)
 
-        assert report.success == True
-        assert report.failure == False
+        assert report.success is True
+        assert report.failure is False
         assert report.errors == []
         assert report.warnings == []
 
@@ -51,7 +51,7 @@ class StorageCheckerTests(unittest.TestCase):
         checker.add_check(check)
         report = checker.check(None)
 
-        assert report.success == False
+        assert report.success is False
         assert report.errors == ["error"]
         assert report.warnings == []
 
@@ -64,7 +64,7 @@ class StorageCheckerTests(unittest.TestCase):
 
         checker.add_check(check)
         report = checker.check(None)
-        assert report.success == False
+        assert report.success is False
         assert report.errors == []
         assert report.warnings == ["warning"]
 
@@ -178,7 +178,7 @@ class StorageCheckerTests(unittest.TestCase):
 
         # Run the checker. OK
         report = checker.check(None)
-        assert report.success == True
+        assert report.success is True
         assert report.errors == []
         assert report.warnings == []
 
@@ -189,7 +189,7 @@ class StorageCheckerTests(unittest.TestCase):
 
         # Run the checker. FAIL
         report = checker.check(None)
-        assert report.success == False
+        assert report.success is False
         assert report.errors == [
             "x is not equal to 1",
             "y is not equal to 2",
@@ -199,7 +199,7 @@ class StorageCheckerTests(unittest.TestCase):
 
         # Run the checker. Test SKIP.
         report = checker.check(None, skip=(check_y,))
-        assert report.success == False
+        assert report.success is False
         assert report.errors == [
             "x is not equal to 1",
             "z is not equal to 3"
@@ -209,7 +209,7 @@ class StorageCheckerTests(unittest.TestCase):
         # Run the checker. Test CONSTRAINTS.
         constraints = {"x": 1, "y": 2, "z": 3}
         report = checker.check(None, constraints=constraints)
-        assert report.success == True
+        assert report.success is True
         assert report.errors == []
         assert report.warnings == []
 
@@ -219,7 +219,7 @@ class StorageCheckerTests(unittest.TestCase):
         checker.remove_check(check_z)
 
         report = checker.check(None)
-        assert report.success == True
+        assert report.success is True
         assert report.errors == []
         assert report.warnings == []
 

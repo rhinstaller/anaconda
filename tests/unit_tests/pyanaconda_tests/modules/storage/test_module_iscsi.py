@@ -63,7 +63,7 @@ class ISCSIInterfaceTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.storage.iscsi.iscsi.iscsi", available=True)
     def test_is_supported(self, iscsi):
-        assert self.iscsi_interface.IsSupported() == True
+        assert self.iscsi_interface.IsSupported() is True
 
     @patch('pyanaconda.modules.storage.iscsi.iscsi.iscsi')
     def test_initator_property(self, iscsi):

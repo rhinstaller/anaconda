@@ -674,7 +674,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         dev2 = LUKSDevice("dev2", parents=[dev1], fmt=get_format("luks"), size=Size("10 GiB"))
         self._add_device(dev2)
 
-        assert self.interface.UnlockDevice("dev2", "passphrase") == True
+        assert self.interface.UnlockDevice("dev2", "passphrase") is True
 
         device_setup.assert_called_once()
         format_setup.assert_called_once()
@@ -684,7 +684,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         assert dev2.format.has_key
 
         device_setup.side_effect = StorageError("Fake error")
-        assert self.interface.UnlockDevice("dev2", "passphrase") == False
+        assert self.interface.UnlockDevice("dev2", "passphrase") is False
 
         device_teardown.assert_called_once()
         assert not dev2.format.has_key
@@ -764,7 +764,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
         assert obj.implementation._storage == self.module.storage
         assert obj.implementation._device.name == "dev1"
-        assert obj.implementation._read_only == True
+        assert obj.implementation._read_only is True
 
     @patch_dbus_publish_object
     def test_find_devices_with_task(self, publisher):

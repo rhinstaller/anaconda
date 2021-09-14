@@ -112,7 +112,7 @@ class ConfigurationTestCase(unittest.TestCase):
 
         assert get_option(parser, "Main", "string", str) == "Hello"
         assert get_option(parser, "Main", "integer", int) == 1
-        assert get_option(parser, "Main", "boolean", bool) == False
+        assert get_option(parser, "Main", "boolean", bool) is False
 
     def test_invalid_get(self):
         parser = create_parser()
@@ -153,7 +153,7 @@ class ConfigurationTestCase(unittest.TestCase):
 
         assert get_option(parser, "Main", "string", str) == "Hi"
         assert get_option(parser, "Main", "integer", int) == 2
-        assert get_option(parser, "Main", "boolean", bool) == True
+        assert get_option(parser, "Main", "boolean", bool) is True
 
     def test_invalid_set(self):
         parser = create_parser()
@@ -217,7 +217,7 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
     def test_default_configuration(self):
         # Make sure that we are able to import conf.
         from pyanaconda.core.configuration.anaconda import conf
-        assert conf.anaconda.debug == False
+        assert conf.anaconda.debug is False
 
     def test_source(self):
         conf = AnacondaConfiguration()

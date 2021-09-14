@@ -154,10 +154,10 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
         self.bootloader_module.on_storage_changed(storage)
 
         storage.bootloader = GRUB2()
-        assert self.bootloader_interface.IsEFI() == False
+        assert self.bootloader_interface.IsEFI() is False
 
         storage.bootloader = EFIGRUB()
-        assert self.bootloader_interface.IsEFI() == True
+        assert self.bootloader_interface.IsEFI() is True
 
     def test_get_arguments(self):
         """Test GetArguments."""
@@ -185,10 +185,10 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
         self.bootloader_module.on_storage_changed(storage)
 
         storage.bootloader.has_windows.return_value = False
-        assert self.bootloader_interface.DetectWindows() == False
+        assert self.bootloader_interface.DetectWindows() is False
 
         storage.bootloader.has_windows.return_value = True
-        assert self.bootloader_interface.DetectWindows() == True
+        assert self.bootloader_interface.DetectWindows() is True
 
     @patch_dbus_publish_object
     def test_install_bootloader_with_tasks(self, publisher):

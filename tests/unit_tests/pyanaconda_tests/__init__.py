@@ -117,7 +117,7 @@ def check_kickstart_interface(interface, ks_in, ks_out=None, ks_valid=True, ks_t
     if ks_in is not None:
         callback.assert_any_call(KICKSTART_MODULE.interface_name, {'Kickstarted': True}, [])
     else:
-        assert interface.Kickstarted == False
+        assert interface.Kickstarted is False
         callback.assert_not_called()
 
     # Test the temporary kickstart.

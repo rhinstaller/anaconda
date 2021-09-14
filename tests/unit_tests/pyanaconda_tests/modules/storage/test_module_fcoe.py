@@ -40,7 +40,7 @@ class FCOEInterfaceTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.storage.fcoe.fcoe.has_fcoe", return_value=True)
     def test_is_supported(self, is_supported):
-        assert self.fcoe_interface.IsSupported() == True
+        assert self.fcoe_interface.IsSupported() is True
 
     def test_get_nics(self):
         """Test the get nics method."""
@@ -62,8 +62,8 @@ class FCOEInterfaceTestCase(unittest.TestCase):
         obj = check_task_creation(task_path, publisher, FCOEDiscoverTask)
 
         assert obj.implementation._nic == "eth0"
-        assert obj.implementation._dcb == False
-        assert obj.implementation._auto_vlan == True
+        assert obj.implementation._dcb is False
+        assert obj.implementation._auto_vlan is True
 
     @patch('pyanaconda.modules.storage.fcoe.fcoe.fcoe')
     def test_write_configuration(self, fcoe):

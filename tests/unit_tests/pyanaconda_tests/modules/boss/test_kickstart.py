@@ -247,7 +247,7 @@ class KickstartManagerTestCase(unittest.TestCase):
         assert module3.kickstart == self._m3_kickstart
         assert module4.kickstart == ""
 
-        assert report.is_valid() == False
+        assert report.is_valid() is False
         assert len(report.get_messages()) == 2
 
         error = report.get_messages()[0]
@@ -270,7 +270,7 @@ class KickstartManagerTestCase(unittest.TestCase):
         with self._create_ks_files([("ks.mgr.test.empty.cfg", ks_content)]) as filename:
             report = manager.read_kickstart_file(filename)
 
-        assert report.is_valid() == True
+        assert report.is_valid() is True
         assert len(report.get_messages()) == 0
 
         assert manager.generate_kickstart() == ""
@@ -286,7 +286,7 @@ blah
         with self._create_ks_files([("ks.mgr.test.unknown_sect.cfg", ks_content)]) as filename:
             report = manager.read_kickstart_file(filename)
 
-        assert report.is_valid() == False
+        assert report.is_valid() is False
         assert len(report.get_messages()) == 1
 
         error = report.get_messages()[0]
@@ -305,7 +305,7 @@ blah
         with self._create_ks_files([("ks.mgr.test.missing_end.cfg", ks_content)]) as filename:
             report = manager.read_kickstart_file(filename)
 
-        assert report.is_valid() == False
+        assert report.is_valid() is False
         assert len(report.get_messages()) == 1
 
         error = report.get_messages()[0]
@@ -323,7 +323,7 @@ network --device=ens3
         with self._create_ks_files([("ks.mgr.test.missing_include.cfg", ks_content)]) as filename:
             report = manager.read_kickstart_file(filename)
 
-        assert report.is_valid() == False
+        assert report.is_valid() is False
         assert len(report.get_messages()) == 1
 
         error = report.get_messages()[0]

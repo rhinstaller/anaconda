@@ -294,7 +294,7 @@ class KickstartSpecificationTestCase(unittest.TestCase):
         """
         handler = self.parse_kickstart(specification, ks_in, ks_out)
         assert handler.addons.my_test_1.foo is None
-        assert handler.addons.my_test_1.bar == False
+        assert handler.addons.my_test_1.bar is False
         assert handler.addons.my_test_1.lines == []
 
         ks_in = """
@@ -313,7 +313,7 @@ class KickstartSpecificationTestCase(unittest.TestCase):
         """
         handler = self.parse_kickstart(specification, ks_in, ks_out)
         assert handler.addons.my_test_1.foo == 10
-        assert handler.addons.my_test_1.bar == True
+        assert handler.addons.my_test_1.bar is True
         assert handler.addons.my_test_1.lines == ["1", "2", "3"]
 
         with pytest.raises(KickstartParseError):

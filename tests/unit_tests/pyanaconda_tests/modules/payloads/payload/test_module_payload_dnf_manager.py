@@ -136,8 +136,8 @@ class DNFMangerTestCase(unittest.TestCase):
             "install_weak_deps = 1",
         )
 
-        assert self.dnf_manager._ignore_broken_packages == False
-        assert self.dnf_manager._ignore_missing_packages == False
+        assert self.dnf_manager._ignore_broken_packages is False
+        assert self.dnf_manager._ignore_missing_packages is False
 
         data.multilib_policy = MULTILIB_POLICY_ALL
         data.timeout = 100
@@ -154,8 +154,8 @@ class DNFMangerTestCase(unittest.TestCase):
             "install_weak_deps = 0",
         )
 
-        assert self.dnf_manager._ignore_broken_packages == True
-        assert self.dnf_manager._ignore_missing_packages == True
+        assert self.dnf_manager._ignore_broken_packages is True
+        assert self.dnf_manager._ignore_missing_packages is True
 
     def test_dump_configuration(self):
         """Test the dump of the DNF configuration."""

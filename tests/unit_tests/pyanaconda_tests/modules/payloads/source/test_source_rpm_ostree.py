@@ -79,16 +79,16 @@ class OSTreeSourceTestCase(unittest.TestCase):
 
     def test_network_required(self):
         """Test the network_required property."""
-        assert self.module.network_required == False
+        assert self.module.network_required is False
 
         self.module.configuration.url = "file://my/path"
-        assert self.module.network_required == False
+        assert self.module.network_required is False
 
         self.module.configuration.url = "http://my/path"
-        assert self.module.network_required == True
+        assert self.module.network_required is True
 
         self.module.configuration.url = "https://my/path"
-        assert self.module.network_required == True
+        assert self.module.network_required is True
 
     def test_required_space(self):
         """Test the required_space property."""

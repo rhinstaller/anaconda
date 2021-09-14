@@ -80,13 +80,13 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
     def test_utc_property(self):
         """Test the IsUtc property."""
         self.timezone_interface.SetIsUTC(True)
-        assert self.timezone_interface.IsUTC == True
+        assert self.timezone_interface.IsUTC is True
         self.callback.assert_called_once_with(TIMEZONE.interface_name, {'IsUTC': True}, [])
 
     def test_ntp_property(self):
         """Test the NTPEnabled property."""
         self.timezone_interface.SetNTPEnabled(False)
-        assert self.timezone_interface.NTPEnabled == False
+        assert self.timezone_interface.NTPEnabled is False
         self.callback.assert_called_once_with(TIMEZONE.interface_name, {'NTPEnabled': False}, [])
 
     def test_time_sources_property(self):
@@ -260,10 +260,10 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         # ConfigureTimezoneTask
         obj = task_objs[0]
         assert obj.implementation._timezone == "America/New_York"
-        assert obj.implementation._is_utc == False
+        assert obj.implementation._is_utc is False
         # ConfigureNTPTask
         obj = task_objs[1]
-        assert obj.implementation._ntp_enabled == True
+        assert obj.implementation._ntp_enabled is True
         assert obj.implementation._ntp_servers == []
 
     @patch_dbus_publish_object
@@ -299,11 +299,11 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         # ConfigureTimezoneTask
         obj = task_objs[0]
         assert obj.implementation._timezone == "Asia/Tokyo"
-        assert obj.implementation._is_utc == True
+        assert obj.implementation._is_utc is True
 
         # ConfigureNTPTask
         obj = task_objs[1]
-        assert obj.implementation._ntp_enabled == False
+        assert obj.implementation._ntp_enabled is False
         assert len(obj.implementation._ntp_servers) == 2
         assert compare_data(obj.implementation._ntp_servers[0], server)
         assert compare_data(obj.implementation._ntp_servers[1], pool)

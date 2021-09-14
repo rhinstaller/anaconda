@@ -29,41 +29,41 @@ class PartitioningSpecificationTestCase(unittest.TestCase):
     def test_is_partition(self):
         """Test the is_partition method."""
         spec = PartSpec("/")
-        assert spec.is_partition(AUTOPART_TYPE_PLAIN) == True
-        assert spec.is_partition(AUTOPART_TYPE_LVM) == True
-        assert spec.is_partition(AUTOPART_TYPE_LVM_THINP) == True
-        assert spec.is_partition(AUTOPART_TYPE_BTRFS) == True
+        assert spec.is_partition(AUTOPART_TYPE_PLAIN) is True
+        assert spec.is_partition(AUTOPART_TYPE_LVM) is True
+        assert spec.is_partition(AUTOPART_TYPE_LVM_THINP) is True
+        assert spec.is_partition(AUTOPART_TYPE_BTRFS) is True
 
     def test_is_volume(self):
         """Test the is_volume method."""
         spec = PartSpec("/", lv=True)
-        assert spec.is_volume(AUTOPART_TYPE_PLAIN) == False
-        assert spec.is_volume(AUTOPART_TYPE_LVM) == True
-        assert spec.is_volume(AUTOPART_TYPE_LVM_THINP) == True
-        assert spec.is_volume(AUTOPART_TYPE_BTRFS) == False
+        assert spec.is_volume(AUTOPART_TYPE_PLAIN) is False
+        assert spec.is_volume(AUTOPART_TYPE_LVM) is True
+        assert spec.is_volume(AUTOPART_TYPE_LVM_THINP) is True
+        assert spec.is_volume(AUTOPART_TYPE_BTRFS) is False
 
         spec = PartSpec("/", lv=True, thin=True)
-        assert spec.is_volume(AUTOPART_TYPE_PLAIN) == False
-        assert spec.is_volume(AUTOPART_TYPE_LVM) == True
-        assert spec.is_volume(AUTOPART_TYPE_LVM_THINP) == True
-        assert spec.is_volume(AUTOPART_TYPE_BTRFS) == False
+        assert spec.is_volume(AUTOPART_TYPE_PLAIN) is False
+        assert spec.is_volume(AUTOPART_TYPE_LVM) is True
+        assert spec.is_volume(AUTOPART_TYPE_LVM_THINP) is True
+        assert spec.is_volume(AUTOPART_TYPE_BTRFS) is False
 
         spec = PartSpec("/", btr=True)
-        assert spec.is_volume(AUTOPART_TYPE_PLAIN) == False
-        assert spec.is_volume(AUTOPART_TYPE_LVM) == False
-        assert spec.is_volume(AUTOPART_TYPE_LVM_THINP) == False
-        assert spec.is_volume(AUTOPART_TYPE_BTRFS) == True
+        assert spec.is_volume(AUTOPART_TYPE_PLAIN) is False
+        assert spec.is_volume(AUTOPART_TYPE_LVM) is False
+        assert spec.is_volume(AUTOPART_TYPE_LVM_THINP) is False
+        assert spec.is_volume(AUTOPART_TYPE_BTRFS) is True
 
     def test_is_lvm_thin_volume(self):
         """Test the is_lvm_thin_volume method."""
         spec = PartSpec("/", lv=True)
-        assert spec.is_lvm_thin_volume(AUTOPART_TYPE_PLAIN) == False
-        assert spec.is_lvm_thin_volume(AUTOPART_TYPE_LVM) == False
-        assert spec.is_lvm_thin_volume(AUTOPART_TYPE_LVM_THINP) == False
-        assert spec.is_lvm_thin_volume(AUTOPART_TYPE_BTRFS) == False
+        assert spec.is_lvm_thin_volume(AUTOPART_TYPE_PLAIN) is False
+        assert spec.is_lvm_thin_volume(AUTOPART_TYPE_LVM) is False
+        assert spec.is_lvm_thin_volume(AUTOPART_TYPE_LVM_THINP) is False
+        assert spec.is_lvm_thin_volume(AUTOPART_TYPE_BTRFS) is False
 
         spec = PartSpec("/", lv=True, thin=True)
-        assert spec.is_lvm_thin_volume(AUTOPART_TYPE_PLAIN) == False
-        assert spec.is_lvm_thin_volume(AUTOPART_TYPE_LVM) == False
-        assert spec.is_lvm_thin_volume(AUTOPART_TYPE_LVM_THINP) == True
-        assert spec.is_lvm_thin_volume(AUTOPART_TYPE_BTRFS) == False
+        assert spec.is_lvm_thin_volume(AUTOPART_TYPE_PLAIN) is False
+        assert spec.is_lvm_thin_volume(AUTOPART_TYPE_LVM) is False
+        assert spec.is_lvm_thin_volume(AUTOPART_TYPE_LVM_THINP) is True
+        assert spec.is_lvm_thin_volume(AUTOPART_TYPE_BTRFS) is False

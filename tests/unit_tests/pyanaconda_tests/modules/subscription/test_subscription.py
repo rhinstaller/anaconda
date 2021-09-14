@@ -1150,7 +1150,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
 
         # TransferSubscriptionTokensTask
         obj = task_objs[1]
-        assert obj.implementation._transfer_subscription_tokens == False
+        assert obj.implementation._transfer_subscription_tokens is False
 
         # ProvisionTargetSystemForSatelliteTask
         obj = task_objs[2]
@@ -1192,7 +1192,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
 
         # TransferSubscriptionTokensTask
         obj = task_objs[1]
-        assert obj.implementation._transfer_subscription_tokens == True
+        assert obj.implementation._transfer_subscription_tokens is True
 
         # ProvisionTargetSystemForSatelliteTask
         obj = task_objs[2]

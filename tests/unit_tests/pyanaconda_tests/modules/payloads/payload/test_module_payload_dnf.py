@@ -385,18 +385,18 @@ class DNFInterfaceTestCase(unittest.TestCase):
 
     def test_packages_kickstarted_property(self):
         """Test the PackagesKickstarted property."""
-        assert self.interface.PackagesKickstarted == False
+        assert self.interface.PackagesKickstarted is False
 
         data = KickstartSpecificationHandler(
             PayloadKickstartSpecification
         )
 
         self.module.process_kickstart(data)
-        assert self.interface.PackagesKickstarted == False
+        assert self.interface.PackagesKickstarted is False
 
         data.packages.seen = True
         self.module.process_kickstart(data)
-        assert self.interface.PackagesKickstarted == True
+        assert self.interface.PackagesKickstarted is True
 
     def test_packages_property(self):
         """Test the Packages property."""
