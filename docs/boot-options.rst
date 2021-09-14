@@ -237,9 +237,11 @@ For example:
 inst.ks.all
 ^^^^^^^^^^^
 
-All locations of type http, https or ftp specified with inst.ks will be used
-sequentially one by one until the kickstart file is fetched. Other locations
-will be ignored.
+Use all locations of type ``http``, ``https`` or ``ftp`` specified with
+multiple ``inst.ks`` sequentially one by one until kickstart file is fetched.
+Locations of other types (eg. ``nfs``) will be ignored.
+
+Without this option, only last location specified by ``inst.ks`` is used.
 
 In the following example, Anaconda will try to fetch the kickstart file at
 first from ``http://a/a.ks``, then from ``http://b/b.ks`` and finally from
