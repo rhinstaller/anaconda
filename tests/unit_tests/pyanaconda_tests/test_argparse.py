@@ -129,14 +129,14 @@ class ArgparseTest(unittest.TestCase):
         opts, _removed = self._parseCmdline([])
         conf.set_from_opts(opts)
 
-        assert conf.storage.dmraid == True
-        assert conf.storage.ibft == True
+        assert conf.storage.dmraid is True
+        assert conf.storage.ibft is True
 
         opts, _removed = self._parseCmdline(['--nodmraid', '--ibft'])
         conf.set_from_opts(opts)
 
-        assert conf.storage.dmraid == False
-        assert conf.storage.ibft == True
+        assert conf.storage.dmraid is False
+        assert conf.storage.ibft is True
 
     def test_target(self):
         conf = AnacondaConfiguration.from_defaults()
@@ -144,25 +144,25 @@ class ArgparseTest(unittest.TestCase):
         opts, _removed = self._parseCmdline([])
         conf.set_from_opts(opts)
 
-        assert conf.target.is_hardware == True
-        assert conf.target.is_image == False
-        assert conf.target.is_directory == False
+        assert conf.target.is_hardware is True
+        assert conf.target.is_image is False
+        assert conf.target.is_directory is False
         assert conf.target.physical_root == "/mnt/sysimage"
 
         opts, _removed = self._parseCmdline(['--image=/what/ever.img'])
         conf.set_from_opts(opts)
 
-        assert conf.target.is_hardware == False
-        assert conf.target.is_image == True
-        assert conf.target.is_directory == False
+        assert conf.target.is_hardware is False
+        assert conf.target.is_image is True
+        assert conf.target.is_directory is False
         assert conf.target.physical_root == "/mnt/sysimage"
 
         opts, _removed = self._parseCmdline(['--dirinstall=/what/ever'])
         conf.set_from_opts(opts)
 
-        assert conf.target.is_hardware == False
-        assert conf.target.is_image == False
-        assert conf.target.is_directory == True
+        assert conf.target.is_hardware is False
+        assert conf.target.is_image is False
+        assert conf.target.is_directory is True
         assert conf.target.physical_root == "/what/ever"
 
     def test_target_nosave(self):
@@ -220,27 +220,27 @@ class ArgparseTest(unittest.TestCase):
         opts, _removed = self._parseCmdline([])
         conf.set_from_opts(opts)
 
-        assert conf.system._is_boot_iso == True
-        assert conf.system._is_live_os == False
-        assert conf.system._is_unknown == False
+        assert conf.system._is_boot_iso is True
+        assert conf.system._is_live_os is False
+        assert conf.system._is_unknown is False
 
         opts, _removed = self._parseCmdline(['--liveinst'])
         conf.set_from_opts(opts)
 
-        assert conf.system._is_boot_iso == False
-        assert conf.system._is_live_os == True
-        assert conf.system._is_unknown == False
+        assert conf.system._is_boot_iso is False
+        assert conf.system._is_live_os is True
+        assert conf.system._is_unknown is False
 
         opts, _removed = self._parseCmdline(['--dirinstall=/what/ever'])
         conf.set_from_opts(opts)
 
-        assert conf.system._is_boot_iso == False
-        assert conf.system._is_live_os == False
-        assert conf.system._is_unknown == True
+        assert conf.system._is_boot_iso is False
+        assert conf.system._is_live_os is False
+        assert conf.system._is_unknown is True
 
         opts, _removed = self._parseCmdline(['--image=/what/ever.img'])
         conf.set_from_opts(opts)
 
-        assert conf.system._is_boot_iso == False
-        assert conf.system._is_live_os == False
-        assert conf.system._is_unknown == True
+        assert conf.system._is_boot_iso is False
+        assert conf.system._is_live_os is False
+        assert conf.system._is_unknown is True

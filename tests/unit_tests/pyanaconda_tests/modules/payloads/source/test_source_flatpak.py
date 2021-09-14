@@ -52,7 +52,7 @@ class FlatpakSourceInterfaceTestCase(unittest.TestCase):
 
     def test_is_available(self):
         """Test the IsAvailable method."""
-        assert self.interface.IsAvailable() == False
+        assert self.interface.IsAvailable() is False
 
 
 class FlatpakSourceTestCase(unittest.TestCase):
@@ -67,7 +67,7 @@ class FlatpakSourceTestCase(unittest.TestCase):
 
     def test_network_required(self):
         """Test the network_required property."""
-        assert self.module.network_required == False
+        assert self.module.network_required is False
 
     def test_required_space(self):
         """Test the required_space property."""

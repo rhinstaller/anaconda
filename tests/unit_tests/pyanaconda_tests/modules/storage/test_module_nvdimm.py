@@ -52,7 +52,7 @@ class NVDIMMInterfaceTestCase(unittest.TestCase):
         self.nvdimm_interface = NVDIMMInterface(self.nvdimm_module)
 
     def test_is_supported(self):
-        assert self.nvdimm_interface.IsSupported() == True
+        assert self.nvdimm_interface.IsSupported() is True
 
     def test_get_devices_to_ignore(self):
         """Test GetDevicesToIgnore."""

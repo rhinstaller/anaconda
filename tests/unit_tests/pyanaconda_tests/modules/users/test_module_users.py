@@ -72,11 +72,11 @@ class UsersInterfaceTestCase(unittest.TestCase):
         assert self.users_interface.Groups == []
         assert self.users_interface.SshKeys == []
         assert self.users_interface.RootPassword == ""
-        assert self.users_interface.IsRootPasswordSet == False
-        assert self.users_interface.IsRootAccountLocked == True
-        assert self.users_interface.IsRootPasswordCrypted == False
-        assert self.users_interface.RootPasswordSSHLoginAllowed == False
-        assert self.users_interface.CanChangeRootPassword == True
+        assert self.users_interface.IsRootPasswordSet is False
+        assert self.users_interface.IsRootAccountLocked is True
+        assert self.users_interface.IsRootPasswordCrypted is False
+        assert self.users_interface.RootPasswordSSHLoginAllowed is False
+        assert self.users_interface.CanChangeRootPassword is True
 
     def test_users_property(self):
         """Test the Users property."""
@@ -150,18 +150,18 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self.users_interface.SetCryptedRootPassword("abcef")
 
         assert self.users_interface.RootPassword == "abcef"
-        assert self.users_interface.IsRootPasswordCrypted == True
-        assert self.users_interface.IsRootPasswordSet == True
-        assert self.users_interface.IsRootAccountLocked == True
+        assert self.users_interface.IsRootPasswordCrypted is True
+        assert self.users_interface.IsRootPasswordSet is True
+        assert self.users_interface.IsRootAccountLocked is True
         self.callback.assert_called_once_with(USERS.interface_name, {'IsRootPasswordSet': True}, [])
 
     def test_set_crypted_roopw_and_unlock(self):
         """Test if setting crypted root password & unlocking it from kickstart works correctly."""
         self.users_interface.SetCryptedRootPassword("abcef")
 
-        assert self.users_interface.IsRootPasswordSet == True
-        assert self.users_interface.IsRootAccountLocked == True
-        assert self.users_interface.CanChangeRootPassword == True
+        assert self.users_interface.IsRootPasswordSet is True
+        assert self.users_interface.IsRootAccountLocked is True
+        assert self.users_interface.CanChangeRootPassword is True
         self.callback.assert_called_once_with(USERS.interface_name, {'IsRootPasswordSet': True}, [])
 
         # this should not be a valid admin user for interactive install
@@ -171,16 +171,16 @@ class UsersInterfaceTestCase(unittest.TestCase):
         # and needs to be unlocked via another DBus API call
         self.users_interface.SetRootAccountLocked(False)
 
-        assert self.users_interface.IsRootPasswordSet == True
-        assert self.users_interface.IsRootAccountLocked == False
+        assert self.users_interface.IsRootPasswordSet is True
+        assert self.users_interface.IsRootAccountLocked is False
         self.callback.assert_called_with(USERS.interface_name, {'IsRootAccountLocked': False}, [])
 
     def test_lock_root_account(self):
         """Test if root account can be locked via DBus correctly."""
         self.users_interface.SetRootAccountLocked(True)
 
-        assert self.users_interface.IsRootPasswordSet == False
-        assert self.users_interface.IsRootAccountLocked == True
+        assert self.users_interface.IsRootPasswordSet is False
+        assert self.users_interface.IsRootAccountLocked is True
         self.callback.assert_called_once_with(USERS.interface_name, {'IsRootAccountLocked': True}, [])
 
     def test_clear_rootpw(self):
@@ -188,16 +188,16 @@ class UsersInterfaceTestCase(unittest.TestCase):
         # set the password to something
         self.users_interface.SetCryptedRootPassword("abcef")
 
-        assert self.users_interface.IsRootPasswordSet == True
-        assert self.users_interface.IsRootAccountLocked == True
+        assert self.users_interface.IsRootPasswordSet is True
+        assert self.users_interface.IsRootAccountLocked is True
         self.callback.assert_called_once_with(USERS.interface_name, {'IsRootPasswordSet': True}, [])
 
         # clear it
         self.users_interface.ClearRootPassword()
 
         # check if it looks cleared
-        assert self.users_interface.IsRootPasswordSet == False
-        assert self.users_interface.IsRootAccountLocked == True
+        assert self.users_interface.IsRootPasswordSet is False
+        assert self.users_interface.IsRootAccountLocked is True
         self.callback.assert_called_with(USERS.interface_name, {'IsRootPasswordSet': False,
                                                                 'IsRootAccountLocked': True}, [])
 
@@ -210,27 +210,27 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self.users_interface.SetRootAccountLocked(False)
         self.callback.assert_called_with(USERS.interface_name, {'IsRootAccountLocked': False}, [])
 
-        assert self.users_interface.IsRootPasswordSet == True
-        assert self.users_interface.IsRootAccountLocked == False
+        assert self.users_interface.IsRootPasswordSet is True
+        assert self.users_interface.IsRootAccountLocked is False
 
         # clear it
         self.users_interface.ClearRootPassword()
 
         # check if it looks cleared
-        assert self.users_interface.IsRootPasswordSet == False
-        assert self.users_interface.IsRootAccountLocked == True
+        assert self.users_interface.IsRootPasswordSet is False
+        assert self.users_interface.IsRootAccountLocked is True
         self.callback.assert_called_with(USERS.interface_name, {'IsRootPasswordSet': False,
                                                                 'IsRootAccountLocked': True}, [])
 
     def test_allow_root_password_ssh_login(self):
         """Test if root password SSH login can be allowed."""
         self.users_interface.SetRootPasswordSSHLoginAllowed(True)
-        assert self.users_interface.RootPasswordSSHLoginAllowed == True
+        assert self.users_interface.RootPasswordSSHLoginAllowed is True
         self.callback.assert_called_once_with(USERS.interface_name, {'RootPasswordSSHLoginAllowed': True}, [])
 
         self.callback.reset_mock()
         self.users_interface.SetRootPasswordSSHLoginAllowed(False)
-        assert self.users_interface.RootPasswordSSHLoginAllowed == False
+        assert self.users_interface.RootPasswordSSHLoginAllowed is False
         self.callback.assert_called_once_with(USERS.interface_name, {'RootPasswordSSHLoginAllowed': False}, [])
 
     def test_admin_user_detection_1(self):
@@ -354,9 +354,9 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self._test_kickstart(ks_in, ks_out)
 
         # root password should be empty and locked by default, but mutable
-        assert self.users_interface.IsRootPasswordSet == False
-        assert self.users_interface.IsRootAccountLocked == True
-        assert self.users_interface.CanChangeRootPassword == True
+        assert self.users_interface.IsRootPasswordSet is False
+        assert self.users_interface.IsRootAccountLocked is True
+        assert self.users_interface.CanChangeRootPassword is True
 
         # this should not be considered a valid admin user for interactive install
         assert not self.users_interface.CheckAdminUserExists()
@@ -371,9 +371,9 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self._test_kickstart(ks_in, ks_out)
 
         # password should be marked as not set, locked and mutable
-        assert self.users_interface.IsRootPasswordSet == False
-        assert self.users_interface.IsRootAccountLocked == True
-        assert self.users_interface.CanChangeRootPassword == True
+        assert self.users_interface.IsRootPasswordSet is False
+        assert self.users_interface.IsRootAccountLocked is True
+        assert self.users_interface.CanChangeRootPassword is True
 
         # not a valid admin user from kickstart PoV
         assert not self.users_interface.CheckAdminUserExists()
@@ -390,9 +390,9 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self._test_kickstart(ks_in, ks_out)
 
         # if rootpw shows up in the kickstart is should be reported as immutable
-        assert self.users_interface.IsRootPasswordSet == True
-        assert self.users_interface.IsRootAccountLocked == False
-        assert self.users_interface.CanChangeRootPassword == False
+        assert self.users_interface.IsRootPasswordSet is True
+        assert self.users_interface.IsRootAccountLocked is False
+        assert self.users_interface.CanChangeRootPassword is False
 
         # but this should still be a valid admin user from kickstart PoV
         assert self.users_interface.CheckAdminUserExists()
@@ -419,8 +419,8 @@ class UsersInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-        assert self.users_interface.IsRootPasswordSet == True
-        assert self.users_interface.IsRootAccountLocked == False
+        assert self.users_interface.IsRootPasswordSet is True
+        assert self.users_interface.IsRootAccountLocked is False
 
     def test_kickstart_lock_root_account(self):
         """Test locking the root account via kickstart."""
@@ -434,9 +434,9 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self._test_kickstart(ks_in, ks_out)
 
         # password should be marked as not set, locked and immutable
-        assert self.users_interface.IsRootPasswordSet == False
-        assert self.users_interface.IsRootAccountLocked == True
-        assert self.users_interface.CanChangeRootPassword == False
+        assert self.users_interface.IsRootPasswordSet is False
+        assert self.users_interface.IsRootAccountLocked is True
+        assert self.users_interface.CanChangeRootPassword is False
 
         # but this should still be a valid admin user from kickstart PoV
         assert self.users_interface.CheckAdminUserExists()
@@ -453,9 +453,9 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self._test_kickstart(ks_in, ks_out)
 
         # password should be marked as set, locked and immutable
-        assert self.users_interface.IsRootPasswordSet == True
-        assert self.users_interface.IsRootAccountLocked == True
-        assert self.users_interface.CanChangeRootPassword == False
+        assert self.users_interface.IsRootPasswordSet is True
+        assert self.users_interface.IsRootAccountLocked is True
+        assert self.users_interface.CanChangeRootPassword is False
 
         # but this should still be a valid admin user from kickstart PoV
         assert self.users_interface.CheckAdminUserExists()
@@ -473,9 +473,9 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self._test_kickstart(ks_in, ks_out)
 
         # password should be marked as not set, locked and mutable
-        assert self.users_interface.IsRootPasswordSet == False
-        assert self.users_interface.IsRootAccountLocked == True
-        assert self.users_interface.CanChangeRootPassword == True
+        assert self.users_interface.IsRootPasswordSet is False
+        assert self.users_interface.IsRootAccountLocked is True
+        assert self.users_interface.CanChangeRootPassword is True
 
         # no a valid admin user exists from kickstart PoV
         assert not self.users_interface.CheckAdminUserExists()
@@ -493,9 +493,9 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self._test_kickstart(ks_in, ks_out)
 
         # password should be marked as not set, locked and mutable
-        assert self.users_interface.IsRootPasswordSet == False
-        assert self.users_interface.IsRootAccountLocked == True
-        assert self.users_interface.CanChangeRootPassword == True
+        assert self.users_interface.IsRootPasswordSet is False
+        assert self.users_interface.IsRootAccountLocked is True
+        assert self.users_interface.CanChangeRootPassword is True
 
         # provides a valid admin user exists from kickstart PoV
         assert self.users_interface.CheckAdminUserExists()

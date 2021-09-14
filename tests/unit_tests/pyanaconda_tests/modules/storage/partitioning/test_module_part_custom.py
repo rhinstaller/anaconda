@@ -101,11 +101,11 @@ class CustomPartitioningKickstartTestCase(unittest.TestCase):
     def test_requires_passphrase(self, publisher):
         """Test RequiresPassphrase."""
         self._process_kickstart("part /")
-        assert self.interface.RequiresPassphrase() == False
+        assert self.interface.RequiresPassphrase() is False
         self._process_kickstart("part / --encrypted")
-        assert self.interface.RequiresPassphrase() == True
+        assert self.interface.RequiresPassphrase() is True
         self.interface.SetPassphrase("123456")
-        assert self.interface.RequiresPassphrase() == False
+        assert self.interface.RequiresPassphrase() is False
 
     @patch_dbus_get_proxy
     @patch.object(InstallerStorage, 'mountpoints', new_callable=PropertyMock)

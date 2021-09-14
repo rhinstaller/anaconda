@@ -820,16 +820,16 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         subscription_proxy = SUBSCRIPTION.get_proxy()
         subscription_proxy.IsSubscriptionAttached = False
 
-        assert is_cdn_registration_required(dnf_payload) == True
+        assert is_cdn_registration_required(dnf_payload) is True
 
         subscription_proxy.IsSubscriptionAttached = True
-        assert is_cdn_registration_required(dnf_payload) == False
+        assert is_cdn_registration_required(dnf_payload) is False
 
         boss_proxy.GetModules.return_value = []
-        assert is_cdn_registration_required(dnf_payload) == False
+        assert is_cdn_registration_required(dnf_payload) is False
 
         source_proxy.Type = SOURCE_TYPE_CDROM
-        assert is_cdn_registration_required(dnf_payload) == False
+        assert is_cdn_registration_required(dnf_payload) is False
 
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")

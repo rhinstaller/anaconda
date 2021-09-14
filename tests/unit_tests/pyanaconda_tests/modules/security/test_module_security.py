@@ -193,7 +193,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         assert obj.implementation._selinux_mode == SELinuxMode.DEFAULT
         # ConfigureFingerprintAuthTask
         obj = task_objs[1]
-        assert obj.implementation._fingerprint_auth_enabled == False
+        assert obj.implementation._fingerprint_auth_enabled is False
         # ConfigureAuthselectTask
         obj = task_objs[2]
         assert obj.implementation._authselect_options == []
@@ -203,7 +203,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         """Test module in default state with realm join task."""
         realm_join_task_path = self.security_interface.JoinRealmWithTask()
         obj = check_task_creation(realm_join_task_path, publisher, RealmJoinTask)
-        assert obj.implementation._realm_data.discovered == False
+        assert obj.implementation._realm_data.discovered is False
         assert obj.implementation._realm_data.name == ""
         assert obj.implementation._realm_data.join_options == []
 
@@ -255,7 +255,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         realm_join_task_path = self.security_interface.JoinRealmWithTask()
 
         obj = check_task_creation(realm_join_task_path, publisher, RealmJoinTask)
-        assert obj.implementation._realm_data.discovered == True
+        assert obj.implementation._realm_data.discovered is True
         assert obj.implementation._realm_data.name == "domain.example.com"
         assert obj.implementation._realm_data.join_options == ["--one-time-password=password"]
 
@@ -274,7 +274,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
 
         # realm join - after task creation
         obj = check_task_creation(realm_join_task_path, publisher, RealmJoinTask)
-        assert obj.implementation._realm_data.discovered == False
+        assert obj.implementation._realm_data.discovered is False
         assert obj.implementation._realm_data.name == "domain.example.com"
         assert obj.implementation._realm_data.join_options == []
 
@@ -288,7 +288,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         self.security_interface.SetRealm(RealmData.to_structure(realm2))
 
         # realm join - after realm data update
-        assert obj.implementation._realm_data.discovered == True
+        assert obj.implementation._realm_data.discovered is True
         assert obj.implementation._realm_data.name == "domain.example.com"
         assert obj.implementation._realm_data.join_options == ["--one-time-password=password"]
 
@@ -299,7 +299,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         obj = check_task_creation(task_path, publisher, PreconfigureFIPSTask)
         assert obj.implementation._sysroot == "/mnt/sysroot"
         assert obj.implementation._payload_type == PAYLOAD_TYPE_DNF
-        assert obj.implementation._fips_enabled == False
+        assert obj.implementation._fips_enabled is False
 
     @patch_dbus_publish_object
     def test_configure_fips_with_task(self, publisher):
@@ -307,7 +307,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         task_path = self.security_interface.ConfigureFIPSWithTask()
         obj = check_task_creation(task_path, publisher, ConfigureFIPSTask)
         assert obj.implementation._sysroot == "/mnt/sysroot"
-        assert obj.implementation._fips_enabled == False
+        assert obj.implementation._fips_enabled is False
 
     def test_collect_requirements_default(self):
         """Test requrements are empty by default."""

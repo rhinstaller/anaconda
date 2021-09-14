@@ -121,13 +121,13 @@ class SoftwareSelectionCacheTestCase(unittest.TestCase):
 
     def test_is_environment_selected(self):
         """Test the is_environment_selected method."""
-        assert self.cache.is_environment_selected("e1") == False
+        assert self.cache.is_environment_selected("e1") is False
 
         self.cache.select_environment("e1")
-        assert self.cache.is_environment_selected("e1") == True
+        assert self.cache.is_environment_selected("e1") is True
 
         self.cache.select_environment("")
-        assert self.cache.is_environment_selected("e1") == False
+        assert self.cache.is_environment_selected("e1") is False
 
     def test_environment(self):
         """Test the environment property."""
@@ -162,19 +162,19 @@ class SoftwareSelectionCacheTestCase(unittest.TestCase):
         self.environment_data.default_groups = ["g2", "g4"]
 
         self.cache.select_environment("e1")
-        assert self.cache.is_group_selected("g1") == False
-        assert self.cache.is_group_selected("g4") == True
-        assert self.cache.is_group_selected("g7") == False
+        assert self.cache.is_group_selected("g1") is False
+        assert self.cache.is_group_selected("g4") is True
+        assert self.cache.is_group_selected("g7") is False
 
         self.cache.select_group("g1")
-        assert self.cache.is_group_selected("g1") == True
-        assert self.cache.is_group_selected("g4") == True
-        assert self.cache.is_group_selected("g7") == False
+        assert self.cache.is_group_selected("g1") is True
+        assert self.cache.is_group_selected("g4") is True
+        assert self.cache.is_group_selected("g7") is False
 
         self.cache.deselect_group("g4")
-        assert self.cache.is_group_selected("g1") == True
-        assert self.cache.is_group_selected("g4") == False
-        assert self.cache.is_group_selected("g7") == False
+        assert self.cache.is_group_selected("g1") is True
+        assert self.cache.is_group_selected("g4") is False
+        assert self.cache.is_group_selected("g7") is False
 
     def test_apply_selection_data(self):
         """Test the apply_selection_data method."""

@@ -1546,7 +1546,7 @@ class StorageValidationTasksTestCase(unittest.TestCase):
         storage_checker.check.return_value = report
 
         report = StorageValidateTask(storage).run()
-        assert report.is_valid() == True
+        assert report.is_valid() is True
         assert report.error_messages == []
         assert report.warning_messages == []
 
@@ -1562,6 +1562,6 @@ class StorageValidationTasksTestCase(unittest.TestCase):
         storage_checker.check.return_value = report
 
         report = StorageValidateTask(storage).run()
-        assert report.is_valid() == False
+        assert report.is_valid() is False
         assert report.error_messages == ["Fake error."]
         assert report.warning_messages == ["Fake warning.", "Fake another warning."]

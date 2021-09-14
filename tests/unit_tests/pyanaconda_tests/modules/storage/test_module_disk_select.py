@@ -88,13 +88,13 @@ class DiskSelectionInterfaceTestCase(unittest.TestCase):
             self.disk_selection_interface.ValidateSelectedDisks([])
         )
 
-        assert report.is_valid() == True
+        assert report.is_valid() is True
 
         report = ValidationReport.from_structure(
             self.disk_selection_interface.ValidateSelectedDisks(["devX"])
         )
 
-        assert report.is_valid() == False
+        assert report.is_valid() is False
         assert report.error_messages == [
             "The selected disk devX is not recognized."
         ]
@@ -104,7 +104,7 @@ class DiskSelectionInterfaceTestCase(unittest.TestCase):
             self.disk_selection_interface.ValidateSelectedDisks(["dev1"])
         )
 
-        assert report.is_valid() == False
+        assert report.is_valid() is False
         assert report.error_messages == [
             "You selected disk dev1, which contains devices that also use "
             "unselected disks dev2, dev3. You must select or de-select "
@@ -116,7 +116,7 @@ class DiskSelectionInterfaceTestCase(unittest.TestCase):
             self.disk_selection_interface.ValidateSelectedDisks(["dev1", "dev2"])
         )
 
-        assert report.is_valid() == False
+        assert report.is_valid() is False
         assert report.error_messages == [
             "You selected disk dev1, which contains devices that also "
             "use unselected disk dev3. You must select or de-select "
@@ -131,7 +131,7 @@ class DiskSelectionInterfaceTestCase(unittest.TestCase):
             self.disk_selection_interface.ValidateSelectedDisks(["dev1", "dev2", "dev3"])
         )
 
-        assert report.is_valid() == True
+        assert report.is_valid() is True
 
     def test_exclusive_disks_property(self):
         """Test the exclusive disks property."""

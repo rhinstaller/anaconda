@@ -109,7 +109,7 @@ class HardDriveSourceTestCase(unittest.TestCase):
 
     def test_network_required(self):
         """Test the property network_required."""
-        assert self.module.network_required == False
+        assert self.module.network_required is False
 
     def test_set_up_with_tasks(self):
         """Hard drive source set up task type and amount."""

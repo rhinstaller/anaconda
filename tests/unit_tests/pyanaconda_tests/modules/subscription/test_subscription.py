@@ -1393,12 +1393,12 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
 
         # TransferSubscriptionTokensTask
         obj = task_objs[1]
-        assert obj.implementation._transfer_subscription_tokens == False
+        assert obj.implementation._transfer_subscription_tokens is False
 
         # ConnectToInsightsTask
         obj = task_objs[2]
-        assert obj.implementation._subscription_attached == False
-        assert obj.implementation._connect_to_insights == False
+        assert obj.implementation._subscription_attached is False
+        assert obj.implementation._connect_to_insights is False
 
     @patch_dbus_publish_object
     def test_install_with_tasks_configured(self, publisher):
@@ -1428,12 +1428,12 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
 
         # TransferSubscriptionTokensTask
         obj = task_objs[1]
-        assert obj.implementation._transfer_subscription_tokens == True
+        assert obj.implementation._transfer_subscription_tokens is True
 
         # ConnectToInsightsTask
         obj = task_objs[2]
-        assert obj.implementation._subscription_attached == True
-        assert obj.implementation._connect_to_insights == True
+        assert obj.implementation._subscription_attached is True
+        assert obj.implementation._connect_to_insights is True
 
     def _test_kickstart(self, ks_in, ks_out):
         check_kickstart_interface(self.subscription_interface, ks_in, ks_out)

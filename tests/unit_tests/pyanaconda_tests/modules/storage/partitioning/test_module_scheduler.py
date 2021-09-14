@@ -491,7 +491,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         dev2.protected = True
         permissions = self.interface.GenerateDeviceFactoryPermissions(request)
         for value in get_native(permissions).values():
-            assert value == False
+            assert value is False
 
     def test_generate_device_factory_permissions_btrfs(self):
         """Test GenerateDeviceFactoryPermissions with btrfs."""
@@ -673,9 +673,9 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self._add_device(dev2)
         self._add_device(dev3)
 
-        assert self.interface.IsDeviceLocked("dev1") == False
-        assert self.interface.IsDeviceLocked("dev2") == False
-        assert self.interface.IsDeviceLocked("dev3") == True
+        assert self.interface.IsDeviceLocked("dev1") is False
+        assert self.interface.IsDeviceLocked("dev2") is False
+        assert self.interface.IsDeviceLocked("dev3") is True
 
     def test_check_completeness(self):
         """Test CheckCompleteness."""
@@ -739,8 +739,8 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self._add_device(dev1)
         self._add_device(dev2)
 
-        assert self.interface.IsDeviceEditable("dev1") == False
-        assert self.interface.IsDeviceEditable("dev2") == True
+        assert self.interface.IsDeviceEditable("dev1") is False
+        assert self.interface.IsDeviceEditable("dev2") is True
 
     def test_collect_containers(self):
         """Test CollectContainers."""
@@ -847,7 +847,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
 
         assert request.container_spec == "testvg"
         assert request.container_name == "testvg"
-        assert request.container_encrypted == False
+        assert request.container_encrypted is False
         assert request.container_raid_level == ""
         assert request.container_size_policy == Size("1.5 GiB").get_bytes()
 
@@ -860,7 +860,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
 
         assert request.container_spec == ""
         assert request.container_name == "anaconda"
-        assert request.container_encrypted == False
+        assert request.container_encrypted is False
         assert request.container_raid_level == "single"
         assert request.container_size_policy == 0
 
@@ -873,7 +873,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
 
         assert request.container_spec == ""
         assert request.container_name == ""
-        assert request.container_encrypted == False
+        assert request.container_encrypted is False
         assert request.container_raid_level == ""
         assert request.container_size_policy == 0
 
@@ -917,7 +917,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
 
         assert request.container_spec == ""
         assert request.container_name == "anaconda"
-        assert request.container_encrypted == False
+        assert request.container_encrypted is False
         assert request.container_raid_level == "single"
         assert request.container_size_policy == 0
         assert request.disks == []
@@ -932,7 +932,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
 
         assert request.container_spec == "testvg"
         assert request.container_name == "testvg"
-        assert request.container_encrypted == False
+        assert request.container_encrypted is False
         assert request.container_raid_level == ""
         assert request.container_size_policy == Size("1.5 GiB").get_bytes()
         assert request.disks == []
@@ -946,13 +946,13 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             exists=True
         )
 
-        assert self.interface.IsDevice("dev1") == False
+        assert self.interface.IsDevice("dev1") is False
 
         self._add_device(dev1)
-        assert self.interface.IsDevice("dev1") == True
+        assert self.interface.IsDevice("dev1") is True
 
         dev1.complete = False
-        assert self.interface.IsDevice("dev1") == True
+        assert self.interface.IsDevice("dev1") is True
 
         self.storage.devicetree.hide(dev1)
-        assert self.interface.IsDevice("dev1") == True
+        assert self.interface.IsDevice("dev1") is True

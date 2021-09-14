@@ -405,18 +405,18 @@ class DNFInterfaceTestCase(unittest.TestCase):
 
     def test_packages_kickstarted_property(self):
         """Test the PackagesKickstarted property."""
-        assert self.interface.PackagesKickstarted == False
+        assert self.interface.PackagesKickstarted is False
 
         data = KickstartSpecificationHandler(
             PayloadKickstartSpecification
         )
 
         self.module.process_kickstart(data)
-        assert self.interface.PackagesKickstarted == False
+        assert self.interface.PackagesKickstarted is False
 
         data.packages.seen = True
         self.module.process_kickstart(data)
-        assert self.interface.PackagesKickstarted == True
+        assert self.interface.PackagesKickstarted is True
 
     def test_packages_selection_property(self):
         """Test the PackagesSelection property."""
@@ -612,14 +612,14 @@ class DNFModuleTestCase(unittest.TestCase):
 
     def test_is_network_required(self):
         """Test the is_network_required method."""
-        assert self.module.is_network_required() == False
+        assert self.module.is_network_required() is False
 
         source1 = self._create_source(SourceType.CDROM)
         self.module.set_sources([source1])
 
-        assert self.module.is_network_required() == False
+        assert self.module.is_network_required() is False
 
         source2 = self._create_source(SourceType.NFS)
         self.module.set_sources([source1, source2])
 
-        assert self.module.is_network_required() == True
+        assert self.module.is_network_required() is True

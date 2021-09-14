@@ -88,24 +88,24 @@ class LiveImageSourceTestCase(unittest.TestCase):
 
     def test_network_required(self):
         """Test the network_required property."""
-        assert self.module.network_required == False
+        assert self.module.network_required is False
 
         self.module.configuration.url = "file://my/path"
-        assert self.module.network_required == False
+        assert self.module.network_required is False
 
         self.module.configuration.url = "http://my/path"
-        assert self.module.network_required == True
+        assert self.module.network_required is True
 
         self.module.configuration.url = "https://my/path"
-        assert self.module.network_required == True
+        assert self.module.network_required is True
 
     def test_is_local(self):
         """Test the is_local property."""
         self.module.configuration.url = "file://my/path"
-        assert self.module.is_local == True
+        assert self.module.is_local is True
 
         self.module.configuration.url = "http://my/path"
-        assert self.module.is_local == False
+        assert self.module.is_local is False
 
     def test_get_state(self):
         """Test the source state."""

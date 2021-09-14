@@ -108,13 +108,13 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
 
     def test_requires_passphrase(self):
         """Test RequiresPassphrase."""
-        assert self.interface.RequiresPassphrase() == False
+        assert self.interface.RequiresPassphrase() is False
 
         self.module.request.encrypted = True
-        assert self.interface.RequiresPassphrase() == True
+        assert self.interface.RequiresPassphrase() is True
 
         self.module.request.passphrase = "123456"
-        assert self.interface.RequiresPassphrase() == False
+        assert self.interface.RequiresPassphrase() is False
 
     def test_reset(self):
         """Test the reset of the storage."""

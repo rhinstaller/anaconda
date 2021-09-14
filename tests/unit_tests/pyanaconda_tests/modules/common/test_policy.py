@@ -30,16 +30,16 @@ class PasswordPolicyTestCase(unittest.TestCase):
         policy = PasswordPolicy.from_defaults("root")
         assert policy.min_quality == 1
         assert policy.min_length == 6
-        assert policy.allow_empty == False
-        assert policy.is_strict == False
+        assert policy.allow_empty is False
+        assert policy.is_strict is False
 
     def test_default_unknown_policy(self):
         """Test the default policy data for unknown policy."""
         policy = PasswordPolicy.from_defaults("test")
         assert policy.min_quality == 0
         assert policy.min_length == 0
-        assert policy.allow_empty == True
-        assert policy.is_strict == False
+        assert policy.allow_empty is True
+        assert policy.is_strict is False
 
     def test_to_structure_dict(self):
         """Test the to_structure_dict method."""

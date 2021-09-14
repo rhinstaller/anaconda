@@ -233,15 +233,15 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
 
         repo_md = self.metadata.repositories[0]
         assert repo_md.type == "addon"
-        assert repo_md.enabled == False
+        assert repo_md.enabled is False
 
         repo_md = self.metadata.repositories[1]
         assert repo_md.type == "optional"
-        assert repo_md.enabled == False
+        assert repo_md.enabled is False
 
         repo_md = self.metadata.repositories[2]
         assert repo_md.type == "variant"
-        assert repo_md.enabled == True
+        assert repo_md.enabled is True
 
     def test_valid_repo(self):
         """Test the valid property of the repo metadata."""
@@ -250,10 +250,10 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
             self.metadata.load_file(path)
 
             repo_md = self.metadata.repositories[0]
-            assert repo_md.valid == False
+            assert repo_md.valid is False
 
             self._create_directory(path, "repodata")
-            assert repo_md.valid == True
+            assert repo_md.valid is True
 
     def test_verify_image_base_repo(self):
         """Test the verify_image_base_repo method."""

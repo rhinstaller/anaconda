@@ -176,17 +176,17 @@ class PayloadsInterfaceTestCase(TestCase):
 
     def test_is_network_required(self):
         """Test the IsNetworkRequired method."""
-        assert self.payload_interface.IsNetworkRequired() == False
+        assert self.payload_interface.IsNetworkRequired() is False
 
         payload = self.payload_module.create_payload(PayloadType.DNF)
         self.payload_module.activate_payload(payload)
 
-        assert self.payload_interface.IsNetworkRequired() == False
+        assert self.payload_interface.IsNetworkRequired() is False
 
         source = self.payload_module.create_source(SourceType.NFS)
         payload.set_sources([source])
 
-        assert self.payload_interface.IsNetworkRequired() == True
+        assert self.payload_interface.IsNetworkRequired() is True
 
     def test_calculate_required_space(self):
         """Test the CalculateRequiredTest method."""

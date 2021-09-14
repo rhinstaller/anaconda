@@ -98,48 +98,48 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
 
     def test_keyboard_seen(self):
         """Test the KeyboardKickstarted property."""
-        assert self.localization_interface.KeyboardKickstarted == False
+        assert self.localization_interface.KeyboardKickstarted is False
         ks_in = """
         lang cs_CZ.UTF-8
         """
         ks_in = dedent(ks_in).strip()
         self.localization_interface.ReadKickstart(ks_in)
-        assert self.localization_interface.KeyboardKickstarted == False
+        assert self.localization_interface.KeyboardKickstarted is False
         ks_in = """
         lang cs_CZ.UTF-8
         keyboard cz
         """
         ks_in = dedent(ks_in).strip()
         self.localization_interface.ReadKickstart(ks_in)
-        assert self.localization_interface.KeyboardKickstarted == True
+        assert self.localization_interface.KeyboardKickstarted is True
 
     def test_language_seen(self):
         """Test the LanguageKickstarted property."""
-        assert self.localization_interface.LanguageKickstarted == False
+        assert self.localization_interface.LanguageKickstarted is False
         ks_in = """
         keyboard cz
         """
         ks_in = dedent(ks_in).strip()
         self.localization_interface.ReadKickstart(ks_in)
-        assert self.localization_interface.LanguageKickstarted == False
+        assert self.localization_interface.LanguageKickstarted is False
         ks_in = """
         keyboard cz
         lang cs_CZ.UTF-8
         """
         ks_in = dedent(ks_in).strip()
         self.localization_interface.ReadKickstart(ks_in)
-        assert self.localization_interface.LanguageKickstarted == True
+        assert self.localization_interface.LanguageKickstarted is True
 
     def test_set_language_kickstarted(self):
         """Test SetLanguageKickstarted."""
         self.localization_interface.SetLanguageKickstarted(True)
-        assert self.localization_interface.LanguageKickstarted == True
+        assert self.localization_interface.LanguageKickstarted is True
         self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'LanguageKickstarted': True}, [])
 
     def test_set_keyboard_kickstarted(self):
         """Test SetLanguageKickstarted."""
         self.localization_interface.SetKeyboardKickstarted(True)
-        assert self.localization_interface.KeyboardKickstarted == True
+        assert self.localization_interface.KeyboardKickstarted is True
         self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'KeyboardKickstarted': True}, [])
 
     @patch("pyanaconda.modules.localization.runtime.try_to_load_keymap")

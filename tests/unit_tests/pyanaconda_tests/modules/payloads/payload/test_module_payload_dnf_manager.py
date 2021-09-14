@@ -150,8 +150,8 @@ class DNFManagerTestCase(unittest.TestCase):
             "install_weak_deps = 1",
         )
 
-        assert self.dnf_manager._ignore_broken_packages == False
-        assert self.dnf_manager._ignore_missing_packages == False
+        assert self.dnf_manager._ignore_broken_packages is False
+        assert self.dnf_manager._ignore_missing_packages is False
 
         data.multilib_policy = MULTILIB_POLICY_ALL
         data.timeout = 100
@@ -168,8 +168,8 @@ class DNFManagerTestCase(unittest.TestCase):
             "install_weak_deps = 0",
         )
 
-        assert self.dnf_manager._ignore_broken_packages == True
-        assert self.dnf_manager._ignore_missing_packages == True
+        assert self.dnf_manager._ignore_broken_packages is True
+        assert self.dnf_manager._ignore_missing_packages is True
 
     def test_dump_configuration(self):
         """Test the dump of the DNF configuration."""
@@ -603,17 +603,17 @@ class DNFManagerTestCase(unittest.TestCase):
     def test_is_package_available(self, get_best_query):
         """Test the is_package_available method."""
         self.dnf_manager._base._sack = Mock()
-        assert self.dnf_manager.is_package_available("kernel") == True
+        assert self.dnf_manager.is_package_available("kernel") is True
 
         # No package.
         get_best_query.return_value = None
-        assert self.dnf_manager.is_package_available("kernel") == False
+        assert self.dnf_manager.is_package_available("kernel") is False
 
         # No metadata.
         self.dnf_manager._base._sack = None
 
         with self.assertLogs(level="WARNING") as cm:
-            assert self.dnf_manager.is_package_available("kernel") == False
+            assert self.dnf_manager.is_package_available("kernel") is False
 
         msg = "There is no metadata about packages!"
         assert any(map(lambda x: msg in x, cm.output))
@@ -827,13 +827,13 @@ class DNFManagerCompsTestCase(unittest.TestCase):
 
     def test_is_environment_valid(self):
         """Test the is_environment_valid method."""
-        assert self.dnf_manager.is_environment_valid("") == False
-        assert self.dnf_manager.is_environment_valid("e1") == False
+        assert self.dnf_manager.is_environment_valid("") is False
+        assert self.dnf_manager.is_environment_valid("e1") is False
 
         self._add_environment("e1")
 
-        assert self.dnf_manager.is_environment_valid("e1") == True
-        assert self.dnf_manager.is_environment_valid("e2") == False
+        assert self.dnf_manager.is_environment_valid("e1") is True
+        assert self.dnf_manager.is_environment_valid("e2") is False
 
     def test_get_environment_data_error(self):
         """Test the failed get_environment_data method."""
@@ -940,7 +940,7 @@ class DNFManagerReposTestCase(unittest.TestCase):
             self.dnf_manager.load_repository("r1")
 
         repo.load.assert_called_once()
-        assert repo.enabled == False
+        assert repo.enabled is False
         assert str(cm.value) == "Fake error!"
 
     def test_load_repository(self):
@@ -951,7 +951,7 @@ class DNFManagerReposTestCase(unittest.TestCase):
         self.dnf_manager.load_repository("r1")
 
         repo.load.assert_called_once()
-        assert repo.enabled == True
+        assert repo.enabled is True
 
     def _create_repo(self, repo, repo_dir):
         """Generate fake metadata for the repo."""
@@ -1025,29 +1025,29 @@ class DNFManagerReposTestCase(unittest.TestCase):
         """Test the verify_repomd_hashes method."""
         with TemporaryDirectory() as d:
             # Test no repository.
-            assert self.dnf_manager.verify_repomd_hashes() == False
+            assert self.dnf_manager.verify_repomd_hashes() is False
 
             # Create a repository.
             r = self._add_repo("r1")
             self._create_repo(r, d)
 
             # Test no loaded repository.
-            assert self.dnf_manager.verify_repomd_hashes() == False
+            assert self.dnf_manager.verify_repomd_hashes() is False
 
             # Test a loaded repository.
             self.dnf_manager.load_repomd_hashes()
-            assert self.dnf_manager.verify_repomd_hashes() == True
+            assert self.dnf_manager.verify_repomd_hashes() is True
 
             # Test a different content of metadata.
             with open(os.path.join(d, "repodata", "repomd.xml"), 'w') as f:
                 f.write("Different metadata for r1.")
 
-            assert self.dnf_manager.verify_repomd_hashes() == False
+            assert self.dnf_manager.verify_repomd_hashes() is False
 
             # Test a reloaded repository.
             self.dnf_manager.load_repomd_hashes()
-            assert self.dnf_manager.verify_repomd_hashes() == True
+            assert self.dnf_manager.verify_repomd_hashes() is True
 
             # Test the base reset.
             self.dnf_manager.reset_base()
-            assert self.dnf_manager.verify_repomd_hashes() == False
+            assert self.dnf_manager.verify_repomd_hashes() is False

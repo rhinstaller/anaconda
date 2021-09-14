@@ -257,10 +257,10 @@ class NetworkInterfaceTestCase(unittest.TestCase):
 
         obj = check_task_creation(task_path, publisher, NetworkInstallationTask)
 
-        assert obj.implementation._disable_ipv6 == True
-        assert obj.implementation._overwrite == False
+        assert obj.implementation._disable_ipv6 is True
+        assert obj.implementation._overwrite is False
         assert obj.implementation._network_ifaces == ["ens3", "ens4", "ens5"]
-        assert obj.implementation._configure_persistent_device_names == True
+        assert obj.implementation._configure_persistent_device_names is True
 
         self.network_module.log_task_result = Mock()
 
@@ -276,7 +276,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
 
         obj = check_task_creation(task_path, publisher, HostnameConfigurationTask)
 
-        assert obj.implementation._overwrite == False
+        assert obj.implementation._overwrite is False
         assert obj.implementation._hostname == "my_hostname"
 
     @patch_dbus_publish_object
@@ -1055,16 +1055,16 @@ class NetworkModuleTestCase(unittest.TestCase):
 
     def test_apply_boot_options_noipv6(self):
         """Test _apply_boot_options function for 'noipv6'."""
-        assert self.network_module.disable_ipv6 == False
+        assert self.network_module.disable_ipv6 is False
         mocked_kernel_args = {"something": "else"}
         self.network_module._apply_boot_options(mocked_kernel_args)
-        assert self.network_module.disable_ipv6 == False
+        assert self.network_module.disable_ipv6 is False
         mocked_kernel_args = {'noipv6': None}
         self.network_module._apply_boot_options(mocked_kernel_args)
-        assert self.network_module.disable_ipv6 == True
+        assert self.network_module.disable_ipv6 is True
         mocked_kernel_args = {}
         self.network_module._apply_boot_options(mocked_kernel_args)
-        assert self.network_module.disable_ipv6 == True
+        assert self.network_module.disable_ipv6 is True
 
     def test_apply_boot_options_bootif(self):
         """Test _apply_boot_options function for 'BOOTIF'."""

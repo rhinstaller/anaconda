@@ -434,7 +434,7 @@ class ProfileConfigurationTestCase(unittest.TestCase):
             self._load_profile(content)
 
     def test_find_nonexistent_profile(self):
-        assert self._loader.check_profile("custom-profile") == False
+        assert self._loader.check_profile("custom-profile") is False
         assert self._loader.detect_profile("custom-os", "custom-variant") == None
 
     def test_ignore_invalid_profile(self):

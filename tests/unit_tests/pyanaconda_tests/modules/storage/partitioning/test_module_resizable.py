@@ -67,8 +67,8 @@ class ResizableDeviceTreeTestCase(unittest.TestCase):
             fmt=get_format("disklabel")
         ))
 
-        assert self.interface.IsDevicePartitioned("dev1") == False
-        assert self.interface.IsDevicePartitioned("dev2") == True
+        assert self.interface.IsDevicePartitioned("dev1") is False
+        assert self.interface.IsDevicePartitioned("dev2") is True
 
     @patch.object(FS, "update_size_info")
     def test_is_device_shrinkable(self, update_size_info):
@@ -83,15 +83,15 @@ class ResizableDeviceTreeTestCase(unittest.TestCase):
         )
 
         self._add_device(dev1)
-        assert self.interface.IsDeviceShrinkable("dev1") == False
+        assert self.interface.IsDeviceShrinkable("dev1") is False
 
         dev1._resizable = True
         dev1.format._resizable = True
         dev1.format._min_size = Size("1 GiB")
-        assert self.interface.IsDeviceShrinkable("dev1") == True
+        assert self.interface.IsDeviceShrinkable("dev1") is True
 
         dev1.format._min_size = Size("10 GiB")
-        assert self.interface.IsDeviceShrinkable("dev1") == False
+        assert self.interface.IsDeviceShrinkable("dev1") is False
 
     def test_get_device_partitions(self):
         """Test GetDevicePartitions."""

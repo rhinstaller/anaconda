@@ -216,7 +216,7 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
     def test_default_configuration(self):
         # Make sure that we are able to import conf.
         from pyanaconda.core.configuration.anaconda import conf
-        assert conf.anaconda.debug == False
+        assert conf.anaconda.debug is False
 
     def test_source(self):
         conf = AnacondaConfiguration()
