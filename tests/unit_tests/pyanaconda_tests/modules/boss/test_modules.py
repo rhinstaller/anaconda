@@ -102,7 +102,7 @@ class ModuleManagerTestCase(unittest.TestCase):
         observers = self._check_started_modules(task, service_names)
 
         for observer in observers:
-            assert observer.is_addon == False
+            assert observer.is_addon is False
 
     @patch("dasbus.client.observer.Gio")
     def test_start_addons(self, gio):
@@ -120,7 +120,7 @@ class ModuleManagerTestCase(unittest.TestCase):
         observers = self._check_started_modules(task, service_names)
 
         for observer in observers:
-            assert observer.is_addon == True
+            assert observer.is_addon is True
 
     @patch("dasbus.client.observer.Gio")
     def test_start_modules_forbidden(self, gio):

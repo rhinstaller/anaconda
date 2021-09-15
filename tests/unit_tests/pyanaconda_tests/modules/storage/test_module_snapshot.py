@@ -45,21 +45,21 @@ class SnapshotInterfaceTestCase(unittest.TestCase):
 
     def test_is_requested(self):
         """Test IsRequested."""
-        assert self.interface.IsRequested(SNAPSHOT_WHEN_PRE_INSTALL) == False
-        assert self.interface.IsRequested(SNAPSHOT_WHEN_POST_INSTALL) == False
+        assert self.interface.IsRequested(SNAPSHOT_WHEN_PRE_INSTALL) is False
+        assert self.interface.IsRequested(SNAPSHOT_WHEN_POST_INSTALL) is False
 
         self.module._requests = [Mock(when=SNAPSHOT_WHEN_PRE_INSTALL)]
-        assert self.interface.IsRequested(SNAPSHOT_WHEN_PRE_INSTALL) == True
-        assert self.interface.IsRequested(SNAPSHOT_WHEN_POST_INSTALL) == False
+        assert self.interface.IsRequested(SNAPSHOT_WHEN_PRE_INSTALL) is True
+        assert self.interface.IsRequested(SNAPSHOT_WHEN_POST_INSTALL) is False
 
         self.module._requests = [Mock(when=SNAPSHOT_WHEN_POST_INSTALL)]
-        assert self.interface.IsRequested(SNAPSHOT_WHEN_PRE_INSTALL) == False
-        assert self.interface.IsRequested(SNAPSHOT_WHEN_POST_INSTALL) == True
+        assert self.interface.IsRequested(SNAPSHOT_WHEN_PRE_INSTALL) is False
+        assert self.interface.IsRequested(SNAPSHOT_WHEN_POST_INSTALL) is True
 
         self.module._requests = [Mock(when=SNAPSHOT_WHEN_PRE_INSTALL),
                                  Mock(when=SNAPSHOT_WHEN_POST_INSTALL)]
-        assert self.interface.IsRequested(SNAPSHOT_WHEN_PRE_INSTALL) == True
-        assert self.interface.IsRequested(SNAPSHOT_WHEN_POST_INSTALL) == True
+        assert self.interface.IsRequested(SNAPSHOT_WHEN_PRE_INSTALL) is True
+        assert self.interface.IsRequested(SNAPSHOT_WHEN_POST_INSTALL) is True
 
     @patch_dbus_publish_object
     def test_create_with_task(self, publisher):

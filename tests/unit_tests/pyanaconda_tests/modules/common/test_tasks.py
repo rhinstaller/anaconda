@@ -113,7 +113,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         self._set_up_task(self.SimpleTask())
 
         assert self.task_interface.Name == "Simple Task"
-        assert self.task_interface.IsRunning == False
+        assert self.task_interface.IsRunning is False
         assert self.task_interface.Steps == 1
         assert self.task_interface.Progress == (0, "")
 

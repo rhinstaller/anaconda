@@ -116,16 +116,16 @@ class ServicesInterfaceTestCase(unittest.TestCase):
     def test_post_install_tools_disabled(self):
         """Test the post-install-tools-enabled property."""
         # should not be marked as disabled by default
-        assert self.services_interface.PostInstallToolsEnabled == True
+        assert self.services_interface.PostInstallToolsEnabled is True
         # mark as disabled
         self.services_interface.SetPostInstallToolsEnabled(False)
-        assert self.services_interface.PostInstallToolsEnabled == False
+        assert self.services_interface.PostInstallToolsEnabled is False
         self.callback.assert_called_once_with(
             SERVICES.interface_name, {'PostInstallToolsEnabled': False}, []
         )
         # mark as not disabled again
         self.services_interface.SetPostInstallToolsEnabled(True)
-        assert self.services_interface.PostInstallToolsEnabled == True
+        assert self.services_interface.PostInstallToolsEnabled is True
         self.callback.assert_called_with(
             SERVICES.interface_name, {'PostInstallToolsEnabled': True}, []
         )
@@ -139,7 +139,7 @@ class ServicesInterfaceTestCase(unittest.TestCase):
         ks_out = ""
         self._test_kickstart(ks_in, ks_out)
         assert self.services_interface.SetupOnBoot == SETUP_ON_BOOT_DEFAULT
-        assert self.services_interface.PostInstallToolsEnabled == True
+        assert self.services_interface.PostInstallToolsEnabled is True
 
     def test_kickstart_empty(self):
         """Test with empty string."""
@@ -147,7 +147,7 @@ class ServicesInterfaceTestCase(unittest.TestCase):
         ks_out = ""
         self._test_kickstart(ks_in, ks_out)
         assert self.services_interface.SetupOnBoot == SETUP_ON_BOOT_DEFAULT
-        assert self.services_interface.PostInstallToolsEnabled == True
+        assert self.services_interface.PostInstallToolsEnabled is True
 
     def test_services_kickstart(self):
         """Test the services command."""
@@ -192,7 +192,7 @@ class ServicesInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
         assert self.services_interface.SetupOnBoot == SETUP_ON_BOOT_DISABLED
-        assert self.services_interface.PostInstallToolsEnabled == False
+        assert self.services_interface.PostInstallToolsEnabled is False
 
     def test_firstboot_enabled_kickstart(self):
         """Test the firstboot command - enabled."""
@@ -205,7 +205,7 @@ class ServicesInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
         assert self.services_interface.SetupOnBoot == SETUP_ON_BOOT_ENABLED
-        assert self.services_interface.PostInstallToolsEnabled == True
+        assert self.services_interface.PostInstallToolsEnabled is True
 
     def test_firstboot_reconfig_kickstart(self):
         """Test the firstboot command - reconfig."""
@@ -218,7 +218,7 @@ class ServicesInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
         assert self.services_interface.SetupOnBoot == SETUP_ON_BOOT_RECONFIG
-        assert self.services_interface.PostInstallToolsEnabled == True
+        assert self.services_interface.PostInstallToolsEnabled is True
 
 
 class ServicesTasksTestCase(unittest.TestCase):
@@ -331,7 +331,7 @@ class ServicesTasksTestCase(unittest.TestCase):
         assert post_install_tools_task == object_path
         assert isinstance(obj, TaskInterface)
         assert isinstance(obj.implementation, ConfigurePostInstallationToolsTask)
-        assert obj.implementation._tools_enabled == True
+        assert obj.implementation._tools_enabled is True
 
         # Services configuration
         object_path = publisher.call_args_list[2][0][0]

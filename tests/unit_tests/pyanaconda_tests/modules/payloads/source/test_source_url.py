@@ -300,7 +300,7 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
         )
 
     def test_default_install_properties(self):
-        assert self.url_source_interface.InstallRepoEnabled == False
+        assert self.url_source_interface.InstallRepoEnabled is False
 
 
 class URLSourceTestCase(unittest.TestCase):
@@ -311,19 +311,19 @@ class URLSourceTestCase(unittest.TestCase):
 
     def test_network_required(self):
         """Test the property network_required."""
-        assert self.module.network_required == False
+        assert self.module.network_required is False
 
         self.module.repo_configuration.url = "http://my/path"
-        assert self.module.network_required == True
+        assert self.module.network_required is True
 
         self.module.repo_configuration.url = "https://my/path"
-        assert self.module.network_required == True
+        assert self.module.network_required is True
 
         self.module.repo_configuration.url = "file://my/path"
-        assert self.module.network_required == False
+        assert self.module.network_required is False
 
         self.module.repo_configuration.url = "ftp://my/path"
-        assert self.module.network_required == True
+        assert self.module.network_required is True
 
     def test_required_space(self):
         """Test the required_space property."""

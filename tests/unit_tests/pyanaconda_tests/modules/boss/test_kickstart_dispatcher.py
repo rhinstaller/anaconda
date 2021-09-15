@@ -213,9 +213,9 @@ class KickstartElementTest(unittest.TestCase):
         assert element.lineno == 4
         assert element.name == "network"
         assert element.content == "network --device=ens3 --activate\n"
-        assert element.is_command() == True
-        assert element.is_section() == False
-        assert element.is_addon() == False
+        assert element.is_command() is True
+        assert element.is_section() is False
+        assert element.is_addon() is False
 
         # Ordinary section
         element = KickstartElement(["%post", "--nochroot", "--interpreter", "/usr/bin/bash"],
@@ -226,9 +226,9 @@ class KickstartElementTest(unittest.TestCase):
         assert element.name == "post"
         assert element.content == \
             "%post --nochroot --interpreter /usr/bin/bash\necho POST1\n%end\n"
-        assert element.is_command() == False
-        assert element.is_section() == True
-        assert element.is_addon() == False
+        assert element.is_command() is False
+        assert element.is_section() is True
+        assert element.is_addon() is False
 
         # Ordinary addon
         element = KickstartElement(["%addon", "scorched", "--planet=Earth"],
@@ -238,10 +238,10 @@ class KickstartElementTest(unittest.TestCase):
         assert element.lineno == 9
         assert element.name == "scorched"
         assert element.content == "%addon scorched --planet=Earth\nnuke\n%end\n"
-        assert element.is_command() == False
+        assert element.is_command() is False
         # NOTE We do not consider addon being a section
-        assert element.is_section() == False
-        assert element.is_addon() == True
+        assert element.is_section() is False
+        assert element.is_addon() is True
 
         # Some more special commands
 
@@ -251,9 +251,9 @@ class KickstartElementTest(unittest.TestCase):
                                    1, filename)
         assert element.name == "text"
         assert element.content == "text\n"
-        assert element.is_command() == True
-        assert element.is_section() == False
-        assert element.is_addon() == False
+        assert element.is_command() is True
+        assert element.is_section() is False
+        assert element.is_addon() is False
 
         # Some more special sections
 
@@ -263,18 +263,18 @@ class KickstartElementTest(unittest.TestCase):
                                    1, filename)
         assert element.name == "pre"
         assert element.content == "%pre\necho PRE\n%end\n"
-        assert element.is_command() == False
-        assert element.is_section() == True
-        assert element.is_addon() == False
+        assert element.is_command() is False
+        assert element.is_section() is True
+        assert element.is_addon() is False
         # no body
         element = KickstartElement(["%packages", "--no-core"],
                                    [],
                                    1, filename)
         assert element.name == "packages"
         assert element.content == "%packages --no-core\n%end\n"
-        assert element.is_command() == False
-        assert element.is_section() == True
-        assert element.is_addon() == False
+        assert element.is_command() is False
+        assert element.is_section() is True
+        assert element.is_addon() is False
 
         # Some more special addons
 
@@ -284,18 +284,18 @@ class KickstartElementTest(unittest.TestCase):
                                    1, filename)
         assert element.name == "pony"
         assert element.content == "%addon pony --fly=True\n%end\n"
-        assert element.is_command() == False
-        assert element.is_section() == False
-        assert element.is_addon() == True
+        assert element.is_command() is False
+        assert element.is_section() is False
+        assert element.is_addon() is True
         # no name! - we don't fail
         element = KickstartElement(["%addon"],
                                    ["blah\n"],
                                    1, filename)
         assert element.name == ""
         assert element.content == "%addon\nblah\n%end\n"
-        assert element.is_command() == False
-        assert element.is_section() == False
-        assert element.is_addon() == True
+        assert element.is_command() is False
+        assert element.is_section() is False
+        assert element.is_addon() is True
 
 
 class TrackedKickstartElementsTest(unittest.TestCase):

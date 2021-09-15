@@ -64,7 +64,7 @@ class RunSystemctlTests(unittest.TestCase):
         """Test the is_service_installed function."""
         with patch('pyanaconda.core.util.execWithCapture') as execute:
             execute.return_value = "fake.service enabled enabled"
-            assert util.is_service_installed("fake") == True
+            assert util.is_service_installed("fake") is True
             execute.assert_called_once_with("systemctl", [
                 "list-unit-files", "fake.service", "--no-legend", "--root", "/mnt/sysroot"
             ])
@@ -567,7 +567,7 @@ class MiscTests(unittest.TestCase):
             # and the function needs to correctly survie that
             util.vtActivate.__globals__['execWithRedirect'] = raise_os_error
 
-            assert util.vtActivate(2) == False
+            assert util.vtActivate(2) is False
         finally:
             util.vtActivate.__globals__['execWithRedirect'] = _execWithRedirect
 
@@ -931,7 +931,7 @@ class MiscTests(unittest.TestCase):
     def test_is_lpae_available(self, is_arm, mock_open):
         """Test the is_lpae_available function."""
         is_arm.return_value = False
-        assert util.is_lpae_available() == False
+        assert util.is_lpae_available() is False
 
         is_arm.return_value = True
         cpu_info = """
@@ -947,7 +947,7 @@ class MiscTests(unittest.TestCase):
         """
 
         mock_open.return_value = StringIO(dedent(cpu_info))
-        assert util.is_lpae_available() == False
+        assert util.is_lpae_available() is False
 
         cpu_info = """
         processor       : 0
@@ -962,7 +962,7 @@ class MiscTests(unittest.TestCase):
         """
 
         mock_open.return_value = StringIO(dedent(cpu_info))
-        assert util.is_lpae_available() == True
+        assert util.is_lpae_available() is True
 
 
 class LazyObjectTestCase(unittest.TestCase):

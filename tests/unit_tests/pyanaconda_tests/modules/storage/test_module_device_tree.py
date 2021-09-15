@@ -777,7 +777,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
         assert obj.implementation._storage == self.module.storage
         assert obj.implementation._device.name == "dev1"
-        assert obj.implementation._read_only == True
+        assert obj.implementation._read_only is True
 
     @patch_dbus_publish_object
     def test_find_devices_with_task(self, publisher):
@@ -863,21 +863,21 @@ class DeviceTreeUtilsTestCase(unittest.TestCase):
         supported.return_value = True
         formattable.return_value = False
 
-        assert utils.is_supported_filesystem("xfs") == False
+        assert utils.is_supported_filesystem("xfs") is False
 
         supported.return_value = False
         formattable.return_value = True
 
-        assert utils.is_supported_filesystem("xfs") == False
+        assert utils.is_supported_filesystem("xfs") is False
 
         supported.return_value = True
         formattable.return_value = True
 
-        assert utils.is_supported_filesystem("xfs") == True
-        assert utils.is_supported_filesystem("swap") == True
-        assert utils.is_supported_filesystem("biosboot") == True
+        assert utils.is_supported_filesystem("xfs") is True
+        assert utils.is_supported_filesystem("swap") is True
+        assert utils.is_supported_filesystem("biosboot") is True
 
-        assert utils.is_supported_filesystem("unknown") == False
-        assert utils.is_supported_filesystem("disklabel") == False
-        assert utils.is_supported_filesystem("ntfs") == False
-        assert utils.is_supported_filesystem("tmpfs") == False
+        assert utils.is_supported_filesystem("unknown") is False
+        assert utils.is_supported_filesystem("disklabel") is False
+        assert utils.is_supported_filesystem("ntfs") is False
+        assert utils.is_supported_filesystem("tmpfs") is False

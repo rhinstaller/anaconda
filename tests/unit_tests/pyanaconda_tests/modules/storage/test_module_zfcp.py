@@ -40,7 +40,7 @@ class ZFCPInterfaceTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.storage.dasd.dasd.arch.is_s390", return_value=True)
     def test_is_supported(self, is_supported):
-        assert self.zfcp_interface.IsSupported() == True
+        assert self.zfcp_interface.IsSupported() is True
 
     @patch_dbus_publish_object
     def test_discover_with_task(self, publisher):
