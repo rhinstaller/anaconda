@@ -28,10 +28,6 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import override_cell_property
 from pyanaconda.timezone import NTP_SERVICE
 
-import gi
-gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk
-
 log = get_module_logger(__name__)
 
 # constants for server store indices
@@ -102,19 +98,36 @@ class NTPConfigDialog(GUIObject):
 
         return rc
 
+    def _get_last_entry_itr(self):
+        """Get itr of the last entry."""
+        index = len(self._serversStore) - 1
+
+        if index < 0:
+            return None
+
+        return self._serversStore.get_iter_from_string(str(index))
+
+    def _is_last_entry_unedited(self):
+        """Is the last entry unedited?"""
+        itr = self._get_last_entry_itr()
+
+        if not itr:
+            return False
+
+        server = self._serversStore[itr][SERVER_OBJECT]
+        return server.hostname == SERVER_STARTING_STRING
+
     def _cleanup_unedited_entry(self):
         """Clean up unedited entry.
 
         There can be only one, at the very end.
         """
-        if self._servers[-1].hostname == SERVER_STARTING_STRING:
-            pass
-            num = len(self._serversStore)
-            path = Gtk.TreePath(num - 1)
-            itr = self._serversStore.get_iter(path)
-            self._serversStore.remove(itr)
-            del self._servers[-1]
+        if not self._is_last_entry_unedited():
+            return
 
+        itr = self._get_last_entry_itr()
+        self._serversStore.remove(itr)
+        del self._servers[-1]
 
     def _add_row(self, server):
         """Add a new row for the given NTP server.
@@ -163,7 +176,7 @@ class NTPConfigDialog(GUIObject):
         """
         # check if there is any unedited server
         # exactly zero or one such server can exist, at last position only
-        if not self._servers[-1].hostname == SERVER_STARTING_STRING:
+        if not self._is_last_entry_unedited():
             # no unedited leftover, so make a new server with a reasonable guess about the defaults
             server = TimeSourceData()
             server.type = TIME_SOURCE_SERVER
@@ -175,9 +188,7 @@ class NTPConfigDialog(GUIObject):
             self._add_row(server)
 
         # select the correct row - it is always the last one
-        num = len(self._serversStore)
-        path = Gtk.TreePath(num - 1)
-        itr = self._serversStore.get_iter(path)
+        itr = self._get_last_entry_itr()
         selection = self._serversView.get_selection()
         selection.select_iter(itr)
         self._serversView.grab_focus()
