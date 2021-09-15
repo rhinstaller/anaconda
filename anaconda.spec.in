@@ -407,6 +407,48 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Sep 15 2021 Martin Kolman <mkolman@redhat.com> - 34.25.0.16-1
+- Support multi-org accounts in the GUI (mkolman)
+  Resolves: rhbz#1965105
+- Pass error instance directly to error callback (mkolman)
+  Related: rhbz#1965105
+- Add the RetrieveOrganizationsTask task (mkolman)
+  Related: rhbz#1965105
+- Unit test adjustments - asynchronous handler (mkolman)
+  Related: rhbz#1951709
+- Unit test adjustments - subscription module (mkolman)
+  Related: rhbz#1951709
+- Unit test adjustments - DBus tasks (mkolman)
+  Related: rhbz#1951709
+- Split system purpose tests to a separate file (mkolman)
+  Related: rhbz#1951709
+- Add tests for the new Satellite helper module (mkolman)
+  Related: rhbz#1951709
+- Reflect Satellite use in source spoke (mkolman)
+  Related: rhbz#1951709
+- Report registration to Satellite in the GUI (mkolman)
+  Related: rhbz#1951709
+- Rename "Custom server URL" to "Satellite URL" (mkolman)
+  Related: rhbz#1951709
+- Add Satellite support to asynchronous registration handler (mkolman)
+  Resolves: rhbz#1951709
+- Add handler for install time Satellite provisioning error (mkolman)
+  Related: rhbz#1951709
+- Use target system Satellite provisioning DBus task (mkolman)
+  Related: rhbz#1951709
+- Satellite related changes in the Subscription DBus module (mkolman)
+  Related: rhbz#1951709
+- Add Satellite related DBus tasks (mkolman)
+  Related: rhbz#1951709
+- Add Satellite support module (mkolman)
+  Related: rhbz#1951709
+- Remove misleading warning about inst.ks.device replacing ksdevice (rvykydal)
+  Resolves: rhbz#2000140
+- Create shared constants file for subscription module (mkolman)
+  Related: rhbz#1951709
+- Move USER_AGENT to core/constants.py (mkolman)
+  Related: rhbz#1951709
+
 * Thu Aug 26 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.15-1
 - Add dependency for bugzilla reporting plugin (vslavik)
   Resolves: rhbz#1992991
