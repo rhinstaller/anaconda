@@ -35,12 +35,15 @@ from pyanaconda.modules.common.constants.services import RHSM
 from pyanaconda.modules.common.constants.objects import RHSM_REGISTER, RHSM_REGISTER_SERVER, \
     RHSM_UNREGISTER, RHSM_ATTACH, RHSM_ENTITLEMENT, RHSM_CONFIG, RHSM_SYSPURPOSE
 from pyanaconda.modules.common.errors.subscription import RegistrationError, \
-    UnregistrationError, SubscriptionError, SatelliteProvisioningError
+    UnregistrationError, SubscriptionError, SatelliteProvisioningError, \
+    MultipleOrganizationsError
 from pyanaconda.modules.common.structures.subscription import AttachedSubscription, \
-    SystemPurposeData
+    SystemPurposeData, OrganizationData
 from pyanaconda.modules.subscription import system_purpose, satellite
 from pyanaconda.modules.subscription.constants import RHSM_SERVICE_NAME, \
     SERVER_HOSTNAME_NOT_SATELLITE_PREFIX
+from pyanaconda.modules.subscription.subscription_interface import \
+    RetrieveOrganizationsTaskInterface
 from pyanaconda.anaconda_loggers import get_module_logger
 
 import gi
@@ -226,7 +229,7 @@ class SetRHSMConfigurationTask(Task):
 class RegisterWithUsernamePasswordTask(Task):
     """Register the system via username + password."""
 
-    def __init__(self, rhsm_register_server_proxy, username, password):
+    def __init__(self, rhsm_register_server_proxy, username, password, organization):
         """Create a new registration task.
 
         It is assumed the username and password have been
@@ -235,11 +238,13 @@ class RegisterWithUsernamePasswordTask(Task):
         :param rhsm_register_server_proxy: DBus proxy for the RHSM RegisterServer object
         :param str username: Red Hat account username
         :param str password: Red Hat account password
+        :param str organization: organization id
         """
         super().__init__()
         self._rhsm_register_server_proxy = rhsm_register_server_proxy
         self._username = username
         self._password = password
+        self._organization = organization
 
     @property
     def name(self):
@@ -250,16 +255,34 @@ class RegisterWithUsernamePasswordTask(Task):
 
         :raises: RegistrationError if calling the RHSM DBus API returns an error
         """
+        if not self._organization:
+            # If no organization id is specified check if the account is member of more than
+            # one organization.
+            # If it is member of just one organization, this is fine and we can proceed
+            # with the registration attempt.
+            # If it is member of 2 or more organizations, this is an invalid state as without
+            # an organization id being specified RHSM will not know what organization to register
+            # the machine. In this throw raise a specific exception so that the GUI can react
+            # accordingly and help the user fix the issue.
+
+            org_data_task = RetrieveOrganizationsTask(
+                rhsm_register_server_proxy=self._rhsm_register_server_proxy,
+                username=self._username,
+                password=self._password
+            )
+            org_list = org_data_task.run()
+            if len(org_list) > 1:
+                raise MultipleOrganizationsError(
+                    _("Please select an organization for your account and try again.")
+                )
+
         log.debug("subscription: registering with username and password")
         with RHSMPrivateBus(self._rhsm_register_server_proxy) as private_bus:
             try:
                 locale = os.environ.get("LANG", "")
                 private_register_proxy = private_bus.get_proxy(RHSM.service_name,
                                                                RHSM_REGISTER.object_path)
-                # We do not yet support setting organization for username & password
-                # registration, so organization is blank for now.
-                organization = ""
-                private_register_proxy.Register(organization,
+                private_register_proxy.Register(self._organization,
                                                 self._username,
                                                 self._password,
                                                 {},
@@ -772,6 +795,7 @@ class RegisterAndSubscribeTask(Task):
         :raises: SatelliteProvisioningError if Satellite provisioning fails
         :raises: RegistrationError if registration fails
         :raises: SubscriptionError if subscription fails to attach
+        :raises: MultipleOrganizationsError if account is multiorg but no org id specified
         """
         super().__init__()
         self._rhsm_observer = rhsm_observer
@@ -895,11 +919,13 @@ class RegisterAndSubscribeTask(Task):
             if username_password_sufficient(self._subscription_request):
                 username = self._subscription_request.account_username
                 password = self._subscription_request.account_password.value
+                organization = self._subscription_request.account_organization
                 register_server_proxy = self._rhsm_observer.get_proxy(RHSM_REGISTER_SERVER)
                 register_task = RegisterWithUsernamePasswordTask(
                         rhsm_register_server_proxy=register_server_proxy,
                         username=username,
-                        password=password
+                        password=password,
+                        organization=organization
                 )
         elif self._subscription_request.type == SUBSCRIPTION_REQUEST_TYPE_ORG_KEY:
             if org_keys_sufficient(self._subscription_request):
@@ -930,7 +956,7 @@ class RegisterAndSubscribeTask(Task):
             # run the registration task
             try:
                 register_task.run_with_signals()
-            except RegistrationError as e:
+            except (RegistrationError, MultipleOrganizationsError) as e:
                 log.debug("registration attempt: registration attempt failed: %s", e)
                 log.debug("registration attempt: skipping auto attach due to registration error")
                 raise e
@@ -963,3 +989,112 @@ class RegisterAndSubscribeTask(Task):
             lambda: self._subscription_data_callback(parse_task.get_result())
         )
         parse_task.run_with_signals()
+
+
+class RetrieveOrganizationsTask(Task):
+    """Obtain data about the organizations the given Red Hat account is a member of.
+
+    While it is apparently not possible for a Red Hat account account to be a member
+    of multiple organizations on the Red Hat run subscription infrastructure
+    (hosted candlepin), its is a regular occurrence for accounts used for customer
+    Satellite instances.
+    """
+
+    def __init__(self, rhsm_register_server_proxy, username, password):
+        """Create a new organization data parsing task.
+
+        :param rhsm_register_server_proxy: DBus proxy for the RHSM RegisterServer object
+        :param str username: Red Hat account username
+        :param str password: Red Hat account password
+        """
+        super().__init__()
+        self._rhsm_register_server_proxy = rhsm_register_server_proxy
+        self._username = username
+        self._password = password
+
+    @property
+    def name(self):
+        return "Retrieve organizations"
+
+    @staticmethod
+    def _parse_org_data_json(org_data_json):
+        """Parse JSON data about organizations this Red Hat account belongs to.
+
+        As an account might be a member of multiple organizations,
+        the JSON data is an array of dictionaries, with one dictionary per organization.
+
+        :param str org_data_json: JSON describing organizations the given account belongs to
+        :return: data about the organizations the account belongs to
+        :rtype: list of OrganizationData instances
+        """
+        try:
+            org_json = json.loads(org_data_json)
+        except json.decoder.JSONDecodeError:
+            log.warning("subscription: failed to parse GetOrgs() JSON output")
+            # empty system purpose data is better than an installation ending crash
+            return []
+
+        org_data_list = []
+        for single_org in org_json:
+            org_data = OrganizationData()
+            # machine readable organization id
+            org_data.id = single_org.get("key", "")
+            # human readable organization name
+            org_data.name = single_org.get("displayName", "")
+            # finally, append to the list
+            org_data_list.append(org_data)
+
+        return org_data_list
+
+    def run(self):
+        """Parse organization data for a Red Hat account username and password.
+
+        :raises: RegistrationError if calling the RHSM DBus API returns an error
+        """
+        log.debug("subscription: getting data about organizations")
+        with RHSMPrivateBus(self._rhsm_register_server_proxy) as private_bus:
+            try:
+                locale = os.environ.get("LANG", "")
+                private_register_proxy = private_bus.get_proxy(
+                    RHSM.service_name,
+                    RHSM_REGISTER.object_path
+                )
+
+                org_data_json = private_register_proxy.GetOrgs(
+                    self._username,
+                    self._password,
+                    {},
+                    locale
+                )
+
+                log.debug("subscription: got organization data (%d characters)",
+                          len(org_data_json))
+
+                # parse the JSON strings into list of DBus data objects
+                org_data = self._parse_org_data_json(org_data_json)
+
+                # return the DBus structure list
+                return org_data
+            except DBusError as e:
+                # Some errors returned by the RHSM DBus API are not strictly fatal,
+                # such as when for example if the user has input invalid credentials.
+                # These errors should be handled and result in the error being logged
+                # and empty list being returned.
+                #
+                # NOTE: Due to limited options of attaching anything else than
+                # a simple string to DBus exceptions RHSM puts a JSON with exception
+                # metadata to the error message string.
+                error_json = json.loads(str(e))
+                exception_name = error_json.get("exception", "")
+                if exception_name == "UnauthorizedException":
+                    log.debug(
+                            "subscription: failed to get organization data - authorization error"
+                    )
+                    return []
+                else:
+                    log.debug("subscription: failed to get organization data: %s", str(e))
+                    raise e
+
+    def for_publication(self):
+        """Return a DBus representation."""
+        return RetrieveOrganizationsTaskInterface(self)

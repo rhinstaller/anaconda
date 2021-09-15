@@ -34,9 +34,9 @@ from pyanaconda.core.constants import SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, \
 from pyanaconda.modules.common.errors.installation import InsightsConnectError, \
     InsightsClientMissingError, SubscriptionTokenTransferError
 from pyanaconda.modules.common.errors.subscription import RegistrationError, \
-    SubscriptionError, SatelliteProvisioningError
+    SubscriptionError, SatelliteProvisioningError, MultipleOrganizationsError
 from pyanaconda.modules.common.structures.subscription import SystemPurposeData, \
-    SubscriptionRequest, AttachedSubscription
+    SubscriptionRequest, AttachedSubscription, OrganizationData
 from pyanaconda.modules.common.constants.services import RHSM
 from pyanaconda.modules.common.constants.objects import RHSM_REGISTER, RHSM_UNREGISTER, \
     RHSM_CONFIG
@@ -49,7 +49,7 @@ from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
     UnregisterTask, AttachSubscriptionTask, SystemPurposeConfigurationTask, \
     ParseAttachedSubscriptionsTask, DownloadSatelliteProvisioningScriptTask, \
     RunSatelliteProvisioningScriptTask, BackupRHSMConfBeforeSatelliteProvisioningTask, \
-    RollBackSatelliteProvisioningTask, RegisterAndSubscribeTask
+    RollBackSatelliteProvisioningTask, RegisterAndSubscribeTask, RetrieveOrganizationsTask
 from pyanaconda.modules.subscription.constants import SERVER_HOSTNAME_NOT_SATELLITE_PREFIX, \
     RHSM_SERVICE_NAME
 
@@ -649,10 +649,11 @@ class RegistrationTasksTestCase(unittest.TestCase):
         # instantiate the task and run it
         task = RegisterWithUsernamePasswordTask(rhsm_register_server_proxy=register_server_proxy,
                                                 username="foo_user",
-                                                password="bar_password")
+                                                password="bar_password",
+                                                organization="foo_org")
         task.run()
         # check the private register proxy Register method was called correctly
-        private_register_proxy.Register.assert_called_once_with("",
+        private_register_proxy.Register.assert_called_once_with("foo_org",
                                                                 "foo_user",
                                                                 "bar_password",
                                                                 {},
@@ -674,16 +675,89 @@ class RegistrationTasksTestCase(unittest.TestCase):
         # instantiate the task and run it
         task = RegisterWithUsernamePasswordTask(rhsm_register_server_proxy=register_server_proxy,
                                                 username="foo_user",
-                                                password="bar_password")
+                                                password="bar_password",
+                                                organization="foo_org")
         with self.assertRaises(RegistrationError):
             task.run()
         # check private register proxy Register method was called correctly
-        private_register_proxy.Register.assert_called_with("",
+        private_register_proxy.Register.assert_called_with("foo_org",
                                                            "foo_user",
                                                            "bar_password",
                                                            {},
                                                            {},
                                                            "en_US.UTF-8")
+
+    @patch("pyanaconda.modules.subscription.runtime.RetrieveOrganizationsTask")
+    @patch("os.environ.get", return_value="en_US.UTF-8")
+    @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")
+    def username_password_org_single_test(self, private_bus, environ_get, retrieve_orgs_task):
+        """Test the RegisterWithUsernamePasswordTask - parsed single org."""
+        # register server proxy
+        register_server_proxy = Mock()
+        # private register proxy
+        get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
+        private_register_proxy = get_proxy.return_value
+        # mock the org data retrieval task to return single organization
+        org_data = [
+            {
+                "key": "foo_org",
+                "displayName": "Foo Org",
+            }
+        ]
+        org_data_json = json.dumps(org_data)
+        retrieve_orgs_task.return_value.run.return_value = \
+            RetrieveOrganizationsTask._parse_org_data_json(org_data_json)
+        # instantiate the task and run it - we set organization to "" to make the task
+        # fetch organization list
+        task = RegisterWithUsernamePasswordTask(rhsm_register_server_proxy=register_server_proxy,
+                                                username="foo_user",
+                                                password="bar_password",
+                                                organization="")
+        # if we get just a single organization, we don't actually have to feed
+        # it to the RHSM API, its only a problem if there are more than one
+        task.run()
+        # check the private register proxy Register method was called correctly
+        private_register_proxy.Register.assert_called_once_with("",
+                                                                "foo_user",
+                                                                "bar_password",
+                                                                {},
+                                                                {},
+                                                                "en_US.UTF-8")
+
+    @patch("pyanaconda.modules.subscription.runtime.RetrieveOrganizationsTask")
+    @patch("os.environ.get", return_value="en_US.UTF-8")
+    def username_password_org_multi_test(self, environ_get, retrieve_orgs_task):
+        """Test the RegisterWithUsernamePasswordTask - parsed multiple orgs."""
+        # register server proxy
+        register_server_proxy = Mock()
+        # mock the org data retrieval task to return single organization
+        org_data = [
+            {
+                "key": "foo_org",
+                "displayName": "Foo Org",
+            },
+            {
+                "key": "bar_org",
+                "displayName": "Bar Org",
+            },
+            {
+                "key": "baz_org",
+                "displayName": "Baz Org",
+            }
+        ]
+        org_data_json = json.dumps(org_data)
+        retrieve_orgs_task.return_value.run.return_value = \
+            RetrieveOrganizationsTask._parse_org_data_json(org_data_json)
+        # instantiate the task and run it - we set organization to "" to make the task
+        # fetch organization list
+        task = RegisterWithUsernamePasswordTask(rhsm_register_server_proxy=register_server_proxy,
+                                                username="foo_user",
+                                                password="bar_password",
+                                                organization="")
+        # if we get more than one organization, we can's automatically decide which one to
+        # use so we throw an exception to notify the user to pick one and try again
+        with self.assertRaises(MultipleOrganizationsError):
+            task.run()
 
     @patch("os.environ.get", return_value="en_US.UTF-8")
     @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")
@@ -1371,7 +1445,8 @@ class RegisterandSubscribeTestCase(unittest.TestCase):
         register_username_task.assert_called_once_with(
             rhsm_register_server_proxy=rhsm_observer.get_proxy.return_value,
             username='foo_user',
-            password='foo_password'
+            password='foo_password',
+            organization=''
         )
         # check the register task has been run
         register_username_task.return_value.run_with_signals.assert_called_once()
@@ -1533,3 +1608,140 @@ class RegisterandSubscribeTestCase(unittest.TestCase):
             rhsm_syspurpose_proxy=rhsm_syspurpose
         )
         parse_task.return_value.run_with_signals.assert_called_once()
+
+
+class RetrieveOrganizationsTaskTestCase(unittest.TestCase):
+    """Test the organization data parsing task."""
+
+    def org_data_json_parsing_test(self):
+        """Test the organization data JSON parsing method of RetrieveOrganizationsTask."""
+        parse_method = RetrieveOrganizationsTask._parse_org_data_json
+        # the parsing method should be able to survive also getting an empty string,
+        # resulting in an empty list being returned
+        struct = get_native(
+            OrganizationData.to_structure_list(parse_method(""))
+        )
+        self.assertEqual(struct, [])
+
+        # try data with single organization
+        single_org_data = [
+            {
+                "key": "123abc",
+                "displayName": "Foo Org",
+                "contentAccessMode": "entitlement"
+            }
+        ]
+        single_org_data_json = json.dumps(single_org_data)
+        expected_struct_list = [
+            {
+                "id": "123abc",
+                "name": "Foo Org",
+            }
+        ]
+
+        struct = get_native(
+            OrganizationData.to_structure_list(parse_method(single_org_data_json))
+        )
+        self.assertEqual(struct, expected_struct_list)
+
+        # try multiple organizations:
+        # - one in entitlement (classic) mode
+        # - one in Simple Content Access mode
+        # - one in unknown unexpected mode (should fall back to entitlement/classic mode)
+        multiple_org_data = [
+            {
+                "key": "123a",
+                "displayName": "Foo Org",
+                "contentAccessMode": "entitlement"
+            },
+            {
+                "key": "123b",
+                "displayName": "Bar Org",
+                "contentAccessMode": "org_environment"
+            },
+            {
+                "key": "123c",
+                "displayName": "Baz Org",
+                "contentAccessMode": "something_else"
+            }
+        ]
+        multiple_org_data_json = json.dumps(multiple_org_data)
+        expected_struct_list = [
+            {
+                "id": "123a",
+                "name": "Foo Org",
+            },
+            {
+                "id": "123b",
+                "name": "Bar Org",
+            },
+            {
+                "id": "123c",
+                "name": "Baz Org",
+            }
+        ]
+        structs = get_native(
+            OrganizationData.to_structure_list(parse_method(multiple_org_data_json))
+        )
+        self.assertEqual(structs, expected_struct_list)
+
+    @patch("os.environ.get", return_value="en_US.UTF-8")
+    @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")
+    def get_org_data_test(self, private_bus, environ_get):
+        """Test the RetrieveOrganizationsTask."""
+        # register server proxy
+        register_server_proxy = Mock()
+        # private register proxy
+        get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
+        private_register_proxy = get_proxy.return_value
+        # mock the GetOrgs JSON output
+        multiple_org_data = [
+            {
+                "key": "123a",
+                "displayName": "Foo Org",
+                "contentAccessMode": "entitlement"
+            },
+            {
+                "key": "123b",
+                "displayName": "Bar Org",
+                "contentAccessMode": "org_environment"
+            },
+            {
+                "key": "123c",
+                "displayName": "Baz Org",
+                "contentAccessMode": "something_else"
+            }
+        ]
+        multiple_org_data_json = json.dumps(multiple_org_data)
+        private_register_proxy.GetOrgs.return_value = multiple_org_data_json
+
+        # instantiate the task and run it
+        task = RetrieveOrganizationsTask(rhsm_register_server_proxy=register_server_proxy,
+                                         username="foo_user",
+                                         password="bar_password")
+        org_data_structs = task.run()
+        # check the structs based on the JSON data look as expected
+        expected_struct_list = [
+            {
+                "id": "123a",
+                "name": "Foo Org",
+            },
+            {
+                "id": "123b",
+                "name": "Bar Org",
+            },
+            {
+                "id": "123c",
+                "name": "Baz Org",
+            }
+        ]
+        structs = get_native(
+            OrganizationData.to_structure_list(org_data_structs)
+        )
+        self.assertEqual(structs, expected_struct_list)
+
+        # check the private register proxy Register method was called correctly
+        private_register_proxy.GetOrgs.assert_called_once_with("foo_user",
+                                                               "bar_password",
+                                                               {},
+                                                               "en_US.UTF-8")

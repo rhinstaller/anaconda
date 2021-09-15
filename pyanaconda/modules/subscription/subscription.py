@@ -34,7 +34,8 @@ from pyanaconda.modules.common.structures.secret import get_public_copy
 from pyanaconda.core.dbus import DBus
 
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
-from pyanaconda.modules.common.constants.objects import RHSM_CONFIG, RHSM_SYSPURPOSE
+from pyanaconda.modules.common.constants.objects import RHSM_CONFIG, RHSM_SYSPURPOSE, \
+    RHSM_REGISTER_SERVER
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.requirement import Requirement
 
@@ -46,7 +47,8 @@ from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, 
     ProvisionTargetSystemForSatelliteTask
 from pyanaconda.modules.subscription.initialization import StartRHSMTask
 from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
-    RegisterAndSubscribeTask, UnregisterTask, SystemPurposeConfigurationTask
+    RegisterAndSubscribeTask, UnregisterTask, SystemPurposeConfigurationTask, \
+    RetrieveOrganizationsTask
 from pyanaconda.modules.subscription.rhsm_observer import RHSMObserver
 
 
@@ -728,6 +730,23 @@ class SubscriptionService(KickstartService):
             config_backup_callback=self._set_pre_satellite_rhsm_conf_snapshot
         )
 
+        return task
+
+    def retrieve_organizations_with_task(self):
+        """Retrieve organization data with task.
+
+        Parse data about organizations the currently used Red Hat account is a member of.
+        :return: a runtime task
+        """
+        # NOTE: we access self._subscription_request directly
+        #       to avoid the sensitive data clearing happening
+        #       in the subscription_request property getter
+        username = self._subscription_request.account_username
+        password = self._subscription_request.account_password.value
+        register_server_proxy = self.rhsm_observer.get_proxy(RHSM_REGISTER_SERVER)
+        task = RetrieveOrganizationsTask(rhsm_register_server_proxy=register_server_proxy,
+                                         username=username,
+                                         password=password)
         return task
 
     def collect_requirements(self):

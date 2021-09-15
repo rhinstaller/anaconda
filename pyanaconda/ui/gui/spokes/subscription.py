@@ -19,6 +19,8 @@
 
 from enum import IntEnum
 
+from dasbus.typing import unwrap_variant
+
 from pyanaconda.flags import flags
 from pyanaconda.threading import threadMgr, AnacondaThread
 
@@ -34,9 +36,10 @@ from pyanaconda.core.async_utils import async_action_wait
 
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION, NETWORK
 from pyanaconda.modules.common.structures.subscription import SystemPurposeData, \
-    SubscriptionRequest, AttachedSubscription
+    SubscriptionRequest, AttachedSubscription, OrganizationData
+from pyanaconda.modules.common.errors.subscription import MultipleOrganizationsError
 from pyanaconda.modules.common.util import is_module_available
-from pyanaconda.modules.common.task import sync_run_task
+from pyanaconda.modules.common.task import sync_run_task, async_run_task
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.subscription import fill_combobox, \
@@ -318,6 +321,9 @@ class SubscriptionSpoke(NormalSpoke):
     def on_username_entry_changed(self, editable):
         self.subscription_request.account_username = editable.get_text()
         self._update_registration_state()
+        # changes to username can invalidate the organization list,
+        # so hide it if the username changes
+        self._disable_org_selection_for_account()
 
     def on_password_entry_changed(self, editable):
         entered_text = editable.get_text()
@@ -325,6 +331,11 @@ class SubscriptionSpoke(NormalSpoke):
             self.enable_password_placeholder(False)
         self.subscription_request.account_password.set_secret(entered_text)
         self._update_registration_state()
+
+    def on_select_organization_combobox_changed(self, combobox):
+        log.debug("Subscription GUI: organization selected for account: %s",
+                  combobox.get_active_id())
+        self.subscription_request.account_organization = combobox.get_active_id()
 
     def on_organization_entry_changed(self, editable):
         self.subscription_request.organization = editable.get_text()
@@ -546,6 +557,17 @@ class SubscriptionSpoke(NormalSpoke):
         self._account_revealer = self.builder.get_object("account_revealer")
         self._username_entry = self.builder.get_object("username_entry")
         self._password_entry = self.builder.get_object("password_entry")
+
+        # authentication - account - org selection
+        self._select_organization_label_revealer = self.builder.get_object(
+            "select_organization_label_revealer"
+        )
+        self._select_organization_combobox_revealer = self.builder.get_object(
+            "select_organization_combobox_revealer"
+        )
+        self._select_organization_combobox = self.builder.get_object(
+            "select_organization_combobox"
+        )
 
         # authentication - activation key
         self._activation_key_revealer = self.builder.get_object("activation_key_revealer")
@@ -946,20 +968,64 @@ class SubscriptionSpoke(NormalSpoke):
         self._update_registration_state()
 
     @async_action_wait
-    def _subscription_error_callback(self, error_message):
+    def _subscription_error_callback(self, error):
         log.debug("Subscription GUI: registration & attach failed")
         # store the error message
-        self.registration_error = error_message
+        self.registration_error = str(error)
         # even if we fail, we are technically done,
         # so clear the phase
         self.registration_phase = None
         # update registration and subscription parts of the spoke
         self._update_registration_state()
         self._update_subscription_state()
+        # if the error is an instance of multi-org error,
+        # fetch organization list & enable org selection
+        # checkbox
+        if isinstance(error, MultipleOrganizationsError):
+            task_path = self._subscription_module.RetrieveOrganizationsWithTask()
+            task_proxy = SUBSCRIPTION.get_proxy(task_path)
+            async_run_task(task_proxy, self._process_org_list)
         # re-enable controls, so user can try again
         self.set_registration_controls_sensitive(True)
         # notify hub
         hubQ.send_ready(self.__class__.__name__)
+
+    def _process_org_list(self, task_proxy):
+        """Process org listing for account.
+
+        Called as an async callback of the organization listing runtime task.
+
+        :param task_proxy: a task
+        """
+        # finish the task
+        task_proxy.Finish()
+        # process the organization list
+        org_struct_list = unwrap_variant(task_proxy.GetResult())
+        org_list = OrganizationData.from_structure_list(org_struct_list)
+        # fill the combobox
+        self._select_organization_combobox.remove_all()
+        # also add a placeholder and make it the active item so it is visible
+        self._select_organization_combobox.append("", _("Not Specified"))
+        self._select_organization_combobox.set_active_id("")
+        for org in org_list:
+            self._select_organization_combobox.append(org.id, org.name)
+        # show the combobox
+        self._enable_org_selection_for_account()
+
+    def _enable_org_selection_for_account(self):
+        self._select_organization_label_revealer.set_reveal_child(True)
+        self._select_organization_combobox_revealer.set_reveal_child(True)
+
+    def _disable_org_selection_for_account(self):
+        """Disable the org selection combobox.
+
+        And also wipe the last used organization id or else it might be used
+        for the next registration attempt with a different username,
+        triggering confusing authetication failures.
+        """
+        self._subscription_request.account_organization = ""
+        self._select_organization_label_revealer.set_reveal_child(False)
+        self._select_organization_combobox_revealer.set_reveal_child(False)
 
     def _get_status_message(self):
         """Get status message describing current spoke state.
