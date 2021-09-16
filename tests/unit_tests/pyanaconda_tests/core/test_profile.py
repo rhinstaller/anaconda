@@ -294,6 +294,12 @@ class ProfileConfigurationTestCase(unittest.TestCase):
             ["rhel.conf", "scientific-linux.conf"],
             ENTERPRISE_PARTITIONING
         )
+        self._check_default_profile(
+            "almalinux",
+            ("almalinux", ""),
+            ["rhel.conf", "almalinux.conf"],
+            ENTERPRISE_PARTITIONING
+        )
 
     def _compare_profile_files(self, file_name, other_file_name, ignored_sections=()):
         parser = create_parser()
