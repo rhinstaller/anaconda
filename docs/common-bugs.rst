@@ -322,6 +322,16 @@ Rotated screen
 :Solution: It seems to be a problem with drivers. Reassigning to kernel.
 :Contact: kernel or iio-sensor-proxy
 
+No video output with the MGA G200e graphics card
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:Issue: There is no video output with MGA G200e graphic card and a 1920x1080 monitor.
+:Solution: Add ``vga=795`` to the boot options before installation.
+    Alternatively it is also possible to select "Troubleshooting"  in the installation image
+    boot menu and install using the basic graphics mode.
+    Please note that the installed system will boot into text mode if installed in basic graphics mode.
+:Example: `rhbz#2000537 <https://bugzilla.redhat.com/show_bug.cgi?id=2000537>`_
+
 Localization issues
 -------------------
 
