@@ -71,8 +71,8 @@ class CopyLogsTaskTest(unittest.TestCase):
             call("/somewhere/var/log/anaconda/*")
         ])
         chmod_mock.assert_has_calls([
-            call("/somewhere/var/log/anaconda/anaconda.log", 0x0600),
-            call("/somewhere/root/original-ks.cfg", 0x0600)
+            call("/somewhere/var/log/anaconda/anaconda.log", 0o0600),
+            call("/somewhere/root/original-ks.cfg", 0o0600)
         ])
         open_mock.assert_called_once_with("/somewhere/var/log/anaconda/journal.log", "w")
 
@@ -103,7 +103,7 @@ class CopyLogsTaskTest(unittest.TestCase):
                 task.run()
 
         copy_file_mock.assert_called_once_with("/run/install/ks.cfg", "/root/original-ks.cfg")
-        chmod_mock.assert_called_once_with("/somewhere/root/original-ks.cfg", 0x0600)
+        chmod_mock.assert_called_once_with("/somewhere/root/original-ks.cfg", 0o0600)
 
         exec_wr_mock.assert_called_once_with(
             "restorecon",

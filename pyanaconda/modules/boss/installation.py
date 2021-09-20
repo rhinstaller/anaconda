@@ -135,7 +135,7 @@ class CopyLogsTask(Task):
         """Set access bits"""
         items = glob.glob(join_paths(self._sysroot, ANACONDA_LOG_DIR, '*'))
         for item in items:
-            os.chmod(item, 0x0600)
+            os.chmod(item, 0o0600)
 
     def _copy_kickstart(self):
         """Copy input kickstart file"""
@@ -145,7 +145,7 @@ class CopyLogsTask(Task):
                 "/run/install/ks.cfg",
                 "/root/original-ks.cfg"
             )
-            os.chmod(join_paths(self._sysroot, "/root/original-ks.cfg"), 0x0600)
+            os.chmod(join_paths(self._sysroot, "/root/original-ks.cfg"), 0o0600)
         else:
             log.warning("Input kickstart will not be saved to the installed system due to the "
                         "nosave option.")
