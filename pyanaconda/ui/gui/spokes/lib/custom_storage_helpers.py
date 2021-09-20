@@ -21,7 +21,6 @@ from collections import namedtuple
 from dasbus.structure import get_fields
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.constants import SIZE_UNITS_DEFAULT
 from pyanaconda.core.i18n import _, N_, CN_, C_
 from pyanaconda.core.storage import PROTECTED_FORMAT_TYPES, SIZE_POLICY_AUTO, SIZE_POLICY_MAX, \
     DEVICE_TYPE_LVM, DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_MD, Size
@@ -37,6 +36,18 @@ from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
 from pyanaconda.ui.gui.utils import fancy_set_sensitive, really_hide, really_show
 
 log = get_module_logger(__name__)
+
+# Default to these units when reading user input when no units given
+SIZE_UNITS_DEFAULT = "MiB"
+
+# If the user enters a smaller size, the UI changes it to this value.
+MIN_SIZE_ENTRY = Size("1 MiB")
+
+# If the user enters a larger size, the UI changes it to this value.
+MAX_SIZE_ENTRY = Size(2**64 - 1)
+
+# If the user enters a larger size, the UI changes it to this value.
+MAX_SIZE_POLICY_ENTRY = Size(2**63 - 1)
 
 NOTEBOOK_LABEL_PAGE = 0
 NOTEBOOK_DETAILS_PAGE = 1
@@ -109,11 +120,15 @@ def generate_request_description(request, original=None):
     return "\n".join(["{"] + attributes + ["}"])
 
 
-def get_size_from_entry(entry, lower_bound=None, units=None):
+def get_size_from_entry(entry, lower_bound=MIN_SIZE_ENTRY, upper_bound=MAX_SIZE_ENTRY,
+                        units=SIZE_UNITS_DEFAULT):
     """ Get a Size object from an entry field.
 
+        :param entry: an entry field with a specified size
         :param lower_bound: lower bound for size returned,
         :type lower_bound: :class:`blivet.size.Size` or NoneType
+        :param upper_bound: upper bound for size returned,
+        :type upper_bound: :class:`blivet.size.Size` or NoneType
         :param units: units to use if none obtained from entry
         :type units: str or NoneType
         :returns: a Size object corresponding to the text in the entry field
@@ -127,10 +142,16 @@ def get_size_from_entry(entry, lower_bound=None, units=None):
     """
     size_text = entry.get_text().strip()
     size = size_from_input(size_text, units=units)
+
     if size is None:
         return None
+
     if lower_bound is not None and size < lower_bound:
         return lower_bound
+
+    if upper_bound is not None and size > upper_bound:
+        return upper_bound
+
     return size
 
 
@@ -224,9 +245,6 @@ class AddDialog(GUIObject):
     mainWidgetName = "addDialog"
     uiFile = "spokes/lib/custom_storage_helpers.glade"
 
-    # If the user enters a smaller size, the GUI changes it to this value
-    MIN_SIZE_ENTRY = Size("1 MiB")
-
     def __init__(self, data, device_tree):
         super().__init__(data)
         self._device_tree = device_tree
@@ -288,14 +306,7 @@ class AddDialog(GUIObject):
         self._error = " ".join(report.get_messages())
 
     def _set_size(self):
-        self._size = get_size_from_entry(
-            self.builder.get_object("addSizeEntry"),
-            lower_bound=self.MIN_SIZE_ENTRY,
-            units=SIZE_UNITS_DEFAULT
-        )
-
-        if self._size is None or self._size < Size("1 MB"):
-            self._size = Size(0)
+        self._size = get_size_from_entry(self._size_entry) or Size(0)
 
     def refresh(self):
         super().refresh()
@@ -472,9 +483,6 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
                       "luksVersionCombo", "luksVersionStore", "luksVersionLabel"]
     mainWidgetName = "container_dialog"
     uiFile = "spokes/lib/custom_storage_helpers.glade"
-
-    # If the user enters a smaller size, the GUI changes it to this value
-    MIN_SIZE_ENTRY = Size("1 MiB")
 
     def __init__(self, data, device_tree, request: DeviceFactoryRequest,
                  permissions: DeviceFactoryPermissions, disks, names):
@@ -763,11 +771,7 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
         if self._sizeEntry.get_text() == original_entry:
             return self._request.container_size_policy
 
-        size = get_size_from_entry(
-            self._sizeEntry,
-            lower_bound=self.MIN_SIZE_ENTRY,
-            units=SIZE_UNITS_DEFAULT
-        )
+        size = get_size_from_entry(self._sizeEntry, upper_bound=MAX_SIZE_POLICY_ENTRY)
 
         if size is None:
             return SIZE_POLICY_MAX
