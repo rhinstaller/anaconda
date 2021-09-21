@@ -229,6 +229,11 @@ class NetworkTests(unittest.TestCase):
         """Test extraction of hostname from cmdline."""
         cmdline = {"ip": "10.34.102.244::10.34.102.54:255.255.255.0:myhostname:ens9:none"}
         assert network.hostname_from_cmdline(cmdline) == "myhostname"
+        # This case is not officially supported according to dracut.cmdline but
+        # the ip configuration is actually working and we care not to break
+        # hostname setting for it (#1988521)
+        cmdline = {"ip": "10.34.102.244::10.34.102.54:255.255.255.0:myhostname:"}
+        assert network.hostname_from_cmdline(cmdline) == "myhostname"
         # ip takes precedence
         cmdline = {"ip": "10.34.102.244::10.34.102.54:255.255.255.0:myhostname:ens9:none",
                    "hostname": "hostname_bootopt"}
