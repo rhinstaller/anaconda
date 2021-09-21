@@ -24,9 +24,10 @@ from pyanaconda.core import util, constants
 from pyanaconda.core.async_utils import async_action_nowait, async_action_wait
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, BOOTLOADER_ENABLED, \
-    STORAGE_METADATA_RATIO, WARNING_NO_DISKS_SELECTED, WARNING_NO_DISKS_DETECTED, \
+    STORAGE_GROW_RATIO, WARNING_NO_DISKS_SELECTED, WARNING_NO_DISKS_DETECTED, \
     PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_INTERACTIVE, PARTITIONING_METHOD_BLIVET
 from pyanaconda.core.i18n import _, C_, CN_
+from pyanaconda.core.storage import set_installation_info
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
     BOOTLOADER, DEVICE_TREE
@@ -652,16 +653,21 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         sw_space = Size(self.payload.space_required)
         auto_swap = suggest_swap_size()
 
-        log.debug("disk free: %s  fs free: %s  sw needs: %s  auto swap: %s",
-                  disk_free, fs_free, sw_space, auto_swap)
-
         # We need enough space for the software, the swap and the metadata.
         # It is not an ideal estimate, but it works.
-        required_space = sw_space + auto_swap + STORAGE_METADATA_RATIO * disk_free
+        required_space = STORAGE_GROW_RATIO * sw_space + auto_swap
+
+        log.debug("\n\ndisk_free: %s", disk_free)
+        log.debug("\nrequired_space = %s =\n\t%d * sw_space: %s +\n\tauto_swap: %s\n\n",
+                  required_space, STORAGE_GROW_RATIO, STORAGE_GROW_RATIO * sw_space, auto_swap)
+
+        set_installation_info(disks_size, fs_free, required_space)
 
         # There is enough space to continue.
         if disk_free >= required_space:
             return RESPONSE_OK
+
+        log.debug("Not enough space")
 
         # Ask user what to do.
         if disks_size >= required_space - auto_swap:

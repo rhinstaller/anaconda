@@ -30,6 +30,15 @@ from pykickstart.constants import AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS, AUTO
 
 log = get_module_logger(__name__)
 
+# size - total size of all selected disks
+# free - total free space of all selected disks
+# need - needed space to install system on selected disks
+installation_info = {
+    "size" : Size(0),
+    "free" : Size(0),
+    "need" : Size(0)
+}
+
 # Maximum ratio of swap size to disk size (10 %).
 MAX_SWAP_DISK_RATIO = Decimal('0.1')
 
@@ -317,3 +326,17 @@ def suggest_swap_size(quiet=False, hibernation=False, disk_space=None):
         log.info("Swap attempt of %s", swap)
 
     return swap
+
+def set_installation_info(size, free, need : Size):
+    installation_info["size"] = size
+    installation_info["free"] = free
+    installation_info["need"] = need
+
+def get_selected_disks_total_size() -> Size:
+    return installation_info["size"]
+
+def get_selected_disks_total_free_space() -> Size:
+    return installation_info["size"]
+
+def get_selected_disks_need_space() -> Size:
+    return installation_info["need"]

@@ -20,7 +20,7 @@
 from pyanaconda.core.i18n import _
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.payloads.base.utils import get_dir_size
-from pyanaconda.modules.payloads.constants import SourceType, SourceState
+from pyanaconda.modules.payloads.constants import SourceType, SourceState, DRACUT_ISODIR
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, MountingSourceMixin
 from pyanaconda.modules.payloads.source.live_os.live_os_interface import LiveOSSourceInterface
@@ -30,6 +30,7 @@ from pyanaconda.modules.payloads.source.live_os.initialization import SetUpLiveO
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
+from shutil import disk_usage
 
 class LiveOSSourceModule(PayloadSourceBase, MountingSourceMixin):
     """The Live OS source payload module."""
@@ -69,7 +70,11 @@ class LiveOSSourceModule(PayloadSourceBase, MountingSourceMixin):
         :rtype: int
         """
         # FIXME: Unify the required space with the installation size.
-        return get_dir_size("/") * 1024
+        try:
+		_, used, _ = disk_usage(DRACUT_ISODIR)
+		return used
+	except Exception:
+		return get_dir_size("/") * 1024
 
     @property
     def image_path(self):

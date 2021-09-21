@@ -23,6 +23,7 @@ from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.structures.storage import DeviceData
+from pyanaconda.core.storage import get_selected_disks_need_space, get_selected_disks_total_size
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -88,16 +89,22 @@ class FileSystemSpaceChecker(object):
                             situation.  This message is suitable for putting
                             in the info bar at the bottom of a Hub.
         """
-        free = self._calculate_free_space()
-        needed = self._calculate_needed_space()
-        log.info("fs space: %s  needed: %s", free, needed)
 
-        if free > needed:
+        size = get_selected_disks_total_size()
+        needed = get_selected_disks_need_space()
+        log.info("fs space: %s  needed: %s", size, needed)
+
+        if size == Size(0):
+            size = self._calculate_free_space()
+        if needed == Size(0):
+            needed = self._calculate_needed_space()
+
+        if size > needed:
             result = True
             message = ""
         else:
             result = False
-            deficit = self._calculate_deficit(needed)
+            deficit = Size(needed - size)
 
             if deficit:
                 message = _("Not enough space in file systems for the current software selection. "
