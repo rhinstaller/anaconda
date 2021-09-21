@@ -276,9 +276,6 @@ CMDLINE_FILES = [
 CMDLINE_APPEND = ["modprobe.blacklist", "ifname", "ip"]
 CMDLINE_LIST = ["addrepo"]
 
-# Default to these units when reading user input when no units given
-SIZE_UNITS_DEFAULT = "MiB"
-
 # An estimated ratio for metadata size to total disk space.
 STORAGE_METADATA_RATIO = 0.1
 
