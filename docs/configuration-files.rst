@@ -7,6 +7,12 @@ into a runtime configuration file. The configuration is not supposed to change a
 The runtime configuration file is loaded by the Anaconda DBus modules when they are started.
 It means that all Anaconda processes are running with the same configuration.
 
+
+.. note::
+
+    The software selected for the installation doesn't change the Anaconda configuration
+    and profiles in any way.
+
 .. note::
 
     The ``interactive-defaults.ks`` file will be replaced by the Anaconda configuration
