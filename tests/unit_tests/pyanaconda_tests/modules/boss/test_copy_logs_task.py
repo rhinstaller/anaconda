@@ -26,11 +26,10 @@ class CopyLogsTaskTest(unittest.TestCase):
     @patch("pyanaconda.modules.boss.installation.mkdirChain")
     @patch("pyanaconda.modules.boss.installation.conf")
     @patch("pyanaconda.modules.boss.installation.open")
-    @patch("pyanaconda.modules.boss.installation.os.chmod")
-    def test_run_all(self, chmod_mock, open_mock, conf_mock, mkdir_mock, exec_wr_mock, glob_mock):
+    def test_run_all(self, open_mock, conf_mock, mkdir_mock, exec_wr_mock, glob_mock):
         """Test the log copying task."""
         glob_mock.side_effect = [
-            ["/tmp/ks-script-blabbityblah.log"],
+            ["/tmp/ks-script-blabblah.log"],
             ["/somewhere/var/log/anaconda/anaconda.log"]
         ]
         conf_mock.target.can_save_installation_logs = True
@@ -51,30 +50,19 @@ class CopyLogsTaskTest(unittest.TestCase):
                 "/var/log/anaconda/" + logfile
             )
 
-        copy_file_mock.assert_any_call(
-            "/root/lorax-packages.log",
-            "/var/log/anaconda/lorax-packages.log"
-        )
-
-        copy_file_mock.assert_any_call(
-            "/tmp/ks-script-blabbityblah.log",
-            "/var/log/anaconda/ks-script-blabbityblah.log"
-        )
+        copy_file_mock.assert_has_calls([
+            call("/root/lorax-packages.log", "/var/log/anaconda/lorax-packages.log"),
+            call("/tmp/ks-script-blabblah.log", "/var/log/anaconda/ks-script-blabblah.log"),
+            call("/tmp/journal.log", "/var/log/anaconda/journal.log")
+        ], any_order=True)
 
         copy_tree_mock.assert_has_calls([
             call("/tmp/pre-anaconda-logs", "/var/log/anaconda/"),
             call("/root/debugdata", "/var/log/anaconda/dnf_debugdata/")
         ])
 
-        glob_mock.assert_has_calls([
-            call("/tmp/ks-script*.log"),
-            call("/somewhere/var/log/anaconda/*")
-        ])
-        chmod_mock.assert_has_calls([
-            call("/somewhere/var/log/anaconda/anaconda.log", 0x0600),
-            call("/somewhere/root/original-ks.cfg", 0x0600)
-        ])
-        open_mock.assert_called_once_with("/somewhere/var/log/anaconda/journal.log", "w")
+        glob_mock.assert_called_with("/tmp/ks-script*.log")
+        open_mock.assert_called_once_with("/tmp/journal.log", "w")
 
         exec_wr_mock.assert_has_calls([
             # Warning: Constructing the argument to the first call requires a call to one of the
@@ -89,9 +77,7 @@ class CopyLogsTaskTest(unittest.TestCase):
     @patch("pyanaconda.modules.boss.installation.mkdirChain")
     @patch("pyanaconda.modules.boss.installation.conf")
     @patch("pyanaconda.modules.boss.installation.open")
-    @patch("pyanaconda.modules.boss.installation.os.chmod")
-    def test_nosave_logs(self, chmod_mock, open_mock, conf_mock, mkdir_mock, exec_wr_mock,
-                         glob_mock):
+    def test_nosave_logs(self, open_mock, conf_mock, mkdir_mock, exec_wr_mock, glob_mock):
         """Test nosave for logs"""
         glob_mock.return_value = []
         conf_mock.target.can_save_installation_logs = False
@@ -102,8 +88,10 @@ class CopyLogsTaskTest(unittest.TestCase):
             with patch.object(CopyLogsTask, "_copy_tree_to_sysroot") as copy_tree_mock:
                 task.run()
 
-        copy_file_mock.assert_called_once_with("/run/install/ks.cfg", "/root/original-ks.cfg")
-        chmod_mock.assert_called_once_with("/somewhere/root/original-ks.cfg", 0x0600)
+        copy_file_mock.assert_called_once_with(
+            "/run/install/ks.cfg",
+            "/root/original-ks.cfg"
+        )
 
         exec_wr_mock.assert_called_once_with(
             "restorecon",
@@ -121,9 +109,7 @@ class CopyLogsTaskTest(unittest.TestCase):
     @patch("pyanaconda.modules.boss.installation.mkdirChain")
     @patch("pyanaconda.modules.boss.installation.conf")
     @patch("pyanaconda.modules.boss.installation.open")
-    @patch("pyanaconda.modules.boss.installation.os.chmod")
-    def test_nosave_input_ks(self, chmod_mock, open_mock, conf_mock, mkdir_mock, exec_wr_mock,
-                             glob_mock):
+    def test_nosave_input_ks(self, open_mock, conf_mock, mkdir_mock, exec_wr_mock, glob_mock):
         """Test nosave for kickstart"""
         glob_mock.return_value = ["/somewhere/var/log/anaconda/anaconda.log"]
         conf_mock.target.can_save_installation_logs = True
@@ -143,16 +129,14 @@ class CopyLogsTaskTest(unittest.TestCase):
         assert exec_wr_mock.called
         assert glob_mock.called
         assert open_mock.called
-        assert chmod_mock.called
 
     @patch("pyanaconda.modules.boss.installation.glob.glob")
     @patch("pyanaconda.modules.boss.installation.execWithRedirect")
     @patch("pyanaconda.modules.boss.installation.mkdirChain")
     @patch("pyanaconda.modules.boss.installation.conf")
     @patch("pyanaconda.modules.boss.installation.open")
-    @patch("pyanaconda.modules.boss.installation.os.chmod")
-    def test_nosave_logs_and_input_ks(self, chmod_mock, open_mock, conf_mock, mkdir_mock,
-                                      exec_wr_mock, glob_mock):
+    def test_nosave_logs_and_input_ks(self, open_mock, conf_mock, mkdir_mock, exec_wr_mock,
+                                      glob_mock):
         """Test nosave for both logs and kickstart"""
         glob_mock.return_value = []
         conf_mock.target.can_save_installation_logs = False
@@ -175,11 +159,11 @@ class CopyLogsTaskTest(unittest.TestCase):
         copy_file_mock.assert_not_called()
         copy_tree_mock.assert_not_called()
         open_mock.assert_not_called()
-        chmod_mock.assert_not_called()
 
     @patch("pyanaconda.modules.boss.installation.shutil.copyfile")
     @patch("pyanaconda.modules.boss.installation.os.path.exists")
-    def test_copy_file_to_sysroot(self, exists_mock, copyfile_mock):
+    @patch("pyanaconda.modules.boss.installation.os.chmod")
+    def test_copy_file_to_sysroot(self, chmod_mock, exists_mock, copyfile_mock):
         """Test _copy_file_to_sysroot"""
         task = CopyLogsTask("/somewhere")
 
@@ -187,7 +171,9 @@ class CopyLogsTaskTest(unittest.TestCase):
         task._copy_file_to_sysroot("/some/source", "/another/destination")
         exists_mock.assert_called_with("/some/source")
         copyfile_mock.assert_called_with("/some/source", "/somewhere/another/destination")
+        chmod_mock.assert_called_with("/somewhere/another/destination", 0o0600)
 
+        chmod_mock.reset_mock()
         exists_mock.reset_mock()
         copyfile_mock.reset_mock()
 
@@ -195,10 +181,12 @@ class CopyLogsTaskTest(unittest.TestCase):
         task._copy_file_to_sysroot("/more/data", "/there")
         exists_mock.assert_called_with("/more/data")
         copyfile_mock.assert_not_called()
+        chmod_mock.assert_not_called()
 
     @patch("pyanaconda.modules.boss.installation.shutil.copytree")
     @patch("pyanaconda.modules.boss.installation.os.path.exists")
-    def test_copy_tree_to_sysroot(self, exists_mock, copytree_mock):
+    @patch("pyanaconda.modules.boss.installation.os.chmod")
+    def test_copy_tree_to_sysroot(self, chmod_mock, exists_mock, copytree_mock):
         """Test _copy_tree_to_sysroot"""
         task = CopyLogsTask("/somewhere")
 
@@ -210,7 +198,9 @@ class CopyLogsTaskTest(unittest.TestCase):
             "/somewhere/another/destination/",
             dirs_exist_ok=True
         )
+        chmod_mock.assert_called_with("/somewhere/another/destination/", 0o0600)
 
+        chmod_mock.reset_mock()
         exists_mock.reset_mock()
         copytree_mock.reset_mock()
 
@@ -218,3 +208,4 @@ class CopyLogsTaskTest(unittest.TestCase):
         task._copy_tree_to_sysroot("/more/data", "/there")
         exists_mock.assert_called_with("/more/data")
         copytree_mock.assert_not_called()
+        chmod_mock.assert_not_called()

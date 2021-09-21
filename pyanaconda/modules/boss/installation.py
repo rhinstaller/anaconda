@@ -70,7 +70,6 @@ class CopyLogsTask(Task):
         self._copy_dnf_debugdata()
         self._copy_post_script_logs()
         self._dump_journal()
-        self._chmod_logs()
 
     def _create_logs_directory(self):
         """Create directory for Anaconda logs on the install target"""
@@ -128,14 +127,10 @@ class CopyLogsTask(Task):
 
     def _dump_journal(self):
         """Dump journal from the installation environment"""
-        with open(join_paths(self._sysroot, ANACONDA_LOG_DIR, "journal.log"), "w") as logfile:
+        tempfile = "/tmp/journal.log"
+        with open(tempfile, "w") as logfile:
             execWithRedirect("journalctl", ["-b"], stdout=logfile)
-
-    def _chmod_logs(self):
-        """Set access bits"""
-        items = glob.glob(join_paths(self._sysroot, ANACONDA_LOG_DIR, '*'))
-        for item in items:
-            os.chmod(item, 0x0600)
+        self._copy_file_to_sysroot(tempfile, join_paths(ANACONDA_LOG_DIR, "journal.log"))
 
     def _copy_kickstart(self):
         """Copy input kickstart file"""
@@ -145,7 +140,6 @@ class CopyLogsTask(Task):
                 "/run/install/ks.cfg",
                 "/root/original-ks.cfg"
             )
-            os.chmod(join_paths(self._sysroot, "/root/original-ks.cfg"), 0x0600)
         else:
             log.warning("Input kickstart will not be saved to the installed system due to the "
                         "nosave option.")
@@ -159,28 +153,32 @@ class CopyLogsTask(Task):
         execWithRedirect("restorecon", ["-ir", ANACONDA_LOG_DIR], root=self._sysroot)
 
     def _copy_file_to_sysroot(self, src, dest):
-        """Copy a file, if it exists.
+        """Copy a file, if it exists, and set its access bits.
 
         :param str src: path to source file
         :param str dest: path to destination file within sysroot
         """
         if os.path.exists(src):
             log.info("Copying file: %s -> %s", src, dest)
+            full_dest_path = join_paths(self._sysroot, dest)
             shutil.copyfile(
                 src,
-                join_paths(self._sysroot, dest)
+                full_dest_path
             )
+            os.chmod(full_dest_path, 0o0600)
 
     def _copy_tree_to_sysroot(self, src, dest):
-        """Copy a directory tree, if it exists.
+        """Copy a directory tree, if it exists, and set its access bits.
 
         :param str src: path to source directory
         :param str dest: path to destination directory within sysroot
         """
         if os.path.exists(src):
             log.info("Copying directory tree: %s -> %s", src, dest)
+            full_dest_path = join_paths(self._sysroot, dest)
             shutil.copytree(
                 src,
-                join_paths(self._sysroot, dest),
+                full_dest_path,
                 dirs_exist_ok=True
             )
+            os.chmod(full_dest_path, 0o0600)
