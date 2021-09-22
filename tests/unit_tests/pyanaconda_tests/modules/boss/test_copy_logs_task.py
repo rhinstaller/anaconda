@@ -93,12 +93,7 @@ class CopyLogsTaskTest(unittest.TestCase):
             "/root/original-ks.cfg"
         )
 
-        exec_wr_mock.assert_called_once_with(
-            "restorecon",
-            ["-ir", "/var/log/anaconda/"],
-            root="/somewhere"
-        )
-
+        exec_wr_mock.assert_not_called()
         mkdir_mock.assert_not_called()
         glob_mock.assert_not_called()
         copy_tree_mock.assert_not_called()
@@ -147,13 +142,7 @@ class CopyLogsTaskTest(unittest.TestCase):
             with patch.object(CopyLogsTask, "_copy_tree_to_sysroot") as copy_tree_mock:
                 task.run()
 
-        # contexts are always restored, but that's the only call this time
-        exec_wr_mock.assert_called_once_with(
-            "restorecon",
-            ["-ir", "/var/log/anaconda/"],
-            root="/somewhere"
-        )
-
+        exec_wr_mock.assert_not_called()
         mkdir_mock.assert_not_called()
         glob_mock.assert_not_called()
         copy_file_mock.assert_not_called()
@@ -209,3 +198,28 @@ class CopyLogsTaskTest(unittest.TestCase):
         exists_mock.assert_called_with("/more/data")
         copytree_mock.assert_not_called()
         chmod_mock.assert_not_called()
+
+    @patch("pyanaconda.modules.boss.installation.execWithRedirect")
+    @patch("pyanaconda.modules.boss.installation.log")
+    def test_relabel_log_files(self, log_mock, exec_wr_mock):
+        """Test _relabel_log_files"""
+        task = CopyLogsTask("/somewhere")
+
+        exec_wr_mock.return_value = 0
+        task._relabel_log_files()
+        exec_wr_mock.assert_called_with(
+            "restorecon",
+            ["-ir", "/var/log/anaconda/"],
+            root="/somewhere"
+        )
+        log_mock.error.assert_not_called()
+
+        exec_wr_mock.reset_mock()
+        log_mock.reset_mock()
+        log_mock.error.reset_mock()
+
+        exec_wr_mock.side_effect = FileNotFoundError("Testing missing executable")
+        task._relabel_log_files()
+        exec_wr_mock.assert_called()
+        assert "Testing missing executable" in str(log_mock.error.mock_calls)
+        # implied also: assert that the exception didn't escape
