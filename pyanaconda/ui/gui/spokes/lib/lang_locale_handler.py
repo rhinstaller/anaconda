@@ -25,7 +25,7 @@ screens handling languages or locales configuration.
 from abc import ABCMeta, abstractmethod
 
 from pyanaconda import localization
-from pyanaconda.core.util import strip_accents
+from pyanaconda.core.string import strip_accents
 from pyanaconda.ui.gui.utils import set_treeview_selection, timed_action, override_cell_property
 
 import gi

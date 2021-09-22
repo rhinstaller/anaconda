@@ -20,7 +20,7 @@ from blivet.errors import StorageError, InconsistentPVSectorSize
 from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
-from pyanaconda.core.util import lowerASCII
+from pyanaconda.core.string import lowerASCII
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest
 from pyanaconda.modules.common.task import Task

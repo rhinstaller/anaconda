@@ -19,7 +19,7 @@ from urllib.parse import quote, unquote
 
 from pyanaconda.core.i18n import _
 from pyanaconda.core.regexes import URL_PARSE
-from pyanaconda.core.util import ensure_str
+from pyanaconda.core.string import ensure_str
 
 
 def parse_nfs_url(nfs_url):

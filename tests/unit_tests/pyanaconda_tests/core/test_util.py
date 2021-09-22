@@ -40,24 +40,6 @@ from pyanaconda.core.configuration.anaconda import conf
 ANACONDA_TEST_DIR = '/tmp/anaconda_tests_dir'
 
 
-class UpcaseFirstLetterTests(unittest.TestCase):
-
-    def test_upcase_first_letter(self):
-        """Upcasing first letter should work as expected."""
-
-        # no change
-        assert util.upcase_first_letter("Czech RePuBliC") == "Czech RePuBliC"
-
-        # simple case
-        assert util.upcase_first_letter("czech") == "Czech"
-
-        # first letter only
-        assert util.upcase_first_letter("czech republic") == "Czech republic"
-
-        # no lowercase
-        assert util.upcase_first_letter("czech Republic") == "Czech Republic"
-
-
 class RunSystemctlTests(unittest.TestCase):
 
     def test_is_service_installed(self):
@@ -571,33 +553,6 @@ class MiscTests(unittest.TestCase):
         finally:
             util.vtActivate.__globals__['execWithRedirect'] = _execWithRedirect
 
-    def test_strip_accents(self):
-        """Test strip_accents."""
-
-        # empty string
-        assert util.strip_accents("") == ""
-
-        # some Czech accents
-        assert util.strip_accents("ěščřžýáíéúů") == "escrzyaieuu"
-        assert util.strip_accents("v češtině") == "v cestine"
-        assert util.strip_accents("měšťánek rozšíří HÁČKY") == "mestanek rozsiri HACKY"
-        assert util.strip_accents("nejneobhospodařovávatelnějšímu") == \
-            "nejneobhospodarovavatelnejsimu"
-
-        # some German umlauts
-        assert util.strip_accents("Lärmüberhörer") == "Larmuberhorer"
-        assert util.strip_accents("Heizölrückstoßabdämpfung") == \
-            "Heizolrucksto\xdfabdampfung"
-
-        # some Japanese
-        assert util.strip_accents("日本語") == "\u65e5\u672c\u8a9e"
-        assert util.strip_accents("アナコンダ") == "\u30a2\u30ca\u30b3\u30f3\u30bf" # Anaconda
-
-        # combined
-        input_string = "ASCI měšťánek アナコンダ Heizölrückstoßabdämpfung"
-        output_string = "ASCI mestanek \u30a2\u30ca\u30b3\u30f3\u30bf Heizolrucksto\xdfabdampfung"
-        assert util.strip_accents(input_string) == output_string
-
     def test_cmp_obj_attrs(self):
         """Test cmp_obj_attrs."""
 
@@ -638,70 +593,6 @@ class MiscTests(unittest.TestCase):
         assert not util.cmp_obj_attrs(a, b, ["b", "c"])
         assert not util.cmp_obj_attrs(b, a, ["b", "c"])
         assert not util.cmp_obj_attrs(b, a, ["c", "b"])
-
-    def test_to_ascii(self):
-        """Test _toASCII."""
-
-        # check some conversions
-        assert util._toASCII("") == ""
-        assert util._toASCII(" ") == " "
-        assert util._toASCII("&@`'łŁ!@#$%^&*{}[]$'<>*") == \
-            "&@`'!@#$%^&*{}[]$'<>*"
-        assert util._toASCII("ABC") == "ABC"
-        assert util._toASCII("aBC") == "aBC"
-        _out = "Heizolruckstoabdampfung"
-        assert util._toASCII("Heizölrückstoßabdämpfung") == _out
-
-    def test_upper_ascii(self):
-        """Test upperASCII."""
-
-        assert util.upperASCII("") == ""
-        assert util.upperASCII("a") == "A"
-        assert util.upperASCII("A") == "A"
-        assert util.upperASCII("aBc") == "ABC"
-        assert util.upperASCII("_&*'@#$%^aBcžčŘ") == \
-            "_&*'@#$%^ABCZCR"
-        _out = "HEIZOLRUCKSTOABDAMPFUNG"
-        assert util.upperASCII("Heizölrückstoßabdämpfung") == _out
-
-
-    def test_lower_ascii(self):
-        """Test lowerASCII."""
-        assert util.lowerASCII("") == ""
-        assert util.lowerASCII("A") == "a"
-        assert util.lowerASCII("a") == "a"
-        assert util.lowerASCII("aBc") == "abc"
-        assert util.lowerASCII("_&*'@#$%^aBcžčŘ") == \
-            "_&*'@#$%^abczcr"
-        _out = "heizolruckstoabdampfung"
-        assert util.lowerASCII("Heizölrückstoßabdämpfung") == _out
-
-    def test_have_word_match(self):
-        """Test have_word_match."""
-
-        assert util.have_word_match("word1 word2", "word1 word2 word3")
-        assert util.have_word_match("word1 word2", "word2 word1 word3")
-        assert util.have_word_match("word2 word1", "word3 word1 word2")
-        assert util.have_word_match("word1", "word1 word2")
-        assert util.have_word_match("word1 word2", "word2word1 word3")
-        assert util.have_word_match("word2 word1", "word3 word1word2")
-        assert util.have_word_match("word1", "word1word2")
-        assert util.have_word_match("", "word1")
-
-        assert not util.have_word_match("word3 word1", "word1")
-        assert not util.have_word_match("word1 word3", "word1 word2")
-        assert not util.have_word_match("word3 word2", "word1 word2")
-        assert not util.have_word_match("word1word2", "word1 word2 word3")
-        assert not util.have_word_match("word1", "")
-        assert not util.have_word_match("word1", None)
-        assert not util.have_word_match(None, "word1")
-        assert not util.have_word_match("", None)
-        assert not util.have_word_match(None, "")
-        assert not util.have_word_match(None, None)
-
-        # Compare designated unicode and "standard" unicode string and make sure nothing crashes
-        assert util.have_word_match("fête", "fête champêtre")
-        assert util.have_word_match("fête", "fête champêtre")
 
     def test_parent_dir(self):
         """Test the parent_dir function"""
@@ -832,16 +723,6 @@ class MiscTests(unittest.TestCase):
             "first/path/second/path"
         assert util.join_paths("first/path", "second/path") == \
             "first/path/second/path"
-
-    def test_decode_bytes(self):
-        assert "STRING" == util.decode_bytes("STRING")
-        assert "BYTES" == util.decode_bytes(b"BYTES")
-        with pytest.raises(ValueError):
-            util.decode_bytes(None)
-        with pytest.raises(ValueError):
-            util.decode_bytes(0)
-        with pytest.raises(ValueError):
-            util.decode_bytes([])
 
     @patch.dict('sys.modules')
     def test_get_anaconda_version_string(self):

@@ -37,13 +37,14 @@ import threading
 import gettext
 from collections import namedtuple
 
-from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import DEFAULT_KEYBOARD
+from pyanaconda.core.string import upcase_first_letter
 from pyanaconda.keyboard import join_layout_variant, parse_layout_variant, \
     KeyboardConfigError, InvalidLayoutVariantSpec, normalize_layout_variant
 from pyanaconda.core.async_utils import async_action_wait
 from pyanaconda import localization
+
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -249,7 +250,7 @@ class XklWrapper(object):
             lang = iso_(layout_info.lang)
             description = Xkb_(layout_info.desc)
         else:
-            lang = util.upcase_first_letter(layout_info.lang)
+            lang = upcase_first_letter(layout_info.lang)
             description = layout_info.desc
 
         if with_lang and lang and not description.startswith(lang):

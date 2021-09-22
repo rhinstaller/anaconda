@@ -19,7 +19,8 @@ import hashlib
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
-from pyanaconda.core.util import execWithRedirect, lowerASCII
+from pyanaconda.core.util import execWithRedirect
+from pyanaconda.core.string import lowerASCII
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 
