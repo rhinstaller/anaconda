@@ -133,7 +133,7 @@ class BossInterface(InterfaceTemplate):
     def FinishInstallationWithTasks(self) -> List[ObjPath]:
         """Finish installation with tasks.
 
-        :return: a list of tasks
+        :return: a list of D-Bus paths of tasks
         """
         tasks = self.implementation.finish_installation_with_tasks()
         return TaskContainer.to_object_path_list(tasks)
