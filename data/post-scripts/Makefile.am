@@ -16,5 +16,5 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 postscriptsdir = $(datadir)/$(PACKAGE_NAME)/post-scripts
-dist_postscripts_DATA = 80-setfilecons.ks
+dist_postscripts_DATA = 
 MAINTAINERCLEANFILES = Makefile.in

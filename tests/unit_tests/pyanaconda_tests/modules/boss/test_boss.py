@@ -24,7 +24,7 @@ from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.core.constants import DEFAULT_LANG
 from pyanaconda.modules.boss.boss import Boss
 from pyanaconda.modules.boss.boss_interface import BossInterface
-from pyanaconda.modules.boss.installation import CopyLogsTask
+from pyanaconda.modules.boss.installation import CopyLogsTask, SetContextsTask
 from pyanaconda.modules.boss.module_manager.start_modules import StartModulesTask
 from pyanaconda.modules.common.structures.requirement import Requirement
 
@@ -228,13 +228,18 @@ class BossInterfaceTestCase(unittest.TestCase):
     def test_install_with_tasks(self, publisher):
         """Test FinishInstallationWithTasks."""
         task_list = self.interface.FinishInstallationWithTasks()
+
+        assert len(task_list) == 2
+
         task_path = task_list[0]
-        task_proxy = check_task_creation(task_path, publisher, CopyLogsTask)
+        task_proxy = check_task_creation(task_path, publisher, SetContextsTask, 0)
+        task = task_proxy.implementation
+        assert task.name == "Set file contexts"
+
+        task_path = task_list[1]
+        task_proxy = check_task_creation(task_path, publisher, CopyLogsTask, 1)
         task = task_proxy.implementation
         assert task.name == "Copy installation logs"
-
-        tasks = self.module.finish_installation_with_tasks()
-        assert tasks[0].name == "Copy installation logs"
 
     def test_quit(self):
         """Test Quit."""

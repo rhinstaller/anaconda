@@ -23,7 +23,7 @@ from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.boss.boss_interface import BossInterface
 from pyanaconda.modules.boss.module_manager import ModuleManager
 from pyanaconda.modules.boss.install_manager import InstallManager
-from pyanaconda.modules.boss.installation import CopyLogsTask
+from pyanaconda.modules.boss.installation import CopyLogsTask, SetContextsTask
 from pyanaconda.modules.boss.kickstart_manager import KickstartManager
 from pyanaconda.modules.boss.user_interface import UIModule
 from pyanaconda.modules.common.base import Service
@@ -150,5 +150,6 @@ class Boss(Service):
         :return: a list of installation tasks
         """
         return [
+            SetContextsTask(conf.target.system_root),
             CopyLogsTask(conf.target.system_root)
         ]
