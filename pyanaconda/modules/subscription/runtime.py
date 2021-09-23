@@ -44,6 +44,7 @@ from pyanaconda.modules.subscription.constants import RHSM_SERVICE_NAME, \
     SERVER_HOSTNAME_NOT_SATELLITE_PREFIX
 from pyanaconda.modules.subscription.subscription_interface import \
     RetrieveOrganizationsTaskInterface
+from pyanaconda.modules.subscription.utils import flatten_rhsm_nested_dict
 from pyanaconda.anaconda_loggers import get_module_logger
 
 import gi
@@ -754,7 +755,7 @@ class RollBackSatelliteProvisioningTask(Task):
         return "Restore RHSM configuration after Satellite provisioning"
 
     def run(self):
-        "Restore the full RHSM configuration back to clean values."""
+        """Restore the full RHSM configuration back to clean values."""
         # the SetAll() RHSM DBus API requires a dict of variants
         config_dict = {}
         for key, value in self._rhsm_configuration.items():
@@ -801,6 +802,7 @@ class RegisterAndSubscribeTask(Task):
         self._rhsm_observer = rhsm_observer
         self._subscription_request = subscription_request
         self._system_purpose_data = system_purpose_data
+        self._rhsm_configuration = {}
         # callback for nested tasks
         self._registered_callback = registered_callback
         self._registered_to_satellite_callback = registered_to_satellite_callback
@@ -883,7 +885,16 @@ class RegisterAndSubscribeTask(Task):
         backup_task = BackupRHSMConfBeforeSatelliteProvisioningTask(
             rhsm_config_proxy=rhsm_config_proxy
         )
-        self._config_backup_callback(backup_task.run())
+        # Run the task and flatten the returned configuration
+        # (so that it can be fed to SetAll()) now, so we don't have to do that later.
+        flat_rhsm_configuration = {}
+        nested_rhsm_configuration = backup_task.run()
+        if nested_rhsm_configuration:
+            flat_rhsm_configuration = flatten_rhsm_nested_dict(nested_rhsm_configuration)
+        self._config_backup_callback(flat_rhsm_configuration)
+        # also store a copy in this task, in case we encounter an error and need to roll-back
+        # when this task is still running
+        self._rhsm_configuration = flat_rhsm_configuration
 
         # now run the Satellite provisioning script we just downloaded, so that the installation
         # environment can talk to the Satellite instance the user has specified via custom
@@ -909,9 +920,19 @@ class RegisterAndSubscribeTask(Task):
             # which is an unrecoverable error, so we end there.
             raise e
 
+    def _roll_back_satellite_provisioning(self):
+        """Something failed after we did Satellite provisioning - roll it back."""
+        log.debug("registration attempt: rolling back Satellite provisioning")
+        rollback_task = RollBackSatelliteProvisioningTask(
+            rhsm_config_proxy=self._rhsm_observer.get_proxy(RHSM_CONFIG),
+            rhsm_configuration=self._rhsm_configuration
+        )
+        rollback_task.run()
+        log.debug("registration attempt: Satellite provisioning rolled back")
+
     def run(self):
         """Try to register and subscribe the installation environment."""
-
+        provisioned_for_satellite = False
         # check authentication method has been set and credentials seem to be
         # sufficient (though not necessarily valid)
         register_task = None
@@ -950,6 +971,7 @@ class RegisterAndSubscribeTask(Task):
                 # environment for Satellite
                 log.debug("registration attempt: provisioning system for Satellite")
                 self._provision_system_for_satellite()
+                provisioned_for_satellite = True
                 # if we got there without an exception being raised, it was a success!
                 log.debug("registration attempt: system provisioned for Satellite")
 
@@ -959,12 +981,16 @@ class RegisterAndSubscribeTask(Task):
             except (RegistrationError, MultipleOrganizationsError) as e:
                 log.debug("registration attempt: registration attempt failed: %s", e)
                 log.debug("registration attempt: skipping auto attach due to registration error")
+                if provisioned_for_satellite:
+                    self._roll_back_satellite_provisioning()
                 raise e
             log.debug("registration attempt: registration succeeded")
         else:
             log.debug(
                 "registration attempt: credentials insufficient, skipping registration attempt"
             )
+            if provisioned_for_satellite:
+                self._roll_back_satellite_provisioning()
             raise RegistrationError(_("Registration failed due to insufficient credentials."))
 
         # try to attach subscription
@@ -975,7 +1001,14 @@ class RegisterAndSubscribeTask(Task):
             rhsm_attach_proxy=rhsm_attach_proxy,
             sla=sla
         )
-        subscription_task.run()
+        try:
+            subscription_task.run()
+        except SubscriptionError as e:
+            # also roll back Satellite provisioning if registration was successfull
+            # but auto-attach failed
+            if provisioned_for_satellite:
+                self._roll_back_satellite_provisioning()
+            raise e
         # if we got this far without an exception then subscriptions have been attached
         self._subscription_attached_callback(True)
 

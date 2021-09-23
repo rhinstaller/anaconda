@@ -50,6 +50,7 @@ from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
     RegisterAndSubscribeTask, UnregisterTask, SystemPurposeConfigurationTask, \
     RetrieveOrganizationsTask
 from pyanaconda.modules.subscription.rhsm_observer import RHSMObserver
+from pyanaconda.modules.subscription.utils import flatten_rhsm_nested_dict
 
 
 from pykickstart.errors import KickstartParseWarning
@@ -102,7 +103,7 @@ class SubscriptionService(KickstartService):
         self._satellite_provisioning_script = None
         self.registered_to_satellite_changed = Signal()
         self._registered_to_satellite = False
-        self._rhsm_conf_before_satellite_provisioning = None
+        self._rhsm_conf_before_satellite_provisioning = {}
 
         # registration status
         self.registered_changed = Signal()
@@ -587,26 +588,6 @@ class SubscriptionService(KickstartService):
         """
         return self._rhsm_observer
 
-    def _flatten_rhsm_nested_dict(self, nested_dict):
-        """Convert the GetAll() returned nested dict into a flat one.
-
-        RHSM returns a nested dict with categories on top
-        and category keys & values inside. This is not convenient
-        for setting keys based on original values, so
-        let's normalize the dict to the flat key based
-        structure similar to what's used by SetAll().
-
-        :param dict nested_dict: the nested dict returned by GetAll()
-        :return: flat key/value dictionary, similar to format used by SetAll()
-        :rtype: dict
-        """
-        flat_dict = {}
-        for category_key, category_dict in nested_dict.items():
-            for key, value in category_dict.items():
-                flat_key = "{}.{}".format(category_key, key)
-                flat_dict[flat_key] = value
-        return flat_dict
-
     def get_rhsm_config_defaults(self):
         """Return RHSM config default values.
 
@@ -636,7 +617,7 @@ class SubscriptionService(KickstartService):
             # turn the variant into a dict with get_native()
             nested_dict = get_native(proxy.GetAll(""))
             # flatten the nested dict
-            flat_dict = self._flatten_rhsm_nested_dict(nested_dict)
+            flat_dict = flatten_rhsm_nested_dict(nested_dict)
             self._rhsm_config_defaults = flat_dict
         return self._rhsm_config_defaults
 
@@ -659,16 +640,11 @@ class SubscriptionService(KickstartService):
 
         :return: a DBus path of an installation task
         """
-        # if we have a configuration backup, flatten the clean RHSM config so that the task
-        # can feed it to SetAll()
-        flat_rhsm_configuration = {}
-        if self._rhsm_conf_before_satellite_provisioning:
-            flat_rhsm_configuration = self._flatten_rhsm_nested_dict(
-                self._rhsm_conf_before_satellite_provisioning
-            )
+        # the configuration backup is already flattened by the task that fetched it,
+        # we can directly feed it to SetAll()
         task = UnregisterTask(rhsm_observer=self.rhsm_observer,
                               registered_to_satellite=self.registered_to_satellite,
-                              rhsm_configuration=flat_rhsm_configuration)
+                              rhsm_configuration=self._rhsm_conf_before_satellite_provisioning)
         # apply state changes on success
         task.succeeded_signal.connect(self._system_unregistered_callback)
         return task

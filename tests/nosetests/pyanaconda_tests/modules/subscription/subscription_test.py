@@ -1113,10 +1113,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         self.subscription_module._set_satellite_provisioning_script("foo script")
         self.subscription_module.set_registered_to_satellite(True)
         # simulate RHSM config backup
-        self.subscription_module._rhsm_conf_before_satellite_provisioning = {
-            "foo":
-                {"bar": "baz"}
-        }
+        self.subscription_module._rhsm_conf_before_satellite_provisioning = {"foo.bar": "baz"}
         # make sure the task gets dummy rhsm unregister proxy
         rhsm_observer = Mock()
         self.subscription_module._rhsm_observer = rhsm_observer
