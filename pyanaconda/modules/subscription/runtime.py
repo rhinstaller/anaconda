@@ -1076,24 +1076,18 @@ class RetrieveOrganizationsTask(Task):
                 # return the DBus structure list
                 return org_data
             except DBusError as e:
-                # Some errors returned by the RHSM DBus API are not strictly fatal,
-                # such as when for example if the user has input invalid credentials.
-                # These errors should be handled and result in the error being logged
-                # and empty list being returned.
-                #
-                # NOTE: Due to limited options of attaching anything else than
-                # a simple string to DBus exceptions RHSM puts a JSON with exception
-                # metadata to the error message string.
-                error_json = json.loads(str(e))
-                exception_name = error_json.get("exception", "")
-                if exception_name == "UnauthorizedException":
-                    log.debug(
-                            "subscription: failed to get organization data - authorization error"
-                    )
-                    return []
-                else:
-                    log.debug("subscription: failed to get organization data: %s", str(e))
-                    raise e
+                # Errors returned by the RHSM DBus API for this call are unfortunatelly
+                # quite ambiguous (especially if Hosted Candlepin is used) and we can't
+                # really decide which are fatal and which are not.
+                # So just log the full error JSON from the message field of the returned
+                # DBus exception and return empty organization list.
+                # If there really is something wrong with the credentials or RHSM
+                # configuration it will prevent the next stage - registration - from
+                # working anyway.
+                log.debug("subscription: failed to get organization data")
+                # log the raw exception JSON payload for debugging purposes
+                log.debug(str(e))
+                return []
 
     def for_publication(self):
         """Return a DBus representation."""
