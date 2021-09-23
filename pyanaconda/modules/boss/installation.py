@@ -53,7 +53,6 @@ class CopyLogsTask(Task):
         """
         self._copy_logs()
         self._copy_kickstart()
-        self._relabel_files()
 
     def _copy_logs(self):
         """Copy installation logs to the target system"""
@@ -70,6 +69,7 @@ class CopyLogsTask(Task):
         self._copy_dnf_debugdata()
         self._copy_post_script_logs()
         self._dump_journal()
+        self._relabel_log_files()
 
     def _create_logs_directory(self):
         """Create directory for Anaconda logs on the install target"""
@@ -144,13 +144,17 @@ class CopyLogsTask(Task):
             log.warning("Input kickstart will not be saved to the installed system due to the "
                         "nosave option.")
 
-    def _relabel_files(self):
+    def _relabel_log_files(self):
         """Relabel the anaconda logs.
 
         The files we've just copied could be incorrectly labeled, like hawkey.log:
         https://bugzilla.redhat.com/show_bug.cgi?id=1885772
         """
-        execWithRedirect("restorecon", ["-ir", ANACONDA_LOG_DIR], root=self._sysroot)
+        try:
+            execWithRedirect("restorecon", ["-ir", ANACONDA_LOG_DIR], root=self._sysroot)
+        except FileNotFoundError as e:
+            log.error("Log file contexts were not restored because restorecon was not installed: "
+                      "%s", e)
 
     def _copy_file_to_sysroot(self, src, dest):
         """Copy a file, if it exists, and set its access bits.
