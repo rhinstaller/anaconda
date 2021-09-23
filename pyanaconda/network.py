@@ -192,11 +192,11 @@ def hostname_from_cmdline(kernel_args):
                 # [fd00:10:100::84:5]::[fd00:10:100::86:49]:80:myhostname:ens9:none
                 ipopt = IPV6_ADDRESS_IN_DRACUT_IP_OPTION.sub('', ipopt)
             elements = ipopt.split(':')
-            # Hostname can be defined only in option having more than 6 elements.
+            # Hostname can be defined only in option having more than 5 elements.
             # But filter out auto ip= with mac address set by MAC_OCTET matching, eg:
             # ip=<interface>:dhcp::52:54:00:12:34:56
             # where the 4th element is not hostname.
-            if len(elements) > 6 and not re.match(MAC_OCTET, elements[6]):
+            if len(elements) > 5 and not re.match(MAC_OCTET, elements[5]):
                 hostname = ipopt.split(':')[4]
     return hostname
 

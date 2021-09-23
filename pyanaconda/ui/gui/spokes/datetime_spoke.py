@@ -769,15 +769,18 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             # Etc timezones cannot be displayed on the map, so let's reset the
             # location and manually set a highlight with no location pin.
             self._tzmap.clear_location()
-            if city in ("GMT", "UTC"):
+            # Some time zones are just the same default.
+            if city in ("GMT", "UTC", "UCT", "Greenwich", "Universal", "Zulu"):
                 offset = 0.0
-            # The tzdb data uses POSIX-style signs for the GMT zones, which is
-            # the opposite of whatever everyone else expects. GMT+4 indicates a
-            # zone four hours west of Greenwich; i.e., four hours before. Reverse
-            # the sign to match the libtimezone map.
-            else:
+            elif "GMT" in city:
                 # Take the part after "GMT"
                 offset = -float(city[3:])
+                # The tzdb data uses POSIX-style signs for the GMT zones, which is
+                # the opposite of whatever everyone else expects. GMT+4 indicates a
+                # zone four hours west of Greenwich; i.e., four hours before. Reverse
+                # the sign to match the libtimezone map.
+            else:
+                log.warning("Unknown time zone selected in GUI: Etc/%s", city)
 
             self._tzmap.set_selected_offset(offset)
             time.tzset()

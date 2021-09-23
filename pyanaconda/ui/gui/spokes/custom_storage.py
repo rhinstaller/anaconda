@@ -32,7 +32,7 @@ from dasbus.structure import compare_data
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, \
-    SIZE_UNITS_DEFAULT, PARTITIONING_METHOD_INTERACTIVE
+    PARTITIONING_METHOD_INTERACTIVE
 from pyanaconda.core.i18n import _, N_, CP_, C_
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, DISK_SELECTION
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -1552,11 +1552,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         if not self._sizeEntry.get_sensitive():
             return
 
-        size = get_size_from_entry(
-            self._sizeEntry,
-            lower_bound=self.MIN_SIZE_ENTRY,
-            units=SIZE_UNITS_DEFAULT
-        )
+        size = get_size_from_entry(self._sizeEntry)
 
         # Show warning if the size string is invalid. Field self._error is used as a "flag" that
         # the last error was the same. This is done because this warning can fire on every change,
