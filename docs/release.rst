@@ -9,6 +9,7 @@ In that case just ignore all section that require you to be an Anaconda maintain
 0. prerequisites
 
 - you need an up to date anaconda source code checkout
+- if there is an active Fedora devel branch, merge it with ``git merge --no-ff f<version>-devel``
 - it is recommended to make the release on a fresh clone (prevent you from pushing local work into the upstream repository)
 - you need to have commit access to the anaconda repository (so that you can push release commits)
 - you need to have write access to the https://github.com/rhinstaller/anaconda-l10n localization repository
@@ -69,14 +70,14 @@ environment way see mock path below.
 
     rpmbuild -bs --nodeps anaconda.spec
 
-9. if you don't have it yet checkout Anaconda from Fedora distgit, switch to the master branch & make sure it's up to date
+9. if you don't have it yet checkout Anaconda from Fedora distgit, switch to the rawhide branch & make sure it's up to date
 
 ::
 
     cd <some folder>
     fedpkg clone anaconda
     cd anaconda
-    fedpkg switch-branch master
+    fedpkg switch-branch rawhide
     git pull
 
 10. switch to Fedora distgit folder and import the SRPM
@@ -105,13 +106,7 @@ environment way see mock path below.
 
     fedpkg build
 
-14. push new translations
-
-::
-
-    make po-push
-
-15. check repository on path returned by the above command and push if it's correct
+14. check repository on path returned by the above command and push if it's correct
 
 
 Upcoming Fedora release & package build
