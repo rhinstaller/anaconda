@@ -407,6 +407,24 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Sep 23 2021 Martin Kolman <mkolman@redhat.com> - 36.4-1
+- Do not crash if restorecon is missing on target system (vslavik)
+- Move chmod into file copying function in CopyLogsTask (vslavik)
+- Clarify that the software selection doesn't affect the Anaconda configuration
+  (vponcova)
+- Set an upper bound to entered sizes (#1992585) (vponcova)
+- Revert "Install kbd-legacy if keyboard layout is "fi" (#1955793)" (vponcova)
+- Use octal permissions instead of hexadecimal (vslavik)
+- Handle new time zones in GUI after earlier switch to zoneinfo (vslavik)
+- Do not stretch NTP toggle in GUI (vslavik)
+- Add AlmaLinux profile (andrew.lukoshko)
+- The NTP server dialog without entries shouldn't crash (#2001591) (vponcova)
+- Set hostname also from ip= static configuration without device (#1988521)
+  (rvykydal)
+- Add Silverblue specific logos to profile. (jaberan)
+- data/profile.d: Add profiles for KDE & Kinoite Spins (tim)
+- Fix Removed options inst.[product|variant] were subsections (jkonecny)
+
 * Thu Sep 16 2021 Martin Kolman <mkolman@redhat.com> - 36.3-1
 - Fix boolean comparisons in asserts (vslavik)
 - Stop using distutils to compare kernel versions (vslavik)
