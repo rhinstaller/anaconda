@@ -24,6 +24,7 @@ from pyanaconda.core.string import strip_accents, upcase_first_letter, _toASCII,
 
 
 class UpcaseFirstLetterTests(unittest.TestCase):
+    """Tests for upcase_first_letter."""
 
     def test_upcase_first_letter(self):
         """Upcasing first letter should work as expected."""
@@ -40,40 +41,51 @@ class UpcaseFirstLetterTests(unittest.TestCase):
         # no lowercase
         assert upcase_first_letter("czech Republic") == "Czech Republic"
 
-
-class MiscTests(unittest.TestCase):
-
-    def test_strip_accents(self):
-        """Test strip_accents."""
+        # just one letter
+        assert upcase_first_letter("q") == "Q"
 
         # empty string
+        assert upcase_first_letter("") == ""
+
+
+class StripAccentsTests(unittest.TestCase):
+    """Tests for strip_accents."""
+
+    def test_strip_accents_empty(self):
+        """Test strip_accents - empty string."""
         assert strip_accents("") == ""
 
-        # some Czech accents
+    def test_strip_accents_czech(self):
+        """Test strip_accents - Czech accents."""
         assert strip_accents("ěščřžýáíéúů") == "escrzyaieuu"
         assert strip_accents("v češtině") == "v cestine"
         assert strip_accents("měšťánek rozšíří HÁČKY") == "mestanek rozsiri HACKY"
         assert strip_accents("nejneobhospodařovávatelnějšímu") == \
             "nejneobhospodarovavatelnejsimu"
 
-        # some German umlauts
+    def test_strip_accents_german(self):
+        """Test strip_accents - German umlauts."""
         assert strip_accents("Lärmüberhörer") == "Larmuberhorer"
         assert strip_accents("Heizölrückstoßabdämpfung") == \
             "Heizolrucksto\xdfabdampfung"
 
-        # some Japanese
+    def test_strip_accents_japanese(self):
+        """Test strip_accents - Japanese."""
         assert strip_accents("日本語") == "\u65e5\u672c\u8a9e"
         assert strip_accents("アナコンダ") == "\u30a2\u30ca\u30b3\u30f3\u30bf"  # Anaconda
 
-        # combined
+    def test_strip_accents_combined(self):
+        """Test strip_accents - combined."""
         input_string = "ASCI měšťánek アナコンダ Heizölrückstoßabdämpfung"
         output_string = "ASCI mestanek \u30a2\u30ca\u30b3\u30f3\u30bf Heizolrucksto\xdfabdampfung"
         assert strip_accents(input_string) == output_string
 
-    def test_to_ascii(self):
-        """Test _toASCII."""
 
-        # check some conversions
+class AsciiConversionTests(unittest.TestCase):
+    """Tests for the group of ASCII conversion functions."""
+
+    def test_to_ascii_str(self):
+        """Test _toASCII str conversions."""
         assert _toASCII("") == ""
         assert _toASCII(" ") == " "
         assert _toASCII("&@`'łŁ!@#$%^&*{}[]$'<>*") == \
@@ -83,9 +95,20 @@ class MiscTests(unittest.TestCase):
         _out = "Heizolruckstoabdampfung"
         assert _toASCII("Heizölrückstoßabdämpfung") == _out
 
+    def test_to_ascii_bytes(self):
+        """Test _toASCII bytes handling."""
+        in_bytes = b"bytes"
+        output = _toASCII(in_bytes)
+        assert in_bytes == output
+        assert id(in_bytes) == id(output)
+
+    def test_to_ascii_other(self):
+        """Test _toASCII handling of other types."""
+        assert _toASCII(None) == ""
+        assert _toASCII(132456) == ""
+
     def test_upper_ascii(self):
         """Test upperASCII."""
-
         assert upperASCII("") == ""
         assert upperASCII("a") == "A"
         assert upperASCII("A") == "A"
@@ -106,9 +129,12 @@ class MiscTests(unittest.TestCase):
         _out = "heizolruckstoabdampfung"
         assert lowerASCII("Heizölrückstoßabdämpfung") == _out
 
-    def test_have_word_match(self):
-        """Test have_word_match."""
 
+class HaveWordMatchTests(unittest.TestCase):
+    """Tests for have_word_match"""
+
+    def test_have_word_match_positive(self):
+        """Test have_word_match positive results."""
         assert have_word_match("word1 word2", "word1 word2 word3")
         assert have_word_match("word1 word2", "word2 word1 word3")
         assert have_word_match("word2 word1", "word3 word1 word2")
@@ -118,6 +144,8 @@ class MiscTests(unittest.TestCase):
         assert have_word_match("word1", "word1word2")
         assert have_word_match("", "word1")
 
+    def test_have_word_match_negative(self):
+        """Test have_word_match negative results."""
         assert not have_word_match("word3 word1", "word1")
         assert not have_word_match("word1 word3", "word1 word2")
         assert not have_word_match("word3 word2", "word1 word2")
@@ -129,11 +157,20 @@ class MiscTests(unittest.TestCase):
         assert not have_word_match(None, "")
         assert not have_word_match(None, None)
 
-        # Compare designated unicode and "standard" unicode string and make sure nothing crashes
+    def test_have_word_match_unicode(self):
+        """Test have_word_match with unicode.
+
+        Compare designated unicode and "standard" unicode string and make sure nothing crashes.
+        """
         assert have_word_match("fête", "fête champêtre")
         assert have_word_match("fête", "fête champêtre")
 
+
+class MiscTests(unittest.TestCase):
+    """Misc. tests for other string functions."""
+
     def test_decode_bytes(self):
+        """Test decode_bytes."""
         assert "STRING" == decode_bytes("STRING")
         assert "BYTES" == decode_bytes(b"BYTES")
         with pytest.raises(ValueError):

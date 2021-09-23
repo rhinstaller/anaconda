@@ -22,15 +22,12 @@ import unicodedata
 
 
 def strip_accents(s):
-    """This function takes arbitrary unicode string
-    and returns it with all the diacritics removed.
+    """Remove diacritics from a string.
 
-    :param s: arbitrary string
-    :type s: str
+    This function takes arbitrary unicode string and returns it with all the diacritics removed.
 
-    :return: s with diacritics removed
-    :rtype: str
-
+    :param str s: arbitrary string
+    :return str: s with diacritics removed
     """
     return ''.join(c for c in unicodedata.normalize('NFD', s)
                    if unicodedata.category(c) != 'Mn')
@@ -69,7 +66,11 @@ _ASCIIupper_table = str.maketrans(string.ascii_lowercase, string.ascii_uppercase
 
 
 def _toASCII(s):
-    """Convert a unicode string to ASCII"""
+    """Convert a unicode string to ASCII
+
+    :param str s: input string
+    :return str: string with only ASCII characters
+    """
     if isinstance(s, str):
         # Decompose the string using the NFK decomposition, which in addition
         # to the canonical decomposition replaces characters based on
@@ -87,11 +88,10 @@ def upperASCII(s):
 
     The returned string will contain only ASCII characters. This function is
     locale-independent.
-    """
 
-    # XXX: Python 3 has str.maketrans() and bytes.maketrans() so we should
-    # ideally use one or the other depending on the type of 's'. But it turns
-    # out we expect this function to always return string even if given bytes.
+    :param str s: input string
+    :return str: ascii-only uppercased value of s
+    """
     s = ensure_str(s)
     return str.translate(_toASCII(s), _ASCIIupper_table)
 
@@ -101,17 +101,17 @@ def lowerASCII(s):
 
     The returned string will contain only ASCII characters. This function is
     locale-independent.
-    """
 
-    # XXX: Python 3 has str.maketrans() and bytes.maketrans() so we should
-    # ideally use one or the other depending on the type of 's'. But it turns
-    # out we expect this function to always return string even if given bytes.
+    :param str s: input string
+    :return str: ascii-only lowercased value of s
+    """
     s = ensure_str(s)
     return str.translate(_toASCII(s), _ASCIIlower_table)
 
 
 def upcase_first_letter(text):
-    """
+    """Upcase first letter of a string.
+
     Helper function that upcases the first letter of the string. Python's
     standard string.capitalize() not only upcases the first letter but also
     lowercases all the others. string.title() capitalizes all words in the
@@ -119,10 +119,8 @@ def upcase_first_letter(text):
 
     Note: Never use on translated strings!
 
-    :type text: str
-    :return: the given text with the first letter upcased
-    :rtype: str
-
+    :param str text: text to upcase
+    :return str: the given text with the first letter upcased
     """
 
     if not text:
@@ -135,7 +133,12 @@ def upcase_first_letter(text):
 
 
 def have_word_match(str1, str2):
-    """Tells if all words from str1 exist in str2 or not."""
+    """Tells if all words from str1 exist in str2 or not.
+
+    :param str str1: list of words to look for
+    :param str str2: list of words to search in
+    :return bool: does str2 contain all the words from str1
+    """
 
     if str1 is None or str2 is None:
         # None never matches
@@ -144,7 +147,8 @@ def have_word_match(str1, str2):
     if str1 == "":
         # empty string matches everything except from None
         return True
-    elif str2 == "":
+
+    if str2 == "":
         # non-empty string cannot be found in an empty string
         return False
 
