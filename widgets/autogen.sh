@@ -1,11 +1,6 @@
 #!/bin/bash -e
-[ -d m4 ] || mkdir m4
-libtoolize --copy --force
-aclocal -I m4
-autoconf
-autoheader --force
-automake --foreign --add-missing --copy
-rm -rf autom4te.cache
+
+autoreconf -vfi
 
 # Remove the old symlink if present
 if [ -h src/gettext.h ] ; then rm src/gettext.h ; fi
