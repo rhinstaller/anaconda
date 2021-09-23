@@ -16,6 +16,8 @@
 CLEANFILES = *~
 
 configdir           = $(sysconfdir)/$(PACKAGE_NAME)/conf.d
-dist_config_DATA    = *.conf
+dist_config_DATA = \
+	00-do-nothing.conf \
+	01-still-do-nothing.conf
 
 MAINTAINERCLEANFILES = Makefile.in
