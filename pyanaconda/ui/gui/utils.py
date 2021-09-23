@@ -272,7 +272,7 @@ def busyCursor():
     if not window:
         return
 
-    window.set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
+    window.set_cursor(Gdk.Cursor.new_for_display(Gdk.Display.get_default(), Gdk.CursorType.WATCH))
 
 
 def unbusyCursor():
@@ -280,7 +280,7 @@ def unbusyCursor():
     if not window:
         return
 
-    window.set_cursor(Gdk.Cursor(Gdk.CursorType.ARROW))
+    window.set_cursor(Gdk.Cursor.new_for_display(Gdk.Display.get_default(), Gdk.CursorType.ARROW))
 
 
 def ignoreEscape(dlg):
