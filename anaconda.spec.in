@@ -407,6 +407,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Sep 23 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.17-1
+- Verify the OPAL compatibility with XFS features (vponcova)
+  Resolves: rhbz#1997832
+- Generate LVM device file after installation (vslavik)
+  Resolves: rhbz#2002550
+
 * Wed Sep 15 2021 Martin Kolman <mkolman@redhat.com> - 34.25.0.16-1
 - Support multi-org accounts in the GUI (mkolman)
   Resolves: rhbz#1965105
