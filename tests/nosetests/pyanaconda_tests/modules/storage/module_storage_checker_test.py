@@ -18,15 +18,22 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-from unittest.mock import patch, Mock
+from functools import partial
+from unittest.mock import patch, Mock, mock_open, PropertyMock
 
+from blivet.devices import StorageDevice
+from blivet.formats import get_format
+from blivet.formats.fs import XFS
 from blivet.size import Size
 from dasbus.typing import get_variant, Int
 from pyanaconda.core.constants import STORAGE_MIN_RAM, STORAGE_LUKS2_MIN_RAM
 from pyanaconda.modules.common.errors.general import UnsupportedValueError
 from pyanaconda.modules.storage.checker import StorageCheckerModule
 from pyanaconda.modules.storage.checker.checker_interface import StorageCheckerInterface
-from pyanaconda.modules.storage.checker.utils import storage_checker, verify_lvm_destruction
+from pyanaconda.modules.storage.checker.utils import storage_checker, verify_lvm_destruction, \
+    verify_opal_compatibility, _get_opal_firmware_kernel_version, \
+    _check_opal_firmware_kernel_version
+from pyanaconda.modules.storage.devicetree import create_storage
 
 
 class StorageCheckerInterfaceTestCase(unittest.TestCase):
@@ -107,4 +114,118 @@ class StorageCheckerVerificationTestCase(unittest.TestCase):
             "Selected disks {} contain volume group '{}' that also uses further unselected disks. "
             "You must select or de-select all these disks as a set."
             .format("PHYSDISK-2", "VOLGROUP-B")
+        )
+
+    def get_opal_kernel_version_test(self):
+        """Test the function for getting the firmware kernel version."""
+        patch_open = partial(patch, 'pyanaconda.modules.storage.checker.utils.open')
+
+        with patch_open() as m:
+            m.side_effect = OSError("Error!")
+            self.assertEqual(_get_opal_firmware_kernel_version(), None)
+
+        with patch_open(mock_open(read_data=" 5.10.50\n")):
+            self.assertEqual(_get_opal_firmware_kernel_version(), "5.10.50")
+
+        with patch_open(mock_open(read_data="5.10.50-openpower1-p59fd803")):
+            self.assertEqual(_get_opal_firmware_kernel_version(), "5.10.50-openpower1-p59fd803")
+
+        with patch_open(mock_open(read_data="v4.15.9-openpower1-p9e03417")):
+            self.assertEqual(_get_opal_firmware_kernel_version(), "4.15.9-openpower1-p9e03417")
+
+    def check_opal_firmware_kernel_version_test(self):
+        """Test the function for checking the firmware kernel version."""
+        check = partial(_check_opal_firmware_kernel_version)
+
+        self.assertFalse(check(None, None))
+        self.assertFalse(check("", ""))
+        self.assertFalse(check("5.09", "5.10"))
+        self.assertFalse(check("5.9.1", "5.10"))
+        self.assertFalse(check("5.9.50-openpower1-p59fd803", "5.10"))
+        self.assertFalse(check("5.8", "5.10"))
+        self.assertFalse(check("4.0-openpower1-p59fd803", "5.10"))
+
+        self.assertTrue(check("5.10", "5.10"))
+        self.assertTrue(check("5.10.1", "5.10"))
+        self.assertTrue(check("5.10.50-openpower1-p59fd803", "5.10"))
+        self.assertTrue(check("5.11", "5.10"))
+        self.assertTrue(check("6.0-openpower1-p59fd803", "5.10"))
+
+    @patch("pyanaconda.modules.storage.checker.utils.arch")
+    def opal_verification_arch_test(self, mocked_arch):
+        """Check verify_opal_compatibility with a different arch."""
+        reporter = Mock()
+        mocked_arch.get_arch.return_value = "x86_64"
+
+        verify_opal_compatibility(None, {}, None, reporter)
+        reporter.assert_not_called()
+
+    @patch("pyanaconda.modules.storage.checker.utils.arch")
+    def opal_verification_platform_test(self, mocked_arch):
+        """Check verify_opal_compatibility with a different platform."""
+        reporter = Mock()
+        mocked_arch.get_arch.return_value = "ppc64le"
+        mocked_arch.is_powernv.return_value = False
+
+        verify_opal_compatibility(None, {}, None, reporter)
+        reporter.assert_not_called()
+
+    @patch("pyanaconda.modules.storage.checker.utils._get_opal_firmware_kernel_version")
+    @patch("pyanaconda.modules.storage.checker.utils.arch")
+    def opal_verification_new_firmware_test(self, mocked_arch, version_getter):
+        """Check verify_opal_compatibility with a newer firmware."""
+        reporter = Mock()
+        mocked_arch.get_arch.return_value = "ppc64le"
+        mocked_arch.is_powernv.return_value = True
+        version_getter.return_value = "5.10.50-openpower1-p59fd803"
+
+        verify_opal_compatibility(None, {}, None, reporter)
+        reporter.assert_not_called()
+
+    @patch.object(XFS, "mountable", new_callable=PropertyMock)
+    @patch("pyanaconda.modules.storage.checker.utils._get_opal_firmware_kernel_version")
+    @patch("pyanaconda.modules.storage.checker.utils.arch")
+    def opal_verification_old_firmware_test(self, mocked_arch, version_getter, xfs_mountable):
+        """Check verify_opal_compatibility with an older firmware."""
+        reporter = Mock()
+        storage = create_storage()
+
+        mocked_arch.get_arch.return_value = "ppc64le"
+        mocked_arch.is_powernv.return_value = True
+        version_getter.return_value = "5.9.50-openpower1-p59fd803"
+        xfs_mountable.return_value = True
+
+        # No devices.
+        verify_opal_compatibility(storage, {}, None, reporter)
+        reporter.assert_not_called()
+
+        # No mount points.
+        dev1 = StorageDevice("dev1", size=Size("10 GiB"))
+        storage.devicetree._add_device(dev1)
+
+        verify_opal_compatibility(storage, {}, None, reporter)
+        reporter.assert_not_called()
+
+        # Different filesystem.
+        dev1.format = get_format("ext2", mountpoint="/boot")
+        verify_opal_compatibility(storage, {}, None, reporter)
+        reporter.assert_not_called()
+
+        # XFS on /
+        dev1.format = get_format("xfs", mountpoint="/")
+        verify_opal_compatibility(storage, {}, None, reporter)
+        reporter.assert_called_once_with(
+            "Your firmware doesn't support XFS file system features "
+            "on the /boot file system. The system will not be bootable. "
+            "Please, upgrade the firmware or change the file system type."
+        )
+        reporter.reset_mock()
+
+        # XFS on /boot
+        dev1.format = get_format("xfs", mountpoint="/boot")
+        verify_opal_compatibility(storage, {}, None, reporter)
+        reporter.assert_called_once_with(
+            "Your firmware doesn't support XFS file system features "
+            "on the /boot file system. The system will not be bootable. "
+            "Please, upgrade the firmware or change the file system type."
         )
