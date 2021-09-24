@@ -31,9 +31,11 @@ COPY ["eln.repo", "/etc/yum.repos.d"]
 RUN set -ex; \
   if grep -q VARIANT.*eln /etc/os-release; then sed -i 's/enabled=0/enabled=1/' /etc/yum.repos.d/eln.repo; fi; \
   dnf update -y; \
+  dnf install -y --allowerasing \
+  curl-minimal \
+  libcurl-minimal; \
   dnf install -y \
   'dnf-command(copr)' \
-  curl \
   /usr/bin/xargs \
   rpm-build \
   git \
