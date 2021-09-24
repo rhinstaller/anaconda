@@ -22,7 +22,8 @@ from enum import IntEnum
 
 from dasbus.error import DBusError
 from pyanaconda.core.constants import THREAD_STORAGE, THREAD_PAYLOAD, THREAD_PAYLOAD_RESTART, \
-    THREAD_WAIT_FOR_CONNECTING_NM, THREAD_SUBSCRIPTION, PAYLOAD_TYPE_DNF
+    THREAD_WAIT_FOR_CONNECTING_NM, THREAD_SUBSCRIPTION, PAYLOAD_TYPE_DNF, \
+    THREAD_STORAGE_WATCHER, THREAD_EXECUTE_STORAGE
 from pyanaconda.core.i18n import _, N_
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload.errors import PayloadError
@@ -176,6 +177,8 @@ class PayloadManager(object):
         # Wait for storage
         self._set_state(PayloadState.WAITING_STORAGE)
         threadMgr.wait(THREAD_STORAGE)
+        threadMgr.wait(THREAD_STORAGE_WATCHER)
+        threadMgr.wait(THREAD_EXECUTE_STORAGE)
 
         # Wait for network
         self._set_state(PayloadState.WAITING_NETWORK)
