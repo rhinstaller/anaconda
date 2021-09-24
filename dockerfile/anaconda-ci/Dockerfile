@@ -14,7 +14,7 @@ COPY *.repo /etc/yum.repos.d/
 RUN set -e; \
   dnf update -y; \
   dnf install -y \
-  curl \
+  curl-minimal \
   /usr/bin/xargs \
   rpm-build \
   e2fsprogs \
