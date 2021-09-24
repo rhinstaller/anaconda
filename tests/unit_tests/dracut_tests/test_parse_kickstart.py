@@ -76,7 +76,7 @@ class ParseKickstartTestCase(BaseTestCase):
 
         self.assertEqual(lines[0], "inst.repo=nfs:nolock,timeo=50:host.at.foo.com:/path/to/tree", lines)
 
-    def nfs_test_2(self):
+    def test_nfs_2(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
             ks_file.write("""nfs --server=host.at.foo.com --dir=/path/to/tree""")
             ks_file.flush()
@@ -119,7 +119,7 @@ class ParseKickstartTestCase(BaseTestCase):
 
         self.assertEqual(lines[0], "inst.dd=hd:sda5")
 
-    def driverdisk_test_2(self):
+    def test_driverdisk_2(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
             ks_file.write("""driverdisk --source=http://host.att.foo.com/path/to/dd""")
             ks_file.flush()
@@ -135,7 +135,7 @@ class ParseKickstartTestCase(BaseTestCase):
 
             self.assertRegex(lines[0], r"ip=[^\s:]+:dhcp: bootdev=[^\s:]+", lines)
 
-    def network_test_2(self):
+    def test_network_2(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
             ks_file.write("""network --device=AA:BB:CC:DD:EE:FF --bootproto=dhcp --activate""")
             ks_file.flush()
@@ -173,7 +173,7 @@ network --device=eth0 --bootproto=dhcp --bondslaves=eth0,eth1
 
             self.assertRegex(lines[0], r"ip=[^\s:]+:dhcp: bootdev=[^\s:]+", lines)
 
-    def network_bond_test2(self):
+    def test_network_bond_2(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
             ks_file.write("""network --device=link --bootproto=dhcp --activate
 network --device=eth0 --bootproto=dhcp --bondslaves=eth0,eth1 --activate
@@ -229,7 +229,7 @@ network --device=lo --vlanid=171 --interfacename=vlan171
 
             self.assertEqual(lines[0], "inst.cmdline", lines)
 
-    def displaymode_test_2(self):
+    def test_displaymode_2(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
             ks_file.write("""graphical""")
             ks_file.flush()
@@ -237,7 +237,7 @@ network --device=lo --vlanid=171 --interfacename=vlan171
 
             self.assertEqual(lines[0], "inst.graphical", lines)
 
-    def displaymode_test_3(self):
+    def test_displaymode_3(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
             ks_file.write("""text""")
             ks_file.flush()

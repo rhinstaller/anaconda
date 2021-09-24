@@ -449,7 +449,7 @@ class LocalizationTasksTestCase(unittest.TestCase):
     """Test tasks of the localization module."""
 
     @patch("pyanaconda.modules.localization.runtime.conf")
-    def apply_keyboard_task_test_cant_acitvate(self, mocked_conf):
+    def test_apply_keyboard_task_cant_activate(self, mocked_conf):
         """Test the ApplyKeyboardTest in can't activate keyboard environment."""
         mocked_conf.system.can_activate_keyboard = False
         x_layouts = ["cz (qwerty)"]
@@ -464,7 +464,7 @@ class LocalizationTasksTestCase(unittest.TestCase):
         self.assertEqual(result, (x_layouts, vc_keymap))
 
     @patch("pyanaconda.modules.localization.runtime.conf")
-    def apply_keyboard_task_test_no_values(self, mocked_conf):
+    def test_apply_keyboard_task_no_values(self, mocked_conf):
         """Test the ApplyKeyboardTest with no values to apply."""
         mocked_conf.system.can_activate_keyboard = True
         x_layouts = []

@@ -290,7 +290,7 @@ class SetRHSMConfigurationTaskTestCase(unittest.TestCase):
 
         mock_config_proxy.SetAll.assert_called_once_with(expected_dict, "")
 
-    def set_rhsm_config_task_test_not_satellite(self):
+    def test_set_rhsm_config_task_not_satellite(self):
         """Test the SetRHSMConfigurationTask task - not-satellite prefix handling."""
         # if the subscription request has the no-satellite prefix, it should be stripped
         # before the server hostname value is sent to RHSM

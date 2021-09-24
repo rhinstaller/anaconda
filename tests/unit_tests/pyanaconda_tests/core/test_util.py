@@ -168,7 +168,7 @@ echo "error" >&2
         self.assertTrue(hasattr(util.execReadlines("ls", ["--help"]), "__iter__"))
         self.assertTrue(hasattr(util.execReadlines("true", []), "__iter__"))
 
-    def exec_readlines_test_normal_output(self):
+    def test_exec_readlines_normal_output(self):
         """Test the output of execReadlines."""
 
         # Test regular-looking output
@@ -205,7 +205,7 @@ exit 0
                 self.assertEqual(next(rl_iterator), "three")
                 self.assertRaises(StopIteration, rl_iterator.__next__)
 
-    def exec_readlines_test_exits(self):
+    def test_exec_readlines_exits(self):
         """Test execReadlines in different child exit situations."""
 
         # Tests that exit on signal will raise OSError once output
@@ -278,7 +278,7 @@ kill -TERM $$
                 self.assertEqual(next(rl_iterator), "three")
                 self.assertRaises(OSError, rl_iterator.__next__)
 
-    def exec_readlines_test_signals(self):
+    def test_exec_readlines_signals(self):
         """Test execReadlines and signal receipt."""
 
         # ignored signal
@@ -327,7 +327,7 @@ exit 0
         finally:
             signal.signal(signal.SIGHUP, old_HUP_handler)
 
-    def exec_readlines_test_filter_stderr(self):
+    def test_exec_readlines_filter_stderr(self):
         """Test execReadlines and filter_stderr."""
 
         # Test that stderr is normally included
