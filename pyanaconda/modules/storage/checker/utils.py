@@ -20,6 +20,7 @@ gi.require_version("BlockDev", "2.0")
 from gi.repository import BlockDev as blockdev
 
 from collections import defaultdict
+from packaging.version import parse as parse_version
 
 from blivet import arch, util
 from blivet.devicefactory import get_device_type
@@ -223,6 +224,66 @@ def verify_gpt_biosboot(storage, constraints, report_error, report_warning):
                                "partition to boot from a GPT disk label. "
                                "To continue, please create a 1MiB "
                                "'biosboot' type partition."))
+
+
+def verify_opal_compatibility(storage, constraints, report_error, report_warning):
+    """ Verify the OPAL compatibility.
+
+    :param storage: a storage to check
+    :param constraints: a dictionary of constraints
+    :param report_error: a function for error reporting
+    :param report_warning: a function for warning reporting
+    """
+    if arch.get_arch() == "ppc64le" and arch.is_powernv():
+        # Check the kernel version.
+        version = _get_opal_firmware_kernel_version()
+        if _check_opal_firmware_kernel_version(version, "5.10"):
+            return
+
+        # Is /boot on XFS?
+        dev = storage.mountpoints.get("/boot") or storage.mountpoints.get("/")
+        if dev and dev.format and dev.format.type == "xfs":
+            report_warning(_(
+                "Your firmware doesn't support XFS file system features "
+                "on the /boot file system. The system will not be bootable. "
+                "Please, upgrade the firmware or change the file system type."
+            ))
+
+
+def _check_opal_firmware_kernel_version(detected_version, required_version):
+    """Check the firmware kernel version for OPAL systems.
+
+    :param detected_version: a string with the detected kernel version or None
+    :param required_version: a string with the required kernel version or None
+    :return: True or False
+    """
+    try:
+        if detected_version and required_version:
+            return parse_version(detected_version) >= parse_version(required_version)
+    except Exception as e:  # pylint: disable=broad-except
+        log.warning("Couldn't check the firmware kernel version: %s", str(e))
+
+    return False
+
+
+def _get_opal_firmware_kernel_version():
+    """Get the firmware kernel version for OPAL systems.
+
+    For example: 5.10.50-openpower1-p59fd803
+
+    :return: a string with the kernel version or None
+    """
+    version = None
+
+    try:
+        with open("/proc/device-tree/ibm,firmware-versions/linux") as f:
+            version = f.read().strip().removeprefix("v")
+            log.debug("The firmware kernel version is '%s'.", version)
+
+    except IOError as e:
+        log.warning("Couldn't get the firmware kernel version: %s", str(e))
+
+    return version
 
 
 def verify_swap(storage, constraints, report_error, report_warning):
@@ -661,6 +722,7 @@ class StorageChecker(object):
         self.add_check(verify_partition_format_sizes)
         self.add_check(verify_bootloader)
         self.add_check(verify_gpt_biosboot)
+        self.add_check(verify_opal_compatibility)
         self.add_check(verify_swap)
         self.add_check(verify_swap_uuid)
         self.add_check(verify_mountpoints_on_linuxfs)
