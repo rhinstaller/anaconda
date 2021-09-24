@@ -14,7 +14,7 @@ COPY *.repo /etc/yum.repos.d/
 RUN set -e; \
   dnf update -y; \
   dnf install -y \
-  curl \
+  curl-minimal \
   python3-pip \
   /usr/bin/xargs \
   rpm-build; \
