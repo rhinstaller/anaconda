@@ -48,12 +48,6 @@ ANACONDA_SYSLOG_IDENTIFIER = "anaconda"
 from threading import Lock
 program_log_lock = Lock()
 
-logLevelMap = {"debug": logging.DEBUG,
-               "info": logging.INFO,
-               "warning": logging.WARNING,
-               "error": logging.ERROR,
-               "critical": logging.CRITICAL}
-
 
 class _AnacondaLogFixer(object):
     """ A mixin for logging.StreamHandler that does not lock during format.
