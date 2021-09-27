@@ -19,13 +19,13 @@ import unittest
 import pytest
 
 from time import sleep
-from unittest.mock import Mock, call
+from unittest.mock import Mock
 
 from dasbus.server.interface import dbus_class
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.errors.task import NoResultError
 from pyanaconda.modules.common.task import Task, TaskInterface, sync_run_task, \
-    async_run_task, DBusMetaTask
+    async_run_task
 from tests.unit_tests.pyanaconda_tests import run_in_glib
 
 
@@ -375,53 +375,6 @@ class TaskInterfaceTestCase(unittest.TestCase):
         with pytest.raises(TaskFailedException):
             task_proxy.Finish()
 
-    def test_install_with_no_tasks(self):
-        """Install with no tasks."""
-        self._set_up_task(DBusMetaTask("Task", []))
-        self._check_steps(0)
-        self._run_task()
-        self._finish_task()
-        self._check_no_result()
-
-    def test_install_with_one_task(self):
-        """Install with one task."""
-        self._set_up_task(
-            DBusMetaTask("Task", [
-                TaskInterface(self.SimpleTask())
-            ])
-        )
-        self._check_steps(1)
-        self._run_task()
-        self._finish_task()
-        self._check_progress_changed(1, "Simple Task")
-        self._check_no_result()
-
-    def test_install_with_failing_task(self):
-        """Install with one failing task."""
-        self._set_up_task(
-            DBusMetaTask("Task", [
-                TaskInterface(self.FailingTask())
-            ])
-        )
-        self._check_steps(1)
-        self._run_task()
-        self._finish_failed_task()
-        self._check_progress_changed(1, "Failing Task")
-        self._check_no_result()
-
-    def test_install_with_canceled_task(self):
-        """Install with one canceled task."""
-        self._set_up_task(
-            DBusMetaTask("Task", [
-                TaskInterface(self.CanceledTask())
-            ])
-        )
-        self._check_steps(1)
-        self._run_and_cancel_task()
-        self._finish_canceled_task()
-        self._check_progress_changed(1, "Canceled Task")
-        self._check_no_result()
-
     class InstallationTaskA(Task):
 
         @property
@@ -449,25 +402,6 @@ class TaskInterfaceTestCase(unittest.TestCase):
         def run(self):
             pass
 
-    def test_install_with_three_tasks(self):
-        """Install with three tasks."""
-        self._set_up_task(
-            DBusMetaTask("Task", [
-                TaskInterface(self.InstallationTaskA()),
-                TaskInterface(self.InstallationTaskB()),
-                TaskInterface(self.InstallationTaskC())
-            ])
-        )
-        self._check_steps(3)
-        self._run_task()
-        self._finish_task()
-
-        self.progress_changed_callback.assert_has_calls([
-            call(1, "Install A"),
-            call(2, "Install B"),
-            call(3, "Install C")
-        ])
-
     class IncompleteTask(Task):
 
         @property
@@ -480,27 +414,6 @@ class TaskInterfaceTestCase(unittest.TestCase):
 
         def run(self):
             pass
-
-    def test_install_with_incomplete_tasks(self):
-        """Install with incomplete tasks."""
-        self._set_up_task(
-            DBusMetaTask("Task", [
-                TaskInterface(self.InstallationTaskA()),
-                TaskInterface(self.IncompleteTask()),
-                TaskInterface(self.InstallationTaskB()),
-                TaskInterface(self.InstallationTaskC())
-            ])
-        )
-        self._check_steps(8)
-        self._run_task()
-        self._finish_task()
-
-        self.progress_changed_callback.assert_has_calls([
-            call(1, "Install A"),
-            call(2, "Install incomplete task"),  # plus 5
-            call(7, "Install B"),
-            call(8, "Install C")
-        ])
 
     class NoReturningTask(Task):
 
