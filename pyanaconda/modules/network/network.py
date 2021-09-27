@@ -238,8 +238,8 @@ class NetworkService(KickstartService):
             log.debug("Current hostname cannot be set.")
             return
 
-        self._hostname_service_proxy.SetHostname(hostname, False)
-        log.debug("Current hostname is set to %s", hostname)
+        self._hostname_service_proxy.SetStaticHostname(hostname, False)
+        log.debug("Current static hostname is set to %s", hostname)
 
     @property
     def nm_available(self):
