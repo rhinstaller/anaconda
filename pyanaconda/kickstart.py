@@ -373,8 +373,7 @@ class AnacondaPreParser(KickstartParser):
 
 
 class AnacondaKSParser(KickstartParser):
-    def __init__(self, handler, followIncludes=True, errorsAreFatal=True,
-                 missingIncludeIsFatal=True, scriptClass=AnacondaKSScript):
+    def __init__(self, handler, scriptClass=AnacondaKSScript):
         self.scriptClass = scriptClass
         super().__init__(handler)
 
