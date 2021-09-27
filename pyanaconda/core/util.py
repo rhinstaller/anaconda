@@ -1160,15 +1160,6 @@ def id_generator():
         actual_id += 1
 
 
-def sysroot_path(path):
-    """Make the given relative or absolute path "sysrooted"
-       :param str path: path to be sysrooted
-       :returns: sysrooted path
-       :rtype: str
-    """
-    return os.path.join(conf.target.system_root, path.lstrip(os.path.sep))
-
-
 def join_paths(path, *paths):
     """Always join paths.
 
