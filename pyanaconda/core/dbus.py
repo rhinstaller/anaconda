@@ -18,7 +18,7 @@
 #
 import os
 
-from dasbus.connection import SystemMessageBus, SessionMessageBus, MessageBus
+from dasbus.connection import SystemMessageBus, MessageBus
 from dasbus.constants import DBUS_STARTER_ADDRESS
 from dasbus.error import ErrorMapper, get_error_decorator
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -27,7 +27,7 @@ from pyanaconda.modules.common.errors import register_errors
 
 log = get_module_logger(__name__)
 
-__all__ = ["DBus", "SystemBus", "SessionBus", "error_mapper", "dbus_error"]
+__all__ = ["DBus", "SystemBus", "error_mapper", "dbus_error"]
 
 
 class AnacondaMessageBus(MessageBus):
@@ -83,11 +83,6 @@ DBus = DefaultMessageBus(
 
 # System bus.
 SystemBus = SystemMessageBus(
-    error_mapper=error_mapper
-)
-
-# Session bus.
-SessionBus = SessionMessageBus(
     error_mapper=error_mapper
 )
 
