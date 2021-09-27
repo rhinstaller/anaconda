@@ -28,7 +28,6 @@ import warnings
 
 from pyanaconda.core import constants
 
-DEFAULT_LEVEL = logging.INFO
 ENTRY_FORMAT = "%(asctime)s,%(msecs)03d %(levelname)s %(name)s: %(message)s"
 STDOUT_FORMAT = "%(asctime)s %(message)s"
 DATE_FORMAT = "%H:%M:%S"
@@ -169,7 +168,6 @@ class AnacondaLog(object):
         self.anaconda_logger.setLevel(logging.DEBUG)
         warnings.showwarning = self.showwarning
         self.addFileHandler(MAIN_LOG_FILE, self.anaconda_logger,
-                            minLevel=logging.DEBUG,
                             fmtStr=ANACONDA_ENTRY_FORMAT,
                             log_filter=AnacondaPrefixFilter())
         self.forwardToJournal(self.anaconda_logger,
@@ -180,37 +178,32 @@ class AnacondaLog(object):
         program_logger = logging.getLogger(constants.LOGGER_PROGRAM)
         program_logger.propagate = False
         program_logger.setLevel(logging.DEBUG)
-        self.addFileHandler(PROGRAM_LOG_FILE, program_logger,
-                            minLevel=logging.DEBUG)
+        self.addFileHandler(PROGRAM_LOG_FILE, program_logger)
         self.forwardToJournal(program_logger)
 
         # Create the packaging logger.
         packaging_logger = logging.getLogger(constants.LOGGER_PACKAGING)
         packaging_logger.setLevel(logging.DEBUG)
         packaging_logger.propagate = False
-        self.addFileHandler(PACKAGING_LOG_FILE, packaging_logger,
-                            minLevel=logging.DEBUG)
+        self.addFileHandler(PACKAGING_LOG_FILE, packaging_logger)
         self.forwardToJournal(packaging_logger)
 
         # Create the dnf logger and link it to packaging
         dnf_logger = logging.getLogger(constants.LOGGER_DNF)
         dnf_logger.setLevel(logging.DEBUG)
-        self.addFileHandler(PACKAGING_LOG_FILE, dnf_logger,
-                            minLevel=logging.NOTSET)
+        self.addFileHandler(PACKAGING_LOG_FILE, dnf_logger)
         self.forwardToJournal(dnf_logger)
 
         # Create the librepo logger.
         librepo_logger = logging.getLogger(constants.LOGGER_LIBREPO)
         librepo_logger.setLevel(logging.DEBUG)
-        self.addFileHandler(LIBREPO_LOG_FILE, librepo_logger,
-                            minLevel=logging.NOTSET)
+        self.addFileHandler(LIBREPO_LOG_FILE, librepo_logger)
         self.forwardToJournal(librepo_logger)
 
         # Create the simpleline logger and link it to anaconda
         simpleline_logger = logging.getLogger(constants.LOGGER_SIMPLELINE)
         simpleline_logger.setLevel(logging.DEBUG)
-        self.addFileHandler(MAIN_LOG_FILE, simpleline_logger,
-                            minLevel=logging.NOTSET)
+        self.addFileHandler(MAIN_LOG_FILE, simpleline_logger)
         self.forwardToJournal(simpleline_logger)
 
         # Create the sensitive information logger
@@ -218,9 +211,9 @@ class AnacondaLog(object):
         # system, as it might contain sensitive information that
         # should not be persistently stored by default
         sensitive_logger = logging.getLogger(constants.LOGGER_SENSITIVE_INFO)
+        sensitive_logger.setLevel(logging.DEBUG)
         sensitive_logger.propagate = False
-        self.addFileHandler(SENSITIVE_INFO_LOG_FILE, sensitive_logger,
-                            minLevel=logging.DEBUG)
+        self.addFileHandler(SENSITIVE_INFO_LOG_FILE, sensitive_logger)
 
         # Create a second logger for just the stuff we want to dup on
         # stdout.  Anything written here will also get passed up to the
@@ -229,13 +222,10 @@ class AnacondaLog(object):
         stdout_logger = logging.getLogger(constants.LOGGER_STDOUT)
         stdout_logger.setLevel(logging.INFO)
         # Add a handler for the duped stuff.  No fancy formatting, thanks.
-        self.addFileHandler(sys.stdout, stdout_logger,
-                            fmtStr=STDOUT_FORMAT, minLevel=logging.INFO)
+        self.addFileHandler(sys.stdout, stdout_logger, fmtStr=STDOUT_FORMAT)
 
     # Add a simple handler - file or stream, depending on what we're given.
-    def addFileHandler(self, dest, addToLogger, minLevel=DEFAULT_LEVEL,
-                       fmtStr=ENTRY_FORMAT,
-                       log_filter=None):
+    def addFileHandler(self, dest, addToLogger, fmtStr=ENTRY_FORMAT, log_filter=None):
         try:
             if isinstance(dest, str):
                 logfile_handler = AnacondaFileHandler(dest)
@@ -244,7 +234,7 @@ class AnacondaLog(object):
 
             if log_filter:
                 logfile_handler.addFilter(log_filter)
-            logfile_handler.setLevel(minLevel)
+
             logfile_handler.setFormatter(logging.Formatter(fmtStr, DATE_FORMAT))
             addToLogger.addHandler(logfile_handler)
         except OSError:
