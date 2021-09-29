@@ -20,7 +20,7 @@ import hashlib
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.core.util import execWithRedirect
-from pyanaconda.core.string import lowerASCII
+from pyanaconda.core.string import lower_ascii
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 
@@ -63,7 +63,7 @@ class VerifyImageChecksum(Task):
     @staticmethod
     def _normalize_checksum(checksum):
         """Normalize the given checksum."""
-        return lowerASCII(checksum)
+        return lower_ascii(checksum)
 
     @staticmethod
     def _calculate_checksum(file_path):

@@ -20,7 +20,7 @@ from blivet.errors import StorageError, InconsistentPVSectorSize
 from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
-from pyanaconda.core.string import lowerASCII
+from pyanaconda.core.string import lower_ascii
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest
 from pyanaconda.modules.common.task import Task
@@ -103,7 +103,7 @@ class AddDeviceTask(Task):
             request.format_type = storage.get_fstype(request.mount_point)
 
         # Fix the mount point.
-        if lowerASCII(request.mount_point) in ("swap", "biosboot", "prepboot"):
+        if lower_ascii(request.mount_point) in ("swap", "biosboot", "prepboot"):
             request.mount_point = ""
 
         # We should create a partition in some cases.

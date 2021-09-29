@@ -19,8 +19,8 @@
 import unittest
 import pytest
 
-from pyanaconda.core.string import strip_accents, upcase_first_letter, _toASCII, upperASCII, \
-    lowerASCII, have_word_match, decode_bytes
+from pyanaconda.core.string import strip_accents, upcase_first_letter, _to_ascii, upper_ascii, \
+    lower_ascii, have_word_match, decode_bytes
 
 
 class UpcaseFirstLetterTests(unittest.TestCase):
@@ -85,49 +85,49 @@ class AsciiConversionTests(unittest.TestCase):
     """Tests for the group of ASCII conversion functions."""
 
     def test_to_ascii_str(self):
-        """Test _toASCII str conversions."""
-        assert _toASCII("") == ""
-        assert _toASCII(" ") == " "
-        assert _toASCII("&@`'łŁ!@#$%^&*{}[]$'<>*") == \
+        """Test _to_ascii str conversions."""
+        assert _to_ascii("") == ""
+        assert _to_ascii(" ") == " "
+        assert _to_ascii("&@`'łŁ!@#$%^&*{}[]$'<>*") == \
             "&@`'!@#$%^&*{}[]$'<>*"
-        assert _toASCII("ABC") == "ABC"
-        assert _toASCII("aBC") == "aBC"
+        assert _to_ascii("ABC") == "ABC"
+        assert _to_ascii("aBC") == "aBC"
         _out = "Heizolruckstoabdampfung"
-        assert _toASCII("Heizölrückstoßabdämpfung") == _out
+        assert _to_ascii("Heizölrückstoßabdämpfung") == _out
 
     def test_to_ascii_bytes(self):
-        """Test _toASCII bytes handling."""
+        """Test _to_ascii bytes handling."""
         in_bytes = b"bytes"
-        output = _toASCII(in_bytes)
+        output = _to_ascii(in_bytes)
         assert in_bytes == output
         assert id(in_bytes) == id(output)
 
     def test_to_ascii_other(self):
-        """Test _toASCII handling of other types."""
-        assert _toASCII(None) == ""
-        assert _toASCII(132456) == ""
+        """Test _to_ascii handling of other types."""
+        assert _to_ascii(None) == ""
+        assert _to_ascii(132456) == ""
 
     def test_upper_ascii(self):
-        """Test upperASCII."""
-        assert upperASCII("") == ""
-        assert upperASCII("a") == "A"
-        assert upperASCII("A") == "A"
-        assert upperASCII("aBc") == "ABC"
-        assert upperASCII("_&*'@#$%^aBcžčŘ") == \
+        """Test upper_ascii."""
+        assert upper_ascii("") == ""
+        assert upper_ascii("a") == "A"
+        assert upper_ascii("A") == "A"
+        assert upper_ascii("aBc") == "ABC"
+        assert upper_ascii("_&*'@#$%^aBcžčŘ") == \
             "_&*'@#$%^ABCZCR"
         _out = "HEIZOLRUCKSTOABDAMPFUNG"
-        assert upperASCII("Heizölrückstoßabdämpfung") == _out
+        assert upper_ascii("Heizölrückstoßabdämpfung") == _out
 
     def test_lower_ascii(self):
-        """Test lowerASCII."""
-        assert lowerASCII("") == ""
-        assert lowerASCII("A") == "a"
-        assert lowerASCII("a") == "a"
-        assert lowerASCII("aBc") == "abc"
-        assert lowerASCII("_&*'@#$%^aBcžčŘ") == \
+        """Test lower_ascii."""
+        assert lower_ascii("") == ""
+        assert lower_ascii("A") == "a"
+        assert lower_ascii("a") == "a"
+        assert lower_ascii("aBc") == "abc"
+        assert lower_ascii("_&*'@#$%^aBcžčŘ") == \
             "_&*'@#$%^abczcr"
         _out = "heizolruckstoabdampfung"
-        assert lowerASCII("Heizölrückstoßabdämpfung") == _out
+        assert lower_ascii("Heizölrückstoßabdämpfung") == _out
 
 
 class HaveWordMatchTests(unittest.TestCase):

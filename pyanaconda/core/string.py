@@ -61,11 +61,11 @@ def ensure_str(str_or_bytes, keep_none=True):
 # with str.translate. If str.translate is used with a unicode string,
 # even if the string contains only 7-bit characters, str.translate will
 # raise a UnicodeDecodeError.
-_ASCIIlower_table = str.maketrans(string.ascii_uppercase, string.ascii_lowercase)
-_ASCIIupper_table = str.maketrans(string.ascii_lowercase, string.ascii_uppercase)
+_ascii_lower_table = str.maketrans(string.ascii_uppercase, string.ascii_lowercase)
+_ascii_upper_table = str.maketrans(string.ascii_lowercase, string.ascii_uppercase)
 
 
-def _toASCII(s):
+def _to_ascii(s):
     """Convert a unicode string to ASCII
 
     :param str s: input string
@@ -83,7 +83,7 @@ def _toASCII(s):
     return s
 
 
-def upperASCII(s):
+def upper_ascii(s):
     """Convert a string to uppercase using only ASCII character definitions.
 
     The returned string will contain only ASCII characters. This function is
@@ -93,10 +93,10 @@ def upperASCII(s):
     :return str: ascii-only uppercased value of s
     """
     s = ensure_str(s)
-    return str.translate(_toASCII(s), _ASCIIupper_table)
+    return str.translate(_to_ascii(s), _ascii_upper_table)
 
 
-def lowerASCII(s):
+def lower_ascii(s):
     """Convert a string to lowercase using only ASCII character definitions.
 
     The returned string will contain only ASCII characters. This function is
@@ -106,7 +106,7 @@ def lowerASCII(s):
     :return str: ascii-only lowercased value of s
     """
     s = ensure_str(s)
-    return str.translate(_toASCII(s), _ASCIIlower_table)
+    return str.translate(_to_ascii(s), _ascii_lower_table)
 
 
 def upcase_first_letter(text):
