@@ -152,10 +152,6 @@ def have_word_match(str1, str2):
         # non-empty string cannot be found in an empty string
         return False
 
-    # Convert both arguments to string if not already
-    str1 = ensure_str(str1)
-    str2 = ensure_str(str2)
-
     str1 = str1.lower()
     str1_words = str1.split()
     str2 = str2.lower()
