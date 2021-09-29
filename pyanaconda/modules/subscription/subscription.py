@@ -686,6 +686,10 @@ class SubscriptionService(KickstartService):
         self.set_attached_subscriptions([])
         # clear the Satellite registration status as well
         self.set_registered_to_satellite(False)
+        # don't forget to also clear the Satellite provisioning
+        # script, or else it will be run by the target system
+        # provisioning task
+        self._set_satellite_provisioning_script(None)
 
     def _set_system_subscription_data(self, system_subscription_data):
         """A helper method invoked in ParseAttachedSubscritionsTask completed signal.

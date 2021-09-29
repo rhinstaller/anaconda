@@ -1110,6 +1110,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         """Test UnregisterTask creation - system registered to Satellite."""
         # simulate system being subscribed & registered to Satellite
         self.subscription_module.set_subscription_attached(True)
+        self.subscription_module._set_satellite_provisioning_script("foo script")
         self.subscription_module.set_registered_to_satellite(True)
         # simulate RHSM config backup
         self.subscription_module._rhsm_conf_before_satellite_provisioning = {
@@ -1132,6 +1133,8 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         self.assertFalse(self.subscription_interface.IsRegistered)
         self.assertFalse(self.subscription_interface.IsRegisteredToSatellite)
         self.assertFalse(self.subscription_interface.IsSubscriptionAttached)
+        # check the provisioning scrip has been cleared
+        self.assertIsNone(self.subscription_module._satellite_provisioning_script)
 
     @patch_dbus_publish_object
     def install_with_tasks_default_test(self, publisher):
