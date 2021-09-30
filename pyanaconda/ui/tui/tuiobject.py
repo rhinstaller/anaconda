@@ -82,6 +82,15 @@ def report_check_func():
 
 class IpmiErrorDialog(ErrorDialog):
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # This dialog is run by the error handler. The handler
+        # might be triggered by an error from a different thread.
+        # It is possible that we are already asking for a user
+        # input when we decide to show the dialog. That would
+        # violate the concurrency check, so disable it.
+        self.input_manager.skip_concurrency_check = True
+
     def input(self, args, key):
         """Call IPMI ABORTED. Everything else will be done by original implementation."""
         util.ipmi_report(constants.IPMI_ABORTED)
