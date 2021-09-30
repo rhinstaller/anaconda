@@ -92,7 +92,6 @@ def upper_ascii(s):
     :param str s: input string
     :return str: ascii-only uppercased value of s
     """
-    s = ensure_str(s)
     return str.translate(_to_ascii(s), _ascii_upper_table)
 
 
@@ -105,7 +104,6 @@ def lower_ascii(s):
     :param str s: input string
     :return str: ascii-only lowercased value of s
     """
-    s = ensure_str(s)
     return str.translate(_to_ascii(s), _ascii_lower_table)
 
 
