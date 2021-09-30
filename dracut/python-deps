@@ -1,7 +1,11 @@
 #!/usr/bin/python3
 # python-deps - find the dependencies of a given python script.
 #
-# Copyright (C) 2012-2015 by Red Hat, Inc.  All rights reserved.
+# This script is packaged into anaconda-dracut, installed, and run indirectly
+# by lorax to create initramfs with all the python-related things we need.
+# See also:  module-setup.sh
+#
+# Copyright (C) 2012-2021 by Red Hat, Inc.  All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,13 +20,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import copy
-import os, sys
+import os
+import sys
 import sysconfig
 from modulefinder import ModuleFinder
-from distutils.sysconfig import get_python_lib, get_config_var, get_makefile_filename, get_config_h_filename
 
-sitedir = get_python_lib()
-libdir = get_config_var('LIBDEST')
+sitedir = sysconfig.get_path('purelib')
+libdir = sysconfig.get_config_var('LIBDEST')
 
 # stringprep is needed by the idna encoding, and idna is needed by requests.
 # The encoding import is implicit so ModuleFinder doesn't find it right.
@@ -85,8 +89,8 @@ while scripts:
             scripts.append(alsoNeeded[mod.__file__])
 
 # Include some bits that the python install itself needs
-print(get_makefile_filename())
-print(get_config_h_filename())
+print(sysconfig.get_makefile_filename())
+print(sysconfig.get_config_h_filename())
 
 # And print the list of unique deps.
 for d in set(deps):
