@@ -22,7 +22,6 @@ from pyanaconda.modules.common.errors.installation import BootloaderInstallation
 from pyanaconda.modules.storage.bootloader.image import LinuxBootLoaderImage
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import execWithRedirect
-from pyanaconda.core.string import decode_bytes
 from pyanaconda.product import productName
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -179,7 +178,7 @@ def _write_sysconfig_kernel(sysroot, storage):
         log.error("failed to get package name for default kernel")
         return
 
-    kernel = decode_bytes(h.name)
+    kernel = h.name
 
     f = open(sysroot + "/etc/sysconfig/kernel", "w+")
     f.write("# UPDATEDEFAULT specifies if kernel-install should make\n"

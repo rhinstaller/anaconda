@@ -27,7 +27,6 @@ from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.regexes import VERSION_DIGITS
 from pyanaconda.core.util import is_lpae_available, join_paths, execWithCapture
-from pyanaconda.core.string import decode_bytes
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.structures.packages import PackagesSelectionData
@@ -167,11 +166,9 @@ def get_kernel_version_list():
     mi = ts.dbMatch('providename', 'kernel')
 
     for hdr in mi:
-        unicode_fnames = (decode_bytes(f) for f in hdr.filenames)
-
         # Find all /boot/vmlinuz- files and strip off vmlinuz-.
         files.extend((
-            f.split("/")[-1][8:] for f in unicode_fnames
+            f.split("/")[-1][8:] for f in hdr.filenames
             if fnmatch.fnmatch(f, "/boot/vmlinuz-*") or
             fnmatch.fnmatch(f, "/boot/efi/EFI/%s/vmlinuz-*" % efi_dir)
         ))
