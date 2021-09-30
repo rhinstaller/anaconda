@@ -17,7 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 import string  # pylint: disable=deprecated-module
-import sys
 import unicodedata
 
 
@@ -31,29 +30,6 @@ def strip_accents(s):
     """
     return ''.join(c for c in unicodedata.normalize('NFD', s)
                    if unicodedata.category(c) != 'Mn')
-
-
-def ensure_str(str_or_bytes, keep_none=True):
-    """
-    Returns a str instance for given string or ``None`` if requested to keep it.
-
-    :param str_or_bytes: string to be kept or converted to str type
-    :type str_or_bytes: str or bytes
-    :param bool keep_none: whether to keep None as it is or raise ValueError if
-                           ``None`` is passed
-    :raises ValueError: if applied on an object not being of type bytes nor str
-                        (nor NoneType if ``keep_none`` is ``False``)
-    """
-
-    if keep_none and str_or_bytes is None:
-        return None
-    elif isinstance(str_or_bytes, str):
-        return str_or_bytes
-    elif isinstance(str_or_bytes, bytes):
-        return str_or_bytes.decode(sys.getdefaultencoding())
-    else:
-        raise ValueError("str_or_bytes must be of type 'str' or 'bytes', not '%s'"
-                         % type(str_or_bytes))
 
 
 # Define translations between ASCII uppercase and lowercase for
@@ -155,20 +131,3 @@ def have_word_match(str1, str2):
     str2 = str2.lower()
 
     return all(word in str2 for word in str1_words)
-
-
-def decode_bytes(data):
-    """Decode the given bytes.
-
-    Return the given string or a string decoded from the given bytes.
-
-    :param data: bytes or a string
-    :return: a string
-    """
-    if isinstance(data, str):
-        return data
-
-    if isinstance(data, bytes):
-        return data.decode('utf-8')
-
-    raise ValueError("Unsupported type '{}'.".format(type(data).__name__))

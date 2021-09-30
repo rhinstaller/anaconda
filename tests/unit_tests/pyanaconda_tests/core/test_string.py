@@ -17,10 +17,9 @@
 # Red Hat, Inc.
 
 import unittest
-import pytest
 
 from pyanaconda.core.string import strip_accents, upcase_first_letter, _to_ascii, upper_ascii, \
-    lower_ascii, have_word_match, decode_bytes
+    lower_ascii, have_word_match
 
 
 class UpcaseFirstLetterTests(unittest.TestCase):
@@ -164,18 +163,3 @@ class HaveWordMatchTests(unittest.TestCase):
         """
         assert have_word_match("fête", "fête champêtre")
         assert have_word_match("fête", "fête champêtre")
-
-
-class MiscTests(unittest.TestCase):
-    """Misc. tests for other string functions."""
-
-    def test_decode_bytes(self):
-        """Test decode_bytes."""
-        assert "STRING" == decode_bytes("STRING")
-        assert "BYTES" == decode_bytes(b"BYTES")
-        with pytest.raises(ValueError):
-            decode_bytes(None)
-        with pytest.raises(ValueError):
-            decode_bytes(0)
-        with pytest.raises(ValueError):
-            decode_bytes([])
