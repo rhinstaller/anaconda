@@ -407,6 +407,16 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Sep 30 2021 Martin Kolman <mkolman@redhat.com> - 36.5-1
+- In installer environment set static, not transient hostname (rvykydal)
+- Payload should wait for all storage related threads to finish (mkolman)
+- Update Rawhide release docs to state of the art as of Fedora 35 (mkolman)
+- Fix deprecation warning about Gdk.Cursor.new (vslavik)
+- Document workaround MGA G200e graphics card (mkolman)
+- Verify the OPAL compatibility with XFS features (vponcova)
+- Fix comments in the python-deps script (vslavik)
+- Use sysconfig in dracut directly, not via distutils (vslavik)
+
 * Thu Sep 23 2021 Martin Kolman <mkolman@redhat.com> - 36.4-1
 - Do not crash if restorecon is missing on target system (vslavik)
 - Move chmod into file copying function in CopyLogsTask (vslavik)
