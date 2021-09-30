@@ -141,12 +141,12 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         conf_mock.system.provides_system_bus = False
         self.network_module._connect_to_hostname_service()
         self.network_interface.SetCurrentHostname("dot.dot")
-        hostname_mock.SetHostname.assert_not_called()
+        hostname_mock.SetStaticHostname.assert_not_called()
 
         conf_mock.system.provides_system_bus = True
         self.network_module._connect_to_hostname_service()
         self.network_interface.SetCurrentHostname("dot.dot")
-        hostname_mock.SetHostname.assert_called_once_with("dot.dot", False)
+        hostname_mock.SetStaticHostname.assert_called_once_with("dot.dot", False)
 
     @patch("pyanaconda.modules.network.network.conf")
     @patch('pyanaconda.core.dbus.SystemBus.get_proxy')
