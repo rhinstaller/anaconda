@@ -22,6 +22,7 @@ import os
 import unittest
 import tempfile
 
+
 class SimpleConfigTests(unittest.TestCase):
     TEST_CONFIG = """ESSID="Example Network #1"
 ESSID2="Network #2" # With a comment

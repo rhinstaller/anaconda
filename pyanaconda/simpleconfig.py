@@ -1,5 +1,5 @@
 #
-# simpleconifg.py - representation of a simple configuration file (sh-like)
+# simpleconfig.py - representation of a simple configuration file (sh-like)
 #
 # Copyright (C) 1999-2015 Red Hat, Inc.
 #
