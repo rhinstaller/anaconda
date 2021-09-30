@@ -21,7 +21,7 @@ import os
 import shlex
 import string  # pylint: disable=deprecated-module
 import tempfile
-from pyanaconda.core.string import upper_ascii, ensure_str
+from pyanaconda.core.string import upper_ascii
 
 _SAFECHARS = frozenset(string.ascii_letters + string.digits + '@%_-+=:,./')
 
@@ -136,15 +136,15 @@ class SimpleConfigFile(object):
 
     def set(self, *args):
         for key, value in args:
-            self.info[upper_ascii(ensure_str(key))] = value
+            self.info[upper_ascii(key)] = value
 
     def unset(self, *keys):
-        for key in (upper_ascii(ensure_str(k)) for k in keys):
+        for key in (upper_ascii(k) for k in keys):
             if key in self.info:
                 del self.info[key]
 
     def get(self, key):
-        return self.info.get(upper_ascii(ensure_str(key)), "")
+        return self.info.get(upper_ascii(key), "")
 
     def _parseline(self, line):
         """ parse a line into a key, value and comment
