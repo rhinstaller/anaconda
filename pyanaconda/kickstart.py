@@ -354,8 +354,7 @@ class AnacondaKSHandler(superclass):
 class AnacondaPreParser(KickstartParser):
     # A subclass of KickstartParser that only looks for %pre scripts and
     # sets them up to be run.  All other scripts and commands are ignored.
-    def __init__(self, handler, followIncludes=True, errorsAreFatal=True,
-                 missingIncludeIsFatal=True):
+    def __init__(self, handler):
         super().__init__(handler, missingIncludeIsFatal=False)
 
     def handleCommand(self, lineno, args):
@@ -373,8 +372,7 @@ class AnacondaPreParser(KickstartParser):
 
 
 class AnacondaKSParser(KickstartParser):
-    def __init__(self, handler, followIncludes=True, errorsAreFatal=True,
-                 missingIncludeIsFatal=True, scriptClass=AnacondaKSScript):
+    def __init__(self, handler, scriptClass=AnacondaKSScript):
         self.scriptClass = scriptClass
         super().__init__(handler)
 

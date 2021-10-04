@@ -599,7 +599,6 @@ class PasswordChecker(object):
         self._success = False
         self._error_message = ""
         self._failed_checks = []
-        self._successful_checks = []
         self._policy_name = policy_name
         self._username = None
         self._fullname = ""
@@ -632,17 +631,6 @@ class PasswordChecker(object):
     @property
     def error_message(self):
         return self._error_message
-
-    @property
-    def successful_checks(self):
-        """List of successful checks during the last checking run.
-
-        If no checks have succeeded the list will be empty.
-
-        :returns: list of successful checks (if any)
-        :rtype: list
-        """
-        return self._successful_checks
 
     @property
     def failed_checks(self):
@@ -728,9 +716,7 @@ class PasswordChecker(object):
         for check in self.checks:
             if not check.skip:
                 check.run(check_request)
-                if check.result.success:
-                    self._successful_checks.append(check)
-                else:
+                if not check.result.success:
                     if not self.failed_checks:
                         # a check failed:
                         # - remember that & it's error message

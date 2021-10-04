@@ -47,7 +47,7 @@ def crypt_password(password):
     # yescrypt is not supported by Python's crypt module,
     # so we need to generate the setting ourselves
     b64 = "./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-    setting = "$y$j9T$" + "".join(sr().choice(b64) for sc in range(24))
+    setting = "$y$j9T$" + "".join(sr().choice(b64) for _sc in range(24))
 
     # and try to compute the password hash using our yescrypt setting
     try:

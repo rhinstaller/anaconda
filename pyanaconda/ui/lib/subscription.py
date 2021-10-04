@@ -143,13 +143,8 @@ def is_cdn_registration_required(payload):
 # interaction in the Subscription spoke we avoid code duplication.
 
 
-def dummy_progress_callback(subscription_phase):
-    """Dummy progress reporting function used if no custom callback is set."""
-    pass
-
-
-def dummy_error_callback(error_message):
-    """Dummy error reporting function used if no custom callback is set."""
+def noop(*args, **kwargs):
+    """Function that doesn't do anything."""
     pass
 
 
@@ -189,7 +184,7 @@ def username_password_sufficient(subscription_request=None):
     return username_set and password_set
 
 
-def register_and_subscribe(payload, progress_callback=None, error_callback=None,
+def register_and_subscribe(payload, progress_callback=noop, error_callback=noop,
                            restart_payload=False):
     """Try to register and subscribe the installation environment.
 
@@ -213,13 +208,6 @@ def register_and_subscribe(payload, progress_callback=None, error_callback=None,
           definitely want payload to be restarted as needed (the initial restart long done)
           and so we pass restart_payload=True.
     """
-
-    # assign dummy callback functions if none were provided by caller
-    if progress_callback is None:
-        progress_callback = dummy_progress_callback
-    if error_callback is None:
-        error_callback = dummy_error_callback
-
     # connect to the Subscription DBus module
     subscription_proxy = SUBSCRIPTION.get_proxy()
 
@@ -340,7 +328,7 @@ def register_and_subscribe(payload, progress_callback=None, error_callback=None,
     progress_callback(SubscriptionPhase.DONE)
 
 
-def unregister(payload, overridden_source_type, progress_callback=None, error_callback=None,
+def unregister(payload, overridden_source_type, progress_callback=noop, error_callback=noop,
                restart_payload=False):
     """Try to unregister the installation environment.
 
@@ -360,13 +348,6 @@ def unregister(payload, overridden_source_type, progress_callback=None, error_ca
     NOTE: For more information about the restart_payload attribute, see the
           register_and_subscribe() function doc string.
     """
-
-    # assign dummy callback functions if none were provided by caller
-    if progress_callback is None:
-        progress_callback = dummy_progress_callback
-    if error_callback is None:
-        error_callback = dummy_error_callback
-
     # connect to the Subscription DBus module
     subscription_proxy = SUBSCRIPTION.get_proxy()
 

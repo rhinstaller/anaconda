@@ -64,7 +64,6 @@ DBUS_ANACONDA_SESSION_ADDRESS = "DBUS_ANACONDA_SESSION_BUS_ADDRESS"
 ANACONDA_BUS_CONF_FILE = "/usr/share/anaconda/dbus/anaconda-bus.conf"
 ANACONDA_BUS_ADDR_FILE = "/run/anaconda/bus.address"
 
-ANACONDA_DATA_DIR = "/usr/share/anaconda"
 ANACONDA_CONFIG_DIR = "/etc/anaconda/"
 ANACONDA_CONFIG_TMP = "/run/anaconda/anaconda.conf"
 
