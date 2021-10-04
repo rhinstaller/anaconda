@@ -152,6 +152,18 @@ System upgrades
 :Solution: Anaconda is not doing system upgrades. That is done by dnf-system-upgrade.
     Reassigning to dnf.
 
+Missing ``systemd-machine-id-setup`` on Live
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:Issue: The installation from Live media stopped with traceback about
+    ``[Errno 2] No such file or directory: systemd-machine-id-setup``.
+:Solution: None known yet. Try checking the hardware, downloading the Live ISO again and
+    then re-run the installation.
+
+    This is probably the first program to run from the installed system. The error can be caused
+    by a corrupted media or failing hardware, although other causes are possible too.
+:Example: `rhbz#1963778 <https://bugzilla.redhat.com/show_bug.cgi?id=1963778>`_
+
 Storage issues
 --------------
 
