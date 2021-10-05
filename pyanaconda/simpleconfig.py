@@ -19,7 +19,7 @@
 #
 import os
 import shlex
-import string  # pylint: disable=deprecated-module
+import string
 import tempfile
 from pyanaconda.core.string import upper_ascii
 
