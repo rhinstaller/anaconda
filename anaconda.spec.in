@@ -407,6 +407,14 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Oct 06 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.18-1
+- Fix Satellite provisioning rollback after unregistration (mkolman)
+  Resolves: rhbz#2006718
+- Payload should wait for all storage related threads to finish (mkolman)
+  Resolves: rhbz#2006786
+- Make organization fetching errors non-fatal (mkolman)
+  Resolves: rhbz#2006375
+
 * Thu Sep 23 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.17-1
 - Verify the OPAL compatibility with XFS features (vponcova)
   Resolves: rhbz#1997832
