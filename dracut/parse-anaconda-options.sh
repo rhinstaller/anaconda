@@ -96,6 +96,9 @@ check_removed_no_inst_arg "ksdevice" "inst.ks.device"
 check_removed_no_inst_arg "kssendmac" "inst.ks.sendmac"
 check_removed_no_inst_arg "kssendsn" "inst.ks.sendsn"
 
+# mpath
+check_removed_arg "inst.nompath"
+
 # Ignore self-signed SSL certs
 check_removed_no_inst_arg "noverifyssl" "inst.noverifyssl"
 if getargbool 0 inst.noverifyssl; then

@@ -328,7 +328,6 @@ if __name__ == "__main__":
 
     # set flags
     flags.rescue_mode = opts.rescue
-    flags.mpath = opts.mpath
     flags.eject = opts.eject
     flags.kexec = opts.kexec
 

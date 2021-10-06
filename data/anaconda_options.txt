@@ -146,15 +146,6 @@ but when "inst.selinux=0" is used SELinux will only be disabled in the installed
 Also note that while SELinux is running in the installation environment by default, it is
 running in permissive mode so disabling it there does not make much sense.
 
-nompath
-Disable support for multipath devices. This is for systems on which a false-positive is encountered
-which erroneously identifies a normal block device as a multipath device. There is no other reason
-to use this option. Warning: Don't use nompath with actual multipath hardware! Using this to attempt
-to install to a single path of a multipath is ill-advised, and not supported.
-
-mpath
-Enable multipath support during the installation (default)
-
 gpt
 Prefer creation of GPT disklabels.
 
