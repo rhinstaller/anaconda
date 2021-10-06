@@ -19,7 +19,6 @@ from urllib.parse import quote, unquote
 
 from pyanaconda.core.i18n import _
 from pyanaconda.core.regexes import URL_PARSE
-from pyanaconda.core.util import ensure_str
 
 
 def parse_nfs_url(nfs_url):
@@ -116,12 +115,12 @@ class ProxyString(object):
         ProxyString.url is the full url including username:password@
         ProxyString.noauth_url is the url without username:password@
         """
-        self.url = ensure_str(url, keep_none=True)
-        self.protocol = ensure_str(protocol, keep_none=True)
-        self.host = ensure_str(host, keep_none=True)
-        self.port = str(port)
-        self.username = ensure_str(username, keep_none=True)
-        self.password = ensure_str(password, keep_none=True)
+        self.url = url
+        self.protocol = protocol
+        self.host = host
+        self.port = port
+        self.username = username
+        self.password = password
         self.proxy_auth = ""
         self.noauth_url = None
 
@@ -155,10 +154,10 @@ class ProxyString(object):
         self.protocol = m.group("protocol") or "http://"
 
         if m.group("username"):
-            self.username = ensure_str(unquote(m.group("username")))
+            self.username = unquote(m.group("username"))
 
         if m.group("password"):
-            self.password = ensure_str(unquote(m.group("password")))
+            self.password = unquote(m.group("password"))
 
         if m.group("host"):
             self.host = m.group("host")

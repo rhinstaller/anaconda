@@ -24,7 +24,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _, N_, CN_, C_
 from pyanaconda.core.storage import PROTECTED_FORMAT_TYPES, SIZE_POLICY_AUTO, SIZE_POLICY_MAX, \
     DEVICE_TYPE_LVM, DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_MD, Size
-from pyanaconda.core.util import lowerASCII
+from pyanaconda.core.string import lower_ascii
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest, \
     DeviceFactoryPermissions
 from pyanaconda.modules.common.structures.storage import DeviceFormatData, DeviceData
@@ -297,7 +297,7 @@ class AddDialog(GUIObject):
     def _set_mount_point(self):
         self._mount_point = self.builder.get_object("addMountPointEntry").get_active_text()
 
-        if lowerASCII(self._mount_point) in ("swap", "biosboot", "prepboot"):
+        if lower_ascii(self._mount_point) in ("swap", "biosboot", "prepboot"):
             return
 
         report = ValidationReport.from_structure(

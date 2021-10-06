@@ -1,5 +1,5 @@
 #
-# simpleconifg.py - representation of a simple configuration file (sh-like)
+# simpleconfig.py - representation of a simple configuration file (sh-like)
 #
 # Copyright (C) 1999-2015 Red Hat, Inc.
 #
@@ -19,9 +19,9 @@
 #
 import os
 import shlex
-import string  # pylint: disable=deprecated-module
+import string
 import tempfile
-from pyanaconda.core.util import upperASCII
+from pyanaconda.core.string import upper_ascii
 
 _SAFECHARS = frozenset(string.ascii_letters + string.digits + '@%_-+=:,./')
 
@@ -136,15 +136,15 @@ class SimpleConfigFile(object):
 
     def set(self, *args):
         for key, value in args:
-            self.info[upperASCII(key)] = value
+            self.info[upper_ascii(key)] = value
 
     def unset(self, *keys):
-        for key in (upperASCII(k) for k in keys):
+        for key in (upper_ascii(k) for k in keys):
             if key in self.info:
                 del self.info[key]
 
     def get(self, key):
-        return self.info.get(upperASCII(key), "")
+        return self.info.get(upper_ascii(key), "")
 
     def _parseline(self, line):
         """ parse a line into a key, value and comment
@@ -171,7 +171,7 @@ class SimpleConfigFile(object):
         if self.read_unquote:
             val = unquote(val)
         if key != '' and eq == '=':
-            return (upperASCII(key), val, comment)
+            return (upper_ascii(key), val, comment)
         else:
             return (None, None, comment)
 

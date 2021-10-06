@@ -24,7 +24,7 @@ import subprocess
 from contextlib import contextmanager
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.util import strip_accents
+from pyanaconda.core.string import strip_accents
 from pyanaconda.core.regexes import GROUPLIST_FANCY_PARSE, NAME_VALID, PORTABLE_FS_CHARS, GROUPLIST_SIMPLE_VALID
 import crypt
 from pyanaconda.core.i18n import _

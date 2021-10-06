@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import queue
-from pyanaconda.core.util import lowerASCII, upperASCII
+from pyanaconda.core.string import upper_ascii, lower_ascii
 
 
 class QueueFactory(object):
@@ -66,12 +66,12 @@ class QueueFactory(object):
             raise AttributeError("%s queue already has a message named %s" % (self.name, name))
 
         # Add a constant.
-        const_name = upperASCII(self.name) + "_CODE_" + upperASCII(name)
+        const_name = upper_ascii(self.name) + "_CODE_" + upper_ascii(name)
         setattr(self, const_name, self.__counter)
         self.__counter += 1
 
         # Add a convenience method for putting things into the queue.
-        method_name = "send_" + lowerASCII(name)
+        method_name = "send_" + lower_ascii(name)
         method = self._makeMethod(getattr(self, const_name), method_name, argc)
         setattr(self, method_name, method)
 

@@ -27,7 +27,8 @@ from collections import namedtuple
 import functools
 
 from pyanaconda.core import constants
-from pyanaconda.core.util import upcase_first_letter, setenv, execWithRedirect
+from pyanaconda.core.util import setenv, execWithRedirect
+from pyanaconda.core.string import upcase_first_letter
 from pyanaconda.modules.common.constants.services import BOSS
 
 from pyanaconda.anaconda_loggers import get_module_logger
