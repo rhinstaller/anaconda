@@ -21,12 +21,14 @@ import glob
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import SCREENSHOTS_DIRECTORY
 from pyanaconda.core.util import execWithRedirect, join_paths, mkdirChain
 from pyanaconda.modules.common.task import Task
 
 log = get_module_logger(__name__)
 
 ANACONDA_LOG_DIR = "/var/log/anaconda/"
+TARGET_SCREENSHOT_DIR = "/root/anaconda-screenshots/"
 
 
 class CopyLogsTask(Task):
@@ -47,12 +49,30 @@ class CopyLogsTask(Task):
     def run(self):
         """Copy installation logs and other related files, and do necessary operations on them.
 
+        - Copy screenshots
         - Copy logs of all kinds, incl. ks scripts, journal dump, and lorax pkg list
         - Copy input kickstart file
         - Autorelabel everything in the destination
         """
+        self._copy_screenshots()
         self._copy_logs()
         self._copy_kickstart()
+
+    def _copy_screenshots(self):
+        """Copy screenshots from the installation to the target system."""
+        log.info("Copying screenshots from installation.")
+
+        screenshots = glob.glob(SCREENSHOTS_DIRECTORY + "/*.png")
+        if not screenshots:
+            return
+
+        os.makedirs(join_paths(self._sysroot, TARGET_SCREENSHOT_DIR), 0o750, True)
+
+        for screenshot in screenshots:
+            self._copy_file_to_sysroot(
+                screenshot,
+                join_paths(TARGET_SCREENSHOT_DIR, os.path.basename(screenshot))
+            )
 
     def _copy_logs(self):
         """Copy installation logs to the target system"""
