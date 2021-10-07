@@ -21,12 +21,14 @@ import glob
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import SCREENSHOTS_DIRECTORY
 from pyanaconda.core.util import execWithRedirect, join_paths, mkdirChain
 from pyanaconda.modules.common.task import Task
 
 log = get_module_logger(__name__)
 
-ANACONDA_LOG_DIR = "/var/log/anaconda/"
+TARGET_LOG_DIR = "/var/log/anaconda/"
+TARGET_SCREENSHOT_DIR = "/root/anaconda-screenshots/"
 
 
 class CopyLogsTask(Task):
@@ -47,12 +49,30 @@ class CopyLogsTask(Task):
     def run(self):
         """Copy installation logs and other related files, and do necessary operations on them.
 
+        - Copy screenshots
         - Copy logs of all kinds, incl. ks scripts, journal dump, and lorax pkg list
         - Copy input kickstart file
         - Autorelabel everything in the destination
         """
-        self._copy_logs()
+        self._copy_screenshots()
         self._copy_kickstart()
+        self._copy_logs()
+
+    def _copy_screenshots(self):
+        """Copy screenshots from the installation to the target system."""
+        log.info("Copying screenshots from installation.")
+
+        screenshots = glob.glob(SCREENSHOTS_DIRECTORY + "/*.png")
+        if not screenshots:
+            return
+
+        os.makedirs(join_paths(self._sysroot, TARGET_SCREENSHOT_DIR), 0o750, True)
+
+        for screenshot in screenshots:
+            self._copy_file_to_sysroot(
+                screenshot,
+                join_paths(TARGET_SCREENSHOT_DIR, os.path.basename(screenshot))
+            )
 
     def _copy_logs(self):
         """Copy installation logs to the target system"""
@@ -73,7 +93,7 @@ class CopyLogsTask(Task):
 
     def _create_logs_directory(self):
         """Create directory for Anaconda logs on the install target"""
-        mkdirChain(join_paths(self._sysroot, ANACONDA_LOG_DIR))
+        mkdirChain(join_paths(self._sysroot, TARGET_LOG_DIR))
 
     def _copy_tmp_logs(self):
         """Copy a number of log files from /tmp"""
@@ -93,28 +113,28 @@ class CopyLogsTask(Task):
         for logfile in log_files_to_copy:
             self._copy_file_to_sysroot(
                 join_paths("/tmp/", logfile),
-                join_paths(ANACONDA_LOG_DIR, logfile)
+                join_paths(TARGET_LOG_DIR, logfile)
             )
 
     def _copy_lorax_packages(self):
         """Copy list of packages used for creating the installation media"""
         self._copy_file_to_sysroot(
             "/root/lorax-packages.log",
-            join_paths(ANACONDA_LOG_DIR, "lorax-packages.log")
+            join_paths(TARGET_LOG_DIR, "lorax-packages.log")
         )
 
     def _copy_pre_script_logs(self):
         """Copy logs from %pre scripts"""
         self._copy_tree_to_sysroot(
             "/tmp/pre-anaconda-logs",
-            ANACONDA_LOG_DIR
+            TARGET_LOG_DIR
         )
 
     def _copy_dnf_debugdata(self):
         """Copy DNF debug data"""
         self._copy_tree_to_sysroot(
             "/root/debugdata",
-            join_paths(ANACONDA_LOG_DIR, "dnf_debugdata/")
+            join_paths(TARGET_LOG_DIR, "dnf_debugdata/")
         )
 
     def _copy_post_script_logs(self):
@@ -122,7 +142,7 @@ class CopyLogsTask(Task):
         for logfile in glob.glob("/tmp/ks-script*.log"):
             self._copy_file_to_sysroot(
                 logfile,
-                join_paths(ANACONDA_LOG_DIR, os.path.basename(logfile))
+                join_paths(TARGET_LOG_DIR, os.path.basename(logfile))
             )
 
     def _dump_journal(self):
@@ -130,7 +150,7 @@ class CopyLogsTask(Task):
         tempfile = "/tmp/journal.log"
         with open(tempfile, "w") as logfile:
             execWithRedirect("journalctl", ["-b"], stdout=logfile)
-        self._copy_file_to_sysroot(tempfile, join_paths(ANACONDA_LOG_DIR, "journal.log"))
+        self._copy_file_to_sysroot(tempfile, join_paths(TARGET_LOG_DIR, "journal.log"))
 
     def _copy_kickstart(self):
         """Copy input kickstart file"""
@@ -151,7 +171,7 @@ class CopyLogsTask(Task):
         https://bugzilla.redhat.com/show_bug.cgi?id=1885772
         """
         try:
-            execWithRedirect("restorecon", ["-ir", ANACONDA_LOG_DIR], root=self._sysroot)
+            execWithRedirect("restorecon", ["-ir", TARGET_LOG_DIR], root=self._sysroot)
         except FileNotFoundError as e:
             log.error("Log file contexts were not restored because restorecon was not installed: "
                       "%s", e)
