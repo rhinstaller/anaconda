@@ -130,14 +130,13 @@ class BossInterface(InterfaceTemplate):
         proxies = self.implementation.collect_install_system_tasks()
         return list(map(get_proxy_identification, proxies))
 
-    def CopyLogsWithTask(self) -> ObjPath:
-        """Copy installation logs with a task.
+    def FinishInstallationWithTasks(self) -> List[ObjPath]:
+        """Finish installation with tasks.
 
-        :return: a DBus path of the task
+        :return: a list of tasks
         """
-        return TaskContainer.to_object_path(
-            self.implementation.copy_logs_with_task()
-        )
+        tasks = self.implementation.finish_installation_with_tasks()
+        return TaskContainer.to_object_path_list(tasks)
 
     def Quit(self):
         """Stop all modules and then stop the boss."""

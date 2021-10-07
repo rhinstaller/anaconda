@@ -144,10 +144,11 @@ class Boss(Service):
         super().set_locale(locale)
         self._module_manager.set_modules_locale(locale)
 
-    def copy_logs_with_task(self):
-        """Copy logs with an installation task.
+    def finish_installation_with_tasks(self):
+        """Finish installation with tasks.
 
-        :return: an installation task
+        :return: a list of installation tasks
         """
-        task = CopyLogsTask(conf.target.system_root)
-        return task
+        return [
+            CopyLogsTask(conf.target.system_root)
+        ]

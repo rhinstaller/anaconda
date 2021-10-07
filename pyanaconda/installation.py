@@ -215,13 +215,8 @@ def _prepare_configuration(payload, ksdata):
     configuration_queue.append(post_scripts)
 
     boss_proxy = BOSS.get_proxy()
-    copy_logs = TaskQueue(
-        "Copy logs",
-        N_("Copying logs")
-    )
-    logs_task = boss_proxy.CopyLogsWithTask()
-    copy_logs.append_dbus_tasks(BOSS, [logs_task])
-    configuration_queue.append(copy_logs)
+    finish_tasks = boss_proxy.FinishInstallationWithTasks()
+    configuration_queue.append_dbus_tasks(BOSS, finish_tasks)
 
     return configuration_queue
 

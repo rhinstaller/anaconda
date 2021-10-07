@@ -226,14 +226,15 @@ class BossInterfaceTestCase(unittest.TestCase):
 
     @patch_dbus_publish_object
     def test_install_with_tasks(self, publisher):
-        """Test CopyLogsWithTask."""
-        task_path = self.interface.CopyLogsWithTask()
+        """Test FinishInstallationWithTasks."""
+        task_list = self.interface.FinishInstallationWithTasks()
+        task_path = task_list[0]
         task_proxy = check_task_creation(task_path, publisher, CopyLogsTask)
         task = task_proxy.implementation
         assert task.name == "Copy installation logs"
 
-        task = self.module.copy_logs_with_task()
-        assert task.name == "Copy installation logs"
+        tasks = self.module.finish_installation_with_tasks()
+        assert tasks[0].name == "Copy installation logs"
 
     def test_quit(self):
         """Test Quit."""
