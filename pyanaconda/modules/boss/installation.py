@@ -55,8 +55,8 @@ class CopyLogsTask(Task):
         - Autorelabel everything in the destination
         """
         self._copy_screenshots()
-        self._copy_logs()
         self._copy_kickstart()
+        self._copy_logs()
 
     def _copy_screenshots(self):
         """Copy screenshots from the installation to the target system."""
