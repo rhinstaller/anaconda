@@ -65,6 +65,10 @@ TUI_MAPPING = """
 class HelpSupportTestCase(unittest.TestCase):
     """Test the built-in help support."""
 
+    def tearDown(self):
+        """Clean up after a test."""
+        _get_help_mapping.cache_clear()
+
     def _create_file(self, file_dir, file_name, file_content):
         """Create a file with the help mapping."""
         os.makedirs(file_dir, exist_ok=True)
@@ -79,11 +83,14 @@ class HelpSupportTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp_dir:
             conf_mock.ui.help_directory = tmp_dir
 
+            _get_help_mapping.cache_clear()
             assert _get_help_mapping(DisplayModes.TUI) == {}
 
+            _get_help_mapping.cache_clear()
             self._create_file(tmp_dir, "anaconda-tui.json", INVALID_MAPPING)
             assert _get_help_mapping(DisplayModes.TUI) == {}
 
+            _get_help_mapping.cache_clear()
             self._create_file(tmp_dir, "anaconda-gui.json", GUI_MAPPING)
             assert _get_help_mapping(DisplayModes.GUI) == {
                 "_default_": {
@@ -170,9 +177,11 @@ class HelpSupportTestCase(unittest.TestCase):
             content_dir = os.path.join(tmp_dir, "en-US")
 
             # No mapping.
+            _get_help_mapping.cache_clear()
             assert _get_help_args_for_screen(DisplayModes.GUI, "installation-summary") is None
 
             # No help and no default.
+            _get_help_mapping.cache_clear()
             self._create_file(tmp_dir, "anaconda-gui.json", GUI_MAPPING)
             assert _get_help_args_for_screen(DisplayModes.GUI, "installation-summary") is None
 
@@ -219,6 +228,7 @@ class HelpSupportTestCase(unittest.TestCase):
             content_dir = os.path.join(tmp_dir, "en-US")
 
             # No help.
+            _get_help_mapping.cache_clear()
             self._create_file(tmp_dir, "anaconda-tui.json", TUI_MAPPING)
             assert get_help_path_for_screen("installation-summary") is None
 
@@ -240,7 +250,9 @@ class HelpSupportTestCase(unittest.TestCase):
             content_dir = os.path.join(tmp_dir, "en-US")
 
             # No help.
+            _get_help_mapping.cache_clear()
             self._create_file(tmp_dir, "anaconda-gui.json", GUI_MAPPING)
+
             show_graphical_help_for_screen("installation-summary")
             starter.assert_not_called()
             starter.reset_mock()
