@@ -25,7 +25,8 @@ import sys
 import sysconfig
 from modulefinder import ModuleFinder
 
-sitedir = sysconfig.get_path('purelib')
+# TODO: rewrite this script according to https://bugzilla.redhat.com/show_bug.cgi?id=2012513#c5
+sitedir = sysconfig.get_path('purelib', scheme='rpm_prefix')
 libdir = sysconfig.get_config_var('LIBDEST')
 
 # stringprep is needed by the idna encoding, and idna is needed by requests.
