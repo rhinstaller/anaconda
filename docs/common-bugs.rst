@@ -24,6 +24,11 @@ Missing logs
     You can find them during the installation in ``/tmp`` or on the installed system in
     ``/var/log/anaconda/``.
 
+    If you are gathering the log files manually - outside of the automatic bug reporter - please
+    make sure that either the file ``syslog`` or ``journal.log`` is included. If you are in the
+    Live CD environment, and neither file exists, please create the journal dump manually
+    by running ``journalctl > journal.log`` and attach the file.
+
 DBus issues
 -----------
 
