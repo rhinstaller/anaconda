@@ -23,24 +23,23 @@ import copy
 import os
 import sys
 import sysconfig
+from importlib.util import find_spec
 from modulefinder import ModuleFinder
-
-sitedir = sysconfig.get_path('purelib')
-libdir = sysconfig.get_config_var('LIBDEST')
 
 # stringprep is needed by the idna encoding, and idna is needed by requests.
 # The encoding import is implicit so ModuleFinder doesn't find it right.
-alsoNeeded = {sitedir+"/requests/__init__.py": libdir+"/stringprep.py"}
+alsoNeeded = {find_spec('requests').origin: find_spec('stringprep').origin}
 
 # A couple helper functions...
 def moduledir(pyfile):
     '''Given a python file, return the module dir it belongs to, or None.'''
-    for topdir in sitedir, libdir:
-        relpath = os.path.relpath(pyfile, topdir)
-        if '/' not in relpath: continue
-        modname = relpath.split('/')[0]
-        if modname not in ('..', 'site-packages'):
-            return os.path.join(topdir, modname)
+    for topdir in sys.path:
+        if topdir.startswith(sys.prefix + '/') and os.path.isdir(topdir):
+            relpath = os.path.relpath(pyfile, topdir)
+            if '/' not in relpath: continue
+            modname = relpath.split('/')[0]
+            if modname not in ('..', 'site-packages'):
+                return os.path.join(topdir, modname)
 
 # pylint: disable=redefined-outer-name
 def pyfiles(moddir):
@@ -55,13 +54,13 @@ mods = []
 deps = []
 
 scripts = copy.copy(sys.argv[1:])
-scripts.append(os.path.join(libdir,'site.py'))
-scripts.append(os.path.join(libdir,'sysconfig.py'))
+scripts.append(find_spec('site').origin)
+scripts.append(find_spec('sysconfig').origin)
 # platform-specific sysconfigdata module, needed by sysconfig, not
 # detected by ModuleFinder - RHBZ #1409177, Python #29113
 # this will only work and is only needed on Python 3.6+, so hedge it
 try:
-    sysconfmod = os.path.join(libdir, sysconfig._get_sysconfigdata_name() + '.py')
+    sysconfmod = os.path.join(find_spec(sysconfig._get_sysconfigdata_name()).origin)
     if os.path.exists(sysconfmod):
         scripts.append(sysconfmod)
 except AttributeError:
