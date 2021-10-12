@@ -312,6 +312,9 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 # Create an empty directory for addons
 mkdir %{buildroot}%{_datadir}/anaconda/addons
 
+# Create an empty directory for post-scripts
+mkdir %{buildroot}%{_datadir}/anaconda/post-scripts
+
 # required for live installations
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/liveinst.desktop
 
@@ -347,6 +350,7 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %exclude %{_datadir}/anaconda/ui
 %exclude %{_datadir}/anaconda/window-manager
 %exclude %{_datadir}/anaconda/anaconda-gtk.css
+%dir %{_datadir}/anaconda/post-scripts
 %exclude %{_prefix}/libexec/anaconda/dd_*
 %{python3_sitearch}/pyanaconda
 %exclude %{python3_sitearch}/pyanaconda/rescue.py*
