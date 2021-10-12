@@ -407,6 +407,15 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Oct 12 2021 Martin Kolman <mkolman@redhat.com> - 36.7-1
+- Cache the parsed content of the help mapping files (vponcova)
+- Use specific help directories (vponcova)
+- Remove the default_help_pages configuration option (vponcova)
+- Remove the helpFile attribute (vponcova)
+- Implement the unified help support (vponcova)
+- Mention manual journal dumps for mising logs (vslavik)
+- Revert "Install kbd-legacy if keyboard layout is "fi" (#1955793)" (vponcova)
+
 * Mon Oct 11 2021 Martin Kolman <mkolman@redhat.com> - 36.6-1
 - Don't assume Python modules are in sysconfig.get_path('purelib') (miro)
 - Watch the org.freedesktop.hostname1 name (vponcova)
