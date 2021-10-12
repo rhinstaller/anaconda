@@ -56,10 +56,7 @@ class LangsupportSpoke(NormalSpoke, LangLocaleHandler):
     mainWidgetName = "langsupportWindow"
     focusWidgetName = "languageEntry"
     uiFile = "spokes/language_support.glade"
-    helpFile = "LangSupportSpoke.xml"
-
     category = LocalizationCategory
-
     icon = "accessories-character-map-symbolic"
     title = CN_("GUI|Spoke", "_Language Support")
 

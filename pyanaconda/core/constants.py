@@ -76,10 +76,6 @@ DEFAULT_KEYBOARD = "us"
 
 DRACUT_SHUTDOWN_EJECT = "/run/initramfs/usr/lib/dracut/hooks/shutdown/99anaconda-eject.sh"
 
-# Help.
-HELP_MAIN_PAGE_GUI = "Installation_Guide.xml"
-HELP_MAIN_PAGE_TUI = "Installation_Guide.txt"
-
 # VNC questions
 USEVNC = N_("Start VNC")
 USETEXT = N_("Use text mode")

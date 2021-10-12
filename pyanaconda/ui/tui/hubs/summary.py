@@ -44,7 +44,6 @@ class SummaryHub(TUIHub):
        .. inheritance-diagram:: SummaryHub
           :parts: 3
     """
-    helpFile = "SummaryHub.txt"
 
     @staticmethod
     def get_screen_id():

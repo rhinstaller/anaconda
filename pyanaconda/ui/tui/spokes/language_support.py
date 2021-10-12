@@ -47,7 +47,6 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
        .. inheritance-diagram:: LangSpoke
           :parts: 3
     """
-    helpFile = "LangSupportSpoke.txt"
     category = LocalizationCategory
 
     @staticmethod

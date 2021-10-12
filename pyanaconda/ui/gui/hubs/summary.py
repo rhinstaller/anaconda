@@ -35,7 +35,6 @@ class SummaryHub(Hub):
     builderObjects = ["summaryWindow"]
     mainWidgetName = "summaryWindow"
     uiFile = "hubs/summary.glade"
-    helpFile = "SummaryHub.xml"
 
     @staticmethod
     def get_screen_id():

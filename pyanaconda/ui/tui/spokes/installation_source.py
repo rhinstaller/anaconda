@@ -63,7 +63,6 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
        .. inheritance-diagram:: SourceSpoke
           :parts: 3
     """
-    helpFile = "SourceSpoke.txt"
     category = SoftwareCategory
 
     SET_NETWORK_INSTALL_MODE = "network_install"

@@ -284,10 +284,7 @@ class KeyboardSpoke(NormalSpoke):
                       "layoutTestBuffer"]
     mainWidgetName = "keyboardWindow"
     uiFile = "spokes/keyboard.glade"
-    helpFile = "KeyboardSpoke.xml"
-
     category = LocalizationCategory
-
     icon = "input-keyboard-symbolic"
     title = CN_("GUI|Spoke", "_Keyboard")
 

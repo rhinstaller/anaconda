@@ -74,10 +74,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     builderObjects = ["storageWindow", "addSpecializedImage"]
     mainWidgetName = "storageWindow"
     uiFile = "spokes/storage.glade"
-    helpFile = "StorageSpoke.xml"
-
     category = SystemCategory
-
     # other candidates: computer-symbolic, folder-symbolic
     icon = "drive-harddisk-symbolic"
     title = CN_("GUI|Spoke", "Installation _Destination")

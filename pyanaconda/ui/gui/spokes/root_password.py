@@ -49,10 +49,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
     mainWidgetName = "passwordWindow"
     focusWidgetName = "password_entry"
     uiFile = "spokes/root_password.glade"
-    helpFile = "PasswordSpoke.xml"
-
     category = UserSettingsCategory
-
     icon = "dialog-password-symbolic"
     title = CN_("GUI|Spoke", "_Root Account")
 

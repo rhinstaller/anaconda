@@ -35,19 +35,6 @@ class UserInterfaceSection(Section):
         return self._get_option("help_directory", str)
 
     @property
-    def default_help_pages(self):
-        """Default help pages for TUI, GUI and Live OS."""
-        values = self._get_option("default_help_pages", str).split()
-
-        if not values:
-            return "", "", ""
-
-        if len(values) != 3:
-            raise ValueError("Invalid number of values: {}".format(values))
-
-        return tuple(values)
-
-    @property
     def blivet_gui_supported(self):
         """Is the partitioning with blivet-gui supported?"""
         return self._get_option("blivet_gui_supported", bool)
