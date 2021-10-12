@@ -24,6 +24,7 @@ Contents:
    iscsi
    multipath
    list-harddrives
+   drop-in-scripts
    sysconfig-file
    mount-points
    Testing <testing>
