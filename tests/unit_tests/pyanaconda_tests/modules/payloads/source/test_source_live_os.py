@@ -33,61 +33,62 @@ from pyanaconda.modules.payloads.source.live_os.initialization import SetUpLiveO
     DetectLiveOSImageTask
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 
-from tests.unit_tests.pyanaconda_tests import patch_dbus_get_proxy, PropertiesChangedCallback, \
-    patch_dbus_publish_object, check_task_creation
+from tests.unit_tests.pyanaconda_tests import patch_dbus_get_proxy, patch_dbus_publish_object, \
+    check_task_creation, check_dbus_property
 
 
 class LiveOSSourceInterfaceTestCase(unittest.TestCase):
+    """Test the DBus interface of the Live OS source."""
 
     def setUp(self):
         self.module = LiveOSSourceModule()
         self.interface = LiveOSSourceInterface(self.module)
 
-        self.callback = PropertiesChangedCallback()
-        self.interface.PropertiesChanged.connect(self.callback)
-
     def test_type(self):
-        """Test Live OS source has a correct type specified."""
-        assert SOURCE_TYPE_LIVE_OS_IMAGE == self.interface.Type
+        """Test the source type."""
+        assert self.interface.Type == SOURCE_TYPE_LIVE_OS_IMAGE
 
     def test_description(self):
-        """Test NFS source description."""
-        assert "Live OS" == self.interface.Description
+        """Test the source description."""
+        assert self.interface.Description == "Live OS"
 
-    def test_image_path_empty_properties(self):
-        """Test Live OS payload image path property when not set."""
+    def test_defaults(self):
+        """Test the default values."""
         assert self.interface.ImagePath == ""
 
-    def test_image_path_properties(self):
-        """Test Live OS payload image path property is correctly set."""
-        self.interface.SetImagePath("/my/supper/image/path")
-        assert self.interface.ImagePath == "/my/supper/image/path"
-        self.callback.assert_called_once_with(
-            PAYLOAD_SOURCE_LIVE_OS.interface_name, {"ImagePath": "/my/supper/image/path"}, [])
+    def test_image_path(self):
+        """Test the ImagePath property."""
+        check_dbus_property(
+            PAYLOAD_SOURCE_LIVE_OS,
+            self.interface,
+            "ImagePath",
+            "/my/fake/path"
+        )
 
     @patch_dbus_publish_object
     def test_detect_image_with_task(self, publisher):
-        """Test the DetectImageWithTask DBus method."""
+        """Test the DetectImageWithTask method."""
         task_path = self.interface.DetectImageWithTask()
         check_task_creation(task_path, publisher, DetectLiveOSImageTask)
 
 
 class LiveOSSourceTestCase(unittest.TestCase):
+    """Test the Live OS source."""
 
     def setUp(self):
         self.module = LiveOSSourceModule()
 
     def test_network_required(self):
-        """Test the property network_required."""
+        """Test the network_required property."""
         assert self.module.network_required is False
 
     def test_required_space(self):
         """Test the required_space property."""
-        assert self.module.required_space == 0
+        assert self.module.required_space > 0
 
     @patch("os.path.ismount")
     def test_get_state(self, ismount_mock):
-        """Test LiveOS source state."""
+        """Test the source state."""
         ismount_mock.return_value = False
         assert SourceState.UNREADY == self.module.get_state()
 
@@ -98,25 +99,25 @@ class LiveOSSourceTestCase(unittest.TestCase):
         ismount_mock.assert_called_once_with(self.module.mount_point)
 
     def test_set_up_with_tasks(self):
-        """Test Live OS Source set up call."""
-        # task will not be public so it won't be published
+        """Test the set up tasks."""
         tasks = self.module.set_up_with_tasks()
         assert len(tasks) == 1
         assert isinstance(tasks[0], SetUpLiveOSSourceTask)
 
     def test_tear_down_with_tasks(self):
-        """Test Live OS Source ready state for tear down."""
-        # task will not be public so it won't be published
+        """Test the tear down tasks."""
         tasks = self.module.tear_down_with_tasks()
         assert len(tasks) == 1
         assert isinstance(tasks[0], TearDownMountTask)
 
     def test_repr(self):
+        """Test the string representation."""
         self.module.set_image_path("/some/path")
         assert repr(self.module) == "Source(type='LIVE_OS_IMAGE', image='/some/path')"
 
 
 class LiveOSSourceTasksTestCase(unittest.TestCase):
+    """Test the tasks of the Live OS source."""
 
     @patch("pyanaconda.modules.payloads.source.live_os.initialization.execWithCapture")
     @patch("pyanaconda.modules.payloads.source.live_os.initialization.os.path.exists")

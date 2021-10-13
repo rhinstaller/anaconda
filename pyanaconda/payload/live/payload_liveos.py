@@ -15,54 +15,36 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_packaging_logger
-from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_OS, INSTALL_TREE
-from pyanaconda.core.i18n import _
-from pyanaconda.modules.payloads.source.live_os.initialization import DetectLiveOSImageTask, \
-    SetUpLiveOSSourceTask
-from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
-from pyanaconda.payload.live.payload_base import BaseLivePayload
-from pyanaconda.progress import progressQ
+from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_OS, SOURCE_TYPE_LIVE_OS_IMAGE
+from pyanaconda.modules.common.constants.services import PAYLOADS
+from pyanaconda.modules.common.task import sync_run_task
+from pyanaconda.payload.migrated import MigratedDBusPayload
 
 log = get_packaging_logger()
 
 __all__ = ["LiveOSPayload"]
 
 
-class LiveOSPayload(BaseLivePayload):
+class LiveOSPayload(MigratedDBusPayload):
     """ A LivePayload copies the source image onto the target system. """
+
+    def set_from_opts(self, opts):
+        """Detect the Live OS image."""
+        # Create the image source.
+        source_proxy = self.get_source_proxy()
+
+        # Detect the image path.
+        task_path = source_proxy.DetectImageWithTask()
+        task_proxy = PAYLOADS.get_proxy(task_path)
+        sync_run_task(task_proxy)
 
     @property
     def type(self):
         """The DBus type of the payload."""
         return PAYLOAD_TYPE_LIVE_OS
 
-    def setup(self):
-        # Mount the live device and copy from it instead of the overlay at /
-        task = DetectLiveOSImageTask()
-        image_path = task.run()
-
-        task = SetUpLiveOSSourceTask(
-            image_path=image_path,
-            target_mount=INSTALL_TREE
-        )
-        task.run()
-
-        # Grab the kernel version list now so it's available after umount
-        self._update_kernel_version_list()
-
-    def unsetup(self):
-        # Unmount a previously mounted live tree
-        task = TearDownMountTask(INSTALL_TREE)
-        task.run()
-
-    def pre_install(self):
-        """ Perform pre-installation tasks. """
-        super().pre_install()
-        progressQ.send_message(_("Installing software") + (" %d%%") % (0,))
-
     @property
-    def space_required(self):
-        from pyanaconda.modules.payloads.base.utils import get_dir_size
-        return Size(get_dir_size("/") * 1024)
+    def default_source_type(self):
+        """The DBus type of the default source."""
+        return SOURCE_TYPE_LIVE_OS_IMAGE
