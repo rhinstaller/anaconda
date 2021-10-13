@@ -16,6 +16,8 @@
 # Red Hat, Inc.
 #
 import hashlib
+import os
+import stat
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
@@ -23,6 +25,8 @@ from pyanaconda.core.util import execWithRedirect
 from pyanaconda.core.string import lower_ascii
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
+from pyanaconda.modules.payloads.payload.live_image.installation_progress import \
+    InstallationProgress
 
 log = get_module_logger(__name__)
 
@@ -98,9 +102,33 @@ class InstallFromTarTask(Task):
 
     @property
     def name(self):
+        """The name of the task."""
         return "Install the payload from a tarball"
 
+    @property
+    def _installation_size(self):
+        """The installation size of the archive.
+
+        Use 2x the archive's size to estimate the size of the install.
+
+        :return: a size in bytes
+        """
+        return os.stat(self._tarfile)[stat.ST_SIZE] * 2
+
     def run(self):
+        """Run the task."""
+        with self._monitor_progress():
+            self._install_tar()
+
+    def _monitor_progress(self):
+        """Get a progress monitor."""
+        return InstallationProgress(
+            sysroot=self._sysroot,
+            callback=self.report_progress,
+            installation_size=self._installation_size,
+        )
+
+    def _install_tar(self):
         """Run installation of the payload from a tarball.
 
         Preserve ACL's, xattrs, and SELinux context.
@@ -147,9 +175,32 @@ class InstallFromImageTask(Task):
 
     @property
     def name(self):
+        """The name of the task."""
         return "Install the payload from image"
 
+    @property
+    def _installation_size(self):
+        """The installation size of the image.
+
+        :return: a size in bytes
+        """
+        source = os.statvfs(self._mount_point)
+        return source.f_frsize * (source.f_blocks - source.f_bfree)
+
     def run(self):
+        """Run the task."""
+        with self._monitor_progress():
+            self._install_image()
+
+    def _monitor_progress(self):
+        """Get a progress monitor."""
+        return InstallationProgress(
+            sysroot=self._sysroot,
+            callback=self.report_progress,
+            installation_size=self._installation_size,
+        )
+
+    def _install_image(self):
         """Run installation of the payload from image.
 
         Preserve permissions, owners, groups, ACL's, xattrs, times,

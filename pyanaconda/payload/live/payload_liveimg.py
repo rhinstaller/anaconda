@@ -17,7 +17,6 @@
 #
 import glob
 import os
-import stat
 
 import requests
 from blivet.size import Size
@@ -261,20 +260,12 @@ class LiveImagePayload(BaseLivePayload):
             super().install()
             return
 
-        # Calculate the installation size of the archive.
-        # Use 2x the archive's size to estimate the size of the install.
-        size = os.stat(self.image_path)[stat.ST_SIZE] * 2
-
-        # Install the archive.
-        with self._monitor_progress(size):
-            self._install_tar()
-
-    def _install_tar(self):
         # Run the installation task.
         task = InstallFromTarTask(
             sysroot=conf.target.system_root,
             tarfile=self.image_path
         )
+        task.progress_changed_signal.connect(self._progress_cb)
         task.run()
 
     def post_install(self):
