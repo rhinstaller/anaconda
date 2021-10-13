@@ -92,6 +92,7 @@ class InstallFromImageTaskTestCase(unittest.TestCase):
 
         exec_with_redirect.assert_called_once_with("rsync", [
             "-pogAXtlHrDx",
+            "--stats",
             "--exclude", "/dev/",
             "--exclude", "/proc/",
             "--exclude", "/tmp/*",

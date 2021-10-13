@@ -159,6 +159,7 @@ class InstallFromImageTask(Task):
         cmd = "rsync"
         args = [
             "-pogAXtlHrDx",
+            "--stats",
             "--exclude", "/dev/",
             "--exclude", "/proc/",
             "--exclude", "/tmp/*",
