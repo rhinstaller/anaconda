@@ -405,8 +405,8 @@ if __name__ == "__main__":
     # it override from kickstart if/when X is initialized
     startup_utils.activate_keyboard(opts)
 
-    # Some post-install parts of anaconda are implemented as kickstart
-    # scripts.  Add those to the ksdata now.
+    # Users can supply post-install actions as kickstart scripts, independent of actual kickstart.
+    # Add those to the ksdata now.
     kickstart.appendPostScripts(ksdata)
 
     # Set up the UI context.

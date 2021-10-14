@@ -206,3 +206,60 @@ class CopyLogsTask(Task):
                 dirs_exist_ok=True
             )
             os.chmod(full_dest_path, 0o0600)
+
+
+class SetContextsTask(Task):
+    """Task to set file contexts on target system.
+
+    We need to handle SELinux relabeling for a few reasons:
+
+    - %post scripts that write files into places in /etc, but don't do labeling correctly
+    - Anaconda code that does the same (e.g. moving our log files into /var/log/anaconda)
+    - ostree payloads, where all of the labeling of /var is the installer's responsibility
+      (see https://github.com/ostreedev/ostree/pull/872 )
+    - OSTree variants of the traditional mounts if present
+    """
+    def __init__(self, sysroot):
+        """Create a new task.
+
+        :param sysroot: a path to the root of installed system
+        :type sysroot: str
+        """
+        super().__init__()
+        self._sysroot = sysroot
+
+    @property
+    def name(self):
+        return "Set file contexts"
+
+    def run(self):
+        """Relabel files (set contexts).
+
+        Do not fail if the executable is not present.
+        """
+        dirs_to_relabel = [
+            "/boot",
+            "/dev",
+            "/etc",
+            "/lib64",
+            "/root",
+            "/usr/lib64",
+            "/var/cache/yum",
+            "/var/home",
+            "/var/lib",
+            "/var/lock",
+            "/var/log",
+            "/var/media",
+            "/var/mnt",
+            "/var/opt",
+            "/var/roothome",
+            "/var/run",
+            "/var/spool",
+            "/var/srv"
+        ]
+
+        log.info("Restoring SELinux contexts.")
+        try:
+            execWithRedirect("restorecon", ["-ir"] + dirs_to_relabel, root=self._sysroot)
+        except FileNotFoundError:
+            log.warning("Cannot restore contexts, 'restorecon' is not available on new system.")

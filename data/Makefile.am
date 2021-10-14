@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = command-stubs liveinst systemd post-scripts pixmaps window-manager dbus conf.d profile.d
+SUBDIRS = command-stubs liveinst systemd pixmaps window-manager dbus conf.d profile.d
 
 CLEANFILES = *~
 

@@ -23,7 +23,7 @@ from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.boss.boss_interface import BossInterface
 from pyanaconda.modules.boss.module_manager import ModuleManager
 from pyanaconda.modules.boss.install_manager import InstallManager
-from pyanaconda.modules.boss.installation import CopyLogsTask
+from pyanaconda.modules.boss.installation import CopyLogsTask, SetContextsTask
 from pyanaconda.modules.boss.kickstart_manager import KickstartManager
 from pyanaconda.modules.boss.user_interface import UIModule
 from pyanaconda.modules.common.base import Service
@@ -144,10 +144,12 @@ class Boss(Service):
         super().set_locale(locale)
         self._module_manager.set_modules_locale(locale)
 
-    def copy_logs_with_task(self):
-        """Copy logs with an installation task.
+    def finish_installation_with_tasks(self):
+        """Finish installation with tasks.
 
-        :return: an installation task
+        :return: a list of installation tasks
         """
-        task = CopyLogsTask(conf.target.system_root)
-        return task
+        return [
+            SetContextsTask(conf.target.system_root),
+            CopyLogsTask(conf.target.system_root)
+        ]
