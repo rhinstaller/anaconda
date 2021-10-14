@@ -17,17 +17,14 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import os
-import stat
-
 from pyanaconda.core.i18n import _
 from pyanaconda.core.signal import Signal
-from pyanaconda.core.util import execWithCapture
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, MountingSourceMixin
 from pyanaconda.modules.payloads.source.live_os.live_os_interface import LiveOSSourceInterface
-from pyanaconda.modules.payloads.source.live_os.initialization import SetUpLiveOSSourceTask
+from pyanaconda.modules.payloads.source.live_os.initialization import SetUpLiveOSSourceTask, \
+    DetectLiveOSImageTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -100,6 +97,19 @@ class LiveOSSourceModule(PayloadSourceBase, MountingSourceMixin):
         self.image_path_changed.emit()
         log.debug("LiveOS image path is set to '%s'", self._image_path)
 
+    def detect_image_with_task(self):
+        """Detect a Live OS image with a task.
+
+        Detect an image and set the image path of the source.
+
+        :return: a task
+        """
+        task = DetectLiveOSImageTask()
+        task.succeeded_signal.connect(
+            lambda: self.set_image_path(task.get_result())
+        )
+        return task
+
     def tear_down_with_tasks(self):
         """Tear down the installation source.
 
@@ -108,31 +118,6 @@ class LiveOSSourceModule(PayloadSourceBase, MountingSourceMixin):
         """
         task = TearDownMountTask(self._mount_point)
         return [task]
-
-    def detect_live_os_image(self):
-        """Detect live os image in the system."""
-        log.debug("Trying to detect live os base image automatically")
-        for block_device in ["/dev/mapper/live-base", "/dev/mapper/live-osimg-min"]:
-            try:
-                if stat.S_ISBLK(os.stat(block_device)[stat.ST_MODE]):
-                    log.debug("Detected live base image %s", block_device)
-                    return block_device
-            except FileNotFoundError:
-                pass
-
-        # Is it a squashfs+overlayfs base image?
-        if os.path.exists("/run/rootfsbase"):
-            try:
-                block_device = execWithCapture("findmnt",
-                                               ["-n", "-o", "SOURCE", "/run/rootfsbase"]).strip()
-                if block_device:
-                    log.debug("Detected live base image %s", block_device)
-                    return block_device
-            except (OSError, FileNotFoundError):
-                pass
-
-        log.debug("No live base image detected")
-        return ""
 
     def set_up_with_tasks(self):
         """Set up the installation source for installation.

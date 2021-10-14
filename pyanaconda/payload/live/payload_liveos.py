@@ -23,6 +23,7 @@ from pyanaconda.anaconda_loggers import get_packaging_logger
 from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_OS, INSTALL_TREE, SOURCE_TYPE_LIVE_OS_IMAGE
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.constants.services import PAYLOADS
+from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.errors import PayloadSetupError
 from pyanaconda.payload.live.payload_base import BaseLivePayload
@@ -51,9 +52,13 @@ class LiveOSPayload(BaseLivePayload):
         """
         payloads_proxy = PAYLOADS.get_proxy()
         source_path = payloads_proxy.CreateSource(SOURCE_TYPE_LIVE_OS_IMAGE)
-
         source_proxy = PAYLOADS.get_proxy(source_path)
-        return source_proxy.DetectLiveOSImage()
+
+        task_path = source_proxy.DetectImageWithTask()
+        task = PAYLOADS.get_proxy(task_path)
+        sync_run_task(task)
+
+        return source_proxy.ImagePath
 
     def setup(self):
         super().setup()

@@ -29,10 +29,12 @@ from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.payloads.constants import SourceState
 from pyanaconda.modules.payloads.source.live_os.live_os import LiveOSSourceModule
 from pyanaconda.modules.payloads.source.live_os.live_os_interface import LiveOSSourceInterface
-from pyanaconda.modules.payloads.source.live_os.initialization import SetUpLiveOSSourceTask
+from pyanaconda.modules.payloads.source.live_os.initialization import SetUpLiveOSSourceTask, \
+    DetectLiveOSImageTask
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 
-from tests.unit_tests.pyanaconda_tests import patch_dbus_get_proxy, PropertiesChangedCallback
+from tests.unit_tests.pyanaconda_tests import patch_dbus_get_proxy, PropertiesChangedCallback, \
+    patch_dbus_publish_object, check_task_creation
 
 
 class LiveOSSourceInterfaceTestCase(unittest.TestCase):
@@ -63,41 +65,11 @@ class LiveOSSourceInterfaceTestCase(unittest.TestCase):
         self.callback.assert_called_once_with(
             PAYLOAD_SOURCE_LIVE_OS.interface_name, {"ImagePath": "/my/supper/image/path"}, [])
 
-    # TODO: Make detection method coverage better
-    @patch("pyanaconda.modules.payloads.source.live_os.live_os.stat")
-    @patch("pyanaconda.modules.payloads.source.live_os.live_os.os.stat")
-    def test_detect_live_os_image_failed_block_device(self, os_stat_mock, stat_mock):
-        """Test Live OS image detection failed block device check."""
-        # we have to patch this even thought that result is used in another mock
-        # otherwise we will skip the whole sequence
-        os_stat_mock.return_value = {stat_mock.ST_MODE: "whatever"}
-
-        stat_mock.S_ISBLK = Mock()
-        stat_mock.S_ISBLK.return_value = False
-
-        assert self.interface.DetectLiveOSImage() == ""
-
-    @patch("pyanaconda.modules.payloads.source.live_os.live_os.os.stat")
-    def test_detect_live_os_image_failed_nothing_found(self, os_stat_mock):
-        """Test Live OS image detection failed missing file."""
-        # we have to patch this even thought that result is used in another mock
-        # otherwise we will skip the whole sequence
-        os_stat_mock.side_effect = FileNotFoundError()
-
-        assert self.interface.DetectLiveOSImage() == ""
-
-    @patch("pyanaconda.modules.payloads.source.live_os.live_os.stat")
-    @patch("pyanaconda.modules.payloads.source.live_os.live_os.os.stat")
-    def test_detect_live_os_image(self, os_stat_mock, stat_mock):
-        """Test Live OS image detection."""
-        # we have to patch this even thought that result is used in another mock
-        # otherwise we will skip the whole sequence
-        stat_mock.S_ISBLK = Mock(return_value=True)
-
-        detected_image = self.interface.DetectLiveOSImage()
-        stat_mock.S_ISBLK.assert_called_once()
-
-        assert detected_image == "/dev/mapper/live-base"
+    @patch_dbus_publish_object
+    def test_detect_image_with_task(self, publisher):
+        """Test the DetectImageWithTask DBus method."""
+        task_path = self.interface.DetectImageWithTask()
+        check_task_creation(task_path, publisher, DetectLiveOSImageTask)
 
 
 class LiveOSSourceTestCase(unittest.TestCase):
@@ -123,40 +95,21 @@ class LiveOSSourceTestCase(unittest.TestCase):
         ismount_mock.return_value = True
 
         assert SourceState.READY == self.module.get_state()
-
         ismount_mock.assert_called_once_with(self.module.mount_point)
 
     def test_set_up_with_tasks(self):
         """Test Live OS Source set up call."""
-        task_classes = [
-            SetUpLiveOSSourceTask
-        ]
-
         # task will not be public so it won't be published
         tasks = self.module.set_up_with_tasks()
-
-        # Check the number of the tasks
-        task_number = len(task_classes)
-        assert task_number == len(tasks)
-
-        for i in range(task_number):
-            assert isinstance(tasks[i], task_classes[i])
+        assert len(tasks) == 1
+        assert isinstance(tasks[0], SetUpLiveOSSourceTask)
 
     def test_tear_down_with_tasks(self):
         """Test Live OS Source ready state for tear down."""
-        task_classes = [
-            TearDownMountTask
-        ]
-
         # task will not be public so it won't be published
         tasks = self.module.tear_down_with_tasks()
-
-        # check the number of tasks
-        task_number = len(task_classes)
-        assert task_number == len(tasks)
-
-        for i in range(task_number):
-            assert isinstance(tasks[i], task_classes[i])
+        assert len(tasks) == 1
+        assert isinstance(tasks[0], TearDownMountTask)
 
     def test_repr(self):
         self.module.set_image_path("/some/path")
@@ -164,6 +117,65 @@ class LiveOSSourceTestCase(unittest.TestCase):
 
 
 class LiveOSSourceTasksTestCase(unittest.TestCase):
+
+    @patch("pyanaconda.modules.payloads.source.live_os.initialization.execWithCapture")
+    @patch("pyanaconda.modules.payloads.source.live_os.initialization.os.path.exists")
+    @patch("pyanaconda.modules.payloads.source.live_os.initialization.stat")
+    @patch("pyanaconda.modules.payloads.source.live_os.initialization.os.stat")
+    def test_detect_live_os_image_failed(self, os_stat_mock, stat_mock, exists_mock, exec_mock):
+        """Test Live OS image detection failed missing file."""
+        stat_mock.S_ISBLK.side_effect = FileNotFoundError()
+        exists_mock.side_effect = [False]
+
+        with pytest.raises(SourceSetupError) as cm:
+            task = DetectLiveOSImageTask()
+            task.run()
+
+        assert str(cm.value) == "No Live OS image found!"
+
+        exists_mock.side_effect = [True]
+        exec_mock.side_effect = FileNotFoundError()
+
+        with pytest.raises(SourceSetupError) as cm:
+            task = DetectLiveOSImageTask()
+            task.run()
+
+        assert str(cm.value) == "No Live OS image found!"
+
+        exists_mock.side_effect = [True]
+        exec_mock.return_value = ""
+
+        with pytest.raises(SourceSetupError) as cm:
+            task = DetectLiveOSImageTask()
+            task.run()
+
+        assert str(cm.value) == "No Live OS image found!"
+
+    @patch("pyanaconda.modules.payloads.source.live_os.initialization.execWithCapture")
+    @patch("pyanaconda.modules.payloads.source.live_os.initialization.os.path.exists")
+    @patch("pyanaconda.modules.payloads.source.live_os.initialization.stat")
+    @patch("pyanaconda.modules.payloads.source.live_os.initialization.os.stat")
+    def test_detect_live_os_image(self, os_stat_mock, stat_mock, exists_mock, exec_mock):
+        """Test Live OS image detection."""
+        stat_mock.S_ISBLK.side_effect = [True, True]
+
+        task = DetectLiveOSImageTask()
+        detected_image = task.run()
+        assert detected_image == "/dev/mapper/live-base"
+
+        stat_mock.S_ISBLK.side_effect = [False, True]
+
+        task = DetectLiveOSImageTask()
+        detected_image = task.run()
+        assert detected_image == "/dev/mapper/live-osimg-min"
+
+        stat_mock.S_ISBLK.side_effect = [False, False]
+        exists_mock.return_value = True
+        exec_mock.return_value = "/my/device"
+
+        task = DetectLiveOSImageTask()
+        detected_image = task.run()
+        assert detected_image == "/my/device"
 
     def test_setup_install_source_task_name(self):
         """Test Live OS Source setup installation source task name."""

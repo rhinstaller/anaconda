@@ -18,12 +18,70 @@
 import os
 import stat
 
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.util import execWithCapture
 from pyanaconda.payload.utils import mount
+from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.payloads.source.mount_tasks import SetUpMountTask
+
+log = get_module_logger(__name__)
+
+
+class DetectLiveOSImageTask(Task):
+    """Detect a Live OS image in the system."""
+
+    @property
+    def name(self):
+        return "Detect a Live OS image"
+
+    def run(self):
+        """Run the task.
+
+        Check /run/rootfsbase to detect a squashfs+overlayfs base image.
+
+        :return: a path of a block device or None
+        """
+        block_device = \
+            self._check_block_device("/dev/mapper/live-base") or \
+            self._check_block_device("/dev/mapper/live-osimg-min") or \
+            self._check_mount_point("/run/rootfsbase")
+
+        if not block_device:
+            raise SourceSetupError("No Live OS image found!")
+
+        log.debug("Detected the Live OS image '%s'.", block_device)
+        return block_device
+
+    def _check_block_device(self, block_device):
+        """Check the specified block device."""
+        log.debug("Checking the %s block device.", block_device)
+
+        try:
+            if stat.S_ISBLK(os.stat(block_device)[stat.ST_MODE]):
+                return block_device
+        except FileNotFoundError:
+            pass
+
+        return None
+
+    def _check_mount_point(self, mount_point):
+        """Check a block device at the specified mount point."""
+        log.debug("Checking the %s mount point.", mount_point)
+
+        if not os.path.exists(mount_point):
+            return None
+
+        try:
+            block_device = execWithCapture("findmnt", ["-n", "-o", "SOURCE", mount_point]).strip()
+            return block_device or None
+        except (OSError, FileNotFoundError):
+            pass
+
+        return None
 
 
 class SetUpLiveOSSourceTask(SetUpMountTask):

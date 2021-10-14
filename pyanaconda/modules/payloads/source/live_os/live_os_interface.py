@@ -21,6 +21,7 @@ from dasbus.server.interface import dbus_interface
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from dasbus.server.property import emits_properties_changed
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_LIVE_OS
+from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.payloads.source.source_base_interface import PayloadSourceBaseInterface
 
 
@@ -48,9 +49,13 @@ class LiveOSSourceInterface(PayloadSourceBaseInterface):
         """
         self.implementation.set_image_path(image_path)
 
-    def DetectLiveOSImage(self) -> Str:
-        """Try to find valid live os image.
+    def DetectImageWithTask(self) -> ObjPath:
+        """Detect a Live OS image with a task.
 
-        :return: path to the base image
+        Detect an image and set the image path of the source.
+
+        :return: an path to the DBus task
         """
-        return self.implementation.detect_live_os_image()
+        return TaskContainer.to_object_path(
+            self.implementation.detect_image_with_task()
+        )
