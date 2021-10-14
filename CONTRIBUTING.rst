@@ -9,13 +9,13 @@ an `addon guide <http://rhinstaller.github.io/anaconda-addon-development-guide/i
 How to run make commands
 ------------------------
 
-Anaconda has plenty of dependencies and because of that it's hard to set environment to
-with Anaconda properly. To get all the dependencies you are free to use script in the Anaconda
-repository.
+Anaconda has plenty of dependencies and because of that it's hard to set an environment
+for Anaconda properly. To get all the dependencies, you are free to use a helper script
+in the Anaconda repository.
 
 Follow these steps to keep your machine clean from all the Anaconda dependencies. It will
 create a container where you can install all the dependencies. If you are not interested in
-dealing with container just skip this part and continue on the next one::
+dealing with containers, just skip this part and continue on the next one::
 
     sudo dnf install toolbox
     toolbox create
@@ -31,17 +31,19 @@ How to Contribute to the Anaconda Installer (the short version)
 
 1) I want to contribute to the upstream Anaconda Installer (used in Fedora):
 
+- base and test your changes on a clone of the ``<next Fedora number>-devel`` branch.
 - open a pull request for the ``<next Fedora number>-devel`` branch (f25-devel, etc.)
 - check the *Commit Messages* section below for how to format your commit messages
 - check the *Release Notes* section below for how to provide a release note
 
 2) I want to contribute to the RHEL Anaconda installer:
 
+- base and test your changes on a clone of the ``<RHEL number>-branch``  branch.
 - open a pull request for the ``<RHEL number>-branch``  branch (rhel7-branch, etc.)
 - check the *Commits for RHEL Branches* section below for how to format your commit messages
 - check the *Release Notes* section below for how to provide a release note
 
-If you want to contribute a change to both the upstream and RHEL Anaconda then follow both a) and b) separately.
+If you want to contribute a change to both the upstream and RHEL Anaconda then follow both 1) and 2) separately.
 
 Which is my target git branch?
 ------------------------------
