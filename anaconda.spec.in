@@ -407,6 +407,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Oct 14 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.17.1-1
+- Rebuild for translations update (rvykydal)
+  Resolves: rhbz#1962068
+
 * Thu Sep 23 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.17-1
 - Verify the OPAL compatibility with XFS features (vponcova)
   Resolves: rhbz#1997832
