@@ -95,6 +95,9 @@ GRAPHICAL_TARGET = 'graphical.target'
 NETWORK_CONNECTION_TIMEOUT = 46  # in seconds
 NETWORK_CONNECTED_CHECK_INTERVAL = 0.1  # in seconds
 
+# Anaconda user agent
+USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)
+
 # DBus
 DEFAULT_DBUS_TIMEOUT = -1       # use default
 
