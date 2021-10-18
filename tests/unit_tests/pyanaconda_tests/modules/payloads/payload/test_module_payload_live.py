@@ -23,7 +23,6 @@ import unittest
 import pytest
 
 from unittest.mock import patch
-from tempfile import TemporaryDirectory
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import join_paths
@@ -52,14 +51,14 @@ class LiveUtilsTestCase(unittest.TestCase):
 
     def test_kernel_list_empty(self):
         """Test empty get kernel list function."""
-        with TemporaryDirectory() as temp:
+        with tempfile.TemporaryDirectory() as temp:
             result = get_kernel_version_list(temp)
 
         assert result == []
 
     def test_kernel_list(self):
         """Test get kernel list function."""
-        with TemporaryDirectory() as temp:
+        with tempfile.TemporaryDirectory() as temp:
 
             boot_base = os.path.join(temp, "boot/vmlinuz-{}")
             efi_base = os.path.join(temp, "boot/efi/EFI/", conf.bootloader.efi_dir, "vmlinuz-{}")
@@ -80,15 +79,18 @@ class LiveUtilsTestCase(unittest.TestCase):
 class InstallFromImageTaskTestCase(unittest.TestCase):
     """Test the InstallFromImageTask class."""
 
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.os.sync")
     @patch("pyanaconda.modules.payloads.payload.live_image.installation.execWithRedirect")
-    def test_install_image_task(self, exec_with_redirect):
+    def test_install_image_task(self, exec_with_redirect, os_sync):
         """Test installation from an image task."""
         exec_with_redirect.return_value = 0
-        task = InstallFromImageTask(
-            sysroot="/mnt/root",
-            mount_point="/mnt/source"
-        )
-        task.run()
+
+        with tempfile.TemporaryDirectory() as mount_point:
+            task = InstallFromImageTask(
+                sysroot="/mnt/root",
+                mount_point=mount_point
+            )
+            task.run()
 
         exec_with_redirect.assert_called_once_with("rsync", [
             "-pogAXtlHrDx",
@@ -102,36 +104,42 @@ class InstallFromImageTaskTestCase(unittest.TestCase):
             "--exclude", "/boot/loader/",
             "--exclude", "/boot/efi/loader/",
             "--exclude", "/etc/machine-id",
-            "/mnt/source",
+            mount_point,
             "/mnt/root"
         ])
 
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.os.sync")
     @patch("pyanaconda.modules.payloads.payload.live_image.installation.execWithRedirect")
-    def test_install_image_task_failed_exception(self, exec_with_redirect):
+    def test_install_image_task_failed_exception(self, exec_with_redirect, os_sync):
         """Test installation from an image task with exception."""
         exec_with_redirect.side_effect = OSError("Fake!")
-        task = InstallFromImageTask(
-            sysroot="/mnt/root",
-            mount_point="/mnt/source"
-        )
 
-        with pytest.raises(PayloadInstallationError) as cm:
-            task.run()
+        with tempfile.TemporaryDirectory() as mount_point:
+            task = InstallFromImageTask(
+                sysroot="/mnt/root",
+                mount_point=mount_point
+            )
+
+            with pytest.raises(PayloadInstallationError) as cm:
+                task.run()
 
         msg = "Failed to install image: Fake!"
         assert str(cm.value) == msg
 
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.os.sync")
     @patch("pyanaconda.modules.payloads.payload.live_image.installation.execWithRedirect")
-    def test_install_image_task_failed_return_code(self, exec_with_redirect):
+    def test_install_image_task_failed_return_code(self, exec_with_redirect, os_sync):
         """Test installation from an image task with bad return code."""
         exec_with_redirect.return_value = 11
-        task = InstallFromImageTask(
-            sysroot="/mnt/root",
-            mount_point="/mnt/source"
-        )
 
-        with pytest.raises(PayloadInstallationError) as cm:
-            task.run()
+        with tempfile.TemporaryDirectory() as mount_point:
+            task = InstallFromImageTask(
+                sysroot="/mnt/root",
+                mount_point=mount_point
+            )
+
+            with pytest.raises(PayloadInstallationError) as cm:
+                task.run()
 
         msg = "Failed to install image: rsync exited with code 11"
         assert str(cm.value) == msg
@@ -140,15 +148,18 @@ class InstallFromImageTaskTestCase(unittest.TestCase):
 class InstallFromTarTaskTestCase(unittest.TestCase):
     """Test the InstallFromTarTask class."""
 
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.os.sync")
     @patch("pyanaconda.modules.payloads.payload.live_image.installation.execWithRedirect")
-    def test_install_tar_task(self, exec_with_redirect):
+    def test_install_tar_task(self, exec_with_redirect, os_sync):
         """Test installation from a tarball."""
         exec_with_redirect.return_value = 0
-        task = InstallFromTarTask(
-            sysroot="/mnt/root",
-            tarfile="/source.tar"
-        )
-        task.run()
+
+        with tempfile.NamedTemporaryFile("w") as f:
+            task = InstallFromTarTask(
+                sysroot="/mnt/root",
+                tarfile=f.name
+            )
+            task.run()
 
         exec_with_redirect.assert_called_once_with("tar", [
             "--numeric-owner",
@@ -165,21 +176,24 @@ class InstallFromTarTaskTestCase(unittest.TestCase):
             "--exclude", "./boot/loader",
             "--exclude", "./boot/efi/loader",
             "--exclude", "./etc/machine-id",
-            "-xaf", "/source.tar",
+            "-xaf", f.name,
             "-C", "/mnt/root"
         ])
 
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.os.sync")
     @patch("pyanaconda.modules.payloads.payload.live_image.installation.execWithRedirect")
-    def test_install_tar_task_failed_exception(self, exec_with_redirect):
+    def test_install_tar_task_failed_exception(self, exec_with_redirect, os_sync):
         """Test installation from a tarball with an exception."""
         exec_with_redirect.side_effect = OSError("Fake!")
-        task = InstallFromTarTask(
-            sysroot="/mnt/root",
-            tarfile="/source.tar"
-        )
 
-        with pytest.raises(PayloadInstallationError) as cm:
-            task.run()
+        with tempfile.NamedTemporaryFile("w") as f:
+            task = InstallFromTarTask(
+                sysroot="/mnt/root",
+                tarfile=f.name
+            )
+
+            with pytest.raises(PayloadInstallationError) as cm:
+                task.run()
 
         msg = "Failed to install tar: Fake!"
         assert str(cm.value) == msg

@@ -15,15 +15,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import os
-
 from pyanaconda.anaconda_loggers import get_packaging_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.payloads.payload.live_image.installation import InstallFromImageTask
-from pyanaconda.modules.payloads.payload.live_image.installation_progress import \
-    InstallationProgress
 from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
@@ -46,27 +42,11 @@ class BaseLivePayload(Payload):
 
     def install(self):
         """ Install the payload. """
-        # Calculate the installation size of the image.
-        source = os.statvfs(INSTALL_TREE)
-        size = source.f_frsize * (source.f_blocks - source.f_bfree)
-
-        # Install the image.
-        with self._monitor_progress(size):
-            self._install_image()
-
-    def _monitor_progress(self, installation_size):
-        return InstallationProgress(
-            sysroot=conf.target.system_root,
-            callback=progressQ.send_message,
-            installation_size=installation_size,
-        )
-
-    def _install_image(self):
-        # Run the installation task.
         task = InstallFromImageTask(
             sysroot=conf.target.system_root,
             mount_point=INSTALL_TREE + "/"
         )
+        task.progress_changed_signal.connect(self._progress_cb)
         task.run()
 
     def post_install(self):
