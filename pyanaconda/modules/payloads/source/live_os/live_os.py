@@ -114,10 +114,13 @@ class LiveOSSourceModule(PayloadSourceBase, MountingSourceMixin):
         """Tear down the installation source.
 
         :return: list of tasks required for the source clean-up
-        :rtype: [TearDownMountTask]
+        :rtype: [Task]
         """
-        task = TearDownMountTask(self._mount_point)
-        return [task]
+        return [
+            TearDownMountTask(
+                target_mount=self.mount_point
+            )
+        ]
 
     def set_up_with_tasks(self):
         """Set up the installation source for installation.
@@ -125,5 +128,9 @@ class LiveOSSourceModule(PayloadSourceBase, MountingSourceMixin):
         :return: list of tasks required for the source setup
         :rtype: [Task]
         """
-        task = SetUpLiveOSSourceTask(self._image_path, self.mount_point)
-        return [task]
+        return [
+            SetUpLiveOSSourceTask(
+                image_path=self.image_path,
+                target_mount=self.mount_point
+            )
+        ]

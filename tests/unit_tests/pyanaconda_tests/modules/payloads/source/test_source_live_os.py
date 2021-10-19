@@ -184,9 +184,9 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
                 "/path/to/mount/source/image"
             )
 
-        assert task.name == "Set up Live OS Installation Source"
+        assert task.name == "Set up a Live OS image"
 
-    @patch("pyanaconda.modules.payloads.source.live_os.initialization.mount")
+    @patch("pyanaconda.modules.payloads.source.live_os.initialization.blivet.util.mount")
     @patch("pyanaconda.modules.payloads.source.live_os.initialization.stat")
     @patch("os.stat")
     @patch_dbus_get_proxy
@@ -227,7 +227,7 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
                 "/path/to/mount/source/image"
             ).run()
 
-        assert str(cm.value) == "Failed to find liveOS image!"
+        assert str(cm.value) == "Failed to resolve the Live OS image."
 
     @patch("pyanaconda.modules.payloads.source.live_os.initialization.stat")
     @patch("os.stat")
@@ -237,10 +237,10 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
         device_tree = Mock()
         proxy_getter.return_value = device_tree
         device_tree.ResolveDevice = Mock()
-        device_tree.ResolveDevice.return_value = "resolvedDeviceName"
+        device_tree.ResolveDevice.return_value = "dev1"
 
         device = DeviceData()
-        device.path = "/resolved/path/to/base/image"
+        device.path = "/dev/dev1"
 
         device_tree.GetDeviceData = Mock()
         device_tree.GetDeviceData.return_value = DeviceData.to_structure(device)
@@ -248,13 +248,15 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
         stat_mock.S_ISBLK = Mock()
         stat_mock.S_ISBLK.return_value = False
 
-        with pytest.raises(SourceSetupError):
+        with pytest.raises(SourceSetupError) as cm:
             SetUpLiveOSSourceTask(
                 "/path/to/base/image",
                 "/path/to/mount/source/image"
             ).run()
 
-    @patch("pyanaconda.modules.payloads.source.live_os.initialization.mount")
+        assert str(cm.value) == "/dev/dev1 is not a valid block device."
+
+    @patch("pyanaconda.modules.payloads.source.live_os.initialization.blivet.util.mount")
     @patch("pyanaconda.modules.payloads.source.live_os.initialization.stat")
     @patch("os.stat")
     @patch_dbus_get_proxy
@@ -263,10 +265,10 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
         device_tree = Mock()
         proxy_getter.return_value = device_tree
         device_tree.ResolveDevice = Mock()
-        device_tree.ResolveDevice.return_value = "resolvedDeviceName"
+        device_tree.ResolveDevice.return_value = "dev1"
 
         device = DeviceData()
-        device.path = "/resolved/path/to/base/image"
+        device.path = "/dev/dev1"
 
         device_tree.GetDeviceData = Mock()
         device_tree.GetDeviceData.return_value = DeviceData.to_structure(device)
@@ -279,4 +281,4 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
                 "/path/to/mount/source/image"
             ).run()
 
-        assert str(cm.value) == "Failed to mount the install tree"
+        assert str(cm.value) == "Failed to mount the Live OS image."

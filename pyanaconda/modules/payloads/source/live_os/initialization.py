@@ -17,10 +17,10 @@
 #
 import os
 import stat
+import blivet.util
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.util import execWithCapture
-from pyanaconda.payload.utils import mount
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -87,27 +87,62 @@ class DetectLiveOSImageTask(Task):
 class SetUpLiveOSSourceTask(SetUpMountTask):
     """Task to setup installation source."""
 
-    def __init__(self, live_partition, target_mount):
+    def __init__(self, image_path, target_mount):
+        """Create a new task.
+
+        :param image_path: a path to a Live OS image
+        :param target_mount: a path to a mount point
+        """
         super().__init__(target_mount)
-        self._live_partition = live_partition
+        self._image_path = image_path
 
     @property
     def name(self):
-        return "Set up Live OS Installation Source"
+        return "Set up a Live OS image"
 
     def _do_mount(self):
-        """Run live installation source setup."""
-        # Mount the live device and copy from it instead of the overlay at /
+        """Run live installation source setup.
+
+        Mount the live device and copy from it instead of the overlay at /.
+        """
+        device_path = self._get_device_path()
+        self._mount_device(device_path)
+
+    def _get_device_path(self):
+        """Get a device path of the block device."""
+        log.debug("Resolving %s.", self._image_path)
         device_tree = STORAGE.get_proxy(DEVICE_TREE)
-        device_name = device_tree.ResolveDevice(self._live_partition)
+
+        # Get the device name.
+        device_name = device_tree.ResolveDevice(self._image_path)
+
         if not device_name:
-            raise SourceSetupError("Failed to find liveOS image!")
+            raise SourceSetupError("Failed to resolve the Live OS image.")
 
-        device_data = DeviceData.from_structure(device_tree.GetDeviceData(device_name))
+        # Get the device path.
+        device_data = DeviceData.from_structure(
+            device_tree.GetDeviceData(device_name)
+        )
+        device_path = device_data.path
 
-        if not stat.S_ISBLK(os.stat(device_data.path)[stat.ST_MODE]):
-            raise SourceSetupError("{} is not a valid block device".format(
-                self._live_partition))
-        rc = mount(device_data.path, self._target_mount, fstype="auto", options="ro")
+        if not stat.S_ISBLK(os.stat(device_path)[stat.ST_MODE]):
+            raise SourceSetupError("{} is not a valid block device.".format(device_path))
+
+        return device_path
+
+    def _mount_device(self, device_path):
+        """Mount the specified device."""
+        log.debug("Mounting %s at %s.", device_path, self._target_mount)
+
+        try:
+            rc = blivet.util.mount(
+                device_path,
+                self._target_mount,
+                fstype="auto",
+                options="ro"
+            )
+        except OSError as e:
+            raise SourceSetupError(str(e)) from e
+
         if rc != 0:
-            raise SourceSetupError("Failed to mount the install tree")
+            raise SourceSetupError("Failed to mount the Live OS image.")
