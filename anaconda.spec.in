@@ -367,6 +367,18 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Oct 20 2021 Radek Vykydal <rvykydal@redhat.com> - 33.16.6.2-1
+- Make network spoke GUI more robust in cases of missing NM Client. (rvykydal)
+  Resolves: rhbz#2003115
+- Do not crash on missing NM Client on --vnc installations (rvykydal)
+  Related: rhbz#2003115
+- In installer environment set static, not transient hostname (rvykydal)
+  Resolves: rhbz#1975349
+- Add product config for AlmaLinux (andrew.lukoshko)
+  Resolves: rhbz#2003692
+- Fix creation of user account with empty password (mkolman)
+  Resolves: rhbz#1687315
+
 * Thu Sep 30 2021 Radek Vykydal <rvykydal@redhat.com> - 33.16.6.1-1
 - Payload should wait for all storage related threads to finish (mkolman)
   Resolves: rhbz#2007615
