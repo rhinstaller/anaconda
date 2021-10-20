@@ -407,6 +407,18 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Oct 20 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.19-1
+- Unify GUI & TUI root spoke completeness conditions (vslavik)
+  Resolves: rhbz#1999646
+- Make network spoke GUI more robust in cases of missing NM Client. (rvykydal)
+  Resolves: rhbz#2014241
+- Do not crash on missing NM Client on --vnc installations (rvykydal)
+  Related: rhbz#2014241
+- In installer environment set static, not transient hostname (rvykydal)
+  Resolves: rhbz#2009403
+- Add AlmaLinux product support (andrew.lukoshko)
+  Resolves: rhbz#2004653
+
 * Wed Oct 06 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.18-1
 - Fix Satellite provisioning rollback after unregistration (mkolman)
   Resolves: rhbz#2006718
