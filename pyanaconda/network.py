@@ -435,6 +435,10 @@ def wait_for_connectivity(timeout=constants.NETWORK_CONNECTION_TIMEOUT):
 def get_activated_devices(nm_client):
     """Get activated NetworkManager devices."""
     activated_devices = []
+
+    if not nm_client:
+        return activated_devices
+
     for ac in nm_client.get_active_connections():
         if ac.get_state() != NM.ActiveConnectionState.ACTIVATED:
             continue
