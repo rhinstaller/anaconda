@@ -380,6 +380,9 @@ class NetworkControlBox(GObject.GObject):
         treeview.append_column(col)
 
     def initialize(self):
+        if not self.client:
+            return
+
         self.client.connect("notify::%s" % NM.CLIENT_WIRELESS_ENABLED,
                             self.on_wireless_enabled)
         self.client.connect("notify::%s" % NM.CLIENT_STATE,
@@ -1120,6 +1123,9 @@ class NetworkControlBox(GObject.GObject):
         self.label_current_hostname.set_text(value)
 
     def disconnect_client_callbacks(self):
+        if not self.client:
+            return
+
         for cb in [self.on_wireless_enabled, self.on_nm_state_changed]:
             _try_disconnect(self.client, cb)
 
@@ -1532,7 +1538,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         NormalSpoke.initialize(self)
         self.initialize_start()
         self.network_control_box.initialize()
-        if not conf.system.can_configure_network:
+        if not conf.system.can_configure_network or not self._nm_client:
             self.builder.get_object("network_config_vbox").set_no_show_all(True)
             self.builder.get_object("network_config_vbox").hide()
         else:
