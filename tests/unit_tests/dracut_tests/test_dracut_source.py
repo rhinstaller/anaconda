@@ -70,6 +70,8 @@ class SourcesTestCase(unittest.TestCase):
 
         for f in files:
             path = join_paths(dracut_dir_path, f)
+            if path.endswith("__pycache__"):
+                continue
             with open(path, "rt") as fd:
                 print("reading content of", path)
                 content = fd.read()
