@@ -429,9 +429,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 
 * Thu Sep 23 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.17-1
 - Verify the OPAL compatibility with XFS features (vponcova)
-  Resolves: rhbz#1997832
+  Resolves: rhbz#2000923
 - Generate LVM device file after installation (vslavik)
-  Resolves: rhbz#2002550
+  Resolves: rhbz#2005034
 
 * Wed Sep 15 2021 Martin Kolman <mkolman@redhat.com> - 34.25.0.16-1
 - Support multi-org accounts in the GUI (mkolman)
