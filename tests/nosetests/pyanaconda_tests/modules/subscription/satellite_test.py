@@ -143,9 +143,11 @@ class SatelliteLibraryTestCase(unittest.TestCase):
         # if no script is provided, False should be returned
         self.assertFalse(run_satellite_provisioning_script(provisioning_script=None))
 
+    @patch('pyanaconda.modules.subscription.satellite.util.mkdirChain')
     @patch('tempfile.NamedTemporaryFile')
     @patch('pyanaconda.core.util.execWithRedirect')
-    def run_satellite_provisioning_script_success_test(self, exec_with_redirect, named_tempfile):
+    def run_satellite_provisioning_script_success_test(self, exec_with_redirect,
+                                                       named_tempfile, mkdirChain):
         """Test the run_satellite_provisioning_script function - success."""
         # simulate successful script run
         exec_with_redirect.return_value = 0
@@ -156,6 +158,8 @@ class SatelliteLibraryTestCase(unittest.TestCase):
         file_object = named_tempfile.return_value.__enter__.return_value
         # successful run should return True
         self.assertTrue(run_satellite_provisioning_script(provisioning_script="foo script"))
+        # check temp directory was created successfully
+        mkdirChain.assert_called_once_with("/tmp")
         # check the tempfile was created correctly
         named_tempfile.assert_called_once_with(mode='w+t', dir='/tmp', prefix='satellite-')
         # check the temp file was written out
@@ -166,10 +170,14 @@ class SatelliteLibraryTestCase(unittest.TestCase):
                                                    root='/')
 
     @patch("pyanaconda.modules.subscription.satellite.conf")
+    @patch('pyanaconda.modules.subscription.satellite.util.mkdirChain')
     @patch('tempfile.NamedTemporaryFile')
     @patch('pyanaconda.core.util.execWithRedirect')
-    def run_satellite_provisioning_script_success_chroot_test(self, exec_with_redirect,
-                                                              named_tempfile, patched_conf):
+    def run_satellite_provisioning_script_success_chroot_test(self,
+                                                              exec_with_redirect,
+                                                              named_tempfile,
+                                                              mkdirChain,
+                                                              patched_conf):
         """Test the run_satellite_provisioning_script function - success in chroot."""
         # mock sysroot
         patched_conf.target.system_root = "/foo/sysroot"
@@ -185,6 +193,8 @@ class SatelliteLibraryTestCase(unittest.TestCase):
             run_satellite_provisioning_script(provisioning_script="foo script",
                                               run_on_target_system=True)
         )
+        # check temp directory was created successfully
+        mkdirChain.assert_called_once_with("/foo/sysroot/tmp")
         # check the tempfile was created correctly
         named_tempfile.assert_called_once_with(mode='w+t',
                                                dir='/foo/sysroot/tmp',
@@ -196,9 +206,11 @@ class SatelliteLibraryTestCase(unittest.TestCase):
                                                    argv=['/tmp/totally_random_name'],
                                                    root='/foo/sysroot')
 
+    @patch('pyanaconda.modules.subscription.satellite.util.mkdirChain')
     @patch('tempfile.NamedTemporaryFile')
     @patch('pyanaconda.core.util.execWithRedirect')
-    def run_satellite_provisioning_script_failure_test(self, exec_with_redirect, named_tempfile):
+    def run_satellite_provisioning_script_failure_test(self, exec_with_redirect,
+                                                       named_tempfile, mkdirChain):
         """Test the run_satellite_provisioning_script function - failure."""
         # simulate unsuccessful script run
         exec_with_redirect.return_value = 1
@@ -209,6 +221,8 @@ class SatelliteLibraryTestCase(unittest.TestCase):
         file_object = named_tempfile.return_value.__enter__.return_value
         # failed run should return False
         self.assertFalse(run_satellite_provisioning_script(provisioning_script="foo script"))
+        # check temp directory was created successfully
+        mkdirChain.assert_called_once_with("/tmp")
         # check the tempfile was created correctly
         named_tempfile.assert_called_once_with(mode='w+t', dir='/tmp', prefix='satellite-')
         # check the temp file was written out
