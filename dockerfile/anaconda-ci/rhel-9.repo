@@ -1,6 +1,6 @@
 [RHEL-9-CRB]
 name=crb
-baseurl=http://download.devel.redhat.com/rhel-9/nightly/RHEL-9-Beta/latest-RHEL-9/compose/CRB/$basearch/os/
+baseurl=http://download.devel.redhat.com/rhel-9/nightly/RHEL-9/latest-RHEL-9/compose/CRB/$basearch/os/
 enabled=1
 gpgcheck=0
 install_weak_deps=0
@@ -8,7 +8,7 @@ module_hotfixes=1
 
 [RHEL-9-BaseOS]
 name=baseos
-baseurl=http://download.devel.redhat.com/rhel-9/nightly/RHEL-9-Beta/latest-RHEL-9/compose/BaseOS/$basearch/os/
+baseurl=http://download.devel.redhat.com/rhel-9/nightly/RHEL-9/latest-RHEL-9/compose/BaseOS/$basearch/os/
 enabled=1
 gpgcheck=0
 install_weak_deps=0
@@ -16,7 +16,7 @@ module_hotfixes=1
 
 [RHEL-9-AppStream]
 name=appstream
-baseurl=http://download.devel.redhat.com/rhel-9/nightly/RHEL-9-Beta/latest-RHEL-9/compose/AppStream/$basearch/os/
+baseurl=http://download.devel.redhat.com/rhel-9/nightly/RHEL-9/latest-RHEL-9/compose/AppStream/$basearch/os/
 enabled=1
 gpgcheck=0
 install_weak_deps=0
@@ -24,7 +24,7 @@ module_hotfixes=1
 
 [RHEL-9-Buildroot]
 name=buildroot
-baseurl=http://download.devel.redhat.com/rhel-9/nightly/BUILDROOT-9-Beta/latest-BUILDROOT-9/compose/Buildroot/$basearch/os/
+baseurl=http://download.devel.redhat.com/rhel-9/nightly/BUILDROOT-9/latest-BUILDROOT-9-RHEL-9/compose/Buildroot/$basearch/os/
 enabled=1
 gpgcheck=0
 install_weak_deps=0
