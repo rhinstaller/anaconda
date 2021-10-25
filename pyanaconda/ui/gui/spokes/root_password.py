@@ -193,7 +193,10 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
     @property
     def mandatory(self):
-        """Only mandatory if no admin user has been requested."""
+        """Only mandatory if no admin user has been requested.
+
+        See also doc for the property completed().
+        """
         return not self._users_module.CheckAdminUserExists()
 
     def apply(self):
@@ -222,7 +225,14 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
     @property
     def completed(self):
-        return self._users_module.IsRootPasswordSet
+        """Is the spoke completed?
+
+        For root and user, the mandatory+completed pair is a complicated hack. Having an usable
+        admin user is mandatory, but it is not clear if it should be an unlocked root, or a sudoer.
+        Thus, mandatory on both spokes checks admin user, and complete then checks again: Both the
+        spoke-specific completion condition, as well as existence of an admin.
+        """
+        return self._users_module.IsRootPasswordSet and self._users_module.CheckAdminUserExists()
 
     @property
     def sensitive(self):
