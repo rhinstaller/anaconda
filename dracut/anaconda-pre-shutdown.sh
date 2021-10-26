@@ -17,5 +17,5 @@
 for mnt in $repodir $isodir; do
     # systemd-shutdown puts old root at /oldroot
     oldmnt=/oldroot$mnt
-    grep -qw $oldmnt /proc/mounts && mount --move $oldmnt $mnt
+    grep -qw "$oldmnt" /proc/mounts && mount --move "$oldmnt" "$mnt"
 done

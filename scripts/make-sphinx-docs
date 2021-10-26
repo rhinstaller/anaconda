@@ -28,10 +28,10 @@ fi
 mock -r $MOCKCFG -i anaconda-gui -i python3-sphinx -i python3-sphinx_rtd_theme -i ostree -i graphviz
 # modules needed to document tests
 mock -r $MOCKCFG -i python3-mock -i python3-rpmfluff -i python3-lxml -i python3-polib -i python3-pocketlint
-mock -r $MOCKCFG --copyin $PWD /builddir/anaconda/
+mock -r $MOCKCFG --copyin "$PWD" /builddir/anaconda/
 # Note that DISPLAY is needed to make GTK happy, so this needs to be run from a system with a GUI
 mock -r $MOCKCFG --chroot "cd /builddir/anaconda/docs/; DISPLAY=$DISPLAY make -f Makefile.am html"
-mock -r $MOCKCFG --copyout /builddir/anaconda/docs/html $PWD/docs/html.new
+mock -r $MOCKCFG --copyout /builddir/anaconda/docs/html "$PWD/docs/html.new"
 
 echo "Now make sure the ./docs/html.new/ looks ok and copy it over the top of ./docs/html/ and commit."
 echo "Then copy ./docs/html/ outside the repo and check out the gh-pages branch. Copy them back to /"

@@ -24,6 +24,7 @@ findtestfiles()
 {
     # If the test is being run from a git work tree, use a list of all files
     # known to git
+    # shellcheck disable=SC2154
     if [ -d "${top_srcdir}/.git" ]; then
         findpath=$(git ls-files -c "${top_srcdir}")
     # Otherwise list everything under $top_srcdir
@@ -31,5 +32,5 @@ findtestfiles()
         findpath="${top_srcdir} -type f"
     fi
 
-    find $findpath "$@"
+    find "$findpath" "$@"
 }

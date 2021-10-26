@@ -13,7 +13,7 @@ fi
 
 # git gives us these on STDIN
 read more_args
-local_ref=$(echo ${more_args}|cut -d' ' -f1)
+local_ref=$(echo "${more_args}"|cut -d' ' -f1)
 
 echo "*** Checking commits that are about to be pushed" >&2
 
@@ -41,8 +41,8 @@ if [ -f "${HOME}/.rhbzauth" ]; then
 fi
 
 bzcmd="bugzilla"
-if [ ! -z "${RHBZ_USER}" ]; then
-   if [ ! -z "${RHBZ_PASSWORD}" ]; then
+if [ -n "${RHBZ_USER}" ]; then
+   if [ -n "${RHBZ_PASSWORD}" ]; then
        bzcmd_login="${bzcmd} --user=${RHBZ_USER} --password=${RHBZ_PASSWORD} login"
    else
        bzcmd_login="${bzcmd} --user=${RHBZ_USER} login"
@@ -51,9 +51,9 @@ else
     bzcmd_login="${bzcmd} login"
 fi
 
-commits=$(git log --pretty='%H' ${remote}/${branch_name}..${branch_name})
+commits=$(git log --pretty='%H' "${remote}/${branch_name}..${branch_name}")
 if [ $? != 0 ]; then
-    if [ -n ${NEW_BRANCH} ]; then
+    if [ -n "${NEW_BRANCH}" ]; then
         exit 0
     else
         echo "*** Cannot find the remote branch ***"
@@ -66,10 +66,10 @@ ${bzcmd} >/dev/null 2>&1
 if [ $? -eq 127 ]; then
     echo "*** 'dnf install python-bugzilla' to validate bug references."
 
-    msg="$(mktemp $(pwd)/commit.msg.XXXXXXXXXX)"
+    msg="$(mktemp "$(pwd)/commit.msg.XXXXXXXXXX")"
     cp "${1}" "${msg}"
     echo
-    echo "Aborted commit message written to: $(basename ${msg})"
+    echo "Aborted commit message written to: $(basename "${msg}")"
     exit 1
 else
     ${bzcmd_login} >/dev/null
@@ -77,7 +77,7 @@ fi
 
 ## main ##
 # fork separate process for every commit, querying bugzilla takes time
-echo -n ${commits}|parallel --no-notice -d' ' --gnu -j0 .git/hooks/check_commit_msg.sh ${release} {}
+echo -n "${commits}"|parallel --no-notice -d' ' --gnu -j0 .git/hooks/check_commit_msg.sh "${release}" {}
 ret=$?
 if [ ${ACK_FATAL} == "0" ]; then
     test ${ret} -eq 0

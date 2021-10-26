@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # An example hook script to check the commit log message.
 # Called by git-commit with one argument, the name of the file
@@ -40,10 +40,11 @@ else
 fi
 
 if [ -f "${HOME}/.rhbzauth" ]; then
+    # shellcheck disable=SC1090
     . "${HOME}/.rhbzauth"
 fi
 
-if [ -z "${RHBZ_USER}" -o -z "${RHBZ_PASSWORD}" ]; then
+if [ -z "${RHBZ_USER}" ] || [ -z "${RHBZ_PASSWORD}" ]; then
     bzcmd="bugzilla"
 else
     bzcmd="bugzilla --user=${RHBZ_USER} --password=${RHBZ_PASSWORD}"
@@ -53,10 +54,10 @@ ${bzcmd} >/dev/null 2>&1
 if [ $? -eq 127 ]; then
     echo "*** 'dnf install python-bugzilla' to validate bug references." >&2
 
-    msg="$(mktemp $(pwd)/commit.msg.XXXXXXXXXX)"
+    msg="$(mktemp "$(pwd)/commit.msg.XXXXXXXXXX")"
     cp "${1}" "${msg}"
     echo
-    echo "Aborted commit message written to: $(basename ${msg})"
+    echo "Aborted commit message written to: $(basename "${msg}")"
     exit 1
 else
     ${bzcmd} login
@@ -66,7 +67,7 @@ fi
 # a local branch, just warn. If it is the primary branch, block the commit.
 bz_has_ack() {
     bug=$1
-    flags=$(${bzcmd} query --bug_id=${bug} --outputformat="%{flags}")
+    flags=$(${bzcmd} query --bug_id="${bug}" --outputformat="%{flags}")
 
     ack_pattern="rhel-${RELEASE}\.[[:digit:]]+\.[[:digit:]]+\+"
     if [[ ! "$flags" =~ $ack_pattern ]]; then
@@ -78,40 +79,40 @@ bz_has_ack() {
     fi
 }
 
-summary="$(head -n 1 ${1})"
+summary="$(head -n 1 "${1}")"
 for word in ${summary} ; do
     echo "${word}" | grep -q -E "^.*(#[0-9]+).*"
     if [ $? -eq 0 ]; then
         bug="$(echo "${word}" | sed -e 's/^(#//g' -e 's/).*$//g')"
-        ${bzcmd} query --bug_id=${bug} --outputformat="%{product}" | grep -q "^Red Hat Enterprise Linux.*"
+        ${bzcmd} query --bug_id="${bug}" --outputformat="%{product}" | grep -q "^Red Hat Enterprise Linux.*"
         if [ $? -ne 0 ]; then
             echo "*** BZ ${bug} is not a RHEL bug." >&2
             RETVAL=1
         fi
-        bz_has_ack ${bug}
+        bz_has_ack "${bug}"
     fi
 done
 
-last=$(($(wc -l < ${1}) - 2))
+last=$(($(wc -l < "${1}") - 2))
 if [ ${last} -gt 0 ]; then
-    tail -n ${last} ${1} | grep -v "^#" |
+    tail -n ${last} "${1}" | grep -v "^#" |
     grep -E "^(Resolves|Related|Conflicts): rhbz#[0-9]+$" |
     while read line ; do
-        bug="$(echo ${line} | cut -d '#' -f 2)"
-        ${bzcmd} query --bug_id=${bug} --outputformat="%{product}" | grep -q "^Red Hat Enterprise Linux.*"
+        bug="$(echo "${line}" | cut -d '#' -f 2)"
+        ${bzcmd} query --bug_id="${bug}" --outputformat="%{product}" | grep -q "^Red Hat Enterprise Linux.*"
         if [ $? -ne 0 ]; then
             echo "*** BZ ${bug} is not a RHEL bug." >&2
             RETVAL=1
         fi
-        bz_has_ack ${bug}
+        bz_has_ack "${bug}"
     done
 fi
 
 if [ ${RETVAL} -eq 1 ]; then
-    msg="$(mktemp $(pwd)/commit.msg.XXXXXXXXXX)"
+    msg="$(mktemp "$(pwd)/commit.msg.XXXXXXXXXX")"
     cp "${1}" "${msg}"
     echo
-    echo "Aborted commit message written to: $(basename ${msg})"
+    echo "Aborted commit message written to: $(basename "${msg}")"
 fi
 
 exit ${RETVAL}

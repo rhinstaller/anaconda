@@ -15,8 +15,8 @@ debug_msg "Trying SE/HMC access with $1."
 # Do we have SE/HMC file access?
 if /usr/sbin/lshmc ; then
     info "Anaconda using SE/HMC file access to root."
-    /usr/bin/hmcdrvfs $repodir || warn "Couldn't mount /dev/hmcdrv"
-    anaconda_live_root_dir $repodir
+    /usr/bin/hmcdrvfs "$repodir" || warn "Couldn't mount /dev/hmcdrv"
+    anaconda_live_root_dir "$repodir"
 else
     debug_msg "No SE/HMC access to files."
     exit 1

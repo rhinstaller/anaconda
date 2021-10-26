@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # parse-anaconda-net.sh - parse old deprecated anaconda network setup args
 
 net_conf=/etc/cmdline.d/75-anaconda-network-options.conf
@@ -8,10 +8,10 @@ check_depr_arg "dns" "nameserver=%s"
 mac_to_bootif() {
     local bootif=${1}
     local IFS=':'
-    bootif=$(for i in ${bootif} ; do echo -n $i-; done)
+    bootif=$(for i in ${bootif} ; do echo -n "$i-"; done)
     bootif=${bootif%-}
     bootif="01-$bootif"
-    echo $bootif
+    echo "$bootif"
 }
 
 # handle ksdevice (tell us which device to use for ip= stuff later)

@@ -29,7 +29,7 @@ PYTHONPATH="$PYTHONPATH:/usr/share/anaconda/addons"
 export PYTHONPATH
 
 # Start a Python module in the detached mode.
-python3 -m $1 &
+python3 -m "$1" &
 module_pid="$!"
 
 # Wait for a minute in the detached mode.

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # anaconda-diskroot: find our root image on the given disk device
 # usage: anaconda-diskroot DEVICE [PATH]
 
@@ -9,18 +9,18 @@ command -v getargbool >/dev/null || . /lib/dracut-lib.sh
 run_checkisomd5() {
     livedev=$1
     if getargbool 0 rd.live.check -d check; then
-        [ -b $livedev ] && fs=$(blkid -s TYPE -o value $livedev)
-        if [ "$fs" = "iso9660" -o "$fs" = "udf" ]; then
+        [ -b "$livedev" ] && fs=$(blkid -s TYPE -o value "$livedev")
+        if [ "$fs" = "iso9660" ] || [ "$fs" = "udf" ]; then
             [ -x /bin/plymouth ] && /bin/plymouth --hide-splash
             if [ -n "$DRACUT_SYSTEMD" ]; then
                 p=$(dev_unit_name "$livedev")
-                systemctl start checkisomd5@${p}.service
-                retcode=$(systemctl -p ExecMainStatus show checkisomd5@${p}.service)
-                status=$(systemctl -p ActiveState show checkisomd5@${p}.service)
+                systemctl start "checkisomd5@${p}.service"
+                retcode=$(systemctl -p ExecMainStatus show "checkisomd5@${p}.service")
+                status=$(systemctl -p ActiveState show "checkisomd5@${p}.service")
                 splitsep "=" "$retcode" ignore rc
                 splitsep "=" "$status" ignore state
             else
-                checkisomd5 --verbose $livedev
+                checkisomd5 --verbose "$livedev"
                 rc=$?
                 state="inactive"
             fi
@@ -64,21 +64,21 @@ fi
 # retrigger this script, and we'll mount the disk as normal.
 if str_starts "$kickstart" "cdrom" && [ ! -e /tmp/ks.cfg.done ]; then
     if dev_is_cdrom "$dev"; then
-        > /tmp/anaconda-on-cdrom
+        true > /tmp/anaconda-on-cdrom
         exit 0
     fi
 fi
 
 # If interactive dd has been requested and this is a cdrom, wait to mount it
 # later. The user may want to swap in a driver update cdrom first.
-if [ -e /tmp/dd_interactive -a ! -e /tmp/dd.done ]; then
+if [ -e /tmp/dd_interactive ] && [ ! -e /tmp/dd.done ]; then
     if dev_is_cdrom "$dev"; then
-        > /tmp/anaconda-dd-on-cdrom
+        true > /tmp/anaconda-dd-on-cdrom
         exit 0
     fi
 fi
 
 info "anaconda using disk root at $dev"
-mount -o ro $dev $repodir || warn "Couldn't mount $dev"
-anaconda_live_root_dir $repodir $path
-run_checkisomd5 $dev
+mount -o ro "$dev" "$repodir" || warn "Couldn't mount $dev"
+anaconda_live_root_dir "$repodir" "$path"
+run_checkisomd5 "$dev"

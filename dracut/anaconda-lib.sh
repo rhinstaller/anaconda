@@ -24,27 +24,28 @@ config_get() {
         case "$line" in
             \#*) continue ;;
             \[*\]*) cursec="${line#[}"; cursec="${cursec%%]*}" ;;
-            *=*) k=$(echo ${line%%=*}); v=$(echo ${line#*=}) ;;
+            *=*) k=$(echo "${line%%=*}"); v=$(echo "${line#*=}") ;;
         esac
         if [ "$cursec" = "$section" ] && [ "$k" == "$key" ]; then
-            echo $v
+            echo "$v"
             break
         fi
     done
 }
 
 find_iso() {
-    local f="" p="" iso="" isodir="$1" tmpmnt=$(mkuniqdir /run/install tmpmnt)
-    for f in $isodir/*.iso; do
-        [ -e $f ] || continue
-        mount -o loop,ro $f $tmpmnt || continue
+    local f="" p="" iso="" isodir="$1" tmpmnt=""
+    tmpmnt=$(mkuniqdir /run/install tmpmnt)
+    for f in "$isodir"/*.iso; do
+        [ -e "$f" ] || continue
+        mount -o loop,ro "$f" "$tmpmnt" || continue
         # Valid ISOs either have stage2 in one of the supported paths
         # or have a .treeinfo that might tell use where to find the stage2 image.
         # If it does not have any of those, it is not valid and will not be used.
         for p in $tmpmnt/LiveOS/squashfs.img $tmpmnt/images/install.img $tmpmnt/.treeinfo; do
-            if [ -e $p ]; then iso=$f; break; fi
+            if [ -e "$p" ]; then iso=$f; break; fi
         done
-        umount $tmpmnt
+        umount "$tmpmnt"
         if [ "$iso" ]; then echo "$iso"; return 0; fi
     done
     return 1
@@ -53,8 +54,8 @@ find_iso() {
 find_runtime() {
     [ -f "$1" ] && [ "${1%.iso}" == "$1" ] && echo "$1" && return
     local ti_img="" dir="$1"
-    [ -e $dir/.treeinfo ] && \
-        ti_img=$(config_get stage2 mainimage < $dir/.treeinfo)
+    [ -e "$dir/.treeinfo" ] && \
+        ti_img=$(config_get stage2 mainimage < "$dir/.treeinfo")
     for f in $ti_img images/install.img LiveOS/squashfs.img; do
         [ -e "$dir/$f" ] && echo "$dir/$f" && return
     done
@@ -67,7 +68,7 @@ find_tty() {
         tty=$(< /sys/class/tty/$tty/active)
         tty=${tty##* } # last item in the list
     done
-    echo $tty
+    echo "$tty"
 }
 
 
@@ -78,29 +79,29 @@ rulesfile="/etc/udev/rules.d/90-anaconda.rules"
 # try to find a usable runtime image from the repo mounted at $mnt.
 # if successful, move the mount(s) to $repodir/$isodir.
 anaconda_live_root_dir() {
-    local img="" iso="" srcdir="" mnt="$1" path="$2"
-    img=$(find_runtime $mnt/$path)
+    local img="" iso="" mnt="$1" path="$2"
+    img=$(find_runtime "$mnt/$path")
     if [ -n "$img" ]; then
         info "anaconda: found $img"
-        [ "$mnt" = "$repodir" ] || { mount --make-rprivate /; mount --move $mnt $isodir; }
-        anaconda_auto_updates $repodir/$path/images
+        [ "$mnt" = "$repodir" ] || { mount --make-rprivate /; mount --move "$mnt" $isodir; }
+        anaconda_auto_updates "$repodir/$path/images"
     else
         if [ "${path%.iso}" != "$path" ]; then
             iso=$path
             path=${path%/*.iso}
         else
-            iso=$(find_iso $mnt/$path)
+            iso=$(find_iso "$mnt/$path")
         fi
         [ -n "$iso" ] || { warn "no suitable images"; return 1; }
         info "anaconda: found $iso"
         mount --make-rprivate /
-        mount --move $mnt $isodir
+        mount --move "$mnt" $isodir
         iso=${isodir}/${iso#$mnt}
-        mount -o loop,ro $iso $repodir
+        mount -o loop,ro "$iso" $repodir
         img=$(find_runtime $repodir) || { warn "$iso has no suitable runtime"; }
         anaconda_auto_updates $repodir/images
     fi
-    anaconda_mount_sysroot $img
+    anaconda_mount_sysroot "$img"
 }
 
 anaconda_net_root() {
@@ -108,34 +109,34 @@ anaconda_net_root() {
     info "anaconda: fetching stage2 from $repo"
 
     # Try to get the local path to stage2 from treeinfo.
-    treeinfo=$(fetch_url $repo/.treeinfo 2> /tmp/treeinfo_err) && \
-        stage2=$(config_get stage2 mainimage < $treeinfo)
+    treeinfo=$(fetch_url "$repo/.treeinfo" 2> /tmp/treeinfo_err) && \
+        stage2=$(config_get stage2 mainimage < "$treeinfo")
 
     # No treeinfo available.
-    [ -z "$treeinfo" ] && debug_msg $(cat /tmp/treeinfo_err)
+    [ -z "$treeinfo" ] && debug_msg "$(cat /tmp/treeinfo_err)"
 
     # Use the default local path to stage2.
-    if [ -z "$treeinfo" -o -z "$stage2" ]; then
+    if [ -z "$treeinfo" ] || [ -z "$stage2" ]; then
         warn "can't find installer main image path in .treeinfo"
         stage2="images/install.img"
     fi
 
     # Fetch the stage2.
-    if runtime=$(fetch_url $repo/$stage2) \
-        || runtime=$(fetch_url $repo/LiveOS/squashfs.img); then
+    if runtime=$(fetch_url "$repo/$stage2") \
+        || runtime=$(fetch_url "$repo/LiveOS/squashfs.img"); then
 
         info "anaconda: successfully fetched stage2 from $repo"
 
         # NOTE: Should be the same as anaconda_auto_updates()
-        updates=$(fetch_url $repo/images/updates.img 2> /tmp/updates_err)
-        [ -z "$updates" ] && debug_msg $(cat /tmp/updates_err)
-        [ -n "$updates" ] && unpack_updates_img $updates /updates
+        updates=$(fetch_url "$repo/images/updates.img" 2> /tmp/updates_err)
+        [ -z "$updates" ] && debug_msg "$(cat /tmp/updates_err)"
+        [ -n "$updates" ] && unpack_updates_img "$updates" /updates
 
-        product=$(fetch_url $repo/images/product.img 2> /tmp/product_err)
-        [ -z "$product" ] && debug_msg $(cat /tmp/product_err)
-        [ -n "$product" ] && unpack_updates_img $product /updates
+        product=$(fetch_url "$repo/images/product.img" 2> /tmp/product_err)
+        [ -z "$product" ] && debug_msg "$(cat /tmp/product_err)"
+        [ -n "$product" ] && unpack_updates_img "$product" /updates
 
-        anaconda_mount_sysroot $runtime
+        anaconda_mount_sysroot "$runtime"
         return 0
     fi
 
@@ -146,7 +147,7 @@ anaconda_net_root() {
 anaconda_mount_sysroot() {
     local img="$1"
     if [ -e "$img" ]; then
-        /sbin/dmsquash-live-root $img
+        /sbin/dmsquash-live-root "$img"
         if [ -d /run/rootfsbase ]; then
             # /run/rootfsbase has been created
             # Which means that the Squash filesystem is plain
@@ -154,12 +155,12 @@ anaconda_mount_sysroot() {
             # Also known as flattened SquashFS or directly compressed SquashFS.
             printf "mount -t overlay LiveOS_rootfs \
                    -o lowerdir=/run/rootfsbase,upperdir=/run/overlayfs,workdir=/run/ovlwork \
-                   ${NEWROOT}" > ${hookdir}/mount/01-$$-anaconda.sh
+                   ${NEWROOT}" > "${hookdir}"/mount/01-$$-anaconda.sh
         else
             # Otherwise, assumption is that /dev/mapper/live-rw should have been created.
             # dracut & systemd only mount things with root=live: so we have to do this ourselves
             # See https://bugzilla.redhat.com/show_bug.cgi?id=1232411
-            printf 'mount /dev/mapper/live-rw %s\n' "$NEWROOT" > $hookdir/mount/01-$$-anaconda.sh
+            printf 'mount /dev/mapper/live-rw %s\n' "$NEWROOT" > "$hookdir"/mount/01-$$-anaconda.sh
         fi
     fi
 }
@@ -168,14 +169,14 @@ anaconda_mount_sysroot() {
 # end up in the location(s) that anaconda expects them
 anaconda_auto_updates() {
     local dir="$1"
-    if [ -d $dir/RHupdates ]; then
-        copytree $dir/RHupdates /updates
+    if [ -d "$dir/RHupdates" ]; then
+        copytree "$dir/RHupdates" /updates
     fi
-    if [ -e $dir/updates.img ]; then
-        unpack_updates_img $dir/updates.img /updates
+    if [ -e "$dir/updates.img" ]; then
+        unpack_updates_img "$dir/updates.img" /updates
     fi
-    if [ -e $dir/product.img ]; then
-        unpack_updates_img $dir/product.img /updates
+    if [ -e "$dir/product.img" ]; then
+        unpack_updates_img "$dir/product.img" /updates
     fi
 }
 
@@ -184,9 +185,9 @@ unpack_updates_img() {
     local img="$1" tmpdir="/tmp/${1##*/}.$$" outdir="${2:-/updates}"
     # NOTE: unpack_img $img $outdir can clobber existing subdirs in $outdir,
     # which is why we use a tmpdir and copytree (which doesn't clobber)
-    unpack_img $img $tmpdir
-    copytree $tmpdir $outdir
-    rm -rf $tmpdir
+    unpack_img "$img" "$tmpdir"
+    copytree "$tmpdir" "$outdir"
+    rm -rf "$tmpdir"
 }
 
 # These could probably be in dracut-lib or similar
@@ -207,9 +208,10 @@ disk_to_dev_path() {
 }
 
 find_mount() {
-    local dev mnt etc wanted_dev="$(readlink -e -q $1)"
+    local dev mnt etc wanted_dev
+    wanted_dev="$(readlink -e -q "$1")"
     while read dev mnt etc; do
-        [ "$dev" = "$wanted_dev" ] && echo $mnt && return 0
+        [ "$dev" = "$wanted_dev" ] && echo "$mnt" && return 0
     done < /proc/mounts
     return 1
 }
@@ -260,7 +262,7 @@ debug_msg() {
 }
 
 dev_is_cdrom() {
-    udevadm info --query=property --name=$1 | grep -q 'ID_CDROM=1'
+    udevadm info --query=property --name="$1" | grep -q 'ID_CDROM=1'
 }
 
 dev_is_on_disk_with_iso9660() {
@@ -268,19 +270,20 @@ dev_is_on_disk_with_iso9660() {
     local dev_name="${1}"
 
     # Get the path of the device.
-    local dev_path="$(udevadm info -q path --name ${dev_name})"
+    local dev_path
+    dev_path="$(udevadm info -q path --name "${dev_name}")"
 
     # Is the device a partition?
-    udevadm info -q property --path ${dev_path} | grep -q 'DEVTYPE=partition' || return 1
+    udevadm info -q property --path "${dev_path}" | grep -q 'DEVTYPE=partition' || return 1
 
     # Get the path of the parent.
     local disk_path="${dev_path%/*}"
 
     # Is the parent a disk?
-    udevadm info -q property --path ${disk_path} | grep -q 'DEVTYPE=disk' || return 1
+    udevadm info -q property --path "${disk_path}" | grep -q 'DEVTYPE=disk' || return 1
 
     # Does the parent has the iso9660 filesystem?
-    udevadm info -q property --path ${disk_path} | grep -q 'ID_FS_TYPE=iso9660' || return 1
+    udevadm info -q property --path "${disk_path}" | grep -q 'ID_FS_TYPE=iso9660' || return 1
 
     return 0
 }
@@ -293,14 +296,14 @@ dev_is_on_disk_with_iso9660() {
 # For details see 40network/net-genrules.sh (and the rest of 40network).
 set_neednet() {
     # if there's no netroot, make sure /tmp/net.ifaces exists
-    [ -z "$netroot" ] && >> /tmp/net.ifaces
+    [ -z "$netroot" ] && true >> /tmp/net.ifaces
 }
 
 parse_kickstart() {
-    PYTHONHASHSEED=42 /sbin/parse-kickstart $1 > /etc/cmdline.d/80-kickstart.conf
+    PYTHONHASHSEED=42 /sbin/parse-kickstart "$1" > /etc/cmdline.d/80-kickstart.conf
     unset CMDLINE  # re-read the commandline
     . /tmp/ks.info # save the parsed kickstart
-    [ -e "$parsed_kickstart" ] && cp $parsed_kickstart /run/install/ks.cfg
+    [ -e "$parsed_kickstart" ] && cp "$parsed_kickstart" /run/install/ks.cfg
 }
 
 # print a list of net devices that dracut says are set up.
@@ -308,7 +311,7 @@ online_netdevs() {
     local netif=""
     for netif in /tmp/net.*.did-setup; do
         netif=${netif#*.}; netif=${netif%.*}
-        [ -d "/sys/class/net/$netif" ] && echo $netif
+        [ -d "/sys/class/net/$netif" ] && echo "$netif"
     done
 }
 
@@ -351,9 +354,9 @@ run_kickstart() {
     kickstart=""
 
     # re-parse new cmdline stuff from the kickstart
-    . $hookdir/cmdline/*parse-anaconda-repo.sh
-    . $hookdir/cmdline/*parse-livenet.sh
-    . $hookdir/cmdline/*parse-anaconda-dd.sh
+    . "$hookdir"/cmdline/*parse-anaconda-repo.sh
+    . "$hookdir"/cmdline/*parse-livenet.sh
+    . "$hookdir"/cmdline/*parse-anaconda-dd.sh
 
     # Kickstart network configuration (which might even be empty) should be
     # applied to get installer image or driver disks only if the tasks haven't
@@ -372,8 +375,8 @@ run_kickstart() {
     # disk: replay udev events to trigger actions
     if [ "$do_disk" ]; then
         # set up new rules
-        . $hookdir/pre-trigger/*repo-genrules.sh
-        . $hookdir/pre-trigger/*driver-updates-genrules.sh
+        . "$hookdir"/pre-trigger/*repo-genrules.sh
+        . "$hookdir"/pre-trigger/*driver-updates-genrules.sh
         udevadm control --reload
         # trigger the rules for all the block devices we see
         udevadm trigger --action=change --subsystem-match=block
@@ -382,18 +385,18 @@ run_kickstart() {
     # net: re-run online hooks
     if [ "$do_net" ]; then
         # If NetworkManager is used in initramfs
-        if [ -e $hookdir/cmdline/*-nm-config.sh ]; then
+        if [ -e "$hookdir"/cmdline/*-nm-config.sh ]; then
             # First try to re-run online hooks on any online device.
             # We don't want to reconfigure the network by applying kickstart config
             # so use existing network connections if there are any.
             # Based on nm-run.sh
             for _i in /sys/class/net/*/
             do
-                state=/run/NetworkManager/devices/$(cat $_i/ifindex)
-                grep -q connection-uuid= $state 2>/dev/null || continue
+                state=/run/NetworkManager/devices/$(cat "$_i/ifindex")
+                grep -q connection-uuid= "$state" 2>/dev/null || continue
                 nm_connected_device_found="yes"
-                ifname=$(basename $_i)
-                source_hook initqueue/online $ifname
+                ifname=$(basename "$_i")
+                source_hook initqueue/online "$ifname"
             done
 
             if [ "${nm_connected_device_found}" != "yes" ]; then
@@ -401,31 +404,31 @@ run_kickstart() {
                 # The configuration will be applied by the next run of NM
                 # via settled hook in *-nm-run.sh script which also calls the
                 # online hooks.
-                . $hookdir/cmdline/*-nm-config.sh
+                . "$hookdir"/cmdline/*-nm-config.sh
             fi
         else
             # make dracut create the net udev rules (based on the new cmdline)
-            . $hookdir/pre-udev/*-net-genrules.sh
+            . "$hookdir"/pre-udev/*-net-genrules.sh
             udevadm control --reload
             udevadm trigger --action=add --subsystem-match=net
             for netif in $(online_netdevs); do
-                source_hook initqueue/online $netif
+                source_hook initqueue/online "$netif"
             done
         fi
     fi
 
     # and that's it - we're back to the mainloop.
-    > /tmp/ks.cfg.done # let wait_for_kickstart know that we're done.
+    true > /tmp/ks.cfg.done # let wait_for_kickstart know that we're done.
 }
 
 wait_for_kickstart() {
-    echo "[ -e /tmp/ks.cfg.done ]" > $hookdir/initqueue/finished/kickstart.sh
+    echo "[ -e /tmp/ks.cfg.done ]" > "$hookdir/initqueue/finished/kickstart.sh"
 }
 
 wait_for_updates() {
-    echo "[ -e /tmp/liveupdates.done ]" > $hookdir/initqueue/finished/updates.sh
+    echo "[ -e /tmp/liveupdates.done ]" > "$hookdir/initqueue/finished/updates.sh"
 }
 
 wait_for_dd() {
-    echo "[ -e /tmp/dd.done ]" > $hookdir/initqueue/finished/dd.sh
+    echo "[ -e /tmp/dd.done ]" > "$hookdir/initqueue/finished/dd.sh"
 }

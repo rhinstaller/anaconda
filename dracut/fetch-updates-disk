@@ -12,16 +12,16 @@ path="${2:-/updates.img}"
 
 info "anaconda: fetching updates from $dev:$path"
 
-mnt="$(find_mount $dev)"
+mnt="$(find_mount "$dev")"
 if [ -n "$mnt" ]; then
-    cp $mnt$path /tmp/updates.img
+    cp "$mnt$path" /tmp/updates.img
 else
     tmpmnt="$(mkuniqdir /run/install tmpmnt)"
-    if mount -o ro $dev $tmpmnt; then
-        cp $tmpmnt$path /tmp/updates.img
-        umount $tmpmnt
+    if mount -o ro "$dev" "$tmpmnt"; then
+        cp "$tmpmnt$path" /tmp/updates.img
+        umount "$tmpmnt"
     fi
-    rmdir $tmpmnt
+    rmdir "$tmpmnt"
 fi
 
 if [ -f /tmp/updates.img ]; then

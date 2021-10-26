@@ -28,17 +28,17 @@
 
 set -eu
 
-dnf install $@ rpm-build /usr/bin/xargs
+dnf install "$@" rpm-build /usr/bin/xargs
 
 TEMP=$(mktemp /tmp/anaconda.spec.XXXXXXX)
 
 # remove all problematic pieces from anaconda spec to be able to get dependencies
-sed 's/@PACKAGE_VERSION@/0/; s/@PACKAGE_RELEASE@/0/; s/%{__python3}/python3/' ./anaconda.spec.in > $TEMP
+sed 's/@PACKAGE_VERSION@/0/; s/@PACKAGE_RELEASE@/0/; s/%{__python3}/python3/' ./anaconda.spec.in > "$TEMP"
 
 # get all build requires dependencies from the spec file and strip out version
 # version could be problematic because of fedora version you are running and
 # they are mostly not important for automake
-rpmspec -q --buildrequires $TEMP | sed 's/>=.*$//' | xargs -d '\n' dnf install $@
+rpmspec -q --buildrequires "$TEMP" | sed 's/>=.*$//' | xargs -d '\n' dnf install "$@"
 
 # clean up the temp file
-rm $TEMP
+rm "$TEMP"

@@ -42,12 +42,15 @@ ANACONDA="${LIVECMD:=anaconda --liveinst --graphical}"
 for i in raid0 raid1 raid5 raid6 raid456 raid10 dm-mod dm-zero dm-mirror dm-snapshot dm-multipath dm-round-robin vfat dm-crypt cbc sha256 lrw xts iscsi_tcp iscsi_ibft; do /sbin/modprobe $i 2>/dev/null ; done
 
 if [ -f /etc/system-release ]; then
-    export ANACONDA_PRODUCTNAME=$( cat /etc/system-release | sed -r -e 's/ *release.*//' )
-    export ANACONDA_PRODUCTVERSION=$( cat /etc/system-release | sed -r -e 's/^.* ([0-9\.]+).*$/\1/' )
+    export ANACONDA_PRODUCTNAME
+    ANACONDA_PRODUCTNAME=$( cat /etc/system-release | sed -r -e 's/ *release.*//' )
+    export ANACONDA_PRODUCTVERSION
+    ANACONDA_PRODUCTVERSION=$( cat /etc/system-release | sed -r -e 's/^.* ([0-9\.]+).*$/\1/' )
 fi
 
 if [ $IMAGE_INSTALL = 1 ]; then
-    export ANACONDA_PRODUCTVERSION=$(rpmquery -q --qf '%{VERSION}' anaconda | cut -d. -f1)
+    export ANACONDA_PRODUCTVERSION
+    ANACONDA_PRODUCTVERSION=$(rpmquery -q --qf '%{VERSION}' anaconda | cut -d. -f1)
 fi
 
 RELEASE=$(rpm -q --qf '%{Release}' --whatprovides system-release)
@@ -69,7 +72,7 @@ if [ -z "$(sestatus | grep enabled)" ]; then
 fi
 
 # Process cmdline args
-for opt in `cat /proc/cmdline` $*; do
+for opt in $(cat /proc/cmdline) "$@"; do
     case $opt in
     xdriver=*)
         ANACONDA="$ANACONDA --$opt"
@@ -122,15 +125,15 @@ for opt in `cat /proc/cmdline` $*; do
 done
 
 # unmount anything that shouldn't be mounted prior to install
-anaconda-cleanup $ANACONDA $*
+anaconda-cleanup "$ANACONDA" "$@"
 
 # Set up the updates, if provided.
-if [ ! -z "$UPDATES" ]; then
-    curl -o /tmp/updates.img $UPDATES
+if [ -n "$UPDATES" ]; then
+    curl -o /tmp/updates.img "$UPDATES"
 
     # We officially support two updates.img formats:  a filesystem image, and
     # a compressed cpio blob.
-    if [ ! -z "$(file /tmp/updates.img | grep 'gzip compressed data')" ]; then
+    if file /tmp/updates.img | grep -q 'gzip compressed data'; then
         ( cd / ; gzip -dc /tmp/updates.img | cpio -idu )
     else
         mkdir /tmp/updates.disk
@@ -142,7 +145,7 @@ if [ ! -z "$UPDATES" ]; then
 
 fi
 
-if [ -z $LC_ALL ]; then
+if [ -z "$LC_ALL" ]; then
     # LC_ALL not set, set it to $LANG to make Python's default encoding
     # detection work
     export LC_ALL=$LANG
@@ -152,9 +155,9 @@ fi
 export GDK_BACKEND=x11
 
 if [ -x /usr/bin/udisks ]; then
-    /usr/bin/udisks --inhibit -- $ANACONDA $*
+    /usr/bin/udisks --inhibit -- "$ANACONDA" "$@"
 else
-    $ANACONDA $*
+    $ANACONDA "$@"
 fi
 
 if [ -e /tmp/updates.img ]; then rm /tmp/updates.img; fi
@@ -167,5 +170,5 @@ fi
 rm -f /dev/.in_sysinit 2>/dev/null
 
 if [ -n "$current" ]; then
-    /usr/sbin/setenforce $current
+    /usr/sbin/setenforce "$current"
 fi

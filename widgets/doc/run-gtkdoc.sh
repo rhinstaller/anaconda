@@ -58,30 +58,30 @@ rm -f gtkdoc.stamp
 # couldn't imagine a world in which input file aren't in the current directory
 _source_dir=
 for d in $DOC_SOURCE_DIR ; do
-    _source_dir="${_source_dir} --source-dir=$(realpath $d)"
+    _source_dir="${_source_dir} --source-dir=$(realpath "$d")"
 done
 
 # Convert DOC_MAIN_SGML_FILE to an absolute path because gtkdoc-mkhtml can't
 # specify an output directory
-DOC_MAIN_SGML_FILE=$(realpath ${DOC_MAIN_SGML_FILE})
+DOC_MAIN_SGML_FILE=$(realpath "${DOC_MAIN_SGML_FILE}")
 
 # Clean up files from gtkdoc-scan and run
-rm -f ${DOC_MODULE}-decl-list.txt ${DOC_MODULE}-decl.txt ${DOC_MODULE}-overrides.txt \
-      ${DOC_MODULE}-sections.txt ${DOC_MODULE}.types
+rm -f "${DOC_MODULE}-decl-list.txt" "${DOC_MODULE}-decl.txt" "${DOC_MODULE}-overrides.txt" \
+      "${DOC_MODULE}-sections.txt" "${DOC_MODULE}.types"
 
 gtkdoc-scan \
-    --module=${DOC_MODULE} \
-    --ignore-headers="${IGNORE_HFILES}" ${_source_dir} \
+    --module="${DOC_MODULE}" \
+    --ignore-headers="${IGNORE_HFILES}" "${_source_dir}" \
     --output-dir=. \
-    ${SCAN_OPTIONS}
+    "${SCAN_OPTIONS}"
 
 # Clean up files from gtkdoc-scangobj and run
-rm -f ${DOC_MODULE}.args ${DOC_MODULE}.hierarchy ${DOC_MODULE}.interfaces \
-      ${DOC_MODULE}.prerequisites ${DOC_MODULE}.signals
+rm -f "${DOC_MODULE}.args" "${DOC_MODULE}.hierarchy" "${DOC_MODULE}.interfaces" \
+      "${DOC_MODULE}.prerequisites" "${DOC_MODULE}.signals"
 
 gtkdoc-scangobj \
-    --module=${DOC_MODULE} \
-    --types=${DOC_MODULE}.types \
+    --module="${DOC_MODULE}" \
+    --types="${DOC_MODULE}.types" \
     --output-dir=. \
     --cc="${GTKDOC_CC}" \
     --run="${GTKDOC_RUN}" \
@@ -90,25 +90,25 @@ gtkdoc-scangobj \
     --ldflags="${GTKDOC_LIBS}"
 
 # Clean up files from gtkdoc-mkdb and run
-rm -rf ${DOC_MODULE}-doc.bottom ${DOC_MODULE}-doc.top \
-       ${DOC_MODULE}-undeclared.txt ${DOC_MODULE}-undocumented.txt \
-       ${DOC_MODULE}-unused.txt sgml.stamp xml
+rm -rf "${DOC_MODULE}-doc.bottom" "${DOC_MODULE}-doc.top" \
+       "${DOC_MODULE}-undeclared.txt" "${DOC_MODULE}-undocumented.txt" \
+       "${DOC_MODULE}-unused.txt" sgml.stamp xml
 
-gtkdoc-mkdb --module=${DOC_MODULE} \
+gtkdoc-mkdb --module="${DOC_MODULE}" \
             --source-suffixes=c,h \
             --ignore-files="${IGNORE_HFILES}" \
             --output-dir=xml \
-            --main-sgml-file=${DOC_MAIN_SGML_FILE} \
+            --main-sgml-file="${DOC_MAIN_SGML_FILE}" \
             --output-format=xml \
-            ${_source_dir} \
-            ${MKDB_OPTIONS}
+            "${_source_dir}" \
+            "${MKDB_OPTIONS}"
 
 # We almost have something useful! gtkdoc-mkhtml is next
 rm -rf html
 mkdir html
-( cd html && gtkdoc-mkhtml ${DOC_MODULE} ${DOC_MAIN_SGML_FILE} )
+( cd html && gtkdoc-mkhtml "${DOC_MODULE}" "${DOC_MAIN_SGML_FILE}" )
 
-gtkdoc-fixxref --module=${DOC_MODULE} --module-dir=html --html-dir=${HTML_DIR}
+gtkdoc-fixxref --module="${DOC_MODULE}" --module-dir=html --html-dir="${HTML_DIR}"
 
 # All done, new stamp file
 touch gtkdoc.stamp

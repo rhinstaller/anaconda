@@ -4,13 +4,13 @@ date=$(date +%F_%H%M%S)
 OUTDIR=/tmp/log-capture-${date}
 ARCHIVE=${1-/tmp/log-capture.tar.bz2}
 
-_to_log() { local OutputFile=$(tr ' /' '_' <<<"$@"); $@ >${OUTDIR}/${OutputFile}; }
+_to_log() { local OutputFile=$(tr ' /' '_' <<<"$@"); $@ >"${OUTDIR}/${OutputFile}"; }
 
-mkdir -p ${OUTDIR}
-cd ${OUTDIR}
+mkdir -p "${OUTDIR}"
+cd "${OUTDIR}"
 
 if [[ ! -f /tmp/ks.cfg ]];then
-  echo "# No /tmp/ks.cfg present" > ${OUTDIR}/ks.cfg
+  echo "# No /tmp/ks.cfg present" > "${OUTDIR}/ks.cfg"
 else
     _to_log cat /mnt/sysimage/root/ks.cfg
 fi
@@ -18,7 +18,7 @@ fi
 # the /mnt/sysimage/root/anaconda-ks.cfg file
 # might not yet exist when this script is called
 if [[ ! -f  /mnt/sysimage/root/anaconda-ks.cfg ]];then
-    echo "# No /mnt/sysimage/root/anaconda-ks.cfg" > ${OUTDIR}/anaconda-ks.cfg
+    echo "# No /mnt/sysimage/root/anaconda-ks.cfg" > "${OUTDIR}/anaconda-ks.cfg"
 else
     _to_log cat /mnt/sysimage/root/anaconda-ks.cfg
 fi
@@ -31,7 +31,7 @@ _to_log lspci -vvnn
 # run fdisk -l on all disks
 for DEV_NAME in $(list-harddrives | cut -d " " -f 1)
 do
-    _to_log fdisk -l /dev/${DEV_NAME}
+    _to_log fdisk -l "/dev/${DEV_NAME}"
 done
 
 _to_log ls -lR /dev
@@ -52,14 +52,14 @@ _to_log ip a
 _to_log ip r
 _to_log journalctl
 
-cp /etc/resolv.conf ${OUTDIR}
-cp /tmp/*.log ${OUTDIR}
-cp /root/lorax-packages.log ${OUTDIR}
+cp /etc/resolv.conf "${OUTDIR}"
+cp /tmp/*.log" ${OUTDIR}"
+cp /root/lorax-packages.log "${OUTDIR}"
 
 if [[ -e /tmp/pre-anaconda-logs/ ]];then
-    cp -r /tmp/pre-anaconda-logs ${OUTDIR}
+    cp -r /tmp/pre-anaconda-logs "${OUTDIR}"
 fi
 
-tar cfa ${ARCHIVE} ${OUTDIR}
+tar cfa "${ARCHIVE}" "${OUTDIR}"
 
 echo -e "\nFinished gathering data\nUpload ${ARCHIVE} to another system\n"

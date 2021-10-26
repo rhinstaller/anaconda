@@ -9,7 +9,7 @@ if getargbool 0 inst.ks.sendmac; then
     ifnum=0
     for ifname in /sys/class/net/*; do
         [ -e "$ifname/address" ] || continue
-        mac=$(cat $ifname/address)
+        mac=$(cat "$ifname/address")
         ifname=${ifname#/sys/class/net/}
         # TODO: might need to choose devices better
         if [ "$ifname" != "lo" ] && [ -n "$mac" ]; then
@@ -30,4 +30,4 @@ if getargbool 0 inst.ks.sendsn; then
     fi
 fi
 
-> /tmp/.ks_sendheaders
+true > /tmp/.ks_sendheaders

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Copy over persistent network device names to anaconda environment
 
 CMDLINE=$(cat /proc/cmdline)
