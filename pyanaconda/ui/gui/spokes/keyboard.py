@@ -134,8 +134,9 @@ class AddLayoutDialog(GUIObject):
     def _initialize(self):
         common_layouts = self._xkl_wrapper.get_common_layouts()
         available_layouts = self._xkl_wrapper.get_available_layouts()
+        common_layouts.remove(DEFAULT_KEYBOARD)
 
-        arranged_layouts = sorted(common_layouts, key=self._sort_layout) + \
+        arranged_layouts = [DEFAULT_KEYBOARD] + sorted(common_layouts, key=self._sort_layout) + \
             sorted(list(set(available_layouts) - set(common_layouts)), key=self._sort_layout)
 
         # we add arranged layouts in the treeview store
