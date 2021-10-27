@@ -64,7 +64,8 @@ TESTS = unit_tests.sh \
 	gettext_tests/style_guide.py \
 	gettext_tests/contexts.py \
 	gettext_tests/canary_tests.sh \
-	glade_tests.sh
+	glade_tests.sh \
+	shellcheck/run_shellcheck.sh
 
 clean-local:
 	-rm -rf pylint/.pylint.d

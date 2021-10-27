@@ -44,7 +44,8 @@ RUN set -ex; \
   python3-lxml \
   policycoreutils \
   python3-gobject-base \
-  python3-pip; \
+  python3-pip \
+  ShellCheck; \
   if ! grep -q VARIANT.*eln /etc/os-release; then \
     BRANCH="${git_branch}"; \
     if [ $BRANCH == "master" ]; then \
