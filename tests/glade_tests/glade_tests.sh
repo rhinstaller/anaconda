@@ -2,7 +2,7 @@
 
 # If $top_srcdir has not been set by automake, import the test environment
 if [ -z "$top_srcdir" ]; then
-    top_srcdir="$(realpath "$(dirname "$0")/..")"
+    top_srcdir="$(realpath "$(dirname "$0")/../..")"
     . "${top_srcdir}/tests/testenv.sh"
 fi
 
