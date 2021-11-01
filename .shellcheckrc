@@ -1,0 +1,4 @@
+# ShellCheck config file
+
+disable=SC1090  # Can't follow non-constant source. Use a directive to specify location.
+disable=SC2230  # which is non-standard. Use builtin 'command -v' instead.
