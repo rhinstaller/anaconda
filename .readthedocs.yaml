@@ -1,0 +1,20 @@
+# The Read the Docs configuration file
+# See: https://docs.readthedocs.io/en/stable/config-file/v2.html
+
+# The version of the configuration file
+version: 2
+
+# Configuration of the documentation build process
+build:
+  os: ubuntu-20.04
+  tools:
+    python: "3.9"
+
+# Configuration of the Sphinx documentation
+sphinx:
+  configuration: docs/conf.py
+
+# Configuration of the Python dependencies
+python:
+  install:
+    - requirements: docs/requirements.txt
