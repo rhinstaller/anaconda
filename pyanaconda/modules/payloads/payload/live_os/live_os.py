@@ -134,11 +134,3 @@ class LiveOSModule(PayloadBase):
         #     )
         # ]
         return []
-
-    def post_install_with_tasks(self):
-        """Execute post installation steps.
-
-        :returns: list of paths.
-        :rtype: List
-        """
-        return []

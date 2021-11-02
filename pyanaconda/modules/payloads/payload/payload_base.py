@@ -179,13 +179,12 @@ class PayloadBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         """
         pass
 
-    @abstractmethod
     def post_install_with_tasks(self):
         """Execute post installation steps.
 
         :return: list of tasks
         """
-        pass
+        return []
 
     def set_up_sources_with_task(self):
         """Set up installation sources."""
