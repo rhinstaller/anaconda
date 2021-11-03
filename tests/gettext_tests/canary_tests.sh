@@ -9,7 +9,8 @@ fi
 . "${top_srcdir}/tests/testenv.sh"
 
 # Make sure anaconda.pot is update to date
-make -C ${top_builddir}/po anaconda.pot-update >/dev/null 2>&1
+# shellcheck disable=SC2154
+make -C "${top_builddir}/po" anaconda.pot-update >/dev/null 2>&1
 
 PYTHONPATH="${PYTHONPATH}:${top_srcdir}/translation-canary"
 export PYTHONPATH

@@ -3,10 +3,10 @@
 # If $top_srcdir has not been set by automake, import the test environment
 if [ -z "$top_srcdir" ]; then
     top_srcdir="$(dirname "$0")/../.."
-    . ${top_srcdir}/tests/testenv.sh
+    . "${top_srcdir}/tests/testenv.sh"
 fi
 
-. ${top_srcdir}/tests/lib/testlib.sh
+. "${top_srcdir}/tests/lib/testlib.sh"
 
 if ! type cppcheck > /dev/null 2>&1 ; then
     echo "SKIP - cppcheck must be installed to run it."
@@ -17,7 +17,7 @@ fi
 # for all .c files
 filelist=
 if [ "$#" -gt 0 ]; then
-    filelist="$@"
+    filelist="$*"
 else
     filelist=$(findtestfiles -name '*.c')
 fi

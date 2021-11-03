@@ -378,14 +378,14 @@ tests-unit-only:
 	@cp $(abs_builddir)/tests/usercustomize.py $(USER_SITE_PACKAGES)
 	$(MAKE)
 	$(MAKE) -C $(srcdir) TMPDIR=/var/tmp COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc \
-		TEST_SUITE_LOG=test-suite.log TESTS=unit_tests.sh \
+		TEST_SUITE_LOG=test-suite.log TESTS=unit_tests/unit_tests.sh \
 		PYTHONUSERBASE=$(USER_SITE_BASE) check
 	@rm -rf $(USER_SITE_BASE)
 	$(MAKE) coverage-report
 
 run-rpm-tests-only: rpms
 	$(MAKE) TEST_SUITE_LOG=test-suite.log RPM_PATH=$(RPM_BUILD_DIR) \
-			ROOT_ANACONDA_PATH=$(abs_srcdir) TESTS=rpm_tests.sh check
+			ROOT_ANACONDA_PATH=$(abs_srcdir) TESTS=rpm_tests/rpm_tests.sh check
 
 coverage-report:
 	$(COVERAGE) combine tests/.coverage.*
