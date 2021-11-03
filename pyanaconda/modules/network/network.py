@@ -37,7 +37,7 @@ from pyanaconda.modules.network.firewall import FirewallModule
 from pyanaconda.modules.network.device_configuration import DeviceConfigurations, \
     supported_device_types, supported_wired_device_types
 from pyanaconda.modules.network.nm_client import devices_ignore_ipv6, get_connections_dump, \
-    get_dracut_arguments_from_connection, is_ibft_connection, get_kickstart_network_data
+    get_dracut_arguments_from_connection, get_kickstart_network_data
 from pyanaconda.modules.network.config_file import get_config_files_content, \
     is_config_file_for_system
 from pyanaconda.modules.network.installation import NetworkInstallationTask, \
@@ -665,11 +665,10 @@ class NetworkService(KickstartService):
             log.error("Get dracut arguments for %s: device not found", iface)
             return dracut_args
 
-        target_connections = []
         if ibft:
-            target_connections = [con for con in self.nm_client.get_connections()
-                                  if is_ibft_connection(con)]
+            dracut_args.append('rd.iscsi.ibft')
         else:
+            target_connections = []
             if self._device_configurations:
                 for cfg in self._device_configurations.get_for_device(iface):
                     uuid = cfg.connection_uuid
@@ -686,24 +685,23 @@ class NetworkService(KickstartService):
                     if active_connection:
                         target_connections = [active_connection.get_connection()]
 
-        if target_connections:
-            if len(target_connections) > 1:
-                log.debug("Get dracut arguments: "
-                          "multiple connections found for traget %s: %s, taking the first one",
-                          [con.get_uuid() for con in target_connections], target_ip)
-            connection = target_connections[0]
-        else:
-            log.error("Get dracut arguments: can't find connection for target %s", target_ip)
-            return dracut_args
+            if target_connections:
+                if len(target_connections) > 1:
+                    log.debug("Get dracut arguments: "
+                              "multiple connections found for traget %s: %s, taking the first one",
+                              [con.get_uuid() for con in target_connections], target_ip)
+                connection = target_connections[0]
+            else:
+                log.error("Get dracut arguments: can't find connection for target %s", target_ip)
+                return dracut_args
 
-        dracut_args = list(get_dracut_arguments_from_connection(
-            self.nm_client,
-            connection,
-            iface,
-            target_ip,
-            hostname,
-            ibft
-        ))
+            dracut_args = list(get_dracut_arguments_from_connection(
+                self.nm_client,
+                connection,
+                iface,
+                target_ip,
+                hostname
+            ))
         return dracut_args
 
     def _apply_boot_options(self, kernel_args):

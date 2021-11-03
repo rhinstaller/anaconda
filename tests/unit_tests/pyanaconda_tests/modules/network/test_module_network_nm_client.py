@@ -118,61 +118,6 @@ class NMClientTestCase(unittest.TestCase):
 
         CON_UUID = "44755f4c-ee12-45b4-ba5e-e10f83de51af"
 
-        # ibft connection
-        cons_attrs = [
-            {
-                "get_uuid.return_value": CON_UUID,
-                "get_setting_wired.return_value": None,
-            },
-        ]
-        con = self._get_mock_objects_from_attrs(cons_attrs)[0]
-        assert get_dracut_arguments_from_connection(nm_client, con, "", "10.34.39.2",
-                                                    "my.host.name", ibft=True) == \
-            set(["rd.iscsi.ibft"])
-
-        # ibft connection on s390 with missing s390 options
-        is_s390.return_value = True
-        wired_setting_attrs = {
-            "get_s390_nettype.return_value": "",
-            "get_s390_subchannels.return_value": "",
-            "get_property.return_value": {},
-        }
-        wired_setting = self._get_mock_objects_from_attrs([wired_setting_attrs])[0]
-
-        cons_attrs = [
-            {
-                "get_uuid.return_value": CON_UUID,
-                "get_setting_wired.return_value": wired_setting,
-            },
-        ]
-        con = self._get_mock_objects_from_attrs(cons_attrs)[0]
-        assert get_dracut_arguments_from_connection(nm_client, con, "", "10.34.39.2",
-                                                    "my.host.name", ibft=True) == \
-            set(["rd.iscsi.ibft"])
-
-        # ibft connection on s390 with s390 options
-        is_s390.return_value = True
-        wired_setting_attrs = {
-            "get_s390_nettype.return_value": "qeth",
-            "get_s390_subchannels.return_value": "0.0.0900,0.0.0901,0.0.0902",
-            "get_property.return_value": {"layer2": "1",
-                                          "portname": "FOOBAR",
-                                          "portno": "0"},
-        }
-        wired_setting = self._get_mock_objects_from_attrs([wired_setting_attrs])[0]
-
-        cons_attrs = [
-            {
-                "get_uuid.return_value": CON_UUID,
-                "get_setting_wired.return_value": wired_setting,
-            },
-        ]
-        con = self._get_mock_objects_from_attrs(cons_attrs)[0]
-        assert get_dracut_arguments_from_connection(nm_client, con, "", "10.34.39.2",
-                                                    "my.host.name", ibft=True) == \
-            set(["rd.iscsi.ibft",
-                 "rd.znet=qeth,0.0.0900,0.0.0901,0.0.0902,layer2=1,portname=FOOBAR,portno=0"])
-
         # IPv4 config auto, IPv6 config auto, mac address specified
         is_s390.return_value = False
         ip4_config_attrs = {
@@ -199,12 +144,12 @@ class NMClientTestCase(unittest.TestCase):
         con = self._get_mock_objects_from_attrs(cons_attrs)[0]
         # IPv4 target
         assert get_dracut_arguments_from_connection(nm_client, con, "ens3", "10.34.39.2",
-                                                    "my.host.name", ibft=False) == \
+                                                    "my.host.name") == \
             set(["ip=ens3:dhcp",
                  "ifname=ens3:11:11:11:11:11:aa"])
         # IPv6 target
         assert get_dracut_arguments_from_connection(nm_client, con, "ens3", "2001::cafe:beef",
-                                                    "my.host.name", ibft=False) == \
+                                                    "my.host.name") == \
             set(["ip=ens3:auto6",
                  "ifname=ens3:11:11:11:11:11:aa"])
 
@@ -241,7 +186,7 @@ class NMClientTestCase(unittest.TestCase):
         ]
         con = self._get_mock_objects_from_attrs(cons_attrs)[0]
         assert get_dracut_arguments_from_connection(nm_client, con, "ens4", "10.40.49.4",
-                                                    "my.host.name", ibft=False) == \
+                                                    "my.host.name") == \
             set(["ip=10.34.39.44::10.34.39.2:255.255.255.0:my.host.name:ens4:none",
                  "rd.znet=qeth,0.0.0900,0.0.0901,0.0.0902,layer2=1,portname=FOOBAR,portno=0"])
 
@@ -265,7 +210,7 @@ class NMClientTestCase(unittest.TestCase):
         ]
         con = self._get_mock_objects_from_attrs(cons_attrs)[0]
         assert get_dracut_arguments_from_connection(nm_client, con, "ens3", "2001::cafe:beef",
-                                                    "my.host.name", ibft=False) == \
+                                                    "my.host.name") == \
             set(["ip=ens3:dhcp6"])
 
         # IPv6 config manual
@@ -296,7 +241,7 @@ class NMClientTestCase(unittest.TestCase):
         ]
         con = self._get_mock_objects_from_attrs(cons_attrs)[0]
         assert get_dracut_arguments_from_connection(nm_client, con, "ens3", "2001::cafe:beef",
-                                                    "my.host.name", ibft=False) == \
+                                                    "my.host.name") == \
             set(["ip=[2001::5/64]::[2001::1]::my.host.name:ens3:none"])
 
         # IPv4 config auto, team
@@ -321,7 +266,7 @@ class NMClientTestCase(unittest.TestCase):
         ])
         # IPv4 target
         assert get_dracut_arguments_from_connection(nm_client, con, "team0", "10.34.39.2",
-                                                    "my.host.name", ibft=False) == \
+                                                    "my.host.name") == \
             set(["ip=team0:dhcp",
                  "team=team0:ens7,ens8"])
 
@@ -366,7 +311,7 @@ class NMClientTestCase(unittest.TestCase):
         get_connections_available_for_iface.return_value = parent_cons
         # IPv4 target
         assert get_dracut_arguments_from_connection(nm_client, con, "ens11.111", "10.34.39.2",
-                                                    "my.host.name", ibft=False) == \
+                                                    "my.host.name") == \
             set(["ip=ens11.111:dhcp",
                  "vlan=ens11.111:ens11",
                  "rd.znet=qeth,0.0.0900,0.0.0901,0.0.0902,layer2=1,portname=FOOBAR,portno=0"])
@@ -402,7 +347,7 @@ class NMClientTestCase(unittest.TestCase):
         nm_client.get_connection_by_uuid.return_value = parent_con
         # IPv4 target
         assert get_dracut_arguments_from_connection(nm_client, con, "ens12.111", "10.34.39.2",
-                                                    "my.host.name", ibft=False) == \
+                                                    "my.host.name") == \
             set(["ip=ens12.111:dhcp",
                  "vlan=ens12.111:ens12"])
 
@@ -450,7 +395,7 @@ class NMClientTestCase(unittest.TestCase):
         nm_client.get_connection_by_uuid.return_value = parent_con
         # IPv4 target
         assert get_dracut_arguments_from_connection(nm_client, con, "ens13.111", "10.34.39.2",
-                                                    "my.host.name", ibft=False) == \
+                                                    "my.host.name") == \
             set(["ip=ens13.111:dhcp",
                  "vlan=ens13.111:ens13",
                  "rd.znet=qeth,0.0.0900,0.0.0901,0.0.0902,layer2=1,portname=FOOBAR,portno=0"])
