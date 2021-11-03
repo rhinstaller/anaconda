@@ -298,6 +298,11 @@ class ProductConfigurationTestCase(unittest.TestCase):
             ["rhel.conf", "almalinux.conf"],
             ENTERPRISE_PARTITIONING
         )
+        self._check_default_product(
+            "Rocky", "",
+            ["rhel.conf", "rocky.conf"],
+            ENTERPRISE_PARTITIONING
+        )
 
     def product_module_list_difference_fedora_rhel_test(self):
         """Test for expected Fedora & RHEL module list differences."""
