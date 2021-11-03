@@ -23,7 +23,9 @@ from textwrap import dedent
 
 from pyanaconda.modules.network.nm_client import get_slaves_from_connections, \
     get_dracut_arguments_from_connection, get_config_file_connection_of_device, \
-    get_kickstart_network_data, NM_BRIDGE_DUMPED_SETTINGS_DEFAULTS
+    get_kickstart_network_data, NM_BRIDGE_DUMPED_SETTINGS_DEFAULTS, \
+    update_connection_wired_settings_from_ksdata
+
 from pyanaconda.core.kickstart.commands import NetworkData
 from pyanaconda.modules.network.constants import NM_CONNECTION_TYPE_WIFI, \
     NM_CONNECTION_TYPE_ETHERNET, NM_CONNECTION_TYPE_VLAN, NM_CONNECTION_TYPE_BOND, \
@@ -983,3 +985,38 @@ class NMClientTestCase(unittest.TestCase):
             if generated_ks:
                 generated_ks = dedent(str(generated_ks)).strip()
             self.assertEqual(generated_ks, expected_ks)
+
+    def update_connection_wired_settings_from_ksdata_test(self):
+        network_data = Mock()
+        connection = Mock()
+        wired_setting = Mock()
+
+        connection.get_setting_wired.return_value = wired_setting
+
+        # --mtu default value
+        network_data.mtu = ""
+        update_connection_wired_settings_from_ksdata(connection, network_data)
+        connection.get_setting_wired.assert_not_called()
+
+        # Invalid value
+        # --mtu=non-int
+        network_data.mtu = "non-int"
+        connection.reset_mock()
+        update_connection_wired_settings_from_ksdata(connection, network_data)
+        connection.get_setting_wired.assert_not_called()
+
+        # Valid value
+        # --mtu=9000
+        # The connection already has wired setting
+        connection.reset_mock()
+        network_data.mtu = "9000"
+        update_connection_wired_settings_from_ksdata(connection, network_data)
+        connection.get_setting_wired.assert_called_once()
+
+        # Valid value
+        # --mtu=9000
+        # The connection does not have wired setting yet
+        connection.get_setting_wired.return_value = None
+        connection.reset_mock()
+        update_connection_wired_settings_from_ksdata(connection, network_data)
+        connection.add_setting.assert_called_once()
