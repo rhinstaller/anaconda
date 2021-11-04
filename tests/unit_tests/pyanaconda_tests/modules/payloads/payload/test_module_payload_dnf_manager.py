@@ -700,6 +700,7 @@ class DNFManagerCompsTestCase(unittest.TestCase):
 
         def environment_by_pattern(name):
             for e in comps.environments:
+                # pylint: disable=no-member
                 if name in (e.id, e.ui_name):
                     return e
 
