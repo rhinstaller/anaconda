@@ -176,8 +176,3 @@ class SystemSection(Section):
     def provides_resolver_config(self):
         """Can we copy /etc/resolv.conf to the target system?"""
         return self._is_boot_iso
-
-    @property
-    def provides_web_browser(self):
-        """Can we redirect users to web pages?"""
-        return self._is_live_os
