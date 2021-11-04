@@ -104,7 +104,7 @@ class InstallFromImageTaskTestCase(unittest.TestCase):
             "--exclude", "/boot/loader/",
             "--exclude", "/boot/efi/loader/",
             "--exclude", "/etc/machine-id",
-            mount_point,
+            mount_point + "/",
             "/mnt/root"
         ])
 
