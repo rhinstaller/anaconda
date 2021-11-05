@@ -407,6 +407,15 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Nov 05 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.20-1
+- Fix application of network --mtu kickstart option in Anaconda (rvykydal)
+  Resolves: rhbz#2019813
+- Print progress dots on one line in TUI (honza.stodola)
+  Resolves: rhbz#1998668
+- Roll back Satellite provisioning if subscription attempt fails with error
+  (mkolman)
+  Resolves: rhbz#2010865
+
 * Wed Oct 20 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.19-1
 - Unify GUI & TUI root spoke completeness conditions (vslavik)
   Resolves: rhbz#1999646
