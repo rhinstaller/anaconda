@@ -367,6 +367,14 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Nov 05 2021 Radek Vykydal <rvykydal@redhat.com> - 33.16.6.3-1
+- Fix application of network --mtu kickstart option in Anaconda (rvykydal)
+  Resolves: rhbz#2018301
+- Configure the multilib policy of the target system (vponcova)
+  Resolves: rhbz#1571727
+- network: apply kickstart network --nodefroute also from stage2 (rvykydal)
+  Resolves: rhbz#1990145
+
 * Wed Oct 20 2021 Radek Vykydal <rvykydal@redhat.com> - 33.16.6.2-1
 - Make network spoke GUI more robust in cases of missing NM Client. (rvykydal)
   Resolves: rhbz#2003115
