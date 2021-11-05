@@ -21,7 +21,7 @@ import unittest
 from unittest.mock import Mock, patch
 
 from pyanaconda.modules.network.nm_client import get_slaves_from_connections, \
-    get_dracut_arguments_from_connection
+    get_dracut_arguments_from_connection, update_connection_wired_settings_from_ksdata
 
 import gi
 gi.require_version("NM", "1.0")
@@ -482,3 +482,38 @@ class NMClientTestCase(unittest.TestCase):
                  "vlan=ens13.111:ens13",
                  "rd.znet=qeth,0.0.0900,0.0.0901,0.0.0902,layer2=1,portname=FOOBAR,portno=0"])
         )
+
+    def update_connection_wired_settings_from_ksdata_test(self):
+        network_data = Mock()
+        connection = Mock()
+        wired_setting = Mock()
+
+        connection.get_setting_wired.return_value = wired_setting
+
+        # --mtu default value
+        network_data.mtu = ""
+        update_connection_wired_settings_from_ksdata(connection, network_data)
+        connection.get_setting_wired.assert_not_called()
+
+        # Invalid value
+        # --mtu=non-int
+        network_data.mtu = "non-int"
+        connection.reset_mock()
+        update_connection_wired_settings_from_ksdata(connection, network_data)
+        connection.get_setting_wired.assert_not_called()
+
+        # Valid value
+        # --mtu=9000
+        # The connection already has wired setting
+        connection.reset_mock()
+        network_data.mtu = "9000"
+        update_connection_wired_settings_from_ksdata(connection, network_data)
+        connection.get_setting_wired.assert_called_once()
+
+        # Valid value
+        # --mtu=9000
+        # The connection does not have wired setting yet
+        connection.get_setting_wired.return_value = None
+        connection.reset_mock()
+        update_connection_wired_settings_from_ksdata(connection, network_data)
+        connection.add_setting.assert_called_once()
