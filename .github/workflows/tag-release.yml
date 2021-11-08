@@ -71,9 +71,24 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_NAME: ${{ steps.get_version.outputs.version }}
         run: |
+          echo -e "Anaconda release $RELEASE_NAME.\n\n" > release.txt
+
+          # find version tags
+          CURRENT_VERSION=${{ github.ref }}
+          PREVIOUS_VERSION="$(git describe --tags --abbrev=0 --exclude="$CURRENT_VERSION")"
+
+          # print commit details; skip the last = release commit
+          git log \
+            --no-merges \
+            --pretty=format:"- %s (%aL)" \
+            "$PREVIOUS_VERSION..$CURRENT_VERSION~1" \
+              | grep -v "#infra" \
+              | tee -a release.txt
+
+          # create release with the release notes
           gh release create \
             ${{ github.ref }} \
             --draft \
             --title "anaconda-$RELEASE_NAME" \
-            --notes "Anaconda release $RELEASE_NAME created automatically from git tag." \
+            --notes-file release.txt \
             /tmp/results/*
