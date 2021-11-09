@@ -196,7 +196,7 @@ jobs:
       - name: Run kickstart tests with ${{ needs.pr-info.outputs.launch_args }} in container
         working-directory: kickstart-tests
         run: |
-          sudo TEST_JOBS=16 containers/runner/launch --skip-testtypes "$SKIP_KS_TESTS,knownfailure" $OPTIONAL_KS_TEST_ARGS ${{ needs.pr-info.outputs.launch_args }}
+          sudo TEST_JOBS=16 containers/runner/launch --skip-testtypes "$SKIP_KS_TESTS,knownfailure,manual" $OPTIONAL_KS_TEST_ARGS ${{ needs.pr-info.outputs.launch_args }}
 
       - name: Collect logs
         if: always()
