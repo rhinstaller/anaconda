@@ -156,9 +156,12 @@ class SystemPurposeConfigurationTaskTestCase(unittest.TestCase):
         system_purpose_data.sla = "bar"
         system_purpose_data.usage = "baz"
         system_purpose_data.addons = ["a", "b", "c"]
-        task = SystemPurposeConfigurationTask(system_purpose_data)
+        # create a mock syspurpose proxy
+        syspurpose_proxy = Mock()
+        task = SystemPurposeConfigurationTask(syspurpose_proxy, system_purpose_data)
         task.run()
         give_the_system_purpose.assert_called_once_with(sysroot="/",
+                                                        rhsm_syspurpose_proxy=syspurpose_proxy,
                                                         role="foo",
                                                         sla="bar",
                                                         usage="baz",
@@ -177,9 +180,12 @@ class SystemPurposeConfigurationTaskTestCase(unittest.TestCase):
         system_purpose_data.sla = "bar"
         system_purpose_data.usage = "baz"
         system_purpose_data.addons = ["a", "b", "c"]
-        task = SystemPurposeConfigurationTask(system_purpose_data)
+        # create a mock syspurpose proxy
+        syspurpose_proxy = Mock()
+        task = SystemPurposeConfigurationTask(syspurpose_proxy, system_purpose_data)
         task.run()
         give_the_system_purpose.assert_called_once_with(sysroot="/",
+                                                        rhsm_syspurpose_proxy=syspurpose_proxy,
                                                         role="foo",
                                                         sla="bar",
                                                         usage="baz",

@@ -316,14 +316,18 @@ class SubscriptionService(KickstartService):
     def _apply_syspurpose(self):
         """Apply system purpose information to the installation environment."""
         log.debug("subscription: Applying system purpose data")
-        task = SystemPurposeConfigurationTask(system_purpose_data=self.system_purpose_data)
+        task = self.set_system_purpose_with_task()
         task.run()
 
     def set_system_purpose_with_task(self):
         """Set system purpose for the installed system with an installation task.
         :return: a DBus path of an installation task
         """
-        task = SystemPurposeConfigurationTask(system_purpose_data=self.system_purpose_data)
+        rhsm_syspurpose_proxy = self.rhsm_observer.get_proxy(RHSM_SYSPURPOSE)
+        task = SystemPurposeConfigurationTask(
+            rhsm_syspurpose_proxy=rhsm_syspurpose_proxy,
+            system_purpose_data=self.system_purpose_data
+        )
         return task
 
     # subscription request
