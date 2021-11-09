@@ -19,7 +19,6 @@ import tarfile
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.payload import ProxyString, ProxyStringError
-from pyanaconda.core.constants import TAR_SUFFIX
 from pyanaconda.modules.payloads.base.utils import sort_kernel_version_list
 
 log = get_module_logger(__name__)
@@ -56,8 +55,3 @@ def get_proxies_from_option(proxy_option):
         except ProxyStringError as e:
             log.info("Failed to parse proxy \"%s\": %s", proxy_option, e)
     return proxies
-
-
-def url_target_is_tarfile(url):
-    """Does the url point to a tarfile?"""
-    return any(url.endswith(suffix) for suffix in TAR_SUFFIX)

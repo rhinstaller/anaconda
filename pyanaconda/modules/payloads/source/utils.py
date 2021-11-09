@@ -29,6 +29,19 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
+def is_tar(url):
+    """Is the given URL a path to the tarball?
+
+    :param url: a string with URL
+    :return: True or False
+    """
+    if not url:
+        return False
+
+    tar_suffixes = (".tar", ".tbz", ".tgz", ".txz", ".tar.bz2", "tar.gz", "tar.xz")
+    return any(url.endswith(s) for s in tar_suffixes)
+
+
 def has_network_protocol(url):
     """Does the given URL have a network protocol?
 

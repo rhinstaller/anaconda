@@ -87,7 +87,7 @@ class LiveImageModule(PayloadBase):
         # task.succeeded_signal.connect(lambda: self.set_image_path(task.get_result()))
         # return [task]
 
-        # if url_target_is_tarfile(self._url):
+        # if is_tar(self._url):
         #     task = InstallFromTarTask(
         #         self.image_path,
         #         conf.target.system_root,

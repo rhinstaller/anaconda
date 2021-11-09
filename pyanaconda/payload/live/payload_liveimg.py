@@ -23,12 +23,13 @@ from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_packaging_logger
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_IMAGE, TAR_SUFFIX, \
-    NETWORK_CONNECTION_TIMEOUT, INSTALL_TREE, IMAGE_DIR
+from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_IMAGE, NETWORK_CONNECTION_TIMEOUT, \
+    INSTALL_TREE, IMAGE_DIR
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.modules.payloads.payload.live_image.installation import VerifyImageChecksum, \
     InstallFromTarTask
 from pyanaconda.modules.payloads.payload.live_image.utils import get_kernel_version_list_from_tar
+from pyanaconda.modules.payloads.source.utils import is_tar
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.errors import PayloadInstallError, PayloadSetupError
 from pyanaconda.payload.live.download_progress import DownloadProgress
@@ -63,11 +64,6 @@ class LiveImagePayload(BaseLivePayload):
     def type(self):
         """The DBus type of the payload."""
         return PAYLOAD_TYPE_LIVE_IMAGE
-
-    @property
-    def is_tarfile(self):
-        """ Return True if the url ends with a tar suffix """
-        return any(self.data.liveimg.url.endswith(suffix) for suffix in TAR_SUFFIX)
 
     def _setup_url_image(self):
         """ Check to make sure the url is available and estimate the space
@@ -207,7 +203,7 @@ class LiveImagePayload(BaseLivePayload):
         task.run()
 
         # If this looks like a tarfile, skip trying to mount it
-        if self.is_tarfile:
+        if is_tar(self.data.liveimg.url):
             return
 
         # Work around inability to move shared filesystems.
@@ -256,7 +252,7 @@ class LiveImagePayload(BaseLivePayload):
             Otherwise fall back to rsync of INSTALL_TREE
         """
         # If it doesn't look like a tarfile use the super's install()
-        if not self.is_tarfile:
+        if not is_tar(self.data.liveimg.url):
             super().install()
             return
 
@@ -297,7 +293,7 @@ class LiveImagePayload(BaseLivePayload):
     @property
     def kernel_version_list(self):
         # If it doesn't look like a tarfile use the super's kernel_version_list
-        if not self.is_tarfile:
+        if not is_tar(self.data.liveimg.url):
             return super().kernel_version_list
 
         if self._kernel_version_list:

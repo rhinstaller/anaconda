@@ -17,6 +17,7 @@
 #
 import glob
 import os
+
 from requests.exceptions import RequestException
 
 from pyanaconda.core.constants import NETWORK_CONNECTION_TIMEOUT, IMAGE_DIR
@@ -24,7 +25,8 @@ from pyanaconda.core.util import execWithRedirect
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payloads.payload.live_image.utils import get_local_image_path_from_url, \
-    get_proxies_from_option, url_target_is_tarfile
+    get_proxies_from_option
+from pyanaconda.modules.payloads.source.utils import is_tar
 from pyanaconda.payload.utils import mount, unmount
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -153,7 +155,7 @@ class SetupInstallationSourceImageTask(Task):
         else:
             self._download_image(self._url, self._image_path, self._session)
 
-        if not url_target_is_tarfile(self._url):
+        if not is_tar(self._url):
             self._mount_image(self._image_path, self._image_mount_point)
 
         log.debug("Source image file path: %s", self._image_path)
@@ -184,7 +186,7 @@ class TeardownInstallationSourceImageTask(Task):
 
     def run(self):
         """Run tear down of installation source image."""
-        if not url_target_is_tarfile(self._url):
+        if not is_tar(self._url):
             unmount(self._image_mount_point, raise_exc=True)
             # FIXME: Payload and LiveOS stuff
             # FIXME: do we need a task for this?
