@@ -895,8 +895,22 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def _show_no_ntp_server_warning(self):
         self.set_warning(_("You have no working NTP server configured"))
 
+    def _cancel_planned_update(self):
+        """Cancel system time update planned by manual setting"""
+        # cancel system time update
+        if self._start_updating_timer:
+            self._start_updating_timer.cancel()
+            self._start_updating_timer = None
+        # re-enable UI update because it will not be done by the
+        # system time update we've just cancelled
+        if not self._update_datetime_timer:
+            self._update_datetime_timer = Timer()
+            self._update_datetime_timer.timeout_sec(1, self._update_datetime)
+
     def on_ntp_switched(self, switch, *args):
         if switch.get_active():
+            self._cancel_planned_update()
+
             #turned ON
             if not conf.system.can_set_time_synchronization:
                 #cannot touch runtime system, not much to do here
