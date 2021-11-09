@@ -404,10 +404,6 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
         if new_spoke.apply_configuration:
             self._apply = True
-            device = self.nm_client.get_device_by_iface(iface)
-            log.debug("activating connection %s with device %s",
-                      connection_uuid, iface)
-            self.nm_client.activate_connection_async(connection, device, None, None)
 
         self._network_module.LogConfigurationState(
             "Settings of {} updated in TUI.".format(iface)
@@ -608,6 +604,12 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
         connection.update2_finish(result)
         log.debug("updated connection %s:\n%s", connection_uuid,
                   connection.to_dbus(NM.ConnectionSerializationFlags.ALL))
+        if self.apply_configuration:
+            nm_client = network.get_nm_client()
+            device = nm_client.get_device_by_iface(self._iface)
+            log.debug("activating connection %s with device %s",
+                      connection_uuid, self._iface)
+            nm_client.activate_connection_async(connection, device, None, None)
 
 
 def get_default_connection(iface, device_type):
