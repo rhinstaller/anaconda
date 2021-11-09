@@ -41,6 +41,13 @@ class LiveImageKSTestCase(unittest.TestCase):
         self.shared_tests = PayloadKickstartSharedTest(self.payload_module,
                                                        self.payload_module_interface)
 
+    def _check_source_types(self, *expected_types):
+        """Check types of sources attached to the active payload."""
+        source_types = [
+            s.type for s in self.payload_module.active_payload.sources
+        ]
+        assert source_types == list(expected_types)
+
     def test_liveimg_simple_kickstart(self):
         """Test the simple liveimg command."""
         ks_in = """
@@ -51,6 +58,19 @@ class LiveImageKSTestCase(unittest.TestCase):
         liveimg --url="http://my/super/path"
         """
         self.shared_tests.check_kickstart(ks_in, ks_out="", ks_tmp=ks_out)
+        self._check_source_types(SourceType.LIVE_IMAGE)
+
+    def test_liveimg_tar_kickstart(self):
+        """Test the liveimg command with tar."""
+        ks_in = """
+        liveimg --url http://my/super/path.tar
+        """
+        ks_out = """
+        # Use live disk image installation
+        liveimg --url="http://my/super/path.tar"
+        """
+        self.shared_tests.check_kickstart(ks_in, ks_out="", ks_tmp=ks_out)
+        self._check_source_types(SourceType.LIVE_TAR)
 
     def test_liveimg_proxy_kickstart(self):
         """Test the liveimg proxy parameter."""
