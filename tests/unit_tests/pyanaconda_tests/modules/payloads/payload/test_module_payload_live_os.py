@@ -17,103 +17,61 @@
 #
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
+import os
+import tempfile
 import unittest
 
-from tests.unit_tests.pyanaconda_tests import check_task_creation, patch_dbus_publish_object, \
-    PropertiesChangedCallback
+from pyanaconda.core.constants import SOURCE_TYPE_LIVE_OS_IMAGE, PAYLOAD_TYPE_LIVE_OS
+from pyanaconda.core.util import touch, join_paths
+from pyanaconda.modules.common.errors.payload import IncompatibleSourceError
+from pyanaconda.modules.payloads.constants import SourceType, SourceState
+from pyanaconda.modules.payloads.payload.live_os.live_os import LiveOSModule
+from pyanaconda.modules.payloads.payload.live_os.live_os_interface import LiveOSInterface
+from pyanaconda.modules.payloads.payload.live_image.installation import InstallFromImageTask
+
+from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object
 from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
     PayloadSharedTest
 
-from pyanaconda.core.constants import SOURCE_TYPE_LIVE_OS_IMAGE
-from pyanaconda.modules.common.errors.payload import SourceSetupError, IncompatibleSourceError
-from pyanaconda.modules.payloads.constants import SourceType, PayloadType, SourceState
-from pyanaconda.modules.payloads.base.initialization import SetUpSourcesTask, TearDownSourcesTask
-from pyanaconda.modules.payloads.payload.live_os.live_os import LiveOSModule
-from pyanaconda.modules.payloads.payload.live_os.live_os_interface import LiveOSInterface
-
 
 class LiveOSInterfaceTestCase(unittest.TestCase):
+    """Test the DBus interface of the Live OS payload."""
 
     def setUp(self):
-        self.live_os_module = LiveOSModule()
-        self.live_os_interface = LiveOSInterface(self.live_os_module)
-
-        self.shared_tests = PayloadSharedTest(payload=self.live_os_module,
-                                              payload_intf=self.live_os_interface)
-
-        self.callback = PropertiesChangedCallback()
-        self.live_os_interface.PropertiesChanged.connect(self.callback)
+        self.module = LiveOSModule()
+        self.interface = LiveOSInterface(self.module)
+        self.shared_tests = PayloadSharedTest(
+            payload=self.module,
+            payload_intf=self.interface
+        )
 
     def _prepare_source(self):
+        """Prepare a default source."""
         return self.shared_tests.prepare_source(SourceType.LIVE_OS_IMAGE)
 
-    def _prepare_and_use_source(self):
-        source = self._prepare_source()
-        self.live_os_module.set_sources([source])
-
-        return source
-
     def test_type(self):
-        self.shared_tests.check_type(PayloadType.LIVE_OS)
+        """Test the type of the payload."""
+        assert self.interface.Type == PAYLOAD_TYPE_LIVE_OS
 
     def test_supported_sources(self):
         """Test LiveOS supported sources API."""
-        assert [SOURCE_TYPE_LIVE_OS_IMAGE] == \
-            self.live_os_interface.SupportedSourceTypes
+        assert self.interface.SupportedSourceTypes == [SOURCE_TYPE_LIVE_OS_IMAGE]
 
     @patch_dbus_publish_object
-    def test_set_source(self, publisher):
+    def test_set_sources(self, publisher):
         """Test if set source API of LiveOS payload."""
         sources = [self._prepare_source()]
-
         self.shared_tests.set_and_check_sources(sources)
 
     @patch_dbus_publish_object
     def test_set_multiple_sources_fail(self, publisher):
         """Test LiveOS payload can't set multiple sources."""
-        paths = [
-            self._prepare_source(),
-            self._prepare_source()
-        ]
-
-        self.shared_tests.set_and_check_sources(paths, exception=IncompatibleSourceError)
-
-    @patch_dbus_publish_object
-    def test_set_when_initialized_source_fail(self, publisher):
-        """Test LiveOS payload can't set new sources if the old ones are initialized."""
-        source1 = self._prepare_source()
-        source2 = self._prepare_source()
-
-        self.shared_tests.set_and_check_sources([source1])
-
-        # can't switch source if attached source is ready
-        source1.get_state.return_value = SourceState.READY
-        self.shared_tests.set_sources([source2], SourceSetupError)
-        self.shared_tests.check_sources([source1])
-
-        source1.get_state.return_value = SourceState.UNREADY
-        self.shared_tests.set_and_check_sources([source1])
-
-    @patch_dbus_publish_object
-    def test_set_up_installation_sources_task(self, publisher):
-        """Test Live OS is able to create a set up installation sources task."""
-        self._prepare_and_use_source()
-
-        task_path = self.live_os_interface.SetUpSourcesWithTask()
-
-        check_task_creation(task_path, publisher, SetUpSourcesTask)
-
-    @patch_dbus_publish_object
-    def test_tear_down_installation_source_task(self, publisher):
-        """Test Live OS is able to create a tear down installation sources task."""
-        self._prepare_and_use_source()
-
-        task_path = self.live_os_interface.TearDownSourcesWithTask()
-
-        check_task_creation(task_path, publisher, TearDownSourcesTask)
+        sources = [self._prepare_source(), self._prepare_source()]
+        self.shared_tests.set_and_check_sources(sources, exception=IncompatibleSourceError)
 
 
 class LiveOSModuleTestCase(unittest.TestCase):
+    """Test the Live OS payload module."""
 
     def setUp(self):
         self.module = LiveOSModule()
@@ -124,25 +82,33 @@ class LiveOSModuleTestCase(unittest.TestCase):
 
     def test_get_kernel_version_list(self):
         """Test the get_kernel_version_list method."""
-        assert self.module.get_kernel_version_list() == []
+        with tempfile.TemporaryDirectory() as tmp:
+            # Create the image source.
+            image_source = self._create_source()
+            image_source._mount_point = tmp
+
+            # Create a fake kernel file.
+            os.makedirs(join_paths(tmp, "boot"))
+            kernel_file = join_paths(tmp, "boot", "vmlinuz-1.2-3.x86_64")
+            touch(kernel_file)
+
+            self.module._update_kernel_version_list(image_source)
+
+        assert self.module.get_kernel_version_list() == ["1.2-3.x86_64"]
 
     def test_install_with_task(self):
         """Test the install_with_tasks method."""
         source = self._create_source()
         self.module.set_sources([source])
 
-        # tasks = self.module.install_with_tasks()
-        # self.assertEqual(len(tasks), 1)
-        # self.assertIsInstance(tasks[0], InstallFromImageTask)
-        assert self.module.install_with_tasks() == []
+        tasks = self.module.install_with_tasks()
+        assert len(tasks) == 1
+        assert isinstance(tasks[0], InstallFromImageTask)
 
     def test_install_with_task_no_source(self):
         """Test Live OS install with tasks with no source fail."""
-        # with self.assertRaises(SourceSetupError):
-        #    self.module.install_with_tasks()
-        self.module.install_with_tasks()
+        assert self.module.install_with_tasks() == []
 
     def test_post_install_with_tasks(self):
         """Test Live OS post installation configuration task."""
-        tasks = self.module.post_install_with_tasks()
-        assert len(tasks) == 0
+        assert self.module.post_install_with_tasks() == []

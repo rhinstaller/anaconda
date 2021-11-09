@@ -19,6 +19,7 @@
 #
 from pyanaconda.core.i18n import _
 from pyanaconda.core.signal import Signal
+from pyanaconda.modules.payloads.base.utils import get_dir_size
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, MountingSourceMixin
@@ -38,11 +39,8 @@ class LiveOSSourceModule(PayloadSourceBase, MountingSourceMixin):
         self._image_path = ""
         self.image_path_changed = Signal()
 
-    def __repr__(self):
-        return "Source(type='LIVE_OS_IMAGE', image='{}')".format(self._image_path)
-
     def for_publication(self):
-        """Get the interface used to publish this source."""
+        """Return a DBus representation."""
         return LiveOSSourceInterface(self)
 
     @property
@@ -70,12 +68,12 @@ class LiveOSSourceModule(PayloadSourceBase, MountingSourceMixin):
         :return: required size in bytes
         :rtype: int
         """
-        # FIXME: Implement this method.
-        return 0
+        # FIXME: Unify the required space with the installation size.
+        return get_dir_size("/") * 1024
 
     @property
     def image_path(self):
-        """Path to the live OS source image.
+        """Path to the Live OS image.
 
         This image will be used as the installation source.
 
@@ -83,12 +81,8 @@ class LiveOSSourceModule(PayloadSourceBase, MountingSourceMixin):
         """
         return self._image_path
 
-    def get_state(self):
-        """Get state of this source."""
-        return SourceState.from_bool(self.get_mount_state())
-
     def set_image_path(self, image_path):
-        """Set path to the live OS source image.
+        """Set path to the Live OS image.
 
         :param image_path: path to the image
         :type image_path: str
@@ -110,17 +104,9 @@ class LiveOSSourceModule(PayloadSourceBase, MountingSourceMixin):
         )
         return task
 
-    def tear_down_with_tasks(self):
-        """Tear down the installation source.
-
-        :return: list of tasks required for the source clean-up
-        :rtype: [Task]
-        """
-        return [
-            TearDownMountTask(
-                target_mount=self.mount_point
-            )
-        ]
+    def get_state(self):
+        """Get state of this source."""
+        return SourceState.from_bool(self.get_mount_state())
 
     def set_up_with_tasks(self):
         """Set up the installation source for installation.
@@ -134,3 +120,22 @@ class LiveOSSourceModule(PayloadSourceBase, MountingSourceMixin):
                 target_mount=self.mount_point
             )
         ]
+
+    def tear_down_with_tasks(self):
+        """Tear down the installation source.
+
+        :return: list of tasks required for the source clean-up
+        :rtype: [TearDownMountTask]
+        """
+        return [
+            TearDownMountTask(
+                target_mount=self.mount_point
+            )
+        ]
+
+    def __repr__(self):
+        """Return a string representation of the source."""
+        return "Source(type='{}', image='{}')".format(
+            self.type.value,
+            self.image_path,
+        )

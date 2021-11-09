@@ -206,6 +206,9 @@ class InstallFromImageTask(Task):
         Preserve permissions, owners, groups, ACL's, xattrs, times,
         symlinks and hardlinks. Go recursively, include devices and
         special files. Don't cross file system boundaries.
+
+        Use a trailing slash on the source directory to copy the content
+        instead of the directory itself. See `man rsync`.
         """
         cmd = "rsync"
         args = [
@@ -220,7 +223,7 @@ class InstallFromImageTask(Task):
             "--exclude", "/boot/loader/",
             "--exclude", "/boot/efi/loader/",
             "--exclude", "/etc/machine-id",
-            self._mount_point,
+            os.path.normpath(self._mount_point) + "/",
             self._sysroot
         ]
 

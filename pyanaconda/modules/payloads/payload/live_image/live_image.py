@@ -107,10 +107,3 @@ class LiveImageModule(PayloadBase):
         #
         # return [task, task2]
         return []
-
-    def post_install_with_tasks(self):
-        """Execute post installation steps.
-
-        * Copy Driver Disk files to the resulting system
-        """
-        return []

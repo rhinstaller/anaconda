@@ -17,13 +17,12 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.constants import INSTALL_TREE
-
-from pyanaconda.modules.common.errors.payload import SourceSetupError, IncompatibleSourceError
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.modules.common.errors.payload import IncompatibleSourceError
 from pyanaconda.modules.payloads.constants import SourceType, PayloadType
-from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
-from pyanaconda.modules.payloads.base.initialization import SetUpSourcesTask, TearDownSourcesTask
+from pyanaconda.modules.payloads.payload.live_image.installation import InstallFromImageTask
 from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list
+from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.payload.live_os.live_os_interface import LiveOSInterface
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -33,112 +32,47 @@ log = get_module_logger(__name__)
 class LiveOSModule(PayloadBase):
     """The Live OS payload module."""
 
-    def __init__(self):
-        super().__init__()
-        # FIXME: Set up the kernel version list somewhere else from a task.
-        self.set_kernel_version_list(get_kernel_version_list(INSTALL_TREE))
-
     def for_publication(self):
         """Get the interface used to publish this source."""
         return LiveOSInterface(self)
 
     @property
     def type(self):
-        """Get type of this payload.
-
-        :return: value of the payload.base.constants.PayloadType enum
-        """
+        """Type of this payload."""
         return PayloadType.LIVE_OS
 
     @property
     def supported_source_types(self):
-        """Get list of sources supported by Live Image module."""
+        """List of supported source types."""
         return [SourceType.LIVE_OS_IMAGE]
 
     def set_sources(self, sources):
-        """Set new sources to this payload.
-
-        This payload is specific that it can't have more than only one source attached. It will
-        instead replace the old source with the new one.
-
-        :param sources: source objects
-        :type sources:
-            list of pyanaconda.modules.payloads.source.source_base.PayloadSourceBase instances
-        :raises: IncompatibleSourceError
-        """
+        """Set at most one source."""
         if len(sources) > 1:
             raise IncompatibleSourceError("You can set only one source for this payload type.")
 
         super().set_sources(sources)
 
-    def process_kickstart(self, data):
-        """Process the kickstart data."""
-
-    def setup_kickstart(self, data):
-        """Setup the kickstart data."""
-
-    @property
-    def _image_source(self):
-        """Get the attached source object.
-
-        This is a shortcut for this payload because it only support one source at a time.
-
-        :return: a source object
-        """
-        return self._get_source(SourceType.LIVE_OS_IMAGE)
-
-    def _check_source_availability(self, message):
-        """Test if source is available for this payload."""
-        if not self._image_source:
-            raise SourceSetupError(message)
-
-    # @staticmethod
-    # def _get_required_space():
-    #     # TODO: This is not that fast as I thought (a few seconds). Caching or solved in task?
-    #     size = get_dir_size("/") * 1024
-    #
-    #     # we don't know the size -- this should not happen
-    #     if size == 0:
-    #         log.debug("Space required is not known. This should not happen!")
-    #         return None
-    #     else:
-    #         return size
-
-    def set_up_sources_with_task(self):
-        """Set up installation sources."""
-        self._check_source_availability("Set up source failed - source is not set!")
-
-        task = SetUpSourcesTask(self._sources)
-        # task.succeeded_signal.connect(lambda: self.set_required_space(
-        # self._get_required_space()))
-
-        return task
-
-    def tear_down_sources_with_task(self):
-        """Tear down installation sources."""
-        self._check_source_availability("Tear down source failed - source is not set!")
-
-        task = TearDownSourcesTask(self._sources)
-        # task.stopped_signal.connect(lambda: self.set_required_space(0))
-
-        return task
-
     def install_with_tasks(self):
-        """Install the payload."""
-        # self._check_source_availability("Installation task failed - source is not available!")
-        #
-        # return [
-        #     InstallFromImageTask(
-        #         self._image_source,
-        #         conf.target.system_root
-        #     )
-        # ]
-        return []
+        """Install the payload with tasks."""
+        image_source = self._get_source(SourceType.LIVE_OS_IMAGE)
 
-    def post_install_with_tasks(self):
-        """Execute post installation steps.
+        if not image_source:
+            log.debug("No Live OS image is available.")
+            return []
 
-        :returns: list of paths.
-        :rtype: List
-        """
-        return []
+        task = InstallFromImageTask(
+            sysroot=conf.target.system_root,
+            mount_point=image_source.mount_point
+        )
+
+        task.succeeded_signal.connect(
+            lambda: self._update_kernel_version_list(image_source)
+        )
+
+        return [task]
+
+    def _update_kernel_version_list(self, image_source):
+        """Update the kernel versions list."""
+        kernel_list = get_kernel_version_list(image_source.mount_point)
+        self.set_kernel_version_list(kernel_list)
