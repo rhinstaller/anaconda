@@ -33,7 +33,7 @@ case "${kickstart%%:*}" in
         splitsep ":" "$kickstart" kstype kspath
         if [ -f "$kspath" ]; then
             info "anaconda: parsing kickstart $kspath"
-            cp $kspath /tmp/ks.cfg
+            cp "$kspath" /tmp/ks.cfg
             parse_kickstart /tmp/ks.cfg
             [ "$root" = "anaconda-kickstart" ] && root=""
             > /tmp/ks.cfg.done

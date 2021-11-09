@@ -14,7 +14,7 @@ MODULE_LIST="cramfs squashfs iscsi_tcp "
 shopt -s nullglob
 
 SCSI_MODULES=/lib/modules/$KERNEL/kernel/drivers/scsi/device_handler/
-for m in $SCSI_MODULES/*.ko; do
+for m in "$SCSI_MODULES"/*.ko; do
     # Shell spew to work around not having basename
     # Trim the paths off the prefix, then the . suffix
     a="${m##*/}"
@@ -38,11 +38,11 @@ MODULE_LIST+=" raid0 raid1 raid5 raid6 raid456 raid10 linear dm-mod dm-zero  \
               sha256 lrw xts "
 
 for m in $MODULE_LIST; do
-    if ! modinfo $m >/dev/null 2>&1 ; then
+    if ! modinfo "$m" >/dev/null 2>&1 ; then
         echo "anaconda-modprobe: Module $m not found" >&2
         continue
     fi
-    if modprobe $m ; then
+    if modprobe "$m" ; then
         debug_msg "$m was loaded"
     else
         debug_msg "$m was NOT loaded"
