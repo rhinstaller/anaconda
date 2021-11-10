@@ -108,6 +108,11 @@ PAYLOAD_SOURCE_REPO_FILES = DBusInterfaceIdentifier(
     basename="RepoFiles"
 )
 
+PAYLOAD_SOURCE_REPO_PATH = DBusInterfaceIdentifier(
+    namespace=SOURCE_NAMESPACE,
+    basename="RepoPath"
+)
+
 PAYLOAD_SOURCE_CLOSEST_MIRROR = DBusInterfaceIdentifier(
     namespace=SOURCE_NAMESPACE,
     basename="ClosestMirror"
