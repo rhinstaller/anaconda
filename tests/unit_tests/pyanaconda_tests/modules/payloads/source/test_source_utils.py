@@ -19,10 +19,40 @@ from io import StringIO
 import unittest
 from unittest.mock import patch
 
-from pyanaconda.modules.payloads.source.utils import is_valid_install_disk
+from pyanaconda.modules.payloads.source.utils import is_valid_install_disk, is_tar
+
+
+class SourceUtilsTestCase(unittest.TestCase):
+    """Test the source utils."""
+
+    def test_is_tar(self):
+        """Test the is_tar function."""
+        assert not is_tar(None)
+        assert not is_tar("")
+        assert not is_tar("/my/path")
+        assert not is_tar("file://my/path.")
+        assert not is_tar("http://my/path.img")
+        assert not is_tar("https://my/path.tarball")
+
+        assert not is_tar("/my/tar")
+        assert not is_tar("file://my/tbz")
+        assert not is_tar("http://my/tgz")
+        assert not is_tar("https://my/txz")
+        assert not is_tar("/my/tar.bz2")
+        assert not is_tar("file://my/tar.gz")
+        assert not is_tar("http://my/tar.xz")
+
+        assert is_tar("/my/path.tar")
+        assert is_tar("file://my/path.tbz")
+        assert is_tar("http://my/path.tgz")
+        assert is_tar("https://my/path.txz")
+        assert is_tar("/my/path.tar.bz2")
+        assert is_tar("file://my/path.tar.gz")
+        assert is_tar("http://my/path.tar.xz")
 
 
 class IsValidMethodTestCase(unittest.TestCase):
+    """Test the is_valid_install_disk function."""
 
     @patch("pyanaconda.modules.payloads.source.utils.get_arch",
            return_value="test-arch")
