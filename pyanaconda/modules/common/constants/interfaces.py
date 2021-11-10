@@ -108,6 +108,11 @@ PAYLOAD_SOURCE_REPO_FILES = DBusInterfaceIdentifier(
     basename="RepoFiles"
 )
 
+PAYLOAD_SOURCE_RPM_MOUNT = DBusInterfaceIdentifier(
+    namespace=SOURCE_NAMESPACE,
+    basename="RPMMount"
+)
+
 PAYLOAD_SOURCE_NFS = DBusInterfaceIdentifier(
     namespace=SOURCE_NAMESPACE,
     basename="NFS"
