@@ -53,7 +53,12 @@ ADD_LAYOUTS_INITIALIZE_THREAD = "AnaAddLayoutsInitializeThread"
 
 
 def _show_layout(column, renderer, model, itr, wrapper):
-    return wrapper.get_layout_variant_description(model[itr][0])
+    value = model[itr][0]
+
+    if not value:
+        return ""
+
+    return wrapper.get_layout_variant_description(value)
 
 
 def _show_description(column, renderer, model, itr, wrapper):
@@ -81,6 +86,10 @@ class AddLayoutDialog(GUIObject):
             return True
 
         value = model[itr][0]
+        if not value:
+            # nothing matches a separator
+            return False
+
         eng_value = self._xkl_wrapper.get_layout_variant_description(value, xlated=False)
         xlated_value = self._xkl_wrapper.get_layout_variant_description(value)
         translit_value = strip_accents(xlated_value).lower()
@@ -142,9 +151,13 @@ class AddLayoutDialog(GUIObject):
         # we add arranged layouts in the treeview store
         gtk_batch_map(self._addLayout, arranged_layouts, args=(self._store,), batch_size=20)
 
+        # add a separator after the default keyboard layout
+        sep_itr = self._store.insert(1)
+        self._store.set(sep_itr, 0, "", 1, True)
+
         # then, we add a separator after common keyboard layouts
         sep_itr = self._store.insert(len(common_layouts))
-        self._store.set(sep_itr, 0, DEFAULT_KEYBOARD, 1, True)
+        self._store.set(sep_itr, 0, "", 1, True)
 
     def wait_initialize(self):
         threadMgr.wait(THREAD_ADD_LAYOUTS_INIT)
