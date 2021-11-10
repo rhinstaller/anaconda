@@ -30,6 +30,8 @@ dist_config_DATA    = \
 	ovirt.conf \
 	rhel.conf \
 	rhvh.conf \
+	rocky.conf \
 	scientific-linux.conf
+
 
 MAINTAINERCLEANFILES = Makefile.in
