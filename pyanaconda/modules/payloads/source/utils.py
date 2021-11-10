@@ -38,7 +38,7 @@ def is_tar(url):
     if not url:
         return False
 
-    tar_suffixes = (".tar", ".tbz", ".tgz", ".txz", ".tar.bz2", "tar.gz", "tar.xz")
+    tar_suffixes = (".tar", ".tbz", ".tgz", ".txz", ".tar.bz2", ".tar.gz", ".tar.xz")
     return any(url.endswith(s) for s in tar_suffixes)
 
 

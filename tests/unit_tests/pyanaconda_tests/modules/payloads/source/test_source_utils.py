@@ -34,6 +34,14 @@ class SourceUtilsTestCase(unittest.TestCase):
         assert not is_tar("http://my/path.img")
         assert not is_tar("https://my/path.tarball")
 
+        assert not is_tar("/my/tar")
+        assert not is_tar("file://my/tbz")
+        assert not is_tar("http://my/tgz")
+        assert not is_tar("https://my/txz")
+        assert not is_tar("/my/tar.bz2")
+        assert not is_tar("file://my/tar.gz")
+        assert not is_tar("http://my/tar.xz")
+
         assert is_tar("/my/path.tar")
         assert is_tar("file://my/path.tbz")
         assert is_tar("http://my/path.tgz")
