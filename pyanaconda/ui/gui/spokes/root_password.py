@@ -196,10 +196,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
     @property
     def completed(self):
-        return bool(
-            self._users_module.IsRootPasswordSet or
-            (self._users_module.IsRootAccountLocked and flags.automatedInstall)
-        )
+        return self._users_module.IsRootPasswordSet
 
     @property
     def sensitive(self):
