@@ -439,3 +439,23 @@ class InstallFromImageTask(Task):
                 "Failed to install image: "
                 "{} exited with code {}".format(cmd, rc)
             )
+
+
+class RemoveImageTask(Task):
+    """Task to remove the downloaded image."""
+
+    def __init__(self, image_path):
+        """Create a new task."""
+        super().__init__()
+        self._image_path = image_path
+
+    @property
+    def name(self):
+        """Name of the task."""
+        return "Remove the downloaded image"""
+
+    def run(self):
+        """Run the task."""
+        if os.path.exists(self._image_path):
+            log.debug("Removing the image at %s.", self._image_path)
+            os.unlink(self._image_path)

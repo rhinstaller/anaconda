@@ -15,21 +15,19 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import os
-
 from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_packaging_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_IMAGE, INSTALL_TREE, IMAGE_DIR
 from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
 from pyanaconda.modules.payloads.payload.live_image.installation import VerifyImageChecksum, \
-    InstallFromTarTask, InstallFromImageTask, DownloadImageTask, MountImageTask
+    InstallFromTarTask, InstallFromImageTask, DownloadImageTask, MountImageTask, RemoveImageTask
 from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list
 from pyanaconda.modules.payloads.payload.live_image.utils import get_kernel_version_list_from_tar
 from pyanaconda.modules.payloads.source.live_image.initialization import SetUpLocalImageSourceTask, \
     SetUpRemoteImageSourceTask
+from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from pyanaconda.modules.payloads.source.utils import is_tar
-from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
 
 log = get_packaging_logger()
@@ -156,11 +154,15 @@ class LiveImagePayload(Payload):
             If file:// was used, just unmount it.
         """
         super().post_install()
-        payload_utils.unmount(IMAGE_DIR)
-        payload_utils.unmount(INSTALL_TREE)
+        task = TearDownMountTask(IMAGE_DIR)
+        task.run()
 
-        if os.path.exists(self.image_path) and not self.data.liveimg.url.startswith("file://"):
-            os.unlink(self.image_path)
+        task = TearDownMountTask(INSTALL_TREE)
+        task.run()
+
+        if not self.data.liveimg.url.startswith("file://"):
+            task = RemoveImageTask(self.image_path)
+            task.run()
 
     @property
     def space_required(self):

@@ -33,7 +33,7 @@ from pyanaconda.modules.common.errors.installation import PayloadInstallationErr
 from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
 from pyanaconda.modules.payloads.payload.live_image.download_progress import DownloadProgress
 from pyanaconda.modules.payloads.payload.live_image.installation import VerifyImageChecksum, \
-    InstallFromImageTask, InstallFromTarTask, DownloadImageTask, MountImageTask
+    InstallFromImageTask, InstallFromTarTask, DownloadImageTask, MountImageTask, RemoveImageTask
 from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list
 
 
@@ -549,3 +549,34 @@ class MountImageTaskTestCase(unittest.TestCase):
                 self._run_task()
 
             assert str(cm.value) == "Fake!"
+
+
+class RemoveImageTaskTestCase(unittest.TestCase):
+    """Test the RemoveImageTask class."""
+
+    def test_delete_existing_file(self):
+        """Delete a file that exists."""
+        with tempfile.TemporaryDirectory() as d:
+            image_path = join_paths(d, "image.img")
+            touch(image_path)
+
+            assert os.path.exists(image_path)
+
+            # Delete the file.
+            task = RemoveImageTask(image_path)
+            task.run()
+
+            assert not os.path.exists(image_path)
+
+    def test_delete_missing_file(self):
+        """Delete a file that doesn't exist."""
+        with tempfile.TemporaryDirectory() as d:
+            image_path = join_paths(d, "image.img")
+
+            assert not os.path.exists(image_path)
+
+            # Don't fail.
+            task = RemoveImageTask(image_path)
+            task.run()
+
+            assert not os.path.exists(image_path)
