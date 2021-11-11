@@ -15,17 +15,15 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import glob
 import os
 
 from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_packaging_logger
-from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_IMAGE, INSTALL_TREE, IMAGE_DIR
 from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
 from pyanaconda.modules.payloads.payload.live_image.installation import VerifyImageChecksum, \
-    InstallFromTarTask, InstallFromImageTask, DownloadImageTask
+    InstallFromTarTask, InstallFromImageTask, DownloadImageTask, MountImageTask
 from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list
 from pyanaconda.modules.payloads.payload.live_image.utils import get_kernel_version_list_from_tar
 from pyanaconda.modules.payloads.source.live_image.initialization import SetUpLocalImageSourceTask, \
@@ -33,8 +31,6 @@ from pyanaconda.modules.payloads.source.live_image.initialization import SetUpLo
 from pyanaconda.modules.payloads.source.utils import is_tar
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
-from pyanaconda.payload.errors import PayloadInstallError
-
 
 log = get_packaging_logger()
 
@@ -47,6 +43,7 @@ class LiveImagePayload(Payload):
         super().__init__(*args, **kwargs)
         self._min_size = 0
         self._kernel_version_list = []
+        self._install_tree_path = ""
         self.image_path = conf.target.system_root + "/disk.img"
 
     def set_from_opts(self, opts):
@@ -126,47 +123,14 @@ class LiveImagePayload(Payload):
         task.progress_changed_signal.connect(self._progress_cb)
         task.run()
 
-        # If this looks like a tarfile, skip trying to mount it
-        if is_tar(self.data.liveimg.url):
-            return
-
-        # Work around inability to move shared filesystems.
-        # Also, do not share the image mounts with /run bind-mounted to physical
-        # target root during storage.mount_filesystems.
-        rc = util.execWithRedirect("mount",
-                                   ["--make-rprivate", "/"])
-        if rc != 0:
-            log.error("mount error (%s) making mount of '/' rprivate", rc)
-            raise PayloadInstallError("mount error %s" % rc)
-
-        # Mount the image and check to see if it is a LiveOS/*.img
-        # style squashfs image. If so, move it to IMAGE_DIR and mount the real
-        # root image on INSTALL_TREE
-        rc = payload_utils.mount(self.image_path, INSTALL_TREE, fstype="auto", options="ro")
-        if rc != 0:
-            log.error("mount error (%s) with %s", rc, self.image_path)
-            raise PayloadInstallError("mount error %s" % rc)
-
-        # Nothing more to mount
-        if not os.path.exists(INSTALL_TREE + "/LiveOS"):
-            return
-
-        # Mount the first .img in the directory on INSTALL_TREE
-        img_files = glob.glob(INSTALL_TREE + "/LiveOS/*.img")
-        if img_files:
-            # move the mount to IMAGE_DIR
-            os.makedirs(IMAGE_DIR, 0o755)
-            rc = util.execWithRedirect("mount",
-                                       ["--move", INSTALL_TREE, IMAGE_DIR])
-            if rc != 0:
-                log.error("error %s moving mount", rc)
-                raise PayloadInstallError("mount error %s" % rc)
-
-            img_file = IMAGE_DIR+"/LiveOS/" + os.path.basename(sorted(img_files)[0])
-            rc = payload_utils.mount(img_file, INSTALL_TREE, fstype="auto", options="ro")
-            if rc != 0:
-                log.error("mount error (%s) with %s", rc, img_file)
-                raise PayloadInstallError("mount error %s with %s" % (rc, img_file))
+        # Mount the image. Skip if this looks like a tarfile.
+        if not is_tar(self.data.liveimg.url):
+            task = MountImageTask(
+                image_path=self.image_path,
+                image_mount_point=INSTALL_TREE,
+                iso_mount_point=IMAGE_DIR,
+            )
+            self._install_tree_path = task.run()
 
     def install(self):
         """Install the payload."""
@@ -180,7 +144,7 @@ class LiveImagePayload(Payload):
         else:
             task = InstallFromImageTask(
                 sysroot=conf.target.system_root,
-                mount_point=INSTALL_TREE + "/"
+                mount_point=self._install_tree_path
             )
 
         task.progress_changed_signal.connect(self._progress_cb)
@@ -192,12 +156,8 @@ class LiveImagePayload(Payload):
             If file:// was used, just unmount it.
         """
         super().post_install()
-
-        payload_utils.unmount(INSTALL_TREE, raise_exc=True)
-
-        if os.path.exists(IMAGE_DIR + "/LiveOS"):
-            payload_utils.unmount(IMAGE_DIR, raise_exc=True)
-            os.rmdir(IMAGE_DIR)
+        payload_utils.unmount(IMAGE_DIR)
+        payload_utils.unmount(INSTALL_TREE)
 
         if os.path.exists(self.image_path) and not self.data.liveimg.url.startswith("file://"):
             os.unlink(self.image_path)
@@ -222,4 +182,4 @@ class LiveImagePayload(Payload):
         if is_tar(self.data.liveimg.url):
             self._kernel_version_list = get_kernel_version_list_from_tar(self.image_path)
         else:
-            self._kernel_version_list = get_kernel_version_list(INSTALL_TREE)
+            self._kernel_version_list = get_kernel_version_list(self._install_tree_path)
