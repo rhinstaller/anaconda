@@ -22,11 +22,12 @@ import tempfile
 import unittest
 import pytest
 
-from unittest.mock import patch
+from unittest.mock import patch, Mock, call
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import join_paths
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
+from pyanaconda.modules.payloads.payload.live_image.download_progress import DownloadProgress
 from pyanaconda.modules.payloads.payload.live_image.installation import VerifyImageChecksum, \
     InstallFromImageTask, InstallFromTarTask
 from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list
@@ -258,3 +259,29 @@ class VerifyImageChecksumTestCase(unittest.TestCase):
 
         msg = "Checksum of the image does not match."
         assert str(cm.value) == msg
+
+
+class DownloadProgressTestCase(unittest.TestCase):
+    """Test the DownloadProgress class."""
+
+    def test_stream_download(self):
+        """Test the stream download progress report."""
+        callback = Mock()
+        progress = DownloadProgress(
+            url="http://my/url",
+            callback=callback,
+            total_size=250,
+        )
+
+        progress.start()
+        for i in (0, 1, 50, 100, 101, 200, 250):
+            progress.update(i)
+        progress.end()
+
+        assert callback.mock_calls == [
+            call("Downloading http://my/url (0%)"),
+            call("Downloading http://my/url (20%)"),
+            call("Downloading http://my/url (40%)"),
+            call("Downloading http://my/url (80%)"),
+            call("Downloading http://my/url (100%)"),
+        ]

@@ -37,7 +37,8 @@ from pyanaconda.modules.payloads.source.utils import is_tar
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload.errors import PayloadInstallError
-from pyanaconda.payload.live.download_progress import DownloadProgress
+from pyanaconda.modules.payloads.payload.live_image.download_progress import DownloadProgress
+from pyanaconda.progress import progressQ
 
 log = get_packaging_logger()
 
@@ -102,9 +103,7 @@ class LiveImagePayload(Payload):
 
     def _pre_install_url_image(self):
         """ Download the image using Requests with progress reporting"""
-
         error = None
-        progress = DownloadProgress()
         proxies = get_proxies_from_option(
             self.data.liveimg.proxy
         )
@@ -125,13 +124,26 @@ class LiveImagePayload(Payload):
                     # just download the file in one go and fake the progress reporting once done
                     log.warning("content-length header is missing for the installation image, "
                                 "download progress reporting will not be available")
+
+                    # We don't know the total size.
+                    progress = DownloadProgress(
+                        url=self.data.liveimg.url,
+                        callback=progressQ.send_message,
+                        total_size=100,
+                    )
+
+                    progress.start()
                     f.write(response.content)
-                    size = f.tell()
-                    progress.start(self.data.liveimg.url, size)
-                    progress.end(size)
+                    progress.end()
                 else:
                     # requests return headers as strings, so convert total_length to int
-                    progress.start(self.data.liveimg.url, int(total_length))
+                    progress = DownloadProgress(
+                        url=self.data.liveimg.url,
+                        callback=progressQ.send_message,
+                        total_size=int(total_length),
+                    )
+
+                    progress.start()
                     bytes_read = 0
                     for buf in response.iter_content(1024 * 1024):  # 1 MB chunks
                         if buf:
@@ -139,7 +151,8 @@ class LiveImagePayload(Payload):
                             f.flush()
                             bytes_read += len(buf)
                             progress.update(bytes_read)
-                    progress.end(bytes_read)
+                    progress.end()
+
                 log.info("Image download finished")
         except requests.exceptions.RequestException as e:
             log.error("Error downloading liveimg: %s", e)
