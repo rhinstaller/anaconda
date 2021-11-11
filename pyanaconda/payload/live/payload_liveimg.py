@@ -27,26 +27,28 @@ from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_IMAGE, NETWORK_CONNECTIO
     INSTALL_TREE, IMAGE_DIR
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.modules.payloads.payload.live_image.installation import VerifyImageChecksum, \
-    InstallFromTarTask
+    InstallFromTarTask, InstallFromImageTask
 from pyanaconda.modules.payloads.payload.live_image.utils import get_kernel_version_list_from_tar
+from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list
 from pyanaconda.modules.payloads.source.utils import is_tar
 from pyanaconda.payload import utils as payload_utils
+from pyanaconda.payload.base import Payload
 from pyanaconda.payload.errors import PayloadInstallError, PayloadSetupError
 from pyanaconda.payload.live.download_progress import DownloadProgress
-from pyanaconda.payload.live.payload_base import BaseLivePayload
 
 log = get_packaging_logger()
 
 __all__ = ["LiveImagePayload"]
 
 
-class LiveImagePayload(BaseLivePayload):
+class LiveImagePayload(Payload):
     """ Install using a live filesystem image from the network """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._min_size = 0
         self._proxies = {}
         self._session = util.requests_session()
+        self._kernel_version_list = []
         self.image_path = conf.target.system_root + "/disk.img"
 
     def set_from_opts(self, opts):
@@ -225,7 +227,6 @@ class LiveImagePayload(BaseLivePayload):
 
         # Nothing more to mount
         if not os.path.exists(INSTALL_TREE + "/LiveOS"):
-            self._update_kernel_version_list()
             return
 
         # Mount the first .img in the directory on INSTALL_TREE
@@ -245,22 +246,21 @@ class LiveImagePayload(BaseLivePayload):
                 log.error("mount error (%s) with %s", rc, img_file)
                 raise PayloadInstallError("mount error %s with %s" % (rc, img_file))
 
-            self._update_kernel_version_list()
-
     def install(self):
-        """ Install the payload if it is a tar.
-            Otherwise fall back to rsync of INSTALL_TREE
-        """
-        # If it doesn't look like a tarfile use the super's install()
-        if not is_tar(self.data.liveimg.url):
-            super().install()
-            return
+        """Install the payload."""
+        self._update_kernel_version_list()
 
-        # Run the installation task.
-        task = InstallFromTarTask(
-            sysroot=conf.target.system_root,
-            tarfile=self.image_path
-        )
+        if is_tar(self.data.liveimg.url):
+            task = InstallFromTarTask(
+                sysroot=conf.target.system_root,
+                tarfile=self.image_path
+            )
+        else:
+            task = InstallFromImageTask(
+                sysroot=conf.target.system_root,
+                mount_point=INSTALL_TREE + "/"
+            )
+
         task.progress_changed_signal.connect(self._progress_cb)
         task.run()
 
@@ -270,6 +270,8 @@ class LiveImagePayload(BaseLivePayload):
             If file:// was used, just unmount it.
         """
         super().post_install()
+
+        payload_utils.unmount(INSTALL_TREE, raise_exc=True)
 
         if os.path.exists(IMAGE_DIR + "/LiveOS"):
             payload_utils.unmount(IMAGE_DIR, raise_exc=True)
@@ -292,17 +294,10 @@ class LiveImagePayload(BaseLivePayload):
 
     @property
     def kernel_version_list(self):
-        # If it doesn't look like a tarfile use the super's kernel_version_list
-        if not is_tar(self.data.liveimg.url):
-            return super().kernel_version_list
-
-        if self._kernel_version_list:
-            return self._kernel_version_list
-
-        # Cache a list of the kernels (the tar payload may be cleaned up on subsequent calls)
-        if not os.path.exists(self.image_path):
-            raise PayloadInstallError("kernel_version_list: missing tar payload")
-
-        self._kernel_version_list = get_kernel_version_list_from_tar(self.image_path)
-
         return self._kernel_version_list
+
+    def _update_kernel_version_list(self):
+        if is_tar(self.data.liveimg.url):
+            self._kernel_version_list = get_kernel_version_list_from_tar(self.image_path)
+        else:
+            self._kernel_version_list = get_kernel_version_list(INSTALL_TREE)
