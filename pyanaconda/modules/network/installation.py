@@ -240,7 +240,7 @@ Name={}
         if not os.path.isfile(config_file):
             return
         fpath = os.path.normpath(root + config_file)
-        if os.path.isfile(fpath) and not overwrite:
+        if (os.path.isfile(fpath) or os.path.islink(fpath)) and not overwrite:
             return
         if not os.path.isdir(os.path.dirname(fpath)):
             util.mkdirChain(os.path.dirname(fpath))
