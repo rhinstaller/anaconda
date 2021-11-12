@@ -463,7 +463,7 @@ class DNFManager(object):
         """Clear the DNF cache."""
         shutil.rmtree(DNF_CACHE_DIR, ignore_errors=True)
         shutil.rmtree(DNF_PLUGINCONF_DIR, ignore_errors=True)
-        self._base.reset(sack=True, repos=True)
+        self._base.reset(sack=True, repos=True, goal=True)
         log.debug("The DNF cache has been cleared.")
 
     def is_package_available(self, package_spec):
