@@ -36,6 +36,7 @@ from pyanaconda.threading import threadMgr
 from pyanaconda.kickstart import runPostScripts, runPreInstallScripts
 from pyanaconda.kexec import setup_kexec
 from pyanaconda.installation_tasks import Task, TaskQueue
+from pyanaconda.progress import progressQ
 from pykickstart.constants import SNAPSHOT_WHEN_POST_INSTALL
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -234,22 +235,17 @@ def _prepare_installation(payload, ksdata):
     installation_queue.task_completed.connect(lambda x: progress_step(x.name))
 
     # This should be the only thread running, wait for the others to finish if not.
+    #
+    # We need to do this before we start filling the task queue, or else the DBus
+    # tasks we create might have stale data due to background processing threads
+    # still running at task creation time.
     if threadMgr.running > 1:
-        # it could be that the threads finish execution before the task is executed,
-        # but that should not cause any issues
-
-        def wait_for_all_treads():
-            for message in ("Thread %s is running" % n for n in threadMgr.names):
-                log.debug(message)
-            threadMgr.wait_all()
-
-        # Use a queue with a single task as only TaskQueues have the status_message
-        # property used for setting the progress status in the UI.
-        wait_for_threads = TaskQueue("Wait for threads to finish",
-                                     N_("Waiting for %s threads to finish") % (threadMgr.running - 1))
-
-        wait_for_threads.append(Task("Wait for all threads to finish", wait_for_all_treads))
-        installation_queue.append(wait_for_threads)
+        # show a progress message
+        progressQ.send_message(N_("Waiting for %s threads to finish") % (threadMgr.running - 1))
+        for message in ("Thread %s is running" % n for n in threadMgr.names):
+            log.debug(message)
+        threadMgr.wait_all()
+        log.debug("No more threads are running, assembling installation task queue.")
 
     # Save system time to HW clock.
     # - this used to be before waiting on threads, but I don't think that's needed
