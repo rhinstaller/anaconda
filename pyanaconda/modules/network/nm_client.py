@@ -1331,9 +1331,10 @@ def _get_dracut_znet_argument_from_connection(connection):
     wired_setting = connection.get_setting_wired()
     if wired_setting and is_s390():
         nettype = wired_setting.get_s390_nettype()
+        # get_s390_subchannels() returns a list of subchannels
         subchannels = wired_setting.get_s390_subchannels()
         if nettype and subchannels:
-            argument = "rd.znet={},{}".format(nettype, subchannels)
+            argument = "rd.znet={},{}".format(nettype, ",".join(subchannels))
             options = wired_setting.get_property(NM.SETTING_WIRED_S390_OPTIONS)
             if options:
                 options_string = ','.join("{}={}".format(key, val) for key, val in options.items())
