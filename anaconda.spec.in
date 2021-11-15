@@ -411,6 +411,28 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Nov 15 2021 Martin Kolman <mkolman@redhat.com> - 36.9-1
+- Remove the BaseLivePayload class (vponcova)
+- Cancel planned manual update of system time on turning ntp on (rvykydal)
+- Always check the dot before a tar suffix (vponcova)
+- Unify the detection of the tar image (vponcova)
+- Remove Jenkins from makebumpver (vslavik)
+- Add Rocky Linux profile to Anaconda (tucklesepk)
+- Add a new separator after the default keyboard layout (vponcova)
+- Replace the deprecated syspurpose CLI tool with SetSysrpose DBus call
+  (mkolman)
+- bug fix: activate connection from callback _connection_updated_cb (qiy)
+- Remove git hook scripts (vslavik)
+- Run rsync with the correct source (vponcova)
+- Fix application of network --mtu kickstart option in Anaconda (rvykydal)
+- Add Rocky Linux profile to Anaconda (tucklesepk)
+- Migrate the Live OS payload on DBus (vponcova)
+- Don't require implementation of post_install_with_tasks (vponcova)
+- Move test launcher scripts to subdirectories (vslavik)
+- Fix all Shellcheck warnings in tests (vslavik)
+- Add Shellcheck config for Anaconda (vslavik)
+- Remove the provides_web_browser property (vponcova)
+
 * Tue Nov 02 2021 Martin Kolman <mkolman@redhat.com> - 36.8-1
 - Make network spoke GUI more robust in cases of missing NM Client. (rvykydal)
 - Do not crash on missing NM Client on --vnc installations (#1998754)
