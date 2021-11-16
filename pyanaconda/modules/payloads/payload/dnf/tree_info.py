@@ -26,7 +26,7 @@ from requests import RequestException
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import URL_TYPE_BASEURL, NETWORK_CONNECTION_TIMEOUT, \
-    DEFAULT_REPOS, productName, productVersion
+    DEFAULT_REPOS, USER_AGENT
 from pyanaconda.core.payload import split_protocol, ProxyString, ProxyStringError
 from pyanaconda.core.util import requests_session, xprogressive_delay
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
@@ -89,9 +89,6 @@ class TreeInfoMetadata(object):
 
     # The number of download retries.
     MAX_TREEINFO_DOWNLOAD_RETRIES = 6
-
-    # The user agent for the request headers.
-    USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)
 
     def __init__(self):
         """Create a new instance."""
@@ -255,7 +252,7 @@ class TreeInfoMetadata(object):
                 log.debug("Failed to parse the proxy '%s': %s", proxy_url, e)
 
         # Prepare headers.
-        headers = {"user-agent": self.USER_AGENT}
+        headers = {"user-agent": USER_AGENT}
 
         # Return a partial function.
         return partial(
