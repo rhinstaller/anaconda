@@ -12,16 +12,16 @@ kickstart="$(getarg inst.ks=)"
 [ -b "$dev" ] || exit 1
 
 info "anaconda: fetching kickstart from $dev:$path"
-mnt="$(find_mount $dev)"
+mnt="$(find_mount "$dev")"
 
 if [ -n "$mnt" ]; then
-    cp $mnt$path /tmp/ks.cfg 2>&1
+    cp "$mnt$path" /tmp/ks.cfg 2>&1
 else
     tmpmnt="$(mkuniqdir /run/install tmpmnt)"
-    if mount -o ro $dev $tmpmnt; then
-        cp $tmpmnt/$path /tmp/ks.cfg 2>&1
-        umount $tmpmnt
-        rmdir $tmpmnt
+    if mount -o ro "$dev" "$tmpmnt"; then
+        cp "$tmpmnt/$path" /tmp/ks.cfg 2>&1
+        umount "$tmpmnt"
+        rmdir "$tmpmnt"
     fi
 fi
 

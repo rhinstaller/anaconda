@@ -6,7 +6,7 @@ initramfs=""
 
 # First, check to see if we can find a copy of initramfs laying around
 for i in images/pxeboot/initrd.img ppc/ppc64/initrd.img images/initrd.img; do
-    [ -f $repodir/$i ] && initramfs=$repodir/$i && break
+    [ -f "$repodir/$i" ] && initramfs=$repodir/$i && break
 done
 
 
@@ -22,6 +22,6 @@ fi
 
 
 # Make sure dracut-shutdown.service can find the initramfs later.
-mkdir -p $NEWROOT/boot
-ln -s $initramfs $NEWROOT/boot/initramfs-$(uname -r).img
+mkdir -p "$NEWROOT/boot"
+ln -s $initramfs "$NEWROOT/boot/initramfs-$(uname -r).img"
 # NOTE: $repodir must also be somewhere under /run for this to work correctly

@@ -28,7 +28,7 @@ case $kickstart in
             # Construct kickstart URL from dhcp info.
             # Filename is dhcp 'filename' option, or '/kickstart/' if missing.
             filename="/kickstart/"
-            . /tmp/net.$netif.dhcpopts
+            . "/tmp/net.$netif.dhcpopts"
             # Server is next_server, or the dhcp server itself if missing.
             server="${new_next_server:-$new_dhcp_server_identifier}"
             kickstart="nfs:$server:$filename"
@@ -36,7 +36,7 @@ case $kickstart in
 
         # URLs that end in '/' get '$IP_ADDR-kickstart' appended.
         if [[ $kickstart == nfs*/ ]]; then
-            kickstart="${kickstart}${new_ip_address:=$(ip -4 addr show ${netif} | sed -n -e '/^ *inet / s|^ *inet \([^/]\+\)/.*$|\1|p')}-kickstart"
+            kickstart="${kickstart}${new_ip_address:=$(ip -4 addr show "${netif}" | sed -n -e '/^ *inet / s|^ *inet \([^/]\+\)/.*$|\1|p')}-kickstart"
         fi
 
         # Use the prepared url.
@@ -65,7 +65,7 @@ else
 fi
 
 # Create a new job.
-cat > $newjob <<__EOT__
+cat > "$newjob" <<__EOT__
 . /lib/url-lib.sh
 . /lib/anaconda-lib.sh
 locations="$locations"

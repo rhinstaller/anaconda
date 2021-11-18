@@ -5,4 +5,4 @@ command -v getarg >/dev/null || . /lib/dracut-lib.sh
 netif="$1"
 
 # make sure we get ifcfg for every interface that comes up
-save_netinfo $netif
+save_netinfo "$netif"

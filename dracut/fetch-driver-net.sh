@@ -50,7 +50,7 @@ for dd in $DD_NET; do
             fi
 
             # Get and process all rpm files in the mounted directory
-            for rpm_file in $mntdir/*.rpm; do
+            for rpm_file in "$mntdir"/*.rpm; do
                 # If no file is found bash still loops once
                 # Hence to prevent this:
                 if [[ ! -e "$rpm_file" ]]; then

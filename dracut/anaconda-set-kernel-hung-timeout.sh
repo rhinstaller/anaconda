@@ -5,5 +5,5 @@
 hung_timeout=$(getarg inst.kernel.hung_task_timeout_secs=)
 
 if [ -n "$hung_timeout" ]; then
-    echo ${hung_timeout} > /proc/sys/kernel/hung_task_timeout_secs
+    echo "${hung_timeout}" > /proc/sys/kernel/hung_task_timeout_secs
 fi

@@ -16,13 +16,13 @@ for dd in $(getargs inst.dd=); do
         # plain 'dd'/'inst.dd': Engage interactive mode!
         dd|inst.dd) echo menu > /tmp/dd_interactive ;;
         # network URLs: require net, add to dd_net
-        http:*|https:*|ftp:*|nfs:*|nfs4:*) set_neednet; echo $dd >> /tmp/dd_net ;;
+        http:*|https:*|ftp:*|nfs:*|nfs4:*) set_neednet; echo "$dd" >> /tmp/dd_net ;;
         # disks: strip "cdrom:" or "hd:" and add to dd_disk
-        cdrom:*|hd:*) echo ${dd#*:} >> /tmp/dd_disk ;;
+        cdrom:*|hd:*) echo "${dd#*:}" >> /tmp/dd_disk ;;
         # images crammed into initrd: strip "file:" or "path:"
-        file:*|path:*) echo ${dd#*:} >> /tmp/dd_disk ;;
+        file:*|path:*) echo "${dd#*:}" >> /tmp/dd_disk ;;
         # anything else is assumed to be a disk (or disk image)
-        *) echo $dd >> /tmp/dd_disk ;;
+        *) echo "$dd" >> /tmp/dd_disk ;;
     esac
 done
 

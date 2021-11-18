@@ -13,7 +13,7 @@ splitsep ":" "$root" prefix repo
 
 # repo not set? make sure we are using fresh repo information
 if [ -z "$repo" ]; then
-     . $hookdir/cmdline/*parse-anaconda-repo.sh
+     . "$hookdir"/cmdline/*parse-anaconda-repo.sh
      splitsep ":" "$root" prefix repo
 fi
 
@@ -45,14 +45,14 @@ case $repo in
         # dracut's nfs_to_var  has a special case to handle anaconda's nfs: form but not nfs4:
         if str_starts "$repo" "nfs4:"; then
             repo=nfs:${repo#nfs4:}
-            nfs_to_var "$repo" $netif
+            nfs_to_var "$repo" "$netif"
             if ! strstr "$options" "vers="; then
                 repo="nfs:${options:+$options,}nfsvers=4:$server:$path"
             fi
         else
             # HACK: work around some Mysterious NFS4 Badness (#811242 and friends)
             # by defaulting to nfsvers=3 when no version is requested
-            nfs_to_var "$repo" $netif
+            nfs_to_var "$repo" "$netif"
             if ! strstr "$options" "vers="; then
                 repo="nfs:${options:+$options,}nfsvers=3:$server:$path"
             fi
@@ -60,12 +60,12 @@ case $repo in
         fi
         if [ "${repo%.iso}" == "$repo" ]; then
             mount_nfs "$repo" "$repodir" "$netif" || warn "Couldn't mount $repo"
-            anaconda_live_root_dir $repodir
+            anaconda_live_root_dir "$repodir"
         else
             iso="${repo##*/}"
             mount_nfs "${repo%$iso}" "$repodir" "$netif" || \
                 warn "Couldn't mount $repo"
-            anaconda_live_root_dir $repodir $iso
+            anaconda_live_root_dir "$repodir" "$iso"
         fi
     ;;
     http*|ftp*)
