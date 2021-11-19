@@ -115,7 +115,7 @@ anaconda_net_root() {
     [ -z "$treeinfo" ] && debug_msg "$(cat /tmp/treeinfo_err)"
 
     # Use the default local path to stage2.
-    if [ -z "$treeinfo" -o -z "$stage2" ]; then
+    if [ -z "$treeinfo" ] || [ -z "$stage2" ]; then
         warn "can't find installer main image path in .treeinfo"
         stage2="images/install.img"
     fi
