@@ -34,7 +34,8 @@ config_get() {
 }
 
 find_iso() {
-    local f="" p="" iso="" isodir="$1" tmpmnt=$(mkuniqdir /run/install tmpmnt)
+    local f="" p="" iso="" isodir="$1" tmpmnt=""
+    tmpmnt=$(mkuniqdir /run/install tmpmnt)
     for f in "$isodir"/*.iso; do
         [ -e "$f" ] || continue
         mount -o loop,ro "$f" "$tmpmnt" || continue
@@ -207,7 +208,8 @@ disk_to_dev_path() {
 }
 
 find_mount() {
-    local dev mnt etc wanted_dev="$(readlink -e -q "$1")"
+    local dev mnt etc wanted_dev
+    wanted_dev="$(readlink -e -q "$1")"
     while read dev mnt etc; do
         [ "$dev" = "$wanted_dev" ] && echo "$mnt" && return 0
     done < /proc/mounts
@@ -268,7 +270,8 @@ dev_is_on_disk_with_iso9660() {
     local dev_name="${1}"
 
     # Get the path of the device.
-    local dev_path="$(udevadm info -q path --name "${dev_name}")"
+    local dev_path
+    dev_path="$(udevadm info -q path --name "${dev_name}")"
 
     # Is the device a partition?
     udevadm info -q property --path "${dev_path}" | grep -q 'DEVTYPE=partition' || return 1
