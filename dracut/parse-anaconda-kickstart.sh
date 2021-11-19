@@ -36,7 +36,7 @@ case "${kickstart%%:*}" in
             cp "$kspath" /tmp/ks.cfg
             parse_kickstart /tmp/ks.cfg
             [ "$root" = "anaconda-kickstart" ] && root=""
-            > /tmp/ks.cfg.done
+            true > /tmp/ks.cfg.done
         else
             warn_critical "inst.ks='$kickstart'"
             warn_critical "can't find $kspath!"

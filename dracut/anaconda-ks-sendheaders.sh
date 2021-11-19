@@ -30,4 +30,4 @@ if getargbool 0 inst.ks.sendsn; then
     fi
 fi
 
-> /tmp/.ks_sendheaders
+true > /tmp/.ks_sendheaders

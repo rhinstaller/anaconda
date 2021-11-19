@@ -64,7 +64,7 @@ fi
 # retrigger this script, and we'll mount the disk as normal.
 if str_starts "$kickstart" "cdrom" && [ ! -e /tmp/ks.cfg.done ]; then
     if dev_is_cdrom "$dev"; then
-        > /tmp/anaconda-on-cdrom
+        true > /tmp/anaconda-on-cdrom
         exit 0
     fi
 fi
@@ -73,7 +73,7 @@ fi
 # later. The user may want to swap in a driver update cdrom first.
 if [ -e /tmp/dd_interactive ] && [ ! -e /tmp/dd.done ]; then
     if dev_is_cdrom "$dev"; then
-        > /tmp/anaconda-dd-on-cdrom
+        true > /tmp/anaconda-dd-on-cdrom
         exit 0
     fi
 fi

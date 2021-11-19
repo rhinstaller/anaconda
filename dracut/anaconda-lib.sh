@@ -293,7 +293,7 @@ dev_is_on_disk_with_iso9660() {
 # For details see 40network/net-genrules.sh (and the rest of 40network).
 set_neednet() {
     # if there's no netroot, make sure /tmp/net.ifaces exists
-    [ -z "$netroot" ] && >> /tmp/net.ifaces
+    [ -z "$netroot" ] && true >> /tmp/net.ifaces
 }
 
 parse_kickstart() {
@@ -415,7 +415,7 @@ run_kickstart() {
     fi
 
     # and that's it - we're back to the mainloop.
-    > /tmp/ks.cfg.done # let wait_for_kickstart know that we're done.
+    true > /tmp/ks.cfg.done # let wait_for_kickstart know that we're done.
 }
 
 wait_for_kickstart() {
