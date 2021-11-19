@@ -25,15 +25,18 @@ from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_IMAGE, NETWORK_CONNECTION_TIMEOUT, \
     INSTALL_TREE, IMAGE_DIR
-from pyanaconda.core.payload import ProxyString, ProxyStringError
+from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
 from pyanaconda.modules.payloads.payload.live_image.installation import VerifyImageChecksum, \
     InstallFromTarTask, InstallFromImageTask
-from pyanaconda.modules.payloads.payload.live_image.utils import get_kernel_version_list_from_tar
+from pyanaconda.modules.payloads.payload.live_image.utils import \
+    get_kernel_version_list_from_tar, get_proxies_from_option
 from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list
+from pyanaconda.modules.payloads.source.live_image.initialization import \
+    SetUpLocalImageSourceTask, SetUpRemoteImageSourceTask
 from pyanaconda.modules.payloads.source.utils import is_tar
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
-from pyanaconda.payload.errors import PayloadInstallError, PayloadSetupError
+from pyanaconda.payload.errors import PayloadInstallError
 from pyanaconda.payload.live.download_progress import DownloadProgress
 
 log = get_packaging_logger()
@@ -46,7 +49,6 @@ class LiveImagePayload(Payload):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._min_size = 0
-        self._proxies = {}
         self._session = util.requests_session()
         self._kernel_version_list = []
         self.image_path = conf.target.system_root + "/disk.img"
@@ -67,67 +69,35 @@ class LiveImagePayload(Payload):
         """The DBus type of the payload."""
         return PAYLOAD_TYPE_LIVE_IMAGE
 
-    def _setup_url_image(self):
-        """ Check to make sure the url is available and estimate the space
-            needed to download and install it.
+    def _get_source_configuration(self):
+        """Get the image configuration data.
+
+        FIXME: This is a temporary workaround.
         """
-        self._proxies = {}
-        if self.data.liveimg.proxy:
-            try:
-                proxy = ProxyString(self.data.liveimg.proxy)
-                self._proxies = {"http": proxy.url,
-                                 "https": proxy.url}
-            except ProxyStringError as e:
-                log.info("Failed to parse proxy for liveimg --proxy=\"%s\": %s",
-                         self.data.liveimg.proxy, e)
+        data = LiveImageConfigurationData()
 
-        error = None
-        try:
-            response = self._session.head(
-                self.data.liveimg.url,
-                proxies=self._proxies,
-                verify=True,
-                timeout=NETWORK_CONNECTION_TIMEOUT
-            )
+        data.url = self.data.liveimg.url or ""
+        data.proxy = self.data.liveimg.proxy or ""
+        data.checksum = self.data.liveimg.checksum or ""
+        data.ssl_verification_enabled = not self.data.liveimg.noverifyssl
 
-            # At this point we know we can get the image and what its size is
-            # Make a guess as to minimum size needed:
-            # Enough space for image and image * 3
-            if response.headers.get('content-length'):
-                self._min_size = int(response.headers.get('content-length')) * 4
-            # FIXME: look up what is raised by Requests, replace IOError
-        except IOError as e:
-            log.error("Error opening liveimg: %s", e)
-            error = e
-        else:
-            if response.status_code != 200:
-                error = "http request returned %s" % response.status_code
-
-        return error
-
-    def _setup_file_image(self):
-        """ Check to make sure the file is available and estimate the space
-            needed to install it.
-        """
-        if not os.path.exists(self.data.liveimg.url[7:]):
-            return "file does not exist: %s" % self.data.liveimg.url
-
-        self._min_size = os.stat(self.data.liveimg.url[7:]).st_blocks * 512 * 3
-        return None
+        return data
 
     def setup(self):
         """ Check the availability and size of the image.
         """
-        super().setup()
+        source_data = self._get_source_configuration()
 
         if self.data.liveimg.url.startswith("file://"):
-            error = self._setup_file_image()
+            task = SetUpLocalImageSourceTask(source_data)
         else:
-            error = self._setup_url_image()
+            task = SetUpRemoteImageSourceTask(source_data)
 
-        if error:
-            raise PayloadSetupError(str(error))
+        # Run the task.
+        result = task.run()
 
+        # Set up the required space.
+        self._min_size = result.required_space
         log.debug("liveimg size is %s", self._min_size)
 
     def _pre_install_url_image(self):
@@ -135,13 +105,17 @@ class LiveImagePayload(Payload):
 
         error = None
         progress = DownloadProgress()
+        proxies = get_proxies_from_option(
+            self.data.liveimg.proxy
+        )
+
         try:
             log.info("Starting image download")
             with open(self.image_path, "wb") as f:
                 ssl_verify = not self.data.liveimg.noverifyssl
                 response = self._session.get(
                     self.data.liveimg.url,
-                    proxies=self._proxies,
+                    proxies=proxies,
                     verify=ssl_verify,
                     stream=True,
                     timeout=NETWORK_CONNECTION_TIMEOUT
