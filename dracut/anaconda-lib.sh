@@ -385,7 +385,7 @@ run_kickstart() {
     # net: re-run online hooks
     if [ "$do_net" ]; then
         # If NetworkManager is used in initramfs
-        if [ -e "$hookdir"/cmdline/*-nm-config.sh ]; then
+        if ls -U "$hookdir"/cmdline/*-nm-config.sh >/dev/null 2>&1 ; then
             # First try to re-run online hooks on any online device.
             # We don't want to reconfigure the network by applying kickstart config
             # so use existing network connections if there are any.
