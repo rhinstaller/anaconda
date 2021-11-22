@@ -24,7 +24,7 @@ config_get() {
         case "$line" in
             \#*) continue ;;
             \[*\]*) cursec="${line#[}"; cursec="${cursec%%]*}" ;;
-            *=*) k=$(echo "${line%%=*}"); v=$(echo "${line#*=}") ;;
+            *=*) k="${line%%=*}"; v="${line#*=}" ;;
         esac
         if [ "$cursec" = "$section" ] && [ "$k" == "$key" ]; then
             echo "$v"
