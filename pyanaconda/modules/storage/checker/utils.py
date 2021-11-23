@@ -243,7 +243,7 @@ def verify_opal_compatibility(storage, constraints, report_error, report_warning
         # Is /boot on XFS?
         dev = storage.mountpoints.get("/boot") or storage.mountpoints.get("/")
         if dev and dev.format and dev.format.type == "xfs":
-            report_warning(_(
+            report_error(_(
                 "Your firmware doesn't support XFS file system features "
                 "on the /boot file system. The system will not be bootable. "
                 "Please, upgrade the firmware or change the file system type."
