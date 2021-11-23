@@ -79,7 +79,7 @@ rulesfile="/etc/udev/rules.d/90-anaconda.rules"
 # try to find a usable runtime image from the repo mounted at $mnt.
 # if successful, move the mount(s) to $repodir/$isodir.
 anaconda_live_root_dir() {
-    local img="" iso="" srcdir="" mnt="$1" path="$2"
+    local img="" iso="" mnt="$1" path="$2"
     img=$(find_runtime "$mnt/$path")
     if [ -n "$img" ]; then
         info "anaconda: found $img"
