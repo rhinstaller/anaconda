@@ -154,40 +154,30 @@ class StorageCheckerVerificationTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.storage.checker.utils.arch")
     def opal_verification_arch_test(self, mocked_arch):
         """Check verify_opal_compatibility with a different arch."""
-        reporter = Mock()
         mocked_arch.get_arch.return_value = "x86_64"
-
-        verify_opal_compatibility(None, {}, None, reporter)
-        reporter.assert_not_called()
+        self._verify_opal_compatibility(message=None)
 
     @patch("pyanaconda.modules.storage.checker.utils.arch")
     def opal_verification_platform_test(self, mocked_arch):
         """Check verify_opal_compatibility with a different platform."""
-        reporter = Mock()
         mocked_arch.get_arch.return_value = "ppc64le"
         mocked_arch.is_powernv.return_value = False
-
-        verify_opal_compatibility(None, {}, None, reporter)
-        reporter.assert_not_called()
+        self._verify_opal_compatibility(message=None)
 
     @patch("pyanaconda.modules.storage.checker.utils._get_opal_firmware_kernel_version")
     @patch("pyanaconda.modules.storage.checker.utils.arch")
     def opal_verification_new_firmware_test(self, mocked_arch, version_getter):
         """Check verify_opal_compatibility with a newer firmware."""
-        reporter = Mock()
         mocked_arch.get_arch.return_value = "ppc64le"
         mocked_arch.is_powernv.return_value = True
         version_getter.return_value = "5.10.50-openpower1-p59fd803"
-
-        verify_opal_compatibility(None, {}, None, reporter)
-        reporter.assert_not_called()
+        self._verify_opal_compatibility(message=None)
 
     @patch.object(XFS, "mountable", new_callable=PropertyMock)
     @patch("pyanaconda.modules.storage.checker.utils._get_opal_firmware_kernel_version")
     @patch("pyanaconda.modules.storage.checker.utils.arch")
     def opal_verification_old_firmware_test(self, mocked_arch, version_getter, xfs_mountable):
         """Check verify_opal_compatibility with an older firmware."""
-        reporter = Mock()
         storage = create_storage()
 
         mocked_arch.get_arch.return_value = "ppc64le"
@@ -196,36 +186,45 @@ class StorageCheckerVerificationTestCase(unittest.TestCase):
         xfs_mountable.return_value = True
 
         # No devices.
-        verify_opal_compatibility(storage, {}, None, reporter)
-        reporter.assert_not_called()
+        self._verify_opal_compatibility(storage, message=None)
 
         # No mount points.
         dev1 = StorageDevice("dev1", size=Size("10 GiB"))
         storage.devicetree._add_device(dev1)
 
-        verify_opal_compatibility(storage, {}, None, reporter)
-        reporter.assert_not_called()
+        self._verify_opal_compatibility(storage, message=None)
 
         # Different filesystem.
         dev1.format = get_format("ext2", mountpoint="/boot")
-        verify_opal_compatibility(storage, {}, None, reporter)
-        reporter.assert_not_called()
+        self._verify_opal_compatibility(storage, message=None)
 
         # XFS on /
         dev1.format = get_format("xfs", mountpoint="/")
-        verify_opal_compatibility(storage, {}, None, reporter)
-        reporter.assert_called_once_with(
+        self._verify_opal_compatibility(storage, message=(
             "Your firmware doesn't support XFS file system features "
             "on the /boot file system. The system will not be bootable. "
             "Please, upgrade the firmware or change the file system type."
-        )
-        reporter.reset_mock()
+        ))
 
         # XFS on /boot
         dev1.format = get_format("xfs", mountpoint="/boot")
-        verify_opal_compatibility(storage, {}, None, reporter)
-        reporter.assert_called_once_with(
+        self._verify_opal_compatibility(storage, message=(
             "Your firmware doesn't support XFS file system features "
             "on the /boot file system. The system will not be bootable. "
             "Please, upgrade the firmware or change the file system type."
+        ))
+
+    def _verify_opal_compatibility(self, storage=None, message=None):
+        """Verify the OPAL compatibility."""
+        reporter = Mock()
+        verify_opal_compatibility(
+            storage=storage,
+            constraints={},
+            report_error=reporter,
+            report_warning=None
         )
+
+        if not message:
+            reporter.assert_not_called()
+        else:
+            reporter.assert_called_once_with(message)
