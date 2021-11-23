@@ -15,7 +15,7 @@ if getargbool 0 inst.ks.sendmac; then
         if [ "$ifname" != "lo" ] && [ -n "$mac" ]; then
             # set_http_header is from url-lib.sh, sourced earlier
             set_http_header "X-RHN-Provisioning-MAC-$ifnum" "$ifname $mac"
-            ifnum=$(($ifnum+1))
+            ifnum=$((ifnum+1))
         fi
     done
 fi
