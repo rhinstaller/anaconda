@@ -36,6 +36,7 @@ for dd in $DD_NET; do
             info "Fetching RPM driverdisks from $dd directory"
 
             # Following variables are set by nfs_to_var:
+            # shellcheck disable=SC2168  # dracut sources hooks instead of running them
             local nfs="" server="" path="" options="" mntdir=""
             nfs_to_var "$dd"
 
