@@ -258,7 +258,7 @@ tell_user() {
 # print something only in if debug/inst.debug/rd.debug
 debug_msg() {
    if getargbool 0 rd.debug || getargbool 0 debug || getargbool 0 inst.debug; then
-     echo $* >&2
+     echo "$*" >&2
   fi
 }
 
