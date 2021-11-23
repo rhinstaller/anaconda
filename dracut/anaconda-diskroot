@@ -24,7 +24,7 @@ run_checkisomd5() {
                 rc=$?
                 state="inactive"
             fi
-            if [ "$rc" == "1" ]; then
+            if [ "$rc" = "1" ]; then
                 die "CD check failed!"
                 exit 1
             fi
