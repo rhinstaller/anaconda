@@ -18,26 +18,23 @@
 import glob
 import os
 
-import requests
 from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_packaging_logger
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_IMAGE, NETWORK_CONNECTION_TIMEOUT, \
-    INSTALL_TREE, IMAGE_DIR
+from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_IMAGE, INSTALL_TREE, IMAGE_DIR
 from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
 from pyanaconda.modules.payloads.payload.live_image.installation import VerifyImageChecksum, \
-    InstallFromTarTask, InstallFromImageTask
-from pyanaconda.modules.payloads.payload.live_image.utils import \
-    get_kernel_version_list_from_tar, get_proxies_from_option
+    InstallFromTarTask, InstallFromImageTask, DownloadImageTask
 from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list
-from pyanaconda.modules.payloads.source.live_image.initialization import \
-    SetUpLocalImageSourceTask, SetUpRemoteImageSourceTask
+from pyanaconda.modules.payloads.payload.live_image.utils import get_kernel_version_list_from_tar
+from pyanaconda.modules.payloads.source.live_image.initialization import SetUpLocalImageSourceTask, \
+    SetUpRemoteImageSourceTask
 from pyanaconda.modules.payloads.source.utils import is_tar
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload.errors import PayloadInstallError
-from pyanaconda.payload.live.download_progress import DownloadProgress
+
 
 log = get_packaging_logger()
 
@@ -49,7 +46,6 @@ class LiveImagePayload(Payload):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._min_size = 0
-        self._session = util.requests_session()
         self._kernel_version_list = []
         self.image_path = conf.target.system_root + "/disk.img"
 
@@ -100,57 +96,6 @@ class LiveImagePayload(Payload):
         self._min_size = result.required_space
         log.debug("liveimg size is %s", self._min_size)
 
-    def _pre_install_url_image(self):
-        """ Download the image using Requests with progress reporting"""
-
-        error = None
-        progress = DownloadProgress()
-        proxies = get_proxies_from_option(
-            self.data.liveimg.proxy
-        )
-
-        try:
-            log.info("Starting image download")
-            with open(self.image_path, "wb") as f:
-                ssl_verify = not self.data.liveimg.noverifyssl
-                response = self._session.get(
-                    self.data.liveimg.url,
-                    proxies=proxies,
-                    verify=ssl_verify,
-                    stream=True,
-                    timeout=NETWORK_CONNECTION_TIMEOUT
-                )
-                total_length = response.headers.get('content-length')
-                if total_length is None:  # no content length header
-                    # just download the file in one go and fake the progress reporting once done
-                    log.warning("content-length header is missing for the installation image, "
-                                "download progress reporting will not be available")
-                    f.write(response.content)
-                    size = f.tell()
-                    progress.start(self.data.liveimg.url, size)
-                    progress.end(size)
-                else:
-                    # requests return headers as strings, so convert total_length to int
-                    progress.start(self.data.liveimg.url, int(total_length))
-                    bytes_read = 0
-                    for buf in response.iter_content(1024 * 1024):  # 1 MB chunks
-                        if buf:
-                            f.write(buf)
-                            f.flush()
-                            bytes_read += len(buf)
-                            progress.update(bytes_read)
-                    progress.end(bytes_read)
-                log.info("Image download finished")
-        except requests.exceptions.RequestException as e:
-            log.error("Error downloading liveimg: %s", e)
-            error = e
-        else:
-            if not os.path.exists(self.image_path):
-                error = "Failed to download %s, file doesn't exist" % self.data.liveimg.url
-                log.error(error)
-
-        return error
-
     def pre_install(self):
         """ Get image and loopback mount it.
 
@@ -161,14 +106,17 @@ class LiveImagePayload(Payload):
 
             If it is a file:// source then use the file directly.
         """
-        error = None
+        source_data = self._get_source_configuration()
+
         if self.data.liveimg.url.startswith("file://"):
             self.image_path = self.data.liveimg.url[7:]
         else:
-            error = self._pre_install_url_image()
-
-        if error:
-            raise PayloadInstallError(str(error))
+            task = DownloadImageTask(
+                configuration=source_data,
+                image_path=self.image_path
+            )
+            task.progress_changed_signal.connect(self._progress_cb)
+            task.run()
 
         # Verify the checksum.
         task = VerifyImageChecksum(

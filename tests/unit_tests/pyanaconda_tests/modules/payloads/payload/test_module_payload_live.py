@@ -21,14 +21,19 @@ import os
 import tempfile
 import unittest
 import pytest
+import requests
 
-from unittest.mock import patch
+from contextlib import contextmanager
+from requests_file import FileAdapter
+from unittest.mock import patch, Mock, call
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import join_paths
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
+from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
+from pyanaconda.modules.payloads.payload.live_image.download_progress import DownloadProgress
 from pyanaconda.modules.payloads.payload.live_image.installation import VerifyImageChecksum, \
-    InstallFromImageTask, InstallFromTarTask
+    InstallFromImageTask, InstallFromTarTask, DownloadImageTask
 from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list
 
 
@@ -258,3 +263,154 @@ class VerifyImageChecksumTestCase(unittest.TestCase):
 
         msg = "Checksum of the image does not match."
         assert str(cm.value) == msg
+
+
+class DownloadProgressTestCase(unittest.TestCase):
+    """Test the DownloadProgress class."""
+
+    def test_stream_download(self):
+        """Test the stream download progress report."""
+        callback = Mock()
+        progress = DownloadProgress(
+            url="http://my/url",
+            callback=callback,
+            total_size=250,
+        )
+
+        progress.start()
+        for i in (0, 1, 50, 100, 101, 200, 250):
+            progress.update(i)
+        progress.end()
+
+        assert callback.mock_calls == [
+            call("Downloading http://my/url (0%)"),
+            call("Downloading http://my/url (20%)"),
+            call("Downloading http://my/url (40%)"),
+            call("Downloading http://my/url (80%)"),
+            call("Downloading http://my/url (100%)"),
+        ]
+
+
+class DownloadImageTaskTestCase(unittest.TestCase):
+    """Test the DownloadImageTask class."""
+
+    def setUp(self):
+        """Set up the test."""
+        self.data = LiveImageConfigurationData()
+        self.callback = Mock()
+        self.directory = None
+
+    @contextmanager
+    def _create_directory(self):
+        """Create a temporary directory."""
+        with tempfile.TemporaryDirectory() as d:
+            self.directory = d
+            yield
+            self.directory = None
+
+    @property
+    def target_path(self):
+        """Get a path to the target image."""
+        return join_paths(self.directory, "target")
+
+    def _run_task(self):
+        """Run the task."""
+        task = DownloadImageTask(
+            configuration=self.data,
+            image_path=self.target_path
+        )
+        task.progress_changed_signal.connect(self.callback)
+        task.run()
+
+    def _run_task_for_local_file(self):
+        """Run the task with local files."""
+        with self._create_directory():
+            source_path = join_paths(self.directory, "source")
+            self.data.url = "file://{}".format(source_path)
+
+            # Create a 4MB source image.
+            with open(source_path, "wb") as f:
+                f.seek(1024 * 1024 * 4 - 1)
+                f.write(b'1')
+
+            self._run_task()
+
+            # Check the target image.
+            with open(source_path, "rb") as f1:
+                with open(self.target_path, "rb") as f2:
+                    assert f1.read() == f2.read()
+
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.requests_session")
+    def test_local_file_direct(self, session_getter):
+        """Download a local file directly."""
+        session = requests.Session()
+        session.mount("file://", FileAdapter(set_content_length=False))
+        session_getter.return_value = session
+
+        self._run_task_for_local_file()
+        self.callback.assert_called_once_with(
+            0, 'Downloading {}'.format(self.data.url)
+        )
+
+    def test_local_file_stream(self):
+        """Download a local file as a stream."""
+        self._run_task_for_local_file()
+        assert self.callback.mock_calls == [
+            call(0, 'Downloading {} (0%)'.format(self.data.url)),
+            call(0, 'Downloading {} (25%)'.format(self.data.url)),
+            call(0, 'Downloading {} (50%)'.format(self.data.url)),
+            call(0, 'Downloading {} (75%)'.format(self.data.url)),
+            call(0, 'Downloading {} (100%)'.format(self.data.url)),
+        ]
+
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.requests_session")
+    def test_remote_file_direct(self, session_getter):
+        """Mock download of a remote file"""
+        # Set up the response.
+        session = session_getter.return_value.__enter__.return_value
+        response = session.get.return_value
+        response.headers = {}
+        response.content = b"CONTENT"
+
+        # Run the task.
+        with self._create_directory():
+            self.data.url = "http://source"
+            self.data.proxy = "http://proxy"
+            self.data.ssl_verification_enabled = False
+            self._run_task()
+
+            with open(self.target_path, "rb") as f:
+                assert f.read() == b"CONTENT"
+
+        # Check the calls.
+        session.get.assert_called_once_with(
+            url='http://source',
+            proxies={
+                'http': 'http://proxy:3128',
+                'https': 'http://proxy:3128'
+            },
+            verify=False,
+            stream=True,
+            timeout=46,
+        )
+
+        self.callback.assert_called_once_with(
+            0, 'Downloading http://source'
+        )
+
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.requests_session")
+    def test_remote_file_failed(self, session_getter):
+        """Fail to download a remote file."""
+        # Set up the response.
+        session = session_getter.return_value.__enter__.return_value
+        response = session.get.return_value
+        response.raise_for_status.side_effect = requests.HTTPError("Fake!")
+
+        # Run the task.
+        with self._create_directory():
+            self.data.url = "http://source"
+
+            with pytest.raises(PayloadInstallationError) as cm:
+                self._run_task()
+
+            assert str(cm.value) == "Error while downloading the image: Fake!"

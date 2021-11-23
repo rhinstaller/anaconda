@@ -18,17 +18,128 @@
 import hashlib
 import os
 import stat
+import requests
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.constants import NETWORK_CONNECTION_TIMEOUT
 from pyanaconda.core.i18n import _
-from pyanaconda.core.util import execWithRedirect
+from pyanaconda.core.util import execWithRedirect, requests_session
 from pyanaconda.core.string import lower_ascii
+from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
+from pyanaconda.modules.payloads.payload.live_image.download_progress import DownloadProgress
 from pyanaconda.modules.payloads.payload.live_image.installation_progress import \
     InstallationProgress
+from pyanaconda.modules.payloads.payload.live_image.utils import get_proxies_from_option
 
 log = get_module_logger(__name__)
+
+
+class DownloadImageTask(Task):
+    """Task to download an image."""
+
+    def __init__(self, configuration: LiveImageConfigurationData, image_path):
+        """Create a new task.
+
+        :param configuration: a configuration of a remote image
+        :type configuration: an instance of LiveImageConfigurationData
+        :param str image_path: a path to the downloaded image
+        """
+        super().__init__()
+        self._url = configuration.url
+        self._proxy = configuration.proxy
+        self._ssl_verify = configuration.ssl_verification_enabled
+        self._image_path = image_path
+
+    @property
+    def name(self):
+        """Name of the task."""
+        return "Download an image"
+
+    def run(self):
+        """Run the task."""
+        log.info("Downloading the image...")
+
+        with requests_session() as session:
+            try:
+                # Send a GET request to the image URL.
+                response = self._send_request(session)
+
+                # Download the image to a file.
+                self._download_image(response)
+
+            except requests.exceptions.RequestException as e:
+                raise PayloadInstallationError(
+                    "Error while downloading the image: {}".format(e)
+                ) from e
+
+    def _send_request(self, session):
+        """Send a GET request to the image URL."""
+        proxies = get_proxies_from_option(
+            self._proxy
+        )
+        response = session.get(
+            url=self._url,
+            proxies=proxies,
+            verify=self._ssl_verify,
+            stream=True,
+            timeout=NETWORK_CONNECTION_TIMEOUT,
+        )
+        response.raise_for_status()
+        return response
+
+    def _download_image(self, response):
+        """Download the image to a file."""
+        # Handle no content length header.
+        if not self._get_content_length(response):
+            download = self._direct_download
+        else:
+            download = self._stream_download
+
+        # Download the image to a file.
+        with open(self._image_path, "wb") as image_file:
+            download(response, image_file)
+
+    def _get_content_length(self, response):
+        """Get the content length value."""
+        return response.headers.get('content-length')
+
+    def _direct_download(self, response, image_file):
+        """Download the image at once."""
+        log.warning(
+            "content-length header is missing for the installation "
+            "image, download progress reporting will not be available"
+        )
+
+        self.report_progress(_("Downloading {}").format(self._url))
+        image_file.write(response.content)
+        log.debug("Downloaded %s.", self._url)
+
+    def _stream_download(self, response, image_file):
+        """Download the image in 1 MB chunks."""
+        total_size = int(self._get_content_length(response))
+
+        progress = DownloadProgress(
+            url=self._url,
+            callback=self.report_progress,
+            total_size=total_size,
+        )
+
+        progress.start()
+        downloaded_size = 0
+
+        for chunks in response.iter_content(1024 * 1024):
+            if not chunks:
+                continue
+
+            image_file.write(chunks)
+            image_file.flush()
+
+            downloaded_size += len(chunks)
+            progress.update(downloaded_size)
+
+        progress.end()
 
 
 class VerifyImageChecksum(Task):
