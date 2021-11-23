@@ -195,7 +195,7 @@ unpack_updates_img() {
 copytree() {
     local src="$1" dest="$2"
     mkdir -p "$dest"; dest=$(readlink -f -q "$dest")
-    ( cd "$src"; cp -a . -t "$dest" )
+    ( cd "$src" || return 1; cp -a . -t "$dest" )
 }
 
 disk_to_dev_path() {
