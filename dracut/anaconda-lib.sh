@@ -20,7 +20,7 @@ warn_critical() {
 # ex: product=$(config_get Main Product < /.buildstamp)
 config_get() {
     local section="$1" key="$2" cursec="" k="" v=""
-    while read line; do
+    while read -r line; do
         case "$line" in
             \#*) continue ;;
             \[*\]*) cursec="${line#[}"; cursec="${cursec%%]*}" ;;
@@ -210,7 +210,7 @@ disk_to_dev_path() {
 find_mount() {
     local dev mnt etc wanted_dev
     wanted_dev="$(readlink -e -q "$1")"
-    while read dev mnt etc; do
+    while read -r dev mnt etc; do
         [ "$dev" = "$wanted_dev" ] && echo "$mnt" && return 0
     done < /proc/mounts
     return 1
