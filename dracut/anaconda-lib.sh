@@ -155,7 +155,7 @@ anaconda_mount_sysroot() {
             # Also known as flattened SquashFS or directly compressed SquashFS.
             printf "mount -t overlay LiveOS_rootfs \
                    -o lowerdir=/run/rootfsbase,upperdir=/run/overlayfs,workdir=/run/ovlwork \
-                   ${NEWROOT}" > "${hookdir}/mount/01-$$-anaconda.sh"
+                   %s" "${NEWROOT}" > "${hookdir}/mount/01-$$-anaconda.sh"
         else
             # Otherwise, assumption is that /dev/mapper/live-rw should have been created.
             # dracut & systemd only mount things with root=live: so we have to do this ourselves

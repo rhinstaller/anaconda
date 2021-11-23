@@ -42,6 +42,7 @@ check_depr_arg() {
     if [ "$1" == "--quiet" ]; then quiet=1; shift; fi
     arg="$(getarg "$1")"
     [ "$arg" ] || return 1
+    # shellcheck disable=SC2059  # yes, $2 *is* the format string
     newval=$(printf "$2" "$arg")
     [ "$quiet" ] || warn_critical "'$1' is deprecated. Using '$newval' instead."
     echo "$newval" >> /etc/cmdline.d/75-anaconda-options.conf
