@@ -60,4 +60,5 @@ esac
 
 # We've got *some* root variable set.
 # Set rootok so we can move on to anaconda-genrules.sh.
+# shellcheck disable=SC2034  # rootok is used by dracut
 rootok=1

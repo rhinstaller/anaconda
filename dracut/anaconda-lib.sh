@@ -210,6 +210,7 @@ disk_to_dev_path() {
 find_mount() {
     local dev mnt etc wanted_dev
     wanted_dev="$(readlink -e -q "$1")"
+    # shellcheck disable=SC2034  # etc eats the rest of line
     while read -r dev mnt etc; do
         [ "$dev" = "$wanted_dev" ] && echo "$mnt" && return 0
     done < /proc/mounts
@@ -351,6 +352,7 @@ run_kickstart() {
     [ "$root" = "anaconda-kickstart" ] && root=""
 
     # don't look for the kickstart again
+    # shellcheck disable=SC2034  # used by other anaconda-related dracut stuff
     kickstart=""
 
     # re-parse new cmdline stuff from the kickstart
