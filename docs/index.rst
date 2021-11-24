@@ -12,6 +12,7 @@ Contents:
    :maxdepth: 1
 
    intro
+   release-notes
    boot-options
    kickstart
    configuration-files
