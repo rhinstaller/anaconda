@@ -45,6 +45,7 @@ class ProgressSpoke(StandaloneSpoke):
     mainWidgetName = "progressWindow"
     uiFile = "spokes/installation_progress.glade"
     postForHub = SummaryHub
+    hide_help_button = True
 
     @staticmethod
     def get_screen_id():
