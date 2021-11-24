@@ -40,7 +40,9 @@ def get_user_list(users_module, add_default=False, add_if_not_empty=False):
         # we only add default user to an empty list, to add default user to
         # a populated list the add_if_not_empty option needs to be used
         if not user_data_list or add_if_not_empty:
-            user_data_list.insert(0, UserData())
+            data = UserData()
+            data.set_admin_priviledges(True)
+            user_data_list.insert(0, data)
 
     return user_data_list
 
