@@ -63,7 +63,20 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     @property
     def showable(self):
-        return not (self.completed and flags.automatedInstall and not self._policy.changesok)
+        # Allow changes in the interactive mode.
+        if not flags.automatedInstall:
+            return True
+
+        # Does the configuration allow changes?
+        if self._policy.changesok:
+            return True
+
+        # Allow changes if the root account isn't
+        # already configured by the kickstart file.
+        if self._users_module.CanChangeRootPassword:
+            return True
+
+        return False
 
     @property
     def mandatory(self):
