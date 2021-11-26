@@ -16,12 +16,12 @@
 # Red Hat, Inc.
 #
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 from dasbus.structure import compare_data
 
 from pyanaconda.modules.common.structures.user import UserData
-from pyanaconda.ui.lib.users import get_user_list, set_user_list
+from pyanaconda.ui.lib.users import get_user_list, set_user_list, can_modify_root_configuration
 
 
 class UsersUITestCase(unittest.TestCase):
@@ -138,3 +138,29 @@ class UsersUITestCase(unittest.TestCase):
 
         assert len(user_data_list) == 1
         assert user_data_list[0] == UserData.to_structure(user2)
+
+    @patch("pyanaconda.ui.lib.users.conf")
+    @patch("pyanaconda.ui.lib.users.flags")
+    def test_can_modify_root_configuration(self, mocked_flags, mocked_conf):
+        """Test the can_modify_root_configuration function."""
+        users_module = Mock()
+        mocked_flags.automatedInstall = False
+
+        assert can_modify_root_configuration(users_module)
+
+        mocked_flags.automatedInstall = True
+        mocked_conf.ui.can_change_root = True
+
+        assert can_modify_root_configuration(users_module)
+
+        mocked_flags.automatedInstall = True
+        mocked_conf.ui.can_change_root = False
+        users_module.CanChangeRootPassword = True
+
+        assert can_modify_root_configuration(users_module)
+
+        mocked_flags.automatedInstall = True
+        mocked_conf.ui.can_change_root = False
+        users_module.CanChangeRootPassword = False
+
+        assert not can_modify_root_configuration(users_module)

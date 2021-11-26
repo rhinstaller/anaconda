@@ -16,10 +16,34 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.flags import flags
 from pyanaconda.modules.common.structures.user import UserData
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
+
+
+def can_modify_root_configuration(users_module):
+    """Is it allowed to modify the root configuration?
+
+    :param users_module: a DBus proxy of the Users module
+    :return: True or False
+    """
+    # Allow changes in the interactive mode.
+    if not flags.automatedInstall:
+        return True
+
+    # Does the configuration allow changes?
+    if conf.ui.can_change_root:
+        return True
+
+    # Allow changes if the root account isn't
+    # already configured by the kickstart file.
+    if users_module.CanChangeRootPassword:
+        return True
+
+    return False
 
 
 def get_user_list(users_module, add_default=False, add_if_not_empty=False):
