@@ -407,6 +407,19 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Nov 26 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.21-1
+- Wait for all background threads to finish before filling installation task
+  queue (mkolman)
+  Resolves: rhbz#2017428
+- Check the support for the Subscription module on startup (vponcova)
+  Resolves: rhbz#1957063
+- Activate DBus modules based on the new configuration options (vponcova)
+  Related: rhbz#1957063
+- Add new configuration options for the DBus module activation (vponcova)
+  Related: rhbz#1957063
+- Add product config for Rocky Linux (tucklesepk)
+  Resolves: rhbz#2019995
+
 * Fri Nov 05 2021 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.20-1
 - Fix application of network --mtu kickstart option in Anaconda (rvykydal)
   Resolves: rhbz#2019813
