@@ -367,6 +367,11 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Nov 26 2021 Radek Vykydal <rvykydal@redhat.com> - 33.16.6.4-1
+- Wait for all background threads to finish before filling installation task
+  queue (mkolman)
+  Resolves: rhbz#1824422
+
 * Fri Nov 05 2021 Radek Vykydal <rvykydal@redhat.com> - 33.16.6.3-1
 - Fix application of network --mtu kickstart option in Anaconda (rvykydal)
   Resolves: rhbz#2018301
