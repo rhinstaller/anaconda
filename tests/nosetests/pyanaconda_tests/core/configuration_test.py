@@ -24,6 +24,7 @@ from textwrap import dedent
 from unittest.mock import patch
 
 from blivet.size import Size
+from dasbus.namespace import get_dbus_name
 
 from pyanaconda.core.configuration.anaconda import AnacondaConfiguration
 from pyanaconda.core.configuration.base import create_parser, read_config, write_config, \
@@ -32,7 +33,7 @@ from pyanaconda.core.configuration.base import create_parser, read_config, write
 from pyanaconda.core.configuration.storage import StorageSection
 from pyanaconda.core.configuration.ui import UserInterfaceSection
 from pyanaconda.core.util import get_os_release_value
-from pyanaconda.modules.common.constants import services
+from pyanaconda.modules.common.constants import services, namespaces
 from pyanaconda.core.constants import SOURCE_TYPE_CLOSEST_MIRROR
 
 # Path to the configuration directory of the repo.
@@ -194,6 +195,25 @@ class ConfigurationTestCase(unittest.TestCase):
 
 class AnacondaConfigurationTestCase(unittest.TestCase):
     """Test the Anaconda configuration."""
+
+    # Full names of the Anaconda modules.
+    MODULE_NAMES = set(map(lambda s: s.service_name, (
+        services.TIMEZONE,
+        services.NETWORK,
+        services.LOCALIZATION,
+        services.SECURITY,
+        services.USERS,
+        services.PAYLOADS,
+        services.STORAGE,
+        services.SERVICES,
+        services.SUBSCRIPTION,
+    )))
+
+    # Known namespaces of the Anaconda modules.
+    MODULE_NAMESPACES = set(map(lambda n: get_dbus_name(*n), (
+        namespaces.MODULES_NAMESPACE,
+        namespaces.ADDONS_NAMESPACE,
+    )))
 
     def default_configuration_test(self):
         # Make sure that we are able to import conf.
@@ -407,22 +427,115 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
         conf = AnacondaConfiguration.from_defaults()
         conf.set_from_product(get_os_release_value("NAME"))
 
-    def kickstart_modules_test(self):
+    def _check_pattern(self, pattern):
+        """Check the specified module pattern."""
+        if pattern.endswith(".*"):
+            self.assertIn(pattern[:-2], self.MODULE_NAMESPACES)
+        else:
+            self.assertIn(pattern, self.MODULE_NAMES)
+
+    def test_activatable_modules(self):
+        """Test the activatable_modules option."""
         conf = AnacondaConfiguration.from_defaults()
 
-        self.assertEqual(
-            set(conf.anaconda.kickstart_modules),
-            set(service.service_name for service in (
-                services.TIMEZONE,
-                services.NETWORK,
-                services.LOCALIZATION,
-                services.SECURITY,
-                services.USERS,
-                services.PAYLOADS,
-                services.STORAGE,
-                services.SERVICES
-            ))
-        )
+        for pattern in conf.anaconda.activatable_modules:
+            self._check_pattern(pattern)
+
+    def test_kickstart_modules(self):
+        """Test the kickstart_modules option."""
+        conf = AnacondaConfiguration.from_defaults()
+        self.assertEqual(conf.anaconda.activatable_modules, [
+            "org.fedoraproject.Anaconda.Modules.*",
+            "org.fedoraproject.Anaconda.Addons.*"
+
+        ])
+
+        parser = conf.get_parser()
+        parser.read_string(dedent("""
+
+        [Anaconda]
+        kickstart_modules =
+            org.fedoraproject.Anaconda.Modules.Timezone
+            org.fedoraproject.Anaconda.Modules.Localization
+            org.fedoraproject.Anaconda.Modules.Security
+
+        """))
+
+        self.assertEqual(conf.anaconda.activatable_modules, [
+            "org.fedoraproject.Anaconda.Modules.Timezone",
+            "org.fedoraproject.Anaconda.Modules.Localization",
+            "org.fedoraproject.Anaconda.Modules.Security",
+            "org.fedoraproject.Anaconda.Addons.*"
+        ])
+
+        for pattern in conf.anaconda.activatable_modules:
+            self._check_pattern(pattern)
+
+    def test_forbidden_modules(self):
+        """Test the forbidden_modules option."""
+        conf = AnacondaConfiguration.from_defaults()
+
+        for pattern in conf.anaconda.forbidden_modules:
+            self._check_pattern(pattern)
+
+    def test_addons_enabled_modules(self):
+        """Test the addons_enabled option."""
+        conf = AnacondaConfiguration.from_defaults()
+        self.assertEqual(conf.anaconda.forbidden_modules, [])
+
+        parser = conf.get_parser()
+        parser.read_string(dedent("""
+
+        [Anaconda]
+        forbidden_modules =
+            org.fedoraproject.Anaconda.Modules.Timezone
+            org.fedoraproject.Anaconda.Modules.Localization
+            org.fedoraproject.Anaconda.Modules.Security
+
+        """))
+
+        self.assertEqual(conf.anaconda.forbidden_modules, [
+            "org.fedoraproject.Anaconda.Modules.Timezone",
+            "org.fedoraproject.Anaconda.Modules.Localization",
+            "org.fedoraproject.Anaconda.Modules.Security",
+        ])
+
+        parser.read_string(dedent("""
+
+        [Anaconda]
+        addons_enabled = True
+
+        """))
+
+        self.assertEqual(conf.anaconda.forbidden_modules, [
+            "org.fedoraproject.Anaconda.Modules.Timezone",
+            "org.fedoraproject.Anaconda.Modules.Localization",
+            "org.fedoraproject.Anaconda.Modules.Security",
+        ])
+
+        parser.read_string(dedent("""
+
+        [Anaconda]
+        addons_enabled = False
+
+        """))
+
+        self.assertEqual(conf.anaconda.forbidden_modules, [
+            "org.fedoraproject.Anaconda.Addons.*",
+            "org.fedoraproject.Anaconda.Modules.Timezone",
+            "org.fedoraproject.Anaconda.Modules.Localization",
+            "org.fedoraproject.Anaconda.Modules.Security",
+        ])
+
+        for pattern in conf.anaconda.forbidden_modules:
+            self._check_pattern(pattern)
+
+    def test_optional_modules(self):
+        """Test the optional_modules option."""
+        conf = AnacondaConfiguration.from_defaults()
+
+        for pattern in conf.anaconda.optional_modules:
+            self._check_pattern(pattern)
 
     def bootloader_test(self):
         conf = AnacondaConfiguration.from_defaults()

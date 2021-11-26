@@ -32,6 +32,18 @@ class ModuleManagerTestCase(unittest.TestCase):
     def setUp(self):
         self._manager = ModuleManager()
         self._message_bus = Mock()
+        self._message_bus.proxy.ListActivatableNames.return_value = [
+            "org.fedoraproject.Anaconda.Boss",
+            "org.fedoraproject.Anaconda.Addons.A",
+            "org.fedoraproject.Anaconda.Addons.B",
+            "org.fedoraproject.Anaconda.Addons.C",
+            "org.fedoraproject.Anaconda.Modules.A",
+            "org.fedoraproject.Anaconda.Modules.B",
+            "org.fedoraproject.Anaconda.Modules.C",
+            "org.fedoraproject.InitialSetup.Modules.A",
+            "org.fedoraproject.InitialSetup.Modules.B",
+            "org.fedoraproject.InitialSetup.Modules.C",
+        ]
 
     def _check_started_modules(self, task, service_names):
         """Check the started modules."""
@@ -53,7 +65,7 @@ class ModuleManagerTestCase(unittest.TestCase):
 
     def start_no_modules_test(self):
         """Start no modules."""
-        task = StartModulesTask(self._message_bus, [], addons_enabled=False)
+        task = StartModulesTask(self._message_bus, [], [], [])
         self._check_started_modules(task, [])
 
     @patch("dasbus.client.observer.Gio")
@@ -62,8 +74,7 @@ class ModuleManagerTestCase(unittest.TestCase):
         service_names = [
             "org.fedoraproject.Anaconda.Modules.A"
         ]
-
-        task = StartModulesTask(self._message_bus, service_names, addons_enabled=False)
+        task = StartModulesTask(self._message_bus, service_names, [], [])
         (observer, ) = self._check_started_modules(task, service_names)  # pylint: disable=unbalanced-tuple-unpacking
 
         bus_proxy = self._message_bus.proxy
@@ -86,26 +97,57 @@ class ModuleManagerTestCase(unittest.TestCase):
             "org.fedoraproject.Anaconda.Modules.C",
         ]
 
-        task = StartModulesTask(self._message_bus, service_names, addons_enabled=False)
-        self._check_started_modules(task, service_names)
+        task = StartModulesTask(self._message_bus, service_names, [], [])
+        observers = self._check_started_modules(task, service_names)
+
+        for observer in observers:
+            self.assertEqual(observer.is_addon, False)
 
     @patch("dasbus.client.observer.Gio")
     def start_addons_test(self, gio):
         """Start addons."""
+        service_namespaces = [
+            "org.fedoraproject.Anaconda.Addons.*"
+        ]
         service_names = [
             "org.fedoraproject.Anaconda.Addons.A",
             "org.fedoraproject.Anaconda.Addons.B",
             "org.fedoraproject.Anaconda.Addons.C"
         ]
 
-        bus_proxy = self._message_bus.proxy
-        bus_proxy.ListActivatableNames.return_value = [
-            *service_names,
-            "org.fedoraproject.Anaconda.D",
-            "org.fedoraproject.E",
+        task = StartModulesTask(self._message_bus, service_namespaces, [], [])
+        observers = self._check_started_modules(task, service_names)
+
+        for observer in observers:
+            self.assertEqual(observer.is_addon, True)
+
+    @patch("dasbus.client.observer.Gio")
+    def test_start_modules_forbidden(self, gio):
+        """Try to start forbidden modules."""
+        service_namespaces = [
+            "org.fedoraproject.Anaconda.Modules.*",
+            "org.fedoraproject.Anaconda.Addons.*",
+            "org.fedoraproject.InitialSetup.Modules.*",
+        ]
+        forbidden_names = [
+            "org.fedoraproject.Anaconda.Modules.B",
+            "org.fedoraproject.Anaconda.Addons.C",
+            "org.fedoraproject.InitialSetup.*",
+        ]
+        service_names = [
+            "org.fedoraproject.Anaconda.Addons.A",
+            "org.fedoraproject.Anaconda.Addons.B",
+            "org.fedoraproject.Anaconda.Modules.A",
+            "org.fedoraproject.Anaconda.Modules.C",
         ]
 
-        task = StartModulesTask(self._message_bus, [], addons_enabled=True)
+        task = StartModulesTask(
+            message_bus=self._message_bus,
+            activatable=service_namespaces,
+            forbidden=forbidden_names,
+            optional=[]
+        )
+
         self._check_started_modules(task, service_names)
 
     def start_module_failed_test(self):
@@ -116,7 +158,7 @@ class ModuleManagerTestCase(unittest.TestCase):
             "org.fedoraproject.Anaconda.Modules.C",
         ]
 
-        task = StartModulesTask(self._message_bus, service_names, addons_enabled=False)
+        task = StartModulesTask(self._message_bus, service_names, [], [])
 
         def call():
             raise DBusError("Fake error!")
@@ -136,20 +178,21 @@ class ModuleManagerTestCase(unittest.TestCase):
     @patch("dasbus.client.observer.Gio")
     def start_addon_failed_test(self, gio):
         """Fail to start an add-on."""
+        service_namespaces = [
+            "org.fedoraproject.Anaconda.Addons.*"
+        ]
         service_names = [
             "org.fedoraproject.Anaconda.Addons.A",
             "org.fedoraproject.Anaconda.Addons.B",
             "org.fedoraproject.Anaconda.Addons.C"
         ]
 
-        bus_proxy = self._message_bus.proxy
-        bus_proxy.ListActivatableNames.return_value = [
-            *service_names,
-            "org.fedoraproject.Anaconda.D",
-            "org.fedoraproject.E",
-        ]
-
-        task = StartModulesTask(self._message_bus, [], addons_enabled=True)
+        task = StartModulesTask(
+            message_bus=self._message_bus,
+            activatable=service_namespaces,
+            optional=service_namespaces,
+            forbidden=[]
+        )
         self._check_started_modules(task, service_names)
 
         def call():
@@ -173,7 +216,7 @@ class ModuleManagerTestCase(unittest.TestCase):
             "org.fedoraproject.Anaconda.Modules.C",
         ]
 
-        task = StartModulesTask(self._message_bus, service_names, addons_enabled=False)
+        task = StartModulesTask(self._message_bus, service_names, [], [])
         observers = self._check_started_modules(task, service_names)
 
         self._manager.set_module_observers(observers)
