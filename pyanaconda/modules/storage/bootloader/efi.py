@@ -69,8 +69,10 @@ class EFIBase(object):
         boot_disk = partition.disk
         boot_part_num = str(partition.parted_partition.number)
 
+        create_method = "-C" if self.keep_boot_order else "-c" # pylint: disable=no-member
+
         rc = self.efibootmgr(
-            "-c", "-w", "-L", productName.split("-")[0],  # pylint: disable=no-member
+            create_method, "-w", "-L", productName.split("-")[0],  # pylint: disable=no-member
             "-d", boot_disk.path, "-p", boot_part_num,
             "-l", self.efi_dir_as_efifs_dir + self._efi_binary,  # pylint: disable=no-member
             root=conf.target.system_root
