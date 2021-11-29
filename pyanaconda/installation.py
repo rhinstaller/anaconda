@@ -35,6 +35,7 @@ from pyanaconda.threading import threadMgr
 from pyanaconda.kickstart import runPostScripts, runPreInstallScripts
 from pyanaconda.kexec import setup_kexec
 from pyanaconda.installation_tasks import Task, TaskQueue, DBusTask
+from pyanaconda.progress import progressQ
 from pykickstart.constants import SNAPSHOT_WHEN_POST_INSTALL
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -221,6 +222,25 @@ def _prepare_configuration(payload, ksdata):
     return configuration_queue
 
 
+def wait_for_threads_to_finish():
+    """Wait for background processing threads to finish.
+
+    Wait for background processing threads to finish before filling
+    the installation task queue. Otherwise installation tasks might
+    be created based on old data in DBus modules, missing data set by
+    the threads that are still running.
+    """
+
+    # This should be the only thread running, wait for the others to finish if not.
+    if threadMgr.running > 1:
+        # show a progress message
+        progressQ.send_message(N_("Waiting for %s threads to finish") % (threadMgr.running - 1))
+        for message in ("Thread %s is running" % n for n in threadMgr.names):
+            log.debug(message)
+        threadMgr.wait_all()
+        log.debug("No more threads are running, assembling installation task queue.")
+
+
 def _prepare_installation(payload, ksdata):
     """Perform an installation.  This method takes the ksdata as prepared by
        the UI (the first hub, in graphical mode) and applies it to the disk.
@@ -231,26 +251,6 @@ def _prepare_installation(payload, ksdata):
     # connect progress reporting
     installation_queue.queue_started.connect(lambda x: progress_message(x.status_message))
     installation_queue.task_completed.connect(lambda x: progress_step(x.name))
-
-    # This should be the only thread running, wait for the others to finish if not.
-    if threadMgr.running > 1:
-        # it could be that the threads finish execution before the task is executed,
-        # but that should not cause any issues
-
-        def wait_for_all_treads():
-            for message in ("Thread %s is running" % n for n in threadMgr.names):
-                log.debug(message)
-            threadMgr.wait_all()
-
-        # Use a queue with a single task as only TaskQueues have the status_message
-        # property used for setting the progress status in the UI.
-        wait_for_threads = TaskQueue(
-            "Wait for threads to finish",
-            N_("Waiting for %s threads to finish") % (threadMgr.running - 1)
-        )
-
-        wait_for_threads.append(Task("Wait for all threads to finish", wait_for_all_treads))
-        installation_queue.append(wait_for_threads)
 
     # Save system time to HW clock.
     # - this used to be before waiting on threads, but I don't think that's needed
@@ -389,6 +389,11 @@ def _prepare_installation(payload, ksdata):
 
 def run_installation(payload, ksdata):
     """Run the complete installation."""
+    # before building the install task queue make
+    # sure no backgrond processing threads are running and
+    # the Anaconda internal state is thus final
+    wait_for_threads_to_finish()
+
     queue = TaskQueue("Complete installation queue")
     queue.append(_prepare_installation(payload, ksdata))
     queue.append(_prepare_configuration(payload, ksdata))
