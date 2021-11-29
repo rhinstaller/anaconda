@@ -68,42 +68,5 @@ class LiveImageModule(PayloadBase):
             source.setup_kickstart(data)
 
     def install_with_tasks(self):
-        """Execute preparation and installation steps.
-
-        * Download the image
-        * Check the checksum
-        * Mount the image
-        * Install the image
-        """
-        # task = SetupInstallationSourceImageTask(
-        #     self.url,
-        #     self.proxy,
-        #     self.checksum,
-        #     self.verifyssl,
-        #     self.image_path,
-        #     INSTALL_TREE,
-        #     self.requests_session
-        # )
-        # task.succeeded_signal.connect(lambda: self.set_image_path(task.get_result()))
-        # return [task]
-
-        # if is_tar(self._url):
-        #     task = InstallFromTarTask(
-        #         self.image_path,
-        #         conf.target.system_root,
-        #         self.kernel_version_list
-        #     )
-        # else:
-        #     task = InstallFromImageTask(
-        #         conf.target.system_root,
-        #         self.kernel_version_list
-        #     )
-        #
-        # task2 = TeardownInstallationSourceImageTask(
-        #     self.image_path,
-        #     self.url,
-        #     INSTALL_TREE
-        # )
-        #
-        # return [task, task2]
+        """Execute preparation and installation steps."""
         return []

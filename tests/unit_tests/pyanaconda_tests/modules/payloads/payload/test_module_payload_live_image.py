@@ -126,41 +126,14 @@ class LiveImageModuleTestCase(unittest.TestCase):
 
     def test_install_with_task_from_tar(self):
         """Test Live Image install with tasks from tarfile."""
-        # task_path = self.live_image_interface.PreInstallWithTasks()
-        # check_task_creation_list(task_path, publisher, [SetupInstallationSourceImageTask])
-
-        # task_path = self.live_image_interface.InstallWithTasks()
-        # check_task_creation_list(task_path, publisher, [InstallFromTarTask])
         assert self.module.install_with_tasks() == []
 
     @patch_dbus_publish_object
     def test_install_with_task_from_image(self, publisher):
         """Test Live Image install with tasks from image."""
-        # task_path = self.live_image_interface.PreInstallWithTasks()
-        # check_task_creation_list(task_path, publisher, [SetupInstallationSourceImageTask])
-
-        # task_path = self.live_image_interface.InstallWithTasks()
-        # check_task_creation_list(task_path, publisher, [InstallFromImageTask])
         assert self.module.install_with_tasks() == []
 
     @patch_dbus_publish_object
     def test_post_install_with_tasks(self, publisher):
         """Test Live Image post installation configuration task."""
-        # task_classes = [
-        #     TeardownInstallationSourceImageTask
-        # ]
-        #
-        # task_paths = self.live_image_interface.PostInstallWithTasks()
-        #
-        # # Check the number of installation tasks.
-        # task_number = len(task_classes)
-        # self.assertEqual(task_number, len(task_paths))
-        # self.assertEqual(task_number, publisher.call_count)
-        #
-        # # Check the tasks.
-        # for i in range(task_number):
-        #     object_path, obj = publisher.call_args_list[i][0]
-        #     self.assertEqual(object_path, task_paths[i])
-        #     self.assertIsInstance(obj, TaskInterface)
-        #     self.assertIsInstance(obj.implementation, task_classes[i])
         assert self.module.post_install_with_tasks() == []
