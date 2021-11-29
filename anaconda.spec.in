@@ -411,6 +411,27 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Nov 29 2021 Martin Kolman <mkolman@redhat.com> - 36.10-1
+- Add tasks for cleaning up after the live image installation (vponcova)
+- Create a task for mounting a live image (vponcova)
+- Remove unused code from the live image payload module (vponcova)
+- Wait for all background threads to finish before filling installation task
+  queue (mkolman)
+- Remove all git hooks (vponcova)
+- Add a mnemonic (alt-s) to the LUKS version dropdown (vslavik)
+- Use a task to download the image payload (vponcova)
+- Clean up the download progress of the image payload (vponcova)
+- Fix double quotes in dracut package module-setup (vslavik)
+- Use the set up tasks in the image payload class (vponcova)
+- Split system purpose tests to a separate file (mkolman)
+- Create shared constants file for the subscription module (mkolman)
+- Move USER_AGENT to core/constants.py (mkolman)
+- Reset the goal during clearing the DNF cache (#2020754) (vponcova)
+- Fix generating of the kernel boot argument rd.znet= on s390x (jstodola)
+- Do not crash on dangling symlink /etc/resolv.conf (#2019579) (rvykydal)
+- Prepare release notes for Fedora 35 (vponcova)
+- Fix shell quotes in dracut (vslavik)
+
 * Mon Nov 15 2021 Martin Kolman <mkolman@redhat.com> - 36.9-1
 - Remove the BaseLivePayload class (vponcova)
 - Cancel planned manual update of system time on turning ntp on (rvykydal)
