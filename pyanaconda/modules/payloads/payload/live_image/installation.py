@@ -15,15 +15,17 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import glob
 import hashlib
 import os
 import stat
 import requests
+import blivet.util
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import NETWORK_CONNECTION_TIMEOUT
 from pyanaconda.core.i18n import _
-from pyanaconda.core.util import execWithRedirect, requests_session
+from pyanaconda.core.util import execWithRedirect, requests_session, join_paths
 from pyanaconda.core.string import lower_ascii
 from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
 from pyanaconda.modules.common.task import Task
@@ -198,6 +200,94 @@ class VerifyImageChecksum(Task):
         return checksum
 
 
+class MountImageTask(Task):
+    """Mount the image for the installation."""
+
+    def __init__(self, image_path, image_mount_point, iso_mount_point):
+        """Create a new task.
+
+        :param image_path: a path to the downloaded image
+        :param image_mount_point: a path to the image mount point
+        :param iso_mount_point: a path to the ISO mount point
+        """
+        super().__init__()
+        self._image_path = image_path
+        self._image_mount_point = image_mount_point
+        self._iso_mount_point = iso_mount_point
+
+    @property
+    def name(self):
+        """The name of the task."""
+        return "Mount the image"
+
+    def run(self):
+        """Run the task.
+
+        :return: a path to the content that should be installed
+        """
+        self._make_root_rprivate()
+
+        # Mount the downloaded image.
+        self._mount_image(self._image_path, self._image_mount_point)
+
+        # Mount the first .img in the LiveOS directory if any.
+        iso_path = self._find_live_os_image()
+
+        if iso_path:
+            self._mount_image(iso_path, self._iso_mount_point)
+            return self._iso_mount_point
+
+        # Otherwise, use the downloaded image.
+        return self._image_mount_point
+
+    @staticmethod
+    def _make_root_rprivate():
+        """Make the mount of '/' rprivate.
+
+        Work around inability to move shared filesystems. Also,
+        do not share the image mounts with /run bind-mounted to
+        physical target root during storage.mount_filesystems.
+        """
+        rc = execWithRedirect("mount", ["--make-rprivate", "/"])
+
+        if rc != 0:
+            raise PayloadInstallationError(
+                "Failed to make the '/' mount rprivate: {}".format(rc)
+            )
+
+    def _mount_image(self, image_path, mount_point):
+        """Mount the image."""
+        try:
+            rc = blivet.util.mount(
+                image_path,
+                mount_point,
+                fstype="auto",
+                options="ro"
+            )
+        except OSError as e:
+            raise PayloadInstallationError(str(e)) from e
+
+        if rc != 0:
+            raise PayloadInstallationError(
+                "Failed to mount '{}' at '{}': {}".format(image_path, mount_point, rc)
+            )
+
+    def _find_live_os_image(self):
+        """See if there is a LiveOS/*.img style squashfs image.
+
+        :return: a relative path to the image or None
+        """
+        if not os.path.exists(join_paths(self._image_mount_point, "LiveOS")):
+            return None
+
+        img_files = glob.glob(join_paths(self._image_mount_point, "LiveOS", "*.img"))
+
+        if not img_files:
+            return None
+
+        return img_files[0]
+
+
 class InstallFromTarTask(Task):
     """Task to install the payload from tarball."""
 
@@ -349,3 +439,23 @@ class InstallFromImageTask(Task):
                 "Failed to install image: "
                 "{} exited with code {}".format(cmd, rc)
             )
+
+
+class RemoveImageTask(Task):
+    """Task to remove the downloaded image."""
+
+    def __init__(self, image_path):
+        """Create a new task."""
+        super().__init__()
+        self._image_path = image_path
+
+    @property
+    def name(self):
+        """Name of the task."""
+        return "Remove the downloaded image"""
+
+    def run(self):
+        """Run the task."""
+        if os.path.exists(self._image_path):
+            log.debug("Removing the image at %s.", self._image_path)
+            os.unlink(self._image_path)

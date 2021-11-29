@@ -28,12 +28,12 @@ from requests_file import FileAdapter
 from unittest.mock import patch, Mock, call
 
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.util import join_paths
+from pyanaconda.core.util import join_paths, touch
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
 from pyanaconda.modules.payloads.payload.live_image.download_progress import DownloadProgress
 from pyanaconda.modules.payloads.payload.live_image.installation import VerifyImageChecksum, \
-    InstallFromImageTask, InstallFromTarTask, DownloadImageTask
+    InstallFromImageTask, InstallFromTarTask, DownloadImageTask, MountImageTask, RemoveImageTask
 from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list
 
 
@@ -414,3 +414,169 @@ class DownloadImageTaskTestCase(unittest.TestCase):
                 self._run_task()
 
             assert str(cm.value) == "Error while downloading the image: Fake!"
+
+
+class MountImageTaskTestCase(unittest.TestCase):
+    """Test the MountImageTask class."""
+
+    def setUp(self):
+        """Set up the test."""
+        self.image_path = None
+        self.image_mount = None
+        self.iso_mount = None
+
+    @contextmanager
+    def _create_directory(self):
+        """Create a temporary directory."""
+        with tempfile.TemporaryDirectory() as d:
+            self.image_path = join_paths(d, "image.img")
+            self.image_mount = join_paths(d, "image")
+            self.iso_mount = join_paths(d, "iso")
+            yield d
+
+    def _run_task(self):
+        """Run the task."""
+        task = MountImageTask(
+            image_path=self.image_path,
+            image_mount_point=self.image_mount,
+            iso_mount_point=self.iso_mount
+        )
+        return task.run()
+
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.blivet.util.mount")
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.execWithRedirect")
+    def test_mount_image_no_dir(self, exec_mock, mount_mock):
+        """Mount an image without the LiveOS directory."""
+        exec_mock.return_value = 0
+        mount_mock.return_value = 0
+
+        with self._create_directory():
+            assert self._run_task() == self.image_mount
+
+            exec_mock.assert_called_once_with(
+                "mount", ["--make-rprivate", "/"]
+            )
+
+            mount_mock.assert_called_once_with(
+                self.image_path,
+                self.image_mount,
+                fstype="auto",
+                options="ro"
+            )
+
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.blivet.util.mount")
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.execWithRedirect")
+    def test_mount_image_no_iso(self, exec_mock, mount_mock):
+        """Mount an image without ISO files in the LiveOS directory."""
+        exec_mock.return_value = 0
+        mount_mock.return_value = 0
+
+        with self._create_directory():
+            iso_dir = join_paths(self.image_mount, "LiveOS")
+            os.makedirs(iso_dir)
+
+            assert self._run_task() == self.image_mount
+
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.blivet.util.mount")
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.execWithRedirect")
+    def test_mount_iso(self, exec_mock, mount_mock):
+        """Mount an ISO file in the LiveOS directory."""
+        exec_mock.return_value = 0
+        mount_mock.return_value = 0
+
+        with self._create_directory():
+            iso_dir = join_paths(self.image_mount, "LiveOS")
+            os.makedirs(iso_dir)
+
+            iso_path = join_paths(iso_dir, "iso.img")
+            touch(iso_path)
+
+            assert self._run_task() == self.iso_mount
+
+            exec_mock.assert_called_once_with(
+                "mount", ["--make-rprivate", "/"]
+            )
+
+            assert mount_mock.mock_calls == [
+                call(
+                    self.image_path,
+                    self.image_mount,
+                    fstype="auto",
+                    options="ro"
+                ),
+                call(
+                    iso_path,
+                    self.iso_mount,
+                    fstype="auto",
+                    options="ro"
+                )
+            ]
+
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.execWithRedirect")
+    def test_rprivate_fail(self, exec_mock):
+        """Test a failure of the rprivate mount call."""
+        exec_mock.return_value = 1
+
+        with self._create_directory():
+            with pytest.raises(PayloadInstallationError) as cm:
+                self._run_task()
+
+            assert str(cm.value) == "Failed to make the '/' mount rprivate: 1"
+
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.blivet.util.mount")
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.execWithRedirect")
+    def test_mount_fail(self, exec_mock, mount_mock):
+        """Test a failure of the mount tool."""
+        exec_mock.return_value = 0
+        mount_mock.return_value = 1
+
+        with self._create_directory():
+            with pytest.raises(PayloadInstallationError) as cm:
+                self._run_task()
+
+            msg = "Failed to mount '{}' at '{}': {}".format(self.image_path, self.image_mount, 1)
+            assert str(cm.value) == msg
+
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.blivet.util.mount")
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.execWithRedirect")
+    def test_mount_exec_fail(self, exec_mock, mount_mock):
+        """Test a failure of the mount call."""
+        exec_mock.return_value = 0
+        mount_mock.side_effect = OSError("Fake!")
+
+        with self._create_directory():
+            with pytest.raises(PayloadInstallationError) as cm:
+                self._run_task()
+
+            assert str(cm.value) == "Fake!"
+
+
+class RemoveImageTaskTestCase(unittest.TestCase):
+    """Test the RemoveImageTask class."""
+
+    def test_delete_existing_file(self):
+        """Delete a file that exists."""
+        with tempfile.TemporaryDirectory() as d:
+            image_path = join_paths(d, "image.img")
+            touch(image_path)
+
+            assert os.path.exists(image_path)
+
+            # Delete the file.
+            task = RemoveImageTask(image_path)
+            task.run()
+
+            assert not os.path.exists(image_path)
+
+    def test_delete_missing_file(self):
+        """Delete a file that doesn't exist."""
+        with tempfile.TemporaryDirectory() as d:
+            image_path = join_paths(d, "image.img")
+
+            assert not os.path.exists(image_path)
+
+            # Don't fail.
+            task = RemoveImageTask(image_path)
+            task.run()
+
+            assert not os.path.exists(image_path)
