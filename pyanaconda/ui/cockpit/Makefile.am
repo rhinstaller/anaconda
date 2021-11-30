@@ -1,4 +1,4 @@
-# Copyright (C) 2011, 2012  Red Hat, Inc.
+# Copyright (C) 2021  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -13,10 +13,10 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = categories gui lib tui cockpit
+SUBDIRS =
 
 MAINTAINERCLEANFILES = Makefile.in
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-uidir        = $(pkgpyexecdir)/ui
-ui_PYTHON    = $(srcdir)/*.py
+cockpitdir        = $(pkgpyexecdir)/ui/cockpit
+cockpit_PYTHON    = $(srcdir)/*.py
