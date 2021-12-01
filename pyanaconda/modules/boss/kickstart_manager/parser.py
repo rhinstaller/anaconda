@@ -24,8 +24,9 @@ from pykickstart.sections import Section
 from pyanaconda.modules.boss.kickstart_manager.element import KickstartElement,\
     TrackedKickstartElements
 
-VALID_SECTIONS_ANACONDA = ["%pre", "%pre-install", "%post", "%onerror", "%traceback",
-                           "%packages", "%addon", "%anaconda"]
+VALID_SECTIONS_ANACONDA = [
+    "%pre", "%pre-install", "%post", "%onerror", "%traceback", "%packages", "%addon"
+]
 
 
 class StoreSection(Section):

@@ -368,7 +368,6 @@ class AnacondaPreParser(KickstartParser):
         self.registerSection(NullSection(self.handler, sectionOpen="%traceback"))
         self.registerSection(NullSection(self.handler, sectionOpen="%packages"))
         self.registerSection(NullSection(self.handler, sectionOpen="%addon"))
-        self.registerSection(NullSection(self.handler, sectionOpen="%anaconda"))
 
 
 class AnacondaKSParser(KickstartParser):
@@ -390,7 +389,6 @@ class AnacondaKSParser(KickstartParser):
         self.registerSection(OnErrorScriptSection(self.handler, dataObj=self.scriptClass))
         self.registerSection(UselessSection(self.handler, sectionOpen="%packages"))
         self.registerSection(UselessSection(self.handler, sectionOpen="%addon"))
-        self.registerSection(DeprecatedSection(self.handler, sectionOpen="%anaconda"))
 
 
 def preScriptPass(f):
