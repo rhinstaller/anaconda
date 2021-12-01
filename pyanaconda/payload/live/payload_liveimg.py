@@ -20,7 +20,7 @@ from pyanaconda.anaconda_loggers import get_packaging_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_IMAGE, INSTALL_TREE, IMAGE_DIR
 from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
-from pyanaconda.modules.payloads.payload.live_image.installation import VerifyImageChecksum, \
+from pyanaconda.modules.payloads.payload.live_image.installation import VerifyImageChecksumTask, \
     InstallFromTarTask, InstallFromImageTask, DownloadImageTask, MountImageTask, RemoveImageTask
 from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list
 from pyanaconda.modules.payloads.payload.live_image.utils import get_kernel_version_list_from_tar
@@ -114,9 +114,9 @@ class LiveImagePayload(Payload):
             task.run()
 
         # Verify the checksum.
-        task = VerifyImageChecksum(
-            image_path=self.image_path,
-            checksum=self.data.liveimg.checksum
+        task = VerifyImageChecksumTask(
+            configuration=source_data,
+            image_path=self.image_path
         )
         task.progress_changed_signal.connect(self._progress_cb)
         task.run()

@@ -32,7 +32,7 @@ from pyanaconda.core.util import join_paths, touch
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
 from pyanaconda.modules.payloads.payload.live_image.download_progress import DownloadProgress
-from pyanaconda.modules.payloads.payload.live_image.installation import VerifyImageChecksum, \
+from pyanaconda.modules.payloads.payload.live_image.installation import VerifyImageChecksumTask, \
     InstallFromImageTask, InstallFromTarTask, DownloadImageTask, MountImageTask, RemoveImageTask
 from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list
 
@@ -205,7 +205,10 @@ class InstallFromTarTaskTestCase(unittest.TestCase):
 
 
 class VerifyImageChecksumTestCase(unittest.TestCase):
-    """Test the VerifyImageChecksum class."""
+    """Test the VerifyImageChecksumTask class."""
+
+    def setUp(self):
+        self.data = LiveImageConfigurationData()
 
     def _create_image(self, f):
         """Create a fake image."""
@@ -217,9 +220,9 @@ class VerifyImageChecksumTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             f_name = join_paths(d, "image")
 
-            task = VerifyImageChecksum(
+            task = VerifyImageChecksumTask(
+                configuration=self.data,
                 image_path=f_name,
-                checksum=""
             )
 
             with self.assertLogs(level="DEBUG") as cm:
@@ -230,16 +233,16 @@ class VerifyImageChecksumTestCase(unittest.TestCase):
 
     def test_verify_checksum(self):
         """Test the verification of a checksum."""
-        checksum = \
+        self.data.checksum = \
             "7190E29480A9081FD917E33990F00098" \
             "DD9FBD348BC52B0775780348BDA3A617"
 
         with tempfile.NamedTemporaryFile("w") as f:
             self._create_image(f)
 
-            task = VerifyImageChecksum(
-                image_path=f.name,
-                checksum=checksum
+            task = VerifyImageChecksumTask(
+                configuration=self.data,
+                image_path=f.name
             )
 
             with self.assertLogs(level="DEBUG") as cm:
@@ -250,12 +253,14 @@ class VerifyImageChecksumTestCase(unittest.TestCase):
 
     def test_verify_wrong_checksum(self):
         """Test the verification of a wrong checksum."""
+        self.data.checksum = "incorrect"
+
         with tempfile.NamedTemporaryFile("w") as f:
             self._create_image(f)
 
-            task = VerifyImageChecksum(
-                image_path=f.name,
-                checksum="incorrect"
+            task = VerifyImageChecksumTask(
+                configuration=self.data,
+                image_path=f.name
             )
 
             with pytest.raises(PayloadInstallationError) as cm:

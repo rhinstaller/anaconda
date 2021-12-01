@@ -144,18 +144,19 @@ class DownloadImageTask(Task):
         progress.end()
 
 
-class VerifyImageChecksum(Task):
+class VerifyImageChecksumTask(Task):
     """Task to verify the checksum of the downloaded image."""
 
-    def __init__(self, image_path, checksum):
+    def __init__(self, configuration: LiveImageConfigurationData, image_path):
         """Create a new task.
 
+        :param configuration: a configuration of a remote image
+        :type configuration: an instance of LiveImageConfigurationData
         :param image_path: a path to the image
-        :param checksum: an expected sha256 checksum
         """
         super().__init__()
         self._image_path = image_path
-        self._checksum = checksum
+        self._checksum = configuration.checksum
 
     @property
     def name(self):
@@ -196,7 +197,6 @@ class VerifyImageChecksum(Task):
 
         checksum = sha256.hexdigest()
         log.debug("sha256 of %s: %s", file_path, checksum)
-        print(checksum)
         return checksum
 
 
