@@ -29,3 +29,4 @@ Contents:
    sysconfig-file
    mount-points
    Testing <testing>
+   ci-status
