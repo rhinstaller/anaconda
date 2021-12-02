@@ -69,7 +69,7 @@
 
 # Variables used in xgettext arguments
 COPYRIGHT_HOLDER = Red Hat, Inc.
-MSGID_BUGS_ADDRESS = anaconda-devel-list@redhat.com
+MSGID_BUGS_ADDRESS = anaconda-devel@lists.fedoraproject.org
 
 # What kind of files are we looking for?
 POTFILE_SUFFIXES = py c glade desktop js
