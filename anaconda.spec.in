@@ -411,6 +411,27 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Dec 02 2021 Martin Kolman <mkolman@redhat.com> - 36.11-1
+- Handle potential failure of `cd` (vslavik)
+- Printf variables correctly (vslavik)
+- Simplify debug printing (vslavik)
+- Ignore use of local variables (vslavik)
+- Fix wrong comparison operator (vslavik)
+- Remove unused variables (vslavik)
+- Ignore variables used across our dracut hooks (vslavik)
+- Fix arithmetic operation on a variable (vslavik)
+- Fix `read` calls in dracut code (vslavik)
+- Check correctly if glob finds anything (vslavik)
+- Check for substring in POSIX compatible way (vslavik)
+- Remove useless echo calls (vslavik)
+- Split combined local variable creation and assignment (vslavik)
+- Fix "empty" redirections in dracut scripts (vslavik)
+- Fix hashbangs in dracut scripts (vslavik)
+- Split binary logic in dracut shell files (vslavik)
+- Add a ShellCheck config for dracut scripts (vslavik)
+- Enable the pytest assert introspection in the helper functions (vponcova)
+- Fix Source0 in spec to point to upstream source URL (jkonecny)
+
 * Mon Nov 29 2021 Martin Kolman <mkolman@redhat.com> - 36.10-1
 - Add tasks for cleaning up after the live image installation (vponcova)
 - Create a task for mounting a live image (vponcova)
