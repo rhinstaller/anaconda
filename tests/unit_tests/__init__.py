@@ -17,6 +17,7 @@
 #
 import os
 import locale
+import pytest
 import gi.overrides
 
 # Apply overrides for the anaconda widgets.
@@ -27,3 +28,9 @@ if "ANACONDA_WIDGETS_OVERRIDES" in os.environ:
 
 # Set the default locale.
 locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
+
+# Register modules with helper functions.
+pytest.register_assert_rewrite(
+    "tests.unit_tests.pyanaconda_tests",
+    "tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared",
+)
