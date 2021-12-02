@@ -41,18 +41,18 @@ log = get_module_logger(__name__)
 class DownloadImageTask(Task):
     """Task to download an image."""
 
-    def __init__(self, configuration: LiveImageConfigurationData, image_path):
+    def __init__(self, configuration: LiveImageConfigurationData, download_path):
         """Create a new task.
 
         :param configuration: a configuration of a remote image
         :type configuration: an instance of LiveImageConfigurationData
-        :param str image_path: a path to the downloaded image
+        :param str download_path: a path to the downloaded image
         """
         super().__init__()
         self._url = configuration.url
         self._proxy = configuration.proxy
         self._ssl_verify = configuration.ssl_verification_enabled
-        self._image_path = image_path
+        self._download_path = download_path
 
     @property
     def name(self):
@@ -60,8 +60,19 @@ class DownloadImageTask(Task):
         return "Download an image"
 
     def run(self):
-        """Run the task."""
+        """Run the task.
+
+        If the image is local, we return its local location. Otherwise,
+        the image is downloaded at the specified download location and
+        we return that one.
+
+        :return: a path to the image
+        """
         log.info("Downloading the image...")
+
+        if self._url.startswith("file://"):
+            log.info("Nothing to download.")
+            return self._url.removeprefix("file://")
 
         with requests_session() as session:
             try:
@@ -75,6 +86,8 @@ class DownloadImageTask(Task):
                 raise PayloadInstallationError(
                     "Error while downloading the image: {}".format(e)
                 ) from e
+
+        return self._download_path
 
     def _send_request(self, session):
         """Send a GET request to the image URL."""
@@ -100,7 +113,7 @@ class DownloadImageTask(Task):
             download = self._stream_download
 
         # Download the image to a file.
-        with open(self._image_path, "wb") as image_file:
+        with open(self._download_path, "wb") as image_file:
             download(response, image_file)
 
     def _get_content_length(self, response):
@@ -444,10 +457,10 @@ class InstallFromImageTask(Task):
 class RemoveImageTask(Task):
     """Task to remove the downloaded image."""
 
-    def __init__(self, image_path):
+    def __init__(self, download_path):
         """Create a new task."""
         super().__init__()
-        self._image_path = image_path
+        self._download_path = download_path
 
     @property
     def name(self):
@@ -456,6 +469,9 @@ class RemoveImageTask(Task):
 
     def run(self):
         """Run the task."""
-        if os.path.exists(self._image_path):
-            log.debug("Removing the image at %s.", self._image_path)
-            os.unlink(self._image_path)
+        if not os.path.exists(self._download_path):
+            log.info("Nothing to remove.")
+            return
+
+        log.debug("Removing the downloaded image at %s.", self._download_path)
+        os.unlink(self._download_path)

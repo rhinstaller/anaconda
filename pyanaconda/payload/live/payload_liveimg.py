@@ -42,7 +42,8 @@ class LiveImagePayload(Payload):
         self._min_size = 0
         self._kernel_version_list = []
         self._install_tree_path = ""
-        self.image_path = conf.target.system_root + "/disk.img"
+        self._download_path = conf.target.system_root + "/disk.img"
+        self.image_path = ""
 
     def set_from_opts(self, opts):
         """Set the payload from the Anaconda cmdline options.
@@ -103,15 +104,12 @@ class LiveImagePayload(Payload):
         """
         source_data = self._get_source_configuration()
 
-        if self.data.liveimg.url.startswith("file://"):
-            self.image_path = self.data.liveimg.url[7:]
-        else:
-            task = DownloadImageTask(
-                configuration=source_data,
-                image_path=self.image_path
-            )
-            task.progress_changed_signal.connect(self._progress_cb)
-            task.run()
+        task = DownloadImageTask(
+            configuration=source_data,
+            download_path=self._download_path
+        )
+        task.progress_changed_signal.connect(self._progress_cb)
+        self.image_path = task.run()
 
         # Verify the checksum.
         task = VerifyImageChecksum(
@@ -160,9 +158,8 @@ class LiveImagePayload(Payload):
         task = TearDownMountTask(INSTALL_TREE)
         task.run()
 
-        if not self.data.liveimg.url.startswith("file://"):
-            task = RemoveImageTask(self.image_path)
-            task.run()
+        task = RemoveImageTask(self._download_path)
+        task.run()
 
     @property
     def space_required(self):

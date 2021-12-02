@@ -309,52 +309,71 @@ class DownloadImageTaskTestCase(unittest.TestCase):
             self.directory = None
 
     @property
-    def target_path(self):
-        """Get a path to the target image."""
-        return join_paths(self.directory, "target")
+    def image_path(self):
+        """Get a path to the local image."""
+        return join_paths(self.directory, "source.img")
+
+    @property
+    def download_path(self):
+        """Get a path to the downloaded image."""
+        return join_paths(self.directory, "target.img")
+
+    @staticmethod
+    def patch_requests():
+        """Patch the requests session object."""
+        return patch(
+            "pyanaconda.modules.payloads.payload.live_image.installation.requests_session"
+        )
 
     def _run_task(self):
         """Run the task."""
         task = DownloadImageTask(
             configuration=self.data,
-            image_path=self.target_path
+            download_path=self.download_path
         )
         task.progress_changed_signal.connect(self.callback)
-        task.run()
+        return task.run()
 
-    def _run_task_for_local_file(self):
-        """Run the task with local files."""
+    def _download_local_file_as_remote(self, set_content_length):
+        """Run the task with a local file as a remote."""
         with self._create_directory():
-            source_path = join_paths(self.directory, "source")
-            self.data.url = "file://{}".format(source_path)
+            self.data.url = "fake://{}".format(self.image_path)
 
             # Create a 4MB source image.
-            with open(source_path, "wb") as f:
+            with open(self.image_path, "wb") as f:
                 f.seek(1024 * 1024 * 4 - 1)
                 f.write(b'1')
 
-            self._run_task()
+            with self.patch_requests() as session_getter:
+                session = requests.Session()
+                session.mount("fake://", FileAdapter(
+                    set_content_length=set_content_length
+                ))
+                session_getter.return_value = session
+
+                assert self._run_task() == self.download_path
 
             # Check the target image.
-            with open(source_path, "rb") as f1:
-                with open(self.target_path, "rb") as f2:
+            with open(self.image_path, "rb") as f1:
+                with open(self.download_path, "rb") as f2:
                     assert f1.read() == f2.read()
 
-    @patch("pyanaconda.modules.payloads.payload.live_image.installation.requests_session")
-    def test_local_file_direct(self, session_getter):
-        """Download a local file directly."""
-        session = requests.Session()
-        session.mount("file://", FileAdapter(set_content_length=False))
-        session_getter.return_value = session
+    def test_local_file(self):
+        """Download a local file."""
+        with self._create_directory():
+            self.data.url = "file://{}".format(self.image_path)
+            assert self._run_task() == self.image_path
 
-        self._run_task_for_local_file()
+    def test_local_file_as_remote_direct(self):
+        """Download a local file as a remote file directly."""
+        self._download_local_file_as_remote(set_content_length=False)
         self.callback.assert_called_once_with(
             0, 'Downloading {}'.format(self.data.url)
         )
 
-    def test_local_file_stream(self):
-        """Download a local file as a stream."""
-        self._run_task_for_local_file()
+    def test_local_file_as_remote_stream(self):
+        """Download a local file as a remote stream."""
+        self._download_local_file_as_remote(set_content_length=True)
         assert self.callback.mock_calls == [
             call(0, 'Downloading {} (0%)'.format(self.data.url)),
             call(0, 'Downloading {} (25%)'.format(self.data.url)),
@@ -363,9 +382,9 @@ class DownloadImageTaskTestCase(unittest.TestCase):
             call(0, 'Downloading {} (100%)'.format(self.data.url)),
         ]
 
-    @patch("pyanaconda.modules.payloads.payload.live_image.installation.requests_session")
+    @patch_requests()
     def test_remote_file_direct(self, session_getter):
-        """Mock download of a remote file"""
+        """Mock download of a remote file."""
         # Set up the response.
         session = session_getter.return_value.__enter__.return_value
         response = session.get.return_value
@@ -379,7 +398,7 @@ class DownloadImageTaskTestCase(unittest.TestCase):
             self.data.ssl_verification_enabled = False
             self._run_task()
 
-            with open(self.target_path, "rb") as f:
+            with open(self.download_path, "rb") as f:
                 assert f.read() == b"CONTENT"
 
         # Check the calls.
@@ -398,9 +417,9 @@ class DownloadImageTaskTestCase(unittest.TestCase):
             0, 'Downloading http://source'
         )
 
-    @patch("pyanaconda.modules.payloads.payload.live_image.installation.requests_session")
+    @patch_requests()
     def test_remote_file_failed(self, session_getter):
-        """Fail to download a remote file."""
+        """Mock a failed download of a remote file."""
         # Set up the response.
         session = session_getter.return_value.__enter__.return_value
         response = session.get.return_value
