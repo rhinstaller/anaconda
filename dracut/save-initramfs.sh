@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # save-initramfs - save a copy of initramfs for shutdown/eject, if needed
 
 command -v config_get >/dev/null || . /lib/anaconda-lib.sh

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # parse-anaconda-net.sh - parse old deprecated anaconda network setup args
 
 net_conf=/etc/cmdline.d/75-anaconda-network-options.conf

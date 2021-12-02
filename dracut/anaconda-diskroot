@@ -10,7 +10,7 @@ run_checkisomd5() {
     livedev=$1
     if getargbool 0 rd.live.check -d check; then
         [ -b "$livedev" ] && fs=$(blkid -s TYPE -o value "$livedev")
-        if [ "$fs" = "iso9660" -o "$fs" = "udf" ]; then
+        if [ "$fs" = "iso9660" ] || [ "$fs" = "udf" ]; then
             [ -x /bin/plymouth ] && /bin/plymouth --hide-splash
             if [ -n "$DRACUT_SYSTEMD" ]; then
                 p=$(dev_unit_name "$livedev")
@@ -24,7 +24,7 @@ run_checkisomd5() {
                 rc=$?
                 state="inactive"
             fi
-            if [ "$rc" == "1" ]; then
+            if [ "$rc" = "1" ]; then
                 die "CD check failed!"
                 exit 1
             fi
@@ -64,16 +64,16 @@ fi
 # retrigger this script, and we'll mount the disk as normal.
 if str_starts "$kickstart" "cdrom" && [ ! -e /tmp/ks.cfg.done ]; then
     if dev_is_cdrom "$dev"; then
-        > /tmp/anaconda-on-cdrom
+        true > /tmp/anaconda-on-cdrom
         exit 0
     fi
 fi
 
 # If interactive dd has been requested and this is a cdrom, wait to mount it
 # later. The user may want to swap in a driver update cdrom first.
-if [ -e /tmp/dd_interactive -a ! -e /tmp/dd.done ]; then
+if [ -e /tmp/dd_interactive ] && [ ! -e /tmp/dd.done ]; then
     if dev_is_cdrom "$dev"; then
-        > /tmp/anaconda-dd-on-cdrom
+        true > /tmp/anaconda-dd-on-cdrom
         exit 0
     fi
 fi

@@ -1,11 +1,9 @@
 #!/bin/bash
 # fetch-driver-net - fetch driver from the network.
 # runs from the "initqueue/online" hook whenever a net interface comes online
+# initqueue/online hook passes interface name as $1
 
 command -v warn_critical >/dev/null || . /lib/anaconda-lib.sh
-
-# initqueue/online hook passes interface name as $1
-netif="$1"
 
 # No dd_net was requested - exit
 [ -f /tmp/dd_net ] || return 0
@@ -38,6 +36,7 @@ for dd in $DD_NET; do
             info "Fetching RPM driverdisks from $dd directory"
 
             # Following variables are set by nfs_to_var:
+            # shellcheck disable=SC2168  # dracut sources hooks instead of running them
             local nfs="" server="" path="" options="" mntdir=""
             nfs_to_var "$dd"
 

@@ -20,11 +20,11 @@ warn_critical() {
 # ex: product=$(config_get Main Product < /.buildstamp)
 config_get() {
     local section="$1" key="$2" cursec="" k="" v=""
-    while read line; do
+    while read -r line; do
         case "$line" in
             \#*) continue ;;
             \[*\]*) cursec="${line#[}"; cursec="${cursec%%]*}" ;;
-            *=*) k=$(echo "${line%%=*}"); v=$(echo "${line#*=}") ;;
+            *=*) k="${line%%=*}"; v="${line#*=}" ;;
         esac
         if [ "$cursec" = "$section" ] && [ "$k" == "$key" ]; then
             echo "$v"
@@ -34,7 +34,8 @@ config_get() {
 }
 
 find_iso() {
-    local f="" p="" iso="" isodir="$1" tmpmnt=$(mkuniqdir /run/install tmpmnt)
+    local f="" p="" iso="" isodir="$1" tmpmnt=""
+    tmpmnt=$(mkuniqdir /run/install tmpmnt)
     for f in "$isodir"/*.iso; do
         [ -e "$f" ] || continue
         mount -o loop,ro "$f" "$tmpmnt" || continue
@@ -78,7 +79,7 @@ rulesfile="/etc/udev/rules.d/90-anaconda.rules"
 # try to find a usable runtime image from the repo mounted at $mnt.
 # if successful, move the mount(s) to $repodir/$isodir.
 anaconda_live_root_dir() {
-    local img="" iso="" srcdir="" mnt="$1" path="$2"
+    local img="" iso="" mnt="$1" path="$2"
     img=$(find_runtime "$mnt/$path")
     if [ -n "$img" ]; then
         info "anaconda: found $img"
@@ -115,7 +116,7 @@ anaconda_net_root() {
     [ -z "$treeinfo" ] && debug_msg "$(cat /tmp/treeinfo_err)"
 
     # Use the default local path to stage2.
-    if [ -z "$treeinfo" -o -z "$stage2" ]; then
+    if [ -z "$treeinfo" ] || [ -z "$stage2" ]; then
         warn "can't find installer main image path in .treeinfo"
         stage2="images/install.img"
     fi
@@ -154,7 +155,7 @@ anaconda_mount_sysroot() {
             # Also known as flattened SquashFS or directly compressed SquashFS.
             printf "mount -t overlay LiveOS_rootfs \
                    -o lowerdir=/run/rootfsbase,upperdir=/run/overlayfs,workdir=/run/ovlwork \
-                   ${NEWROOT}" > "${hookdir}/mount/01-$$-anaconda.sh"
+                   %s" "${NEWROOT}" > "${hookdir}/mount/01-$$-anaconda.sh"
         else
             # Otherwise, assumption is that /dev/mapper/live-rw should have been created.
             # dracut & systemd only mount things with root=live: so we have to do this ourselves
@@ -194,7 +195,7 @@ unpack_updates_img() {
 copytree() {
     local src="$1" dest="$2"
     mkdir -p "$dest"; dest=$(readlink -f -q "$dest")
-    ( cd "$src"; cp -a . -t "$dest" )
+    ( cd "$src" || return 1; cp -a . -t "$dest" )
 }
 
 disk_to_dev_path() {
@@ -207,8 +208,10 @@ disk_to_dev_path() {
 }
 
 find_mount() {
-    local dev mnt etc wanted_dev="$(readlink -e -q "$1")"
-    while read dev mnt etc; do
+    local dev mnt etc wanted_dev
+    wanted_dev="$(readlink -e -q "$1")"
+    # shellcheck disable=SC2034  # etc eats the rest of line
+    while read -r dev mnt etc; do
         [ "$dev" = "$wanted_dev" ] && echo "$mnt" && return 0
     done < /proc/mounts
     return 1
@@ -255,7 +258,7 @@ tell_user() {
 # print something only in if debug/inst.debug/rd.debug
 debug_msg() {
    if getargbool 0 rd.debug || getargbool 0 debug || getargbool 0 inst.debug; then
-     echo $* >&2
+     echo "$*" >&2
   fi
 }
 
@@ -268,7 +271,8 @@ dev_is_on_disk_with_iso9660() {
     local dev_name="${1}"
 
     # Get the path of the device.
-    local dev_path="$(udevadm info -q path --name "${dev_name}")"
+    local dev_path
+    dev_path="$(udevadm info -q path --name "${dev_name}")"
 
     # Is the device a partition?
     udevadm info -q property --path "${dev_path}" | grep -q 'DEVTYPE=partition' || return 1
@@ -293,7 +297,7 @@ dev_is_on_disk_with_iso9660() {
 # For details see 40network/net-genrules.sh (and the rest of 40network).
 set_neednet() {
     # if there's no netroot, make sure /tmp/net.ifaces exists
-    [ -z "$netroot" ] && >> /tmp/net.ifaces
+    [ -z "$netroot" ] && true >> /tmp/net.ifaces
 }
 
 parse_kickstart() {
@@ -348,6 +352,7 @@ run_kickstart() {
     [ "$root" = "anaconda-kickstart" ] && root=""
 
     # don't look for the kickstart again
+    # shellcheck disable=SC2034  # used by other anaconda-related dracut stuff
     kickstart=""
 
     # re-parse new cmdline stuff from the kickstart
@@ -382,7 +387,7 @@ run_kickstart() {
     # net: re-run online hooks
     if [ "$do_net" ]; then
         # If NetworkManager is used in initramfs
-        if [ -e "$hookdir"/cmdline/*-nm-config.sh ]; then
+        if ls -U "$hookdir"/cmdline/*-nm-config.sh >/dev/null 2>&1 ; then
             # First try to re-run online hooks on any online device.
             # We don't want to reconfigure the network by applying kickstart config
             # so use existing network connections if there are any.
@@ -415,7 +420,7 @@ run_kickstart() {
     fi
 
     # and that's it - we're back to the mainloop.
-    > /tmp/ks.cfg.done # let wait_for_kickstart know that we're done.
+    true > /tmp/ks.cfg.done # let wait_for_kickstart know that we're done.
 }
 
 wait_for_kickstart() {

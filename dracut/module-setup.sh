@@ -72,7 +72,7 @@ install() {
     # timeout script for errors reporting
     inst_hook initqueue/timeout 50 "$moddir/anaconda-error-reporting.sh"
     # python deps for parse-kickstart. DOUBLE WOOOO
-    PYTHONHASHSEED=42 "$moddir/python-deps" "$moddir/parse-kickstart" "$moddir/driver_updates.py" | while read dep; do
+    PYTHONHASHSEED=42 "$moddir/python-deps" "$moddir/parse-kickstart" "$moddir/driver_updates.py" | while read -r dep; do
         case "$dep" in
             *.so) inst_library "$dep" ;;
             *.py) inst_simple "$dep" ;;

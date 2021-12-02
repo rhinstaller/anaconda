@@ -1,3 +1,4 @@
+#!/bin/sh
 # Fix mount loops that prevent unmount/eject.
 #
 # During startup, we mount our repo (e.g. the DVD) at $repodir or $isodir.
