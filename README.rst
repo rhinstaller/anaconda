@@ -8,10 +8,6 @@ Anaconda is the OS installer used by Fedora, RHEL, CentOS and other Linux distri
     :alt: Build status
     :target: https://copr.fedorainfracloud.org/coprs/g/rhinstaller/Anaconda/package/anaconda/
 
-.. image:: https://github.com/rhinstaller/anaconda/workflows/Refresh%20container%20images/badge.svg
-    :alt: Refresh container images
-    :target: https://github.com/rhinstaller/anaconda/actions?query=workflow%3A%22Refresh%2C+container+images%22
-
 .. image:: https://readthedocs.org/projects/anaconda-installer/badge/?version=latest
     :alt: Documentation Status
     :target: https://anaconda-installer.readthedocs.io/en/latest/?badge=latest
