@@ -26,12 +26,10 @@ from contextlib import contextmanager
 
 from pyanaconda.modules.boss.kickstart_manager.element import KickstartElement,\
     TrackedKickstartElements
-from pyanaconda.modules.boss.kickstart_manager.parser import SplitKickstartParser
+from pyanaconda.modules.boss.kickstart_manager.parser import SplitKickstartParser, \
+    VALID_SECTIONS_ANACONDA
 from pykickstart.version import makeVersion
 from pykickstart.errors import KickstartParseError, KickstartError
-
-VALID_SECTIONS_ANACONDA = ["%pre", "%pre-install", "%post", "%onerror", "%traceback",
-                           "%packages", "%addon", "%anaconda"]
 
 KICKSTART1 = """
 text
