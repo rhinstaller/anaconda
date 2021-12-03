@@ -243,9 +243,12 @@ bumpver: po-pull
 srpm: scratch anaconda.spec
 	rpmbuild --define "_sourcedir $(abs_srcdir)" --define "_srcrpmdir $(SRPM_BUILD_DIR)" -bs anaconda.spec
 
-rpms: srpm
+rpms: cockpit srpm
 	rpmbuild --rebuild --define "_rpmdir $(RPM_BUILD_DIR)" $(SRPM_BUILD_DIR)/anaconda-*.src.rpm
 	mv "$(RPM_BUILD_DIR)"/*/*.rpm "$(RPM_BUILD_DIR)" # move rpms from per-architecture subdirectory
+
+cockpit:
+	cd ${builddir}/pyanaconda/ui/cockpit/anaconda-webui && npm i && make dist-gzip && cp *.tar.gz $(abs_srcdir) && cd $(builddir)
 
 # GUI TESTING
 runglade:
