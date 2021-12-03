@@ -74,7 +74,7 @@ jobs:
           echo -e "Anaconda release $RELEASE_NAME.\n\n" > release.txt
 
           # find version tags
-          CURRENT_VERSION=${{ github.ref }}
+          CURRENT_VERSION="anaconda-$RELEASE_NAME-1"
           PREVIOUS_VERSION="$(git describe --tags --abbrev=0 --exclude="$CURRENT_VERSION")"
 
           # print commit details; skip the last = release commit
