@@ -73,6 +73,7 @@ def setenv(name, value):
 
 def augmentEnv():
     env = os.environ.copy()
+    # FIXME: Remove the support for the ANA_INSTALL_PATH variable.
     env.update({"ANA_INSTALL_PATH": conf.target.system_root})
     env.update(_child_env)
     return env
