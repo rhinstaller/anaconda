@@ -47,7 +47,7 @@ from pyanaconda.modules.storage.partitioning.interactive.scheduler_module import
 from pyanaconda.modules.storage.devicetree import create_storage
 
 from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation, \
-    check_dbus_object_creation
+    check_dbus_object_creation, reset_dbus_container
 
 
 class InteractivePartitioningInterfaceTestCase(unittest.TestCase):
@@ -94,7 +94,7 @@ class InteractivePartitioningInterfaceTestCase(unittest.TestCase):
     @patch_dbus_publish_object
     def test_get_device_tree(self, publisher):
         """Test GetDeviceTree."""
-        DeviceTreeContainer._counter = 0
+        reset_dbus_container(DeviceTreeContainer)
         self.module.on_storage_changed(create_storage())
 
         tree_path = self.interface.GetDeviceTree()

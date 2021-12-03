@@ -48,7 +48,8 @@ from pyanaconda.modules.storage.partitioning.interactive.interactive_module impo
 from pyanaconda.modules.storage.devicetree import create_storage
 from pyanaconda.modules.storage.platform import S390
 from tests.unit_tests.pyanaconda_tests import check_kickstart_interface, check_task_creation, \
-    patch_dbus_publish_object, check_dbus_property, patch_dbus_get_proxy, reset_boot_loader_factory
+    patch_dbus_publish_object, check_dbus_property, patch_dbus_get_proxy, \
+    reset_boot_loader_factory, reset_dbus_container
 
 from pyanaconda.modules.storage.bootloader.grub2 import IPSeriesGRUB2, GRUB2
 from pyanaconda.modules.storage.bootloader.zipl import ZIPL
@@ -151,7 +152,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
     @patch_dbus_publish_object
     def test_create_partitioning(self, published):
         """Test CreatePartitioning."""
-        PartitioningContainer._counter = 0
+        reset_dbus_container(PartitioningContainer)
 
         path = self.storage_interface.CreatePartitioning(PARTITIONING_METHOD_AUTOMATIC)
         assert path == "/org/fedoraproject/Anaconda/Modules/Storage/Partitioning/1"
@@ -182,7 +183,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
     @patch_dbus_publish_object
     def test_created_partitioning(self, publisher):
         """Test the property CreatedPartitioning."""
-        PartitioningContainer._counter = 0
+        reset_dbus_container(PartitioningContainer)
 
         self._check_dbus_property(
             "CreatedPartitioning",
