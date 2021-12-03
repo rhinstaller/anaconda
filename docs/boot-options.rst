@@ -2,7 +2,7 @@ Anaconda Boot Options
 =====================
 
 :Authors:
-    Anaconda Developers <anaconda-devel-list@redhat.com>
+    Anaconda Developers <anaconda-devel@lists.fedoraproject.org>
     Will Woods <wwoods@redhat.com>
     Anne Mulhern <amulhern@redhat.com>
 

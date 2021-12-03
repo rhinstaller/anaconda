@@ -22,7 +22,7 @@ ARG git_branch
 #   @rhinstaller/Anaconda
 #   @rhinstaller/Anaconda-devel
 ARG copr_repo
-LABEL maintainer=anaconda-list@redhat.com
+LABEL maintainer=anaconda-devel@lists.fedoraproject.org
 
 # On ELN, BaseOS+AppStream don't have all our build dependencies; this provides the "Everything" compose
 COPY ["eln.repo", "/etc/yum.repos.d"]
