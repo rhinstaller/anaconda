@@ -72,7 +72,7 @@ if [ -z "$(sestatus | grep enabled)" ]; then
 fi
 
 # Process cmdline args
-for opt in `cat /proc/cmdline` $*; do
+for opt in $(cat /proc/cmdline) "$@"; do
     case $opt in
     xdriver=*)
         ANACONDA="$ANACONDA --$opt"
@@ -125,11 +125,11 @@ for opt in `cat /proc/cmdline` $*; do
 done
 
 # unmount anything that shouldn't be mounted prior to install
-anaconda-cleanup $ANACONDA $*
+anaconda-cleanup "$ANACONDA" "$@"
 
 # Set up the updates, if provided.
 if [ ! -z "$UPDATES" ]; then
-    curl -o /tmp/updates.img $UPDATES
+    curl -o /tmp/updates.img "$UPDATES"
 
     # We officially support two updates.img formats:  a filesystem image, and
     # a compressed cpio blob.
@@ -145,7 +145,7 @@ if [ ! -z "$UPDATES" ]; then
 
 fi
 
-if [ -z $LC_ALL ]; then
+if [ -z "$LC_ALL" ]; then
     # LC_ALL not set, set it to $LANG to make Python's default encoding
     # detection work
     export LC_ALL=$LANG
@@ -155,9 +155,9 @@ fi
 export GDK_BACKEND=x11
 
 if [ -x /usr/bin/udisks ]; then
-    /usr/bin/udisks --inhibit -- $ANACONDA $*
+    /usr/bin/udisks --inhibit -- "$ANACONDA" "$@"
 else
-    $ANACONDA $*
+    $ANACONDA "$@"
 fi
 
 if [ -e /tmp/updates.img ]; then rm /tmp/updates.img; fi
@@ -170,5 +170,5 @@ fi
 rm -f /dev/.in_sysinit 2>/dev/null
 
 if [ -n "$current" ]; then
-    /usr/sbin/setenforce $current
+    /usr/sbin/setenforce "$current"
 fi
