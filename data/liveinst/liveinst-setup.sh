@@ -2,7 +2,7 @@
 # Set up a launcher on the desktop for the live installer if we're on
 # a live CD
 
-if [ ! \( -b /dev/mapper/live-base -o -b /dev/mapper/live-osimg-min \) ]; then
+if [ ! -b /dev/mapper/live-base ] && [ ! -b /dev/mapper/live-osimg-min ]; then
     exit 0
 fi
 
