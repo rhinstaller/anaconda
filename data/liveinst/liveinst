@@ -18,19 +18,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-LIVE_INSTALL=0
 IMAGE_INSTALL=0
-
-if [ -z "$LIVECMD" ]; then
-    LIVE_INSTALL=1
-fi
-
 if [[ "$LIVECMD $*" =~ "--image" ]]; then
     IMAGE_INSTALL=1
-fi
-
-if [[ "$LIVECMD $*" =~ "--liveinst" ]]; then
-    LIVE_INSTALL=1
 fi
 
 # Allow running another command in the place of anaconda, but in this same
