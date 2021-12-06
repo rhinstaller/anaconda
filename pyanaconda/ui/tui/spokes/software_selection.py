@@ -141,7 +141,7 @@ class SoftwareSpoke(NormalTUISpoke):
     @property
     def _source_is_set(self):
         """Is the installation source set?"""
-        return self.payload.base_repo is not None
+        return self.payload.is_ready()
 
     @property
     def _source_has_changed(self):

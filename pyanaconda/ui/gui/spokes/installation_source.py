@@ -500,7 +500,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             self.set_source_hdd_iso(partition, "/" + self._current_iso_file)
         elif self._mirror_active():
             if source_type == SOURCE_TYPE_CLOSEST_MIRROR \
-                    and self.payload.base_repo \
+                    and self.payload.is_ready() \
                     and not self._proxy_change \
                     and not self._updates_change:
                 return False
@@ -628,7 +628,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         source_proxy = self.payload.get_source_proxy()
         if source_proxy.Type == SOURCE_TYPE_CDN:
             return True
-        elif flags.automatedInstall and self.ready and not self.payload.base_repo:
+        elif flags.automatedInstall and self.ready and not self.payload.is_ready():
             return False
 
         return not self._error and self.ready and self.payload.is_complete()
@@ -678,7 +678,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             return _("Checking software dependencies...")
         elif not self.ready:
             return _(BASEREPO_SETUP_MESSAGE)
-        elif not self.payload.base_repo:
+        elif not self.payload.is_ready():
             return _("Error setting up base repository")
         elif self._error:
             return _("Error setting up software source")

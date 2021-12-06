@@ -707,6 +707,15 @@ class DNFManager(object):
         with self._lock:
             return [r.id for r in self._base.repos.values()]
 
+    @property
+    def enabled_repositories(self):
+        """Enabled repositories.
+
+        :return: a list of IDs
+        """
+        with self._lock:
+            return [r.id for r in self._base.repos.iter_enabled()]
+
     def _get_repository(self, repo_id):
         """Translate the given repository name to a DNF object.
 

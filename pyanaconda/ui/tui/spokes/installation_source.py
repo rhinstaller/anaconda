@@ -127,7 +127,7 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
 
     @property
     def completed(self):
-        if flags.automatedInstall and self.ready and not self.payload.base_repo:
+        if flags.automatedInstall and self.ready and not self.payload.is_ready():
             return False
 
         return not self._error and self.ready and self.payload.is_complete()
