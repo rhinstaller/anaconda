@@ -42,12 +42,15 @@ ANACONDA="${LIVECMD:=anaconda --liveinst --graphical}"
 for i in raid0 raid1 raid5 raid6 raid456 raid10 dm-mod dm-zero dm-mirror dm-snapshot dm-multipath dm-round-robin vfat dm-crypt cbc sha256 lrw xts iscsi_tcp iscsi_ibft; do /sbin/modprobe $i 2>/dev/null ; done
 
 if [ -f /etc/system-release ]; then
-    export ANACONDA_PRODUCTNAME=$( cat /etc/system-release | sed -r -e 's/ *release.*//' )
-    export ANACONDA_PRODUCTVERSION=$( cat /etc/system-release | sed -r -e 's/^.* ([0-9\.]+).*$/\1/' )
+    export ANACONDA_PRODUCTNAME
+    ANACONDA_PRODUCTNAME=$(sed -r -e 's/ *release.*//' /etc/system-release)
+    export ANACONDA_PRODUCTVERSION
+    ANACONDA_PRODUCTVERSION=$(sed -r -e 's/^.* ([0-9\.]+).*$/\1/' /etc/system-release)
 fi
 
 if [ $IMAGE_INSTALL = 1 ]; then
-    export ANACONDA_PRODUCTVERSION=$(rpmquery -q --qf '%{VERSION}' anaconda | cut -d. -f1)
+    export ANACONDA_PRODUCTVERSION
+    ANACONDA_PRODUCTVERSION=$(rpmquery -q --qf '%{VERSION}' anaconda | cut -d. -f1)
 fi
 
 RELEASE=$(rpm -q --qf '%{Release}' --whatprovides system-release)
