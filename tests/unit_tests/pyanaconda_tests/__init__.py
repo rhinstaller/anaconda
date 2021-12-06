@@ -291,6 +291,16 @@ def patch_dbus_get_proxy_with_cache(func):
     return patch('pyanaconda.core.dbus.DBus.get_proxy', side_effect=mock_get)(func)
 
 
+def reset_dbus_container(container):
+    """Reset a DBus container.
+
+    :param DBusContainer container: a container to reset
+    """
+    container._container = {}
+    container._published = set()
+    container._counter = 0
+
+
 class reset_boot_loader_factory(ContextDecorator):
     """Reset the boot loader factory.
 
