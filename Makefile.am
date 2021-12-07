@@ -373,12 +373,12 @@ tests-pylint:
 	$(MAKE)
 	$(MAKE) TMPDIR=/var/tmp TEST_SUITE_LOG=test-suite.log TESTS=pylint/runpylint.py check
 
-tests-nose-only:
+tests-unit-only:
 	@mkdir -p $(USER_SITE_PACKAGES)
 	@cp $(abs_builddir)/tests/usercustomize.py $(USER_SITE_PACKAGES)
 	$(MAKE)
 	$(MAKE) -C $(srcdir) TMPDIR=/var/tmp COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc \
-		TEST_SUITE_LOG=test-suite.log TESTS=nosetests.sh \
+		TEST_SUITE_LOG=test-suite.log TESTS=unit_tests.sh \
 		PYTHONUSERBASE=$(USER_SITE_BASE) check
 	@rm -rf $(USER_SITE_BASE)
 	$(MAKE) coverage-report

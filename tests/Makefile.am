@@ -19,14 +19,15 @@
 # same python environment. $top_srcdir and $top_builddir are added to the
 # environment so that tests can get their bearings. Tests need to be aware that
 # they may be run from within an arbitrary working directory.
-# 
+#
 # While automake claims that it doesn't support wildcards anywhere, they really
 # mean it with the parallel test harness. Rather than reverting back to the
-# serial harness, all of the nosetests-based checks will be run serially by
-# nosetests.sh. This script can be run in parallel with the other test scripts,
+# serial harness, all of the unit tests based checks will be run serially by
+# unit_tests.sh. This script can be run in parallel with the other test scripts,
 # such as pylint.
 #
-# nosetests will be run for any python files found in a directory matching *_tests
+# unit tests will be run for any python files with prefix "test" found in the
+# tests/unit_tests directory
 
 AM_TESTS_ENVIRONMENT = top_srcdir="$(abs_top_srcdir)" top_builddir="$(abs_top_builddir)" ; . $(srcdir)/testenv.sh ;
 TEST_EXTENSIONS = .sh
@@ -38,16 +39,15 @@ EXTRA_DIST = README.rst usercustomize.py
 EXTRA_DIST += $(top_srcdir)/translation-canary/translation_canary/*.py \
 	      $(top_srcdir)/translation-canary/translation_canary/*/*.py
 
-NOSE_TESTS_ARGS ?= ""
+UNIT_TESTS_PATTERN ?= ""
 RPM_TESTS_ARGS ?= ""
 PEP8_TARGETS ?= ""
 
 # Test scripts need to be listed both here and in TESTS
-dist_check_SCRIPTS = $(srcdir)/glade/*.py \
+dist_check_SCRIPTS = $(srcdir)/glade_tests/*.py \
 		     $(srcdir)/lib/*.py \
 		     $(srcdir)/lib/*.sh \
-		     nosetests.sh \
-		     nosetests_root.sh \
+		     unit_tests.sh \
 		     rpm_tests.sh \
 		     pylint/runpylint.py \
 		     cppcheck/runcppcheck.sh \
@@ -55,17 +55,17 @@ dist_check_SCRIPTS = $(srcdir)/glade/*.py \
 		     $(srcdir)/gettext_tests/*.py \
 		     gettext_tests/canary_tests.sh \
 		     $(srcdir)/*_tests/*.py \
-		     $(srcdir)/nosetests/*_tests/*.py \
+		     $(srcdir)/unit_tests/*_tests/*.py \
 		     pep8/runpep8.sh
 
-TESTS = nosetests.sh \
+TESTS = unit_tests.sh \
 	pylint/runpylint.py \
 	cppcheck/runcppcheck.sh \
 	gettext_tests/click.py \
 	gettext_tests/style_guide.py \
 	gettext_tests/contexts.py \
 	gettext_tests/canary_tests.sh \
-	glade/run_glade_tests.py
+	glade_tests.sh
 
 clean-local:
 	-rm -rf pylint/.pylint.d

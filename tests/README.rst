@@ -24,9 +24,12 @@ running::
 
 This will run all the tests, including Python test coverage reports. To run
 just some tests you can pass parameters which will replace the current one. For
-example to run just some nose-tests please do this::
+example to run just some unit tests please do this::
 
-    make -f Makefile.am container-ci CI_CMD="make tests-nose-only NOSE_TESTS_ARGS=nosetests/pyanaconda_tests/kernel_test.py"
+    make -f Makefile.am container-ci CI_CMD="make tests-units-only UNIT_TESTS_PATTERN='test_layout_variant_'"
+
+The ``UNIT_TESTS_PATTERN`` variable is passed to `unittest discover -k`_. See
+the documentation for more info.
 
 WARNING:
 
@@ -61,12 +64,15 @@ Executing the tests can be done with::
 
 To run a single test do::
 
-    make TESTS=nosetests.sh check
+    make TESTS=unit_tests.sh check
 
 
-To run a subset of nose tests do::
+To run a subset of unit tests do::
 
-    make TESTS=nosetests.sh NOSE_TESTS_ARGS="nosetests/pyanaconda_tests/keyboard_test.py nosetests/pyanaconda_tests/timezone_test.py" check
+    make TESTS=unit_tests.sh UNIT_TESTS_PATTERN='test_layout_variant_' check
+
+The ``UNIT_TESTS_PATTERN`` variable is passed to `unittest discover -k`_. See
+the documentation for more info.
 
 See `tests/Makefile.am` for possible values. Alternatively you can try::
 
@@ -235,19 +241,19 @@ represents a different class of tests. They are
 
 - *cppcheck/* - static C/C++ code analysis using the *cppcheck* tool;
 - *dd_tests/* - Python unit tests for driver disk utilities (utils/dd);
-- *nosetests/dracut_tests/* - Python unit tests for the dracut hooks used to configure the
+- *unit_tests/dracut_tests/* - Python unit tests for the dracut hooks used to configure the
   installation environment and load Anaconda;
 - *gettext/* - sanity tests of files used for translation; Written in Python and
   Bash;
-- *glade/* - sanity tests for .glade files. Written in Python;
+- *glade_tests/* - sanity tests for .glade files. Written in Python;
 - *rpm_tests/* - basic RPM sanity test. Checks if anaconda.rpm can be installed in
   a temporary directory without failing dependencies or other RPM issues and checks if
   all files are correctly present in the RPM;
 - *lib/* - helper modules used during testing;
-- *nosetests/pyanaconda_tests/* - unit tests for the :mod:`pyanaconda` module;
+- *unit_tests/pyanaconda_tests/* - unit tests for the :mod:`pyanaconda` module;
 - *pylint/* - checks the validity of Python source code using the *pocketlint*
   tool;
-- *nosetests/regex_tests/* - Python unit tests for regular expressions defined in
+- *unit_tests/regex_tests/* - Python unit tests for regular expressions defined in
   :mod:`pyanaconda.regexes`;
 
 .. NOTE::
@@ -260,6 +266,7 @@ represents a different class of tests. They are
 
 .. _kickstart-tests: https://github.com/rhinstaller/kickstart-tests
 .. _quay.io: https://quay.io/repository/rhinstaller/anaconda-ci
+.. _unittest discover -k: https://docs.python.org/3/library/unittest.html#cmdoption-unittest-k
 .. _GitHub workflows: https://docs.github.com/en/free-pro-team@latest/actions
 .. _validate.yml workflow: ../.github/workflows/validate.yml
 .. _validate-rhel-8.yml workflow: ../.github/workflows/validate-rhel-8.yml
