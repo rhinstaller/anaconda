@@ -18,7 +18,7 @@
 scriptsdir = $(libexecdir)/$(PACKAGE_NAME)
 dist_scripts_SCRIPTS = run-anaconda anaconda-pre-log-gen log-capture start-module apply-updates
 
-dist_noinst_SCRIPTS  = upd-kernel makeupdates makebumpver
+dist_noinst_SCRIPTS  = makeupdates makebumpver
 
 dist_bin_SCRIPTS = analog anaconda-cleanup instperf anaconda-disable-nm-ibft-plugin
 
