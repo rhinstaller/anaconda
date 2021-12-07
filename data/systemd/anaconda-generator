@@ -18,7 +18,7 @@ mkdir -p $target_dir
 service_on_tty() {
     local service="$1" tty="$2"
     local service_instance="${service/@.service/@$tty.service}"
-    ln -sf $systemd_dir/$service $target_dir/$service_instance
+    ln -sf "$systemd_dir/$service" "$target_dir/$service_instance"
 }
 
 # find the real tty for /dev/console
@@ -30,7 +30,7 @@ done
 consoletty="$tty"
 
 # put anaconda's tmux session on the console
-service_on_tty anaconda-tmux@.service $consoletty
+service_on_tty anaconda-tmux@.service "$consoletty"
 
 # put a shell on the first virtualization console we find
 for tty in hvc0 hvc1 xvc0 hvsi0 hvsi1 hvsi2; do
