@@ -261,7 +261,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="admin_checkbox">
-                        <property name="label" translatable="yes" context="GUI|User">_Make this user administrator</property>
+                        <property name="label" translatable="yes" context="GUI|User">Add ad_ministrative privileges to this user account (wheel group membership)</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">False</property>
