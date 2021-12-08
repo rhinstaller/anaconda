@@ -14,10 +14,6 @@ URL:     http://fedoraproject.org/wiki/Anaconda
 # ./autogen.sh
 # make dist
 Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{version}-1/%{name}-%{version}.tar.bz2
-%if %use_cockpit
-# TODO: add version
-Source1: %{name}-webui.tar.gz
-%endif
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -332,9 +328,6 @@ runtime on NFS/HTTP/FTP servers or local disks.
 %install
 %{make_install}
 find %{buildroot} -type f -name "*.la" | xargs %{__rm}
-
-# install cockpit dist targz
-tar --strip-components=1 -xzf %{SOURCE1} -C %{buildroot}
 
 # Create an empty directory for addons
 mkdir %{buildroot}%{_datadir}/anaconda/addons
