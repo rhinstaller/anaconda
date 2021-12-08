@@ -18,10 +18,25 @@
 #
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.i18n import _
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.structures.user import UserData
 
 log = get_module_logger(__name__)
+
+
+def get_root_configuration_status(users_module):
+    """Get the status of the root configuration.
+
+    :param users_module: a DBus proxy of the Users module
+    :return: a translated message
+    """
+    if users_module.IsRootAccountLocked:
+        return _("Root account is disabled")
+    elif users_module.IsRootPasswordSet:
+        return _("Root password is set")
+    else:
+        return _("Root password is not set")
 
 
 def can_modify_root_configuration(users_module):
