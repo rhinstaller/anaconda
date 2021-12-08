@@ -191,7 +191,6 @@ class BootLoader(object):
     def __init__(self):
         super().__init__()
         self.boot_args = BootLoaderArguments()
-        self.dracut_args = BootLoaderArguments()
 
         # the device the bootloader will be installed on
         self.stage1_device = None
@@ -849,7 +848,6 @@ class BootLoader(object):
                     continue
 
                 self.boot_args.update(setup_args)
-                self.dracut_args.update(setup_args)
 
                 # network configuration arguments
                 if isinstance(dep, NetworkStorageDevice):
@@ -878,7 +876,6 @@ class BootLoader(object):
                         )
 
                     self.boot_args.update(network_args)
-                    self.dracut_args.update(network_args)
 
         # This is needed for FCoE, bug #743784. The case:
         # We discover LUN on an iface which is part of multipath setup.
@@ -930,7 +927,6 @@ class BootLoader(object):
                 args = ["rhgb", "quiet"]
 
         self.boot_args.update(args)
-        self.dracut_args.update(args)
 
     def _set_security_boot_args(self):
         """Set LSM-related boot args."""
