@@ -951,6 +951,19 @@ class DNFManagerReposTestCase(unittest.TestCase):
 
         assert self.dnf_manager.enabled_repositories == ["r2", "r4"]
 
+    def test_set_repository_enabled(self):
+        """Test the set_repository_enabled function."""
+        self._add_repo("r1")
+
+        self.dnf_manager.set_repository_enabled("r1", True)
+        assert "r1" in self.dnf_manager.enabled_repositories
+
+        self.dnf_manager.set_repository_enabled("r1", False)
+        assert "r1" not in self.dnf_manager.enabled_repositories
+
+        with pytest.raises(UnknownRepositoryError):
+            self.dnf_manager.set_repository_enabled("r2", True)
+
     def test_add_repository_default(self):
         """Test the add_repository method with defaults."""
         data = RepoConfigurationData()

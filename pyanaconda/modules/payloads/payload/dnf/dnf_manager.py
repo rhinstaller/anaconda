@@ -816,6 +816,22 @@ class DNFManager(object):
 
         return repo
 
+    def set_repository_enabled(self, repo_id, enabled):
+        """Enable or disable the specified repository.
+
+        :param repo_id: an identifier of a repository
+        :param enabled: True to enable, False to disable
+        :raise: UnknownRepositoryError if no repo is found
+        """
+        repo = self._get_repository(repo_id)
+
+        if enabled:
+            repo.enable()
+            log.info("The '%s' repository is enabled.", repo_id)
+        else:
+            repo.disable()
+            log.info("The '%s' repository is disabled.", repo_id)
+
     def load_repository(self, repo_id):
         """Download repo metadata.
 
