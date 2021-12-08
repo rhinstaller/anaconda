@@ -61,7 +61,8 @@ export const Application = () => {
                                             isChecked={timezoneProps[prop]}
                                             label='On'
                                             labelOff='Off'
-                                            onChange={enabled => timezoneProxy.SetNTPEnabled(enabled)} />
+                                            onChange={enabled => timezoneProxy.SetNTPEnabled(enabled)}
+                                        />
                                         : timezoneProps[prop].toString()}
                                 </DescriptionListDescription>
                             </DescriptionListGroup>
