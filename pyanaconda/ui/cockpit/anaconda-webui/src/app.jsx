@@ -32,18 +32,18 @@ export const Application = () => {
     const [address, setAddress] = useState();
 
     const timezoneProxy = useObject(() => {
-        const client = cockpit.dbus("org.fedoraproject.Anaconda.Modules.Timezone", { superuser: "try", bus: "none", address });
+        const client = cockpit.dbus('org.fedoraproject.Anaconda.Modules.Timezone', { superuser: 'try', bus: 'none', address });
         const proxy = client.proxy(
-            "org.fedoraproject.Anaconda.Modules.Timezone",
-            "/org/fedoraproject/Anaconda/Modules/Timezone",
+            'org.fedoraproject.Anaconda.Modules.Timezone',
+            '/org/fedoraproject/Anaconda/Modules/Timezone',
         );
         setTimezoneProps(proxy.data);
 
         return proxy;
     }, null, [address]);
 
-    useEvent(timezoneProxy, "changed", (event, data) => setTimezoneProps(data));
-    useEffect(() => cockpit.file("/run/anaconda/bus.address").watch(setAddress), []);
+    useEvent(timezoneProxy, 'changed', (event, data) => setTimezoneProps(data));
+    useEffect(() => cockpit.file('/run/anaconda/bus.address').watch(setAddress), []);
 
     return (
         <Card>
@@ -56,11 +56,11 @@ export const Application = () => {
                             <DescriptionListGroup key={prop}>
                                 <DescriptionListTerm>{prop}</DescriptionListTerm>
                                 <DescriptionListDescription>
-                                    {prop === "NTPEnabled"
+                                    {prop === 'NTPEnabled'
                                         ? <Switch
                                             isChecked={timezoneProps[prop]}
-                                            label="On"
-                                            labelOff="Off"
+                                            label='On'
+                                            labelOff='Off'
                                             onChange={enabled => timezoneProxy.SetNTPEnabled(enabled)} />
                                         : timezoneProps[prop].toString()}
                                 </DescriptionListDescription>
