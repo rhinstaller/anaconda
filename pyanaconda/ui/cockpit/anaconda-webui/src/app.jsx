@@ -18,32 +18,57 @@
  */
 
 import cockpit from 'cockpit';
-import React from 'react';
-import { Alert, Card, CardTitle, CardBody } from '@patternfly/react-core';
+import React, { useEffect, useState } from 'react';
+import {
+    Card, CardBody, CardTitle,
+    DescriptionList, DescriptionListGroup, DescriptionListTerm, DescriptionListDescription,
+    Switch,
+} from '@patternfly/react-core';
 
-const _ = cockpit.gettext;
+import { useEvent, useObject } from 'hooks';
 
-export class Application extends React.Component {
-    constructor() {
-        super();
-        this.state = { hostname: _("Unknown") };
+export const Application = () => {
+    const [timezoneProps, setTimezoneProps] = useState();
+    const [address, setAddress] = useState();
 
-        cockpit.file('/etc/hostname').watch(content => {
-            this.setState({ hostname: content.trim() });
-        });
-    }
-
-    render() {
-        return (
-            <Card>
-                <CardTitle>Anaconda Web UI</CardTitle>
-                <CardBody>
-                    <Alert
-                        variant="info"
-                        title={ cockpit.format(_("Running on $0"), this.state.hostname) }
-                    />
-                </CardBody>
-            </Card>
+    const timezoneProxy = useObject(() => {
+        const client = cockpit.dbus("org.fedoraproject.Anaconda.Modules.Timezone", { superuser: "try", bus: "none", address });
+        const proxy = client.proxy(
+            "org.fedoraproject.Anaconda.Modules.Timezone",
+            "/org/fedoraproject/Anaconda/Modules/Timezone",
         );
-    }
-}
+        setTimezoneProps(proxy.data);
+
+        return proxy;
+    }, null, [address]);
+
+    useEvent(timezoneProxy, "changed", (event, data) => setTimezoneProps(data));
+    useEffect(() => cockpit.file("/run/anaconda/bus.address").watch(setAddress), []);
+
+    return (
+        <Card>
+            <CardTitle>Anaconda Web UI</CardTitle>
+            <CardBody>
+                {timezoneProps &&
+                <DescriptionList isHorizontal>
+                    {Object.keys(timezoneProps).map(prop => {
+                        return (
+                            <DescriptionListGroup key={prop}>
+                                <DescriptionListTerm>{prop}</DescriptionListTerm>
+                                <DescriptionListDescription>
+                                    {prop === "NTPEnabled"
+                                        ? <Switch
+                                            isChecked={timezoneProps[prop]}
+                                            label="On"
+                                            labelOff="Off"
+                                            onChange={enabled => timezoneProxy.SetNTPEnabled(enabled)} />
+                                        : timezoneProps[prop].toString()}
+                                </DescriptionListDescription>
+                            </DescriptionListGroup>
+                        );
+                    })}
+                </DescriptionList>}
+            </CardBody>
+        </Card>
+    );
+};
