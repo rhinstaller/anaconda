@@ -21,7 +21,8 @@ from unittest.mock import Mock, patch
 from dasbus.structure import compare_data
 
 from pyanaconda.modules.common.structures.user import UserData
-from pyanaconda.ui.lib.users import get_user_list, set_user_list, can_modify_root_configuration
+from pyanaconda.ui.lib.users import get_user_list, set_user_list, can_modify_root_configuration, \
+    get_root_configuration_status
 
 
 class UsersUITestCase(unittest.TestCase):
@@ -169,3 +170,23 @@ class UsersUITestCase(unittest.TestCase):
         users_module.CanChangeRootPassword = False
 
         assert not can_modify_root_configuration(users_module)
+
+    def test_get_root_configuration_status(self):
+        """Test the get_root_configuration_status function."""
+        users_module = Mock()
+
+        users_module.IsRootAccountLocked = False
+        users_module.IsRootPasswordSet = False
+        assert get_root_configuration_status(users_module) == "Root password is not set"
+
+        users_module.IsRootAccountLocked = False
+        users_module.IsRootPasswordSet = True
+        assert get_root_configuration_status(users_module) == "Root password is set"
+
+        users_module.IsRootAccountLocked = True
+        users_module.IsRootPasswordSet = False
+        assert get_root_configuration_status(users_module) == "Root account is disabled"
+
+        users_module.IsRootAccountLocked = True
+        users_module.IsRootPasswordSet = True
+        assert get_root_configuration_status(users_module) == "Root account is disabled"
