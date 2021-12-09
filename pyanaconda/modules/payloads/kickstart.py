@@ -17,6 +17,9 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.core.constants import URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, URL_TYPE_METALINK, \
+    DNF_DEFAULT_REPO_COST
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pykickstart.errors import KickstartParseError
 from pykickstart.parser import Packages, Group
 from pykickstart.sections import PackageSection
@@ -25,6 +28,80 @@ from pykickstart.constants import KS_BROKEN_IGNORE, GROUP_DEFAULT
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
 from pyanaconda.core.kickstart import KickstartSpecification, commands as COMMANDS
+
+
+def convert_ks_repo_to_repo_data(ks_data):
+    """Convert the kickstart command into a repo configuration.
+
+    :param RepoData ks_data: a kickstart data
+    :return RepoConfigurationData: a repo configuration
+    """
+    if not isinstance(ks_data, COMMANDS.RepoData):
+        raise ValueError("Unexpected kickstart data: {}".format(type(ks_data)))
+
+    repo_data = RepoConfigurationData()
+    repo_data.name = ks_data.name
+
+    if ks_data.baseurl:
+        repo_data.url = ks_data.baseurl
+        repo_data.type = URL_TYPE_BASEURL
+    elif ks_data.mirrorlist:
+        repo_data.url = ks_data.mirrorlist
+        repo_data.type = URL_TYPE_MIRRORLIST
+    elif ks_data.metalink:
+        repo_data.url = ks_data.metalink
+        repo_data.type = URL_TYPE_METALINK
+    else:
+        # Handle the `repo --name=updates` use case.
+        # FIXME: Find a better solution for this use case.
+        repo_data.url = ""
+        repo_data.type = "NONE"
+
+    repo_data.proxy = ks_data.proxy or ""
+    repo_data.cost = ks_data.cost or DNF_DEFAULT_REPO_COST
+    repo_data.included_packages = ks_data.includepkgs
+    repo_data.excluded_packages = ks_data.excludepkgs
+
+    repo_data.ssl_verification_enabled = not ks_data.noverifyssl
+    repo_data.ssl_configuration.ca_cert_path = ks_data.sslcacert or ""
+    repo_data.ssl_configuration.client_cert_path = ks_data.sslclientcert or ""
+    repo_data.ssl_configuration.client_key_path = ks_data.sslclientkey or ""
+
+    return repo_data
+
+
+def convert_repo_data_to_ks_repo(repo_data):
+    """Convert the repo configuration into a kickstart command.
+
+    :param RepoConfigurationData repo_data: a repo configuration
+    :return RepoData: a kickstart data
+    """
+    if not isinstance(repo_data, RepoConfigurationData):
+        raise ValueError("Unexpected data: {}".format(type(repo_data)))
+
+    ks_data = COMMANDS.RepoData()
+    ks_data.name = repo_data.name
+
+    if repo_data.type == URL_TYPE_BASEURL:
+        ks_data.baseurl = repo_data.url
+    elif repo_data.type == URL_TYPE_MIRRORLIST:
+        ks_data.mirrorlist = repo_data.url
+    elif repo_data.type == URL_TYPE_METALINK:
+        ks_data.metalink = repo_data.url
+
+    ks_data.proxy = repo_data.proxy
+    ks_data.noverifyssl = not repo_data.ssl_verification_enabled
+    ks_data.sslcacert = repo_data.ssl_configuration.ca_cert_path
+    ks_data.sslclientcert = repo_data.ssl_configuration.client_cert_path
+    ks_data.sslclientkey = repo_data.ssl_configuration.client_key_path
+
+    if repo_data.cost != DNF_DEFAULT_REPO_COST:
+        ks_data.cost = repo_data.cost
+
+    ks_data.includepkgs = repo_data.included_packages
+    ks_data.excludepkgs = repo_data.excluded_packages
+
+    return ks_data
 
 
 class AnacondaPackageSection(PackageSection):
