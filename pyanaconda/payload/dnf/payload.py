@@ -27,6 +27,7 @@ from pyanaconda.modules.common.errors.installation import NonCriticalInstallatio
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData, \
     PackagesSelectionData
+from pyanaconda.modules.payloads.kickstart import convert_ks_repo_to_repo_data
 from pyanaconda.modules.payloads.payload.dnf.initialization import configure_dnf_logging
 from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
     SetRPMMacrosTask, DownloadPackagesTask, InstallPackagesTask, PrepareDownloadLocationTask, \
@@ -357,75 +358,34 @@ class DNFPayload(Payload):
         :type ksrepo: Kickstart RepoData object.
         :returns: None
         """
-        repo = dnf.repo.Repo(ksrepo.name, self._base.conf)
-        url = self._dnf_manager.substitute(ksrepo.baseurl)
-        mirrorlist = self._dnf_manager.substitute(ksrepo.mirrorlist)
-        metalink = self._dnf_manager.substitute(ksrepo.metalink)
+        data = convert_ks_repo_to_repo_data(ksrepo)
 
-        if url and url.startswith("nfs://"):
-            (server, path) = url[6:].split(":", 1)
-            # DNF is dynamically creating properties which seems confusing for Pylint here
-            # pylint: disable=no-member
-            mountpoint = "%s/%s.nfs" % (constants.MOUNT_DIR, repo.name)
-            self._setup_NFS(mountpoint, server, path, None)
+        # Add the repository.
+        if not self._is_existing_repo_configuration(data):
 
-            url = "file://" + mountpoint
+            # Set up the NFS source with a substituted URL.
+            if data.url.startswith("nfs://"):
+                url = self._dnf_manager.substitute(data.url)
+                (server, path) = url[6:].split(":", 1)
+                mountpoint = "%s/%s.nfs" % (constants.MOUNT_DIR, data.name)
+                self._setup_NFS(mountpoint, server, path, None)
+                data.url = "file://" + mountpoint
 
-        if url:
-            repo.baseurl = [url]
-        if mirrorlist:
-            repo.mirrorlist = mirrorlist
-        if metalink:
-            repo.metalink = metalink
-        repo.sslverify = not ksrepo.noverifyssl and conf.payload.verify_ssl
-        if ksrepo.proxy:
-            try:
-                repo.proxy = ProxyString(ksrepo.proxy).url
-            except ProxyStringError as e:
-                log.error("Failed to parse proxy for _add_repo %s: %s",
-                          ksrepo.proxy, e)
+            self._dnf_manager.add_repository(data)
 
-        if ksrepo.cost:
-            repo.cost = ksrepo.cost
-
-        if ksrepo.includepkgs:
-            repo.include = ksrepo.includepkgs
-
-        if ksrepo.excludepkgs:
-            repo.exclude = ksrepo.excludepkgs
-
-        if ksrepo.sslcacert:
-            repo.sslcacert = ksrepo.sslcacert
-
-        if ksrepo.sslclientcert:
-            repo.sslclientcert = ksrepo.sslclientcert
-
-        if ksrepo.sslclientkey:
-            repo.sslclientkey = ksrepo.sslclientkey
-
-        # If this repo is already known, it's one of two things:
-        # (1) The user is trying to do "repo --name=updates" in a kickstart file
-        #     and we should just know to enable the already existing on-disk
-        #     repo config.
-        # (2) It's a duplicate, and we need to delete the existing definition
-        #     and use this new one.  The highest profile user of this is livecd
-        #     kickstarts.
-        if repo.id in self._base.repos:
-            if not url and not mirrorlist and not metalink:
-                self._base.repos[repo.id].enable()
-            else:
-                with self._repos_lock:
-                    self._base.repos.pop(repo.id)
-                    self._base.repos.add(repo)
-        # If the repo's not already known, we've got to add it.
-        else:
-            with self._repos_lock:
-                self._base.repos.add(repo)
-
+        # Enable or disable the repository.
         if not ksrepo.enabled:
-            self._disable_repo(repo.id)
+            self._disable_repo(data.name)
+        else:
+            self._enable_repo(data.name)
 
-        log.info("added repo: '%s' - %s", ksrepo.name, url or mirrorlist or metalink)
+    def _is_existing_repo_configuration(self, data):
+        """Is it a configuration of an existing repository?
+
+        The user is trying to do "repo --name=updates" in a kickstart file.
+        We can only enable or disable the already existing on-disk repo config.
+        """
+        return not data.url and data.name in self._dnf_manager.repositories
 
     def _remove_repo(self, repo_id):
         repos = self.data.repo.dataList()
