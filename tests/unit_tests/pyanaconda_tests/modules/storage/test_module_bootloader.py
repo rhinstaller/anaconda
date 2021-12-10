@@ -647,7 +647,7 @@ class BootloaderTasksTestCase(unittest.TestCase):
 
     @patch('pyanaconda.modules.storage.bootloader.installation.conf')
     @patch("pyanaconda.modules.storage.bootloader.installation.arch.is_s390")
-    @patch("pyanaconda.modules.storage.bootloader.installation.execInSysroot")
+    @patch("pyanaconda.modules.storage.bootloader.installation.execWithRedirect")
     def test_fix_zipl(self, execute, is_s390, conf):
         """Test the installation task for the ZIPL fix."""
         is_s390.return_value = False
@@ -667,8 +667,9 @@ class BootloaderTasksTestCase(unittest.TestCase):
 
         is_s390.return_value = True
         conf.target.is_directory = False
+        conf.target.system_root = "/target/root"
         FixZIPLBootloaderTask(BootloaderMode.ENABLED).run()
-        execute.assert_called_once_with("zipl", [])
+        execute.assert_called_once_with("zipl", [], root="/target/root")
 
 
 class BootLoaderFactoryTestCase(unittest.TestCase):
