@@ -45,8 +45,23 @@ EXTRA_DIST = dist src
 
 # checkout Cockpit's PF/React/build library; again this has no API stability guarantee, so check out a stable tag
 $(LIB_TEST):
-	git clone -b 258 --depth=1 https://github.com/cockpit-project/cockpit.git tmp/cockpit
+	git clone -b 260 --depth=1 https://github.com/cockpit-project/cockpit.git tmp/cockpit
 	mv tmp/cockpit/pkg/lib src/
+	rm -rf tmp/cockpit
+
+# checkout Cockpit's bots for standard test VM images and API to launch them
+# must be from main, as only that has current and existing images; but testvm.py API is stable
+# support CI testing against a bots change
+bots:
+	git clone --quiet --reference-if-able $${XDG_CACHE_HOME:-$$HOME/.cache}/cockpit-project/bots https://github.com/cockpit-project/bots.git
+	if [ -n "$$COCKPIT_BOTS_REF" ]; then git -C bots fetch --quiet --depth=1 origin "$$COCKPIT_BOTS_REF"; git -C bots checkout --quiet FETCH_HEAD; fi
+	@echo "checked out bots/ ref $$(git -C bots rev-parse HEAD)"
+
+# checkout Cockpit's test API; this has no API stability guarantee, so check out a stable tag
+# when you start a new project, use the latest release, and update it from time to time
+test/common:
+	git clone -b 260 --depth=1 https://github.com/cockpit-project/cockpit.git tmp/cockpit
+	mv tmp/cockpit/test/common test/common
 	rm -rf tmp/cockpit
 
 package-lock.json: package.json

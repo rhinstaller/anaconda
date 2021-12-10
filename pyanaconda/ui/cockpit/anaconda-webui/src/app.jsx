@@ -58,6 +58,7 @@ export const Application = () => {
                                 <DescriptionListDescription>
                                     {prop === 'NTPEnabled'
                                         ? <Switch
+                                            id='switch-ntp-enabled'
                                             isChecked={timezoneProps[prop]}
                                             label='On'
                                             labelOff='Off'
