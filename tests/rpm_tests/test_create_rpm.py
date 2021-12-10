@@ -52,6 +52,7 @@ class InstalledFilesTestCase(RPMTestCase):
 
         src_files = self._apply_filters(
             [
+                FileFilters.cockpit_package_exclude,
                 FileFilters.pyanaconda_only,
                 FileFilters.pycache_exclude,
                 FileFilters.pyc_exclude,
@@ -382,6 +383,10 @@ class FileFilters(object):
     def src_ignore_exclude(path):
         return path not in IGNORED_SOURCE_FILES
 
+    # TODO: This is just a temporary workaround because JS has too many files to ignore
+    @staticmethod
+    def cockpit_package_exclude(rpm):
+        return "ui/cockpit" not in rpm
 
 class RPMFilters(object):
 
