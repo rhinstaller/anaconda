@@ -174,6 +174,9 @@ release-and-tag:
 	$(MAKE) tag
 
 anaconda-ci-build:
+	TEMP=$$(mktemp -t -d anaconda-ci-build.XXXX) && \
+	cp $(srcdir)/anaconda.spec.in $(CI_DOCKERFILE)/* $$TEMP/ && \
+	echo "Build dir is $$TEMP" && \
 	$(CONTAINER_ENGINE) build \
 	$(CONTAINER_BUILD_ARGS) \
 	$(CONTAINER_ADD_ARGS) \
@@ -181,9 +184,13 @@ anaconda-ci-build:
 	--build-arg=image=$(BASE_CONTAINER) \
 	--build-arg=copr_repo=$(COPR_REPO) \
 	-t $(CI_NAME):$(CI_TAG) \
-	$(CI_DOCKERFILE)
+	$$TEMP/ && \
+	rm -rf $$TEMP
 
 anaconda-rpm-build:
+	TEMP=$$(mktemp -t -d anaconda-rpm-build.XXXX) && \
+	cp $(srcdir)/anaconda.spec.in $(CI_DOCKERFILE)/* $$TEMP/ && \
+	echo "Build dir is $$TEMP" && \
 	$(CONTAINER_ENGINE) build \
 	$(CONTAINER_BUILD_ARGS) \
 	$(CONTAINER_ADD_ARGS) \
@@ -191,7 +198,8 @@ anaconda-rpm-build:
 	--build-arg=image=$(BASE_CONTAINER) \
 	--build-arg=copr_repo=$(COPR_REPO) \
 	-t $(RPM_NAME):$(CI_TAG) \
-	$(RPM_DOCKERFILE)
+	$$TEMP/ && \
+	rm -rf $$TEMP
 
 anaconda-iso-creator-build:
 	$(CONTAINER_ENGINE) build \
