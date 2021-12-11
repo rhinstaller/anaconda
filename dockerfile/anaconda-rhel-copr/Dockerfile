@@ -1,3 +1,5 @@
+# This container is used for building Anaconda RPM files on COPR.
+
 ARG image=quay.io/rhinstaller/anaconda-ci:master
 FROM ${image}
 # FROM starts a new build stage with new ARGs. Put any ARGs after FROM unless required by the FROM itself.

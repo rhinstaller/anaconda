@@ -1,3 +1,6 @@
+# This container is used for runing Anaconda unit tests in the controlled environment.
+# To find out how to build this container please look on the ./tests/README.rst file.
+
 # The `image` arg will set base image for the build.
 # possible values:
 #   registry.fedoraproject.org/fedora:35
