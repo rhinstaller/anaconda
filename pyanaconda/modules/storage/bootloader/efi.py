@@ -219,7 +219,8 @@ class MacEFIGRUB(EFIGRUB):
 
     def mactel_config(self):
         if os.path.exists(conf.target.system_root + "/usr/libexec/mactel-boot-setup"):
-            rc = util.execInSysroot("/usr/libexec/mactel-boot-setup", [])
+            rc = util.execWithRedirect("/usr/libexec/mactel-boot-setup", [],
+                                       root=conf.target.system_root)
             if rc:
                 log.error("failed to configure Mac boot loader")
 
