@@ -25,17 +25,16 @@ if [ $# -ne 1 ]; then
 fi
 
 status=0
-while read project_name l10n_git ; do
+while read -r project_name l10n_git ; do
     echo "Testing $project_name"
 
-    podir="$(mktemp -d ${project_name}.XXXXXX)"
+    podir="$(mktemp -d "${project_name}".XXXXXX)"
 
     # Download translations
-    git clone --depth 1 -- $l10n_git $podir
+    git clone --depth 1 -- "$l10n_git" "$podir"
 
     # Ignore the percent-translated warnings
-    python3 -W ignore -m translation_canary.translated "$podir"
-    if [ $? -ne 0 ]; then
+    if ! python3 -W ignore -m translation_canary.translated "$podir"; then
         echo "Canary test failed for $project_name"
         status=1
     else
