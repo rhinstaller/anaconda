@@ -40,7 +40,7 @@ class StartRHSMTaskTestCase(unittest.TestCase):
     """
 
     @patch_system_dbus_get_proxy
-    @patch("pyanaconda.core.util.start_service")
+    @patch("pyanaconda.modules.subscription.initialization.start_service")
     def test_success(self, start_service, get_proxy):
         """Test StartRHSMTask - successful task."""
 
@@ -73,7 +73,7 @@ class StartRHSMTaskTestCase(unittest.TestCase):
         )
 
     @patch("pyanaconda.modules.common.constants.services.RHSM.get_proxy")
-    @patch("pyanaconda.core.util.start_service")
+    @patch("pyanaconda.modules.subscription.initialization.start_service")
     def test_insecure(self, start_service, get_proxy):
         """Test StartRHSMTask - setting the server.insecure RHSM config key."""
         # create the task & disable SSL certificate validation
@@ -102,7 +102,7 @@ class StartRHSMTaskTestCase(unittest.TestCase):
         )
 
     @patch("pyanaconda.modules.common.constants.services.RHSM.get_proxy")
-    @patch("pyanaconda.core.util.start_service")
+    @patch("pyanaconda.modules.subscription.initialization.start_service")
     def test_unit_start_failed(self, start_service, get_proxy):
         """Test StartRHSMTask - systemd unit failed to start."""
 

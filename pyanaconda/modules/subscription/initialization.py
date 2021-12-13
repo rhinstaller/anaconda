@@ -24,7 +24,7 @@ import sys
 from dasbus.typing import get_variant, Str
 from pyanaconda.core.configuration.anaconda import conf
 
-from pyanaconda.core import util
+from pyanaconda.core.service import is_service_installed, start_service
 from pyanaconda.core.constants import RHSM_SERVICE_TIMEOUT
 from pyanaconda.modules.common.constants.objects import RHSM_CONFIG
 from pyanaconda.modules.common.constants.services import RHSM
@@ -50,7 +50,7 @@ def check_initial_conditions():
         sys.exit(1)
 
     # Exclude environments without the rhsm service.
-    if not util.is_service_installed(RHSM_SERVICE_NAME, root="/"):
+    if not is_service_installed(RHSM_SERVICE_NAME, root="/"):
         log.debug(
             "subscription: The required rhsm systemd service is not available. "
             "The Subscription module won't be started."
@@ -94,7 +94,7 @@ class StartRHSMTask(Task):
         # - this is blocking, but as we are effectively running in a thread
         # it should not be an issue
         # - if the return code is non-zero, return False immediately
-        rc = util.start_service(RHSM_SERVICE_NAME)
+        rc = start_service(RHSM_SERVICE_NAME)
         if rc:
             log.warning(
                 "subscription: RHSM systemd service failed to start with error code: %s",

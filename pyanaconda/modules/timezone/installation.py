@@ -19,7 +19,7 @@ import os
 import os.path
 
 from pyanaconda import ntp
-from pyanaconda.core import util
+from pyanaconda.core import service
 from pyanaconda.timezone import NTP_SERVICE
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.errors.installation import TimezoneConfigurationError
@@ -146,14 +146,14 @@ class ConfigureNTPTask(Task):
 
     def _enable_service(self):
         """Enable or disable the chrony service."""
-        if not util.is_service_installed(NTP_SERVICE, root=self._sysroot):
+        if not service.is_service_installed(NTP_SERVICE, root=self._sysroot):
             log.debug("The NTP service is not installed.")
             return
 
         if self._ntp_enabled:
-            util.enable_service(NTP_SERVICE, root=self._sysroot)
+            service.enable_service(NTP_SERVICE, root=self._sysroot)
         else:
-            util.disable_service(NTP_SERVICE, root=self._sysroot)
+            service.disable_service(NTP_SERVICE, root=self._sysroot)
 
     def _write_configuration(self):
         """Write the chrony configuration."""

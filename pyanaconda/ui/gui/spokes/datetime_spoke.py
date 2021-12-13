@@ -27,10 +27,11 @@ from pyanaconda import isys
 from pyanaconda import ntp
 from pyanaconda import flags
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core import util, constants
+from pyanaconda.core import constants
 from pyanaconda.core.async_utils import async_action_wait, async_action_nowait
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _, CN_
+from pyanaconda.core.service import is_service_running, start_service, stop_service
 from pyanaconda.core.timer import Timer
 from pyanaconda.localization import get_xlated_timezone, resolve_date_format
 from pyanaconda.modules.common.structures.timezone import TimeSourceData
@@ -418,7 +419,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
                 self._ntp_servers_states.check_status(server)
 
         if conf.system.can_set_time_synchronization:
-            ntp_working = has_active_network and util.service_running(NTP_SERVICE)
+            ntp_working = has_active_network and is_service_running(NTP_SERVICE)
         else:
             ntp_working = self._timezone_module.NTPEnabled
 
@@ -923,12 +924,12 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             else:
                 self._update_ntp_server_warning()
 
-            ret = util.start_service(NTP_SERVICE)
+            ret = start_service(NTP_SERVICE)
             self._set_date_time_setting_sensitive(False)
 
             #if starting chronyd failed and chronyd is not running,
             #set switch back to OFF
-            if (ret != 0) and not util.service_running(NTP_SERVICE):
+            if (ret != 0) and not is_service_running(NTP_SERVICE):
                 switch.set_active(False)
 
         else:
@@ -938,11 +939,11 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
                 return
 
             self._set_date_time_setting_sensitive(True)
-            ret = util.stop_service(NTP_SERVICE)
+            ret = stop_service(NTP_SERVICE)
 
             #if stopping chronyd failed and chronyd is running,
             #set switch back to ON
-            if (ret != 0) and util.service_running(NTP_SERVICE):
+            if (ret != 0) and is_service_running(NTP_SERVICE):
                 switch.set_active(True)
 
             self.clear_info()

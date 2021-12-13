@@ -279,7 +279,7 @@ class AnacondaLog(object):
 
     def restartSyslog(self):
         # Import here instead of at the module level to avoid an import loop
-        from pyanaconda.core.util import restart_service
+        from pyanaconda.core.service import restart_service
         restart_service("rsyslog")
 
     def updateRemote(self, remote_syslog):

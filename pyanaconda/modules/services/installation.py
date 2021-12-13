@@ -19,6 +19,7 @@ import os
 from configparser import ConfigParser
 
 from pyanaconda.core import util
+from pyanaconda.core.service import enable_service, disable_service
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import get_anaconda_version_string
 from pyanaconda.core.constants import TEXT_ONLY_TARGET, GRAPHICAL_TARGET
@@ -67,7 +68,7 @@ class ConfigureInitialSetupTask(Task):
     def _enable_service(self):
         """Enable the Initial Setup service."""
         if self._unit_file_exists(self.INITIAL_SETUP_UNIT_NAME):
-            util.enable_service(self.INITIAL_SETUP_UNIT_NAME)
+            enable_service(self.INITIAL_SETUP_UNIT_NAME)
         else:
             log.debug("Initial Setup will not be started on first boot, because "
                       "its unit file (%s) is not installed.", self.INITIAL_SETUP_UNIT_NAME)
@@ -75,7 +76,7 @@ class ConfigureInitialSetupTask(Task):
     def _disable_service(self):
         """Disable the Initial Setup service."""
         if self._unit_file_exists(self.INITIAL_SETUP_UNIT_NAME):
-            util.disable_service(self.INITIAL_SETUP_UNIT_NAME, root=self._sysroot)
+            disable_service(self.INITIAL_SETUP_UNIT_NAME, root=self._sysroot)
 
     def _enable_reconfig_mode(self):
         """Write the reconfig mode trigger file."""
@@ -173,11 +174,11 @@ class ConfigureServicesTask(Task):
     def run(self):
         for service_name in self._disabled_services:
             log.debug("Disabling service: %s.", service_name)
-            util.disable_service(service_name, root=self._sysroot)
+            disable_service(service_name, root=self._sysroot)
 
         for service_name in self._enabled_services:
             log.debug("Enabling service: %s.", service_name)
-            util.enable_service(service_name, root=self._sysroot)
+            enable_service(service_name, root=self._sysroot)
 
 
 class ConfigureSystemdDefaultTargetTask(Task):
