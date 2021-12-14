@@ -33,6 +33,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: ${{ github.ref }}
+          fetch-depth: 0
 
       - name: Build anaconda-rpm container (for RPM build)
         run: |
