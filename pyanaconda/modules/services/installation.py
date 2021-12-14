@@ -19,7 +19,7 @@ import os
 from configparser import ConfigParser
 
 from pyanaconda.core import util
-from pyanaconda.core.service import enable_service, disable_service
+from pyanaconda.core.service import enable_service, disable_service, is_service_installed
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import get_anaconda_version_string
 from pyanaconda.core.constants import TEXT_ONLY_TARGET, GRAPHICAL_TARGET
@@ -55,19 +55,9 @@ class ConfigureInitialSetupTask(Task):
     def name(self):
         return "Configure Initial Setup"
 
-    def _unit_file_exists(self, service):
-        """Check if unit file corresponding to the service exists in the chroot.
-
-        The check works by taking the service name and checking if a file with
-        such name exists in the folder where system wide unit files are stored.
-
-        :param str service: name of the service (including the .service extension) to check
-        """
-        return os.path.exists(os.path.join(self._sysroot, "lib/systemd/system/", service))
-
     def _enable_service(self):
         """Enable the Initial Setup service."""
-        if self._unit_file_exists(self.INITIAL_SETUP_UNIT_NAME):
+        if is_service_installed(self.INITIAL_SETUP_UNIT_NAME, root=self._sysroot):
             enable_service(self.INITIAL_SETUP_UNIT_NAME, root=self._sysroot)
         else:
             log.debug("Initial Setup will not be started on first boot, because "
@@ -75,7 +65,7 @@ class ConfigureInitialSetupTask(Task):
 
     def _disable_service(self):
         """Disable the Initial Setup service."""
-        if self._unit_file_exists(self.INITIAL_SETUP_UNIT_NAME):
+        if is_service_installed(self.INITIAL_SETUP_UNIT_NAME, root=self._sysroot):
             disable_service(self.INITIAL_SETUP_UNIT_NAME, root=self._sysroot)
 
     def _enable_reconfig_mode(self):
