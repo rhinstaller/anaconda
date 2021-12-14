@@ -18,15 +18,12 @@
 from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_packaging_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_IMAGE, INSTALL_TREE, IMAGE_DIR
+from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_IMAGE
 from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
-from pyanaconda.modules.payloads.payload.live_image.installation import VerifyImageChecksumTask, \
-    InstallFromTarTask, InstallFromImageTask, DownloadImageTask, MountImageTask, RemoveImageTask
-from pyanaconda.modules.payloads.payload.live_os.utils import get_kernel_version_list
-from pyanaconda.modules.payloads.payload.live_image.utils import get_kernel_version_list_from_tar
 from pyanaconda.modules.payloads.source.live_image.initialization import SetUpLocalImageSourceTask, \
     SetUpRemoteImageSourceTask
-from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
+from pyanaconda.modules.payloads.source.live_image.installation import InstallLiveImageTask
+from pyanaconda.modules.payloads.source.live_tar.installation import InstallLiveTarTask
 from pyanaconda.modules.payloads.source.utils import is_tar
 from pyanaconda.payload.base import Payload
 
@@ -41,9 +38,6 @@ class LiveImagePayload(Payload):
         super().__init__(*args, **kwargs)
         self._min_size = 0
         self._kernel_version_list = []
-        self._install_tree_path = ""
-        self._download_path = conf.target.system_root + "/disk.img"
-        self.image_path = ""
 
     def set_from_opts(self, opts):
         """Set the payload from the Anaconda cmdline options.
@@ -92,74 +86,23 @@ class LiveImagePayload(Payload):
         self._min_size = result.required_space
         log.debug("liveimg size is %s", self._min_size)
 
-    def pre_install(self):
-        """ Get image and loopback mount it.
-
-            This is called after partitioning is setup, we now have space to
-            grab the image. If it is a network source Download it to sysroot
-            and provide feedback during the download (using urlgrabber
-            callback).
-
-            If it is a file:// source then use the file directly.
-        """
-        source_data = self._get_source_configuration()
-
-        task = DownloadImageTask(
-            configuration=source_data,
-            download_path=self._download_path
-        )
-        task.progress_changed_signal.connect(self._progress_cb)
-        self.image_path = task.run()
-
-        # Verify the checksum.
-        task = VerifyImageChecksumTask(
-            configuration=source_data,
-            image_path=self.image_path
-        )
-        task.progress_changed_signal.connect(self._progress_cb)
-        task.run()
-
-        # Mount the image. Skip if this looks like a tarfile.
-        if not is_tar(self.data.liveimg.url):
-            task = MountImageTask(
-                image_path=self.image_path,
-                image_mount_point=INSTALL_TREE,
-                iso_mount_point=IMAGE_DIR,
-            )
-            self._install_tree_path = task.run()
-
     def install(self):
         """Install the payload."""
-        self._update_kernel_version_list()
+        source_data = self._get_source_configuration()
 
-        if is_tar(self.data.liveimg.url):
-            task = InstallFromTarTask(
+        if is_tar(source_data.url):
+            task = InstallLiveTarTask(
                 sysroot=conf.target.system_root,
-                tarfile=self.image_path
+                configuration=source_data
             )
         else:
-            task = InstallFromImageTask(
+            task = InstallLiveImageTask(
                 sysroot=conf.target.system_root,
-                mount_point=self._install_tree_path
+                configuration=source_data
             )
 
         task.progress_changed_signal.connect(self._progress_cb)
-        task.run()
-
-    def post_install(self):
-        """ Unmount and remove image
-
-            If file:// was used, just unmount it.
-        """
-        super().post_install()
-        task = TearDownMountTask(IMAGE_DIR)
-        task.run()
-
-        task = TearDownMountTask(INSTALL_TREE)
-        task.run()
-
-        task = RemoveImageTask(self._download_path)
-        task.run()
+        self._kernel_version_list = task.run()
 
     @property
     def space_required(self):
@@ -176,9 +119,3 @@ class LiveImagePayload(Payload):
     @property
     def kernel_version_list(self):
         return self._kernel_version_list
-
-    def _update_kernel_version_list(self):
-        if is_tar(self.data.liveimg.url):
-            self._kernel_version_list = get_kernel_version_list_from_tar(self.image_path)
-        else:
-            self._kernel_version_list = get_kernel_version_list(self._install_tree_path)
