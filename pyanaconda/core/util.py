@@ -33,6 +33,7 @@ import inspect
 import functools
 import importlib.util
 import importlib.machinery
+import warnings
 import blivet.arch
 
 import requests
@@ -365,18 +366,19 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_ou
     return (proc.returncode, output_string)
 
 
-def execInSysroot(command, argv, stdin=None, root=None):
+def execInSysroot(command, argv, stdin=None):
     """ Run an external program in the target root.
+
+        TODO: Remove this function, it is used only by the OSCAP addon.
+
         :param command: The command to run
         :param argv: The argument list
         :param stdin: The file object to read stdin from.
-        :param root: The directory to chroot to before running the command.
         :return: The return code of the command
     """
-    if root is None:
-        root = conf.target.system_root
-
-    return execWithRedirect(command, argv, stdin=stdin, root=root)
+    warnings.warn("execInSysroot is deprecated and will be removed, use execWithRedirect instead",
+                  DeprecationWarning)
+    return execWithRedirect(command, argv, stdin=stdin, root=conf.target.system_root)
 
 
 def execWithRedirect(command, argv, stdin=None, stdout=None,

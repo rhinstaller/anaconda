@@ -343,22 +343,31 @@ class GRUB2(BootLoader):
                 machine_id = fd.readline().strip()
 
             default_entry = "%s-%s" % (machine_id, self.default.version)
-            rc = util.execInSysroot("grub2-set-default", [default_entry])
+            rc = util.execWithRedirect(
+                "grub2-set-default",
+                [default_entry],
+                root=conf.target.system_root
+            )
             if rc:
                 log.error("failed to set default menu entry to %s", productName)
 
         # set menu_auto_hide grubenv variable if we should enable menu_auto_hide
         # set boot_success so that the menu is hidden on the boot after install
         if conf.bootloader.menu_auto_hide:
-            rc = util.execInSysroot("grub2-editenv",
-                                    ["-", "set", "menu_auto_hide=1",
-                                     "boot_success=1"])
+            rc = util.execWithRedirect(
+                "grub2-editenv",
+                ["-", "set", "menu_auto_hide=1", "boot_success=1"],
+                root=conf.target.system_root
+            )
             if rc:
                 log.error("failed to set menu_auto_hide=1")
 
         # now tell grub2 to generate the main configuration file
-        rc = util.execInSysroot("grub2-mkconfig",
-                                ["-o", self.config_file])
+        rc = util.execWithRedirect(
+            "grub2-mkconfig",
+            ["-o", self.config_file],
+            root=conf.target.system_root
+        )
         if rc:
             raise BootLoaderError("failed to write boot loader configuration")
 

@@ -792,8 +792,8 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
         assert obj.implementation._enabled_ports == []
         assert obj.implementation._trusts == []
 
-    @patch('pyanaconda.core.util.execInSysroot')
-    def test_firewall_config_task_enable_missing_tool(self, execInSysroot):
+    @patch('pyanaconda.modules.network.firewall.installation.execWithRedirect')
+    def test_firewall_config_task_enable_missing_tool(self, exec_mock):
         """Test the Firewall configuration task - enable & missing firewall-offline-cmd."""
 
         with tempfile.TemporaryDirectory() as sysroot:
@@ -808,11 +808,11 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
             # should raise an exception
             with pytest.raises(FirewallConfigurationError):
                 task.run()
-            # should not call execInSysroot
-            execInSysroot.assert_not_called()
+            # should not call execWithRedirect
+            exec_mock.assert_not_called()
 
-    @patch('pyanaconda.core.util.execInSysroot')
-    def test_firewall_config_task_disable_missing_tool(self, execInSysroot):
+    @patch('pyanaconda.modules.network.firewall.installation.execWithRedirect')
+    def test_firewall_config_task_disable_missing_tool(self, exec_mock):
         """Test the Firewall configuration task - disable & missing firewall-offline-cmd"""
 
         with tempfile.TemporaryDirectory() as sysroot:
@@ -826,11 +826,11 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
                                          trusts = [])
             # should not raise an exception
             task.run()
-            # should not call execInSysroot
-            execInSysroot.assert_not_called()
+            # should not call execWithRedirect
+            exec_mock.assert_not_called()
 
-    @patch('pyanaconda.core.util.execInSysroot')
-    def test_firewall_config_task_default_missing_tool(self, execInSysroot):
+    @patch('pyanaconda.modules.network.firewall.installation.execWithRedirect')
+    def test_firewall_config_task_default_missing_tool(self, exec_mock):
         """Test the Firewall configuration task - default & missing firewall-offline-cmd"""
 
         with tempfile.TemporaryDirectory() as sysroot:
@@ -844,11 +844,11 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
                                          trusts = [])
             # should not raise an exception
             task.run()
-            # should not call execInSysroot
-            execInSysroot.assert_not_called()
+            # should not call execWithRedirect
+            exec_mock.assert_not_called()
 
-    @patch('pyanaconda.core.util.execInSysroot')
-    def test_firewall_config_task_system_defaults_missing_tool(self, execInSysroot):
+    @patch('pyanaconda.modules.network.firewall.installation.execWithRedirect')
+    def test_firewall_config_task_system_defaults_missing_tool(self, exec_mock):
         """Test the Firewall configuration task - use-system-defaults & missing firewall-offline-cmd"""
 
         with tempfile.TemporaryDirectory() as sysroot:
@@ -862,11 +862,11 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
                                          trusts = [])
             # should not raise an exception
             task.run()
-            # should not call execInSysroot
-            execInSysroot.assert_not_called()
+            # should not call execWithRedirect
+            exec_mock.assert_not_called()
 
-    @patch('pyanaconda.core.util.execInSysroot')
-    def test_firewall_config_task_default(self, execInSysroot):
+    @patch('pyanaconda.modules.network.firewall.installation.execWithRedirect')
+    def test_firewall_config_task_default(self, exec_mock):
         """Test the Firewall configuration task - default."""
 
         with tempfile.TemporaryDirectory() as sysroot:
@@ -881,11 +881,14 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
                                          trusts = [])
             task.run()
 
-            execInSysroot.assert_called_once_with('/usr/bin/firewall-offline-cmd',
-                                                  ['--enabled', '--service=ssh'], root=sysroot)
+            exec_mock.assert_called_once_with(
+                '/usr/bin/firewall-offline-cmd',
+                ['--enabled', '--service=ssh'],
+                root=sysroot
+            )
 
-    @patch('pyanaconda.core.util.execInSysroot')
-    def test_firewall_config_task_enable(self, execInSysroot):
+    @patch('pyanaconda.modules.network.firewall.installation.execWithRedirect')
+    def test_firewall_config_task_enable(self, exec_mock):
         """Test the Firewall configuration task - enable."""
 
         with tempfile.TemporaryDirectory() as sysroot:
@@ -901,10 +904,14 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
                                          trusts = [])
             task.run()
 
-            execInSysroot.assert_called_once_with('/usr/bin/firewall-offline-cmd', ['--enabled', '--service=ssh'], root=sysroot)
+            exec_mock.assert_called_once_with(
+                '/usr/bin/firewall-offline-cmd',
+                ['--enabled', '--service=ssh'],
+                root=sysroot
+            )
 
-    @patch('pyanaconda.core.util.execInSysroot')
-    def test_firewall_config_task_enable_with_options(self, execInSysroot):
+    @patch('pyanaconda.modules.network.firewall.installation.execWithRedirect')
+    def test_firewall_config_task_enable_with_options(self, exec_mock):
         """Test the Firewall configuration task - enable with options."""
 
         with tempfile.TemporaryDirectory() as sysroot:
@@ -920,13 +927,15 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
                                          trusts = ["eth1"])
             task.run()
 
-            execInSysroot.assert_called_once_with('/usr/bin/firewall-offline-cmd',
-                                                  ['--enabled', '--service=ssh', '--trust=eth1', '--port=22001:tcp',
-                                                   '--port=6400:udp', '--remove-service=tftp', '--service=smnp'],
-                                                  root=sysroot)
+            exec_mock.assert_called_once_with(
+                '/usr/bin/firewall-offline-cmd',
+                ['--enabled', '--service=ssh', '--trust=eth1', '--port=22001:tcp',
+                 '--port=6400:udp', '--remove-service=tftp', '--service=smnp'],
+                root=sysroot
+            )
 
-    @patch('pyanaconda.core.util.execInSysroot')
-    def test_firewall_config_task_disable_ssh(self, execInSysroot):
+    @patch('pyanaconda.modules.network.firewall.installation.execWithRedirect')
+    def test_firewall_config_task_disable_ssh(self, exec_mock):
         """Test the Firewall configuration task - test SSH can be disabled."""
 
         with tempfile.TemporaryDirectory() as sysroot:
@@ -942,12 +951,14 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
                                          trusts = [])
             task.run()
 
-            execInSysroot.assert_called_once_with('/usr/bin/firewall-offline-cmd',
-                                                  ['--enabled', '--remove-service=ssh'],
-                                                  root=sysroot)
+            exec_mock.assert_called_once_with(
+                '/usr/bin/firewall-offline-cmd',
+                ['--enabled', '--remove-service=ssh'],
+                root=sysroot
+            )
 
-    @patch('pyanaconda.core.util.execInSysroot')
-    def test_firewall_config_task_enable_disable_service(self, execInSysroot):
+    @patch('pyanaconda.modules.network.firewall.installation.execWithRedirect')
+    def test_firewall_config_task_enable_disable_service(self, exec_mock):
         """Test the Firewall configuration task - test enabling & disabling the same service"""
 
         with tempfile.TemporaryDirectory() as sysroot:
@@ -963,12 +974,14 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
                                          trusts = [])
             task.run()
 
-            execInSysroot.assert_called_once_with('/usr/bin/firewall-offline-cmd',
-                                                  ['--enabled', '--service=ssh', '--remove-service=tftp', '--service=tftp'],
-                                                  root=sysroot)
+            exec_mock.assert_called_once_with(
+                '/usr/bin/firewall-offline-cmd',
+                ['--enabled', '--service=ssh', '--remove-service=tftp', '--service=tftp'],
+                root=sysroot
+            )
 
-    @patch('pyanaconda.core.util.execInSysroot')
-    def test_firewall_config_task_disable(self, execInSysroot):
+    @patch('pyanaconda.modules.network.firewall.installation.execWithRedirect')
+    def test_firewall_config_task_disable(self, exec_mock):
         """Test the Firewall configuration task - disable."""
 
         with tempfile.TemporaryDirectory() as sysroot:
@@ -984,10 +997,14 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
                                          trusts = [])
             task.run()
 
-            execInSysroot.assert_called_once_with('/usr/bin/firewall-offline-cmd', ['--disabled', '--service=ssh'], root=sysroot)
+            exec_mock.assert_called_once_with(
+                '/usr/bin/firewall-offline-cmd',
+                ['--disabled', '--service=ssh'],
+                root=sysroot
+            )
 
-    @patch('pyanaconda.core.util.execInSysroot')
-    def test_firewall_config_task_disable_with_options(self, execInSysroot):
+    @patch('pyanaconda.modules.network.firewall.installation.execWithRedirect')
+    def test_firewall_config_task_disable_with_options(self, exec_mock):
         """Test the Firewall configuration task - disable with options."""
 
         with tempfile.TemporaryDirectory() as sysroot:
@@ -1004,13 +1021,15 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
             task.run()
 
             # even in disable mode, we still forward all the options to firewall-offline-cmd
-            execInSysroot.assert_called_once_with('/usr/bin/firewall-offline-cmd',
-                                                  ['--disabled', '--service=ssh', '--trust=eth1', '--port=22001:tcp',
-                                                   '--port=6400:udp', '--remove-service=tftp', '--service=smnp'],
-                                                  root=sysroot)
+            exec_mock.assert_called_once_with(
+                '/usr/bin/firewall-offline-cmd',
+                ['--disabled', '--service=ssh', '--trust=eth1', '--port=22001:tcp',
+                 '--port=6400:udp', '--remove-service=tftp', '--service=smnp'],
+                root=sysroot
+            )
 
-    @patch('pyanaconda.core.util.execInSysroot')
-    def test_firewall_config_task_use_system_defaults(self, execInSysroot):
+    @patch('pyanaconda.modules.network.firewall.installation.execWithRedirect')
+    def test_firewall_config_task_use_system_defaults(self, exec_mock):
         """Test the Firewall configuration task - use system defaults."""
 
         with tempfile.TemporaryDirectory() as sysroot:
@@ -1027,7 +1046,7 @@ class FirewallConfigurationTaskTestCase(unittest.TestCase):
             task.run()
 
             # firewall-offline-cmd should not be called in use-system-defaults mode
-            execInSysroot.assert_not_called()
+            exec_mock.assert_not_called()
 
 
 class NetworkModuleTestCase(unittest.TestCase):

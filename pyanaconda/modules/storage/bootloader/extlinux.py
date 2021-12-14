@@ -19,7 +19,7 @@ import os
 
 from pyanaconda.modules.storage.bootloader.base import BootLoader, BootLoaderArguments,\
     BootLoaderError
-from pyanaconda.core import util
+from pyanaconda.core.util import execWithRedirect
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.product import productName
 
@@ -121,7 +121,7 @@ class EXTLINUX(BootLoader):
 
     def install(self, args=None):
         args = ["--install", self._config_dir]
-        rc = util.execInSysroot("extlinux", args)
+        rc = execWithRedirect("extlinux", args, root=conf.target.system_root)
 
         if rc:
             raise BootLoaderError("boot loader install failed")
