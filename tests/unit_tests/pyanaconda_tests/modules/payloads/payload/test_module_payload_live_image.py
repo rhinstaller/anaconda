@@ -18,11 +18,9 @@
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
 import unittest
+import pytest
 
-from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object
-from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
-    PayloadKickstartSharedTest, PayloadSharedTest
-
+from pyanaconda.modules.common.errors.payload import IncompatibleSourceError
 from pyanaconda.modules.payloads.payloads import PayloadsService
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
@@ -30,6 +28,11 @@ from pyanaconda.modules.payloads.payload.live_image.live_image import LiveImageM
 from pyanaconda.modules.payloads.payload.live_image.live_image_interface import \
     LiveImageInterface
 from pyanaconda.modules.payloads.source.factory import SourceFactory
+from pyanaconda.modules.payloads.source.live_image.installation import InstallLiveImageTask
+from pyanaconda.modules.payloads.source.live_tar.installation import InstallLiveTarTask
+
+from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
+    PayloadKickstartSharedTest, PayloadSharedTest
 
 
 class LiveImageKSTestCase(unittest.TestCase):
@@ -120,11 +123,9 @@ class LiveImageKSTestCase(unittest.TestCase):
 class LiveImageInterfaceTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.live_image_module = LiveImageModule()
-        self.live_image_interface = LiveImageInterface(self.live_image_module)
-
-        self.shared_tests = PayloadSharedTest(payload=self.live_image_module,
-                                              payload_intf=self.live_image_interface)
+        self.module = LiveImageModule()
+        self.interface = LiveImageInterface(self.module)
+        self.shared_tests = PayloadSharedTest(self.module, self.interface)
 
     def test_type(self):
         self.shared_tests.check_type(PayloadType.LIVE_IMAGE)
@@ -134,6 +135,18 @@ class LiveImageModuleTestCase(unittest.TestCase):
 
     def setUp(self):
         self.module = LiveImageModule()
+
+    def test_multiple_sources(self):
+        """The live image payload cannot have multiple sources."""
+        sources = [
+            SourceFactory.create_source(SourceType.LIVE_IMAGE),
+            SourceFactory.create_source(SourceType.LIVE_IMAGE)
+        ]
+
+        with pytest.raises(IncompatibleSourceError) as cm:
+            self.module.set_sources(sources)
+
+        assert str(cm.value) == "You can set only one source for this payload type."
 
     def test_calculate_required_space(self):
         """Test the calculate_required_space method."""
@@ -145,15 +158,27 @@ class LiveImageModuleTestCase(unittest.TestCase):
         assert self.module.calculate_required_space() == 1024 * 1024 * 1024
 
     def test_install_with_task_from_tar(self):
-        """Test Live Image install with tasks from tarfile."""
+        """Test installation tasks with a tarfile."""
         assert self.module.install_with_tasks() == []
 
-    @patch_dbus_publish_object
-    def test_install_with_task_from_image(self, publisher):
-        """Test Live Image install with tasks from image."""
+        source = SourceFactory.create_source(SourceType.LIVE_TAR)
+        self.module.add_source(source)
+
+        tasks = self.module.install_with_tasks()
+        assert len(tasks) == 1
+        assert isinstance(tasks[0], InstallLiveTarTask)
+
+    def test_install_with_task_from_image(self):
+        """Test installation tasks with an image."""
         assert self.module.install_with_tasks() == []
 
-    @patch_dbus_publish_object
-    def test_post_install_with_tasks(self, publisher):
-        """Test Live Image post installation configuration task."""
+        source = SourceFactory.create_source(SourceType.LIVE_IMAGE)
+        self.module.add_source(source)
+
+        tasks = self.module.install_with_tasks()
+        assert len(tasks) == 1
+        assert isinstance(tasks[0], InstallLiveImageTask)
+
+    def test_post_install_with_tasks(self):
+        """Test post-installation tasks."""
         assert self.module.post_install_with_tasks() == []

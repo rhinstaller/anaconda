@@ -18,9 +18,11 @@
 # Red Hat, Inc.
 #
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.source.live_image.live_image import LiveImageSourceModule
+from pyanaconda.modules.payloads.source.live_tar.installation import InstallLiveTarTask
 
 log = get_module_logger(__name__)
 
@@ -39,3 +41,15 @@ class LiveTarSourceModule(LiveImageSourceModule):
     def description(self):
         """Get description of this source."""
         return _("Live tarball")
+
+    def install_with_tasks(self):
+        """Install the installation source.
+
+        :return: a list of installation tasks
+        """
+        return [
+            InstallLiveTarTask(
+                sysroot=conf.target.system_root,
+                configuration=self.configuration
+            )
+        ]
