@@ -15,107 +15,46 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from blivet.size import Size
-from pyanaconda.anaconda_loggers import get_packaging_logger
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_IMAGE
+from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_IMAGE, SOURCE_TYPE_LIVE_IMAGE
 from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
-from pyanaconda.modules.payloads.source.live_image.initialization import SetUpLocalImageSourceTask, \
-    SetUpRemoteImageSourceTask
-from pyanaconda.modules.payloads.source.live_image.installation import InstallLiveImageTask
-from pyanaconda.modules.payloads.source.live_tar.installation import InstallLiveTarTask
-from pyanaconda.modules.payloads.source.utils import is_tar
-from pyanaconda.payload.base import Payload
+from pyanaconda.payload.migrated import MigratedDBusPayload
 
-log = get_packaging_logger()
+log = get_module_logger(__name__)
 
 __all__ = ["LiveImagePayload"]
 
 
-class LiveImagePayload(Payload):
+class LiveImagePayload(MigratedDBusPayload):
     """ Install using a live filesystem image from the network """
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self._min_size = 0
-        self._kernel_version_list = []
 
     def set_from_opts(self, opts):
         """Set the payload from the Anaconda cmdline options.
 
         :param opts: a namespace of options
         """
+        source_proxy = self.get_source_proxy()
+        source_data = LiveImageConfigurationData.from_structure(
+            source_proxy.Configuration
+        )
+
         if opts.proxy:
-            self.data.liveimg.proxy = opts.proxy
+            source_data.proxy = opts.proxy
 
         if not conf.payload.verify_ssl:
-            self.data.liveimg.noverifyssl = not conf.payload.verify_ssl
+            source_data.ssl_verification_enabled = conf.payload.verify_ssl
+
+        source_proxy.SetConfiguration(
+            LiveImageConfigurationData.to_structure(source_data)
+        )
 
     @property
     def type(self):
         """The DBus type of the payload."""
         return PAYLOAD_TYPE_LIVE_IMAGE
 
-    def _get_source_configuration(self):
-        """Get the image configuration data.
-
-        FIXME: This is a temporary workaround.
-        """
-        data = LiveImageConfigurationData()
-
-        data.url = self.data.liveimg.url or ""
-        data.proxy = self.data.liveimg.proxy or ""
-        data.checksum = self.data.liveimg.checksum or ""
-        data.ssl_verification_enabled = not self.data.liveimg.noverifyssl
-
-        return data
-
-    def setup(self):
-        """ Check the availability and size of the image.
-        """
-        source_data = self._get_source_configuration()
-
-        if self.data.liveimg.url.startswith("file://"):
-            task = SetUpLocalImageSourceTask(source_data)
-        else:
-            task = SetUpRemoteImageSourceTask(source_data)
-
-        # Run the task.
-        result = task.run()
-
-        # Set up the required space.
-        self._min_size = result.required_space
-        log.debug("liveimg size is %s", self._min_size)
-
-    def install(self):
-        """Install the payload."""
-        source_data = self._get_source_configuration()
-
-        if is_tar(source_data.url):
-            task = InstallLiveTarTask(
-                sysroot=conf.target.system_root,
-                configuration=source_data
-            )
-        else:
-            task = InstallLiveImageTask(
-                sysroot=conf.target.system_root,
-                configuration=source_data
-            )
-
-        task.progress_changed_signal.connect(self._progress_cb)
-        self._kernel_version_list = task.run()
-
     @property
-    def space_required(self):
-        """ We don't know the filesystem size until it is downloaded.
-
-            Default to 1G which should be enough for a minimal image download
-            and install.
-        """
-        if self._min_size:
-            return Size(self._min_size)
-        else:
-            return Size(1024 * 1024 * 1024)
-
-    @property
-    def kernel_version_list(self):
-        return self._kernel_version_list
+    def default_source_type(self):
+        """The DBus type of the default source."""
+        return SOURCE_TYPE_LIVE_IMAGE

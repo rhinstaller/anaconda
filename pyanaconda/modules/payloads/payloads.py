@@ -24,7 +24,6 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.modules.common.containers import TaskContainer
-from pyanaconda.modules.payloads.constants import PayloadType
 from pyanaconda.modules.payloads.installation import PrepareSystemForInstallationTask, \
     CopyDriverDisksFilesTask
 from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
@@ -105,29 +104,6 @@ class PayloadsService(KickstartService):
         """Set up the kickstart data."""
         if self.active_payload:
             self.active_payload.setup_kickstart(data)
-
-    def generate_kickstart(self):
-        """Return a kickstart string."""
-        # Generate only the parts of kickstart that were removed from UI.
-        # FIXME: This is a temporary workaround for RPM sources.
-        enabled_types = {
-            PayloadType.DNF,
-            PayloadType.RPM_OSTREE
-        }
-
-        if self.active_payload and self.active_payload.type not in enabled_types:
-            log.debug("Generating kickstart... (skip)")
-            return ""
-
-        log.debug("Generating kickstart...")
-        handler = self.get_kickstart_handler()
-        self.setup_kickstart(handler)
-        return str(handler)
-
-    def generate_temporary_kickstart(self):
-        """Return the temporary kickstart string."""
-        # FIXME: This is a temporary workaround for testing.
-        return super().generate_kickstart()
 
     def create_payload(self, payload_type):
         """Create payload based on the passed type.

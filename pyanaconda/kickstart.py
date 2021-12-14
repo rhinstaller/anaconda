@@ -270,7 +270,6 @@ class AnacondaKickstartSpecification(KickstartSpecification):
         "eula": COMMANDS.Eula,
         "graphical": COMMANDS.DisplayMode,
         "halt": COMMANDS.Reboot,
-        "liveimg": COMMANDS.Liveimg,
         "logging": COMMANDS.Logging,
         "mediacheck": COMMANDS.MediaCheck,
         "method": COMMANDS.Method,

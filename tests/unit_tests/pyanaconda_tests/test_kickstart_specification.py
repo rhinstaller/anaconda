@@ -409,7 +409,6 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
 
     # Names of shared kickstart commands and data that should be temporarily ignored.
     IGNORED_SHARED_NAMES = {
-        "liveimg"
     }
 
     # Names of possibly missing kickstart commands and data that should be ignored.
