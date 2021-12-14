@@ -68,7 +68,7 @@ class ConfigureInitialSetupTask(Task):
     def _enable_service(self):
         """Enable the Initial Setup service."""
         if self._unit_file_exists(self.INITIAL_SETUP_UNIT_NAME):
-            enable_service(self.INITIAL_SETUP_UNIT_NAME)
+            enable_service(self.INITIAL_SETUP_UNIT_NAME, root=self._sysroot)
         else:
             log.debug("Initial Setup will not be started on first boot, because "
                       "its unit file (%s) is not installed.", self.INITIAL_SETUP_UNIT_NAME)

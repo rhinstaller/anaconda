@@ -50,7 +50,7 @@ def check_initial_conditions():
         sys.exit(1)
 
     # Exclude environments without the rhsm service.
-    if not is_service_installed(RHSM_SERVICE_NAME, root="/"):
+    if not is_service_installed(RHSM_SERVICE_NAME):
         log.debug(
             "subscription: The required rhsm systemd service is not available. "
             "The Subscription module won't be started."

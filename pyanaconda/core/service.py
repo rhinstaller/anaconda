@@ -15,7 +15,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import execWithRedirect, execWithCapture
 from pyanaconda.anaconda_loggers import get_module_logger
 
@@ -25,11 +24,12 @@ __all__ = ["start_service", "stop_service", "restart_service", "is_service_runni
            "is_service_installed", "enable_service", "disable_service"]
 
 
-def _run_systemctl(command, service, root="/"):
+def _run_systemctl(command, service, root):
     """Runs 'systemctl command service'
 
     :param str command: command to run on the service
     :param str service: name of the service to work on
+    :param str root: root to run the command in
     :return: exit status of the systemctl run
     """
 
@@ -50,7 +50,7 @@ def start_service(service):
     :param str service: name of the service to start
     :return: exit status of the systemctl run
     """
-    return _run_systemctl("start", service)
+    return _run_systemctl("start", service, "/")
 
 
 def stop_service(service):
@@ -61,7 +61,7 @@ def stop_service(service):
     :param str service: name of the service to stop
     :return: exit status of the systemctl run
     """
-    return _run_systemctl("stop", service)
+    return _run_systemctl("stop", service, "/")
 
 
 def restart_service(service):
@@ -72,7 +72,7 @@ def restart_service(service):
     :param str service: name of the service to restart
     :return: exit status of the systemctl run
     """
-    return _run_systemctl("restart", service)
+    return _run_systemctl("restart", service, "/")
 
 
 def is_service_running(service):
@@ -83,24 +83,19 @@ def is_service_running(service):
     :param str service: name of the service to check
     :return: was the service found
     """
-    ret = _run_systemctl("status", service)
+    ret = _run_systemctl("status", service, "/")
 
     return ret == 0
 
 
-def is_service_installed(service, root=None):
+def is_service_installed(service, root="/"):
     """Is a systemd service installed?
 
     Runs 'systemctl list-unit-files' to determine if the service exists.
 
-    Root defaults to sysroot, but can be set. Use "/" for checking installation environment.
-
     :param str service: name of the service to check
-    :param str root: path to the sysroot or None to use default sysroot path
+    :param str root: path to the sysroot, defaults to installation environment
     """
-    if root is None:
-        root = conf.target.system_root
-
     if not service.endswith(".service"):
         service += ".service"
 
@@ -114,37 +109,31 @@ def is_service_installed(service, root=None):
     return bool(unit_file)
 
 
-def enable_service(service, root=None):
+def enable_service(service, root="/"):
     """ Enable a systemd service in the sysroot.
 
     Runs 'systemctl enable service'.
 
     :param str service: name of the service to enable
-    :param str root: path to the sysroot or None to use default sysroot path
+    :param str root: path to the sysroot, defaults to installation environment
     """
-    if root is None:
-        root = conf.target.system_root
-
-    ret = _run_systemctl("enable", service, root=root)
+    ret = _run_systemctl("enable", service, root)
 
     if ret != 0:
         raise ValueError("Error enabling service %s: %s" % (service, ret))
 
 
-def disable_service(service, root=None):
+def disable_service(service, root="/"):
     """ Disable a systemd service in the sysroot.
 
     Runs 'systemctl disable service'.
 
     :param str service: name of the service to disable
-    :param str root: path to the sysroot or None to use default sysroot path
+    :param str root: path to the sysroot, defaults to installation environment
     """
-    if root is None:
-        root = conf.target.system_root
+    ret = _run_systemctl("disable", service, root)
 
     # we ignore the error so we can disable services even if they don't
     # exist, because that's effectively disabled
-    ret = _run_systemctl("disable", service, root=root)
-
     if ret != 0:
         log.warning("Disabling %s failed. It probably doesn't exist", service)

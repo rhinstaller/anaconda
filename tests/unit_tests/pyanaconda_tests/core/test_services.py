@@ -60,7 +60,7 @@ class RunSystemctlTests(unittest.TestCase):
         exec_mock.return_value = "fake.service enabled enabled"
         assert service.is_service_installed("fake")
         exec_mock.assert_called_once_with("systemctl", [
-            "list-unit-files", "fake.service", "--no-legend", "--root", "/mnt/sysroot"
+            "list-unit-files", "fake.service", "--no-legend"
         ])
 
         # root in inst.env.
@@ -103,8 +103,7 @@ class RunSystemctlTests(unittest.TestCase):
         # default root value
         exec_mock.reset_mock()
         service.enable_service("frobnicatord")
-        exec_mock.assert_called_once_with("systemctl",
-                                          ["enable", "frobnicatord", "--root", "/mnt/sysroot"])
+        exec_mock.assert_called_once_with("systemctl", ["enable", "frobnicatord"])
 
         # nonzero return code
         exec_mock.reset_mock()
@@ -129,8 +128,7 @@ class RunSystemctlTests(unittest.TestCase):
         # default root value
         exec_mock.reset_mock()
         service.disable_service("frobnicatord")
-        exec_mock.assert_called_once_with("systemctl",
-                                          ["disable", "frobnicatord", "--root", "/mnt/sysroot"])
+        exec_mock.assert_called_once_with("systemctl", ["disable", "frobnicatord"])
 
         # must not fail on nonzero return code
         exec_mock.reset_mock()
