@@ -411,6 +411,34 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Dec 14 2021 Martin Kolman <mkolman@redhat.com> - 36.12-1
+- Retire execInSysroot (vslavik)
+- Retire all uses of execInSysroot in bootloader (vslavik)
+- Stop using execInSysroot in FixZIPLBootloaderTask (vslavik)
+- Remove the root= kwarg of execInSysroot (vslavik)
+- Replace the only execInSysroot call using root= (vslavik)
+- Fix ShellCheck issues in translation_canary (vslavik)
+- network: always use rd.iscsi.ibft when the need to access an iBFT device
+  (lkundrak)
+- Remove the dracut_args attribute (vponcova)
+- Remove upd-kernel (vslavik)
+- Quote things for ShellCheck (vslavik)
+- Eliminate boolean test operator (vslavik)
+- Remove LIVE_INSTALL (vslavik)
+- Improve grepping and testing results in liveinst (vslavik)
+- Fix quoting in liveinst scripts (vslavik)
+- Split variable declaration and assignment (vslavik)
+- Do not try to load the floppy kernel module (jstodola)
+- Fix reset of DBus containers in the unit tests (vponcova)
+- Introduce a download path to simplify the image payload code (vponcova)
+- Add a page with overview of CI actions (vslavik)
+- Fix mailing list in our Dockerfiles (jkonecny)
+- Change mail from anaconda-devel-list (jkonecny)
+- Remove the container build badge from README (vslavik)
+- Clean up the task for the checksum verification (vponcova)
+- Remove the %%anaconda section (vponcova)
+- Deprecate the ANA_INSTALL_PATH environment variable (vponcova)
+
 * Thu Dec 02 2021 Martin Kolman <mkolman@redhat.com> - 36.11-1
 - Handle potential failure of `cd` (vslavik)
 - Printf variables correctly (vslavik)
