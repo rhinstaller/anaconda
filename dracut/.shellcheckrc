@@ -1,6 +1,6 @@
 # ShellCheck config file
 
 disable=SC1090  # Can't follow non-constant source. Use a directive to specify location.
-disable=SC2230  # which is non-standard. Use builtin 'command -v' instead.
 disable=SC1091  # Not following: <some-file> was not specified as input (see shellcheck -x).
+disable=SC2230  # which is non-standard. Use builtin 'command -v' instead.
 disable=SC2154  # <variable-name> is referenced but not assigned.
