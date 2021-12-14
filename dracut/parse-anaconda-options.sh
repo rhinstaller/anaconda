@@ -49,7 +49,7 @@ check_depr_arg() {
 }
 check_depr_args() {
     local q=""
-    for i in $(getargs "$1"); do check_depr_arg $q "$i" "$2" && q="--quiet"; done
+    for i in $(getargs "$1"); do check_depr_arg "$q" "$i" "$2" && q="--quiet"; done
 }
 check_removed_arg() {
     local arg="$1"; shift
