@@ -24,7 +24,8 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import format_size_full, create_new_context, Variant, GError
 from pyanaconda.core.i18n import _
-from pyanaconda.core.util import execWithRedirect, mkdirChain, set_system_root
+from pyanaconda.core.path import set_system_root
+from pyanaconda.core.util import execWithRedirect, mkdirChain
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE, BOOTLOADER

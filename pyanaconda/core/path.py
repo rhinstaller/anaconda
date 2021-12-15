@@ -14,3 +14,50 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+import os
+from pyanaconda.core.configuration.anaconda import conf
+
+
+def set_system_root(path):
+    """Change the OS root path.
+
+    The path defined by conf.target.system_root will be bind mounted at the given
+    path, so conf.target.system_root can be used to access the root of the new OS.
+
+    We always call it after the root device is mounted at conf.target.physical_root
+    to set the physical root as the current system root.
+
+    Then, it can be used by Payload subclasses which install operating systems to
+    non-default roots.
+
+    If the given path is None, then conf.target.system_root is only unmounted.
+
+    :param path: the new OS root path or None
+    :type path: str or None
+    """
+    from pyanaconda.core.util import execWithRedirect, mkdirChain
+
+    sysroot = conf.target.system_root
+
+    if sysroot == path:
+        return
+
+    # Unmount the mount point if necessary.
+    rc = execWithRedirect("findmnt", ["-rn", sysroot])
+
+    if rc == 0:
+        execWithRedirect("mount", ["--make-rprivate", sysroot])
+        execWithRedirect("umount", ["--recursive", sysroot])
+
+    if not path:
+        return
+
+    # Create a directory for the mount point.
+    if not os.path.exists(sysroot):
+        mkdirChain(sysroot)
+
+    # Mount the mount point.
+    rc = execWithRedirect("mount", ["--rbind", path, sysroot])
+
+    if rc != 0:
+        raise OSError("Failed to mount sysroot to {}.".format(path))
