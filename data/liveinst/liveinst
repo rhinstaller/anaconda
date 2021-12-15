@@ -18,11 +18,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-IMAGE_INSTALL=0
-if [[ "$LIVECMD $*" =~ "--image" ]]; then
-    IMAGE_INSTALL=1
-fi
-
 # Allow running another command in the place of anaconda, but in this same
 # environment.  This allows storage testing to make use of all the module
 # loading and lvm control in this file, too.
@@ -36,11 +31,6 @@ if [ -f /etc/system-release ]; then
     ANACONDA_PRODUCTNAME=$(sed -r -e 's/ *release.*//' /etc/system-release)
     export ANACONDA_PRODUCTVERSION
     ANACONDA_PRODUCTVERSION=$(sed -r -e 's/^.* ([0-9\.]+).*$/\1/' /etc/system-release)
-fi
-
-if [ $IMAGE_INSTALL = 1 ]; then
-    export ANACONDA_PRODUCTVERSION
-    ANACONDA_PRODUCTVERSION=$(rpmquery -q --qf '%{VERSION}' anaconda | cut -d. -f1)
 fi
 
 RELEASE=$(rpm -q --qf '%{Release}' --whatprovides system-release)
@@ -151,11 +141,6 @@ else
 fi
 
 if [ -e /tmp/updates.img ]; then rm /tmp/updates.img; fi
-
-# try to teardown the filesystems if this was an image install
-if [ $IMAGE_INSTALL = 1 ]; then
-    anaconda-cleanup
-fi
 
 rm -f /dev/.in_sysinit 2>/dev/null
 
