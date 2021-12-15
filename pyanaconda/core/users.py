@@ -297,6 +297,82 @@ def create_group(group_name, gid=None, root=None):
         raise OSError("Unable to create group %s: status=%s" % (group_name, status))
 
 
+def _dir_tree_map(root, func, files=True, dirs=True):
+    """Apply a function to all paths under a directory.
+
+    Apply the given function to all files and directories in the directory tree
+    under the given root directory. The root itself is not used.
+
+    :param root: root of the directory tree the function should be mapped to
+    :type root: str
+    :param func: a function taking the directory/file path
+    :type func: path -> None
+    :param files: whether to apply the function to the files in the dir. tree
+    :type files: bool
+    :param dirs: whether to apply the function to the directories in the dir. tree
+    :type dirs: bool
+
+    TODO: allow using globs and thus more trees?
+    """
+
+    for (dir_ent, _dir_items, file_items) in os.walk(root):
+        if dirs:
+            # try to call the function on the directory entry
+            try:
+                func(dir_ent)
+            except OSError:
+                pass
+
+        if files:
+            # try to call the function on the files in the directory entry
+            for file_ent in (os.path.join(dir_ent, f) for f in file_items):
+                try:
+                    func(file_ent)
+                except OSError:
+                    pass
+
+        # directories under the directory entry will appear as directory entries in the loop
+
+
+def _chown_dir_tree(root, uid, gid, from_uid_only=None, from_gid_only=None):
+    """
+    Change owner (uid and gid) of the files and directories under the given
+    directory tree (recursively).
+
+    :param root: root of the directory tree that should be chown'ed
+    :type root: str
+    :param uid: UID that should be set as the owner
+    :type uid: int
+    :param gid: GID that should be set as the owner
+    :type gid: int
+    :param from_uid_only: if given, the owner is changed only for the files and
+                          directories owned by that UID
+    :type from_uid_only: int or None
+    :param from_gid_only: if given, the owner is changed only for the files and
+                          directories owned by that GID
+    :type from_gid_only: int or None
+    """
+
+    def conditional_chown(path, uid, gid, from_uid=None, from_gid=None):
+        stats = os.stat(path)
+        if (from_uid and stats.st_uid != from_uid) or \
+                (from_gid and stats.st_gid != from_gid):
+            # owner UID or GID not matching, do nothing
+            return
+
+        # UID and GID matching or not required
+        os.chown(path, uid, gid)
+
+    if not from_uid_only and not from_gid_only:
+        # the easy way
+        _dir_tree_map(root, lambda path: os.chown(path, uid, gid))
+    else:
+        # conditional chown
+        _dir_tree_map(root, lambda path: conditional_chown(path, uid, gid,
+                                                           from_uid_only,
+                                                           from_gid_only))
+
+
 def create_user(username, password=False, is_crypted=False, lock=False,
                 homedir=None, uid=None, gid=None, groups=None, shell=None, gecos="",
                 root=None):
@@ -435,9 +511,9 @@ def create_user(username, password=False, is_crypted=False, lock=False,
             log.info("Home directory for the user %s already existed, "
                      "fixing the owner and SELinux context.", username)
             # home directory already existed, change owner of it properly
-            util.chown_dir_tree(root + homedir,
-                                int(pwent[2]), int(pwent[3]),
-                                orig_uid, orig_gid)
+            _chown_dir_tree(root + homedir,
+                            int(pwent[2]), int(pwent[3]),
+                            orig_uid, orig_gid)
             util.execWithRedirect("restorecon", ["-r", root + homedir])
         except OSError as e:
             log.critical("Unable to change owner of existing home directory: %s", e.strerror)
