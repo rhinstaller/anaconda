@@ -23,6 +23,7 @@ LIB_TEST=src/lib/cockpit-po-plugin.js
 WEBPACK_TEST=dist/manifest.json
 WEBPACK_TEST_PRODUCTION=dist/index.css.gz
 PACKAGE_NAME=anaconda-webui
+ISO_FILE=test/boot.iso
 
 # makes sure it gets built as part of `make` and `make dist`
 dist_noinst_DATA = \
@@ -56,6 +57,17 @@ bots:
 	git clone --quiet --reference-if-able $${XDG_CACHE_HOME:-$$HOME/.cache}/cockpit-project/bots https://github.com/cockpit-project/bots.git
 	if [ -n "$$COCKPIT_BOTS_REF" ]; then git -C bots fetch --quiet --depth=1 origin "$$COCKPIT_BOTS_REF"; git -C bots checkout --quiet FETCH_HEAD; fi
 	@echo "checked out bots/ ref $$(git -C bots rev-parse HEAD)"
+
+# FIXME: we need to download this from somewhere if not existing
+$(ISO_FILE):
+	curl -L https://download.fedoraproject.org/pub/fedora/linux/development/rawhide/Server/x86_64/os/images/boot.iso -o $(ISO_FILE)
+
+integration-test: bots test/common $(ISO_FILE)
+	test/run-test $(ISO_FILE)
+
+vm-run: $(ISO_FILE)
+	if test -z "$$RPM_PATH"; then echo 'Please set RPM_PATH variable'; exit 1; fi
+	VM_ONLY=true test/run-test $(ISO_FILE)
 
 # checkout Cockpit's test API; this has no API stability guarantee, so check out a stable tag
 # when you start a new project, use the latest release, and update it from time to time
