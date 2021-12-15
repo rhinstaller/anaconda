@@ -204,11 +204,39 @@ class DNFPayload(Payload):
 
     def is_ready(self):
         """Is the payload ready?"""
-        return self.base_repo is not None
+        enabled_repos = self._dnf_manager.enabled_repositories
+
+        # If CDN is used as the installation source and we have
+        # a subscription attached then any of the enabled repos
+        # should be fine as the base repo.
+        # If CDN is used but subscription has not been attached
+        # there will be no redhat.repo file to parse and we
+        # don't need to do anything.
+        if self.source_type == SOURCE_TYPE_CDN:
+            return self._is_cdn_set_up() and enabled_repos
+
+        # Otherwise, a base repository has to be enabled.
+        return any(map(self._is_base_repo, enabled_repos))
+
+    def _is_cdn_set_up(self):
+        """Is the CDN source set up?"""
+        if not self.source_type == SOURCE_TYPE_CDN:
+            return False
+
+        if not is_module_available(SUBSCRIPTION):
+            return False
+
+        subscription_proxy = SUBSCRIPTION.get_proxy()
+        return subscription_proxy.IsSubscriptionAttached
+
+    def _is_base_repo(self, repo_id):
+        """Is it a base repository?"""
+        return repo_id == constants.BASE_REPO_NAME \
+            or repo_id in constants.DEFAULT_REPOS
 
     def is_complete(self):
         """Is the payload complete?"""
-        return self.source_type not in SOURCE_REPO_FILE_TYPES or self.base_repo
+        return self.source_type not in SOURCE_REPO_FILE_TYPES or self.is_ready()
 
     def setup(self):
         self.verbose_errors = []
@@ -287,33 +315,6 @@ class DNFPayload(Payload):
             self.verbose_errors.append(str(e))
         log.debug('repo %s: _sync_metadata success from %s', dnf_repo.id,
                   dnf_repo.baseurl or dnf_repo.mirrorlist or dnf_repo.metalink)
-
-    @property
-    def base_repo(self):
-        """Get the identifier of the current base repo or None."""
-        # is any locking needed here?
-        repo_names = [constants.BASE_REPO_NAME] + constants.DEFAULT_REPOS
-        with self._repos_lock:
-            if self.source_type == SOURCE_TYPE_CDN:
-                if is_module_available(SUBSCRIPTION):
-                    subscription_proxy = SUBSCRIPTION.get_proxy()
-                    if subscription_proxy.IsSubscriptionAttached:
-                        # If CDN is used as the installation source and we have
-                        # a subscription attached then any of the enabled repos
-                        # should be fine as the base repo.
-                        # If CDN is used but subscription has not been attached
-                        # there will be no redhat.repo file to parse and we
-                        # don't need to do anything.
-                        for repo in self._base.repos.iter_enabled():
-                            return repo.id
-                else:
-                    log.error("CDN install source set but Subscription module is not available")
-            else:
-                for repo in self._base.repos.iter_enabled():
-                    if repo.id in repo_names:
-                        return repo.id
-
-        return None
 
     ###
     # METHODS FOR WORKING WITH REPOSITORIES
@@ -747,21 +748,11 @@ class DNFPayload(Payload):
 
         # We need to check this again separately in case REPO_FILES were set above.
         if source_type in SOURCE_REPO_FILE_TYPES:
-
             # If this is a kickstart install, just return now as we normally do not
             # want to read the on media repo files in such a case. On the other hand,
             # the local repo files are a valid use case if the system is subscribed
             # and the CDN is selected as the installation source.
-            if self.source_type == SOURCE_TYPE_CDN and is_module_available(SUBSCRIPTION):
-                # only check if the Subscription module is available & CDN is the
-                # installation source
-                subscription_proxy = SUBSCRIPTION.get_proxy()
-                load_cdn_repos = subscription_proxy.IsSubscriptionAttached
-            else:
-                # if the Subscription module is not available, we simply can't use
-                # the CDN repos, making our decision here simple
-                load_cdn_repos = False
-            if flags.automatedInstall and not load_cdn_repos:
+            if flags.automatedInstall and not self._is_cdn_set_up():
                 return
 
             # Otherwise, fall back to the default repos that we disabled above

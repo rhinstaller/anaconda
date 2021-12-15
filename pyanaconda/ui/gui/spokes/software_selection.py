@@ -130,7 +130,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     def _initialize_selection(self):
         """Initialize and check the software selection."""
-        if not self.payload.base_repo:
+        if not self.payload.is_ready():
             log.debug("Skip the initialization of the software selection.")
             return
 
@@ -165,7 +165,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
     @property
     def _source_is_set(self):
         """Is the installation source set?"""
-        return self.payload.base_repo is not None
+        return self.payload.is_ready()
 
     @property
     def _source_has_changed(self):

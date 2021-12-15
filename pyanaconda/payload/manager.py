@@ -235,7 +235,7 @@ class PayloadManager(object):
         payload.gather_repo_metadata()
 
         # Check if that failed
-        if not payload.base_repo:
+        if not payload.is_ready():
             log.error("No base repo configured")
             self._error = self.ERROR_MD
             self._set_state(PayloadState.ERROR)
