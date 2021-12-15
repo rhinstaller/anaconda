@@ -48,7 +48,7 @@ def _make_config_data():
 class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
 
     @patch("os.path.exists")
-    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.mkdirChain")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.make_directories")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
     def test_setup_internal_bindmount(self, exec_mock, mkdir_mock, exists_mock):
         """Test OSTree mount target prepare task _setup_internal_bindmount()"""
@@ -115,7 +115,7 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
         exists_mock.return_value = True
 
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
-    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.mkdirChain")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.make_directories")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
     @patch("os.path.exists", returns=True)
     def test_run_with_var(self, exist_mock, storage_mock, mkdir_mock, exec_mock):
@@ -171,7 +171,7 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
         mkdir_mock.assert_called_once_with("/sysroot/var/lib")
 
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
-    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.mkdirChain")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.make_directories")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
     @patch("os.path.exists", returns=True)
     def test_run_without_var(self, exists_mock, storage_mock, mkdir_mock, exec_mock):
@@ -226,7 +226,7 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
         mkdir_mock.assert_called_once_with("/sysroot/var/lib")
 
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
-    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.mkdirChain")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.make_directories")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
     def test_run_failed(self, storage_mock, mkdir_mock, exec_mock):
         """Test the failed OSTree mount target prepare task."""

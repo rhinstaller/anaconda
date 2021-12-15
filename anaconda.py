@@ -180,7 +180,7 @@ if __name__ == "__main__":
     # init threading before Gtk can do anything and before we start using threads
     from pyanaconda.threading import AnacondaThread, threadMgr
     from pyanaconda.core.i18n import _
-    from pyanaconda.core import util, constants
+    from pyanaconda.core import util, constants, path
     from pyanaconda import startup_utils
 
     # do this early so we can set flags before initializing logging
@@ -283,7 +283,7 @@ if __name__ == "__main__":
     setup_environment()
 
     # make sure we have /var/log soon, some programs fail to start without it
-    util.mkdirChain("/var/log")
+    path.make_directories("/var/log")
 
     # Create a PID file. The exit handler, installed later, will clean it up.
     pidfile = pid.PidFile(pidname='anaconda', register_term_signal_handler=False)

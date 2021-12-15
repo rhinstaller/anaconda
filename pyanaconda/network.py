@@ -31,6 +31,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util, constants
 from pyanaconda.core.i18n import _
 from pyanaconda.core.kernel import kernel_arguments
+from pyanaconda.core.path import make_directories
 from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, \
     IPV6_ADDRESS_IN_DRACUT_IP_OPTION, MAC_OCTET
 from pyanaconda.core.configuration.anaconda import conf
@@ -229,7 +230,7 @@ def copy_resolv_conf_to_root(root="/"):
         return
     dst_dir = os.path.dirname(dst)
     if not os.path.isdir(dst_dir):
-        util.mkdirChain(dst_dir)
+        make_directories(dst_dir)
     shutil.copyfile(src, dst)
 
 

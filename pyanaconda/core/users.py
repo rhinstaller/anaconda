@@ -24,6 +24,7 @@ import subprocess
 from contextlib import contextmanager
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.path import make_directories
 from pyanaconda.core.string import strip_accents
 from pyanaconda.core.regexes import GROUPLIST_FANCY_PARSE, NAME_VALID, PORTABLE_FS_CHARS, GROUPLIST_SIMPLE_VALID
 import crypt
@@ -389,7 +390,7 @@ def create_user(username, password=False, is_crypted=False, lock=False,
     # If root + homedir came out to "/", such as if we're creating the sshpw user,
     # parent_dir will be empty. Don't create that.
     if parent_dir:
-        util.mkdirChain(parent_dir)
+        make_directories(parent_dir)
 
     args.extend(["-d", homedir])
 

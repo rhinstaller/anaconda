@@ -888,8 +888,8 @@ class SecurityTasksTestCase(unittest.TestCase):
         assert str(cm.value) == msg
 
     @patch("pyanaconda.modules.security.installation.shutil")
-    @patch("pyanaconda.modules.security.installation.util")
-    def test_preconfigure_fips_task(self, mock_util, mock_shutil):
+    @patch("pyanaconda.modules.security.installation.make_directories")
+    def test_preconfigure_fips_task(self, mock_mkdir, mock_shutil):
         """Test the PreconfigureFIPSTask task."""
         task = PreconfigureFIPSTask(
             sysroot="/mnt/sysroot",
@@ -901,7 +901,7 @@ class SecurityTasksTestCase(unittest.TestCase):
         task._check_fips = lambda *args, **kwargs: True
         task.run()
 
-        mock_util.mkdirChain.assert_called_once_with(
+        mock_mkdir.assert_called_once_with(
             "/mnt/sysroot/etc/crypto-policies/"
         )
         mock_shutil.copyfile.assert_called_once_with(

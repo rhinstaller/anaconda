@@ -30,6 +30,7 @@ from threading import Lock
 from unittest.mock import Mock, patch
 from timer import timer
 
+from pyanaconda.core.path import make_directories
 from pyanaconda.errors import ExitError
 from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.core import util
@@ -459,43 +460,6 @@ class MiscTests(unittest.TestCase):
         # remove the testing directory
         shutil.rmtree(ANACONDA_TEST_DIR)
 
-    def test_mkdir_chain(self):
-        """Test mkdirChain."""
-
-        # don't fail if directory path already exists
-        util.mkdirChain('/')
-        util.mkdirChain('/tmp')
-
-        # create a path and test it exists
-        test_folder = "test_mkdir_chain"
-        test_paths = [
-            "foo",
-            "foo/bar/baz",
-            "",
-            "čřščščřščř",
-            "asdasd asdasd",
-            "! spam"
-        ]
-
-        # join with the toplevel test folder and the folder for this
-        # test
-        test_paths = [os.path.join(ANACONDA_TEST_DIR, test_folder, p)
-                      for p in test_paths]
-
-        def create_return(path):
-            util.mkdirChain(path)
-            return path
-
-        # create the folders and check that they exist
-        for p in test_paths:
-            assert os.path.exists(create_return(p))
-
-        # try to create them again - all the paths should already exist
-        # and the mkdirChain function needs to handle that
-        # without a traceback
-        for p in test_paths:
-            util.mkdirChain(p)
-
     def test_get_active_console(self):
         """Test get_active_console."""
 
@@ -725,8 +689,8 @@ class MiscTests(unittest.TestCase):
         """Test the get_release_value function."""
         with tempfile.TemporaryDirectory() as root:
             # prepare paths
-            util.mkdirChain(root + "/usr/lib")
-            util.mkdirChain(root + "/etc")
+            make_directories(root + "/usr/lib")
+            make_directories(root + "/etc")
 
             # no file
             with self.assertLogs(level="DEBUG") as cm:

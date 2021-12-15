@@ -14,17 +14,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+import os
+import tempfile
 import unittest
 from unittest.mock import patch, call
 import pytest
-from pyanaconda.core.path import set_system_root
+from pyanaconda.core.path import set_system_root, make_directories
 
 
 class SetSystemRootTests(unittest.TestCase):
     """Test set_system_root"""
 
     @patch("pyanaconda.core.util.execWithRedirect")
-    @patch("pyanaconda.core.util.mkdirChain")
+    @patch("pyanaconda.core.path.make_directories")
     @patch("pyanaconda.core.path.conf")
     @patch("pyanaconda.core.path.os.path.exists")
     def test_success(self, exists_mock, conf_mock, mkdir_mock, exec_mock):
@@ -45,7 +47,7 @@ class SetSystemRootTests(unittest.TestCase):
         ])
 
     @patch("pyanaconda.core.util.execWithRedirect")
-    @patch("pyanaconda.core.util.mkdirChain")
+    @patch("pyanaconda.core.path.make_directories")
     @patch("pyanaconda.core.path.conf")
     @patch("pyanaconda.core.path.os.path.exists")
     def test_same(self, exists_mock, conf_mock, mkdir_mock, exec_mock):
@@ -61,7 +63,7 @@ class SetSystemRootTests(unittest.TestCase):
         exec_mock.assert_not_called()
 
     @patch("pyanaconda.core.util.execWithRedirect")
-    @patch("pyanaconda.core.util.mkdirChain")
+    @patch("pyanaconda.core.path.make_directories")
     @patch("pyanaconda.core.path.conf")
     @patch("pyanaconda.core.path.os.path.exists")
     def test_alt(self, exists_mock, conf_mock, mkdir_mock, exec_mock):
@@ -81,7 +83,7 @@ class SetSystemRootTests(unittest.TestCase):
         assert exec_mock.call_count == 2
 
     @patch("pyanaconda.core.util.execWithRedirect")
-    @patch("pyanaconda.core.util.mkdirChain")
+    @patch("pyanaconda.core.path.make_directories")
     @patch("pyanaconda.core.path.conf")
     @patch("pyanaconda.core.path.os.path.exists")
     def test_fail(self, exists_mock, conf_mock, mkdir_mock, exec_mock):
@@ -103,7 +105,7 @@ class SetSystemRootTests(unittest.TestCase):
         ])
 
     @patch("pyanaconda.core.util.execWithRedirect")
-    @patch("pyanaconda.core.util.mkdirChain")
+    @patch("pyanaconda.core.path.make_directories")
     @patch("pyanaconda.core.path.conf")
     @patch("pyanaconda.core.path.os.path.exists")
     def test_noroot(self, exists_mock, conf_mock, mkdir_mock, exec_mock):
@@ -122,3 +124,41 @@ class SetSystemRootTests(unittest.TestCase):
             call("umount", ["--recursive", "/some/root"]),
         ])
         assert exec_mock.call_count == 3
+
+
+class MiscTests(unittest.TestCase):
+
+    def test_make_directories(self):
+        """Test make_directories"""
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+
+            # don't fail if directory path already exists
+            make_directories('/')
+            make_directories('/tmp')
+
+            # create a path and test it exists
+            test_folder = "test_mkdir_chain"
+            test_paths = [
+                "foo",
+                "foo/bar/baz",
+                "",
+                "čřščščřščř",
+                "asdasd asdasd",
+                "! spam"
+            ]
+
+            # join with the toplevel test folder and the folder for this test
+            test_paths = [os.path.join(str(tmpdir), test_folder, p)
+                          for p in test_paths]
+
+            # create the folders and check that they exist
+            for p in test_paths:
+                make_directories(p)
+                assert os.path.exists(p)
+
+            # try to create them again - all the paths should already exist
+            # and the make_directories function needs to handle that
+            # without a traceback
+            for p in test_paths:
+                make_directories(p)

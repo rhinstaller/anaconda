@@ -23,6 +23,7 @@ from dasbus.typing import get_variant, Str
 
 from pyanaconda.core import util
 from pyanaconda.core.constants import RHSM_SYSPURPOSE_FILE_PATH
+from pyanaconda.core.path import make_directories
 from pyanaconda.core.subscription import check_system_purpose_set
 
 from pyanaconda.modules.common.task import Task
@@ -171,7 +172,7 @@ class TransferSubscriptionTokensTask(Task):
         if not_empty and not os.listdir(input_folder):
             return False
         # make sure the output folder exist
-        util.mkdirChain(output_folder)
+        make_directories(output_folder)
         # transfer all the pem files in the input folder
         for pem_file_path in glob.glob(os.path.join(input_folder, "*.pem")):
             shutil.copy(pem_file_path, output_folder)
@@ -182,7 +183,7 @@ class TransferSubscriptionTokensTask(Task):
         if not os.path.isfile(file_path):
             return False
         # make sure the output folder exists
-        util.mkdirChain(os.path.dirname(target_file_path))
+        make_directories(os.path.dirname(target_file_path))
         shutil.copy(file_path, target_file_path)
         return True
 

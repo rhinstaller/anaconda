@@ -35,7 +35,7 @@ def set_system_root(path):
     :param path: the new OS root path or None
     :type path: str or None
     """
-    from pyanaconda.core.util import execWithRedirect, mkdirChain
+    from pyanaconda.core.util import execWithRedirect
 
     sysroot = conf.target.system_root
 
@@ -54,10 +54,18 @@ def set_system_root(path):
 
     # Create a directory for the mount point.
     if not os.path.exists(sysroot):
-        mkdirChain(sysroot)
+        make_directories(sysroot)
 
     # Mount the mount point.
     rc = execWithRedirect("mount", ["--rbind", path, sysroot])
 
     if rc != 0:
         raise OSError("Failed to mount sysroot to {}.".format(path))
+
+
+def make_directories(directory):
+    """Make a directory and all of its parents. Don't fail if part of the path already exists.
+
+    :param str directory: The directory path to create
+    """
+    os.makedirs(directory, 0o755, exist_ok=True)

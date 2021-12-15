@@ -41,6 +41,7 @@ from requests_file import FileAdapter
 from requests_ftp import FTPAdapter
 
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.path import make_directories
 from pyanaconda.flags import flags
 from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.core.constants import DRACUT_SHUTDOWN_EJECT, \
@@ -462,17 +463,6 @@ def execConsole():
         raise RuntimeError("Error running /bin/bash: " + e.strerror) from e
 
 
-## Create a directory path.  Don't fail if the directory already exists.
-def mkdirChain(directory):
-    """ Make a directory and all of its parents. Don't fail if part or
-        of it already exists.
-
-        :param str directory: The directory path to create
-    """
-
-    os.makedirs(directory, 0o755, exist_ok=True)
-
-
 def get_active_console(dev="console"):
     """Find the active console device.
 
@@ -545,7 +535,7 @@ def dracut_eject(device):
 
     try:
         if not os.path.exists(DRACUT_SHUTDOWN_EJECT):
-            mkdirChain(os.path.dirname(DRACUT_SHUTDOWN_EJECT))
+            make_directories(os.path.dirname(DRACUT_SHUTDOWN_EJECT))
             f = open_with_perm(DRACUT_SHUTDOWN_EJECT, "w", 0o755)
             f.write("#!/bin/sh\n")
             f.write("# Created by Anaconda\n")

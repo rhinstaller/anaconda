@@ -22,7 +22,8 @@ import glob
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import SCREENSHOTS_DIRECTORY
-from pyanaconda.core.util import execWithRedirect, join_paths, mkdirChain
+from pyanaconda.core.path import make_directories
+from pyanaconda.core.util import execWithRedirect, join_paths
 from pyanaconda.modules.common.task import Task
 
 log = get_module_logger(__name__)
@@ -93,7 +94,7 @@ class CopyLogsTask(Task):
 
     def _create_logs_directory(self):
         """Create directory for Anaconda logs on the install target"""
-        mkdirChain(join_paths(self._sysroot, TARGET_LOG_DIR))
+        make_directories(join_paths(self._sysroot, TARGET_LOG_DIR))
 
     def _copy_tmp_logs(self):
         """Copy a number of log files from /tmp"""
