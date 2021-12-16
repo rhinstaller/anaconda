@@ -34,6 +34,7 @@ from pyanaconda.core.constants import TEXT_ONLY_TARGET, SETUP_ON_BOOT_DEFAULT, \
     SETUP_ON_BOOT_ENABLED, DRACUT_ERRORS_PATH
 from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import ProxyString, ProxyStringError
+from pyanaconda.core.service import start_service
 from pyanaconda.flags import flags
 from pyanaconda.screensaver import inhibit_screensaver
 from pyanaconda.modules.common.structures.timezone import TimeSourceData
@@ -450,7 +451,7 @@ def start_chronyd():
         ntp.save_servers_to_config(servers)
 
     if enabled:
-        util.start_service("chronyd")
+        start_service("chronyd")
 
 
 def activate_keyboard(opts):

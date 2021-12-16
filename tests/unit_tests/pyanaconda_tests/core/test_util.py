@@ -40,32 +40,6 @@ from pyanaconda.core.configuration.anaconda import conf
 ANACONDA_TEST_DIR = '/tmp/anaconda_tests_dir'
 
 
-class RunSystemctlTests(unittest.TestCase):
-
-    def test_is_service_installed(self):
-        """Test the is_service_installed function."""
-        with patch('pyanaconda.core.util.execWithCapture') as execute:
-            execute.return_value = "fake.service enabled enabled"
-            assert util.is_service_installed("fake") is True
-            execute.assert_called_once_with("systemctl", [
-                "list-unit-files", "fake.service", "--no-legend", "--root", "/mnt/sysroot"
-            ])
-
-        with patch('pyanaconda.core.util.execWithCapture') as execute:
-            execute.return_value = "fake.service enabled enabled"
-            assert util.is_service_installed("fake.service", root="/") == True
-            execute.assert_called_once_with("systemctl", [
-                "list-unit-files", "fake.service", "--no-legend"
-            ])
-
-        with patch('pyanaconda.core.util.execWithCapture') as execute:
-            execute.return_value = ""
-            assert util.is_service_installed("fake", root="/") == False
-            execute.assert_called_once_with("systemctl", [
-                "list-unit-files", "fake.service", "--no-legend"
-            ])
-
-
 class RunProgramTests(unittest.TestCase):
     def test_run_program(self):
         """Test the _run_program method."""

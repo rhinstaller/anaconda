@@ -535,10 +535,10 @@ class NTPTasksTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as sysroot:
             self._setup_environment(sysroot, make_chronyd)
 
-            with patch("pyanaconda.modules.timezone.installation.util") as mock_util:
-                mock_util.is_service_installed.return_value = ntp_installed
+            with patch("pyanaconda.modules.timezone.installation.service") as service_util:
+                service_util.is_service_installed.return_value = ntp_installed
                 self._execute_task(sysroot, ntp_enabled, ntp_servers)
-                self._validate_ntp_service(sysroot, mock_util, ntp_installed, ntp_enabled)
+                self._validate_ntp_service(sysroot, service_util, ntp_installed, ntp_enabled)
 
             if ntp_config_error:
                 return
@@ -558,22 +558,22 @@ class NTPTasksTestCase(unittest.TestCase):
         )
         task.run()
 
-    def _validate_ntp_service(self, sysroot, mock_util, ntp_installed, ntp_enabled):
-        mock_util.is_service_installed.assert_called_once_with(
+    def _validate_ntp_service(self, sysroot, service_util, ntp_installed, ntp_enabled):
+        service_util.is_service_installed.assert_called_once_with(
             "chronyd", root=sysroot
         )
 
         if not ntp_installed:
-            mock_util.enable_service.assert_not_called()
-            mock_util.disable_service.assert_not_called()
+            service_util.enable_service.assert_not_called()
+            service_util.disable_service.assert_not_called()
         elif ntp_enabled:
-            mock_util.enable_service.assert_called_once_with(
+            service_util.enable_service.assert_called_once_with(
                 "chronyd", root=sysroot
             )
-            mock_util.disable_service.assert_not_called()
+            service_util.disable_service.assert_not_called()
         else:
-            mock_util.enable_service.assert_not_called()
-            mock_util.disable_service.assert_called_once_with(
+            service_util.enable_service.assert_not_called()
+            service_util.disable_service.assert_called_once_with(
                 "chronyd", root=sysroot
             )
 

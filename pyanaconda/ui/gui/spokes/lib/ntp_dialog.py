@@ -19,9 +19,10 @@
 from pyanaconda import network
 from pyanaconda import ntp
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core import util, constants
+from pyanaconda.core import constants
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import TIME_SOURCE_POOL, TIME_SOURCE_SERVER
+from pyanaconda.core.service import restart_service
 from pyanaconda.core.timer import Timer
 from pyanaconda.modules.common.structures.timezone import TimeSourceData
 from pyanaconda.ui.gui import GUIObject
@@ -94,7 +95,7 @@ class NTPConfigDialog(GUIObject):
             # Restart the NTP service.
             if conf.system.can_set_time_synchronization:
                 ntp.save_servers_to_config(self._servers)
-                util.restart_service(NTP_SERVICE)
+                restart_service(NTP_SERVICE)
 
         return rc
 
