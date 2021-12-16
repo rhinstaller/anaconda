@@ -55,7 +55,9 @@ dist_check_SCRIPTS = $(srcdir)/glade_tests/*.py \
 		     gettext_tests/canary_tests.sh \
 		     $(srcdir)/*_tests/*.py \
 		     $(srcdir)/unit_tests/*_tests/*.py \
+		     shellcheck/*.sh \
 		     pep8/runpep8.sh
+
 
 TESTS = unit_tests/unit_tests.sh \
 	pylint/runpylint.py \
@@ -64,7 +66,8 @@ TESTS = unit_tests/unit_tests.sh \
 	gettext_tests/style_guide.py \
 	gettext_tests/contexts.py \
 	gettext_tests/canary_tests.sh \
-	glade_tests/glade_tests.sh
+	glade_tests/glade_tests.sh \
+	shellcheck/run_shellcheck.sh
 
 clean-local:
 	-rm -rf pylint/.pylint.d

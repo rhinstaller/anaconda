@@ -45,7 +45,7 @@ for dd in $DD_NET; do
             mntdir=$(nfs_already_mounted "$server" "$path")
             if [ -z "$mntdir" ]; then
                 mntdir="$(mkuniqdir /run nfs_mnt)"
-                mount_nfs "$nfs:$server:$path$(options:+:$options)" "$mntdir"
+                mount_nfs "$nfs:$server:$path$(options:+:"$options")" "$mntdir"
             fi
 
             # Get and process all rpm files in the mounted directory
