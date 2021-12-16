@@ -26,7 +26,8 @@ from collections import namedtuple
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import DEFAULT_LANG, DisplayModes
-from pyanaconda.core.util import startProgram, join_paths
+from pyanaconda.core.util import startProgram
+from pyanaconda.core.path import join_paths
 from pyanaconda.localization import find_best_locale_match
 
 log = get_module_logger(__name__)

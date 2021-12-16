@@ -24,7 +24,7 @@ import json
 from dasbus.typing import get_variant, Str, List
 from dasbus.error import DBusError
 
-from pyanaconda.core import util
+from pyanaconda.core.path import join_paths
 from pyanaconda.core.constants import RHSM_SYSPURPOSE_FILE_PATH
 from pyanaconda.core.subscription import check_system_purpose_set
 
@@ -174,7 +174,7 @@ def give_the_system_purpose(sysroot, rhsm_syspurpose_proxy, role, sla, usage, ad
         # new and old date, if not all fields are set in the most recent
         # invocation.
         log.debug("subscription: clearing old system purpose data")
-        syspurpose_path = util.join_paths(sysroot, RHSM_SYSPURPOSE_FILE_PATH)
+        syspurpose_path = join_paths(sysroot, RHSM_SYSPURPOSE_FILE_PATH)
         os.remove(syspurpose_path)
 
     if role or sla or usage or addons:

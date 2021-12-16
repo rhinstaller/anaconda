@@ -17,7 +17,7 @@
 #
 import glob
 
-from pyanaconda.core.util import join_paths
+from pyanaconda.core.path import join_paths
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.task import Task
 

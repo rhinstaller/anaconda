@@ -23,7 +23,7 @@ from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import THREAD_LIVE_PROGRESS
 from pyanaconda.core.i18n import _
-from pyanaconda.core.util import join_paths
+from pyanaconda.core.path import join_paths
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.task.cancellable import Cancellable

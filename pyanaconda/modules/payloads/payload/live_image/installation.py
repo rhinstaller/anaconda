@@ -25,7 +25,8 @@ import blivet.util
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import NETWORK_CONNECTION_TIMEOUT
 from pyanaconda.core.i18n import _
-from pyanaconda.core.util import execWithRedirect, requests_session, join_paths
+from pyanaconda.core.util import execWithRedirect, requests_session
+from pyanaconda.core.path import join_paths
 from pyanaconda.core.string import lower_ascii
 from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
 from pyanaconda.modules.common.task import Task

@@ -22,7 +22,8 @@ import tempfile
 import unittest
 
 from pyanaconda.core.constants import SOURCE_TYPE_LIVE_OS_IMAGE, PAYLOAD_TYPE_LIVE_OS
-from pyanaconda.core.util import touch, join_paths
+from pyanaconda.core.util import touch
+from pyanaconda.core.path import join_paths
 from pyanaconda.modules.common.errors.payload import IncompatibleSourceError
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.payload.live_os.live_os import LiveOSModule

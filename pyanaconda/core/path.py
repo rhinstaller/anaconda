@@ -95,3 +95,24 @@ def open_with_perm(path, mode='r', perm=0o777, **kwargs):
         return os.open(path_to_open, open_flags, perm)
 
     return open(path, mode, opener=_opener, **kwargs)
+
+
+def join_paths(path, *paths):
+    """Always join paths.
+
+    The os.path.join() function has a drawback when second path is absolute. In that case it will
+    instead return the second path only.
+
+    :param path: first path we want to join
+    :param paths: paths we want to merge
+    :returns: return path created from all the input paths
+    :rtype: str
+    """
+    if len(paths) == 0:
+        return path
+
+    new_paths = []
+    for p in paths:
+        new_paths.append(p.lstrip(os.path.sep))
+
+    return os.path.join(path, *new_paths)

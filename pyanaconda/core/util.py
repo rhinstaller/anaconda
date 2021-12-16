@@ -41,7 +41,7 @@ from requests_file import FileAdapter
 from requests_ftp import FTPAdapter
 
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.path import make_directories, open_with_perm
+from pyanaconda.core.path import make_directories, open_with_perm, join_paths
 from pyanaconda.flags import flags
 from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.core.constants import DRACUT_SHUTDOWN_EJECT, \
@@ -773,27 +773,6 @@ def id_generator():
     while(True):
         yield actual_id
         actual_id += 1
-
-
-def join_paths(path, *paths):
-    """Always join paths.
-
-    The os.path.join() function has a drawback when second path is absolute. In that case it will
-    instead return the second path only.
-
-    :param path: first path we want to join
-    :param paths: paths we want to merge
-    :returns: return path created from all the input paths
-    :rtype: str
-    """
-    if len(paths) == 0:
-        return path
-
-    new_paths = []
-    for p in paths:
-        new_paths.append(p.lstrip(os.path.sep))
-
-    return os.path.join(path, *new_paths)
 
 
 def touch(file_path):

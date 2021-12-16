@@ -615,24 +615,6 @@ class MiscTests(unittest.TestCase):
         assert conf.target.physical_root == "/mnt/sysimage"
         assert conf.target.system_root == "/mnt/sysroot"
 
-    def test_join_paths(self):
-        assert util.join_paths("/first/path/") == \
-            "/first/path/"
-        assert util.join_paths("") == \
-            ""
-        assert util.join_paths("/first/path/", "/second/path") == \
-            "/first/path/second/path"
-        assert util.join_paths("/first/path/", "/second/path", "/third/path") == \
-            "/first/path/second/path/third/path"
-        assert util.join_paths("/first/path/", "/second/path", "third/path") == \
-            "/first/path/second/path/third/path"
-        assert util.join_paths("/first/path/", "second/path") == \
-            "/first/path/second/path"
-        assert util.join_paths("first/path", "/second/path") == \
-            "first/path/second/path"
-        assert util.join_paths("first/path", "second/path") == \
-            "first/path/second/path"
-
     @patch.dict('sys.modules')
     def test_get_anaconda_version_string(self):
         # Forget imported modules from pyanaconda. We have to forget every parent module of

@@ -20,7 +20,8 @@ import tempfile
 import unittest
 from unittest.mock import patch, call
 import pytest
-from pyanaconda.core.path import set_system_root, make_directories, get_mount_paths, open_with_perm
+from pyanaconda.core.path import set_system_root, make_directories, get_mount_paths, \
+    open_with_perm, join_paths
 
 
 class SetSystemRootTests(unittest.TestCase):
@@ -199,3 +200,22 @@ class MiscTests(unittest.TestCase):
                 os.umask(old_umask)
         finally:
             shutil.rmtree(test_dir)
+
+    def test_join_paths(self):
+        """Test join_paths"""
+        assert join_paths("/first/path/") == \
+            "/first/path/"
+        assert join_paths("") == \
+            ""
+        assert join_paths("/first/path/", "/second/path") == \
+            "/first/path/second/path"
+        assert join_paths("/first/path/", "/second/path", "/third/path") == \
+            "/first/path/second/path/third/path"
+        assert join_paths("/first/path/", "/second/path", "third/path") == \
+            "/first/path/second/path/third/path"
+        assert join_paths("/first/path/", "second/path") == \
+            "/first/path/second/path"
+        assert join_paths("first/path", "/second/path") == \
+            "first/path/second/path"
+        assert join_paths("first/path", "second/path") == \
+            "first/path/second/path"

@@ -23,10 +23,10 @@ import rpm
 from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.regexes import VERSION_DIGITS
-from pyanaconda.core.util import is_lpae_available, join_paths, execWithCapture
+from pyanaconda.core.util import is_lpae_available, execWithCapture
+from pyanaconda.core.path import join_paths
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.structures.packages import PackagesSelectionData
@@ -326,7 +326,7 @@ def pick_download_location(dnf_manager):
     mount_point = _get_biggest_mount_point(mount_points, sufficient)
 
     log.info("Mount point %s picked as download location", mount_point)
-    location = util.join_paths(mount_point, DNF_PACKAGE_CACHE_DIR_SUFFIX)
+    location = join_paths(mount_point, DNF_PACKAGE_CACHE_DIR_SUFFIX)
 
     return location
 

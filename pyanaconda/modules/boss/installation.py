@@ -22,8 +22,8 @@ import glob
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import SCREENSHOTS_DIRECTORY
-from pyanaconda.core.path import make_directories
-from pyanaconda.core.util import execWithRedirect, join_paths
+from pyanaconda.core.path import make_directories, join_paths
+from pyanaconda.core.util import execWithRedirect
 from pyanaconda.modules.common.task import Task
 
 log = get_module_logger(__name__)
