@@ -526,6 +526,22 @@ class DNFInterfaceTestCase(unittest.TestCase):
 
         assert self.interface.GetRepoConfigurations() == expected
 
+    @patch("pyanaconda.modules.payloads.source.rpm_mount.rpm_mount.RPMMountSourceModule.path",
+           new_callable=PropertyMock)
+    @patch_dbus_publish_object
+    def test_rpm_mount_get_repo_configurations(self, publisher, path):
+        """Test DNF GetRepoConfigurations for RPMMount source."""
+        path.return_value = "/install_source/rpm_mount"
+        source = self.shared_tests.prepare_source(SourceType.RPM_MOUNT)
+
+        self.shared_tests.set_sources([source])
+
+        expected = [
+            self._generate_expected_repo_configuration_dict("file:///install_source/rpm_mount")
+        ]
+
+        assert self.interface.GetRepoConfigurations() == expected
+
     @patch("pyanaconda.modules.payloads.source.hmc.hmc.HMCSourceModule.mount_point",
            new_callable=PropertyMock)
     @patch_dbus_publish_object
