@@ -1,3 +1,6 @@
+# This container is used for runing Anaconda RPM tests in the controlled environment.
+# To find out how to build this container please look on the ./tests/README.rst file.
+
 # The `image` arg will set base image for the build.
 # possible values:
 #   registry.fedoraproject.org/fedora:35
@@ -22,13 +25,16 @@ LABEL maintainer=anaconda-devel@lists.fedoraproject.org
 # On ELN, BaseOS+AppStream don't have all our build dependencies; this provides the "Everything" compose
 COPY ["eln.repo", "/etc/yum.repos.d"]
 
+# The anaconda.spec.in is in the repository root. This file will be copied automatically here if
+# the build is invoked by Makefile.
+COPY ["anaconda.spec.in", "/root/"]
+
 # Prepare environment and install build dependencies
 RUN set -ex; \
   if grep -q VARIANT.*eln /etc/os-release; then sed -i 's/enabled=0/enabled=1/' /etc/yum.repos.d/eln.repo; fi; \
   dnf update -y; \
   dnf install -y \
   'dnf-command(copr)' \
-  curl \
   python3-pip \
   /usr/bin/xargs \
   rpm-build; \
@@ -44,7 +50,7 @@ RUN set -ex; \
   else \
     dnf copr enable -y ${copr_repo} fedora-eln-x86_64; \
   fi; \
-  curl -L https://raw.githubusercontent.com/rhinstaller/anaconda/${git_branch}/anaconda.spec.in | sed 's/@PACKAGE_VERSION@/0/; s/@PACKAGE_RELEASE@/0/; s/%{__python3}/python3/' > /tmp/anaconda.spec; \
+  cat /root/anaconda.spec.in | sed 's/@PACKAGE_VERSION@/0/; s/@PACKAGE_RELEASE@/0/; s/%{__python3}/python3/' > /tmp/anaconda.spec; \
   rpmspec -q --buildrequires /tmp/anaconda.spec | xargs -d '\n' dnf install -y; \
   dnf clean all; \
   mkdir /anaconda

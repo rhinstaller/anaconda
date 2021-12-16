@@ -1,4 +1,5 @@
 # Dockerfile to build boot.iso with Anaconda from the repository.
+# To find out how to build this container please look on the ./tests/README.rst file.
 # This container has to be started as --privileged and with precreated loop devices otherwise
 # lorax won't work correctly.
 #
