@@ -122,7 +122,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         if cdn_source and not self.subscribed:
             log.debug("CDN source but no subscribtion attached - skipping payload restart.")
         elif source_changed or repo_changed or self._error:
-            payloadMgr.start(self.payload, try_media=False)
+            payloadMgr.start(self.payload)
         else:
             log.debug("Nothing has changed - skipping payload restart.")
 
