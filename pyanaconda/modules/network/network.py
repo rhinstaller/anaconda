@@ -688,7 +688,7 @@ class NetworkService(KickstartService):
             if target_connections:
                 if len(target_connections) > 1:
                     log.debug("Get dracut arguments: "
-                              "multiple connections found for traget %s: %s, taking the first one",
+                              "multiple connections found for target %s: %s, taking the first one",
                               [con.get_uuid() for con in target_connections], target_ip)
                 connection = target_connections[0]
             else:
