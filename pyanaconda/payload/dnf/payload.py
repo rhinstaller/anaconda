@@ -41,7 +41,7 @@ from pyanaconda.anaconda_loggers import get_packaging_logger
 from pyanaconda.core import constants, util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, \
-    SOURCE_TYPE_URL, SOURCE_TYPE_CDROM, URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, \
+    SOURCE_TYPE_URL, SOURCE_TYPE_RPM_MOUNT, URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, \
     URL_TYPE_METALINK, SOURCE_REPO_FILE_TYPES, SOURCE_TYPE_CDN, MULTILIB_POLICY_ALL
 from pyanaconda.core.i18n import N_
 from pyanaconda.core.payload import ProxyString, ProxyStringError
@@ -49,13 +49,14 @@ from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import RepoData
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
-from pyanaconda.modules.payloads.source.utils import has_network_protocol
+from pyanaconda.modules.payloads.constants import DRACUT_REPO_DIR
+from pyanaconda.modules.payloads.source.utils import has_network_protocol, verify_valid_repository
 from pyanaconda.modules.common.errors.storage import DeviceSetupError, MountFilesystemError
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload.errors import PayloadError, PayloadSetupError
-from pyanaconda.payload.image import find_first_iso_image, find_optical_install_media
+from pyanaconda.payload.image import find_first_iso_image
 from pyanaconda.modules.payloads.payload.dnf.tree_info import TreeInfoMetadata, NoTreeInfoError, \
     TreeInfoMetadataError
 from pyanaconda.progress import progress_message
@@ -603,11 +604,12 @@ class DNFPayload(Payload):
         source_proxy = self.get_source_proxy()
         source_type = source_proxy.Type
 
-        # Change the default source to CDROM if there is a valid install media.
+        # Change the default source to RPM Mount if the mount in Dracut has a repository
         # FIXME: Set up the default source earlier.
-        if checkmount and self._is_source_default() and find_optical_install_media():
-            source_type = SOURCE_TYPE_CDROM
+        if checkmount and self._is_source_default() and verify_valid_repository(DRACUT_REPO_DIR):
+            source_type = SOURCE_TYPE_RPM_MOUNT
             source_proxy = create_source(source_type)
+            source_proxy.SetPath(DRACUT_REPO_DIR)
             set_source(self.proxy, source_proxy)
 
         # Set up the source.

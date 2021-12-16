@@ -31,6 +31,9 @@ DNF_REPO_DIRS = [
     '/etc/anaconda.repos.d'
 ]
 
+# Location of the repository directory in Dracut (may not container repository)
+DRACUT_REPO_DIR = "/run/install/repo"
+
 
 @unique
 class PayloadType(Enum):
