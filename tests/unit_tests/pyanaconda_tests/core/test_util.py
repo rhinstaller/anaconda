@@ -532,22 +532,6 @@ class MiscTests(unittest.TestCase):
         assert not util.cmp_obj_attrs(b, a, ["b", "c"])
         assert not util.cmp_obj_attrs(b, a, ["c", "b"])
 
-    def test_touch(self):
-        """Test if the touch function correctly creates empty files"""
-        test_dir = tempfile.mkdtemp()
-        try:
-            file_path = os.path.join(test_dir, "EMPTY_FILE")
-            # try to create an empty file with touch()
-            util.touch(file_path)
-
-            # check if it exists & is a file
-            assert os.path.isfile(file_path)
-
-            # check if the file is empty
-            assert os.stat(file_path).st_size == 0
-        finally:
-            shutil.rmtree(test_dir)
-
     def test_item_counter(self):
         """Test the item_counter generator."""
         # normal usage

@@ -28,8 +28,7 @@ from requests_file import FileAdapter
 from unittest.mock import patch, Mock, call
 
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.util import touch
-from pyanaconda.core.path import join_paths
+from pyanaconda.core.path import join_paths, touch
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
 from pyanaconda.modules.payloads.payload.live_image.download_progress import DownloadProgress

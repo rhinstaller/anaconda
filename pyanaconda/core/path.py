@@ -116,3 +116,15 @@ def join_paths(path, *paths):
         new_paths.append(p.lstrip(os.path.sep))
 
     return os.path.join(path, *new_paths)
+
+
+def touch(file_path):
+    """Create an empty file.
+
+    This mirrors how touch works - it does not throw an error if the given path exists,
+    even when the path points to a directory.
+
+    :param str file_path: Path to the file to create
+    """
+    if not os.path.exists(file_path):
+        os.mknod(file_path)

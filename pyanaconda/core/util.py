@@ -775,15 +775,6 @@ def id_generator():
         actual_id += 1
 
 
-def touch(file_path):
-    """Create an empty file."""
-    # this misrrors how touch works - it does not
-    # throw an error if the given path exists,
-    # even when the path points to dirrectory
-    if not os.path.exists(file_path):
-        os.mknod(file_path)
-
-
 def collect(module_pattern, path, pred):
     """Traverse the directory (given by path), import all files as a module
        module_pattern % filename and find all classes within that match

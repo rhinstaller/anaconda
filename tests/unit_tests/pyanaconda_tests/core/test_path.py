@@ -21,7 +21,7 @@ import unittest
 from unittest.mock import patch, call
 import pytest
 from pyanaconda.core.path import set_system_root, make_directories, get_mount_paths, \
-    open_with_perm, join_paths
+    open_with_perm, join_paths, touch
 
 
 class SetSystemRootTests(unittest.TestCase):
@@ -219,3 +219,19 @@ class MiscTests(unittest.TestCase):
             "first/path/second/path"
         assert join_paths("first/path", "second/path") == \
             "first/path/second/path"
+
+    def test_touch(self):
+        """Test if the touch function correctly creates empty files"""
+        test_dir = tempfile.mkdtemp()
+        try:
+            file_path = os.path.join(test_dir, "EMPTY_FILE")
+            # try to create an empty file with touch()
+            touch(file_path)
+
+            # check if it exists & is a file
+            assert os.path.isfile(file_path)
+
+            # check if the file is empty
+            assert os.stat(file_path).st_size == 0
+        finally:
+            shutil.rmtree(test_dir)
