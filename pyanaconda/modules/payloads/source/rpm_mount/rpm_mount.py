@@ -24,6 +24,8 @@ from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, \
     RPMSourceMixin
 from pyanaconda.modules.payloads.source.rpm_mount.rpm_mount_interface import \
     RPMMountSourceInterface
+from pyanaconda.modules.payloads.source.rpm_mount.initialization import \
+    SetUpRPMMountSourceTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -108,7 +110,14 @@ class RPMMountSourceModule(PayloadSourceBase, RPMSourceMixin):
         :return: list of tasks required for the source setup
         :rtype: [Task]
         """
-        return []
+        task = SetUpRPMMountSourceTask(self._path)
+        task.succeeded_signal.connect(lambda: self._handle_setup_task_result(task))
+        return [task]
+
+    def _handle_setup_task_result(self, task):
+        result = task.get_result()
+        self._is_ready = result
+        log.debug("Repository found at '%s'", self._path)
 
     def tear_down_with_tasks(self):
         """Tear down the installation source.
