@@ -532,15 +532,6 @@ class MiscTests(unittest.TestCase):
         assert not util.cmp_obj_attrs(b, a, ["b", "c"])
         assert not util.cmp_obj_attrs(b, a, ["c", "b"])
 
-    def test_parent_dir(self):
-        """Test the parent_dir function"""
-        dirs = [("", ""), ("/", ""), ("/home/", ""), ("/home/bcl", "/home"), ("home/bcl", "home"),
-                ("/home/bcl/", "/home"), ("/home/extra/bcl", "/home/extra"),
-                ("/home/extra/bcl/", "/home/extra"), ("/home/extra/../bcl/", "/home")]
-
-        for d, r in dirs:
-            assert util.parent_dir(d) == r
-
     def test_open_with_perm(self):
         """Test the open_with_perm function"""
         # Create a directory for test files

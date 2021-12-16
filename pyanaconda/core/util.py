@@ -763,11 +763,6 @@ def runOnErrorScripts(scripts):
     log.info("All kickstart %%onerror script(s) have been run")
 
 
-def parent_dir(directory):
-    """Return the parent's path"""
-    return "/".join(os.path.normpath(directory).split("/")[:-1])
-
-
 def requests_session():
     """Return a requests.Session object with file and ftp support."""
     session = requests.Session()

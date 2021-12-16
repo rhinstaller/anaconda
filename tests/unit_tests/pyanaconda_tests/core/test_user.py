@@ -25,7 +25,7 @@ import unittest
 from unittest.mock import patch
 from pyanaconda.core.path import make_directories
 from pyanaconda.core.users import check_username, check_groupname, check_grouplist, \
-    _dir_tree_map, _chown_dir_tree
+    _dir_tree_map, _chown_dir_tree, _get_parent_directory
 
 
 class UserNameTests(unittest.TestCase):
@@ -217,3 +217,13 @@ class ChownInternalsTest(unittest.TestCase):
 
         dtm_mock.reset_mock()
         _chown_dir_tree("somewhere", 0o0, 123, 456, 789)
+
+    def test_get_parent_directory(self):
+        """Test the _get_parent_directory function"""
+        dirs = [("", ""), ("/", ""), ("/home/", ""), ("/home/bcl", "/home"), ("home/bcl", "home"),
+                ("/home/bcl/", "/home"), ("/home/extra/bcl", "/home/extra"),
+                ("/home/extra/bcl/", "/home/extra"), ("/home/extra/../bcl/", "/home")]
+
+        for d, r in dirs:
+            assert _get_parent_directory(d) == r
+
