@@ -19,7 +19,7 @@ import tempfile
 import unittest
 from unittest.mock import patch, call
 import pytest
-from pyanaconda.core.path import set_system_root, make_directories
+from pyanaconda.core.path import set_system_root, make_directories, get_mount_paths
 
 
 class SetSystemRootTests(unittest.TestCase):
@@ -162,3 +162,19 @@ class MiscTests(unittest.TestCase):
             # without a traceback
             for p in test_paths:
                 make_directories(p)
+
+    @patch("pyanaconda.core.path.open")
+    @patch("pyanaconda.core.path.os.stat")
+    def test_get_mount_paths(self, stat_mock, open_mock):
+        """Test get_mount_paths"""
+        stat_mock.return_value.st_rdev = 2049
+        open_mock.return_value = [
+            "92 59 253:3 / /home rw,relatime shared:45 - ext4 /dev/mapper/fedora_home rw,seclabel",
+            "95 59 8:1 / /boot rw,relatime shared:47 - ext4 /dev/sda1 rw,seclabel",
+            "95 59 8:1 / /mnt/blah rw,relatime shared:47 - ext4 /dev/sda1 ro",
+            "146 59 0:38 / /var/lib/nfs/rpc_pipefs rw,relatime shared:73 - rpc_pipefs sunrpc rw",
+        ]
+        assert get_mount_paths("/dev/sda1") == ["/boot", "/mnt/blah"]
+
+        open_mock.return_value = ""
+        assert get_mount_paths("/dev/sda1") == []

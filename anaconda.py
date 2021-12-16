@@ -87,7 +87,7 @@ def exitHandler(rebootData):
 
         if flags.eject or rebootData.eject:
             for device_path in optical_media:
-                if util.get_mount_paths(device_path):
+                if path.get_mount_paths(device_path):
                     util.dracut_eject(device_path)
 
         if flags.kexec:

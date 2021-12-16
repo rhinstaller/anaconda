@@ -69,3 +69,11 @@ def make_directories(directory):
     :param str directory: The directory path to create
     """
     os.makedirs(directory, 0o755, exist_ok=True)
+
+
+def get_mount_paths(devnode):
+    """Given a device node, return a list of all active mountpoints."""
+    devno = os.stat(devnode).st_rdev
+    majmin = "%d:%d" % (os.major(devno), os.minor(devno))
+    mountinfo = (line.split() for line in open("/proc/self/mountinfo"))
+    return [info[4] for info in mountinfo if info[2] == majmin]
