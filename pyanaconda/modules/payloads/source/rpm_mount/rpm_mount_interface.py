@@ -18,6 +18,8 @@
 # Red Hat, Inc.
 #
 from dasbus.server.interface import dbus_interface
+from dasbus.typing import *  # pylint: disable=wildcard-import
+from dasbus.server.property import emits_properties_changed
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_RPM_MOUNT
 from pyanaconda.modules.payloads.source.source_base_interface import PayloadSourceBaseInterface
 
@@ -29,3 +31,16 @@ class RPMMountSourceInterface(PayloadSourceBaseInterface):
     This source will use existing mount point as the payload source. There will be no unmount and
     mounting involved.
     """
+    def connect_signals(self):
+        super().connect_signals()
+        self.watch_property("Path", self.implementation.path_changed)
+
+    @property
+    def Path(self) -> Str:
+        """Get the path."""
+        return self.implementation.path
+
+    @emits_properties_changed
+    def SetPath(self, path: Str):
+        """Set the path."""
+        self.implementation.set_path(path)

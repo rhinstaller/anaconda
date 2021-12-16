@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.core.i18n import _
+from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, \
@@ -41,6 +42,7 @@ class RPMMountSourceModule(PayloadSourceBase, RPMSourceMixin):
     def __init__(self):
         super().__init__()
         self._path = ""
+        self.path_changed = Signal()
         self._is_ready = False
 
     def __repr__(self):
@@ -102,6 +104,7 @@ class RPMMountSourceModule(PayloadSourceBase, RPMSourceMixin):
         :type path: str
         """
         self._path = path
+        self.path_changed.emit()
         log.debug("RPM Mount directory is set to %s", self._path)
 
     def set_up_with_tasks(self):
