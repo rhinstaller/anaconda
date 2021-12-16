@@ -77,3 +77,21 @@ def get_mount_paths(devnode):
     majmin = "%d:%d" % (os.major(devno), os.minor(devno))
     mountinfo = (line.split() for line in open("/proc/self/mountinfo"))
     return [info[4] for info in mountinfo if info[2] == majmin]
+
+
+def open_with_perm(path, mode='r', perm=0o777, **kwargs):
+    """Open a file with the given permission bits.
+
+    This is more or less the same as using os.open(path, flags, perm), but
+    with the builtin open() semantics and return type instead of a file
+    descriptor.
+
+    :param str path: The path of the file to be opened
+    :param str mode: The same thing as the mode argument to open()
+    :param int perm: What permission bits to use if creating a new file
+    :return: Opened file-like object
+    """
+    def _opener(path_to_open, open_flags):
+        return os.open(path_to_open, open_flags, perm)
+
+    return open(path, mode, opener=_opener, **kwargs)

@@ -532,26 +532,6 @@ class MiscTests(unittest.TestCase):
         assert not util.cmp_obj_attrs(b, a, ["b", "c"])
         assert not util.cmp_obj_attrs(b, a, ["c", "b"])
 
-    def test_open_with_perm(self):
-        """Test the open_with_perm function"""
-        # Create a directory for test files
-        test_dir = tempfile.mkdtemp()
-        try:
-            # Reset the umask
-            old_umask = os.umask(0)
-            try:
-                # Create a file with mode 0777
-                util.open_with_perm(test_dir + '/test1', 'w', 0o777)
-                assert os.stat(test_dir + '/test1').st_mode & 0o777 == 0o777
-
-                # Create a file with mode 0600
-                util.open_with_perm(test_dir + '/test2', 'w', 0o600)
-                assert os.stat(test_dir + '/test2').st_mode & 0o777 == 0o600
-            finally:
-                os.umask(old_umask)
-        finally:
-            shutil.rmtree(test_dir)
-
     def test_touch(self):
         """Test if the touch function correctly creates empty files"""
         test_dir = tempfile.mkdtemp()

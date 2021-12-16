@@ -37,6 +37,7 @@ from pyanaconda.core import util
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import N_, _
+from pyanaconda.core.path import open_with_perm
 from pyanaconda.modules.common.constants.objects import FCOE, ISCSI, BOOTLOADER
 from pyanaconda.modules.common.structures.iscsi import Node
 from pyanaconda.modules.common.constants.services import STORAGE, NETWORK, SECURITY
@@ -992,7 +993,7 @@ class BootLoader(object):
         if os.access(config_path, os.R_OK):
             os.rename(config_path, config_path + ".anacbak")
 
-        config = util.open_with_perm(config_path, "w", self.config_file_mode)
+        config = open_with_perm(config_path, "w", self.config_file_mode)
         self.write_config_header(config)
         self.write_config_images(config)
         config.close()

@@ -41,7 +41,7 @@ from requests_file import FileAdapter
 from requests_ftp import FTPAdapter
 
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.path import make_directories
+from pyanaconda.core.path import make_directories, open_with_perm
 from pyanaconda.flags import flags
 from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.core.constants import DRACUT_SHUTDOWN_EJECT, \
@@ -761,23 +761,6 @@ def requests_session():
     session.mount("file://", FileAdapter())
     session.mount("ftp://", FTPAdapter())
     return session
-
-
-def open_with_perm(path, mode='r', perm=0o777, **kwargs):
-    """Open a file with the given permission bits.
-
-       This is more or less the same as using os.open(path, flags, perm), but
-       with the builtin open() semantics and return type instead of a file
-       descriptor.
-
-       :param str path: The path of the file to be opened
-       :param str mode: The same thing as the mode argument to open()
-       :param int perm: What permission bits to use if creating a new file
-    """
-    def _opener(path, open_flags):
-        return os.open(path, open_flags, perm)
-
-    return open(path, mode, opener=_opener, **kwargs)
 
 
 def id_generator():

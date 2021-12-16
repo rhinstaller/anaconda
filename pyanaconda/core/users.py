@@ -25,7 +25,7 @@ from contextlib import contextmanager
 
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.path import make_directories
+from pyanaconda.core.path import make_directories, open_with_perm
 from pyanaconda.core.string import strip_accents
 from pyanaconda.core.regexes import GROUPLIST_FANCY_PARSE, NAME_VALID, PORTABLE_FS_CHARS, GROUPLIST_SIMPLE_VALID
 import crypt
@@ -616,7 +616,7 @@ def set_user_ssh_key(username, key, root=None):
 
     authfile = os.path.join(sshdir, "authorized_keys")
     authfile_existed = os.path.exists(authfile)
-    with util.open_with_perm(authfile, "a", 0o600) as f:
+    with open_with_perm(authfile, "a", 0o600) as f:
         f.write(key + "\n")
 
     # Only change ownership if we created it

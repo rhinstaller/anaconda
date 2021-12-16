@@ -15,11 +15,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 import os
+import shutil
 import tempfile
 import unittest
 from unittest.mock import patch, call
 import pytest
-from pyanaconda.core.path import set_system_root, make_directories, get_mount_paths
+from pyanaconda.core.path import set_system_root, make_directories, get_mount_paths, open_with_perm
 
 
 class SetSystemRootTests(unittest.TestCase):
@@ -178,3 +179,23 @@ class MiscTests(unittest.TestCase):
 
         open_mock.return_value = ""
         assert get_mount_paths("/dev/sda1") == []
+
+    def test_open_with_perm(self):
+        """Test the open_with_perm function"""
+        # Create a directory for test files
+        test_dir = tempfile.mkdtemp()
+        try:
+            # Reset the umask
+            old_umask = os.umask(0)
+            try:
+                # Create a file with mode 0777
+                open_with_perm(test_dir + '/test1', 'w', 0o777)
+                assert os.stat(test_dir + '/test1').st_mode & 0o777 == 0o777
+
+                # Create a file with mode 0600
+                open_with_perm(test_dir + '/test2', 'w', 0o600)
+                assert os.stat(test_dir + '/test2').st_mode & 0o777 == 0o600
+            finally:
+                os.umask(old_umask)
+        finally:
+            shutil.rmtree(test_dir)
