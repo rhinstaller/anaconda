@@ -22,6 +22,7 @@ import os
 import os.path
 import subprocess
 from contextlib import contextmanager
+from pathlib import Path
 
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
@@ -344,11 +345,6 @@ def _chown_dir_tree(root, uid, gid, from_uid_only, from_gid_only):
         # directories under the directory entry will appear as directory entries in the loop
 
 
-def _get_parent_directory(directory):
-    """Return the parent's path"""
-    return "/".join(os.path.normpath(directory).split("/")[:-1])
-
-
 def create_user(username, password=False, is_crypted=False, lock=False,
                 homedir=None, uid=None, gid=None, groups=None, shell=None, gecos="",
                 root=None):
@@ -437,12 +433,12 @@ def create_user(username, password=False, is_crypted=False, lock=False,
         args.extend(['-G', ",".join(group_list)])
 
     # useradd expects the parent directory tree to exist.
-    parent_dir = _get_parent_directory(root + homedir)
+    parent_dir = Path(root + homedir).resolve().parent
 
     # If root + homedir came out to "/", such as if we're creating the sshpw user,
     # parent_dir will be empty. Don't create that.
-    if parent_dir:
-        make_directories(parent_dir)
+    if parent_dir != Path("/"):
+        make_directories(str(parent_dir))
 
     args.extend(["-d", homedir])
 

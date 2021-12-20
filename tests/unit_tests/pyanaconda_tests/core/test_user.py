@@ -20,8 +20,7 @@
 #
 
 import unittest
-from pyanaconda.core.users import check_username, check_groupname, check_grouplist, \
-    _get_parent_directory
+from pyanaconda.core.users import check_username, check_groupname, check_grouplist
 
 
 class UserNameTests(unittest.TestCase):
@@ -143,15 +142,3 @@ class GroupListTests(GroupNameTests):
         self._assert_name("   ,bar", False)
         self._assert_name(",foo,", False)
         self._assert_name("foo,bar,", False)
-
-
-class ChownInternalsTest(unittest.TestCase):
-
-    def test_get_parent_directory(self):
-        """Test the _get_parent_directory function"""
-        dirs = [("", ""), ("/", ""), ("/home/", ""), ("/home/bcl", "/home"), ("home/bcl", "home"),
-                ("/home/bcl/", "/home"), ("/home/extra/bcl", "/home/extra"),
-                ("/home/extra/bcl/", "/home/extra"), ("/home/extra/../bcl/", "/home")]
-
-        for d, r in dirs:
-            assert _get_parent_directory(d) == r
