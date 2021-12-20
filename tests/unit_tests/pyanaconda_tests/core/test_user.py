@@ -19,13 +19,9 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 
-import os
-import tempfile
 import unittest
-from unittest.mock import patch
-from pyanaconda.core.path import make_directories
 from pyanaconda.core.users import check_username, check_groupname, check_grouplist, \
-    _dir_tree_map, _chown_dir_tree, _get_parent_directory
+    _get_parent_directory
 
 
 class UserNameTests(unittest.TestCase):
@@ -151,73 +147,6 @@ class GroupListTests(GroupNameTests):
 
 class ChownInternalsTest(unittest.TestCase):
 
-    def test_dir_tree_map(self):
-        """Test _dir_tree_map"""
-        in_dirs = [
-            "bla",
-            "bla/bla",
-            "have a space",
-            "žluťoučký_kůň",
-        ]
-        in_files = [
-            "foo",
-            "bar",
-            "baz",
-            "bla/helloworld.txt",
-            "have a space/for a file",
-            "žluťoučký_kůň/123",
-        ]
-        found = []
-        dirs = []
-        files = []
-
-        def _report(path):
-            found.append(path)
-
-        with tempfile.TemporaryDirectory() as tmpdir:
-            dirs.append(tmpdir)
-            for d in in_dirs:
-                path = os.path.join(tmpdir, d)
-                make_directories(path)
-                dirs.append(path)
-            for f in in_files:
-                path = os.path.join(tmpdir, f)
-                os.mknod(path)
-                files.append(path)
-
-            # files
-            found.clear()
-            _dir_tree_map(tmpdir, _report, files=True, dirs=False)
-            assert sorted(found) == sorted(files)
-
-            # dirs
-            found.clear()
-            _dir_tree_map(tmpdir, _report, files=False, dirs=True)
-            assert sorted(found) == sorted(dirs)
-
-            # both
-            found.clear()
-            _dir_tree_map(tmpdir, _report, files=True, dirs=True)
-            assert sorted(found) == sorted(dirs + files)
-
-            # neither
-            found.clear()
-            _dir_tree_map(tmpdir, _report, files=False, dirs=False)
-            assert not found
-
-    @patch("pyanaconda.core.users._dir_tree_map")
-    def test_chown_dir_tree(self, dtm_mock):
-        """Test _chown_dir_tree
-
-        It isn't possible to mock internal functions or lambdas, so having it pass is the best
-        that can be done, barring some complicated setup in TemporaryDirectory.
-        """
-        _chown_dir_tree("somewhere", 123, 456)
-        dtm_mock.assert_called_once()
-
-        dtm_mock.reset_mock()
-        _chown_dir_tree("somewhere", 0o0, 123, 456, 789)
-
     def test_get_parent_directory(self):
         """Test the _get_parent_directory function"""
         dirs = [("", ""), ("/", ""), ("/home/", ""), ("/home/bcl", "/home"), ("home/bcl", "home"),
@@ -226,4 +155,3 @@ class ChownInternalsTest(unittest.TestCase):
 
         for d, r in dirs:
             assert _get_parent_directory(d) == r
-
