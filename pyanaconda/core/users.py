@@ -299,50 +299,51 @@ def create_group(group_name, gid=None, root=None):
         raise OSError("Unable to create group %s: status=%s" % (group_name, status))
 
 
-def _chown_dir_tree(root, uid, gid, from_uid_only, from_gid_only):
-    """
+def _reown_homedir(root, homedir, username):
+    """Home directory already existed, change owner of it properly.
+
     Change owner (uid and gid) of the files and directories under the given
     directory tree (recursively).
 
-    FIXME: Do not use this, prefer chown -hR if possible
+    FIXME: Do not use this, prefer chown -hR if possible, or note here why this is needed
 
-    :param root: root of the directory tree that should be chown'ed
-    :type root: str
-    :param uid: UID that should be set as the owner
-    :type uid: int
-    :param gid: GID that should be set as the owner
-    :type gid: int
-    :param from_uid_only: the owner is changed only for the files and directories owned by that UID
-    :type from_uid_only: int or None
-    :param from_gid_only: the owner is changed only for the files and directories owned by that GID
-    :type from_gid_only: int or None
+    :param str root: path to the root
+    :param str homedir: path to the home dir within root
+    :param str username: name of the user
     """
+    try:
+        stats = os.stat(root + homedir)
+        orig_uid = stats.st_uid
+        orig_gid = stats.st_gid
 
-    def conditional_chown(path, uid, gid, from_uid=None, from_gid=None):
-        stats = os.stat(path)
-        if (from_uid and stats.st_uid != from_uid) or \
-                (from_gid and stats.st_gid != from_gid):
-            # owner UID or GID not matching, do nothing
-            return
+        # Get the UID and GID of the created user
+        pwent = _getpwnam(username, root)
+        uid = int(pwent[2])
+        gid = int(pwent[3])
 
-        # UID and GID matching or not required
-        os.chown(path, uid, gid)
-
-    for (dir_ent, _dir_items, file_items) in os.walk(root):
-        # try to call the function on the directory entry
-        try:
-            conditional_chown(dir_ent, uid, gid, from_uid_only, from_gid_only)
-        except OSError:
-            pass
-
-        # try to call the function on the files in the directory entry
-        for file_ent in (os.path.join(dir_ent, f) for f in file_items):
+        for (dir_ent, _dir_items, file_items) in os.walk(root):
+            # try to call the function on the directory entry
             try:
-                conditional_chown(file_ent, uid, gid, from_uid_only, from_gid_only)
+                stats = os.stat(dir_ent)
+                if stats.st_uid == orig_uid and stats.st_gid == orig_gid:
+                    os.chown(dir_ent, uid, gid)
             except OSError:
                 pass
 
-        # directories under the directory entry will appear as directory entries in the loop
+            # try to call the function on the files in the directory entry
+            for file_ent in (os.path.join(dir_ent, f) for f in file_items):
+                try:
+                    stats = os.stat(file_ent)
+                    if stats.st_uid == orig_uid and stats.st_gid == orig_gid:
+                        os.chown(file_ent, uid, gid)
+                except OSError:
+                    pass
+
+            # directories under the directory entry will appear as directory entries in the loop
+        util.execWithRedirect("restorecon", ["-r", root + homedir])
+    except OSError as e:
+        log.critical("Unable to change owner of existing home directory: %s", e.strerror)
+        raise
 
 
 def create_user(username, password=False, is_crypted=False, lock=False,
@@ -472,24 +473,9 @@ def create_user(username, password=False, is_crypted=False, lock=False,
         raise OSError("Unable to create user %s: status=%s" % (username, status))
 
     if not mk_homedir:
-        try:
-            stats = os.stat(root + homedir)
-            orig_uid = stats.st_uid
-            orig_gid = stats.st_gid
-
-            # Get the UID and GID of the created user
-            pwent = _getpwnam(username, root)
-
-            log.info("Home directory for the user %s already existed, "
-                     "fixing the owner and SELinux context.", username)
-            # home directory already existed, change owner of it properly
-            _chown_dir_tree(root + homedir,
-                            int(pwent[2]), int(pwent[3]),
-                            orig_uid, orig_gid)
-            util.execWithRedirect("restorecon", ["-r", root + homedir])
-        except OSError as e:
-            log.critical("Unable to change owner of existing home directory: %s", e.strerror)
-            raise
+        log.info("Home directory for the user %s already existed, "
+                 "fixing the owner and SELinux context.", username)
+        _reown_homedir(root, homedir, username)
 
     set_user_password(username, password, is_crypted, lock, root)
 

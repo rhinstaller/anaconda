@@ -18,6 +18,7 @@
 #
 
 import unittest
+from unittest.mock import patch
 import tempfile
 import shutil
 import os
@@ -27,6 +28,7 @@ import glob
 import pytest
 
 from pyanaconda.core import users
+from pyanaconda.core.path import make_directories, touch
 
 @unittest.skipIf(os.geteuid() != 0, "user creation must be run as root")
 class UserCreateTest(unittest.TestCase):
@@ -344,3 +346,50 @@ class UserCreateTest(unittest.TestCase):
         grp_fields = self._readFields("/etc/group", "test_group")
         assert grp_fields is not None
         assert grp_fields[2] == "1047"
+
+
+class ReownHomedirTest(unittest.TestCase):
+    """Tests for _reown_homedir"""
+    def _make_dir(self, root, name, uid, gid):
+        make_directories(root + name)
+        os.chown(root + name, uid, gid)
+
+    def _make_file(self, root, name, uid, gid):
+        touch(root + name)
+        os.chown(root + name, uid, gid)
+
+    def _check_path(self, root, name, expected_uid, expected_gid):
+        stats = os.stat(root + name)
+        assert stats.st_uid == expected_uid
+        assert stats.st_gid == expected_gid
+
+    @patch("pyanaconda.core.users._getpwnam", return_value=["sam", "x", "2022", "2022"])
+    @patch("pyanaconda.core.util.execWithRedirect")
+    def test_reown_homedir(self, exec_mock, getpwnam_mock):
+        """Test re-owning a home directory.
+
+        We have "sam" who was uid/gid 1492 and now will be 2022.
+        """
+        with tempfile.TemporaryDirectory() as sysroot:
+            # set up various stuff in the home dir to work on
+            self._make_dir(sysroot, "/home/sam", 1492, 1492)  # main dir, uid/gid taken from here
+            self._make_dir(sysroot, "/home/sam/Downloads", 1492, 1492)  # empty dir
+            self._make_dir(sysroot, "/home/sam/Documents", 1492, 1492)  # full dir
+            self._make_file(sysroot, "/home/sam/Documents/mine", 1492, 1492)   # own file
+            self._make_file(sysroot, "/home/sam/Documents/theirs", 1881, 1881)  # other file
+            self._make_file(sysroot, "/home/sam/Documents/oops", 1492, 2000)  # mixed file
+            self._make_dir(sysroot, "/home/sam/root_owns_you", 10000, 10000)  # other dir
+            self._make_file(sysroot, "/home/sam/root_owns_you/thoroughly", 10000, 10000)
+
+            users._reown_homedir(sysroot, "/home/sam", "sam")
+
+            exec_mock.assert_called_once_with("restorecon", ["-r", sysroot + "/home/sam"])
+
+            self._check_path(sysroot, "/home/sam", 2022, 2022)
+            self._check_path(sysroot, "/home/sam/Downloads", 2022, 2022)
+            self._check_path(sysroot, "/home/sam/Documents", 2022, 2022)
+            self._check_path(sysroot, "/home/sam/Documents/mine", 2022, 2022)
+            self._check_path(sysroot, "/home/sam/Documents/theirs", 1881, 1881)
+            self._check_path(sysroot, "/home/sam/Documents/oops", 1492, 2000)
+            self._check_path(sysroot, "/home/sam/root_owns_you", 10000, 10000)
+            self._check_path(sysroot, "/home/sam/root_owns_you/thoroughly", 10000, 10000)
