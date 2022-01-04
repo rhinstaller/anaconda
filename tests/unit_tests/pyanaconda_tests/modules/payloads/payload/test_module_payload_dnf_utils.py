@@ -164,7 +164,7 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
     def test_get_kernel_version_list(self, mock_rpm):
         """Test the get_kernel_version_list function."""
         hdr_1 = Mock(filenames=[
-            "/boot/vmlinuz-0-rescue-dbe69c1b88f94a67b689e3f44b0550c8"
+            "/boot/vmlinuz-0-rescue-dbe69c1b88f94a67b689e3f44b0550c8",
             "/boot/vmlinuz-5.8.15-201.fc32.x86_64",
             "/boot/efi/EFI/default/vmlinuz-6.8.15-201.fc32.x86_64",
         ])
@@ -172,8 +172,8 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         hdr_2 = Mock(filenames=[
             "/boot/vmlinuz-5.8.16-200.fc32.x86_64",
             "/boot/efi/EFI/default/vmlinuz-7.8.16-200.fc32.x86_64",
-            "/boot/vmlinuz-5.8.18-200.fc32.x86_64"
-            "/boot/efi/EFI/default/vmlinuz-8.8.18-200.fc32.x86_64"
+            "/boot/vmlinuz-5.8.18-200.fc32.x86_64",
+            "/boot/efi/EFI/default/vmlinuz-8.8.18-200.fc32.x86_64",
         ])
 
         ts = Mock()
@@ -181,11 +181,13 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
 
         mock_rpm.TransactionSet.return_value = ts
         assert get_kernel_version_list() == [
+            '0-rescue-dbe69c1b88f94a67b689e3f44b0550c8',
             '5.8.15-201.fc32.x86_64',
             '5.8.16-200.fc32.x86_64',
+            '5.8.18-200.fc32.x86_64',
             '6.8.15-201.fc32.x86_64',
             '7.8.16-200.fc32.x86_64',
-            '8.8.18-200.fc32.x86_64'
+            '8.8.18-200.fc32.x86_64',
         ]
 
     @patch("pyanaconda.modules.payloads.payload.dnf.utils.execWithCapture")
