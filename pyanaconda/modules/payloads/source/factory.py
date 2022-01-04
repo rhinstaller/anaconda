@@ -78,6 +78,10 @@ class SourceFactory(object):
             from pyanaconda.modules.payloads.source.flatpak.flatpak import \
                 FlatpakSourceModule
             return FlatpakSourceModule()
+        elif source_type == SourceType.RPM_MOUNT:
+            from pyanaconda.modules.payloads.source.rpm_mount.rpm_mount import \
+                RPMMountSourceModule
+            return RPMMountSourceModule()
 
         raise ValueError("Unknown source type: {}".format(source_type))
 

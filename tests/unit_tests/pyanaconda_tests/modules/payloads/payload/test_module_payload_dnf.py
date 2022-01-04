@@ -23,8 +23,8 @@ from unittest.mock import patch, PropertyMock
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.core.constants import SOURCE_TYPE_CDROM, SOURCE_TYPE_HDD, SOURCE_TYPE_HMC, \
-    SOURCE_TYPE_NFS, SOURCE_TYPE_REPO_FILES, SOURCE_TYPE_URL, URL_TYPE_BASEURL, \
-    SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN, GROUP_PACKAGE_TYPES_REQUIRED, \
+    SOURCE_TYPE_NFS, SOURCE_TYPE_RPM_MOUNT, SOURCE_TYPE_REPO_FILES, SOURCE_TYPE_URL, \
+    URL_TYPE_BASEURL, SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN, GROUP_PACKAGE_TYPES_REQUIRED, \
     GROUP_PACKAGE_TYPES_ALL, MULTILIB_POLICY_ALL
 from pyanaconda.core.kickstart.specification import KickstartSpecificationHandler
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_DNF
@@ -391,6 +391,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
              SOURCE_TYPE_HMC,
              SOURCE_TYPE_NFS,
              SOURCE_TYPE_REPO_FILES,
+             SOURCE_TYPE_RPM_MOUNT,
              SOURCE_TYPE_CLOSEST_MIRROR,
              SOURCE_TYPE_CDN,
              SOURCE_TYPE_URL] == \
