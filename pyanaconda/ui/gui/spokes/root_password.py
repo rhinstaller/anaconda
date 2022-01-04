@@ -31,7 +31,6 @@ from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler
 from pyanaconda.ui.gui.utils import set_password_visibility
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.communication import hubQ
-from pyanaconda.ui.lib.services import is_reconfiguration_mode
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -153,13 +152,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
     @property
     def status(self):
         if self._users_module.IsRootAccountLocked:
-            # reconfig mode currently allows re-enabling a locked root account if
-            # user sets a new root password
-            if is_reconfiguration_mode():
-                return _("Disabled, set password to enable.")
-            else:
-                return _("Root account is disabled.")
-
+            return _("Root account is disabled.")
         elif self._users_module.IsRootPasswordSet:
             return _("Root password is set")
         else:
@@ -196,18 +189,24 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
     @property
     def completed(self):
-        return bool(
-            self._users_module.IsRootPasswordSet or
-            (self._users_module.IsRootAccountLocked and flags.automatedInstall)
-        )
+        return self._users_module.IsRootPasswordSet
 
     @property
     def sensitive(self):
-        # A password set in kickstart can only be changed in the GUI
-        # if the changesok password policy is set for the root password.
-        kickstarted_password_cant_be_changed = not self._users_module.CanChangeRootPassword \
-                                and not self.checker.policy.changesok
-        return not (self.completed and flags.automatedInstall and kickstarted_password_cant_be_changed)
+        # Allow changes in the interactive mode.
+        if not flags.automatedInstall:
+            return True
+
+        # Does the configuration allow changes?
+        if self._checker.policy.changesok:
+            return True
+
+        # Allow changes if the root account isn't
+        # already configured by the kickstart file.
+        if self._users_module.CanChangeRootPassword:
+            return True
+
+        return False
 
     def _checks_done(self, error_message):
         """Update the warning with the input validation error from the first

@@ -18,7 +18,6 @@
 #
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.ui.categories.user_settings import UserSettingsCategory
-from pyanaconda.ui.lib.services import is_reconfiguration_mode
 from pyanaconda.ui.tui.tuiobject import PasswordDialog
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.common import FirstbootSpokeMixIn
@@ -59,14 +58,24 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     @property
     def completed(self):
-        return bool(
-            self._users_module.IsRootPasswordSet or
-            (self._users_module.IsRootAccountLocked and flags.automatedInstall)
-        )
+        return self._users_module.IsRootPasswordSet
 
     @property
     def showable(self):
-        return not (self.completed and flags.automatedInstall and not self._policy.changesok)
+        # Allow changes in the interactive mode.
+        if not flags.automatedInstall:
+            return True
+
+        # Does the configuration allow changes?
+        if self._policy.changesok:
+            return True
+
+        # Allow changes if the root account isn't
+        # already configured by the kickstart file.
+        if self._users_module.CanChangeRootPassword:
+            return True
+
+        return False
 
     @property
     def mandatory(self):
@@ -76,13 +85,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     @property
     def status(self):
         if self._users_module.IsRootAccountLocked:
-            # reconfig mode currently allows re-enabling a locked root account if
-            # user sets a new root password
-            if is_reconfiguration_mode():
-                return _("Disabled. Set password to enable root account.")
-            else:
-                return _("Root account is disabled.")
-
+            return _("Root account is disabled.")
         elif self._users_module.IsRootPasswordSet:
             return _("Password is set.")
         else:
