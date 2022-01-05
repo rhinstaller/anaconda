@@ -108,7 +108,8 @@ class BaseLivePayload(Payload):
         args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/", "--exclude", "/tmp/*",
                 "--exclude", "/sys/", "--exclude", "/run/", "--exclude", "/boot/*rescue*",
                 "--exclude", "/boot/loader/", "--exclude", "/boot/efi/loader/",
-                "--exclude", "/etc/machine-id", INSTALL_TREE + "/", conf.target.system_root]
+                "--exclude", "/etc/machine-id", "--exclude", "/etc/machine-info",
+                INSTALL_TREE + "/", conf.target.system_root]
         try:
             rc = util.execWithRedirect(cmd, args)
         except (OSError, RuntimeError) as e:

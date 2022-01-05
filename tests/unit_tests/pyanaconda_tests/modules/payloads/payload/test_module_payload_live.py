@@ -90,7 +90,8 @@ class LiveTasksTestCase(unittest.TestCase):
                                "--exclude", "/tmp/*", "--exclude", "/sys/", "--exclude", "/run/",
                                "--exclude", "/boot/*rescue*", "--exclude", "/boot/loader/",
                                "--exclude", "/boot/efi/loader/",
-                               "--exclude", "/etc/machine-id", INSTALL_TREE + "/", dest_path]
+                               "--exclude", "/etc/machine-id", "--exclude", "/etc/machine-info",
+                               INSTALL_TREE + "/", dest_path]
 
         exec_with_redirect.assert_called_once_with("rsync", expected_rsync_args)
 
@@ -107,7 +108,8 @@ class LiveTasksTestCase(unittest.TestCase):
                                "--exclude", "/tmp/*", "--exclude", "/sys/", "--exclude", "/run/",
                                "--exclude", "/boot/*rescue*", "--exclude", "/boot/loader/",
                                "--exclude", "/boot/efi/loader/",
-                               "--exclude", "/etc/machine-id", INSTALL_TREE + "/", dest_path]
+                               "--exclude", "/etc/machine-id", "--exclude", "/etc/machine-info",
+                               INSTALL_TREE + "/", dest_path]
 
         exec_with_redirect.assert_called_once_with("rsync", expected_rsync_args)
 
@@ -128,7 +130,8 @@ class LiveTasksTestCase(unittest.TestCase):
                                "--exclude", "/tmp/*", "--exclude", "/sys/", "--exclude", "/run/",
                                "--exclude", "/boot/*rescue*", "--exclude", "/boot/loader/",
                                "--exclude", "/boot/efi/loader/",
-                               "--exclude", "/etc/machine-id", INSTALL_TREE + "/", dest_path]
+                               "--exclude", "/etc/machine-id", "--exclude", "/etc/machine-info",
+                               INSTALL_TREE + "/", dest_path]
 
         exec_with_redirect.assert_called_once_with("rsync", expected_rsync_args)
 
@@ -149,6 +152,7 @@ class LiveTasksTestCase(unittest.TestCase):
                                "--exclude", "/tmp/*", "--exclude", "/sys/", "--exclude", "/run/",
                                "--exclude", "/boot/*rescue*", "--exclude", "/boot/loader/",
                                "--exclude", "/boot/efi/loader/",
-                               "--exclude", "/etc/machine-id", INSTALL_TREE + "/", dest_path]
+                               "--exclude", "/etc/machine-id", "--exclude", "/etc/machine-info",
+                               INSTALL_TREE + "/", dest_path]
 
         exec_with_redirect.assert_called_once_with("rsync", expected_rsync_args)
