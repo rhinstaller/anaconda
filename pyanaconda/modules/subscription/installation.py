@@ -23,6 +23,7 @@ from dasbus.typing import get_variant, Str
 
 from pyanaconda.core import util
 from pyanaconda.core.constants import RHSM_SYSPURPOSE_FILE_PATH
+from pyanaconda.core.path import make_directories, join_paths
 from pyanaconda.core.subscription import check_system_purpose_set
 
 from pyanaconda.modules.common.task import Task
@@ -67,7 +68,7 @@ class ConnectToInsightsTask(Task):
                       "Insights requested but target system is not subscribed, skipping")
             return
 
-        insights_path = util.join_paths(self._sysroot, self.INSIGHTS_TOOL_PATH)
+        insights_path = join_paths(self._sysroot, self.INSIGHTS_TOOL_PATH)
         # check the insights client utility is available
         if not os.path.isfile(insights_path):
             raise InsightsClientMissingError(
@@ -171,7 +172,7 @@ class TransferSubscriptionTokensTask(Task):
         if not_empty and not os.listdir(input_folder):
             return False
         # make sure the output folder exist
-        util.mkdirChain(output_folder)
+        make_directories(output_folder)
         # transfer all the pem files in the input folder
         for pem_file_path in glob.glob(os.path.join(input_folder, "*.pem")):
             shutil.copy(pem_file_path, output_folder)
@@ -182,14 +183,14 @@ class TransferSubscriptionTokensTask(Task):
         if not os.path.isfile(file_path):
             return False
         # make sure the output folder exists
-        util.mkdirChain(os.path.dirname(target_file_path))
+        make_directories(os.path.dirname(target_file_path))
         shutil.copy(file_path, target_file_path)
         return True
 
     def _transfer_file(self, target_path, target_name):
         """Transfer a file with nice logs and raise an exception if it does not exist."""
         log.debug("subscription: transferring %s", target_name)
-        target_repo_file_path = util.join_paths(self._sysroot, target_path)
+        target_repo_file_path = join_paths(self._sysroot, target_path)
         if not self._copy_file(target_path, target_repo_file_path):
             msg = "{} ({}) is missing".format(target_name, self.RHSM_REPO_FILE_PATH)
             raise SubscriptionTokenTransferError(msg)

@@ -18,7 +18,7 @@
 import os
 import shutil
 
-from pyanaconda.core import util
+from pyanaconda.core.path import make_directories, join_paths
 from pyanaconda.modules.common.errors.installation import NetworkInstallationError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -183,14 +183,14 @@ Name={}
         """
 
         if ifname_option_values:
-            target_system_dir = util.join_paths(root, self.SYSTEMD_NETWORK_CONFIG_DIR)
-            util.mkdirChain(target_system_dir)
+            target_system_dir = join_paths(root, self.SYSTEMD_NETWORK_CONFIG_DIR)
+            make_directories(target_system_dir)
 
         for ifname_value in ifname_option_values:
             iface, mac = ifname_value.split(":", 1)
             content = self.INTERFACE_RENAME_FILE_CONTENT_TEMPLATE.format(mac, iface)
             config_file = self.INTERFACE_RENAME_FILE_TEMPLATE.format(iface)
-            config_file_path = util.join_paths(self.SYSTEMD_NETWORK_CONFIG_DIR, config_file)
+            config_file_path = join_paths(self.SYSTEMD_NETWORK_CONFIG_DIR, config_file)
             _write_config_file(
                 root,
                 config_file_path,
@@ -243,7 +243,7 @@ Name={}
         if (os.path.isfile(fpath) or os.path.islink(fpath)) and not overwrite:
             return
         if not os.path.isdir(os.path.dirname(fpath)):
-            util.mkdirChain(os.path.dirname(fpath))
+            make_directories(os.path.dirname(fpath))
         shutil.copy(config_file, fpath, follow_symlinks=follow_symlinks)
 
     def _copy_device_config_files(self, root):

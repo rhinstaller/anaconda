@@ -22,9 +22,9 @@ from blivet import util as blivet_util
 from blivet.errors import StorageError
 from blivet.storage_log import log_exception_info
 
-from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
+from pyanaconda.core.path import set_system_root
 from pyanaconda.modules.storage.devicetree.fsset import BlkidTab, CryptTab
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -51,7 +51,7 @@ def mount_existing_system(storage, root_device, read_only=None):
                                  options="%s,%s" % (root_device.format.options, read_only))
 
     # Set up the sysroot.
-    util.set_system_root(root_path)
+    set_system_root(root_path)
 
     # Mount the filesystems.
     storage.fsset.parse_fstab(chroot=root_path)

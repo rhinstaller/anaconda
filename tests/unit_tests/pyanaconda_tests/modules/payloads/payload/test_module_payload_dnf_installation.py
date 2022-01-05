@@ -23,7 +23,7 @@ import pytest
 from unittest.mock import patch, call, Mock
 
 from pyanaconda.core.constants import RPM_LANGUAGES_NONE, MULTILIB_POLICY_ALL
-from pyanaconda.core.util import join_paths
+from pyanaconda.core.path import join_paths
 from pyanaconda.modules.common.errors.installation import NonCriticalInstallationError, \
     PayloadInstallationError
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData, \

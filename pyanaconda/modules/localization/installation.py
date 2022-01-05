@@ -20,7 +20,8 @@ import shutil
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import DEFAULT_VC_FONT
-from pyanaconda.core.util import join_paths, execWithCapture
+from pyanaconda.core.util import execWithCapture
+from pyanaconda.core.path import join_paths
 from pyanaconda.localization import get_locale_console_fonts, find_best_locale_match
 from pyanaconda.modules.common.errors.installation import LanguageInstallationError, \
     KeyboardInstallationError

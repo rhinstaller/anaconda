@@ -37,6 +37,7 @@ from pyanaconda.core.constants import WINDOW_TITLE_TEXT
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda import product
 from pyanaconda.core import util, constants
+from pyanaconda.core.path import make_directories
 from pyanaconda import threading as anaconda_threading
 
 from pyanaconda.core.glib import Bytes, GError
@@ -516,7 +517,7 @@ class MainWindow(Gtk.Window):
         :type name: str or NoneType
         """
         # Make sure the screenshot directory exists.
-        util.mkdirChain(constants.SCREENSHOTS_DIRECTORY)
+        make_directories(constants.SCREENSHOTS_DIRECTORY)
 
         if name is None:
             screenshot_filename = "screenshot-%04d.png" % self._screenshot_index

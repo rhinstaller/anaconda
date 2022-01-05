@@ -24,8 +24,7 @@ import pyanaconda
 from os.path import dirname
 from functools import reduce
 
-from pyanaconda.core.util import join_paths
-
+from pyanaconda.core.path import join_paths
 
 REPO_DIR = dirname(os.path.realpath(pyanaconda.__file__))
 

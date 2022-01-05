@@ -22,7 +22,7 @@ from blivet.util import mount
 
 from pyanaconda.core.constants import SOURCES_DIR
 from pyanaconda.core.storage import device_matches
-from pyanaconda.core.util import join_paths
+from pyanaconda.core.path import join_paths
 from pyanaconda.payload.image import find_first_iso_image
 
 from pyanaconda.anaconda_loggers import get_module_logger

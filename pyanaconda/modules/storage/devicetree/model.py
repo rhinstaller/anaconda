@@ -26,10 +26,10 @@ from blivet.formats.disklabel import DiskLabel
 from blivet.size import Size
 from blivet.devicelibs.crypto import DEFAULT_LUKS_VERSION
 
-from pyanaconda.core import util
 from pyanaconda.modules.storage.bootloader import BootLoaderFactory
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import shortProductName
+from pyanaconda.core.path import set_system_root
 from pyanaconda.modules.storage.devicetree.fsset import FSSet
 from pyanaconda.modules.storage.devicetree.utils import download_escrow_certificate, \
     find_live_backing_device
@@ -433,14 +433,14 @@ class InstallerStorage(Blivet):
         self.fsset.mount_filesystems(root_path=root_path)
 
         # Set up the sysroot.
-        util.set_system_root(root_path)
+        set_system_root(root_path)
 
     def umount_filesystems(self, swapoff=True):
         # Unmount the root and the filesystems.
         self.fsset.umount_filesystems(swapoff=swapoff)
 
         # Unmount the sysroot.
-        util.set_system_root(None)
+        set_system_root(None)
 
     def parse_fstab(self, chroot=None):
         self.fsset.parse_fstab(chroot=chroot)

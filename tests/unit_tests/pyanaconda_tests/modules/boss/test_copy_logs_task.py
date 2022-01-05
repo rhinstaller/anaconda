@@ -23,7 +23,7 @@ from pyanaconda.modules.boss.installation import CopyLogsTask
 class CopyLogsTaskTest(unittest.TestCase):
     @patch("pyanaconda.modules.boss.installation.glob.glob")
     @patch("pyanaconda.modules.boss.installation.execWithRedirect")
-    @patch("pyanaconda.modules.boss.installation.mkdirChain")
+    @patch("pyanaconda.modules.boss.installation.make_directories")
     @patch("pyanaconda.modules.boss.installation.conf")
     @patch("pyanaconda.modules.boss.installation.open")
     def test_run_all(self, open_mock, conf_mock, mkdir_mock, exec_wr_mock, glob_mock):
@@ -80,7 +80,7 @@ class CopyLogsTaskTest(unittest.TestCase):
 
     @patch("pyanaconda.modules.boss.installation.glob.glob")
     @patch("pyanaconda.modules.boss.installation.execWithRedirect")
-    @patch("pyanaconda.modules.boss.installation.mkdirChain")
+    @patch("pyanaconda.modules.boss.installation.make_directories")
     @patch("pyanaconda.modules.boss.installation.conf")
     @patch("pyanaconda.modules.boss.installation.open")
     def test_nosave_logs(self, open_mock, conf_mock, mkdir_mock, exec_wr_mock, glob_mock):
@@ -110,7 +110,7 @@ class CopyLogsTaskTest(unittest.TestCase):
 
     @patch("pyanaconda.modules.boss.installation.glob.glob")
     @patch("pyanaconda.modules.boss.installation.execWithRedirect")
-    @patch("pyanaconda.modules.boss.installation.mkdirChain")
+    @patch("pyanaconda.modules.boss.installation.make_directories")
     @patch("pyanaconda.modules.boss.installation.conf")
     @patch("pyanaconda.modules.boss.installation.open")
     def test_nosave_input_ks(self, open_mock, conf_mock, mkdir_mock, exec_wr_mock, glob_mock):
@@ -139,7 +139,7 @@ class CopyLogsTaskTest(unittest.TestCase):
 
     @patch("pyanaconda.modules.boss.installation.glob.glob")
     @patch("pyanaconda.modules.boss.installation.execWithRedirect")
-    @patch("pyanaconda.modules.boss.installation.mkdirChain")
+    @patch("pyanaconda.modules.boss.installation.make_directories")
     @patch("pyanaconda.modules.boss.installation.conf")
     @patch("pyanaconda.modules.boss.installation.open")
     def test_nosave_logs_and_input_ks(self, open_mock, conf_mock, mkdir_mock, exec_wr_mock,

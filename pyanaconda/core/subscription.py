@@ -19,7 +19,7 @@
 
 import os
 
-from pyanaconda.core import util
+from pyanaconda.core.path import join_paths
 from pyanaconda.core.constants import RHSM_SYSPURPOSE_FILE_PATH
 
 
@@ -36,5 +36,5 @@ def check_system_purpose_set(sysroot="/"):
     :param str sysroot: system root where to check
     :return: True if System Purpose has been set, False otherwise
     """
-    syspurpose_path = util.join_paths(sysroot, RHSM_SYSPURPOSE_FILE_PATH)
+    syspurpose_path = join_paths(sysroot, RHSM_SYSPURPOSE_FILE_PATH)
     return os.path.exists(syspurpose_path)

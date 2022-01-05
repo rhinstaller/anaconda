@@ -21,7 +21,7 @@ from glob import glob
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.kernel import kernel_arguments
-from pyanaconda.core.util import mkdirChain
+from pyanaconda.core.path import make_directories
 from pyanaconda.modules.common.task import Task
 
 log = get_module_logger(__name__)
@@ -58,7 +58,7 @@ class PrepareSystemForInstallationTask(Task):
     @staticmethod
     def _create_root_dir(sysroot):
         """Create root directory on the installed system."""
-        mkdirChain(os.path.join(sysroot, "root"))
+        make_directories(os.path.join(sysroot, "root"))
 
     @staticmethod
     def _write_module_denylist(sysroot):
@@ -71,7 +71,7 @@ class PrepareSystemForInstallationTask(Task):
         if "modprobe.blacklist" not in kernel_arguments:
             return
 
-        mkdirChain(os.path.join(sysroot, "etc/modprobe.d"))
+        make_directories(os.path.join(sysroot, "etc/modprobe.d"))
         with open(os.path.join(sysroot, "etc/modprobe.d/anaconda-denylist.conf"), "w") as f:
             f.write("# Module denylist written by anaconda\n")
             for module in kernel_arguments.get("modprobe.blacklist").split():

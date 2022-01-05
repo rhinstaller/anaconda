@@ -22,8 +22,11 @@ import os
 import os.path
 import subprocess
 from contextlib import contextmanager
+from pathlib import Path
+
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.path import make_directories, open_with_perm
 from pyanaconda.core.string import strip_accents
 from pyanaconda.core.regexes import GROUPLIST_FANCY_PARSE, NAME_VALID, PORTABLE_FS_CHARS, GROUPLIST_SIMPLE_VALID
 import crypt
@@ -296,6 +299,53 @@ def create_group(group_name, gid=None, root=None):
         raise OSError("Unable to create group %s: status=%s" % (group_name, status))
 
 
+def _reown_homedir(root, homedir, username):
+    """Home directory already existed, change owner of it properly.
+
+    Change owner (uid and gid) of the files and directories under the given
+    directory tree (recursively).
+
+    FIXME: Do not use this, prefer chown -hR if possible, or note here why this is needed
+
+    :param str root: path to the root
+    :param str homedir: path to the home dir within root
+    :param str username: name of the user
+    """
+    try:
+        stats = os.stat(root + homedir)
+        orig_uid = stats.st_uid
+        orig_gid = stats.st_gid
+
+        # Get the UID and GID of the created user
+        pwent = _getpwnam(username, root)
+        uid = int(pwent[2])
+        gid = int(pwent[3])
+
+        for (dir_ent, _dir_items, file_items) in os.walk(root):
+            # try to call the function on the directory entry
+            try:
+                stats = os.stat(dir_ent)
+                if stats.st_uid == orig_uid and stats.st_gid == orig_gid:
+                    os.chown(dir_ent, uid, gid)
+            except OSError:
+                pass
+
+            # try to call the function on the files in the directory entry
+            for file_ent in (os.path.join(dir_ent, f) for f in file_items):
+                try:
+                    stats = os.stat(file_ent)
+                    if stats.st_uid == orig_uid and stats.st_gid == orig_gid:
+                        os.chown(file_ent, uid, gid)
+                except OSError:
+                    pass
+
+            # directories under the directory entry will appear as directory entries in the loop
+        util.execWithRedirect("restorecon", ["-r", root + homedir])
+    except OSError as e:
+        log.critical("Unable to change owner of existing home directory: %s", e.strerror)
+        raise
+
+
 def create_user(username, password=False, is_crypted=False, lock=False,
                 homedir=None, uid=None, gid=None, groups=None, shell=None, gecos="",
                 root=None):
@@ -384,12 +434,12 @@ def create_user(username, password=False, is_crypted=False, lock=False,
         args.extend(['-G', ",".join(group_list)])
 
     # useradd expects the parent directory tree to exist.
-    parent_dir = util.parent_dir(root + homedir)
+    parent_dir = Path(root + homedir).resolve().parent
 
     # If root + homedir came out to "/", such as if we're creating the sshpw user,
     # parent_dir will be empty. Don't create that.
-    if parent_dir:
-        util.mkdirChain(parent_dir)
+    if parent_dir != Path("/"):
+        make_directories(str(parent_dir))
 
     args.extend(["-d", homedir])
 
@@ -423,24 +473,9 @@ def create_user(username, password=False, is_crypted=False, lock=False,
         raise OSError("Unable to create user %s: status=%s" % (username, status))
 
     if not mk_homedir:
-        try:
-            stats = os.stat(root + homedir)
-            orig_uid = stats.st_uid
-            orig_gid = stats.st_gid
-
-            # Get the UID and GID of the created user
-            pwent = _getpwnam(username, root)
-
-            log.info("Home directory for the user %s already existed, "
-                     "fixing the owner and SELinux context.", username)
-            # home directory already existed, change owner of it properly
-            util.chown_dir_tree(root + homedir,
-                                int(pwent[2]), int(pwent[3]),
-                                orig_uid, orig_gid)
-            util.execWithRedirect("restorecon", ["-r", root + homedir])
-        except OSError as e:
-            log.critical("Unable to change owner of existing home directory: %s", e.strerror)
-            raise
+        log.info("Home directory for the user %s already existed, "
+                 "fixing the owner and SELinux context.", username)
+        _reown_homedir(root, homedir, username)
 
     set_user_password(username, password, is_crypted, lock, root)
 
@@ -533,7 +568,7 @@ def set_user_ssh_key(username, key, root=None):
 
     authfile = os.path.join(sshdir, "authorized_keys")
     authfile_existed = os.path.exists(authfile)
-    with util.open_with_perm(authfile, "a", 0o600) as f:
+    with open_with_perm(authfile, "a", 0o600) as f:
         f.write(key + "\n")
 
     # Only change ownership if we created it

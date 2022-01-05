@@ -21,7 +21,7 @@ import os
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.signal import Signal
-from pyanaconda.core.util import join_paths
+from pyanaconda.core.path import join_paths
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, RPMSourceMixin

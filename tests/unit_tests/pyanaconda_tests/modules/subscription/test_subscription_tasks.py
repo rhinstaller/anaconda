@@ -29,7 +29,7 @@ import tempfile
 from dasbus.typing import get_variant, get_native, Str
 from dasbus.error import DBusError
 
-from pyanaconda.core import util
+from pyanaconda.core.path import join_paths
 from pyanaconda.core.constants import SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, \
     RHSM_SYSPURPOSE_FILE_PATH
 
@@ -102,8 +102,8 @@ class ConnectToInsightsTaskTestCase(unittest.TestCase):
             # create a fake insights client tool file
             utility_path = ConnectToInsightsTask.INSIGHTS_TOOL_PATH
             directory = os.path.split(utility_path)[0]
-            os.makedirs(util.join_paths(sysroot, directory))
-            os.mknod(util.join_paths(sysroot, utility_path))
+            os.makedirs(join_paths(sysroot, directory))
+            os.mknod(join_paths(sysroot, utility_path))
             task = ConnectToInsightsTask(sysroot=sysroot,
                                          subscription_attached=True,
                                          connect_to_insights=True)
@@ -413,7 +413,7 @@ class TransferSubscriptionTokensTaskTestCase(unittest.TestCase):
             task._copy_file = Mock()
             task._copy_file.return_value = True
             task._transfer_file("/etc/foo.conf", "config for FOO")
-            sysroot_path = util.join_paths(
+            sysroot_path = join_paths(
                 sysroot,
                 "/etc/foo.conf"
             )
@@ -442,7 +442,7 @@ class TransferSubscriptionTokensTaskTestCase(unittest.TestCase):
                                                   transfer_subscription_tokens=True)
             task._copy_file = Mock()
             task._transfer_system_purpose()
-            sysroot_path = util.join_paths(
+            sysroot_path = join_paths(
                 sysroot,
                 RHSM_SYSPURPOSE_FILE_PATH
             )
@@ -470,7 +470,7 @@ class TransferSubscriptionTokensTaskTestCase(unittest.TestCase):
             task._copy_pem_files = Mock()
             task._copy_pem_files.return_value = True
             task._transfer_entitlement_keys()
-            sysroot_path = util.join_paths(
+            sysroot_path = join_paths(
                 sysroot,
                 TransferSubscriptionTokensTask.RHSM_ENTITLEMENT_KEYS_PATH
             )

@@ -22,7 +22,7 @@ import time
 
 from unittest.mock import Mock, call, patch
 
-from pyanaconda.core.util import join_paths
+from pyanaconda.core.path import join_paths
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.payloads.payload.live_image.installation_progress import \

@@ -41,6 +41,7 @@ from requests_file import FileAdapter
 from requests_ftp import FTPAdapter
 
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.path import make_directories, open_with_perm, join_paths
 from pyanaconda.flags import flags
 from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.core.constants import DRACUT_SHUTDOWN_EJECT, \
@@ -78,48 +79,6 @@ def augmentEnv():
     env.update({"ANA_INSTALL_PATH": conf.target.system_root})
     env.update(_child_env)
     return env
-
-
-def set_system_root(path):
-    """Change the OS root path.
-
-    The path defined by conf.target.system_root will be bind mounted at the given
-    path, so conf.target.system_root can be used to access the root of the new OS.
-
-    We always call it after the root device is mounted at conf.target.physical_root
-    to set the physical root as the current system root.
-
-    Then, it can be used by Payload subclasses which install operating systems to
-    non-default roots.
-
-    If the given path is None, then conf.target.system_root is only unmounted.
-
-    :param path: the new OS root path or None
-    """
-    sysroot = conf.target.system_root
-
-    if sysroot == path:
-        return
-
-    # Unmount the mount point if necessary.
-    rc = execWithRedirect("findmnt", ["-rn", sysroot])
-
-    if rc == 0:
-        execWithRedirect("mount", ["--make-rprivate", sysroot])
-        execWithRedirect("umount", ["--recursive", sysroot])
-
-    if not path:
-        return
-
-    # Create a directory for the mount point.
-    if not os.path.exists(sysroot):
-        mkdirChain(sysroot)
-
-    # Mount the mount point.
-    rc = execWithRedirect("mount", ["--rbind", path, sysroot])
-
-    if rc != 0:
-        raise OSError("Failed to mount sysroot to {}.".format(path))
 
 
 def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
@@ -504,17 +463,6 @@ def execConsole():
         raise RuntimeError("Error running /bin/bash: " + e.strerror) from e
 
 
-## Create a directory path.  Don't fail if the directory already exists.
-def mkdirChain(directory):
-    """ Make a directory and all of its parents. Don't fail if part or
-        of it already exists.
-
-        :param str directory: The directory path to create
-    """
-
-    os.makedirs(directory, 0o755, exist_ok=True)
-
-
 def get_active_console(dev="console"):
     """Find the active console device.
 
@@ -587,7 +535,7 @@ def dracut_eject(device):
 
     try:
         if not os.path.exists(DRACUT_SHUTDOWN_EJECT):
-            mkdirChain(os.path.dirname(DRACUT_SHUTDOWN_EJECT))
+            make_directories(os.path.dirname(DRACUT_SHUTDOWN_EJECT))
             f = open_with_perm(DRACUT_SHUTDOWN_EJECT, "w", 0o755)
             f.write("#!/bin/sh\n")
             f.write("# Created by Anaconda\n")
@@ -644,84 +592,6 @@ def cmp_obj_attrs(obj1, obj2, attr_list):
         else:
             return False
     return True
-
-
-def dir_tree_map(root, func, files=True, dirs=True):
-    """
-    Apply the given function to all files and directories in the directory tree
-    under the given root directory.
-
-    :param root: root of the directory tree the function should be mapped to
-    :type root: str
-    :param func: a function taking the directory/file path
-    :type func: path -> None
-    :param files: whether to apply the function to the files in the dir. tree
-    :type files: bool
-    :param dirs: whether to apply the function to the directories in the dir. tree
-    :type dirs: bool
-
-    TODO: allow using globs and thus more trees?
-
-    """
-
-    for (dir_ent, _dir_items, file_items) in os.walk(root):
-        if dirs:
-            # try to call the function on the directory entry
-            try:
-                func(dir_ent)
-            except OSError:
-                pass
-
-        if files:
-            # try to call the function on the files in the directory entry
-            for file_ent in (os.path.join(dir_ent, f) for f in file_items):
-                try:
-                    func(file_ent)
-                except OSError:
-                    pass
-
-        # directories under the directory entry will appear as directory entries
-        # in the loop
-
-
-def chown_dir_tree(root, uid, gid, from_uid_only=None, from_gid_only=None):
-    """
-    Change owner (uid and gid) of the files and directories under the given
-    directory tree (recursively).
-
-    :param root: root of the directory tree that should be chown'ed
-    :type root: str
-    :param uid: UID that should be set as the owner
-    :type uid: int
-    :param gid: GID that should be set as the owner
-    :type gid: int
-    :param from_uid_only: if given, the owner is changed only for the files and
-                          directories owned by that UID
-    :type from_uid_only: int or None
-    :param from_gid_only: if given, the owner is changed only for the files and
-                          directories owned by that GID
-    :type from_gid_only: int or None
-
-    """
-
-    def conditional_chown(path, uid, gid, from_uid=None, from_gid=None):
-        stats = os.stat(path)
-        if (from_uid and stats.st_uid != from_uid) or \
-                (from_gid and stats.st_gid != from_gid):
-            # owner UID or GID not matching, do nothing
-            return
-
-        # UID and GID matching or not required
-        os.chown(path, uid, gid)
-
-    if not from_uid_only and not from_gid_only:
-        # the easy way
-        dir_tree_map(root, lambda path: os.chown(path, uid, gid))
-    else:
-        # conditional chown
-        dir_tree_map(root, lambda path: conditional_chown(path, uid, gid,
-                                                          from_uid_only,
-                                                          from_gid_only))
 
 
 def get_kernel_taint(flag):
@@ -789,14 +659,6 @@ def detect_unsupported_hardware():
         log.warning(msg)
 
     return warnings
-
-
-def get_mount_paths(devnode):
-    '''given a device node, return a list of all active mountpoints.'''
-    devno = os.stat(devnode).st_rdev
-    majmin = "%d:%d" % (os.major(devno), os.minor(devno))
-    mountinfo = (line.split() for line in open("/proc/self/mountinfo"))
-    return [info[4] for info in mountinfo if info[2] == majmin]
 
 
 def xprogressive_delay():
@@ -893,34 +755,12 @@ def runOnErrorScripts(scripts):
     log.info("All kickstart %%onerror script(s) have been run")
 
 
-def parent_dir(directory):
-    """Return the parent's path"""
-    return "/".join(os.path.normpath(directory).split("/")[:-1])
-
-
 def requests_session():
     """Return a requests.Session object with file and ftp support."""
     session = requests.Session()
     session.mount("file://", FileAdapter())
     session.mount("ftp://", FTPAdapter())
     return session
-
-
-def open_with_perm(path, mode='r', perm=0o777, **kwargs):
-    """Open a file with the given permission bits.
-
-       This is more or less the same as using os.open(path, flags, perm), but
-       with the builtin open() semantics and return type instead of a file
-       descriptor.
-
-       :param str path: The path of the file to be opened
-       :param str mode: The same thing as the mode argument to open()
-       :param int perm: What permission bits to use if creating a new file
-    """
-    def _opener(path, open_flags):
-        return os.open(path, open_flags, perm)
-
-    return open(path, mode, opener=_opener, **kwargs)
 
 
 def id_generator():
@@ -933,36 +773,6 @@ def id_generator():
     while(True):
         yield actual_id
         actual_id += 1
-
-
-def join_paths(path, *paths):
-    """Always join paths.
-
-    The os.path.join() function has a drawback when second path is absolute. In that case it will
-    instead return the second path only.
-
-    :param path: first path we want to join
-    :param paths: paths we want to merge
-    :returns: return path created from all the input paths
-    :rtype: str
-    """
-    if len(paths) == 0:
-        return path
-
-    new_paths = []
-    for p in paths:
-        new_paths.append(p.lstrip(os.path.sep))
-
-    return os.path.join(path, *new_paths)
-
-
-def touch(file_path):
-    """Create an empty file."""
-    # this misrrors how touch works - it does not
-    # throw an error if the given path exists,
-    # even when the path points to dirrectory
-    if not os.path.exists(file_path):
-        os.mknod(file_path)
 
 
 def collect(module_pattern, path, pred):

@@ -25,6 +25,7 @@ from pyanaconda.modules.storage.bootloader.base import BootLoader, BootLoaderErr
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
+from pyanaconda.core.path import open_with_perm
 from pyanaconda.product import productName
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -310,7 +311,7 @@ class GRUB2(BootLoader):
             return
 
         users_file = "%s%s/%s" % (conf.target.system_root, self.config_dir, self._passwd_file)
-        header = util.open_with_perm(users_file, "w", 0o600)
+        header = open_with_perm(users_file, "w", 0o600)
         # XXX FIXME: document somewhere that the username is "root"
         self._encrypt_password()
         password_line = "GRUB2_PASSWORD=" + self.encrypted_password

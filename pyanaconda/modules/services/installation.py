@@ -18,9 +18,9 @@
 import os
 from configparser import ConfigParser
 
-from pyanaconda.core import util
 from pyanaconda.core.service import enable_service, disable_service, is_service_installed
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.path import touch
 from pyanaconda.core.util import get_anaconda_version_string
 from pyanaconda.core.constants import TEXT_ONLY_TARGET, GRAPHICAL_TARGET
 from pyanaconda.modules.common.task import Task
@@ -71,7 +71,7 @@ class ConfigureInitialSetupTask(Task):
     def _enable_reconfig_mode(self):
         """Write the reconfig mode trigger file."""
         log.debug("Initial Setup reconfiguration mode will be enabled.")
-        util.touch(os.path.join(self._sysroot, "etc/reconfigSys"))
+        touch(os.path.join(self._sysroot, "etc/reconfigSys"))
 
     def run(self):
         if self._setup_on_boot == SetupOnBootAction.ENABLED:

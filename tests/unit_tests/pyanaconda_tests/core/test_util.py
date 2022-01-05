@@ -30,6 +30,7 @@ from threading import Lock
 from unittest.mock import Mock, patch
 from timer import timer
 
+from pyanaconda.core.path import make_directories
 from pyanaconda.errors import ExitError
 from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.core import util
@@ -459,43 +460,6 @@ class MiscTests(unittest.TestCase):
         # remove the testing directory
         shutil.rmtree(ANACONDA_TEST_DIR)
 
-    def test_mkdir_chain(self):
-        """Test mkdirChain."""
-
-        # don't fail if directory path already exists
-        util.mkdirChain('/')
-        util.mkdirChain('/tmp')
-
-        # create a path and test it exists
-        test_folder = "test_mkdir_chain"
-        test_paths = [
-            "foo",
-            "foo/bar/baz",
-            "",
-            "čřščščřščř",
-            "asdasd asdasd",
-            "! spam"
-        ]
-
-        # join with the toplevel test folder and the folder for this
-        # test
-        test_paths = [os.path.join(ANACONDA_TEST_DIR, test_folder, p)
-                      for p in test_paths]
-
-        def create_return(path):
-            util.mkdirChain(path)
-            return path
-
-        # create the folders and check that they exist
-        for p in test_paths:
-            assert os.path.exists(create_return(p))
-
-        # try to create them again - all the paths should already exist
-        # and the mkdirChain function needs to handle that
-        # without a traceback
-        for p in test_paths:
-            util.mkdirChain(p)
-
     def test_get_active_console(self):
         """Test get_active_console."""
 
@@ -568,51 +532,6 @@ class MiscTests(unittest.TestCase):
         assert not util.cmp_obj_attrs(b, a, ["b", "c"])
         assert not util.cmp_obj_attrs(b, a, ["c", "b"])
 
-    def test_parent_dir(self):
-        """Test the parent_dir function"""
-        dirs = [("", ""), ("/", ""), ("/home/", ""), ("/home/bcl", "/home"), ("home/bcl", "home"),
-                ("/home/bcl/", "/home"), ("/home/extra/bcl", "/home/extra"),
-                ("/home/extra/bcl/", "/home/extra"), ("/home/extra/../bcl/", "/home")]
-
-        for d, r in dirs:
-            assert util.parent_dir(d) == r
-
-    def test_open_with_perm(self):
-        """Test the open_with_perm function"""
-        # Create a directory for test files
-        test_dir = tempfile.mkdtemp()
-        try:
-            # Reset the umask
-            old_umask = os.umask(0)
-            try:
-                # Create a file with mode 0777
-                util.open_with_perm(test_dir + '/test1', 'w', 0o777)
-                assert os.stat(test_dir + '/test1').st_mode & 0o777 == 0o777
-
-                # Create a file with mode 0600
-                util.open_with_perm(test_dir + '/test2', 'w', 0o600)
-                assert os.stat(test_dir + '/test2').st_mode & 0o777 == 0o600
-            finally:
-                os.umask(old_umask)
-        finally:
-            shutil.rmtree(test_dir)
-
-    def test_touch(self):
-        """Test if the touch function correctly creates empty files"""
-        test_dir = tempfile.mkdtemp()
-        try:
-            file_path = os.path.join(test_dir, "EMPTY_FILE")
-            # try to create an empty file with touch()
-            util.touch(file_path)
-
-            # check if it exists & is a file
-            assert os.path.isfile(file_path)
-
-            # check if the file is empty
-            assert os.stat(file_path).st_size == 0
-        finally:
-            shutil.rmtree(test_dir)
-
     def test_item_counter(self):
         """Test the item_counter generator."""
         # normal usage
@@ -680,24 +599,6 @@ class MiscTests(unittest.TestCase):
         assert conf.target.physical_root == "/mnt/sysimage"
         assert conf.target.system_root == "/mnt/sysroot"
 
-    def test_join_paths(self):
-        assert util.join_paths("/first/path/") == \
-            "/first/path/"
-        assert util.join_paths("") == \
-            ""
-        assert util.join_paths("/first/path/", "/second/path") == \
-            "/first/path/second/path"
-        assert util.join_paths("/first/path/", "/second/path", "/third/path") == \
-            "/first/path/second/path/third/path"
-        assert util.join_paths("/first/path/", "/second/path", "third/path") == \
-            "/first/path/second/path/third/path"
-        assert util.join_paths("/first/path/", "second/path") == \
-            "/first/path/second/path"
-        assert util.join_paths("first/path", "/second/path") == \
-            "first/path/second/path"
-        assert util.join_paths("first/path", "second/path") == \
-            "first/path/second/path"
-
     @patch.dict('sys.modules')
     def test_get_anaconda_version_string(self):
         # Forget imported modules from pyanaconda. We have to forget every parent module of
@@ -725,8 +626,8 @@ class MiscTests(unittest.TestCase):
         """Test the get_release_value function."""
         with tempfile.TemporaryDirectory() as root:
             # prepare paths
-            util.mkdirChain(root + "/usr/lib")
-            util.mkdirChain(root + "/etc")
+            make_directories(root + "/usr/lib")
+            make_directories(root + "/etc")
 
             # no file
             with self.assertLogs(level="DEBUG") as cm:

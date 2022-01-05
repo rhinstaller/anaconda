@@ -23,7 +23,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import PAYLOAD_TYPE_DNF
-from pyanaconda.core.util import join_paths
+from pyanaconda.core.path import make_directories, join_paths
 from pyanaconda.modules.common.errors.installation import SecurityInstallationError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.security.constants import SELinuxMode
@@ -110,7 +110,7 @@ class PreconfigureFIPSTask(Task):
         # Create /etc/crypto-policies.
         src = "/etc/crypto-policies/"
         dst = join_paths(self._sysroot, src)
-        util.mkdirChain(dst)
+        make_directories(dst)
 
         # Copy the config file.
         src = "/etc/crypto-policies/config"

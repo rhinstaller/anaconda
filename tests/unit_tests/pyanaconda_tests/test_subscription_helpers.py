@@ -27,7 +27,7 @@ from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from tests.unit_tests.pyanaconda_tests import patch_dbus_get_proxy_with_cache
 
-from pyanaconda.core import util
+from pyanaconda.core.path import join_paths
 from pyanaconda.core.constants import RHSM_SYSPURPOSE_FILE_PATH, \
     THREAD_WAIT_FOR_CONNECTING_NM, SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD, \
     SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, SOURCE_TYPE_CLOSEST_MIRROR, \
@@ -53,8 +53,8 @@ class CheckSystemPurposeSetTestCase(unittest.TestCase):
             # create a dummy syspurpose file
             syspurpose_path = RHSM_SYSPURPOSE_FILE_PATH
             directory = os.path.split(syspurpose_path)[0]
-            os.makedirs(util.join_paths(sysroot, directory))
-            os.mknod(util.join_paths(sysroot, syspurpose_path))
+            os.makedirs(join_paths(sysroot, directory))
+            os.mknod(join_paths(sysroot, syspurpose_path))
             assert check_system_purpose_set(sysroot)
 
         # system purpose not set

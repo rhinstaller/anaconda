@@ -24,7 +24,8 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import format_size_full, create_new_context, Variant, GError
 from pyanaconda.core.i18n import _
-from pyanaconda.core.util import execWithRedirect, mkdirChain, set_system_root
+from pyanaconda.core.path import set_system_root, make_directories
+from pyanaconda.core.util import execWithRedirect
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE, BOOTLOADER
@@ -110,7 +111,7 @@ class PrepareOSTreeMountTargetsTask(Task):
         else:
             # Create missing directories for user defined mount points
             if not os.path.exists(dest):
-                mkdirChain(dest)
+                make_directories(dest)
 
             # Recurse for non-ro binds so we pick up sub-mounts
             # like /sys/firmware/efi/efivars.
@@ -151,7 +152,7 @@ class PrepareOSTreeMountTargetsTask(Task):
         configuration inside Anaconda, and we can't "chroot" to get it because that would require
         mounting the API filesystems in the target.
         """
-        mkdirChain(self._sysroot + '/var/lib')
+        make_directories(self._sysroot + '/var/lib')
         self._create_tmpfiles('/var/home')
         self._create_tmpfiles('/var/roothome')
         self._create_tmpfiles('/var/lib/rpm')
