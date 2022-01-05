@@ -20,7 +20,7 @@ gi.require_version("BlockDev", "2.0")
 from gi.repository import BlockDev as blockdev
 
 from collections import defaultdict
-from packaging.version import parse as parse_version
+from packaging.version import LegacyVersion as parse_version
 
 from blivet import arch, util
 from blivet.devicefactory import get_device_type
