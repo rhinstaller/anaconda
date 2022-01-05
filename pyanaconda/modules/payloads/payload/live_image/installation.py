@@ -363,6 +363,7 @@ class InstallFromTarTask(Task):
             "--exclude", "./boot/loader",
             "--exclude", "./boot/efi/loader",
             "--exclude", "./etc/machine-id",
+            "--exclude", "./etc/machine-info",
             "-xaf", self._tarfile,
             "-C", self._sysroot
         ]
@@ -437,6 +438,7 @@ class InstallFromImageTask(Task):
             "--exclude", "/boot/loader/",
             "--exclude", "/boot/efi/loader/",
             "--exclude", "/etc/machine-id",
+            "--exclude", "/etc/machine-info",
             os.path.normpath(self._mount_point) + "/",
             self._sysroot
         ]
