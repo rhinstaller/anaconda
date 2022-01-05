@@ -96,19 +96,6 @@ class KickstartModuleInterface(KickstartModuleInterfaceTemplate):
         """
         return self.implementation.generate_kickstart()
 
-    def GenerateTemporaryKickstart(self) -> Str:
-        """Return a temporary kickstart representation of the module.
-
-        The kickstart representation should contain only commands that
-        are already replaced in UI. Commands that are not replaced in
-        UI will be generated from the kickstart data.
-
-        FIXME: This is just a temporary workaround.
-
-        :return: a kickstart string
-        """
-        return self.implementation.generate_temporary_kickstart()
-
     def CollectRequirements(self) -> List[Structure]:
         """Return installation requirements of this module.
 

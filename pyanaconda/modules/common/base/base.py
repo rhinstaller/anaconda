@@ -259,15 +259,6 @@ class KickstartService(Service, KickstartBaseModule):
         self.setup_kickstart(handler)
         return str(handler)
 
-    def generate_temporary_kickstart(self):
-        """Return a temporary kickstart representation of this module.
-
-        Don't include kickstart commands temporarily unsupported in UI.
-
-        :return: a kickstart string
-        """
-        return self.generate_kickstart()
-
     def configure_with_tasks(self):
         """Configure the runtime environment.
 
