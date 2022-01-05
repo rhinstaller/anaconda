@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# This is the expected entry point for Cockpit CI;
+
+set -eu
+
+./autogen.sh && ./configure && make cockpit-tests
