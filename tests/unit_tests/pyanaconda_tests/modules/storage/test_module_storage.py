@@ -1533,7 +1533,7 @@ class StorageTasksTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.storage.installation.conf")
     def test_write_configuration(self, patched_conf, dbus):
         """Test WriteConfigurationTask."""
-        storage = Mock(devices=[])
+        storage = Mock(devices=[], devicetree=Mock(_hidden=[]))
 
         with tempfile.TemporaryDirectory() as d:
             patched_conf.target.system_root = d
@@ -1546,6 +1546,38 @@ class StorageTasksTestCase(unittest.TestCase):
             patched_conf.target.is_directory = False
             WriteConfigurationTask(storage).run()
             assert os.path.exists("{}/etc".format(d))
+
+    @patch("pyanaconda.modules.storage.installation.os.path.exists", return_value=False)
+    def test_lvm_devices_file(self, exists_mock):
+        """Test writing the LVM devices file"""
+        dev1 = Mock()
+        dev1.format.type = "lvmpv"
+        dev2 = Mock()
+        dev2.format.type = "blah"
+        dev3 = Mock()
+        dev3.format.type = "lvmpv"
+        dev4 = Mock()
+        dev4.format.type = "ext4"
+        storage = Mock(devices=[dev1, dev2], devicetree=Mock(_hidden=[dev3, dev4]))
+
+        with tempfile.TemporaryDirectory() as tmp:
+            # lvm devices file: disabled
+            with patch("pyanaconda.modules.storage.installation.HAVE_LVMDEVICES", new=False):
+                WriteConfigurationTask._write_lvm_devices_file(storage, tmp)
+                dev1.format.lvmdevices_add.assert_not_called()
+                dev2.format.lvmdevices_add.assert_not_called()
+                dev3.format.lvmdevices_add.assert_not_called()
+                dev4.format.lvmdevices_add.assert_not_called()
+                exists_mock.assert_not_called()
+
+            # lvm devices file: enabled
+            with patch("pyanaconda.modules.storage.installation.HAVE_LVMDEVICES", new=True):
+                WriteConfigurationTask._write_lvm_devices_file(storage, tmp)
+                dev1.format.lvmdevices_add.assert_called_once_with()
+                dev2.format.lvmdevices_add.assert_not_called()
+                dev3.format.lvmdevices_add.assert_called_once_with()
+                dev4.format.lvmdevices_add.assert_not_called()
+                exists_mock.assert_called_once_with("/etc/lvm/devices/system.devices")
 
 
 class StorageValidationTasksTestCase(unittest.TestCase):
