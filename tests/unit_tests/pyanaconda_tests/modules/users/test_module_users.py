@@ -341,8 +341,8 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self.users_interface.SetRootAccountLocked(False)
         assert self.users_interface.CheckAdminUserExists()
 
-    def _test_kickstart(self, ks_in, ks_out, ks_tmp=None):
-        check_kickstart_interface(self.users_interface, ks_in, ks_out, ks_tmp=ks_tmp)
+    def _test_kickstart(self, ks_in, ks_out):
+        check_kickstart_interface(self.users_interface, ks_in, ks_out)
 
     def test_no_kickstart(self):
         """Test with no kickstart."""

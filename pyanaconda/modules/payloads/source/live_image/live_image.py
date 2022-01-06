@@ -18,12 +18,14 @@
 # Red Hat, Inc.
 #
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.live_image.initialization import \
     SetUpLocalImageSourceTask, SetUpRemoteImageSourceTask, SetupImageResult
+from pyanaconda.modules.payloads.source.live_image.installation import InstallLiveImageTask
 from pyanaconda.modules.payloads.source.utils import has_network_protocol
 from pyanaconda.modules.payloads.source.live_image.live_image_interface import \
     LiveImageSourceInterface
@@ -139,6 +141,18 @@ class LiveImageSourceModule(PayloadSourceBase):
     def _handle_setup_task_result(self, result: SetupImageResult):
         """Apply the result of the set-up task."""
         self._required_space = result.required_space
+
+    def install_with_tasks(self):
+        """Install the installation source.
+
+        :return: a list of installation tasks
+        """
+        return [
+            InstallLiveImageTask(
+                sysroot=conf.target.system_root,
+                configuration=self.configuration
+            )
+        ]
 
     def tear_down_with_tasks(self):
         """Tear down the installation source.

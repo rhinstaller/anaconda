@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.modules.payloads.constants import SourceType
+from pyanaconda.modules.payloads.source.utils import is_tar
 
 __all__ = ["SourceFactory"]
 
@@ -39,6 +40,9 @@ class SourceFactory(object):
             from pyanaconda.modules.payloads.source.live_image.live_image import \
                 LiveImageSourceModule
             return LiveImageSourceModule()
+        elif source_type == SourceType.LIVE_TAR:
+            from pyanaconda.modules.payloads.source.live_tar.live_tar import LiveTarSourceModule
+            return LiveTarSourceModule()
         elif source_type == SourceType.CDROM:
             from pyanaconda.modules.payloads.source.cdrom.cdrom import CdromSourceModule
             return CdromSourceModule()
@@ -121,6 +125,9 @@ class SourceFactory(object):
         :return: SourceType value
         """
         if ks_data.liveimg.seen:
-            return SourceType.LIVE_IMAGE
+            if is_tar(ks_data.liveimg.url):
+                return SourceType.LIVE_TAR
+            else:
+                return SourceType.LIVE_IMAGE
 
         return None

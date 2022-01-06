@@ -23,7 +23,8 @@ from glob import glob
 from tempfile import mkstemp
 import threading
 
-from pyanaconda.core.constants import DisplayModes, PAYLOAD_TYPE_RPM_OSTREE, ADDON_PATHS
+from pyanaconda.core.constants import DisplayModes, PAYLOAD_TYPE_RPM_OSTREE, ADDON_PATHS, \
+    PAYLOAD_TYPE_LIVE_IMAGE
 from pyanaconda.core import constants
 from pyanaconda.core.startup.dbus_launcher import AnacondaDBusLauncher
 from pyanaconda.modules.common.constants.services import PAYLOADS
@@ -87,7 +88,7 @@ class Anaconda(object):
             elif self.opts.liveinst:
                 from pyanaconda.payload.live import LiveOSPayload
                 klass = LiveOSPayload
-            elif self.ksdata.liveimg.seen:
+            elif payload_type == PAYLOAD_TYPE_LIVE_IMAGE:
                 from pyanaconda.payload.live import LiveImagePayload
                 klass = LiveImagePayload
             else:

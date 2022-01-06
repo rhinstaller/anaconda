@@ -80,14 +80,13 @@ def clear_version_from_kickstart_string(ks_in):
     )
 
 
-def check_kickstart_interface(interface, ks_in, ks_out=None, ks_valid=True, ks_tmp=None):
+def check_kickstart_interface(interface, ks_in, ks_out=None, ks_valid=True):
     """Test the parsing and generating of a kickstart module.
 
     :param interface: instance of KickstartModuleInterface
     :param ks_in: string with the input kickstart
     :param ks_out: string with the output kickstart
     :param ks_valid: True if the input kickstart is valid, otherwise False
-    :param ks_tmp: string with the temporary output kickstart
     """
     callback = PropertiesChangedCallback()
     interface.PropertiesChanged.connect(callback)
@@ -119,13 +118,6 @@ def check_kickstart_interface(interface, ks_in, ks_out=None, ks_valid=True, ks_t
     else:
         assert interface.Kickstarted is False
         callback.assert_not_called()
-
-    # Test the temporary kickstart.
-    if ks_tmp is None:
-        return
-
-    ks_tmp = dedent(ks_tmp).strip()
-    assert ks_tmp == interface.GenerateTemporaryKickstart().strip()
 
     return result
 

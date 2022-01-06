@@ -15,23 +15,25 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import os
 import tempfile
 import unittest
 import pytest
 
-from unittest.mock import patch, Mock
-
+from contextlib import contextmanager
 from dasbus.typing import get_variant, Str, Bool
 from requests import RequestException
-
-from pyanaconda.modules.common.errors.payload import SourceSetupError
+from unittest.mock import patch, Mock
 
 from pyanaconda.core.constants import SOURCE_TYPE_LIVE_IMAGE
+from pyanaconda.core.path import make_directories, touch, join_paths
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_LIVE_IMAGE
+from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.live_image.initialization import \
     SetUpLocalImageSourceTask, SetUpRemoteImageSourceTask, SetupImageResult
+from pyanaconda.modules.payloads.source.live_image.installation import InstallLiveImageTask
 from pyanaconda.modules.payloads.source.live_image.live_image import LiveImageSourceModule
 from pyanaconda.modules.payloads.source.live_image.live_image_interface import \
     LiveImageSourceInterface
@@ -292,3 +294,108 @@ class SetUpRemoteImageSourceTaskTestCase(unittest.TestCase):
         # Check the result.
         assert isinstance(result, SetupImageResult)
         assert result == SetupImageResult(4000)
+
+
+class LiveImageInstallationTestCase(unittest.TestCase):
+    """Test the live image installation."""
+
+    def setUp(self):
+        """Set up the test."""
+        self.data = LiveImageConfigurationData()
+        self.directory = None
+
+    @property
+    def sysroot(self):
+        """The sysroot directory."""
+        return join_paths(self.directory, "sysroot")
+
+    @property
+    def image(self):
+        """The image path."""
+        return join_paths(self.directory, "test.img")
+
+    @property
+    def mount_point(self):
+        """The image mount point."""
+        return join_paths(self.directory, "image")
+
+    @contextmanager
+    def _create_directory(self):
+        """Create a temporary directory."""
+        with tempfile.TemporaryDirectory() as d:
+            self.directory = d
+            yield
+            self.directory = None
+
+    def _create_image(self, files, mount_task_cls):
+        """Create a fake image."""
+        # Create the image.
+        touch(self.image)
+
+        # Set up the configuration data.
+        self.data.url = "file://" + self.image
+
+        # Set up the mount point.
+        os.makedirs(self.mount_point)
+
+        for path in files:
+            file_path = join_paths(self.mount_point, path)
+            make_directories(os.path.dirname(file_path))
+            touch(file_path)
+
+        mount_task = mount_task_cls()
+        mount_task.run.return_value = self.mount_point
+
+    def _run_task(self):
+        """Run the task."""
+        os.makedirs(self.sysroot)
+
+        task = InstallLiveImageTask(
+            sysroot=self.sysroot,
+            configuration=self.data
+        )
+
+        with patch('pyanaconda.core.dbus.DBus.get_proxy'):
+            return task.run()
+
+    def _check_content(self, files):
+        """Check the sysroot content."""
+        for path in files:
+            file_path = join_paths(self.sysroot, path)
+            assert os.path.exists(file_path)
+
+    @patch("pyanaconda.modules.payloads.source.live_image.installation.TearDownMountTask")
+    @patch("pyanaconda.modules.payloads.source.live_image.installation.MountImageTask")
+    def test_install_file(self, mount_task_cls, umount_task_cls):
+        """Install a fake image with files."""
+        files = ["f1", "f2", "f3"]
+
+        with self._create_directory():
+            self._create_image(files, mount_task_cls)
+            result = self._run_task()
+            self._check_content(files)
+
+        assert result == []
+
+    @patch("pyanaconda.modules.payloads.source.live_image.installation.TearDownMountTask")
+    @patch("pyanaconda.modules.payloads.source.live_image.installation.MountImageTask")
+    def test_install_kernels(self, mount_task_cls, umount_task_cls):
+        """Install a fake image with kernels."""
+        files = [
+            "/boot/vmlinuz-5.8.15-201.fc32.x86_64",
+            "/boot/efi/EFI/default/vmlinuz-6.8.15-201.fc32.x86_64",
+            "/boot/vmlinuz-5.8.16-200.fc32.x86_64",
+            "/boot/efi/EFI/default/vmlinuz-7.8.16-200.fc32.x86_64",
+        ]
+
+        with self._create_directory():
+            self._create_image(files, mount_task_cls)
+            result = self._run_task()
+            self._check_content(files)
+
+        assert result == [
+            '5.8.15-201.fc32.x86_64',
+            '5.8.16-200.fc32.x86_64',
+            '6.8.15-201.fc32.x86_64',
+            '7.8.16-200.fc32.x86_64',
+        ]

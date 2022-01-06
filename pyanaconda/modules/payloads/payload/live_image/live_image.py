@@ -17,13 +17,14 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.modules.common.errors.payload import IncompatibleSourceError
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.payload.live_image.live_image_interface import \
     LiveImageInterface
 from pyanaconda.modules.payloads.source.factory import SourceFactory
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["LiveImageModule"]
@@ -48,8 +49,16 @@ class LiveImageModule(PayloadBase):
     def supported_source_types(self):
         """Get list of sources supported by Live Image module."""
         return [
-            SourceType.LIVE_IMAGE
+            SourceType.LIVE_IMAGE,
+            SourceType.LIVE_TAR,
         ]
+
+    def set_sources(self, sources):
+        """Set at most one source."""
+        if len(sources) > 1:
+            raise IncompatibleSourceError("You can set only one source for this payload type.")
+
+        super().set_sources(sources)
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
@@ -69,4 +78,22 @@ class LiveImageModule(PayloadBase):
 
     def install_with_tasks(self):
         """Execute preparation and installation steps."""
-        return []
+        if not self.sources:
+            log.debug("No image is available.")
+            return []
+
+        source = self.sources[0]
+        tasks = source.install_with_tasks()
+
+        self._collect_kernels_on_success(tasks)
+        return tasks
+
+    def _collect_kernels_on_success(self, tasks):
+        """Collect kernel version lists from successful tasks.
+
+        :param tasks: a list of tasks
+        """
+        for task in tasks:
+            task.succeeded_signal.connect(
+                lambda t=task: self.set_kernel_version_list(t.get_result())
+            )
