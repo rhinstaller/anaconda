@@ -411,6 +411,41 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jan 06 2022 Martin Kolman <mkolman@redhat.com> - 36.13-1
+- Fix names of tests for the OPAL compatibility verification (vponcova)
+- Always use LegacyVersion for parsing versions (vponcova)
+- Remove the GenerateTemporaryKickstart DBus method (vponcova)
+- Use the DBus API for the image and tar installation (vponcova)
+- Run the installation tasks in the live image payload module (vponcova)
+- Create complete installation tasks for live and tar installations (vponcova)
+- Create the tarball source module (vponcova)
+- Merge helper functions into users._reown_homedir() (vslavik)
+- Remove _get_parent_directory (vslavik)
+- Merge _dir_tree_map into _chown_dir_tree (vslavik)
+- Move touch from core.util to core.path (vslavik)
+- Move join_paths from core.util to core.path (vslavik)
+- Move open_with_perm from core.util to core.path (vslavik)
+- Move get_mount_paths from core.util to core.path (vslavik)
+- Move parent_dir to users._get_parent_directory (vslavik)
+- Move dir_tree_map and chown_dir_tree to users (vslavik)
+- Remove last use of dir_tree_map outside core.util (vslavik)
+- Move util.mkdirChain to path.make_directories (vslavik)
+- Add missing commas to the test_get_kernel_version_list test (vponcova)
+- Show all logs of failed unit tests (vponcova)
+- Move set_system_root from core.util to core.path (vslavik)
+- Add a new module for path-related helpers (vslavik)
+- Fix shellcheck warnings (vslavik)
+- Update ShellCheck config files (vslavik)
+- Add ShellCheck to unit tests (vslavik)
+- Fix typo in debug print in network part (jkonecny)
+- Replace local function with service helper (vslavik)
+- Change service helper default root to "/" (vslavik)
+- Test the service helpers (vslavik)
+- Move service util functions to new module (vslavik)
+- Remove the base_repo property (vponcova)
+- Remove the support for image installations from the liveinst script
+  (vponcova)
+
 * Tue Dec 14 2021 Martin Kolman <mkolman@redhat.com> - 36.12-1
 - Retire execInSysroot (vslavik)
 - Retire all uses of execInSysroot in bootloader (vslavik)
