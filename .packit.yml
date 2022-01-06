@@ -1,6 +1,7 @@
 specfile_path: anaconda.spec
 upstream_package_name: anaconda
 upstream_tag_template: anaconda-{version}-1
+copy_upstream_release_description: true
 actions:
   post-upstream-clone:
     - ./autogen.sh
