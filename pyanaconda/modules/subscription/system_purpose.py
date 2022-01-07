@@ -198,6 +198,6 @@ def give_the_system_purpose(sysroot, rhsm_syspurpose_proxy, role, sla, usage, ad
             log.debug("subscription: failed to set system purpose: %s", str(e))
             return False
     else:
-        log.warning("subscription: not calling syspurpose as no fields have been provided")
+        log.warning("subscription: syspurpose will not be set as no fields have been provided")
         # doing nothing is still not a failure
         return True
