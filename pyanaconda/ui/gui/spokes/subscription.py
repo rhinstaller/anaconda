@@ -97,15 +97,6 @@ class SubscriptionSpoke(NormalSpoke):
         # get initial data from the Subscription module
         self._subscription_request = self._get_subscription_request()
         self._system_purpose_data = self._get_system_purpose_data()
-        # Keep a copy of system purpose data that has been last applied to
-        # the installation environment.
-        # That way we can check if the main copy of the system purposed data
-        # changed since it was applied (for example due to user input)
-        # and needs to be reapplied.
-        # By default this variable is None and will only be set to a
-        # SystemPurposeData instance when first system purpose data is
-        # applied to the installation environment.
-        self._last_applied_system_purpose_data = None
 
         self._authentication_method = AuthenticationMethod.USERNAME_PASSWORD
 
@@ -828,12 +819,10 @@ class SubscriptionSpoke(NormalSpoke):
 
         If the last applied data is the same as current system purpose data, nothing is done.
         """
-        if self._last_applied_system_purpose_data != self.system_purpose_data:
-            log.debug("Subscription GUI: applying system purpose data to installation environment")
-            task_path = self._subscription_module.SetSystemPurposeWithTask()
-            task_proxy = SUBSCRIPTION.get_proxy(task_path)
-            sync_run_task(task_proxy)
-            self._last_applied_system_purpose_data = self.system_purpose_data
+        log.debug("Subscription GUI: applying system purpose data to installation environment")
+        task_path = self._subscription_module.SetSystemPurposeWithTask()
+        task_proxy = SUBSCRIPTION.get_proxy(task_path)
+        sync_run_task(task_proxy)
 
     def _get_subscription_request(self):
         """Get SubscriptionRequest from the Subscription module."""
