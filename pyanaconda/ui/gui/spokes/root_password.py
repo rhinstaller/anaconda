@@ -179,23 +179,25 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         return not self._users_module.CheckAdminUserExists()
 
     def apply(self):
-        pw = self.password
+        if self.root_enabled and self.password:
+            # Set the root password.
+            self._users_module.SetCryptedRootPassword(crypt_password(self.password))
 
-        enabled = self.root_enabled
-        self._users_module.SetRootAccountLocked(not enabled)
+            # Unlock the root account.
+            self._users_module.SetRootAccountLocked(False)
 
-        if enabled:
+        else:
+            # Reset the root password.
+            self._users_module.ClearRootPassword()
+
+            # Lock the root account.
+            self._users_module.SetRootAccountLocked(True)
+
+        if self.root_enabled:
             # the checkbox makes it possible to override the default Open SSH
             # policy of not allowing root to login with password
             ssh_login_override = self._root_password_ssh_login_override.get_active()
             self._users_module.SetRootPasswordSSHLoginAllowed(ssh_login_override)
-
-        if not pw:
-            self._users_module.ClearRootPassword()
-            return
-
-        # we have a password - set it to kickstart data
-        self._users_module.SetCryptedRootPassword(crypt_password(pw))
 
         # clear any placeholders
         self.remove_placeholder_texts()
