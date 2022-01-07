@@ -32,12 +32,14 @@ from dnf.package import Package
 from dnf.transaction import PKG_INSTALL, TRANS_POST, PKG_VERIFY
 from dnf.repo import Repo
 
-from pyanaconda.core.constants import MULTILIB_POLICY_ALL
+from pyanaconda.core.constants import MULTILIB_POLICY_ALL, URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, \
+    URL_TYPE_METALINK
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.modules.common.errors.payload import UnknownCompsEnvironmentError, \
     UnknownCompsGroupError, UnknownRepositoryError
 from pyanaconda.modules.common.structures.comps import CompsEnvironmentData, CompsGroupData
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, \
     InvalidSelectionError, BrokenSpecsError, MissingSpecsError, MetadataError
 
@@ -917,6 +919,17 @@ class DNFManagerReposTestCase(unittest.TestCase):
         self.dnf_manager._base.repos.add(repo)
         return repo
 
+    def _check_repo(self, repo_id, attributes):
+        """Check the DNF repo configuration."""
+        repo = self.dnf_manager._base.repos[repo_id]
+        repo_conf = repo.dump()
+        repo_conf = repo_conf.splitlines(keepends=False)
+
+        print(repo.dump())
+
+        for attribute in attributes:
+            assert attribute in repo_conf
+
     def test_repositories(self):
         """Test the repositories property."""
         assert self.dnf_manager.repositories == []
@@ -937,6 +950,167 @@ class DNFManagerReposTestCase(unittest.TestCase):
         self._add_repo("r4").enable()
 
         assert self.dnf_manager.enabled_repositories == ["r2", "r4"]
+
+    def test_add_repository_default(self):
+        """Test the add_repository method with defaults."""
+        data = RepoConfigurationData()
+        data.name = "r1"
+
+        self.dnf_manager.add_repository(data)
+
+        self._check_repo("r1", [
+            "baseurl = ",
+            "proxy = ",
+            "sslverify = 1",
+            "sslcacert = ",
+            "sslclientcert = ",
+            "sslclientkey = ",
+            "cost = 1000",
+            "includepkgs = ",
+            "excludepkgs = ",
+        ])
+
+    def test_add_repository_baseurl(self):
+        """Test the add_repository method with baseurl."""
+        data = RepoConfigurationData()
+        data.name = "r1"
+        data.type = URL_TYPE_BASEURL
+        data.url = "http://repo"
+
+        self.dnf_manager.add_repository(data)
+
+        self._check_repo("r1", [
+            "baseurl = http://repo",
+        ])
+
+    def test_add_repository_mirrorlist(self):
+        """Test the add_repository method with mirrorlist."""
+        data = RepoConfigurationData()
+        data.name = "r1"
+        data.type = URL_TYPE_MIRRORLIST
+        data.url = "http://mirror"
+
+        self.dnf_manager.add_repository(data)
+        self._check_repo("r1", [
+            "mirrorlist = http://mirror",
+        ])
+
+    def test_add_repository_metalink(self):
+        """Test the add_repository method with metalink."""
+        data = RepoConfigurationData()
+        data.name = "r1"
+        data.type = URL_TYPE_METALINK
+        data.url = "http://metalink"
+
+        self.dnf_manager.add_repository(data)
+        self._check_repo("r1", [
+            "metalink = http://metalink",
+        ])
+
+    def test_add_repository_no_ssl_configuration(self):
+        """Test the add_repository method without the ssl configuration."""
+        data = RepoConfigurationData()
+        data.name = "r1"
+        data.ssl_verification_enabled = False
+
+        self.dnf_manager.add_repository(data)
+        self._check_repo("r1", [
+            "sslverify = 0",
+        ])
+
+    def test_add_repository_ssl_configuration(self):
+        """Test the add_repository method with the ssl configuration."""
+        data = RepoConfigurationData()
+        data.name = "r1"
+        data.ssl_verification_enabled = True
+        data.ssl_configuration.ca_cert_path = "file:///ca-cert"
+        data.ssl_configuration.client_cert_path = "file:///client-cert"
+        data.ssl_configuration.client_key_path = "file:///client-key"
+
+        self.dnf_manager.add_repository(data)
+        self._check_repo("r1", [
+            "sslverify = 1",
+            "sslcacert = file:///ca-cert",
+            "sslclientcert = file:///client-cert",
+            "sslclientkey = file:///client-key",
+        ])
+
+    def test_add_repository_invalid_proxy(self):
+        """Test the add_repository method the invalid proxy configuration."""
+        data = RepoConfigurationData()
+        data.name = "r1"
+        data.proxy = "@:/invalid"
+
+        self.dnf_manager.add_repository(data)
+        self._check_repo("r1", [
+            "proxy = ",
+        ])
+
+    def test_add_repository_no_auth_proxy(self):
+        """Test the add_repository method the no auth proxy configuration."""
+        data = RepoConfigurationData()
+        data.name = "r1"
+        data.proxy = "http://example.com:1234"
+
+        self.dnf_manager.add_repository(data)
+        self._check_repo("r1", [
+            "proxy = http://example.com:1234",
+        ])
+
+    def test_add_repository_proxy(self):
+        """Test the add_repository method with the proxy configuration."""
+        data = RepoConfigurationData()
+        data.name = "r1"
+        data.proxy = "http://user:pass@example.com:1234"
+
+        self.dnf_manager.add_repository(data)
+        self._check_repo("r1", [
+            "proxy = http://example.com:1234",
+            "proxy_username = user",
+            "proxy_password = pass",
+        ])
+
+    def test_add_repository_cost(self):
+        """Test the add_repository method with a cost."""
+        data = RepoConfigurationData()
+        data.name = "r1"
+        data.cost = 256
+
+        self.dnf_manager.add_repository(data)
+        self._check_repo("r1", [
+            "cost = 256"
+        ])
+
+    def test_add_repository_packages(self):
+        """Test the add_repository method with packages."""
+        data = RepoConfigurationData()
+        data.name = "r1"
+        data.included_packages = ["p1", "p2"]
+        data.excluded_packages = ["p3", "p4"]
+
+        self.dnf_manager.add_repository(data)
+        self._check_repo("r1", [
+            "includepkgs = p1, p2",
+            "excludepkgs = p3, p4",
+        ])
+
+    def test_add_repository_replace(self):
+        """Test the add_repository method with a replacement."""
+        data = RepoConfigurationData()
+        data.name = "r1"
+        data.url = "http://u1"
+
+        self.dnf_manager.add_repository(data)
+        self._check_repo("r1", [
+            "baseurl = http://u1",
+        ])
+
+        data.url = "http://u2"
+
+        self.dnf_manager.add_repository(data)
+        self._check_repo("r1", [
+            "baseurl = http://u2",
+        ])
 
     def test_load_repository_unknown(self):
         """Test the load_repository method with an unknown repo."""

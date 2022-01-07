@@ -25,6 +25,7 @@ import traceback
 import dnf
 import dnf.exceptions
 import dnf.module.module_base
+import dnf.repo
 import dnf.subject
 import libdnf.conf
 
@@ -32,7 +33,8 @@ from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import DNF_DEFAULT_TIMEOUT, DNF_DEFAULT_RETRIES
+from pyanaconda.core.constants import DNF_DEFAULT_TIMEOUT, DNF_DEFAULT_RETRIES, URL_TYPE_BASEURL, \
+    URL_TYPE_MIRRORLIST, URL_TYPE_METALINK
 from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.util import get_os_release_value
@@ -41,6 +43,7 @@ from pyanaconda.modules.common.errors.payload import UnknownCompsEnvironmentErro
     UnknownCompsGroupError, UnknownRepositoryError
 from pyanaconda.modules.common.structures.comps import CompsEnvironmentData, CompsGroupData
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import DNF_REPO_DIRS
 from pyanaconda.modules.payloads.payload.dnf.download_progress import DownloadProgress
 from pyanaconda.modules.payloads.payload.dnf.transaction_progress import TransactionProgress, \
@@ -356,15 +359,10 @@ class DNFManager(object):
         base.conf.proxy_username = ""
         base.conf.proxy_password = ""
 
-        # No URL is provided.
-        if not url:
-            return
-
         # Parse the given URL.
-        try:
-            proxy = ProxyString(url)
-        except ProxyStringError as e:
-            log.error("Failed to parse the proxy '%s': %s", url, e)
+        proxy = self._parse_proxy(url)
+
+        if not proxy:
             return
 
         # Set the proxy configuration.
@@ -372,6 +370,22 @@ class DNFManager(object):
         base.conf.proxy = proxy.noauth_url
         base.conf.proxy_username = proxy.username or ""
         base.conf.proxy_password = proxy.password or ""
+
+    def _parse_proxy(self, url):
+        """Parse the given proxy URL.
+
+        :param url: a string with the proxy URL
+        :return: an instance of ProxyString or None
+        """
+        if not url:
+            return None
+
+        try:
+            return ProxyString(url)
+        except ProxyStringError as e:
+            log.error("Failed to parse the proxy '%s': %s", url, e)
+
+        return None
 
     def dump_configuration(self):
         """Log the state of the DNF configuration."""
@@ -727,6 +741,78 @@ class DNFManager(object):
 
         if not repo:
             raise UnknownRepositoryError(repo_id)
+
+        return repo
+
+    def add_repository(self, data: RepoConfigurationData):
+        """Add a repository.
+
+        If the repository already exists, replace it with a new one.
+
+        :param RepoConfigurationData data: a repo configuration
+        """
+        # Create a new repository.
+        repo = self._create_repository(data)
+
+        with self._lock:
+            # Remove an existing repository.
+            if repo.id in self._base.repos:
+                self._base.repos.pop(repo.id)
+
+            # Add the new repository.
+            self._base.repos.add(repo)
+
+        log.info("Added the '%s' repository: %s", repo.id, repo)
+
+    def _create_repository(self, data: RepoConfigurationData):
+        """Create a DNF repository.
+
+        :param RepoConfigurationData data: a repo configuration
+        return dnf.repo.Repo: a DNF repository
+        """
+        repo = dnf.repo.Repo(data.name, self._base.conf)
+
+        # Set up the repo location.
+        url = self.substitute(data.url)
+
+        if data.type == URL_TYPE_BASEURL:
+            repo.baseurl = [url]
+
+        if data.type == URL_TYPE_MIRRORLIST:
+            repo.mirrorlist = url
+
+        if data.type == URL_TYPE_METALINK:
+            repo.metalink = url
+
+        # Set the proxy configuration.
+        proxy = self._parse_proxy(data.proxy)
+
+        if proxy:
+            repo.proxy = proxy.noauth_url
+            repo.proxy_username = proxy.username or ""
+            repo.proxy_password = proxy.password or ""
+
+        # Set the repo configuration.
+        if data.cost:
+            repo.cost = data.cost
+
+        if data.included_packages:
+            repo.includepkgs = data.included_packages
+
+        if data.excluded_packages:
+            repo.excludepkgs = data.excluded_packages
+
+        # Set up the SSL configuration.
+        repo.sslverify = conf.payload.verify_ssl and data.ssl_verification_enabled
+
+        if data.ssl_configuration.ca_cert_path:
+            repo.sslcacert = data.ssl_configuration.ca_cert_path
+
+        if data.ssl_configuration.client_cert_path:
+            repo.sslclientcert = data.ssl_configuration.client_cert_path
+
+        if data.ssl_configuration.client_key_path:
+            repo.sslclientkey = data.ssl_configuration.client_key_path
 
         return repo
 
