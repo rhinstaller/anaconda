@@ -109,6 +109,7 @@ class InstallFromImageTaskTestCase(unittest.TestCase):
             "--exclude", "/boot/loader/",
             "--exclude", "/boot/efi/loader/",
             "--exclude", "/etc/machine-id",
+            "--exclude", "/etc/machine-info",
             mount_point + "/",
             "/mnt/root"
         ])
@@ -181,6 +182,7 @@ class InstallFromTarTaskTestCase(unittest.TestCase):
             "--exclude", "./boot/loader",
             "--exclude", "./boot/efi/loader",
             "--exclude", "./etc/machine-id",
+            "--exclude", "./etc/machine-info",
             "-xaf", f.name,
             "-C", "/mnt/root"
         ])
