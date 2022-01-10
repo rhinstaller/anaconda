@@ -23,6 +23,8 @@ LIB_TEST=src/lib/cockpit-po-plugin.js
 WEBPACK_TEST=dist/manifest.json
 WEBPACK_TEST_PRODUCTION=dist/index.css.gz
 PACKAGE_NAME=anaconda-webui
+# stamp file to check if/when npm install ran
+NODE_MODULES_TEST=package-lock.json
 ISO_FILE=test/boot.iso
 
 # makes sure it gets built as part of `make` and `make dist`
@@ -33,7 +35,7 @@ dist_noinst_DATA = \
 	package.json \
 	webpack.config.js
 
-$(WEBPACK_TEST): $(LIB_TEST) $(shell find src/ -type f) package-lock.json webpack.config.js
+$(WEBPACK_TEST): $(LIB_TEST) $(shell find src/ -type f) $(NODE_MODULES_TEST) package.json webpack.config.js
 	NODE_ENV=production $(CURDIR)/node_modules/.bin/webpack
 
 install-data-hook: $(WEBPACK_TEST)
@@ -76,7 +78,7 @@ test/common:
 	mv tmp/cockpit/test/common test/common
 	rm -rf tmp/cockpit
 
-package-lock.json: package.json
-	rm -f package-lock.json
-	env -u NODE_ENV npm install
+$(NODE_MODULES_TEST): package.json
+	rm -f package-lock.json #  if it exists already, npm install won't update it; force that so that we always get up-to-date packages
+	env -u NODE_ENV npm install #  unset NODE_ENV, skips devDependencies otherwise
 	env -u NODE_ENV npm prune
