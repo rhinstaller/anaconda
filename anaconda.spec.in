@@ -411,6 +411,11 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jan 10 2022 Martin Kolman <mkolman@redhat.com> - 36.14-1
+- Move the code for adding repositories to the DNF base (vponcova)
+- Allow to convert kickstart repositories into DBus data (vponcova)
+- Skip /etc/machine-info during live installs (#2036199) (awilliam)
+
 * Thu Jan 06 2022 Martin Kolman <mkolman@redhat.com> - 36.13-1
 - Fix names of tests for the OPAL compatibility verification (vponcova)
 - Always use LegacyVersion for parsing versions (vponcova)
