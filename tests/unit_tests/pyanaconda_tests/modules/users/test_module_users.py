@@ -798,9 +798,12 @@ class SharedUICodeTestCase(unittest.TestCase):
         users_module_mock.Users = []
         user_data_list = get_user_list(users_module_mock, add_default=True)
 
+        default_added_user_data = UserData()
+        default_added_user_data.set_admin_priviledges(True)
+
         assert len(user_data_list) == 1
         assert isinstance(user_data_list[0], UserData)
-        assert compare_data(user_data_list[0], UserData())
+        assert compare_data(user_data_list[0], default_added_user_data)
 
     def test_get_user_list(self):
         """Test the shared get_user_list() method."""
@@ -847,12 +850,14 @@ class SharedUICodeTestCase(unittest.TestCase):
         assert compare_data(user_data_list[1], user2)
 
         user_data_list = get_user_list(users_module_mock, add_default=True, add_if_not_empty=True)
+        default_added_user_data = UserData()
+        default_added_user_data.set_admin_priviledges(True)
 
         assert len(user_data_list) == 3
         assert isinstance(user_data_list[0], UserData)
         assert isinstance(user_data_list[1], UserData)
         assert isinstance(user_data_list[2], UserData)
-        assert compare_data(user_data_list[0], UserData())
+        assert compare_data(user_data_list[0], default_added_user_data)
         assert compare_data(user_data_list[1], user1)
         assert compare_data(user_data_list[2], user2)
 
