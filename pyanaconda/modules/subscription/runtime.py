@@ -96,7 +96,7 @@ SystemSubscriptionData = namedtuple("SystemSubscriptionData",
 
 
 class SystemPurposeConfigurationTask(Task):
-    """Installation task for setting system purpose."""
+    """Runtime task for setting system purpose."""
 
     def __init__(self, rhsm_syspurpose_proxy, system_purpose_data):
         """Create a new system purpose configuration task.
