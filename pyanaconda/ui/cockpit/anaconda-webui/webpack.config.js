@@ -1,3 +1,4 @@
+const fs = require("fs");
 const path = require("path");
 
 const copy = require("copy-webpack-plugin");
@@ -7,6 +8,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const CompressionPlugin = require("compression-webpack-plugin");
 const ESLintPlugin = require('eslint-webpack-plugin');
 const CockpitPoPlugin = require("./src/lib/cockpit-po-plugin");
+const CockpitRsyncPlugin = require("./src/lib/cockpit-rsync-plugin");
 
 // HACK: OpenSSL 3 does not support md4 any more, but webpack hardcodes it all over the place: https://github.com/webpack/webpack/issues/13572
 const crypto = require("crypto");
@@ -14,6 +16,9 @@ const crypto_orig_createHash = crypto.createHash;
 crypto.createHash = algorithm => crypto_orig_createHash(algorithm == "md4" ? "sha256" : algorithm);
 
 const webpack = require("webpack");
+
+// Obtain package name from package.json
+const packageJson = JSON.parse(fs.readFileSync('package.json'));
 
 /* A standard nodejs and webpack pattern */
 const production = process.env.NODE_ENV === 'production';
@@ -29,6 +34,7 @@ const plugins = [
     new extract({filename: "[name].css"}),
     new ESLintPlugin({ extensions: ["js", "jsx"] }),
     new CockpitPoPlugin(),
+    new CockpitRsyncPlugin({ dest: packageJson.name }),
 ];
 
 /* Only minimize when in production mode */

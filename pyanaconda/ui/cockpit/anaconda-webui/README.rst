@@ -28,3 +28,17 @@ Violations of some rules can be fixed automatically by::
     npm run eslint:fix
 
 Rules configuration can be found in the `.eslintrc.json` file.
+
+Development with rsync mode
+---------------------------
+
+When developing the Web UI, after every change to your sources the webpacks need to be rebuilt
+and the contents of dist directory need to be copied to the SSH target's
+/usr/share/cockpit/anaconda-webui directory.
+
+For automating this, you need to set up the SSH `test-updates` alias,
+as described in `<test/README.rst>`_.
+
+Then you can run::
+
+    make rsync

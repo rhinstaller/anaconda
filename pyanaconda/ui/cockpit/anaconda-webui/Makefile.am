@@ -38,6 +38,13 @@ dist_noinst_DATA = \
 $(WEBPACK_TEST): $(LIB_TEST) $(shell find src/ -type f) $(NODE_MODULES_TEST) package.json webpack.config.js
 	NODE_ENV=production $(CURDIR)/node_modules/.bin/webpack
 
+watch:
+	rm -f dist/*
+	NODE_ENV=$(NODE_ENV) node_modules/.bin/webpack --watch
+
+rsync:
+	RSYNC=test-updates make watch
+
 install-data-hook: $(WEBPACK_TEST)
 	mkdir -p $(DESTDIR)/usr/share/cockpit/$(PACKAGE_NAME)
 	cp -r dist/* $(DESTDIR)/usr/share/cockpit/$(PACKAGE_NAME)

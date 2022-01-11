@@ -65,3 +65,13 @@ at strategic places.
 
 That way, you can run a test cleanly while still being able to make
 quick changes, such as adding debugging output to JavaScript.
+
+Helpful tips
+------------
+
+If you add a snippet like this to your `~/.ssh/config` then you'll be able to
+connect to the test VMs by typing `ssh test-updates`:
+
+    Host test-updates
+        Hostname 127.0.0.2
+        Port 22000
