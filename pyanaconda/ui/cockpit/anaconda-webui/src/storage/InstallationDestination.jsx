@@ -25,7 +25,7 @@ import {
     PageSection
 } from '@patternfly/react-core';
 
-import { AddressContext, Header } from './Common.jsx';
+import { AddressContext, Header } from '../Common.jsx';
 import { useEvent, useObject } from 'hooks';
 
 /**

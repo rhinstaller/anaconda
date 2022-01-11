@@ -21,9 +21,9 @@ import {
     PageSection
 } from '@patternfly/react-core';
 
-import { Header } from './Common.jsx';
+import { Header } from '../Common.jsx';
 
-export const InstallationSource = () => {
+export const Language = () => {
     const onDoneClicked = () => {
         cockpit.location.go(['summary']);
     };
@@ -32,7 +32,7 @@ export const InstallationSource = () => {
         <>
             <Header
               done={onDoneClicked}
-              title='Installation source'
+              title='Language'
             />
             <PageSection>
                 Not implemented

@@ -21,9 +21,9 @@ import {
     PageSection
 } from '@patternfly/react-core';
 
-import { Header } from './Common.jsx';
+import { Header } from '../Common.jsx';
 
-export const Language = () => {
+export const Keyboard = () => {
     const onDoneClicked = () => {
         cockpit.location.go(['summary']);
     };
@@ -32,7 +32,7 @@ export const Language = () => {
         <>
             <Header
               done={onDoneClicked}
-              title='Language'
+              title='Keyboard'
             />
             <PageSection>
                 Not implemented

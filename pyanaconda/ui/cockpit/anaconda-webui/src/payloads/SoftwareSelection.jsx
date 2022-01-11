@@ -21,9 +21,9 @@ import {
     PageSection
 } from '@patternfly/react-core';
 
-import { Header } from './Common.jsx';
+import { Header } from '../Common.jsx';
 
-export const TimeDate = () => {
+export const SoftwareSelection = () => {
     const onDoneClicked = () => {
         cockpit.location.go(['summary']);
     };
@@ -32,7 +32,7 @@ export const TimeDate = () => {
         <>
             <Header
               done={onDoneClicked}
-              title='Time & Date'
+              title='Software selection'
             />
             <PageSection>
                 Not implemented

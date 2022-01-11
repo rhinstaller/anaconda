@@ -26,7 +26,7 @@ import {
 import { useEvent, useObject } from 'hooks';
 
 import { password_quality as passwordQuality, PasswordFormFields } from 'cockpit-components-password.jsx';
-import { AddressContext, Header } from './Common.jsx';
+import { AddressContext, Header } from '../Common.jsx';
 
 export const RootAccount = () => {
     const [errors, setErrors] = useState({});

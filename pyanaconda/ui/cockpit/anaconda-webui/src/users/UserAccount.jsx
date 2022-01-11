@@ -21,7 +21,7 @@ import {
     PageSection
 } from '@patternfly/react-core';
 
-import { Header } from './Common.jsx';
+import { Header } from '../Common.jsx';
 
 export const UserAccount = () => {
     const onDoneClicked = () => {

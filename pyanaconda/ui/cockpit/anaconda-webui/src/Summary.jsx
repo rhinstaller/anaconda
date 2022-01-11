@@ -41,15 +41,15 @@ import {
 } from '@patternfly/react-icons';
 
 import { Header } from './Common.jsx';
-import { InstallationDestination } from './InstallationDestination.jsx';
-import { InstallationSource } from './InstallationSource.jsx';
-import { Keyboard } from './Keyboard.jsx';
-import { Language } from './Language.jsx';
-import { NetworkHostname } from './NetworkHostname.jsx';
-import { RootAccount } from './RootAccount.jsx';
-import { SoftwareSelection } from './SoftwareSelection.jsx';
-import { TimeDate } from './TimeDate.jsx';
-import { UserAccount } from './UserAccount.jsx';
+import { InstallationDestination } from './storage/InstallationDestination.jsx';
+import { InstallationSource } from './payloads/InstallationSource.jsx';
+import { Keyboard } from './localization/Keyboard.jsx';
+import { Language } from './localization/Language.jsx';
+import { NetworkHostname } from './network/NetworkHostname.jsx';
+import { RootAccount } from './users/RootAccount.jsx';
+import { SoftwareSelection } from './payloads/SoftwareSelection.jsx';
+import { TimeDate } from './timezone/TimeDate.jsx';
+import { UserAccount } from './users/UserAccount.jsx';
 import { usePageLocation } from 'hooks';
 
 import './Summary.scss';

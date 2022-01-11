@@ -21,9 +21,9 @@ import {
     PageSection
 } from '@patternfly/react-core';
 
-import { Header } from './Common.jsx';
+import { Header } from '../Common.jsx';
 
-export const NetworkHostname = () => {
+export const InstallationSource = () => {
     const onDoneClicked = () => {
         cockpit.location.go(['summary']);
     };
@@ -32,7 +32,7 @@ export const NetworkHostname = () => {
         <>
             <Header
               done={onDoneClicked}
-              title='Network & Host Name'
+              title='Installation source'
             />
             <PageSection>
                 Not implemented
