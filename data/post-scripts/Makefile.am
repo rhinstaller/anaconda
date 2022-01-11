@@ -16,5 +16,5 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 postscriptsdir = $(datadir)/$(PACKAGE_NAME)/post-scripts
-dist_postscripts_DATA = 70-generate-lvm-device-file.ks 80-setfilecons.ks 90-copy-screenshots.ks 99-copy-logs.ks
+dist_postscripts_DATA = 80-setfilecons.ks 90-copy-screenshots.ks 99-copy-logs.ks
 MAINTAINERCLEANFILES = Makefile.in
