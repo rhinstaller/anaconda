@@ -15,15 +15,34 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 import cockpit from 'cockpit';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
-    PageSection
+    Form, FormGroup,
+    PageSection,
+    Switch,
 } from '@patternfly/react-core';
 
 import { Header } from '../Common.jsx';
 
+// This is a wrapper around timedatectl dbus API
+import { ServerTime } from 'serverTime';
+import { useObject } from 'hooks';
+
 export const TimeDate = () => {
+    const [timezone, setTimezone] = useState();
+    const [timezones, setTimezones] = useState();
+    const [useNetworkTime, setUseNetworkTime] = useState(true);
+
+    const serverTime = useObject(() => new ServerTime(),
+                                 st => st.close(),
+                                 []);
+
+    useEffect(() => {
+        setTimezone(serverTime.get_time_zone());
+        serverTime.get_timezones().then(setTimezones, console.error);
+    }, [serverTime]);
+
     const onDoneClicked = () => {
         cockpit.location.go(['summary']);
     };
@@ -35,8 +54,30 @@ export const TimeDate = () => {
               title='Time & Date'
             />
             <PageSection>
-                Not implemented
+                <Form isHorizontal>
+                    <Timezones timezone={timezone} timezones={timezones} />
+                    <FormGroup
+                      fieldId='network-time-switch'
+                      hasNoPaddingTop
+                      label='Network time'>
+                        <Switch
+                          id='network-time-switch'
+                          isChecked={useNetworkTime}
+                          label='Use network time'
+                          onChange={setUseNetworkTime}
+                        />
+                    </FormGroup>
+                    <TimeDateManual timedate={serverTime.utc_fake_now} useNetworkTime={useNetworkTime} />
+                </Form>
             </PageSection>
         </>
     );
+};
+
+const Timezones = ({ timezone, timezones }) => {
+    return null;
+};
+
+const TimeDateManual = ({ timedate, useNetworkTime }) => {
+    return null;
 };
