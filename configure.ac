@@ -136,8 +136,6 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/payload/live/Makefile
                  pyanaconda/payload/source/Makefile
                  pyanaconda/ui/Makefile
-                 pyanaconda/ui/cockpit/Makefile
-                 pyanaconda/ui/cockpit/anaconda-webui/Makefile
                  pyanaconda/ui/categories/Makefile
                  pyanaconda/ui/lib/Makefile
                  pyanaconda/ui/gui/hubs/Makefile
@@ -148,6 +146,7 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/ui/tui/hubs/Makefile
                  pyanaconda/ui/tui/spokes/Makefile
                  pyanaconda/ui/tui/Makefile
+                 pyanaconda/ui/webui/Makefile
                  pyanaconda/modules/Makefile
                  pyanaconda/modules/common/Makefile
                  pyanaconda/modules/common/base/Makefile
@@ -209,6 +208,8 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/modules/subscription/Makefile
                  data/pixmaps/Makefile
                  tests/Makefile
+                 ui/Makefile
+                 ui/webui/Makefile
                  utils/Makefile
                  utils/dd/Makefile])
 AC_OUTPUT

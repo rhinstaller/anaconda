@@ -11,7 +11,7 @@ clean_up () {
 }
 
 trap clean_up INT TERM EXIT
-cd ../../../../
+cd ../../
 
 # FIXME boot.iso on rawhide does not currently contain the new cockpit dependencies
 # This will change once we include this changes upstream and start building boot.iso with the new dependencies
@@ -21,7 +21,7 @@ test ! -e cockpit-bridge*.rpm && curl -LO https://kojipkgs.fedoraproject.org//pa
 
 scripts/makeupdates --add "$RPM_PATH"/anaconda-*.rpm --add cockpit-*.rpm
 python3 -m http.server &
-cd pyanaconda/ui/cockpit/anaconda-webui/
+cd ui/webui/
 
 WAIT=""
 if ! test -z "$VM_ONLY"; then

@@ -87,8 +87,8 @@ pyanaconda.*rst
 docs/tests/*.rst
 zanata.xml
 tests/rpm_tests/.cache/
-# these files are temporary files for cockpit
-pyanaconda/ui/cockpit/anaconda-webui/node_modules
-pyanaconda/ui/cockpit/anaconda-webui/dist
-pyanaconda/ui/cockpit/anaconda-webui/test/common/
-pyanaconda/ui/cockpit/anaconda-webui/bots/
+# these files are temporary files for webui
+ui/webui/node_modules
+ui/webui/dist
+ui/webui/test/common/
+ui/webui/bots/

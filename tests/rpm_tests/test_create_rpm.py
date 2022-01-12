@@ -386,7 +386,7 @@ class FileFilters(object):
     # TODO: This is just a temporary workaround because JS has too many files to ignore
     @staticmethod
     def cockpit_package_exclude(rpm):
-        return "ui/cockpit" not in rpm
+        return "ui/webui" not in rpm
 
 class RPMFilters(object):
 

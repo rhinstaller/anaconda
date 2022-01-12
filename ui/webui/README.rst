@@ -8,7 +8,7 @@ Make sure you have `npm` available (usually from your distribution package).
 These commands check out the source and build it into the `dist/` directory::
 
     git clone https://github.com/rhinstaller/anaconda.git
-    cd anaconda/pyanaconda/ui/cockpit/anaconda-webui
+    cd ui/webui
     make
 
 Running eslint

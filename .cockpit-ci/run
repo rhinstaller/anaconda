@@ -4,4 +4,4 @@
 
 set -eu
 
-./autogen.sh && ./configure && make cockpit-tests
+./autogen.sh && ./configure && make webui-tests

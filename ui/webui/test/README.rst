@@ -11,7 +11,7 @@ Before running the tests refer to the ``CONTRIBUTING`` guide in the root of the 
 To run the WebUI integration tests run the following from the root of the anaconda repo.
 (do NOT run the integration tests as root)::
 
-    make cockpit-tests
+    make webui-tests
 
 The tests will automatically download the latest rawhide boot.iso they need, so expect that the initial run may take a couple of minutes.
 

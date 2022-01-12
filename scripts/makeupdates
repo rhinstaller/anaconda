@@ -227,11 +227,10 @@ def copy_updated_files(tag, updates, cwd, builddir):
             uidir = os.path.sep.join(dir_parts[g_idx+1:])
             install_to_dir(gitfile, os.path.join("usr/share/anaconda/ui/", uidir))
         elif gitfile.startswith('pyanaconda/'):
-            if "anaconda-webui" not in gitfile:
-                dirname = os.path.join(SITE_PACKAGES_PATH, os.path.dirname(gitfile))
-                install_to_dir(gitfile, dirname)
-            else:
-                install_to_dir("pyanaconda/ui/cockpit/anaconda-webui/dist", "usr/share/cockpit/anaconda-webui")
+            dirname = os.path.join(SITE_PACKAGES_PATH, os.path.dirname(gitfile))
+            install_to_dir(gitfile, dirname)
+        elif gitfile.startswith('ui/webui'):
+            install_to_dir("/ui/webui/dist", "usr/share/cockpit/anaconda-webui")
         elif gitfile == 'anaconda.py':
             # Install it as /usr/sbin/anaconda
             if not os.path.isdir(os.path.join(updates, "usr/sbin")):

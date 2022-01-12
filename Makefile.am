@@ -19,7 +19,7 @@ include ./branch-config.mk
 
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS = data docs dracut po pyanaconda scripts tests widgets utils
+SUBDIRS = data docs dracut po pyanaconda scripts tests widgets ui utils
 
 EXTRA_DIST = COPYING
 
@@ -395,8 +395,8 @@ run-rpm-tests-only: rpms
 	$(MAKE) TEST_SUITE_LOG=test-suite.log RPM_PATH=$(RPM_BUILD_DIR) \
 			ROOT_ANACONDA_PATH=$(abs_srcdir) TESTS=rpm_tests/rpm_tests.sh check
 
-cockpit-tests: rpms
-	$(MAKE) RPM_PATH=$(RPM_BUILD_DIR) --directory pyanaconda/ui/cockpit/anaconda-webui integration-test
+webui-tests: rpms
+	$(MAKE) RPM_PATH=$(RPM_BUILD_DIR) --directory ui/webui integration-test
 
 coverage-report:
 	$(COVERAGE) combine tests/.coverage.*
