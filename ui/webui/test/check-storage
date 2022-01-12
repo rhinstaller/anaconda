@@ -23,14 +23,13 @@ TEST_DIR = os.path.dirname(__file__)
 sys.path.append(os.path.join(TEST_DIR, "common"))
 sys.path.append(os.path.join(os.path.dirname(TEST_DIR), "bots/machine"))
 
-from testlib import MachineCase, nondestructive, test_main  # noqa
+from testlib import MachineCase, nondestructive, test_main  # pylint: disable=import-error
 
 @nondestructive
 class TestStorage(MachineCase):
 
     def testLocalStandardDisks(self):
         b = self.browser
-        m = self.machine
 
         b.open("/cockpit/@localhost/anaconda-webui/index.html")
 
