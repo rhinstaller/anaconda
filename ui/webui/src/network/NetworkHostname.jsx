@@ -18,7 +18,9 @@ import cockpit from 'cockpit';
 import React from 'react';
 
 import {
-    PageSection
+    PageSection,
+    Flex,
+    FlexItem
 } from '@patternfly/react-core';
 
 import { Header } from '../Common.jsx';
@@ -35,7 +37,10 @@ export const NetworkHostname = () => {
               title='Network & Host Name'
             />
             <PageSection>
-                Not implemented
+                <Flex direction={{ default: 'column' }}>
+                    <FlexItem>Flex item</FlexItem>
+                    <FlexItem>Flex item</FlexItem>
+                </Flex>
             </PageSection>
         </>
     );
