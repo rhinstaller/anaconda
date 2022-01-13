@@ -16,7 +16,12 @@
  */
 import cockpit from 'cockpit';
 import React, { useContext } from 'react';
-import { TextInput } from '@patternfly/react-core';
+import {
+    Button,
+    TextInput,
+    Flex,
+    FlexItem
+} from '@patternfly/react-core';
 
 import { useEvent, useObject } from 'hooks';
 import { AddressContext } from '../Common.jsx';
@@ -39,9 +44,20 @@ export const Hostname = ({ hostname, setHostname }) => {
         setHostname(hostnameProxy.Hostname);
     });
 
+    const onApplyClicked = () => {
+        hostnameProxy.SetCurrentHostname(hostname);
+    };
+
     // FIXME: Add validation of the hostname
-    return <TextInput
-      value={hostname}
-      onChange={setHostname}
-      aria-label='hostname text input' />;
+    return (
+        <Flex>
+            <FlexItem>
+                <TextInput
+                  value={hostname}
+                  onChange={setHostname}
+                  aria-label='hostname text input' />
+            </FlexItem>
+            <FlexItem><Button variant='secondary' onClick={onApplyClicked}>Apply now</Button></FlexItem>
+        </Flex>
+    );
 };
