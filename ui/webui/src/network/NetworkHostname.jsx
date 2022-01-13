@@ -24,6 +24,7 @@ import {
 } from '@patternfly/react-core';
 
 import { Header } from '../Common.jsx';
+import { Hostname } from './Hostname.jsx';
 
 export const NetworkHostname = () => {
     const onDoneClicked = () => {
@@ -39,7 +40,7 @@ export const NetworkHostname = () => {
             <PageSection>
                 <Flex direction={{ default: 'column' }}>
                     <FlexItem>Flex item</FlexItem>
-                    <FlexItem>Flex item</FlexItem>
+                    <FlexItem><Hostname /></FlexItem>
                 </Flex>
             </PageSection>
         </>
