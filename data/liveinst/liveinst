@@ -47,7 +47,7 @@ if [ -x /usr/sbin/getenforce ]; then
     /usr/sbin/setenforce 0
 fi
 
-if (sestatus | grep -q enabled) then
+if (! sestatus | grep -q enabled) then
     ANACONDA="$ANACONDA --noselinux"
 fi
 
