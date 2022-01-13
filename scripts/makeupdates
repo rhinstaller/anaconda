@@ -230,7 +230,7 @@ def copy_updated_files(tag, updates, cwd, builddir):
             dirname = os.path.join(SITE_PACKAGES_PATH, os.path.dirname(gitfile))
             install_to_dir(gitfile, dirname)
         elif gitfile.startswith('ui/webui'):
-            install_to_dir("/ui/webui/dist", "usr/share/cockpit/anaconda-webui")
+            install_to_dir("ui/webui/dist", "usr/share/cockpit/anaconda-webui")
         elif gitfile == 'anaconda.py':
             # Install it as /usr/sbin/anaconda
             if not os.path.isdir(os.path.join(updates, "usr/sbin")):
