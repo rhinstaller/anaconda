@@ -70,8 +70,9 @@ Helpful tips
 ------------
 
 If you add a snippet like this to your `~/.ssh/config` then you'll be able to
-connect to the test VMs by typing `ssh test-updates`:
+connect to the test VMs by typing `ssh test-updates`::
 
     Host test-updates
         Hostname 127.0.0.2
         Port 22000
+        User root
