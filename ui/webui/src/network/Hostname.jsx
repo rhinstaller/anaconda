@@ -15,14 +15,13 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 import cockpit from 'cockpit';
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { TextInput } from '@patternfly/react-core';
 
 import { useEvent, useObject } from 'hooks';
 import { AddressContext } from '../Common.jsx';
 
-export const Hostname = () => {
-    const [hostname, setHostname] = useState('test.hostname');
+export const Hostname = ({ hostname, setHostname }) => {
     const address = useContext(AddressContext);
 
     const hostnameProxy = useObject(() => {
@@ -40,16 +39,9 @@ export const Hostname = () => {
         setHostname(hostnameProxy.Hostname);
     });
 
-    console.info(hostnameProxy);
-
-    const onHostnameChange = (value) => {
-        hostnameProxy.SetHostname(value);
-        setHostname(value);
-    };
-
     // FIXME: Add validation of the hostname
     return <TextInput
       value={hostname}
-      onChange={onHostnameChange}
+      onChange={setHostname}
       aria-label='hostname text input' />;
 };

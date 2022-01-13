@@ -15,7 +15,7 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 import cockpit from 'cockpit';
-import React from 'react';
+import React, { useState, useContext } from 'react';
 
 import {
     PageSection,
@@ -23,12 +23,26 @@ import {
     FlexItem
 } from '@patternfly/react-core';
 
-import { Header } from '../Common.jsx';
+import { useObject } from 'hooks';
+import { AddressContext, Header } from '../Common.jsx';
 import { Hostname } from './Hostname.jsx';
 
 export const NetworkHostname = () => {
+    const address = useContext(AddressContext);
+    const [hostname, setHostname] = useState('test.hostname');
+
+    const hostnameProxy = useObject(() => {
+        const client = cockpit.dbus('org.fedoraproject.Anaconda.Modules.Network', { superuser: 'try', bus: 'none', address });
+        const proxy = client.proxy(
+            'org.fedoraproject.Anaconda.Modules.Network',
+            '/org/fedoraproject/Anaconda/Modules/Network',
+        );
+        return proxy;
+    }, null, [address]);
+
     const onDoneClicked = () => {
         cockpit.location.go(['summary']);
+        hostnameProxy.SetHostname(hostname);
     };
 
     return (
@@ -40,7 +54,7 @@ export const NetworkHostname = () => {
             <PageSection>
                 <Flex direction={{ default: 'column' }}>
                     <FlexItem>Flex item</FlexItem>
-                    <FlexItem><Hostname /></FlexItem>
+                    <FlexItem><Hostname hostname={hostname} setHostname={setHostname} /></FlexItem>
                 </Flex>
             </PageSection>
         </>
