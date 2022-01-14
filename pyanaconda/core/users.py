@@ -305,41 +305,28 @@ def _reown_homedir(root, homedir, username):
     Change owner (uid and gid) of the files and directories under the given
     directory tree (recursively).
 
-    FIXME: Do not use this, prefer chown -hR if possible, or note here why this is needed
-
-    :param str root: path to the root
-    :param str homedir: path to the home dir within root
-    :param str username: name of the user
+    :param str root: path to the system root (eg. /mnt/sysroot)
+    :param str homedir: path to the user's home dir within root (eg. /home/tom)
+    :param str username: name of the user (eg. tom)
     """
     try:
+        # Get the UID and GID of user on previous system
         stats = os.stat(root + homedir)
         orig_uid = stats.st_uid
         orig_gid = stats.st_gid
 
-        # Get the UID and GID of the created user
+        # Get the UID and GID of the created user on new system
         pwent = _getpwnam(username, root)
         uid = int(pwent[2])
         gid = int(pwent[3])
 
-        for (dir_ent, _dir_items, file_items) in os.walk(root):
-            # try to call the function on the directory entry
-            try:
-                stats = os.stat(dir_ent)
-                if stats.st_uid == orig_uid and stats.st_gid == orig_gid:
-                    os.chown(dir_ent, uid, gid)
-            except OSError:
-                pass
+        # Change owner UID and GID where matching
+        from_ids = "--from={}:{}".format(orig_uid, orig_gid)
+        to_ids = "{}:{}".format(uid, gid)
+        util.execWithRedirect("chown", ["--recursive", "--no-dereference",
+                                        from_ids, to_ids, root + homedir])
 
-            # try to call the function on the files in the directory entry
-            for file_ent in (os.path.join(dir_ent, f) for f in file_items):
-                try:
-                    stats = os.stat(file_ent)
-                    if stats.st_uid == orig_uid and stats.st_gid == orig_gid:
-                        os.chown(file_ent, uid, gid)
-                except OSError:
-                    pass
-
-            # directories under the directory entry will appear as directory entries in the loop
+        # Restore also SELinux contexts
         util.execWithRedirect("restorecon", ["-r", root + homedir])
     except OSError as e:
         log.critical("Unable to change owner of existing home directory: %s", e.strerror)

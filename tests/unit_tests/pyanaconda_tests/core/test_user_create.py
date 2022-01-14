@@ -18,7 +18,7 @@
 #
 
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, call
 import tempfile
 import shutil
 import os
@@ -383,7 +383,15 @@ class ReownHomedirTest(unittest.TestCase):
 
             users._reown_homedir(sysroot, "/home/sam", "sam")
 
-            exec_mock.assert_called_once_with("restorecon", ["-r", sysroot + "/home/sam"])
+            exec_mock.assert_has_calls([
+                call("chown", ["--recursive", "--no-dereference", "--from=1492:1492",
+                               "2022:2022", sysroot + "/home/sam"]),
+                call("restorecon", ["-r", sysroot + "/home/sam"]),
+            ])
+
+            # now also run the same thing as was mocked, to make sure the expectations are met
+            os.system("chown --recursive --no-dereference --from=1492:1492 2022:2022"
+                      " {}/home/sam".format(sysroot))
 
             self._check_path(sysroot, "/home/sam", 2022, 2022)
             self._check_path(sysroot, "/home/sam/Downloads", 2022, 2022)
