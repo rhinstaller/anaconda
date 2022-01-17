@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="addon">
+  <id>org.cockpit_project.starter_kit</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <name>Anaconda</name>
+  <summary>Anaconda installer<summary>
+  <description>
+    <p>
+      Anaconda is the OS installer used by Fedora, RHEL, CentOS and other Linux distributions.
+    </p>
+  </description>
+  <extends>org.cockpit_project.cockpit</extends>
+  <launchable type="cockpit-manifest">anaconda-webui</launchable>
+</component>

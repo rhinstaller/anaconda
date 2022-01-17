@@ -34,6 +34,7 @@ RPM_RELEASE_DIR_TEMPLATE = "for_%s"
 
 # The Python site-packages path for pyanaconda.
 SITE_PACKAGES_PATH = "./usr/lib64/python3.10/site-packages/"
+COCKPIT_PACKAGES_PATH = "./usr/share/cockpit/anaconda-webui/"
 
 # Anaconda scripts that should be installed into the libexec folder
 LIBEXEC_SCRIPTS = ["log-capture", "start-module", "apply-updates"]
@@ -159,7 +160,10 @@ def copy_updated_files(tag, updates, cwd, builddir):
         outdir = os.path.join(updates, relpath)
         if not os.path.isdir(outdir):
             os.makedirs(outdir)
-        shutil.copy2(fname, outdir)
+        if os.path.isdir(fname):
+            shutil.copytree(fname, outdir, dirs_exist_ok=True)
+        else:
+            shutil.copy2(fname, outdir)
 
     def install_gschema():
         # Run make install to a temp directory and pull the compiled file out
@@ -225,6 +229,8 @@ def copy_updated_files(tag, updates, cwd, builddir):
         elif gitfile.startswith('pyanaconda/'):
             dirname = os.path.join(SITE_PACKAGES_PATH, os.path.dirname(gitfile))
             install_to_dir(gitfile, dirname)
+        elif gitfile.startswith('ui/webui'):
+            install_to_dir("ui/webui/dist", "usr/share/cockpit/anaconda-webui")
         elif gitfile == 'anaconda.py':
             # Install it as /usr/sbin/anaconda
             if not os.path.isdir(os.path.join(updates, "usr/sbin")):
