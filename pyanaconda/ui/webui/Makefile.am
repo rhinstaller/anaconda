@@ -18,5 +18,5 @@ SUBDIRS =
 MAINTAINERCLEANFILES = Makefile.in
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-cockpitdir        = $(pkgpyexecdir)/ui/cockpit
-cockpit_PYTHON    = $(srcdir)/*.py
+webuidir        = $(pkgpyexecdir)/ui/webui
+webui_PYTHON    = $(srcdir)/*.py
