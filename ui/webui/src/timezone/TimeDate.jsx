@@ -14,20 +14,20 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
-import cockpit from 'cockpit';
-import React, { useEffect, useState } from 'react';
+import cockpit from "cockpit";
+import React, { useEffect, useState } from "react";
 
 import {
     Form, FormGroup,
     PageSection,
     Switch,
-} from '@patternfly/react-core';
+} from "@patternfly/react-core";
 
-import { Header } from '../Common.jsx';
+import { Header } from "../Common.jsx";
 
 // This is a wrapper around timedatectl dbus API
-import { ServerTime } from 'serverTime';
-import { useObject } from 'hooks';
+import { ServerTime } from "serverTime";
+import { useObject } from "hooks";
 
 const _ = cockpit.gettext;
 
@@ -46,7 +46,7 @@ export const TimeDate = () => {
     }, [serverTime]);
 
     const onDoneClicked = () => {
-        cockpit.location.go(['summary']);
+        cockpit.location.go(["summary"]);
     };
 
     return (
@@ -59,11 +59,11 @@ export const TimeDate = () => {
                 <Form isHorizontal>
                     <Timezones timezone={timezone} timezones={timezones} />
                     <FormGroup
-                      fieldId='network-time-switch'
+                      fieldId="network-time-switch"
                       hasNoPaddingTop
                       label={_("Network time")}>
                         <Switch
-                          id='network-time-switch'
+                          id="network-time-switch"
                           isChecked={useNetworkTime}
                           label={_("Use network time")}
                           onChange={setUseNetworkTime}

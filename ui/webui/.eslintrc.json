@@ -36,7 +36,8 @@
         "no-console": "off",
         "react/jsx-closing-bracket-location": "off",
         "react/prop-types": "off",
-        "quotes": "off"
+        "jsx-quotes": ["error", "prefer-double"],
+        "quotes": ["error", "double" ]
     },
     "globals": {
         "require": false,

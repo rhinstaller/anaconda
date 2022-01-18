@@ -14,20 +14,20 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
-import cockpit from 'cockpit';
-import React from 'react';
+import cockpit from "cockpit";
+import React from "react";
 
 import {
     PageSection
-} from '@patternfly/react-core';
+} from "@patternfly/react-core";
 
-import { Header } from '../Common.jsx';
+import { Header } from "../Common.jsx";
 
 const _ = cockpit.gettext;
 
 export const NetworkHostname = () => {
     const onDoneClicked = () => {
-        cockpit.location.go(['summary']);
+        cockpit.location.go(["summary"]);
     };
 
     return (

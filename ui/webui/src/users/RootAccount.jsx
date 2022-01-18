@@ -14,43 +14,43 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
-import cockpit from 'cockpit';
-import React, { useState, useContext, useEffect } from 'react';
+import cockpit from "cockpit";
+import React, { useState, useContext, useEffect } from "react";
 
 import {
     Checkbox,
     Form, FormGroup,
     PageSection,
-} from '@patternfly/react-core';
+} from "@patternfly/react-core";
 
-import { useEvent, useObject } from 'hooks';
+import { useEvent, useObject } from "hooks";
 
-import { password_quality as passwordQuality, PasswordFormFields } from 'cockpit-components-password.jsx';
-import { AddressContext, Header } from '../Common.jsx';
+import { password_quality as passwordQuality, PasswordFormFields } from "cockpit-components-password.jsx";
+import { AddressContext, Header } from "../Common.jsx";
 
 const _ = cockpit.gettext;
 
 export const RootAccount = () => {
     const [errors, setErrors] = useState({});
     const [isLocked, setIsLocked] = useState();
-    const [pwd, setPwd] = useState('');
-    const [pwdConfirm, setPwdConfirm] = useState('');
-    const [pwdMessage, setPwdMessage] = useState('');
-    const [pwdStrength, setPwdStrength] = useState('');
+    const [pwd, setPwd] = useState("");
+    const [pwdConfirm, setPwdConfirm] = useState("");
+    const [pwdMessage, setPwdMessage] = useState("");
+    const [pwdStrength, setPwdStrength] = useState("");
     const address = useContext(AddressContext);
 
     const usersProxy = useObject(() => {
-        const client = cockpit.dbus('org.fedoraproject.Anaconda.Modules.Users', { superuser: 'try', bus: 'none', address });
+        const client = cockpit.dbus("org.fedoraproject.Anaconda.Modules.Users", { superuser: "try", bus: "none", address });
         const proxy = client.proxy(
-            'org.fedoraproject.Anaconda.Modules.Users',
-            '/org/fedoraproject/Anaconda/Modules/Users',
+            "org.fedoraproject.Anaconda.Modules.Users",
+            "/org/fedoraproject/Anaconda/Modules/Users",
         );
         setIsLocked(proxy.IsRootAccountLocked);
 
         return proxy;
     }, null, [address]);
 
-    useEvent(usersProxy, 'changed', (event, data) => {
+    useEvent(usersProxy, "changed", (event, data) => {
         setIsLocked(data.IsRootAccountLocked);
     });
 
@@ -60,25 +60,25 @@ export const RootAccount = () => {
                     .then(strength => {
                         setErrors({});
                         setPwdStrength(strength.value);
-                        setPwdMessage(strength.message || '');
+                        setPwdMessage(strength.message || "");
                     })
                     .catch(ex => {
                         const errors = {};
-                        errors.pwd = (ex.message || ex.toString()).replace('\n', ' ');
+                        errors.pwd = (ex.message || ex.toString()).replace("\n", " ");
                         setErrors(errors);
                         setPwdStrength(0);
-                        setPwdMessage('');
+                        setPwdMessage("");
                     });
         } else {
-            setPwdStrength('');
+            setPwdStrength("");
         }
     }, [pwd]);
 
     const onPwdChange = (type, value) => {
-        if (type === 'password') {
+        if (type === "password") {
             setPwd(value);
         }
-        if (type === 'password_confirm') {
+        if (type === "password_confirm") {
             setPwdConfirm(value);
         }
     };
@@ -86,7 +86,7 @@ export const RootAccount = () => {
     const onDoneClicked = () => {
         usersProxy.SetRootAccountLocked(isLocked);
         // TODO Set crypted root password
-        cockpit.location.go(['summary']);
+        cockpit.location.go(["summary"]);
     };
 
     return (
@@ -100,7 +100,7 @@ export const RootAccount = () => {
                     <PasswordFormFields
                       change={onPwdChange}
                       error_password={errors && errors.pwd}
-                      idPrefix='root-account-set-pwd'
+                      idPrefix="root-account-set-pwd"
                       password={pwd}
                       password_confirm={pwdConfirm}
                       password_confirm_label={_("Confirm root password")}
@@ -108,9 +108,9 @@ export const RootAccount = () => {
                       password_message={pwdMessage}
                       password_strength={pwdStrength}
                     />
-                    <FormGroup fieldId='root-account-lock'>
+                    <FormGroup fieldId="root-account-lock">
                         <Checkbox
-                          id='root-account-lock'
+                          id="root-account-lock"
                           isChecked={isLocked}
                           isDisabled={isLocked === undefined}
                           label={_("Lock root account")}

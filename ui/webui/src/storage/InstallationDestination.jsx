@@ -14,8 +14,8 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
-import cockpit from 'cockpit';
-import React, { useContext, useState } from 'react';
+import cockpit from "cockpit";
+import React, { useContext, useState } from "react";
 
 import {
     Card, CardBody, CardHeader, CardTitle,
@@ -23,10 +23,10 @@ import {
     Form,
     Hint, HintBody,
     PageSection
-} from '@patternfly/react-core';
+} from "@patternfly/react-core";
 
-import { AddressContext, Header } from '../Common.jsx';
-import { useEvent, useObject } from 'hooks';
+import { AddressContext, Header } from "../Common.jsx";
+import { useEvent, useObject } from "hooks";
 
 const _ = cockpit.gettext;
 
@@ -52,7 +52,7 @@ const selectDefaultDisks = ({ ignoredDisks, selectedDisks, usableDisks }) => {
     } else {
         const availableDisks = usableDisks.filter(disk => !ignoredDisks.includes(disk));
 
-        console.log('Selecting one or less disks by default:', availableDisks.join(','));
+        console.log("Selecting one or less disks by default:", availableDisks.join(","));
 
         // Select a usable disk if there is only one available
         if (availableDisks.length === 1) {
@@ -68,12 +68,12 @@ const LocalStandardDisks = () => {
     const [usableDisks, setUsableDisks] = useState();
 
     const address = useContext(AddressContext);
-    const client = cockpit.dbus('org.fedoraproject.Anaconda.Modules.Storage', { superuser: 'try', bus: 'none', address });
+    const client = cockpit.dbus("org.fedoraproject.Anaconda.Modules.Storage", { superuser: "try", bus: "none", address });
 
     const diskSelectionProxy = useObject(() => {
         const proxy = client.proxy(
-            'org.fedoraproject.Anaconda.Modules.Storage.DiskSelection',
-            '/org/fedoraproject/Anaconda/Modules/Storage/DiskSelection',
+            "org.fedoraproject.Anaconda.Modules.Storage.DiskSelection",
+            "/org/fedoraproject/Anaconda/Modules/Storage/DiskSelection",
         );
 
         return proxy;
@@ -81,14 +81,14 @@ const LocalStandardDisks = () => {
 
     const deviceTreeViewerProxy = useObject(() => {
         const proxy = client.proxy(
-            'org.fedoraproject.Anaconda.Modules.Storage.DeviceTree.Viewer',
-            '/org/fedoraproject/Anaconda/Modules/Storage/DeviceTree',
+            "org.fedoraproject.Anaconda.Modules.Storage.DeviceTree.Viewer",
+            "/org/fedoraproject/Anaconda/Modules/Storage/DeviceTree",
         );
 
         return proxy;
     }, null, [address]);
 
-    useEvent(diskSelectionProxy, 'changed', (event, data) => {
+    useEvent(diskSelectionProxy, "changed", (event, data) => {
         diskSelectionProxy
                 .GetUsableDisks()
                 .then(usableDisks => {
@@ -120,22 +120,22 @@ const LocalStandardDisks = () => {
             <CardBody>
                 <DataList isCompact aria-label={_("Usable disks")}>
                     {usableDisks && usableDisks.map(disk => (
-                        <DataListItem key={disk} aria-labelledby={'local-disks-checkbox-' + disk}>
+                        <DataListItem key={disk} aria-labelledby={"local-disks-checkbox-" + disk}>
                             <DataListItemRow>
                                 <DataListCheck
-                                  aria-labelledby={'local-disks-checkbox-' + disk}
+                                  aria-labelledby={"local-disks-checkbox-" + disk}
                                   onChange={value => setSelectedDisks({ ...selectedDisks, [disk]: value })}
                                   checked={!!selectedDisks[disk]}
-                                  name={'checkbox-check-' + disk} />
+                                  name={"checkbox-check-" + disk} />
                                 <DataListItemCells
                                   dataListCells={[
-                                      <DataListCell key={disk} id={'local-disks-item-' + disk}>
+                                      <DataListCell key={disk} id={"local-disks-item-" + disk}>
                                           {disk}
                                       </DataListCell>,
-                                      <DataListCell key={'description-' + disk}>
+                                      <DataListCell key={"description-" + disk}>
                                           {deviceData && deviceData[disk] && deviceData[disk].description.v}
                                       </DataListCell>,
-                                      <DataListCell key={'size-' + disk}>
+                                      <DataListCell key={"size-" + disk}>
                                           {cockpit.format_bytes(deviceData && deviceData[disk] && deviceData[disk].size.v)}
                                       </DataListCell>
                                   ]}
@@ -151,7 +151,7 @@ const LocalStandardDisks = () => {
 
 export const InstallationDestination = () => {
     const onDoneClicked = () => {
-        cockpit.location.go(['summary']);
+        cockpit.location.go(["summary"]);
     };
 
     return (

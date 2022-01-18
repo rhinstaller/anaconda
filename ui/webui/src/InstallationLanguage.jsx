@@ -15,8 +15,8 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useState } from 'react';
-import cockpit from 'cockpit';
+import React, { useState } from "react";
+import cockpit from "cockpit";
 
 import {
     ActionGroup,
@@ -25,33 +25,33 @@ import {
     Menu, MenuContent, MenuList, MenuInput, MenuItem, Divider, DrilldownMenu,
     PageSection,
     TextInput, Title,
-} from '@patternfly/react-core';
+} from "@patternfly/react-core";
 
-import './InstallationLanguage.scss';
+import "./InstallationLanguage.scss";
 
 const _ = cockpit.gettext;
 
 // Use this untill we can use the API to get the language listings
 const menuItems = {
     english: {
-        label: 'English',
+        label: "English",
         subgroup: {
             enUS: {
-                label: 'United States'
+                label: "United States"
             },
             enUK: {
-                label: 'United Kingdom'
+                label: "United Kingdom"
             }
         }
     },
     de: {
-        label: 'Deutsch',
+        label: "Deutsch",
         subgroup: {
             deDE: {
-                label: 'Deutschland'
+                label: "Deutschland"
             },
             deLU: {
-                label: 'Luxemburg'
+                label: "Luxemburg"
             }
         }
     }
@@ -59,9 +59,9 @@ const menuItems = {
 
 const LanguageSelector = ({ defaultLang, onSelectLang }) => {
     const [activeItem, setActiveItem] = useState(defaultLang);
-    const [activeMenu, setActiveMenu] = useState('languageMenu');
+    const [activeMenu, setActiveMenu] = useState("languageMenu");
     const [drilldownPath, setDrilldownPath] = useState([]);
-    const [filterText, setFilterText] = useState('');
+    const [filterText, setFilterText] = useState("");
     const [menuDrilledIn, setMenuDrilledIn] = useState([]);
     const [menuHeights, setMenuHeights] = useState([]);
     const [selectedItem, setSelectedItem] = useState(defaultLang);
@@ -97,13 +97,13 @@ const LanguageSelector = ({ defaultLang, onSelectLang }) => {
         setSelectedItem(itemId);
     };
     const getNestedItemLabel = (groupLabel, itemLabel) => {
-        return groupLabel + ' (' + itemLabel + ')';
+        return groupLabel + " (" + itemLabel + ")";
     };
 
     return (
         <Menu
-          id='languageMenu'
-          className='language-menu'
+          id="languageMenu"
+          className="language-menu"
           containsDrilldown
           drilldownItemPath={drilldownPath}
           drilledInMenus={menuDrilledIn}
@@ -117,10 +117,10 @@ const LanguageSelector = ({ defaultLang, onSelectLang }) => {
         >
             <MenuInput>
                 <TextInput
-                  aria-label='Filter menu items'
-                  iconVariant='search'
+                  aria-label="Filter menu items"
+                  iconVariant="search"
                   onChange={setFilterText}
-                  type='search'
+                  type="search"
                   value={filterText}
                 />
             </MenuInput>
@@ -137,13 +137,13 @@ const LanguageSelector = ({ defaultLang, onSelectLang }) => {
                                     <MenuItem
                                       itemId={groupKey}
                                       key={groupKey}
-                                      direction='down'
+                                      direction="down"
                                       drilldownMenu={
-                                          <DrilldownMenu id={'drilldownMenu_' + groupKey}>
-                                              <MenuItem itemId={groupKey} direction='up'>
+                                          <DrilldownMenu id={"drilldownMenu_" + groupKey}>
+                                              <MenuItem itemId={groupKey} direction="up">
                                                   {groupLabel}
                                               </MenuItem>
-                                              <Divider component='li' />
+                                              <Divider component="li" />
                                               {Object.keys(menuItems[groupKey].subgroup)
                                                       .filter(itemKey => {
                                                           return (
@@ -173,22 +173,22 @@ const LanguageSelector = ({ defaultLang, onSelectLang }) => {
 };
 
 export const InstallationLanguage = ({ onSelectLang }) => {
-    const [lang, setLang] = useState('enUS');
+    const [lang, setLang] = useState("enUS");
 
     const handleOnContinue = () => onSelectLang(lang);
 
     return (
         <PageSection>
             <Form>
-                <Title headingLevel='h2' size='1xl'>
+                <Title headingLevel="h2" size="1xl">
                     WELCOME TO FEDORA...
                 </Title>
                 <FormGroup label={_("What language would you like to use during the installation process?")}>
-                    <LanguageSelector defaultLang='enUS' onSelectLang={setLang} />
+                    <LanguageSelector defaultLang="enUS" onSelectLang={setLang} />
                 </FormGroup>
                 <ActionGroup>
-                    <Button id='continue-btn' variant='primary' onClick={handleOnContinue}>{_("Continue")}</Button>
-                    <Button variant='link'>{_("Quit")}</Button>
+                    <Button id="continue-btn" variant="primary" onClick={handleOnContinue}>{_("Continue")}</Button>
+                    <Button variant="link">{_("Quit")}</Button>
                 </ActionGroup>
             </Form>
         </PageSection>
