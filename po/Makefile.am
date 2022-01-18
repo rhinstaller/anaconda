@@ -72,7 +72,9 @@ COPYRIGHT_HOLDER = Red Hat, Inc.
 MSGID_BUGS_ADDRESS = anaconda-devel@lists.fedoraproject.org
 
 # What kind of files are we looking for?
-POTFILE_SUFFIXES = py c glade desktop js
+POTFILE_SUFFIXES = py c glade desktop
+# Specify seperate jsx and js files in order to pass --language=JavaScript as jsx extension is not auto-detected
+POTFILE_JS_SUFFIXES = jsx js
 
 # Extra files to scan for strings
 # This is the config file used by userhelper. The startup notification can be
@@ -87,6 +89,11 @@ $(top_builddir)/data/liveinst/console.apps/liveinst.h: $(top_srcdir)/data/livein
 
 # Turn POTFILE_SUFFIXES into a list of files
 POTFILE_INPUT = $(foreach s,$(POTFILE_SUFFIXES),\
+		$(shell find $(top_srcdir) -type d -name .git -prune \
+				-o -type d -name node_modules -prune \
+				-o -type f -name '*.$(s)' -print))
+
+POTFILE_JS_INPUT = $(foreach s,$(POTFILE_JS_SUFFIXES),\
 		$(shell find $(top_srcdir) -type d -name .git -prune \
 				-o -type d -name node_modules -prune \
 				-o -type f -name '*.$(s)' -print))
@@ -119,7 +126,9 @@ sr@latin.mpo: $(srcdir)/sr.po
 # translatable
 XGETTEXT = $(top_srcdir)/translation-canary/xgettext_werror.sh
 XGETTEXT_OPTIONS = --keyword=_ --keyword=N_ --keyword=P_:1,2 \
-	           --keyword=C_:1c,2 --keyword=CN_:1c,2 --keyword=CP_:1c,2,3 \
+		   --keyword=C_:1c,2 --keyword=CN_:1c,2 --keyword=CP_:1c,2,3 \
+		   --keyword=gettext:1,1t --keyword=gettext:1c,2,2t \
+		   --keyword=ngettext:1,2,3t --keyword=ngettext:1c,2,3,4t \
 		   --add-comments=TRANSLATORS: \
 		   --from-code=UTF-8 --package-name=$(PACKAGE) \
 		   --package-version=$(PACKAGE_VERSION) \
@@ -184,16 +193,19 @@ nodist_noinst_DATA = $(MOFILES) $(POTFILE)
 # Build in two parts so that the bulk of the files are saved as relative to
 # top_srcdir (via --directory). Leave $POTFILES_EXTRAS as-is so the extra
 # targets don't need to worry about paths changing out from under them.
-
 main.pot: $(POTFILE_INPUT)
 	$(GETTEXT_V_EXTRACT)$(XGETTEXT) $(XGETTEXT_OPTIONS) --directory=$(top_srcdir) -o $@ \
 	    $(patsubst $(top_srcdir)/%,%,$(POTFILE_INPUT))
 
+main_js.pot: $(POTFILE_INPUT)
+	$(GETTEXT_V_EXTRACT)$(XGETTEXT) $(XGETTEXT_OPTIONS) --language=JavaScript --directory=$(top_srcdir) -o $@ \
+	    $(patsubst $(top_srcdir)/%,%,$(POTFILE_JS_INPUT))
+
 extra.pot: $(POTFILE_EXTRA)
 	$(GETTEXT_V_EXTRACT)$(XGETTEXT) $(XGETTEXT_OPTIONS) -o $@ $(POTFILE_EXTRA)
 
-$(POTFILE): main.pot extra.pot
-	$(AM_V_GEN)$(MSGCAT) -o $@ --use-first main.pot extra.pot
+$(POTFILE): main_js.pot main.pot extra.pot
+	$(AM_V_GEN)$(MSGCAT) -o $@ --use-first main.pot main_js.pot extra.pot
 
 # Force a rebuild of the .pot file. Useful if something got removed, for
 # example.
