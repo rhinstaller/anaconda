@@ -407,6 +407,30 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 18 2022 Vladimir Slavik <vslavik@redhat.com> - 34.25.0.25-1
+- Hide the help button on the progress spoke (vponcova)
+  Related: rhbz#1995945
+- Enable the built-in help content (vponcova)
+  Resolves: rhbz#1995945
+- Remove the provides_web_browser property (vponcova)
+  Related: rhbz#1995945
+- Cache the parsed content of the help mapping files (vponcova)
+  Related: rhbz#1995945
+- Remove the default_help_pages configuration option (vponcova)
+  Related: rhbz#1995945
+- Remove the helpFile attribute (vponcova)
+  Related: rhbz#1995945
+- Implement the unified help support (vponcova)
+  Related: rhbz#1995945
+- Define a unique id in the main spokes and hubs (vponcova)
+  Related: rhbz#1995945
+- Add the Screen class (vponcova)
+  Related: rhbz#1995945
+- Enable Closest mirror on CentOS Stream 9 (jkonecny)
+  Related: rhbz#1955331
+- Do not modify boot order on UEFI if asked (vslavik)
+  Resolves: rhbz#2025953
+
 * Tue Jan 11 2022 Vladimir Slavik <vslavik@redhat.com> - 34.25.0.24-1
 - Create the LVM devices file (vslavik)
   Resolves: rhbz#2011329
