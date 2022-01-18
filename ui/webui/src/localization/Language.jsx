@@ -23,6 +23,8 @@ import {
 
 import { Header } from '../Common.jsx';
 
+const _ = cockpit.gettext;
+
 export const Language = () => {
     const onDoneClicked = () => {
         cockpit.location.go(['summary']);
@@ -32,7 +34,7 @@ export const Language = () => {
         <>
             <Header
               done={onDoneClicked}
-              title='Language'
+              title={_("Language")}
             />
             <PageSection>
                 Not implemented

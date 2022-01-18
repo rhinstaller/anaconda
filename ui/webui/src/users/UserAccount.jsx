@@ -23,6 +23,8 @@ import {
 
 import { Header } from '../Common.jsx';
 
+const _ = cockpit.gettext;
+
 export const UserAccount = () => {
     const onDoneClicked = () => {
         cockpit.location.go(['summary']);
@@ -32,7 +34,7 @@ export const UserAccount = () => {
         <>
             <Header
               done={onDoneClicked}
-              title='Create user'
+              title={_("Create user")}
             />
             <PageSection>
                 Not implemented

@@ -23,6 +23,8 @@ import {
 
 import { Header } from '../Common.jsx';
 
+const _ = cockpit.gettext;
+
 export const InstallationSource = () => {
     const onDoneClicked = () => {
         cockpit.location.go(['summary']);
@@ -32,7 +34,7 @@ export const InstallationSource = () => {
         <>
             <Header
               done={onDoneClicked}
-              title='Installation source'
+              title={_("Installation source")}
             />
             <PageSection>
                 Not implemented

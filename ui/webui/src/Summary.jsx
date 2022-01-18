@@ -54,6 +54,8 @@ import { usePageLocation } from 'hooks';
 
 import './Summary.scss';
 
+const _ = cockpit.gettext;
+
 export const Summary = () => {
     const { path } = usePageLocation();
     const onSelect = event => {
@@ -83,22 +85,22 @@ export const Summary = () => {
 
     return (
         <>
-            {path[0] === 'summary' && <Header title='Installation summary' />}
+            {path[0] === 'summary' && <Header title={_("Installation summary")} />}
             {path[0] === 'summary' &&
             <PageSection className='summary'>
                 <Form>
                     <Gallery hasGutter>
                         <Stack hasGutter>
                             <Title headingLevel='h1' size='2xl'>
-                                Localization
+                                {_("Localization")}
                             </Title>
-                            <Tile onClick={onSelect} id='keyboard' title='Keyboard' icon={<KeyboardIcon />} isStacked>
+                            <Tile onClick={onSelect} id='keyboard' title={_("Keyboard")} icon={<KeyboardIcon />} isStacked>
                                 FILLME
                             </Tile>
-                            <Tile onClick={onSelect} id='language' title='Language support' icon={<BookIcon />} isStacked>
+                            <Tile onClick={onSelect} id='language' title={_("Language support")} icon={<BookIcon />} isStacked>
                                 FILLME
                             </Tile>
-                            <Tile onClick={onSelect} id='timedate' title='Time & Date' icon={<ClockIcon />} isStacked>
+                            <Tile onClick={onSelect} id='timedate' title={_("Time & Date")} icon={<ClockIcon />} isStacked>
                                 FILLME
                             </Tile>
                         </Stack>
@@ -106,10 +108,10 @@ export const Summary = () => {
                             <Title headingLevel='h1' size='2xl'>
                                 Software
                             </Title>
-                            <Tile onClick={onSelect} id='installation-source' title='Installation source' icon={<BellIcon />} isStacked>
+                            <Tile onClick={onSelect} id='installation-source' title={_("Installation source")} icon={<BellIcon />} isStacked>
                                 FILLME
                             </Tile>
-                            <Tile onClick={onSelect} id='software-selection' title='Software Selection' icon={<FlavorIcon />} isStacked>
+                            <Tile onClick={onSelect} id='software-selection' title={_("Software Selection")} icon={<FlavorIcon />} isStacked>
                                 FILLME
                             </Tile>
                         </Stack>
@@ -117,10 +119,10 @@ export const Summary = () => {
                             <Title headingLevel='h1' size='2xl'>
                                 System
                             </Title>
-                            <Tile onClick={onSelect} id='installation-destination' title='Installation destination' icon={<BellIcon />} isStacked>
+                            <Tile onClick={onSelect} id='installation-destination' title={_("Installation destination")} icon={<BellIcon />} isStacked>
                                 FILLME
                             </Tile>
-                            <Tile onClick={onSelect} id='network-hostname' title='Network & Host name' icon={<NetworkIcon />} isStacked>
+                            <Tile onClick={onSelect} id='network-hostname' title={_("Network & Host name")} icon={<NetworkIcon />} isStacked>
                                 FILLME
                             </Tile>
                         </Stack>
@@ -128,24 +130,24 @@ export const Summary = () => {
                             <Title headingLevel='h1' size='2xl'>
                                 User settings
                             </Title>
-                            <Tile onClick={onSelect} id='root-account' title='Root password' icon={<KeyIcon />} isStacked>
+                            <Tile onClick={onSelect} id='root-account' title={_("Root password")} icon={<KeyIcon />} isStacked>
                                 <HelperText>
-                                    <HelperTextItem variant='warning' hasIcon>Root account is disabled</HelperTextItem>
+                                    <HelperTextItem variant='warning' hasIcon>{_("Root account is disabled")}</HelperTextItem>
                                 </HelperText>
                             </Tile>
-                            <Tile onClick={onSelect} id='user-account' title='User creation' icon={<UserIcon />} isStacked>
+                            <Tile onClick={onSelect} id='user-account' title={_("User creation")} icon={<UserIcon />} isStacked>
                                 <HelperText>
-                                    <HelperTextItem variant='warning' hasIcon>No user will be created</HelperTextItem>
+                                    <HelperTextItem variant='warning' hasIcon>{_("No user will be created")}</HelperTextItem>
                                 </HelperText>
                             </Tile>
                         </Stack>
                     </Gallery>
-                    <Alert variant='warning' isInline title='Please complete items marked with this icon before continuing to the next step' />
+                    <Alert variant='warning' isInline title={_("Please complete items marked with this icon before continuing to the next step")} />
                     <ActionGroup>
-                        <Button id='begin-installation-btn' variant='primary' isDisabled>Begin installation</Button>
-                        <Button variant='link'>Quit</Button>
+                        <Button id='begin-installation-btn' variant='primary' isDisabled>{_("Begin installation")}</Button>
+                        <Button variant='link'>{_("Quit")}</Button>
                         <HelperText className='action-hint'>
-                            <HelperTextItem variant='indeterminate'>We won't touch your disks until you click 'Begin installation'</HelperTextItem>
+                            <HelperTextItem variant='indeterminate'>{_("We won't touch your disks until you click 'Begin installation'")}</HelperTextItem>
                         </HelperText>
                     </ActionGroup>
                 </Form>

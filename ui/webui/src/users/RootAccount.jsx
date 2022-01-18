@@ -28,6 +28,8 @@ import { useEvent, useObject } from 'hooks';
 import { password_quality as passwordQuality, PasswordFormFields } from 'cockpit-components-password.jsx';
 import { AddressContext, Header } from '../Common.jsx';
 
+const _ = cockpit.gettext;
+
 export const RootAccount = () => {
     const [errors, setErrors] = useState({});
     const [isLocked, setIsLocked] = useState();
@@ -91,7 +93,7 @@ export const RootAccount = () => {
         <>
             <Header
               done={onDoneClicked}
-              title='Root password'
+              title={_("Root password")}
             />
             <PageSection>
                 <Form isHorizontal>
@@ -101,8 +103,8 @@ export const RootAccount = () => {
                       idPrefix='root-account-set-pwd'
                       password={pwd}
                       password_confirm={pwdConfirm}
-                      password_confirm_label='Confirm root password'
-                      password_label='Root password'
+                      password_confirm_label={_("Confirm root password")}
+                      password_label={_("Root password")}
                       password_message={pwdMessage}
                       password_strength={pwdStrength}
                     />
@@ -111,7 +113,7 @@ export const RootAccount = () => {
                           id='root-account-lock'
                           isChecked={isLocked}
                           isDisabled={isLocked === undefined}
-                          label='Lock root account'
+                          label={_("Lock root account")}
                           onChange={setIsLocked}
                         />
                     </FormGroup>

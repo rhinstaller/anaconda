@@ -23,6 +23,8 @@ import {
 
 import { Header } from '../Common.jsx';
 
+const _ = cockpit.gettext;
+
 export const NetworkHostname = () => {
     const onDoneClicked = () => {
         cockpit.location.go(['summary']);
@@ -32,7 +34,7 @@ export const NetworkHostname = () => {
         <>
             <Header
               done={onDoneClicked}
-              title='Network & Host Name'
+              title={_("Network & Host Name")}
             />
             <PageSection>
                 Not implemented

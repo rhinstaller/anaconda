@@ -29,6 +29,8 @@ import { Header } from '../Common.jsx';
 import { ServerTime } from 'serverTime';
 import { useObject } from 'hooks';
 
+const _ = cockpit.gettext;
+
 export const TimeDate = () => {
     const [timezone, setTimezone] = useState();
     const [timezones, setTimezones] = useState();
@@ -51,7 +53,7 @@ export const TimeDate = () => {
         <>
             <Header
               done={onDoneClicked}
-              title='Time & Date'
+              title={_("Time & Date")}
             />
             <PageSection>
                 <Form isHorizontal>
@@ -59,11 +61,11 @@ export const TimeDate = () => {
                     <FormGroup
                       fieldId='network-time-switch'
                       hasNoPaddingTop
-                      label='Network time'>
+                      label={_("Network time")}>
                         <Switch
                           id='network-time-switch'
                           isChecked={useNetworkTime}
-                          label='Use network time'
+                          label={_("Use network time")}
                           onChange={setUseNetworkTime}
                         />
                     </FormGroup>

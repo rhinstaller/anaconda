@@ -23,6 +23,8 @@ import {
 
 import { Header } from '../Common.jsx';
 
+const _ = cockpit.gettext;
+
 export const Keyboard = () => {
     const onDoneClicked = () => {
         cockpit.location.go(['summary']);
@@ -32,7 +34,7 @@ export const Keyboard = () => {
         <>
             <Header
               done={onDoneClicked}
-              title='Keyboard'
+              title={_("Keyboard")}
             />
             <PageSection>
                 Not implemented

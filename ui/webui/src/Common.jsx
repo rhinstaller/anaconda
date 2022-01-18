@@ -15,6 +15,7 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 import React, { createContext } from 'react';
+import cockpit from 'cockpit';
 
 import {
     Button,
@@ -24,6 +25,8 @@ import {
 } from '@patternfly/react-core';
 
 import { usePageLocation } from 'hooks';
+
+const _ = cockpit.gettext;
 
 export const AddressContext = createContext('');
 
@@ -39,7 +42,7 @@ export const Header = ({ done, title }) => {
                   id='header-done-btn'
                   variant='primary'
                   onClick={done}>
-                    Done
+                    {_("Done")}
                 </Button>}
                 <Title headingLevel='h1' size='2xl'>
                     {title || 'Subpage description'}

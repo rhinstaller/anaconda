@@ -28,6 +28,8 @@ import {
 import { AddressContext, Header } from '../Common.jsx';
 import { useEvent, useObject } from 'hooks';
 
+const _ = cockpit.gettext;
+
 /**
  *  Select default disks for the partitioning.
  *
@@ -113,10 +115,10 @@ const LocalStandardDisks = () => {
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Local standard disks</CardTitle>
+                <CardTitle>{_("Local standard disks")}</CardTitle>
             </CardHeader>
             <CardBody>
-                <DataList isCompact aria-label='Usable disks'>
+                <DataList isCompact aria-label={_("Usable disks")}>
                     {usableDisks && usableDisks.map(disk => (
                         <DataListItem key={disk} aria-labelledby={'local-disks-checkbox-' + disk}>
                             <DataListItemRow>
@@ -156,13 +158,13 @@ export const InstallationDestination = () => {
         <>
             <Header
               done={onDoneClicked}
-              title='Installation destination'
+              title={_("Installation destination")}
             />
             <PageSection>
                 <Form isHorizontal>
                     <Hint>
                         <HintBody>
-                            Select the device(s) you would like to install to. They will be left untouched until you click on the main menu's 'Begin installation' button.
+                            {_("Select the device(s) you would like to install to. They will be left untouched until you click on the main menu's 'Begin installation' button.")}
                         </HintBody>
                     </Hint>
                     <LocalStandardDisks />

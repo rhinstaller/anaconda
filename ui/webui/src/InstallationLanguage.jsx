@@ -16,6 +16,7 @@
  */
 
 import React, { useState } from 'react';
+import cockpit from 'cockpit';
 
 import {
     ActionGroup,
@@ -27,6 +28,8 @@ import {
 } from '@patternfly/react-core';
 
 import './InstallationLanguage.scss';
+
+const _ = cockpit.gettext;
 
 // Use this untill we can use the API to get the language listings
 const menuItems = {
@@ -180,12 +183,12 @@ export const InstallationLanguage = ({ onSelectLang }) => {
                 <Title headingLevel='h2' size='1xl'>
                     WELCOME TO FEDORA...
                 </Title>
-                <FormGroup label='What language would you like to use during the installation process?'>
+                <FormGroup label={_("What language would you like to use during the installation process?")}>
                     <LanguageSelector defaultLang='enUS' onSelectLang={setLang} />
                 </FormGroup>
                 <ActionGroup>
-                    <Button id='continue-btn' variant='primary' onClick={handleOnContinue}>Continue</Button>
-                    <Button variant='link'>Quit</Button>
+                    <Button id='continue-btn' variant='primary' onClick={handleOnContinue}>{_("Continue")}</Button>
+                    <Button variant='link'>{_("Quit")}</Button>
                 </ActionGroup>
             </Form>
         </PageSection>
