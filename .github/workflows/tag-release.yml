@@ -97,8 +97,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_NAME: ${{ steps.get_version.outputs.version }}
         run: |
-          echo -e "Anaconda release $RELEASE_NAME.\n\n" > release.txt
-
           # find version tags
           CURRENT_VERSION="anaconda-$RELEASE_NAME-1"
           PREVIOUS_VERSION="$(git describe --tags --abbrev=0 --exclude="$CURRENT_VERSION")"
@@ -109,12 +107,15 @@ jobs:
             --pretty=format:"- %s (%aL)" \
             "$PREVIOUS_VERSION..$CURRENT_VERSION~1" \
               | grep -v "#infra" \
-              | tee -a release.txt
+              | tee release.txt
+
+          # drop line ending
+          truncate -s -1 release.txt
 
           # create release with the release notes
           gh release create \
             ${{ steps.get_ref.outputs.ref }} \
             --draft \
-            --title "anaconda-$RELEASE_NAME" \
+            --title "Anaconda $RELEASE_NAME" \
             --notes-file release.txt \
             /tmp/results/*
