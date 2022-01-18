@@ -102,7 +102,10 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
     # title of the spoke (will be displayed on the hub)
     title = CN_("GUI|Spoke", "_Blivet-GUI Partitioning")
 
-    helpFile = "blivet-gui/index.page"
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "blivet-gui-partitioning"
 
     ### methods defined by API ###
     def __init__(self, data, storage, payload):

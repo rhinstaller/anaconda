@@ -1465,12 +1465,14 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
                       "liststore_add_device"]
     mainWidgetName = "networkWindow"
     uiFile = "spokes/network.glade"
-    helpFile = "NetworkSpoke.xml"
-
     title = CN_("GUI|Spoke", "_Network & Host Name")
     icon = "network-transmit-receive-symbolic"
-
     category = SystemCategory
+
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "network-configuration"
 
     @classmethod
     def should_run(cls, environment, data):
@@ -1627,6 +1629,11 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
     preForHub = SummaryHub
     priority = 10
+
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "network-pre-configuration"
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

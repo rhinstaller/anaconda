@@ -57,12 +57,16 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
     mainWidgetName = "welcomeWindow"
     focusWidgetName = "languageEntry"
     uiFile = "spokes/welcome.glade"
-    helpFile = "WelcomeSpoke.xml"
     builderObjects = ["languageStore", "languageStoreFilter", "localeStore",
                       "welcomeWindow", "betaWarnDialog"]
 
     preForHub = SummaryHub
     priority = 0
+
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "language-pre-configuration"
 
     @classmethod
     def should_run(cls, environment, data):

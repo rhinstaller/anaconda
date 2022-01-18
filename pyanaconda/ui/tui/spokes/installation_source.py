@@ -63,10 +63,14 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
        .. inheritance-diagram:: SourceSpoke
           :parts: 3
     """
-    helpFile = "SourceSpoke.txt"
     category = SoftwareCategory
 
     SET_NETWORK_INSTALL_MODE = "network_install"
+
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "software-source-configuration"
 
     @classmethod
     def should_run(cls, environment, data):

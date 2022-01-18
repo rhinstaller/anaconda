@@ -391,10 +391,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     mainWidgetName = "datetimeWindow"
     uiFile = "spokes/datetime_spoke.glade"
-    helpFile = "DateTimeSpoke.xml"
-
     category = LocalizationCategory
-
     icon = "preferences-system-time-symbolic"
     title = CN_("GUI|Spoke", "_Time & Date")
 
@@ -402,6 +399,11 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
     # see https://bugzilla.gnome.org/show_bug.cgi?id=712184
     _hack = TimezoneMap.TimezoneMap()
     del(_hack)
+
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "date-time-configuration"
 
     @classmethod
     def should_run(cls, environment, data):

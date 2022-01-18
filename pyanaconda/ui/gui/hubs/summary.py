@@ -35,7 +35,11 @@ class SummaryHub(Hub):
     builderObjects = ["summaryWindow"]
     mainWidgetName = "summaryWindow"
     uiFile = "hubs/summary.glade"
-    helpFile = "SummaryHub.xml"
+
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "installation-summary"
 
     def __init__(self, data, storage, payload):
         """Create a new Hub instance.

@@ -49,12 +49,14 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
     mainWidgetName = "passwordWindow"
     focusWidgetName = "password_entry"
     uiFile = "spokes/root_password.glade"
-    helpFile = "PasswordSpoke.xml"
-
     category = UserSettingsCategory
-
     icon = "dialog-password-symbolic"
     title = CN_("GUI|Spoke", "_Root Password")
+
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "root-configuration"
 
     @classmethod
     def should_run(cls, environment, data):

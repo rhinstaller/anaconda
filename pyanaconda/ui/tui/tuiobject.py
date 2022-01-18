@@ -23,7 +23,6 @@ from pyanaconda.core import util, constants
 from pyanaconda import input_checking
 from pyanaconda.core.i18n import _
 from pyanaconda.core.users import crypt_password
-from pyanaconda.core.configuration.anaconda import conf
 
 from simpleline.render.adv_widgets import ErrorDialog, GetInputScreen, GetPasswordInputScreen, YesNoDialog
 from simpleline.render.screen import UIScreen, Prompt
@@ -93,8 +92,6 @@ class TUIObject(UIScreen, common.UIObject):
     """Base class for Anaconda specific TUI screens. Implements the
     common pyanaconda.ui.common.UIObject interface"""
 
-    helpFile = None
-
     def __init__(self, data):
         UIScreen.__init__(self)
         common.UIObject.__init__(self, data)
@@ -103,10 +100,6 @@ class TUIObject(UIScreen, common.UIObject):
     @property
     def showable(self):
         return True
-
-    @property
-    def has_help(self):
-        return conf.ui.help_directory and self.helpFile is not None
 
     def refresh(self, args=None):
         """Put everything to display into self.window list."""

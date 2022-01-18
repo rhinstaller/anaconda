@@ -16,8 +16,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
-from abc import ABCMeta, abstractproperty
+from abc import abstractproperty, ABC
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
@@ -158,7 +157,24 @@ class FirstbootOnlySpokeMixIn(object):
             return False
 
 
-class Spoke(object, metaclass=ABCMeta):
+class Screen(ABC):
+    """A representation of one UI screen."""
+
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen.
+
+        The screen id should match a regex: [a-z][a-z-]*
+        For example: installation-summary, storage-configuration
+
+        FIXME: Make this function abstract.
+
+        :return: a lowercase string or None
+        """
+        return None
+
+
+class Spoke(Screen):
     """A Spoke is a single configuration screen.  There are several different
        places where a Spoke can be displayed, each of which will have its own
        unique class.  A Spoke is typically used when an element in the Hub is
@@ -498,7 +514,7 @@ class StandaloneSpoke(Spoke):
         return None
 
 
-class Hub(object, metaclass=ABCMeta):
+class Hub(Screen):
     """A Hub is an overview UI screen.  A Hub consists of one or more grids of
        configuration options that the user may choose from.  Each grid is
        provided by a SpokeCategory, and each option is provided by a Spoke.

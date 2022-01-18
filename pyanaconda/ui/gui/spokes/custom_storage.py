@@ -94,8 +94,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                       "luksVersionStore"]
     mainWidgetName = "customStorageWindow"
     uiFile = "spokes/custom_storage.glade"
-    helpFile = "CustomSpoke.xml"
-
     category = SystemCategory
     title = N_("MANUAL PARTITIONING")
 
@@ -104,6 +102,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
     # If the user enters a smaller size, the GUI changes it to this value
     MIN_SIZE_ENTRY = Size("1 MiB")
+
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "interactive-partitioning"
 
     def __init__(self, data, storage, payload):
         StorageCheckHandler.__init__(self)

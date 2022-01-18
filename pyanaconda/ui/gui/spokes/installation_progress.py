@@ -44,9 +44,13 @@ class ProgressSpoke(StandaloneSpoke):
     builderObjects = ["progressWindow"]
     mainWidgetName = "progressWindow"
     uiFile = "spokes/installation_progress.glade"
-    helpFile = "ProgressHub.xml"
-
     postForHub = SummaryHub
+    hide_help_button = True
+
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "installation-progress"
 
     def __init__(self, data, storage, payload):
         super().__init__(data, storage, payload)

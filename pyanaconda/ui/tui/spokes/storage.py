@@ -77,8 +77,12 @@ class StorageSpoke(NormalTUISpoke):
        .. inheritance-diagram:: StorageSpoke
           :parts: 3
     """
-    helpFile = "StorageSpoke.txt"
     category = SystemCategory
+
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "storage-configuration"
 
     @classmethod
     def should_run(cls, environment, data):

@@ -51,8 +51,12 @@ CallbackTimezoneArgs = namedtuple("CallbackTimezoneArgs", ["region", "timezone"]
 
 
 class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
-    helpFile = "DateTimeSpoke.txt"
     category = LocalizationCategory
+
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "date-time-configuration"
 
     @classmethod
     def should_run(cls, environment, data):

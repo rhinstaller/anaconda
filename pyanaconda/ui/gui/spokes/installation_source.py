@@ -400,12 +400,15 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
                       "dirImage", "repoStore"]
     mainWidgetName = "sourceWindow"
     uiFile = "spokes/installation_source.glade"
-    helpFile = "SourceSpoke.xml"
-
     category = SoftwareCategory
 
     icon = "media-optical-symbolic"
     title = CN_("GUI|Spoke", "_Installation Source")
+
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "software-source-configuration"
 
     @classmethod
     def should_run(cls, environment, data):

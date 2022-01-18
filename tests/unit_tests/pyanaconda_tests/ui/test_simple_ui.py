@@ -18,14 +18,14 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import os
+import re
 import sys
 import unittest
 
 from unittest.mock import Mock, patch, create_autospec
 from pyanaconda.ui import UserInterface
-from pyanaconda.ui.common import StandaloneSpoke, Hub
+from pyanaconda.ui.common import StandaloneSpoke, Hub, Screen
 from tests.unit_tests.pyanaconda_tests import patch_dbus_get_proxy
-
 
 # blivet-gui is supported on Fedora, but not ELN/CentOS/RHEL
 HAVE_BLIVET_GUI = os.path.exists("/usr/bin/blivet-gui")
@@ -60,15 +60,47 @@ class SimpleUITestCase(unittest.TestCase):
 
     @property
     def action_classes(self):
-        return self.interface._collectActionClasses(self.paths["spokes"], StandaloneSpoke)
+        actions = self.interface._collectActionClasses(self.paths["spokes"], StandaloneSpoke)
+        return self.interface._orderActionClasses(actions, self.hubs)
 
     @property
-    def ordered_action_classes(self):
-        return self.interface._orderActionClasses(self.action_classes, self.hubs)
+    def screens(self):
+        screens = self._get_subclasses(Screen)
+        prefixes = set(mask % "" for mask, _ in self.paths["hubs"])
+        prefixes.update(mask % "" for mask, _ in self.paths["spokes"])
+        return self._filter_prefixes(prefixes, screens)
 
-    def _get_action_class_names(self):
-        classes = self.interface._orderActionClasses(self.action_classes, self.hubs)
-        return [cls.__name__ for cls in classes]
+    def _get_subclasses(self, cls):
+        subclasses = set()
+
+        for subcls in cls.__subclasses__():
+            subclasses.add(subcls)
+            subclasses.update(self._get_subclasses(subcls))
+
+        return subclasses
+
+    def _filter_prefixes(self, prefixes, classes):
+        return list(filter(lambda s: any(map(s.__module__.startswith, prefixes)), classes))
+
+    def _get_screen_ids(self, screens):
+        return [cls.get_screen_id() for cls in screens]
+
+    def _check_hubs(self, expected_hubs):
+        """Check hub classes."""
+        assert self.hubs == expected_hubs
+
+    def _check_actions(self, expected_ids):
+        """Check the action classes."""
+        screen_ids = self._get_screen_ids(self.action_classes)
+        assert screen_ids == expected_ids
+
+    def _check_categories(self, hub_class, expected_ids):
+        """Check categories and spoke classes."""
+        categories = self._get_categories(hub_class)
+        actual_ids = {c.__name__:  self._get_screen_ids(s) for c, s in categories.items()}
+
+        assert {c: sorted(s) for c, s in actual_ids.items()} \
+            == {c: sorted(s) for c, s in expected_ids.items()}
 
     def _get_categories(self, hub_class):
         hub = hub_class(self.data, self.storage, self.payload)
@@ -76,18 +108,44 @@ class SimpleUITestCase(unittest.TestCase):
         hub.set_path("categories", self.paths["categories"])
         return hub._collectCategoriesAndSpokes()
 
-    def _get_category_names(self, hub_class):
-        categories = self._get_categories(hub_class)
-        return {c.__name__:  list(sorted(s.__name__ for s in categories[c])) for c in categories}
+    def _check_screens(self, expected_ids):
+        """Check the screens."""
+        screen_ids = set()
+
+        for screen in self.screens:
+            screen_id = screen.get_screen_id()
+
+            # FIXME: Require the screen id.
+            if screen_id is None:
+                continue
+
+            # Check the format of the screen id.
+            assert re.fullmatch(r'[a-z][a-z-]*', screen_id)
+
+            # Don't mention 'hub' or 'spoke' in the screen id.
+            assert "hub" not in screen_id.split("-")
+            assert "spoke" not in screen_id.split("-")
+
+            # Check uniqueness of screen ids.
+            assert screen_id not in screen_ids
+            screen_ids.add(screen_id)
+
+        # Check the expected ids.
+        assert sorted(screen_ids) == sorted(expected_ids)
+
+    def _check_interface(self):
+        """Check the user interface."""
+        self._check_spokes_priority_uniqueness()
 
     def _check_spokes_priority_uniqueness(self):
         # Force us to always decide order of standalone spokes based on priority not by name.
         # This will ordering errors easier to spot.
-        spokes = self.ordered_action_classes
+        spokes = self.action_classes
 
         for hub in self.hubs:
             pre_spokes = UserInterface._filter_spokes_by_pre_for_hub_reference(spokes, hub)
             self._check_spokes_with_same_priority(pre_spokes)
+
             post_spokes = UserInterface._filter_spokes_by_post_for_hub_reference(spokes, hub)
             self._check_spokes_with_same_priority(post_spokes)
 
@@ -111,41 +169,68 @@ class SimpleUITestCase(unittest.TestCase):
 
         # Check the hubs
         from pyanaconda.ui.tui.hubs.summary import SummaryHub
-        assert self.hubs == [SummaryHub]
+        self._check_hubs([SummaryHub])
 
         # Check the actions classes.
-        assert self._get_action_class_names() == [
-            "UnsupportedHardwareSpoke",
-            "KernelWarningSpoke",
-            "SummaryHub",
-            "ProgressSpoke"
-        ]
+        self._check_actions([
+            "unsupported-hardware-warning",
+            "kernel-warning",
+            "installation-summary",
+            "installation-progress",
+        ])
 
         # Check the Summary hub.
-        assert self._get_category_names(SummaryHub) == {
+        self._check_categories(SummaryHub, {
             'CustomizationCategory': [],
             'LocalizationCategory': [
-                'LangSpoke',
-                'TimeSpoke'
+                'language-configuration',
+                'date-time-configuration',
             ],
             'SoftwareCategory': [
-                'SoftwareSpoke',
-                'SourceSpoke'
+                'software-selection',
+                'software-source-configuration',
             ],
             'SystemCategory': [
-                'NetworkSpoke',
-                'ShellSpoke',
-                'StorageSpoke'
+                'network-configuration',
+                'storage-configuration',
+                'shell',
             ],
             'UserSettingsCategory': [
-                'PasswordSpoke',
-                'UserSpoke'
+                'root-configuration',
+                'user-configuration',
             ]
-        }
+        })
 
-        # Force us to always decide order of standalone spokes based on priority not by name.
-        # This will ordering errors easier to spot.
-        self._check_spokes_priority_uniqueness()
+        # Check the screens.
+        self._check_screens([
+            # Warnings
+            "unsupported-hardware-warning",
+            "kernel-warning",
+
+            # Installation
+            'installation-summary',
+            'installation-progress',
+
+            # Localization
+            'date-time-configuration',
+            'language-configuration',
+
+            # Software
+            'software-selection',
+            'software-source-configuration',
+
+            # System
+            'network-configuration',
+            'storage-configuration',
+            'shell',
+
+            # User settings
+            'root-configuration',
+            'user-configuration',
+        ])
+
+        # Run general checks on the user interface.
+        self._check_interface()
 
     @patch_dbus_get_proxy
     @patch("pyanaconda.ui.gui.Gtk.Builder")
@@ -159,48 +244,86 @@ class SimpleUITestCase(unittest.TestCase):
 
         # Check the hubs.
         from pyanaconda.ui.gui.hubs.summary import SummaryHub
-        assert self.hubs == [SummaryHub]
+        self._check_hubs([SummaryHub])
 
         # Check the actions classes.
-        assert self._get_action_class_names() == [
-            'WelcomeLanguageSpoke',
-            'NetworkStandaloneSpoke',
-            'SummaryHub',
-            'ProgressSpoke'
-        ]
+        self._check_actions([
+            'language-pre-configuration',
+            'network-pre-configuration',
+            'installation-summary',
+            'installation-progress'
+        ])
 
         # Check the Summary hub.
-        cat_system = [
-                'BlivetGuiSpoke',
-                'CustomPartitioningSpoke',
-                'FilterSpoke',
-                'NetworkSpoke',
-                'StorageSpoke'
-                ]
-        if not HAVE_BLIVET_GUI:
-            cat_system.remove('BlivetGuiSpoke')
+        system_category = [
+            'blivet-gui-partitioning',
+            'interactive-partitioning',
+            'storage-advanced-configuration',
+            'network-configuration',
+            'storage-configuration'
+        ]
 
-        assert self._get_category_names(SummaryHub) == {
+        if not HAVE_BLIVET_GUI:
+            system_category.remove('blivet-gui-partitioning')
+
+        self._check_categories(SummaryHub, {
             'CustomizationCategory': [],
             'LocalizationCategory': [
-                'DatetimeSpoke',
-                'KeyboardSpoke',
-                'LangsupportSpoke'
+                'date-time-configuration',
+                'keyboard-configuration',
+                'language-configuration'
             ],
             'SoftwareCategory': [
-                'SoftwareSelectionSpoke',
-                'SourceSpoke',
-                'SubscriptionSpoke'
+                'software-selection',
+                'software-source-configuration',
+                'subscription-configuration'
             ],
-            'SystemCategory': cat_system,
+            'SystemCategory': system_category,
             'UserSettingsCategory': [
-                'PasswordSpoke',
-                'UserSpoke'
-            ]}
+                'root-configuration',
+                'user-configuration'
+            ]
+        })
 
-        # Force us to always decide order of standalone spokes based on priority not by name.
-        # This will ordering errors easier to spot.
-        self._check_spokes_priority_uniqueness()
+        # Check the screens.
+        screen_ids = [
+            # Installation
+            'installation-summary',
+            'installation-progress',
+
+            # Localization
+            'language-pre-configuration',
+            'language-configuration',
+            'date-time-configuration',
+            'keyboard-configuration',
+
+            # Software
+            'software-selection',
+            'software-source-configuration',
+            'subscription-configuration',
+
+            # System
+            'network-pre-configuration',
+            'network-configuration',
+
+            # Storage
+            'storage-configuration',
+            'storage-advanced-configuration',
+            'interactive-partitioning',
+            'blivet-gui-partitioning',
+
+            # User settings
+            'root-configuration',
+            'user-configuration',
+        ]
+
+        if not HAVE_BLIVET_GUI:
+            screen_ids.remove('blivet-gui-partitioning')
+
+        self._check_screens(screen_ids)
+
+        # Run general checks on the user interface.
+        self._check_interface()
 
     def test_correct_spokes_ordering(self):
         # create fake spokes with the same priority

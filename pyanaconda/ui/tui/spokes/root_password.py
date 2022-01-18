@@ -36,8 +36,12 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
        .. inheritance-diagram:: PasswordSpoke
           :parts: 3
     """
-    helpFile = "PasswordSpoke.txt"
     category = UserSettingsCategory
+
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "root-configuration"
 
     @classmethod
     def should_run(cls, environment, data):

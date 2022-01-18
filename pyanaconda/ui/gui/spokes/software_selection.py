@@ -61,10 +61,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
     builderObjects = ["addonStore", "environmentStore", "softwareWindow"]
     mainWidgetName = "softwareWindow"
     uiFile = "spokes/software_selection.glade"
-    helpFile = "SoftwareSpoke.xml"
-
     category = SoftwareCategory
-
     icon = "package-x-generic-symbolic"
     title = CN_("GUI|Spoke", "_Software Selection")
 
@@ -75,6 +72,11 @@ class SoftwareSelectionSpoke(NormalSpoke):
     _ADDON_SELECTED = 1
     # user de-selected
     _ADDON_DESELECTED = 2
+
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "software-selection"
 
     @classmethod
     def should_run(cls, environment, data):

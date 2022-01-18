@@ -198,12 +198,16 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
        .. inheritance-diagram:: NetworkSpoke
           :parts: 3
     """
-    helpFile = "NetworkSpoke.txt"
     category = SystemCategory
     configurable_device_types = [
         NM.DeviceType.ETHERNET,
         NM.DeviceType.INFINIBAND,
     ]
+
+    @staticmethod
+    def get_screen_id():
+        """Return a unique id of this UI screen."""
+        return "network-configuration"
 
     def __init__(self, data, storage, payload):
         NormalTUISpoke.__init__(self, data, storage, payload)
