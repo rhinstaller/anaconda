@@ -24,6 +24,7 @@ from glob import glob
 
 from pyanaconda.modules.common.errors.installation import NonCriticalInstallationError, \
     InstallationError
+from pyanaconda.modules.common.errors.payload import UnknownRepositoryError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData, \
     PackagesSelectionData
@@ -312,7 +313,7 @@ class DNFPayload(Payload):
         except dnf.exceptions.RepoError as e:
             id_ = dnf_repo.id
             log.info('_sync_metadata: addon repo error: %s', e)
-            self._disable_repo(id_)
+            self._set_repo_enabled(id_, False)
             self.verbose_errors.append(str(e))
         log.debug('repo %s: _sync_metadata success from %s', dnf_repo.id,
                   dnf_repo.baseurl or dnf_repo.mirrorlist or dnf_repo.metalink)
@@ -359,6 +360,7 @@ class DNFPayload(Payload):
         :returns: None
         """
         data = convert_ks_repo_to_repo_data(ksrepo)
+        enabled = ksrepo.enabled
 
         # Add the repository.
         if not self._is_existing_repo_configuration(data):
@@ -374,10 +376,7 @@ class DNFPayload(Payload):
             self._dnf_manager.add_repository(data)
 
         # Enable or disable the repository.
-        if not ksrepo.enabled:
-            self._disable_repo(data.name)
-        else:
-            self._enable_repo(data.name)
+        self._dnf_manager.set_repository_enabled(data.name, enabled)
 
     def _is_existing_repo_configuration(self, data):
         """Is it a configuration of an existing repository?
@@ -450,38 +449,23 @@ class DNFPayload(Payload):
         self._updates_enabled = state
 
         # Enable or disable updates.
-        if self._updates_enabled:
-            for repo in conf.payload.updates_repositories:
-                self._enable_repo(repo)
-        else:
-            for repo in conf.payload.updates_repositories:
-                self._disable_repo(repo)
+        for repo_id in conf.payload.updates_repositories:
+            self._set_repo_enabled(repo_id, state)
 
         # Disable updates-testing.
-        self._disable_repo("updates-testing")
-        self._disable_repo("updates-testing-modular")
+        self._set_repo_enabled("updates-testing", False)
+        self._set_repo_enabled("updates-testing-modular", False)
 
-    def _disable_repo(self, repo_id):
+    def _set_repo_enabled(self, repo_id, enabled):
+        """Enable or disable the repo in DNF and its data representation."""
         try:
-            self._base.repos[repo_id].disable()
-            log.info("Disabled '%s'", repo_id)
-        except KeyError:
+            self._dnf_manager.set_repository_enabled(repo_id, enabled)
+        except UnknownRepositoryError:
             pass
 
         repo = self.get_addon_repo(repo_id)
         if repo:
-            repo.enabled = False
-
-    def _enable_repo(self, repo_id):
-        try:
-            self._base.repos[repo_id].enable()
-            log.info("Enabled '%s'", repo_id)
-        except KeyError:
-            pass
-
-        repo = self.get_addon_repo(repo_id)
-        if repo:
-            repo.enabled = True
+            repo.enabled = enabled
 
     def gather_repo_metadata(self):
         with self._repos_lock:
@@ -628,7 +612,7 @@ class DNFPayload(Payload):
         with self._repos_lock:
             for repo in self._base.repos.iter_enabled():
                 enabled.append(repo.id)
-                repo.disable()
+                self._dnf_manager.set_repository_enabled(repo.id, False)
 
         # Add a new repo.
         if source_type not in SOURCE_REPO_FILE_TYPES:
@@ -691,7 +675,7 @@ class DNFPayload(Payload):
                 if not fallback:
                     with self._repos_lock:
                         for repo in self._base.repos.iter_enabled():
-                            self._disable_repo(repo.id)
+                            self._set_repo_enabled(repo.id, False)
                     return
 
                 # Fallback to the default source
@@ -716,11 +700,12 @@ class DNFPayload(Payload):
                 return
 
             # Otherwise, fall back to the default repos that we disabled above
-            with self._repos_lock:
-                for (id_, repo) in self._base.repos.items():
-                    if id_ in enabled:
-                        log.debug("repo %s: fall back enabled from default repos", id_)
-                        repo.enable()
+            for repo_id in enabled:
+                log.debug("repo %s: fall back enabled from default repos", repo_id)
+                try:
+                    self._dnf_manager.set_repository_enabled(repo_id, True)
+                except UnknownRepositoryError:
+                    pass
 
         for ksrepo in self.data.repo.dataList():
             if ksrepo.is_harddrive_based():
@@ -744,9 +729,9 @@ class DNFPayload(Payload):
             for repo in self._base.repos.iter_enabled():
                 id_ = repo.id
                 if 'source' in id_ or 'debuginfo' in id_:
-                    self._disable_repo(id_)
+                    self._dnf_manager.set_repository_enabled(id_, False)
                 elif constants.isFinal and 'rawhide' in id_:
-                    self._disable_repo(id_)
+                    self._dnf_manager.set_repository_enabled(id_, False)
 
             # fetch md for enabled repos
             for ks_repo in self.data.repo.dataList():
