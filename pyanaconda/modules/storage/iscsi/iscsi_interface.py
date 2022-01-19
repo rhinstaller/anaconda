@@ -57,8 +57,9 @@ class ISCSIInterface(KickstartModuleInterfaceTemplate):
         """ISCSI initiator name."""
         return self.implementation.initiator
 
+    @Initiator.setter
     @emits_properties_changed
-    def SetInitiator(self, initiator: Str):
+    def Initiator(self, initiator: Str):
         """Set the initiator name.
 
         Sets the ISCSI initiator name.

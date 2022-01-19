@@ -23,11 +23,10 @@ import unittest
 import pytest
 
 from unittest.mock import patch, Mock, call
-
 from textwrap import dedent
 
-from tests.unit_tests.pyanaconda_tests import check_kickstart_interface, patch_dbus_publish_object, \
-        PropertiesChangedCallback, check_dbus_property, check_task_creation
+from tests.unit_tests.pyanaconda_tests import check_kickstart_interface, \
+    patch_dbus_publish_object, PropertiesChangedCallback, check_dbus_property, check_task_creation
 
 from pyanaconda.core.constants import DEFAULT_KEYBOARD, DEFAULT_VC_FONT
 from pyanaconda.modules.common.constants.services import LOCALIZATION
@@ -73,37 +72,41 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         assert self.localization_interface.KickstartCommands == ["keyboard", "lang"]
         assert self.localization_interface.KickstartSections == []
         assert self.localization_interface.KickstartAddons == []
-        self.callback.assert_not_called()
 
     def test_language_property(self):
         """Test the Language property."""
-        self.localization_interface.SetLanguage("cs_CZ.UTF-8")
-        assert self.localization_interface.Language == "cs_CZ.UTF-8"
-        self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'Language': 'cs_CZ.UTF-8'}, [])
+        self._check_dbus_property(
+            "Language",
+            "cs_CZ.UTF-8"
+        )
 
     def test_language_support_property(self):
         """Test the LanguageSupport property."""
-        self.localization_interface.SetLanguageSupport(["fr_FR"])
-        assert self.localization_interface.LanguageSupport == ["fr_FR"]
-        self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'LanguageSupport': ["fr_FR"]}, [])
+        self._check_dbus_property(
+            "LanguageSupport",
+            ["fr_FR"]
+        )
 
     def test_vc_keymap_property(self):
         """Test the VirtualConsoleKeymap property."""
-        self.localization_interface.SetVirtualConsoleKeymap("cz")
-        assert self.localization_interface.VirtualConsoleKeymap == "cz"
-        self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'VirtualConsoleKeymap': 'cz'}, [])
+        self._check_dbus_property(
+            "VirtualConsoleKeymap",
+            "cz"
+        )
 
     def test_x_layouts_property(self):
         """Test the XLayouts property."""
-        self.localization_interface.SetXLayouts(["en", "cz(querty)"])
-        assert self.localization_interface.XLayouts == ["en", "cz(querty)"]
-        self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'XLayouts': ["en", "cz(querty)"]}, [])
+        self._check_dbus_property(
+            "XLayouts",
+            ["cz(querty)"]
+        )
 
     def test_switch_options_property(self):
         """Test the LayoutSwitchOptions property."""
-        self.localization_interface.SetLayoutSwitchOptions(["grp:alt_shift_toggle"])
-        assert self.localization_interface.LayoutSwitchOptions == ["grp:alt_shift_toggle"]
-        self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'LayoutSwitchOptions': ["grp:alt_shift_toggle"]}, [])
+        self._check_dbus_property(
+            "LayoutSwitchOptions",
+            ["grp:alt_shift_toggle"]
+        )
 
     def test_keyboard_seen(self):
         """Test the KeyboardKickstarted property."""
@@ -140,16 +143,18 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         assert self.localization_interface.LanguageKickstarted is True
 
     def test_set_language_kickstarted(self):
-        """Test SetLanguageKickstarted."""
-        self.localization_interface.SetLanguageKickstarted(True)
-        assert self.localization_interface.LanguageKickstarted is True
-        self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'LanguageKickstarted': True}, [])
+        """Test LanguageKickstarted."""
+        self._check_dbus_property(
+            "LanguageKickstarted",
+            True
+        )
 
     def test_set_keyboard_kickstarted(self):
-        """Test SetLanguageKickstarted."""
-        self.localization_interface.SetKeyboardKickstarted(True)
-        assert self.localization_interface.KeyboardKickstarted is True
-        self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'KeyboardKickstarted': True}, [])
+        """Test KeyboardKickstarted."""
+        self._check_dbus_property(
+            "KeyboardKickstarted",
+            True
+        )
 
     @patch("pyanaconda.modules.localization.runtime.try_to_load_keymap")
     def test_set_keyboard(self, mocked_load_keymap):
@@ -166,11 +171,11 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         assert self.localization_interface.CollectRequirements() == []
 
         # No additional support for ascii keyboard layouts.
-        self.localization_interface.SetVirtualConsoleKeymap("en")
+        self.localization_interface.VirtualConsoleKeymap = "en"
         assert self.localization_interface.CollectRequirements() == []
 
         # Additional support for non-ascii keyboard layouts.
-        self.localization_interface.SetVirtualConsoleKeymap("ru")
+        self.localization_interface.VirtualConsoleKeymap = "ru"
 
         requirements = Requirement.from_structure_list(
             self.localization_interface.CollectRequirements()
@@ -230,10 +235,10 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
     @patch_dbus_publish_object
     def test_install_with_task(self, publisher):
         """Test InstallWithTask."""
-        self.localization_interface.SetLanguage("cs_CZ.UTF-8")
-        self.localization_interface.SetVirtualConsoleKeymap('us')
-        self.localization_interface.SetXLayouts(['cz', 'cz (qwerty)'])
-        self.localization_interface.SetLayoutSwitchOptions(["grp:alt_shift_toggle"])
+        self.localization_interface.Language = "cs_CZ.UTF-8"
+        self.localization_interface.VirtualConsoleKeymap = 'us'
+        self.localization_interface.XLayouts = ['cz', 'cz (qwerty)']
+        self.localization_interface.LayoutSwitchOptions = ["grp:alt_shift_toggle"]
 
         tasks = self.localization_interface.InstallWithTasks()
         language_installation_task_path = tasks[0]
@@ -262,8 +267,8 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
     @patch_dbus_publish_object
     def test_populate_missing_keyboard_configuration_with_task(self, publisher):
         """Test PopulateMissingKeyboardConfigurationWithTask."""
-        self.localization_interface.SetVirtualConsoleKeymap('us')
-        self.localization_interface.SetXLayouts(['cz', 'cz (qwerty)'])
+        self.localization_interface.VirtualConsoleKeymap = 'us'
+        self.localization_interface.XLayouts = ['cz', 'cz (qwerty)']
 
         task_path = self.localization_interface.PopulateMissingKeyboardConfigurationWithTask()
 
@@ -274,9 +279,9 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
     @patch_dbus_publish_object
     def test_apply_keyboard_with_task(self, publisher):
         """Test ApplyKeyboardWithTask."""
-        self.localization_interface.SetVirtualConsoleKeymap('us')
-        self.localization_interface.SetXLayouts(['cz', 'cz (qwerty)'])
-        self.localization_interface.SetLayoutSwitchOptions(["grp:alt_shift_toggle"])
+        self.localization_interface.VirtualConsoleKeymap = 'us'
+        self.localization_interface.XLayouts = ['cz', 'cz (qwerty)']
+        self.localization_interface.LayoutSwitchOptions = ["grp:alt_shift_toggle"]
 
         task_path = self.localization_interface.ApplyKeyboardWithTask()
 

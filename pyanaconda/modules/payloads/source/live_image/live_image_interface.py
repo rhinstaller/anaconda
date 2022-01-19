@@ -47,8 +47,9 @@ class LiveImageSourceInterface(PayloadSourceBaseInterface):
             self.implementation.configuration
         )
 
+    @Configuration.setter
     @emits_properties_changed
-    def SetConfiguration(self, data: Structure):
+    def Configuration(self, data: Structure):
         """Set the source configuration.
 
         :param data: a structure of the type LiveImageConfigurationData

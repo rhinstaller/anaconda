@@ -166,19 +166,19 @@ class UsersInterfaceTestCase(unittest.TestCase):
 
         # root password is locked by default and remains locked even after a password is set
         # and needs to be unlocked via another DBus API call
-        self.users_interface.SetRootAccountLocked(False)
-
+        self.users_interface.IsRootAccountLocked = False
         assert self.users_interface.IsRootPasswordSet is True
         assert self.users_interface.IsRootAccountLocked is False
         self.callback.assert_called_with(USERS.interface_name, {'IsRootAccountLocked': False}, [])
 
     def test_lock_root_account(self):
         """Test if root account can be locked via DBus correctly."""
-        self.users_interface.SetRootAccountLocked(True)
+        self._check_dbus_property(
+            "IsRootAccountLocked",
+            True
+        )
 
         assert self.users_interface.IsRootPasswordSet is False
-        assert self.users_interface.IsRootAccountLocked is True
-        self.callback.assert_called_once_with(USERS.interface_name, {'IsRootAccountLocked': True}, [])
 
     def test_clear_rootpw(self):
         """Test clearing of the root password."""
@@ -204,7 +204,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self.users_interface.SetCryptedRootPassword("abcef")
         self.callback.assert_called_once_with(USERS.interface_name, {'IsRootPasswordSet': True}, [])
 
-        self.users_interface.SetRootAccountLocked(False)
+        self.users_interface.IsRootAccountLocked = False
         self.callback.assert_called_with(USERS.interface_name, {'IsRootAccountLocked': False}, [])
 
         assert self.users_interface.IsRootPasswordSet is True
@@ -221,14 +221,10 @@ class UsersInterfaceTestCase(unittest.TestCase):
 
     def test_allow_root_password_ssh_login(self):
         """Test if root password SSH login can be allowed."""
-        self.users_interface.SetRootPasswordSSHLoginAllowed(True)
-        assert self.users_interface.RootPasswordSSHLoginAllowed is True
-        self.callback.assert_called_once_with(USERS.interface_name, {'RootPasswordSSHLoginAllowed': True}, [])
-
-        self.callback.reset_mock()
-        self.users_interface.SetRootPasswordSSHLoginAllowed(False)
-        assert self.users_interface.RootPasswordSSHLoginAllowed is False
-        self.callback.assert_called_once_with(USERS.interface_name, {'RootPasswordSSHLoginAllowed': False}, [])
+        self._check_dbus_property(
+            "RootPasswordSSHLoginAllowed",
+            True
+        )
 
     def test_admin_user_detection_1(self):
         """Test that admin user detection works correctly - 3 admins."""
@@ -243,9 +239,9 @@ class UsersInterfaceTestCase(unittest.TestCase):
         user2.groups = ["baz", "bar", "wheel"]
         user2.lock = False
 
-        self.users_interface.SetUsers(UserData.to_structure_list([user1, user2]))
+        self.users_interface.Users = UserData.to_structure_list([user1, user2])
         self.users_interface.SetCryptedRootPassword("abc")
-        self.users_interface.SetRootAccountLocked(False)
+        self.users_interface.IsRootAccountLocked = False
         assert self.users_interface.CheckAdminUserExists()
 
     def test_admin_user_detection_2(self):
@@ -261,9 +257,9 @@ class UsersInterfaceTestCase(unittest.TestCase):
         user2.groups = ["baz", "bar", "wheel"]
         user2.lock = True
 
-        self.users_interface.SetUsers(UserData.to_structure_list([user1, user2]))
+        self.users_interface.Users = UserData.to_structure_list([user1, user2])
         self.users_interface.SetCryptedRootPassword("abc")
-        self.users_interface.SetRootAccountLocked(True)
+        self.users_interface.IsRootAccountLocked = True
         assert not self.users_interface.CheckAdminUserExists()
 
     def test_admin_user_detection_3(self):
@@ -279,9 +275,9 @@ class UsersInterfaceTestCase(unittest.TestCase):
         user2.groups = ["baz", "bar", "wheel"]
         user2.lock = True
 
-        self.users_interface.SetUsers(UserData.to_structure_list([user1, user2]))
+        self.users_interface.Users = UserData.to_structure_list([user1, user2])
         self.users_interface.SetCryptedRootPassword("abc")
-        self.users_interface.SetRootAccountLocked(False)
+        self.users_interface.IsRootAccountLocked = False
         assert self.users_interface.CheckAdminUserExists()
 
     def test_admin_user_detection_4(self):
@@ -297,9 +293,9 @@ class UsersInterfaceTestCase(unittest.TestCase):
         user2.groups = ["baz", "bar", "wheel"]
         user2.lock = True
 
-        self.users_interface.SetUsers(UserData.to_structure_list([user1, user2]))
+        self.users_interface.Users = UserData.to_structure_list([user1, user2])
         self.users_interface.SetCryptedRootPassword("abc")
-        self.users_interface.SetRootAccountLocked(True)
+        self.users_interface.IsRootAccountLocked = True
         assert self.users_interface.CheckAdminUserExists()
 
     def test_admin_user_detection_5(self):
@@ -315,9 +311,9 @@ class UsersInterfaceTestCase(unittest.TestCase):
         user2.groups = ["baz", "bar", "wheel"]
         user2.lock = False
 
-        self.users_interface.SetUsers(UserData.to_structure_list([user1, user2]))
+        self.users_interface.Users = UserData.to_structure_list([user1, user2])
         self.users_interface.SetCryptedRootPassword("abc")
-        self.users_interface.SetRootAccountLocked(True)
+        self.users_interface.IsRootAccountLocked = True
         assert self.users_interface.CheckAdminUserExists()
 
     def test_admin_user_detection_6(self):
@@ -333,9 +329,9 @@ class UsersInterfaceTestCase(unittest.TestCase):
         user2.groups = ["baz", "bar"]
         user2.lock = False
 
-        self.users_interface.SetUsers(UserData.to_structure_list([user1, user2]))
+        self.users_interface.Users = UserData.to_structure_list([user1, user2])
         self.users_interface.SetCryptedRootPassword("abc")
-        self.users_interface.SetRootAccountLocked(False)
+        self.users_interface.IsRootAccountLocked = False
         assert self.users_interface.CheckAdminUserExists()
 
     def _test_kickstart(self, ks_in, ks_out):

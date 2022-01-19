@@ -100,11 +100,6 @@ class UsersInterface(KickstartModuleInterface):
         """
         return self.implementation.root_password_is_set
 
-    @emits_properties_changed
-    def SetRootAccountLocked(self, root_account_locked: Bool):
-        """Lock or unlock the root account."""
-        self.implementation.set_root_account_locked(root_account_locked)
-
     @property
     def IsRootAccountLocked(self) -> Bool:
         """Is the root account locked ?
@@ -113,10 +108,11 @@ class UsersInterface(KickstartModuleInterface):
         """
         return self.implementation.root_account_locked
 
+    @IsRootAccountLocked.setter
     @emits_properties_changed
-    def SetRootPasswordSSHLoginAllowed(self, root_password_ssh_login_allowed: Bool):
-        """Allow or disallow the root from logging in via SSH with password authetication."""
-        self.implementation.set_root_password_ssh_login_allowed(root_password_ssh_login_allowed)
+    def IsRootAccountLocked(self, root_account_locked: Bool):
+        """Lock or unlock the root account."""
+        self.implementation.set_root_account_locked(root_account_locked)
 
     @property
     def RootPasswordSSHLoginAllowed(self) -> Bool:
@@ -125,6 +121,12 @@ class UsersInterface(KickstartModuleInterface):
         :return: True if root SSH loggin with password is allowed, False otherwise
         """
         return self.implementation.root_password_ssh_login_allowed
+
+    @RootPasswordSSHLoginAllowed.setter
+    @emits_properties_changed
+    def RootPasswordSSHLoginAllowed(self, root_password_ssh_login_allowed: Bool):
+        """Allow or disallow the root from logging in via SSH with password authetication."""
+        self.implementation.set_root_password_ssh_login_allowed(root_password_ssh_login_allowed)
 
     @property
     def Users(self) -> List[Structure]:
@@ -141,8 +143,9 @@ class UsersInterface(KickstartModuleInterface):
             user_dicts.append(UserData.to_structure(user_data))
         return user_dicts
 
+    @Users.setter
     @emits_properties_changed
-    def SetUsers(self, users: List[Structure]):
+    def Users(self, users: List[Structure]):
         """Set a list of users, each corresponding to a single user.
 
         :param users: a list of user describing DBus structures
@@ -164,8 +167,9 @@ class UsersInterface(KickstartModuleInterface):
             group_dicts.append(GroupData.to_structure(group_data))
         return group_dicts
 
+    @Groups.setter
     @emits_properties_changed
-    def SetGroups(self, groups: List[Structure]):
+    def Groups(self, groups: List[Structure]):
         """Set a list of groups, each corresponding to a single group.
 
         :param groups: a list of group describing DBus structures
@@ -187,8 +191,9 @@ class UsersInterface(KickstartModuleInterface):
             ssh_key_dicts.append(SshKeyData.to_structure(ssh_key_data))
         return ssh_key_dicts
 
+    @SshKeys.setter
     @emits_properties_changed
-    def SetSshKeys(self, ssh_keys: List[Structure]):
+    def SshKeys(self, ssh_keys: List[Structure]):
         """Set a list of DBus structures, each corresponding to a single SSH key.
 
         :param ssh_keys: a list of SSH key describing DBus structures

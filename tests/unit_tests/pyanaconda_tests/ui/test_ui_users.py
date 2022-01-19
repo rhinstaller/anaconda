@@ -132,7 +132,7 @@ class UsersUITestCase(unittest.TestCase):
 
         users_module_mock = Mock()
         set_user_list(users_module_mock, [user1, user2])
-        user_data_list = users_module_mock.SetUsers.call_args[0][0]
+        user_data_list = users_module_mock.Users
 
         assert len(user_data_list) == 2
         assert user_data_list[0] == UserData.to_structure(user1)
@@ -140,7 +140,7 @@ class UsersUITestCase(unittest.TestCase):
 
         user1.name = ""
         set_user_list(users_module_mock, [user1, user2], remove_unset=True)
-        user_data_list = users_module_mock.SetUsers.call_args[0][0]
+        user_data_list = users_module_mock.Users
 
         assert len(user_data_list) == 1
         assert user_data_list[0] == UserData.to_structure(user2)

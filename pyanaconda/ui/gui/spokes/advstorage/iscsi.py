@@ -178,7 +178,7 @@ class ISCSIDialog(GUIObject):
         task_proxy = STORAGE.get_proxy(task_path)
 
         if self._iscsi_module.CanSetInitiator():
-            self._iscsi_module.SetInitiator(initiator)
+            self._iscsi_module.Initiator = initiator
 
         # Start the discovery.
         async_run_task(task_proxy, self.process_discovery_result)

@@ -44,8 +44,9 @@ class UIInterface(KickstartModuleInterfaceTemplate):
             self.implementation.password_policies
         )
 
+    @PasswordPolicies.setter
     @emits_properties_changed
-    def SetPasswordPolicies(self, policies: Dict[Str, Structure]):
+    def PasswordPolicies(self, policies: Dict[Str, Structure]):
         """Set the password policies.
 
         Default policy names:

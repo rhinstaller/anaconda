@@ -44,8 +44,9 @@ class ClosestMirrorSourceInterface(PayloadSourceBaseInterface):
         """
         return self.implementation.updates_enabled
 
+    @UpdatesEnabled.setter
     @emits_properties_changed
-    def SetUpdatesEnabled(self, enabled: Bool):
+    def UpdatesEnabled(self, enabled: Bool):
         """Enable or disable repositories that provide updates.
 
         :param enabled: True to enable, False to disable

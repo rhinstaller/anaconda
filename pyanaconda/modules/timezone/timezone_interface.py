@@ -42,8 +42,9 @@ class TimezoneInterface(KickstartModuleInterface):
         """Timezone the system will use."""
         return self.implementation.timezone
 
+    @Timezone.setter
     @emits_properties_changed
-    def SetTimezone(self, timezone: Str):
+    def Timezone(self, timezone: Str):
         """Set the timezone.
 
         Sets the system time zone to timezone. To view a list of
@@ -67,8 +68,9 @@ class TimezoneInterface(KickstartModuleInterface):
         """
         return self.implementation.is_utc
 
+    @IsUTC.setter
     @emits_properties_changed
-    def SetIsUTC(self, is_utc: Bool):
+    def IsUTC(self, is_utc: Bool):
         """Set if the hardware clock set to UTC or not.
 
         :param is_utc: Is the hardware clock set to UTC?
@@ -83,8 +85,9 @@ class TimezoneInterface(KickstartModuleInterface):
         """
         return self.implementation.ntp_enabled
 
+    @NTPEnabled.setter
     @emits_properties_changed
-    def SetNTPEnabled(self, ntp_enabled: Bool):
+    def NTPEnabled(self, ntp_enabled: Bool):
         """Enable or disable automatic starting of NTP service.
 
         :param ntp_enabled: should be NTP service enabled?
@@ -102,8 +105,9 @@ class TimezoneInterface(KickstartModuleInterface):
             self.implementation.time_sources
         )
 
+    @TimeSources.setter
     @emits_properties_changed
-    def SetTimeSources(self, sources: List[Structure]):
+    def TimeSources(self, sources: List[Structure]):
         """Set the time sources.
 
         :param sources: a list of time sources

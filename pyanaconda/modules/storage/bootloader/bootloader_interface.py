@@ -58,8 +58,9 @@ class BootloaderInterface(KickstartModuleInterfaceTemplate):
         """The mode of the bootloader."""
         return self.implementation.bootloader_mode.value
 
+    @BootloaderMode.setter
     @emits_properties_changed
-    def SetBootloaderMode(self, mode: Int):
+    def BootloaderMode(self, mode: Int):
         """Set the type of the bootloader.
 
         Allowed values:
@@ -82,8 +83,9 @@ class BootloaderInterface(KickstartModuleInterfaceTemplate):
         """Where the boot record is written."""
         return self.implementation.preferred_location
 
+    @PreferredLocation.setter
     @emits_properties_changed
-    def SetPreferredLocation(self, location: Str):
+    def PreferredLocation(self, location: Str):
         """Specify where the boot record is written.
 
         Supported values:
@@ -101,8 +103,9 @@ class BootloaderInterface(KickstartModuleInterfaceTemplate):
         """The drive where the bootloader should be written."""
         return self.implementation.drive
 
+    @Drive.setter
     @emits_properties_changed
-    def SetDrive(self, drive: Str):
+    def Drive(self, drive: Str):
         """Set the drive where the bootloader should be written.
 
         Specifies which drive the bootloader should be written to and
@@ -117,8 +120,9 @@ class BootloaderInterface(KickstartModuleInterfaceTemplate):
         """Potentially partial order for disks."""
         return self.implementation.drive_order
 
+    @DriveOrder.setter
     @emits_properties_changed
-    def SetDriveOrder(self, drives: List[Str]):
+    def DriveOrder(self, drives: List[Str]):
         """Set the potentially partial order for disks.
 
         :param drives: a list of names of drives
@@ -130,8 +134,9 @@ class BootloaderInterface(KickstartModuleInterfaceTemplate):
         """Don't update the MBR."""
         return self.implementation.keep_mbr
 
+    @KeepMBR.setter
     @emits_properties_changed
-    def SetKeepMBR(self, value: Bool):
+    def KeepMBR(self, value: Bool):
         """Set if the MBR can be updated.
 
         If you want to keep the MBR, then the bootloader will be installed
@@ -147,8 +152,9 @@ class BootloaderInterface(KickstartModuleInterfaceTemplate):
         """Don't change the existing boot order."""
         return self.implementation.keep_boot_order
 
+    @KeepBootOrder.setter
     @emits_properties_changed
-    def SetKeepBootOrder(self, value: Bool):
+    def KeepBootOrder(self, value: Bool):
         """Set if the the boot order can be changed.
 
         Boot the drives in their existing order, to override the default
@@ -165,8 +171,9 @@ class BootloaderInterface(KickstartModuleInterfaceTemplate):
         """List of extra bootloader arguments."""
         return self.implementation.extra_arguments
 
+    @ExtraArguments.setter
     @emits_properties_changed
-    def SetExtraArguments(self, args: List[Str]):
+    def ExtraArguments(self, args: List[Str]):
         """Set the extra bootloader arguments.
 
         Specifies kernel parameters. The default set of bootloader
@@ -182,8 +189,9 @@ class BootloaderInterface(KickstartModuleInterfaceTemplate):
         """The bootloader timeout."""
         return self.implementation.timeout
 
+    @Timeout.setter
     @emits_properties_changed
-    def SetTimeout(self, timeout: Int):
+    def Timeout(self, timeout: Int):
         """Set the bootloader timeout.
 
         Specify the number of seconds before the bootloader times out
@@ -198,8 +206,9 @@ class BootloaderInterface(KickstartModuleInterfaceTemplate):
         """The ZIPL Secure Boot for s390x."""
         return self.implementation.zipl_secure_boot.value
 
+    @ZIPLSecureBoot.setter
     @emits_properties_changed
-    def SetZIPLSecureBoot(self, value: Str):
+    def ZIPLSecureBoot(self, value: Str):
         """Set up the ZIPL Secure Boot for s390x.
 
         Supported values:

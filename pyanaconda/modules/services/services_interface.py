@@ -45,8 +45,9 @@ class ServicesInterface(KickstartModuleInterface):
         """List of disabled services."""
         return self.implementation.disabled_services
 
+    @DisabledServices.setter
     @emits_properties_changed
-    def SetDisabledServices(self, services: List[Str]):
+    def DisabledServices(self, services: List[Str]):
         """Set the disabled services.
 
         Modifies the default set of services that will run under the default runlevel.
@@ -62,8 +63,9 @@ class ServicesInterface(KickstartModuleInterface):
         """List of enabled services."""
         return self.implementation.enabled_services
 
+    @EnabledServices.setter
     @emits_properties_changed
-    def SetEnabledServices(self, services: List[Str]):
+    def EnabledServices(self, services: List[Str]):
         """Set the enabled services.
 
         Modifies the default set of services that will run under the default runlevel.
@@ -79,8 +81,9 @@ class ServicesInterface(KickstartModuleInterface):
         """Default target of the installed system."""
         return self.implementation.default_target
 
+    @DefaultTarget.setter
     @emits_properties_changed
-    def SetDefaultTarget(self, target: Str):
+    def DefaultTarget(self, target: Str):
         """Set the default target of the installed system.
 
         Supported values are:
@@ -96,8 +99,9 @@ class ServicesInterface(KickstartModuleInterface):
         """Default desktop of the installed system."""
         return self.implementation.default_desktop
 
+    @DefaultDesktop.setter
     @emits_properties_changed
-    def SetDefaultDesktop(self, desktop: Str):
+    def DefaultDesktop(self, desktop: Str):
         """Set the default desktop of the installed system.
 
         Supported values are:
@@ -113,8 +117,9 @@ class ServicesInterface(KickstartModuleInterface):
         """Set up the installed system on the first boot."""
         return self.implementation.setup_on_boot.value
 
+    @SetupOnBoot.setter
     @emits_properties_changed
-    def SetSetupOnBoot(self, value: Int):
+    def SetupOnBoot(self, value: Int):
         """Set up the installed system on the first boot.
 
         Determine whether the Setup Agent starts the first
@@ -142,8 +147,9 @@ class ServicesInterface(KickstartModuleInterface):
         """
         return self.implementation.post_install_tools_enabled
 
+    @PostInstallToolsEnabled.setter
     @emits_properties_changed
-    def SetPostInstallToolsEnabled(self, post_install_tools_enabled: Bool):
+    def PostInstallToolsEnabled(self, post_install_tools_enabled: Bool):
         """Set if post installation tools should be disabled.
 
         Setting this value to False will result in the post_install_tools_disabled

@@ -82,8 +82,9 @@ class LocalizationInterface(KickstartModuleInterface):
         """The language the system will use."""
         return self.implementation.language
 
+    @Language.setter
     @emits_properties_changed
-    def SetLanguage(self, language: Str):
+    def Language(self, language: Str):
         """Set the language.
 
         Sets the language to use during installation and the default language
@@ -102,8 +103,9 @@ class LocalizationInterface(KickstartModuleInterface):
         """Supported languages on the system."""
         return self.implementation.language_support
 
+    @LanguageSupport.setter
     @emits_properties_changed
-    def SetLanguageSupport(self, language_support: List[Str]):
+    def LanguageSupport(self, language_support: List[Str]):
         """Set the languages for which the support should be installed.
 
         Language support packages for specified languages will be installed.
@@ -120,8 +122,9 @@ class LocalizationInterface(KickstartModuleInterface):
         """
         return self.implementation.language_seen
 
+    @LanguageKickstarted.setter
     @emits_properties_changed
-    def SetLanguageKickstarted(self, language_seen: Bool):
+    def LanguageKickstarted(self, language_seen: Bool):
         """Set if language should be considered as coming from kickstart
 
         :param bool language_seen: if language should be considered as coming from kickstart
@@ -144,8 +147,9 @@ class LocalizationInterface(KickstartModuleInterface):
         """Virtual Console keyboard mapping."""
         return self.implementation.vc_keymap
 
+    @VirtualConsoleKeymap.setter
     @emits_properties_changed
-    def SetVirtualConsoleKeymap(self, vc_keymap: Str):
+    def VirtualConsoleKeymap(self, vc_keymap: Str):
         """Set Virtual console keyboard mapping.
 
         The mapping name corresponds to filenames in /usr/lib/kbd/keymaps
@@ -160,8 +164,9 @@ class LocalizationInterface(KickstartModuleInterface):
         """X Layouts that should be used on the system."""
         return self.implementation.x_layouts
 
+    @XLayouts.setter
     @emits_properties_changed
-    def SetXLayouts(self, x_layouts: List[Str]):
+    def XLayouts(self, x_layouts: List[Str]):
         """Set the X layouts for the system.
 
         The layout is specified by values used by setxkbmap(1).  Accepts either
@@ -176,8 +181,9 @@ class LocalizationInterface(KickstartModuleInterface):
         """List of options for layout switching"""
         return self.implementation.switch_options
 
+    @LayoutSwitchOptions.setter
     @emits_properties_changed
-    def SetLayoutSwitchOptions(self, switch_options: List[Str]):
+    def LayoutSwitchOptions(self, switch_options: List[Str]):
         """Set the layout switchin options.
 
         Accepts the same values as setxkbmap(1) for switching.
@@ -194,8 +200,9 @@ class LocalizationInterface(KickstartModuleInterface):
         """
         return self.implementation.keyboard_seen
 
+    @KeyboardKickstarted.setter
     @emits_properties_changed
-    def SetKeyboardKickstarted(self, keyboard_seen: Bool):
+    def KeyboardKickstarted(self, keyboard_seen: Bool):
         """Set if keyboard should be considered as coming from kickstart
 
         :param bool keyboard_seen: if keyboard should be considered as coming from kickstart

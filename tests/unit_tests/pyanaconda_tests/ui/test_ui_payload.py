@@ -87,7 +87,7 @@ class PayloadUITestCase(unittest.TestCase):
         get_object_path.return_value = "/my/source"
 
         set_source(payload_proxy, source_proxy)
-        payload_proxy.SetSources.assert_called_once_with(["/my/source"])
+        assert payload_proxy.Sources == ["/my/source"]
 
     @patch("pyanaconda.ui.lib.payload.get_object_path")
     @patch_dbus_get_proxy_with_cache
@@ -115,7 +115,7 @@ class PayloadUITestCase(unittest.TestCase):
         payload_proxy.Sources = []
         assert get_source(payload_proxy, SOURCE_TYPE_CDROM) == source_proxy_4
         payloads_proxy.CreateSource.assert_called_once_with(SOURCE_TYPE_CDROM)
-        payload_proxy.SetSources.assert_called_once_with(["/my/source/4"])
+        assert payload_proxy.Sources == ["/my/source/4"]
 
     @patch_dbus_get_proxy_with_cache
     def test_set_up_sources(self, proxy_getter):

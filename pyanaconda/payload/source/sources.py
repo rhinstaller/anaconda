@@ -181,7 +181,7 @@ class NFSSource(BasePayloadSource):
         """
         source_proxy = create_source(SOURCE_TYPE_NFS)
         source_url = create_nfs_url(self.server, self.path, self.options)
-        source_proxy.SetURL(source_url)
+        source_proxy.URL = source_url
         return source_proxy
 
 
@@ -216,8 +216,8 @@ class HDDSource(BasePayloadSource):
         :return: a DBus proxy of a source
         """
         source_proxy = create_source(SOURCE_TYPE_HDD)
-        source_proxy.SetPartition(self.partition)
-        source_proxy.SetDirectory(self.path)
+        source_proxy.Partition = self.partition
+        source_proxy.Directory = self.path
         return source_proxy
 
 
@@ -282,9 +282,8 @@ class URLBasedSource(BasePayloadSource):
         repo_configuration.type = self.url_type
         repo_configuration.url = self.url
 
-        source_proxy.SetRepoConfiguration(
+        source_proxy.RepoConfiguration = \
             RepoConfigurationData.to_structure(repo_configuration)
-        )
 
         return source_proxy
 
@@ -337,9 +336,8 @@ class FileSource(BasePayloadSource):
         repo_configuration.type = URL_TYPE_BASEURL
         repo_configuration.url = self.path
 
-        source_proxy.SetRepoConfiguration(
+        source_proxy.RepoConfiguration = \
             RepoConfigurationData.to_structure(repo_configuration)
-        )
 
         return source_proxy
 

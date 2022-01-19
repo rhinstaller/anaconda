@@ -116,7 +116,7 @@ class SetupLocaleTest(unittest.TestCase):
 
         locale = localization.setup_locale("sk", localization_proxy=loc_proxy)
 
-        loc_proxy.SetLanguage.assert_called_once_with("sk")
+        assert loc_proxy.Language == "sk"
         setenv_mock.assert_called_once_with("LANG", "sk")
         setlocale_mock.assert_called_once_with(locale_mod.LC_ALL, "sk")
         set_modules_locale_mock.assert_called_once_with("sk")

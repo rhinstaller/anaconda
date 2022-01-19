@@ -119,8 +119,13 @@ export const setLanguage = ({ lang }) => {
     return (
         new LocalizationClient().client.call(
             "/org/fedoraproject/Anaconda/Modules/Localization",
-            "org.fedoraproject.Anaconda.Modules.Localization",
-            "SetLanguage", [lang]
+            "org.freedesktop.DBus.Properties",
+            "Set",
+            [
+                "org.fedoraproject.Anaconda.Modules.Localization",
+                "Language",
+                cockpit.variant("s", lang)
+            ]
         )
     );
 };

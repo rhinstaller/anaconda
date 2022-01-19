@@ -39,8 +39,9 @@ class AutoPartitioningInterface(PartitioningInterface):
         """The partitioning request."""
         return PartitioningRequest.to_structure(self.implementation.request)
 
+    @Request.setter
     @emits_properties_changed
-    def SetRequest(self, request: Structure):
+    def Request(self, request: Structure):
         """Set the partitioning request.
 
         :param request: a request

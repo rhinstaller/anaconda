@@ -109,4 +109,4 @@ def set_user_list(users_module, user_data_list, remove_unset=False):
     if remove_unset:
         user_data_list = [user for user in user_data_list if user.name]
 
-    users_module.SetUsers(UserData.to_structure_list(user_data_list))
+    users_module.Users = UserData.to_structure_list(user_data_list)

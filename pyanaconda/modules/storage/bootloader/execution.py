@@ -55,7 +55,7 @@ class BootloaderExecutor(object):
         if blivet.arch.is_s390() \
                 and conf.target.is_image \
                 and bootloader_proxy.BootloaderMode == BOOTLOADER_ENABLED:
-            bootloader_proxy.SetBootloaderMode(BOOTLOADER_SKIPPED)
+            bootloader_proxy.BootloaderMode = BOOTLOADER_SKIPPED
 
         # Is the bootloader enabled?
         if bootloader_proxy.BootloaderMode != BOOTLOADER_ENABLED:
@@ -133,7 +133,7 @@ class BootloaderExecutor(object):
 
         # Update the module.
         if not dry_run and bootloader_proxy.DriveOrder != drive_order:
-            bootloader_proxy.SetDriveOrder(drive_order)
+            bootloader_proxy.DriveOrder = drive_order
 
     def _check_boot_drive(self, storage, boot_drive, usable_disks):
         """Check the specified boot drive."""
@@ -224,4 +224,4 @@ class BootloaderExecutor(object):
 
         # Update the bootloader module.
         if not dry_run and bootloader_proxy.Drive != boot_drive:
-            bootloader_proxy.SetDrive(boot_drive)
+            bootloader_proxy.Drive = boot_drive

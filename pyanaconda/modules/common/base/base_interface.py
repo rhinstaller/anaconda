@@ -71,7 +71,9 @@ class KickstartModuleInterface(KickstartModuleInterfaceTemplate):
         """
         return self.implementation.kickstarted
 
-    def SetKickstarted(self, kickstarted: Bool):
+    @Kickstarted.setter
+    @emits_properties_changed
+    def Kickstarted(self, kickstarted: Bool):
         """Set the Kickstarted property.
 
         FIXME: This method should be removed after we move the logic from UI.

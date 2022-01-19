@@ -155,13 +155,13 @@ class TestSourceFactoryTests(unittest.TestCase):
     @patch_dbus_get_proxy_with_cache
     def test_create_proxy_harddrive(self, proxy_getter):
         proxy = self._check_create_proxy(SOURCE_TYPE_HDD, "hd:/dev/sda2:/path/to/iso.iso")
-        proxy.SetPartition.assert_called_once_with("/dev/sda2")
-        proxy.SetDirectory.assert_called_once_with("/path/to/iso.iso")
+        assert proxy.Partition == "/dev/sda2"
+        assert proxy.Directory == "/path/to/iso.iso"
 
     @patch_dbus_get_proxy_with_cache
     def test_create_proxy_nfs(self, proxy_getter):
         proxy = self._check_create_proxy(SOURCE_TYPE_NFS, "nfs:server.com:/path/to/install_tree")
-        proxy.SetURL.assert_called_once_with("nfs:server.com:/path/to/install_tree")
+        assert proxy.URL == "nfs:server.com:/path/to/install_tree"
 
     @patch_dbus_get_proxy_with_cache
     def test_create_proxy_url(self, proxy_getter):
@@ -171,9 +171,8 @@ class TestSourceFactoryTests(unittest.TestCase):
         repo_configuration.type = URL_TYPE_BASEURL
         repo_configuration.url = "http://server.example.com/test"
 
-        proxy.SetRepoConfiguration.assert_called_once_with(
+        assert proxy.RepoConfiguration ==  \
             RepoConfigurationData.to_structure(repo_configuration)
-        )
 
     @patch_dbus_get_proxy_with_cache
     def test_create_proxy_file(self, proxy_getter):
@@ -183,9 +182,8 @@ class TestSourceFactoryTests(unittest.TestCase):
         repo_configuration.type = URL_TYPE_BASEURL
         repo_configuration.url = "file:///root/extremely_secret_file.txt"
 
-        proxy.SetRepoConfiguration.assert_called_once_with(
+        assert proxy.RepoConfiguration == \
             RepoConfigurationData.to_structure(repo_configuration)
-        )
 
     @patch_dbus_get_proxy_with_cache
     def test_create_proxy_hmc(self, proxy_getter):

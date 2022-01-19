@@ -63,8 +63,8 @@ class Language():
         return f'dbus-send --print-reply --bus="{bus_address}" \
             --dest={LOCALIZATION_INTERFACE} \
             {LOCALIZATION_OBJECT_PATH} \
-            {LOCALIZATION_INTERFACE}.SetLanguage \
-            string:"{value}"'
+            org.freedesktop.DBus.Properties.Set \
+            string:"{LOCALIZATION_INTERFACE}" string:"Language" variant:string:"{value}"'
 
     def dbus_get_language_cmd(self, bus_address):
         return f'dbus-send --print-reply --bus="{bus_address}" \

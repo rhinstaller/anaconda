@@ -84,7 +84,7 @@ def set_source(payload_proxy, source_proxy):
     :param source_proxy: a DBus proxy of a source
     """
     object_path = get_object_path(source_proxy)
-    payload_proxy.SetSources([object_path])
+    payload_proxy.Sources = [object_path]
 
 
 def get_source(payload_proxy, default_source_type=None):

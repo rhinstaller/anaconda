@@ -42,7 +42,7 @@ class RPMOSTreePayload(MigratedDBusPayload):
 
         sources = self.proxy.Sources
         sources.append(get_object_path(flatpak_source))
-        self.proxy.SetSources(sources)
+        self.proxy.Sources = sources
 
     @property
     def type(self):

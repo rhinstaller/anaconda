@@ -61,7 +61,7 @@ class NFSSourceInterfaceTestCase(unittest.TestCase):
 
     def test_description(self):
         """Test NFS source description."""
-        self.interface.SetURL("nfs:server:/path")
+        self.interface.URL = "nfs:server:/path"
         assert "NFS server nfs:server:/path" == self.interface.Description
 
     def test_url_empty_properties(self):

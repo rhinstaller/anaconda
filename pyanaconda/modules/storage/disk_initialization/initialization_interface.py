@@ -47,8 +47,9 @@ class DiskInitializationInterface(KickstartModuleInterfaceTemplate):
         """The initialization mode."""
         return self.implementation.initialization_mode.value
 
+    @InitializationMode.setter
     @emits_properties_changed
-    def SetInitializationMode(self, mode: Int):
+    def InitializationMode(self, mode: Int):
         """Set the initialization mode.
 
         Allowed values:
@@ -67,8 +68,9 @@ class DiskInitializationInterface(KickstartModuleInterfaceTemplate):
         """The list of devices to clear."""
         return self.implementation.devices_to_clear
 
+    @DevicesToClear.setter
     @emits_properties_changed
-    def SetDevicesToClear(self, devices: List[Str]):
+    def DevicesToClear(self, devices: List[Str]):
         """Set the list of devices to clear.
 
         :param devices: a list of device names
@@ -80,8 +82,9 @@ class DiskInitializationInterface(KickstartModuleInterfaceTemplate):
         """The list of drives to clear."""
         return self.implementation.drives_to_clear
 
+    @DrivesToClear.setter
     @emits_properties_changed
-    def SetDrivesToClear(self, drives: List[Str]):
+    def DrivesToClear(self, drives: List[Str]):
         """Set the list of drives to clear.
 
         :param drives: a list of drive names
@@ -93,8 +96,9 @@ class DiskInitializationInterface(KickstartModuleInterfaceTemplate):
         """The default disk label."""
         return self.implementation.default_disk_label
 
+    @DefaultDiskLabel.setter
     @emits_properties_changed
-    def SetDefaultDiskLabel(self, label: Str):
+    def DefaultDiskLabel(self, label: Str):
         """Set the default disk label to use.
 
         :param label: a disk label
@@ -106,8 +110,9 @@ class DiskInitializationInterface(KickstartModuleInterfaceTemplate):
         """Can be disks whose formatting is unrecognized initialized?"""
         return self.implementation.format_unrecognized_enabled
 
+    @FormatUnrecognizedEnabled.setter
     @emits_properties_changed
-    def SetFormatUnrecognizedEnabled(self, value: Bool):
+    def FormatUnrecognizedEnabled(self, value: Bool):
         """Can be disks whose formatting is unrecognized initialized?
 
         This will destroy all of the contents of disks with invalid partition tables
@@ -124,8 +129,9 @@ class DiskInitializationInterface(KickstartModuleInterfaceTemplate):
         """Can be the disk label initialized to the default for your architecture?"""
         return self.implementation.initialize_labels_enabled
 
+    @InitializeLabelsEnabled.setter
     @emits_properties_changed
-    def SetInitializeLabelsEnabled(self, value: Bool):
+    def InitializeLabelsEnabled(self, value: Bool):
         """Can be the disk label initialized to the default for your architecture?
 
         :param value: True if allowed, otherwise False
@@ -137,8 +143,9 @@ class DiskInitializationInterface(KickstartModuleInterfaceTemplate):
         """Can be LDL DASDs formatted to CDL format?"""
         return self.implementation.format_ldl_enabled
 
+    @FormatLDLEnabled.setter
     @emits_properties_changed
-    def SetFormatLDLEnabled(self, value: Bool):
+    def FormatLDLEnabled(self, value: Bool):
         """Can be LDL DASDs formatted to CDL format?
 
         Allow to reformat any LDL DASDs to CDL format.

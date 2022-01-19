@@ -274,8 +274,8 @@ class StorageSpoke(NormalTUISpoke):
                         threadMgr.wait(THREAD_STORAGE)
 
                         # Allow to format DASDs.
-                        self._disk_init_module.SetFormatUnrecognizedEnabled(True)
-                        self._disk_init_module.SetFormatLDLEnabled(True)
+                        self._disk_init_module.FormatUnrecognizedEnabled = True
+                        self._disk_init_module.FormatLDLEnabled = True
 
                         # Get selected disks.
                         disks = filter_disks_by_names(self._available_disks, self._selected_disks)
@@ -379,7 +379,7 @@ class StorageSpoke(NormalTUISpoke):
         self._partitioning.SetPassphrase(passphrase)
 
     def apply(self):
-        self._bootloader_module.SetPreferredLocation(BOOTLOADER_LOCATION_MBR)
+        self._bootloader_module.PreferredLocation = BOOTLOADER_LOCATION_MBR
         apply_disk_selection(self._selected_disks, reset_boot_drive=True)
 
     def execute(self):
@@ -527,10 +527,9 @@ class PartTypeSpoke(NormalTUISpoke):
         # True. In the case of ks installs which may not have defined any
         # partition options, autopart was never set to True, causing some
         # issues. (rhbz#1001061)
-        self._disk_init_proxy.SetInitializationMode(self._init_mode)
-        self._disk_init_proxy.SetInitializeLabelsEnabled(
+        self._disk_init_proxy.InitializationMode = self._init_mode
+        self._disk_init_proxy.InitializeLabelsEnabled = \
             self._part_method == PARTITIONING_METHOD_AUTOMATIC
-        )
 
         if self._orig_part_method != self._part_method:
             self._partitioning = create_partitioning(self._part_method)
@@ -639,9 +638,8 @@ class PartitionSchemeSpoke(NormalTUISpoke):
 
     def apply(self):
         """ Apply our selections. """
-        self._partitioning.SetRequest(
+        self._partitioning.Request = \
             PartitioningRequest.to_structure(self._request)
-        )
 
 
 class MountPointAssignSpoke(NormalTUISpoke):
@@ -708,9 +706,8 @@ class MountPointAssignSpoke(NormalTUISpoke):
 
                 mount_points.append(request)
 
-        self._partitioning.SetRequests(
+        self._partitioning.Requests = \
             MountPointRequest.to_structure_list(mount_points)
-        )
 
     def _gather_requests(self):
         """Gather info about mount points."""
@@ -762,7 +759,7 @@ class MountPointAssignSpoke(NormalTUISpoke):
         reset_storage(scan_all=True)
 
         # Forget the mount point requests.
-        self._partitioning.SetRequests([])
+        self._partitioning.Requests = []
         self._requests = self._gather_requests()
 
 

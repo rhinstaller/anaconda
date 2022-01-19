@@ -204,9 +204,8 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     def apply(self):
         # update the NTP server list in kickstart
-        self._timezone_module.SetTimeSources(
+        self._timezone_module.TimeSources = \
             TimeSourceData.to_structure_list(self._ntp_servers)
-        )
 
 
 class TimeZoneSpoke(NormalTUISpoke):
@@ -304,8 +303,8 @@ class TimeZoneSpoke(NormalTUISpoke):
         return prompt
 
     def apply(self):
-        self._timezone_module.SetTimezone(self._selection)
-        self._timezone_module.SetKickstarted(False)
+        self._timezone_module.Timezone = self._selection
+        self._timezone_module.Kickstarted = False
 
 
 class NTPServersSpoke(NormalTUISpoke):

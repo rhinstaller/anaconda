@@ -154,9 +154,9 @@ def check_dbus_property(interface_id, interface, property_name,
 
     # Set the property.
     if not setter:
-        setter = getattr(interface, "Set{}".format(property_name))
-
-    setter(in_value)
+        setattr(interface, property_name, in_value)
+    else:
+        setter(in_value)
 
     if not changed:
         changed = {property_name: out_value}

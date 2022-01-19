@@ -20,6 +20,7 @@
 from abc import ABCMeta
 
 from dasbus.server.interface import dbus_interface
+from dasbus.server.property import emits_properties_changed
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base.base_template import ModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD
@@ -58,7 +59,9 @@ class PayloadBaseInterface(ModuleInterfaceTemplate, metaclass=ABCMeta):
             self.implementation.sources
         )
 
-    def SetSources(self, sources: List[ObjPath]):
+    @Sources.setter
+    @emits_properties_changed
+    def Sources(self, sources: List[ObjPath]):
         """Attach list of sources to this payload.
 
         Before setting the sources, please make sure the sources are not initialized otherwise
