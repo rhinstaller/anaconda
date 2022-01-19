@@ -387,14 +387,14 @@ class DNFInterfaceTestCase(unittest.TestCase):
     def test_supported_sources(self):
         """Test DNF supported sources API."""
         assert [SOURCE_TYPE_CDROM,
-             SOURCE_TYPE_HDD,
-             SOURCE_TYPE_HMC,
-             SOURCE_TYPE_NFS,
-             SOURCE_TYPE_REPO_FILES,
-             SOURCE_TYPE_RPM_MOUNT,
-             SOURCE_TYPE_CLOSEST_MIRROR,
-             SOURCE_TYPE_CDN,
-             SOURCE_TYPE_URL] == \
+                SOURCE_TYPE_HDD,
+                SOURCE_TYPE_HMC,
+                SOURCE_TYPE_NFS,
+                SOURCE_TYPE_REPO_FILES,
+                SOURCE_TYPE_RPM_MOUNT,
+                SOURCE_TYPE_CLOSEST_MIRROR,
+                SOURCE_TYPE_CDN,
+                SOURCE_TYPE_URL] == \
             self.interface.SupportedSourceTypes
 
     def _check_dbus_property(self, *args, **kwargs):
