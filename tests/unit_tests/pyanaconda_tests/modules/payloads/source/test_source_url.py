@@ -251,6 +251,7 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
     def test_set_raw_repo_configuration_properties(self):
         data = {
             "name": get_variant(Str, "RRRRRRRRRRrrrrrrrr!"),
+            'enabled': get_variant(Bool, True),
             "url": get_variant(Str, "http://NaNaNaNaNaNa/Batmaaan"),
             "type": get_variant(Str, URL_TYPE_METALINK),
             "ssl-verification-enabled": get_variant(Bool, True),

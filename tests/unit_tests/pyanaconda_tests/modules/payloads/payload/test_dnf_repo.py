@@ -21,7 +21,7 @@ from textwrap import dedent
 import pytest
 from pyanaconda.core.kickstart.specification import KickstartSpecificationHandler, \
     KickstartSpecificationParser
-from pyanaconda.kickstart import AnacondaKickstartSpecification
+from pyanaconda.kickstart import AnacondaKickstartSpecification, RepoData
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.kickstart import convert_ks_repo_to_repo_data, \
     convert_repo_data_to_ks_repo
@@ -174,3 +174,19 @@ class RepoConfigurationTestCase(unittest.TestCase):
         repo --name="test" --baseurl=http://url --install
         """
         self._test_kickstart(ks_in, ks_out)
+
+    def test_convert_repo_enabled(self):
+        """Test the conversion of the enabled attribute."""
+        ks_repo = RepoData()
+        repo_data = convert_ks_repo_to_repo_data(ks_repo)
+        assert repo_data.enabled is True
+
+        ks_repo = convert_repo_data_to_ks_repo(repo_data)
+        assert ks_repo.enabled is True
+
+        ks_repo.enabled = False
+        repo_data = convert_ks_repo_to_repo_data(ks_repo)
+        assert repo_data.enabled is False
+
+        ks_repo = convert_repo_data_to_ks_repo(repo_data)
+        assert ks_repo.enabled is False

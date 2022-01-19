@@ -983,6 +983,30 @@ class DNFManagerReposTestCase(unittest.TestCase):
             "excludepkgs = ",
         ])
 
+    def test_add_repository_enabled(self):
+        """Test the add_repository method with enabled repo."""
+        data = RepoConfigurationData()
+        data.name = "r1"
+        data.enabled = True
+
+        self.dnf_manager.add_repository(data)
+
+        self._check_repo("r1", [
+            "enabled = 1",
+        ])
+
+    def test_add_repository_disabled(self):
+        """Test the add_repository method with disabled repo."""
+        data = RepoConfigurationData()
+        data.name = "r1"
+        data.enabled = False
+
+        self.dnf_manager.add_repository(data)
+
+        self._check_repo("r1", [
+            "enabled = 0",
+        ])
+
     def test_add_repository_baseurl(self):
         """Test the add_repository method with baseurl."""
         data = RepoConfigurationData()

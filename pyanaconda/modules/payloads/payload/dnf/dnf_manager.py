@@ -772,6 +772,10 @@ class DNFManager(object):
         """
         repo = dnf.repo.Repo(data.name, self._base.conf)
 
+        # Disable the repo if requested.
+        if not data.enabled:
+            repo.disable()
+
         # Set up the repo location.
         url = self.substitute(data.url)
 
