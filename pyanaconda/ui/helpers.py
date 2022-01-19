@@ -59,6 +59,7 @@ from abc import ABCMeta, abstractmethod
 from pyanaconda.core import constants
 from pyanaconda.core.payload import create_nfs_url
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.modules.payloads.constants import DRACUT_REPO_DIR
 from pyanaconda.ui.lib.payload import create_source, set_source, tear_down_sources
 from pyanaconda.ui.lib.storage import mark_protected_device, unmark_protected_device
 
@@ -159,6 +160,15 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
         hmc_source_proxy = create_source(constants.SOURCE_TYPE_HMC)
 
         set_source(self.payload.proxy, hmc_source_proxy)
+
+    def set_source_rpm_mount_from_boot(self):
+        """ Switch to the rpm mount install source """
+        self._tear_down_existing_source()
+
+        rpm_mount_source_proxy = create_source(constants.SOURCE_TYPE_RPM_MOUNT)
+        rpm_mount_source_proxy.SetPath(DRACUT_REPO_DIR)
+
+        set_source(self.payload.proxy, rpm_mount_source_proxy)
 
     def set_source_closest_mirror(self):
         """ Switch to the closest mirror install source """

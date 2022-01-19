@@ -29,7 +29,7 @@ from urllib.parse import urlsplit
 from pyanaconda.core import glib, constants
 from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, SOURCE_TYPE_HDD, SOURCE_TYPE_URL, \
     SOURCE_TYPE_CDROM, SOURCE_TYPE_NFS, SOURCE_TYPE_HMC, URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, \
-    URL_TYPE_METALINK, SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN
+    URL_TYPE_METALINK, SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN, SOURCE_TYPE_RPM_MOUNT
 from pyanaconda.core.process_watchers import PidWatcher
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, N_, CN_
@@ -479,6 +479,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
                 return False
 
             self.set_source_cdrom()
+        elif self._autodetect_from_boot_button.get_active():
+            if source_type == SOURCE_TYPE_RPM_MOUNT:
+                return False
+            self.set_source_rpm_mount_from_boot()
         elif self._hmc_button.get_active():
             if source_type == SOURCE_TYPE_HMC:
                 return False
@@ -704,6 +708,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self._autodetect_box = self.builder.get_object("autodetectBox")
         self._autodetect_device_label = self.builder.get_object("autodetectDeviceLabel")
         self._autodetect_label = self.builder.get_object("autodetectLabel")
+        self._autodetect_from_boot_button = self.builder.get_object("fromBootRadioButton")
         self._cdn_button = self.builder.get_object("cdnRadioButton")
         self._hmc_button = self.builder.get_object("hmcRadioButton")
         self._iso_button = self.builder.get_object("isoRadioButton")
@@ -775,6 +780,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         # want to let me pass in user data.
         # See also: https://bugzilla.gnome.org/show_bug.cgi?id=727919
         self._autodetect_button.connect("toggled", self.on_source_toggled, self._autodetect_box)
+        self._autodetect_from_boot_button.connect("toggled", self.on_source_toggled, None)
         self._cdn_button.connect("toggled", self.on_source_toggled, None)
         self._hmc_button.connect("toggled", self.on_source_toggled, None)
         self._iso_button.connect("toggled", self.on_source_toggled, self._iso_box)
@@ -874,11 +880,14 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         # Otherwise, check to see if there's anything available.
         if source_type == SOURCE_TYPE_CDROM:
             self._cdrom = source_proxy.DeviceName
+        elif source_type == SOURCE_TYPE_RPM_MOUNT:
+            gtk_call_once(self._autodetect_from_boot_button.set_no_show_all, False)
         elif not flags.automatedInstall:
             self._cdrom = find_optical_install_media()
 
         if self._cdrom:
             self._show_autodetect_box_with_device(self._cdrom)
+
 
         if source_type == SOURCE_TYPE_HDD:
             self._current_iso_file = source_proxy.GetIsoPath() or None
@@ -1037,6 +1046,11 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
                 self._autodetect_button.set_active(True)
             else:
                 self._network_button.set_active(True)
+        elif source_type == SOURCE_TYPE_RPM_MOUNT:
+            if not self._autodetect_from_boot_button.get_no_show_all():
+                self._autodetect_from_boot_button.set_active(True)
+            else:
+                self._network_button.set_active(True)
         elif source_type == SOURCE_TYPE_CLOSEST_MIRROR:
             self._network_button.set_active(True)
         else:
@@ -1062,6 +1076,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         # already, but the ones that are not selected need a signal in order
         # to disable the related box.
         self._on_source_toggled(self._autodetect_button, self._autodetect_box)
+        self._on_source_toggled(self._autodetect_from_boot_button, None)
         self._on_source_toggled(self._hmc_button, None)
         self._on_source_toggled(self._iso_button, self._iso_box)
         self._on_source_toggled(self._network_button, self._network_box)
