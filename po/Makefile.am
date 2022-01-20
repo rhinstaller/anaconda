@@ -205,7 +205,7 @@ extra.pot: $(POTFILE_EXTRA)
 	$(GETTEXT_V_EXTRACT)$(XGETTEXT) $(XGETTEXT_OPTIONS) -o $@ $(POTFILE_EXTRA)
 
 $(POTFILE): main_js.pot main.pot extra.pot
-	$(AM_V_GEN)$(MSGCAT) -o $@ --use-first main.pot main_js.pot extra.pot
+	$(AM_V_GEN)$(MSGCAT) -o $@ main.pot main_js.pot extra.pot
 
 # Force a rebuild of the .pot file. Useful if something got removed, for
 # example.
