@@ -76,3 +76,21 @@ connect to the test VMs by typing `ssh test-updates`::
         Hostname 127.0.0.2
         Port 22000
         User root
+
+Cockpit's CI
+------------
+
+WebUI tests when running in CI they use Cockpit's infrastructure.
+For information on the internals of Cockpit's CI see
+`cockpituous documentation <https://github.com/cockpit-project/cockpituous/tree/main/tasks#readme>`_.
+
+
+Running tests in a toolbox
+--------------------------
+
+Cockpit's CI container can be used for local development with
+`toolbox <https://github.com/containers/toolbox>`_, to get an "official"
+development environment that's independent from the host::
+
+    toolbox create --image quay.io/cockpit/tasks -c cockpit
+    toolbox enter cockpit
