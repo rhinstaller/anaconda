@@ -1519,7 +1519,7 @@ class StorageTasksTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.storage.installation.conf")
     def test_write_configuration(self, patched_conf, dbus):
         """Test WriteConfigurationTask."""
-        storage = Mock(devices=[])
+        storage = Mock(devices=[], devicetree=Mock(_hidden=[]))
 
         with tempfile.TemporaryDirectory() as d:
             patched_conf.target.system_root = d
