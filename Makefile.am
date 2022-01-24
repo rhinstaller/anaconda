@@ -150,6 +150,7 @@ scratch:
 	if [ "$(TEST_BUILD)" == "true" ]; then \
 		sed -ri '/AC_INIT/ s/\[[0-9.]+\]/[999999999]/' $(srcdir)/configure.ac; \
 	fi
+	$(MAKE) po-pull
 	$(MAKE) ARCHIVE_TAG=HEAD dist
 
 scratch-bumpver:
