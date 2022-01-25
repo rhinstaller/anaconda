@@ -6,7 +6,7 @@ License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
 
 # This should should only be set for development purposes for the time
-%global use_cockpit 1
+%global use_cockpit 0
 
 # To generate Source0 do:
 # git clone https://github.com/rhinstaller/anaconda
