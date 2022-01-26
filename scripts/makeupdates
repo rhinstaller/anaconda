@@ -181,6 +181,10 @@ def copy_updated_files(tag, updates, cwd, builddir):
         finally:
             shutil.rmtree(tmpdir)
 
+    # Copy the Web UI support.
+    if os.path.exists('ui/webui/dist'):
+        install_to_dir("ui/webui/dist", "usr/share/cockpit/anaconda-webui")
+
     try:
         lines = do_git_diff(tag)
     except RuntimeError as e:
@@ -229,8 +233,6 @@ def copy_updated_files(tag, updates, cwd, builddir):
         elif gitfile.startswith('pyanaconda/'):
             dirname = os.path.join(SITE_PACKAGES_PATH, os.path.dirname(gitfile))
             install_to_dir(gitfile, dirname)
-        elif gitfile.startswith('ui/webui'):
-            install_to_dir("ui/webui/dist", "usr/share/cockpit/anaconda-webui")
         elif gitfile == 'anaconda.py':
             # Install it as /usr/sbin/anaconda
             if not os.path.isdir(os.path.join(updates, "usr/sbin")):
