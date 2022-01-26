@@ -63,6 +63,7 @@ def convert_ks_repo_to_repo_data(ks_data):
     repo_data.cost = ks_data.cost or DNF_DEFAULT_REPO_COST
     repo_data.included_packages = ks_data.includepkgs
     repo_data.excluded_packages = ks_data.excludepkgs
+    repo_data.installation_enabled = ks_data.install
 
     repo_data.ssl_verification_enabled = not ks_data.noverifyssl
     repo_data.ssl_configuration.ca_cert_path = ks_data.sslcacert or ""
@@ -103,6 +104,7 @@ def convert_repo_data_to_ks_repo(repo_data):
 
     ks_data.includepkgs = repo_data.included_packages
     ks_data.excludepkgs = repo_data.excluded_packages
+    ks_data.install = repo_data.installation_enabled
 
     return ks_data
 

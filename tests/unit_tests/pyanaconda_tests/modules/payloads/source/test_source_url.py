@@ -267,7 +267,8 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
             ]),
             "included-packages": get_variant(List[Str], [
                 "Batman", "Robin", "Alfred", "Batgirl"
-            ])
+            ]),
+            "installation-enabled": get_variant(Bool, False),
         }
 
         self._check_dbus_property(
