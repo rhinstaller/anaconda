@@ -14,28 +14,28 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
-import cockpit from 'cockpit';
-import React, { useEffect, useState } from 'react';
+import cockpit from "cockpit";
+import React, { useEffect, useState } from "react";
 
 import {
     Page,
-} from '@patternfly/react-core';
+} from "@patternfly/react-core";
 
-import { InstallationLanguage } from './InstallationLanguage.jsx';
-import { Summary } from './Summary.jsx';
-import { AddressContext } from './Common.jsx';
+import { InstallationLanguage } from "./InstallationLanguage.jsx";
+import { Summary } from "./Summary.jsx";
+import { AddressContext } from "./Common.jsx";
 
-import { usePageLocation } from 'hooks';
+import { usePageLocation } from "hooks";
 
 export const Application = () => {
     const [address, setAddress] = useState();
     const { path } = usePageLocation();
 
-    useEffect(() => cockpit.file('/run/anaconda/bus.address').watch(setAddress), []);
+    useEffect(() => cockpit.file("/run/anaconda/bus.address").watch(setAddress), []);
 
     return (
         <Page>
-            {!path.length > 0 && <InstallationLanguage onSelectLang={() => cockpit.location.go(['summary'])} />}
+            {!path.length > 0 && <InstallationLanguage onSelectLang={() => cockpit.location.go(["summary"])} />}
             {path.length > 0 &&
             <AddressContext.Provider value={address}>
                 <Summary />

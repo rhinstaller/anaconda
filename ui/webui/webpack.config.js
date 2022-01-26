@@ -33,7 +33,7 @@ const plugins = [
     new copy({ patterns: copy_files }),
     new extract({filename: "[name].css"}),
     new ESLintPlugin({ extensions: ["js", "jsx"] }),
-    new CockpitPoPlugin(),
+    new CockpitPoPlugin({ reference_patterns: ["ui/webui/src/.*"] }),
     new CockpitRsyncPlugin({ dest: packageJson.name }),
 ];
 

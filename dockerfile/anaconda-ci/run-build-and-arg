@@ -8,7 +8,6 @@ rm -rf test-logs
 
 ./autogen.sh
 ./configure
-make
 
 # always copy the results back to the host
 copy_logs() {

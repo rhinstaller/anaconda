@@ -115,11 +115,12 @@ po-pull:
 	TEMP_DIR=$$(mktemp --tmpdir -d anaconda-localization-XXXXXXXXXX) && \
 	git clone --depth 1 -b $(GIT_L10N_BRANCH) -- $(L10N_REPOSITORY) $$TEMP_DIR && \
 	cp $$TEMP_DIR/$(L10N_DIR)/*.po $(srcdir)/po/ && \
-	rm -rf $$TEMP_DIR
+	rm -rf $$TEMP_DIR && \
+	find $(srcdir)/po -type f -exec sed -ri '/^\"Plural-Forms:/ s/;(\\n")$$/\1/' {} +
 
 pot:
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update
-	rm $(srcdir)/po/{main,extra}.pot
+	rm $(srcdir)/po/{main,main_js,extra}.pot
 
 pot-update-check: pot
 # This check is used by github action for auto update of pot file
@@ -149,6 +150,7 @@ scratch:
 	if [ "$(TEST_BUILD)" == "true" ]; then \
 		sed -ri '/AC_INIT/ s/\[[0-9.]+\]/[999999999]/' $(srcdir)/configure.ac; \
 	fi
+	$(MAKE) po-pull
 	$(MAKE) ARCHIVE_TAG=HEAD dist
 
 scratch-bumpver:

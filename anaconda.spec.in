@@ -411,6 +411,7 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_datadir}/cockpit/anaconda-webui/index.css.gz
 %{_datadir}/cockpit/anaconda-webui/manifest.json
 %{_datadir}/metainfo/org.cockpit-project.anaconda-webui.metainfo.xml
+%{_datadir}/cockpit/anaconda-webui/po.*.js.gz
 
 %endif
 
