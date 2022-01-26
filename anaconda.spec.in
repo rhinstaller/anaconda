@@ -342,6 +342,11 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 # If no langs found, keep going
 %find_lang %{name} || :
 
+%if ! %use_cockpit
+    rm -rf %{buildroot}/%{_datadir}/cockpit/anaconda-webui
+    rm -f %{buildroot}/%{_datadir}/metainfo/org.cockpit-project.anaconda-webui.metainfo.xml
+%endif
+
 
 # main package and install-env-deps are metapackages
 %files
