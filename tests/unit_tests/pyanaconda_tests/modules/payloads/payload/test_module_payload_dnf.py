@@ -497,6 +497,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
     def _generate_expected_repo_configuration_dict(mount_path):
         return {
             "name": get_variant(Str, ""),
+            "enabled": get_variant(Bool, True),
             "url": get_variant(Str, mount_path),
             "type": get_variant(Str, URL_TYPE_BASEURL),
             "ssl-verification-enabled": get_variant(Bool, True),
@@ -584,6 +585,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
 
         expected = [{
             "name": get_variant(Str, "Bernard Black"),
+            "enabled": get_variant(Bool, True),
             "url": get_variant(Str, "http://library.uk"),
             "type": get_variant(Str, URL_TYPE_BASEURL),
             "ssl-verification-enabled": get_variant(Bool, False),

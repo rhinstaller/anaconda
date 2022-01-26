@@ -75,6 +75,7 @@ class RepoConfigurationData(DBusData):
 
     def __init__(self):
         self._name = ""
+        self._enabled = True
         self._url = ""
         self._type = URL_TYPE_BASEURL
         self._ssl_verification_enabled = True
@@ -110,6 +111,18 @@ class RepoConfigurationData(DBusData):
     @name.setter
     def name(self, name: Str):
         self._name = name
+
+    @property
+    def enabled(self) -> Bool:
+        """Is the repository enabled?
+
+        :return: True or False
+        """
+        return self._enabled
+
+    @enabled.setter
+    def enabled(self, value):
+        self._enabled = value
 
     @property
     def url(self) -> Str:

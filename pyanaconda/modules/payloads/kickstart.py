@@ -19,6 +19,7 @@
 #
 from pyanaconda.core.constants import URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, URL_TYPE_METALINK, \
     DNF_DEFAULT_REPO_COST
+from pyanaconda.kickstart import RepoData
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pykickstart.errors import KickstartParseError
 from pykickstart.parser import Packages, Group
@@ -36,11 +37,12 @@ def convert_ks_repo_to_repo_data(ks_data):
     :param RepoData ks_data: a kickstart data
     :return RepoConfigurationData: a repo configuration
     """
-    if not isinstance(ks_data, COMMANDS.RepoData):
+    if not isinstance(ks_data, RepoData):
         raise ValueError("Unexpected kickstart data: {}".format(type(ks_data)))
 
     repo_data = RepoConfigurationData()
     repo_data.name = ks_data.name
+    repo_data.enabled = ks_data.enabled
 
     if ks_data.baseurl:
         repo_data.url = ks_data.baseurl
@@ -79,8 +81,9 @@ def convert_repo_data_to_ks_repo(repo_data):
     if not isinstance(repo_data, RepoConfigurationData):
         raise ValueError("Unexpected data: {}".format(type(repo_data)))
 
-    ks_data = COMMANDS.RepoData()
+    ks_data = RepoData()
     ks_data.name = repo_data.name
+    ks_data.enabled = repo_data.enabled
 
     if repo_data.type == URL_TYPE_BASEURL:
         ks_data.baseurl = repo_data.url

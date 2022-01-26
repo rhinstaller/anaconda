@@ -362,21 +362,21 @@ class DNFPayload(Payload):
         data = convert_ks_repo_to_repo_data(ksrepo)
         enabled = ksrepo.enabled
 
-        # Add the repository.
-        if not self._is_existing_repo_configuration(data):
+        # An existing repository can be only enabled or disabled.
+        if self._is_existing_repo_configuration(data):
+            self._dnf_manager.set_repository_enabled(data.name, enabled)
+            return
 
-            # Set up the NFS source with a substituted URL.
-            if data.url.startswith("nfs://"):
-                url = self._dnf_manager.substitute(data.url)
-                (server, path) = url[6:].split(":", 1)
-                mountpoint = "%s/%s.nfs" % (constants.MOUNT_DIR, data.name)
-                self._setup_NFS(mountpoint, server, path, None)
-                data.url = "file://" + mountpoint
+        # Set up the NFS source with a substituted URL.
+        if data.url.startswith("nfs://"):
+            url = self._dnf_manager.substitute(data.url)
+            (server, path) = url[6:].split(":", 1)
+            mountpoint = "%s/%s.nfs" % (constants.MOUNT_DIR, data.name)
+            self._setup_NFS(mountpoint, server, path, None)
+            data.url = "file://" + mountpoint
 
-            self._dnf_manager.add_repository(data)
-
-        # Enable or disable the repository.
-        self._dnf_manager.set_repository_enabled(data.name, enabled)
+        # Add a new repository.
+        self._dnf_manager.add_repository(data)
 
     def _is_existing_repo_configuration(self, data):
         """Is it a configuration of an existing repository?
