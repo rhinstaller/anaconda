@@ -33,7 +33,8 @@ from pyanaconda.modules.common.constants.services import TIMEZONE
 from pyanaconda.modules.common.errors.installation import TimezoneConfigurationError
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.common.structures.timezone import TimeSourceData
-from pyanaconda.modules.timezone.installation import ConfigureNTPTask, ConfigureTimezoneTask
+from pyanaconda.modules.timezone.installation import ConfigureHardwareClockTask, \
+    ConfigureNTPTask, ConfigureTimezoneTask
 from pyanaconda.modules.common.structures.kickstart import KickstartReport
 from pyanaconda.modules.timezone.timezone import TimezoneService
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
@@ -251,18 +252,22 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
     def test_install_with_tasks_default(self, publisher):
         """Test install tasks - module in default state."""
         task_classes = [
+            ConfigureHardwareClockTask,
             ConfigureTimezoneTask,
             ConfigureNTPTask,
         ]
         task_paths = self.timezone_interface.InstallWithTasks()
         task_objs = check_task_creation_list(task_paths, publisher, task_classes)
 
-        # ConfigureTimezoneTask
+        # ConfigureHardwareClockTask
         obj = task_objs[0]
+        assert obj.implementation._is_utc is False
+        # ConfigureTimezoneTask
+        obj = task_objs[1]
         assert obj.implementation._timezone == "America/New_York"
         assert obj.implementation._is_utc is False
         # ConfigureNTPTask
-        obj = task_objs[1]
+        obj = task_objs[2]
         assert obj.implementation._ntp_enabled is True
         assert obj.implementation._ntp_servers == []
 
@@ -290,19 +295,24 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         )
 
         task_classes = [
+            ConfigureHardwareClockTask,
             ConfigureTimezoneTask,
             ConfigureNTPTask,
         ]
         task_paths = self.timezone_interface.InstallWithTasks()
         task_objs = check_task_creation_list(task_paths, publisher, task_classes)
 
-        # ConfigureTimezoneTask
+        # ConfigureHardwareClockTask
         obj = task_objs[0]
+        assert obj.implementation._is_utc is True
+
+        # ConfigureTimezoneTask
+        obj = task_objs[1]
         assert obj.implementation._timezone == "Asia/Tokyo"
         assert obj.implementation._is_utc is True
 
         # ConfigureNTPTask
-        obj = task_objs[1]
+        obj = task_objs[2]
         assert obj.implementation._ntp_enabled is False
         assert len(obj.implementation._ntp_servers) == 2
         assert compare_data(obj.implementation._ntp_servers[0], server)
@@ -587,3 +597,52 @@ class NTPTasksTestCase(unittest.TestCase):
 
         elif not was_present:
             assert not os.path.exists(sysroot + NTP_CONFIG_FILE)
+
+
+class TimezoneHardwareClockTasksTestCase(unittest.TestCase):
+    """Test the D-Bus Timezone Hardware Clock task."""
+
+    @patch("pyanaconda.modules.timezone.installation.util.execWithRedirect")
+    @patch('pyanaconda.modules.timezone.installation.arch.is_s390', return_value=True)
+    def test_hwclock_config_task_s390(self, mock_is_s390, mock_exec_with_redirect):
+        """Test that save_hw_clock does nothing on s390."""
+        self._execute_task(False)
+        # expected state: calling it only once in the check for architecture
+        mock_is_s390.assert_called_once()
+        mock_exec_with_redirect.assert_not_called()
+
+    @patch("pyanaconda.modules.timezone.installation.util.execWithRedirect")
+    def test_hwclock_config_task_disabled(self, mock_exec_with_redirect):
+        """Test the Hardware clock configuration task - can't setup hardware clock"""
+        with patch("pyanaconda.modules.timezone.installation.conf") as mock_conf:
+            mock_conf.system.can_set_hardware_clock = False
+            self._execute_task(True)
+            mock_exec_with_redirect.assert_not_called()
+
+    @patch("pyanaconda.modules.timezone.installation.util.execWithRedirect")
+    def test_hwclock_config_task_local(self, mock_exec_with_redirect):
+        """Test the Hardware clock configuration task - local"""
+        with patch("pyanaconda.modules.timezone.installation.conf") as mock_conf:
+            mock_conf.system.can_set_hardware_clock = True
+            self._execute_task(False)
+            mock_exec_with_redirect.assert_called_once_with(
+                'hwclock',
+                ['--systohc', '--local']
+            )
+
+    @patch("pyanaconda.modules.timezone.installation.util.execWithRedirect")
+    def test_hwclock_config_task_utc(self, mock_exec_with_redirect):
+        """Test the Hardware clock configuration task - utc"""
+        with patch("pyanaconda.modules.timezone.installation.conf") as mock_conf:
+            mock_conf.system.can_set_hardware_clock = True
+            self._execute_task(True)
+            mock_exec_with_redirect.assert_called_once_with(
+                'hwclock',
+                ['--systohc', '--utc']
+            )
+
+    def _execute_task(self, is_utc):
+        task = ConfigureHardwareClockTask(
+            is_utc=is_utc
+        )
+        task.run()
