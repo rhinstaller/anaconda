@@ -47,9 +47,6 @@ class URLSourceModule(PayloadSourceBase, RPMSourceMixin):
 
         self._repo_configuration.name = self._url_source_name
 
-        self._install_repo_enabled = False
-        self.install_repo_enabled_changed = Signal()
-
     def __repr__(self):
         return "Source(type='URL', url='{}')".format(self._repo_configuration.url)
 
@@ -192,21 +189,3 @@ class URLSourceModule(PayloadSourceBase, RPMSourceMixin):
     def _validate_url(self, url_type):
         if url_type not in URL_TYPES:
             raise InvalidValueError("Invalid source type set '{}'".format(url_type))
-
-    @property
-    def install_repo_enabled(self):
-        """Get if this repository will be installed to the resulting system.
-
-        :rtype: bool
-        """
-        return self._install_repo_enabled
-
-    def set_install_repo_enabled(self, install_repo_enabled):
-        """Set if this repository will be installed to the resulting system.
-
-        :param install_repo_enabled: True if we want to have this repository installed
-        :type install_repo_enabled: bool
-        """
-        self._install_repo_enabled = install_repo_enabled
-        self.install_repo_enabled_changed.emit(self._install_repo_enabled)
-        log.debug("The install_repo_enabled has changed %s", install_repo_enabled)

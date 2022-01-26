@@ -33,7 +33,6 @@ class URLSourceInterface(PayloadSourceBaseInterface):
     def connect_signals(self):
         super().connect_signals()
         self.watch_property("RepoConfiguration", self.implementation.repo_configuration_changed)
-        self.watch_property("InstallRepoEnabled", self.implementation.install_repo_enabled_changed)
 
     @property
     def RepoConfiguration(self) -> Structure:
@@ -55,13 +54,3 @@ class URLSourceInterface(PayloadSourceBaseInterface):
         self.implementation.set_repo_configuration(
             RepoConfigurationData.from_structure(repo_configuration)
         )
-
-    @property
-    def InstallRepoEnabled(self) -> Bool:
-        """Get if the repository should be installed to the target system."""
-        return self.implementation.install_repo_enabled
-
-    @emits_properties_changed
-    def SetInstallRepoEnabled(self, install_repo_enabled: Bool):
-        """Set if the repository should be installed to the target system."""
-        self.implementation.set_install_repo_enabled(install_repo_enabled)
