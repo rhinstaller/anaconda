@@ -247,8 +247,6 @@ Push new localization directory. This will be automatically discovered and added
 How to branch Anaconda
 ----------------------
 
-FIXME: This does not reflect latest changes required by containers for CI and tests.
-
 First make sure that localization branch for the next Fedora is already created.
 
 Create the ``-devel`` branch:
@@ -273,7 +271,7 @@ Switch to f<version>-release branch for Fedora specific settings:
 
    git checkout f<version>-release
 
-Edit branch specific settings. This have to be done on f<version>-release branch only:
+Edit branch specific settings:
 
 ::
 
@@ -283,7 +281,8 @@ And change content according to comments in the file.
 
 
 Then correct pykickstart version for the new Fedora release by changing all occurrences of
-the DEVEL constant imported from pykickstart for the F<version> constant, for example:
+the DEVEL constant imported from pykickstart for the F<version> constant.
+This has to be done on f<version>-release branch only. For example:
 
 ::
 
@@ -294,7 +293,6 @@ to
 ::
 
     from pykickstart.version import F29 as VERSION
-
 
 Pykickstart generally does not do per Fedora version branches, so this needs to be done
 in the Fedora version specific branch on Anaconda side.
@@ -309,6 +307,26 @@ Check if everything is correctly set:
 
    make check-branching
 
+Next adjust the f<version>-devel branch:
+
+::
+
+   git checkout f<version>-devel
+
+Edit branch specific settings:
+
+::
+
+   vim ./branch-config.mk
+
+And change content according to comments in the file.
+
+The ``branch-config.mk`` adjustments of f<version>-devel are needed to make
+our CI work correctly for PRs opened on the branch.
+
+The Pykickstart related changes are not needed for the CI to work, so they are only on r<version>-release.
+
+NOTE: These changes will propagate to the master branch first time the f<version>-devel branch is merged back to master. To avoid these causing issues, revert the commit making these changes on the master branch. And longer term we need to do this in a more robust manner. Possibly like `Cockpit CI <https://github.com/cockpit-project/bots/blob/main/lib/testmap.py>`_ with a separate table of values of per project branches ?
 
 If everything works correctly you can push the branches to the origin (``-u`` makes sure to setup tracking) :
 
