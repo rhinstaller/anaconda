@@ -244,6 +244,26 @@ Push new localization directory. This will be automatically discovered and added
 
    git push origin
 
+Enable Cockpit CI for the new branch
+-------------------------------------------
+
+Anaconda is using the Cockpit CI infrastructure to run Web UI test. Cockpit CI tests are triggered
+automatically for for all `listed <https://github.com/cockpit-project/bots/blob/main/lib/testmap.py>`_ projects and per-project branches. To enable Cockpit CI in automatic mode for the new Fedora branch, our new f<version>-devel branch needs to be added under the 'rhinstaller/anaconda' key in the file. The end result could look like this:
+
+::
+    'rhinstaller/anaconda': {
+        'master': [
+            'fedora-35/rawhide',
+        ],
+        'f36-devel': [
+            'fedora-36',
+        ],
+        '_manual': [
+        ]
+    },
+
+Just fork the repo `cockpit-project repo <https://github.com/cockpit-project/bots>`_ and submit the change to ``lib/testmap.py`` as a PR. In case something is not clear (such as what are the valid target strings - fedora-35/rawhide, fedora-36, etc.) reach out to the #cockpit IRC channel on libera.chat.
+
 How to branch Anaconda
 ----------------------
 
