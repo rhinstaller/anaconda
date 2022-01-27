@@ -73,6 +73,7 @@ def get_language_id(locale):
     return langtable.parse_locale(locale).language
 
 
+@functools.cache
 def get_common_languages():
     """Return common languages to prioritize them"""
     return langtable.list_common_languages()

@@ -22,10 +22,13 @@ import langtable
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
+from pyanaconda.localization import get_available_translations, get_common_languages, \
+    get_english_name, get_language_locales, get_language_id, get_native_name
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.requirement import Requirement
+from pyanaconda.modules.common.structures.language import LanguageData, LocaleData
 from pyanaconda.modules.localization.localization_interface import LocalizationInterface
 from pyanaconda.modules.localization.kickstart import LocalizationKickstartSpecification
 from pyanaconda.modules.localization.installation import LanguageInstallationTask, \
@@ -105,6 +108,52 @@ class LocalizationService(KickstartService):
         data.keyboard.vc_keymap = self.vc_keymap
         data.keyboard.x_layouts = self.x_layouts
         data.keyboard.switch_options = self.switch_options
+
+    def get_languages(self):
+        """Get languages with available translations.
+
+        For example: ["en", "cs"]
+
+        :return: a list of language ids
+        """
+        return get_available_translations()
+
+    def get_language_data(self, language_id):
+        """Get data about the specified language.
+
+        :param: a language id (for example, "en")
+        :return: a language data
+        """
+        tdata = LanguageData()
+        tdata.english_name = get_english_name(language_id)
+        tdata.is_common = language_id in get_common_languages()
+        tdata.language_id = language_id
+        tdata.native_name = get_native_name(language_id)
+
+        return tdata
+
+    def get_locales(self, language_id):
+        """Get locales available for the specified language.
+
+        For example: ["de_DE.UTF-8", "de_AT.UTF-8", ... ]
+
+        :return: a list of locale ids
+        """
+        return get_language_locales(language_id)
+
+    def get_locale_data(self, locale_id):
+        """Get data about the specified locale.
+
+        :param: a locale id (for example, "en_US.UTF-8")
+        :return: a locale data
+        """
+        tdata = LocaleData()
+        tdata.english_name = get_english_name(locale_id)
+        tdata.language_id = get_language_id(locale_id)
+        tdata.locale_id = locale_id
+        tdata.native_name = get_native_name(locale_id)
+
+        return tdata
 
     @property
     def language(self):
