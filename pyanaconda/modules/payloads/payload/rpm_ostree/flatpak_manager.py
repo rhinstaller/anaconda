@@ -27,7 +27,6 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.core.glib import GError, VariantType, Variant, Bytes
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
-from pyanaconda.progress import progressQ
 
 gi.require_version("Flatpak", "1.0")
 gi.require_version("Gio", "2.0")
@@ -47,7 +46,7 @@ class FlatpakManager(object):
     LOCAL_REMOTE_NAME = "Anaconda"
     LOCAL_REMOTE_PATH = "file:///flatpak/repo"
 
-    def __init__(self, sysroot):
+    def __init__(self, sysroot, callback=None):
         """Create and initialize this class.
 
         This flatpak implementation works on a repository stored in the stage2 image specifically
@@ -55,13 +54,13 @@ class FlatpakManager(object):
         This is a temporal solution for SilverBlue use-case. It will be extended as full featured
         payload in the future.
 
-        :param sysroot: path to the system root
-        :type sysroot: str
+        :param str sysroot: path to the system root
+        :param function callback: a progress reporting callback
         """
         self._sysroot = sysroot
         self._remote_refs_list = None
-
         self._transaction = None
+        self._callback = callback
 
     def initialize_with_system_path(self):
         """Create flatpak objects and set them to install to the result system.
@@ -202,8 +201,7 @@ class FlatpakManager(object):
         :type progress: Flatpak.TransactionProgress instance
         """
         self._log_operation(operation, "started")
-        progressQ.send_message(_("Installing %(flatpak_name)s") %
-                               {"flatpak_name": operation.get_ref()})
+        self._report_progress(_("Installing {}").format(operation.get_ref()))
 
     def _operation_stopped_callback(self, transaction, operation, commit, result):
         """Existing operation ended.
@@ -234,8 +232,16 @@ class FlatpakManager(object):
         log.error("Flatpak installation failed with message: '%s' -- error is fatal %s",
                   error.message, details == TransactionErrorDetails.FATAL)
 
+    def _report_progress(self, message):
+        """Report a progress message."""
+        if not self._callback:
+            return
+
+        self._callback(message)
+
     @staticmethod
     def _log_operation(operation, state):
+        """Log a Flatpak operation."""
         operation_type_str = TransactionOperationType.to_string(operation.get_operation_type())
         log.debug("Flatpak operation: %s of ref %s state %s",
                   operation_type_str, operation.get_ref(), state)

@@ -39,7 +39,11 @@ class InstallFlatpaksTask(Task):
 
     def run(self):
         self.report_progress(_("Installing Flatpak applications"))
-        flatpak_manager = FlatpakManager(self._sysroot)
+
+        flatpak_manager = FlatpakManager(
+            sysroot=self._sysroot,
+            callback=self.report_progress
+        )
 
         # Initialize new repo on the installed system
         flatpak_manager.initialize_with_system_path()
