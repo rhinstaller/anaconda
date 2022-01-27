@@ -124,7 +124,7 @@ times during one boot. This can be specified in a few different ways:
     this ISO. The path to the additional repositories will be then
     `/run/install/source/REPO_ISO_PATH`. Another solution can be to mount this repo
     directory in the `%pre` section in the kickstart file.
-    NOTE: The path must be absolute and start with `/` so the final url starts
+    NOTE: The path must be absolute and start with `/` so the file url starts
     with `file:///...`.
 
 ``inst.addrepo=REPO_NAME,hd:<device>:<path>``
@@ -215,10 +215,16 @@ inst.ks
 Give the location of a kickstart file to be used to automate the install.
 Locations may be specified using any of the formats allowed for `inst.repo`_.
 
-For any format the ``<path>`` component defaults to ``/ks.cfg`` if it is omitted.
 
-For NFS kickstarts, if the ``<path>`` ends in ``/``, ``<ip>-kickstart`` is added.
+``inst.ks=file://<path>/<filename>``
+    For any format the ``<path>`` component defaults to ``/ks.cfg`` if it is omitted.
+    
+    NOTE: The path must be absolute and start with `/` so the file url starts
+    with `file:///...`.
 
+``inst.ks=nfs:<next_server>:<path>/<filename>````
+    For NFS kickstarts, if the ``<path>`` ends in ``/``, ``<ip>-kickstart`` is added.
+ 
 If ``inst.ks`` is used without a value, the installer will look for
 ``nfs:<next_server>:/<filename>``
 
