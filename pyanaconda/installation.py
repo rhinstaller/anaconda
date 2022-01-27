@@ -370,6 +370,12 @@ def run_installation(payload, ksdata):
     # FIXME: This is a temporary workaround.
     payload._progress_cb = lambda step, msg: progress_message(msg)
 
+    # Set the progress reporting callback of the DBus tasks.
+    # FIXME: This is a temporary workaround.
+    for item in queue.nested_items:
+        if isinstance(item, DBusTask):
+            item._progress_cb = lambda step, msg: progress_message(msg)
+
     # notify progress tracking about the number of steps
     progress_init(queue.task_count)
 
