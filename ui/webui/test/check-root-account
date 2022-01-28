@@ -57,6 +57,7 @@ class TestRootAccount(MachineCase):
         b.open("/cockpit/@localhost/anaconda-webui/index.html")
 
         b.click('#continue-btn')
+        b.expect_load()
         b.click('#root-account')
 
         # Read IsRootAccountLocked property from the DBUS API

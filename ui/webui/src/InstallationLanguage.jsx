@@ -15,7 +15,7 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import cockpit from "cockpit";
 
 import {
@@ -27,44 +27,53 @@ import {
     TextInput, Title,
 } from "@patternfly/react-core";
 
+import { AddressContext } from "./Common.jsx";
+
+import { useEvent, useObject } from "hooks";
+
 import "./InstallationLanguage.scss";
 
 const _ = cockpit.gettext;
 
-// Use this untill we can use the API to get the language listings
-const menuItems = {
-    english: {
-        label: "English",
-        subgroup: {
-            enUS: {
-                label: "United States"
-            },
-            enUK: {
-                label: "United Kingdom"
-            }
-        }
-    },
-    de: {
-        label: "Deutsch",
-        subgroup: {
-            deDE: {
-                label: "Deutschland"
-            },
-            deLU: {
-                label: "Luxemburg"
-            }
-        }
-    }
-};
-
-const LanguageSelector = ({ defaultLang, onSelectLang }) => {
-    const [activeItem, setActiveItem] = useState(defaultLang);
+const LanguageSelector = ({ onSelectLang }) => {
+    const [activeItem, setActiveItem] = useState();
     const [activeMenu, setActiveMenu] = useState("languageMenu");
     const [drilldownPath, setDrilldownPath] = useState([]);
     const [filterText, setFilterText] = useState("");
     const [menuDrilledIn, setMenuDrilledIn] = useState([]);
-    const [menuHeights, setMenuHeights] = useState([]);
-    const [selectedItem, setSelectedItem] = useState(defaultLang);
+    const [selectedItem, setSelectedItem] = useState();
+    const [languages, setLanguages] = useState([]);
+    const [locales, setLocales] = useState({});
+    const address = useContext(AddressContext);
+
+    const localizationProxy = useObject(() => {
+        const client = cockpit.dbus("org.fedoraproject.Anaconda.Modules.Localization", { superuser: "try", bus: "none", address });
+        const proxy = client.proxy(
+            "org.fedoraproject.Anaconda.Modules.Localization",
+            "/org/fedoraproject/Anaconda/Modules/Localization",
+        );
+
+        return proxy;
+    }, null, [address]);
+
+    useEvent(localizationProxy, "changed", (event, data) => {
+        localizationProxy.GetLanguages().then(languages => {
+            // Create the languages state object
+            Promise.all(languages.map(lang => localizationProxy.GetLanguageData(lang))).then(setLanguages);
+
+            // Create the locales state object
+            Promise.all(languages.map(lang => localizationProxy.GetLocales(lang))).then(res => {
+                return Promise.all(
+                    res.map((langLocales) => {
+                        return Promise.all(langLocales.map(locale => localizationProxy.GetLocaleData(locale)));
+                    })
+                );
+            })
+                    .then(res => {
+                        setLocales(res.reduce((a, v) => ({ ...a, [v[0]["language-id"].v]: v }), {}));
+                    });
+        });
+    });
 
     const handleDrillIn = (fromMenuId, toMenuId, pathId) => {
         setMenuDrilledIn([...menuDrilledIn, fromMenuId]);
@@ -79,14 +88,6 @@ const LanguageSelector = ({ defaultLang, onSelectLang }) => {
         setDrilldownPath(pathSansLast);
         setActiveItem(toMenuId);
     };
-    const handleSetHeight = (menuId, height) => {
-        if (!menuHeights[menuId]) {
-            setMenuHeights({
-                ...menuHeights,
-                [menuId]: height
-            });
-        }
-    };
     const handleOnSelect = (event, itemId) => {
         if (Object.keys(menuItems).includes(itemId)) {
             return;
@@ -96,9 +97,25 @@ const LanguageSelector = ({ defaultLang, onSelectLang }) => {
         setActiveItem(itemId);
         setSelectedItem(itemId);
     };
-    const getNestedItemLabel = (groupLabel, itemLabel) => {
-        return groupLabel + " (" + itemLabel + ")";
+    const getNestedItemLabel = (itemLabel) => {
+        return itemLabel;
     };
+
+    if (languages.length !== Object.keys(locales).length) {
+        return null;
+    }
+
+    const menuItems = {};
+    languages.forEach(lang => {
+        menuItems[lang["language-id"].v] = {
+            label: cockpit.format("$0 ($1)", lang["english-name"].v, lang["native-name"].v),
+            subgroup: Object.fromEntries(
+                locales[lang["language-id"].v].map(locale => [locale["locale-id"].v, {
+                    label: locale["native-name"].v,
+                }])
+            ),
+        };
+    });
 
     return (
         <Menu
@@ -113,7 +130,6 @@ const LanguageSelector = ({ defaultLang, onSelectLang }) => {
           selected={selectedItem}
           onDrillIn={handleDrillIn}
           onDrillOut={handleDrillOut}
-          onGetMenuHeight={handleSetHeight}
         >
             <MenuInput>
                 <TextInput
@@ -125,16 +141,17 @@ const LanguageSelector = ({ defaultLang, onSelectLang }) => {
                 />
             </MenuInput>
             <Divider />
-            <MenuContent menuHeight={`${menuHeights[activeMenu]}px`}>
+            <MenuContent>
                 <MenuList>
                     {Object.keys(menuItems)
-                            .filter(groupKey => !filterText || drilldownPath.length || menuItems[groupKey].label.toLowerCase().includes(filterText.toLowerCase()))
+                            .filter((groupKey, index) => !filterText || drilldownPath.length || menuItems[groupKey].label.toLowerCase().includes(filterText.toLowerCase()))
                             .map(groupKey => {
                                 const group = menuItems[groupKey];
                                 const groupLabel = group.label;
 
                                 return (
                                     <MenuItem
+                                      id={groupKey}
                                       itemId={groupKey}
                                       key={groupKey}
                                       direction="down"
@@ -145,23 +162,22 @@ const LanguageSelector = ({ defaultLang, onSelectLang }) => {
                                               </MenuItem>
                                               <Divider component="li" />
                                               {Object.keys(menuItems[groupKey].subgroup)
-                                                      .filter(itemKey => {
+                                                      .filter((itemKey, index) => {
                                                           return (
                                                               !filterText || !drilldownPath.length ||
-                                                              getNestedItemLabel(groupLabel, group.subgroup[itemKey].label).toLowerCase()
+                                                              getNestedItemLabel(group.subgroup[itemKey].label).toLowerCase()
                                                                       .includes(filterText.toLowerCase())
                                                           );
                                                       })
                                                       .map(itemKey => {
                                                           return (
-                                                              <MenuItem itemId={itemKey} key={itemKey}>
-                                                                  {getNestedItemLabel(groupLabel, group.subgroup[itemKey].label)}
+                                                              <MenuItem id={itemKey.split(".UTF-8")[0]} itemId={itemKey} key={itemKey}>
+                                                                  {getNestedItemLabel(group.subgroup[itemKey].label)}
                                                               </MenuItem>
                                                           );
                                                       })}
                                           </DrilldownMenu>
-                                      }
-                                    >
+                                      }>
                                         {groupLabel}
                                     </MenuItem>
                                 );
@@ -173,9 +189,24 @@ const LanguageSelector = ({ defaultLang, onSelectLang }) => {
 };
 
 export const InstallationLanguage = ({ onSelectLang }) => {
-    const [lang, setLang] = useState("enUS");
+    const [lang, setLang] = useState("en-us");
 
-    const handleOnContinue = () => onSelectLang(lang);
+    const handleOnContinue = () => {
+        if (!lang) {
+            return;
+        }
+
+        /*
+         * FIXME: Anaconda API returns en_US, de_DE etc, cockpit expects en-us, de-de etc
+         * Make sure to check if this is generalized enough to keep so.
+         */
+        const cockpitLang = lang.split(".UTF-8")[0].replace(/_/g, "-").toLowerCase();
+        const cookie = "CockpitLang=" + encodeURIComponent(cockpitLang) + "; path=/; expires=Sun, 16 Jul 3567 06:23:41 GMT";
+        document.cookie = cookie;
+        window.localStorage.setItem("cockpit.lang", cockpitLang);
+        cockpit.location.go(["summary"]);
+        window.location.reload(true);
+    };
 
     return (
         <PageSection>
@@ -184,7 +215,7 @@ export const InstallationLanguage = ({ onSelectLang }) => {
                     WELCOME TO FEDORA...
                 </Title>
                 <FormGroup label={_("What language would you like to use during the installation process?")}>
-                    <LanguageSelector defaultLang="enUS" onSelectLang={setLang} />
+                    <LanguageSelector onSelectLang={setLang} />
                 </FormGroup>
                 <ActionGroup>
                     <Button id="continue-btn" variant="primary" onClick={handleOnContinue}>{_("Continue")}</Button>

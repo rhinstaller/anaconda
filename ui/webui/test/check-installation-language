@@ -24,26 +24,33 @@ sys.path.append(os.path.join(TEST_DIR, "common"))
 sys.path.append(os.path.join(os.path.dirname(TEST_DIR), "bots/machine"))
 
 from testlib import MachineCase, nondestructive, test_main  # pylint: disable=import-error
-from machine_install import VirtInstallMachine
 
 @nondestructive
-class TestBasic(MachineCase):
-    MachineCase.machine_class = VirtInstallMachine
+class TestLanguage(MachineCase):
 
-    def testHelp(self):
+    def testLanguageSwitching(self):
         b = self.browser
 
         b.open("/cockpit/@localhost/anaconda-webui/index.html")
 
-        b.click('#continue-btn')
-        b.expect_load()
+        # Expect the default language - this is en at this point - adjust the test when better guess is implemented
+        b.wait_in_text("button.pf-m-link", "Quit")
 
-        for page in ['keyboard', 'language', 'timedate', 'installation-source', 'software-selection', 'installation-destination', 'network-hostname', 'root-account', 'user-account']:
-            b.click("#" + page)
-            b.wait_js_cond(f'window.location.hash === "#/{page}"')
-            b.click('#help-btn-' + page)
-            b.click('#header-done-btn')
-            # TODO replace alert with some real help popup and check the content here
+        b.wait_in_text("#de", "German (Deutsch)")
+        b.click("#de > button")
+        b.wait_in_text("#de_DE", "Deutsch (Deutschland)")
+        b.click("#de_DE > button")
+
+        b.click("#continue-btn")
+
+        b.expect_load()
+        if b.cdp.browser.name == "chromium":
+            # HACK: work around language switching in Chrome not working in current session (issue #8160)
+            b.reload(ignore_cache=True)
+
+        b.wait_in_text("#user-account", "Benutzererstellung")
+
+        # TODO: Add checks for translated plurals
 
 if __name__ == '__main__':
     test_main()

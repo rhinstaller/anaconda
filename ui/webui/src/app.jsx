@@ -35,7 +35,9 @@ export const Application = () => {
 
     return (
         <Page>
-            {!path.length > 0 && <InstallationLanguage onSelectLang={() => cockpit.location.go(["summary"])} />}
+            <AddressContext.Provider value={address}>
+                {!path.length > 0 && <InstallationLanguage />}
+            </AddressContext.Provider>
             {path.length > 0 &&
             <AddressContext.Provider value={address}>
                 <Summary />
