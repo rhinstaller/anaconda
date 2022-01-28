@@ -31,8 +31,7 @@ from pyanaconda.modules.common.errors.installation import PayloadInstallationErr
 gi.require_version("Flatpak", "1.0")
 gi.require_version("Gio", "2.0")
 
-from gi.repository.Flatpak import Transaction, Installation, Remote, \
-    TransactionOperationType, TransactionErrorDetails
+from gi.repository.Flatpak import Transaction, Installation, Remote, TransactionOperationType
 from gi.repository.Gio import File
 
 log = get_module_logger(__name__)
@@ -229,8 +228,7 @@ class FlatpakManager(object):
         :type details: int value of Flatpak.TransactionErrorDetails
         """
         self._log_operation(operation, "failed")
-        log.error("Flatpak installation failed with message: '%s' -- error is fatal %s",
-                  error.message, details == TransactionErrorDetails.FATAL)
+        log.error("Flatpak operation has failed with a message: '%s'", error.message)
 
     def _report_progress(self, message):
         """Report a progress message."""
