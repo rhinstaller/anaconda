@@ -28,12 +28,14 @@ from pyanaconda.modules.common.errors.installation import NonCriticalInstallatio
     PayloadInstallationError
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData, \
     PackagesSelectionData
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, MissingSpecsError, \
     BrokenSpecsError, InvalidSelectionError
 from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
     SetRPMMacrosTask, DownloadPackagesTask, InstallPackagesTask, PrepareDownloadLocationTask, \
-    CleanUpDownloadLocationTask, ResolvePackagesTask, UpdateDNFConfigurationTask
+    CleanUpDownloadLocationTask, ResolvePackagesTask, UpdateDNFConfigurationTask, \
+    WriteRepositoriesTask
 
 
 class SetRPMMacrosTaskTestCase(unittest.TestCase):
@@ -490,4 +492,171 @@ class UpdateDNFConfigurationTaskTestCase(unittest.TestCase):
                     "--setopt=multilib_policy=all",
                 ],
                 root=sysroot
+            )
+
+
+class WriteRepositoriesTaskTestCase(unittest.TestCase):
+    """Test the WriteRepositoriesTask task."""
+
+    def _run_task(self, sysroot, repositories):
+        """Run the task."""
+        dnf_manager = DNFManager()
+        task = WriteRepositoriesTask(
+            sysroot=sysroot,
+            dnf_manager=dnf_manager,
+            repositories=repositories
+        )
+        task.run()
+
+    def _check_files(self, sysroot, file_names):
+        """Check existence of the generated repo files."""
+        path = join_paths(sysroot, "etc/yum.repos.d/")
+
+        if not file_names:
+            assert not os.path.exists(path)
+        else:
+            assert sorted(os.listdir(path)) == file_names
+
+    def _check_content(self, sysroot, file_name, file_content):
+        """Check the content of the generated repo file."""
+        path = join_paths(sysroot, "etc/yum.repos.d/", file_name)
+
+        with open(path, "rt") as f:
+            assert f.read() == file_content
+
+    def test_installation_disabled(self):
+        """Skip repositories that are not allowed."""
+        r1 = RepoConfigurationData()
+        r1.name = "r1"
+        r1.url = "http://repo"
+        r1.installation_enabled = False
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            with self.assertLogs(level="DEBUG") as cm:
+                self._run_task(sysroot, [r1])
+
+            self._check_files(sysroot, [])
+
+        msg = "Installation of the repository is not allowed."
+        assert msg in "\n".join(cm.output)
+
+    def test_missing_name(self):
+        """Skip repositories with a missing name."""
+        r1 = RepoConfigurationData()
+        r1.url = "http://repo"
+        r1.installation_enabled = True
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            with self.assertLogs(level="DEBUG") as cm:
+                self._run_task(sysroot, [r1])
+
+            self._check_files(sysroot, [])
+
+        msg = "The name of the repository is not specified."
+        assert msg in "\n".join(cm.output)
+
+    def test_missing_url(self):
+        """Skip repositories with a missing URL."""
+        r1 = RepoConfigurationData()
+        r1.name = "r1"
+        r1.installation_enabled = True
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            with self.assertLogs(level="DEBUG") as cm:
+                self._run_task(sysroot, [r1])
+
+            self._check_files(sysroot, [])
+
+        msg = "The URL of the repository is not specified."
+        assert msg in "\n".join(cm.output)
+
+    def test_unsupported_protocol(self):
+        """Skip repositories with an unsupported protocol."""
+        r1 = RepoConfigurationData()
+        r1.name = "r1"
+        r1.url = "nfs://server:/repo"
+        r1.installation_enabled = True
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            with self.assertLogs(level="DEBUG") as cm:
+                self._run_task(sysroot, [r1])
+
+            self._check_files(sysroot, [])
+
+        msg = "The repository uses an unsupported protocol."
+        assert msg in "\n".join(cm.output)
+
+    def test_write_repository(self):
+        """Write a repository."""
+        r1 = RepoConfigurationData()
+        r1.name = "r1"
+        r1.url = "http://repo"
+        r1.installation_enabled = True
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            self._run_task(sysroot, [r1])
+            self._check_files(sysroot, [
+                "r1.repo"
+            ])
+            self._check_content(
+                sysroot,
+                "r1.repo",
+                "[r1]\n"
+                "name = r1\n"
+                "enabled = 1\n"
+                "baseurl = http://repo\n"
+            )
+
+    def test_write_multiple_repositories(self):
+        """Write multiple repositories."""
+        r1 = RepoConfigurationData()
+        r1.name = "r1"
+        r1.url = "http://repo/1"
+        r1.installation_enabled = True
+
+        r2 = RepoConfigurationData()
+        r2.name = "r2"
+        r2.url = "https://repo/2"
+        r2.installation_enabled = True
+
+        r3 = RepoConfigurationData()
+        r3.name = "r3"
+        r3.url = "ftp://repo/3"
+        r3.installation_enabled = True
+
+        r4 = RepoConfigurationData()
+        r4.name = "r4"
+        r4.url = "nfs://repo/4"
+        r4.installation_enabled = True
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            self._run_task(sysroot, [r1, r2, r3])
+            self._check_files(sysroot, [
+                "r1.repo",
+                "r2.repo",
+                "r3.repo",
+            ])
+            self._check_content(
+                sysroot,
+                "r1.repo",
+                "[r1]\n"
+                "name = r1\n"
+                "enabled = 1\n"
+                "baseurl = http://repo/1\n"
+            )
+            self._check_content(
+                sysroot,
+                "r2.repo",
+                "[r2]\n"
+                "name = r2\n"
+                "enabled = 1\n"
+                "baseurl = https://repo/2\n"
+            )
+            self._check_content(
+                sysroot,
+                "r3.repo",
+                "[r3]\n"
+                "name = r3\n"
+                "enabled = 1\n"
+                "baseurl = ftp://repo/3\n"
             )

@@ -32,7 +32,8 @@ from pyanaconda.modules.payloads.kickstart import convert_ks_repo_to_repo_data
 from pyanaconda.modules.payloads.payload.dnf.initialization import configure_dnf_logging
 from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
     SetRPMMacrosTask, DownloadPackagesTask, InstallPackagesTask, PrepareDownloadLocationTask, \
-    CleanUpDownloadLocationTask, ResolvePackagesTask, UpdateDNFConfigurationTask
+    CleanUpDownloadLocationTask, ResolvePackagesTask, UpdateDNFConfigurationTask, \
+    WriteRepositoriesTask
 from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_version_list, \
     calculate_required_space
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, DNFManagerError
@@ -45,7 +46,6 @@ from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, \
     SOURCE_TYPE_URL, SOURCE_TYPE_CDROM, URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, \
     URL_TYPE_METALINK, SOURCE_REPO_FILE_TYPES, SOURCE_TYPE_CDN, MULTILIB_POLICY_ALL
 from pyanaconda.core.i18n import _
-from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import RepoData
@@ -63,8 +63,6 @@ from pyanaconda.ui.lib.payload import get_payload, get_source, create_source, se
     set_up_sources, tear_down_sources
 
 __all__ = ["DNFPayload"]
-
-YUM_REPOS_DIR = "/etc/yum.repos.d/"
 
 log = get_packaging_logger()
 
@@ -517,10 +515,6 @@ class DNFPayload(Payload):
 
         # Don't close the mother base here, because we still need it.
 
-    def _get_repo(self, repo_id):
-        """Return the yum repo object."""
-        return self._base.repos[repo_id]
-
     def is_repo_enabled(self, repo_id):
         """Return True if repo is enabled."""
         try:
@@ -913,81 +907,20 @@ class DNFPayload(Payload):
 
         return disabled_repo_names
 
-    def _write_dnf_repo(self, repo, repo_path):
-        """Write a repo object to a DNF repo.conf file.
-
-        :param repo: DNF repository object
-        :param string repo_path: Path to write the repo to
-        :raises: PayloadSetupError if the repo doesn't have a url
-        """
-        with open(repo_path, "w") as f:
-            f.write("[%s]\n" % repo.id)
-            f.write("name=%s\n" % repo.id)
-            if self.is_repo_enabled(repo.id):
-                f.write("enabled=1\n")
-            else:
-                f.write("enabled=0\n")
-
-            if repo.mirrorlist:
-                f.write("mirrorlist=%s\n" % repo.mirrorlist)
-            elif repo.metalink:
-                f.write("metalink=%s\n" % repo.metalink)
-            elif repo.baseurl:
-                f.write("baseurl=%s\n" % repo.baseurl[0])
-            else:
-                f.close()
-                os.unlink(repo_path)
-                raise PayloadSetupError("The repo {} has no baseurl, mirrorlist or "
-                                        "metalink".format(repo.id))
-
-            # kickstart repo modifiers
-            ks_repo = self.get_addon_repo(repo.id)
-            if not ks_repo:
-                return
-
-            if ks_repo.noverifyssl:
-                f.write("sslverify=0\n")
-
-            if ks_repo.proxy:
-                try:
-                    proxy = ProxyString(ks_repo.proxy)
-                    f.write("proxy=%s\n" % proxy.url)
-                except ProxyStringError as e:
-                    log.error("Failed to parse proxy for _writeInstallConfig %s: %s",
-                              ks_repo.proxy, e)
-
-            if ks_repo.cost:
-                f.write("cost=%d\n" % ks_repo.cost)
-
-            if ks_repo.includepkgs:
-                f.write("include=%s\n" % ",".join(ks_repo.includepkgs))
-
-            if ks_repo.excludepkgs:
-                f.write("exclude=%s\n" % ",".join(ks_repo.excludepkgs))
-
     def post_install(self):
         """Perform post-installation tasks."""
         # Write selected kickstart repos to target system
-        for ks_repo in self.data.repo.dataList():
-            if not ks_repo.install:
-                continue
+        repositories = list(map(
+            convert_ks_repo_to_repo_data,
+            self.data.repo.dataList()
+        ))
 
-            if ks_repo.baseurl.startswith("nfs://"):
-                log.info("Skip writing nfs repo %s to target system.", ks_repo.name)
-                continue
-
-            try:
-                repo = self._get_repo(ks_repo.name)
-                if not repo:
-                    continue
-            except (dnf.exceptions.RepoError, KeyError):
-                continue
-            repo_path = conf.target.system_root + YUM_REPOS_DIR + "%s.repo" % repo.id
-            try:
-                log.info("Writing %s.repo to target system.", repo.id)
-                self._write_dnf_repo(repo, repo_path)
-            except PayloadSetupError as e:
-                log.error(e)
+        task = WriteRepositoriesTask(
+            sysroot=conf.target.system_root,
+            dnf_manager=self.dnf_manager,
+            repositories=repositories,
+        )
+        task.run()
 
         # We don't need the mother base anymore. Close it.
         self._base.close()

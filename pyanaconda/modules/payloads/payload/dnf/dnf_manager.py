@@ -34,7 +34,7 @@ from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import DNF_DEFAULT_TIMEOUT, DNF_DEFAULT_RETRIES, URL_TYPE_BASEURL, \
-    URL_TYPE_MIRRORLIST, URL_TYPE_METALINK
+    URL_TYPE_MIRRORLIST, URL_TYPE_METALINK, DNF_DEFAULT_REPO_COST
 from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.util import get_os_release_value
@@ -797,7 +797,7 @@ class DNFManager(object):
             repo.proxy_password = proxy.password or ""
 
         # Set the repo configuration.
-        if data.cost:
+        if data.cost != DNF_DEFAULT_REPO_COST:
             repo.cost = data.cost
 
         if data.included_packages:
@@ -819,6 +819,62 @@ class DNFManager(object):
             repo.sslclientkey = data.ssl_configuration.client_key_path
 
         return repo
+
+    def generate_repo_file(self, data: RepoConfigurationData):
+        """Generate a content of the .repo file.
+
+        The content is generated only from the provided data.
+        We don't check the configuration of the DNF objects.
+
+        :param RepoConfigurationData data: a repo configuration
+        return str: a content of a .repo file
+        """
+        lines = [
+            "[{}]".format(data.name),
+            "name = {}".format(data.name),
+        ]
+
+        if data.enabled:
+            lines.append("enabled = 1")
+        else:
+            lines.append("enabled = 0")
+
+        # Set up the repo location.
+        if data.type == URL_TYPE_BASEURL:
+            lines.append("baseurl = {}".format(data.url))
+
+        if data.type == URL_TYPE_MIRRORLIST:
+            lines.append("mirrorlist = {}".format(data.url))
+
+        if data.type == URL_TYPE_METALINK:
+            lines.append("metalink = {}".format(data.url))
+
+        if not data.ssl_verification_enabled:
+            lines.append("sslverify = 0")
+
+        # Set the proxy configuration.
+        proxy = self._parse_proxy(data.proxy)
+
+        if proxy:
+            lines.append("proxy = {}".format(proxy.noauth_url))
+
+        if proxy and proxy.username:
+            lines.append("proxy_username = {}".format(proxy.username))
+
+        if proxy and proxy.password:
+            lines.append("proxy_password = {}".format(proxy.password))
+
+        # Set the repo configuration.
+        if data.cost != DNF_DEFAULT_REPO_COST:
+            lines.append("cost = {}".format(data.cost))
+
+        if data.included_packages:
+            lines.append("includepkgs = {}".format(", ".join(data.included_packages)))
+
+        if data.excluded_packages:
+            lines.append("excludepkgs = {}".format(", ".join(data.excluded_packages)))
+
+        return "\n".join(lines)
 
     def set_repository_enabled(self, repo_id, enabled):
         """Enable or disable the specified repository.
