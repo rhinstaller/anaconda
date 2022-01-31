@@ -33,7 +33,6 @@ class RepoConfigurationTestCase(unittest.TestCase):
     def setUp(self):
         """Set up the test."""
         self.repositories = []
-        self.installed = set()
 
     def _test_kickstart(self, ks_in, ks_out):
         """Simulate the kickstart test.
@@ -53,10 +52,6 @@ class RepoConfigurationTestCase(unittest.TestCase):
             handler.repo.dataList()
         ))
 
-        self.installed = {
-            r.name for r in handler.repo.dataList() if r.install
-        }
-
         # Verify the DBus data.
         RepoConfigurationData.to_structure_list(self.repositories)
 
@@ -66,7 +61,6 @@ class RepoConfigurationTestCase(unittest.TestCase):
 
         for repo_data in self.repositories:
             ks_repo = convert_repo_data_to_ks_repo(repo_data)
-            ks_repo.install = repo_data.name in self.installed
             handler.repo.dataList().append(ks_repo)
 
         ks_generated = str(handler).strip()

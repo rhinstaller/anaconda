@@ -267,7 +267,8 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
             ]),
             "included-packages": get_variant(List[Str], [
                 "Batman", "Robin", "Alfred", "Batgirl"
-            ])
+            ]),
+            "installation-enabled": get_variant(Bool, False),
         }
 
         self._check_dbus_property(
@@ -287,21 +288,6 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
 
         assert self.url_source_interface.RepoConfiguration == \
             RepoConfigurationData.to_structure(data)
-
-    def test_set_true_install_properties(self):
-        self._check_dbus_property(
-            "InstallRepoEnabled",
-            True
-        )
-
-    def test_set_false_install_properties(self):
-        self._check_dbus_property(
-            "InstallRepoEnabled",
-            False
-        )
-
-    def test_default_install_properties(self):
-        assert self.url_source_interface.InstallRepoEnabled is False
 
 
 class URLSourceTestCase(unittest.TestCase):

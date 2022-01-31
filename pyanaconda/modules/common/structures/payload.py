@@ -84,6 +84,7 @@ class RepoConfigurationData(DBusData):
         self._cost = DNF_DEFAULT_REPO_COST
         self._exclude_packages = []
         self._included_packages = []
+        self._installation_enabled = False
 
     @classmethod
     def from_directory(cls, directory_path):
@@ -228,3 +229,18 @@ class RepoConfigurationData(DBusData):
     @included_packages.setter
     def included_packages(self, included_packages: List[Str]):
         self._included_packages = included_packages
+
+    @property
+    def installation_enabled(self) -> Bool:
+        """Should the repository be installed to the target system?
+
+        The installer will generate a repo file with a configuration
+        of this repository and write it to the target system.
+
+        :return: True or False
+        """
+        return self._installation_enabled
+
+    @installation_enabled.setter
+    def installation_enabled(self, value: Bool):
+        self._installation_enabled = value

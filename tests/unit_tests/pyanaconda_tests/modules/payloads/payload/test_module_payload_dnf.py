@@ -494,11 +494,11 @@ class DNFInterfaceTestCase(unittest.TestCase):
         )
 
     @staticmethod
-    def _generate_expected_repo_configuration_dict(mount_path):
+    def _generate_expected_repo_configuration_dict(url=""):
         return {
             "name": get_variant(Str, ""),
             "enabled": get_variant(Bool, True),
-            "url": get_variant(Str, mount_path),
+            "url": get_variant(Str, url),
             "type": get_variant(Str, URL_TYPE_BASEURL),
             "ssl-verification-enabled": get_variant(Bool, True),
             "ssl-configuration": get_variant(Structure, {
@@ -509,7 +509,8 @@ class DNFInterfaceTestCase(unittest.TestCase):
             "proxy": get_variant(Str, ""),
             "cost": get_variant(Int, 1000),
             "excluded-packages": get_variant(List[Str], []),
-            "included-packages": get_variant(List[Str], [])
+            "included-packages": get_variant(List[Str], []),
+            "installation-enabled": get_variant(Bool, False),
         }
 
     @patch("pyanaconda.modules.payloads.source.cdrom.cdrom.CdromSourceModule.mount_point",
@@ -580,27 +581,17 @@ class DNFInterfaceTestCase(unittest.TestCase):
         data.proxy = "http://MannyBianco/"
 
         source.set_repo_configuration(data)
-
         self.shared_tests.set_sources([source])
 
-        expected = [{
+        expected = self._generate_expected_repo_configuration_dict()
+        expected.update({
             "name": get_variant(Str, "Bernard Black"),
-            "enabled": get_variant(Bool, True),
             "url": get_variant(Str, "http://library.uk"),
-            "type": get_variant(Str, URL_TYPE_BASEURL),
-            "ssl-verification-enabled": get_variant(Bool, False),
-            "ssl-configuration": get_variant(Structure, {
-                "ca-cert-path": get_variant(Str, ""),
-                "client-cert-path": get_variant(Str, ""),
-                "client-key-path": get_variant(Str, "")
-            }),
             "proxy": get_variant(Str, "http://MannyBianco/"),
-            "cost": get_variant(Int, 1000),
-            "excluded-packages": get_variant(List[Str], []),
-            "included-packages": get_variant(List[Str], [])
-        }]
+            "ssl-verification-enabled": get_variant(Bool, False),
+        })
 
-        assert self.interface.GetRepoConfigurations() == expected
+        assert self.interface.GetRepoConfigurations() == [expected]
 
 
 class DNFModuleTestCase(unittest.TestCase):
