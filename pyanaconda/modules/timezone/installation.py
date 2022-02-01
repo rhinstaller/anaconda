@@ -19,7 +19,8 @@ import os
 import os.path
 
 from pyanaconda import ntp
-from pyanaconda.core import service
+from pyanaconda.core import service, util
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.timezone import NTP_SERVICE
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.errors.installation import TimezoneConfigurationError
@@ -28,9 +29,41 @@ from pyanaconda.timezone import is_valid_timezone
 
 from blivet import arch
 
-__all__ = ["ConfigureNTPTask", "ConfigureTimezoneTask"]
+__all__ = ["ConfigureHardwareClockTask", "ConfigureNTPTask", "ConfigureTimezoneTask"]
 
 log = get_module_logger(__name__)
+
+
+class ConfigureHardwareClockTask(Task):
+    """Installation task for setting the Hardware Clock from the System Clock."""
+
+    def __init__(self, is_utc):
+        """Create a new task.
+
+        :param bool is_utc: Indicate which timescale the Hardware Clock is set to
+        """
+        super().__init__()
+        self._is_utc = is_utc
+
+    @property
+    def name(self):
+        return "Set the Hardware Clock from the System Clock"
+
+    def run(self):
+        """Perform the actual work of setting the Hardware Clock from the System Clock."""
+        if arch.is_s390():
+            log.debug("There is not Hardware Clock on s390x.")
+            return
+
+        if conf.system.can_set_hardware_clock:
+            cmd = "hwclock"
+            args = ["--systohc"]
+            if self._is_utc:
+                args.append("--utc")
+            else:
+                args.append("--local")
+
+            util.execWithRedirect(cmd, args)
 
 
 class ConfigureTimezoneTask(Task):
@@ -97,7 +130,7 @@ class ConfigureTimezoneTask(Task):
         :raise: TimezoneConfigurationError
         """
         if arch.is_s390():
-            # there is no HW clock on s390(x)
+            # there is no Hardware clock on s390(x)
             return
 
         try:

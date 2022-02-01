@@ -29,7 +29,6 @@ from pyanaconda.progress import progress_message, progress_step, progress_comple
 from pyanaconda import flags
 from pyanaconda.core import util
 from pyanaconda.core.path import open_with_perm
-from pyanaconda import timezone
 from pyanaconda import network
 from pyanaconda.core.i18n import N_
 from pyanaconda.threading import threadMgr
@@ -233,13 +232,6 @@ def _prepare_installation(payload, ksdata):
     # connect progress reporting
     installation_queue.queue_started.connect(lambda x: progress_message(x.status_message))
     installation_queue.task_completed.connect(lambda x: progress_step(x.name))
-
-    # Save system time to HW clock.
-    # - this used to be before waiting on threads, but I don't think that's needed
-    if conf.system.can_set_hardware_clock:
-        # lets just do this as a top-level task - no
-        save_hwclock = Task("Save system time to HW clock", timezone.save_hw_clock)
-        installation_queue.append(save_hwclock)
 
     # setup the installation environment
     setup_environment = TaskQueue(

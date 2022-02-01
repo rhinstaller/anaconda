@@ -18,7 +18,7 @@
 
 from pyanaconda import timezone, isys
 import unittest
-from unittest.mock import patch, Mock
+from unittest.mock import patch
 import zoneinfo
 
 from freezegun import freeze_time
@@ -52,23 +52,6 @@ class TerritoryTimezones(unittest.TestCase):
         """Check if None is return for an invalid territory."""
 
         assert timezone.get_preferred_timezone("nonexistent") is None
-
-
-class s390HWclock(unittest.TestCase):
-
-    @patch('pyanaconda.timezone.arch.is_s390', return_value=True)
-    @patch('pyanaconda.timezone.util.execWithRedirect')
-    def test_s390_save_hw_clock(self, exec_mock, s390_mock):
-        """Check that save_hw_clock does nothing on s390."""
-        timezone.save_hw_clock(Mock())
-        assert not exec_mock.called
-
-    @patch('pyanaconda.timezone.arch.is_s390', return_value=True)
-    @patch('pyanaconda.timezone.util.execWithRedirect')
-    def test_s390_time_initialize(self, exec_mock, s390_mock):
-        """Check that time_initialize doesn't call hwclock on s390."""
-        timezone.time_initialize(Mock())
-        assert not exec_mock.called
 
 
 class SystemTime(unittest.TestCase):

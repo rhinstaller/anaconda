@@ -30,7 +30,8 @@ from pyanaconda.modules.common.structures.timezone import TimeSourceData
 from pyanaconda.timezone import NTP_PACKAGE
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.requirement import Requirement
-from pyanaconda.modules.timezone.installation import ConfigureNTPTask, ConfigureTimezoneTask
+from pyanaconda.modules.timezone.installation import ConfigureHardwareClockTask, \
+    ConfigureNTPTask, ConfigureTimezoneTask
 from pyanaconda.modules.timezone.kickstart import TimezoneKickstartSpecification
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
 
@@ -201,6 +202,9 @@ class TimezoneService(KickstartService):
         :return: list of installation tasks
         """
         return [
+            ConfigureHardwareClockTask(
+                is_utc=self.is_utc
+            ),
             ConfigureTimezoneTask(
                 sysroot=conf.target.system_root,
                 timezone=self.timezone,

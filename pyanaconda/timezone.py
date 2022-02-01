@@ -31,8 +31,7 @@ from pyanaconda.core import util
 from pyanaconda.core.constants import THREAD_STORAGE
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
-from pyanaconda.modules.common.constants.services import TIMEZONE, STORAGE
-from pyanaconda.modules.common.util import is_module_available
+from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.threading import threadMgr
 from blivet import arch
 
@@ -76,32 +75,6 @@ def time_initialize(timezone_proxy):
         args.append("--utc")
     else:
         args.append("--localtime")
-
-    util.execWithRedirect(cmd, args)
-
-
-def save_hw_clock(timezone_proxy=None):
-    """
-    Save system time to HW clock.
-
-    :param timezone_proxy: DBus proxy of the timezone module
-
-    """
-    if arch.is_s390():
-        return
-
-    if not is_module_available(TIMEZONE):
-        return
-
-    if not timezone_proxy:
-        timezone_proxy = TIMEZONE.get_proxy()
-
-    cmd = "hwclock"
-    args = ["--systohc"]
-    if timezone_proxy.IsUTC:
-        args.append("--utc")
-    else:
-        args.append("--local")
 
     util.execWithRedirect(cmd, args)
 
