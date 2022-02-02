@@ -209,9 +209,21 @@ AC_CONFIG_FILES([Makefile
                  data/pixmaps/Makefile
                  tests/Makefile
                  ui/Makefile
-                 ui/webui/Makefile
                  utils/Makefile
                  utils/dd/Makefile])
+
+### Include Cockpit part to the make execution as optional ###
+# The main reason to have this is to speed up execution of the unit-tests by avoiding npm package download.
+AC_ARG_ENABLE([webui], AS_HELP_STRING([--disable-webui], [Build without the web ui; makes the build much faster]))
+
+# Do not include the ui/webui Makefile to the build process. Everything there will be ignored.
+AS_IF([test "x$enable_webui" != "xno"],
+      [AC_CONFIG_FILES([ui/webui/Makefile])])
+AS_IF([test "x$enable_webui" != "xno"],
+      [AC_SUBST(WEBUI_SUBDIR, "webui")],
+      [AC_SUBST(WEBUI_SUBDIR, "")])
+###
+
 AC_OUTPUT
 
 # Gently advise the user about the build failures they are about to encounter
