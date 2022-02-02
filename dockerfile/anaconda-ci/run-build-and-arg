@@ -7,7 +7,8 @@ cd /tmp/anaconda
 rm -rf test-logs
 
 ./autogen.sh
-./configure
+# Enable us to change autotools configuration by ENV var.
+./configure ${CONFIGURE_ARGS:-}
 
 # always copy the results back to the host
 copy_logs() {
