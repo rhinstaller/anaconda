@@ -15,15 +15,24 @@ To run the WebUI integration tests run the following from the root of the anacon
 
 The tests will automatically download the latest rawhide boot.iso they need, so expect that the initial run may take a couple of minutes.
 
-Alternatively, you can conduct manual testing against a test VM by starting the test VM like this::
 
-    RPM_PATH=/path/to/anaconda/repo/result/build/01-rpm-build/ make vm-run
+Manual testing
+--------------
 
-Note that it's necessary to set the RPM_PATH variable pointing to the directory where the RPM files are.
+You can conduct manual interactive testing against a test image by starting the
+image like so::
 
-Once the machine is running you can connect to it as follows::
+    webui_testvm.py fedora-rawhide
 
-    ssh -p 22000 root@127.0.0.2
+Once the machine is booted and the cockpit socket has been activated, a
+message will be printed describing how to access the virtual machine, via
+ssh and web.  See the "Helpful tips" section below.
+
+
+Guidelines for writing tests
+----------------------------
+
+For information about the @nondestructive decorator and some best practices read `Cockpit's test documentation <https://github.com/cockpit-project/cockpit/tree/main/test/#guidelines-for-writing-tests>`_.
 
 Running tests against existing machines
 ---------------------------------------
@@ -31,16 +40,12 @@ Running tests against existing machines
 Once you have a test machine that contains the version of Anaconda that you want
 to test, you can run tests by picking a program and just executing it against the running machine::
 
-    TEST_ALLOW_NOLOGIN=true test/check-basic --machine=127.0.0.2:22000 --browser 127.0.0.2:9091
+    test/check-basic --machine=127.0.0.2:22000 --browser 127.0.0.2:9091
 
 Test Configuration
 ------------------
 
 You can set these environment variables to configure the test suite::
-
-    TEST_ALLOW_NOLOGIN  This option must be always set.
-                        In the anaconda environment /run/nologin always exists
-                        however cockpit test suite expects it to not exist
 
     TEST_BROWSER  What browser should be used for testing. Currently supported values:
                      "chromium"
@@ -74,7 +79,7 @@ connect to the test VMs by typing `ssh test-updates`::
 
     Host test-updates
         Hostname 127.0.0.2
-        Port 22000
+        Port 2201
         User root
 
 Cockpit's CI

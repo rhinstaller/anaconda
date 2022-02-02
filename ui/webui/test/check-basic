@@ -24,9 +24,11 @@ sys.path.append(os.path.join(TEST_DIR, "common"))
 sys.path.append(os.path.join(os.path.dirname(TEST_DIR), "bots/machine"))
 
 from testlib import MachineCase, nondestructive, test_main  # pylint: disable=import-error
+from machine_install import VirtInstallMachine
 
 @nondestructive
 class TestBasic(MachineCase):
+    MachineCase.machine_class = VirtInstallMachine
 
     def testHelp(self):
         b = self.browser
