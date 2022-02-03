@@ -24,6 +24,7 @@ LABEL maintainer=anaconda-devel@lists.fedoraproject.org
 
 # On ELN, BaseOS+AppStream don't have all our build dependencies; this provides the "Everything" compose
 COPY ["eln.repo", "/etc/yum.repos.d"]
+COPY ["koji.repo", "/etc/yum.repos.d"]
 
 # The anaconda.spec.in is in the repository root. This file will be copied automatically here if
 # the build is invoked by Makefile.
@@ -57,8 +58,6 @@ RUN set -ex; \
   fi; \
   cat /root/anaconda.spec.in | sed 's/@PACKAGE_VERSION@/0/; s/@PACKAGE_RELEASE@/0/; s/%{__python3}/python3/' > /tmp/anaconda.spec; \
   rpmspec -q --buildrequires /tmp/anaconda.spec | xargs -d '\n' dnf install -y; \
-  dnf install -y https://kojipkgs.fedoraproject.org//packages/annobin/10.53/1.fc36/x86_64/annobin-plugin-gcc-10.53-1.fc36.x86_64.rpm \
-                 https://kojipkgs.fedoraproject.org//packages/annobin/10.53/1.fc36/noarch/annobin-docs-10.53-1.fc36.noarch.rpm; \
   dnf clean all; \
   mkdir /anaconda
 
