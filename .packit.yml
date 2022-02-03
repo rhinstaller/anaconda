@@ -14,26 +14,26 @@ jobs:
   - job: propose_downstream
     trigger: release
     metadata:
-      dist_git_branches: fedora-development
+      dist_git_branches: f36
 
   - job: tests
     trigger: pull_request
     metadata:
       targets:
-        - fedora-rawhide
+        - f36
 
   - job: copr_build
     trigger: pull_request
     metadata:
       targets:
-        - fedora-rawhide
+        - f36
 
   - job: copr_build
     trigger: commit
     metadata:
       targets:
-        - fedora-rawhide
-      branch: master
+        - f36
+      branch: f36-devel
       owner: "@rhinstaller"
       project: Anaconda
       preserve_project: True
@@ -43,7 +43,7 @@ jobs:
     metadata:
       targets:
         - fedora-latest
-      branch: f35-devel
+      branch: f36-devel
       owner: "@rhinstaller"
       project: Anaconda-devel
       preserve_project: True
