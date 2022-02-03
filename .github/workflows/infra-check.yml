@@ -6,6 +6,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: write
 
 jobs:
   infra-check:
@@ -42,6 +43,7 @@ jobs:
 
       - name: Check if all changed files are infra related
         run: |
+          set -eu
           changed_files=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }}..HEAD)
           # print for debugging
           echo "----- Changed files -----"
@@ -52,6 +54,7 @@ jobs:
           . .structure-config
 
           failed_check="no"
+          echo -e 'Infrastructure check **failed** on these files. Please do a double check of these files before merge!\n' > ./message.txt
 
           for f in $changed_files; do
             matched="no"
@@ -64,12 +67,14 @@ jobs:
             done
 
             if [ $matched == "no" ]; then
-              echo "$f is not part of the infrastructure"
+              echo "$f" | tee -a ./message.txt
               failed_check="yes"
             fi
 
           done
 
           if [ "$failed_check" == "yes" ]; then
-            exit 1
+            gh pr comment ${{ github.event.pull_request.number }} -F ./message.txt
           fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
