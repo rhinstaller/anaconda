@@ -12,12 +12,12 @@ RUN set -e; \
   dnf update -y; \
   dnf install -y \
   git \
+  python3-polib \
   python3-pip; \
   dnf clean all;
 
 RUN pip3 install --no-cache-dir --upgrade pip; \
     pip3 install --no-cache-dir \
-    polib \
     pocketlint
 
 WORKDIR /anaconda
