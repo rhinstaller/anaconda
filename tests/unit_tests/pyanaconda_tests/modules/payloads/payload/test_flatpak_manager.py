@@ -15,7 +15,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
 import unittest
 import os
 import gi
@@ -26,10 +25,11 @@ from unittest.mock import patch, Mock, call
 from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager import FlatpakManager
 
 gi.require_version("Flatpak", "1.0")
-from gi.repository.Flatpak import RefKind
+from gi.repository.Flatpak import TransactionOperationType
 
 
 class FlatpakTest(unittest.TestCase):
+    """Test the Flatpak manager"""
 
     def setUp(self):
         self._remote = Mock()
@@ -37,10 +37,10 @@ class FlatpakTest(unittest.TestCase):
         self._transaction = Mock()
 
     def _setup_flatpak_objects(self, remote_cls, installation_cls, transaction_cls):
+        """Set up the Flatpak objects."""
         remote_cls.new.return_value = self._remote
         installation_cls.new_for_path.return_value = self._installation
         transaction_cls.new_for_installation.return_value = self._transaction
-
         self._transaction.get_installation.return_value = self._installation
 
     def test_is_available(self):
@@ -66,17 +66,18 @@ class FlatpakTest(unittest.TestCase):
         installation_cls.new_for_path.assert_called_once()
         transaction_cls.new_for_installation.assert_called_once_with(self._installation)
 
-        expected_remote_calls = [call.set_gpg_verify(False),
-                                 call.set_url(flatpak.LOCAL_REMOTE_PATH)]
-        assert self._remote.method_calls == expected_remote_calls
+        assert self._remote.method_calls == [
+            call.set_gpg_verify(False),
+            call.set_url(flatpak.LOCAL_REMOTE_PATH)
+        ]
 
-        expected_remote_calls = [call.add_remote(self._remote, False, None)]
-        assert self._installation.method_calls == expected_remote_calls
+        assert self._installation.method_calls == [
+            call.add_remote(self._remote, False, None)
+        ]
 
     def test_cleanup_call_without_initialize(self):
         """Test the cleanup call without initialize."""
         flatpak = FlatpakManager("/tmp/flatpak-test")
-
         flatpak.cleanup()
 
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager.shutil.rmtree")
@@ -86,7 +87,6 @@ class FlatpakTest(unittest.TestCase):
     def test_cleanup_call_no_repo(self, remote_cls, installation_cls, transaction_cls, rmtree):
         """Test the cleanup call with no repository created."""
         flatpak = FlatpakManager("any path")
-
         self._setup_flatpak_objects(remote_cls, installation_cls, transaction_cls)
 
         file_mock_path = Mock()
@@ -105,7 +105,6 @@ class FlatpakTest(unittest.TestCase):
     def test_cleanup_call_mock_repo(self, remote_cls, installation_cls, transaction_cls, rmtree):
         """Test the cleanup call with mocked repository."""
         flatpak = FlatpakManager("any path")
-
         self._setup_flatpak_objects(remote_cls, installation_cls, transaction_cls)
 
         with TemporaryDirectory() as temp:
@@ -127,20 +126,16 @@ class FlatpakTest(unittest.TestCase):
     def test_get_required_space(self, remote_cls, installation_cls, transaction_cls):
         """Test flatpak required space method."""
         flatpak = FlatpakManager("any path")
-
         self._setup_flatpak_objects(remote_cls, installation_cls, transaction_cls)
 
         flatpak.initialize_with_system_path()
-
         self._installation.list_remote_refs_sync.return_value = [
             RefMock(installed_size=2000),
             RefMock(installed_size=3000),
             RefMock(installed_size=100)
         ]
 
-        installation_size = flatpak.get_required_size()
-
-        assert installation_size == 5100
+        assert flatpak.get_required_size() == 5100
 
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager.Transaction")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager.Installation")
@@ -148,59 +143,149 @@ class FlatpakTest(unittest.TestCase):
     def test_get_empty_refs_required_space(self, remote_cls, installation_cls, transaction_cls):
         """Test flatpak required space method with no refs."""
         flatpak = FlatpakManager("any path")
-
         self._setup_flatpak_objects(remote_cls, installation_cls, transaction_cls)
 
         flatpak.initialize_with_system_path()
-
         self._installation.list_remote_refs_sync.return_value = []
 
-        installation_size = flatpak.get_required_size()
-
-        assert installation_size == 0
+        assert flatpak.get_required_size() == 0
 
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager.Transaction")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager.Installation")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager.Remote")
     def test_install(self, remote_cls, installation_cls, transaction_cls):
         """Test flatpak installation is working."""
-        flatpak = FlatpakManager("remote/path")
+        progress = Mock()
+        flatpak = FlatpakManager(
+            sysroot="remote/path",
+            callback=progress
+        )
 
         self._setup_flatpak_objects(remote_cls, installation_cls, transaction_cls)
-
         flatpak.initialize_with_system_path()
 
-        mock_ref_list = [
-            RefMock(name="org.space.coolapp", kind=RefKind.APP, arch="x86_64", branch="stable"),
-            RefMock(name="com.prop.notcoolapp", kind=RefKind.APP, arch="i386", branch="f36"),
-            RefMock(name="org.space.coolruntime", kind=RefKind.RUNTIME, arch="x86_64",
-                    branch="stable"),
-            RefMock(name="com.prop.notcoolruntime", kind=RefKind.RUNTIME, arch="i386",
-                    branch="f36")
+        self._installation.list_remote_refs_sync.return_value = [
+            RefMock("app/org.space.coolapp/x86_64/stable"),
+            RefMock("app/com.prop.notcoolapp/i386/f36"),
+            RefMock("runtime/org.space.coolruntime/x86_64/stable"),
+            RefMock("runtime/com.prop.notcoolruntime/i386/f36"),
         ]
 
-        self._installation.list_remote_refs_sync.return_value = mock_ref_list
-
         flatpak.install_all()
+        assert self._transaction.mock_calls == [
+            call.connect(
+                "new_operation",
+                flatpak._operation_started_callback
+            ),
+            call.connect(
+                "operation_done",
+                flatpak._operation_stopped_callback
+            ),
+            call.connect(
+                "operation_error",
+                flatpak._operation_error_callback
+            ),
+            call.add_install(
+                FlatpakManager.LOCAL_REMOTE_NAME,
+                "app/org.space.coolapp/x86_64/stable",
+                None
+            ),
+            call.add_install(
+                FlatpakManager.LOCAL_REMOTE_NAME,
+                "app/com.prop.notcoolapp/i386/f36",
+                None
+            ),
+            call.add_install(
+                FlatpakManager.LOCAL_REMOTE_NAME,
+                "runtime/org.space.coolruntime/x86_64/stable",
+                None
+            ),
+            call.add_install(
+                FlatpakManager.LOCAL_REMOTE_NAME,
+                "runtime/com.prop.notcoolruntime/i386/f36",
+                None
+            ),
+            call.run()
+        ]
 
-        expected_calls = [call.connect("new_operation", flatpak._operation_started_callback),
-                          call.connect("operation_done", flatpak._operation_stopped_callback),
-                          call.connect("operation_error", flatpak._operation_error_callback),
-                          call.add_install(FlatpakManager.LOCAL_REMOTE_NAME,
-                                           mock_ref_list[0].format_ref(),
-                                           None),
-                          call.add_install(FlatpakManager.LOCAL_REMOTE_NAME,
-                                           mock_ref_list[1].format_ref(),
-                                           None),
-                          call.add_install(FlatpakManager.LOCAL_REMOTE_NAME,
-                                           mock_ref_list[2].format_ref(),
-                                           None),
-                          call.add_install(FlatpakManager.LOCAL_REMOTE_NAME,
-                                           mock_ref_list[3].format_ref(),
-                                           None),
-                          call.run()]
+        assert progress.mock_calls == []
 
-        assert self._transaction.mock_calls == expected_calls
+    def test_operation_started_callback(self):
+        """Test the callback for started operations."""
+        progress = Mock()
+        flatpak = FlatpakManager(
+            sysroot="remote/path",
+            callback=progress
+        )
+
+        with self.assertLogs(level="DEBUG") as cm:
+            flatpak._operation_started_callback(
+                transaction=Mock(),
+                operation=OperationMock("app/org.test"),
+                progress=Mock(),
+            )
+
+        progress.assert_called_once_with("Installing app/org.test")
+
+        msg = "Flatpak operation: install of ref app/org.test state started"
+        assert msg in "\n".join(cm.output)
+
+    def test_disabled_progress_reporting(self):
+        """Test a callback with disabled progress reporting."""
+        flatpak = FlatpakManager(
+            sysroot="remote/path"
+        )
+
+        flatpak._operation_started_callback(
+            transaction=Mock(),
+            operation=OperationMock(),
+            progress=Mock(),
+        )
+
+    def test_operation_stopped_callback(self):
+        """Test the callback for stopped operations."""
+        progress = Mock()
+        flatpak = FlatpakManager(
+            sysroot="remote/path",
+            callback=progress
+        )
+
+        with self.assertLogs(level="DEBUG") as cm:
+            flatpak._operation_stopped_callback(
+                transaction=Mock(),
+                operation=OperationMock("app/org.test"),
+                commit=Mock(),
+                result=Mock(),
+            )
+
+        progress.assert_not_called()
+
+        msg = "Flatpak operation: install of ref app/org.test state stopped"
+        assert msg in "\n".join(cm.output)
+
+    def test_operation_error_callback(self):
+        """Test the callback for failed operations."""
+        progress = Mock()
+        flatpak = FlatpakManager(
+            sysroot="remote/path",
+            callback=progress
+        )
+
+        with self.assertLogs(level="DEBUG") as cm:
+            flatpak._operation_error_callback(
+                transaction=Mock(),
+                operation=OperationMock("app/org.test"),
+                error=Mock(message="Fake!"),
+                details=Mock(),
+            )
+
+        progress.assert_not_called()
+
+        msg = "Flatpak operation: install of ref app/org.test state failed"
+        assert msg in "\n".join(cm.output)
+
+        msg = "Flatpak operation has failed with a message: 'Fake!'"
+        assert msg in "\n".join(cm.output)
 
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager.Transaction")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager.Installation")
@@ -208,7 +293,6 @@ class FlatpakTest(unittest.TestCase):
     def test_add_remote(self, remote_cls, installation_cls, transaction_cls):
         """Test flatpak add new remote."""
         flatpak = FlatpakManager("remote/path")
-
         self._setup_flatpak_objects(remote_cls, installation_cls, transaction_cls)
 
         flatpak.initialize_with_system_path()
@@ -226,7 +310,6 @@ class FlatpakTest(unittest.TestCase):
     def test_remove_remote(self, remote_cls, installation_cls, transaction_cls):
         """Test flatpak remove a remote."""
         flatpak = FlatpakManager("remote/path")
-
         self._setup_flatpak_objects(remote_cls, installation_cls, transaction_cls)
 
         mock_remote1 = Mock()
@@ -251,68 +334,52 @@ class FlatpakTest(unittest.TestCase):
                             open_mock, variant_type, variant):
         """Test flatpak replace remote for installed refs call."""
         flatpak = FlatpakManager("/system/test-root")
-
         self._setup_flatpak_objects(remote_cls, installation_cls, transaction_cls)
 
-        install_path = "/installation/path"
-
         install_path_mock = Mock()
-        install_path_mock.get_path.return_value = install_path
+        install_path_mock.get_path.return_value = "/path"
+
         self._installation.get_path.return_value = install_path_mock
-
-        ref_mock_list = [
-            RefMock(name="org.space.coolapp", kind=RefKind.APP, arch="x86_64", branch="stable"),
-            RefMock(name="org.space.coolruntime", kind=RefKind.RUNTIME, arch="x86_64",
-                    branch="stable")
+        self._installation.list_installed_refs.return_value = [
+            RefMock("app/org.test/x86_64/stable"),
+            RefMock("runtime/org.run/x86_64/stable"),
         ]
-
-        self._installation.list_installed_refs.return_value = ref_mock_list
 
         flatpak.initialize_with_system_path()
         flatpak.replace_installed_refs_remote("cylon_officer")
 
-        expected_refs = list(map(lambda x: x.format_ref(), ref_mock_list))
-
-        open_calls = []
-
-        for ref in expected_refs:
-            ref_file_path = os.path.join(install_path, ref, "active/deploy")
-            open_calls.append(call(ref_file_path, "rb"))
-            open_calls.append(call(ref_file_path, "wb"))
-
         # test that every file is read and written
-        assert open_mock.call_count == 2 * len(expected_refs)
+        open_mock.has_calls([
+            call("/path/app/org.test/x86_64/stable/active/deploy", "rb"),
+            call("/path/app/org.test/x86_64/stable/active/deploy", "wb"),
+            call("/path/runtime/org.run/x86_64/stable/active/deploy", "rb"),
+            call("/path/runtime/org.run/x86_64/stable/active/deploy", "wb"),
+        ])
 
-        open_mock.has_calls(open_calls)
+
+class OperationMock(object):
+    """Mock of the Flatpak.TransactionOperation class."""
+
+    def __init__(self, ref="app/org.test/x86_64", op=TransactionOperationType.INSTALL):
+        self._ref = ref
+        self._op = op
+
+    def get_ref(self):
+        return self._ref
+
+    def get_operation_type(self):
+        return self._op
 
 
 class RefMock(object):
+    """Mock of the Flatpak.InstalledRef class."""
 
-    def __init__(self, name="org.app", kind=RefKind.APP, arch="x86_64", branch="stable",
-                 installed_size=0):
-        self._name = name
-        self._kind = kind
-        self._arch = arch
-        self._branch = branch
+    def __init__(self, ref="app/org.test/x86_64", installed_size=0):
+        self._ref = ref
         self._installed_size = installed_size
-
-    def get_name(self):
-        return self._name
-
-    def get_kind(self):
-        return self._kind
-
-    def get_arch(self):
-        return self._arch
-
-    def get_branch(self):
-        return self._branch
 
     def get_installed_size(self):
         return self._installed_size
 
     def format_ref(self):
-        return "{}/{}/{}/{}".format("app" if self._kind is RefKind.APP else "runtime",
-                                    self._name,
-                                    self._arch,
-                                    self._branch)
+        return self._ref
