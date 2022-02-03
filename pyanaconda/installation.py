@@ -374,6 +374,10 @@ def run_installation(payload, ksdata):
     queue.append(_prepare_installation(payload, ksdata))
     queue.append(_prepare_configuration(payload, ksdata))
 
+    # Set the progress reporting callback of the payload class.
+    # FIXME: This is a temporary workaround.
+    payload._progress_cb = lambda step, msg: progress_message(msg)
+
     # notify progress tracking about the number of steps
     progress_init(queue.task_count)
 

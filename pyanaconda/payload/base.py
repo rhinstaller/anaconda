@@ -122,8 +122,7 @@ class Payload(metaclass=ABCMeta):
 
     def _progress_cb(self, step, message):
         """Callback for task progress reporting."""
-        from pyanaconda.progress import progressQ
-        progressQ.send_message(message)
+        log.info(message)
 
     def pre_install(self):
         """Perform pre-installation tasks."""
