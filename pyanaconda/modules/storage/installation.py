@@ -17,6 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import itertools
 import os
 import shutil
 import parted
@@ -336,11 +337,12 @@ class WriteConfigurationTask(Task):
         """Create the LVM devices file for the target system.
 
         Adds all present PVs according to https://bugzilla.redhat.com/show_bug.cgi?id=2011329#c9
+        The file is located at /etc/lvm/devices/system.devices
 
         :param Blivet storage: instance of Blivet or a subclass
         :param str sysroot: path to the target OS installation
         """
-        for device in storage.devices:
+        for device in itertools.chain(storage.devices, storage.devicetree._hidden):
             if device.format and device.format.type == "lvmpv" and HAVE_LVMDEVICES:
                 device.format.lvmdevices_add()
 
