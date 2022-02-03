@@ -407,6 +407,16 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Feb 03 2022 Vladimir Slavik <vslavik@redhat.com> - 34.25.0.26-1
+- Write all PVs to LVM devices file (vslavik)
+  Resolves: rhbz#2040302
+- Fix the status of the root configuration screen (vponcova)
+  Related: rhbz#2026916
+- Fix the condition for entering the root configuration (vponcova)
+  Resolves: rhbz#2026916
+- Move tests for pyanaconda.ui.lib.users to a new file (vponcova)
+  Related: rhbz#2026916
+
 * Tue Jan 18 2022 Vladimir Slavik <vslavik@redhat.com> - 34.25.0.25-1
 - Hide the help button on the progress spoke (vponcova)
   Related: rhbz#1995945
