@@ -85,9 +85,11 @@ CONTAINER_ADD_ARGS ?=
 # anaconda-ci container
 CI_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-ci
 RPM_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-rpm
+RELEASE_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-release
 ISO_CREATOR_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-iso-creator
 CI_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-ci
 RPM_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-rpm
+RELEASE_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-release
 ISO_CREATOR_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-iso-creator
 CI_TAG := $(or $(CI_TAG),$(GIT_BRANCH))
 CI_TEST_ARGS ?= --rm -v $(srcdir):/anaconda:Z
@@ -169,6 +171,14 @@ release:
 	$(MAKE) po-pull
 	$(MAKE) dist
 
+container-release:
+	$(CONTAINER_ENGINE) run \
+	$(CONTAINER_TEST_ARGS) \
+	$(CI_TEST_ARGS) \
+	$(CONTAINER_ADD_ARGS) \
+	$(RELEASE_NAME):$(CI_TAG) \
+	sh -exc './autogen.sh && ./configure && make release'
+
 release-and-tag:
 	$(MAKE) dist
 	$(MAKE) tag
@@ -192,6 +202,13 @@ anaconda-rpm-build:
 	--build-arg=copr_repo=$(COPR_REPO) \
 	-t $(RPM_NAME):$(CI_TAG) \
 	$(RPM_DOCKERFILE)
+
+anaconda-release-build: anaconda-rpm-build
+	$(CONTAINER_ENGINE) build \
+	$(CONTAINER_BUILD_ARGS) \
+	$(CONTAINER_ADD_ARGS) \
+	-t $(RELEASE_NAME):$(CI_TAG) \
+	$(RELEASE_DOCKERFILE)
 
 anaconda-iso-creator-build:
 	$(CONTAINER_ENGINE) build \
