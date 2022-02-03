@@ -3,17 +3,67 @@ Integration Tests of Anaconda WebUI
 
 This directory contains automated integration tests for Anaconda WebUI, and the support files for them.
 
-Introduction
-------------
-
 Before running the tests refer to the ``CONTRIBUTING`` guide in the root of the repository for installation of all the necessary build and test dependencies.
+
+Preparation and general invocation
+----------------------------------
+
+*Warning*: Never run the build, test, or any other command here as root!
 
 To run the WebUI integration tests run the following from the root of the anaconda repo.
 (do NOT run the integration tests as root)::
 
-    make webui-tests
+You first need to build anaconda RPMS::
 
-The tests will automatically download the latest rawhide boot.iso they need, so expect that the initial run may take a couple of minutes.
+    make rpms
+
+Then prepare an updates.img containing the anaconda RPMs and the cockpit dependencies::
+
+    cd ui/webui && make ../../updates.img
+
+In most cases you want to run an individual test in a suite, for example::
+
+   test/check-basic TestBasic.testHelp
+
+You can get a list of tests by inspecting the `def test*` in the source, or by
+running the suite with `-l`/`--list`::
+
+    test/check-basic -l
+
+Sometimes you may also want to run all tests in a test file suite::
+
+    test/check-basic
+
+To see more verbose output from the test, use the `-v`/`--verbose` and/or `-t`/`--trace` flags::
+
+    test/check-basic --verbose --trace
+
+If you specify `-s`/`--sit` in addition, then the test will wait on failure and
+allow you to log into cockpit and/or the test instance and diagnose the issue.
+The cockpit and SSH addresses of the test instance will be printed::
+
+    test/check-basic -st
+
+You can also run *all* the tests, with some parallelism::
+
+    test/run-tests --jobs 2
+
+The tests will automatically download the VM isos they need, so expect
+that the initial run may take a few minutes.
+
+Interactive browser
+-------------------
+
+Normally each test starts its own chromium headless browser process on a
+separate random port. To interactively follow what a test is doing::
+
+    TEST_SHOW_BROWSER=1 test/check-basic--trace
+
+You can also run a test against Firefox instead of Chromium::
+
+    TEST_BROWSER=firefox test/check-basic--trace
+
+See below for details.
 
 
 Manual testing
@@ -46,6 +96,9 @@ Test Configuration
 ------------------
 
 You can set these environment variables to configure the test suite::
+
+    TEST_OS    The OS to run the tests in.  Currently supported values:
+                  "fedora-rawhide"
 
     TEST_BROWSER  What browser should be used for testing. Currently supported values:
                      "chromium"
