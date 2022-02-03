@@ -98,7 +98,6 @@ class NetworkInstallationTask(Task):
 
     SYSCONF_NETWORK_FILE_PATH = "/etc/sysconfig/network"
     ANACONDA_SYSCTL_FILE_PATH = "/etc/sysctl.d/anaconda.conf"
-    RESOLV_CONF_FILE_PATH = "/etc/resolv.conf"
     NETWORK_SCRIPTS_DIR_PATH = IFCFG_DIR
     PREFIXDEVNAME_CONFIG_FILE_PREFIX = "71-net-ifnames-prefix-"
     NETWORK_SCRIPTS_CONFIG_FILE_PREFIXES = ("ifcfg-", "keys-", "route-")
@@ -154,7 +153,6 @@ Name={}
             self._disable_ipv6_on_system(self._sysroot)
         self._copy_device_config_files(self._sysroot)
         self._copy_dhclient_config_files(self._sysroot, self._network_ifaces)
-        self._copy_resolv_conf(self._sysroot, self._overwrite)
         if self._configure_persistent_device_names:
             self._copy_prefixdevname_files(self._sysroot)
 
@@ -216,16 +214,6 @@ Name={}
         except OSError as e:
             msg = "Cannot disable ipv6 on the system: {}".format(e.strerror)
             raise NetworkInstallationError(msg) from e
-
-    def _copy_resolv_conf(self, root, overwrite):
-        """Copy resolf.conf file to target system.
-
-        :param root: path to the root of the target system
-        :type root: str
-        :param overwrite: overwrite existing configuration file
-        :type overwrite: bool
-        """
-        self._copy_file_to_root(root, self.RESOLV_CONF_FILE_PATH, follow_symlinks=False)
 
     def _copy_file_to_root(self, root, config_file, overwrite=False, follow_symlinks=True):
         """Copy the file to target system.
