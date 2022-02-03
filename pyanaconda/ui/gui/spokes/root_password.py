@@ -17,8 +17,6 @@
 # Red Hat, Inc.
 #
 from pyanaconda.core.constants import PASSWORD_POLICY_ROOT
-from pyanaconda.flags import flags
-from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _, CN_
 from pyanaconda.core.users import crypt_password
 from pyanaconda import input_checking
@@ -31,7 +29,7 @@ from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler
 from pyanaconda.ui.gui.utils import set_password_visibility
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.communication import hubQ
-from pyanaconda.ui.lib.services import is_reconfiguration_mode
+from pyanaconda.ui.lib.users import can_modify_root_configuration, get_root_configuration_status
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -178,18 +176,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
     @property
     def status(self):
-        if self._users_module.IsRootAccountLocked:
-            # reconfig mode currently allows re-enabling a locked root account if
-            # user sets a new root password
-            if is_reconfiguration_mode() and not self._lock.get_active():
-                return _("Disabled, set password to enable.")
-            else:
-                return _("Root account is disabled.")
-
-        elif self._users_module.IsRootPasswordSet:
-            return _("Root password is set")
-        else:
-            return _("Root password is not set")
+        return get_root_configuration_status(self._users_module)
 
     @property
     def mandatory(self):
@@ -226,13 +213,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
     @property
     def sensitive(self):
-        # A password set in kickstart can be changed in the GUI
-        # if the changesok password policy is set for the root password.
-        kickstarted_password_can_be_changed = conf.ui.can_change_root or \
-            self._users_module.CanChangeRootPassword
-
-        return not (self.completed and flags.automatedInstall
-                    and not kickstarted_password_can_be_changed)
+        return can_modify_root_configuration(self._users_module)
 
     def _checks_done(self, error_message):
         """Update the warning with the input validation error from the first
