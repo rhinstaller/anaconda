@@ -215,6 +215,7 @@ anaconda-release-build: anaconda-rpm-build
 	$(CONTAINER_ENGINE) build \
 	$(CONTAINER_BUILD_ARGS) \
 	$(CONTAINER_ADD_ARGS) \
+	--build-arg=image=$(RPM_NAME):$(CI_TAG) \
 	-t $(RELEASE_NAME):$(CI_TAG) \
 	$(RELEASE_DOCKERFILE)
 
