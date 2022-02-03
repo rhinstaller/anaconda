@@ -45,8 +45,6 @@ export const RootAccount = () => {
             "org.fedoraproject.Anaconda.Modules.Users",
             "/org/fedoraproject/Anaconda/Modules/Users",
         );
-        setIsLocked(proxy.IsRootAccountLocked);
-
         return proxy;
     }, null, [address]);
 
@@ -92,6 +90,7 @@ export const RootAccount = () => {
     return (
         <>
             <Header
+              doneDisabled={isLocked === undefined}
               done={onDoneClicked}
               title={_("Root password")}
             />

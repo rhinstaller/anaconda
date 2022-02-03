@@ -30,7 +30,7 @@ const _ = cockpit.gettext;
 
 export const AddressContext = createContext("");
 
-export const Header = ({ done, title }) => {
+export const Header = ({ done, doneDisabled, title }) => {
     const { path } = usePageLocation();
     const pageId = path[0];
 
@@ -40,6 +40,7 @@ export const Header = ({ done, title }) => {
                 {pageId !== "summary" &&
                 <Button
                   id="header-done-btn"
+                  isDisabled={!!doneDisabled}
                   variant="primary"
                   onClick={done}>
                     {_("Done")}
