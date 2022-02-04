@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = webui
+# WebUI could be excluded by ./configure --disable-webui
+SUBDIRS = @WEBUI_SUBDIR@
 
 MAINTAINERCLEANFILES = Makefile.in

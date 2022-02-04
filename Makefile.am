@@ -272,9 +272,11 @@ ci:
 		exit $$status; \
 	fi
 
+# container-ci target will have disabled cockpit Makefiles by default
 container-ci:
 	$(CONTAINER_ENGINE) run \
 	--entrypoint /anaconda/dockerfile/anaconda-ci/run-build-and-arg \
+	-e CONFIGURE_ARGS="--disable-webui" \
 	$(CONTAINER_TEST_ARGS) \
 	$(CI_TEST_ARGS) \
 	$(CONTAINER_ADD_ARGS) \
