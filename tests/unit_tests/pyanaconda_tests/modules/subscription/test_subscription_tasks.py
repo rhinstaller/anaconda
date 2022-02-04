@@ -648,12 +648,14 @@ class RegistrationTasksTestCase(unittest.TestCase):
         # private register proxy
         get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
         private_register_proxy = get_proxy.return_value
+        # make the Register() method return some JSON data
+        private_register_proxy.Register.return_value = '{"json":"stuff"}'
         # instantiate the task and run it
         task = RegisterWithUsernamePasswordTask(rhsm_register_server_proxy=register_server_proxy,
                                                 username="foo_user",
                                                 password="bar_password",
                                                 organization="foo_org")
-        task.run()
+        assert task.run() == '{"json":"stuff"}'
         # check the private register proxy Register method was called correctly
         private_register_proxy.Register.assert_called_once_with("foo_org",
                                                                 "foo_user",
@@ -699,6 +701,8 @@ class RegistrationTasksTestCase(unittest.TestCase):
         # private register proxy
         get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
         private_register_proxy = get_proxy.return_value
+        # make the Register() method return some JSON data
+        private_register_proxy.Register.return_value = '{"json":"stuff"}'
         # mock the org data retrieval task to return single organization
         org_data = [
             {
@@ -717,7 +721,7 @@ class RegistrationTasksTestCase(unittest.TestCase):
                                                 organization="")
         # if we get just a single organization, we don't actually have to feed
         # it to the RHSM API, its only a problem if there are more than one
-        task.run()
+        assert task.run() == '{"json":"stuff"}'
         # check the private register proxy Register method was called correctly
         private_register_proxy.Register.assert_called_once_with("",
                                                                 "foo_user",
@@ -771,11 +775,13 @@ class RegistrationTasksTestCase(unittest.TestCase):
         get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
         private_register_proxy = get_proxy.return_value
         private_register_proxy.Register.return_value = True, ""
+        # make the Register() method return some JSON data
+        private_register_proxy.RegisterWithActivationKeys.return_value = '{"json":"stuff"}'
         # instantiate the task and run it
         task = RegisterWithOrganizationKeyTask(rhsm_register_server_proxy=register_server_proxy,
                                                organization="123456789",
                                                activation_keys=["foo", "bar", "baz"])
-        task.run()
+        assert task.run() == '{"json":"stuff"}'
         # check private register proxy RegisterWithActivationKeys method was called correctly
         private_register_proxy.RegisterWithActivationKeys.assert_called_with(
             "123456789",
@@ -1365,6 +1371,7 @@ class RegisterandSubscribeTestCase(unittest.TestCase):
             system_purpose_data=Mock(),
             registered_callback=Mock(),
             registered_to_satellite_callback=Mock(),
+            simple_content_access_callback=Mock(),
             subscription_attached_callback=Mock(),
             subscription_data_callback=Mock(),
             satellite_script_callback=Mock(),
@@ -1389,6 +1396,7 @@ class RegisterandSubscribeTestCase(unittest.TestCase):
             system_purpose_data=Mock(),
             registered_callback=Mock(),
             registered_to_satellite_callback=Mock(),
+            simple_content_access_callback=Mock(),
             subscription_attached_callback=Mock(),
             subscription_data_callback=Mock(),
             satellite_script_callback=satellite_script_callback,
@@ -1423,6 +1431,7 @@ class RegisterandSubscribeTestCase(unittest.TestCase):
             system_purpose_data=Mock(),
             registered_callback=Mock(),
             registered_to_satellite_callback=Mock(),
+            simple_content_access_callback=Mock(),
             subscription_attached_callback=Mock(),
             subscription_data_callback=Mock(),
             satellite_script_callback=satellite_script_callback,
@@ -1476,6 +1485,7 @@ class RegisterandSubscribeTestCase(unittest.TestCase):
             system_purpose_data=Mock(),
             registered_callback=Mock(),
             registered_to_satellite_callback=Mock(),
+            simple_content_access_callback=Mock(),
             subscription_attached_callback=Mock(),
             subscription_data_callback=Mock(),
             satellite_script_callback=satellite_script_callback,
@@ -1523,6 +1533,7 @@ class RegisterandSubscribeTestCase(unittest.TestCase):
             system_purpose_data=Mock(),
             registered_callback=Mock(),
             registered_to_satellite_callback=Mock(),
+            simple_content_access_callback=Mock(),
             subscription_attached_callback=Mock(),
             subscription_data_callback=Mock(),
             satellite_script_callback=Mock(),
@@ -1558,6 +1569,7 @@ class RegisterandSubscribeTestCase(unittest.TestCase):
             system_purpose_data=Mock(),
             registered_callback=Mock(),
             registered_to_satellite_callback=Mock(),
+            simple_content_access_callback=Mock(),
             subscription_attached_callback=Mock(),
             subscription_data_callback=Mock(),
             satellite_script_callback=Mock(),
@@ -1604,6 +1616,7 @@ class RegisterandSubscribeTestCase(unittest.TestCase):
             system_purpose_data=system_purpose_data,
             registered_callback=Mock(),
             registered_to_satellite_callback=Mock(),
+            simple_content_access_callback=Mock(),
             subscription_attached_callback=subscription_attached_callback,
             subscription_data_callback=Mock(),
             satellite_script_callback=Mock(),
@@ -1665,6 +1678,7 @@ class RegisterandSubscribeTestCase(unittest.TestCase):
             system_purpose_data=system_purpose_data,
             registered_callback=Mock(),
             registered_to_satellite_callback=Mock(),
+            simple_content_access_callback=Mock(),
             subscription_attached_callback=subscription_attached_callback,
             subscription_data_callback=Mock(),
             satellite_script_callback=Mock(),
@@ -1726,6 +1740,7 @@ class RegisterandSubscribeTestCase(unittest.TestCase):
             system_purpose_data=system_purpose_data,
             registered_callback=Mock(),
             registered_to_satellite_callback=Mock(),
+            simple_content_access_callback=Mock(),
             subscription_attached_callback=subscription_attached_callback,
             subscription_data_callback=Mock(),
             satellite_script_callback=Mock(),
@@ -1787,6 +1802,7 @@ class RegisterandSubscribeTestCase(unittest.TestCase):
             system_purpose_data=system_purpose_data,
             registered_callback=Mock(),
             registered_to_satellite_callback=Mock(),
+            simple_content_access_callback=Mock(),
             subscription_attached_callback=subscription_attached_callback,
             subscription_data_callback=Mock(),
             satellite_script_callback=Mock(),

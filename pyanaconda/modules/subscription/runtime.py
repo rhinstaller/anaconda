@@ -255,6 +255,8 @@ class RegisterWithUsernamePasswordTask(Task):
         """Register the system with Red Hat account username and password.
 
         :raises: RegistrationError if calling the RHSM DBus API returns an error
+        :return: JSON string describing registration state
+        :rtype: str
         """
         if not self._organization:
             # If no organization id is specified check if the account is member of more than
@@ -283,13 +285,16 @@ class RegisterWithUsernamePasswordTask(Task):
                 locale = os.environ.get("LANG", "")
                 private_register_proxy = private_bus.get_proxy(RHSM.service_name,
                                                                RHSM_REGISTER.object_path)
-                private_register_proxy.Register(self._organization,
-                                                self._username,
-                                                self._password,
-                                                {},
-                                                {},
-                                                locale)
+                registration_data = private_register_proxy.Register(
+                    self._organization,
+                    self._username,
+                    self._password,
+                    {},
+                    {},
+                    locale
+                )
                 log.debug("subscription: registered with username and password")
+                return registration_data
             except DBusError as e:
                 log.debug("subscription: failed to register with username and password: %s",
                           str(e))
@@ -324,6 +329,8 @@ class RegisterWithOrganizationKeyTask(Task):
         """Register the system with organization name and activation key.
 
         :raises: RegistrationError if calling the RHSM DBus API returns an error
+        :return: JSON string describing registration state
+        :rtype: str
         """
         log.debug("subscription: registering with organization and activation key")
         with RHSMPrivateBus(self._rhsm_register_server_proxy) as private_bus:
@@ -331,12 +338,15 @@ class RegisterWithOrganizationKeyTask(Task):
                 locale = os.environ.get("LANG", "")
                 private_register_proxy = private_bus.get_proxy(RHSM.service_name,
                                                                RHSM_REGISTER.object_path)
-                private_register_proxy.RegisterWithActivationKeys(self._organization,
-                                                                  self._activation_keys,
-                                                                  {},
-                                                                  {},
-                                                                  locale)
+                registration_data = private_register_proxy.RegisterWithActivationKeys(
+                    self._organization,
+                    self._activation_keys,
+                    {},
+                    {},
+                    locale
+                )
                 log.debug("subscription: registered with organization and activation key")
+                return registration_data
             except DBusError as e:
                 log.debug("subscription: failed to register with organization & key: %s", str(e))
                 # RHSM exception contain details as JSON due to DBus exception handling limitations
@@ -777,8 +787,9 @@ class RegisterAndSubscribeTask(Task):
 
     def __init__(self, rhsm_observer, subscription_request, system_purpose_data,
                  registered_callback, registered_to_satellite_callback,
-                 subscription_attached_callback, subscription_data_callback,
-                 satellite_script_callback, config_backup_callback):
+                 simple_content_access_callback, subscription_attached_callback,
+                 subscription_data_callback, satellite_script_callback,
+                 config_backup_callback):
         """Create a register-and-subscribe task.
 
         :param rhsm_observer: DBus service observer for talking to RHSM
@@ -787,6 +798,7 @@ class RegisterAndSubscribeTask(Task):
 
         :param registered_callback: called when registration tasks finishes successfully
         :param registered_to_satellite_callback: called after successful Satellite provisioning
+        :param simple_content_access_callback: called when registration tasks finishes successfully
         :param subscription_attached_callback: called after subscription is attached
         :param subscription_data_callback: called after subscription data is parsed
         :param satellite_script_callback: called after Satellite provisioning script
@@ -806,6 +818,7 @@ class RegisterAndSubscribeTask(Task):
         # callback for nested tasks
         self._registered_callback = registered_callback
         self._registered_to_satellite_callback = registered_to_satellite_callback
+        self._simple_content_access_callback = simple_content_access_callback
         self._subscription_attached_callback = subscription_attached_callback
         self._subscription_data_callback = subscription_data_callback
         self._satellite_script_downloaded_callback = satellite_script_callback
@@ -996,8 +1009,14 @@ class RegisterAndSubscribeTask(Task):
                 )
         if register_task:
             # Now that we know we can do a registration attempt:
-            # 1) Connect task success callback.
+            # 1) Connect task success callbacks.
             register_task.succeeded_signal.connect(lambda: self._registered_callback(True))
+            # set SCA state based on data returned by the registration task
+            register_task.succeeded_signal.connect(
+                lambda: self._simple_content_access_callback(
+                    self._detect_sca_from_registration_data(register_task.get_result())
+                )
+            )
 
             # 2) Check if custom server hostname is set, which would indicate we are most
             #    likely talking to a Satellite instance. If so, provision the installation

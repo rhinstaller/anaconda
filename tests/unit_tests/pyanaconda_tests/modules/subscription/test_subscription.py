@@ -739,6 +739,29 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         # at the end the property should be True
         assert self.subscription_interface.IsRegistered
 
+    def test_simple_content_access_property(self):
+        """Test the IsSimpleContentAccessEnabled property."""
+        # should be false by default
+        assert not self.subscription_interface.IsSimpleContentAccessEnabled
+
+        # this property can't be set by client as it is set as the result of
+        # subscription attempts, so we need to call the internal module interface
+        # via a custom setter
+
+        def custom_setter(value):
+            self.subscription_module.set_simple_content_access_enabled(value)
+
+        # check the property is True and the signal was emitted
+        # - we use fake setter as there is no public setter
+        self._check_dbus_property(
+          "IsSimpleContentAccessEnabled",
+          True,
+          setter=custom_setter
+        )
+
+        # at the end the property should be True
+        assert self.subscription_interface.IsSimpleContentAccessEnabled
+
     def test_subscription_attached_property(self):
         """Test the IsSubscriptionAttached property."""
         # should be false by default
@@ -1060,6 +1083,8 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         # pylint: disable=comparison-with-callable
         assert obj.implementation._registered_to_satellite_callback == \
             self.subscription_module.set_registered_to_satellite
+        assert obj.implementation._simple_content_access_callback == \
+            self.subscription_module.set_simple_content_access_enabled
         # pylint: disable=comparison-with-callable
         assert obj.implementation._subscription_attached_callback == \
             self.subscription_module.set_subscription_attached
@@ -1092,9 +1117,11 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         assert obj.implementation._rhsm_configuration == {}
         # trigger the succeeded signal
         obj.implementation.succeeded_signal.emit()
-        # check this set the subscription-attached & registered properties to False
+        # check unregistration set the subscription-attached, registered
+        # and SCA properties to False
         assert self.subscription_interface.IsRegistered is False
         assert self.subscription_interface.IsRegisteredToSatellite is False
+        assert self.subscription_interface.IsSimpleContentAccessEnabled is False
         assert self.subscription_interface.IsSubscriptionAttached is False
 
     @patch_dbus_publish_object
@@ -1104,6 +1131,8 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         self.subscription_module.set_subscription_attached(True)
         self.subscription_module._set_satellite_provisioning_script("foo script")
         self.subscription_module.set_registered_to_satellite(True)
+        # lets also set SCA as enabled
+        self.subscription_module.set_simple_content_access_enabled(True)
         # simulate RHSM config backup
         self.subscription_module._rhsm_conf_before_satellite_provisioning = {"foo.bar": "baz"}
         # make sure the task gets dummy rhsm unregister proxy
@@ -1118,9 +1147,11 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         assert obj.implementation._rhsm_observer == rhsm_observer
         # trigger the succeeded signal
         obj.implementation.succeeded_signal.emit()
-        # check this set the subscription-attached & registered properties to False
+        # check unregistration set the subscription-attached, registered
+        # and SCA properties to False
         assert self.subscription_interface.IsRegistered is False
         assert self.subscription_interface.IsRegisteredToSatellite is False
+        assert self.subscription_interface.IsSimpleContentAccessEnabled is False
         assert self.subscription_interface.IsSubscriptionAttached is False
         # check the provisioning scrip has been cleared
         assert self.subscription_module._satellite_provisioning_script is None
@@ -1168,6 +1199,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         self.subscription_interface.SetInsightsEnabled(True)
         self.subscription_module.set_subscription_attached(True)
         self.subscription_module.set_registered_to_satellite(True)
+        self.subscription_module.set_simple_content_access_enabled(True)
         self.subscription_module._satellite_provisioning_script = "foo script"
 
         # mock the rhsm config proxy

@@ -109,6 +109,10 @@ class SubscriptionService(KickstartService):
         self.registered_changed = Signal()
         self._registered = False
 
+        # simple content access
+        self.simple_content_access_enabled_changed = Signal()
+        self._sca_enabled = False
+
         # subscription status
         self.subscription_attached_changed = Signal()
         self._subscription_attached = False
@@ -532,6 +536,28 @@ class SubscriptionService(KickstartService):
         self.module_properties_changed.emit()
         log.debug("Subscription attached set to: %s", system_subscription_attached)
 
+    # simple content access status
+    @property
+    def simple_content_access_enabled(self):
+        """Return True if the system has been registered with SCA enabled.
+
+        :return: True if the system has been registered in SCA mode, False otherwise
+        :rtype: bool
+        """
+        return self._sca_enabled
+
+    def set_simple_content_access_enabled(self, sca_enabled):
+        """Set if Simple Content Access is enabled.
+
+        :param bool sca_enabled: True if SCA is enabled, False otherwise
+        """
+        self._sca_enabled = sca_enabled
+        self.simple_content_access_enabled_changed.emit()
+        # as there is no public setter in the DBus API, we need to emit
+        # the properties changed signal here manually
+        self.module_properties_changed.emit()
+        log.debug("Simple Content Access enabled set to: %s", sca_enabled)
+
     # tasks
 
     def install_with_tasks(self):
@@ -666,6 +692,9 @@ class SubscriptionService(KickstartService):
         # script, or else it will be run by the target system
         # provisioning task
         self._set_satellite_provisioning_script(None)
+        # also when we are no longer registered then we are are
+        # thus no longer in Simple Content Access mode
+        self.set_simple_content_access_enabled(False)
 
     def _set_system_subscription_data(self, system_subscription_data):
         """A helper method invoked in ParseAttachedSubscritionsTask completed signal.
@@ -704,6 +733,7 @@ class SubscriptionService(KickstartService):
             system_purpose_data=self.system_purpose_data,
             registered_callback=self.set_registered,
             registered_to_satellite_callback=self.set_registered_to_satellite,
+            simple_content_access_callback=self.set_simple_content_access_enabled,
             subscription_attached_callback=self.set_subscription_attached,
             subscription_data_callback=self._set_system_subscription_data,
             satellite_script_callback=self._set_satellite_provisioning_script,

@@ -63,6 +63,8 @@ class SubscriptionInterface(KickstartModuleInterface):
                             self.implementation.registered_changed)
         self.watch_property("IsRegisteredToSatellite",
                             self.implementation.registered_to_satellite_changed)
+        self.watch_property("IsSimpleContentAccessEnabled",
+                            self.implementation.simple_content_access_enabled_changed)
         self.watch_property("IsSubscriptionAttached",
                             self.implementation.subscription_attached_changed)
 
@@ -168,6 +170,11 @@ class SubscriptionInterface(KickstartModuleInterface):
     def IsRegisteredToSatellite(self) -> Bool:
         """Report if the system is registered to a Satellite instance."""
         return self.implementation.registered_to_satellite
+
+    @property
+    def IsSimpleContentAccessEnabled(self) -> Bool:
+        """Report if Simple Content Access is enabled."""
+        return self.implementation.simple_content_access_enabled
 
     @property
     def IsSubscriptionAttached(self) -> Bool:
