@@ -1266,6 +1266,92 @@ class RegisterandSubscribeTestCase(unittest.TestCase):
         assert RegisterAndSubscribeTask._get_proxy_url(request_with_proxy_data) == \
             "http://foo_user:foo_password@proxy.example.com:3128"
 
+    def test_registration_data_json_parsing(self):
+        """Test the registration data JSON parsing method of RegisterAndSubscribeTask."""
+        parse_method = RegisterAndSubscribeTask._detect_sca_from_registration_data
+        # the parsing method should be able to survive also getting an empty string
+        # or even None, returning False
+        assert not parse_method("")
+        assert not parse_method(None)
+
+        # registration data without owner key
+        no_owner_data = {
+            "foo": "123",
+            "bar": "456",
+            "baz": "789"
+        }
+        assert not parse_method(json.dumps(no_owner_data))
+
+        # registration data with owner key but without the necessary
+        # contentAccessMode key
+        no_access_mode_data = {
+            "foo": "123",
+            "owner": {
+                "id": "abc",
+                "key": "admin",
+                "displayName": "Admin Owner"
+            },
+            "bar": "456",
+            "baz": "789"
+        }
+        assert not parse_method(json.dumps(no_access_mode_data))
+
+        # registration data with owner key but without the necessary
+        # contentAccessMode key
+        no_access_mode_data = {
+            "foo": "123",
+            "owner": {
+                "id": "abc",
+                "key": "admin",
+                "displayName": "Admin Owner"
+            },
+            "bar": "456",
+            "baz": "789"
+        }
+        assert not parse_method(json.dumps(no_access_mode_data))
+
+        # registration data for SCA mode
+        sca_mode_data = {
+            "foo": "123",
+            "owner": {
+                "id": "abc",
+                "key": "admin",
+                "displayName": "Admin Owner",
+                "contentAccessMode": "org_environment"
+            },
+            "bar": "456",
+            "baz": "789"
+        }
+        assert parse_method(json.dumps(sca_mode_data))
+
+        # registration data for entitlement mode
+        entitlement_mode_data = {
+            "foo": "123",
+            "owner": {
+                "id": "abc",
+                "key": "admin",
+                "displayName": "Admin Owner",
+                "contentAccessMode": "entitlement"
+            },
+            "bar": "456",
+            "baz": "789"
+        }
+        assert not parse_method(json.dumps(entitlement_mode_data))
+
+        # registration data for unknown mode
+        unknown_mode_data = {
+            "foo": "123",
+            "owner": {
+                "id": "abc",
+                "key": "admin",
+                "displayName": "Admin Owner",
+                "contentAccessMode": "something_else"
+            },
+            "bar": "456",
+            "baz": "789"
+        }
+        assert not parse_method(json.dumps(unknown_mode_data))
+
     @patch("pyanaconda.modules.subscription.runtime.DownloadSatelliteProvisioningScriptTask")
     def test_provision_system_for_satellite_skip(self, download_task):
         """Test Satellite provisioning in RegisterAndSubscribeTask - skip."""

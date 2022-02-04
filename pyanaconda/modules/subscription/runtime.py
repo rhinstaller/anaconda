@@ -841,6 +841,42 @@ class RegisterAndSubscribeTask(Task):
             proxy_url = str(proxy)
         return proxy_url
 
+    @staticmethod
+    def _detect_sca_from_registration_data(registration_data_json):
+        """Detect SCA/entitlement mode from registration data.
+
+        This function checks JSON data describing registration state as returned
+        by the the Register() or RegisterWithActivationKeys() RHSM DBus methods.
+        Based on the value of the "contentAccessMode" key present in a dictionary available
+        under the "owner" top level key.
+
+        :param str registration_data_json: registration data in JSON format
+        :return: True if data inicates SCA enabled, False otherwise
+        """
+        # we can't try to detect SCA mode if we don't have any registration data
+        if not registration_data_json:
+            log.warning("no registraton data provided, skipping SCA mode detection attempt")
+            return False
+        registration_data = json.loads(registration_data_json)
+        owner_data = registration_data.get("owner")
+
+        if owner_data:
+            content_access_mode = owner_data.get("contentAccessMode")
+            if content_access_mode == "org_environment":
+                # SCA explicitely noted as enabled
+                return True
+            elif content_access_mode == "entitlement":
+                # SCA explicitely not enabled
+                return False
+            else:
+                log.warning("contentAccessMode mode not set to known value:")
+                log.warning(content_access_mode)
+                # unknown mode or missing data -> not SCA
+                return False
+        else:
+            # we have no data indicating SCA is enabled
+            return False
+
     def _provision_system_for_satellite(self):
         """Provision the installation environment for a Satellite instance.
 
