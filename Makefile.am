@@ -83,7 +83,7 @@ TEST_INST_BUILD_DIR = $(BUILD_RESULT_DIR)/02-test-install
 
 # build/run tweaks for all containers, such as --cap-add
 CONTAINER_ENGINE ?= podman
-CONTAINER_BUILD_ARGS ?= --no-cache
+CONTAINER_BUILD_ARGS ?= --no-cache --pull-always
 CONTAINER_TEST_ARGS ?=
 CONTAINER_REGISTRY ?= quay.io
 # Add additional args to the existing ones to container engine
