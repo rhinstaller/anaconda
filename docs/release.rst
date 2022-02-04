@@ -267,19 +267,15 @@ Create the ``-release`` branch:
     git pull
     git checkout -b f<version>-release
 
+
+Adjust Fedora specific configuration
+____________________________________
+
 Switch to f<version>-release branch for Fedora specific settings:
 
 ::
 
    git checkout f<version>-release
-
-Edit branch specific settings. This have to be done on f<version>-release branch only:
-
-::
-
-   vim ./branch-config.mk
-
-And change content according to comments in the file.
 
 
 Then correct pykickstart version for the new Fedora release by changing all occurrences of
@@ -302,6 +298,14 @@ in the Fedora version specific branch on Anaconda side.
 Commit the result. The commit will become one of the few exclusive release branch commits,
 as we can't let it be merged back to master via the devel branch for obvious reasons.
 
+Edit branch specific settings. This have to be done on f<version>-release branch only:
+
+::
+
+   vim ./branch-config.mk
+   vim ./.packit.yml
+   vim ./.github/workflows/tests.yml
+
 
 Check if everything is correctly set:
 
@@ -309,6 +313,89 @@ Check if everything is correctly set:
 
    make check-branching
 
+
+And change content according to comments in the file.
+
+Adjust shared development branch
+________________________________
+
+
+Switch to f<version>-release branch for Fedora specific settings:
+
+::
+
+   git checkout f<version>-devel
+
+
+Edit branch specific settings based on the comments in the files:
+
+::
+
+   vim ./branch-config.mk
+   vim ./.github/workflows/tests.yml
+
+
+Check if everything is correctly set:
+
+::
+
+   make check-branching
+
+
+Commit the changes:
+
+::
+
+   git commit -m "Adjust configuration for Fedora <version> (#infra)"
+
+
+Then merge this changes to the master branch:
+
+::
+
+   git checkout master
+   git merge f<version>-devel
+
+
+And revert the configuration changes on the master branch:
+
+::
+
+   git log   # to find SHA of the configuration commit
+   git revert <SHA>  # please add commit message why you are doing the revert
+
+The change revert has to be done if these branch specific configuration changes. Otherwise we won't
+be testing Rawhide on master.
+
+Adjust configuration on master
+______________________________
+
+Edit configuration based on the comments.
+
+To enable containers for the branched Fedora:
+
+::
+
+   vim .github/workflows/container-autoupdate.yml
+
+
+To set correct COPR daily builds on Fedora:
+
+::
+
+   vim .packit.yml
+
+
+Commit everything to master branch:
+
+::
+
+   git add -u
+   git commit -m "Adjust master configuration files for Fedora <version> (#infra)"
+
+   
+Push everything upstream
+________________________
 
 If everything works correctly you can push the branches to the origin (``-u`` makes sure to setup tracking) :
 
@@ -321,6 +408,11 @@ If everything works correctly you can push the branches to the origin (``-u`` ma
 
     git checkout f<version>-release
     git push -u origin f<version>-release
+
+::
+
+   git checkout master
+   git push origin master
 
 
 How to add release version for next Fedora
