@@ -1130,7 +1130,10 @@ class SubscriptionSpoke(NormalSpoke):
         # check how many we have & set the subscription status string accordingly
         subscription_count = len(attached_subscriptions)
         if subscription_count == 0:
-            subscription_string = _("No subscriptions are attached to the system")
+            if self._subscription_module.IsSimpleContentAccessEnabled:
+                subscription_string = _("Subscribed in Simple Content Access mode.")
+            else:
+                subscription_string = _("No subscriptions are attached to the system")
         elif subscription_count == 1:
             subscription_string = _("1 subscription attached to the system")
         else:
