@@ -46,9 +46,10 @@ jobs:
           set -eu
           changed_files=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }}..HEAD)
           # print for debugging
-          echo "----- Changed files -----"
+          echo "-------- Changed files --------"
           echo "$changed_files"
-          echo "-------------------------"
+          echo "-------------------------------"
+          echo "--- Files with failed check ---"
 
           # load infrastructure file list
           . .structure-config
