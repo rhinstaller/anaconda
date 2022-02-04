@@ -22,6 +22,7 @@ import dnf.repo
 
 from glob import glob
 
+from pyanaconda.core.path import join_paths
 from pyanaconda.modules.common.errors.installation import NonCriticalInstallationError, \
     InstallationError
 from pyanaconda.modules.common.errors.payload import UnknownRepositoryError
@@ -40,6 +41,8 @@ from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_version_lis
     calculate_required_space
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, DNFManagerError, \
     MetadataError
+from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
+from pyanaconda.modules.payloads.source.nfs.initialization import SetUpNFSSourceTask
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 
 from pyanaconda.anaconda_loggers import get_packaging_logger
@@ -86,6 +89,9 @@ class DNFPayload(Payload):
 
         self._dnf_manager = DNFManager()
         self._updates_enabled = True
+
+        # List of internal mount points.
+        self._mount_points = []
 
         # Configure the DNF logging.
         configure_dnf_logging()
@@ -383,13 +389,8 @@ class DNFPayload(Payload):
             self._dnf_manager.set_repository_enabled(data.name, data.enabled)
             return
 
-        # Set up the NFS source with a substituted URL.
-        if data.url.startswith("nfs://"):
-            url = self._dnf_manager.substitute(data.url)
-            (server, path) = url[6:].split(":", 1)
-            mountpoint = "%s/%s.nfs" % (constants.MOUNT_DIR, data.name)
-            self._setup_NFS(mountpoint, server, path, None)
-            data.url = "file://" + mountpoint
+        # Set up the repository.
+        self._set_up_additional_repository(data)
 
         # Add a new repository.
         self._dnf_manager.add_repository(data)
@@ -404,6 +405,45 @@ class DNFPayload(Payload):
         We can only enable or disable the already existing on-disk repo config.
         """
         return not data.url and data.name in self._dnf_manager.repositories
+
+    def _set_up_additional_repository(self, data):
+        """Set up sources for the additional repository."""
+        # Set up the NFS source with a substituted URL.
+        if data.url.startswith("nfs://"):
+            device_mount = self._create_mount_point(
+                constants.MOUNT_DIR,
+                data.name + "-nfs-device"
+            )
+            iso_mount = self._create_mount_point(
+                constants.MOUNT_DIR,
+                data.name + "-nfs-iso"
+            )
+            task = SetUpNFSSourceTask(
+                device_mount=device_mount,
+                iso_mount=iso_mount,
+                url=self._dnf_manager.substitute(data.url)
+            )
+            mount_point = task.run()
+            data.url = "file://" + mount_point
+
+    def _create_mount_point(self, *paths):
+        """Create a mount point from specified paths.
+
+        FIXME: This is a temporary workaround.
+        """
+        mount_point = join_paths(*paths)
+        self._mount_points.append(mount_point)
+        return mount_point
+
+    def _tear_down_additional_sources(self):
+        """Tear down sources of additional repositories.
+
+        FIXME: This is a temporary workaround.
+        """
+        while self._mount_points:
+            mount_point = self._mount_points.pop()
+            task = TearDownMountTask(mount_point)
+            task.run()
 
     def _remove_repo(self, repo_id):
         repos = self.data.repo.dataList()
@@ -501,6 +541,7 @@ class DNFPayload(Payload):
 
     def _reset_configuration(self):
         tear_down_sources(self.proxy)
+        self._tear_down_additional_sources()
         self._reset_additional_repos()
         self.tx_id = None
         self._dnf_manager.clear_cache()
@@ -786,32 +827,6 @@ class DNFPayload(Payload):
             log.error("mount failed: %s", e)
             payload_utils.teardown_device(device)
             raise PayloadSetupError(str(e)) from e
-
-    @staticmethod
-    def _setup_NFS(mountpoint, server, path, options):
-        """Prepare an NFS directory for use as an install source."""
-        log.info("mounting %s:%s:%s on %s", server, path, options, mountpoint)
-        device_path = payload_utils.get_mount_device_path(mountpoint)
-
-        # test if the mountpoint is occupied already
-        if device_path:
-            _server, colon, _path = device_path.partition(":")
-            if colon == ":" and server == _server and path == _path:
-                log.debug("%s:%s already mounted on %s", server, path, mountpoint)
-                return
-            else:
-                log.debug("%s already has something mounted on it", mountpoint)
-                payload_utils.unmount(mountpoint)
-
-        # mount the specified directory
-        url = "%s:%s" % (server, path)
-
-        if not options:
-            options = "nolock"
-        elif "nolock" not in options:
-            options += ",nolock"
-
-        payload_utils.mount(url, mountpoint, fstype="nfs", options=options)
 
     def _setup_harddrive_addon_repo(self, ksrepo):
         iso_device = payload_utils.resolve_device(ksrepo.partition)
