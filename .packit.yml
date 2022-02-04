@@ -13,8 +13,6 @@ actions:
 jobs:
   - job: propose_downstream
     trigger: release
-    metadata:
-      dist_git_branches: fedora-development
 
   - job: tests
     trigger: pull_request
@@ -51,7 +49,7 @@ jobs:
     metadata:
       targets:
         - fedora-latest
-      branch: f35-devel
+      branch: f36-devel
       owner: "@rhinstaller"
       project: Anaconda-devel
       preserve_project: True
