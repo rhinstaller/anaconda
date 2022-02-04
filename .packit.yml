@@ -11,8 +11,11 @@ actions:
     - "make release"
     - 'bash -c "ls -1 anaconda-*.tar.bz2"'
 jobs:
+  # For Fedora branching change the `dist_git_branches` on fXX-release to 'fxx' value
   - job: propose_downstream
     trigger: release
+    metadata:
+      dist_git_branches: main
 
   - job: tests
     trigger: pull_request
@@ -44,6 +47,7 @@ jobs:
         - "https://fedorapeople.org/groups/anaconda/repos/anaconda_fixup_repo/"
       preserve_project: True
 
+  # For Fedora branching change the `branch` for fXX-devel
   - job: copr_build
     trigger: commit
     metadata:
