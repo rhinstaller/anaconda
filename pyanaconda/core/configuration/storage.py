@@ -151,6 +151,7 @@ class StorageSection(Section):
             min        The size will grow from min size to max size.
             max        The max size is unlimited by default.
             free       The required available space.
+            btrfs      The mount point will be created only for the Btrfs scheme
 
         :return: a list of dictionaries with mount point attributes
         """
@@ -170,7 +171,10 @@ class StorageSection(Section):
         attrs = {"name": name}
 
         for name, value in raw_attrs.items():
-            if value and name in ("size", "min", "max", "free"):
+            if not value and name in ("btrfs", ):
+                # Handle a boolean attribute.
+                attrs[name] = True
+            elif value and name in ("size", "min", "max", "free"):
                 # Handle a size attribute.
                 attrs[name] = Size(value)
             else:
