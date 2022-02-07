@@ -37,6 +37,7 @@ RUN set -ex; \
   dnf update -y; \
   dnf install -y \
   'dnf-command(copr)' \
+  nodejs \
   git \
   curl \
   python3-pip \
@@ -58,7 +59,6 @@ RUN set -ex; \
   rpmspec -q --buildrequires /tmp/anaconda.spec | xargs -d '\n' dnf install -y; \
   dnf install -y https://kojipkgs.fedoraproject.org//packages/annobin/10.53/1.fc36/x86_64/annobin-plugin-gcc-10.53-1.fc36.x86_64.rpm \
                  https://kojipkgs.fedoraproject.org//packages/annobin/10.53/1.fc36/noarch/annobin-docs-10.53-1.fc36.noarch.rpm; \
-  dnf -y module enable nodejs:16 && dnf install -y @nodejs:16/default ; \
   dnf clean all; \
   mkdir /anaconda
 
