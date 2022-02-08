@@ -282,14 +282,6 @@ def _prepare_installation(payload, ksdata):
     # - check for possibly needed additional packages.
     pre_install = TaskQueue("Pre install tasks", N_("Running pre-installation tasks"))
 
-    # make name resolution work for rpm scripts in chroot
-    if conf.system.provides_resolver_config:
-        pre_install.append(Task(
-            "Copy resolv.conf to sysroot",
-            network.copy_resolv_conf_to_root,
-            (conf.target.system_root, )
-        ))
-
     if is_module_available(SECURITY):
         security_proxy = SECURITY.get_proxy()
 
