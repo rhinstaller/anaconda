@@ -23,7 +23,7 @@ from pyanaconda.product import productName
 from pyanaconda.flags import flags
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import THREAD_INSTALL, IPMI_FINISHED
+from pyanaconda.core.constants import IPMI_FINISHED
 from pykickstart.constants import KS_SHUTDOWN, KS_REBOOT
 
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
@@ -170,8 +170,7 @@ class ProgressSpoke(StandaloneSpoke):
         self._progressNotebook.set_current_page(0)
 
     def refresh(self):
-        from pyanaconda.installation import run_installation
-        from pyanaconda.threading import threadMgr, AnacondaThread
+        from pyanaconda.installation import RunInstallationTask
         super().refresh()
 
         self._update_progress_timer.timeout_msec(
@@ -180,11 +179,11 @@ class ProgressSpoke(StandaloneSpoke):
             self._installation_done
         )
 
-        threadMgr.add(AnacondaThread(
-            name=THREAD_INSTALL,
-            target=run_installation,
-            args=(self.payload, self.data))
+        task = RunInstallationTask(
+            payload=self.payload,
+            ksdata=self.data
         )
+        task.start()
 
         log.debug("The installation has started.")
 

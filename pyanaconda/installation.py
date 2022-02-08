@@ -23,7 +23,7 @@ from pyanaconda.core.constants import PAYLOAD_LIVE_TYPES, PAYLOAD_TYPE_DNF
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, SNAPSHOT, FIREWALL
 from pyanaconda.modules.common.constants.services import STORAGE, USERS, SERVICES, NETWORK, \
     SECURITY, LOCALIZATION, TIMEZONE, BOSS, SUBSCRIPTION
-from pyanaconda.modules.common.task import sync_run_task
+from pyanaconda.modules.common.task import sync_run_task, Task as InstallationTask
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.progress import progress_message, progress_step, progress_complete, progress_init
 from pyanaconda import flags
@@ -41,7 +41,7 @@ from pykickstart.constants import SNAPSHOT_WHEN_POST_INSTALL
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["run_installation"]
+__all__ = ["RunInstallationTask"]
 
 
 def _writeKS(ksdata):
@@ -53,355 +53,377 @@ def _writeKS(ksdata):
         f.write(str(ksdata))
 
 
-def _prepare_configuration(payload, ksdata):
-    """Configure the installed system."""
+class RunInstallationTask(InstallationTask):
+    """Task to run the installation queue."""
 
-    configuration_queue = TaskQueue("Configuration queue")
-    # connect progress reporting
-    configuration_queue.queue_started.connect(lambda x: progress_message(x.status_message))
-    configuration_queue.task_completed.connect(lambda x: progress_step(x.name))
+    def __init__(self, payload, ksdata):
+        """Create a new task.
 
-    # add installation tasks for the Subscription DBus module
-    if is_module_available(SUBSCRIPTION):
-        # we only run the tasks if the Subscription module is available
-        subscription_config = TaskQueue("Subscription configuration",
-                                        N_("Configuring Red Hat subscription"))
-        subscription_proxy = SUBSCRIPTION.get_proxy()
-        subscription_dbus_tasks = subscription_proxy.InstallWithTasks()
-        subscription_config.append_dbus_tasks(SUBSCRIPTION, subscription_dbus_tasks)
-        configuration_queue.append(subscription_config)
+        :param payload: the payload object
+        :param ksdata: the kickstart data
+        """
+        super().__init__()
+        self._payload = payload
+        self._ksdata = ksdata
 
-    # schedule the execute methods of ksdata that require an installed system to be present
-    os_config = TaskQueue("Installed system configuration", N_("Configuring installed system"))
+    @property
+    def name(self):
+        """Name of the task"""
+        return "Run the installation queue."
 
-    # add installation tasks for the Security DBus module
-    if is_module_available(SECURITY):
-        security_proxy = SECURITY.get_proxy()
-        security_dbus_tasks = security_proxy.InstallWithTasks()
-        os_config.append_dbus_tasks(SECURITY, security_dbus_tasks)
-
-    # add installation tasks for the Timezone DBus module
-    # run these tasks before tasks of the Services module
-    if is_module_available(TIMEZONE):
-        timezone_proxy = TIMEZONE.get_proxy()
-        timezone_dbus_tasks = timezone_proxy.InstallWithTasks()
-        os_config.append_dbus_tasks(TIMEZONE, timezone_dbus_tasks)
-
-    # add installation tasks for the Services DBus module
-    if is_module_available(SERVICES):
-        services_proxy = SERVICES.get_proxy()
-        services_dbus_tasks = services_proxy.InstallWithTasks()
-        os_config.append_dbus_tasks(SERVICES, services_dbus_tasks)
-
-    # add installation tasks for the Localization DBus module
-    if is_module_available(LOCALIZATION):
-        localization_proxy = LOCALIZATION.get_proxy()
-        localization_dbus_tasks = localization_proxy.InstallWithTasks()
-        os_config.append_dbus_tasks(LOCALIZATION, localization_dbus_tasks)
-
-    # add the Firewall configuration task
-    if conf.target.can_configure_network:
-        firewall_proxy = NETWORK.get_proxy(FIREWALL)
-        firewall_dbus_task = firewall_proxy.InstallWithTask()
-        os_config.append_dbus_tasks(NETWORK, [firewall_dbus_task])
-
-    configuration_queue.append(os_config)
-
-    # schedule network configuration (if required)
-    if conf.target.can_configure_network and conf.system.provides_network_config:
-        overwrite = payload.type in PAYLOAD_LIVE_TYPES
-        network_config = TaskQueue("Network configuration", N_("Writing network configuration"))
-        network_config.append(Task("Network configuration",
-                                   network.write_configuration, (overwrite, )))
-        configuration_queue.append(network_config)
-
-    # add installation tasks for the Users DBus module
-    if is_module_available(USERS):
-        user_config = TaskQueue("User creation", N_("Creating users"))
-        users_proxy = USERS.get_proxy()
-        users_dbus_tasks = users_proxy.InstallWithTasks()
-        user_config.append_dbus_tasks(USERS, users_dbus_tasks)
-        configuration_queue.append(user_config)
-
-    # Anaconda addon configuration
-    addon_config = TaskQueue("Anaconda addon configuration", N_("Configuring addons"))
-
-    boss_proxy = BOSS.get_proxy()
-    for service_name, object_path in boss_proxy.CollectInstallSystemTasks():
-        task_proxy = DBus.get_proxy(service_name, object_path)
-        addon_config.append(DBusTask(task_proxy))
-
-    configuration_queue.append(addon_config)
-
-    # Initramfs generation
-    generate_initramfs = TaskQueue("Initramfs generation", N_("Generating initramfs"))
-    bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
-
-    def run_generate_initramfs():
-        tasks = bootloader_proxy.GenerateInitramfsWithTasks(
-            payload.type,
-            payload.kernel_version_list
+    def run(self):
+        """Run the task."""
+        self._run_installation(
+            payload=self._payload,
+            ksdata=self._ksdata,
         )
 
-        for task in tasks:
-            sync_run_task(STORAGE.get_proxy(task))
+    def _prepare_configuration(self, payload, ksdata):
+        """Configure the installed system."""
 
-    generate_initramfs.append(Task("Generate initramfs", run_generate_initramfs))
-    configuration_queue.append(generate_initramfs)
+        configuration_queue = TaskQueue("Configuration queue")
+        # connect progress reporting
+        configuration_queue.queue_started.connect(lambda x: progress_message(x.status_message))
+        configuration_queue.task_completed.connect(lambda x: progress_step(x.name))
 
-    if is_module_available(SECURITY):
-        security_proxy = SECURITY.get_proxy()
+        # add installation tasks for the Subscription DBus module
+        if is_module_available(SUBSCRIPTION):
+            # we only run the tasks if the Subscription module is available
+            subscription_config = TaskQueue("Subscription configuration",
+                                            N_("Configuring Red Hat subscription"))
+            subscription_proxy = SUBSCRIPTION.get_proxy()
+            subscription_dbus_tasks = subscription_proxy.InstallWithTasks()
+            subscription_config.append_dbus_tasks(SUBSCRIPTION, subscription_dbus_tasks)
+            configuration_queue.append(subscription_config)
 
-        # Configure FIPS.
-        configuration_queue.append_dbus_tasks(SECURITY, [security_proxy.ConfigureFIPSWithTask()])
+        # schedule the execute methods of ksdata that require an installed system to be present
+        os_config = TaskQueue("Installed system configuration", N_("Configuring installed system"))
 
-        # Join a realm. This can run only after network is configured in the target system chroot.
-        configuration_queue.append_dbus_tasks(SECURITY, [security_proxy.JoinRealmWithTask()])
+        # add installation tasks for the Security DBus module
+        if is_module_available(SECURITY):
+            security_proxy = SECURITY.get_proxy()
+            security_dbus_tasks = security_proxy.InstallWithTasks()
+            os_config.append_dbus_tasks(SECURITY, security_dbus_tasks)
 
-    # setup kexec reboot if requested
-    if flags.flags.kexec:
-        kexec_setup = TaskQueue("Kexec setup", N_("Setting up kexec"))
-        kexec_setup.append(Task("Setup kexec", setup_kexec))
-        configuration_queue.append(kexec_setup)
+        # add installation tasks for the Timezone DBus module
+        # run these tasks before tasks of the Services module
+        if is_module_available(TIMEZONE):
+            timezone_proxy = TIMEZONE.get_proxy()
+            timezone_dbus_tasks = timezone_proxy.InstallWithTasks()
+            os_config.append_dbus_tasks(TIMEZONE, timezone_dbus_tasks)
 
-    # write anaconda related configs & kickstarts
-    write_configs = TaskQueue(
-        "Write configs and kickstarts",
-        N_("Storing configuration files and kickstarts")
-    )
+        # add installation tasks for the Services DBus module
+        if is_module_available(SERVICES):
+            services_proxy = SERVICES.get_proxy()
+            services_dbus_tasks = services_proxy.InstallWithTasks()
+            os_config.append_dbus_tasks(SERVICES, services_dbus_tasks)
 
-    # Write the kickstart file to the installed system (or, copy the input
-    # kickstart file over if one exists).
-    if conf.target.can_save_output_kickstart:
+        # add installation tasks for the Localization DBus module
+        if is_module_available(LOCALIZATION):
+            localization_proxy = LOCALIZATION.get_proxy()
+            localization_dbus_tasks = localization_proxy.InstallWithTasks()
+            os_config.append_dbus_tasks(LOCALIZATION, localization_dbus_tasks)
+
+        # add the Firewall configuration task
+        if conf.target.can_configure_network:
+            firewall_proxy = NETWORK.get_proxy(FIREWALL)
+            firewall_dbus_task = firewall_proxy.InstallWithTask()
+            os_config.append_dbus_tasks(NETWORK, [firewall_dbus_task])
+
+        configuration_queue.append(os_config)
+
+        # schedule network configuration (if required)
+        if conf.target.can_configure_network and conf.system.provides_network_config:
+            overwrite = payload.type in PAYLOAD_LIVE_TYPES
+            network_config = TaskQueue("Network configuration", N_("Writing network configuration"))
+            network_config.append(Task("Network configuration",
+                                       network.write_configuration, (overwrite, )))
+            configuration_queue.append(network_config)
+
+        # add installation tasks for the Users DBus module
+        if is_module_available(USERS):
+            user_config = TaskQueue("User creation", N_("Creating users"))
+            users_proxy = USERS.get_proxy()
+            users_dbus_tasks = users_proxy.InstallWithTasks()
+            user_config.append_dbus_tasks(USERS, users_dbus_tasks)
+            configuration_queue.append(user_config)
+
+        # Anaconda addon configuration
+        addon_config = TaskQueue("Anaconda addon configuration", N_("Configuring addons"))
+
+        boss_proxy = BOSS.get_proxy()
+        for service_name, object_path in boss_proxy.CollectInstallSystemTasks():
+            task_proxy = DBus.get_proxy(service_name, object_path)
+            addon_config.append(DBusTask(task_proxy))
+
+        configuration_queue.append(addon_config)
+
+        # Initramfs generation
+        generate_initramfs = TaskQueue("Initramfs generation", N_("Generating initramfs"))
+        bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
+
+        def run_generate_initramfs():
+            tasks = bootloader_proxy.GenerateInitramfsWithTasks(
+                payload.type,
+                payload.kernel_version_list
+            )
+
+            for task in tasks:
+                sync_run_task(STORAGE.get_proxy(task))
+
+        generate_initramfs.append(Task("Generate initramfs", run_generate_initramfs))
+        configuration_queue.append(generate_initramfs)
+
+        if is_module_available(SECURITY):
+            security_proxy = SECURITY.get_proxy()
+
+            # Configure FIPS.
+            configuration_queue.append_dbus_tasks(SECURITY, [security_proxy.ConfigureFIPSWithTask()])
+
+            # Join a realm. This can run only after network is configured in the target system chroot.
+            configuration_queue.append_dbus_tasks(SECURITY, [security_proxy.JoinRealmWithTask()])
+
+        # setup kexec reboot if requested
+        if flags.flags.kexec:
+            kexec_setup = TaskQueue("Kexec setup", N_("Setting up kexec"))
+            kexec_setup.append(Task("Setup kexec", setup_kexec))
+            configuration_queue.append(kexec_setup)
+
         # write anaconda related configs & kickstarts
-        write_configs.append(Task("Store kickstarts", _writeKS, (ksdata,)))
-    else:
-        # don't write the kickstart file to the installed system if this has
-        # been disabled by the nosave option
-        log.warning("Writing of the output kickstart to installed system has been disabled"
-                    " by the nosave option.")
-
-    # only add write_configs to the main queue if we actually store some kickstarts/configs
-    if write_configs.task_count:
-        configuration_queue.append(write_configs)
-
-    post_scripts = TaskQueue(
-        "Post installation scripts",
-        N_("Running post-installation scripts")
-    )
-    post_scripts.append(Task(
-        "Run post installation scripts",
-        runPostScripts,
-        (ksdata.scripts,)
-    ))
-    configuration_queue.append(post_scripts)
-
-    boss_proxy = BOSS.get_proxy()
-    finish_tasks = boss_proxy.FinishInstallationWithTasks()
-    configuration_queue.append_dbus_tasks(BOSS, finish_tasks)
-
-    return configuration_queue
-
-
-def wait_for_threads_to_finish():
-    """Wait for background processing threads to finish.
-
-    Wait for background processing threads to finish before filling
-    the installation task queue. Otherwise installation tasks might
-    be created based on old data in DBus modules, missing data set by
-    the threads that are still running.
-    """
-
-    # This should be the only thread running, wait for the others to finish if not.
-    if threadMgr.running > 1:
-        # show a progress message
-        progressQ.send_message(N_("Waiting for %s threads to finish") % (threadMgr.running - 1))
-        for message in ("Thread %s is running" % n for n in threadMgr.names):
-            log.debug(message)
-        threadMgr.wait_all()
-        log.debug("No more threads are running, assembling installation task queue.")
-
-
-def _prepare_installation(payload, ksdata):
-    """Perform an installation.  This method takes the ksdata as prepared by
-       the UI (the first hub, in graphical mode) and applies it to the disk.
-       The two main tasks for this are putting filesystems onto disks and
-       installing packages onto those filesystems.
-    """
-    installation_queue = TaskQueue("Installation queue")
-    # connect progress reporting
-    installation_queue.queue_started.connect(lambda x: progress_message(x.status_message))
-    installation_queue.task_completed.connect(lambda x: progress_step(x.name))
-
-    # setup the installation environment
-    setup_environment = TaskQueue(
-        "Installation environment setup",
-        N_("Setting up the installation environment")
-    )
-
-    boss_proxy = BOSS.get_proxy()
-    for service_name, object_path in boss_proxy.CollectConfigureRuntimeTasks():
-        task_proxy = DBus.get_proxy(service_name, object_path)
-        setup_environment.append(DBusTask(task_proxy))
-
-    # Add configuration tasks for the Localization DBus module.
-    if is_module_available(LOCALIZATION):
-        localization_proxy = LOCALIZATION.get_proxy()
-        # Populate the missing keyboard values before the payload installation,
-        # so the module requirements can be generated for the right configuration.
-        # FIXME: Make sure that the module always returns right values.
-        populate_task = localization_proxy.PopulateMissingKeyboardConfigurationWithTask()
-        setup_environment.append_dbus_tasks(LOCALIZATION, [populate_task])
-
-    installation_queue.append(setup_environment)
-
-    # Do partitioning.
-    # Depending on current payload the storage might be apparently configured
-    # either before or after package/payload installation.
-    # So let's have two task queues - early storage & late storage.
-    storage_proxy = STORAGE.get_proxy()
-    early_storage = TaskQueue("Early storage configuration", N_("Configuring storage"))
-    early_storage.append_dbus_tasks(STORAGE, storage_proxy.InstallWithTasks())
-
-    if payload.type == PAYLOAD_TYPE_DNF:
-        conf_task = storage_proxy.WriteConfigurationWithTask()
-        early_storage.append_dbus_tasks(STORAGE, [conf_task])
-
-    installation_queue.append(early_storage)
-
-    # Run %pre-install scripts with the filesystem mounted and no packages
-    pre_install_scripts = TaskQueue("Pre-install scripts", N_("Running pre-installation scripts"))
-    pre_install_scripts.append(Task(
-        "Run %pre-install scripts",
-        runPreInstallScripts, (ksdata.scripts,)
-    ))
-    installation_queue.append(pre_install_scripts)
-
-    # Do various pre-installation tasks
-    # - try to discover a realm (if any)
-    # - check for possibly needed additional packages.
-    pre_install = TaskQueue("Pre install tasks", N_("Running pre-installation tasks"))
-
-    if is_module_available(SECURITY):
-        security_proxy = SECURITY.get_proxy()
-
-        # Discover a realm.
-        pre_install.append_dbus_tasks(SECURITY, [security_proxy.DiscoverRealmWithTask()])
-
-        # Set up FIPS for the payload installation.
-        fips_task = security_proxy.PreconfigureFIPSWithTask(payload.type)
-        pre_install.append_dbus_tasks(SECURITY, [fips_task])
-
-    # Install the payload.
-    pre_install.append(Task("Find additional packages & run pre_install()", payload.pre_install))
-    installation_queue.append(pre_install)
-
-    payload_install = TaskQueue("Payload installation", N_("Installing."))
-    payload_install.append(Task("Install the payload", payload.install))
-    installation_queue.append(payload_install)
-
-    # for some payloads storage is configured after the payload is installed
-    if payload.type != PAYLOAD_TYPE_DNF:
-        late_storage = TaskQueue("Late storage configuration", N_("Configuring storage"))
-        conf_task = storage_proxy.WriteConfigurationWithTask()
-        late_storage.append_dbus_tasks(STORAGE, [conf_task])
-        installation_queue.append(late_storage)
-
-    # Do bootloader.
-    bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
-    bootloader_install = TaskQueue("Bootloader installation", N_("Installing boot loader"))
-
-    def run_configure_bootloader():
-        tasks = boss_proxy.CollectConfigureBootloaderTasks(
-            payload.kernel_version_list
+        write_configs = TaskQueue(
+            "Write configs and kickstarts",
+            N_("Storing configuration files and kickstarts")
         )
 
-        for service, task in tasks:
-            sync_run_task(DBus.get_proxy(service, task))
+        # Write the kickstart file to the installed system (or, copy the input
+        # kickstart file over if one exists).
+        if conf.target.can_save_output_kickstart:
+            # write anaconda related configs & kickstarts
+            write_configs.append(Task("Store kickstarts", _writeKS, (ksdata,)))
+        else:
+            # don't write the kickstart file to the installed system if this has
+            # been disabled by the nosave option
+            log.warning("Writing of the output kickstart to installed system has been disabled"
+                        " by the nosave option.")
 
-    bootloader_install.append(Task("Configure bootloader", run_configure_bootloader))
+        # only add write_configs to the main queue if we actually store some kickstarts/configs
+        if write_configs.task_count:
+            configuration_queue.append(write_configs)
 
-    def run_install_bootloader():
-        tasks = bootloader_proxy.InstallBootloaderWithTasks(
-            payload.type,
-            payload.kernel_version_list
+        post_scripts = TaskQueue(
+            "Post installation scripts",
+            N_("Running post-installation scripts")
+        )
+        post_scripts.append(Task(
+            "Run post installation scripts",
+            runPostScripts,
+            (ksdata.scripts,)
+        ))
+        configuration_queue.append(post_scripts)
+
+        boss_proxy = BOSS.get_proxy()
+        finish_tasks = boss_proxy.FinishInstallationWithTasks()
+        configuration_queue.append_dbus_tasks(BOSS, finish_tasks)
+
+        return configuration_queue
+
+    def _wait_for_threads_to_finish(self):
+        """Wait for background processing threads to finish.
+
+        Wait for background processing threads to finish before filling
+        the installation task queue. Otherwise installation tasks might
+        be created based on old data in DBus modules, missing data set by
+        the threads that are still running.
+        """
+
+        # This should be the only thread running, wait for the others to finish if not.
+        if threadMgr.running > 1:
+            # show a progress message
+            progressQ.send_message(N_("Waiting for %s threads to finish") % (threadMgr.running - 1))
+            for message in ("Thread %s is running" % n for n in threadMgr.names):
+                log.debug(message)
+            threadMgr.wait_all()
+            log.debug("No more threads are running, assembling installation task queue.")
+
+    def _prepare_installation(self, payload, ksdata):
+        """Perform an installation.  This method takes the ksdata as prepared by
+           the UI (the first hub, in graphical mode) and applies it to the disk.
+           The two main tasks for this are putting filesystems onto disks and
+           installing packages onto those filesystems.
+        """
+        installation_queue = TaskQueue("Installation queue")
+        # connect progress reporting
+        installation_queue.queue_started.connect(lambda x: progress_message(x.status_message))
+        installation_queue.task_completed.connect(lambda x: progress_step(x.name))
+
+        # setup the installation environment
+        setup_environment = TaskQueue(
+            "Installation environment setup",
+            N_("Setting up the installation environment")
         )
 
-        for task in tasks:
-            sync_run_task(STORAGE.get_proxy(task))
+        boss_proxy = BOSS.get_proxy()
+        for service_name, object_path in boss_proxy.CollectConfigureRuntimeTasks():
+            task_proxy = DBus.get_proxy(service_name, object_path)
+            setup_environment.append(DBusTask(task_proxy))
 
-    bootloader_install.append(Task("Install bootloader", run_install_bootloader))
-    installation_queue.append(bootloader_install)
+        # Add configuration tasks for the Localization DBus module.
+        if is_module_available(LOCALIZATION):
+            localization_proxy = LOCALIZATION.get_proxy()
+            # Populate the missing keyboard values before the payload installation,
+            # so the module requirements can be generated for the right configuration.
+            # FIXME: Make sure that the module always returns right values.
+            populate_task = localization_proxy.PopulateMissingKeyboardConfigurationWithTask()
+            setup_environment.append_dbus_tasks(LOCALIZATION, [populate_task])
 
-    post_install = TaskQueue(
-        "Post-installation setup tasks",
-        (N_("Performing post-installation setup tasks"))
-    )
-    post_install.append(Task("Run post-installation setup tasks", payload.post_install))
-    installation_queue.append(post_install)
+        installation_queue.append(setup_environment)
 
-    # Create snapshot
-    snapshot_proxy = STORAGE.get_proxy(SNAPSHOT)
+        # Do partitioning.
+        # Depending on current payload the storage might be apparently configured
+        # either before or after package/payload installation.
+        # So let's have two task queues - early storage & late storage.
+        storage_proxy = STORAGE.get_proxy()
+        early_storage = TaskQueue("Early storage configuration", N_("Configuring storage"))
+        early_storage.append_dbus_tasks(STORAGE, storage_proxy.InstallWithTasks())
 
-    if snapshot_proxy.IsRequested(SNAPSHOT_WHEN_POST_INSTALL):
-        snapshot_creation = TaskQueue(
-            "Creating post installation snapshots",
-            N_("Creating snapshots")
+        if payload.type == PAYLOAD_TYPE_DNF:
+            conf_task = storage_proxy.WriteConfigurationWithTask()
+            early_storage.append_dbus_tasks(STORAGE, [conf_task])
+
+        installation_queue.append(early_storage)
+
+        # Run %pre-install scripts with the filesystem mounted and no packages
+        pre_install_scripts = TaskQueue("Pre-install scripts", N_("Running pre-installation scripts"))
+        pre_install_scripts.append(Task(
+            "Run %pre-install scripts",
+            runPreInstallScripts, (ksdata.scripts,)
+        ))
+        installation_queue.append(pre_install_scripts)
+
+        # Do various pre-installation tasks
+        # - try to discover a realm (if any)
+        # - check for possibly needed additional packages.
+        pre_install = TaskQueue("Pre install tasks", N_("Running pre-installation tasks"))
+
+        if is_module_available(SECURITY):
+            security_proxy = SECURITY.get_proxy()
+
+            # Discover a realm.
+            pre_install.append_dbus_tasks(SECURITY, [security_proxy.DiscoverRealmWithTask()])
+
+            # Set up FIPS for the payload installation.
+            fips_task = security_proxy.PreconfigureFIPSWithTask(payload.type)
+            pre_install.append_dbus_tasks(SECURITY, [fips_task])
+
+        # Install the payload.
+        pre_install.append(Task("Find additional packages & run pre_install()", payload.pre_install))
+        installation_queue.append(pre_install)
+
+        payload_install = TaskQueue("Payload installation", N_("Installing."))
+        payload_install.append(Task("Install the payload", payload.install))
+        installation_queue.append(payload_install)
+
+        # for some payloads storage is configured after the payload is installed
+        if payload.type != PAYLOAD_TYPE_DNF:
+            late_storage = TaskQueue("Late storage configuration", N_("Configuring storage"))
+            conf_task = storage_proxy.WriteConfigurationWithTask()
+            late_storage.append_dbus_tasks(STORAGE, [conf_task])
+            installation_queue.append(late_storage)
+
+        # Do bootloader.
+        bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
+        bootloader_install = TaskQueue("Bootloader installation", N_("Installing boot loader"))
+
+        def run_configure_bootloader():
+            tasks = boss_proxy.CollectConfigureBootloaderTasks(
+                payload.kernel_version_list
+            )
+
+            for service, task in tasks:
+                sync_run_task(DBus.get_proxy(service, task))
+
+        bootloader_install.append(Task("Configure bootloader", run_configure_bootloader))
+
+        def run_install_bootloader():
+            tasks = bootloader_proxy.InstallBootloaderWithTasks(
+                payload.type,
+                payload.kernel_version_list
+            )
+
+            for task in tasks:
+                sync_run_task(STORAGE.get_proxy(task))
+
+        bootloader_install.append(Task("Install bootloader", run_install_bootloader))
+        installation_queue.append(bootloader_install)
+
+        post_install = TaskQueue(
+            "Post-installation setup tasks",
+            (N_("Performing post-installation setup tasks"))
         )
-        snapshot_task = snapshot_proxy.CreateWithTask(SNAPSHOT_WHEN_POST_INSTALL)
-        snapshot_creation.append_dbus_tasks(STORAGE, [snapshot_task])
-        installation_queue.append(snapshot_creation)
+        post_install.append(Task("Run post-installation setup tasks", payload.post_install))
+        installation_queue.append(post_install)
 
-    return installation_queue
+        # Create snapshot
+        snapshot_proxy = STORAGE.get_proxy(SNAPSHOT)
 
+        if snapshot_proxy.IsRequested(SNAPSHOT_WHEN_POST_INSTALL):
+            snapshot_creation = TaskQueue(
+                "Creating post installation snapshots",
+                N_("Creating snapshots")
+            )
+            snapshot_task = snapshot_proxy.CreateWithTask(SNAPSHOT_WHEN_POST_INSTALL)
+            snapshot_creation.append_dbus_tasks(STORAGE, [snapshot_task])
+            installation_queue.append(snapshot_creation)
 
-def run_installation(payload, ksdata):
-    """Run the complete installation."""
-    # before building the install task queue make
-    # sure no backgrond processing threads are running and
-    # the Anaconda internal state is thus final
-    wait_for_threads_to_finish()
+        return installation_queue
 
-    queue = TaskQueue("Complete installation queue")
-    queue.append(_prepare_installation(payload, ksdata))
-    queue.append(_prepare_configuration(payload, ksdata))
+    def _run_installation(self, payload, ksdata):
+        """Run the complete installation."""
+        # before building the install task queue make
+        # sure no backgrond processing threads are running and
+        # the Anaconda internal state is thus final
+        self._wait_for_threads_to_finish()
 
-    # Set the progress reporting callback of the payload class.
-    # FIXME: This is a temporary workaround.
-    payload._progress_cb = lambda step, msg: progress_message(msg)
+        queue = TaskQueue("Complete installation queue")
+        queue.append(self._prepare_installation(payload, ksdata))
+        queue.append(self._prepare_configuration(payload, ksdata))
 
-    # Set the progress reporting callback of the DBus tasks.
-    # FIXME: This is a temporary workaround.
-    for item in queue.nested_items:
-        if isinstance(item, DBusTask):
-            item._progress_cb = lambda step, msg: progress_message(msg)
+        # Set the progress reporting callback of the payload class.
+        # FIXME: This is a temporary workaround.
+        payload._progress_cb = lambda step, msg: progress_message(msg)
 
-    # notify progress tracking about the number of steps
-    progress_init(queue.task_count)
+        # Set the progress reporting callback of the DBus tasks.
+        # FIXME: This is a temporary workaround.
+        for item in queue.nested_items:
+            if isinstance(item, DBusTask):
+                item._progress_cb = lambda step, msg: progress_message(msg)
 
-    # log contents of the main task queue
-    log.info(queue.summary)
+        # notify progress tracking about the number of steps
+        progress_init(queue.task_count)
 
-    # log tasks and queues when they are started
-    # - note that we are using generators to add the counter
-    queue_counter = util.item_counter(queue.queue_count)
-    task_started_counter = util.item_counter(queue.task_count)
-    task_completed_counter = util.item_counter(queue.task_count)
-    queue.queue_started.connect(
-        lambda x: log.info("Queue started: %s (%s)", x.name, next(queue_counter))
-    )
-    queue.task_started.connect(
-        lambda x: log.info("Task started: %s (%s)", x.name, next(task_started_counter))
-    )
-    queue.task_completed.connect(
-        lambda x: log.debug("Task completed: %s (%s) (%1.1f s)", x.name,
-                            next(task_completed_counter), x.elapsed_time)
-    )
+        # log contents of the main task queue
+        log.info(queue.summary)
 
-    # start the task queue
-    queue.start()
+        # log tasks and queues when they are started
+        # - note that we are using generators to add the counter
+        queue_counter = util.item_counter(queue.queue_count)
+        task_started_counter = util.item_counter(queue.task_count)
+        task_completed_counter = util.item_counter(queue.task_count)
+        queue.queue_started.connect(
+            lambda x: log.info("Queue started: %s (%s)", x.name, next(queue_counter))
+        )
+        queue.task_started.connect(
+            lambda x: log.info("Task started: %s (%s)", x.name, next(task_started_counter))
+        )
+        queue.task_completed.connect(
+            lambda x: log.debug("Task completed: %s (%s) (%1.1f s)", x.name,
+                                next(task_completed_counter), x.elapsed_time)
+        )
 
-    # done
-    progress_complete()
-    # this message is automatically detected by QE tools, do not change it lightly
-    log.info("All tasks in the installation queue are done. Installation successfully finished.")
+        # start the task queue
+        queue.start()
+
+        # done
+        progress_complete()
+        # this message is automatically detected by QE tools, do not change it lightly
+        log.info("All tasks in the installation queue are done. Installation successfully finished.")
