@@ -117,8 +117,18 @@ class DNFPayload(Payload):
 
         :param opts: a namespace of options
         """
-        # Set the source based on opts.method if it isn't already set
-        # - opts.method is currently set by command line/boot options
+        self._set_source_from_opts(opts)
+        self._set_source_configuration_from_opts(opts)
+        self._set_additional_repos_from_opts(opts)
+        self._set_packages_from_opts(opts)
+        self._configure()
+
+    def _set_source_from_opts(self, opts):
+        """Change the source based on the Anaconda options.
+
+        Set the source based on opts.method if it isn't already set
+        - opts.method is currently set by command line/boot options.
+        """
         if opts.method and (not self.proxy.Sources or self._is_source_default()):
             try:
                 source = SourceFactory.parse_repo_cmdline_string(opts.method)
@@ -128,7 +138,8 @@ class DNFPayload(Payload):
                 source_proxy = source.create_proxy()
                 set_source(self.proxy, source_proxy)
 
-        # Set up the current source.
+    def _set_source_configuration_from_opts(self, opts):
+        """Configure the source based on the Anaconda options."""
         source_proxy = self.get_source_proxy()
 
         if source_proxy.Type == SOURCE_TYPE_URL:
@@ -148,14 +159,42 @@ class DNFPayload(Payload):
                 RepoConfigurationData.to_structure(repo_configuration)
             )
 
-        # Set up packages.
+    def _set_additional_repos_from_opts(self, opts):
+        """Set additional repositories based on the Anaconda options."""
+        for repo_name, repo_url in opts.addRepo:
+            try:
+                source = SourceFactory.parse_repo_cmdline_string(repo_url)
+            except PayloadSourceTypeUnrecognized:
+                log.error("Type for additional repository %s is not recognized!", repo_url)
+                return
+
+            repo = RepoData(name=repo_name, baseurl=repo_url, install=False)
+
+            if repo in self.data.repo.dataList():
+                log.warning("Repository name %s is not unique. Only the first "
+                            "repo will be used!", repo_name)
+
+            if source.is_nfs or source.is_http or source.is_https or source.is_ftp \
+                    or source.is_file:
+                repo.enabled = True
+            elif source.is_harddrive:
+                repo.enabled = True
+                repo.partition = source.partition
+                repo.iso_path = source.path
+                repo.baseurl = "file://"
+            else:
+                log.error("Source type %s for additional repository %s is not supported!",
+                          source.source_type.value, repo_url)
+                continue
+
+            self.data.repo.dataList().append(repo)
+
+    def _set_packages_from_opts(self, opts):
+        """Configure packages based on the Anaconda options."""
         if opts.multiLib:
             configuration = self.get_packages_configuration()
             configuration.multilib_policy = MULTILIB_POLICY_ALL
             self.set_packages_configuration(configuration)
-
-        # Reset all the other things now that we have new configuration.
-        self._configure()
 
     @property
     def type(self):

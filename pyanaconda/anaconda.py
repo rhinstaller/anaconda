@@ -29,7 +29,7 @@ from pyanaconda.core import constants
 from pyanaconda.core.startup.dbus_launcher import AnacondaDBusLauncher
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.modules.common.constants.services import PAYLOADS
-from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
+from pyanaconda.payload.source import SourceFactory
 from pyanaconda.ui.lib.addons import collect_addon_ui_paths
 
 from pyanaconda.anaconda_loggers import get_stdout_logger
@@ -179,43 +179,6 @@ class Anaconda(object):
         log.info("Display mode is set to '%s %s'.",
                  constants.INTERACTIVE_MODE_NAME[self.interactive_mode],
                  constants.DISPLAY_MODE_NAME[self.display_mode])
-
-    def add_additional_repositories_to_ksdata(self):
-        from pyanaconda.kickstart import RepoData
-
-        for repo_name, repo_url in self.opts.addRepo:
-            try:
-                source = SourceFactory.parse_repo_cmdline_string(repo_url)
-            except PayloadSourceTypeUnrecognized:
-                log.error("Type for additional repository %s is not recognized!", repo_url)
-                return
-
-            repo = RepoData(name=repo_name, baseurl=repo_url, install=False)
-
-            if source.is_nfs or source.is_http or source.is_https or source.is_ftp \
-                    or source.is_file:
-                repo.enabled = True
-            elif source.is_harddrive:
-                repo.enabled = True
-                repo.partition = source.partition
-                repo.iso_path = source.path
-                repo.baseurl = "file://"
-            else:
-                log.error("Source type %s for additional repository %s is not supported!",
-                          source.source_type.value, repo_url)
-                continue
-
-            self._check_repo_name_uniqueness(repo)
-            self.ksdata.repo.dataList().append(repo)
-
-    def _check_repo_name_uniqueness(self, repo):
-        """Log if we are adding repository with already used name
-
-        In automatic kickstart installation this will result in using the first defined repo.
-        """
-        if repo in self.ksdata.repo.dataList():
-            log.warning("Repository name %s is not unique. Only the first repo will be used!",
-                        repo.name)
 
     def dumpState(self):
         from meh import ExceptionInfo

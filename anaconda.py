@@ -547,9 +547,6 @@ if __name__ == "__main__":
                 )
             )
 
-    # add additional repositories from the cmdline to kickstart data
-    anaconda.add_additional_repositories_to_ksdata()
-
     # Fallback to default for interactive or for a kickstart with no installation method.
     fallback = not flags.automatedInstall \
         or anaconda.payload.source_type == conf.payload.default_source
