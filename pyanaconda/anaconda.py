@@ -46,7 +46,6 @@ class Anaconda(object):
         self.gui_startup_failed = False
         self._intf = None
         self.ksdata = None
-        self.additional_repos = None
         self.opts = None
         self._payload = None
         self.mehConfig = None
@@ -66,7 +65,6 @@ class Anaconda(object):
     def set_from_opts(self, opts):
         """Load argument to variables from self.opts."""
         self.opts = opts
-        self.additional_repos = opts.addRepo
 
     @property
     def dbus_launcher(self):
@@ -185,7 +183,7 @@ class Anaconda(object):
     def add_additional_repositories_to_ksdata(self):
         from pyanaconda.kickstart import RepoData
 
-        for repo_name, repo_url in self.additional_repos:
+        for repo_name, repo_url in self.opts.addRepo:
             try:
                 source = SourceFactory.parse_repo_cmdline_string(repo_url)
             except PayloadSourceTypeUnrecognized:
