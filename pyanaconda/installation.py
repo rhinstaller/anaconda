@@ -144,8 +144,11 @@ class RunInstallationTask(InstallationTask):
                 "Network configuration",
                 _("Writing network configuration")
             )
-            network_config.append(Task("Network configuration",
-                                       network.write_configuration, (overwrite, )))
+            network_config.append(Task(
+                "Network configuration",
+                network.write_configuration,
+                (overwrite, )
+            ))
             configuration_queue.append(network_config)
 
         # add installation tasks for the Users DBus module
@@ -188,17 +191,25 @@ class RunInstallationTask(InstallationTask):
             for task in tasks:
                 sync_run_task(STORAGE.get_proxy(task))
 
-        generate_initramfs.append(Task("Generate initramfs", run_generate_initramfs))
+        generate_initramfs.append(Task(
+            "Generate initramfs",
+            run_generate_initramfs
+        ))
         configuration_queue.append(generate_initramfs)
 
         if is_module_available(SECURITY):
             security_proxy = SECURITY.get_proxy()
 
             # Configure FIPS.
-            configuration_queue.append_dbus_tasks(SECURITY, [security_proxy.ConfigureFIPSWithTask()])
+            configuration_queue.append_dbus_tasks(SECURITY, [
+                security_proxy.ConfigureFIPSWithTask()
+            ])
 
-            # Join a realm. This can run only after network is configured in the target system chroot.
-            configuration_queue.append_dbus_tasks(SECURITY, [security_proxy.JoinRealmWithTask()])
+            # Join a realm. This can run only after network
+            # is configured in the target system chroot.
+            configuration_queue.append_dbus_tasks(SECURITY, [
+                security_proxy.JoinRealmWithTask()
+            ])
 
         # setup kexec reboot if requested
         if flags.flags.kexec:
@@ -206,7 +217,10 @@ class RunInstallationTask(InstallationTask):
                 "Kexec setup",
                 _("Setting up kexec")
             )
-            kexec_setup.append(Task("Setup kexec", setup_kexec))
+            kexec_setup.append(Task(
+                "Setup kexec",
+                setup_kexec
+            ))
             configuration_queue.append(kexec_setup)
 
         # write anaconda related configs & kickstarts
@@ -338,21 +352,29 @@ class RunInstallationTask(InstallationTask):
             security_proxy = SECURITY.get_proxy()
 
             # Discover a realm.
-            pre_install.append_dbus_tasks(SECURITY, [security_proxy.DiscoverRealmWithTask()])
+            pre_install.append_dbus_tasks(SECURITY, [
+                security_proxy.DiscoverRealmWithTask()
+            ])
 
             # Set up FIPS for the payload installation.
             fips_task = security_proxy.PreconfigureFIPSWithTask(payload.type)
             pre_install.append_dbus_tasks(SECURITY, [fips_task])
 
         # Install the payload.
-        pre_install.append(Task("Find additional packages & run pre_install()", payload.pre_install))
+        pre_install.append(Task(
+            "Find additional packages & run pre_install()",
+            payload.pre_install
+        ))
         installation_queue.append(pre_install)
 
         payload_install = TaskQueue(
             "Payload installation",
             _("Installing.")
         )
-        payload_install.append(Task("Install the payload", payload.install))
+        payload_install.append(Task(
+            "Install the payload",
+            payload.install
+        ))
         installation_queue.append(payload_install)
 
         # for some payloads storage is configured after the payload is installed
@@ -380,7 +402,10 @@ class RunInstallationTask(InstallationTask):
             for service, task in tasks:
                 sync_run_task(DBus.get_proxy(service, task))
 
-        bootloader_install.append(Task("Configure bootloader", run_configure_bootloader))
+        bootloader_install.append(Task(
+            "Configure bootloader",
+            run_configure_bootloader
+        ))
 
         def run_install_bootloader():
             tasks = bootloader_proxy.InstallBootloaderWithTasks(
@@ -391,14 +416,20 @@ class RunInstallationTask(InstallationTask):
             for task in tasks:
                 sync_run_task(STORAGE.get_proxy(task))
 
-        bootloader_install.append(Task("Install bootloader", run_install_bootloader))
+        bootloader_install.append(Task(
+            "Install bootloader",
+            run_install_bootloader
+        ))
         installation_queue.append(bootloader_install)
 
         post_install = TaskQueue(
             "Post-installation setup tasks",
             _("Performing post-installation setup tasks")
         )
-        post_install.append(Task("Run post-installation setup tasks", payload.post_install))
+        post_install.append(Task(
+            "Run post-installation setup tasks",
+            payload.post_install
+        ))
         installation_queue.append(post_install)
 
         # Create snapshot
@@ -464,4 +495,7 @@ class RunInstallationTask(InstallationTask):
         # done
         progress_complete()
         # this message is automatically detected by QE tools, do not change it lightly
-        log.info("All tasks in the installation queue are done. Installation successfully finished.")
+        log.info(
+            "All tasks in the installation queue are done. "
+            "Installation successfully finished."
+        )
