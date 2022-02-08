@@ -40,7 +40,6 @@ RUN set -ex; \
   nodejs \
   git \
   curl \
-  python3-pip \
   /usr/bin/xargs \
   rpm-build; \
   if ! grep -q VARIANT.*eln /etc/os-release; then \
