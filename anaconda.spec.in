@@ -176,6 +176,9 @@ for live installations.
 Summary: Installation environment specific dependencies
 Requires: udisks2-iscsi
 Requires: libblockdev-plugins-all >= %{libblockdevver}
+%if ! 0%{?rhel}
+Requires: libblockdev-lvm-dbus
+%endif
 # active directory/freeipa join support
 Requires: realmd
 Requires: isomd5sum >= %{isomd5sumver}
