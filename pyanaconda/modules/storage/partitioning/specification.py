@@ -27,7 +27,7 @@ class PartSpec(object):
 
     def __init__(self, mountpoint=None, fstype=None, size=None, max_size=None,
                  grow=False, btr=False, lv=False, thin=False, weight=0,
-                 required_space=0, encrypted=False):
+                 required_space=0, encrypted=False, schemes=None):
         """ Create a new storage specification.  These are used to specify
             the default partitioning layout as an object before we have the
             storage system up and running.  The attributes are obvious
@@ -55,6 +55,7 @@ class PartSpec(object):
             encrypted -- Should this request be encrypted? For logical volume
                          requests, this is satisfied if the PVs are encrypted
                          as in the case of encrypted LVM autopart.
+            schemes -- Create the mount point only for specific schemes if any.
         """
 
         self.mountpoint = mountpoint
@@ -68,6 +69,7 @@ class PartSpec(object):
         self.weight = weight
         self.required_space = required_space
         self.encrypted = encrypted
+        self.schemes = schemes or set()
 
     # Force str and unicode types in case any of the properties are unicode
     def _to_string(self):
