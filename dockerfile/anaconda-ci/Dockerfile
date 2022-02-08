@@ -47,7 +47,6 @@ RUN set -ex; \
   bzip2 \
   rpm-ostree \
   pykickstart \
-  python3-pip \
   python3-lxml \
   policycoreutils \
   python3-gobject-base \
