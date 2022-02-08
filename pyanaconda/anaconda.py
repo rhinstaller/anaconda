@@ -123,8 +123,7 @@ class Anaconda(object):
         if opts.stage2 and SourceFactory.is_harddrive(opts.stage2):
             specs.append(opts.stage2[3:].split(":", 3)[0])
 
-        for additional_repo in opts.addRepo:
-            _name, repo_url = Anaconda._get_additional_repo_name(additional_repo)
+        for _repo_name, repo_url in opts.addRepo:
             if SourceFactory.is_harddrive(repo_url):
                 specs.append(repo_url[3:].split(":", 3)[0])
 
@@ -133,15 +132,6 @@ class Anaconda(object):
             specs.append(zram_dev)
 
         return specs
-
-    @staticmethod
-    def _get_additional_repo_name(repo):
-        try:
-            name, rest = repo.split(',', maxsplit=1)
-        except ValueError:
-            raise RuntimeError("addrepo boot option has incorrect format. Correct format is: "
-                               "inst.addrepo=<name>,<url>") from None
-        return name, rest
 
     @property
     def display_mode(self):
@@ -195,15 +185,14 @@ class Anaconda(object):
     def add_additional_repositories_to_ksdata(self):
         from pyanaconda.kickstart import RepoData
 
-        for add_repo in self.additional_repos:
-            name, repo_url = self._get_additional_repo_name(add_repo)
+        for repo_name, repo_url in self.additional_repos:
             try:
                 source = SourceFactory.parse_repo_cmdline_string(repo_url)
             except PayloadSourceTypeUnrecognized:
-                log.error("Type for additional repository %s is not recognized!", add_repo)
+                log.error("Type for additional repository %s is not recognized!", repo_url)
                 return
 
-            repo = RepoData(name=name, baseurl=repo_url, install=False)
+            repo = RepoData(name=repo_name, baseurl=repo_url, install=False)
 
             if source.is_nfs or source.is_http or source.is_https or source.is_ftp \
                     or source.is_file:
@@ -215,7 +204,7 @@ class Anaconda(object):
                 repo.baseurl = "file://"
             else:
                 log.error("Source type %s for additional repository %s is not supported!",
-                          source.source_type.value, add_repo)
+                          source.source_type.value, repo_url)
                 continue
 
             self._check_repo_name_uniqueness(repo)
