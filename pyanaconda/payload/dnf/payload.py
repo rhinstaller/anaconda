@@ -741,6 +741,12 @@ class DNFPayload(Payload):
                 except UnknownRepositoryError:
                     pass
 
+        self._include_additional_repositories()
+        self._disable_unwanted_repositories()
+        self._load_enabled_repositories()
+
+    def _include_additional_repositories(self):
+        """Add additional repositories to DNF."""
         for ksrepo in self.data.repo.dataList():
             if ksrepo.is_harddrive_based():
                 ksrepo.baseurl = self._setup_harddrive_addon_repo(ksrepo)
@@ -757,9 +763,9 @@ class DNFPayload(Payload):
 
             self._add_repo_to_dnf(ksrepo)
 
+    def _disable_unwanted_repositories(self):
+        """Disable unnecessary repos."""
         with self._repos_lock:
-
-            # disable unnecessary repos
             for repo in self._base.repos.iter_enabled():
                 id_ = repo.id
                 if 'source' in id_ or 'debuginfo' in id_:
@@ -767,7 +773,9 @@ class DNFPayload(Payload):
                 elif constants.isFinal and 'rawhide' in id_:
                     self._dnf_manager.set_repository_enabled(id_, False)
 
-            # fetch md for enabled repos
+    def _load_enabled_repositories(self):
+        """Fetch md for enabled repos."""
+        with self._repos_lock:
             for ks_repo in self.data.repo.dataList():
                 if self.is_repo_enabled(ks_repo.name):
                     self._dnf_manager.load_repository(ks_repo.name)
