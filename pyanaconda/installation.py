@@ -30,7 +30,7 @@ from pyanaconda import flags
 from pyanaconda.core import util
 from pyanaconda.core.path import open_with_perm
 from pyanaconda import network
-from pyanaconda.core.i18n import N_
+from pyanaconda.core.i18n import _
 from pyanaconda.threading import threadMgr
 from pyanaconda.kickstart import runPostScripts, runPreInstallScripts
 from pyanaconda.kexec import setup_kexec
@@ -89,15 +89,20 @@ class RunInstallationTask(InstallationTask):
         # add installation tasks for the Subscription DBus module
         if is_module_available(SUBSCRIPTION):
             # we only run the tasks if the Subscription module is available
-            subscription_config = TaskQueue("Subscription configuration",
-                                            N_("Configuring Red Hat subscription"))
+            subscription_config = TaskQueue(
+                "Subscription configuration",
+                _("Configuring Red Hat subscription")
+            )
             subscription_proxy = SUBSCRIPTION.get_proxy()
             subscription_dbus_tasks = subscription_proxy.InstallWithTasks()
             subscription_config.append_dbus_tasks(SUBSCRIPTION, subscription_dbus_tasks)
             configuration_queue.append(subscription_config)
 
         # schedule the execute methods of ksdata that require an installed system to be present
-        os_config = TaskQueue("Installed system configuration", N_("Configuring installed system"))
+        os_config = TaskQueue(
+            "Installed system configuration",
+            _("Configuring installed system")
+        )
 
         # add installation tasks for the Security DBus module
         if is_module_available(SECURITY):
@@ -135,21 +140,30 @@ class RunInstallationTask(InstallationTask):
         # schedule network configuration (if required)
         if conf.target.can_configure_network and conf.system.provides_network_config:
             overwrite = payload.type in PAYLOAD_LIVE_TYPES
-            network_config = TaskQueue("Network configuration", N_("Writing network configuration"))
+            network_config = TaskQueue(
+                "Network configuration",
+                _("Writing network configuration")
+            )
             network_config.append(Task("Network configuration",
                                        network.write_configuration, (overwrite, )))
             configuration_queue.append(network_config)
 
         # add installation tasks for the Users DBus module
         if is_module_available(USERS):
-            user_config = TaskQueue("User creation", N_("Creating users"))
+            user_config = TaskQueue(
+                "User creation",
+                _("Creating users")
+            )
             users_proxy = USERS.get_proxy()
             users_dbus_tasks = users_proxy.InstallWithTasks()
             user_config.append_dbus_tasks(USERS, users_dbus_tasks)
             configuration_queue.append(user_config)
 
         # Anaconda addon configuration
-        addon_config = TaskQueue("Anaconda addon configuration", N_("Configuring addons"))
+        addon_config = TaskQueue(
+            "Anaconda addon configuration",
+            _("Configuring addons")
+        )
 
         boss_proxy = BOSS.get_proxy()
         for service_name, object_path in boss_proxy.CollectInstallSystemTasks():
@@ -159,7 +173,10 @@ class RunInstallationTask(InstallationTask):
         configuration_queue.append(addon_config)
 
         # Initramfs generation
-        generate_initramfs = TaskQueue("Initramfs generation", N_("Generating initramfs"))
+        generate_initramfs = TaskQueue(
+            "Initramfs generation",
+            _("Generating initramfs")
+        )
         bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
 
         def run_generate_initramfs():
@@ -185,14 +202,17 @@ class RunInstallationTask(InstallationTask):
 
         # setup kexec reboot if requested
         if flags.flags.kexec:
-            kexec_setup = TaskQueue("Kexec setup", N_("Setting up kexec"))
+            kexec_setup = TaskQueue(
+                "Kexec setup",
+                _("Setting up kexec")
+            )
             kexec_setup.append(Task("Setup kexec", setup_kexec))
             configuration_queue.append(kexec_setup)
 
         # write anaconda related configs & kickstarts
         write_configs = TaskQueue(
             "Write configs and kickstarts",
-            N_("Storing configuration files and kickstarts")
+            _("Storing configuration files and kickstarts")
         )
 
         # Write the kickstart file to the installed system (or, copy the input
@@ -212,7 +232,7 @@ class RunInstallationTask(InstallationTask):
 
         post_scripts = TaskQueue(
             "Post installation scripts",
-            N_("Running post-installation scripts")
+            _("Running post-installation scripts")
         )
         post_scripts.append(Task(
             "Run post installation scripts",
@@ -239,7 +259,7 @@ class RunInstallationTask(InstallationTask):
         # This should be the only thread running, wait for the others to finish if not.
         if threadMgr.running > 1:
             # show a progress message
-            progressQ.send_message(N_("Waiting for %s threads to finish") % (threadMgr.running - 1))
+            progressQ.send_message(_("Waiting for %s threads to finish") % (threadMgr.running - 1))
             for message in ("Thread %s is running" % n for n in threadMgr.names):
                 log.debug(message)
             threadMgr.wait_all()
@@ -259,7 +279,7 @@ class RunInstallationTask(InstallationTask):
         # setup the installation environment
         setup_environment = TaskQueue(
             "Installation environment setup",
-            N_("Setting up the installation environment")
+            _("Setting up the installation environment")
         )
 
         boss_proxy = BOSS.get_proxy()
@@ -283,7 +303,10 @@ class RunInstallationTask(InstallationTask):
         # either before or after package/payload installation.
         # So let's have two task queues - early storage & late storage.
         storage_proxy = STORAGE.get_proxy()
-        early_storage = TaskQueue("Early storage configuration", N_("Configuring storage"))
+        early_storage = TaskQueue(
+            "Early storage configuration",
+            _("Configuring storage")
+        )
         early_storage.append_dbus_tasks(STORAGE, storage_proxy.InstallWithTasks())
 
         if payload.type == PAYLOAD_TYPE_DNF:
@@ -293,7 +316,10 @@ class RunInstallationTask(InstallationTask):
         installation_queue.append(early_storage)
 
         # Run %pre-install scripts with the filesystem mounted and no packages
-        pre_install_scripts = TaskQueue("Pre-install scripts", N_("Running pre-installation scripts"))
+        pre_install_scripts = TaskQueue(
+            "Pre-install scripts",
+            _("Running pre-installation scripts")
+        )
         pre_install_scripts.append(Task(
             "Run %pre-install scripts",
             runPreInstallScripts, (ksdata.scripts,)
@@ -303,7 +329,10 @@ class RunInstallationTask(InstallationTask):
         # Do various pre-installation tasks
         # - try to discover a realm (if any)
         # - check for possibly needed additional packages.
-        pre_install = TaskQueue("Pre install tasks", N_("Running pre-installation tasks"))
+        pre_install = TaskQueue(
+            "Pre install tasks",
+            _("Running pre-installation tasks")
+        )
 
         if is_module_available(SECURITY):
             security_proxy = SECURITY.get_proxy()
@@ -319,20 +348,29 @@ class RunInstallationTask(InstallationTask):
         pre_install.append(Task("Find additional packages & run pre_install()", payload.pre_install))
         installation_queue.append(pre_install)
 
-        payload_install = TaskQueue("Payload installation", N_("Installing."))
+        payload_install = TaskQueue(
+            "Payload installation",
+            _("Installing.")
+        )
         payload_install.append(Task("Install the payload", payload.install))
         installation_queue.append(payload_install)
 
         # for some payloads storage is configured after the payload is installed
         if payload.type != PAYLOAD_TYPE_DNF:
-            late_storage = TaskQueue("Late storage configuration", N_("Configuring storage"))
+            late_storage = TaskQueue(
+                "Late storage configuration",
+                _("Configuring storage")
+            )
             conf_task = storage_proxy.WriteConfigurationWithTask()
             late_storage.append_dbus_tasks(STORAGE, [conf_task])
             installation_queue.append(late_storage)
 
         # Do bootloader.
         bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
-        bootloader_install = TaskQueue("Bootloader installation", N_("Installing boot loader"))
+        bootloader_install = TaskQueue(
+            "Bootloader installation",
+            _("Installing boot loader")
+        )
 
         def run_configure_bootloader():
             tasks = boss_proxy.CollectConfigureBootloaderTasks(
@@ -358,7 +396,7 @@ class RunInstallationTask(InstallationTask):
 
         post_install = TaskQueue(
             "Post-installation setup tasks",
-            (N_("Performing post-installation setup tasks"))
+            _("Performing post-installation setup tasks")
         )
         post_install.append(Task("Run post-installation setup tasks", payload.post_install))
         installation_queue.append(post_install)
@@ -369,7 +407,7 @@ class RunInstallationTask(InstallationTask):
         if snapshot_proxy.IsRequested(SNAPSHOT_WHEN_POST_INSTALL):
             snapshot_creation = TaskQueue(
                 "Creating post installation snapshots",
-                N_("Creating snapshots")
+                _("Creating snapshots")
             )
             snapshot_task = snapshot_proxy.CreateWithTask(SNAPSHOT_WHEN_POST_INSTALL)
             snapshot_creation.append_dbus_tasks(STORAGE, [snapshot_task])
