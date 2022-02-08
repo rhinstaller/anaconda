@@ -17,6 +17,8 @@
 #
 import os.path
 import unittest
+from textwrap import dedent
+
 import pytest
 
 from tempfile import TemporaryDirectory
@@ -930,6 +932,16 @@ class DNFManagerReposTestCase(unittest.TestCase):
         for attribute in attributes:
             assert attribute in repo_conf
 
+    def _check_content(self, repo_data, expected_content):
+        """Check the generated content of the .repo file."""
+        expected_content = dedent(expected_content).strip()
+        content = self.dnf_manager.generate_repo_file(repo_data)
+        assert content == expected_content
+
+        expected_attrs = expected_content.splitlines(keepends=False)
+        self.dnf_manager.add_repository(repo_data)
+        self._check_repo(repo_data.name, expected_attrs)
+
     def test_repositories(self):
         """Test the repositories property."""
         assert self.dnf_manager.repositories == []
@@ -1148,6 +1160,72 @@ class DNFManagerReposTestCase(unittest.TestCase):
         self._check_repo("r1", [
             "baseurl = http://u2",
         ])
+
+    def test_generate_repo_file_baseurl(self):
+        """Test the generate_repo_file method with baseurl."""
+        data = RepoConfigurationData()
+        data.name = "r1"
+        data.type = URL_TYPE_BASEURL
+        data.url = "http://repo"
+        data.proxy = "http://example.com:1234"
+        data.cost = 256
+
+        self._check_content(
+            data,
+            """
+            [r1]
+            name = r1
+            enabled = 1
+            baseurl = http://repo
+            proxy = http://example.com:1234
+            cost = 256
+            """
+        )
+
+    def test_generate_repo_file_mirrorlist(self):
+        """Test the generate_repo_file method with mirrorlist."""
+        data = RepoConfigurationData()
+        data.name = "r1"
+        data.type = URL_TYPE_MIRRORLIST
+        data.url = "http://mirror"
+        data.ssl_verification_enabled = False
+        data.proxy = "http://user:pass@example.com:1234"
+
+        self._check_content(
+            data,
+            """
+            [r1]
+            name = r1
+            enabled = 1
+            mirrorlist = http://mirror
+            sslverify = 0
+            proxy = http://example.com:1234
+            proxy_username = user
+            proxy_password = pass
+            """
+        )
+
+    def test_generate_repo_file_metalink(self):
+        """Test the generate_repo_file method with metalink."""
+        data = RepoConfigurationData()
+        data.name = "r1"
+        data.enabled = False
+        data.type = URL_TYPE_METALINK
+        data.url = "http://metalink"
+        data.included_packages = ["p1", "p2"]
+        data.excluded_packages = ["p3", "p4"]
+
+        self._check_content(
+            data,
+            """
+            [r1]
+            name = r1
+            enabled = 0
+            metalink = http://metalink
+            includepkgs = p1, p2
+            excludepkgs = p3, p4
+            """
+        )
 
     def test_load_repository_unknown(self):
         """Test the load_repository method with an unknown repo."""
