@@ -1,6 +1,10 @@
 #!/usr/bin/bash
 #
-# Quick script to attach to tmux where anaconda is running
+# Quick script to attach to tmux where anaconda is running.
+#
+# It is used by Lorax to set up the "install" user account.
+# The `ssh install@HOSTNAME` command will attach you to tmux,
+# so you can control the text mode installation right away.
 #
 
 /usr/bin/tmux -u attach -t anaconda
