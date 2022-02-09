@@ -3,27 +3,86 @@ Integration Tests of Anaconda WebUI
 
 This directory contains automated integration tests for Anaconda WebUI, and the support files for them.
 
-Introduction
-------------
-
 Before running the tests refer to the ``CONTRIBUTING`` guide in the root of the repository for installation of all the necessary build and test dependencies.
+
+Preparation and general invocation
+----------------------------------
+
+*Warning*: Never run the build, test, or any other command here as root!
 
 To run the WebUI integration tests run the following from the root of the anaconda repo.
 (do NOT run the integration tests as root)::
 
-    make webui-tests
+You first need to build anaconda RPMS::
 
-The tests will automatically download the latest rawhide boot.iso they need, so expect that the initial run may take a couple of minutes.
+    make rpms
 
-Alternatively, you can conduct manual testing against a test VM by starting the test VM like this::
+Then prepare an updates.img containing the anaconda RPMs and the cockpit dependencies::
 
-    RPM_PATH=/path/to/anaconda/repo/result/build/01-rpm-build/ make vm-run
+    cd ui/webui && make ../../updates.img
 
-Note that it's necessary to set the RPM_PATH variable pointing to the directory where the RPM files are.
+In most cases you want to run an individual test in a suite, for example::
 
-Once the machine is running you can connect to it as follows::
+   test/check-basic TestBasic.testHelp
 
-    ssh -p 22000 root@127.0.0.2
+You can get a list of tests by inspecting the `def test*` in the source, or by
+running the suite with `-l`/`--list`::
+
+    test/check-basic -l
+
+Sometimes you may also want to run all tests in a test file suite::
+
+    test/check-basic
+
+To see more verbose output from the test, use the `-v`/`--verbose` and/or `-t`/`--trace` flags::
+
+    test/check-basic --verbose --trace
+
+If you specify `-s`/`--sit` in addition, then the test will wait on failure and
+allow you to log into cockpit and/or the test instance and diagnose the issue.
+The cockpit and SSH addresses of the test instance will be printed::
+
+    test/check-basic -st
+
+You can also run *all* the tests, with some parallelism::
+
+    test/run-tests --jobs 2
+
+The tests will automatically download the VM isos they need, so expect
+that the initial run may take a few minutes.
+
+Interactive browser
+-------------------
+
+Normally each test starts its own chromium headless browser process on a
+separate random port. To interactively follow what a test is doing::
+
+    TEST_SHOW_BROWSER=1 test/check-basic--trace
+
+You can also run a test against Firefox instead of Chromium::
+
+    TEST_BROWSER=firefox test/check-basic--trace
+
+See below for details.
+
+
+Manual testing
+--------------
+
+You can conduct manual interactive testing against a test image by starting the
+image like so::
+
+    webui_testvm.py fedora-rawhide
+
+Once the machine is booted and the cockpit socket has been activated, a
+message will be printed describing how to access the virtual machine, via
+ssh and web.  See the "Helpful tips" section below.
+
+
+Guidelines for writing tests
+----------------------------
+
+For information about the @nondestructive decorator and some best practices read `Cockpit's test documentation <https://github.com/cockpit-project/cockpit/tree/main/test/#guidelines-for-writing-tests>`_.
 
 Running tests against existing machines
 ---------------------------------------
@@ -31,16 +90,15 @@ Running tests against existing machines
 Once you have a test machine that contains the version of Anaconda that you want
 to test, you can run tests by picking a program and just executing it against the running machine::
 
-    TEST_ALLOW_NOLOGIN=true test/check-basic --machine=127.0.0.2:22000 --browser 127.0.0.2:9091
+    test/check-basic --machine=127.0.0.2:22000 --browser 127.0.0.2:9091
 
 Test Configuration
 ------------------
 
 You can set these environment variables to configure the test suite::
 
-    TEST_ALLOW_NOLOGIN  This option must be always set.
-                        In the anaconda environment /run/nologin always exists
-                        however cockpit test suite expects it to not exist
+    TEST_OS    The OS to run the tests in.  Currently supported values:
+                  "fedora-rawhide"
 
     TEST_BROWSER  What browser should be used for testing. Currently supported values:
                      "chromium"
@@ -74,7 +132,7 @@ connect to the test VMs by typing `ssh test-updates`::
 
     Host test-updates
         Hostname 127.0.0.2
-        Port 22000
+        Port 2201
         User root
 
 Cockpit's CI

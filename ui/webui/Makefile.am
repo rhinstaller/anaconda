@@ -25,7 +25,10 @@ WEBPACK_TEST_PRODUCTION=dist/index.css.gz
 PACKAGE_NAME=anaconda-webui
 # stamp file to check if/when npm install ran
 NODE_MODULES_TEST=package-lock.json
-ISO_FILE=test/boot.iso
+TEST_OS=fedora-rawhide
+UPDATES_IMG=../../updates.img
+
+export TEST_OS
 
 # makes sure it gets built as part of `make` and `make dist`
 dist_noinst_DATA = \
@@ -67,21 +70,18 @@ bots:
 	if [ -n "$$COCKPIT_BOTS_REF" ]; then git -C bots fetch --quiet --depth=1 origin "$$COCKPIT_BOTS_REF"; git -C bots checkout --quiet FETCH_HEAD; fi
 	@echo "checked out bots/ ref $$(git -C bots rev-parse HEAD)"
 
-# FIXME: we need to download this from somewhere if not existing
-$(ISO_FILE):
-	curl -L https://download.fedoraproject.org/pub/fedora/linux/development/rawhide/Server/x86_64/os/images/boot.iso -o $(ISO_FILE)
+$(UPDATES_IMG):
+	test/prepare-updates-img
 
-integration-test: bots test/common $(ISO_FILE)
-	test/run-test $(ISO_FILE)
-
-vm-run: $(ISO_FILE)
-	if test -z "$$RPM_PATH"; then echo 'Please set RPM_PATH variable'; exit 1; fi
-	VM_ONLY=true test/run-test $(ISO_FILE)
+integration-test: bots test/common $(UPDATES_IMG)
+	mkdir -p test/images/
+	test/run-tests
 
 # checkout Cockpit's test API; this has no API stability guarantee, so check out a stable tag
 # when you start a new project, use the latest release, and update it from time to time
+# FIXME: When https://github.com/cockpit-project/cockpit/pull/16914 is a release s/main/$(release)
 test/common:
-	git clone -b 260 --depth=1 https://github.com/cockpit-project/cockpit.git tmp/cockpit
+	git clone -b main --depth=1 https://github.com/cockpit-project/cockpit.git tmp/cockpit
 	mv tmp/cockpit/test/common test/common
 	rm -rf tmp/cockpit
 
