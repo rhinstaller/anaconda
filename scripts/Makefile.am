@@ -22,9 +22,6 @@ dist_noinst_SCRIPTS  = makeupdates makebumpver
 
 dist_bin_SCRIPTS = analog anaconda-cleanup instperf anaconda-disable-nm-ibft-plugin
 
-stage2scriptsdir = $(datadir)/$(PACKAGE_NAME)
-dist_stage2scripts_SCRIPTS = restart-anaconda
-
 miscdir = $(datadir)/$(PACKAGE_NAME)
 dist_misc_DATA = instperf.p
 
