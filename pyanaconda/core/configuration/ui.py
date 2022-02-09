@@ -35,11 +35,6 @@ class UserInterfaceSection(Section):
         return self._get_option("help_directory", str)
 
     @property
-    def blivet_gui_supported(self):
-        """Is the partitioning with blivet-gui supported?"""
-        return self._get_option("blivet_gui_supported", bool)
-
-    @property
     def hidden_spokes(self):
         """A list of spokes to hide in UI.
 

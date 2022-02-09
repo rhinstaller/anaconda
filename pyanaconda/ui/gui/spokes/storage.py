@@ -152,9 +152,18 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             self._custom_part_radio_button.set_visible(False)
             self._custom_part_radio_button.set_no_show_all(True)
 
-        if "BlivetGuiSpoke" in conf.ui.hidden_spokes or not conf.ui.blivet_gui_supported:
+        if "BlivetGuiSpoke" in conf.ui.hidden_spokes or not self._is_blivet_gui_supported():
             self._blivet_gui_radio_button.set_visible(False)
             self._blivet_gui_radio_button.set_no_show_all(True)
+
+    def _is_blivet_gui_supported(self):
+        """Is the partitioning with blivet-gui supported?"""
+        try:
+            import pyanaconda.ui.gui.spokes.blivet_gui  # pylint:disable=unused-import
+        except ImportError:
+            return False
+
+        return True
 
     def _get_selected_partitioning_method(self):
         """Get the selected partitioning method.
