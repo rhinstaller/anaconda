@@ -217,7 +217,9 @@ $(PACKAGE).pot-update:
 # How to build the merged .mpo files from the .po files
 $(MERGED_POFILES): $(POFILES) $(POTFILE)
 
+# OMP_NUM_THREADS=1; This helps to avoid 'libgomp: Thread creation failed: Resource temporarily unavailable' on Cockpit's CI
 .po.mpo:
+	export OMP_NUM_THREADS=1; \
 	$(GETTEXT_V_MERGE)$(MSGMERGE) $(MSGMERGE_V_OPTIONS) -o $@ $< $(POTFILE)
 
 # How to build the .mo files from the .mpo files
