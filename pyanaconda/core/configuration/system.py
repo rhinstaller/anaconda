@@ -143,16 +143,6 @@ class SystemSection(Section):
         return self._is_boot_iso or self._is_booted_os
 
     @property
-    def can_detect_unsupported_hardware(self):
-        """Can we try to detect unsupported hardware?"""
-        return self._get_option("can_detect_unsupported_hardware", bool)
-
-    @property
-    def can_detect_support_removed(self):
-        """Can we try to detect removed support for hardware"""
-        return self._get_option("can_detect_support_removed", bool)
-
-    @property
     def can_detect_enabled_smt(self):
         """Can we try to detect enabled SMT?"""
         return self._get_option("can_detect_enabled_smt", bool)
