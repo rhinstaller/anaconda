@@ -17,18 +17,15 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.constants import URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, URL_TYPE_METALINK, \
-    DNF_DEFAULT_REPO_COST
-from pyanaconda.kickstart import RepoData
-from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pykickstart.errors import KickstartParseError
 from pykickstart.parser import Packages, Group
 from pykickstart.sections import PackageSection
-from pykickstart.constants import KS_BROKEN_IGNORE, GROUP_DEFAULT
+from pykickstart.constants import GROUP_DEFAULT
 
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.i18n import _
+from pyanaconda.core.constants import URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, URL_TYPE_METALINK, \
+    DNF_DEFAULT_REPO_COST
 from pyanaconda.core.kickstart import KickstartSpecification, commands as COMMANDS
+from pyanaconda.kickstart import RepoData
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 
 
 def convert_ks_repo_to_repo_data(ks_data):
@@ -109,24 +106,6 @@ def convert_repo_data_to_ks_repo(repo_data):
     return ks_data
 
 
-class AnacondaPackageSection(PackageSection):
-    """The parser of the %packages kickstart section."""
-
-    def handleHeader(self, lineno, args):
-        """Process packages section header.
-
-        Add checks based on configuration settings.
-        """
-        super().handleHeader(lineno, args)
-
-        if not conf.payload.enable_ignore_broken_packages \
-           and self.handler.packages.handleBroken == KS_BROKEN_IGNORE:
-            raise KickstartParseError(
-                _("The %packages --ignorebroken feature is not supported on your product!"),
-                lineno=lineno
-            )
-
-
 class AnacondaPackages(Packages):
     """The representation of the %packages kickstart section."""
 
@@ -158,7 +137,7 @@ class PayloadKickstartSpecification(KickstartSpecification):
     }
 
     sections = {
-        "packages": AnacondaPackageSection
+        "packages": PackageSection
     }
 
     sections_data = {

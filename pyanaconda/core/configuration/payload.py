@@ -90,19 +90,6 @@ class PayloadSection(Section):
         return value
 
     @property
-    def enable_ignore_broken_packages(self):
-        """Enable possibility to skip packages with conflicts and broken dependencies.
-
-        This enables --ignorebroken parameter of the packages section and related DBus API.
-
-        If this feature is disabled Anaconda won't start the installation when
-        --ignorebroken paramater is used. Instead print error message to user
-        when Anaconda is started and quit the installation process.
-        It will also block use of related DBus API.
-        """
-        return self._get_option("enable_ignore_broken_packages", bool)
-
-    @property
     def verify_ssl(self):
         """Global option if the ssl verification is enabled.
 
