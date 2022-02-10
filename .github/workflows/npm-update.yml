@@ -1,0 +1,33 @@
+name: npm-update
+on:
+  schedule:
+    - cron: '0 2 * * 1,4'
+  workflow_dispatch:
+
+jobs:
+  npm-update:
+    runs-on: ubuntu-20.04
+    environment: self
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Set up dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y npm make
+
+      - name: Set up configuration and secrets
+        run: |
+          printf '[user]\n\tname = Cockpit Project\n\temail=cockpituous@gmail.com\n' > ~/.gitconfig
+          echo '${{ github.token }}' > ~/.config/github-token
+
+      - name: Clone repository
+        uses: actions/checkout@v2
+        with:
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
+
+      - name: Run npm-update bot
+        run: |
+          cd ui/webui
+          make -f Makefile.am bots
+          bots/npm-update
