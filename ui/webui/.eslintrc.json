@@ -4,7 +4,7 @@
         "browser": true,
         "es6": true
     },
-    "extends": ["eslint:recommended", "standard", "standard-react"],
+    "extends": ["eslint:recommended", "standard", "standard-react", "plugin:react/recommended"],
     "parser": "@babel/eslint-parser",
     "parserOptions": {
         "ecmaVersion": "7",
