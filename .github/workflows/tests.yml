@@ -23,18 +23,8 @@ jobs:
         release: ['']
         include:
           - release: ''
-            target_branch: 'master'
-            ci_tag: 'master'
-          #- release: eln
-          #  target_branch: 'master'
-          #  ci_tag: 'eln'
-          #  build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
-          #- release: ''
-          #  target_branch: 'f35-devel'
-          #  ci_tag: 'f35-devel'
-          #- release: f35-release
-          #  target_branch: 'f35-release'
-          #  ci_tag: 'f35-release'
+            target_branch: 'f36-release'
+            ci_tag: 'f36-release'
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
       # Always avoid using cache because cache is not correctly invalidated.
@@ -97,18 +87,8 @@ jobs:
         release: ['']
         include:
           - release: ''
-            target_branch: 'master'
-            ci_tag: 'master'
-          #- release: eln
-          #  target_branch: 'master'
-          #  ci_tag: 'eln'
-          #  build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
-          #- release: ''
-          #  target_branch: 'f35-devel'
-          #  ci_tag: 'f35-devel'
-          #- release: f35-release
-          #  target_branch: 'f35-release'
-          #  ci_tag: 'f35-release'
+            target_branch: 'f36-release'
+            ci_tag: 'f36-release'
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
       # Always avoid using cache because cache is not correctly invalidated.
