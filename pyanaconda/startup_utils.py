@@ -291,8 +291,10 @@ def clean_pstore():
     """
     for (base, dirs, files) in os.walk("/sys/fs/pstore"):  # pylint: disable=unused-variable
         for file in files:
-            os.unlink(os.path.join(base, file))
-
+            try:
+                os.unlink(os.path.join(base, file))
+            except OSError:
+                pass
 
 def print_startup_note(options):
     """Print Anaconda version and short usage instructions.

@@ -34,7 +34,8 @@ from pyanaconda.modules.storage.partitioning.specification import PartSpec
 from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
     check_task_creation, check_dbus_object_creation
 
-from pykickstart.constants import AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN
+from pykickstart.constants import AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN, \
+    AUTOPART_TYPE_LVM, AUTOPART_TYPE_BTRFS
 
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
@@ -263,6 +264,7 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
         # Collect the requests.
         requests = AutomaticPartitioningTask._get_partitioning(
             storage=storage,
+            scheme=AUTOPART_TYPE_LVM,
             excluded_mount_points=["/home", "/boot", "swap"]
         )
 
@@ -270,6 +272,7 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
 
         requests = AutomaticPartitioningTask._get_partitioning(
             storage=storage,
+            scheme=AUTOPART_TYPE_LVM,
             excluded_mount_points=[]
         )
 
@@ -279,6 +282,39 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
             [spec.fstype for spec in requests]
         assert [Size("1GiB"), Size("1GiB"), Size("500MiB")] == \
             [spec.size for spec in requests]
+
+    @patch('pyanaconda.modules.storage.partitioning.automatic.utils.conf')
+    @patch('pyanaconda.modules.storage.partitioning.automatic.utils.platform')
+    def test_get_partitioning_btrfs_only(self, platform, mocked_conf):
+        storage = create_storage()
+        platform.partitions = []
+
+        # Set the default partitioning.
+        mocked_conf.storage.default_partitioning = [
+            {
+                'name': '/',
+                'size': Size("50 GiB"),
+            }, {
+                'name': '/var',
+                'btrfs': True,
+            }
+        ]
+
+        # Collect the requests for the Btrfs scheme.
+        requests = AutomaticPartitioningTask._get_partitioning(
+            storage=storage,
+            scheme=AUTOPART_TYPE_BTRFS,
+        )
+
+        assert ["/", "/var"] == [spec.mountpoint for spec in requests]
+
+        # Collect the requests for the LVM scheme.
+        requests = AutomaticPartitioningTask._get_partitioning(
+            storage=storage,
+            scheme=AUTOPART_TYPE_LVM,
+        )
+
+        assert ["/"] == [spec.mountpoint for spec in requests]
 
 
 class AutomaticPartitioningUtilsTestCase(unittest.TestCase):
