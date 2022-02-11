@@ -43,7 +43,6 @@ RUN set -ex; \
   /usr/bin/xargs \
   rpm-build \
   git \
-  npm \
   bzip2 \
   rpm-ostree \
   pykickstart \
