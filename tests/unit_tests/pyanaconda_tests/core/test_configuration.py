@@ -527,6 +527,11 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
             "size": Size("1 GiB")
         }
 
+        assert convert_line("/var (btrfs)") == {
+            "name": "/var",
+            "btrfs": True,
+        }
+
         assert convert_line("swap") == {
             "name": "swap"
         }

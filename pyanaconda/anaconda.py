@@ -27,7 +27,6 @@ from pyanaconda.core.constants import DisplayModes, PAYLOAD_TYPE_RPM_OSTREE, ADD
     PAYLOAD_TYPE_LIVE_IMAGE
 from pyanaconda.core import constants
 from pyanaconda.core.startup.dbus_launcher import AnacondaDBusLauncher
-from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 from pyanaconda.ui.lib.addons import collect_addon_ui_paths
@@ -274,16 +273,7 @@ class Anaconda(object):
         if self._intf:
             raise RuntimeError("Second attempt to initialize the InstallInterface")
 
-        # this boot option is meant to be temporary, so just check it directly
-        # from kernel boot command line like this
-        if "webui" in kernel_arguments:
-            from pyanaconda.ui.webui import CockpitUserInterface
-            self._intf = CockpitUserInterface(None, self.payload)
-
-            # needs to be refreshed now we know if gui or tui will take place
-            # FIXME - what about Cockpit based addons ?
-            addon_paths = []
-        elif self.gui_mode:
+        if self.gui_mode:
             from pyanaconda.ui.gui import GraphicalUserInterface
             # Run the GUI in non-fullscreen mode, so live installs can still
             # use the window manager

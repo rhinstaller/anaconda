@@ -85,7 +85,7 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
             luks_data.pbkdf_args = pbkdf_args
 
         # Get the autopart requests.
-        requests = self._get_partitioning(storage, self._request.excluded_mount_points)
+        requests = self._get_partitioning(storage, scheme, self._request.excluded_mount_points)
 
         # Do the autopart.
         self._do_autopart(storage, scheme, requests, encrypted, luks_format_args)
@@ -122,16 +122,21 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         }
 
     @staticmethod
-    def _get_partitioning(storage, excluded_mount_points=()):
+    def _get_partitioning(storage, scheme, excluded_mount_points=()):
         """Get the partitioning requests for autopart.
 
         :param storage: blivet.Blivet instance
+        :param scheme: a type of the partitioning scheme
         :param excluded_mount_points: a list of mount points to exclude
         :return: a list of full partitioning specs
         """
         requests = []
 
         for request in get_default_partitioning():
+            # Skip mount points excluded from the chosen scheme.
+            if request.schemes and scheme not in request.schemes:
+                continue
+
             # Skip excluded mount points.
             if (request.mountpoint or request.fstype) in excluded_mount_points:
                 continue
