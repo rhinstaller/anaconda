@@ -15,6 +15,7 @@
 
 
 SUBDIRS =
+MAINTAINERCLEANFILES = Makefile.in
 
 # one example file in src/lib to check if it was already checked out
 LIB_TEST=src/lib/cockpit-po-plugin.js
