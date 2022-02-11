@@ -19,7 +19,7 @@ include ./branch-config.mk
 
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS = data docs dracut po pyanaconda scripts tests widgets ui utils
+SUBDIRS = data docs dracut po pyanaconda scripts tests widgets utils
 
 EXTRA_DIST = COPYING
 
