@@ -107,6 +107,7 @@ jobs:
             --pretty=format:"- %s (%aL)" \
             "$PREVIOUS_VERSION..$CURRENT_VERSION~1" \
               | grep -v "#infra" \
+              | grep -v "build(deps-dev)" \
               | tee release.txt
 
           # drop line ending
