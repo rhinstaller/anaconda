@@ -268,6 +268,11 @@ def get_default_partitioning():
     for attrs in conf.storage.default_partitioning:
         name = attrs.get("name")
         swap = name == "swap"
+        schemes = set()
+
+        if attrs.get("btrfs"):
+            schemes.add(AUTOPART_TYPE_BTRFS)
+
         spec = PartSpec(
             mountpoint=name if not swap else None,
             fstype=None if not swap else "swap",
@@ -279,6 +284,7 @@ def get_default_partitioning():
             grow="min" in attrs,
             required_space=attrs.get("free") or 0,
             encrypted=True,
+            schemes=schemes,
         )
 
         partitioning.append(spec)

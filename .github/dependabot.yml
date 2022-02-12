@@ -18,3 +18,9 @@ updates:
       # TODO: Add the (#infra) suffix once supported.
       - "infrastructure"
       - "blocked"
+
+  # update our package.json everyday for the npm
+  - package-ecosystem: "npm"
+    directory: "/ui/webui"
+    schedule:
+      interval: "daily"
