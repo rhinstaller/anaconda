@@ -69,6 +69,36 @@ WORKSTATION_PARTITIONING = [
     ),
 ]
 
+WORKSTATIONPLUS_PARTITIONING = [
+    PartSpec(
+        mountpoint="/",
+        size=Size("1GiB"),
+        max_size=Size("70GiB"),
+        grow=True,
+        btr=True,
+        lv=True,
+        thin=True,
+        encrypted=True,
+    ),
+    PartSpec(
+        mountpoint="/home",
+        size=Size("500MiB"), grow=True,
+        required_space=Size("50GiB"),
+        btr=True,
+        lv=True,
+        thin=True,
+        encrypted=True
+    ),
+    PartSpec(
+        mountpoint="/var",
+        size=Size("15GiB"),
+        btr=True,
+        lv=True,
+        thin=True,
+        encrypted=True,
+    ),
+]
+
 ENTERPRISE_PARTITIONING = [
     PartSpec(
         mountpoint="/",
@@ -248,7 +278,7 @@ class ProfileConfigurationTestCase(unittest.TestCase):
             "fedora-silverblue",
             ("fedora", "silverblue"),
             ["fedora.conf", "fedora-workstation.conf", "fedora-silverblue.conf"],
-            WORKSTATION_PARTITIONING
+            WORKSTATIONPLUS_PARTITIONING
         )
         self._check_default_profile(
             "fedora-kde",
@@ -260,7 +290,7 @@ class ProfileConfigurationTestCase(unittest.TestCase):
             "fedora-kinoite",
             ("fedora", "kinoite"),
             ["fedora.conf", "fedora-kde.conf", "fedora-kinoite.conf"],
-            WORKSTATION_PARTITIONING
+            WORKSTATIONPLUS_PARTITIONING
         )
         self._check_default_profile(
             "fedora-iot",
