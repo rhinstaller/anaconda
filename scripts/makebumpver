@@ -347,6 +347,10 @@ class MakeBumpVer:
                 print("*** Ignoring (#infra) commit %s\n" % commit)
                 continue
 
+            if re.match(r".*(build\(deps-dev\)).*", summary):
+                print("*** Ignoring (deps-dev) commit %s\n" % commit)
+                continue
+
             if self.rhel:
                 rhbz = set()
                 bad = False
