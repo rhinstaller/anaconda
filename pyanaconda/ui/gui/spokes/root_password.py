@@ -17,8 +17,6 @@
 # Red Hat, Inc.
 #
 from pyanaconda.core.constants import PASSWORD_POLICY_ROOT
-from pyanaconda.flags import flags
-from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _, CN_
 from pyanaconda.core.users import crypt_password
 from pyanaconda import input_checking
@@ -31,7 +29,7 @@ from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler
 from pyanaconda.ui.gui.utils import set_password_visibility
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.communication import hubQ
-from pyanaconda.ui.lib.services import is_reconfiguration_mode
+from pyanaconda.ui.lib.users import can_modify_root_configuration, get_root_configuration_status
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -173,45 +171,33 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
     @property
     def status(self):
-        if self._users_module.IsRootAccountLocked:
-            # reconfig mode currently allows re-enabling a locked root account if
-            # user sets a new root password
-            if is_reconfiguration_mode() and not self.root_enabled:
-                return _("Disabled, set password to enable.")
-            else:
-                return _("Root account is disabled.")
-
-        elif self._users_module.IsRootPasswordSet:
-            return _("Root password is set")
-        else:
-            return _("Root password is not set")
+        return get_root_configuration_status(self._users_module)
 
     @property
     def mandatory(self):
-        """Only mandatory if no admin user has been requested.
-
-        See also doc for the property completed().
-        """
+        """Only mandatory if no admin user has been requested."""
         return not self._users_module.CheckAdminUserExists()
 
     def apply(self):
-        pw = self.password
+        if self.root_enabled and self.password:
+            # Set the root password.
+            self._users_module.SetCryptedRootPassword(crypt_password(self.password))
 
-        enabled = self.root_enabled
-        self._users_module.SetRootAccountLocked(not enabled)
+            # Unlock the root account.
+            self._users_module.SetRootAccountLocked(False)
 
-        if enabled:
+        else:
+            # Reset the root password.
+            self._users_module.ClearRootPassword()
+
+            # Lock the root account.
+            self._users_module.SetRootAccountLocked(True)
+
+        if self.root_enabled:
             # the checkbox makes it possible to override the default Open SSH
             # policy of not allowing root to login with password
             ssh_login_override = self._root_password_ssh_login_override.get_active()
             self._users_module.SetRootPasswordSSHLoginAllowed(ssh_login_override)
-
-        if not pw:
-            self._users_module.ClearRootPassword()
-            return
-
-        # we have a password - set it to kickstart data
-        self._users_module.SetCryptedRootPassword(crypt_password(pw))
 
         # clear any placeholders
         self.remove_placeholder_texts()
@@ -221,24 +207,11 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
     @property
     def completed(self):
-        """Is the spoke completed?
-
-        For root and user, the mandatory+completed pair is a complicated hack. Having an usable
-        admin user is mandatory, but it is not clear if it should be an unlocked root, or a sudoer.
-        Thus, mandatory on both spokes checks admin user, and complete then checks again: Both the
-        spoke-specific completion condition, as well as existence of an admin.
-        """
-        return self._users_module.IsRootPasswordSet and self._users_module.CheckAdminUserExists()
+        return self._users_module.IsRootPasswordSet
 
     @property
     def sensitive(self):
-        # A password set in kickstart can be changed in the GUI
-        # if the changesok password policy is set for the root password.
-        kickstarted_password_can_be_changed = conf.ui.can_change_root or \
-            self._users_module.CanChangeRootPassword
-
-        return not (self.completed and flags.automatedInstall
-                    and not kickstarted_password_can_be_changed)
+        return can_modify_root_configuration(self._users_module)
 
     @property
     def root_enabled(self):

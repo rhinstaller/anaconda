@@ -21,9 +21,7 @@ import os
 import tempfile
 import unittest
 from textwrap import dedent
-from unittest.mock import Mock
 
-from dasbus.structure import compare_data
 from tests.unit_tests.pyanaconda_tests import check_kickstart_interface, patch_dbus_publish_object, \
     PropertiesChangedCallback, check_dbus_property, check_task_creation_list, check_task_creation
 
@@ -36,7 +34,6 @@ from pyanaconda.modules.users.users_interface import UsersInterface
 from pyanaconda.modules.users.installation import ConfigureRootPasswordSSHLoginTask, \
     CreateGroupsTask, CreateUsersTask, SetRootPasswordTask, SetSshKeysTask
 from dasbus.typing import get_variant, List, Str, UInt32, Bool
-from pyanaconda.ui.lib.users import get_user_list, set_user_list
 
 
 class UsersInterfaceTestCase(unittest.TestCase):
@@ -777,130 +774,6 @@ class GroupsDataTestCase(unittest.TestCase):
         assert group_data.gid == 0
         assert group_data.gid_mode == ID_MODE_USE_DEFAULT
         assert group_data.get_gid() is None
-
-
-class SharedUICodeTestCase(unittest.TestCase):
-    """Test shared UI code related to user handling.
-
-    The shared code calls the Users module interface so it makes sense to test it here.
-    """
-
-    def test_get_empty_user_list(self):
-        """Test the shared get_user_list() method with no users."""
-        users_module_mock = Mock()
-        users_module_mock.Users = []
-        user_data_list = get_user_list(users_module_mock)
-        assert user_data_list == []
-
-    def test_get_default_user(self):
-        """Test that default user is correctly added by get_user_list()."""
-        users_module_mock = Mock()
-        users_module_mock.Users = []
-        user_data_list = get_user_list(users_module_mock, add_default=True)
-
-        default_added_user_data = UserData()
-        default_added_user_data.set_admin_priviledges(True)
-
-        assert len(user_data_list) == 1
-        assert isinstance(user_data_list[0], UserData)
-        assert compare_data(user_data_list[0], default_added_user_data)
-
-    def test_get_user_list(self):
-        """Test the shared get_user_list() method."""
-        user1 = UserData()
-        user1.name = "user1"
-        user1.uid = 123
-        user1.groups = ["foo", "bar"]
-        user1.gid = 321
-        user1.homedir = "user1_home"
-        user1.password = "swordfish"
-        user1.is_crypted = False
-        user1.lock = False
-        user1.shell = "zsh"
-        user1.gecos = "some stuff"
-
-        user2 = UserData()
-        user2.name = "user2"
-        user2.uid = 456
-        user2.groups = ["baz", "bar"]
-        user2.gid = 654
-        user2.homedir = "user2_home"
-        user2.password = "laksdjaskldjhasjhd"
-        user2.is_crypted = True
-        user2.lock = False
-        user2.shell = "csh"
-        user2.gecos = "some other stuff"
-
-        users_module_mock = Mock()
-        users_module_mock.Users = UserData.to_structure_list([user1, user2])
-        user_data_list = get_user_list(users_module_mock)
-
-        assert len(user_data_list) == 2
-        assert isinstance(user_data_list[0], UserData)
-        assert isinstance(user_data_list[1], UserData)
-        assert compare_data(user_data_list[0], user1)
-        assert compare_data(user_data_list[1], user2)
-
-        user_data_list = get_user_list(users_module_mock, add_default=True)
-
-        assert len(user_data_list) == 2
-        assert isinstance(user_data_list[0], UserData)
-        assert isinstance(user_data_list[1], UserData)
-        assert compare_data(user_data_list[0], user1)
-        assert compare_data(user_data_list[1], user2)
-
-        user_data_list = get_user_list(users_module_mock, add_default=True, add_if_not_empty=True)
-        default_added_user_data = UserData()
-        default_added_user_data.set_admin_priviledges(True)
-
-        assert len(user_data_list) == 3
-        assert isinstance(user_data_list[0], UserData)
-        assert isinstance(user_data_list[1], UserData)
-        assert isinstance(user_data_list[2], UserData)
-        assert compare_data(user_data_list[0], default_added_user_data)
-        assert compare_data(user_data_list[1], user1)
-        assert compare_data(user_data_list[2], user2)
-
-    def test_set_user_list(self):
-        """Test the shared set_user_list() method."""
-        user1 = UserData()
-        user1.name = "user1"
-        user1.uid = 123
-        user1.groups = ["foo", "bar"]
-        user1.gid = 321
-        user1.homedir = "user1_home"
-        user1.password = "swordfish"
-        user1.is_crypted = False
-        user1.lock = False
-        user1.shell = "zsh"
-        user1.gecos = "some stuff"
-
-        user2 = UserData()
-        user2.name = "user2"
-        user2.uid = 456
-        user2.groups = ["baz", "bar"]
-        user2.gid = 654
-        user2.homedir = "user2_home"
-        user2.password = "laksdjaskldjhasjhd"
-        user2.is_crypted = True
-        user2.lock = False
-        user2.shell = "csh"
-        user2.gecos = "some other stuff"
-
-        users_module_mock = Mock()
-        set_user_list(users_module_mock, [user1, user2])
-        user_data_list = users_module_mock.SetUsers.call_args[0][0]
-
-        assert len(user_data_list) == 2
-        assert user_data_list[0] == UserData.to_structure(user1)
-        assert user_data_list[1] == UserData.to_structure(user2)
-
-        user1.name = ""
-        set_user_list(users_module_mock, [user1, user2], remove_unset=True)
-        user_data_list = users_module_mock.SetUsers.call_args[0][0]
-
-        assert len(user_data_list) == 1
-        assert user_data_list[0] == UserData.to_structure(user2)
 
 
 class UsersModuleTasksTestCase(unittest.TestCase):
