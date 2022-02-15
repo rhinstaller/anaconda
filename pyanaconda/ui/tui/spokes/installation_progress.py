@@ -22,7 +22,7 @@ import sys
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core import util
-from pyanaconda.core.constants import THREAD_INSTALL, IPMI_FINISHED
+from pyanaconda.core.constants import IPMI_FINISHED
 from pyanaconda.core.configuration.anaconda import conf
 
 from pyanaconda.ui.tui.spokes import StandaloneTUISpoke
@@ -119,14 +119,13 @@ class ProgressSpoke(StandaloneTUISpoke):
 
     def show_all(self):
         super().show_all()
-        from pyanaconda.installation import run_installation
-        from pyanaconda.threading import threadMgr, AnacondaThread
+        from pyanaconda.installation import RunInstallationTask
 
-        threadMgr.add(AnacondaThread(
-            name=THREAD_INSTALL,
-            target=run_installation,
-            args=(self.payload, self.data))
+        task = RunInstallationTask(
+            payload=self.payload,
+            ksdata=self.data
         )
+        task.start()
 
         # This will run until we're all done with the install thread.
         self._update_progress()
