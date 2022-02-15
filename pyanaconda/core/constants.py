@@ -142,20 +142,6 @@ GEOLOC_CONNECTION_TIMEOUT = 5
 ANACONDA_ENVIRON = "anaconda"
 FIRSTBOOT_ENVIRON = "firstboot"
 
-# Tainted hardware
-TAINT_SUPPORT_REMOVED = 27
-TAINT_HARDWARE_UNSUPPORTED = 28
-
-WARNING_SUPPORT_REMOVED = N_(
-    "Support for this hardware has been removed in this major OS release. Please check the "
-    "removed functionality section of the release notes."
-)
-
-WARNING_HARDWARE_UNSUPPORTED = N_(
-    "This hardware (or a combination thereof) is not supported by Red Hat. For more information "
-    "on supported hardware, please refer to http://www.redhat.com/hardware."
-)
-
 # Storage messages
 WARNING_NO_DISKS_DETECTED = N_(
     "No disks detected.  Please shut down the computer, connect at least one disk, and restart "

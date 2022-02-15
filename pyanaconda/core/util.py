@@ -45,8 +45,7 @@ from pyanaconda.core.path import make_directories, open_with_perm, join_paths
 from pyanaconda.flags import flags
 from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.core.constants import DRACUT_SHUTDOWN_EJECT, \
-    IPMI_ABORTED, X_TIMEOUT, TAINT_HARDWARE_UNSUPPORTED, TAINT_SUPPORT_REMOVED, \
-    WARNING_HARDWARE_UNSUPPORTED, WARNING_SUPPORT_REMOVED
+    IPMI_ABORTED, X_TIMEOUT
 from pyanaconda.errors import RemovedModuleError
 
 from pyanaconda.anaconda_logging import program_log_lock
@@ -592,73 +591,6 @@ def cmp_obj_attrs(obj1, obj2, attr_list):
         else:
             return False
     return True
-
-
-def get_kernel_taint(flag):
-    """Get a value of a kernel taint.
-
-    :param flag: a kernel taint flag
-    :return: False if the value of taint is 0, otherwise True
-    """
-    try:
-        tainted = int(open("/proc/sys/kernel/tainted").read())
-    except (OSError, ValueError):
-        tainted = 0
-
-    return bool(tainted & (1 << flag))
-
-
-def find_hardware_with_removed_support():
-    """Find hardware with removed support.
-
-    :return: a list of hardware specifications
-    """
-    pattern = "Warning: (.*) - Support for this device has been removed in this major release."
-    hardware = []
-
-    for line in execReadlines("journalctl", ["-b", "-k", "-g", pattern, "-o", "cat"]):
-        matched = re.match(pattern, line)
-
-        if matched:
-            hardware.append(matched.group(1))
-
-    return hardware
-
-
-def detect_unsupported_hardware():
-    """Detect unsupported hardware.
-
-    :return: a list of warnings
-    """
-    warnings = []  # pylint: disable=redefined-outer-name
-
-    if flags.automatedInstall or not conf.target.is_hardware:
-        log.info("Skipping detection of unsupported hardware.")
-        return []
-
-    # Check TAINT_HARDWARE_UNSUPPORTED
-    if not conf.system.can_detect_unsupported_hardware:
-        log.debug("This system doesn't support TAINT_HARDWARE_UNSUPPORTED.")
-    elif get_kernel_taint(TAINT_HARDWARE_UNSUPPORTED):
-        warnings.append(WARNING_HARDWARE_UNSUPPORTED)
-
-    # Check TAINT_SUPPORT_REMOVED
-    if not conf.system.can_detect_support_removed:
-        log.debug("This system doesn't support TAINT_SUPPORT_REMOVED.")
-    elif get_kernel_taint(TAINT_SUPPORT_REMOVED):
-        warning = WARNING_SUPPORT_REMOVED
-        hardware = find_hardware_with_removed_support()
-
-        if hardware:
-            warning += "\n\n" + "\n".join(hardware)
-
-        warnings.append(warning)
-
-    # Log all warnings.
-    for msg in warnings:
-        log.warning(msg)
-
-    return warnings
 
 
 def xprogressive_delay():

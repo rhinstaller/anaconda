@@ -174,7 +174,6 @@ class SimpleUITestCase(unittest.TestCase):
 
         # Check the actions classes.
         self._check_actions([
-            "unsupported-hardware-warning",
             "kernel-warning",
             "installation-summary",
             "installation-progress",
@@ -205,7 +204,6 @@ class SimpleUITestCase(unittest.TestCase):
         # Check the screens.
         self._check_screens([
             # Warnings
-            "unsupported-hardware-warning",
             "kernel-warning",
 
             # Installation

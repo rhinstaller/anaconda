@@ -31,8 +31,6 @@ from pyanaconda.ui.gui.spokes import StandaloneSpoke
 from pyanaconda.ui.gui.utils import setup_gtk_direction, escape_markup
 from pyanaconda.core.async_utils import async_action_wait
 from pyanaconda.ui.gui.spokes.lib.lang_locale_handler import LangLocaleHandler
-from pyanaconda.ui.gui.spokes.lib.unsupported_hardware import UnsupportedHardwareDialog
-
 from pyanaconda import localization
 from pyanaconda.product import distributionText, isFinal, productName, productVersion
 from pyanaconda import flags
@@ -348,17 +346,6 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
             with self.main_window.enlightbox(dlg):
                 rc = dlg.run()
                 dlg.hide()
-            if rc != 1:
-                ipmi_abort(scripts=self.data.scripts)
-                sys.exit(0)
-
-        dialog = UnsupportedHardwareDialog(self.data)
-        if not dialog.supported:
-
-            with self.main_window.enlightbox(dialog.window):
-                dialog.refresh()
-                rc = dialog.run()
-
             if rc != 1:
                 ipmi_abort(scripts=self.data.scripts)
                 sys.exit(0)
