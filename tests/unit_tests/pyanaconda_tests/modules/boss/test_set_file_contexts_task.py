@@ -37,6 +37,7 @@ class SetContextsTaskTest(unittest.TestCase):
                 "/etc",
                 "/lib64",
                 "/root",
+                "/usr/lib",
                 "/usr/lib64",
                 "/var/cache/yum",
                 "/var/home",
