@@ -63,7 +63,6 @@ RUN set -ex; \
   bzip2 \
   rpm-ostree \
   python3-pip \
-  python3-pip \
   # Need to have restorecon for the tests execution
   policycoreutils \
   ShellCheck; \
