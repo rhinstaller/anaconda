@@ -63,7 +63,7 @@ class VirtInstallMachine(VirtMachine):
         # Make sure the server is created at anaconda root directory
         os.chdir(ANACONDA_ROOT_DIR)
         http_port = self._get_free_port(8000)
-        self.http_server = subprocess.Popen(["python", "-m", "http.server", str(http_port)])
+        self.http_server = subprocess.Popen(["python3", "-m", "http.server", str(http_port)])
         os.chdir(WEBUI_DIR)
 
         try:
