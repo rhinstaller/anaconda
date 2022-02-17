@@ -6,6 +6,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: write
 
 jobs:
   infra-check:
@@ -29,18 +30,32 @@ jobs:
           git log --oneline -1 origin/${{ github.event.pull_request.base.ref }}
           git rebase origin/${{ github.event.pull_request.base.ref }}
 
+      - name: Check if all commits have (#infra)
+        run: |
+          # match (#infra) at the end of the commit message
+          for i in "$(git log --oneline origin/${{ github.event.pull_request.base.ref }}..HEAD)"; do
+
+            if ! [[ $i =~ \(#infra\)$ ]]; then
+              echo "$i --> Is missing (#infra!)"
+              exit 1
+            fi
+          done
+
       - name: Check if all changed files are infra related
         run: |
+          set -eu
           changed_files=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }}..HEAD)
           # print for debugging
-          echo "----- Changed files -----"
+          echo "-------- Changed files --------"
           echo "$changed_files"
-          echo "-------------------------"
+          echo "-------------------------------"
+          echo "--- Files with failed check ---"
 
           # load infrastructure file list
           . .structure-config
 
           failed_check="no"
+          echo -e 'Infrastructure check **failed** on these files. Please do a double check of these files before merge!\n' > ./message.txt
 
           for f in $changed_files; do
             matched="no"
@@ -53,23 +68,14 @@ jobs:
             done
 
             if [ $matched == "no" ]; then
-              echo "$f is not part of the infrastructure"
+              echo "$f" | tee -a ./message.txt
               failed_check="yes"
             fi
 
           done
 
           if [ "$failed_check" == "yes" ]; then
-            exit 1
+            gh pr comment ${{ github.event.pull_request.number }} -F ./message.txt
           fi
-
-      - name: Check if all commits have (#infra)
-        run: |
-          # match (#infra) at the end of the commit message
-          for i in "$(git log --oneline origin/${{ github.event.pull_request.base.ref }}..HEAD)"; do
-
-            if ! [[ $i =~ \(#infra\)$ ]]; then
-              echo "$i --> Is missing (#infra!)"
-              exit 1
-            fi
-          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
