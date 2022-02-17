@@ -36,10 +36,21 @@ class TestLanguage(MachineCase):
         # Expect the default language - this is en at this point - adjust the test when better guess is implemented
         b.wait_in_text("button.pf-m-link", "Quit")
 
-        b.wait_in_text("#de", "German (Deutsch)")
-        b.click("#de > button")
-        b.wait_in_text("#de_DE", "Deutsch (Deutschland)")
+        b.wait_val("#language-menu-toggle-select-typeahead", "English (United States)")
+
+        # Check that the language menu shows all menu entries when clicking the toggle button
+        b.click("#language-menu-toggle")
+        b.wait_visible("#English--English-")
+        b.wait_visible("#Deutsch--German-")
+
+        # Check that the language menu shows filtered menu entries
+        b.set_input_text("#language-menu-toggle-select-typeahead", "Deutsch")
+        b.wait_visible("#Deutsch--German-")
+        b.wait_not_present("#English--English-")
+
+        # Select the 'German' language
         b.click("#de_DE > button")
+        b.wait_val("#language-menu-toggle-select-typeahead", "Deutsch (Deutschland)")
 
         b.click("#continue-btn")
 
