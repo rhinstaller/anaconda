@@ -1111,7 +1111,7 @@
                                         <property name="tooltip_text" translatable="yes">Revert to the previous list of repositories.</property>
                                         <property name="label" translatable="yes" context="GUI|Software Source">Rese_t</property>
                                         <property name="use_underline">True</property>
-                                        <property name="icon_name">view-refresh</property>
+                                        <property name="icon_name">view-refresh-symbolic</property>
                                         <signal name="clicked" handler="on_resetRepos_clicked" swapped="no"/>
                                       </object>
                                       <packing>

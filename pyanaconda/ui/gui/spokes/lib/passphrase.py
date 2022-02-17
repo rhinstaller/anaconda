@@ -152,10 +152,10 @@ class PassphraseDialog(GUIObject):
         else:
             if not self._ascii_check.result.success:
                 # ASCII check runs last, so if just it has failed the result is only a warning
-                result_icon = "dialog-warning"
+                result_icon = "dialog-warning-symbolic"
             else:
                 # something else failed and that's a critical error
-                result_icon = "dialog-error"
+                result_icon = "dialog-error-symbolic"
             self._passphrase_warning_image.set_from_icon_name(result_icon, Gtk.IconSize.BUTTON)
             self._passphrase_warning_label.set_text(error_message)
             really_show(self._passphrase_warning_image)
