@@ -26,7 +26,7 @@ WEBPACK_TEST_PRODUCTION=dist/index.css.gz
 PACKAGE_NAME=anaconda-webui
 # stamp file to check if/when npm install ran
 NODE_MODULES_TEST=package-lock.json
-TEST_OS=fedora-rawhide
+TEST_OS=fedora-rawhide-boot
 UPDATES_IMG=../../updates.img
 
 export TEST_OS
@@ -75,7 +75,6 @@ $(UPDATES_IMG):
 	test/prepare-updates-img
 
 integration-test: bots test/common $(UPDATES_IMG)
-	mkdir -p test/images/
 	test/run-tests
 
 # checkout Cockpit's test API; this has no API stability guarantee, so check out a stable tag

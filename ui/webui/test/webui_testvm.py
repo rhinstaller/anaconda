@@ -50,6 +50,6 @@ def cmd_cli():
 
 # This can be used as helper program for tests not written in Python: Run given
 # image name until SIGTERM or SIGINT; the iso must exist in test/images/;
-# $ webui_testvm.py fedora-rawhide
+# $ webui_testvm.py fedora-rawhide-boot
 if __name__ == "__main__":
     cmd_cli()

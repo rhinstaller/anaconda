@@ -72,7 +72,7 @@ Manual testing
 You can conduct manual interactive testing against a test image by starting the
 image like so::
 
-    webui_testvm.py fedora-rawhide
+    webui_testvm.py fedora-rawhide-boot
 
 Once the machine is booted and the cockpit socket has been activated, a
 message will be printed describing how to access the virtual machine, via
@@ -98,7 +98,7 @@ Test Configuration
 You can set these environment variables to configure the test suite::
 
     TEST_OS    The OS to run the tests in.  Currently supported values:
-                  "fedora-rawhide"
+                  "fedora-rawhide-boot"
 
     TEST_BROWSER  What browser should be used for testing. Currently supported values:
                      "chromium"
