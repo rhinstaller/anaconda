@@ -18,7 +18,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import glob
 import os
 import os.path
 import subprocess
@@ -509,14 +508,6 @@ def reIPL(ipldev):
         log.info("reIPL configuration failed")
     else:
         log.info("reIPL configuration successful")
-
-
-def resetRpmDb():
-    for rpmfile in glob.glob("%s/var/lib/rpm/__db.*" % conf.target.system_root):
-        try:
-            os.unlink(rpmfile)
-        except OSError as e:
-            log.debug("error %s removing file: %s", e, rpmfile)
 
 
 def setup_translations():

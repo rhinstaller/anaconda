@@ -77,12 +77,15 @@ class PartSpec(object):
              "  mountpoint = %(mountpoint)s  lv = %(lv)s"
              "  thin = %(thin)s  btrfs = %(btrfs)s\n"
              "  weight = %(weight)s  fstype = %(fstype)s  encrypted = %(enc)s\n"
-             "  size = %(size)s  max_size = %(max_size)s  grow = %(grow)s\n" %
+             "  size = %(size)s  max_size = %(max_size)s  grow = %(grow)s\n"
+             "  required_space = %(required_space)s\n"
+             "  schemes = %(schemes)s" %
              {"type": self.__class__.__name__, "id": "%#x" % id(self),
               "mountpoint": self.mountpoint, "lv": self.lv, "btrfs": self.btr,
               "weight": self.weight, "fstype": self.fstype, "size": self.size,
               "enc": self.encrypted, "max_size": self.max_size, "grow": self.grow,
-              "thin": self.thin})
+              "thin": self.thin, "required_space": self.required_space,
+              "schemes": self.schemes})
 
         return s
 
@@ -140,3 +143,6 @@ class PartSpec(object):
 
     def __eq__(self, other):
         return isinstance(other, PartSpec) and vars(self) == vars(other)
+
+    def __repr__(self):
+        return str(self)
