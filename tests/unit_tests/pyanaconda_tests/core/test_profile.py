@@ -25,6 +25,7 @@ import pytest
 from textwrap import dedent
 from unittest.mock import patch
 from blivet.size import Size
+from pykickstart.constants import AUTOPART_TYPE_BTRFS
 
 from pyanaconda.modules.storage.partitioning.automatic.utils import get_default_partitioning
 from pyanaconda.modules.storage.partitioning.specification import PartSpec
@@ -66,6 +67,18 @@ WORKSTATION_PARTITIONING = [
         lv=True,
         thin=True,
         encrypted=True
+    ),
+]
+
+WORKSTATIONPLUS_PARTITIONING = WORKSTATION_PARTITIONING + [
+    PartSpec(
+        mountpoint="/var",
+        # size=Size("15GiB"),
+        btr=True,
+        lv=True,
+        thin=True,
+        encrypted=True,
+        schemes={AUTOPART_TYPE_BTRFS}
     ),
 ]
 
@@ -194,7 +207,10 @@ class ProfileConfigurationTestCase(unittest.TestCase):
             platform.partitions = []
 
             with patch("pyanaconda.modules.storage.partitioning.automatic.utils.conf", new=config):
-                assert get_default_partitioning() == partitioning
+                default = get_default_partitioning()
+                print("Default: " + repr(default))
+                print("Supplied: " + repr(partitioning))
+                assert default == partitioning
 
     def _check_default_profile(self, profile_id, os_release_values, file_names, partitioning):
         """Check a default profile."""
@@ -248,7 +264,7 @@ class ProfileConfigurationTestCase(unittest.TestCase):
             "fedora-silverblue",
             ("fedora", "silverblue"),
             ["fedora.conf", "fedora-workstation.conf", "fedora-silverblue.conf"],
-            WORKSTATION_PARTITIONING
+            WORKSTATIONPLUS_PARTITIONING
         )
         self._check_default_profile(
             "fedora-kde",
@@ -260,7 +276,7 @@ class ProfileConfigurationTestCase(unittest.TestCase):
             "fedora-kinoite",
             ("fedora", "kinoite"),
             ["fedora.conf", "fedora-kde.conf", "fedora-kinoite.conf"],
-            WORKSTATION_PARTITIONING
+            WORKSTATIONPLUS_PARTITIONING
         )
         self._check_default_profile(
             "fedora-iot",
