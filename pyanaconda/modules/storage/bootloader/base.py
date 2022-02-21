@@ -917,7 +917,6 @@ class BootLoader(object):
         except ImportError:
             pass
         else:
-            util.resetRpmDb()
             ts = rpm.TransactionSet(conf.target.system_root)
 
             # Only add "rhgb quiet" on non-s390, non-serial installs.
