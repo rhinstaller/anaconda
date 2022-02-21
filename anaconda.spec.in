@@ -411,6 +411,14 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Feb 21 2022 Martin Kolman <mkolman@redhat.com> - 36.16.2-1
+- Do not modify boot order on UEFI if asked (vslavik)
+- Remove RPM database cleanup (vslavik)
+- Add all fields to PartSpec's string representation (vslavik)
+- Add __repr__ to PartSpec (vslavik)
+- Create /var subvolume on Fedora Kinoite and Silverblue (cmurf)
+- Remove misleading warning about inst.ks.device replacing ksdevice (rvykydal)
+
 * Wed Feb 16 2022 Martin Kolman <mkolman@redhat.com> - 36.16.1-1
 - Remove webui kernel boot argument support (jkonecny)
 - Remove web UI from spec file on Fedora 36 (jkonecny)
