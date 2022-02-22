@@ -13,9 +13,13 @@ Preparation and general invocation
 To run the WebUI integration tests run the following from the root of the anaconda repo.
 (do NOT run the integration tests as root)::
 
-You first need to build anaconda RPMS::
+You first need to build anaconda RPMS in the repository root::
 
+    ./autogen.sh
+    ./configure
     make rpms
+
+Note that if you went through this process already, you also need to remove the whole `ui/webui/bots/` directory before calling `make rpms`. Another pitfall is that the `bots` directory is a git repository and will not be removed with `git clean`.
 
 Then prepare an updates.img containing the anaconda RPMs and the cockpit dependencies::
 
@@ -134,6 +138,12 @@ connect to the test VMs by typing `ssh test-updates`::
         Hostname 127.0.0.2
         Port 2201
         User root
+        StrictHostKeyChecking=no
+        UserKnownHostsFile=/dev/null
+
+If you are creating the file, you must also set correct permissions or SSH will not start::
+
+    chmod 600 ~/.ssh/config
 
 Cockpit's CI
 ------------
