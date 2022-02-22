@@ -260,7 +260,6 @@ class DBusTask(BaseTask):
         """
         super().__init__(task_proxy.Name)
         self._task_proxy = task_proxy
-        self._msg_counter = 0
 
     @property
     def summary(self):
@@ -275,9 +274,7 @@ class DBusTask(BaseTask):
         """Run the DBus task."""
         try:
             # Report the progress messages.
-            self._task_proxy.ProgressChanged.connect(
-                self._show_message
-            )
+            self._task_proxy.ProgressChanged.connect(self._progress_cb)
 
             # Run the task.
             sync_run_task(self._task_proxy)
@@ -288,20 +285,6 @@ class DBusTask(BaseTask):
         finally:
             # Disconnect from the signal.
             self._task_proxy.ProgressChanged.disconnect()
-
-    def _show_message(self, step, msg):
-        """Show a progress message.
-
-        Always drop the first message, because it is the same
-        as the name of the DBus task, so it was probably already
-        reported.
-
-        FIXME: Drop the ugly workaround for the first message.
-        """
-        self._msg_counter += 1
-
-        if self._msg_counter > 1:
-            self._progress_cb(0, msg)
 
     def _progress_cb(self, step, message):
         """Callback for task progress reporting."""

@@ -242,6 +242,8 @@ class TaskInterfaceTestCase(unittest.TestCase):
             return "Running Task"
 
         def run(self):
+            self.report_progress(self.name)
+
             if not self.is_running:
                 raise AssertionError("The is_running property should be True.")
 
@@ -253,7 +255,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         self._set_up_task(self.RunningTask())
         self._run_task()
         self._finish_task()
-        self._check_progress_changed(1, "Running Task")
+        self._check_progress_changed(0, "Running Task")
         self._check_no_result()
 
     @run_in_glib(TIMEOUT)
@@ -276,6 +278,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
             return "Failing Task"
 
         def run(self):
+            self.report_progress(self.name)
             raise TaskFailedException()
 
     def test_failed_run(self):
@@ -283,7 +286,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         self._set_up_task(self.FailingTask())
         self._run_task()
         self._finish_failed_task()
-        self._check_progress_changed(1, "Failing Task")
+        self._check_progress_changed(0, "Failing Task")
         self._check_no_result()
 
     def _finish_failed_task(self):
@@ -300,6 +303,8 @@ class TaskInterfaceTestCase(unittest.TestCase):
             return "Canceled Task"
 
         def run(self):
+            self.report_progress(self.name)
+
             # Timeout in seconds.
             timeout = TaskInterfaceTestCase.TIMEOUT
 
@@ -318,7 +323,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         self._set_up_task(self.CanceledTask())
         self._run_and_cancel_task()
         self._finish_canceled_task()
-        self._check_progress_changed(1, "Canceled Task")
+        self._check_progress_changed(0, "Canceled Task")
         self._check_no_result()
 
     def _finish_canceled_task(self):
@@ -431,6 +436,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
             return "Returning Task"
 
         def run(self):
+            self.report_progress(self.name)
             return 1
 
     @dbus_class
@@ -486,7 +492,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         result = self.task.run_with_signals()
 
         self._check_task_signals()
-        self._check_progress_changed(1, "Simple Task")
+        self.progress_changed_callback.assert_not_called()
         assert result is None
 
     def test_run_task_with_signals(self):
@@ -496,7 +502,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         result = self.task.run_with_signals()
 
         self._check_task_signals()
-        self._check_progress_changed(1, "Returning Task")
+        self._check_progress_changed(0, "Returning Task")
         assert result == 1
 
     def test_run_failed_task_with_signals(self):
@@ -507,7 +513,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
             self.task.run_with_signals()
 
         self._check_task_signals(failed=True, succeeded=False)
-        self._check_progress_changed(1, "Failing Task")
+        self._check_progress_changed(0, "Failing Task")
 
     def test_run_canceled_task_with_signals(self):
         """Run a canceled task directly with signals."""
