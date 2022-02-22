@@ -32,8 +32,8 @@ __all__ = ["MigratedDBusPayload"]
 class MigratedDBusPayload(Payload, metaclass=ABCMeta):
     """An abstract class for payloads that migrated on DBus."""
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self):
+        super().__init__()
         self._payload_proxy = get_payload(self.type)
 
     @property

@@ -69,8 +69,10 @@ log = get_packaging_logger()
 
 class DNFPayload(Payload):
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, data):
+        super().__init__()
+        self.data = data
+
         # A list of verbose error strings
         self.verbose_errors = []
 
