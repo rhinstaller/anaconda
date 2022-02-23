@@ -231,6 +231,8 @@ class RegisterWithUsernamePasswordTask(Task):
         """Register the system with Red Hat account username and password.
 
         :raises: RegistrationError if calling the RHSM DBus API returns an error
+        :return: JSON string describing registration state
+        :rtype: str
         """
         log.debug("subscription: registering with username and password")
         with RHSMPrivateBus(self._rhsm_register_server_proxy) as private_bus:
@@ -241,13 +243,16 @@ class RegisterWithUsernamePasswordTask(Task):
                 # We do not yet support setting organization for username & password
                 # registration, so organization is blank for now.
                 organization = ""
-                private_register_proxy.Register(organization,
-                                                self._username,
-                                                self._password,
-                                                {},
-                                                {},
-                                                locale)
+                registration_data = private_register_proxy.Register(
+                    organization,
+                    self._username,
+                    self._password,
+                    {},
+                    {},
+                    locale
+                )
                 log.debug("subscription: registered with username and password")
+                return registration_data
             except DBusError as e:
                 log.debug("subscription: failed to register with username and password: %s",
                           str(e))
@@ -282,6 +287,8 @@ class RegisterWithOrganizationKeyTask(Task):
         """Register the system with organization name and activation key.
 
         :raises: RegistrationError if calling the RHSM DBus API returns an error
+        :return: JSON string describing registration state
+        :rtype: str
         """
         log.debug("subscription: registering with organization and activation key")
         with RHSMPrivateBus(self._rhsm_register_server_proxy) as private_bus:
@@ -289,12 +296,15 @@ class RegisterWithOrganizationKeyTask(Task):
                 locale = os.environ.get("LANG", "")
                 private_register_proxy = private_bus.get_proxy(RHSM.service_name,
                                                                RHSM_REGISTER.object_path)
-                private_register_proxy.RegisterWithActivationKeys(self._organization,
-                                                                  self._activation_keys,
-                                                                  {},
-                                                                  {},
-                                                                  locale)
+                registration_data = private_register_proxy.RegisterWithActivationKeys(
+                    self._organization,
+                    self._activation_keys,
+                    {},
+                    {},
+                    locale
+                )
                 log.debug("subscription: registered with organization and activation key")
+                return registration_data
             except DBusError as e:
                 log.debug("subscription: failed to register with organization & key: %s", str(e))
                 # RHSM exception contain details as JSON due to DBus exception handling limitations

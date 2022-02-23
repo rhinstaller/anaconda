@@ -591,11 +591,13 @@ class RegistrationTasksTestCase(unittest.TestCase):
         # private register proxy
         get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
         private_register_proxy = get_proxy.return_value
+        sca_enabled_json = '{"owner":{"contentAccessMode": "org_environment"}}'
+        private_register_proxy.Register.return_value = sca_enabled_json
         # instantiate the task and run it
         task = RegisterWithUsernamePasswordTask(rhsm_register_server_proxy=register_server_proxy,
                                                 username="foo_user",
                                                 password="bar_password")
-        task.run()
+        registration_data = task.run()
         # check the private register proxy Register method was called correctly
         private_register_proxy.Register.assert_called_once_with("",
                                                                 "foo_user",
@@ -603,6 +605,9 @@ class RegistrationTasksTestCase(unittest.TestCase):
                                                                 {},
                                                                 {},
                                                                 "en_US.UTF-8")
+        # check the returned registration data is properly forwarded from
+        # the (mocked) DBus call
+        self.assertEqual(sca_enabled_json, registration_data)
 
     @patch("os.environ.get", return_value="en_US.UTF-8")
     @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")
@@ -639,12 +644,14 @@ class RegistrationTasksTestCase(unittest.TestCase):
         # private register proxy
         get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
         private_register_proxy = get_proxy.return_value
-        private_register_proxy.Register.return_value = True, ""
+        private_register_proxy.RegisterWithActivationKeys.return_value = True, ""
+        sca_enabled_json = '{"owner":{"contentAccessMode": "org_environment"}}'
+        private_register_proxy.RegisterWithActivationKeys.return_value = sca_enabled_json
         # instantiate the task and run it
         task = RegisterWithOrganizationKeyTask(rhsm_register_server_proxy=register_server_proxy,
                                                organization="123456789",
                                                activation_keys=["foo", "bar", "baz"])
-        task.run()
+        registration_data = task.run()
         # check private register proxy RegisterWithActivationKeys method was called correctly
         private_register_proxy.RegisterWithActivationKeys.assert_called_with(
             "123456789",
@@ -653,6 +660,9 @@ class RegistrationTasksTestCase(unittest.TestCase):
             {},
             'en_US.UTF-8'
         )
+        # check the returned registration data is properly forwarded from
+        # the (mocked) DBus call
+        self.assertEqual(sca_enabled_json, registration_data)
 
     @patch("os.environ.get", return_value="en_US.UTF-8")
     @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")

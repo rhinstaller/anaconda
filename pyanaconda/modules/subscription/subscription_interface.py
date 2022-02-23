@@ -43,6 +43,8 @@ class SubscriptionInterface(KickstartModuleInterface):
                             self.implementation.connect_to_insights_changed)
         self.watch_property("IsRegistered",
                             self.implementation.registered_changed)
+        self.watch_property("IsSimpleContentAccessEnabled",
+                            self.implementation.simple_content_access_enabled_changed)
         self.watch_property("IsSubscriptionAttached",
                             self.implementation.subscription_attached_changed)
 
@@ -143,6 +145,11 @@ class SubscriptionInterface(KickstartModuleInterface):
     def IsRegistered(self) -> Bool:
         """Report if the system is registered."""
         return self.implementation.registered
+
+    @property
+    def IsSimpleContentAccessEnabled(self) -> Bool:
+        """Report if Simple Content Access is enabled."""
+        return self.implementation.simple_content_access_enabled
 
     @property
     def IsSubscriptionAttached(self) -> Bool:

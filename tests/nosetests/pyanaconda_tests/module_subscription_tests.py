@@ -927,6 +927,29 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         # at the end the property should be True
         self.assertTrue(self.subscription_interface.IsRegistered)
 
+    def simple_content_access_property_test(self):
+        """Test the IsSimpleContentAccessEnabled property."""
+        # should be false by default
+        self.assertFalse(self.subscription_interface.IsSimpleContentAccessEnabled)
+
+        # this property can't be set by client as it is set as the result of
+        # subscription attempts, so we need to call the internal module interface
+        # via a custom setter
+
+        def custom_setter(value):
+            self.subscription_module.set_simple_content_access_enabled(value)
+
+        # check the property is True and the signal was emitted
+        # - we use fake setter as there is no public setter
+        self._check_dbus_property(
+          "IsSimpleContentAccessEnabled",
+          True,
+          setter=custom_setter
+        )
+
+        # at the end the property should be True
+        self.assertTrue(self.subscription_interface.IsSimpleContentAccessEnabled)
+
     def subscription_attached_property_test(self):
         """Test the IsSubscriptionAttached property."""
         # should be false by default
@@ -1246,10 +1269,16 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._rhsm_register_server_proxy, register_server_proxy)
         self.assertEqual(obj.implementation._username, "foo_user")
         self.assertEqual(obj.implementation._password, "foo_password")
+        # mock a result
+        obj.implementation.get_result = Mock()
+        sca_json = '{"owner":{"contentAccessMode": "org_environment"}}'
+        obj.implementation.get_result.return_value = sca_json
         # trigger the succeeded signal
         obj.implementation.succeeded_signal.emit()
         # check this set the registered property to True
         self.assertTrue(self.subscription_interface.IsRegistered)
+        # check the SCA property is True due to the JSON data saying so
+        self.assertTrue(self.subscription_interface.IsSimpleContentAccessEnabled)
 
     @patch_dbus_publish_object
     def register_with_organization_key_test(self, publisher):
@@ -1285,16 +1314,24 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._rhsm_register_server_proxy, register_server_proxy)
         self.assertEqual(obj.implementation._organization, "123456789")
         self.assertEqual(obj.implementation._activation_keys, ["key1", "key2", "key3"])
+        # mock a result
+        obj.implementation.get_result = Mock()
+        sca_json = '{"owner":{"contentAccessMode": "org_environment"}}'
+        obj.implementation.get_result.return_value = sca_json
         # trigger the succeeded signal
         obj.implementation.succeeded_signal.emit()
         # check this set the registered property to True
         self.assertTrue(self.subscription_interface.IsRegistered)
+        # check the SCA property is True due to the JSON data saying so
+        self.assertTrue(self.subscription_interface.IsSimpleContentAccessEnabled)
 
     @patch_dbus_publish_object
     def unregister_test(self, publisher):
         """Test UnregisterTask creation."""
         # simulate system being subscribed
         self.subscription_module.set_subscription_attached(True)
+        # simulate system being in SCA mode
+        self.subscription_module.set_simple_content_access_enabled(True)
         # make sure the task gets dummy rhsm unregister proxy
         observer = Mock()
         self.subscription_module._rhsm_observer = observer
@@ -1306,9 +1343,11 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._rhsm_unregister_proxy, rhsm_unregister_proxy)
         # trigger the succeeded signal
         obj.implementation.succeeded_signal.emit()
-        # check this set the subscription-attached & registered properties to False
+        # check this set the subscription-attached, registered and
+        # simple content access properties to False
         self.assertFalse(self.subscription_interface.IsRegistered)
         self.assertFalse(self.subscription_interface.IsSubscriptionAttached)
+        self.assertFalse(self.subscription_interface.IsSimpleContentAccessEnabled)
 
     @patch_dbus_publish_object
     def attach_subscription_test(self, publisher):

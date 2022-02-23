@@ -52,6 +52,7 @@ from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
     UnregisterTask, AttachSubscriptionTask, SystemPurposeConfigurationTask, \
     ParseAttachedSubscriptionsTask
 from pyanaconda.modules.subscription.rhsm_observer import RHSMObserver
+from pyanaconda.modules.subscription.utils import detect_sca_from_registration_data
 
 
 from pykickstart.errors import KickstartParseWarning
@@ -103,6 +104,10 @@ class SubscriptionService(KickstartService):
         # registration status
         self.registered_changed = Signal()
         self._registered = False
+
+        # simple content access
+        self.simple_content_access_enabled_changed = Signal()
+        self._sca_enabled = False
 
         # subscription status
         self.subscription_attached_changed = Signal()
@@ -482,6 +487,28 @@ class SubscriptionService(KickstartService):
         self.module_properties_changed.emit()
         log.debug("System registered set to: %s", system_registered)
 
+    # simple content access status
+    @property
+    def simple_content_access_enabled(self):
+        """Return True if the system has been registered with SCA enabled.
+
+        :return: True if the system has been registered in SCA mode, False otherwise
+        :rtype: bool
+        """
+        return self._sca_enabled
+
+    def set_simple_content_access_enabled(self, sca_enabled):
+        """Set if Simple Content Access is enabled.
+
+        :param bool sca_enabled: True if SCA is enabled, False otherwise
+        """
+        self._sca_enabled = sca_enabled
+        self.simple_content_access_enabled_changed.emit()
+        # as there is no public setter in the DBus API, we need to emit
+        # the properties changed signal here manually
+        self.module_properties_changed.emit()
+        log.debug("Simple Content Access enabled set to: %s", sca_enabled)
+
     # subscription status
 
     @property
@@ -640,6 +667,13 @@ class SubscriptionService(KickstartService):
         # if the task succeeds, it means the system has been registered
         task.succeeded_signal.connect(
             lambda: self.set_registered(True))
+        # set SCA state based on data returned by the registration task
+        task.succeeded_signal.connect(
+            lambda: self.set_simple_content_access_enabled(
+                detect_sca_from_registration_data(task.get_result())
+            )
+        )
+
         return task
 
     def register_organization_key_with_task(self):
@@ -659,6 +693,12 @@ class SubscriptionService(KickstartService):
         # if the task succeeds, it means the system has been registered
         task.succeeded_signal.connect(
             lambda: self.set_registered(True))
+        # set SCA state based on data returned by the registration task
+        task.succeeded_signal.connect(
+            lambda: self.set_simple_content_access_enabled(
+                detect_sca_from_registration_data(task.get_result())
+            )
+        )
         return task
 
     def unregister_with_task(self):
@@ -677,6 +717,10 @@ class SubscriptionService(KickstartService):
         # and clear attached subscriptions
         task.succeeded_signal.connect(
             lambda: self.set_attached_subscriptions([]))
+        # also when we are no longer registered then we are are
+        # thus no longer in Simple Content Access mode
+        task.succeeded_signal.connect(
+            lambda: self.set_simple_content_access_enabled(False))
         return task
 
     def attach_subscription_with_task(self):
