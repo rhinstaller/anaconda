@@ -367,6 +367,16 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Feb 23 2022 Vendula Poncova <vponcova@redhat.com> - 33.16.6.6-1
+- Bump subscription-manager version (mkolman)
+  Related: rhbz#1968574
+- Improve UX in Simple Content Access mode (mkolman)
+  Resolves: rhbz#1968574
+- Add IsSimpleContentAccessEnabled property (mkolman)
+  Related: rhbz#1968574
+- Add support for SCA mode detection from registration data (mkolman)
+  Related: rhbz#1968574
+
 * Tue Jan 04 2022 Martin Kolman <mkolman@redhat.com> - 33.16.6.5-1
 - Fix the status of the root configuration screen (vponcova)
   Related: rhbz#1981807
