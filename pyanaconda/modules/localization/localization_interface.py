@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 
+from pyanaconda.modules.common.structures.language import LanguageData, LocaleData
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from dasbus.server.property import emits_properties_changed
 from dasbus.typing import *  # pylint: disable=wildcard-import
@@ -39,6 +40,42 @@ class LocalizationInterface(KickstartModuleInterface):
         self.watch_property("XLayouts", self.implementation.x_layouts_changed)
         self.watch_property("LayoutSwitchOptions", self.implementation.switch_options_changed)
         self.watch_property("KeyboardKickstarted", self.implementation.keyboard_seen_changed)
+
+    def GetLanguages(self) -> List[Str]:
+        """Get languages with available translations.
+
+        For example: ["en", "cs"]
+
+        :return: a list of language ids
+        """
+        return self.implementation.get_languages()
+
+    def GetLanguageData(self, language_id: Str) -> Structure:
+        """Get data about the specified language.
+
+        :param: a language id (for example, "en")
+        :return: a language data
+        """
+        language_data = self.implementation.get_language_data(language_id)
+        return LanguageData.to_structure(language_data)
+
+    def GetLocales(self, language_id: Str) -> List[Str]:
+        """Get locales available for the specified language.
+
+        For example: ["de_DE.UTF-8", "de_AT.UTF-8", ... ]
+
+        :return: a list of locale ids
+        """
+        return self.implementation.get_locales(language_id)
+
+    def GetLocaleData(self, locale_id: Str) -> Structure:
+        """Get data about the specified locale.
+
+        :param: a locale id (for example, "en_US.UTF-8")
+        :return: a locale data
+        """
+        locale_data = self.implementation.get_locale_data(locale_id)
+        return LocaleData.to_structure(locale_data)
 
     @property
     def Language(self) -> Str:

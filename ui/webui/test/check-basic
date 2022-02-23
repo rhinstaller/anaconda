@@ -36,6 +36,7 @@ class TestBasic(MachineCase):
         b.open("/cockpit/@localhost/anaconda-webui/index.html")
 
         b.click('#continue-btn')
+        b.expect_load()
 
         for page in ['keyboard', 'language', 'timedate', 'installation-source', 'software-selection', 'installation-destination', 'network-hostname', 'root-account', 'user-account']:
             b.click("#" + page)

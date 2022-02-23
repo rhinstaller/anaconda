@@ -15,167 +15,151 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import cockpit from "cockpit";
 
 import {
     ActionGroup,
     Button,
     Form, FormGroup,
-    Menu, MenuContent, MenuList, MenuInput, MenuItem, Divider, DrilldownMenu,
     PageSection,
-    TextInput, Title,
+    SelectGroup, SelectOption, Select, SelectVariant,
+    Title,
 } from "@patternfly/react-core";
 
-import "./InstallationLanguage.scss";
+import { AddressContext } from "./Common.jsx";
+
+import { useEvent, useObject } from "hooks";
 
 const _ = cockpit.gettext;
 
-// Use this untill we can use the API to get the language listings
-const menuItems = {
-    english: {
-        label: "English",
-        subgroup: {
-            enUS: {
-                label: "United States"
-            },
-            enUK: {
-                label: "United Kingdom"
-            }
-        }
-    },
-    de: {
-        label: "Deutsch",
-        subgroup: {
-            deDE: {
-                label: "Deutschland"
-            },
-            deLU: {
-                label: "Luxemburg"
-            }
-        }
-    }
-};
+const getLanguageEnglishName = lang => lang["english-name"].v;
+const getLanguageId = lang => lang["language-id"].v;
+const getLanguageNativeName = lang => lang["native-name"].v;
+const getLocaleId = locale => locale["locale-id"].v;
+const getLocaleNativeName = locale => locale["native-name"].v;
 
-const LanguageSelector = ({ defaultLang, onSelectLang }) => {
-    const [activeItem, setActiveItem] = useState(defaultLang);
-    const [activeMenu, setActiveMenu] = useState("languageMenu");
-    const [drilldownPath, setDrilldownPath] = useState([]);
-    const [filterText, setFilterText] = useState("");
-    const [menuDrilledIn, setMenuDrilledIn] = useState([]);
-    const [menuHeights, setMenuHeights] = useState([]);
-    const [selectedItem, setSelectedItem] = useState(defaultLang);
+const LanguageSelector = ({ lang, onSelectLang }) => {
+    const [isOpen, setIsOpen] = useState();
+    const [languages, setLanguages] = useState([]);
+    const [locales, setLocales] = useState({});
+    const [selectedItem, setSelectedItem] = useState();
+    const address = useContext(AddressContext);
 
-    const handleDrillIn = (fromMenuId, toMenuId, pathId) => {
-        setMenuDrilledIn([...menuDrilledIn, fromMenuId]);
-        setDrilldownPath([...drilldownPath, pathId]);
-        setActiveMenu(toMenuId);
-    };
-    const handleDrillOut = toMenuId => {
-        const menuDrilledInSansLast = menuDrilledIn.slice(0, menuDrilledIn.length - 1);
-        const pathSansLast = drilldownPath.slice(0, drilldownPath.length - 1);
+    const localizationProxy = useObject(() => {
+        const client = cockpit.dbus("org.fedoraproject.Anaconda.Modules.Localization", { superuser: "try", bus: "none", address });
+        const proxy = client.proxy(
+            "org.fedoraproject.Anaconda.Modules.Localization",
+            "/org/fedoraproject/Anaconda/Modules/Localization",
+        );
 
-        setMenuDrilledIn(menuDrilledInSansLast);
-        setDrilldownPath(pathSansLast);
-        setActiveItem(toMenuId);
-    };
-    const handleSetHeight = (menuId, height) => {
-        if (!menuHeights[menuId]) {
-            setMenuHeights({
-                ...menuHeights,
-                [menuId]: height
-            });
-        }
-    };
-    const handleOnSelect = (event, itemId) => {
-        if (Object.keys(menuItems).includes(itemId)) {
+        return proxy;
+    }, null, [address]);
+
+    useEvent(localizationProxy, "changed", (event, data) => {
+        localizationProxy.GetLanguages().then(languages => {
+            // Create the languages state object
+            Promise.all(languages.map(lang => localizationProxy.GetLanguageData(lang))).then(setLanguages);
+
+            // Create the locales state object
+            Promise.all(languages.map(lang => localizationProxy.GetLocales(lang))).then(res => {
+                return Promise.all(
+                    res.map((langLocales) => {
+                        return Promise.all(langLocales.map(locale => localizationProxy.GetLocaleData(locale)));
+                    })
+                );
+            })
+                    .then(setLocales);
+        });
+    });
+
+    useEffect(() => {
+        // Once the component state contains the locale data from the API set the default selected language
+        if (selectedItem || !locales.length) {
             return;
         }
 
-        onSelectLang(itemId);
-        setActiveItem(itemId);
-        setSelectedItem(itemId);
+        const languageId = lang.split("_")[0];
+        const currentLangLocales = locales.find(langLocales => getLanguageId(langLocales[0]) === languageId);
+        const currentLocale = currentLangLocales.find(locale => getLocaleId(locale) === lang);
+
+        setSelectedItem(getLocaleNativeName(currentLocale));
+    }, [locales, lang, selectedItem]);
+
+    const handleOnSelect = (event, lang) => {
+        onSelectLang(lang.localeId);
+        setSelectedItem(lang);
     };
-    const getNestedItemLabel = (groupLabel, itemLabel) => {
-        return groupLabel + " (" + itemLabel + ")";
-    };
+
+    const isLoading = languages.length !== locales.length;
+    const options = (
+        !isLoading
+            ? locales.map(langLocales => {
+                const currentLang = languages.find(lang => getLanguageId(lang) === getLanguageId(langLocales[0]));
+
+                return (
+                    <SelectGroup
+                      label={cockpit.format("$0 ($1)", getLanguageNativeName(currentLang), getLanguageEnglishName(currentLang))}
+                      key={getLanguageId(currentLang)}>
+                        {langLocales.map(locale => (
+                            <SelectOption
+                              id={getLocaleId(locale).split(".UTF-8")[0]}
+                              key={getLocaleId(locale)}
+                              value={{
+                                  toString: () => getLocaleNativeName(locale),
+                                  // Add a compareTo for custom filtering - filter also by english name
+                                  localeId: getLocaleId(locale)
+                              }}
+                            />
+                        ))}
+                    </SelectGroup>
+                );
+            })
+            : []
+    );
 
     return (
-        <Menu
-          id="languageMenu"
+        <Select
           className="language-menu"
-          containsDrilldown
-          drilldownItemPath={drilldownPath}
-          drilledInMenus={menuDrilledIn}
-          activeMenu={activeMenu}
+          isGrouped
+          isOpen={isOpen}
+          maxHeight="30rem"
+          onClear={() => setSelectedItem(null)}
           onSelect={handleOnSelect}
-          activeItemId={activeItem}
-          selected={selectedItem}
-          onDrillIn={handleDrillIn}
-          onDrillOut={handleDrillOut}
-          onGetMenuHeight={handleSetHeight}
-        >
-            <MenuInput>
-                <TextInput
-                  aria-label="Filter menu items"
-                  iconVariant="search"
-                  onChange={setFilterText}
-                  type="search"
-                  value={filterText}
-                />
-            </MenuInput>
-            <Divider />
-            <MenuContent menuHeight={`${menuHeights[activeMenu]}px`}>
-                <MenuList>
-                    {Object.keys(menuItems)
-                            .filter(groupKey => !filterText || drilldownPath.length || menuItems[groupKey].label.toLowerCase().includes(filterText.toLowerCase()))
-                            .map(groupKey => {
-                                const group = menuItems[groupKey];
-                                const groupLabel = group.label;
+          onToggle={setIsOpen}
+          selections={selectedItem}
+          toggleId="language-menu-toggle"
+          variant={SelectVariant.typeahead}
+          width="30rem"
+          {...(isLoading && { loadingVariant: "spinner" })}
 
-                                return (
-                                    <MenuItem
-                                      itemId={groupKey}
-                                      key={groupKey}
-                                      direction="down"
-                                      drilldownMenu={
-                                          <DrilldownMenu id={"drilldownMenu_" + groupKey}>
-                                              <MenuItem itemId={groupKey} direction="up">
-                                                  {groupLabel}
-                                              </MenuItem>
-                                              <Divider component="li" />
-                                              {Object.keys(menuItems[groupKey].subgroup)
-                                                      .filter(itemKey => {
-                                                          return (
-                                                              !filterText || !drilldownPath.length ||
-                                                              getNestedItemLabel(groupLabel, group.subgroup[itemKey].label).toLowerCase()
-                                                                      .includes(filterText.toLowerCase())
-                                                          );
-                                                      })
-                                                      .map(itemKey => {
-                                                          return (
-                                                              <MenuItem itemId={itemKey} key={itemKey}>
-                                                                  {getNestedItemLabel(groupLabel, group.subgroup[itemKey].label)}
-                                                              </MenuItem>
-                                                          );
-                                                      })}
-                                          </DrilldownMenu>
-                                      }
-                                    >
-                                        {groupLabel}
-                                    </MenuItem>
-                                );
-                            })}
-                </MenuList>
-            </MenuContent>
-        </Menu>
+        >
+            {options}
+        </Select>
     );
 };
 
 export const InstallationLanguage = ({ onSelectLang }) => {
-    const [lang, setLang] = useState("enUS");
+    const langCookie = (window.localStorage.getItem("cockpit.lang") || "en-us").split("-");
+    const [lang, setLang] = useState(langCookie[0] + "_" + langCookie[1].toUpperCase() + ".UTF-8");
 
-    const handleOnContinue = () => onSelectLang(lang);
+    const handleOnContinue = () => {
+        if (!lang) {
+            return;
+        }
+
+        /*
+         * FIXME: Anaconda API returns en_US, de_DE etc, cockpit expects en-us, de-de etc
+         * Make sure to check if this is generalized enough to keep so.
+         */
+        const cockpitLang = lang.split(".UTF-8")[0].replace(/_/g, "-").toLowerCase();
+        const cookie = "CockpitLang=" + encodeURIComponent(cockpitLang) + "; path=/; expires=Sun, 16 Jul 3567 06:23:41 GMT";
+
+        document.cookie = cookie;
+        window.localStorage.setItem("cockpit.lang", cockpitLang);
+        cockpit.location.go(["summary"]);
+        window.location.reload(true);
+    };
 
     return (
         <PageSection>
@@ -184,7 +168,7 @@ export const InstallationLanguage = ({ onSelectLang }) => {
                     WELCOME TO FEDORA...
                 </Title>
                 <FormGroup label={_("What language would you like to use during the installation process?")}>
-                    <LanguageSelector defaultLang="enUS" onSelectLang={setLang} />
+                    <LanguageSelector lang={lang} onSelectLang={setLang} />
                 </FormGroup>
                 <ActionGroup>
                     <Button id="continue-btn" variant="primary" onClick={handleOnContinue}>{_("Continue")}</Button>

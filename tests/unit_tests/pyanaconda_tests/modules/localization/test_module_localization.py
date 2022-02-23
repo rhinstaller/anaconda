@@ -27,13 +27,14 @@ from unittest.mock import patch, Mock, call
 from textwrap import dedent
 
 from tests.unit_tests.pyanaconda_tests import check_kickstart_interface, patch_dbus_publish_object, \
-        PropertiesChangedCallback, check_task_creation
+        PropertiesChangedCallback, check_dbus_property, check_task_creation
 
 from pyanaconda.core.constants import DEFAULT_KEYBOARD, DEFAULT_VC_FONT
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.common.errors.configuration import KeyboardConfigurationError
 from pyanaconda.modules.common.errors.installation import KeyboardInstallationError
 from pyanaconda.modules.common.structures.requirement import Requirement
+from pyanaconda.modules.common.structures.language import LanguageData, LocaleData
 from pyanaconda.modules.localization.installation import LanguageInstallationTask, \
     KeyboardInstallationTask, write_vc_configuration, VC_CONF_FILE_PATH, write_x_configuration, \
     X_CONF_DIR, X_CONF_FILE_NAME
@@ -44,6 +45,7 @@ from pyanaconda.modules.localization.localization_interface import LocalizationI
 from pyanaconda.modules.localization.runtime import GetMissingKeyboardConfigurationTask, \
     ApplyKeyboardTask, AssignGenericKeyboardSettingTask, try_to_load_keymap
 from pyanaconda.modules.common.task import TaskInterface
+from dasbus.typing import get_variant, Str, Bool
 
 
 class LocalizationInterfaceTestCase(unittest.TestCase):
@@ -58,6 +60,13 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         # Connect to the properties changed signal.
         self.callback = PropertiesChangedCallback()
         self.localization_interface.PropertiesChanged.connect(self.callback)
+
+    def _check_dbus_property(self, *args, **kwargs):
+        check_dbus_property(
+            LOCALIZATION,
+            self.localization_interface,
+            *args, **kwargs
+        )
 
     def test_kickstart_properties(self):
         """Test kickstart properties."""
@@ -170,6 +179,53 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         assert len(requirements) == 1
         assert requirements[0].type == "package"
         assert requirements[0].name == "kbd-legacy"
+
+    def test_languages(self):
+        languages = list(self.localization_interface.GetLanguages())
+        get_lang_data = self.localization_interface.GetLanguageData
+        language_data = [
+            LanguageData.from_structure(get_lang_data(language_id)) for language_id in languages
+        ]
+
+        assert len(languages) > 0
+        assert language_data[0].english_name == "English"
+        assert language_data[0].language_id == "en"
+        assert language_data[0].is_common is True
+
+    def test_language_data(self):
+        get_lang_data = self.localization_interface.GetLanguageData
+        data = get_lang_data('en')
+        english = {
+            "english-name": get_variant(Str, "English"),
+            "is-common": get_variant(Bool, True),
+            "language-id": get_variant(Str, 'en'),
+            "native-name": get_variant(Str, "English"),
+        }
+        assert data == english
+
+    def test_locales(self):
+        locales = list(self.localization_interface.GetLocales("en"))
+        get_locale_data = self.localization_interface.GetLocaleData
+        locale_data = [
+            LocaleData.from_structure(get_locale_data(locale_id)) for locale_id in locales
+        ]
+
+        assert len(locales) > 0
+        assert locale_data[0].english_name == "English (United States)"
+        assert locale_data[0].language_id == "en"
+        assert locale_data[0].locale_id == "en_US.UTF-8"
+
+    def test_locale_data(self):
+        get_locale_data = self.localization_interface.GetLocaleData
+        data = get_locale_data('en_US.UTF-8')
+
+        english_us = {
+            "english-name": get_variant(Str, "English (United States)"),
+            "language-id": get_variant(Str, 'en'),
+            "locale-id": get_variant(Str, 'en_US.UTF-8'),
+            "native-name": get_variant(Str, "English (United States)"),
+        }
+        assert data == english_us
 
     @patch_dbus_publish_object
     def test_install_with_task(self, publisher):
