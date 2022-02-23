@@ -75,7 +75,7 @@ TEST_INST_BUILD_DIR = $(BUILD_RESULT_DIR)/02-test-install
 
 CONTAINER_ENGINE ?= podman
 # build/run tweaks for all containers, such as --cap-add
-CONTAINER_BUILD_ARGS ?= --no-cache --pull-always
+CONTAINER_BUILD_ARGS ?= --no-cache
 # HACK: bash's builtin `test -r` fails when running on Ubuntu host (GitHub) due to incompatible seccomp profile
 CONTAINER_TEST_ARGS ?= $(shell grep -q ID=ubuntu /etc/os-release && echo --security-opt=seccomp=unconfined)
 CONTAINER_REGISTRY ?= quay.io
@@ -85,9 +85,11 @@ CONTAINER_ADD_ARGS ?=
 # anaconda-ci container
 CI_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-ci
 RPM_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-rpm
+RELEASE_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-release
 ISO_CREATOR_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-iso-creator
 CI_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-ci
 RPM_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-rpm
+RELEASE_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-release
 ISO_CREATOR_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-iso-creator
 CI_TAG := $(or $(CI_TAG),$(GIT_BRANCH))
 CI_TEST_ARGS ?= --rm -v $(srcdir):/anaconda:z
@@ -169,6 +171,14 @@ release:
 	$(MAKE) po-pull
 	$(MAKE) dist
 
+container-release:
+	$(CONTAINER_ENGINE) run \
+	$(CONTAINER_TEST_ARGS) \
+	$(CI_TEST_ARGS) \
+	$(CONTAINER_ADD_ARGS) \
+	$(RELEASE_NAME):$(CI_TAG) \
+	sh -exc './autogen.sh && ./configure && make release'
+
 release-and-tag:
 	$(MAKE) dist
 	$(MAKE) tag
@@ -178,7 +188,7 @@ anaconda-ci-build:
 	cp $(srcdir)/anaconda.spec.in $(CI_DOCKERFILE)/* $$TEMP/ && \
 	echo "Build dir is $$TEMP" && \
 	$(CONTAINER_ENGINE) build \
-	$(CONTAINER_BUILD_ARGS) \
+	$(CONTAINER_BUILD_ARGS) --pull-always \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=git_branch=$(GIT_BRANCH) \
 	--build-arg=image=$(BASE_CONTAINER) \
@@ -192,7 +202,7 @@ anaconda-rpm-build:
 	cp $(srcdir)/anaconda.spec.in $(CI_DOCKERFILE)/* $$TEMP/ && \
 	echo "Build dir is $$TEMP" && \
 	$(CONTAINER_ENGINE) build \
-	$(CONTAINER_BUILD_ARGS) \
+	$(CONTAINER_BUILD_ARGS) --pull-always \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=git_branch=$(GIT_BRANCH) \
 	--build-arg=image=$(BASE_CONTAINER) \
@@ -201,9 +211,17 @@ anaconda-rpm-build:
 	$$TEMP/ && \
 	rm -rf $$TEMP
 
-anaconda-iso-creator-build:
+anaconda-release-build: anaconda-rpm-build
 	$(CONTAINER_ENGINE) build \
 	$(CONTAINER_BUILD_ARGS) \
+	$(CONTAINER_ADD_ARGS) \
+	--build-arg=image=$(RPM_NAME):$(CI_TAG) \
+	-t $(RELEASE_NAME):$(CI_TAG) \
+	$(RELEASE_DOCKERFILE)
+
+anaconda-iso-creator-build:
+	$(CONTAINER_ENGINE) build \
+	$(CONTAINER_BUILD_ARGS) --pull-always \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=image=$(BASE_CONTAINER) \
 	-t $(ISO_CREATOR_NAME):$(CI_TAG) \

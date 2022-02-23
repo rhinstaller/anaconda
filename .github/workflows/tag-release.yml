@@ -60,36 +60,17 @@ jobs:
           ref: ${{ github.ref }}
           fetch-depth: 0
 
-      - name: Build anaconda-rpm container (for RPM build)
+      - name: Build anaconda container (to make the release)
         run: |
-          make -f Makefile.am anaconda-rpm-build
+          make -f Makefile.am anaconda-release-build
 
       - name: Run the build in the container
         run: |
           mkdir /tmp/results
-          podman run \
-            -i \
-            -v /tmp/results:/results \
-            -v `pwd`:/anaconda \
-            quay.io/rhinstaller/anaconda-rpm:master <<EOF
-
-          # prepare environment
-          set -eux
-
-          # install dependencies for translation canary
-          dnf install -y git python3-polib python3-pip
-          pip install --upgrade pip pocketlint
-
-          # build tarball
-          cd /anaconda
-          ./autogen.sh
-          ./configure
-          make release
+          make -f Makefile.am container-release
 
           # copy out stuff
-          cp anaconda-*.tar.bz2 /results
-
-          EOF
+          cp anaconda-*.tar.bz2 /tmp/results
 
       - name: Create the release
         id: create_release
