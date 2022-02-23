@@ -75,7 +75,7 @@ TEST_INST_BUILD_DIR = $(BUILD_RESULT_DIR)/02-test-install
 
 CONTAINER_ENGINE ?= podman
 # build/run tweaks for all containers, such as --cap-add
-CONTAINER_BUILD_ARGS ?= --no-cache --pull-always
+CONTAINER_BUILD_ARGS ?= --no-cache
 # HACK: bash's builtin `test -r` fails when running on Ubuntu host (GitHub) due to incompatible seccomp profile
 CONTAINER_TEST_ARGS ?= $(shell grep -q ID=ubuntu /etc/os-release && echo --security-opt=seccomp=unconfined)
 CONTAINER_REGISTRY ?= quay.io
@@ -185,7 +185,7 @@ release-and-tag:
 
 anaconda-ci-build:
 	$(CONTAINER_ENGINE) build \
-	$(CONTAINER_BUILD_ARGS) \
+	$(CONTAINER_BUILD_ARGS) --pull-always \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=git_branch=$(GIT_BRANCH) \
 	--build-arg=image=$(BASE_CONTAINER) \
@@ -195,7 +195,7 @@ anaconda-ci-build:
 
 anaconda-rpm-build:
 	$(CONTAINER_ENGINE) build \
-	$(CONTAINER_BUILD_ARGS) \
+	$(CONTAINER_BUILD_ARGS) --pull-always \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=git_branch=$(GIT_BRANCH) \
 	--build-arg=image=$(BASE_CONTAINER) \
@@ -212,7 +212,7 @@ anaconda-release-build: anaconda-rpm-build
 
 anaconda-iso-creator-build:
 	$(CONTAINER_ENGINE) build \
-	$(CONTAINER_BUILD_ARGS) \
+	$(CONTAINER_BUILD_ARGS) --pull-always \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=image=$(BASE_CONTAINER) \
 	-t $(ISO_CREATOR_NAME):$(CI_TAG) \
