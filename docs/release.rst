@@ -320,6 +320,10 @@ in the Fedora version specific branch on Anaconda side.
 Commit the result. The commit will become one of the few exclusive release branch commits,
 as we can't let it be merged back to master via the devel branch for obvious reasons.
 
+After doing this, please verify that Pykickstart supports Fedora <version> and <version + 1>
+if not, please file an `issue <https://github.com/pykickstart/pykickstart/issues>`_ on the
+Pykickstart project. The Pykickstart support for future release of Fedora will prevent
+issues during the next branching.
 
 Check if everything is correctly set:
 
