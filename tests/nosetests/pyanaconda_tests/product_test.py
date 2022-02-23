@@ -108,7 +108,15 @@ VIRTUALIZATION_PARTITIONING = [
     ),
     PartSpec(
         mountpoint="/var",
-        size=Size("15GiB"),
+        size=Size("5GiB"),
+        btr=True,
+        lv=True,
+        thin=True,
+        encrypted=True
+    ),
+    PartSpec(
+        mountpoint="/var/crash",
+        size=Size("10GiB"),
         btr=True,
         lv=True,
         thin=True,
@@ -125,6 +133,14 @@ VIRTUALIZATION_PARTITIONING = [
     PartSpec(
         mountpoint="/var/log/audit",
         size=Size("2GiB"),
+        btr=True,
+        lv=True,
+        thin=True,
+        encrypted=True
+    ),
+    PartSpec(
+        mountpoint="/var/tmp",
+        size=Size("10GiB"),
         btr=True,
         lv=True,
         thin=True,
@@ -256,7 +272,7 @@ class ProductConfigurationTestCase(unittest.TestCase):
         )
         self._check_default_product(
             "oVirt Node Next", "",
-            ["rhel.conf", "centos-stream.conf", "centos.conf", "ovirt.conf"],
+            ["rhel.conf", "centos-stream.conf", "ovirt.conf"],
             VIRTUALIZATION_PARTITIONING
         )
         self._check_default_product(
