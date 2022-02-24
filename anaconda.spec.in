@@ -407,6 +407,18 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Feb 24 2022 Vendula Poncova <vponcova@redhat.com> - 34.25.0.27-1
+- Use cache when fetching organization data from the GUI (mkolman)
+  Resolves: rhbz#2044258
+- Bump subscription-manager version (mkolman)
+  Related: rhbz#2048449
+- Improve UX in Simple Content Access mode (mkolman)
+  Resolves: rhbz#2048449
+- Add IsSimpleContentAccessEnabled property (mkolman)
+  Related: rhbz#2048449
+- Add support for SCA mode detection from registration data (mkolman)
+  Related: rhbz#2048449
+
 * Thu Feb 03 2022 Vladimir Slavik <vslavik@redhat.com> - 34.25.0.26-1
 - Write all PVs to LVM devices file (vslavik)
   Resolves: rhbz#2040302
