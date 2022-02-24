@@ -105,7 +105,7 @@ class Task(AbstractTask):
             log.info("'%s' is canceled.", self.name)
             return
 
-        self.report_progress(self.name, step_number=1)
+        log.info(self.name)
         self._set_result(self.run())
 
     def _task_succeeded_callback(self):
