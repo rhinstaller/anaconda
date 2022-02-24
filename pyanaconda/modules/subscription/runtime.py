@@ -271,7 +271,8 @@ class RegisterWithUsernamePasswordTask(Task):
             org_data_task = RetrieveOrganizationsTask(
                 rhsm_register_server_proxy=self._rhsm_register_server_proxy,
                 username=self._username,
-                password=self._password
+                password=self._password,
+                reset_cache=True
             )
             org_list = org_data_task.run()
             if len(org_list) > 1:
@@ -1088,17 +1089,23 @@ class RetrieveOrganizationsTask(Task):
     Satellite instances.
     """
 
-    def __init__(self, rhsm_register_server_proxy, username, password):
+    # the cache is used to serve last-known-good data if calling the GetOrgs()
+    # DBus method can't be called successfully in some scenarios
+    _org_data_list_cache = []
+
+    def __init__(self, rhsm_register_server_proxy, username, password, reset_cache=False):
         """Create a new organization data parsing task.
 
         :param rhsm_register_server_proxy: DBus proxy for the RHSM RegisterServer object
         :param str username: Red Hat account username
         :param str password: Red Hat account password
+        :param bool reset_cache: clear the cache before calling GetOrgs()
         """
         super().__init__()
         self._rhsm_register_server_proxy = rhsm_register_server_proxy
         self._username = username
         self._password = password
+        self._reset_cache = reset_cache
 
     @property
     def name(self):
@@ -1139,6 +1146,9 @@ class RetrieveOrganizationsTask(Task):
 
         :raises: RegistrationError if calling the RHSM DBus API returns an error
         """
+        # reset the data cache if requested
+        if self._reset_cache:
+            RetrieveOrganizationsTask._org_data_list_cache = []
         log.debug("subscription: getting data about organizations")
         with RHSMPrivateBus(self._rhsm_register_server_proxy) as private_bus:
             try:
@@ -1161,10 +1171,12 @@ class RetrieveOrganizationsTask(Task):
                 # parse the JSON strings into list of DBus data objects
                 org_data = self._parse_org_data_json(org_data_json)
 
+                log.debug("subscription: updating org data cache")
+                RetrieveOrganizationsTask._org_data_list_cache = org_data
                 # return the DBus structure list
                 return org_data
             except DBusError as e:
-                # Errors returned by the RHSM DBus API for this call are unfortunatelly
+                # Errors returned by the RHSM DBus API for this call are unfortunately
                 # quite ambiguous (especially if Hosted Candlepin is used) and we can't
                 # really decide which are fatal and which are not.
                 # So just log the full error JSON from the message field of the returned
@@ -1175,7 +1187,11 @@ class RetrieveOrganizationsTask(Task):
                 log.debug("subscription: failed to get organization data")
                 # log the raw exception JSON payload for debugging purposes
                 log.debug(str(e))
-                return []
+                # if we have something in cache, log the cache is being used,
+                # if there is nothing don't log anything as the cache is empty
+                if RetrieveOrganizationsTask._org_data_list_cache:
+                    log.debug("subscription: using cached organization data after failure")
+                return RetrieveOrganizationsTask._org_data_list_cache
 
     def for_publication(self):
         """Return a DBus representation."""

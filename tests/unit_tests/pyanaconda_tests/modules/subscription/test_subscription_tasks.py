@@ -711,8 +711,9 @@ class RegistrationTasksTestCase(unittest.TestCase):
             }
         ]
         org_data_json = json.dumps(org_data)
-        retrieve_orgs_task.return_value.run.return_value = \
-            RetrieveOrganizationsTask._parse_org_data_json(org_data_json)
+        org_data_list = RetrieveOrganizationsTask._parse_org_data_json(org_data_json)
+        retrieve_orgs_task.return_value.run.return_value = org_data_list
+        # prepare mock data callaback as well
         # instantiate the task and run it - we set organization to "" to make the task
         # fetch organization list
         task = RegisterWithUsernamePasswordTask(rhsm_register_server_proxy=register_server_proxy,
@@ -752,8 +753,8 @@ class RegistrationTasksTestCase(unittest.TestCase):
             }
         ]
         org_data_json = json.dumps(org_data)
-        retrieve_orgs_task.return_value.run.return_value = \
-            RetrieveOrganizationsTask._parse_org_data_json(org_data_json)
+        org_data_list = RetrieveOrganizationsTask._parse_org_data_json(org_data_json)
+        retrieve_orgs_task.return_value.run.return_value = org_data_list
         # instantiate the task and run it - we set organization to "" to make the task
         # fetch organization list
         task = RegisterWithUsernamePasswordTask(rhsm_register_server_proxy=register_server_proxy,
@@ -1976,3 +1977,195 @@ class RetrieveOrganizationsTaskTestCase(unittest.TestCase):
                                                                "bar_password",
                                                                {},
                                                                "en_US.UTF-8")
+
+    @patch("os.environ.get", return_value="en_US.UTF-8")
+    @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")
+    def test_get_org_data_cached(self, private_bus, environ_get):
+        """Test the RetrieveOrganizationsTask - return cached data on error."""
+        # register server proxy
+        register_server_proxy = Mock()
+        # private register proxy
+        get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
+        private_register_proxy = get_proxy.return_value
+        # simulate GetOrgs call failure
+        private_register_proxy.GetOrgs.side_effect = DBusError("org listing failed")
+        # create some dummy cached data
+        cached_structs_list = [
+            {
+                "id": get_variant(Str, "123a cached"),
+                "name": get_variant(Str, "Foo Org cached"),
+            },
+            {
+                "id": get_variant(Str, "123b cached"),
+                "name": get_variant(Str, "Bar Org cached"),
+            },
+            {
+                "id": get_variant(Str, "123c cached"),
+                "name": get_variant(Str, "Baz Org cached"),
+            }
+        ]
+        cached_structs = OrganizationData.from_structure_list(cached_structs_list)
+        RetrieveOrganizationsTask._org_data_list_cache = cached_structs
+
+        # instantiate the task and run it with cached data
+        task = RetrieveOrganizationsTask(rhsm_register_server_proxy=register_server_proxy,
+                                         username="foo_user",
+                                         password="bar_password")
+        org_data_structs = task.run()
+        # check the returned structs are based on the cache data, not the
+        # JSON data the mock-API would return
+        expected_struct_list = [
+            {
+                "id": "123a cached",
+                "name": "Foo Org cached",
+            },
+            {
+                "id": "123b cached",
+                "name": "Bar Org cached",
+            },
+            {
+                "id": "123c cached",
+                "name": "Baz Org cached",
+            }
+        ]
+        structs = get_native(
+            OrganizationData.to_structure_list(org_data_structs)
+        )
+        assert structs == expected_struct_list
+
+        # check the private register proxy Register method was *not* called
+        # as all data should come from the cache, if provided, with *no*
+        # DBus API access
+        private_register_proxy.GetOrgs.assert_called_once_with(
+            'foo_user', 'bar_password', {}, 'en_US.UTF-8'
+        )
+
+    @patch("os.environ.get", return_value="en_US.UTF-8")
+    @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")
+    def test_get_org_data_ignore_cache(self, private_bus, environ_get):
+        """Test the RetrieveOrganizationsTask - do not use cache on success."""
+        # register server proxy
+        register_server_proxy = Mock()
+        # private register proxy
+        get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
+        private_register_proxy = get_proxy.return_value
+        # mock the GetOrgs JSON output
+        multiple_org_data = [
+            {
+                "key": "123a",
+                "displayName": "Foo Org",
+                "contentAccessMode": "entitlement"
+            },
+            {
+                "key": "123b",
+                "displayName": "Bar Org",
+                "contentAccessMode": "org_environment"
+            },
+            {
+                "key": "123c",
+                "displayName": "Baz Org",
+                "contentAccessMode": "something_else"
+            }
+        ]
+        multiple_org_data_json = json.dumps(multiple_org_data)
+        private_register_proxy.GetOrgs.return_value = multiple_org_data_json
+        # create some dummy cached data
+        cached_structs_list = [
+            {
+                "id": get_variant(Str, "123a cached"),
+                "name": get_variant(Str, "Foo Org cached"),
+            },
+            {
+                "id": get_variant(Str, "123b cached"),
+                "name": get_variant(Str, "Bar Org cached"),
+            },
+            {
+                "id": get_variant(Str, "123c cached"),
+                "name": get_variant(Str, "Baz Org cached"),
+            }
+        ]
+        cached_structs = OrganizationData.from_structure_list(cached_structs_list)
+        RetrieveOrganizationsTask._org_data_list_cache = cached_structs
+
+        # instantiate the task and run it with cached data
+        task = RetrieveOrganizationsTask(rhsm_register_server_proxy=register_server_proxy,
+                                         username="foo_user",
+                                         password="bar_password")
+        org_data_structs = task.run()
+
+        # check the structs based on the GetOrgs returned JSON data look as expected
+        expected_struct_list = [
+            {
+                "id": "123a",
+                "name": "Foo Org",
+            },
+            {
+                "id": "123b",
+                "name": "Bar Org",
+            },
+            {
+                "id": "123c",
+                "name": "Baz Org",
+            }
+        ]
+        structs = get_native(
+            OrganizationData.to_structure_list(org_data_structs)
+        )
+        assert structs == expected_struct_list
+
+        # check the private register proxy Register method was *not* called
+        # as all data should come from the cache, if provided, with *no*
+        # DBus API access
+        private_register_proxy.GetOrgs.assert_called_once_with(
+            'foo_user', 'bar_password', {}, 'en_US.UTF-8'
+        )
+
+    @patch("os.environ.get", return_value="en_US.UTF-8")
+    @patch("pyanaconda.modules.subscription.runtime.RHSMPrivateBus")
+    def test_get_org_data_cache_reset(self, private_bus, environ_get):
+        """Test the RetrieveOrganizationsTask - test cache reset."""
+        # register server proxy
+        register_server_proxy = Mock()
+        # private register proxy
+        get_proxy = private_bus.return_value.__enter__.return_value.get_proxy
+        private_register_proxy = get_proxy.return_value
+        # simulate GetOrgs call failure
+        private_register_proxy.GetOrgs.side_effect = DBusError("org listing failed")
+        # create some dummy cached data
+        cached_structs_list = [
+            {
+                "id": get_variant(Str, "123a cached"),
+                "name": get_variant(Str, "Foo Org cached"),
+            },
+            {
+                "id": get_variant(Str, "123b cached"),
+                "name": get_variant(Str, "Bar Org cached"),
+            },
+            {
+                "id": get_variant(Str, "123c cached"),
+                "name": get_variant(Str, "Baz Org cached"),
+            }
+        ]
+        cached_structs = OrganizationData.from_structure_list(cached_structs_list)
+        RetrieveOrganizationsTask._org_data_list_cache = cached_structs
+
+        # instantiate the task and run it with cached data
+        task = RetrieveOrganizationsTask(rhsm_register_server_proxy=register_server_proxy,
+                                         username="foo_user",
+                                         password="bar_password",
+                                         reset_cache=True)
+        org_data_structs = task.run()
+        # we dropped the cache and the GetOrgs() call failed, so we return the
+        # contents of the empty cache
+        expected_struct_list = []
+        structs = get_native(
+            OrganizationData.to_structure_list(org_data_structs)
+        )
+        assert structs == expected_struct_list
+
+        # check the private register proxy Register method was *not* called
+        # as all data should come from the cache, if provided, with *no*
+        # DBus API access
+        private_register_proxy.GetOrgs.assert_called_once_with(
+            'foo_user', 'bar_password', {}, 'en_US.UTF-8'
+        )
