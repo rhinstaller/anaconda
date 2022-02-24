@@ -24,16 +24,19 @@ import {
 
 import { InstallationLanguage } from "./InstallationLanguage.jsx";
 import { Summary } from "./Summary.jsx";
-import { AddressContext } from "./Common.jsx";
+import { AddressContext, ConfContext } from "./Common.jsx";
+import { readConf } from "./helpers/conf.js";
 
 import { usePageLocation } from "hooks";
 
 export const Application = () => {
     const [address, setAddress] = useState();
     const [notifications, setNotifications] = useState({});
+    const [conf, setConf] = useState();
     const { path } = usePageLocation();
 
     useEffect(() => cockpit.file("/run/anaconda/bus.address").watch(setAddress), []);
+    useEffect(() => readConf().then(setConf, ex => console.error("Failed to parse anaconda configuration")), []);
 
     const onAddNotification = (notificationProps) => {
         setNotifications({
@@ -42,12 +45,14 @@ export const Application = () => {
         });
     };
 
-    if (!address) {
+    // Postpone rendering anything until we read the dbus address and the default configuration
+    if (!address || !conf) {
         return null;
     }
 
+    console.info("conf: ", conf);
     return (
-        <Page>
+        <Page data-debug={conf.Anaconda.debug}>
             {Object.keys(notifications).length > 0 &&
             <AlertGroup isToast isLiveRegion>
                 {Object.keys(notifications).map(idx => {
@@ -72,11 +77,15 @@ export const Application = () => {
                 })}
             </AlertGroup>}
             <AddressContext.Provider value={address}>
-                {!path.length > 0 && <InstallationLanguage />}
+                <ConfContext.Provider value={conf}>
+                    {!path.length > 0 && <InstallationLanguage />}
+                </ConfContext.Provider>
             </AddressContext.Provider>
             {path.length > 0 &&
             <AddressContext.Provider value={address}>
-                <Summary onAddNotification={onAddNotification} />
+                <ConfContext.Provider value={conf}>
+                    <Summary onAddNotification={onAddNotification} />
+                </ConfContext.Provider>
             </AddressContext.Provider>}
         </Page>
     );

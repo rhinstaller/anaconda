@@ -29,6 +29,7 @@ import { usePageLocation } from "hooks";
 const _ = cockpit.gettext;
 
 export const AddressContext = createContext("");
+export const ConfContext = createContext();
 
 export const Header = ({ done, doneDisabled, title }) => {
     const { path } = usePageLocation();
