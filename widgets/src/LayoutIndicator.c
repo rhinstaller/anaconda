@@ -172,8 +172,7 @@ static void anaconda_layout_indicator_init(AnacondaLayoutIndicator *self) {
            class-wide stuff */
 
         /* initialize XklEngine instance that will be used by all LayoutIndicator instances */
-        display = gdk_display_get_default();
-        klass->engine = xkl_engine_get_instance(GDK_DISPLAY_XDISPLAY(display));
+        klass->engine = xkl_engine_get_instance(XOpenDisplay(NULL));
 
         /* make XklEngine listening */
         xkl_engine_start_listen(klass->engine, XKLL_TRACK_KEYBOARD_STATE);
