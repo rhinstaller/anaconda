@@ -83,7 +83,7 @@ TEST_INST_BUILD_DIR = $(BUILD_RESULT_DIR)/02-test-install
 
 # build/run tweaks for all containers, such as --cap-add
 CONTAINER_ENGINE ?= podman
-CONTAINER_BUILD_ARGS ?= --no-cache --pull-always
+CONTAINER_BUILD_ARGS ?= --no-cache
 CONTAINER_TEST_ARGS ?=
 CONTAINER_REGISTRY ?= quay.io
 # Add additional args to the existing ones to container engine
@@ -199,14 +199,14 @@ release-and-tag:
 
 anaconda-ci-build:
 	$(CONTAINER_ENGINE) build \
-	$(CONTAINER_BUILD_ARGS) \
+	$(CONTAINER_BUILD_ARGS) --pull-always \
 	$(CONTAINER_ADD_ARGS) \
 	-t $(CI_NAME):$(CI_TAG) \
 	$(CI_DOCKERFILE)
 
 anaconda-rpm-build:
 	$(CONTAINER_ENGINE) build \
-	$(CONTAINER_BUILD_ARGS) \
+	$(CONTAINER_BUILD_ARGS) --pull-always \
 	$(CONTAINER_ADD_ARGS) \
 	-t $(RPM_NAME):$(CI_TAG) \
 	$(RPM_DOCKERFILE)
@@ -220,7 +220,7 @@ anaconda-release-build: anaconda-rpm-build
 
 anaconda-iso-creator-build:
 	$(CONTAINER_ENGINE) build \
-	$(CONTAINER_BUILD_ARGS) \
+	$(CONTAINER_BUILD_ARGS) --pull-always \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=image=registry.access.redhat.com/ubi8:latest \
 	-t $(ISO_CREATOR_NAME):$(CI_TAG) \
