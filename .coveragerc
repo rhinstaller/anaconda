@@ -1,14 +1,17 @@
-# http://nedbatchelder.com/code/coverage/config.html
+# Configuration file for the coverage tool
+# See: https://coverage.readthedocs.io/en/stable/config.html
 
 [run]
 branch = True
 parallel = True
 source = ..
+concurrency =
+    multiprocessing
+    thread
 
-# used by coverage combine
-# when combining Jenkins and kickstart_tests data
-# doesn't affect combination of pyanaconda tests data
-[paths]
-source = .
-        /usr/lib*/python*/site-packages/
-        /usr/sbin/
+[report]
+exclude_lines =
+    pragma: no cover
+    raise AssertionError
+    raise NotImplementedError
+    @abstractmethod
