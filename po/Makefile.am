@@ -71,6 +71,10 @@
 COPYRIGHT_HOLDER = Red Hat, Inc.
 MSGID_BUGS_ADDRESS = anaconda-devel@lists.fedoraproject.org
 
+include $(top_srcdir)/branch-config.mk
+
+PO_DOWNLOADED_FLAG = $(srcdir)/.po_downloaded
+
 # What kind of files are we looking for?
 POTFILE_SUFFIXES = py c glade desktop
 # Specify seperate jsx and js files in order to pass --language=JavaScript as jsx extension is not auto-detected
@@ -182,12 +186,19 @@ MSGMERGE_V_OPTIONS_1 = $(MSGMERGE_OPTIONS) --verbose
 
 # Actually do stuff:
 # .po files get distributed but not installed
-dist_noinst_DATA = $(POFILES)
+# Let's also store a flag downloaded file which tells us that the translations are
+# already downloaded.
+dist_noinst_DATA = $(POFILES) $(PO_DOWNLOADED_FLAG)
 
 # Build the .mo files but don't actually do anything with them. The real
 # install part is in the install-data-local target below. Build the .pot file
 # as well, even if there are no .mo files to build, so it can be tested.
 nodist_noinst_DATA = $(MOFILES) $(POTFILE)
+
+# Localization specific settings
+L10N_REPOSITORY ?= https://github.com/rhinstaller/anaconda-l10n.git
+# Branch used in anaconda-l10n repository. This should be master all the time.
+GIT_L10N_BRANCH ?= master
 
 # How to build the .pot file. This needs to be regenerated if anything that
 # goes into it has changed.
@@ -207,6 +218,14 @@ extra.pot: $(POTFILE_EXTRA)
 
 $(POTFILE): main_js.pot main.pot extra.pot
 	$(AM_V_GEN)$(MSGCAT) -o $@ main.pot main_js.pot extra.pot
+
+$(PO_DOWNLOADED_FLAG):
+	TEMP_DIR=$$(mktemp --tmpdir -d anaconda-localization-XXXXXXXXXX) && \
+	git clone --depth 1 -b $(GIT_L10N_BRANCH) -- $(L10N_REPOSITORY) $$TEMP_DIR && \
+	cp $$TEMP_DIR/$(L10N_DIR)/*.po $(srcdir)/ && \
+	rm -rf $$TEMP_DIR && \
+	find $(srcdir)/ -type f -exec sed -ri '/^\"Plural-Forms:/ s/;(\\n")$$/\1/' {} +
+	touch $(PO_DOWNLOADED_FLAG)
 
 # Force a rebuild of the .pot file. Useful if something got removed, for
 # example.
@@ -246,4 +265,4 @@ uninstall-local:
 		rm -f $(DESTDIR)$(localedir)/$$lang/LC_MESSAGES/$(PACKAGE).mo ; \
 	done
 
-CLEANFILES = $(MERGED_POFILES) $(MOFILES) $(POTFILE) main.pot extra.pot
+CLEANFILES = $(MERGED_POFILES) $(MOFILES) $(POTFILE) main.pot extra.pot $(PO_DOWNLOADED_FLAG)
