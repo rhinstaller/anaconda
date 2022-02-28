@@ -638,7 +638,7 @@ static void anaconda_base_window_set_info_bar(AnacondaBaseWindow *win, GtkMessag
 
     content_area = gtk_info_bar_get_content_area(GTK_INFO_BAR(win->priv->info_staging));
 
-    image = gtk_image_new_from_icon_name("dialog-warning", GTK_ICON_SIZE_MENU);
+    image = gtk_image_new_from_icon_name("dialog-warning-symbolic", GTK_ICON_SIZE_MENU);
     gtk_widget_show(image);
     gtk_container_add(GTK_CONTAINER(content_area), image);
 
