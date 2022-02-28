@@ -784,13 +784,13 @@ class NetworkControlBox(GObject.GObject):
             device = self.client.get_device_by_iface(dev_cfg.device_name)
             if device:
                 if device.get_state() == NM.DeviceState.UNAVAILABLE:
-                    icon_name = "network-wired-disconnected"
+                    icon_name = "network-wired-disconnected-symbolic"
                 else:
-                    icon_name = "network-wired"
+                    icon_name = "network-wired-symbolic"
             else:
-                icon_name = "network-wired-disconnected"
+                icon_name = "network-wired-disconnected-symbolic"
         elif dev_cfg.device_type == NM.DeviceType.WIFI:
-            icon_name = "network-wireless"
+            icon_name = "network-wireless-symbolic"
 
         return icon_name
 
