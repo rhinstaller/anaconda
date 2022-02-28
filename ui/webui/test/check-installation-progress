@@ -1,0 +1,51 @@
+#!/usr/bin/python3
+#
+# Copyright (C) 2022 Red Hat, Inc.
+#
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation; either version 2.1 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this program; If not, see <http://www.gnu.org/licenses/>.
+
+import os
+import sys
+
+# import Cockpit's machinery for test VMs and its browser test API
+TEST_DIR = os.path.dirname(__file__)
+sys.path.append(TEST_DIR)
+sys.path.append(os.path.join(TEST_DIR, "common"))
+sys.path.append(os.path.join(os.path.dirname(TEST_DIR), "bots/machine"))
+
+from testlib import MachineCase, nondestructive, test_main  # pylint: disable=import-error
+from webuilib import wait_webui_started
+from machine_install import VirtInstallMachine
+
+@nondestructive
+class TestInstallationProgress(MachineCase):
+    MachineCase.machine_class = VirtInstallMachine
+
+    def testBasic(self):
+        b = self.browser
+        m = self.machine
+
+        wait_webui_started(m)
+        b.open("/cockpit/@localhost/anaconda-webui/index.html")
+
+        b.click('#continue-btn')
+        b.expect_load()
+
+        b.click('#begin-installation')
+        b.wait_visible("#installation-progress:not(.pf-m-danger)")
+        b.wait_visible("#installation-progress.pf-m-danger")
+
+
+if __name__ == '__main__':
+    test_main()

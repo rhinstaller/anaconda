@@ -41,6 +41,7 @@ import {
 } from "@patternfly/react-icons";
 
 import { Header } from "./Common.jsx";
+import { InstallationProgress } from "./InstallationProgress.jsx";
 import { InstallationDestination } from "./storage/InstallationDestination.jsx";
 import { InstallationSource } from "./payloads/InstallationSource.jsx";
 import { Keyboard } from "./localization/Keyboard.jsx";
@@ -56,7 +57,7 @@ import "./Summary.scss";
 
 const _ = cockpit.gettext;
 
-export const Summary = () => {
+export const Summary = ({ onAddNotification }) => {
     const { path } = usePageLocation();
     const onSelect = event => {
         cockpit.location.go([event.currentTarget.id]);
@@ -81,6 +82,8 @@ export const Summary = () => {
         subpage = <RootAccount />;
     } else if (path[0] === "user-account") {
         subpage = <UserAccount />;
+    } else if (path[0] === "begin-installation") {
+        subpage = <InstallationProgress onAddNotification={onAddNotification} />;
     }
 
     return (
@@ -144,7 +147,7 @@ export const Summary = () => {
                     </Gallery>
                     <Alert variant="warning" isInline title={_("Please complete items marked with this icon before continuing to the next step")} />
                     <ActionGroup>
-                        <Button id="begin-installation-btn" variant="primary" isDisabled>{_("Begin installation")}</Button>
+                        <Button id="begin-installation" variant="primary" onClick={onSelect}>{_("Begin installation")}</Button>
                         <Button variant="link">{_("Quit")}</Button>
                         <HelperText className="action-hint">
                             <HelperTextItem variant="indeterminate">{_("We won't touch your disks until you click 'Begin installation'")}</HelperTextItem>

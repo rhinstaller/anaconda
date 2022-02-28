@@ -42,6 +42,10 @@ export const Application = () => {
         });
     };
 
+    if (!address) {
+        return null;
+    }
+
     return (
         <Page>
             {Object.keys(notifications).length > 0 &&
