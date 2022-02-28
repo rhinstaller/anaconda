@@ -67,11 +67,11 @@ class NTPConfigDialog(GUIObject):
         value = self._serversStore[itr][SERVER_WORKING]
 
         if value == constants.NTP_SERVER_QUERY:
-            return "dialog-question"
+            return "dialog-question-symbolic"
         elif value == constants.NTP_SERVER_OK:
-            return "emblem-default"
+            return "emblem-default-symbolic"
         else:
-            return "dialog-error"
+            return "dialog-error-symbolic"
 
     def refresh(self):
         # Update the store.
