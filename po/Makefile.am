@@ -69,7 +69,7 @@
 
 # Variables used in xgettext arguments
 COPYRIGHT_HOLDER = Red Hat, Inc.
-MSGID_BUGS_ADDRESS = anaconda-devel-list@redhat.com
+MSGID_BUGS_ADDRESS = anaconda-devel@lists.fedoraproject.org
 
 include $(top_srcdir)/branch-config.mk
 include ./l10n-config.mk
@@ -77,15 +77,7 @@ include ./l10n-config.mk
 PO_DOWNLOADED_FLAG = $(srcdir)/.po_downloaded
 
 # What kind of files are we looking for?
-POTFILE_SUFFIXES = py c glade desktop js
-
-# Extra files to scan for strings
-# This is the config file used by userhelper. The startup notification can be
-# translated. Just pull the string out and stick in a C-style header.
-POTFILE_EXTRA = $(top_builddir)/data/liveinst/console.apps/liveinst.h
-
-$(top_builddir)/data/liveinst/console.apps/liveinst.h: $(top_srcdir)/data/liveinst/console.apps/liveinst
-	$(AM_V_GEN)sed -n 's/^STARTUP_NOTIFICATION_NAME=\(.*\)/char *s = N_(\1)/p' < $< > $@
+POTFILE_SUFFIXES = py c glade desktop
 
 # Below this line is the part that shouldn't need to be changed for other
 # projects
@@ -100,7 +92,7 @@ POTFILE = $(PACKAGE).pot
 # The translation files, provided by translators, pulled down from translation repository.
 # Use whatever we got from this repository, or nothing at all if no translations were
 # pulled.
-POFILES = $(wildcard $(srcdir)/*.po)
+POFILES = $(shell find $(srcdir) -type f -name '*.po')
 
 # The translations files after they have been merged with the latest copy of
 # the .pot file. These are written to $(builddir) as <lang>.mpo.
@@ -122,8 +114,9 @@ sr@latin.mpo: $(srcdir)/sr.po
 # translatable
 XGETTEXT = $(top_srcdir)/translation-canary/xgettext_werror.sh
 XGETTEXT_OPTIONS = --keyword=_ --keyword=N_ --keyword=P_:1,2 \
-	           --keyword=C_:1c,2 --keyword=CN_:1c,2 --keyword=CP_:1c,2,3 \
+		   --keyword=C_:1c,2 --keyword=CN_:1c,2 --keyword=CP_:1c,2,3 \
 		   --add-comments=TRANSLATORS: \
+		   --sort-output \
 		   --from-code=UTF-8 --package-name=$(PACKAGE) \
 		   --package-version=$(PACKAGE_VERSION) \
 		   --copyright-holder="$(COPYRIGHT_HOLDER)" \
@@ -175,7 +168,9 @@ MSGMERGE_V_OPTIONS_1 = $(MSGMERGE_OPTIONS) --verbose
 
 # Actually do stuff:
 # .po files get distributed but not installed
-dist_noinst_DATA = $(POFILES)
+# Let's also store a flag downloaded file which tells us that the translations are
+# already downloaded.
+dist_noinst_DATA = $(POFILES) $(PO_DOWNLOADED_FLAG)
 
 # Build the .mo files but don't actually do anything with them. The real
 # install part is in the install-data-local target below. Build the .pot file
@@ -187,16 +182,12 @@ nodist_noinst_DATA = $(MOFILES) $(POTFILE)
 # Build in two parts so that the bulk of the files are saved as relative to
 # top_srcdir (via --directory). Leave $POTFILES_EXTRAS as-is so the extra
 # targets don't need to worry about paths changing out from under them.
-
 main.pot: $(POTFILE_INPUT)
 	$(GETTEXT_V_EXTRACT)$(XGETTEXT) $(XGETTEXT_OPTIONS) --directory=$(top_srcdir) -o $@ \
 	    $(patsubst $(top_srcdir)/%,%,$(POTFILE_INPUT))
 
-extra.pot: $(POTFILE_EXTRA)
-	$(GETTEXT_V_EXTRACT)$(XGETTEXT) $(XGETTEXT_OPTIONS) -o $@ $(POTFILE_EXTRA)
-
-$(POTFILE): main.pot extra.pot
-	$(AM_V_GEN)$(MSGCAT) -o $@ --use-first main.pot extra.pot
+$(POTFILE): main.pot
+	$(AM_V_GEN)$(MSGCAT) -o $@ main.pot
 
 # Request po files download before collecting them in the POFILES variable.
 $(POFILES): $(PO_DOWNLOADED_FLAG)
@@ -227,8 +218,9 @@ $(PACKAGE).pot-update:
 # How to build the merged .mpo files from the .po files
 $(MERGED_POFILES): $(POFILES) $(POTFILE)
 
+# OMP_NUM_THREADS=1; This helps to avoid 'libgomp: Thread creation failed: Resource temporarily unavailable' on Cockpit's CI
 .po.mpo:
-	$(GETTEXT_V_MERGE)$(MSGMERGE) $(MSGMERGE_V_OPTIONS) -o $@ $< $(POTFILE)
+	$(GETTEXT_V_MERGE) OMP_NUM_THREADS=1 $(MSGMERGE) $(MSGMERGE_V_OPTIONS) -o $@ $< $(POTFILE)
 
 # How to build the .mo files from the .mpo files
 $(MOFILES): $(MERGED_POFILES)
@@ -254,4 +246,4 @@ uninstall-local:
 		rm -f $(DESTDIR)$(localedir)/$$lang/LC_MESSAGES/$(PACKAGE).mo ; \
 	done
 
-CLEANFILES = $(MERGED_POFILES) $(MOFILES) $(POTFILE) main.pot extra.pot
+CLEANFILES = $(MERGED_POFILES) $(MOFILES) $(POTFILE) main.pot $(PO_DOWNLOADED_FLAG)

@@ -54,11 +54,6 @@ ARCHIVE_TAG   = $(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_RELEASE)
 # Set this to "true" if you want to have SRPM archive with test version
 TEST_BUILD	?= "false"
 
-# LOCALIZATION SETTINGS
-L10N_REPOSITORY ?= https://github.com/rhinstaller/anaconda-l10n.git
-# Branch used in anaconda-l10n repository. This should be master all the time.
-GIT_L10N_BRANCH ?= master
-
 RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
 
 PYTHON ?= python3
@@ -118,12 +113,6 @@ tag:
 	@git tag -s -a -m "Tag as $(ARCHIVE_TAG)" $(ARCHIVE_TAG)
 	@echo "Tagged as $(ARCHIVE_TAG)"
 
-po-pull:
-	TEMP_DIR=$$(mktemp --tmpdir -d anaconda-localization-XXXXXXXXXX) && \
-	git clone --depth 1 -b $(GIT_L10N_BRANCH) -- $(L10N_REPOSITORY) $$TEMP_DIR && \
-	cp $$TEMP_DIR/$(L10N_DIR)/*.po $(srcdir)/po/ && \
-	rm -rf $$TEMP_DIR
-
 pot:
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update
 	rm $(srcdir)/po/{main,extra}.pot
@@ -148,10 +137,6 @@ pot-update-check: pot
 		echo "Pot file needs update! Please update the pot file ./po/anaconda.pot in $(L10N_REPOSITORY)"; \
 	fi ;
 
-# Try to fetch translations, but if that fails just keep going
-po-fallback:
-	-$(MAKE) po-pull
-
 scratch:
 	if [ "$(TEST_BUILD)" == "true" ]; then \
 		sed -ri '/AC_INIT/ s/\[[0-9.]+\]/[999999999]/' $(srcdir)/configure.ac; \
@@ -173,7 +158,6 @@ scratch-bumpver:
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update
 
 release:
-	$(MAKE) po-pull
 	$(MAKE) dist
 
 container-release:
@@ -235,7 +219,7 @@ anaconda-rpm-push:
 	$(CONTAINER_ADD_ARGS) \
 	$(RPM_NAME):$(CI_TAG)
 
-bumpver: po-pull
+bumpver:
 	@opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
 	if [ ! -z "$(IGNORE)" ]; then \
 		opts="$${opts} -i $(IGNORE)" ; \
