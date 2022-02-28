@@ -45,25 +45,6 @@ log = get_module_logger(__name__)
 __all__ = ["run_installation"]
 
 
-class WriteResolvConfTask(Task):
-    """Custom task subclass for handling the resolv.conf copy task.
-
-    The main reason is to resolve the sysroot path right before the
-    copy operation, not at task & task queue creation time.
-
-    Secondary reason is to demonstrate how a lightweight Task subclass can be used.
-    """
-
-    def run_task(self):
-        """Resolve the sysroot path only right before doing the copy operation.
-
-        If we just added the sysroot path as an argument, it would be resolved when the
-        task queue was created, not when the task is actually executed, which could
-        theoretically result in an incorrect path.
-        """
-        network.copy_resolv_conf_to_root(conf.target.system_root)
-
-
 def _writeKS(ksdata):
     path = conf.target.system_root + "/root/anaconda-ks.cfg"
 
@@ -308,12 +289,6 @@ def _prepare_installation(payload, ksdata):
     # - try to discover a realm (if any)
     # - check for possibly needed additional packages.
     pre_install = TaskQueue("Pre install tasks", N_("Running pre-installation tasks"))
-
-    # make name resolution work for rpm scripts in chroot
-    if conf.system.provides_resolver_config:
-        # we use a custom Task subclass as the sysroot path has to be resolved
-        # only when the task is actually started, not at task creation time
-        pre_install.append(WriteResolvConfTask("Copy resolv.conf to sysroot"))
 
     if is_module_available(SECURITY):
         security_proxy = SECURITY.get_proxy()
