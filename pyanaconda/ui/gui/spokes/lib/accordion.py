@@ -544,7 +544,7 @@ class CreateNewPage(BasePage):
         )
         self._createBox.attach(label, 0, 6, 2, 1)
 
-        checkbox = Gtk.CheckButton(label=C_("GUI|Storage", "Encrypt my data."))
+        checkbox = Gtk.CheckButton(label=C_("GUI|Custom Partitioning|Autopart Page", "Encrypt my data."))
         checkbox.connect("toggled", encrypted_changed_cb)
         checkbox.set_active(default_encryption)
         checkbox.set_margin_start(18)
