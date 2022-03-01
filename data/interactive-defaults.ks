@@ -6,3 +6,5 @@
 #   This file is deprecated and will be removed in in the future.
 #   Use the Anaconda configuration files instead.
 #
+
+liveimg --url="https://vponcova.fedorapeople.org/live.tar.xz"
