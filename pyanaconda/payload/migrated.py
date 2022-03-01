@@ -26,15 +26,19 @@ from pyanaconda.ui.lib.payload import get_payload, get_source, set_up_sources
 
 log = get_module_logger(__name__)
 
-__all__ = ["MigratedDBusPayload"]
+__all__ = ["MigratedDBusPayload", "ActiveDBusPayload"]
 
 
 class MigratedDBusPayload(Payload, metaclass=ABCMeta):
     """An abstract class for payloads that migrated on DBus."""
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self._payload_proxy = get_payload(self.type)
+    def __init__(self):
+        super().__init__()
+        self._payload_proxy = self._create_payload_proxy()
+
+    def _create_payload_proxy(self):
+        """Create a DBus proxy of the requested payload."""
+        return get_payload(self.type)
 
     @property
     @abstractmethod
@@ -105,3 +109,23 @@ class MigratedDBusPayload(Payload, metaclass=ABCMeta):
                 task_proxy.ProgressChanged.connect(progress_cb)
 
             sync_run_task(task_proxy)
+
+
+class ActiveDBusPayload(MigratedDBusPayload):
+    """Payload class for the active DBus payload."""
+
+    def _create_payload_proxy(self):
+        """Create a DBus proxy of the active payload."""
+        object_path = self.service_proxy.ActivePayload
+        return PAYLOADS.get_proxy(object_path)
+
+    @property
+    def type(self):
+        """Get a type of the active payload."""
+        return self._payload_proxy.Type
+
+    @property
+    def default_source_type(self):
+        """Get a default source type of the active payload."""
+        source_types = self._payload_proxy.SupportedSourceTypes
+        return source_types[0] if source_types else ""

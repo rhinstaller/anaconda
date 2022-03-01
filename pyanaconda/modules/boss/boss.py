@@ -106,10 +106,28 @@ class Boss(Service):
         """
         return self._install_manager.collect_requirements()
 
+    def install_with_tasks(self):
+        """Return installation tasks of this module.
+
+        FIXME: This is a temporary workaround for the Web UI.
+
+        :return: a list of DBus paths of the installation tasks
+        """
+        from pyanaconda.installation import RunInstallationTask
+        from pyanaconda.payload.migrated import ActiveDBusPayload
+        from pyanaconda.kickstart import superclass
+
+        return [
+            RunInstallationTask(
+                payload=ActiveDBusPayload(),
+                ksdata=superclass(),
+            )
+        ]
+
     def collect_configure_runtime_tasks(self):
         """Collect tasks for configuration of the runtime environment.
 
-        FIXME: This method temporarily uses only addons.
+        FIXME: This is a temporary workaround for add-ons.
 
         :return: a list of task proxies
         """
@@ -118,8 +136,7 @@ class Boss(Service):
     def collect_configure_bootloader_tasks(self, kernel_versions):
         """Collect tasks for configuration of the bootloader.
 
-        FIXME: This method temporarily uses only addons.
-        FIXME: This is a temporary workaround. The method might change.
+        FIXME: This is a temporary workaround for add-ons.
 
         :param kernel_versions: a list of kernel versions
         :return: a list of task proxies
@@ -129,7 +146,7 @@ class Boss(Service):
     def collect_install_system_tasks(self):
         """Collect tasks for installation of the system.
 
-        FIXME: This method temporarily uses only addons.
+        FIXME: This is a temporary workaround for add-ons.
 
         :return: a list of task proxies
         """
@@ -146,6 +163,8 @@ class Boss(Service):
 
     def finish_installation_with_tasks(self):
         """Finish installation with tasks.
+
+        FIXME: This is a temporary workaround for the Boss module.
 
         :return: a list of installation tasks
         """
