@@ -16,6 +16,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import meh
+
 from pyanaconda import ui
 from pyanaconda.core.constants import QUIT_MESSAGE, PAYLOAD_TYPE_DNF, CLEAR_PARTITIONS_ALL, \
     PARTITIONING_METHOD_AUTOMATIC
@@ -62,10 +64,10 @@ class CockpitUserInterface(ui.UserInterface):
         """
 
         super().__init__(storage, payload)
-
         self.productTitle = productTitle
         self.isFinal = isFinal
         self.quitMessage = quitMessage
+        self._meh_interface = meh.ui.text.TextIntf()
 
     def setup(self, data):
         """Construct all the objects required to implement this interface.
@@ -128,22 +130,22 @@ class CockpitUserInterface(ui.UserInterface):
 
     @property
     def meh_interface(self):
-        # FIXME: actually implement this
-        return True
+        return self._meh_interface
 
     @property
     def tty_num(self):
-        # FIXME: actually implement this
         return 6
 
     def showError(self, message):
-        # FIXME: actually implement this
-        return True
+        """Print the error."""
+        self._print_message(message)
 
     def showDetailedError(self, message, details, buttons=None):
-        # FIXME: actually implement this
-        return True
+        """Print the detailed error."""
+        self._print_message(message + "\n\n" + details)
+        return False
 
     def showYesNoQuestion(self, message):
-        # FIXME: actually implement this
-        return True
+        """Answer no by default."""
+        log.debug("Skipping the following question: %s", message)
+        return False
