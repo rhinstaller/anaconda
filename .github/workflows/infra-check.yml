@@ -1,7 +1,7 @@
 # Check if only infrastructure files are changed when infrastructure label is set.
 name: infrastructure-check
 on:
-  pull_request:
+  pull_request_target:
     types: [ "opened", "synchronize", "reopened", "labeled" ]
 
 permissions:
