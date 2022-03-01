@@ -16,12 +16,17 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
 from pyanaconda import ui
-from pyanaconda.core.constants import QUIT_MESSAGE
+from pyanaconda.core.constants import QUIT_MESSAGE, PAYLOAD_TYPE_DNF, CLEAR_PARTITIONS_ALL, \
+    PARTITIONING_METHOD_AUTOMATIC
 from pyanaconda.core.util import startProgram
-
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.modules.common.constants.objects import DEVICE_TREE, DISK_INITIALIZATION, \
+    DISK_SELECTION
+from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.threading import threadMgr
+from pyanaconda.ui.lib.storage import create_partitioning, apply_partitioning
+
 log = get_module_logger(__name__)
 
 
@@ -67,6 +72,47 @@ class CockpitUserInterface(ui.UserInterface):
 
         This method must be provided by all subclasses.
         """
+        # Finish all initialization jobs.
+        # FIXME: Control the initialization via DBus.
+        self._print_message("Waiting for all threads to finish...")
+        threadMgr.wait_all()
+
+        # Select all disks for the partitioning.
+        # FIXME: Set up the partitioning in the UI.
+        device_tree = STORAGE.get_proxy(DEVICE_TREE)
+        disk_selection = STORAGE.get_proxy(DISK_SELECTION)
+        disk_selection.SetSelectedDisks(device_tree.GetDisks())
+
+        # Use all space for the partitioning.
+        disk_initialization = STORAGE.get_proxy(DISK_INITIALIZATION)
+        disk_initialization.SetInitializationMode(CLEAR_PARTITIONS_ALL)
+        disk_initialization.SetInitializeLabelsEnabled(True)
+
+        # Apply the partitioning.
+        partitioning = create_partitioning(PARTITIONING_METHOD_AUTOMATIC)
+        report = apply_partitioning(
+            partitioning=partitioning,
+            show_message_cb=self._print_message,
+            reset_storage_cb=self._noop,
+        )
+
+        if not report.is_valid():
+            self._print_message("Failed to apply the partitioning.")
+            self._print_message("\n".join(report.get_messages()))
+            raise ValueError("Incomplete partitioning!")
+
+        # Verify the payload type.
+        # FIXME: This is a temporary check.
+        if self.payload.type == PAYLOAD_TYPE_DNF:
+            raise ValueError("The DNF payload is not supported yet!")
+
+    def _print_message(self, msg):
+        """Print a message to stdout."""
+        print(msg)
+        log.debug(msg)
+
+    def _noop(self, *args, **kwargs):
+        """Do nothing."""
         pass
 
     def run(self):
