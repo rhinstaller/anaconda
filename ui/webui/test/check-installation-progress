@@ -35,10 +35,10 @@ class TestInstallationProgress(MachineCase):
 
         b.open("/cockpit/@localhost/anaconda-webui/index.html")
 
-        b.click('#continue-btn')
+        b.click("#review-configuration")
         b.expect_load()
+        b.click("button:contains(Begin installation)")
 
-        b.click('#begin-installation')
         b.wait_visible("#installation-progress:not(.pf-m-danger)")
         b.wait_visible("#installation-progress.pf-m-danger")
 

@@ -18,9 +18,13 @@
 import cockpit from "cockpit";
 import React from "react";
 
-import { Bullseye, Progress } from "@patternfly/react-core";
+import {
+    Bullseye, Button,
+    EmptyState, EmptyStateBody, EmptyStateSecondaryActions,
+    Progress
+} from "@patternfly/react-core";
 
-import { AddressContext } from "./Common.jsx";
+import { AddressContext } from "../Common.jsx";
 
 import "./InstallationProgress.scss";
 
@@ -83,14 +87,22 @@ export class InstallationProgress extends React.Component {
 
         return (
             <Bullseye>
-                <Progress
-                  id="installation-progress"
-                  label={label}
-                  title={_("Running installation")}
-                  value={progress}
-                  valueText={label}
-                  variant={status}
-                />
+                <EmptyState variant="large">
+                    <EmptyStateBody>
+                        <Progress
+                          id="installation-progress"
+                          label={label}
+                          title={_("Running installation")}
+                          value={progress}
+                          valueText={label}
+                          variant={status}
+                        />
+                    </EmptyStateBody>
+                    {status === "success" &&
+                    <EmptyStateSecondaryActions>
+                        <Button>{_("Reboot")}</Button>
+                    </EmptyStateSecondaryActions>}
+                </EmptyState>
             </Bullseye>
         );
     }

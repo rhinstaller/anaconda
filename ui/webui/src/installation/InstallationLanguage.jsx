@@ -19,15 +19,12 @@ import React, { useContext, useEffect, useState } from "react";
 import cockpit from "cockpit";
 
 import {
-    ActionGroup,
-    Button,
     Form, FormGroup,
-    PageSection,
     SelectGroup, SelectOption, Select, SelectVariant,
     Title,
 } from "@patternfly/react-core";
 
-import { AddressContext } from "./Common.jsx";
+import { AddressContext } from "../Common.jsx";
 
 import { useEvent, useObject } from "hooks";
 
@@ -143,7 +140,7 @@ export const InstallationLanguage = ({ onSelectLang }) => {
     const langCookie = (window.localStorage.getItem("cockpit.lang") || "en-us").split("-");
     const [lang, setLang] = useState(langCookie[0] + "_" + langCookie[1].toUpperCase() + ".UTF-8");
 
-    const handleOnContinue = () => {
+    useEffect(() => {
         if (!lang) {
             return;
         }
@@ -157,24 +154,20 @@ export const InstallationLanguage = ({ onSelectLang }) => {
 
         document.cookie = cookie;
         window.localStorage.setItem("cockpit.lang", cockpitLang);
-        cockpit.location.go(["summary"]);
-        window.location.reload(true);
-    };
+    }, [lang]);
+
+    useEffect(() => {
+        return () => window.location.reload(true);
+    }, [lang]);
 
     return (
-        <PageSection>
-            <Form>
-                <Title headingLevel="h2" size="1xl">
-                    WELCOME TO FEDORA...
-                </Title>
-                <FormGroup label={_("What language would you like to use during the installation process?")}>
-                    <LanguageSelector lang={lang} onSelectLang={setLang} />
-                </FormGroup>
-                <ActionGroup>
-                    <Button id="continue-btn" variant="primary" onClick={handleOnContinue}>{_("Continue")}</Button>
-                    <Button variant="link">{_("Quit")}</Button>
-                </ActionGroup>
-            </Form>
-        </PageSection>
+        <Form>
+            <Title headingLevel="h2" size="1xl">
+                WELCOME TO FEDORA...
+            </Title>
+            <FormGroup label={_("What language would you like to use during the installation process?")}>
+                <LanguageSelector lang={lang} onSelectLang={setLang} menuAppendTo={document.body} />
+            </FormGroup>
+        </Form>
     );
 };
