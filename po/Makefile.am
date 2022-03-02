@@ -109,7 +109,7 @@ POTFILE = $(PACKAGE).pot
 # The translation files, provided by translators, pulled down from translation repository.
 # Use whatever we got from this repository, or nothing at all if no translations were
 # pulled.
-POFILES = $(wildcard $(srcdir)/*.po)
+POFILES = $(shell find $(srcdir) -type f -name '*.po')
 
 # The translations files after they have been merged with the latest copy of
 # the .pot file. These are written to $(builddir) as <lang>.mpo.
@@ -218,6 +218,9 @@ extra.pot: $(POTFILE_EXTRA)
 
 $(POTFILE): main_js.pot main.pot extra.pot
 	$(AM_V_GEN)$(MSGCAT) -o $@ main.pot main_js.pot extra.pot
+
+# Request po files download before collecting them in the POFILES variable.
+$(POFILES): $(PO_DOWNLOADED_FLAG)
 
 $(PO_DOWNLOADED_FLAG):
 	TEMP_DIR=$$(mktemp --tmpdir -d anaconda-localization-XXXXXXXXXX) && \
