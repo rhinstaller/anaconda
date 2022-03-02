@@ -89,7 +89,7 @@ class VirtInstallMachine(VirtMachine):
                 f"--location {os.getcwd()}/bots/images/{self.image}"
             )
 
-            for _ in range(10):
+            for _ in range(30):
                 try:
                     requests.get(
                         f"http://{self.web_address}:{self.web_port}/"
@@ -97,7 +97,7 @@ class VirtInstallMachine(VirtMachine):
                     )
                     break
                 except requests.exceptions.RequestException:
-                    time.sleep(5)
+                    time.sleep(10)
             else:
                 raise Exception("Anaconda webui is not reachable")
         except Exception as e:
