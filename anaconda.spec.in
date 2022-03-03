@@ -386,7 +386,6 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %exclude %{python3_sitearch}/pyanaconda/__pycache__/rescue.*
 %exclude %{python3_sitearch}/pyanaconda/ui/gui/*
 %exclude %{python3_sitearch}/pyanaconda/ui/tui/*
-%{_bindir}/analog
 %{_bindir}/anaconda-cleanup
 %dir %{_sysconfdir}/%{name}
 %config %{_sysconfdir}/%{name}/*
