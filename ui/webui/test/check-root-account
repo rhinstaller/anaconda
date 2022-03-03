@@ -20,12 +20,10 @@ import sys
 
 # import Cockpit's machinery for test VMs and its browser test API
 TEST_DIR = os.path.dirname(__file__)
-sys.path.append(TEST_DIR)
 sys.path.append(os.path.join(TEST_DIR, "common"))
 sys.path.append(os.path.join(os.path.dirname(TEST_DIR), "bots/machine"))
 
 from testlib import MachineCase, nondestructive, test_main  # pylint: disable=import-error
-from webuilib import wait_webui_started
 from machine_install import VirtInstallMachine
 
 USERS_INTERFACE = "org.fedoraproject.Anaconda.Modules.Users"
@@ -56,7 +54,6 @@ class TestRootAccount(MachineCase):
               boolean:"{value}"'
         )
 
-        wait_webui_started(m)
         b.open("/cockpit/@localhost/anaconda-webui/index.html")
 
         b.click('#continue-btn')

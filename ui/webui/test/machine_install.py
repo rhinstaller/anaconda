@@ -19,6 +19,7 @@ import os
 import socket
 import subprocess
 import sys
+import time
 
 ANACONDA_ROOT_DIR = os.path.normpath(os.path.dirname(__file__)+'/../../..')
 WEBUI_DIR = f'{ANACONDA_ROOT_DIR}/ui/webui'
@@ -98,6 +99,16 @@ class VirtInstallMachine(VirtMachine):
             else:
                 raise Exception("Unable to reach machine {0} via ssh: {1}:{2}".format(
                                 self.label, self.ssh_address, self.ssh_port))
+
+            for _ in range(30):
+                try:
+                    Machine.execute(self, "journalctl -t anaconda | grep 'anaconda: ui.webui: cockpit web view has been started'")
+                    break
+                except subprocess.CalledProcessError:
+                    time.sleep(10)
+            else:
+                raise Exception("Webui initialization did not finish")
+
         except Exception as e:
             self.kill()
             raise e
