@@ -62,10 +62,10 @@ jobs:
             echo "::set-output name=skip_tests::skip-on-fedora"
           elif [ "$TARGET_BRANCH" == "rhel-8" ]; then
             echo "::set-output name=skip_tests::skip-on-rhel,skip-on-rhel-8"
-            echo "::set-output name=optional_test_args::--platform rhel8 --defaults ./scripts/defaults-rhel8.sh"
+            echo "::set-output name=optional_test_args::--platform rhel8"
           elif [ "$TARGET_BRANCH" == "rhel-9" ]; then
             echo "::set-output name=skip_tests::skip-on-rhel,skip-on-rhel-9"
-            echo "::set-output name=optional_test_args::--platform rhel9 --defaults ./scripts/defaults-rhel9.sh"
+            echo "::set-output name=optional_test_args::--platform rhel9"
           else
             echo "Branch $TARGET_BRANCH is not supported by kickstart tests yet!"
             exit 1
