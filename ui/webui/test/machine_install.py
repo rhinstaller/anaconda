@@ -16,11 +16,9 @@
 # along with this program; If not, see <http://www.gnu.org/licenses/>.
 
 import os
-import requests
 import socket
 import subprocess
 import sys
-import time
 
 ANACONDA_ROOT_DIR = os.path.normpath(os.path.dirname(__file__)+'/../../..')
 WEBUI_DIR = f'{ANACONDA_ROOT_DIR}/ui/webui'
@@ -33,6 +31,7 @@ sys.path.append(f'{BOTS_DIR}/machine')
 
 # pylint: disable=import-error
 from testvm import VirtMachine  # nopep8
+from testvm import Machine  # nopep8
 
 # This env variable must be always set for anaconda webui tests.
 # In the anaconda environment /run/nologin always exists however cockpit test
@@ -90,18 +89,15 @@ class VirtInstallMachine(VirtMachine):
                 "--disk size=10,format=qcow2 "
                 f"--location {os.getcwd()}/bots/images/{self.image}"
             )
+            Machine.wait_boot(self)
 
-            for _ in range(30):
-                try:
-                    requests.get(
-                        f"http://{self.web_address}:{self.web_port}/"
-                        "cockpit/@localhost/anaconda-webui/index.html"
-                    )
-                    break
-                except requests.exceptions.RequestException:
-                    time.sleep(10)
+            # For the non-remote installations cockpit-desktop is used to host the WebUI
+            # Spawn a cockpit-ws process to allow us unsafe remote access to the anaconda-webui to enable testing
+            if Machine.wait_execute(self, timeout_sec=15):
+                Machine.execute(self, command="/usr/libexec/cockpit-ws --no-tls --port 9090 --local-session=cockpit-bridge &>/dev/null &")
             else:
-                raise Exception("Anaconda webui is not reachable")
+                raise Exception("Unable to reach machine {0} via ssh: {1}:{2}".format(
+                                self.label, self.ssh_address, self.ssh_port))
         except Exception as e:
             self.kill()
             raise e

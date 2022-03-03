@@ -28,7 +28,6 @@ def cmd_cli():
 
     machine = VirtInstallMachine(image=args.image)
     machine.start()
-    machine.wait_boot()
 
     print("You can connect to the VM in the following ways:")
     # print ssh command
