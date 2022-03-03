@@ -57,6 +57,10 @@ __all__ = ["get_supported_devices", "status_message", "wait_for_connectivity",
            "is_valid_hostname", "check_ip_address", "get_nm_client", "write_configuration"]
 
 
+def functionsNamingStyle():
+    pass
+
+
 def get_nm_client():
     """Get NetworkManager Client."""
     if conf.system.provides_system_bus:
