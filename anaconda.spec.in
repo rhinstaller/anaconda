@@ -342,8 +342,8 @@ mkdir %{buildroot}%{_datadir}/anaconda/post-scripts
 # required for live installations
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/liveinst.desktop
 
-# If no langs found, keep going
-%find_lang %{name} || :
+# Add localization files
+%find_lang %{name}
 
 %if ! %use_cockpit
     rm -rf %{buildroot}/%{_datadir}/cockpit/anaconda-webui
