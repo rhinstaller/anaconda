@@ -410,3 +410,4 @@ coverage-report:
 	$(COVERAGE) report -m --include "pyanaconda/dbus*,pyanaconda/modules/*,pyanaconda/core/*" \
 								     > tests/coverage-modular.log
 	@cat tests/coverage-report.log
+# test
