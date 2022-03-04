@@ -19,8 +19,18 @@ updates:
       - "infrastructure"
       - "blocked"
 
-  # update our package.json everyday for the npm
+  # update our npm development dependencies monthly
   - package-ecosystem: "npm"
     directory: "/ui/webui"
     schedule:
-      interval: "daily"
+      interval: "monthly"
+    allow:
+      - dependency-type: "development"
+
+  # update our npm production dependencies weekly
+  - package-ecosystem: "npm"
+    directory: "/ui/webui"
+    schedule:
+      interval: "weekly"
+    allow:
+      - dependency-type: "production"
