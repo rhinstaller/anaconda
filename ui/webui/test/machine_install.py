@@ -61,6 +61,8 @@ class VirtInstallMachine(VirtMachine):
 
         # Make sure the server is created at anaconda root directory
         os.chdir(ANACONDA_ROOT_DIR)
+        # Create a dummy live image tar file for the test to consume
+        self._execute("tar cvf live.tar --files-from /dev/null")
         http_port = self._get_free_port(8000)
         self.http_server = subprocess.Popen(["python3", "-m", "http.server", str(http_port)])
         os.chdir(WEBUI_DIR)
