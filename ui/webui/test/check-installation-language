@@ -38,6 +38,10 @@ class TestLanguage(MachineCase):
 
         b.wait_val("#language-menu-toggle-select-typeahead", "English (United States)")
 
+        # Check that the [x] button clears the input text
+        b.click(".pf-c-select__toggle-clear")
+        b.wait_val("#language-menu-toggle-select-typeahead", "")
+
         # Check that the language menu shows all menu entries when clicking the toggle button
         b.click("#language-menu-toggle")
         b.wait_visible("#English--English-")
