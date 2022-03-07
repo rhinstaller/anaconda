@@ -195,11 +195,6 @@ dist_noinst_DATA = $(POFILES) $(PO_DOWNLOADED_FLAG)
 # as well, even if there are no .mo files to build, so it can be tested.
 nodist_noinst_DATA = $(MOFILES) $(POTFILE)
 
-# Localization specific settings
-L10N_REPOSITORY ?= https://github.com/rhinstaller/anaconda-l10n.git
-# Branch used in anaconda-l10n repository. This should be master all the time.
-GIT_L10N_BRANCH ?= master
-
 # How to build the .pot file. This needs to be regenerated if anything that
 # goes into it has changed.
 # Build in two parts so that the bulk of the files are saved as relative to
