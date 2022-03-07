@@ -137,7 +137,7 @@ VIRTUALIZATION_PARTITIONING = [
     ),
     PartSpec(
         mountpoint="/var",
-        size=Size("15GiB"),
+        size=Size("5GiB"),
         btr=True,
         lv=True,
         thin=True,
@@ -162,6 +162,14 @@ VIRTUALIZATION_PARTITIONING = [
     PartSpec(
         mountpoint="/var/log/audit",
         size=Size("2GiB"),
+        btr=True,
+        lv=True,
+        thin=True,
+        encrypted=True,
+    ),
+    PartSpec(
+        mountpoint="/var/tmp",
+        size=Size("10GiB"),
         btr=True,
         lv=True,
         thin=True,
