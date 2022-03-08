@@ -551,7 +551,7 @@ class GraphicalUserInterface(UserInterface):
 
         self.data = None
 
-        self.mainWindow = MainWindow(fullscreen=fullscreen, decorated=conf.ui.decorated_window)
+        self.mainWindow = MainWindow(fullscreen=fullscreen, decorated=False)
 
         self._distributionText = distributionText
         self._isFinal = isFinal
