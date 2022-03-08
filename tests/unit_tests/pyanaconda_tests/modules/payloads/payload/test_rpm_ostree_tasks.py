@@ -148,8 +148,6 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
             call("systemd-tmpfiles",
                  ["--create", "--boot", "--root=/sysroot", "--prefix=/var/roothome"]),
             call("systemd-tmpfiles",
-                 ["--create", "--boot", "--root=/sysroot", "--prefix=/var/lib/rpm"]),
-            call("systemd-tmpfiles",
                  ["--create", "--boot", "--root=/sysroot", "--prefix=/var/opt"]),
             call("systemd-tmpfiles",
                  ["--create", "--boot", "--root=/sysroot", "--prefix=/var/srv"]),
@@ -167,7 +165,7 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
             call("mount", ["--bind", "/physroot/home", "/sysroot/home"]),
             call("mount", ["--bind", "/physroot/", "/sysroot/sysroot"])
         ])
-        assert len(exec_mock.mock_calls) == 20
+        assert len(exec_mock.mock_calls) == 19
         mkdir_mock.assert_called_once_with("/sysroot/var/lib")
 
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
@@ -176,7 +174,7 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
     @patch("os.path.exists", returns=True)
     def test_run_without_var(self, exists_mock, storage_mock, mkdir_mock, exec_mock):
         """Test OSTree mount target prepare task run() without /var"""
-        exec_mock.side_effect = [0] * 7 + [0, 65] * 5 + [0] * 3
+        exec_mock.side_effect = [0] * 7 + [0, 65] * 4 + [0] + [0] * 3
 
         data = _make_config_data()
         devicetree_mock = storage_mock.get_proxy()
@@ -203,8 +201,6 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
             call("systemd-tmpfiles",
                  ["--create", "--boot", "--root=/sysroot", "--prefix=/var/roothome"]),
             call("systemd-tmpfiles",
-                 ["--create", "--boot", "--root=/sysroot", "--prefix=/var/lib/rpm"]),
-            call("systemd-tmpfiles",
                  ["--create", "--boot", "--root=/sysroot", "--prefix=/var/opt"]),
             call("systemd-tmpfiles",
                  ["--create", "--boot", "--root=/sysroot", "--prefix=/var/srv"]),
@@ -222,7 +218,7 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
             call("mount", ["--bind", "/physroot/home", "/sysroot/home"]),
             call("mount", ["--bind", "/physroot/", "/sysroot/sysroot"])
         ])
-        assert len(exec_mock.mock_calls) == 20
+        assert len(exec_mock.mock_calls) == 19
         mkdir_mock.assert_called_once_with("/sysroot/var/lib")
 
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
