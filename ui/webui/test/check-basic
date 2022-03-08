@@ -39,6 +39,11 @@ class TestBasic(MachineCase):
         b.click('#continue-btn')
         b.expect_load()
 
+        self.assertIn(
+            b.attr("#app > .pf-c-page", "data-debug"),
+            ["False", "false", "True", "true"]
+        )
+
         for page in ['keyboard', 'language', 'timedate', 'installation-source', 'software-selection', 'installation-destination', 'network-hostname', 'root-account', 'user-account']:
             b.click("#" + page)
             b.wait_js_cond(f'window.location.hash === "#/{page}"')
