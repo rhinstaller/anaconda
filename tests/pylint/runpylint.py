@@ -54,13 +54,7 @@ class AnacondaLintConfig(CensorshipConfig):
         for (root, dirnames, files) in os.walk(directory):
 
             # skip scanning of already added python modules
-            skip = False
-            for i in retval:
-                if root.startswith(i):
-                    skip = True
-                    break
-
-            if skip:
+            if any(root.startswith(i) for i in retval):
                 continue
 
             if "__init__.py" in files:
