@@ -30,9 +30,9 @@ MINOR_VERSION=${VERSION_ID#*.}
 # The --volid argument can cause different network interface naming: https://github.com/rhinstaller/kickstart-tests/issues/448
 lorax -p RHEL -v $MAJOR_VERSION -r $MINOR_VERSION --volid RHEL-$MAJOR_VERSION-$MINOR_VERSION-0-BaseOS-x86_64 \
       --nomacboot \
-      -s http://download.devel.redhat.com/nightly/rhel-8/RHEL-8/latest-RHEL-8.6/compose/BaseOS/x86_64/os/ \
-      -s http://download.devel.redhat.com/nightly/rhel-8/RHEL-8/latest-RHEL-8.6/compose/AppStream/x86_64/os/ \
-      -s http://download.devel.redhat.com/nightly/rhel-8/RHEL-8/latest-RHEL-8.6/compose/CRB/x86_64/os/ \
+      -s http://download.devel.redhat.com/nightly/rhel-8/RHEL-8/latest-RHEL-8/compose/BaseOS/x86_64/os/ \
+      -s http://download.devel.redhat.com/nightly/rhel-8/RHEL-8/latest-RHEL-8/compose/AppStream/x86_64/os/ \
+      -s http://download.devel.redhat.com/nightly/rhel-8/RHEL-8/latest-RHEL-8/compose/CRB/x86_64/os/ \
       -s file://$REPO_DIR/ \
       $@ \
       lorax
