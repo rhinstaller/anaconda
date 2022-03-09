@@ -220,7 +220,7 @@ Unlocked LUKS
 :Issue: The storage configuration fails with a message "luks device not configured".
 :Solution: Anaconda doesn't support LUKS devices that are unlocked outside the installer. The
     device has to be unlocked in Anaconda.
-:Example: `rhbz#1624856 <https://bugzilla.redhat.com/show_bug.cgi?id=1624856>`_
+:Example: `rhbz#2019455 <https://bugzilla.redhat.com/show_bug.cgi?id=2019455>`_
 
 Undetected partitions
 ^^^^^^^^^^^^^^^^^^^^^
