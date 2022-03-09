@@ -64,7 +64,7 @@ class AnacondaLintConfig(CensorshipConfig):
             for f in files:
                 try:
                     with open(root + "/" + f) as fo:
-                        lines = fo.readlines()
+                        line = fo.readline(1024)
                 except UnicodeDecodeError:
                     # If we couldn't open this file, just skip it.  It wasn't
                     # going to be valid python anyway.
@@ -72,7 +72,7 @@ class AnacondaLintConfig(CensorshipConfig):
 
                 # Test any file that either ends in .py or contains #!/usr/bin/python
                 # in the first line.
-                if f.endswith(".py") or (lines and str(lines[0]).startswith("#!/usr/bin/python")):
+                if f.endswith(".py") or (line and str(line).startswith("#!/usr/bin/python")):
                     retval.append(root + "/" + f)
 
         return retval
