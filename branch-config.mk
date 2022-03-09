@@ -21,10 +21,10 @@
 
 # Name of the expected current git branch.
 # This could be master, fXX-devel, fXX-release, rhelX-branch, rhel-X ...
-GIT_BRANCH ?= rhel-9
+GIT_BRANCH ?= rhel-9.0
 
 # Directory for this anaconda branch in anaconda-l10n repository. This could be master, fXX, rhel-8 etc.
-L10N_DIR ?= rhel-9
+L10N_DIR ?= rhel-9.0
 
 # Base container for our containers.
 BASE_CONTAINER ?= registry-proxy.engineering.redhat.com/rh-osbs/ubi9:latest

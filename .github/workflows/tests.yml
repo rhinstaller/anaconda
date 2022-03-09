@@ -22,8 +22,8 @@ jobs:
         release: ['']
         include:
           - release: ''
-            target_branch: 'rhel-9'
-            ci_tag: 'rhel-9'
+            target_branch: 'rhel-9.0'
+            ci_tag: 'rhel-9.0'
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
       TARGET_BRANCH_NAME: 'origin/${{ matrix.target_branch }}'
@@ -69,8 +69,8 @@ jobs:
         release: ['']
         include:
           - release: ''
-            target_branch: 'rhel-9'
-            ci_tag: 'rhel-9'
+            target_branch: 'rhel-9.0'
+            ci_tag: 'rhel-9.0'
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
       TARGET_BRANCH_NAME: 'origin/${{ matrix.target_branch }}'
