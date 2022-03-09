@@ -65,7 +65,7 @@ class AnacondaLintConfig(CensorshipConfig):
                 try:
                     with open(root + "/" + f) as fo:
                         line = fo.readline(1024)
-                except UnicodeDecodeError:
+                except (UnicodeDecodeError, FileNotFoundError):
                     # If we couldn't open this file, just skip it.  It wasn't
                     # going to be valid python anyway.
                     continue
