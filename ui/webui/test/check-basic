@@ -30,26 +30,25 @@ from machine_install import VirtInstallMachine
 class TestBasic(MachineCase):
     MachineCase.machine_class = VirtInstallMachine
 
-    def testHelp(self):
+    def testNavigation(self):
         b = self.browser
 
-        b.open("/cockpit/@localhost/anaconda-webui/index.html")
-
-
-        b.click('#continue-btn')
-        b.expect_load()
+        b.open("/cockpit/@localhost/anaconda-webui/index.html#/installation-language")
 
         self.assertIn(
             b.attr("#app > .pf-c-page", "data-debug"),
             ["False", "false", "True", "true"]
         )
 
-        for page in ['keyboard', 'language', 'timedate', 'installation-source', 'software-selection', 'installation-destination', 'network-hostname', 'root-account', 'user-account']:
-            b.click("#" + page)
+        for page in ['installation-language', 'installation-destination', 'review-configuration']:
+            # with the pages basically empty of common elements (as those are provided by the top-level wizard widget)
+            # we at least iterate over them to check this works as expected
             b.wait_js_cond(f'window.location.hash === "#/{page}"')
-            b.click('#help-btn-' + page)
-            b.click('#header-done-btn')
-            # TODO replace alert with some real help popup and check the content here
+            b.wait_visible("#" + page + ".pf-m-current")
+            b.click("button.pf-m-primary")
+            if page == 'installation-language':
+                b.expect_load()
+
 
 if __name__ == '__main__':
     test_main()

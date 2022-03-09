@@ -14,31 +14,16 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
-import cockpit from "cockpit";
 import React from "react";
 
 import {
-    PageSection
+    Form
 } from "@patternfly/react-core";
 
-import { Header } from "../Common.jsx";
-
-const _ = cockpit.gettext;
-
-export const UserAccount = () => {
-    const onDoneClicked = () => {
-        cockpit.location.go(["summary"]);
-    };
-
+export const ReviewConfiguration = () => {
     return (
-        <>
-            <Header
-              done={onDoneClicked}
-              title={_("Create user")}
-            />
-            <PageSection>
-                Not implemented
-            </PageSection>
-        </>
+        <Form isHorizontal>
+            Imagine configured values for review here.
+        </Form>
     );
 };

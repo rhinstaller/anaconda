@@ -35,9 +35,8 @@ class TestStorage(MachineCase):
 
         b.open("/cockpit/@localhost/anaconda-webui/index.html")
 
-        b.click('#continue-btn')
-        b.expect_load()
         b.click('#installation-destination')
+        b.expect_load()
 
         b.wait_visible('article:contains(Local standard disks)')
         # We can't check the checked state of the checkboxes because of

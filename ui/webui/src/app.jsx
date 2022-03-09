@@ -15,19 +15,25 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 import cockpit from "cockpit";
+
 import React, { useEffect, useState } from "react";
 
 import {
     AlertGroup, AlertVariant, AlertActionCloseButton, Alert,
-    Page,
+    Page, Wizard
 } from "@patternfly/react-core";
 
-import { InstallationLanguage } from "./InstallationLanguage.jsx";
-import { Summary } from "./Summary.jsx";
-import { AddressContext, ConfContext } from "./Common.jsx";
+import { AddressContext } from "./Common.jsx";
+import { InstallationDestination } from "./storage/InstallationDestination.jsx";
+import { InstallationLanguage } from "./installation/InstallationLanguage.jsx";
+import { InstallationProgress } from "./installation/InstallationProgress.jsx";
+import { ReviewConfiguration } from "./installation/ReviewConfiguration.jsx";
+
 import { readConf } from "./helpers/conf.js";
 
 import { usePageLocation } from "hooks";
+
+const _ = cockpit.gettext;
 
 export const Application = () => {
     const [address, setAddress] = useState();
@@ -51,6 +57,46 @@ export const Application = () => {
     }
 
     console.info("conf: ", conf);
+    const wrapWithContext = children => {
+        return (
+            <AddressContext.Provider value={address}>
+                {children}
+            </AddressContext.Provider>
+        );
+    };
+
+    const steps = [
+        {
+            id: "installation-language",
+            name: _("Installation language"),
+            component: wrapWithContext(<InstallationLanguage />),
+            stepNavItemProps: { id: "installation-language" }
+        },
+        {
+            id: "installation-destination",
+            name: _("Storage configuration"),
+            component: wrapWithContext(<InstallationDestination />),
+            stepNavItemProps: { id: "installation-destination" }
+        },
+        {
+            id: "review-configuration",
+            name: _("Review"),
+            component: wrapWithContext(<ReviewConfiguration />),
+            nextButtonText: _("Begin installation"),
+            stepNavItemProps: { id: "review-configuration" }
+        },
+        {
+            id: "installation-progress",
+            name: _("Installation progress"),
+            component: wrapWithContext(<InstallationProgress onAddNotification={onAddNotification} />),
+            stepNavItemProps: { id: "installation-progress" },
+            isFinishedStep: true
+        },
+    ];
+    const startAtStep = steps.findIndex(step => step.id === path[0]) + 1;
+    const goToStep = newStep => cockpit.location.go([newStep.id]);
+    const title = _("Anaconda Installer");
+
     return (
         <Page data-debug={conf.Anaconda.debug}>
             {Object.keys(notifications).length > 0 &&
@@ -76,17 +122,21 @@ export const Application = () => {
                     );
                 })}
             </AlertGroup>}
-            <AddressContext.Provider value={address}>
-                <ConfContext.Provider value={conf}>
-                    {!path.length > 0 && <InstallationLanguage />}
-                </ConfContext.Provider>
-            </AddressContext.Provider>
-            {path.length > 0 &&
-            <AddressContext.Provider value={address}>
-                <ConfContext.Provider value={conf}>
-                    <Summary onAddNotification={onAddNotification} />
-                </ConfContext.Provider>
-            </AddressContext.Provider>}
+            <Wizard
+              cancelButtonText={_("Quit")}
+              description={_("PRE-RELEASE/TESTING")}
+              descriptionId="wizard-top-level-description"
+              hideClose
+              mainAriaLabel={`${title} content`}
+              navAriaLabel={`${title} steps`}
+              onBack={goToStep}
+              onGoToStep={goToStep}
+              onNext={goToStep}
+              startAtStep={startAtStep}
+              steps={steps}
+              title={_("Fedora Rawhide installation")}
+              titleId="wizard-top-level-title"
+            />
         </Page>
     );
 };

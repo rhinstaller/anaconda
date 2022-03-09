@@ -22,10 +22,9 @@ import {
     DataList, DataListItem, DataListItemRow, DataListCheck, DataListItemCells, DataListCell,
     Form,
     Hint, HintBody,
-    PageSection
 } from "@patternfly/react-core";
 
-import { AddressContext, Header } from "../Common.jsx";
+import { AddressContext } from "../Common.jsx";
 import { useEvent, useObject } from "hooks";
 
 const _ = cockpit.gettext;
@@ -150,26 +149,14 @@ const LocalStandardDisks = () => {
 };
 
 export const InstallationDestination = () => {
-    const onDoneClicked = () => {
-        cockpit.location.go(["summary"]);
-    };
-
     return (
-        <>
-            <Header
-              done={onDoneClicked}
-              title={_("Installation destination")}
-            />
-            <PageSection>
-                <Form isHorizontal>
-                    <Hint>
-                        <HintBody>
-                            {_("Select the device(s) you would like to install to. They will be left untouched until you click on the main menu's 'Begin installation' button.")}
-                        </HintBody>
-                    </Hint>
-                    <LocalStandardDisks />
-                </Form>
-            </PageSection>
-        </>
+        <Form isHorizontal>
+            <Hint>
+                <HintBody>
+                    {_("Select the device(s) you would like to install to. They will be left untouched until you click on the main menu's 'Begin installation' button.")}
+                </HintBody>
+            </Hint>
+            <LocalStandardDisks />
+        </Form>
     );
 };
