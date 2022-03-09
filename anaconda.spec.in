@@ -407,6 +407,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Mar 09 2022 Radek Vykydal <rvykydal@redhat.com> - 34.25.0.28-1
+- Tier 0 Localization
+  Resolves: rhbz#2017306
+
 * Thu Feb 24 2022 Vendula Poncova <vponcova@redhat.com> - 34.25.0.27-1
 - Use cache when fetching organization data from the GUI (mkolman)
   Resolves: rhbz#2044258
