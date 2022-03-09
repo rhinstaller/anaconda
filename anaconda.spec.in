@@ -367,6 +367,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Mar 09 2022 Radek Vykydal <rvykydal@redhat.com> - 33.16.6.7-1
+- ovirt: move /var/tmp and /var/crash to own partition (sbonazzo)
+  Resolves: rhbz#2057475
+- Tier 0 Localization
+  Resolves: rhbz#2016918
+
 * Wed Feb 23 2022 Vendula Poncova <vponcova@redhat.com> - 33.16.6.6-1
 - Bump subscription-manager version (mkolman)
   Related: rhbz#1968574
