@@ -995,8 +995,13 @@ def get_first_iface_with_link(nm_client, ifaces):
     """Find first iface having link (in lexicographical order)."""
     for iface in sorted(ifaces):
         device = nm_client.get_device_by_iface(iface)
-        if device and device.get_carrier():
-            return device.get_iface()
+        if device:
+            try:
+                carrier = device.get_carrier()
+            except AttributeError:
+                carrier = None
+            if carrier:
+                return device.get_iface()
     return None
 
 
