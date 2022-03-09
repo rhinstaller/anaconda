@@ -58,12 +58,12 @@ jobs:
 
           if [ "$TARGET_BRANCH" == "master" ]; then
             echo "::set-output name=skip_tests::skip-on-fedora"
-          elif [ $(echo "$TARGET_BRANCH" | grep -E "f[[:digit:]]*-(devel|release)") ]; then
+          elif echo "$TARGET_BRANCH" | grep -qE "f[[:digit:]]+-(devel|release)$"; then
             echo "::set-output name=skip_tests::skip-on-fedora"
-          elif [ "$TARGET_BRANCH" == "rhel-8" ]; then
+          elif echo "$TARGET_BRANCH" | grep -qE "rhel-8(\.[[:digit:]]+)?$"; then
             echo "::set-output name=skip_tests::skip-on-rhel,skip-on-rhel-8"
             echo "::set-output name=optional_test_args::--platform rhel8"
-          elif [ "$TARGET_BRANCH" == "rhel-9" ]; then
+          elif echo "$TARGET_BRANCH" | grep -qE "rhel-9(\.[[:digit:]]+)?$"; then
             echo "::set-output name=skip_tests::skip-on-rhel,skip-on-rhel-9"
             echo "::set-output name=optional_test_args::--platform rhel9"
           else
