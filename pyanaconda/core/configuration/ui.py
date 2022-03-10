@@ -43,17 +43,6 @@ class UserInterfaceSection(Section):
         return self._get_option("hidden_spokes", str).split()
 
     @property
-    def decorated_window(self):
-        """Run GUI installer in a decorated window.
-
-        By default, the window is not decorated, so it doesn't
-        have a title bar, resize controls, etc.
-
-        :return: True or False
-        """
-        return self._get_option("decorated_window", bool)
-
-    @property
     def can_change_root(self):
         """Should the UI allow to change the configured root account?
 
