@@ -33,15 +33,21 @@ class TestInstallationProgress(MachineCase):
     def testBasic(self):
         b = self.browser
 
-        b.open("/cockpit/@localhost/anaconda-webui/index.html")
+        b.open("/cockpit/@localhost/anaconda-webui/index.html#/installation-language")
 
-        b.click("#review-configuration")
-        b.expect_load()
-        b.click("button:contains(Begin installation)")
+        for page in ['installation-language', 'installation-destination', 'review-configuration']:
+            # with the pages basically empty of common elements (as those are provided by the top-level wizard widget)
+            # we at least iterate over them to check this works as expected
+            b.wait_js_cond(f'window.location.hash === "#/{page}"')
+            b.wait_visible("#" + page + ".pf-m-current")
+            b.click("button.pf-m-primary")
+            if page == 'installation-language':
+                b.expect_load()
 
         b.wait_visible("#installation-progress:not(.pf-m-danger)")
         b.wait_visible("#installation-progress.pf-m-danger")
 
+        b.wait_in_text(".pf-c-alert.pf-m-danger", "No such file or directory: 'systemd-machine-id-setup'")
 
 if __name__ == '__main__':
     test_main()
