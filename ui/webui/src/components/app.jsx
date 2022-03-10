@@ -29,7 +29,7 @@ import { InstallationLanguage } from "./installation/InstallationLanguage.jsx";
 import { InstallationProgress } from "./installation/InstallationProgress.jsx";
 import { ReviewConfiguration } from "./installation/ReviewConfiguration.jsx";
 
-import { readConf } from "./helpers/conf.js";
+import { readConf } from "../helpers/conf.js";
 
 import { usePageLocation } from "hooks";
 
