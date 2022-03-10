@@ -20,7 +20,7 @@
 
 
 # Name of the development branch. This could be master, fXX-release, rhelX-branch, rhel-X ...
-GIT_BRANCH ?= rhel-8
+GIT_BRANCH ?= rhel-8.6
 
 # Directory for this anaconda branch in anaconda-l10n repository. This could be master, fXX, rhel-8 etc.
-L10N_DIR ?= rhel-8
+L10N_DIR ?= rhel-8.6

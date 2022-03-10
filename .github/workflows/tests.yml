@@ -9,7 +9,7 @@ jobs:
     runs-on: [self-hosted, kstest]
     timeout-minutes: 30
     env:
-      TARGET_BRANCH_NAME: origin/rhel-8
+      TARGET_BRANCH_NAME: origin/rhel-8.6
 
     steps:
       - name: Clone repository
@@ -46,7 +46,7 @@ jobs:
     runs-on: [self-hosted, kstest]
     timeout-minutes: 30
     env:
-      TARGET_BRANCH_NAME: origin/rhel-8
+      TARGET_BRANCH_NAME: origin/rhel-8.6
 
     steps:
       - name: Clone repository
