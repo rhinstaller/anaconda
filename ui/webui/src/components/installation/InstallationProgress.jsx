@@ -60,11 +60,7 @@ export class InstallationProgress extends React.Component {
                         });
                         taskProxy.addEventListener("Stopped", () => {
                             this.setState({ progress: 100 });
-                            taskProxy.Finish().catch(
-                                ex => {
-                                    this.props.onAddNotification({ title: ex.name, message: ex.message, variant: "danger" });
-                                    console.error(ex.message);
-                                });
+                            taskProxy.Finish().catch(this.props.onAddErrorNotification);
                         });
                         taskProxy.addEventListener("Succeeded", () => {
                             this.setState({ status: "success" });

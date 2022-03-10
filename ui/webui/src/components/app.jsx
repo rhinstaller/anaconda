@@ -51,6 +51,10 @@ export const Application = () => {
         });
     };
 
+    const onAddErrorNotification = ex => {
+        onAddNotification({ title: ex.name, message: ex.message, variant: "danger" });
+    };
+
     // Postpone rendering anything until we read the dbus address and the default configuration
     if (!address || !conf) {
         return null;
@@ -75,7 +79,7 @@ export const Application = () => {
         {
             id: "installation-destination",
             name: _("Storage configuration"),
-            component: wrapWithContext(<InstallationDestination />),
+            component: wrapWithContext(<InstallationDestination onAddErrorNotification={onAddErrorNotification} />),
             stepNavItemProps: { id: "installation-destination" }
         },
         {
@@ -88,7 +92,7 @@ export const Application = () => {
         {
             id: "installation-progress",
             name: _("Installation progress"),
-            component: wrapWithContext(<InstallationProgress onAddNotification={onAddNotification} />),
+            component: wrapWithContext(<InstallationProgress onAddErrorNotification={onAddErrorNotification} />),
             stepNavItemProps: { id: "installation-progress" },
             isFinishedStep: true
         },

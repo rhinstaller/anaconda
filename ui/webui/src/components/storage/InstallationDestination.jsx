@@ -61,7 +61,7 @@ const selectDefaultDisks = ({ ignoredDisks, selectedDisks, usableDisks }) => {
     }
 };
 
-const LocalStandardDisks = () => {
+const LocalStandardDisks = ({ onAddErrorNotification }) => {
     const [deviceData, setDeviceData] = useState({});
     const [selectedDisks, setSelectedDisks] = useState({});
     const [usableDisks, setUsableDisks] = useState();
@@ -148,7 +148,7 @@ const LocalStandardDisks = () => {
     );
 };
 
-export const InstallationDestination = () => {
+export const InstallationDestination = ({ onAddErrorNotification }) => {
     return (
         <Form isHorizontal>
             <Hint>
@@ -156,7 +156,7 @@ export const InstallationDestination = () => {
                     {_("Select the device(s) you would like to install to. They will be left untouched until you click on the main menu's 'Begin installation' button.")}
                 </HintBody>
             </Hint>
-            <LocalStandardDisks />
+            <LocalStandardDisks onAddErrorNotification={onAddErrorNotification} />
         </Form>
     );
 };
