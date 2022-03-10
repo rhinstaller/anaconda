@@ -76,7 +76,6 @@ const selectDefaultDisks = ({ ignoredDisks, selectedDisks, usableDisks }) => {
 const LocalStandardDisks = ({ onAddErrorNotification }) => {
     const [deviceData, setDeviceData] = useState({});
     const [disks, setDisks] = useState({});
-    const [usableDisks, setUsableDisks] = useState();
 
     const address = useContext(AddressContext);
 
@@ -85,7 +84,6 @@ const LocalStandardDisks = ({ onAddErrorNotification }) => {
         getUsableDisks({ address })
                 .then(res => {
                     usableDisks = res[0];
-                    setUsableDisks(usableDisks);
                     return getAllDiskSelection({ address });
                 })
                 .then(props => {
@@ -98,7 +96,7 @@ const LocalStandardDisks = ({ onAddErrorNotification }) => {
                     setDisks(defaultDisks.reduce((acc, cur) => ({ ...acc, [cur]: true }), {}));
 
                     // Show disks data
-                    usableDisks.forEach(disk => {
+                    defaultDisks.forEach(disk => {
                         getDeviceData({ address, disk })
                                 .then(res => {
                                     setDeviceData(d => ({ ...d, [disk]: res[0] }));
@@ -121,7 +119,7 @@ const LocalStandardDisks = ({ onAddErrorNotification }) => {
             </CardHeader>
             <CardBody>
                 <DataList isCompact aria-label={_("Usable disks")}>
-                    {usableDisks && usableDisks.map(disk => (
+                    {Object.keys(disks).map(disk => (
                         <DataListItem key={disk} aria-labelledby={"local-disks-checkbox-" + disk}>
                             <DataListItemRow>
                                 <DataListCheck
