@@ -54,13 +54,7 @@ class AnacondaLintConfig(CensorshipConfig):
         for (root, dirnames, files) in os.walk(directory):
 
             # skip scanning of already added python modules
-            skip = False
-            for i in retval:
-                if root.startswith(i):
-                    skip = True
-                    break
-
-            if skip:
+            if any(root.startswith(i) for i in retval):
                 continue
 
             if "__init__.py" in files:
@@ -70,15 +64,15 @@ class AnacondaLintConfig(CensorshipConfig):
             for f in files:
                 try:
                     with open(root + "/" + f) as fo:
-                        lines = fo.readlines()
-                except UnicodeDecodeError:
+                        line = fo.readline(1024)
+                except (UnicodeDecodeError, FileNotFoundError):
                     # If we couldn't open this file, just skip it.  It wasn't
                     # going to be valid python anyway.
                     continue
 
                 # Test any file that either ends in .py or contains #!/usr/bin/python
                 # in the first line.
-                if f.endswith(".py") or (lines and str(lines[0]).startswith("#!/usr/bin/python")):
+                if f.endswith(".py") or (line and str(line).startswith("#!/usr/bin/python")):
                     retval.append(root + "/" + f)
 
         return retval
