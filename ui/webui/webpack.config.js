@@ -41,7 +41,9 @@ const plugins = [
 if (production) {
     plugins.unshift(new CompressionPlugin({
         test: /\.(js|html|css)$/,
-        deleteOriginalAssets: true
+        deleteOriginalAssets: true,
+        // Compress all assets
+        minRatio: Infinity
     }));
 }
 
