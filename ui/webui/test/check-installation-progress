@@ -23,10 +23,9 @@ TEST_DIR = os.path.dirname(__file__)
 sys.path.append(os.path.join(TEST_DIR, "common"))
 sys.path.append(os.path.join(os.path.dirname(TEST_DIR), "bots/machine"))
 
-from testlib import MachineCase, nondestructive, test_main  # pylint: disable=import-error
+from testlib import MachineCase, test_main  # pylint: disable=import-error
 from machine_install import VirtInstallMachine
 
-@nondestructive
 class TestInstallationProgress(MachineCase):
     MachineCase.machine_class = VirtInstallMachine
 
