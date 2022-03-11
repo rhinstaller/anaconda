@@ -360,6 +360,10 @@ class MakeBumpVer:
                 print("*** Ignoring (#infra) commit %s\n" % commit)
                 continue
 
+            if re.match(r".*(#test).*", summary):
+                print("*** Ignoring (#test) commit %s\n" % commit)
+                continue
+
             if self.rhel:
                 rhbz = set()
                 bad = False
