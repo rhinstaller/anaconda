@@ -32,6 +32,7 @@ class TestBasic(MachineCase):
 
     def testNavigation(self):
         b = self.browser
+        m = self.machine
 
         b.open("/cockpit/@localhost/anaconda-webui/index.html#/installation-language")
 
@@ -39,6 +40,11 @@ class TestBasic(MachineCase):
             b.attr("#app > .pf-c-page", "data-debug"),
             ["False", "false", "True", "true"]
         )
+
+        # Check betanag
+        value = m.execute("cat /.buildstamp | grep IsFinal=")
+        if value.split("=", 1)[1] in ("False", "false"):
+            b.wait_visible("#betanag-icon")
 
         for page in ['installation-language', 'installation-destination', 'review-configuration']:
             # with the pages basically empty of common elements (as those are provided by the top-level wizard widget)
