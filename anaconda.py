@@ -300,8 +300,7 @@ if __name__ == "__main__":
             # The module-level _() calls are ok here because the language may
             # be set from the live environment in this case, and anaconda's
             # language setup hasn't happened yet.
-            # FIXME: change the line below back to found-_-in-module-class once it works in pylint
-            # pylint: disable=W9902
+            # pylint: disable=found-_-in-module-class
             util.execWithRedirect("zenity",
                                   ["--error", "--title", _("Unable to create PID file"), "--text",
                                    _("Anaconda is unable to create %s because the file"
