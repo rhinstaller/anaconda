@@ -15,7 +15,7 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import cockpit from "cockpit";
 
 import {
@@ -26,8 +26,6 @@ import {
 
 import { AddressContext } from "../Common.jsx";
 
-import { useEvent, useObject } from "hooks";
-
 const _ = cockpit.gettext;
 
 const getLanguageEnglishName = lang => lang["english-name"].v;
@@ -36,105 +34,112 @@ const getLanguageNativeName = lang => lang["native-name"].v;
 const getLocaleId = locale => locale["locale-id"].v;
 const getLocaleNativeName = locale => locale["native-name"].v;
 
-const LanguageSelector = ({ lang, onSelectLang }) => {
-    const [isOpen, setIsOpen] = useState();
-    const [languages, setLanguages] = useState([]);
-    const [locales, setLocales] = useState({});
-    const [selectedItem, setSelectedItem] = useState();
-    const address = useContext(AddressContext);
+class LanguageSelector extends React.Component {
+    constructor (props) {
+        super(props);
+        this.state = {
+            languages: [],
+            locales: [],
+        };
+        this.updateDefaultSelection = this.updateDefaultSelection.bind(this);
+    }
 
-    const localizationProxy = useObject(() => {
-        const client = cockpit.dbus("org.fedoraproject.Anaconda.Modules.Localization", { superuser: "try", bus: "none", address });
-        const proxy = client.proxy(
+    componentDidMount () {
+        const client = cockpit.dbus(
             "org.fedoraproject.Anaconda.Modules.Localization",
-            "/org/fedoraproject/Anaconda/Modules/Localization",
+            { superuser: "try", bus: "none", address: this.context }
         );
+        const call = (method, args) => client.call(
+            "/org/fedoraproject/Anaconda/Modules/Localization",
+            "org.fedoraproject.Anaconda.Modules.Localization",
+            method, args
+        ).then(res => Promise.resolve(res[0]));
 
-        return proxy;
-    }, null, [address]);
-
-    useEvent(localizationProxy, "changed", (event, data) => {
-        localizationProxy.GetLanguages().then(languages => {
+        call("GetLanguages", []).then(ret => {
+            const languages = ret;
             // Create the languages state object
-            Promise.all(languages.map(lang => localizationProxy.GetLanguageData(lang))).then(setLanguages);
+            Promise.all(languages.map(lang => call("GetLanguageData", [lang])))
+                    .then(langs => this.setState({ languages: langs }));
 
             // Create the locales state object
-            Promise.all(languages.map(lang => localizationProxy.GetLocales(lang))).then(res => {
-                return Promise.all(
-                    res.map((langLocales) => {
-                        return Promise.all(langLocales.map(locale => localizationProxy.GetLocaleData(locale)));
+            Promise.all(languages.map(lang => call("GetLocales", [lang])))
+                    .then(res => {
+                        return Promise.all(
+                            res.map(langLocales => {
+                                return Promise.all(langLocales.map(locale =>
+                                    call("GetLocaleData", [locale])
+                                ));
+                            })
+                        );
                     })
-                );
-            })
-                    .then(setLocales);
+                    .then(res => this.setState({ locales: res }, this.updateDefaultSelection));
         });
-    });
+    }
 
-    useEffect(() => {
-        // Once the component state contains the locale data from the API set the default selected language
-        if (selectedItem || !locales.length) {
-            return;
-        }
+    updateDefaultSelection () {
+        const languageId = this.props.lang.split("_")[0];
+        const currentLangLocales = this.state.locales.find(langLocales => getLanguageId(langLocales[0]) === languageId);
+        const currentLocale = currentLangLocales.find(locale => getLocaleId(locale) === this.props.lang);
 
-        const languageId = lang.split("_")[0];
-        const currentLangLocales = locales.find(langLocales => getLanguageId(langLocales[0]) === languageId);
-        const currentLocale = currentLangLocales.find(locale => getLocaleId(locale) === lang);
+        this.setState({ selectedItem: getLocaleNativeName(currentLocale) });
+    }
 
-        setSelectedItem(getLocaleNativeName(currentLocale));
-    }, [locales, lang, selectedItem]);
+    render () {
+        const { isOpen, languages, locales, selectedItem } = this.state;
+        const handleOnSelect = (_, lang) => {
+            this.props.onSelectLang(lang.localeId);
+            this.setState({ selectedItem: lang });
+        };
 
-    const handleOnSelect = (event, lang) => {
-        onSelectLang(lang.localeId);
-        setSelectedItem(lang);
-    };
+        const isLoading = languages.length !== locales.length;
+        const options = (
+            !isLoading
+                ? locales.map(langLocales => {
+                    const currentLang = languages.find(lang => getLanguageId(lang) === getLanguageId(langLocales[0]));
 
-    const isLoading = languages.length !== locales.length;
-    const options = (
-        !isLoading
-            ? locales.map(langLocales => {
-                const currentLang = languages.find(lang => getLanguageId(lang) === getLanguageId(langLocales[0]));
+                    return (
+                        <SelectGroup
+                          label={cockpit.format("$0 ($1)", getLanguageNativeName(currentLang), getLanguageEnglishName(currentLang))}
+                          key={getLanguageId(currentLang)}>
+                            {langLocales.map(locale => (
+                                <SelectOption
+                                  id={getLocaleId(locale).split(".UTF-8")[0]}
+                                  key={getLocaleId(locale)}
+                                  value={{
+                                      toString: () => getLocaleNativeName(locale),
+                                      // Add a compareTo for custom filtering - filter also by english name
+                                      localeId: getLocaleId(locale)
+                                  }}
+                                />
+                            ))}
+                        </SelectGroup>
+                    );
+                })
+                : []
+        );
 
-                return (
-                    <SelectGroup
-                      label={cockpit.format("$0 ($1)", getLanguageNativeName(currentLang), getLanguageEnglishName(currentLang))}
-                      key={getLanguageId(currentLang)}>
-                        {langLocales.map(locale => (
-                            <SelectOption
-                              id={getLocaleId(locale).split(".UTF-8")[0]}
-                              key={getLocaleId(locale)}
-                              value={{
-                                  toString: () => getLocaleNativeName(locale),
-                                  // Add a compareTo for custom filtering - filter also by english name
-                                  localeId: getLocaleId(locale)
-                              }}
-                            />
-                        ))}
-                    </SelectGroup>
-                );
-            })
-            : []
-    );
+        return (
+            <Select
+              className="language-menu"
+              isGrouped
+              isOpen={isOpen}
+              maxHeight="30rem"
+              onClear={() => this.setState({ selectedItem: null })}
+              onSelect={handleOnSelect}
+              onToggle={isOpen => this.setState({ isOpen })}
+              selections={selectedItem}
+              toggleId="language-menu-toggle"
+              variant={SelectVariant.typeahead}
+              width="30rem"
+              {...(isLoading && { loadingVariant: "spinner" })}
 
-    return (
-        <Select
-          className="language-menu"
-          isGrouped
-          isOpen={isOpen}
-          maxHeight="30rem"
-          onClear={() => setSelectedItem(null)}
-          onSelect={handleOnSelect}
-          onToggle={setIsOpen}
-          selections={selectedItem}
-          toggleId="language-menu-toggle"
-          variant={SelectVariant.typeahead}
-          width="30rem"
-          {...(isLoading && { loadingVariant: "spinner" })}
-
-        >
-            {options}
-        </Select>
-    );
-};
+            >
+                {options}
+            </Select>
+        );
+    }
+}
+LanguageSelector.contextType = AddressContext;
 
 export const InstallationLanguage = ({ onSelectLang }) => {
     const langCookie = (window.localStorage.getItem("cockpit.lang") || "en-us").split("-");
