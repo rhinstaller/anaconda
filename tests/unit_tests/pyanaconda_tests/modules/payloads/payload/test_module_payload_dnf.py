@@ -194,11 +194,11 @@ class DNFKSTestCase(unittest.TestCase):
     def test_packages_attributes_ignore(self):
         """Test the packages section with attributes for ignoring."""
         ks_in = """
-        %packages --ignoremissing --ignorebroken
+        %packages --ignoremissing
         %end
         """
         ks_out = """
-        %packages --ignoremissing --ignorebroken
+        %packages --ignoremissing
 
         %end
         """
