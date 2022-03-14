@@ -41,6 +41,7 @@ from pyanaconda.core.path import make_directories
 from pyanaconda import threading as anaconda_threading
 
 from pyanaconda.core.glib import Bytes, GError
+from pyanaconda.keyboard import can_configure_keyboard
 from pyanaconda.ui import UserInterface, common
 from pyanaconda.ui.gui.utils import unbusyCursor
 from pyanaconda.core.async_utils import async_action_wait

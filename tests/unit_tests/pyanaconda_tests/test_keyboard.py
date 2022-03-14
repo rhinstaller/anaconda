@@ -15,12 +15,66 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
 from pyanaconda import keyboard
 import unittest
 import pytest
 
+from unittest.mock import patch
+
+
+class KeyboardUtilsTestCase(unittest.TestCase):
+    """Test the keyboard utils."""
+
+    @patch("pyanaconda.keyboard.conf")
+    @patch("pyanaconda.keyboard.execWithRedirect")
+    def test_can_configure_keyboard(self, exec_mock, conf_mock):
+        """Check if the keyboard configuration is enabled or disabled."""
+        # It's a dir installation.
+        conf_mock.system.can_configure_keyboard = False
+        conf_mock.system.can_run_on_xwayland = False
+        assert keyboard.can_configure_keyboard() is False
+        exec_mock.assert_not_called()
+
+        # It's a boot.iso.
+        conf_mock.system.can_configure_keyboard = True
+        conf_mock.system.can_run_on_xwayland = False
+        assert keyboard.can_configure_keyboard() is True
+        exec_mock.assert_not_called()
+
+        # It's a Live installation on Wayland.
+        conf_mock.system.can_configure_keyboard = True
+        conf_mock.system.can_run_on_xwayland = True
+        exec_mock.return_value = 0
+        assert keyboard.can_configure_keyboard() is False
+        exec_mock.assert_called_once_with('xisxwayland', [])
+        exec_mock.reset_mock()
+
+        # It's a Live installation and not on Wayland.
+        conf_mock.system.can_configure_keyboard = True
+        conf_mock.system.can_run_on_xwayland = True
+        exec_mock.return_value = 1  # xisxwayland returns 1 if it is not XWayland
+        assert keyboard.can_configure_keyboard() is True
+        exec_mock.assert_called_once_with('xisxwayland', [])
+        exec_mock.reset_mock()
+
+        # It's a Live installation and probably not on Wayland,
+        # because the xisxwayland tooling is not present.
+        conf_mock.system.can_configure_keyboard = True
+        conf_mock.system.can_run_on_xwayland = True
+        exec_mock.side_effect = FileNotFoundError()
+
+        with self.assertLogs(level="WARNING") as cm:
+            keyboard.can_configure_keyboard()
+
+        msg = "The xisxwayland tool is not available!"
+        assert any(map(lambda x: msg in x, cm.output))
+
+        exec_mock.assert_called_once_with('xisxwayland', [])
+        exec_mock.reset_mock()
+
+
 class ParsingAndJoiningTests(unittest.TestCase):
+
     def test_layout_variant_parsing(self):
         """Should correctly parse keyboard layout and variant string specs."""
 
