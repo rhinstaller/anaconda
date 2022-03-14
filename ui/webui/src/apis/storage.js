@@ -16,21 +16,31 @@
  */
 import cockpit from "cockpit";
 
-const storageClient = address => {
-    return cockpit.dbus(
-        "org.fedoraproject.Anaconda.Modules.Storage",
-        { superuser: "try", bus: "none", address }
-    );
-};
+export class StorageClient {
+    constructor (address) {
+        if (StorageClient.instance) {
+            return StorageClient.instance;
+        }
+        StorageClient.instance = this;
+
+        this.client = cockpit.dbus(
+            "org.fedoraproject.Anaconda.Modules.Storage",
+            { superuser: "try", bus: "none", address }
+        );
+    }
+
+    init () {
+        this.client.addEventListener("close", () => console.error("Storage client closed"));
+    }
+}
 
 /**
- * @param {string} address      Anaconda bus address
  * @param {string} partitioning DBus path to a partitioning
  *
  * @returns {Promise}           Resolves the DBus path to the partitioning
  */
-export const applyPartitioning = ({ address, partitioning }) => {
-    return storageClient(address).call(
+export const applyPartitioning = ({ partitioning }) => {
+    return new StorageClient().client.call(
         "/org/fedoraproject/Anaconda/Modules/Storage",
         "org.fedoraproject.Anaconda.Modules.Storage",
         "ApplyPartitioning", [partitioning]
@@ -38,13 +48,12 @@ export const applyPartitioning = ({ address, partitioning }) => {
 };
 
 /**
- * @param {string} address      Anaconda bus address
  * @param {string} method       A partitioning method
  *
  * @returns {Promise}           Resolves the DBus path to the partitioning
  */
-export const createPartitioning = ({ address, method }) => {
-    return storageClient(address).call(
+export const createPartitioning = ({ method }) => {
+    return new StorageClient().client.call(
         "/org/fedoraproject/Anaconda/Modules/Storage",
         "org.fedoraproject.Anaconda.Modules.Storage",
         "CreatePartitioning", [method]
@@ -52,12 +61,10 @@ export const createPartitioning = ({ address, method }) => {
 };
 
 /**
- * @param {string} address      Anaconda bus address
- *
  * @returns {Promise}           Resolves all properties of DiskSelection interface
  */
-export const getAllDiskSelection = ({ address }) => {
-    return storageClient(address).call(
+export const getAllDiskSelection = () => {
+    return new StorageClient().client.call(
         "/org/fedoraproject/Anaconda/Modules/Storage/DiskSelection",
         "org.freedesktop.DBus.Properties",
         "GetAll",
@@ -66,13 +73,12 @@ export const getAllDiskSelection = ({ address }) => {
 };
 
 /**
- * @param {string} address      Anaconda bus address
  * @param {string} disk         A device name
  *
  * @returns {Promise}           Resolves an object with the device data
  */
-export const getDeviceData = ({ address, disk }) => {
-    return storageClient(address).call(
+export const getDeviceData = ({ disk }) => {
+    return new StorageClient().client.call(
         "/org/fedoraproject/Anaconda/Modules/Storage/DeviceTree",
         "org.fedoraproject.Anaconda.Modules.Storage.DeviceTree.Viewer",
         "GetDeviceData", [disk]
@@ -80,12 +86,10 @@ export const getDeviceData = ({ address, disk }) => {
 };
 
 /**
- * @param {string} address      Anaconda bus address
- *
  * @returns {Promise}           Resolves a list with disk names
  */
-export const getUsableDisks = ({ address }) => {
-    return storageClient(address).call(
+export const getUsableDisks = () => {
+    return new StorageClient().client.call(
         "/org/fedoraproject/Anaconda/Modules/Storage/DiskSelection",
         "org.fedoraproject.Anaconda.Modules.Storage.DiskSelection",
         "GetUsableDisks", []
@@ -93,13 +97,12 @@ export const getUsableDisks = ({ address }) => {
 };
 
 /**
- * @param {string} address      Anaconda bus address
  * @param {string} partitioning DBus path to a partitioning
  *
  * @returns {Promise}           Resolves a DBus path to a task
  */
-export const partitioningConfigureWithTask = ({ address, partitioning }) => {
-    return storageClient(address).call(
+export const partitioningConfigureWithTask = ({ partitioning }) => {
+    return new StorageClient().client.call(
         partitioning,
         "org.fedoraproject.Anaconda.Modules.Storage.Partitioning",
         "ConfigureWithTask", []
@@ -107,15 +110,14 @@ export const partitioningConfigureWithTask = ({ address, partitioning }) => {
 };
 
 /**
- * @param {string} address      Anaconda bus address
  * @param {string} task         DBus path to a task
  * @param {string} onSuccess    Callback to run after Succeeded signal is received
  * @param {string} onFail       Callback to run as an error handler
  *
  * @returns {Promise}           Resolves a DBus path to a task
  */
-export const runStorageTask = ({ address, task, onSuccess, onFail }) => {
-    const taskProxy = storageClient(address).proxy(
+export const runStorageTask = ({ task, onSuccess, onFail }) => {
+    const taskProxy = new StorageClient().client.proxy(
         "org.fedoraproject.Anaconda.Task",
         task
     );
@@ -130,11 +132,10 @@ export const runStorageTask = ({ address, task, onSuccess, onFail }) => {
 };
 
 /**
- * @param {string} address      Anaconda bus address
  * @param {int} mode            The number of the mode
  */
-export const setInitializationMode = ({ address, mode }) => {
-    return storageClient(address).call(
+export const setInitializationMode = ({ mode }) => {
+    return new StorageClient().client.call(
         "/org/fedoraproject/Anaconda/Modules/Storage/DiskInitialization",
         "org.fedoraproject.Anaconda.Modules.Storage.DiskInitialization",
         "SetInitializationMode", [mode]
@@ -142,25 +143,21 @@ export const setInitializationMode = ({ address, mode }) => {
 };
 
 /**
- * @param {string} address      Anaconda bus address
  * @param {boolean} enabled     True if allowed, otherwise False
  */
-export const setInitializeLabelsEnabled = ({ address, enabled }) => {
-    return (
-        storageClient(address).call(
-            "/org/fedoraproject/Anaconda/Modules/Storage/DiskInitialization",
-            "org.fedoraproject.Anaconda.Modules.Storage.DiskInitialization",
-            "SetInitializeLabelsEnabled", [enabled]
-        )
+export const setInitializeLabelsEnabled = ({ enabled }) => {
+    return new StorageClient().client.call(
+        "/org/fedoraproject/Anaconda/Modules/Storage/DiskInitialization",
+        "org.fedoraproject.Anaconda.Modules.Storage.DiskInitialization",
+        "SetInitializeLabelsEnabled", [enabled]
     );
 };
 
 /**
- * @param {string} address      Anaconda bus address
  * @param {Array.<string>} drives A list of drives names
  */
-export const setSelectedDisks = ({ address, drives }) => {
-    return storageClient(address).call(
+export const setSelectedDisks = ({ drives }) => {
+    return new StorageClient().client.call(
         "/org/fedoraproject/Anaconda/Modules/Storage/DiskSelection",
         "org.fedoraproject.Anaconda.Modules.Storage.DiskSelection",
         "SetSelectedDisks", [drives]

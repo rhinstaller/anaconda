@@ -17,36 +17,46 @@
 
 import cockpit from "cockpit";
 
-const localizationClient = ({ address }) => cockpit.dbus(
-    "org.fedoraproject.Anaconda.Modules.Localization",
-    { superuser: "try", bus: "none", address }
-);
+export class LocalizationClient {
+    constructor (address) {
+        if (LocalizationClient.instance) {
+            return LocalizationClient.instance;
+        }
+        LocalizationClient.instance = this;
+
+        this.client = cockpit.dbus(
+            "org.fedoraproject.Anaconda.Modules.Localization",
+            { superuser: "try", bus: "none", address }
+        );
+    }
+
+    init () {
+        this.client.addEventListener("close", () => console.error("Localization client closed"));
+    }
+}
 
 /**
- * @param {string} address      Anaconda bus address
- *
  * @returns {Promise}           Resolves a list of language ids
  */
-export const getLanguages = ({ address }) => {
+export const getLanguages = () => {
     return (
-        localizationClient({ address }).call(
+        new LocalizationClient().client.call(
             "/org/fedoraproject/Anaconda/Modules/Localization",
             "org.fedoraproject.Anaconda.Modules.Localization",
             "GetLanguages", []
         )
-                .then(res => res[0])
+                .then(res => res[0], console.info)
     );
 };
 
 /**
- * @param {string} address      Anaconda bus address
  * @param {string} lang         Language id
  *
  * @returns {Promise}           Resolves a language data object
  */
-export const getLanguageData = ({ address, lang }) => {
+export const getLanguageData = ({ lang }) => {
     return (
-        localizationClient({ address }).call(
+        new LocalizationClient().client.call(
             "/org/fedoraproject/Anaconda/Modules/Localization",
             "org.fedoraproject.Anaconda.Modules.Localization",
             "GetLanguageData", [lang]
@@ -56,14 +66,13 @@ export const getLanguageData = ({ address, lang }) => {
 };
 
 /**
- * @param {string} address      Anaconda bus address
  * @param {string} lang         Language id
  *
  * @returns {Promise}           Resolves a list of locales ids
  */
-export const getLocales = ({ address, lang }) => {
+export const getLocales = ({ lang }) => {
     return (
-        localizationClient({ address }).call(
+        new LocalizationClient().client.call(
             "/org/fedoraproject/Anaconda/Modules/Localization",
             "org.fedoraproject.Anaconda.Modules.Localization",
             "GetLocales", [lang]
@@ -73,14 +82,13 @@ export const getLocales = ({ address, lang }) => {
 };
 
 /**
- * @param {string} address      Anaconda bus address
  * @param {string} lang         Locale id
  *
  * @returns {Promise}           Resolves a locale data object
  */
-export const getLocaleData = ({ address, locale }) => {
+export const getLocaleData = ({ locale }) => {
     return (
-        localizationClient({ address }).call(
+        new LocalizationClient().client.call(
             "/org/fedoraproject/Anaconda/Modules/Localization",
             "org.fedoraproject.Anaconda.Modules.Localization",
             "GetLocaleData", [locale]

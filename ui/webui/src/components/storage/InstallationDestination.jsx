@@ -15,7 +15,7 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 import cockpit from "cockpit";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
     Card, CardBody, CardHeader, CardTitle,
@@ -23,8 +23,6 @@ import {
     Form,
     Hint, HintBody,
 } from "@patternfly/react-core";
-
-import { AddressContext } from "../Common.jsx";
 
 import {
     applyPartitioning,
@@ -77,14 +75,12 @@ const LocalStandardDisks = ({ onAddErrorNotification }) => {
     const [deviceData, setDeviceData] = useState({});
     const [disks, setDisks] = useState({});
 
-    const address = useContext(AddressContext);
-
     useEffect(() => {
         let usableDisks;
-        getUsableDisks({ address })
+        getUsableDisks()
                 .then(res => {
                     usableDisks = res[0];
-                    return getAllDiskSelection({ address });
+                    return getAllDiskSelection();
                 })
                 .then(props => {
                     // Select default disks for the partitioning
@@ -97,20 +93,20 @@ const LocalStandardDisks = ({ onAddErrorNotification }) => {
 
                     // Show disks data
                     defaultDisks.forEach(disk => {
-                        getDeviceData({ address, disk })
+                        getDeviceData({ disk })
                                 .then(res => {
                                     setDeviceData(d => ({ ...d, [disk]: res[0] }));
                                 }, console.error);
                     });
                 }, console.error);
-    }, [address]);
+    }, []);
 
     // When the selected disks change in the UI, update in the backend as well
     useEffect(() => {
         const selected = Object.keys(disks).filter(disk => disks[disk]);
 
-        setSelectedDisks({ address, drives: selected }).catch(onAddErrorNotification);
-    }, [address, disks, onAddErrorNotification]);
+        setSelectedDisks({ drives: selected }).catch(onAddErrorNotification);
+    }, [disks, onAddErrorNotification]);
 
     return (
         <Card>
@@ -162,22 +158,21 @@ export const InstallationDestination = ({ onAddErrorNotification }) => {
     );
 };
 
-export const applyDefaultStorage = ({ address, onAddErrorNotification, onSuccess }) => {
+export const applyDefaultStorage = ({ onAddErrorNotification, onSuccess }) => {
     let partitioning;
     // CLEAR_PARTITIONS_ALL = 1
-    return setInitializationMode({ address, mode: 1 })
-            .then(() => setInitializeLabelsEnabled({ address, enabled: true }))
-            .then(() => createPartitioning({ address, method: "AUTOMATIC" }))
+    return setInitializationMode({ mode: 1 })
+            .then(() => setInitializeLabelsEnabled({ enabled: true }))
+            .then(() => createPartitioning({ method: "AUTOMATIC" }))
             .then(res => {
                 partitioning = res[0];
-                return partitioningConfigureWithTask({ address, partitioning });
+                return partitioningConfigureWithTask({ partitioning });
             })
             .then(tasks => {
                 runStorageTask({
-                    address,
                     task: tasks[0],
                     onSuccess: () => (
-                        applyPartitioning({ address, partitioning })
+                        applyPartitioning({ partitioning })
                                 .then(onSuccess)
                                 .catch(onAddErrorNotification)
                     ),

@@ -26,7 +26,7 @@ import {
 
 import { AddressContext } from "../Common.jsx";
 
-import { bossClient, getSteps, installWithTasks } from "../../apis/boss.js";
+import { BossClient, getSteps, installWithTasks } from "../../apis/boss.js";
 
 import "./InstallationProgress.scss";
 
@@ -39,10 +39,9 @@ export class InstallationProgress extends React.Component {
     }
 
     componentDidMount () {
-        const client = bossClient({ address: this.context });
-        installWithTasks({ address: this.context })
+        installWithTasks()
                 .then(tasks => {
-                    const taskProxy = client.proxy(
+                    const taskProxy = new BossClient().client.proxy(
                         "org.fedoraproject.Anaconda.Task",
                         tasks[0]
                     );
@@ -50,7 +49,7 @@ export class InstallationProgress extends React.Component {
                     const addEventListeners = () => {
                         taskProxy.addEventListener("ProgressChanged", (_, step, message) => {
                             if (step === 0) {
-                                getSteps({ address: this.context, task: tasks[0] })
+                                getSteps({ task: tasks[0] })
                                         .then(
                                             ret => this.setState({ steps: ret[0].v }),
                                             this.props.onAddErrorNotification

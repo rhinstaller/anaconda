@@ -30,6 +30,9 @@ import { InstallationProgress } from "./installation/InstallationProgress.jsx";
 import { ReviewConfiguration } from "./installation/ReviewConfiguration.jsx";
 
 import { readConf } from "../helpers/conf.js";
+import { BossClient } from "../apis/boss.js";
+import { LocalizationClient } from "../apis/localization.js";
+import { StorageClient } from "../apis/storage.js";
 
 import { usePageLocation } from "hooks";
 
@@ -42,7 +45,16 @@ export const Application = () => {
     const [conf, setConf] = useState();
     const { path } = usePageLocation();
 
-    useEffect(() => cockpit.file("/run/anaconda/bus.address").watch(setAddress), []);
+    useEffect(() => cockpit.file("/run/anaconda/bus.address").watch(address => {
+        const clients = [
+            new LocalizationClient(address),
+            new StorageClient(address),
+            new BossClient(address)
+        ];
+        clients.forEach(c => c.init());
+
+        setAddress(address);
+    }), []);
     useEffect(() => readConf().then(setConf, ex => console.error("Failed to parse anaconda configuration")), []);
 
     const onAddNotification = (notificationProps) => {
