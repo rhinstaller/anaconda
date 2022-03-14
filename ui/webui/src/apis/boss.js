@@ -29,6 +29,21 @@ export const bossClient = ({ address }) => cockpit.dbus(
 
 /**
  * @param {string} address      Anaconda bus address
+ * @param {string} task         DBus path to a task
+ *
+ * @returns {Promise}           Resolves the total number of tasks
+ */
+export const getSteps = ({ address, task }) => {
+    return bossClient({ address }).call(
+        task,
+        "org.freedesktop.DBus.Properties",
+        "Get",
+        ["org.fedoraproject.Anaconda.Task", "Steps"]
+    );
+};
+
+/**
+ * @param {string} address      Anaconda bus address
  *
  * @returns {Promise}           Resolves a list of tasks
  */
@@ -37,5 +52,6 @@ export const installWithTasks = ({ address }) => {
         "/org/fedoraproject/Anaconda/Boss",
         "org.fedoraproject.Anaconda.Boss",
         "InstallWithTasks", []
-    );
+    )
+            .then(ret => ret[0]);
 };

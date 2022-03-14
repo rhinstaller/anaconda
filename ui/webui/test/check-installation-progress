@@ -47,6 +47,7 @@ class TestInstallationProgress(MachineCase):
         b.wait_visible("#installation-progress.pf-m-danger")
 
         b.wait_in_text(".pf-c-alert.pf-m-danger", "No such file or directory: 'systemd-machine-id-setup'")
+        b.wait_in_text("#installation-progress-description + .pf-c-progress__status", "6 of 39")
 
 if __name__ == '__main__':
     test_main()
