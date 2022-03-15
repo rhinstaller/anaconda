@@ -83,6 +83,7 @@ GtkWidget  *anaconda_base_window_get_main_box      (AnacondaBaseWindow *win);
 GtkWidget  *anaconda_base_window_get_nav_area      (AnacondaBaseWindow *win);
 GtkWidget  *anaconda_base_window_get_nav_area_background_window (AnacondaBaseWindow *win);
 GtkWidget  *anaconda_base_window_get_help_button (AnacondaBaseWindow *win);
+GtkWidget  *anaconda_base_window_get_layout_indicator_box (AnacondaBaseWindow *win);
 
 G_END_DECLS
 

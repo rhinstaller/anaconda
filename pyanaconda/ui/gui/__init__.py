@@ -24,7 +24,7 @@ from contextlib import contextmanager
 import gi
 gi.require_version("Gdk", "3.0")
 gi.require_version("Gtk", "3.0")
-gi.require_version("AnacondaWidgets", "3.3")
+gi.require_version("AnacondaWidgets", "3.4")
 gi.require_version("Keybinder", "3.0")
 gi.require_version("GdkPixbuf", "2.0")
 gi.require_version("GObject", "2.0")
@@ -41,8 +41,9 @@ from pyanaconda.core.path import make_directories
 from pyanaconda import threading as anaconda_threading
 
 from pyanaconda.core.glib import Bytes, GError
+from pyanaconda.keyboard import can_configure_keyboard
 from pyanaconda.ui import UserInterface, common
-from pyanaconda.ui.gui.utils import unbusyCursor
+from pyanaconda.ui.gui.utils import unbusyCursor, really_hide
 from pyanaconda.core.async_utils import async_action_wait
 from pyanaconda.ui.gui.utils import watch_children, unwatch_children
 from pyanaconda.ui.gui.helpers import autoinstall_stopped
@@ -158,6 +159,16 @@ class GUIObject(common.UIObject):
             self.builder.add_from_file(self._findUIFile())
 
         self.builder.connect_signals(self)
+
+        # Hide keyboard indicator if we can't configure the keyboard
+        # It doesn't really give you any benefit of seeing something which could
+        # give you wrong values.
+        # This has to be applied to every spoke and hub - we have to ignore dialog and other
+        # non full screen parts.
+        if not can_configure_keyboard() and isinstance(self.window, AnacondaWidgets.BaseWindow):
+            layout_indicator = self.window.get_layout_indicator_box()
+            really_hide(layout_indicator)
+            layout_indicator.set_sensitive(False)
 
     def _findUIFile(self):
         path = os.environ.get("UIPATH", "./:/usr/share/anaconda/ui/")

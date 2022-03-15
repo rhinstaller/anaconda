@@ -147,15 +147,13 @@ class PrepareOSTreeMountTargetsTask(Task):
 
         Next, run tmpfiles to make subdirectories of /var. We need this for both mounts like
         /home (really /var/home) and %post scripts might want to write to e.g. `/srv`, `/root`,
-        `/usr/local`, etc. The /var/lib/rpm symlink is also critical for having e.g. `rpm -qa`
-        work in %post. We don't iterate *all* tmpfiles because we don't have the matching NSS
+        `/usr/local`, etc. We don't iterate *all* tmpfiles because we don't have the matching NSS
         configuration inside Anaconda, and we can't "chroot" to get it because that would require
         mounting the API filesystems in the target.
         """
         make_directories(self._sysroot + '/var/lib')
         self._create_tmpfiles('/var/home')
         self._create_tmpfiles('/var/roothome')
-        self._create_tmpfiles('/var/lib/rpm')
         self._create_tmpfiles('/var/opt')
         self._create_tmpfiles('/var/srv')
         self._create_tmpfiles('/var/usrlocal')

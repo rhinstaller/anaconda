@@ -166,6 +166,7 @@ Requires: anaconda-webui = %{version}-%{release}
 Requires: anaconda-gui = %{version}-%{release}
 Requires: usermode
 Requires: zenity
+Requires: xisxwayland
 Recommends: xhost
 
 %description live

@@ -24,7 +24,7 @@ from pyanaconda.core.storage import get_supported_autopart_choices
 from pyanaconda.ui.gui.utils import escape_markup, really_hide, really_show
 
 import gi
-gi.require_version("AnacondaWidgets", "3.3")
+gi.require_version("AnacondaWidgets", "3.4")
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, AnacondaWidgets
 
