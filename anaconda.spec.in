@@ -453,6 +453,39 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 15 2022 Martin Kolman <mkolman@redhat.com> - 37.3-1
+- Increase version of the anaconda-widgets (jkonecny)
+- Disable layout_indicator in Anaconda (jkonecny)
+- Don't configure the keyboard in Live environments with XWayland (jkonecny)
+- webui: tests: check-installation-progress tests are not non-destructive
+  (kkoukiou)
+- tests: webui: ensure that installation reaches boot-loader step and fails
+  (kkoukiou)
+- webui: storage configuration: show only usable disks in the table (kkoukiou)
+- webui: set default storage configuration in the JS code (kkoukiou)
+- webui: move localization apis to 'apis' folder (kkoukiou)
+- webui: move installation apis to 'apis' folder (kkoukiou)
+- webui: pass up to the component tree a hander for showing errors in the UI
+  (kkoukiou)
+- webui: move react components to a new `components` folders (kkoukiou)
+- webui: rewrite language selection component to a class component (kkoukiou)
+- network: Handle network configuration paths not existing (awilliam)
+- webui: webpack: process all assets when compressing (kkoukiou)
+- Change pylint ignore from number to name (vslavik)
+- Remove RpmDb-related setup in OSTree payloads (vslavik)
+- pylint: Survive scanning broken symlinks (vslavik)
+- pylint: Don't read whole files to check hashbangs (vslavik)
+- pylint: Ignore checkouts of cockpit repos (vslavik)
+- pylint: Simplify skipping already detected paths (vslavik)
+- webui: move to a wizard based design implementation (mkolman)
+- Do not crash on network --device link with wireless device (#2051235)
+  (rvykydal)
+- Remove the decorated_window conf option (vslavik)
+- packit: build SRPM in Copr (ttomecek)
+- Use the latest Read the Docs theme (vponcova)
+- Change the example bug related to unlocked LUKS devices (vponcova)
+- webui: read conf from installation environment (vslavik)
+
 * Tue Mar 08 2022 Martin Kolman <mkolman@redhat.com> - 37.2-1
 - Fix Makefile targets using L10N Makefile variables (jkonecny)
 - Remove the blivet_gui_supported configuration option (vponcova)
