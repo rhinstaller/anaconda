@@ -15,7 +15,7 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 import cockpit from "cockpit";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import {
     Card, CardBody, CardHeader, CardTitle,
@@ -25,7 +25,19 @@ import {
 } from "@patternfly/react-core";
 
 import { AddressContext } from "../Common.jsx";
-import { useEvent, useObject } from "hooks";
+
+import {
+    applyPartitioning,
+    createPartitioning,
+    getAllDiskSelection,
+    getDeviceData,
+    getUsableDisks,
+    partitioningConfigureWithTask,
+    runStorageTask,
+    setInitializationMode,
+    setInitializeLabelsEnabled,
+    setSelectedDisks,
+} from "../../apis/storage.js";
 
 const _ = cockpit.gettext;
 
@@ -61,55 +73,44 @@ const selectDefaultDisks = ({ ignoredDisks, selectedDisks, usableDisks }) => {
     }
 };
 
-const LocalStandardDisks = () => {
+const LocalStandardDisks = ({ onAddErrorNotification }) => {
     const [deviceData, setDeviceData] = useState({});
-    const [selectedDisks, setSelectedDisks] = useState({});
-    const [usableDisks, setUsableDisks] = useState();
+    const [disks, setDisks] = useState({});
 
     const address = useContext(AddressContext);
-    const client = cockpit.dbus("org.fedoraproject.Anaconda.Modules.Storage", { superuser: "try", bus: "none", address });
 
-    const diskSelectionProxy = useObject(() => {
-        const proxy = client.proxy(
-            "org.fedoraproject.Anaconda.Modules.Storage.DiskSelection",
-            "/org/fedoraproject/Anaconda/Modules/Storage/DiskSelection",
-        );
-
-        return proxy;
-    }, null, [address]);
-
-    const deviceTreeViewerProxy = useObject(() => {
-        const proxy = client.proxy(
-            "org.fedoraproject.Anaconda.Modules.Storage.DeviceTree.Viewer",
-            "/org/fedoraproject/Anaconda/Modules/Storage/DeviceTree",
-        );
-
-        return proxy;
-    }, null, [address]);
-
-    useEvent(diskSelectionProxy, "changed", (event, data) => {
-        diskSelectionProxy
-                .GetUsableDisks()
-                .then(usableDisks => {
-                    setUsableDisks(usableDisks);
+    useEffect(() => {
+        let usableDisks;
+        getUsableDisks({ address })
+                .then(res => {
+                    usableDisks = res[0];
+                    return getAllDiskSelection({ address });
+                })
+                .then(props => {
                     // Select default disks for the partitioning
                     const defaultDisks = selectDefaultDisks({
-                        ignoredDisks: diskSelectionProxy.IgnoredDisks,
-                        selectedDisks: diskSelectionProxy.SelectedDisks,
+                        ignoredDisks: props[0].IgnoredDisks.v,
+                        selectedDisks: props[0].SelectedDisks.v,
                         usableDisks,
                     });
-                    setSelectedDisks(defaultDisks.reduce((acc, cur) => ({ ...acc, [cur]: true }), {}));
+                    setDisks(defaultDisks.reduce((acc, cur) => ({ ...acc, [cur]: true }), {}));
 
                     // Show disks data
-                    usableDisks.forEach(disk => {
-                        deviceTreeViewerProxy
-                                .GetDeviceData(disk)
-                                .then(data => {
-                                    setDeviceData({ ...deviceData, [disk]: data });
+                    defaultDisks.forEach(disk => {
+                        getDeviceData({ address, disk })
+                                .then(res => {
+                                    setDeviceData(d => ({ ...d, [disk]: res[0] }));
                                 }, console.error);
                     });
                 }, console.error);
-    });
+    }, [address]);
+
+    // When the selected disks change in the UI, update in the backend as well
+    useEffect(() => {
+        const selected = Object.keys(disks).filter(disk => disks[disk]);
+
+        setSelectedDisks({ address, drives: selected }).catch(onAddErrorNotification);
+    }, [address, disks, onAddErrorNotification]);
 
     return (
         <Card>
@@ -118,13 +119,13 @@ const LocalStandardDisks = () => {
             </CardHeader>
             <CardBody>
                 <DataList isCompact aria-label={_("Usable disks")}>
-                    {usableDisks && usableDisks.map(disk => (
+                    {Object.keys(disks).map(disk => (
                         <DataListItem key={disk} aria-labelledby={"local-disks-checkbox-" + disk}>
                             <DataListItemRow>
                                 <DataListCheck
                                   aria-labelledby={"local-disks-checkbox-" + disk}
-                                  onChange={value => setSelectedDisks({ ...selectedDisks, [disk]: value })}
-                                  checked={!!selectedDisks[disk]}
+                                  onChange={value => setDisks({ ...disks, [disk]: value })}
+                                  checked={!!disks[disk]}
                                   name={"checkbox-check-" + disk} />
                                 <DataListItemCells
                                   dataListCells={[
@@ -148,7 +149,7 @@ const LocalStandardDisks = () => {
     );
 };
 
-export const InstallationDestination = () => {
+export const InstallationDestination = ({ onAddErrorNotification }) => {
     return (
         <Form isHorizontal>
             <Hint>
@@ -156,7 +157,32 @@ export const InstallationDestination = () => {
                     {_("Select the device(s) you would like to install to. They will be left untouched until you click on the main menu's 'Begin installation' button.")}
                 </HintBody>
             </Hint>
-            <LocalStandardDisks />
+            <LocalStandardDisks onAddErrorNotification={onAddErrorNotification} />
         </Form>
     );
+};
+
+export const applyDefaultStorage = ({ address, onAddErrorNotification, onSuccess }) => {
+    let partitioning;
+    // CLEAR_PARTITIONS_ALL = 1
+    return setInitializationMode({ address, mode: 1 })
+            .then(() => setInitializeLabelsEnabled({ address, enabled: true }))
+            .then(() => createPartitioning({ address, method: "AUTOMATIC" }))
+            .then(res => {
+                partitioning = res[0];
+                return partitioningConfigureWithTask({ address, partitioning });
+            })
+            .then(tasks => {
+                runStorageTask({
+                    address,
+                    task: tasks[0],
+                    onSuccess: () => (
+                        applyPartitioning({ address, partitioning })
+                                .then(onSuccess)
+                                .catch(onAddErrorNotification)
+                    ),
+                    onFail: onAddErrorNotification
+                });
+            })
+            .catch(onAddErrorNotification);
 };

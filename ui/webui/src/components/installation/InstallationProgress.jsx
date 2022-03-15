@@ -26,6 +26,8 @@ import {
 
 import { AddressContext } from "../Common.jsx";
 
+import { bossClient, installWithTasks } from "../../apis/boss.js";
+
 import "./InstallationProgress.scss";
 
 const _ = cockpit.gettext;
@@ -37,12 +39,8 @@ export class InstallationProgress extends React.Component {
     }
 
     componentDidMount () {
-        const client = cockpit.dbus("org.fedoraproject.Anaconda.Boss", { superuser: "try", bus: "none", address: this.context });
-        client.call(
-            "/org/fedoraproject/Anaconda/Boss",
-            "org.fedoraproject.Anaconda.Boss",
-            "InstallWithTasks", [],
-        )
+        const client = bossClient({ address: this.context });
+        installWithTasks({ address: this.context })
                 .then(tasks => {
                     const taskProxy = client.proxy(
                         "org.fedoraproject.Anaconda.Task",
@@ -60,11 +58,7 @@ export class InstallationProgress extends React.Component {
                         });
                         taskProxy.addEventListener("Stopped", () => {
                             this.setState({ progress: 100 });
-                            taskProxy.Finish().catch(
-                                ex => {
-                                    this.props.onAddNotification({ title: ex.name, message: ex.message, variant: "danger" });
-                                    console.error(ex.message);
-                                });
+                            taskProxy.Finish().catch(this.props.onAddErrorNotification);
                         });
                         taskProxy.addEventListener("Succeeded", () => {
                             this.setState({ status: "success" });

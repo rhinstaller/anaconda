@@ -26,6 +26,8 @@ import {
 
 import { AddressContext } from "../Common.jsx";
 
+import { getLanguages, getLanguageData, getLocales, getLocaleData } from "../../apis/localization.js";
+
 const _ = cockpit.gettext;
 
 const getLanguageEnglishName = lang => lang["english-name"].v;
@@ -45,29 +47,19 @@ class LanguageSelector extends React.Component {
     }
 
     componentDidMount () {
-        const client = cockpit.dbus(
-            "org.fedoraproject.Anaconda.Modules.Localization",
-            { superuser: "try", bus: "none", address: this.context }
-        );
-        const call = (method, args) => client.call(
-            "/org/fedoraproject/Anaconda/Modules/Localization",
-            "org.fedoraproject.Anaconda.Modules.Localization",
-            method, args
-        ).then(res => Promise.resolve(res[0]));
-
-        call("GetLanguages", []).then(ret => {
+        getLanguages({ address: this.context }).then(ret => {
             const languages = ret;
             // Create the languages state object
-            Promise.all(languages.map(lang => call("GetLanguageData", [lang])))
+            Promise.all(languages.map(lang => getLanguageData({ address: this.context, lang })))
                     .then(langs => this.setState({ languages: langs }));
 
             // Create the locales state object
-            Promise.all(languages.map(lang => call("GetLocales", [lang])))
+            Promise.all(languages.map(lang => getLocales({ address: this.context, lang })))
                     .then(res => {
                         return Promise.all(
                             res.map(langLocales => {
                                 return Promise.all(langLocales.map(locale =>
-                                    call("GetLocaleData", [locale])
+                                    getLocaleData({ address: this.context, locale })
                                 ));
                             })
                         );

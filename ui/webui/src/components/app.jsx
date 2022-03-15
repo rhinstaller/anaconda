@@ -24,12 +24,12 @@ import {
 } from "@patternfly/react-core";
 
 import { AddressContext } from "./Common.jsx";
-import { InstallationDestination } from "./storage/InstallationDestination.jsx";
+import { InstallationDestination, applyDefaultStorage } from "./storage/InstallationDestination.jsx";
 import { InstallationLanguage } from "./installation/InstallationLanguage.jsx";
 import { InstallationProgress } from "./installation/InstallationProgress.jsx";
 import { ReviewConfiguration } from "./installation/ReviewConfiguration.jsx";
 
-import { readConf } from "./helpers/conf.js";
+import { readConf } from "../helpers/conf.js";
 
 import { usePageLocation } from "hooks";
 
@@ -37,6 +37,7 @@ const _ = cockpit.gettext;
 
 export const Application = () => {
     const [address, setAddress] = useState();
+    const [isStorageReady, setIsStorageReady] = useState(false);
     const [notifications, setNotifications] = useState({});
     const [conf, setConf] = useState();
     const { path } = usePageLocation();
@@ -49,6 +50,10 @@ export const Application = () => {
             ...notifications,
             [notifications.length]: { index: notifications.length, ...notificationProps }
         });
+    };
+
+    const onAddErrorNotification = ex => {
+        onAddNotification({ title: ex.name, message: ex.message, variant: "danger" });
     };
 
     // Postpone rendering anything until we read the dbus address and the default configuration
@@ -75,26 +80,32 @@ export const Application = () => {
         {
             id: "installation-destination",
             name: _("Storage configuration"),
-            component: wrapWithContext(<InstallationDestination />),
+            component: wrapWithContext(<InstallationDestination onAddErrorNotification={onAddErrorNotification} />),
             stepNavItemProps: { id: "installation-destination" }
         },
         {
             id: "review-configuration",
             name: _("Review"),
             component: wrapWithContext(<ReviewConfiguration />),
+            enableNext: isStorageReady,
             nextButtonText: _("Begin installation"),
             stepNavItemProps: { id: "review-configuration" }
         },
         {
             id: "installation-progress",
             name: _("Installation progress"),
-            component: wrapWithContext(<InstallationProgress onAddNotification={onAddNotification} />),
+            component: wrapWithContext(<InstallationProgress onAddErrorNotification={onAddErrorNotification} />),
             stepNavItemProps: { id: "installation-progress" },
             isFinishedStep: true
         },
     ];
     const startAtStep = steps.findIndex(step => step.id === path[0]) + 1;
-    const goToStep = newStep => cockpit.location.go([newStep.id]);
+    const goToStep = (newStep, prevStep) => {
+        if (prevStep.prevId === "installation-destination") {
+            applyDefaultStorage({ address, onAddErrorNotification, onSuccess: () => setIsStorageReady(true) });
+        }
+        cockpit.location.go([newStep.id]);
+    };
     const title = _("Anaconda Installer");
 
     return (
