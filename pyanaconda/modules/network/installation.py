@@ -252,15 +252,17 @@ Name={}
         :param root: path to the root of the target system
         :type root: str
         """
-        for config_file in os.listdir(self.NETWORK_SCRIPTS_DIR_PATH):
-            if config_file.startswith(self.NETWORK_SCRIPTS_CONFIG_FILE_PREFIXES):
-                config_file_path = os.path.join(self.NETWORK_SCRIPTS_DIR_PATH,
+        if os.path.exists(self.NETWORK_SCRIPTS_DIR_PATH):
+            for config_file in os.listdir(self.NETWORK_SCRIPTS_DIR_PATH):
+                if config_file.startswith(self.NETWORK_SCRIPTS_CONFIG_FILE_PREFIXES):
+                    config_file_path = os.path.join(self.NETWORK_SCRIPTS_DIR_PATH,
+                                                    config_file)
+                    self._copy_file_to_root(root, config_file_path)
+        if os.path.exists(self.NM_SYSTEM_CONNECTIONS_DIR_PATH):
+            for config_file in os.listdir(self.NM_SYSTEM_CONNECTIONS_DIR_PATH):
+                config_file_path = os.path.join(self.NM_SYSTEM_CONNECTIONS_DIR_PATH,
                                                 config_file)
                 self._copy_file_to_root(root, config_file_path)
-        for config_file in os.listdir(self.NM_SYSTEM_CONNECTIONS_DIR_PATH):
-            config_file_path = os.path.join(self.NM_SYSTEM_CONNECTIONS_DIR_PATH,
-                                            config_file)
-            self._copy_file_to_root(root, config_file_path)
 
     def _copy_dhclient_config_files(self, root, network_ifaces):
         """Copy dhclient configuration files to target system.
