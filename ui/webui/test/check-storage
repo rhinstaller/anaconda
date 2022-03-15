@@ -43,7 +43,7 @@ class TestStorage(MachineCase):
         # Try unselecting the single disk and expect and error
         b.set_checked('input[name=checkbox-check-vda]', False)
         b.click("button.pf-m-primary")
-        b.wait_in_text(".pf-c-alert.pf-m-danger", "No usable disks")
+        b.wait_in_text(".pf-c-alert.pf-m-danger.pf-m-inline", "No usable disks")
         # Since storage configuration failed it's expected to be in the still in the storage step
         b.wait_js_cond('window.location.hash === "#/installation-destination"')
         b.wait_visible("#installation-destination.pf-m-current")

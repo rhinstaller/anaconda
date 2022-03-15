@@ -22,6 +22,7 @@ import {
     AlertGroup, AlertVariant, AlertActionCloseButton, Alert,
     Button,
     Page,
+    Stack,
     Wizard, WizardFooter, WizardContextConsumer,
 } from "@patternfly/react-core";
 
@@ -45,6 +46,7 @@ export const Application = () => {
     const [address, setAddress] = useState();
     const [conf, setConf] = useState();
     const [notifications, setNotifications] = useState({});
+    const [stepNotification, setStepNotification] = useState();
     const [stepIdReached, setStepIdReached] = useState(path[0] || "installation-language");
 
     useEffect(() => cockpit.file("/run/anaconda/bus.address").watch(address => {
@@ -76,10 +78,19 @@ export const Application = () => {
     }
 
     console.info("conf: ", conf);
-    const wrapWithContext = children => {
+    const wrapWithContext = (children) => {
         return (
             <AddressContext.Provider value={address}>
-                {children}
+                <Stack hasGutter>
+                    {stepNotification &&
+                     (path[0] === stepNotification.step || (!path[0] && stepNotification.step === "installation-language")) &&
+                     <Alert
+                       isInline
+                       title={stepNotification.message}
+                       variant="danger"
+                     />}
+                    {children}
+                </Stack>
             </AddressContext.Provider>
         );
     };
@@ -155,7 +166,7 @@ export const Application = () => {
             <Wizard
               description={_("PRE-RELEASE/TESTING")}
               descriptionId="wizard-top-level-description"
-              footer={<Footer address={address} onAddErrorNotification={onAddErrorNotification} />}
+              footer={<Footer setStepNotification={setStepNotification} address={address} />}
               hideClose
               mainAriaLabel={`${title} content`}
               navAriaLabel={`${title} steps`}
@@ -171,7 +182,7 @@ export const Application = () => {
     );
 };
 
-const Footer = ({ address, onAddErrorNotification }) => {
+const Footer = ({ address, setStepNotification }) => {
     const [isInProgress, setIsInProgress] = useState(false);
 
     const goToStep = (activeStep, onNext) => {
@@ -182,10 +193,11 @@ const Footer = ({ address, onAddErrorNotification }) => {
                 address,
                 onFail: ex => {
                     setIsInProgress(false);
-                    onAddErrorNotification(ex);
+                    setStepNotification({ step: activeStep.id, ...ex });
                 },
                 onSuccess: () => {
                     setIsInProgress(false);
+                    setStepNotification();
                     onNext();
                 }
             });
