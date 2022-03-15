@@ -20,7 +20,7 @@
 m4_define(python_required_version, 3.4)
 
 AC_PREREQ([2.63])
-AC_INIT([AnacondaWidgets], [3.3], [clumens@redhat.com])
+AC_INIT([AnacondaWidgets], [3.4], [clumens@redhat.com])
 
 # Disable building static libraries.
 # This needs to be set before initializing automake

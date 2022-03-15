@@ -58,7 +58,7 @@ from pyanaconda.ui.gui.spokes.lib.storage_dialogs import NeedSpaceDialog, NoSpac
 import gi
 gi.require_version("Gtk", "3.0")
 gi.require_version("Gdk", "3.0")
-gi.require_version("AnacondaWidgets", "3.3")
+gi.require_version("AnacondaWidgets", "3.4")
 from gi.repository import Gdk, AnacondaWidgets, Gtk
 
 log = get_module_logger(__name__)
