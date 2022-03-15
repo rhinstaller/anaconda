@@ -39,11 +39,12 @@ import { usePageLocation } from "hooks";
 const _ = cockpit.gettext;
 
 export const Application = () => {
+    const { path } = usePageLocation();
     const [address, setAddress] = useState();
+    const [conf, setConf] = useState();
     const [isStorageReady, setIsStorageReady] = useState(false);
     const [notifications, setNotifications] = useState({});
-    const [conf, setConf] = useState();
-    const { path } = usePageLocation();
+    const [stepIdReached, setStepIdReached] = useState(path[0] || "installation-language");
 
     useEffect(() => cockpit.file("/run/anaconda/bus.address").watch(address => {
         const clients = [
@@ -87,13 +88,15 @@ export const Application = () => {
             id: "installation-language",
             name: _("Installation language"),
             component: wrapWithContext(<InstallationLanguage />),
-            stepNavItemProps: { id: "installation-language" }
+            stepNavItemProps: { id: "installation-language" },
+            canJumpTo: stepIdReached === "installation-language"
         },
         {
             id: "installation-destination",
             name: _("Storage configuration"),
             component: wrapWithContext(<InstallationDestination onAddErrorNotification={onAddErrorNotification} />),
-            stepNavItemProps: { id: "installation-destination" }
+            stepNavItemProps: { id: "installation-destination" },
+            canJumpTo: ["installation-destination", "review-configuration"].includes(stepIdReached),
         },
         {
             id: "review-configuration",
@@ -101,7 +104,8 @@ export const Application = () => {
             component: wrapWithContext(<ReviewConfiguration />),
             enableNext: isStorageReady,
             nextButtonText: _("Begin installation"),
-            stepNavItemProps: { id: "review-configuration" }
+            stepNavItemProps: { id: "review-configuration" },
+            canJumpTo: ["review-configuration"].includes(stepIdReached),
         },
         {
             id: "installation-progress",
@@ -115,6 +119,12 @@ export const Application = () => {
     const goToStep = (newStep, prevStep) => {
         if (prevStep.prevId === "installation-destination") {
             applyDefaultStorage({ address, onAddErrorNotification, onSuccess: () => setIsStorageReady(true) });
+        }
+        const stepIdx = steps.findIndex(s => s.id === stepIdReached);
+        const newStepIdx = steps.findIndex(s => s.id === newStep.id);
+
+        if (newStepIdx > stepIdx) {
+            setStepIdReached(newStep.id);
         }
         cockpit.location.go([newStep.id]);
     };
