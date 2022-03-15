@@ -35,13 +35,18 @@ class TestStorage(MachineCase):
 
         b.open("/cockpit/@localhost/anaconda-webui/index.html")
 
-        b.click('#installation-destination')
+        b.click("button.pf-m-primary")
         b.expect_load()
 
         b.wait_visible('article:contains(Local standard disks)')
-        # We can't check the checked state of the checkboxes because of
-        # https://github.com/patternfly/patternfly-react/issues/6762
-        # b.wait_visible('#local-disks-checkbox-vda:checked')
+
+        # Try unselecting the single disk and expect and error
+        b.set_checked('input[name=checkbox-check-vda]', False)
+        b.click("button.pf-m-primary")
+        b.wait_in_text(".pf-c-alert.pf-m-danger", "No usable disks")
+        # Since storage configuration failed it's expected to be in the still in the storage step
+        b.wait_js_cond('window.location.hash === "#/installation-destination"')
+        b.wait_visible("#installation-destination.pf-m-current")
 
 if __name__ == '__main__':
     test_main()

@@ -158,7 +158,7 @@ export const InstallationDestination = ({ onAddErrorNotification }) => {
     );
 };
 
-export const applyDefaultStorage = ({ onAddErrorNotification, onSuccess }) => {
+export const applyDefaultStorage = ({ onFail, onSuccess }) => {
     let partitioning;
     // CLEAR_PARTITIONS_ALL = 1
     return setInitializationMode({ mode: 1 })
@@ -174,10 +174,10 @@ export const applyDefaultStorage = ({ onAddErrorNotification, onSuccess }) => {
                     onSuccess: () => (
                         applyPartitioning({ partitioning })
                                 .then(onSuccess)
-                                .catch(onAddErrorNotification)
+                                .catch(onFail)
                     ),
-                    onFail: onAddErrorNotification
+                    onFail
                 });
             })
-            .catch(onAddErrorNotification);
+            .catch(onFail);
 };

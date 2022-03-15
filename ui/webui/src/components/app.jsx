@@ -20,7 +20,9 @@ import React, { useEffect, useState } from "react";
 
 import {
     AlertGroup, AlertVariant, AlertActionCloseButton, Alert,
-    Page, Wizard
+    Button,
+    Page,
+    Wizard, WizardFooter, WizardContextConsumer,
 } from "@patternfly/react-core";
 
 import { AddressContext } from "./Common.jsx";
@@ -42,7 +44,6 @@ export const Application = () => {
     const { path } = usePageLocation();
     const [address, setAddress] = useState();
     const [conf, setConf] = useState();
-    const [isStorageReady, setIsStorageReady] = useState(false);
     const [notifications, setNotifications] = useState({});
     const [stepIdReached, setStepIdReached] = useState(path[0] || "installation-language");
 
@@ -102,8 +103,6 @@ export const Application = () => {
             id: "review-configuration",
             name: _("Review"),
             component: wrapWithContext(<ReviewConfiguration />),
-            enableNext: isStorageReady,
-            nextButtonText: _("Begin installation"),
             stepNavItemProps: { id: "review-configuration" },
             canJumpTo: ["review-configuration"].includes(stepIdReached),
         },
@@ -116,16 +115,14 @@ export const Application = () => {
         },
     ];
     const startAtStep = steps.findIndex(step => step.id === path[0]) + 1;
-    const goToStep = (newStep, prevStep) => {
-        if (prevStep.prevId === "installation-destination") {
-            applyDefaultStorage({ address, onAddErrorNotification, onSuccess: () => setIsStorageReady(true) });
-        }
+    const goToStep = (newStep) => {
         const stepIdx = steps.findIndex(s => s.id === stepIdReached);
         const newStepIdx = steps.findIndex(s => s.id === newStep.id);
 
         if (newStepIdx > stepIdx) {
             setStepIdReached(newStep.id);
         }
+
         cockpit.location.go([newStep.id]);
     };
     const title = _("Anaconda Installer");
@@ -156,9 +153,9 @@ export const Application = () => {
                 })}
             </AlertGroup>}
             <Wizard
-              cancelButtonText={_("Quit")}
               description={_("PRE-RELEASE/TESTING")}
               descriptionId="wizard-top-level-description"
+              footer={<Footer address={address} onAddErrorNotification={onAddErrorNotification} />}
               hideClose
               mainAriaLabel={`${title} content`}
               navAriaLabel={`${title} steps`}
@@ -171,5 +168,68 @@ export const Application = () => {
               titleId="wizard-top-level-title"
             />
         </Page>
+    );
+};
+
+const Footer = ({ address, onAddErrorNotification }) => {
+    const [isInProgress, setIsInProgress] = useState(false);
+
+    const goToStep = (activeStep, onNext) => {
+        if (activeStep.id === "installation-destination") {
+            setIsInProgress(true);
+
+            applyDefaultStorage({
+                address,
+                onFail: ex => {
+                    setIsInProgress(false);
+                    onAddErrorNotification(ex);
+                },
+                onSuccess: () => {
+                    setIsInProgress(false);
+                    onNext();
+                }
+            });
+        } else {
+            onNext();
+        }
+    };
+
+    return (
+        <WizardFooter>
+            <WizardContextConsumer>
+                {({ activeStep, onNext, onBack }) => {
+                    const isBackDisabled = (
+                        activeStep.id === "installation-destination" ||
+                        activeStep.id === "installation-language"
+                    );
+                    const nextButtonText = (
+                        activeStep.id === "review-configuration"
+                            ? _("Begin installation")
+                            : _("Next")
+                    );
+
+                    return (
+                        <>
+                            <Button
+                              variant="primary"
+                              isDisabled={isInProgress}
+                              isLoading={isInProgress}
+                              onClick={() => goToStep(activeStep, onNext)}>
+                                {nextButtonText}
+                            </Button>
+                            <Button
+                              variant="secondary"
+                              isDisabled={isBackDisabled}
+                              onClick={onBack}>
+                                {_("Back")}
+                            </Button>
+                            <Button variant="link">
+                                {_("Quit")}
+                            </Button>
+                        </>
+                    );
+                }}
+            </WizardContextConsumer>
+        </WizardFooter>
     );
 };
