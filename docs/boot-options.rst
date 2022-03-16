@@ -402,6 +402,16 @@ inst.waitfornet
     installation (after switchroot from early initramfs stage when the installer
     process is run).
 
+.. inst.net.noautodefault
+
+inst.net.noautodefault
+^^^^^^^^^^^^^^^^^^^^^^
+
+Configures NetworkManager so that it does not create default automatic
+connections, which are the wired connections created and activated for any
+Ethernet device that does not have a connection configured. These connections
+are created in installer environment by NetworkManager during its start in post
+switch-root stage of installation and are passed also to installed system.
 
 Console / Display Options
 -------------------------

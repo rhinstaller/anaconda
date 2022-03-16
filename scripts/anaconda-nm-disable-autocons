@@ -1,0 +1,5 @@
+#!/bin/sh
+cat > /etc/NetworkManager/conf.d/90-anaconda-no-auto-default.conf << EOF
+[main]
+no-auto-default=*
+EOF

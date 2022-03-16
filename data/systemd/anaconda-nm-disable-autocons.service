@@ -1,0 +1,9 @@
+[Unit]
+ConditionKernelCommandLine=inst.net.noautodefault
+Description=NetworkManager autoconnections configuration for Anaconda installation environment
+Before=NetworkManager.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/anaconda-nm-disable-autocons
+

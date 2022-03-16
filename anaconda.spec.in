@@ -371,6 +371,7 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/lib/systemd/system-generators/*
 %{_bindir}/instperf
 %{_bindir}/anaconda-disable-nm-ibft-plugin
+%{_bindir}/anaconda-nm-disable-autocons
 %{_sbindir}/anaconda
 %{_sbindir}/handle-sshpw
 %{_datadir}/anaconda

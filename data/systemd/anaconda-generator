@@ -42,4 +42,5 @@ for tty in hvc0 hvc1 xvc0 hvsi0 hvsi1 hvsi2; do
 done
 
 ln -sf $systemd_dir/anaconda-nm-config.service $target_dir/anaconda-nm-config.service
+ln -sf $systemd_dir/anaconda-nm-disable-autocons.service $target_dir/anaconda-nm-disable-autocons.service
 ln -sf $systemd_dir/anaconda-pre.service $target_dir/anaconda-pre.service
