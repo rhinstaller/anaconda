@@ -51,7 +51,7 @@ export class InstallationProgress extends React.Component {
                             if (step === 0) {
                                 getSteps({ task: tasks[0] })
                                         .then(
-                                            ret => this.setState({ steps: ret[0].v }),
+                                            ret => this.setState({ steps: ret.v }),
                                             this.props.onAddErrorNotification
                                         );
                             }

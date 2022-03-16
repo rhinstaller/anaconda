@@ -51,7 +51,8 @@ export const getSteps = ({ task }) => {
         "org.freedesktop.DBus.Properties",
         "Get",
         ["org.fedoraproject.Anaconda.Task", "Steps"]
-    );
+    )
+            .then(ret => ret[0]);
 };
 
 /**
