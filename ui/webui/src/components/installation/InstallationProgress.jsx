@@ -26,7 +26,7 @@ import {
 
 import { AddressContext } from "../Common.jsx";
 
-import { bossClient, installWithTasks } from "../../apis/boss.js";
+import { BossClient, getSteps, installWithTasks } from "../../apis/boss.js";
 
 import "./InstallationProgress.scss";
 
@@ -39,25 +39,28 @@ export class InstallationProgress extends React.Component {
     }
 
     componentDidMount () {
-        const client = bossClient({ address: this.context });
-        installWithTasks({ address: this.context })
+        installWithTasks()
                 .then(tasks => {
-                    const taskProxy = client.proxy(
+                    const taskProxy = new BossClient().client.proxy(
                         "org.fedoraproject.Anaconda.Task",
                         tasks[0]
                     );
+
                     const addEventListeners = () => {
                         taskProxy.addEventListener("ProgressChanged", (_, step, message) => {
+                            if (step === 0) {
+                                getSteps({ task: tasks[0] })
+                                        .then(
+                                            ret => this.setState({ steps: ret.v }),
+                                            this.props.onAddErrorNotification
+                                        );
+                            }
                             this.setState({ message, step });
                         });
                         taskProxy.addEventListener("Failed", () => {
                             this.setState({ status: "danger" });
                         });
-                        taskProxy.addEventListener("Started", () => {
-                            this.setState({ progress: 50 });
-                        });
                         taskProxy.addEventListener("Stopped", () => {
-                            this.setState({ progress: 100 });
                             taskProxy.Finish().catch(this.props.onAddErrorNotification);
                         });
                         taskProxy.addEventListener("Succeeded", () => {
@@ -66,16 +69,13 @@ export class InstallationProgress extends React.Component {
                     };
                     taskProxy.wait(() => {
                         addEventListeners();
-                        taskProxy.Start().then(() => {
-                            this.setState({ steps: taskProxy.Steps });
-                        }, console.error);
+                        taskProxy.Start().catch(console.error);
                     });
                 }, console.error);
     }
 
     render () {
-        const { steps, step, status, progress, message } = this.state;
-        const label = cockpit.format("Step $0: $1", step, message);
+        const { steps, step, status, message } = this.state;
 
         if (steps === undefined) { return null }
 
@@ -85,10 +85,12 @@ export class InstallationProgress extends React.Component {
                     <EmptyStateBody>
                         <Progress
                           id="installation-progress"
-                          label={label}
-                          title={_("Running installation")}
-                          value={progress}
-                          valueText={label}
+                          label={cockpit.format("$0 of $1", step, steps)}
+                          max={steps}
+                          min={0}
+                          title={message}
+                          value={step}
+                          valueText={cockpit.format("$0 of $1", step, steps)}
                           variant={status}
                         />
                     </EmptyStateBody>

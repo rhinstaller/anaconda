@@ -47,19 +47,19 @@ class LanguageSelector extends React.Component {
     }
 
     componentDidMount () {
-        getLanguages({ address: this.context }).then(ret => {
+        getLanguages().then(ret => {
             const languages = ret;
             // Create the languages state object
-            Promise.all(languages.map(lang => getLanguageData({ address: this.context, lang })))
+            Promise.all(languages.map(lang => getLanguageData({ lang })))
                     .then(langs => this.setState({ languages: langs }));
 
             // Create the locales state object
-            Promise.all(languages.map(lang => getLocales({ address: this.context, lang })))
+            Promise.all(languages.map(lang => getLocales({ lang })))
                     .then(res => {
                         return Promise.all(
                             res.map(langLocales => {
                                 return Promise.all(langLocales.map(locale =>
-                                    getLocaleData({ address: this.context, locale })
+                                    getLocaleData({ locale })
                                 ));
                             })
                         );
