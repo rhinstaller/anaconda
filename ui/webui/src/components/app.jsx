@@ -184,7 +184,7 @@ export const Application = () => {
                 })}
             </AlertGroup>}
             <Wizard
-              footer={<Footer setStepNotification={setStepNotification} address={address} />}
+              footer={<Footer setStepNotification={setStepNotification} />}
               mainAriaLabel={`${title} content`}
               navAriaLabel={`${title} steps`}
               onBack={goToStep}
@@ -198,7 +198,7 @@ export const Application = () => {
     );
 };
 
-const Footer = ({ address, setStepNotification }) => {
+const Footer = ({ setStepNotification }) => {
     const [isInProgress, setIsInProgress] = useState(false);
 
     const goToStep = (activeStep, onNext) => {
@@ -206,7 +206,6 @@ const Footer = ({ address, setStepNotification }) => {
             setIsInProgress(true);
 
             applyDefaultStorage({
-                address,
                 onFail: ex => {
                     setIsInProgress(false);
                     setStepNotification({ step: activeStep.id, ...ex });
