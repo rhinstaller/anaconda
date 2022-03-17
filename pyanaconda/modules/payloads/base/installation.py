@@ -57,7 +57,8 @@ class InstallFromImageTask(Task):
         args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/", "--exclude", "/tmp/*",
                 "--exclude", "/sys/", "--exclude", "/run/", "--exclude", "/boot/*rescue*",
                 "--exclude", "/boot/loader/", "--exclude", "/boot/efi/loader/",
-                "--exclude", "/etc/machine-id", INSTALL_TREE + "/", self._dest_path]
+                "--exclude", "/etc/machine-id", "--exclude", "/etc/machine-info",
+                INSTALL_TREE + "/", self._dest_path]
         try:
             rc = execWithRedirect(cmd, args)
         except (OSError, RuntimeError) as e:
