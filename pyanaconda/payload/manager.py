@@ -231,7 +231,7 @@ class PayloadManager(object):
 
         # Gather the group data
         self._set_state(PayloadState.DOWNLOADING_GROUP_METADATA)
-        payload.gather_repo_metadata()
+        payload.dnf_manager.load_packages_metadata()
 
         # Check if that failed
         if not payload.is_ready():

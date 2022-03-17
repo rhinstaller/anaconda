@@ -898,6 +898,9 @@ class DNFManager(object):
         If the repo is enabled, load its metadata to verify that
         the repo is valid. An invalid repo will be disabled.
 
+        This method will by default not try to refresh already
+        loaded data if called repeatedly.
+
         :param str repo_id: an identifier of a repository
         :raise: MetadataError if the metadata cannot be loaded
         """

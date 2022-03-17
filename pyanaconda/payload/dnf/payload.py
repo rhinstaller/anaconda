@@ -444,16 +444,6 @@ class DNFPayload(Payload):
         if repo:
             repo.enabled = enabled
 
-    def gather_repo_metadata(self):
-        for repo_id in self.dnf_manager.enabled_repositories:
-            try:
-                self.dnf_manager.load_repository(repo_id)
-            except MetadataError as e:
-                self.verbose_errors.append(str(e))
-                self._set_repo_enabled(repo_id, False)
-
-        self.dnf_manager.load_packages_metadata()
-
     def install(self):
         self._progress_cb(0, _('Starting package installation process'))
 
@@ -684,6 +674,7 @@ class DNFPayload(Payload):
 
         self._include_additional_repositories()
         self._disable_unwanted_repositories()
+        self._validate_enabled_repositories()
 
     def _include_additional_repositories(self):
         """Add additional repositories to DNF."""
@@ -693,6 +684,7 @@ class DNFPayload(Payload):
 
             log.debug("repo %s: mirrorlist %s, baseurl %s, metalink %s",
                       ksrepo.name, ksrepo.mirrorlist, ksrepo.baseurl, ksrepo.metalink)
+
             # one of these must be set to create new repo
             if not (ksrepo.mirrorlist or ksrepo.baseurl or ksrepo.metalink or
                     ksrepo.name in self._base.repos):
@@ -712,6 +704,21 @@ class DNFPayload(Payload):
                     self._dnf_manager.set_repository_enabled(id_, False)
                 elif constants.isFinal and 'rawhide' in id_:
                     self._dnf_manager.set_repository_enabled(id_, False)
+
+    def _validate_enabled_repositories(self):
+        """Validate all enabled repositories.
+
+        Collect error messages about invalid repositories.
+        All invalid repositories are disabled.
+
+        The user repositories are validated when we add them
+        to DNF, so this covers invalid system repositories.
+        """
+        for repo_id in self.dnf_manager.enabled_repositories:
+            try:
+                self.dnf_manager.load_repository(repo_id)
+            except MetadataError as e:
+                self.verbose_errors.append(str(e))
 
     def _find_and_mount_iso(self, device, device_mount_dir, iso_path, iso_mount_dir):
         """Find and mount installation source from ISO on device.
