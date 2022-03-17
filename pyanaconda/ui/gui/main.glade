@@ -83,6 +83,7 @@
     <child internal-child="vbox">
       <object class="GtkBox" id="quitDialog-vbox1">
         <property name="can_focus">False</property>
+        <property name="border_width">6</property>
         <property name="orientation">vertical</property>
         <property name="spacing">24</property>
         <child internal-child="action_area">
@@ -136,7 +137,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="icon_name">application-exit-symbolic</property>
-                <property name="icon_size">6</property>
+                <property name="icon_size">5</property>
               </object>
               <packing>
                 <property name="expand">False</property>
