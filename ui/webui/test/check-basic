@@ -51,7 +51,9 @@ class TestBasic(MachineCase):
             # we at least iterate over them to check this works as expected
             b.wait_js_cond(f'window.location.hash === "#/{page}"')
             b.wait_visible("#" + page + ".pf-m-current")
-            b.click("button.pf-m-primary")
+            # Do not start the installation in non-destructive tests as this performs non revertible changes
+            if page != 'review-configuration':
+                b.click("button.pf-m-primary")
             if page == 'installation-language':
                 b.expect_load()
 
