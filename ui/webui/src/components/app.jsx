@@ -20,18 +20,12 @@ import React, { useEffect, useState } from "react";
 
 import {
     AlertGroup, AlertVariant, AlertActionCloseButton, Alert,
-    Button,
     Page,
-    Stack,
-    Wizard, WizardFooter, WizardContextConsumer,
 } from "@patternfly/react-core";
 
 import { AddressContext } from "./Common.jsx";
 import { AnacondaHeader } from "./AnacondaHeader.jsx";
-import { InstallationDestination, applyDefaultStorage } from "./storage/InstallationDestination.jsx";
-import { InstallationLanguage } from "./installation/InstallationLanguage.jsx";
-import { InstallationProgress } from "./installation/InstallationProgress.jsx";
-import { ReviewConfiguration } from "./installation/ReviewConfiguration.jsx";
+import { AnacondaWizard } from "./AnacondaWizard.jsx";
 
 import { readConf } from "../helpers/conf.js";
 import { BossClient } from "../apis/boss.js";
@@ -39,77 +33,13 @@ import { LocalizationClient } from "../apis/localization.js";
 import { StorageClient } from "../apis/storage.js";
 import { readBuildstamp, getIsFinal } from "../helpers/betanag.js";
 
-import { usePageLocation } from "hooks";
-
 const _ = cockpit.gettext;
 
-const getStep = ({ address, currentStepId, onAddErrorNotification, stepNotification, stepsOrder, stepsVisited }) => {
-    const wrapWithContext = (children) => {
-        return (
-            <AddressContext.Provider value={address}>
-                <Stack hasGutter>
-                    {stepNotification &&
-                     (stepNotification.step === currentStepId) &&
-                     <Alert
-                       isInline
-                       title={stepNotification.message}
-                       variant="danger"
-                     />}
-                    {children}
-                </Stack>
-            </AddressContext.Provider>
-        );
-    };
-
-    return stepsOrder.map((s, idx) => {
-        const Renderer = s.component;
-
-        return ({
-            id: s.id,
-            name: s.label,
-            component: wrapWithContext(<Renderer onAddErrorNotification={onAddErrorNotification} />),
-            stepNavItemProps: { id: s.id },
-            canJumpTo: idx === 0 ? currentStepId == s.id : stepsVisited.includes(s.id),
-            isFinishedStep: idx === stepsOrder.length - 1
-        });
-    });
-};
-
 export const Application = () => {
-    const stepsOrder = [
-        {
-            component: InstallationLanguage,
-            id: "installation-language",
-            label: _("Installation language"),
-        },
-        {
-            component: InstallationDestination,
-            id: "installation-destination",
-            label: _("Storage configuration"),
-        },
-        {
-            component: ReviewConfiguration,
-            id: "review-configuration",
-            label: _("Review"),
-        },
-        {
-            component: InstallationProgress,
-            id: "installation-progress",
-            label: _("Installation progress"),
-        }
-    ];
-
-    const { path } = usePageLocation();
     const [address, setAddress] = useState();
     const [beta, setBeta] = useState();
     const [conf, setConf] = useState();
-    const currentStepId = path[0] || "installation-language";
     const [notifications, setNotifications] = useState({});
-    const [stepNotification, setStepNotification] = useState();
-    const [stepsVisited, setStepsVisited] = useState(
-        stepsOrder.slice(0, stepsOrder.findIndex(step => step.id === currentStepId) + 1)
-                .map(step => step.id)
-    );
 
     useEffect(() => cockpit.file("/run/anaconda/bus.address").watch(address => {
         const clients = [
@@ -149,13 +79,6 @@ export const Application = () => {
     }
     console.info("conf: ", conf);
 
-    const steps = getSteps({ address, currentStepId, onAddErrorNotification, stepNotification, stepsOrder, stepsVisited });
-    const startAtStep = steps.findIndex(step => step.id === path[0]) + 1;
-    const goToStep = (newStep) => {
-        setStepsVisited([ ...stepsVisited, newStep.id ]);
-
-        cockpit.location.go([newStep.id]);
-    };
     const title = _("Anaconda Installer");
 
     return (
@@ -191,79 +114,9 @@ export const Application = () => {
                     );
                 })}
             </AlertGroup>}
-            <Wizard
-              footer={<Footer setStepNotification={setStepNotification} />}
-              mainAriaLabel={`${title} content`}
-              navAriaLabel={`${title} steps`}
-              onBack={goToStep}
-              onGoToStep={goToStep}
-              onNext={goToStep}
-              startAtStep={startAtStep}
-              steps={steps}
-            />
+            <AddressContext.Provider value={address}>
+                <AnacondaWizard onAddErrorNotification={onAddErrorNotification} title={title} />
+            </AddressContext.Provider>
         </Page>
-    );
-};
-
-const Footer = ({ setStepNotification }) => {
-    const [isInProgress, setIsInProgress] = useState(false);
-
-    const goToStep = (activeStep, onNext) => {
-        if (activeStep.id === "installation-destination") {
-            setIsInProgress(true);
-
-            applyDefaultStorage({
-                onFail: ex => {
-                    setIsInProgress(false);
-                    setStepNotification({ step: activeStep.id, ...ex });
-                },
-                onSuccess: () => {
-                    setIsInProgress(false);
-                    setStepNotification();
-                    onNext();
-                }
-            });
-        } else {
-            onNext();
-        }
-    };
-
-    return (
-        <WizardFooter>
-            <WizardContextConsumer>
-                {({ activeStep, onNext, onBack }) => {
-                    const isBackDisabled = (
-                        activeStep.id === "installation-destination" ||
-                        activeStep.id === "installation-language"
-                    );
-                    const nextButtonText = (
-                        activeStep.id === "review-configuration"
-                            ? _("Begin installation")
-                            : _("Next")
-                    );
-
-                    return (
-                        <>
-                            <Button
-                              variant="primary"
-                              isDisabled={isInProgress}
-                              isLoading={isInProgress}
-                              onClick={() => goToStep(activeStep, onNext)}>
-                                {nextButtonText}
-                            </Button>
-                            <Button
-                              variant="secondary"
-                              isDisabled={isBackDisabled}
-                              onClick={onBack}>
-                                {_("Back")}
-                            </Button>
-                            <Button variant="link">
-                                {_("Quit")}
-                            </Button>
-                        </>
-                    );
-                }}
-            </WizardContextConsumer>
-        </WizardFooter>
     );
 };
