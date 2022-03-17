@@ -43,14 +43,73 @@ import { usePageLocation } from "hooks";
 
 const _ = cockpit.gettext;
 
+const getStep = ({ address, currentStepId, onAddErrorNotification, stepNotification, stepsOrder, stepsVisited }) => {
+    const wrapWithContext = (children) => {
+        return (
+            <AddressContext.Provider value={address}>
+                <Stack hasGutter>
+                    {stepNotification &&
+                     (stepNotification.step === currentStepId) &&
+                     <Alert
+                       isInline
+                       title={stepNotification.message}
+                       variant="danger"
+                     />}
+                    {children}
+                </Stack>
+            </AddressContext.Provider>
+        );
+    };
+
+    return stepsOrder.map((s, idx) => {
+        const Renderer = s.component;
+
+        return ({
+            id: s.id,
+            name: s.label,
+            component: wrapWithContext(<Renderer onAddErrorNotification={onAddErrorNotification} />),
+            stepNavItemProps: { id: s.id },
+            canJumpTo: idx === 0 ? currentStepId == s.id : stepsVisited.includes(s.id),
+            isFinishedStep: idx === stepsOrder.length - 1
+        });
+    });
+};
+
 export const Application = () => {
+    const stepsOrder = [
+        {
+            component: InstallationLanguage,
+            id: "installation-language",
+            label: _("Installation language"),
+        },
+        {
+            component: InstallationDestination,
+            id: "installation-destination",
+            label: _("Storage configuration"),
+        },
+        {
+            component: ReviewConfiguration,
+            id: "review-configuration",
+            label: _("Review"),
+        },
+        {
+            component: InstallationProgress,
+            id: "installation-progress",
+            label: _("Installation progress"),
+        }
+    ];
+
     const { path } = usePageLocation();
     const [address, setAddress] = useState();
     const [beta, setBeta] = useState();
     const [conf, setConf] = useState();
+    const currentStepId = path[0] || "installation-language";
     const [notifications, setNotifications] = useState({});
     const [stepNotification, setStepNotification] = useState();
-    const [stepIdReached, setStepIdReached] = useState(path[0] || "installation-language");
+    const [stepsVisited, setStepsVisited] = useState(
+        stepsOrder.slice(0, stepsOrder.findIndex(step => step.id === currentStepId) + 1)
+                .map(step => step.id)
+    );
 
     useEffect(() => cockpit.file("/run/anaconda/bus.address").watch(address => {
         const clients = [
@@ -88,63 +147,12 @@ export const Application = () => {
     if (!address || !conf) {
         return null;
     }
-
     console.info("conf: ", conf);
-    const wrapWithContext = (children) => {
-        return (
-            <AddressContext.Provider value={address}>
-                <Stack hasGutter>
-                    {stepNotification &&
-                     (path[0] === stepNotification.step || (!path[0] && stepNotification.step === "installation-language")) &&
-                     <Alert
-                       isInline
-                       title={stepNotification.message}
-                       variant="danger"
-                     />}
-                    {children}
-                </Stack>
-            </AddressContext.Provider>
-        );
-    };
 
-    const steps = [
-        {
-            id: "installation-language",
-            name: _("Installation language"),
-            component: wrapWithContext(<InstallationLanguage />),
-            stepNavItemProps: { id: "installation-language" },
-            canJumpTo: stepIdReached === "installation-language"
-        },
-        {
-            id: "installation-destination",
-            name: _("Storage configuration"),
-            component: wrapWithContext(<InstallationDestination onAddErrorNotification={onAddErrorNotification} />),
-            stepNavItemProps: { id: "installation-destination" },
-            canJumpTo: ["installation-destination", "review-configuration"].includes(stepIdReached),
-        },
-        {
-            id: "review-configuration",
-            name: _("Review"),
-            component: wrapWithContext(<ReviewConfiguration />),
-            stepNavItemProps: { id: "review-configuration" },
-            canJumpTo: ["review-configuration"].includes(stepIdReached),
-        },
-        {
-            id: "installation-progress",
-            name: _("Installation progress"),
-            component: wrapWithContext(<InstallationProgress onAddErrorNotification={onAddErrorNotification} />),
-            stepNavItemProps: { id: "installation-progress" },
-            isFinishedStep: true
-        },
-    ];
+    const steps = getSteps({ address, currentStepId, onAddErrorNotification, stepNotification, stepsOrder, stepsVisited });
     const startAtStep = steps.findIndex(step => step.id === path[0]) + 1;
     const goToStep = (newStep) => {
-        const stepIdx = steps.findIndex(s => s.id === stepIdReached);
-        const newStepIdx = steps.findIndex(s => s.id === newStep.id);
-
-        if (newStepIdx > stepIdx) {
-            setStepIdReached(newStep.id);
-        }
+        setStepsVisited([ ...stepsVisited, newStep.id ]);
 
         cockpit.location.go([newStep.id]);
     };
