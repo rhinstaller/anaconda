@@ -407,6 +407,16 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Mar 17 2022 Radek Vykydal <rvykydal@redhat.com> - 34.25.1.1-1
+- Make failure in generating of dracut arguments for iSCSI device non-fatal.
+  (rvykydal)
+  Resolves: rhbz#2065171
+- Do not generate dracut arguments multiple times for some storage devices
+  (rvykydal)
+  Related: rhbz#2065171
+- Skip /etc/machine-info during live installs (awilliam)
+  Resolves: rhbz#2065170
+
 * Thu Feb 24 2022 Vendula Poncova <vponcova@redhat.com> - 34.25.0.27-1
 - Use cache when fetching organization data from the GUI (mkolman)
   Resolves: rhbz#2044258
