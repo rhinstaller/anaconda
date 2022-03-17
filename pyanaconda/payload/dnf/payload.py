@@ -369,26 +369,6 @@ class DNFPayload(Payload):
 
         return repo
 
-    def _add_repo_to_dnf_and_ks(self, ksrepo):
-        """Add an enabled repo to dnf and kickstart repo lists.
-
-        Add the repo given by the pykickstart Repo object ksrepo to the
-        system.
-
-        Duplicate repos will not raise an error.  They should just silently
-        take the place of the previous value.
-
-        :param ksrepo: Kickstart Repository to add
-        :type ksrepo: Kickstart RepoData object.
-        :returns: None
-        """
-        if ksrepo.enabled:
-            self._add_repo_to_dnf(ksrepo)
-            self._dnf_manager.load_repository(ksrepo.name)
-
-        # Add the repo to the ksdata so it'll appear in the output ks file.
-        self.data.repo.dataList().append(ksrepo)
-
     def _add_repo_to_dnf(self, ksrepo):
         """Add a repo to the dnf repo object.
 
@@ -892,7 +872,14 @@ class DNFPayload(Payload):
             log.debug("Adding new treeinfo repository: %s enabled: %s",
                       repo_md.name, repo_enabled)
 
-            self._add_repo_to_dnf_and_ks(repo)
+            # Validate the repository.
+            if repo.enabled:
+                self._add_repo_to_dnf(repo)
+                self._dnf_manager.load_repository(repo.name)
+
+            # Add the repository to user repositories,
+            # so it'll appear in the output ks file.
+            self.data.repo.dataList().append(repo)
 
     def _cleanup_old_treeinfo_repositories(self):
         """Remove all old treeinfo repositories before loading new ones.
