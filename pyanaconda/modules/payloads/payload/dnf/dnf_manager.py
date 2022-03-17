@@ -916,6 +916,26 @@ class DNFManager(object):
 
         log.info("Loaded metadata from '%s'.", url)
 
+    def load_packages_metadata(self):
+        """Load metadata about packages in available repositories.
+
+        Load all enabled repositories and process their metadata.
+        It will update the cache that provides information about
+        available packages, modules, groups and environments.
+        """
+        # Load all enabled repositories.
+        # Set up the package sack.
+        self._base.fill_sack(
+            load_system_repo=False,
+            load_available_repos=True,
+        )
+        # Load the comps metadata.
+        self._base.read_comps(
+            arch_filter=True
+        )
+
+        log.info("Loaded packages and group metadata.")
+
     def load_repomd_hashes(self):
         """Load a hash of the repomd.xml file for each enabled repository."""
         self._md_hashes = self._get_repomd_hashes()

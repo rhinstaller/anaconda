@@ -1254,6 +1254,17 @@ class DNFManagerReposTestCase(unittest.TestCase):
         repo.load.assert_called_once()
         assert repo.enabled is True
 
+    def test_load_packages_metadata(self):
+        """Test the load_packages_metadata method."""
+        sack = self.dnf_manager._base.sack
+        comps = self.dnf_manager._base.comps
+
+        self.dnf_manager.load_packages_metadata()
+
+        # The metadata should be reloaded.
+        assert sack != self.dnf_manager._base.sack
+        assert comps != self.dnf_manager._base.comps
+
     def _create_repo(self, repo, repo_dir):
         """Generate fake metadata for the repo."""
         # Create the repodata directory.

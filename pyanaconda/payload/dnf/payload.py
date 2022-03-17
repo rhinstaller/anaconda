@@ -476,8 +476,8 @@ class DNFPayload(Payload):
         with self._repos_lock:
             for repo in self._base.repos.iter_enabled():
                 self._sync_metadata(repo)
-        self._base.fill_sack(load_system_repo=False)
-        self._base.read_comps(arch_filter=True)
+
+        self.dnf_manager.load_packages_metadata()
 
     def install(self):
         self._progress_cb(0, _('Starting package installation process'))
