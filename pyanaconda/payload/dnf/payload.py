@@ -38,7 +38,8 @@ from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTa
 from pyanaconda.modules.payloads.payload.dnf.repositories import generate_driver_disk_repositories
 from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_version_list, \
     calculate_required_space
-from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, DNFManagerError
+from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, DNFManagerError, \
+    MetadataError
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 
 from pyanaconda.anaconda_loggers import get_packaging_logger
@@ -354,17 +355,6 @@ class DNFPayload(Payload):
         self._dnf_manager.configure_proxy(self._get_proxy_url())
         self._dnf_manager.dump_configuration()
 
-    def _sync_metadata(self, dnf_repo):
-        try:
-            dnf_repo.load()
-        except dnf.exceptions.RepoError as e:
-            id_ = dnf_repo.id
-            log.info('_sync_metadata: addon repo error: %s', e)
-            self._set_repo_enabled(id_, False)
-            self.verbose_errors.append(str(e))
-        log.debug('repo %s: _sync_metadata success from %s', dnf_repo.id,
-                  dnf_repo.baseurl or dnf_repo.mirrorlist or dnf_repo.metalink)
-
     ###
     # METHODS FOR WORKING WITH REPOSITORIES
     ###
@@ -473,9 +463,12 @@ class DNFPayload(Payload):
             repo.enabled = enabled
 
     def gather_repo_metadata(self):
-        with self._repos_lock:
-            for repo in self._base.repos.iter_enabled():
-                self._sync_metadata(repo)
+        for repo_id in self.dnf_manager.enabled_repositories:
+            try:
+                self.dnf_manager.load_repository(repo_id)
+            except MetadataError as e:
+                self.verbose_errors.append(str(e))
+                self._set_repo_enabled(repo_id, False)
 
         self.dnf_manager.load_packages_metadata()
 
