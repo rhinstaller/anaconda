@@ -102,6 +102,7 @@ class DNFManager(object):
         self._ignore_broken_packages = False
         self._download_location = None
         self._md_hashes = {}
+        self._enabled_system_repositories = []
 
     @property
     def _base(self):
@@ -159,6 +160,7 @@ class DNFManager(object):
         self._ignore_broken_packages = False
         self._download_location = None
         self._md_hashes = {}
+        self._enabled_system_repositories = []
         log.debug("The DNF base has been reset.")
 
     def configure_base(self, data: PackagesConfigurationData):
@@ -475,6 +477,7 @@ class DNFManager(object):
 
     def clear_cache(self):
         """Clear the DNF cache."""
+        self._enabled_system_repositories = []
         shutil.rmtree(DNF_CACHE_DIR, ignore_errors=True)
         shutil.rmtree(DNF_PLUGINCONF_DIR, ignore_errors=True)
         self._base.reset(sack=True, repos=True, goal=True)
@@ -891,6 +894,44 @@ class DNFManager(object):
         else:
             repo.disable()
             log.info("The '%s' repository is disabled.", repo_id)
+
+    def read_system_repositories(self):
+        """Read the system repositories.
+
+        Read all repositories from the installation environment.
+        Make a note of which are enabled, and then disable them all.
+
+        Disabled system repositories can be restored later with
+        restore_system_repositories.
+        """
+        with self._lock:
+            # Make sure that there are no repositories yet. Otherwise,
+            # the code bellow will produce unexpected results.
+            if self.repositories:
+                raise RuntimeError("The DNF repo cache is not cleared.")
+
+            log.debug("Read system repositories.")
+            self._base.read_all_repos()
+
+            # Remember enabled system repositories.
+            self._enabled_system_repositories = list(self.enabled_repositories)
+
+            log.debug("Disable system repositories.")
+            self._base.repos.all().disable()
+
+    def restore_system_repositories(self):
+        """Restore the system repositories.
+
+        Enable repositories from the installation environment that
+        were disabled in read_system_repositories.
+        """
+        log.debug("Restore system repositories.")
+
+        for repo_id in self._enabled_system_repositories:
+            try:
+                self.set_repository_enabled(repo_id, True)
+            except UnknownRepositoryError:
+                log.debug("There is no '%s' repository to enable.", repo_id)
 
     def load_repository(self, repo_id):
         """Download repo metadata.

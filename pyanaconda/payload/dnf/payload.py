@@ -580,6 +580,7 @@ class DNFPayload(Payload):
         self._dnf_manager.clear_cache()
         self._dnf_manager.reset_substitution()
         self._dnf_manager.configure_proxy(self._get_proxy_url())
+        self._dnf_manager.read_system_repositories()
 
         log.info("Configuring the base repo")
         disabled_treeinfo_repo_names = self._cleanup_old_treeinfo_repositories()
@@ -597,23 +598,6 @@ class DNFPayload(Payload):
 
         # Set up the source.
         set_up_sources(self.proxy)
-
-        # Read in all the repos from the installation environment, make a note of which
-        # are enabled, and then disable them all.  If the user gave us a method, we want
-        # to use that instead of the default repos.
-        self._base.read_all_repos()
-
-        # Enable or disable updates.
-        self.set_updates_enabled(self._updates_enabled)
-
-        # Repo files are always loaded from the system.
-        # When reloaded their state needs to be synchronized with the user configuration.
-        # So we disable them now and enable them later if required.
-        enabled = []
-        with self._repos_lock:
-            for repo in self._base.repos.iter_enabled():
-                enabled.append(repo.id)
-                self._dnf_manager.set_repository_enabled(repo.id, False)
 
         # Add a new repo.
         if source_type not in SOURCE_REPO_FILE_TYPES:
@@ -700,12 +684,10 @@ class DNFPayload(Payload):
                 return
 
             # Otherwise, fall back to the default repos that we disabled above
-            for repo_id in enabled:
-                log.debug("repo %s: fall back enabled from default repos", repo_id)
-                try:
-                    self._dnf_manager.set_repository_enabled(repo_id, True)
-                except UnknownRepositoryError:
-                    pass
+            self._dnf_manager.restore_system_repositories()
+
+            # Enable or disable updates.
+            self.set_updates_enabled(self._updates_enabled)
 
         self._include_additional_repositories()
         self._disable_unwanted_repositories()

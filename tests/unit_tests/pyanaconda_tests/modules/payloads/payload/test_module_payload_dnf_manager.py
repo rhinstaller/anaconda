@@ -1227,6 +1227,55 @@ class DNFManagerReposTestCase(unittest.TestCase):
             """
         )
 
+    def test_read_system_repositories(self):
+        """Test the read_system_repositories method."""
+        self.dnf_manager.read_system_repositories()
+
+        # There should be some repositories in the testing environment.
+        assert self.dnf_manager.repositories
+
+        # All these repositories should be disabled.
+        assert not self.dnf_manager.enabled_repositories
+
+        # However, we should remember which ones were enabled.
+        assert self.dnf_manager._enabled_system_repositories
+
+        for repo_id in self.dnf_manager._enabled_system_repositories:
+            assert repo_id in self.dnf_manager.repositories
+
+        # Don't read system repositories again.
+        with pytest.raises(RuntimeError):
+            self.dnf_manager.read_system_repositories()
+
+        # Unless we cleared the cache.
+        self.dnf_manager.clear_cache()
+        assert not self.dnf_manager._enabled_system_repositories
+        self.dnf_manager.read_system_repositories()
+
+        # Or reset the base.
+        self.dnf_manager.reset_base()
+        assert not self.dnf_manager._enabled_system_repositories
+        self.dnf_manager.read_system_repositories()
+
+    def test_restore_system_repositories(self):
+        """Test the restore_system_repositories."""
+        # Read repositories from the testing environment and disable them.
+        self.dnf_manager.read_system_repositories()
+        assert not self.dnf_manager.enabled_repositories
+        assert self.dnf_manager._enabled_system_repositories
+
+        # Re-enable repositories from the testing environment.
+        self.dnf_manager.restore_system_repositories()
+        assert self.dnf_manager.enabled_repositories
+        assert self.dnf_manager._enabled_system_repositories
+
+        assert self.dnf_manager.enabled_repositories == \
+            self.dnf_manager._enabled_system_repositories
+
+        # Skip unknown repositories.
+        self.dnf_manager._enabled_system_repositories.append("r1")
+        self.dnf_manager.restore_system_repositories()
+
     def test_load_repository_unknown(self):
         """Test the load_repository method with an unknown repo."""
         with pytest.raises(UnknownRepositoryError):
