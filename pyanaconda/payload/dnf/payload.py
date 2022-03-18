@@ -487,14 +487,6 @@ class DNFPayload(Payload):
         """
         self._updates_enabled = state
 
-        # Enable or disable updates.
-        for repo_id in conf.payload.updates_repositories:
-            self._set_repo_enabled(repo_id, state)
-
-        # Disable updates-testing.
-        self._set_repo_enabled("updates-testing", False)
-        self._set_repo_enabled("updates-testing-modular", False)
-
     def _set_repo_enabled(self, repo_id, enabled):
         """Enable or disable the repo in DNF and its data representation."""
         try:
@@ -684,14 +676,42 @@ class DNFPayload(Payload):
                 return
 
             # Otherwise, fall back to the default repos that we disabled above
-            self._dnf_manager.restore_system_repositories()
-
-            # Enable or disable updates.
-            self.set_updates_enabled(self._updates_enabled)
+            self._enable_system_repositories()
 
         self._include_additional_repositories()
-        self._disable_unwanted_repositories()
         self._validate_enabled_repositories()
+
+    def _enable_system_repositories(self):
+        """Enable system repositories.
+
+        * Restore previously disabled system repositories.
+        * Enable or disable system repositories based on the current configuration.
+        """
+        self._dnf_manager.restore_system_repositories()
+
+        log.debug("Enable or disable updates repositories.")
+        self._set_repositories_enabled(conf.payload.updates_repositories, self._updates_enabled)
+
+        log.debug("Disable repositories based on the Anaconda configuration file.")
+        self._set_repositories_enabled(conf.payload.disabled_repositories, False)
+
+        if constants.isFinal:
+            log.debug("Disable rawhide repositories.")
+            self._set_repositories_enabled(["*rawhide*"], False)
+
+    def _set_repositories_enabled(self, patterns, enabled):
+        """Enable or disable matching repositories.
+
+        :param patterns: a list of patterns to match the repo ids
+        :param enabled: True to enable, False to disable
+        """
+        repo_ids = set()
+
+        for pattern in patterns:
+            repo_ids.update(self._dnf_manager.get_matching_repositories(pattern))
+
+        for repo_id in sorted(repo_ids):
+            self.dnf_manager.set_repository_enabled(repo_id, enabled)
 
     def _include_additional_repositories(self):
         """Add additional repositories to DNF."""
@@ -709,16 +729,6 @@ class DNFPayload(Payload):
 
             # Set up additional sources.
             self._add_repo_to_dnf(ksrepo)
-
-    def _disable_unwanted_repositories(self):
-        """Disable unnecessary repos."""
-        with self._repos_lock:
-            for repo in self._base.repos.iter_enabled():
-                id_ = repo.id
-                if 'source' in id_ or 'debuginfo' in id_:
-                    self._dnf_manager.set_repository_enabled(id_, False)
-                elif constants.isFinal and 'rawhide' in id_:
-                    self._dnf_manager.set_repository_enabled(id_, False)
 
     def _validate_enabled_repositories(self):
         """Validate all enabled repositories.
