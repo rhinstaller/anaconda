@@ -31,6 +31,7 @@ UPDATES_IMG=../../updates.img
 
 export TEST_OS
 
+dist_libexec_SCRIPTS = webui-desktop
 # makes sure it gets built as part of `make` and `make dist`
 dist_noinst_DATA = \
 	$(WEBPACK_TEST) \
@@ -54,6 +55,7 @@ install-data-hook: $(WEBPACK_TEST)
 	cp -r dist/* $(DESTDIR)/usr/share/cockpit/$(PACKAGE_NAME)
 	mkdir -p $(DESTDIR)/usr/share/metainfo/
 	cp org.cockpit-project.$(PACKAGE_NAME).metainfo.xml $(DESTDIR)/usr/share/metainfo/
+	cp webui-desktop $(DESTDIR)/usr/libexec/
 
 EXTRA_DIST = dist src
 
