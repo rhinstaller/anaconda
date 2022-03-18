@@ -200,7 +200,6 @@ export const Application = () => {
               onNext={goToStep}
               startAtStep={startAtStep}
               steps={steps}
-              titleId="wizard-top-level-title"
             />
         </Page>
     );
