@@ -27,11 +27,12 @@ import { AddressContext } from "./Common.jsx";
 import { AnacondaHeader } from "./AnacondaHeader.jsx";
 import { AnacondaWizard } from "./AnacondaWizard.jsx";
 
-import { readConf } from "../helpers/conf.js";
 import { BossClient } from "../apis/boss.js";
 import { LocalizationClient } from "../apis/localization.js";
 import { StorageClient } from "../apis/storage.js";
+
 import { readBuildstamp, getIsFinal } from "../helpers/betanag.js";
+import { readConf } from "../helpers/conf.js";
 
 const _ = cockpit.gettext;
 
