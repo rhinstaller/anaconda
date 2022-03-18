@@ -32,6 +32,7 @@ class TestBasic(MachineCase):
 
     def testNavigation(self):
         b = self.browser
+        m = self.machine
 
         b.open("/cockpit/@localhost/anaconda-webui/index.html#/installation-language")
 
@@ -40,12 +41,19 @@ class TestBasic(MachineCase):
             ["False", "false", "True", "true"]
         )
 
+        # Check betanag
+        value = m.execute("cat /.buildstamp | grep IsFinal=")
+        if value.split("=", 1)[1] in ("False", "false"):
+            b.wait_visible("#betanag-icon")
+
         for page in ['installation-language', 'installation-destination', 'review-configuration']:
             # with the pages basically empty of common elements (as those are provided by the top-level wizard widget)
             # we at least iterate over them to check this works as expected
             b.wait_js_cond(f'window.location.hash === "#/{page}"')
             b.wait_visible("#" + page + ".pf-m-current")
-            b.click("button.pf-m-primary")
+            # Do not start the installation in non-destructive tests as this performs non revertible changes
+            if page != 'review-configuration':
+                b.click("button.pf-m-primary")
             if page == 'installation-language':
                 b.expect_load()
 

@@ -27,6 +27,7 @@ import {
 } from "@patternfly/react-core";
 
 import { AddressContext } from "./Common.jsx";
+import { AnacondaHeader } from "./AnacondaHeader.jsx";
 import { InstallationDestination, applyDefaultStorage } from "./storage/InstallationDestination.jsx";
 import { InstallationLanguage } from "./installation/InstallationLanguage.jsx";
 import { InstallationProgress } from "./installation/InstallationProgress.jsx";
@@ -36,6 +37,7 @@ import { readConf } from "../helpers/conf.js";
 import { BossClient } from "../apis/boss.js";
 import { LocalizationClient } from "../apis/localization.js";
 import { StorageClient } from "../apis/storage.js";
+import { readBuildstamp, getIsFinal } from "../helpers/betanag.js";
 
 import { usePageLocation } from "hooks";
 
@@ -44,6 +46,7 @@ const _ = cockpit.gettext;
 export const Application = () => {
     const { path } = usePageLocation();
     const [address, setAddress] = useState();
+    const [beta, setBeta] = useState();
     const [conf, setConf] = useState();
     const [notifications, setNotifications] = useState({});
     const [stepNotification, setStepNotification] = useState();
@@ -58,8 +61,17 @@ export const Application = () => {
         clients.forEach(c => c.init());
 
         setAddress(address);
+
+        readConf().then(
+            setConf,
+            ex => console.error("Failed to parse anaconda configuration")
+        );
+
+        readBuildstamp().then(
+            buildstamp => setBeta(!getIsFinal(buildstamp)),
+            ex => console.error("Failed to parse anaconda configuration")
+        );
     }), []);
-    useEffect(() => readConf().then(setConf, ex => console.error("Failed to parse anaconda configuration")), []);
 
     const onAddNotification = (notificationProps) => {
         setNotifications({
@@ -139,7 +151,15 @@ export const Application = () => {
     const title = _("Anaconda Installer");
 
     return (
-        <Page data-debug={conf.Anaconda.debug}>
+        <Page
+          data-debug={conf.Anaconda.debug}
+          additionalGroupedContent={
+              <AnacondaHeader beta={beta} title={title} />
+          }
+          groupProps={{
+              sticky: "top"
+          }}
+        >
             {Object.keys(notifications).length > 0 &&
             <AlertGroup isToast isLiveRegion>
                 {Object.keys(notifications).map(idx => {
@@ -164,10 +184,7 @@ export const Application = () => {
                 })}
             </AlertGroup>}
             <Wizard
-              description={_("PRE-RELEASE/TESTING")}
-              descriptionId="wizard-top-level-description"
               footer={<Footer setStepNotification={setStepNotification} address={address} />}
-              hideClose
               mainAriaLabel={`${title} content`}
               navAriaLabel={`${title} steps`}
               onBack={goToStep}
@@ -175,7 +192,6 @@ export const Application = () => {
               onNext={goToStep}
               startAtStep={startAtStep}
               steps={steps}
-              title={_("Fedora Rawhide installation")}
               titleId="wizard-top-level-title"
             />
         </Page>

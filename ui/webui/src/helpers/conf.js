@@ -23,7 +23,7 @@ const isEmpty = (inStr) => {
     return !(inStr || inStr.trim());
 };
 
-const parseIni = (content, tag) => {
+export const parseIni = (content, tag) => {
     /*
     Anaconda config files are a dialect of INI files based on Python's configparser. Unfortunately,
     that parser extends the commonly understood format with multi-line values, which is treated
@@ -32,7 +32,7 @@ const parseIni = (content, tag) => {
     const lines = content.split(/\r\n|\r|\n/);
     const dataStore = {};
     const rxHeader = /\[([^\]]+)\].*/;
-    const rxKeyValue = /(\w+) = (.*)/;
+    const rxKeyValue = /(\w+) ?= ?(.*)/;
 
     let curHeader = "";
     let curKey = "";
