@@ -222,7 +222,6 @@ class PayloadManager(object):
 
         try:
             payload.update_base_repo(fallback=fallback, checkmount=checkmount)
-            payload.add_driver_repos()
         except (OSError, DBusError, PayloadError, DNFManagerError) as e:
             log.error("PayloadError: %s", e)
             self._error = self.ERROR_SETUP

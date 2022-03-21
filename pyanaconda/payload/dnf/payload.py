@@ -28,19 +28,21 @@ from pyanaconda.modules.common.errors.payload import UnknownRepositoryError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData, \
     PackagesSelectionData
-from pyanaconda.modules.payloads.kickstart import convert_ks_repo_to_repo_data
+from pyanaconda.modules.payloads.kickstart import convert_ks_repo_to_repo_data, \
+    convert_repo_data_to_ks_repo
 from pyanaconda.modules.payloads.payload.dnf.initialization import configure_dnf_logging
 from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
     SetRPMMacrosTask, DownloadPackagesTask, InstallPackagesTask, PrepareDownloadLocationTask, \
     CleanUpDownloadLocationTask, ResolvePackagesTask, UpdateDNFConfigurationTask, \
     WriteRepositoriesTask
+from pyanaconda.modules.payloads.payload.dnf.repositories import generate_driver_disk_repositories
 from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_version_list, \
     calculate_required_space
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, DNFManagerError
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 
 from pyanaconda.anaconda_loggers import get_packaging_logger
-from pyanaconda.core import constants, util
+from pyanaconda.core import constants
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, \
     SOURCE_TYPE_URL, SOURCE_TYPE_CDROM, URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, \
@@ -120,6 +122,7 @@ class DNFPayload(Payload):
         self._set_source_from_opts(opts)
         self._set_source_configuration_from_opts(opts)
         self._set_additional_repos_from_opts(opts)
+        self._generate_driver_disk_repositories()
         self._set_packages_from_opts(opts)
         self._configure()
 
@@ -188,6 +191,12 @@ class DNFPayload(Payload):
                 continue
 
             self.data.repo.dataList().append(repo)
+
+    def _generate_driver_disk_repositories(self):
+        """Append generated driver disk repositories."""
+        for data in generate_driver_disk_repositories():
+            ks_repo = convert_repo_data_to_ks_repo(data)
+            self.data.repo.dataList().append(ks_repo)
 
     def _set_packages_from_opts(self, opts):
         """Configure packages based on the Anaconda options."""
@@ -432,48 +441,6 @@ class DNFPayload(Payload):
             log.error("failed to remove repo %s: not found", repo_id)
         else:
             repos.pop(idx)
-
-    def add_driver_repos(self):
-        """Add driver repositories and packages.
-
-        FIXME: Don't run this code on every payload restart.
-        """
-        # Drivers are loaded by anaconda-dracut, their repos are copied
-        # into /run/install/DD-X where X is a number starting at 1. The list of
-        # packages that were selected is in /run/install/dd_packages
-
-        # Add repositories
-        dir_num = 0
-        while True:
-            dir_num += 1
-            repo = "/run/install/DD-%d/" % dir_num
-            if not os.path.isdir(repo):
-                break
-
-            # Run createrepo if there are rpms and no repodata
-            if not os.path.isdir(repo + "/repodata"):
-                rpms = glob(repo + "/*rpm")
-                if not rpms:
-                    continue
-                log.info("Running createrepo on %s", repo)
-                util.execWithRedirect("createrepo_c", [repo])
-
-            # Generate the repo name.
-            repo_name = "DD-%d" % dir_num
-
-            # The repo has been already created (#1268357).
-            for ks_repo in self.data.repo.dataList():
-                if repo_name == ks_repo.name:
-                    continue
-
-            # Or create a new one.
-            ks_repo = self.data.RepoData(
-                name=repo_name,
-                baseurl="file://" + repo,
-                enabled=True
-            )
-
-            self._add_repo_to_dnf_and_ks(ks_repo)
 
     @property
     def space_required(self):
@@ -741,6 +708,12 @@ class DNFPayload(Payload):
                 except UnknownRepositoryError:
                     pass
 
+        self._include_additional_repositories()
+        self._disable_unwanted_repositories()
+        self._load_enabled_repositories()
+
+    def _include_additional_repositories(self):
+        """Add additional repositories to DNF."""
         for ksrepo in self.data.repo.dataList():
             if ksrepo.is_harddrive_based():
                 ksrepo.baseurl = self._setup_harddrive_addon_repo(ksrepo)
@@ -757,9 +730,9 @@ class DNFPayload(Payload):
 
             self._add_repo_to_dnf(ksrepo)
 
+    def _disable_unwanted_repositories(self):
+        """Disable unnecessary repos."""
         with self._repos_lock:
-
-            # disable unnecessary repos
             for repo in self._base.repos.iter_enabled():
                 id_ = repo.id
                 if 'source' in id_ or 'debuginfo' in id_:
@@ -767,7 +740,9 @@ class DNFPayload(Payload):
                 elif constants.isFinal and 'rawhide' in id_:
                     self._dnf_manager.set_repository_enabled(id_, False)
 
-            # fetch md for enabled repos
+    def _load_enabled_repositories(self):
+        """Fetch md for enabled repos."""
+        with self._repos_lock:
             for ks_repo in self.data.repo.dataList():
                 if self.is_repo_enabled(ks_repo.name):
                     self._dnf_manager.load_repository(ks_repo.name)
