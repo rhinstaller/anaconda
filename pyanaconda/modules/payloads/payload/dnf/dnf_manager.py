@@ -895,7 +895,7 @@ class DNFManager(object):
     def load_repository(self, repo_id):
         """Download repo metadata.
 
-        Enable the repo and load its metadata to verify that
+        If the repo is enabled, load its metadata to verify that
         the repo is valid. An invalid repo will be disabled.
 
         :param str repo_id: an identifier of a repository
@@ -906,8 +906,11 @@ class DNFManager(object):
         repo = self._get_repository(repo_id)
         url = repo.baseurl or repo.mirrorlist or repo.metalink
 
+        if not repo.enabled:
+            log.debug("Don't load metadata from a disabled repository.")
+            return
+
         try:
-            repo.enable()
             repo.load()
         except dnf.exceptions.RepoError as e:
             log.debug("Failed to load metadata from '%s': %s", url, str(e))
