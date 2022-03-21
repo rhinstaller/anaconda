@@ -28,12 +28,23 @@ def parse_nfs_url(nfs_url):
     :return: Tuple with options, host, and path
     :rtype: (str, str, str) or None
     """
+    prefixes = [
+        "nfs://",
+        "nfs:",
+    ]
     options = ''
     host = ''
     path = ''
+
+    # Remove the nfs prefix.
+    for prefix in prefixes:
+        if nfs_url.startswith(prefix):
+            nfs_url = nfs_url.removeprefix(prefix)
+            break
+
+    # Parse the nfs attributes.
     if nfs_url:
         s = nfs_url.split(":")
-        s.pop(0)
         if len(s) >= 3:
             (options, host, path) = s[:3]
         elif len(s) == 2:
