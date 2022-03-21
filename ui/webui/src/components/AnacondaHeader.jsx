@@ -32,9 +32,8 @@ const _ = cockpit.gettext;
 const prerelease = _("Pre-release");
 
 export const AnacondaHeader = ({ beta, title }) => {
-    let betanag;
-    if (beta) {
-        betanag = (
+    const betanag = beta
+        ? (
             <Popover
               headerContent={_("This is unstable, pre-release software")}
               minWidth="40rem"
@@ -54,8 +53,9 @@ export const AnacondaHeader = ({ beta, title }) => {
             >
                 <Label color="orange" icon={<InfoCircleIcon />} id="betanag-icon"> {prerelease} </Label>
             </Popover>
-        );
-    }
+        )
+        : null;
+
     return (
         <PageSection variant={PageSectionVariants.light}>
             <Flex spaceItems={{ default: "spaceItemsSm" }} alignItems={{ default: "alignItemsCenter" }}>
