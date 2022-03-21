@@ -16,6 +16,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import pytest
 
 from pyanaconda import argument_parsing
 from pyanaconda.core.configuration.anaconda import AnacondaConfiguration
@@ -25,8 +26,8 @@ import unittest
 
 
 class ArgparseTest(unittest.TestCase):
-    def _parseCmdline(self, argv, version="", boot_cmdline=None):
-        ap = argument_parsing.getArgumentParser(version, boot_cmdline)
+    def _parseCmdline(self, argv=None, boot_cmdline=None):
+        ap = argument_parsing.getArgumentParser("", boot_cmdline)
         opts = ap.parse_args(argv, boot_cmdline=boot_cmdline)
         return (opts, ap.removed_no_inst_bootargs)
 
@@ -244,3 +245,70 @@ class ArgparseTest(unittest.TestCase):
         assert conf.system._is_boot_iso is False
         assert conf.system._is_live_os is False
         assert conf.system._is_unknown is True
+
+    def test_addrepo(self):
+        # Test invalid options.
+        with pytest.raises(ValueError):
+            self._parseCmdline(["--addrepo=r1"])
+
+        with pytest.raises(ValueError):
+            self._parseCmdline(["--addrepo=http://url/1"])
+
+        # Test cmdline options.
+        opts, _removed = self._parseCmdline([
+            "--addrepo=r1,http://url/1"
+        ])
+        assert opts.addRepo == [
+            ("r1", "http://url/1")
+        ]
+
+        opts, _removed = self._parseCmdline([
+            "--addrepo=r1,http://url/1",
+            "--addrepo=r2,http://url/2",
+            "--addrepo=r3,http://url/3",
+        ])
+        assert opts.addRepo == [
+            ("r1", "http://url/1"),
+            ("r2", "http://url/2"),
+            ("r3", "http://url/3"),
+        ]
+
+        # Test invalid boot options.
+        boot_cmdline = KernelArguments.from_string(
+            "inst.addrepo=r1"
+        )
+        with pytest.raises(ValueError) as cm:
+            self._parseCmdline([], boot_cmdline)
+
+        expected = \
+            "The addrepo option has incorrect format ('r1'). " \
+            "Use: inst.addrepo=<name>,<url>"
+
+        assert str(cm.value) == expected
+
+        boot_cmdline = KernelArguments.from_string(
+            "inst.addrepo=http://url/1"
+        )
+        with pytest.raises(ValueError):
+            self._parseCmdline([], boot_cmdline)
+
+        # Test boot options.
+        boot_cmdline = KernelArguments.from_string(
+            "inst.addrepo=r1,http://url/1"
+        )
+        opts, _removed = self._parseCmdline([], boot_cmdline)
+        assert opts.addRepo == [
+            ("r1", "http://url/1")
+        ]
+
+        boot_cmdline = KernelArguments.from_string(
+            "inst.addrepo=r1,http://url/1 "
+            "inst.addrepo=r2,http://url/2 "
+            "inst.addrepo=r3,http://url/3 "
+        )
+        opts, _removed = self._parseCmdline([], boot_cmdline)
+        assert opts.addRepo == [
+            ("r1", "http://url/1"),
+            ("r2", "http://url/2"),
+            ("r3", "http://url/3"),
+        ]
