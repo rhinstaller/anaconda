@@ -18,17 +18,19 @@ import cockpit from "cockpit";
 import React, { useEffect, useState } from "react";
 
 import {
-    Card, CardBody, CardHeader, CardTitle,
-    DataList, DataListItem, DataListItemRow, DataListCheck, DataListItemCells, DataListCell,
     Form,
     Hint, HintBody,
 } from "@patternfly/react-core";
+
+import { ListingTable } from "cockpit-components-table.jsx";
 
 import {
     applyPartitioning,
     createPartitioning,
     getAllDiskSelection,
     getDeviceData,
+    getDiskFreeSpace,
+    getDiskTotalSpace,
     getUsableDisks,
     partitioningConfigureWithTask,
     runStorageTask,
@@ -93,9 +95,23 @@ const LocalStandardDisks = ({ onAddErrorNotification }) => {
 
                     // Show disks data
                     defaultDisks.forEach(disk => {
+                        let deviceData = {};
+                        const diskNames = [disk];
+
                         getDeviceData({ disk })
                                 .then(res => {
-                                    setDeviceData(d => ({ ...d, [disk]: res[0] }));
+                                    deviceData = res[0];
+                                    return getDiskFreeSpace({ diskNames });
+                                }, console.error)
+                                .then(free => {
+                                    // Since the getDeviceData returns an object with variants as values,
+                                    // extend it with variants to keep the format consistent
+                                    deviceData.free = cockpit.variant(String, free[0]);
+                                    return getDiskTotalSpace({ diskNames });
+                                }, console.error)
+                                .then(total => {
+                                    deviceData.total = cockpit.variant(String, total[0]);
+                                    setDeviceData(d => ({ ...d, [disk]: deviceData }));
                                 }, console.error);
                     });
                 }, console.error);
@@ -109,39 +125,34 @@ const LocalStandardDisks = ({ onAddErrorNotification }) => {
     }, [disks, onAddErrorNotification]);
 
     return (
-        <Card>
-            <CardHeader>
-                <CardTitle>{_("Local standard disks")}</CardTitle>
-            </CardHeader>
-            <CardBody>
-                <DataList isCompact aria-label={_("Usable disks")}>
-                    {Object.keys(disks).map(disk => (
-                        <DataListItem key={disk} aria-labelledby={"local-disks-checkbox-" + disk}>
-                            <DataListItemRow>
-                                <DataListCheck
-                                  aria-labelledby={"local-disks-checkbox-" + disk}
-                                  onChange={value => setDisks({ ...disks, [disk]: value })}
-                                  checked={!!disks[disk]}
-                                  name={"checkbox-check-" + disk} />
-                                <DataListItemCells
-                                  dataListCells={[
-                                      <DataListCell key={disk} id={"local-disks-item-" + disk}>
-                                          {disk}
-                                      </DataListCell>,
-                                      <DataListCell key={"description-" + disk}>
-                                          {deviceData && deviceData[disk] && deviceData[disk].description.v}
-                                      </DataListCell>,
-                                      <DataListCell key={"size-" + disk}>
-                                          {cockpit.format_bytes(deviceData && deviceData[disk] && deviceData[disk].size.v)}
-                                      </DataListCell>
-                                  ]}
-                                />
-                            </DataListItemRow>
-                        </DataListItem>
-                    ))}
-                </DataList>
-            </CardBody>
-        </Card>
+        <ListingTable
+          caption={_("Local standard disks")}
+          aria-label={_("Usable disks")}
+          variant="compact"
+          columns={
+              [
+                  { title: _("Name"), sortable: true, header: true },
+                  { title: _("ID") },
+                  { title: _("Total") },
+                  { title: _("Free") },
+              ]
+          }
+          onSelect={(_, isSelected, diskId) => setDisks({ ...disks, [Object.keys(disks)[diskId]]: isSelected })}
+          rows={
+              Object.keys(disks).map(disk => (
+                  {
+                      selected: !!disks[disk],
+                      props: { key: disk, id: disk },
+                      columns: [
+                          { title: disk },
+                          { title: deviceData[disk] && deviceData[disk].description.v },
+                          { title: cockpit.format_bytes(deviceData[disk] && deviceData[disk].total.v) },
+                          { title: cockpit.format_bytes(deviceData[disk] && deviceData[disk].free.v) },
+                      ]
+                  }
+              ))
+          }
+        />
     );
 };
 
