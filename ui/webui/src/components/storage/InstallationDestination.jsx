@@ -18,7 +18,9 @@ import cockpit from "cockpit";
 import React, { useEffect, useState } from "react";
 
 import {
+    Flex,
     HelperText, HelperTextItem,
+    Label,
     Title,
 } from "@patternfly/react-core";
 
@@ -124,11 +126,23 @@ const LocalStandardDisks = ({ onAddErrorNotification }) => {
         setSelectedDisks({ drives: selected }).catch(onAddErrorNotification);
     }, [disks, onAddErrorNotification]);
 
+    const totalDisksCnt = Object.keys(disks).length;
+    const selectedDisksCnt = Object.keys(disks).filter(disk => !!disks[disk]).length;
+
     return (
         <>
-            <Title headingLevel="h3" id="installation-destination-local-disks-title" size="md">
-                {_("Local standard disks")}
-            </Title>
+            <Flex spaceItems={{ default: "spaceItemsLg" }}>
+                <Title headingLevel="h3" id="installation-destination-local-disks-title" size="md">
+                    {_("Local standard disks")}
+                </Title>
+                <Label color="blue">
+                    {cockpit.format(
+                        cockpit.ngettext("$0 (of $1) disk selected", "$0 (of $1) disks selected", selectedDisksCnt),
+                        selectedDisksCnt,
+                        totalDisksCnt
+                    )}
+                </Label>
+            </Flex>
             <ListingTable
               aria-labelledby="installation-destination-local-disk-title"
               variant="compact"
