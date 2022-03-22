@@ -106,6 +106,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
                              "The exact error message is:\n\n%s.\n\n "
                              "The installer will now terminate.") % str(value)
             self.intf.messageWindow(_("Hardware error occurred"), hw_error_msg)
+            super(AnacondaExceptionHandler, self).handleException(dump_info)
             sys.exit(0)
         else:
             try:
@@ -159,6 +160,8 @@ class AnacondaExceptionHandler(ExceptionHandler):
                         # to acknowledge the error; instead, print the error out and sleep
                         # for a few seconds before exiting the installer
                         print(cmdline_error_msg)
+                        super(AnacondaExceptionHandler, self).handleException(
+                                                                dump_info)
                         time.sleep(180)
                         sys.exit(1)
                     else:
