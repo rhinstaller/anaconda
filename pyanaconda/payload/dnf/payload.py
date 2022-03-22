@@ -598,33 +598,11 @@ class DNFPayload(Payload):
             mirrorlist = data.url if data.type == URL_TYPE_MIRRORLIST else ""
             metalink = data.url if data.type == URL_TYPE_METALINK else ""
 
+            # Process the treeinfo metadata.
+            treeinfo_base_repo_url = self._reload_treeinfo_metadata(data)
+
             # Fallback to the installation root.
-            base_repo_url = install_tree_url
-
-            # Remove previous treeinfo repositories.
-            removed_repos = self._remove_treeinfo_repositories()
-            disabled_names = [r.name for r in removed_repos if not r.enabled]
-
-            try:
-                tree_info_metadata = TreeInfoMetadata()
-                tree_info_metadata.load_data(data)
-
-                self._dnf_manager.configure_substitution(
-                    tree_info_metadata.release_version
-                )
-
-                base_repo_url = tree_info_metadata.get_base_repo_url()
-
-                self._load_treeinfo_repositories(
-                    tree_info_metadata,
-                    base_repo_url,
-                    disabled_names,
-                    data
-                )
-            except NoTreeInfoError as e:
-                log.debug("No treeinfo metadata to use: %s", str(e))
-            except TreeInfoMetadataError as e:
-                log.warning("Couldn't use treeinfo metadata: %s", str(e))
+            base_repo_url = treeinfo_base_repo_url or install_tree_url
 
             try:
                 base_ksrepo = self.data.RepoData(
@@ -745,30 +723,62 @@ class DNFPayload(Payload):
             except MetadataError as e:
                 self.verbose_errors.append(str(e))
 
-    def _load_treeinfo_repositories(self, tree_info_metadata, base_repo_url, disabled_names, data):
-        """Load new repositories from treeinfo file.
+    def _reload_treeinfo_metadata(self, repo_data):
+        """Reload treeinfo metadata.
 
-        :param base_repo_url: base repository url. This is not saved anywhere when the function
-                              is called. It will be add to the existing urls if not None.
-        :param disabled_names: list of repository names which should be disabled after load
-        :type disabled_names: [str]
-        :param data: repo configuration data
+        :param RepoConfigurationData repo_data: configuration data of the base repo
+        :return: a URL of the base repository
         """
-        # Collect URL of existing repositories.
-        existing_urls = []
+        log.debug("Reload treeinfo metadata.")
+        base_repo_url = None
 
-        if base_repo_url is not None:
+        # Remove previous treeinfo repositories.
+        removed_repos = self._remove_treeinfo_repositories()
+        disabled_names = [r.name for r in removed_repos if not r.enabled]
+
+        # Collect URLs of existing repositories.
+        existing_urls = [r.baseurl for r in self.data.repo.dataList() if r.baseurl]
+
+        try:
+            # Load the treeinfo metadata.
+            tree_info_metadata = TreeInfoMetadata()
+            tree_info_metadata.load_data(repo_data)
+
+            # Set up the substitutions.
+            self._dnf_manager.configure_substitution(
+                tree_info_metadata.release_version
+            )
+
+            # Get the new base repo URL.
+            base_repo_url = tree_info_metadata.get_base_repo_url()
             existing_urls.append(base_repo_url)
 
-        for ks_repo in self.data.repo.dataList():
-            baseurl = ks_repo.baseurl
-            existing_urls.append(baseurl)
+            # Add the treeinfo repositories.
+            repositories = generate_treeinfo_repositories(
+                repo_data,
+                tree_info_metadata
+            )
 
-        # Generate treeinfo repositories.
-        repositories = generate_treeinfo_repositories(
-            repo_data=data,
-            tree_info_metadata=tree_info_metadata,
-        )
+            self._add_treeinfo_repositories(
+                repositories=repositories,
+                disabled_names=disabled_names,
+                existing_urls=existing_urls,
+            )
+        except NoTreeInfoError as e:
+            log.debug("No treeinfo metadata to use: %s", str(e))
+        except TreeInfoMetadataError as e:
+            log.warning("Couldn't use treeinfo metadata: %s", str(e))
+
+        return base_repo_url
+
+    def _add_treeinfo_repositories(self, repositories, disabled_names, existing_urls):
+        """Add the treeinfo repositories.
+
+        :param [RepoConfigurationData] repositories: configuration data of treeinfo repositories
+        :param [str] disabled_names: a list of repository names that should be disabled
+        :param [str] existing_urls: a list of repository URLs that already exist
+        """
+        log.debug("Add treeinfo repositories.")
 
         for repo in repositories:
             # Skip existing repositories.
