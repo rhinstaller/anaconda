@@ -326,7 +326,7 @@ class StorageService(KickstartService):
         """Apply a partitioning.
 
         :param module: a partitioning module
-        :raise: InvalidStorageError of the partitioning is not valid
+        :raise: InvalidStorageError if the partitioning is not valid
         """
         # Validate the partitioning.
         storage = module.storage.copy()
