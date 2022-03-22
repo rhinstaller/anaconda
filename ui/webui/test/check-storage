@@ -38,7 +38,7 @@ class TestStorage(MachineCase):
         b.click("button.pf-m-primary")
         b.expect_load()
 
-        b.wait_visible('article:contains(Local standard disks)')
+        b.wait_visible('h3:contains(Local standard disks)')
 
         # Try unselecting the single disk and expect and error
         b.set_checked('#vda input', False)

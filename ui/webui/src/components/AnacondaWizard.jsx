@@ -21,6 +21,7 @@ import React, { useContext, useState } from "react";
 import {
     Alert,
     Button,
+    Title,
     Stack,
     Wizard, WizardFooter, WizardContextConsumer,
 } from "@patternfly/react-core";
@@ -36,9 +37,12 @@ import { usePageLocation } from "hooks";
 const _ = cockpit.gettext;
 
 const getSteps = ({ address, currentStepId, onAddErrorNotification, stepNotification, stepsOrder, stepsVisited }) => {
-    const wrapWithContext = (children) => {
+    const wrapWithContext = (children, label) => {
         return (
             <Stack hasGutter>
+                <Title headingLevel="h2" size="xl">
+                    {label}
+                </Title>
                 {stepNotification &&
                  (stepNotification.step === currentStepId) &&
                  <Alert
@@ -57,7 +61,7 @@ const getSteps = ({ address, currentStepId, onAddErrorNotification, stepNotifica
         return ({
             id: s.id,
             name: s.label,
-            component: wrapWithContext(<Renderer onAddErrorNotification={onAddErrorNotification} />),
+            component: wrapWithContext(<Renderer onAddErrorNotification={onAddErrorNotification} />, s.label),
             stepNavItemProps: { id: s.id },
             canJumpTo: idx === 0 ? currentStepId === s.id : stepsVisited.includes(s.id),
             isFinishedStep: idx === stepsOrder.length - 1

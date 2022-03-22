@@ -18,8 +18,8 @@ import cockpit from "cockpit";
 import React, { useEffect, useState } from "react";
 
 import {
-    Form,
-    Hint, HintBody,
+    HelperText, HelperTextItem,
+    Title,
 } from "@patternfly/react-core";
 
 import { ListingTable } from "cockpit-components-table.jsx";
@@ -125,47 +125,49 @@ const LocalStandardDisks = ({ onAddErrorNotification }) => {
     }, [disks, onAddErrorNotification]);
 
     return (
-        <ListingTable
-          caption={_("Local standard disks")}
-          aria-label={_("Usable disks")}
-          variant="compact"
-          columns={
-              [
-                  { title: _("Name"), sortable: true, header: true },
-                  { title: _("ID") },
-                  { title: _("Total") },
-                  { title: _("Free") },
-              ]
-          }
-          onSelect={(_, isSelected, diskId) => setDisks({ ...disks, [Object.keys(disks)[diskId]]: isSelected })}
-          rows={
-              Object.keys(disks).map(disk => (
-                  {
-                      selected: !!disks[disk],
-                      props: { key: disk, id: disk },
-                      columns: [
-                          { title: disk },
-                          { title: deviceData[disk] && deviceData[disk].description.v },
-                          { title: cockpit.format_bytes(deviceData[disk] && deviceData[disk].total.v) },
-                          { title: cockpit.format_bytes(deviceData[disk] && deviceData[disk].free.v) },
-                      ]
-                  }
-              ))
-          }
-        />
+        <>
+            <Title headingLevel="h3" id="installation-destination-local-disks-title" size="md">
+                {_("Local standard disks")}
+            </Title>
+            <ListingTable
+              aria-labelledby="installation-destination-local-disk-title"
+              variant="compact"
+              columns={
+                  [
+                      { title: _("Name"), sortable: true, header: true },
+                      { title: _("ID") },
+                      { title: _("Total") },
+                      { title: _("Free") },
+                  ]
+              }
+              onSelect={(_, isSelected, diskId) => setDisks({ ...disks, [Object.keys(disks)[diskId]]: isSelected })}
+              rows={
+                  Object.keys(disks).map(disk => (
+                      {
+                          selected: !!disks[disk],
+                          props: { key: disk, id: disk },
+                          columns: [
+                              { title: disk },
+                              { title: deviceData[disk] && deviceData[disk].description.v },
+                              { title: cockpit.format_bytes(deviceData[disk] && deviceData[disk].total.v) },
+                              { title: cockpit.format_bytes(deviceData[disk] && deviceData[disk].free.v) },
+                          ]
+                      }
+                  ))
+              }
+            />
+        </>
     );
 };
 
 export const InstallationDestination = ({ onAddErrorNotification }) => {
     return (
-        <Form isHorizontal>
-            <Hint>
-                <HintBody>
-                    {_("Select the device(s) you would like to install to. They will be left untouched until you click on the main menu's 'Begin installation' button.")}
-                </HintBody>
-            </Hint>
+        <>
+            <HelperText>
+                <HelperTextItem>{_("Select the device(s) you would like to install to")}</HelperTextItem>
+            </HelperText>
             <LocalStandardDisks onAddErrorNotification={onAddErrorNotification} />
-        </Form>
+        </>
     );
 };
 

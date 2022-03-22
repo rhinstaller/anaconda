@@ -21,7 +21,6 @@ import cockpit from "cockpit";
 import {
     Form, FormGroup,
     SelectGroup, SelectOption, Select, SelectVariant,
-    Title,
 } from "@patternfly/react-core";
 
 import { AddressContext } from "../Common.jsx";
@@ -159,9 +158,6 @@ export const InstallationLanguage = ({ onSelectLang }) => {
 
     return (
         <Form>
-            <Title headingLevel="h2" size="1xl">
-                WELCOME TO FEDORA...
-            </Title>
             <FormGroup label={_("What language would you like to use during the installation process?")}>
                 <LanguageSelector lang={lang} onSelectLang={setLang} menuAppendTo={document.body} />
             </FormGroup>
