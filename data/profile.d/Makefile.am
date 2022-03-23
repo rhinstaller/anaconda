@@ -31,7 +31,8 @@ dist_config_DATA    = \
 	rhel.conf \
 	rhvh.conf \
 	rocky.conf \
-	scientific-linux.conf
+	scientific-linux.conf \
+	virtuozzo-linux.conf
 
 
 MAINTAINERCLEANFILES = Makefile.in
