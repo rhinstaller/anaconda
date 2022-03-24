@@ -63,7 +63,7 @@ case $repo in
             anaconda_live_root_dir "$repodir"
         else
             iso="${repo##*/}"
-            mount_nfs "${repo%$iso}" "$repodir" "$netif" || \
+            mount_nfs "${repo%"$iso"}" "$repodir" "$netif" || \
                 warn "Couldn't mount $repo"
             anaconda_live_root_dir "$repodir" "$iso"
         fi
