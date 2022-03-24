@@ -32,6 +32,6 @@ lorax -p Fedora -v $VERSION_ID -r $VERSION_ID \
       -s http://dl.fedoraproject.org/pub/fedora/linux/development/rawhide/Everything/x86_64/os/ \
       -s file://$REPO_DIR/ \
       $@ \
-      lorax
+      lorax ||  cp *.log /images/
 
 cp lorax/images/boot.iso /images/

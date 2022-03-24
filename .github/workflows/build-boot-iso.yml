@@ -1,0 +1,167 @@
+# Build a boot.iso from a PR triggered by a "/boot.iso" comment from an organization member.
+name: boot-iso
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  pr-info:
+    if: startsWith(github.event.comment.body, '/boot-iso')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Query comment author repository permissions
+        uses: octokit/request-action@v2.x
+        id: user_permission
+        with:
+          route: GET /repos/${{ github.repository }}/collaborators/${{ github.event.sender.login }}/permission
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # restrict this workflow to users with admin or write permission for the repository
+      # see https://docs.github.com/en/free-pro-team@latest/rest/reference/repos#get-repository-permissions-for-a-user
+      # store output if user is allowed in allowed_user job output so it has to be checked in downstream job
+      - name: Check if user does have correct permissions
+        if: contains('admin write', fromJson(steps.user_permission.outputs.data).permission)
+        id: check_user_perm
+        run: |
+          echo "User '${{ github.event.sender.login }}' has permission '${{ fromJson(steps.user_permission.outputs.data).permission }}' allowed values: 'admin', 'write'"
+          echo "::set-output name=allowed_user::true"
+
+      - name: Get information for pull request
+        uses: octokit/request-action@v2.x
+        id: pr_api
+        with:
+          route: GET /repos/${{ github.repository }}/pulls/${{ github.event.issue.number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    outputs:
+      allowed_user: ${{ steps.check_user_perm.outputs.allowed_user }}
+      base_ref: ${{ fromJson(steps.pr_api.outputs.data).base.ref }}
+      sha: ${{ fromJson(steps.pr_api.outputs.data).head.sha }}
+
+  run:
+    needs: pr-info
+    # only do this for Fedora for now; once we have RHEL 8/9 boot.iso builds working, also support these
+    if: needs.pr-info.outputs.allowed_user == 'true'
+    runs-on: [self-hosted, kstest]
+    timeout-minutes: 300
+    env:
+       LORAX_BUILD_CONTAINER: fedora:rawhide
+       STATUS_NAME: boot-iso
+       TARGET_BRANCH: ${{ needs.pr-info.outputs.base_ref }}
+       CONTAINER_TAG: 'lorax'
+       ISO_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-iso-creator'
+       RPM_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-rpm'
+       SKIP_KS_TESTS: ${{ needs.pr-info.outputs.skip_tests }}
+       OPTIONAL_KS_TEST_ARGS: ${{ needs.pr-info.outputs.optional_test_args }}
+    steps:
+      # we post statuses manually as this does not run from a pull_request event
+      # https://developer.github.com/v3/repos/statuses/#create-a-status
+      - name: Create in-progress status
+        uses: octokit/request-action@v2.x
+        with:
+          route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
+          context: '${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.launch_args }}'
+          state: pending
+          target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Clone repository
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ needs.pr-info.outputs.sha }}
+          fetch-depth: 0
+
+      - name: Rebase to current ${{ env.TARGET_BRANCH }}
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git log --oneline -1 origin/${{ env.TARGET_BRANCH }}
+          git rebase origin/${{ env.TARGET_BRANCH }}
+
+      - name: Check out kickstart-tests
+        uses: actions/checkout@v2
+        with:
+          repository: rhinstaller/kickstart-tests
+          path: kickstart-tests
+
+      - name: Set up dependencies
+        run: |
+          sudo apt install -y nftables
+
+      - name: Ensure http proxy is running
+        run: sudo kickstart-tests/containers/squid.sh start
+
+      - name: Update container images used here
+        run: |
+          sudo podman pull quay.io/rhinstaller/kstest-runner:latest
+
+      - name: Build anaconda-iso-creator container image
+        run: |
+          # set static tag to avoid complications when looking what tag is used
+          sudo make -f ./Makefile.am anaconda-iso-creator-build CI_TAG=$CONTAINER_TAG
+
+      - name: Build anaconda-rpm container (for RPM build)
+        run: |
+          # set static tag to avoid complications when looking what tag is used
+          make -f ./Makefile.am anaconda-rpm-build CI_TAG=$CONTAINER_TAG
+
+      - name: Build Anaconda RPM files
+        run: |
+          # output of the build will be stored in ./result/build/01-rpm-build/*.rpm
+          make -f ./Makefile.am container-rpms-scratch CI_TAG=$CONTAINER_TAG
+          mkdir -p ./additional_repo/
+          cp -av ./result/build/01-rpm-build/*.rpm ./additional_repo/
+
+      - name: Prepare environment for lorax run
+        run: |
+          mkdir -p images
+          # We have to pre-create loop devices because they are not namespaced in kernel so
+          # podman can't access newly created ones. That caused failures of tests when runners
+          # were rebooted.
+          sudo mknod -m 0660 /dev/loop0 b 7 0  2> /dev/null || true
+          sudo mknod -m 0660 /dev/loop1 b 7 1  2> /dev/null || true
+
+      - name: Build boot.iso
+        run: |
+          # /var/tmp tmpfs speeds up lorax and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
+          sudo podman run -i --rm --privileged \
+            --tmpfs /var/tmp:rw,mode=1777 \
+            -v `pwd`/additional_repo:/anaconda-rpms:ro \
+            -v `pwd`/images:/images:z \
+            $ISO_BUILD_CONTAINER_NAME:$CONTAINER_TAG
+
+      - name: Collect logs
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: 'logs'
+          # skip the /anaconda subdirectories, too large
+          path: |
+           images/*.log
+           images/*.text
+
+
+      - name: Set result status
+        if: always()
+        uses: octokit/request-action@v2.x
+        with:
+          route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
+          context: '${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.launch_args }}'
+          state: ${{ job.status }}
+          target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload image artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: images
+          path: |
+            images/boot.iso
