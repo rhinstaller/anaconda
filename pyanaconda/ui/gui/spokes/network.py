@@ -370,9 +370,10 @@ class NetworkControlBox(GObject.GObject):
 
     def _add_device_columns(self, treeview):
         rnd = Gtk.CellRendererPixbuf()
-        rnd.set_property("stock-size", Gtk.IconSize.DND)
+        rnd.set_property("stock-size", Gtk.IconSize.MENU)
         # TODO Gtk3 icon-name? (also at other places)
         col = Gtk.TreeViewColumn("Icon", rnd, **{"icon-name":0})
+        col.set_min_width(27)
         treeview.append_column(col)
 
         rnd = Gtk.CellRendererText()
@@ -1032,7 +1033,7 @@ class NetworkControlBox(GObject.GObject):
         if dev_type_str == "wired":
             # update icon according to device status
             img = self.builder.get_object("image_wired_device")
-            img.set_from_icon_name(self._dev_icon_name(dev_cfg), Gtk.IconSize.DIALOG)
+            img.set_from_icon_name(self._dev_icon_name(dev_cfg), Gtk.IconSize.LARGE_TOOLBAR)
 
         # TODO: is this necessary? Isn't it static from glade?
         device_type_label = _(self.device_type_name.get(dev_cfg.device_type, ""))
