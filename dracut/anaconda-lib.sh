@@ -96,7 +96,7 @@ anaconda_live_root_dir() {
         info "anaconda: found $iso"
         mount --make-rprivate /
         mount --move "$mnt" $isodir
-        iso=${isodir}/${iso#$mnt}
+        iso=${isodir}/${iso#"$mnt"}
         mount -o loop,ro "$iso" $repodir
         img=$(find_runtime $repodir) || { warn "$iso has no suitable runtime"; }
         anaconda_auto_updates $repodir/images
