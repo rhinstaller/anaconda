@@ -45,6 +45,8 @@ class TestBasic(MachineCase):
         value = m.execute("cat /.buildstamp | grep IsFinal=")
         if value.split("=", 1)[1] in ("False", "false"):
             b.wait_visible("#betanag-icon")
+        else:
+            b.wait_not_present("#betang-icon")
 
         for page in ['installation-language', 'installation-destination', 'review-configuration']:
             # with the pages basically empty of common elements (as those are provided by the top-level wizard widget)
