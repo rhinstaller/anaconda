@@ -349,6 +349,7 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %if ! %use_cockpit
     rm -rf %{buildroot}/%{_datadir}/cockpit/anaconda-webui
     rm -f %{buildroot}/%{_datadir}/metainfo/org.cockpit-project.anaconda-webui.metainfo.xml
+    rm -f %{buildroot}/%{_libexecdir}/webui-desktop
 %endif
 
 
@@ -416,6 +417,7 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_datadir}/cockpit/anaconda-webui/manifest.json
 %{_datadir}/metainfo/org.cockpit-project.anaconda-webui.metainfo.xml
 %{_datadir}/cockpit/anaconda-webui/po.*.js.gz
+%{_libexecdir}/webui-desktop
 
 %endif
 

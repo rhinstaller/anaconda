@@ -91,7 +91,7 @@ class CockpitUserInterface(ui.UserInterface):
     def run(self):
         """Run the interface."""
         log.debug("web-ui: starting cockpit web view")
-        proc = startProgram(["/usr/libexec/cockpit-desktop",
+        proc = startProgram(["/usr/libexec/webui-desktop",
                             "/cockpit/@localhost/anaconda-webui/index.html"],
                             reset_lang=False)
         log.debug("cockpit web view has been started")

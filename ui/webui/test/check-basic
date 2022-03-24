@@ -57,6 +57,8 @@ class TestBasic(MachineCase):
             if page == 'installation-language':
                 b.expect_load()
 
+        # Ensure that the 'actual' UI process is running/
+        self.assertIn("/usr/libexec/webui-desktop", m.execute("ps aux"))
 
 if __name__ == '__main__':
     test_main()
