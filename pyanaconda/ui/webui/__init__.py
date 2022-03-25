@@ -30,7 +30,7 @@ log = get_module_logger(__name__)
 class CockpitUserInterface(ui.UserInterface):
     """This is the main class for Cockpit user interface."""
 
-    def __init__(self, storage, payload,
+    def __init__(self, storage, payload, remote,
                  productTitle="Anaconda", isFinal=True,
                  quitMessage=QUIT_MESSAGE):
         """
@@ -42,6 +42,10 @@ class CockpitUserInterface(ui.UserInterface):
 
         :param payload: payload (usually dnf) reference
         :type payload: instance of payload handler
+
+        :param remote: if used run a cockpit-ws process to allow
+                       passwordless remote access to the anaconda-webui for easier testing.
+        :type remote: bool
 
         :param productTitle: the name of the product
         :type productTitle: str
@@ -60,6 +64,7 @@ class CockpitUserInterface(ui.UserInterface):
 
         super().__init__(storage, payload)
         self.productTitle = productTitle
+        self.remote = remote
         self.isFinal = isFinal
         self.quitMessage = quitMessage
         self._meh_interface = meh.ui.text.TextIntf()
@@ -91,6 +96,12 @@ class CockpitUserInterface(ui.UserInterface):
     def run(self):
         """Run the interface."""
         log.debug("web-ui: starting cockpit web view")
+        if self.remote:
+            startProgram([
+                "/usr/libexec/cockpit-ws", "--no-tls",
+                "--port", "9090", "--local-session=cockpit-bridge"
+            ])
+
         proc = startProgram(["/usr/libexec/webui-desktop",
                             "/cockpit/@localhost/anaconda-webui/index.html"],
                             reset_lang=False)

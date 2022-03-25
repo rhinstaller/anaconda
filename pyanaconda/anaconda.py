@@ -228,7 +228,11 @@ class Anaconda(object):
         # from kernel boot command line like this
         if "webui" in kernel_arguments:
             from pyanaconda.ui.webui import CockpitUserInterface
-            self._intf = CockpitUserInterface(None, self.payload)
+            self._intf = CockpitUserInterface(
+                None,
+                self.payload,
+                "webui.remote" in kernel_arguments
+            )
 
             # needs to be refreshed now we know if gui or tui will take place
             # FIXME - what about Cockpit based addons ?
