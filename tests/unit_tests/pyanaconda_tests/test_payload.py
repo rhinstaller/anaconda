@@ -21,6 +21,7 @@ import unittest
 import pytest
 
 import pyanaconda.core.payload as util
+from pyanaconda.core.payload import parse_hdd_url
 
 
 class PayloadUtilsTests(unittest.TestCase):
@@ -97,3 +98,13 @@ class PayloadUtilsTests(unittest.TestCase):
 
         with pytest.raises(ValueError):
             util.split_protocol("http://ftp://ups/this/is/not/correct")
+
+    def test_parse_hdd_url(self):
+        """Test the parse_hdd_url function."""
+        assert parse_hdd_url("") == ("", "")
+        assert parse_hdd_url("hd:test") == ("test", "")
+        assert parse_hdd_url("hd:/dev/test") == ("/dev/test", "")
+        assert parse_hdd_url("hd:/dev/test:relative") == ("/dev/test", "relative")
+        assert parse_hdd_url("hd:/dev/test:/absolute") == ("/dev/test", "/absolute")
+        assert parse_hdd_url("hd:/dev/test:relative/path") == ("/dev/test", "relative/path")
+        assert parse_hdd_url("hd:/dev/test:/absolute/path") == ("/dev/test", "/absolute/path")
