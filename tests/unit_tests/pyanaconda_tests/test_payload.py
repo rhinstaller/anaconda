@@ -27,40 +27,30 @@ class PayloadUtilsTests(unittest.TestCase):
 
     def test_parse_nfs_url(self):
         """Test parseNfsUrl."""
-
         # empty NFS url should return 3 blanks
         assert util.parse_nfs_url("") == ("", "", "")
 
         # the string is delimited by :, there is one prefix and 3 parts,
         # the prefix is discarded and all parts after the 3th part
         # are also discarded
-        assert util.parse_nfs_url("discard:options:host:path") == \
+        assert util.parse_nfs_url("nfs:options:host:path") == \
             ("options", "host", "path")
-        assert util.parse_nfs_url("discard:options:host:path:foo:bar") == \
+        assert util.parse_nfs_url("nfs:options:host:path:foo:bar") == \
             ("options", "host", "path")
-        assert util.parse_nfs_url(":options:host:path::") == \
-            ("options", "host", "path")
-        assert util.parse_nfs_url(":::::") == \
-            ("", "", "")
 
         # if there is only prefix & 2 parts,
         # the two parts are host and path
-        assert util.parse_nfs_url("prefix:host:path") == \
+        assert util.parse_nfs_url("nfs://host:path") == \
             ("", "host", "path")
-        assert util.parse_nfs_url(":host:path") == \
+        assert util.parse_nfs_url("nfs:host:path") == \
             ("", "host", "path")
-        assert util.parse_nfs_url("::") == \
-            ("", "", "")
 
         # if there is only a prefix and single part,
         # the part is the host
-
-        assert util.parse_nfs_url("prefix:host") == \
+        assert util.parse_nfs_url("nfs://host") == \
             ("", "host", "")
-        assert util.parse_nfs_url(":host") == \
+        assert util.parse_nfs_url("nfs:host") == \
             ("", "host", "")
-        assert util.parse_nfs_url(":") == \
-            ("", "", "")
 
     def test_create_nfs_url(self):
         """Test create_nfs_url."""
