@@ -1236,6 +1236,7 @@ class DNFManagerReposTestCase(unittest.TestCase):
         """Test the load_repository method with a failure."""
         repo = self._add_repo("r1")
         repo.load = Mock(side_effect=RepoError("Fake error!"))
+        repo.enable()
 
         with pytest.raises(MetadataError) as cm:
             self.dnf_manager.load_repository("r1")
@@ -1244,15 +1245,38 @@ class DNFManagerReposTestCase(unittest.TestCase):
         assert repo.enabled is False
         assert str(cm.value) == "Fake error!"
 
+    def test_load_repository_disabled(self):
+        """Test the load_repository method with a disabled repo."""
+        repo = self._add_repo("r1")
+        repo.load = Mock()
+        repo.disable()
+
+        self.dnf_manager.load_repository("r1")
+
+        repo.load.assert_not_called()
+        assert repo.enabled is False
+
     def test_load_repository(self):
         """Test the load_repository method."""
         repo = self._add_repo("r1")
         repo.load = Mock()
+        repo.enable()
 
         self.dnf_manager.load_repository("r1")
 
         repo.load.assert_called_once()
         assert repo.enabled is True
+
+    def test_load_packages_metadata(self):
+        """Test the load_packages_metadata method."""
+        sack = self.dnf_manager._base.sack
+        comps = self.dnf_manager._base.comps
+
+        self.dnf_manager.load_packages_metadata()
+
+        # The metadata should be reloaded.
+        assert sack != self.dnf_manager._base.sack
+        assert comps != self.dnf_manager._base.comps
 
     def _create_repo(self, repo, repo_dir):
         """Generate fake metadata for the repo."""

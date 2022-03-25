@@ -38,7 +38,8 @@ from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTa
 from pyanaconda.modules.payloads.payload.dnf.repositories import generate_driver_disk_repositories
 from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_version_list, \
     calculate_required_space
-from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, DNFManagerError
+from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, DNFManagerError, \
+    MetadataError
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 
 from pyanaconda.anaconda_loggers import get_packaging_logger
@@ -354,17 +355,6 @@ class DNFPayload(Payload):
         self._dnf_manager.configure_proxy(self._get_proxy_url())
         self._dnf_manager.dump_configuration()
 
-    def _sync_metadata(self, dnf_repo):
-        try:
-            dnf_repo.load()
-        except dnf.exceptions.RepoError as e:
-            id_ = dnf_repo.id
-            log.info('_sync_metadata: addon repo error: %s', e)
-            self._set_repo_enabled(id_, False)
-            self.verbose_errors.append(str(e))
-        log.debug('repo %s: _sync_metadata success from %s', dnf_repo.id,
-                  dnf_repo.baseurl or dnf_repo.mirrorlist or dnf_repo.metalink)
-
     ###
     # METHODS FOR WORKING WITH REPOSITORIES
     ###
@@ -379,39 +369,18 @@ class DNFPayload(Payload):
 
         return repo
 
-    def _add_repo_to_dnf_and_ks(self, ksrepo):
-        """Add an enabled repo to dnf and kickstart repo lists.
-
-        Add the repo given by the pykickstart Repo object ksrepo to the
-        system.
-
-        Duplicate repos will not raise an error.  They should just silently
-        take the place of the previous value.
-
-        :param ksrepo: Kickstart Repository to add
-        :type ksrepo: Kickstart RepoData object.
-        :returns: None
-        """
-        if ksrepo.enabled:
-            self._add_repo_to_dnf(ksrepo)
-            self._dnf_manager.load_repository(ksrepo.name)
-
-        # Add the repo to the ksdata so it'll appear in the output ks file.
-        self.data.repo.dataList().append(ksrepo)
-
     def _add_repo_to_dnf(self, ksrepo):
         """Add a repo to the dnf repo object.
 
         :param ksrepo: Kickstart Repository to add
         :type ksrepo: Kickstart RepoData object.
-        :returns: None
+        :raise: MetadataError if the repo cannot be loaded
         """
         data = convert_ks_repo_to_repo_data(ksrepo)
-        enabled = ksrepo.enabled
 
         # An existing repository can be only enabled or disabled.
         if self._is_existing_repo_configuration(data):
-            self._dnf_manager.set_repository_enabled(data.name, enabled)
+            self._dnf_manager.set_repository_enabled(data.name, data.enabled)
             return
 
         # Set up the NFS source with a substituted URL.
@@ -424,6 +393,9 @@ class DNFPayload(Payload):
 
         # Add a new repository.
         self._dnf_manager.add_repository(data)
+
+        # Load an enabled repository to check its validity.
+        self._dnf_manager.load_repository(data.name)
 
     def _is_existing_repo_configuration(self, data):
         """Is it a configuration of an existing repository?
@@ -471,13 +443,6 @@ class DNFPayload(Payload):
         repo = self.get_addon_repo(repo_id)
         if repo:
             repo.enabled = enabled
-
-    def gather_repo_metadata(self):
-        with self._repos_lock:
-            for repo in self._base.repos.iter_enabled():
-                self._sync_metadata(repo)
-        self._base.fill_sack(load_system_repo=False)
-        self._base.read_comps(arch_filter=True)
 
     def install(self):
         self._progress_cb(0, _('Starting package installation process'))
@@ -666,7 +631,6 @@ class DNFPayload(Payload):
                     sslclientkey=data.ssl_configuration.client_key_path
                 )
                 self._add_repo_to_dnf(base_ksrepo)
-                self._dnf_manager.load_repository(base_ksrepo.name)
             except (DNFManagerError, PayloadError) as e:
                 log.error("base repo (%s/%s) not valid -- removing it",
                           source_type, base_repo_url)
@@ -710,7 +674,7 @@ class DNFPayload(Payload):
 
         self._include_additional_repositories()
         self._disable_unwanted_repositories()
-        self._load_enabled_repositories()
+        self._validate_enabled_repositories()
 
     def _include_additional_repositories(self):
         """Add additional repositories to DNF."""
@@ -720,6 +684,7 @@ class DNFPayload(Payload):
 
             log.debug("repo %s: mirrorlist %s, baseurl %s, metalink %s",
                       ksrepo.name, ksrepo.mirrorlist, ksrepo.baseurl, ksrepo.metalink)
+
             # one of these must be set to create new repo
             if not (ksrepo.mirrorlist or ksrepo.baseurl or ksrepo.metalink or
                     ksrepo.name in self._base.repos):
@@ -740,12 +705,20 @@ class DNFPayload(Payload):
                 elif constants.isFinal and 'rawhide' in id_:
                     self._dnf_manager.set_repository_enabled(id_, False)
 
-    def _load_enabled_repositories(self):
-        """Fetch md for enabled repos."""
-        with self._repos_lock:
-            for ks_repo in self.data.repo.dataList():
-                if self.is_repo_enabled(ks_repo.name):
-                    self._dnf_manager.load_repository(ks_repo.name)
+    def _validate_enabled_repositories(self):
+        """Validate all enabled repositories.
+
+        Collect error messages about invalid repositories.
+        All invalid repositories are disabled.
+
+        The user repositories are validated when we add them
+        to DNF, so this covers invalid system repositories.
+        """
+        for repo_id in self.dnf_manager.enabled_repositories:
+            try:
+                self.dnf_manager.load_repository(repo_id)
+            except MetadataError as e:
+                self.verbose_errors.append(str(e))
 
     def _find_and_mount_iso(self, device, device_mount_dir, iso_path, iso_mount_dir):
         """Find and mount installation source from ISO on device.
@@ -899,7 +872,13 @@ class DNFPayload(Payload):
             log.debug("Adding new treeinfo repository: %s enabled: %s",
                       repo_md.name, repo_enabled)
 
-            self._add_repo_to_dnf_and_ks(repo)
+            # Validate the repository.
+            if repo.enabled:
+                self._add_repo_to_dnf(repo)
+
+            # Add the repository to user repositories,
+            # so it'll appear in the output ks file.
+            self.data.repo.dataList().append(repo)
 
     def _cleanup_old_treeinfo_repositories(self):
         """Remove all old treeinfo repositories before loading new ones.

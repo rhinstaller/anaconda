@@ -895,8 +895,11 @@ class DNFManager(object):
     def load_repository(self, repo_id):
         """Download repo metadata.
 
-        Enable the repo and load its metadata to verify that
+        If the repo is enabled, load its metadata to verify that
         the repo is valid. An invalid repo will be disabled.
+
+        This method will by default not try to refresh already
+        loaded data if called repeatedly.
 
         :param str repo_id: an identifier of a repository
         :raise: MetadataError if the metadata cannot be loaded
@@ -906,8 +909,11 @@ class DNFManager(object):
         repo = self._get_repository(repo_id)
         url = repo.baseurl or repo.mirrorlist or repo.metalink
 
+        if not repo.enabled:
+            log.debug("Don't load metadata from a disabled repository.")
+            return
+
         try:
-            repo.enable()
             repo.load()
         except dnf.exceptions.RepoError as e:
             log.debug("Failed to load metadata from '%s': %s", url, str(e))
@@ -915,6 +921,26 @@ class DNFManager(object):
             raise MetadataError(str(e)) from None
 
         log.info("Loaded metadata from '%s'.", url)
+
+    def load_packages_metadata(self):
+        """Load metadata about packages in available repositories.
+
+        Load all enabled repositories and process their metadata.
+        It will update the cache that provides information about
+        available packages, modules, groups and environments.
+        """
+        # Load all enabled repositories.
+        # Set up the package sack.
+        self._base.fill_sack(
+            load_system_repo=False,
+            load_available_repos=True,
+        )
+        # Load the comps metadata.
+        self._base.read_comps(
+            arch_filter=True
+        )
+
+        log.info("Loaded packages and group metadata.")
 
     def load_repomd_hashes(self):
         """Load a hash of the repomd.xml file for each enabled repository."""
