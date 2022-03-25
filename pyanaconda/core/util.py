@@ -216,6 +216,9 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
     def sigusr1_preexec():
         signal.signal(signal.SIGUSR1, signal.SIG_IGN)
 
+    old_sigalrm_handler = None
+    old_sigusr1_handler = None
+    childproc = None
     try:
         old_sigusr1_handler = signal.signal(signal.SIGUSR1, sigusr1_success_handler)
         old_sigalrm_handler = signal.signal(signal.SIGALRM, sigalrm_handler)
