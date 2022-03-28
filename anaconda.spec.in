@@ -157,6 +157,7 @@ BuildRequires: desktop-file-utils
 Requires: anaconda-gui = %{version}-%{release}
 Requires: usermode
 Requires: zenity
+Requires: xisxwayland
 Recommends: xhost
 
 %description live

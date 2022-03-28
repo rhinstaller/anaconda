@@ -26,6 +26,7 @@ import langtable
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda import localization
 from pyanaconda.core.constants import DEFAULT_KEYBOARD
+from pyanaconda.core.util import execWithRedirect
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 
@@ -53,6 +54,49 @@ class InvalidLayoutVariantSpec(Exception):
     """
 
     pass
+
+
+def _is_xwayland():
+    """Is Anaconda running in XWayland environment?
+
+    This can't be easily detected from the Anaconda because Anaconda
+    is running as XWayland app. Use xisxwayland tool for the detection.
+    """
+    try:
+        rc = execWithRedirect('xisxwayland', [])
+
+        if rc == 0:
+            return True
+
+        log.debug(
+            "Anaconda doesn't run on XWayland. "
+            "See xisxwayland --help for more info."
+        )
+    except FileNotFoundError:
+        log.warning(
+            "The xisxwayland tool is not available! "
+            "Taking the environment as not Wayland."
+        )
+
+    return False
+
+
+def can_configure_keyboard():
+    """Can we configure the keyboard?
+
+    FIXME: This is a temporary solution.
+
+    The is_wayland logic is not part of the configuration so we would
+    have to add it to the configuration otherwise it won't be accessible
+    in the Anaconda modules.
+    """
+    if not conf.system.can_configure_keyboard:
+        return False
+
+    if conf.system.can_run_on_xwayland and _is_xwayland():
+        return False
+
+    return True
 
 
 def parse_layout_variant(layout_variant_str):
@@ -180,7 +224,7 @@ def set_x_keyboard_defaults(localization_proxy, xkl_wrapper):
         new_layouts = [DEFAULT_KEYBOARD]
 
     localization_proxy.SetXLayouts(new_layouts)
-    if conf.system.can_configure_keyboard:
+    if can_configure_keyboard():
         xkl_wrapper.replace_layouts(new_layouts)
 
     # the console layout configured should be "native" by default,
@@ -193,7 +237,7 @@ def set_x_keyboard_defaults(localization_proxy, xkl_wrapper):
         # initialize layout switching if needed
         localization_proxy.SetLayoutSwitchOptions(["grp:alt_shift_toggle"])
 
-        if conf.system.can_configure_keyboard:
+        if can_configure_keyboard():
             xkl_wrapper.set_switching_options(["grp:alt_shift_toggle"])
             # activate the language-default layout instead of the additional
             # one
