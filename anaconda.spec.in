@@ -456,6 +456,63 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Mar 28 2022 Martin Kolman <mkolman@redhat.com> - 37.4-1
+- Remove the unused _noop method (vponcova)
+- Fix failing pylint check. (rvykydal)
+- Use a task to set up an additional NFS repository (vponcova)
+- Parse both formats of the NFS repositories (vponcova)
+- webui: start using custom webui-desktop script instead of cockpit-desktop
+  (kkoukiou)
+- ShellCheck: Quote also variables inside ${...} (vslavik)
+- Move the validation of system repositories (vponcova)
+- Always load new enabled repositories to check their validity (vponcova)
+- Don't allow to load metadata of a disabled repository (vponcova)
+- Remove the _add_repo_to_dnf_and_ks method of the DNF payload class (vponcova)
+- Use the DNF manager to load all enabled repositories (vponcova)
+- Add the load_packages_metadata method to the DNF manager (vponcova)
+- Extend the DBus documentation of the Storage module (vponcova)
+- webui: add helper text in the installation destination step (kkoukiou)
+- webui: adapt the wizard body headers and other captions to the design mockups
+  (kkoukiou)
+- webui: move installation destination step to ListingTable component
+  (kkoukiou)
+- Clarify which Anaconda profile is used by CentOS Stream (vponcova)
+- webui: prefer constant variable when possible (kkoukiou)
+- webui: bring some order to the imports (kkoukiou)
+- webui: move wizard code out of app.jsx to a new file (kkoukiou)
+- webui: stop using titleId without a title (kkoukiou)
+- webui: keep a list of visited pages for deciding which nav items are enabled
+  (kkoukiou)
+- webui: stop passing 'address' variable to the Footer component (kkoukiou)
+- webui: tests: do not start the installation in non-destructive tests
+  (kkoukiou)
+- webui: convert wizard to in-page and add a betanag label (kkoukiou)
+- Add the generate_driver_disk_repositories function (vponcova)
+- Split some code from the update_base_repo method (vponcova)
+- Handle the inst.addrepo option in the DNF payload class (vponcova)
+- Remove the additional_repos attribute of the Anaconda class (vponcova)
+- Parse the inst.addrepo option using argparser (vponcova)
+- gui: update network spoke for symbolic icons (#2055883) (rvykydal)
+- gui: update beta-nag dialog for symbolic icons (#2055883) (rvykydal)
+- gui: update Quit dialog for symbolic icons (#2055883) (rvykydal)
+- Add the --ignore-broken test again (vponcova)
+- Remove --ignore-broken test (#test) (jkonecny)
+- webui: add support for in form error notifications per step (kkoukiou)
+- webui: introduce a custom Footer component for the Wizard (kkoukiou)
+- webui: introduce some logic for which steps the users can access (kkoukiou)
+- webui: Get method call on the Properties interface always wraps results in
+  arrays (kkoukiou)
+- webui: move dbus client declarations to singleton classes (kkoukiou)
+- webui: fix progress reporting in the InstallationProgress component
+  (kkoukiou)
+- build(deps): bump (49699333+dependabot[bot])
+- Document inst.net.noautodefault option (rvykydal)
+- build(deps): bump (49699333+dependabot[bot])
+- Add scripts for anaconda services to updates image (rvykydal)
+- Add inst.net.noautodefault option do disable NM default autocons (#2033231)
+  (rvykydal)
+- Disable NM autoconnections in Anaconda (rvykydal)
+
 * Tue Mar 15 2022 Martin Kolman <mkolman@redhat.com> - 37.3-1
 - Increase version of the anaconda-widgets (jkonecny)
 - Disable layout_indicator in Anaconda (jkonecny)
