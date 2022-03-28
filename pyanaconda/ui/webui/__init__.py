@@ -84,10 +84,6 @@ class CockpitUserInterface(ui.UserInterface):
         print(msg)
         log.debug(msg)
 
-    def _noop(self, *args, **kwargs):
-        """Do nothing."""
-        pass
-
     def run(self):
         """Run the interface."""
         log.debug("web-ui: starting cockpit web view")
