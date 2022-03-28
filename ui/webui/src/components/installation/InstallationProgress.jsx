@@ -28,6 +28,8 @@ import { AddressContext } from "../Common.jsx";
 
 import { BossClient, getSteps, installWithTasks } from "../../apis/boss.js";
 
+import { exitGui } from "../../helpers/exit.js";
+
 import "./InstallationProgress.scss";
 
 const _ = cockpit.gettext;
@@ -96,7 +98,7 @@ export class InstallationProgress extends React.Component {
                     </EmptyStateBody>
                     {status === "success" &&
                     <EmptyStateSecondaryActions>
-                        <Button>{_("Reboot")}</Button>
+                        <Button onClick={exitGui}>{_("Reboot")}</Button>
                     </EmptyStateSecondaryActions>}
                 </EmptyState>
             </Bullseye>
