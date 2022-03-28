@@ -87,7 +87,7 @@ class VirtInstallMachine(VirtMachine):
                 "-device virtio-net-pci,netdev=hostnet0,id=net0' "
                 f"--initrd-inject {os.getcwd()}/test/ks.cfg "
                 "--extra-args 'inst.ks=file:/ks.cfg' "
-                "--disk size=10,format=qcow2 "
+                "--disk size=15,format=qcow2 "
                 f"--location {os.getcwd()}/bots/images/{self.image}"
             )
             Machine.wait_boot(self)
