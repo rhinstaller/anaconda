@@ -18,17 +18,21 @@ import cockpit from "cockpit";
 import React, { useEffect, useState } from "react";
 
 import {
-    Card, CardBody, CardHeader, CardTitle,
-    DataList, DataListItem, DataListItemRow, DataListCheck, DataListItemCells, DataListCell,
-    Form,
-    Hint, HintBody,
+    Flex,
+    HelperText, HelperTextItem,
+    Label,
+    Title,
 } from "@patternfly/react-core";
+
+import { ListingTable } from "cockpit-components-table.jsx";
 
 import {
     applyPartitioning,
     createPartitioning,
     getAllDiskSelection,
     getDeviceData,
+    getDiskFreeSpace,
+    getDiskTotalSpace,
     getUsableDisks,
     partitioningConfigureWithTask,
     runStorageTask,
@@ -93,9 +97,23 @@ const LocalStandardDisks = ({ onAddErrorNotification }) => {
 
                     // Show disks data
                     defaultDisks.forEach(disk => {
+                        let deviceData = {};
+                        const diskNames = [disk];
+
                         getDeviceData({ disk })
                                 .then(res => {
-                                    setDeviceData(d => ({ ...d, [disk]: res[0] }));
+                                    deviceData = res[0];
+                                    return getDiskFreeSpace({ diskNames });
+                                }, console.error)
+                                .then(free => {
+                                    // Since the getDeviceData returns an object with variants as values,
+                                    // extend it with variants to keep the format consistent
+                                    deviceData.free = cockpit.variant(String, free[0]);
+                                    return getDiskTotalSpace({ diskNames });
+                                }, console.error)
+                                .then(total => {
+                                    deviceData.total = cockpit.variant(String, total[0]);
+                                    setDeviceData(d => ({ ...d, [disk]: deviceData }));
                                 }, console.error);
                     });
                 }, console.error);
@@ -108,53 +126,62 @@ const LocalStandardDisks = ({ onAddErrorNotification }) => {
         setSelectedDisks({ drives: selected }).catch(onAddErrorNotification);
     }, [disks, onAddErrorNotification]);
 
+    const totalDisksCnt = Object.keys(disks).length;
+    const selectedDisksCnt = Object.keys(disks).filter(disk => !!disks[disk]).length;
+
     return (
-        <Card>
-            <CardHeader>
-                <CardTitle>{_("Local standard disks")}</CardTitle>
-            </CardHeader>
-            <CardBody>
-                <DataList isCompact aria-label={_("Usable disks")}>
-                    {Object.keys(disks).map(disk => (
-                        <DataListItem key={disk} aria-labelledby={"local-disks-checkbox-" + disk}>
-                            <DataListItemRow>
-                                <DataListCheck
-                                  aria-labelledby={"local-disks-checkbox-" + disk}
-                                  onChange={value => setDisks({ ...disks, [disk]: value })}
-                                  checked={!!disks[disk]}
-                                  name={"checkbox-check-" + disk} />
-                                <DataListItemCells
-                                  dataListCells={[
-                                      <DataListCell key={disk} id={"local-disks-item-" + disk}>
-                                          {disk}
-                                      </DataListCell>,
-                                      <DataListCell key={"description-" + disk}>
-                                          {deviceData && deviceData[disk] && deviceData[disk].description.v}
-                                      </DataListCell>,
-                                      <DataListCell key={"size-" + disk}>
-                                          {cockpit.format_bytes(deviceData && deviceData[disk] && deviceData[disk].size.v)}
-                                      </DataListCell>
-                                  ]}
-                                />
-                            </DataListItemRow>
-                        </DataListItem>
-                    ))}
-                </DataList>
-            </CardBody>
-        </Card>
+        <>
+            <Flex spaceItems={{ default: "spaceItemsLg" }}>
+                <Title headingLevel="h3" id="installation-destination-local-disks-title" size="md">
+                    {_("Local standard disks")}
+                </Title>
+                <Label color="blue">
+                    {cockpit.format(
+                        cockpit.ngettext("$0 (of $1) disk selected", "$0 (of $1) disks selected", selectedDisksCnt),
+                        selectedDisksCnt,
+                        totalDisksCnt
+                    )}
+                </Label>
+            </Flex>
+            <ListingTable
+              aria-labelledby="installation-destination-local-disk-title"
+              variant="compact"
+              columns={
+                  [
+                      { title: _("Name"), sortable: true, header: true },
+                      { title: _("ID") },
+                      { title: _("Total") },
+                      { title: _("Free") },
+                  ]
+              }
+              onSelect={(_, isSelected, diskId) => setDisks({ ...disks, [Object.keys(disks)[diskId]]: isSelected })}
+              rows={
+                  Object.keys(disks).map(disk => (
+                      {
+                          selected: !!disks[disk],
+                          props: { key: disk, id: disk },
+                          columns: [
+                              { title: disk },
+                              { title: deviceData[disk] && deviceData[disk].description.v },
+                              { title: cockpit.format_bytes(deviceData[disk] && deviceData[disk].total.v) },
+                              { title: cockpit.format_bytes(deviceData[disk] && deviceData[disk].free.v) },
+                          ]
+                      }
+                  ))
+              }
+            />
+        </>
     );
 };
 
 export const InstallationDestination = ({ onAddErrorNotification }) => {
     return (
-        <Form isHorizontal>
-            <Hint>
-                <HintBody>
-                    {_("Select the device(s) you would like to install to. They will be left untouched until you click on the main menu's 'Begin installation' button.")}
-                </HintBody>
-            </Hint>
+        <>
+            <HelperText>
+                <HelperTextItem>{_("Select the device(s) you would like to install to")}</HelperTextItem>
+            </HelperText>
             <LocalStandardDisks onAddErrorNotification={onAddErrorNotification} />
-        </Form>
+        </>
     );
 };
 
