@@ -158,7 +158,7 @@ export const InstallationLanguage = ({ onSelectLang }) => {
 
     return (
         <Form>
-            <FormGroup label={_("What language would you like to use during the installation process?")}>
+            <FormGroup label={_("Select the language you would like to use.")}>
                 <LanguageSelector lang={lang} onSelectLang={setLang} menuAppendTo={document.body} />
             </FormGroup>
         </Form>

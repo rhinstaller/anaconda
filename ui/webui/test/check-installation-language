@@ -34,7 +34,7 @@ class TestLanguage(MachineCase):
         b.open("/cockpit/@localhost/anaconda-webui/index.html")
 
         # Expect the default language - this is en at this point - adjust the test when better guess is implemented
-        b.wait_in_text(".pf-c-form__label-text", "What language would you like to use during the installation process?")
+        b.wait_in_text(".pf-c-form__label-text", "Select the language you would like to use.")
 
         b.wait_val("#language-menu-toggle-select-typeahead", "English (United States)")
 
@@ -57,9 +57,7 @@ class TestLanguage(MachineCase):
         b.expect_load()
         b.wait_val("#language-menu-toggle-select-typeahead", "Deutsch (Deutschland)")
 
-        b.wait_in_text(".pf-c-form__label-text", "Welche Sprache möchten Sie während des Installationsvorgangs verwenden?")
-
-        # TODO: Add checks for translated plurals
+        # TODO: Add checks for translations when these are present
 
 if __name__ == '__main__':
     test_main()
