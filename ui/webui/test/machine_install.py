@@ -78,7 +78,7 @@ class VirtInstallMachine(VirtMachine):
                 "--noautoconsole "
                 f"--graphics vnc,listen={self.ssh_address} "
                 "--extra-args "
-                f"'inst.sshd inst.nokill inst.webui inst.updates=http://10.0.2.2:{http_port}/updates.img' "
+                f"'inst.sshd inst.nokill inst.webui.remote inst.webui inst.updates=http://10.0.2.2:{http_port}/updates.img' "
                 "--network none "
                 f"--qemu-commandline="
                 "'-netdev user,id=hostnet0,"
@@ -91,14 +91,6 @@ class VirtInstallMachine(VirtMachine):
                 f"--location {os.getcwd()}/bots/images/{self.image}"
             )
             Machine.wait_boot(self)
-
-            # For the non-remote installations cockpit-desktop is used to host the WebUI
-            # Spawn a cockpit-ws process to allow us unsafe remote access to the anaconda-webui to enable testing
-            if Machine.wait_execute(self, timeout_sec=15):
-                Machine.execute(self, command="/usr/libexec/cockpit-ws --no-tls --port 9090 --local-session=cockpit-bridge &>/dev/null &")
-            else:
-                raise Exception("Unable to reach machine {0} via ssh: {1}:{2}".format(
-                                self.label, self.ssh_address, self.ssh_port))
 
             for _ in range(30):
                 try:
