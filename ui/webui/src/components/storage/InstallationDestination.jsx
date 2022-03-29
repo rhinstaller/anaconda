@@ -145,7 +145,7 @@ const LocalStandardDisks = ({ onAddErrorNotification }) => {
             </Flex>
             <ListingTable
               aria-labelledby="installation-destination-local-disk-title"
-              variant="compact"
+              {...(totalDisksCnt > 10 && { variant: "compact" })}
               columns={
                   [
                       { title: _("Name"), sortable: totalDisksCnt > 1, header: true },
