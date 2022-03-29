@@ -24,6 +24,7 @@ import {
     Title,
 } from "@patternfly/react-core";
 
+import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
 import { ListingTable } from "cockpit-components-table.jsx";
 
 import {
@@ -128,6 +129,10 @@ const LocalStandardDisks = ({ onAddErrorNotification }) => {
 
     const totalDisksCnt = Object.keys(disks).length;
     const selectedDisksCnt = Object.keys(disks).filter(disk => !!disks[disk]).length;
+
+    if (totalDisksCnt === 0) {
+        return <EmptyStatePanel loading />;
+    }
 
     return (
         <>

@@ -23,6 +23,8 @@ import {
     SelectGroup, SelectOption, Select, SelectVariant,
 } from "@patternfly/react-core";
 
+import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
+
 import { AddressContext } from "../Common.jsx";
 
 import { getLanguages, getLanguageData, getLocales, getLocaleData } from "../../apis/localization.js";
@@ -82,31 +84,34 @@ class LanguageSelector extends React.Component {
             this.setState({ selectedItem: lang });
         };
 
-        const isLoading = languages.length !== locales.length;
-        const options = (
-            !isLoading
-                ? locales.map(langLocales => {
-                    const currentLang = languages.find(lang => getLanguageId(lang) === getLanguageId(langLocales[0]));
+        const isLoading = languages.length === 0 || languages.length !== locales.length;
 
-                    return (
-                        <SelectGroup
-                          label={cockpit.format("$0 ($1)", getLanguageNativeName(currentLang), getLanguageEnglishName(currentLang))}
-                          key={getLanguageId(currentLang)}>
-                            {langLocales.map(locale => (
-                                <SelectOption
-                                  id={getLocaleId(locale).split(".UTF-8")[0]}
-                                  key={getLocaleId(locale)}
-                                  value={{
-                                      toString: () => getLocaleNativeName(locale),
-                                      // Add a compareTo for custom filtering - filter also by english name
-                                      localeId: getLocaleId(locale)
-                                  }}
-                                />
-                            ))}
-                        </SelectGroup>
-                    );
-                })
-                : []
+        if (isLoading) {
+            return <EmptyStatePanel loading />;
+        }
+
+        const options = (
+            locales.map(langLocales => {
+                const currentLang = languages.find(lang => getLanguageId(lang) === getLanguageId(langLocales[0]));
+
+                return (
+                    <SelectGroup
+                      label={cockpit.format("$0 ($1)", getLanguageNativeName(currentLang), getLanguageEnglishName(currentLang))}
+                      key={getLanguageId(currentLang)}>
+                        {langLocales.map(locale => (
+                            <SelectOption
+                              id={getLocaleId(locale).split(".UTF-8")[0]}
+                              key={getLocaleId(locale)}
+                              value={{
+                                  toString: () => getLocaleNativeName(locale),
+                                  // Add a compareTo for custom filtering - filter also by english name
+                                  localeId: getLocaleId(locale)
+                              }}
+                            />
+                        ))}
+                    </SelectGroup>
+                );
+            })
         );
 
         return (
