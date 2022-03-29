@@ -81,11 +81,11 @@ class SetRPMMacrosTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.rpm")
     def test_set_rpm_macros_install_langs(self, mock_rpm):
         data = PackagesConfigurationData()
-        data.languages = "en,es"
+        data.languages = "en:es"
 
         macros = [
             ('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}'),
-            ('_install_langs', 'en,es'),
+            ('_install_langs', 'en:es'),
         ]
 
         task = self._run_task(data)
