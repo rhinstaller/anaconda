@@ -561,14 +561,6 @@ class DNFPayload(Payload):
             else:
                 return False
 
-    def _reset_configuration(self):
-        tear_down_sources(self.proxy)
-        self._tear_down_additional_sources()
-        self.tx_id = None
-        self._dnf_manager.clear_cache()
-        self._dnf_manager.reset_substitution()
-        self._dnf_manager.configure_proxy(self._get_proxy_url())
-
     def _is_source_default(self):
         """Report if the current source type is the default source type.
 
@@ -579,9 +571,17 @@ class DNFPayload(Payload):
 
     def update_base_repo(self, fallback=True, checkmount=True):
         """Update the base repository from the DBus source."""
-        log.info("Configuring the base repo")
-        self._reset_configuration()
+        log.debug("Tearing down sources")
+        tear_down_sources(self.proxy)
+        self._tear_down_additional_sources()
 
+        log.debug("Preparing the DNF base")
+        self.tx_id = None
+        self._dnf_manager.clear_cache()
+        self._dnf_manager.reset_substitution()
+        self._dnf_manager.configure_proxy(self._get_proxy_url())
+
+        log.info("Configuring the base repo")
         disabled_treeinfo_repo_names = self._cleanup_old_treeinfo_repositories()
 
         # Find the source and its type.
