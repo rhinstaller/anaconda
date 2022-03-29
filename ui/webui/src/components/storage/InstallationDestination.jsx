@@ -148,7 +148,7 @@ const LocalStandardDisks = ({ onAddErrorNotification }) => {
               variant="compact"
               columns={
                   [
-                      { title: _("Name"), sortable: true, header: true },
+                      { title: _("Name"), sortable: totalDisksCnt > 1, header: true },
                       { title: _("ID") },
                       { title: _("Total") },
                       { title: _("Free") },
