@@ -412,6 +412,24 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 29 2022 Martin Kolman <mkolman@redhat.com> - 36.16.3-1
+- Fix failing pylint check. (rvykydal)
+- gui: update network spoke for symbolic icons (#2055883) (rvykydal)
+- gui: update beta-nag dialog for symbolic icons (#2055883) (rvykydal)
+- gui: update Quit dialog for symbolic icons (#2055883) (rvykydal)
+- Increase version of the anaconda-widgets (jkonecny)
+- Disable layout_indicator in Anaconda (jkonecny)
+- Don't configure the keyboard in Live environments with XWayland (jkonecny)
+- network: Handle network configuration paths not existing (awilliam)
+- Change pylint ignore from number to name (vslavik)
+- Remove RpmDb-related setup in OSTree payloads (vslavik)
+- packit: build SRPM in Copr (ttomecek)
+- Replace one more icon after removal from adwaita (#2055883) (jkonecny)
+- Replace legacy adwaita icons removed in adwaita-icon-theme 42 (awilliam)
+- Do not copy resolv.conf to target system at the end of installation
+  (rvykydal)
+- Do not copy /etc/resolv.conf to chroot before installation (rvykydal)
+
 * Mon Feb 21 2022 Martin Kolman <mkolman@redhat.com> - 36.16.2-1
 - Do not modify boot order on UEFI if asked (vslavik)
 - Remove RPM database cleanup (vslavik)
