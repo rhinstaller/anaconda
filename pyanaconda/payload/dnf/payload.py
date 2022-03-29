@@ -16,11 +16,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import os
 import dnf.exceptions
 import dnf.repo
-
-from glob import glob
 
 from pyanaconda.core.path import join_paths
 from pyanaconda.modules.common.errors.installation import NonCriticalInstallationError, \
@@ -41,6 +38,7 @@ from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_version_lis
     calculate_required_space
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, DNFManagerError, \
     MetadataError
+from pyanaconda.modules.payloads.source.harddrive.initialization import SetUpHardDriveSourceTask
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from pyanaconda.modules.payloads.source.nfs.initialization import SetUpNFSSourceTask
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
@@ -52,17 +50,16 @@ from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, \
     SOURCE_TYPE_URL, SOURCE_TYPE_CDROM, URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, \
     URL_TYPE_METALINK, SOURCE_REPO_FILE_TYPES, SOURCE_TYPE_CDN, MULTILIB_POLICY_ALL
 from pyanaconda.core.i18n import _
+from pyanaconda.core.payload import parse_hdd_url
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import RepoData
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.payloads.source.utils import has_network_protocol
-from pyanaconda.modules.common.errors.storage import DeviceSetupError, MountFilesystemError
 from pyanaconda.modules.common.util import is_module_available
-from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload.errors import PayloadError, PayloadSetupError
-from pyanaconda.payload.image import find_first_iso_image, find_optical_install_media
+from pyanaconda.payload.image import find_optical_install_media
 from pyanaconda.modules.payloads.payload.dnf.tree_info import TreeInfoMetadata, NoTreeInfoError, \
     TreeInfoMetadataError
 from pyanaconda.ui.lib.payload import get_payload, get_source, create_source, set_source, \
@@ -178,26 +175,31 @@ class DNFPayload(Payload):
                 log.error("Type for additional repository %s is not recognized!", repo_url)
                 return
 
-            repo = RepoData(name=repo_name, baseurl=repo_url, install=False)
-
-            if repo in self.data.repo.dataList():
+            if self.get_addon_repo(repo_name):
                 log.warning("Repository name %s is not unique. Only the first "
                             "repo will be used!", repo_name)
 
-            if source.is_nfs or source.is_http or source.is_https or source.is_ftp \
-                    or source.is_file:
-                repo.enabled = True
-            elif source.is_harddrive:
-                repo.enabled = True
-                repo.partition = source.partition
-                repo.iso_path = source.path
-                repo.baseurl = "file://"
-            else:
+            is_supported = source.is_nfs \
+                or source.is_http \
+                or source.is_https \
+                or source.is_ftp \
+                or source.is_file \
+                or source.is_harddrive
+
+            if not is_supported:
                 log.error("Source type %s for additional repository %s is not supported!",
                           source.source_type.value, repo_url)
                 continue
 
-            self.data.repo.dataList().append(repo)
+            repo = RepoConfigurationData()
+            repo.name = repo_name
+            repo.enabled = True
+            repo.type = URL_TYPE_BASEURL
+            repo.url = repo_url
+            repo.installation_enabled = False
+
+            ks_repo = convert_repo_data_to_ks_repo(repo)
+            self.data.repo.dataList().append(ks_repo)
 
     def _generate_driver_disk_repositories(self):
         """Append generated driver disk repositories."""
@@ -426,6 +428,26 @@ class DNFPayload(Payload):
             mount_point = task.run()
             data.url = "file://" + mount_point
 
+        # Set up the HDD source.
+        elif data.url.startswith("hd:"):
+            device_mount = self._create_mount_point(
+                ISO_DIR + "-" + data.name + "-hdd-device"
+            )
+            iso_mount = self._create_mount_point(
+                INSTALL_TREE + "-" + data.name + "-hdd-iso"
+            )
+
+            partition, directory = parse_hdd_url(data.url)
+
+            task = SetUpHardDriveSourceTask(
+                device_mount=device_mount,
+                iso_mount=iso_mount,
+                partition=partition,
+                directory=directory,
+            )
+            result = task.run()
+            data.url = "file://" + result.install_tree_path
+
     def _create_mount_point(self, *paths):
         """Create a mount point from specified paths.
 
@@ -542,38 +564,10 @@ class DNFPayload(Payload):
     def _reset_configuration(self):
         tear_down_sources(self.proxy)
         self._tear_down_additional_sources()
-        self._reset_additional_repos()
         self.tx_id = None
         self._dnf_manager.clear_cache()
         self._dnf_manager.reset_substitution()
         self._dnf_manager.configure_proxy(self._get_proxy_url())
-
-    def _reset_additional_repos(self):
-        for name in self._find_mounted_additional_repos():
-            installation_dir = INSTALL_TREE + "-" + name
-            self._unmount_source_directory(installation_dir)
-
-            iso_dir = ISO_DIR + "-" + name
-            self._unmount_source_directory(iso_dir)
-
-    def _find_mounted_additional_repos(self):
-        prefix = ISO_DIR + "-"
-        prefix_len = len(prefix)
-        result = []
-
-        for dir_path in glob(prefix + "*"):
-            result.append(dir_path[prefix_len:])
-
-        return result
-
-    def _unmount_source_directory(self, mount_point):
-        if os.path.ismount(mount_point):
-            device_path = payload_utils.get_mount_device_path(mount_point)
-            device = payload_utils.resolve_device(device_path)
-            if device:
-                payload_utils.teardown_device(device)
-            else:
-                payload_utils.unmount(mount_point, raise_exc=True)
 
     def _is_source_default(self):
         """Report if the current source type is the default source type.
@@ -720,9 +714,6 @@ class DNFPayload(Payload):
     def _include_additional_repositories(self):
         """Add additional repositories to DNF."""
         for ksrepo in self.data.repo.dataList():
-            if ksrepo.is_harddrive_based():
-                ksrepo.baseurl = self._setup_harddrive_addon_repo(ksrepo)
-
             log.debug("repo %s: mirrorlist %s, baseurl %s, metalink %s",
                       ksrepo.name, ksrepo.mirrorlist, ksrepo.baseurl, ksrepo.metalink)
 
@@ -734,6 +725,7 @@ class DNFPayload(Payload):
                                         "the pre-defined repositories" %
                                         ksrepo.name)
 
+            # Set up additional sources.
             self._add_repo_to_dnf(ksrepo)
 
     def _disable_unwanted_repositories(self):
@@ -760,89 +752,6 @@ class DNFPayload(Payload):
                 self.dnf_manager.load_repository(repo_id)
             except MetadataError as e:
                 self.verbose_errors.append(str(e))
-
-    def _find_and_mount_iso(self, device, device_mount_dir, iso_path, iso_mount_dir):
-        """Find and mount installation source from ISO on device.
-
-        Return changed path to the iso to save looking for iso in the future call.
-        """
-        self._setup_device(device, mountpoint=device_mount_dir)
-
-        # check for ISO images in the newly mounted dir
-        path = device_mount_dir
-        if iso_path:
-            path = os.path.normpath("%s/%s" % (path, iso_path))
-
-        # XXX it would be nice to streamline this when we're just setting
-        #     things back up after storage activation instead of having to
-        #     pretend we don't already know which ISO image we're going to
-        #     use
-        image = find_first_iso_image(path)
-        if not image:
-            payload_utils.teardown_device(device)
-            raise PayloadSetupError("failed to find valid iso image")
-
-        if path.endswith(".iso"):
-            path = os.path.dirname(path)
-
-        # this could already be set up the first time through
-        if not os.path.ismount(iso_mount_dir):
-            # mount the ISO on a loop
-            image = os.path.normpath("%s/%s" % (path, image))
-            payload_utils.mount(image, iso_mount_dir, fstype='iso9660', options="ro")
-
-        if not iso_path.endswith(".iso"):
-            result_path = os.path.normpath("%s/%s" % (iso_path,
-                                                      os.path.basename(image)))
-            while result_path.startswith("/"):
-                # ridiculous
-                result_path = result_path[1:]
-
-            return result_path
-
-        return iso_path
-
-    @staticmethod
-    def _setup_device(device, mountpoint):
-        """Prepare an install CD/DVD for use as a package source."""
-        log.info("setting up device %s and mounting on %s", device, mountpoint)
-        # Is there a symlink involved?  If so, let's get the actual path.
-        # This is to catch /run/install/isodir vs. /mnt/install/isodir, for
-        # instance.
-        real_mountpoint = os.path.realpath(mountpoint)
-        mount_device_path = payload_utils.get_mount_device_path(real_mountpoint)
-
-        if mount_device_path:
-            log.warning("%s is already mounted on %s", mount_device_path, mountpoint)
-
-            if mount_device_path == payload_utils.get_device_path(device):
-                return
-            else:
-                payload_utils.unmount(real_mountpoint)
-
-        try:
-            payload_utils.setup_device(device)
-            payload_utils.mount_device(device, mountpoint)
-        except (DeviceSetupError, MountFilesystemError) as e:
-            log.error("mount failed: %s", e)
-            payload_utils.teardown_device(device)
-            raise PayloadSetupError(str(e)) from e
-
-    def _setup_harddrive_addon_repo(self, ksrepo):
-        iso_device = payload_utils.resolve_device(ksrepo.partition)
-        if not iso_device:
-            raise PayloadSetupError("device for HDISO addon repo install %s does not exist" %
-                                    ksrepo.partition)
-
-        ksrepo.generate_mount_dir()
-
-        device_mount_dir = ISO_DIR + "-" + ksrepo.mount_dir_suffix
-        install_root_dir = INSTALL_TREE + "-" + ksrepo.mount_dir_suffix
-
-        self._find_and_mount_iso(iso_device, device_mount_dir, ksrepo.iso_path, install_root_dir)
-        url = "file://" + install_root_dir
-
-        return url
 
     def _load_treeinfo_repositories(self, tree_info_metadata, base_repo_url,
                                     repo_names_to_disable, data):

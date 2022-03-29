@@ -16,7 +16,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import os
 import blivet.util
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -52,15 +51,6 @@ def get_device_path(device_name):
     return device_data.path
 
 
-def setup_device(device_name):
-    """Open, or set up, a device.
-
-    :param device_name: a device name
-    """
-    device_tree = STORAGE.get_proxy(DEVICE_TREE)
-    device_tree.SetupDevice(device_name)
-
-
 def mount_device(device_name, mount_point):
     """Mount a filesystem on the device.
 
@@ -92,15 +82,6 @@ def unmount_device(device_name, mount_point):
     device_tree.UnmountDevice(device_name, mount_point)
 
 
-def teardown_device(device_name):
-    """Close, or tear down, a device.
-
-    :param device_name: a device name
-    """
-    device_tree = STORAGE.get_proxy(DEVICE_TREE)
-    device_tree.TeardownDevice(device_name)
-
-
 def get_mount_points():
     """Get mount points in the device tree.
 
@@ -108,18 +89,6 @@ def get_mount_points():
     """
     device_tree = STORAGE.get_proxy(DEVICE_TREE)
     return device_tree.GetMountPoints()
-
-
-def get_mount_device_path(mount_point):
-    """Given a mount point, return the device node path mounted there.
-
-    :param str mount_point: a mount point
-    :return: a device path or None
-    """
-    if os.path.ismount(mount_point):
-        return blivet.util.get_mount_device(mount_point)
-
-    return None
 
 
 def get_mount_paths(device_path):

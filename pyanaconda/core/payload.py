@@ -21,6 +21,25 @@ from pyanaconda.core.i18n import _
 from pyanaconda.core.regexes import URL_PARSE
 
 
+def parse_hdd_url(url):
+    """Parse HDD URL into components.
+
+    :param str url: a raw URL, including "hd:"
+    :return (str, str): a tuple with a device and a path
+    """
+    # Remove the prefix.
+    url = url.removeprefix("hd:")
+
+    # Split the specified URL.
+    components = url.split(":", maxsplit=1)
+
+    # Get two components.
+    # Add empty strings if necessary.
+    device, path = (components + [""] * 2)[:2]
+
+    return device, path
+
+
 def parse_nfs_url(nfs_url):
     """Parse NFS URL into components.
 
