@@ -27,7 +27,11 @@ import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
 
 import { AddressContext } from "../Common.jsx";
 
-import { getLanguages, getLanguageData, getLocales, getLocaleData } from "../../apis/localization.js";
+import {
+    getLanguages, getLanguageData,
+    getLocales, getLocaleData,
+    setLanguage,
+} from "../../apis/localization.js";
 
 const _ = cockpit.gettext;
 
@@ -137,7 +141,7 @@ class LanguageSelector extends React.Component {
 }
 LanguageSelector.contextType = AddressContext;
 
-export const InstallationLanguage = ({ onSelectLang }) => {
+export const InstallationLanguage = ({ onSelectLang, onAddErrorNotification }) => {
     const langCookie = (window.localStorage.getItem("cockpit.lang") || "en-us").split("-");
     const [lang, setLang] = useState(langCookie[0] + "_" + langCookie[1].toUpperCase() + ".UTF-8");
 
@@ -155,6 +159,8 @@ export const InstallationLanguage = ({ onSelectLang }) => {
 
         document.cookie = cookie;
         window.localStorage.setItem("cockpit.lang", cockpitLang);
+
+        setLanguage({ lang }).catch(onAddErrorNotification);
     }, [lang]);
 
     useEffect(() => {
