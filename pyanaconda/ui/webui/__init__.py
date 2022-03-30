@@ -102,6 +102,8 @@ class CockpitUserInterface(ui.UserInterface):
                             "/cockpit/@localhost/anaconda-webui/index.html"],
                             reset_lang=False)
         log.debug("cockpit web view has been started")
+        with open("/run/anaconda/webui_script.pid", "w") as f:
+            f.write(repr(proc.pid))
         proc.wait()
         log.debug("cockpit web view has finished running")
         return

@@ -78,7 +78,7 @@ class VirtInstallMachine(VirtMachine):
                 "--noautoconsole "
                 f"--graphics vnc,listen={self.ssh_address} "
                 "--extra-args "
-                f"'inst.sshd inst.nokill inst.webui.remote inst.webui inst.updates=http://10.0.2.2:{http_port}/updates.img' "
+                f"'inst.sshd inst.webui.remote inst.webui inst.updates=http://10.0.2.2:{http_port}/updates.img' "
                 "--network none "
                 f"--qemu-commandline="
                 "'-netdev user,id=hostnet0,"
@@ -87,7 +87,7 @@ class VirtInstallMachine(VirtMachine):
                 "-device virtio-net-pci,netdev=hostnet0,id=net0' "
                 f"--initrd-inject {os.getcwd()}/test/ks.cfg "
                 "--extra-args 'inst.ks=file:/ks.cfg' "
-                "--disk size=10,format=qcow2 "
+                "--disk size=15,format=qcow2 "
                 f"--location {os.getcwd()}/bots/images/{self.image}"
             )
             Machine.wait_boot(self)

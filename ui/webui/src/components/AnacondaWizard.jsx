@@ -32,6 +32,8 @@ import { InstallationLanguage } from "./installation/InstallationLanguage.jsx";
 import { InstallationProgress } from "./installation/InstallationProgress.jsx";
 import { ReviewConfiguration } from "./installation/ReviewConfiguration.jsx";
 
+import { exitGui } from "../helpers/exit.js";
+
 import { usePageLocation } from "hooks";
 
 const _ = cockpit.gettext;
@@ -178,7 +180,7 @@ const Footer = ({ setStepNotification }) => {
                               onClick={onBack}>
                                 {_("Back")}
                             </Button>
-                            <Button variant="link">
+                            <Button variant="link" onClick={exitGui}>
                                 {_("Quit")}
                             </Button>
                         </>
