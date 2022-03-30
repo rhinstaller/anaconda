@@ -900,6 +900,10 @@ class DNFManager(object):
         """
         repo = self._get_repository(repo_id)
 
+        # Skip if the repository is already set to the right value.
+        if repo.enabled == enabled:
+            return
+
         if enabled:
             repo.enable()
             log.info("The '%s' repository is enabled.", repo_id)

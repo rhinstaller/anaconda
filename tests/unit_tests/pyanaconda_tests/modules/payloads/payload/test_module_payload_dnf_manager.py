@@ -981,14 +981,33 @@ class DNFManagerReposTestCase(unittest.TestCase):
 
     def test_set_repository_enabled(self):
         """Test the set_repository_enabled function."""
-        self._add_repo("r1")
+        self._add_repo("r1").disable()
 
-        self.dnf_manager.set_repository_enabled("r1", True)
+        # Enable a disabled repository.
+        with self.assertLogs(level="INFO") as cm:
+            self.dnf_manager.set_repository_enabled("r1", True)
+
+        msg = "The 'r1' repository is enabled."
+        assert any(map(lambda x: msg in x, cm.output))
         assert "r1" in self.dnf_manager.enabled_repositories
 
-        self.dnf_manager.set_repository_enabled("r1", False)
+        # Enable an enabled repository.
+        with self.assertNoLogs(level="INFO"):
+            self.dnf_manager.set_repository_enabled("r1", True)
+
+        # Disable an enabled repository.
+        with self.assertLogs(level="INFO") as cm:
+            self.dnf_manager.set_repository_enabled("r1", False)
+
+        msg = "The 'r1' repository is disabled."
+        assert any(map(lambda x: msg in x, cm.output))
         assert "r1" not in self.dnf_manager.enabled_repositories
 
+        # Disable a disabled repository.
+        with self.assertNoLogs(level="INFO"):
+            self.dnf_manager.set_repository_enabled("r1", False)
+
+        # Enable an unknown repository.
         with pytest.raises(UnknownRepositoryError):
             self.dnf_manager.set_repository_enabled("r2", True)
 
