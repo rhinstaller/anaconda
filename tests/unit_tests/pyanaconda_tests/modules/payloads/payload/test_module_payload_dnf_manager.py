@@ -963,6 +963,22 @@ class DNFManagerReposTestCase(unittest.TestCase):
 
         assert self.dnf_manager.enabled_repositories == ["r2", "r4"]
 
+    def test_get_matching_repositories(self):
+        """Test the get_matching_repositories method."""
+        assert self.dnf_manager.get_matching_repositories("r*") == []
+
+        self._add_repo("r1")
+        self._add_repo("r20")
+        self._add_repo("r21")
+        self._add_repo("r3")
+
+        assert self.dnf_manager.get_matching_repositories("") == []
+        assert self.dnf_manager.get_matching_repositories("*1") == ["r1", "r21"]
+        assert self.dnf_manager.get_matching_repositories("*2*") == ["r20", "r21"]
+        assert self.dnf_manager.get_matching_repositories("r3") == ["r3"]
+        assert self.dnf_manager.get_matching_repositories("r4") == []
+        assert self.dnf_manager.get_matching_repositories("r*") == ["r1", "r20", "r21", "r3"]
+
     def test_set_repository_enabled(self):
         """Test the set_repository_enabled function."""
         self._add_repo("r1")

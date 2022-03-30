@@ -733,6 +733,18 @@ class DNFManager(object):
         with self._lock:
             return [r.id for r in self._base.repos.iter_enabled()]
 
+    def get_matching_repositories(self, pattern):
+        """Get a list of repositories that match the specified pattern.
+
+        The pattern can contain Unix shell-style wildcards.
+        See: https://docs.python.org/3/library/fnmatch.html
+
+        :param pattern: a pattern for matching the repo IDs
+        :return: a list of matching IDs
+        """
+        with self._lock:
+            return [r.id for r in self._base.repos.get_matching(pattern)]
+
     def _get_repository(self, repo_id):
         """Translate the given repository name to a DNF object.
 
