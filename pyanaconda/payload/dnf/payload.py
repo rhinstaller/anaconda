@@ -33,7 +33,8 @@ from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTa
     SetRPMMacrosTask, DownloadPackagesTask, InstallPackagesTask, PrepareDownloadLocationTask, \
     CleanUpDownloadLocationTask, ResolvePackagesTask, UpdateDNFConfigurationTask, \
     WriteRepositoriesTask
-from pyanaconda.modules.payloads.payload.dnf.repositories import generate_driver_disk_repositories
+from pyanaconda.modules.payloads.payload.dnf.repositories import \
+    generate_driver_disk_repositories, generate_treeinfo_repositories
 from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_version_list, \
     calculate_required_space
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, DNFManagerError, \
@@ -54,7 +55,6 @@ from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import parse_hdd_url
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.flags import flags
-from pyanaconda.kickstart import RepoData
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.payloads.source.utils import has_network_protocol
 from pyanaconda.modules.common.util import is_module_available
@@ -759,6 +759,7 @@ class DNFPayload(Payload):
         :type repo_names_to_disable: [str]
         :param data: repo configuration data
         """
+        # Collect URL of existing repositories.
         existing_urls = []
 
         if base_repo_url is not None:
@@ -768,37 +769,32 @@ class DNFPayload(Payload):
             baseurl = ks_repo.baseurl
             existing_urls.append(baseurl)
 
-        for repo_md in tree_info_metadata.repositories:
-            if repo_md.url in existing_urls:
+        # Generate treeinfo repositories.
+        repositories = generate_treeinfo_repositories(
+            repo_data=data,
+            tree_info_metadata=tree_info_metadata,
+        )
+
+        for repo in repositories:
+            # Skip existing repositories.
+            if repo.url in existing_urls:
                 continue
 
-            # disable repositories disabled by user manually before
-            repo_enabled = repo_md.enabled \
-                and repo_md.name not in repo_names_to_disable
+            # Disable if previously disabled.
+            if repo.name in repo_names_to_disable:
+                repo.enabled = False
 
-            repo = RepoData(
-                name=repo_md.name,
-                baseurl=repo_md.url,
-                noverifyssl=not data.ssl_verification_enabled,
-                proxy=data.proxy,
-                sslcacert=data.ssl_configuration.ca_cert_path,
-                sslclientcert=data.ssl_configuration.client_cert_path,
-                sslclientkey=data.ssl_configuration.client_key_path,
-                install=False,
-                enabled=repo_enabled
-            )
-
-            repo.treeinfo_origin = True
-            log.debug("Adding new treeinfo repository: %s enabled: %s",
-                      repo_md.name, repo_enabled)
+            log.debug("Add the '%s' treeinfo repository: %s", repo.name, repo)
 
             # Validate the repository.
+            ks_repo = convert_repo_data_to_ks_repo(repo)
+
             if repo.enabled:
-                self._add_repo_to_dnf(repo)
+                self._add_repo_to_dnf(ks_repo)
 
             # Add the repository to user repositories,
             # so it'll appear in the output ks file.
-            self.data.repo.dataList().append(repo)
+            self.data.repo.dataList().append(ks_repo)
 
     def _cleanup_old_treeinfo_repositories(self):
         """Remove all old treeinfo repositories before loading new ones.

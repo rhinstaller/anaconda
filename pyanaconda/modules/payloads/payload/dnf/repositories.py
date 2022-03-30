@@ -15,12 +15,14 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import copy
 import os
 
 from glob import glob
 from itertools import count
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.constants import REPO_ORIGIN_TREEINFO, URL_TYPE_BASEURL
 from pyanaconda.core.path import join_paths
 from pyanaconda.core.util import execWithRedirect
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
@@ -61,6 +63,32 @@ def generate_driver_disk_repositories(path="/run/install"):
         repo = RepoConfigurationData()
         repo.name = repo_name
         repo.url = "file://" + repo_path
+        repositories.append(repo)
+
+    return repositories
+
+
+def generate_treeinfo_repositories(repo_data: RepoConfigurationData, tree_info_metadata):
+    """Generate repositories from tree metadata of the specified repository.
+
+    :param RepoConfigurationData repo_data: a repository with metadata
+    :param TreeInfoMetadata tree_info_metadata: metadata of the repository
+    :return: a list of generated repo configuration data
+    """
+    repositories = []
+
+    for repo_md in tree_info_metadata.repositories:
+        repo = copy.deepcopy(repo_data)
+
+        repo.origin = REPO_ORIGIN_TREEINFO
+        repo.name = repo_md.name
+
+        repo.type = URL_TYPE_BASEURL
+        repo.url = repo_md.url
+
+        repo.enabled = repo_md.enabled
+        repo.installation_enabled = False
+
         repositories.append(repo)
 
     return repositories
