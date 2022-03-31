@@ -415,7 +415,7 @@ class ConfigureFingerprintAuthTask(Task):
         log.debug("Enabling fingerprint authentication.")
         run_auth_tool(
             AUTHSELECT_TOOL_PATH,
-            ["select", "sssd", "with-fingerprint", "with-silent-lastlog", "--force"],
+            ["enable-feature", "with-fingerprint"],
             self._sysroot,
             required=False
         )
