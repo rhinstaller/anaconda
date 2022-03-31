@@ -147,7 +147,7 @@ class LanguageSelector extends React.Component {
 }
 LanguageSelector.contextType = AddressContext;
 
-export const InstallationLanguage = ({ onSelectLang, onAddErrorNotification }) => {
+export const InstallationLanguage = ({ onAddErrorNotification }) => {
     const [lang, setLang] = useState(getDefaultLang());
 
     useEffect(() => {
