@@ -781,14 +781,9 @@ class DNFPayload(Payload):
 
             log.debug("Add the '%s' treeinfo repository: %s", repo.name, repo)
 
-            # Validate the repository.
-            ks_repo = convert_repo_data_to_ks_repo(repo)
-
-            if repo.enabled:
-                self._add_repo_to_dnf(ks_repo)
-
             # Add the repository to user repositories,
             # so it'll appear in the output ks file.
+            ks_repo = convert_repo_data_to_ks_repo(repo)
             self.data.repo.dataList().append(ks_repo)
 
     def _remove_treeinfo_repositories(self):
