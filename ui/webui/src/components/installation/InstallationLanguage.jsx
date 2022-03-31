@@ -33,6 +33,12 @@ import {
     setLanguage,
 } from "../../apis/localization.js";
 
+import {
+    convertToCockpitLang,
+    getDefaultLang,
+    setLangCookie
+} from "../../helpers/language.js";
+
 const _ = cockpit.gettext;
 
 const getLanguageEnglishName = lang => lang["english-name"].v;
@@ -142,8 +148,7 @@ class LanguageSelector extends React.Component {
 LanguageSelector.contextType = AddressContext;
 
 export const InstallationLanguage = ({ onSelectLang, onAddErrorNotification }) => {
-    const langCookie = (window.localStorage.getItem("cockpit.lang") || "en-us").split("-");
-    const [lang, setLang] = useState(langCookie[0] + "_" + langCookie[1].toUpperCase() + ".UTF-8");
+    const [lang, setLang] = useState(getDefaultLang());
 
     useEffect(() => {
         if (!lang) {
@@ -154,14 +159,9 @@ export const InstallationLanguage = ({ onSelectLang, onAddErrorNotification }) =
          * FIXME: Anaconda API returns en_US, de_DE etc, cockpit expects en-us, de-de etc
          * Make sure to check if this is generalized enough to keep so.
          */
-        const cockpitLang = lang.split(".UTF-8")[0].replace(/_/g, "-").toLowerCase();
-        const cookie = "CockpitLang=" + encodeURIComponent(cockpitLang) + "; path=/; expires=Sun, 16 Jul 3567 06:23:41 GMT";
-
-        document.cookie = cookie;
-        window.localStorage.setItem("cockpit.lang", cockpitLang);
-
+        setLangCookie({ cockpitLang: convertToCockpitLang({ lang }) });
         setLanguage({ lang }).catch(onAddErrorNotification);
-    }, [lang]);
+    }, [lang, onAddErrorNotification]);
 
     useEffect(() => {
         return () => window.location.reload(true);
