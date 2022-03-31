@@ -102,6 +102,7 @@ class DNFManager(object):
         self._ignore_broken_packages = False
         self._download_location = None
         self._md_hashes = {}
+        self._enabled_system_repositories = []
 
     @property
     def _base(self):
@@ -159,6 +160,7 @@ class DNFManager(object):
         self._ignore_broken_packages = False
         self._download_location = None
         self._md_hashes = {}
+        self._enabled_system_repositories = []
         log.debug("The DNF base has been reset.")
 
     def configure_base(self, data: PackagesConfigurationData):
@@ -475,6 +477,7 @@ class DNFManager(object):
 
     def clear_cache(self):
         """Clear the DNF cache."""
+        self._enabled_system_repositories = []
         shutil.rmtree(DNF_CACHE_DIR, ignore_errors=True)
         shutil.rmtree(DNF_PLUGINCONF_DIR, ignore_errors=True)
         self._base.reset(sack=True, repos=True, goal=True)
@@ -730,6 +733,18 @@ class DNFManager(object):
         with self._lock:
             return [r.id for r in self._base.repos.iter_enabled()]
 
+    def get_matching_repositories(self, pattern):
+        """Get a list of repositories that match the specified pattern.
+
+        The pattern can contain Unix shell-style wildcards.
+        See: https://docs.python.org/3/library/fnmatch.html
+
+        :param pattern: a pattern for matching the repo IDs
+        :return: a list of matching IDs
+        """
+        with self._lock:
+            return [r.id for r in self._base.repos.get_matching(pattern)]
+
     def _get_repository(self, repo_id):
         """Translate the given repository name to a DNF object.
 
@@ -885,12 +900,54 @@ class DNFManager(object):
         """
         repo = self._get_repository(repo_id)
 
+        # Skip if the repository is already set to the right value.
+        if repo.enabled == enabled:
+            return
+
         if enabled:
             repo.enable()
             log.info("The '%s' repository is enabled.", repo_id)
         else:
             repo.disable()
             log.info("The '%s' repository is disabled.", repo_id)
+
+    def read_system_repositories(self):
+        """Read the system repositories.
+
+        Read all repositories from the installation environment.
+        Make a note of which are enabled, and then disable them all.
+
+        Disabled system repositories can be restored later with
+        restore_system_repositories.
+        """
+        with self._lock:
+            # Make sure that there are no repositories yet. Otherwise,
+            # the code bellow will produce unexpected results.
+            if self.repositories:
+                raise RuntimeError("The DNF repo cache is not cleared.")
+
+            log.debug("Read system repositories.")
+            self._base.read_all_repos()
+
+            # Remember enabled system repositories.
+            self._enabled_system_repositories = list(self.enabled_repositories)
+
+            log.debug("Disable system repositories.")
+            self._base.repos.all().disable()
+
+    def restore_system_repositories(self):
+        """Restore the system repositories.
+
+        Enable repositories from the installation environment that
+        were disabled in read_system_repositories.
+        """
+        log.debug("Restore system repositories.")
+
+        for repo_id in self._enabled_system_repositories:
+            try:
+                self.set_repository_enabled(repo_id, True)
+            except UnknownRepositoryError:
+                log.debug("There is no '%s' repository to enable.", repo_id)
 
     def load_repository(self, repo_id):
         """Download repo metadata.

@@ -487,14 +487,6 @@ class DNFPayload(Payload):
         """
         self._updates_enabled = state
 
-        # Enable or disable updates.
-        for repo_id in conf.payload.updates_repositories:
-            self._set_repo_enabled(repo_id, state)
-
-        # Disable updates-testing.
-        self._set_repo_enabled("updates-testing", False)
-        self._set_repo_enabled("updates-testing-modular", False)
-
     def _set_repo_enabled(self, repo_id, enabled):
         """Enable or disable the repo in DNF and its data representation."""
         try:
@@ -561,14 +553,6 @@ class DNFPayload(Payload):
             else:
                 return False
 
-    def _reset_configuration(self):
-        tear_down_sources(self.proxy)
-        self._tear_down_additional_sources()
-        self.tx_id = None
-        self._dnf_manager.clear_cache()
-        self._dnf_manager.reset_substitution()
-        self._dnf_manager.configure_proxy(self._get_proxy_url())
-
     def _is_source_default(self):
         """Report if the current source type is the default source type.
 
@@ -579,9 +563,18 @@ class DNFPayload(Payload):
 
     def update_base_repo(self, fallback=True, checkmount=True):
         """Update the base repository from the DBus source."""
-        log.info("Configuring the base repo")
-        self._reset_configuration()
+        log.debug("Tearing down sources")
+        tear_down_sources(self.proxy)
+        self._tear_down_additional_sources()
 
+        log.debug("Preparing the DNF base")
+        self.tx_id = None
+        self._dnf_manager.clear_cache()
+        self._dnf_manager.reset_substitution()
+        self._dnf_manager.configure_proxy(self._get_proxy_url())
+        self._dnf_manager.read_system_repositories()
+
+        log.info("Configuring the base repo")
         disabled_treeinfo_repo_names = self._cleanup_old_treeinfo_repositories()
 
         # Find the source and its type.
@@ -597,23 +590,6 @@ class DNFPayload(Payload):
 
         # Set up the source.
         set_up_sources(self.proxy)
-
-        # Read in all the repos from the installation environment, make a note of which
-        # are enabled, and then disable them all.  If the user gave us a method, we want
-        # to use that instead of the default repos.
-        self._base.read_all_repos()
-
-        # Enable or disable updates.
-        self.set_updates_enabled(self._updates_enabled)
-
-        # Repo files are always loaded from the system.
-        # When reloaded their state needs to be synchronized with the user configuration.
-        # So we disable them now and enable them later if required.
-        enabled = []
-        with self._repos_lock:
-            for repo in self._base.repos.iter_enabled():
-                enabled.append(repo.id)
-                self._dnf_manager.set_repository_enabled(repo.id, False)
 
         # Add a new repo.
         if source_type not in SOURCE_REPO_FILE_TYPES:
@@ -700,16 +676,42 @@ class DNFPayload(Payload):
                 return
 
             # Otherwise, fall back to the default repos that we disabled above
-            for repo_id in enabled:
-                log.debug("repo %s: fall back enabled from default repos", repo_id)
-                try:
-                    self._dnf_manager.set_repository_enabled(repo_id, True)
-                except UnknownRepositoryError:
-                    pass
+            self._enable_system_repositories()
 
         self._include_additional_repositories()
-        self._disable_unwanted_repositories()
         self._validate_enabled_repositories()
+
+    def _enable_system_repositories(self):
+        """Enable system repositories.
+
+        * Restore previously disabled system repositories.
+        * Enable or disable system repositories based on the current configuration.
+        """
+        self._dnf_manager.restore_system_repositories()
+
+        log.debug("Enable or disable updates repositories.")
+        self._set_repositories_enabled(conf.payload.updates_repositories, self._updates_enabled)
+
+        log.debug("Disable repositories based on the Anaconda configuration file.")
+        self._set_repositories_enabled(conf.payload.disabled_repositories, False)
+
+        if constants.isFinal:
+            log.debug("Disable rawhide repositories.")
+            self._set_repositories_enabled(["*rawhide*"], False)
+
+    def _set_repositories_enabled(self, patterns, enabled):
+        """Enable or disable matching repositories.
+
+        :param patterns: a list of patterns to match the repo ids
+        :param enabled: True to enable, False to disable
+        """
+        repo_ids = set()
+
+        for pattern in patterns:
+            repo_ids.update(self._dnf_manager.get_matching_repositories(pattern))
+
+        for repo_id in sorted(repo_ids):
+            self.dnf_manager.set_repository_enabled(repo_id, enabled)
 
     def _include_additional_repositories(self):
         """Add additional repositories to DNF."""
@@ -727,16 +729,6 @@ class DNFPayload(Payload):
 
             # Set up additional sources.
             self._add_repo_to_dnf(ksrepo)
-
-    def _disable_unwanted_repositories(self):
-        """Disable unnecessary repos."""
-        with self._repos_lock:
-            for repo in self._base.repos.iter_enabled():
-                id_ = repo.id
-                if 'source' in id_ or 'debuginfo' in id_:
-                    self._dnf_manager.set_repository_enabled(id_, False)
-                elif constants.isFinal and 'rawhide' in id_:
-                    self._dnf_manager.set_repository_enabled(id_, False)
 
     def _validate_enabled_repositories(self):
         """Validate all enabled repositories.

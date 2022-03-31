@@ -54,6 +54,22 @@ class PayloadSection(Section):
         return self._get_option("updates_repositories", str).split()
 
     @property
+    def disabled_repositories(self):
+        """List of names of repositories that should be disabled by default.
+
+        The following patterns are supported:
+
+            REPO-NAME   Match the full name.
+            PREFIX*     The name should start with PREFIX.
+            *SUFFIX     The name should end with SUFFIX.
+            *INFIX*     The name should contain INFIX.
+
+        The installer will disable system repositories with IDs, that match
+        at least one of the specified patterns, by default.
+        """
+        return self._get_option("disabled_repositories", str).split()
+
+    @property
     def enabled_repositories_from_treeinfo(self):
         """List of .treeinfo variant types to enable
 
