@@ -141,16 +141,21 @@ class LanguageSelector extends React.Component {
 
         return (
             <Select
+              aria-invalid={!selectedItem}
               className="language-menu"
               isGrouped
               isOpen={isOpen}
               maxHeight="30rem"
               noResultsFoundText={_("No results found")}
-              onClear={() => this.setState({ selectedItem: null })}
+              onClear={() => {
+                  this.props.setIsFormValid(false);
+                  this.setState({ selectedItem: null });
+              }}
               onSelect={handleOnSelect}
               onToggle={isOpen => this.setState({ isOpen })}
               selections={selectedItem}
               toggleId="language-menu-toggle"
+              validated={selectedItem ? "default" : "error"}
               variant={SelectVariant.typeahead}
               width="30rem"
               {...(isLoading && { loadingVariant: "spinner" })}
@@ -163,11 +168,11 @@ class LanguageSelector extends React.Component {
 }
 LanguageSelector.contextType = AddressContext;
 
-export const InstallationLanguage = ({ onAddErrorNotification }) => {
+export const InstallationLanguage = ({ setIsFormValid, onAddErrorNotification }) => {
     return (
         <Form>
             <FormGroup label={_("Select the language you would like to use.")}>
-                <LanguageSelector onAddErrorNotification={onAddErrorNotification} />
+                <LanguageSelector setIsFormValid={setIsFormValid} onAddErrorNotification={onAddErrorNotification} />
             </FormGroup>
         </Form>
     );
