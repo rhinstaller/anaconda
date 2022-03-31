@@ -28,14 +28,13 @@ import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
 import { AddressContext } from "../Common.jsx";
 
 import {
-    getLanguages, getLanguageData,
+    getLanguage, getLanguages, getLanguageData,
     getLocales, getLocaleData,
     setLanguage,
 } from "../../apis/localization.js";
 
 import {
     convertToCockpitLang,
-    getDefaultLang,
     setLangCookie
 } from "../../helpers/language.js";
 
@@ -53,14 +52,12 @@ class LanguageSelector extends React.Component {
         this.state = {
             languages: [],
             locales: [],
-            lang: getDefaultLang(),
         };
         this.updateDefaultSelection = this.updateDefaultSelection.bind(this);
     }
 
     componentDidMount () {
-        // Set backend default language according to cockpit language cookies
-        setLanguage({ lang: this.state.lang }).catch(this.props.onAddErrorNotification);
+        getLanguage().then(lang => this.setState({ lang }), this.props.onAddErrorNotification);
 
         getLanguages().then(ret => {
             const languages = ret;

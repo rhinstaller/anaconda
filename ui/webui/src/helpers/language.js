@@ -23,15 +23,6 @@ export const convertToCockpitLang = ({ lang }) => {
     return lang.split(".UTF-8")[0].replace(/_/g, "-").toLowerCase();
 };
 
-export const getDefaultLang = () => {
-    const langCookie = getLangCookie().split("-");
-    return langCookie[0] + "_" + langCookie[1].toUpperCase() + ".UTF-8";
-};
-
-const getLangCookie = () => {
-    return window.localStorage.getItem("cockpit.lang") || "en-us";
-};
-
 export const setLangCookie = ({ cockpitLang }) => {
     const cookie = "CockpitLang=" + encodeURIComponent(cockpitLang) + "; path=/; expires=Sun, 16 Jul 3567 06:23:41 GMT";
     document.cookie = cookie;
