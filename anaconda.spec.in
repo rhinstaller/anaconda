@@ -412,6 +412,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Mar 31 2022 Martin Kolman <mkolman@redhat.com> - 36.16.4-1
+- Enable fingerprint authentication using enable-feature (#2069899) (vponcova)
+
 * Tue Mar 29 2022 Martin Kolman <mkolman@redhat.com> - 36.16.3-1
 - Fix failing pylint check. (rvykydal)
 - gui: update network spoke for symbolic icons (#2055883) (rvykydal)
