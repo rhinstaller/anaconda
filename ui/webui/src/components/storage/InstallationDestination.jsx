@@ -18,13 +18,16 @@ import cockpit from "cockpit";
 import React, { useEffect, useState } from "react";
 
 import {
-    Flex,
+    Button,
+    Flex, FlexItem,
     HelperText, HelperTextItem,
     Label,
     Title,
 } from "@patternfly/react-core";
 
 import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
+import { SyncAltIcon } from "@patternfly/react-icons";
+
 import { ListingTable } from "cockpit-components-table.jsx";
 
 import {
@@ -36,7 +39,9 @@ import {
     getDiskTotalSpace,
     getUsableDisks,
     partitioningConfigureWithTask,
+    resetPartitioning,
     runStorageTask,
+    scanDevicesWithTask,
     setInitializationMode,
     setInitializeLabelsEnabled,
     setSelectedDisks,
@@ -79,6 +84,7 @@ const selectDefaultDisks = ({ ignoredDisks, selectedDisks, usableDisks }) => {
 const LocalStandardDisks = ({ onAddErrorNotification }) => {
     const [deviceData, setDeviceData] = useState({});
     const [disks, setDisks] = useState({});
+    const [refreshCnt, setRefreshCnt] = useState(0);
 
     useEffect(() => {
         let usableDisks;
@@ -94,10 +100,10 @@ const LocalStandardDisks = ({ onAddErrorNotification }) => {
                         selectedDisks: props[0].SelectedDisks.v,
                         usableDisks,
                     });
-                    setDisks(defaultDisks.reduce((acc, cur) => ({ ...acc, [cur]: true }), {}));
+                    setDisks(usableDisks.reduce((acc, cur) => ({ ...acc, [cur]: defaultDisks.includes(cur) }), {}));
 
                     // Show disks data
-                    defaultDisks.forEach(disk => {
+                    usableDisks.forEach(disk => {
                         let deviceData = {};
                         const diskNames = [disk];
 
@@ -118,7 +124,7 @@ const LocalStandardDisks = ({ onAddErrorNotification }) => {
                                 }, console.error);
                     });
                 }, console.error);
-    }, []);
+    }, [refreshCnt]);
 
     // When the selected disks change in the UI, update in the backend as well
     useEffect(() => {
@@ -147,6 +153,24 @@ const LocalStandardDisks = ({ onAddErrorNotification }) => {
                         totalDisksCnt
                     )}
                 </Label>
+                <FlexItem align={{ default: "alignRight" }}>
+                    <Button
+                      aria-label={_("Rescan disks")}
+                      id="rescan-disks"
+                      onClick={() => {
+                          scanDevicesWithTask().then(res => {
+                              runStorageTask({
+                                  task: res[0],
+                                  onSuccess: () => resetPartitioning().then(() => setRefreshCnt(refreshCnt + 1), onAddErrorNotification),
+                                  onFail: onAddErrorNotification
+                              });
+                          });
+                      }}
+                      variant="plain"
+                    >
+                        <SyncAltIcon />
+                    </Button>
+                </FlexItem>
             </Flex>
             <ListingTable
               aria-labelledby="installation-destination-local-disk-title"

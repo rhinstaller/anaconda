@@ -135,6 +135,14 @@ export const partitioningConfigureWithTask = ({ partitioning }) => {
     );
 };
 
+export const resetPartitioning = () => {
+    return new StorageClient().client.call(
+        "/org/fedoraproject/Anaconda/Modules/Storage",
+        "org.fedoraproject.Anaconda.Modules.Storage",
+        "ResetPartitioning", []
+    );
+};
+
 /**
  * @param {string} task         DBus path to a task
  * @param {string} onSuccess    Callback to run after Succeeded signal is received
@@ -155,6 +163,17 @@ export const runStorageTask = ({ task, onSuccess, onFail }) => {
         addEventListeners();
         taskProxy.Start().catch(onFail);
     });
+};
+
+/**
+ * @returns {Promise}           Resolves a DBus path to a task
+ */
+export const scanDevicesWithTask = () => {
+    return new StorageClient().client.call(
+        "/org/fedoraproject/Anaconda/Modules/Storage",
+        "org.fedoraproject.Anaconda.Modules.Storage",
+        "ScanDevicesWithTask", []
+    );
 };
 
 /**
