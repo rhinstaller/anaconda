@@ -170,7 +170,7 @@ export const InstallationLanguage = ({ onAddErrorNotification }) => {
     return (
         <Form>
             <FormGroup label={_("Select the language you would like to use.")}>
-                <LanguageSelector lang={lang} onSelectLang={setLang} menuAppendTo={document.body} />
+                <LanguageSelector lang={lang} onSelectLang={setLang} />
             </FormGroup>
         </Form>
     );
