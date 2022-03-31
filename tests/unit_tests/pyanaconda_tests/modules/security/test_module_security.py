@@ -788,7 +788,7 @@ class SecurityTasksTestCase(unittest.TestCase):
             task.run()
             execWithRedirect.assert_called_once_with(
                 AUTHSELECT_TOOL_PATH,
-                ["select", "sssd", "with-fingerprint", "with-silent-lastlog", "--force"],
+                ["enable-feature", "with-fingerprint"],
                 root=sysroot
             )
             os.remove(pam_so_path)
@@ -805,7 +805,7 @@ class SecurityTasksTestCase(unittest.TestCase):
             task.run()
             execWithRedirect.assert_called_once_with(
                 AUTHSELECT_TOOL_PATH,
-                ["select", "sssd", "with-fingerprint", "with-silent-lastlog", "--force"],
+                ["enable-feature", "with-fingerprint"],
                 root=sysroot
             )
             os.remove(pam_so_64_path)
