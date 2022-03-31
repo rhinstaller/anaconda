@@ -58,14 +58,16 @@ jobs:
 
           if [ "$TARGET_BRANCH" == "master" ]; then
             echo "::set-output name=skip_tests::skip-on-fedora"
+            echo "::set-output name=platform::fedora_rawhide"
           elif echo "$TARGET_BRANCH" | grep -qE "f[[:digit:]]+-(devel|release)$"; then
             echo "::set-output name=skip_tests::skip-on-fedora"
+            echo "::set-output name=platform::fedora_rawhide"
           elif echo "$TARGET_BRANCH" | grep -qE "rhel-8(\.[[:digit:]]+)?$"; then
             echo "::set-output name=skip_tests::skip-on-rhel,skip-on-rhel-8"
-            echo "::set-output name=optional_test_args::--platform rhel8"
+            echo "::set-output name=platform::rhel8"
           elif echo "$TARGET_BRANCH" | grep -qE "rhel-9(\.[[:digit:]]+)?$"; then
             echo "::set-output name=skip_tests::skip-on-rhel,skip-on-rhel-9"
-            echo "::set-output name=optional_test_args::--platform rhel9"
+            echo "::set-output name=platform::rhel9"
           else
             echo "Branch $TARGET_BRANCH is not supported by kickstart tests yet!"
             exit 1
@@ -77,7 +79,7 @@ jobs:
       sha: ${{ fromJson(steps.pr_api.outputs.data).head.sha }}
       launch_args: ${{ steps.parse_launch_args.outputs.launch_args }}
       skip_tests: ${{ steps.ks_test_args.outputs.skip_tests }}
-      optional_test_args: ${{ steps.ks_test_args.outputs.optional_test_args }}
+      platform: ${{ steps.ks_test_args.outputs.platform }}
 
   run:
     needs: pr-info
@@ -92,7 +94,7 @@ jobs:
        ISO_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-iso-creator'
        RPM_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-rpm'
        SKIP_KS_TESTS: ${{ needs.pr-info.outputs.skip_tests }}
-       OPTIONAL_KS_TEST_ARGS: ${{ needs.pr-info.outputs.optional_test_args }}
+       TEST_JOBS: 16
     steps:
       # we post statuses manually as this does not run from a pull_request event
       # https://developer.github.com/v3/repos/statuses/#create-a-status
@@ -133,6 +135,22 @@ jobs:
           repository: rhinstaller/kickstart-tests
           path: kickstart-tests
 
+      - name: Generate test cases
+        working-directory: ./kickstart-tests
+        run: scripts/generate-testcases.py -t ./testlib/test_cases/kstest-template.tc.yaml.j2 . -o ./testlib/test_cases
+
+      - name: Clone Permian repository
+        uses: actions/checkout@v3
+        with:
+          repository: rhinstaller/permian
+          path: permian
+
+      - name: Clone tclib repository
+        uses: actions/checkout@v3
+        with:
+          repository: rhinstaller/tclib
+          path: tclib
+
       - name: Ensure http proxy is running
         run: sudo kickstart-tests/containers/squid.sh start
 
@@ -167,7 +185,7 @@ jobs:
 
       - name: Prepare environment for lorax run
         run: |
-          mkdir -p kickstart-tests/data/images
+          mkdir images
           # We have to pre-create loop devices because they are not namespaced in kernel so
           # podman can't access newly created ones. That caused failures of tests when runners
           # were rebooted.
@@ -180,7 +198,7 @@ jobs:
           sudo podman run -i --rm --privileged \
             --tmpfs /var/tmp:rw,mode=1777 \
             -v `pwd`/kickstart-tests/data/additional_repo:/anaconda-rpms:ro \
-            -v `pwd`/kickstart-tests/data/images:/images:z \
+            -v `pwd`/images:/images:z \
             $ISO_BUILD_CONTAINER_NAME:$CONTAINER_TAG
 
       - name: Clean up after lorax
@@ -193,12 +211,34 @@ jobs:
           sudo podman rmi -f $ISO_BUILD_CONTAINER_NAME:$CONTAINER_TAG || true
           sudo podman rmi -f $RPM_BUILD_CONTAINER_NAME:$CONTAINER_TAG || true
 
-      - name: Run kickstart tests with ${{ needs.pr-info.outputs.launch_args }} in container
-        working-directory: kickstart-tests
+      - name: Generate query arguments for "${{ needs.pr-info.outputs.launch_args }}"
+        id: generate_query
+        working-directory: ./kickstart-tests
         run: |
-          sudo TEST_JOBS=16 containers/runner/launch --skip-testtypes "$SKIP_KS_TESTS,knownfailure,manual" $OPTIONAL_KS_TEST_ARGS ${{ needs.pr-info.outputs.launch_args }}
+          set -eux
+          PERMIAN_QUERY=$(scripts/generate-permian-query.py \
+             --skip-testtypes ${{ needs.pr-info.outputs.skip_tests }} \
+             ${{ needs.pr-info.outputs.launch_args }} )
+          if [ $? == 0 ]; then
+            echo "::set-output name=query::$PERMIAN_QUERY"
+          else
+            echo "Parsing of the request arguments failed"
+            exit 1
+          fi
 
-      - name: Collect logs
+      - name: Run kickstart tests in container
+        working-directory: ./permian
+        run: |
+          sudo --preserve-env=TEST_JOBS \
+          PYTHONPATH=${PYTHONPATH:-}:${{ github.workspace }}/tclib \
+          ./run_subset --debug-log permian.log \
+            -o library.directPath="${{ github.workspace }}/kickstart-tests/testlib" \
+            -o workflows.dry_run=False \
+            -o kickstart_test.kstest_local_repo="${{ github.workspace }}/kickstart-tests" \
+            --testcase-query '${{ steps.generate_query.outputs.query }}' \
+            run_event '{"type":"github.pr","bootIso":{"x86_64":"file://${{ github.workspace }}/images/boot.iso"},"kstestParams":{"platform":"${{ needs.pr-info.outputs.platform }}"}}'
+
+      - name: Collect anaconda logs
         if: always()
         uses: actions/upload-artifact@v2
         with:
@@ -208,6 +248,25 @@ jobs:
             kickstart-tests/data/logs/kstest.log
             kickstart-tests/data/logs/kstest-*/*.log
             kickstart-tests/data/additional_repo/*.rpm
+
+      - name: Collect Permian logs
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: 'logs-permian'
+          path: |
+            permian/permian.log
+
+      # Permian hides the exit code of launcher
+      - name: Pass the launch script exit code
+        working-directory: ./permian
+        run: |
+          rc=$( awk '/Runner return code: /{ print $4 }' permian.log)
+          if [ -n "$rc" ]; then
+            exit $rc
+          else
+            exit 111
+          fi
 
       - name: Set result status
         if: always()
