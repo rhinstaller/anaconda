@@ -45,8 +45,6 @@ class TestInstallationProgress(MachineCase):
                 i.next()
             else:
                 i.begin_installation()
-            if page == 'installation-language':
-                b.expect_load()
 
         b.wait_visible("#installation-progress:not(.pf-m-danger)")
         b.wait_visible("#installation-progress.pf-m-danger")

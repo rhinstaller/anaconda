@@ -15,7 +15,7 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import cockpit from "cockpit";
 
 import {
@@ -53,11 +53,15 @@ class LanguageSelector extends React.Component {
         this.state = {
             languages: [],
             locales: [],
+            lang: getDefaultLang(),
         };
         this.updateDefaultSelection = this.updateDefaultSelection.bind(this);
     }
 
     componentDidMount () {
+        // Set backend default language according to cockpit language cookies
+        setLanguage({ lang: this.state.lang }).catch(this.props.onAddErrorNotification);
+
         getLanguages().then(ret => {
             const languages = ret;
             // Create the languages state object
@@ -80,9 +84,9 @@ class LanguageSelector extends React.Component {
     }
 
     updateDefaultSelection () {
-        const languageId = this.props.lang.split("_")[0];
+        const languageId = this.state.lang.split("_")[0];
         const currentLangLocales = this.state.locales.find(langLocales => getLanguageId(langLocales[0]) === languageId);
-        const currentLocale = currentLangLocales.find(locale => getLocaleId(locale) === this.props.lang);
+        const currentLocale = currentLangLocales.find(locale => getLocaleId(locale) === this.state.lang);
 
         this.setState({ selectedItem: getLocaleNativeName(currentLocale) });
     }
@@ -90,8 +94,19 @@ class LanguageSelector extends React.Component {
     render () {
         const { isOpen, languages, locales, selectedItem } = this.state;
         const handleOnSelect = (_, lang) => {
-            this.props.onSelectLang(lang.localeId);
-            this.setState({ selectedItem: lang });
+            /*
+             * When a language is selected from the list, update the backend language,
+             * set the cookie and reload the browser for the new translation file to get loaded.
+             * Since the component will re-mount, the `selectedItem` state attribute will be set
+             * from the `updateDefaultSelection` method.
+             *
+             * FIXME: Anaconda API returns en_US, de_DE etc, cockpit expects en-us, de-de etc
+             * Make sure to check if this is generalized enough to keep so.
+             */
+            setLangCookie({ cockpitLang: convertToCockpitLang({ lang: lang.localeId }) });
+            setLanguage({ lang: lang.localeId }).catch(this.props.onAddErrorNotification);
+
+            window.location.reload(true);
         };
 
         const isLoading = languages.length === 0 || languages.length !== locales.length;
@@ -148,29 +163,10 @@ class LanguageSelector extends React.Component {
 LanguageSelector.contextType = AddressContext;
 
 export const InstallationLanguage = ({ onAddErrorNotification }) => {
-    const [lang, setLang] = useState(getDefaultLang());
-
-    useEffect(() => {
-        if (!lang) {
-            return;
-        }
-
-        /*
-         * FIXME: Anaconda API returns en_US, de_DE etc, cockpit expects en-us, de-de etc
-         * Make sure to check if this is generalized enough to keep so.
-         */
-        setLangCookie({ cockpitLang: convertToCockpitLang({ lang }) });
-        setLanguage({ lang }).catch(onAddErrorNotification);
-    }, [lang, onAddErrorNotification]);
-
-    useEffect(() => {
-        return () => window.location.reload(true);
-    }, [lang]);
-
     return (
         <Form>
             <FormGroup label={_("Select the language you would like to use.")}>
-                <LanguageSelector lang={lang} onSelectLang={setLang} />
+                <LanguageSelector onAddErrorNotification={onAddErrorNotification} />
             </FormGroup>
         </Form>
     );
