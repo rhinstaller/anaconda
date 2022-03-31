@@ -21,6 +21,7 @@ from blivet.errors import NoDisksError
 from blivet.formats.disklabel import DiskLabel
 from pyanaconda.anaconda_loggers import get_module_logger
 
+from pyanaconda.core.i18n import _
 from pyanaconda.modules.storage.bootloader.execution import setup_bootloader
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -107,7 +108,7 @@ class NonInteractivePartitioningTask(PartitioningTask, metaclass=ABCMeta):
 
         # Check the usable disks.
         if not any(d for d in storage.disks if not d.format.hidden and not d.protected):
-            raise NoDisksError("No usable disks.")
+            raise NoDisksError(_("No usable disks."))
 
     def _prepare_bootloader(self, storage):
         """Prepare the bootloader.
