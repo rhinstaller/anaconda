@@ -24,6 +24,7 @@ import {
     Title,
 } from "@patternfly/react-core";
 
+import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
 import { ListingTable } from "cockpit-components-table.jsx";
 
 import {
@@ -129,6 +130,10 @@ const LocalStandardDisks = ({ onAddErrorNotification }) => {
     const totalDisksCnt = Object.keys(disks).length;
     const selectedDisksCnt = Object.keys(disks).filter(disk => !!disks[disk]).length;
 
+    if (totalDisksCnt === 0) {
+        return <EmptyStatePanel loading />;
+    }
+
     return (
         <>
             <Flex spaceItems={{ default: "spaceItemsLg" }}>
@@ -145,10 +150,10 @@ const LocalStandardDisks = ({ onAddErrorNotification }) => {
             </Flex>
             <ListingTable
               aria-labelledby="installation-destination-local-disk-title"
-              variant="compact"
+              {...(totalDisksCnt > 10 && { variant: "compact" })}
               columns={
                   [
-                      { title: _("Name"), sortable: true, header: true },
+                      { title: _("Name"), sortable: totalDisksCnt > 1, header: true },
                       { title: _("ID") },
                       { title: _("Total") },
                       { title: _("Free") },

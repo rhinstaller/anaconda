@@ -63,7 +63,7 @@ const getSteps = ({ address, currentStepId, onAddErrorNotification, stepNotifica
         return ({
             id: s.id,
             name: s.label,
-            component: wrapWithContext(<Renderer onAddErrorNotification={onAddErrorNotification} />, s.label),
+            component: wrapWithContext(<Renderer onAddErrorNotification={onAddErrorNotification} />, s.title || s.label),
             stepNavItemProps: { id: s.id },
             canJumpTo: idx === 0 ? currentStepId === s.id : stepsVisited.includes(s.id),
             isFinishedStep: idx === stepsOrder.length - 1
@@ -76,7 +76,8 @@ export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
         {
             component: InstallationLanguage,
             id: "installation-language",
-            label: _("Installation language"),
+            label: _("Welcome"),
+            title: _("Welcome to Anaconda Installer")
         },
         {
             component: InstallationDestination,
