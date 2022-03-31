@@ -145,6 +145,7 @@ class LanguageSelector extends React.Component {
               isGrouped
               isOpen={isOpen}
               maxHeight="30rem"
+              noResultsFoundText={_("No results found")}
               onClear={() => this.setState({ selectedItem: null })}
               onSelect={handleOnSelect}
               onToggle={isOpen => this.setState({ isOpen })}
