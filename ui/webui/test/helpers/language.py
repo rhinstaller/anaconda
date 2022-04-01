@@ -29,4 +29,3 @@ class Language():
             self.clear_language_selector()
         self.browser.click("#language-menu-toggle")
         self.browser.click("#" + locale + " > button")
-        self.browser.expect_load()
