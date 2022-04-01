@@ -20,9 +20,11 @@ import React from "react";
 
 import {
     Bullseye, Button,
-    EmptyState, EmptyStateBody, EmptyStateSecondaryActions,
-    Progress
+    Progress,
+    Text,
 } from "@patternfly/react-core";
+import { CheckCircleIcon, ExclamationCircleIcon } from "@patternfly/react-icons";
+import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
 
 import { AddressContext } from "../Common.jsx";
 
@@ -81,26 +83,43 @@ export class InstallationProgress extends React.Component {
 
         if (steps === undefined) { return null }
 
+        let icon;
+        let title;
+        if (status === "success") {
+            icon = CheckCircleIcon;
+            title = _("Installed");
+        } else if (status === "danger") {
+            icon = ExclamationCircleIcon;
+            title = _("Installation failed");
+        } else {
+            title = _("Installing");
+        }
+
         return (
-            <Bullseye>
-                <EmptyState variant="large">
-                    <EmptyStateBody>
-                        <Progress
-                          id="installation-progress"
-                          label={cockpit.format("$0 of $1", step, steps)}
-                          max={steps}
-                          min={0}
-                          title={message}
-                          value={step}
-                          valueText={cockpit.format("$0 of $1", step, steps)}
-                          variant={status}
-                        />
-                    </EmptyStateBody>
-                    {status === "success" &&
-                    <EmptyStateSecondaryActions>
-                        <Button onClick={exitGui}>{_("Reboot")}</Button>
-                    </EmptyStateSecondaryActions>}
-                </EmptyState>
+            <Bullseye className={"installation-progress-status-" + status}>
+                <EmptyStatePanel
+                  icon={icon}
+                  loading={!icon}
+                  paragraph={
+                      status !== "success"
+                          ? <Progress
+                              id="installation-progress"
+                              label={cockpit.format("$0 of $1", step, steps)}
+                              max={steps}
+                              min={0}
+                              title={message}
+                              value={step}
+                              valueText={cockpit.format("$0 of $1", step, steps)}
+                              variant={status}
+                          />
+                          : <Text>{_("Fedora is successfully installed. To begin using it, reboot your system.")}</Text>
+                  }
+                  secondary={
+                      status === "success" &&
+                      <Button onClick={exitGui}>{_("Reboot")}</Button>
+                  }
+                  title={title}
+                />
             </Bullseye>
         );
     }
