@@ -119,3 +119,14 @@ class VirtInstallMachine(VirtMachine):
 
         self._execute(f"qemu-img create -f qcow2 {image} {size}G")
         self._execute(f"virt-xml -c qemu:///session {self.label} --update --add-device --disk {image},format=qcow2,size={size}")
+
+    def wait_poweroff(self):
+        for _ in range(10):
+            try:
+                self._execute(f"virsh -q -c qemu:///session domstate {self.label} | grep 'shut off'")
+                Machine.disconnect(self)
+                break
+            except subprocess.CalledProcessError:
+                time.sleep(2)
+        else:
+            raise Exception("Test VM did not shut off")

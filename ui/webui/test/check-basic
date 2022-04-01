@@ -64,5 +64,17 @@ class TestBasic(MachineCase):
         # Ensure that the 'actual' UI process is running/
         self.assertIn("/usr/libexec/webui-desktop", m.execute("ps aux"))
 
+class TestQuit(MachineCase):
+    MachineCase.machine_class = VirtInstallMachine
+
+    def testQuitInstallation(self):
+        b = self.browser
+        m = self.machine
+        i = Installer(b)
+
+        i.open()
+        b.click("button:contains(Quit)")
+        m.wait_poweroff()
+
 if __name__ == '__main__':
     test_main()
