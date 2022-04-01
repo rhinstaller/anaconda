@@ -113,3 +113,9 @@ class VirtInstallMachine(VirtMachine):
         )
         if self.http_server:
             self.http_server.kill()
+
+    def add_disk(self, size=2):
+        image = f"/var/tmp/disk-{self.label}.qcow2"
+
+        self._execute(f"qemu-img create -f qcow2 {image} {size}G")
+        self._execute(f"virt-xml -c qemu:///session {self.label} --update --add-device --disk {image},format=qcow2,size={size}")

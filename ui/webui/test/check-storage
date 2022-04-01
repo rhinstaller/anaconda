@@ -53,5 +53,36 @@ class TestStorage(MachineCase):
         b.wait_js_cond('window.location.hash === "#/installation-destination"')
         b.wait_visible("#installation-destination.pf-m-current")
 
+# We can't run this test case on an existing machine,
+# with --machine because MachineCase is not aware of add_disk method
+class TestStorageExtraDisks(MachineCase):
+    MachineCase.machine_class = VirtInstallMachine
+
+    def testLocalDisksSyncNew(self):
+        b = self.browser
+        m = self.machine
+        i = Installer(b)
+
+        # This attaches a disk to the running VM
+        # However, since the storage module initialization is long completed
+        # the newly added disk, will not be visible in the UI,
+        # until the test clicks on the re-scan button
+        m.add_disk(2)
+
+        i.open()
+
+        i.next()
+        b.expect_load()
+
+        b.wait_visible("#vda")
+        b.wait_not_present("#vdb")
+
+        b.click("#rescan-disks")
+        b.wait_visible("#vda")
+        b.wait_visible("#vdb")
+
+        self.assertEqual(b.get_checked("#vda input"), False)
+        self.assertEqual(b.get_checked("#vdb input"), False)
+
 if __name__ == '__main__':
     test_main()
