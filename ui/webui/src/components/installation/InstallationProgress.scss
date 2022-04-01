@@ -4,3 +4,13 @@
         text-align: left;
     }
 }
+
+.installation-progress-status {
+    &-success svg {
+        color: var(--pf-global--success-color--100);
+    }
+
+    &-danger svg {
+        color: var(--pf-global--danger-color--100);
+    }
+}
