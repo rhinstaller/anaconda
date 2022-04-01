@@ -42,15 +42,17 @@ export const Application = () => {
     const [conf, setConf] = useState();
     const [notifications, setNotifications] = useState({});
 
-    useEffect(() => cockpit.file("/run/anaconda/bus.address").watch(address => {
-        const clients = [
-            new LocalizationClient(address),
-            new StorageClient(address),
-            new BossClient(address)
-        ];
-        clients.forEach(c => c.init());
+    useEffect(() => {
+        cockpit.file("/run/anaconda/bus.address").watch(address => {
+            const clients = [
+                new LocalizationClient(address),
+                new StorageClient(address),
+                new BossClient(address)
+            ];
+            clients.forEach(c => c.init());
 
-        setAddress(address);
+            setAddress(address);
+        });
 
         readConf().then(
             setConf,
@@ -61,7 +63,7 @@ export const Application = () => {
             buildstamp => setBeta(!getIsFinal(buildstamp)),
             ex => console.error("Failed to parse anaconda configuration")
         );
-    }), []);
+    }, []);
 
     const onAddNotification = (notificationProps) => {
         setNotifications({
