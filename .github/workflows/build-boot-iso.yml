@@ -87,8 +87,8 @@ jobs:
         run: |
           # output of the build will be stored in ./result/build/01-rpm-build/*.rpm
           make -f ./Makefile.am container-rpms-scratch CI_TAG=$CONTAINER_TAG
-          mkdir -p ./additional_repo/
-          cp -av ./result/build/01-rpm-build/*.rpm ./additional_repo/
+          mkdir -p ./anaconda_rpms/
+          cp -av ./result/build/01-rpm-build/*.rpm ./anaconda_rpms/
 
       - name: Prepare environment for lorax run
         run: |
@@ -99,12 +99,12 @@ jobs:
           sudo mknod -m 0660 /dev/loop0 b 7 0  2> /dev/null || true
           sudo mknod -m 0660 /dev/loop1 b 7 1  2> /dev/null || true
 
-      - name: Build boot.iso
+      - name: Build the boot.iso
         run: |
           # /var/tmp tmpfs speeds up lorax and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
           sudo podman run -i --rm --privileged \
             --tmpfs /var/tmp:rw,mode=1777 \
-            -v `pwd`/additional_repo:/anaconda-rpms:ro \
+            -v `pwd`/anaconda_rpms:/anaconda-rpms:ro \
             -v `pwd`/images:/images:z \
             $ISO_BUILD_CONTAINER_NAME:$CONTAINER_TAG
 
