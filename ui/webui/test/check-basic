@@ -73,7 +73,7 @@ class TestQuit(MachineCase):
         i = Installer(b)
 
         i.open()
-        b.click("button:contains(Quit)")
+        b.click("#installation-quit-btn")
         m.wait_poweroff()
 
 if __name__ == '__main__':
