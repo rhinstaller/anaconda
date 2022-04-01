@@ -17,14 +17,14 @@
 import cockpit from "cockpit";
 
 export const exitGui = () => {
-    const pidFile = cockpit.file("/run/anaconda/webui_script.pid", { superuser: "try", });
+    const pidFile = cockpit.file("/run/anaconda/webui_script.pid", { superuser: "try" });
+    let pid;
     pidFile.read()
-            .then(
-                (content, tag) => {
-                    console.log("Script PID to kill:", content);
-                    return cockpit.spawn(["kill", content]);
-                }
-            )
-            .except(console.log("Failed to reboot."))
+            .then(content => {
+                pid = content;
+                console.log("Killing WebUI process, PID: ", pid);
+                return cockpit.spawn(["kill", pid]);
+            })
+            .catch(() => console.error("Failed to kill WebUI process, PID: ", pid))
             .finally(pidFile.close);
 };
