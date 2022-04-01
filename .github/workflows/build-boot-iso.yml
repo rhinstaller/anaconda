@@ -51,14 +51,9 @@ jobs:
     runs-on: [self-hosted, kstest]
     timeout-minutes: 300
     env:
-       LORAX_BUILD_CONTAINER: fedora:rawhide
        STATUS_NAME: boot-iso
-       TARGET_BRANCH: ${{ needs.pr-info.outputs.base_ref }}
        CONTAINER_TAG: 'lorax'
        ISO_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-iso-creator'
-       RPM_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-rpm'
-       SKIP_KS_TESTS: ${{ needs.pr-info.outputs.skip_tests }}
-       OPTIONAL_KS_TEST_ARGS: ${{ needs.pr-info.outputs.optional_test_args }}
     steps:
       # we post statuses manually as this does not run from a pull_request event
       # https://developer.github.com/v3/repos/statuses/#create-a-status
@@ -77,30 +72,6 @@ jobs:
         with:
           ref: ${{ needs.pr-info.outputs.sha }}
           fetch-depth: 0
-
-      - name: Rebase to current ${{ env.TARGET_BRANCH }}
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git log --oneline -1 origin/${{ env.TARGET_BRANCH }}
-          git rebase origin/${{ env.TARGET_BRANCH }}
-
-      - name: Check out kickstart-tests
-        uses: actions/checkout@v2
-        with:
-          repository: rhinstaller/kickstart-tests
-          path: kickstart-tests
-
-      - name: Set up dependencies
-        run: |
-          sudo apt install -y nftables
-
-      - name: Ensure http proxy is running
-        run: sudo kickstart-tests/containers/squid.sh start
-
-      - name: Update container images used here
-        run: |
-          sudo podman pull quay.io/rhinstaller/kstest-runner:latest
 
       - name: Build anaconda-iso-creator container image
         run: |
@@ -146,7 +117,6 @@ jobs:
           path: |
            images/*.log
            images/*.text
-
 
       - name: Set result status
         if: always()
