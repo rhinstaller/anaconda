@@ -61,7 +61,7 @@ export const Application = () => {
 
         readBuildstamp().then(
             buildstamp => setBeta(!getIsFinal(buildstamp)),
-            ex => console.error("Failed to parse anaconda configuration")
+            ex => console.error("Failed to parse anaconda buildstamp file")
         );
     }, []);
 
