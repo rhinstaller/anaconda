@@ -21,8 +21,11 @@ import sys
 # import Cockpit's machinery for test VMs and its browser test API
 TEST_DIR = os.path.dirname(__file__)
 sys.path.append(os.path.join(TEST_DIR, "common"))
+sys.path.append(os.path.join(TEST_DIR, "helpers"))
 sys.path.append(os.path.join(os.path.dirname(TEST_DIR), "bots/machine"))
 
+from installer import Installer
+from storage import Storage
 from testlib import MachineCase, nondestructive, test_main  # pylint: disable=import-error
 from machine_install import VirtInstallMachine
 
@@ -32,18 +35,20 @@ class TestStorage(MachineCase):
 
     def testLocalStandardDisks(self):
         b = self.browser
+        i = Installer(b)
+        s = Storage(b)
 
-        b.open("/cockpit/@localhost/anaconda-webui/index.html")
+        i.open()
 
-        b.click("button.pf-m-primary")
+        i.next()
         b.expect_load()
 
         b.wait_visible('h3:contains(Local standard disks)')
 
         # Try unselecting the single disk and expect and error
-        b.set_checked('#vda input', False)
-        b.click("button.pf-m-primary")
-        b.wait_in_text(".pf-c-alert.pf-m-danger.pf-m-inline", "No usable disks")
+        s.select_disk("vda", False)
+        i.next()
+        s.wait_no_disks()
         # Since storage configuration failed it's expected to be in the still in the storage step
         b.wait_js_cond('window.location.hash === "#/installation-destination"')
         b.wait_visible("#installation-destination.pf-m-current")

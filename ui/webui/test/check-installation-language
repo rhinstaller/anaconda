@@ -21,8 +21,11 @@ import sys
 # import Cockpit's machinery for test VMs and its browser test API
 TEST_DIR = os.path.dirname(__file__)
 sys.path.append(os.path.join(TEST_DIR, "common"))
+sys.path.append(os.path.join(TEST_DIR, "helpers"))
 sys.path.append(os.path.join(os.path.dirname(TEST_DIR), "bots/machine"))
 
+from installer import Installer
+from language import Language
 from testlib import MachineCase, nondestructive, test_main  # pylint: disable=import-error
 
 @nondestructive
@@ -30,17 +33,17 @@ class TestLanguage(MachineCase):
 
     def testLanguageSwitching(self):
         b = self.browser
+        i = Installer(b)
+        l = Language(b)
 
-        b.open("/cockpit/@localhost/anaconda-webui/index.html")
+        i.open()
 
         # Expect the default language - this is en at this point - adjust the test when better guess is implemented
         b.wait_in_text(".pf-c-form__label-text", "Select the language you would like to use.")
 
         b.wait_val("#language-menu-toggle-select-typeahead", "English (United States)")
 
-        # Check that the [x] button clears the input text
-        b.click(".pf-c-select__toggle-clear")
-        b.wait_val("#language-menu-toggle-select-typeahead", "")
+        l.clear_language_selector()
 
         # Check that the language menu shows all menu entries when clicking the toggle button
         b.click("#language-menu-toggle")
@@ -51,10 +54,10 @@ class TestLanguage(MachineCase):
         b.set_input_text("#language-menu-toggle-select-typeahead", "Deutsch")
         b.wait_visible("#Deutsch--German-")
         b.wait_not_present("#English--English-")
+        b.click("#language-menu-toggle")
 
         # Select the 'German' language
-        b.click("#de_DE > button")
-        b.expect_load()
+        l.select_locale("de_DE")
         b.wait_val("#language-menu-toggle-select-typeahead", "Deutsch (Deutschland)")
 
         # TODO: Add checks for translations when these are present
