@@ -21,6 +21,7 @@ class Installer():
         self.browser = browser
 
     def begin_installation(self):
+        self.browser.set_checked("#installation-review-disk-erase-confirm", True)
         self.browser.click("button:contains('Begin installation')")
 
     def next(self):

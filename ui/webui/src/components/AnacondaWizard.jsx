@@ -19,6 +19,7 @@ import cockpit from "cockpit";
 import React, { useContext, useState } from "react";
 
 import {
+    ActionList,
     Alert,
     Button,
     Title,
@@ -30,7 +31,7 @@ import { AddressContext } from "./Common.jsx";
 import { InstallationDestination, applyDefaultStorage } from "./storage/InstallationDestination.jsx";
 import { InstallationLanguage } from "./installation/InstallationLanguage.jsx";
 import { InstallationProgress } from "./installation/InstallationProgress.jsx";
-import { ReviewConfiguration } from "./installation/ReviewConfiguration.jsx";
+import { ReviewConfiguration, ReviewConfigurationFooter } from "./installation/ReviewConfiguration.jsx";
 
 import { exitGui } from "../helpers/exit.js";
 
@@ -87,7 +88,7 @@ export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
         {
             component: ReviewConfiguration,
             id: "review-configuration",
-            label: _("Review"),
+            label: _("Review and install"),
         },
         {
             component: InstallationProgress,
@@ -131,6 +132,7 @@ export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
 
 const Footer = ({ setStepNotification }) => {
     const [isInProgress, setIsInProgress] = useState(false);
+    const [isNextDisabled, setIsNextDisabled] = useState(true);
 
     const goToStep = (activeStep, onNext) => {
         if (activeStep.id === "installation-destination") {
@@ -167,24 +169,30 @@ const Footer = ({ setStepNotification }) => {
                     );
 
                     return (
-                        <>
-                            <Button
-                              variant="primary"
-                              isDisabled={isInProgress}
-                              isLoading={isInProgress}
-                              onClick={() => goToStep(activeStep, onNext)}>
-                                {nextButtonText}
-                            </Button>
-                            <Button
-                              variant="secondary"
-                              isDisabled={isBackDisabled}
-                              onClick={onBack}>
-                                {_("Back")}
-                            </Button>
-                            <Button variant="link" onClick={exitGui}>
-                                {_("Quit")}
-                            </Button>
-                        </>
+                        <Stack hasGutter>
+                            {activeStep.id === "review-configuration" &&
+                            <ReviewConfigurationFooter
+                              setIsEraseChecked={value => setIsNextDisabled(!value)}
+                              isEraseChecked={!isNextDisabled} />}
+                            <ActionList>
+                                <Button
+                                  variant="primary"
+                                  isDisabled={isInProgress || (["review-configuration"].includes(activeStep.id) && isNextDisabled)}
+                                  isLoading={isInProgress}
+                                  onClick={() => goToStep(activeStep, onNext)}>
+                                    {nextButtonText}
+                                </Button>
+                                <Button
+                                  variant="secondary"
+                                  isDisabled={isBackDisabled}
+                                  onClick={onBack}>
+                                    {_("Back")}
+                                </Button>
+                                <Button variant="link" onClick={exitGui}>
+                                    {_("Quit")}
+                                </Button>
+                            </ActionList>
+                        </Stack>
                     );
                 }}
             </WizardContextConsumer>

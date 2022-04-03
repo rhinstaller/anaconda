@@ -50,6 +50,21 @@ export const getLanguages = () => {
 };
 
 /**
+ * @returns {Promise}           The language the system will use
+ */
+export const getLanguage = () => {
+    return (
+        new LocalizationClient().client.call(
+            "/org/fedoraproject/Anaconda/Modules/Localization",
+            "org.freedesktop.DBus.Properties",
+            "Get",
+            ["org.fedoraproject.Anaconda.Modules.Localization", "Language"]
+        )
+                .then(res => res[0].v)
+    );
+};
+
+/**
  * @param {string} lang         Language id
  *
  * @returns {Promise}           Resolves a language data object

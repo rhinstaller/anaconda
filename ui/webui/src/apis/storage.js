@@ -123,6 +123,21 @@ export const getUsableDisks = () => {
 };
 
 /**
+ * @returns {Promise}           The list of selected disks
+ */
+export const getSelectedDisks = () => {
+    return (
+        new StorageClient().client.call(
+            "/org/fedoraproject/Anaconda/Modules/Storage/DiskSelection",
+            "org.freedesktop.DBus.Properties",
+            "Get",
+            ["org.fedoraproject.Anaconda.Modules.Storage.DiskSelection", "SelectedDisks"]
+        )
+                .then(res => res[0].v)
+    );
+};
+
+/**
  * @param {string} partitioning DBus path to a partitioning
  *
  * @returns {Promise}           Resolves a DBus path to a task
