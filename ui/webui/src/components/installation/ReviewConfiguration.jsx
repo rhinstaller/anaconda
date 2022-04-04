@@ -18,13 +18,14 @@ import cockpit from "cockpit";
 import React, { useEffect, useState } from "react";
 
 import {
-    Checkbox, Title,
+    Button,
+    Title,
     DataList, DataListItem,
     DataListItemRow, DataListItemCells,
     DataListCell,
     DescriptionList, DescriptionListGroup,
     DescriptionListTerm, DescriptionListDescription,
-    Flex, Popover,
+    Modal, ModalVariant,
 } from "@patternfly/react-core";
 
 import {
@@ -34,8 +35,6 @@ import {
 import {
     getLanguage, getLanguageData,
 } from "../../apis/localization.js";
-
-import { HelpIcon } from "@patternfly/react-icons";
 
 const _ = cockpit.gettext;
 
@@ -109,30 +108,35 @@ export const ReviewConfiguration = () => {
     );
 };
 
-export const ReviewConfigurationFooter = ({ isEraseChecked, setIsEraseChecked }) => {
+export const ReviewConfigurationConfirmModal = ({ onNext, setNextWaitsConfirmation }) => {
     return (
-        <Flex alignItems={{ default: "alignItemsCenter" }}>
-            <Checkbox
-              label={_("Erase disks to install")}
-              isChecked={isEraseChecked}
-              onChange={setIsEraseChecked}
-              id="installation-review-disk-erase-confirm"
-            />
-            <Popover
-              headerContent={
-                  _("All data on the listed disks will be erased")
-              }
-              bodyContent={
-                  _("Therefore it is recommended to only proceed if all data on these disks is either backed up or not important.")
-              }
-            >
-                <button
-                  type="button"
-                  className="pf-c-form__group-label-help"
-                >
-                    <HelpIcon />
-                </button>
-            </Popover>
-        </Flex>
+        <Modal
+          actions={[
+              <Button
+                id="installation-review-disk-erase-confirm"
+                key="confirm"
+                onClick={() => {
+                    setNextWaitsConfirmation(false);
+                    onNext();
+                }}
+                variant="danger"
+              >
+                  {_("Erase disks and install")}
+              </Button>,
+              <Button
+                key="cancel"
+                onClick={() => setNextWaitsConfirmation(false)}
+                variant="secondary">
+                  {_("Back")}
+              </Button>
+          ]}
+          isOpen
+          onClose={() => setNextWaitsConfirmation(false)}
+          title={_("Erase disks and install?")}
+          titleIconVariant="warning"
+          variant={ModalVariant.small}
+        >
+            {_("The selected disks will be erased, this cannot be undone. Are you sure you want to continue with the installation?")}
+        </Modal>
     );
 };

@@ -31,7 +31,7 @@ import { AddressContext } from "./Common.jsx";
 import { InstallationDestination, applyDefaultStorage } from "./storage/InstallationDestination.jsx";
 import { InstallationLanguage } from "./installation/InstallationLanguage.jsx";
 import { InstallationProgress } from "./installation/InstallationProgress.jsx";
-import { ReviewConfiguration, ReviewConfigurationFooter } from "./installation/ReviewConfiguration.jsx";
+import { ReviewConfiguration, ReviewConfigurationConfirmModal } from "./installation/ReviewConfiguration.jsx";
 
 import { exitGui } from "../helpers/exit.js";
 
@@ -155,7 +155,7 @@ export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
 
 const Footer = ({ isFormValid, setStepNotification }) => {
     const [isInProgress, setIsInProgress] = useState(false);
-    const [isNextDisabled, setIsNextDisabled] = useState(true);
+    const [nextWaitsConfirmation, setNextWaitsConfirmation] = useState(false);
 
     const goToStep = (activeStep, onNext) => {
         if (activeStep.id === "installation-destination") {
@@ -172,6 +172,8 @@ const Footer = ({ isFormValid, setStepNotification }) => {
                     onNext();
                 }
             });
+        } else if (activeStep.id === "review-configuration") {
+            setNextWaitsConfirmation(true);
         } else {
             onNext();
         }
@@ -193,16 +195,18 @@ const Footer = ({ isFormValid, setStepNotification }) => {
                     return (
                         <Stack hasGutter>
                             {activeStep.id === "review-configuration" &&
-                            <ReviewConfigurationFooter
-                              setIsEraseChecked={value => setIsNextDisabled(!value)}
-                              isEraseChecked={!isNextDisabled} />}
+                            nextWaitsConfirmation &&
+                            <ReviewConfigurationConfirmModal
+                              onNext={onNext}
+                              setNextWaitsConfirmation={setNextWaitsConfirmation}
+                            />}
                             <ActionList>
                                 <Button
                                   variant="primary"
                                   isDisabled={
                                       !isFormValid ||
                                       isInProgress ||
-                                      (["review-configuration"].includes(activeStep.id) && isNextDisabled)
+                                      nextWaitsConfirmation
                                   }
                                   isLoading={isInProgress}
                                   onClick={() => goToStep(activeStep, onNext)}>
