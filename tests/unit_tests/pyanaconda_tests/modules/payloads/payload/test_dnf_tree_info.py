@@ -17,14 +17,17 @@
 #
 import os.path
 import tempfile
+import pytest
 import unittest
+
 from unittest.mock import patch, Mock
 
 from pyanaconda.core.constants import URL_TYPE_METALINK, NETWORK_CONNECTION_TIMEOUT
+from pyanaconda.core.path import join_paths
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.tree_info import TreeInfoMetadata, NoTreeInfoError, \
     InvalidTreeInfoError
-import pytest
+
 
 TREE_INFO_FEDORA = """
 [header]
@@ -98,9 +101,10 @@ version = 1.0
 arch = x86_64
 build_timestamp = 1619258095
 platforms = x86_64,xen
-variants = MyVariant,MyAddon,MyOptional
+variants = MyVariant,MyOptional
 
 [variant-MyVariant]
+addons = MyVariant-MyAddon
 id = MyVariant
 name = MyVariant
 packages = ./variant/Packages
@@ -108,13 +112,14 @@ repository = ./variant
 type = variant
 uid = MyVariant
 
-[variant-MyAddon]
+[addon-MyVariant-MyAddon]
 id = MyAddon
 name = MyAddon
 packages = ./addon/Packages
+parent = MyVariant
 repository = ./addon
 type = addon
-uid = MyAddon
+uid = MyVariant-MyAddon
 
 [variant-MyOptional]
 id = MyOptional
@@ -194,54 +199,59 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
         self._load_treeinfo(TREE_INFO_RHEL)
         assert self.metadata.release_version == "8.5"
 
-    def test_name_repo(self):
-        """Test the name property of the repo metadata."""
+    def test_rhel_treeinfo(self):
+        """Test the RHEL metadata."""
         self._load_treeinfo(TREE_INFO_RHEL)
         assert len(self.metadata.repositories) == 2
 
         repo_md = self.metadata.repositories[0]
         assert repo_md.name == "AppStream"
-
-        repo_md = self.metadata.repositories[1]
-        assert repo_md.name == "BaseOS"
-
-    def test_path_repo(self):
-        """Test the path properties of the repo metadata."""
-        root_path = self._load_treeinfo(TREE_INFO_FEDORA)
-        assert len(self.metadata.repositories) == 1
-
-        repo_md = self.metadata.repositories[0]
-        assert repo_md.relative_path == "."
-        assert repo_md.absolute_path == root_path
-
-        self._load_treeinfo(TREE_INFO_RHEL)
-        assert len(self.metadata.repositories) == 2
-
-        repo_md = self.metadata.repositories[0]
+        assert repo_md.type == "variant"
+        assert repo_md.enabled is True
         assert repo_md.relative_path == "../appstream"
         assert repo_md.absolute_path == "/tmp/appstream"
 
         repo_md = self.metadata.repositories[1]
+        assert repo_md.name == "BaseOS"
+        assert repo_md.type == "variant"
+        assert repo_md.enabled is True
         assert repo_md.relative_path == "../baseos"
         assert repo_md.absolute_path == "/tmp/baseos"
 
-    @patch("pyanaconda.modules.payloads.payload.dnf.tree_info.conf")
-    def test_enabled_repo(self, mock_conf):
-        """Test the enabled property of the repo metadata."""
-        mock_conf.payload.enabled_repositories_from_treeinfo = ["variant"]
-        self._load_treeinfo(TREE_INFO_CUSTOM)
+    def test_fedora_treeinfo(self):
+        """Test the Fedora metadata."""
+        root_path = self._load_treeinfo(TREE_INFO_FEDORA)
+        assert len(self.metadata.repositories) == 1
 
         repo_md = self.metadata.repositories[0]
-        assert repo_md.type == "addon"
-        assert repo_md.enabled is False
-
-        repo_md = self.metadata.repositories[1]
-        assert repo_md.type == "optional"
-        assert repo_md.enabled is False
-
-        repo_md = self.metadata.repositories[2]
+        assert repo_md.name == "Everything"
         assert repo_md.type == "variant"
         assert repo_md.enabled is True
+        assert repo_md.relative_path == "."
+        assert repo_md.absolute_path == root_path
+
+    @patch("pyanaconda.modules.payloads.payload.dnf.tree_info.conf")
+    def test_custom_treeinfo(self, mock_conf):
+        """Test the custom metadata."""
+        mock_conf.payload.enabled_repositories_from_treeinfo = ["variant"]
+        root_path = self._load_treeinfo(TREE_INFO_CUSTOM)
+
+        # Anaconda ignores child variants (for example, addons).
+        assert len(self.metadata.repositories) == 2
+
+        repo_md = self.metadata.repositories[0]
+        assert repo_md.name == "MyOptional"
+        assert repo_md.type == "optional"
+        assert repo_md.enabled is False
+        assert repo_md.relative_path == "./optional"
+        assert repo_md.absolute_path == join_paths(root_path, "optional")
+
+        repo_md = self.metadata.repositories[1]
+        assert repo_md.name == "MyVariant"
+        assert repo_md.type == "variant"
+        assert repo_md.enabled is True
+        assert repo_md.relative_path == "./variant"
+        assert repo_md.absolute_path == join_paths(root_path, "variant")
 
     def test_valid_repo(self):
         """Test the valid property of the repo metadata."""

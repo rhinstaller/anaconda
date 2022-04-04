@@ -163,7 +163,8 @@ class TreeInfoMetadata(object):
             # Load the release version.
             release_version = tree_info.release.version.lower()
 
-            # Load the repositories.
+            # Create repositories for variants and optional variants.
+            # Child variants (like addons) will be ignored.
             repo_list = []
 
             for name in tree_info.variants:
