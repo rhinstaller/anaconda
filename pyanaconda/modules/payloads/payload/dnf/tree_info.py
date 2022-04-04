@@ -158,6 +158,7 @@ class TreeInfoMetadata(object):
                 tree_info.load(file_path)
 
             tree_info.validate()
+            log.debug("Loaded treeinfo metadata:\n%s", tree_info.dumps())
 
             # Load the release version.
             release_version = tree_info.release.version.lower()
@@ -166,6 +167,8 @@ class TreeInfoMetadata(object):
             repo_list = []
 
             for name in tree_info.variants:
+                log.debug("Processing the '%s' variant.", name)
+
                 # Get the variant metadata.
                 data = tree_info.variants[name]
 
