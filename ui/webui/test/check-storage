@@ -44,6 +44,9 @@ class TestStorage(MachineCase):
 
         b.wait_visible('h3:contains(Local standard disks)')
 
+        # Pixel test the storage step
+        b.assert_pixels("#app", "storage-step-basic")
+
         # Try unselecting the single disk and expect and error
         s.select_disk("vda", False)
         i.next()
