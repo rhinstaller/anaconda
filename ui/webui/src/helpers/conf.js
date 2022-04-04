@@ -23,7 +23,10 @@ const isEmpty = (inStr) => {
     return !(inStr || inStr.trim());
 };
 
-export const parseIni = (content, tag) => {
+export const parseIni = content => {
+    if (!content) {
+        return;
+    }
     /*
     Anaconda config files are a dialect of INI files based on Python's configparser. Unfortunately,
     that parser extends the commonly understood format with multi-line values, which is treated

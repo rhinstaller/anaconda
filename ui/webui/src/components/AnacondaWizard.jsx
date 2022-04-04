@@ -214,7 +214,7 @@ const Footer = ({ isFormValid, setStepNotification }) => {
                                   onClick={onBack}>
                                     {_("Back")}
                                 </Button>
-                                <Button variant="link" onClick={exitGui}>
+                                <Button id="installation-quit-btn" variant="link" onClick={exitGui}>
                                     {_("Quit")}
                                 </Button>
                             </ActionList>
