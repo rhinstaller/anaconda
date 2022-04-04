@@ -159,7 +159,6 @@ const Footer = ({ setStepNotification }) => {
             <WizardContextConsumer>
                 {({ activeStep, onNext, onBack }) => {
                     const isBackDisabled = (
-                        activeStep.id === "installation-destination" ||
                         activeStep.id === "installation-language"
                     );
                     const nextButtonText = (
