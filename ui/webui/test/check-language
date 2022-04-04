@@ -40,6 +40,8 @@ class TestLanguage(MachineCase):
         l = Language(b)
         m = self.machine
 
+        self.addCleanup(l.select_locale, "en_US")
+
         i.open()
 
         # Expect the default language - this is en at this point - adjust the test when better guess is implemented
