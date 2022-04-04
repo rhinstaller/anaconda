@@ -212,18 +212,18 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
 
         repo_md = self.metadata.repositories[0]
         assert repo_md.relative_path == "."
-        assert repo_md.path == root_path
+        assert repo_md.absolute_path == root_path
 
         self._load_treeinfo(TREE_INFO_RHEL)
         assert len(self.metadata.repositories) == 2
 
         repo_md = self.metadata.repositories[0]
         assert repo_md.relative_path == "../appstream"
-        assert repo_md.path == "/tmp/appstream"
+        assert repo_md.absolute_path == "/tmp/appstream"
 
         repo_md = self.metadata.repositories[1]
         assert repo_md.relative_path == "../baseos"
-        assert repo_md.path == "/tmp/baseos"
+        assert repo_md.absolute_path == "/tmp/baseos"
 
     @patch("pyanaconda.modules.payloads.payload.dnf.tree_info.conf")
     def test_enabled_repo(self, mock_conf):
