@@ -113,10 +113,15 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: 'logs'
-          # skip the /anaconda subdirectories, too large
           path: |
            images/*.log
-           images/*.text
+
+      - name: Upload image artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: images
+          path: |
+            images/boot.iso
 
       - name: Set result status
         if: always()
@@ -128,10 +133,3 @@ jobs:
           target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload image artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: images
-          path: |
-            images/boot.iso
