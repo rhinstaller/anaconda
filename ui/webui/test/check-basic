@@ -58,8 +58,6 @@ class TestBasic(MachineCase):
             # Do not start the installation in non-destructive tests as this performs non revertible changes
             if page != 'review-configuration':
                 i.next()
-            if page == 'installation-language':
-                b.expect_load()
 
         # Ensure that the 'actual' UI process is running/
         self.assertIn("/usr/libexec/webui-desktop", m.execute("ps aux"))

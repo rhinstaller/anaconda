@@ -39,7 +39,15 @@ import { usePageLocation } from "hooks";
 
 const _ = cockpit.gettext;
 
-const getSteps = ({ address, currentStepId, onAddErrorNotification, stepNotification, stepsOrder, stepsVisited }) => {
+const getSteps = ({
+    address,
+    currentStepId,
+    onAddErrorNotification,
+    setIsFormValid,
+    stepNotification,
+    stepsOrder,
+    stepsVisited
+}) => {
     const wrapWithContext = (children, label) => {
         return (
             <Stack hasGutter>
@@ -64,7 +72,12 @@ const getSteps = ({ address, currentStepId, onAddErrorNotification, stepNotifica
         return ({
             id: s.id,
             name: s.label,
-            component: wrapWithContext(<Renderer onAddErrorNotification={onAddErrorNotification} />, s.title || s.label),
+            component: wrapWithContext(
+                <Renderer
+                  setIsFormValid={setIsFormValid}
+                  onAddErrorNotification={onAddErrorNotification} />,
+                s.title || s.label
+            ),
             stepNavItemProps: { id: s.id },
             canJumpTo: idx === 0 ? currentStepId === s.id : stepsVisited.includes(s.id),
             isFinishedStep: idx === stepsOrder.length - 1
@@ -73,6 +86,8 @@ const getSteps = ({ address, currentStepId, onAddErrorNotification, stepNotifica
 };
 
 export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
+    const [isFormValid, setIsFormValid] = useState(true);
+
     const stepsOrder = [
         {
             component: InstallationLanguage,
@@ -107,7 +122,15 @@ export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
                 .map(step => step.id)
     );
 
-    const steps = getSteps({ address, currentStepId, onAddErrorNotification, stepNotification, stepsOrder, stepsVisited });
+    const steps = getSteps({
+        address,
+        currentStepId,
+        setIsFormValid,
+        onAddErrorNotification,
+        stepNotification,
+        stepsOrder,
+        stepsVisited
+    });
     const startAtStep = steps.findIndex(step => step.id === path[0]) + 1;
     const goToStep = (newStep) => {
         setStepsVisited([...stepsVisited, newStep.id]);
@@ -117,7 +140,7 @@ export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
 
     return (
         <Wizard
-          footer={<Footer setStepNotification={setStepNotification} />}
+          footer={<Footer isFormValid={isFormValid} setStepNotification={setStepNotification} />}
           hideClose
           mainAriaLabel={`${title} content`}
           navAriaLabel={`${title} steps`}
@@ -130,7 +153,7 @@ export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
     );
 };
 
-const Footer = ({ setStepNotification }) => {
+const Footer = ({ isFormValid, setStepNotification }) => {
     const [isInProgress, setIsInProgress] = useState(false);
     const [isNextDisabled, setIsNextDisabled] = useState(true);
 
@@ -176,7 +199,11 @@ const Footer = ({ setStepNotification }) => {
                             <ActionList>
                                 <Button
                                   variant="primary"
-                                  isDisabled={isInProgress || (["review-configuration"].includes(activeStep.id) && isNextDisabled)}
+                                  isDisabled={
+                                      !isFormValid ||
+                                      isInProgress ||
+                                      (["review-configuration"].includes(activeStep.id) && isNextDisabled)
+                                  }
                                   isLoading={isInProgress}
                                   onClick={() => goToStep(activeStep, onNext)}>
                                     {nextButtonText}

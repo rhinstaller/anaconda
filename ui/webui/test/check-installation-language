@@ -28,6 +28,9 @@ from installer import Installer
 from language import Language
 from testlib import MachineCase, nondestructive, test_main  # pylint: disable=import-error
 
+LOCALIZATION_INTERFACE = "org.fedoraproject.Anaconda.Modules.Localization"
+LOCALIZATION_OBJECT_PATH = "/org/fedoraproject/Anaconda/Modules/Localization"
+
 @nondestructive
 class TestLanguage(MachineCase):
 
@@ -35,6 +38,7 @@ class TestLanguage(MachineCase):
         b = self.browser
         i = Installer(b)
         l = Language(b)
+        m = self.machine
 
         i.open()
 
@@ -44,6 +48,7 @@ class TestLanguage(MachineCase):
         b.wait_val("#language-menu-toggle-select-typeahead", "English (United States)")
 
         l.clear_language_selector()
+        b.wait_visible(".language-menu.pf-m-invalid")
 
         # Check that the language menu shows all menu entries when clicking the toggle button
         b.click("#language-menu-toggle")
@@ -61,6 +66,19 @@ class TestLanguage(MachineCase):
         b.wait_val("#language-menu-toggle-select-typeahead", "Deutsch (Deutschland)")
 
         # TODO: Add checks for translations when these are present
+
+        # Check that the language is updated in the backend
+        # TODO: Check that error messages from the backend show up translated
+        bus_address = m.execute("cat /run/anaconda/bus.address")
+        get_language = (
+            f'dbus-send --print-reply --bus="{bus_address}" \
+                --dest={LOCALIZATION_INTERFACE} \
+                {LOCALIZATION_OBJECT_PATH} \
+                org.freedesktop.DBus.Properties.Get \
+                string:"{LOCALIZATION_INTERFACE}" string:"Language"'
+            )
+        language_new = m.execute(get_language)
+        self.assertIn('string "de_DE.UTF-8"', language_new)
 
 if __name__ == '__main__':
     test_main()

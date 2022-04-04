@@ -41,7 +41,6 @@ class TestStorage(MachineCase):
         i.open()
 
         i.next()
-        b.expect_load()
 
         b.wait_visible('h3:contains(Local standard disks)')
 
@@ -72,7 +71,6 @@ class TestStorageExtraDisks(MachineCase):
         i.open()
 
         i.next()
-        b.expect_load()
 
         b.wait_visible("#vda")
         b.wait_not_present("#vdb")

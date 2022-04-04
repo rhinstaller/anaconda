@@ -37,13 +37,8 @@ class TestReview(MachineCase):
         i = Installer(b)
 
         i.open()
-
-        for page in ['installation-language', 'installation-destination']:
-            # with the pages basically empty of common elements (as those are provided by the top-level installer widget)
-            # we at least iterate over them to check this works as expected
-            i.next()
-            if page == 'installation-language':
-                b.expect_load()
+        i.next()
+        i.next()
 
         # check language is shown
         b.wait_in_text("#installation-review-target-system-language > .pf-c-description-list__text", "English (United States)")

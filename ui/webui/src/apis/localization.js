@@ -111,3 +111,16 @@ export const getLocaleData = ({ locale }) => {
                 .then(res => res[0])
     );
 };
+
+/**
+ * @param {string} lang         Language id
+ */
+export const setLanguage = ({ lang }) => {
+    return (
+        new LocalizationClient().client.call(
+            "/org/fedoraproject/Anaconda/Modules/Localization",
+            "org.fedoraproject.Anaconda.Modules.Localization",
+            "SetLanguage", [lang]
+        )
+    );
+};

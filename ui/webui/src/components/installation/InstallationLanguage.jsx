@@ -15,7 +15,7 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import cockpit from "cockpit";
 
 import {
@@ -27,7 +27,16 @@ import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
 
 import { AddressContext } from "../Common.jsx";
 
-import { getLanguages, getLanguageData, getLocales, getLocaleData } from "../../apis/localization.js";
+import {
+    getLanguage, getLanguages, getLanguageData,
+    getLocales, getLocaleData,
+    setLanguage,
+} from "../../apis/localization.js";
+
+import {
+    convertToCockpitLang,
+    setLangCookie
+} from "../../helpers/language.js";
 
 const _ = cockpit.gettext;
 
@@ -48,6 +57,8 @@ class LanguageSelector extends React.Component {
     }
 
     componentDidMount () {
+        getLanguage().then(lang => this.setState({ lang }), this.props.onAddErrorNotification);
+
         getLanguages().then(ret => {
             const languages = ret;
             // Create the languages state object
@@ -70,9 +81,9 @@ class LanguageSelector extends React.Component {
     }
 
     updateDefaultSelection () {
-        const languageId = this.props.lang.split("_")[0];
+        const languageId = this.state.lang.split("_")[0];
         const currentLangLocales = this.state.locales.find(langLocales => getLanguageId(langLocales[0]) === languageId);
-        const currentLocale = currentLangLocales.find(locale => getLocaleId(locale) === this.props.lang);
+        const currentLocale = currentLangLocales.find(locale => getLocaleId(locale) === this.state.lang);
 
         this.setState({ selectedItem: getLocaleNativeName(currentLocale) });
     }
@@ -80,8 +91,19 @@ class LanguageSelector extends React.Component {
     render () {
         const { isOpen, languages, locales, selectedItem } = this.state;
         const handleOnSelect = (_, lang) => {
-            this.props.onSelectLang(lang.localeId);
-            this.setState({ selectedItem: lang });
+            /*
+             * When a language is selected from the list, update the backend language,
+             * set the cookie and reload the browser for the new translation file to get loaded.
+             * Since the component will re-mount, the `selectedItem` state attribute will be set
+             * from the `updateDefaultSelection` method.
+             *
+             * FIXME: Anaconda API returns en_US, de_DE etc, cockpit expects en-us, de-de etc
+             * Make sure to check if this is generalized enough to keep so.
+             */
+            setLangCookie({ cockpitLang: convertToCockpitLang({ lang: lang.localeId }) });
+            setLanguage({ lang: lang.localeId }).catch(this.props.onAddErrorNotification);
+
+            window.location.reload(true);
         };
 
         const isLoading = languages.length === 0 || languages.length !== locales.length;
@@ -116,15 +138,21 @@ class LanguageSelector extends React.Component {
 
         return (
             <Select
+              aria-invalid={!selectedItem}
               className="language-menu"
               isGrouped
               isOpen={isOpen}
               maxHeight="30rem"
-              onClear={() => this.setState({ selectedItem: null })}
+              noResultsFoundText={_("No results found")}
+              onClear={() => {
+                  this.props.setIsFormValid(false);
+                  this.setState({ selectedItem: null });
+              }}
               onSelect={handleOnSelect}
               onToggle={isOpen => this.setState({ isOpen })}
               selections={selectedItem}
               toggleId="language-menu-toggle"
+              validated={selectedItem ? "default" : "error"}
               variant={SelectVariant.typeahead}
               width="30rem"
               {...(isLoading && { loadingVariant: "spinner" })}
@@ -137,34 +165,11 @@ class LanguageSelector extends React.Component {
 }
 LanguageSelector.contextType = AddressContext;
 
-export const InstallationLanguage = ({ onSelectLang }) => {
-    const langCookie = (window.localStorage.getItem("cockpit.lang") || "en-us").split("-");
-    const [lang, setLang] = useState(langCookie[0] + "_" + langCookie[1].toUpperCase() + ".UTF-8");
-
-    useEffect(() => {
-        if (!lang) {
-            return;
-        }
-
-        /*
-         * FIXME: Anaconda API returns en_US, de_DE etc, cockpit expects en-us, de-de etc
-         * Make sure to check if this is generalized enough to keep so.
-         */
-        const cockpitLang = lang.split(".UTF-8")[0].replace(/_/g, "-").toLowerCase();
-        const cookie = "CockpitLang=" + encodeURIComponent(cockpitLang) + "; path=/; expires=Sun, 16 Jul 3567 06:23:41 GMT";
-
-        document.cookie = cookie;
-        window.localStorage.setItem("cockpit.lang", cockpitLang);
-    }, [lang]);
-
-    useEffect(() => {
-        return () => window.location.reload(true);
-    }, [lang]);
-
+export const InstallationLanguage = ({ setIsFormValid, onAddErrorNotification }) => {
     return (
         <Form>
             <FormGroup label={_("Select the language you would like to use.")}>
-                <LanguageSelector lang={lang} onSelectLang={setLang} menuAppendTo={document.body} />
+                <LanguageSelector setIsFormValid={setIsFormValid} onAddErrorNotification={onAddErrorNotification} />
             </FormGroup>
         </Form>
     );
