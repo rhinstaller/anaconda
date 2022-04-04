@@ -42,8 +42,7 @@ RUN set -ex; \
 
 COPY ["lorax-build", "/"]
 
-RUN mkdir /lorax && \
-  mkdir /anaconda-rpms
+RUN mkdir /lorax /anaconda-rpms /images
 
 WORKDIR /lorax
 
