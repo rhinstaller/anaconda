@@ -1,15 +1,13 @@
 Anaconda Web UI
 ===============
 
-Getting and building the source
+Getting the source
 -------------------------------
 
-Make sure you have `npm` available (usually from your distribution package).
-These commands check out the source and build it into the `dist/` directory::
+Here's where to get the code::
 
     git clone https://github.com/rhinstaller/anaconda.git
-    cd ui/webui
-    make
+    cd anaconda
 
 Running eslint
 --------------
