@@ -28,6 +28,9 @@ import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
 import { AddressContext } from "../Common.jsx";
 
 import {
+    setLocale
+} from "../../apis/boss.js";
+import {
     getLanguage, getLanguages, getLanguageData,
     getLocales, getLocaleData,
     setLanguage,
@@ -57,7 +60,11 @@ class LanguageSelector extends React.Component {
     }
 
     componentDidMount () {
-        getLanguage().then(lang => this.setState({ lang }), this.props.onAddErrorNotification);
+        getLanguage().then(lang => {
+            this.setState({ lang });
+            return setLocale({ locale: lang });
+        })
+                .catch(this.props.onAddErrorNotification);
 
         getLanguages().then(ret => {
             const languages = ret;
@@ -102,7 +109,9 @@ class LanguageSelector extends React.Component {
              * Make sure to check if this is generalized enough to keep so.
              */
             setLangCookie({ cockpitLang: convertToCockpitLang({ lang: lang.localeId }) });
-            setLanguage({ lang: lang.localeId }).catch(this.props.onAddErrorNotification);
+            setLanguage({ lang: lang.localeId })
+                    .then(() => setLocale({ locale: lang.localeId }))
+                    .catch(this.props.onAddErrorNotification);
 
             window.location.reload(true);
         };
