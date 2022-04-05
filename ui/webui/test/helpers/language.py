@@ -22,10 +22,10 @@ class Language():
     def clear_language_selector(self):
         # Check that the [x] button clears the input text
         self.browser.click(".pf-c-select__toggle-clear")
-        self.browser.wait_val("#language-menu-toggle-select-typeahead", "")
+        self.browser.wait_val("#installation-language-menu-toggle-select-typeahead", "")
 
     def select_locale(self, locale):
-        if self.browser.val("#language-menu-toggle-select-typeahead") != "":
+        if self.browser.val("#installation-language-menu-toggle-select-typeahead") != "":
             self.clear_language_selector()
-        self.browser.click("#language-menu-toggle")
-        self.browser.click("#" + locale + " > button")
+        self.browser.click("#installation-language-menu-toggle")
+        self.browser.click("#installation-language-option-" + locale + " > button")

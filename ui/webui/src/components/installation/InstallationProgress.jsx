@@ -80,6 +80,7 @@ export class InstallationProgress extends React.Component {
 
     render () {
         const { steps, step, status, message } = this.state;
+        const idPrefix = this.props.idPrefix;
 
         if (steps === undefined) { return null }
 
@@ -96,14 +97,14 @@ export class InstallationProgress extends React.Component {
         }
 
         return (
-            <Bullseye className={"installation-progress-status-" + status}>
+            <Bullseye className={idPrefix + "-status-" + status}>
                 <EmptyStatePanel
                   icon={icon}
                   loading={!icon}
                   paragraph={
                       status !== "success"
                           ? <Progress
-                              id="installation-progress"
+                              id={idPrefix + "-bar"}
                               label={cockpit.format("$0 of $1", step, steps)}
                               max={steps}
                               min={0}

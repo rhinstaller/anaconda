@@ -74,6 +74,7 @@ const getSteps = ({
             name: s.label,
             component: wrapWithContext(
                 <Renderer
+                  idPrefix={s.id}
                   setIsFormValid={setIsFormValid}
                   onAddErrorNotification={onAddErrorNotification} />,
                 s.title || s.label
@@ -197,6 +198,7 @@ const Footer = ({ isFormValid, setStepNotification }) => {
                             {activeStep.id === "review-configuration" &&
                             nextWaitsConfirmation &&
                             <ReviewConfigurationConfirmModal
+                              idPrefix={activeStep.id}
                               onNext={onNext}
                               setNextWaitsConfirmation={setNextWaitsConfirmation}
                             />}

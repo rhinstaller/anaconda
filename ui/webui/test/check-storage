@@ -75,7 +75,7 @@ class TestStorageExtraDisks(MachineCase):
         b.wait_visible("#vda")
         b.wait_not_present("#vdb")
 
-        b.click("#rescan-disks")
+        b.click("#installation-destination-rescan-disks")
         b.wait_visible("#vda")
         b.wait_visible("#vdb")
 
