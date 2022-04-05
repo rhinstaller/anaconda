@@ -29,9 +29,9 @@ import {
 
 import { AddressContext } from "./Common.jsx";
 import { InstallationDestination, applyDefaultStorage } from "./storage/InstallationDestination.jsx";
-import { InstallationLanguage } from "./installation/InstallationLanguage.jsx";
+import { InstallationLanguage } from "./localization/InstallationLanguage.jsx";
 import { InstallationProgress } from "./installation/InstallationProgress.jsx";
-import { ReviewConfiguration, ReviewConfigurationConfirmModal } from "./installation/ReviewConfiguration.jsx";
+import { ReviewConfiguration, ReviewConfigurationConfirmModal } from "./review/ReviewConfiguration.jsx";
 
 import { exitGui } from "../helpers/exit.js";
 
