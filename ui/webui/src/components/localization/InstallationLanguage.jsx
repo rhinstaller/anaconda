@@ -38,6 +38,7 @@ import {
 
 import {
     convertToCockpitLang,
+    getLangCookie,
     setLangCookie
 } from "../../helpers/language.js";
 
@@ -62,6 +63,11 @@ class LanguageSelector extends React.Component {
     componentDidMount () {
         getLanguage().then(lang => {
             this.setState({ lang });
+            const cockpitLang = convertToCockpitLang({ lang });
+            if (getLangCookie() !== cockpitLang) {
+                setLangCookie({ cockpitLang });
+                window.location.reload(true);
+            }
             return setLocale({ locale: lang });
         })
                 .catch(this.props.onAddErrorNotification);
