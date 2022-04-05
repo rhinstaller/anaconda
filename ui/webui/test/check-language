@@ -45,7 +45,7 @@ class TestLanguage(MachineCase):
         i.open()
 
         # Expect the default language - this is en at this point - adjust the test when better guess is implemented
-        b.wait_in_text(".pf-c-form__label-text", "Select the language you would like to use.")
+        b.wait_in_text("h1", "Anaconda Installer")
 
         b.wait_val(f"#{i.welcome_id}-menu-toggle-select-typeahead", "English (United States)")
 
@@ -71,6 +71,8 @@ class TestLanguage(MachineCase):
         b.assert_pixels("#app", "language-step-basic", ignore=["#betanag-icon"])
 
         # TODO: Add checks for translations when these are present
+        b.wait_in_text("h1", "Anaconda-Installationsprogramm")
+        # TODO: Add checks for plural translations when these are present
 
         # Check that the language is updated in the backend
         # TODO: Check that error messages from the backend show up translated
