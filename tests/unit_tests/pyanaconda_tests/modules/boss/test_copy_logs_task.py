@@ -69,11 +69,12 @@ class CopyLogsTaskTest(unittest.TestCase):
             call("/tmp/ks-script*.log")
         ])
         open_mock.assert_called_once_with("/tmp/journal.log", "w")
+        log_file = open_mock().__enter__.return_value
 
         exec_wr_mock.assert_has_calls([
             # Warning: Constructing the argument to the first call requires a call to one of the
             # mocks, altering its history. Any asserts about it should happen before this.
-            call("journalctl", ["-b"], stdout=open_mock().__enter__.return_value),
+            call("journalctl", ["-b"], stdout=log_file, log_output=False),
             call("restorecon", ["-ir", "/var/log/anaconda/"], root="/somewhere")
         ])
         assert exec_wr_mock.call_count == 2
