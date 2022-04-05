@@ -140,7 +140,7 @@ class LanguageSelector extends React.Component {
         return (
             <Select
               aria-invalid={!selectedItem}
-              className={idPrefix + "-language-menu"}
+              className={idPrefix + "-menu"}
               isGrouped
               isOpen={isOpen}
               maxHeight="30rem"

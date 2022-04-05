@@ -51,12 +51,12 @@ class TestBasic(MachineCase):
         else:
             b.wait_not_present("#betang-icon")
 
-        for page in ['installation-language', 'installation-destination', 'review-configuration']:
+        for page in i.steps[:-1]:
             # with the pages basically empty of common elements (as those are provided by the top-level installer widget)
             # we at least iterate over them to check this works as expected
             i.wait_current_page(page)
             # Do not start the installation in non-destructive tests as this performs non revertible changes
-            if page != 'review-configuration':
+            if page != i.review_id:
                 i.next()
 
         # Ensure that the 'actual' UI process is running/

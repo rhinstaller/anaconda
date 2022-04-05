@@ -103,7 +103,7 @@ export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
         },
         {
             component: ReviewConfiguration,
-            id: "review-configuration",
+            id: "installation-review",
             label: _("Review and install"),
         },
         {
@@ -173,7 +173,7 @@ const Footer = ({ isFormValid, setStepNotification }) => {
                     onNext();
                 }
             });
-        } else if (activeStep.id === "review-configuration") {
+        } else if (activeStep.id === "installation-review") {
             setNextWaitsConfirmation(true);
         } else {
             onNext();
@@ -188,14 +188,14 @@ const Footer = ({ isFormValid, setStepNotification }) => {
                         activeStep.id === "installation-language"
                     );
                     const nextButtonText = (
-                        activeStep.id === "review-configuration"
+                        activeStep.id === "installation-review"
                             ? _("Begin installation")
                             : _("Next")
                     );
 
                     return (
                         <Stack hasGutter>
-                            {activeStep.id === "review-configuration" &&
+                            {activeStep.id === "installation-review" &&
                             nextWaitsConfirmation &&
                             <ReviewConfigurationConfirmModal
                               idPrefix={activeStep.id}

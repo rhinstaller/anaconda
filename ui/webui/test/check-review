@@ -41,11 +41,11 @@ class TestReview(MachineCase):
         i.next()
 
         # check language is shown
-        b.wait_in_text("#installation-review-target-system-language > .pf-c-description-list__text", "English (United States)")
+        b.wait_in_text(f"#{i.review_id}-target-system-language > .pf-c-description-list__text", "English (United States)")
 
         # check selected disks are shown
-        b.wait_in_text("#installation-review-disk-label-vda", "Local standard disk")
-        b.wait_in_text("#installation-review-disk-description-vda", "0x1af4 (vda)")
+        b.wait_in_text(f"#{i.review_id}-disk-label-vda", "Local standard disk")
+        b.wait_in_text(f"#{i.review_id}-disk-description-vda", "0x1af4 (vda)")
 
 if __name__ == '__main__':
     test_main()

@@ -17,6 +17,12 @@
 
 
 class Installer():
+    welcome_id = "installation-language"
+    storage_id = "installation-destination"
+    review_id = "installation-review"
+    progress_id = "installation-progress"
+    steps = [welcome_id, storage_id, review_id, progress_id]
+
     def __init__(self, browser):
         self.browser = browser
 
