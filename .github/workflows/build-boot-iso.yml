@@ -1,5 +1,5 @@
-# Build a boot.iso from a PR triggered by a "/boot.iso" comment from an organization member.
-name: boot-iso
+# Build a boot.iso from a PR triggered by a "/boot-iso" comment from an organization member.
+name: Build boot.iso from PR
 on:
   issue_comment:
     types: [created]
