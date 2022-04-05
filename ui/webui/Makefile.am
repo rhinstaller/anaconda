@@ -81,12 +81,13 @@ $(UPDATES_IMG):
 	test/prepare-updates-img
 
 integration-test: bots test/common $(UPDATES_IMG)
-	test/run-tests
+	test/run-tests --coverage
 
 # checkout Cockpit's test API; this has no API stability guarantee, so check out a stable tag
 # when you start a new project, use the latest release, and update it from time to time
+# FIXME: workaround for including code coverage support, not yet contained in a released cockpit version
 test/common:
-	git clone -b 266 --depth=1 https://github.com/cockpit-project/cockpit.git tmp/cockpit
+	git clone -b main --depth=1 https://github.com/cockpit-project/cockpit.git tmp/cockpit
 	mv tmp/cockpit/test/common test/common
 	rm -rf tmp/cockpit
 
