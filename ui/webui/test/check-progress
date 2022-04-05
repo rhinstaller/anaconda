@@ -53,7 +53,7 @@ class TestInstallationProgress(MachineCase):
         b.wait_in_text("#installation-progress-description + .pf-c-progress__status", "6 of 39")
 
         # Pixel test the failed progress step
-        b.assert_pixels("#app", "installation-progress-step-fail")
+        b.assert_pixels("#app", "installation-progress-step-fail", ignore=["#betanag-icon"])
 
 if __name__ == '__main__':
     test_main()

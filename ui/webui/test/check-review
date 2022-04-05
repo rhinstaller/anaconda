@@ -48,7 +48,7 @@ class TestReview(MachineCase):
         b.wait_in_text("#installation-review-disk-description-vda", "0x1af4 (vda)")
 
         # Pixel test the review step
-        b.assert_pixels("#app", "review-step-basic")
+        b.assert_pixels("#app", "review-step-basic", ignore=["#betanag-icon"])
 
 if __name__ == '__main__':
     test_main()

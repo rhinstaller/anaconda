@@ -68,7 +68,7 @@ class TestLanguage(MachineCase):
         b.wait_val("#language-menu-toggle-select-typeahead", "Deutsch (Deutschland)")
 
         # Pixel test the language step
-        b.assert_pixels("#app", "language-step-basic")
+        b.assert_pixels("#app", "language-step-basic", ignore=["#betanag-icon"])
 
         # TODO: Add checks for translations when these are present
 

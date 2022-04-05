@@ -146,7 +146,10 @@ const LocalStandardDisks = ({ onAddErrorNotification }) => {
                 <Title headingLevel="h3" id="installation-destination-local-disks-title" size="md">
                     {_("Local standard disks")}
                 </Title>
-                <Label color="blue">
+                <Label
+                  color="blue"
+                  id="installation-destination-table-label"
+                >
                     {cockpit.format(
                         cockpit.ngettext("$0 (of $1) disk selected", "$0 (of $1) disks selected", selectedDisksCnt),
                         selectedDisksCnt,
