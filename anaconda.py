@@ -269,7 +269,6 @@ if __name__ == "__main__":
 
     from pyanaconda.anaconda import Anaconda
     anaconda = Anaconda()
-    util.setup_translations()
 
     # reset python's default SIGINT handler
     signal.signal(signal.SIGINT, signal.SIG_IGN)
