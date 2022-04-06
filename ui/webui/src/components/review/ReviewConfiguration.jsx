@@ -38,7 +38,7 @@ import {
 
 const _ = cockpit.gettext;
 
-export const ReviewConfiguration = () => {
+export const ReviewConfiguration = ({ idPrefix }) => {
     const [deviceData, setDeviceData] = useState({});
     const [selectedDisks, setSelectedDisks] = useState();
     const [systemLanguage, setSystemLanguage] = useState();
@@ -75,7 +75,7 @@ export const ReviewConfiguration = () => {
                     <DescriptionListTerm>
                         {_("Language")}
                     </DescriptionListTerm>
-                    <DescriptionListDescription id="installation-review-target-system-language">
+                    <DescriptionListDescription id={idPrefix + "-target-system-language"}>
                         {systemLanguage}
                     </DescriptionListDescription>
                 </DescriptionListGroup>
@@ -89,13 +89,13 @@ export const ReviewConfiguration = () => {
                         <DataListItemRow>
                             <DataListItemCells
                               dataListCells={[
-                                  <DataListCell key={selectedDisk} id={"installation-review-disk-label-" + selectedDisk}>
+                                  <DataListCell key={selectedDisk} id={idPrefix + "-disk-label-" + selectedDisk}>
                                       {_("Local standard disk")}
                                   </DataListCell>,
-                                  <DataListCell key={"description-" + selectedDisk} id={"installation-review-disk-description-" + selectedDisk}>
+                                  <DataListCell key={"description-" + selectedDisk} id={idPrefix + "-disk-description-" + selectedDisk}>
                                       {deviceData && deviceData[selectedDisk] && deviceData[selectedDisk].description.v + " (" + selectedDisks + ")"}
                                   </DataListCell>,
-                                  <DataListCell key={"size-" + selectedDisk} id={"installation-review-disk-size-" + selectedDisk}>
+                                  <DataListCell key={"size-" + selectedDisk} id={idPrefix + "-disk-size-" + selectedDisk}>
                                       {cockpit.format_bytes(deviceData && deviceData[selectedDisk] && deviceData[selectedDisk].size.v) + " " + _("total")}
                                   </DataListCell>
                               ]}
@@ -108,12 +108,12 @@ export const ReviewConfiguration = () => {
     );
 };
 
-export const ReviewConfigurationConfirmModal = ({ onNext, setNextWaitsConfirmation }) => {
+export const ReviewConfigurationConfirmModal = ({ idPrefix, onNext, setNextWaitsConfirmation }) => {
     return (
         <Modal
           actions={[
               <Button
-                id="installation-review-disk-erase-confirm"
+                id={idPrefix + "-disk-erase-confirm"}
                 key="confirm"
                 onClick={() => {
                     setNextWaitsConfirmation(false);

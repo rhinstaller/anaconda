@@ -15,17 +15,27 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program; If not, see <http://www.gnu.org/licenses/>.
 
+import os
+import sys
+
+HELPERS_DIR = os.path.dirname(__file__)
+sys.path.append(HELPERS_DIR)
+
+from installer import Installer  # pylint: disable=import-error
+
+
 class Language():
     def __init__(self, browser):
         self.browser = browser
+        self.welcome_id = Installer(self.browser).welcome_id
 
     def clear_language_selector(self):
         # Check that the [x] button clears the input text
         self.browser.click(".pf-c-select__toggle-clear")
-        self.browser.wait_val("#language-menu-toggle-select-typeahead", "")
+        self.browser.wait_val(f"#{self.welcome_id}-menu-toggle-select-typeahead", "")
 
     def select_locale(self, locale):
-        if self.browser.val("#language-menu-toggle-select-typeahead") != "":
+        if self.browser.val(f"#{self.welcome_id}-menu-toggle-select-typeahead") != "":
             self.clear_language_selector()
-        self.browser.click("#language-menu-toggle")
-        self.browser.click("#" + locale + " > button")
+        self.browser.click(f"#{self.welcome_id}-menu-toggle")
+        self.browser.click(f"#{self.welcome_id}" + "-option-" + locale + " > button")

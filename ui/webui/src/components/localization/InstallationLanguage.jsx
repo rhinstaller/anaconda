@@ -90,6 +90,7 @@ class LanguageSelector extends React.Component {
 
     render () {
         const { isOpen, languages, locales, selectedItem } = this.state;
+        const idPrefix = this.props.idPrefix;
         const handleOnSelect = (_, lang) => {
             /*
              * When a language is selected from the list, update the backend language,
@@ -122,7 +123,7 @@ class LanguageSelector extends React.Component {
                       key={getLanguageId(currentLang)}>
                         {langLocales.map(locale => (
                             <SelectOption
-                              id={getLocaleId(locale).split(".UTF-8")[0]}
+                              id={idPrefix + "-option-" + getLocaleId(locale).split(".UTF-8")[0]}
                               key={getLocaleId(locale)}
                               value={{
                                   toString: () => getLocaleNativeName(locale),
@@ -139,7 +140,7 @@ class LanguageSelector extends React.Component {
         return (
             <Select
               aria-invalid={!selectedItem}
-              className="language-menu"
+              className={idPrefix + "-menu"}
               isGrouped
               isOpen={isOpen}
               maxHeight="30rem"
@@ -151,7 +152,7 @@ class LanguageSelector extends React.Component {
               onSelect={handleOnSelect}
               onToggle={isOpen => this.setState({ isOpen })}
               selections={selectedItem}
-              toggleId="language-menu-toggle"
+              toggleId={idPrefix + "-menu-toggle"}
               validated={selectedItem ? "default" : "error"}
               variant={SelectVariant.typeahead}
               width="30rem"
@@ -165,11 +166,15 @@ class LanguageSelector extends React.Component {
 }
 LanguageSelector.contextType = AddressContext;
 
-export const InstallationLanguage = ({ setIsFormValid, onAddErrorNotification }) => {
+export const InstallationLanguage = ({ idPrefix, setIsFormValid, onAddErrorNotification }) => {
     return (
         <Form>
             <FormGroup label={_("Select the language you would like to use.")}>
-                <LanguageSelector setIsFormValid={setIsFormValid} onAddErrorNotification={onAddErrorNotification} />
+                <LanguageSelector
+                  idPrefix={idPrefix}
+                  setIsFormValid={setIsFormValid}
+                  onAddErrorNotification={onAddErrorNotification}
+                />
             </FormGroup>
         </Form>
     );

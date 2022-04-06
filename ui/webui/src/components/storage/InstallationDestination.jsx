@@ -81,7 +81,7 @@ const selectDefaultDisks = ({ ignoredDisks, selectedDisks, usableDisks }) => {
     }
 };
 
-const LocalStandardDisks = ({ onAddErrorNotification }) => {
+const LocalStandardDisks = ({ idPrefix, onAddErrorNotification }) => {
     const [deviceData, setDeviceData] = useState({});
     const [disks, setDisks] = useState({});
     const [refreshCnt, setRefreshCnt] = useState(0);
@@ -143,7 +143,7 @@ const LocalStandardDisks = ({ onAddErrorNotification }) => {
     return (
         <>
             <Flex spaceItems={{ default: "spaceItemsLg" }}>
-                <Title headingLevel="h3" id="installation-destination-local-disks-title" size="md">
+                <Title headingLevel="h3" id={idPrefix + "-local-disks-title"} size="md">
                     {_("Local standard disks")}
                 </Title>
                 <Label color="blue">
@@ -156,7 +156,7 @@ const LocalStandardDisks = ({ onAddErrorNotification }) => {
                 <FlexItem align={{ default: "alignRight" }}>
                     <Button
                       aria-label={_("Rescan disks")}
-                      id="rescan-disks"
+                      id={idPrefix + "-rescan-disks"}
                       onClick={() => {
                           scanDevicesWithTask().then(res => {
                               runStorageTask({
@@ -203,13 +203,16 @@ const LocalStandardDisks = ({ onAddErrorNotification }) => {
     );
 };
 
-export const InstallationDestination = ({ onAddErrorNotification }) => {
+export const InstallationDestination = ({ idPrefix, onAddErrorNotification }) => {
     return (
         <>
             <HelperText>
                 <HelperTextItem>{_("Select the device(s) you would like to install to")}</HelperTextItem>
             </HelperText>
-            <LocalStandardDisks onAddErrorNotification={onAddErrorNotification} />
+            <LocalStandardDisks
+              idPrefix={idPrefix}
+              onAddErrorNotification={onAddErrorNotification}
+            />
         </>
     );
 };

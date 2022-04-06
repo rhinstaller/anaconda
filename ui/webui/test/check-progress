@@ -37,20 +37,20 @@ class TestInstallationProgress(MachineCase):
 
         i.open()
 
-        for page in ['installation-language', 'installation-destination', 'review-configuration']:
+        for page in i.steps[:-1]:
             # with the pages basically empty of common elements (as those are provided by the top-level installer widget)
             # we at least iterate over them to check this works as expected
             i.wait_current_page(page)
-            if page != 'review-configuration':
+            if page != i.review_id:
                 i.next()
             else:
                 i.begin_installation()
 
-        b.wait_visible("#installation-progress:not(.pf-m-danger)")
-        b.wait_visible("#installation-progress.pf-m-danger")
+        b.wait_visible(f"#{i.progress_id}-bar:not(.pf-m-danger)")
+        b.wait_visible(f"#{i.progress_id}-bar.pf-m-danger")
 
         b.wait_in_text(".pf-c-alert.pf-m-danger", "No such file or directory: 'systemd-machine-id-setup'")
-        b.wait_in_text("#installation-progress-description + .pf-c-progress__status", "6 of 39")
+        b.wait_in_text(f"#{i.progress_id}-bar-description + .pf-c-progress__status", "6 of 39")
 
 if __name__ == '__main__':
     test_main()
