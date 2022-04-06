@@ -19,9 +19,10 @@ import cockpit from "cockpit";
 import React from "react";
 
 import {
-    Bullseye, Button,
-    Progress,
-    Text,
+    Button, Flex,
+    ProgressStepper, ProgressStep,
+    Text, TextVariants,
+    TextContent,
 } from "@patternfly/react-core";
 import { CheckCircleIcon, ExclamationCircleIcon } from "@patternfly/react-icons";
 import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
@@ -58,6 +59,23 @@ export class InstallationProgress extends React.Component {
                                             ret => this.setState({ steps: ret.v }),
                                             this.props.onAddErrorNotification
                                         );
+                            // FIXME: hardcoded progress steps
+                            //        - if ProgressStepper turns out to be viable,
+                            //          use a proper DBus API for progress tep discovery
+                            //          and switching
+                            //
+                            // storage
+                            } else if (step <= 3) {
+                                this.setState({ currentProgressStep: 0 });
+                            // payload
+                            } else if (step === 4) {
+                                this.setState({ currentProgressStep: 1 });
+                            // configuration
+                            } else if (step >= 5 && step <= 11) {
+                                this.setState({ currentProgressStep: 2 });
+                            // bootloader
+                            } else if (step >= 12) {
+                                this.setState({ currentProgressStep: 3 });
                             }
                             this.setState({ message, step });
                         });
@@ -68,7 +86,7 @@ export class InstallationProgress extends React.Component {
                             taskProxy.Finish().catch(this.props.onAddErrorNotification);
                         });
                         taskProxy.addEventListener("Succeeded", () => {
-                            this.setState({ status: "success" });
+                            this.setState({ status: "success", currentProgressStep: 4 });
                         });
                     };
                     taskProxy.wait(() => {
@@ -79,8 +97,15 @@ export class InstallationProgress extends React.Component {
     }
 
     render () {
-        const { steps, step, status, message } = this.state;
         const idPrefix = this.props.idPrefix;
+        const { steps, currentProgressStep, status, message } = this.state;
+
+        const progressSteps = [
+            { title: _("Storage configuration"), id: "installation-progress-step-storage" },
+            { title: _("Payload installation"), id: "installation-progress-step-payload" },
+            { title: _("System configuraton"), id: "installation-progress-step-configuration" },
+            { title: _("Boot loader installation"), id: "installation-progress-step-boot-loader" },
+        ];
 
         if (steps === undefined) { return null }
 
@@ -97,23 +122,46 @@ export class InstallationProgress extends React.Component {
         }
 
         return (
-            <Bullseye className={idPrefix + "-status-" + status}>
+            <div id={idPrefix + "-status-" + status}>
                 <EmptyStatePanel
                   icon={icon}
                   loading={!icon}
                   paragraph={
-                      status !== "success"
-                          ? <Progress
-                              id={idPrefix + "-bar"}
-                              label={cockpit.format("$0 of $1", step, steps)}
-                              max={steps}
-                              min={0}
-                              title={message}
-                              value={step}
-                              valueText={cockpit.format("$0 of $1", step, steps)}
-                              variant={status}
-                          />
-                          : <Text>{_("Fedora is successfully installed. To begin using it, reboot your system.")}</Text>
+                      <Flex direction={{ default: "column" }}>
+                          <ProgressStepper isCenterAligned>
+                              {progressSteps.map((progressStep, index) => {
+                                  let variant = "pending";
+                                  let ariaLabel = _("pending step");
+                                  if (index < currentProgressStep) {
+                                      variant = "success";
+                                      ariaLabel = _("completed step");
+                                  } else if (index === currentProgressStep) {
+                                      variant = status === "danger" ? status : "info";
+                                      ariaLabel = _("current step");
+                                  }
+                                  return (
+                                      <ProgressStep
+                                        aria-label={ariaLabel}
+                                        id={idPrefix + "-step-" + index}
+                                        isCurrent={index === currentProgressStep}
+                                        titleId={progressStep.id}
+                                        key={index}
+                                        variant={variant}
+                                      >
+                                          {progressStep.title}
+                                      </ProgressStep>
+                                  );
+                              })}
+                          </ProgressStepper>
+                          <TextContent>
+                              <Text
+                                component={TextVariants.p}
+                                id={idPrefix + "-status-text"}
+                              >
+                                  {message}
+                              </Text>
+                          </TextContent>
+                      </Flex>
                   }
                   secondary={
                       status === "success" &&
@@ -121,7 +169,7 @@ export class InstallationProgress extends React.Component {
                   }
                   title={title}
                 />
-            </Bullseye>
+            </div>
         );
     }
 }

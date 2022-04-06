@@ -109,7 +109,6 @@ export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
         {
             component: InstallationProgress,
             id: "installation-progress",
-            label: _("Installation progress"),
         }
     ];
 
