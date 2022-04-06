@@ -63,7 +63,7 @@ EXTRA_DIST = dist src
 
 # checkout Cockpit's PF/React/build library; again this has no API stability guarantee, so check out a stable tag
 $(LIB_TEST):
-	git clone -b 260 --depth=1 https://github.com/cockpit-project/cockpit.git tmp/cockpit
+	git clone -b 266 --depth=1 https://github.com/cockpit-project/cockpit.git tmp/cockpit
 	mv tmp/cockpit/pkg/lib src/
 	rm -rf tmp/cockpit
 
