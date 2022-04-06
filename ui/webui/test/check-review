@@ -47,5 +47,8 @@ class TestReview(MachineCase):
         b.wait_in_text(f"#{i.review_id}-disk-label-vda", "Local standard disk")
         b.wait_in_text(f"#{i.review_id}-disk-description-vda", "0x1af4 (vda)")
 
+        # Pixel test the review step
+        b.assert_pixels("#app", "review-step-basic", ignore=["#betanag-icon"])
+
 if __name__ == '__main__':
     test_main()

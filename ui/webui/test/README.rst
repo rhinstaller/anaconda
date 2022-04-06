@@ -92,6 +92,17 @@ to test, you can run tests by picking a program and just executing it against th
 
     test/check-basic --machine=127.0.0.2:22000 --browser 127.0.0.2:9091
 
+Pixel tests
+-----------
+
+The verify test suite contains ["pixel tests"](https://cockpit-project.org/blog/pixel-testing.html).
+Make sure to create the test/reference submodule before running tests which contain pixel tests.::
+
+    make test/reference
+
+For information on how to debug, update or review pixel tests reference the
+["pixel tests"](https://cockpit-project.org/blog/pixel-testing.html) documentation.
+
 Test Configuration
 ------------------
 

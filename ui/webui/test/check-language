@@ -67,6 +67,9 @@ class TestLanguage(MachineCase):
         l.select_locale("de_DE")
         b.wait_val(f"#{i.welcome_id}-menu-toggle-select-typeahead", "Deutsch (Deutschland)")
 
+        # Pixel test the language step
+        b.assert_pixels("#app", "language-step-basic", ignore=["#betanag-icon"])
+
         # TODO: Add checks for translations when these are present
 
         # Check that the language is updated in the backend

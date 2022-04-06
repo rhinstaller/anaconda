@@ -27,6 +27,8 @@ PACKAGE_NAME=anaconda-webui
 # stamp file to check if/when npm install ran
 NODE_MODULES_TEST=package-lock.json
 TEST_OS=fedora-rawhide-boot
+TEST_REFERENCE_SUBDIR=ui/webui/test/reference
+GITHUB_BASE=rhinstaller/anaconda
 UPDATES_IMG=../../updates.img
 
 export TEST_OS
@@ -80,15 +82,20 @@ bots:
 $(UPDATES_IMG):
 	test/prepare-updates-img
 
-integration-test: bots test/common $(UPDATES_IMG)
+integration-test: bots test/common test/reference $(UPDATES_IMG)
 	test/run-tests
 
 # checkout Cockpit's test API; this has no API stability guarantee, so check out a stable tag
 # when you start a new project, use the latest release, and update it from time to time
+# FIXME: workaround for including https://github.com/cockpit-project/cockpit/pull/17216/commits/2a8ef93583fc3835c6d7bd097403a218a77b689a
+# Undo when this is present in some released version.
 test/common:
-	git clone -b 266 --depth=1 https://github.com/cockpit-project/cockpit.git tmp/cockpit
+	git clone -b main --depth=1 https://github.com/cockpit-project/cockpit.git tmp/cockpit
 	mv tmp/cockpit/test/common test/common
 	rm -rf tmp/cockpit
+
+test/reference: test/common
+	test/common/pixel-tests pull
 
 $(NODE_MODULES_TEST): package.json
 	rm -f package-lock.json #  if it exists already, npm install won't update it; force that so that we always get up-to-date packages
