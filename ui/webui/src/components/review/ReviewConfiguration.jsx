@@ -93,7 +93,7 @@ export const ReviewConfiguration = ({ idPrefix }) => {
                                       {_("Local standard disk")}
                                   </DataListCell>,
                                   <DataListCell key={"description-" + selectedDisk} id={idPrefix + "-disk-description-" + selectedDisk}>
-                                      {deviceData && deviceData[selectedDisk] && deviceData[selectedDisk].description.v + " (" + selectedDisks + ")"}
+                                      {deviceData && deviceData[selectedDisk] && deviceData[selectedDisk].description.v + " (" + selectedDisk + ")"}
                                   </DataListCell>,
                                   <DataListCell key={"size-" + selectedDisk} id={idPrefix + "-disk-size-" + selectedDisk}>
                                       {cockpit.format_bytes(deviceData && deviceData[selectedDisk] && deviceData[selectedDisk].size.v) + " " + _("total")}
