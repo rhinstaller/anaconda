@@ -31,6 +31,9 @@ UPDATES_IMG=../../updates.img
 
 export TEST_OS
 
+# we ship built files in dist/
+distdir: $(WEBPACK_TEST)
+
 dist_libexec_SCRIPTS = webui-desktop
 # makes sure it gets built as part of `make` and `make dist`
 dist_noinst_DATA = \
