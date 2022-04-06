@@ -40,13 +40,13 @@ class TestBasic(MachineCase):
         i.open()
 
         self.assertIn(
-            b.attr("#app > .pf-c-page", "data-debug"),
-            ["False", "false", "True", "true"]
+            b.attr("#app > .pf-c-page", "data-debug").lower(),
+            ["false", "true"]
         )
 
         # Check betanag
-        value = m.execute("cat /.buildstamp | grep IsFinal=")
-        if value.split("=", 1)[1] in ("False", "false"):
+        value = m.execute("grep IsFinal= /.buildstamp")
+        if value.split("=", 1)[1].lower() == "false":
             b.wait_visible("#betanag-icon")
         else:
             b.wait_not_present("#betang-icon")
