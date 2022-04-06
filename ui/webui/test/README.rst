@@ -102,6 +102,15 @@ Make sure to create the test/reference submodule before running tests which cont
 
 For information on how to debug, update or review pixel tests reference the
 ["pixel tests"](https://cockpit-project.org/blog/pixel-testing.html) documentation.
+Make sure to set::
+
+    GITHUB_BASE=rhinstaller/anaconda
+
+before running any commands suggested there. For updating pixel test reference images you can use
+the available the Makefile target::
+
+    make update-test-reference
+
 
 Test Configuration
 ------------------

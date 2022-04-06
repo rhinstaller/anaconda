@@ -27,10 +27,10 @@ PACKAGE_NAME=anaconda-webui
 # stamp file to check if/when npm install ran
 NODE_MODULES_TEST=package-lock.json
 TEST_OS=fedora-rawhide-boot
-TEST_REFERENCE_SUBDIR=ui/webui/test/reference
 GITHUB_BASE=rhinstaller/anaconda
 UPDATES_IMG=../../updates.img
 
+export GITHUB_BASE
 export TEST_OS
 
 dist_libexec_SCRIPTS = webui-desktop
@@ -96,6 +96,9 @@ test/common:
 
 test/reference: test/common
 	test/common/pixel-tests pull
+
+update-reference-images: test/common test/reference
+	test/common/pixel-tests push
 
 $(NODE_MODULES_TEST): package.json
 	rm -f package-lock.json #  if it exists already, npm install won't update it; force that so that we always get up-to-date packages
