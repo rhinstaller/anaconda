@@ -48,7 +48,7 @@ watch:
 	NODE_ENV=$(NODE_ENV) node_modules/.bin/webpack --watch
 
 rsync:
-	RSYNC=test-updates make watch
+	RSYNC=$${RSYNC:-test-updates} make watch
 
 install-data-hook: $(WEBPACK_TEST)
 	mkdir -p $(DESTDIR)/usr/share/cockpit/$(PACKAGE_NAME)
