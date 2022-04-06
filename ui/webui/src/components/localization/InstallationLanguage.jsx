@@ -184,7 +184,7 @@ LanguageSelector.contextType = AddressContext;
 export const InstallationLanguage = ({ idPrefix, setIsFormValid, onAddErrorNotification }) => {
     return (
         <Form>
-            <FormGroup label={_("Select the language you would like to use.")}>
+            <FormGroup label={_("Select the language you would like to use. This language will also be selected for your installed system.")}>
                 <LanguageSelector
                   idPrefix={idPrefix}
                   setIsFormValid={setIsFormValid}
