@@ -44,6 +44,11 @@ class TestStorage(MachineCase):
 
         b.wait_visible('h3:contains(Local standard disks)')
 
+        # Check disks table details
+        b.wait_text("#vda > th[data-label=Name]", "vda")
+        b.wait_text("#vda > td[data-label=Total]", "15 GiB")
+        b.wait_text("#vda > td[data-label=Free]", "15 GiB")
+
         # Pixel test the storage step
         b.assert_pixels("#app", "storage-step-basic", ignore=["#betanag-icon", "#installation-destination-table-label"])
 
