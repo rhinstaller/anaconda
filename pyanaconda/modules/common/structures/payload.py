@@ -22,7 +22,7 @@ from dasbus.structure import DBusData
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.core.path import join_paths
-from pyanaconda.core.constants import URL_TYPE_BASEURL, DNF_DEFAULT_REPO_COST
+from pyanaconda.core.constants import URL_TYPE_BASEURL, DNF_DEFAULT_REPO_COST, REPO_ORIGIN_USER
 
 __all__ = ["RepoConfigurationData", "SSLConfigurationData"]
 
@@ -75,6 +75,7 @@ class RepoConfigurationData(DBusData):
 
     def __init__(self):
         self._name = ""
+        self._origin = REPO_ORIGIN_USER
         self._enabled = True
         self._url = ""
         self._type = URL_TYPE_BASEURL
@@ -112,6 +113,23 @@ class RepoConfigurationData(DBusData):
     @name.setter
     def name(self, name: Str):
         self._name = name
+
+    @property
+    def origin(self) -> Str:
+        """The origin of the repository.
+
+        Supported values:
+            SYSTEM    Provided by the system.
+            USER      Specified by a user.
+            TREEINFO  Generated from a .treeinfo file.
+
+        :return: a type of the origin
+        """
+        return self._origin
+
+    @origin.setter
+    def origin(self, value: Str):
+        self._origin = value
 
     @property
     def enabled(self) -> Bool:

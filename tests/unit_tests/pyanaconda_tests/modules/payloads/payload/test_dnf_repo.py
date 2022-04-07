@@ -19,6 +19,8 @@ import unittest
 from textwrap import dedent
 
 import pytest
+
+from pyanaconda.core.constants import REPO_ORIGIN_TREEINFO, REPO_ORIGIN_USER, REPO_ORIGIN_SYSTEM
 from pyanaconda.core.kickstart.specification import KickstartSpecificationHandler, \
     KickstartSpecificationParser
 from pyanaconda.kickstart import AnacondaKickstartSpecification, RepoData
@@ -172,15 +174,49 @@ class RepoConfigurationTestCase(unittest.TestCase):
     def test_convert_repo_enabled(self):
         """Test the conversion of the enabled attribute."""
         ks_repo = RepoData()
+
+        # Test an enabled repository.
         repo_data = convert_ks_repo_to_repo_data(ks_repo)
         assert repo_data.enabled is True
 
         ks_repo = convert_repo_data_to_ks_repo(repo_data)
         assert ks_repo.enabled is True
 
+        # Test a disabled repository.
         ks_repo.enabled = False
+
         repo_data = convert_ks_repo_to_repo_data(ks_repo)
         assert repo_data.enabled is False
 
         ks_repo = convert_repo_data_to_ks_repo(repo_data)
         assert ks_repo.enabled is False
+
+    def test_convert_repo_origin(self):
+        """Test the conversion of the repo origin."""
+        ks_repo = RepoData()
+        ks_repo.name = "repo-name"
+
+        # Test the system origin.
+        repo_data = convert_ks_repo_to_repo_data(ks_repo)
+        assert repo_data.origin == REPO_ORIGIN_SYSTEM
+
+        ks_repo = convert_repo_data_to_ks_repo(repo_data)
+        assert ks_repo.treeinfo_origin is False
+
+        # Test the user origin.
+        ks_repo.baseurl = "http://url"
+
+        repo_data = convert_ks_repo_to_repo_data(ks_repo)
+        assert repo_data.origin == REPO_ORIGIN_USER
+
+        ks_repo = convert_repo_data_to_ks_repo(repo_data)
+        assert ks_repo.treeinfo_origin is False
+
+        # Test the treeinfo origin.
+        ks_repo.treeinfo_origin = True
+
+        repo_data = convert_ks_repo_to_repo_data(ks_repo)
+        assert repo_data.origin == REPO_ORIGIN_TREEINFO
+
+        ks_repo = convert_repo_data_to_ks_repo(repo_data)
+        assert ks_repo.treeinfo_origin is True

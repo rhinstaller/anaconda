@@ -514,6 +514,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
     def _generate_expected_repo_configuration_dict(url=""):
         return {
             "name": get_variant(Str, ""),
+            "origin": get_variant(Str, "USER"),
             "enabled": get_variant(Bool, True),
             "url": get_variant(Str, url),
             "type": get_variant(Str, URL_TYPE_BASEURL),
