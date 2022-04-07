@@ -29,7 +29,7 @@ from subprocess import TimeoutExpired
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import startProgram
 from pyanaconda.core.constants import ANACONDA_BUS_ADDR_FILE, ANACONDA_CONFIG_TMP, \
-    ANACONDA_BUS_CONF_FILE, DBUS_ANACONDA_SESSION_ADDRESS
+    ANACONDA_BUS_CONF_FILE, DBUS_ANACONDA_SESSION_ADDRESS, DEFAULT_LANG
 from pyanaconda.core.dbus import DBus
 from dasbus.constants import DBUS_FLAG_NONE
 from pyanaconda.modules.common.constants.services import BOSS
@@ -111,7 +111,13 @@ class AnacondaDBusLauncher(object):
         ]
 
         self._log_file = open('/tmp/dbus.log', 'a')
-        self._dbus_daemon_process = startProgram(command, stderr=self._log_file, reset_lang=False)
+        self._dbus_daemon_process = startProgram(
+            command,
+            stderr=self._log_file,
+            env_add={"LANG": DEFAULT_LANG},
+            env_prune=["LANGUAGE", "LC_ALL", "LC_MESSAGES"],
+            reset_lang=False,
+        )
 
         if self._dbus_daemon_process.poll() is not None:
             raise RuntimeError("DBus wasn't properly started!")
