@@ -25,6 +25,7 @@ sys.path.append(os.path.join(TEST_DIR, "helpers"))
 sys.path.append(os.path.join(os.path.dirname(TEST_DIR), "bots/machine"))
 
 from installer import Installer
+from storage import Storage  # pylint: disable=import-error
 from testlib import MachineCase, nondestructive, test_main  # pylint: disable=import-error
 from machine_install import VirtInstallMachine
 
@@ -34,10 +35,17 @@ class TestReview(MachineCase):
 
     def testBasic(self):
         b = self.browser
+        m = self.machine
         i = Installer(b)
+        s = Storage(b)
 
         i.open()
         i.next()
+
+        # After clicking 'Next' on the storage step, partitioning is done, thus changing the available space on the disk
+        # Since this is a non-destructive test we need to make sure the we reset partitioning to how it was before the test started
+        bus_address = m.execute("cat /run/anaconda/bus.address")
+        self.addCleanup(m.execute, s.dbus_reset_partitioning(bus_address))
         i.next()
 
         # check language is shown

@@ -15,6 +15,9 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program; If not, see <http://www.gnu.org/licenses/>.
 
+STORAGE_INTERFACE = "org.fedoraproject.Anaconda.Modules.Storage"
+STORAGE_OBJECT_PATH = "/org/fedoraproject/Anaconda/Modules/Storage"
+
 class Storage():
     def __init__(self, browser):
         self.browser = browser
@@ -24,3 +27,9 @@ class Storage():
 
     def wait_no_disks(self):
         self.browser.wait_in_text(".pf-c-alert.pf-m-danger.pf-m-inline", "No usable disks")
+
+    def dbus_reset_partitioning(self, bus_address):
+        return f'dbus-send --print-reply --bus="{bus_address}" \
+            --dest={STORAGE_INTERFACE} \
+            {STORAGE_OBJECT_PATH} \
+            {STORAGE_INTERFACE}.ResetPartitioning'
