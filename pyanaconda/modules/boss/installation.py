@@ -150,7 +150,7 @@ class CopyLogsTask(Task):
         """Dump journal from the installation environment"""
         tempfile = "/tmp/journal.log"
         with open(tempfile, "w") as logfile:
-            execWithRedirect("journalctl", ["-b"], stdout=logfile)
+            execWithRedirect("journalctl", ["-b"], stdout=logfile, log_output=False)
         self._copy_file_to_sysroot(tempfile, join_paths(TARGET_LOG_DIR, "journal.log"))
 
     def _copy_kickstart(self):
