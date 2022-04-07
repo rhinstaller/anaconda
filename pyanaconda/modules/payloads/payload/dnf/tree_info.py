@@ -158,14 +158,18 @@ class TreeInfoMetadata(object):
                 tree_info.load(file_path)
 
             tree_info.validate()
+            log.debug("Loaded treeinfo metadata:\n%s", tree_info.dumps())
 
             # Load the release version.
             release_version = tree_info.release.version.lower()
 
-            # Load the repositories.
+            # Create repositories for variants and optional variants.
+            # Child variants (like addons) will be ignored.
             repo_list = []
 
             for name in tree_info.variants:
+                log.debug("Processing the '%s' variant.", name)
+
                 # Get the variant metadata.
                 data = tree_info.variants[name]
 
@@ -329,8 +333,8 @@ class TreeInfoMetadata(object):
         repo_md = self._get_base_repository()
 
         if repo_md:
-            log.debug("The treeinfo defines a base repository at: %s", repo_md.path)
-            return repo_md.path
+            log.debug("The treeinfo defines a base repository at: %s", repo_md.absolute_path)
+            return repo_md.absolute_path
 
         log.debug("No base repository found in the treeinfo. Using installation tree root.")
         return self._root_path
@@ -372,6 +376,10 @@ class TreeInfoRepoMetadata(object):
         self._type = tree_info.type
         self._root_path = root_path
         self._relative_path = tree_info.paths.repository
+        self._absolute_path = self._get_absolute_path(
+            root_path=root_path,
+            relative_path=self._relative_path
+        )
 
     @property
     def type(self):
@@ -400,7 +408,7 @@ class TreeInfoRepoMetadata(object):
 
         :return: True or False
         """
-        return os.access(os.path.join(self.path, "repodata"), os.R_OK)
+        return os.access(os.path.join(self.absolute_path, "repodata"), os.R_OK)
 
     @property
     def relative_path(self):
@@ -408,13 +416,18 @@ class TreeInfoRepoMetadata(object):
         return self._relative_path
 
     @property
-    def path(self):
+    def absolute_path(self):
         """Absolute path of the repository."""
-        if self._relative_path == ".":
-            return self._root_path
+        return self._absolute_path
+
+    @staticmethod
+    def _get_absolute_path(root_path, relative_path):
+        """Get the absolute path of the repository."""
+        if relative_path == ".":
+            return root_path
 
         # Create the absolute path.
-        full_path = os.path.join(self._root_path, self._relative_path)
+        full_path = os.path.join(root_path, relative_path)
         protocol, url = split_protocol(full_path)
 
         # Normalize the URL to solve problems with a relative path.
