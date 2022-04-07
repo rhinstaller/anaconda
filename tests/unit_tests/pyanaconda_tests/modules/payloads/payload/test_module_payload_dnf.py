@@ -488,7 +488,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
             "weakdeps-excluded": get_variant(Bool, True),
             "missing-ignored": get_variant(Bool, True),
             "broken-ignored": get_variant(Bool, True),
-            "languages": get_variant(Str, "en,es"),
+            "languages": get_variant(Str, "en:es"),
             "multilib-policy": get_variant(Str, MULTILIB_POLICY_ALL),
             "timeout": get_variant(Int, 10),
             "retries": get_variant(Int, 5),

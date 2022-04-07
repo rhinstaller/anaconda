@@ -289,9 +289,10 @@ class PackagesConfigurationData(DBusData):
             all   - Do not change the default settings.
 
         In case multiple languages are specified they are separated
-        by ',' in the string returned.
+        by ':' in the string returned. See the `%_install_langs`
+        macro at https://github.com/rpm-software-management/rpm.
 
-        :return: 'none' or 'all' or a list of languages separated by ','
+        :return: 'none' or 'all' or a list of languages separated by ':'
         :rtype: str
         """
         return self._languages
