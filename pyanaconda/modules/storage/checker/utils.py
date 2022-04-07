@@ -244,9 +244,9 @@ def verify_opal_compatibility(storage, constraints, report_error, report_warning
         dev = storage.mountpoints.get("/boot") or storage.mountpoints.get("/")
         if dev and dev.format and dev.format.type == "xfs":
             report_error(_(
-                "Your firmware doesn't support XFS file system features "
-                "on the /boot file system. The system will not be bootable. "
-                "Please, upgrade the firmware or change the file system type."
+                "The system will not be bootable. The firmware does not "
+                "support XFS file system features on the boot file system. "
+                "Upgrade the firmware or change the file system type."
             ))
 
 
@@ -315,10 +315,11 @@ def verify_swap(storage, constraints, report_error, report_warning):
                                "have %(installedMem)s.")
                              % {"requiredMem": required, "installedMem": installed})
             else:
-                report_warning(_("You have not specified a swap partition. "
-                                 "Although not strictly required in all cases, "
-                                 "it will significantly improve performance "
-                                 "for most installations."))
+                report_warning(_(
+                    "A swap partition has not been specified. To significantly "
+                    "improve performance for most installations, it is recommended "
+                    "to specify a swap partition."
+                ))
 
 
 def verify_swap_uuid(storage, constraints, report_error, report_warning):

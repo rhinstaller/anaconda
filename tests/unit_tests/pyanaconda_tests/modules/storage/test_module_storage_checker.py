@@ -180,6 +180,11 @@ class StorageCheckerVerificationTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.storage.checker.utils.arch")
     def test_opal_verification_old_firmware(self, mocked_arch, version_getter, xfs_mountable):
         """Check verify_opal_compatibility with an older firmware."""
+        message = \
+            "The system will not be bootable. The firmware does not support " \
+            "XFS file system features on the boot file system. Upgrade the " \
+            "firmware or change the file system type."
+
         storage = create_storage()
 
         mocked_arch.get_arch.return_value = "ppc64le"
@@ -202,19 +207,11 @@ class StorageCheckerVerificationTestCase(unittest.TestCase):
 
         # XFS on /
         dev1.format = get_format("xfs", mountpoint="/")
-        self._verify_opal_compatibility(storage, message=(
-            "Your firmware doesn't support XFS file system features "
-            "on the /boot file system. The system will not be bootable. "
-            "Please, upgrade the firmware or change the file system type."
-        ))
+        self._verify_opal_compatibility(storage, message=message)
 
         # XFS on /boot
         dev1.format = get_format("xfs", mountpoint="/boot")
-        self._verify_opal_compatibility(storage, message=(
-            "Your firmware doesn't support XFS file system features "
-            "on the /boot file system. The system will not be bootable. "
-            "Please, upgrade the firmware or change the file system type."
-        ))
+        self._verify_opal_compatibility(storage, message=message)
 
     def _verify_opal_compatibility(self, storage=None, message=None):
         """Verify the OPAL compatibility."""
