@@ -129,7 +129,7 @@ export class InstallationProgress extends React.Component {
         }
 
         return (
-            <div id={idPrefix + "-status-" + status}>
+            <div className={idPrefix + "-status-" + status}>
                 <EmptyStatePanel
                   icon={icon}
                   loading={!icon}
