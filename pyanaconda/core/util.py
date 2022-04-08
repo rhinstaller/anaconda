@@ -24,7 +24,6 @@ import subprocess
 # Used for ascii_lowercase, ascii_uppercase constants
 import tempfile
 import re
-import gettext
 import signal
 import sys
 import types
@@ -511,10 +510,6 @@ def reIPL(ipldev):
         log.info("reIPL configuration failed")
     else:
         log.info("reIPL configuration successful")
-
-
-def setup_translations():
-    gettext.textdomain("anaconda")
 
 
 def dracut_eject(device):
