@@ -91,7 +91,7 @@ jobs:
 
       - name: Upload test and coverage logs
         if: always()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: logs
           path: test-logs/*
@@ -147,7 +147,7 @@ jobs:
 
       - name: Upload test logs
         if: always()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: 'logs-rpm-test'
           path: test-logs/*

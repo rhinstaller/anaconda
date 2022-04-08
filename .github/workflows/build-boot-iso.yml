@@ -110,14 +110,14 @@ jobs:
 
       - name: Collect logs
         if: always()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: 'logs'
           path: |
            images/*.log
 
       - name: Upload image artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: images
           path: |
