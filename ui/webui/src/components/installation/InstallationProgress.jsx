@@ -19,12 +19,14 @@ import cockpit from "cockpit";
 import React from "react";
 
 import {
-    Button, Flex,
+    Button,
+    ExpandableSection,
+    Flex,
     ProgressStepper, ProgressStep,
-    Text, TextVariants,
-    TextContent,
 } from "@patternfly/react-core";
 import { CheckCircleIcon, ExclamationCircleIcon } from "@patternfly/react-icons";
+import { LogViewer } from "@patternfly/react-log-viewer";
+
 import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
 
 import { AddressContext } from "../Common.jsx";
@@ -40,7 +42,8 @@ const _ = cockpit.gettext;
 export class InstallationProgress extends React.Component {
     constructor (props) {
         super(props);
-        this.state = {};
+        this.state = { messages: [], logsExpanded: false };
+        this.logViewerRef = React.createRef();
     }
 
     componentDidMount () {
@@ -77,7 +80,11 @@ export class InstallationProgress extends React.Component {
                             } else if (step >= 12) {
                                 this.setState({ currentProgressStep: 3 });
                             }
-                            this.setState({ message, step });
+                            if (message) {
+                                this.setState(state => ({ messages: [...state.messages, message], step }));
+                            } else {
+                                this.setState({ step });
+                            }
                         });
                         taskProxy.addEventListener("Failed", () => {
                             this.setState({ status: "danger" });
@@ -98,7 +105,7 @@ export class InstallationProgress extends React.Component {
 
     render () {
         const idPrefix = this.props.idPrefix;
-        const { steps, currentProgressStep, status, message } = this.state;
+        const { steps, currentProgressStep, status, messages } = this.state;
 
         const progressSteps = [
             { title: _("Storage configuration"), id: "installation-progress-step-storage" },
@@ -153,14 +160,19 @@ export class InstallationProgress extends React.Component {
                                   );
                               })}
                           </ProgressStepper>
-                          <TextContent>
-                              <Text
-                                component={TextVariants.p}
-                                id={idPrefix + "-status-text"}
-                              >
-                                  {message}
-                              </Text>
-                          </TextContent>
+                          {/* Force-update the component on toggling by using the key as there are some rendering issues on LogViewer otherwise. */}
+                          <ExpandableSection
+                            key={this.state.logsExpanded}
+                            toggleText={this.state.logsExpanded ? _("Hide logs") : _("Show logs")}
+                            onToggle={logsExpanded => this.setState({ logsExpanded })}
+                            isExpanded={this.state.logsExpanded}
+
+                          >
+                              <LogViewer
+                                data={messages}
+                                hasLineNumbers
+                              />
+                          </ExpandableSection>
                       </Flex>
                   }
                   secondary={
