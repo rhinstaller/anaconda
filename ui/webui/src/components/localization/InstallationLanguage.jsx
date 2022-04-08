@@ -58,6 +58,7 @@ class LanguageSelector extends React.Component {
             locales: [],
         };
         this.updateDefaultSelection = this.updateDefaultSelection.bind(this);
+        this.renderOptions = this.renderOptions.bind(this);
     }
 
     componentDidMount () {
@@ -101,6 +102,38 @@ class LanguageSelector extends React.Component {
         this.setState({ selectedItem: getLocaleNativeName(currentLocale) });
     }
 
+    renderOptions (filter) {
+        const { languages, locales } = this.state;
+        const idPrefix = this.props.idPrefix;
+        const filterLow = filter.toLowerCase();
+
+        return locales.reduce((filtered, langLocales) => {
+            const currentLang = languages.find(lang => getLanguageId(lang) === getLanguageId(langLocales[0]));
+
+            const label = cockpit.format("$0 ($1)", getLanguageNativeName(currentLang), getLanguageEnglishName(currentLang));
+
+            if (!filter || label.toLowerCase().indexOf(filterLow) !== -1) {
+                filtered.push(
+                    <SelectGroup
+                      label={label}
+                      key={getLanguageId(currentLang)}>
+                        {langLocales.map(locale => (
+                            <SelectOption
+                              id={idPrefix + "-option-" + getLocaleId(locale).split(".UTF-8")[0]}
+                              key={getLocaleId(locale)}
+                              value={{
+                                  toString: () => getLocaleNativeName(locale),
+                                  localeId: getLocaleId(locale)
+                              }}
+                            />
+                        ))}
+                    </SelectGroup>
+                );
+            }
+            return filtered;
+        }, []);
+    }
+
     render () {
         const { isOpen, languages, locales, selectedItem } = this.state;
         const idPrefix = this.props.idPrefix;
@@ -128,29 +161,7 @@ class LanguageSelector extends React.Component {
             return <EmptyStatePanel loading />;
         }
 
-        const options = (
-            locales.map(langLocales => {
-                const currentLang = languages.find(lang => getLanguageId(lang) === getLanguageId(langLocales[0]));
-
-                return (
-                    <SelectGroup
-                      label={cockpit.format("$0 ($1)", getLanguageNativeName(currentLang), getLanguageEnglishName(currentLang))}
-                      key={getLanguageId(currentLang)}>
-                        {langLocales.map(locale => (
-                            <SelectOption
-                              id={idPrefix + "-option-" + getLocaleId(locale).split(".UTF-8")[0]}
-                              key={getLocaleId(locale)}
-                              value={{
-                                  toString: () => getLocaleNativeName(locale),
-                                  // Add a compareTo for custom filtering - filter also by english name
-                                  localeId: getLocaleId(locale)
-                              }}
-                            />
-                        ))}
-                    </SelectGroup>
-                );
-            })
-        );
+        const options = this.renderOptions("");
 
         return (
             <Select
@@ -166,6 +177,7 @@ class LanguageSelector extends React.Component {
               }}
               onSelect={handleOnSelect}
               onToggle={isOpen => this.setState({ isOpen })}
+              onFilter={(_, filter) => this.renderOptions(filter)}
               selections={selectedItem}
               toggleId={idPrefix + "-menu-toggle"}
               validated={selectedItem ? "default" : "error"}

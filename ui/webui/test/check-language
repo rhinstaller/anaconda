@@ -74,10 +74,17 @@ class TestLanguage(MachineCase):
         b.wait_visible("#English--English-")
         b.wait_visible("#Deutsch--German-")
 
-        # Check that the language menu shows filtered menu entries
-        b.set_input_text(f"#{i.welcome_id}-menu-toggle-select-typeahead", "Deutsch")
-        b.wait_visible("#Deutsch--German-")
+        # Check filtering on English names
+        b.set_input_text(f"#{i.welcome_id}-menu-toggle-select-typeahead", "cze")
+        b.wait_not_present("#Deutsch--German-")
         b.wait_not_present("#English--English-")
+        b.wait_visible(f"#{i.welcome_id}-option-cs_CZ")
+
+        # Check filtering on native names
+        b.set_input_text(f"#{i.welcome_id}-menu-toggle-select-typeahead", "Deutsch")
+        b.wait_not_present("#English--English-")
+        b.wait_not_present(f"#{i.welcome_id}-option-cs_CZ")
+        b.wait_visible("#Deutsch--German-")
         b.click(f"#{i.welcome_id}-menu-toggle")
 
         # Select the 'German' language
