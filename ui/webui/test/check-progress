@@ -46,11 +46,13 @@ class TestInstallationProgress(MachineCase):
             else:
                 i.begin_installation()
 
-        b.wait_visible(f"#{i.progress_id}-bar:not(.pf-m-danger)")
-        b.wait_visible(f"#{i.progress_id}-bar.pf-m-danger")
-
         b.wait_in_text(".pf-c-alert.pf-m-danger", "No such file or directory: 'systemd-machine-id-setup'")
-        b.wait_in_text(f"#{i.progress_id}-bar-description + .pf-c-progress__status", "6 of 39")
+        b.wait_in_text("#installation-progress-step-storage", "Storage configuration")
+
+        b.wait_visible("#installation-progress-step-0[aria-label='completed step'] > div:first-child")
+        b.wait_visible("#installation-progress-step-1[aria-label='completed step'] > div:first-child")
+        b.wait_visible("#installation-progress-step-2[aria-label='current step'] > div:first-child")
+        b.wait_visible("#installation-progress-step-3[aria-label='pending step'] > div:first-child")
 
         # Pixel test the failed progress step
         b.assert_pixels("#app", "installation-progress-step-fail", ignore=["#betanag-icon"])

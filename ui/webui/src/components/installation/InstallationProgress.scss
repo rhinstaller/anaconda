@@ -1,16 +1,9 @@
-#installation-progress-bar {
-    .pf-c-progress__description {
-        min-width: 40ch;
-        text-align: left;
-    }
-}
-
 .installation-progress-status {
-    &-success svg {
+    &-success .pf-c-empty-state__icon {
         color: var(--pf-global--success-color--100);
     }
 
-    &-danger svg {
+    &-danger .pf-c-empty-state__icon {
         color: var(--pf-global--danger-color--100);
     }
 }
