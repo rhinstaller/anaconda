@@ -110,7 +110,7 @@ export class InstallationProgress extends React.Component {
         const progressSteps = [
             { title: _("Storage configuration"), id: "installation-progress-step-storage" },
             { title: _("Payload installation"), id: "installation-progress-step-payload" },
-            { title: _("System configuraton"), id: "installation-progress-step-configuration" },
+            { title: _("System configuration"), id: "installation-progress-step-configuration" },
             { title: _("Boot loader installation"), id: "installation-progress-step-boot-loader" },
         ];
 
