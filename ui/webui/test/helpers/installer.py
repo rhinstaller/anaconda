@@ -37,7 +37,6 @@ class Installer():
         self.browser.open("/cockpit/@localhost/anaconda-webui/index.html#/installation-language")
         # wait until the page is sufficiently initialized
         self.browser.wait_visible(f"#{self.welcome_id}")
-        self.browser.wait_in_text(".pf-c-wizard", "Welcome")
 
     def wait_current_page(self, page):
         self.browser.wait_js_cond(f'window.location.hash === "#/{page}"')
