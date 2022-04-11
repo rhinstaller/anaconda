@@ -456,6 +456,121 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 12 2022 Martin Kolman <mkolman@redhat.com> - 37.5-1
+- Fix keyboard spoke issue if Live system changed keyboard layouts (#2072941)
+  (jkonecny)
+- webui: tests: update reference image for the languate test (kkoukiou)
+- webui: fix typo in progress page (oguz)
+- webui: Update pixel test reference (mkolman)
+- webui: use className for customizing CSS not an ID (kkoukiou)
+- webui: be more specific in the custom CSS selectors for the progress stepper
+  (kkoukiou)
+- webui: remove unused custom CSS for the progress bar component (kkoukiou)
+- webui: show all installation logs in a LogViewer component (kkoukiou)
+- webui: Use ProgressStepper on the installation progress screen (mkolman)
+- webui: update welcome page title text (kkoukiou)
+- webui: improve documentation and add makefile target for updating reference
+  images (kkoukiou)
+- webui: tests: make sure TestReview cleans up its changes (kkoukiou)
+- webui: tests: extend storage test to validate the disk table rows content
+  (kkoukiou)
+- webui: tests: add a test for backend language being initially not english
+  (kkoukiou)
+- webui: add a basic check that the webui strings get translated (kkoukiou)
+- webui: fix case where the default language is not english (kkoukiou)
+- webui: set modules locale for translating messages from the backend
+  (kkoukiou)
+- webui: Also filter languages by English names (mmarusak)
+- Don't set LC_ALL for live installations (vponcova)
+- Don't set the global domain to `anaconda` (vponcova)
+- webui: Support other rsync targets (martin)
+- webui: tests: Wait for UI initialization in Installer.open() (martin)
+- webui: tests: Simplify check-basic (martin)
+- webui: fix typo in the review configuration disk table (kkoukiou)
+- webui: tests: ignore the labels (PF4 Labels) when pixel testing (kkoukiou)
+- webui: tests: introduce some pixel tests (kkoukiou)
+- Don't log the output of journalctl -b (vponcova)
+- webui: tests: add missing machine_class to the check-language (kkoukiou)
+- webui: tests: use the prefixes of the ids from variables (kkoukiou)
+- webui: tests: ignore test/images symlink needed for the tests (kkoukiou)
+- webui: standardize the naming of the ids and classNames (kkoukiou)
+- webui: bring some order to the react components folder (kkoukiou)
+- Fix unit tests of the treeinfo support (vponcova)
+- Rename the `path` property of the TreeInfoRepoMetadata class (vponcova)
+- Log info about loaded .treeinfo files (vponcova)
+- Use the origin to handle system repositories (vponcova)
+- Add the `origin` attribute to the repo configuration data (vponcova)
+- webui: setup pixel tests submodule (kkoukiou)
+- webui: tests: add teardown cleanup resetting the language to english
+  (kkoukiou)
+- webui: tests: standardize test file names by removing -installation-
+  substring (kkoukiou)
+- webui: port review screen confirmation from checkbox to modal dialog
+  (kkoukiou)
+- Bump Cockpit version of testlib to 266 (vslavik)
+- webui: default language should be fetched from anaconda backend (kkoukiou)
+- webui: add support for disabling Next button if form is invalid (kkoukiou)
+- webui: pass translated string for 'No results found' text (kkoukiou)
+- webui: move language setting of cookies and backend (kkoukiou)
+- webui: menuAppendTo can be a property of Select component from Patternfly
+  (kkoukiou)
+- webui: remove undefined property from InstallationLanguage component
+  (kkoukiou)
+- webui: create helpers for language conversion from and to cockpit lang cookie
+  (kkoukiou)
+- webui: set language also in backend when selecting a new language (kkoukiou)
+- webui: tests: use id instead of contains: for the Quit button test selector
+  (kkoukiou)
+- webui: tests: add a test for the Quit button (kkoukiou)
+- webui: if the file is empty don't try to parse it (kkoukiou)
+- webui: adjust error message to make it unique and matching the actual problem
+  (kkoukiou)
+- webui: remove unused parameter from conf.js helper function (kkoukiou)
+- webui: parsing the files for the initialization can be done in parallel
+  (kkoukiou)
+- webui: fix 'Reboot' and 'Quit' button callbacks (kkoukiou)
+- webui: Make it possible to go back to language selection screen (mkolman)
+- webui: Add Review screen implementation (mkolman)
+- webui: add support for re-scanning disks (kkoukiou)
+- webui: Add API for selected disks access (mkolman)
+- webui: Add API for target system language access (mkolman)
+- webui: add title and icon to the empty-state component in the installation
+  progress (kkoukiou)
+- webui: tests: create some helper test classes (kkoukiou)
+- Mark error message for missing usable disks for partitioning as translatable
+  (kkoukiou)
+- Don't re-enable repositories (vponcova)
+- Use the disabled_repositories configuration option (vponcova)
+- Add the get_matching_repositories method (vponcova)
+- Manage the system repositories with DNF manager (vponcova)
+- Remove the _reset_configuration method of the DNF payload class (vponcova)
+- webui: show empty state loading variant if the API is still fetching data
+  (kkoukiou)
+- webui: storage: if more than 10 disks are present change the table to compact
+  (kkoukiou)
+- webui: storage: only show sortable columns if more than one disks exist
+  (kkoukiou)
+- webui: allow passing different label for the wizard nav item and the step
+  title (kkoukiou)
+- webui: rephrase the welcome screen label for the language selector (kkoukiou)
+- Add Release Notes for keyboard configuration split on Live (#2016613)
+  (jkonecny)
+- Enable fingerprint authentication using enable-feature (#2069899) (vponcova)
+- webui: Close installer to quit/reboot/finish (vslavik)
+- webui: Increase size of VM disk for interactive work (vslavik)
+- webui: Don't use inst.nokill for testing VMs (vslavik)
+- webui: Save webui wrapper script PID (vslavik)
+- Fix the documentation of the languages attribute in packages configuration
+  (vponcova)
+- webui: expose webui.remote boot option (kkoukiou)
+- Clean up pyanaconda.payload.utils (vponcova)
+- Clean up the RepoData class (vponcova)
+- Use a task to set up an additional HDD repository (vponcova)
+- Add the parse_hdd_url function (vponcova)
+- Improve the recommendation from the swap verification check (vponcova)
+- Improve the error message from the OPAL compatibility check (vponcova)
+- webui: Test both betanag states (vslavik)
+
 * Mon Mar 28 2022 Martin Kolman <mkolman@redhat.com> - 37.4-1
 - Remove the unused _noop method (vponcova)
 - Fix failing pylint check. (rvykydal)
