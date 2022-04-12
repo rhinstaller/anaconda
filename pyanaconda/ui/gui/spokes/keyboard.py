@@ -344,12 +344,20 @@ class KeyboardSpoke(NormalSpoke):
         if flags.flags.automatedInstall and not self._seen:
             return False
 
-        # The currently activated layout is a different from the
-        # selected ones. Ignore VNC, since VNC keymaps are weird
-        # and more on the client side.
-        if not self._confirmed and not flags.flags.usevnc \
-                and self._xkl_wrapper.get_current_layout() not in self._l12_module.XLayouts:
-            return False
+        # Not confirmed by a user should we request the check?
+        if not self._confirmed:
+            # Not an issue where system keyboard configuration is not allowed
+            # This have to be before the `_xkl_wrapper.get_current_layout()` because on Wayland
+            # that call can fail in case when system has multiple layouts set.
+            if not keyboard.can_configure_keyboard():
+                return True
+
+            # Current activated layout is a different from the selected ones
+            if self._xkl_wrapper.get_current_layout() not in self._l12_module.XLayouts:
+                # Not an issue for VNC, since VNC keymaps are weird and more on the client side.
+                if flags.flags.usevnc:
+                    return True
+                return False
 
         return True
 
