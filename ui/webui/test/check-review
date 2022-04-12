@@ -37,15 +37,14 @@ class TestReview(MachineCase):
         b = self.browser
         m = self.machine
         i = Installer(b)
-        s = Storage(b)
+        s = Storage(b, m)
 
         i.open()
         i.next()
 
         # After clicking 'Next' on the storage step, partitioning is done, thus changing the available space on the disk
         # Since this is a non-destructive test we need to make sure the we reset partitioning to how it was before the test started
-        bus_address = m.execute("cat /run/anaconda/bus.address")
-        self.addCleanup(m.execute, s.dbus_reset_partitioning(bus_address))
+        self.addCleanup(s.dbus_reset_partitioning)
         i.next()
 
         # check language is shown
@@ -62,10 +61,9 @@ class TestReview(MachineCase):
         b = self.browser
         m = self.machine
         i = Installer(b)
-        s = Storage(b)
+        s = Storage(b, m)
 
-        bus_address = m.execute("cat /run/anaconda/bus.address")
-        self.addCleanup(m.execute, s.dbus_reset_partitioning(bus_address))
+        self.addCleanup(s.dbus_reset_partitioning)
 
         i.open()
 

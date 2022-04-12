@@ -36,7 +36,7 @@ class TestStorage(MachineCase):
     def testLocalStandardDisks(self):
         b = self.browser
         i = Installer(b)
-        s = Storage(b)
+        s = Storage(b, self.machine)
 
         i.open()
 
