@@ -23,8 +23,9 @@ class Installer():
     progress_id = "installation-progress"
     steps = [welcome_id, storage_id, review_id, progress_id]
 
-    def __init__(self, browser):
+    def __init__(self, browser, machine):
         self.browser = browser
+        self.machine = machine
 
     def begin_installation(self, should_fail=False, confirm_erase=True):
         current_step_id = self.get_current_page_id()
@@ -63,3 +64,22 @@ class Installer():
             self.browser.wait_visible(".pf-c-progress-stepper")
         else:
             self.browser.wait_visible(f"#{page}.pf-m-current")
+
+    def check_prerelease_info(self, is_expected=None):
+        """ Checks whether the pre-release information is visible or not.
+
+        If is_expected is not set, the expected state is deduced from .buildstamp file.
+
+        :param is_expected: Is it expected that the info is visible or not, defaults to None
+        :type is_expected: bool, optional
+        """
+        if is_expected is not None:
+            value = str(is_expected)
+        else:
+            value = self.machine.execute("grep IsFinal= /.buildstamp").split("=", 1)[1]
+
+        # Check betanag
+        if value.lower() == "false":
+            self.browser.wait_visible("#betanag-icon")
+        else:
+            self.browser.wait_not_present("#betang-icon")

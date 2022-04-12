@@ -35,7 +35,7 @@ class TestStorage(MachineCase):
 
     def testLocalStandardDisks(self):
         b = self.browser
-        i = Installer(b)
+        i = Installer(b, self.machine)
         s = Storage(b, self.machine)
 
         i.open()
@@ -67,7 +67,7 @@ class TestStorageExtraDisks(MachineCase):
     def testLocalDisksSyncNew(self):
         b = self.browser
         m = self.machine
-        i = Installer(b)
+        i = Installer(b, m)
 
         # This attaches a disk to the running VM
         # However, since the storage module initialization is long completed

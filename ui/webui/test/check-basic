@@ -35,7 +35,7 @@ class TestBasic(MachineCase):
     def testNavigation(self):
         b = self.browser
         m = self.machine
-        i = Installer(b)
+        i = Installer(b, m)
 
         i.open()
 
@@ -44,12 +44,7 @@ class TestBasic(MachineCase):
             ["false", "true"]
         )
 
-        # Check betanag
-        value = m.execute("grep IsFinal= /.buildstamp")
-        if value.split("=", 1)[1].lower() == "false":
-            b.wait_visible("#betanag-icon")
-        else:
-            b.wait_not_present("#betang-icon")
+        i.check_prerelease_info()
 
         for page in i.steps[:-1]:
             # with the pages basically empty of common elements (as those are provided by the top-level installer widget)
@@ -68,7 +63,7 @@ class TestQuit(MachineCase):
     def testQuitInstallation(self):
         b = self.browser
         m = self.machine
-        i = Installer(b)
+        i = Installer(b, m)
 
         i.open()
         b.click("#installation-quit-btn")

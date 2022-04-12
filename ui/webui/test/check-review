@@ -36,7 +36,7 @@ class TestReview(MachineCase):
     def testBasic(self):
         b = self.browser
         m = self.machine
-        i = Installer(b)
+        i = Installer(b, m)
         s = Storage(b, m)
 
         i.open()
@@ -60,7 +60,7 @@ class TestReview(MachineCase):
     def testNoConfirmation(self):
         b = self.browser
         m = self.machine
-        i = Installer(b)
+        i = Installer(b, m)
         s = Storage(b, m)
 
         self.addCleanup(s.dbus_reset_partitioning)
