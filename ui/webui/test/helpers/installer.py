@@ -26,18 +26,40 @@ class Installer():
     def __init__(self, browser):
         self.browser = browser
 
-    def begin_installation(self):
+    def begin_installation(self, should_fail=False, confirm_erase=True):
+        current_step_id = self.get_current_page_id()
         self.browser.click("button:contains('Begin installation')")
-        self.browser.click("#installation-review-disk-erase-confirm")
 
-    def next(self):
+        if confirm_erase:
+            self.browser.click(f"#{self.review_id}-disk-erase-confirm")
+        else:
+            self.browser.click(".pf-c-modal-box button:contains(Back)")
+
+        if should_fail:
+            self.wait_current_page(self.steps[current_step_id])
+        else:
+            self.wait_current_page(self.steps[current_step_id+1])
+
+    def next(self, should_fail=False):
+        current_step_id = self.get_current_page_id()
         self.browser.click("button:contains(Next)")
 
-    def open(self):
-        self.browser.open("/cockpit/@localhost/anaconda-webui/index.html#/installation-language")
-        # wait until the page is sufficiently initialized
-        self.browser.wait_visible(f"#{self.welcome_id}")
+        if should_fail:
+            self.wait_current_page(self.steps[current_step_id])
+        else:
+            self.wait_current_page(self.steps[current_step_id+1])
+
+    def open(self, step="installation-language"):
+        self.browser.open(f"/cockpit/@localhost/anaconda-webui/index.html#/{step}")
+        self.wait_current_page(step)
+
+    def get_current_page_id(self):
+        page = self.browser.eval_js('window.location.hash;').replace('#/', '') or self.steps[0]
+        return self.steps.index(page)
 
     def wait_current_page(self, page):
         self.browser.wait_js_cond(f'window.location.hash === "#/{page}"')
-        self.browser.wait_visible("#" + page + ".pf-m-current")
+        if page == self.progress_id:
+            self.browser.wait_visible(".pf-c-progress-stepper")
+        else:
+            self.browser.wait_visible(f"#{page}.pf-m-current")

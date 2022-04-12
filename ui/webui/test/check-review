@@ -58,5 +58,22 @@ class TestReview(MachineCase):
         # Pixel test the review step
         b.assert_pixels("#app", "review-step-basic", ignore=["#betanag-icon"])
 
+    def testNoConfirmation(self):
+        b = self.browser
+        m = self.machine
+        i = Installer(b)
+        s = Storage(b)
+
+        bus_address = m.execute("cat /run/anaconda/bus.address")
+        self.addCleanup(m.execute, s.dbus_reset_partitioning(bus_address))
+
+        i.open()
+
+        for _ in i.steps[:-1]:
+            if i.steps[i.get_current_page_id()] != i.review_id:
+                i.next()
+            else:
+                i.begin_installation(should_fail=True, confirm_erase=False)
+
 if __name__ == '__main__':
     test_main()

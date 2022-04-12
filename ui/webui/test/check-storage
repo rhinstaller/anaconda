@@ -54,10 +54,9 @@ class TestStorage(MachineCase):
 
         # Try unselecting the single disk and expect and error
         s.select_disk("vda", False)
-        i.next()
+        i.next(should_fail=True)
         s.wait_no_disks()
         # Since storage configuration failed it's expected to be in the still in the storage step
-        b.wait_js_cond(f'window.location.hash === "#/{i.storage_id}"')
         b.wait_visible(f"#{i.storage_id}.pf-m-current")
 
 # We can't run this test case on an existing machine,
