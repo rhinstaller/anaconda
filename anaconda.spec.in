@@ -412,6 +412,13 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 12 2022 Martin Kolman <mkolman@redhat.com> - 36.16.5-1
+- Fix keyboard spoke issue if Live system changed keyboard layouts (#2072941)
+  (jkonecny)
+- Fix translations in DBus modules (#2071098) (vponcova)
+- Add Release Notes for keyboard configuration split on Live (#2016613)
+  (jkonecny)
+
 * Thu Mar 31 2022 Martin Kolman <mkolman@redhat.com> - 36.16.4-1
 - Enable fingerprint authentication using enable-feature (#2069899) (vponcova)
 
