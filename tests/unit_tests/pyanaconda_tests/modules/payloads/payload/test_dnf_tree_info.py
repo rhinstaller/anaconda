@@ -23,7 +23,6 @@ import unittest
 from unittest.mock import patch, Mock
 
 from pyanaconda.core.constants import URL_TYPE_METALINK, NETWORK_CONNECTION_TIMEOUT
-from pyanaconda.core.path import join_paths
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.tree_info import TreeInfoMetadata, NoTreeInfoError, \
     InvalidTreeInfoError
@@ -175,9 +174,11 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
                 dir_name="repodata"
             )
 
-            self.metadata.load_file(root_path)
+            repo_data = RepoConfigurationData()
+            repo_data.url = "file://" + root_path
+            self.metadata.load_data(repo_data)
 
-        return root_path
+        return repo_data.url
 
     def test_invalid_tree_info(self):
         """Test an invalid treeinfo metadata."""
@@ -209,18 +210,18 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
         assert repo_md.type == "variant"
         assert repo_md.enabled is True
         assert repo_md.relative_path == "../appstream"
-        assert repo_md.absolute_path == "/tmp/appstream"
+        assert repo_md.url == "file:///tmp/appstream"
 
         repo_md = self.metadata.repositories[1]
         assert repo_md.name == "BaseOS"
         assert repo_md.type == "variant"
         assert repo_md.enabled is True
         assert repo_md.relative_path == "../baseos"
-        assert repo_md.absolute_path == "/tmp/baseos"
+        assert repo_md.url == "file:///tmp/baseos"
 
     def test_fedora_treeinfo(self):
         """Test the Fedora metadata."""
-        root_path = self._load_treeinfo(TREE_INFO_FEDORA)
+        root_url = self._load_treeinfo(TREE_INFO_FEDORA)
         assert len(self.metadata.repositories) == 1
 
         repo_md = self.metadata.repositories[0]
@@ -228,13 +229,13 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
         assert repo_md.type == "variant"
         assert repo_md.enabled is True
         assert repo_md.relative_path == "."
-        assert repo_md.absolute_path == root_path
+        assert repo_md.url == root_url
 
     @patch("pyanaconda.modules.payloads.payload.dnf.tree_info.conf")
     def test_custom_treeinfo(self, mock_conf):
         """Test the custom metadata."""
         mock_conf.payload.enabled_repositories_from_treeinfo = ["variant"]
-        root_path = self._load_treeinfo(TREE_INFO_CUSTOM)
+        root_url = self._load_treeinfo(TREE_INFO_CUSTOM)
 
         # Anaconda ignores child variants (for example, addons).
         assert len(self.metadata.repositories) == 2
@@ -244,26 +245,14 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
         assert repo_md.type == "optional"
         assert repo_md.enabled is False
         assert repo_md.relative_path == "./optional"
-        assert repo_md.absolute_path == join_paths(root_path, "optional")
+        assert repo_md.url == root_url + "/optional"
 
         repo_md = self.metadata.repositories[1]
         assert repo_md.name == "MyVariant"
         assert repo_md.type == "variant"
         assert repo_md.enabled is True
         assert repo_md.relative_path == "./variant"
-        assert repo_md.absolute_path == join_paths(root_path, "variant")
-
-    def test_valid_repo(self):
-        """Test the valid property of the repo metadata."""
-        with tempfile.TemporaryDirectory() as path:
-            self._create_file(path, ".treeinfo", TREE_INFO_FEDORA)
-            self.metadata.load_file(path)
-
-            repo_md = self.metadata.repositories[0]
-            assert repo_md.valid is False
-
-            self._create_directory(path, "repodata")
-            assert repo_md.valid is True
+        assert repo_md.url == root_url + "/variant"
 
     def test_verify_image_base_repo(self):
         """Test the verify_image_base_repo method."""
@@ -298,12 +287,12 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
     def test_get_base_repo_url(self):
         """Test the get_base_repo_url method."""
         # Use the root repository.
-        root_path = self._load_treeinfo(TREE_INFO_FEDORA)
-        assert self.metadata.get_base_repo_url() == root_path
+        root_url = self._load_treeinfo(TREE_INFO_FEDORA)
+        assert self.metadata.get_base_repo_url() == root_url
 
         # Use the base repository.
         self._load_treeinfo(TREE_INFO_RHEL)
-        assert self.metadata.get_base_repo_url() == "/tmp/baseos"
+        assert self.metadata.get_base_repo_url() == "file:///tmp/baseos"
 
     def test_load_file(self):
         """Test the load_file method."""

@@ -769,7 +769,7 @@ class DNFPayload(Payload):
             existing_urls.append(baseurl)
 
         for repo_md in tree_info_metadata.repositories:
-            if repo_md.absolute_path in existing_urls:
+            if repo_md.url in existing_urls:
                 continue
 
             # disable repositories disabled by user manually before
@@ -778,7 +778,7 @@ class DNFPayload(Payload):
 
             repo = RepoData(
                 name=repo_md.name,
-                baseurl=repo_md.absolute_path,
+                baseurl=repo_md.url,
                 noverifyssl=not data.ssl_verification_enabled,
                 proxy=data.proxy,
                 sslcacert=data.ssl_configuration.ca_cert_path,
