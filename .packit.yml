@@ -35,19 +35,19 @@ jobs:
     trigger: pull_request
     metadata:
       targets:
-        - f36
+        - fedora-36
 
   - job: copr_build
     trigger: pull_request
     metadata:
       targets:
-        - f36
+        - fedora-36
 
   - job: copr_build
     trigger: commit
     metadata:
       targets:
-        - f36
+        - fedora-36
       branch: f36-devel
       owner: "@rhinstaller"
       project: Anaconda
