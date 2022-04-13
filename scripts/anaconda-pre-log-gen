@@ -5,12 +5,8 @@
 # where the resulting logs will be stored
 TARGET_DIRECTORY=/tmp/pre-anaconda-logs
 
-BOOT_OPTIONS_FILE=/proc/cmdline
-
-DEBUG_ENABLED=`cat $BOOT_OPTIONS_FILE | egrep -c "\<debug\>|\<inst\.debug\>"`
-
 # do not produce any logs unless debug is enabled
-[ $DEBUG_ENABLED == '0' ] && exit 0
+grep -E -q "\<debug\>|\<inst\.debug\>" /proc/cmdline || exit 0
 
 mkdir ${TARGET_DIRECTORY}
 
