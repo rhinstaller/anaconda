@@ -10,3 +10,7 @@ updates:
     schedule:
       # Check for updates to GitHub Actions every weekday
       interval: "daily"
+    commit-message:
+      prefix: "infra:"
+    labels:
+      - "infrastructure"

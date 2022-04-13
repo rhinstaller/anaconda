@@ -27,6 +27,17 @@ jobs:
           git log --oneline -1 origin/${{ github.event.pull_request.base.ref }}
           git rebase origin/${{ github.event.pull_request.base.ref }}
 
+      - name: Check if all commits have infra postfix or prefix
+        run: |
+          # get commit headers of all the commits added in this PR
+          for i in "$(git log --oneline --pretty=format:%s origin/${{ github.event.pull_request.base.ref }}..HEAD)"; do
+
+            if ! ( [[ $i =~ \(#infra\)$ ]]  || [[ $i =~ ^infra: ]] ); then
+              echo "$i --> Is missing 'infra:' prefix or '(#infra)' postfix"
+              exit 1
+            fi
+          done
+
       - name: Check if all changed files are infra related
         run: |
           changed_files=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }}..HEAD)
@@ -60,14 +71,3 @@ jobs:
           if [ "$failed_check" == "yes" ]; then
             exit 1
           fi
-
-      - name: Check if all commits have (#infra)
-        run: |
-          # match (#infra) at the end of the commit message
-          for i in "$(git log --oneline origin/${{ github.event.pull_request.base.ref }}..HEAD)"; do
-
-            if ! [[ $i =~ \(#infra\)$ ]]; then
-              echo "$i --> Is missing (#infra!)"
-              exit 1
-            fi
-          done
