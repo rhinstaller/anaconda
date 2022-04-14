@@ -73,21 +73,19 @@ class DefaultMessageBus(AnacondaMessageBus):
         return super()._find_bus_address()
 
 
+# System bus.
+SystemBus = SystemMessageBus()
+
 # The mapper of DBus errors.
 error_mapper = ErrorMapper()
-
-# Default bus. Anaconda uses this connection.
-DBus = DefaultMessageBus(
-    error_mapper=error_mapper
-)
-
-# System bus.
-SystemBus = SystemMessageBus(
-    error_mapper=error_mapper
-)
 
 # The decorator for DBus errors.
 dbus_error = get_error_decorator(error_mapper)
 
 # Register all DBus errors.
 register_errors()
+
+# Default bus. Anaconda uses this connection.
+DBus = DefaultMessageBus(
+    error_mapper=error_mapper
+)
