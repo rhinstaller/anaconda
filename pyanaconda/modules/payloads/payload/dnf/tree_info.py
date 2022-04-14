@@ -92,13 +92,13 @@ class TreeInfoMetadata(object):
 
     def __init__(self):
         """Create a new instance."""
-        self._root_path = ""
+        self._root_url = ""
         self._release_version = ""
         self._repositories = []
 
     def _reset(self):
         """Reset the metadata."""
-        self._root_path = ""
+        self._root_url = ""
         self._release_version = ""
         self._repositories = []
 
@@ -133,17 +133,17 @@ class TreeInfoMetadata(object):
 
             if os.access(file_path, os.R_OK):
                 self._load_tree_info(
-                    root_path=path,
+                    root_url="file://" + path,
                     file_path=file_path
                 )
                 return
 
         raise NoTreeInfoError("No treeinfo metadata found.")
 
-    def _load_tree_info(self, root_path, file_path=None, file_content=None):
+    def _load_tree_info(self, root_url, file_path=None, file_content=None):
         """Load the treeinfo metadata.
 
-        :param root_path: a path to the installation root
+        :param root_url: a URL of the installation root
         :param file_path: a path to a treeinfo file or None
         :param file_content: a content of a treeinfo file or None
         :raise InvalidTreeInfoError: if the metadata is invalid
@@ -177,7 +177,7 @@ class TreeInfoMetadata(object):
                 repo_md = TreeInfoRepoMetadata(
                     repo_name=name,
                     tree_info=data,
-                    root_path=root_path,
+                    root_url=root_url,
                 )
 
                 repo_list.append(repo_md)
@@ -187,7 +187,7 @@ class TreeInfoMetadata(object):
             raise InvalidTreeInfoError("Invalid metadata: {}".format(str(e))) from None
 
         # Update this treeinfo representation.
-        self._root_path = root_path
+        self._root_url = root_url
         self._repositories = repo_list
         self._release_version = release_version
 
@@ -216,7 +216,7 @@ class TreeInfoMetadata(object):
 
         # Process the metadata.
         self._load_tree_info(
-            root_path=data.url,
+            root_url=data.url,
             file_content=content
         )
 
@@ -311,6 +311,9 @@ class TreeInfoMetadata(object):
     def verify_image_base_repo(self):
         """Verify the base repository of an ISO image.
 
+        We only check whether the repodata directory of the base repo
+        exists. That doesn't have to mean that the repo is valid.
+
         :return: True or False
         """
         repo_md = self._get_base_repository() or self._get_root_repository()
@@ -319,7 +322,13 @@ class TreeInfoMetadata(object):
             log.debug("There is no usable repository available")
             return False
 
-        if not repo_md.valid:
+        if not repo_md.url.startswith("file://"):
+            raise ValueError("Unexpected type of URL: {}".format(repo_md.url))
+
+        repo_path = repo_md.url.removeprefix("file://")
+        data_path = os.path.join(repo_path, "repodata")
+
+        if not os.access(data_path, os.R_OK):
             log.debug("There is no valid repository available.")
             return False
 
@@ -333,11 +342,11 @@ class TreeInfoMetadata(object):
         repo_md = self._get_base_repository()
 
         if repo_md:
-            log.debug("The treeinfo defines a base repository at: %s", repo_md.absolute_path)
-            return repo_md.absolute_path
+            log.debug("The treeinfo defines a base repository at: %s", repo_md.url)
+            return repo_md.url
 
         log.debug("No base repository found in the treeinfo. Using installation tree root.")
-        return self._root_path
+        return self._root_url
 
     def _get_base_repository(self):
         """Return metadata of the base repository.
@@ -365,19 +374,19 @@ class TreeInfoMetadata(object):
 class TreeInfoRepoMetadata(object):
     """Metadata repo object contains metadata about repository."""
 
-    def __init__(self, repo_name, tree_info, root_path):
+    def __init__(self, repo_name, tree_info, root_url):
         """Do not instantiate this class directly.
 
         :param repo_name: a name of the repository
         :param tree_info: a metadata of the repository
-        :param root_path: a root path of the installation source
+        :param root_url: a URL of the installation source
         """
         self._name = repo_name
         self._type = tree_info.type
-        self._root_path = root_path
+        self._root_url = root_url
         self._relative_path = tree_info.paths.repository
-        self._absolute_path = self._get_absolute_path(
-            root_path=root_path,
+        self._url = self._get_url(
+            root_url=root_url,
             relative_path=self._relative_path
         )
 
@@ -400,38 +409,33 @@ class TreeInfoRepoMetadata(object):
         return self._type in conf.payload.enabled_repositories_from_treeinfo
 
     @property
-    def valid(self):
-        """Is the repository valid?
-
-        We only check whether the repodata directory exists.
-        That doesn't have to mean that the repo is valid.
-
-        :return: True or False
-        """
-        return os.access(os.path.join(self.absolute_path, "repodata"), os.R_OK)
-
-    @property
     def relative_path(self):
-        """Relative path of the repository."""
+        """Relative path of the repository.
+
+        :return: a relative path
+        """
         return self._relative_path
 
     @property
-    def absolute_path(self):
-        """Absolute path of the repository."""
-        return self._absolute_path
+    def url(self):
+        """URL of the repository.
+
+        :return: a URL
+        """
+        return self._url
 
     @staticmethod
-    def _get_absolute_path(root_path, relative_path):
-        """Get the absolute path of the repository."""
+    def _get_url(root_url, relative_path):
+        """Get the URL of the repository."""
         if relative_path == ".":
-            return root_path
+            return root_url
+
+        # Get the protocol.
+        protocol, root_path = split_protocol(root_url)
 
         # Create the absolute path.
-        full_path = os.path.join(root_path, relative_path)
-        protocol, url = split_protocol(full_path)
+        absolute_path = os.path.join(root_path, relative_path)
 
         # Normalize the URL to solve problems with a relative path.
         # This is especially useful for NFS (root/path/../new_path).
-        url = os.path.normpath(url)
-
-        return protocol + url
+        return protocol + os.path.normpath(absolute_path)
