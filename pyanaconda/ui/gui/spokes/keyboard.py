@@ -344,22 +344,25 @@ class KeyboardSpoke(NormalSpoke):
         if flags.flags.automatedInstall and not self._seen:
             return False
 
-        # Not confirmed by a user should we request the check?
-        if not self._confirmed:
-            # Not an issue where system keyboard configuration is not allowed
-            # This have to be before the `_xkl_wrapper.get_current_layout()` because on Wayland
-            # that call can fail in case when system has multiple layouts set.
-            if not keyboard.can_configure_keyboard():
-                return True
+        # Confirmed by a user nothing else is required
+        if self._confirmed:
+            return True
 
-            # Current activated layout is a different from the selected ones
-            if self._xkl_wrapper.get_current_layout() not in self._l12_module.XLayouts:
-                # Not an issue for VNC, since VNC keymaps are weird and more on the client side.
-                if flags.flags.usevnc:
-                    return True
-                return False
+        # Below are checks if we want users attention when the spoke wasn't confirmed (visited)
 
-        return True
+        # Not an issue for VNC, since VNC keymaps are weird and more on the client side.
+        if flags.flags.usevnc:
+            return True
+
+        # Not an issue where system keyboard configuration is not allowed
+        # This have to be before the `_xkl_wrapper.get_current_layout()` because on Wayland
+        # that call can fail in case when system has multiple layouts set.
+        if not keyboard.can_configure_keyboard():
+            return True
+
+        # Request user attention if the current activated layout is a different from the
+        # selected ones
+        return self._xkl_wrapper.get_current_layout() in self._l12_module.XLayouts
 
     @property
     def status(self):
