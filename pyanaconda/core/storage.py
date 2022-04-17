@@ -300,7 +300,7 @@ def suggest_swap_size(quiet=False, hibernation=False, disk_space=None):
         if mem <= sixty_four_gib:
             swap = mem + swap
         else:
-            log.info("Ignoring --hibernation option on systems with %s of RAM or more",
+            log.info("Ignoring --hibernation option on systems with greater than %s of RAM",
                      sixty_four_gib)
 
     if disk_space is not None and not hibernation:
