@@ -855,3 +855,26 @@ class MiscTests(unittest.TestCase):
         )
         self.assertEqual(get_anaconda_version_string(), "1.0")
         self.assertEqual(get_anaconda_version_string(build_time_version=True), "1.0-1")
+
+    @patch("pyanaconda.core.util.execWithRedirect")
+    def test_restorecon(self, exec_mock):
+        """Test restorecon helper normal function"""
+        # default behavior
+        self.assertTrue(util.restorecon(["foo"], root="/root"))
+        exec_mock.assert_called_once_with("restorecon", ["-r", "foo"], root="/root")
+
+        # also skip
+        exec_mock.reset_mock()
+        self.assertTrue(util.restorecon(["bar"], root="/root", skip_nonexistent=True))
+        exec_mock.assert_called_once_with("restorecon", ["-ir", "bar"], root="/root")
+
+        # explicitly don't skip
+        exec_mock.reset_mock()
+        self.assertTrue(util.restorecon(["bar"], root="/root", skip_nonexistent=False))
+        exec_mock.assert_called_once_with("restorecon", ["-r", "bar"], root="/root")
+
+        # missing restorecon
+        exec_mock.reset_mock()
+        exec_mock.side_effect = FileNotFoundError
+        self.assertFalse(util.restorecon(["baz"], root="/root"))
+        exec_mock.assert_called_once_with("restorecon", ["-r", "baz"], root="/root")
