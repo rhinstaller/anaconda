@@ -27,6 +27,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import URL_TYPE_BASEURL, NETWORK_CONNECTION_TIMEOUT, \
     DEFAULT_REPOS, USER_AGENT
+from pyanaconda.core.path import join_paths
 from pyanaconda.core.payload import split_protocol, ProxyString, ProxyStringError
 from pyanaconda.core.util import requests_session, xprogressive_delay
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
@@ -434,7 +435,7 @@ class TreeInfoRepoMetadata(object):
         protocol, root_path = split_protocol(root_url)
 
         # Create the absolute path.
-        absolute_path = os.path.join(root_path, relative_path)
+        absolute_path = join_paths(root_path, relative_path)
 
         # Normalize the URL to solve problems with a relative path.
         # This is especially useful for NFS (root/path/../new_path).
