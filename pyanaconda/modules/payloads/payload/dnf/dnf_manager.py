@@ -663,6 +663,9 @@ class DNFManager(object):
     def install_packages(self, callback, timeout=20):
         """Install the packages.
 
+        Run the DNF transaction in a separate sub-process to isolate
+        DNF and RPM from the installation process. See the bug 1614511.
+
         :param callback: a callback for progress reporting
         :param timeout: a time out of a failed process in seconds
         :raise PayloadInstallationError: if the installation fails
