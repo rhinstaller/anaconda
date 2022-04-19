@@ -1196,6 +1196,24 @@ class DNFManagerReposTestCase(unittest.TestCase):
             "baseurl = http://u2",
         ])
 
+    def test_remove_repository(self):
+        """Test the remove_repository method."""
+        assert self.dnf_manager.repositories == []
+
+        self._add_repo("r1")
+        self._add_repo("r2")
+
+        assert self.dnf_manager.repositories == ["r1", "r2"]
+
+        self.dnf_manager.remove_repository("r1")
+        assert self.dnf_manager.repositories == ["r2"]
+
+        self.dnf_manager.remove_repository("r3")
+        assert self.dnf_manager.repositories == ["r2"]
+
+        self.dnf_manager.remove_repository("r2")
+        assert self.dnf_manager.repositories == []
+
     def test_generate_repo_file_baseurl(self):
         """Test the generate_repo_file method with baseurl."""
         data = RepoConfigurationData()
