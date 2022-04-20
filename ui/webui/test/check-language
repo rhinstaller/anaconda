@@ -35,9 +35,9 @@ class TestLanguage(MachineCase):
 
     def testOtherDefault(self):
         b = self.browser
-        i = Installer(b)
-        l = Language(b)
         m = self.machine
+        i = Installer(b, m)
+        l = Language(b, m)
 
         # Set the language in the localization module to German before opening the page
         bus_address = m.execute("cat /run/anaconda/bus.address")
@@ -53,9 +53,9 @@ class TestLanguage(MachineCase):
 
     def testLanguageSwitching(self):
         b = self.browser
-        i = Installer(b)
-        l = Language(b)
         m = self.machine
+        i = Installer(b, m)
+        l = Language(b, m)
 
         self.addCleanup(l.select_locale, "en_US")
 

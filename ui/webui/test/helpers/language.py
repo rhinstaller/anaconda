@@ -27,9 +27,10 @@ LOCALIZATION_INTERFACE = "org.fedoraproject.Anaconda.Modules.Localization"
 LOCALIZATION_OBJECT_PATH = "/org/fedoraproject/Anaconda/Modules/Localization"
 
 class Language():
-    def __init__(self, browser):
+    def __init__(self, browser, machine):
         self.browser = browser
-        self.welcome_id = Installer(self.browser).welcome_id
+        self.machine = machine
+        self.welcome_id = Installer(self.browser, self.machine).welcome_id
 
     def clear_language_selector(self):
         # Check that the [x] button clears the input text

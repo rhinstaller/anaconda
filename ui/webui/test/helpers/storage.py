@@ -19,8 +19,9 @@ STORAGE_INTERFACE = "org.fedoraproject.Anaconda.Modules.Storage"
 STORAGE_OBJECT_PATH = "/org/fedoraproject/Anaconda/Modules/Storage"
 
 class Storage():
-    def __init__(self, browser):
+    def __init__(self, browser, machine):
         self.browser = browser
+        self.machine = machine
 
     def select_disk(self, disk, selected=True):
         self.browser.set_checked("#" + disk + " input", selected)
@@ -28,8 +29,9 @@ class Storage():
     def wait_no_disks(self):
         self.browser.wait_in_text(".pf-c-alert.pf-m-danger.pf-m-inline", "No usable disks")
 
-    def dbus_reset_partitioning(self, bus_address):
-        return f'dbus-send --print-reply --bus="{bus_address}" \
+    def dbus_reset_partitioning(self):
+        bus_address = self.machine.execute("cat /run/anaconda/bus.address")
+        self.machine.execute(f'dbus-send --print-reply --bus="{bus_address}" \
             --dest={STORAGE_INTERFACE} \
             {STORAGE_OBJECT_PATH} \
-            {STORAGE_INTERFACE}.ResetPartitioning'
+            {STORAGE_INTERFACE}.ResetPartitioning')

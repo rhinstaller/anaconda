@@ -33,7 +33,7 @@ class TestInstallationProgress(MachineCase):
 
     def testBasic(self):
         b = self.browser
-        i = Installer(b)
+        i = Installer(b, self.machine)
 
         i.open()
 
