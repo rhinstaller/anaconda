@@ -13,17 +13,29 @@ Preparation and general invocation
 To run the WebUI integration tests run the following from the root of the anaconda repo.
 (do NOT run the integration tests as root)::
 
-You first need to build anaconda RPMS::
+You first need to build anaconda RPMs. You might need to prepare your environment
+to be able to run `make` command first. See `<../../../CONTRIBUTING.rst#how-to-run-make-commands>`_::
 
     make rpms
 
 Then prepare an updates.img containing the anaconda RPMs and the cockpit dependencies::
 
-    cd ui/webui && make ../../updates.img
+    cd ui/webui
+    make ../../updates.img
 
-In most cases you want to run an individual test in a suite, for example::
+Then download the ISO file that the test VMs will use::
 
-   test/check-basic TestBasic.testHelp
+    make bots
+    ./bots/image-download fedora-rawhide-boot
+
+Finally, fetch the testing library::
+
+    make test/common
+
+In most cases you want to run an individual test in a suite.
+You also need to specify `TEST_OS` for each test run, for example::
+
+   TEST_OS=fedora-rawhide-boot test/check-basic TestBasic.testNavigation
 
 You can get a list of tests by inspecting the `def test*` in the source, or by
 running the suite with `-l`/`--list`::
@@ -51,17 +63,28 @@ You can also run *all* the tests, with some parallelism::
 The tests will automatically download the VM isos they need, so expect
 that the initial run may take a few minutes.
 
+Updating the testing environment
+--------------------------------
+
+After the code is changed the testing environemnt needs to be updated.
+The most robust way of doing this is (from top level directory)::
+
+    rm -rf ui/webui/dist/ updates.img
+    make rpms
+    cd ui/webui
+    make ../../updates.img
+
 Interactive browser
 -------------------
 
 Normally each test starts its own chromium headless browser process on a
 separate random port. To interactively follow what a test is doing::
 
-    TEST_SHOW_BROWSER=1 test/check-basic--trace
+    TEST_SHOW_BROWSER=1 test/check-basic --trace
 
 You can also run a test against Firefox instead of Chromium::
 
-    TEST_BROWSER=firefox test/check-basic--trace
+    TEST_BROWSER=firefox test/check-basic --trace
 
 See below for details.
 
