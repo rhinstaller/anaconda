@@ -283,7 +283,7 @@ def suggest_swap_size(quiet=False, hibernation=False, disk_space=None):
     # swap(mem) = 2 * mem, if mem < 2 GiB
     #           = mem,     if 2 GiB <= mem < 8 GiB
     #           = mem / 2, if 8 GIB <= mem < 64 GiB
-    #           = 4 GiB,   if mem >= 64 GiB
+    #           = 32 GiB,  if mem >= 64 GiB
     if mem < Size("2 GiB"):
         swap = 2 * mem
 
@@ -294,7 +294,7 @@ def suggest_swap_size(quiet=False, hibernation=False, disk_space=None):
         swap = mem / 2
 
     else:
-        swap = Size("4 GiB")
+        swap = Size("32 GiB")
 
     if hibernation:
         if mem <= sixty_four_gib:
