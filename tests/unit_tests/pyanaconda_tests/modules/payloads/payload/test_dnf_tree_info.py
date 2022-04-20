@@ -21,9 +21,10 @@ import pytest
 import unittest
 
 from unittest.mock import patch, Mock
-
-from pyanaconda.core.constants import URL_TYPE_METALINK, NETWORK_CONNECTION_TIMEOUT
+from pyanaconda.core.constants import URL_TYPE_METALINK, NETWORK_CONNECTION_TIMEOUT, \
+    REPO_ORIGIN_TREEINFO
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.modules.payloads.payload.dnf.repositories import generate_treeinfo_repositories
 from pyanaconda.modules.payloads.payload.dnf.tree_info import TreeInfoMetadata, NoTreeInfoError, \
     InvalidTreeInfoError
 
@@ -443,3 +444,100 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
             cert=None,
             timeout=NETWORK_CONNECTION_TIMEOUT
         )
+
+    def test_generate_treeinfo_repositories_none(self):
+        """Test the generate_treeinfo_repositories function with no repos."""
+        original = RepoConfigurationData()
+        generated = generate_treeinfo_repositories(original, self.metadata)
+        self._assert_repo_list_equal(generated, [])
+
+    def test_generate_treeinfo_repositories_fedora(self):
+        """Test the generate_treeinfo_repositories function with Fedora repos."""
+        root_url = self._load_treeinfo(TREE_INFO_FEDORA)
+
+        original = RepoConfigurationData()
+        original.name = "anaconda"
+        original.url = root_url
+        original.proxy = "http://proxy"
+        original.cost = 50
+        original.excluded_packages = ["p1", "p2"]
+        original.included_packages = ["p2", "p3"]
+        original.ssl_verification_enabled = False
+        original.ssl_configuration.ca_cert_path = "file.cert"
+        original.ssl_configuration.client_key_path = "client.key"
+        original.ssl_configuration.client_cert_path = "client.cert"
+        original.installation_enabled = True
+
+        generated = generate_treeinfo_repositories(original, self.metadata)
+
+        everything = RepoConfigurationData()
+        everything.origin = REPO_ORIGIN_TREEINFO
+        everything.name = "Everything"
+        everything.enabled = True
+        everything.url = root_url
+        everything.proxy = "http://proxy"
+        everything.cost = 50
+        everything.excluded_packages = ["p1", "p2"]
+        everything.included_packages = ["p2", "p3"]
+        everything.ssl_verification_enabled = False
+        everything.ssl_configuration.ca_cert_path = "file.cert"
+        everything.ssl_configuration.client_key_path = "client.key"
+        everything.ssl_configuration.client_cert_path = "client.cert"
+        everything.installation_enabled = False
+
+        self._assert_repo_list_equal(generated, [everything])
+
+    def test_generate_treeinfo_repositories_rhel(self):
+        """Test the generate_treeinfo_repositories function with RHEL repos."""
+        root_url = self._load_treeinfo(TREE_INFO_RHEL)
+
+        original = RepoConfigurationData()
+        original.name = "anaconda"
+        original.url = root_url
+
+        generated = generate_treeinfo_repositories(original, self.metadata)
+
+        appstream = RepoConfigurationData()
+        appstream.origin = REPO_ORIGIN_TREEINFO
+        appstream.name = "AppStream"
+        appstream.enabled = True
+        appstream.url = "file:///tmp/appstream"
+
+        baseos = RepoConfigurationData()
+        baseos.origin = REPO_ORIGIN_TREEINFO
+        baseos.name = "BaseOS"
+        baseos.enabled = True
+        baseos.url = "file:///tmp/baseos"
+
+        self._assert_repo_list_equal(generated, [appstream, baseos])
+
+    @patch("pyanaconda.modules.payloads.payload.dnf.tree_info.conf")
+    def test_generate_treeinfo_repositories_custom(self, mock_conf):
+        """Test the generate_treeinfo_repositories function with custom repos."""
+        mock_conf.payload.enabled_repositories_from_treeinfo = ["variant"]
+        root_url = self._load_treeinfo(TREE_INFO_CUSTOM)
+
+        original = RepoConfigurationData()
+        original.name = "anaconda"
+        original.url = root_url
+
+        generated = generate_treeinfo_repositories(original, self.metadata)
+
+        optional = RepoConfigurationData()
+        optional.origin = REPO_ORIGIN_TREEINFO
+        optional.name = "MyOptional"
+        optional.enabled = False
+        optional.url = root_url + "/optional"
+
+        variant = RepoConfigurationData()
+        variant.origin = REPO_ORIGIN_TREEINFO
+        variant.name = "MyVariant"
+        variant.enabled = True
+        variant.url = root_url + "/variant"
+
+        # Anaconda ignores addons and child variants.
+        self._assert_repo_list_equal(generated, [optional, variant])
+
+    def _assert_repo_list_equal(self, l1, l2):
+        assert RepoConfigurationData.to_structure_list(l1) == \
+            RepoConfigurationData.to_structure_list(l2)

@@ -33,7 +33,8 @@ from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTa
     SetRPMMacrosTask, DownloadPackagesTask, InstallPackagesTask, PrepareDownloadLocationTask, \
     CleanUpDownloadLocationTask, ResolvePackagesTask, UpdateDNFConfigurationTask, \
     WriteRepositoriesTask
-from pyanaconda.modules.payloads.payload.dnf.repositories import generate_driver_disk_repositories
+from pyanaconda.modules.payloads.payload.dnf.repositories import \
+    generate_driver_disk_repositories, generate_treeinfo_repositories
 from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_version_list, \
     calculate_required_space
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, DNFManagerError, \
@@ -54,7 +55,6 @@ from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import parse_hdd_url
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.flags import flags
-from pyanaconda.kickstart import RepoData
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.payloads.source.utils import has_network_protocol
 from pyanaconda.modules.common.util import is_module_available
@@ -471,15 +471,6 @@ class DNFPayload(Payload):
             task = TearDownMountTask(mount_point)
             task.run()
 
-    def _remove_repo(self, repo_id):
-        repos = self.data.repo.dataList()
-        try:
-            idx = [repo.name for repo in repos].index(repo_id)
-        except ValueError:
-            log.error("failed to remove repo %s: not found", repo_id)
-        else:
-            repos.pop(idx)
-
     @property
     def space_required(self):
         return calculate_required_space(self._dnf_manager)
@@ -579,8 +570,6 @@ class DNFPayload(Payload):
         self._dnf_manager.read_system_repositories()
 
         log.info("Configuring the base repo")
-        disabled_treeinfo_repo_names = self._cleanup_old_treeinfo_repositories()
-
         # Find the source and its type.
         source_proxy = self.get_source_proxy()
         source_type = source_proxy.Type
@@ -609,29 +598,11 @@ class DNFPayload(Payload):
             mirrorlist = data.url if data.type == URL_TYPE_MIRRORLIST else ""
             metalink = data.url if data.type == URL_TYPE_METALINK else ""
 
+            # Process the treeinfo metadata.
+            treeinfo_base_repo_url = self._reload_treeinfo_metadata(data)
+
             # Fallback to the installation root.
-            base_repo_url = install_tree_url
-
-            try:
-                tree_info_metadata = TreeInfoMetadata()
-                tree_info_metadata.load_data(data)
-
-                self._dnf_manager.configure_substitution(
-                    tree_info_metadata.release_version
-                )
-
-                base_repo_url = tree_info_metadata.get_base_repo_url()
-
-                self._load_treeinfo_repositories(
-                    tree_info_metadata,
-                    base_repo_url,
-                    disabled_treeinfo_repo_names,
-                    data
-                )
-            except NoTreeInfoError as e:
-                log.debug("No treeinfo metadata to use: %s", str(e))
-            except TreeInfoMetadataError as e:
-                log.warning("Couldn't use treeinfo metadata: %s", str(e))
+            base_repo_url = treeinfo_base_repo_url or install_tree_url
 
             try:
                 base_ksrepo = self.data.RepoData(
@@ -672,6 +643,9 @@ class DNFPayload(Payload):
 
         # We need to check this again separately in case REPO_FILES were set above.
         if source_type in SOURCE_REPO_FILE_TYPES:
+            # Remove all treeinfo repositories.
+            self._remove_treeinfo_repositories()
+
             # If this is a kickstart install, just return now as we normally do not
             # want to read the on media repo files in such a case. On the other hand,
             # the local repo files are a valid use case if the system is subscribed
@@ -749,78 +723,100 @@ class DNFPayload(Payload):
             except MetadataError as e:
                 self.verbose_errors.append(str(e))
 
-    def _load_treeinfo_repositories(self, tree_info_metadata, base_repo_url,
-                                    repo_names_to_disable, data):
-        """Load new repositories from treeinfo file.
+    def _reload_treeinfo_metadata(self, repo_data):
+        """Reload treeinfo metadata.
 
-        :param base_repo_url: base repository url. This is not saved anywhere when the function
-                              is called. It will be add to the existing urls if not None.
-        :param repo_names_to_disable: list of repository names which should be disabled after load
-        :type repo_names_to_disable: [str]
-        :param data: repo configuration data
+        :param RepoConfigurationData repo_data: configuration data of the base repo
+        :return: a URL of the base repository
         """
-        existing_urls = []
+        log.debug("Reload treeinfo metadata.")
+        base_repo_url = None
 
-        if base_repo_url is not None:
-            existing_urls.append(base_repo_url)
+        # Remove previous treeinfo repositories.
+        removed_repos = self._remove_treeinfo_repositories()
+        disabled_names = [r.name for r in removed_repos if not r.enabled]
 
-        for ks_repo in self.data.repo.dataList():
-            baseurl = ks_repo.baseurl
-            existing_urls.append(baseurl)
+        # Collect URLs of existing repositories.
+        existing_urls = [r.baseurl for r in self.data.repo.dataList() if r.baseurl]
 
-        for repo_md in tree_info_metadata.repositories:
-            if repo_md.url in existing_urls:
-                continue
+        try:
+            # Load the treeinfo metadata.
+            tree_info_metadata = TreeInfoMetadata()
+            tree_info_metadata.load_data(repo_data)
 
-            # disable repositories disabled by user manually before
-            repo_enabled = repo_md.enabled \
-                and repo_md.name not in repo_names_to_disable
-
-            repo = RepoData(
-                name=repo_md.name,
-                baseurl=repo_md.url,
-                noverifyssl=not data.ssl_verification_enabled,
-                proxy=data.proxy,
-                sslcacert=data.ssl_configuration.ca_cert_path,
-                sslclientcert=data.ssl_configuration.client_cert_path,
-                sslclientkey=data.ssl_configuration.client_key_path,
-                install=False,
-                enabled=repo_enabled
+            # Set up the substitutions.
+            self._dnf_manager.configure_substitution(
+                tree_info_metadata.release_version
             )
 
-            repo.treeinfo_origin = True
-            log.debug("Adding new treeinfo repository: %s enabled: %s",
-                      repo_md.name, repo_enabled)
+            # Get the new base repo URL.
+            base_repo_url = tree_info_metadata.get_base_repo_url()
+            existing_urls.append(base_repo_url)
 
-            # Validate the repository.
-            if repo.enabled:
-                self._add_repo_to_dnf(repo)
+            # Add the treeinfo repositories.
+            repositories = generate_treeinfo_repositories(
+                repo_data,
+                tree_info_metadata
+            )
+
+            self._add_treeinfo_repositories(
+                repositories=repositories,
+                disabled_names=disabled_names,
+                existing_urls=existing_urls,
+            )
+        except NoTreeInfoError as e:
+            log.debug("No treeinfo metadata to use: %s", str(e))
+        except TreeInfoMetadataError as e:
+            log.warning("Couldn't use treeinfo metadata: %s", str(e))
+
+        return base_repo_url
+
+    def _add_treeinfo_repositories(self, repositories, disabled_names, existing_urls):
+        """Add the treeinfo repositories.
+
+        :param [RepoConfigurationData] repositories: configuration data of treeinfo repositories
+        :param [str] disabled_names: a list of repository names that should be disabled
+        :param [str] existing_urls: a list of repository URLs that already exist
+        """
+        log.debug("Add treeinfo repositories.")
+
+        for repo in repositories:
+            # Skip existing repositories.
+            if repo.url in existing_urls:
+                continue
+
+            # Disable if previously disabled.
+            if repo.name in disabled_names:
+                repo.enabled = False
+
+            log.debug("Add the '%s' treeinfo repository: %s", repo.name, repo)
 
             # Add the repository to user repositories,
             # so it'll appear in the output ks file.
-            self.data.repo.dataList().append(repo)
+            ks_repo = convert_repo_data_to_ks_repo(repo)
+            self.data.repo.dataList().append(ks_repo)
 
-    def _cleanup_old_treeinfo_repositories(self):
+    def _remove_treeinfo_repositories(self):
         """Remove all old treeinfo repositories before loading new ones.
 
-        Find all repositories added from treeinfo file and remove them. After this step new
-        repositories will be loaded from the new link.
+        Find all repositories added from treeinfo file and remove them.
+        After this step new repositories will be loaded from the new link.
 
-        :return: list of repository names which were disabled before removal
-        :rtype: [str]
+        :return: list of repositories that were removed
         """
-        disabled_repo_names = []
+        log.debug("Remove treeinfo repositories.")
+        removed_repos = []
 
         for ks_repo in list(self.data.repo.dataList()):
-            if ks_repo.treeinfo_origin:
-                log.debug("Removing old treeinfo repository %s", ks_repo.name)
+            if not ks_repo.treeinfo_origin:
+                continue
 
-                if not ks_repo.enabled:
-                    disabled_repo_names.append(ks_repo.name)
+            self.data.repo.dataList().remove(ks_repo)
+            removed_repos.append(ks_repo)
 
-                self._remove_repo(ks_repo.name)
+            log.debug("Removed the '%s' treeinfo repository.", ks_repo.name)
 
-        return disabled_repo_names
+        return removed_repos
 
     def post_install(self):
         """Perform post-installation tasks."""
