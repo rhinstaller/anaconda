@@ -39,15 +39,13 @@ class TestStorage(MachineCase):
         s = Storage(b, self.machine)
 
         i.open()
-
         i.next()
 
         b.wait_visible('h3:contains(Local standard disks)')
 
         # Check disks table details
-        b.wait_text("#vda > th[data-label=Name]", "vda")
-        b.wait_text("#vda > td[data-label=Total]", "15 GiB")
-        b.wait_text("#vda > td[data-label=Free]", "15 GiB")
+        s.check_disk_visible("vda")
+        s.check_disk_capacity("vda", "15 GiB", "15 GiB")
 
         # Pixel test the storage step
         b.assert_pixels("#app", "storage-step-basic", ignore=["#betanag-icon", "#installation-destination-table-label"])
@@ -57,7 +55,7 @@ class TestStorage(MachineCase):
         i.next(should_fail=True)
         s.wait_no_disks()
         # Since storage configuration failed it's expected to be in the still in the storage step
-        b.wait_visible(f"#{i.storage_id}.pf-m-current")
+        b.wait_visible(f"#{i.steps.STORAGE}.pf-m-current")
 
 # We can't run this test case on an existing machine,
 # with --machine because MachineCase is not aware of add_disk method
@@ -68,6 +66,7 @@ class TestStorageExtraDisks(MachineCase):
         b = self.browser
         m = self.machine
         i = Installer(b, m)
+        s = Storage(b, m)
 
         # This attaches a disk to the running VM
         # However, since the storage module initialization is long completed
@@ -76,18 +75,17 @@ class TestStorageExtraDisks(MachineCase):
         m.add_disk(2)
 
         i.open()
-
         i.next()
 
-        b.wait_visible("#vda")
-        b.wait_not_present("#vdb")
+        s.check_disk_visible("vda")
+        s.check_disk_visible("vdb", False)
 
-        b.click(f"#{i.storage_id}-rescan-disks")
-        b.wait_visible("#vda")
-        b.wait_visible("#vdb")
+        s.rescan_disks()
+        s.check_disk_visible("vda")
+        s.check_disk_visible("vdb")
 
-        self.assertEqual(b.get_checked("#vda input"), False)
-        self.assertEqual(b.get_checked("#vdb input"), False)
+        s.check_disk_selected("vda", False)
+        s.check_disk_selected("vdb", False)
 
 if __name__ == '__main__':
     test_main()
