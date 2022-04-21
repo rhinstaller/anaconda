@@ -81,3 +81,77 @@ When the reason for the breackage is identified there are two options to go forw
     * If the failure comes from an intended change in behaviour adjust Anaconda or the tests
     * If the failure uncovers an actual regression, file bugs for the given Fedora components. If it does not look like the issue will be
       fixed quickly, work around in Anaconda or add a `naughty override file <https://github.com/cockpit-project/bots/tree/main/naughty/>`_, thus marking the expected failure pattern.
+
+Fix Web UI pixel tests
+----------------------
+
+So pixel tests fail on your PR - now what?
+
+There are essentially two options:
+
+    * the test uncovered a bug in your PR that needs to be fixed in the code
+    * your PR changes the visual behavior of the Web UI in a valid manner and the pixel test needs to be fixed
+
+We will cover the second option.
+
+First make sure your PR is rebased on latest revision of the target branch. This is important as the issue you are seeing might have already been fixed by another PR that has since been merged.
+
+If rebasing your PR did not fix the issue, and pixel tests still fail in CI on your PR, you will need to update one or more of the reference images.
+
+::
+
+    $ cd ui/webui
+    $ make -f Makefile.am test/reference
+    $ GITHUB_BASE=rhinstaller/anaconda ./test/common/pixel-tests pull
+
+Next find the failing test in the PR CI test results and find the individual test that is failing. The results page shows an image comparison tool and in its header links to the new screenshot that no longer matches the expected picture:
+
+
+::
+
+    New <something>-fail-pixels.png on the left, reference on the right.
+
+Download the screenshot into the `ui/webui/test/reference` folder and check it replaced an existing file - the new screenshot from the failed test will be named the same as one of the existing pictures that no longer match. For example:
+
+::
+
+    $ cd ui/webui/test/reference
+    $ git diff --stat
+    TestInstallationProgress-testBasic-installation-progress-step-fail-pixels.png | Bin 54445 -> 55628 bytes
+    1 file changed, 0 insertions(+), 0 deletions(-)
+
+If multiple pixel tests fail, this needs to be done once per each failing test.
+
+Then from the `ui/webui` folder use a makefile target to update the reference image repo:
+
+::
+
+    $ cd ui/webui
+    $ make update-reference-images
+    test/common/pixel-tests push
+    M	TestInstallationProgress-testBasic-installation-progress-step-fail-pixels.png
+    Enumerating objects: 8, done.
+    Counting objects: 100% (8/8), done.
+    Delta compression using up to 12 threads
+    Compressing objects: 100% (7/7), done.
+    Writing objects: 100% (7/7), 164.70 KiB | 3.05 MiB/s, done.
+    Total 7 (delta 0), reused 3 (delta 0), pack-reused 0
+    To github.com:rhinstaller/pixel-test-reference
+     * [new tag]         sha-bf9a391e45657f226a2a22b6cf377f499711444a -> sha-bf9a391e45657f226a2a22b6cf377f499711444a
+
+This creates a new tag in the reference picture repository *and* also updates **and stages** the new reference repo submodule tag in the anaconda repo:
+
+::
+
+    $ git diff --cached
+    diff --git a/ui/webui/test/reference b/ui/webui/test/reference
+    index 54742ea13b..bf9a391e45 160000
+    --- a/ui/webui/test/reference
+    +++ b/ui/webui/test/reference
+    @@ -1 +1 @@
+    -Subproject commit 54742ea13bd271475a27769f8294ce16315e2e5e
+    +Subproject commit bf9a391e45657f226a2a22b6cf377f499711444a
+
+This makes sure the given Anaconda branch is pointing to the correct reference picture repo revision.
+
+Now, to finally fix the failing pixel test, just make sure the submodule reference ends up as part of your PR - as a separate commit or possibly as part of a commit triggering the visual change. Once the PR is updated, the Cockpit CI should run again, including pixel test, which should now no longer fail due to an image miss-match.
