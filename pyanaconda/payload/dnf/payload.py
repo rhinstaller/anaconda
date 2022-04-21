@@ -22,7 +22,7 @@ import dnf.repo
 from pyanaconda.core.path import join_paths
 from pyanaconda.modules.common.errors.installation import NonCriticalInstallationError, \
     InstallationError
-from pyanaconda.modules.common.errors.payload import UnknownRepositoryError
+from pyanaconda.modules.common.errors.payload import UnknownRepositoryError, SourceSetupError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData, \
     PackagesSelectionData
@@ -58,7 +58,6 @@ from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.payloads.source.utils import has_network_protocol
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.payload.base import Payload
-from pyanaconda.payload.errors import PayloadSetupError
 from pyanaconda.payload.image import find_optical_install_media
 from pyanaconda.modules.payloads.payload.dnf.tree_info import TreeInfoMetadata, NoTreeInfoError, \
     TreeInfoMetadataError
@@ -377,44 +376,29 @@ class DNFPayload(Payload):
 
         return repo
 
-    def _add_repo_to_dnf(self, ksrepo):
-        """Add a repo to the dnf repo object.
-
-        :param ksrepo: Kickstart Repository to add
-        :type ksrepo: Kickstart RepoData object.
-        :raise: MetadataError if the repo cannot be loaded
-        """
-        data = convert_ks_repo_to_repo_data(ksrepo)
-
-        # An existing repository can be only enabled or disabled.
-        if data.origin == REPO_ORIGIN_SYSTEM:
-            self._handle_system_repository(data)
-            return
-
-        # Set up the repository.
-        self._set_up_additional_repository(data)
-
-        # Add a new repository.
-        self._dnf_manager.add_repository(data)
-
-        # Load an enabled repository to check its validity.
-        self._dnf_manager.load_repository(data.name)
-
     def _handle_system_repository(self, data):
         """Handle a system repository.
 
         The user is trying to do "repo --name=updates" in a kickstart file.
         We can only enable or disable the already existing on-disk repo config.
+
+        :raise: SourceSetupError if the system repository is not available
         """
         try:
             self._dnf_manager.set_repository_enabled(data.name, data.enabled)
         except UnknownRepositoryError:
-            log.warning("The '%s' repository is not available.", data.name)
+            msg = "The '{}' repository is not one of the pre-defined repositories."
+            raise SourceSetupError(msg.format(data.name)) from None
 
     def _set_up_additional_repository(self, data):
         """Set up sources for the additional repository."""
+        # Check the validity of the repository.
+        if not data.url:
+            msg = "The '{}' repository has no mirror, baseurl or metalink set."
+            raise SourceSetupError(msg.format(data.name)) from None
+
         # Set up the NFS source with a substituted URL.
-        if data.url.startswith("nfs://"):
+        elif data.url.startswith("nfs://"):
             device_mount = self._create_mount_point(
                 constants.MOUNT_DIR,
                 data.name + "-nfs-device"
@@ -690,20 +674,24 @@ class DNFPayload(Payload):
 
     def _include_additional_repositories(self):
         """Add additional repositories to DNF."""
-        for ksrepo in self.data.repo.dataList():
-            log.debug("repo %s: mirrorlist %s, baseurl %s, metalink %s",
-                      ksrepo.name, ksrepo.mirrorlist, ksrepo.baseurl, ksrepo.metalink)
+        for ks_repo in self.data.repo.dataList():
+            # Convert the repository.
+            data = convert_ks_repo_to_repo_data(ks_repo)
+            log.debug("Add the '%s' repository (%s).", data.name, data)
 
-            # one of these must be set to create new repo
-            if not (ksrepo.mirrorlist or ksrepo.baseurl or ksrepo.metalink or
-                    ksrepo.name in self._base.repos):
-                raise PayloadSetupError("Repository %s has no mirror, baseurl or "
-                                        "metalink set and is not one of "
-                                        "the pre-defined repositories" %
-                                        ksrepo.name)
+            # A system repository can be only enabled or disabled.
+            if data.origin == REPO_ORIGIN_SYSTEM:
+                self._handle_system_repository(data)
+                return
 
             # Set up additional sources.
-            self._add_repo_to_dnf(ksrepo)
+            self._set_up_additional_repository(data)
+
+            # Add a new repository.
+            self._dnf_manager.add_repository(data)
+
+            # Load an enabled repository to check its validity.
+            self._dnf_manager.load_repository(data.name)
 
     def _validate_enabled_repositories(self):
         """Validate all enabled repositories.
