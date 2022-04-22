@@ -44,7 +44,7 @@ class TestLanguage(MachineCase):
         m.execute(l.dbus_set_language_cmd("de_DE.UTF-8", bus_address))
 
         i.open()
-
+        self.addCleanup(m.execute, l.dbus_set_language_cmd("en_US.UTF-8", bus_address))
         self.addCleanup(l.select_locale, "en_US")
 
         # Expect the backend set language to be preselected and the WebUI translated
