@@ -45,7 +45,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
     builderObjects = ["passwordWindow"]
 
     mainWidgetName = "passwordWindow"
-    focusWidgetName = "password_entry"
+    focusWidgetName = "disable_root_radio"
     uiFile = "spokes/root_password.glade"
     category = UserSettingsCategory
     icon = "dialog-password-symbolic"
