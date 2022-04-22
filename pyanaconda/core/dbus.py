@@ -20,7 +20,7 @@ import os
 
 from dasbus.connection import SystemMessageBus, MessageBus
 from dasbus.constants import DBUS_STARTER_ADDRESS
-from dasbus.error import ErrorMapper, get_error_decorator
+from dasbus.error import ErrorMapper, get_error_decorator, AbstractErrorRule
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import DBUS_ANACONDA_SESSION_ADDRESS, ANACONDA_BUS_ADDR_FILE
 from pyanaconda.modules.common.errors import register_errors
@@ -73,21 +73,57 @@ class DefaultMessageBus(AnacondaMessageBus):
         return super()._find_bus_address()
 
 
-# The mapper of DBus errors.
-error_mapper = ErrorMapper()
+class AnacondaErrorMapper(ErrorMapper):
+    """Map Anaconda exceptions to DBus errors."""
 
-# Default bus. Anaconda uses this connection.
-DBus = DefaultMessageBus(
-    error_mapper=error_mapper
-)
+    def reset_rules(self):
+        """Reset rules in the error mapper."""
+        super().reset_rules()
+        self.add_rule(DefaultNameErrorRule(
+            "org.fedoraproject.Anaconda.Error"
+        ))
+
+
+class DefaultNameErrorRule(AbstractErrorRule):
+    """Default rule for mapping an unknown exception to a DBus error name."""
+
+    def __init__(self, default_name):
+        """Create a new rule.
+
+        :param default_name: a default name of a DBus error
+        """
+        self._default_name = default_name
+
+    def match_type(self, exception_type):
+        """Match every Python exception raised on the server side."""
+        return True
+
+    def get_name(self, exception_type):
+        """Return a default error name for every matched exception."""
+        return self._default_name
+
+    def match_name(self, error_name):
+        """Don't apply this rule on the client side."""
+        return False
+
+    def get_type(self, error_name):
+        """There is no default error type in this rule."""
+        return None
+
 
 # System bus.
-SystemBus = SystemMessageBus(
-    error_mapper=error_mapper
-)
+SystemBus = SystemMessageBus()
+
+# The mapper of DBus errors.
+error_mapper = AnacondaErrorMapper()
 
 # The decorator for DBus errors.
 dbus_error = get_error_decorator(error_mapper)
 
 # Register all DBus errors.
 register_errors()
+
+# Default bus. Anaconda uses this connection.
+DBus = DefaultMessageBus(
+    error_mapper=error_mapper
+)
