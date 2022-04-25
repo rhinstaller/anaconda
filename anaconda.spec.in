@@ -456,6 +456,29 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Apr 25 2022 Martin Kolman <mkolman@redhat.com> - 37.6-1
+- Map Anaconda exceptions to org.fedoraproject.Anaconda.Error (vponcova)
+- Use our error mapper only for the Anaconda message bus (vponcova)
+- Clean up the code that adds a base repository (vponcova)
+- Remove dependency on eslint-plugin-standard (vslavik)
+- webui - Fix pixel test failure due to string being translated (mkolman)
+- Call join_paths to create an absolute path (vponcova)
+- Document why the DNF transaction runs in a sub-process (vponcova)
+- Correct message when ignoring hibernation flag (jblz)
+- Clean up the code that reloads the treeinfo metadata (vponcova)
+- Don't add treeinfo repositories to DNF twice (vponcova)
+- Clean up the code for removal of treeinfo repositories (vponcova)
+- Clean up the code that generates treeinfo repositories (vponcova)
+- Distinguish URLs from paths in the treeinfo support (vponcova)
+- Improve logic of the keyboard spoke completed method (jkonecny)
+- webui: tests: Add function for checking pre-release information (zveleba)
+- build(deps): bump (49699333+dependabot[bot])
+- webui: tests: Make it easier to reset partitioning (zveleba)
+- webui: tests: increase abstraction of changing pages in the wizard (zveleba)
+- build(deps): bump (49699333+dependabot[bot])
+- webui: Update READMEs (mmarusak)
+- Don't unnecessarily use cat and use grep -E (oguz)
+
 * Tue Apr 12 2022 Martin Kolman <mkolman@redhat.com> - 37.5-1
 - Fix keyboard spoke issue if Live system changed keyboard layouts (#2072941)
   (jkonecny)
