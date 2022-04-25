@@ -30,13 +30,13 @@ jobs:
           git log --oneline -1 origin/${{ github.event.pull_request.base.ref }}
           git rebase origin/${{ github.event.pull_request.base.ref }}
 
-      - name: Check if all commits have (#infra)
+      - name: Check if all commits have infra postfix or prefix
         run: |
-          # match (#infra) at the end of the commit message
-          for i in "$(git log --oneline origin/${{ github.event.pull_request.base.ref }}..HEAD)"; do
+          # get commit headers of all the commits added in this PR
+          for i in "$(git log --oneline --pretty=format:%s origin/${{ github.event.pull_request.base.ref }}..HEAD)"; do
 
-            if ! [[ $i =~ \(#infra\)$ ]]; then
-              echo "$i --> Is missing (#infra!)"
+            if ! ( [[ $i =~ \(#infra\)$ ]]  || [[ $i =~ ^infra: ]] ); then
+              echo "$i --> Is missing 'infra:' prefix or '(#infra)' postfix"
               exit 1
             fi
           done

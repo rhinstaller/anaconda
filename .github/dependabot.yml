@@ -13,11 +13,10 @@ updates:
     schedule:
       # Check for updates to GitHub Actions every weekday
       interval: "daily"
+    commit-message:
+      prefix: "infra:"
     labels:
-      # Don't merge the pull request without #infra.
-      # TODO: Add the (#infra) suffix once supported.
       - "infrastructure"
-      - "blocked"
 
   # update our npm development dependencies monthly
   - package-ecosystem: "npm"
