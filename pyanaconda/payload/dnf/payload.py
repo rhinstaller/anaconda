@@ -48,9 +48,8 @@ from pyanaconda.anaconda_loggers import get_packaging_logger
 from pyanaconda.core import constants
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, \
-    SOURCE_TYPE_URL, SOURCE_TYPE_CDROM, URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, \
-    URL_TYPE_METALINK, SOURCE_REPO_FILE_TYPES, SOURCE_TYPE_CDN, MULTILIB_POLICY_ALL, \
-    REPO_ORIGIN_SYSTEM
+    SOURCE_TYPE_URL, SOURCE_TYPE_CDROM, URL_TYPE_BASEURL, SOURCE_REPO_FILE_TYPES, \
+    SOURCE_TYPE_CDN, MULTILIB_POLICY_ALL, REPO_ORIGIN_SYSTEM
 from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import parse_hdd_url
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
@@ -59,7 +58,7 @@ from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.payloads.source.utils import has_network_protocol
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.payload.base import Payload
-from pyanaconda.payload.errors import PayloadError, PayloadSetupError
+from pyanaconda.payload.errors import PayloadSetupError
 from pyanaconda.payload.image import find_optical_install_media
 from pyanaconda.modules.payloads.payload.dnf.tree_info import TreeInfoMetadata, NoTreeInfoError, \
     TreeInfoMetadataError
@@ -586,43 +585,9 @@ class DNFPayload(Payload):
 
         # Add a new repo.
         if source_type not in SOURCE_REPO_FILE_TYPES:
-            # Get the repo configuration of the first source.
-            data = RepoConfigurationData.from_structure(
-                self.proxy.GetRepoConfigurations()[0]
-            )
-
-            log.debug("Using the repo configuration: %s", data)
-
-            # Get the URL.
-            install_tree_url = data.url if data.type == URL_TYPE_BASEURL else ""
-            mirrorlist = data.url if data.type == URL_TYPE_MIRRORLIST else ""
-            metalink = data.url if data.type == URL_TYPE_METALINK else ""
-
-            # Process the treeinfo metadata.
-            treeinfo_base_repo_url = self._reload_treeinfo_metadata(data)
-
-            # Fallback to the installation root.
-            base_repo_url = treeinfo_base_repo_url or install_tree_url
-
             try:
-                base_ksrepo = self.data.RepoData(
-                    name=constants.BASE_REPO_NAME,
-                    baseurl=base_repo_url,
-                    mirrorlist=mirrorlist,
-                    metalink=metalink,
-                    noverifyssl=not data.ssl_verification_enabled,
-                    proxy=data.proxy,
-                    sslcacert=data.ssl_configuration.ca_cert_path,
-                    sslclientcert=data.ssl_configuration.client_cert_path,
-                    sslclientkey=data.ssl_configuration.client_key_path
-                )
-                self._add_repo_to_dnf(base_ksrepo)
-            except (DNFManagerError, PayloadError) as e:
-                log.error("base repo (%s/%s) not valid -- removing it",
-                          source_type, base_repo_url)
-                log.error("reason for repo removal: %s", e)
-                with self._repos_lock:
-                    self._base.repos.pop(constants.BASE_REPO_NAME, None)
+                self._add_base_repository()
+            except DNFManagerError:
                 if not fallback:
                     with self._repos_lock:
                         for repo in self._base.repos.iter_enabled():
@@ -658,6 +623,38 @@ class DNFPayload(Payload):
 
         self._include_additional_repositories()
         self._validate_enabled_repositories()
+
+    def _add_base_repository(self):
+        """Add the base repository.
+
+        Try to add a valid base repository to the DNF base.
+
+        :raise: DNFManagerError if the repo is invalid
+        """
+        # Get the repo configuration of the first source.
+        data = RepoConfigurationData.from_structure(
+            self.proxy.GetRepoConfigurations()[0]
+        )
+
+        log.debug("Using the repo configuration: %s", data)
+        data.name = constants.BASE_REPO_NAME
+
+        # Process the treeinfo metadata.
+        treeinfo_base_repo_url = self._reload_treeinfo_metadata(data)
+
+        if treeinfo_base_repo_url:
+            data.type = URL_TYPE_BASEURL
+            data.url = treeinfo_base_repo_url
+
+        log.debug("Add the base repository at %s.", data.url)
+
+        try:
+            self._dnf_manager.add_repository(data)
+            self._dnf_manager.load_repository(data.name)
+        except DNFManagerError as e:
+            log.error("The base repository is invalid: %s", str(e))
+            self._dnf_manager.remove_repository(data.name)
+            raise e
 
     def _enable_system_repositories(self):
         """Enable system repositories.
