@@ -571,12 +571,10 @@ class DNFPayload(Payload):
         if source_type not in SOURCE_REPO_FILE_TYPES:
             try:
                 self._add_base_repository()
-            except DNFManagerError:
+            except DNFManagerError as e:
+                # Fail if the fallback is not enabled.
                 if not fallback:
-                    with self._repos_lock:
-                        for repo in self._base.repos.iter_enabled():
-                            self._set_repo_enabled(repo.id, False)
-                    return
+                    raise e
 
                 # Fallback to the default source
                 #
