@@ -31,7 +31,7 @@ def cmd_cli():
 
     print("You can connect to the VM in the following ways:")
     # print ssh command
-    print("ssh -o ControlPath=%s -o UserKnownHostsFile=/dev/null -p %s %s@%s" %
+    print("ssh -o ControlPath=%s -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p %s %s@%s" %
           (machine.ssh_master, machine.ssh_port, machine.ssh_user, machine.ssh_address))
     # print Cockpit web address
     print(
