@@ -18,7 +18,7 @@
 #
 
 import unittest
-from unittest.mock import patch, call
+from unittest.mock import patch
 import tempfile
 import shutil
 import os
@@ -280,7 +280,13 @@ class UserCreateTest(unittest.TestCase):
         keydata = "THIS IS TOTALLY A SSH KEY"
 
         users.create_user("test_user", homedir="/home/test_user", root=self.tmpdir)
-        users.set_user_ssh_key("test_user", keydata, root=self.tmpdir)
+        with patch("pyanaconda.core.users.util.restorecon") as restorecon_mock:
+            users.set_user_ssh_key("test_user", keydata, root=self.tmpdir)
+
+        restorecon_mock.assert_called_once_with(
+            ["/home/test_user/.ssh"],
+            root=self.tmpdir
+        )
 
         keyfile = self.tmpdir + "/home/test_user/.ssh/authorized_keys"
         assert os.path.isfile(keyfile)
@@ -322,7 +328,17 @@ class UserCreateTest(unittest.TestCase):
         os.makedirs(self.tmpdir + "/home/test_user")
         os.chown(self.tmpdir + "/home/test_user", 500, 500)
 
-        users.create_user("test_user", homedir="/home/test_user", uid=1000, gid=1000, root=self.tmpdir)
+        with patch("pyanaconda.core.util.restorecon") as restorecon_mock:
+            users.create_user(
+                "test_user",
+                homedir="/home/test_user",
+                uid=1000,
+                gid=1000,
+                root=self.tmpdir
+            )
+
+        restorecon_mock.assert_called_once_with(["/home/test_user"], root=self.tmpdir)
+
         passwd_fields = self._readFields("/etc/passwd", "test_user")
         assert passwd_fields is not None
         assert passwd_fields[2] == "1000"
@@ -364,8 +380,9 @@ class ReownHomedirTest(unittest.TestCase):
         assert stats.st_gid == expected_gid
 
     @patch("pyanaconda.core.users._getpwnam", return_value=["sam", "x", "2022", "2022"])
+    @patch("pyanaconda.core.util.restorecon")
     @patch("pyanaconda.core.util.execWithRedirect")
-    def test_reown_homedir(self, exec_mock, getpwnam_mock):
+    def test_reown_homedir(self, exec_mock, restorecon_mock, getpwnam_mock):
         """Test re-owning a home directory.
 
         We have "sam" who was uid/gid 1492 and now will be 2022.
@@ -383,11 +400,12 @@ class ReownHomedirTest(unittest.TestCase):
 
             users._reown_homedir(sysroot, "/home/sam", "sam")
 
-            exec_mock.assert_has_calls([
-                call("chown", ["--recursive", "--no-dereference", "--from=1492:1492",
-                               "2022:2022", sysroot + "/home/sam"]),
-                call("restorecon", ["-r", sysroot + "/home/sam"]),
-            ])
+            exec_mock.assert_called_once_with(
+                "chown",
+                ["--recursive", "--no-dereference", "--from=1492:1492", "2022:2022",
+                 sysroot + "/home/sam"]
+            )
+            restorecon_mock.assert_called_once_with(["/home/sam"], root=sysroot)
 
             # now also run the same thing as was mocked, to make sure the expectations are met
             os.system("chown --recursive --no-dereference --from=1492:1492 2022:2022"

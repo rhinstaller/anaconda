@@ -23,10 +23,12 @@ from pyanaconda.modules.boss.installation import CopyLogsTask
 class CopyLogsTaskTest(unittest.TestCase):
     @patch("pyanaconda.modules.boss.installation.glob.glob")
     @patch("pyanaconda.modules.boss.installation.execWithRedirect")
+    @patch("pyanaconda.modules.boss.installation.restorecon")
     @patch("pyanaconda.modules.boss.installation.make_directories")
     @patch("pyanaconda.modules.boss.installation.conf")
     @patch("pyanaconda.modules.boss.installation.open")
-    def test_run_all(self, open_mock, conf_mock, mkdir_mock, exec_wr_mock, glob_mock):
+    def test_run_all(self, open_mock, conf_mock, mkdir_mock, restore_mock, exec_wr_mock,
+                     glob_mock):
         """Test the log copying task."""
         glob_mock.side_effect = [
             ["/tmp/anaconda-screenshots/screenshot-0001.png"],
@@ -71,13 +73,20 @@ class CopyLogsTaskTest(unittest.TestCase):
         open_mock.assert_called_once_with("/tmp/journal.log", "w")
         log_file = open_mock().__enter__.return_value
 
-        exec_wr_mock.assert_has_calls([
-            # Warning: Constructing the argument to the first call requires a call to one of the
-            # mocks, altering its history. Any asserts about it should happen before this.
-            call("journalctl", ["-b"], stdout=log_file, log_output=False),
-            call("restorecon", ["-ir", "/var/log/anaconda/"], root="/somewhere")
-        ])
-        assert exec_wr_mock.call_count == 2
+        # Warning: Constructing the argument to the exec... call requires a call to one of the
+        # mocks, altering its history. Any asserts about it should happen before this.
+        exec_wr_mock.assert_called_once_with(
+            "journalctl",
+            ["-b"],
+            stdout=log_file,
+            log_output=False
+        )
+
+        restore_mock.assert_called_once_with(
+            ["/var/log/anaconda/"],
+            root="/somewhere",
+            skip_nonexistent=True
+        )
 
     @patch("pyanaconda.modules.boss.installation.glob.glob")
     @patch("pyanaconda.modules.boss.installation.execWithRedirect")
@@ -216,7 +225,7 @@ class CopyLogsTaskTest(unittest.TestCase):
         copytree_mock.assert_not_called()
         chmod_mock.assert_not_called()
 
-    @patch("pyanaconda.modules.boss.installation.execWithRedirect")
+    @patch("pyanaconda.core.util.execWithRedirect")
     @patch("pyanaconda.modules.boss.installation.log")
     def test_relabel_log_files(self, log_mock, exec_wr_mock):
         """Test _relabel_log_files"""
@@ -238,5 +247,5 @@ class CopyLogsTaskTest(unittest.TestCase):
         exec_wr_mock.side_effect = FileNotFoundError("Testing missing executable")
         task._relabel_log_files()
         exec_wr_mock.assert_called()
-        assert "Testing missing executable" in str(log_mock.error.mock_calls)
+        assert "restorecon was not installed" in str(log_mock.error.mock_calls)
         # implied also: assert that the exception didn't escape

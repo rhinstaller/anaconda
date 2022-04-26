@@ -21,17 +21,15 @@ from pyanaconda.modules.boss.installation import SetContextsTask
 
 
 class SetContextsTaskTest(unittest.TestCase):
-    @patch("pyanaconda.modules.boss.installation.execWithRedirect")
-    def test_run(self, exec_mock):
+    @patch("pyanaconda.modules.boss.installation.restorecon")
+    def test_run(self, restore_mock):
         """Test SetContextsTask success."""
         task = SetContextsTask("/somewhere")
         with self.assertLogs() as cm:
             task.run()
 
-        exec_mock.assert_called_once_with(
-            "restorecon",
+        restore_mock.assert_called_once_with(
             [
-                "-ir",
                 "/boot",
                 "/dev",
                 "/etc",
@@ -52,13 +50,14 @@ class SetContextsTaskTest(unittest.TestCase):
                 "/var/spool",
                 "/var/srv"
             ],
-            root="/somewhere"
+            root="/somewhere",
+            skip_nonexistent=True
         )
 
         logs = "\n".join(cm.output)
-        assert "not available" not in logs
+        assert "restorecon was not installed" not in logs
 
-    @patch("pyanaconda.modules.boss.installation.execWithRedirect")
+    @patch("pyanaconda.core.util.execWithRedirect")
     def test_restorecon_missing(self, exec_mock):
         """Test SetContextsTask with missing restorecon."""
         exec_mock.side_effect = FileNotFoundError("testing")
@@ -68,4 +67,4 @@ class SetContextsTaskTest(unittest.TestCase):
             task.run()  # asserts also that exception is not raised
 
         logs = "\n".join(cm.output)
-        assert "not available" in logs
+        assert "restorecon was not installed" in logs

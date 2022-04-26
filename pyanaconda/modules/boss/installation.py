@@ -23,7 +23,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import SCREENSHOTS_DIRECTORY
 from pyanaconda.core.path import make_directories, join_paths
-from pyanaconda.core.util import execWithRedirect
+from pyanaconda.core.util import execWithRedirect, restorecon
 from pyanaconda.modules.common.task import Task
 
 log = get_module_logger(__name__)
@@ -171,11 +171,8 @@ class CopyLogsTask(Task):
         The files we've just copied could be incorrectly labeled, like hawkey.log:
         https://bugzilla.redhat.com/show_bug.cgi?id=1885772
         """
-        try:
-            execWithRedirect("restorecon", ["-ir", TARGET_LOG_DIR], root=self._sysroot)
-        except FileNotFoundError as e:
-            log.error("Log file contexts were not restored because restorecon was not installed: "
-                      "%s", e)
+        if not restorecon([TARGET_LOG_DIR], root=self._sysroot, skip_nonexistent=True):
+            log.error("Log file contexts were not restored because restorecon was not installed.")
 
     def _copy_file_to_sysroot(self, src, dest):
         """Copy a file, if it exists, and set its access bits.
@@ -261,7 +258,5 @@ class SetContextsTask(Task):
         ]
 
         log.info("Restoring SELinux contexts.")
-        try:
-            execWithRedirect("restorecon", ["-ir"] + dirs_to_relabel, root=self._sysroot)
-        except FileNotFoundError:
-            log.warning("Cannot restore contexts, 'restorecon' is not available on new system.")
+        if not restorecon(dirs_to_relabel, root=self._sysroot, skip_nonexistent=True):
+            log.warning("Cannot restore contexts because restorecon was not installed.")

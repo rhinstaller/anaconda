@@ -720,6 +720,29 @@ class MiscTests(unittest.TestCase):
         mock_open.return_value = StringIO(dedent(cpu_info))
         assert util.is_lpae_available() is True
 
+    @patch("pyanaconda.core.util.execWithRedirect")
+    def test_restorecon(self, exec_mock):
+        """Test restorecon helper normal function"""
+        # default behavior
+        assert util.restorecon(["foo"], root="/root")
+        exec_mock.assert_called_once_with("restorecon", ["-r", "foo"], root="/root")
+
+        # also skip
+        exec_mock.reset_mock()
+        assert util.restorecon(["bar"], root="/root", skip_nonexistent=True)
+        exec_mock.assert_called_once_with("restorecon", ["-ir", "bar"], root="/root")
+
+        # explicitly don't skip
+        exec_mock.reset_mock()
+        assert util.restorecon(["bar"], root="/root", skip_nonexistent=False)
+        exec_mock.assert_called_once_with("restorecon", ["-r", "bar"], root="/root")
+
+        # missing restorecon
+        exec_mock.reset_mock()
+        exec_mock.side_effect = FileNotFoundError
+        assert not util.restorecon(["baz"], root="/root")
+        exec_mock.assert_called_once_with("restorecon", ["-r", "baz"], root="/root")
+
 
 class LazyObjectTestCase(unittest.TestCase):
 
