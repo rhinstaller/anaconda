@@ -84,7 +84,7 @@ jobs:
           path: test-logs/*
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v3
 
   rpm-tests:
     runs-on: ubuntu-20.04
