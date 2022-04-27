@@ -42,7 +42,7 @@ from pyanaconda.ui.context import context
 from pyanaconda.ui.gui.spokes.lib.installation_source_helpers import validate_proxy, RepoChecks, \
     ProxyDialog, MediaCheckDialog, IsoChooser, BASEREPO_SETUP_MESSAGE, PROTOCOL_HTTP, \
     PROTOCOL_HTTPS, PROTOCOL_FTP, PROTOCOL_NFS, PROTOCOL_FILE, PROTOCOL_MIRROR, REPO_PROTO, \
-    CLICK_FOR_DETAILS
+    CLICK_FOR_DETAILS, get_unique_repo_name
 from pyanaconda.ui.helpers import InputCheck, InputCheckHandler, SourceSwitchHandler
 from pyanaconda.ui.lib.subscription import switch_source
 from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler
@@ -1199,34 +1199,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             self._clear_repo_info()
             self._repo_entry_box.set_sensitive(False)
 
-    def _unique_repo_name(self, name):
-        """ Return a unique variation of the name if it already
-            exists in the repo store.
-
-            :param str name: Name to check
-            :returns: name or name with _%d appended
-
-            The returned name will be 1 greater than any other entry in the store
-            with a _%d at the end of it.
-        """
-        # Does this name exist in the store? If not, return it.
-        if not any(r[REPO_NAME_COL] == name for r in self._repo_store):
-            return name
-
-        # If the name already ends with a _\d+ it needs to be stripped.
-        match = re.match(r"(.*)_\d+$", name)
-        if match:
-            name = match.group(1)
-
-        # Find all of the names with _\d+ at the end
-        name_re = re.compile(r"("+re.escape(name)+r")_(\d+)")
-        matches = (name_re.match(r[REPO_NAME_COL]) for r in self._repo_store)
-        matches = [int(m.group(2)) for m in matches if m is not None]
-
-        # Get the highest number, add 1, append to name
-        highest_index = max(matches) if matches else 0
-        return name + ("_%d" % (highest_index + 1))
-
     def _get_repo_by_id(self, repo_id):
         """ Return a repository by given name
         """
@@ -1372,7 +1344,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
     def on_addRepo_clicked(self, button):
         """ Add a new repository
         """
-        name = self._unique_repo_name("New_Repository")
+        existing_names = [r[REPO_NAME_COL] for r in self._repo_store]
+        name = get_unique_repo_name(existing_names)
         repo = self.data.RepoData(name=name)
         repo.ks_repo = True
         repo.orig_name = ""
