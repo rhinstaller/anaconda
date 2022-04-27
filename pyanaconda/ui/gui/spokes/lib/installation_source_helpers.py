@@ -26,7 +26,7 @@ from pyanaconda.core import glib, constants
 from pyanaconda.core.i18n import _, N_
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.process_watchers import PidWatcher
-from pyanaconda.core.regexes import URL_PARSE
+from pyanaconda.core.regexes import URL_PARSE, REPO_NAME_VALID
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.ui.gui import GUIObject, really_hide
 from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
@@ -89,6 +89,36 @@ def get_unique_repo_name(existing_names=None):
     # Get the highest number, add 1, append to name
     highest_index = max(matches) if matches else 0
     return name + ("_%d" % (highest_index + 1))
+
+
+def validate_repo_name(repo_name, conflicting_names=None):
+    """Validate the given repo name.
+
+    :param str repo_name: a repo name to validate
+    :param [str] conflicting_names: a list of conflicting names
+    :return: an error message or None
+    """
+    conflicting_names = conflicting_names or []
+
+    # Extend the conflicting names.
+    conflicting_names.append(
+        constants.BASE_REPO_NAME
+    )
+    conflicting_names.extend(
+        constants.DEFAULT_REPOS
+    )
+
+    # Check the repo name.
+    if not repo_name:
+        return _("Empty repository name")
+
+    if not REPO_NAME_VALID.match(repo_name):
+        return _("Invalid repository name")
+
+    if repo_name in conflicting_names:
+        return _("Repository name conflicts with internal repository name.")
+
+    return InputCheck.CHECK_OK
 
 
 def validate_proxy(proxy_string, username_set, password_set):

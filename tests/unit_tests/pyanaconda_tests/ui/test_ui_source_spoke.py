@@ -17,7 +17,9 @@
 #
 import unittest
 
-from pyanaconda.ui.gui.spokes.lib.installation_source_helpers import get_unique_repo_name
+from pyanaconda.ui.gui.spokes.lib.installation_source_helpers import get_unique_repo_name, \
+    validate_repo_name
+from pyanaconda.ui.helpers import InputCheck
 
 
 class InstallationSourceUtilsTestCase(unittest.TestCase):
@@ -49,3 +51,22 @@ class InstallationSourceUtilsTestCase(unittest.TestCase):
             "New_Repository",
             "New_Repository_3",
         ])
+
+    def test_validate_repo_name(self):
+        """Test the validate_repo_name function."""
+        assert validate_repo_name("New_Repository_1") == InputCheck.CHECK_OK
+        assert validate_repo_name("AppStream") == InputCheck.CHECK_OK
+        assert validate_repo_name("my_repo") == InputCheck.CHECK_OK
+        assert validate_repo_name("my_repo", conflicting_names=["another"]) == InputCheck.CHECK_OK
+
+        msg = "Empty repository name"
+        assert validate_repo_name("") == msg
+
+        msg = "Invalid repository name"
+        assert validate_repo_name("invalid repo") == msg
+        assert validate_repo_name("repo(invalid)") == msg
+
+        msg = "Repository name conflicts with internal repository name."
+        assert validate_repo_name("anaconda") == msg
+        assert validate_repo_name("rawhide") == msg
+        assert validate_repo_name("my_repo", conflicting_names=["my_repo"]) == msg

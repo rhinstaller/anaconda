@@ -42,7 +42,7 @@ from pyanaconda.ui.context import context
 from pyanaconda.ui.gui.spokes.lib.installation_source_helpers import validate_proxy, RepoChecks, \
     ProxyDialog, MediaCheckDialog, IsoChooser, BASEREPO_SETUP_MESSAGE, PROTOCOL_HTTP, \
     PROTOCOL_HTTPS, PROTOCOL_FTP, PROTOCOL_NFS, PROTOCOL_FILE, PROTOCOL_MIRROR, REPO_PROTO, \
-    CLICK_FOR_DETAILS, get_unique_repo_name
+    CLICK_FOR_DETAILS, get_unique_repo_name, validate_repo_name
 from pyanaconda.ui.helpers import InputCheck, InputCheckHandler, SourceSwitchHandler
 from pyanaconda.ui.lib.subscription import switch_source
 from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler
@@ -54,7 +54,7 @@ from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.regexes import REPO_NAME_VALID, URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
+from pyanaconda.core.regexes import URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
 from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.structures.storage import DeviceData
@@ -918,37 +918,16 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             return _("Duplicate repository names.")
         return InputCheck.CHECK_OK
 
-    def _is_conflicting_repo_name(self, repo_name):
-        if repo_name == constants.BASE_REPO_NAME:
-            return True
-
-        if repo_name in constants.DEFAULT_REPOS:
-            return True
-
-        for ks_repo in self.data.repo.dataList():
-            if repo_name == ks_repo.name:
-                return False
-
-        for repo_id in self.payload.dnf_manager.repositories:
-            if repo_name == repo_id:
-                return True
-
-        return False
-
     def _check_repo_name(self, inputcheck):
         # Input object is name of the repository
         repo_name = self._get_repo_by_id(inputcheck.input_obj).name
 
-        if not repo_name:
-            return _("Empty repository name")
+        # Collect conflicting names.
+        forbidden_names = self.payload.dnf_manager.repositories
+        allowed_names = [r.name for r in self.data.repo.dataList()]
+        conflicting_names = [n for n in forbidden_names if n not in allowed_names]
 
-        if not REPO_NAME_VALID.match(repo_name):
-            return _("Invalid repository name")
-
-        if self._is_conflicting_repo_name(repo_name):
-            return _("Repository name conflicts with internal repository name.")
-
-        return InputCheck.CHECK_OK
+        return validate_repo_name(repo_name, conflicting_names)
 
     def _check_repo_proxy(self, inputcheck):
         # Input object contains repo name
