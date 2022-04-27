@@ -140,6 +140,21 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
     def _row_is_separator(self, model, itr, *args):
         return model[itr][3]
 
+    def _get_starting_locales(self):
+        """Get the starting locale(s) - kickstart, geoloc, or default"""
+        # boot options and kickstart have priority over geoip
+        language = self._l12_module.Language
+        if language and self._l12_module.LanguageKickstarted:
+            return [language]
+
+        # As the lookup might still be in progress we need to make sure
+        # to wait for it to finish. If the lookup has already finished
+        # the wait function is basically a noop.
+        geoloc.geoloc.wait_for_refresh_to_finish()
+        # the lookup should be done now, get the territory
+        territory = geoloc.geoloc.result.territory_code
+        return localization.get_territory_locales(territory) or [DEFAULT_LANG]
+
     def initialize(self):
         self.initialize_start()
         self._languageStore = self.builder.get_object("languageStore")
@@ -160,21 +175,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
 
         # We can use the territory from geolocation here
         # to preselect the translation, when it's available.
-        #
-        # But as the lookup might still be in progress we need to make sure
-        # to wait for it to finish. If the lookup has already finished
-        # the wait function is basically a noop.
-        geoloc.geoloc.wait_for_refresh_to_finish()
-
-        # the lookup should be done now, get the teorritory
-        territory = geoloc.geoloc.result.territory_code
-
-        # bootopts and kickstart have priority over geoip
-        language = self._l12_module.Language
-        if language and self._l12_module.LanguageKickstarted:
-            locales = [language]
-        else:
-            locales = localization.get_territory_locales(territory) or [DEFAULT_LANG]
+        locales = self._get_starting_locales()
 
         # get the data models
         filter_store = self._languageStoreFilter
