@@ -1,8 +1,10 @@
-# Build a boot.iso from a PR triggered by a "/boot-iso" comment from an organization member.
-name: Build boot.iso from PR
+# Build a boot.iso from a PR triggered by a "/boot-iso" comment or manually.
+name: Build boot.iso
 on:
   issue_comment:
     types: [created]
+  # be able to start this action manually from a actions tab when needed
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -10,10 +12,11 @@ permissions:
 
 jobs:
   pr-info:
-    if: startsWith(github.event.comment.body, '/boot-iso')
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.event.comment.body, '/boot-iso')
     runs-on: ubuntu-latest
     steps:
       - name: Query comment author repository permissions
+        if: github.event_name != 'workflow_dispatch'
         uses: octokit/request-action@v2.x
         id: user_permission
         with:
@@ -25,13 +28,14 @@ jobs:
       # see https://docs.github.com/en/free-pro-team@latest/rest/reference/repos#get-repository-permissions-for-a-user
       # store output if user is allowed in allowed_user job output so it has to be checked in downstream job
       - name: Check if user does have correct permissions
-        if: contains('admin write', fromJson(steps.user_permission.outputs.data).permission)
+        if: github.event_name != 'workflow_dispatch' && contains('admin write', fromJson(steps.user_permission.outputs.data).permission)
         id: check_user_perm
         run: |
           echo "User '${{ github.event.sender.login }}' has permission '${{ fromJson(steps.user_permission.outputs.data).permission }}' allowed values: 'admin', 'write'"
           echo "::set-output name=allowed_user::true"
 
       - name: Get information for pull request
+        if: github.event_name != 'workflow_dispatch'
         uses: octokit/request-action@v2.x
         id: pr_api
         with:
@@ -39,9 +43,22 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Set outputs
+        id: set_outputs
+        run: |
+          set -eux
+
+          if [ ${{ github.event_name }} == 'workflow_dispatch' ]; then
+            echo "::set-output name=allowed_user::true"
+            echo "::set-output name=sha::$GITHUB_SHA"
+          else
+            echo "::set-output name=allowed_user::${{ steps.check_user_perm.outcome == 'success' && steps.check_user_perm.outputs.allowed_user }}"
+            echo "::set-output name=sha::${{ steps.pr_api.outcome == 'success' && fromJson(steps.pr_api.outputs.data).head.sha }}"
+          fi
+
     outputs:
-      allowed_user: ${{ steps.check_user_perm.outputs.allowed_user }}
-      sha: ${{ fromJson(steps.pr_api.outputs.data).head.sha }}
+      allowed_user: ${{ steps.set_outputs.outputs.allowed_user }}
+      sha: ${{ steps.set_outputs.outputs.sha }}
 
   run:
     needs: pr-info
