@@ -12,6 +12,8 @@ RUN echo dnf update -y && \
   /usr/bin/xargs \
   rpm-build \
   e2fsprogs \
+  # the krb5-config binary is required for copr pip installation
+  krb5-devel \
   git \
   bzip2 \
   cppcheck \
