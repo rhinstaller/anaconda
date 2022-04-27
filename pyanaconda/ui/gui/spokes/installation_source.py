@@ -42,7 +42,7 @@ from pyanaconda.ui.context import context
 from pyanaconda.ui.gui.spokes.lib.installation_source_helpers import validate_proxy, RepoChecks, \
     ProxyDialog, MediaCheckDialog, IsoChooser, BASEREPO_SETUP_MESSAGE, PROTOCOL_HTTP, \
     PROTOCOL_HTTPS, PROTOCOL_FTP, PROTOCOL_NFS, PROTOCOL_FILE, PROTOCOL_MIRROR, REPO_PROTO, \
-    CLICK_FOR_DETAILS, get_unique_repo_name, validate_repo_name
+    CLICK_FOR_DETAILS, get_unique_repo_name, validate_repo_name, check_duplicate_repo_names
 from pyanaconda.ui.helpers import InputCheck, InputCheckHandler, SourceSwitchHandler
 from pyanaconda.ui.lib.subscription import switch_source
 from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler
@@ -914,9 +914,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
     def _check_duplicate_repos(self, inputcheck):
         repo_names = [r[REPO_OBJ].name for r in inputcheck.input_obj]
-        if len(repo_names) != len(frozenset(repo_names)):
-            return _("Duplicate repository names.")
-        return InputCheck.CHECK_OK
+        return check_duplicate_repo_names(repo_names)
 
     def _check_repo_name(self, inputcheck):
         # Input object is name of the repository

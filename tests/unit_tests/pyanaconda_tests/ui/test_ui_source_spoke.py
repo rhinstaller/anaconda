@@ -18,7 +18,7 @@
 import unittest
 
 from pyanaconda.ui.gui.spokes.lib.installation_source_helpers import get_unique_repo_name, \
-    validate_repo_name
+    validate_repo_name, check_duplicate_repo_names
 from pyanaconda.ui.helpers import InputCheck
 
 
@@ -70,3 +70,13 @@ class InstallationSourceUtilsTestCase(unittest.TestCase):
         assert validate_repo_name("anaconda") == msg
         assert validate_repo_name("rawhide") == msg
         assert validate_repo_name("my_repo", conflicting_names=["my_repo"]) == msg
+
+    def test_check_duplicate_repo_names(self):
+        """Test the check_duplicate_repo_names function."""
+        assert check_duplicate_repo_names([]) == InputCheck.CHECK_OK
+        assert check_duplicate_repo_names(["r1"]) == InputCheck.CHECK_OK
+        assert check_duplicate_repo_names(["r1", "r2"]) == InputCheck.CHECK_OK
+
+        msg = "Duplicate repository names."
+        assert check_duplicate_repo_names(["r1", "r1"]) == msg
+        assert check_duplicate_repo_names(["r1", "r2", "r2"]) == msg

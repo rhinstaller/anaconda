@@ -151,6 +151,18 @@ def validate_proxy(proxy_string, username_set, password_set):
     return InputCheck.CHECK_OK
 
 
+def check_duplicate_repo_names(repo_names):
+    """Check if there are some duplicate repository names.
+
+    :param [str] repo_names: a list of repo names to check
+    :return: an error message or None
+    """
+    if len(repo_names) != len(set(repo_names)):
+        return _("Duplicate repository names.")
+
+    return InputCheck.CHECK_OK
+
+
 class ProxyDialog(GUIObject, GUIDialogInputCheckHandler):
     """The dialog for configuring proxy settings."""
 
