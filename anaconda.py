@@ -553,7 +553,8 @@ if __name__ == "__main__":
     payloadMgr.restart_thread(anaconda.payload, fallback=fallback)
 
     # initialize the geolocation singleton
-    geoloc.init_geolocation(geoloc_option=opts.geoloc, options_override=opts.geoloc_use_with_ks)
+    use_geoloc = startup_utils.check_if_geolocation_should_be_used(opts)
+    geoloc.init_geolocation(provider=opts.geoloc, enabled=use_geoloc)
 
     # start geolocation lookup if enabled
     if geoloc.geoloc.enabled:

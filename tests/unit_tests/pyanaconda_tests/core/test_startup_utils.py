@@ -24,7 +24,7 @@ import unittest
 from unittest.mock import patch, mock_open, Mock
 from textwrap import dedent
 
-from pyanaconda.startup_utils import print_dracut_errors
+from pyanaconda.startup_utils import print_dracut_errors, check_if_geolocation_should_be_used
 
 
 class StartupUtilsTestCase(unittest.TestCase):
@@ -48,3 +48,57 @@ class StartupUtilsTestCase(unittest.TestCase):
         logger_mock = Mock()
         print_dracut_errors(logger_mock)
         logger_mock.assert_not_called()
+
+    @patch("pyanaconda.startup_utils.flags")
+    @patch("pyanaconda.startup_utils.conf")
+    def test_geoloc_check(self, conf_mock, flags_mock):
+        """Test check_if_geolocation_should_be_used()
+
+        This is a nasty function that actually takes 4 different "inputs". It is not possible to
+        express these 16 combinations in a readable way, so pay attention to coverage - all code
+        paths should be tested.
+        """
+        opts_mock = Mock()
+
+        # dirinstall or image install
+        flags_mock.automatedInstall = False
+        conf_mock.target.is_hardware = False  # this causes False
+        opts_mock.geoloc = None
+        opts_mock.geoloc_use_with_ks = None
+        assert check_if_geolocation_should_be_used(opts_mock) is False
+
+        # kickstart
+        flags_mock.automatedInstall = True  # this causes False
+        conf_mock.target.is_hardware = True
+        opts_mock.geoloc = None
+        opts_mock.geoloc_use_with_ks = None
+        assert check_if_geolocation_should_be_used(opts_mock) is False
+
+        # kickstart + enable option
+        flags_mock.automatedInstall = True  # this causes False
+        conf_mock.target.is_hardware = True
+        opts_mock.geoloc = None
+        opts_mock.geoloc_use_with_ks = True  # this overrides it to True
+        assert check_if_geolocation_should_be_used(opts_mock) is True
+
+        # disabled by option
+        flags_mock.automatedInstall = False
+        conf_mock.target.is_hardware = True
+        opts_mock.geoloc = "0"  # this causes False
+        opts_mock.geoloc_use_with_ks = None
+        assert check_if_geolocation_should_be_used(opts_mock) is False
+
+        # enabled by option value
+        flags_mock.automatedInstall = False
+        conf_mock.target.is_hardware = True
+        opts_mock.geoloc_use_with_ks = None
+        for value in ("1", "yes", "whatever", "I typed here something"):  # anything causes True
+            opts_mock.geoloc = value
+            assert check_if_geolocation_should_be_used(opts_mock) is True
+
+        # normal install without boot options defaults to True
+        flags_mock.automatedInstall = False
+        conf_mock.target.is_hardware = True
+        opts_mock.geoloc = None
+        opts_mock.geoloc_use_with_ks = None
+        assert check_if_geolocation_should_be_used(opts_mock) is True
