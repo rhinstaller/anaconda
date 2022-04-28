@@ -116,12 +116,14 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self._error_msg = ""
         self._proxy_url = ""
         self._proxy_change = False
-        self._updates_change = False
         self._cdrom = None
         self._repo_counter = id_generator()
 
         self._repo_checks = {}
         self._repo_store_lock = threading.Lock()
+
+        self._updates_enabled = False
+        self._updates_change = False
 
         self._network_module = NETWORK.get_proxy()
         self._device_tree = STORAGE.get_proxy(DEVICE_TREE)
@@ -192,7 +194,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
                     and not self._updates_change:
                 return False
 
-            self.set_source_closest_mirror()
+            self.set_source_closest_mirror(self._updates_enabled)
         elif self._ftp_active():
             url = self._url_entry.get_text().strip()
             # If the user didn't fill in the URL entry, just return as if they
@@ -664,6 +666,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         # We defaults and if the method tells us something different later, we can change it.
         self._protocol_combo_box.set_active_id(PROTOCOL_MIRROR)
         self._url_type_combo_box.set_active_id(URL_TYPE_BASEURL)
+        self._updates_enabled = False
 
         if source_type == SOURCE_TYPE_CDN:
             self._cdn_button.set_active(True)
@@ -726,6 +729,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
                 self._network_button.set_active(True)
         elif source_type == SOURCE_TYPE_CLOSEST_MIRROR:
             self._network_button.set_active(True)
+            self._updates_enabled = source_proxy.UpdatesEnabled
         else:
             ValueError("Unsupported source type: '{}'".format(source_type))
 
@@ -779,7 +783,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             uncheck it.
         """
         self._updates_box.set_sensitive(self._mirror_active())
-        active = self._mirror_active() and self.payload.is_repo_enabled("updates")
+        active = self._mirror_active() and self._updates_enabled
         self._updates_radio_button.set_active(active)
 
     def _mirror_active(self):
@@ -1361,9 +1365,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
     def on_updatesRadioButton_toggled(self, button):
         """Toggle the enable state of the updates repo."""
         active = self._updates_radio_button.get_active()
-        self.payload.set_updates_enabled(active)
-
-        # Refresh the metadata using the new set of repos
+        self._updates_enabled = active
         self._updates_change = True
 
     def on_addRepo_clicked(self, button):

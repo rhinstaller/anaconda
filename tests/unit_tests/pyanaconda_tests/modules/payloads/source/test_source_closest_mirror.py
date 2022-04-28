@@ -18,6 +18,9 @@
 #
 import unittest
 
+from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_CLOSEST_MIRROR
+from tests.unit_tests.pyanaconda_tests import check_dbus_property
+
 from pyanaconda.core.constants import SOURCE_TYPE_CLOSEST_MIRROR
 from pyanaconda.modules.payloads.source.closest_mirror.closest_mirror import \
     ClosestMirrorSourceModule
@@ -31,6 +34,13 @@ class ClosestMirrorSourceInterfaceTestCase(unittest.TestCase):
     def setUp(self):
         self.module = ClosestMirrorSourceModule()
         self.interface = ClosestMirrorSourceInterface(self.module)
+
+    def _check_dbus_property(self, *args, **kwargs):
+        check_dbus_property(
+            PAYLOAD_SOURCE_CLOSEST_MIRROR,
+            self.interface,
+            *args, **kwargs
+        )
 
     def test_type(self):
         """Test the type of CDN."""
@@ -46,3 +56,10 @@ class ClosestMirrorSourceInterfaceTestCase(unittest.TestCase):
 
     def test_repr(self):
         assert repr(self.module) == "Source(type='CLOSEST_MIRROR')"
+
+    def test_updates_enabled(self):
+        """Test the UpdatesEnabled property."""
+        self._check_dbus_property(
+            "UpdatesEnabled",
+            True
+        )

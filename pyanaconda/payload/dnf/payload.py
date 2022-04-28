@@ -49,7 +49,7 @@ from pyanaconda.core import constants
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, \
     SOURCE_TYPE_URL, SOURCE_TYPE_CDROM, URL_TYPE_BASEURL, SOURCE_REPO_FILE_TYPES, \
-    SOURCE_TYPE_CDN, MULTILIB_POLICY_ALL, REPO_ORIGIN_SYSTEM
+    SOURCE_TYPE_CDN, MULTILIB_POLICY_ALL, REPO_ORIGIN_SYSTEM, SOURCE_TYPE_CLOSEST_MIRROR
 from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import parse_hdd_url
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
@@ -84,7 +84,6 @@ class DNFPayload(Payload):
         self.tx_id = None
 
         self._dnf_manager = DNFManager()
-        self._updates_enabled = True
 
         # List of internal mount points.
         self._mount_points = []
@@ -458,13 +457,6 @@ class DNFPayload(Payload):
     def space_required(self):
         return calculate_required_space(self._dnf_manager)
 
-    def set_updates_enabled(self, state):
-        """Enable or Disable the repos used to update closest mirror.
-
-        :param bool state: True to enable updates, False to disable.
-        """
-        self._updates_enabled = state
-
     def install(self):
         self._progress_cb(0, _('Starting package installation process'))
 
@@ -636,7 +628,8 @@ class DNFPayload(Payload):
         self._dnf_manager.restore_system_repositories()
 
         log.debug("Enable or disable updates repositories.")
-        self._set_repositories_enabled(conf.payload.updates_repositories, self._updates_enabled)
+        updates_enabled = self._get_updates_enabled()
+        self._set_repositories_enabled(conf.payload.updates_repositories, updates_enabled)
 
         log.debug("Disable repositories based on the Anaconda configuration file.")
         self._set_repositories_enabled(conf.payload.disabled_repositories, False)
@@ -644,6 +637,16 @@ class DNFPayload(Payload):
         if constants.isFinal:
             log.debug("Disable rawhide repositories.")
             self._set_repositories_enabled(["*rawhide*"], False)
+
+    def _get_updates_enabled(self):
+        """Are latest updates enabled?"""
+        source_proxy = self.get_source_proxy()
+        source_type = source_proxy.Type
+
+        if source_type == SOURCE_TYPE_CLOSEST_MIRROR:
+            return source_proxy.UpdatesEnabled
+        else:
+            return False
 
     def _set_repositories_enabled(self, patterns, enabled):
         """Enable or disable matching repositories.

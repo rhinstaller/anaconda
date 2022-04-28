@@ -17,13 +17,37 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from dasbus.server.interface import dbus_class
+from dasbus.server.interface import dbus_interface
+from dasbus.server.property import emits_properties_changed
+from dasbus.typing import Bool
+
+from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_CLOSEST_MIRROR
 from pyanaconda.modules.payloads.source.source_base_interface import PayloadSourceBaseInterface
 
 __all__ = ["ClosestMirrorSourceInterface"]
 
 
-@dbus_class
+@dbus_interface(PAYLOAD_SOURCE_CLOSEST_MIRROR.interface_name)
 class ClosestMirrorSourceInterface(PayloadSourceBaseInterface):
     """Interface for the payload source for closest mirror."""
-    pass
+
+    def connect_signals(self):
+        """Connect DBus signals."""
+        super().connect_signals()
+        self.watch_property("UpdatesEnabled", self.implementation.updates_enabled_changed)
+
+    @property
+    def UpdatesEnabled(self) -> Bool:
+        """Should repositories that provide updates be enabled?
+
+        :return: True or False
+        """
+        return self.implementation.updates_enabled
+
+    @emits_properties_changed
+    def SetUpdatesEnabled(self, enabled: Bool):
+        """Enable or disable repositories that provide updates.
+
+        :param enabled: True to enable, False to disable
+        """
+        self.implementation.set_updates_enabled(enabled)
