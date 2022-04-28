@@ -596,3 +596,48 @@ def print_dracut_errors(stdout_logger):
             stdout_logger.warning(msg)
     except OSError:
         pass
+
+
+def check_if_geolocation_should_be_used(opts):
+    """Check if geolocation can be used during this installation run.
+
+    The result is based on current installation type - fully interactive vs
+    fully or partially automated kickstart installation and on the state of the
+    "geoloc*" boot/CLI options.
+
+    By default geolocation is not enabled during a kickstart based installation,
+    unless the geoloc_use_with_ks boot/CLI option is used.
+
+    Also the geoloc boot/CLI option can be used to make sure geolocation
+    will not be used during an installation, like this:
+
+    inst.geoloc=0
+
+    :param opts: the command line/boot options
+    """
+    # don't use geolocation during image and directory installation
+    if not conf.target.is_hardware:
+        log.info("Geolocation is disabled for image or directory installation.")
+        return False
+
+    # check if geolocation was not disabled by boot or command line option
+    # our documentation mentions only "0" as the way to disable it
+    if str(opts.geoloc).strip() == "0":
+        log.info("Geolocation is disabled by the geoloc option.")
+        return False
+
+    # don't use geolocation during kickstart installation unless explicitly
+    # requested by the user
+    if flags.automatedInstall:
+        if opts.geoloc_use_with_ks:
+            # check for use-with-kickstart overrides
+            log.info("Geolocation is enabled during kickstart installation due to use of "
+                     "the geoloc-use-with-ks option.")
+            return True
+        else:
+            # otherwise disable geolocation during a kickstart installation
+            log.info("Geolocation is disabled due to automated kickstart based installation.")
+            return False
+
+    log.info("Geolocation is enabled.")
+    return True
