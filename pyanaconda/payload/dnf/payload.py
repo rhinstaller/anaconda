@@ -465,17 +465,6 @@ class DNFPayload(Payload):
         """
         self._updates_enabled = state
 
-    def _set_repo_enabled(self, repo_id, enabled):
-        """Enable or disable the repo in DNF and its data representation."""
-        try:
-            self._dnf_manager.set_repository_enabled(repo_id, enabled)
-        except UnknownRepositoryError:
-            pass
-
-        repo = self.get_addon_repo(repo_id)
-        if repo:
-            repo.enabled = enabled
-
     def install(self):
         self._progress_cb(0, _('Starting package installation process'))
 
