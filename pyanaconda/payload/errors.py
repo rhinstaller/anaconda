@@ -21,11 +21,6 @@ class PayloadError(Exception):
     pass
 
 
-# setup
-class PayloadSetupError(PayloadError):
-    pass
-
-
 # installation
 class PayloadInstallError(PayloadError):
     pass

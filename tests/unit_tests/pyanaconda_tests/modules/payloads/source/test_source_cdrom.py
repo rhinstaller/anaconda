@@ -28,7 +28,6 @@ from pyanaconda.modules.payloads.source.cdrom.cdrom import CdromSourceModule
 from pyanaconda.modules.payloads.source.cdrom.cdrom_interface import CdromSourceInterface
 from pyanaconda.modules.payloads.source.cdrom.initialization import SetUpCdromSourceTask
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
-from pyanaconda.payload.utils import PayloadSetupError
 
 from tests.unit_tests.pyanaconda_tests import patch_dbus_get_proxy, PropertiesChangedCallback
 
@@ -433,7 +432,7 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
         device_tree = self.set_up_device_tree(4)
         proxy_getter.return_value = device_tree
         mount_mock.side_effect = \
-            [PayloadSetupError("Mocked failure"), DEFAULT, DEFAULT, DEFAULT]
+            [OSError("Mocked failure"), DEFAULT, DEFAULT, DEFAULT]
 
         # only for devices 2-4; the expected first call is prevented by the exception from mount
         valid_mock.side_effect = [False, True, False]
@@ -473,7 +472,7 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
         kernel_arguments_mock.get.return_value = None
         device_tree = self.set_up_device_tree(1)
         proxy_getter.return_value = device_tree
-        mount_mock.side_effect = PayloadSetupError("Mocked failure")
+        mount_mock.side_effect = OSError("Mocked failure")
         valid_mock.return_value = True
 
         with pytest.raises(SourceSetupError) as cm:

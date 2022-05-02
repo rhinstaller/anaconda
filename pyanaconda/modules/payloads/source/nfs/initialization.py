@@ -24,7 +24,6 @@ from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payloads.source.utils import find_and_mount_iso_image, \
     verify_valid_repository
-from pyanaconda.payload.errors import PayloadSetupError
 from pyanaconda.payload.utils import mount, unmount
 
 log = get_module_logger(__name__)
@@ -59,7 +58,7 @@ class SetUpNFSSourceTask(Task):
         path, image = self._split_iso_from_path(path)
         try:
             self._mount_nfs(host, options, path)
-        except PayloadSetupError as exn:
+        except OSError as exn:
             raise SourceSetupError("Could not mount NFS url '{}'".format(self._url)) from exn
 
         iso_source_path = join_paths(self._device_mount, image) if image else self._device_mount

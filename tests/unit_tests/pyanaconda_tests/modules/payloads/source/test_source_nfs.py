@@ -28,7 +28,6 @@ from pyanaconda.modules.payloads.source.nfs.nfs import NFSSourceModule
 from pyanaconda.modules.payloads.source.nfs.nfs_interface import NFSSourceInterface
 from pyanaconda.modules.payloads.source.nfs.initialization import SetUpNFSSourceTask
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
-from pyanaconda.payload.utils import PayloadSetupError
 
 from tests.unit_tests.pyanaconda_tests import check_dbus_property, PropertiesChangedCallback
 
@@ -262,7 +261,7 @@ class NFSSourceSetupTaskTestCase(unittest.TestCase):
                                                               ISO_MOUNT_LOCATION)
 
     @patch("pyanaconda.modules.payloads.source.nfs.initialization.mount",
-           side_effect=PayloadSetupError("Testing..."))
+           side_effect=OSError("Testing..."))
     def test_setup_install_source_task_mount_failure(self, mount_mock):
         """Test NFS source setup failure"""
         task = SetUpNFSSourceTask(DEVICE_MOUNT_LOCATION, ISO_MOUNT_LOCATION, NFS_URL)
