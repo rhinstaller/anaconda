@@ -91,10 +91,6 @@ class DNFPayload(Payload):
         # Configure the DNF logging.
         configure_dnf_logging()
 
-        # FIXME: Don't call this method before set_from_opts.
-        # This will create a default source if there is none.
-        self._configure()
-
     @property
     def dnf_manager(self):
         """The DNF manager."""
@@ -126,7 +122,6 @@ class DNFPayload(Payload):
         self._set_additional_repos_from_opts(opts)
         self._generate_driver_disk_repositories()
         self._set_packages_from_opts(opts)
-        self._configure()
 
     def _set_source_from_opts(self, opts):
         """Change the source based on the Anaconda options.
@@ -298,7 +293,7 @@ class DNFPayload(Payload):
         self.verbose_errors = []
 
     def unsetup(self):
-        self._configure()
+        self._dnf_manager.reset_base()
         tear_down_sources(self.proxy)
 
     @property
@@ -354,12 +349,6 @@ class DNFPayload(Payload):
         )
 
         return data.proxy
-
-    def _configure(self):
-        self._dnf_manager.reset_base()
-        self._dnf_manager.configure_base(self.get_packages_configuration())
-        self._dnf_manager.configure_proxy(self._get_proxy_url())
-        self._dnf_manager.dump_configuration()
 
     ###
     # METHODS FOR WORKING WITH REPOSITORIES
@@ -528,9 +517,12 @@ class DNFPayload(Payload):
 
         log.debug("Preparing the DNF base")
         self.tx_id = None
+
         self._dnf_manager.clear_cache()
         self._dnf_manager.reset_substitution()
+        self._dnf_manager.configure_base(self.get_packages_configuration())
         self._dnf_manager.configure_proxy(self._get_proxy_url())
+        self._dnf_manager.dump_configuration()
         self._dnf_manager.read_system_repositories()
 
         log.info("Configuring the base repo")
