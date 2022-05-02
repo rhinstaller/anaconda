@@ -160,12 +160,13 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
 
         set_source(self.payload.proxy, hmc_source_proxy)
 
-    def set_source_closest_mirror(self):
+    def set_source_closest_mirror(self, updates_enabled=True):
         """ Switch to the closest mirror install source """
         # clean any old HDD ISO sources
         self._tear_down_existing_source()
 
         repo_files_source_proxy = create_source(constants.SOURCE_TYPE_CLOSEST_MIRROR)
+        repo_files_source_proxy.SetUpdatesEnabled(updates_enabled)
 
         set_source(self.payload.proxy, repo_files_source_proxy)
 
