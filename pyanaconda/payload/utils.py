@@ -82,15 +82,6 @@ def unmount_device(device_name, mount_point):
     device_tree.UnmountDevice(device_name, mount_point)
 
 
-def get_mount_points():
-    """Get mount points in the device tree.
-
-    :return: a dictionary of mount points and device names
-    """
-    device_tree = STORAGE.get_proxy(DEVICE_TREE)
-    return device_tree.GetMountPoints()
-
-
 def get_mount_paths(device_path):
     """Given a device node path, return a list of all active mount points.
 
