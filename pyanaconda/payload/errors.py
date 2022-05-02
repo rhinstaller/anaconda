@@ -19,8 +19,3 @@
 
 class PayloadError(Exception):
     pass
-
-
-# installation
-class PayloadInstallError(PayloadError):
-    pass
