@@ -26,7 +26,6 @@ from pyanaconda.core.constants import THREAD_STORAGE, THREAD_PAYLOAD, THREAD_PAY
     THREAD_STORAGE_WATCHER, THREAD_EXECUTE_STORAGE
 from pyanaconda.core.i18n import _, N_
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.payload.errors import PayloadError
 from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda.anaconda_loggers import get_module_logger
 
@@ -194,7 +193,7 @@ class PayloadManager(object):
         # so we need to handle or raise the error directly.
         try:
             payload.setup()
-        except (DBusError, PayloadError) as e:
+        except DBusError as e:
             # Handle an error.
             if errorHandler.cb(e) == ERROR_RAISE:
                 raise
@@ -222,8 +221,8 @@ class PayloadManager(object):
 
         try:
             payload.update_base_repo(fallback=fallback, checkmount=checkmount)
-        except (OSError, DBusError, PayloadError, DNFManagerError) as e:
-            log.error("PayloadError: %s", e)
+        except (OSError, DBusError, DNFManagerError) as e:
+            log.error("Payload error: %s", e)
             self._error = self.ERROR_SETUP
             self._set_state(PayloadState.ERROR)
             payload.unsetup()
