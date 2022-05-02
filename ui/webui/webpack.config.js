@@ -23,6 +23,9 @@ const packageJson = JSON.parse(fs.readFileSync('package.json'));
 /* A standard nodejs and webpack pattern */
 const production = process.env.NODE_ENV === 'production';
 
+/* Default to disable eslint for faster production builds */
+const eslint = process.env.ESLINT ? (process.env.ESLINT !== '0') : !production;
+
 // Non-JS files which are copied verbatim to dist/
 const copy_files = [
     "./src/index.html",
@@ -32,10 +35,13 @@ const copy_files = [
 const plugins = [
     new copy({ patterns: copy_files }),
     new extract({filename: "[name].css"}),
-    new ESLintPlugin({ extensions: ["js", "jsx"] }),
     new CockpitPoPlugin({ reference_patterns: ["ui/webui/src/.*"] }),
     new CockpitRsyncPlugin({ dest: packageJson.name }),
 ];
+
+if (eslint) {
+    plugins.push(new ESLintPlugin({ extensions: ["js", "jsx"] }));
+}
 
 /* Only minimize when in production mode */
 if (production) {
