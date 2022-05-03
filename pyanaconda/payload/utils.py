@@ -22,7 +22,6 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.structures.storage import DeviceData
-from pyanaconda.payload.errors import PayloadSetupError
 
 log = get_module_logger(__name__)
 
@@ -113,8 +112,6 @@ def mount(device_path, mount_point, fstype, options):
     :param str mount_point: a mount point
     :param str fstype: a filesystem type
     :param str options: mount options
+    :raise: OSError on failure
     """
-    try:
-        return blivet.util.mount(device_path, mount_point, fstype=fstype, options=options)
-    except OSError as e:
-        raise PayloadSetupError(str(e)) from e
+    return blivet.util.mount(device_path, mount_point, fstype=fstype, options=options)

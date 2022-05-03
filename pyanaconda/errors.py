@@ -23,7 +23,6 @@ from pyanaconda.modules.common.errors.installation import BootloaderInstallation
     InsightsClientMissingError, InsightsConnectError
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.errors.storage import UnusableStorageError
-from pyanaconda.payload.errors import PayloadInstallError, PayloadSetupError
 
 
 class ScriptError(Exception):
@@ -102,10 +101,6 @@ class ErrorHandler(object):
             UnusableStorageError.__name__: self._storage_reset_handler,
             StorageInstallationError.__name__: self._storage_install_handler,
             BootloaderInstallationError.__name__: self._bootloader_error_handler,
-
-            # Payload errors
-            PayloadSetupError.__name__: self._payload_setup_handler,
-            PayloadInstallError.__name__: self._payload_install_handler,
 
             # Payload DBus errors
             SourceSetupError.__name__: self._payload_setup_handler,
