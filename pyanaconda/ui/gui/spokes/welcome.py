@@ -80,6 +80,9 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
         self._origStrings = {}
 
         self._l12_module = LOCALIZATION.get_proxy()
+        self._tz_module = None
+        if is_module_available(TIMEZONE):
+            self._tz_module = TIMEZONE.get_proxy()
 
         self._only_existing_locales = True
 
@@ -109,28 +112,27 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
         if flags.flags.automatedInstall and not geoloc.geoloc.enabled:
             return
 
-        if not is_module_available(TIMEZONE):
+        if not self._tz_module:
             return
 
-        timezone_proxy = TIMEZONE.get_proxy()
         loc_timezones = localization.get_locale_timezones(self._l12_module.Language)
         if geoloc.geoloc.result.timezone:
             # (the geolocation module makes sure that the returned timezone is
             # either a valid timezone or None)
             log.info("using timezone determined by geolocation")
-            timezone_proxy.SetTimezone(geoloc.geoloc.result.timezone)
+            self._tz_module.SetTimezone(geoloc.geoloc.result.timezone)
             # Either this is an interactive install and timezone.seen propagates
             # from the interactive default kickstart, or this is a kickstart
             # install where the user explicitly requested geolocation to be used.
             # So set timezone.seen to True, so that the user isn't forced to
             # enter the Date & Time spoke to acknowledge the timezone detected
             # by geolocation before continuing the installation.
-            timezone_proxy.SetKickstarted(True)
-        elif loc_timezones and not timezone_proxy.Timezone:
+            self._tz_module.SetKickstarted(True)
+        elif loc_timezones and not self._tz_module.Timezone:
             # no data is provided by Geolocation, try to get timezone from the
             # current language
             log.info("geolocation not finished in time, using default timezone")
-            timezone_proxy.SetTimezone(loc_timezones[0])
+            self._tz_module.SetTimezone(loc_timezones[0])
 
     @property
     def completed(self):
