@@ -33,6 +33,7 @@ from pyanaconda.core.configuration.target import TargetType, TargetSection
 from pyanaconda.core.configuration.base import Section, Configuration, ConfigurationError
 from pyanaconda.core.configuration.profile import ProfileLoader
 from pyanaconda.core.configuration.ui import UserInterfaceSection
+from pyanaconda.core.configuration.timezone import TimezoneSection
 from pyanaconda.core.constants import ANACONDA_CONFIG_TMP, ANACONDA_CONFIG_DIR
 
 log = get_module_logger(__name__)
@@ -181,6 +182,9 @@ class AnacondaConfiguration(Configuration):
         self._license = LicenseSection(
             "License", self.get_parser()
         )
+        self._timezone = TimezoneSection(
+            "Timezone", self.get_parser()
+        )
 
     @property
     def anaconda(self):
@@ -236,6 +240,11 @@ class AnacondaConfiguration(Configuration):
     def license(self):
         """The License section."""
         return self._license
+
+    @property
+    def timezone(self):
+        """The Timezone section."""
+        return self._timezone
 
     def set_from_defaults(self):
         """Set the configuration from the default configuration files.
@@ -402,6 +411,11 @@ class AnacondaConfiguration(Configuration):
         # Set the payload flags.
         if opts.noverifyssl:
             self.payload._set_option("verify_ssl", not opts.noverifyssl)
+
+        # Set geolocation provider
+        # FIXME: This will be removed once the boot option becomes a boolean
+        if "geoloc" in opts and opts.geoloc and opts.geoloc != "0":
+            self.timezone._set_option("geolocation_provider", opts.geoloc)
 
         self.validate()
 
