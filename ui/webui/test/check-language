@@ -44,11 +44,11 @@ class TestLanguage(MachineCase):
         m.execute(l.dbus_set_language_cmd("de_DE.UTF-8", bus_address))
 
         i.open()
-
+        self.addCleanup(m.execute, l.dbus_set_language_cmd("en_US.UTF-8", bus_address))
         self.addCleanup(l.select_locale, "en_US")
 
         # Expect the backend set language to be preselected and the WebUI translated
-        b.wait_val(f"#{i.welcome_id}-menu-toggle-select-typeahead", "Deutsch (Deutschland)")
+        l.check_selected_locale("Deutsch (Deutschland)")
         b.wait_in_text("h1", "Anaconda-Installationsprogramm")
 
     def testLanguageSwitching(self):
@@ -64,32 +64,33 @@ class TestLanguage(MachineCase):
         # Expect the default language - this is en at this point - adjust the test when better guess is implemented
         b.wait_in_text("h1", "Anaconda Installer")
 
-        b.wait_val(f"#{i.welcome_id}-menu-toggle-select-typeahead", "English (United States)")
+        l.check_selected_locale("English (United States)")
 
         l.clear_language_selector()
-        b.wait_visible(f".{i.welcome_id}-menu.pf-m-invalid")
+        b.wait_visible(f".{i.steps.WELCOME}-menu.pf-m-invalid")
 
         # Check that the language menu shows all menu entries when clicking the toggle button
-        b.click(f"#{i.welcome_id}-menu-toggle")
-        b.wait_visible("#English--English-")
-        b.wait_visible("#Deutsch--German-")
+        l.open_locale_options()
+        l.locale_option_visible('en_US')
+        l.locale_option_visible('de_DE')
+        l.locale_option_visible('cs_CZ')
 
         # Check filtering on English names
-        b.set_input_text(f"#{i.welcome_id}-menu-toggle-select-typeahead", "cze")
-        b.wait_not_present("#Deutsch--German-")
-        b.wait_not_present("#English--English-")
-        b.wait_visible(f"#{i.welcome_id}-option-cs_CZ")
+        l.input_locale_select('cze')
+        l.locale_option_visible('en_US', False)
+        l.locale_option_visible('de_DE', False)
+        l.locale_option_visible('cs_CZ')
 
         # Check filtering on native names
-        b.set_input_text(f"#{i.welcome_id}-menu-toggle-select-typeahead", "Deutsch")
-        b.wait_not_present("#English--English-")
-        b.wait_not_present(f"#{i.welcome_id}-option-cs_CZ")
-        b.wait_visible("#Deutsch--German-")
-        b.click(f"#{i.welcome_id}-menu-toggle")
+        l.input_locale_select('Deutsch')
+        l.locale_option_visible('en_US', False)
+        l.locale_option_visible('de_DE')
+        l.locale_option_visible('cs_CZ', False)
+        l.clear_language_selector()
 
         # Select the 'German' language
         l.select_locale("de_DE")
-        b.wait_val(f"#{i.welcome_id}-menu-toggle-select-typeahead", "Deutsch (Deutschland)")
+        l.check_selected_locale("Deutsch (Deutschland)")
 
         # Pixel test the language step
         b.assert_pixels("#app", "language-step-basic", ignore=["#betanag-icon"])

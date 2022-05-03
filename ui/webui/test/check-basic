@@ -51,7 +51,7 @@ class TestBasic(MachineCase):
             # we at least iterate over them to check this works as expected
             i.wait_current_page(page)
             # Do not start the installation in non-destructive tests as this performs non revertible changes
-            if page != i.review_id:
+            if page != i.steps.REVIEW:
                 i.next()
 
         # Ensure that the 'actual' UI process is running/
@@ -66,7 +66,7 @@ class TestQuit(MachineCase):
         i = Installer(b, m)
 
         i.open()
-        b.click("#installation-quit-btn")
+        i.quit()
         m.wait_poweroff()
 
 if __name__ == '__main__':

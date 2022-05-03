@@ -41,7 +41,7 @@ class TestInstallationProgress(MachineCase):
             # with the pages basically empty of common elements (as those are provided by the top-level installer widget)
             # we at least iterate over them to check this works as expected
             i.wait_current_page(page)
-            if page != i.review_id:
+            if page != i.steps.REVIEW:
                 i.next()
             else:
                 i.begin_installation()

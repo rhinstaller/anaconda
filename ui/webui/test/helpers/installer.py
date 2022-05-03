@@ -14,25 +14,32 @@
 #
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program; If not, see <http://www.gnu.org/licenses/>.
+from collections import UserList
+
+
+class InstallerSteps(UserList):
+    WELCOME = "installation-language"
+    STORAGE = "installation-destination"
+    REVIEW = "installation-review"
+    PROGRESS = "installation-progress"
+    _steps_list = (WELCOME, STORAGE, REVIEW, PROGRESS)
+
+    def __init__(self, initlist=_steps_list):
+        super().__init__(initlist)
 
 
 class Installer():
-    welcome_id = "installation-language"
-    storage_id = "installation-destination"
-    review_id = "installation-review"
-    progress_id = "installation-progress"
-    steps = [welcome_id, storage_id, review_id, progress_id]
-
     def __init__(self, browser, machine):
         self.browser = browser
         self.machine = machine
+        self.steps = InstallerSteps()
 
     def begin_installation(self, should_fail=False, confirm_erase=True):
         current_step_id = self.get_current_page_id()
         self.browser.click("button:contains('Begin installation')")
 
         if confirm_erase:
-            self.browser.click(f"#{self.review_id}-disk-erase-confirm")
+            self.browser.click(f"#{self.steps.REVIEW}-disk-erase-confirm")
         else:
             self.browser.click(".pf-c-modal-box button:contains(Back)")
 
@@ -60,7 +67,7 @@ class Installer():
 
     def wait_current_page(self, page):
         self.browser.wait_js_cond(f'window.location.hash === "#/{page}"')
-        if page == self.progress_id:
+        if page == self.steps.PROGRESS:
             self.browser.wait_visible(".pf-c-progress-stepper")
         else:
             self.browser.wait_visible(f"#{page}.pf-m-current")
@@ -83,3 +90,6 @@ class Installer():
             self.browser.wait_visible("#betanag-icon")
         else:
             self.browser.wait_not_present("#betang-icon")
+
+    def quit(self):
+        self.browser.click("#installation-quit-btn")

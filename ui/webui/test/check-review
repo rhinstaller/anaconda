@@ -26,6 +26,7 @@ sys.path.append(os.path.join(os.path.dirname(TEST_DIR), "bots/machine"))
 
 from installer import Installer
 from storage import Storage  # pylint: disable=import-error
+from review import Review
 from testlib import MachineCase, nondestructive, test_main  # pylint: disable=import-error
 from machine_install import VirtInstallMachine
 
@@ -38,6 +39,7 @@ class TestReview(MachineCase):
         m = self.machine
         i = Installer(b, m)
         s = Storage(b, m)
+        r = Review(b)
 
         i.open()
         i.next()
@@ -48,11 +50,11 @@ class TestReview(MachineCase):
         i.next()
 
         # check language is shown
-        b.wait_in_text(f"#{i.review_id}-target-system-language > .pf-c-description-list__text", "English (United States)")
+        r.check_language("English (United States)")
 
         # check selected disks are shown
-        b.wait_in_text(f"#{i.review_id}-disk-label-vda", "Local standard disk")
-        b.wait_in_text(f"#{i.review_id}-disk-description-vda", "0x1af4 (vda)")
+        r.check_disk_label("vda", "Local standard disk")
+        r.check_disk_description("vda", "0x1af4 (vda)")
 
         # Pixel test the review step
         b.assert_pixels("#app", "review-step-basic", ignore=["#betanag-icon"])
@@ -68,7 +70,7 @@ class TestReview(MachineCase):
         i.open()
 
         for _ in i.steps[:-1]:
-            if i.steps[i.get_current_page_id()] != i.review_id:
+            if i.steps[i.get_current_page_id()] != i.steps.REVIEW:
                 i.next()
             else:
                 i.begin_installation(should_fail=True, confirm_erase=False)
