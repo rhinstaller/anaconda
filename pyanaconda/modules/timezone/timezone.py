@@ -26,10 +26,11 @@ from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import TIMEZONE
-from pyanaconda.modules.common.structures.timezone import TimeSourceData
+from pyanaconda.modules.common.structures.timezone import TimeSourceData, GeolocationData
 from pyanaconda.timezone import NTP_PACKAGE
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.requirement import Requirement
+from pyanaconda.modules.timezone.initialization import GeolocationTask
 from pyanaconda.modules.timezone.installation import ConfigureHardwareClockTask, \
     ConfigureNTPTask, ConfigureTimezoneTask
 from pyanaconda.modules.timezone.kickstart import TimezoneKickstartSpecification
@@ -46,6 +47,10 @@ class TimezoneService(KickstartService):
         super().__init__()
         self.timezone_changed = Signal()
         self._timezone = "America/New_York"
+
+        self._geoloc_task = None
+        self.geolocation_result_changed = Signal()
+        self._geoloc_result = GeolocationData()
 
         self.is_utc_changed = Signal()
         self._is_utc = False
@@ -216,3 +221,29 @@ class TimezoneService(KickstartService):
                 ntp_servers=self.time_sources
             )
         ]
+
+    def _set_geolocation_result(self):
+        """Set geolocation result when the task finished."""
+        self._geoloc_result = self._geoloc_task.get_result()
+        self.geolocation_result_changed.emit()
+        self._geoloc_task = None
+        log.debug("Geolocation result is set, valid=%s", not self._geoloc_result.is_empty())
+
+    def start_geolocation(self):
+        """Start geolocation, if not already started."""
+        if self._geoloc_task is not None:
+            log.info("Geoloc: already started")
+            return
+
+        self._geoloc_task = GeolocationTask()
+        self._geoloc_task.succeeded_signal.connect(self._set_geolocation_result)
+        log.info("Geoloc: starting lookup")
+        self._geoloc_task.start()
+
+    @property
+    def geolocation_result(self):
+        """Get geolocation result.
+
+        :return GeolocationData: result of the lookup, empty if not ready yet
+        """
+        return self._geoloc_result
