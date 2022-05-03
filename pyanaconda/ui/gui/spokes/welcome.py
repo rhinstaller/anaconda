@@ -34,12 +34,12 @@ from pyanaconda.ui.gui.spokes.lib.lang_locale_handler import LangLocaleHandler
 from pyanaconda import localization
 from pyanaconda.product import distributionText, isFinal, productName, productVersion
 from pyanaconda import flags
-from pyanaconda import geoloc
 from pyanaconda.core.i18n import _, C_
 from pyanaconda.core.util import ipmi_abort
 from pyanaconda.core.constants import DEFAULT_LANG, WINDOW_TITLE_TEXT
 from pyanaconda.modules.common.constants.services import TIMEZONE, LOCALIZATION
 from pyanaconda.modules.common.util import is_module_available
+from pyanaconda.modules.common.structures.timezone import GeolocationData
 from pyanaconda.anaconda_loggers import get_module_logger
 
 log = get_module_logger(__name__)
@@ -105,22 +105,25 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
 
     def _apply_geolocation_results(self):
         """Apply the geolocation results if any."""
-        # Skip timezone and keyboard default setting for kickstart installs.
-        # The user may have provided these values via kickstart and if not, we
-        # need to prompt for them. But do continue if geolocation-with-kickstart
-        # is enabled.
-        if flags.flags.automatedInstall and not geoloc.geoloc.enabled:
-            return
-
+        # Without timezone module, we have neither geolocation results nor way to apply them.
         if not self._tz_module:
             return
 
+        geoloc_result = GeolocationData.from_structure(self._tz_module.GeolocationResult)
+
+        # Skip timezone and keyboard default setting for kickstart installs.
+        # The user may have provided these values via kickstart and if not, we
+        # need to prompt for them. But do continue if geolocation-with-kickstart
+        # is enabled, which can be inferred from a non-empty result.
+        if flags.flags.automatedInstall and geoloc_result.is_empty():
+            return
+
         loc_timezones = localization.get_locale_timezones(self._l12_module.Language)
-        if geoloc.geoloc.result.timezone:
+        if geoloc_result.timezone:
             # (the geolocation module makes sure that the returned timezone is
-            # either a valid timezone or None)
+            # either a valid timezone or empty string)
             log.info("using timezone determined by geolocation")
-            self._tz_module.Timezone = geoloc.geoloc.result.timezone
+            self._tz_module.Timezone = geoloc_result.timezone
             # Either this is an interactive install and timezone.seen propagates
             # from the interactive default kickstart, or this is a kickstart
             # install where the user explicitly requested geolocation to be used.
@@ -149,12 +152,9 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
         if language and self._l12_module.LanguageKickstarted:
             return [language]
 
-        # As the lookup might still be in progress we need to make sure
-        # to wait for it to finish. If the lookup has already finished
-        # the wait function is basically a noop.
-        geoloc.geoloc.wait_for_refresh_to_finish()
-        # the lookup should be done now, get the territory
-        territory = geoloc.geoloc.result.territory_code
+        # the lookup should be done by now, so just get the territory
+        geo_result = GeolocationData.from_structure(self._tz_module.GeolocationResult)
+        territory = geo_result.territory
         return localization.get_territory_locales(territory) or [DEFAULT_LANG]
 
     def initialize(self):
