@@ -23,7 +23,7 @@ from dasbus.server.interface import dbus_interface
 
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.modules.common.constants.services import TIMEZONE
-from pyanaconda.modules.common.structures.timezone import TimeSourceData
+from pyanaconda.modules.common.structures.timezone import TimeSourceData, GeolocationData
 
 
 @dbus_interface(TIMEZONE.interface_name)
@@ -36,6 +36,7 @@ class TimezoneInterface(KickstartModuleInterface):
         self.watch_property("IsUTC", self.implementation.is_utc_changed)
         self.watch_property("NTPEnabled", self.implementation.ntp_enabled_changed)
         self.watch_property("TimeSources", self.implementation.time_sources_changed)
+        self.watch_property("GeolocationResult", self.implementation.geolocation_result_changed)
 
     @property
     def Timezone(self) -> Str:
@@ -111,4 +112,18 @@ class TimezoneInterface(KickstartModuleInterface):
         """
         self.implementation.set_time_sources(
             TimeSourceData.from_structure_list(sources)
+        )
+
+    def StartGeolocation(self):
+        """Start geolocation, if not started yet."""
+        self.implementation.start_geolocation()
+
+    @property
+    def GeolocationResult(self) -> Structure:
+        """Get geolocation result, if any.
+
+        :return DBusData: geolocation result data
+        """
+        return GeolocationData.to_structure(
+            self.implementation.geolocation_result
         )
