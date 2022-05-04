@@ -21,7 +21,7 @@ from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.core.constants import TIME_SOURCE_SERVER
 
-__all__ = ["TimeSourceData"]
+__all__ = ["TimeSourceData", "GeolocationData"]
 
 
 class TimeSourceData(DBusData):
@@ -82,3 +82,50 @@ class TimeSourceData(DBusData):
     @options.setter
     def options(self, value):
         self._options = value
+
+
+class GeolocationData(DBusData):
+    """Encapsulates the result from geolocation lookup."""
+
+    def __init__(self):
+        self._territory = ""
+        self._timezone = ""
+
+    @classmethod
+    def from_values(cls, territory="", timezone=""):
+        """
+        :param str territory: the territory code from GeoIP lookup
+        :param str timezone: the time zone from GeoIP lookup
+        """
+        instance = cls()
+        instance.territory = territory
+        instance.timezone = timezone
+        return instance
+
+    @property
+    def territory(self) -> Str:
+        """Territory code
+
+        For example: CZ, JP, UA
+        """
+        return self._territory
+
+    @territory.setter
+    def territory(self, value: Str):
+        self._territory = value
+
+    @property
+    def timezone(self) -> Str:
+        """Timezone
+
+        For example: Africa/Cairo
+        """
+        return self._timezone
+
+    @timezone.setter
+    def timezone(self, value: Str):
+        self._timezone = value
+
+    def is_empty(self):
+        """Is the structure empty?"""
+        return not bool(self._territory) and not bool(self._timezone)
