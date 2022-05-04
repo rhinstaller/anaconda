@@ -31,8 +31,8 @@ from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.core.i18n import N_, _
-from pyanaconda.payload.image import find_potential_hdiso_sources, \
-    get_hdiso_source_info, get_hdiso_source_description
+from pyanaconda.ui.lib.payload import find_potential_hdiso_sources, get_hdiso_source_info, \
+    get_hdiso_source_description
 
 from pyanaconda.core.constants import THREAD_SOURCE_WATCHER, THREAD_PAYLOAD, PAYLOAD_TYPE_DNF, \
     SOURCE_TYPE_URL, SOURCE_TYPE_NFS, SOURCE_TYPE_HMC

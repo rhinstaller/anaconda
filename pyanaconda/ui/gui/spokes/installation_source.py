@@ -32,8 +32,9 @@ from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, CN_
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
-from pyanaconda.payload.image import find_optical_install_media, find_potential_hdiso_sources, \
-    get_hdiso_source_info, get_hdiso_source_description
+from pyanaconda.payload.image import find_optical_install_media
+from pyanaconda.ui.lib.payload import find_potential_hdiso_sources, get_hdiso_source_info, \
+    get_hdiso_source_description
 from pyanaconda.core.payload import ProxyString, ProxyStringError, parse_nfs_url, create_nfs_url
 from pyanaconda.core.util import cmp_obj_attrs, id_generator
 from pyanaconda.ui.communication import hubQ
