@@ -31,6 +31,7 @@ class Language():
         self.browser = browser
         self.machine = machine
         self._step = InstallerSteps.WELCOME
+        self._bus_address = self.machine.execute("cat /run/anaconda/bus.address")
 
     def clear_language_selector(self):
         # Check that the [x] button clears the input text
@@ -59,16 +60,16 @@ class Language():
     def check_selected_locale(self, locale):
         self.browser.wait_val(f"#{self._step}-menu-toggle-select-typeahead", locale)
 
-    def dbus_set_language_cmd(self, value, bus_address):
-        return f'dbus-send --print-reply --bus="{bus_address}" \
+    def dbus_set_language(self, value):
+        self.machine.execute(f'dbus-send --print-reply --bus="{self._bus_address}" \
             --dest={LOCALIZATION_INTERFACE} \
             {LOCALIZATION_OBJECT_PATH} \
             org.freedesktop.DBus.Properties.Set \
-            string:"{LOCALIZATION_INTERFACE}" string:"Language" variant:string:"{value}"'
+            string:"{LOCALIZATION_INTERFACE}" string:"Language" variant:string:"{value}"')
 
-    def dbus_get_language_cmd(self, bus_address):
-        return f'dbus-send --print-reply --bus="{bus_address}" \
+    def dbus_get_language(self):
+        return self.machine.execute(f'dbus-send --print-reply --bus="{self._bus_address}" \
             --dest={LOCALIZATION_INTERFACE} \
             {LOCALIZATION_OBJECT_PATH} \
             org.freedesktop.DBus.Properties.Get \
-            string:"{LOCALIZATION_INTERFACE}" string:"Language"'
+            string:"{LOCALIZATION_INTERFACE}" string:"Language"')
