@@ -44,24 +44,6 @@ MIN_GUI_RAM = MIN_RAM + GUI_INSTALL_EXTRA_RAM
 SQUASHFS_EXTRA_RAM = 750
 NO_SWAP_EXTRA_RAM = 200
 
-ISO_BLOCK_SIZE = 2048
-
-
-## Determine if a file is an ISO image or not.
-# @param file The full path to a file to check.
-# @return True if ISO image, False otherwise.
-def isIsoImage(path):
-    try:
-        with open(path, "rb") as isoFile:
-            for blockNum in range(16, 100):
-                isoFile.seek(blockNum * ISO_BLOCK_SIZE + 1)
-                if isoFile.read(5) == b"CD001":
-                    return True
-    except OSError:
-        pass
-
-    return False
-
 
 def set_system_time(secs):
     """

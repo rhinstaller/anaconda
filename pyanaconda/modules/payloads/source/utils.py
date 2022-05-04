@@ -24,7 +24,6 @@ from blivet.arch import get_arch
 from blivet.util import mount
 from productmd import DiscInfo
 
-from pyanaconda import isys
 from pyanaconda.core.constants import SOURCES_DIR
 from pyanaconda.core.storage import device_matches
 from pyanaconda.core.path import join_paths
@@ -33,6 +32,8 @@ from pyanaconda.modules.payloads.payload.dnf.tree_info import TreeInfoMetadata, 
     TreeInfoMetadataError
 
 log = get_module_logger(__name__)
+
+ISO_BLOCK_SIZE = 2048
 
 
 def is_tar(url):
@@ -161,7 +162,7 @@ def _find_first_iso_image(path, mount_path="/mnt/install/cdimage"):
     for fn in files:
         what = os.path.join(path, fn)
         log.debug("Checking %s", what)
-        if not isys.isIsoImage(what):
+        if not _is_iso_image(what):
             continue
 
         log.debug("Mounting %s on %s", what, mount_path)
@@ -216,6 +217,24 @@ def _find_first_iso_image(path, mount_path="/mnt/install/cdimage"):
         return fn
 
     return None
+
+
+def _is_iso_image(path):
+    """Determine if a file is an ISO image or not.
+
+    :param path: the full path to a file to check
+    :return: True if ISO image, False otherwise
+    """
+    try:
+        with open(path, "rb") as iso_file:
+            for block_num in range(16, 100):
+                iso_file.seek(block_num * ISO_BLOCK_SIZE + 1)
+                if iso_file.read(5) == b"CD001":
+                    return True
+    except OSError:
+        pass
+
+    return False
 
 
 def _check_repodata(mount_path):
