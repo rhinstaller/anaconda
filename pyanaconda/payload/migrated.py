@@ -46,15 +46,9 @@ class MigratedDBusPayload(Payload, metaclass=ABCMeta):
         """The DBus type of the payload."""
         return None
 
-    @property
-    @abstractmethod
-    def default_source_type(self):
-        """The DBus type of the default source."""
-        return None
-
     def get_source_proxy(self):
         """Get a DBus proxy of the current source."""
-        return get_source(self.proxy, self.default_source_type)
+        return get_source(self.proxy)
 
     @property
     def source_type(self):
@@ -123,9 +117,3 @@ class ActiveDBusPayload(MigratedDBusPayload):
     def type(self):
         """Get a type of the active payload."""
         return self._payload_proxy.Type
-
-    @property
-    def default_source_type(self):
-        """Get a default source type of the active payload."""
-        source_types = self._payload_proxy.SupportedSourceTypes
-        return source_types[0] if source_types else ""

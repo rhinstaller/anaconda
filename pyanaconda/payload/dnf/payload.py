@@ -218,7 +218,7 @@ class DNFPayload(Payload):
 
         :return: a DBus proxy
         """
-        return get_source(self.proxy, conf.payload.default_source)
+        return get_source(self.proxy)
 
     @property
     def source_type(self):

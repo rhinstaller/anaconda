@@ -20,9 +20,10 @@
 import unittest
 import pytest
 
+from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_IMAGE, SOURCE_TYPE_LIVE_IMAGE
 from pyanaconda.modules.common.errors.payload import IncompatibleSourceError
 from pyanaconda.modules.payloads.payloads import PayloadsService
-from pyanaconda.modules.payloads.constants import PayloadType, SourceType
+from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 from pyanaconda.modules.payloads.payload.live_image.live_image import LiveImageModule
 from pyanaconda.modules.payloads.payload.live_image.live_image_interface import \
@@ -32,7 +33,7 @@ from pyanaconda.modules.payloads.source.live_image.installation import InstallLi
 from pyanaconda.modules.payloads.source.live_tar.installation import InstallLiveTarTask
 
 from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
-    PayloadKickstartSharedTest, PayloadSharedTest
+    PayloadKickstartSharedTest
 
 
 class LiveImageKSTestCase(unittest.TestCase):
@@ -121,14 +122,19 @@ class LiveImageKSTestCase(unittest.TestCase):
 
 
 class LiveImageInterfaceTestCase(unittest.TestCase):
+    """Test the DBus interface of the Live Image module."""
 
     def setUp(self):
         self.module = LiveImageModule()
         self.interface = LiveImageInterface(self.module)
-        self.shared_tests = PayloadSharedTest(self.module, self.interface)
 
     def test_type(self):
-        self.shared_tests.check_type(PayloadType.LIVE_IMAGE)
+        """Test the Type property."""
+        assert self.interface.Type == PAYLOAD_TYPE_LIVE_IMAGE
+
+    def test_default_source_type(self):
+        """Test the DefaultSourceType property."""
+        assert self.interface.DefaultSourceType == SOURCE_TYPE_LIVE_IMAGE
 
 
 class LiveImageModuleTestCase(unittest.TestCase):

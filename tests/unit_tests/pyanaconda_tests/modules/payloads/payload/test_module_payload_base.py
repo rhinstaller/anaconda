@@ -27,7 +27,7 @@ from unittest.mock import patch
 from pyanaconda.modules.payloads.base.initialization import SetUpSourcesTask, TearDownSourcesTask
 from pyanaconda.modules.payloads.source.factory import SourceFactory
 from pyanaconda.modules.common.errors.payload import IncompatibleSourceError, SourceSetupError
-from pyanaconda.modules.payloads.constants import PayloadType, SourceType, SourceState
+from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
 
@@ -44,9 +44,6 @@ class PayloadBaseInterfaceTestCase(unittest.TestCase):
 
         self.shared_tests = PayloadSharedTest(payload=self.module,
                                               payload_intf=self.interface)
-
-    def test_type(self):
-        self.shared_tests.check_type(PayloadType.DNF)
 
     @patch.object(DNFModule, "supported_source_types", [SourceType.URL])
     def test_supported_sources(self):

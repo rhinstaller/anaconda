@@ -20,8 +20,7 @@
 from dasbus.client.proxy import get_object_path
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.constants import PAYLOAD_TYPE_RPM_OSTREE, SOURCE_TYPE_RPM_OSTREE, \
-    SOURCE_TYPE_FLATPAK
+from pyanaconda.core.constants import PAYLOAD_TYPE_RPM_OSTREE, SOURCE_TYPE_FLATPAK
 from pyanaconda.payload.migrated import MigratedDBusPayload
 from pyanaconda.ui.lib.payload import create_source
 
@@ -48,8 +47,3 @@ class RPMOSTreePayload(MigratedDBusPayload):
     def type(self):
         """The DBus type of the payload."""
         return PAYLOAD_TYPE_RPM_OSTREE
-
-    @property
-    def default_source_type(self):
-        """The DBus type of the default source."""
-        return SOURCE_TYPE_RPM_OSTREE

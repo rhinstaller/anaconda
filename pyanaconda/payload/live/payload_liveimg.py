@@ -17,7 +17,7 @@
 #
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_IMAGE, SOURCE_TYPE_LIVE_IMAGE
+from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_IMAGE
 from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
 from pyanaconda.payload.migrated import MigratedDBusPayload
 
@@ -53,8 +53,3 @@ class LiveImagePayload(MigratedDBusPayload):
     def type(self):
         """The DBus type of the payload."""
         return PAYLOAD_TYPE_LIVE_IMAGE
-
-    @property
-    def default_source_type(self):
-        """The DBus type of the default source."""
-        return SOURCE_TYPE_LIVE_IMAGE

@@ -17,9 +17,10 @@
 #
 import unittest
 
-from pyanaconda.core.constants import SOURCE_TYPE_RPM_OSTREE, SOURCE_TYPE_FLATPAK
+from pyanaconda.core.constants import SOURCE_TYPE_RPM_OSTREE, SOURCE_TYPE_FLATPAK, \
+    PAYLOAD_TYPE_RPM_OSTREE
 from pyanaconda.modules.payloads.base.initialization import TearDownSourcesTask
-from pyanaconda.modules.payloads.constants import PayloadType, SourceType
+from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_installation import InstallFlatpaksTask
 from pyanaconda.modules.payloads.payload.rpm_ostree.installation import InitOSTreeFsAndRepoTask, \
     ChangeOSTreeRemoteTask, PullRemoteAndDeleteTask, DeployOSTreeTask, SetSystemRootTask, \
@@ -32,7 +33,7 @@ from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 from pyanaconda.modules.payloads.source.factory import SourceFactory
 
 from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
-    PayloadSharedTest, PayloadKickstartSharedTest
+    PayloadKickstartSharedTest
 
 
 class RPMOSTreeInterfaceTestCase(unittest.TestCase):
@@ -42,14 +43,13 @@ class RPMOSTreeInterfaceTestCase(unittest.TestCase):
         self.module = RPMOSTreeModule()
         self.interface = RPMOSTreeInterface(self.module)
 
-        self.shared_tests = PayloadSharedTest(
-            payload=self.module,
-            payload_intf=self.interface
-        )
-
     def test_type(self):
         """Test the Type property."""
-        self.shared_tests.check_type(PayloadType.RPM_OSTREE)
+        assert self.interface.Type == PAYLOAD_TYPE_RPM_OSTREE
+
+    def test_default_source_type(self):
+        """Test the DefaultSourceType property."""
+        assert self.interface.DefaultSourceType == SOURCE_TYPE_RPM_OSTREE
 
     def test_supported_sources(self):
         """Test the SupportedSourceTypes property."""
