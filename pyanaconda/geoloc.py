@@ -206,7 +206,7 @@ class Geolocation(object):
         """Refresh information about current location."""
         self._location_info.refresh()
 
-    def wait_for_refresh_to_finish(self, timeout=constants.GEOLOC_TIMEOUT):
+    def wait_for_refresh_to_finish(self, timeout=constants.GEOLOC_GUI_TIMEOUT):
         """Wait for the Geolocation lookup to finish.
 
         If there is no lookup in progress (no Geolocation refresh thread

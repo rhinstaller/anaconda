@@ -80,6 +80,9 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
         self._origStrings = {}
 
         self._l12_module = LOCALIZATION.get_proxy()
+        self._tz_module = None
+        if is_module_available(TIMEZONE):
+            self._tz_module = TIMEZONE.get_proxy()
 
         self._only_existing_locales = True
 
@@ -109,28 +112,27 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
         if flags.flags.automatedInstall and not geoloc.geoloc.enabled:
             return
 
-        if not is_module_available(TIMEZONE):
+        if not self._tz_module:
             return
 
-        timezone_proxy = TIMEZONE.get_proxy()
         loc_timezones = localization.get_locale_timezones(self._l12_module.Language)
         if geoloc.geoloc.result.timezone:
             # (the geolocation module makes sure that the returned timezone is
             # either a valid timezone or None)
             log.info("using timezone determined by geolocation")
-            timezone_proxy.SetTimezone(geoloc.geoloc.result.timezone)
+            self._tz_module.SetTimezone(geoloc.geoloc.result.timezone)
             # Either this is an interactive install and timezone.seen propagates
             # from the interactive default kickstart, or this is a kickstart
             # install where the user explicitly requested geolocation to be used.
             # So set timezone.seen to True, so that the user isn't forced to
             # enter the Date & Time spoke to acknowledge the timezone detected
             # by geolocation before continuing the installation.
-            timezone_proxy.SetKickstarted(True)
-        elif loc_timezones and not timezone_proxy.Timezone:
+            self._tz_module.SetKickstarted(True)
+        elif loc_timezones and not self._tz_module.Timezone:
             # no data is provided by Geolocation, try to get timezone from the
             # current language
             log.info("geolocation not finished in time, using default timezone")
-            timezone_proxy.SetTimezone(loc_timezones[0])
+            self._tz_module.SetTimezone(loc_timezones[0])
 
     @property
     def completed(self):
@@ -139,6 +141,21 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
 
     def _row_is_separator(self, model, itr, *args):
         return model[itr][3]
+
+    def _get_starting_locales(self):
+        """Get the starting locale(s) - kickstart, geoloc, or default"""
+        # boot options and kickstart have priority over geoip
+        language = self._l12_module.Language
+        if language and self._l12_module.LanguageKickstarted:
+            return [language]
+
+        # As the lookup might still be in progress we need to make sure
+        # to wait for it to finish. If the lookup has already finished
+        # the wait function is basically a noop.
+        geoloc.geoloc.wait_for_refresh_to_finish()
+        # the lookup should be done now, get the territory
+        territory = geoloc.geoloc.result.territory_code
+        return localization.get_territory_locales(territory) or [DEFAULT_LANG]
 
     def initialize(self):
         self.initialize_start()
@@ -160,21 +177,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
 
         # We can use the territory from geolocation here
         # to preselect the translation, when it's available.
-        #
-        # But as the lookup might still be in progress we need to make sure
-        # to wait for it to finish. If the lookup has already finished
-        # the wait function is basically a noop.
-        geoloc.geoloc.wait_for_refresh_to_finish()
-
-        # the lookup should be done now, get the teorritory
-        territory = geoloc.geoloc.result.territory_code
-
-        # bootopts and kickstart have priority over geoip
-        language = self._l12_module.Language
-        if language and self._l12_module.LanguageKickstarted:
-            locales = [language]
-        else:
-            locales = localization.get_territory_locales(territory) or [DEFAULT_LANG]
+        locales = self._get_starting_locales()
 
         # get the data models
         filter_store = self._languageStoreFilter
