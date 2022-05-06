@@ -130,7 +130,7 @@ class SetUpMountTaskTestCase(unittest.TestCase):
 
 class UtilitiesTestCase(unittest.TestCase):
 
-    @patch("pyanaconda.modules.payloads.source.utils.find_first_iso_image",
+    @patch("pyanaconda.modules.payloads.source.utils._find_first_iso_image",
            return_value="skynet.iso")
     @patch("pyanaconda.modules.payloads.source.utils.mount")
     def test_find_and_mount_iso_image(self,
@@ -152,7 +152,7 @@ class UtilitiesTestCase(unittest.TestCase):
 
         assert iso_name == "skynet.iso"
 
-    @patch("pyanaconda.modules.payloads.source.utils.find_first_iso_image",
+    @patch("pyanaconda.modules.payloads.source.utils._find_first_iso_image",
            return_value="")
     def test_find_and_mount_iso_image_fail_find(self,
                                                 find_first_iso_image_mock,):
@@ -166,7 +166,7 @@ class UtilitiesTestCase(unittest.TestCase):
 
         assert iso_name == ""
 
-    @patch("pyanaconda.modules.payloads.source.utils.find_first_iso_image",
+    @patch("pyanaconda.modules.payloads.source.utils._find_first_iso_image",
            return_value="skynet.iso")
     @patch("pyanaconda.modules.payloads.source.utils.mount",
            side_effect=OSError)

@@ -19,127 +19,15 @@
 
 import os
 import os.path
-import stat
 import tempfile
 
-import blivet.util
-import blivet.arch
-
-from blivet.size import Size
-
-from pyanaconda import isys
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.storage import MountFilesystemError
-from pyanaconda.modules.common.structures.storage import DeviceData, DeviceFormatData
 from pyanaconda.payload import utils as payload_utils
-from pyanaconda.modules.payloads.payload.dnf.tree_info import TreeInfoMetadata, \
-    TreeInfoMetadataError
-
-from productmd.discinfo import DiscInfo
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
-
-_arch = blivet.arch.get_arch()
-
-
-def find_first_iso_image(path, mount_path="/mnt/install/cdimage"):
-    """Find the first iso image in path.
-
-    :param str path: path to the directory with iso image(s); this also supports pointing to
-        a specific .iso image
-    :param str mount_path: path for mounting the ISO when checking it is valid
-
-    FIXME once payloads are modularized:
-      - this should move somewhere else
-      - mount_path should lose the legacy default
-
-    :return: basename of the image - file name without path
-    :rtype: str or None
-    """
-    try:
-        os.stat(path)
-    except OSError:
-        return None
-
-    arch = _arch
-    discinfo_path = os.path.join(mount_path, ".discinfo")
-
-    if os.path.isfile(path) and path.endswith(".iso"):
-        files = [os.path.basename(path)]
-        path = os.path.dirname(path)
-    else:
-        files = os.listdir(path)
-
-    for fn in files:
-        what = os.path.join(path, fn)
-        log.debug("Checking %s", what)
-        if not isys.isIsoImage(what):
-            continue
-
-        log.debug("Mounting %s on %s", what, mount_path)
-        try:
-            blivet.util.mount(what, mount_path, fstype="iso9660", options="ro")
-        except OSError:
-            continue
-
-        if not os.access(discinfo_path, os.R_OK):
-            blivet.util.umount(mount_path)
-            continue
-
-        log.debug("Reading .discinfo")
-        disc_info = DiscInfo()
-
-        # TODO replace next 2 blocks with:
-        #   pyanaconda.modules.payloads.source.utils.is_valid_install_disk
-        try:
-            disc_info.load(discinfo_path)
-            disc_arch = disc_info.arch
-        except Exception as ex:  # pylint: disable=broad-except
-            log.warning(".discinfo file can't be loaded: %s", ex)
-            continue
-
-        log.debug("discArch = %s", disc_arch)
-        if disc_arch != arch:
-            log.warning("Architectures mismatch in find_first_iso_image: %s != %s",
-                        disc_arch, arch)
-            blivet.util.umount(mount_path)
-            continue
-
-        # If there's no repodata, there's no point in trying to
-        # install from it.
-        if not _check_repodata(mount_path):
-            log.warning("%s doesn't have a valid repodata, skipping", what)
-            blivet.util.umount(mount_path)
-            continue
-
-        # warn user if images appears to be wrong size
-        if os.stat(what)[stat.ST_SIZE] % 2048:
-            log.warning(
-                "The ISO image %s has a size which is not "
-                "a multiple of 2048 bytes. This may mean it "
-                "was corrupted on transfer to this computer.",
-                what
-            )
-            blivet.util.umount(mount_path)
-            continue
-
-        log.info("Found disc at %s", fn)
-        blivet.util.umount(mount_path)
-        return fn
-
-    return None
-
-
-def _check_repodata(mount_path):
-    try:
-        tree_info_metadata = TreeInfoMetadata()
-        tree_info_metadata.load_file(mount_path)
-        return tree_info_metadata.verify_image_base_repo()
-    except TreeInfoMetadataError as e:
-        log.debug("Can't read install tree metadata: %s", str(e))
-        return False
 
 
 def find_optical_install_media():
@@ -174,52 +62,3 @@ def find_optical_install_media():
         return dev
 
     return None
-
-
-def find_potential_hdiso_sources():
-    """Find potential HDISO sources.
-
-    Return a generator yielding Device instances that may have HDISO install
-    media somewhere. Candidate devices are simply any that we can mount.
-
-    :return: a list of device names
-    """
-    device_tree = STORAGE.get_proxy(DEVICE_TREE)
-    return device_tree.FindMountablePartitions()
-
-
-def get_hdiso_source_info(device_tree, device_name):
-    """Get info about a potential HDISO source.
-
-    :param device_tree: a proxy of a device tree
-    :param device_name: a device name
-    :return: a dictionary with a device info
-    """
-    device_data = DeviceData.from_structure(
-        device_tree.GetDeviceData(device_name)
-    )
-
-    format_data = DeviceFormatData.from_structure(
-        device_tree.GetFormatData(device_name)
-    )
-
-    disk_data = DeviceData.from_structure(
-        device_tree.GetDeviceData(device_data.parents[0])
-    )
-
-    return {
-        "model": disk_data.attrs.get("model", "").replace("_", " "),
-        "path": device_data.path,
-        "size": Size(device_data.size),
-        "format": format_data.description,
-        "label": format_data.attrs.get("label") or format_data.attrs.get("uuid") or ""
-    }
-
-
-def get_hdiso_source_description(device_info):
-    """Get a description of a potential HDISO source.
-
-    :param device_info: a dictionary with a device info
-    :return: a string with a device description
-    """
-    return "{model} {path} ({size}) {format} {label}".format(**device_info)
