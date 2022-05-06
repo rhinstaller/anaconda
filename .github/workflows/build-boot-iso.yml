@@ -53,7 +53,7 @@ jobs:
     env:
        STATUS_NAME: boot-iso
        CONTAINER_TAG: 'lorax'
-       ISO_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-iso-creator'
+       ISO_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-iso-creator-webui'
     steps:
       # we post statuses manually as this does not run from a pull_request event
       # https://developer.github.com/v3/repos/statuses/#create-a-status
@@ -73,10 +73,10 @@ jobs:
           ref: ${{ needs.pr-info.outputs.sha }}
           fetch-depth: 0
 
-      - name: Build anaconda-iso-creator container image
+      - name: Build anaconda-iso-creator-webui container image
         run: |
           # set static tag to avoid complications when looking what tag is used
-          sudo make -f ./Makefile.am anaconda-iso-creator-build CI_TAG=$CONTAINER_TAG
+          sudo make -f ./Makefile.am anaconda-iso-creator-build CI_TAG=$CONTAINER_TAG ISO_CREATOR_NAME=$ISO_BUILD_CONTAINER_NAME
 
       - name: Build anaconda-rpm container (for RPM build)
         run: |

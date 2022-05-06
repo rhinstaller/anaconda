@@ -1,0 +1,45 @@
+#!/bin/bash
+#
+# Build a boot.iso by lorax. The boot.iso will be stored in the `/images/` directory.
+# We have to build the RPMs files of Anaconda first and then add them as volume
+# mount to /anaconda-rpms to the container (could be RO mount).
+#
+#   make -f ./Makefile.am container-rpms-scratch
+#
+# Input directory:
+# /anaconda-rpms/ (Anaconda RPM files for the build)
+#
+# Output directory:
+# /images (Where the boot.iso will be stored)
+#
+
+set -eux
+
+INPUT_RPMS=/anaconda-rpms/
+REPO_DIR=/tmp/anaconda-rpms/
+
+# create repo from provided Anaconda RPMs
+mkdir -p $REPO_DIR
+cp -a $INPUT_RPMS/* $REPO_DIR || echo "RPM files can't be copied!"  # We could just do the build with official repositories only
+createrepo_c $REPO_DIR
+
+# clone Lorax fork with modified templates, which manipulate BIOS & EFI boot options to boot into the Web UI
+git clone --branch master-webui_boot_options https://github.com/M4rtinK/lorax/ /tmp/lorax
+
+# build boot.iso with our rpms
+. /etc/os-release
+# The download.fedoraproject.org automatic redirector often selects download-ib01.f.o. for GitHub's cloud, which is too unreliable; use a mirror
+# The --volid argument can cause different network interface naming: https://github.com/rhinstaller/kickstart-tests/issues/448
+lorax -p Fedora -v "$VERSION_ID" -r "$VERSION_ID" \
+      --volid Fedora-S-dvd-x86_64-rawh \
+      -s http://dl.fedoraproject.org/pub/fedora/linux/development/rawhide/Everything/x86_64/os/ \
+      -s file://$REPO_DIR/ \
+      -s https://fedorapeople.org/groups/anaconda/repos/webui_payload_repo/ \
+      -i anaconda-webui \
+      -i webui_payload \
+      --sharedir /tmp/lorax/share/
+      --rootfs-size 5 \
+      "$@" \
+      output || cp *.log /images/
+
+cp output/images/boot.iso /images/
