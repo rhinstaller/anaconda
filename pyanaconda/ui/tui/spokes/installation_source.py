@@ -225,7 +225,7 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
         # clear them at this point
         self._error = False
 
-        payloadMgr.restart_thread(self.payload, checkmount=False)
+        payloadMgr.restart_thread(self.payload, try_media=False)
 
 
 class SpecifyRepoSpoke(NormalTUISpoke, SourceSwitchHandler):

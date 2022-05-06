@@ -509,7 +509,7 @@ class DNFPayload(Payload):
         """
         return self.source_type == conf.payload.default_source
 
-    def update_base_repo(self, fallback=True, checkmount=True):
+    def update_base_repo(self, fallback=True, try_media=True):
         """Update the base repository from the DBus source."""
         log.debug("Tearing down sources")
         tear_down_sources(self.proxy)
@@ -532,7 +532,7 @@ class DNFPayload(Payload):
 
         # Change the default source to CDROM if there is a valid install media.
         # FIXME: Set up the default source earlier.
-        if checkmount and self._is_source_default() and find_optical_install_media():
+        if try_media and self._is_source_default() and find_optical_install_media():
             source_type = SOURCE_TYPE_CDROM
             source_proxy = create_source(source_type)
             set_source(self.proxy, source_proxy)

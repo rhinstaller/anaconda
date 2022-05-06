@@ -112,7 +112,7 @@ class PayloadManager(object):
             elif event_id <= self._thread_state:
                 func()
 
-    def restart_thread(self, payload, fallback=False, checkmount=True, only_on_change=False):
+    def restart_thread(self, payload, fallback=False, try_media=True, only_on_change=False):
         """Start or restart the payload thread.
 
         This method starts a new thread to restart the payload thread, so
@@ -122,7 +122,7 @@ class PayloadManager(object):
 
         :param payload.Payload payload: The payload instance
         :param bool fallback: Whether to fall back to the default repo in case of error
-        :param bool checkmount: Whether to check for valid mounted media
+        :param bool try_media: Whether to check for valid mounted media
         :param bool only_on_change: Restart thread only if existing repositories changed.
             This won't restart thread even when a new repository was added!!
         """
@@ -136,7 +136,7 @@ class PayloadManager(object):
         threadMgr.add(AnacondaThread(
             name=THREAD_PAYLOAD_RESTART,
             target=self._restart_thread,
-            args=(payload, fallback, checkmount, only_on_change)
+            args=(payload, fallback, try_media, only_on_change)
         ))
 
     @property
@@ -144,7 +144,7 @@ class PayloadManager(object):
         """Is the payload thread running right now?"""
         return threadMgr.exists(THREAD_PAYLOAD_RESTART) or threadMgr.exists(THREAD_PAYLOAD)
 
-    def _restart_thread(self, payload, fallback, checkmount, only_on_change):
+    def _restart_thread(self, payload, fallback, try_media, only_on_change):
         # Wait for the old thread to finish
         threadMgr.wait(THREAD_PAYLOAD)
 
@@ -152,7 +152,7 @@ class PayloadManager(object):
         threadMgr.add(AnacondaThread(
             name=THREAD_PAYLOAD,
             target=self._run_thread,
-            args=(payload, fallback, checkmount, only_on_change)
+            args=(payload, fallback, try_media, only_on_change)
         ))
 
     def _set_state(self, event_id):
@@ -167,7 +167,7 @@ class PayloadManager(object):
             for func in self._event_listeners[event_id]:
                 func()
 
-    def _run_thread(self, payload, fallback, checkmount, only_on_change):
+    def _run_thread(self, payload, fallback, try_media, only_on_change):
         # This is the thread entry
         # Set the initial state
         self._error = None
@@ -220,7 +220,7 @@ class PayloadManager(object):
         from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManagerError
 
         try:
-            payload.update_base_repo(fallback=fallback, checkmount=checkmount)
+            payload.update_base_repo(fallback=fallback, try_media=try_media)
         except (OSError, DBusError, DNFManagerError) as e:
             log.error("Payload error: %s", e)
             self._error = self.ERROR_SETUP

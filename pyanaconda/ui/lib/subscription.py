@@ -88,7 +88,7 @@ def _do_payload_restart(payload):
     # restart payload
     payloadMgr.restart_thread(payload,
                               fallback=False,
-                              checkmount=False,
+                              try_media=False,
                               only_on_change=False)
 
 
