@@ -16,9 +16,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import dnf.exceptions
-import dnf.repo
-
 from pyanaconda.core.path import join_paths
 from pyanaconda.modules.common.errors.installation import NonCriticalInstallationError, \
     InstallationError
@@ -44,7 +41,6 @@ from pyanaconda.modules.payloads.source.harddrive.initialization import SetUpHar
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from pyanaconda.modules.payloads.source.nfs.initialization import SetUpNFSSourceTask
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
-
 from pyanaconda.anaconda_loggers import get_packaging_logger
 from pyanaconda.core import constants
 from pyanaconda.core.configuration.anaconda import conf
@@ -488,17 +484,6 @@ class DNFPayload(Payload):
         # Clean up the download location.
         task = CleanUpDownloadLocationTask(self._dnf_manager)
         task.run()
-
-    def is_repo_enabled(self, repo_id):
-        """Return True if repo is enabled."""
-        try:
-            return self._base.repos[repo_id].enabled
-        except (dnf.exceptions.RepoError, KeyError):
-            repo = self.get_addon_repo(repo_id)
-            if repo:
-                return repo.enabled
-            else:
-                return False
 
     def _is_source_default(self):
         """Report if the current source type is the default source type.

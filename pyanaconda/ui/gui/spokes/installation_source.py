@@ -1189,7 +1189,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
                 ks_repo.orig_name = repo.name
                 # Add addon repository id for identification
                 ks_repo.repo_id = next(self._repo_counter)
-                self._repo_store.append([self.payload.is_repo_enabled(repo.name),
+                self._repo_store.append([repo.enabled,
                                         ks_repo.name,
                                         ks_repo])
 
