@@ -88,8 +88,8 @@ def _do_payload_restart(payload):
     # restart payload
     payloadMgr.restart_thread(payload,
                               fallback=False,
-                              checkmount=False,
-                              onlyOnChange=False)
+                              try_media=False,
+                              only_on_change=False)
 
 
 def check_cdn_is_installation_source(payload):

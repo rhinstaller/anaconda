@@ -1515,17 +1515,28 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         if self.networking_changed:
             if self.payload and self.payload.needs_network:
                 if ANACONDA_ENVIRON in anaconda_flags.environs:
-                    log.debug("network spoke (apply), network configuration changed - restarting payload thread")
+                    log.debug(
+                        "network spoke (apply), network configuration changed - "
+                        "restarting payload thread"
+                    )
                     from pyanaconda.payload.manager import payloadMgr
-                    payloadMgr.restart_thread(self.payload, fallback=not anaconda_flags.automatedInstall, onlyOnChange=True)
+                    payloadMgr.restart_thread(
+                        payload=self.payload,
+                        fallback=not anaconda_flags.automatedInstall,
+                        only_on_change=True
+                    )
                 else:
-                    log.debug("network spoke (apply), network configuration changed - "
-                              "skipping restart of payload thread, outside of Anaconda environment")
+                    log.debug(
+                        "network spoke (apply), network configuration changed - "
+                        "skipping restart of payload thread, outside of Anaconda environment"
+                    )
             else:
-                log.debug("network spoke (apply), network configuration changed - "
-                          "skipping restart of payload thread, payload does not need network")
-        self.networking_changed = False
+                log.debug(
+                    "network spoke (apply), network configuration changed - "
+                    "skipping restart of payload thread, payload does not need network"
+                )
 
+        self.networking_changed = False
         self.network_control_box.kill_nmce(msg="leaving network spoke")
 
     @property
