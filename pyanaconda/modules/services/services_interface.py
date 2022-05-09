@@ -117,6 +117,23 @@ class ServicesInterface(KickstartModuleInterface):
         """Set up the installed system on the first boot."""
         return self.implementation.setup_on_boot.value
 
+    @emits_properties_changed
+    def SetSetupOnBoot(self, value: Int):
+        """Set up the installed system on the first boot.
+
+        Determine whether the Setup Agent starts the first
+        time the system is booted.
+
+        Allowed values:
+            -1 Default.
+             0 Disable.
+             1 Enable.
+             2 Enable in the reconfiguration mode.
+
+        :param value: a number of the action
+        """
+        self.implementation.set_setup_on_boot(SetupOnBootAction(value))
+
     @SetupOnBoot.setter
     @emits_properties_changed
     def SetupOnBoot(self, value: Int):
