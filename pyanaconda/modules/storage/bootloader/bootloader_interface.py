@@ -171,6 +171,18 @@ class BootloaderInterface(KickstartModuleInterfaceTemplate):
         """List of extra bootloader arguments."""
         return self.implementation.extra_arguments
 
+    @emits_properties_changed
+    def SetExtraArguments(self, args: List[Str]):
+        """Set the extra bootloader arguments.
+
+        Specifies kernel parameters. The default set of bootloader
+        arguments is “rhgb quiet”. You will get this set of arguments
+        regardless of what extra parameters you set.
+
+        :param args: list of arguments
+        """
+        self.implementation.set_extra_arguments(args)
+
     @ExtraArguments.setter
     @emits_properties_changed
     def ExtraArguments(self, args: List[Str]):
