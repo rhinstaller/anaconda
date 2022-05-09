@@ -17,6 +17,7 @@ updates:
       prefix: "infra:"
     labels:
       - "infrastructure"
+      - "manual testing required"
 
   # update our npm development dependencies monthly
   - package-ecosystem: "npm"
@@ -25,6 +26,8 @@ updates:
       interval: "monthly"
     allow:
       - dependency-type: "development"
+    labels:
+      - "sanity check required"
 
   # update our npm production dependencies weekly
   - package-ecosystem: "npm"
@@ -33,3 +36,5 @@ updates:
       interval: "weekly"
     allow:
       - dependency-type: "production"
+     labels:
+      - "sanity check required"
