@@ -154,13 +154,24 @@ class DNFManager(object):
         base.conf.substitutions.update_from_etc("/")
 
     def reset_base(self):
-        """Reset the DNF base."""
+        """Reset the DNF base.
+
+        * Close the current DNF base if any.
+        * Reset all attributes of the DNF manager.
+        * The new DNF base will be created on demand.
+        """
+        base = self.__base
         self.__base = None
+
+        if base is not None:
+            base.close()
+
         self._ignore_missing_packages = False
         self._ignore_broken_packages = False
         self._download_location = None
         self._md_hashes = {}
         self._enabled_system_repositories = []
+
         log.debug("The DNF base has been reset.")
 
     def configure_base(self, data: PackagesConfigurationData):

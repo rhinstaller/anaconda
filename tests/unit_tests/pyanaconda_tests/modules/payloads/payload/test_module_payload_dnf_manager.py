@@ -79,6 +79,9 @@ class DNFManagerTestCase(unittest.TestCase):
         assert self.dnf_manager._base == base_2
         assert self.dnf_manager._base != base_1
 
+        assert base_1._closed
+        assert not base_2._closed
+
     def test_clear_cache(self):
         """Test the clear_cache method."""
         self.dnf_manager.clear_cache()

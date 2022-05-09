@@ -35,6 +35,7 @@ from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTa
     WriteRepositoriesTask
 from pyanaconda.modules.payloads.payload.dnf.repositories import \
     generate_driver_disk_repositories, generate_treeinfo_repositories
+from pyanaconda.modules.payloads.payload.dnf.tear_down import ResetDNFManagerTask
 from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_version_list, \
     calculate_required_space
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, DNFManagerError, \
@@ -488,8 +489,6 @@ class DNFPayload(Payload):
         task = CleanUpDownloadLocationTask(self._dnf_manager)
         task.run()
 
-        # Don't close the mother base here, because we still need it.
-
     def is_repo_enabled(self, repo_id):
         """Return True if repo is enabled."""
         try:
@@ -787,6 +786,8 @@ class DNFPayload(Payload):
 
     def post_install(self):
         """Perform post-installation tasks."""
+        super().post_install()
+
         # Write selected kickstart repos to target system
         repositories = list(map(
             convert_ks_repo_to_repo_data,
@@ -800,10 +801,6 @@ class DNFPayload(Payload):
         )
         task.run()
 
-        # We don't need the mother base anymore. Close it.
-        self._base.close()
-        super().post_install()
-
         # rpm needs importing installed certificates manually, see rhbz#748320 and rhbz#185800
         task = ImportRPMKeysTask(
             sysroot=conf.target.system_root,
@@ -815,6 +812,12 @@ class DNFPayload(Payload):
         task = UpdateDNFConfigurationTask(
             sysroot=conf.target.system_root,
             data=self.get_packages_configuration()
+        )
+        task.run()
+
+        # Close the DNF base.
+        task = ResetDNFManagerTask(
+            dnf_manager=self.dnf_manager
         )
         task.run()
 
