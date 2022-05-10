@@ -245,7 +245,7 @@ def initialize_network():
         bootopts_hostname = hostname_from_cmdline(kernel_arguments)
         if bootopts_hostname:
             log.debug("Updating host name from boot options: %s", bootopts_hostname)
-            network_proxy.SetHostname(bootopts_hostname)
+            network_proxy.Hostname = bootopts_hostname
 
     # Create device configuration tracking in the module.
     # It will be used to generate kickstart from persistent network configuration
@@ -315,9 +315,8 @@ def _set_ntp_servers_from_dhcp():
             server.options = ["iburst"]
             servers.append(server)
 
-        timezone_proxy.SetTimeSources(
+        timezone_proxy.TimeSources = \
             TimeSourceData.to_structure_list(servers)
-        )
 
 
 def wait_for_connected_NM(timeout=constants.NETWORK_CONNECTION_TIMEOUT, only_connecting=False):

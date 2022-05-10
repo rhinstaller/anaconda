@@ -120,19 +120,19 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
             # (the geolocation module makes sure that the returned timezone is
             # either a valid timezone or None)
             log.info("using timezone determined by geolocation")
-            self._tz_module.SetTimezone(geoloc.geoloc.result.timezone)
+            self._tz_module.Timezone = geoloc.geoloc.result.timezone
             # Either this is an interactive install and timezone.seen propagates
             # from the interactive default kickstart, or this is a kickstart
             # install where the user explicitly requested geolocation to be used.
             # So set timezone.seen to True, so that the user isn't forced to
             # enter the Date & Time spoke to acknowledge the timezone detected
             # by geolocation before continuing the installation.
-            self._tz_module.SetKickstarted(True)
+            self._tz_module.Kickstarted = True
         elif loc_timezones and not self._tz_module.Timezone:
             # no data is provided by Geolocation, try to get timezone from the
             # current language
             log.info("geolocation not finished in time, using default timezone")
-            self._tz_module.SetTimezone(loc_timezones[0])
+            self._tz_module.Timezone = loc_timezones[0]
 
     @property
     def completed(self):

@@ -201,7 +201,7 @@ def set_x_keyboard_defaults(localization_proxy, xkl_wrapper):
     for layout in x_layouts:
         if xkl_wrapper.is_valid_layout(layout):
             valid_layouts.append(layout)
-    localization_proxy.SetXLayouts(valid_layouts)
+    localization_proxy.XLayouts = valid_layouts
 
     if valid_layouts:
         # do not add layouts if there are any specified in the kickstart
@@ -223,7 +223,8 @@ def set_x_keyboard_defaults(localization_proxy, xkl_wrapper):
         log.error("Failed to get layout for chosen locale '%s'", locale)
         new_layouts = [DEFAULT_KEYBOARD]
 
-    localization_proxy.SetXLayouts(new_layouts)
+    localization_proxy.XLayouts = new_layouts
+
     if can_configure_keyboard():
         xkl_wrapper.replace_layouts(new_layouts)
 
@@ -231,11 +232,11 @@ def set_x_keyboard_defaults(localization_proxy, xkl_wrapper):
     # setting that explicitly for non-ascii layouts where we prepend "us"
     # refer: https://bugzilla.redhat.com/show_bug.cgi?id=1912609
     if len(new_layouts) >= 2 and not langtable.supports_ascii(new_layouts[1]):
-        localization_proxy.SetVirtualConsoleKeymap(new_layouts[1])
+        localization_proxy.VirtualConsoleKeymap = new_layouts[1]
 
     if len(new_layouts) >= 2 and not localization_proxy.LayoutSwitchOptions:
         # initialize layout switching if needed
-        localization_proxy.SetLayoutSwitchOptions(["grp:alt_shift_toggle"])
+        localization_proxy.LayoutSwitchOptions = ["grp:alt_shift_toggle"]
 
         if can_configure_keyboard():
             xkl_wrapper.set_switching_options(["grp:alt_shift_toggle"])

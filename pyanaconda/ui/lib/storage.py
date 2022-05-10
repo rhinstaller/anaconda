@@ -84,7 +84,7 @@ def reset_storage(scan_all=False, retry=True):
     # Clear the exclusive disks to scan all devices in the system.
     if scan_all:
         disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-        disk_select_proxy.SetExclusiveDisks([])
+        disk_select_proxy.ExclusiveDisks = []
 
     # Scan the devices.
     storage_proxy = STORAGE.get_proxy()
@@ -115,7 +115,7 @@ def reset_storage(scan_all=False, retry=True):
 def reset_bootloader():
     """Reset the bootloader."""
     bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
-    bootloader_proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
+    bootloader_proxy.Drive = BOOTLOADER_DRIVE_UNSET
 
 
 def select_default_disks():
@@ -142,7 +142,7 @@ def select_default_disks():
 
         # Select all disks.
         selected_disks = [d for d in all_disks if d not in ignored_disks]
-        disk_select_proxy.SetSelectedDisks(selected_disks)
+        disk_select_proxy.SelectedDisks = selected_disks
         log.debug("Selecting all disks by default: %s", ",".join(selected_disks))
     else:
         # Get usable disks.
@@ -177,11 +177,11 @@ def apply_disk_selection(selected_names, reset_boot_drive=False):
 
     # Set the disks to select.
     disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-    disk_select_proxy.SetSelectedDisks(selected_names + ancestors_disks)
+    disk_select_proxy.SelectedDisks = selected_names + ancestors_disks
 
     # Set the drives to clear.
     disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
-    disk_init_proxy.SetDrivesToClear(selected_names)
+    disk_init_proxy.DrivesToClear = selected_names
 
     # Reset the boot drive if it is not selected.
     # FIXME: Move this logic the Storage module?
@@ -227,7 +227,7 @@ def mark_protected_device(spec):
     if spec not in protected_devices:
         protected_devices.append(spec)
 
-    disk_selection_proxy.SetProtectedDevices(protected_devices)
+    disk_selection_proxy.ProtectedDevices = protected_devices
 
 
 def unmark_protected_device(spec):
@@ -241,7 +241,7 @@ def unmark_protected_device(spec):
     if spec in protected_devices:
         protected_devices.remove(spec)
 
-    disk_selection_proxy.SetProtectedDevices(protected_devices)
+    disk_selection_proxy.ProtectedDevices = protected_devices
 
 
 def try_populate_devicetree():
@@ -380,7 +380,7 @@ def ignore_nvdimm_blockdevs():
     disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
     ignored_disks = disk_select_proxy.IgnoredDisks
     ignored_disks.extend(ignored_nvdimm_devs)
-    disk_select_proxy.SetIgnoredDisks(ignored_disks)
+    disk_select_proxy.IgnoredDisks = ignored_disks
 
 
 def ignore_oemdrv_disks():
@@ -394,7 +394,7 @@ def ignore_oemdrv_disks():
         if oemdrv_disk not in ignored_disks:
             log.info("Adding disk %s labeled OEMDRV to ignored disks.", oemdrv_disk)
             ignored_disks.append(oemdrv_disk)
-            disk_select_proxy.SetIgnoredDisks(ignored_disks)
+            disk_select_proxy.IgnoredDisks = ignored_disks
 
 
 def filter_disks_by_names(disks, names):

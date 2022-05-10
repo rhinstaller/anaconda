@@ -184,20 +184,19 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
             self._users_module.SetCryptedRootPassword(crypt_password(self.password))
 
             # Unlock the root account.
-            self._users_module.SetRootAccountLocked(False)
-
+            self._users_module.RootAccountLocked = False
         else:
             # Reset the root password.
             self._users_module.ClearRootPassword()
 
             # Lock the root account.
-            self._users_module.SetRootAccountLocked(True)
+            self._users_module.RootAccountLocked = True
 
         if self.root_enabled:
             # the checkbox makes it possible to override the default Open SSH
             # policy of not allowing root to login with password
             ssh_login_override = self._root_password_ssh_login_override.get_active()
-            self._users_module.SetRootPasswordSSHLoginAllowed(ssh_login_override)
+            self._users_module.RootPasswordSSHLoginAllowed = ssh_login_override
 
         # clear any placeholders
         self.remove_placeholder_texts()

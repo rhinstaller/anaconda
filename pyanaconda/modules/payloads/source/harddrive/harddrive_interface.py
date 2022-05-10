@@ -38,8 +38,9 @@ class HardDriveSourceInterface(PayloadSourceBaseInterface):
         """Get the path to the repository on the partition."""
         return self.implementation.directory
 
+    @Directory.setter
     @emits_properties_changed
-    def SetDirectory(self, directory: Str):
+    def Directory(self, directory: Str):
         """Set the path to the repository on the partition."""
         self.implementation.set_directory(directory)
 
@@ -48,8 +49,9 @@ class HardDriveSourceInterface(PayloadSourceBaseInterface):
         """Get the partition containing the repository."""
         return self.implementation.device
 
+    @Partition.setter
     @emits_properties_changed
-    def SetPartition(self, partition: Str):
+    def Partition(self, partition: Str):
         """Set the partition containing the repository."""
         self.implementation.set_device(partition)
 

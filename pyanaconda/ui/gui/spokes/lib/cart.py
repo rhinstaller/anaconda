@@ -178,13 +178,13 @@ class SelectedDisksDialog(GUIObject):
 
         if boot_device and boot_device in self._disks:
             # Save the boot device setting, if something was selected.
-            self._bootloader_module.SetBootloaderMode(BOOTLOADER_ENABLED)
-            self._bootloader_module.SetPreferredLocation(BOOTLOADER_LOCATION_MBR)
-            self._bootloader_module.SetDrive(boot_device)
+            self._bootloader_module.BootloaderMode = BOOTLOADER_ENABLED
+            self._bootloader_module.PreferredLocation = BOOTLOADER_LOCATION_MBR
+            self._bootloader_module.Drive = boot_device
         else:
             # No device was selected. The user does not want to install a boot loader.
-            self._bootloader_module.SetBootloaderMode(BOOTLOADER_SKIPPED)
-            self._bootloader_module.SetDrive(BOOTLOADER_DRIVE_UNSET)
+            self._bootloader_module.BootloaderMode = BOOTLOADER_SKIPPED
+            self._bootloader_module.Drive = BOOTLOADER_DRIVE_UNSET
 
     def _toggle_button_text(self, row):
         if row[IS_BOOT_COL]:
@@ -247,4 +247,4 @@ class SelectedDisksDialog(GUIObject):
             return
 
         secure_boot = self._secure_boot_combo.get_active_id()
-        self._bootloader_module.SetZIPLSecureBoot(secure_boot)
+        self._bootloader_module.ZIPLSecureBoot = secure_boot

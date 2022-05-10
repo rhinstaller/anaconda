@@ -382,10 +382,10 @@ if __name__ == "__main__":
     bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
 
     if opts.leavebootorder:
-        bootloader_proxy.SetKeepBootOrder(True)
+        bootloader_proxy.KeepBootOrder = True
 
     if opts.nombr:
-        bootloader_proxy.SetKeepMBR(True)
+        bootloader_proxy.KeepMBR = True
 
     if ksdata.rescue.rescue:
         flags.rescue_mode = True
@@ -486,7 +486,7 @@ if __name__ == "__main__":
         util.ipmi_abort(scripts=ksdata.scripts)
         sys.exit(1)
 
-    disk_select_proxy.SetDiskImages(disk_images)
+    disk_select_proxy.DiskImages = disk_images
 
     # Ignore disks labeled OEMDRV
     from pyanaconda.ui.lib.storage import ignore_oemdrv_disks
@@ -500,7 +500,7 @@ if __name__ == "__main__":
     from pyanaconda.modules.common.constants.services import STORAGE
 
     protected_devices = anaconda.get_protected_devices(opts)
-    disk_select_proxy.SetProtectedDevices(protected_devices)
+    disk_select_proxy.ProtectedDevices = protected_devices
 
     from pyanaconda.payload.manager import payloadMgr
 

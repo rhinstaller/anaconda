@@ -118,7 +118,7 @@ class SubscriptionSpoke(NormalSpoke):
         # For kickstart installations we will use the value from the module, which
         # False by default & can be set to True via the rhsm kickstart command.
         if not flags.automatedInstall:
-            self._subscription_module.SetInsightsEnabled(True)
+            self._subscription_module.InsightsEnabled = True
 
         # previous visit network connectivity tracking
         self._network_connected_previously = False
@@ -809,9 +809,9 @@ class SubscriptionSpoke(NormalSpoke):
 
     def _set_system_purpose_data(self):
         """Set system purpose data to the Subscription DBus module."""
-        self._subscription_module.SetSystemPurposeData(
+        self._subscription_module.SystemPurposeData = \
             SystemPurposeData.to_structure(self.system_purpose_data)
-        )
+
         # also apply the data (only applies when needed)
         self._apply_system_purpose_data()
 
@@ -842,13 +842,12 @@ class SubscriptionSpoke(NormalSpoke):
 
     def _set_subscription_request(self):
         """Set subscription request to the Subscription DBus module."""
-        self._subscription_module.SetSubscriptionRequest(
+        self._subscription_module.SubscriptionRequest = \
             SubscriptionRequest.to_structure(self.subscription_request)
-        )
 
     def _set_insights(self):
         """Configure Insights in DBus module based on GUI state."""
-        self._subscription_module.SetInsightsEnabled(self._insights_checkbox.get_active())
+        self._subscription_module.InsightsEnabled = self._insights_checkbox.get_active()
 
     def _register(self):
         """Try to register a system."""

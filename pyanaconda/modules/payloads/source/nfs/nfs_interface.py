@@ -39,7 +39,8 @@ class NFSSourceInterface(PayloadSourceBaseInterface):
         """Get the URL."""
         return self.implementation.url
 
+    @URL.setter
     @emits_properties_changed
-    def SetURL(self, url: Str):
+    def URL(self, url: Str):
         """Set the URL."""
         self.implementation.set_url(url)

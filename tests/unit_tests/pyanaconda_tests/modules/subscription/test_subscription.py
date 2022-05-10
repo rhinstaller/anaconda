@@ -97,9 +97,8 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         assert SystemPurposeData.to_structure(system_purpose_data) == expected_dict
 
         # feed it to the DBus interface
-        self.subscription_interface.SetSystemPurposeData(
+        self.subscription_interface.SystemPurposeData = \
             SystemPurposeData.to_structure(system_purpose_data)
-        )
 
         # compare the result with expected data
         output = self.subscription_interface.SystemPurposeData
@@ -249,9 +248,8 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
             expected_full_dict
 
         # set it to the module interface
-        self.subscription_interface.SetSubscriptionRequest(
+        self.subscription_interface.SubscriptionRequest = \
             SubscriptionRequest.to_structure(full_request)
-        )
 
         # compare the output with expected values
         output = self.subscription_interface.SubscriptionRequest
@@ -803,9 +801,9 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         system_purpose_data.sla = "bar"
         system_purpose_data.usage = "baz"
         system_purpose_data.addons = ["a", "b", "c"]
-        self.subscription_interface.SetSystemPurposeData(
+        self.subscription_interface.SystemPurposeData = \
             SystemPurposeData.to_structure(system_purpose_data)
-        )
+
         # mock the rhsm syspurpose proxy
         observer = Mock()
         observer.get_proxy = Mock()
@@ -837,9 +835,9 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         system_purpose_data.usage = "baz"
         system_purpose_data.addons = ["a", "b", "c"]
         # feed it to the DBus interface
-        self.subscription_interface.SetSystemPurposeData(
+        self.subscription_interface.SystemPurposeData = \
             SystemPurposeData.to_structure(system_purpose_data)
-        )
+
         # mock the rhsm syspurpose proxy
         observer = Mock()
         observer.get_proxy = Mock()
@@ -933,7 +931,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
     def test_package_requirements_insights(self):
         """Test package requirements - connect to Insights enabled."""
         # enable connect to Insights & mark system as subscribed
-        self.subscription_interface.SetInsightsEnabled(True)
+        self.subscription_interface.InsightsEnabled = True
         self.subscription_module.set_subscription_attached(True)
         # check the Insights client package is requested
         requirements = self.subscription_interface.CollectRequirements()
@@ -990,9 +988,9 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         full_request.activation_keys.set_secret(["key1", "key2", "key3"])
         full_request.server_proxy_password.set_secret("foo_proxy_password")
 
-        self.subscription_interface.SetSubscriptionRequest(
+        self.subscription_interface.SubscriptionRequest = \
             SubscriptionRequest.to_structure(full_request)
-        )
+
         # make sure the task gets dummy rhsm config proxy that returns
         # our dummy RHSM config defaults
         observer = Mock()
@@ -1041,9 +1039,9 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         full_request.activation_keys.set_secret(["key1", "key2", "key3"])
         full_request.server_proxy_password.set_secret("foo_proxy_password")
 
-        self.subscription_interface.SetSubscriptionRequest(
+        self.subscription_interface.SubscriptionRequest = \
             SubscriptionRequest.to_structure(full_request)
-        )
+
         # make sure the task gets dummy rhsm register server proxy
         observer = Mock()
         observer.get_proxy = Mock()
@@ -1080,9 +1078,9 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         full_request.activation_keys.set_secret(["key1", "key2", "key3"])
         full_request.server_proxy_password.set_secret("foo_proxy_password")
 
-        self.subscription_interface.SetSubscriptionRequest(
+        self.subscription_interface.SubscriptionRequest = \
             SubscriptionRequest.to_structure(full_request)
-        )
+
         # make sure the task gets dummy rhsm register server proxy
         observer = Mock()
         observer.get_proxy = Mock()
@@ -1132,9 +1130,9 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         system_purpose_data.usage = "baz"
         system_purpose_data.addons = ["a", "b", "c"]
         # feed it to the DBus interface
-        self.subscription_interface.SetSystemPurposeData(
+        self.subscription_interface.SystemPurposeData = \
             SystemPurposeData.to_structure(system_purpose_data)
-        )
+
         # make sure system is not subscribed
         assert not self.subscription_interface.IsSubscriptionAttached
         # make sure the task gets dummy rhsm attach proxy
@@ -1243,7 +1241,7 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
     def test_install_with_tasks_configured(self, publisher):
         """Test install tasks - Subscription module in configured state."""
 
-        self.subscription_interface.SetInsightsEnabled(True)
+        self.subscription_interface.InsightsEnabled = True
         self.subscription_module.set_subscription_attached(True)
 
         # mock the rhsm config proxy

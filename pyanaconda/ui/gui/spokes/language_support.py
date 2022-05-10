@@ -129,7 +129,7 @@ class LangsupportSpoke(NormalSpoke, LangLocaleHandler):
     def apply(self):
         # store only additional langsupport locales
         added = sorted(self._selected_locales - set([self._l12_module.Language]))
-        self._l12_module.SetLanguageSupport(added)
+        self._l12_module.LanguageSupport = added
 
     def refresh(self):
         self._languageEntry.set_text("")

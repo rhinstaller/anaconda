@@ -40,8 +40,7 @@ from pyanaconda.modules.timezone.timezone import TimezoneService
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
 from pyanaconda.ntp import NTP_CONFIG_FILE, NTPconfigError
 from tests.unit_tests.pyanaconda_tests import check_kickstart_interface, \
-    patch_dbus_publish_object, PropertiesChangedCallback, check_task_creation_list, \
-    check_dbus_property
+    patch_dbus_publish_object, check_task_creation_list, check_dbus_property
 
 
 class TimezoneInterfaceTestCase(unittest.TestCase):
@@ -52,10 +51,6 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         # Set up the timezone module.
         self.timezone_module = TimezoneService()
         self.timezone_interface = TimezoneInterface(self.timezone_module)
-
-        # Connect to the properties changed signal.
-        self.callback = PropertiesChangedCallback()
-        self.timezone_interface.PropertiesChanged.connect(self.callback)
 
     def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
@@ -69,26 +64,27 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         assert self.timezone_interface.KickstartCommands == ["timezone", "timesource"]
         assert self.timezone_interface.KickstartSections == []
         assert self.timezone_interface.KickstartAddons == []
-        self.callback.assert_not_called()
 
     def test_timezone_property(self):
         """Test the Timezone property."""
-        self.timezone_interface.SetTimezone("Europe/Prague")
-        assert self.timezone_interface.Timezone == "Europe/Prague"
-        self.callback.assert_called_once_with(
-            TIMEZONE.interface_name, {'Timezone': 'Europe/Prague'}, [])
+        self._check_dbus_property(
+            "Timezone",
+            "Europe/Prague"
+        )
 
     def test_utc_property(self):
         """Test the IsUtc property."""
-        self.timezone_interface.SetIsUTC(True)
-        assert self.timezone_interface.IsUTC is True
-        self.callback.assert_called_once_with(TIMEZONE.interface_name, {'IsUTC': True}, [])
+        self._check_dbus_property(
+            "IsUTC",
+            True
+        )
 
     def test_ntp_property(self):
         """Test the NTPEnabled property."""
-        self.timezone_interface.SetNTPEnabled(False)
-        assert self.timezone_interface.NTPEnabled is False
-        self.callback.assert_called_once_with(TIMEZONE.interface_name, {'NTPEnabled': False}, [])
+        self._check_dbus_property(
+            "NTPEnabled",
+            False
+        )
 
     def test_time_sources_property(self):
         """Test the TimeSources property."""
@@ -242,7 +238,7 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         assert requirements[0].name == "chrony"
 
         # Check requirements with disabled NTP service.
-        self.timezone_interface.SetNTPEnabled(False)
+        self.timezone_interface.NTPEnabled = False
         requirements = Requirement.from_structure_list(
             self.timezone_interface.CollectRequirements()
         )
@@ -274,10 +270,9 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
     @patch_dbus_publish_object
     def test_install_with_tasks_configured(self, publisher):
         """Test install tasks - module in configured state."""
-
-        self.timezone_interface.SetIsUTC(True)
-        self.timezone_interface.SetTimezone("Asia/Tokyo")
-        self.timezone_interface.SetNTPEnabled(False)
+        self.timezone_interface.IsUTC = True
+        self.timezone_interface.Timezone = "Asia/Tokyo"
+        self.timezone_interface.NTPEnabled = False
         # --nontp and --ntpservers are mutually exclusive in kicstart but
         # there is no such enforcement in the module so for testing this is ok
 
@@ -290,9 +285,8 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         pool.type = TIME_SOURCE_POOL
         pool.hostname = "clock2.example.com"
 
-        self.timezone_interface.SetTimeSources(
+        self.timezone_interface.TimeSources = \
             TimeSourceData.to_structure_list([server, pool])
-        )
 
         task_classes = [
             ConfigureHardwareClockTask,

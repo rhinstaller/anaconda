@@ -54,8 +54,9 @@ class SecurityInterface(KickstartModuleInterface):
         """
         return self.implementation.selinux.value
 
+    @SELinux.setter
     @emits_properties_changed
-    def SetSELinux(self, value: Int):
+    def SELinux(self, value: Int):
         """Sets the state of SELinux on the installed system.
 
         SELinux defaults to enforcing in anaconda.
@@ -72,8 +73,9 @@ class SecurityInterface(KickstartModuleInterface):
         """
         return self.implementation.authselect
 
+    @Authselect.setter
     @emits_properties_changed
-    def SetAuthselect(self, args: List[Str]):
+    def Authselect(self, args: List[Str]):
         """Set the arguments for the authselect tool.
 
         Example: ['select', 'sssd']
@@ -90,8 +92,9 @@ class SecurityInterface(KickstartModuleInterface):
         """
         return RealmData.to_structure(self.implementation.realm)
 
+    @Realm.setter
     @emits_properties_changed
-    def SetRealm(self, realm: Structure):
+    def Realm(self, realm: Structure):
         """Specify of the enrollment in a realm.
 
         The DBus structure is defined by RealmData.
@@ -108,8 +111,9 @@ class SecurityInterface(KickstartModuleInterface):
         """
         return self.implementation.fingerprint_auth_enabled
 
+    @FingerprintAuthEnabled.setter
     @emits_properties_changed
-    def SetFingerprintAuthEnabled(self, fingerprint_auth_enabled: bool):
+    def FingerprintAuthEnabled(self, fingerprint_auth_enabled: bool):
         """Set if fingerprint authentication should be enabled.
 
         :param bool fingerprint_auth_enabled: set to True to enable fingerprint authentication,

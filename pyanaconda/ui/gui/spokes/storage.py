@@ -218,8 +218,8 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
                 self._check_problems()
 
     def apply(self):
-        self._disk_init_module.SetInitializationMode(CLEAR_PARTITIONS_NONE)
-        self._disk_init_module.SetInitializeLabelsEnabled(True)
+        self._disk_init_module.InitializationMode = CLEAR_PARTITIONS_NONE
+        self._disk_init_module.InitializeLabelsEnabled = True
         apply_disk_selection(self._selected_disks, reset_boot_drive=True)
 
     @async_action_nowait
@@ -597,8 +597,8 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             return rc
 
         # Allow to format DASDs.
-        self._disk_init_module.SetFormatUnrecognizedEnabled(True)
-        self._disk_init_module.SetFormatLDLEnabled(True)
+        self._disk_init_module.FormatUnrecognizedEnabled = True
+        self._disk_init_module.FormatLDLEnabled = True
 
         # Get selected disks.
         disks = filter_disks_by_names(self._available_disks, self._selected_disks)
@@ -805,9 +805,8 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # Use the automatic partitioning and reset it.
         self._partitioning = create_partitioning(PARTITIONING_METHOD_AUTOMATIC)
 
-        self._partitioning.SetRequest(
+        self._partitioning.Request = \
             PartitioningRequest.to_structure(self._partitioning_request)
-        )
 
         # Reclaim space.
         disks = filter_disks_by_names(self._available_disks, self._selected_disks)

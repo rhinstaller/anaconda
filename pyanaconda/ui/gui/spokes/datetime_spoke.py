@@ -311,7 +311,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             log.warning("%s is not a valid timezone, falling back to default (%s)",
                         kickstart_timezone, DEFAULT_TZ)
             self._set_timezone(DEFAULT_TZ)
-            self._timezone_module.SetTimezone(DEFAULT_TZ)
+            self._timezone_module.Timezone = DEFAULT_TZ
 
         time_init_thread = threadMgr.get(constants.THREAD_TIME_INIT)
         if time_init_thread is not None:
@@ -352,9 +352,8 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         if not region or not city:
             return
 
-        self._timezone_module.SetTimezone(region + "/" + city)
-        self._timezone_module.SetNTPEnabled(self._ntpSwitch.get_active())
-
+        self._timezone_module.Timezone = region + "/" + city
+        self._timezone_module.NTPEnabled = self._ntpSwitch.get_active()
         self._kickstarted = False
 
     def execute(self):
@@ -965,9 +964,8 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         states.changed.connect(self._update_ntp_server_warning)
 
         if response == 1:
-            self._timezone_module.SetTimeSources(
+            self._timezone_module.TimeSources = \
                 TimeSourceData.to_structure_list(servers)
-            )
 
             self._ntp_servers = servers
             self._update_ntp_server_warning()

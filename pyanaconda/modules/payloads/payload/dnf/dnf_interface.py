@@ -56,8 +56,9 @@ class DNFInterface(PayloadBaseInterface):
             self.implementation.packages_configuration
         )
 
+    @PackagesConfiguration.setter
     @emits_properties_changed
-    def SetPackagesConfiguration(self, data: Structure):
+    def PackagesConfiguration(self, data: Structure):
         """Set the packages configuration.
 
         :param data: a structure of the type PackagesConfigurationData
@@ -78,6 +79,17 @@ class DNFInterface(PayloadBaseInterface):
 
     @emits_properties_changed
     def SetPackagesSelection(self, data: Structure):
+        """Set the packages selection.
+
+        :param: a structure of the type PackagesSelectionData
+        """
+        self.implementation.set_packages_selection(
+            PackagesSelectionData.from_structure(data)
+        )
+
+    @PackagesSelection.setter
+    @emits_properties_changed
+    def PackagesSelection(self, data: Structure):
         """Set the packages selection.
 
         :param: a structure of the type PackagesSelectionData

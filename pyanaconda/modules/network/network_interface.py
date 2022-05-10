@@ -57,8 +57,9 @@ class NetworkInterface(KickstartModuleInterface):
         """Hostname the system will use."""
         return self.implementation.hostname
 
+    @Hostname.setter
     @emits_properties_changed
-    def SetHostname(self, hostname: Str):
+    def Hostname(self, hostname: Str):
         """Set the hostname.
 
         Sets the hostname of installed system.

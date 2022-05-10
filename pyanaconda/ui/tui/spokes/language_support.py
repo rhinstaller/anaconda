@@ -149,4 +149,4 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     def apply(self):
         """ Store the selected lang support locales """
-        self._l12_module.SetLanguage(self._selected)
+        self._l12_module.Language = self._selected

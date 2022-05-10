@@ -213,7 +213,7 @@ def setup_locale(locale, localization_proxy=None, text_mode=False):
     :rtype: str
     """
     if localization_proxy:
-        localization_proxy.SetLanguage(locale)
+        localization_proxy.Language = locale
 
     # not all locales might be displayable in text mode
     if text_mode:

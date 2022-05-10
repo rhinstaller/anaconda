@@ -133,10 +133,10 @@ class PayloadSharedTest(object):
 
         if exception:
             with pytest.raises(exception) as cm:
-                self.payload_interface.SetSources(paths)
+                self.payload_interface.Sources = paths
             return cm
 
-        self.payload_interface.SetSources(paths)
+        self.payload_interface.Sources = paths
         return None
 
     def check_sources(self, expected_sources=None):

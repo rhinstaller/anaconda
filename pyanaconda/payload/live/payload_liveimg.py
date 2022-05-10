@@ -45,9 +45,8 @@ class LiveImagePayload(MigratedDBusPayload):
         if not conf.payload.verify_ssl:
             source_data.ssl_verification_enabled = conf.payload.verify_ssl
 
-        source_proxy.SetConfiguration(
+        source_proxy.Configuration = \
             LiveImageConfigurationData.to_structure(source_data)
-        )
 
     @property
     def type(self):

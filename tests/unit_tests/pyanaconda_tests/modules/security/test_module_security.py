@@ -170,7 +170,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         realm.name = "domain.example.com"
         realm.discover_options = ["--client-software=sssd"]
 
-        self.security_interface.SetRealm(RealmData.to_structure(realm))
+        self.security_interface.Realm = RealmData.to_structure(realm)
         realm_discover_task_path = self.security_interface.DiscoverRealmWithTask()
 
         obj = check_task_creation(realm_discover_task_path, publisher, RealmDiscoverTask)
@@ -219,10 +219,10 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         authselect = ['select', 'sssd']
         fingerprint = True
 
-        self.security_interface.SetRealm(RealmData.to_structure(realm))
-        self.security_interface.SetSELinux(SELINUX_PERMISSIVE)
-        self.security_interface.SetAuthselect(authselect)
-        self.security_interface.SetFingerprintAuthEnabled(fingerprint)
+        self.security_interface.Realm = RealmData.to_structure(realm)
+        self.security_interface.SELinux = SELINUX_PERMISSIVE
+        self.security_interface.Authselect = authselect
+        self.security_interface.FingerprintAuthEnabled = fingerprint
 
         task_classes = [
             ConfigureSELinuxTask,
@@ -251,7 +251,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         realm.join_options = ["--one-time-password=password"]
         realm.discovered = True
 
-        self.security_interface.SetRealm(RealmData.to_structure(realm))
+        self.security_interface.Realm = RealmData.to_structure(realm)
         realm_join_task_path = self.security_interface.JoinRealmWithTask()
 
         obj = check_task_creation(realm_join_task_path, publisher, RealmJoinTask)
@@ -269,7 +269,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         realm1.discover_options = ["--client-software=sssd"]
         realm1.discovered = False
 
-        self.security_interface.SetRealm(RealmData.to_structure(realm1))
+        self.security_interface.Realm = RealmData.to_structure(realm1)
         realm_join_task_path = self.security_interface.JoinRealmWithTask()
 
         # realm join - after task creation
@@ -285,7 +285,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         realm2.join_options = ["--one-time-password=password"]
         realm2.discovered = True
 
-        self.security_interface.SetRealm(RealmData.to_structure(realm2))
+        self.security_interface.Realm = RealmData.to_structure(realm2)
 
         # realm join - after realm data update
         assert obj.implementation._realm_data.discovered is True
@@ -336,7 +336,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         realm.discovered = True
         realm.required_packages = ["realmd", "foo", "bar"]
 
-        self.security_interface.SetRealm(RealmData.to_structure(realm))
+        self.security_interface.Realm = RealmData.to_structure(realm)
 
         # check that the teamd package is requested
         assert self.security_interface.CollectRequirements() == [
@@ -360,7 +360,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
     def test_authselect_requirements(self):
         """Test that package requirements for authselect propagate correctly."""
 
-        self.security_interface.SetAuthselect(['select', 'sssd'])
+        self.security_interface.Authselect = ['select', 'sssd']
         requirements = Requirement.from_structure_list(
             self.security_interface.CollectRequirements()
         )
@@ -368,8 +368,8 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         assert requirements[0].type == "package"
         assert requirements[0].name == "authselect"
 
-        self.security_interface.SetAuthselect([])
-        self.security_interface.SetFingerprintAuthEnabled(True)
+        self.security_interface.Authselect = []
+        self.security_interface.FingerprintAuthEnabled = True
         requirements = Requirement.from_structure_list(
             self.security_interface.CollectRequirements()
         )

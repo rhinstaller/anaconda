@@ -337,7 +337,7 @@ class KeyboardSpoke(NormalSpoke):
 
         # Update module with actual values
         layouts = [row[0] for row in self._store]
-        self._l12_module.SetXLayouts(layouts)
+        self._l12_module.XLayouts = layouts
 
     @property
     def completed(self):
@@ -386,7 +386,7 @@ class KeyboardSpoke(NormalSpoke):
 
         # make sure the x_layouts list has at least one keyboard layout
         if not self._l12_module.XLayouts:
-            self._l12_module.SetXLayouts([DEFAULT_KEYBOARD])
+            self._l12_module.XLayouts = [DEFAULT_KEYBOARD]
 
         self._add_dialog = AddLayoutDialog(self.data)
         self._add_dialog.initialize()
@@ -668,7 +668,7 @@ class KeyboardSpoke(NormalSpoke):
         # OK clicked, set and save switching options.
         new_options = self._switching_dialog.checked_options
         self._xkl_wrapper.set_switching_options(new_options)
-        self._l12_module.SetLayoutSwitchOptions(new_options)
+        self._l12_module.LayoutSwitchOptions = new_options
 
         # Refresh switching info label.
         self._refresh_switching_info()
@@ -690,7 +690,7 @@ class KeyboardSpoke(NormalSpoke):
         if not valid_layouts:
             log.error("No valid layout given, falling back to default %s", DEFAULT_KEYBOARD)
             self._addLayout(self._store, DEFAULT_KEYBOARD)
-            self._l12_module.SetXLayouts([DEFAULT_KEYBOARD])
+            self._l12_module.XLayouts = [DEFAULT_KEYBOARD]
 
     def _flush_layouts_to_X(self):
         layouts_list = list()

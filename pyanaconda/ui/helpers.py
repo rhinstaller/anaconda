@@ -103,9 +103,9 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
         self._tear_down_existing_source()
 
         new_source_proxy = create_source(constants.SOURCE_TYPE_HDD)
-        new_source_proxy.SetPartition(device_name)
+        new_source_proxy.Partition = device_name
         # the / gets stripped off by payload.ISO_image
-        new_source_proxy.SetDirectory("/" + iso_path)
+        new_source_proxy.Directory = "/" + iso_path
 
         # protect current device_name
         mark_protected_device(device_name)
@@ -124,9 +124,8 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
         repo_conf.type = url_type
         repo_conf.proxy = proxy or ""
 
-        url_source_proxy.SetRepoConfiguration(
+        url_source_proxy.RepoConfiguration = \
             RepoConfigurationData.to_structure(repo_conf)
-        )
 
         set_source(self.payload.proxy, url_source_proxy)
 
@@ -138,7 +137,7 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
         nfs_url = create_nfs_url(server, directory, opts)
 
         nfs_source_proxy = create_source(constants.SOURCE_TYPE_NFS)
-        nfs_source_proxy.SetURL(nfs_url)
+        nfs_source_proxy.URL = nfs_url
 
         set_source(self.payload.proxy, nfs_source_proxy)
 
@@ -166,7 +165,7 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
         self._tear_down_existing_source()
 
         repo_files_source_proxy = create_source(constants.SOURCE_TYPE_CLOSEST_MIRROR)
-        repo_files_source_proxy.SetUpdatesEnabled(updates_enabled)
+        repo_files_source_proxy.UpdatesEnabled = updates_enabled
 
         set_source(self.payload.proxy, repo_files_source_proxy)
 

@@ -103,4 +103,4 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     def apply(self):
         self._users_module.SetCryptedRootPassword(self._password)
         if self._password:
-            self._users_module.SetRootAccountLocked(False)
+            self._users_module.IsRootAccountLocked = False

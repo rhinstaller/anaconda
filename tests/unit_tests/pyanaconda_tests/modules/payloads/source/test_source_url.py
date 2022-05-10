@@ -65,7 +65,7 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
         """Test URL source description."""
         rc = RepoConfigurationData()
         rc.url = "http://example.com/"
-        self.url_source_interface.SetRepoConfiguration(rc.to_structure(rc))
+        self.url_source_interface.RepoConfiguration = rc.to_structure(rc)
         assert "http://example.com/" == self.url_source_module.description
 
     def test_set_name_properties(self):
@@ -181,9 +181,8 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
 
         repo_data = RepoConfigurationData()
         repo_data.ssl_configuration = ssl_conf
-        self.url_source_interface.SetRepoConfiguration(
+        self.url_source_interface.RepoConfiguration = \
             RepoConfigurationData.to_structure(repo_data)
-        )
 
         repo_data_2 = RepoConfigurationData.from_structure(
             self.url_source_interface.RepoConfiguration

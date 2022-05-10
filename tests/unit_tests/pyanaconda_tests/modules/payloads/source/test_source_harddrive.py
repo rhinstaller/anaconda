@@ -71,8 +71,8 @@ class HardDriveSourceInterfaceTestCase(unittest.TestCase):
 
     def test_description(self):
         """Hard drive source description."""
-        self.interface.SetPartition("device")
-        self.interface.SetDirectory("/directory")
+        self.interface.Partition = "device"
+        self.interface.Directory = "/directory"
         assert "device:/directory" == self.interface.Description
 
     def test_empty_properties(self):
@@ -90,11 +90,11 @@ class HardDriveSourceInterfaceTestCase(unittest.TestCase):
         assert self.interface.GetIsoPath() == ""
 
         self.module._iso_name = "GLaDOS.iso"
-        self.interface.SetDirectory("/super/secret/base")
+        self.interface.Directory = "/super/secret/base"
         assert self.interface.GetIsoPath() == "/super/secret/base/GLaDOS.iso"
 
         self.module._iso_name = ""
-        self.interface.SetDirectory("/path/to/install/tree")
+        self.interface.Directory = "/path/to/install/tree"
         assert self.interface.GetIsoPath() == ""
 
 

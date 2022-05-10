@@ -474,7 +474,7 @@ def activate_keyboard(opts):
 
     if opts.keymap and not localization_proxy.KeyboardKickstarted:
         localization_proxy.SetKeyboard(opts.keymap)
-        localization_proxy.SetKeyboardKickstarted(True)
+        localization_proxy.KeyboardKickstarted = True
 
     if localization_proxy.KeyboardKickstarted:
         if conf.system.can_activate_keyboard:
@@ -500,8 +500,8 @@ def initialize_locale(opts, text_mode):
 
         # If the language was set on the command line, copy that to kickstart
         if opts.lang:
-            localization_proxy.SetLanguage(opts.lang)
-            localization_proxy.SetLanguageKickstarted(True)
+            localization_proxy.Language = opts.lang
+            localization_proxy.LanguageKickstarted = True
 
         # Setup the locale environment
         if localization_proxy.LanguageKickstarted:
@@ -554,7 +554,7 @@ def initialize_default_systemd_target(text_mode):
 
     if not services_proxy.DefaultTarget and (text_mode or flags.usevnc):
         log.debug("no default systemd target set & in text/vnc mode - setting multi-user.target.")
-        services_proxy.SetDefaultTarget(TEXT_ONLY_TARGET)
+        services_proxy.DefaultTarget = TEXT_ONLY_TARGET
 
 
 def initialize_first_boot_action():
@@ -567,7 +567,7 @@ def initialize_first_boot_action():
     if services_proxy.SetupOnBoot == SETUP_ON_BOOT_DEFAULT:
         if not flags.automatedInstall:
             # Enable by default for interactive installations.
-            services_proxy.SetSetupOnBoot(SETUP_ON_BOOT_ENABLED)
+            services_proxy.SetupOnBoot = SETUP_ON_BOOT_ENABLED
 
 
 def initialize_security():
@@ -579,11 +579,11 @@ def initialize_security():
 
     # Override the selinux state from kickstart if set on the command line
     if conf.security.selinux != constants.SELINUX_DEFAULT:
-        security_proxy.SetSELinux(conf.security.selinux)
+        security_proxy.SELinux = conf.security.selinux
 
     # Enable fingerprint option by default (#481273).
     if not flags.automatedInstall:
-        security_proxy.SetFingerprintAuthEnabled(True)
+        security_proxy.FingerprintAuthEnabled = True
 
 
 def print_dracut_errors(stdout_logger):

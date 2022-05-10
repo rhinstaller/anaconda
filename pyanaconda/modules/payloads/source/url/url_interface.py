@@ -44,8 +44,9 @@ class URLSourceInterface(PayloadSourceBaseInterface):
             self.implementation.repo_configuration
         )
 
+    @RepoConfiguration.setter
     @emits_properties_changed
-    def SetRepoConfiguration(self, repo_configuration: Structure):
+    def RepoConfiguration(self, repo_configuration: Structure):
         """Set this repository configuration.
 
         :param repo_configuration: configuration structure of this repository

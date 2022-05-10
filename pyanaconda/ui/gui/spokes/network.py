@@ -1508,7 +1508,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         # and we want to generate kickstart from device configurations
         # (persistent NM / config files configuration), instead of using original kickstart.
         self._network_module.NetworkDeviceConfigurationChanged()
-        self._network_module.SetHostname(self.network_control_box.hostname)
+        self._network_module.Hostname = self.network_control_box.hostname
 
         # if installation media or hdd aren't used and settings have changed
         # try if source is available
@@ -1677,7 +1677,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         # and we want to generate kickstart from device configurations
         # (persistent NM / config files configuration), instead of using original kickstart.
         self._network_module.NetworkDeviceConfigurationChanged()
-        self._network_module.SetHostname(self.network_control_box.hostname)
+        self._network_module.Hostname = self.network_control_box.hostname
 
         self._now_available = self.completed
 

@@ -41,8 +41,9 @@ class LiveOSSourceInterface(PayloadSourceBaseInterface):
         """
         return self.implementation.image_path
 
+    @ImagePath.setter
     @emits_properties_changed
-    def SetImagePath(self, image_path: Str):
+    def ImagePath(self, image_path: Str):
         """Set the path to the Live OS base image.
 
         This image will be used as the installation source.

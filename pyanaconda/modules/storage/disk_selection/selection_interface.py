@@ -43,8 +43,9 @@ class DiskSelectionInterface(KickstartModuleInterfaceTemplate):
         """The list of selected disks."""
         return self.implementation.selected_disks
 
+    @SelectedDisks.setter
     @emits_properties_changed
-    def SetSelectedDisks(self, drives: List[Str]):
+    def SelectedDisks(self, drives: List[Str]):
         """Set the list of selected disks.
 
         Specifies those disks that anaconda can use for
@@ -69,8 +70,9 @@ class DiskSelectionInterface(KickstartModuleInterfaceTemplate):
         """The list of drives to scan."""
         return self.implementation.exclusive_disks
 
+    @ExclusiveDisks.setter
     @emits_properties_changed
-    def SetExclusiveDisks(self, drives: List[Str]):
+    def ExclusiveDisks(self, drives: List[Str]):
         """Set the list of drives to scan.
 
         Specifies those disks that anaconda will scan during
@@ -88,8 +90,9 @@ class DiskSelectionInterface(KickstartModuleInterfaceTemplate):
         """The list of ignored disks."""
         return self.implementation.ignored_disks
 
+    @IgnoredDisks.setter
     @emits_properties_changed
-    def SetIgnoredDisks(self, drives: List[Str]):
+    def IgnoredDisks(self, drives: List[Str]):
         """Set the list of ignored disks.
 
         Specifies those disks that anaconda should not touch
@@ -104,8 +107,9 @@ class DiskSelectionInterface(KickstartModuleInterfaceTemplate):
         """The list of devices to protect."""
         return self.implementation.protected_devices
 
+    @ProtectedDevices.setter
     @emits_properties_changed
-    def SetProtectedDevices(self, devices: List[Str]):
+    def ProtectedDevices(self, devices: List[Str]):
         """Set the list of protected devices.
 
         Specifies those disks that anaconda should protect.
@@ -119,8 +123,9 @@ class DiskSelectionInterface(KickstartModuleInterfaceTemplate):
         """The dictionary of disk images."""
         return self.implementation.disk_images
 
+    @DiskImages.setter
     @emits_properties_changed
-    def SetDiskImages(self, disk_images: Dict[Str, Str]):
+    def DiskImages(self, disk_images: Dict[Str, Str]):
         """Set the dictionary of disk images.
 
         :param disk_images: a dictionary of image names and file names

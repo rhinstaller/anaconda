@@ -84,8 +84,9 @@ class SubscriptionInterface(KickstartModuleInterface):
         """Return DBus structure holding current system purpose data."""
         return SystemPurposeData.to_structure(self.implementation.system_purpose_data)
 
+    @SystemPurposeData.setter
     @emits_properties_changed
-    def SetSystemPurposeData(self, system_purpose_data: Structure):
+    def SystemPurposeData(self, system_purpose_data: Structure):
         """Set a new DBus structure holding system purpose data.
 
         :param system_purpose_data: DBus structure corresponding to SystemPurposeData
@@ -110,8 +111,9 @@ class SubscriptionInterface(KickstartModuleInterface):
         """
         return SubscriptionRequest.to_structure(self.implementation.subscription_request)
 
+    @SubscriptionRequest.setter
     @emits_properties_changed
-    def SetSubscriptionRequest(self, subscription_request: Structure):
+    def SubscriptionRequest(self, subscription_request: Structure):
         """Set a new DBus structure holding subscription request data.
 
         :param subscription_request: DBus structure corresponding to SubscriptionRequest
@@ -131,8 +133,9 @@ class SubscriptionInterface(KickstartModuleInterface):
         """Connect the target system to Red Hat Insights."""
         return self.implementation.connect_to_insights
 
+    @InsightsEnabled.setter
     @emits_properties_changed
-    def SetInsightsEnabled(self, connect_to_insights: Bool):
+    def InsightsEnabled(self, connect_to_insights: Bool):
         """Set if the target system should be connected to Red Hat Insights.
 
         :param bool connect_to_insights: True to connect, False not to connect

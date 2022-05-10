@@ -131,7 +131,10 @@ export const getSelectedDisks = () => {
             "/org/fedoraproject/Anaconda/Modules/Storage/DiskSelection",
             "org.freedesktop.DBus.Properties",
             "Get",
-            ["org.fedoraproject.Anaconda.Modules.Storage.DiskSelection", "SelectedDisks"]
+            [
+                "org.fedoraproject.Anaconda.Modules.Storage.DiskSelection",
+                "SelectedDisks"
+            ]
         )
                 .then(res => res[0].v)
     );
@@ -197,8 +200,13 @@ export const scanDevicesWithTask = () => {
 export const setInitializationMode = ({ mode }) => {
     return new StorageClient().client.call(
         "/org/fedoraproject/Anaconda/Modules/Storage/DiskInitialization",
-        "org.fedoraproject.Anaconda.Modules.Storage.DiskInitialization",
-        "SetInitializationMode", [mode]
+        "org.freedesktop.DBus.Properties",
+        "Set",
+        [
+            "org.fedoraproject.Anaconda.Modules.Storage.DiskInitialization",
+            "InitializationMode",
+            cockpit.variant("i", mode)
+        ]
     );
 };
 
@@ -208,8 +216,13 @@ export const setInitializationMode = ({ mode }) => {
 export const setInitializeLabelsEnabled = ({ enabled }) => {
     return new StorageClient().client.call(
         "/org/fedoraproject/Anaconda/Modules/Storage/DiskInitialization",
-        "org.fedoraproject.Anaconda.Modules.Storage.DiskInitialization",
-        "SetInitializeLabelsEnabled", [enabled]
+        "org.freedesktop.DBus.Properties",
+        "Set",
+        [
+            "org.fedoraproject.Anaconda.Modules.Storage.DiskInitialization",
+            "InitializeLabelsEnabled",
+            cockpit.variant("b", enabled)
+        ]
     );
 };
 
@@ -219,7 +232,12 @@ export const setInitializeLabelsEnabled = ({ enabled }) => {
 export const setSelectedDisks = ({ drives }) => {
     return new StorageClient().client.call(
         "/org/fedoraproject/Anaconda/Modules/Storage/DiskSelection",
-        "org.fedoraproject.Anaconda.Modules.Storage.DiskSelection",
-        "SetSelectedDisks", [drives]
+        "org.freedesktop.DBus.Properties",
+        "Set",
+        [
+            "org.fedoraproject.Anaconda.Modules.Storage.DiskSelection",
+            "SelectedDisks",
+            cockpit.variant("as", drives)
+        ]
     );
 };

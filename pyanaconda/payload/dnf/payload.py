@@ -152,9 +152,8 @@ class DNFPayload(Payload):
                 repo_configuration.ssl_verification_enabled = conf.payload.verify_ssl
 
             # Update the repo configuration.
-            source_proxy.SetRepoConfiguration(
+            source_proxy.RepoConfiguration = \
                 RepoConfigurationData.to_structure(repo_configuration)
-            )
 
     def _set_additional_repos_from_opts(self, opts):
         """Set additional repositories based on the Anaconda options."""
@@ -234,9 +233,8 @@ class DNFPayload(Payload):
 
     def set_packages_configuration(self, data: PackagesConfigurationData):
         """Set the DBus data with the packages configuration."""
-        return self.proxy.SetPackagesConfiguration(
+        self.proxy.PackagesConfiguration = \
             PackagesConfigurationData.to_structure(data)
-        )
 
     def get_packages_selection(self) -> PackagesSelectionData:
         """Get the DBus data with the packages selection."""
@@ -246,9 +244,8 @@ class DNFPayload(Payload):
 
     def set_packages_selection(self, data: PackagesSelectionData):
         """Set the DBus data with the packages selection."""
-        return self.proxy.SetPackagesSelection(
+        self.proxy.PackagesSelection = \
             PackagesSelectionData.to_structure(data)
-        )
 
     def is_ready(self):
         """Is the payload ready?"""

@@ -39,8 +39,9 @@ class ManualPartitioningInterface(PartitioningInterface):
         """List of mount point requests."""
         return MountPointRequest.to_structure_list(self.implementation.requests)
 
+    @Requests.setter
     @emits_properties_changed
-    def SetRequests(self, requests: List[Structure]):
+    def Requests(self, requests: List[Structure]):
         """Set the mount point requests.
 
         :param requests: a list of requests
