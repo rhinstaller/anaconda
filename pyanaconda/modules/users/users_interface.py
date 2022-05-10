@@ -134,14 +134,7 @@ class UsersInterface(KickstartModuleInterface):
 
         :return: a list of user describing DBus Structures
         """
-        # internally we hold the data about users as a list of structures,
-        # which we need to turn into a list of dicts before returning it
-        # over DBus
-        user_dicts = []
-
-        for user_data in self.implementation.users:
-            user_dicts.append(UserData.to_structure(user_data))
-        return user_dicts
+        return UserData.to_structure_list(self.implementation.users)
 
     @Users.setter
     @emits_properties_changed
@@ -158,14 +151,7 @@ class UsersInterface(KickstartModuleInterface):
 
         :return: a list of group describing DBus Structures
         """
-        # internally we hold the data about groups as a list of structures,
-        # which we need to turn into a list of dicts before returning it
-        # over DBus
-        group_dicts = []
-
-        for group_data in self.implementation.groups:
-            group_dicts.append(GroupData.to_structure(group_data))
-        return group_dicts
+        return GroupData.to_structure_list(self.implementation.groups)
 
     @Groups.setter
     @emits_properties_changed
@@ -182,14 +168,7 @@ class UsersInterface(KickstartModuleInterface):
 
         :return: a list of SSH key describing DBus Structures
         """
-        # internally we hold the data about SSH keys as a list of structures,
-        # which we need to turn into a list of dicts before returning it
-        # over DBus
-        ssh_key_dicts = []
-
-        for ssh_key_data in self.implementation.ssh_keys:
-            ssh_key_dicts.append(SshKeyData.to_structure(ssh_key_data))
-        return ssh_key_dicts
+        return SshKeyData.to_structure_list(self.implementation.ssh_keys)
 
     @SshKeys.setter
     @emits_properties_changed
