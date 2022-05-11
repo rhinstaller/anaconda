@@ -20,8 +20,7 @@ import requests
 
 from pyanaconda.timezone import get_preferred_timezone, is_valid_timezone
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import GEOLOC_DEFAULT_PROVIDER, GEOLOC_PROVIDER_FEDORA_GEOIP, \
-    GEOLOC_PROVIDER_HOSTIP, NETWORK_CONNECTION_TIMEOUT
+from pyanaconda.core.constants import NETWORK_CONNECTION_TIMEOUT
 from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.modules.common.structures.timezone import GeolocationData
 from pyanaconda.modules.common.task import Task
@@ -38,10 +37,9 @@ class GeolocationTask(Task):
         return "Geolocate the system"
 
     def run(self):
-        url = self._convert_provider_id_to_url(conf.timezone.geolocation_provider)
+        url = conf.timezone.geolocation_provider
 
-        log.info("Geoloc: starting lookup using provider: %s (%s)",
-                 conf.timezone.geolocation_provider, url)
+        log.info("Geoloc: starting lookup using provider: %s", url)
         start_time = time.time()
 
         if not self._wait_for_network():
@@ -80,23 +78,6 @@ class GeolocationTask(Task):
                 return True
 
         return network.Connected
-
-    def _convert_provider_id_to_url(self, provider_id):
-        """Convert provider ID to URL of the corresponding service.
-
-        :param str provider_id: id of the geolocation provider service
-        :return str: URL to use
-        """
-        available_providers = {
-            GEOLOC_PROVIDER_FEDORA_GEOIP: "https://geoip.fedoraproject.org/city",
-            GEOLOC_PROVIDER_HOSTIP: "http://api.hostip.info/get_json.php",
-        }
-        try:
-            return available_providers[provider_id]
-        except KeyError:
-            log.error('Geoloc: wrong provider id specified: %s, using default %s',
-                      provider_id, GEOLOC_DEFAULT_PROVIDER)
-            return available_providers[GEOLOC_DEFAULT_PROVIDER]
 
     def _locate(self, url):
         """Geolocate the computer using the service at given URL

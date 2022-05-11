@@ -27,7 +27,8 @@ from unittest.mock import patch
 from blivet.size import Size
 from dasbus.namespace import get_dbus_name
 
-from pyanaconda.core.configuration.anaconda import AnacondaConfiguration
+from pyanaconda.core.configuration.anaconda import AnacondaConfiguration, \
+    _convert_geoloc_provider_id_to_url
 from pyanaconda.core.configuration.base import create_parser, read_config, write_config, \
     get_option, set_option, ConfigurationError, ConfigurationDataError, ConfigurationFileError, \
     Configuration
@@ -35,7 +36,9 @@ from pyanaconda.core.configuration.storage import StorageSection
 from pyanaconda.core.configuration.ui import UserInterfaceSection
 from pyanaconda.core.util import get_os_release_value
 from pyanaconda.modules.common.constants import services, namespaces
-from pyanaconda.core.constants import SOURCE_TYPE_CLOSEST_MIRROR
+from pyanaconda.core.constants import SOURCE_TYPE_CLOSEST_MIRROR, GEOLOC_DEFAULT_PROVIDER, \
+    GEOLOC_PROVIDER_FEDORA_GEOIP, GEOLOC_PROVIDER_HOSTIP, GEOLOC_URL_FEDORA_GEOIP, \
+    GEOLOC_URL_HOSTIP
 
 # Path to the configuration directory of the repo.
 CONFIG_DIR = os.environ.get("ANACONDA_DATA")
@@ -662,3 +665,23 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
         # Missing quality.
         with pytest.raises(ValueError):
             convert_line("user (length 10)")
+
+
+class ConvertGeolocationProviderTest(unittest.TestCase):
+    """Test _convert_geoloc_provider_id_to_url()"""
+
+    def test_convert_provider_id_to_url(self):
+        """Test conversion of geolocation provider IDs to URLs"""
+        fedora_url = _convert_geoloc_provider_id_to_url(GEOLOC_PROVIDER_FEDORA_GEOIP)
+        assert fedora_url == GEOLOC_URL_FEDORA_GEOIP
+
+        hostip_url = _convert_geoloc_provider_id_to_url(GEOLOC_PROVIDER_HOSTIP)
+        assert hostip_url == GEOLOC_URL_HOSTIP
+
+        default_url = _convert_geoloc_provider_id_to_url(GEOLOC_DEFAULT_PROVIDER)
+        assert default_url == fedora_url
+
+        for value in ["blah", "", None, 123]:
+            with self.assertLogs(level="DEBUG") as logs:
+                assert _convert_geoloc_provider_id_to_url(value) == default_url
+                assert "using default" in "\n".join(logs.output)

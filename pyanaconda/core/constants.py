@@ -135,6 +135,9 @@ GEOLOC_PROVIDER_FEDORA_GEOIP = "provider_fedora_geoip"
 GEOLOC_PROVIDER_HOSTIP = "provider_hostip"
 # default provider
 GEOLOC_DEFAULT_PROVIDER = GEOLOC_PROVIDER_FEDORA_GEOIP
+# geolocation URLs - values used by config file
+GEOLOC_URL_FEDORA_GEOIP = "https://geoip.fedoraproject.org/city"
+GEOLOC_URL_HOSTIP = "https://api.hostip.info/get_json.php"
 
 ANACONDA_ENVIRON = "anaconda"
 FIRSTBOOT_ENVIRON = "firstboot"
