@@ -18,8 +18,7 @@
 from unittest import TestCase
 from unittest.mock import patch, Mock
 from requests.exceptions import RequestException
-from pyanaconda.core.constants import GEOLOC_PROVIDER_FEDORA_GEOIP, GEOLOC_PROVIDER_HOSTIP, \
-    GEOLOC_DEFAULT_PROVIDER
+from pyanaconda.core.constants import GEOLOC_URL_FEDORA_GEOIP, GEOLOC_URL_HOSTIP
 from pyanaconda.modules.common.structures.timezone import GeolocationData
 from pyanaconda.modules.timezone.initialization import GeolocationTask
 
@@ -45,17 +44,12 @@ class MockRequestsGetResult:
 class GeolocationTaskLocateTest(TestCase):
     """Test GeolocationTask._locate()"""
 
-    def setUp(self):
-        task = GeolocationTask()
-        self._fedora_url = task._convert_provider_id_to_url(GEOLOC_PROVIDER_FEDORA_GEOIP)
-        self._hostip_url = task._convert_provider_id_to_url(GEOLOC_PROVIDER_HOSTIP)
-
     @patch("pyanaconda.modules.timezone.initialization.requests.get",
            return_value=MockRequestsGetResult(200, "GB", "Europe/London"))
     def test_fgip_success(self, mock_get):
         """Test FedoraGeoIPProvider success"""
         task = GeolocationTask()
-        result = task._locate(self._fedora_url)
+        result = task._locate(GEOLOC_URL_FEDORA_GEOIP)
 
         assert isinstance(result, GeolocationData)
         assert result.territory == "GB"
@@ -68,7 +62,7 @@ class GeolocationTaskLocateTest(TestCase):
     def test_fgip_bad_timezone(self, mock_get):
         """Test FedoraGeoIPProvider with bad time zone data"""
         task = GeolocationTask()
-        result = task._locate(self._fedora_url)
+        result = task._locate(GEOLOC_URL_FEDORA_GEOIP)
 
         assert isinstance(result, GeolocationData)
         assert result.territory == "GB"
@@ -81,7 +75,7 @@ class GeolocationTaskLocateTest(TestCase):
     def test_fgip_emptydata(self, mock_get):
         """Test FedoraGeoIPProvider with empty data"""
         task = GeolocationTask()
-        result = task._locate(self._fedora_url)
+        result = task._locate(GEOLOC_URL_FEDORA_GEOIP)
 
         assert isinstance(result, GeolocationData)
         assert result.is_empty()
@@ -93,7 +87,7 @@ class GeolocationTaskLocateTest(TestCase):
         """Test FedoraGeoIPProvider with HTTP failure"""
         task = GeolocationTask()
         with self.assertLogs(level="DEBUG") as logs:
-            result = task._locate(self._fedora_url)
+            result = task._locate(GEOLOC_URL_FEDORA_GEOIP)
 
         assert isinstance(result, GeolocationData)
         assert result.is_empty()
@@ -107,7 +101,7 @@ class GeolocationTaskLocateTest(TestCase):
 
         mock_get.side_effect = RequestException
         with self.assertLogs(level="DEBUG") as logs:
-            result = task._locate(self._fedora_url)
+            result = task._locate(GEOLOC_URL_FEDORA_GEOIP)
         assert isinstance(result, GeolocationData)
 
         assert result.is_empty()
@@ -121,7 +115,7 @@ class GeolocationTaskLocateTest(TestCase):
         # enough approximation.
         mock_get.side_effect = ValueError
         with self.assertLogs(level="DEBUG") as logs:
-            result = task._locate(self._fedora_url)
+            result = task._locate(GEOLOC_URL_FEDORA_GEOIP)
 
         assert isinstance(result, GeolocationData)
         assert result.is_empty()
@@ -133,7 +127,7 @@ class GeolocationTaskLocateTest(TestCase):
     def test_hip_success(self, mock_get):
         """Test HostipGeoIPProvider success"""
         task = GeolocationTask()
-        result = task._locate(self._hostip_url)
+        result = task._locate(GEOLOC_URL_HOSTIP)
 
         assert isinstance(result, GeolocationData)
         assert result.territory == "GB"
@@ -142,35 +136,13 @@ class GeolocationTaskLocateTest(TestCase):
         mock_get.assert_called_once()
 
 
-class GeolocationTaskConvertTest(TestCase):
-    """Test GeolocationTask._convert_provider_id_to_url()"""
-
-    def test_convert_provider_id_to_url(self):
-        """Test conversion of geolocation provider IDs to URLs"""
-        task = GeolocationTask()
-
-        fedora_url = task._convert_provider_id_to_url(GEOLOC_PROVIDER_FEDORA_GEOIP)
-        assert fedora_url == "https://geoip.fedoraproject.org/city"
-
-        hostip_url = task._convert_provider_id_to_url(GEOLOC_PROVIDER_HOSTIP)
-        assert hostip_url == "http://api.hostip.info/get_json.php"
-
-        default_url = task._convert_provider_id_to_url(GEOLOC_DEFAULT_PROVIDER)
-        assert default_url == fedora_url
-
-        for value in ["blah", "", None, 123]:
-            with self.assertLogs(level="DEBUG") as logs:
-                assert task._convert_provider_id_to_url(value) == default_url
-                assert "using default" in "\n".join(logs.output)
-
-
 class GeolocationTaskRunTest(TestCase):
     """Test GeolocationTask.run()"""
 
     @patch("pyanaconda.modules.timezone.initialization.conf")
     def test_success(self, conf_mock):
         """Test success case for GeolocationTask"""
-        conf_mock.timezone.geolocation_provider = GEOLOC_PROVIDER_FEDORA_GEOIP
+        conf_mock.timezone.geolocation_provider = GEOLOC_URL_FEDORA_GEOIP
         retval = GeolocationData.from_values(territory="territory", timezone="timezone")
 
         with patch.object(GeolocationTask, "_wait_for_network", return_value=True) as wfn_mock:
@@ -187,7 +159,7 @@ class GeolocationTaskRunTest(TestCase):
     @patch("pyanaconda.modules.timezone.initialization.conf")
     def test_no_network(self, conf_mock):
         """Test GeolocationTask with no network access"""
-        conf_mock.timezone.geolocation_provider = GEOLOC_PROVIDER_FEDORA_GEOIP
+        conf_mock.timezone.geolocation_provider = GEOLOC_URL_FEDORA_GEOIP
         retval = GeolocationData.from_values(territory="territory", timezone="timezone")
 
         with self.assertLogs(level="DEBUG") as logs:
@@ -205,7 +177,7 @@ class GeolocationTaskRunTest(TestCase):
     @patch("pyanaconda.modules.timezone.initialization.conf")
     def test_no_result(self, conf_mock):
         """Test GeolocationTask with no viable result"""
-        conf_mock.timezone.geolocation_provider = GEOLOC_PROVIDER_FEDORA_GEOIP
+        conf_mock.timezone.geolocation_provider = GEOLOC_URL_FEDORA_GEOIP
         retval = GeolocationData()  # empty by default
 
         with patch.object(GeolocationTask, "_wait_for_network", return_value=True) as wfn_mock:
