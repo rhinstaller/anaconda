@@ -527,7 +527,9 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             return
 
         dialog = PassphraseDialog(self.data)
-        rc = dialog.run()
+
+        with self.main_window.enlightbox(dialog.window):
+            rc = dialog.run()
 
         if rc != 1:
             return

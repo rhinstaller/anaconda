@@ -199,8 +199,8 @@ class GUIObject(common.UIObject):
 
     @property
     def main_window(self):
-        """Return the top-level window containing this GUIObject."""
-        return self.window.get_toplevel()
+        """Return the top-level main window."""
+        return MainWindow.get()
 
     def clear_info(self):
         """Clear any info bar from the bottom of the screen."""
@@ -264,12 +264,30 @@ class ErrorDialog(GUIObject):
 class MainWindow(Gtk.Window):
     """This is a top-level, full size window containing the Anaconda screens."""
 
+    __instance = None
+
+    @classmethod
+    def get(cls):
+        """Get the top-level main window.
+
+        Return the latest instance of this class.
+
+        :return MainWindow: the main window
+        :raise ValueError: if the window doesn't exist
+        """
+        if not cls.__instance:
+            raise ValueError("The main window doesn't exist!")
+
+        return cls.__instance
+
     def __init__(self, fullscreen=False, decorated=False):
         """Create a new anaconda main window.
 
           :param bool fullscreen: if True, fullscreen the window, if false maximize
         """
         super().__init__()
+        # Keep the latest main window.
+        self.__class__.__instance = self
 
         # Remove the title bar, resize controls and other stuff if the window manager
         # allows it and decorated is set to False. Otherwise, it has no effect.
