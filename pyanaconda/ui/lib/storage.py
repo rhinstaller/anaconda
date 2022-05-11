@@ -26,7 +26,8 @@ from dasbus.client.proxy import get_object_path
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import PARTITIONING_METHOD_AUTOMATIC, BOOTLOADER_DRIVE_UNSET
+from pyanaconda.core.constants import PARTITIONING_METHOD_AUTOMATIC, BOOTLOADER_DRIVE_UNSET, \
+    PARTITIONING_METHOD_CUSTOM
 from pyanaconda.core.i18n import P_, _
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.flags import flags
@@ -268,6 +269,32 @@ def try_populate_devicetree():
         else:
             # No need to retry.
             break
+
+
+def is_passphrase_required(partitioning):
+    """Is a passphrase required by the partitioning?
+
+    If the partitioning defines an encrypted device without
+    a passphrase, it is necessary to provide a passphrase
+    that will be used by all such devices.
+
+    :param partitioning: a DBus proxy of a partitioning
+    """
+    return partitioning.PartitioningMethod in (
+        PARTITIONING_METHOD_AUTOMATIC,
+        PARTITIONING_METHOD_CUSTOM
+    ) and partitioning.RequiresPassphrase()
+
+
+def set_required_passphrase(partitioning, passphrase):
+    """Set a passphrase required by the partitioning.
+
+    See the is_passphrase_required function.
+
+    :param partitioning: a DBus proxy of a partitioning
+    :param passphrase: a string with the passphrase
+    """
+    partitioning.SetPassphrase(passphrase)
 
 
 def apply_partitioning(partitioning, show_message):
