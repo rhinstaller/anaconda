@@ -42,6 +42,11 @@ class LiveOSModule(PayloadBase):
         return PayloadType.LIVE_OS
 
     @property
+    def default_source_type(self):
+        """Type of the default source."""
+        return SourceType.LIVE_OS_IMAGE
+
+    @property
     def supported_source_types(self):
         """List of supported source types."""
         return [SourceType.LIVE_OS_IMAGE]

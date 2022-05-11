@@ -16,8 +16,6 @@
 # Red Hat, Inc.
 #
 import unittest
-import pytest
-
 from unittest.mock import patch
 
 from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_OS, PAYLOAD_TYPE_DNF, SOURCE_TYPE_CDROM
@@ -102,10 +100,6 @@ class PayloadUITestCase(unittest.TestCase):
         payload_proxy.Sources = ["/my/source/1"]
         assert get_source(payload_proxy) == source_proxy_1
 
-        payload_proxy.Sources = []
-        with pytest.raises(ValueError):
-            get_source(payload_proxy)
-
         payloads_proxy = PAYLOADS.get_proxy()
         payloads_proxy.CreateSource.return_value = "/my/source/4"
 
@@ -113,7 +107,9 @@ class PayloadUITestCase(unittest.TestCase):
         get_object_path.return_value = "/my/source/4"
 
         payload_proxy.Sources = []
-        assert get_source(payload_proxy, SOURCE_TYPE_CDROM) == source_proxy_4
+        payload_proxy.DefaultSourceType = SOURCE_TYPE_CDROM
+
+        assert get_source(payload_proxy) == source_proxy_4
         payloads_proxy.CreateSource.assert_called_once_with(SOURCE_TYPE_CDROM)
         assert payload_proxy.Sources == ["/my/source/4"]
 

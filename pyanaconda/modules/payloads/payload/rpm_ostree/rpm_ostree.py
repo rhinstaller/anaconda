@@ -49,11 +49,13 @@ class RPMOSTreeModule(PayloadBase):
 
     @property
     def type(self):
-        """Get type of this payload.
-
-        :return: value of the payload.base.constants.PayloadType enum
-        """
+        """Type of the payload."""
         return PayloadType.RPM_OSTREE
+
+    @property
+    def default_source_type(self):
+        """Type of the default source."""
+        return SourceType.RPM_OSTREE
 
     @property
     def supported_source_types(self):

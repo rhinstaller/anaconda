@@ -50,8 +50,12 @@ class LiveOSInterfaceTestCase(unittest.TestCase):
         return self.shared_tests.prepare_source(SourceType.LIVE_OS_IMAGE)
 
     def test_type(self):
-        """Test the type of the payload."""
+        """Test the Type property."""
         assert self.interface.Type == PAYLOAD_TYPE_LIVE_OS
+
+    def test_default_source_type(self):
+        """Test the DefaultSourceType property."""
+        assert self.interface.DefaultSourceType == SOURCE_TYPE_LIVE_OS_IMAGE
 
     def test_supported_sources(self):
         """Test LiveOS supported sources API."""

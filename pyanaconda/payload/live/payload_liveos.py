@@ -16,7 +16,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.anaconda_loggers import get_packaging_logger
-from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_OS, SOURCE_TYPE_LIVE_OS_IMAGE
+from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_OS
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.payload.migrated import MigratedDBusPayload
@@ -43,8 +43,3 @@ class LiveOSPayload(MigratedDBusPayload):
     def type(self):
         """The DBus type of the payload."""
         return PAYLOAD_TYPE_LIVE_OS
-
-    @property
-    def default_source_type(self):
-        """The DBus type of the default source."""
-        return SOURCE_TYPE_LIVE_OS_IMAGE

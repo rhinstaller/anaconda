@@ -17,6 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.core.configuration.anaconda import conf
 from pykickstart.constants import GROUP_REQUIRED, GROUP_ALL, KS_MISSING_IGNORE, KS_BROKEN_IGNORE, \
     GROUP_DEFAULT
 
@@ -54,11 +55,13 @@ class DNFModule(PayloadBase):
 
     @property
     def type(self):
-        """Get type of this payload.
-
-        :return: value of the payload.base.constants.PayloadType enum
-        """
+        """Type of this payload."""
         return PayloadType.DNF
+
+    @property
+    def default_source_type(self):
+        """Type of the default source."""
+        return SourceType(conf.payload.default_source)
 
     @property
     def supported_source_types(self):

@@ -39,11 +39,13 @@ class LiveImageModule(PayloadBase):
 
     @property
     def type(self):
-        """Get type of this payload.
-
-        :return: value of the payload.base.constants.PayloadType enum
-        """
+        """Type of this payload."""
         return PayloadType.LIVE_IMAGE
+
+    @property
+    def default_source_type(self):
+        """Type of the default source."""
+        return SourceType.LIVE_IMAGE
 
     @property
     def supported_source_types(self):
