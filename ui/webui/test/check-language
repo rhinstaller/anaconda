@@ -40,11 +40,10 @@ class TestLanguage(MachineCase):
         l = Language(b, m)
 
         # Set the language in the localization module to German before opening the page
-        bus_address = m.execute("cat /run/anaconda/bus.address")
-        m.execute(l.dbus_set_language_cmd("de_DE.UTF-8", bus_address))
+        l.dbus_set_language("de_DE.UTF-8")
 
         i.open()
-        self.addCleanup(m.execute, l.dbus_set_language_cmd("en_US.UTF-8", bus_address))
+        self.addCleanup(l.dbus_set_language, "en_US.UTF-8")
         self.addCleanup(l.select_locale, "en_US")
 
         # Expect the backend set language to be preselected and the WebUI translated
@@ -101,8 +100,7 @@ class TestLanguage(MachineCase):
 
         # Check that the language is updated in the backend
         # TODO: Check that error messages from the backend show up translated
-        bus_address = m.execute("cat /run/anaconda/bus.address")
-        language_new = m.execute(l.dbus_get_language_cmd(bus_address))
+        language_new = l.dbus_get_language()
         self.assertIn('string "de_DE.UTF-8"', language_new)
 
 if __name__ == '__main__':
