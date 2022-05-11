@@ -38,6 +38,7 @@ from pyanaconda.core.storage import suggest_swap_size
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.communication import hubQ
+from pyanaconda.ui.gui import MainWindow
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.spokes.lib.dasdfmt import DasdFormatDialog
@@ -511,7 +512,13 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             return
 
         dialog = PassphraseDialog(self.data)
-        rc = dialog.run()
+
+        # Use MainWindow.get() instead of self.main_window,
+        # because the main_window property returns SpokeWindow
+        # instead of MainWindow during the initialization.
+        # We need the main window for showing the enlight box.
+        with MainWindow.get().enlightbox(dialog.window):
+            rc = dialog.run()
 
         if rc != 1:
             return
