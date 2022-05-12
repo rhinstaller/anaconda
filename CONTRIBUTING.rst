@@ -21,9 +21,10 @@ dealing with containers, just skip this part and continue on the next one::
     toolbox create
     toolbox enter
 
-To prepare the environment in the container or on your system just run these commands::
+To prepare the environment in the container or on your system run the commands below. Install
+dependencies without the ``-y`` option to preview the transaction::
 
-    sudo ./scripts/testing/install_dependencies.sh
+    sudo ./scripts/testing/install_dependencies.sh -y
     ./autogen.sh && ./configure
 
 How to Contribute to the Anaconda Installer (the short version)
