@@ -227,6 +227,22 @@ export const setInitializeLabelsEnabled = ({ enabled }) => {
 };
 
 /**
+ * @param {string} drive     A drive name
+ */
+export const setBootloaderDrive = ({ drive }) => {
+    return new StorageClient().client.call(
+        "/org/fedoraproject/Anaconda/Modules/Storage/Bootloader",
+        "org.freedesktop.DBus.Properties",
+        "Set",
+        [
+            "org.fedoraproject.Anaconda.Modules.Storage.Bootloader",
+            "Drive",
+            cockpit.variant("s", drive)
+        ]
+    );
+};
+
+/**
  * @param {Array.<string>} drives A list of drives names
  */
 export const setSelectedDisks = ({ drives }) => {

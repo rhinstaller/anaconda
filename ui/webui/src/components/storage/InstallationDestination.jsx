@@ -45,6 +45,7 @@ import {
     setInitializationMode,
     setInitializeLabelsEnabled,
     setSelectedDisks,
+    setBootloaderDrive,
 } from "../../apis/storage.js";
 
 const _ = cockpit.gettext;
@@ -225,6 +226,7 @@ export const applyDefaultStorage = ({ onFail, onSuccess }) => {
     // CLEAR_PARTITIONS_ALL = 1
     return setInitializationMode({ mode: 1 })
             .then(() => setInitializeLabelsEnabled({ enabled: true }))
+            .then(() => setBootloaderDrive({ drive: "" }))
             .then(() => createPartitioning({ method: "AUTOMATIC" }))
             .then(res => {
                 partitioning = res[0];
