@@ -18,6 +18,7 @@ import cockpit from "cockpit";
 import React, { useEffect, useState } from "react";
 
 import {
+    Alert,
     Button,
     Flex,
     FlexItem,
@@ -275,6 +276,15 @@ export const InstallationDestination = ({ idPrefix, onAddErrorNotification }) =>
                 ), cockpit.format_bytes(requiredSize))
             }
             </Text>
+            <Alert
+              isInline
+              variant="info"
+              title={_("Selected disks will be erased at at install")}
+            >
+                <p>
+                    {_("To prevent loss, backup the data.")}
+                </p>
+            </Alert>
             <LocalStandardDisks
               idPrefix={idPrefix}
               onAddErrorNotification={onAddErrorNotification}
