@@ -118,7 +118,6 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
         if flags.flags.automatedInstall and geoloc_result.is_empty():
             return
 
-        loc_timezones = localization.get_locale_timezones(self._l12_module.Language)
         if geoloc_result.timezone:
             # (the geolocation module makes sure that the returned timezone is
             # either a valid timezone or empty string)
@@ -131,11 +130,6 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
             # enter the Date & Time spoke to acknowledge the timezone detected
             # by geolocation before continuing the installation.
             self._tz_module.Kickstarted = True
-        elif loc_timezones and not self._tz_module.Timezone:
-            # no data is provided by Geolocation, try to get timezone from the
-            # current language
-            log.info("geolocation not finished in time, using default timezone")
-            self._tz_module.Timezone = loc_timezones[0]
 
     @property
     def completed(self):
