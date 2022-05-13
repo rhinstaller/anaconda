@@ -30,6 +30,7 @@ import { AnacondaWizard } from "./AnacondaWizard.jsx";
 import { BossClient } from "../apis/boss.js";
 import { LocalizationClient } from "../apis/localization.js";
 import { StorageClient } from "../apis/storage.js";
+import { PayloadsClient } from "../apis/payloads";
 
 import { readBuildstamp, getIsFinal } from "../helpers/betanag.js";
 import { readConf } from "../helpers/conf.js";
@@ -47,6 +48,7 @@ export const Application = () => {
             const clients = [
                 new LocalizationClient(address),
                 new StorageClient(address),
+                new PayloadsClient(address),
                 new BossClient(address)
             ];
             clients.forEach(c => c.init());
