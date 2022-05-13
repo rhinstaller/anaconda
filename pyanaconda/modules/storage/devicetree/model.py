@@ -268,7 +268,7 @@ class InstallerStorage(Blivet):
         self.bootloader.reset()
 
         self.roots = []
-        self.roots = find_existing_installations(self.devicetree)
+        self.roots = find_existing_installations(self.devicetree, False)
         self.dump_state("initial")
 
     def _mark_protected_devices(self):
