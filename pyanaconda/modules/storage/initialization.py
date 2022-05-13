@@ -78,7 +78,7 @@ def enable_installer_mode():
 
 def _set_default_label_type():
     """Set up the default label type."""
-    if not conf.storage.gpt:
+    if not conf.storage.mbr:
         return
 
     disklabel_class = get_device_format_class("disklabel")

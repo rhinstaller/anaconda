@@ -371,8 +371,8 @@ class AnacondaConfiguration(Configuration):
         # Set the storage flags.
         self.storage._set_option("dmraid", opts.dmraid)
         self.storage._set_option("ibft", opts.ibft)
-        if hasattr(opts, "gpt"):
-            self.storage._set_option("gpt", opts.gpt)
+        if hasattr(opts, "mbr"):
+            self.storage._set_option("mbr", opts.mbr)
         self.storage._set_option("multipath_friendly_names", opts.multipath_friendly_names)
 
         # Set up the rescue mode.

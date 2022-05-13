@@ -146,8 +146,9 @@ but when "inst.selinux=0" is used SELinux will only be disabled in the installed
 Also note that while SELinux is running in the installation environment by default, it is
 running in permissive mode so disabling it there does not make much sense.
 
-gpt
-Prefer creation of GPT disklabels.
+mbr
+Prefer creation of MBR disklabels on legacy BIOS boot systems. Ignored on
+EFI-based systems.
 
 nodmraid
 Disable dmraid usage during the installation.

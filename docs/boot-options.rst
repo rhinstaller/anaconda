@@ -694,12 +694,13 @@ Disable support for dmraid.
              it has some stale RAID metadata on it which must be removed using
              an appropriate tool (dmraid and/or wipefs).
 
-.. inst.gpt:
+.. inst.mbr:
 
-inst.gpt
+inst.mbr
 ^^^^^^^^
 
-Prefer creation of GPT disklabels.
+Prefer creation of MBR disklabels on legacy BIOS boot systems. Ignored on
+EFI-based systems.
 
 
 Other options

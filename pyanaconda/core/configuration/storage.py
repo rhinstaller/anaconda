@@ -61,9 +61,9 @@ class StorageSection(Section):
         return self._get_option("ibft", bool)
 
     @property
-    def gpt(self):
-        """Do you prefer creation of GPT disk labels?"""
-        return self._get_option("gpt", bool)
+    def mbr(self):
+        """Do you prefer creation of MBR disk labels on BIOS systems?"""
+        return self._get_option("mbr", bool)
 
     @property
     def multipath_friendly_names(self):
