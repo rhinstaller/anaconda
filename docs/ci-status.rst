@@ -19,6 +19,10 @@ Anaconda
    :alt: Release from tags
    :target: https://github.com/rhinstaller/anaconda/actions/workflows/tag-release.yml
 
+.. |try-release-daily| image:: https://github.com/rhinstaller/anaconda/actions/workflows/try-release-daily.yml/badge.svg
+   :alt: Test releasing and translations daily
+   :target: https://github.com/rhinstaller/anaconda/actions/workflows/try-release-daily.yml
+
 .. _releases: https://github.com/rhinstaller/anaconda/releases
 
 |container-autoupdate|
@@ -31,6 +35,9 @@ Anaconda
 
 |tag-release|
   Creates releases_ built automatically from tagged Anaconda versions for Fedora.
+
+|try-release-daily|
+  Tests the release process daily, including checks for missing important translations
 
 Kickstart-tests
 ---------------
