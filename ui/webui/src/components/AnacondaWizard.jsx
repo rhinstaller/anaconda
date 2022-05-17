@@ -25,6 +25,7 @@ import {
     Title,
     Stack,
     Wizard, WizardFooter, WizardContextConsumer,
+    Modal, ModalVariant,
 } from "@patternfly/react-core";
 
 import { AddressContext } from "./Common.jsx";
@@ -156,6 +157,7 @@ export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
 const Footer = ({ isFormValid, setStepNotification }) => {
     const [isInProgress, setIsInProgress] = useState(false);
     const [nextWaitsConfirmation, setNextWaitsConfirmation] = useState(false);
+    const [quitWaitsConfirmation, setQuitWaitsConfirmation] = useState(false);
 
     const goToStep = (activeStep, onNext) => {
         if (activeStep.id === "installation-destination") {
@@ -201,6 +203,11 @@ const Footer = ({ isFormValid, setStepNotification }) => {
                               onNext={onNext}
                               setNextWaitsConfirmation={setNextWaitsConfirmation}
                             />}
+                            {quitWaitsConfirmation &&
+                            <QuitInstallationConfirmModal
+                              exitGui={exitGui}
+                              setQuitWaitsConfirmation={setQuitWaitsConfirmation}
+                            />}
                             <ActionList>
                                 <Button
                                   variant="primary"
@@ -219,7 +226,13 @@ const Footer = ({ isFormValid, setStepNotification }) => {
                                   onClick={onBack}>
                                     {_("Back")}
                                 </Button>
-                                <Button id="installation-quit-btn" variant="link" onClick={exitGui}>
+                                <Button
+                                  id="installation-quit-btn"
+                                  variant="link"
+                                  onClick={() => {
+                                      setQuitWaitsConfirmation(true);
+                                  }}
+                                >
                                     {_("Quit")}
                                 </Button>
                             </ActionList>
@@ -228,5 +241,39 @@ const Footer = ({ isFormValid, setStepNotification }) => {
                 }}
             </WizardContextConsumer>
         </WizardFooter>
+    );
+};
+
+export const QuitInstallationConfirmModal = ({ exitGui, setQuitWaitsConfirmation }) => {
+    return (
+        <Modal
+          id="installation-quit-confirm-dialog"
+          actions={[
+              <Button
+                id="installation-quit-confirm-btn"
+                key="confirm"
+                onClick={() => {
+                    exitGui();
+                }}
+                variant="danger"
+              >
+                  {_("Quit")}
+              </Button>,
+              <Button
+                id="installation-quit-confirm-cancel-btn"
+                key="cancel"
+                onClick={() => setQuitWaitsConfirmation(false)}
+                variant="secondary">
+                  {_("Continue installation")}
+              </Button>
+          ]}
+          isOpen
+          onClose={() => setQuitWaitsConfirmation(false)}
+          title={_("Quit installer?")}
+          titleIconVariant="warning"
+          variant={ModalVariant.small}
+        >
+            {_("Your progress will not be saved.")}
+        </Modal>
     );
 };

@@ -93,3 +93,5 @@ class Installer():
 
     def quit(self):
         self.browser.click("#installation-quit-btn")
+        self.browser.wait_visible("#installation-quit-confirm-dialog")
+        self.browser.click("#installation-quit-confirm-btn")

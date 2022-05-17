@@ -46,7 +46,10 @@ class TestInstallationProgress(MachineCase):
             else:
                 i.begin_installation()
 
-        b.wait_in_text(".pf-c-alert.pf-m-danger", "No such file or directory: 'systemd-machine-id-setup'")
+        # the warning can take longer to show up than the regular wait_in_text() timeout
+        with b.wait_timeout(300):
+            b.wait_in_text(".pf-c-alert.pf-m-danger", "No such file or directory: 'systemd-machine-id-setup'")
+
         b.wait_in_text("#installation-progress-step-storage", "Storage configuration")
 
         b.wait_visible("#installation-progress-step-0[aria-label='completed step'] > div:first-child")
