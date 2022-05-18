@@ -19,11 +19,10 @@ import time
 import requests
 
 from blivet import udev
-from blivet.size import Size
 from blivet.errors import StorageError
 from blivet.formats import device_formats, get_format
 from blivet.formats.fs import FS
-from bytesize.bytesize import ROUND_HALF_UP
+from bytesize.bytesize import MiB, ROUND_UP
 
 from pyanaconda.core import util
 from pyanaconda.core.i18n import _
@@ -149,7 +148,7 @@ def get_required_device_size(required_space, format_class=None):
         format_class = FS.biggest_overhead_FS()
 
     device_size = format_class.get_required_size(required_space)
-    return device_size.round_to_nearest(Size("1 MiB"), ROUND_HALF_UP)
+    return device_size.round_to_nearest(MiB, ROUND_UP)
 
 
 def find_optical_media(devicetree):

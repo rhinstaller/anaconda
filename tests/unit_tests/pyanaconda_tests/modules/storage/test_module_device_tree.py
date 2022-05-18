@@ -433,6 +433,14 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
     def test_get_required_device_size(self):
         """Test GetRequiredDeviceSize."""
+        assert self.interface.GetRequiredDeviceSize(0) == 0
+
+        required_size = self.interface.GetRequiredDeviceSize(Size("10 B").get_bytes())
+        assert Size("1 MiB").get_bytes() == required_size, Size(required_size)
+
+        required_size = self.interface.GetRequiredDeviceSize(Size("10 KiB").get_bytes())
+        assert Size("1 MiB").get_bytes() == required_size, Size(required_size)
+
         required_size = self.interface.GetRequiredDeviceSize(Size("1 GiB").get_bytes())
         assert Size("1280 MiB").get_bytes() == required_size, Size(required_size)
 
