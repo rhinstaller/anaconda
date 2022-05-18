@@ -19,8 +19,14 @@ import React from "react";
 import cockpit from "cockpit";
 
 import {
-    Form, FormGroup,
-    SelectGroup, SelectOption, Select, SelectVariant,
+    Form,
+    FormGroup,
+    SelectGroup,
+    SelectOption,
+    Select,
+    SelectVariant,
+    Text,
+    TextVariants,
 } from "@patternfly/react-core";
 
 import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
@@ -195,14 +201,21 @@ LanguageSelector.contextType = AddressContext;
 
 export const InstallationLanguage = ({ idPrefix, setIsFormValid, onAddErrorNotification }) => {
     return (
-        <Form>
-            <FormGroup label={_("Select the language you would like to use. This language will also be selected for your installed system.")}>
-                <LanguageSelector
-                  idPrefix={idPrefix}
-                  setIsFormValid={setIsFormValid}
-                  onAddErrorNotification={onAddErrorNotification}
-                />
-            </FormGroup>
-        </Form>
+        <>
+            <Text component={TextVariants.p}>{_(
+                "Select the language you would like to use. This language " +
+                "will also be selected for your installed system."
+            )}
+            </Text>
+            <Form>
+                <FormGroup>
+                    <LanguageSelector
+                      idPrefix={idPrefix}
+                      setIsFormValid={setIsFormValid}
+                      onAddErrorNotification={onAddErrorNotification}
+                    />
+                </FormGroup>
+            </Form>
+        </>
     );
 };

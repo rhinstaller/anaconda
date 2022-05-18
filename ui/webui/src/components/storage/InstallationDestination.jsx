@@ -19,15 +19,16 @@ import React, { useEffect, useState } from "react";
 
 import {
     Button,
-    Flex, FlexItem,
-    HelperText, HelperTextItem,
+    Flex,
+    FlexItem,
     Label,
+    Text,
+    TextVariants,
     Title,
 } from "@patternfly/react-core";
 
 import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
 import { SyncAltIcon } from "@patternfly/react-icons";
-
 import { ListingTable } from "cockpit-components-table.jsx";
 
 import {
@@ -226,15 +227,13 @@ export const InstallationDestination = ({ idPrefix, onAddErrorNotification }) =>
 
     return (
         <>
-            <HelperText>
-                <HelperTextItem>{
-                    cockpit.format(_(
-                        "Select the device(s) to install to. The installation requires " +
-                        "$0 of available space. Storage will be automatically partitioned."
-                    ), cockpit.format_bytes(requiredSize))
-                }
-                </HelperTextItem>
-            </HelperText>
+            <Text component={TextVariants.p}>{
+                cockpit.format(_(
+                    "Select the device(s) to install to. The installation requires " +
+                    "$0 of available space. Storage will be automatically partitioned."
+                ), cockpit.format_bytes(requiredSize))
+            }
+            </Text>
             <LocalStandardDisks
               idPrefix={idPrefix}
               onAddErrorNotification={onAddErrorNotification}
