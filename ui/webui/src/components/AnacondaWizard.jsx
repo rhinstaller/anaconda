@@ -22,10 +22,14 @@ import {
     ActionList,
     Alert,
     Button,
-    Title,
+    Modal,
+    ModalVariant,
     Stack,
-    Wizard, WizardFooter, WizardContextConsumer,
-    Modal, ModalVariant,
+    TextContent,
+    Title,
+    Wizard,
+    WizardFooter,
+    WizardContextConsumer,
 } from "@patternfly/react-core";
 
 import { AddressContext } from "./Common.jsx";
@@ -52,17 +56,19 @@ const getSteps = ({
     const wrapWithContext = (children, label) => {
         return (
             <Stack hasGutter>
-                <Title headingLevel="h2">
-                    {label}
-                </Title>
-                {stepNotification &&
-                 (stepNotification.step === currentStepId) &&
-                 <Alert
-                   isInline
-                   title={stepNotification.message}
-                   variant="danger"
-                 />}
-                {children}
+                <TextContent>
+                    <Title headingLevel="h2">
+                        {label}
+                    </Title>
+                    {stepNotification &&
+                     (stepNotification.step === currentStepId) &&
+                     <Alert
+                       isInline
+                       title={stepNotification.message}
+                       variant="danger"
+                     />}
+                    {children}
+                </TextContent>
             </Stack>
         );
     };
