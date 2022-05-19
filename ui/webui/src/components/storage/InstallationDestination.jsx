@@ -150,19 +150,23 @@ const LocalStandardDisks = ({ idPrefix, onAddErrorNotification }) => {
     return (
         <>
             <Flex spaceItems={{ default: "spaceItemsLg" }}>
-                <Title headingLevel="h3" id={idPrefix + "-local-disks-title"} size="md">
-                    {_("Local standard disks")}
-                </Title>
-                <Label
-                  color="blue"
-                  id="installation-destination-table-label"
-                >
-                    {cockpit.format(
-                        cockpit.ngettext("$0 (of $1) disk selected", "$0 (of $1) disks selected", selectedDisksCnt),
-                        selectedDisksCnt,
-                        totalDisksCnt
-                    )}
-                </Label>
+                <FlexItem align={{ default: "alignLeft" }}>
+                    <Title headingLevel="h3" id={idPrefix + "-local-disks-title"} size="md">
+                        {_("Local standard disks")}
+                    </Title>
+                </FlexItem>
+                <FlexItem align={{ default: "alignLeft" }}>
+                    <Label
+                      color="blue"
+                      id="installation-destination-table-label"
+                    >
+                        {cockpit.format(
+                            cockpit.ngettext("$0 (of $1) disk selected", "$0 (of $1) disks selected", selectedDisksCnt),
+                            selectedDisksCnt,
+                            totalDisksCnt
+                        )}
+                    </Label>
+                </FlexItem>
                 <FlexItem align={{ default: "alignRight" }}>
                     <Button
                       aria-label={_("Rescan disks")}
