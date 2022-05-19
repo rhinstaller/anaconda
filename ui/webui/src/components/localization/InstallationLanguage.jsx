@@ -208,7 +208,10 @@ export const InstallationLanguage = ({ idPrefix, setIsFormValid, onAddErrorNotif
             )}
             </Text>
             <Form>
-                <FormGroup>
+                <FormGroup
+                  label={_("Language")}
+                  isRequired
+                >
                     <LanguageSelector
                       idPrefix={idPrefix}
                       setIsFormValid={setIsFormValid}
