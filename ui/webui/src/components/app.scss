@@ -1,0 +1,10 @@
+// Copied from cockpit/pkg/lib/page.scss instead of including it in its entirety:
+// Let PF4 handle the scrolling through page component otherwise we might get double scrollbar
+html:not(.index-page) body {
+  overflow-y: hidden;
+
+  // Ensure UI fills the entire page (and does not run over)
+  .ct-page-fill {
+    height: 100% !important;
+  }
+}
