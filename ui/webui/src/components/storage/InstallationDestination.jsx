@@ -21,10 +21,11 @@ import {
     Button,
     Flex,
     FlexItem,
+    Form,
+    FormGroup,
     Label,
     Text,
     TextVariants,
-    Title,
 } from "@patternfly/react-core";
 
 import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
@@ -53,6 +54,10 @@ import {
 import {
     getRequiredSpace,
 } from "../../apis/payloads";
+
+import {
+    FormGroupHelpPopover
+} from "../Common.jsx";
 
 const _ = cockpit.gettext;
 
@@ -147,69 +152,105 @@ const LocalStandardDisks = ({ idPrefix, onAddErrorNotification }) => {
         return <EmptyStatePanel loading />;
     }
 
+    const localDisksInfo = (
+        <FormGroupHelpPopover
+          helpContent={_(
+              "Locally available storage devices (SATA, NVMe SSD, " +
+              "SCSI hard drives, external disks, etc.)"
+          )}
+        />
+    );
+
+    const diskSelectionLabel = (
+        <Label
+          color="blue"
+          id="installation-destination-table-label"
+        >
+            {cockpit.format(
+                cockpit.ngettext("$0 (of $1) disk selected", "$0 (of $1) disks selected", selectedDisksCnt),
+                selectedDisksCnt,
+                totalDisksCnt
+            )}
+        </Label>
+    );
+
+    const rescanDisksButton = (
+        <Button
+          aria-label={_("Rescan disks")}
+          id={idPrefix + "-rescan-disks"}
+          onClick={() => {
+              scanDevicesWithTask().then(res => {
+                  runStorageTask({
+                      task: res[0],
+                      onSuccess: () => resetPartitioning().then(() => setRefreshCnt(refreshCnt + 1), onAddErrorNotification),
+                      onFail: onAddErrorNotification
+                  });
+              });
+          }}
+          variant="plain"
+        >
+            <SyncAltIcon />
+        </Button>
+    );
+
+    const localDisksColumns = [
+        {
+            title: _("Name"),
+            sortable: totalDisksCnt > 1,
+            header: true
+        },
+        { title: _("ID") },
+        { title: _("Total") },
+        {
+            title: _("Free"),
+            props: {
+                info: {
+                    popover: (
+                        <div>{_(
+                            "Available storage capacity on the disk."
+                        )}
+                        </div>
+                    ),
+                },
+            },
+        },
+    ];
+
+    const localDisksRows = Object.keys(disks).map(disk => (
+        {
+            selected: !!disks[disk],
+            props: { key: disk, id: disk },
+            columns: [
+                { title: disk },
+                { title: deviceData[disk] && deviceData[disk].description.v },
+                { title: cockpit.format_bytes(deviceData[disk] && deviceData[disk].total.v) },
+                { title: cockpit.format_bytes(deviceData[disk] && deviceData[disk].free.v) },
+            ]
+        }
+    ));
+
     return (
-        <>
-            <Flex spaceItems={{ default: "spaceItemsLg" }}>
-                <Title headingLevel="h3" id={idPrefix + "-local-disks-title"} size="md">
-                    {_("Local standard disks")}
-                </Title>
-                <Label
-                  color="blue"
-                  id="installation-destination-table-label"
-                >
-                    {cockpit.format(
-                        cockpit.ngettext("$0 (of $1) disk selected", "$0 (of $1) disks selected", selectedDisksCnt),
-                        selectedDisksCnt,
-                        totalDisksCnt
-                    )}
-                </Label>
-                <FlexItem align={{ default: "alignRight" }}>
-                    <Button
-                      aria-label={_("Rescan disks")}
-                      id={idPrefix + "-rescan-disks"}
-                      onClick={() => {
-                          scanDevicesWithTask().then(res => {
-                              runStorageTask({
-                                  task: res[0],
-                                  onSuccess: () => resetPartitioning().then(() => setRefreshCnt(refreshCnt + 1), onAddErrorNotification),
-                                  onFail: onAddErrorNotification
-                              });
-                          });
-                      }}
-                      variant="plain"
-                    >
-                        <SyncAltIcon />
-                    </Button>
-                </FlexItem>
-            </Flex>
-            <ListingTable
-              aria-labelledby="installation-destination-local-disk-title"
-              {...(totalDisksCnt > 10 && { variant: "compact" })}
-              columns={
-                  [
-                      { title: _("Name"), sortable: totalDisksCnt > 1, header: true },
-                      { title: _("ID") },
-                      { title: _("Total") },
-                      { title: _("Free") },
-                  ]
+        <Form>
+            <FormGroup
+              label={_("Local standard disks")}
+              labelIcon={
+                  <Flex display={{ default: "inlineFlex" }}>
+                      <FlexItem>{localDisksInfo}</FlexItem>
+                      <FlexItem>{diskSelectionLabel}</FlexItem>
+                  </Flex>
               }
-              onSelect={(_, isSelected, diskId) => setDisks({ ...disks, [Object.keys(disks)[diskId]]: isSelected })}
-              rows={
-                  Object.keys(disks).map(disk => (
-                      {
-                          selected: !!disks[disk],
-                          props: { key: disk, id: disk },
-                          columns: [
-                              { title: disk },
-                              { title: deviceData[disk] && deviceData[disk].description.v },
-                              { title: cockpit.format_bytes(deviceData[disk] && deviceData[disk].total.v) },
-                              { title: cockpit.format_bytes(deviceData[disk] && deviceData[disk].free.v) },
-                          ]
-                      }
-                  ))
-              }
-            />
-        </>
+              labelInfo={rescanDisksButton}
+              isRequired
+            >
+                <ListingTable
+                  aria-labelledby="installation-destination-local-disk-title"
+                  {...(totalDisksCnt > 10 && { variant: "compact" })}
+                  columns={localDisksColumns}
+                  onSelect={(_, isSelected, diskId) => setDisks({ ...disks, [Object.keys(disks)[diskId]]: isSelected })}
+                  rows={localDisksRows}
+                />
+            </FormGroup>
+        </Form>
     );
 };
 

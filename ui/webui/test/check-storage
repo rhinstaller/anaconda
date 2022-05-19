@@ -41,7 +41,7 @@ class TestStorage(MachineCase):
         i.open()
         i.next()
 
-        b.wait_visible('h3:contains(Local standard disks)')
+        b.wait_visible('label:contains(Local standard disks)')
 
         # Check disks table details
         s.check_disk_visible("vda")
