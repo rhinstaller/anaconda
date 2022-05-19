@@ -106,7 +106,7 @@ export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
         {
             component: InstallationDestination,
             id: "installation-destination",
-            label: _("Storage configuration"),
+            label: _("Installation destination"),
         },
         {
             component: ReviewConfiguration,
