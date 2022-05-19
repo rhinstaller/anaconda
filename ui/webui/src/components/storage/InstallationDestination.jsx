@@ -37,6 +37,7 @@ import {
     getDeviceData,
     getDiskFreeSpace,
     getDiskTotalSpace,
+    getRequiredDeviceSize,
     getUsableDisks,
     partitioningConfigureWithTask,
     resetPartitioning,
@@ -47,6 +48,10 @@ import {
     setSelectedDisks,
     setBootloaderDrive,
 } from "../../apis/storage.js";
+
+import {
+    getRequiredSpace,
+} from "../../apis/payloads";
 
 const _ = cockpit.gettext;
 
@@ -208,10 +213,27 @@ const LocalStandardDisks = ({ idPrefix, onAddErrorNotification }) => {
 };
 
 export const InstallationDestination = ({ idPrefix, onAddErrorNotification }) => {
+    const [requiredSize, setRequiredSize] = useState(0);
+
+    useEffect(() => {
+        getRequiredSpace()
+                .then(res => {
+                    getRequiredDeviceSize({ requiredSpace: res }).then(res => {
+                        setRequiredSize(res);
+                    }, console.error);
+                }, console.error);
+    }, []);
+
     return (
         <>
             <HelperText>
-                <HelperTextItem>{_("Select the device(s) you would like to install to")}</HelperTextItem>
+                <HelperTextItem>{
+                    cockpit.format(_(
+                        "Select the device(s) to install to. The installation requires " +
+                        "$0 of available space. Storage will be automatically partitioned."
+                    ), cockpit.format_bytes(requiredSize))
+                }
+                </HelperTextItem>
             </HelperText>
             <LocalStandardDisks
               idPrefix={idPrefix}

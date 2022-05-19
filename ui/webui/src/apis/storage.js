@@ -99,6 +99,20 @@ export const getDiskFreeSpace = ({ diskNames }) => {
 };
 
 /**
+ * @param {int} requiredSpace A required space in bytes
+ *
+ * @returns {Promise}           Resolves the total free space on the given disks
+ */
+export const getRequiredDeviceSize = ({ requiredSpace }) => {
+    return new StorageClient().client.call(
+        "/org/fedoraproject/Anaconda/Modules/Storage/DeviceTree",
+        "org.fedoraproject.Anaconda.Modules.Storage.DeviceTree.Viewer",
+        "GetRequiredDeviceSize", [requiredSpace]
+    )
+            .then(res => res[0]);
+};
+
+/**
  * @param {Array[string]} diskNames A list of disk names
  *
  * @returns {Promise}           Resolves the total space on the given disks
