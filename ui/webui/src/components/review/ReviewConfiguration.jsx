@@ -80,7 +80,7 @@ export const ReviewConfiguration = ({ idPrefix }) => {
                     </DescriptionListDescription>
                 </DescriptionListGroup>
             </DescriptionList>
-            <Title headingLevel="h3" size="xl">
+            <Title headingLevel="h3">
                 {_("Installation destination")}
             </Title>
             <DataList>

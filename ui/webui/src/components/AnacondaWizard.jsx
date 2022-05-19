@@ -52,7 +52,7 @@ const getSteps = ({
     const wrapWithContext = (children, label) => {
         return (
             <Stack hasGutter>
-                <Title headingLevel="h2" size="xl">
+                <Title headingLevel="h2">
                     {label}
                 </Title>
                 {stepNotification &&
