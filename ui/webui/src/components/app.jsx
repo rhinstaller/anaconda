@@ -84,7 +84,7 @@ export const Application = () => {
     }
     console.info("conf: ", conf);
 
-    const title = _("Anaconda Installer");
+    const title = _("Anaconda installer");
 
     return (
         <Page
