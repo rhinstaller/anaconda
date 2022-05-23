@@ -1,0 +1,15 @@
+name: WebUI Integration all
+description: Runs all WebUI integration tests
+point_person: zveleba@redhat.com
+artifact_type: github.pr.anaconda
+verified_by:
+  test_cases:
+    query: '"anaconda-webui" == tc.execution.type and "disabled" not in tc.tags'
+configurations:
+  - architecture: x86_64
+    branch: master
+#reporting:
+#  - type: github-pr
+#    data:
+#      pr-check-name: "WebUI integration tests"
+#      pr-check-summary: "WebUI integration tests run on a pull request comment"
