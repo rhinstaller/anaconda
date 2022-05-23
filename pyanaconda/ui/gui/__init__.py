@@ -754,6 +754,7 @@ class GraphicalUserInterface(UserInterface):
             # Set some program-wide settings.
             settings = Gtk.Settings.get_default()
             settings.set_property("gtk-font-name", "Cantarell")
+            settings.set_property("gtk-icon-theme-name", "Adwaita")
 
             # Get the path to the application data
             data_path = os.environ.get("ANACONDA_DATA", "/usr/share/anaconda")
