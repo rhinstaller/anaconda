@@ -196,7 +196,7 @@ const LocalStandardDisks = ({ idPrefix, onAddErrorNotification }) => {
     const localDisksColumns = [
         {
             title: _("Name"),
-            sortable: totalDisksCnt > 1,
+            sortable: true,
             header: true
         },
         { title: _("ID") },
