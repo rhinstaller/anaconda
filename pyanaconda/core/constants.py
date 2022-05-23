@@ -213,6 +213,8 @@ SECRET_ASCII = {
 }
 PASSWORD_DONE_TWICE = N_("You will have to press <b>Done</b> twice to confirm it.")
 PASSWORD_SET = N_("Password set.")
+# TRANSLATORS: Password error message from libreport library needs to be joined with "You will have to press <b>Done</b> twice to confirm it." add a missing '.'
+PASSWORD_ERROR_CONCATENATION = N_("{}. {}")
 
 
 class SecretStatus(Enum):
