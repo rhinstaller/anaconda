@@ -412,6 +412,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon May 23 2022 Martin Kolman <mkolman@redhat.com> - 36.16.6-1
+- Specify that we want the Adwaita icon theme (awilliam)
+- packit: Fix target names for builds and tests (csomh)
+
 * Tue Apr 12 2022 Martin Kolman <mkolman@redhat.com> - 36.16.5-1
 - Fix keyboard spoke issue if Live system changed keyboard layouts (#2072941)
   (jkonecny)
