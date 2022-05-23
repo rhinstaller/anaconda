@@ -622,8 +622,11 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
                 self.show_warning_message(error_message)
             else:
                 # add suffix for the click twice logic
-                self.show_warning_message("{} {}".format(error_message,
-                                                         _(constants.PASSWORD_DONE_TWICE)))
+                self.show_warning_message(
+                    _(constants.PASSWORD_ERROR_CONCATENATION).format(
+                        error_message,
+                        _(constants.PASSWORD_DONE_TWICE))
+                )
 
         # check if the spoke can be exited after the latest round of checks
         self._check_spoke_exit_conditions(unwaivable_check_failed)
