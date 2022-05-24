@@ -312,6 +312,11 @@ class ProductConfigurationTestCase(unittest.TestCase):
             ["rhel.conf", "rocky.conf"],
             ENTERPRISE_PARTITIONING
         )
+        self._check_default_product(
+            "Virtuozzo Linux", "",
+            ["rhel.conf", "virtuozzo-linux.conf"],
+            ENTERPRISE_PARTITIONING
+        )
 
     def _compare_product_files(self, file_name, other_file_name):
         parser = create_parser()
