@@ -14,7 +14,25 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
-import { createContext } from "react";
+import React, { createContext } from "react";
+import { HelpIcon } from "@patternfly/react-icons";
+import { Popover } from "@patternfly/react-core";
 
 export const AddressContext = createContext("");
 export const ConfContext = createContext();
+
+export const FormGroupHelpPopover = ({ helpContent }) => {
+    return (
+        <Popover
+          bodyContent={helpContent}
+        >
+            <button
+              type="button"
+              onClick={e => e.preventDefault()}
+              className="pf-c-form__group-label-help"
+            >
+                <HelpIcon noVerticalAlign />
+            </button>
+        </Popover>
+    );
+};
