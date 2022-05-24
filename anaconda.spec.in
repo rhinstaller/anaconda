@@ -407,6 +407,14 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 24 2022 Radek Vykydal <rvykydal@redhat.com> - 34.25.1.3-1
+- Run restorecon in chroot when handling home dirs (vslavik)
+  Resolves: rhbz#2072426
+- Move restorecon calls in Tasks to a helper function (vslavik)
+  Related: rhbz#2072426
+- Add Virtuozzo Linux profile to Anaconda (dsilakov)
+  Resolves: rhbz#2067195
+
 * Wed Apr 20 2022 Radek Vykydal <rvykydal@redhat.com> - 34.25.1.2-1
 - ovirt: move /var/tmp to its own partition (sbonazzo)
   Resolves: rhbz#2058538
