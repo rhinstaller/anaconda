@@ -367,6 +367,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 24 2022 Radek Vykydal <rvykydal@redhat.com> - 33.16.7.2-1
+- Run restorecon in chroot when handling home dirs (vslavik)
+  Resolves: rhbz#2069305
+
 * Thu Mar 10 2022 Radek Vykydal <rvykydal@redhat.com> - 33.16.7.1-1
 - ovirt: move /var/tmp and /var/crash to own partition (sbonazzo)
   Resolves: rhbz#2060376
