@@ -238,6 +238,12 @@ jobs:
             --testcase-query '${{ steps.generate_query.outputs.query }}' \
             run_event '{"type":"github.pr","bootIso":{"x86_64":"file://${{ github.workspace }}/images/boot.iso"},"kstestParams":{"platform":"${{ needs.pr-info.outputs.platform }}"}}'
 
+      # Needed so that other jobs are able to clean the working dir
+      # FIXME: we should investigate running permian/launch sudo-less
+      - name: Make artefacts created by sudo cleanable
+        run:
+          sudo chown -R github:github .
+
       - name: Collect anaconda logs
         if: always()
         uses: actions/upload-artifact@v3
