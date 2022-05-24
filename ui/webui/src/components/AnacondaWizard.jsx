@@ -101,12 +101,12 @@ export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
             component: InstallationLanguage,
             id: "installation-language",
             label: _("Welcome"),
-            title: _("Welcome to Anaconda Installer")
+            title: _("Welcome to the Anaconda installer")
         },
         {
             component: InstallationDestination,
             id: "installation-destination",
-            label: _("Storage configuration"),
+            label: _("Installation destination"),
         },
         {
             component: ReviewConfiguration,

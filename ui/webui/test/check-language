@@ -48,7 +48,7 @@ class TestLanguage(MachineCase):
 
         # Expect the backend set language to be preselected and the WebUI translated
         l.check_selected_locale("Deutsch (Deutschland)")
-        b.wait_in_text("h1", "Anaconda-Installationsprogramm")
+        b.wait_in_text("h1", "Anaconda installer")
 
     def testLanguageSwitching(self):
         b = self.browser
@@ -61,7 +61,7 @@ class TestLanguage(MachineCase):
         i.open()
 
         # Expect the default language - this is en at this point - adjust the test when better guess is implemented
-        b.wait_in_text("h1", "Anaconda Installer")
+        b.wait_in_text("h1", "Anaconda installer")
 
         l.check_selected_locale("English (United States)")
 
@@ -95,7 +95,7 @@ class TestLanguage(MachineCase):
         b.assert_pixels("#app", "language-step-basic", ignore=["#betanag-icon"])
 
         # TODO: Add checks for translations when these are present
-        b.wait_in_text("h1", "Anaconda-Installationsprogramm")
+        b.wait_in_text("h1", "Anaconda installer")
         # TODO: Add checks for plural translations when these are present
 
         # Check that the language is updated in the backend
