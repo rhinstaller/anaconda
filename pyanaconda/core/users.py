@@ -423,7 +423,7 @@ def create_user(username, password=False, is_crypted=False, lock=False,
             util.chown_dir_tree(root + homedir,
                                 int(pwent[2]), int(pwent[3]),
                                 orig_uid, orig_gid)
-            util.execWithRedirect("restorecon", ["-r", root + homedir])
+            util.restorecon([homedir], root=root)
         except OSError as e:
             log.critical("Unable to change owner of existing home directory: %s", e.strerror)
             raise
@@ -522,7 +522,12 @@ def set_user_ssh_key(username, key, root=None):
     with util.open_with_perm(authfile, "a", 0o600) as f:
         f.write(key + "\n")
 
+    if root and sshdir.startswith(root):
+        restore_dir = sshdir[len(root):]
+    else:
+        restore_dir = sshdir
+
     # Only change ownership if we created it
     if not authfile_existed:
         os.chown(authfile, int(uid), int(gid))
-        util.execWithRedirect("restorecon", ["-r", sshdir])
+        util.restorecon([restore_dir], root=root)

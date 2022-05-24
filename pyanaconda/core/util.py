@@ -1469,3 +1469,26 @@ def is_smt_enabled():
     except (IOError, ValueError):
         log.warning("Failed to detect SMT.")
         return False
+
+
+def restorecon(paths, root, skip_nonexistent=False):
+    """Try to restore contexts for a list of paths.
+
+    Do not fail if the program does not exist because it was not in the payload, just say so.
+
+    :param [str] paths: list of paths to restore
+    :param str root: root to run in; mandatory because we restore contexts only on the new system
+    :param bool skip_nonexistent: optionally, do not fail if some of the paths do not exist
+    :return bool: did anything run at all
+    """
+    if skip_nonexistent:
+        opts = ["-ir"]
+    else:
+        opts = ["-r"]
+
+    try:
+        execWithRedirect("restorecon", opts + paths, root=root)
+    except FileNotFoundError:
+        return False
+    else:
+        return True

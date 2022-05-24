@@ -19,6 +19,7 @@
 
 from pyanaconda.core import users
 import unittest
+from unittest.mock import patch
 import tempfile
 import shutil
 import os
@@ -276,7 +277,13 @@ class UserCreateTest(unittest.TestCase):
         keydata = "THIS IS TOTALLY A SSH KEY"
 
         users.create_user("test_user", homedir="/home/test_user", root=self.tmpdir)
-        users.set_user_ssh_key("test_user", keydata, root=self.tmpdir)
+        with patch("pyanaconda.core.users.util.restorecon") as restorecon_mock:
+            users.set_user_ssh_key("test_user", keydata, root=self.tmpdir)
+
+        restorecon_mock.assert_called_once_with(
+            ["/home/test_user/.ssh"],
+            root=self.tmpdir
+        )
 
         keyfile = self.tmpdir + "/home/test_user/.ssh/authorized_keys"
         self.assertTrue(os.path.isfile(keyfile))
@@ -318,7 +325,17 @@ class UserCreateTest(unittest.TestCase):
         os.makedirs(self.tmpdir + "/home/test_user")
         os.chown(self.tmpdir + "/home/test_user", 500, 500)
 
-        users.create_user("test_user", homedir="/home/test_user", uid=1000, gid=1000, root=self.tmpdir)
+        with patch("pyanaconda.core.util.restorecon") as restorecon_mock:
+            users.create_user(
+                "test_user",
+                homedir="/home/test_user",
+                uid=1000,
+                gid=1000,
+                root=self.tmpdir
+            )
+
+        restorecon_mock.assert_called_once_with(["/home/test_user"], root=self.tmpdir)
+
         passwd_fields = self._readFields("/etc/passwd", "test_user")
         self.assertIsNotNone(passwd_fields)
         self.assertEqual(passwd_fields[2], "1000")
