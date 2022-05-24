@@ -22,10 +22,6 @@ echo
 
 pushd "${top_srcdir}/ui/webui" > /dev/null || return 1
 
-echo "Installing npm packages:"
-npm install
-echo
-
 echo "Linting:"
 npx eslint --format stylish --no-color src/
 exit $?

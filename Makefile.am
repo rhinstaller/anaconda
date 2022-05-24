@@ -170,6 +170,7 @@ release-and-tag:
 anaconda-ci-build:
 	TEMP=$$(mktemp -t -d anaconda-ci-build.XXXX) && \
 	cp $(srcdir)/anaconda.spec.in $(CI_DOCKERFILE)/* $$TEMP/ && \
+	cp $(srcdir)/ui/webui/package.json $(CI_DOCKERFILE)/* $$TEMP/ && \
 	echo "Build dir is $$TEMP" && \
 	$(CONTAINER_ENGINE) build \
 	$(CONTAINER_BUILD_ARGS) --pull-always \

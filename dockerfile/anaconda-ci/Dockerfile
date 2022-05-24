@@ -31,8 +31,8 @@ LABEL maintainer=anaconda-devel@lists.fedoraproject.org
 COPY ["eln.repo", "/etc/yum.repos.d"]
 
 # The anaconda.spec.in is in the repository root. This file will be copied automatically here if
-# the build is invoked by Makefile.
-COPY ["anaconda.spec.in", "/root/"]
+# the build is invoked by Makefile. Same for package.json from webui.
+COPY ["anaconda.spec.in", "package.json", "/root/"]
 
 # Prepare environment and install build dependencies
 RUN set -ex; \
@@ -66,6 +66,8 @@ RUN set -ex; \
   python3-pip \
   # Need to have restorecon for the tests execution
   policycoreutils \
+  # to find versions of npm packages below
+  jq \
   ShellCheck; \
   # Install Anaconda dependencies
   cat /root/anaconda.spec.in | sed 's/@PACKAGE_VERSION@/0/; s/@PACKAGE_RELEASE@/0/; s/%{__python3}/python3/' > /tmp/anaconda.spec; \
@@ -84,6 +86,15 @@ RUN pip install --no-cache-dir --upgrade pip; \
   rpmfluff \
   freezegun \
   pytest
+
+RUN set -ex; \
+    packages=""; \
+    for package in "eslint" "eslint-config-standard" "eslint-config-standard-jsx" "eslint-config-standard-react"; do \
+      version=$(jq -r --arg package "$package" '.["devDependencies"][$package]' /root/package.json); \
+      packages="$packages $package@$version"; \
+    done; \
+    npm install -g $packages # no quoting here since the string starts with space
+
 
 RUN mkdir /anaconda
 
