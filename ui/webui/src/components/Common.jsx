@@ -16,7 +16,7 @@
  */
 import React, { createContext } from "react";
 import { HelpIcon } from "@patternfly/react-icons";
-import { Popover } from "@patternfly/react-core";
+import { Popover, PopoverPosition } from "@patternfly/react-core";
 
 export const AddressContext = createContext("");
 export const ConfContext = createContext();
@@ -25,6 +25,7 @@ export const FormGroupHelpPopover = ({ helpContent }) => {
     return (
         <Popover
           bodyContent={helpContent}
+          position={PopoverPosition.auto}
         >
             <button
               type="button"
