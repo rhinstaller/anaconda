@@ -50,8 +50,7 @@ const getSteps = ({
     onAddErrorNotification,
     setIsFormValid,
     stepNotification,
-    stepsOrder,
-    stepsVisited
+    stepsOrder
 }) => {
     const wrapWithContext = (children, label) => {
         return (
@@ -87,7 +86,7 @@ const getSteps = ({
                 s.title || s.label
             ),
             stepNavItemProps: { id: s.id },
-            canJumpTo: idx === 0 ? currentStepId === s.id : stepsVisited.includes(s.id),
+            canJumpTo: idx <= stepsOrder.findIndex(s => s.id === currentStepId),
             isFinishedStep: idx === stepsOrder.length - 1
         });
     });
@@ -124,10 +123,6 @@ export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
     const currentStepId = path[0] || "installation-language";
 
     const [stepNotification, setStepNotification] = useState();
-    const [stepsVisited, setStepsVisited] = useState(
-        stepsOrder.slice(0, stepsOrder.findIndex(step => step.id === currentStepId) + 1)
-                .map(step => step.id)
-    );
 
     const steps = getSteps({
         address,
@@ -135,13 +130,10 @@ export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
         setIsFormValid,
         onAddErrorNotification,
         stepNotification,
-        stepsOrder,
-        stepsVisited
+        stepsOrder
     });
     const startAtStep = steps.findIndex(step => step.id === path[0]) + 1;
     const goToStep = (newStep) => {
-        setStepsVisited([...stepsVisited, newStep.id]);
-
         cockpit.location.go([newStep.id]);
     };
 
