@@ -367,6 +367,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu May 26 2022 Radek Vykydal <rvykydal@redhat.com> - 33.16.7.3-1
+- Cleanup unneeded NFS repo with rd.live.ram parameter (mmatsuya)
+  Resolves: rhbz#1970726
+- Fix root password and LUKS passphrase visibility toggle (mkolman)
+  Resolves: rhbz#1885879
+
 * Tue May 24 2022 Radek Vykydal <rvykydal@redhat.com> - 33.16.7.2-1
 - Run restorecon in chroot when handling home dirs (vslavik)
   Resolves: rhbz#2069305
