@@ -50,6 +50,7 @@ install() {
     inst_hook pre-pivot 91 "$moddir/anaconda-copy-prefixdevname.sh"
     inst_hook pre-pivot 95 "$moddir/anaconda-set-kernel-hung-timeout.sh"
     inst_hook pre-pivot 99 "$moddir/save-initramfs.sh"
+    inst_hook cleanup 98 "$moddir/anaconda-nfsrepo-cleanup.sh"
     inst_hook pre-shutdown 50 "$moddir/anaconda-pre-shutdown.sh"
     # kickstart parsing, WOOOO
     inst_hook initqueue/online 11 "$moddir/fetch-kickstart-net.sh"
