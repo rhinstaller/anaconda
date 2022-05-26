@@ -372,6 +372,8 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         self._advanced_user_dialog.initialize()
 
         # set the visibility of the password entries
+        # - without this the password visibility toggle icon will
+        #   not be shown
         set_password_visibility(self.password_entry, False)
         set_password_visibility(self.password_confirmation_entry, False)
 

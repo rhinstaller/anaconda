@@ -135,6 +135,12 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         self._password_bar.add_offset_value("medium", 3)
         self._password_bar.add_offset_value("high", 4)
 
+        # set visibility of the password entries
+        # - without this the password visibility toggle icon will
+        #   not be shown
+        set_password_visibility(self.password_entry, False)
+        set_password_visibility(self.password_confirmation_entry, False)
+
         # Send ready signal to main event loop
         hubQ.send_ready(self.__class__.__name__, False)
 
