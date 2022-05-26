@@ -740,13 +740,50 @@ def device_menu():
 
 def setup_log():
     log.setLevel(logging.DEBUG)
-    handler = SysLogHandler(address="/dev/log")
-    log.addHandler(handler)
+
+    _set_console_logging()
+    _set_syslog_logging()
+
+def _set_console_logging():
     handler = logging.StreamHandler()
-    handler.setLevel(logging.INFO)
-    formatter = logging.Formatter("DD: %(message)s")
-    handler.setFormatter(formatter)
+    # print debug messages into console only if debugging mode is enabled
+    if is_debug_mode_enabled("/proc/cmdline"):
+        handler.setLevel(logging.DEBUG)
+    else:
+        handler.setLevel(logging.INFO)
+
     log.addHandler(handler)
+
+def _set_syslog_logging():
+    # all messages should always go to the syslog
+    handler = SysLogHandler(address="/dev/log")
+    handler.setLevel(logging.DEBUG)
+
+    # log also message level to the syslog
+    formatter = logging.Formatter("DD (%(levelname)s): %(message)s")
+    handler.setFormatter(formatter)
+
+    log.addHandler(handler)
+
+def is_debug_mode_enabled(cmdline_path):
+    """Detect enabled debugging mode.
+
+    Debugging mode can be enabled by adding inst.debug or rd.debug on the kernel command line.
+
+    :param cmdline_path: path to the cmdline file (should be /proc/cmdline)
+    """
+    with open(cmdline_path, 'rt') as f:
+        content = f.readlines()
+
+    for line in content:
+        # remove white space characters from the end of file
+        line = line.strip()
+        for param in line.split(" "):
+            key = param.split("=")[0]
+            if key in ("inst.debug", "rd.debug"):
+                return True
+
+    return False
 
 def print_usage():
     print("usage: driver-updates --interactive")
