@@ -26,11 +26,13 @@ import tempfile
 import shutil
 import collections
 
+import logging
+
 import sys
 sys.path.append(os.path.normpath(os.path.dirname(__file__)+'/../../dracut'))
 
-from driver_updates import copy_files, move_files, iter_files, ensure_dir
-from driver_updates import append_line, mkdir_seq
+from driver_updates import copy_files, move_files, iter_files, ensure_dir, append_line, \
+    mkdir_seq, is_debug_mode_enabled, setup_log
 
 
 def touch(path):
@@ -79,6 +81,85 @@ class FileTestCaseBase(unittest.TestCase):
 
     def makefiles(self, *paths):
         return [makefile(os.path.normpath(self.tmpdir+'/'+p)) for p in paths]
+
+
+class DebuggingTestCase(FileTestCaseBase):
+    def test_debug_mode(self):
+        """check if debug mode is correctly set"""
+        test_cmdline = os.path.join(self.tmpdir, "empty_cmdline")
+        touch(test_cmdline)
+
+        # test with empty cmdline file
+        assert is_debug_mode_enabled(test_cmdline) is False
+
+        # test no debug without empty cmdline file
+        test_cmdline = os.path.join(self.tmpdir, "nodebug_cmdline")
+        with open(test_cmdline, "wt") as f:
+            f.write("root=/my/cool/root inst.text rd.break")
+        assert is_debug_mode_enabled(test_cmdline) is False
+
+        # test with inst.debug
+        test_cmdline = os.path.join(self.tmpdir, "inst_debug_cmdline")
+        with open(test_cmdline, "wt") as f:
+            f.write("root=/my/cool/root inst.debug")
+        assert is_debug_mode_enabled(test_cmdline) is True
+
+        # test with rd.debug
+        test_cmdline = os.path.join(self.tmpdir, "rd_debug_empty_cmdline")
+        with open(test_cmdline, "wt") as f:
+            f.write("rd.debug root=/my/cool/root")
+        assert is_debug_mode_enabled(test_cmdline) is True
+
+        # test both inst.debug and rd.debug is there
+        test_cmdline = os.path.join(self.tmpdir, "rd_inst_debug_empty_cmdline")
+        with open(test_cmdline, "wt") as f:
+            f.write("rd.debug root=/my/cool/root inst.debug")
+        assert is_debug_mode_enabled(test_cmdline) is True
+
+    @mock.patch("driver_updates.log")
+    @mock.patch("driver_updates.is_debug_mode_enabled")
+    def test_setup_log(self, mock_is_debug_mode_enabled, mock_log):
+        """check logging setup when debug mode is not enabled"""
+        # run test with disabled debug mode
+        mock_is_debug_mode_enabled.return_value = False
+        setup_log()
+
+        # check logging level is set to DEBUG
+        mock_log.setLevel.assert_called_once_with(logging.DEBUG)
+
+        calls = mock_log.addHandler.mock_calls
+        calls = list(map(repr, calls))
+
+        # with debug mode disabled
+        # DEBUG logs go to journal only
+        assert "call(<SysLogHandler (DEBUG)>)" in calls
+        # and INFO logs to the console
+        assert "call(<StreamHandler <_io.FileIO name=8 mode='rb+' closefd=True> (DEBUG)>)" \
+            not in calls
+        assert "call(<StreamHandler <_io.FileIO name=8 mode='rb+' closefd=True> (INFO)>)" \
+            in calls
+
+        mock_log.addHandler.reset_mock()
+        mock_log.setLevel.reset_mock()
+
+        # run test with debug mode
+        mock_is_debug_mode_enabled.return_value = True
+        setup_log()
+
+        # check logging level is set to DEBUG
+        mock_log.setLevel.assert_called_once_with(logging.DEBUG)
+
+        calls = mock_log.addHandler.mock_calls
+        calls = list(map(repr, calls))
+
+        # with debug mode enabled
+        # debug logs go to journal but also console
+        assert "call(<SysLogHandler (DEBUG)>)" in calls
+        assert "call(<StreamHandler <_io.FileIO name=8 mode='rb+' closefd=True> (DEBUG)>)" in calls
+        # there can't be INFO messages otherwise the logs would have duplicates (DEBUG includes all lower levels)
+        assert "call(<SysLogHandler (INFO)>)" not in calls
+        assert "call(<StreamHandler <_io.FileIO name=8 mode='rb+' closefd=True> (INFO)>)" \
+            not in calls
 
 
 class SelfTestCase(FileTestCaseBase):
