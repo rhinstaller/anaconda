@@ -256,7 +256,7 @@ class FixBTRFSBootloaderTask(Task):
 class FixZIPLBootloaderTask(Task):
     """Installation task fixing the ZIPL bootloader.
 
-    Invoking zipl should be the last thing done on a s390x installation (see #1652727).
+    Invoking zipl should be the last thing done on a s390x installation (see #1652727, #2022841).
     """
 
     def __init__(self, mode):

@@ -304,3 +304,12 @@ class BootloaderInterface(KickstartModuleInterfaceTemplate):
             kernel_versions
         )
         return TaskContainer.to_object_path_list(tasks)
+
+    def FixZIPLBootloaderWithTask(self) -> ObjPath:
+        """Fix ZIPL bootloader with a task.
+
+        :return: a DBus path of a installation task
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.fix_zipl_bootloader_with_task()
+        )
