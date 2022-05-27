@@ -250,6 +250,7 @@ def append_line(filename, line):
         line += "\n"
     with open(filename, 'a') as outf:
         outf.write(line)
+    log.debug("added line %s to file '%s'", f"{line!r}", filename)
 
 # NOTE: items returned by read_lines should match items passed to append_line,
 #       which is why we remove the newlines
@@ -419,6 +420,7 @@ def load_drivers(moddict):
         cmd = ["modprobe", "-R", modname]
         try:
             out = subprocess.check_output(cmd, stderr=DEVNULL, universal_newlines=True)
+            log.debug("resolving alias '%s' to mod '%s'", modname, out)
             if out:
                 unload_modules.update(out.strip().split('\n'))
         except subprocess.CalledProcessError:
@@ -428,17 +430,21 @@ def load_drivers(moddict):
     if unload_modules:
         net_intfs_unload = rm_net_intfs_for_unload(unload_modules)
         pre_remove_intfs = list_net_intfs()
+        log.debug("removing old modules %s", unload_modules)
         subprocess.call(["modprobe", "-r"] + list(unload_modules))
         intfs_removed = pre_remove_intfs - list_net_intfs()
+        log.debug("unloading modules removed these network interfaces: '%s'", intfs_removed)
         if intfs_removed != net_intfs_unload:
             log.error("ERROR: removed %s interfaces are not expected interfaces for removal %s",
                       intfs_removed, net_intfs_unload)
 
     # Step 2: Update the depmod data and try to load the new module list
-    log.debug("load_drivers: %s", moddict.keys())
+    log.debug("updating depmod data")
     subprocess.call(["depmod", "-a"])
 
+    log.debug("load_drivers: %s", list(moddict.keys()))
     if moddict:
+        log.debug("inserting modules %s", list(moddict.keys()))
         subprocess.call(["modprobe", "-a"] + list(moddict.keys()))
 
     # get new snapshot of currently installed modules
@@ -448,6 +454,7 @@ def load_drivers(moddict):
 
     # load all modules removed due to dependencies again
     if modules_to_add:
+        log.debug("inserting back modules removed due to dependencies %s", list(modules_to_add))
         subprocess.call(["modprobe", "-a"] + list(modules_to_add))
 
 # We *could* pass in "outdir" if we wanted to extract things somewhere else,
@@ -847,6 +854,7 @@ def main(args):
     # or we need to re-trigger the block rules.
     if os.path.exists("/tmp/anaconda-dd-on-cdrom") and not os.path.exists("/dev/root"):
         cmd = ["udevadm", "trigger", "--action=change", "--subsystem-match=block"]
+        log.debug("triggering udevadm to mount cdrom with stage2 image")
         subprocess.check_call(cmd)
 
 if __name__ == '__main__':
@@ -855,3 +863,5 @@ if __name__ == '__main__':
         main(sys.argv[1:])
     except KeyboardInterrupt:
         log.info("exiting.")
+
+    log.info("leaving the driver_updates script")
