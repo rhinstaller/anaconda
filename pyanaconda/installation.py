@@ -227,6 +227,11 @@ class RunInstallationTask(InstallationTask):
                 security_proxy.JoinRealmWithTask()
             ])
 
+        # Calling zipl should be the last task on s390
+        configuration_queue.append_dbus_tasks(STORAGE, [
+            bootloader_proxy.FixZIPLBootloaderWithTask()
+        ])
+
         # setup kexec reboot if requested
         if flags.flags.kexec:
             kexec_setup = TaskQueue(

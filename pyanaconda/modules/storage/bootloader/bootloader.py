@@ -514,7 +514,13 @@ class BootloaderModule(KickstartBaseModule):
                 kernel_versions=kernel_versions,
                 sysroot=conf.target.system_root
             ),
-            FixZIPLBootloaderTask(
-                mode=self.bootloader_mode
-            )
         ]
+
+    def fix_zipl_bootloader_with_task(self):
+        """Fix ZIPL bootloader with a task.
+
+        :return: an installation task
+        """
+        return FixZIPLBootloaderTask(
+            mode=self.bootloader_mode
+        )
