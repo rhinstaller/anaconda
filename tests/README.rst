@@ -28,7 +28,7 @@ example to run just some unit tests please do this::
 
     make -f Makefile.am container-ci CI_CMD="make tests-unit-only UNIT_TESTS_PATTERN='test_layout_variant_'"
 
-The ``UNIT_TESTS_PATTERN`` variable is passed to `unittest discover -k`_. See
+The ``UNIT_TESTS_PATTERN`` variable is passed to `pytest -k`_. See
 the documentation for more info.
 
 WARNING:
@@ -64,14 +64,14 @@ Executing the tests can be done with::
 
 To run a single test do::
 
-    make TESTS=unit_tests.sh check
+    make TESTS=unit_tests/unit_tests.sh check
 
 
 To run a subset of unit tests do::
 
-    make TESTS=unit_tests.sh UNIT_TESTS_PATTERN='test_layout_variant_' check
+    make TESTS=unit_tests/unit_tests.sh UNIT_TESTS_PATTERN='test_layout_variant_' check
 
-The ``UNIT_TESTS_PATTERN`` variable is passed to `unittest discover -k`_. See
+The ``UNIT_TESTS_PATTERN`` variable is passed to `pytest -k`_. See
 the documentation for more info.
 
 See `tests/Makefile.am` for possible values. Alternatively you can try::
@@ -271,7 +271,7 @@ The launcher scripts are listed under `TESTS` in `tests/Makefile.am`.
 
 .. _kickstart-tests: https://github.com/rhinstaller/kickstart-tests
 .. _quay.io: https://quay.io/repository/rhinstaller/anaconda-ci
-.. _unittest discover -k: https://docs.python.org/3/library/unittest.html#cmdoption-unittest-k
+.. _pytest -k: https://docs.pytest.org/en/7.1.x/reference/reference.html#command-line-flags
 .. _GitHub workflows: https://docs.github.com/en/free-pro-team@latest/actions
 .. _validate.yml workflow: ../.github/workflows/validate.yml
 .. _validate-rhel-8.yml workflow: ../.github/workflows/validate-rhel-8.yml
