@@ -57,9 +57,9 @@ Kickstart-tests
    :target: https://github.com/rhinstaller/kickstart-tests/actions/workflows/daily-boot-iso-rawhide.yml
 
 
-.. |scenarios| image:: https://github.com/rhinstaller/kickstart-tests/actions/workflows/scenarios.yml/badge.svg
+.. |scenarios-permian| image:: https://github.com/rhinstaller/kickstart-tests/actions/workflows/scenarios-permian.yml/badge.svg
    :alt: Daily run
-   :target: https://github.com/rhinstaller/kickstart-tests/actions/workflows/scenarios.yml
+   :target: https://github.com/rhinstaller/kickstart-tests/actions/workflows/scenarios-permian.yml
 
 |ks-container-autoupdate|
   CI test container images, built daily. Reused by daily kickstart test runs as well as kickstart tests on PRs.
@@ -70,7 +70,7 @@ Kickstart-tests
 |daily-boot-iso-rawhide|
   Build Rawhide ``boot.iso`` every day.
 
-|scenarios|
+|scenarios-permian|
   Daily kickstart test runs. This tries to execute all tests in three scenarios: Rawhide, RHEL 8, and RHEL 9.
   
   Given the volume of kickstart test suite, failures are still numerous.
