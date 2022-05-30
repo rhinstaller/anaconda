@@ -69,11 +69,10 @@ def mount_existing_system(storage, root_device, read_only=None):
         storage.make_mtab(chroot=root_path)
 
 
-def find_existing_installations(devicetree, teardown_all=True):
+def find_existing_installations(devicetree):
     """Find existing GNU/Linux installations on devices from the device tree.
 
     :param devicetree: a device tree to find existing installations in
-    :param bool teardown_all: whether to tear down all devices in the end
     :return: roots of all found installations
     """
     try:
@@ -82,8 +81,7 @@ def find_existing_installations(devicetree, teardown_all=True):
     except Exception:  # pylint: disable=broad-except
         log_exception_info(log.info, "failure detecting existing installations")
     finally:
-        if teardown_all:
-            devicetree.teardown_all()
+        devicetree.teardown_all()
 
     return []
 
