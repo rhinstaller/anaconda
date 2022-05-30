@@ -260,7 +260,6 @@ if __name__ == "__main__":
     from pyanaconda import display
     from pyanaconda import startup_utils
     from pyanaconda import rescue
-    from pyanaconda import geoloc
 
     # Print the usual "startup note" that contains Anaconda version
     # and short usage & bug reporting instructions.
@@ -552,13 +551,12 @@ if __name__ == "__main__":
 
     payloadMgr.restart_thread(anaconda.payload, fallback=fallback)
 
-    # initialize the geolocation singleton
+    # initialize geolocation and start geolocation lookup if possible and enabled
     use_geoloc = startup_utils.check_if_geolocation_should_be_used(opts)
-    geoloc.init_geolocation(provider=opts.geoloc, enabled=use_geoloc)
-
-    # start geolocation lookup if enabled
-    if geoloc.geoloc.enabled:
-        geoloc.geoloc.refresh()
+    from pyanaconda.modules.common.constants.services import TIMEZONE
+    if is_module_available(TIMEZONE) and use_geoloc:
+        timezone_proxy = TIMEZONE.get_proxy()
+        timezone_proxy.StartGeolocation()
 
     # setup ntp servers and start NTP daemon if not requested otherwise
     startup_utils.start_chronyd()

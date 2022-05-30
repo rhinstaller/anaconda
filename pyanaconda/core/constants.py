@@ -131,13 +131,9 @@ GEOLOC_PROVIDER_FEDORA_GEOIP = "provider_fedora_geoip"
 GEOLOC_PROVIDER_HOSTIP = "provider_hostip"
 # default provider
 GEOLOC_DEFAULT_PROVIDER = GEOLOC_PROVIDER_FEDORA_GEOIP
-# how long should the GUI wait for the geolocation thread to finish (in seconds)
-# - GUI starts this count once it finishes its initialization
-# - the geoloc thread is started early and in most cases will be already done
-#   when GUI finishes its initialization, so no delays will be introduced
-GEOLOC_GUI_TIMEOUT = 3
-# timeout for the network connection used for geolocation (in seconds)
-GEOLOC_CONNECTION_TIMEOUT = 5
+# geolocation URLs - values used by config file
+GEOLOC_URL_FEDORA_GEOIP = "https://geoip.fedoraproject.org/city"
+GEOLOC_URL_HOSTIP = "https://api.hostip.info/get_json.php"
 
 ANACONDA_ENVIRON = "anaconda"
 FIRSTBOOT_ENVIRON = "firstboot"
