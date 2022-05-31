@@ -405,6 +405,18 @@ class UsersInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
+    def test_kickstart_allow_ssh(self):
+        """Test allowing using root ssh password via kickstart."""
+        ks_in = """
+        rootpw --plaintext --allow-ssh abcdef
+        """
+        ks_out = """
+        # Root password
+        rootpw --plaintext --allow-ssh abcdef
+        """
+        self._test_kickstart(ks_in, ks_out)
+        assert self.users_interface.RootPasswordSSHLoginAllowed is True
+
     def test_kickstart_set_crypted_rootpw(self):
         """Test the setting crypted root password via kickstart."""
         ks_in = """
