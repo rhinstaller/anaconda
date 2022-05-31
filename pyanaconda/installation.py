@@ -177,6 +177,9 @@ def _prepare_configuration(payload, ksdata):
         # Join a realm. This can run only after network is configured in the target system chroot.
         configuration_queue.append_dbus_tasks(SECURITY, [security_proxy.JoinRealmWithTask()])
 
+    # Calling zipl should be the last task on s390
+    configuration_queue.append_dbus_tasks(STORAGE, [bootloader_proxy.FixZIPLBootloaderWithTask()])
+
     # setup kexec reboot if requested
     if flags.flags.kexec:
         kexec_setup = TaskQueue("Kexec setup", N_("Setting up kexec"))
