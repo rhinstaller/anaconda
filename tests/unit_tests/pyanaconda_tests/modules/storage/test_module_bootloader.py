@@ -31,7 +31,7 @@ from blivet.size import Size
 
 from pyanaconda.modules.storage.devicetree import create_storage
 from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
-    reset_boot_loader_factory, check_task_creation_list
+    reset_boot_loader_factory, check_task_creation_list, check_task_creation
 
 from pyanaconda.modules.storage import platform
 from pyanaconda.modules.storage.bootloader import BootLoaderFactory
@@ -222,7 +222,6 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
         task_classes = [
             RecreateInitrdsTask,
             FixBTRFSBootloaderTask,
-            FixZIPLBootloaderTask,
         ]
 
         task_paths = self.bootloader_interface.GenerateInitramfsWithTasks(
@@ -230,6 +229,14 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
         )
 
         check_task_creation_list(task_paths, publisher, task_classes)
+
+    @patch_dbus_publish_object
+    def test_fix_zipl_bootloader_with_task(self, publisher):
+        """Test FixZIPLBootloaderWithTask."""
+        task_path = self.bootloader_interface.FixZIPLBootloaderWithTask()
+        self.bootloader_interface.BootloaderMode = BootloaderMode.ENABLED
+        obj = check_task_creation(task_path, publisher, FixZIPLBootloaderTask)
+        assert obj.implementation._mode == BootloaderMode.ENABLED
 
 
 class BootloaderTasksTestCase(unittest.TestCase):
