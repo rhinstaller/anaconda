@@ -282,7 +282,7 @@ export const InstallationDestination = ({ idPrefix, onAddErrorNotification }) =>
             <Alert
               isInline
               variant="info"
-              title={_("Selected disks will be erased at at install")}
+              title={_("Selected disks will be erased at install")}
             >
                 <p>
                     {_("To prevent loss, backup the data.")}
