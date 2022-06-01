@@ -367,6 +367,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jun 01 2022 Radek Vykydal <rvykydal@redhat.com> - 33.16.7.4-1
+- Check if the mount point exists before calling statvfs (vponcova)
+  Resolves: rhbz#1826760
+
 * Thu May 26 2022 Radek Vykydal <rvykydal@redhat.com> - 33.16.7.3-1
 - Cleanup unneeded NFS repo with rd.live.ram parameter (mmatsuya)
   Resolves: rhbz#1970726
