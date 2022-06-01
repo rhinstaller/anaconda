@@ -61,14 +61,12 @@ class BaseLivePayload(Payload):
         """Monitor the amount of disk space used on the target and source and
            update the hub's progress bar.
         """
-        mountpoints = payload_utils.get_mount_points()
+        mount_points = payload_utils.get_mount_points()
         last_pct = -1
 
         while self.pct < 100:
-            dest_size = 0
-            for mnt in mountpoints:
-                mnt_stat = os.statvfs(conf.target.system_root + mnt)
-                dest_size += mnt_stat.f_frsize * (mnt_stat.f_blocks - mnt_stat.f_bfree)
+            dest_size = self._get_destination_size(mount_points)
+
             if dest_size >= self._adj_size:
                 dest_size -= self._adj_size
 
@@ -80,6 +78,21 @@ class BaseLivePayload(Payload):
                 progressQ.send_message(_("Installing software") + (" %d%%") %
                                        (min(100, self.pct),))
             sleep(0.777)
+
+    def _get_destination_size(self, mount_points):
+        # FIXME: Use get_df_map/get_free_space_map.
+        dest_size = 0
+
+        for mnt in mount_points:
+            mnt_path = util.join_paths(conf.target.system_root, mnt)
+
+            if not os.path.exists(mnt_path):
+                continue
+
+            mnt_stat = os.statvfs(mnt_path)
+            dest_size += mnt_stat.f_frsize * (mnt_stat.f_blocks - mnt_stat.f_bfree)
+
+        return dest_size
 
     def install(self):
         """ Install the payload. """
