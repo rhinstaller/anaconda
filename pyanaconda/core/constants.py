@@ -55,8 +55,9 @@ BASE_REPO_NAME = "anaconda"
 DEFAULT_REPOS = [productName.split('-')[0].lower(),  # pylint: disable=no-member
                  "fedora-modular-server",
                  "rawhide",
-                 "BaseOS",  # Used by RHEL
-                 "baseos"]  # Used by CentOS Stream
+                 "BaseOS",      # Used by RHEL
+                 "baseos",      # Used by CentOS Stream
+                 "eln-baseos"]  # Used by Fedora ELN
 
 DBUS_ANACONDA_SESSION_ADDRESS = "DBUS_ANACONDA_SESSION_BUS_ADDRESS"
 
