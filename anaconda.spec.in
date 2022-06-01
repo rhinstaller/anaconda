@@ -407,6 +407,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jun 01 2022 Radek Vykydal <rvykydal@redhat.com> - 34.25.1.5-1
+- Run FixZIPLBootloader task after FIPS setup (rvykydal)
+  Resolves: rhbz#2022841
+
 * Thu May 26 2022 Radek Vykydal <rvykydal@redhat.com> - 34.25.1.4-1
 - Cleanup unneeded NFS repo with rd.live.ram parameter (mmatsuya)
   Resolves: rhbz#2082132
