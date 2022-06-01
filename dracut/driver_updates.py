@@ -73,7 +73,7 @@ import fnmatch
 # backspace working right. Do not import readline if not connected to a tty
 # because it breaks sometimes.
 if os.isatty(0):
-    import readline # pylint:disable=unused-import
+    import readline  # pylint:disable=unused-import
 import shutil
 
 from contextlib import contextmanager
@@ -85,7 +85,7 @@ try:
 except ImportError:
     DEVNULL = open("/dev/null", 'a+')
 try:
-    _input = raw_input # pylint: disable=undefined-variable
+    _input = raw_input  # pylint: disable=undefined-variable
 except NameError:
     _input = input
 
@@ -105,6 +105,7 @@ KERNELVER = os.uname()[2]
 MODULE_UPDATES_DIR = "/lib/modules/%s/updates" % KERNELVER
 FIRMWARE_UPDATES_DIR = "/lib/firmware/updates"
 
+
 def mkdir_seq(stem):
     """
     Create sequentially-numbered directories starting with stem.
@@ -121,10 +122,12 @@ def mkdir_seq(stem):
         try:
             os.makedirs(dirname)
         except OSError as e:
-            if e.errno != 17: raise
+            if e.errno != 17:
+                raise
             n += 1
         else:
             return dirname
+
 
 def find_repos(mnt):
     """find any valid driverdisk repos that exist under mnt."""
@@ -136,12 +139,14 @@ def find_repos(mnt):
             dd_repos.append(repo)
     return dd_repos
 
+
 # NOTE: it's unclear whether or not we're supposed to recurse subdirs looking
 # for .iso files, but that seems like a bad idea if you mount some huge disk..
 # So I've made a judgement call: we only load .iso files from the toplevel.
 def find_isos(mnt):
     """find files named '.iso' at the top level of mnt."""
     return [mnt+'/'+f for f in os.listdir(mnt) if f.lower().endswith('.iso')]
+
 
 class Driver(object):
     """Represents a single driver (rpm), as listed by dd_list"""
@@ -152,6 +157,7 @@ class Driver(object):
         self.description = description
         self.repo = repo
 
+
 def dd_list(dd_path, anaconda_ver=None, kernel_ver=None):
     log.debug("dd_list: listing %s", dd_path)
     if not anaconda_ver:
@@ -160,20 +166,24 @@ def dd_list(dd_path, anaconda_ver=None, kernel_ver=None):
         kernel_ver = KERNELVER
     cmd = ["dd_list", '-d', dd_path, '-k', kernel_ver, '-a', anaconda_ver]
     out = subprocess.check_output(cmd, stderr=DEVNULL, universal_newlines=True)
-    drivers = [Driver(*d.split('\n',3)) for d in out.split('\n---\n') if d]
+    drivers = [Driver(*d.split('\n', 3)) for d in out.split('\n---\n') if d]
     log.debug("dd_list: found drivers: %s", ' '.join(d.name for d in drivers))
-    for d in drivers: d.repo = dd_path
+    for d in drivers:
+        d.repo = dd_path
     return drivers
+
 
 def dd_extract(rpm_path, outdir, kernel_ver=None, flags='-blmf'):
     log.debug("dd_extract: extracting %s", rpm_path)
     if not kernel_ver:
         kernel_ver = KERNELVER
     cmd = ["dd_extract", flags, '-r', rpm_path, '-d', outdir, '-k', kernel_ver]
-    subprocess.check_output(cmd, stderr=DEVNULL) # discard stdout
+    subprocess.check_output(cmd, stderr=DEVNULL)  # discard stdout
+
 
 def list_drivers(repos, anaconda_ver=None, kernel_ver=None):
     return [d for r in repos for d in dd_list(r, anaconda_ver, kernel_ver)]
+
 
 def mount(dev, mnt=None):
     """Mount the given dev at the mountpoint given by mnt."""
@@ -185,9 +195,11 @@ def mount(dev, mnt=None):
     subprocess.check_call(cmd)
     return mnt
 
+
 def umount(mnt):
     log.debug("unmounting %s", mnt)
     subprocess.call(["umount", mnt])
+
 
 @contextmanager
 def mounted(dev, mnt=None):
@@ -197,6 +209,7 @@ def mounted(dev, mnt=None):
     finally:
         umount(mnt)
 
+
 def iter_files(topdir, pattern=None):
     """iterator; yields full paths to files under topdir that match pattern."""
     for head, _, files in os.walk(topdir):
@@ -204,9 +217,11 @@ def iter_files(topdir, pattern=None):
             if pattern is None or fnmatch.fnmatch(f, pattern):
                 yield os.path.join(head, f)
 
+
 def ensure_dir(d):
     """make sure the given directory exists."""
     subprocess.check_call(["mkdir", "-p", d])
+
 
 def move_files(files, destdir, basedir):
     """move files into destdir (iff they're not already under destdir)"""
@@ -216,6 +231,7 @@ def move_files(files, destdir, basedir):
         dest = destdir+"/"+dest_strip(f, basedir)
         ensure_dir(os.path.dirname(dest))
         subprocess.call(["mv", "-f", f, dest])
+
 
 def dest_strip(dest, basedir):
     """strip a base directory plus kernel version from a path"""
@@ -234,6 +250,7 @@ def dest_strip(dest, basedir):
 
     return dest
 
+
 def copy_files(files, destdir, basedir):
     """copy files into destdir (iff they're not already under destdir)"""
     for f in files:
@@ -244,6 +261,7 @@ def copy_files(files, destdir, basedir):
         ensure_dir(os.path.dirname(dest))
         subprocess.call(["cp", "-a", f, dest])
 
+
 def append_line(filename, line):
     """simple helper to append a line to a file"""
     if not line.endswith("\n"):
@@ -251,6 +269,7 @@ def append_line(filename, line):
     with open(filename, 'a') as outf:
         outf.write(line)
     log.debug("added line %s to file '%s'", f"{line!r}", filename)
+
 
 # NOTE: items returned by read_lines should match items passed to append_line,
 #       which is why we remove the newlines
@@ -260,6 +279,7 @@ def read_lines(filename):
         return [line.rstrip('\n') for line in open(filename)]
     except IOError:
         return []
+
 
 def save_repo(repo, target="/run/install"):
     """copy a repo to the place where the installer will look for it later."""
@@ -287,6 +307,7 @@ def save_repo(repo, target="/run/install"):
         log.error("ERROR: DD repository needs to be a file or a directory: %s",
                   repo)
     return newdir
+
 
 def extract_drivers(drivers=None, repos=None, outdir="/updates",
                     pkglist="/run/install/dd_packages"):
@@ -330,6 +351,7 @@ def extract_drivers(drivers=None, repos=None, outdir="/updates",
 
     return new_drivers
 
+
 def list_aliases(module):
     """
     return a list of the aliases provided by a module file,
@@ -347,13 +369,14 @@ def list_aliases(module):
 
     return alias_list + [module]
 
+
 def grab_driver_files(outdir="/updates"):
     """
     copy any modules/firmware we just extracted into the running system.
     returns a dict: keys are module names, value are a list of aliases
     provided by the module.
     """
-    modules = list(iter_files(outdir+'/lib/modules',"*.ko*"))
+    modules = list(iter_files(outdir+'/lib/modules', "*.ko*"))
     firmware = list(iter_files(outdir+'/lib/firmware'))
 
     module_dict = {os.path.basename(m).split('.ko')[0]: list_aliases(m) for m in modules}
@@ -364,6 +387,7 @@ def grab_driver_files(outdir="/updates"):
     move_files(firmware, outdir+FIRMWARE_UPDATES_DIR, outdir+'/lib/firmware')
 
     return module_dict
+
 
 def net_intfs_by_modules(mods):
     """get list of network interfaces which are depending on given kernel module"""
@@ -376,9 +400,11 @@ def net_intfs_by_modules(mods):
     log.debug("Found %s interfaces for %s mods", ret, mods)
     return ret
 
+
 def list_net_intfs():
     """return set of all network interfaces from system"""
     return set(os.listdir("/sys/class/net"))
+
 
 def rm_net_intfs_for_unload(mods):
     """clear dracut settings for interfaces which will be removed by
@@ -393,6 +419,7 @@ def rm_net_intfs_for_unload(mods):
 
     return intfs_for_removal
 
+
 def get_all_loaded_modules():
     """parse /proc/modules for all loaded kernel modules"""
     all_modules = []
@@ -401,6 +428,7 @@ def get_all_loaded_modules():
             module_name = line.split(" ")[0]
             all_modules.append(module_name)
     return all_modules
+
 
 def load_drivers(moddict):
     """load all drivers based on given aliases. In case the drivers are
@@ -457,6 +485,7 @@ def load_drivers(moddict):
         log.debug("inserting back modules removed due to dependencies %s", list(modules_to_add))
         subprocess.call(["modprobe", "-a"] + list(modules_to_add))
 
+
 # We *could* pass in "outdir" if we wanted to extract things somewhere else,
 # but right now the only use case is running inside the initramfs, so..
 def process_driver_disk(dev, interactive=False):
@@ -465,6 +494,7 @@ def process_driver_disk(dev, interactive=False):
     except (subprocess.CalledProcessError, IOError) as e:
         log.error("ERROR: %s", e)
         return {}
+
 
 def _process_driver_disk(dev, interactive=False):
     """
@@ -504,6 +534,7 @@ def _process_driver_disk(dev, interactive=False):
 
     return modules
 
+
 def process_driver_rpm(rpm, dev=None):
     try:
         if dev:
@@ -514,6 +545,7 @@ def process_driver_rpm(rpm, dev=None):
         log.error("ERROR: %s", e)
         return {}
 
+
 def _process_driver_rpm_from_device(rpm, dev):
     """
     Mount the DEVNODE and call _process_driver_rpm() with the correct
@@ -522,6 +554,7 @@ def _process_driver_rpm_from_device(rpm, dev):
     log.info("Mounting dev %s", dev)
     with mounted(dev) as mnt:
         return _process_driver_rpm(mnt + rpm)
+
 
 def _process_driver_rpm(rpm):
     """
@@ -535,14 +568,17 @@ def _process_driver_rpm(rpm):
     else:
         return {}
 
+
 def mark_finished(user_request, topdir="/tmp"):
     log.debug("marking %s complete in %s", user_request, topdir)
     append_line(topdir+"/dd_finished", user_request)
+
 
 def all_finished(topdir="/tmp"):
     finished = read_lines(topdir+"/dd_finished")
     todo = read_lines(topdir+"/dd_todo")
     return all(r in finished for r in todo)
+
 
 def finish(user_request, topdir="/tmp"):
     # mark that we've finished processing this request
@@ -552,6 +588,7 @@ def finish(user_request, topdir="/tmp"):
         append_line(topdir+"/dd.done", "true")
 
 # --- DEVICE LISTING HELPERS FOR THE MENU -----------------------------------
+
 
 class DeviceInfo(object):
     def __init__(self, **kwargs):
@@ -573,20 +610,23 @@ class DeviceInfo(object):
             dev = dev[5:]
         return dev
 
+
 def blkid():
     try:
         out = subprocess.check_output("blkid -o export -s UUID -s TYPE".split(),
                                       universal_newlines=True)
-        return [dict(kv.split('=',1) for kv in block.splitlines())
-                                     for block in out.split('\n\n')]
+        return [dict(kv.split('=', 1) for kv in block.splitlines())
+                                      for block in out.split('\n\n')]
     except subprocess.CalledProcessError:
         return []
+
 
 # We use this to get disk labels because blkid's encoding of non-printable and
 # non-ascii characters is weird and doesn't match what you'd expect to see.
 def get_disk_labels():
-    return {os.path.realpath(s):os.path.basename(s)
+    return {os.path.realpath(s): os.path.basename(s)
             for s in iter_files("/dev/disk/by-label")}
+
 
 def get_deviceinfo():
     disk_labels = get_disk_labels()
@@ -596,6 +636,7 @@ def get_deviceinfo():
     return deviceinfo
 
 # --- INTERACTIVE MENU JUNK ------------------------------------------------
+
 
 class TextMenu(object):
     def __init__(self, items, title=None, formatter=None, headeritem=None,
@@ -718,38 +759,45 @@ class TextMenu(object):
                 self.invalid(k)
         return self.selected_items
 
+
 def repo_menu(repos):
     drivers = list_drivers(repos)
     if not drivers:
         log.info("No suitable drivers found.")
         return []
-    menu = TextMenu(drivers, title="Select drivers to install",
-                             formatter=lambda d: d.source,
-                             multi=True)
+    menu = TextMenu(drivers,
+                    title="Select drivers to install",
+                    formatter=lambda d: d.source,
+                    multi=True)
     result = menu.run()
     return result
+
 
 def iso_menu(isos):
     menu = TextMenu(isos, title="Choose driver disk ISO file")
     result = menu.run()
     return result
 
+
 def device_menu():
     fmt = '{0.shortdev:<8.8} {0.fs_type:<8.8} {0.label:<20.20} {0.uuid:<.36}'
     hdr = DeviceInfo(DEVNAME='DEVICE', TYPE='TYPE', LABEL='LABEL', UUID='UUID')
-    menu = TextMenu(get_deviceinfo, title="Driver disk device selection",
-                                    formatter=fmt.format,
-                                    headeritem=hdr)
+    menu = TextMenu(get_deviceinfo,
+                    title="Driver disk device selection",
+                    formatter=fmt.format,
+                    headeritem=hdr)
     result = menu.run()
     return result
 
 # --- COMMANDLINE-TYPE STUFF ------------------------------------------------
+
 
 def setup_log():
     log.setLevel(logging.DEBUG)
 
     _set_console_logging()
     _set_syslog_logging()
+
 
 def _set_console_logging():
     handler = logging.StreamHandler()
@@ -761,6 +809,7 @@ def _set_console_logging():
 
     log.addHandler(handler)
 
+
 def _set_syslog_logging():
     # all messages should always go to the syslog
     handler = SysLogHandler(address="/dev/log")
@@ -771,6 +820,7 @@ def _set_syslog_logging():
     handler.setFormatter(formatter)
 
     log.addHandler(handler)
+
 
 def is_debug_mode_enabled(cmdline_path):
     """Detect enabled debugging mode.
@@ -792,10 +842,12 @@ def is_debug_mode_enabled(cmdline_path):
 
     return False
 
+
 def print_usage():
     print("usage: driver-updates --interactive")
     print("       driver-updates --disk DISK KERNELDEV [RPMPATH]")
     print("       driver-updates --net URL LOCALFILE")
+
 
 def check_args(args):
     if args and args[0] == '--interactive':
@@ -806,6 +858,7 @@ def check_args(args):
         return True
     else:
         return False
+
 
 def main(args):
     if not check_args(args):
@@ -842,7 +895,8 @@ def main(args):
         request = 'menu'
         while True:
             dev = device_menu()
-            if not dev: break
+            if not dev:
+                break
             update_drivers.update(process_driver_disk(dev.pop().device, interactive=True))
 
     load_drivers(update_drivers)
@@ -856,6 +910,7 @@ def main(args):
         cmd = ["udevadm", "trigger", "--action=change", "--subsystem-match=block"]
         log.debug("triggering udevadm to mount cdrom with stage2 image")
         subprocess.check_call(cmd)
+
 
 if __name__ == '__main__':
     setup_log()
