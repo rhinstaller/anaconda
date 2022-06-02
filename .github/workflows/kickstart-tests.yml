@@ -146,11 +146,11 @@ jobs:
           path: permian
           ref: main
 
-      - name: Clone tclib repository
+      - name: Clone tplib repository
         uses: actions/checkout@v3
         with:
-          repository: rhinstaller/tclib
-          path: tclib
+          repository: rhinstaller/tplib
+          path: tplib
 
       - name: Ensure http proxy is running
         run: sudo kickstart-tests/containers/squid.sh start
@@ -231,7 +231,7 @@ jobs:
         working-directory: ./permian
         run: |
           sudo --preserve-env=TEST_JOBS \
-          PYTHONPATH=${PYTHONPATH:-}:${{ github.workspace }}/tclib \
+          PYTHONPATH=${PYTHONPATH:-}:${{ github.workspace }}/tplib \
           ./run_subset --debug-log permian.log \
             -o library.directPath="${{ github.workspace }}/kickstart-tests/testlib" \
             -o workflows.dry_run=False \
