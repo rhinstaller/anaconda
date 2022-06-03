@@ -40,7 +40,7 @@ class TestBasic(MachineCase):
         i.open()
 
         self.assertIn(
-            b.attr("#app > .pf-c-page", "data-debug").lower(),
+            b.attr("#app .pf-c-page", "data-debug").lower(),
             ["false", "true"]
         )
 

@@ -258,7 +258,7 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
     );
 };
 
-export const InstallationDestination = ({ idPrefix, setIsFormValid, onAddErrorNotification, stepNotification, isInProgress }) => {
+export const InstallationDestination = ({ idPrefix, setIsFormValid, onAddErrorNotification, toggleContextHelp, stepNotification, isInProgress }) => {
     const [requiredSize, setRequiredSize] = useState(0);
     const [showDisksAlert, setShowdisksAlert] = useState(true);
 
@@ -292,13 +292,17 @@ export const InstallationDestination = ({ idPrefix, setIsFormValid, onAddErrorNo
     return (
         <AnacondaPage title={_("Installation destination")}>
             <TextContent>
-                <Text component={TextVariants.p}>{
-                    cockpit.format(_(
+                <Text component={TextVariants.p}>
+                    {cockpit.format(_(
                         "Select the device(s) to install to. The installation requires " +
                         "$0 of available space. Storage will be automatically partitioned."
-                    ), cockpit.format_bytes(requiredSize))
-                }
+                    ), cockpit.format_bytes(requiredSize))}
+                    {" "}
+                    <Button variant="link" isInline onClick={toggleContextHelp}>
+                        {_("Learn more about your storage options.")}
+                    </Button>
                 </Text>
+
             </TextContent>
             {stepNotification && (stepNotification.step === "installation-destination") &&
                 <Alert
