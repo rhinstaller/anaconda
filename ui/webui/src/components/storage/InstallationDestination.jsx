@@ -26,6 +26,7 @@ import {
     FormGroup,
     Label,
     Text,
+    TextContent,
     TextVariants,
 } from "@patternfly/react-core";
 
@@ -269,13 +270,15 @@ export const InstallationDestination = ({ idPrefix, onAddErrorNotification }) =>
 
     return (
         <>
-            <Text component={TextVariants.p}>{
-                cockpit.format(_(
-                    "Select the device(s) to install to. The installation requires " +
-                    "$0 of available space. Storage will be automatically partitioned."
-                ), cockpit.format_bytes(requiredSize))
-            }
-            </Text>
+            <TextContent>
+                <Text component={TextVariants.p}>{
+                    cockpit.format(_(
+                        "Select the device(s) to install to. The installation requires " +
+                        "$0 of available space. Storage will be automatically partitioned."
+                    ), cockpit.format_bytes(requiredSize))
+                }
+                </Text>
+            </TextContent>
             <Alert
               isInline
               variant="info"

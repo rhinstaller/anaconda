@@ -25,7 +25,6 @@ import {
     Modal,
     ModalVariant,
     Stack,
-    TextContent,
     Title,
     Wizard,
     WizardFooter,
@@ -55,7 +54,7 @@ const getSteps = ({
     const wrapWithContext = (children, label) => {
         return (
             <Stack hasGutter>
-                <TextContent>
+                <>
                     <Title headingLevel="h2">
                         {label}
                     </Title>
@@ -67,7 +66,7 @@ const getSteps = ({
                        variant="danger"
                      />}
                     {children}
-                </TextContent>
+                </>
             </Stack>
         );
     };
