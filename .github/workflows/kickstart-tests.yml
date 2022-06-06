@@ -6,7 +6,7 @@ on:
 
 permissions:
   contents: read
-  statuses: write
+  checks: write
 
 jobs:
   pr-info:
@@ -77,6 +77,7 @@ jobs:
       allowed_user: ${{ steps.check_user_perm.outputs.allowed_user }}
       base_ref: ${{ fromJson(steps.pr_api.outputs.data).base.ref }}
       sha: ${{ fromJson(steps.pr_api.outputs.data).head.sha }}
+      pr_number: ${{ github.event.issue.number }}
       launch_args: ${{ steps.parse_launch_args.outputs.launch_args }}
       skip_tests: ${{ steps.ks_test_args.outputs.skip_tests }}
       platform: ${{ steps.ks_test_args.outputs.platform }}
@@ -96,18 +97,6 @@ jobs:
        SKIP_KS_TESTS: ${{ needs.pr-info.outputs.skip_tests }}
        TEST_JOBS: 16
     steps:
-      # we post statuses manually as this does not run from a pull_request event
-      # https://developer.github.com/v3/repos/statuses/#create-a-status
-      - name: Create in-progress status
-        uses: octokit/request-action@v2.x
-        with:
-          route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
-          context: '${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.launch_args }}'
-          state: pending
-          target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       # self-hosted runners don't do this automatically; also useful to keep stuff around for debugging
       # need to run sudo as the launch script and the container create root/other user owned files
       - name: Clean up previous run
@@ -227,17 +216,45 @@ jobs:
             exit 1
           fi
 
+      - name: Create Permian settings file
+        working-directory: ./permian
+        run: |
+          cat <<EOF > settings.ini
+          [kickstart_test]
+          kstest_local_repo=${{ github.workspace }}/kickstart-tests
+          [library]
+          directPath=${{ github.workspace }}/kickstart-tests/testlib
+          [github]
+          pull-request=${{ needs.pr-info.outputs.pr_number }}
+          repository=${{ github.repository }}
+          token=${{ secrets.GITHUB_TOKEN }}
+          EOF
+
       - name: Run kickstart tests in container
         working-directory: ./permian
         run: |
           sudo --preserve-env=TEST_JOBS \
           PYTHONPATH=${PYTHONPATH:-}:${{ github.workspace }}/tplib \
           ./run_subset --debug-log permian.log \
-            -o library.directPath="${{ github.workspace }}/kickstart-tests/testlib" \
-            -o workflows.dry_run=False \
-            -o kickstart_test.kstest_local_repo="${{ github.workspace }}/kickstart-tests" \
+            --settings settings.ini \
+            --override workflows.dry_run=False \
             --testcase-query '${{ steps.generate_query.outputs.query }}' \
-            run_event '{"type":"github.pr","bootIso":{"x86_64":"file://${{ github.workspace }}/images/boot.iso"},"kstestParams":{"platform":"${{ needs.pr-info.outputs.platform }}"}}'
+            run_event '{
+              "type":"everything",
+              "everything_testplan":{
+                "configurations":[{"architecture":"x86_64"}],
+                "point_person":"rvykydal@redhat.com",
+                "reporting":[{
+                  "type":"github-pr",
+                  "data":{
+                    "pr-check-name":"${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.launch_args }}",
+                    "pr-check-summary":"Kickstart tests run on a pull request comment"
+                  }
+                }]
+              },
+              "bootIso":{"x86_64":"file://${{ github.workspace }}/images/boot.iso"},
+              "kstestParams":{"platform":"${{ needs.pr-info.outputs.platform }}"}
+            }'
 
       # Needed so that other jobs are able to clean the working dir
       # FIXME: we should investigate running permian/launch sudo-less
@@ -263,25 +280,3 @@ jobs:
           name: 'logs-permian'
           path: |
             permian/permian.log
-
-      # Permian hides the exit code of launcher
-      - name: Pass the launch script exit code
-        working-directory: ./permian
-        run: |
-          rc=$( awk '/Runner return code: /{ print $4 }' permian.log)
-          if [ -n "$rc" ]; then
-            exit $rc
-          else
-            exit 111
-          fi
-
-      - name: Set result status
-        if: always()
-        uses: octokit/request-action@v2.x
-        with:
-          route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
-          context: '${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.launch_args }}'
-          state: ${{ job.status }}
-          target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
