@@ -79,7 +79,7 @@ from pykickstart.commands.vnc import F9_Vnc as Vnc
 from pykickstart.commands.volgroup import F21_VolGroup as VolGroup
 from pykickstart.commands.xconfig import F14_XConfig as XConfig
 from pykickstart.commands.zerombr import F9_ZeroMbr as ZeroMbr
-from pykickstart.commands.zfcp import F14_ZFCP as ZFCP
+from pykickstart.commands.zfcp import F37_ZFCP as ZFCP
 from pykickstart.commands.zipl import F32_Zipl as Zipl
 
 # Supported kickstart data.
@@ -102,4 +102,4 @@ from pykickstart.commands.sshkey import F22_SshKeyData as SshKeyData
 from pykickstart.commands.timesource import F33_TimesourceData as TimesourceData
 from pykickstart.commands.user import F19_UserData as UserData
 from pykickstart.commands.volgroup import F21_VolGroupData as VolGroupData
-from pykickstart.commands.zfcp import F14_ZFCPData as ZFCPData
+from pykickstart.commands.zfcp import F37_ZFCPData as ZFCPData
