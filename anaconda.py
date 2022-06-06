@@ -164,6 +164,10 @@ if __name__ == "__main__":
         log.addHandler(logging.StreamHandler(stream=sys.stdout))
         parse_arguments()
 
+    if os.geteuid() != 0:
+        print("anaconda must be run as root.")
+        sys.exit(1)
+
     print("Starting installer, one moment...")
 
     # Allow a file to be loaded as early as possible
@@ -213,10 +217,6 @@ if __name__ == "__main__":
 
     log = anaconda_loggers.get_main_logger()
     stdout_log = anaconda_loggers.get_stdout_logger()
-
-    if os.geteuid() != 0:
-        stdout_log.error("anaconda must be run as root.")
-        sys.exit(1)
 
     # see if we're on s390x and if we've got an ssh connection
     if startup_utils.prompt_for_ssh(opts):
