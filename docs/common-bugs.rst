@@ -361,6 +361,21 @@ Changes in localization data
 :Solution: This content is provided by langtable. Reassigning.
 :Example: `rhbz#1698984 <https://bugzilla.redhat.com/show_bug.cgi?id=1698984>`_
 
+Network issues
+--------------
+
+/mnt/sysroot/etc/resolv.conf issue in Fedora 35
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:Issue: Due to systemd update Fedora 35 installation tracebacks with ``dasbus.error.DBusError: [Errno 2] No such file or directory: '/mnt/sysroot/etc/resolv.conf'``.
+Happens since systemd-249.10-1.fc35, present also in systemd-249.11-1.fc35, systemd-249.12-1.fc35, ... ? 
+
+:Solution: Reassign to systemd https://bugzilla.redhat.com/show_bug.cgi?id=2074083.
+
+:Workaround: https://bugzilla.redhat.com/show_bug.cgi?id=2074083#c63. Other option could be: install without updates and update after new system boot.
+
+:Example: `rhbz#2083411 <https://bugzilla.redhat.com/show_bug.cgi?id=2083411>`_
+
 Kickstart issues
 ----------------
 
