@@ -103,7 +103,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="margin_bottom">6</property>
-                    <property name="label" translatable="yes">To use zFCP disks, you must provide the device number, WWPN, and LUN configured for the device.</property>
+                    <property name="label" translatable="yes">To use zFCP-attached SCSI disks, you must provide the FCP device number. Storage WWPN and FCP LUN are necessary if the zFCP adapter is not configured in NPIV mode or when automatic LUN scanning is disabled via a kernel module parameter.</property>
                     <property name="wrap">True</property>
                     <property name="xalign">0</property>
                   </object>

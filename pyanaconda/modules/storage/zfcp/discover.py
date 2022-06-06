@@ -51,18 +51,29 @@ class ZFCPDiscoverTask(Task):
         if not DASD_DEVICE_NUMBER.match(self._device_number):
             raise StorageDiscoveryError("Incorrect format of the given device number.")
 
-        if not ZFCP_WWPN_NUMBER.match(self._wwpn):
+        if self._wwpn and not ZFCP_WWPN_NUMBER.match(self._wwpn):
             raise StorageDiscoveryError("Incorrect format of the given WWPN number.")
 
-        if not ZFCP_LUN_NUMBER.match(self._lun):
+        if self._lun and not ZFCP_LUN_NUMBER.match(self._lun):
             raise StorageDiscoveryError("Incorrect format of the given LUN number.")
+
+        # Zfcp automatic LUN scan requires just the device number to be provided by the user.
+        # If zfcp auto LUN scan is not available, the user has to specify the device number, WWPN
+        # and LUN.
+        if not ((self._device_number and not self._wwpn and not self._lun)
+                or (self._device_number and self._wwpn and self._lun)):
+            raise StorageDiscoveryError(
+                "Only device number or device number with WWPN and LUN are allowed."
+            )
 
     def _sanitize_input(self):
         """Sanitize the input values."""
         try:
             self._device_number = blockdev.s390.sanitize_dev_input(self._device_number)
-            self._wwpn = blockdev.s390.zfcp_sanitize_wwpn_input(self._wwpn)
-            self._lun = blockdev.s390.zfcp_sanitize_lun_input(self._lun)
+            if self._wwpn:
+                self._wwpn = blockdev.s390.zfcp_sanitize_wwpn_input(self._wwpn)
+            if self._lun:
+                self._lun = blockdev.s390.zfcp_sanitize_lun_input(self._lun)
         except (blockdev.S390Error, ValueError) as err:
             raise StorageDiscoveryError(str(err))
 
