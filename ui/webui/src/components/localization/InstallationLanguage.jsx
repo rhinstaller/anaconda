@@ -27,6 +27,7 @@ import {
     SelectVariant,
     Text,
     TextVariants,
+    TextContent,
 } from "@patternfly/react-core";
 
 import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
@@ -202,11 +203,13 @@ LanguageSelector.contextType = AddressContext;
 export const InstallationLanguage = ({ idPrefix, setIsFormValid, onAddErrorNotification }) => {
     return (
         <>
-            <Text component={TextVariants.p}>{_(
-                "Select the language you would like to use. This language " +
-                "will also be selected for your installed system."
-            )}
-            </Text>
+            <TextContent>
+                <Text component={TextVariants.p}>{_(
+                    "Select the language you would like to use. This language " +
+                    "will also be selected for your installed system."
+                )}
+                </Text>
+            </TextContent>
             <Form>
                 <FormGroup
                   label={_("Language")}
