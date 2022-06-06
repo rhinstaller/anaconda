@@ -456,6 +456,38 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jun 06 2022 Martin Kolman <mkolman@redhat.com> - 37.10-1
+- Web UI: Don't use a top-level text content (vponcova)
+- Update common bugs for F35 resolv.conf issue (rvykydal)
+- Check if run as root earlier (#1935470) (luke)
+- kstests on PR: adapt to tclib renamig to tplib (rvykydal)
+- Add 'eln-baseos' to the DEFAULT_REPOS (sgallagh)
+- Web UI: Jump only to the previous wizard steps (vponcova)
+- Always tear down devices after finding existing installations (vponcova)
+- Update reference images (vslavik)
+- Change kstest workflow badge and link for Permian (#docs) (vslavik)
+- Fix tests README.rst how to run one unit test (jkonecny)
+- kstests on PR: Use stable permian branch (rvykydal)
+- Don't fall back to default timezone in welcome spoke (vslavik)
+- Use directly URLs in conf geoloc provider field (vslavik)
+- Remove unmodularized geolocation (vslavik)
+- Use modularized geolocation instead of unmodularized (vslavik)
+- Hide the geolocation task in Timezone's interface (vslavik)
+- Add GeolocationTask to the Timezone module (vslavik)
+- Add a D-Bus structure for geolocation data (vslavik)
+- Add conf option for geolocation provider (vslavik)
+- Run FixZIPLBootloader task after FIPS setup (rvykydal)
+- webui: Make app/page span the whole viewport (vslavik)
+- Web UI: Automatically change the popover position (vponcova)
+- webui: Add inline alert to the Storage screen (mkolman)
+- Web UI: Always allow to sort disks by their name (vponcova)
+- Web UI: Improve the table for local standard disks (vponcova)
+- Add missing period when concatenating password error strings (#2075419)
+  (jkonecny)
+- Prepare release notes for Fedora 36 (vponcova)
+- Add tooltip to the Insights checkbox (#2069178) (jkonecny)
+- Enable bootloader hiding on RHEL (rharwood)
+
 * Tue May 24 2022 Martin Kolman <mkolman@redhat.com> - 37.9-1
 - Use the IsRootAccountLocked property (vponcova)
 - Web UI: Fix strings (vponcova)
