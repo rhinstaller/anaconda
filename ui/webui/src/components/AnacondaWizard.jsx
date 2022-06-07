@@ -40,6 +40,7 @@ const _ = cockpit.gettext;
 export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
     const [isFormValid, setIsFormValid] = useState(true);
     const [stepNotification, setStepNotification] = useState();
+    const [isInProgress, setIsInProgress] = useState(false);
 
     const stepsOrder = [
         {
@@ -90,7 +91,12 @@ export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
 
     return (
         <Wizard
-          footer={<Footer isFormValid={isFormValid} setStepNotification={setStepNotification} />}
+          footer={<Footer
+            isFormValid={isFormValid}
+            setStepNotification={setStepNotification}
+            isInProgress={isInProgress}
+            setIsInProgress={setIsInProgress}
+          />}
           hideClose
           mainAriaLabel={`${title} content`}
           navAriaLabel={`${title} steps`}
@@ -103,8 +109,7 @@ export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
     );
 };
 
-const Footer = ({ isFormValid, setStepNotification }) => {
-    const [isInProgress, setIsInProgress] = useState(false);
+const Footer = ({ isFormValid, setStepNotification, isInProgress, setIsInProgress }) => {
     const [nextWaitsConfirmation, setNextWaitsConfirmation] = useState(false);
     const [quitWaitsConfirmation, setQuitWaitsConfirmation] = useState(false);
 
@@ -129,6 +134,10 @@ const Footer = ({ isFormValid, setStepNotification }) => {
             onNext();
         }
     };
+
+    if (isInProgress) {
+        return null;
+    }
 
     return (
         <WizardFooter>
@@ -162,10 +171,8 @@ const Footer = ({ isFormValid, setStepNotification }) => {
                                   variant="primary"
                                   isDisabled={
                                       !isFormValid ||
-                                      isInProgress ||
                                       nextWaitsConfirmation
                                   }
-                                  isLoading={isInProgress}
                                   onClick={() => goToStep(activeStep, onNext)}>
                                     {nextButtonText}
                                 </Button>
