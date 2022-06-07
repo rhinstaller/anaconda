@@ -37,36 +37,9 @@ import { usePageLocation } from "hooks";
 
 const _ = cockpit.gettext;
 
-const getSteps = ({
-    currentStepId,
-    onAddErrorNotification,
-    setIsFormValid,
-    stepNotification,
-    stepsOrder
-}) => {
-    return stepsOrder.map((s, idx) => {
-        const Renderer = s.component;
-
-        return ({
-            id: s.id,
-            name: s.label,
-            component: (
-                <Renderer
-                  idPrefix={s.id}
-                  setIsFormValid={setIsFormValid}
-                  onAddErrorNotification={onAddErrorNotification}
-                  stepNotification={stepNotification}
-                />
-            ),
-            stepNavItemProps: { id: s.id },
-            canJumpTo: idx <= stepsOrder.findIndex(s => s.id === currentStepId),
-            isFinishedStep: idx === stepsOrder.length - 1
-        });
-    });
-};
-
 export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
     const [isFormValid, setIsFormValid] = useState(true);
+    const [stepNotification, setStepNotification] = useState();
 
     const stepsOrder = [
         {
@@ -92,16 +65,24 @@ export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
 
     const { path } = usePageLocation();
     const currentStepId = path[0] || "installation-language";
-
-    const [stepNotification, setStepNotification] = useState();
-
-    const steps = getSteps({
-        currentStepId,
-        setIsFormValid,
-        onAddErrorNotification,
-        stepNotification,
-        stepsOrder
+    const steps = stepsOrder.map((s, idx) => {
+        return ({
+            id: s.id,
+            name: s.label,
+            component: (
+                <s.component
+                  idPrefix={s.id}
+                  setIsFormValid={setIsFormValid}
+                  onAddErrorNotification={onAddErrorNotification}
+                  stepNotification={stepNotification}
+                />
+            ),
+            stepNavItemProps: { id: s.id },
+            canJumpTo: idx <= stepsOrder.findIndex(s => s.id === currentStepId),
+            isFinishedStep: idx === stepsOrder.length - 1
+        });
     });
+
     const startAtStep = steps.findIndex(step => step.id === path[0]) + 1;
     const goToStep = (newStep) => {
         cockpit.location.go([newStep.id]);
