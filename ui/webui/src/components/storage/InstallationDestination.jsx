@@ -73,18 +73,11 @@ const _ = cockpit.gettext;
  * @return: the list of selected disks
  */
 const selectDefaultDisks = ({ ignoredDisks, selectedDisks, usableDisks }) => {
-    // FIXME: how to get installation flags?
-    const flags = {};
-
     if (selectedDisks.length) {
         // Do nothing if there are some disks selected
         return [];
-    } else if (flags.automatedInstall) {
-        // FIXME
-        return [];
     } else {
         const availableDisks = usableDisks.filter(disk => !ignoredDisks.includes(disk));
-
         console.log("Selecting one or less disks by default:", availableDisks.join(","));
 
         // Select a usable disk if there is only one available
