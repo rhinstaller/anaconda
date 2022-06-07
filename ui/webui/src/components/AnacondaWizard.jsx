@@ -91,6 +91,7 @@ export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
 
     return (
         <Wizard
+          id="installation-wizard"
           footer={<Footer
             isFormValid={isFormValid}
             setStepNotification={setStepNotification}
