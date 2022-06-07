@@ -348,6 +348,12 @@ class ProfileConfigurationTestCase(unittest.TestCase):
             ["rhel.conf", "virtuozzo-linux.conf"],
             ENTERPRISE_PARTITIONING
         )
+        self._check_default_profile(
+            "circle",
+            ("circle", ""),
+            ["rhel.conf", "circle.conf"],
+            ENTERPRISE_PARTITIONING
+        )
 
     def _compare_profile_files(self, file_name, other_file_name, ignored_sections=()):
         parser = create_parser()
