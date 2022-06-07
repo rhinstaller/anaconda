@@ -15,8 +15,7 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 import cockpit from "cockpit";
-
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 
 import {
     ActionList,
@@ -31,20 +30,16 @@ import {
     WizardContextConsumer,
 } from "@patternfly/react-core";
 
-import { AddressContext } from "./Common.jsx";
 import { InstallationDestination, applyDefaultStorage } from "./storage/InstallationDestination.jsx";
 import { InstallationLanguage } from "./localization/InstallationLanguage.jsx";
 import { InstallationProgress } from "./installation/InstallationProgress.jsx";
 import { ReviewConfiguration, ReviewConfigurationConfirmModal } from "./review/ReviewConfiguration.jsx";
-
 import { exitGui } from "../helpers/exit.js";
-
 import { usePageLocation } from "hooks";
 
 const _ = cockpit.gettext;
 
 const getSteps = ({
-    address,
     currentStepId,
     onAddErrorNotification,
     setIsFormValid,
@@ -117,14 +112,12 @@ export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
         }
     ];
 
-    const address = useContext(AddressContext);
     const { path } = usePageLocation();
     const currentStepId = path[0] || "installation-language";
 
     const [stepNotification, setStepNotification] = useState();
 
     const steps = getSteps({
-        address,
         currentStepId,
         setIsFormValid,
         onAddErrorNotification,
