@@ -14,26 +14,21 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
-
 import cockpit from "cockpit";
 import React from "react";
-
 import {
     Button,
     Flex,
+    ProgressStep,
+    ProgressStepper,
+    Stack,
     TextContent,
-    ProgressStepper, ProgressStep,
 } from "@patternfly/react-core";
 import { CheckCircleIcon, ExclamationCircleIcon } from "@patternfly/react-icons";
-
 import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
-
 import { AddressContext } from "../Common.jsx";
-
 import { BossClient, getSteps, installWithTasks } from "../../apis/boss.js";
-
 import { exitGui } from "../../helpers/exit.js";
-
 import "./InstallationProgress.scss";
 
 const _ = cockpit.gettext;
@@ -128,7 +123,7 @@ export class InstallationProgress extends React.Component {
         }
 
         return (
-            <div className={idPrefix + "-status-" + status}>
+            <Stack hasGutter className={idPrefix + "-status-" + status}>
                 <EmptyStatePanel
                   icon={icon}
                   loading={!icon}
@@ -169,8 +164,9 @@ export class InstallationProgress extends React.Component {
                       <Button onClick={exitGui}>{_("Reboot")}</Button>
                   }
                   title={title}
+                  headingLevel="h2"
                 />
-            </div>
+            </Stack>
         );
     }
 }

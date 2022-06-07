@@ -19,12 +19,10 @@ import React, { useState } from "react";
 
 import {
     ActionList,
-    Alert,
     Button,
     Modal,
     ModalVariant,
     Stack,
-    Title,
     Wizard,
     WizardFooter,
     WizardContextConsumer,
@@ -46,38 +44,19 @@ const getSteps = ({
     stepNotification,
     stepsOrder
 }) => {
-    const wrapWithContext = (children, label) => {
-        return (
-            <Stack hasGutter>
-                <>
-                    <Title headingLevel="h2">
-                        {label}
-                    </Title>
-                    {stepNotification &&
-                     (stepNotification.step === currentStepId) &&
-                     <Alert
-                       isInline
-                       title={stepNotification.message}
-                       variant="danger"
-                     />}
-                    {children}
-                </>
-            </Stack>
-        );
-    };
-
     return stepsOrder.map((s, idx) => {
         const Renderer = s.component;
 
         return ({
             id: s.id,
             name: s.label,
-            component: wrapWithContext(
+            component: (
                 <Renderer
                   idPrefix={s.id}
                   setIsFormValid={setIsFormValid}
-                  onAddErrorNotification={onAddErrorNotification} />,
-                s.title || s.label
+                  onAddErrorNotification={onAddErrorNotification}
+                  stepNotification={stepNotification}
+                />
             ),
             stepNavItemProps: { id: s.id },
             canJumpTo: idx <= stepsOrder.findIndex(s => s.id === currentStepId),
@@ -94,7 +73,6 @@ export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
             component: InstallationLanguage,
             id: "installation-language",
             label: _("Welcome"),
-            title: _("Welcome to the Anaconda installer")
         },
         {
             component: InstallationDestination,

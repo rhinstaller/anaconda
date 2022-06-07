@@ -31,15 +31,15 @@ import {
 } from "@patternfly/react-core";
 
 import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
-
 import { AddressContext } from "../Common.jsx";
+import { setLocale } from "../../apis/boss.js";
 
 import {
-    setLocale
-} from "../../apis/boss.js";
-import {
-    getLanguage, getLanguages, getLanguageData,
-    getLocales, getLocaleData,
+    getLanguage,
+    getLanguages,
+    getLanguageData,
+    getLocales,
+    getLocaleData,
     setLanguage,
 } from "../../apis/localization.js";
 
@@ -48,6 +48,7 @@ import {
     getLangCookie,
     setLangCookie
 } from "../../helpers/language.js";
+import { AnacondaPage } from "../AnacondaPage.jsx";
 
 const _ = cockpit.gettext;
 
@@ -202,7 +203,7 @@ LanguageSelector.contextType = AddressContext;
 
 export const InstallationLanguage = ({ idPrefix, setIsFormValid, onAddErrorNotification }) => {
     return (
-        <>
+        <AnacondaPage title={_("Welcome to the Anaconda installer")}>
             <TextContent>
                 <Text component={TextVariants.p}>{_(
                     "Select the language you would like to use. This language " +
@@ -222,6 +223,6 @@ export const InstallationLanguage = ({ idPrefix, setIsFormValid, onAddErrorNotif
                     />
                 </FormGroup>
             </Form>
-        </>
+        </AnacondaPage>
     );
 };
