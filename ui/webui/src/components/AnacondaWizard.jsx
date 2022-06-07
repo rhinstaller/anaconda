@@ -76,6 +76,7 @@ export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
                   setIsFormValid={setIsFormValid}
                   onAddErrorNotification={onAddErrorNotification}
                   stepNotification={stepNotification}
+                  isInProgress={isInProgress}
                 />
             ),
             stepNavItemProps: { id: s.id },
@@ -124,9 +125,12 @@ const Footer = ({ isFormValid, setStepNotification, isInProgress, setIsInProgres
                     setStepNotification({ step: activeStep.id, ...ex });
                 },
                 onSuccess: () => {
+                    onNext();
+
+                    // Reset the state after the onNext call. Otherwise,
+                    // React will try to render the current step again.
                     setIsInProgress(false);
                     setStepNotification();
-                    onNext();
                 }
             });
         } else if (activeStep.id === "installation-review") {
