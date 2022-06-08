@@ -70,6 +70,15 @@ class Installer():
         """
         self.browser.wait_visible("#installation-next-btn:not([aria-disabled=false]")
 
+    def back(self, should_fail=False):
+        current_step_id = self.get_current_page_id()
+        self.browser.click("button:contains(Back)")
+
+        if should_fail:
+            self.wait_current_page(self.steps[current_step_id])
+        else:
+            self.wait_current_page(self.steps[current_step_id-1])
+
     def open(self, step="installation-language"):
         self.browser.open(f"/cockpit/@localhost/anaconda-webui/index.html#/{step}")
         self.wait_current_page(step)
