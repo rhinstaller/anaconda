@@ -28,7 +28,7 @@ from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.lib.storage import find_partitioning, reset_storage, \
     select_default_disks, apply_disk_selection, get_disks_summary, apply_partitioning, \
-    create_partitioning, filter_disks_by_names
+    create_partitioning, filter_disks_by_names, is_passphrase_required, set_required_passphrase
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog, PasswordDialog
 from pyanaconda.core.storage import get_supported_autopart_choices
@@ -42,8 +42,7 @@ from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
     PAYLOAD_STATUS_PROBING_STORAGE, CLEAR_PARTITIONS_ALL, \
     CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_NONE, CLEAR_PARTITIONS_DEFAULT, \
     BOOTLOADER_LOCATION_MBR, SecretType, WARNING_NO_DISKS_DETECTED, WARNING_NO_DISKS_SELECTED, \
-    PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_CUSTOM, PARTITIONING_METHOD_MANUAL, \
-    PASSWORD_POLICY_LUKS
+    PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_MANUAL, PASSWORD_POLICY_LUKS
 from pyanaconda.core.i18n import _, N_
 
 from simpleline.render.containers import ListColumnContainer
@@ -350,7 +349,7 @@ class StorageSpoke(NormalTUISpoke):
 
     def run_passphrase_dialog(self):
         """Ask user for a default passphrase."""
-        if not self._is_passphrase_required():
+        if not is_passphrase_required(self._partitioning):
             return
 
         dialog = PasswordDialog(
@@ -366,18 +365,7 @@ class StorageSpoke(NormalTUISpoke):
         while passphrase is None:
             passphrase = dialog.run()
 
-        self._set_required_passphrase(passphrase)
-
-    def _is_passphrase_required(self):
-        """Is the default passphrase required?"""
-        return self._partitioning.PartitioningMethod in (
-            PARTITIONING_METHOD_AUTOMATIC,
-            PARTITIONING_METHOD_CUSTOM
-        ) and self._partitioning.RequiresPassphrase()
-
-    def _set_required_passphrase(self, passphrase):
-        """Set the required passphrase."""
-        self._partitioning.SetPassphrase(passphrase)
+        set_required_passphrase(self._partitioning, passphrase)
 
     def apply(self):
         self._bootloader_module.SetPreferredLocation(BOOTLOADER_LOCATION_MBR)
