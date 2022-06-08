@@ -19,12 +19,10 @@ import React, { useState } from "react";
 
 import {
     ActionList,
-    Alert,
     Button,
     Modal,
     ModalVariant,
     Stack,
-    Title,
     Wizard,
     WizardFooter,
     WizardContextConsumer,
@@ -39,62 +37,15 @@ import { usePageLocation } from "hooks";
 
 const _ = cockpit.gettext;
 
-const getSteps = ({
-    currentStepId,
-    onAddErrorNotification,
-    setIsFormValid,
-    stepNotification,
-    stepsOrder
-}) => {
-    const wrapWithContext = (children, label) => {
-        return (
-            <Stack hasGutter>
-                <>
-                    <Title headingLevel="h2">
-                        {label}
-                    </Title>
-                    {stepNotification &&
-                     (stepNotification.step === currentStepId) &&
-                     <Alert
-                       isInline
-                       title={stepNotification.message}
-                       variant="danger"
-                     />}
-                    {children}
-                </>
-            </Stack>
-        );
-    };
-
-    return stepsOrder.map((s, idx) => {
-        const Renderer = s.component;
-
-        return ({
-            id: s.id,
-            name: s.label,
-            component: wrapWithContext(
-                <Renderer
-                  idPrefix={s.id}
-                  setIsFormValid={setIsFormValid}
-                  onAddErrorNotification={onAddErrorNotification} />,
-                s.title || s.label
-            ),
-            stepNavItemProps: { id: s.id },
-            canJumpTo: idx <= stepsOrder.findIndex(s => s.id === currentStepId),
-            isFinishedStep: idx === stepsOrder.length - 1
-        });
-    });
-};
-
 export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
     const [isFormValid, setIsFormValid] = useState(true);
+    const [stepNotification, setStepNotification] = useState();
 
     const stepsOrder = [
         {
             component: InstallationLanguage,
             id: "installation-language",
             label: _("Welcome"),
-            title: _("Welcome to the Anaconda installer")
         },
         {
             component: InstallationDestination,
@@ -114,16 +65,24 @@ export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
 
     const { path } = usePageLocation();
     const currentStepId = path[0] || "installation-language";
-
-    const [stepNotification, setStepNotification] = useState();
-
-    const steps = getSteps({
-        currentStepId,
-        setIsFormValid,
-        onAddErrorNotification,
-        stepNotification,
-        stepsOrder
+    const steps = stepsOrder.map((s, idx) => {
+        return ({
+            id: s.id,
+            name: s.label,
+            component: (
+                <s.component
+                  idPrefix={s.id}
+                  setIsFormValid={setIsFormValid}
+                  onAddErrorNotification={onAddErrorNotification}
+                  stepNotification={stepNotification}
+                />
+            ),
+            stepNavItemProps: { id: s.id },
+            canJumpTo: idx <= stepsOrder.findIndex(s => s.id === currentStepId),
+            isFinishedStep: idx === stepsOrder.length - 1
+        });
     });
+
     const startAtStep = steps.findIndex(step => step.id === path[0]) + 1;
     const goToStep = (newStep) => {
         cockpit.location.go([newStep.id]);

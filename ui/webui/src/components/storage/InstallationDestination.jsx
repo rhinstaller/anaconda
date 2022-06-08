@@ -60,6 +60,7 @@ import {
 import {
     FormGroupHelpPopover
 } from "../Common.jsx";
+import { AnacondaPage } from "../AnacondaPage.jsx";
 
 const _ = cockpit.gettext;
 
@@ -249,7 +250,7 @@ const LocalStandardDisks = ({ idPrefix, onAddErrorNotification }) => {
     );
 };
 
-export const InstallationDestination = ({ idPrefix, onAddErrorNotification }) => {
+export const InstallationDestination = ({ idPrefix, onAddErrorNotification, stepNotification }) => {
     const [requiredSize, setRequiredSize] = useState(0);
 
     useEffect(() => {
@@ -262,7 +263,7 @@ export const InstallationDestination = ({ idPrefix, onAddErrorNotification }) =>
     }, []);
 
     return (
-        <>
+        <AnacondaPage title={_("Installation destination")}>
             <TextContent>
                 <Text component={TextVariants.p}>{
                     cockpit.format(_(
@@ -272,6 +273,12 @@ export const InstallationDestination = ({ idPrefix, onAddErrorNotification }) =>
                 }
                 </Text>
             </TextContent>
+            {stepNotification && (stepNotification.step === "installation-destination") &&
+                <Alert
+                  isInline
+                  title={stepNotification.message}
+                  variant="danger"
+                />}
             <Alert
               isInline
               variant="info"
@@ -285,7 +292,7 @@ export const InstallationDestination = ({ idPrefix, onAddErrorNotification }) =>
               idPrefix={idPrefix}
               onAddErrorNotification={onAddErrorNotification}
             />
-        </>
+        </AnacondaPage>
     );
 };
 

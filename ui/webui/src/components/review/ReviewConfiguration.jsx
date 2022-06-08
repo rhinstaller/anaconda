@@ -35,6 +35,7 @@ import {
 import {
     getLanguage, getLanguageData,
 } from "../../apis/localization.js";
+import { AnacondaPage } from "../AnacondaPage.jsx";
 
 const _ = cockpit.gettext;
 
@@ -69,7 +70,7 @@ export const ReviewConfiguration = ({ idPrefix }) => {
     }
 
     return (
-        <>
+        <AnacondaPage title={_("Review and install")}>
             <DescriptionList isHorizontal>
                 <DescriptionListGroup>
                     <DescriptionListTerm>
@@ -104,7 +105,7 @@ export const ReviewConfiguration = ({ idPrefix }) => {
                     </DataListItem>
                 ))}
             </DataList>
-        </>
+        </AnacondaPage>
     );
 };
 
