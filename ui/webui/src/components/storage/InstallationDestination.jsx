@@ -63,7 +63,8 @@ import {
 } from "../../apis/payloads";
 
 import {
-    FormGroupHelpPopover
+    FormGroupHelpPopover,
+    sleep,
 } from "../Common.jsx";
 import { AnacondaPage } from "../AnacondaPage.jsx";
 
@@ -270,7 +271,7 @@ export const InstallationDestination = ({ idPrefix, onAddErrorNotification, step
     if (isInProgress) {
         return (
             <Bullseye>
-                <EmptyState>
+                <EmptyState id="installation-destination-next-spinner">
                     <EmptyStateIcon variant="container" component={Spinner} />
                     <Title size="lg" headingLevel="h4">
                         {_("Checking disks")}
@@ -323,6 +324,7 @@ export const applyDefaultStorage = ({ onFail, onSuccess }) => {
     let partitioning;
     // CLEAR_PARTITIONS_ALL = 1
     return setInitializationMode({ mode: 1 })
+            .then(() => sleep({ seconds: 2 }))
             .then(() => setInitializeLabelsEnabled({ enabled: true }))
             .then(() => setBootloaderDrive({ drive: "" }))
             .then(() => createPartitioning({ method: "AUTOMATIC" }))

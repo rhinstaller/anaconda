@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program; If not, see <http://www.gnu.org/licenses/>.
 from collections import UserList
+from time import sleep
 
 
 class InstallerSteps(UserList):
@@ -50,12 +51,16 @@ class Installer():
 
     def next(self, should_fail=False):
         current_step_id = self.get_current_page_id()
-        self.browser.click("button:contains(Next)")
+        current_page = self.steps[current_step_id]
+        next_page = self.steps[current_step_id+1]
 
-        if should_fail:
-            self.wait_current_page(self.steps[current_step_id])
-        else:
-            self.wait_current_page(self.steps[current_step_id+1])
+        # Wait for a disk to be pre-selected before clicking 'Next'.
+        # FIXME: Find a better way.
+        if current_page == self.steps.STORAGE:
+            sleep(2)
+
+        self.browser.click("button:contains(Next)")
+        self.wait_current_page(current_page if should_fail else next_page)
 
     def open(self, step="installation-language"):
         self.browser.open(f"/cockpit/@localhost/anaconda-webui/index.html#/{step}")
@@ -66,7 +71,9 @@ class Installer():
         return self.steps.index(page)
 
     def wait_current_page(self, page):
+        self.browser.wait_not_present("#installation-destination-next-spinner")
         self.browser.wait_js_cond(f'window.location.hash === "#/{page}"')
+
         if page == self.steps.PROGRESS:
             self.browser.wait_visible(".pf-c-progress-stepper")
         else:
