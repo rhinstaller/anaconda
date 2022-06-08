@@ -27,6 +27,7 @@ from pyanaconda.core.constants import PAYLOAD_TYPE_DNF
 from pyanaconda.ui.lib.payload import create_source, set_source, tear_down_sources
 from pyanaconda.ui.lib.storage import unmark_protected_device
 from pyanaconda.payload.manager import payloadMgr
+from pyanaconda.errors import errorHandler, ERROR_RAISE
 
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common import task
@@ -105,6 +106,20 @@ def check_cdn_is_installation_source(payload):
         # the CDN source pretty much only supports
         # DNF payload at the moment
         return False
+
+
+# Kickstart error handling
+
+class KickstartRegistrationError(Exception):
+    """Registration attempt from kickstart failed."""
+    pass
+
+
+def kickstart_error_handler(message):
+    """Helper function which raises exception if kickstart triggered registration fails."""
+    exn = KickstartRegistrationError(message)
+    if errorHandler.cb(exn) == ERROR_RAISE:
+        raise exn
 
 # Asynchronous registration + subscription & unregistration handling
 #

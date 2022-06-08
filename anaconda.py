@@ -551,14 +551,17 @@ if __name__ == "__main__":
     #   key are available
     from pyanaconda.modules.common.util import is_module_available
     from pyanaconda.modules.common.constants.services import SUBSCRIPTION
+
     if is_module_available(SUBSCRIPTION):
-        from pyanaconda.ui.lib.subscription import org_keys_sufficient, register_and_subscribe
+        from pyanaconda.ui.lib.subscription import org_keys_sufficient, \
+            register_and_subscribe, kickstart_error_handler
         if org_keys_sufficient():
             threadMgr.add(
                 AnacondaThread(
                     name=constants.THREAD_SUBSCRIPTION,
                     target=register_and_subscribe,
-                    args=[anaconda.payload]
+                    args=[anaconda.payload],
+                    kwargs={"error_callback": kickstart_error_handler}
                 )
             )
 

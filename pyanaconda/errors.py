@@ -115,6 +115,7 @@ class ErrorHandler(object):
             # Subscription related errors
             InsightsClientMissingError.__name__: self._insightsErrorHandler,
             InsightsConnectError.__name__: self._insightsErrorHandler,
+            "KickstartRegistrationError": self._kickstartRegistrationErrorHandler,
 
             # Satellite
             SatelliteProvisioningError.__name__: self._target_satellite_provisioning_error_handler,
@@ -239,6 +240,20 @@ class ErrorHandler(object):
                     "Would you like to ignore this and continue with "
                     "installation?")
         message += "\n\n" + str(exn)
+
+        if self.ui.showYesNoQuestion(message):
+            return ERROR_CONTINUE
+        else:
+            return ERROR_RAISE
+
+    def _kickstartRegistrationErrorHandler(self, exn):
+        message = _("An error occurred during registration attempt "
+                    "triggered by the rhsm kickstart command. "
+                    "This could have happened due to incorrect rhsm command arguments "
+                    "or subscription infrastructure issues. "
+                    "Would you like to ignore this and continue with "
+                    "installation?")
+        message += "\n\n" + _("Error detail: ") + str(exn)
 
         if self.ui.showYesNoQuestion(message):
             return ERROR_CONTINUE
