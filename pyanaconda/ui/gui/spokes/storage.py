@@ -21,7 +21,7 @@ import sys
 from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util, constants
-from pyanaconda.core.async_utils import async_action_nowait
+from pyanaconda.core.async_utils import async_action_nowait, async_action_wait
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, BOOTLOADER_ENABLED, \
     STORAGE_METADATA_RATIO, WARNING_NO_DISKS_SELECTED, WARNING_NO_DISKS_DETECTED, \
@@ -41,7 +41,7 @@ from pyanaconda.core.storage import suggest_swap_size
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.communication import hubQ
-from pyanaconda.ui.gui import GUIObject
+from pyanaconda.ui.gui import GUIObject, MainWindow
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.spokes.lib.dasdfmt import DasdFormatDialog
@@ -54,7 +54,7 @@ from pyanaconda.ui.helpers import StorageCheckHandler
 from pyanaconda.ui.lib.format_dasd import DasdFormatting
 from pyanaconda.ui.lib.storage import find_partitioning, apply_partitioning, \
     select_default_disks, apply_disk_selection, get_disks_summary, create_partitioning, \
-    is_local_disk, filter_disks_by_names
+    is_local_disk, filter_disks_by_names, is_passphrase_required, set_required_passphrase
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -641,6 +641,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # Do not set ready in the automated installation before
         # the execute method is run.
         if flags.automatedInstall and self._is_preconfigured:
+            self._check_required_passphrase()
             self.execute()
         else:
             self._ready = True
@@ -651,6 +652,26 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
     def _show_dasdfmt_report(self, msg):
         hubQ.send_message(self.__class__.__name__, msg)
+
+    @async_action_wait
+    def _check_required_passphrase(self):
+        """Ask a user for a default passphrase if required."""
+        if not is_passphrase_required(self._partitioning):
+            return
+
+        dialog = PassphraseDialog(self.data)
+
+        # Use MainWindow.get() instead of self.main_window,
+        # because the main_window property returns SpokeWindow
+        # instead of MainWindow during the initialization.
+        # We need the main window for showing the enlight box.
+        with MainWindow.get().enlightbox(dialog.window):
+            rc = dialog.run()
+
+        if rc != 1:
+            return
+
+        set_required_passphrase(self._partitioning, dialog.passphrase)
 
     def _update_summary(self):
         """ Update the summary based on the UI. """
