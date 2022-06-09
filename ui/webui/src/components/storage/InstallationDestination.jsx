@@ -19,15 +19,20 @@ import React, { useEffect, useState } from "react";
 
 import {
     Alert,
+    Bullseye,
     Button,
+    EmptyState,
+    EmptyStateIcon,
     Flex,
     FlexItem,
     Form,
     FormGroup,
     Label,
+    Spinner,
     Text,
     TextContent,
     TextVariants,
+    Title,
 } from "@patternfly/react-core";
 
 import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
@@ -58,7 +63,8 @@ import {
 } from "../../apis/payloads";
 
 import {
-    FormGroupHelpPopover
+    FormGroupHelpPopover,
+    sleep,
 } from "../Common.jsx";
 import { AnacondaPage } from "../AnacondaPage.jsx";
 
@@ -250,7 +256,7 @@ const LocalStandardDisks = ({ idPrefix, onAddErrorNotification }) => {
     );
 };
 
-export const InstallationDestination = ({ idPrefix, onAddErrorNotification, stepNotification }) => {
+export const InstallationDestination = ({ idPrefix, onAddErrorNotification, stepNotification, isInProgress }) => {
     const [requiredSize, setRequiredSize] = useState(0);
 
     useEffect(() => {
@@ -261,6 +267,24 @@ export const InstallationDestination = ({ idPrefix, onAddErrorNotification, step
                     }, console.error);
                 }, console.error);
     }, []);
+
+    if (isInProgress) {
+        return (
+            <Bullseye>
+                <EmptyState id="installation-destination-next-spinner">
+                    <EmptyStateIcon variant="container" component={Spinner} />
+                    <Title size="lg" headingLevel="h4">
+                        {_("Checking disks")}
+                    </Title>
+                    <TextContent>
+                        <Text component={TextVariants.p}>
+                            {_("This may take a moment")}
+                        </Text>
+                    </TextContent>
+                </EmptyState>
+            </Bullseye>
+        );
+    }
 
     return (
         <AnacondaPage title={_("Installation destination")}>
@@ -300,6 +324,7 @@ export const applyDefaultStorage = ({ onFail, onSuccess }) => {
     let partitioning;
     // CLEAR_PARTITIONS_ALL = 1
     return setInitializationMode({ mode: 1 })
+            .then(() => sleep({ seconds: 2 }))
             .then(() => setInitializeLabelsEnabled({ enabled: true }))
             .then(() => setBootloaderDrive({ drive: "" }))
             .then(() => createPartitioning({ method: "AUTOMATIC" }))

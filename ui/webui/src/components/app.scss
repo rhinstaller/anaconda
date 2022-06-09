@@ -8,3 +8,10 @@ html:not(.index-page) body {
     height: 100% !important;
   }
 }
+
+#installation-wizard .pf-c-wizard__main {
+  display: flex;
+}
+#installation-wizard .pf-c-wizard__main-body {
+  flex: 1 1 auto;
+}
