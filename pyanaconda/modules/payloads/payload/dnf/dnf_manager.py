@@ -116,9 +116,14 @@ class DNFManager(object):
     def _create_base(cls):
         """Create a new DNF base."""
         base = dnf.Base()
+        base.conf.read()
         base.conf.cachedir = DNF_CACHE_DIR
         base.conf.pluginconfpath = DNF_PLUGINCONF_DIR
         base.conf.logdir = '/tmp/'
+
+        # Set installer defaults
+        base.conf.gpgcheck = False
+        base.conf.skip_if_unavailable = False
 
         # Set the substitution variables.
         cls._reset_substitution(base)
