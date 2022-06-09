@@ -52,10 +52,9 @@ class TestStorage(MachineCase):
 
         # Try unselecting the single disk and expect and error
         s.select_disk("vda", False)
-        i.next(should_fail=True)
         s.wait_no_disks()
-        # Since storage configuration failed it's expected to be in the still in the storage step
-        b.wait_visible(f"#{i.steps.STORAGE}.pf-m-current")
+        # Check the next button is disabled if no disks are selected
+        i.check_next_disabled()
 
 # We can't run this test case on an existing machine,
 # with --machine because MachineCase is not aware of add_disk method

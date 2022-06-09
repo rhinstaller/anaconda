@@ -62,6 +62,14 @@ class Installer():
         self.browser.click("button:contains(Next)")
         self.wait_current_page(current_page if should_fail else next_page)
 
+    def check_next_disabled(self):
+        """Check if the Next button is disabled.
+
+        :return: True if Next is enabled, False otherwise
+        :rtype: bool
+        """
+        self.browser.wait_visible("#installation-next-btn:not([aria-disabled=false]")
+
     def open(self, step="installation-language"):
         self.browser.open(f"/cockpit/@localhost/anaconda-webui/index.html#/{step}")
         self.wait_current_page(step)

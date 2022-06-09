@@ -95,7 +95,7 @@ const selectDefaultDisks = ({ ignoredDisks, selectedDisks, usableDisks }) => {
     }
 };
 
-const LocalStandardDisks = ({ idPrefix, onAddErrorNotification }) => {
+const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }) => {
     const [deviceData, setDeviceData] = useState({});
     const [disks, setDisks] = useState({});
     const [refreshCnt, setRefreshCnt] = useState(0);
@@ -140,15 +140,17 @@ const LocalStandardDisks = ({ idPrefix, onAddErrorNotification }) => {
                 }, console.error);
     }, [refreshCnt]);
 
+    const totalDisksCnt = Object.keys(disks).length;
+    const selectedDisksCnt = Object.keys(disks).filter(disk => !!disks[disk]).length;
+
     // When the selected disks change in the UI, update in the backend as well
     useEffect(() => {
+        setIsFormValid(selectedDisksCnt > 0);
+
         const selected = Object.keys(disks).filter(disk => disks[disk]);
 
         setSelectedDisks({ drives: selected }).catch(onAddErrorNotification);
-    }, [disks, onAddErrorNotification]);
-
-    const totalDisksCnt = Object.keys(disks).length;
-    const selectedDisksCnt = Object.keys(disks).filter(disk => !!disks[disk]).length;
+    }, [disks, onAddErrorNotification, selectedDisksCnt, setIsFormValid]);
 
     if (totalDisksCnt === 0) {
         return <EmptyStatePanel loading />;
@@ -256,7 +258,7 @@ const LocalStandardDisks = ({ idPrefix, onAddErrorNotification }) => {
     );
 };
 
-export const InstallationDestination = ({ idPrefix, onAddErrorNotification, stepNotification, isInProgress }) => {
+export const InstallationDestination = ({ idPrefix, setIsFormValid, onAddErrorNotification, stepNotification, isInProgress }) => {
     const [requiredSize, setRequiredSize] = useState(0);
 
     useEffect(() => {
@@ -314,6 +316,7 @@ export const InstallationDestination = ({ idPrefix, onAddErrorNotification, step
             </Alert>
             <LocalStandardDisks
               idPrefix={idPrefix}
+              setIsFormValid={setIsFormValid}
               onAddErrorNotification={onAddErrorNotification}
             />
         </AnacondaPage>

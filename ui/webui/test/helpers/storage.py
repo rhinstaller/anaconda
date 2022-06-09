@@ -42,7 +42,8 @@ class Storage():
         assert self.browser.get_checked(f"#{disk} input") == selected
 
     def wait_no_disks(self):
-        self.browser.wait_in_text(".pf-c-alert.pf-m-danger.pf-m-inline", "No usable disks")
+        self.browser.wait_in_text("#next-tooltip-ref",
+                                  "To continue, select the devices(s) to install to.")
 
     def dbus_reset_partitioning(self):
         bus_address = self.machine.execute("cat /run/anaconda/bus.address")

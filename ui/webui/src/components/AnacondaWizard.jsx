@@ -23,6 +23,7 @@ import {
     Modal,
     ModalVariant,
     Stack,
+    Tooltip,
     Wizard,
     WizardFooter,
     WizardContextConsumer,
@@ -87,6 +88,9 @@ export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
 
     const startAtStep = steps.findIndex(step => step.id === path[0]) + 1;
     const goToStep = (newStep) => {
+        // first reset validation state to default
+        setIsFormValid(true);
+
         cockpit.location.go([newStep.id]);
     };
 
@@ -95,6 +99,7 @@ export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
           id="installation-wizard"
           footer={<Footer
             isFormValid={isFormValid}
+            setIsFormValid={setIsFormValid}
             setStepNotification={setStepNotification}
             isInProgress={isInProgress}
             setIsInProgress={setIsInProgress}
@@ -111,11 +116,14 @@ export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
     );
 };
 
-const Footer = ({ isFormValid, setStepNotification, isInProgress, setIsInProgress }) => {
+const Footer = ({ isFormValid, setIsFormValid, setStepNotification, isInProgress, setIsInProgress }) => {
     const [nextWaitsConfirmation, setNextWaitsConfirmation] = useState(false);
     const [quitWaitsConfirmation, setQuitWaitsConfirmation] = useState(false);
 
     const goToStep = (activeStep, onNext) => {
+        // first reset validation state to default
+        setIsFormValid(true);
+
         if (activeStep.id === "installation-destination") {
             setIsInProgress(true);
 
@@ -173,6 +181,8 @@ const Footer = ({ isFormValid, setStepNotification, isInProgress, setIsInProgres
                             />}
                             <ActionList>
                                 <Button
+                                  id="installation-next-btn"
+                                  aria-describedby="next-tooltip-ref"
                                   variant="primary"
                                   isDisabled={
                                       !isFormValid ||
@@ -181,6 +191,21 @@ const Footer = ({ isFormValid, setStepNotification, isInProgress, setIsInProgres
                                   onClick={() => goToStep(activeStep, onNext)}>
                                     {nextButtonText}
                                 </Button>
+                                {activeStep.id === "installation-destination" &&
+                                    <Tooltip
+                                      id="next-tooltip-ref"
+                                      content={
+                                          <div>
+                                              {_("To continue, select the devices(s) to install to.")}
+                                          </div>
+                                      }
+                                      // Only show the tooltip on installation destination spoke that is not valid (no disks selected).
+                                      // NOTE: As PatternFly Button with isDisabled set apprently does not get any mouse events anymore,
+                                      //       we need to manually trigger the tooltip.
+                                      reference={() => document.getElementById("installation-next-btn")}
+                                      trigger="manual"
+                                      isVisible={!isFormValid}
+                                    />}
                                 <Button
                                   variant="secondary"
                                   isDisabled={isBackDisabled}
