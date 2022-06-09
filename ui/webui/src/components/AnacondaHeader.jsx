@@ -19,7 +19,8 @@ import cockpit from "cockpit";
 import React from "react";
 
 import {
-    Flex,
+    Button,
+    Flex, FlexItem,
     Label,
     PageSection, PageSectionVariants,
     Popover, PopoverPosition,
@@ -31,7 +32,7 @@ const _ = cockpit.gettext;
 
 const prerelease = _("Pre-release");
 
-export const AnacondaHeader = ({ beta, title }) => {
+export const AnacondaHeader = ({ beta, title, setShowLogViewer }) => {
     const betanag = beta
         ? (
             <Popover
@@ -64,6 +65,18 @@ export const AnacondaHeader = ({ beta, title }) => {
                     <Text component="h1">{title}</Text>
                 </TextContent>
                 {betanag}
+                <FlexItem align={{ default: "alignRight" }}>
+                    <Button
+                      aria-label={_("Show log")}
+                      id="global-show-log-btn"
+                      variant="tertiary"
+                      onClick={() => {
+                          setShowLogViewer(true);
+                      }}
+                    >
+                        {_("Show log")}
+                    </Button>
+                </FlexItem>
             </Flex>
         </PageSection>
     );

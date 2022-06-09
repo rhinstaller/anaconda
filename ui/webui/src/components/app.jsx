@@ -27,6 +27,7 @@ import { AddressContext } from "./Common.jsx";
 import { AnacondaHeader } from "./AnacondaHeader.jsx";
 import { AnacondaWizard } from "./AnacondaWizard.jsx";
 import { HelpDrawer } from "./HelpDrawer.jsx";
+import { LogViewerModal } from "./LogViewerModal.jsx";
 
 import { BossClient } from "../apis/boss.js";
 import { LocalizationClient } from "../apis/localization.js";
@@ -44,6 +45,7 @@ export const Application = () => {
     const [conf, setConf] = useState();
     const [notifications, setNotifications] = useState({});
     const [isHelpExpanded, setIsHelpExpanded] = useState(false);
+    const [showLogViewer, setShowLogViewer] = useState(false);
 
     useEffect(() => {
         cockpit.file("/run/anaconda/bus.address").watch(address => {
@@ -96,7 +98,7 @@ export const Application = () => {
         <Page
           data-debug={conf.Anaconda.debug}
           additionalGroupedContent={
-              <AnacondaHeader beta={beta} title={title} />
+              <AnacondaHeader beta={beta} title={title} setShowLogViewer={setShowLogViewer} />
           }
           groupProps={{
               sticky: "top"
@@ -141,6 +143,9 @@ export const Application = () => {
           setIsExpanded={setIsHelpExpanded}
         >
             {page}
+            {showLogViewer && <LogViewerModal
+              setShowLogViewer={setShowLogViewer}
+            />}
         </HelpDrawer>
     );
 };

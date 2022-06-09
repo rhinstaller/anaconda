@@ -106,6 +106,15 @@ class Installer():
         else:
             self.browser.wait_not_present("#betang-icon")
 
+    def show_log(self):
+        """Show the log viewer modal."""
+        self.browser.click("#global-show-log-btn")
+        self.browser.wait_visible("#log-viewer-modal")
+
+    def close_log(self):
+        """Close a modal dialog by pressing Esc."""
+        self.browser.click("#log-viewer-exit-btn")
+
     def quit(self):
         self.browser.click("#installation-quit-btn")
         self.browser.wait_visible("#installation-quit-confirm-dialog")

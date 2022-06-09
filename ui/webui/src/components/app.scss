@@ -15,3 +15,10 @@ html:not(.index-page) body {
 #installation-wizard .pf-c-wizard__main-body {
   flex: 1 1 auto;
 }
+
+// workaround for a LogViewer bug
+// - without this the line number column is too narrow
+//   and line numbers quickly become unreadable
+.pf-c-log-viewer__index {
+  width: auto;
+}
