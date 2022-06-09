@@ -121,8 +121,10 @@ jobs:
         with:
           ref: ${{ needs.pr-info.outputs.sha }}
           fetch-depth: 0
+          path: anaconda
 
       - name: Rebase to current ${{ env.TARGET_BRANCH }}
+        working-directory: ./anaconda
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
@@ -168,21 +170,24 @@ jobs:
           sudo podman pull quay.io/rhinstaller/kstest-runner:latest
 
       - name: Build anaconda-iso-creator container image
+        working-directory: ./anaconda
         run: |
           # set static tag to avoid complications when looking what tag is used
           sudo make -f ./Makefile.am anaconda-iso-creator-build CI_TAG=$CONTAINER_TAG
 
       - name: Build anaconda-rpm container (for RPM build)
+        working-directory: ./anaconda
         run: |
           # set static tag to avoid complications when looking what tag is used
           make -f ./Makefile.am anaconda-rpm-build CI_TAG=$CONTAINER_TAG
 
       - name: Build Anaconda RPM files
+        working-directory: ./anaconda
         run: |
           # output of the build will be stored in ./result/build/01-rpm-build/*.rpm
           make -f ./Makefile.am container-rpms-scratch CI_TAG=$CONTAINER_TAG
-          mkdir -p ./kickstart-tests/data/additional_repo/
-          cp -av ./result/build/01-rpm-build/*.rpm ./kickstart-tests/data/additional_repo/
+          mkdir -p ${{ github.workspace }}/kickstart-tests/data/additional_repo/
+          cp -av ./result/build/01-rpm-build/*.rpm ${{ github.workspace }}/kickstart-tests/data/additional_repo/
 
       - name: Prepare environment for lorax run
         run: |
@@ -198,8 +203,8 @@ jobs:
           # /var/tmp tmpfs speeds up lorax and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
           sudo podman run -i --rm --privileged \
             --tmpfs /var/tmp:rw,mode=1777 \
-            -v `pwd`/kickstart-tests/data/additional_repo:/anaconda-rpms:ro \
-            -v `pwd`/images:/images:z \
+            -v ${{ github.workspace }}/kickstart-tests/data/additional_repo:/anaconda-rpms:ro \
+            -v ${{ github.workspace }}/images:/images:z \
             $ISO_BUILD_CONTAINER_NAME:$CONTAINER_TAG
 
       - name: Clean up after lorax
