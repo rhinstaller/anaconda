@@ -407,6 +407,20 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jun 10 2022 Radek Vykydal <rvykydal@redhat.com> - 34.25.1.6-1
+- Report registration errors from kickstart (mkolman)
+  Resolves: rhbz#2000652
+- GUI: Show the dialog for a missing passphrase in an enlight box (vponcova)
+  Related: rhbz#2087218
+- GUI: Ask for a missing passphrase during automated installations (vponcova)
+  Resolves: rhbz#2087218
+- Create functions for a missing passphrase in pyanaconda.ui.lib (vponcova)
+  Related: rhbz#2087218
+- Add missing period when concatenating password error strings (jkonecny)
+  Resolves: rhbz#2075417
+- Enable bootloader hiding on RHEL (rharwood)
+  Resolves: rhbz#2059414
+
 * Wed Jun 01 2022 Radek Vykydal <rvykydal@redhat.com> - 34.25.1.5-1
 - Run FixZIPLBootloader task after FIPS setup (rvykydal)
   Resolves: rhbz#2022841
