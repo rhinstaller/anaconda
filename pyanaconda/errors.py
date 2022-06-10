@@ -271,6 +271,20 @@ class ErrorHandler(object):
         else:
             return ERROR_RAISE
 
+    def _kickstartRegistrationErrorHandler(self, exn):
+        message = _("An error occurred during registration attempt "
+                    "triggered by the rhsm kickstart command. "
+                    "This could have happened due to incorrect rhsm command arguments "
+                    "or subscription infrastructure issues. "
+                    "Would you like to ignore this and continue with "
+                    "installation?")
+        message += "\n\n" + _("Error detail: ") + str(exn)
+
+        if self.ui.showYesNoQuestion(message):
+            return ERROR_CONTINUE
+        else:
+            return ERROR_RAISE
+
     def cb(self, exn):
         """This method is the callback that all error handling should pass
            through.  The return value is one of the ERROR_* constants defined
@@ -305,6 +319,7 @@ class ErrorHandler(object):
             "PasswordCryptError": self._passwordCryptErrorHandler,
             "InsightsClientMissingError": self._insightsErrorHandler,
             "InsightsConnectError": self._insightsErrorHandler,
+            "KickstartRegistrationError": self._kickstartRegistrationErrorHandler,
         }
 
         if exn.__class__.__name__ in _map:
