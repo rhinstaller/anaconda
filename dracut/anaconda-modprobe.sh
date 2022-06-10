@@ -14,11 +14,12 @@ MODULE_LIST="cramfs squashfs iscsi_tcp "
 shopt -s nullglob
 
 SCSI_MODULES=/lib/modules/$KERNEL/kernel/drivers/scsi/device_handler/
-for m in "$SCSI_MODULES"/*.ko; do
+for m in "$SCSI_MODULES"/*.ko*; do
     # Shell spew to work around not having basename
-    # Trim the paths off the prefix, then the . suffix
-    a="${m##*/}"
-    MODULE_LIST+=" ${a%.*}"
+    m="${m##*/}"
+    # Handle *.ko, *.ko.zst, *.ko.gz, *.ko.xz etc.
+    IFS='.ko' read -r -a m <<< "$m"
+    MODULE_LIST+=" ${m[0]}"
 done
 
 shopt -u nullglob
