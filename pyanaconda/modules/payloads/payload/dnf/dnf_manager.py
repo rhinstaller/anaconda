@@ -69,12 +69,18 @@ class DNFManager(object):
     def _create_base():
         """Create a new DNF base."""
         base = dnf.Base()
+        base.conf.read()
         base.conf.cachedir = DNF_CACHE_DIR
         base.conf.pluginconfpath = DNF_PLUGINCONF_DIR
         base.conf.logdir = '/tmp/'
         base.conf.releasever = get_product_release_version()
         base.conf.installroot = conf.target.system_root
         base.conf.prepend_installroot('persistdir')
+
+        # Set installer defaults
+        base.conf.gpgcheck = False
+        base.conf.skip_if_unavailable = False
+
         # Load variables substitutions configuration (rhbz#1920735)
         base.conf.substitutions.update_from_etc("/")
 
