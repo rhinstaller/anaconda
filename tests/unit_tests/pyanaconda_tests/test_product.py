@@ -308,7 +308,7 @@ class ProductConfigurationTestCase(unittest.TestCase):
             ENTERPRISE_PARTITIONING
         )
         self._check_default_product(
-            "Rocky", "",
+            "Rocky Linux", "",
             ["rhel.conf", "rocky.conf"],
             ENTERPRISE_PARTITIONING
         )
