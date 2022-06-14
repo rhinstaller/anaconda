@@ -79,6 +79,7 @@ class UsersService(KickstartService):
         """Process the kickstart data."""
         self.set_root_password(data.rootpw.password, crypted=data.rootpw.isCrypted)
         self.set_root_account_locked(data.rootpw.lock)
+        self.set_root_password_ssh_login_allowed(data.rootpw.allow_ssh)
         # make sure the root account is locked unless a password is set in kickstart
         if not data.rootpw.password:
             log.debug("root specified in kickstart without password, locking account")
@@ -115,6 +116,7 @@ class UsersService(KickstartService):
         data.rootpw.password = self._root_password
         data.rootpw.isCrypted = self._root_password_is_crypted
         data.rootpw.lock = self.root_account_locked
+        data.rootpw.allow_ssh = self.root_password_ssh_login_allowed
 
         for user_data in self.users:
             data.user.userList.append(self._user_data_to_ksdata(data.UserData(),

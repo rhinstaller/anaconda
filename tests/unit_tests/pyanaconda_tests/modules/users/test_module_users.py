@@ -401,6 +401,18 @@ class UsersInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
+    def test_kickstart_allow_ssh(self):
+        """Test allowing using root ssh password via kickstart."""
+        ks_in = """
+        rootpw --plaintext --allow-ssh abcdef
+        """
+        ks_out = """
+        # Root password
+        rootpw --plaintext --allow-ssh abcdef
+        """
+        self._test_kickstart(ks_in, ks_out)
+        assert self.users_interface.RootPasswordSSHLoginAllowed is True
+
     def test_kickstart_set_crypted_rootpw(self):
         """Test the setting crypted root password via kickstart."""
         ks_in = """
@@ -459,9 +471,9 @@ class UsersInterfaceTestCase(unittest.TestCase):
         user --name=user1 --password=abcedf
         """
         ks_out = """
+        user --name=user1 --password=abcedf
         #Root password
         rootpw --lock
-        user --name=user1 --password=abcedf
         """
         self._test_kickstart(ks_in, ks_out)
 
@@ -479,9 +491,9 @@ class UsersInterfaceTestCase(unittest.TestCase):
         user --groups=wheel --name=user1 --password=abcedf
         """
         ks_out = """
+        user --groups=wheel --name=user1 --password=abcedf
         #Root password
         rootpw --lock
-        user --groups=wheel --name=user1 --password=abcedf
         """
         self._test_kickstart(ks_in, ks_out)
 
@@ -501,11 +513,11 @@ class UsersInterfaceTestCase(unittest.TestCase):
         user --name=user3 --lock
         """
         ks_out = """
-        #Root password
-        rootpw --lock
         user --groups=a,b,c,d --homedir=user1_home --name=user1 --password=foo --shell=ksh --uid=123 --gecos="baz" --gid=345
         user --groups=wheel,mockuser --homedir=user2_home --name=user2 --password=asasas --iscrypted --shell=csh --uid=321 --gecos="bar" --gid=543
         user --name=user3 --lock
+        #Root password
+        rootpw --lock
         """
         self._test_kickstart(ks_in, ks_out)
 
@@ -533,11 +545,11 @@ class UsersInterfaceTestCase(unittest.TestCase):
         sshkey --username=user3 "ccc"
         """
         ks_out = """
-        #Root password
-        rootpw --lock
         sshkey --username=user1 "aaa"
         sshkey --username=user2 "bbb"
         sshkey --username=user3 "ccc"
+        #Root password
+        rootpw --lock
         """
         self._test_kickstart(ks_in, ks_out)
 

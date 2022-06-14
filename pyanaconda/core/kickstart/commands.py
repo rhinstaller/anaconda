@@ -62,7 +62,7 @@ from pykickstart.commands.repo import F33_Repo as Repo
 from pykickstart.commands.reqpart import F23_ReqPart as ReqPart
 from pykickstart.commands.rescue import F10_Rescue as Rescue
 from pykickstart.commands.rhsm import RHEL8_RHSM as RHSM
-from pykickstart.commands.rootpw import F18_RootPw as RootPw
+from pykickstart.commands.rootpw import F37_RootPw as RootPw
 from pykickstart.commands.selinux import FC3_SELinux as SELinux
 from pykickstart.commands.services import FC6_Services as Services
 from pykickstart.commands.skipx import FC3_SkipX as SkipX
