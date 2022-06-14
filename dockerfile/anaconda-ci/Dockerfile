@@ -51,6 +51,7 @@ RUN set -ex; \
     dnf copr enable -y @storage/blivet-daily fedora-${BRANCH}-x86_64; \
     dnf -y install \
     cppcheck \
+    ShellCheck \
     # TODO dill is patched in rawhide for python 3.11, remove once released in pip too
     python3-dill; \
   else \
@@ -73,8 +74,7 @@ RUN set -ex; \
   # TODO pylint is patched in rawhide for python 3.11, remove once released in pip too
   python3-pylint \
   # Need to have restorecon for the tests execution
-  policycoreutils \
-  ShellCheck; \
+  policycoreutils; \
   # Install Anaconda dependencies
   cat /root/anaconda.spec.in | sed 's/@PACKAGE_VERSION@/0/; s/@PACKAGE_RELEASE@/0/; s/%{__python3}/python3/' > /tmp/anaconda.spec; \
   rpmspec -q --buildrequires /tmp/anaconda.spec | xargs -d '\n' dnf install -y; \
