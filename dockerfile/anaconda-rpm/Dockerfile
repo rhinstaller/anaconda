@@ -22,16 +22,12 @@ ARG git_branch
 ARG copr_repo=@rhinstaller/Anaconda
 LABEL maintainer=anaconda-devel@lists.fedoraproject.org
 
-# On ELN, BaseOS+AppStream don't have all our build dependencies; this provides the "Everything" compose
-COPY ["eln.repo", "/etc/yum.repos.d"]
-
 # The anaconda.spec.in is in the repository root. This file will be copied automatically here if
 # the build is invoked by Makefile.
 COPY ["anaconda.spec.in", "/root/"]
 
 # Prepare environment and install build dependencies
 RUN set -ex; \
-  if grep -q VARIANT.*eln /etc/os-release; then sed -i 's/enabled=0/enabled=1/' /etc/yum.repos.d/eln.repo; fi; \
   dnf update -y; \
   dnf install -y \
   'dnf-command(copr)' \
