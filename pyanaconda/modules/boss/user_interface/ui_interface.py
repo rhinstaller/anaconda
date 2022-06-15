@@ -44,22 +44,6 @@ class UIInterface(KickstartModuleInterfaceTemplate):
             self.implementation.password_policies
         )
 
-    @emits_properties_changed
-    def SetPasswordPolicies(self, policies: Dict[Str, Structure]):
-        """Set the password policies.
-
-        Default policy names:
-
-            root  The policy for the root password.
-            user  The policy for the user password.
-            luks  The policy for the LUKS passphrase.
-
-        :param policies: a dictionary of policy names and policy data
-        """
-        self.implementation.set_password_policies(
-            PasswordPolicy.from_structure_dict(policies)
-        )
-
     @PasswordPolicies.setter
     @emits_properties_changed
     def PasswordPolicies(self, policies: Dict[Str, Structure]):
