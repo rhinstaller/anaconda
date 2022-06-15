@@ -19,6 +19,7 @@ configdir           = $(sysconfdir)/$(PACKAGE_NAME)/profile.d
 dist_config_DATA    = \
 	almalinux.conf \
 	centos.conf \
+	circle.conf \
 	fedora-eln.conf \
 	fedora-iot.conf \
 	fedora-kde.conf \
