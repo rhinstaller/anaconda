@@ -367,6 +367,11 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jun 16 2022 Radek Vykydal <rvykydal@redhat.com> - 33.16.7.6-1
+- dnf: apply the /etc/dnf/dnf.conf configuration file in the installer
+  (rvykydal)
+  Resolves: rhbz#1899494
+
 * Fri Jun 10 2022 Radek Vykydal <rvykydal@redhat.com> - 33.16.7.5-1
 - Report registration errors from kickstart (mkolman)
   Resolves: rhbz#2000650
