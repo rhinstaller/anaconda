@@ -71,8 +71,6 @@ RUN set -ex; \
   cat /root/anaconda.spec.in | sed 's/@PACKAGE_VERSION@/0/; s/@PACKAGE_RELEASE@/0/; s/%{__python3}/python3/' > /tmp/anaconda.spec; \
   rpmspec -q --buildrequires /tmp/anaconda.spec | xargs -d '\n' dnf install -y; \
   rpmspec -q --requires /tmp/anaconda.spec | grep -v anaconda | xargs -d '\n' dnf install -y; \
-  # FIXME: Install older npm version - the version from the package manager leads to timeouts
-  npm install -g npm@8.1.0; \
   dnf clean all
 
 RUN pip install --no-cache-dir --upgrade pip; \
