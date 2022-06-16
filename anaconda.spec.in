@@ -407,6 +407,16 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jun 16 2022 Radek Vykydal <rvykydal@redhat.com> - 34.25.1.7-1
+- tests: update the order of commands (rootpw) in generated kickstart
+  (rvykydal)
+  Related: rhbz#2033849
+- dnf: apply the /etc/dnf/dnf.conf configuration file in the installer
+  (rvykydal)
+  Resolves: rhbz#2053710
+- Add support for rootpw --allow-ssh (rvykydal)
+  Resolves: rhbz#2033849
+
 * Fri Jun 10 2022 Radek Vykydal <rvykydal@redhat.com> - 34.25.1.6-1
 - Report registration errors from kickstart (mkolman)
   Resolves: rhbz#2000652
