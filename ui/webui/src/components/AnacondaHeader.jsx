@@ -22,7 +22,7 @@ import {
     Flex,
     Label,
     PageSection, PageSectionVariants,
-    Popover,
+    Popover, PopoverPosition,
     TextContent, Text, TextVariants
 } from "@patternfly/react-core";
 import { InfoCircleIcon } from "@patternfly/react-icons";
@@ -36,7 +36,8 @@ export const AnacondaHeader = ({ beta, title }) => {
         ? (
             <Popover
               headerContent={_("This is unstable, pre-release software")}
-              minWidth="40rem"
+              minWidth="30rem"
+              position={PopoverPosition.auto}
               bodyContent={
                   <TextContent>
                       <Text component={TextVariants.p}>
