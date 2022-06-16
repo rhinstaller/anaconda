@@ -60,8 +60,6 @@ RUN set -ex; \
   dnf install -y https://kojipkgs.fedoraproject.org//packages/annobin/10.53/1.fc36/x86_64/annobin-plugin-gcc-10.53-1.fc36.x86_64.rpm \
                  https://kojipkgs.fedoraproject.org//packages/annobin/10.53/1.fc36/noarch/annobin-docs-10.53-1.fc36.noarch.rpm; \
   dnf clean all; \
-  # FIXME: Install older npm version - the version from the package manager leads to timeouts
-  npm install -g npm@8.1.0; \
   mkdir /anaconda
 
 WORKDIR /anaconda
