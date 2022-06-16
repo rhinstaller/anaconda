@@ -653,9 +653,13 @@ class DNFPayload(Payload):
     def _configure(self):
         self._base = dnf.Base()
         config = self._base.conf
+        config.read()
         config.cachedir = DNF_CACHE_DIR
         config.pluginconfpath = DNF_PLUGINCONF_DIR
         config.logdir = '/tmp/'
+        # set installer defaults
+        config.gpgcheck = False
+        config.skip_if_unavailable = False
         # enable depsolver debugging if in debug mode
         self._base.conf.debug_solver = flags.debug
         # set the platform id based on the /os/release
