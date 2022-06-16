@@ -255,7 +255,7 @@ jobs:
               "type":"everything",
               "everything_testplan":{
                 "configurations":[{"architecture":"x86_64"}],
-                "point_person":"rvykydal@redhat.com",
+                "point_person":"rvykydal@redhat.com"
               },
               "bootIso":{"x86_64":"file://${{ github.workspace }}/images/boot.iso"},
               "kstestParams":{"platform":"${{ needs.pr-info.outputs.platform }}"}
