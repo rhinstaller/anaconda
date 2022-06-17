@@ -289,6 +289,12 @@ class NetworkService(KickstartService):
                 "teamd",
                 reason="Necessary for network team device configuration."
             ))
+        # infiniband device configuration support
+        if self.get_infiniband_devices():
+            requirements.append(Requirement.for_package(
+                "rdma-core",
+                reason="Necessary for network infiniband device configuration."
+            ))
         # prefixdevname
         if self._is_using_persistent_device_names(kernel_arguments):
             requirements.append(Requirement.for_package(
@@ -510,6 +516,15 @@ class NetworkService(KickstartService):
         """
         return [dev for dev in self.get_supported_devices()
                 if dev.device_type == NM.DeviceType.TEAM]
+
+    def get_infiniband_devices(self):
+        """Get existing infiniband network devices.
+
+        :return: basic information about existing infiniband devices
+        :rtype: list(NetworkDeviceInfo)
+        """
+        return [dev for dev in self.get_supported_devices()
+                if dev.device_type == NM.DeviceType.INFINIBAND]
 
     @property
     def bootif(self):
