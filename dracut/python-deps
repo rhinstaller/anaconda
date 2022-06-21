@@ -70,6 +70,10 @@ except AttributeError:
 while scripts:
     script = scripts.pop()
 
+    if script == 'frozen':
+        # https://docs.python.org/3.11/whatsnew/3.11.html#frozen-imports-static-code-objects
+        continue
+
     finder = ModuleFinder()
     finder.run_script(script) # parse the script
     for mod in finder.modules.values():
