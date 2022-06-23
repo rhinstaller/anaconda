@@ -7,7 +7,7 @@
 ARCH=$(uname -m)
 KERNEL=$(uname -r)
 
-MODULE_LIST="cramfs squashfs iscsi_tcp "
+MODULE_LIST="squashfs iscsi_tcp "
 
 # if no file matches the glob expand it to the empty string
 # we need this when any ko file cannot be found
