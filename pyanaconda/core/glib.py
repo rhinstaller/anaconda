@@ -35,7 +35,7 @@ from gi.repository.GLib import markup_escape_text, format_size_full, \
                                IOCondition, IOChannel, SpawnFlags, \
                                MAXUINT
 
-__all__ = ["create_main_loop", "create_new_context",
+__all__ = ["create_main_loop", "create_new_context", "mainloop_run"
            "markup_escape_text", "format_size_full",
            "timeout_add_seconds", "timeout_add", "idle_add",
            "io_add_watch", "child_watch_add",
@@ -46,12 +46,13 @@ __all__ = ["create_main_loop", "create_new_context",
            "MAXUINT"]
 
 
-def create_main_loop():
+def create_main_loop(mainctx=None):
     """Create GLib main loop.
 
+    :param mainctx: create a mainloop with mainctx
     :returns: GLib.MainLoop instance.
     """
-    return MainLoop()
+    return MainLoop(mainctx)
 
 
 def create_new_context():
@@ -59,3 +60,29 @@ def create_new_context():
 
     :returns: GLib.MainContext."""
     return MainContext.new()
+
+
+def mainloop_run(timeout=0, mainloop=None):
+    if mainloop is None:
+        mainloop = MainLoop()
+
+    timeout_id = None
+    timeout_reached = []
+
+    if timeout > 0:
+
+        def _timeout_cb(unused):
+            # it can happen that the caller already quit the mainloop
+            # otherwise. In that case, we don't want to signal a timeout.
+            if mainloop.is_running():
+                timeout_reached.append(1)
+                mainloop.quit()
+            return True
+
+        timeout_id = timeout_add(timeout, _timeout_cb, None)
+
+    mainloop.run()
+    if timeout_id:
+        source_remove(timeout_id)
+
+    return not timeout_reached

@@ -18,12 +18,13 @@
 import os
 import shutil
 
+from pyanaconda.core.glib import create_new_context
 from pyanaconda.core.path import make_directories, join_paths
 from pyanaconda.modules.common.errors.installation import NetworkInstallationError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.network.nm_client import update_connection_values, \
-    commit_changes_with_autoconnection_blocked
+    commit_changes_with_autoconnection_blocked, get_new_nm_client
 from pyanaconda.modules.network.utils import guard_by_system_configuration
 from pyanaconda.modules.network.nm_client import get_config_file_connection_of_device
 from pyanaconda.modules.network.config_file import IFCFG_DIR, KEYFILE_DIR
@@ -281,16 +282,14 @@ Name={}
 class ConfigureActivationOnBootTask(Task):
     """Task for configuration of automatic activation of devices on boot"""
 
-    def __init__(self, nm_client, onboot_ifaces):
+    def __init__(self, onboot_ifaces):
         """Create a new task.
 
-        :param nm_client: NetworkManager client used as configuration backend
-        :type nm_client: NM.Client
         :param onboot_ifaces: interfaces that should be autoactivated on boot
         :type onboot_ifaces: list(str)
         """
         super().__init__()
-        self._nm_client = nm_client
+        self._nm_client = None
         self._onboot_ifaces = onboot_ifaces
 
     @property
@@ -299,8 +298,13 @@ class ConfigureActivationOnBootTask(Task):
 
     @guard_by_system_configuration(return_value=None)
     def run(self):
+        mainctx = create_new_context()
+        mainctx.push_thread_default()
+
+        self._nm_client = get_new_nm_client()
         if not self._nm_client:
             log.debug("%s: No NetworkManager available.", self.name)
+            mainctx.pop_thread_default()
             return None
 
         for iface in self._onboot_ifaces:
@@ -311,6 +315,8 @@ class ConfigureActivationOnBootTask(Task):
                     con,
                     [("connection", NM.SETTING_CONNECTION_AUTOCONNECT, True)]
                 )
-                commit_changes_with_autoconnection_blocked(con)
+                commit_changes_with_autoconnection_blocked(con, mainctx=mainctx)
             else:
                 log.warning("Configure ONBOOT: can't find config for %s", iface)
+
+        mainctx.pop_thread_default()
