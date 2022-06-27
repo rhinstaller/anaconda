@@ -1,5 +1,6 @@
 #!/bin/bash
 # module-setup.sh for anaconda
+set -eu -o pipefail
 
 check() {
     [[ $hostonly ]] && return 1
@@ -90,3 +91,5 @@ install() {
     esac
 }
 
+# revert back to the default in case this is sourced
+set +eu +o pipefail
