@@ -256,20 +256,22 @@ class MediaCheckDialog(GUIObject):
 
     def __init__(self, data):
         super().__init__(data)
-        self.progressBar = self.builder.get_object("mediaCheck-progressBar")
+        self.progress_bar = self.builder.get_object("mediaCheck-progressBar")
+        self.close_button = self.builder.get_object("closeActionButton")
+        self.verify_label = self.builder.get_object("verifyLabel")
         self._pid = None
 
     def _check_iso_ends_cb(self, pid, status):
-        verify_label = self.builder.get_object("verifyLabel")
-
         if os.WIFSIGNALED(status):
             pass
         elif status == 0:
-            verify_label.set_text(_("This media is good to install from."))
+            self.verify_label.set_text(_("This media is good to install from."))
+            self.close_button.set_label(C_("GUI|Software Source|Media Check Dialog", "OK"))
         else:
-            verify_label.set_text(_("This media is not good to install from."))
+            self.verify_label.set_text(_("This media is not good to install from."))
+            self.close_button.set_label(C_("GUI|Software Source|Media Check Dialog", "Cancel"))
 
-        self.progressBar.set_fraction(1.0)
+        self.progress_bar.set_fraction(1.0)
         glib.spawn_close_pid(pid)
         self._pid = None
 
@@ -287,7 +289,7 @@ class MediaCheckDialog(GUIObject):
         if pct > 1.0:
             pct = 1.0
 
-        self.progressBar.set_fraction(pct)
+        self.progress_bar.set_fraction(pct)
         return True
 
     def run(self, device_path):
@@ -312,6 +314,9 @@ class MediaCheckDialog(GUIObject):
     def on_close(self, *args):
         if self._pid:
             os.kill(self._pid, signal.SIGKILL)
+            self.close_button.set_label(C_("GUI|Software Source|Media Check Dialog", "Cancel"))
+        else:
+            self.close_button.set_label(C_("GUI|Software Source|Media Check Dialog", "OK"))
 
         self.window.destroy()
 
