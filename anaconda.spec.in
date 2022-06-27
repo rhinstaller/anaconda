@@ -456,6 +456,44 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jun 27 2022 Vladimir Slavik <vslavik@redhat.com> - 37.11-1
+- anaconda-modprobe: don't try and load cramfs (awilliam)
+- module-setup.sh: Don't ignore errors, unbound variable and pipe fails (miro)
+- Don't attempt to add frozen python modules to initramfs (miro)
+- Fix kickstart command order in new version (vslavik)
+- Ignore also ZFCPData temporarily (vslavik)
+- Temporarily ignore the new version of the zfcp command (vponcova)
+- Web UI: Fix betanag popover position (mkolman)
+- Web UI: Make it possible to close the disks alert (mkolman)
+- tests: update the order of commands (rootpw) in generated kickstart
+  (rvykydal)
+- webui: Disable "Next" button if no disks are selected (mkolman)
+- dnf: apply the /etc/dnf/dnf.conf configuration file in the installer
+  (rvykydal)
+- kstests on pr: run in separate anaconda directory (rvykydal)
+- Web UI: Show the "Checking disks" spinner for at least two seconds (vponcova)
+- Web UI: Show the "Checking disks" spinner (vponcova)
+- kstest on pr: use Permian GitHub ReportSender to show results (rvykydal)
+- Web UI: Vertically grow the wizard page (vponcova)
+- Web UI: Hide the footer if the wizard page is in progress (vponcova)
+- Web UI: Add the sleep function (vponcova)
+- Web UI: Remove the getSteps function (vponcova)
+- Web UI: Remove the wrapWithContext function (vponcova)
+- Add Circle Linux profile to Anaconda (bella)
+- Web UI: Don't try to replicate installation flags (vponcova)
+- Web UI: Remove an unused context from the wizard (vponcova)
+- Update pixel test reference image. (mkolman)
+- fix type (48353898+copperii)
+- Display keyboard accelerator properly (jstodola)
+- Revert "Temporarily keep setter methods for the OSCAP add-on" (vponcova)
+- Remove missing kickstart command for root ssh password login from common
+  issues (rvykydal)
+- GUI: Show the dialog for a missing passphrase in an enlight box (vponcova)
+- GUI: Ask for a missing passphrase during automated installations (vponcova)
+- Create functions for a missing passphrase in pyanaconda.ui.lib (vponcova)
+- Add support for rootpw --allow-ssh (rvykydal)
+- Enable bootloader hiding on RHEL (rharwood)
+
 * Mon Jun 06 2022 Martin Kolman <mkolman@redhat.com> - 37.10-1
 - Web UI: Don't use a top-level text content (vponcova)
 - Update common bugs for F35 resolv.conf issue (rvykydal)
