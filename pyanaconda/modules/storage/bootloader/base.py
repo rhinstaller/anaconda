@@ -83,6 +83,10 @@ def _is_node_from_ibft(node):
     return False
 
 
+def is_on_non_ibft_sw_iscsi(device):
+    return _is_on_sw_iscsi(device) and not _is_on_ibft(device)
+
+
 class BootLoaderError(Exception):
     """An exception for boot loader errors."""
     pass
@@ -491,16 +495,15 @@ class BootLoader(object):
             log.debug("stage1 device cannot be of type %s", device.type)
             return False
 
-        if _is_on_sw_iscsi(device):
-            if not _is_on_ibft(device):
-                if conf.bootloader.nonibft_iscsi_boot:
-                    log.debug("stage1 device on non-iBFT iSCSI disk allowed "
-                              "by boot option inst.iscsi.nonibftboot")
-                else:
-                    log.debug("stage1 device cannot be on an non-iBFT iSCSI disk")
-                    self.errors.append(_("Boot loader stage1 device cannot be on "
-                                         "an iSCSI disk which is not configured in iBFT."))
-                    return False
+        if is_on_non_ibft_sw_iscsi(device):
+            if conf.bootloader.nonibft_iscsi_boot:
+                log.debug("stage1 device on non-iBFT iSCSI disk allowed "
+                          "by boot option inst.iscsi.nonibftboot")
+            else:
+                log.debug("stage1 device cannot be on an non-iBFT iSCSI disk")
+                self.errors.append(_("Boot loader stage1 device cannot be on "
+                                     "an iSCSI disk which is not configured in iBFT."))
+                return False
 
         description = self.device_description(device)
 
@@ -615,17 +618,16 @@ class BootLoader(object):
         if device.protected:
             valid = False
 
-        if _is_on_sw_iscsi(device):
-            if not _is_on_ibft(device):
-                if conf.bootloader.nonibft_iscsi_boot:
-                    log.info("%s on non-iBFT iSCSI disk allowed by boot option inst.nonibftiscsiboot",
-                             self.stage2_description)
-                else:
-                    self.errors.append(_("%(bootloader_stage2_description)s cannot be on "
-                                         "an iSCSI disk which is not configured in iBFT.")
-                                       % {"bootloader_stage2_description":
-                                          self.stage2_description})
-                    valid = False
+        if is_on_non_ibft_sw_iscsi(device):
+            if conf.bootloader.nonibft_iscsi_boot:
+                log.info("%s on non-iBFT iSCSI disk allowed by boot option inst.nonibftiscsiboot",
+                         self.stage2_description)
+            else:
+                self.errors.append(_("%(bootloader_stage2_description)s cannot be on "
+                                     "an iSCSI disk which is not configured in iBFT.")
+                                   % {"bootloader_stage2_description":
+                                      self.stage2_description})
+                valid = False
 
         if not self._device_type_match(device, self.stage2_device_types):
             self.errors.append(_("%(desc)s cannot be of type %(type)s")
