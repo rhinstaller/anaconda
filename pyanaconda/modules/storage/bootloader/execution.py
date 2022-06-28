@@ -17,7 +17,8 @@
 #
 import blivet.arch
 from blivet.devices import iScsiDiskDevice
-from pyanaconda.modules.storage.bootloader.base import BootLoaderError
+from pyanaconda.modules.storage.bootloader.base import BootLoaderError, \
+    is_on_non_ibft_sw_iscsi
 from pykickstart.errors import KickstartParseError
 
 from pyanaconda.core.configuration.anaconda import conf
@@ -135,7 +136,8 @@ class BootloaderExecutor(object):
         return \
             not d.format.hidden and \
             not d.protected and \
-            not (blivet.arch.is_s390() and isinstance(d, iScsiDiskDevice))
+            not (blivet.arch.is_s390() and isinstance(d, iScsiDiskDevice)) and \
+            (not is_on_non_ibft_sw_iscsi(d) or conf.bootloader.nonibft_iscsi_boot)
 
     def _get_usable_disks(self, storage):
         """Get a list of usable disks."""
