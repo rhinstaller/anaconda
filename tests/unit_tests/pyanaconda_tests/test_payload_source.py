@@ -50,21 +50,21 @@ class TestValues(enum.Enum):
     broken_ftp = "ftp2://broken.server.com/test"
 
     def map_to_classes(self):
-        if self == self.http:
+        if self == TestValues.http:
             return HTTPSource
-        elif self == self.https:
+        elif self == TestValues.https:
             return HTTPSSource
-        elif self == self.ftp:
+        elif self == TestValues.ftp:
             return FTPSource
-        elif self in (self.nfs_ks, self.nfs_main_repo, self.nfs_main_repo2):
+        elif self in (TestValues.nfs_ks, TestValues.nfs_main_repo, TestValues.nfs_main_repo2):
             return NFSSource
-        elif self == self.file:
+        elif self == TestValues.file:
             return FileSource
-        elif self in (self.cdrom, self.cdrom_test):
+        elif self in (TestValues.cdrom, TestValues.cdrom_test):
             return CDRomSource
-        elif self in (self.harddrive, self.harddrive_label, self.harddrive_uuid):
+        elif self in (TestValues.harddrive, TestValues.harddrive_label, TestValues.harddrive_uuid):
             return HDDSource
-        elif self == self.hmc:
+        elif self == TestValues.hmc:
             return HMCSource
         else:
             return None
