@@ -303,7 +303,7 @@ class SoftwareSpoke(NormalTUISpoke):
         return not threadMgr.get(THREAD_SOFTWARE_WATCHER) \
             and not threadMgr.get(THREAD_PAYLOAD) \
             and not threadMgr.get(THREAD_CHECK_SOFTWARE) \
-            and self.payload.base_repo is not None
+            and ((self.payload.base_repo is not None) or self.errors)
 
     def apply(self):
         """Apply the changes."""
