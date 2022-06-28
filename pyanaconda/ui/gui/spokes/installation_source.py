@@ -253,23 +253,24 @@ class MediaCheckDialog(GUIObject):
     builderObjects = ["mediaCheckDialog"]
     mainWidgetName = "mediaCheckDialog"
     uiFile = "spokes/installation_source.glade"
+    TRANSLATION_CONTEXT = "GUI|Software Source|Media Check Dialog"
 
     def __init__(self, data):
         super().__init__(data)
         self.progress_bar = self.builder.get_object("mediaCheck-progressBar")
         self.close_button = self.builder.get_object("closeActionButton")
-        self.verify_label = self.builder.get_object("verifyLabel")
+        self.verify_progress_label = self.builder.get_object("verifyProgressLabel")
+        self.verify_result_label = self.builder.get_object("verifyResultLabel")
+        self.verify_result_icon = self.builder.get_object("verifyResultIcon")
         self._pid = None
 
     def _check_iso_ends_cb(self, pid, status):
         if os.WIFSIGNALED(status):
             pass
         elif status == 0:
-            self.verify_label.set_text(_("This media is good to install from."))
-            self.close_button.set_label(C_("GUI|Software Source|Media Check Dialog", "OK"))
+            self.set_state_ok()
         else:
-            self.verify_label.set_text(_("This media is not good to install from."))
-            self.close_button.set_label(C_("GUI|Software Source|Media Check Dialog", "Cancel"))
+            self.set_state_bad()
 
         self.progress_bar.set_fraction(1.0)
         glib.spawn_close_pid(pid)
@@ -314,11 +315,54 @@ class MediaCheckDialog(GUIObject):
     def on_close(self, *args):
         if self._pid:
             os.kill(self._pid, signal.SIGKILL)
-            self.close_button.set_label(C_("GUI|Software Source|Media Check Dialog", "Cancel"))
-        else:
-            self.close_button.set_label(C_("GUI|Software Source|Media Check Dialog", "OK"))
+
+        self.set_state_processing()
 
         self.window.destroy()
+
+    def set_state_processing(self):
+        self.close_button.set_label(C_(
+            "GUI|Software Source|Media Check Dialog",
+            "Cancel"
+        ))
+        self.verify_progress_label.set_text(C_(
+            "GUI|Software Source|Media Check Dialog",
+            "Verifying media, please wait..."
+        ))
+        self.verify_result_label.set_text("")
+        self.verify_result_icon.set_visible(False)
+
+    def set_state_ok(self):
+        self.close_button.set_label(C_(
+            "GUI|Software Source|Media Check Dialog",
+            "OK"
+        ))
+        self.verify_progress_label.set_text(C_(
+            "GUI|Software Source|Media Check Dialog",
+            "Verification finished."
+        ))
+        self.verify_result_label.set_text(C_(
+            "GUI|Software Source|Media Check Dialog",
+            "This media is good to install from."
+        ))
+        self.verify_result_icon.set_visible(True)
+        self.verify_result_icon.set_from_icon_name("emblem-default-symbolic", Gtk.IconSize.DIALOG)
+
+    def set_state_bad(self):
+        self.close_button.set_label(C_(
+            "GUI|Software Source|Media Check Dialog",
+            "OK"
+        ))
+        self.verify_progress_label.set_text(C_(
+            "GUI|Software Source|Media Check Dialog",
+            "Verification finished."
+        ))
+        self.verify_result_label.set_text(C_(
+            "GUI|Software Source|Media Check Dialog",
+            "This media is not good to install from."
+        ))
+        self.verify_result_icon.set_visible(True)
+        self.verify_result_icon.set_from_icon_name("dialog-warning-symbolic", Gtk.IconSize.DIALOG)
 
 
 # This class is responsible for popping up the dialog that allows the user to
