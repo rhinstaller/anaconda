@@ -407,6 +407,15 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 28 2022 Radek Vykydal <rvykydal@redhat.com> - 34.25.1.8-1
+- bootloader: do not consider non-ibft iscsi disk as usable for bootloader
+  (rvykydal)
+  Resolves: rhbz#2003519
+- Fix kickstart command order in new version (vslavik)
+  Resolves: rhbz#2100463
+- TUI software spoke is ready with failing repos, too (vslavik)
+  Resolves: rhbz#2020299
+
 * Thu Jun 16 2022 Radek Vykydal <rvykydal@redhat.com> - 34.25.1.7-1
 - tests: update the order of commands (rootpw) in generated kickstart
   (rvykydal)
