@@ -30,51 +30,38 @@ from tests.unit_tests.pyanaconda_tests import patch_dbus_get_proxy_with_cache
 
 
 class TestValues(enum.Enum):
-    http = "http://server.example.com/test"
-    https = "https://server.example.com/test"
-    ftp = "ftp://server.example.com/test"
-    nfs_ks = "nfs://server.nfs.com:/path/on/server"
-    nfs_main_repo = "nfs:soft,async:server.example.com:/path/to/install_tree"
-    nfs_main_repo2 = "nfs:server.example.com:/path/to/install_tree"
-    file = "file:///root/extremely_secret_file.txt"
 
-    cdrom = "cdrom"
-    cdrom_test = "cdrom:/dev/cdrom"
-    harddrive = "hd:/dev/sda2:/path/to/iso.iso"
-    harddrive_label = "hd:LABEL=TEST:/path/to/iso.iso"
-    harddrive_uuid = "hd:UUID=8176c7bf-04ff-403a-a832-9557f94e61db:/path/to/iso.iso"
-    hmc = "hmc"
+    def __new__(cls, value, source):
+        member = object.__new__(cls)
+        member._value_ = value
+        member.source = source
+        return member
 
-    broken_http = "htttp://broken.server.com/test"
-    broken_https = "htttps://broken.server.com/test"
-    broken_ftp = "ftp2://broken.server.com/test"
+    http = "http://server.example.com/test", HTTPSource
+    https = "https://server.example.com/test", HTTPSSource
+    ftp = "ftp://server.example.com/test", FTPSource
+    nfs_ks = "nfs://server.nfs.com:/path/on/server", NFSSource
+    nfs_main_repo = "nfs:soft,async:server.example.com:/path/to/install_tree", NFSSource
+    nfs_main_repo2 = "nfs:server.example.com:/path/to/install_tree", NFSSource
+    file = "file:///root/extremely_secret_file.txt", FileSource
 
-    def map_to_classes(self):
-        if self == TestValues.http:
-            return HTTPSource
-        elif self == TestValues.https:
-            return HTTPSSource
-        elif self == TestValues.ftp:
-            return FTPSource
-        elif self in (TestValues.nfs_ks, TestValues.nfs_main_repo, TestValues.nfs_main_repo2):
-            return NFSSource
-        elif self == TestValues.file:
-            return FileSource
-        elif self in (TestValues.cdrom, TestValues.cdrom_test):
-            return CDRomSource
-        elif self in (TestValues.harddrive, TestValues.harddrive_label, TestValues.harddrive_uuid):
-            return HDDSource
-        elif self == TestValues.hmc:
-            return HMCSource
-        else:
-            return None
+    cdrom = "cdrom", CDRomSource
+    cdrom_test = "cdrom:/dev/cdrom", CDRomSource
+    harddrive = "hd:/dev/sda2:/path/to/iso.iso", HDDSource
+    harddrive_label = "hd:LABEL=TEST:/path/to/iso.iso", HDDSource
+    harddrive_uuid = "hd:UUID=8176c7bf-04ff-403a-a832-9557f94e61db:/path/to/iso.iso", HDDSource
+    hmc = "hmc", HMCSource
+
+    broken_http = "htttp://broken.server.com/test", None
+    broken_https = "htttps://broken.server.com/test", None
+    broken_ftp = "ftp2://broken.server.com/test", None
 
 
 class TestSourceFactoryTests(unittest.TestCase):
 
     def test_parse_repo_cmdline(self):
         for val in TestValues:
-            klass = val.map_to_classes()
+            klass = val.source
 
             if klass is None:
                 with pytest.raises(PayloadSourceTypeUnrecognized):
