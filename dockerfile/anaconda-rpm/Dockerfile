@@ -30,8 +30,6 @@ COPY ["eln.repo", "/etc/yum.repos.d"]
 COPY ["anaconda.spec.in", "/root/"]
 
 # Prepare environment and install build dependencies
-# FIXME: Remove annobin installation from KOJI when annobin-10.51-2.fc36 is part of the repository.
-#        See https://bugzilla.redhat.com/show_bug.cgi?id=2047148 for more info.
 RUN set -ex; \
   if grep -q VARIANT.*eln /etc/os-release; then sed -i 's/enabled=0/enabled=1/' /etc/yum.repos.d/eln.repo; fi; \
   dnf update -y; \
@@ -57,8 +55,6 @@ RUN set -ex; \
   fi; \
   cat /root/anaconda.spec.in | sed 's/@PACKAGE_VERSION@/0/; s/@PACKAGE_RELEASE@/0/; s/%{__python3}/python3/' > /tmp/anaconda.spec; \
   rpmspec -q --buildrequires /tmp/anaconda.spec | xargs -d '\n' dnf install -y; \
-  dnf install -y https://kojipkgs.fedoraproject.org//packages/annobin/10.53/1.fc36/x86_64/annobin-plugin-gcc-10.53-1.fc36.x86_64.rpm \
-                 https://kojipkgs.fedoraproject.org//packages/annobin/10.53/1.fc36/noarch/annobin-docs-10.53-1.fc36.noarch.rpm; \
   dnf clean all; \
   mkdir /anaconda
 
