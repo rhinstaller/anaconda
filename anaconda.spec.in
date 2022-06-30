@@ -192,8 +192,10 @@ Recommends: fcoe-utils >= %{fcoeutilsver}
 Requires: hfsplus-tools
 %endif
 %endif
-# kexec support
+# kexec support except riscv64
+%ifnarch riscv64
 Requires: kexec-tools
+%endif
 # needed for proper driver disk support - if RPMs must be installed, a repo is needed
 Requires: createrepo_c
 # run's on TTY1 in install env
