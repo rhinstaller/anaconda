@@ -73,9 +73,6 @@ class ZFCPTasksTestCase(unittest.TestCase):
             ZFCPDiscoverTask("", "", "").run()
 
         with self.assertRaises(StorageDiscoveryError):
-            ZFCPDiscoverTask("0.0.fc00", "", "").run()
-
-        with self.assertRaises(StorageDiscoveryError):
             ZFCPDiscoverTask("0.0.fc00", "0x5105074308c212e9", "").run()
 
     @patch('pyanaconda.modules.storage.zfcp.discover.zfcp')
@@ -93,3 +90,17 @@ class ZFCPTasksTestCase(unittest.TestCase):
         sanitized_lun = blockdev.s390.zfcp_sanitize_lun_input.return_value
 
         zfcp.add_fcp.assert_called_once_with(sanitized_dev, sanitized_wwpn, sanitized_lun)
+
+    @patch('pyanaconda.modules.storage.zfcp.discover.zfcp')
+    @patch('pyanaconda.modules.storage.zfcp.discover.blockdev')
+    def discovery_test_npiv(self, blockdev, zfcp):
+        """Test the discovery task for an NPIV enabled zFCP."""
+        ZFCPDiscoverTask("0.0.fc00", "", "").run()
+
+        blockdev.s390.sanitize_dev_input.assert_called_once_with("0.0.fc00")
+        blockdev.s390.zfcp_sanitize_wwpn_input.assert_not_called()
+        blockdev.s390.zfcp_sanitize_lun_input.assert_not_called()
+
+        sanitized_dev = blockdev.s390.sanitize_dev_input.return_value
+
+        zfcp.add_fcp.assert_called_once_with(sanitized_dev, "", "")

@@ -84,7 +84,7 @@ from pykickstart.commands.vnc import F9_Vnc as Vnc
 from pykickstart.commands.volgroup import RHEL8_VolGroup as VolGroup
 from pykickstart.commands.xconfig import F14_XConfig as XConfig
 from pykickstart.commands.zerombr import F9_ZeroMbr as ZeroMbr
-from pykickstart.commands.zfcp import F14_ZFCP as ZFCP
+from pykickstart.commands.zfcp import RHEL8_ZFCP as ZFCP
 from pykickstart.commands.zipl import RHEL8_Zipl as Zipl
 
 # Supported kickstart data.
@@ -109,4 +109,4 @@ from pykickstart.commands.sshpw import F24_SshPwData as SshPwData
 from pykickstart.commands.sshkey import F22_SshKeyData as SshKeyData
 from pykickstart.commands.user import F19_UserData as UserData
 from pykickstart.commands.volgroup import RHEL8_VolGroupData as VolGroupData
-from pykickstart.commands.zfcp import F14_ZFCPData as ZFCPData
+from pykickstart.commands.zfcp import RHEL8_ZFCPData as ZFCPData
