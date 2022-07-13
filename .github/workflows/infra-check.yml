@@ -1,8 +1,15 @@
-# Check if only infrastructure files are changed when infrastructure label is set.
+# Check if only infrastructure files were changed. Runs only when the infrastructure label is set.
+# - if a commit WITH #infra in it's title CHANGES NON-INFRA FILES, the workflow FAILS.
+# - if a commit WITHOUT #infra in it's title CHANGES NON-INFRA FILES, the workflow SUCCEEDS and
+#   lists all non-infra files changed in a GitHub comment.
+# - if the PR DOESN'T CHANGE any infra files, the workflow SUCCEEDS.
+#
+# The list of infrastructure files is located in .structure-config.
+
 name: infrastructure-check
 on:
   pull_request_target:
-    types: [ "opened", "synchronize", "reopened", "labeled" ]
+    types: [ "synchronize", "reopened", "labeled", "unlabeled" ]
 
 permissions:
   contents: read
@@ -74,8 +81,14 @@ jobs:
 
           done
 
-          if [ "$failed_check" == "yes" ]; then
-            gh pr comment ${{ github.event.pull_request.number }} -F ./message.txt
+          # Label related actions should only trigger comment if the "infrastructure" label triggered it specifically.
+          skip_comment="no"
+          if ([ "${{ github.event.action }}" == "labeled" ] || [ "${{ github.event.action }}" == "unlabeled" ]) && [ "${{ github.event.label.name }}" != "infrastructure" ]; then
+            skip_comment="yes"
+          fi
+
+          if [ "$failed_check" == "yes" ] && [ "$skip_comment" != "yes" ]; then
+              gh pr comment ${{ github.event.pull_request.number }} -F ./message.txt
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
