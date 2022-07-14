@@ -37,7 +37,7 @@ from pyanaconda.core.dbus import DBus
 
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common.constants.objects import RHSM_CONFIG, RHSM_REGISTER_SERVER, \
-    RHSM_UNREGISTER, RHSM_ATTACH, RHSM_ENTITLEMENT, RHSM_SYSPURPOSE
+    RHSM_UNREGISTER, RHSM_ENTITLEMENT, RHSM_SYSPURPOSE
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.requirement import Requirement
 
@@ -49,7 +49,7 @@ from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, 
 from pyanaconda.modules.subscription.initialization import StartRHSMTask
 from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
     RegisterWithUsernamePasswordTask, RegisterWithOrganizationKeyTask, \
-    UnregisterTask, AttachSubscriptionTask, SystemPurposeConfigurationTask, \
+    UnregisterTask, SystemPurposeConfigurationTask, \
     ParseAttachedSubscriptionsTask
 from pyanaconda.modules.subscription.rhsm_observer import RHSMObserver
 from pyanaconda.modules.subscription.utils import detect_sca_from_registration_data
@@ -664,9 +664,12 @@ class SubscriptionService(KickstartService):
         task = RegisterWithUsernamePasswordTask(rhsm_register_server_proxy=register_server_proxy,
                                                 username=username,
                                                 password=password)
-        # if the task succeeds, it means the system has been registered
+        # if the task succeeds, it means the system has been registered and subscribed
+        # (with enable_content option se to True, RHSM will handle SCA/auto-attach transparently for us)
         task.succeeded_signal.connect(
             lambda: self.set_registered(True))
+        task.succeeded_signal.connect(
+            lambda: self.set_subscription_attached(True))
         # set SCA state based on data returned by the registration task
         task.succeeded_signal.connect(
             lambda: self.set_simple_content_access_enabled(
@@ -690,9 +693,11 @@ class SubscriptionService(KickstartService):
         task = RegisterWithOrganizationKeyTask(rhsm_register_server_proxy=register_server_proxy,
                                                organization=organization,
                                                activation_keys=activation_keys)
-        # if the task succeeds, it means the system has been registered
+        # if the task succeeds, it means the system has been registered and subscription attached
         task.succeeded_signal.connect(
             lambda: self.set_registered(True))
+        task.succeeded_signal.connect(
+            lambda: self.set_subscription_attached(True))
         # set SCA state based on data returned by the registration task
         task.succeeded_signal.connect(
             lambda: self.set_simple_content_access_enabled(
@@ -721,24 +726,6 @@ class SubscriptionService(KickstartService):
         # thus no longer in Simple Content Access mode
         task.succeeded_signal.connect(
             lambda: self.set_simple_content_access_enabled(False))
-        return task
-
-    def attach_subscription_with_task(self):
-        """Attach a subscription.
-
-        This should only be run on a system that has been successfully registered.
-        Attached subscription depends on system type, system purpose data
-        and entitlements available for the account that has been used for registration.
-
-        :return: a DBus path of an installation task
-        """
-        sla = self.system_purpose_data.sla
-        rhsm_attach_proxy = self.rhsm_observer.get_proxy(RHSM_ATTACH)
-        task = AttachSubscriptionTask(rhsm_attach_proxy=rhsm_attach_proxy,
-                                      sla=sla)
-        # if the task succeeds, it means a subscription has been attached
-        task.succeeded_signal.connect(
-            lambda: self.set_subscription_attached(True))
         return task
 
     def _set_system_subscription_data(self, system_subscription_data):
