@@ -33,7 +33,7 @@ from pyanaconda.core.constants import RHSM_SYSPURPOSE_FILE_PATH, \
     SOURCE_TYPE_URL
 
 from pyanaconda.modules.common.errors.subscription import UnregistrationError, \
-    RegistrationError, SubscriptionError, SatelliteProvisioningError
+    RegistrationError, SatelliteProvisioningError
 from pyanaconda.modules.common.structures.subscription import SubscriptionRequest
 
 from pyanaconda.core.subscription import check_system_purpose_set
@@ -490,42 +490,6 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         run_task.assert_called()
         # we told the payload not to restart
         restart_thread.assert_not_called()
-
-    @patch("pyanaconda.ui.lib.subscription.switch_source")
-    @patch("pyanaconda.modules.common.task.sync_run_task")
-    @patch("pyanaconda.threading.threadMgr.wait")
-    @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def test_subscription_failed(self, get_proxy, thread_mgr_wait, run_task, switch_source):
-        """Test the register_and_subscribe() helper method - failed to attach subscription."""
-        payload = Mock()
-        progress_callback = Mock()
-        error_callback = Mock()
-        subscription_proxy = get_proxy.return_value
-        # simulate the system not being registered
-        subscription_proxy.IsRegistered = False
-        # make the second (RegisterAndSubscribe) task fail with SubscriptionError
-        subscription_error = SubscriptionError("failed to attach subscription")
-        run_task.side_effect = [True, subscription_error]
-        # run the function
-        register_and_subscribe(payload=payload,
-                               progress_callback=progress_callback,
-                               error_callback=error_callback)
-        # we should have waited on network
-        thread_mgr_wait.assert_called_once_with(THREAD_WAIT_FOR_CONNECTING_NM)
-        # there should be only the registration & subscription phase
-        progress_callback.assert_has_calls(
-            [call(SubscriptionPhase.REGISTER)]
-        )
-        # and the error callback should have been triggered
-        error_callback.assert_called_once_with(subscription_error)
-        # we should have requested the appropriate tasks
-        subscription_proxy.SetRHSMConfigWithTask.assert_called_once()
-        subscription_proxy.RegisterAndSubscribeWithTask.assert_called_once()
-        # and tried to run them
-        run_task.assert_called()
-        # setting CDN as installation source does not make sense
-        # when we were not able to attach a subscription
-        switch_source.assert_not_called()
 
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
