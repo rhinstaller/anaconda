@@ -407,6 +407,16 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jul 14 2022 Martin Kolman <mkolman@redhat.com> - 34.25.1.9-1
+- Allow to omit WWPN and LUN for NPIV-enabled zFCP devices (jstodola)
+  Resolves: rhbz#1937032
+- Reduce the width of the zFCP dialog (jstodola)
+  Related: rhbz#1937032
+- Fix product config product_name for Rocky Linux (tucklesepk)
+  Resolves: rhbz#2096046
+- Add Circle Linux profile to Anaconda(rhel-9) (bella)
+  Resolves: rhbz#2095351
+
 * Tue Jun 28 2022 Radek Vykydal <rvykydal@redhat.com> - 34.25.1.8-1
 - bootloader: do not consider non-ibft iscsi disk as usable for bootloader
   (rvykydal)
