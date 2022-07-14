@@ -22,7 +22,7 @@ from unittest.mock import patch
 import tempfile
 import shutil
 import os
-import crypt
+import crypt  # pylint: disable=deprecated-module
 import platform
 import glob
 import pytest
