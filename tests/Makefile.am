@@ -48,6 +48,7 @@ dist_check_SCRIPTS = $(srcdir)/glade_tests/*.py \
 		     $(srcdir)/lib/*.sh \
 		     unit_tests/unit_tests.sh \
 		     rpm_tests/rpm_tests.sh \
+		     pylint/runpylint.py \
 		     cppcheck/runcppcheck.sh \
 		     testenv.sh \
 		     $(srcdir)/gettext_tests/*.py \
@@ -60,6 +61,7 @@ dist_check_SCRIPTS = $(srcdir)/glade_tests/*.py \
 
 
 TESTS = unit_tests/unit_tests.sh \
+	pylint/runpylint.py \
 	cppcheck/runcppcheck.sh \
 	gettext_tests/click.py \
 	gettext_tests/style_guide.py \

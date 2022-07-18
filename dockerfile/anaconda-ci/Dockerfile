@@ -49,7 +49,10 @@ RUN set -ex; \
     BRANCH=${BRANCH#f}; \
     dnf copr enable -y ${copr_repo} fedora-${BRANCH}-x86_64; \
     dnf copr enable -y @storage/blivet-daily fedora-${BRANCH}-x86_64; \
-    dnf -y install cppcheck; \
+    dnf -y install \
+    cppcheck \
+    # TODO dill is patched in rawhide for python 3.11, remove once released in pip too
+    python3-dill; \
   else \
     dnf copr enable -y ${copr_repo} fedora-eln-x86_64; \
   fi; \
@@ -64,6 +67,8 @@ RUN set -ex; \
   bzip2 \
   rpm-ostree \
   python3-pip \
+  # TODO pylint is patched in rawhide for python 3.11, remove once released in pip too
+  python3-pylint \
   # Need to have restorecon for the tests execution
   policycoreutils \
   ShellCheck; \

@@ -37,6 +37,10 @@ class AnacondaLintConfig(CensorshipConfig):
             FalsePositive(r"E1101.*: Instance of 'int' has no 'name_from_node' member"),
             FalsePositive(r"E1101.*: Instance of 'int' has no 'generate_backup_passphrase' member"),
             FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_is_ldl' member"),
+
+            # pylint/astroid has issues with GI modules https://github.com/PyCQA/pylint/issues/6352
+            FalsePositive(r"E1101.*: Module 'gi\.repository\..+' has no '.+' member"),
+            FalsePositive(r"E0611.*: No name '.+' in module 'gi\.repository\..+'"),
         ]
 
     def _files(self):

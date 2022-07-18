@@ -29,7 +29,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.path import make_directories, open_with_perm
 from pyanaconda.core.string import strip_accents
 from pyanaconda.core.regexes import GROUPLIST_FANCY_PARSE, NAME_VALID, PORTABLE_FS_CHARS, GROUPLIST_SIMPLE_VALID
-import crypt
+import crypt  # pylint: disable=deprecated-module
 from pyanaconda.core.i18n import _
 import re
 from random import SystemRandom as sr
