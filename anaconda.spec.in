@@ -407,6 +407,16 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jul 19 2022 Jiri Konecny <jkonecny@redhat.com> - 34.25.1.10-1
+- Communicate media verification result clearly (vslavik)
+  Related: rhbz#2057469
+- Media verification dialog button reflects state (vslavik)
+  Resolves: rhbz#2057469
+- Add tooltip to the Insights checkbox (jkonecny)
+  Resolves: rhbz#2071665
+- Increase the minimal suggested size for /boot (vslavik)
+  Resolves: rhbz#2042431
+
 * Thu Jul 14 2022 Martin Kolman <mkolman@redhat.com> - 34.25.1.9-1
 - Allow to omit WWPN and LUN for NPIV-enabled zFCP devices (jstodola)
   Resolves: rhbz#1937032
