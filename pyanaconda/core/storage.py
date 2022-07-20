@@ -261,19 +261,16 @@ def _is_device_name_disk(device_name, devicetree=None, refresh_udev_cache=False)
         return device and device.is_disk
 
 
-def suggest_swap_size(quiet=False, hibernation=False, disk_space=None):
+def suggest_swap_size(hibernation=False, disk_space=None):
     """Suggest the size of the swap partition that will be created.
 
-    :param bool quiet: whether to log size information or not
     :param bool hibernation: calculate swap size big enough for hibernation
     :param disk_space: how much disk space is available
     :return: calculated swap size
     """
     mem = total_memory()
     mem = ((mem / 16) + 1) * 16
-
-    if not quiet:
-        log.info("Detected %s of memory", mem)
+    log.info("Detected %s of memory", mem)
 
     sixty_four_gib = Size("64 GiB")
 
@@ -305,6 +302,7 @@ def suggest_swap_size(quiet=False, hibernation=False, disk_space=None):
 
     if disk_space is not None and not hibernation:
         max_swap = disk_space * MAX_SWAP_DISK_RATIO
+
         if swap > max_swap:
             log.info("Suggested swap size (%(swap)s) exceeds %(percent)d %% of "
                      "disk space, using %(percent)d %% of disk space (%(size)s) "
@@ -313,7 +311,5 @@ def suggest_swap_size(quiet=False, hibernation=False, disk_space=None):
                                   "size": max_swap})
             swap = max_swap
 
-    if not quiet:
-        log.info("Swap attempt of %s", swap)
-
+    log.info("Swap attempt of %s", swap)
     return swap
