@@ -38,7 +38,7 @@ import { usePageLocation } from "hooks";
 
 const _ = cockpit.gettext;
 
-export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
+export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, title }) => {
     const [isFormValid, setIsFormValid] = useState(true);
     const [stepNotification, setStepNotification] = useState();
     const [isInProgress, setIsInProgress] = useState(false);
@@ -76,6 +76,7 @@ export const AnacondaWizard = ({ onAddErrorNotification, title }) => {
                   idPrefix={s.id}
                   setIsFormValid={setIsFormValid}
                   onAddErrorNotification={onAddErrorNotification}
+                  toggleContextHelp={toggleContextHelp}
                   stepNotification={stepNotification}
                   isInProgress={isInProgress}
                 />

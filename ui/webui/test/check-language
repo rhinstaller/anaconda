@@ -92,7 +92,12 @@ class TestLanguage(MachineCase):
         l.check_selected_locale("Deutsch (Deutschland)")
 
         # Pixel test the language step
-        b.assert_pixels("#app", "language-step-basic", ignore=["#betanag-icon"])
+        b.assert_pixels(
+            "#app",
+            "language-step-basic",
+            ignore=["#betanag-icon"],
+            wait_animations=False,
+        )
 
         # TODO: Add checks for translations when these are present
         b.wait_in_text("h1", "Anaconda installer")

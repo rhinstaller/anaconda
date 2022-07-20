@@ -48,7 +48,12 @@ class TestStorage(MachineCase):
         s.check_disk_capacity("vda", "15 GiB", "15 GiB")
 
         # Pixel test the storage step
-        b.assert_pixels("#app", "storage-step-basic", ignore=["#betanag-icon", "#installation-destination-table-label"])
+        b.assert_pixels(
+            "#app",
+            "storage-step-basic",
+            ignore=["#betanag-icon", "#installation-destination-table-label"],
+            wait_animations=False,
+        )
 
         # Try unselecting the single disk and expect and error
         s.select_disk("vda", False)

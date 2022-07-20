@@ -26,6 +26,7 @@ import {
 import { AddressContext } from "./Common.jsx";
 import { AnacondaHeader } from "./AnacondaHeader.jsx";
 import { AnacondaWizard } from "./AnacondaWizard.jsx";
+import { HelpDrawer } from "./HelpDrawer.jsx";
 
 import { BossClient } from "../apis/boss.js";
 import { LocalizationClient } from "../apis/localization.js";
@@ -42,6 +43,7 @@ export const Application = () => {
     const [beta, setBeta] = useState();
     const [conf, setConf] = useState();
     const [notifications, setNotifications] = useState({});
+    const [isHelpExpanded, setIsHelpExpanded] = useState(false);
 
     useEffect(() => {
         cockpit.file("/run/anaconda/bus.address").watch(address => {
@@ -78,6 +80,10 @@ export const Application = () => {
         onAddNotification({ title: ex.name, message: ex.message, variant: "danger" });
     };
 
+    const toggleContextHelp = () => {
+        setIsHelpExpanded(!isHelpExpanded);
+    };
+
     // Postpone rendering anything until we read the dbus address and the default configuration
     if (!address || !conf) {
         return null;
@@ -86,7 +92,7 @@ export const Application = () => {
 
     const title = _("Anaconda installer");
 
-    return (
+    const page = (
         <Page
           data-debug={conf.Anaconda.debug}
           additionalGroupedContent={
@@ -120,8 +126,21 @@ export const Application = () => {
                 })}
             </AlertGroup>}
             <AddressContext.Provider value={address}>
-                <AnacondaWizard onAddErrorNotification={onAddErrorNotification} title={title} />
+                <AnacondaWizard
+                  onAddErrorNotification={onAddErrorNotification}
+                  toggleContextHelp={toggleContextHelp}
+                  title={title}
+                />
             </AddressContext.Provider>
         </Page>
+    );
+
+    return (
+        <HelpDrawer
+          isExpanded={isHelpExpanded}
+          setIsExpanded={setIsHelpExpanded}
+        >
+            {page}
+        </HelpDrawer>
     );
 };
