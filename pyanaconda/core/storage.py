@@ -300,7 +300,7 @@ def suggest_swap_size(hibernation=False, disk_space=None):
             log.info("Ignoring --hibernation option on systems with greater than %s of RAM",
                      sixty_four_gib)
 
-    if disk_space is not None and not hibernation:
+    elif disk_space is not None:
         max_swap = disk_space * MAX_SWAP_DISK_RATIO
 
         if swap > max_swap:
