@@ -58,7 +58,12 @@ class TestInstallationProgress(MachineCase):
         b.wait_visible("#installation-progress-step-3[aria-label='pending step'] > div:first-child")
 
         # Pixel test the failed progress step
-        b.assert_pixels("#app", "installation-progress-step-fail", ignore=["#betanag-icon"])
+        b.assert_pixels(
+            "#app",
+            "installation-progress-step-fail",
+            ignore=["#betanag-icon"],
+            wait_animations=False,
+        )
 
 if __name__ == '__main__':
     test_main()

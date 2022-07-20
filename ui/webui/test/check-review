@@ -57,7 +57,12 @@ class TestReview(MachineCase):
         r.check_disk_description("vda", "0x1af4 (vda)")
 
         # Pixel test the review step
-        b.assert_pixels("#app", "review-step-basic", ignore=["#betanag-icon"])
+        b.assert_pixels(
+            "#app",
+            "review-step-basic",
+            ignore=["#betanag-icon"],
+            wait_animations=False,
+        )
 
     def testNoConfirmation(self):
         b = self.browser
