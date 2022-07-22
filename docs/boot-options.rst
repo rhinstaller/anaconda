@@ -699,7 +699,8 @@ Disable support for dmraid.
 inst.gpt
 ^^^^^^^^
 
-Prefer creation of GPT disklabels.
+Prefer creation of GPT disk labels. Use ``inst.gpt=0`` to disable this behavior
+and to allow creation of legacy MBR partitioning.
 
 
 Other options
