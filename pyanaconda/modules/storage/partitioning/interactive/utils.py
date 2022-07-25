@@ -1090,6 +1090,7 @@ def _destroy_device(storage, device):
     # is preexisting, reinitialize the disk.
     if device.type == "partition" and device.exists and device.disk.format.exists:
         config = DiskInitializationConfig()
+        config.initialize_labels = True
 
         if config.can_initialize(storage, device.disk):
             storage.initialize_disk(device.disk)
