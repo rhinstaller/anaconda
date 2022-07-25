@@ -20,8 +20,11 @@
 import parted
 from blivet.devices import PartitionDevice
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import CLEAR_PARTITIONS_DEFAULT, CLEAR_PARTITIONS_NONE, \
     CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_ALL, CLEAR_PARTITIONS_LIST
+
+log = get_module_logger(__name__)
 
 _all__ = ["DiskInitializationConfig"]
 
@@ -130,16 +133,22 @@ class DiskInitializationConfig(object):
         :param disk: an instance of the disk we want to format
         :return: True or False
         """
+        log.debug("Can %s be initialized?", disk.name)
+
         # Skip protected and readonly disks.
         if disk.protected:
+            log.debug("A protected disk cannot be initialized.")
             return False
 
         # Initialize disks with unrecognized formatting.
         if self.format_unrecognized and disk.format.type is None:
+            log.debug("A disk with unrecognized formatting can be initialized.")
             return True
 
         # Initialize disks that were removed.
         if self.can_remove(storage, disk):
+            log.debug("The clearable disk can be initialized.")
             return True
 
+        log.debug("The disk cannot be initialized.")
         return False
