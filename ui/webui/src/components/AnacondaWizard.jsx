@@ -43,6 +43,7 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, titl
     const [stepNotification, setStepNotification] = useState();
     const [isInProgress, setIsInProgress] = useState(false);
 
+    // :-)
     const stepsOrder = [
         {
             component: InstallationLanguage,
