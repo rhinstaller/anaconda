@@ -148,6 +148,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
                     title=_("Password"),
                     policy_name=PASSWORD_POLICY_USER
                 )
+                password_dialog.username = self.user.name
                 if self.user.password:
                     entry = EntryWidget(password_dialog.title, _(PASSWORD_SET))
                 else:
