@@ -16,19 +16,18 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda import input_checking
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import constants
+from pyanaconda.core.constants import PASSWORD_POLICY_LUKS
+from pyanaconda.keyboard import can_configure_keyboard
+from pyanaconda.ui.gui import GUIObject
+from pyanaconda.ui.gui.utils import really_hide, really_show, set_password_visibility
 
 import gi
 gi.require_version("Gtk", "3.0")
-
 from gi.repository import Gtk
 
-from pyanaconda.ui.gui import GUIObject
-from pyanaconda.ui.gui.utils import really_hide, really_show, set_password_visibility
-from pyanaconda import input_checking
-from pyanaconda.core import constants
-from pyanaconda.core.constants import PASSWORD_POLICY_LUKS
-
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["PassphraseDialog"]
@@ -41,17 +40,20 @@ class PassphraseDialog(GUIObject):
 
     def __init__(self, data, default_passphrase=""):
         super().__init__(data)
-
         self._passphrase_entry = self.builder.get_object("passphrase_entry")
         self._confirm_entry = self.builder.get_object("confirm_pw_entry")
-
         self._save_button = self.builder.get_object("passphrase_save_button")
-
         self._strength_bar = self.builder.get_object("strength_bar")
         self._strength_label = self.builder.get_object("strength_label")
-
         self._passphrase_warning_image = self.builder.get_object("passphrase_warning_image")
         self._passphrase_warning_label = self.builder.get_object("passphrase_warning_label")
+
+        # Hide the keyboard layout indicator if we can't configure the keyboard.
+        layout_indicator = self.builder.get_object("keyboard_layout_indicator")
+
+        if not can_configure_keyboard():
+            really_hide(layout_indicator)
+            layout_indicator.set_sensitive(False)
 
         # Set the offset values for the strength bar colors
         self._strength_bar.add_offset_value("low", 2)
