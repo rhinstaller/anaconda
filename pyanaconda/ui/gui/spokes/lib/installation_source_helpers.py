@@ -16,7 +16,9 @@
 # Red Hat, Inc.
 #
 import os
+import re
 import signal
+
 from collections import namedtuple
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -24,7 +26,7 @@ from pyanaconda.core import glib, constants
 from pyanaconda.core.i18n import _, N_
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.process_watchers import PidWatcher
-from pyanaconda.core.regexes import URL_PARSE
+from pyanaconda.core.regexes import URL_PARSE, REPO_NAME_VALID
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.ui.gui import GUIObject, really_hide
 from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
@@ -58,6 +60,67 @@ REPO_PROTO = {
 RepoChecks = namedtuple("RepoChecks", ["name_check", "url_check", "proxy_check"])
 
 
+def get_unique_repo_name(existing_names=None):
+    """Return a unique repo name.
+
+    The returned name will be 1 greater than any other entry in the store
+    with a _%d at the end of it.
+
+    :param [str] existing_names: a list of existing names
+    :returns: a unique repo name
+    """
+    existing_names = existing_names or []
+    name = "New_Repository"
+
+    # Does this name exist in the store? If not, return it.
+    if name not in existing_names:
+        return name
+
+    # If the name already ends with a _\d+ it needs to be stripped.
+    match = re.match(r"(.*)_\d+$", name)
+    if match:
+        name = match.group(1)
+
+    # Find all of the names with _\d+ at the end
+    name_re = re.compile(r"(" + re.escape(name) + r")_(\d+)")
+    matches = tuple(map(name_re.match, existing_names))
+    matches = [int(m.group(2)) for m in matches if m is not None]
+
+    # Get the highest number, add 1, append to name
+    highest_index = max(matches) if matches else 0
+    return name + ("_%d" % (highest_index + 1))
+
+
+def validate_repo_name(repo_name, conflicting_names=None):
+    """Validate the given repo name.
+
+    :param str repo_name: a repo name to validate
+    :param [str] conflicting_names: a list of conflicting names
+    :return: an error message or None
+    """
+    conflicting_names = conflicting_names or []
+
+    # Extend the conflicting names.
+    conflicting_names.append(
+        constants.BASE_REPO_NAME
+    )
+    conflicting_names.extend(
+        constants.DEFAULT_REPOS
+    )
+
+    # Check the repo name.
+    if not repo_name:
+        return _("Empty repository name")
+
+    if not REPO_NAME_VALID.match(repo_name):
+        return _("Invalid repository name")
+
+    if repo_name in conflicting_names:
+        return _("Repository name conflicts with internal repository name.")
+
+    return InputCheck.CHECK_OK
+
+
 def validate_proxy(proxy_string, username_set, password_set):
     """Validate a proxy string and return an input code usable by InputCheck
 
@@ -84,6 +147,18 @@ def validate_proxy(proxy_string, username_set, password_set):
     if (proxy_match.group("username") or proxy_match.group("password")) \
        and (username_set or password_set):
         return _("Proxy authentication data duplicated")
+
+    return InputCheck.CHECK_OK
+
+
+def check_duplicate_repo_names(repo_names):
+    """Check if there are some duplicate repository names.
+
+    :param [str] repo_names: a list of repo names to check
+    :return: an error message or None
+    """
+    if len(repo_names) != len(set(repo_names)):
+        return _("Duplicate repository names.")
 
     return InputCheck.CHECK_OK
 
