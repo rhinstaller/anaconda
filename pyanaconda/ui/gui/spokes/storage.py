@@ -637,6 +637,13 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         return rc
 
+    @staticmethod
+    def _is_swap_configured():
+        for attrs in conf.storage.default_partitioning:
+            if attrs.get("name") == "swap":
+                return True
+        return False
+
     def _check_space_and_run_dialog(self, partitioning, disks):
         # User wants to reclaim the space.
         if self._reclaim_checkbox.get_active():
@@ -650,7 +657,8 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         fs_free = Size(device_tree.GetDiskReclaimableSpace(disks))
         disks_size = Size(device_tree.GetDiskTotalSpace(disks))
         sw_space = Size(self.payload.space_required)
-        auto_swap = suggest_swap_size()
+        # Count swap only if the default partitioning scheme includes it.
+        auto_swap = suggest_swap_size() if self._is_swap_configured() else Size(0)
 
         log.debug("disk free: %s  fs free: %s  sw needs: %s  auto swap: %s",
                   disk_free, fs_free, sw_space, auto_swap)
