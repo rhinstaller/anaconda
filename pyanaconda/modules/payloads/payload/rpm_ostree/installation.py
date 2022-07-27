@@ -475,6 +475,8 @@ class ConfigureBootloader(Task):
         if root_data.type == "btrfs subvolume":
             set_kargs_args.append("rootflags=subvol=" + root_name)
 
+        set_kargs_args.append("rw")
+
         safe_exec_with_redirect("ostree", set_kargs_args, root=self._sysroot)
 
 
@@ -518,6 +520,17 @@ class DeployOSTreeTask(Task):
              "deploy",
              "--os=" + self._data.osname,
              self._data.remote + ':' + ref]
+        )
+
+        log.info("ostree config set sysroot.readonly true")
+
+        safe_exec_with_redirect(
+            "ostree",
+            ["config",
+             "--repo=" + self._physroot + "/ostree/repo",
+             "set",
+             "sysroot.readonly",
+             "true"]
         )
 
         log.info("ostree admin deploy complete")
