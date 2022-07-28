@@ -19,13 +19,12 @@
 #
 from pyanaconda.core.i18n import _
 from pyanaconda.core.signal import Signal
-from pyanaconda.modules.payloads.base.utils import get_dir_size
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, MountingSourceMixin
 from pyanaconda.modules.payloads.source.live_os.live_os_interface import LiveOSSourceInterface
 from pyanaconda.modules.payloads.source.live_os.initialization import SetUpLiveOSSourceTask, \
-    DetectLiveOSImageTask
+    SetupLiveOSResult, DetectLiveOSImageTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -38,6 +37,7 @@ class LiveOSSourceModule(PayloadSourceBase, MountingSourceMixin):
         super().__init__()
         self._image_path = ""
         self.image_path_changed = Signal()
+        self._required_space = 0
 
     def for_publication(self):
         """Return a DBus representation."""
@@ -68,8 +68,7 @@ class LiveOSSourceModule(PayloadSourceBase, MountingSourceMixin):
         :return: required size in bytes
         :rtype: int
         """
-        # FIXME: Unify the required space with the installation size.
-        return get_dir_size("/") * 1024
+        return self._required_space
 
     @property
     def image_path(self):
@@ -114,12 +113,17 @@ class LiveOSSourceModule(PayloadSourceBase, MountingSourceMixin):
         :return: list of tasks required for the source setup
         :rtype: [Task]
         """
-        return [
-            SetUpLiveOSSourceTask(
-                image_path=self.image_path,
-                target_mount=self.mount_point
-            )
-        ]
+        task = SetUpLiveOSSourceTask(
+            image_path=self.image_path,
+            target_mount=self.mount_point
+        )
+
+        handler = self._handle_live_os_task_result
+        task.succeeded_signal.connect(lambda: handler(task.get_result()))
+        return [task]
+
+    def _handle_live_os_task_result(self, result: SetupLiveOSResult):
+        self._required_space = result.required_space
 
     def tear_down_with_tasks(self):
         """Tear down the installation source.

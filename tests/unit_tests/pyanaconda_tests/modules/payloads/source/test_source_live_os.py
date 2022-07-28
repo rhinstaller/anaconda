@@ -30,7 +30,7 @@ from pyanaconda.modules.payloads.constants import SourceState
 from pyanaconda.modules.payloads.source.live_os.live_os import LiveOSSourceModule
 from pyanaconda.modules.payloads.source.live_os.live_os_interface import LiveOSSourceInterface
 from pyanaconda.modules.payloads.source.live_os.initialization import SetUpLiveOSSourceTask, \
-    DetectLiveOSImageTask
+    DetectLiveOSImageTask, SetupLiveOSResult
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 
 from tests.unit_tests.pyanaconda_tests import patch_dbus_get_proxy, patch_dbus_publish_object, \
@@ -82,9 +82,19 @@ class LiveOSSourceTestCase(unittest.TestCase):
         """Test the network_required property."""
         assert self.module.network_required is False
 
-    def test_required_space(self):
+    @patch.object(SetUpLiveOSSourceTask, "run")
+    def test_required_space(self, runner):
         """Test the required_space property."""
-        assert self.module.required_space > 0
+        assert self.module.required_space == 0
+
+        runner.return_value = SetupLiveOSResult(12345)
+
+        tasks = self.module.set_up_with_tasks()
+        for task in tasks:
+            task.run_with_signals()
+
+        runner.assert_called_once_with()
+        assert self.module.required_space == 12345
 
     @patch("os.path.ismount")
     def test_get_state(self, ismount_mock):
@@ -118,6 +128,17 @@ class LiveOSSourceTestCase(unittest.TestCase):
 
 class LiveOSSourceTasksTestCase(unittest.TestCase):
     """Test the tasks of the Live OS source."""
+    @patch("pyanaconda.modules.payloads.source.live_os.initialization.os.statvfs")
+    def test_live_os_image_size(self, statvfs):
+        """Test Live OS image size calculation."""
+        statvfs.return_value = Mock(f_frsize=512, f_blocks=100, f_bfree=42)
+
+        task = SetUpLiveOSSourceTask(
+                "/path/to/base/image",
+                "/path/to/mount/source/image"
+        )
+
+        assert task._calculate_required_space() == 29696
 
     @patch("pyanaconda.modules.payloads.source.live_os.initialization.execWithCapture")
     @patch("pyanaconda.modules.payloads.source.live_os.initialization.os.path.exists")
@@ -178,7 +199,8 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
         detected_image = task.run()
         assert detected_image == "/my/device"
 
-    def test_setup_install_source_task_name(self):
+    @patch.object(SetUpLiveOSSourceTask, "_calculate_required_space", return_value=12345)
+    def test_setup_install_source_task_name(self, required_space):
         """Test Live OS Source setup installation source task name."""
         task = SetUpLiveOSSourceTask(
                 "/path/to/base/image",
@@ -189,9 +211,11 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.payloads.source.live_os.initialization.blivet.util.mount")
     @patch("pyanaconda.modules.payloads.source.live_os.initialization.stat")
+    @patch.object(SetUpLiveOSSourceTask, "_calculate_required_space", return_value=12345)
     @patch("os.stat")
     @patch_dbus_get_proxy
-    def test_setup_install_source_task_run(self, proxy_getter, os_stat, stat, mount):
+    def test_setup_install_source_task_run(self, proxy_getter, os_stat, calculate_space, stat,
+                                           mount):
         """Test Live OS Source setup installation source task run."""
         device_tree = Mock()
         proxy_getter.return_value = device_tree
@@ -206,16 +230,20 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
 
         mount.return_value = 0
 
-        SetUpLiveOSSourceTask(
+        result = SetUpLiveOSSourceTask(
             "/path/to/base/image",
             "/path/to/mount/source/image"
         ).run()
 
+        assert isinstance(result, SetupLiveOSResult)
+        assert result.required_space == 12345
+
         device_tree.ResolveDevice.assert_called_once_with("/path/to/base/image")
         os_stat.assert_called_once_with("/resolved/path/to/base/image")
 
+    @patch.object(SetUpLiveOSSourceTask, "_calculate_required_space", return_value=12345)
     @patch_dbus_get_proxy
-    def test_setup_install_source_task_missing_image(self, proxy_getter):
+    def test_setup_install_source_task_missing_image(self, proxy_getter, required_space):
         """Test Live OS Source setup installation source task missing image error."""
         device_tree = Mock()
         proxy_getter.return_value = device_tree
@@ -231,9 +259,11 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
         assert str(cm.value) == "Failed to resolve the Live OS image."
 
     @patch("pyanaconda.modules.payloads.source.live_os.initialization.stat")
+    @patch.object(SetUpLiveOSSourceTask, "_calculate_required_space", return_value=12345)
     @patch("os.stat")
     @patch_dbus_get_proxy
-    def test_setup_install_source_task_invalid_block_dev(self, proxy_getter, os_stat, stat_mock):
+    def test_setup_install_source_task_invalid_block_dev(self, proxy_getter, os_stat,
+                                                         required_space, stat_mock):
         """Test Live OS Source setup installation source task with invalid block device error."""
         device_tree = Mock()
         proxy_getter.return_value = device_tree
@@ -259,9 +289,11 @@ class LiveOSSourceTasksTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.payloads.source.live_os.initialization.blivet.util.mount")
     @patch("pyanaconda.modules.payloads.source.live_os.initialization.stat")
+    @patch.object(SetUpLiveOSSourceTask, "_calculate_required_space", return_value=12345)
     @patch("os.stat")
     @patch_dbus_get_proxy
-    def test_setup_install_source_task_failed_to_mount(self, proxy_getter, os_stat, stat, mount):
+    def test_setup_install_source_task_failed_to_mount(self, proxy_getter, os_stat, required_space,
+                                                       stat, mount):
         """Test Live OS Source setup installation source task mount error."""
         device_tree = Mock()
         proxy_getter.return_value = device_tree

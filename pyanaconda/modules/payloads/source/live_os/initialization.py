@@ -19,6 +19,8 @@ import os
 import stat
 import blivet.util
 
+from collections import namedtuple
+from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.util import execWithCapture
 from pyanaconda.modules.common.task import Task
@@ -29,6 +31,8 @@ from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.payloads.source.mount_tasks import SetUpMountTask
 
 log = get_module_logger(__name__)
+
+SetupLiveOSResult = namedtuple("SetupLiveOSResult", ["required_space"])
 
 
 class DetectLiveOSImageTask(Task):
@@ -95,6 +99,20 @@ class SetUpLiveOSSourceTask(SetUpMountTask):
         """
         super().__init__(target_mount)
         self._image_path = image_path
+
+    def run(self):
+        """Run the task."""
+        super().run()
+
+        required_space = self._calculate_required_space()
+        return SetupLiveOSResult(required_space=required_space)
+
+    def _calculate_required_space(self):
+        """Calculate size of the live image image."""
+        source = os.statvfs(self._target_mount)
+        required_space = source.f_frsize * (source.f_blocks - source.f_bfree)
+        log.debug("Required space: %s", Size(required_space))
+        return required_space
 
     @property
     def name(self):
