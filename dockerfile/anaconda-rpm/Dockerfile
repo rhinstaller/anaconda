@@ -35,7 +35,7 @@ RUN set -ex; \
   dnf update -y; \
   dnf install -y \
   'dnf-command(copr)' \
-  nodejs \
+  npm \
   git \
   curl \
   python3-polib \
