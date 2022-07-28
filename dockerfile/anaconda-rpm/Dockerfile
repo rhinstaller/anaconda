@@ -35,7 +35,10 @@ RUN set -ex; \
   dnf update -y; \
   dnf install -y \
   'dnf-command(copr)' \
-  nodejs \
+  npm \
+  # FIXME: Temporarily add missing dependencies for npm-8.13.2-1.18.6.0.1.
+  https://kojipkgs.fedoraproject.org//packages/nodejs/18.6.0/1.fc37/x86_64/nodejs-18.6.0-1.fc37.x86_64.rpm \
+  https://kojipkgs.fedoraproject.org//packages/nodejs/18.6.0/1.fc37/x86_64/nodejs-libs-18.6.0-1.fc37.x86_64.rpm \
   git \
   curl \
   python3-polib \
