@@ -516,7 +516,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # when we were not able to attach a subscription
         switch_source.assert_not_called()
 
-    @patch("pyanaconda.payload.manager.payloadMgr.restart_thread")
+    @patch("pyanaconda.payload.manager.payloadMgr.start")
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
@@ -571,7 +571,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # the payload to make it usable
         restart_thread.assert_called_once()
 
-    @patch("pyanaconda.payload.manager.payloadMgr.restart_thread")
+    @patch("pyanaconda.payload.manager.payloadMgr.start")
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
@@ -904,7 +904,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # payload is not supported
         switch_source.assert_not_called()
 
-    @patch("pyanaconda.payload.manager.payloadMgr.restart_thread")
+    @patch("pyanaconda.payload.manager.payloadMgr.start")
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
@@ -950,7 +950,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # the payload to make it usable
         restart_thread.assert_called_once()
 
-    @patch("pyanaconda.payload.manager.payloadMgr.restart_thread")
+    @patch("pyanaconda.payload.manager.payloadMgr.start")
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
@@ -995,7 +995,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # told the helper method not to restart
         restart_thread.assert_not_called()
 
-    @patch("pyanaconda.payload.manager.payloadMgr.restart_thread")
+    @patch("pyanaconda.payload.manager.payloadMgr.start")
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.threading.threadMgr.wait")
@@ -1044,7 +1044,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # that is already all configured and we should not touch it.
         restart_thread.assert_not_called()
 
-    @patch("pyanaconda.payload.manager.payloadMgr.restart_thread")
+    @patch("pyanaconda.payload.manager.payloadMgr.start")
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
     def test_unregister_payload_restart_CDN(self, get_proxy, run_task, restart_thread):
@@ -1083,7 +1083,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         restart_thread.assert_called_once()
 
     @patch("pyanaconda.ui.lib.subscription.switch_source")
-    @patch("pyanaconda.payload.manager.payloadMgr.restart_thread")
+    @patch("pyanaconda.payload.manager.payloadMgr.start")
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
     def test_unregister_payload_restart_switched(self, get_proxy, run_task, restart_thread,
@@ -1126,7 +1126,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         restart_thread.assert_called_once()
 
     @patch("pyanaconda.ui.lib.subscription.switch_source")
-    @patch("pyanaconda.payload.manager.payloadMgr.restart_thread")
+    @patch("pyanaconda.payload.manager.payloadMgr.start")
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
     def test_unregister_on_payload_restart(self, get_proxy, run_task, restart_thread,

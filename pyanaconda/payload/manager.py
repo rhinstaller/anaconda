@@ -46,7 +46,7 @@ class _PayloadManager(Runnable, ProgressReporter):
     The payload thread data should be accessed using the payloadMgr object,
     and the running thread can be accessed using threadMgr with the
     THREAD_PAYLOAD constant, if you need to wait for it or something. The
-    thread should be started using payloadMgr.restart_thread.
+    thread should be started using payloadMgr.start.
     """
 
     @property
@@ -58,10 +58,6 @@ class _PayloadManager(Runnable, ProgressReporter):
     def is_running(self):
         """Is the payload thread running right now?"""
         return threadMgr.exists(THREAD_PAYLOAD_RESTART) or threadMgr.exists(THREAD_PAYLOAD)
-
-    def restart_thread(self, *args, **kwargs):
-        """Start or restart the payload thread."""
-        self.start(*args, **kwargs)
 
     def start(self, *args, **kwargs):
         """Start or restart the payload thread.
