@@ -39,7 +39,6 @@ class PayloadState(IntEnum):
     """Enum for payload state after payload was restarted."""
     STARTED = 0
     WAITING_STORAGE = 1
-    WAITING_NETWORK = 2
     DOWNLOADING_PKG_METADATA = 4
     DOWNLOADING_GROUP_METADATA = 5
     FINISHED = 6
@@ -60,10 +59,7 @@ class PayloadManager(object):
 
     All states except ERROR are expected to happen linearly, and adding
     a listener for a state that has already been reached or passed will
-    immediately trigger that listener. For example, if the payload thread is
-    currently in DOWNLOADING_GROUP_METADATA, adding a listener for
-    WAITING_NETWORK will immediately run the code being added
-    for WAITING_NETWORK.
+    immediately trigger that listener.
 
     The payload thread data should be accessed using the payloadMgr object,
     and the running thread can be accessed using threadMgr with the
@@ -179,7 +175,6 @@ class PayloadManager(object):
         threadMgr.wait(THREAD_EXECUTE_STORAGE)
 
         # Wait for network
-        self._set_state(PayloadState.WAITING_NETWORK)
         # FIXME: condition for cases where we don't want network
         # (set and use payload.needs_network ?)
         threadMgr.wait(THREAD_WAIT_FOR_CONNECTING_NM)
