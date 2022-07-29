@@ -87,7 +87,7 @@ class Payload(metaclass=ABCMeta):
         """Is the payload ready?"""
         return True
 
-    def setup(self):
+    def setup(self, *args, **kwargs):
         """Do any payload-specific setup."""
         pass
 

@@ -283,9 +283,6 @@ class DNFPayload(Payload):
         """Is the payload complete?"""
         return self.source_type not in SOURCE_REPO_FILE_TYPES or self.is_ready()
 
-    def setup(self):
-        self.verbose_errors = []
-
     def unsetup(self):
         self._dnf_manager.reset_base()
         tear_down_sources(self.proxy)
@@ -490,7 +487,46 @@ class DNFPayload(Payload):
         """
         return self.source_type == conf.payload.default_source
 
-    def update_base_repo(self, fallback=True, try_media=True):
+    # pylint: disable=arguments-differ
+    def setup(self, report_progress, fallback=False, try_media=True, only_on_change=False):
+        """Set up the payload.
+
+        :param function report_progress: a callback for a progress reporting
+        :param bool fallback: whether to fall back to the default repo in case of error
+        :param bool try_media: whether to check for valid mounted media
+        :param bool only_on_change: restart thread only if existing repositories changed
+        """
+        self.verbose_errors = []
+
+        # Test if any repository changed from the last update
+        if only_on_change:
+            log.debug("Testing repositories availability")
+            if self.dnf_manager.verify_repomd_hashes():
+                log.debug("Payload isn't restarted, repositories are still available.")
+                return
+
+        # Download package metadata
+        report_progress(_("Downloading package metadata..."))
+
+        try:
+            self._update_base_repo(fallback=fallback, try_media=try_media)
+        except (OSError, SourceSetupError, DNFManagerError) as e:
+            log.error("Payload error: %s", e)
+            raise SourceSetupError(str(e)) from e
+
+        # Gather the group data
+        report_progress(_("Downloading group metadata..."))
+        self.dnf_manager.load_packages_metadata()
+
+        # Check if that failed
+        if not self.is_ready():
+            log.error("No base repo configured")
+            raise SourceSetupError()
+
+        # run payload specific post configuration tasks
+        self.dnf_manager.load_repomd_hashes()
+
+    def _update_base_repo(self, fallback=True, try_media=True):
         """Update the base repository from the DBus source."""
         log.debug("Tearing down sources")
         tear_down_sources(self.proxy)

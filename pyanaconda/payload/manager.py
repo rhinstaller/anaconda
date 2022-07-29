@@ -119,7 +119,7 @@ class _PayloadManager(Runnable, ProgressReporter):
             # Emit the succeeded signal.
             self._task_succeeded_callback()
 
-    def _run(self, payload, fallback=False, try_media=True, only_on_change=False):
+    def _run(self, payload, **kwargs):
         """The task implementation.
 
         Report the progress of the task with the self.report_progress
@@ -128,9 +128,6 @@ class _PayloadManager(Runnable, ProgressReporter):
         reconfigured in the UI.
 
         :param payload: the payload instance
-        :param bool fallback: whether to fall back to the default repo in case of error
-        :param bool try_media: whether to check for valid mounted media
-        :param bool only_on_change: restart thread only if existing repositories changed
         """
         # Wait for storage
         self.report_progress(PAYLOAD_STATUS_PROBING_STORAGE)
@@ -149,48 +146,19 @@ class _PayloadManager(Runnable, ProgressReporter):
         # Set up the payload.
         self.report_progress(_(PAYLOAD_STATUS_SETTING_SOURCE))
 
-        # Non-package payloads do everything in the setup method.
-        # There is no UI support that could handle the error state,
-        # so we need to handle or raise the error directly.
-        payload.setup()
-
-        # If this is a non-package Payload, we're done
-        if payload.type != PAYLOAD_TYPE_DNF:
-            return
-
-        # Test if any repository changed from the last update
-        if only_on_change:
-            log.debug("Testing repositories availability")
-            if payload.dnf_manager.verify_repomd_hashes():
-                log.debug("Payload isn't restarted, repositories are still available.")
-                return
-
-        # Keep setting up package-based repositories
-        # Download package metadata
-        self.report_progress(_("Downloading package metadata..."))
-
-        # FIXME: This import is a temporary workaround. Use a DBus error instead.
-        from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManagerError
-
         try:
-            payload.update_base_repo(fallback=fallback, try_media=try_media)
-        except (OSError, DBusError, DNFManagerError) as e:
-            log.error("Payload error: %s", e)
+            # Set up the payload.
+            payload.setup(self.report_progress, **kwargs)
+        except DBusError as e:
+            # Tear down the payload.
             payload.unsetup()
-            raise _InteractivePayloadFailed(str(e)) from e
 
-        # Gather the group data
-        self.report_progress(_("Downloading group metadata..."))
-        payload.dnf_manager.load_packages_metadata()
+            # Handle the error in a DNF payload.
+            if payload.type == PAYLOAD_TYPE_DNF:
+                raise _InteractivePayloadFailed(str(e)) from e
 
-        # Check if that failed
-        if not payload.is_ready():
-            log.error("No base repo configured")
-            payload.unsetup()
-            raise _InteractivePayloadFailed()
-
-        # run payload specific post configuration tasks
-        payload.dnf_manager.load_repomd_hashes()
+            # Handle the error in a non-package payload.
+            raise e
 
     def finish(self):
         """Finish the task run.
