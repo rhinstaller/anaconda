@@ -40,7 +40,6 @@ class PayloadState(IntEnum):
     STARTED = 0
     WAITING_STORAGE = 1
     WAITING_NETWORK = 2
-    VERIFYING_AVAILABILITY = 3
     DOWNLOADING_PKG_METADATA = 4
     DOWNLOADING_GROUP_METADATA = 5
     FINISHED = 6
@@ -206,7 +205,6 @@ class PayloadManager(object):
         # Test if any repository changed from the last update
         if only_on_change:
             log.debug("Testing repositories availability")
-            self._set_state(PayloadState.VERIFYING_AVAILABILITY)
             if payload.dnf_manager.verify_repomd_hashes():
                 log.debug("Payload isn't restarted, repositories are still available.")
                 self._set_state(PayloadState.FINISHED)
