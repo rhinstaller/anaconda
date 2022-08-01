@@ -91,6 +91,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
             policy_name=PASSWORD_POLICY_ROOT
         )
         password_dialog.no_separator = True
+        password_dialog.username = "root"
         self._password = password_dialog.run()
 
         if self._password is None:

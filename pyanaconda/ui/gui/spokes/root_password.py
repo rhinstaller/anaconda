@@ -94,6 +94,8 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
                 initial_password_confirmation_content=self.password_confirmation,
                 policy_name=PASSWORD_POLICY_ROOT
         )
+        # configure root username for checking
+        self.checker.username = "root"
         # configure the checker for password checking
         self.checker.secret_type = constants.SecretType.PASSWORD
         # remove any placeholder texts if either password or confirmation field changes content from initial state

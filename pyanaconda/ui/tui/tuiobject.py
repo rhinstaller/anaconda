@@ -216,6 +216,15 @@ class PasswordDialog(Dialog):
         self._secret_type = secret_type
         self._process_password = process_func
         self._dialog_message = message
+        self._username = ""
+
+    @property
+    def username(self):
+        return self._username
+
+    @username.setter
+    def username(self, new_username):
+        self._username = new_username
 
     def run(self):
         """Get password input from user and call setter callback at the end.
@@ -257,6 +266,8 @@ class PasswordDialog(Dialog):
         password_check_request.password = password
         password_check_request.password_confirmation = ""
         password_check_request.policy = self._policy
+        # configure username for checking
+        password_check_request.username = self.username
 
         # validate the password
         password_check = input_checking.PasswordValidityCheck()
