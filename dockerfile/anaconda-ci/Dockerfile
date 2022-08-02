@@ -45,32 +45,38 @@ RUN set -ex; \
     BRANCH=${BRANCH#f}; \
     dnf copr enable -y ${copr_repo} fedora-${BRANCH}-x86_64; \
     dnf copr enable -y @storage/blivet-daily fedora-${BRANCH}-x86_64; \
-    dnf -y install \
-    cppcheck \
-    ShellCheck \
-    # TODO dill is patched in rawhide for python 3.11, remove once released in pip too
-    python3-dill; \
   else \
     dnf copr enable -y ${copr_repo} fedora-eln-x86_64; \
   fi; \
   # Update the base container packages
   dnf update -y; \
+  # Install Rawhide-only fixes
+  if ! grep -q VARIANT.*eln /etc/os-release; then \
+    dnf -y install \
+    # FIXME: Temporarily add missing dependencies for npm-8.13.2-1.18.6.0.1.
+    https://kojipkgs.fedoraproject.org//packages/nodejs/18.6.0/1.fc37/x86_64/nodejs-18.6.0-1.fc37.x86_64.rpm \
+    https://kojipkgs.fedoraproject.org//packages/nodejs/18.6.0/1.fc37/x86_64/nodejs-libs-18.6.0-1.fc37.x86_64.rpm \
+    # TODO pylint and dill are patched in rawhide for python 3.11, remove once released in pip too
+    python3-pylint \
+    python3-dill; \
+  fi; \
   # Install rest of the dependencies
   dnf install -y \
   /usr/bin/xargs \
   npm \
-  # FIXME: Temporarily add missing dependencies for npm-8.13.2-1.18.6.0.1.
-  https://kojipkgs.fedoraproject.org//packages/nodejs/18.6.0/1.fc37/x86_64/nodejs-18.6.0-1.fc37.x86_64.rpm \
-  https://kojipkgs.fedoraproject.org//packages/nodejs/18.6.0/1.fc37/x86_64/nodejs-libs-18.6.0-1.fc37.x86_64.rpm \
   rpm-build \
   git \
   bzip2 \
   rpm-ostree \
   python3-pip \
-  # TODO pylint is patched in rawhide for python 3.11, remove once released in pip too
-  python3-pylint \
   # Need to have restorecon for the tests execution
   policycoreutils; \
+  # Install non-ELN dependencies
+  if ! grep -q VARIANT.*eln /etc/os-release; then \
+    dnf -y install \
+    cppcheck \
+    ShellCheck; \
+  fi; \
   # Install Anaconda dependencies
   cat /root/anaconda.spec.in | sed 's/@PACKAGE_VERSION@/0/; s/@PACKAGE_RELEASE@/0/; s/%{__python3}/python3/' > /tmp/anaconda.spec; \
   rpmspec -q --buildrequires /tmp/anaconda.spec | xargs -d '\n' dnf install -y; \
