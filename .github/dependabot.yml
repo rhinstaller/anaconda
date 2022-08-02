@@ -19,22 +19,11 @@ updates:
       - "infrastructure"
       - "manual testing required"
 
-  # update our npm development dependencies monthly
-  - package-ecosystem: "npm"
-    directory: "/ui/webui"
-    schedule:
-      interval: "monthly"
-    allow:
-      - dependency-type: "development"
-    labels:
-      - "sanity check required"
-
-  # update our npm production dependencies weekly
+  # FIXME: Update our npm development dependencies monthly.
+  # See: https://github.com/dependabot/dependabot-core/issues/2390
   - package-ecosystem: "npm"
     directory: "/ui/webui"
     schedule:
       interval: "weekly"
-    allow:
-      - dependency-type: "production"
     labels:
       - "sanity check required"
