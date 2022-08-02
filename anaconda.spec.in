@@ -458,6 +458,37 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Aug 02 2022 Martin Kolman <mkolman@redhat.com> - 37.12-1
+- Web UI: Replace a newly translated string in tests (vponcova)
+- Communicate media verification result clearly (vslavik)
+- Fix: check that the password contains the username (songmingliang)
+- Fixed required space check always including swap (ozobal)
+- Hide the keyboard layout indicator in the passphrase dialog (#2070823)
+  (vponcova)
+- Call the check_duplicate_repo_names function (vponcova)
+- Call the validate_repo_name function (vponcova)
+- Call the get_unique_repo_name function (vponcova)
+- Simplify the condition for the `disk_space` parameter in `suggest_swap_size`
+  (vponcova)
+- Remove the `quiet` parameter of the `suggest_swap_size` function (vponcova)
+- Test the `suggest_swap_size` function (vponcova)
+- Web UI: Don't wait for animations in the pixel tests (vponcova)
+- Web UI: Show a context help about storage options (vponcova)
+- Silence pylint warnings about crypt module (vslavik)
+- Ignore no-member pylint detections on gi.repository (vslavik)
+- Revert "Disable Pylint" (vslavik)
+- bootloader/base.py: enable resume on arm64 (mihai.carabas)
+- Disable kexec on RISC-V (imbearchild)
+- simplify TestValues enum creation and usage (ethan)
+- Disable Pylint (vslavik)
+- Fix unit tests for python 3.11 (vslavik)
+- Change the Python version to 3.11 in the makeupdates script (rvykydal)
+- bootloader: do not consider non-ibft iscsi disk as usable for bootloader
+  (rvykydal)
+- Revert "Temporarily keep setter methods for Initial Setup" (vponcova)
+- Revert "Temporarily keep setter methods for the Kdump add-on" (vponcova)
+- Change default swap size for large-memory systems (pablomh)
+
 * Mon Jun 27 2022 Vladimir Slavik <vslavik@redhat.com> - 37.11-1
 - anaconda-modprobe: don't try and load cramfs (awilliam)
 - module-setup.sh: Don't ignore errors, unbound variable and pipe fails (miro)
