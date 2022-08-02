@@ -18,14 +18,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        container-tag: ['master', 'eln'] #, 'f36-devel', 'f36-release']
+        container-tag: ['master'] #, 'eln', 'f36-devel', 'f36-release']
         container-type: ['ci', 'rpm']
         include:
           - container-tag: master
             branch: master
-          - container-tag: eln
-            branch: master
-            base-container: 'quay.io/fedoraci/fedora:eln-x86_64'
+          #- container-tag: eln
+          #  branch: master
+          #  base-container: 'quay.io/fedoraci/fedora:eln-x86_64'
           #- container-tag: f36-devel
           #  branch: f36-devel
           #- container-tag: f36-release
