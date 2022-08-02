@@ -30,10 +30,11 @@ from pykickstart.commands.user import F24_User, F19_UserData
 from pykickstart.options import KSOptionParser
 from pykickstart.parser import Packages
 from pykickstart.sections import PackageSection
-from pykickstart.version import F30
+from pykickstart.version import F30, isRHEL as is_rhel
 
 from pyanaconda import kickstart
 from pyanaconda.core.kickstart.addon import AddonData, AddonRegistry
+from pyanaconda.core.kickstart.version import VERSION
 from pyanaconda.core.kickstart.specification import KickstartSpecification,\
     KickstartSpecificationHandler, KickstartSpecificationParser
 from pyanaconda.kickstart import AnacondaKickstartSpecification
@@ -426,6 +427,9 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
 
     def assert_compare_versions(self, children, parents):
         """Check if children inherit from parents."""
+        if is_rhel(VERSION):
+            pytest.skip("This test is disabled on RHEL.")
+
         for name in children:
             if name in self.IGNORED_NAMES:
                 warnings.warn("Skipping the ignored name: {}".format(name))

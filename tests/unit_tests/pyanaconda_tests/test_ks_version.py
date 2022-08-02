@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import unittest
+import pytest
 import importlib
 import os
 import shutil
@@ -22,6 +23,8 @@ import sys
 import tempfile
 import warnings
 from pyanaconda import kickstart
+from pyanaconda.core.kickstart.version import VERSION
+from pykickstart.version import isRHEL as is_rhel
 
 
 # Verify that each kickstart command in anaconda uses the correct version of
@@ -35,6 +38,9 @@ class CommandVersionTestCase(unittest.TestCase):
 
     def assert_compare_versions(self, children, parents):
         """Check if children inherit from parents."""
+        if is_rhel(VERSION):
+            pytest.skip("This test is disabled on RHEL.")
+
         for name in children:
             if name in self.IGNORED_NAMES:
                 warnings.warn("Skipping the kickstart name {}.".format(name))
