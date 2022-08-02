@@ -27,7 +27,7 @@ from urllib.parse import urlsplit
 from pyanaconda.core import constants
 from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, SOURCE_TYPE_HDD, SOURCE_TYPE_URL, \
     SOURCE_TYPE_CDROM, SOURCE_TYPE_NFS, SOURCE_TYPE_HMC, URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, \
-    URL_TYPE_METALINK, SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN
+    URL_TYPE_METALINK, SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN, PAYLOAD_STATUS_SETTING_SOURCE
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, CN_
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
@@ -40,7 +40,7 @@ from pyanaconda.core.util import cmp_obj_attrs, id_generator
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.context import context
 from pyanaconda.ui.gui.spokes.lib.installation_source_helpers import validate_proxy, RepoChecks, \
-    ProxyDialog, MediaCheckDialog, IsoChooser, BASEREPO_SETUP_MESSAGE, PROTOCOL_HTTP, \
+    ProxyDialog, MediaCheckDialog, IsoChooser, PROTOCOL_HTTP, \
     PROTOCOL_HTTPS, PROTOCOL_FTP, PROTOCOL_NFS, PROTOCOL_FILE, PROTOCOL_MIRROR, REPO_PROTO, \
     CLICK_FOR_DETAILS, get_unique_repo_name, validate_repo_name, check_duplicate_repo_names
 from pyanaconda.ui.helpers import InputCheck, InputCheckHandler, SourceSwitchHandler
@@ -367,7 +367,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         elif threadMgr.get(constants.THREAD_CHECK_SOFTWARE):
             return _("Checking software dependencies...")
         elif not self.ready:
-            return _(BASEREPO_SETUP_MESSAGE)
+            return _(PAYLOAD_STATUS_SETTING_SOURCE)
         elif not self.payload.is_ready():
             return _("Error setting up base repository")
         elif self._error:
@@ -495,7 +495,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
     def _payload_refresh(self):
         hubQ.send_not_ready("SoftwareSelectionSpoke")
         hubQ.send_not_ready(self.__class__.__name__)
-        hubQ.send_message(self.__class__.__name__, _(BASEREPO_SETUP_MESSAGE))
+        hubQ.send_message(self.__class__.__name__, _(PAYLOAD_STATUS_SETTING_SOURCE))
 
         # this sleep is lame, but without it the message above doesn't seem
         # to get processed by the hub in time, and is never shown.
