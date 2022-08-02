@@ -14,7 +14,7 @@ updates:
       # Check for updates to GitHub Actions every weekday
       interval: "daily"
     commit-message:
-      prefix: "infra:"
+      prefix: "infra"
     labels:
       - "infrastructure"
       - "manual testing required"
@@ -25,5 +25,7 @@ updates:
     directory: "/ui/webui"
     schedule:
       interval: "weekly"
+    commit-message:
+      prefix: "infra"
     labels:
       - "sanity check required"
