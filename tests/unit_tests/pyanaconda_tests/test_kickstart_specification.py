@@ -405,8 +405,6 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
 
     # Names of the kickstart commands and data that should be temporarily ignored.
     IGNORED_NAMES = {
-        "zfcp",
-        "ZFCPData",
     }
 
     # Names of shared kickstart commands and data that should be temporarily ignored.
