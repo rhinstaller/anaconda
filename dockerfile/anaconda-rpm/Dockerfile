@@ -22,23 +22,24 @@ ARG git_branch
 ARG copr_repo=@rhinstaller/Anaconda
 LABEL maintainer=anaconda-devel@lists.fedoraproject.org
 
-# On ELN, BaseOS+AppStream don't have all our build dependencies; this provides the "Everything" compose
-COPY ["eln.repo", "/etc/yum.repos.d"]
-
 # The anaconda.spec.in is in the repository root. This file will be copied automatically here if
 # the build is invoked by Makefile.
 COPY ["anaconda.spec.in", "/root/"]
 
 # Prepare environment and install build dependencies
 RUN set -ex; \
-  if grep -q VARIANT.*eln /etc/os-release; then sed -i 's/enabled=0/enabled=1/' /etc/yum.repos.d/eln.repo; fi; \
   dnf update -y; \
+  # Install Rawhide fixes
+  if ! grep -q VARIANT.*eln /etc/os-release; then \
+    dnf install -y \
+    # FIXME: Temporarily add missing dependencies for npm-8.13.2-1.18.6.0.1.
+    https://kojipkgs.fedoraproject.org//packages/nodejs/18.6.0/1.fc37/x86_64/nodejs-18.6.0-1.fc37.x86_64.rpm \
+    https://kojipkgs.fedoraproject.org//packages/nodejs/18.6.0/1.fc37/x86_64/nodejs-libs-18.6.0-1.fc37.x86_64.rpm; \
+  fi; \
+  # Install dependencies
   dnf install -y \
   'dnf-command(copr)' \
   npm \
-  # FIXME: Temporarily add missing dependencies for npm-8.13.2-1.18.6.0.1.
-  https://kojipkgs.fedoraproject.org//packages/nodejs/18.6.0/1.fc37/x86_64/nodejs-18.6.0-1.fc37.x86_64.rpm \
-  https://kojipkgs.fedoraproject.org//packages/nodejs/18.6.0/1.fc37/x86_64/nodejs-libs-18.6.0-1.fc37.x86_64.rpm \
   git \
   curl \
   python3-polib \
