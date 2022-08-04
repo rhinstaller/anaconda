@@ -68,14 +68,43 @@ class ZFCPInterfaceTestCase(unittest.TestCase):
 class ZFCPTasksTestCase(unittest.TestCase):
     """Test zFCP tasks."""
 
-    def test_discovery_fails(self):
-        """Test the failing discovery task."""
+    def test_discovery_missing_values(self):
+        """Test the discovery task with missing values."""
 
-        with pytest.raises(StorageDiscoveryError):
+        with pytest.raises(StorageDiscoveryError) as cm:
             ZFCPDiscoverTask("", "", "").run()
 
-        with pytest.raises(StorageDiscoveryError):
+        assert str(cm.value) == "Incorrect format of the given device number."
+
+        with pytest.raises(StorageDiscoveryError) as cm:
+            ZFCPDiscoverTask("0.0.fc00", "", "0x401040a000000000").run()
+
+        msg = "Only device number or device number with WWPN and LUN are allowed."
+        assert str(cm.value) == msg
+
+        with pytest.raises(StorageDiscoveryError) as cm:
             ZFCPDiscoverTask("0.0.fc00", "0x5105074308c212e9", "").run()
+
+        msg = "Only device number or device number with WWPN and LUN are allowed."
+        assert str(cm.value) == msg
+
+    def test_discovery_invalid_values(self):
+        """Test the discovery task with invalid values."""
+
+        with pytest.raises(StorageDiscoveryError) as cm:
+            ZFCPDiscoverTask("1+2", "", "").run()
+
+        assert str(cm.value) == "Incorrect format of the given device number."
+
+        with pytest.raises(StorageDiscoveryError) as cm:
+            ZFCPDiscoverTask("0.0.fc00", "1+2", "").run()
+
+        assert str(cm.value) == "Incorrect format of the given WWPN number."
+
+        with pytest.raises(StorageDiscoveryError) as cm:
+            ZFCPDiscoverTask("0.0.fc00", "0x5105074308c212e9", "1+2").run()
+
+        assert str(cm.value) == "Incorrect format of the given LUN number."
 
     @patch('pyanaconda.modules.storage.zfcp.discover.zfcp')
     @patch('pyanaconda.modules.storage.zfcp.discover.blockdev')
