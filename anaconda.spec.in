@@ -367,6 +367,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Aug 04 2022 Vladimir Slavik <vslavik@redhat.com> - 33.16.7.10-1
+- Disable the Unregister button during unregistration (mkolman)
+  Resolves: rhbz#2068195
+- Install rdma-core if infiniband network device is found (rvykydal)
+  Resolves: rhbz#2050356
+
 * Wed Jul 20 2022 Jiri Konecny <jkonecny@redhat.com> - 33.16.7.9-1
 - Add tooltip to the Insights checkbox (jkonecny)
   Resolves: rhbz#2069178
