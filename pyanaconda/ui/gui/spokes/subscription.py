@@ -1028,8 +1028,9 @@ class SubscriptionSpoke(NormalSpoke):
         # update registration status label
         self._registration_status_label.set_text(self._get_status_message())
 
-        # update registration button state
+        # update button states
         self._update_register_button_state()
+        self._update_unregister_button_state()
 
     @async_action_wait
     def _update_subscription_state(self):
@@ -1152,3 +1153,11 @@ class SubscriptionSpoke(NormalSpoke):
             elif self.authentication_method == AuthenticationMethod.ORG_KEY:
                 button_sensitive = org_keys_sufficient(self.subscription_request)
         self._register_button.set_sensitive(button_sensitive)
+
+    def _update_unregister_button_state(self):
+        """Update unregister button state.
+
+        Make sure the Unregister button follows status of the
+        _registration_controls_enabled variable.
+        """
+        self._unregister_button.set_sensitive(self._registration_controls_enabled)
