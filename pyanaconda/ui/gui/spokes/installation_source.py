@@ -524,8 +524,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
     def _payload_error(self):
         self._error = True
-        hubQ.send_message(self.__class__.__name__, payloadMgr.error)
-
         self._error_msg = _("Failed to set up installation source; "
                             "check the repo url and proxy settings.")
 

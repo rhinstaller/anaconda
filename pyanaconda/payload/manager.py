@@ -66,23 +66,15 @@ class PayloadManager(object):
     THREAD_PAYLOAD constant, if you need to wait for it or something. The
     thread should be started using payloadMgr.restart_thread.
     """
-    # Error strings
-    ERROR_SETUP = N_("Failed to set up installation source")
-    ERROR_MD = N_("Error downloading package metadata")
 
     def __init__(self):
         self._event_lock = threading.Lock()
         self._event_listeners = {}
         self._thread_state = PayloadState.STARTED
-        self._error = None
 
         # Initialize a list for each event state
         for _name, value in PayloadState.__members__.items():  # pylint: disable=no-member
             self._event_listeners[PayloadState(value)] = []
-
-    @property
-    def error(self):
-        return _(self._error)
 
     def add_listener(self, event_id, func):
         """Add a listener for an event.
@@ -216,7 +208,6 @@ class PayloadManager(object):
             payload.update_base_repo(fallback=fallback, try_media=try_media)
         except (OSError, DBusError, DNFManagerError) as e:
             log.error("Payload error: %s", e)
-            self._error = self.ERROR_SETUP
             self._set_state(PayloadState.ERROR)
             payload.unsetup()
             return
@@ -228,7 +219,6 @@ class PayloadManager(object):
         # Check if that failed
         if not payload.is_ready():
             log.error("No base repo configured")
-            self._error = self.ERROR_MD
             self._set_state(PayloadState.ERROR)
             payload.unsetup()
             return
