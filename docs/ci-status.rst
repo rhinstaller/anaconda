@@ -25,6 +25,8 @@ Anaconda
 
 .. _releases: https://github.com/rhinstaller/anaconda/releases
 
+.. _Dependabot: https://github.com/rhinstaller/anaconda/network/updates
+
 |container-autoupdate|
   CI test container images, built daily. The containers are used in unit and rpm tests.
 
@@ -38,6 +40,9 @@ Anaconda
 
 |try-release-daily|
   Tests the release process daily, including checks for missing important translations
+
+Dependabot_
+  Checks Anaconda dependencies and opens pull requests for new versions.
 
 Kickstart-tests
 ---------------
