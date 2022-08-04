@@ -561,6 +561,31 @@ class NetworkInterfaceTestCase(unittest.TestCase):
             }
         ]
 
+    def test_rdma_core_requirements(self):
+        """Test that mocked infiniband devices result in request for rdma-core package."""
+
+        # mock an infiniband device
+        self.network_module.nm_client = Mock()
+        self.__mock_nm_client_devices(
+            [
+                ("ibp130s0f0", None,
+                 "00:00:0e:4e:fe:80:00:00:00:00:00:00:24:8a:07:03:00:49:d7:5c",
+                 NM.DeviceType.INFINIBAND)
+            ]
+        )
+
+        # check that the rdma-core package is requested
+        assert self.network_interface.CollectRequirements() == [
+            {
+                "type": get_variant(Str, "package"),
+                "name": get_variant(Str, "rdma-core"),
+                "reason": get_variant(
+                    Str,
+                    "Necessary for network infiniband device configuration."
+                )
+            }
+        ]
+
     def test_teamd_requirements(self):
         """Test that mocked team devices result in request for teamd package."""
 
