@@ -59,6 +59,11 @@ RUN set -ex; \
     # TODO pylint and dill are patched in rawhide for python 3.11, remove once released in pip too
     python3-pylint \
     python3-dill; \
+  else \
+    # TODO pylint and dill are patched in ELN for python 3.11, remove once released in pip too
+    dnf -y install \
+    python3-pylint \
+    python3-dill; \
   fi; \
   # Install rest of the dependencies
   dnf install -y \
