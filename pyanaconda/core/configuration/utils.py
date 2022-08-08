@@ -15,6 +15,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.core.string import split_in_two
+
 
 def split_name_and_attributes(value):
     """Split the given string into a name and a dictionary of attributes.
@@ -23,25 +25,19 @@ def split_name_and_attributes(value):
     :return: a name and a dictionary of attributes
     """
     # Parse the line.
-    name, raw_attrs = _split_string(value)
+    name, raw_attrs = split_in_two(value.strip())
 
-    # Split the attributes and skip empty strings (split
-    # always returns at least one item, an empty string).
+    # Split the attribute definitions.
     raw_attrs = raw_attrs.strip("()").split(",")
-    raw_attrs = dict(map(_split_string, filter(None, raw_attrs)))
+
+    # Strip the attribute definitions.
+    raw_attrs = map(str.strip, raw_attrs)
+
+    # Skip empty strings (split always returns
+    # at least one item, an empty string).
+    raw_attrs = filter(None, raw_attrs)
+
+    # Split the name and the value of each attribute.
+    raw_attrs = dict(map(split_in_two, raw_attrs))
 
     return name, raw_attrs
-
-
-def _split_string(value, delimiter=None):
-    """Split the given value into two strings.
-
-    :param value: a string to split
-    :param delimiter: a delimiter for splitting
-    :return: a list of exactly two strings
-    """
-    # There might be up to two items in the list.
-    items = value.strip().split(sep=delimiter, maxsplit=1)
-
-    # Return exactly two items. Add empty strings if necessary.
-    return (items + [""] * 2)[:2]

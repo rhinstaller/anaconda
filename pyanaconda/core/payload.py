@@ -19,6 +19,7 @@ from urllib.parse import quote, unquote
 
 from pyanaconda.core.i18n import _
 from pyanaconda.core.regexes import URL_PARSE
+from pyanaconda.core.string import split_in_two
 
 
 def parse_hdd_url(url):
@@ -30,12 +31,8 @@ def parse_hdd_url(url):
     # Remove the prefix.
     url = url.removeprefix("hd:")
 
-    # Split the specified URL.
-    components = url.split(":", maxsplit=1)
-
-    # Get two components.
-    # Add empty strings if necessary.
-    device, path = (components + [""] * 2)[:2]
+    # Split the specified URL into two components.
+    device, path = split_in_two(url, delimiter=":")
 
     return device, path
 
