@@ -147,7 +147,11 @@ Also note that while SELinux is running in the installation environment by defau
 running in permissive mode so disabling it there does not make much sense.
 
 gpt
-Prefer creation of GPT disklabels.
+Prefer creation of GPT disklabels. This option is deprecated and will be removed in future releases.
+
+disklabel
+Prefer creation of the specified disk label type. Specify "gpt" to prefer creation of GPT disk
+labels. Specify "mbr" to prefer creation of MBR disk labels if supported.
 
 nodmraid
 Disable dmraid usage during the installation.

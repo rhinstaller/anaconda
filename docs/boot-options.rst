@@ -694,12 +694,22 @@ Disable support for dmraid.
              it has some stale RAID metadata on it which must be removed using
              an appropriate tool (dmraid and/or wipefs).
 
+
+.. inst.disklabel:
+
+inst.disklabel
+^^^^^^^^^^^^^^
+
+Prefer creation of the specified disk label type. Specify ``gpt`` to prefer creation of GPT disk
+labels. Specify ``mbr`` to prefer creation of MBR disk labels if supported.
+
 .. inst.gpt:
 
 inst.gpt
 ^^^^^^^^
 
-Prefer creation of GPT disklabels.
+Prefer creation of GPT disk labels. This option is deprecated and will be removed in future
+releases. Use ``inst.disklabel=gpt`` instead.
 
 
 Other options

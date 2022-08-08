@@ -533,7 +533,9 @@ def getArgumentParser(version_string, boot_cmdline=None):
                     help=help_parser.help_text("nompath"))
     ap.add_argument("--mpath", action="store_true", help=help_parser.help_text("mpath"))
 
-    ap.add_argument("--gpt", action="store_true", default=SUPPRESS, help=help_parser.help_text("gpt"))
+    ap.add_argument("--disklabel", default=SUPPRESS, help=help_parser.help_text("disklabel"))
+    ap.add_argument("--gpt", dest="disklabel", action="store_const", const="gpt",
+                    default=SUPPRESS, help=help_parser.help_text("gpt"))
 
     ap.add_argument("--nodmraid", dest="dmraid", action="store_false", default=True,
                     help=help_parser.help_text("nodmraid"))

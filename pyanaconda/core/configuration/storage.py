@@ -61,11 +61,6 @@ class StorageSection(Section):
         return self._get_option("ibft", bool)
 
     @property
-    def gpt(self):
-        """Do you prefer creation of GPT disk labels?"""
-        return self._get_option("gpt", bool)
-
-    @property
     def multipath_friendly_names(self):
         """Use user friendly names for multipath devices.
 
@@ -93,6 +88,21 @@ class StorageSection(Section):
         For example: "zstd:1"
         """
         return self._get_option("btrfs_compression", str) or None
+
+    @property
+    def disk_label_type(self):
+        """Default disk label type.
+
+        Valid values:
+
+          gpt  Prefer creation of GPT disk labels.
+          mbr  Prefer creation of MBR disk labels.
+
+        If no type is specified, we will use whatever Blivet uses by default.
+
+        :return: a string with the disk label type
+        """
+        return self._get_option("disk_label_type", str)
 
     @property
     def file_system_type(self):

@@ -78,18 +78,25 @@ def enable_installer_mode():
 
 def _set_default_label_type():
     """Set up the default label type."""
-    if not conf.storage.gpt:
+    if not conf.storage.disk_label_type:
         return
 
     disklabel_class = get_device_format_class("disklabel")
-    disklabel_types = disklabel_class.get_platform_label_types()
+    supported_types = disklabel_class.get_platform_label_types()
+    default_type = supported_types[0] if supported_types else None
+    requested_type = conf.storage.disk_label_type
 
-    if "gpt" not in disklabel_types:
-        log.warning("GPT is not a supported disklabel on this platform. "
-                    "Using default disklabel %s instead.", disklabel_types[0])
-        return
+    if requested_type == "mbr":
+        requested_type = "msdos"
 
-    disklabel_class.set_default_label_type("gpt")
+    if requested_type in supported_types:
+        disklabel_class.set_default_label_type(requested_type)
+    else:
+        log.warning(
+            "The requested disk label type '%s' is not supported on "
+            "this platform. Using the default disk label '%s' instead.",
+            conf.storage.disk_label_type, default_type
+        )
 
 
 def _load_plugin_s390():
