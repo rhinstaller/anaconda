@@ -324,7 +324,6 @@ LOGGER_PACKAGING = "packaging"
 LOGGER_DNF = "dnf"
 LOGGER_LIBREPO = "librepo"  # second DNF logger for librepo
 LOGGER_SIMPLELINE = "simpleline"
-LOGGER_SENSITIVE_INFO = "sensitive_info"
 
 # Timeout for starting X
 X_TIMEOUT = 60

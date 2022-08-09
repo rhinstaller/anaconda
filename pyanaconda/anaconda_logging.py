@@ -40,7 +40,6 @@ MAIN_LOG_FILE = "/tmp/anaconda.log"
 PROGRAM_LOG_FILE = "/tmp/program.log"
 PACKAGING_LOG_FILE = "/tmp/packaging.log"
 LIBREPO_LOG_FILE = "/tmp/dnf.librepo.log"
-SENSITIVE_INFO_LOG_FILE = "/tmp/sensitive-info.log"
 ANACONDA_SYSLOG_FACILITY = SysLogHandler.LOG_LOCAL1
 ANACONDA_SYSLOG_IDENTIFIER = "anaconda"
 
@@ -205,15 +204,6 @@ class AnacondaLog(object):
         simpleline_logger.setLevel(logging.DEBUG)
         self.addFileHandler(MAIN_LOG_FILE, simpleline_logger)
         self.forwardToJournal(simpleline_logger)
-
-        # Create the sensitive information logger
-        # * the sensitive-info.log file is not copied to the installed
-        # system, as it might contain sensitive information that
-        # should not be persistently stored by default
-        sensitive_logger = logging.getLogger(constants.LOGGER_SENSITIVE_INFO)
-        sensitive_logger.setLevel(logging.DEBUG)
-        sensitive_logger.propagate = False
-        self.addFileHandler(SENSITIVE_INFO_LOG_FILE, sensitive_logger)
 
         # Create a second logger for just the stuff we want to dup on
         # stdout.  Anything written here will also get passed up to the
