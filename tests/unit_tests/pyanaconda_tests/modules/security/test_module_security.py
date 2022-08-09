@@ -22,12 +22,13 @@ import tempfile
 import os
 import pytest
 
+from contextlib import contextmanager
+from textwrap import dedent
 from unittest.mock import patch
 
 from pyanaconda.core.configuration.target import TargetType
 from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, PAYLOAD_TYPE_RPM_OSTREE
 from pykickstart.constants import SELINUX_ENFORCING, SELINUX_PERMISSIVE
-
 from pyanaconda.modules.common.errors.installation import SecurityInstallationError
 from pyanaconda.modules.common.constants.services import SECURITY
 from pyanaconda.modules.common.structures.realm import RealmData
@@ -378,6 +379,143 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         assert requirements[0].name == "authselect"
 
 
+class SELinuxTasksTestCase(unittest.TestCase):
+    """Test the SELinux tasks."""
+
+    ENFORCING_SELINUX_CONFIGURATION = dedent("""
+    # This file controls the state of SELinux on the system.
+    # SELINUX= can take one of these three values:
+    #     enforcing - SELinux security policy is enforced.
+    #     permissive - SELinux prints warnings instead of enforcing.
+    #     disabled - No SELinux policy is loaded.
+    SELINUX=enforcing
+    # SELINUXTYPE= can take one of these three values:
+    #     targeted - Targeted processes are protected,
+    #     minimum - Modification of targeted policy. Only selected processes are protected.
+    #     mls - Multi Level Security protection.
+    SELINUXTYPE=targeted
+    """)
+
+    PERMISSIVE_SELINUX_CONFIGURATION = dedent("""
+    # This file controls the state of SELinux on the system.
+    # SELINUX= can take one of these three values:
+    #     enforcing - SELinux security policy is enforced.
+    #     permissive - SELinux prints warnings instead of enforcing.
+    #     disabled - No SELinux policy is loaded.
+    SELINUX=permissive
+    # SELINUXTYPE= can take one of these three values:
+    #     targeted - Targeted processes are protected,
+    #     minimum - Modification of targeted policy. Only selected processes are protected.
+    #     mls - Multi Level Security protection.
+    SELINUXTYPE=targeted
+    """)
+
+    DISABLED_SELINUX_CONFIGURATION = dedent("""
+    # This file controls the state of SELinux on the system.
+    # SELINUX= can take one of these three values:
+    #     enforcing - SELinux security policy is enforced.
+    #     permissive - SELinux prints warnings instead of enforcing.
+    #     disabled - No SELinux policy is loaded.
+    SELINUX=disabled
+    # SELINUXTYPE= can take one of these three values:
+    #     targeted - Targeted processes are protected,
+    #     minimum - Modification of targeted policy. Only selected processes are protected.
+    #     mls - Multi Level Security protection.
+    SELINUXTYPE=targeted
+    """)
+
+    def setUp(self):
+        """Set up the security module."""
+        self.maxDiff = None
+        self.security_module = SecurityService()
+        self.security_interface = SecurityInterface(self.security_module)
+
+    @contextmanager
+    def _create_directory(self):
+        """Create a temporary directory with a default SELinux config."""
+        with tempfile.TemporaryDirectory() as d:
+            os.makedirs(os.path.join(d, "etc/selinux/"))
+            yield d
+
+    def _create_configuration(self, sysroot, content=ENFORCING_SELINUX_CONFIGURATION):
+        """Create the SELinux configuration file with the provided content."""
+        with open(os.path.join(sysroot, "etc/selinux/config"), "w") as f:
+            f.write(content)
+
+    def _get_configuration(self, sysroot):
+        """Return the content of the SELinux configuration file."""
+        with open(os.path.join(sysroot, "etc/selinux/config"), "r") as f:
+            return f.read()
+
+    def test_configure_selinux_task_missing_file(self):
+        """Test SELinux configuration task - the config is missing."""
+        with self._create_directory() as sysroot:
+            with self.assertLogs(level="ERROR") as cm:
+                ConfigureSELinuxTask(
+                    sysroot=sysroot,
+                    selinux_mode=SELinuxMode.PERMISSIVE
+                ).run()
+
+            assert "SELinux configuration failed: " in "\n".join(cm.output)
+            assert not os.path.exists(os.path.join(sysroot, "etc/selinux/config"))
+
+    def test_configure_selinux_task_disable(self):
+        """Test SELinux configuration task - SELinux disabled."""
+        with self._create_directory() as sysroot:
+            self._create_configuration(sysroot)
+
+            ConfigureSELinuxTask(
+                sysroot=sysroot,
+                selinux_mode=SELinuxMode.DISABLED
+            ).run()
+
+            content = self._get_configuration(sysroot)
+            assert "\nSELINUX=disabled\n" in content
+            assert content == self.DISABLED_SELINUX_CONFIGURATION
+
+    def test_configure_selinux_task_enforcing(self):
+        """Test SELinux configuration task - SELinux enforcing."""
+        with self._create_directory() as sysroot:
+            self._create_configuration(sysroot)
+
+            ConfigureSELinuxTask(
+                sysroot=sysroot,
+                selinux_mode=SELinuxMode.ENFORCING
+            ).run()
+
+            content = self._get_configuration(sysroot)
+            assert "\nSELINUX=enforcing\n" in content
+            assert content == self.ENFORCING_SELINUX_CONFIGURATION
+
+    def test_configure_selinux_task_permissive(self):
+        """Test SELinux configuration task - SELinux permissive."""
+        with self._create_directory() as sysroot:
+            self._create_configuration(sysroot)
+
+            ConfigureSELinuxTask(
+                sysroot=sysroot,
+                selinux_mode=SELinuxMode.PERMISSIVE
+            ).run()
+
+            content = self._get_configuration(sysroot)
+            assert "\nSELINUX=permissive\n" in content
+            assert content == self.PERMISSIVE_SELINUX_CONFIGURATION
+
+    def test_configure_selinux_task_default(self):
+        """Test SELinux configuration task - SELinux default."""
+        with self._create_directory() as sysroot:
+            self._create_configuration(sysroot)
+
+            ConfigureSELinuxTask(
+                sysroot=sysroot,
+                selinux_mode=SELinuxMode.DEFAULT
+            ).run()
+
+            content = self._get_configuration(sysroot)
+            assert "\nSELINUX=enforcing\n" in content
+            assert content == self.ENFORCING_SELINUX_CONFIGURATION
+
+
 class SecurityTasksTestCase(unittest.TestCase):
     """Test the secusrity tasks."""
 
@@ -385,85 +523,6 @@ class SecurityTasksTestCase(unittest.TestCase):
         """Set up the security module."""
         self.security_module = SecurityService()
         self.security_interface = SecurityInterface(self.security_module)
-
-        # Connect to the properties changed signal.
-        self.callback = PropertiesChangedCallback()
-        self.security_interface.PropertiesChanged.connect(self.callback)
-
-    def test_configure_selinux_task_disable(self):
-        """Test SELinux configuration task - SELinux disabled."""
-        content = """
-        SELINUX=disabled
-        """
-
-        with tempfile.TemporaryDirectory() as sysroot:
-            os.makedirs(os.path.join(sysroot, "etc/selinux/"))
-            os.mknod(os.path.join(sysroot, "etc/selinux/config"))
-
-            ConfigureSELinuxTask(
-                sysroot=sysroot,
-                selinux_mode=SELinuxMode.DISABLED
-            ).run()
-
-            with open(os.path.join(sysroot, "etc/selinux/config")) as f:
-                assert f.read().strip() == content.strip()
-
-    def test_configure_selinux_task_enforcing(self):
-        """Test SELinux configuration task - SELinux enforcing."""
-        content = """
-        SELINUX=enforcing
-        """
-
-        with tempfile.TemporaryDirectory() as sysroot:
-            os.makedirs(os.path.join(sysroot, "etc/selinux/"))
-            os.mknod(os.path.join(sysroot, "etc/selinux/config"))
-
-            ConfigureSELinuxTask(
-                sysroot=sysroot,
-                selinux_mode=SELinuxMode.ENFORCING
-            ).run()
-
-            with open(os.path.join(sysroot, "etc/selinux/config")) as f:
-                assert f.read().strip() == content.strip()
-
-    def test_configure_selinux_task_permissive(self):
-        """Test SELinux configuration task - SELinux permissive."""
-        content = """
-        SELINUX=permissive
-        """
-
-        with tempfile.TemporaryDirectory() as sysroot:
-            os.makedirs(os.path.join(sysroot, "etc/selinux/"))
-            os.mknod(os.path.join(sysroot, "etc/selinux/config"))
-
-            ConfigureSELinuxTask(
-                sysroot=sysroot,
-                selinux_mode=SELinuxMode.PERMISSIVE
-            ).run()
-
-            with open(os.path.join(sysroot, "etc/selinux/config")) as f:
-                assert f.read().strip() == content.strip()
-
-    def test_configure_selinux_task_default(self):
-        """Test SELinux configuration task - SELinux default."""
-        content = """
-        SELINUX=foo
-        """
-
-        with tempfile.TemporaryDirectory() as sysroot:
-            os.makedirs(os.path.join(sysroot, "etc/selinux/"))
-            with open(os.path.join(sysroot, "etc/selinux/config"), "wt") as f:
-                f.write(content)
-                f.close()
-
-            # check the default value in the SELinux config file is not changed
-            ConfigureSELinuxTask(
-                sysroot=sysroot,
-                selinux_mode=SELinuxMode.DEFAULT
-            ).run()
-
-            with open(os.path.join(sysroot, "etc/selinux/config")) as f:
-                assert f.read().strip() == content.strip()
 
     @patch('pyanaconda.core.util.execWithCapture')
     def test_realm_discover_success_task(self, execWithCapture):
