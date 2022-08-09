@@ -42,7 +42,7 @@ from pyanaconda.modules.common.structures.kickstart import KickstartReport
 
 from pykickstart.base import KickstartCommand, RemovedCommand
 from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL
-from pykickstart.errors import KickstartError, KickstartParseWarning, KickstartDeprecationWarning
+from pykickstart.errors import KickstartError, KickstartParseWarning
 from pykickstart.ko import KickstartObject
 from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
@@ -152,20 +152,6 @@ class UselessSection(Section):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.sectionOpen = kwargs.get("sectionOpen")
-
-
-class DeprecatedSection(UselessSection):
-    """Kickstart section that was deprecated."""
-
-    def handleHeader(self, lineno, args):
-        """Issue a deprecation warning about the section."""
-        warnings.warn(_(
-            "The {} section has been deprecated. It "
-            "may be removed from future releases, which will "
-            "result in a fatal error when it is encountered. "
-            "Please modify your kickstart file to remove this "
-            "section."
-        ).format(self.sectionOpen), KickstartDeprecationWarning)
 
 
 class UselessCommand(KickstartCommand):
