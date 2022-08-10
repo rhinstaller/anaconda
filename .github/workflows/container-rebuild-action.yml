@@ -33,7 +33,8 @@ on:
       base-container:
         required: false
         type: string
-     # secrets are inherited, so not explicitly listed
+    # secrets consumed: QUAY_USERNAME, QUAY_PASSWORD
+    # these are provided by using the quay.io environment below
 
 permissions:
   contents: read
@@ -42,6 +43,7 @@ jobs:
   refresh-container:
     name: Refresh anaconda container
     runs-on: ubuntu-20.04
+    environment: quay.io
     strategy:
       fail-fast: false
       matrix:
