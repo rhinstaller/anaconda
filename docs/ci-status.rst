@@ -7,9 +7,13 @@ This page shows current status of CI jobs that are expected to be stable.
 Anaconda
 --------
 
-.. |container-autoupdate| image:: https://github.com/rhinstaller/anaconda/actions/workflows/container-autoupdate.yml/badge.svg
-   :alt: Refresh container images
-   :target: https://github.com/rhinstaller/anaconda/actions/workflows/container-autoupdate.yml
+.. |container-autoupdate-fedora| image:: https://github.com/rhinstaller/anaconda/actions/workflows/container-autoupdate-fedora.yml/badge.svg
+   :alt: Refresh Fedora container images
+   :target: https://github.com/rhinstaller/anaconda/actions/workflows/container-autoupdate-fedora.yml
+
+.. |container-autoupdate-eln| image:: https://github.com/rhinstaller/anaconda/actions/workflows/container-autoupdate-eln.yml/badge.svg
+   :alt: Refresh ELN container images
+   :target: https://github.com/rhinstaller/anaconda/actions/workflows/container-autoupdate-eln.yml
 
 .. |container-daily-rhel-copr| image:: https://github.com/rhinstaller/anaconda/actions/workflows/daily-rhel-copr.yml/badge.svg
    :alt: Build current anaconda rhel-8 branch in RHEL COPR
@@ -27,10 +31,11 @@ Anaconda
 
 .. _Dependabot: https://github.com/rhinstaller/anaconda/network/updates
 
-|container-autoupdate|
-  CI test container images, built daily. The containers are used in unit and rpm tests.
+|container-autoupdate-fedora|
+  Fedora CI test container images, built daily. The containers are used in unit and rpm tests.
 
-  ELN can often fail to build, this is sort of expected.
+|container-autoupdate-eln|
+  Same as above but for ELN. It is expected this can often fail.
 
 |container-daily-rhel-copr|
   Daily builds of Anaconda in RHEL 8 COPR (internal).

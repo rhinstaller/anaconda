@@ -1,4 +1,4 @@
-name: Refresh container images
+name: Refresh Fedora container images
 on:
   schedule:
     - cron: 0 0 * * *
@@ -16,14 +16,6 @@ jobs:
     with:
       container-tag: master
       branch: master
-
-  eln:
-    uses: ./.github/workflows/container-rebuild-action.yml
-    secrets: inherit
-    with:
-      container-tag: eln
-      branch: master
-      base-container: 'quay.io/fedoraci/fedora:eln-x86_64'
 
   f36-devel:
     if: false
