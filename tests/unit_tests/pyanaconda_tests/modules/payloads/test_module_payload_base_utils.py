@@ -17,27 +17,10 @@
 #
 from unittest.case import TestCase
 
-from pyanaconda.modules.payloads.base.utils import get_dir_size, sort_kernel_version_list
+from pyanaconda.modules.payloads.base.utils import sort_kernel_version_list
 
 
 class PayloadBaseUtilsTest(TestCase):
-
-    def test_get_dir_size(self):
-        """Test the get_dir_size function."""
-
-        # dev null should have a size == 0
-        assert get_dir_size('/dev/null') == 0
-
-        # incorrect path should also return 0
-        assert get_dir_size('/dev/null/foo') == 0
-
-        # check if an int is always returned
-        assert isinstance(get_dir_size('/dev/null'), int)
-        assert isinstance(get_dir_size('/dev/null/foo'), int)
-
-        # TODO: mock some dirs and check if their size is
-        # computed correctly
-
     def test_sort_kernel_version_list(self):
         """Test the sort_kernel_version_list function."""
         # Test fake versions.
