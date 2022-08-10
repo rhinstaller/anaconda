@@ -156,6 +156,9 @@ Obsoletes: booty <= 0.107-1
 The anaconda-core package contains the program which was used to install your
 system.
 
+%if ! 0%{?rhel}
+# do not provide the live subpackage on RHEL
+
 %package live
 Summary: Live installation specific files and dependencies
 BuildRequires: desktop-file-utils
@@ -172,6 +175,8 @@ Recommends: xhost
 %description live
 The anaconda-live package contains scripts, data and dependencies required
 for live installations.
+
+%endif
 
 %package install-env-deps
 Summary: Installation environment specific dependencies
@@ -399,6 +404,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %dir %{_sysconfdir}/%{name}/profile.d
 %config %{_sysconfdir}/%{name}/profile.d/*
 
+%if ! 0%{?rhel}
+# do not provide the live subpackage on RHEL
+
 %files live
 %{_bindir}/liveinst
 %{_sbindir}/liveinst
@@ -408,6 +416,8 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_datadir}/applications/*.desktop
 %{_datadir}/anaconda/gnome
 %{_sysconfdir}/xdg/autostart/*.desktop
+
+%endif
 
 %if %use_cockpit
 %files webui
