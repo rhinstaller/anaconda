@@ -1,0 +1,41 @@
+# Check age of trees on cobra[02]
+name: Build boot.iso
+on:
+  schedule:
+    - 30 22 * * *
+  workflow_dispatch:
+
+permissions: none
+
+jobs:
+  get-data:
+    runs-on: [self-hosted, kstest]
+    steps:
+      - name: Get directory listing from cobra02
+        id: get_dir_listing
+        run: |
+          curl http://cobra02.anaconda.englab.brq.redhat.com/trees/ -o trees.html
+          rg -e '>([^<]+)</a>[\s]+</td><td align="right">([0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2})' -o -r '$1 $2' trees.html > pairs.txt
+          echo "::set-output name=data::$(cat pairs.txt)"
+    outputs:
+      data: ${{ steps.get_dir_listing.outputs.data }}
+
+  check:
+    runs-on: ubuntu-latest
+    needs: get-data
+    strategy:
+      fail-fast: false
+      matrix:
+        dir: ["rawhide/", "rhel8/", "rhel9/"]
+    steps:
+      - name: Check age
+        run: |
+          echo ${{ needs.get-data.outputs.data }} | tee pairs.txt
+          tree_date_input=$(grep ${{ matrix.dir }} pairs.txt | awk '{print $2 " " $3}')
+          tree_date_s=$(date --date="$tree_date_input" +%s)
+          cutoff_date_s=$(date --date="2 weeks ago" +%s)
+          if [ "$cutoff_date_s" -lt "$tree_date_s" ] ; then
+            echo "OK: ${{ matrix.dir }} $tree_date_input"
+          else
+            echo "Too old: ${{ matrix.dir }} $tree_date_input"
+          fi
