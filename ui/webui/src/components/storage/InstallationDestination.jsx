@@ -21,22 +21,33 @@ import {
     Alert, AlertActionCloseButton,
     Bullseye,
     Button,
+    Divider,
+    Dropdown,
+    DropdownItem,
+    DropdownToggle,
+    DropdownToggleCheckbox,
     EmptyState,
     EmptyStateIcon,
     Flex,
     FlexItem,
     Form,
     FormGroup,
-    Label,
+    FormSection,
+    Popover,
+    PopoverPosition,
     Spinner,
     Text,
     TextContent,
     TextVariants,
     Title,
+    Toolbar,
+    ToolbarContent,
+    ToolbarItem,
 } from "@patternfly/react-core";
 
+import { HelpIcon } from "@patternfly/react-icons";
+
 import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
-import { SyncAltIcon } from "@patternfly/react-icons";
 import { ListingTable } from "cockpit-components-table.jsx";
 
 import {
@@ -63,7 +74,6 @@ import {
 } from "../../apis/payloads";
 
 import {
-    FormGroupHelpPopover,
     sleep,
 } from "../Common.jsx";
 import { AnacondaPage } from "../AnacondaPage.jsx";
@@ -95,10 +105,87 @@ const selectDefaultDisks = ({ ignoredDisks, selectedDisks, usableDisks }) => {
     }
 };
 
+const setSelectionForAllDisks = ({ disks, value }) => {
+    return (Object.keys(disks).reduce((acc, cur) => ({ ...acc, [cur]: value }), {}));
+};
+
+const DropdownBulkSelect = ({
+    onSelectAll,
+    onSelectNone,
+    onChange,
+    selectedCnt,
+    totalCnt
+}) => {
+    const [isOpen, setIsOpen] = React.useState(false);
+
+    const onToggle = (isOpen) => {
+        setIsOpen(isOpen);
+    };
+
+    const onFocus = () => {
+        const element = document.getElementById("local-disks-bulk-select-toggle");
+        element.focus();
+    };
+
+    const onSelect = () => {
+        setIsOpen(false);
+        onFocus();
+    };
+
+    const dropdownItems = [
+        <DropdownItem
+          key="select-none"
+          component="button"
+          aria-label={_("Select no disk")}
+          onClick={onSelectNone}
+          id="local-disks-bulk-select-none"
+        >
+            {_("Select none")}
+        </DropdownItem>,
+        <DropdownItem
+          key="select-all"
+          component="button"
+          aria-label={_("Select all disks")}
+          onClick={onSelectAll}
+          id="local-disks-bulk-select-all"
+        >
+            {_("Select all")}
+        </DropdownItem>,
+    ];
+
+    const splitButtonItems = [
+        <DropdownToggleCheckbox
+          key="select-multiple-split-checkbox"
+          id="select-multiple-split-checkbox"
+          aria-label={_("Select multiple disks")}
+          isChecked={selectedCnt > 0 ? (selectedCnt === totalCnt ? true : null) : false}
+          onChange={onChange}
+        >
+            {cockpit.format(cockpit.ngettext("$0 selected", "$0 selected", selectedCnt), selectedCnt)}
+        </DropdownToggleCheckbox>,
+    ];
+
+    return (
+        <Dropdown
+          onSelect={onSelect}
+          toggle={
+              <DropdownToggle
+                splitButtonItems={splitButtonItems}
+                onToggle={onToggle}
+                id="local-disks-bulk-select-toggle"
+              />
+          }
+          isOpen={isOpen}
+          dropdownItems={dropdownItems}
+        />
+    );
+};
+
 const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }) => {
     const [deviceData, setDeviceData] = useState({});
     const [disks, setDisks] = useState({});
     const [refreshCnt, setRefreshCnt] = useState(0);
+    const [isDiscoveringDisks, setIsDiscoveringDisks] = useState(false);
 
     useEffect(() => {
         let usableDisks;
@@ -157,43 +244,41 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
     }
 
     const localDisksInfo = (
-        <FormGroupHelpPopover
-          helpContent={_(
+        <Popover
+          bodyContent={_(
               "Locally available storage devices (SATA, NVMe SSD, " +
               "SCSI hard drives, external disks, etc.)"
           )}
-        />
-    );
-
-    const diskSelectionLabel = (
-        <Label
-          color="blue"
-          id="installation-destination-table-label"
+          position={PopoverPosition.auto}
         >
-            {cockpit.format(
-                cockpit.ngettext("$0 (of $1) disk selected", "$0 (of $1) disks selected", selectedDisksCnt),
-                selectedDisksCnt,
-                totalDisksCnt
-            )}
-        </Label>
+            <Button
+              variant="link"
+              aria-label={_("Local disks label info")}
+              icon={<HelpIcon />}
+            />
+        </Popover>
     );
 
     const rescanDisksButton = (
         <Button
-          aria-label={_("Rescan disks")}
+          aria-label={_("Discover disks")}
           id={idPrefix + "-rescan-disks"}
+          isLoading={isDiscoveringDisks}
+          variant="secondary"
           onClick={() => {
+              setIsDiscoveringDisks(true);
+              setDisks(setSelectionForAllDisks({ disks, value: false }));
               scanDevicesWithTask().then(res => {
                   runStorageTask({
                       task: res[0],
                       onSuccess: () => resetPartitioning().then(() => setRefreshCnt(refreshCnt + 1), onAddErrorNotification),
                       onFail: onAddErrorNotification
                   });
-              });
+              })
+                      .finally(() => { setIsDiscoveringDisks(false) });
           }}
-          variant="plain"
         >
-            <SyncAltIcon />
+            {_("Discover disks")}
         </Button>
     );
 
@@ -233,27 +318,58 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
         }
     ));
 
+    const dropdownBulkSelect = (
+        <DropdownBulkSelect
+          onSelectAll={() => setDisks(setSelectionForAllDisks({ disks, value: true }))}
+          onSelectNone={() => setDisks(setSelectionForAllDisks({ disks, value: false }))}
+          onChange={(checked) => setDisks(setSelectionForAllDisks({ disks, value: checked }))}
+          selectedCnt={selectedDisksCnt}
+          totalCnt={totalDisksCnt}
+        />
+
+    );
+
+    const localDisksToolbar = (
+        <Toolbar>
+            <ToolbarContent>
+                <ToolbarItem variant="bulk-select">
+                    {dropdownBulkSelect}
+                </ToolbarItem>
+                <ToolbarItem variant="separator">
+                    <Divider orientation={{ default: "vertical" }} />
+                </ToolbarItem>
+                <ToolbarItem>
+                    {rescanDisksButton}
+                </ToolbarItem>
+            </ToolbarContent>
+        </Toolbar>
+    );
+
+    const localDisksTable = (
+        <ListingTable
+          aria-labelledby="installation-destination-local-disk-title"
+          {...(totalDisksCnt > 10 && { variant: "compact" })}
+          columns={localDisksColumns}
+          onSelect={(_, isSelected, diskId) => setDisks({ ...disks, [Object.keys(disks)[diskId]]: isSelected })}
+          rows={localDisksRows}
+        />
+    );
+
     return (
         <Form>
-            <FormGroup
-              label={_("Local standard disks")}
-              labelIcon={
-                  <Flex display={{ default: "inlineFlex" }}>
+            <FormSection
+              title={
+                  <Flex spaceItems={{ default: "spaceItemsXs" }}>
+                      <FlexItem><h3>{_("Local standard disks")}</h3></FlexItem>
                       <FlexItem>{localDisksInfo}</FlexItem>
-                      <FlexItem>{diskSelectionLabel}</FlexItem>
                   </Flex>
               }
-              labelInfo={rescanDisksButton}
-              isRequired
             >
-                <ListingTable
-                  aria-labelledby="installation-destination-local-disk-title"
-                  {...(totalDisksCnt > 10 && { variant: "compact" })}
-                  columns={localDisksColumns}
-                  onSelect={(_, isSelected, diskId) => setDisks({ ...disks, [Object.keys(disks)[diskId]]: isSelected })}
-                  rows={localDisksRows}
-                />
-            </FormGroup>
+                <FormGroup>
+                    {localDisksToolbar}
+                    {localDisksTable}
+                </FormGroup>
+            </FormSection>
         </Form>
     );
 };
