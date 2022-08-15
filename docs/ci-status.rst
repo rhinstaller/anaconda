@@ -1,7 +1,13 @@
 CI Status
 =========
 
-This page shows current status of CI jobs that are expected to be stable.
+This page shows current status of CI jobs that:
+
+* are scheduled to run repeatedly, instead of started by human actions,
+* are expected to be stable and keep succeeding,
+* do not display result status on PRs.
+
+The status badges are organized by repository where the github workflow is stored.
 
 
 Anaconda
@@ -19,15 +25,9 @@ Anaconda
    :alt: Build current anaconda rhel-8 branch in RHEL COPR
    :target: https://github.com/rhinstaller/anaconda/actions/workflows/daily-rhel-copr.yml
 
-.. |tag-release| image:: https://github.com/rhinstaller/anaconda/actions/workflows/tag-release.yml/badge.svg
-   :alt: Release from tags
-   :target: https://github.com/rhinstaller/anaconda/actions/workflows/tag-release.yml
-
 .. |try-release-daily| image:: https://github.com/rhinstaller/anaconda/actions/workflows/try-release-daily.yml/badge.svg
    :alt: Test releasing and translations daily
    :target: https://github.com/rhinstaller/anaconda/actions/workflows/try-release-daily.yml
-
-.. _releases: https://github.com/rhinstaller/anaconda/releases
 
 .. _Dependabot: https://github.com/rhinstaller/anaconda/network/updates
 
@@ -40,14 +40,12 @@ Anaconda
 |container-daily-rhel-copr|
   Daily builds of Anaconda in RHEL 8 COPR (internal).
 
-|tag-release|
-  Creates releases_ built automatically from tagged Anaconda versions for Fedora.
-
 |try-release-daily|
   Tests the release process daily, including checks for missing important translations
 
 Dependabot_
   Checks Anaconda dependencies and opens pull requests for new versions.
+
 
 Kickstart-tests
 ---------------
