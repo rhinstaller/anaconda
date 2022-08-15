@@ -101,14 +101,6 @@ class DNFPayload(Payload):
         """
         return self._dnf_manager._base
 
-    @property
-    def _repos_lock(self):
-        """A lock for a dictionary of DNF repositories.
-
-        FIXME: This is a temporary property.
-        """
-        return self._dnf_manager._lock
-
     def set_from_opts(self, opts):
         """Set the payload from the Anaconda cmdline options.
 

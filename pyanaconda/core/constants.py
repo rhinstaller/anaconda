@@ -113,7 +113,6 @@ THREAD_LIVE_PROGRESS = "AnaLiveProgressThread"
 THREAD_SOFTWARE_WATCHER = "AnaSoftwareWatcher"
 THREAD_CHECK_SOFTWARE = "AnaCheckSoftwareThread"
 THREAD_SOURCE_WATCHER = "AnaSourceWatcher"
-THREAD_GEOLOCATION_REFRESH = "AnaGeolocationRefreshThread"
 THREAD_DATE_TIME = "AnaDateTimeThread"
 THREAD_TIME_INIT = "AnaTimeInitThread"
 THREAD_DASDFMT = "AnaDasdfmtThread"
@@ -325,7 +324,6 @@ LOGGER_PACKAGING = "packaging"
 LOGGER_DNF = "dnf"
 LOGGER_LIBREPO = "librepo"  # second DNF logger for librepo
 LOGGER_SIMPLELINE = "simpleline"
-LOGGER_SENSITIVE_INFO = "sensitive_info"
 
 # Timeout for starting X
 X_TIMEOUT = 60

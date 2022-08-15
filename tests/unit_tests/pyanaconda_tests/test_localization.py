@@ -87,9 +87,6 @@ class LangcodeLocaleParsingTests(unittest.TestCase):
         assert "fr(oss)" in layouts
         assert "de(nodeadkeys)" in layouts
 
-    def test_locale_timezones(self):
-        assert "Europe/Oslo" in localization.get_locale_timezones("no")
-
     @patch.dict("pyanaconda.localization.os.environ", dict())
     def test_xlated_tz(self):
         localization.os.environ["LANG"] = "en_US"
