@@ -21,7 +21,6 @@ actions:
   post-upstream-clone:
     - ./autogen.sh
     - ./configure
-    - sed -i 's/use_cockpit\ 1/use_cockpit 0/g' anaconda.spec
   create-archive:
     - "make release"
     - 'bash -c "ls -1 anaconda-*.tar.bz2"'
