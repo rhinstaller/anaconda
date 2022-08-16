@@ -440,7 +440,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             )
             page.add_selector(selector, self.on_selector_clicked)
 
-        for device_name in root.swap_devices:
+        for device_name in root.devices:
+
+            # Skip devices that already have a selector.
+            if device_name in root.mount_points.values():
+                continue
+
             selector = MountPointSelector()
             self._update_selector(
                 selector,

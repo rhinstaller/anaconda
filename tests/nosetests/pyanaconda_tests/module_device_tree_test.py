@@ -733,14 +733,14 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
         self.storage.roots = [Root(
             name="My Linux",
+            devices=[root_device, swap_device],
             mounts={"/": root_device},
-            swaps=[swap_device]
         )]
 
         self.assertEqual(self.interface.GetExistingSystems(), [{
             'os-name': get_variant(Str, 'My Linux'),
+            'devices': get_variant(List[Str], ['dev1', 'dev2']),
             'mount-points': get_variant(Dict[Str, Str], {'/': 'dev1'}),
-            'swap-devices': get_variant(List[Str], ['dev2'])
         }])
 
     @patch_dbus_publish_object
