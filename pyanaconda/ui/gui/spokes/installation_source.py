@@ -27,7 +27,7 @@ from urllib.parse import urlsplit
 from pyanaconda.core import constants
 from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, SOURCE_TYPE_HDD, SOURCE_TYPE_URL, \
     SOURCE_TYPE_CDROM, SOURCE_TYPE_NFS, SOURCE_TYPE_HMC, URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, \
-    URL_TYPE_METALINK, SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN
+    URL_TYPE_METALINK, SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN, PAYLOAD_STATUS_SETTING_SOURCE
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, CN_
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
@@ -40,7 +40,7 @@ from pyanaconda.core.util import cmp_obj_attrs, id_generator
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.context import context
 from pyanaconda.ui.gui.spokes.lib.installation_source_helpers import validate_proxy, RepoChecks, \
-    ProxyDialog, MediaCheckDialog, IsoChooser, BASEREPO_SETUP_MESSAGE, PROTOCOL_HTTP, \
+    ProxyDialog, MediaCheckDialog, IsoChooser, PROTOCOL_HTTP, \
     PROTOCOL_HTTPS, PROTOCOL_FTP, PROTOCOL_NFS, PROTOCOL_FILE, PROTOCOL_MIRROR, REPO_PROTO, \
     CLICK_FOR_DETAILS, get_unique_repo_name, validate_repo_name, check_duplicate_repo_names
 from pyanaconda.ui.helpers import InputCheck, InputCheckHandler, SourceSwitchHandler
@@ -52,7 +52,7 @@ from pyanaconda.ui.gui.utils import blockedHandler, fire_gtk_action
 from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show, fancy_set_sensitive
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload import utils as payload_utils
-from pyanaconda.payload.manager import payloadMgr, PayloadState
+from pyanaconda.payload.manager import payloadMgr
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.regexes import URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
 from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
@@ -140,7 +140,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         if cdn_source and not self.subscribed:
             log.debug("CDN source but no subscribtion attached - skipping payload restart.")
         elif source_changed or repo_changed or self._error:
-            payloadMgr.restart_thread(self.payload, try_media=False)
+            payloadMgr.start(self.payload, try_media=False)
         else:
             log.debug("Nothing has changed - skipping payload restart.")
 
@@ -367,7 +367,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         elif threadMgr.get(constants.THREAD_CHECK_SOFTWARE):
             return _("Checking software dependencies...")
         elif not self.ready:
-            return _(BASEREPO_SETUP_MESSAGE)
+            return _(PAYLOAD_STATUS_SETTING_SOURCE)
         elif not self.payload.is_ready():
             return _("Error setting up base repository")
         elif self._error:
@@ -477,63 +477,54 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         else:
             really_hide(self._updates_box)
 
-        # Register listeners for payload events
-        payloadMgr.add_listener(PayloadState.STARTED, self._payload_refresh)
-        payloadMgr.add_listener(PayloadState.WAITING_STORAGE, self._probing_storage)
-        payloadMgr.add_listener(PayloadState.DOWNLOADING_PKG_METADATA,
-                                self._downloading_package_md)
-        payloadMgr.add_listener(PayloadState.DOWNLOADING_GROUP_METADATA,
-                                self._downloading_group_md)
-        payloadMgr.add_listener(PayloadState.FINISHED, self._payload_finished)
-        payloadMgr.add_listener(PayloadState.ERROR, self._payload_error)
+        # Register callbacks to signals of the payload manager.
+        payloadMgr.started_signal.connect(self._on_payload_started)
+        payloadMgr.stopped_signal.connect(self._on_payload_stopped)
+        payloadMgr.failed_signal.connect(self._on_payload_failed)
+        payloadMgr.succeeded_signal.connect(self._on_payload_succeeded)
+
+        # Report progress messages of the payload manager.
+        payloadMgr.progress_changed_signal.connect(self._on_payload_progress_changed)
 
         # Start the thread last so that we are sure initialize_done() is really called only
         # after all initialization has been done.
         threadMgr.add(AnacondaThread(name=constants.THREAD_SOURCE_WATCHER,
                                      target=self._initialize))
 
-    def _payload_refresh(self):
+    def _on_payload_started(self):
+        # Disable the software selection.
         hubQ.send_not_ready("SoftwareSelectionSpoke")
+
+        # Disable the source selection.
         hubQ.send_not_ready(self.__class__.__name__)
-        hubQ.send_message(self.__class__.__name__, _(BASEREPO_SETUP_MESSAGE))
 
-        # this sleep is lame, but without it the message above doesn't seem
-        # to get processed by the hub in time, and is never shown.
-        # FIXME this should get removed when we figure out how to ensure
-        # that the message takes effect on the hub before we try to mount
-        # a bad NFS server.
-        time.sleep(1)
-
-    def _probing_storage(self):
-        hubQ.send_message(self.__class__.__name__, _(constants.PAYLOAD_STATUS_PROBING_STORAGE))
-
-    def _downloading_package_md(self):
-        # Reset the error state from previous payloads
-        self._error = False
-        self._error_msg = ""
-
-        hubQ.send_message(self.__class__.__name__, _(constants.PAYLOAD_STATUS_PACKAGE_MD))
-
-    def _downloading_group_md(self):
-        hubQ.send_message(self.__class__.__name__, _(constants.PAYLOAD_STATUS_GROUP_MD))
-
-    def _payload_finished(self):
-        hubQ.send_ready("SoftwareSelectionSpoke")
-        self._ready = True
-        hubQ.send_ready(self.__class__.__name__)
-
-    def _payload_error(self):
+    def _on_payload_failed(self):
+        # Set the error flags.
         self._error = True
-        hubQ.send_message(self.__class__.__name__, payloadMgr.error)
-
-        self._error_msg = _("Failed to set up installation source; "
-                            "check the repo url and proxy settings.")
+        self._error_msg = _(
+            "Failed to set up installation source; "
+            "check the repo url and proxy settings."
+        )
 
         if self.payload.verbose_errors:
             self._error_msg += _(CLICK_FOR_DETAILS)
 
+    def _on_payload_succeeded(self):
+        # Reset the error flags.
+        self._error = False
+        self._error_msg = ""
+
+    def _on_payload_stopped(self):
         self._ready = True
+
+        # Enable the source selection.
         hubQ.send_ready(self.__class__.__name__)
+
+        # Reset the status of the software selection.
+        hubQ.send_ready("SoftwareSelectionSpoke")
+
+    def _on_payload_progress_changed(self, step, message):
+        hubQ.send_message(self.__class__.__name__, message)
 
     def _initialize_closest_mirror(self):
         # If there's no fallback mirror to use, we should just disable that option

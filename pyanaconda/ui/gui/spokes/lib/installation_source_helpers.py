@@ -39,7 +39,6 @@ from gi.repository import Gtk
 
 log = get_module_logger(__name__)
 
-BASEREPO_SETUP_MESSAGE = N_("Setting up installation source...")
 CLICK_FOR_DETAILS = N_(' <a href="">Click for details.</a>')
 
 PROTOCOL_HTTP = 'http'

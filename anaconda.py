@@ -549,7 +549,7 @@ if __name__ == "__main__":
     fallback = not flags.automatedInstall \
         or anaconda.payload.source_type == conf.payload.default_source
 
-    payloadMgr.restart_thread(anaconda.payload, fallback=fallback)
+    payloadMgr.start(anaconda.payload, fallback=fallback)
 
     # initialize geolocation and start geolocation lookup if possible and enabled
     use_geoloc = startup_utils.check_if_geolocation_should_be_used(opts)

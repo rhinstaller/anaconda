@@ -29,7 +29,7 @@ from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload import utils as payload_utils
-from pyanaconda.payload.manager import payloadMgr, PayloadState
+from pyanaconda.payload.manager import payloadMgr
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.ui.lib.payload import find_potential_hdiso_sources, get_hdiso_source_info, \
     get_hdiso_source_description
@@ -95,7 +95,8 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
 
         threadMgr.add(AnacondaThread(name=THREAD_SOURCE_WATCHER,
                                      target=self._initialize))
-        payloadMgr.add_listener(PayloadState.ERROR, self._payload_error)
+
+        payloadMgr.failed_signal.connect(self._on_payload_failed)
 
     def _initialize(self):
         """ Private initialize. """
@@ -110,7 +111,7 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
         # report that the source spoke has been initialized
         self.initialize_done()
 
-    def _payload_error(self):
+    def _on_payload_failed(self):
         self._error = True
 
     @property
@@ -225,7 +226,7 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
         # clear them at this point
         self._error = False
 
-        payloadMgr.restart_thread(self.payload, try_media=False)
+        payloadMgr.start(self.payload, try_media=False)
 
 
 class SpecifyRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
