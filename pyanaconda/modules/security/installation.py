@@ -27,7 +27,6 @@ from pyanaconda.core.path import make_directories, join_paths
 from pyanaconda.modules.common.errors.installation import SecurityInstallationError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.security.constants import SELinuxMode
-from pyanaconda.simpleconfig import SimpleConfigFile
 
 log = get_module_logger(__name__)
 
@@ -174,7 +173,7 @@ class ConfigureFIPSTask(Task):
 class ConfigureSELinuxTask(Task):
     """Installation task for Initial Setup configuration."""
 
-    SELINUX_CONFIG_PATH = "etc/selinux/config"
+    SELINUX_CONFIG_PATH = "/etc/selinux/config"
 
     SELINUX_STATES = {
         SELinuxMode.DISABLED: "disabled",
@@ -183,7 +182,7 @@ class ConfigureSELinuxTask(Task):
     }
 
     def __init__(self, sysroot, selinux_mode):
-        """Create a new Initial Setup configuration task.
+        """Create a new task.
 
         :param str sysroot: a path to the root of the target system
         :param SELinuxMode selinux_mode: a SELinux mode
@@ -199,6 +198,7 @@ class ConfigureSELinuxTask(Task):
         return "Configure SELinux"
 
     def run(self):
+        """Run the task."""
         if self._selinux_mode == SELinuxMode.DEFAULT:
             log.debug("Use SELinux default configuration.")
             return
@@ -208,12 +208,37 @@ class ConfigureSELinuxTask(Task):
             return
 
         try:
-            selinux_cfg = SimpleConfigFile(os.path.join(self._sysroot, self.SELINUX_CONFIG_PATH))
-            selinux_cfg.read()
-            selinux_cfg.set(("SELINUX", self.SELINUX_STATES[self._selinux_mode]))
-            selinux_cfg.write()
+            # Read the SELinux configuration file.
+            path = join_paths(self._sysroot, self.SELINUX_CONFIG_PATH)
+            log.debug("Modifying the configuration at %s.", path)
+
+            with open(path, "r") as f:
+                lines = f.readlines()
+
+            # Modify the SELinux configuration.
+            lines = list(map(self._process_line, lines))
+
+            # Write the modified configuration.
+            with open(path, "w") as f:
+                f.writelines(lines)
+
         except OSError as msg:
             log.error("SELinux configuration failed: %s", msg)
+
+    @property
+    def _selinux_state(self):
+        """The string representation of the SELinux mode."""
+        return self.SELINUX_STATES[self._selinux_mode]
+
+    def _process_line(self, line):
+        """Process a line from the SELinux configuration file."""
+        if line.strip().startswith("SELINUX="):
+            log.debug("Found '%s'.", line.strip())
+            line = "SELINUX={}\n".format(self._selinux_state)
+            log.debug("Setting '%s'.", line.strip())
+            return line
+
+        return line
 
 
 class RealmDiscoverTask(Task):
