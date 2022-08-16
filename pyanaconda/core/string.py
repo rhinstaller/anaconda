@@ -131,3 +131,29 @@ def have_word_match(str1, str2):
     str2 = str2.lower()
 
     return all(word in str2 for word in str1_words)
+
+
+def split_in_two(text, delimiter=None):
+    """Split the given string into two strings.
+
+    This function is useful for safe tuple unpacking.
+    The functionality is similar to str.partition(),
+    but it supports the delimiter of str.split().
+
+    If the delimiter is None, the string is split by
+    a group of whitespace characters that are treated
+    as a single separator.
+
+    For example:
+
+        first, second = split_in_two(text)
+
+    :param text: a string to split
+    :param delimiter: a delimiter for splitting
+    :return: a tuple of exactly two strings
+    """
+    # There might be up to two items in the list.
+    items = iter(text.split(sep=delimiter, maxsplit=1))
+
+    # Return exactly two items. Use empty strings as defaults.
+    return next(items, ""), next(items, "")

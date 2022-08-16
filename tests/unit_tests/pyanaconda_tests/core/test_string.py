@@ -19,7 +19,7 @@
 import unittest
 
 from pyanaconda.core.string import strip_accents, upcase_first_letter, _to_ascii, upper_ascii, \
-    lower_ascii, have_word_match
+    lower_ascii, have_word_match, split_in_two
 
 
 class UpcaseFirstLetterTests(unittest.TestCase):
@@ -163,3 +163,30 @@ class HaveWordMatchTests(unittest.TestCase):
         """
         assert have_word_match("fête", "fête champêtre")
         assert have_word_match("fête", "fête champêtre")
+
+
+class SplitInTwoTests(unittest.TestCase):
+    """Tests for split_in_two."""
+
+    def test_split_in_two_whitespace(self):
+        """Test the split_in_two function with whitespaces."""
+        assert split_in_two("") == ("", "")
+        assert split_in_two("a") == ("a", "")
+        assert split_in_two("a ") == ("a", "")
+        assert split_in_two("a  ") == ("a", "")
+        assert split_in_two("a  b") == ("a", "b")
+        assert split_in_two("a  b ") == ("a", "b ")
+        assert split_in_two("a  b  c") == ("a", "b  c")
+        assert split_in_two("a  b  c ") == ("a", "b  c ")
+
+    def test_split_in_two_delimiter(self):
+        """Test the split_in_two function with a special delimiter."""
+        assert split_in_two("", delimiter=":") == ("", "")
+        assert split_in_two(":", delimiter=":") == ("", "")
+        assert split_in_two("a", delimiter=":") == ("a", "")
+        assert split_in_two("a:", delimiter=":") == ("a", "")
+        assert split_in_two("a:b", delimiter=":") == ("a", "b")
+        assert split_in_two("a:b", delimiter=":") == ("a", "b")
+        assert split_in_two("a:b:", delimiter=":") == ("a", "b:")
+        assert split_in_two("a:b:c", delimiter=":") == ("a", "b:c")
+        assert split_in_two("a:b:c:", delimiter=":") == ("a", "b:c:")
