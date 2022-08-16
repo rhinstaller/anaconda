@@ -61,7 +61,7 @@ def collect_used_devices(storage):
     used_devices = []
 
     for root in storage.roots:
-        for device in list(root.mounts.values()) + root.swaps:
+        for device in root.devices:
             if device not in storage.devices:
                 continue
             used_devices.extend(device.ancestors)
@@ -177,9 +177,9 @@ def collect_roots(storage):
         # Get the name.
         name = root.name
 
-        # Get the supported swap devices.
-        swaps = [
-            d for d in root.swaps
+        # Get the supported devices.
+        devices = [
+            d for d in root.devices
             if d in supported_devices
             and (d.format.exists or root.name == new_root_name)
         ]
@@ -192,14 +192,14 @@ def collect_roots(storage):
             and d.disks
         }
 
-        if not swaps and not mounts:
+        if not devices and not mounts:
             continue
 
         # Add a root with supported devices.
         roots.append(Root(
             name=name,
+            devices=devices,
             mounts=mounts,
-            swaps=swaps
         ))
 
     return roots
@@ -227,29 +227,15 @@ def create_new_root(storage, boot_drive):
         boot_drive=boot_drive
     )
 
-    bootloader_devices = collect_bootloader_devices(
-        storage=storage,
-        boot_drive=boot_drive
-    )
-
-    swaps = [
-        d for d in devices
-        if d.format.type == "swap"
-    ]
-
     mounts = {
         d.format.mountpoint: d for d in devices
         if getattr(d.format, "mountpoint", None)
     }
 
-    for device in devices:
-        if device in bootloader_devices:
-            mounts[device.format.name] = device
-
     return Root(
         name=get_new_root_name(),
+        devices=devices,
         mounts=mounts,
-        swaps=swaps
     )
 
 
