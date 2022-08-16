@@ -124,10 +124,10 @@ def _find_existing_installations(devicetree):
             continue
 
         architecture, product, version = get_release_string(chroot=sysroot)
-        (mounts, swaps) = _parse_fstab(devicetree, chroot=sysroot)
+        (mounts, devices) = _parse_fstab(devicetree, chroot=sysroot)
         blivet_util.umount(mountpoint=sysroot)
 
-        if not mounts and not swaps:
+        if not mounts and not devices:
             # empty /etc/fstab. weird, but I've seen it happen.
             continue
 
@@ -135,8 +135,8 @@ def _find_existing_installations(devicetree):
             product=product,
             version=version,
             arch=architecture,
+            devices=devices,
             mounts=mounts,
-            swaps=swaps
         ))
 
     return roots
@@ -249,15 +249,16 @@ def _parse_fstab(devicetree, chroot):
 
     :param devicetree: a device tree
     :param chroot: a path to the target OS installation
-    :return: a tuple of a mount dict and swap list
+    :return: a tuple of a mount dict and a device list
     """
     mounts = {}
-    swaps = []
+    devices = []
+
     path = "%s/etc/fstab" % chroot
     if not os.access(path, os.R_OK):
         # XXX should we raise an exception instead?
         log.info("cannot open %s for read", path)
-        return mounts, swaps
+        return mounts, devices
 
     blkid_tab = BlkidTab(chroot=chroot)
     try:
@@ -288,43 +289,44 @@ def _parse_fstab(devicetree, chroot):
             (devspec, mountpoint, fstype, options, _rest) = fields
 
             # find device in the tree
-            device = devicetree.resolve_device(devspec,
-                                               crypt_tab=crypt_tab,
-                                               blkid_tab=blkid_tab,
-                                               options=options)
+            device = devicetree.resolve_device(
+                devspec,
+                crypt_tab=crypt_tab,
+                blkid_tab=blkid_tab,
+                options=options
+            )
 
             if device is None:
                 continue
 
             if fstype != "swap":
                 mounts[mountpoint] = device
-            else:
-                swaps.append(device)
 
-    return mounts, swaps
+            devices.append(device)
+
+    return mounts, devices
 
 
 class Root(object):
     """A root represents an existing OS installation."""
 
-    def __init__(self, name=None, product=None, version=None, arch=None, mounts=None, swaps=None):
+    def __init__(self, name=None, product=None, version=None, arch=None, devices=None,
+                 mounts=None):
         """Create a new OS representation.
 
         :param name: a name of the OS or None
         :param product: a distribution name or None
         :param version: a distribution version or None
         :param arch: a machine's architecture or None
+        :param devices: a list of all devices
         :param mounts: a dictionary of mount points and devices
-        :param swaps: a list of swap devices
         """
         self._name = name
         self._product = product
         self._version = version
         self._arch = arch
-
-        # Blivet needs to be able to set these attributes.
-        self.mounts = mounts or {}
-        self.swaps = swaps or []
+        self._devices = devices or []
+        self._mounts = mounts or {}
 
     @property
     def name(self):
@@ -349,9 +351,26 @@ class Root(object):
         )
 
     @property
-    def device(self):
-        """The root device or None."""
-        return self.mounts.get("/")
+    def devices(self):
+        """Devices used by the OS.
+
+        For example:
+
+        * bootloader devices
+        * mount point sources
+        * swap devices
+
+        :return: a list of all devices
+        """
+        return self._devices
+
+    @property
+    def mounts(self):
+        """Mount points defined by the OS.
+
+        :return: a dictionary of mount points and devices
+        """
+        return self._mounts
 
     def copy(self, storage):
         """Create a copy with devices of the given storage model.
@@ -368,6 +387,6 @@ class Root(object):
             m, d = i[0], _get_device(i[1])
             return (m, d) if m and d else None
 
-        new_root.swaps = list(filter(None, map(_get_device, new_root.swaps)))
-        new_root.mounts = dict(filter(None, map(_get_mount, new_root.mounts.items())))
+        new_root._devices = list(filter(None, map(_get_device, new_root._devices)))
+        new_root._mounts = dict(filter(None, map(_get_mount, new_root._mounts.items())))
         return new_root
