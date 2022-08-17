@@ -407,6 +407,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Aug 17 2022 Martin Kolman <mkolman@redhat.com> - 34.25.1.12-1
+- Improve Register button click feedback (mkolman)
+  Resolves: rhbz#2074636
+
 * Thu Aug 04 2022 Vladimir Slavik <vslavik@redhat.com> - 34.25.1.11-1
 - Disable the Unregister button during unregistration (mkolman)
   Resolves: rhbz#2068192
