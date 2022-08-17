@@ -18,6 +18,7 @@
 import locale
 import re
 
+from blivet import udev
 from blivet.size import Size
 from dasbus.error import DBusError
 
@@ -404,6 +405,35 @@ def ignore_nvdimm_blockdevs():
     ignored_disks = disk_select_proxy.IgnoredDisks
     ignored_disks.extend(ignored_nvdimm_devs)
     disk_select_proxy.SetIgnoredDisks(ignored_disks)
+
+
+def ignore_nvme_fc_disks():
+    """Ignore NVMe-FC disks."""
+    if conf.target.is_directory:
+        return
+
+    nvme_fc_disks = [
+        udev.device_get_name(info)
+        for info in udev.get_devices()
+        if _is_nvme_fc_disk(info)
+    ]
+
+    if not nvme_fc_disks:
+        return
+
+    log.debug("Adding NVMe-FC disks %s to ignored disks", ",".join(nvme_fc_disks))
+
+    disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
+    ignored_disks = disk_select_proxy.IgnoredDisks
+    ignored_disks.extend(nvme_fc_disks)
+    disk_select_proxy.SetIgnoredDisks(ignored_disks)
+
+
+def _is_nvme_fc_disk(info):
+    """Return True if the device is an NVMe-FC disk."""
+    return udev.device_is_disk(info) and udev.device_get_sysfs_path(info).startswith(
+        "/sys/devices/virtual/nvme-fabrics/ctl/"
+    )
 
 
 def ignore_oemdrv_disks():

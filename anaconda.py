@@ -512,6 +512,10 @@ if __name__ == "__main__":
     from pyanaconda.ui.lib.storage import ignore_nvdimm_blockdevs
     ignore_nvdimm_blockdevs()
 
+    # Ignore NVMe-FC disks.
+    from pyanaconda.ui.lib.storage import ignore_nvme_fc_disks
+    ignore_nvme_fc_disks()
+
     # Specify protected devices.
     from pyanaconda.modules.common.constants.services import STORAGE
 
