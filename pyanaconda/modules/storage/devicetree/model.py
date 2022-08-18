@@ -515,25 +515,8 @@ class InstallerStorage(Blivet):
         log.debug("finished Blivet copy")
         ###################################################
 
-        for root in new.roots:
-            root.swaps = [new.devicetree.get_device_by_id(d.id, hidden=True) for d in root.swaps]
-            root.swaps = [s for s in root.swaps if s]
-
-            removed = set()
-            for (mountpoint, old_dev) in root.mounts.items():
-                if old_dev is None:
-                    continue
-
-                new_dev = new.devicetree.get_device_by_id(old_dev.id, hidden=True)
-                if new_dev is None:
-                    # if the device has been removed don't include this
-                    # mountpoint at all
-                    removed.add(mountpoint)
-                else:
-                    root.mounts[mountpoint] = new_dev
-
-            for mnt in removed:
-                del root.mounts[mnt]
+        # Create proper copies of the collected installation roots.
+        new.roots = [root.copy(storage=new) for root in new.roots]
 
         log.debug("Finished a copy of the storage model.")
         return new

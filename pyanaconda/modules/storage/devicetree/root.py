@@ -15,6 +15,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import copy
 import os
 import shlex
 
@@ -351,3 +352,22 @@ class Root(object):
     def device(self):
         """The root device or None."""
         return self.mounts.get("/")
+
+    def copy(self, storage):
+        """Create a copy with devices of the given storage model.
+
+        :param InstallerStorage storage: a storage model
+        :return Root: a copy of this root object
+        """
+        new_root = copy.deepcopy(self)
+
+        def _get_device(d):
+            return storage.devicetree.get_device_by_id(d.id, hidden=True)
+
+        def _get_mount(i):
+            m, d = i[0], _get_device(i[1])
+            return (m, d) if m and d else None
+
+        new_root.swaps = list(filter(None, map(_get_device, new_root.swaps)))
+        new_root.mounts = dict(filter(None, map(_get_mount, new_root.mounts.items())))
+        return new_root
