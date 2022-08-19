@@ -17,10 +17,11 @@
 #
 # Red Hat Author(s): David Lehman <dlehman@redhat.com>
 #
+import copy
 import os
 
 from blivet.blivet import Blivet
-from blivet.devices import BTRFSSubVolumeDevice
+from blivet.devices import BTRFSSubVolumeDevice, PartitionDevice
 from blivet.formats import get_format
 from blivet.formats.disklabel import DiskLabel
 from blivet.size import Size
@@ -485,3 +486,53 @@ class InstallerStorage(Blivet):
         """
 
         self.fsset.set_fstab_swaps(devices)
+
+    def copy(self):
+        """Create a copy of the storage model."""
+        log.debug("Creating a copy of the storage model.")
+        ###################################################
+        # FIXME: Replace this section with super().copy().
+
+        log.debug("starting Blivet copy")
+
+        new = copy.deepcopy(self)
+        # go through and re-get parted_partitions from the disks since they
+        # don't get deep-copied
+        hidden_partitions = [d for d in new.devicetree._hidden
+                             if isinstance(d, PartitionDevice)]
+        for partition in new.partitions + hidden_partitions:
+            if not partition._parted_partition:
+                continue
+
+            # update the refs in req_disks as well
+            req_disks = (new.devicetree.get_device_by_id(disk.id) for disk in partition.req_disks)
+            partition.req_disks = [disk for disk in req_disks if disk is not None]
+
+            p = partition.disk.format.parted_disk.getPartitionByPath(partition.path)
+            partition.parted_partition = p
+
+        log.debug("finished Blivet copy")
+        ###################################################
+
+        for root in new.roots:
+            root.swaps = [new.devicetree.get_device_by_id(d.id, hidden=True) for d in root.swaps]
+            root.swaps = [s for s in root.swaps if s]
+
+            removed = set()
+            for (mountpoint, old_dev) in root.mounts.items():
+                if old_dev is None:
+                    continue
+
+                new_dev = new.devicetree.get_device_by_id(old_dev.id, hidden=True)
+                if new_dev is None:
+                    # if the device has been removed don't include this
+                    # mountpoint at all
+                    removed.add(mountpoint)
+                else:
+                    root.mounts[mountpoint] = new_dev
+
+            for mnt in removed:
+                del root.mounts[mnt]
+
+        log.debug("Finished a copy of the storage model.")
+        return new
