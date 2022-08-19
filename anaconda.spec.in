@@ -485,6 +485,20 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Aug 19 2022 Martin Kolman <mkolman@redhat.com> - 38.2-1
+- Fix building for RHEL/ELN without live installer (sgallagh)
+- Remove the SimpleConfigFile class (vponcova)
+- Don't use the SimpleConfigFile class (vponcova)
+- Add a function for splitting values into two strings (vponcova)
+- Move DNF code from the payload manager to the DNF payload (vponcova)
+- Remove the restart_thread method of the payload manager (vponcova)
+- Simplify the implementation of the payload manager (vponcova)
+- Remove error messages from the payload manager (vponcova)
+- Keep the "Setting up installation source..." message in a new constant
+  (vponcova)
+- Remove the WAITING_NETWORK state of the payload manager (vponcova)
+- Remove the VERIFYING_AVAILABILITY state of the payload manager (vponcova)
+
 * Mon Aug 15 2022 Martin Kolman <mkolman@redhat.com> - 38.1-1
 - Remove release builds from CI status page (#docs) (vslavik)
 - Update the tests for the SELinux configuration (vponcova)
