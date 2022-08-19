@@ -24,7 +24,8 @@ from pyanaconda.modules.storage.partitioning.automatic.noninteractive_partitioni
     NonInteractivePartitioningTask
 from pyanaconda.modules.storage.partitioning.automatic.utils import get_candidate_disks, \
     schedule_implicit_partitions, schedule_volumes, schedule_partitions, get_pbkdf_args, \
-    get_default_partitioning, get_disks_for_implicit_partitions
+    get_default_partitioning, get_part_spec, get_disks_for_implicit_partitions
+from pyanaconda.modules.storage.partitioning.specification import PartSpec
 from pyanaconda.core.storage import suggest_swap_size
 
 log = get_module_logger(__name__)
@@ -85,7 +86,7 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
             luks_data.pbkdf_args = pbkdf_args
 
         # Get the autopart requests.
-        requests = self._get_partitioning(storage, scheme, self._request.excluded_mount_points)
+        requests = self._get_partitioning(storage, scheme, self._request)
 
         # Do the autopart.
         self._do_autopart(storage, scheme, requests, encrypted, luks_format_args)
@@ -122,37 +123,51 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         }
 
     @staticmethod
-    def _get_partitioning(storage, scheme, excluded_mount_points=()):
+    def _get_partitioning(storage, scheme, request: PartitioningRequest):
         """Get the partitioning requests for autopart.
 
         :param storage: blivet.Blivet instance
         :param scheme: a type of the partitioning scheme
-        :param excluded_mount_points: a list of mount points to exclude
+        :param request: partitioning parameters
         :return: a list of full partitioning specs
         """
-        requests = []
+        specs = []
+        swap = None
 
-        for request in get_default_partitioning():
+        # Create partitioning specs based on the default configuration.
+        for spec in get_default_partitioning():
             # Skip mount points excluded from the chosen scheme.
-            if request.schemes and scheme not in request.schemes:
+            if spec.schemes and scheme not in spec.schemes:
                 continue
 
             # Skip excluded mount points.
-            if (request.mountpoint or request.fstype) in excluded_mount_points:
+            if (spec.mountpoint or spec.fstype) in request.excluded_mount_points:
                 continue
 
+            # Detect swap.
+            if spec.fstype == "swap":
+                swap = spec
+
+            specs.append(spec)
+
+        # Add a swap if hibernation was requested in kickstart.
+        if request.hibernation and swap is None:
+            swap = get_part_spec({"name": "swap"})
+            specs.append(swap)
+
+        # Configure specs.
+        for spec in specs:
             # Set the default filesystem type.
-            if request.fstype is None:
-                request.fstype = storage.get_fstype(request.mountpoint)
+            if spec.fstype is None:
+                spec.fstype = storage.get_fstype(spec.mountpoint)
 
             # Update the size of swap.
-            if request.fstype == "swap":
+            if spec.fstype == "swap":
                 disk_space = storage.get_disk_free_space()
-                request.size = suggest_swap_size(disk_space=disk_space)
+                swap.size = suggest_swap_size(hibernation=request.hibernation,
+                                              disk_space=disk_space)
 
-            requests.append(request)
-
-        return requests
+        return specs
 
     @staticmethod
     def _do_autopart(storage, scheme, requests, encrypted=False, luks_fmt_args=None):

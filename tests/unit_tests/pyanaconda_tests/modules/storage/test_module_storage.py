@@ -882,6 +882,19 @@ class StorageInterfaceTestCase(unittest.TestCase):
         self._check_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
 
     @patch_dbus_publish_object
+    def test_autopart_hibernation_kickstart(self, publisher):
+        """Test the autopart command with the hibernation option."""
+        ks_in = """
+        autopart --hibernation
+        """
+        ks_out = """
+        autopart --hibernation
+        """
+        self._apply_partitioning_when_created()
+        self._test_kickstart(ks_in, ks_out)
+        self._check_dbus_partitioning(publisher, PartitioningMethod.AUTOMATIC)
+
+    @patch_dbus_publish_object
     def test_mount_kickstart(self, publisher):
         """Test the mount command."""
         ks_in = """

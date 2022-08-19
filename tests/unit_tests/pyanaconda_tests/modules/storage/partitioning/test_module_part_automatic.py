@@ -20,7 +20,7 @@
 import unittest
 import pytest
 
-from unittest.mock import Mock, patch
+from unittest.mock import Mock, patch, ANY
 
 from blivet.formats.luks import LUKS2PBKDFArgs
 from blivet.size import Size
@@ -91,6 +91,7 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
             'partitioning-scheme': get_variant(Int, AUTOPART_TYPE_LVM_THINP),
             'file-system-type': get_variant(Str, 'ext4'),
             'excluded-mount-points': get_variant(List[Str], ['/home', '/boot', 'swap']),
+            'hibernation': get_variant(Bool, False),
             'encrypted': get_variant(Bool, True),
             'passphrase': get_variant(Str, '123456'),
             'cipher': get_variant(Str, 'aes-xts-plain64'),
@@ -262,18 +263,22 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
         suggest_swap_size.return_value = Size("1024MiB")
 
         # Collect the requests.
+        partitioning_request = PartitioningRequest()
+        partitioning_request._excluded_mount_points = ["/home", "/boot", "swap"]
         requests = AutomaticPartitioningTask._get_partitioning(
             storage=storage,
             scheme=AUTOPART_TYPE_LVM,
-            excluded_mount_points=["/home", "/boot", "swap"]
+            request=partitioning_request
         )
 
         assert ["/"] == [spec.mountpoint for spec in requests]
 
+        partitioning_request = PartitioningRequest()
+        partitioning_request._excluded_mount_points = []
         requests = AutomaticPartitioningTask._get_partitioning(
             storage=storage,
             scheme=AUTOPART_TYPE_LVM,
-            excluded_mount_points=[]
+            request=partitioning_request
         )
 
         assert ["/boot", "/", "/home"] == \
@@ -282,6 +287,88 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
             [spec.fstype for spec in requests]
         assert [Size("1GiB"), Size("1GiB"), Size("500MiB")] == \
             [spec.size for spec in requests]
+
+    @patch('pyanaconda.modules.storage.partitioning.automatic.utils.platform')
+    @patch('pyanaconda.modules.storage.partitioning.automatic.utils.conf')
+    @patch('pyanaconda.modules.storage.partitioning.automatic.automatic_partitioning.suggest_swap_size')
+    def test_get_partitioning_hibernation(self, suggest_swap_size, mocked_config, platform):
+        """Test the creation of swap with PartitioningRequest.hibernation."""
+        swap_size = Size("1GiB")
+        suggest_swap_size.return_value = swap_size
+
+        storage = create_storage()
+        platform.partitions = [
+            PartSpec(mountpoint="/boot", size=Size("1GiB"))
+        ]
+
+        # Test Case: No swap, hibernation
+        mocked_config.storage.default_partitioning = [
+            {
+                'name': '/',
+                'size': Size("50 GiB"),
+            },
+        ]
+        partitioning_request = PartitioningRequest()
+        partitioning_request.hibernation = True
+
+        requests = AutomaticPartitioningTask._get_partitioning(
+            storage=storage,
+            scheme=AUTOPART_TYPE_LVM,
+            request=partitioning_request
+        )
+
+        assert any(spec for spec in requests if spec.fstype == "swap")
+        assert list(spec.size for spec in requests if spec.fstype == "swap") == [swap_size]
+        suggest_swap_size.assert_called_with(hibernation=True, disk_space=ANY)
+
+        # Test Case: No swap, no hibernation
+        partitioning_request = PartitioningRequest()
+        partitioning_request.hibernation = False
+
+        requests = AutomaticPartitioningTask._get_partitioning(
+            storage=storage,
+            scheme=AUTOPART_TYPE_LVM,
+            request=partitioning_request
+        )
+
+        assert not any(spec for spec in requests if spec.fstype == "swap")
+
+        # Test Case: Swap, hibernation
+        mocked_config.storage.default_partitioning = [
+            {
+                'name': '/',
+                'size': Size("50 GiB"),
+            },
+            {
+                'name': 'swap',
+            },
+        ]
+        partitioning_request = PartitioningRequest()
+        partitioning_request.hibernation = True
+
+        requests = AutomaticPartitioningTask._get_partitioning(
+            storage=storage,
+            scheme=AUTOPART_TYPE_LVM,
+            request=partitioning_request
+        )
+
+        assert any(spec for spec in requests if spec.fstype == "swap")
+        assert list(spec.size for spec in requests if spec.fstype == "swap") == [swap_size]
+        suggest_swap_size.assert_called_with(hibernation=True, disk_space=ANY)
+
+        # Test Case: Swap, no hibernation
+        partitioning_request = PartitioningRequest()
+        partitioning_request.hibernation = False
+
+        requests = AutomaticPartitioningTask._get_partitioning(
+            storage=storage,
+            scheme=AUTOPART_TYPE_LVM,
+            request=partitioning_request
+        )
+
+        assert any(spec for spec in requests if spec.fstype == "swap")
+        assert list(spec.size for spec in requests if spec.fstype == "swap") == [swap_size]
+        suggest_swap_size.assert_called_with(hibernation=False, disk_space=ANY)
 
     @patch('pyanaconda.modules.storage.partitioning.automatic.utils.conf')
     @patch('pyanaconda.modules.storage.partitioning.automatic.utils.platform')
@@ -301,17 +388,21 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
         ]
 
         # Collect the requests for the Btrfs scheme.
+        partitioning_request = PartitioningRequest()
         requests = AutomaticPartitioningTask._get_partitioning(
             storage=storage,
             scheme=AUTOPART_TYPE_BTRFS,
+            request=partitioning_request,
         )
 
         assert ["/", "/var"] == [spec.mountpoint for spec in requests]
 
         # Collect the requests for the LVM scheme.
+        partitioning_request = PartitioningRequest()
         requests = AutomaticPartitioningTask._get_partitioning(
             storage=storage,
             scheme=AUTOPART_TYPE_LVM,
+            request=partitioning_request,
         )
 
         assert ["/"] == [spec.mountpoint for spec in requests]
