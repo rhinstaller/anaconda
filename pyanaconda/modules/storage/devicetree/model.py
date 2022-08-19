@@ -56,6 +56,7 @@ class InstallerStorage(Blivet):
 
     def __init__(self):
         super().__init__()
+        self.roots = []
         self.protected_devices = []
         self._escrow_certificates = {}
         self._bootloader = None
