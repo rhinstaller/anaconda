@@ -621,6 +621,11 @@ class BootLoader(object):
     # boot/stage2 device access
     #
 
+    @property
+    def install_targets(self):
+        """List of (stage1, stage2) tuples representing install targets."""
+        return [(self.stage1_device, self.stage2_device)]
+
     def is_valid_stage2_device(self, device, linux=True, non_linux=False):
         """ Return True if the device is suitable as a stage2 target device.
 
