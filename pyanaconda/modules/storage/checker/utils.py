@@ -207,9 +207,10 @@ def verify_gpt_biosboot(storage, constraints, report_error, report_warning):
     :param report_error: a function for error reporting
     :param report_warning: a function for warning reporting
     """
-    if storage.bootloader and not storage.bootloader.skip_bootloader:
-        stage1 = storage.bootloader.stage1_device
+    if not storage.bootloader or storage.bootloader.skip_bootloader:
+        return
 
+    for stage1, _stage2 in storage.bootloader.install_targets:
         if arch.is_x86() and not arch.is_efi() and stage1 and stage1.is_disk \
                 and getattr(stage1.format, "label_type", None) == "gpt":
 
@@ -220,10 +221,12 @@ def verify_gpt_biosboot(storage, constraints, report_error, report_warning):
                     break
 
             if missing:
-                report_error(_("Your BIOS-based system needs a special "
-                               "partition to boot from a GPT disk label. "
-                               "To continue, please create a 1MiB "
-                               "'biosboot' type partition."))
+                report_error(_(
+                    "Your BIOS-based system needs a special "
+                    "partition to boot from a GPT disk label. "
+                    "To continue, please create a 1MiB "
+                    "'biosboot' type partition on the {} disk."
+                ).format(stage1.name))
 
 
 def verify_opal_compatibility(storage, constraints, report_error, report_warning):
