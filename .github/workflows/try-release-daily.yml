@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        branch: ['master', 'rhel-8', 'rhel-9'] # depending on season, also: fNN-release
+        branch: ['master', 'rhel-8', 'rhel-9', 'f37-release'] # depending on season, also: fNN-release
 
     steps:
       - name: Check out repo

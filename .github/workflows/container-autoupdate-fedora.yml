@@ -17,10 +17,10 @@ jobs:
       container-tag: master
       branch: master
 
-  f36-release:
-    if: false
+  f37-release:
+    if: true
     uses: ./.github/workflows/container-rebuild-action.yml
     secrets: inherit
     with:
-      container-tag: f36-release
-      branch: f36-release
+      container-tag: f37-release
+      branch: f37-release
