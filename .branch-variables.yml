@@ -1,1 +1,13 @@
-branch_type: "test"
+# Settings for infrastructure autogeneration
+#
+# See also:
+#     scripts/jinja-render
+#     make reload-infra
+#
+# Follow "type hints" below or be sad. The choice is yours.
+
+distro_name: "fedora" # "fedora" or "rhel"
+distro_release: "rawhide" # "rawhide" or a number without quotation marks
+
+# The following only applies for rawhide.
+branched_fedora_version: 37 # number without quotation marks, or nothing if CI should not run for branched Fedora
