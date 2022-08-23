@@ -4,4 +4,12 @@
 
 set -eu
 
-./autogen.sh && ./configure && make webui-tests
+build_cmd="
+sudo ./scripts/testing/install_dependencies.sh -y
+./autogen.sh && ./configure && make rpms
+"
+
+toolbox create --container fedora-toolbox-latest
+toolbox run --container fedora-toolbox-latest /bin/sh -c "${build_cmd}" || exit 1
+
+make webui-tests
