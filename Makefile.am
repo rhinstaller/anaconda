@@ -415,6 +415,6 @@ coverage-report:
 	@cat tests/coverage-report.log
 
 reload-infra:
-	for template in $$(find . -type f -name '*.j2'); do \
+	@for template in $$(find . -type f -name '*.j2'); do \
 		$(TEMPLATE_RENDERER) $${template} $${template%.j2}; \
 	done
