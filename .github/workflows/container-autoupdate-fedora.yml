@@ -17,14 +17,6 @@ jobs:
       container-tag: master
       branch: master
 
-  f36-devel:
-    if: false
-    uses: ./.github/workflows/container-rebuild-action.yml
-    secrets: inherit
-    with:
-      container-tag: f36-devel
-      branch: f36-devel
-
   f36-release:
     if: false
     uses: ./.github/workflows/container-rebuild-action.yml

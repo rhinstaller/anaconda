@@ -59,7 +59,7 @@ jobs:
           if [ "$TARGET_BRANCH" == "master" ]; then
             echo "::set-output name=skip_tests::skip-on-fedora"
             echo "::set-output name=platform::fedora_rawhide"
-          elif echo "$TARGET_BRANCH" | grep -qE "f[[:digit:]]+-(devel|release)$"; then
+          elif echo "$TARGET_BRANCH" | grep -qE "f[[:digit:]]+-release$"; then
             echo "::set-output name=skip_tests::skip-on-fedora"
             echo "::set-output name=platform::fedora_rawhide"
           elif echo "$TARGET_BRANCH" | grep -qE "rhel-8(\.[[:digit:]]+)?$"; then

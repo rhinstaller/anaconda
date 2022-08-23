@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - master
-      - f[0-9]+-devel
       - f[0-9]+-release
 
 permissions:
