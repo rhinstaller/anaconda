@@ -4,12 +4,14 @@
 
 set -eu
 
-build_cmd="
-sudo ./scripts/testing/install_dependencies.sh -y
-./autogen.sh && ./configure && make rpms
-"
+# Create the SRPM in the Cockpit container.
+echo "DEBUG: Creating SRPM ..."
+./autogen.sh && ./configure && make srpm
 
-toolbox create --container fedora-toolbox-latest
-toolbox run --container fedora-toolbox-latest /bin/sh -c "${build_cmd}" || exit 1
+# Build the RPM in a mock environment to get the right Python version.
+echo "DEBUG: Creating RPM ..."
+mock -r fedora-rawhide-x86_64 --resultdir=./result/build/01-rpm-build ./result/build/00-srpm-build/anaconda-*.src.rpm
 
+# Run the Web UI tests.
+echo "DEBUG: Running tests ..."
 make webui-tests
