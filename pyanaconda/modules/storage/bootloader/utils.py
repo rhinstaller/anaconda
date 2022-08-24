@@ -226,12 +226,6 @@ def create_bls_entries(sysroot, storage, kernel_versions):
     if os.path.exists(sysroot + "/usr/sbin/new-kernel-pkg"):
         return
 
-    # Remove any existing BLS entries, they will not match the new system's
-    # machine-id or /boot mountpoint.
-    for file in glob(sysroot + "/boot/loader/entries/*.conf"):
-        log.info("Removing old BLS entry: %s", file)
-        os.unlink(file)
-
     # Create new BLS entries for this system
     for kernel in kernel_versions:
         log.info("Regenerating BLS info for %s", kernel)
