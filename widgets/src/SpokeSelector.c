@@ -301,6 +301,7 @@ static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
     /* Create the status label. */
     spoke->priv->status_label = gtk_label_new(_(DEFAULT_STATUS));
     gtk_label_set_justify(GTK_LABEL(spoke->priv->status_label), GTK_JUSTIFY_LEFT);
+    gtk_label_set_line_wrap(GTK_LABEL(spoke->priv->status_label), TRUE);
     gtk_label_set_xalign(GTK_LABEL(spoke->priv->status_label), 0.0);
     gtk_label_set_yalign(GTK_LABEL(spoke->priv->status_label), 0.0);
     gtk_label_set_ellipsize(GTK_LABEL(spoke->priv->status_label), PANGO_ELLIPSIZE_MIDDLE);
