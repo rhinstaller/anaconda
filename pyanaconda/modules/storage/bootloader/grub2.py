@@ -379,8 +379,6 @@ class GRUB2(BootLoader):
     @property
     def install_targets(self):
         """ List of (stage1, stage2) tuples representing install targets. """
-        targets = []
-
         # make sure we have stage1 and stage2 installed with redundancy
         # so that boot can succeed even in the event of failure or removal
         # of some of the disks containing the member partitions of the
@@ -388,33 +386,26 @@ class GRUB2(BootLoader):
         # be a partition on a particular disk (biosboot, prepboot), so only
         # add the redundant targets if installing stage1 to a disk that is
         # a member of the stage2 array.
+        stage2_parents = []
 
         # Look for both mdraid and btrfs raid
         if self.stage2_device.type == "mdarray" and \
            self.stage2_device.level in self.stage2_raid_levels:
-            stage2_raid = True
             # Set parents to the list of partitions in the RAID
             stage2_parents = self.stage2_device.parents
         elif self.stage2_device.type == "btrfs subvolume" and \
            self.stage2_device.parents[0].data_level in self.stage2_raid_levels:
-            stage2_raid = True
             # Set parents to the list of partitions in the parent volume
             stage2_parents = self.stage2_device.parents[0].parents
-        else:
-            stage2_raid = False
 
-        if stage2_raid and \
+        if stage2_parents and \
            self.stage1_device.is_disk and \
            self.stage2_device.depends_on(self.stage1_device):
-            for stage2dev in stage2_parents:
-                # if target disk contains any of /boot array's member
-                # partitions, set up stage1 on each member's disk
-                stage1dev = stage2dev.disk
-                targets.append((stage1dev, self.stage2_device))
-        else:
-            targets.append((self.stage1_device, self.stage2_device))
+            # If target disk contains any of /boot array's member
+            # partitions, set up stage1 on each member's disk.
+            return [(d.disk, self.stage2_device) for d in stage2_parents]
 
-        return targets
+        return super().install_targets
 
     def install(self, args=None):
         if args is None:
