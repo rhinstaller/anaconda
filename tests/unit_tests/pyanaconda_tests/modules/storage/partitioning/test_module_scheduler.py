@@ -86,9 +86,9 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
 
         os_data = self.interface.GenerateSystemData("dev1")
         assert get_native(os_data) == {
-            'mount-points': {'/boot': 'dev1', '/': 'dev2'},
             'os-name': 'New anaconda bluesky Installation',
-            'swap-devices': ['dev3']
+            'devices': ['dev1', 'dev2', 'dev3'],
+            'mount-points': {'/boot': 'dev1', '/': 'dev2'},
         }
 
     def test_collect_new_devices(self):
@@ -151,15 +151,15 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
 
         self.storage.roots = [Root(
             name="My Linux",
+            devices=[dev2, dev3],
             mounts={"/": dev2},
-            swaps=[dev3]
         )]
 
         os_data_list = self.interface.CollectSupportedSystems()
         assert get_native(os_data_list) == [{
             'os-name': 'My Linux',
+            'devices': ['dev2', 'dev3'],
             'mount-points': {'/': 'dev2'},
-            'swap-devices': ['dev3']
         }]
 
     def test_get_default_file_system(self):
