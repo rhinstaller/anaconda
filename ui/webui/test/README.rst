@@ -70,6 +70,7 @@ After the code is changed the testing environemnt needs to be updated.
 The most robust way of doing this is (from top level directory)::
 
     rm -rf ui/webui/dist/ updates.img
+    rm result/build/01-rpm-build/anaconda-*.rpm
     make rpms
     cd ui/webui
     make ../../updates.img
