@@ -28,7 +28,7 @@ LABEL maintainer=anaconda-devel@lists.fedoraproject.org
 
 # The anaconda.spec.in is in the repository root. This file will be copied automatically here if
 # the build is invoked by Makefile.
-COPY ["anaconda.spec.in", "/root/"]
+COPY ["anaconda.spec.in", "requirements.txt", "/root/"]
 
 # Prepare environment and install build dependencies
 RUN set -ex; \
@@ -56,12 +56,10 @@ RUN set -ex; \
     https://kojipkgs.fedoraproject.org//packages/nodejs/18.6.0/1.fc37/x86_64/nodejs-18.6.0-1.fc37.x86_64.rpm \
     https://kojipkgs.fedoraproject.org//packages/nodejs/18.6.0/1.fc37/x86_64/nodejs-libs-18.6.0-1.fc37.x86_64.rpm \
     # TODO pylint and dill are patched in rawhide for python 3.11, remove once released in pip too
-    python3-pylint \
     python3-dill; \
   else \
     # TODO pylint and dill are patched in ELN for python 3.11, remove once released in pip too
     dnf -y install \
-    python3-pylint \
     python3-dill; \
   fi; \
   # Install rest of the dependencies
@@ -89,16 +87,7 @@ RUN set -ex; \
   dnf clean all
 
 RUN pip install --no-cache-dir --upgrade pip; \
-  pip install --no-cache-dir \
-  pocketlint \
-  coverage \
-  pycodestyle \
-  dogtail \
-  rpmfluff \
-  freezegun \
-  pytest \
-  pyyaml \
-  jinja2
+  pip install --no-cache-dir -r /root/requirements.txt
 
 RUN mkdir /anaconda
 
