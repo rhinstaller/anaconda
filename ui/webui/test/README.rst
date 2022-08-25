@@ -18,6 +18,11 @@ to be able to run `make` command first. See `<../../../CONTRIBUTING.rst#how-to-r
 
     make rpms
 
+It is highly recommended to build the packages in an enviroment (eg container) with a Fedora version corresponding to the tested installer ISO, for example:
+
+    toolbox create --image registry.fedoraproject.org/fedora-toolbox:latest
+    toolbox run --container fedora-toolbox-latest ./autogen.sh;./configure;make rpms
+
 Then prepare an updates.img containing the anaconda RPMs and the cockpit dependencies::
 
     cd ui/webui
@@ -71,7 +76,7 @@ The most robust way of doing this is (from top level directory)::
 
     rm -rf ui/webui/dist/ updates.img
     rm result/build/01-rpm-build/anaconda-*.rpm
-    make rpms
+    toolbox run --container fedora-toolbox-latest make rpms
     cd ui/webui
     make ../../updates.img
 
