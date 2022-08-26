@@ -766,6 +766,17 @@ class MiscTests(unittest.TestCase):
         script1.run.assert_called_once_with("/")
         script2.run.assert_not_called()
 
+    def test_dracut_eject(self):
+        """Test writing the device eject dracut shutdown hook."""
+        devname = "/some/device"
+        with tempfile.TemporaryDirectory() as tmpdir:
+            hook_file_path = tmpdir + "/longer_path/hook.file"
+            with patch("pyanaconda.core.util.DRACUT_SHUTDOWN_EJECT", new=hook_file_path):
+                util.dracut_eject(devname)
+                with open(hook_file_path, "r") as f:
+                    file_contents = "\n".join(f.readlines())
+                    assert "eject " + devname in file_contents
+
 
 class LazyObjectTestCase(unittest.TestCase):
 
