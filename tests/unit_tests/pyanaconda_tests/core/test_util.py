@@ -732,6 +732,25 @@ class MiscTests(unittest.TestCase):
         assert not util.restorecon(["baz"], root="/root")
         exec_mock.assert_called_once_with("restorecon", ["-r", "baz"], root="/root")
 
+    @patch("pyanaconda.core.util.execWithCapture")
+    @patch("pyanaconda.core.util.os.path.exists")
+    def test_ipmi_report(self, exists_mock, exec_mock):
+        """Test IPMI reporting"""
+        # IPMI present
+        exists_mock.side_effect = [True, True]
+        util.ipmi_report(util.IPMI_ABORTED)  # the actual value does not matter
+        assert util._supports_ipmi is True
+        assert exists_mock.call_count == 2
+        assert exec_mock.call_count == 1
+        assert exec_mock.mock_calls[0].args[0] == "ipmitool"
+
+        # IPMI not present
+        util._supports_ipmi = None  # reset the global state
+        exists_mock.side_effect = [True, False]
+        exec_mock.reset_mock()
+        util.ipmi_report(util.IPMI_ABORTED)
+        assert util._supports_ipmi is False
+        exec_mock.assert_not_called()
 
 class LazyObjectTestCase(unittest.TestCase):
 
