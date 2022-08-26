@@ -402,8 +402,8 @@ run-rpm-tests-only: rpms
 	$(MAKE) TEST_SUITE_LOG=test-suite.log RPM_PATH=$(RPM_BUILD_DIR) \
 			ROOT_ANACONDA_PATH=$(abs_srcdir) TESTS=rpm_tests/rpm_tests.sh check
 
-webui-tests: rpms
-	$(MAKE) RPM_PATH=$(RPM_BUILD_DIR) --directory ui/webui integration-test
+webui-tests: srpm
+	$(MAKE) --directory ui/webui integration-test
 
 coverage-report:
 	$(COVERAGE) combine tests/.coverage.*

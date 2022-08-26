@@ -1,0 +1,59 @@
+#!/usr/bin/env python3
+
+# derived from test/image-prepare in cockpit-project/cockpit
+
+import argparse
+import os
+import shutil
+import subprocess
+import sys
+
+BOTS_DIR = os.path.realpath(f'{__file__}/../../bots')
+sys.path.append(BOTS_DIR)
+
+from machine.machine_core import machine_virtual  # NOQA: imported through parent.py
+
+
+def build_rpms(srpm, image, verbose, quick):
+    subprocess.check_call([os.path.join(BOTS_DIR, "image-download"), image])
+    machine = machine_virtual.VirtMachine(image=image)
+    try:
+        machine.start()
+        machine.wait_boot()
+        machine.execute("su builder -c 'mkdir -p /var/tmp/build/SRPMS'")
+        vm_srpm = os.path.join("/var/tmp/build/SRPMS", os.path.basename(srpm))
+        machine.upload([os.path.realpath(srpm)], vm_srpm)
+
+        # build rpms
+        mock_opts = ("--verbose" if verbose else "") + (" --nocheck" if quick else "")
+        machine.execute("su builder -c 'mock --no-clean --disablerepo=* --offline --resultdir /var/tmp/build "
+                        f"{mock_opts} --rebuild /var/tmp/build/SRPMS/*.src.rpm'", timeout=1800)
+
+        # download rpms
+        vm_rpms = machine.execute("find /var/tmp/build -name '*.rpm' -not -name '*.src.rpm'").strip().split()
+
+        destdir = os.path.abspath("tmp/rpms")
+        if os.path.exists(destdir):
+            shutil.rmtree(destdir)
+        os.makedirs(destdir)
+
+        rpms = []
+        for rpm in vm_rpms:
+            machine.download(rpm, destdir)
+            rpms.append(os.path.join(destdir, os.path.basename(rpm)))
+        return rpms
+    finally:
+        machine.stop()
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--quick', '-q', action='store_true')
+    parser.add_argument('--verbose', '-v', action='store_true')
+    parser.add_argument('--image', default='fedora-37')
+    parser.add_argument('srpm')
+    args = parser.parse_args()
+
+    build_rpms(args.srpm, args.image, args.verbose, args.quick)
+
+main()

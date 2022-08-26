@@ -79,7 +79,7 @@ bots:
 	@echo "checked out bots/ ref $$(git -C bots rev-parse HEAD)"
 	cd test && ln -s ../bots/images images
 
-$(UPDATES_IMG):
+$(UPDATES_IMG): bots
 	test/prepare-updates-img
 
 integration-test: bots test/common test/reference $(UPDATES_IMG)

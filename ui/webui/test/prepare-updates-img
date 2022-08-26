@@ -2,15 +2,20 @@
 
 set -e
 
-# makeupdates must be run from the top level of the anaconda source tree
-cd ../../
-
 # FIXME boot.iso on rawhide does not currently contain the new cockpit dependencies
 # This will change once we include this changes upstream and start building boot.iso with the new dependencies
 # Then we can safely remove this workaround
-test ! -e cockpit-ws*.rpm && curl -LO https://kojipkgs.fedoraproject.org//packages/cockpit/259/1.fc35/x86_64/cockpit-ws-259-1.fc35.x86_64.rpm
-test ! -e cockpit-bridge*.rpm && curl -LO https://kojipkgs.fedoraproject.org//packages/cockpit/259/1.fc35/x86_64/cockpit-bridge-259-1.fc35.x86_64.rpm
+(
+    # store these separately so we don't need to download them each time
+    mkdir -p tmp/extra-rpms
+    cd tmp/extra-rpms
+    test -e tmp/rpms/cockpit-ws*.rpm || curl -LO https://kojipkgs.fedoraproject.org//packages/cockpit/259/1.fc35/x86_64/cockpit-ws-259-1.fc35.x86_64.rpm
+    test -e cockpit-bridge*.rpm || curl -LO https://kojipkgs.fedoraproject.org//packages/cockpit/259/1.fc35/x86_64/cockpit-bridge-259-1.fc35.x86_64.rpm
+)
 
-scripts/makeupdates --add result/build/01-rpm-build/anaconda-*.rpm --add cockpit-*.rpm
+# build the anaconda srpm (and result RPMs go in `tmp/rpms`)
+test/build-rpms -v ../../result/build/00-srpm-build/anaconda-*.src.rpm
 
-cd ui/webui/
+# makeupdates must be run from the top level of the anaconda source tree
+cd ../../
+scripts/makeupdates --add ui/webui/tmp/rpms/anaconda-*.rpm ui/webui/tmp/extra-rpms/cockpit-*.rpm
