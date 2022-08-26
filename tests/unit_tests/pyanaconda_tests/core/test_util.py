@@ -752,6 +752,21 @@ class MiscTests(unittest.TestCase):
         assert util._supports_ipmi is False
         exec_mock.assert_not_called()
 
+    @patch("pyanaconda.core.util.ipmi_report")
+    def test_ipmi_abort(self, ipmi_mock):
+        """Test termination with IPMI messaging and running onerror scripts."""
+        from pykickstart.constants import KS_SCRIPT_ONERROR, KS_SCRIPT_POST
+
+        script1 = Mock(type=KS_SCRIPT_ONERROR)
+        script2 = Mock(type=KS_SCRIPT_POST)
+
+        util.ipmi_abort([script1, script2])
+
+        ipmi_mock.assert_called_with(util.IPMI_ABORTED)
+        script1.run.assert_called_once_with("/")
+        script2.run.assert_not_called()
+
+
 class LazyObjectTestCase(unittest.TestCase):
 
     class Object(object):
