@@ -472,24 +472,15 @@ class MiscTests(unittest.TestCase):
         # at least check if a bool is returned
         assert isinstance(util.isConsoleOnVirtualTerminal(), bool)
 
-    def test_vt_activate(self):
+    @patch("pyanaconda.core.util.execWithRedirect")
+    def test_vt_activate(self, exec_mock):
         """Test vtActivate."""
+        exec_mock.return_value = 0
+        assert util.vtActivate(2) is True
 
-        # pylint: disable=no-member
-
-        def raise_os_error(*args, **kwargs):
-            raise OSError
-
-        _execWithRedirect = util.vtActivate.__globals__['execWithRedirect']
-
-        try:
-            # chvt does not exist on all platforms
-            # and the function needs to correctly survie that
-            util.vtActivate.__globals__['execWithRedirect'] = raise_os_error
-
-            assert util.vtActivate(2) is False
-        finally:
-            util.vtActivate.__globals__['execWithRedirect'] = _execWithRedirect
+        # chvt does not exist on all platforms
+        exec_mock.side_effect = OSError
+        assert util.vtActivate(2) is False
 
     def test_cmp_obj_attrs(self):
         """Test cmp_obj_attrs."""
