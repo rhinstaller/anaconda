@@ -659,19 +659,17 @@ class MiscTests(unittest.TestCase):
             version = util.get_os_release_value("VERSION_ID", root)
             assert version is None
 
-    def test_detect_virtualized_platform(self):
+    @patch("pyanaconda.core.util.execWithCapture")
+    def test_detect_virtualized_platform(self, exec_mock):
         """Test the function detect_virtualized_platform."""
-        with patch('pyanaconda.core.util.execWithCapture') as execute:
-            execute.side_effect = OSError
-            assert util.detect_virtualized_platform() is None
+        exec_mock.side_effect = OSError
+        assert util.detect_virtualized_platform() is None
 
-        with patch('pyanaconda.core.util.execWithCapture') as execute:
-            execute.return_value = "none"
-            assert util.detect_virtualized_platform() is None
+        exec_mock.side_effect = ["none"]
+        assert util.detect_virtualized_platform() is None
 
-        with patch('pyanaconda.core.util.execWithCapture') as execute:
-            execute.return_value = "vmware"
-            assert util.detect_virtualized_platform() == "vmware"
+        exec_mock.side_effect = ["vmware"]
+        assert util.detect_virtualized_platform() == "vmware"
 
     @patch("pyanaconda.core.util.open")
     @patch("pyanaconda.core.util.blivet.arch.is_arm")
