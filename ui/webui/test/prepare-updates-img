@@ -9,8 +9,8 @@ set -e
     # store these separately so we don't need to download them each time
     mkdir -p tmp/extra-rpms
     cd tmp/extra-rpms
-    test -e tmp/rpms/cockpit-ws*.rpm || curl -LO https://kojipkgs.fedoraproject.org//packages/cockpit/259/1.fc35/x86_64/cockpit-ws-259-1.fc35.x86_64.rpm
-    test -e cockpit-bridge*.rpm || curl -LO https://kojipkgs.fedoraproject.org//packages/cockpit/259/1.fc35/x86_64/cockpit-bridge-259-1.fc35.x86_64.rpm
+    test -e tmp/rpms/cockpit-ws*.rpm || curl -LO https://kojipkgs.fedoraproject.org//packages/cockpit/275/1.fc38/x86_64/cockpit-ws-275-1.fc38.x86_64.rpm
+    test -e cockpit-bridge*.rpm || curl -LO https://kojipkgs.fedoraproject.org//packages/cockpit/275/1.fc38/x86_64/cockpit-bridge-275-1.fc38.x86_64.rpm
 )
 
 # build the anaconda srpm (and result RPMs go in `tmp/rpms`)
