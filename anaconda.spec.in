@@ -24,6 +24,7 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %else
 %bcond_with live
 %endif
+%define cockpitver 275
 %define dasbusver 1.3
 %define dbusver 1.2.3
 %define dnfver 3.6.0
@@ -258,8 +259,12 @@ Add this package to an image build (eg. with lorax) to ensure all Anaconda capab
 %if %use_cockpit
 %package webui
 Summary: Cockpit based user interface for the Anaconda installer
-Requires: cockpit-bridge
-Requires: cockpit-ws
+Requires: cockpit-bridge >= %{cockpitver}
+Requires: cockpit-ws >= %{cockpitver}
+# WebKit dependency needs to be specified there as cockpit web-view does not have a hard dependency on webkit as
+# it can normally fall back to a regular browser. This does not work in the limited installer
+# environment, so we need to make sure the WebKit API is available.
+Requires: webkit2gtk4.1
 
 %description webui
 This package contains Cockpit based user interface for the Anaconda installer.

@@ -45,7 +45,7 @@ class TestStorage(MachineCase):
 
         # Check disks table details
         s.check_disk_visible("vda")
-        s.check_disk_capacity("vda", "15 GiB", "15 GiB")
+        s.check_disk_capacity("vda", "16.1 GB", "16.1 GB")
 
         # Pixel test the storage step
         b.assert_pixels(
