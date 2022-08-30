@@ -16,7 +16,6 @@ FROM ${image}
 # dependencies.
 # possible values:
 #   master
-#   f35-devel
 #   f35-release
 ARG git_branch
 ARG copr_repo=@rhinstaller/Anaconda

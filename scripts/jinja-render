@@ -51,17 +51,24 @@ def parse_args():
     config = parser.parse_args()
     return vars(config)
 
-def render_file(config, variables):
-    """Renders a file as a Jinja2 template and populates it with variables."""
+def make_env(loader):
+    """Create a jinja environment with a given loader."""
     env = Environment(
-        loader=FileSystemLoader(os.path.dirname(config["input"])),
+        loader=loader,
         keep_trailing_newline=True,
-        undefined = StrictUndefined,
+        undefined=StrictUndefined,
         block_start_string=BLOCK_START_STRING,
         block_end_string=BLOCK_END_STRING,
         variable_start_string=VARIABLE_START_STRING,
-        variable_end_string=VARIABLE_END_STRING
+        variable_end_string=VARIABLE_END_STRING,
+        trim_blocks=True,
+        lstrip_blocks=True,
     )
+    return env
+
+def render_file(config, variables):
+    """Renders a file as a Jinja2 template and populates it with variables."""
+    env = make_env(FileSystemLoader(os.path.dirname(config["input"])))
     content = env.get_template(os.path.basename(config["input"]))
     content = content.render(variables)
 
@@ -69,16 +76,7 @@ def render_file(config, variables):
 
 def render_string(string, variables):
     """Renders a given string as a Jinja2 template and populates it with variables."""
-    # Create jinja environment.
-    env = Environment(
-        loader=BaseLoader,
-        keep_trailing_newline=True,
-        undefined = StrictUndefined,
-        block_start_string=BLOCK_START_STRING,
-        block_end_string=BLOCK_END_STRING,
-        variable_start_string=VARIABLE_START_STRING,
-        variable_end_string=VARIABLE_END_STRING
-    )
+    env = make_env(BaseLoader)
     template = env.from_string(string)
     content = template.render(variables)
     return content
@@ -101,9 +99,18 @@ def main():
 
     variables.update({"template_file_name": os.path.basename(config["input"])})
 
-    rendered_disclaimer = render_string(DISCLAIMER, variables)
-    content = rendered_disclaimer + render_file(config, variables)
-    write_file(content, config["output"])
+    print("Loading template {}".format(config["input"]))
+    rendered_file = render_file(config, variables)
+    if rendered_file.strip():
+        rendered_disclaimer = render_string(DISCLAIMER, variables)
+        content = rendered_disclaimer + rendered_file
+        print("Saving rendered result to {}".format(config["output"]))
+        write_file(content, config["output"])
+    else:
+        # delete files that end up completely empty
+        print("Empty result, removing {}".format(config["output"]))
+        if os.path.exists(config["output"]):
+            os.remove(config["output"])
 
 if __name__ == "__main__":
     main()
