@@ -36,6 +36,8 @@ cppcheck_output="$(echo "$filelist" |
         --enable=warning,unusedFunction \
         --suppressions-list=cppcheck/suppression-list.txt \
         -DG_DEFINE_TYPE \
+        -DG_DEFINE_ABSTRACT_TYPE \
+        -DG_DEFINE_TYPE_WITH_CODE \
         -DHAVE_WORKING_FORK \
         --force \
         2>&1 )"
