@@ -1,3 +1,4 @@
+{% if distro_release == "rawhide" %}
 name: Try building a release daily
 # Build a release tarball for all supported branches to verify the code is releasable.
 
@@ -16,7 +17,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        branch: ['master', 'rhel-8', 'rhel-9'] # depending on season, also: fNN-release
+        {% if branched_fedora_version is defined and branched_fedora_version %}
+        branch: ['master', 'rhel-8', 'rhel-9', 'f{$ branched_fedora_version $}-release']
+        {% else %}
+        branch: ['master', 'rhel-8', 'rhel-9']
+        {% endif %}
 
     steps:
       - name: Check out repo
@@ -68,3 +73,4 @@ jobs:
           else
             exit 1
           fi
+{% endif %}
