@@ -17,11 +17,67 @@ In that case just ignore all section that require you to be an Anaconda maintain
 - you need to have the Fedora Kerberos based authentication setup
 - you need to have committer access to the anaconda package on Fedora distgit
 
-Using ``rpmbuild`` path
------------------------
+The (mostly) automated build path
+---------------------------------
+This is the default way of building the Anaconda package & should be used as long as the automation works.
+If the automation is not working, fall back to the manual method until it has been fixed.
+
+The overall workflow can be summarized to 3 steps:
+
+- Anaconda release tarball build
+- Packit PR in Fedora distgit
+- start build in Fedora distgit
+
+0. have an up to date Anaconda repo clone and ``master`` branch checked out
+
+1. tag an Anaconda release:
+
+::
+
+    ./scripts/makebumpver -c
+
+2. check the commit and tag are correct
+
+3. push the master branch to the remote
+
+::
+
+      git push master --tags
+
+4. this should trigger a GitHub workflow that will create a new Anaconda release + release tarball, taking ~10 minutes
+
+5. visit https://github.com/rhinstaller/anaconda/releases and check the new draft release look correct
+
+6. if the release looks fine, click the edit icon and release the draft as a regular non-draft release
+
+7. this will trigger Packit to open a PR in Fedora distgit https://src.fedoraproject.org/rpms/anaconda/pull-requests in the next ~10 minutes
+
+8. check the PR looks correct and ideally wait for all the CI jobs started on the PR to run to the end & investigate any failures
+
+9. if all is good enough, merge the PR
+
+10. use fedpkg to trigger the build (no, there is no button for this just yet...)
+
+::
+      fedpkg clone anaconda
+      cd anaconda
+      fedpkg switch-branch rawhide
+      fedpkg build
+
+if you already have a distgit checkout, you can do just:
+
+::
+      fedpkg switch-branch rawhide
+      git pull
+      fedpkg build
+
+11. this should start the package build in koji - wait for it to succeed or debug any failures
+
+Using the manual ``rpmbuild`` path
+----------------------------------
 This is more standard and stable way to make Anaconda release. The drawback of this method is you need to have
 everything installed locally so you are required to install a lot of dependencies to your system. For the mock
-environment way see mock path below.
+environment way see mock path below. It is also fully manual.
 
 
 1. do any changes that are needed to anaconda.spec.in
