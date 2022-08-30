@@ -97,7 +97,9 @@ RUN pip install --no-cache-dir --upgrade pip; \
   dogtail \
   rpmfluff \
   freezegun \
-  pytest
+  pytest \
+  pyyaml \
+  jinja2
 
 RUN mkdir /anaconda
 
