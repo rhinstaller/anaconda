@@ -31,6 +31,10 @@ example to run just some unit tests please do this::
 The ``UNIT_TESTS_PATTERN`` variable is passed to `pytest -k`_. See
 the documentation for more info.
 
+To run a different kind of test than unit tests, do this::
+
+    make -f Makefile.am container-ci CI_CMD="make check TESTS='cppcheck/runcppcheck.sh'"
+
 WARNING:
 
 *Just one command* can be passed like this, if `&&` is used then only first
