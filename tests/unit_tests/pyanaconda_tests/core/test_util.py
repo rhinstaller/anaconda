@@ -472,24 +472,15 @@ class MiscTests(unittest.TestCase):
         # at least check if a bool is returned
         assert isinstance(util.isConsoleOnVirtualTerminal(), bool)
 
-    def test_vt_activate(self):
+    @patch("pyanaconda.core.util.execWithRedirect")
+    def test_vt_activate(self, exec_mock):
         """Test vtActivate."""
+        exec_mock.return_value = 0
+        assert util.vtActivate(2) is True
 
-        # pylint: disable=no-member
-
-        def raise_os_error(*args, **kwargs):
-            raise OSError
-
-        _execWithRedirect = util.vtActivate.__globals__['execWithRedirect']
-
-        try:
-            # chvt does not exist on all platforms
-            # and the function needs to correctly survie that
-            util.vtActivate.__globals__['execWithRedirect'] = raise_os_error
-
-            assert util.vtActivate(2) is False
-        finally:
-            util.vtActivate.__globals__['execWithRedirect'] = _execWithRedirect
+        # chvt does not exist on all platforms
+        exec_mock.side_effect = OSError
+        assert util.vtActivate(2) is False
 
     def test_cmp_obj_attrs(self):
         """Test cmp_obj_attrs."""
@@ -668,19 +659,17 @@ class MiscTests(unittest.TestCase):
             version = util.get_os_release_value("VERSION_ID", root)
             assert version is None
 
-    def test_detect_virtualized_platform(self):
+    @patch("pyanaconda.core.util.execWithCapture")
+    def test_detect_virtualized_platform(self, exec_mock):
         """Test the function detect_virtualized_platform."""
-        with patch('pyanaconda.core.util.execWithCapture') as execute:
-            execute.side_effect = OSError
-            assert util.detect_virtualized_platform() is None
+        exec_mock.side_effect = OSError
+        assert util.detect_virtualized_platform() is None
 
-        with patch('pyanaconda.core.util.execWithCapture') as execute:
-            execute.return_value = "none"
-            assert util.detect_virtualized_platform() is None
+        exec_mock.side_effect = ["none"]
+        assert util.detect_virtualized_platform() is None
 
-        with patch('pyanaconda.core.util.execWithCapture') as execute:
-            execute.return_value = "vmware"
-            assert util.detect_virtualized_platform() == "vmware"
+        exec_mock.side_effect = ["vmware"]
+        assert util.detect_virtualized_platform() == "vmware"
 
     @patch("pyanaconda.core.util.open")
     @patch("pyanaconda.core.util.blivet.arch.is_arm")
@@ -742,6 +731,51 @@ class MiscTests(unittest.TestCase):
         exec_mock.side_effect = FileNotFoundError
         assert not util.restorecon(["baz"], root="/root")
         exec_mock.assert_called_once_with("restorecon", ["-r", "baz"], root="/root")
+
+    @patch("pyanaconda.core.util.execWithCapture")
+    @patch("pyanaconda.core.util.os.path.exists")
+    def test_ipmi_report(self, exists_mock, exec_mock):
+        """Test IPMI reporting"""
+        # IPMI present
+        exists_mock.side_effect = [True, True]
+        util.ipmi_report(util.IPMI_ABORTED)  # the actual value does not matter
+        assert util._supports_ipmi is True
+        assert exists_mock.call_count == 2
+        assert exec_mock.call_count == 1
+        assert exec_mock.mock_calls[0].args[0] == "ipmitool"
+
+        # IPMI not present
+        util._supports_ipmi = None  # reset the global state
+        exists_mock.side_effect = [True, False]
+        exec_mock.reset_mock()
+        util.ipmi_report(util.IPMI_ABORTED)
+        assert util._supports_ipmi is False
+        exec_mock.assert_not_called()
+
+    @patch("pyanaconda.core.util.ipmi_report")
+    def test_ipmi_abort(self, ipmi_mock):
+        """Test termination with IPMI messaging and running onerror scripts."""
+        from pykickstart.constants import KS_SCRIPT_ONERROR, KS_SCRIPT_POST
+
+        script1 = Mock(type=KS_SCRIPT_ONERROR)
+        script2 = Mock(type=KS_SCRIPT_POST)
+
+        util.ipmi_abort([script1, script2])
+
+        ipmi_mock.assert_called_with(util.IPMI_ABORTED)
+        script1.run.assert_called_once_with("/")
+        script2.run.assert_not_called()
+
+    def test_dracut_eject(self):
+        """Test writing the device eject dracut shutdown hook."""
+        devname = "/some/device"
+        with tempfile.TemporaryDirectory() as tmpdir:
+            hook_file_path = tmpdir + "/longer_path/hook.file"
+            with patch("pyanaconda.core.util.DRACUT_SHUTDOWN_EJECT", new=hook_file_path):
+                util.dracut_eject(devname)
+                with open(hook_file_path, "r") as f:
+                    file_contents = "\n".join(f.readlines())
+                    assert "eject " + devname in file_contents
 
 
 class LazyObjectTestCase(unittest.TestCase):
