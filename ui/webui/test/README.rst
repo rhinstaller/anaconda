@@ -132,7 +132,7 @@ Make sure to set::
 before running any commands suggested there. For updating pixel test reference images you can use
 the available the Makefile target::
 
-    make update-test-reference
+    make update-reference-images
 
 
 Test Configuration
