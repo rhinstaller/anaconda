@@ -76,6 +76,8 @@ class AutoPartitioningModule(PartitioningModule):
         if data.autopart.noswap:
             request.excluded_mount_points.append("swap")
 
+        request.hibernation = data.autopart.hibernation
+
         if data.autopart.encrypted:
             request.encrypted = True
             request.passphrase = data.autopart.passphrase
@@ -103,6 +105,8 @@ class AutoPartitioningModule(PartitioningModule):
         data.autopart.nohome = "/home" in self.request.excluded_mount_points
         data.autopart.noboot = "/boot" in self.request.excluded_mount_points
         data.autopart.noswap = "swap" in self.request.excluded_mount_points
+
+        data.autopart.hibernation = self.request.hibernation
 
         data.autopart.encrypted = self.request.encrypted
 

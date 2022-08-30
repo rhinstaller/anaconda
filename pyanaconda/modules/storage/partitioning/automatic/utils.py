@@ -266,31 +266,39 @@ def get_default_partitioning():
 
     # Get the product-specific partitioning.
     for attrs in conf.storage.default_partitioning:
-        name = attrs.get("name")
-        swap = name == "swap"
-        schemes = set()
-
-        if attrs.get("btrfs"):
-            schemes.add(AUTOPART_TYPE_BTRFS)
-
-        spec = PartSpec(
-            mountpoint=name if not swap else None,
-            fstype=None if not swap else "swap",
-            lv=True,
-            thin=not swap,
-            btr=not swap,
-            size=attrs.get("min") or attrs.get("size"),
-            max_size=attrs.get("max"),
-            grow="min" in attrs,
-            required_space=attrs.get("free") or 0,
-            encrypted=True,
-            schemes=schemes,
-        )
-
-        partitioning.append(spec)
+        partitioning.append(get_part_spec(attrs))
 
     return partitioning
 
+
+def get_part_spec(attrs):
+    """Creates an instance of PartSpec.
+
+    :param attrs: A dictionary containing the configuration
+    :return: a partitioning spec
+    :rtype: PartSpec
+    """
+    name = attrs.get("name")
+    swap = name == "swap"
+    schemes = set()
+
+    if attrs.get("btrfs"):
+        schemes.add(AUTOPART_TYPE_BTRFS)
+
+    spec = PartSpec(
+        mountpoint=name if not swap else None,
+        fstype=None if not swap else "swap",
+        lv=True,
+        thin=not swap,
+        btr=not swap,
+        size=attrs.get("min") or attrs.get("size"),
+        max_size=attrs.get("max"),
+        grow="min" in attrs,
+        required_space=attrs.get("free") or 0,
+        encrypted=True,
+        schemes=schemes,
+    )
+    return spec
 
 def schedule_partitions(storage, disks, implicit_devices, scheme, requests, encrypted=False,
                         luks_fmt_args=None):

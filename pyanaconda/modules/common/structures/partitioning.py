@@ -32,6 +32,7 @@ class PartitioningRequest(DBusData):
         self._partitioning_scheme = conf.storage.default_scheme
         self._file_system_type = ""
         self._excluded_mount_points = []
+        self._hibernation = False
 
         self._encrypted = False
         self._passphrase = ""
@@ -90,6 +91,21 @@ class PartitioningRequest(DBusData):
         :return: a list of mount points
         """
         return self._excluded_mount_points
+
+    @property
+    def hibernation(self) -> Bool:
+        """Should the partitioning include hibernation swap?
+
+        If True a swap partition large enough for hibernation will be created
+        even if swap was not configured in the Anaconda configuration file.
+
+        :return: True or False
+        """
+        return self._hibernation
+
+    @hibernation.setter
+    def hibernation(self, value: Bool):
+        self._hibernation = value
 
     @excluded_mount_points.setter
     def excluded_mount_points(self, mount_points: List[Str]):
