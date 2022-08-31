@@ -41,7 +41,7 @@ class TestStorage(MachineCase):
         i.open()
         i.next()
 
-        b.wait_visible('label:contains(Local standard disks)')
+        b.wait_visible('section:contains(Local standard disks)')
 
         # Check disks table details
         s.check_disk_visible("vda")
@@ -54,6 +54,13 @@ class TestStorage(MachineCase):
             ignore=["#betanag-icon", "#installation-destination-table-label"],
             wait_animations=False,
         )
+
+        # Check bulk selection of disks
+        s.select_all_disks_and_check(["vda"])
+        s.select_none_disks_and_check(["vda"])
+
+        s.click_checkbox_and_check_all_disks(["vda"], selected=True)
+        s.click_checkbox_and_check_all_disks(["vda"], selected=False)
 
         # Try unselecting the single disk and expect and error
         s.select_disk("vda", False)
