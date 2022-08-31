@@ -22,6 +22,7 @@ import functools
 import os
 import json
 from collections import namedtuple
+from pwd import getpwnam
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
@@ -235,6 +236,25 @@ def _find_best_help_file(current_locale, available_files):
     return None
 
 
+def _get_help_user():
+    """Get the uid to run help viewer under.
+
+    Currently, this means: Let's see if we can run yelp under liveuser on live.
+    For details, see: https://bugzilla.redhat.com/show_bug.cgi?id=2118832
+
+    :return: user
+    :rtype: int | None
+    """
+    if not conf.system.provides_liveuser:
+        return None
+
+    try:
+        user = getpwnam("liveuser")
+        return user.pw_uid
+    except KeyError:
+        return None
+
+
 def show_graphical_help(help_path, help_anchor=None):
     """Start a new yelp process and make sure to kill any existing ones.
 
@@ -262,4 +282,6 @@ def show_graphical_help(help_path, help_anchor=None):
     else:
         args.append(help_path)
 
-    yelp_process = startProgram(["yelp", *args], reset_lang=False)
+    user = _get_help_user()
+
+    yelp_process = startProgram(["yelp", *args], reset_lang=False, user=user)
