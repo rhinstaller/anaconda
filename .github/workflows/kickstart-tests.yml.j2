@@ -1,3 +1,4 @@
+{% if distro_release == "rawhide" %}
 # Run kickstart tests in a PR triggered by a "/kickstart-test <launch args>" comment from an organization member.
 name: kickstart-tests
 on:
@@ -59,7 +60,7 @@ jobs:
           if [ "$TARGET_BRANCH" == "master" ]; then
             echo "::set-output name=skip_tests::skip-on-fedora"
             echo "::set-output name=platform::fedora_rawhide"
-          elif echo "$TARGET_BRANCH" | grep -qE "f[[:digit:]]+-(devel|release)$"; then
+          elif echo "$TARGET_BRANCH" | grep -qE "f[[:digit:]]+-release$"; then
             echo "::set-output name=skip_tests::skip-on-fedora"
             echo "::set-output name=platform::fedora_rawhide"
           elif echo "$TARGET_BRANCH" | grep -qE "rhel-8(\.[[:digit:]]+)?$"; then
@@ -308,3 +309,4 @@ jobs:
           target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+{% endif %}

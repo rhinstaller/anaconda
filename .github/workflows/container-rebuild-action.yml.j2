@@ -1,8 +1,8 @@
+{% if distro_release == "rawhide" %}
 name: Rebuild container images
 # Rebuilds both ci and rpm container images for a given "target". Currently known targets:
 #  - master
 #  - eln
-#  - fNN-devel
 #  - fNN-release
 #
 # Image is:
@@ -97,3 +97,4 @@ jobs:
 
       - name: Push container to registry
         run: make -f Makefile.am anaconda-${{ matrix.container-type }}-push
+{% endif %}

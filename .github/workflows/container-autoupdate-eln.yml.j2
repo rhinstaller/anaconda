@@ -1,3 +1,4 @@
+{% if distro_release == "rawhide" %}
 # a smaller sibling of the Fedora refresh; split to provide cleaner statuses
 name: Refresh ELN container images
 on:
@@ -18,3 +19,4 @@ jobs:
       container-tag: eln
       branch: master
       base-container: 'quay.io/fedoraci/fedora:eln-x86_64'
+{% endif %}

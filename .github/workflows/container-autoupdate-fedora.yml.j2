@@ -1,3 +1,4 @@
+{% if distro_release == "rawhide" %}
 name: Refresh Fedora container images
 on:
   schedule:
@@ -17,18 +18,12 @@ jobs:
       container-tag: master
       branch: master
 
-  f36-devel:
-    if: false
+  {% if branched_fedora_version is defined and branched_fedora_version %}
+  f{$ branched_fedora_version $}-release:
     uses: ./.github/workflows/container-rebuild-action.yml
     secrets: inherit
     with:
-      container-tag: f36-devel
-      branch: f36-devel
-
-  f36-release:
-    if: false
-    uses: ./.github/workflows/container-rebuild-action.yml
-    secrets: inherit
-    with:
-      container-tag: f36-release
-      branch: f36-release
+      container-tag: f{$ branched_fedora_version $}-release
+      branch: f{$ branched_fedora_version $}-release
+  {% endif %}
+{% endif %}

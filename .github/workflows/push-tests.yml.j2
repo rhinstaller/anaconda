@@ -1,9 +1,9 @@
+{% if distro_release == "rawhide" %}
 name: Run tests on push
 on:
   push:
     branches:
       - master
-      - f[0-9]+-devel
       - f[0-9]+-release
 
 permissions:
@@ -35,3 +35,4 @@ jobs:
       - name: Upload coverage to Codecov
         if: always()
         uses: codecov/codecov-action@v3
+{% endif %}

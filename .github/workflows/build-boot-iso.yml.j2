@@ -1,3 +1,4 @@
+{% if distro_release == "rawhide" %}
 # Build a boot.iso from a PR triggered by a "/boot-iso" comment or manually.
 name: Build boot.iso
 on:
@@ -149,3 +150,4 @@ jobs:
           target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+{% endif %}

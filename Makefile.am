@@ -68,6 +68,9 @@ SRPM_BUILD_DIR = $(BUILD_RESULT_DIR)/00-srpm-build
 RPM_BUILD_DIR = $(BUILD_RESULT_DIR)/01-rpm-build
 TEST_INST_BUILD_DIR = $(BUILD_RESULT_DIR)/02-test-install
 
+# Program for rendering infra Jinja2 templates
+TEMPLATE_RENDERER = scripts/jinja-render
+
 CONTAINER_ENGINE ?= podman
 # build/run tweaks for all containers, such as --cap-add
 CONTAINER_BUILD_ARGS ?= --no-cache
@@ -410,3 +413,8 @@ coverage-report:
 	$(COVERAGE) report -m --include "pyanaconda/dbus*,pyanaconda/modules/*,pyanaconda/core/*" \
 								     > tests/coverage-modular.log
 	@cat tests/coverage-report.log
+
+reload-infra:
+	@for template in $$(find . -type f -name '*.j2'); do \
+		$(TEMPLATE_RENDERER) $${template} $${template%.j2}; \
+	done

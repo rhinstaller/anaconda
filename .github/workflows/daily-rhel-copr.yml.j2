@@ -1,3 +1,4 @@
+{% if distro_release == "rawhide" %}
 # Do a build of the rhel-8 branch to RH internal COPR
 name: Build current anaconda rhel-8 branch in RHEL COPR
 on:
@@ -33,3 +34,4 @@ jobs:
           set -eux
           /copr-builder/copr-builder -v -c /copr-builder/copr-builder-rhel.conf -C /copr-builder/copr-rhel-token
           EOF
+{% endif %}
