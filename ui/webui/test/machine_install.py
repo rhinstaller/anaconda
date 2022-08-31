@@ -114,12 +114,14 @@ class VirtInstallMachine(VirtMachine):
         if self.http_server:
             self.http_server.kill()
 
+    # pylint: disable=arguments-differ  # this fails locally if you have bots checked out
     def add_disk(self, size=2):
         image = f"/var/tmp/disk-{self.label}.qcow2"
 
         self._execute(f"qemu-img create -f qcow2 {image} {size}G")
         self._execute(f"virt-xml -c qemu:///session {self.label} --update --add-device --disk {image},format=qcow2,size={size}")
 
+    # pylint: disable=arguments-differ  # this fails locally if you have bots checked out
     def wait_poweroff(self):
         for _ in range(10):
             try:
