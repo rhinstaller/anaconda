@@ -98,7 +98,7 @@ from pykickstart.commands.raid import F29_RaidData as RaidData
 from pykickstart.commands.repo import F30_RepoData as RepoData
 from pykickstart.commands.snapshot import F26_SnapshotData as SnapshotData
 from pykickstart.commands.sshpw import F24_SshPwData as SshPwData
-from pykickstart.commands.sshkey import F22_SshKeyData as SshKeyData
+from pykickstart.commands.sshkey import F38_SshKeyData as SshKeyData
 from pykickstart.commands.timesource import F33_TimesourceData as TimesourceData
 from pykickstart.commands.user import F19_UserData as UserData
 from pykickstart.commands.volgroup import F21_VolGroupData as VolGroupData
