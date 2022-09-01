@@ -162,10 +162,14 @@ const Footer = ({ isFormValid, setIsFormValid, setStepNotification, isInProgress
                     );
                     const nextButtonText = (
                         activeStep.id === "installation-review"
-                            ? _("Begin installation")
+                            ? _("Erase disks and install")
                             : _("Next")
                     );
-
+                    const nextButtonVariant = (
+                        activeStep.id === "installation-review"
+                            ? "warning"
+                            : "primary"
+                    );
                     return (
                         <Stack hasGutter>
                             {activeStep.id === "installation-review" &&
@@ -184,7 +188,7 @@ const Footer = ({ isFormValid, setIsFormValid, setStepNotification, isInProgress
                                 <Button
                                   id="installation-next-btn"
                                   aria-describedby="next-tooltip-ref"
-                                  variant="primary"
+                                  variant={nextButtonVariant}
                                   isDisabled={
                                       !isFormValid ||
                                       nextWaitsConfirmation

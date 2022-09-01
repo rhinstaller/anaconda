@@ -26,6 +26,7 @@ import {
     DescriptionList, DescriptionListGroup,
     DescriptionListTerm, DescriptionListDescription,
     Modal, ModalVariant,
+    Alert
 } from "@patternfly/react-core";
 
 import {
@@ -84,6 +85,15 @@ export const ReviewConfiguration = ({ idPrefix }) => {
             <Title headingLevel="h3">
                 {_("Installation destination")}
             </Title>
+            <Alert
+              isInline
+              variant="warning"
+              title={_("To prevent loss, make sure to backup your data. ")}
+            >
+                <p>
+                    {_("Erasing the disks cannot be undone.")}
+                </p>
+            </Alert>
             <DataList>
                 {selectedDisks.map(selectedDisk => (
                     <DataListItem key={selectedDisk}>

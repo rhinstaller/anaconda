@@ -37,7 +37,7 @@ class Installer():
 
     def begin_installation(self, should_fail=False, confirm_erase=True):
         current_step_id = self.get_current_page_id()
-        self.browser.click("button:contains('Begin installation')")
+        self.browser.click("button:contains('Erase disks and install')")
 
         if confirm_erase:
             self.browser.click(f"#{self.steps.REVIEW}-disk-erase-confirm")
