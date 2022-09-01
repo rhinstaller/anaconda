@@ -29,3 +29,14 @@ updates:
       prefix: "infra"
     labels:
       - "sanity check required"
+
+  # Set update schedule for pip in containers
+  - package-ecosystem: "pip"
+    directory: "/dockerfile"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "infra"
+    labels:
+      - "infrastructure"
+      - "sanity check required"

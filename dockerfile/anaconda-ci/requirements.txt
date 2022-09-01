@@ -1,0 +1,21 @@
+# pip package install list
+# storing it as an independent file enables Dependabot to bump versions with noise and attention
+# silent updates of pylint and astroid usually cause breakages
+# for format details see https://pip.pypa.io/en/stable/reference/requirements-file-format/
+
+# unit tests of all kinds
+pocketlint
+coverage
+pycodestyle
+dogtail
+rpmfluff
+freezegun
+pytest
+
+# jinja templates
+pyyaml
+jinja2
+
+# pylint and its supporting libs
+pylint == 2.15.0
+astroid == 2.12.5
