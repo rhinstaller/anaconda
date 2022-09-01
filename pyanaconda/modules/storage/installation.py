@@ -17,7 +17,9 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import itertools
 import os
+import shutil
 import parted
 
 from datetime import timedelta
@@ -26,9 +28,12 @@ from time import sleep
 from blivet import callbacks as blivet_callbacks, util as blivet_util, arch
 from blivet.errors import FSResizeError, FormatResizeError, StorageError
 from blivet.util import get_current_entropy
+from blivet.devicelibs.lvm import HAVE_LVMDEVICES
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
+from pyanaconda.core.util import join_paths
+from pyanaconda.core.path import make_directories
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.constants.objects import ISCSI, FCOE, ZFCP
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -281,6 +286,8 @@ class WriteConfigurationTask(Task):
         storage.make_mtab()
         storage.fsset.write()
 
+        self._write_lvm_devices_file(self._storage, sysroot)
+
         iscsi_proxy = STORAGE.get_proxy(ISCSI)
         iscsi_proxy.WriteConfiguration()
 
@@ -326,6 +333,30 @@ class WriteConfigurationTask(Task):
             log.error("failed to store encryption key: %s", e)
 
         log.debug("escrow: write_escrow_packets done")
+
+    @staticmethod
+    def _write_lvm_devices_file(storage, sysroot):
+        """Create the LVM devices file for the target system.
+
+        Adds all present PVs according to https://bugzilla.redhat.com/show_bug.cgi?id=2011329#c9
+        The file is located at /etc/lvm/devices/system.devices
+
+        :param Blivet storage: instance of Blivet or a subclass
+        :param str sysroot: path to the target OS installation
+        """
+        if not HAVE_LVMDEVICES:
+            return
+
+        for device in itertools.chain(storage.devices, storage.devicetree._hidden):
+            if device.format and device.format.type == "lvmpv":
+                device.format.lvmdevices_add()
+
+        in_filename = "/etc/lvm/devices/system.devices"
+        out_filename = join_paths(sysroot, in_filename)
+
+        if os.path.exists(in_filename):
+            make_directories(os.path.dirname(out_filename))
+            shutil.copyfile(in_filename, out_filename)
 
     def _write_dasd_conf(self, storage, sysroot):
         """Write DASD configuration to sysroot.
