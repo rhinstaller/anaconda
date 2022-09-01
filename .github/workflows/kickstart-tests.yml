@@ -110,6 +110,7 @@ jobs:
         with:
           route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
           context: '${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.launch_args }}'
+          description: 'gathering repositories'
           state: pending
           target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
         env:
@@ -175,6 +176,17 @@ jobs:
       - name: Update container images used here
         run: |
           sudo podman pull quay.io/rhinstaller/kstest-runner:latest
+
+      - name: Post status building artifacts
+        uses: octokit/request-action@v2.x
+        with:
+          route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
+          context: '${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.launch_args }}'
+          description: 'building artifacts'
+          state: pending
+          target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build anaconda-iso-creator container image
         working-directory: ./anaconda
@@ -249,6 +261,17 @@ jobs:
           directPath=${{ github.workspace }}/kickstart-tests/testlib
           EOF
 
+      - name: Post status running tests
+        uses: octokit/request-action@v2.x
+        with:
+          route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
+          context: '${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.launch_args }}'
+          description: 'running tests'
+          state: pending
+          target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Run kickstart tests in container
         working-directory: ./permian
         run: |
@@ -311,6 +334,7 @@ jobs:
         with:
           route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
           context: '${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.launch_args }}'
+          description: 'finished'
           state: ${{ job.status }}
           target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
         env:
