@@ -89,7 +89,7 @@ export const HelpDrawer = ({ isExpanded, setIsExpanded, children }) => {
     );
 
     return (
-        <Drawer isExpanded={isExpanded} position="right" onExpand={onExpand}>
+        <Drawer isExpanded={isExpanded} isInline position="right" onExpand={onExpand}>
             <DrawerContent panelContent={panelContent}>
                 <DrawerContentBody>{children}</DrawerContentBody>
             </DrawerContent>
