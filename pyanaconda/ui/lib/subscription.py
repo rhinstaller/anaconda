@@ -24,6 +24,8 @@ from pyanaconda.core.constants import THREAD_WAIT_FOR_CONNECTING_NM, \
     SOURCE_TYPE_HDD, SOURCE_TYPE_CDN, SOURCE_TYPES_OVERRIDEN_BY_CDN, SECRET_TYPE_HIDDEN, \
     SECRET_TYPE_TEXT, PAYLOAD_TYPE_DNF
 from pyanaconda.core.i18n import _
+from pyanaconda.errors import errorHandler, ERROR_RAISE
+
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common import task
 from pyanaconda.modules.common.structures.subscription import SubscriptionRequest
@@ -121,6 +123,20 @@ def is_cdn_registration_required(payload):
 
     subscription_proxy = SUBSCRIPTION.get_proxy()
     return not subscription_proxy.IsSubscriptionAttached
+
+
+# Kickstart error handling
+
+class KickstartRegistrationError(Exception):
+    """Registration attempt from kickstart failed."""
+    pass
+
+
+def kickstart_error_handler(message):
+    """Helper function which raises exception if kickstart triggered registration fails."""
+    exn = KickstartRegistrationError(message)
+    if errorHandler.cb(exn) == ERROR_RAISE:
+        raise exn
 
 # Asynchronous registration + subscription & unregistration handling
 #
