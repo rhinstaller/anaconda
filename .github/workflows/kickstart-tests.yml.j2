@@ -85,7 +85,7 @@ jobs:
   run:
     needs: pr-info
     # only do this for Fedora for now; once we have RHEL 8/9 boot.iso builds working, also support these
-    if: needs.pr-info.outputs.allowed_user == 'true' && needs.pr-info.outputs.launch_args != ''
+    if: needs.pr-info.outputs.allowed_user == 'true' && needs.pr-info.outputs.launch_args != '' && ! contains(github.event.comment.body, '--waive')
     runs-on: [self-hosted, kstest]
     timeout-minutes: 300
     env:
@@ -329,6 +329,31 @@ jobs:
           route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
           context: '${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.launch_args }}'
           description: 'finished'
+          state: ${{ job.status }}
+          target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  waive:
+    runs-on: ubuntu-latest
+    needs: pr-info
+    if: needs.pr-info.outputs.allowed_user == 'true' && contains(github.event.comment.body, '--waive')
+    steps:
+
+      - name: Get the waiving reason
+        id: get_reason
+        env:
+          BODY: ${{ github.event.comment.body }}
+        run: |
+          REASON=$(echo "$BODY" | sed -e "s#/status-test --waive ##")
+          echo "::set-output name=reason::Waived, $REASON"
+
+      - name: Set status
+        uses: octokit/request-action@v2.x
+        with:
+          route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
+          context: '/kickstart-test --testtype smoke'
+          description: '${{ steps.get_reason.outputs.reason }}'
           state: ${{ job.status }}
           target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
         env:
