@@ -24,7 +24,7 @@ from unittest.mock import patch, Mock
 from pyanaconda.core.constants import DisplayModes
 from pyanaconda.ui.lib.help import _get_help_mapping, show_graphical_help, _get_help_args, \
     HelpArguments, get_help_path_for_screen, show_graphical_help_for_screen, localize_help_file, \
-    _get_help_args_for_screen, _get_help_user
+    _get_help_args_for_screen, _get_help_user, HelpUser
 
 INVALID_MAPPING = """
 This is an invalid mapping.
@@ -214,7 +214,9 @@ class HelpSupportTestCase(unittest.TestCase):
         starter.assert_called_once_with(
             ["yelp", "/my/file"],
             reset_lang=False,
-            user=None
+            user=None,
+            env_prune=None,
+            env_add=None,
         )
         user_mock.assert_called_once_with()
         user_mock.reset_mock()
@@ -224,7 +226,9 @@ class HelpSupportTestCase(unittest.TestCase):
         starter.assert_called_once_with(
             ["yelp", "ghelp:/my/file?my-anchor"],
             reset_lang=False,
-            user=None
+            user=None,
+            env_prune=None,
+            env_add=None,
         )
         user_mock.assert_called_once_with()
         user_mock.reset_mock()
@@ -279,7 +283,13 @@ class HelpSupportTestCase(unittest.TestCase):
             show_graphical_help_for_screen("installation-summary")
 
             help_path = os.path.join(tmp_dir, "en-US", "SummaryHub.xml")
-            starter.assert_called_once_with(["yelp", help_path], reset_lang=False, user=None)
+            starter.assert_called_once_with(
+                ["yelp", help_path],
+                reset_lang=False,
+                user=None,
+                env_prune=None,
+                env_add=None,
+            )
             user_mock.assert_called_once_with()
             starter.reset_mock()
             user_mock.reset_mock()
@@ -291,7 +301,13 @@ class HelpSupportTestCase(unittest.TestCase):
             help_path = os.path.join(tmp_dir, "en-US", "UserSpoke.xml")
             yelp_arg = "ghelp:" + help_path + "?create-user"
             user_mock.assert_called_once_with()
-            starter.assert_called_once_with(["yelp", yelp_arg], reset_lang=False, user=None)
+            starter.assert_called_once_with(
+                ["yelp", yelp_arg],
+                reset_lang=False,
+                user=None,
+                env_prune=None,
+                env_add=None,
+            )
 
     @patch("pyanaconda.ui.lib.help.conf")
     @patch("pyanaconda.ui.lib.help.getpwnam")
@@ -304,7 +320,7 @@ class HelpSupportTestCase(unittest.TestCase):
         # live and has user
         conf_mock.system.provides_liveuser = True
         getpwnam_mock.return_value = Mock(pw_uid=1024)
-        assert _get_help_user() == 1024
+        assert _get_help_user() == HelpUser(name="liveuser", uid=1024)
         getpwnam_mock.assert_called_once_with("liveuser")
         getpwnam_mock.reset_mock()
 
