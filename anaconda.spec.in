@@ -490,6 +490,28 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 06 2022 Martin Kolman <mkolman@redhat.com> - 38.4-1
+- Run yelp under liveuser if possible (vslavik)
+- Disable the Unregister button during unregistration (mkolman)
+- Update outdated system purpose related strings (mkolman)
+- Always set system purpose from GUI (mkolman)
+- Report registration errors from kickstart (mkolman)
+- Do not pass rd.znet on to installed system unconditionally (jstodola)
+- Ignore dependabot commits in changelog (vslavik)
+- Web UI: Increase visibility of warning messages (ozobal)
+- Drop packit override for webui package build (mkolman)
+- Create the LVM devices file, if supported (vslavik)
+- Remove unused import that snuck in somehow (vslavik)
+- Bump SshKeyData version (vslavik)
+- Bump pykickstart version for F38_AutoPart (vslavik)
+- Document the automated Anaconda package release process (mkolman)
+- Web UI: for disks selection show empty label rather than '0 selected'
+  (rvykydal)
+- Web UI: use toolbox in disk selection (rvykydal)
+- Web UI: Show the help drawer next to content (ozobal)
+- Silence pylint warnings in webui code (vslavik)
+- Remove execInSysroot (vslavik)
+
 * Tue Aug 30 2022 Martin Kolman <mkolman@redhat.com> - 38.3-1
 - Add --hibernation option for Kickstart autopart (ozobal)
 - Docs: How to run non-unit tests in CI standalone (#docs) (vslavik)
