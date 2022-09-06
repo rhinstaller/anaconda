@@ -33,6 +33,7 @@ jobs:
 
   - job: propose_downstream
     trigger: release
+    dist_git_branches: main
 
   - job: tests
     trigger: pull_request
@@ -62,6 +63,10 @@ jobs:
     preserve_project: True
 
 {% elif distro_name == "fedora" %}
+
+  - job: propose_downstream
+    trigger: release
+    dist_git_branches: f{$ distro_release $}
 
   - job: tests
     trigger: pull_request
