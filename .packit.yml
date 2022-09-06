@@ -39,6 +39,7 @@ jobs:
 
   - job: propose_downstream
     trigger: release
+    dist_git_branches: main
 
   - job: tests
     trigger: pull_request
