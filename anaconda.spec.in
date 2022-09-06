@@ -407,6 +407,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 06 2022 Radek Vykydal <rvykydal@redhat.com> - 34.25.1.13-1
+- gui: fix summary hub layout for Japanese translations (rvykydal)
+  Resolves: rhbz#2120293
+
 * Wed Aug 17 2022 Martin Kolman <mkolman@redhat.com> - 34.25.1.12-1
 - Improve Register button click feedback (mkolman)
   Resolves: rhbz#2074636
