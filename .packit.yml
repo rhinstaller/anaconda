@@ -30,45 +30,41 @@ jobs:
 
   - job: tests
     trigger: pull_request
-    metadata:
-      targets:
-        - fedora-rawhide
+    targets:
+      - fedora-rawhide
 
   - job: copr_build
     trigger: pull_request
-    metadata:
-      targets:
-        - fedora-rawhide
-      additional_repos:
-        # This repository contains fixup of Rawhide broken environment.
-        # Mainly useful when there is a package which is not yet in Rawhide but build is available.
-        - "https://fedorapeople.org/groups/anaconda/repos/anaconda_fixup_repo/"
+    targets:
+      - fedora-rawhide
+    additional_repos:
+      # This repository contains fixup of Rawhide broken environment.
+      # Mainly useful when there is a package which is not yet in Rawhide but build is available.
+      - "https://fedorapeople.org/groups/anaconda/repos/anaconda_fixup_repo/"
 
   - job: copr_build
     trigger: commit
-    metadata:
-      targets:
-        - fedora-rawhide
-      branch: master
-      owner: "@rhinstaller"
-      project: Anaconda
-      additional_repos:
-        # This repository contains fixup of Rawhide broken environment.
-        # Mainly useful when there is a package which is not yet in Rawhide but build is available.
-        - "https://fedorapeople.org/groups/anaconda/repos/anaconda_fixup_repo/"
-      preserve_project: True
+    targets:
+      - fedora-rawhide
+    branch: master
+    owner: "@rhinstaller"
+    project: Anaconda
+    additional_repos:
+      # This repository contains fixup of Rawhide broken environment.
+      # Mainly useful when there is a package which is not yet in Rawhide but build is available.
+      - "https://fedorapeople.org/groups/anaconda/repos/anaconda_fixup_repo/"
+    preserve_project: True
 
   - job: copr_build
     trigger: commit
-    metadata:
-      targets:
-        - fedora-latest
-      branch: f36-devel
-      owner: "@rhinstaller"
-      project: Anaconda-devel
-      preserve_project: True
-      additional_repos:
-        - "copr://@storage/blivet-daily"
-        # This repository contains fixup of Rawhide broken environment.
-        # Mainly useful when there is a package which is not yet in Rawhide but build is available.
-        - "https://fedorapeople.org/groups/anaconda/repos/anaconda_fixup_repo/"
+    targets:
+      - fedora-latest
+    branch: f36-devel
+    owner: "@rhinstaller"
+    project: Anaconda-devel
+    preserve_project: True
+    additional_repos:
+      - "copr://@storage/blivet-daily"
+      # This repository contains fixup of Rawhide broken environment.
+      # Mainly useful when there is a package which is not yet in Rawhide but build is available.
+      - "https://fedorapeople.org/groups/anaconda/repos/anaconda_fixup_repo/"
