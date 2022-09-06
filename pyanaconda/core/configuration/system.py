@@ -166,3 +166,8 @@ class SystemSection(Section):
     def provides_system_bus(self):
         """Can we access the system DBus?"""
         return self._is_boot_iso or self._is_live_os or self._is_booted_os
+
+    @property
+    def provides_liveuser(self):
+        """Is the user `liveuser` available?"""
+        return self._is_live_os
