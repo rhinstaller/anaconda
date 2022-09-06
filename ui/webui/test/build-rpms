@@ -50,7 +50,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--quick', '-q', action='store_true')
     parser.add_argument('--verbose', '-v', action='store_true')
-    parser.add_argument('--image', default='fedora-37')
+    parser.add_argument('--image', default='fedora-rawhide')
     parser.add_argument('srpm')
     args = parser.parse_args()
 
