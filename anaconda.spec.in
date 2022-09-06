@@ -468,6 +468,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 06 2022 Martin Kolman <mkolman@redhat.com> - 37.12.3-1
+- Run yelp under liveuser with the right environment (vslavik)
+
 * Thu Sep 01 2022 Martin Kolman <mkolman@redhat.com> - 37.12.2-1
 - Run yelp under liveuser if possible (vslavik)
 - Define more macros for cppcheck (vslavik)
