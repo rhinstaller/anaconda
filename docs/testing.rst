@@ -82,6 +82,27 @@ When the reason for the breackage is identified there are two options to go forw
     * If the failure uncovers an actual regression, file bugs for the given Fedora components. If it does not look like the issue will be
       fixed quickly, work around in Anaconda or add a `naughty override file <https://github.com/cockpit-project/bots/tree/main/naughty/>`_, thus marking the expected failure pattern.
 
+Fix a class of NPM errors that can break Web UI tests
+-----------------------------------------------------
+
+This issue manifests as failed build of Anaconda RPMs due to NPM errors, that prevents Web UI tests to be started at all. This differs
+from an actual bug in NPM dependency specification or NPM package maintainers going all "it works on my machine" again in two key aspects:
+
+    * the same NPM error suddenly breaks Web UI tests on *all* PRs
+    * when Web UI tests are run locally outside of Cockpit CI the build succeeds and the test are started
+
+What you are seeing is breakage in NPM caching the Cockpit CI is using to avoid issues with the massive NPM consumption of the infra.
+The mechanism it usually works fine, but sometimes the cache update mechanism can get stuck, resulting in the cache going stale causing
+this issue to manifest.
+
+How to fix:
+
+   * retry the test run on the PR - sometimes no all the builders are currently affected, retrying might run the test on different builder
+   * report the issue to the Cockpit team - on #cockpit on Libera Chat IRC or as a new issue in https://github.com/cockpit-project/cockpit/issues
+
+In the end, someone from the Cockpit team will tell the builders in the Cockpit infra to drop their cache, fixing the issue or the affected
+builder possibly gets cleaned up by some automated mechanism over time.
+
 Fix Web UI pixel tests
 ----------------------
 
