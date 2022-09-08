@@ -24,7 +24,9 @@ import unittest
 from unittest.mock import patch, mock_open, Mock
 from textwrap import dedent
 
-from pyanaconda.startup_utils import print_dracut_errors, check_if_geolocation_should_be_used
+from pyanaconda.startup_utils import print_dracut_errors, check_if_geolocation_should_be_used, \
+    start_geolocation_conditionally, wait_for_geolocation
+from pyanaconda.core.constants import GEOLOC_CONNECTION_TIMEOUT
 
 
 class StartupUtilsTestCase(unittest.TestCase):
@@ -48,6 +50,10 @@ class StartupUtilsTestCase(unittest.TestCase):
         logger_mock = Mock()
         print_dracut_errors(logger_mock)
         logger_mock.assert_not_called()
+
+
+class StartupUtilsGeolocTestCase(unittest.TestCase):
+    """Test geolocation startup helpers."""
 
     @patch("pyanaconda.startup_utils.flags")
     @patch("pyanaconda.startup_utils.conf")
@@ -102,3 +108,55 @@ class StartupUtilsTestCase(unittest.TestCase):
         opts_mock.geoloc = None
         opts_mock.geoloc_use_with_ks = None
         assert check_if_geolocation_should_be_used(opts_mock) is True
+
+    @patch("pyanaconda.startup_utils.is_module_available")
+    @patch("pyanaconda.startup_utils.check_if_geolocation_should_be_used")
+    @patch("pyanaconda.startup_utils.TIMEZONE")
+    def test_geoloc_start_no(self, tz_mock, check_mock, avail_mock):
+        """Test geolocation is correctly skipped."""
+        mock_opts = Mock()
+
+        check_mock.return_value = False
+        avail_mock.return_value = False
+        assert start_geolocation_conditionally(mock_opts) is None
+        tz_mock.get_proxy.assert_not_called()
+
+        check_mock.return_value = True
+        avail_mock.return_value = False
+        assert start_geolocation_conditionally(mock_opts) is None
+        tz_mock.get_proxy.assert_not_called()
+
+        check_mock.return_value = False
+        avail_mock.return_value = True
+        assert start_geolocation_conditionally(mock_opts) is None
+        tz_mock.get_proxy.assert_not_called()
+
+    @patch("pyanaconda.startup_utils.is_module_available", return_value=True)
+    @patch("pyanaconda.startup_utils.check_if_geolocation_should_be_used", return_value=True)
+    @patch("pyanaconda.startup_utils.TIMEZONE")
+    def test_geoloc_start_yes(self, tz_mock, check_mock, avail_mock):
+        """Test geolocation is correctly skipped."""
+        mock_opts = Mock()
+
+        task_proxy = start_geolocation_conditionally(mock_opts)
+        tz_mock.get_proxy.assert_called()
+        task_proxy.Start.assert_called_once_with()
+
+    @patch("pyanaconda.startup_utils.wait_for_task")
+    def test_geoloc_wait(self, wait_mock):
+
+        wait_for_geolocation(None)
+        wait_mock.assert_not_called()
+
+        proxy_mock = Mock()
+        wait_for_geolocation(proxy_mock)
+        wait_mock.assert_called_once_with(proxy_mock, timeout=GEOLOC_CONNECTION_TIMEOUT)
+        wait_mock.reset_mock()
+
+        proxy_mock = Mock()
+        wait_mock.side_effect = TimeoutError
+        with self.assertLogs(level="DEBUG") as cm:
+            wait_for_geolocation(proxy_mock)
+        wait_mock.assert_called_once_with(proxy_mock, timeout=GEOLOC_CONNECTION_TIMEOUT)
+        logs = "\n".join(cm.output)
+        assert "timed out" in logs

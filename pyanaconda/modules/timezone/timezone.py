@@ -47,7 +47,6 @@ class TimezoneService(KickstartService):
         self.timezone_changed = Signal()
         self._timezone = "America/New_York"
 
-        self._geoloc_task = None
         self.geolocation_result_changed = Signal()
         self._geoloc_result = GeolocationData()
 
@@ -218,23 +217,21 @@ class TimezoneService(KickstartService):
             )
         ]
 
-    def _set_geolocation_result(self):
+    def _set_geolocation_result(self, result):
         """Set geolocation result when the task finished."""
-        self._geoloc_result = self._geoloc_task.get_result()
+        self._geoloc_result = result
         self.geolocation_result_changed.emit()
-        self._geoloc_task = None
         log.debug("Geolocation result is set, valid=%s", not self._geoloc_result.is_empty())
 
-    def start_geolocation(self):
-        """Start geolocation, if not already started."""
-        if self._geoloc_task is not None:
-            log.info("Geoloc: already started")
-            return
+    def start_geolocation_with_task(self):
+        """Start geolocation.
 
-        self._geoloc_task = GeolocationTask()
-        self._geoloc_task.succeeded_signal.connect(self._set_geolocation_result)
-        log.info("Geoloc: starting lookup")
-        self._geoloc_task.start()
+        :return: task to run for geolocation
+        :rtype: Task
+        """
+        task = GeolocationTask()
+        task.succeeded_signal.connect(lambda: self._set_geolocation_result(task.get_result()))
+        return task
 
     @property
     def geolocation_result(self):
