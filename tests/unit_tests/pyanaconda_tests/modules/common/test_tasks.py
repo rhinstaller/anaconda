@@ -25,7 +25,7 @@ from dasbus.server.interface import dbus_class
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.errors.task import NoResultError
 from pyanaconda.modules.common.task import Task, TaskInterface, sync_run_task, \
-    async_run_task
+    async_run_task, wait_for_task
 from tests.unit_tests.pyanaconda_tests import run_in_glib
 
 
@@ -524,3 +524,46 @@ class TaskInterfaceTestCase(unittest.TestCase):
 
         self._check_task_signals(failed=False, succeeded=False)
         assert result is None
+
+    def test_wait_for_task_fail(self):
+        """Wait for task failure"""
+        self._set_up_task(self.FailingTask())
+        self._wait_fail_test()
+
+    @run_in_glib(TIMEOUT)
+    def _wait_fail_test(self):
+        self.task_interface.Start()
+        wait_for_task(self.task_interface, timeout=self.TIMEOUT/2)
+        self._finish_failed_task()
+
+    def test_wait_for_task_success(self):
+        """Wait for task success"""
+        self._set_up_task(self.SimpleTask())
+        self._wait_success_test()
+
+    @run_in_glib(TIMEOUT)
+    def _wait_success_test(self):
+        self.task_interface.Start()
+        wait_for_task(self.task_interface, timeout=self.TIMEOUT/2)
+        self._finish_task()
+
+    def wait_timeout_test(self):
+        """Wait for task and time out"""
+        self._set_up_task(self.SlowTask())
+
+    @run_in_glib(TIMEOUT)
+    def _wait_timeout_test(self):
+        self.task_interface.Start()
+        with pytest.raises(TimeoutError):
+            wait_for_task(self.task_interface, timeout=0.5)
+        wait_for_task(self.task_interface, timeout=0.5)
+        self._finish_task()
+
+    class SlowTask(Task):
+        """Slow task that can time out"""
+        @property
+        def name(self):
+            return "Slow Task"
+
+        def run(self):
+            sleep(0.75)
