@@ -37,6 +37,7 @@ from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.service import start_service
 from pyanaconda.flags import flags
 from pyanaconda.screensaver import inhibit_screensaver
+from pyanaconda.modules.common.task import wait_for_task
 from pyanaconda.modules.common.structures.timezone import TimeSourceData
 from pyanaconda.modules.common.constants.services import TIMEZONE, LOCALIZATION, SERVICES, \
     SECURITY
@@ -646,3 +647,35 @@ def check_if_geolocation_should_be_used(opts):
 
     log.info("Geolocation is enabled.")
     return True
+
+
+def start_geolocation_conditionally(opts):
+    """Start geolocation conditionally, according to the command line or boot options.
+
+    :param opts: the command line/boot options
+    :return: D-Bus proxy for the geolocation task
+    """
+    use_geoloc = check_if_geolocation_should_be_used(opts)
+    if not is_module_available(TIMEZONE) or not use_geoloc:
+        return None
+
+    timezone_proxy = TIMEZONE.get_proxy()
+    geoloc_task_path = timezone_proxy.StartGeolocationWithTask()
+    geoloc_task_proxy = TIMEZONE.get_proxy(geoloc_task_path)
+    geoloc_task_proxy.Start()
+    return geoloc_task_proxy
+
+
+def wait_for_geolocation(geoloc_task_proxy):
+    """Wait for geolocation, if started.
+
+    :param geoloc_task_proxy: D-Bus proxy for a GeolocationTask instance
+    """
+    if not geoloc_task_proxy:
+        return
+
+    try:
+        wait_for_task(geoloc_task_proxy, timeout=constants.GEOLOC_CONNECTION_TIMEOUT)
+        # TODO: set locale here instead of welcome spoke, rename helper
+    except TimeoutError:
+        log.debug("Geolocation timed out. Exceptions will not be logged.")
