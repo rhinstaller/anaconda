@@ -17,10 +17,11 @@
 #
 # Red Hat Author(s): David Lehman <dlehman@redhat.com>
 #
+import copy
 import os
 
 from blivet.blivet import Blivet
-from blivet.devices import BTRFSSubVolumeDevice
+from blivet.devices import BTRFSSubVolumeDevice, PartitionDevice
 from blivet.formats import get_format
 from blivet.formats.disklabel import DiskLabel
 from blivet.size import Size
@@ -55,6 +56,7 @@ class InstallerStorage(Blivet):
 
     def __init__(self):
         super().__init__()
+        self.roots = []
         self.protected_devices = []
         self._escrow_certificates = {}
         self._bootloader = None
@@ -485,3 +487,36 @@ class InstallerStorage(Blivet):
         """
 
         self.fsset.set_fstab_swaps(devices)
+
+    def copy(self):
+        """Create a copy of the storage model."""
+        log.debug("Creating a copy of the storage model.")
+        ###################################################
+        # FIXME: Replace this section with super().copy().
+
+        log.debug("starting Blivet copy")
+
+        new = copy.deepcopy(self)
+        # go through and re-get parted_partitions from the disks since they
+        # don't get deep-copied
+        hidden_partitions = [d for d in new.devicetree._hidden
+                             if isinstance(d, PartitionDevice)]
+        for partition in new.partitions + hidden_partitions:
+            if not partition._parted_partition:
+                continue
+
+            # update the refs in req_disks as well
+            req_disks = (new.devicetree.get_device_by_id(disk.id) for disk in partition.req_disks)
+            partition.req_disks = [disk for disk in req_disks if disk is not None]
+
+            p = partition.disk.format.parted_disk.getPartitionByPath(partition.path)
+            partition.parted_partition = p
+
+        log.debug("finished Blivet copy")
+        ###################################################
+
+        # Create proper copies of the collected installation roots.
+        new.roots = [root.copy(storage=new) for root in new.roots]
+
+        log.debug("Finished a copy of the storage model.")
+        return new
