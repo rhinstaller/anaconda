@@ -843,6 +843,13 @@ class SubscriptionSpoke(NormalSpoke):
 
     def _register(self):
         """Try to register a system."""
+        # set the registrastion phase right away to provide immediate feedback once the
+        # Register button is clicked
+        # - otherwise outdated status text might remain displayed for a while
+        #   before the background thread gets going
+        # - the stale status text might cause confusion to the users
+        self.registration_phase = SubscriptionPhase.REGISTER
+
         # update data in the Subscription DBUS module
         self._set_data_to_module()
 
