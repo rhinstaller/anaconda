@@ -214,6 +214,7 @@ AC_CONFIG_FILES([Makefile
                  tests/Makefile
                  ui/Makefile
                  utils/Makefile
+                 utils/auditd/Makefile
                  utils/dd/Makefile])
 
 ### Include Cockpit part to the make execution as optional ###

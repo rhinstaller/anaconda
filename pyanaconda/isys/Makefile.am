@@ -17,8 +17,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 
-dist_noinst_HEADERS = $(srcdir)/*.h
-
 isysdir     = $(pkgpyexecdir)/isys
 isys_PYTHON = $(srcdir)/*.py
 
@@ -27,11 +25,5 @@ _isys_la_CFLAGS       = $(PYTHON3_CFLAGS)
 _isys_la_LDFLAGS      = -module -avoid-version
 _isys_la_LIBADD       = $(PYTHON3_LIBS)
 _isys_la_SOURCES      = isys.c
-
-auditddir             = $(libexecdir)/$(PACKAGE_NAME)
-auditd_PROGRAMS       = auditd
-auditd_SOURCES        = auditd.c
-auditd_CFLAGS         = $(SELINUX_CFLAGS)
-auditd_LDFLAGS        = -laudit
 
 MAINTAINERCLEANFILES = Makefile.in

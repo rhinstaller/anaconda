@@ -1,6 +1,6 @@
-# utils/Makefile.am for anaconda
+# auditd/Makefile.am for anaconda
 #
-# Copyright (C) 2009  Red Hat, Inc.
+# Copyright (C) 2022  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -15,8 +15,12 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = dd auditd
+dist_noinst_HEADERS = $(srcdir)/*.h
 
-dist_sbin_SCRIPTS    = handle-sshpw
+auditddir             = $(libexecdir)/$(PACKAGE_NAME)
+auditd_PROGRAMS       = auditd
+auditd_SOURCES        = auditd.c
+auditd_CFLAGS         = $(SELINUX_CFLAGS)
+auditd_LDFLAGS        = -laudit
 
 MAINTAINERCLEANFILES = Makefile.in
