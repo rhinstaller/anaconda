@@ -27,9 +27,8 @@ import pkgutil
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.process_watchers import WatchProcesses
-from pyanaconda import isys
 from pyanaconda import startup_utils
-from pyanaconda.core import util, constants
+from pyanaconda.core import util, constants, hw
 from pyanaconda import vnc
 from pyanaconda.core.i18n import _
 from pyanaconda.flags import flags
@@ -131,9 +130,9 @@ def check_vnc_can_be_started(anaconda):
     vnc_startup_possible = True
 
     # disable VNC over text question when not enough memory is available
-    if blivet.util.total_memory() < isys.MIN_GUI_RAM:
+    if blivet.util.total_memory() < hw.MIN_GUI_RAM:
         error_messages.append("Not asking for VNC because current memory (%d) < MIN_GUI_RAM (%d)" %
-                              (blivet.util.total_memory(), isys.MIN_GUI_RAM))
+                              (blivet.util.total_memory(), hw.MIN_GUI_RAM))
         vnc_startup_possible = False
 
     # disable VNC question if text mode is requested and this is a ks install

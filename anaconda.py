@@ -457,10 +457,11 @@ if __name__ == "__main__":
         flags.ksprompt = False
 
     # Set minimal ram size to the storage checker.
+    from pyanaconda.core import hw
     if anaconda.display_mode == constants.DisplayModes.GUI:
-        min_ram = isys.MIN_GUI_RAM
+        min_ram = hw.MIN_GUI_RAM
     else:
-        min_ram = isys.MIN_RAM
+        min_ram = hw.MIN_RAM
 
     from pyanaconda.modules.common.constants.objects import STORAGE_CHECKER
     from dasbus.typing import get_variant, Int

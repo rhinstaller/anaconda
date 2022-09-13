@@ -79,7 +79,7 @@ def check_memory(anaconda, options, display_mode=None):
                          (graphical mode usually needs more RAM, etc.)
     """
 
-    from pyanaconda import isys
+    from pyanaconda.core import hw
 
     reason_strict = _("%(product_name)s requires %(needed_ram)s MB of memory to "
                       "install, but you only have %(total_ram)s MB on this machine.\n")
@@ -101,14 +101,14 @@ def check_memory(anaconda, options, display_mode=None):
         display_mode = anaconda.display_mode
 
     reason = reason_strict
-    total_ram = int(isys.total_memory() / 1024)
-    needed_ram = int(isys.MIN_RAM)
-    graphical_ram = int(isys.MIN_GUI_RAM)
+    total_ram = int(hw.total_memory() / 1024)
+    needed_ram = int(hw.MIN_RAM)
+    graphical_ram = int(hw.MIN_GUI_RAM)
 
     # count the squashfs.img in if it is kept in RAM
     if not util.persistent_root_image():
-        needed_ram += isys.SQUASHFS_EXTRA_RAM
-        graphical_ram += isys.SQUASHFS_EXTRA_RAM
+        needed_ram += hw.SQUASHFS_EXTRA_RAM
+        graphical_ram += hw.SQUASHFS_EXTRA_RAM
 
     log.info("check_memory(): total:%s, needed:%s, graphical:%s",
              total_ram, needed_ram, graphical_ram)

@@ -26,7 +26,7 @@ from blivet import arch, util
 from blivet.devicefactory import get_device_type
 from blivet.size import Size
 
-from pyanaconda import isys
+from pyanaconda.core.hw import NO_SWAP_EXTRA_RAM
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import productName, STORAGE_REFORMAT_BLOCKLIST, \
     STORAGE_REFORMAT_ALLOWLIST, STORAGE_MIN_PARTITION_SIZES, STORAGE_MIN_RAM, \
@@ -301,7 +301,7 @@ def verify_swap(storage, constraints, report_error, report_warning):
 
     if not swaps:
         installed = util.total_memory()
-        required = constraints[STORAGE_MIN_RAM] + Size("{} MiB".format(isys.NO_SWAP_EXTRA_RAM))
+        required = constraints[STORAGE_MIN_RAM] + Size("{} MiB".format(NO_SWAP_EXTRA_RAM))
 
         if not constraints[STORAGE_SWAP_IS_RECOMMENDED]:
             if installed < required:
