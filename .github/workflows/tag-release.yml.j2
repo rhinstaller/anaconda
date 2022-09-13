@@ -1,4 +1,3 @@
-{% if distro_release == "rawhide" %}
 name: Release from tags
 # Create a GitHub release when a tag is pushed.
 
@@ -102,4 +101,3 @@ jobs:
             --title "Anaconda $RELEASE_NAME" \
             --notes-file release.txt \
             /tmp/results/*
-{% endif %}
