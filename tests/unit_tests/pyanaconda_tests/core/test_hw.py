@@ -22,7 +22,8 @@ import pytest
 from textwrap import dedent
 from io import StringIO
 
-from pyanaconda.core.hw import total_memory, is_lpae_available, detect_virtualized_platform
+from pyanaconda.core.hw import total_memory, is_lpae_available, detect_virtualized_platform, \
+    is_smt_enabled
 
 
 class MemoryTests(unittest.TestCase):
@@ -185,3 +186,60 @@ class MiscHwUtilsTests(unittest.TestCase):
 
         mock_open.return_value = StringIO(dedent(cpu_info))
         assert is_lpae_available() is True
+
+    @patch("pyanaconda.flags.flags")
+    @patch("pyanaconda.core.configuration.anaconda.conf")
+    @patch("pyanaconda.core.hw.open")
+    def test_is_smt_enabled(self, open_mock, conf, flags):
+        """Test is_smt_enabled function"""
+
+        # all combinations of flags and conf that prevent execution
+        flags.automatedInstall = True
+        for is_hw in (True, False):
+            for smt_on in (True, False):
+                conf.target.is_hardware = is_hw
+                conf.system.can_detect_enabled_smt = smt_on
+                assert is_smt_enabled() is False
+        open_mock.assert_not_called()
+
+        conf.target.is_hardware = False
+        for auto_inst in (True, False):
+            for smt_on in (True, False):
+                flags.automatedInstall = auto_inst
+                conf.system.can_detect_enabled_smt = smt_on
+                assert is_smt_enabled() is False
+        open_mock.assert_not_called()
+
+        conf.system.can_detect_enabled_smt = False
+        for auto_inst in (True, False):
+            for is_hw in (True, False):
+                flags.automatedInstall = auto_inst
+                conf.target.is_hardware = is_hw
+                assert is_smt_enabled() is False
+        open_mock.assert_not_called()
+
+        # for the rest, keep the combination that allows actual hw check
+        flags.automatedInstall = False
+        conf.target.is_hardware = True
+        conf.system.can_detect_enabled_smt = True
+
+        # diverse values to try
+        test_combinations = (
+            ("1", True),
+            ("  1 \n", True),
+            ("0", False),
+            ("fdsfdsafsa", False),
+            ("256", False),
+            ("\n", False)
+        )
+        for f_input, f_output in test_combinations:
+            open_mock.reset_mock()
+            open_mock.return_value = StringIO(f_input)
+            assert is_smt_enabled() is f_output
+            open_mock.assert_called_once_with("/sys/devices/system/cpu/smt/active")
+
+        # failed to open the "file"
+        open_mock.reset_mock()
+        open_mock.side_effect = OSError
+        assert is_smt_enabled() is False
+        open_mock.assert_called_once_with("/sys/devices/system/cpu/smt/active")
