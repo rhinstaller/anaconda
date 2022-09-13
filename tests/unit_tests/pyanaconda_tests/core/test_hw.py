@@ -22,7 +22,8 @@ import pytest
 from textwrap import dedent
 from io import StringIO
 
-from pyanaconda.core.hw import total_memory
+from pyanaconda.core.hw import total_memory, is_lpae_available, detect_virtualized_platform
+
 
 class MemoryTests(unittest.TestCase):
 
@@ -131,3 +132,56 @@ class MemoryTests(unittest.TestCase):
 
         open_mock.return_value = StringIO("MemTotal: 10000000 kB")
         assert total_memory() == 10131072.0
+
+
+class MiscHwUtilsTests(unittest.TestCase):
+
+    @patch("pyanaconda.core.hw.execWithCapture")
+    def test_detect_virtualized_platform(self, exec_mock):
+        """Test the function detect_virtualized_platform."""
+        exec_mock.side_effect = OSError
+        assert detect_virtualized_platform() is None
+
+        exec_mock.side_effect = ["none"]
+        assert detect_virtualized_platform() is None
+
+        exec_mock.side_effect = ["vmware"]
+        assert detect_virtualized_platform() == "vmware"
+
+    @patch("pyanaconda.core.hw.open")
+    @patch("pyanaconda.core.hw.blivet.arch.is_arm")
+    def test_is_lpae_available(self, is_arm, mock_open):
+        """Test the is_lpae_available function."""
+        is_arm.return_value = False
+        assert is_lpae_available() is False
+
+        is_arm.return_value = True
+        cpu_info = """
+        processor       : 0
+        model name      : ARMv7 Processor rev 2 (v7l)
+        BogoMIPS        : 50.00
+        Features        : half thumb fastmult vfp edsp thumbee vfpv3 tls idiva idivt vfpd32
+        CPU implementer : 0x56
+        CPU architecture: 7
+        CPU variant     : 0x2
+        CPU part        : 0x584
+        CPU revision    : 2
+        """
+
+        mock_open.return_value = StringIO(dedent(cpu_info))
+        assert is_lpae_available() is False
+
+        cpu_info = """
+        processor       : 0
+        model name      : ARMv7 Processor rev 2 (v7l)
+        BogoMIPS        : 50.00
+        Features        : half thumb fastmult vfp edsp thumbee vfpv3 tls idiva idivt vfpd32 lpae
+        CPU implementer : 0x56
+        CPU architecture: 7
+        CPU variant     : 0x2
+        CPU part        : 0x584
+        CPU revision    : 2
+        """
+
+        mock_open.return_value = StringIO(dedent(cpu_info))
+        assert is_lpae_available() is True

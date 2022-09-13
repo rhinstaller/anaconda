@@ -25,7 +25,8 @@ from blivet.size import Size
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.regexes import VERSION_DIGITS
-from pyanaconda.core.util import is_lpae_available, execWithCapture
+from pyanaconda.core.util import execWithCapture
+from pyanaconda.core.hw import is_lpae_available
 from pyanaconda.core.path import join_paths
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE

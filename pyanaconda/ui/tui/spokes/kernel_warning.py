@@ -19,7 +19,7 @@ from simpleline.render.widgets import TextWidget
 
 from pyanaconda.core.constants import WARNING_SMT_ENABLED_TUI
 from pyanaconda.core.i18n import N_, _
-from pyanaconda.core.util import is_smt_enabled
+from pyanaconda.core.hw import is_smt_enabled
 from pyanaconda.ui.tui.spokes import StandaloneTUISpoke
 from pyanaconda.ui.tui.hubs.summary import SummaryHub
 

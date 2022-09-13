@@ -22,7 +22,7 @@ import os
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import REQUIREMENT_TYPE_PACKAGE, REQUIREMENT_TYPE_GROUP
-from pyanaconda.core.util import detect_virtualized_platform
+from pyanaconda.core.hw import detect_virtualized_platform
 from pyanaconda.localization import find_best_locale_match, is_valid_langcode
 from pyanaconda.modules.common.constants.services import LOCALIZATION, BOSS
 from pyanaconda.modules.common.structures.requirement import Requirement

@@ -85,7 +85,7 @@ class DNFRequirementsTestCase(unittest.TestCase):
         msg = "Selected locale 'sr_RS@cyrilic' does not match any available langpacks."
         assert any(map(lambda x: msg in x, cm.output))
 
-    @patch('pyanaconda.core.util.execWithCapture')
+    @patch('pyanaconda.core.hw.execWithCapture')
     def test_collect_platform_requirements(self, execute):
         """Test the function collect_platform_requirements."""
         dnf_manager = Mock(spec=DNFManager)

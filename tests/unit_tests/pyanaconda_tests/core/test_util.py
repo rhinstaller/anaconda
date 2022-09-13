@@ -24,8 +24,6 @@ import shutil
 import sys
 import pytest
 
-from io import StringIO
-from textwrap import dedent
 from threading import Lock
 from unittest.mock import Mock, patch
 from timer import timer
@@ -658,56 +656,6 @@ class MiscTests(unittest.TestCase):
             os.remove(root + "/etc/os-release")
             version = util.get_os_release_value("VERSION_ID", root)
             assert version is None
-
-    @patch("pyanaconda.core.util.execWithCapture")
-    def test_detect_virtualized_platform(self, exec_mock):
-        """Test the function detect_virtualized_platform."""
-        exec_mock.side_effect = OSError
-        assert util.detect_virtualized_platform() is None
-
-        exec_mock.side_effect = ["none"]
-        assert util.detect_virtualized_platform() is None
-
-        exec_mock.side_effect = ["vmware"]
-        assert util.detect_virtualized_platform() == "vmware"
-
-    @patch("pyanaconda.core.util.open")
-    @patch("pyanaconda.core.util.blivet.arch.is_arm")
-    def test_is_lpae_available(self, is_arm, mock_open):
-        """Test the is_lpae_available function."""
-        is_arm.return_value = False
-        assert util.is_lpae_available() is False
-
-        is_arm.return_value = True
-        cpu_info = """
-        processor       : 0
-        model name      : ARMv7 Processor rev 2 (v7l)
-        BogoMIPS        : 50.00
-        Features        : half thumb fastmult vfp edsp thumbee vfpv3 tls idiva idivt vfpd32
-        CPU implementer : 0x56
-        CPU architecture: 7
-        CPU variant     : 0x2
-        CPU part        : 0x584
-        CPU revision    : 2
-        """
-
-        mock_open.return_value = StringIO(dedent(cpu_info))
-        assert util.is_lpae_available() is False
-
-        cpu_info = """
-        processor       : 0
-        model name      : ARMv7 Processor rev 2 (v7l)
-        BogoMIPS        : 50.00
-        Features        : half thumb fastmult vfp edsp thumbee vfpv3 tls idiva idivt vfpd32 lpae
-        CPU implementer : 0x56
-        CPU architecture: 7
-        CPU variant     : 0x2
-        CPU part        : 0x584
-        CPU revision    : 2
-        """
-
-        mock_open.return_value = StringIO(dedent(cpu_info))
-        assert util.is_lpae_available() is True
 
     @patch("pyanaconda.core.util.execWithRedirect")
     def test_restorecon(self, exec_mock):
