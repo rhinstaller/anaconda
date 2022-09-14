@@ -72,7 +72,7 @@ def gtk_warning(title, reason):
 
 
 def check_memory(anaconda, options, display_mode=None):
-    """Check is the system has enough RAM for installation.
+    """Check if the system has enough RAM for installation.
 
     :param anaconda: instance of the Anaconda class
     :param options: command line/boot options
@@ -102,7 +102,7 @@ def check_memory(anaconda, options, display_mode=None):
         display_mode = anaconda.display_mode
 
     reason = reason_strict
-    total_ram = int(hw.total_memory() / 1024)
+    total_ram = int(blivet.util.total_memory().convert_to("MiB"))
     needed_ram = int(hw.MIN_RAM)
     graphical_ram = int(hw.MIN_GUI_RAM)
 
@@ -319,6 +319,7 @@ def clean_pstore():
                 os.unlink(os.path.join(base, file))
             except OSError:
                 pass
+
 
 def print_startup_note(options):
     """Print Anaconda version and short usage instructions.
