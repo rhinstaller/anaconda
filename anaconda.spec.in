@@ -367,6 +367,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Sep 14 2022 Vendula Poncova <vponcova@redhat.com> - 33.16.7.12-1
+- Pull in fixed translations (vponcova)
+  Resolves: rhbz#2062676
+
 * Fri Sep 09 2022 Vendula Poncova <vponcova@redhat.com> - 33.16.7.11-1
 - Do not crash on network --device link with wireless device (rvykydal)
   Resolves: rhbz#2051235
