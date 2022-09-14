@@ -9,8 +9,7 @@ In that case just ignore all section that require you to be an Anaconda maintain
 0. prerequisites
 
 - you need an up to date anaconda source code checkout
-- if there is an active Fedora devel branch, merge it with ``git merge --no-ff f<version>-devel``
-- it is recommended to make the release on a fresh clone (prevent you from pushing local work into the upstream repository)
+- it is recommended to make the release on a fresh clone (prevents you from pushing local work into the upstream repository)
 - you need to have commit access to the anaconda repository (so that you can push release commits)
 - you need to have write access to the https://github.com/rhinstaller/anaconda-l10n localization repository
 - you need to have the ``rpmbuild`` or ``mock`` and ``fedpkg`` tools installed
@@ -168,33 +167,16 @@ environment way see mock path below. It is also fully manual.
 Upcoming Fedora release & package build
 ========================================
 
-Creating and anaconda release and build for an upcoming Fedora release is pretty similar to a Rawhide build
+Creating an anaconda release and build for an upcoming Fedora release is pretty similar to a Rawhide build
 with a few key differences:
 
-- the branches are named differently
+- the upstream project branch is named fedora-<version>
+- the distgit branch is named f<version>
 - you need to create a Bodhi update so that the build actually reaches the stable package repository
 
-So let's enumerate the steps that doe something differently in more detail (we use Fedora 28 in the CLI examples):
+So let's enumerate the steps that do something differently in more detail (we use Fedora 28 in the CLI examples):
 
-1. merge f<fedora version>-devel to f<fedora version>-release
-
-::
-
-    git checkout f28-devel
-    git pull
-    git checkout f28-release
-    git pull
-    git merge --no-ff f28-devel
-
-
-5. push the f<fedora version>-release branch to the remote
-
-::
-
-    git push f28-release --tags
-
-
-9. if you don't have it yet checkout Anaconda from Fedora distgit, switch to the f<fedora version> branch & make sure it's up to date
+9. if you don't have it yet checkout Anaconda from Fedora distgit, switch to the f<version> branch & make sure it's up to date
 
 ::
 
@@ -219,8 +201,6 @@ Next an update template should open in your editor of choice - fill it out, save
 A link to the update should be returned and you should also start getting regular spam from Bodhi when
 anything remotely interesting happens with the update. :)
 
-
-
 Releasing during a Fedora code freeze
 =====================================
 
@@ -231,37 +211,22 @@ There are two generally multi-week phases during which the upcoming Fedora relea
 
 During these periods of time only accepted freeze exceptions and blocker fixes are allowed to reach the stable repository.
 
-To reconcile the freeze concept with the idea that the -devel branch should should be always open for development and that
-it should be always possible to merge the -devel branch to the -release branch (even just for CI requirements) we have
-decided temporarily use downstream patches for package builds during the freeze.
+So don't merge any PRs to the fedora-<version> upstream branch during a Fedora freeze that don't fix a freeze exception or a release blocker.
 
-That way we avoid freeze induced cherry picks that might break merges in the future and can easily drop the patches once
-the freeze is over and resume the normal merge-devel-to-release workflow.
-
-How it should work
-------------------
-
-Once Fedora enters a freeze:
-
-- all freeze exceptions and blocker fixes are cherry picked into patch files
-- patch files are added to distgit only as downstream patches
-
-Once Fedora exits the freeze:
-
-- drop the downstream patches and do merge based releases as before
-
+If there is a merged PR that has not been approved for a FE or release blocker, it should be reverted before the next Anaconda build
+targeting the frozen Fedora.
 
 Branching for the next Fedora release
 =====================================
 
-Anaconda uses separate branches for each Fedora release to make parallel Anaconda development for Rawhide and next Fedora possible.
-The branches are named like this:
+Anaconda uses separate branch for each Fedora release to make parallel Anaconda development for Rawhide and next Fedora release possible.
+The branch is named fedora-<version>.
 
-- f<number>-devel
-- f<number>-release
+The branch contains release commits and any changes suitable for the given branched Fedora version.
 
-The ``-devel`` branch is where code changes go and it is periodically merged to the master branch.
-The ``-release`` branch contains release commits and any Fedora version specific hotfixes.
+This might be both "regular" changes merged and released outside of a freeze period as well as approved Fedora freeze-exceptions
+and release blocker fixes.
+
 
 Create new localization branch for Anaconda
 -------------------------------------------
@@ -279,13 +244,13 @@ Create a new localization directory from ``master`` directory:
 
 ::
 
-   cp -r master f<version>
+   cp -r master fedora-<version>
 
 Add the new folder to git:
 
 ::
 
-   git add f<version>
+   git add fedora-<version>
 
 Commit these changes:
 
@@ -304,15 +269,15 @@ Enable Cockpit CI for the new branch
 -------------------------------------------
 
 Anaconda is using the Cockpit CI infrastructure to run Web UI test. Cockpit CI tests are triggered
-automatically for for all `listed <https://github.com/cockpit-project/bots/blob/main/lib/testmap.py>`_ projects and per-project branches. To enable Cockpit CI in automatic mode for the new Fedora branch, our new f<version>-devel branch needs to be added under the 'rhinstaller/anaconda' key in the file. The end result could look like this:
+automatically for all `listed <https://github.com/cockpit-project/bots/blob/main/lib/testmap.py>`_ projects and per-project branches. To enable Cockpit CI in automatic mode for the new Fedora branch, our new fedora-<version> upstream branch needs to be added under the 'rhinstaller/anaconda' key in the file. The end result could look like this:
 
 ::
     'rhinstaller/anaconda': {
         'master': [
             'fedora-35/rawhide',
         ],
-        'f36-devel': [
-            'fedora-36',
+        'fedora-38': [
+            'fedora-38',
         ],
         '_manual': [
         ]
@@ -325,27 +290,13 @@ How to branch Anaconda
 
 First make sure that localization branch for the next Fedora is already created.
 
-Create the ``-devel`` branch:
+Create the fedora-<version> upstream branch:
 
 ::
 
     git checkout master
     git pull
-    git checkout -b f<version>-devel
-
-Create the ``-release`` branch:
-
-::
-
-    git checkout master
-    git pull
-    git checkout -b f<version>-release
-
-Switch to f<version>-release branch for Fedora specific settings:
-
-::
-
-   git checkout f<version>-release
+    git checkout -b fedora-<version>
 
 Edit branch specific settings:
 
@@ -358,7 +309,7 @@ And change content according to comments in the file.
 
 Then correct pykickstart version for the new Fedora release by changing all occurrences of
 the DEVEL constant imported from pykickstart for the F<version> constant.
-This has to be done on f<version>-release branch only. For example:
+This has to be done on fedora-<version> branch only. For example:
 
 ::
 
@@ -373,8 +324,7 @@ to
 Pykickstart generally does not do per Fedora version branches, so this needs to be done
 in the Fedora version specific branch on Anaconda side.
 
-Commit the result. The commit will become one of the few exclusive release branch commits,
-as we can't let it be merged back to master via the devel branch for obvious reasons.
+Commit the result to your fedora-<version> upstream branch.
 
 After doing this, please verify that Pykickstart supports Fedora <version> and <version + 1>
 if not, please file an `issue <https://github.com/pykickstart/pykickstart/issues>`_ on the
@@ -387,38 +337,12 @@ Check if everything is correctly set:
 
    make check-branching
 
-Next adjust the f<version>-devel branch:
+If everything works correctly you can push the branch to the origin (``-u`` makes sure to setup tracking) :
 
 ::
 
-   git checkout f<version>-devel
-
-Edit branch specific settings:
-
-::
-
-   vim ./branch-config.mk
-
-And change content according to comments in the file.
-
-The ``branch-config.mk`` adjustments of f<version>-devel are needed to make
-our CI work correctly for PRs opened on the branch.
-
-The Pykickstart related changes are not needed for the CI to work, so they are only on r<version>-release.
-
-NOTE: These changes will propagate to the master branch first time the f<version>-devel branch is merged back to master. To avoid these causing issues, revert the commit making these changes on the master branch. And longer term we need to do this in a more robust manner. Possibly like `Cockpit CI <https://github.com/cockpit-project/bots/blob/main/lib/testmap.py>`_ with a separate table of values of per project branches ?
-
-If everything works correctly you can push the branches to the origin (``-u`` makes sure to setup tracking) :
-
-::
-
-    git checkout f<version>-devel
-    git push -u origin f<version>-devel
-
-::
-
-    git checkout f<version>-release
-    git push -u origin f<version>-release
+    git checkout fedora-<version>
+    git push -u origin fedora-<version>
 
 
 How to add release version for next Fedora
@@ -434,13 +358,11 @@ For example, for the F27 branching:
 - the last Rawhide Anaconda release was 27.20
 - so the first F27 Anaconda release will be 27.20.1, the next 27.20.2 and so on
 
-First checkout the ``f<version>-release`` branch and merge ``f<version>-devel`` into it:
+First checkout the ``fedora-<version>`` upstream branch:
 
 ::
 
-    git checkout f<version>-release
-    git merge --no-ff f<version>-devel
-
+    git checkout fedora-<version>
 
 Next add the third (release) version number:
 
@@ -452,7 +374,7 @@ If everything looks fine (changelog, the version number & tag) push the changes 
 
 ::
 
-    git push origin f<version>-release --tags
+    git push origin fedora-<version> --tags
 
 Then continue with the normal Upcoming Fedora Anaconda build process.
 
