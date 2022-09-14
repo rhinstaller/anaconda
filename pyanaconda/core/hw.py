@@ -16,14 +16,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-import blivet.arch
+from blivet.arch import get_arch, is_arm
 from pyanaconda.core.util import execWithCapture
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-if blivet.arch.get_arch() in ["ppc64", "ppc64le"]:
+if get_arch() in ["ppc64", "ppc64le"]:
     MIN_RAM = 768
     GUI_INSTALL_EXTRA_RAM = 512
 else:
@@ -82,7 +82,7 @@ def is_lpae_available():
 
     :return: True of False
     """
-    if not blivet.arch.is_arm():
+    if not is_arm():
         return False
 
     with open("/proc/cpuinfo", "r") as f:

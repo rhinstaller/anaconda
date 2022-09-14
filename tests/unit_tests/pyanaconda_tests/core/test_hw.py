@@ -39,7 +39,7 @@ class MiscHwUtilsTests(unittest.TestCase):
         assert detect_virtualized_platform() == "vmware"
 
     @patch("pyanaconda.core.hw.open")
-    @patch("pyanaconda.core.hw.blivet.arch.is_arm")
+    @patch("pyanaconda.core.hw.is_arm")
     def test_is_lpae_available(self, is_arm, mock_open):
         """Test the is_lpae_available function."""
         is_arm.return_value = False
