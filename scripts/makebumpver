@@ -26,17 +26,13 @@ log.setLevel(logging.INFO)
 # This is only place where bugzilla library is used. Exclude from dependencies and
 # ignore pylint.
 import bugzilla  # pylint: disable=import-error
-from contextlib import closing
 import datetime
 import argparse
-import getpass
-import json
 import os
 import re
 import subprocess
 import sys
 import textwrap
-import urllib.request
 
 
 VERSION_NUMBER_INCREMENT = 1
@@ -113,8 +109,6 @@ class MakeBumpVer:
                             help="Skip all checks.")
         parser.add_argument("-d", "--debug", dest="debug", action="store_true", default=False,
                             help="Enable debug logging to stdout.")
-        parser.add_argument("--skip-jenkins", dest="skip_jenkins", action="store_true", default=False,
-                            help="Skip checking Jenkins for test results.")
         parser.add_argument("--dry-run", dest="dry_run", action="store_true", default=False,
                             help="Do not change any files, only run checks.")
         parser.add_argument("-c", "--commit-and-tag", dest="commit_and_tag", action="store_true",
@@ -149,28 +143,8 @@ class MakeBumpVer:
         log.debug("%s", self.args)
         self.bzserver = 'bugzilla.redhat.com'
         self.bzurl = "https://%s/xmlrpc.cgi" % self.bzserver
-        self.jenkins = None
-        self.jenkins_proxy = None
-        self.username = None
-        self.password = None
         self.bz = None
         self._bz_cache = {}
-
-        authfile = os.path.realpath(os.getenv('HOME') + '/.rhbzauth')
-        if os.path.isfile(authfile):
-            f = open(authfile, 'r')
-            lines = map(lambda x: x.strip(), f.readlines())
-            f.close()
-
-            for line in lines:
-                if line.startswith('RHBZ_USER='):
-                    self.username = line[10:].strip('"\'')
-                elif line.startswith('RHBZ_PASSWORD='):
-                    self.password = line[14:].strip('"\'')
-                elif line.startswith('JENKINS='):
-                    self.jenkins = line[8:].strip('"\'')
-                elif line.startswith('JENKINS_PROXY='):
-                    self.jenkins_proxy = line[14:].strip('"\'')
 
         self.gituser = self._gitConfig('user.name')
         self.gitemail = self._gitConfig('user.email')
@@ -191,12 +165,10 @@ class MakeBumpVer:
 
         self.skip_acks = self.args.skip_acks
         self.skip_all = self.args.skip_all_acks
-        self.skip_jenkins = self.args.skip_jenkins
         self.dry_run = self.args.dry_run
 
         if self.skip_all:
             self.skip_acks = True
-            self.skip_jenkins = True
 
         self.git_branch = None
 
@@ -260,21 +232,14 @@ class MakeBumpVer:
     def _queryBug(self, bugid):
         if not self.bz:
             sys.stdout.write("Connecting to %s...\n" % self.bzserver)
-
-            if not self.username:
-                sys.stdout.write('Username: ')
-                self.username = sys.stdin.readline()
-                self.username = self.username.strip()
-
-            if not self.password:
-                self.password = getpass.getpass()
-
-            bzclass = bugzilla.Bugzilla
-            self.bz = bzclass(url=self.bzurl)
+            self.bz = bugzilla.Bugzilla(url=self.bzurl)
 
         if not self.bz.logged_in:
-            rc = self.bz.login(self.username, self.password)
-            log.debug("login rc = %s", rc)
+            sys.stdout.write(
+                "Provide an API key from https://{}/userprefs.cgi?tab=apikey"
+                "\n".format(self.bzserver)
+            )
+            self.bz.interactive_save_api_key()
 
         if bugid in self._bz_cache:
             return self._bz_cache[bugid]
@@ -528,49 +493,6 @@ class MakeBumpVer:
         f.writelines(bottom)
         f.close()
 
-    def check_jenkins(self):
-        if not self.git_branch:
-            log.error("No git branch, cannot check jenkins")
-            return False
-
-        if not self.jenkins:
-            log.warning("No jenkins defined, skipping")
-            return True
-
-        ret = False
-
-        if self.jenkins_proxy:
-            proxies = urllib.request.ProxyHandler({"http": self.jenkins_proxy})
-        else:
-            proxies = urllib.request.ProxyHandler({})
-
-        opener = urllib.request.build_opener(proxies)
-        try:
-            with closing(opener.open(self.jenkins)) as f:
-                contents = f.readlines()  # pylint: disable=no-member
-
-                try:
-                    j = json.loads(contents[0])
-                except (TypeError, ValueError):
-                    pass
-                else:
-                    # Get the name of the job we should be looking for in jenkins.
-                    # This name is composed from the name of the project, plus the
-                    # branch of the project without any "-branch" stuff at the end.
-                    targetJob = self.name + "-" + self.git_branch
-                    if targetJob.endswith("-branch"):
-                        targetJob = targetJob[:-7]
-
-                    for job in j["jobs"]:
-                        if job["name"] == targetJob:
-                            ret = job["color"] == "blue"
-                            break
-        except IOError:
-            log.exception("Jenkins check failed!")
-            return False
-
-        return ret
-
     def _do_release_commit(self, new_version):
         log.info("creating a tagged release commit")
         commit_message = "New version - %s" % new_version
@@ -590,10 +512,6 @@ class MakeBumpVer:
         log.info("tag: %s", release_tag)
 
     def run(self):
-        # For now, jenkins is in an advisory role so do not require it to pass.
-        if not self.skip_jenkins and not self.check_jenkins():
-            log.warning("jenkins test results do not pass; ignoring for now")
-
         newVersion = self._incrementVersion(bump_major_version=self.args.bump_major_version,
                                             add_version_number=self.args.add_version_number)
         fixedIn = "%s-%s-%s" % (self.name, newVersion, self.new_release)
