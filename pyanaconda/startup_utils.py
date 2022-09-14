@@ -40,8 +40,9 @@ from pyanaconda.localization import get_territory_locales, setup_locale, locale_
 from pyanaconda.screensaver import inhibit_screensaver
 from pyanaconda.modules.common.task import wait_for_task
 from pyanaconda.modules.common.structures.timezone import TimeSourceData, GeolocationData
+from pyanaconda.modules.common.constants.objects import STORAGE_CHECKER
 from pyanaconda.modules.common.constants.services import TIMEZONE, LOCALIZATION, SERVICES, \
-    SECURITY
+    SECURITY, STORAGE
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.threading import AnacondaThread, threadMgr
 
@@ -156,6 +157,27 @@ def check_memory(anaconda, options, display_mode=None):
                 stdout_log.warning(reason % reason_args)
                 anaconda.display_mode = constants.DisplayModes.TUI
                 time.sleep(2)
+
+
+def set_storage_checker_minimal_ram_size(display_mode):
+    """Set minimal ram size to the storage checker.
+
+    :param display_mode: display mode
+    :type display_mode: constants.DisplayModes.[TUI|GUI]
+    """
+    from pyanaconda.core.hw import MIN_RAM, MIN_GUI_RAM
+    if display_mode == constants.DisplayModes.GUI:
+        min_ram = MIN_GUI_RAM
+    else:
+        min_ram = MIN_RAM
+
+    from dasbus.typing import get_variant, Int
+
+    storage_checker = STORAGE.get_proxy(STORAGE_CHECKER)
+    storage_checker.SetConstraint(
+        constants.STORAGE_MIN_RAM,
+        get_variant(Int, min_ram * 1024 * 1024)
+    )
 
 
 def setup_logging_from_options(options):
