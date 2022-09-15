@@ -552,11 +552,7 @@ if __name__ == "__main__":
     payloadMgr.restart_thread(anaconda.payload, fallback=fallback)
 
     # initialize geolocation and start geolocation lookup if possible and enabled
-    use_geoloc = startup_utils.check_if_geolocation_should_be_used(opts)
-    from pyanaconda.modules.common.constants.services import TIMEZONE
-    if is_module_available(TIMEZONE) and use_geoloc:
-        timezone_proxy = TIMEZONE.get_proxy()
-        timezone_proxy.StartGeolocation()
+    geoloc_task_proxy = startup_utils.start_geolocation_conditionally(opts)
 
     # setup ntp servers and start NTP daemon if not requested otherwise
     startup_utils.start_chronyd()
@@ -583,6 +579,9 @@ if __name__ == "__main__":
 
         with check_kickstart_error():
             sync_run_task(snapshot_task_proxy)
+
+    # wait for geolocation, if needed
+    startup_utils.wait_for_geolocation(geoloc_task_proxy)
 
     anaconda.intf.setup(ksdata)
     anaconda.intf.run()
