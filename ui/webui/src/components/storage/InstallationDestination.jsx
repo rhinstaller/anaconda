@@ -36,6 +36,7 @@ import {
     Popover,
     PopoverPosition,
     Spinner,
+    Skeleton,
     Text,
     TextContent,
     TextVariants,
@@ -263,7 +264,6 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
         <Button
           aria-label={_("Discover disks")}
           id={idPrefix + "-rescan-disks"}
-          isLoading={isDiscoveringDisks}
           variant="secondary"
           onClick={() => {
               setIsDiscoveringDisks(true);
@@ -318,6 +318,23 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
         }
     ));
 
+    const discoveringDisksColumns = localDisksColumns.map(col => ({ ...col, sortable: false }));
+
+    const discoveringDisksRow = (
+        [
+            {
+                props: { colSpan: localDisksColumns.length },
+                title: <Skeleton screenreaderText={_("Discovering disks")} />
+            }
+        ]
+    );
+
+    const discoveringDisksRows = Object.keys(disks).map(disk => (
+        {
+            columns: discoveringDisksRow
+        }
+    ));
+
     const dropdownBulkSelect = (
         <DropdownBulkSelect
           onSelectAll={() => setDisks(setSelectionForAllDisks({ disks, value: true }))}
@@ -349,9 +366,21 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
         <ListingTable
           aria-labelledby="installation-destination-local-disk-title"
           {...(totalDisksCnt > 10 && { variant: "compact" })}
-          columns={localDisksColumns}
-          onSelect={(_, isSelected, diskId) => setDisks({ ...disks, [Object.keys(disks)[diskId]]: isSelected })}
-          rows={localDisksRows}
+          columns={
+              !isDiscoveringDisks
+                  ? localDisksColumns
+                  : discoveringDisksColumns
+          }
+          onSelect={
+              !isDiscoveringDisks
+                  ? (_, isSelected, diskId) => setDisks({ ...disks, [Object.keys(disks)[diskId]]: isSelected })
+                  : false
+          }
+          rows={
+              !isDiscoveringDisks
+                  ? localDisksRows
+                  : discoveringDisksRows
+          }
         />
     );
 
