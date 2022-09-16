@@ -603,7 +603,7 @@ if __name__ == "__main__":
             sync_run_task(snapshot_task_proxy)
 
     # wait for geolocation, if needed
-    startup_utils.wait_for_geolocation(geoloc_task_proxy)
+    startup_utils.wait_for_geolocation_and_use(geoloc_task_proxy, anaconda.display_mode)
 
     anaconda.intf.setup(ksdata)
     anaconda.intf.run()
