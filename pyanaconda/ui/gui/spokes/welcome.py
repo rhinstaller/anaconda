@@ -42,7 +42,6 @@ from pyanaconda.core.util import ipmi_abort
 from pyanaconda.core.constants import DEFAULT_LANG, WINDOW_TITLE_TEXT
 from pyanaconda.modules.common.constants.services import TIMEZONE, LOCALIZATION
 from pyanaconda.modules.common.util import is_module_available
-from pyanaconda.modules.common.structures.timezone import GeolocationData
 from pyanaconda.anaconda_loggers import get_module_logger
 
 log = get_module_logger(__name__)
@@ -97,40 +96,11 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
         locale = store[itr][1]
 
         self._apply_selected_locale(locale)
-        self._apply_geolocation_results()
 
     def _apply_selected_locale(self, locale):
         """Apply the selected locale."""
         locale = localization.setup_locale(locale, self._l12_module, text_mode=False)
         self._set_lang(locale)
-
-    def _apply_geolocation_results(self):
-        """Apply the geolocation results if any."""
-        # Without timezone module, we have neither geolocation results nor way to apply them.
-        if not self._tz_module:
-            return
-
-        geoloc_result = GeolocationData.from_structure(self._tz_module.GeolocationResult)
-
-        # Skip timezone and keyboard default setting for kickstart installs.
-        # The user may have provided these values via kickstart and if not, we
-        # need to prompt for them. But do continue if geolocation-with-kickstart
-        # is enabled, which can be inferred from a non-empty result.
-        if flags.flags.automatedInstall and geoloc_result.is_empty():
-            return
-
-        if geoloc_result.timezone:
-            # (the geolocation module makes sure that the returned timezone is
-            # either a valid timezone or empty string)
-            log.info("using timezone determined by geolocation")
-            self._tz_module.SetTimezone(geoloc_result.timezone)
-            # Either this is an interactive install and timezone.seen propagates
-            # from the interactive default kickstart, or this is a kickstart
-            # install where the user explicitly requested geolocation to be used.
-            # So set timezone.seen to True, so that the user isn't forced to
-            # enter the Date & Time spoke to acknowledge the timezone detected
-            # by geolocation before continuing the installation.
-            self._tz_module.SetKickstarted(True)
 
     @property
     def completed(self):
@@ -139,18 +109,6 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
 
     def _row_is_separator(self, model, itr, *args):
         return model[itr][3]
-
-    def _get_starting_locales(self):
-        """Get the starting locale(s) - kickstart, geoloc, or default"""
-        # boot options and kickstart have priority over geoip
-        language = self._l12_module.Language
-        if language and self._l12_module.LanguageKickstarted:
-            return [language]
-
-        # the lookup should be done by now, so just get the territory
-        geo_result = GeolocationData.from_structure(self._tz_module.GeolocationResult)
-        territory = geo_result.territory
-        return localization.get_territory_locales(territory) or [DEFAULT_LANG]
 
     def initialize(self):
         super().initialize()
@@ -171,9 +129,9 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
         # We need to tell the view whether something is a separator or not.
         self._langView.set_row_separator_func(self._row_is_separator, None)
 
-        # We can use the territory from geolocation here
-        # to preselect the translation, when it's available.
-        locales = self._get_starting_locales()
+        # Start with the already set locale. Whether kickstart, geolocation, or default - it does
+        # not matter, it's resolved and loaded by now.
+        locales = [self._l12_module.Language] or [DEFAULT_LANG]
 
         # get the data models
         filter_store = self._languageStoreFilter
