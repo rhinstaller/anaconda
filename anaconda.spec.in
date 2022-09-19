@@ -469,6 +469,15 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Sep 19 2022 Martin Kolman <mkolman@redhat.com> - 38.5-1
+- Do not require the anaconda-webui package (mkolman)
+- Document how to fix NPM cache issues in Cockpit CI (mkolman)
+- Use correct hint for VNC password boot option (jstodola)
+- infra: Use the Bugzilla API key in the `makebumpver` script (vponcova)
+- Drop the devel branch from the docs (mkolman)
+- gui: fix summary hub layout for Japanese translations (rvykydal)
+- Improve Register button click feedback (mkolman)
+
 * Tue Sep 06 2022 Martin Kolman <mkolman@redhat.com> - 38.4-1
 - Run yelp under liveuser if possible (vslavik)
 - Disable the Unregister button during unregistration (mkolman)
