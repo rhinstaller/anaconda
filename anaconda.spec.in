@@ -468,6 +468,11 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Sep 19 2022 Martin Kolman <mkolman@redhat.com> - 37.12.5-1
+- Add back waiting for geolocation (vslavik)
+- Add wait_for_task() to wait for a Task with timeout (vslavik)
+- Timezone spoke will not show timezone borders anymore (#2103657) (jkonecny)
+
 * Tue Sep 13 2022 Martin Kolman <mkolman@redhat.com> - 37.12.4-1
 - Verify a biosboot partition on all installation targets (vponcova)
 - Define the install_targets property for all bootloader classes (vponcova)
