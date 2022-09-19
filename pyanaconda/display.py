@@ -130,9 +130,10 @@ def check_vnc_can_be_started(anaconda):
     vnc_startup_possible = True
 
     # disable VNC over text question when not enough memory is available
-    if blivet.util.total_memory() < hw.MIN_GUI_RAM:
+    min_gui_ram = hw.minimal_memory_needed(with_gui=True)
+    if blivet.util.total_memory() < min_gui_ram:
         error_messages.append("Not asking for VNC because current memory (%d) < MIN_GUI_RAM (%d)" %
-                              (blivet.util.total_memory(), hw.MIN_GUI_RAM))
+                              (blivet.util.total_memory(), min_gui_ram))
         vnc_startup_possible = False
 
     # disable VNC question if text mode is requested and this is a ks install

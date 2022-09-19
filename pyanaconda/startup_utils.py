@@ -32,7 +32,7 @@ from pyanaconda import kickstart
 from pyanaconda.anaconda_loggers import get_stdout_logger, get_module_logger
 from pyanaconda.core.util import persistent_root_image, ipmi_report, setenv, \
     get_anaconda_version_string
-from pyanaconda.core.hw import MIN_RAM, MIN_GUI_RAM, SQUASHFS_EXTRA_RAM
+from pyanaconda.core.hw import minimal_memory_needed
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import TEXT_ONLY_TARGET, SETUP_ON_BOOT_DEFAULT, \
     SETUP_ON_BOOT_ENABLED, DRACUT_ERRORS_PATH, IPMI_ABORTED, STORAGE_MIN_RAM, SELINUX_DEFAULT, \
@@ -106,16 +106,11 @@ def check_memory(anaconda, options, display_mode=None):
 
     reason = reason_strict
     total_ram = int(total_memory().convert_to("MiB"))
-    needed_ram = int(MIN_RAM)
-    graphical_ram = int(MIN_GUI_RAM)
 
     # count the squashfs.img in if it is kept in RAM
-    if not persistent_root_image():
-        needed_ram += SQUASHFS_EXTRA_RAM
-        graphical_ram += SQUASHFS_EXTRA_RAM
-
-    log.info("check_memory(): total:%s, needed:%s, graphical:%s",
-             total_ram, needed_ram, graphical_ram)
+    with_squashfs = not persistent_root_image()
+    needed_ram = minimal_memory_needed(with_gui=False, with_squashfs=with_squashfs)
+    log.info("check_memory(): total:%s, needed:%s", total_ram, needed_ram)
 
     if not options.memcheck:
         log.warning("CHECK_MEMORY DISABLED")
@@ -141,8 +136,9 @@ def check_memory(anaconda, options, display_mode=None):
 
     # override display mode if machine cannot nicely run X
     if display_mode != DisplayModes.TUI and not flags.usevnc:
-        needed_ram = graphical_ram
-        reason_args["needed_ram"] = graphical_ram
+        needed_ram = minimal_memory_needed(with_gui=True, with_squashfs=with_squashfs)
+        log.info("check_memory(): total:%s, graphical:%s", total_ram, needed_ram)
+        reason_args["needed_ram"] = needed_ram
         reason = reason_graphical
 
         if needed_ram > total_ram:
@@ -168,10 +164,7 @@ def set_storage_checker_minimal_ram_size(display_mode):
     :param display_mode: display mode
     :type display_mode: constants.DisplayModes.[TUI|GUI]
     """
-    if display_mode == DisplayModes.GUI:
-        min_ram = MIN_GUI_RAM
-    else:
-        min_ram = MIN_RAM
+    min_ram = minimal_memory_needed(with_gui=display_mode == DisplayModes.GUI)
 
     storage_checker = STORAGE.get_proxy(STORAGE_CHECKER)
     storage_checker.SetConstraint(

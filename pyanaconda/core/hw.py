@@ -23,16 +23,31 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-if get_arch() in ["ppc64", "ppc64le"]:
-    MIN_RAM = 768
-    GUI_INSTALL_EXTRA_RAM = 512
-else:
-    MIN_RAM = 320
-    GUI_INSTALL_EXTRA_RAM = 90
-
-MIN_GUI_RAM = MIN_RAM + GUI_INSTALL_EXTRA_RAM
-SQUASHFS_EXTRA_RAM = 750
 NO_SWAP_EXTRA_RAM = 200
+
+
+def minimal_memory_needed(with_gui=False, with_squashfs=False):
+    """Get minimal memory needed to run the installation.
+
+    :return: minimal memory needed in MB (MiB?)
+    """
+    if get_arch() in ["ppc64", "ppc64le"]:
+        min_ram = 768
+        gui_install_extra_ram = 512
+    else:
+        min_ram = 320
+        gui_install_extra_ram = 90
+
+    result = min_ram
+
+    if with_gui:
+        result += gui_install_extra_ram
+
+    if with_squashfs:
+        squashfs_extra_ram = 750
+        result += squashfs_extra_ram
+
+    return result
 
 
 def detect_virtualized_platform():
