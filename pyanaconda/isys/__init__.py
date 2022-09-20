@@ -76,7 +76,3 @@ def set_system_date_time(year=None, month=None, day=None, hour=None, minute=None
 
     set_date = datetime.datetime(year, month, day, hour, minute, second, tzinfo=tz)
     set_system_time(int(set_date.timestamp()))
-
-
-# pylint: disable=no-member
-installSyncSignalHandlers = _isys.installSyncSignalHandlers

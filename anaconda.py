@@ -239,8 +239,6 @@ if __name__ == "__main__":
     # print errors encountered during boot
     startup_utils.print_dracut_errors(stdout_log)
 
-    from pyanaconda import isys
-
     util.ipmi_report(constants.IPMI_STARTED)
 
     if (opts.images or opts.dirinstall) and opts.liveinst:
@@ -273,10 +271,10 @@ if __name__ == "__main__":
     signal.signal(signal.SIGINT, signal.SIG_IGN)
     signal.signal(signal.SIGTERM, lambda num, frame: sys.exit(1))
 
-    # synchronously-delivered signals such as SIGSEGV and SIGILL cannot be
-    # handled properly from python, so install signal handlers from the C
-    # function in isys.
-    isys.installSyncSignalHandlers()
+    # synchronously-delivered signals such as SIGSEGV and SIGILL cannot be handled properly from
+    # Python, so install signal handlers from the faulthandler stdlib module.
+    import faulthandler
+    faulthandler.enable()
 
     setup_environment()
 
