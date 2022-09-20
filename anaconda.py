@@ -457,18 +457,7 @@ if __name__ == "__main__":
         flags.ksprompt = False
 
     # Set minimal ram size to the storage checker.
-    if anaconda.display_mode == constants.DisplayModes.GUI:
-        min_ram = isys.MIN_GUI_RAM
-    else:
-        min_ram = isys.MIN_RAM
-
-    from pyanaconda.modules.common.constants.objects import STORAGE_CHECKER
-    from dasbus.typing import get_variant, Int
-    storage_checker = STORAGE.get_proxy(STORAGE_CHECKER)
-    storage_checker.SetConstraint(
-        constants.STORAGE_MIN_RAM,
-        get_variant(Int, min_ram * 1024 * 1024)
-    )
+    startup_utils.set_storage_checker_minimal_ram_size(anaconda.display_mode)
 
     # Set the disk images.
     from pyanaconda.modules.common.constants.objects import DISK_SELECTION

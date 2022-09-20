@@ -18,7 +18,7 @@
 #
 from pyanaconda.core.constants import WARNING_SMT_ENABLED_GUI
 from pyanaconda.core.i18n import _, C_
-from pyanaconda.core.util import is_smt_enabled
+from pyanaconda.core.hw import is_smt_enabled
 from pyanaconda.ui.gui.hubs import Hub
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.lib.space import FileSystemSpaceChecker, DirInstallSpaceChecker

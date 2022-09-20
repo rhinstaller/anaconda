@@ -20,7 +20,9 @@
 import sys
 import time
 import os
-import blivet
+from blivet.arch import is_s390
+from blivet.util import total_memory
+from dasbus.typing import get_variant, Int
 
 from pyanaconda import product, ntp
 from pyanaconda import anaconda_logging
@@ -28,10 +30,13 @@ from pyanaconda import network
 from pyanaconda import safe_dbus
 from pyanaconda import kickstart
 from pyanaconda.anaconda_loggers import get_stdout_logger, get_module_logger
-from pyanaconda.core import util, constants
+from pyanaconda.core.util import persistent_root_image, ipmi_report, setenv, \
+    get_anaconda_version_string
+from pyanaconda.core.hw import minimal_memory_needed
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import TEXT_ONLY_TARGET, SETUP_ON_BOOT_DEFAULT, \
-    SETUP_ON_BOOT_ENABLED, DRACUT_ERRORS_PATH, DisplayModes
+    SETUP_ON_BOOT_ENABLED, DRACUT_ERRORS_PATH, IPMI_ABORTED, STORAGE_MIN_RAM, SELINUX_DEFAULT, \
+    THREAD_TIME_INIT, DisplayModes, GEOLOC_CONNECTION_TIMEOUT
 from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.service import start_service
@@ -40,8 +45,9 @@ from pyanaconda.localization import get_territory_locales, setup_locale, locale_
 from pyanaconda.screensaver import inhibit_screensaver
 from pyanaconda.modules.common.task import wait_for_task
 from pyanaconda.modules.common.structures.timezone import TimeSourceData, GeolocationData
+from pyanaconda.modules.common.constants.objects import STORAGE_CHECKER
 from pyanaconda.modules.common.constants.services import TIMEZONE, LOCALIZATION, SERVICES, \
-    SECURITY
+    SECURITY, STORAGE
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.threading import AnacondaThread, threadMgr
 
@@ -71,15 +77,13 @@ def gtk_warning(title, reason):
 
 
 def check_memory(anaconda, options, display_mode=None):
-    """Check is the system has enough RAM for installation.
+    """Check if the system has enough RAM for installation.
 
     :param anaconda: instance of the Anaconda class
     :param options: command line/boot options
     :param display_mode: a display mode to use for the check
                          (graphical mode usually needs more RAM, etc.)
     """
-
-    from pyanaconda import isys
 
     reason_strict = _("%(product_name)s requires %(needed_ram)s MB of memory to "
                       "install, but you only have %(total_ram)s MB on this machine.\n")
@@ -101,17 +105,12 @@ def check_memory(anaconda, options, display_mode=None):
         display_mode = anaconda.display_mode
 
     reason = reason_strict
-    total_ram = int(isys.total_memory() / 1024)
-    needed_ram = int(isys.MIN_RAM)
-    graphical_ram = int(isys.MIN_GUI_RAM)
+    total_ram = int(total_memory().convert_to("MiB"))
 
     # count the squashfs.img in if it is kept in RAM
-    if not util.persistent_root_image():
-        needed_ram += isys.SQUASHFS_EXTRA_RAM
-        graphical_ram += isys.SQUASHFS_EXTRA_RAM
-
-    log.info("check_memory(): total:%s, needed:%s, graphical:%s",
-             total_ram, needed_ram, graphical_ram)
+    with_squashfs = not persistent_root_image()
+    needed_ram = minimal_memory_needed(with_gui=False, with_squashfs=with_squashfs)
+    log.info("check_memory(): total:%s, needed:%s", total_ram, needed_ram)
 
     if not options.memcheck:
         log.warning("CHECK_MEMORY DISABLED")
@@ -132,13 +131,14 @@ def check_memory(anaconda, options, display_mode=None):
             print(_("Press ENTER to continue"))
             input()
 
-        util.ipmi_report(constants.IPMI_ABORTED)
+        ipmi_report(IPMI_ABORTED)
         sys.exit(1)
 
     # override display mode if machine cannot nicely run X
-    if display_mode != constants.DisplayModes.TUI and not flags.usevnc:
-        needed_ram = graphical_ram
-        reason_args["needed_ram"] = graphical_ram
+    if display_mode != DisplayModes.TUI and not flags.usevnc:
+        needed_ram = minimal_memory_needed(with_gui=True, with_squashfs=with_squashfs)
+        log.info("check_memory(): total:%s, graphical:%s", total_ram, needed_ram)
+        reason_args["needed_ram"] = needed_ram
         reason = reason_graphical
 
         if needed_ram > total_ram:
@@ -148,14 +148,29 @@ def check_memory(anaconda, options, display_mode=None):
                 stdout_log.warning(reason % reason_args)
                 title = livecd_title
                 gtk_warning(title, reason % reason_args)
-                util.ipmi_report(constants.IPMI_ABORTED)
+                ipmi_report(IPMI_ABORTED)
                 sys.exit(1)
             else:
                 reason += nolivecd_extra
                 # pylint: disable=logging-not-lazy
                 stdout_log.warning(reason % reason_args)
-                anaconda.display_mode = constants.DisplayModes.TUI
+                anaconda.display_mode = DisplayModes.TUI
                 time.sleep(2)
+
+
+def set_storage_checker_minimal_ram_size(display_mode):
+    """Set minimal ram size to the storage checker.
+
+    :param display_mode: display mode
+    :type display_mode: constants.DisplayModes.[TUI|GUI]
+    """
+    min_ram = minimal_memory_needed(with_gui=display_mode == DisplayModes.GUI)
+
+    storage_checker = STORAGE.get_proxy(STORAGE_CHECKER)
+    storage_checker.SetConstraint(
+        STORAGE_MIN_RAM,
+        get_variant(Int, min_ram * 1024 * 1024)
+    )
 
 
 def setup_logging_from_options(options):
@@ -210,14 +225,14 @@ def set_up_proxy_variables(proxy):
         log.info("Failed to parse proxy \"%s\": %s", proxy, e)
     else:
         # Set environmental variables to be used by pre/post scripts
-        util.setenv("PROXY", proxy.noauth_url)
-        util.setenv("PROXY_USER", proxy.username or "")
-        util.setenv("PROXY_PASSWORD", proxy.password or "")
+        setenv("PROXY", proxy.noauth_url)
+        setenv("PROXY_USER", proxy.username or "")
+        setenv("PROXY_PASSWORD", proxy.password or "")
 
         # Variables used by curl, libreport, etc.
-        util.setenv("http_proxy", proxy.url)
-        util.setenv("ftp_proxy", proxy.url)
-        util.setenv("HTTPS_PROXY", proxy.url)
+        setenv("http_proxy", proxy.url)
+        setenv("ftp_proxy", proxy.url)
+        setenv("HTTPS_PROXY", proxy.url)
 
 
 def prompt_for_ssh(options):
@@ -226,7 +241,7 @@ def prompt_for_ssh(options):
     :param options: Anaconda command line/boot options
     :return: True if the prompt is printed, otherwise False
     """
-    if not blivet.arch.is_s390():
+    if not is_s390():
         return False
 
     if not conf.target.is_hardware:
@@ -249,7 +264,7 @@ def prompt_for_ssh(options):
 
     if not ip:
         stdout_log.error("No IP addresses found, cannot continue installation.")
-        util.ipmi_report(constants.IPMI_ABORTED)
+        ipmi_report(IPMI_ABORTED)
         sys.exit(1)
 
     ipstr = ip
@@ -298,6 +313,7 @@ def clean_pstore():
             except OSError:
                 pass
 
+
 def print_startup_note(options):
     """Print Anaconda version and short usage instructions.
 
@@ -305,7 +321,7 @@ def print_startup_note(options):
 
     :param options: command line/boot options
     """
-    verdesc = "%s for %s %s" % (util.get_anaconda_version_string(build_time_version=True),
+    verdesc = "%s for %s %s" % (get_anaconda_version_string(build_time_version=True),
                                 product.productName, product.productVersion)
     logs_note = " * installation log files are stored in /tmp during the installation"
     shell_and_tmux_note = " * shell is available on TTY2"
@@ -323,7 +339,7 @@ def print_startup_note(options):
     if not options.images and not options.dirinstall:
         print(logs_note)
         # no fancy stuff like TTYs on a s390...
-        if not blivet.arch.is_s390():
+        if not is_s390():
             if "TMUX" in os.environ and os.environ.get("TERM") == "screen":
                 print(shell_and_tmux_note)
             else:
@@ -333,7 +349,7 @@ def print_startup_note(options):
             print(tmux_only_note)  # but not during kickstart installation
         # no need to tell users how to switch to text mode
         # if already in text mode
-        if options.display_mode == constants.DisplayModes.TUI:
+        if options.display_mode == DisplayModes.TUI:
             print(text_mode_note)
         print(separate_attachements_note)
 
@@ -366,7 +382,7 @@ def find_kickstart(options):
     if options.ksfile and not options.liveinst:
         if not os.path.exists(options.ksfile):
             stdout_log.error("Kickstart file %s is missing.", options.ksfile)
-            util.ipmi_report(constants.IPMI_ABORTED)
+            ipmi_report(IPMI_ABORTED)
             sys.exit(1)
 
         flags.automatedInstall = True
@@ -428,7 +444,7 @@ def initialize_system_clock():
     timezone_proxy = TIMEZONE.get_proxy()
 
     threadMgr.add(AnacondaThread(
-        name=constants.THREAD_TIME_INIT,
+        name=THREAD_TIME_INIT,
         target=time_initialize,
         args=(timezone_proxy,)
     ))
@@ -580,7 +596,7 @@ def initialize_security():
     security_proxy = SECURITY.get_proxy()
 
     # Override the selinux state from kickstart if set on the command line
-    if conf.security.selinux != constants.SELINUX_DEFAULT:
+    if conf.security.selinux != SELINUX_DEFAULT:
         security_proxy.SELinux = conf.security.selinux
 
     # Enable fingerprint option by default (#481273).
@@ -685,7 +701,7 @@ def wait_for_geolocation_and_use(geoloc_task_proxy, display_mode):
         return
 
     try:
-        wait_for_task(geoloc_task_proxy, timeout=constants.GEOLOC_CONNECTION_TIMEOUT)
+        wait_for_task(geoloc_task_proxy, timeout=GEOLOC_CONNECTION_TIMEOUT)
     except TimeoutError:
         log.debug("Geolocation timed out. Exceptions will not be logged.")
         return

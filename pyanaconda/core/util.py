@@ -31,7 +31,6 @@ import inspect
 import functools
 import importlib.util
 import importlib.machinery
-import blivet.arch
 
 import requests
 from requests_file import FileAdapter
@@ -39,7 +38,6 @@ from requests_ftp import FTPAdapter
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.path import make_directories, open_with_perm, join_paths
-from pyanaconda.flags import flags
 from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.core.constants import DRACUT_SHUTDOWN_EJECT, \
     IPMI_ABORTED, X_TIMEOUT
@@ -580,27 +578,6 @@ def xprogressive_delay():
         counter += 1
 
 
-def detect_virtualized_platform():
-    """Detect execution in a virtualized environment.
-
-    This runs systemd-detect-virt and, if the result is not 'none',
-    it returns an id of the detected virtualization technology.
-
-    Otherwise, it returns None.
-
-    :return: a virtualization technology identifier or None
-    """
-    try:
-        platform = execWithCapture("systemd-detect-virt", []).strip()
-    except (OSError, AttributeError):
-        return None
-
-    if platform == "none":
-        return None
-
-    return platform
-
-
 def persistent_root_image():
     """:returns: whether we are running from a persistent (not in RAM) root.img"""
 
@@ -891,40 +868,6 @@ def get_anaconda_version_string(build_time_version=False):
         # there is a slight chance version.py might be generated incorrectly
         # during build, so don't crash in that case
         return "unknown"
-
-
-def is_smt_enabled():
-    """Is Simultaneous Multithreading (SMT) enabled?
-
-    :return: True or False
-    """
-    if flags.automatedInstall \
-            or not conf.target.is_hardware \
-            or not conf.system.can_detect_enabled_smt:
-        log.info("Skipping detection of SMT.")
-        return False
-
-    try:
-        return int(open("/sys/devices/system/cpu/smt/active").read()) == 1
-    except (OSError, ValueError):
-        log.warning("Failed to detect SMT.")
-        return False
-
-
-def is_lpae_available():
-    """Is LPAE available?
-
-    :return: True of False
-    """
-    if not blivet.arch.is_arm():
-        return False
-
-    with open("/proc/cpuinfo", "r") as f:
-        for line in f:
-            if line.startswith("Features") and "lpae" in line.split():
-                return True
-
-    return False
 
 
 class LazyObject(object):
