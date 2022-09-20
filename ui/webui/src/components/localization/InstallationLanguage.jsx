@@ -102,12 +102,9 @@ class LanguageSelector extends React.Component {
         });
     }
 
-    updateDefaultSelection () {
-        const languageId = this.state.lang.split("_")[0];
-        const currentLangLocales = this.state.locales.find(langLocales => getLanguageId(langLocales[0]) === languageId);
-        const currentLocale = currentLangLocales.find(locale => getLocaleId(locale) === this.state.lang);
-
-        this.setState({ selectedItem: getLocaleNativeName(currentLocale) });
+    async updateDefaultSelection () {
+        const languageData = await getLocaleData({ locale: this.state.lang });
+        this.setState({ selectedItem: getLocaleNativeName(languageData) });
     }
 
     renderOptions (filter) {
