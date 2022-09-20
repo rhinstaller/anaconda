@@ -21,6 +21,7 @@ from dasbus.server.property import emits_properties_changed
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from dasbus.server.interface import dbus_interface
 
+from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.modules.common.constants.services import TIMEZONE
 from pyanaconda.modules.common.structures.timezone import TimeSourceData, GeolocationData
@@ -118,9 +119,14 @@ class TimezoneInterface(KickstartModuleInterface):
             TimeSourceData.from_structure_list(sources)
         )
 
-    def StartGeolocation(self):
-        """Start geolocation, if not started yet."""
-        self.implementation.start_geolocation()
+    def StartGeolocationWithTask(self) -> ObjPath:
+        """Start geolocation with task.
+
+        :return: a DBus path of the task
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.start_geolocation_with_task()
+        )
 
     @property
     def GeolocationResult(self) -> Structure:

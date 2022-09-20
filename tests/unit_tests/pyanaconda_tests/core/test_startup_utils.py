@@ -20,12 +20,15 @@
 #
 
 import unittest
+import os
 
-from unittest.mock import patch, mock_open, Mock
+from unittest.mock import patch, mock_open, Mock, PropertyMock
 from textwrap import dedent
 
-from pyanaconda.startup_utils import print_dracut_errors, check_if_geolocation_should_be_used
-
+from pyanaconda.startup_utils import print_dracut_errors, check_if_geolocation_should_be_used, \
+    start_geolocation_conditionally, wait_for_geolocation_and_use, apply_geolocation_result
+from pyanaconda.core.constants import GEOLOC_CONNECTION_TIMEOUT
+from pyanaconda.modules.common.structures.timezone import GeolocationData
 
 class StartupUtilsTestCase(unittest.TestCase):
 
@@ -48,6 +51,10 @@ class StartupUtilsTestCase(unittest.TestCase):
         logger_mock = Mock()
         print_dracut_errors(logger_mock)
         logger_mock.assert_not_called()
+
+
+class StartupUtilsGeolocTestCase(unittest.TestCase):
+    """Test geolocation startup helpers."""
 
     @patch("pyanaconda.startup_utils.flags")
     @patch("pyanaconda.startup_utils.conf")
@@ -102,3 +109,191 @@ class StartupUtilsTestCase(unittest.TestCase):
         opts_mock.geoloc = None
         opts_mock.geoloc_use_with_ks = None
         assert check_if_geolocation_should_be_used(opts_mock) is True
+
+    @patch("pyanaconda.startup_utils.is_module_available")
+    @patch("pyanaconda.startup_utils.check_if_geolocation_should_be_used")
+    @patch("pyanaconda.startup_utils.TIMEZONE")
+    def test_geoloc_start_no(self, tz_mock, check_mock, avail_mock):
+        """Test geolocation is correctly skipped."""
+        mock_opts = Mock()
+
+        check_mock.return_value = False
+        avail_mock.return_value = False
+        assert start_geolocation_conditionally(mock_opts) is None
+        tz_mock.get_proxy.assert_not_called()
+
+        check_mock.return_value = True
+        avail_mock.return_value = False
+        assert start_geolocation_conditionally(mock_opts) is None
+        tz_mock.get_proxy.assert_not_called()
+
+        check_mock.return_value = False
+        avail_mock.return_value = True
+        assert start_geolocation_conditionally(mock_opts) is None
+        tz_mock.get_proxy.assert_not_called()
+
+    @patch("pyanaconda.startup_utils.is_module_available", return_value=True)
+    @patch("pyanaconda.startup_utils.check_if_geolocation_should_be_used", return_value=True)
+    @patch("pyanaconda.startup_utils.TIMEZONE")
+    def test_geoloc_start_yes(self, tz_mock, check_mock, avail_mock):
+        """Test geolocation is correctly skipped."""
+        mock_opts = Mock()
+
+        task_proxy = start_geolocation_conditionally(mock_opts)
+        tz_mock.get_proxy.assert_called()
+        task_proxy.Start.assert_called_once_with()
+
+    @patch("pyanaconda.startup_utils.apply_geolocation_result")
+    @patch("pyanaconda.startup_utils.wait_for_task")
+    def test_geoloc_wait(self, wait_mock, apply_mock):
+        """Test waiting for geolocation."""
+        mode_mock = Mock()
+
+        # didn't start
+        wait_for_geolocation_and_use(None, mode_mock)
+        apply_mock.assert_not_called()
+        wait_mock.assert_not_called()
+
+        # all ok
+        proxy_mock = Mock()
+        wait_for_geolocation_and_use(proxy_mock, mode_mock)
+        wait_mock.assert_called_once_with(proxy_mock, timeout=GEOLOC_CONNECTION_TIMEOUT)
+        apply_mock.assert_called_once_with(mode_mock)
+        wait_mock.reset_mock()
+        apply_mock.reset_mock()
+
+        # timeout
+        proxy_mock = Mock()
+        wait_mock.side_effect = TimeoutError
+        with self.assertLogs(level="DEBUG") as cm:
+            wait_for_geolocation_and_use(proxy_mock, mode_mock)
+        wait_mock.assert_called_once_with(proxy_mock, timeout=GEOLOC_CONNECTION_TIMEOUT)
+        apply_mock.assert_not_called()
+        logs = "\n".join(cm.output)
+        assert "timed out" in logs
+
+
+class StartupUtilsGeolocApplyTestCase(unittest.TestCase):
+    """Test applying geolocation results."""
+
+    @staticmethod
+    def _setup_locale_wrapper(locale, module, text_mode=None):
+        """Helper method to make mocks of setup_locale() return the right string."""
+        return locale
+
+    @patch.dict("os.environ", clear=True)
+    @patch("pyanaconda.startup_utils.TIMEZONE")
+    @patch("pyanaconda.startup_utils.LOCALIZATION")
+    @patch("pyanaconda.startup_utils.GeolocationData")
+    @patch("pyanaconda.startup_utils.setup_locale", side_effect=_setup_locale_wrapper)
+    @patch("pyanaconda.startup_utils.locale_has_translation")
+    def test_apply_none(self, has_trans_mock, setup_locale_mock, geodata_mock, loc_mock, tz_mock):
+        """Test applying no geolocation results."""
+        geodata_mock.from_structure.return_value = GeolocationData()
+        tz_proxy = tz_mock.get_proxy.return_value
+        tz_proxy.Timezone = PropertyMock()
+        loc_proxy = loc_mock.get_proxy.return_value
+        loc_proxy.Language = PropertyMock()
+
+        apply_geolocation_result(None)
+
+        tz_proxy.Timezone.assert_not_called()
+        loc_proxy.Language.assert_not_called()
+        setup_locale_mock.assert_not_called()
+        assert not os.environ
+
+    @patch.dict("os.environ", clear=True)
+    @patch("pyanaconda.startup_utils.TIMEZONE")
+    @patch("pyanaconda.startup_utils.LOCALIZATION")
+    @patch("pyanaconda.startup_utils.GeolocationData")
+    @patch("pyanaconda.startup_utils.setup_locale", side_effect=_setup_locale_wrapper)
+    @patch("pyanaconda.startup_utils.locale_has_translation", return_value=True)
+    def test_apply_all(self, has_trans_mock, setup_locale_mock, geodata_mock, loc_mock, tz_mock):
+        """Test applying all geolocation results."""
+        geodata_mock.from_structure.return_value = GeolocationData.from_values(
+            territory="ES",
+            timezone="Europe/Madrid"
+        )
+        tz_proxy = tz_mock.get_proxy.return_value
+        tz_proxy.Timezone = ""
+        loc_proxy = loc_mock.get_proxy.return_value
+        loc_proxy.Language = ""
+
+        apply_geolocation_result(None)
+
+        assert tz_proxy.Timezone == "Europe/Madrid"
+        setup_locale_mock.assert_called_once_with("es_ES.UTF-8", loc_proxy, text_mode=False)
+        assert os.environ == {"LANG": "es_ES.UTF-8"}
+
+    @patch.dict("os.environ", clear=True)
+    @patch("pyanaconda.startup_utils.TIMEZONE")
+    @patch("pyanaconda.startup_utils.LOCALIZATION")
+    @patch("pyanaconda.startup_utils.GeolocationData")
+    @patch("pyanaconda.startup_utils.setup_locale", side_effect=_setup_locale_wrapper)
+    @patch("pyanaconda.startup_utils.locale_has_translation", return_value=False)
+    def test_apply_no_translation(self, has_trans_mock, setup_locale_mock, geodata_mock, loc_mock,
+                                  tz_mock):
+        """Test applying geolocation results with no translation."""
+        geodata_mock.from_structure.return_value = GeolocationData.from_values(
+            territory="ES",
+            timezone="Europe/Madrid"
+        )
+        tz_proxy = tz_mock.get_proxy.return_value
+        tz_proxy.Timezone = ""
+        loc_proxy = loc_mock.get_proxy.return_value
+        loc_proxy.Language = ""
+
+        apply_geolocation_result(None)
+
+        assert tz_proxy.Timezone == "Europe/Madrid"
+        setup_locale_mock.assert_not_called()
+        assert not os.environ
+
+    @patch.dict("os.environ", clear=True)
+    @patch("pyanaconda.startup_utils.TIMEZONE")
+    @patch("pyanaconda.startup_utils.LOCALIZATION")
+    @patch("pyanaconda.startup_utils.GeolocationData")
+    @patch("pyanaconda.startup_utils.setup_locale", side_effect=_setup_locale_wrapper)
+    @patch("pyanaconda.startup_utils.locale_has_translation")
+    def test_apply_lang_set(self, has_trans_mock, setup_locale_mock, geodata_mock, loc_mock,
+                            tz_mock):
+        """Test applying geolocation results when language has been set already."""
+        geodata_mock.from_structure.return_value = GeolocationData.from_values(
+            territory="ES",
+            timezone="Europe/Madrid"
+        )
+        tz_proxy = tz_mock.get_proxy.return_value
+        tz_proxy.Timezone = ""
+        loc_proxy = loc_mock.get_proxy.return_value
+        loc_proxy.Language = "ko_KO.UTF-8"
+        loc_proxy.LanguageKickstarted = True
+
+        apply_geolocation_result(None)
+
+        assert tz_proxy.Timezone == "Europe/Madrid"
+        setup_locale_mock.assert_not_called()
+        assert not os.environ
+
+    @patch.dict("os.environ", clear=True)
+    @patch("pyanaconda.startup_utils.TIMEZONE")
+    @patch("pyanaconda.startup_utils.LOCALIZATION")
+    @patch("pyanaconda.startup_utils.GeolocationData")
+    @patch("pyanaconda.startup_utils.setup_locale", side_effect=_setup_locale_wrapper)
+    @patch("pyanaconda.startup_utils.locale_has_translation", return_value=True)
+    def test_apply_tz_missing(self, has_trans_mock, setup_locale_mock, geodata_mock, loc_mock,
+                              tz_mock):
+        """Test applying language from geolocation when timezone is missing."""
+        geodata_mock.from_structure.return_value = GeolocationData.from_values(
+            territory="ES",
+            timezone=""
+        )
+        tz_proxy = tz_mock.get_proxy.return_value
+        tz_proxy.Timezone = ""
+        loc_proxy = loc_mock.get_proxy.return_value
+        loc_proxy.Language = ""
+
+        apply_geolocation_result(None)
+
+        assert tz_proxy.Timezone == ""
+        setup_locale_mock.assert_called_once_with("es_ES.UTF-8", loc_proxy, text_mode=False)
+        assert os.environ == {"LANG": "es_ES.UTF-8"}

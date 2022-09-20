@@ -134,6 +134,8 @@ GEOLOC_DEFAULT_PROVIDER = GEOLOC_PROVIDER_FEDORA_GEOIP
 # geolocation URLs - values used by config file
 GEOLOC_URL_FEDORA_GEOIP = "https://geoip.fedoraproject.org/city"
 GEOLOC_URL_HOSTIP = "https://api.hostip.info/get_json.php"
+# timeout for the network connection used for geolocation (in seconds)
+GEOLOC_CONNECTION_TIMEOUT = 5
 
 ANACONDA_ENVIRON = "anaconda"
 FIRSTBOOT_ENVIRON = "firstboot"

@@ -31,13 +31,15 @@ from pyanaconda.anaconda_loggers import get_stdout_logger, get_module_logger
 from pyanaconda.core import util, constants
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import TEXT_ONLY_TARGET, SETUP_ON_BOOT_DEFAULT, \
-    SETUP_ON_BOOT_ENABLED, DRACUT_ERRORS_PATH
+    SETUP_ON_BOOT_ENABLED, DRACUT_ERRORS_PATH, DisplayModes
 from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.service import start_service
 from pyanaconda.flags import flags
+from pyanaconda.localization import get_territory_locales, setup_locale, locale_has_translation
 from pyanaconda.screensaver import inhibit_screensaver
-from pyanaconda.modules.common.structures.timezone import TimeSourceData
+from pyanaconda.modules.common.task import wait_for_task
+from pyanaconda.modules.common.structures.timezone import TimeSourceData, GeolocationData
 from pyanaconda.modules.common.constants.services import TIMEZONE, LOCALIZATION, SERVICES, \
     SECURITY
 from pyanaconda.modules.common.util import is_module_available
@@ -646,3 +648,96 @@ def check_if_geolocation_should_be_used(opts):
 
     log.info("Geolocation is enabled.")
     return True
+
+
+def start_geolocation_conditionally(opts):
+    """Start geolocation conditionally, according to the command line or boot options.
+
+    :param opts: the command line/boot options
+    :return: D-Bus proxy for the geolocation task
+    """
+    use_geoloc = check_if_geolocation_should_be_used(opts)
+    if not use_geoloc:
+        return None
+
+    if not is_module_available(TIMEZONE):
+        log.warning("Geoloc: not starting due to missing Timezone module")
+        return None
+
+    if not is_module_available(LOCALIZATION):
+        log.warning("Geoloc: not starting due to missing Localization module")
+        return None
+
+    timezone_proxy = TIMEZONE.get_proxy()
+    geoloc_task_path = timezone_proxy.StartGeolocationWithTask()
+    geoloc_task_proxy = TIMEZONE.get_proxy(geoloc_task_path)
+    geoloc_task_proxy.Start()
+    return geoloc_task_proxy
+
+
+def wait_for_geolocation_and_use(geoloc_task_proxy, display_mode):
+    """Wait for geolocation and use the result, if started.
+
+    :param geoloc_task_proxy: D-Bus proxy for a GeolocationTask instance
+    :param display_mode: a display mode to use for the check
+    """
+    if not geoloc_task_proxy:
+        return
+
+    try:
+        wait_for_task(geoloc_task_proxy, timeout=constants.GEOLOC_CONNECTION_TIMEOUT)
+    except TimeoutError:
+        log.debug("Geolocation timed out. Exceptions will not be logged.")
+        return
+    else:
+        apply_geolocation_result(display_mode)
+
+
+def apply_geolocation_result(display_mode):
+    """Apply geolocation result.
+
+    This does not check for kickstart installations, because in that case geolocation is not even
+    started.
+
+    :param display_mode: a display mode to use for the check
+    """
+    timezone_module = TIMEZONE.get_proxy()
+    localization_module = LOCALIZATION.get_proxy()
+
+    geoloc_result = GeolocationData.from_structure(timezone_module.GeolocationResult)
+
+    # Nothing to do with no inputs.
+    if geoloc_result.is_empty():
+        return
+
+    if geoloc_result.timezone:
+        # (the geolocation module makes sure that the returned timezone is
+        # either a valid timezone or empty string)
+        log.info("Geoloc: using timezone determined by geolocation")
+        timezone_module.Timezone = geoloc_result.timezone
+        # Either this is an interactive install and timezone.seen propagates
+        # from the interactive default kickstart, or this is a kickstart
+        # install where the user explicitly requested geolocation to be used.
+        # So set timezone.seen to True, so that the user isn't forced to
+        # enter the Date & Time spoke to acknowledge the timezone detected
+        # by geolocation before continuing the installation.
+        timezone_module.Kickstarted = True
+
+    # skip language setup if already set by boot options or kickstart
+    language = localization_module.Language
+    if language and localization_module.LanguageKickstarted:
+        log.info("Geoloc: skipping locale because already set")
+        return
+
+    territory = geoloc_result.territory
+    locales = get_territory_locales(territory)
+    try:
+        locale = next(l for l in locales if locale_has_translation(l))
+    except StopIteration:
+        log.info("Geoloc: detected languages are not translated, skipping locale")
+        return
+
+    is_console = display_mode == DisplayModes.TUI
+    locale = setup_locale(locale, localization_module, text_mode=is_console)
+    # pylint: disable=environment-modify
+    os.environ["LANG"] = locale

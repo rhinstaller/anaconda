@@ -18,7 +18,6 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-from unittest.mock import patch
 
 from dasbus.structure import compare_data
 from dasbus.typing import *  # pylint: disable=wildcard-import
@@ -33,6 +32,7 @@ from pyanaconda.modules.common.structures.kickstart import KickstartReport
 from pyanaconda.modules.common.structures.timezone import GeolocationData
 from pyanaconda.modules.timezone.timezone import TimezoneService
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
+from pyanaconda.modules.timezone.initialization import GeolocationTask
 from tests.unit_tests.pyanaconda_tests import check_kickstart_interface, \
     patch_dbus_publish_object, check_task_creation_list, check_dbus_property
 
@@ -317,31 +317,18 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         assert len(report.warning_messages) == 1
         assert report.warning_messages[0].message == warning
 
-    @patch("pyanaconda.modules.timezone.timezone.GeolocationTask")
-    def test_geoloc_interface(self, geoloc_mock):
+    @patch_dbus_publish_object
+    def test_geoloc_interface(self, publisher):
         """Test geolocation-related interface and implementation of Timezone"""
+        task_path = self.timezone_interface.StartGeolocationWithTask()
+        check_task_creation_list([task_path], publisher, [GeolocationTask])
 
         # without any actions, we should get empty GeolocationData
         new = GeolocationData.from_structure(self.timezone_interface.GeolocationResult)
         assert new.is_empty()
 
-        # let's "run" geolocation
-        self.timezone_interface.StartGeolocation()
-
-        # the task should have been instantiated, signal connected, and started
-        geoloc_mock.assert_called_once_with()
-        mock_task = geoloc_mock.return_value
-        mock_task.start.assert_called_once_with()
-        mock_task.succeeded_signal.connect.assert_called_once_with(
-            self.timezone_module._set_geolocation_result
-        )
-
-        # running the callback for finishing should also save result
-        self.timezone_module._set_geolocation_result()
-        mock_task.get_result.assert_called_once_with()
-        assert self.timezone_module.geolocation_result == mock_task.get_result.return_value
-
-        # try re-running, same as earlier
-        geoloc_mock.reset_mock()
-        self.timezone_interface.StartGeolocation()
-        geoloc_mock.assert_called_once_with()
+    def test_geoloc_result_callback(self):
+        """Test geolocation task result callback"""
+        result = GeolocationData.from_values(territory="", timezone="")
+        self.timezone_module._set_geolocation_result(result)
+        assert self.timezone_module.geolocation_result == result
