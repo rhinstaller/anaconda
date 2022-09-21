@@ -50,6 +50,8 @@ import { HelpIcon } from "@patternfly/react-icons";
 import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
 import { ListingTable } from "cockpit-components-table.jsx";
 
+import { helpStorageOptions } from "./HelpStorageOptions.jsx";
+
 import {
     applyPartitioning,
     createPartitioning,
@@ -377,6 +379,10 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
 export const InstallationDestination = ({ idPrefix, setIsFormValid, onAddErrorNotification, toggleContextHelp, stepNotification, isInProgress }) => {
     const [requiredSize, setRequiredSize] = useState(0);
 
+    const toggleHelpStorageOptions = () => {
+        toggleContextHelp(helpStorageOptions);
+    };
+
     useEffect(() => {
         getRequiredSpace()
                 .then(res => {
@@ -413,7 +419,7 @@ export const InstallationDestination = ({ idPrefix, setIsFormValid, onAddErrorNo
                         "$0 of available space. Storage will be automatically partitioned."
                     ), cockpit.format_bytes(requiredSize))}
                     {" "}
-                    <Button variant="link" isInline onClick={toggleContextHelp}>
+                    <Button variant="link" isInline onClick={toggleHelpStorageOptions}>
                         {_("Learn more about your storage options.")}
                     </Button>
                 </Text>

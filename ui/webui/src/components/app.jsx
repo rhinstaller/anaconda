@@ -44,6 +44,7 @@ export const Application = () => {
     const [conf, setConf] = useState();
     const [notifications, setNotifications] = useState({});
     const [isHelpExpanded, setIsHelpExpanded] = useState(false);
+    const [helpContent, setHelpContent] = useState("");
 
     useEffect(() => {
         cockpit.file("/run/anaconda/bus.address").watch(address => {
@@ -80,7 +81,10 @@ export const Application = () => {
         onAddNotification({ title: ex.name, message: ex.message, variant: "danger" });
     };
 
-    const toggleContextHelp = () => {
+    const toggleContextHelp = (content) => {
+        if (!isHelpExpanded) {
+            setHelpContent(content);
+        }
         setIsHelpExpanded(!isHelpExpanded);
     };
 
@@ -139,6 +143,7 @@ export const Application = () => {
         <HelpDrawer
           isExpanded={isHelpExpanded}
           setIsExpanded={setIsHelpExpanded}
+          helpContent={helpContent}
         >
             {page}
         </HelpDrawer>
