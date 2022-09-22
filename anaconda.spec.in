@@ -196,8 +196,6 @@ Requires: hfsplus-tools
 %ifnarch riscv64
 Requires: kexec-tools
 %endif
-# needed for proper driver disk support - if RPMs must be installed, a repo is needed
-Requires: createrepo_c
 # run's on TTY1 in install env
 Requires: tmux
 # install time crash handling
@@ -231,6 +229,8 @@ Requires: zram-generator-defaults
 %else
 Requires: zram-generator
 %endif
+# needed for proper driver disk support - if RPMs must be installed, a repo is needed
+Requires: createrepo_c
 # Display stuff moved from lorax templates
 Requires: xorg-x11-drivers
 Requires: xorg-x11-server-Xorg
