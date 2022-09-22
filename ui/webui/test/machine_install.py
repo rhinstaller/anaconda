@@ -84,7 +84,7 @@ class VirtInstallMachine(VirtMachine):
                 "'-netdev user,id=hostnet0,"
                 f"hostfwd=tcp:{self.ssh_address}:{self.ssh_port}-:22,"
                 f"hostfwd=tcp:{self.web_address}:{self.web_port}-:9090 "
-                "-device virtio-net-pci,netdev=hostnet0,id=net0' "
+                "-device virtio-net-pci,netdev=hostnet0,id=net0,addr=0x4' "
                 f"--initrd-inject {os.getcwd()}/test/ks.cfg "
                 "--extra-args 'inst.ks=file:/ks.cfg' "
                 "--disk size=15,format=qcow2 "
