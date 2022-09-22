@@ -217,11 +217,6 @@ Requires: anaconda-install-env-deps = %{version}-%{release}
 %ifarch %{ix86} x86_64
 Requires: fcoe-utils >= %{fcoeutilsver}
 %endif
-%ifarch %{ix86} x86_64
-%if ! 0%{?rhel}
-Requires: hfsplus-tools
-%endif
-%endif
 # only WeakRequires elsewhere and not guaranteed to be present
 Requires: device-mapper-multipath
 %if ! 0%{?rhel}
