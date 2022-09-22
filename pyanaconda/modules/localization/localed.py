@@ -171,7 +171,8 @@ class LocaledWrapper(object):
                 parsing_failed = True
                 continue
             layouts.append(layout)
-            variants.append(variant)
+            if variant:
+                variants.append(variant)
 
         if not layouts and parsing_failed:
             return
