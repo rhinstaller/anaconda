@@ -31,7 +31,7 @@ from pyanaconda.product import productName
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["EFIBase", "EFIGRUB", "Aarch64EFIGRUB", "ArmEFIGRUB", "MacEFIGRUB", "Aarch64EFISystemdBoot"]
+__all__ = ["EFIBase", "EFIGRUB", "Aarch64EFIGRUB", "ArmEFIGRUB", "MacEFIGRUB", "Aarch64EFISystemdBoot", "X64EFISystemdBoot"]
 
 
 class EFIBase(object):
@@ -259,6 +259,14 @@ class Aarch64EFISystemdBoot(EFISystemdBoot):
     def __init__(self):
         super().__init__()
         self._packages64 = []
+
+class X64EFISystemdBoot(EFISystemdBoot):
+    _efi_binary = "\\systemd-bootx64.efi"
+
+    def __init__(self):
+        super().__init__()
+        self._packages64 = []
+
 
 
 class ArmEFIGRUB(EFIGRUB):
