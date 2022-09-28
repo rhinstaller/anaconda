@@ -147,7 +147,7 @@ class EFIBase(object):
 class EFIGRUB(EFIBase, GRUB2):
     """EFI GRUBv2"""
     _packages32 = [ "grub2-efi-ia32", "shim-ia32" ]
-    _packages_common = [ "efibootmgr", "grub2-tools" ]
+    _packages_common = ["efibootmgr", "grub2-tools", "grub2-tools-extra", "grubby" ]
     stage2_is_valid_stage1 = False
     stage2_bootable = False
 
@@ -249,7 +249,7 @@ class Aarch64EFIGRUB(EFIGRUB):
 
     def __init__(self):
         super().__init__()
-        self._packages64 = ["grub2-efi-aa64", "shim-aa64"]
+        self._packages64 = ["grub2-efi-aa64", "shim-aa64", "grub2-efi-aa64-cdboot"]
 
 
 class Aarch64EFISystemdBoot(EFISystemdBoot):
