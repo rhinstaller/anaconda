@@ -23,8 +23,9 @@ from pyanaconda.core.configuration.base import Section
 
 class BootloaderType(Enum):
     """Type of the bootloader."""
-    DEFAULT = "DEFAULT"
+    DEFAULT  = "DEFAULT"
     EXTLINUX = "EXTLINUX"
+    SDBOOT   = "SDBOOT"
 
 
 class BootloaderSection(Section):
@@ -38,6 +39,7 @@ class BootloaderSection(Section):
 
             DEFAULT   Choose the type by platform.
             EXTLINUX  Use extlinux as the bootloader.
+            SDBOOT    Use systemd-boot as the bootloader.
 
         :return: an instance of BootloaderType
         """

@@ -375,6 +375,8 @@ class AnacondaConfiguration(Configuration):
         # Set the bootloader type.
         if opts.extlinux:
             self.bootloader._set_option("type", BootloaderType.EXTLINUX.value)
+        if opts.sdboot:
+            self.bootloader._set_option("type", BootloaderType.SDBOOT.value)
 
         # Set the boot loader flags.
         self.bootloader._set_option("nonibft_iscsi_boot", opts.nonibftiscsiboot)
