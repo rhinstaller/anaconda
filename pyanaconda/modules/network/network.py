@@ -23,7 +23,7 @@ from pyanaconda.core.async_utils import run_in_loop
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.configuration.network import NetworkOnBoot
 from pyanaconda.core.kernel import kernel_arguments
-from pyanaconda.core.dbus import DBus, SystemBus
+from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.containers import TaskContainer
@@ -37,7 +37,7 @@ from pyanaconda.modules.network.firewall import FirewallModule
 from pyanaconda.modules.network.device_configuration import DeviceConfigurations, \
     supported_device_types, supported_wired_device_types
 from pyanaconda.modules.network.nm_client import devices_ignore_ipv6, get_connections_dump, \
-    get_dracut_arguments_from_connection, get_kickstart_network_data
+    get_dracut_arguments_from_connection, get_kickstart_network_data, get_new_nm_client
 from pyanaconda.modules.network.config_file import get_config_files_content, \
     is_config_file_for_system
 from pyanaconda.modules.network.installation import NetworkInstallationTask, \
@@ -70,17 +70,12 @@ class NetworkService(KickstartService):
         self._hostname_service_proxy = self._get_hostname_proxy()
 
         self.connected_changed = Signal()
-        self.nm_client = None
         # TODO fallback solution - use Gio/GNetworkMonitor ?
-        if SystemBus.check_connection():
-            nm_client = NM.Client.new(None)
-            if nm_client.get_nm_running():
-                self.nm_client = nm_client
-                self.nm_client.connect("notify::%s" % NM.CLIENT_STATE, self._nm_state_changed)
-                initial_state = self.nm_client.get_state()
-                self.set_connected(self._nm_state_connected(initial_state))
-            else:
-                log.debug("NetworkManager is not running.")
+        self.nm_client = get_new_nm_client()
+        if self.nm_client:
+            self.nm_client.connect("notify::%s" % NM.CLIENT_STATE, self._nm_state_changed)
+            initial_state = self.nm_client.get_state()
+            self.set_connected(self._nm_state_connected(initial_state))
 
         self._original_network_data = []
         self._device_configurations = None
@@ -393,7 +388,6 @@ class NetworkService(KickstartService):
         all_onboot_ifaces = list(set(onboot_ifaces + onboot_ifaces_by_policy))
 
         task = ConfigureActivationOnBootTask(
-            self.nm_client,
             all_onboot_ifaces
         )
         task.succeeded_signal.connect(lambda: self.log_task_result(task))
@@ -616,8 +610,7 @@ class NetworkService(KickstartService):
         :returns: a task applying the kickstart
         """
         supported_devices = [dev_info.device_name for dev_info in self.get_supported_devices()]
-        task = ApplyKickstartTask(self.nm_client,
-                                  self._original_network_data,
+        task = ApplyKickstartTask(self._original_network_data,
                                   supported_devices,
                                   self.bootif,
                                   self.ifname_option_values)
@@ -645,8 +638,7 @@ class NetworkService(KickstartService):
         """
         data = self.get_kickstart_handler()
         default_network_data = data.NetworkData(onboot=False, ipv6="auto")
-        task = DumpMissingConfigFilesTask(self.nm_client,
-                                          default_network_data,
+        task = DumpMissingConfigFilesTask(default_network_data,
                                           self.ifname_option_values)
         task.succeeded_signal.connect(lambda: self.log_task_result(task, check_result=True))
         return task
