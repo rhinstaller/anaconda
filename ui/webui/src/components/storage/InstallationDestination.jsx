@@ -44,6 +44,7 @@ import {
     Toolbar,
     ToolbarContent,
     ToolbarItem,
+    Tooltip,
 } from "@patternfly/react-core";
 
 import { HelpIcon } from "@patternfly/react-icons";
@@ -278,6 +279,14 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
                       .finally(() => { setIsDiscoveringDisks(false) });
           }}
         >
+            <Tooltip
+              content={
+                  <div>
+                      {_("Scans for local storage devices")}
+                  </div>
+              }
+              reference={() => document.getElementById(idPrefix + "-rescan-disks")}
+            />
             {_("Discover disks")}
         </Button>
     );
