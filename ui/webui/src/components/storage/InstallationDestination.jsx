@@ -116,7 +116,8 @@ const DropdownBulkSelect = ({
     onSelectNone,
     onChange,
     selectedCnt,
-    totalCnt
+    totalCnt,
+    isDisabled
 }) => {
     const [isOpen, setIsOpen] = React.useState(false);
 
@@ -175,6 +176,7 @@ const DropdownBulkSelect = ({
                 splitButtonItems={splitButtonItems}
                 onToggle={onToggle}
                 id="local-disks-bulk-select-toggle"
+                isDisabled={isDisabled}
               />
           }
           isOpen={isOpen}
@@ -351,6 +353,7 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
           onChange={(checked) => setDisks(setSelectionForAllDisks({ disks, value: checked }))}
           selectedCnt={selectedDisksCnt}
           totalCnt={totalDisksCnt}
+          isDisabled={isDiscoveringDisks}
         />
 
     );
