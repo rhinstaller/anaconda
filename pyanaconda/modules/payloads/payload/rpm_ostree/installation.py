@@ -577,7 +577,10 @@ class PullRemoteAndDeleteTask(Task):
         progress = OSTree.AsyncProgress.new()
         progress.connect('changed', self._pull_progress_cb)
 
-        pull_opts = {'refs': Variant('as', [ref])}
+        # We use the UNTRUSTED flag as a way to help verification for potentially
+        # corrupted ISOs - this way ostree will validate the checksum of objects as
+        # it writes data.
+        pull_opts = {'refs': Variant('as', [ref]), 'flags': Variant('i', OSTree.RepoPullFlags.UNTRUSTED)}
         # If we're doing a kickstart, we can at least use the content as a reference:
         # See <https://github.com/rhinstaller/anaconda/issues/1117>
         # The first path here is used by <https://pagure.io/fedora-lorax-templates>
