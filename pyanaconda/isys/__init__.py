@@ -17,34 +17,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-
-try:
-    from pyanaconda import _isys
-except ImportError:
-    # We're running in some sort of testing mode, in which case we can fix
-    # up PYTHONPATH and just do this basic import.
-    import _isys
-
 import time
 import datetime
 import zoneinfo
+from pyanaconda.core.util import execWithRedirect
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
-
-
-def set_system_time(secs):
-    """
-    Set system time to time given as a number of seconds since the Epoch.
-
-    :param secs: a number of seconds since the Epoch to set system time to
-    :type secs: int
-
-    """
-
-    # pylint: disable=no-member
-    _isys.set_system_time(secs)
-    log.info("System time set to %s UTC", time.asctime(time.gmtime(secs)))
 
 
 def set_system_date_time(year=None, month=None, day=None, hour=None, minute=None,
@@ -80,4 +59,7 @@ def set_system_date_time(year=None, month=None, day=None, hour=None, minute=None
     second = now.second
 
     set_date = datetime.datetime(year, month, day, hour, minute, second, tzinfo=tz)
-    set_system_time(int(set_date.timestamp()))
+    epoch_seconds = int(set_date.timestamp())
+
+    log.info("Setting system time to %s UTC", time.asctime(time.gmtime(epoch_seconds)))
+    execWithRedirect("date", ['--set=@{}'.format(epoch_seconds)])
