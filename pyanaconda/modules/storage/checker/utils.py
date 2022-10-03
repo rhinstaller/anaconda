@@ -207,9 +207,15 @@ def verify_gpt_biosboot(storage, constraints, report_error, report_warning):
     :param report_error: a function for error reporting
     :param report_warning: a function for warning reporting
     """
+    # The bootloader is disabled.
     if not storage.bootloader or storage.bootloader.skip_bootloader:
         return
 
+    # The bootloader devices are not set.
+    if not storage.bootloader.stage1_device or not storage.bootloader.stage2_device:
+        return
+
+    # Check the installation targets.
     for stage1, _stage2 in storage.bootloader.install_targets:
         if arch.is_x86() and not arch.is_efi() and stage1 and stage1.is_disk \
                 and getattr(stage1.format, "label_type", None) == "gpt":
