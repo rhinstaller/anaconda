@@ -62,6 +62,13 @@ class Storage():
         self.browser.wait_in_text("#next-tooltip-ref",
                                   "To continue, select the devices(s) to install to.")
 
+    def wait_no_disks_detected(self):
+        self.browser.wait_in_text("#no-disks-detected-alert",
+                                  "No additional disks detected")
+
+    def wait_no_disks_detected_not_present(self):
+        self.browser.wait_not_present("#no-disks-detected-alert")
+
     def dbus_reset_partitioning(self):
         bus_address = self.machine.execute("cat /run/anaconda/bus.address")
         self.machine.execute(f'dbus-send --print-reply --bus="{bus_address}" \

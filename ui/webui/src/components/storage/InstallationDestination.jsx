@@ -19,6 +19,7 @@ import React, { useEffect, useState } from "react";
 
 import {
     Alert,
+    AlertActionCloseButton,
     Bullseye,
     Button,
     Divider,
@@ -111,6 +112,14 @@ const setSelectionForAllDisks = ({ disks, value }) => {
     return (Object.keys(disks).reduce((acc, cur) => ({ ...acc, [cur]: value }), {}));
 };
 
+const containEqualDisks = (disks1, disks2) => {
+    const disks1Str = Object.keys(disks1).sort()
+            .join();
+    const disks2Str = Object.keys(disks2).sort()
+            .join();
+    return disks1Str === disks2Str;
+};
+
 const DropdownBulkSelect = ({
     onSelectAll,
     onSelectNone,
@@ -190,6 +199,8 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
     const [disks, setDisks] = useState({});
     const [refreshCnt, setRefreshCnt] = useState(0);
     const [isDiscoveringDisks, setIsDiscoveringDisks] = useState(false);
+    const [lastDiscoveryDisks, setLastDiscoveryDisks] = useState({});
+    const [equalDisksNotify, setEqualDisksNotify] = useState(false);
 
     useEffect(() => {
         let usableDisks;
@@ -270,6 +281,7 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
           variant="secondary"
           onClick={() => {
               setIsDiscoveringDisks(true);
+              setLastDiscoveryDisks({ ...disks });
               setDisks(setSelectionForAllDisks({ disks, value: false }));
               scanDevicesWithTask().then(res => {
                   runStorageTask({
@@ -278,7 +290,7 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
                       onFail: onAddErrorNotification
                   });
               })
-                      .finally(() => { setIsDiscoveringDisks(false) });
+                      .finally(() => { setIsDiscoveringDisks(false); setEqualDisksNotify(true) });
           }}
         >
             <Tooltip
@@ -407,6 +419,14 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
               }
             >
                 <FormGroup>
+                    {equalDisksNotify && containEqualDisks(disks, lastDiscoveryDisks) &&
+                        <Alert
+                          id="no-disks-detected-alert"
+                          isInline
+                          title={_("No additional disks detected")}
+                          variant="info"
+                          actionClose=<AlertActionCloseButton onClose={() => setEqualDisksNotify(false)} />
+                        />}
                     {localDisksToolbar}
                     {localDisksTable}
                 </FormGroup>
