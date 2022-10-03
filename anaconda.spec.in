@@ -47,7 +47,6 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define subscriptionmanagerver 1.26
 %define utillinuxver 2.15.1
 
-BuildRequires: audit-libs-devel
 BuildRequires: libtool
 BuildRequires: gettext-devel >= %{gettextver}
 BuildRequires: gtk3-devel >= %{gtk3ver}
