@@ -24,10 +24,12 @@ configuration, valid timezones recognition etc.
 
 import langtable
 import zoneinfo
+import time
+import datetime
 from collections import OrderedDict
 from functools import cache
 
-from pyanaconda.core import util
+from pyanaconda.core.util import execWithRedirect
 from pyanaconda.core.constants import THREAD_STORAGE
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
@@ -75,7 +77,7 @@ def time_initialize(timezone_proxy):
     else:
         args.append("--localtime")
 
-    util.execWithRedirect(cmd, args)
+    execWithRedirect(cmd, args)
 
 
 def get_preferred_timezone(territory):
@@ -152,3 +154,42 @@ def get_timezone(timezone):
     """
 
     return zoneinfo.ZoneInfo(timezone)
+
+
+def set_system_date_time(year=None, month=None, day=None, hour=None, minute=None,
+                         tz=None):
+    """Set system date and time given by the parameters.
+
+    If some parameter is missing or None, the current system date/time field is used instead
+    (i.e. the value is not changed by this function).
+
+    :param int|None year: year to set
+    :param int|None month: month to set
+    :param int|None day: day to set
+    :param int|None hour: hour to set
+    :param int|None minute: minute to set
+    :param str tz: time zone of the requested time
+    """
+    utc = zoneinfo.ZoneInfo(key='UTC')
+    # If no timezone is set, use UTC
+    if not tz:
+        tz = utc
+    else:
+        tz = zoneinfo.ZoneInfo(key=tz)
+
+    time.tzset()
+
+    # get the right values
+    now = datetime.datetime.now(tz)
+    year = year if year is not None else now.year
+    month = month if month is not None else now.month
+    day = day if day is not None else now.day
+    hour = hour if hour is not None else now.hour
+    minute = minute if minute is not None else now.minute
+    second = now.second
+
+    set_date = datetime.datetime(year, month, day, hour, minute, second, tzinfo=tz)
+    epoch_seconds = int(set_date.timestamp())
+
+    log.info("Setting system time to %s UTC", time.asctime(time.gmtime(epoch_seconds)))
+    execWithRedirect("date", ['--set=@{}'.format(epoch_seconds)])
