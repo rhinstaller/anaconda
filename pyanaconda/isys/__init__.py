@@ -48,20 +48,25 @@ def set_system_time(secs):
 
 
 def set_system_date_time(year=None, month=None, day=None, hour=None, minute=None,
-                         second=None, tz=None):
+                         tz=None):
+    """Set system date and time given by the parameters.
+
+    If some parameter is missing or None, the current system date/time field is used instead
+    (i.e. the value is not changed by this function).
+
+    :param int|None year: year to set
+    :param int|None month: month to set
+    :param int|None day: day to set
+    :param int|None hour: hour to set
+    :param int|None minute: minute to set
+    :param str tz: time zone of the requested time
     """
-    Set system date and time given by the parameters as numbers. If some
-    parameter is missing or None, the current system date/time field is used
-    instead (i.e. the value is not changed by this function).
-
-    :type year, month, ..., second: int
-
-    """
-
     utc = zoneinfo.ZoneInfo(key='UTC')
     # If no timezone is set, use UTC
     if not tz:
         tz = utc
+    else:
+        tz = zoneinfo.ZoneInfo(key=tz)
 
     time.tzset()
 
@@ -72,7 +77,7 @@ def set_system_date_time(year=None, month=None, day=None, hour=None, minute=None
     day = day if day is not None else now.day
     hour = hour if hour is not None else now.hour
     minute = minute if minute is not None else now.minute
-    second = second if second is not None else now.second
+    second = now.second
 
     set_date = datetime.datetime(year, month, day, hour, minute, second, tzinfo=tz)
     set_system_time(int(set_date.timestamp()))
