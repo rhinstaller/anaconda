@@ -76,7 +76,7 @@ AC_TYPE_INT64_T
 
 # Checks for library functions.
 AC_FUNC_FORK
-AC_CHECK_FUNCS([getcwd memset mkdir strchr strdup],
+AC_CHECK_FUNCS([getcwd mkdir strchr strdup],
                [],
                [ANACONDA_SOFT_FAILURE([Function $ac_func not found.])])
 
