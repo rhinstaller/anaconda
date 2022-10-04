@@ -20,6 +20,7 @@ import shutil
 from glob import glob
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.path import make_directories
 from pyanaconda.modules.common.task import Task
@@ -112,6 +113,10 @@ class CopyDriverDisksFilesTask(Task):
 
     def run(self):
         """Copy files from the driver disks to the installed system."""
+        if not conf.system.can_use_driver_disks:
+            log.info("Skipping copying of driver disk files.")
+            return
+
         # Multiple driver disks may be loaded, so we need to glob for all
         # the firmware files in the common DD firmware directory
         for f in glob(self.DD_FIRMWARE_DIR + "/*"):
