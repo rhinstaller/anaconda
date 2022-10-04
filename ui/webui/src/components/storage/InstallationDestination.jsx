@@ -283,13 +283,14 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
               setIsDiscoveringDisks(true);
               setLastDiscoveryDisks({ ...disks });
               setDisks(setSelectionForAllDisks({ disks, value: false }));
-              scanDevicesWithTask().then(res => {
-                  runStorageTask({
-                      task: res[0],
-                      onSuccess: () => resetPartitioning().then(() => setRefreshCnt(refreshCnt + 1), onAddErrorNotification),
-                      onFail: onAddErrorNotification
-                  });
-              })
+              scanDevicesWithTask()
+                      .then(res => {
+                          runStorageTask({
+                              task: res[0],
+                              onSuccess: () => resetPartitioning().then(() => setRefreshCnt(refreshCnt + 1), onAddErrorNotification),
+                              onFail: onAddErrorNotification
+                          });
+                      })
                       .finally(() => { setIsDiscoveringDisks(false); setEqualDisksNotify(true) });
           }}
         >
