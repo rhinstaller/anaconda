@@ -16,57 +16,94 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+"""The screensaver inhibition module.
 
-from pyanaconda import safe_dbus
-from pyanaconda.core.glib import Variant
+The "screensaver" term includes the following effects, none of which we want during installation:
+- locking the screen
+- turning off the screen
+- suspending the system
+
+See also the origin bz: https://bugzilla.redhat.com/show_bug.cgi?id=928825
+
+We are using the freedesktop D-Bus api for inhibiting the screensaver:
+    https://people.freedesktop.org/~hadess/idle-inhibition-spec/re01.html
+
+Note this does NOT use the systemd / logind API with similar name and capability!
+
+The D-Bus api lives on the session bus. Connections to the session bus must be made with the
+effective UID of the login user, which in live installs is not the UID of anaconda. This means
+we need to call seteuid while creating the proxy and making calls on the bus.
+
+Additionally, at the time of writing, creating the proxy actually starts the session bus daemon
+and so creates the bus. Conversely, when the proxy stops existing, the bus goes down.
+
+The inhibition is in effect only if all of these conditions are met:
+- The process called Inhibit on the session bus for the correct user.
+- The process exists.
+- The session bus exists.
+- The process did not call UnInhibit on the session bus with the right cookie.
+
+Altogether this means that once the proxy is correctly created, we call Inhibit, and then
+the proxy object must exist as long as we want the inhibition to be in effect.
+"""
+import os
+from dasbus.connection import SessionMessageBus
+from dasbus.error import DBusError
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
+
+__all__ = ["inhibit_screensaver", "uninhibit_screensaver"]
 
 SCREENSAVER_SERVICE = "org.freedesktop.ScreenSaver"
 SCREENSAVER_PATH = "/org/freedesktop/ScreenSaver"
 SCREENSAVER_IFACE = "org.freedesktop.ScreenSaver"
 
-SCREENSAVER_INHIBIT_METHOD = "Inhibit"
-SCREENSAVER_UNINHIBIT_METHOD = "UnInhibit"
-
-SCREENSAVER_APPLICATION = "anaconda"
-SCREENSAVER_REASON = "Installing"
+session_proxy = None
+inhibit_id = None
 
 
-def inhibit_screensaver(connection):
+class SetEuidFromConsolehelper():
+    """Context manager to temporarily set euid from env. variable set by consolehelper.
+
+    Live installs use consolehelper to run as root, which sets the original UID in $USERHELPER_UID.
     """
-    Inhibit the screensaver idle timer.
+    def __init__(self):
+        self.old_euid = None
 
-    :param connection: A handle for the session message bus
-    :type connection: Gio.DBusConnection
-    :return: The inhibit ID or None
-    :rtype: int or None
-    """
+    def __enter__(self):
+        if "USERHELPER_UID" in os.environ:
+            self.old_euid = os.geteuid()
+            new_euid = int(os.environ["USERHELPER_UID"])
+            os.seteuid(new_euid)
+        return self
 
+    def __exit__(self, exc_type, exc_value, exc_traceback):
+        if self.old_euid is not None:
+            os.seteuid(self.old_euid)
+            self.old_euid = None
+
+
+def inhibit_screensaver():
+    """Inhibit the "screensaver" idle timer."""
+    log.info("Inhibiting screensaver.")
+    global session_proxy
+    global inhibit_id
     try:
-        inhibit_id = safe_dbus.call_sync(SCREENSAVER_SERVICE, SCREENSAVER_PATH, SCREENSAVER_IFACE,
-                                         SCREENSAVER_INHIBIT_METHOD, Variant('(ss)',
-                                         (SCREENSAVER_APPLICATION, SCREENSAVER_REASON)),
-                                         connection)
-        return inhibit_id[0]
-    except safe_dbus.DBusCallError as e:
-        log.info("Unable to inhibit the screensaver: %s", e)
-
-    return None
+        with SetEuidFromConsolehelper():
+            bus = SessionMessageBus()
+            session_proxy = bus.get_proxy(SCREENSAVER_SERVICE, SCREENSAVER_PATH)
+            inhibit_id = session_proxy.Inhibit("anaconda", "Installing")
+    except DBusError as e:
+        log.warning("Unable to inhibit the screensaver: %s", e)
 
 
-def uninhibit_screensaver(connection, inhibit_id):
-    """
-    Re-enable the screensaver idle timer.
-
-    :param connection: A handle for the session message bus
-    :type connection: Gio.DBusConnection
-    :param inhibit_id: The ID returned by the inhibit method
-    :type inhibit_id: int
-    """
-
+def uninhibit_screensaver():
+    """Re-enable the "screensaver" idle timer."""
+    if session_proxy is None or inhibit_id is None:
+        return
+    log.info("Un-inhibiting screensaver.")
     try:
-        safe_dbus.call_sync(SCREENSAVER_SERVICE, SCREENSAVER_PATH, SCREENSAVER_IFACE,
-                            SCREENSAVER_UNINHIBIT_METHOD, Variant('(u)', (inhibit_id,)), connection)
-    except safe_dbus.DBusCallError as e:
-        log.info("Unable to uninhibit the screensaver: %s", e)
+        with SetEuidFromConsolehelper():
+            session_proxy.UnInhibit(inhibit_id)
+    except (DBusError, KeyError) as e:
+        log.warning("Unable to uninhibit the screensaver: %s", e)
