@@ -18,6 +18,7 @@
 import os
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from pyanaconda.core.path import make_directories, join_paths, touch
 from pyanaconda.modules.payloads.payload.dnf.repositories import generate_driver_disk_repositories
@@ -26,19 +27,25 @@ from pyanaconda.modules.payloads.payload.dnf.repositories import generate_driver
 class DNFDriverDiskRepositoriesTestCase(unittest.TestCase):
     """Test the generate_driver_disk_repositories function."""
 
-    def test_no_repository(self):
+    @patch("pyanaconda.modules.payloads.payload.dnf.repositories.conf")
+    def test_no_repository(self, conf_mock):
         """Test with no driver disk repositories."""
+        conf_mock.system.can_use_driver_disks = True
         with tempfile.TemporaryDirectory() as d:
             assert generate_driver_disk_repositories(d) == []
 
-    def test_empty_repository(self):
+    @patch("pyanaconda.modules.payloads.payload.dnf.repositories.conf")
+    def test_empty_repository(self, conf_mock):
         """Test with empty driver disk repositories."""
+        conf_mock.system.can_use_driver_disks = True
         with tempfile.TemporaryDirectory() as d:
             make_directories(join_paths(d, "DD-1"))
             assert generate_driver_disk_repositories(d) == []
 
-    def test_repository_without_metadata(self):
+    @patch("pyanaconda.modules.payloads.payload.dnf.repositories.conf")
+    def test_repository_without_metadata(self, conf_mock):
         """Test with one driver disk repository without metadata."""
+        conf_mock.system.can_use_driver_disks = True
         with tempfile.TemporaryDirectory() as d:
             make_directories(join_paths(d, "DD-1"))
             touch(join_paths(d, "DD-1", "x.rpm"))
@@ -51,8 +58,10 @@ class DNFDriverDiskRepositoriesTestCase(unittest.TestCase):
             assert r.url == "file://{}/DD-1".format(d)
             assert os.path.exists(join_paths(d, "DD-1", "repodata"))
 
-    def test_repository_with_metadata(self):
+    @patch("pyanaconda.modules.payloads.payload.dnf.repositories.conf")
+    def test_repository_with_metadata(self, conf_mock):
         """Test with one driver disk repository."""
+        conf_mock.system.can_use_driver_disks = True
         with tempfile.TemporaryDirectory() as d:
             make_directories(join_paths(d, "DD-1"))
             make_directories(join_paths(d, "DD-1", "repodata"))
@@ -64,8 +73,10 @@ class DNFDriverDiskRepositoriesTestCase(unittest.TestCase):
             assert r.name == "DD-1"
             assert r.url == "file://{}/DD-1".format(d)
 
-    def test_repositories(self):
+    @patch("pyanaconda.modules.payloads.payload.dnf.repositories.conf")
+    def test_repositories(self, conf_mock):
         """Test with multiple driver disk repositories."""
+        conf_mock.system.can_use_driver_disks = True
         with tempfile.TemporaryDirectory() as d:
             make_directories(join_paths(d, "DD-1"))
             touch(join_paths(d, "DD-1", "x.rpm"))
@@ -87,3 +98,17 @@ class DNFDriverDiskRepositoriesTestCase(unittest.TestCase):
 
             assert r3.name == "DD-3"
             assert r3.url == "file://{}/DD-3".format(d)
+
+    @patch("pyanaconda.modules.payloads.payload.dnf.repositories.conf")
+    def test_disabled(self, conf_mock):
+        """Test when disabled with one driver disk repository.
+
+        This is a copy of test_repository_with_metadata but with the code disabled.
+        """
+        conf_mock.system.can_use_driver_disks = False
+        with tempfile.TemporaryDirectory() as d:
+            make_directories(join_paths(d, "DD-1"))
+            make_directories(join_paths(d, "DD-1", "repodata"))
+            touch(join_paths(d, "DD-1", "x.rpm"))
+
+            assert generate_driver_disk_repositories(d) == []

@@ -22,6 +22,7 @@ from glob import glob
 from itertools import count
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import REPO_ORIGIN_TREEINFO, URL_TYPE_BASEURL
 from pyanaconda.core.path import join_paths
 from pyanaconda.core.util import execWithRedirect
@@ -40,6 +41,10 @@ def generate_driver_disk_repositories(path="/run/install"):
     :return: a list of repo configuration data
     """
     repositories = []
+
+    if not conf.system.can_use_driver_disks:
+        log.info("Skipping driver disk repository generation.")
+        return repositories
 
     # Iterate over all driver disk repositories.
     for i in count(start=1):

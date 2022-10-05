@@ -196,8 +196,6 @@ Requires: hfsplus-tools
 %ifnarch riscv64
 Requires: kexec-tools
 %endif
-# needed for proper driver disk support - if RPMs must be installed, a repo is needed
-Requires: createrepo_c
 # run's on TTY1 in install env
 Requires: tmux
 # install time crash handling
@@ -219,11 +217,6 @@ Requires: anaconda-install-env-deps = %{version}-%{release}
 %ifarch %{ix86} x86_64
 Requires: fcoe-utils >= %{fcoeutilsver}
 %endif
-%ifarch %{ix86} x86_64
-%if ! 0%{?rhel}
-Requires: hfsplus-tools
-%endif
-%endif
 # only WeakRequires elsewhere and not guaranteed to be present
 Requires: device-mapper-multipath
 %if ! 0%{?rhel}
@@ -231,6 +224,8 @@ Requires: zram-generator-defaults
 %else
 Requires: zram-generator
 %endif
+# needed for proper driver disk support - if RPMs must be installed, a repo is needed
+Requires: createrepo_c
 # Display stuff moved from lorax templates
 Requires: xorg-x11-drivers
 Requires: xorg-x11-server-Xorg

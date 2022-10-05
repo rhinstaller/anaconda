@@ -171,3 +171,8 @@ class SystemSection(Section):
     def provides_liveuser(self):
         """Is the user `liveuser` available?"""
         return self._is_live_os
+
+    @property
+    def can_use_driver_disks(self):
+        """Can the system use driver disks?"""
+        return self._is_boot_iso
