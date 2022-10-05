@@ -468,6 +468,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Oct 05 2022 Radek Vykydal <rvykydal@redhat.com> - 37.12.6-1
+- Don't check installation targets if bootloader devices are not set (#2131183)
+  (vponcova)
+
 * Mon Sep 19 2022 Martin Kolman <mkolman@redhat.com> - 37.12.5-1
 - Add back waiting for geolocation (vslavik)
 - Add wait_for_task() to wait for a Task with timeout (vslavik)
