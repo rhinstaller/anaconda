@@ -23,7 +23,6 @@ from pyanaconda import network, product
 from pyanaconda.core import util, constants
 import socket
 import subprocess
-import dbus
 
 from pyanaconda.core.i18n import _, P_
 from pyanaconda.ui.tui import tui_quit_callback
@@ -222,7 +221,7 @@ class VncServer(object):
         # Lets call it from here for now.
         try:
             self.initialize()
-        except (socket.herror, dbus.DBusException, ValueError) as e:
+        except (socket.herror, ValueError) as e:
             stdoutLog.critical("Could not initialize the VNC server: %s", e)
             util.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
             sys.exit(1)
