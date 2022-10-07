@@ -58,6 +58,7 @@ The overall workflow can be summarized to 3 steps:
 10. use fedpkg to trigger the build (no, there is no button for this just yet...)
 
 ::
+
       fedpkg clone anaconda
       cd anaconda
       fedpkg switch-branch rawhide
@@ -66,6 +67,7 @@ The overall workflow can be summarized to 3 steps:
 if you already have a distgit checkout, you can do just:
 
 ::
+
       fedpkg switch-branch rawhide
       git pull
       fedpkg build
@@ -195,7 +197,7 @@ As this is a build for a upcoming Fedora release we need to also submit a Bodhi 
 
 ::
 
-    fedpkg --update
+    fedpkg update
 
 Next an update template should open in your editor of choice - fill it out, save it & quite the editor.
 A link to the update should be returned and you should also start getting regular spam from Bodhi when
