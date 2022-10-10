@@ -463,6 +463,30 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Oct 10 2022 Radek Vykydal <rvykydal@redhat.com> - 38.6-1
+- Remove bogus dependency on python3-dbus (vslavik)
+- Fix a few typos in release document (rvykydal)
+- Make driver disk code run only on boot.iso (vslavik)
+- Call the Blivet.copy method (vponcova)
+- Web UI: Make context help reusable (ozobal)
+- Fix Web UI VM startup on F37 (mkolman)
+- Don't duplicate dependency on hfsplus-tools (vslavik)
+- Move createrepo_c to anaconda-img-deps (vslavik)
+- Use faulthandler instead of isys signal handlers (vslavik)
+- Fix duplicate alt-D accelerator on root account screen (jeremy.linton)
+- Add minimal_memory_needed to hw module (vslavik)
+- Use more specific imports in startup_utils (vslavik)
+- Use total_memory() from blivet.util instead of ours (vslavik)
+- Move storage constraints setting to a helper (vslavik)
+- Add tests for is_smt_enabled (vslavik)
+- Move some functions from util to hw (vslavik)
+- Move memory-related things from isys to new module (vslavik)
+- Use existing locale in welcome spoke (vslavik)
+- Apply geolocation in main process (vslavik)
+- Add back waiting for geolocation (vslavik)
+- Add wait_for_task() to wait for a Task with timeout (vslavik)
+- dracut: handle compressed kernel modules (m.novosyolov)
+
 * Mon Sep 19 2022 Martin Kolman <mkolman@redhat.com> - 38.5-1
 - Do not require the anaconda-webui package (mkolman)
 - Document how to fix NPM cache issues in Cockpit CI (mkolman)
