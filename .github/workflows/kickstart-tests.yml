@@ -351,14 +351,14 @@ jobs:
         env:
           BODY: ${{ github.event.comment.body }}
         run: |
-          REASON=$(echo "$BODY" | sed -e "s#/status-test --waive ##")
+          REASON=$(echo "$BODY" | sed -e "s#/kickstart-test --waive ##")
           echo "::set-output name=reason::Waived, $REASON"
 
       - name: Set status
         uses: octokit/request-action@v2.x
         with:
           route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
-          context: '/kickstart-test --testtype smoke'
+          context: 'kickstart-test --testtype smoke'
           description: '${{ steps.get_reason.outputs.reason }}'
           state: ${{ job.status }}
           target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
