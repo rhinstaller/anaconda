@@ -98,7 +98,7 @@ class CockpitUserInterface(ui.UserInterface):
                 "--port", "9090", "--local-session=cockpit-bridge"
             ])
 
-        proc = startProgram(["/usr/libexec/webui-desktop",
+        proc = startProgram(["/usr/libexec/cockpit-desktop",
                             "/cockpit/@localhost/anaconda-webui/index.html"],
                             reset_lang=False)
         log.debug("cockpit web view has been started")
