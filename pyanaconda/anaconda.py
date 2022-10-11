@@ -25,6 +25,7 @@ import threading
 
 from pyanaconda.core.constants import DisplayModes, PAYLOAD_TYPE_RPM_OSTREE, ADDON_PATHS
 from pyanaconda.core import constants
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.startup.dbus_launcher import AnacondaDBusLauncher
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
@@ -283,7 +284,7 @@ class Anaconda(object):
             # use the window manager
             self._intf = GraphicalUserInterface(None, self.payload,
                                                 gui_lock=self.gui_initialized,
-                                                fullscreen=False)
+                                                fullscreen=conf.system.can_display_fullscreen)
 
             # needs to be refreshed now we know if gui or tui will take place
             addon_paths = collect_addon_ui_paths(ADDON_PATHS, "gui")

@@ -176,3 +176,7 @@ class SystemSection(Section):
     def provides_resolver_config(self):
         """Can we copy /etc/resolv.conf to the target system?"""
         return self._is_boot_iso
+
+    @property
+    def can_display_fullscreen(self):
+        return self._is_boot_iso
