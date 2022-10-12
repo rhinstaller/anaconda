@@ -68,6 +68,15 @@ class LocalizationInterface(KickstartModuleInterface):
         """
         return self.implementation.get_locales(language_id)
 
+    def GetCommonLocales(self) -> List[Str]:
+        """Get a list of the most commonly used locales.
+
+        For example: ["ar_EG.UTF-8", "en_US.UTF-8", "en_GB.UTF-8", ...]
+
+        :return: a list of common locale IDs
+        """
+        return self.implementation.get_common_locales()
+
     def GetLocaleData(self, locale_id: Str) -> Structure:
         """Get data about the specified locale.
 

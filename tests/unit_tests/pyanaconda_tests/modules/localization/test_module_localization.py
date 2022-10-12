@@ -21,6 +21,7 @@ import os
 import tempfile
 import unittest
 import pytest
+import langtable
 
 from unittest.mock import patch, Mock, call
 from textwrap import dedent
@@ -231,6 +232,14 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
             "native-name": get_variant(Str, "English (United States)"),
         }
         assert data == english_us
+
+    def test_common_locales(self):
+        common_locales = self.localization_interface.GetCommonLocales()
+
+        assert isinstance(common_locales, list)
+        assert "en_US.UTF-8" in common_locales
+        assert "ja_JP.UTF-8" in common_locales
+        assert self.localization_interface.GetCommonLocales() == langtable.list_common_locales()
 
     @patch_dbus_publish_object
     def test_install_with_task(self, publisher):

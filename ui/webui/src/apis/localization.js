@@ -97,6 +97,20 @@ export const getLocales = ({ lang }) => {
 };
 
 /**
+ * @returns {Promise}           Resolves a list of common locales id's.
+ */
+export const getCommonLocales = () => {
+    return (
+        new LocalizationClient().client.call(
+            "/org/fedoraproject/Anaconda/Modules/Localization",
+            "org.fedoraproject.Anaconda.Modules.Localization",
+            "GetCommonLocales"
+        )
+                .then(res => res[0])
+    );
+};
+
+/**
  * @param {string} lang         Locale id
  *
  * @returns {Promise}           Resolves a locale data object
