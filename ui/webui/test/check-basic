@@ -54,8 +54,6 @@ class TestBasic(MachineCase):
             if page != i.steps.REVIEW:
                 i.next()
 
-        # Ensure that the 'actual' UI process is running/
-        self.assertIn("/usr/libexec/webui-desktop", m.execute("ps aux"))
 
 class TestQuit(MachineCase):
     MachineCase.machine_class = VirtInstallMachine
