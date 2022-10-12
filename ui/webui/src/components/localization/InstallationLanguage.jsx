@@ -21,13 +21,16 @@ import cockpit from "cockpit";
 import {
     Form,
     FormGroup,
-    SelectGroup,
-    SelectOption,
-    Select,
-    SelectVariant,
-    Text,
-    TextVariants,
-    TextContent,
+    Title,
+    Menu,
+    MenuList,
+    MenuInput,
+    MenuItem,
+    MenuContent,
+    MenuGroup,
+    TextInput,
+    Divider,
+    Alert,
 } from "@patternfly/react-core";
 
 import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
@@ -41,6 +44,7 @@ import {
     getLocales,
     getLocaleData,
     setLanguage,
+    getCommonLocales,
 } from "../../apis/localization.js";
 
 import {
@@ -49,6 +53,8 @@ import {
     setLangCookie
 } from "../../helpers/language.js";
 import { AnacondaPage } from "../AnacondaPage.jsx";
+
+import "./InstallationLanguage.scss";
 
 const _ = cockpit.gettext;
 
@@ -64,50 +70,46 @@ class LanguageSelector extends React.Component {
         this.state = {
             languages: [],
             locales: [],
+            commonLocales: [],
+            search: "",
+            lang: "",
         };
-        this.updateDefaultSelection = this.updateDefaultSelection.bind(this);
+
+        this.updateNativeName = this.updateNativeName.bind(this);
         this.renderOptions = this.renderOptions.bind(this);
     }
 
-    componentDidMount () {
-        getLanguage().then(lang => {
+    async componentDidMount () {
+        try {
+            const lang = await getLanguage();
             this.setState({ lang });
             const cockpitLang = convertToCockpitLang({ lang });
             if (getLangCookie() !== cockpitLang) {
                 setLangCookie({ cockpitLang });
                 window.location.reload(true);
             }
-            return setLocale({ locale: lang });
-        })
-                .catch(this.props.onAddErrorNotification);
+            setLocale({ locale: lang });
+        } catch (e) {
+            this.props.onAddErrorNotification(e);
+        }
 
-        getLanguages().then(ret => {
-            const languages = ret;
-            // Create the languages state object
-            Promise.all(languages.map(lang => getLanguageData({ lang })))
-                    .then(langs => this.setState({ languages: langs }));
+        const languageIds = await getLanguages();
+        // Create the languages state object
+        this.setState({ languages: await Promise.all(languageIds.map(async lang => await getLanguageData({ lang }))) });
+        // Create the locales state object
+        const localeIds = await Promise.all(languageIds.map(async lang => await getLocales({ lang })));
+        const locales = await Promise.all(localeIds.map(async localeId => {
+            return await Promise.all(localeId.map(async locale => await getLocaleData({ locale })));
+        }));
+        this.setState({ locales }, this.updateNativeName);
 
-            // Create the locales state object
-            Promise.all(languages.map(lang => getLocales({ lang })))
-                    .then(res => {
-                        return Promise.all(
-                            res.map(langLocales => {
-                                return Promise.all(langLocales.map(locale =>
-                                    getLocaleData({ locale })
-                                ));
-                            })
-                        );
-                    })
-                    .then(res => this.setState({ locales: res }, this.updateDefaultSelection));
-        });
+        // Create a list of common locales.
+        this.setState({ commonLocales: await getCommonLocales() });
     }
 
-    updateDefaultSelection () {
-        const languageId = this.state.lang.split("_")[0];
-        const currentLangLocales = this.state.locales.find(langLocales => getLanguageId(langLocales[0]) === languageId);
-        const currentLocale = currentLangLocales.find(locale => getLocaleId(locale) === this.state.lang);
-
-        this.setState({ selectedItem: getLocaleNativeName(currentLocale) });
+    async updateNativeName () {
+        const localeData = await getLocaleData({ locale: this.state.lang });
+        this.props.getNativeName(getLocaleNativeName(localeData));
     }
 
     renderOptions (filter) {
@@ -115,112 +117,194 @@ class LanguageSelector extends React.Component {
         const idPrefix = this.props.idPrefix;
         const filterLow = filter.toLowerCase();
 
-        return locales.reduce((filtered, langLocales) => {
+        const filtered = [];
+
+        // Is set to true when the first instance of a selected item is found.
+        let foundSelected = false;
+        // Returns a locale with a given code.
+        const findLocaleWithId = (localeCode) => {
+            for (const locale of this.state.locales) {
+                for (const subLocale of locale) {
+                    if (getLocaleId(subLocale) === localeCode) {
+                        return subLocale;
+                    }
+                }
+            }
+        };
+
+        // Returns a new instance of MenuItem from a given locale and with given prefix in it's key
+        // and id.
+        const createMenuItem = (locale, prefix) => {
+            const isSelected = this.state.lang === getLocaleId(locale);
+
+            // Creating a ref that will be applied to the selected language and cause it to scroll into view.
+            const scrollRef = (isSelected && !foundSelected)
+                ? (ref) => {
+                    if (ref) {
+                        ref.scrollIntoView({ block: "center" });
+                    }
+                }
+                : undefined;
+
+            const item = (
+                <MenuItem
+                  id={idPrefix + "-" + prefix + getLocaleId(locale).split(".UTF-8")[0]}
+                  key={prefix + getLocaleId(locale)}
+                  isSelected={isSelected}
+                  itemId={getLocaleId(locale)}
+                  ref={scrollRef}
+                >
+                    {getLocaleNativeName(locale)}
+                </MenuItem>
+            );
+
+            // Prevent assigning scrollRef twice to languages that are both in common list and the alphabetical list.
+            if (isSelected) {
+                foundSelected = true;
+            }
+
+            return item;
+        };
+
+        // List common languages.
+        if (!filter) {
+            filtered.push(
+                <>
+                    <MenuGroup
+                      label={_("Common languages")}
+                      id={idPrefix + "-common-languages"}
+                      labelHeadingLevel="h3"
+                      key="group-common-languages"
+                    >
+                        {
+                            this.state.commonLocales.map(locale => {
+                                return createMenuItem(findLocaleWithId(locale), "option-common-");
+                            })
+                        }
+                    </MenuGroup>
+                    <Divider />
+                </>
+            );
+        }
+
+        // List alphabetically.
+        for (const langLocales of locales) {
             const currentLang = languages.find(lang => getLanguageId(lang) === getLanguageId(langLocales[0]));
 
             const label = cockpit.format("$0 ($1)", getLanguageNativeName(currentLang), getLanguageEnglishName(currentLang));
 
             if (!filter || label.toLowerCase().indexOf(filterLow) !== -1) {
                 filtered.push(
-                    <SelectGroup
+                    <MenuGroup
                       label={label}
-                      key={getLanguageId(currentLang)}>
-                        {langLocales.map(locale => (
-                            <SelectOption
-                              id={idPrefix + "-option-" + getLocaleId(locale).split(".UTF-8")[0]}
-                              key={getLocaleId(locale)}
-                              value={{
-                                  toString: () => getLocaleNativeName(locale),
-                                  localeId: getLocaleId(locale)
-                              }}
-                            />
-                        ))}
-                    </SelectGroup>
+                      labelHeadingLevel="h3"
+                      id={idPrefix + "-group-" + getLanguageId(currentLang)}
+                      key={"group-" + getLanguageId(currentLang)}
+                    >
+                        {langLocales.map(locale => createMenuItem(locale, "option-alpha-"))}
+                    </MenuGroup>
                 );
             }
-            return filtered;
-        }, []);
+        }
+
+        if (this.state.search && filtered.length === 0) {
+            return [
+                <MenuItem
+                  id={idPrefix + "search-no-result"}
+                  isDisabled
+                  key="no-result"
+                >
+                    {_("No results found")}
+                </MenuItem>
+            ];
+        }
+
+        return filtered;
     }
 
     render () {
-        const { isOpen, languages, locales, selectedItem } = this.state;
-        const idPrefix = this.props.idPrefix;
-        const handleOnSelect = (_, lang) => {
-            /*
-             * When a language is selected from the list, update the backend language,
-             * set the cookie and reload the browser for the new translation file to get loaded.
-             * Since the component will re-mount, the `selectedItem` state attribute will be set
-             * from the `updateDefaultSelection` method.
-             *
-             * FIXME: Anaconda API returns en_US, de_DE etc, cockpit expects en-us, de-de etc
-             * Make sure to check if this is generalized enough to keep so.
-             */
-            setLangCookie({ cockpitLang: convertToCockpitLang({ lang: lang.localeId }) });
-            setLanguage({ lang: lang.localeId })
-                    .then(() => setLocale({ locale: lang.localeId }))
-                    .catch(this.props.onAddErrorNotification);
+        const { languages, locales, lang, commonLocales } = this.state;
+        const handleOnSelect = (_event, item) => {
+            const { locales } = this.state;
+            for (const locale of locales) {
+                for (const localeItem of locale) {
+                    if (getLocaleId(localeItem) === item) {
+                        setLangCookie({ cockpitLang: convertToCockpitLang({ lang: getLocaleId(localeItem) }) });
+                        setLanguage({ lang: getLocaleId(localeItem) })
+                                .then(() => setLocale({ locale: getLocaleId(localeItem) }))
+                                .catch(this.props.onAddErrorNotification);
+                        this.setState({ ...this.state, lang: item });
+                        this.props.getNativeName(getLanguageNativeName(localeItem));
 
-            window.location.reload(true);
+                        window.location.reload(true);
+                        return;
+                    }
+                }
+            }
         };
 
-        const isLoading = languages.length === 0 || languages.length !== locales.length;
+        const isLoading = languages.length === 0 || languages.length !== locales.length || commonLocales.length === 0;
 
         if (isLoading) {
             return <EmptyStatePanel loading />;
         }
 
-        const options = this.renderOptions("");
+        const options = this.renderOptions(this.state.search);
 
         return (
-            <Select
-              aria-invalid={!selectedItem}
-              className={idPrefix + "-menu"}
-              isGrouped
-              isOpen={isOpen}
-              maxHeight="30rem"
-              noResultsFoundText={_("No results found")}
-              onClear={() => {
-                  this.props.setIsFormValid(false);
-                  this.setState({ selectedItem: null });
-              }}
+            <Menu
+              id={this.props.idPrefix + "-language-menu"}
+              isScrollable
               onSelect={handleOnSelect}
-              onToggle={isOpen => this.setState({ isOpen })}
-              onFilter={(_, filter) => this.renderOptions(filter)}
-              selections={selectedItem}
-              toggleId={idPrefix + "-menu-toggle"}
-              validated={selectedItem ? "default" : "error"}
-              variant={SelectVariant.typeahead}
-              width="30rem"
+              aria-invalid={!lang}
               {...(isLoading && { loadingVariant: "spinner" })}
-
             >
-                {options}
-            </Select>
+                <MenuInput>
+                    <TextInput
+                      id={this.props.idPrefix + "-language-search"}
+                      iconVariant="search"
+                      type="search"
+                      value={this.state.search}
+                      onChange={value => this.setState({ ...this.state, search: value })}
+                    />
+                </MenuInput>
+                <Divider />
+                <MenuContent>
+                    <MenuList>
+                        {options}
+                    </MenuList>
+                </MenuContent>
+            </Menu>
         );
     }
 }
 LanguageSelector.contextType = AddressContext;
 
 export const InstallationLanguage = ({ idPrefix, setIsFormValid, onAddErrorNotification }) => {
+    const [nativeName, setNativeName] = React.useState("");
     return (
         <AnacondaPage title={_("Welcome to the Anaconda installer")}>
-            <TextContent>
-                <Text component={TextVariants.p}>{_(
-                    "Select the language you would like to use. This language " +
-                    "will also be selected for your installed system."
-                )}
-                </Text>
-            </TextContent>
+            <Title
+              headingLevel="h3"
+            >
+                {_("Select a language")}
+            </Title>
             <Form>
-                <FormGroup
-                  label={_("Language")}
-                  isRequired
-                >
+                <FormGroup isRequired>
                     <LanguageSelector
                       idPrefix={idPrefix}
                       setIsFormValid={setIsFormValid}
                       onAddErrorNotification={onAddErrorNotification}
+                      getNativeName={setNativeName}
                     />
+                    <Alert
+                      id="language-alert"
+                      isInline
+                      variant="info"
+                      title={_("The selected language will be used for installation and in the installed software.")}
+                    >
+                        {nativeName}
+                    </Alert>
                 </FormGroup>
             </Form>
         </AnacondaPage>

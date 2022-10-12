@@ -26,7 +26,7 @@ sys.path.append(os.path.join(os.path.dirname(TEST_DIR), "bots/machine"))
 
 from installer import Installer
 from language import Language
-from testlib import MachineCase, nondestructive, test_main  # pylint: disable=import-error
+from testlib import MachineCase, nondestructive, test_main # pylint: disable=import-error
 from machine_install import VirtInstallMachine
 
 @nondestructive
@@ -47,7 +47,7 @@ class TestLanguage(MachineCase):
         self.addCleanup(l.select_locale, "en_US")
 
         # Expect the backend set language to be preselected and the WebUI translated
-        l.check_selected_locale("Deutsch (Deutschland)")
+        l.check_selected_locale("de_DE")
         b.wait_in_text("h1", "Anaconda-Installationsprogramm")
 
     def testLanguageSwitching(self):
@@ -61,41 +61,43 @@ class TestLanguage(MachineCase):
         i.open()
 
         # Expect the default language - this is en at this point - adjust the test when better guess is implemented
-        b.wait_in_text("h1", "Anaconda installer")
+        b.wait_in_text("h2", "Welcome to the Anaconda installer")
 
-        l.check_selected_locale("English (United States)")
+        l.check_selected_locale("en_US")
 
-        l.clear_language_selector()
-        b.wait_visible(f".{i.steps.WELCOME}-menu.pf-m-invalid")
+        # Assert that search bar starts empty.
+        assert l.get_locale_search() == ""
+        #b.wait_visible(f".{i.steps.WELCOME}-menu.pf-m-invalid")
 
         # Check that the language menu shows all menu entries when clicking the toggle button
-        l.open_locale_options()
         l.locale_option_visible('en_US')
         l.locale_option_visible('de_DE')
         l.locale_option_visible('cs_CZ')
 
         # Check filtering on English names
-        l.input_locale_select('cze')
+        l.input_locale_search('cze')
         l.locale_option_visible('en_US', False)
         l.locale_option_visible('de_DE', False)
         l.locale_option_visible('cs_CZ')
 
         # Check filtering on native names
-        l.input_locale_select('Deutsch')
+        l.input_locale_search('Deutsch')
         l.locale_option_visible('en_US', False)
         l.locale_option_visible('de_DE')
         l.locale_option_visible('cs_CZ', False)
-        l.clear_language_selector()
+        l.input_locale_search('')
 
         # Select the 'German' language
         l.select_locale("de_DE")
-        l.check_selected_locale("Deutsch (Deutschland)")
+        l.check_selected_locale("de_DE")
 
         # Pixel test the language step
         b.assert_pixels(
             "#app",
             "language-step-basic",
-            ignore=["#betanag-icon"],
+            # HACK pf-c-menu__item-text is ignored because some of our CI infrastructure is
+            # missing CJK and Cyrillic fonts..
+            ignore=["#betanag-icon", ".pf-c-menu__item-text"],
             wait_animations=False,
         )
 
