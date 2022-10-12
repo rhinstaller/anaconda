@@ -376,6 +376,34 @@ Happens since systemd-249.10-1.fc35, present also in systemd-249.11-1.fc35, syst
 
 :Example: `rhbz#2083411 <https://bugzilla.redhat.com/show_bug.cgi?id=2083411>`_
 
+Missing /etc/resolv.conf for %post scripts
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:Issue: In case ``systemd-resolved`` package is not installed to target system the ``/etc/resolv.conf`` symlink is not created in installed system root during packages installation and therefore name resolution in ``%post`` kickstart scripts does not work. This should not be a problem for the installed system where ``NetworkManager`` would handle the ``/etc/resolv.conf`` file when ``systemd-resolved`` is not present.
+
+:Solution: Anaconda should try hard to avoid handling ``/etc/resolv.conf`` file on its own so that it does not interfere with services responsible for it - ``systemd-resolved`` or ``NetworkManager``. In case ``systemd-resolved`` is not installed there needs to be another mechanism provided by the origin of such a choice, for example a ``%post`` script copying the ``resolv.conf`` to the chroot environment as suggested in the workaround.
+
+:Workaround: Copy the symlink created by ``systemd-resolved`` in installer environment to the chroot in a ``%post --nochroot`` script.
+
+    For example::
+
+        %post --nochroot
+        if [ ! -e /mnt/sysimage/etc/resolf.conf ]; then
+          cp -P /etc/resolv.conf /mnt/sysimage/etc/resolv.conf
+        fi
+        %end
+
+    The ``resolv.conf`` file should be removed after the work in ``%post`` scripts requiring it is finished, so that ``NetworkManager`` can take care of ``/etc/resolv.conf`` management when booting into installed system.
+
+    For example in a ``%post`` script run in chroot::
+
+        %post
+        # do some stuff
+        rm /etc/resolv.conf
+        %end
+
+:Example: `rhbz#2101527 <https://bugzilla.redhat.com/show_bug.cgi?id=2101527>`_
+
 Kickstart issues
 ----------------
 
