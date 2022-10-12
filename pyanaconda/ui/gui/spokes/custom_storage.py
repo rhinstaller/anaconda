@@ -1194,11 +1194,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         self.reset_state()
 
+        is_md = self._get_current_device_type() == DEVICE_TYPE_MD
+
         dialog = DisksDialog(
             self.data,
             self._device_tree,
             self._selected_disks,
-            self._request.disks
+            self._request.disks,
+            is_md
         )
         with self.main_window.enlightbox(dialog.window):
             rc = dialog.run()

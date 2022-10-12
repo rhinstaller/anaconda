@@ -381,21 +381,32 @@ class DisksDialog(GUIObject):
     mainWidgetName = "disks_dialog"
     uiFile = "spokes/lib/custom_storage_helpers.glade"
 
-    def __init__(self, data, device_tree, disks, selected_disks):
+    def __init__(self, data, device_tree, disks, selected_disks, is_md):
         super().__init__(data)
         self._device_tree = device_tree
         self._selected_disks = selected_disks
         self._disks = disks
+        self.is_md = is_md
+        self.instruction_label = self.builder.get_object("disk_selection_label")
         self._store = self.builder.get_object("disk_store")
         self._view = self.builder.get_object("disk_view")
         self._populate_disks()
         self._select_disks()
         self._view.set_tooltip_column(0)
+        self._set_instruction_label()
 
     @property
     def selected_disks(self):
         """Selected disks."""
         return self._selected_disks
+
+    def _set_instruction_label(self):
+        if self.is_md:
+            self.instruction_label.set_text(_("Select all of the drives you would like the "
+                                              "mount point to be created on."))
+        else:
+            self.instruction_label.set_text(_("Select a drive for the mount point to be created on. "
+                                              "If you select multiple, only 1 drive will be used."))
 
     def _populate_disks(self):
         for device_name in self._disks:
