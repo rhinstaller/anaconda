@@ -496,7 +496,7 @@ class SelectISOSpoke(NormalTUISpoke, SourceSwitchHandler):
         if self._container is not None and self._container.process_user_input(key):
             return InputState.PROCESSED
         # TRANSLATORS: 'c' to continue
-        elif key.lower() == C_('TUI|Spoke Navigation', 'c'):
+        elif C_('TUI|Spoke Navigation', key.lower()) == C_('TUI|Spoke Navigation', 'c'):
             self.apply()
             return InputState.PROCESSED_AND_CLOSE
         else:

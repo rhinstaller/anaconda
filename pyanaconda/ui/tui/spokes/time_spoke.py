@@ -356,7 +356,7 @@ class TimeZoneSpoke(NormalTUISpoke):
                     ScreenHandler.replace_screen(self, self._regions[index])
                 return InputState.PROCESSED
             # TRANSLATORS: 'b' to go back
-            elif key.lower() == C_('TUI|Spoke Navigation|Time Settings', 'b'):
+            elif C_('TUI|Spoke Navigation|Time Settings', key.lower()) == C_('TUI|Spoke Navigation|Time Settings', 'b'):
                 ScreenHandler.replace_screen(self)
                 return InputState.PROCESSED
             else:

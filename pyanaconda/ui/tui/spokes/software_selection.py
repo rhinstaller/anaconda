@@ -249,7 +249,7 @@ class SoftwareSpoke(NormalTUISpoke):
             self.redraw()
         else:
             # TRANSLATORS: 'c' to continue
-            if key.lower() == C_('TUI|Spoke Navigation', 'c'):
+            if C_('TUI|Spoke Navigation', key.lower()) == C_('TUI|Spoke Navigation', 'c'):
 
                 # No environment was selected, close
                 if self._selected_environment is None:

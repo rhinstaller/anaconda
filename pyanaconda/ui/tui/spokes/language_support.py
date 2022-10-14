@@ -124,7 +124,7 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
             return InputState.PROCESSED
         else:
             # TRANSLATORS: 'b' to go back
-            if key.lower() == C_("TUI|Spoke Navigation|Language Support", "b"):
+            if C_("TUI|Spoke Navigation|Language Support", key.lower()) == C_("TUI|Spoke Navigation|Language Support", "b"):
                 ScreenHandler.replace_screen(self)
                 return InputState.PROCESSED
             else:

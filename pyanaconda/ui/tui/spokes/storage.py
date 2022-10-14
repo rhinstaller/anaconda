@@ -288,7 +288,7 @@ class StorageSpoke(NormalTUISpoke):
             return InputState.PROCESSED_AND_REDRAW
         else:
             # TRANSLATORS: 'c' to continue
-            if key.lower() == C_('TUI|Spoke Navigation', 'c'):
+            if C_('TUI|Spoke Navigation', key.lower()) == C_('TUI|Spoke Navigation', 'c'):
                 if self.selected_disks:
                     # Is DASD formatting supported?
                     if DasdFormatting.is_supported():
@@ -645,7 +645,7 @@ class PartTypeSpoke(NormalTUISpoke):
         """Grab the choice and update things"""
         if not self._container.process_user_input(key):
             # TRANSLATORS: 'c' to continue
-            if key.lower() == C_('TUI|Spoke Navigation', 'c'):
+            if C_('TUI|Spoke Navigation', key.lower()) == C_('TUI|Spoke Navigation', 'c'):
                 self.apply()
                 self._ensure_init_storage()
                 if self._do_mount_assign:
@@ -712,7 +712,7 @@ class PartitionSchemeSpoke(NormalTUISpoke):
         """ Grab the choice and update things. """
         if not self._container.process_user_input(key):
             # TRANSLATORS: 'c' to continue
-            if key.lower() == C_('TUI|Spoke Navigation', 'c'):
+            if C_('TUI|Spoke Navigation', key.lower()) == C_('TUI|Spoke Navigation', 'c'):
                 self.apply()
                 return InputState.PROCESSED_AND_CLOSE
             else:
@@ -774,12 +774,12 @@ class MountPointAssignSpoke(NormalTUISpoke):
             return InputState.PROCESSED
 
         # TRANSLATORS: 's' to rescan devices
-        if key.lower() == C_('TUI|Spoke Navigation|Partitioning', 's'):
+        if C_('TUI|Spoke Navigation|Partitioning', key.lower()) == C_('TUI|Spoke Navigation|Partitioning', 's'):
             self._rescan_devices()
             return InputState.PROCESSED_AND_REDRAW
 
         # TRANSLATORS: 'c' to continue
-        elif key.lower() == C_('TUI|Spoke Navigation', 'c'):
+        elif C_('TUI|Spoke Navigation', key.lower()) == C_('TUI|Spoke Navigation', 'c'):
             self.apply()
 
         return super().input(args, key)

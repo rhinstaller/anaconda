@@ -100,7 +100,7 @@ class AskVNCSpoke(NormalTUISpoke):
             return InputState.PROCESSED_AND_CLOSE
         else:
             # TRANSLATORS: 'q' to quit
-            if key.lower() == C_('TUI|Spoke Navigation', 'q'):
+            if C_('TUI|Spoke Navigation', key.lower()) == C_('TUI|Spoke Navigation', 'q'):
                 d = YesNoDialog(_(u"Do you really want to quit?"))
                 ScreenHandler.push_screen_modal(d)
                 if d.answer:
