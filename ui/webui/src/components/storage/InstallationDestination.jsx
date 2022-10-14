@@ -399,7 +399,7 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
           onSelect={
               !isDiscoveringDisks
                   ? (_, isSelected, diskId) => setDisks({ ...disks, [Object.keys(disks)[diskId]]: isSelected })
-                  : false
+                  : () => {}
           }
           rows={
               !isDiscoveringDisks
