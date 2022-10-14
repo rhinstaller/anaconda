@@ -176,6 +176,7 @@ class BootLoader(object):
     image_label_attr = "label"
     encryption_support = False
     stage2_is_valid_stage1 = False
+    stage2_required = True
 
     # requirements for stage2 devices
     stage2_device = None
@@ -644,6 +645,10 @@ class BootLoader(object):
             return False
 
         log.debug("Is %s a valid stage2 target device?", device.name)
+
+        if not self.stage2_required:
+            log.debug("stage2 not required")
+            return True
 
         if device.protected:
             valid = False
