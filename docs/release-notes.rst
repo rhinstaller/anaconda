@@ -3,6 +3,196 @@ Release notes
 
 This document describes major installer-related changes in Fedora releases.
 
+Fedora 37
+#########
+
+General changes
+---------------
+
+GPT is the default disk label type
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Fedora Linux systems installed on legacy x86 BIOS systems will get GPT partitioning by default
+instead of legacy MBR partitioning. This should be a new default for all products. See the
+`Fedora Change <https://fedoraproject.org/wiki/Changes/GPTforBIOSbyDefault>`__ for more info.
+
+Read-only /sysroot on RPM OSTree systems
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The RPM OSTree installations set the ``/sysroot`` mount point as read-only instead of read-write
+to make the newly installed systems more robust. Users and administrators are not expected to
+directly interact with the content available there and should use the available interfaces to
+manage their system. See the `pull request <https://github.com/rhinstaller/anaconda/pull/4240>`__
+and the `Fedora Change <https://fedoraproject.org/wiki/Changes/Silverblue_Kinoite_readonly_sysroot>`__.
+
+Anaconda doesn't copy /etc/resolv.conf to systems
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Anaconda does not copy the ``/etc/resolv.conf`` file from the installation environment to
+the installed system anymore. Creating the file is a business of ``systemd-resolved`` or
+the Network Manager. Anaconda is not going to interfere into this process anymore.
+Currently the file is created by ``systemd-resolved`` package during the installation.
+See the pull requests `#3814 <https://github.com/rhinstaller/anaconda/pull/3814>`__ and
+`#3818 <https://github.com/rhinstaller/anaconda/pull/3818>`__.
+
+Correct SELinux contexts on existing home directories
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Previously, the installer set incorrect SELinux contexts on home directory contents when
+reusing home directory from previous installation. The contexts are now set correctly.
+See the `pull request <https://github.com/rhinstaller/anaconda/pull/3993>`__.
+
+Enabled hibernation on arm64 with swap
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Previously, the installer enabled resume from hibernation by adding kernel command line option
+``resume=swap_device`` only on the x86 architecture family. With this change, the same is done
+also for the arm64 architecture. As a result, devices of the arm64 architecture are now able to
+correctly resume from hibernation.
+See the `pull request <https://github.com/rhinstaller/anaconda/pull/4221>`__.
+
+Changed default swap size for large-memory systems
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The default swap size on systems with 64 GiB or more RAM is 32 GiB now. Previously, it was 4 GiB.
+See the `pull request <https://github.com/rhinstaller/anaconda/pull/4049>`__.
+
+Removed some scripts provided by Anaconda
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The following undocumented installed scripts were removed from `anaconda` packages:
+
+- ``/usr/bin/analog``
+- ``/usr/bin/restart-anaconda``
+
+The following unused development scripts were removed from the Anaconda repository:
+
+- ``run_boss_locally.py``
+- ``anaconda-read-journal``
+- ``list-screens``
+- ``make-sphinx-docs``
+
+See the pull requests `#3839 <https://github.com/rhinstaller/anaconda/pull/3839>`__ and
+`#3838 <https://github.com/rhinstaller/anaconda/pull/3838>`__.
+
+Changes in the graphical interface
+----------------------------------
+
+The media verification dialog is improved
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Previously, the media verification dialog indicated a good or bad media check result using the
+same sentence, differing only in presence of a single "not". Additionally, the dialog did not
+visually change much upon completion of the check. Consequently, it was not easy to interpret
+the result of the media check, or even see if it was finished.
+
+The dialog now uses a large icon to signal whether the media is good or not, and while the
+check is running, this icon is absent. As a result, it is now possible to easily tell the state
+of the media check. See the `pull request <https://github.com/rhinstaller/anaconda/pull/4230>`__
+and the `screenshot <https://user-images.githubusercontent.com/15903878/176200267-789a86fe-e874-4b14-aa20-878e63381dca.png>`__.
+
+Improved calculation of the space estimation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+During automatic partitioning the disk spoke estimates the space required for the installation
+and if there isn't enough free space it display a warning dialog suggesting more space should
+be reclaimed. This estimate included the recommended swap size even when swap wasn't configured
+to be created. See the bug `2068290 <https://bugzilla.redhat.com/show_bug.cgi?id=2068290>`__.
+
+The zFCP dialog supports NPIV-enabled devices
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The "Add zFCP" dialog supports NPIV-enabled zFCP devices. NPIV-enabled devices are activated just
+by using the device ID. The kernel module will detect the WWPNs and LUNs and bring all the devices
+up automatically. This means the user doesn't have to provide the WWPN and LUN IDs.
+See the `pull request <https://github.com/rhinstaller/anaconda/pull/4188>`__.
+
+The timezone map doesn't show borders
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Anaconda is not showing timezone borders in the Time & Date spoke. The map is white now.
+See the bug `2103657 <https://bugzilla.redhat.com/show_bug.cgi?id=2103657>`__
+
+Changes in the kickstart support
+--------------------------------
+
+Prompt for a missing passphrase in GUI
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If the kickstart file defines a partitioning that requires a passphrase, the graphical user
+interface shows a dialog that allows users to provide the missing passphrase. The installation
+automatically continues after the passphrase is provided. It works the same way in the text user
+interface. See the `pull request <https://github.com/rhinstaller/anaconda/pull/4164>`__.
+
+``rootpw --allow-ssh`` is supported
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Use the ``--allow-ssh`` option of ``rootpw`` kickstart command to allow remote logins of the
+root user via SSH using only the password. This is disabled by default for the security reasons,
+so be aware of risks. See the `pull request <https://github.com/rhinstaller/anaconda/pull/4154>`__
+and the `Fedora Change <https://fedoraproject.org/wiki/Changes/DisableRootPasswordLoginInSshd>`__
+for the default behaviour.
+
+``zfcp --devnum=`` is supported
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``zfcp`` kickstart command supports NPIV-enabled zFCP devices. NPIV-enabled devices are
+activated just by using the device ID. The kernel module will detect the WWPNs and LUNs and
+bring all the devices up automatically. This means the user doesn't have to provide the WWPN
+and LUN IDs::
+
+    zfcp --devnum=<device_number>
+
+See the `pull request <https://github.com/pykickstart/pykickstart/pull/410>`__ for more info.
+
+Changes in Anaconda options
+---------------------------
+
+``inst.gpt`` is deprecated
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Use the ``inst.disklabel`` boot option to specify a preferred disk label type. Specify ``gpt``
+to prefer creation of GPT disk labels. Specify ``mbr`` to prefer creation of MBR disk labels if
+supported. The ``inst.gpt`` boot option is deprecated and will be removed in future releases.
+See the `pull request <https://github.com/rhinstaller/anaconda/pull/4232>`__.
+
+Changes in Anaconda configuration files
+---------------------------------------
+
+The ``gpt`` option is replaced
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The default value of the preferred disk label type is specified by the ``disk_label_type``
+option in the Anaconda configuration files. The ``gpt`` configuration option is no longer
+supported. See the `pull request <https://github.com/rhinstaller/anaconda/pull/4232>`__.
+
+The ``decorated_window`` option is removed
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``decorated_windows`` option is removed from Anaconda's configuration files.
+It was never requested and we have no evidence that it was used.
+See the `pull request <https://github.com/rhinstaller/anaconda/pull/3933>`__.
+
+The ``enable_ignore_broken_packages`` option is removed
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``enable_ignore_broken_packages`` option in Anaconda's configuration files is removed.
+The pykickstart decides whether the ``%packages --ignorebroken`` feature is supported or not.
+See the `pull request <https://github.com/rhinstaller/anaconda/pull/3897>`__.
+
+The ``blivet_gui_supported`` option is removed
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The support for Blivet-GUI will be disabled automatically if it is not installed.
+Use the ``hidden_spokes`` option of the ``User Interface`` section to disable it explicitly.
+See the `pull request <https://github.com/rhinstaller/anaconda/pull/3925>`__.
+
+The ``can_detect_unsupported_hardware`` and ``can_detect_support_removed`` options were removed
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The support for detection of unsupported hardware is no longer available.
+See the `pull request <https://github.com/rhinstaller/anaconda/pull/3842>`__ for more info.
+
 Fedora 36
 #########
 
