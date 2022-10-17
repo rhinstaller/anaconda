@@ -138,6 +138,9 @@ Requires: (glibc-langpack-en or glibc-all-langpacks)
 # even though the distro default is dbus-broker in F30+
 Requires: dbus-daemon
 
+# setting time from time spoke
+Requires: /usr/bin/date
+
 # Ensure it's not possible for a version of grubby to be installed
 # that doesn't work with btrfs subvolumes correctly...
 Conflicts: grubby < 8.40-10
