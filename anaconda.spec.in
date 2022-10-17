@@ -464,6 +464,21 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Oct 17 2022 Vladimír Slávik <vslavik@redhat.com> - 38.7-1
+- Call date by full path and list it as a dependency (vslavik)
+- Remove the isys module and directory (vslavik)
+- Move set_system_date_time to pyanaconda.timezone (vslavik)
+- Call date instead of settimeofday (vslavik)
+- Clean up time-setting (vslavik)
+- network: document edge case of resolv.conf missing for %%post scripts
+  (#2101527) (rvykydal)
+- Revert "webui: start using custom webui-desktop script instead of cockpit-
+  desktop" (rvykydal)
+- network: use separate main conext for NM client in threads (rvykydal)
+- Clean up configure and #include (vslavik)
+- Remove our custom mock auditd binary (vslavik)
+- Turn off audit without our custom binary (vslavik)
+
 * Mon Oct 10 2022 Radek Vykydal <rvykydal@redhat.com> - 38.6-1
 - Remove bogus dependency on python3-dbus (vslavik)
 - Fix a few typos in release document (rvykydal)
