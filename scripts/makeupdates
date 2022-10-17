@@ -327,10 +327,6 @@ def isys_changed(tag):
 def widgets_changed(tag):
     return _compilableChanged(tag, 'widgets')
 
-def auditd_changed(tag):
-    return _compilableChanged(tag, 'pyanaconda/isys/auditd.c') or \
-            _compilableChanged(tag, 'pyanaconda/isys/auditd.h')
-
 def check_autotools(srcdir, builddir):
     # Assumes that cwd is srcdir
     if not os.path.isfile(os.path.join(builddir, 'Makefile')):
@@ -357,23 +353,6 @@ def copy_updated_isys(updates, srcdir, builddir):
     if os.path.isfile(isysmodule):
         sys.stdout.write("Including %s\n" % isysmodule)
         shutil.copy2(isysmodule, outdir)
-
-def copy_updated_auditd(updates, srcdir, builddir):
-    os.chdir(srcdir)
-    print("copy_updated_isys BUILLDIR %s" % builddir)
-    auditdir = updates + '/usr/sbin'
-
-    check_autotools(srcdir, builddir)
-
-    os.system('make -C %s -j %d auditd' % (builddir + '/pyanaconda/isys', multiprocessing.cpu_count()))
-
-    # Copy the auditd binary to /usr/sbin
-    if not os.path.isdir(auditdir):
-        os.makedirs(auditdir)
-
-    auditd = builddir + '/pyanaconda/isys/auditd'
-    if os.path.isfile(auditd):
-        shutil.copy2(auditd, auditdir)
 
 def copy_updated_widgets(updates, srcdir, builddir):
     os.chdir(srcdir)
@@ -533,9 +512,6 @@ def main():
 
         if widgets_changed(args.tag):
             copy_updated_widgets(updates, cwd, builddir)
-
-        if auditd_changed(args.tag):
-            copy_updated_auditd(updates, cwd, builddir)
 
     if args.po:
         copy_translations(updates, cwd, builddir)

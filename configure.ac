@@ -76,12 +76,9 @@ AC_TYPE_INT64_T
 
 # Checks for library functions.
 AC_FUNC_FORK
-AC_CHECK_FUNCS([getcwd memset mkdir strchr strdup],
+AC_CHECK_FUNCS([getcwd mkdir strchr strdup],
                [],
                [ANACONDA_SOFT_FAILURE([Function $ac_func not found.])])
-
-AC_CHECK_LIB([audit], [audit_open], [:],
-             [ANACONDA_SOFT_FAILURE([libaudit not found])])
 
 AM_PATH_PYTHON(python_required_version)
 

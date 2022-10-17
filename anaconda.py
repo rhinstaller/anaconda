@@ -343,9 +343,10 @@ if __name__ == "__main__":
         sys.excepthook = _earlyExceptionHandler
 
     if conf.system.can_audit:
-        # auditd will turn into a daemon and exit. Ignore startup errors
+        # Turn off audit, if the environment is such that we can do that. Ignore errors, because
+        # auditctl is not a dependency and can be missing for other reasons.
         try:
-            util.execWithRedirect("/sbin/auditd", [])
+            util.execWithRedirect("auditctl", ["-e", "0"])
         except OSError:
             pass
 

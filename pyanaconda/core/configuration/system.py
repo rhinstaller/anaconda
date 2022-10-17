@@ -80,7 +80,7 @@ class SystemSection(Section):
 
     @property
     def can_audit(self):
-        """Can we run the audit daemon?"""
+        """Can we control auditing?"""
         return self._is_boot_iso
 
     @property
