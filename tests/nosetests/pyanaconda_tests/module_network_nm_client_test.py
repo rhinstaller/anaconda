@@ -18,14 +18,19 @@
 # Red Hat Author(s): Radek Vykydal <rvykydal@redhat.com>
 #
 import unittest
+import time
+import threading
 from unittest.mock import Mock, patch
 
 from pyanaconda.modules.network.nm_client import get_slaves_from_connections, \
-    get_dracut_arguments_from_connection, update_connection_wired_settings_from_ksdata
+    get_dracut_arguments_from_connection, update_connection_wired_settings_from_ksdata, \
+    get_new_nm_client, GError
+from pyanaconda.core.glib import MainContext, sync_call_glib
 
 import gi
 gi.require_version("NM", "1.0")
-from gi.repository import NM
+gi.require_version("Gio", "2.0")
+from gi.repository import NM, Gio
 
 
 class NMClientTestCase(unittest.TestCase):
@@ -517,3 +522,116 @@ class NMClientTestCase(unittest.TestCase):
         connection.reset_mock()
         update_connection_wired_settings_from_ksdata(connection, network_data)
         connection.add_setting.assert_called_once()
+
+    @patch("pyanaconda.modules.network.nm_client.NM")
+    @patch("pyanaconda.modules.network.nm_client.SystemBus")
+    def test_get_new_nm_client(self, system_bus, nm):
+        """Test get_new_nm_client."""
+        nm_client = Mock()
+
+        system_bus.check_connection.return_value = False
+
+        self.assertIsNone(get_new_nm_client())
+
+        system_bus.check_connection.return_value = True
+
+        nm.Client.new.return_value = nm_client
+        nm_client.get_nm_running.return_value = False
+        self.assertIsNone(get_new_nm_client())
+
+        nm_client.get_nm_running.return_value = True
+        self.assertIsNotNone(get_new_nm_client())
+
+        nm.Client.new.side_effect = GError
+        self.assertIsNone(get_new_nm_client())
+
+    def test_sync_call_glib(self):
+
+        mainctx = MainContext.new()
+        mainctx.push_thread_default()
+
+        timeout = 1
+        attributes = "*"
+        flags = Gio.FileQueryInfoFlags.NONE
+        io_priority = 1
+        filename = "usr"
+        filepath = "/" + filename
+
+        # Test successful run
+        file = Gio.file_new_for_path(filepath)
+        result = sync_call_glib(
+            mainctx,
+            file.query_info_async,
+            file.query_info_finish,
+            timeout,
+            attributes,
+            flags,
+            io_priority
+        )
+        self.assertEqual(result.succeeded, True)
+        self.assertEqual(result.failed, False)
+        self.assertEqual(result.error_message, "")
+        self.assertEqual(result.received_data.get_name(), filename)
+        self.assertEqual(result.timeout, False)
+
+        # Test run with error
+        filepath = "/nowaythiscanbeonyourfilesystem"
+        file = Gio.file_new_for_path(filepath)
+        result = sync_call_glib(
+            mainctx,
+            file.query_info_async,
+            file.query_info_finish,
+            timeout,
+            attributes,
+            flags,
+            io_priority
+        )
+        self.assertEqual(result.succeeded, False)
+        self.assertEqual(result.failed, True)
+        self.assertNotEqual(result.error_message, "")
+        self.assertIsNone(result.received_data)
+        self.assertEqual(result.timeout, False)
+
+        # Test timeout
+        delay = timeout + 1
+        filepath = "/" + filename
+        file = Gio.file_new_for_path(filepath)
+
+        def _file_query_info_async_with_delay(
+            delay,
+            *args,
+            cancellable,
+            callback
+        ):
+            time.sleep(delay)
+            return Gio.File.query_info_async(
+                *args,
+                cancellable,
+                callback
+            )
+
+        _file_query_info_async_with_delay.get_symbol = lambda: "_file_query_info_async_with_delay"
+
+        result = sync_call_glib(
+            mainctx,
+            _file_query_info_async_with_delay,
+            file.query_info_finish,
+            timeout,
+            delay,
+            file,
+            attributes,
+            flags,
+            io_priority
+        )
+
+        self.assertEqual(result.succeeded, False)
+        self.assertEqual(result.error_message, "g-io-error-quark: Operation was cancelled (19)")
+        self.assertIsNone(result.received_data)
+        self.assertEqual(result.timeout, True)
+
+        mainctx.pop_thread_default()
+
+    def test_sync_call_glib_in_thread(self):
+        thread = threading.Thread(target = self.test_sync_call_glib)
+        thread.start()
+        thread.join()
