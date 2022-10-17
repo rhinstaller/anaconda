@@ -18,15 +18,19 @@
 # Red Hat Author(s): Radek Vykydal <rvykydal@redhat.com>
 #
 import unittest
+import pytest
+import time
+import threading
 from unittest.mock import Mock, patch
 from textwrap import dedent
 
 from pyanaconda.modules.network.nm_client import get_slaves_from_connections, \
     get_dracut_arguments_from_connection, get_config_file_connection_of_device, \
     get_kickstart_network_data, NM_BRIDGE_DUMPED_SETTINGS_DEFAULTS, \
-    update_connection_wired_settings_from_ksdata
+    update_connection_wired_settings_from_ksdata, get_new_nm_client, GError
 
 from pyanaconda.core.kickstart.commands import NetworkData
+from pyanaconda.core.glib import MainContext, sync_call_glib
 from pyanaconda.modules.network.constants import NM_CONNECTION_TYPE_WIFI, \
     NM_CONNECTION_TYPE_ETHERNET, NM_CONNECTION_TYPE_VLAN, NM_CONNECTION_TYPE_BOND, \
     NM_CONNECTION_TYPE_TEAM, NM_CONNECTION_TYPE_BRIDGE, NM_CONNECTION_TYPE_INFINIBAND
@@ -34,7 +38,8 @@ from pyanaconda.modules.network.constants import NM_CONNECTION_TYPE_WIFI, \
 
 import gi
 gi.require_version("NM", "1.0")
-from gi.repository import NM
+gi.require_version("Gio", "2.0")
+from gi.repository import NM, Gio
 
 
 class NMClientTestCase(unittest.TestCase):
@@ -943,3 +948,118 @@ class NMClientTestCase(unittest.TestCase):
         connection.reset_mock()
         update_connection_wired_settings_from_ksdata(connection, network_data)
         connection.add_setting.assert_called_once()
+
+    @patch("pyanaconda.modules.network.nm_client.NM")
+    @patch("pyanaconda.modules.network.nm_client.SystemBus")
+    def test_get_new_nm_client(self, system_bus, nm):
+        """Test get_new_nm_client."""
+        nm_client = Mock()
+
+        system_bus.check_connection.return_value = False
+
+        assert get_new_nm_client() is None
+
+        system_bus.check_connection.return_value = True
+
+        nm.Client.new.return_value = nm_client
+        nm_client.get_nm_running.return_value = False
+        assert get_new_nm_client() is None
+
+        nm_client.get_nm_running.return_value = True
+        assert get_new_nm_client() is not None
+
+        nm.Client.new.side_effect = GError
+        assert get_new_nm_client() is None
+
+    def test_sync_call_glib(self):
+
+        mainctx = MainContext.new()
+        mainctx.push_thread_default()
+
+        timeout = 1
+        attributes = "*"
+        flags = Gio.FileQueryInfoFlags.NONE
+        io_priority = 1
+        filename = "usr"
+        filepath = "/" + filename
+
+        # Test successful run
+        file = Gio.file_new_for_path(filepath)
+        result = sync_call_glib(
+            mainctx,
+            file.query_info_async,
+            file.query_info_finish,
+            timeout,
+            attributes,
+            flags,
+            io_priority
+        )
+        assert result.succeeded == True
+        assert result.failed == False
+        assert result.error_message == ""
+        assert result.received_data.get_name() == filename
+        assert result.timeout == False
+
+        # Test run with error
+        filepath = "/nowaythiscanbeonyourfilesystem"
+        file = Gio.file_new_for_path(filepath)
+        result = sync_call_glib(
+            mainctx,
+            file.query_info_async,
+            file.query_info_finish,
+            timeout,
+            attributes,
+            flags,
+            io_priority
+        )
+        assert result.succeeded == False
+        assert result.failed == True
+        assert result.error_message != ""
+        assert result.received_data == None
+        assert result.timeout == False
+
+        # Test timeout
+        delay = timeout + 1
+        filepath = "/" + filename
+        file = Gio.file_new_for_path(filepath)
+
+        def _file_query_info_async_with_delay(
+            delay,
+            *args,
+            cancellable,
+            callback
+        ):
+            time.sleep(delay)
+            return Gio.File.query_info_async(
+                *args,
+                cancellable,
+                callback
+            )
+
+        _file_query_info_async_with_delay.get_symbol = lambda: "_file_query_info_async_with_delay"
+
+        result = sync_call_glib(
+            mainctx,
+            _file_query_info_async_with_delay,
+            file.query_info_finish,
+            timeout,
+            delay,
+            file,
+            attributes,
+            flags,
+            io_priority
+        )
+
+        assert result.succeeded == False
+        assert result.error_message == "g-io-error-quark: Operation was cancelled (19)"
+        assert result.received_data == None
+        assert result.timeout == True
+
+        mainctx.pop_thread_default()
+
+    # Don't ignore AssertionError from rised from the Thread
+    @pytest.mark.filterwarnings("error")
+    def test_sync_call_glib_in_thread(self):
+        thread = threading.Thread(target = self.test_sync_call_glib)
+        thread.start()
+        thread.join()
