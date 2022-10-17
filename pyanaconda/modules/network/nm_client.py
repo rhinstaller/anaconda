@@ -21,18 +21,65 @@
 import gi
 gi.require_version("NM", "1.0")
 from gi.repository import NM
+from contextlib import contextmanager
 
 import socket
-from queue import Queue, Empty
 from pykickstart.constants import BIND_TO_MAC
+from pyanaconda.core.glib import create_new_context, GError, sync_call_glib
 from pyanaconda.modules.network.constants import NM_CONNECTION_UUID_LENGTH, \
-    CONNECTION_ACTIVATION_TIMEOUT, CONNECTION_ADDING_TIMEOUT
+    CONNECTION_ADDING_TIMEOUT
 from pyanaconda.modules.network.kickstart import default_ks_vlan_interface_name
 from pyanaconda.modules.network.utils import is_s390, get_s390_settings, netmask2prefix, \
     prefix2netmask
+from pyanaconda.core.dbus import SystemBus
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
+
+
+@contextmanager
+def nm_client_in_thread():
+    """Create NM Client with new GMainContext to be run in thread.
+
+    Expected to be used only in installer environment for a few
+    one-shot isolated network configuration tasks.
+    Destroying of the created NM Client instance and release of
+    related resources is not implemented.
+
+    For more information see NetworkManager example examples/python/gi/gmaincontext.py
+    """
+    mainctx = create_new_context()
+    mainctx.push_thread_default()
+
+    try:
+        yield get_new_nm_client()
+    finally:
+        mainctx.pop_thread_default()
+
+
+def get_new_nm_client():
+    """Get new instance of NMClient.
+
+    :returns: an instance of NetworkManager NMClient or None if system bus
+              is not available or NM is not running
+    :rtype: NM.NMClient
+    """
+    if not SystemBus.check_connection():
+        log.debug("get new NM Client failed: SystemBus connection check failed.")
+        return None
+
+    try:
+        nm_client = NM.Client.new(None)
+    except GError as e:
+        log.debug("get new NM Client constructor failed: %s", e)
+        return None
+
+    if not nm_client.get_nm_running():
+        log.debug("get new NM Client failed: NetworkManager is not running.")
+        return None
+
+    log.debug("get new NM Client succeeded.")
+    return nm_client
 
 
 def get_iface_from_connection(nm_client, uuid):
@@ -476,37 +523,39 @@ def add_connection_from_ksdata(nm_client, network_data, device_name, activate=Fa
 def add_connection_sync(nm_client, connection):
     """Add a connection synchronously.
 
+    Synchronous run is implemented by running a blocking GMainLoop with
+    GMainContext belonging to the nm_client created for the calling Task.
+
+    :param nm_client: NetoworkManager client
+    :type nm_client: NM.NMClient
     :param connection: connection to be added
     :type connection: NM.SimpleConnection
     :return: added connection or None on timeout
     :rtype: NM.RemoteConnection
     """
-    sync_queue = Queue()
-
-    def finish_callback(nm_client, result, sync_queue):
-        con, result = nm_client.add_connection2_finish(result)
-        log.debug("connection %s added:\n%s", con.get_uuid(),
-                  con.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
-        sync_queue.put(con)
-
-    nm_client.add_connection2(
+    result = sync_call_glib(
+        nm_client.get_main_context(),
+        nm_client.add_connection2,
+        nm_client.add_connection2_finish,
+        CONNECTION_ADDING_TIMEOUT,
         connection.to_dbus(NM.ConnectionSerializationFlags.ALL),
         (NM.SettingsAddConnection2Flags.TO_DISK |
          NM.SettingsAddConnection2Flags.BLOCK_AUTOCONNECT),
         None,
-        False,
-        None,
-        finish_callback,
-        sync_queue
+        False
     )
 
-    try:
-        ret = sync_queue.get(timeout=CONNECTION_ADDING_TIMEOUT)
-    except Empty:
-        log.error("Adding of connection %s timed out.", connection.get_uuid())
-        ret = None
+    if result.failed:
+        log.error("adding of a connection %s failed: %s",
+                  connection.get_uuid(),
+                  result.error_message)
+        return None
 
-    return ret
+    con, _res = result.received_data
+    log.debug("connection %s added:\n%s", connection.get_uuid(),
+              connection.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
+
+    return con
 
 
 def create_slave_connection(slave_type, slave_idx, slave, master, settings=None):
@@ -614,7 +663,7 @@ def update_connection_from_ksdata(nm_client, connection, network_data, device_na
     if connection.get_connection_type() not in ("bond", "team", "vlan", "bridge"):
         bind_connection(nm_client, connection, network_data.bindto, device_name)
 
-    commit_changes_with_autoconnection_blocked(connection)
+    commit_changes_with_autoconnection_blocked(connection, nm_client)
 
     log.debug("updated connection %s:\n%s", connection.get_uuid(),
               connection.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
@@ -939,42 +988,47 @@ def get_connections_dump(nm_client):
     return "\n".join(con_dumps)
 
 
-def commit_changes_with_autoconnection_blocked(connection, save_to_disk=True):
+def commit_changes_with_autoconnection_blocked(connection, nm_client, save_to_disk=True):
     """Implementation of NM CommitChanges() method with blocked autoconnection.
 
-    Update2() API is used to implement the functionality (called synchronously).
-
+    Update2() API is used to implement the functionality.
     Prevents autoactivation of the connection on its update which would happen
     with CommitChanges if "autoconnect" is set True.
 
+    Synchronous run is implemented by running a blocking GMainLoop with
+    GMainContext belonging to the nm_client created for the calling Task.
+
     :param connection: NetworkManager connection
     :type connection: NM.RemoteConnection
+    :param nm_client: NetoworkManager client
+    :type nm_client: NM.NMClient
     :param save_to_disk: should the changes be written also to disk?
     :type save_to_disk: bool
     :return: on success result of the Update2() call, None of failure
     :rtype: GVariant of type "a{sv}" or None
     """
-    sync_queue = Queue()
-
-    def finish_callback(connection, result, sync_queue):
-        ret = connection.update2_finish(result)
-        sync_queue.put(ret)
-
     flags = NM.SettingsUpdate2Flags.BLOCK_AUTOCONNECT
     if save_to_disk:
         flags |= NM.SettingsUpdate2Flags.TO_DISK
-
     con2 = NM.SimpleConnection.new_clone(connection)
-    connection.update2(
+
+    result = sync_call_glib(
+        nm_client.get_main_context(),
+        connection.update2,
+        connection.update2_finish,
+        CONNECTION_ADDING_TIMEOUT,
         con2.to_dbus(NM.ConnectionSerializationFlags.ALL),
         flags,
-        None,
-        None,
-        finish_callback,
-        sync_queue
+        None
     )
 
-    return sync_queue.get()
+    if result.failed:
+        log.error("comitting changes of connection %s failed: %s",
+                  connection.get_uuid(),
+                  result.error_message)
+        return None
+
+    return result.received_data
 
 
 def activate_connection_sync(nm_client, connection, device):
@@ -1024,36 +1078,19 @@ def clone_connection_sync(nm_client, connection, con_id=None, uuid=None):
     :return: NetworkManager connection or None on timeout
     :rtype: NM.RemoteConnection
     """
-    sync_queue = Queue()
-
-    def finish_callback(nm_client, result, sync_queue):
-        con, result = nm_client.add_connection2_finish(result)
-        log.debug("connection %s cloned:\n%s", con.get_uuid(),
-                  con.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
-        sync_queue.put(con)
-
     cloned_connection = NM.SimpleConnection.new_clone(connection)
     s_con = cloned_connection.get_setting_connection()
     s_con.props.uuid = uuid or NM.utils_uuid_generate()
     s_con.props.id = con_id or "{}-clone".format(connection.get_id())
-    nm_client.add_connection2(
-        cloned_connection.to_dbus(NM.ConnectionSerializationFlags.ALL),
-        (NM.SettingsAddConnection2Flags.TO_DISK |
-         NM.SettingsAddConnection2Flags.BLOCK_AUTOCONNECT),
-        None,
-        False,
-        None,
-        finish_callback,
-        sync_queue
-    )
 
-    try:
-        ret = sync_queue.get(timeout=CONNECTION_ACTIVATION_TIMEOUT)
-    except Empty:
-        log.error("Cloning of a connection timed out.")
-        ret = None
+    log.debug("cloning connection %s", connection.get_uuid())
+    added_connection = add_connection_sync(nm_client, cloned_connection)
 
-    return ret
+    if added_connection:
+        log.debug("connection was cloned into %s", added_connection.get_uuid())
+    else:
+        log.debug("connection cloning failed")
+    return added_connection
 
 
 def get_dracut_arguments_from_connection(nm_client, connection, iface, target_ip,

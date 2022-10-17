@@ -26,7 +26,7 @@ from pyanaconda.modules.network.nm_client import get_device_name_from_network_da
     ensure_active_connection_for_device, update_connection_from_ksdata, \
     add_connection_from_ksdata, bound_hwaddr_of_device, get_connections_available_for_iface, \
     update_connection_values, commit_changes_with_autoconnection_blocked, is_ibft_connection, \
-    clone_connection_sync
+    clone_connection_sync, nm_client_in_thread
 from pyanaconda.modules.network.ifcfg import get_ifcfg_file_of_device, find_ifcfg_uuid_of_device, \
     get_master_slaves_from_ifcfgs
 from pyanaconda.modules.network.device_configuration import supported_wired_device_types, \
@@ -43,11 +43,9 @@ from gi.repository import NM
 class ApplyKickstartTask(Task):
     """Task for application of kickstart network configuration."""
 
-    def __init__(self, nm_client, network_data, supported_devices, bootif, ifname_option_values):
+    def __init__(self, network_data, supported_devices, bootif, ifname_option_values):
         """Create a new task.
 
-        :param nm_client: NetworkManager client used as configuration backend
-        :type nm_client: NM.Client
         :param network_data: kickstart network data to be applied
         :type: list(NetworkData)
         :param supported_devices: list of names of supported network devices
@@ -58,7 +56,6 @@ class ApplyKickstartTask(Task):
         :type ifname_option_values: list(str)
         """
         super().__init__()
-        self._nm_client = nm_client
         self._network_data = network_data
         self._supported_devices = supported_devices
         self._bootif = bootif
@@ -79,13 +76,17 @@ class ApplyKickstartTask(Task):
         :returns: names of devices to which kickstart was applied
         :rtype: list(str)
         """
+        with nm_client_in_thread() as nm_client:
+            return self._run(nm_client)
+
+    def _run(self, nm_client):
         applied_devices = []
 
         if not self._network_data:
             log.debug("%s: No kickstart data.", self.name)
             return applied_devices
 
-        if not self._nm_client:
+        if not nm_client:
             log.debug("%s: No NetworkManager available.", self.name)
             return applied_devices
 
@@ -95,7 +96,7 @@ class ApplyKickstartTask(Task):
                 log.info("%s: Wireless devices configuration is not supported.", self.name)
                 continue
 
-            device_name = get_device_name_from_network_data(self._nm_client,
+            device_name = get_device_name_from_network_data(nm_client,
                                                             network_data,
                                                             self._supported_devices,
                                                             self._bootif)
@@ -103,10 +104,10 @@ class ApplyKickstartTask(Task):
                 log.warning("%s: --device %s not found", self.name, network_data.device)
                 continue
 
-            ifcfg_file = get_ifcfg_file_of_device(self._nm_client, device_name)
+            ifcfg_file = get_ifcfg_file_of_device(nm_client, device_name)
             if ifcfg_file and ifcfg_file.is_from_kickstart:
                 if network_data.activate:
-                    if ensure_active_connection_for_device(self._nm_client, ifcfg_file.uuid,
+                    if ensure_active_connection_for_device(nm_client, ifcfg_file.uuid,
                                                            device_name):
                         applied_devices.append(device_name)
                 continue
@@ -117,31 +118,31 @@ class ApplyKickstartTask(Task):
 
             connection = None
             if ifcfg_file:
-                connection = self._nm_client.get_connection_by_uuid(ifcfg_file.uuid)
+                connection = nm_client.get_connection_by_uuid(ifcfg_file.uuid)
             if not connection:
-                connection = self._find_initramfs_connection_of_iface(device_name)
+                connection = self._find_initramfs_connection_of_iface(nm_client, device_name)
 
             if connection:
                 # if the device was already configured in initramfs update the settings
                 log.debug("%s: pre kickstart - updating connection %s of device %s",
                           self.name, connection.get_uuid(), device_name)
-                update_connection_from_ksdata(self._nm_client, connection, network_data,
+                update_connection_from_ksdata(nm_client, connection, network_data,
                                               device_name=device_name)
                 if network_data.activate:
-                    device = self._nm_client.get_device_by_iface(device_name)
-                    self._nm_client.activate_connection_async(connection, device, None, None)
+                    device = nm_client.get_device_by_iface(device_name)
+                    nm_client.activate_connection_async(connection, device, None, None)
                     log.debug("%s: pre kickstart - activating connection %s with device %s",
                               self.name, connection.get_uuid(), device_name)
             else:
                 log.debug("%s: pre kickstart - adding connection for %s", self.name, device_name)
-                add_connection_from_ksdata(self._nm_client, network_data, device_name,
+                add_connection_from_ksdata(nm_client, network_data, device_name,
                                            activate=network_data.activate,
                                            ifname_option_values=self._ifname_option_values)
 
         return applied_devices
 
-    def _find_initramfs_connection_of_iface(self, iface):
-        device = self._nm_client.get_device_by_iface(iface)
+    def _find_initramfs_connection_of_iface(self, nm_client, iface):
+        device = nm_client.get_device_by_iface(iface)
         if device:
             cons = device.get_available_connections()
             for con in cons:
@@ -368,18 +369,15 @@ class SetRealOnbootValuesFromKickstartTask(Task):
 class DumpMissingIfcfgFilesTask(Task):
     """Task for dumping of missing ifcfg files."""
 
-    def __init__(self, nm_client, default_network_data, ifname_option_values):
+    def __init__(self, default_network_data, ifname_option_values):
         """Create a new task.
 
-        :param nm_client: NetworkManager client used as configuration backend
-        :type nm_client: NM.Client
         :param default_network_data: kickstart network data of default device configuration
         :type default_network_data: NetworkData
         :param ifname_option_values: list of ifname boot option values
         :type ifname_option_values: list(str)
         """
         super().__init__()
-        self._nm_client = nm_client
         self._default_network_data = default_network_data
         self._ifname_option_values = ifname_option_values
 
@@ -407,7 +405,7 @@ class DumpMissingIfcfgFilesTask(Task):
                 return con
         return None
 
-    def _update_connection(self, con, iface):
+    def _update_connection(self, nm_client, con, iface):
         log.debug("%s: updating id and binding (interface-name) of connection %s for %s",
                   self.name, con.get_uuid(), iface)
         s_con = con.get_setting_connection()
@@ -417,7 +415,7 @@ class DumpMissingIfcfgFilesTask(Task):
         if s_wired:
             # By default connections are bound to interface name
             s_wired.set_property(NM.SETTING_WIRED_MAC_ADDRESS, None)
-            bound_mac = bound_hwaddr_of_device(self._nm_client, iface, self._ifname_option_values)
+            bound_mac = bound_hwaddr_of_device(nm_client, iface, self._ifname_option_values)
             if bound_mac:
                 s_wired.set_property(NM.SETTING_WIRED_MAC_ADDRESS, bound_mac)
                 log.debug("%s: iface %s bound to mac address %s by ifname boot option",
@@ -437,19 +435,23 @@ class DumpMissingIfcfgFilesTask(Task):
         :returns: names of devices for which ifcfg file was created
         :rtype: list(str)
         """
+        with nm_client_in_thread() as nm_client:
+            return self._run(nm_client)
+
+    def _run(self, nm_client):
         new_ifcfgs = []
 
-        if not self._nm_client:
+        if not nm_client:
             log.debug("%s: No NetworkManager available.", self.name)
             return new_ifcfgs
 
         dumped_device_types = supported_wired_device_types + virtual_device_types
-        for device in self._nm_client.get_devices():
+        for device in nm_client.get_devices():
             if device.get_device_type() not in dumped_device_types:
                 continue
 
             iface = device.get_iface()
-            if get_ifcfg_file_of_device(self._nm_client, iface):
+            if get_ifcfg_file_of_device(nm_client, iface):
                 continue
 
             cons = device.get_available_connections()
@@ -477,7 +479,7 @@ class DumpMissingIfcfgFilesTask(Task):
                     # Try to clone the persistent connection for the device
                     # from the connection which should be a generic (not bound
                     # to iface) connection created by NM in initramfs
-                    con = clone_connection_sync(self._nm_client, cons[0], con_id=iface)
+                    con = clone_connection_sync(nm_client, cons[0], con_id=iface)
 
 
             if not con:
@@ -494,7 +496,7 @@ class DumpMissingIfcfgFilesTask(Task):
                     continue
 
             if con:
-                self._update_connection(con, iface)
+                self._update_connection(nm_client, con, iface)
                 # Update some values of connection generated in initramfs so it
                 # can be used as persistent configuration.
                 if has_initramfs_con:
@@ -524,7 +526,7 @@ class DumpMissingIfcfgFilesTask(Task):
                 if has_initramfs_con:
                     network_data.onboot = True
                 add_connection_from_ksdata(
-                    self._nm_client,
+                    nm_client,
                     network_data,
                     iface,
                     activate=False,

@@ -24,34 +24,42 @@
 
 import gi
 gi.require_version("GLib", "2.0")
+gi.require_version("Gio", "2.0")
 
 from gi.repository.GLib import markup_escape_text, format_size_full, \
                                timeout_add_seconds, timeout_add, idle_add, \
                                io_add_watch, child_watch_add, \
-                               source_remove, \
+                               source_remove, timeout_source_new, \
                                spawn_close_pid, spawn_async_with_pipes, \
                                MainLoop, MainContext, \
                                GError, Variant, VariantType, Bytes, \
                                IOCondition, IOChannel, SpawnFlags, \
                                MAXUINT
+from gi.repository.Gio import Cancellable
+
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
+
 
 __all__ = ["create_main_loop", "create_new_context",
            "markup_escape_text", "format_size_full",
            "timeout_add_seconds", "timeout_add", "idle_add",
            "io_add_watch", "child_watch_add",
-           "source_remove",
+           "source_remove", "timeout_source_new",
            "spawn_close_pid", "spawn_async_with_pipes",
            "GError", "Variant", "VariantType", "Bytes",
            "IOCondition", "IOChannel", "SpawnFlags",
-           "MAXUINT"]
+           "MAXUINT", "Cancellable"]
 
 
-def create_main_loop():
+def create_main_loop(main_context=None):
     """Create GLib main loop.
 
+    :param main_context: main context to be used for the loop
+    :type main_context: GLib.MainContext
     :returns: GLib.MainLoop instance.
     """
-    return MainLoop()
+    return MainLoop(main_context)
 
 
 def create_new_context():
@@ -59,3 +67,94 @@ def create_new_context():
 
     :returns: GLib.MainContext."""
     return MainContext.new()
+
+
+class GLibCallResult():
+    """Result of GLib async finish callback."""
+    def __init__(self):
+        self.received_data = None
+        self.error_message = ""
+        self.timeout = False
+
+    @property
+    def succeeded(self):
+        """The async call has succeeded."""
+        return not self.failed
+
+    @property
+    def failed(self):
+        """The async call has failed."""
+        return bool(self.error_message) or self.timeout
+
+
+def sync_call_glib(context, async_call, async_call_finish, timeout, *call_args):
+    """Call GLib asynchronous method synchronously with timeout.
+
+    :param context: context for the new loop in which the method will be called
+    :type context: GMainContext
+    :param async_call: asynchronous GLib method to be called
+    :type async_call: GLib method
+    :param async_call_finish: finish method of the asynchronous call
+    :type async_call_finish: GLib method
+    :param timeout: timeout for the loop in seconds (0 == no timeout)
+    :type timeout: int
+
+    *call_args should hold all positional arguments preceding the cancellable argument
+    """
+
+    info = async_call.get_symbol()
+    result = GLibCallResult()
+
+    loop = create_main_loop(context)
+    callbacks = [loop.quit]
+
+    def _stop_loop():
+        log.debug("sync_call_glib[%s]: quit", info)
+        while callbacks:
+            callback = callbacks.pop()
+            callback()
+
+    def _cancellable_cb():
+        log.debug("sync_call_glib[%s]: cancelled", info)
+
+    cancellable = Cancellable()
+    cancellable_id = cancellable.connect(_cancellable_cb)
+    callbacks.append(lambda: cancellable.disconnect(cancellable_id))
+
+    def _timeout_cb(user_data):
+        log.debug("sync_call_glib[%s]: timeout", info)
+        result.timeout = True
+        cancellable.cancel()
+        return False
+
+    timeout_source = timeout_source_new(int(timeout * 1000))
+    timeout_source.set_callback(_timeout_cb)
+    timeout_source.attach(context)
+    callbacks.append(timeout_source.destroy)
+
+    def _finish_cb(source_object, async_result):
+        log.debug("sync_call_glib[%s]: call %s",
+                  info,
+                  async_call_finish.get_symbol())
+        try:
+            result.received_data = async_call_finish(async_result)
+        except Exception as e:  # pylint: disable=broad-except
+            result.error_message = str(e)
+        finally:
+            _stop_loop()
+
+    context.push_thread_default()
+
+    log.debug("sync_call_glib[%s]: call", info)
+    try:
+        async_call(
+            *call_args,
+            cancellable=cancellable,
+            callback=_finish_cb
+        )
+        loop.run()
+    finally:
+        _stop_loop()
+        context.pop_thread_default()
+
+    return result
