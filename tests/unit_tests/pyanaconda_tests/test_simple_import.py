@@ -72,7 +72,6 @@ class SimpleImportTestCase(unittest.TestCase):
             "pyanaconda.core",
             "pyanaconda.core.util",
             "pyanaconda.core.configuration.anaconda",
-            "pyanaconda.isys",
             "pyanaconda.modules.common.constants.interfaces",
             "pyanaconda.modules.storage.checker.utils",
             "pyanaconda.payload.source.factory",

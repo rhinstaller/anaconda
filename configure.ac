@@ -131,7 +131,6 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/core/kickstart/Makefile
                  pyanaconda/core/configuration/Makefile
                  pyanaconda/core/startup/Makefile
-                 pyanaconda/isys/Makefile
                  pyanaconda/payload/Makefile
                  pyanaconda/payload/dnf/Makefile
                  pyanaconda/payload/live/Makefile

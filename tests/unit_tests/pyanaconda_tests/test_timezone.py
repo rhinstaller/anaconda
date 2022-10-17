@@ -16,10 +16,9 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda import timezone, isys
+from pyanaconda import timezone
 import unittest
 from unittest.mock import patch
-import zoneinfo
 
 from freezegun import freeze_time
 
@@ -56,8 +55,8 @@ class TerritoryTimezones(unittest.TestCase):
 
 class SystemTime(unittest.TestCase):
     @freeze_time("2021-01-01")
-    @patch('pyanaconda.isys.set_system_time')
-    def test_system_time_now(self, time_mock):
+    @patch('pyanaconda.timezone.execWithRedirect')
+    def test_system_time_now(self, exec_mock):
         """Test we do timezone math properly when setting system time
         to "now". 1609459200 is 00:00:00 on 2021-01-01; with time
         frozen to that point, whatever timezone we call the function
@@ -66,58 +65,59 @@ class SystemTime(unittest.TestCase):
         which do DST, as that date is during daylight savings.
         """
         # default tz (UTC)
-        isys.set_system_date_time()
-        time_mock.assert_called_with(1609459200)
-        isys.set_system_date_time(tz=zoneinfo.ZoneInfo(key="US/Eastern"))
-        time_mock.assert_called_with(1609459200)
+        timezone.set_system_date_time()
+        exec_mock.assert_called_with("/usr/bin/date", ["--set=@1609459200"])
+        timezone.set_system_date_time(tz="US/Eastern")
+        exec_mock.assert_called_with("/usr/bin/date", ["--set=@1609459200"])
         with freeze_time("2021-06-01"):
-            isys.set_system_date_time(tz=zoneinfo.ZoneInfo(key="US/Eastern"))
-            time_mock.assert_called_with(1622505600)
-        isys.set_system_date_time(tz=zoneinfo.ZoneInfo(key="Asia/Kolkata"))
-        time_mock.assert_called_with(1609459200)
-        isys.set_system_date_time(tz=zoneinfo.ZoneInfo(key="Asia/Aden"))
-        time_mock.assert_called_with(1609459200)
+            timezone.set_system_date_time(tz="US/Eastern")
+            exec_mock.assert_called_with("/usr/bin/date", ["--set=@1622505600"])
+        timezone.set_system_date_time(tz="Asia/Kolkata")
+        exec_mock.assert_called_with("/usr/bin/date", ["--set=@1609459200"])
+        timezone.set_system_date_time(tz="Asia/Aden")
+        exec_mock.assert_called_with("/usr/bin/date", ["--set=@1609459200"])
 
-    @patch('pyanaconda.isys.set_system_time')
-    def test_system_time_explicit(self, time_mock):
+    @freeze_time("2021-01-01 12:00:00")
+    @patch('pyanaconda.timezone.execWithRedirect')
+    def test_system_time_explicit(self, exec_mock):
         """Test we do timezone math properly when setting system time
         to explicit values, in and out of daylight savings.
         """
-        isys.set_system_date_time(2020, 1, 1, 0, 0, 0)
-        time_mock.assert_called_with(1577836800)
-        isys.set_system_date_time(2020, 1, 1, 0, 0, 0, tz=zoneinfo.ZoneInfo(key="US/Eastern"))
-        time_mock.assert_called_with(1577854800)
-        isys.set_system_date_time(2020, 6, 1, 0, 0, 0, tz=zoneinfo.ZoneInfo(key="US/Eastern"))
-        time_mock.assert_called_with(1590984000)
-        isys.set_system_date_time(2020, 1, 1, 0, 0, 0, tz=zoneinfo.ZoneInfo(key="Asia/Kolkata"))
-        time_mock.assert_called_with(1577817000)
-        isys.set_system_date_time(2020, 1, 1, 0, 0, 0, tz=zoneinfo.ZoneInfo(key="Asia/Aden"))
-        time_mock.assert_called_with(1577826000)
+        timezone.set_system_date_time(2020, 1, 1, 0, 0)
+        exec_mock.assert_called_with("/usr/bin/date", ["--set=@1577836800"])
+        timezone.set_system_date_time(2020, 1, 1, 0, 0,  "US/Eastern")
+        exec_mock.assert_called_with("/usr/bin/date", ["--set=@1577854800"])
+        timezone.set_system_date_time(2020, 6, 1, 0, 0, "US/Eastern")
+        exec_mock.assert_called_with("/usr/bin/date", ["--set=@1590984000"])
+        timezone.set_system_date_time(2020, 1, 1, 0, 0, "Asia/Kolkata")
+        exec_mock.assert_called_with("/usr/bin/date", ["--set=@1577817000"])
+        timezone.set_system_date_time(2020, 1, 1, 0, 0, "Asia/Aden")
+        exec_mock.assert_called_with("/usr/bin/date", ["--set=@1577826000"])
 
     @freeze_time("2021-01-01 12:00:00")
-    @patch('pyanaconda.isys.set_system_time')
-    def test_system_time_hybrid(self, time_mock):
+    @patch('pyanaconda.timezone.execWithRedirect')
+    def test_system_time_hybrid(self, exec_mock):
         """Test we do timezone math properly when setting system time
         to a mix of "now" and explicit values, in and out of daylight
         savings. We use 12pm as 12pm UTC is on the same date in each
         tested timezone.
         """
-        isys.set_system_date_time(None, None, None, 19, 15, 30)
-        time_mock.assert_called_with(1609528530)
-        isys.set_system_date_time(
-            None, None, None, 19, 15, 30, tz=zoneinfo.ZoneInfo(key="US/Eastern")
+        timezone.set_system_date_time(None, None, None, 19, 15)
+        exec_mock.assert_called_with("/usr/bin/date", ["--set=@1609528500"])
+        timezone.set_system_date_time(
+            None, None, None, 19, 15, "US/Eastern"
         )
-        time_mock.assert_called_with(1609546530)
+        exec_mock.assert_called_with("/usr/bin/date", ["--set=@1609546500"])
         with freeze_time("2021-06-01 12:00:00"):
-            isys.set_system_date_time(
-                None, None, None, 19, 15, 30, tz=zoneinfo.ZoneInfo(key="US/Eastern")
+            timezone.set_system_date_time(
+                None, None, None, 19, 15, "US/Eastern"
             )
-            time_mock.assert_called_with(1622589330)
-        isys.set_system_date_time(
-            None, None, None, 19, 15, 30, tz=zoneinfo.ZoneInfo(key="Asia/Kolkata")
+            exec_mock.assert_called_with("/usr/bin/date", ["--set=@1622589300"])
+        timezone.set_system_date_time(
+            None, None, None, 19, 15, "Asia/Kolkata"
         )
-        time_mock.assert_called_with(1609508730)
-        isys.set_system_date_time(
-            None, None, None, 19, 15, 30, tz=zoneinfo.ZoneInfo(key="Asia/Aden")
+        exec_mock.assert_called_with("/usr/bin/date", ["--set=@1609508700"])
+        timezone.set_system_date_time(
+            None, None, None, 19, 15, "Asia/Aden"
         )
-        time_mock.assert_called_with(1609517730)
+        exec_mock.assert_called_with("/usr/bin/date", ["--set=@1609517700"])

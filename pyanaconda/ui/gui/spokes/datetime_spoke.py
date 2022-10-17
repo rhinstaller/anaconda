@@ -23,7 +23,6 @@ import locale as locale_mod
 import functools
 import copy
 
-from pyanaconda import isys
 from pyanaconda import ntp
 from pyanaconda import flags
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -44,7 +43,8 @@ from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.categories.localization import LocalizationCategory
 from pyanaconda.ui.gui.utils import blockedHandler
 from pyanaconda.ui.gui.spokes.lib.ntp_dialog import NTPConfigDialog
-from pyanaconda.timezone import NTP_SERVICE, get_all_regions_and_timezones, get_timezone, is_valid_timezone
+from pyanaconda.timezone import NTP_SERVICE, get_all_regions_and_timezones, get_timezone, \
+    is_valid_timezone, set_system_date_time
 from pyanaconda.threading import threadMgr, AnacondaThread
 
 import gi
@@ -363,7 +363,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     @property
     def ready(self):
-        return not threadMgr.get("AnaDateTimeThread")
+        return not threadMgr.get(constants.THREAD_DATE_TIME)
 
     @property
     def completed(self):
@@ -583,7 +583,9 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         day = self._get_combo_selection(self._dayCombo)[0]
         #day may be None if there is no such in the selected year and month
         if day:
-            isys.set_system_date_time(year, month, day, hours, minutes, tz=self._tz)
+            log.debug("Setting year %s, month %s, day %s, hours %s, minutes %s, tz %s",
+                      year, month, day, hours, minutes, self._tz.key)
+            set_system_date_time(year, month, day, hours, minutes, tz=self._tz.key)
 
         #start the timer only when the spoke is shown
         if self._shown and not self._update_datetime_timer:
