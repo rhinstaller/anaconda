@@ -88,6 +88,8 @@ class TestStorageExtraDisks(MachineCase):
         i.open()
         i.next()
 
+        s.wait_no_disks_detected_not_present()
+
         s.check_disk_visible("vda")
         s.check_disk_visible("vdb", False)
 
@@ -95,8 +97,13 @@ class TestStorageExtraDisks(MachineCase):
         s.check_disk_visible("vda")
         s.check_disk_visible("vdb")
 
+        s.wait_no_disks_detected_not_present()
+
         s.check_disk_selected("vda", False)
         s.check_disk_selected("vdb", False)
+
+        s.rescan_disks()
+        s.wait_no_disks_detected()
 
 if __name__ == '__main__':
     test_main()

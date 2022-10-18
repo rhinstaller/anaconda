@@ -19,6 +19,7 @@ import React, { useEffect, useState } from "react";
 
 import {
     Alert,
+    AlertActionCloseButton,
     Bullseye,
     Button,
     Divider,
@@ -36,6 +37,7 @@ import {
     Popover,
     PopoverPosition,
     Spinner,
+    Skeleton,
     Text,
     TextContent,
     TextVariants,
@@ -43,6 +45,7 @@ import {
     Toolbar,
     ToolbarContent,
     ToolbarItem,
+    Tooltip,
 } from "@patternfly/react-core";
 
 import { HelpIcon } from "@patternfly/react-icons";
@@ -111,12 +114,21 @@ const setSelectionForAllDisks = ({ disks, value }) => {
     return (Object.keys(disks).reduce((acc, cur) => ({ ...acc, [cur]: value }), {}));
 };
 
+const containEqualDisks = (disks1, disks2) => {
+    const disks1Str = Object.keys(disks1).sort()
+            .join();
+    const disks2Str = Object.keys(disks2).sort()
+            .join();
+    return disks1Str === disks2Str;
+};
+
 const DropdownBulkSelect = ({
     onSelectAll,
     onSelectNone,
     onChange,
     selectedCnt,
-    totalCnt
+    totalCnt,
+    isDisabled
 }) => {
     const [isOpen, setIsOpen] = React.useState(false);
 
@@ -175,6 +187,7 @@ const DropdownBulkSelect = ({
                 splitButtonItems={splitButtonItems}
                 onToggle={onToggle}
                 id="local-disks-bulk-select-toggle"
+                isDisabled={isDisabled}
               />
           }
           isOpen={isOpen}
@@ -187,7 +200,9 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
     const [deviceData, setDeviceData] = useState({});
     const [disks, setDisks] = useState({});
     const [refreshCnt, setRefreshCnt] = useState(0);
-    const [isDiscoveringDisks, setIsDiscoveringDisks] = useState(false);
+    const [isRescanningDisks, setIsRescanningDisks] = useState(false);
+    const [lastRescanDisks, setLastRescanDisks] = useState({});
+    const [equalDisksNotify, setEqualDisksNotify] = useState(false);
 
     useEffect(() => {
         let usableDisks;
@@ -263,24 +278,33 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
 
     const rescanDisksButton = (
         <Button
-          aria-label={_("Discover disks")}
+          aria-label={_("Detect disks")}
           id={idPrefix + "-rescan-disks"}
-          isLoading={isDiscoveringDisks}
           variant="secondary"
           onClick={() => {
-              setIsDiscoveringDisks(true);
+              setIsRescanningDisks(true);
+              setLastRescanDisks({ ...disks });
               setDisks(setSelectionForAllDisks({ disks, value: false }));
-              scanDevicesWithTask().then(res => {
-                  runStorageTask({
-                      task: res[0],
-                      onSuccess: () => resetPartitioning().then(() => setRefreshCnt(refreshCnt + 1), onAddErrorNotification),
-                      onFail: onAddErrorNotification
-                  });
-              })
-                      .finally(() => { setIsDiscoveringDisks(false) });
+              scanDevicesWithTask()
+                      .then(res => {
+                          runStorageTask({
+                              task: res[0],
+                              onSuccess: () => resetPartitioning().then(() => setRefreshCnt(refreshCnt + 1), onAddErrorNotification),
+                              onFail: onAddErrorNotification
+                          });
+                      })
+                      .finally(() => { setIsRescanningDisks(false); setEqualDisksNotify(true) });
           }}
         >
-            {_("Discover disks")}
+            <Tooltip
+              content={
+                  <div>
+                      {_("Scans for local storage devices")}
+                  </div>
+              }
+              reference={() => document.getElementById(idPrefix + "-rescan-disks")}
+            />
+            {_("Detect disks")}
         </Button>
     );
 
@@ -320,6 +344,23 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
         }
     ));
 
+    const rescanningDisksColumns = localDisksColumns.map(col => ({ ...col, sortable: false }));
+
+    const rescanningDisksRow = (
+        [
+            {
+                props: { colSpan: localDisksColumns.length },
+                title: <Skeleton screenreaderText={_("Detecting disks")} />
+            }
+        ]
+    );
+
+    const rescanningDisksRows = Object.keys(disks).map(disk => (
+        {
+            columns: rescanningDisksRow
+        }
+    ));
+
     const dropdownBulkSelect = (
         <DropdownBulkSelect
           onSelectAll={() => setDisks(setSelectionForAllDisks({ disks, value: true }))}
@@ -327,6 +368,7 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
           onChange={(checked) => setDisks(setSelectionForAllDisks({ disks, value: checked }))}
           selectedCnt={selectedDisksCnt}
           totalCnt={totalDisksCnt}
+          isDisabled={isRescanningDisks}
         />
 
     );
@@ -351,9 +393,21 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
         <ListingTable
           aria-labelledby="installation-destination-local-disk-title"
           {...(totalDisksCnt > 10 && { variant: "compact" })}
-          columns={localDisksColumns}
-          onSelect={(_, isSelected, diskId) => setDisks({ ...disks, [Object.keys(disks)[diskId]]: isSelected })}
-          rows={localDisksRows}
+          columns={
+              !isRescanningDisks
+                  ? localDisksColumns
+                  : rescanningDisksColumns
+          }
+          onSelect={
+              !isRescanningDisks
+                  ? (_, isSelected, diskId) => setDisks({ ...disks, [Object.keys(disks)[diskId]]: isSelected })
+                  : () => {}
+          }
+          rows={
+              !isRescanningDisks
+                  ? localDisksRows
+                  : rescanningDisksRows
+          }
         />
     );
 
@@ -368,6 +422,14 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
               }
             >
                 <FormGroup>
+                    {equalDisksNotify && containEqualDisks(disks, lastRescanDisks) &&
+                        <Alert
+                          id="no-disks-detected-alert"
+                          isInline
+                          title={_("No additional disks detected")}
+                          variant="info"
+                          actionClose=<AlertActionCloseButton onClose={() => setEqualDisksNotify(false)} />
+                        />}
                     {localDisksToolbar}
                     {localDisksTable}
                 </FormGroup>
