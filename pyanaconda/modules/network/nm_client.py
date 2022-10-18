@@ -892,7 +892,7 @@ def ensure_active_connection_for_device(nm_client, uuid, device_name, only_repla
             if uuid != active_uuid:
                 ifcfg_con = nm_client.get_connection_by_uuid(uuid)
                 if ifcfg_con:
-                    activate_connection_sync(nm_client, ifcfg_con, None)
+                    nm_client.activate_connection_async(ifcfg_con, None, None, None)
                     activated = True
     msg = "activated" if activated else "not activated"
     log.debug("ensure active ifcfg connection for %s (%s -> %s): %s",
@@ -1029,41 +1029,6 @@ def commit_changes_with_autoconnection_blocked(connection, nm_client, save_to_di
         return None
 
     return result.received_data
-
-
-def activate_connection_sync(nm_client, connection, device):
-    """Activate a connection synchronously.
-
-    Synchronous wrapper of ActivateConnection() NM method.
-
-    :param connection: NetworkManager connection
-    :type connection: NM.RemoteConnection
-    :param device: the preferred device to apply the connection to
-                   None if not needed
-    :type device: NM.Device
-    """
-    sync_queue = Queue()
-
-    def finish_callback(nm_client, result, sync_queue):
-        ret = nm_client.activate_connection_finish(result)
-        sync_queue.put(ret)
-
-    nm_client.activate_connection_async(
-        connection,
-        device,
-        None,
-        None,
-        finish_callback,
-        sync_queue
-    )
-
-    try:
-        ret = sync_queue.get(timeout=CONNECTION_ACTIVATION_TIMEOUT)
-    except Empty:
-        log.error("Activation of a connection timed out.")
-        ret = None
-
-    return ret
 
 
 def clone_connection_sync(nm_client, connection, con_id=None, uuid=None):
