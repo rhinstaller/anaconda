@@ -255,11 +255,9 @@ class ConsolidateInitramfsConnectionsTask(Task):
 class SetRealOnbootValuesFromKickstartTask(Task):
     """Task for setting of real ONBOOT values from kickstart."""
 
-    def __init__(self, nm_client, network_data, supported_devices, bootif, ifname_option_values):
+    def __init__(self, network_data, supported_devices, bootif, ifname_option_values):
         """Create a new task.
 
-        :param nm_client: NetworkManager client used as configuration backend
-        :type nm_client: NM.Client
         :param network_data: kickstart network data to be applied
         :type: list(NetworkData)
         :param supported_devices: list of names of supported network devices
@@ -270,7 +268,6 @@ class SetRealOnbootValuesFromKickstartTask(Task):
         :type ifname_option_values: list(str)
         """
         super().__init__()
-        self._nm_client = nm_client
         self._network_data = network_data
         self._supported_devices = supported_devices
         self._bootif = bootif
@@ -291,9 +288,13 @@ class SetRealOnbootValuesFromKickstartTask(Task):
         :return: names of devices for which ONBOOT was updated
         :rtype: list(str)
         """
+        with nm_client_in_thread() as nm_client:
+            return self._run(nm_client)
+
+    def _run(self, nm_client):
         updated_devices = []
 
-        if not self._nm_client:
+        if not nm_client:
             log.debug("%s: No NetworkManager available.", self.name)
             return updated_devices
 
@@ -302,7 +303,7 @@ class SetRealOnbootValuesFromKickstartTask(Task):
             return updated_devices
 
         for network_data in self._network_data:
-            device_name = get_device_name_from_network_data(self._nm_client,
+            device_name = get_device_name_from_network_data(nm_client,
                                                             network_data,
                                                             self._supported_devices,
                                                             self._bootif)
@@ -322,7 +323,7 @@ class SetRealOnbootValuesFromKickstartTask(Task):
 
             cons_to_update = []
             for devname in devices_to_update:
-                cons = get_connections_available_for_iface(self._nm_client, devname)
+                cons = get_connections_available_for_iface(nm_client, devname)
                 n_cons = len(cons)
                 con = None
                 if n_cons == 1:
@@ -330,8 +331,8 @@ class SetRealOnbootValuesFromKickstartTask(Task):
                 else:
                     log.debug("%s: %d connections found for %s", self.name, n_cons, devname)
                     if n_cons > 1:
-                        ifcfg_uuid = find_ifcfg_uuid_of_device(self._nm_client, devname) or ""
-                        con = self._nm_client.get_connection_by_uuid(ifcfg_uuid)
+                        ifcfg_uuid = find_ifcfg_uuid_of_device(nm_client, devname) or ""
+                        con = nm_client.get_connection_by_uuid(ifcfg_uuid)
                         if con:
                             cons_to_update.append((devname, con))
 
@@ -339,7 +340,7 @@ class SetRealOnbootValuesFromKickstartTask(Task):
             if network_data.bondslaves or network_data.teamslaves or network_data.bridgeslaves:
                 # Master can be identified by devname or uuid, try to find master uuid
                 master_uuid = None
-                device = self._nm_client.get_device_by_iface(master)
+                device = nm_client.get_device_by_iface(master)
                 if device:
                     cons = device.get_available_connections()
                     n_cons = len(cons)
@@ -348,9 +349,9 @@ class SetRealOnbootValuesFromKickstartTask(Task):
                     else:
                         log.debug("%s: %d connections found for %s", self.name, n_cons, master)
 
-                for name, con_uuid in get_master_slaves_from_ifcfgs(self._nm_client,
+                for name, con_uuid in get_master_slaves_from_ifcfgs(nm_client,
                                                                     master, uuid=master_uuid):
-                    con = self._nm_client.get_connection_by_uuid(con_uuid)
+                    con = nm_client.get_connection_by_uuid(con_uuid)
                     cons_to_update.append((name, con))
 
             for devname, con in cons_to_update:
@@ -360,7 +361,7 @@ class SetRealOnbootValuesFromKickstartTask(Task):
                     con,
                     [("connection", NM.SETTING_CONNECTION_AUTOCONNECT, network_data.onboot)]
                 )
-                commit_changes_with_autoconnection_blocked(con)
+                commit_changes_with_autoconnection_blocked(con, nm_client)
                 updated_devices.append(devname)
 
         return updated_devices

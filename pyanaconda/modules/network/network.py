@@ -579,8 +579,7 @@ class NetworkService(KickstartService):
         :returns: a task setting the values
         """
         supported_devices = [dev_info.device_name for dev_info in self.get_supported_devices()]
-        task = SetRealOnbootValuesFromKickstartTask(self.nm_client,
-                                                    self._original_network_data,
+        task = SetRealOnbootValuesFromKickstartTask(self._original_network_data,
                                                     supported_devices,
                                                     self.bootif,
                                                     self.ifname_option_values)
