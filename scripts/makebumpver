@@ -23,9 +23,6 @@ logging.basicConfig(level=logging.DEBUG)
 log = logging.getLogger("bugzilla")
 log.setLevel(logging.INFO)
 
-# This is only place where bugzilla library is used. Exclude from dependencies and
-# ignore pylint.
-import bugzilla  # pylint: disable=import-error
 import datetime
 import argparse
 import os
@@ -231,6 +228,9 @@ class MakeBumpVer:
 
     def _queryBug(self, bugid):
         if not self.bz:
+            # This is only place where bugzilla library is used. Exclude from dependencies and
+            # ignore pylint.
+            import bugzilla  # pylint: disable=import-error
             sys.stdout.write("Connecting to %s...\n" % self.bzserver)
             self.bz = bugzilla.Bugzilla(url=self.bzurl)
 
