@@ -451,7 +451,7 @@ class NetworkService(KickstartService):
 
         :returns: a task consolidating the connections
         """
-        task = ConsolidateInitramfsConnectionsTask(self.nm_client)
+        task = ConsolidateInitramfsConnectionsTask()
         task.succeeded_signal.connect(lambda: self.log_task_result(task, check_result=True))
         return task
 
