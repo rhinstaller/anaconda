@@ -26,7 +26,7 @@ import socket
 from queue import Queue, Empty
 from pykickstart.constants import BIND_TO_MAC
 from pyanaconda.modules.network.constants import NM_CONNECTION_UUID_LENGTH, \
-    CONNECTION_ACTIVATION_TIMEOUT
+    CONNECTION_ACTIVATION_TIMEOUT, CONNECTION_ADDING_TIMEOUT
 from pyanaconda.modules.network.kickstart import default_ks_vlan_interface_name
 from pyanaconda.modules.network.utils import is_s390, get_s390_settings, netmask2prefix, \
     prefix2netmask
@@ -445,41 +445,71 @@ def add_connection_from_ksdata(nm_client, network_data, device_name, activate=Fa
         ifname_option_values
     )
 
-    for con, device_name in connections:
-        log.debug("add connection: %s for %s\n%s", con.get_uuid(), device_name,
-                  con.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
+    for connection, device_name in connections:
+        log.debug("add connection (activate=%s): %s for %s\n%s",
+                  activate, connection.get_uuid(), device_name,
+                  connection.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
         device_to_activate = device_name if activate else None
-        nm_client.add_connection2(
-            con.to_dbus(NM.ConnectionSerializationFlags.ALL),
-            (NM.SettingsAddConnection2Flags.TO_DISK |
-             NM.SettingsAddConnection2Flags.BLOCK_AUTOCONNECT),
-            None,
-            False,
-            None,
-            _connection_added_cb,
+        add_and_activate_connection_sync(
+            nm_client,
+            connection,
+            activate,
             device_to_activate
         )
 
     return connections
 
 
-def _connection_added_cb(client, result, device_to_activate=None):
-    """Finish asynchronous adding of a connection and activate eventually.
+def add_and_activate_connection_sync(nm_client, connection, activate=True,
+                                     device_to_activate=None):
+    """Add a connection synchronously and optionally activate asynchronously.
 
-    :param device_to_activate: name of the device to be activated with the
-                                added connection.
+    :param connection: connection to be added
+    :type connection: NM.SimpleConnection
+    :param activate: activate the connection asynchronously after it is created
+    :type activate: bool
+    :param device_to_activate: name of the device which should be used for activating
+                               None if not needed
     :type device_to_activate: str
+    :return: added connection or None on timeout
+    :rtype: NM.RemoteConnection
     """
-    con, result = client.add_connection2_finish(result)
-    log.debug("connection %s added:\n%s", con.get_uuid(),
-              con.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
-    if device_to_activate:
-        device = client.get_device_by_iface(device_to_activate)
-        if device:
-            log.debug("activating with device %s", device.get_iface())
-        else:
-            log.debug("activating without device specified (not found)")
-        client.activate_connection_async(con, device, None, None)
+    sync_queue = Queue()
+
+    def finish_callback(nm_client, result, sync_queue):
+        con, result = nm_client.add_connection2_finish(result)
+        log.debug("connection %s added:\n%s", con.get_uuid(),
+                  con.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
+        if activate:
+            if device_to_activate:
+                device = nm_client.get_device_by_iface(device_to_activate)
+                if device:
+                    log.debug("activating with device %s", device.get_iface())
+                else:
+                    log.debug("activating without device specified - device not found")
+            else:
+                log.debug("activating without device specified")
+            nm_client.activate_connection_async(con, device, None, None)
+        sync_queue.put(con)
+
+    nm_client.add_connection2(
+        connection.to_dbus(NM.ConnectionSerializationFlags.ALL),
+        (NM.SettingsAddConnection2Flags.TO_DISK |
+         NM.SettingsAddConnection2Flags.BLOCK_AUTOCONNECT),
+        None,
+        False,
+        None,
+        finish_callback,
+        sync_queue
+    )
+
+    try:
+        ret = sync_queue.get(timeout=CONNECTION_ADDING_TIMEOUT)
+    except Empty:
+        log.error("Adding of connection %s timed out.", connection.get_uuid())
+        ret = None
+
+    return ret
 
 
 def create_slave_connection(slave_type, slave_idx, slave, master, settings=None):
