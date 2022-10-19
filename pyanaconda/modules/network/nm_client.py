@@ -601,7 +601,7 @@ def add_connection_from_ksdata(nm_client, network_data, device_name, activate=Fa
 
 
 def add_connection_sync(nm_client, connection):
-    """Add a connection synchronously and optionally activate asynchronously.
+    """Add a connection synchronously.
 
     Synchronous run is implemented by running a blocking GMainLoop with
     GMainContext belonging to the nm_client created for the calling Task.
