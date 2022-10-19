@@ -49,14 +49,12 @@ the proxy object must exist as long as we want the inhibition to be in effect.
 import os
 from dasbus.connection import SessionMessageBus
 from dasbus.error import DBusError
+from dasbus.identifier import DBusServiceIdentifier
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["inhibit_screensaver", "uninhibit_screensaver"]
 
-SCREENSAVER_SERVICE = "org.freedesktop.ScreenSaver"
-SCREENSAVER_PATH = "/org/freedesktop/ScreenSaver"
-SCREENSAVER_IFACE = "org.freedesktop.ScreenSaver"
 
 session_proxy = None
 inhibit_id = None
@@ -90,8 +88,11 @@ def inhibit_screensaver():
     global inhibit_id
     try:
         with SetEuidFromConsolehelper():
-            bus = SessionMessageBus()
-            session_proxy = bus.get_proxy(SCREENSAVER_SERVICE, SCREENSAVER_PATH)
+            SCREENSAVER = DBusServiceIdentifier(
+                namespace=("org", "freedesktop", "ScreenSaver"),
+                message_bus=SessionMessageBus()
+            )
+            session_proxy = SCREENSAVER.get_proxy()
             inhibit_id = session_proxy.Inhibit("anaconda", "Installing")
     except DBusError as e:
         log.warning("Unable to inhibit the screensaver: %s", e)
