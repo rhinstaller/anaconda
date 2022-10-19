@@ -141,6 +141,15 @@ class LocalizationService(KickstartService):
         """
         return get_language_locales(language_id)
 
+    def get_common_locales(self):
+        """Get a list of the most commonly used locales.
+
+        For example: ["ar_EG.UTF-8", "en_US.UTF-8", "en_GB.UTF-8", ...]
+
+        :return: a list of common locale IDs
+        """
+        return langtable.list_common_locales()
+
     def get_locale_data(self, locale_id):
         """Get data about the specified locale.
 

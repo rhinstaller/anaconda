@@ -33,32 +33,31 @@ class Language():
         self._step = InstallerSteps.WELCOME
         self._bus_address = self.machine.execute("cat /run/anaconda/bus.address")
 
-    def clear_language_selector(self):
-        # Check that the [x] button clears the input text
-        self.browser.click(".pf-c-select__toggle-clear")
-        self.browser.wait_val(f"#{self._step}-menu-toggle-select-typeahead", "")
-
     def select_locale(self, locale):
-        if self.browser.val(f"#{self._step}-menu-toggle-select-typeahead") != "":
-            self.clear_language_selector()
-        if not self.browser.is_present(".pf-c-select__menu"):
-            self.browser.click(f"#{self._step}-menu-toggle")
-        self.browser.click(f"#{self._step}-option-{locale} > button")
+        if self.browser.val(f"#{self._step}-language-search") != "":
+            self.input_locale_search("")
+        self.browser.click(f"#{self._step}-option-common-{locale} > button")
 
-    def input_locale_select(self, text):
-        self.browser.set_input_text(f"#{self._step}-menu-toggle-select-typeahead", text)
+    def get_locale_search(self):
+        return self.browser.val(f"#{self._step}-language-search")
+
+    def input_locale_search(self, text):
+        self.browser.set_input_text(f"#{self._step}-language-search", text)
 
     def locale_option_visible(self, locale, visible=True):
         if visible:
-            self.browser.wait_visible(f"#{self._step}-option-{locale}")
+            self.browser.wait_visible(f"#{self._step}-option-alpha-{locale}")
         else:
-            self.browser.wait_not_present(f"#{self._step}-option-{locale}")
+            self.browser.wait_not_present(f"#{self._step}-option-alpha-{locale}")
 
-    def open_locale_options(self):
-        self.browser.click(f"#{self._step}-menu-toggle")
+    def locale_common_option_visible(self, locale, visible=True):
+        if visible:
+            self.browser.wait_visible(f"#{self._step}-option-common-{locale}")
+        else:
+            self.browser.wait_not_present(f"#{self._step}-option-common-{locale}")
 
     def check_selected_locale(self, locale):
-        self.browser.wait_val(f"#{self._step}-menu-toggle-select-typeahead", locale)
+        self.browser.wait_visible(f"#{self._step}-option-alpha-{locale} .pf-m-selected")
 
     def dbus_set_language(self, value):
         self.machine.execute(f'dbus-send --print-reply --bus="{self._bus_address}" \
