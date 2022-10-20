@@ -73,8 +73,8 @@ class ApplyKickstartTask(Task):
         :returns: names of devices to which kickstart was applied
         :rtype: list(str)
         """
-        with nm_client_in_thread() as nm_client:
-            return self._run(nm_client)
+        with nm_client_in_thread() as nm_client_ref:
+            return self._run(nm_client_ref())
 
     def _run(self, nm_client):
         applied_devices = []
@@ -214,8 +214,8 @@ class DumpMissingConfigFilesTask(Task):
         :returns: names of devices for which config file was created
         :rtype: list(str)
         """
-        with nm_client_in_thread() as nm_client:
-            return self._run(nm_client)
+        with nm_client_in_thread() as nm_client_ref:
+            return self._run(nm_client_ref())
 
     def _run(self, nm_client):
         new_configs = []

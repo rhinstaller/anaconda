@@ -24,8 +24,11 @@ from gi.repository import NM
 from contextlib import contextmanager
 
 import socket
+import weakref
+import sys
 from pykickstart.constants import BIND_TO_MAC
-from pyanaconda.core.glib import create_new_context, GError, sync_call_glib
+from pyanaconda.core.glib import create_new_context, GError, sync_call_glib, \
+    timeout_source_new
 from pyanaconda.modules.network.constants import NM_CONNECTION_UUID_LENGTH, \
     CONNECTION_ADDING_TIMEOUT, NM_CONNECTION_TYPE_WIFI, NM_CONNECTION_TYPE_ETHERNET, \
     NM_CONNECTION_TYPE_VLAN, NM_CONNECTION_TYPE_BOND,  NM_CONNECTION_TYPE_TEAM, \
@@ -55,12 +58,11 @@ NM_BRIDGE_DUMPED_SETTINGS_DEFAULTS = {
 
 @contextmanager
 def nm_client_in_thread():
-    """Create NM Client with new GMainContext to be run in thread.
+    """Create temporary NMClient with new GMainContext to be run in thread.
 
-    Expected to be used only in installer environment for a few
-    one-shot isolated network configuration tasks.
-    Destroying of the created NM Client instance and release of
-    related resources is not implemented.
+    Passes a weak reference to the newly created NMClient.
+    The NMClient will be destroyed when leaving the context if there are no
+    other references preventing it.
 
     For more information see NetworkManager example examples/python/gi/gmaincontext.py
     """
@@ -72,7 +74,74 @@ def nm_client_in_thread():
     finally:
         mainctx.pop_thread_default()
 
-    yield nm_client
+    # Pass a weak reference to the context so that it does not refer it
+    # when we try to destroy it on context exit.
+    nm_client_ref = weakref.ref(nm_client)
+    yield nm_client_ref
+
+    if nm_client:
+        # Pass a reference via a list so it can be removed inside the function.
+        nm_client_holder = [nm_client]
+        del nm_client
+        destroy_nm_client(nm_client_holder)
+
+
+def destroy_nm_client(nm_client_holder):
+    """Destroy NMClient instance.
+
+    NMClient instance will be destroyed if the only refence to it is the one inside
+    the nm_client_holder.
+    Shutting down NMClient properly is tricky.
+    For more information see NetworkManager example examples/python/gi/gmaincontext.py
+    FIXME: use NMClient.wait_shutdown_finish when available
+
+    :param nm_client_holder: list with single NM.NMClient instance
+    :type nm_client_holder: [NM.NMClient]
+    """
+    (nm_client,) = nm_client_holder
+    nm_client_holder.clear()
+    log.debug("[destroy_nm_client]: destroying NMClient %s: pyref=%s, ref_count=%s",
+              nm_client, sys.getrefcount(nm_client), nm_client.ref_count)
+
+    ctx = nm_client.get_main_context()
+
+    finished = []
+
+    def _weak_ref_cb():
+        log.debug("[destroy_nm_client]: context busy watcher is gone")
+        finished.clear()
+        finished.append(True)
+
+    # We take a weak ref on the context-busy-watcher object and give up
+    # our reference on nm_client. This must be the last reference, which initiates
+    # the shutdown of the NMClient.
+    weak_ref = nm_client.get_context_busy_watcher().weak_ref(_weak_ref_cb)
+    del nm_client
+
+    def _timeout_cb(unused):
+        if not finished:
+            # Somebody else holds a reference to the NMClient and keeps
+            # it alive. We cannot properly clean up.
+            log.debug("[destroy_nm_client]: ERROR: timeout waiting for context "
+                      "busy watcher to be gone")
+            finished.append(False)
+        return False
+
+    timeout_source = timeout_source_new(1000)
+    timeout_source.set_callback(_timeout_cb)
+    timeout_source.attach(ctx)
+
+    while not finished:
+        log.debug("[destroy_nm_client]: iterating main context")
+        ctx.iteration(True)
+
+    timeout_source.destroy()
+
+    log.debug("[destroy_nm_client]: done: %s", finished[0])
+    if not finished[0]:
+        weak_ref.unref()
+        log.error("[destroy_nm_client]: ERROR: failure to destroy NMClient: "
+                  "something keeps it alive")
 
 
 def get_new_nm_client():
