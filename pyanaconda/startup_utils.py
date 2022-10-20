@@ -27,7 +27,6 @@ from dasbus.typing import get_variant, Int
 from pyanaconda import product, ntp
 from pyanaconda import anaconda_logging
 from pyanaconda import network
-from pyanaconda import safe_dbus
 from pyanaconda import kickstart
 from pyanaconda.anaconda_loggers import get_stdout_logger, get_module_logger
 from pyanaconda.core.util import persistent_root_image, ipmi_report, setenv, \
@@ -359,12 +358,7 @@ def live_startup(anaconda):
 
     :param anaconda: instance of the Anaconda class
     """
-    try:
-        anaconda.dbus_session_connection = safe_dbus.get_new_session_connection()
-    except safe_dbus.DBusCallError as e:
-        log.info("Unable to connect to DBus session bus: %s", e)
-    else:
-        anaconda.dbus_inhibit_id = inhibit_screensaver(anaconda.dbus_session_connection)
+    inhibit_screensaver()
 
 
 def find_kickstart(options):

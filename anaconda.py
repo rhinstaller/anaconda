@@ -46,10 +46,8 @@ def exitHandler(rebootData):
         while True:
             time.sleep(10000)
 
-    if anaconda.dbus_inhibit_id:
-        from pyanaconda.screensaver import uninhibit_screensaver
-        uninhibit_screensaver(anaconda.dbus_session_connection, anaconda.dbus_inhibit_id)
-        anaconda.dbus_inhibit_id = None
+    from pyanaconda.screensaver import uninhibit_screensaver
+    uninhibit_screensaver()
 
     # Unsetup the payload, which most usefully unmounts live images
     if anaconda.payload:
