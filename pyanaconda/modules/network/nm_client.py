@@ -68,9 +68,11 @@ def nm_client_in_thread():
     mainctx.push_thread_default()
 
     try:
-        yield get_new_nm_client()
+        nm_client = get_new_nm_client()
     finally:
         mainctx.pop_thread_default()
+
+    yield nm_client
 
 
 def get_new_nm_client():
