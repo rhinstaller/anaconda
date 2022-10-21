@@ -87,6 +87,10 @@ class SourcesTestCase(unittest.TestCase):
                     if not mount_line_regex.search(line):
                         continue
 
+                    # skip all lines which are just logging
+                    if line.strip().startswith("log.debug"):
+                        continue
+
                     # fail on every line which does not have 'mount -o ro'
                     assert re.search(r'\bmount +-o *[a-z,]*ro', line), \
                         "Dracut mount in '{}' on line '{}' is not read-only!" \
