@@ -54,13 +54,7 @@ RUN set -ex; \
     dnf -y install \
     # FIXME: Temporarily add missing dependencies for npm-8.13.2-1.18.6.0.1.
     https://kojipkgs.fedoraproject.org//packages/nodejs/18.6.0/1.fc37/x86_64/nodejs-18.6.0-1.fc37.x86_64.rpm \
-    https://kojipkgs.fedoraproject.org//packages/nodejs/18.6.0/1.fc37/x86_64/nodejs-libs-18.6.0-1.fc37.x86_64.rpm \
-    # TODO pylint and dill are patched in rawhide for python 3.11, remove once released in pip too
-    python3-dill; \
-  else \
-    # TODO pylint and dill are patched in ELN for python 3.11, remove once released in pip too
-    dnf -y install \
-    python3-dill; \
+    https://kojipkgs.fedoraproject.org//packages/nodejs/18.6.0/1.fc37/x86_64/nodejs-libs-18.6.0-1.fc37.x86_64.rpm; \
   fi; \
   # Install rest of the dependencies
   dnf install -y \
