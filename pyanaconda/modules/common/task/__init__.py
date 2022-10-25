@@ -41,7 +41,7 @@ def sync_run_task(task_proxy, callback=None):
         if callback:
             callback(task_proxy)
 
-        sleep(1)
+        sleep(0.1)
 
     task_proxy.Finish()
 
