@@ -1,0 +1,10 @@
+# Settings for infrastructure autogeneration
+#
+# See also:
+#     scripts/jinja-render
+#     make reload-infra
+#
+# Follow "type hints" below or be sad. The choice is yours.
+
+distro_name: "rhel" # "fedora" or "rhel"
+distro_release: "8" # version string combining major and minor release, such as "9", "91", "98"...

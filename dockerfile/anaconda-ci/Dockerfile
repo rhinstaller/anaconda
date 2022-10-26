@@ -41,7 +41,9 @@ RUN pip-3.6 install \
   pycodestyle \
   dogtail \
   nose-testconfig \
-  rpmfluff
+  rpmfluff \
+  jinja2 \
+  pyyaml
 
 # see https://github.com/martinpitt/anaconda/settings/actions/add-new-runner
 RUN mkdir actions-runner && cd actions-runner && \
