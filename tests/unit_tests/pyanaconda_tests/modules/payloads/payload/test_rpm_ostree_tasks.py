@@ -22,6 +22,7 @@ import pytest
 import unittest
 from unittest.mock import patch, call, MagicMock
 
+from gi.repository import OSTree
 from pyanaconda.core.glib import Variant, GError
 from pyanaconda.modules.common.errors.installation import PayloadInstallationError
 from pyanaconda.modules.common.structures.rpm_ostree import RPMOSTreeConfigurationData
@@ -650,7 +651,7 @@ class PullRemoteAndDeleteTaskTestCase(unittest.TestCase):
         name, args, kwargs = repo_mock.pull_with_options.mock_calls[0]
         opts = args[1]
         assert type(opts) == Variant
-        assert opts.unpack() == {"refs": ["ref"]}
+        assert opts.unpack() == {"refs": ["ref"], "flags": OSTree.RepoPullFlags.UNTRUSTED}
         repo_mock.remote_delete.assert_called_once_with("remote", None)
 
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.create_new_context")
@@ -679,7 +680,7 @@ class PullRemoteAndDeleteTaskTestCase(unittest.TestCase):
         name, args, kwargs = repo_mock.pull_with_options.mock_calls[0]
         opts = args[1]
         assert type(opts) == Variant
-        assert opts.unpack() == {"refs": ["ref"]}
+        assert opts.unpack() == {"refs": ["ref"], "flags": OSTree.RepoPullFlags.UNTRUSTED}
         repo_mock.remote_delete.assert_not_called()
 
     def test_pull_progress_report(self):
