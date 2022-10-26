@@ -43,7 +43,9 @@ RUN pip install \
   pycodestyle \
   dogtail \
   rpmfluff \
-  pytest
+  pytest \
+  jinja2 \
+  pyyaml
 
 RUN mkdir /anaconda
 
