@@ -11,12 +11,11 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     commit-message:
       prefix: "infra"
     labels:
       - "infrastructure"
-      - "manual testing required"
 
   # Set update schedule for npm packages.
   # FIXME: Update our npm development dependencies monthly.
