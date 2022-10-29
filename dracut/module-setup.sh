@@ -16,9 +16,21 @@ depends() {
 }
 
 installkernel() {
-    case "$(uname -m)" in
+	local arch
+	arch="$(uname -m)"
+	# anaconda-modprobe.sh will load these modules
+	# (instmods in the same order as there)
+	instmods squashfs iscsi_tcp
+    case "$arch" in
         s390*) instmods hmcdrv ;;
+        * ) instmods edd iscsi_ibft ;;
     esac
+    case "$arch" in
+        ppc*) instmods spufs ;;
+    esac
+    instmods raid0 raid1 raid5 raid6 raid456 raid10 linear dm-mod dm-zero \
+             dm-mirror dm-snapshot dm-multipath dm-round-robin dm-crypt cbc \
+             sha256 lrw xts
 }
 
 install() {

@@ -1,5 +1,6 @@
 #!/bin/bash
 # load modules needed by anaconda
+# keep in sync with module-setup.sh
 
 # load anaconda-lib for the subsequent scripts in this hook
 . /lib/anaconda-lib.sh
