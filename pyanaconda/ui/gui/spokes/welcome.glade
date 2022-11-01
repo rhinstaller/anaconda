@@ -20,7 +20,7 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="quitButton">
-                <property name="label" translatable="yes" context="GUI|Welcome|Beta Warn Dialog">I want to _exit.</property>
+                <property name="label" translatable="yes" context="GUI|Welcome|Beta Warn Dialog">I want to _exit</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -34,7 +34,7 @@
             </child>
             <child>
               <object class="GtkButton" id="continueButton">
-                <property name="label" translatable="yes" context="GUI|Welcome|Beta Warn Dialog">I want to _proceed.</property>
+                <property name="label" translatable="yes" context="GUI|Welcome|Beta Warn Dialog">I want to _proceed</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
