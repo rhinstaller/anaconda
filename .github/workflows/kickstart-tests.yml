@@ -110,7 +110,7 @@ jobs:
         with:
           route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
           context: '${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.launch_args }}'
-          description: 'gathering repositories'
+          description: 'gathering repositories [${{ runner.name }}]'
           state: pending
           target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
         env:
@@ -182,7 +182,7 @@ jobs:
         with:
           route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
           context: '${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.launch_args }}'
-          description: 'building artifacts'
+          description: 'building artifacts [${{ runner.name }}]'
           state: pending
           target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
         env:
@@ -266,7 +266,7 @@ jobs:
         with:
           route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
           context: '${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.launch_args }}'
-          description: 'running tests'
+          description: 'running tests [${{ runner.name }}]'
           state: pending
           target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
         env:
@@ -334,7 +334,7 @@ jobs:
         with:
           route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
           context: '${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.launch_args }}'
-          description: 'finished'
+          description: 'finished [${{ runner.name }}]'
           state: ${{ job.status }}
           target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
         env:
