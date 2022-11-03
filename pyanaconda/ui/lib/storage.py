@@ -322,14 +322,15 @@ def is_local_disk(device_type):
     While technically local disks, zFCP and NVDIMM devices are
     advanced storage and should not be considered local.
 
-    :param device_type: a device type
-    :return: True or False
+    :param str device_type: a device type
+    :return bool: True or False
     """
     return device_type not in (
         "dm-multipath",
         "iscsi",
         "fcoe",
         "zfcp",
+        "nvme-fabrics",
     )
 
 
