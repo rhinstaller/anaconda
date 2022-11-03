@@ -388,19 +388,23 @@ class GRUB2(BootLoader):
         # a member of the stage2 array.
         stage2_parents = []
 
-        # Look for both mdraid and btrfs raid
-        if self.stage2_device.type == "mdarray" and \
-           self.stage2_device.level in self.stage2_raid_levels:
-            # Set parents to the list of partitions in the RAID
-            stage2_parents = self.stage2_device.parents
-        elif self.stage2_device.type == "btrfs subvolume" and \
-           self.stage2_device.parents[0].data_level in self.stage2_raid_levels:
-            # Set parents to the list of partitions in the parent volume
-            stage2_parents = self.stage2_device.parents[0].parents
+        if self.stage1_device \
+                and self.stage2_device \
+                and self.stage1_device.is_disk \
+                and self.stage2_device.depends_on(self.stage1_device):
 
-        if stage2_parents and \
-           self.stage1_device.is_disk and \
-           self.stage2_device.depends_on(self.stage1_device):
+            # Look for both mdraid and btrfs raid
+            if self.stage2_device.type == "mdarray" and \
+                    self.stage2_device.level in self.stage2_raid_levels:
+                # Set parents to the list of partitions in the RAID
+                stage2_parents = self.stage2_device.parents
+
+            elif self.stage2_device.type == "btrfs subvolume" and \
+                    self.stage2_device.parents[0].data_level in self.stage2_raid_levels:
+                # Set parents to the list of partitions in the parent volume
+                stage2_parents = self.stage2_device.parents[0].parents
+
+        if stage2_parents:
             # If target disk contains any of /boot array's member
             # partitions, set up stage1 on each member's disk.
             return [(d.disk, self.stage2_device) for d in stage2_parents]
