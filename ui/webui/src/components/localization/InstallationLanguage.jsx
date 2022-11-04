@@ -28,7 +28,7 @@ import {
     MenuItem,
     MenuContent,
     MenuGroup,
-    TextInput,
+    SearchInput,
     Divider,
     Alert,
 } from "@patternfly/react-core";
@@ -107,8 +107,8 @@ class LanguageSelector extends React.Component {
         this.setState({ commonLocales: await getCommonLocales() });
     }
 
-    async updateNativeName () {
-        const localeData = await getLocaleData({ locale: this.state.lang });
+    async updateNativeName (localeData) {
+        localeData = localeData || await getLocaleData({ locale: this.state.lang });
         this.props.getNativeName(getLocaleNativeName(localeData));
     }
 
@@ -153,6 +153,7 @@ class LanguageSelector extends React.Component {
                   isSelected={isSelected}
                   itemId={getLocaleId(locale)}
                   ref={scrollRef}
+                  style={isSelected ? { backgroundColor: "var(--pf-c-menu__list-item--hover--BackgroundColor)" } : undefined}
                 >
                     {getLocaleNativeName(locale)}
                 </MenuItem>
@@ -234,8 +235,7 @@ class LanguageSelector extends React.Component {
                                 .then(() => setLocale({ locale: getLocaleId(localeItem) }))
                                 .catch(this.props.onAddErrorNotification);
                         this.setState({ ...this.state, lang: item });
-                        this.props.getNativeName(getLanguageNativeName(localeItem));
-
+                        this.updateNativeName(localeItem);
                         window.location.reload(true);
                         return;
                     }
@@ -250,6 +250,7 @@ class LanguageSelector extends React.Component {
         }
 
         const options = this.renderOptions(this.state.search);
+        const inputRef = React.createRef(null);
 
         return (
             <Menu
@@ -260,16 +261,36 @@ class LanguageSelector extends React.Component {
               {...(isLoading && { loadingVariant: "spinner" })}
             >
                 <MenuInput>
-                    <TextInput
+                    <Title
+                      headingLevel="h3"
+                      className="pf-c-menu__group-title"
+                      style={
+                          // HACK This title should look like the ones in PF Menu. Simply adding it's class
+                          // doesn't give it all the attributes.
+                          {
+                              fontSize: "var(--pf-c-menu__group-title--FontSize)",
+                              paddingLeft: "0",
+                              paddingTop: "0",
+                              marginBottom: "0.5em",
+                              fontWeight: "var(--pf-c-menu__group-title--FontWeight)",
+                              fontFamily: "var(--pf-global--FontFamily--sans-serif)",
+                              color: "var(--pf-c-menu__group-title--Color)"
+                          }
+                      }
+                    >
+                        {_("Find a language")}
+                    </Title>
+                    <SearchInput
                       id={this.props.idPrefix + "-language-search"}
-                      iconVariant="search"
-                      type="search"
+                      ref={inputRef}
+                      // Select all text on click
+                      onFocus={() => inputRef && inputRef.current && inputRef.current.select()}
                       value={this.state.search}
                       onChange={value => this.setState({ ...this.state, search: value })}
+                      onClear={() => this.setState({ ...this.state, search: "" })}
                     />
                 </MenuInput>
-                <Divider />
-                <MenuContent>
+                <MenuContent maxMenuHeight="25vh">
                     <MenuList>
                         {options}
                     </MenuList>
@@ -281,30 +302,35 @@ class LanguageSelector extends React.Component {
 LanguageSelector.contextType = AddressContext;
 
 export const InstallationLanguage = ({ idPrefix, setIsFormValid, onAddErrorNotification }) => {
-    const [nativeName, setNativeName] = React.useState("");
+    const [nativeName, setNativeName] = React.useState(false);
+
     return (
         <AnacondaPage title={_("Welcome to the Anaconda installer")}>
             <Title
               headingLevel="h3"
             >
-                {_("Select a language")}
+                {_("Choose a language")}
             </Title>
             <Form>
                 <FormGroup isRequired>
+                    {nativeName && (
+                        <Alert
+                          id="language-alert"
+                          isInline
+                          variant="info"
+                          title={_("Chosen language: ") + `${nativeName}`}
+                        >
+                            {_("The chosen language will be used for installation and in the installed software. " +
+                               "To use a different language, find it in the language list.")}
+                        </Alert>
+                    )}
                     <LanguageSelector
+                      id="language-selector"
                       idPrefix={idPrefix}
                       setIsFormValid={setIsFormValid}
                       onAddErrorNotification={onAddErrorNotification}
                       getNativeName={setNativeName}
                     />
-                    <Alert
-                      id="language-alert"
-                      isInline
-                      variant="info"
-                      title={_("The selected language will be used for installation and in the installed software.")}
-                    >
-                        {nativeName}
-                    </Alert>
                 </FormGroup>
             </Form>
         </AnacondaPage>

@@ -34,15 +34,15 @@ class Language():
         self._bus_address = self.machine.execute("cat /run/anaconda/bus.address")
 
     def select_locale(self, locale):
-        if self.browser.val(f"#{self._step}-language-search") != "":
+        if self.browser.val(f"#{self._step}-language-search .pf-c-text-input-group__text-input") != "":
             self.input_locale_search("")
         self.browser.click(f"#{self._step}-option-common-{locale} > button")
 
     def get_locale_search(self):
-        return self.browser.val(f"#{self._step}-language-search")
+        return self.browser.val(f"#{self._step}-language-search .pf-c-text-input-group__text-input")
 
     def input_locale_search(self, text):
-        self.browser.set_input_text(f"#{self._step}-language-search", text)
+        self.browser.set_input_text(f"#{self._step}-language-search .pf-c-text-input-group__text-input", text)
 
     def locale_option_visible(self, locale, visible=True):
         if visible:
