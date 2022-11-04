@@ -17,6 +17,7 @@
 import cockpit from "cockpit";
 
 const CONF_PATH = "/run/anaconda/anaconda.conf";
+const LOCAL_IP_ADDRESS = "127.0.0.90";
 
 const isEmpty = (inStr) => {
     // is string empty?
@@ -78,4 +79,8 @@ export const readConf = () => {
     return confFile.read()
             .then(parseIni)
             .finally(confFile.close);
+};
+
+export const runningLocally = () => {
+    return window.origin.startsWith(`http://${LOCAL_IP_ADDRESS}`);
 };

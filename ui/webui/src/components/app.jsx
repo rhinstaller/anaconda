@@ -34,7 +34,7 @@ import { StorageClient } from "../apis/storage.js";
 import { PayloadsClient } from "../apis/payloads";
 
 import { readBuildstamp, getIsFinal } from "../helpers/betanag.js";
-import { readConf } from "../helpers/conf.js";
+import { readConf, runningLocally } from "../helpers/conf.js";
 
 const _ = cockpit.gettext;
 
@@ -68,6 +68,10 @@ export const Application = () => {
             buildstamp => setBeta(!getIsFinal(buildstamp)),
             ex => console.error("Failed to parse anaconda buildstamp file")
         );
+
+        if (runningLocally()) {
+            window.oncontextmenu = () => { return false };
+        }
     }, []);
 
     const onAddNotification = (notificationProps) => {
