@@ -321,7 +321,7 @@ class MakeBumpVer:
             body = self._getCommitDetail(commit, "%b")
             author = self._getCommitDetail(commit, "%aE")[0]
 
-            if re.match(r".*(#infra).*", summary) or re.match(r"infra: bump .*", summary):
+            if re.match(r".*(#infra).*", summary) or re.match(r"infra: .*", summary):
                 print("*** Ignoring (#infra) commit %s\n" % commit)
                 continue
 
