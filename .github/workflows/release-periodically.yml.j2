@@ -21,6 +21,7 @@ permissions:
 jobs:
   make-release-tag:
     runs-on: ubuntu-latest
+    environment: releases
     steps:
 
       - name: Check out repo
@@ -54,6 +55,8 @@ jobs:
         if: ${{ steps.check-tag.outputs.can-tag }}
         # the repo should have an access token from the checkout action
         # https://github.com/actions/checkout#Push-a-commit-using-the-built-in-token
+        env:
+          GITHUB_TOKEN: ${{ secrets.INSTALLKER_TOKEN }}
         run: |
           git push --tags origin master
 
