@@ -256,3 +256,13 @@ Below is a list of pure community features, their community maintainers, and mai
 * Description:
 
 ``Enable boot of the installed system from a BTRFS subvolume.``
+
+systemd-boot as a bootloader
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* Origin: https://github.com/rhinstaller/anaconda/pull/4368
+* Bugzilla: https://bugzilla.redhat.com/show_bug.cgi?id=2135531
+* Maintainer: Jeremy Linton <jeremy.linton@arm.com>
+* Description:
+
+``Enable boot using systemd-boot rather than grub2.``
