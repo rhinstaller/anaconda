@@ -26,19 +26,11 @@ case $kickstart in
         # Construct URL for nfs:auto.
         if [ "$kickstart" = "nfs:auto" ]; then
             # Construct kickstart URL from dhcp info.
-            # Server is next_server, or the dhcp server itself if missing.
-            . /tmp/net.$netif.dhcpopts
-            server="${new_next_server:-$new_dhcp_server_identifier}"
             # Filename is dhcp 'filename' option, or '/kickstart/' if missing.
             filename="/kickstart/"
-            # Read the dhcp lease file and see if we can find 'filename'.
-            { while read line; do
-                val="${line#filename }"
-                if [ "$val" != "$line" ]; then
-                    eval "filename=$val" # Drop quoting and semicolon.
-                fi
-              done
-            } < /tmp/net.$netif.lease
+            . /tmp/net.$netif.dhcpopts
+            # Server is next_server, or the dhcp server itself if missing.
+            server="${new_next_server:-$new_dhcp_server_identifier}"
             kickstart="nfs:$server:$filename"
         fi
 
