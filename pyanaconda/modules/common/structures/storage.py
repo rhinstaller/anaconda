@@ -181,6 +181,15 @@ class DeviceData(DBusData):
             target
             path-id
 
+        Attributes for NVMe Fabrics:
+            nsid
+            eui64
+            nguid
+            controllers-id
+            transports-type
+            transports-address
+            subsystems-nqn
+
         Attributes for ZFCP:
             fcp-lun
             wwpn
