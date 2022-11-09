@@ -515,7 +515,7 @@ class DumpMissingIfcfgFilesTask(Task):
                     )
                 log.debug("%s: dumping connection %s to ifcfg file for %s",
                           self.name, con.get_uuid(), iface)
-                con.commit_changes(True, None)
+                commit_changes_with_autoconnection_blocked(con, nm_client)
             else:
                 log.debug("%s: creating default connection for %s", self.name, iface)
                 network_data = copy.deepcopy(self._default_network_data)
