@@ -367,6 +367,17 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Nov 09 2022 Martin Kolman <mkolman@redhat.com> - 33.16.8.3-1
+- network: commit changes synchronously when dumping autoconnections (rvykydal)
+  Related: rhbz#2127057
+- Initialize empty disks on the Manual Partitioning screen (vponcova)
+  Resolves: rhbz#2094977
+- infra: Set test vars from templates (vslavik)
+- infra: Port check for matching templates from master (vslavik)
+- infra: Port templating mechanism from master (vslavik)
+- dracut: read filename dhcp option from dhcpopts file (rvykydal)
+  Related: rhbz#1991516
+
 * Thu Oct 27 2022 Martin Kolman <mkolman@redhat.com> - 33.16.8.2-1
 - network: remove activate_connection_sync (rvykydal)
   Related: rhbz#2127057
