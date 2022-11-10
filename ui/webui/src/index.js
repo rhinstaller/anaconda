@@ -31,6 +31,7 @@ import { Application } from "./components/app.jsx";
  */
 import "./lib/patternfly/patternfly-4-overrides.scss";
 import "./components/app.scss";
+import "./components/animations-workaround.css";
 
 document.addEventListener("DOMContentLoaded", function () {
     ReactDOM.render(React.createElement(Application, {}), document.getElementById("app"));

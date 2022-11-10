@@ -1,0 +1,33 @@
+/*
+ * Animations in cockpit-client / webkit in VMs are causing excessive CPU load.
+ * See rhbz#1204242.
+ * Workaround it by decreasing the frame rate.
+ */
+
+.pf-c-skeleton {
+  --pf-c-skeleton--after--AnimationTimingFunction: steps(4);
+}
+
+span.pf-c-spinner {
+  --pf-c-spinner--AnimationTimingFunction: steps(0);
+  --pf-c-spinner__path--AnimationTimingFunction: steps(4);
+}
+
+svg.pf-c-spinner {
+  --pf-c-spinner--AnimationTimingFunction: steps(0);
+  --pf-c-spinner__path--AnimationTimingFunction: steps(4);
+}
+
+/* These spinners look too bad with reduced frame ratio and are less exposed
+.pf-c-spinner__clipper {
+  animation-timing-function: steps(4);
+}
+
+.pf-c-spinner__lead-ball {
+  animation-timing-function: steps(4);
+}
+
+.pf-c-spinner__tail-ball {
+  animation-timing-function: steps(4);
+}
+*/
