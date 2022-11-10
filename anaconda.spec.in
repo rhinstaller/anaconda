@@ -407,6 +407,15 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Nov 10 2022 Martin Kolman <mkolman@redhat.com> - 34.25.2.2-1
+- Initialize empty disks on the Manual Partitioning screen (vponcova)
+  Resolves: rhbz#2127100
+- infra: Set test vars from templates (vslavik)
+- infra: Port check for matching templates from master (vslavik)
+- infra: Port templating mechanism from master (vslavik)
+- dracut: read filename dhcp option from dhcpopts file (rvykydal)
+  Related: rhbz#1991843
+
 * Thu Oct 27 2022 Martin Kolman <mkolman@redhat.com> - 34.25.2.1-1
 - network: fix doc string of add_connection_sync (rvykydal)
   Related: rhbz#2125256
