@@ -18,15 +18,19 @@
 import os
 import re
 import signal
+from functools import partial
 
-from collections import namedtuple
+from dasbus.structure import get_fields
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import glib, constants
+from pyanaconda.core.constants import REPO_ORIGIN_USER
 from pyanaconda.core.i18n import _, N_, C_
-from pyanaconda.core.payload import ProxyString, ProxyStringError
+from pyanaconda.core.payload import ProxyString, ProxyStringError, parse_nfs_url
 from pyanaconda.core.process_watchers import PidWatcher
-from pyanaconda.core.regexes import URL_PARSE, REPO_NAME_VALID
+from pyanaconda.core.regexes import URL_PARSE, REPO_NAME_VALID, HOSTNAME_PATTERN_WITHOUT_ANCHORS
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.ui.gui import GUIObject, really_hide
 from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
@@ -47,16 +51,6 @@ PROTOCOL_FTP = 'ftp'
 PROTOCOL_NFS = 'nfs'
 PROTOCOL_FILE = 'file'
 PROTOCOL_MIRROR = 'Closest mirror'
-
-REPO_PROTO = {
-    PROTOCOL_HTTP:  "http://",
-    PROTOCOL_HTTPS: "https://",
-    PROTOCOL_FTP:   "ftp://",
-    PROTOCOL_NFS:   "nfs://",
-    PROTOCOL_FILE:  "file://"
-}
-
-RepoChecks = namedtuple("RepoChecks", ["name_check", "url_check", "proxy_check"])
 
 
 def get_unique_repo_name(existing_names=None):
@@ -90,14 +84,114 @@ def get_unique_repo_name(existing_names=None):
     return name + ("_%d" % (highest_index + 1))
 
 
-def validate_repo_name(repo_name, conflicting_names=None):
+def generate_repository_description(repo_data):
+    """Generate a description of a repo configuration data.
+
+    :param RepoConfigurationData repo_data: a repo configuration data
+    :return str: a string with the description
+    """
+    fields = get_fields(RepoConfigurationData)
+    attributes = []
+
+    for name, field in fields.items():
+        value = field.get_data(repo_data)
+        attribute = "{} = {}".format(
+            name, repr(value)
+        )
+        attributes.append(attribute)
+
+    return "\n".join(["{"] + attributes + ["}"])
+
+
+def validate_additional_repositories(additional_repositories, conflicting_names=None):
+    """Validate the configured additional repositories.
+
+    :param [RepoConfigurationData] additional_repositories: a list of repositories
+    :param conflicting_names: a list of conflicting repo names or None
+    :return ValidationReport: a validation report
+    """
+    log.debug("Validating additional repositories...")
+    report = ValidationReport()
+
+    if not additional_repositories:
+        log.debug("Nothing to validate.")
+        return report
+
+    # Collect names of validated additional repositories.
+    occupied_names = [r.name for r in additional_repositories]
+    log.debug("Occupied names: %s", ", ".join(occupied_names))
+
+    # Collect names of possibly conflicting repositories.
+    conflicting_names = conflicting_names or []
+    log.debug("Conflicting names: %s", ", ".join(conflicting_names))
+
+    # Check additional repositories.
+    for repo_data in additional_repositories:
+        log.debug("Validating the '%s' repository: %s", repo_data.name, repo_data)
+
+        # Define a an error handler.
+        handle_error = partial(_report_invalid_repository, report, repo_data)
+
+        # Check the repo name.
+        handle_error(validate_repo_name(
+            repo_name=repo_data.name,
+            conflicting_names=conflicting_names,
+            occupied_names=occupied_names
+        ))
+
+        # Don't validate the configuration of system and treeinfo repositories.
+        if repo_data.origin != REPO_ORIGIN_USER:
+            continue
+
+        # Don't validate the configuration of disabled repositories.
+        if not repo_data.enabled:
+            continue
+
+        # Check the URL specification.
+        handle_error(validate_repo_url(repo_data.url))
+
+        # Check the proxy configuration.
+        handle_error(validate_proxy(repo_data.proxy))
+
+    log.debug("The validation has been completed: %s", report)
+    return report
+
+
+def collect_conflicting_repo_names(payload):
+    """Collect repo names that could conflict with additional repositories."""
+    current_repositories = payload.get_repo_configurations()
+    allowed_names = [r.name for r in current_repositories]
+    forbidden_names = set(payload.dnf_manager.repositories)
+    return list(forbidden_names - set(allowed_names))
+
+
+def _report_invalid_repository(report, repository, error_message):
+    """Report an invalid repository."""
+    if not error_message:
+        return
+
+    full_message = get_invalid_repository_message(repository.name, error_message)
+    report.error_messages.append(full_message)
+    log.error(full_message)
+
+
+def get_invalid_repository_message(repo_name, error_message):
+    """Get a full error message with the repository name."""
+    return _("The '{}' repository is invalid: {}").format(
+        repo_name, error_message
+    )
+
+
+def validate_repo_name(repo_name, conflicting_names=None, occupied_names=None):
     """Validate the given repo name.
 
     :param str repo_name: a repo name to validate
     :param [str] conflicting_names: a list of conflicting names
+    :param [str] occupied_names: a list of occupied names
     :return: an error message or None
     """
     conflicting_names = conflicting_names or []
+    occupied_names = occupied_names or []
 
     # Extend the conflicting names.
     conflicting_names.append(
@@ -114,19 +208,70 @@ def validate_repo_name(repo_name, conflicting_names=None):
     if not REPO_NAME_VALID.match(repo_name):
         return _("Invalid repository name")
 
+    if occupied_names.count(repo_name) > 1:
+        return _("Duplicate repository names")
+
     if repo_name in conflicting_names:
-        return _("Repository name conflicts with internal repository name.")
+        return _("Repository name conflicts with internal repository name")
 
     return InputCheck.CHECK_OK
 
 
-def validate_proxy(proxy_string, username_set, password_set):
+def validate_repo_url(url):
+    """Validate the given repo URL.
+
+    :param: an URL to validate
+    :return: an error message or None
+    """
+    # There is nothing to validate.
+    if not url:
+        return _("Empty URL")
+
+    # Don't validate file:.
+    if url.startswith("file:"):
+        return InputCheck.CHECK_OK
+
+    # Don't validate hd:.
+    if url.startswith("hd:"):
+        return InputCheck.CHECK_OK
+
+    # Validate a NFS source.
+    if url.startswith("nfs:"):
+        _options, host, path = parse_nfs_url(url)
+
+        if not host:
+            return _("Empty server")
+
+        if not re.match('^' + HOSTNAME_PATTERN_WITHOUT_ANCHORS + '$', host):
+            return _("Invalid server")
+
+        if not path:
+            return _("Empty path")
+
+        return InputCheck.CHECK_OK
+
+    # Validate an URL source.
+    if any(url.startswith(p) for p in ["http:", "https:", "ftp:"]):
+        if not re.match(URL_PARSE, url):
+            return _("Invalid URL")
+
+        return InputCheck.CHECK_OK
+
+    # The protocol seems to be unsupported.
+    return _("Invalid protocol")
+
+
+def validate_proxy(proxy_string, authentication=True):
     """Validate a proxy string and return an input code usable by InputCheck
 
     :param str proxy_string: the proxy URL string
-    :param bool username_set: Whether a username has been specified external to the URL
-    :param bool password_set: Whether a password has been speicifed external to the URL
+    :param bool authentication: can the URL contain authentication data?
+    :return: an error message or None
     """
+    # Nothing to check.
+    if not proxy_string:
+        return InputCheck.CHECK_OK
+
     proxy_match = URL_PARSE.match(proxy_string)
     if not proxy_match:
         return _("Invalid proxy URL")
@@ -142,22 +287,9 @@ def validate_proxy(proxy_string, username_set, password_set):
             or proxy_match.group("query") or proxy_match.group("fragment"):
         return _("Extra characters in proxy URL")
 
-    # Check if if authentication data is both in the URL and specified externally
-    if (proxy_match.group("username") or proxy_match.group("password")) \
-       and (username_set or password_set):
+    # Check if authentication data can be specified in the URL.
+    if not authentication and (proxy_match.group("username") or proxy_match.group("password")):
         return _("Proxy authentication data duplicated")
-
-    return InputCheck.CHECK_OK
-
-
-def check_duplicate_repo_names(repo_names):
-    """Check if there are some duplicate repository names.
-
-    :param [str] repo_names: a list of repo names to check
-    :return: an error message or None
-    """
-    if len(repo_names) != len(set(repo_names)):
-        return _("Duplicate repository names.")
 
     return InputCheck.CHECK_OK
 
@@ -195,7 +327,8 @@ class ProxyDialog(GUIObject, GUIDialogInputCheckHandler):
         if not proxy_string:
             return InputCheck.CHECK_SILENT
 
-        return validate_proxy(proxy_string, self._is_username_set(), self._is_password_set())
+        authentication = self._is_username_set() or self._is_password_set()
+        return validate_proxy(proxy_string, authentication=not authentication)
 
     def _is_username_set(self):
         return self._proxy_username_entry.is_sensitive() and self._proxy_username_entry.get_text()
