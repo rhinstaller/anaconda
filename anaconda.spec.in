@@ -464,6 +464,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Nov 16 2022 Martin Kolman <mkolman@redhat.com> - 38.9-1
+- Progress step improvements (mkolman)
+- makebumpver: Ignore all infra, not just bumps (vslavik)
+
 * Tue Nov 08 2022 Vladimír Slávik <vslavik@redhat.com> - 38.8-1
 - Web UI: Update language selection screen (ozobal)
 - There are no installation targets if bootloader devices are not set
