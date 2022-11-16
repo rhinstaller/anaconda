@@ -46,35 +46,35 @@ levelbar.discrete trough block.filled.high {
 @define-color error_fg_color black;
 @define-color error_bg_color rgb (237, 54, 54);
 
-infobar.info {
+infobar.info box {
     background-color: @info_bg_color;
-    border-color: darker(@info_bg_color);
+    border: none;
 }
 
 infobar.info label {
     color: @info_fg_color;
 }
 
-infobar.warning {
+infobar.warning box {
     background-color: @warning_bg_color;
-    border-color: darker(@warning_bg_color);
+    border: none;
 }
 
 infobar.warning label {
     color: @warning_fg_color;
 }
 
-infobar.question {
+infobar.question box {
     background-color: @question_bg_color;
-    border-color: darker(@question_bg_color);
+    border: none;
 }
 infobar.question label {
     color: @question_fg_color;
 }
 
-infobar.error {
+infobar.error box {
     background-color: @error_bg_color;
-    border-color: darker(@error_bg_color);
+    border: none;
 }
 
 infobar.error label {
@@ -84,7 +84,7 @@ infobar.error label {
 infobar.info,
 infobar.warning,
 infobar.question,
-infobar.error {
+infobar.error box {
     text-shadow: none;
 }
 
