@@ -17,9 +17,10 @@ on:
 permissions:
   contents: write
 
-
 jobs:
   make-release-tag:
+    # Don't run scheduled workflows on forks.
+    if: github.event_name != 'schedule' || github.repository == 'rhinstaller/anaconda'
     runs-on: ubuntu-latest
     environment: releases
     steps:
