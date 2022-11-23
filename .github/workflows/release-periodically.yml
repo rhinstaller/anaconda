@@ -37,6 +37,7 @@ jobs:
           ref: "master"
           fetch-depth: 20
           tags: true
+          token: ${{ secrets.INSTALLKER_TOKEN }}
 
       - name: Check if already tagged
         id: check-tag
@@ -62,8 +63,6 @@ jobs:
         if: ${{ steps.check-tag.outputs.can-tag }}
         # the repo should have an access token from the checkout action
         # https://github.com/actions/checkout#Push-a-commit-using-the-built-in-token
-        env:
-          GITHUB_TOKEN: ${{ secrets.INSTALLKER_TOKEN }}
         run: |
           git push --tags origin master
 
