@@ -35,8 +35,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: "master"
-          fetch-depth: 20
-          tags: true
+          fetch-depth: 0
           token: ${{ secrets.INSTALLKER_TOKEN }}
 
       - name: Check if already tagged
