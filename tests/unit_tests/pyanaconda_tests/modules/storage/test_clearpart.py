@@ -45,7 +45,8 @@ class ClearPartTestCase(unittest.TestCase):
                                parents=[sda])
         sda1._parted_partition = mock.Mock(**{'type': PARTITION_NORMAL,
                                               'getLength.return_value': int(sda1.size),
-                                              'getFlag.return_value': 0})
+                                              'getFlag.return_value': 0,
+                                              'number': 1})
         sda1.format = blivet.formats.get_format("ext4", mountpoint="/boot",
                                                 device=sda1.path,
                                                 exists=True)
@@ -56,7 +57,8 @@ class ClearPartTestCase(unittest.TestCase):
                                parents=[sda])
         sda2._parted_partition = mock.Mock(**{'type': PARTITION_NORMAL,
                                               'getLength.return_value': int(sda2.size),
-                                              'getFlag.return_value': 0})
+                                              'getFlag.return_value': 0,
+                                              'number': 2})
         sda2.format = blivet.formats.get_format("vfat", mountpoint="/foo",
                                                 device=sda2.path,
                                                 exists=True)
