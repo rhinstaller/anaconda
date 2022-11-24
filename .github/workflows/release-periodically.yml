@@ -45,21 +45,20 @@ jobs:
           # 128 -> fatal: no tag exactly matches 'c88a1272ffbc002042fd62ed409734c1c150cc5f'
           # 0 -> anaconda-38.6-1
           if git describe --tags --exact-match ; then
-            echo "Already tagged at HEAD, will not push another tag."
-            echo "::set-output name=can-tag::false"
+            echo "::warning:: Already tagged at HEAD, will not push a release commit."
           else
-            echo "::set-output name=can-tag::true"
+            echo "can_bump_version=true" >> $GITHUB_OUTPUT
           fi
 
-      - name: Run makebumpver
-        if: ${{ steps.check-tag.outputs.can-tag }}
+      - name: Prepare and tag a release commit
+        if: steps.check-tag.outputs.can_bump_version
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           ./scripts/makebumpver -c
 
-      - name: Push tag to repo
-        if: ${{ steps.check-tag.outputs.can-tag }}
+      - name: Push the release commit with the tag to repo
+        if: steps.check-tag.outputs.can_bump_version
         # the repo should have an access token from the checkout action
         # https://github.com/actions/checkout#Push-a-commit-using-the-built-in-token
         run: |
