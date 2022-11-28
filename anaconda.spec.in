@@ -407,6 +407,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Nov 28 2022 Radek Vykydal <rvykydal@redhat.com> - 34.25.2.3-1
+- Disable the concurrency check in the error dialog in TUI (vponcova)
+  Resolves: rhbz#2070920
+- Support bond device activated in initramfs from kickstart (rvykydal)
+  Resolves: rhbz#2133053
+
 * Thu Nov 10 2022 Martin Kolman <mkolman@redhat.com> - 34.25.2.2-1
 - Initialize empty disks on the Manual Partitioning screen (vponcova)
   Resolves: rhbz#2127100
