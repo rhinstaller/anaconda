@@ -166,23 +166,29 @@ network --device team0 --activate --bootproto static --ip=10.34.102.222 --netmas
 
     def test_network_bond(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
-            ks_file.write("""network --device=link --bootproto=dhcp --activate
-network --device=eth0 --bootproto=dhcp --bondslaves=eth0,eth1
-""")
+            ks_file.write("""network --device=bond0 --mtu=1500 --bondslaves=enp4s0,enp7s0 --bondopts=mode=active-backup,primary=enp4s0 --bootproto=dhcp""")
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
-            assert re.search(r"ip=[^\s:]+:dhcp: bootdev=[^\s:]+", lines[0])
+            assert lines[0] == "ip=bond0:dhcp:1500 bootdev=bond0 bond=bond0:enp4s0,enp7s0:mode=active-backup,primary=enp4s0:1500"
 
     def test_network_bond_2(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
-            ks_file.write("""network --device=link --bootproto=dhcp --activate
-network --device=eth0 --bootproto=dhcp --bondslaves=eth0,eth1 --activate
-""")
+            # no --mtu, no --bondopts
+            ks_file.write("""network --device=bond0 --bondslaves=enp4s0,enp7s0 --bootproto=dhcp""")
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
-            assert re.search(r"ip=[^\s:]+:dhcp: bootdev=[^\s:]+", lines[0])
+            assert lines[0] == "ip=bond0:dhcp: bootdev=bond0 bond=bond0:enp4s0,enp7s0::"
+
+    def test_network_bond_3(self):
+        with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
+            # no --bondopts
+            ks_file.write("""network --device=bond0 --bondslaves=enp4s0,enp7s0 --mtu=1500 --bootproto=dhcp""")
+            ks_file.flush()
+            lines = self.execParseKickstart(ks_file.name)
+
+            assert lines[0] == "ip=bond0:dhcp:1500 bootdev=bond0 bond=bond0:enp4s0,enp7s0::1500"
 
     def test_network_bridge(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
