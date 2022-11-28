@@ -464,6 +464,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Nov 28 2022 github-actions <github-actions@github.com> - 38.10-1
+- Web UI: Add a payload to ks.cfg (ozobal)
+- Make text in custom_storage_helper more accurate (ozobal)
+- test: Update pixel references to current Fedora (martin)
+- Fix infobar colors in GTK GUI (ozobal)
+
 * Wed Nov 16 2022 Martin Kolman <mkolman@redhat.com> - 38.9-1
 - Progress step improvements (mkolman)
 - makebumpver: Ignore all infra, not just bumps (vslavik)
