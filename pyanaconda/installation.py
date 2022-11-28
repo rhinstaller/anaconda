@@ -391,7 +391,7 @@ class RunInstallationTask(InstallationTask):
 
         payload_install = TaskQueue(
             "Payload installation",
-            _("Installing.")
+            _("Installing the software")
         )
         payload_install.append(Task(
             "Install the payload",
