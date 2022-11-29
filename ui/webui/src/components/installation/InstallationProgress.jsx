@@ -44,7 +44,6 @@ export class InstallationProgress extends React.Component {
     constructor (props) {
         super(props);
         this.state = { statusMessage: "", currentProgressStep: 0 };
-        this.logViewerRef = React.createRef();
     }
 
     componentDidMount () {
