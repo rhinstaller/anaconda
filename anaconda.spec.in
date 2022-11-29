@@ -367,6 +367,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Nov 29 2022 Radek Vykydal <rvykydal@redhat.com> - 33.16.8.4-1
+- Disable the concurrency check in the error dialog in TUI (vponcova)
+  Resolves: rhbz#1807491
+- Support bond device activated in initramfs from kickstart (rvykydal)
+  Resolves: rhbz#1940919
+
 * Wed Nov 09 2022 Martin Kolman <mkolman@redhat.com> - 33.16.8.3-1
 - network: commit changes synchronously when dumping autoconnections (rvykydal)
   Related: rhbz#2127057
