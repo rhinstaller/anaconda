@@ -234,7 +234,7 @@ class LanguageSelector extends React.Component {
                         setLanguage({ lang: getLocaleId(localeItem) })
                                 .then(() => setLocale({ locale: getLocaleId(localeItem) }))
                                 .catch(this.props.onAddErrorNotification);
-                        this.setState({ ...this.state, lang: item });
+                        this.setState({ lang: item });
                         this.updateNativeName(localeItem);
                         window.location.reload(true);
                         return;
@@ -286,8 +286,8 @@ class LanguageSelector extends React.Component {
                       // Select all text on click
                       onFocus={() => inputRef && inputRef.current && inputRef.current.select()}
                       value={this.state.search}
-                      onChange={value => this.setState({ ...this.state, search: value })}
-                      onClear={() => this.setState({ ...this.state, search: "" })}
+                      onChange={value => this.setState({ search: value })}
+                      onClear={() => this.setState({ search: "" })}
                     />
                 </MenuInput>
                 <MenuContent maxMenuHeight="25vh">
