@@ -464,6 +464,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Nov 29 2022 github-actions <github-actions@github.com> - 38.11-1
+- Fix the installation message about the payload installation (vponcova)
+
 * Mon Nov 28 2022 github-actions <github-actions@github.com> - 38.10-1
 - Web UI: Add a payload to ks.cfg (ozobal)
 - Make text in custom_storage_helper more accurate (ozobal)
