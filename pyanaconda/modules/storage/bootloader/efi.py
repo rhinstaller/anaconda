@@ -42,6 +42,16 @@ class EFIBase(object):
     def _efi_config_dir(self):
         return "efi/EFI/{}".format(conf.bootloader.efi_dir)
 
+    def get_fw_platform_size(self):
+        try:
+            with open("/sys/firmware/efi/fw_platform_size", "r") as f:
+                value = f.readline().strip()
+        except OSError:
+            log.info("Reading /sys/firmware/efi/fw_platform_size failed, "
+                     "defaulting to 64-bit install.")
+            value = '64'
+        return value
+
     def efibootmgr(self, *args, **kwargs):
         if not conf.target.is_hardware:
             log.info("Skipping efibootmgr for image/directory install.")
@@ -144,14 +154,7 @@ class EFIGRUB(EFIBase, GRUB2):
         super().__init__()
         self._packages64 = [ "grub2-efi-x64", "shim-x64" ]
 
-        try:
-            f = open("/sys/firmware/efi/fw_platform_size", "r")
-            value = f.readline().strip()
-        except OSError:
-            log.info("Reading /sys/firmware/efi/fw_platform_size failed, "
-                     "defaulting to 64-bit install.")
-            value = '64'
-        if value == '32':
+        if self.get_fw_platform_size() == '32':
             self._is_32bit_firmware = True
 
     @property
