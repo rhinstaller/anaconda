@@ -51,7 +51,7 @@ class TestStorage(MachineCase):
         b.assert_pixels(
             "#app",
             "storage-step-basic",
-            ignore=["#betanag-icon", "#installation-destination-table-label"],
+            ignore=["#betanag-icon", "#installation-destination-table-label", "#installation-destination-hint"],
             wait_animations=False,
         )
 
