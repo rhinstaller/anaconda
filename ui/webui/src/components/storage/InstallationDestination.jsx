@@ -475,7 +475,7 @@ export const InstallationDestination = ({ idPrefix, setIsFormValid, onAddErrorNo
     return (
         <AnacondaPage title={_("Installation destination")}>
             <TextContent>
-                <Text component={TextVariants.p}>
+                <Text id={idPrefix + "-hint"} component={TextVariants.p}>
                     {cockpit.format(_(
                         "Select the device(s) to install to. The installation requires " +
                         "$0 of available space. Storage will be automatically partitioned."
