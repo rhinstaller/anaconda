@@ -24,6 +24,7 @@
 # Author(s):  Jiri Konecny <jkonecny@redhat.com>
 #
 import os
+import signal
 from subprocess import TimeoutExpired
 
 from pyanaconda.core.configuration.anaconda import conf
@@ -109,9 +110,14 @@ class AnacondaDBusLauncher(object):
             "--syslog",
             "--config-file={}".format(ANACONDA_BUS_CONF_FILE)
         ]
+        
+        def dbus_preexec():
+            # to set dbus subprocess SIGINT handler
+            signal.signal(signal.SIGINT, signal.SIG_IGN)
 
         self._log_file = open('/tmp/dbus.log', 'a')
-        self._dbus_daemon_process = startProgram(command, stderr=self._log_file, reset_lang=False)
+        self._dbus_daemon_process = startProgram(command, stderr=self._log_file, reset_lang=False,
+                                                 preexec_fn=dbus_preexec)
 
         if self._dbus_daemon_process.poll() is not None:
             raise RuntimeError("DBus wasn't properly started!")

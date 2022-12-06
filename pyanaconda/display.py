@@ -24,6 +24,7 @@ import subprocess
 import time
 import textwrap
 import pkgutil
+import signal
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.process_watchers import WatchProcesses
@@ -192,8 +193,13 @@ def do_startup_x11_actions():
     else:
         xdg_data_dirs = datadir + '/window-manager:/usr/share'
 
+    def x11_preexec():
+        # to set GUI subprocess SIGINT handler
+        signal.signal(signal.SIGINT, signal.SIG_IGN)
+        
     childproc = util.startProgram(["gnome-kiosk", "--display", ":1", "--sm-disable", "--x11"],
-                                  env_add={'XDG_DATA_DIRS': xdg_data_dirs})
+                                  env_add={'XDG_DATA_DIRS': xdg_data_dirs},
+                                  preexec_fn=x11_preexec)
     WatchProcesses.watch_process(childproc, "gnome-kiosk")
 
 
