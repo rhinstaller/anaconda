@@ -464,6 +464,11 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Dec 06 2022 github-actions <github-actions@github.com> - 38.12-1
+- Web UI: Tests should ignore the volatile space requirement message (skobyda)
+- webui: Upgrade to react 18 and enable the new concurrent renderer (kkoukiou)
+- Add a block of history about the name of the installer (dcantrell)
+
 * Tue Nov 29 2022 github-actions <github-actions@github.com> - 38.11-1
 - Fix the installation message about the payload installation (vponcova)
 
