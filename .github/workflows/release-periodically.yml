@@ -64,6 +64,17 @@ jobs:
         run: |
           git push --tags origin master
 
+      - name: Notify in Google chat
+        if: steps.check-tag.outputs.can_bump_version
+        # https://developers.google.com/chat/how-tos/webhooks
+        # https://developers.googleblog.com/2018/06/hangouts-chat-alerts-notifications-with.html
+        run: |
+          curl \
+            -X POST \
+            -H 'Content-Type: application/json' \
+            ${{ secrets.GCHAT_URL }} \
+            -d "{\"text\": \"New release tagged, please review at https://github.com/rhinstaller/anaconda/releases\"}"
+
 # This only makes a tag and pushes it, which is then picked up by another action that builds
 # the tarball and posts the actual release entity/page with it.
 #
