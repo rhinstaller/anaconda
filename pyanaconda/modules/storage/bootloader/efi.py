@@ -78,8 +78,9 @@ class EFIBase(object):
             root=conf.target.system_root
         )
         if rc:
-            raise BootLoaderError("Failed to set new efi boot target. This is most "
-                                  "likely a kernel or firmware bug.")
+            raise BootLoaderError("Failed to set new EFI boot target.  This is "
+                                  "likely a firmware bug; please file any issues "
+                                  "with efibootmgr rather than anaconda.")
 
     def add_efi_boot_target(self):
         if self.stage1_device.type == "partition":  # pylint: disable=no-member
@@ -105,8 +106,9 @@ class EFIBase(object):
 
                 rc = self.efibootmgr("-b", slot_id, "-B")
                 if rc:
-                    raise BootLoaderError("Failed to remove old efi boot entry. This is most "
-                                          "likely a kernel or firmware bug.")
+                    raise BootLoaderError("Failed to remove old EFI boot entry.  This is "
+                                          "likely a firmware bug; please file any issues "
+                                          "with efibootmgr rather than anaconda.")
 
     def write(self):
         """ Write the bootloader configuration and install the bootloader. """
