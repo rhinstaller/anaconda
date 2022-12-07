@@ -29,19 +29,21 @@ History
 -------
 
 (The following was contributed by David Cantrell
-<dcantrell@redhat.com> and is probably 80% to 90% accurate.  History
+<dcantrell@redhat.com> with some minor corrections and additions by Matt Wilson
+(formerly <msw@redhat.com>) and is probably 85% to 95% accurate.  History
 is hard to keep track of, but this is what I can recall being both in
 the industry at the time but not at Red Hat.)
 
-So the anaconda code base that we all started with began in 1999 or
+So the Anaconda code base that we all started with began in 1999 or
 so, but it was not the original installer used by Red Hat Linux.  Like
 many distributions at the time, the installation process was hand
 crafted and consisted of a series of steps executed by a collection of
 different programs and tools (shell scripts or Perl scripts or custom
-programs and so on).  I have not found the original source for that
-installer, but I am still hunting.
+programs and so on).  The original source code for the installer
+was shipped on the CD, and you can find it in the Red Hat Linux
+download archives up until the `6.0 release <https://archive.download.redhat.com/pub/redhat/linux/6.0/en/os/i386/misc/src/install/>`_.
 
-OK, so anaconda.  Back in the late 1990s there was a huge push of
+OK, so Anaconda.  Back in the late 1990s there was a huge push of
 money in to Linux companies.  Red Hat itself was founded in 1993 and
 by the late 90s was a large company.  SuSE was another big one.  I
 worked for a company called Walnut Creek CDROM (ftp.cdrom.com) which
@@ -67,10 +69,16 @@ of these events.
 They announced the next version of Caldera OpenLinux and one of its
 big features was a graphical installer.  This was huge.  This was the
 first Linux distribution to feature a graphical installer program.
-They wrote it in C++ (probably?) and it used Qt.  Everyone wanted to
-know how they made it work.  Since installing packages took a long
-time back then, Caldera even put games in the installer.  You could
-play Tetris during installation (side note, Be did that in BeOS too
+They wrote it in C++, and it used the Qt GUI windowing toolkit in
+`partnership with Trolltech <https://rant.gulbrandsen.priv.no/linux/openlinux-lizard>`_.
+Everyone was impressed with how easily it was to use.  Bob Young,
+at that time CEO of Red Hat, `gave due credit <https://www.linuxjournal.com/article/3553>`_
+for the slickness in the "happy path" of Linux OS installation with
+Lizard.  But he also called out that there was no "back" button.
+
+Since installing packages took a long time back then, Caldera even
+put games in the installer.  You could play Tetris during
+installation (side note, Be did that in BeOS too
 several years before).
 
 They named their installer "Lizard".  Why?  Well, back in the 90s,
@@ -84,17 +92,31 @@ Windows, it's a druid!)
 
 Caldera got a lot of patents for the installer, including being able
 to play a game during installation which is, incidentally, why we
-never did that in anaconda.
+never did that in Anaconda.  Well, there's also the fact that
+folks at Red Hat took trademarks very `seriously <https://bugzilla.redhat.com/show_bug.cgi?id=224627>`_,
+and worked hard to avoid shipping a game of falling blocks under
+that namme.
 
 OK, so Caldera has made Lizard.  Now Red Hat needed to act.  They
 created a new installer project to focus on this graphical installer.
-The installer was already in Python at this point, but was not
-graphical.  Red Hat started working on this.  They went with the name
-"anaconda" because (a) it is written in Python and an anaconda snake
-is a type of python and (b) the anaconda snake eats lizards in the
-wild.
+The installer up to this point was all written in C, and development
+was relatively slow due to the low level of the language.  To move
+fast, Erik Troan decided to build a new installer with the UI workflows
+written in Python.  Erik went with the name "Anaconda" because (a) it
+is written in Python and an Anaconda snake is a type of python and
+(b) the Anaconda snake eats lizards in the wild.  It was one of a long
+line of creatively named software modules that Erik wrote as part of the
+installer.  There was
+"`pump <https://archive.download.redhat.com/pub/redhat/linux/6.2/en/os/i386/misc/src/anaconda/pump/>`_",
+a bootp / DHCP client library, so named because (a) A pump is a kind
+of shoe, like a `boot[p] <https://manpages.ubuntu.com/manpages/bionic/man8/pump.8.html#quibble>`_
+and (b) "plumb"ing up a network interface is like priming a "pump".
+And there was
+"`balkan <https://archive.download.redhat.com/pub/redhat/linux/6.2/en/os/i386/misc/src/anaconda/balkan/>`_",
+a library to handle partition tables, so named because the Balkans have
+always had to deal with partitioning.
 
-And that's how we got the name anaconda for the installer.  Caldera
+And that's how we got the name Anaconda for the installer.  Caldera
 eventually disappeared entirely.  OpenLinux didn't go anywhere.  But
 Caldera really tried.  The last thing they did?  They bought SCO and
 renamed themselves to SCO and sued IBM for infringing on original Unix
