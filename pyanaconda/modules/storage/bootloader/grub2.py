@@ -304,7 +304,7 @@ class GRUB2(BootLoader):
         os.close(pread)
         self.encrypted_password = buf.split()[-1].strip()
         if not self.encrypted_password.startswith("grub.pbkdf2."):
-            raise BootLoaderError("failed to encrypt boot loader password")
+            raise BootLoaderError("failed to encrypt boot loader password (grub2 bug?)")
 
     def write_password_config(self):
         if not self.password and not self.encrypted_password:
@@ -370,7 +370,7 @@ class GRUB2(BootLoader):
             root=conf.target.system_root
         )
         if rc:
-            raise BootLoaderError("failed to write boot loader configuration")
+            raise BootLoaderError("failed to write boot loader configuration (grub2 bug?)")
 
     #
     # installation
@@ -433,7 +433,7 @@ class GRUB2(BootLoader):
                                        root=conf.target.system_root,
                                        env_prune=['MALLOC_PERTURB_'])
             if rc:
-                raise BootLoaderError("boot loader install failed")
+                raise BootLoaderError("boot loader install failed (grub2 bug?)")
 
     def write(self):
         """Write the bootloader configuration and install the bootloader."""
