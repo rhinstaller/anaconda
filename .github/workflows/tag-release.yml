@@ -97,7 +97,6 @@ jobs:
           # create release with the release notes
           gh release create \
             ${{ steps.get_ref.outputs.ref }} \
-            --draft \
             --title "Anaconda $RELEASE_NAME" \
             --notes-file release.txt \
             /tmp/results/*
