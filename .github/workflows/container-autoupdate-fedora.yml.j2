@@ -12,6 +12,8 @@ permissions:
 jobs:
 
   master:
+    # Don't run scheduled workflows on forks.
+    if: github.event_name != 'schedule' || github.repository == 'rhinstaller/anaconda'
     uses: ./.github/workflows/container-rebuild-action.yml
     secrets: inherit
     with:
