@@ -155,7 +155,12 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
             specs.append(swap)
 
         # Configure specs.
+        contains_growable_partition = False
         for spec in specs:
+            # Detect if current configuration contains growable partitions apart from root.
+            if spec.grow and spec.mountpoint != "/":
+                contains_growable_partition = True
+
             # Set the default filesystem type.
             if spec.fstype is None:
                 spec.fstype = storage.get_fstype(spec.mountpoint)
@@ -165,6 +170,13 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
                 disk_space = storage.get_disk_free_space()
                 swap.size = suggest_swap_size(hibernation=request.hibernation,
                                               disk_space=disk_space)
+
+        # If no partitions are growable, the root partition should grow so that the entire drive is
+        # used.
+        if not contains_growable_partition:
+            for spec in specs:
+                if spec.mountpoint == "/":
+                    spec.max_size = None
 
         return specs
 

@@ -272,6 +272,8 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
         )
 
         assert ["/"] == [spec.mountpoint for spec in requests]
+        # In a configuration with on other growable partitions "/" should have unlimited size.
+        assert requests[0].max_size is None
 
         partitioning_request = PartitioningRequest()
         partitioning_request._excluded_mount_points = []
@@ -287,6 +289,7 @@ class AutomaticPartitioningTaskTestCase(unittest.TestCase):
             [spec.fstype for spec in requests]
         assert [Size("1GiB"), Size("1GiB"), Size("500MiB")] == \
             [spec.size for spec in requests]
+        assert not [spec for spec in requests if spec.mountpoint == "/"][0].max_size is None
 
     @patch('pyanaconda.modules.storage.partitioning.automatic.utils.platform')
     @patch('pyanaconda.modules.storage.partitioning.automatic.utils.conf')
