@@ -95,7 +95,7 @@ to play a game during installation which is, incidentally, why we
 never did that in Anaconda.  Well, there's also the fact that
 folks at Red Hat took trademarks very `seriously <https://bugzilla.redhat.com/show_bug.cgi?id=224627>`_,
 and worked hard to avoid shipping a game of falling blocks under
-that namme.
+that name.
 
 OK, so Caldera has made Lizard.  Now Red Hat needed to act.  They
 created a new installer project to focus on this graphical installer.
