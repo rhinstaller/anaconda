@@ -407,6 +407,9 @@ run_kickstart() {
                 # via settled hook in *-nm-run.sh script which also calls the
                 # online hooks.
                 . "$hookdir"/cmdline/*-nm-config.sh
+                if [ -n "$DRACUT_SYSTEMD" ]; then
+                    systemctl start nm-initrd
+                fi
             fi
         else
             # make dracut create the net udev rules (based on the new cmdline)
