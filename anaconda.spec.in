@@ -464,6 +464,11 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Dec 20 2022 github-actions <github-actions@github.com> - 38.14-1
+- Fix typo in the docs (jkonecny)
+- docs: corrections and additions to the history (msw)
+- Ignore SIGINT in D-Bus launcher and x11 too (iasunsea)
+
 * Tue Dec 13 2022 github-actions <github-actions@github.com> - 38.13-1
 
 * Tue Dec 06 2022 github-actions <github-actions@github.com> - 38.12-1
