@@ -98,9 +98,6 @@ NETWORK_CONNECTED_CHECK_INTERVAL = 0.1  # in seconds
 # Anaconda user agent
 USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)
 
-# DBus
-DEFAULT_DBUS_TIMEOUT = -1       # use default
-
 # Thread names
 THREAD_EXECUTE_STORAGE = "AnaExecuteStorageThread"
 THREAD_STORAGE = "AnaStorageThread"
