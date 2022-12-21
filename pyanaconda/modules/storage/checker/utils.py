@@ -619,14 +619,6 @@ class StorageChecker(object):
         """
         self.checks.append(callback)
 
-    def remove_check(self, callback):
-        """ Remove a callback for storage checking.
-
-        :param callback: a check for the storage checking
-        """
-        if callback in self.checks:
-            self.checks.remove(callback)
-
     def add_constraint(self, name, value):
         """ Add a new constraint for storage checking.
 
