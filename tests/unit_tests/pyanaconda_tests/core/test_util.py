@@ -480,47 +480,6 @@ class MiscTests(unittest.TestCase):
         exec_mock.side_effect = OSError
         assert util.vtActivate(2) is False
 
-    def test_cmp_obj_attrs(self):
-        """Test cmp_obj_attrs."""
-
-        # pylint: disable=attribute-defined-outside-init
-
-        class O(object):
-            pass
-
-        a = O()
-        a.b = 1
-        a.c = 2
-
-        a1 = O()
-        a1.b = 1
-        a1.c = 2
-
-        b = O()
-        b.b = 1
-        b.c = 3
-
-        # a class should have it's own attributes
-        assert util.cmp_obj_attrs(a, a, ["b", "c"])
-        assert util.cmp_obj_attrs(a1, a1, ["b", "c"])
-        assert util.cmp_obj_attrs(b, b, ["b", "c"])
-
-        # a and a1 should have the same attributes
-        assert util.cmp_obj_attrs(a, a1, ["b", "c"])
-        assert util.cmp_obj_attrs(a1, a, ["b", "c"])
-        assert util.cmp_obj_attrs(a1, a, ["c", "b"])
-
-        # missing attributes are considered a mismatch
-        assert not util.cmp_obj_attrs(a, a1, ["b", "c", "d"])
-
-        # empty attribute list is not a mismatch
-        assert util.cmp_obj_attrs(a, b, [])
-
-        # attributes of a and b differ
-        assert not util.cmp_obj_attrs(a, b, ["b", "c"])
-        assert not util.cmp_obj_attrs(b, a, ["b", "c"])
-        assert not util.cmp_obj_attrs(b, a, ["c", "b"])
-
     def test_item_counter(self):
         """Test the item_counter generator."""
         # normal usage
