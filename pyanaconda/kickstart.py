@@ -191,7 +191,6 @@ class RepoData(COMMANDS.RepoData):
             :type enabled: bool
         """
         self.enabled = kwargs.pop("enabled", True)
-        self.repo_id = kwargs.pop("repo_id", None)
         self.treeinfo_origin = kwargs.pop("treeinfo_origin", False)
         super().__init__(*args, **kwargs)
 
