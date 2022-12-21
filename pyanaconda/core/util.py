@@ -622,18 +622,6 @@ def requests_session():
     return session
 
 
-def id_generator():
-    """ Id numbers generator.
-        Generating numbers from 0 to X and increments after every call.
-
-        :returns: Generator which gives you unique numbers.
-    """
-    actual_id = 0
-    while(True):
-        yield actual_id
-        actual_id += 1
-
-
 def collect(module_pattern, path, pred):
     """Traverse the directory (given by path), import all files as a module
        module_pattern % filename and find all classes within that match
