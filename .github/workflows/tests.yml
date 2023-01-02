@@ -63,7 +63,7 @@ jobs:
           changes=$(git diff $TARGET_BRANCH_NAME..HEAD -- dockerfile/anaconda-ci/ anaconda.spec.in scripts/testing/install_dependencies.sh)
           # print for debugging
           echo "$changes"
-          [ -z "$changes" ] || echo "::set-output name=changed::true"
+          [ -z "$changes" ] || echo "changed=true" >> $GITHUB_OUTPUT
 
       # build container if files for dockerfile changed in the PR
       - name: Build anaconda-ci container
