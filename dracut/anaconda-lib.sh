@@ -64,8 +64,8 @@ find_runtime() {
 find_tty() {
     # find the real tty for /dev/console
     local tty="console"
-    while [ -f /sys/class/tty/$tty/active ]; do
-        tty=$(< /sys/class/tty/$tty/active)
+    while [ -f "/sys/class/tty/$tty/active" ]; do
+        tty=$(< "/sys/class/tty/$tty/active")
         tty=${tty##* } # last item in the list
     done
     echo "$tty"
