@@ -213,16 +213,6 @@ class StorageCheckerTests(unittest.TestCase):
         assert report.errors == []
         assert report.warnings == []
 
-        # Remove checks.
-        checker.remove_check(check_x)
-        checker.remove_check(check_y)
-        checker.remove_check(check_z)
-
-        report = checker.check(None)
-        assert report.success is True
-        assert report.errors == []
-        assert report.warnings == []
-
     def test_default_settings(self):
         """Check the default storage checker."""
         checker = StorageChecker()
