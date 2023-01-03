@@ -435,8 +435,8 @@ class DeviceTreeViewer(ABC):
         """
         data = OSData()
         data.os_name = root.name or ""
-        data.swap_devices = [
-            device.name for device in root.swaps
+        data.devices = [
+            device.name for device in root.devices
         ]
         data.mount_points = {
             path: device.name for path, device in root.mounts.items()
