@@ -20,7 +20,7 @@ import json
 import datetime
 from collections import namedtuple
 
-from dasbus.typing import get_variant, Str, get_native
+from dasbus.typing import get_variant, Str, Bool, get_native
 from dasbus.connection import MessageBus
 from dasbus.error import DBusError
 
@@ -33,10 +33,9 @@ from pyanaconda.ui.lib.subscription import username_password_sufficient, org_key
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.constants.services import RHSM
 from pyanaconda.modules.common.constants.objects import RHSM_REGISTER, RHSM_REGISTER_SERVER, \
-    RHSM_UNREGISTER, RHSM_ATTACH, RHSM_ENTITLEMENT, RHSM_CONFIG, RHSM_SYSPURPOSE
+    RHSM_UNREGISTER, RHSM_ENTITLEMENT, RHSM_CONFIG, RHSM_SYSPURPOSE
 from pyanaconda.modules.common.errors.subscription import RegistrationError, \
-    UnregistrationError, SubscriptionError, SatelliteProvisioningError, \
-    MultipleOrganizationsError
+    UnregistrationError, SatelliteProvisioningError, MultipleOrganizationsError
 from pyanaconda.modules.common.structures.subscription import AttachedSubscription, \
     SystemPurposeData, OrganizationData
 from pyanaconda.modules.subscription import system_purpose, satellite
@@ -290,7 +289,7 @@ class RegisterWithUsernamePasswordTask(Task):
                     self._organization,
                     self._username,
                     self._password,
-                    {},
+                    {"enable_content" : get_variant(Bool, True)},
                     {},
                     locale
                 )
@@ -401,46 +400,6 @@ class UnregisterTask(Task):
             )
             rollback_task.run()
             log.debug("registration attempt: Satellite provisioning rolled back")
-
-
-class AttachSubscriptionTask(Task):
-    """Attach a subscription."""
-
-    def __init__(self, rhsm_attach_proxy, sla):
-        """Create a new subscription task.
-
-        :param rhsm_attach_proxy: DBus proxy for the RHSM Attach object
-        :param str sla: organization name for subscription purposes
-        """
-        super().__init__()
-        self._rhsm_attach_proxy = rhsm_attach_proxy
-        self._sla = sla
-
-    @property
-    def name(self):
-        return "Attach a subscription"
-
-    def run(self):
-        """Attach a subscription to the installation environment.
-
-        This subscription will be used for CDN access during the
-        installation and then transferred to the target system
-        via separate DBus task.
-
-        :raises: SubscriptionError if RHSM API DBus call fails
-        """
-        log.debug("subscription: auto-attaching a subscription")
-        try:
-            locale = os.environ.get("LANG", "")
-            self._rhsm_attach_proxy.AutoAttach(self._sla, {}, locale)
-            log.debug("subscription: auto-attached a subscription")
-        except DBusError as e:
-            log.debug("subscription: auto-attach failed: %s", str(e))
-            exception_dict = json.loads(str(e))
-            # return a generic error message in case the RHSM provided error message
-            # is missing
-            message = exception_dict.get("message", _("Failed to attach subscription."))
-            raise SubscriptionError(message) from None
 
 
 class ParseAttachedSubscriptionsTask(Task):
@@ -808,7 +767,6 @@ class RegisterAndSubscribeTask(Task):
 
         :raises: SatelliteProvisioningError if Satellite provisioning fails
         :raises: RegistrationError if registration fails
-        :raises: SubscriptionError if subscription fails to attach
         :raises: MultipleOrganizationsError if account is multiorg but no org id specified
         """
         super().__init__()
@@ -1036,7 +994,6 @@ class RegisterAndSubscribeTask(Task):
                 register_task.run_with_signals()
             except (RegistrationError, MultipleOrganizationsError) as e:
                 log.debug("registration attempt: registration attempt failed: %s", e)
-                log.debug("registration attempt: skipping auto attach due to registration error")
                 if provisioned_for_satellite:
                     self._roll_back_satellite_provisioning()
                 raise e
@@ -1049,22 +1006,6 @@ class RegisterAndSubscribeTask(Task):
                 self._roll_back_satellite_provisioning()
             raise RegistrationError(_("Registration failed due to insufficient credentials."))
 
-        # try to attach subscription
-        log.debug("registration attempt: attempting to auto attach an entitlement")
-        sla = self._system_purpose_data.sla
-        rhsm_attach_proxy = self._rhsm_observer.get_proxy(RHSM_ATTACH)
-        subscription_task = AttachSubscriptionTask(
-            rhsm_attach_proxy=rhsm_attach_proxy,
-            sla=sla
-        )
-        try:
-            subscription_task.run()
-        except SubscriptionError as e:
-            # also roll back Satellite provisioning if registration was successfull
-            # but auto-attach failed
-            if provisioned_for_satellite:
-                self._roll_back_satellite_provisioning()
-            raise e
         # if we got this far without an exception then subscriptions have been attached
         self._subscription_attached_callback(True)
 

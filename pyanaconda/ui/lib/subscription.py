@@ -35,7 +35,7 @@ from pyanaconda.modules.common.structures.subscription import SubscriptionReques
 from pyanaconda.modules.common.structures.secret import SECRET_TYPE_HIDDEN, \
     SECRET_TYPE_TEXT
 from pyanaconda.modules.common.errors.subscription import RegistrationError, \
-    UnregistrationError, SubscriptionError, SatelliteProvisioningError, MultipleOrganizationsError
+    UnregistrationError, SatelliteProvisioningError, MultipleOrganizationsError
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -297,10 +297,6 @@ def register_and_subscribe(payload, progress_callback=None, error_callback=None,
         log.debug("registration attempt: registration attempt failed: %s", e)
         error_callback(e)
         return
-    except SubscriptionError as e:
-        log.debug("registration attempt: failed to attach subscription: %s", e)
-        error_callback(e)
-        return
 
     # check if the current installation source should be overridden by
     # the CDN source we can now use
@@ -320,8 +316,7 @@ def register_and_subscribe(payload, progress_callback=None, error_callback=None,
             log.debug("registration attempt: restarting payload after registration")
             _do_payload_restart(payload)
 
-    # and done, report attaching subscription was successful
-    log.debug("registration attempt: auto attach succeeded")
+    # and done, report subscription attempt was successful
     progress_callback(SubscriptionPhase.DONE)
 
 
