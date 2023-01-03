@@ -37,7 +37,7 @@ from pyanaconda.modules.common.structures.subscription import SubscriptionReques
 from pyanaconda.modules.common.structures.secret import SECRET_TYPE_HIDDEN, \
     SECRET_TYPE_TEXT
 from pyanaconda.modules.common.errors.subscription import RegistrationError, \
-    UnregistrationError, SubscriptionError
+    UnregistrationError
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -293,25 +293,12 @@ def register_and_subscribe(payload, progress_callback=None, error_callback=None,
             task.sync_run_task(task_proxy)
         except RegistrationError as e:
             log.debug("subscription thread: registration attempt failed: %s", e)
-            log.debug("subscription thread: skipping auto attach due to registration error")
             error_callback(str(e))
             return
         log.debug("subscription thread: registration succeeded")
     else:
         log.debug("subscription thread: credentials insufficient, skipping registration attempt")
         error_callback(_("Registration failed due to insufficient credentials."))
-        return
-
-    # try to attach subscription
-    log.debug("subscription thread: attempting to auto attach an entitlement")
-    progress_callback(SubscriptionPhase.ATTACH_SUBSCRIPTION)
-    task_path = subscription_proxy.AttachSubscriptionWithTask()
-    task_proxy = SUBSCRIPTION.get_proxy(task_path)
-    try:
-        task.sync_run_task(task_proxy)
-    except SubscriptionError as e:
-        log.debug("subscription thread: failed to attach subscription: %s", e)
-        error_callback(str(e))
         return
 
     # parse attached subscription data
@@ -338,8 +325,7 @@ def register_and_subscribe(payload, progress_callback=None, error_callback=None,
             log.debug("subscription thread: restarting payload after registration")
             _do_payload_restart(payload)
 
-    # and done, report attaching subscription was successful
-    log.debug("subscription thread: auto attach succeeded")
+    # and done, report subscription attempt was successful
     progress_callback(SubscriptionPhase.DONE)
 
 

@@ -103,7 +103,7 @@ Requires: python3-dasbus >= %{dasbusver}
 Requires: flatpak-libs
 %if %{defined rhel} && %{undefined centos}
 Requires: python3-syspurpose
-Requires: subscription-manager >= 1.28.26
+Requires: subscription-manager >= 1.28.33
 %endif
 
 # pwquality only "recommends" the dictionaries it needs to do anything useful,

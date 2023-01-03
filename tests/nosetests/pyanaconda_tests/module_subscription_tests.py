@@ -42,7 +42,7 @@ from pyanaconda.modules.subscription.installation import ConnectToInsightsTask, 
     RestoreRHSMDefaultsTask, TransferSubscriptionTokensTask
 from pyanaconda.modules.subscription.runtime import SetRHSMConfigurationTask, \
     RegisterWithUsernamePasswordTask, RegisterWithOrganizationKeyTask, \
-    UnregisterTask, AttachSubscriptionTask, SystemPurposeConfigurationTask, \
+    UnregisterTask, SystemPurposeConfigurationTask, \
     ParseAttachedSubscriptionsTask, SystemSubscriptionData
 
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_dbus_property, \
@@ -1348,36 +1348,6 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         self.assertFalse(self.subscription_interface.IsRegistered)
         self.assertFalse(self.subscription_interface.IsSubscriptionAttached)
         self.assertFalse(self.subscription_interface.IsSimpleContentAccessEnabled)
-
-    @patch_dbus_publish_object
-    def attach_subscription_test(self, publisher):
-        """Test AttachSubscriptionTask creation."""
-        # create the SystemPurposeData structure
-        system_purpose_data = SystemPurposeData()
-        system_purpose_data.role = "foo"
-        system_purpose_data.sla = "bar"
-        system_purpose_data.usage = "baz"
-        system_purpose_data.addons = ["a", "b", "c"]
-        # feed it to the DBus interface
-        self.subscription_interface.SetSystemPurposeData(
-            SystemPurposeData.to_structure(system_purpose_data)
-        )
-        # make sure system is not subscribed
-        self.assertFalse(self.subscription_interface.IsSubscriptionAttached)
-        # make sure the task gets dummy rhsm attach proxy
-        observer = Mock()
-        self.subscription_module._rhsm_observer = observer
-        rhsm_attach_proxy = observer.get_proxy.return_value
-        # check the task is created correctly
-        task_path = self.subscription_interface.AttachSubscriptionWithTask()
-        obj = check_task_creation(self, task_path, publisher, AttachSubscriptionTask)
-        # check all the data got propagated to the module correctly
-        self.assertEqual(obj.implementation._rhsm_attach_proxy, rhsm_attach_proxy)
-        self.assertEqual(obj.implementation._sla, "bar")
-        # trigger the succeeded signal
-        obj.implementation.succeeded_signal.emit()
-        # check this set subscription_attached to True
-        self.assertTrue(self.subscription_interface.IsSubscriptionAttached)
 
     @patch_dbus_publish_object
     def parse_attached_subscriptions_test(self, publisher):

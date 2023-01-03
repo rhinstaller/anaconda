@@ -20,7 +20,7 @@ import json
 import datetime
 from collections import namedtuple
 
-from dasbus.typing import get_variant, Str
+from dasbus.typing import get_variant, Str, Bool
 from dasbus.connection import MessageBus
 from dasbus.error import DBusError
 
@@ -29,7 +29,7 @@ from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.constants.services import RHSM
 from pyanaconda.modules.common.constants.objects import RHSM_REGISTER
 from pyanaconda.modules.common.errors.subscription import RegistrationError, \
-    UnregistrationError, SubscriptionError
+    UnregistrationError
 from pyanaconda.modules.common.structures.subscription import AttachedSubscription, \
     SystemPurposeData
 from pyanaconda.modules.subscription import system_purpose
@@ -247,7 +247,7 @@ class RegisterWithUsernamePasswordTask(Task):
                     organization,
                     self._username,
                     self._password,
-                    {},
+                    {"enable_content" : get_variant(Bool, True)},
                     {},
                     locale
                 )
@@ -343,46 +343,6 @@ class UnregisterTask(Task):
             # is missing
             message = exception_dict.get("message", _("Unregistration failed."))
             raise UnregistrationError(message) from None
-
-
-class AttachSubscriptionTask(Task):
-    """Attach a subscription."""
-
-    def __init__(self, rhsm_attach_proxy, sla):
-        """Create a new subscription task.
-
-        :param rhsm_attach_proxy: DBus proxy for the RHSM Attach object
-        :param str sla: organization name for subscription purposes
-        """
-        super().__init__()
-        self._rhsm_attach_proxy = rhsm_attach_proxy
-        self._sla = sla
-
-    @property
-    def name(self):
-        return "Attach a subscription"
-
-    def run(self):
-        """Attach a subscription to the installation environment.
-
-        This subscription will be used for CDN access during the
-        installation and then transferred to the target system
-        via separate DBus task.
-
-        :raises: SubscriptionError if RHSM API DBus call fails
-        """
-        log.debug("subscription: auto-attaching a subscription")
-        try:
-            locale = os.environ.get("LANG", "")
-            self._rhsm_attach_proxy.AutoAttach(self._sla, {}, locale)
-            log.debug("subscription: auto-attached a subscription")
-        except DBusError as e:
-            log.debug("subscription: auto-attach failed: %s", str(e))
-            exception_dict = json.loads(str(e))
-            # return a generic error message in case the RHSM provided error message
-            # is missing
-            message = exception_dict.get("message", _("Failed to attach subscription."))
-            raise SubscriptionError(message) from None
 
 
 class ParseAttachedSubscriptionsTask(Task):

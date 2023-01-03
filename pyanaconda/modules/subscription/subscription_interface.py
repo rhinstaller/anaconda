@@ -192,15 +192,6 @@ class SubscriptionInterface(KickstartModuleInterface):
             self.implementation.unregister_with_task()
         )
 
-    def AttachSubscriptionWithTask(self) -> ObjPath:
-        """Attach subscription using a runtime DBus task.
-
-        :return: a DBus path of an installation task
-        """
-        return TaskContainer.to_object_path(
-            self.implementation.attach_subscription_with_task()
-        )
-
     def ParseAttachedSubscriptionsWithTask(self) -> ObjPath:
         """Parse attached subscriptions using a runtime DBus task.
 

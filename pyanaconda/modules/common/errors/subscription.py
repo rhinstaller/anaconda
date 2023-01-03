@@ -31,9 +31,3 @@ class RegistrationError(AnacondaError):
 class UnregistrationError(AnacondaError):
     """Unregistration attempt failed."""
     pass
-
-
-@dbus_error("SubscriptionError", namespace=ANACONDA_NAMESPACE)
-class SubscriptionError(AnacondaError):
-    """Subscription attempt failed."""
-    pass

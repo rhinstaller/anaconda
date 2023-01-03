@@ -33,7 +33,7 @@ from pyanaconda.core.constants import RHSM_SYSPURPOSE_FILE_PATH, \
     SOURCE_TYPE_URL
 
 from pyanaconda.modules.common.errors.subscription import UnregistrationError, \
-    RegistrationError, SubscriptionError
+    RegistrationError
 from pyanaconda.modules.common.structures.subscription import SubscriptionRequest
 
 from pyanaconda.core.subscription import check_system_purpose_set
@@ -237,7 +237,6 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # system was no registered, so no unregistration phase
         progress_callback.assert_has_calls(
             [call(SubscriptionPhase.REGISTER),
-             call(SubscriptionPhase.ATTACH_SUBSCRIPTION),
              call(SubscriptionPhase.DONE)]
         )
         # we were successful, so no error callback calls
@@ -245,8 +244,6 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # we should have requested the appropriate tasks
         subscription_proxy.SetRHSMConfigWithTask.assert_called_once()
         subscription_proxy.RegisterOrganizationKeyWithTask.assert_called_once()
-        subscription_proxy.AttachSubscriptionWithTask.assert_called_once()
-        subscription_proxy.ParseAttachedSubscriptionsWithTask.assert_called_once()
         # not tried to set the CDN source
         switch_source.assert_not_called()
         # and tried to run them
@@ -278,7 +275,6 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         print(error_callback.mock_calls)
         progress_callback.assert_has_calls(
             [call(SubscriptionPhase.REGISTER),
-             call(SubscriptionPhase.ATTACH_SUBSCRIPTION),
              call(SubscriptionPhase.DONE)]
         )
         # we were successful, so no error callback calls
@@ -286,7 +282,6 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # we should have requested the appropriate tasks
         subscription_proxy.SetRHSMConfigWithTask.assert_called_once()
         subscription_proxy.RegisterUsernamePasswordWithTask.assert_called_once()
-        subscription_proxy.AttachSubscriptionWithTask.assert_called_once()
         subscription_proxy.ParseAttachedSubscriptionsWithTask.assert_called_once()
         # not tried to set the CDN source
         switch_source.assert_not_called()
@@ -320,7 +315,6 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         progress_callback.assert_has_calls(
             [call(SubscriptionPhase.UNREGISTER),
              call(SubscriptionPhase.REGISTER),
-             call(SubscriptionPhase.ATTACH_SUBSCRIPTION),
              call(SubscriptionPhase.DONE)]
         )
         # we were successful, so no error callback calls
@@ -329,7 +323,6 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         subscription_proxy.SetRHSMConfigWithTask.assert_called_once()
         subscription_proxy.UnregisterWithTask.assert_called_once()
         subscription_proxy.RegisterOrganizationKeyWithTask.assert_called_once()
-        subscription_proxy.AttachSubscriptionWithTask.assert_called_once()
         subscription_proxy.ParseAttachedSubscriptionsWithTask.assert_called_once()
         # not tried to set the CDN source
         switch_source.assert_not_called()
@@ -553,7 +546,6 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # system was no registered, so no unregistration phase
         progress_callback.assert_has_calls(
             [call(SubscriptionPhase.REGISTER),
-             call(SubscriptionPhase.ATTACH_SUBSCRIPTION),
              call(SubscriptionPhase.DONE)]
         )
         # we were successful, so no error callback calls
@@ -561,7 +553,6 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # we should have requested the appropriate tasks
         subscription_proxy.SetRHSMConfigWithTask.assert_called_once()
         subscription_proxy.RegisterOrganizationKeyWithTask.assert_called_once()
-        subscription_proxy.AttachSubscriptionWithTask.assert_called_once()
         subscription_proxy.ParseAttachedSubscriptionsWithTask.assert_called_once()
         # and tried to override the CDROM source, as it is on a list of sources
         # that are appropriate to be overriden by the CDN source
@@ -608,7 +599,6 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # system was no registered, so no unregistration phase
         progress_callback.assert_has_calls(
             [call(SubscriptionPhase.REGISTER),
-             call(SubscriptionPhase.ATTACH_SUBSCRIPTION),
              call(SubscriptionPhase.DONE)]
         )
         # we were successful, so no error callback calls
@@ -616,7 +606,6 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # we should have requested the appropriate tasks
         subscription_proxy.SetRHSMConfigWithTask.assert_called_once()
         subscription_proxy.RegisterOrganizationKeyWithTask.assert_called_once()
-        subscription_proxy.AttachSubscriptionWithTask.assert_called_once()
         subscription_proxy.ParseAttachedSubscriptionsWithTask.assert_called_once()
         # and tried to override the CDROM source, as it is on a list of sources
         # that are appropriate to be overriden by the CDN source
@@ -625,45 +614,6 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         run_task.assert_called()
         # we told the payload not to restart
         restart_thread.assert_not_called()
-
-    @patch("pyanaconda.ui.lib.subscription.switch_source")
-    @patch("pyanaconda.modules.common.task.sync_run_task")
-    @patch("pyanaconda.threading.threadMgr.wait")
-    @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
-    def subscription_task_failed_test(self, get_proxy, thread_mgr_wait, run_task, switch_source):
-        """Test the register_and_subscribe() helper method - failed to attach subscription."""
-        payload = Mock()
-        progress_callback = Mock()
-        error_callback = Mock()
-        subscription_proxy = get_proxy.return_value
-        # simulate the system not being registered
-        subscription_proxy.IsRegistered = False
-        # simulate subscription request
-        subscription_proxy.SubscriptionRequest = self.PASSWORD_REQUEST
-        # make the second (subscription) task fail
-        run_task.side_effect = [True, True, SubscriptionError("failed to attach subscription")]
-        # run the function
-        register_and_subscribe(payload=payload,
-                               progress_callback=progress_callback,
-                               error_callback=error_callback)
-        # we should have waited on network
-        thread_mgr_wait.assert_called_once_with(THREAD_WAIT_FOR_CONNECTING_NM)
-        # there should be only the registration & subscription phase
-        progress_callback.assert_has_calls(
-            [call(SubscriptionPhase.REGISTER),
-             call(SubscriptionPhase.ATTACH_SUBSCRIPTION)]
-        )
-        # and the error callback should have been triggered
-        error_callback.assert_called_once_with("failed to attach subscription")
-        # we should have requested the appropriate tasks
-        subscription_proxy.SetRHSMConfigWithTask.assert_called_once()
-        subscription_proxy.RegisterUsernamePasswordWithTask.assert_called_once()
-        subscription_proxy.AttachSubscriptionWithTask.assert_called_once()
-        # and tried to run them
-        run_task.assert_called()
-        # setting CDN as installation source does not make sense
-        # when we were not able to attach a subscription
-        switch_source.assert_not_called()
 
     @patch("pyanaconda.modules.common.task.sync_run_task")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
@@ -831,7 +781,6 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         print(error_callback.mock_calls)
         progress_callback.assert_has_calls(
             [call(SubscriptionPhase.REGISTER),
-             call(SubscriptionPhase.ATTACH_SUBSCRIPTION),
              call(SubscriptionPhase.DONE)]
         )
         # we were successful, so no error callback calls
@@ -839,7 +788,6 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # we should have requested the appropriate tasks
         subscription_proxy.SetRHSMConfigWithTask.assert_called_once()
         subscription_proxy.RegisterUsernamePasswordWithTask.assert_called_once()
-        subscription_proxy.AttachSubscriptionWithTask.assert_called_once()
         subscription_proxy.ParseAttachedSubscriptionsWithTask.assert_called_once()
         # not tried to set the CDN source
         switch_source.assert_not_called()
@@ -909,7 +857,6 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         print(error_callback.mock_calls)
         progress_callback.assert_has_calls(
             [call(SubscriptionPhase.REGISTER),
-             call(SubscriptionPhase.ATTACH_SUBSCRIPTION),
              call(SubscriptionPhase.DONE)]
         )
         # we were successful, so no error callback calls
@@ -917,7 +864,6 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # we should have requested the appropriate tasks
         subscription_proxy.SetRHSMConfigWithTask.assert_called_once()
         subscription_proxy.RegisterUsernamePasswordWithTask.assert_called_once()
-        subscription_proxy.AttachSubscriptionWithTask.assert_called_once()
         subscription_proxy.ParseAttachedSubscriptionsWithTask.assert_called_once()
         # and tried to run them
         run_task.assert_called()
@@ -955,7 +901,6 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         print(error_callback.mock_calls)
         progress_callback.assert_has_calls(
             [call(SubscriptionPhase.REGISTER),
-             call(SubscriptionPhase.ATTACH_SUBSCRIPTION),
              call(SubscriptionPhase.DONE)]
         )
         # we were successful, so no error callback calls
@@ -963,7 +908,6 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # we should have requested the appropriate tasks
         subscription_proxy.SetRHSMConfigWithTask.assert_called_once()
         subscription_proxy.RegisterUsernamePasswordWithTask.assert_called_once()
-        subscription_proxy.AttachSubscriptionWithTask.assert_called_once()
         subscription_proxy.ParseAttachedSubscriptionsWithTask.assert_called_once()
         # and tried to run them
         run_task.assert_called()
@@ -1000,7 +944,6 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         print(error_callback.mock_calls)
         progress_callback.assert_has_calls(
             [call(SubscriptionPhase.REGISTER),
-             call(SubscriptionPhase.ATTACH_SUBSCRIPTION),
              call(SubscriptionPhase.DONE)]
         )
         # we were successful, so no error callback calls
@@ -1008,7 +951,6 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         # we should have requested the appropriate tasks
         subscription_proxy.SetRHSMConfigWithTask.assert_called_once()
         subscription_proxy.RegisterUsernamePasswordWithTask.assert_called_once()
-        subscription_proxy.AttachSubscriptionWithTask.assert_called_once()
         subscription_proxy.ParseAttachedSubscriptionsWithTask.assert_called_once()
         # not tried to set the CDN source
         switch_source.assert_not_called()
