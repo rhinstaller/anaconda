@@ -23,5 +23,5 @@ fi
 
 # Make sure dracut-shutdown.service can find the initramfs later.
 mkdir -p "$NEWROOT/boot"
-ln -s $initramfs "$NEWROOT/boot/initramfs-$(uname -r).img"
+ln -s "$initramfs" "$NEWROOT/boot/initramfs-$(uname -r).img"
 # NOTE: $repodir must also be somewhere under /run for this to work correctly
