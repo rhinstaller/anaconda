@@ -407,6 +407,24 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 03 2023 Jiri Konecny <jkonecny@redhat.com> - 34.25.2.4-1
+- Delegate auto-attach handling to RHSM (mkolman)
+  Resolves: rhbz#2083319
+- Use RHEL9_SshKeyData to fix sshkey quoting problem (bcl)
+  Resolves: rhbz#2149362
+- Test the InstallerStorage.copy method (vponcova)
+  Related: rhbz#2093793
+- Show multiple bootloader devices on the Manual Partitioning screen (vponcova)
+  Resolves: rhbz#2093793
+- Implement the Root.copy method (vponcova)
+  Related: rhbz#2093793
+- Redefine the Blivet.roots attribute (vponcova)
+  Related: rhbz#2093793
+- Redefine the Blivet.copy method (vponcova)
+  Related: rhbz#2093793
+- Use correct hint for VNC password boot option (jstodola)
+  Resolves: rhbz#2124818
+
 * Mon Nov 28 2022 Radek Vykydal <rvykydal@redhat.com> - 34.25.2.3-1
 - Disable the concurrency check in the error dialog in TUI (vponcova)
   Resolves: rhbz#2070920
