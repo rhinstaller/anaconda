@@ -147,6 +147,18 @@ class StorageSection(Section):
         return value
 
     @property
+    def thin_pool_name(self):
+        """The name of the default thin pool."""
+        return self._get_option("thin_pool_name", str) or None
+
+    @property
+    def thin_pool_size(self):
+        """The size of the default thin pool."""
+        value = self._get_option("thin_pool_size", str) or None
+        if value:
+            return Size(value)
+
+    @property
     def default_partitioning(self):
         """Default partitioning.
 

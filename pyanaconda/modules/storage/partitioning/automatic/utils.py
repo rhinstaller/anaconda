@@ -498,7 +498,14 @@ def schedule_volumes(storage, devices, scheme, requests, encrypted=False):
 
         if thinlv and pool is None:
             # create a single thin pool in the vg
-            pool = storage.new_lv(parents=[container], thin_pool=True, grow=True)
+            kwargs = {'parents': [container], 'thin_pool': True}
+            if conf.storage.thin_pool_name:
+                kwargs['name'] = conf.storage.thin_pool_name
+            if conf.storage.thin_pool_size:
+                kwargs['size'] = conf.storage.thin_pool_size
+            else:
+                kwargs['grow'] = True
+            pool = storage.new_lv(**kwargs)
             storage.create_device(pool)
 
             # make sure VG reserves space for the pool to grow if needed
