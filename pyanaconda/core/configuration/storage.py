@@ -179,6 +179,22 @@ class StorageSection(Section):
         """
         return self._get_option("default_partitioning", self._convert_partitioning)
 
+    def get_default_partitioning(self, scheme=None):
+        option = None
+        if scheme == AUTOPART_TYPE_PLAIN:
+            option = "default_partitioning_plain"
+        elif scheme == AUTOPART_TYPE_BTRFS:
+            option = "default_partitioning_btrfs"
+        elif scheme == AUTOPART_TYPE_LVM:
+            option = "default_partitioning_lvm"
+        elif scheme == AUTOPART_TYPE_LVM_THINP:
+            option = "default_partitioning_lvm_thinp"
+        if option and self._has_option(option):
+            partitioning = self._get_option(option, self._convert_partitioning)
+        else:
+            partitioning = self.default_partitioning
+        return partitioning
+
     def _convert_partitioning(self, value):
         """Convert a partitioning string into a list of dictionaries."""
         return list(map(self._convert_partitioning_line, value.strip().split("\n")))

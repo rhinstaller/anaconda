@@ -255,8 +255,7 @@ def schedule_implicit_partitions(storage, disks, scheme, encrypted=False, luks_f
 
     return devs
 
-
-def get_default_partitioning():
+def get_default_partitioning(scheme=None):
     """Get the default partitioning requests.
 
     :return: a list of partitioning specs
@@ -265,7 +264,7 @@ def get_default_partitioning():
     partitioning = list(platform.partitions)
 
     # Get the product-specific partitioning.
-    for attrs in conf.storage.default_partitioning:
+    for attrs in conf.storage.get_default_partitioning(scheme=scheme):
         partitioning.append(get_part_spec(attrs))
 
     return partitioning
@@ -299,6 +298,7 @@ def get_part_spec(attrs):
         schemes=schemes,
     )
     return spec
+
 
 def schedule_partitions(storage, disks, implicit_devices, scheme, requests, encrypted=False,
                         luks_fmt_args=None):

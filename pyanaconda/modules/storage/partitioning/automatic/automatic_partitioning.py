@@ -134,7 +134,7 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         swap = None
 
         # Create partitioning specs based on the default configuration.
-        for spec in get_default_partitioning():
+        for spec in get_default_partitioning(scheme):
             # Skip mount points excluded from the chosen scheme.
             if spec.schemes and scheme not in spec.schemes:
                 continue

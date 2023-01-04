@@ -25,7 +25,7 @@ import pytest
 from textwrap import dedent
 from unittest.mock import patch
 from blivet.size import Size
-from pykickstart.constants import AUTOPART_TYPE_BTRFS
+from pykickstart.constants import AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_PLAIN
 
 from pyanaconda.modules.storage.partitioning.automatic.utils import get_default_partitioning
 from pyanaconda.modules.storage.partitioning.specification import PartSpec
@@ -182,6 +182,70 @@ VIRTUALIZATION_PARTITIONING = [
     )
 ]
 
+# FIXME: improve parsing requests for btrfs, lv and thin pool because some args are not expected.
+QUBESOS_PLAIN_PARTITIONING = [
+    PartSpec(
+        mountpoint="/",
+        size=Size("20GiB"),
+        grow=False,
+        lv=True,
+        encrypted=True,
+        thin=True,
+        btr=True
+    ),
+    PartSpec(
+        mountpoint="/var/lib/qubes",
+        size=Size("20GiB"),
+        grow=True,
+        lv=True,
+        encrypted=True,
+        thin=True,
+        btr=True
+    ),
+    PartSpec(
+        fstype="swap",
+        grow=False,
+        lv=True,
+        encrypted=True
+    )
+]
+
+QUBESOS_BTRFS_PARTITIONING = [
+    PartSpec(
+        mountpoint="/",
+        size=Size("20GiB"),
+        grow=True,
+        btr=True,
+        lv=True,
+        thin=True,
+        encrypted=True,
+        schemes={AUTOPART_TYPE_BTRFS}
+    ),
+    PartSpec(
+        fstype="swap",
+        grow=False,
+        lv=True,
+        encrypted=True
+    )
+]
+
+QUBESOS_LVM_THINP_PARTITIONING = [
+    PartSpec(
+        mountpoint="/",
+        size=Size("20GiB"),
+        lv=True,
+        thin=True,
+        encrypted=True,
+        btr=True
+    ),
+    PartSpec(
+        fstype="swap",
+        grow=False,
+        lv=True,
+        encrypted=True
+    )
+]
+
 
 class ProfileConfigurationTestCase(unittest.TestCase):
     """Test the default profile configurations."""
@@ -210,17 +274,18 @@ class ProfileConfigurationTestCase(unittest.TestCase):
         """Check the profile detection."""
         assert self._loader.detect_profile(os_id, variant_id) == profile_id
 
-    def _check_partitioning(self, config, partitioning):
+    def _check_partitioning(self, config, partitioning, scheme):
         with patch("pyanaconda.modules.storage.partitioning.automatic.utils.platform") as platform:
             platform.partitions = []
 
             with patch("pyanaconda.modules.storage.partitioning.automatic.utils.conf", new=config):
-                default = get_default_partitioning()
+                default = get_default_partitioning(scheme)
                 print("Default: " + repr(default))
                 print("Supplied: " + repr(partitioning))
                 assert default == partitioning
 
-    def _check_default_profile(self, profile_id, os_release_values, file_names, partitioning):
+    def _check_default_profile(self, profile_id, os_release_values, file_names, partitioning,
+                               scheme=None):
         """Check a default profile."""
         paths = [os.path.join(PROFILE_DIR, path) for path in file_names]
         self._check_profile(profile_id, paths)
@@ -234,7 +299,7 @@ class ProfileConfigurationTestCase(unittest.TestCase):
         config.validate()
 
         self._check_detection(profile_id, *os_release_values)
-        self._check_partitioning(config, partitioning)
+        self._check_partitioning(config, partitioning, scheme)
         assert "{}.conf".format(profile_id) == file_names[-1]
 
     def _get_config(self, profile_id):
@@ -353,6 +418,30 @@ class ProfileConfigurationTestCase(unittest.TestCase):
             ("circle", ""),
             ["rhel.conf", "circle.conf"],
             ENTERPRISE_PARTITIONING
+        )
+
+    def test_qubesos_profiles(self):
+        self._check_default_profile(
+            "qubesos",
+            ("qubesos", ""),
+            ["qubesos.conf"],
+            QUBESOS_LVM_THINP_PARTITIONING
+        )
+
+        self._check_default_profile(
+            "qubesos",
+            ("qubesos", ""),
+            ["qubesos.conf"],
+            QUBESOS_BTRFS_PARTITIONING,
+            scheme=AUTOPART_TYPE_BTRFS
+        )
+
+        self._check_default_profile(
+            "qubesos",
+            ("qubesos", ""),
+            ["qubesos.conf"],
+            QUBESOS_PLAIN_PARTITIONING,
+            scheme=AUTOPART_TYPE_PLAIN
         )
 
     def _compare_profile_files(self, file_name, other_file_name, ignored_sections=()):
