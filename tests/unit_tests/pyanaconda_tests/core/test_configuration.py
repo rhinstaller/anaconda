@@ -539,6 +539,10 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
             }
         ]
 
+    def test_storage_encryption(self):
+        config = AnacondaConfiguration.from_defaults()
+        assert not config.storage.encrypted
+
     def test_convert_partitioning(self):
         convert_line = StorageSection._convert_partitioning_line
 

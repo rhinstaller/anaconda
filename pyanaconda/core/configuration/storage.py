@@ -51,6 +51,11 @@ class StorageSection(Section):
     """The Storage section."""
 
     @property
+    def encrypted(self):
+        """Is encryption set?"""
+        return self._get_option("encrypted", bool)
+
+    @property
     def dmraid(self):
         """Enable dmraid usage during the installation."""
         return self._get_option("dmraid", bool)
