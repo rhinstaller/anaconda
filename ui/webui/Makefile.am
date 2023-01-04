@@ -85,10 +85,8 @@ integration-test: bots test/common test/reference $(UPDATES_IMG)
 
 # checkout Cockpit's test API; this has no API stability guarantee, so check out a stable tag
 # when you start a new project, use the latest release, and update it from time to time
-# FIXME: workaround for including https://github.com/cockpit-project/cockpit/pull/17216/commits/2a8ef93583fc3835c6d7bd097403a218a77b689a
-# Undo when this is present in some released version.
 test/common:
-	git clone -b main --depth=1 https://github.com/cockpit-project/cockpit.git tmp/cockpit
+	git clone -b 281 --depth=1 https://github.com/cockpit-project/cockpit.git tmp/cockpit
 	mv tmp/cockpit/test/common test/common
 	rm -rf tmp/cockpit
 
