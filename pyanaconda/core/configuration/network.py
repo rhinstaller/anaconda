@@ -45,3 +45,8 @@ class NetworkSection(Section):
         :return: an instance of NetworkOnBoot
         """
         return self._get_option("default_on_boot", NetworkOnBoot)
+
+    @property
+    def hostname(self):
+        """Hostname"""
+        return self._get_option("hostname", str)

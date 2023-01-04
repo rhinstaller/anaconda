@@ -543,6 +543,20 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
         config = AnacondaConfiguration.from_defaults()
         assert not config.storage.encrypted
 
+    def test_network_hostname(self):
+        config = AnacondaConfiguration.from_defaults()
+        assert config.network.hostname == ""
+
+        profile = ProfileLoader()
+        profile.load_profiles(PROFILE_DIR)
+
+        paths = profile.collect_configurations("qubesos")
+        for path in paths:
+            config.read(path)
+        config.validate()
+
+        assert config.network.hostname == "dom0"
+
     def test_convert_partitioning(self):
         convert_line = StorageSection._convert_partitioning_line
 
