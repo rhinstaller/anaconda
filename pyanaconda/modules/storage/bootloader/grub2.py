@@ -256,12 +256,12 @@ class GRUB2(BootLoader):
         defaults.write("GRUB_TIMEOUT=%d\n" % self.timeout)
         defaults.write("GRUB_DISTRIBUTOR=\"$(sed 's, release .*$,,g' /etc/system-release)\"\n")
         defaults.write("GRUB_DEFAULT=saved\n")
-        defaults.write("GRUB_DISABLE_SUBMENU=true\n")
+        defaults.write("GRUB_DISABLE_SUBMENU=%s\n" % str(conf.bootloader.disable_submenu).lower())
         if self.console and self.has_serial_console:
             defaults.write("GRUB_TERMINAL=\"serial console\"\n")
             defaults.write("GRUB_SERIAL_COMMAND=\"%s\"\n" % self.serial_command)
         else:
-            defaults.write("GRUB_TERMINAL_OUTPUT=\"%s\"\n" % self.terminal_type)
+            defaults.write("GRUB_TERMINAL_OUTPUT=\"%s\"\n" % conf.bootloader.terminal_type or self.terminal_type)
 
         # this is going to cause problems for systems containing multiple
         # linux installations or even multiple boot entries with different
@@ -269,7 +269,9 @@ class GRUB2(BootLoader):
         log.info("bootloader.py: used boot args: %s ", self.boot_args)
         defaults.write("GRUB_CMDLINE_LINUX=\"%s\"\n" % self.boot_args)
         defaults.write("GRUB_DISABLE_RECOVERY=\"true\"\n")
-        #defaults.write("GRUB_THEME=\"/boot/grub2/themes/system/theme.txt\"\n")
+        # defaults.write("GRUB_THEME=\"/boot/grub2/themes/system/theme.txt\"\n")
+        for option in conf.bootloader.additional_default_grub_options:
+            defaults.write("%s\n" % option)
 
         if self.use_bls and os.path.exists(conf.target.system_root + "/usr/sbin/new-kernel-pkg"):
             log.warning("BLS support disabled due new-kernel-pkg being present")

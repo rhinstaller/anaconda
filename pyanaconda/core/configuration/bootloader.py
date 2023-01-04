@@ -54,6 +54,11 @@ class BootloaderSection(Section):
         return self._get_option("menu_auto_hide", bool)
 
     @property
+    def disable_submenu(self):
+        """Disable the GRUB submenu."""
+        return self._get_option("disable_submenu", bool)
+
+    @property
     def nonibft_iscsi_boot(self):
         """Are non-iBFT iSCSI disks allowed?
 
@@ -69,3 +74,13 @@ class BootloaderSection(Section):
         :return: a list of kernel arguments
         """
         return self._get_option("preserved_arguments", str).split()
+
+    @property
+    def terminal_type(self):
+        """Terminal type."""
+        return self._get_option("terminal_type", str)
+
+    @property
+    def additional_default_grub_options(self):
+        """List of additional default GRUB options"""
+        return self._get_option("additional_default_grub_options", str).strip("\n").split("\n")

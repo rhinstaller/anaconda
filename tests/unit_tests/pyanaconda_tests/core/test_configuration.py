@@ -34,6 +34,7 @@ from pyanaconda.core.configuration.base import create_parser, read_config, write
     Configuration
 from pyanaconda.core.configuration.storage import StorageSection
 from pyanaconda.core.configuration.ui import UserInterfaceSection
+from pyanaconda.core.configuration.profile import ProfileLoader
 from pyanaconda.modules.common.constants import services, namespaces
 from pyanaconda.core.constants import SOURCE_TYPE_CLOSEST_MIRROR, GEOLOC_DEFAULT_PROVIDER, \
     GEOLOC_PROVIDER_FEDORA_GEOIP, GEOLOC_PROVIDER_HOSTIP, GEOLOC_URL_FEDORA_GEOIP, \
@@ -41,6 +42,7 @@ from pyanaconda.core.constants import SOURCE_TYPE_CLOSEST_MIRROR, GEOLOC_DEFAULT
 
 # Path to the configuration directory of the repo.
 CONFIG_DIR = os.environ.get("ANACONDA_DATA")
+PROFILE_DIR = os.path.join(CONFIG_DIR, "profile.d")
 
 
 class ConfigurationTestCase(unittest.TestCase):
@@ -500,6 +502,28 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
     def test_bootloader(self):
         conf = AnacondaConfiguration.from_defaults()
         assert "selinux" in conf.bootloader.preserved_arguments
+        assert conf.bootloader.disable_submenu
+        assert not conf.bootloader.additional_default_grub_options
+
+    def test_bootloader_options(self):
+        profile = ProfileLoader()
+        profile.load_profiles(PROFILE_DIR)
+
+        config = AnacondaConfiguration.from_defaults()
+
+        paths = profile.collect_configurations("qubesos")
+        for path in paths:
+            config.read(path)
+
+        config.validate()
+
+        assert config.bootloader.terminal_type == "gfxterm"
+        assert not config.bootloader.disable_submenu
+        assert set(config.bootloader.additional_default_grub_options) == {
+            'GRUB_THEME="/boot/grub2/themes/qubes/theme.txt"',
+            'GRUB_CMDLINE_XEN_DEFAULT="console=none dom0_mem=min:1024M dom0_mem=max:4096M ucode=scan smt=off gnttab_max_frames=2048 gnttab_max_maptrack_frames=4096"',
+            'GRUB_DISABLE_OS_PROBER="true"'
+        }
 
     def test_default_partitioning(self):
         conf = AnacondaConfiguration.from_defaults()
