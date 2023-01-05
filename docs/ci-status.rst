@@ -29,6 +29,10 @@ Anaconda
    :alt: Test releasing and translations daily
    :target: https://github.com/rhinstaller/anaconda/actions/workflows/try-release-daily.yml
 
+.. |release-periodically| image:: https://github.com/rhinstaller/anaconda/actions/workflows/release-periodically/badge.svg
+   :alt: Make a rawhide/master release periodically
+   :target: https://github.com/rhinstaller/anaconda/actions/workflows/release-periodically.yml
+
 .. _Dependabot: https://github.com/rhinstaller/anaconda/network/updates
 
 |container-autoupdate-fedora|
@@ -41,7 +45,10 @@ Anaconda
   Daily builds of Anaconda in RHEL 8 COPR (internal).
 
 |try-release-daily|
-  Tests the release process daily, including checks for missing important translations
+  Tests the release process daily, including checks for missing important translations.
+
+|release-periodically|
+  Makes a master/rawhide release periodically with no human oversight for the upstream/non-Fedora part of the process.
 
 Dependabot_
   Checks Anaconda dependencies and opens pull requests for new versions.

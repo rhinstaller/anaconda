@@ -62,7 +62,12 @@ jobs:
         # the repo should have an access token from the checkout action
         # https://github.com/actions/checkout#Push-a-commit-using-the-built-in-token
         run: |
-          git push --tags origin master
+          tag_to_push=$(git describe --tags --exact-match)
+          if [ -n "${tag_to_push}" ] ; then
+            git push --atomic origin master "$tag_to_push"
+          else
+            exit 1
+          fi
 
       - name: Notify in Google chat
         if: steps.check-tag.outputs.can_bump_version
@@ -72,8 +77,8 @@ jobs:
           curl \
             -X POST \
             -H 'Content-Type: application/json' \
-            ${{ secrets.GCHAT_URL }} \
-            -d "{\"text\": \"New release tagged, please review at https://github.com/rhinstaller/anaconda/releases\"}"
+            '${{ secrets.GCHAT_URL }}' \
+            -d "{\"text\": \"New release tagged, please review the Packit dist-git PR soon to be found at https://src.fedoraproject.org/rpms/anaconda/pull-requests"}"
 
 # This only makes a tag and pushes it, which is then picked up by another action that builds
 # the tarball and posts the actual release entity/page with it.
