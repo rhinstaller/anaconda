@@ -33,10 +33,10 @@ jobs:
         run: |
           if [ -n "${{ github.event.inputs.tag-ref }}" ] ; then
             echo "Using tag from manual input: ${{ github.event.inputs.tag-ref }}"
-            echo "::set-output name=ref::${{ github.event.inputs.tag-ref }}"
+            echo "ref=${{ github.event.inputs.tag-ref }}" >> $GITHUB_OUTPUT
           else
             echo "Using tag from automatic input: ${{ github.ref }}"
-            echo "::set-output name=ref::${{ github.ref }}"
+            echo "ref=${{ github.ref }}" >> $GITHUB_OUTPUT
           fi
 
       - name: Extract version from the tag
@@ -51,7 +51,7 @@ jobs:
             exit 1
           else
             echo "Tag ref ${{ steps.get_ref.outputs.ref }} detected as release version $VER."
-            echo "::set-output name=version::$VER"
+            echo "version=$VER" >> $GITHUB_OUTPUT
           fi
 
       - name: Check out repo

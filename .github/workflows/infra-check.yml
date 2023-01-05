@@ -126,7 +126,7 @@ jobs:
           COMMITS_ONELINE=$(echo $COMMITS | tr '\n' ' ')
           # GH actions truncates plain multiline variables to first line when passing as output/input,
           # so make it one line on our end and save the trouble.
-          echo "::set-output name=commits::$COMMITS_ONELINE"
+          echo "commits=$COMMITS_ONELINE" >> $GITHUB_OUTPUT
 
       - name: Check all commits
         run: |

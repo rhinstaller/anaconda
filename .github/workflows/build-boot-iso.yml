@@ -39,7 +39,7 @@ jobs:
         id: check_user_perm
         run: |
           echo "User '${{ github.event.sender.login }}' has permission '${{ fromJson(steps.user_permission.outputs.data).permission }}' allowed values: 'admin', 'write'"
-          echo "::set-output name=allowed_user::true"
+          echo "allowed_user=true" >> $GITHUB_OUTPUT
 
       - name: Get information for pull request
         if: github.event_name != 'workflow_dispatch'
@@ -56,11 +56,11 @@ jobs:
           set -eux
 
           if [ ${{ github.event_name }} == 'workflow_dispatch' ]; then
-            echo "::set-output name=allowed_user::true"
-            echo "::set-output name=sha::$GITHUB_SHA"
+            echo "allowed_user=true" >> $GITHUB_OUTPUT
+            echo "sha=$GITHUB_SHA" >> $GITHUB_OUTPUT
           else
-            echo "::set-output name=allowed_user::${{ steps.check_user_perm.outcome == 'success' && steps.check_user_perm.outputs.allowed_user }}"
-            echo "::set-output name=sha::${{ steps.pr_api.outcome == 'success' && fromJson(steps.pr_api.outputs.data).head.sha }}"
+            echo "allowed_user=${{ steps.check_user_perm.outcome == 'success' && steps.check_user_perm.outputs.allowed_user }}" >> $GITHUB_OUTPUT
+            echo "sha=${{ steps.pr_api.outcome == 'success' && fromJson(steps.pr_api.outputs.data).head.sha }}" >> $GITHUB_OUTPUT
           fi
 
     outputs:

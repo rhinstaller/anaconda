@@ -36,7 +36,7 @@ jobs:
         id: check_user_perm
         run: |
           echo "User '${{ github.event.sender.login }}' has permission '${{ fromJson(steps.user_permission.outputs.data).permission }}' allowed values: 'admin', 'write'"
-          echo "::set-output name=allowed_user::true"
+          echo "allowed_user=true" >> $GITHUB_OUTPUT
 
       - name: Get information for pull request
         uses: octokit/request-action@v2.x
@@ -55,7 +55,7 @@ jobs:
           # extract first line and cut out the "/kickstart-tests" first word
           LAUNCH_ARGS=$(echo "$BODY" | sed -n '1 s/^[^ ]* *//p')
           echo "launch arguments are: $LAUNCH_ARGS"
-          echo "::set-output name=launch_args::${LAUNCH_ARGS}"
+          echo "launch_args=${LAUNCH_ARGS}" >> $GITHUB_OUTPUT
 
       - name: Set KS test arguments
         id: ks_test_args
@@ -64,17 +64,17 @@ jobs:
           TARGET_BRANCH="${{ fromJson(steps.pr_api.outputs.data).base.ref }}"
 
           if [ "$TARGET_BRANCH" == "master" ]; then
-            echo "::set-output name=skip_tests::skip-on-fedora"
-            echo "::set-output name=platform::fedora_rawhide"
+            echo "skip_tests=skip-on-fedora" >> $GITHUB_OUTPUT
+            echo "platform=fedora_rawhide" >> $GITHUB_OUTPUT
           elif echo "$TARGET_BRANCH" | grep -qE "f[[:digit:]]+-release$"; then
-            echo "::set-output name=skip_tests::skip-on-fedora"
-            echo "::set-output name=platform::fedora_rawhide"
+            echo "skip_tests=skip-on-fedora" >> $GITHUB_OUTPUT
+            echo "platform=fedora_rawhide" >> $GITHUB_OUTPUT
           elif echo "$TARGET_BRANCH" | grep -qE "rhel-8(\.[[:digit:]]+)?$"; then
-            echo "::set-output name=skip_tests::skip-on-rhel,skip-on-rhel-8"
-            echo "::set-output name=platform::rhel8"
+            echo "skip_tests=skip-on-rhel,skip-on-rhel-8" >> $GITHUB_OUTPUT
+            echo "platform=rhel8" >> $GITHUB_OUTPUT
           elif echo "$TARGET_BRANCH" | grep -qE "rhel-9(\.[[:digit:]]+)?$"; then
-            echo "::set-output name=skip_tests::skip-on-rhel,skip-on-rhel-9"
-            echo "::set-output name=platform::rhel9"
+            echo "skip_tests=skip-on-rhel,skip-on-rhel-9" >> $GITHUB_OUTPUT
+            echo "platform=rhel9" >> $GITHUB_OUTPUT
           else
             echo "Branch $TARGET_BRANCH is not supported by kickstart tests yet!"
             exit 1
@@ -245,7 +245,7 @@ jobs:
              --skip-testtypes ${{ needs.pr-info.outputs.skip_tests }} \
              ${{ needs.pr-info.outputs.launch_args }} )
           if [ $? == 0 ]; then
-            echo "::set-output name=query::$PERMIAN_QUERY"
+            echo "query=$PERMIAN_QUERY" >> $GITHUB_OUTPUT
           else
             echo "Parsing of the request arguments failed"
             exit 1
@@ -352,7 +352,7 @@ jobs:
           BODY: ${{ github.event.comment.body }}
         run: |
           REASON=$(echo "$BODY" | sed -e "s#/kickstart-test --waive ##")
-          echo "::set-output name=reason::Waived, $REASON"
+          echo "reason=Waived, $REASON" >> $GITHUB_OUTPUT
 
       - name: Set status
         uses: octokit/request-action@v2.x
