@@ -15,11 +15,14 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from collections import namedtuple
 from urllib.parse import quote, unquote
 
 from pyanaconda.core.i18n import _
 from pyanaconda.core.regexes import URL_PARSE
 from pyanaconda.core.string import split_in_two
+
+NFSUrl = namedtuple("NFSUrl", ["options", "host", "path"])
 
 
 def parse_hdd_url(url):
@@ -40,35 +43,38 @@ def parse_hdd_url(url):
 def parse_nfs_url(nfs_url):
     """Parse NFS URL into components.
 
-    :param str nfs_url: The raw URL, including "nfs:"
-    :return: Tuple with options, host, and path
-    :rtype: (str, str, str) or None
+    :param str nfs_url: a URL with the nfs: or nfs:// prefix
+    :return NFSUrl: a tuple with options, host and path
     """
-    prefixes = [
-        "nfs://",
-        "nfs:",
-    ]
-    options = ''
-    host = ''
-    path = ''
+    host, path, options = "", "", ""
 
-    # Remove the nfs prefix.
-    for prefix in prefixes:
-        if nfs_url.startswith(prefix):
-            nfs_url = nfs_url.removeprefix(prefix)
-            break
+    if nfs_url.startswith("nfs://"):
+        args = nfs_url.removeprefix("nfs://").split(":")
 
-    # Parse the nfs attributes.
-    if nfs_url:
-        s = nfs_url.split(":")
-        if len(s) >= 3:
-            (options, host, path) = s[:3]
-        elif len(s) == 2:
-            (host, path) = s
-        else:
-            host = s[0]
+        # Parse nfs://<server>:<path>
+        if len(args) >= 2:
+            host, path = args[:2]
 
-    return options, host, path
+        # Parse nfs://<server>
+        elif len(args) >= 1:
+            host = args[0]
+
+    elif nfs_url.startswith("nfs:"):
+        args = nfs_url.removeprefix("nfs:").split(":")
+
+        # Parse nfs:<options>:<server>:<path>
+        if len(args) >= 3:
+            options, host, path = args[:3]
+
+        # Parse nfs:<server>:<path>
+        elif len(args) >= 2:
+            host, path = args[:2]
+
+        # Parse nfs:<server>
+        elif len(args) >= 1:
+            host = args[0]
+
+    return NFSUrl(options=options, host=host, path=path)
 
 
 def create_nfs_url(host, path, options=None):
