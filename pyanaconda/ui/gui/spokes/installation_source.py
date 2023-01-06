@@ -113,8 +113,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
         self._current_iso_file = None
         self._ready = False
-        self._error = False
-        self._error_msg = ""
+        self._error = None
         self._proxy_url = ""
         self._proxy_change = False
         self._cdrom = None
@@ -260,8 +259,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
                 server, directory = url.split(":", 2)
             except ValueError as e:
                 log.error("ValueError: %s", e)
-                self._error = True
-                self._error_msg = _("Failed to set up installation source; check the repo url")
+                self._error = _(
+                    "Failed to set up installation source; "
+                    "check the NFS configuration."
+                )
                 return
 
             if source_type == SOURCE_TYPE_NFS \
@@ -499,20 +500,18 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         hubQ.send_not_ready(self.__class__.__name__)
 
     def _on_payload_failed(self):
-        # Set the error flags.
-        self._error = True
-        self._error_msg = _(
-            "Failed to set up installation source; "
-            "check the repo url and proxy settings."
+        # Set the error message.
+        self._error = _(
+            "Failed to set up installation sources; "
+            "check their configurations."
         )
 
-        if self.payload.verbose_errors:
-            self._error_msg += _(CLICK_FOR_DETAILS)
+        if self.payload.report.get_messages():
+            self._error += _(CLICK_FOR_DETAILS)
 
     def _on_payload_succeeded(self):
-        # Reset the error flags.
-        self._error = False
-        self._error_msg = ""
+        # Reset the error message.
+        self._error = None
 
     def _on_payload_stopped(self):
         self._ready = True
@@ -757,15 +756,17 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             self.set_warning(_("You need to configure the network to use a network "
                                "installation source."))
         else:
-            if self._error:
-                self.clear_info()
-                self.set_error(self._error_msg)
-
             # network button could be deativated from last visit
             self._network_button.set_sensitive(True)
 
         # Update the URL entry validation now that we're done messing with sensitivites
         self._update_url_entry_check()
+
+        # Show the info bar with an error message if any.
+        # This error message has the highest priority.
+        if self._error:
+            self.clear_info()
+            self.set_warning(self._error)
 
     def _setup_updates(self):
         """ Setup the state of the No Updates checkbox.
@@ -988,13 +989,17 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
     def on_info_bar_clicked(self, *args):
         log.debug("info bar clicked: %s (%s)", self._error, args)
-        if not self.payload.verbose_errors:
+        messages = self.payload.report.get_messages()
+
+        if not messages:
             return
 
-        dlg = Gtk.MessageDialog(flags=Gtk.DialogFlags.MODAL,
-                                message_type=Gtk.MessageType.ERROR,
-                                buttons=Gtk.ButtonsType.CLOSE,
-                                message_format="\n".join(self.payload.verbose_errors))
+        dlg = Gtk.MessageDialog(
+            flags=Gtk.DialogFlags.MODAL,
+            message_type=Gtk.MessageType.ERROR,
+            buttons=Gtk.ButtonsType.CLOSE,
+            message_format="\n".join(messages)
+        )
         dlg.set_decorated(False)
 
         with self.main_window.enlightbox(dlg):
