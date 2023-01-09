@@ -153,10 +153,12 @@ class ZIPL(BootLoader):
     def install(self, args=None):
         buf = util.execWithCapture("zipl", [], root=conf.target.system_root)
         for line in buf.splitlines():
-            if line.startswith("Preparing boot device: "):
+            if line.startswith("Preparing boot device"):
                 # Output here may look like:
                 #     Preparing boot device: dasdb (0200).
                 #     Preparing boot device: dasdl.
+                # and since s390utils 2.25.0 as:
+                #     Preparing boot device for LD-IPL: vda (0000).
                 # We want to extract the device name and pass that.
                 name = re.sub(r".+?: ", "", line)
                 self.stage1_name = re.sub(r"(\s\(.+\))?\.$", "", name)
