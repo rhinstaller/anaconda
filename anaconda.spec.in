@@ -367,6 +367,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jan 09 2023 Jiri Konecny <jkonecny@redhat.com> - 33.16.8.6-1
+- payload: fix repo --includepkgs option (rvykydal)
+  Resolves: rhbz#2014103
+- bootloader/zipl.py: update for zipl >= 2.25.0 (dan)
+  Resolves: rhbz#2157917
+
 * Tue Jan 03 2023 Jiri Konecny <jkonecny@redhat.com> - 33.16.8.5-1
 - Delegate auto-attach handling to RHSM (mkolman)
   Resolves: rhbz#2083318
