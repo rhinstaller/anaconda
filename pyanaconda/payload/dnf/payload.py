@@ -315,10 +315,10 @@ class DNFPayload(Payload):
             repo.cost = ksrepo.cost
 
         if ksrepo.includepkgs:
-            repo.include = ksrepo.includepkgs
+            repo.includepkgs = ksrepo.includepkgs
 
         if ksrepo.excludepkgs:
-            repo.exclude = ksrepo.excludepkgs
+            repo.excludepkgs = ksrepo.excludepkgs
 
         if ksrepo.sslcacert:
             repo.sslcacert = ksrepo.sslcacert
@@ -2032,10 +2032,10 @@ class DNFPayload(Payload):
                 f.write("cost=%d\n" % ks_repo.cost)
 
             if ks_repo.includepkgs:
-                f.write("include=%s\n" % ",".join(ks_repo.includepkgs))
+                f.write("includepkgs=%s\n" % ",".join(ks_repo.includepkgs))
 
             if ks_repo.excludepkgs:
-                f.write("exclude=%s\n" % ",".join(ks_repo.excludepkgs))
+                f.write("excludepkgs=%s\n" % ",".join(ks_repo.excludepkgs))
 
     @property
     def needs_storage_configuration(self):
