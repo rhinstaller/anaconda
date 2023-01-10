@@ -373,7 +373,7 @@ class DNFPayload(Payload):
             return
 
         # Set up the NFS source with a substituted URL.
-        if data.url.startswith("nfs://"):
+        if data.url.startswith("nfs:"):
             device_mount = self._create_mount_point(
                 constants.MOUNT_DIR,
                 data.name + "-nfs-device"
