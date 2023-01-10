@@ -256,12 +256,12 @@ class GRUB2(BootLoader):
         defaults.write("GRUB_TIMEOUT=%d\n" % self.timeout)
         defaults.write("GRUB_DISTRIBUTOR=\"$(sed 's, release .*$,,g' /etc/system-release)\"\n")
         defaults.write("GRUB_DEFAULT=saved\n")
-        defaults.write("GRUB_DISABLE_SUBMENU=%s\n" % str(conf.bootloader.disable_submenu).lower())
+        defaults.write("GRUB_DISABLE_SUBMENU=%s\n" % str(conf.bootloader.disable_grub_submenu).lower())
         if self.console and self.has_serial_console:
             defaults.write("GRUB_TERMINAL=\"serial console\"\n")
             defaults.write("GRUB_SERIAL_COMMAND=\"%s\"\n" % self.serial_command)
         else:
-            defaults.write("GRUB_TERMINAL_OUTPUT=\"%s\"\n" % conf.bootloader.terminal_type or self.terminal_type)
+            defaults.write("GRUB_TERMINAL_OUTPUT=\"%s\"\n" % conf.bootloader.grub_terminal_type or self.terminal_type)
 
         # this is going to cause problems for systems containing multiple
         # linux installations or even multiple boot entries with different

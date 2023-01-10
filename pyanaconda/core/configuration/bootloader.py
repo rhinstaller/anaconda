@@ -54,9 +54,9 @@ class BootloaderSection(Section):
         return self._get_option("menu_auto_hide", bool)
 
     @property
-    def disable_submenu(self):
+    def disable_grub_submenu(self):
         """Disable the GRUB submenu."""
-        return self._get_option("disable_submenu", bool)
+        return self._get_option("disable_grub_submenu", bool)
 
     @property
     def nonibft_iscsi_boot(self):
@@ -76,9 +76,9 @@ class BootloaderSection(Section):
         return self._get_option("preserved_arguments", str).split()
 
     @property
-    def terminal_type(self):
+    def grub_terminal_type(self):
         """Terminal type."""
-        return self._get_option("terminal_type", str)
+        return self._get_option("grub_terminal_type", str)
 
     @property
     def additional_default_grub_options(self):

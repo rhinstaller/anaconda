@@ -502,7 +502,7 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
     def test_bootloader(self):
         conf = AnacondaConfiguration.from_defaults()
         assert "selinux" in conf.bootloader.preserved_arguments
-        assert conf.bootloader.disable_submenu
+        assert conf.bootloader.disable_grub_submenu
         assert not conf.bootloader.additional_default_grub_options
 
     def test_bootloader_options(self):
@@ -517,8 +517,8 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
 
         config.validate()
 
-        assert config.bootloader.terminal_type == "gfxterm"
-        assert not config.bootloader.disable_submenu
+        assert config.bootloader.grub_terminal_type == "gfxterm"
+        assert not config.bootloader.disable_grub_submenu
         assert set(config.bootloader.additional_default_grub_options) == {
             'GRUB_THEME="/boot/grub2/themes/qubes/theme.txt"',
             'GRUB_CMDLINE_XEN_DEFAULT="console=none dom0_mem=min:1024M dom0_mem=max:4096M ucode=scan smt=off gnttab_max_frames=2048 gnttab_max_maptrack_frames=4096"',
