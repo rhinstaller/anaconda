@@ -464,6 +464,17 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 10 2023 github-actions <github-actions@github.com> - 38.15-1
+- webui: update obsolete comment (rvykydal)
+- webui: pin down tag for fetching cockpit's test library (kkoukiou)
+- bootloader/zipl.py: update for zipl >= 2.25.0 (dan)
+- docs: Track also automated releases (vslavik)
+- shellcheck: Double quote to prevent globbing and word splitting (vponcova)
+- Remove the StorageChecker.remove_check method (vponcova)
+- Remove the CONNECTION_ACTIVATION_TIMEOUT constant (vponcova)
+- Remove the DEFAULT_DBUS_TIMEOUT constant (vponcova)
+- GUI: Update the glade file for the Installation Source screen (vponcova)
+
 * Tue Dec 20 2022 github-actions <github-actions@github.com> - 38.14-1
 - Fix typo in the docs (jkonecny)
 - docs: corrections and additions to the history (msw)
