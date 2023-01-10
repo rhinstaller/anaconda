@@ -29,11 +29,6 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-# TODO use anaconda.core
-def is_s390():
-    return os.uname()[4].startswith('s390')
-
-
 # TODO move somewhwere
 # We duplicate this in dracut/parse-kickstart
 def get_s390_settings(devname):
