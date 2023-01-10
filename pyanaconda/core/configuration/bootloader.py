@@ -83,4 +83,9 @@ class BootloaderSection(Section):
     @property
     def additional_default_grub_options(self):
         """List of additional default GRUB options"""
-        return self._get_option("additional_default_grub_options", str).strip("\n").split("\n")
+        options = []
+        parsed_options = self._get_option("additional_default_grub_options", str)
+        # We don't split directly as there is spaces in Grub option values
+        if parsed_options not in ("", "\n"):
+            options = parsed_options.strip("\n").split("\n")
+        return options
