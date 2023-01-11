@@ -22,9 +22,8 @@ from pykickstart.sections import PackageSection
 from pykickstart.constants import GROUP_DEFAULT
 
 from pyanaconda.core.constants import URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, URL_TYPE_METALINK, \
-    DNF_DEFAULT_REPO_COST, REPO_ORIGIN_TREEINFO, REPO_ORIGIN_SYSTEM, REPO_ORIGIN_USER
+    DNF_DEFAULT_REPO_COST, REPO_ORIGIN_SYSTEM, REPO_ORIGIN_USER
 from pyanaconda.core.kickstart import KickstartSpecification, commands as COMMANDS
-from pyanaconda.kickstart import RepoData
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 
 
@@ -34,12 +33,8 @@ def convert_ks_repo_to_repo_data(ks_data):
     :param RepoData ks_data: a kickstart data
     :return RepoConfigurationData: a repo configuration
     """
-    if not isinstance(ks_data, RepoData):
-        raise ValueError("Unexpected kickstart data: {}".format(type(ks_data)))
-
     repo_data = RepoConfigurationData()
     repo_data.name = ks_data.name
-    repo_data.enabled = ks_data.enabled
 
     if ks_data.baseurl:
         repo_data.url = ks_data.baseurl
@@ -50,14 +45,8 @@ def convert_ks_repo_to_repo_data(ks_data):
     elif ks_data.metalink:
         repo_data.url = ks_data.metalink
         repo_data.type = URL_TYPE_METALINK
-    else:
-        # Handle the `repo --name=updates` use case.
-        repo_data.url = ""
-        repo_data.type = "NONE"
 
-    if ks_data.treeinfo_origin:
-        repo_data.origin = REPO_ORIGIN_TREEINFO
-    elif not repo_data.url:
+    if not repo_data.url:
         repo_data.origin = REPO_ORIGIN_SYSTEM
     else:
         repo_data.origin = REPO_ORIGIN_USER
@@ -82,12 +71,8 @@ def convert_repo_data_to_ks_repo(repo_data):
     :param RepoConfigurationData repo_data: a repo configuration
     :return RepoData: a kickstart data
     """
-    if not isinstance(repo_data, RepoConfigurationData):
-        raise ValueError("Unexpected data: {}".format(type(repo_data)))
-
-    ks_data = RepoData()
+    ks_data = COMMANDS.RepoData()
     ks_data.name = repo_data.name
-    ks_data.enabled = repo_data.enabled
 
     if repo_data.type == URL_TYPE_BASEURL:
         ks_data.baseurl = repo_data.url
@@ -95,9 +80,6 @@ def convert_repo_data_to_ks_repo(repo_data):
         ks_data.mirrorlist = repo_data.url
     elif repo_data.type == URL_TYPE_METALINK:
         ks_data.metalink = repo_data.url
-
-    if repo_data.origin == REPO_ORIGIN_TREEINFO:
-        ks_data.treeinfo_origin = True
 
     ks_data.proxy = repo_data.proxy
     ks_data.noverifyssl = not repo_data.ssl_verification_enabled
@@ -138,11 +120,13 @@ class PayloadKickstartSpecification(KickstartSpecification):
         "module": COMMANDS.Module,
         "nfs": COMMANDS.NFS,
         "ostreesetup": COMMANDS.OSTreeSetup,
+        "repo": COMMANDS.Repo,
         "url": COMMANDS.Url
     }
 
     commands_data = {
-        "ModuleData": COMMANDS.ModuleData
+        "ModuleData": COMMANDS.ModuleData,
+        "RepoData": COMMANDS.RepoData,
     }
 
     sections = {

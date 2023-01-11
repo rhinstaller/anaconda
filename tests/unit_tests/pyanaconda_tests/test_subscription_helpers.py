@@ -21,7 +21,7 @@ import os
 import tempfile
 
 import unittest
-from unittest.mock import patch, Mock, MagicMock, call
+from unittest.mock import patch, Mock, call
 
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
@@ -526,7 +526,6 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         """Test the register_and_subscribe() helper method - override CDROM source."""
         payload = Mock()
         payload.type = PAYLOAD_TYPE_DNF
-        payload.data.repo.dataList = MagicMock(return_value=[])
         source_proxy_1 = Mock()
         source_proxy_1.Type = SOURCE_TYPE_CDROM
         source_proxy_2 = Mock()
@@ -581,7 +580,6 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
         """Test the register_and_subscribe() helper method - override CDROM source, no restart."""
         payload = Mock()
         payload.type = PAYLOAD_TYPE_DNF
-        payload.data.repo.dataList = MagicMock(return_value=[])
         source_proxy_1 = Mock()
         source_proxy_1.Type = SOURCE_TYPE_CDROM
         source_proxy_2 = Mock()

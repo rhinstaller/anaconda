@@ -29,6 +29,8 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData, \
     PackagesSelectionData
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
+from pyanaconda.modules.payloads.kickstart import convert_ks_repo_to_repo_data, \
+    convert_repo_data_to_ks_repo
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
 from pyanaconda.modules.payloads.source.factory import SourceFactory
@@ -169,6 +171,7 @@ class DNFModule(PayloadBase):
     def process_kickstart(self, data):
         """Process the kickstart data."""
         self._process_kickstart_sources(data)
+        self._process_kickstart_repositories(data)
         self._process_kickstart_packages_selection(data)
         self._process_kickstart_packages_configuration(data)
 
@@ -182,6 +185,14 @@ class DNFModule(PayloadBase):
         source = SourceFactory.create_source(source_type)
         source.process_kickstart(data)
         self.add_source(source)
+
+    def _process_kickstart_repositories(self, data):
+        """Process the kickstart repositories."""
+        repositories = list(map(
+            convert_ks_repo_to_repo_data,
+            data.repo.dataList()
+        ))
+        self.set_repositories(repositories)
 
     def _process_kickstart_packages_selection(self, data):
         """Process the kickstart packages selection."""
@@ -252,6 +263,7 @@ class DNFModule(PayloadBase):
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
         self._set_up_kickstart_sources(data)
+        self._set_up_kickstart_repositories(data)
         self._set_up_kickstart_packages_selection(data)
         self._set_up_kickstart_packages_configuration(data)
 
@@ -259,6 +271,17 @@ class DNFModule(PayloadBase):
         """Set up the kickstart sources."""
         for source in self.sources:
             source.setup_kickstart(data)
+
+    def _set_up_kickstart_repositories(self, data):
+        """Set up the kickstart repositories."""
+        # Don't include disabled repositories.
+        enabled_repositories = list(filter(
+            lambda r: r.enabled, self.repositories
+        ))
+        data.repo.repoList = list(map(
+            convert_repo_data_to_ks_repo,
+            enabled_repositories
+        ))
 
     def _set_up_kickstart_packages_selection(self, data):
         """Set up the kickstart packages selection."""

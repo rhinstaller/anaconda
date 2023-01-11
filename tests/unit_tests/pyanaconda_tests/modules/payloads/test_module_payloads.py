@@ -68,6 +68,7 @@ class PayloadsInterfaceTestCase(TestCase):
             "module",
             "nfs",
             "ostreesetup",
+            "repo",
             "url"
         ]
         assert self.payload_interface.KickstartSections == [

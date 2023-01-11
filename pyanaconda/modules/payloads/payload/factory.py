@@ -70,6 +70,7 @@ class PayloadFactory(object):
            data.module.seen or \
            data.nfs.seen or \
            data.url.seen or \
+           data.repo.seen or \
            data.packages.seen:
             return PayloadType.DNF
 
