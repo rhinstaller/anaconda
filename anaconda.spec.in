@@ -411,6 +411,16 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jan 11 2023 Vladimír Slávik <vslavik@redhat.com> - 34.25.2.6-1
+- Add a NVMe-FC tab to the Advanced Storage screen (vslavik)
+  Resolves: rhbz#2107346
+- Update the .glade file for the Advanced Storage screen (vponcova)
+  Related: rhbz#2107346
+- Filter out NVMe over Fibre Channel from local disks (vslavik)
+  Resolves: rhbz#2107346
+- Install nvme-cli on boot.iso (vslavik)
+  Resolves: rhbz#2107346
+
 * Mon Jan 09 2023 Jiri Konecny <jkonecny@redhat.com> - 34.25.2.5-1
 - payload: fix repo --includepkgs option (rvykydal)
   Resolves: rhbz#2158210
