@@ -365,11 +365,15 @@ class DNFPayload(Payload):
         """Set up sources for the additional repository."""
         # Check the validity of the repository.
         if not data.url:
-            msg = "The '{}' repository has no mirror, baseurl or metalink set."
-            raise SourceSetupError(msg.format(data.name)) from None
+            msg = _("The '{repository_name}' repository has no mirror, baseurl or metalink set.")
+            raise SourceSetupError(msg.format(repository_name=data.name)) from None
+
+        # There is nothing to set up for sources natively supported by DNF.
+        if any(data.url.startswith(p) for p in ["file:", "http:", "https:", "ftp:"]):
+            return
 
         # Set up the NFS source with a substituted URL.
-        elif data.url.startswith("nfs://"):
+        if data.url.startswith("nfs:"):
             device_mount = self._create_mount_point(
                 constants.MOUNT_DIR,
                 data.name + "-nfs-device"
@@ -385,9 +389,10 @@ class DNFPayload(Payload):
             )
             mount_point = task.run()
             data.url = "file://" + mount_point
+            return
 
         # Set up the HDD source.
-        elif data.url.startswith("hd:"):
+        if data.url.startswith("hd:"):
             device_mount = self._create_mount_point(
                 ISO_DIR + "-" + data.name + "-hdd-device"
             )
@@ -405,6 +410,11 @@ class DNFPayload(Payload):
             )
             result = task.run()
             data.url = "file://" + result.install_tree_path
+            return
+
+        # Otherwise, raise an error.
+        msg = _("The '{repository_name}' repository uses an unsupported protocol.")
+        raise SourceSetupError(msg.format(repository_name=data.name)) from None
 
     def _create_mount_point(self, *paths):
         """Create a mount point from specified paths.
