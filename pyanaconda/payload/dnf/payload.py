@@ -23,6 +23,7 @@ from pyanaconda.modules.common.errors.payload import UnknownRepositoryError, Sou
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData, \
     PackagesSelectionData
+from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.payloads.kickstart import convert_ks_repo_to_repo_data, \
     convert_repo_data_to_ks_repo
 from pyanaconda.modules.payloads.payload.dnf.initialization import configure_dnf_logging
@@ -72,8 +73,8 @@ class DNFPayload(Payload):
         super().__init__()
         self.data = data
 
-        # A list of verbose error strings
-        self.verbose_errors = []
+        # Validation report from the payload setup.
+        self._report = ValidationReport()
 
         # Get a DBus payload to use.
         self._payload_proxy = get_payload(self.type)
@@ -100,6 +101,11 @@ class DNFPayload(Payload):
         FIXME: This is a temporary property.
         """
         return self._dnf_manager._base
+
+    @property
+    def report(self):
+        """The latest report from the payload setup."""
+        return self._report
 
     def set_from_opts(self, opts):
         """Set the payload from the Anaconda cmdline options.
@@ -498,7 +504,7 @@ class DNFPayload(Payload):
         :param bool try_media: whether to check for valid mounted media
         :param bool only_on_change: restart thread only if existing repositories changed
         """
-        self.verbose_errors = []
+        self._report = ValidationReport()
 
         # Test if any repository changed from the last update
         if only_on_change:
@@ -513,7 +519,7 @@ class DNFPayload(Payload):
         try:
             self._update_base_repo(fallback=fallback, try_media=try_media)
         except (OSError, SourceSetupError, DNFManagerError) as e:
-            log.error("Payload error: %s", e)
+            self._report.error_messages.append(str(e))
             raise SourceSetupError(str(e)) from e
 
         # Gather the group data
@@ -522,8 +528,9 @@ class DNFPayload(Payload):
 
         # Check if that failed
         if not self.is_ready():
-            log.error("No base repo configured")
-            raise SourceSetupError()
+            msg = _("No base repository is configured.")
+            self._report.error_messages.append(msg)
+            raise SourceSetupError(msg)
 
         # run payload specific post configuration tasks
         self.dnf_manager.load_repomd_hashes()
@@ -707,7 +714,7 @@ class DNFPayload(Payload):
             try:
                 self.dnf_manager.load_repository(repo_id)
             except MetadataError as e:
-                self.verbose_errors.append(str(e))
+                self._report.warning_messages.append(str(e))
 
     def _reload_treeinfo_metadata(self, repo_data):
         """Reload treeinfo metadata.

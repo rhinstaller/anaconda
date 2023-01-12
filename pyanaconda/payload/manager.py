@@ -155,6 +155,7 @@ class _PayloadManager(Runnable, ProgressReporter):
 
             # Handle the error in a DNF payload.
             if payload.type == PAYLOAD_TYPE_DNF:
+                log.error("The DNF payload failed with: %s", str(payload.report))
                 raise _InteractivePayloadFailed(str(e)) from e
 
             # Handle the error in a non-package payload.
