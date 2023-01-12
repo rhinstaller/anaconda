@@ -33,12 +33,15 @@ from pyanaconda.modules.common.constants.interfaces import PAYLOAD_DNF
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData, \
     PackagesSelectionData
-from pyanaconda.modules.payloads.constants import SourceType, SourceState
+from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
 from pyanaconda.modules.payloads.payloads import PayloadsService
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
+from pyanaconda.modules.payloads.source.cdrom.cdrom import CdromSourceModule
+from pyanaconda.modules.payloads.source.closest_mirror.closest_mirror import \
+    ClosestMirrorSourceModule
 
 from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property
 from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
@@ -656,24 +659,38 @@ class DNFInterfaceTestCase(unittest.TestCase):
 
 
 class DNFModuleTestCase(unittest.TestCase):
+    """Test the DNF module."""
 
     def setUp(self):
+        """Set up the test."""
         self.module = DNFModule()
 
-    def _create_source(self, source_type, state=SourceState.UNREADY):
-        """Create a new source with a mocked state."""
-        return PayloadSharedTest.prepare_source(source_type, state)
-
     def test_is_network_required(self):
-        """Test the is_network_required method."""
+        """Test the is_network_required function."""
         assert self.module.is_network_required() is False
 
-        source1 = self._create_source(SourceType.CDROM)
-        self.module.set_sources([source1])
-
-        assert self.module.is_network_required() is False
-
-        source2 = self._create_source(SourceType.NFS)
-        self.module.set_sources([source1, source2])
-
+        source = ClosestMirrorSourceModule()
+        self.module.set_sources([source])
         assert self.module.is_network_required() is True
+
+        source = CdromSourceModule()
+        self.module.set_sources([source])
+        assert self.module.is_network_required() is False
+
+        r1 = RepoConfigurationData()
+        r1.url = "http://r1"
+        self.module.set_repositories([r1])
+        assert self.module.is_network_required() is True
+
+        r2 = RepoConfigurationData()
+        r2.url = "file://r2"
+        self.module.set_repositories([r2])
+        assert self.module.is_network_required() is False
+
+        r1.enabled = True
+        self.module.set_repositories([r1, r2])
+        assert self.module.is_network_required() is True
+
+        r1.enabled = False
+        self.module.set_repositories([r1, r2])
+        assert self.module.is_network_required() is False
