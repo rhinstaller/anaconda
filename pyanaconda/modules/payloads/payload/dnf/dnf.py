@@ -40,7 +40,11 @@ class DNFModule(PayloadBase):
     """The DNF payload module."""
 
     def __init__(self):
+        """Create a DNF module."""
         super().__init__()
+        self._repositories = []
+        self.repositories_changed = Signal()
+
         self._packages_configuration = PackagesConfigurationData()
         self.packages_configuration_changed = Signal()
 
@@ -76,6 +80,23 @@ class DNFModule(PayloadBase):
             SourceType.CDN,
             SourceType.URL
         ]
+
+    @property
+    def repositories(self):
+        """The configuration of repositories.
+
+        :return [RepoConfigurationData]: a list of repo configurations
+        """
+        return self._repositories
+
+    def set_repositories(self, data):
+        """Set the configuration of repositories.
+
+        :param [RepoConfigurationData] data: a list of repo configurations
+        """
+        self._repositories = data
+        self.repositories_changed.emit()
+        log.debug("Repositories are set to: %s", data)
 
     @property
     def packages_configuration(self):

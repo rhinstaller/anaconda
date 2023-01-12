@@ -426,6 +426,42 @@ class DNFInterfaceTestCase(unittest.TestCase):
             *args, **kwargs
         )
 
+    def test_repositories_property(self):
+        """Test the Repositories property."""
+        data = [
+            self._generate_repository_structure("https://r1"),
+            self._generate_repository_structure("http://r2"),
+            self._generate_repository_structure("ftp://r3"),
+        ]
+
+        self._check_dbus_property(
+            "Repositories",
+            data
+        )
+
+    def test_repositories_data(self):
+        """Test the RepoConfigurationData structure."""
+        r1 = RepoConfigurationData()
+        r1.name = "r1"
+        r1.url = "https://r1"
+
+        r2 = RepoConfigurationData()
+        r2.name = "r2"
+        r2.url = "http://r2"
+
+        r3 = RepoConfigurationData()
+        r3.name = "r3"
+        r3.url = "ftp://r3"
+
+        data = RepoConfigurationData.to_structure_list([
+            r1, r2, r3
+        ])
+
+        self._check_dbus_property(
+            "Repositories",
+            data
+        )
+
     def test_packages_kickstarted_property(self):
         """Test the PackagesKickstarted property."""
         assert self.interface.PackagesKickstarted is False
@@ -517,7 +553,8 @@ class DNFInterfaceTestCase(unittest.TestCase):
         )
 
     @staticmethod
-    def _generate_expected_repo_configuration_dict(url=""):
+    def _generate_repository_structure(url=""):
+        """Generate a RepoConfigurationData structure with the specified URL."""
         return {
             "name": get_variant(Str, ""),
             "origin": get_variant(Str, "USER"),
@@ -547,7 +584,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
 
         self.shared_tests.set_sources([source])
 
-        expected = [self._generate_expected_repo_configuration_dict("file:///install_source/cdrom")]
+        expected = [self._generate_repository_structure("file:///install_source/cdrom")]
 
         assert self.interface.GetRepoConfigurations() == expected
 
@@ -561,7 +598,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
 
         self.shared_tests.set_sources([source])
 
-        expected = [self._generate_expected_repo_configuration_dict("file:///install_source/hmc")]
+        expected = [self._generate_repository_structure("file:///install_source/hmc")]
 
         assert self.interface.GetRepoConfigurations() == expected
 
@@ -575,7 +612,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
 
         self.shared_tests.set_sources([source])
 
-        expected = [self._generate_expected_repo_configuration_dict("file:///install_source/nfs")]
+        expected = [self._generate_repository_structure("file:///install_source/nfs")]
 
         assert self.interface.GetRepoConfigurations() == expected
 
@@ -589,7 +626,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
 
         self.shared_tests.set_sources([source])
 
-        expected = [self._generate_expected_repo_configuration_dict("file:///install_source/harddrive")]
+        expected = [self._generate_repository_structure("file:///install_source/harddrive")]
 
         assert self.interface.GetRepoConfigurations() == expected
 
@@ -607,7 +644,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
         source.set_repo_configuration(data)
         self.shared_tests.set_sources([source])
 
-        expected = self._generate_expected_repo_configuration_dict()
+        expected = self._generate_repository_structure()
         expected.update({
             "name": get_variant(Str, "Bernard Black"),
             "url": get_variant(Str, "http://library.uk"),

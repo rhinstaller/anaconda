@@ -38,12 +38,37 @@ class DNFInterface(PayloadBaseInterface):
         """Connect the signals."""
         super().connect_signals()
         self.watch_property(
+            "Repositories",
+            self.implementation.repositories_changed
+        )
+        self.watch_property(
             "PackagesConfiguration",
             self.implementation.packages_configuration_changed
         )
         self.watch_property(
             "PackagesSelection",
             self.implementation.packages_selection_changed
+        )
+
+    @property
+    def Repositories(self) -> List[Structure]:
+        """The configuration of repositories.
+
+        :return: a list of structures of the type RepoConfigurationData
+        """
+        return RepoConfigurationData.to_structure_list(
+            self.implementation.repositories
+        )
+
+    @Repositories.setter
+    @emits_properties_changed
+    def Repositories(self, data: List[Structure]):
+        """Set the configuration of repositories.
+
+        :param data: a list of structures of the type RepoConfigurationData
+        """
+        self.implementation.set_repositories(
+            RepoConfigurationData.from_structure_list(data)
         )
 
     @property
