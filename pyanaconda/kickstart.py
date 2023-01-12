@@ -191,19 +191,8 @@ class RepoData(COMMANDS.RepoData):
             :type enabled: bool
         """
         self.enabled = kwargs.pop("enabled", True)
-        self.repo_id = kwargs.pop("repo_id", None)
         self.treeinfo_origin = kwargs.pop("treeinfo_origin", False)
         super().__init__(*args, **kwargs)
-
-    @classmethod
-    def create_copy(cls, other):
-        return cls(name=other.name,
-                   baseurl=other.baseurl,
-                   mirrorlist=other.mirrorlist,
-                   metalink=other.metalink,
-                   proxy=other.proxy,
-                   enabled=other.enabled,
-                   treeinfo_origin=other.treeinfo_origin)
 
     def __str__(self):
         """Don't output disabled repos"""

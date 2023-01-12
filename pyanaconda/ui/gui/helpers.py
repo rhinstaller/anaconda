@@ -107,18 +107,6 @@ class GUIInputCheckHandler(InputCheckHandler, metaclass=ABCMeta):
 
         return checkRef
 
-    def can_go_back_focus_if_not(self):
-        """Check whether the input validation checks allow the spoke to be exited.
-
-        Return True if yes, otherwise focus the problematic input field and return False.
-        """
-        failed_check = next(self.failed_checks, None)
-        if failed_check:
-            failed_check.input_obj.grab_focus()
-            return False
-        else:
-            return True
-
 
 class GUIDialogInputCheckHandler(GUIInputCheckHandler, metaclass=ABCMeta):
     """Provide InputCheckHandler functionality for Gtk dialogs.

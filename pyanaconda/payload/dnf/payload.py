@@ -223,6 +223,14 @@ class DNFPayload(Payload):
         source_proxy = self.get_source_proxy()
         return source_proxy.Type
 
+    def get_repo_configurations(self) -> [RepoConfigurationData]:
+        """Get a list of DBus repo configurations."""
+        return list(map(convert_ks_repo_to_repo_data, self.data.repo.dataList()))
+
+    def set_repo_configurations(self, data_list: [RepoConfigurationData]):
+        """Set a list of DBus repo configurations."""
+        self.data.repo.repoList = list(map(convert_repo_data_to_ks_repo, data_list))
+
     def get_packages_configuration(self) -> PackagesConfigurationData:
         """Get the DBus data with the packages configuration."""
         return PackagesConfigurationData.from_structure(

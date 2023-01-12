@@ -541,29 +541,6 @@ def vtActivate(num):
     return ret == 0
 
 
-def cmp_obj_attrs(obj1, obj2, attr_list):
-    """ Compare attributes of 2 objects for changes
-
-        Missing attrs are considered a mismatch
-
-        :param obj1: First object to compare
-        :type obj1: Any object
-        :param obj2: Second object to compare
-        :type obj2: Any object
-        :param attr_list: List of attributes to compare
-        :type attr_list: list or tuple of strings
-        :returns: True if the attrs all match
-        :rtype: bool
-    """
-    for attr in attr_list:
-        if hasattr(obj1, attr) and hasattr(obj2, attr):
-            if getattr(obj1, attr) != getattr(obj2, attr):
-                return False
-        else:
-            return False
-    return True
-
-
 def xprogressive_delay():
     """ A delay generator, the delay starts short and gets longer
         as the internal counter increases.
@@ -643,18 +620,6 @@ def requests_session():
     session.mount("file://", FileAdapter())
     session.mount("ftp://", FTPAdapter())
     return session
-
-
-def id_generator():
-    """ Id numbers generator.
-        Generating numbers from 0 to X and increments after every call.
-
-        :returns: Generator which gives you unique numbers.
-    """
-    actual_id = 0
-    while(True):
-        yield actual_id
-        actual_id += 1
 
 
 def collect(module_pattern, path, pred):

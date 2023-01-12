@@ -16,52 +16,47 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
-import time
-import threading
 import os
 import re
-
-from urllib.parse import urlsplit
-
-from pyanaconda.core import constants
-from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, SOURCE_TYPE_HDD, SOURCE_TYPE_URL, \
-    SOURCE_TYPE_CDROM, SOURCE_TYPE_NFS, SOURCE_TYPE_HMC, URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, \
-    URL_TYPE_METALINK, SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN, PAYLOAD_STATUS_SETTING_SOURCE
-from pyanaconda.flags import flags
-from pyanaconda.core.i18n import _, CN_
-from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.common.constants.services import SUBSCRIPTION
-from pyanaconda.payload.image import find_optical_install_media
-from pyanaconda.ui.lib.payload import find_potential_hdiso_sources, get_hdiso_source_info, \
-    get_hdiso_source_description
-from pyanaconda.core.payload import ProxyString, ProxyStringError, parse_nfs_url, create_nfs_url
-from pyanaconda.core.util import cmp_obj_attrs, id_generator
-from pyanaconda.ui.communication import hubQ
-from pyanaconda.ui.context import context
-from pyanaconda.ui.gui.spokes.lib.installation_source_helpers import validate_proxy, RepoChecks, \
-    ProxyDialog, MediaCheckDialog, IsoChooser, PROTOCOL_HTTP, \
-    PROTOCOL_HTTPS, PROTOCOL_FTP, PROTOCOL_NFS, PROTOCOL_FILE, PROTOCOL_MIRROR, REPO_PROTO, \
-    CLICK_FOR_DETAILS, get_unique_repo_name, validate_repo_name, check_duplicate_repo_names
-from pyanaconda.ui.helpers import InputCheck, InputCheckHandler, SourceSwitchHandler
-from pyanaconda.ui.lib.subscription import switch_source
-from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler
-from pyanaconda.ui.gui.spokes import NormalSpoke
-from pyanaconda.ui.categories.software import SoftwareCategory
-from pyanaconda.ui.gui.utils import blockedHandler, fire_gtk_action
-from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show, fancy_set_sensitive
-from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.payload import utils as payload_utils
-from pyanaconda.payload.manager import payloadMgr
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.regexes import URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
-from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
-from pyanaconda.modules.common.constants.objects import DEVICE_TREE
-from pyanaconda.modules.common.structures.storage import DeviceData
-from pyanaconda.modules.common.util import is_module_available
-from pyanaconda.core.storage import device_matches
+import time
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core import constants
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, SOURCE_TYPE_HDD, SOURCE_TYPE_URL, \
+    SOURCE_TYPE_CDROM, SOURCE_TYPE_NFS, SOURCE_TYPE_HMC, URL_TYPE_BASEURL, \
+    SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN, PAYLOAD_STATUS_SETTING_SOURCE
+from pyanaconda.core.i18n import _, CN_
+from pyanaconda.core.payload import parse_nfs_url, create_nfs_url
+from pyanaconda.core.regexes import URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
+from pyanaconda.core.storage import device_matches
+from pyanaconda.flags import flags
+from pyanaconda.modules.common.constants.objects import DEVICE_TREE
+from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
+from pyanaconda.modules.common.constants.services import SUBSCRIPTION
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.modules.common.structures.storage import DeviceData
+from pyanaconda.modules.common.util import is_module_available
+from pyanaconda.payload import utils as payload_utils
+from pyanaconda.payload.image import find_optical_install_media
+from pyanaconda.payload.manager import payloadMgr
+from pyanaconda.threading import threadMgr, AnacondaThread
+from pyanaconda.ui.categories.software import SoftwareCategory
+from pyanaconda.ui.communication import hubQ
+from pyanaconda.ui.context import context
+from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler
+from pyanaconda.ui.gui.spokes import NormalSpoke
+from pyanaconda.ui.gui.spokes.lib.additional_repositories import AdditionalRepositoriesSection
+from pyanaconda.ui.gui.spokes.lib.installation_source_helpers import ProxyDialog, \
+    MediaCheckDialog, IsoChooser, PROTOCOL_HTTP, PROTOCOL_HTTPS, PROTOCOL_FTP, PROTOCOL_NFS, \
+    PROTOCOL_MIRROR, CLICK_FOR_DETAILS
+from pyanaconda.ui.gui.utils import blockedHandler, fire_gtk_action
+from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show
+from pyanaconda.ui.helpers import InputCheck, SourceSwitchHandler
+from pyanaconda.ui.lib.payload import find_potential_hdiso_sources, get_hdiso_source_info, \
+    get_hdiso_source_description
+from pyanaconda.ui.lib.subscription import switch_source
+
 log = get_module_logger(__name__)
 
 import gi
@@ -70,22 +65,13 @@ from gi.repository import Gtk
 
 __all__ = ["SourceSpoke"]
 
-# Repo Store Columns
-REPO_ENABLED_COL = 0
-REPO_NAME_COL = 1
-REPO_OBJ = 2
-
-# Additional repo protocol combobox fields
-MODEL_ROW_VALUE = 0
-MODEL_ROW_NAME = 1
-
 
 class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
     """
        .. inheritance-diagram:: SourceSpoke
           :parts: 3
     """
-    builderObjects = ["partitionStore", "sourceWindow", "dirImage", "repoStore"]
+    builderObjects = ["partitionStore", "sourceWindow", "dirImage"]
     mainWidgetName = "sourceWindow"
     uiFile = "spokes/installation_source.glade"
     category = SoftwareCategory
@@ -117,10 +103,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self._proxy_url = ""
         self._proxy_change = False
         self._cdrom = None
-        self._repo_counter = id_generator()
-
-        self._repo_checks = {}
-        self._repo_store_lock = threading.Lock()
 
         self._updates_enabled = False
         self._updates_change = False
@@ -130,7 +112,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
     def apply(self):
         source_changed = self._update_payload_source()
-        repo_changed = self._update_payload_repos()
+        repo_changed = self._additional_repositories.apply()
         source_proxy = self.payload.get_source_proxy()
         cdn_source = source_proxy.Type == SOURCE_TYPE_CDN
         # If CDN is the current installation source but no subscription is
@@ -276,41 +258,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
         return True
 
-    def _update_file_protocol(self, ksrepo):
-        """Show file protocol for repositories that already have it. Remove it when unselected."""
-        if ksrepo.baseurl and ksrepo.baseurl.startswith(REPO_PROTO[PROTOCOL_FILE]):
-            self._set_file_protocol_to_repo_combobox()
-            self._repo_protocol_combo_box.set_sensitive(False)
-        else:
-            self._remove_file_protocol_from_repo_combobox()
-            self._repo_protocol_combo_box.set_sensitive(True)
-
-    def _set_file_protocol_to_repo_combobox(self):
-        # file protocol will be always the last one
-        model = self._repo_protocol_combo_box.get_model()
-        row = self._get_protocol_row(PROTOCOL_FILE)
-
-        if row is None:
-            model.append([REPO_PROTO[PROTOCOL_FILE], PROTOCOL_FILE])
-
-        self._protocol_combo_box.set_active_id(PROTOCOL_FILE)
-
-    def _remove_file_protocol_from_repo_combobox(self):
-        model = self._repo_protocol_combo_box.get_model()
-        row = self._get_protocol_row(PROTOCOL_FILE)
-
-        if row:
-            model.remove(row.iter)
-
-    def _get_protocol_row(self, protocol):
-        model = self._repo_protocol_combo_box.get_model()
-
-        for row in model:
-            if row[MODEL_ROW_NAME] == protocol:
-                return row
-
-        return None
-
     @property
     def completed(self):
         """ WARNING: This can be called before _initialize is done, make sure that it
@@ -418,32 +365,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
         self._verify_iso_button = self.builder.get_object("verifyIsoButton")
 
-        # addon repo objects
-        self._repo_entry_box = self.builder.get_object("repoEntryBox")
-        self._repo_store = self.builder.get_object("repoStore")
-        self._repo_selection = self.builder.get_object("repoSelection")
-        self._repo_name_entry = self.builder.get_object("repoNameEntry")
-        self._repo_protocol_combo_box = self.builder.get_object("repoProtocolComboBox")
-        self._repo_url_entry = self.builder.get_object("repoUrlEntry")
-        self._repo_url_type_combo_box = self.builder.get_object("repoUrlTypeComboBox")
-
-        self._repo_proxy_url_entry = self.builder.get_object("repoProxyUrlEntry")
-        self._repo_proxy_username_entry = self.builder.get_object("repoProxyUsernameEntry")
-        self._repo_proxy_password_entry = self.builder.get_object("repoProxyPasswordEntry")
-        self._repo_view = self.builder.get_object("repoTreeView")
-        self._repo_remove_button = self.builder.get_object("removeButton")
-
-        # Create a check for duplicate repo ids
-        # Call InputCheckHandler directly since this check operates on rows of a TreeModel
-        # instead of GtkEntry inputs. Updating the check is handled by the signal handlers
-        # connected to repoStore.
-        self._duplicate_repo_check = InputCheckHandler.add_check(self, self._repo_store,
-                                                                 self._check_duplicate_repos)
-
-        # Create a dictionary for the checks on fields in individual repos
-        # These checks will be added and removed as repos are added and removed from repoStore
-        self._repo_checks = {}
-
         # updates option container
         self._updates_box = self.builder.get_object("updatesBox")
 
@@ -454,6 +375,14 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         main_viewport = self.builder.get_object("mainViewport")
         main_box = self.builder.get_object("mainBox")
         main_box.set_focus_vadjustment(Gtk.Scrollable.get_vadjustment(main_viewport))
+
+        # Include the section with additional repositories.
+        self._additional_repositories = AdditionalRepositoriesSection(
+            self.data,
+            self.payload,
+            self.window
+        )
+        main_box.add(self._additional_repositories.widget)
 
     def initialize(self):
         NormalSpoke.initialize(self)
@@ -489,8 +418,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
         # Start the thread last so that we are sure initialize_done() is really called only
         # after all initialization has been done.
-        threadMgr.add(AnacondaThread(name=constants.THREAD_SOURCE_WATCHER,
-                                     target=self._initialize))
+        threadMgr.add(AnacondaThread(
+            name=constants.THREAD_SOURCE_WATCHER,
+            target=self._initialize
+        ))
 
     def _on_payload_started(self):
         # Disable the software selection.
@@ -576,9 +507,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         # Add the mirror manager URL in as the default for HTTP and HTTPS.
         # We'll override this later in the refresh() method, if they've already
         # provided a URL.
-        # FIXME
-
-        gtk_call_once(self._reset_repo_store)
 
         self._ready = True
         # Wait to make sure the other threads are done before sending ready, otherwise
@@ -606,6 +534,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
     def refresh(self):
         NormalSpoke.refresh(self)
+
+        # Clear the additional repositories.
+        self._additional_repositories.clear()
 
         # Find all hard drive partitions that could hold an ISO and add each
         # to the partitionStore.  This has to be done here because if the user
@@ -726,9 +657,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
         self._setup_updates()
 
-        # Setup the addon repos
-        self._reset_repo_store()
-
         # Some widgets get enabled/disabled/greyed out depending on
         # how others are set up.  We can use the signal handlers to handle
         # that condition here too. Start at the innermost pieces and work
@@ -747,6 +675,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self._on_source_toggled(self._hmc_button, None)
         self._on_source_toggled(self._iso_button, self._iso_box)
         self._on_source_toggled(self._network_button, self._network_box)
+
+        # Set up additional repositories. Wait until the installation source
+        # is set up to avoid unwanted removals of treeinfo repositories.
+        self._additional_repositories.refresh()
 
         if not self._network_module.Connected:
             self._network_button.set_sensitive(False)
@@ -809,92 +741,51 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
     # Input checks
 
-    # This method is shared by the checks on urlEntry and repoUrlEntry
     def _check_url(self, inputcheck, combo):
         # Network is not up, don't check urls.
         if not self._network_module.Connected:
             return InputCheck.CHECK_OK
 
-        # If combo is not set inputcheck holds repo
-        is_additional_repo = combo is None
-        if is_additional_repo:
-            # Input object contains repository name
-            repo = self._get_repo_by_id(inputcheck.input_obj)
-            if repo.mirrorlist:
-                url = repo.mirrorlist
-            elif repo.metalink:
-                url = repo.metalink
-            else:
-                url = repo.baseurl
-            protocol = urlsplit(url)[0]
-            # remove protocol part ("http://", "https://", "nfs://"...)
-            url_string = url.strip()[len(protocol + "://"):]
-        else:
-            url_string = self.get_input(inputcheck.input_obj).strip()
-            protocol = combo.get_active_id()
+        url_string = self.get_input(inputcheck.input_obj).strip()
+        protocol = combo.get_active_id()
 
         # If this is HTTP/HTTPS/FTP, use the URL_PARSE regex
         if protocol in (PROTOCOL_HTTP, PROTOCOL_HTTPS, PROTOCOL_FTP):
             if not url_string:
-                if is_additional_repo and repo.name:
-                    return _("Repository %s has empty url") % repo.name
-                else:
-                    return _("URL is empty")
+                return _("URL is empty")
 
             m = URL_PARSE.match(url_string)
             if not m:
-                if is_additional_repo and repo.name:
-                    return _("Repository %s has invalid url") % repo.name
-                else:
-                    return _("Invalid URL")
+                return _("Invalid URL")
 
             # Matching protocols in the URL should already have been removed
             # by _remove_url_prefix. If there's still one there, it's wrong.
             url_protocol = m.group('protocol')
             if url_protocol:
-                if is_additional_repo and repo.name:
-                    return _("Repository %s does not match selected protocol") % repo.name
-                else:
-                    return _("Protocol in URL does not match selected protocol")
+                return _("Protocol in URL does not match selected protocol")
         elif protocol == PROTOCOL_NFS:
             if not url_string:
-                if is_additional_repo and repo.name:
-                    return _("Repository %s has empty NFS server") % repo.name
-                else:
-                    return _("NFS server is empty")
+                return _("NFS server is empty")
 
             # Check first overall validity of format
             if url_string.count(":") != 1:
-                if is_additional_repo and repo.name:
-                    return _("Repository %s has invalid NFS server, exactly one colon ':' must "
-                             "be present between host and directory") % repo.name
-                else:
-                    return _("Invalid NFS server, exactly one colon ':' must be present "
-                             "between host and directory")
+                return _("Invalid NFS server, exactly one colon ':' must be present "
+                         "between host and directory")
 
             # Make sure the part before the colon looks like a hostname,
             # and that the path is not empty
             host, _colon, path = url_string.partition(':')
 
             if not re.match('^' + HOSTNAME_PATTERN_WITHOUT_ANCHORS + '$', host):
-                if is_additional_repo and repo.name:
-                    return _("Repository %s has invalid host name") % repo.name
-                else:
-                    return _("Invalid host name")
+                return _("Invalid host name")
 
             if not path:
-                if is_additional_repo and repo.name:
-                    return _("Repository %s required remote directory") % repo.name
-                else:
-                    return _("Remote directory is required")
+                return _("Remote directory is required")
 
         return InputCheck.CHECK_OK
 
     def _check_url_entry(self, inputcheck):
         return self._check_url(inputcheck, self._protocol_combo_box)
-
-    def _check_repo_url(self, inputcheck):
-        return self._check_url(inputcheck, None)
 
     # Update the check on urlEntry when the sensitity or selected protocol changes
     def _update_url_entry_check(self, *args):
@@ -903,38 +794,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
         # Force a status update to clear any disabled errors
         self.set_status(self._url_check)
-
-    def _check_duplicate_repos(self, inputcheck):
-        repo_names = [r[REPO_OBJ].name for r in inputcheck.input_obj]
-        return check_duplicate_repo_names(repo_names)
-
-    def _check_repo_name(self, inputcheck):
-        # Input object is name of the repository
-        repo_name = self._get_repo_by_id(inputcheck.input_obj).name
-
-        # Collect conflicting names.
-        forbidden_names = self.payload.dnf_manager.repositories
-        allowed_names = [r.name for r in self.data.repo.dataList()]
-        conflicting_names = [n for n in forbidden_names if n not in allowed_names]
-
-        return validate_repo_name(repo_name, conflicting_names)
-
-    def _check_repo_proxy(self, inputcheck):
-        # Input object contains repo name
-        repo = self._get_repo_by_id(inputcheck.input_obj)
-        # If nfs is selected as the protocol, skip the proxy check
-        if repo.baseurl.startswith(PROTOCOL_NFS):
-            return InputCheck.CHECK_OK
-
-        if not repo.proxy:
-            return InputCheck.CHECK_OK
-
-        # Empty proxies are OK, as long as the username and password are empty too
-        proxy_obj = ProxyString(repo.proxy)
-        if not (repo.proxy or proxy_obj.username or proxy_obj.password):
-            return InputCheck.CHECK_OK
-
-        return validate_proxy(proxy_obj.noauth_url, proxy_obj.username, proxy_obj.password)
 
     # Signal handlers.
     def on_source_toggled(self, button, relatedBox):
@@ -955,36 +814,11 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
     def on_back_clicked(self, button):
         """If any input validation checks failed, keep the user on the screen.
            Otherwise, do the usual thing."""
-
-        # Check repositories on bad url
-        for repo in self._repo_store:
-            self._repo_checks[repo[REPO_OBJ].repo_id].url_check.update_check_status()
-
-        failed_check = next(self.failed_checks, None)
-
-        # If the failed check is the duplicate repo check, focus the repo TreeView
-        if failed_check == self._duplicate_repo_check:
-            self._repo_view.grab_focus()
-            return
-        # If the failed check is on one of the repo fields, select the repo in the
-        # TreeView and focus the field
-        elif failed_check in (checks.name_check for checks in self._repo_checks.values()):
-            self._repo_selection.select_path(failed_check.data.get_path())
-            self._repo_name_entry.grab_focus()
-            return
-        elif failed_check in (checks.url_check for checks in self._repo_checks.values()):
-            self._repo_selection.select_path(failed_check.data.get_path())
-            self._repo_url_entry.grab_focus()
-            return
-        elif failed_check in (checks.proxy_check for checks in self._repo_checks.values()):
-            self._repo_selection.select_path(failed_check.data.get_path())
-            self._repo_proxy_url_entry.grab_focus()
-            return
-        # Otherwise let GUISpokeInputCheckHandler figure out what to focus
-        elif not self.can_go_back_focus_if_not():
-            return
-
         self.clear_info()
+
+        if not self._additional_repositories.validate():
+            return
+
         NormalSpoke.on_back_clicked(self, button)
 
     def on_info_bar_clicked(self, *args):
@@ -1095,192 +929,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self._on_urlEtry_changed(self._url_entry)
         self._update_url_entry_check()
 
-    def _update_payload_repos(self):
-        """ Change the payload repos to match the new edits
-
-            This will add new repos to the addon repo list, remove
-            ones that were removed and update any changes made to
-            existing ones.
-
-            :returns: True if any repo was changed, added or removed
-            :rtype: bool
-        """
-        REPO_ATTRS = ("name", "baseurl", "mirrorlist", "metalink", "proxy", "enabled")
-        changed = False
-
-        with self._repo_store_lock:
-            ui_orig_names = [r[REPO_OBJ].orig_name for r in self._repo_store]
-
-            # Remove repos from payload that were removed in the UI
-            for repo in list(self.data.repo.dataList()):
-                if repo.name in ui_orig_names:
-                    continue
-
-                # TODO: Need an API to do this w/o touching dnf (not add_repo)
-                # FIXME: Is this still needed for dnf?
-                self.payload.data.repo.dataList().remove(repo)
-                changed = True
-
-            addon_repos = [(r[REPO_OBJ], self.payload.get_addon_repo(r[REPO_OBJ].orig_name))
-                           for r in self._repo_store]
-            for repo, orig_repo in addon_repos:
-                if not orig_repo:
-                    # TODO: Need an API to do this w/o touching dnf (not add_repo)
-                    # FIXME: Is this still needed for dnf?
-                    self.payload.data.repo.dataList().append(repo)
-                    changed = True
-                elif not cmp_obj_attrs(orig_repo, repo, REPO_ATTRS):
-                    for attr in REPO_ATTRS:
-                        setattr(orig_repo, attr, getattr(repo, attr))
-                    changed = True
-
-        return changed
-
-    def _reset_repo_store(self):
-        """ Reset the list of repos.
-
-            Populate the list with all the addon repos from payload.addons.
-
-            If the list has no element, clear the repo entry fields.
-        """
-
-        log.debug("Clearing checks in source spoke")
-
-        # Remove the repo checks
-        for checks in self._repo_checks.values():
-            self.remove_check(checks.name_check)
-            self.remove_check(checks.url_check)
-            self.remove_check(checks.proxy_check)
-        self._repo_checks = {}
-
-        with self._repo_store_lock:
-            self._repo_store.clear()
-            for repo in self.data.repo.dataList():
-                log.debug("Setting up repo: %s", repo.name)
-                ks_repo = self.data.RepoData.create_copy(repo)
-                # Track the original name, user may change .name
-                ks_repo.orig_name = repo.name
-                # Add addon repository id for identification
-                ks_repo.repo_id = next(self._repo_counter)
-                self._repo_store.append([repo.enabled,
-                                        ks_repo.name,
-                                        ks_repo])
-
-        if len(self._repo_store) > 0:
-            self._repo_selection.select_path(0)
-        else:
-            self._clear_repo_info()
-            self._repo_entry_box.set_sensitive(False)
-
-    def _get_repo_by_id(self, repo_id):
-        """ Return a repository by given name
-        """
-        for repo in self._repo_store:
-            if repo[REPO_OBJ].repo_id == repo_id:
-                return repo[REPO_OBJ]
-        return None
-
-    def on_repoSelection_changed(self, *args):
-        """ Called when the selection changed.
-
-            Update the repo text boxes with the current information
-        """
-        itr = self._repo_selection.get_selected()[1]
-        if not itr:
-            return
-
-        repo = self._repo_store[itr][REPO_OBJ]
-        self._update_repo_info(repo)
-
-    def on_repoEnable_toggled(self, renderer, path):
-        """ Called when the repo Enable checkbox is clicked
-        """
-        enabled = not self._repo_store[path][REPO_ENABLED_COL]
-        self._set_repo_enabled(path, enabled)
-
-    def _set_repo_enabled(self, repo_model_path, enabled):
-        self._repo_store[repo_model_path][REPO_ENABLED_COL] = enabled
-        self._repo_store[repo_model_path][REPO_OBJ].enabled = enabled
-
-    def _remove_treeinfo_repositories(self):
-        """Disable all repositories loaded from the .treeinfo file"""
-        removal_repo_list = []
-
-        for repo_item in self._repo_store:
-            if repo_item[REPO_OBJ].treeinfo_origin:
-                removal_repo_list.append(repo_item.path)
-
-        for path in removal_repo_list:
-            self._remove_repository(path)
-
-    def _clear_repo_info(self):
-        """ Clear the text from the repo entry fields
-
-            and reset the checkbox and combobox.
-        """
-        self._repo_name_entry.set_text("")
-
-        with blockedHandler(self._repo_url_type_combo_box, self.on_repo_url_type_changed):
-            self._repo_url_type_combo_box.set_active_id(URL_TYPE_BASEURL)
-
-        self._repo_url_entry.set_text("")
-        self._repo_protocol_combo_box.set_active(0)
-        self._repo_proxy_url_entry.set_text("")
-        self._repo_proxy_username_entry.set_text("")
-        self._repo_proxy_password_entry.set_text("")
-
-    def _update_repo_info(self, repo):
-        """ Update the text boxes with data from repo
-
-            :param repo: kickstart repository object
-            :type repo: RepoData
-        """
-        self._repo_name_entry.set_text(repo.name)
-
-        with blockedHandler(self._repo_url_type_combo_box, self.on_repo_url_type_changed):
-            if repo.mirrorlist:
-                url = repo.mirrorlist
-                self._repo_url_type_combo_box.set_active_id(URL_TYPE_MIRRORLIST)
-            elif repo.metalink:
-                url = repo.metalink
-                self._repo_url_type_combo_box.set_active_id(URL_TYPE_METALINK)
-            else:
-                url = repo.baseurl
-                self._repo_url_type_combo_box.set_active_id(URL_TYPE_BASEURL)
-
-        if url:
-            for idx, proto in REPO_PROTO.items():
-                if url.startswith(proto):
-                    self._repo_protocol_combo_box.set_active_id(idx)
-                    self._repo_url_entry.set_text(url[len(proto):])
-                    break
-            else:
-                # Unknown protocol, just set the url then
-                self._repo_url_entry.set_text(url)
-        else:
-            self._repo_url_entry.set_text("")
-
-        if not repo.proxy:
-            self._repo_proxy_url_entry.set_text("")
-            self._repo_proxy_username_entry.set_text("")
-            self._repo_proxy_password_entry.set_text("")
-        else:
-            try:
-                proxy = ProxyString(repo.proxy)
-                if proxy.username:
-                    self._repo_proxy_username_entry.set_text(proxy.username)
-                if proxy.password:
-                    self._repo_proxy_password_entry.set_text(proxy.password)
-                self._repo_proxy_url_entry.set_text(proxy.noauth_url)
-            except ProxyStringError as e:
-                log.error("Failed to parse proxy for repo %s: %s", repo.name, e)
-
-        self._configure_treeinfo_repo(repo.treeinfo_origin)
-
-    def _configure_treeinfo_repo(self, is_treeinfo_repository):
-        self._repo_remove_button.set_sensitive(not is_treeinfo_repository)
-        self._repo_entry_box.set_sensitive(not is_treeinfo_repository)
-
     def _remove_url_prefix(self, editable, combo, handler):
         # If there is a protocol in the URL, and the protocol matches the
         # combo box, just remove it. This makes it more convenient to paste
@@ -1314,205 +962,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self._updates_enabled = active
         self._updates_change = True
 
-    def on_addRepo_clicked(self, button):
-        """ Add a new repository
-        """
-        existing_names = [r[REPO_NAME_COL] for r in self._repo_store]
-        name = get_unique_repo_name(existing_names)
-        repo = self.data.RepoData(name=name)
-        repo.ks_repo = True
-        repo.orig_name = ""
-        # Set addon repo id and increment counter
-        repo.repo_id = next(self._repo_counter)
-
-        itr = self._repo_store.append([True, repo.name, repo])
-        self._repo_selection.select_iter(itr)
-        self._repo_entry_box.set_sensitive(True)
-
-    def on_removeRepo_clicked(self, button):
-        """Remove the selected repository"""
-        self._remove_repository()
-
-    def _remove_repository(self, repo_model_path=None):
-        """Remove repository on repo_model_path or current selection.
-
-        If repo_model_path is not specified then current selection will be used.
-
-        :param repo_model_path: repo_model_path of what we can remove or None
-        :type repo_model_path: repo_store repo_model_path
-        """
-        if repo_model_path is not None:
-            itr = self._repo_store[repo_model_path].iter
-        else:
-            itr = self._repo_selection.get_selected()[1]
-
-        if not itr:
-            return
-
-        # Remove the input validation checks for this repo
-        repo = self._repo_store[itr][REPO_OBJ]
-        # avoid crash when the source is changed because of initialization
-        if repo.repo_id in self._repo_checks:
-            self.remove_check(self._repo_checks[repo.repo_id].name_check)
-            self.remove_check(self._repo_checks[repo.repo_id].url_check)
-            self.remove_check(self._repo_checks[repo.repo_id].proxy_check)
-            del self._repo_checks[repo.repo_id]
-
-        self._repo_store.remove(itr)
-        if len(self._repo_store) == 0:
-            self._clear_repo_info()
-            self._repo_entry_box.set_sensitive(False)
-
-    def on_resetRepos_clicked(self, button):
-        """ Revert to the default list of repositories
-        """
-        self._reset_repo_store()
-
-    def on_repoNameEntry_changed(self, entry):
-        """ repo name changed
-        """
-        itr = self._repo_selection.get_selected()[1]
-        if not itr:
-            return
-        repo = self._repo_store[itr][REPO_OBJ]
-        name = self._repo_name_entry.get_text().strip()
-
-        repo.name = name
-        self._repo_store.set_value(itr, REPO_NAME_COL, name)
-        # do not update check status if check are not yet set up
-        # (populationg/refreshing the spoke)
-        if repo.repo_id in self._repo_checks:
-            self._repo_checks[repo.repo_id].name_check.update_check_status()
-
-    def on_repoUrl_changed(self, editable, data=None):
-        """ proxy url or protocol changed
-        """
-        itr = self._repo_selection.get_selected()[1]
-        if not itr:
-            return
-        repo = self._repo_store[itr][REPO_OBJ]
-        combo_protocol = self._repo_protocol_combo_box.get_active_id()
-
-        # not user editable protocol (e.g. file://) was selected on the old repo and
-        # removed when repo line changed
-        if not combo_protocol:
-            return
-
-        url_prefix = REPO_PROTO[combo_protocol]
-        url = self._repo_url_entry.get_text().strip()
-
-        if combo_protocol in (PROTOCOL_HTTP, PROTOCOL_HTTPS):
-            url_type = self._repo_url_type_combo_box.get_active_id()
-            repo.baseurl = repo.mirrorlist = repo.metalink = ""
-            if url_type == URL_TYPE_MIRRORLIST:
-                repo.mirrorlist = url_prefix + url
-            elif url_type == URL_TYPE_METALINK:
-                repo.metalink = url_prefix + url
-            else:
-                repo.baseurl = url_prefix + url
-        else:
-            repo.baseurl = url_prefix + url
-
-        # do not update check status if check are not yet set up
-        # (populationg/refreshing the spoke)
-        if repo.repo_id in self._repo_checks:
-            self._repo_checks[repo.repo_id].url_check.update_check_status()
-
-        # Check for and remove a URL prefix that matches the protocol dropdown
-        self._remove_url_prefix(editable, self._repo_protocol_combo_box, self.on_repoUrl_changed)
-
-    def on_repo_url_type_changed(self, *args):
-        self._repo_url_entry.emit("changed")
-
-    def on_repoProxy_changed(self, *args):
-        """ Update the selected repo's proxy settings
-        """
-        itr = self._repo_selection.get_selected()[1]
-        if not itr:
-            return
-        repo = self._repo_store[itr][REPO_OBJ]
-
-        url = self._repo_proxy_url_entry.get_text().strip()
-        username = self._repo_proxy_username_entry.get_text().strip() or None
-        password = self._repo_proxy_password_entry.get_text().strip() or None
-
-        # do not update check status if checks are not yet set up
-        # (populating/refreshing the spoke)
-        if repo.repo_id in self._repo_checks:
-            self._repo_checks[repo.repo_id].proxy_check.update_check_status()
-
-        try:
-            if username and password:
-                proxy = ProxyString(url=url, username=username, password=password)
-            else:
-                proxy = ProxyString(url=url)
-            repo.proxy = proxy.url
-        except ProxyStringError as e:
-            log.error("Failed to parse proxy - %s:%s@%s: %s", username, password, url, e)
-
-    def on_repoStore_row_changed(self, model, path, itr, user_data=None):
-        self._duplicate_repo_check.update_check_status()
-
-        repo = model[itr][REPO_OBJ]
-        self._update_file_protocol(repo)
-
-    def on_repoStore_row_deleted(self, model, path, user_data=None):
-        self._duplicate_repo_check.update_check_status()
-
-    def on_repoStore_row_inserted(self, model, path, itr, user_data=None):
-        self._duplicate_repo_check.update_check_status()
-
-        repo = model[itr][REPO_OBJ]
-
-        # Add checks for the repo fields
-        # Use InputCheckHandler.add_check instead of GUISpokeInputCheckHandler.add_check since
-        # the input fields are used by every repo, so the changed signal handler is shared by
-        # more than one check and needs to update only the active one.
-
-        # It would be nice if we could store itr as the means of accessing this row later,
-        # and GtkListStore sets GTK_TREE_MODEL_ITERS_PERSIST which is supposed to let us
-        # do something like that, but as part of a grand practical joke the iter passed in
-        # to this method is different from the iter used everywhere else, and is useless
-        # once this method returns. Instead, create a TreeRowReference and work backwards
-        # from that using paths any time we need to reference the store.
-        self._repo_checks[repo.repo_id] = \
-            RepoChecks(InputCheckHandler.add_check(self,
-                                                   repo.repo_id,
-                                                   self._check_repo_name,
-                                                   Gtk.TreeRowReference.new(model, path)),
-                       InputCheckHandler.add_check(self,
-                                                   repo.repo_id,
-                                                   self._check_repo_url,
-                                                   Gtk.TreeRowReference.new(model, path)),
-                       InputCheckHandler.add_check(self,
-                                                   repo.repo_id,
-                                                   self._check_repo_proxy,
-                                                   Gtk.TreeRowReference.new(model, path)))
-
-    def on_repoProtocolComboBox_changed(self, combobox, user_data=None):
-        # Set the url type and proxy fields sensitivity depending on whether NFS was selected
-        protocol = self._repo_protocol_combo_box.get_active_id()
-
-        can_have_proxy = protocol in (PROTOCOL_HTTP, PROTOCOL_HTTPS, PROTOCOL_FTP,
-                                      PROTOCOL_MIRROR)
-        fancy_set_sensitive(self._repo_proxy_url_entry, can_have_proxy)
-        fancy_set_sensitive(self._repo_proxy_username_entry, can_have_proxy)
-        fancy_set_sensitive(self._repo_proxy_password_entry, can_have_proxy)
-
-        can_have_mirror = protocol in (PROTOCOL_HTTP, PROTOCOL_HTTPS)
-        fancy_set_sensitive(self._repo_url_type_combo_box, can_have_mirror)
-
-        can_be_edited = protocol != PROTOCOL_FILE
-        fancy_set_sensitive(self._repo_url_entry, can_be_edited)
-
-        # Re-run the proxy check
-        itr = self._repo_selection.get_selected()[1]
-        if itr:
-            repo = self._repo_store[itr][REPO_OBJ]
-            # do not update check status if check are not yet set up
-            # (populationg/refreshing the spoke)
-            if repo.repo_id in self._repo_checks:
-                self._repo_checks[repo.repo_id].proxy_check.update_check_status()
-
-        # Run the URL entry handler too as it might be needed
-        self._repo_url_entry.emit("changed")
+    def _remove_treeinfo_repositories(self):
+        """Remove repositories loaded from the .treeinfo file."""
+        self._additional_repositories.remove_treeinfo_repos()

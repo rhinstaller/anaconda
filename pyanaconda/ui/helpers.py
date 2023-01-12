@@ -301,20 +301,6 @@ class InputCheckHandler(object, metaclass=ABCMeta):
         self._check_list.append(checkRef)
         return checkRef
 
-    def remove_check(self, inputcheck):
-        """Remove an input check.
-
-           If the check being removed is not in the OK status, the status will
-           be set to CHECK_OK and set_status will be called.
-
-           :param inputcheck InputCheck: the InputCheck object to remove
-           :raise ValueError: if the inputcheck does not exist for this InputCheckHandler
-        """
-        self._check_list.remove(inputcheck)
-        if inputcheck.check_status != InputCheck.CHECK_OK:
-            inputcheck._check_status = InputCheck.CHECK_OK
-            self.set_status(inputcheck)
-
     @property
     def failed_checks(self):
         """A generator of all failed input checks"""
