@@ -67,7 +67,19 @@ class SSLConfigurationData(DBusData):
 
         :rtype: bool
         """
-        return not any([self._ca_cert_path, self._client_cert_path, self._client_key_path])
+        return not any([
+            self._ca_cert_path,
+            self._client_cert_path,
+            self._client_key_path]
+        )
+
+    def __repr__(self):
+        """Convert this data object to a string."""
+        if not self.is_empty():
+            return super().__repr__()
+
+        # Don't list attributes if none of them are set.
+        return "{}()".format(self.__class__.__name__)
 
 
 class RepoConfigurationData(DBusData):
