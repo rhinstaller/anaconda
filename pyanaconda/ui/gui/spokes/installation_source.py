@@ -413,6 +413,11 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         payloadMgr.failed_signal.connect(self._on_payload_failed)
         payloadMgr.succeeded_signal.connect(self._on_payload_succeeded)
 
+        # It is possible that the payload manager is finished by now. In that case,
+        # trigger the failed callback manually to set up the error messages.
+        if not payloadMgr.is_running and not self.payload.report.is_valid():
+            self._on_payload_failed()
+
         # Report progress messages of the payload manager.
         payloadMgr.progress_changed_signal.connect(self._on_payload_progress_changed)
 
