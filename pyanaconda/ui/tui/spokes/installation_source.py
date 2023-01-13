@@ -18,7 +18,6 @@
 #
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.payload import parse_nfs_url
-from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
@@ -35,7 +34,8 @@ from pyanaconda.ui.lib.payload import find_potential_hdiso_sources, get_hdiso_so
     get_hdiso_source_description
 
 from pyanaconda.core.constants import THREAD_SOURCE_WATCHER, THREAD_PAYLOAD, PAYLOAD_TYPE_DNF, \
-    SOURCE_TYPE_URL, SOURCE_TYPE_NFS, SOURCE_TYPE_HMC
+    SOURCE_TYPE_URL, SOURCE_TYPE_NFS, SOURCE_TYPE_HMC, PAYLOAD_STATUS_SETTING_SOURCE, \
+    PAYLOAD_STATUS_INVALID_SOURCE
 from pyanaconda.core.constants import THREAD_STORAGE_WATCHER
 from pyanaconda.core.constants import THREAD_CHECK_SOFTWARE, ISO_DIR, DRACUT_ISODIR
 from pyanaconda.core.constants import PAYLOAD_STATUS_PROBING_STORAGE
@@ -125,22 +125,20 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
 
     @property
     def status(self):
-        if self._error:
-            return _("Error setting up software source")
-        elif not self.ready:
-            return _("Processing...")
-        elif not self.payload.is_complete():
-            return _("Nothing selected")
-        else:
-            source_proxy = self.payload.get_source_proxy()
-            return source_proxy.Description
+        """The status of the spoke."""
+        if not self.ready:
+            return _(PAYLOAD_STATUS_SETTING_SOURCE)
+
+        if not self.completed:
+            return _(PAYLOAD_STATUS_INVALID_SOURCE)
+
+        source_proxy = self.payload.get_source_proxy()
+        return source_proxy.Description
 
     @property
     def completed(self):
-        if flags.automatedInstall and self.ready and not self.payload.is_ready():
-            return False
-
-        return not self._error and self.ready and self.payload.is_complete()
+        """Is the spoke complete?"""
+        return self.ready and not self._error and self.payload.is_ready()
 
     def refresh(self, args=None):
         NormalTUISpoke.refresh(self, args)

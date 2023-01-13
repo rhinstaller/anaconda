@@ -25,7 +25,8 @@ from pyanaconda.core import constants
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, SOURCE_TYPE_HDD, SOURCE_TYPE_URL, \
     SOURCE_TYPE_CDROM, SOURCE_TYPE_NFS, SOURCE_TYPE_HMC, URL_TYPE_BASEURL, \
-    SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN, PAYLOAD_STATUS_SETTING_SOURCE
+    SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN, PAYLOAD_STATUS_SETTING_SOURCE, \
+    PAYLOAD_STATUS_INVALID_SOURCE, PAYLOAD_STATUS_CHECKING_SOFTWARE
 from pyanaconda.core.i18n import _, CN_
 from pyanaconda.core.payload import parse_nfs_url, create_nfs_url
 from pyanaconda.core.regexes import URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
@@ -260,16 +261,16 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
     @property
     def completed(self):
-        """ WARNING: This can be called before _initialize is done, make sure that it
-            doesn't access things that are not setup (eg. payload.*) until it is ready
+        """Is the spoke complete?
+
+        WARNING: This can be called before _initialize is done, make sure that it
+        doesn't access things that are not setup (eg. payload.*) until it is ready
         """
         source_proxy = self.payload.get_source_proxy()
         if source_proxy.Type == SOURCE_TYPE_CDN:
             return True
-        elif flags.automatedInstall and self.ready and not self.payload.is_ready():
-            return False
 
-        return not self._error and self.ready and self.payload.is_complete()
+        return self.ready and not self._error and self.payload.is_ready()
 
     @property
     def mandatory(self):
@@ -309,22 +310,22 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         # will be displayed.
         source_proxy = self.payload.get_source_proxy()
         cdn_source = source_proxy.Type == SOURCE_TYPE_CDN
+
         if cdn_source and not self.subscribed:
             source_proxy = self.payload.get_source_proxy()
             return source_proxy.Description
-        elif threadMgr.get(constants.THREAD_CHECK_SOFTWARE):
-            return _("Checking software dependencies...")
-        elif not self.ready:
+
+        if threadMgr.get(constants.THREAD_CHECK_SOFTWARE):
+            return _(PAYLOAD_STATUS_CHECKING_SOFTWARE)
+
+        if not self.ready:
             return _(PAYLOAD_STATUS_SETTING_SOURCE)
-        elif not self.payload.is_ready():
-            return _("Error setting up base repository")
-        elif self._error:
-            return _("Error setting up software source")
-        elif not self.payload.is_complete():
-            return _("Nothing selected")
-        else:
-            source_proxy = self.payload.get_source_proxy()
-            return source_proxy.Description
+
+        if not self.completed:
+            return _(PAYLOAD_STATUS_INVALID_SOURCE)
+
+        source_proxy = self.payload.get_source_proxy()
+        return source_proxy.Description
 
     def _get_device_name(self, device_spec):
         devices = device_matches(device_spec)

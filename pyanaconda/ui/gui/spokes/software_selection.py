@@ -20,7 +20,7 @@ import sys
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, THREAD_SOFTWARE_WATCHER, THREAD_PAYLOAD, \
-    THREAD_CHECK_SOFTWARE
+    THREAD_CHECK_SOFTWARE, PAYLOAD_STATUS_CHECKING_SOFTWARE
 from pyanaconda.core.i18n import _, C_, CN_
 from pyanaconda.core.util import ipmi_abort
 from pyanaconda.flags import flags
@@ -316,7 +316,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         ))
 
     def _check_software_selection(self):
-        hubQ.send_message(self.__class__.__name__, _("Checking software dependencies..."))
+        hubQ.send_message(self.__class__.__name__, _(PAYLOAD_STATUS_CHECKING_SOFTWARE))
         self.payload.bump_tx_id()
 
         # Run the validation task.

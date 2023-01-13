@@ -305,10 +305,6 @@ class DNFPayload(Payload):
         return repo_id == constants.BASE_REPO_NAME \
             or repo_id in constants.DEFAULT_REPOS
 
-    def is_complete(self):
-        """Is the payload complete?"""
-        return self.source_type not in SOURCE_REPO_FILE_TYPES or self.is_ready()
-
     def unsetup(self):
         self._dnf_manager.reset_base()
         tear_down_sources(self.proxy)

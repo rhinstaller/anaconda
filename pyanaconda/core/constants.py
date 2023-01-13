@@ -267,6 +267,8 @@ X_DISPLAY_NUMBER = 1
 # Payload status messages
 PAYLOAD_STATUS_PROBING_STORAGE = N_("Probing storage...")
 PAYLOAD_STATUS_SETTING_SOURCE = N_("Setting up installation source...")
+PAYLOAD_STATUS_INVALID_SOURCE = N_("Error setting up repositories")
+PAYLOAD_STATUS_CHECKING_SOFTWARE = N_("Checking software dependencies...")
 
 # Window title text
 WINDOW_TITLE_TEXT = N_("Anaconda Installer")
