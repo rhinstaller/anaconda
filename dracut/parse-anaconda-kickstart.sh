@@ -21,7 +21,7 @@ rm -f /tmp/ks_urls
 getargbool 0 inst.ks.all && kickstart="urls"
 
 case "${kickstart%%:*}" in
-    http|https|ftp|nfs|nfs4) # network kickstart? set "neednet"!
+    http|https|ftp|nfs|nfs4|tftp) # network kickstart? set "neednet"!
         set_neednet
     ;;
     urls) # multiple network kickstarts?

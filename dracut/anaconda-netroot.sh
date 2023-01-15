@@ -68,7 +68,7 @@ case $repo in
             anaconda_live_root_dir "$repodir" "$iso"
         fi
     ;;
-    http*|ftp*)
+    http*|ftp*|tftp*)
         info "anaconda: stage2 locations are: $repo"
         anaconda_net_root "$repo"
     ;;

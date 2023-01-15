@@ -7,7 +7,7 @@ updates=$anac_updates
 [ -n "$updates" ] || return
 case $updates in
     # updates=<url>: handled by livenet's fetch-liveupdate.sh
-    http*|ftp*|nfs*)
+    http*|ftp*|nfs*|tftp*)
         wait_for_updates
     ;;
     # updates=<disk>:<path>

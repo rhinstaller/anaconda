@@ -4,7 +4,7 @@
 . /lib/anaconda-lib.sh
 
 case "${kickstart%%:*}" in
-    http|https|ftp|nfs|urls)
+    http|https|ftp|nfs|tftp|urls)
         # handled by fetch-kickstart-net in the online hook
         wait_for_kickstart
     ;;
