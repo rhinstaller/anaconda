@@ -28,7 +28,7 @@ export const helpStorageOptions = (
         </Text>
         <Text component={TextVariants.p}>
             {_("If you need to configure additional local storage devices, refresh the " +
-            "page using the refresh icon. All detected disks, including any new ones, " +
+            "device list using the Detect disks button. All detected disks, including any new ones, " +
             "will be displayed in the Local Standard Disks section.")}
         </Text>
         <Text>
