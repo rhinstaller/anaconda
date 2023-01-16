@@ -93,10 +93,19 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
         NormalTUISpoke.initialize(self)
         self.initialize_start()
 
-        threadMgr.add(AnacondaThread(name=THREAD_SOURCE_WATCHER,
-                                     target=self._initialize))
-
+        # Register callbacks to signals of the payload manager.
         payloadMgr.failed_signal.connect(self._on_payload_failed)
+
+        # It is possible that the payload manager is finished by now. In that case,
+        # trigger the failed callback manually to set up the error messages.
+        if not payloadMgr.is_running and not self.payload.report.is_valid():
+            self._on_payload_failed()
+
+        # Finish the initialization.
+        threadMgr.add(AnacondaThread(
+            name=THREAD_SOURCE_WATCHER,
+            target=self._initialize
+        ))
 
     def _initialize(self):
         """ Private initialize. """
