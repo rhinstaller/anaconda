@@ -801,7 +801,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         # the newly enabled button as well as the previously enabled (now
         # disabled) button.
         self._on_source_toggled(button, relatedBox)
-        self._remove_treeinfo_repositories()
+        self._additional_repositories.remove_treeinfo_repositories()
 
     def _on_source_toggled(self, button, relatedBox):
         enabled = button.get_active()
@@ -858,7 +858,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             button.set_label(os.path.basename(iso_file))
             button.set_use_underline(False)
             self._verify_iso_button.set_sensitive(True)
-            self._remove_treeinfo_repositories()
+            self._additional_repositories.remove_treeinfo_repositories()
 
     def on_proxy_clicked(self, button):
         dialog = ProxyDialog(self.data, self._proxy_url)
@@ -906,7 +906,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
     def on_protocol_changed(self, combo):
         self._on_protocol_changed()
-        self._remove_treeinfo_repositories()
+        self._additional_repositories.remove_treeinfo_repositories()
 
     def _on_protocol_changed(self):
         # Only allow the URL entry to be used if we're using an HTTP/FTP
@@ -951,7 +951,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
     def on_urlEntry_changed(self, editable, data=None):
         # Check for and remove a URL prefix that matches the protocol dropdown
         self._on_urlEtry_changed(editable)
-        self._remove_treeinfo_repositories()
+        self._additional_repositories.remove_treeinfo_repositories()
 
     def _on_urlEtry_changed(self, editable):
         self._remove_url_prefix(editable, self._protocol_combo_box, self.on_urlEntry_changed)
@@ -961,7 +961,3 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         active = self._updates_radio_button.get_active()
         self._updates_enabled = active
         self._updates_change = True
-
-    def _remove_treeinfo_repositories(self):
-        """Remove repositories loaded from the .treeinfo file."""
-        self._additional_repositories.remove_treeinfo_repos()

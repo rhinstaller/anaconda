@@ -536,8 +536,11 @@ class AdditionalRepositoriesSection(GUIObject):
         self._repo_store.remove(itr)
         self.validate()
 
-    def remove_treeinfo_repos(self):
+    def remove_treeinfo_repositories(self):
         """Remove repositories loaded from the .treeinfo file."""
+        if not len(self._repo_store) > 0:
+            return
+
         log.debug("Removing treeinfo repositories...")
         itr = self._repo_store.get_iter_first()
 
