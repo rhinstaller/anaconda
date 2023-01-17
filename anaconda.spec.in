@@ -464,6 +464,24 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 17 2023 github-actions <github-actions@github.com> - 38.16-1
+- UI: Show error messages if the payload setup finishes early (vponcova)
+- Fix disk refresh reference for storage screen help (mkolman)
+- GUI: Don't try to remove treeinfo repositories if there are none (vponcova)
+- Remove the InputCheckHandler.remove_check method (vponcova)
+- Remove the GUIInputCheckHandler.can_go_back_focus_if_not method (vponcova)
+- Remove the RepoData.repo_id attribute (vponcova)
+- Remove the RepoData.create_copy method (vponcova)
+- Remove the id_generator function (vponcova)
+- Remove the cmp_obj_attrs function (vponcova)
+- GUI: Improve configuration of additional repositories (vponcova)
+- Don't require a specific nfs format during the payload setup (vponcova)
+- Handle invalid protocols during the payload setup (vponcova)
+- Show error messages and warnings from the payload setup (vponcova)
+- Reorganize the parse_nfs_url function (vponcova)
+- Don't list attributes of SSLConfigurationData if empty (vponcova)
+- Fix up a quote escaping in release-periodically workflow. (rvykydal)
+
 * Tue Jan 10 2023 github-actions <github-actions@github.com> - 38.15-1
 - webui: update obsolete comment (rvykydal)
 - webui: pin down tag for fetching cockpit's test library (kkoukiou)
