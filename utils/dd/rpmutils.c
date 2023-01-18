@@ -81,7 +81,7 @@ int init_rpm() {
 
 /* read data from RPM header */
 
-const char * headerGetString(Header h, rpmTag tag)
+const char * headerGetString(Header h, rpmTagVal tag)
 {
     const char *res = NULL;
     struct rpmtd_s td;

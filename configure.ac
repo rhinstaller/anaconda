@@ -89,12 +89,8 @@ PKG_CHECK_MODULES([PYTHON3], [python3], [], ANACONDA_SOFT_FAILURE([Unable to fin
 ANACONDA_PKG_CHECK_MODULES([RPM], [rpm >= 4.10.0])
 ANACONDA_PKG_CHECK_MODULES([LIBARCHIVE], [libarchive >= 3.0.4])
 
-# GCC likes to bomb out on some ridiculous warnings.  Add your favorites
-# here.
-SHUT_UP_GCC="-Wno-unused-result"
-
 # Add remaining compiler flags we want to use
-CFLAGS="$CFLAGS -Wall -Werror $SHUT_UP_GCC -fanalyzer"
+CFLAGS="$CFLAGS -Wall -Werror -fanalyzer"
 
 # Localization specific settings (used in main and po Makefile.am)
 AC_SUBST(L10N_REPOSITORY, [https://github.com/rhinstaller/anaconda-l10n.git])
