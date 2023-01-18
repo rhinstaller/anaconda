@@ -17,20 +17,16 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.constants import GROUP_REQUIRED, GROUP_ALL, KS_MISSING_IGNORE, KS_BROKEN_IGNORE, \
-    GROUP_DEFAULT
-
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import RPM_LANGUAGES_NONE, MULTILIB_POLICY_ALL, \
-    DNF_DEFAULT_TIMEOUT, DNF_DEFAULT_RETRIES, GROUP_PACKAGE_TYPES_ALL, \
-    GROUP_PACKAGE_TYPES_REQUIRED, RPM_LANGUAGES_ALL
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData, \
     PackagesSelectionData
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.kickstart import convert_ks_repo_to_repo_data, \
-    convert_repo_data_to_ks_repo
+    convert_repo_data_to_ks_repo, convert_ks_data_to_packages_selection, \
+    convert_packages_selection_to_ksdata, convert_ks_data_to_packages_configuration, \
+    convert_packages_configuration_to_ksdata
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
 from pyanaconda.modules.payloads.source.factory import SourceFactory
@@ -172,8 +168,7 @@ class DNFModule(PayloadBase):
         """Process the kickstart data."""
         self._process_kickstart_sources(data)
         self._process_kickstart_repositories(data)
-        self._process_kickstart_packages_selection(data)
-        self._process_kickstart_packages_configuration(data)
+        self._process_kickstart_packages(data)
 
     def _process_kickstart_sources(self, data):
         """Process the kickstart sources."""
@@ -194,78 +189,20 @@ class DNFModule(PayloadBase):
         ))
         self.set_repositories(repositories)
 
-    def _process_kickstart_packages_selection(self, data):
-        """Process the kickstart packages selection."""
-        selection = PackagesSelectionData()
-        selection.core_group_enabled = not data.packages.nocore
-        selection.default_environment_enabled = data.packages.default
-
-        if data.packages.environment is not None:
-            selection.environment = data.packages.environment
-
-        selection.packages = data.packages.packageList
-        selection.excluded_packages = data.packages.excludedList
-
-        for group in data.packages.groupList:
-            selection.groups.append(group.name)
-
-            if group.include == GROUP_ALL:
-                selection.groups_package_types[group.name] = GROUP_PACKAGE_TYPES_ALL
-
-            if group.include == GROUP_REQUIRED:
-                selection.groups_package_types[group.name] = GROUP_PACKAGE_TYPES_REQUIRED
-
-        for group in data.packages.excludedGroupList:
-            selection.excluded_groups.append(group.name)
-
-        for module in data.module.dataList():
-            name = module.name
-
-            if module.stream:
-                name += ":" + module.stream
-
-            if module.enable:
-                selection.modules.append(name)
-            else:
-                selection.disabled_modules.append(name)
-
+    def _process_kickstart_packages(self, data):
+        """Process the kickstart packages."""
+        selection = convert_ks_data_to_packages_selection(data)
         self.set_packages_selection(selection)
         self.set_packages_kickstarted(data.packages.seen)
 
-    def _process_kickstart_packages_configuration(self, data):
-        """Process the kickstart packages configuration."""
-        configuration = PackagesConfigurationData()
-        configuration.docs_excluded = data.packages.excludeDocs
-        configuration.weakdeps_excluded = data.packages.excludeWeakdeps
-
-        if data.packages.handleMissing == KS_MISSING_IGNORE:
-            configuration.missing_ignored = True
-
-        if data.packages.handleBroken == KS_BROKEN_IGNORE:
-            configuration.broken_ignored = True
-
-        if data.packages.instLangs == "":
-            configuration.languages = RPM_LANGUAGES_NONE
-        elif data.packages.instLangs is not None:
-            configuration.languages = data.packages.instLangs
-
-        if data.packages.multiLib:
-            configuration.multilib_policy = MULTILIB_POLICY_ALL
-
-        if data.packages.timeout is not None:
-            configuration.timeout = data.packages.timeout
-
-        if data.packages.retries is not None:
-            configuration.retries = data.packages.retries
-
+        configuration = convert_ks_data_to_packages_configuration(data)
         self.set_packages_configuration(configuration)
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
         self._set_up_kickstart_sources(data)
         self._set_up_kickstart_repositories(data)
-        self._set_up_kickstart_packages_selection(data)
-        self._set_up_kickstart_packages_configuration(data)
+        self._set_up_kickstart_packages(data)
 
     def _set_up_kickstart_sources(self, data):
         """Set up the kickstart sources."""
@@ -283,89 +220,10 @@ class DNFModule(PayloadBase):
             enabled_repositories
         ))
 
-    def _set_up_kickstart_packages_selection(self, data):
+    def _set_up_kickstart_packages(self, data):
         """Set up the kickstart packages selection."""
-        selection = self.packages_selection
-
-        # The empty packages section won't be printed without seen set to True.
-        data.packages.seen = True
-        data.packages.nocore = not selection.core_group_enabled
-        data.packages.default = selection.default_environment_enabled
-
-        if selection.environment:
-            data.packages.environment = selection.environment
-
-        data.packages.packageList = selection.packages
-        data.packages.excludedList = selection.excluded_packages
-
-        for group_name in selection.groups:
-            package_types = selection.groups_package_types.get(
-                group_name, []
-            )
-            group_include = GROUP_DEFAULT
-
-            if set(package_types) == set(GROUP_PACKAGE_TYPES_ALL):
-                group_include = GROUP_ALL
-
-            if set(package_types) == set(GROUP_PACKAGE_TYPES_REQUIRED):
-                group_include = GROUP_REQUIRED
-
-            group = data.packages.create_group(
-                name=group_name,
-                include=group_include
-            )
-            data.packages.groupList.append(group)
-
-        for group_name in selection.excluded_groups:
-            group = data.packages.create_group(
-                name=group_name
-            )
-            data.packages.excludedGroupList.append(group)
-
-        for name in selection.modules:
-            self._set_up_kickstart_module_data(data, name)
-
-        for name in selection.disabled_modules:
-            self._set_up_kickstart_module_data(data, name, False)
-
-    @staticmethod
-    def _set_up_kickstart_module_data(data, name, enabled=True):
-        """Set up the kickstart data for the module command."""
-        names = name.split(":", maxsplit=1) + [""]
-
-        module = data.ModuleData()
-        module.name = names[0]
-        module.stream = names[1]
-        module.enable = enabled
-
-        data.module.dataList().append(module)
-
-    def _set_up_kickstart_packages_configuration(self, data):
-        """Set up the kickstart packages configuration."""
-        configuration = self.packages_configuration
-
-        data.packages.excludeDocs = configuration.docs_excluded
-        data.packages.excludeWeakdeps = configuration.weakdeps_excluded
-
-        if configuration.missing_ignored:
-            data.packages.handleMissing = KS_MISSING_IGNORE
-
-        if configuration.broken_ignored:
-            data.packages.handleBroken = KS_BROKEN_IGNORE
-
-        if configuration.languages == RPM_LANGUAGES_NONE:
-            data.packages.instLangs = ""
-        elif configuration.languages != RPM_LANGUAGES_ALL:
-            data.packages.instLangs = configuration.languages
-
-        if configuration.multilib_policy == MULTILIB_POLICY_ALL:
-            data.packages.multiLib = True
-
-        if configuration.timeout != DNF_DEFAULT_TIMEOUT:
-            data.packages.timeout = configuration.timeout
-
-        if configuration.retries != DNF_DEFAULT_RETRIES:
-            data.packages.retries = configuration.retries
+        convert_packages_selection_to_ksdata(self.packages_selection, data)
+        convert_packages_configuration_to_ksdata(self.packages_configuration, data)
 
     def get_repo_configurations(self):
         """Get RepoConfiguration structures for all sources.
