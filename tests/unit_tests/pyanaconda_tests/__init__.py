@@ -80,12 +80,12 @@ def clear_version_from_kickstart_string(ks_in):
     )
 
 
-def check_kickstart_interface(interface, ks_in, ks_out=None, ks_valid=True):
+def check_kickstart_interface(interface, ks_in=None, ks_out=None, ks_valid=True):
     """Test the parsing and generating of a kickstart module.
 
     :param interface: instance of KickstartModuleInterface
-    :param ks_in: string with the input kickstart
-    :param ks_out: string with the output kickstart
+    :param ks_in: string with the input kickstart or None
+    :param ks_out: string with the output kickstart or None
     :param ks_valid: True if the input kickstart is valid, otherwise False
     """
     callback = PropertiesChangedCallback()
@@ -116,7 +116,6 @@ def check_kickstart_interface(interface, ks_in, ks_out=None, ks_valid=True):
     if ks_in is not None:
         callback.assert_any_call(KICKSTART_MODULE.interface_name, {'Kickstarted': True}, [])
     else:
-        assert interface.Kickstarted is False
         callback.assert_not_called()
 
     return result

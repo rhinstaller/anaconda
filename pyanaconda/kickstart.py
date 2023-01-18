@@ -181,27 +181,6 @@ class UselessObject(KickstartObject):
         """Generate this part of a kickstart file from the DBus module."""
         return ""
 
-
-class RepoData(COMMANDS.RepoData):
-
-    def __init__(self, *args, **kwargs):
-        """ Add enabled kwarg
-
-            :param enabled: The repo has been enabled
-            :type enabled: bool
-        """
-        self.enabled = kwargs.pop("enabled", True)
-        self.treeinfo_origin = kwargs.pop("treeinfo_origin", False)
-        super().__init__(*args, **kwargs)
-
-    def __str__(self):
-        """Don't output disabled repos"""
-        if self.enabled:
-            return super().__str__()
-        else:
-            return ''
-
-
 ###
 ### HANDLERS
 ###
@@ -223,7 +202,6 @@ class AnacondaKickstartSpecification(KickstartSpecification):
         "method": COMMANDS.Method,
         "poweroff": COMMANDS.Reboot,
         "reboot": COMMANDS.Reboot,
-        "repo": COMMANDS.Repo,
         "rescue": COMMANDS.Rescue,
         "shutdown": COMMANDS.Reboot,
         "sshpw": COMMANDS.SshPw,
@@ -234,7 +212,6 @@ class AnacondaKickstartSpecification(KickstartSpecification):
 
     commands_data = {
         "DriverDiskData": COMMANDS.DriverDiskData,
-        "RepoData": RepoData,
         "SshPwData": COMMANDS.SshPwData,
     }
 

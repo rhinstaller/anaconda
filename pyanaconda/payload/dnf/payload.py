@@ -24,8 +24,6 @@ from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData, \
     PackagesSelectionData
 from pyanaconda.modules.common.structures.validation import ValidationReport
-from pyanaconda.modules.payloads.kickstart import convert_ks_repo_to_repo_data, \
-    convert_repo_data_to_ks_repo
 from pyanaconda.modules.payloads.payload.dnf.initialization import configure_dnf_logging
 from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
     SetRPMMacrosTask, DownloadPackagesTask, InstallPackagesTask, PrepareDownloadLocationTask, \
@@ -47,13 +45,13 @@ from pyanaconda.core import constants
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, \
     SOURCE_TYPE_URL, SOURCE_TYPE_CDROM, URL_TYPE_BASEURL, SOURCE_REPO_FILE_TYPES, \
-    SOURCE_TYPE_CDN, MULTILIB_POLICY_ALL, REPO_ORIGIN_SYSTEM, SOURCE_TYPE_CLOSEST_MIRROR
+    SOURCE_TYPE_CDN, MULTILIB_POLICY_ALL, REPO_ORIGIN_SYSTEM, SOURCE_TYPE_CLOSEST_MIRROR, \
+    REPO_ORIGIN_TREEINFO
 from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import parse_hdd_url
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
-from pyanaconda.modules.payloads.source.utils import has_network_protocol
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload.image import find_optical_install_media
@@ -155,17 +153,27 @@ class DNFPayload(Payload):
 
     def _set_additional_repos_from_opts(self, opts):
         """Set additional repositories based on the Anaconda options."""
+        repositories = self.get_repo_configurations()
+        existing_names = {r.name for r in repositories}
+        additional_repositories = []
+
         for repo_name, repo_url in opts.addRepo:
+            # Check the name of the repository.
+            is_unique = repo_name not in existing_names
+
+            if not is_unique:
+                log.warning("Repository name %s is not unique. Only the first repo will "
+                            "be used!", repo_name)
+                continue
+
+            # Parse the URL of the repository.
             try:
                 source = SourceFactory.parse_repo_cmdline_string(repo_url)
             except PayloadSourceTypeUnrecognized:
                 log.error("Type for additional repository %s is not recognized!", repo_url)
-                return
+                continue
 
-            if self.get_addon_repo(repo_name):
-                log.warning("Repository name %s is not unique. Only the first "
-                            "repo will be used!", repo_name)
-
+            # Check the source type of the repository.
             is_supported = source.is_nfs \
                 or source.is_http \
                 or source.is_https \
@@ -178,21 +186,30 @@ class DNFPayload(Payload):
                           source.source_type.value, repo_url)
                 continue
 
-            repo = RepoConfigurationData()
-            repo.name = repo_name
-            repo.enabled = True
-            repo.type = URL_TYPE_BASEURL
-            repo.url = repo_url
-            repo.installation_enabled = False
+            # Generate the configuration data for the new repository.
+            data = RepoConfigurationData()
+            data.name = repo_name
+            data.url = repo_url
 
-            ks_repo = convert_repo_data_to_ks_repo(repo)
-            self.data.repo.dataList().append(ks_repo)
+            existing_names.add(data.name)
+            additional_repositories.append(data)
+
+        if not additional_repositories:
+            return
+
+        repositories.extend(additional_repositories)
+        self.set_repo_configurations(repositories)
 
     def _generate_driver_disk_repositories(self):
         """Append generated driver disk repositories."""
-        for data in generate_driver_disk_repositories():
-            ks_repo = convert_repo_data_to_ks_repo(data)
-            self.data.repo.dataList().append(ks_repo)
+        dd_repositories = generate_driver_disk_repositories()
+
+        if not dd_repositories:
+            return
+
+        repositories = self.get_repo_configurations()
+        repositories.extend(dd_repositories)
+        self.set_repo_configurations(repositories)
 
     def _set_packages_from_opts(self, opts):
         """Configure packages based on the Anaconda options."""
@@ -225,11 +242,14 @@ class DNFPayload(Payload):
 
     def get_repo_configurations(self) -> [RepoConfigurationData]:
         """Get a list of DBus repo configurations."""
-        return list(map(convert_ks_repo_to_repo_data, self.data.repo.dataList()))
+        return RepoConfigurationData.from_structure_list(
+            self.proxy.Repositories
+        )
 
     def set_repo_configurations(self, data_list: [RepoConfigurationData]):
         """Set a list of DBus repo configurations."""
-        self.data.repo.repoList = list(map(convert_repo_data_to_ks_repo, data_list))
+        self.proxy.Repositories = \
+            RepoConfigurationData.to_structure_list(data_list)
 
     def get_packages_configuration(self) -> PackagesConfigurationData:
         """Get the DBus data with the packages configuration."""
@@ -295,33 +315,8 @@ class DNFPayload(Payload):
 
     @property
     def needs_network(self):
-        """Test base and additional repositories if they require network."""
-        return (self.service_proxy.IsNetworkRequired() or
-                any(self._repo_needs_network(repo) for repo in self.data.repo.dataList()))
-
-    def _repo_needs_network(self, repo):
-        """Returns True if the ksdata repo requires networking."""
-        urls = [repo.baseurl]
-        if repo.mirrorlist:
-            urls.extend(repo.mirrorlist)
-        elif repo.metalink:
-            urls.extend(repo.metalink)
-        return self._source_needs_network(urls)
-
-    def _source_needs_network(self, sources):
-        """Return True if the source requires network.
-
-        :param sources: Source paths for testing
-        :type sources: list
-        :returns: True if any source requires network
-        """
-        for s in sources:
-            if has_network_protocol(s):
-                log.debug("Source %s needs network for installation", s)
-                return True
-
-        log.debug("Source doesn't require network for installation")
-        return False
+        """Do the sources require a network?"""
+        return self.service_proxy.IsNetworkRequired()
 
     def bump_tx_id(self):
         if self.tx_id is None:
@@ -350,16 +345,6 @@ class DNFPayload(Payload):
     ###
     # METHODS FOR WORKING WITH REPOSITORIES
     ###
-
-    def get_addon_repo(self, repo_id):
-        """Return a ksdata Repo instance matching the specified repo id."""
-        repo = None
-        for r in self.data.repo.dataList():
-            if r.name == repo_id:
-                repo = r
-                break
-
-        return repo
 
     def _handle_system_repository(self, data):
         """Handle a system repository.
@@ -690,9 +675,7 @@ class DNFPayload(Payload):
 
     def _include_additional_repositories(self):
         """Add additional repositories to DNF."""
-        for ks_repo in self.data.repo.dataList():
-            # Convert the repository.
-            data = convert_ks_repo_to_repo_data(ks_repo)
+        for data in self.get_repo_configurations():
             log.debug("Add the '%s' repository (%s).", data.name, data)
 
             # A system repository can be only enabled or disabled.
@@ -733,13 +716,6 @@ class DNFPayload(Payload):
         log.debug("Reload treeinfo metadata.")
         base_repo_url = None
 
-        # Remove previous treeinfo repositories.
-        removed_repos = self._remove_treeinfo_repositories()
-        disabled_names = [r.name for r in removed_repos if not r.enabled]
-
-        # Collect URLs of existing repositories.
-        existing_urls = [r.baseurl for r in self.data.repo.dataList() if r.baseurl]
-
         try:
             # Load the treeinfo metadata.
             tree_info_metadata = TreeInfoMetadata()
@@ -752,7 +728,6 @@ class DNFPayload(Payload):
 
             # Get the new base repo URL.
             base_repo_url = tree_info_metadata.get_base_repo_url()
-            existing_urls.append(base_repo_url)
 
             # Add the treeinfo repositories.
             repositories = generate_treeinfo_repositories(
@@ -760,28 +735,50 @@ class DNFPayload(Payload):
                 tree_info_metadata
             )
 
-            self._add_treeinfo_repositories(
-                repositories=repositories,
-                disabled_names=disabled_names,
-                existing_urls=existing_urls,
+            self._update_treeinfo_repositories(
+                treeinfo_repositories=repositories,
+                existing_urls=[base_repo_url],
             )
         except NoTreeInfoError as e:
             log.debug("No treeinfo metadata to use: %s", str(e))
+            self._remove_treeinfo_repositories()
+
         except TreeInfoMetadataError as e:
             log.warning("Couldn't use treeinfo metadata: %s", str(e))
+            self._remove_treeinfo_repositories()
 
         return base_repo_url
 
-    def _add_treeinfo_repositories(self, repositories, disabled_names, existing_urls):
+    def _update_treeinfo_repositories(self, treeinfo_repositories, existing_urls):
         """Add the treeinfo repositories.
 
-        :param [RepoConfigurationData] repositories: configuration data of treeinfo repositories
-        :param [str] disabled_names: a list of repository names that should be disabled
+        :param [RepoConfigurationData] treeinfo_repositories: a list of treeinfo repositories
         :param [str] existing_urls: a list of repository URLs that already exist
         """
-        log.debug("Add treeinfo repositories.")
+        log.debug("Update treeinfo repositories...")
 
-        for repo in repositories:
+        # Get the additional repositories.
+        repositories = self.get_repo_configurations()
+
+        # Remember names of disabled treeinfo repositories.
+        disabled_names = [
+            r.name for r in repositories
+            if not r.enabled and r.origin == REPO_ORIGIN_TREEINFO
+        ]
+
+        # Remove the previous treeinfo repositories.
+        log.debug("Remove all treeinfo repositories.")
+
+        repositories = [
+            r for r in repositories
+            if r.origin != REPO_ORIGIN_TREEINFO
+        ]
+
+        # Collect URLs of non-treeinfo repositories.
+        existing_urls += [r.url for r in repositories if r.url]
+
+        # Add the new treeinfo repositories.
+        for repo in treeinfo_repositories:
             # Skip existing repositories.
             if repo.url in existing_urls:
                 continue
@@ -790,49 +787,34 @@ class DNFPayload(Payload):
             if repo.name in disabled_names:
                 repo.enabled = False
 
+            repositories.append(repo)
             log.debug("Add the '%s' treeinfo repository: %s", repo.name, repo)
 
-            # Add the repository to user repositories,
-            # so it'll appear in the output ks file.
-            ks_repo = convert_repo_data_to_ks_repo(repo)
-            self.data.repo.dataList().append(ks_repo)
+        # Set the additional repositories.
+        self.set_repo_configurations(repositories)
 
     def _remove_treeinfo_repositories(self):
         """Remove all old treeinfo repositories before loading new ones.
 
         Find all repositories added from treeinfo file and remove them.
         After this step new repositories will be loaded from the new link.
-
-        :return: list of repositories that were removed
         """
-        log.debug("Remove treeinfo repositories.")
-        removed_repos = []
-
-        for ks_repo in list(self.data.repo.dataList()):
-            if not ks_repo.treeinfo_origin:
-                continue
-
-            self.data.repo.dataList().remove(ks_repo)
-            removed_repos.append(ks_repo)
-
-            log.debug("Removed the '%s' treeinfo repository.", ks_repo.name)
-
-        return removed_repos
+        log.debug("Remove all treeinfo repositories.")
+        repositories = [
+            r for r in self.get_repo_configurations()
+            if r.origin != REPO_ORIGIN_TREEINFO
+        ]
+        self.set_repo_configurations(repositories)
 
     def post_install(self):
         """Perform post-installation tasks."""
         super().post_install()
 
         # Write selected kickstart repos to target system
-        repositories = list(map(
-            convert_ks_repo_to_repo_data,
-            self.data.repo.dataList()
-        ))
-
         task = WriteRepositoriesTask(
             sysroot=conf.target.system_root,
             dnf_manager=self.dnf_manager,
-            repositories=repositories,
+            repositories=self.get_repo_configurations(),
         )
         task.run()
 

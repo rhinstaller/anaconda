@@ -17,10 +17,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.configuration.anaconda import conf
 from pykickstart.constants import GROUP_REQUIRED, GROUP_ALL, KS_MISSING_IGNORE, KS_BROKEN_IGNORE, \
     GROUP_DEFAULT
 
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import RPM_LANGUAGES_NONE, MULTILIB_POLICY_ALL, \
     DNF_DEFAULT_TIMEOUT, DNF_DEFAULT_RETRIES, GROUP_PACKAGE_TYPES_ALL, \
     GROUP_PACKAGE_TYPES_REQUIRED, RPM_LANGUAGES_ALL
@@ -28,19 +29,27 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData, \
     PackagesSelectionData
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
+from pyanaconda.modules.payloads.kickstart import convert_ks_repo_to_repo_data, \
+    convert_repo_data_to_ks_repo
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
 from pyanaconda.modules.payloads.source.factory import SourceFactory
+from pyanaconda.modules.payloads.source.utils import has_network_protocol
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
+
+__all__ = ["DNFModule"]
 
 
 class DNFModule(PayloadBase):
     """The DNF payload module."""
 
     def __init__(self):
+        """Create a DNF module."""
         super().__init__()
+        self._repositories = []
+        self.repositories_changed = Signal()
+
         self._packages_configuration = PackagesConfigurationData()
         self.packages_configuration_changed = Signal()
 
@@ -76,6 +85,39 @@ class DNFModule(PayloadBase):
             SourceType.CDN,
             SourceType.URL
         ]
+
+    def is_network_required(self):
+        """Do the sources and repositories require a network?
+
+        :return: True or False
+        """
+        # Check sources.
+        if super().is_network_required():
+            return True
+
+        # Check repositories.
+        for data in self.repositories:
+            if data.enabled and has_network_protocol(data.url):
+                return True
+
+        return False
+
+    @property
+    def repositories(self):
+        """The configuration of repositories.
+
+        :return [RepoConfigurationData]: a list of repo configurations
+        """
+        return self._repositories
+
+    def set_repositories(self, data):
+        """Set the configuration of repositories.
+
+        :param [RepoConfigurationData] data: a list of repo configurations
+        """
+        self._repositories = data
+        self.repositories_changed.emit()
+        log.debug("Repositories are set to: %s", data)
 
     @property
     def packages_configuration(self):
@@ -129,6 +171,7 @@ class DNFModule(PayloadBase):
     def process_kickstart(self, data):
         """Process the kickstart data."""
         self._process_kickstart_sources(data)
+        self._process_kickstart_repositories(data)
         self._process_kickstart_packages_selection(data)
         self._process_kickstart_packages_configuration(data)
 
@@ -142,6 +185,14 @@ class DNFModule(PayloadBase):
         source = SourceFactory.create_source(source_type)
         source.process_kickstart(data)
         self.add_source(source)
+
+    def _process_kickstart_repositories(self, data):
+        """Process the kickstart repositories."""
+        repositories = list(map(
+            convert_ks_repo_to_repo_data,
+            data.repo.dataList()
+        ))
+        self.set_repositories(repositories)
 
     def _process_kickstart_packages_selection(self, data):
         """Process the kickstart packages selection."""
@@ -212,6 +263,7 @@ class DNFModule(PayloadBase):
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
         self._set_up_kickstart_sources(data)
+        self._set_up_kickstart_repositories(data)
         self._set_up_kickstart_packages_selection(data)
         self._set_up_kickstart_packages_configuration(data)
 
@@ -219,6 +271,17 @@ class DNFModule(PayloadBase):
         """Set up the kickstart sources."""
         for source in self.sources:
             source.setup_kickstart(data)
+
+    def _set_up_kickstart_repositories(self, data):
+        """Set up the kickstart repositories."""
+        # Don't include disabled repositories.
+        enabled_repositories = list(filter(
+            lambda r: r.enabled, self.repositories
+        ))
+        data.repo.repoList = list(map(
+            convert_repo_data_to_ks_repo,
+            enabled_repositories
+        ))
 
     def _set_up_kickstart_packages_selection(self, data):
         """Set up the kickstart packages selection."""

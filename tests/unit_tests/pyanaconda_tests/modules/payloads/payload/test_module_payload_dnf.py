@@ -26,19 +26,23 @@ from pykickstart.version import isRHEL as is_rhel
 from pyanaconda.core.constants import SOURCE_TYPE_CDROM, SOURCE_TYPE_HDD, SOURCE_TYPE_HMC, \
     SOURCE_TYPE_NFS, SOURCE_TYPE_REPO_FILES, SOURCE_TYPE_URL, URL_TYPE_BASEURL, \
     SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN, GROUP_PACKAGE_TYPES_REQUIRED, \
-    GROUP_PACKAGE_TYPES_ALL, MULTILIB_POLICY_ALL, PAYLOAD_TYPE_DNF
+    GROUP_PACKAGE_TYPES_ALL, MULTILIB_POLICY_ALL, PAYLOAD_TYPE_DNF, REPO_ORIGIN_SYSTEM, \
+    REPO_ORIGIN_USER, URL_TYPE_MIRRORLIST, URL_TYPE_METALINK
 from pyanaconda.core.kickstart.specification import KickstartSpecificationHandler
 from pyanaconda.core.kickstart.version import VERSION
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_DNF
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData, \
     PackagesSelectionData
-from pyanaconda.modules.payloads.constants import SourceType, SourceState
+from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
 from pyanaconda.modules.payloads.payloads import PayloadsService
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
+from pyanaconda.modules.payloads.source.cdrom.cdrom import CdromSourceModule
+from pyanaconda.modules.payloads.source.closest_mirror.closest_mirror import \
+    ClosestMirrorSourceModule
 
 from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property
 from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
@@ -66,6 +70,9 @@ class DNFKSTestCase(unittest.TestCase):
             sources = payload.sources
             assert 1 == len(sources)
             assert sources[0].type.value == expected_source_type
+
+    def _test_kickstart(self, ks_in, ks_out, *args, **kwargs):
+        self.shared_ks_tests.check_kickstart(ks_in, ks_out, *args, **kwargs)
 
     def test_cdrom_kickstart(self):
         ks_in = """
@@ -178,6 +185,251 @@ class DNFKSTestCase(unittest.TestCase):
         """
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_URL)
+
+    def test_repo_updates(self):
+        """Test the repo command with enabled updates."""
+        ks_in = """
+        repo --name updates
+        """
+        ks_out = """
+        repo --name="updates" 
+
+        %packages
+
+        %end
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+        payload = self.shared_ks_tests.get_payload()
+        data = payload.repositories[0]
+
+        assert data.origin == REPO_ORIGIN_SYSTEM
+        assert data.type == URL_TYPE_BASEURL
+        assert data.url == ""
+
+    def test_repo_baseurl(self):
+        """Test the repo command with a baseurl."""
+        ks_in = """
+        repo --name test --baseurl http://url
+        """
+        ks_out = """
+        repo --name="test" --baseurl=http://url
+
+        %packages
+
+        %end
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+        payload = self.shared_ks_tests.get_payload()
+        data = payload.repositories[0]
+
+        assert data.origin == REPO_ORIGIN_USER
+        assert data.type == URL_TYPE_BASEURL
+        assert data.url == "http://url"
+
+    def test_repo_mirrorlist(self):
+        """Test the repo command with a mirrorlist."""
+        ks_in = """
+        repo --name test --mirrorlist http://mirror
+        """
+        ks_out = """
+        repo --name="test" --mirrorlist=http://mirror
+
+        %packages
+
+        %end
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+        payload = self.shared_ks_tests.get_payload()
+        data = payload.repositories[0]
+
+        assert data.origin == REPO_ORIGIN_USER
+        assert data.type == URL_TYPE_MIRRORLIST
+        assert data.url == "http://mirror"
+
+    def test_repo_metalink(self):
+        """Test the repo command with a metalink."""
+        ks_in = """
+        repo --name test --metalink http://metalink
+        """
+        ks_out = """
+        repo --name="test"  --metalink=http://metalink
+
+        %packages
+
+        %end
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+        payload = self.shared_ks_tests.get_payload()
+        data = payload.repositories[0]
+
+        assert data.origin == REPO_ORIGIN_USER
+        assert data.type == URL_TYPE_METALINK
+        assert data.url == "http://metalink"
+
+    def test_repo_nfs(self):
+        """Test the repo command with a NFS url."""
+        ks_in = """
+        repo --name test --baseurl nfs://server:path
+        """
+        ks_out = """
+        repo --name="test" --baseurl=nfs://server:path
+
+        %packages
+
+        %end
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+        payload = self.shared_ks_tests.get_payload()
+        data = payload.repositories[0]
+
+        assert data.origin == REPO_ORIGIN_USER
+        assert data.type == URL_TYPE_BASEURL
+        assert data.url == "nfs://server:path"
+
+    def test_repo_proxy(self):
+        """Test the repo command with a proxy configuration."""
+        ks_in = """
+        repo --name test --baseurl http://url  --proxy http://user:pass@example.com:3128
+        """
+        ks_out = """
+        repo --name="test" --baseurl=http://url --proxy="http://user:pass@example.com:3128"
+
+        %packages
+
+        %end
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def test_repo_cost(self):
+        """Test the repo command with a repo cost."""
+        ks_in = """
+        repo --name test --baseurl http://url  --cost 123
+        """
+        ks_out = """
+        repo --name="test" --baseurl=http://url --cost=123
+
+        %packages
+
+        %end
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def test_repo_packages(self):
+        """Test the repo command with includepkgs and excludepkgs."""
+        ks_in = """
+        repo --name test --baseurl http://url --includepkgs p1,p2 --excludepkgs p3,p4
+        """
+        ks_out = """
+        repo --name="test" --baseurl=http://url --includepkgs="p1,p2" --excludepkgs="p3,p4"
+
+        %packages
+
+        %end
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+        payload = self.shared_ks_tests.get_payload()
+        data = payload.repositories[0]
+
+        assert data.included_packages == ["p1", "p2"]
+        assert data.excluded_packages == ["p3", "p4"]
+
+    def test_repo_no_ssl_verification(self):
+        """Test the repo command with disabled ssl verification."""
+        ks_in = """
+        repo --name test --baseurl http://url --noverifyssl
+        """
+        ks_out = """
+        repo --name="test" --baseurl=http://url --noverifyssl
+
+        %packages
+
+        %end
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+        payload = self.shared_ks_tests.get_payload()
+        data = payload.repositories[0]
+
+        assert data.ssl_verification_enabled is False
+
+    def test_repo_ssl_configuration(self):
+        """Test the repo command with enabled ssl verification."""
+        ks_in = """
+        repo --name test --baseurl http://url --sslcacert x.cert --sslclientcert private-x.cert --sslclientkey x.key
+        """
+        ks_out = """
+        repo --name="test" --baseurl=http://url --sslcacert="x.cert" --sslclientcert="private-x.cert" --sslclientkey="x.key"
+
+        %packages
+
+        %end
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+        payload = self.shared_ks_tests.get_payload()
+        data = payload.repositories[0]
+
+        assert data.ssl_verification_enabled is True
+
+    def test_repo_install(self):
+        """Test the repo command with enabled installation."""
+        ks_in = """
+        repo --name test --baseurl http://url --install
+        """
+        ks_out = """
+        repo --name="test" --baseurl=http://url --install
+
+        %packages
+
+        %end
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def test_repo_multiple(self):
+        """Test multiple repo commands."""
+        ks_in = """
+        repo --name r1 --baseurl http://url/1
+        repo --name r2 --baseurl http://url/2
+        repo --name r3 --baseurl http://url/3
+        """
+        ks_out = """
+        repo --name="r1" --baseurl=http://url/1
+        repo --name="r2" --baseurl=http://url/2
+        repo --name="r3" --baseurl=http://url/3
+
+        %packages
+
+        %end
+        """
+        self._test_kickstart(ks_in, ks_out)
+        payload = self.shared_ks_tests.get_payload()
+        assert len(payload.repositories) == 3
+
+    def test_repo_disabled(self):
+        """Test the repo command with disabled repositories."""
+        ks_in = """
+        repo --name r1 --baseurl http://url/1
+        repo --name r2 --baseurl http://url/2
+        repo --name r3 --baseurl http://url/3
+        """
+        ks_out = """
+        repo --name="r1" --baseurl=http://url/1
+        repo --name="r3" --baseurl=http://url/3
+
+        %packages
+
+        %end
+        """
+        self._test_kickstart(ks_in, None)
+        payload = self.shared_ks_tests.get_payload()
+        payload.repositories[1].enabled = False
+        self._test_kickstart(None, ks_out, expected_publish_calls=0)
 
     def test_module_kickstart(self):
         ks_in = """
@@ -426,6 +678,42 @@ class DNFInterfaceTestCase(unittest.TestCase):
             *args, **kwargs
         )
 
+    def test_repositories_property(self):
+        """Test the Repositories property."""
+        data = [
+            self._generate_repository_structure("https://r1"),
+            self._generate_repository_structure("http://r2"),
+            self._generate_repository_structure("ftp://r3"),
+        ]
+
+        self._check_dbus_property(
+            "Repositories",
+            data
+        )
+
+    def test_repositories_data(self):
+        """Test the RepoConfigurationData structure."""
+        r1 = RepoConfigurationData()
+        r1.name = "r1"
+        r1.url = "https://r1"
+
+        r2 = RepoConfigurationData()
+        r2.name = "r2"
+        r2.url = "http://r2"
+
+        r3 = RepoConfigurationData()
+        r3.name = "r3"
+        r3.url = "ftp://r3"
+
+        data = RepoConfigurationData.to_structure_list([
+            r1, r2, r3
+        ])
+
+        self._check_dbus_property(
+            "Repositories",
+            data
+        )
+
     def test_packages_kickstarted_property(self):
         """Test the PackagesKickstarted property."""
         assert self.interface.PackagesKickstarted is False
@@ -517,7 +805,8 @@ class DNFInterfaceTestCase(unittest.TestCase):
         )
 
     @staticmethod
-    def _generate_expected_repo_configuration_dict(url=""):
+    def _generate_repository_structure(url=""):
+        """Generate a RepoConfigurationData structure with the specified URL."""
         return {
             "name": get_variant(Str, ""),
             "origin": get_variant(Str, "USER"),
@@ -547,7 +836,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
 
         self.shared_tests.set_sources([source])
 
-        expected = [self._generate_expected_repo_configuration_dict("file:///install_source/cdrom")]
+        expected = [self._generate_repository_structure("file:///install_source/cdrom")]
 
         assert self.interface.GetRepoConfigurations() == expected
 
@@ -561,7 +850,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
 
         self.shared_tests.set_sources([source])
 
-        expected = [self._generate_expected_repo_configuration_dict("file:///install_source/hmc")]
+        expected = [self._generate_repository_structure("file:///install_source/hmc")]
 
         assert self.interface.GetRepoConfigurations() == expected
 
@@ -575,7 +864,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
 
         self.shared_tests.set_sources([source])
 
-        expected = [self._generate_expected_repo_configuration_dict("file:///install_source/nfs")]
+        expected = [self._generate_repository_structure("file:///install_source/nfs")]
 
         assert self.interface.GetRepoConfigurations() == expected
 
@@ -589,7 +878,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
 
         self.shared_tests.set_sources([source])
 
-        expected = [self._generate_expected_repo_configuration_dict("file:///install_source/harddrive")]
+        expected = [self._generate_repository_structure("file:///install_source/harddrive")]
 
         assert self.interface.GetRepoConfigurations() == expected
 
@@ -607,7 +896,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
         source.set_repo_configuration(data)
         self.shared_tests.set_sources([source])
 
-        expected = self._generate_expected_repo_configuration_dict()
+        expected = self._generate_repository_structure()
         expected.update({
             "name": get_variant(Str, "Bernard Black"),
             "url": get_variant(Str, "http://library.uk"),
@@ -619,24 +908,38 @@ class DNFInterfaceTestCase(unittest.TestCase):
 
 
 class DNFModuleTestCase(unittest.TestCase):
+    """Test the DNF module."""
 
     def setUp(self):
+        """Set up the test."""
         self.module = DNFModule()
 
-    def _create_source(self, source_type, state=SourceState.UNREADY):
-        """Create a new source with a mocked state."""
-        return PayloadSharedTest.prepare_source(source_type, state)
-
     def test_is_network_required(self):
-        """Test the is_network_required method."""
+        """Test the is_network_required function."""
         assert self.module.is_network_required() is False
 
-        source1 = self._create_source(SourceType.CDROM)
-        self.module.set_sources([source1])
-
-        assert self.module.is_network_required() is False
-
-        source2 = self._create_source(SourceType.NFS)
-        self.module.set_sources([source1, source2])
-
+        source = ClosestMirrorSourceModule()
+        self.module.set_sources([source])
         assert self.module.is_network_required() is True
+
+        source = CdromSourceModule()
+        self.module.set_sources([source])
+        assert self.module.is_network_required() is False
+
+        r1 = RepoConfigurationData()
+        r1.url = "http://r1"
+        self.module.set_repositories([r1])
+        assert self.module.is_network_required() is True
+
+        r2 = RepoConfigurationData()
+        r2.url = "file://r2"
+        self.module.set_repositories([r2])
+        assert self.module.is_network_required() is False
+
+        r1.enabled = True
+        self.module.set_repositories([r1, r2])
+        assert self.module.is_network_required() is True
+
+        r1.enabled = False
+        self.module.set_repositories([r1, r2])
+        assert self.module.is_network_required() is False
