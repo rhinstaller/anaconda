@@ -25,7 +25,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        branch: ['master', 'rhel-8', 'rhel-9', 'f37-release']
+        branch: ['master', 'rhel-8', 'rhel-9']
 
     steps:
       - name: Check out repo

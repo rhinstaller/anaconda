@@ -26,9 +26,3 @@ jobs:
       container-tag: master
       branch: master
 
-  f37-release:
-    uses: ./.github/workflows/container-rebuild-action.yml
-    secrets: inherit
-    with:
-      container-tag: f37-release
-      branch: f37-release
