@@ -153,12 +153,6 @@ disklabel
 Prefer creation of the specified disk label type. Specify "gpt" to prefer creation of GPT disk
 labels. Specify "mbr" to prefer creation of MBR disk labels if supported.
 
-nodmraid
-Disable dmraid usage during the installation.
-
-dmraid
-Enable dmraid (Device Mapper software RAID) usage during the installation (default).
-
 noibft
 Disable iBFT usage during the installation.
 

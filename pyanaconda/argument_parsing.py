@@ -537,10 +537,6 @@ def getArgumentParser(version_string, boot_cmdline=None):
     ap.add_argument("--gpt", dest="disklabel", action="store_const", const="gpt",
                     default=SUPPRESS, help=help_parser.help_text("gpt"))
 
-    ap.add_argument("--nodmraid", dest="dmraid", action="store_false", default=True,
-                    help=help_parser.help_text("nodmraid"))
-    ap.add_argument("--dmraid", action="store_true", help=help_parser.help_text("dmraid"))
-
     ap.add_argument("--noibft", dest="ibft", action="store_false", default=True,
                     help=help_parser.help_text("noibft"))
     ap.add_argument("--ibft", action="store_true", help=help_parser.help_text("ibft"))

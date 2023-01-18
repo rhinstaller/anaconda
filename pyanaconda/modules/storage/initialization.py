@@ -53,7 +53,6 @@ def enable_installer_mode():
     blivet_flags.keep_empty_ext_partitions = False
     blivet_flags.discard_new = True
     blivet_flags.selinux = conf.security.selinux
-    blivet_flags.dmraid = conf.storage.dmraid
     blivet_flags.ibft = conf.storage.ibft
     blivet_flags.multipath_friendly_names = conf.storage.multipath_friendly_names
     blivet_flags.allow_imperfect_devices = conf.storage.allow_imperfect_devices

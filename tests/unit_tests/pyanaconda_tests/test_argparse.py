@@ -130,13 +130,11 @@ class ArgparseTest(unittest.TestCase):
         opts, _removed = self._parseCmdline([])
         conf.set_from_opts(opts)
 
-        assert conf.storage.dmraid is True
         assert conf.storage.ibft is True
 
-        opts, _removed = self._parseCmdline(['--nodmraid', '--ibft'])
+        opts, _removed = self._parseCmdline(['--ibft'])
         conf.set_from_opts(opts)
 
-        assert conf.storage.dmraid is False
         assert conf.storage.ibft is True
 
     def test_target(self):
