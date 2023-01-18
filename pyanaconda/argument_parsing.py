@@ -28,6 +28,8 @@ import struct
 
 from argparse import ArgumentParser, ArgumentError, HelpFormatter, Namespace, Action, SUPPRESS
 
+from blivet.arch import is_s390
+
 from pyanaconda.core.kernel import KernelArguments
 from pyanaconda.core.constants import DisplayModes, X_TIMEOUT, VIRTIO_PORT
 
@@ -53,11 +55,7 @@ def get_help_width():
     # don't do terminal size detection on s390, it is not supported
     # by its arcane TTY system and only results in cryptic error messages
     # ending on the standard output
-    # (we do the s390 detection here directly to avoid
-    #  the delay caused by importing the Blivet module
-    #  just for this single call)
-    is_s390 = os.uname()[4].startswith('s390')
-    if is_s390:
+    if is_s390():
         return DEFAULT_HELP_WIDTH
 
     try:
