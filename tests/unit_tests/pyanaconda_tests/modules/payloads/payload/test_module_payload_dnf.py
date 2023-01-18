@@ -18,7 +18,7 @@
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
 import unittest
-from unittest.mock import patch, PropertyMock
+from unittest.mock import patch, PropertyMock, Mock
 
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pykickstart.version import isRHEL as is_rhel
@@ -31,6 +31,9 @@ from pyanaconda.core.constants import SOURCE_TYPE_CDROM, SOURCE_TYPE_HDD, SOURCE
 from pyanaconda.core.kickstart.specification import KickstartSpecificationHandler
 from pyanaconda.core.kickstart.version import VERSION
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_DNF
+from pyanaconda.modules.common.errors.payload import UnknownCompsGroupError, \
+    UnknownCompsEnvironmentError
+from pyanaconda.modules.common.structures.comps import CompsEnvironmentData, CompsGroupData
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData, \
     PackagesSelectionData
@@ -38,6 +41,7 @@ from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
+from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.modules.payloads.payloads import PayloadsService
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 from pyanaconda.modules.payloads.source.cdrom.cdrom import CdromSourceModule
@@ -803,6 +807,107 @@ class DNFInterfaceTestCase(unittest.TestCase):
             "PackagesConfiguration",
             data
         )
+
+    def test_get_repositories(self):
+        """Test the GetAvailableRepositories method."""
+        assert self.interface.GetAvailableRepositories() == []
+
+        dnf_manager = Mock(spec=DNFManager)
+        dnf_manager.repositories = ["r1", "r2", "r3"]
+        self.module._dnf_manager = dnf_manager
+
+        assert self.interface.GetAvailableRepositories() == ["r1", "r2", "r3"]
+
+    def test_get_enabled_repositories(self):
+        """Test the GetEnabledRepositories method."""
+        assert self.interface.GetEnabledRepositories() == []
+
+        dnf_manager = Mock(spec=DNFManager)
+        dnf_manager.enabled_repositories = ["r1", "r3"]
+        self.module._dnf_manager = dnf_manager
+
+        assert self.interface.GetEnabledRepositories() == ["r1", "r3"]
+
+    def test_verify_repomd_hashes(self):
+        """Test the VerifyRepomdHashes method."""
+        assert self.interface.VerifyRepomdHashes() is False
+
+    def test_get_default_environment(self):
+        """Test the GetDefaultEnvironment method."""
+        assert self.interface.GetDefaultEnvironment() == ""
+
+    def test_get_environments(self):
+        """Test the GetEnvironments method."""
+        assert self.interface.GetEnvironments() == []
+
+        dnf_manager = Mock(spec=DNFManager)
+        dnf_manager.environments = ["e1", "e2", "e3"]
+        self.module._dnf_manager = dnf_manager
+
+        assert self.interface.GetEnvironments() == ["e1", "e2", "e3"]
+
+    def test_resolve_environment(self):
+        """Test the ResolveEnvironment method."""
+        assert self.interface.ResolveEnvironment("e1") == ""
+
+        dnf_manager = Mock(spec=DNFManager)
+        dnf_manager.resolve_environment.return_value = "e1"
+        self.module._dnf_manager = dnf_manager
+
+        assert self.interface.ResolveEnvironment("e1") == "e1"
+
+    def test_get_environment_data(self):
+        """Test the GetEnvironmentData method."""
+        with self.assertRaises(UnknownCompsEnvironmentError):
+            self.interface.GetEnvironmentData("e1")
+
+        data = CompsEnvironmentData()
+        data.id = "e1"
+        data.name = "The 'e1' environment"
+        data.description = "This is the 'e1' environment."
+
+        dnf_manager = Mock(spec=DNFManager)
+        dnf_manager.get_environment_data.return_value = data
+        self.module._dnf_manager = dnf_manager
+
+        assert self.interface.GetEnvironmentData("e1") == {
+            'id': get_variant(Str, 'e1'),
+            'name': get_variant(Str, "The 'e1' environment"),
+            'description': get_variant(Str, "This is the 'e1' environment."),
+            'default-groups': get_variant(List[Str], []),
+            'optional-groups': get_variant(List[Str], []),
+            'visible-groups': get_variant(List[Str], []),
+        }
+
+    def test_resolve_group(self):
+        """Test the ResolveGroup method."""
+        assert self.interface.ResolveGroup("g1") == ""
+
+        dnf_manager = Mock(spec=DNFManager)
+        dnf_manager.resolve_group.return_value = "g1"
+        self.module._dnf_manager = dnf_manager
+
+        assert self.interface.ResolveGroup("g1") == "g1"
+
+    def test_get_group_data(self):
+        """Test the GetGroupData method."""
+        with self.assertRaises(UnknownCompsGroupError):
+            self.interface.GetGroupData("g1")
+
+        data = CompsGroupData()
+        data.id = "g1"
+        data.name = "The 'g1' group"
+        data.description = "This is the 'g1' group."
+
+        dnf_manager = Mock(spec=DNFManager)
+        dnf_manager.get_group_data.return_value = data
+        self.module._dnf_manager = dnf_manager
+
+        assert self.interface.GetGroupData("g1") == {
+            'id': get_variant(Str, 'g1'),
+            'name': get_variant(Str, "The 'g1' group"),
+            'description': get_variant(Str, "This is the 'g1' group.")
+        }
 
     @staticmethod
     def _generate_repository_structure(url=""):

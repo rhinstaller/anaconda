@@ -27,6 +27,7 @@ from pyanaconda.modules.payloads.kickstart import convert_ks_repo_to_repo_data, 
     convert_repo_data_to_ks_repo, convert_ks_data_to_packages_selection, \
     convert_packages_selection_to_ksdata, convert_ks_data_to_packages_configuration, \
     convert_packages_configuration_to_ksdata
+from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
 from pyanaconda.modules.payloads.source.factory import SourceFactory
@@ -43,6 +44,8 @@ class DNFModule(PayloadBase):
     def __init__(self):
         """Create a DNF module."""
         super().__init__()
+        self._dnf_manager = None
+
         self._repositories = []
         self.repositories_changed = Signal()
 
@@ -97,6 +100,14 @@ class DNFModule(PayloadBase):
                 return True
 
         return False
+
+    @property
+    def dnf_manager(self):
+        """The DNF manager of this payload."""
+        if not self._dnf_manager:
+            self._dnf_manager = DNFManager()
+
+        return self._dnf_manager
 
     @property
     def repositories(self):
@@ -224,6 +235,79 @@ class DNFModule(PayloadBase):
         """Set up the kickstart packages selection."""
         convert_packages_selection_to_ksdata(self.packages_selection, data)
         convert_packages_configuration_to_ksdata(self.packages_configuration, data)
+
+    def get_available_repositories(self):
+        """Get a list of available repositories.
+
+        :return: a list with names of available repositories
+        """
+        return self.dnf_manager.repositories
+
+    def get_enabled_repositories(self):
+        """Get a list of enabled repositories.
+
+        :return: a list with names of enabled repositories
+        """
+        return self.dnf_manager.enabled_repositories
+
+    def get_default_environment(self):
+        """Get a default environment.
+
+        :return: an identifier of an environment or an empty string
+        """
+        return self.dnf_manager.default_environment or ""
+
+    def get_environments(self):
+        """Get a list of environments defined in comps.xml files.
+
+        :return: a list with identifiers of environments
+        """
+        return self.dnf_manager.environments
+
+    def resolve_environment(self, environment_spec):
+        """Translate the given specification to an environment identifier.
+
+        :param environment_spec: an environment specification
+        :return: an identifier of an environment or an empty string
+        """
+        return self.dnf_manager.resolve_environment(environment_spec) or ""
+
+    def get_environment_data(self, environment_spec):
+        """Get data about the specified environment.
+
+        :param environment_spec: an environment specification
+        :return CompsEnvironmentData: the related environment data
+        :raise UnknownCompsEnvironmentError: if the environment is unknown
+        """
+        return self.dnf_manager.get_environment_data(environment_spec)
+
+    def resolve_group(self, group_spec):
+        """Translate the given specification into a group identifier.
+
+        :param group_spec: a group specification
+        :return: an identifier of a group or an empty string
+        """
+        return self.dnf_manager.resolve_group(group_spec) or ""
+
+    def get_group_data(self, group_spec):
+        """Get data about the specified group.
+
+        :param group_spec: a specification of a group
+        :return CompsGroupData: the related group data
+        :raise: UnknownCompsGroupError if the group is unknown
+        """
+        return self.dnf_manager.get_group_data(group_spec)
+
+    def verify_repomd_hashes(self):
+        """Verify a hash of the repomd.xml file for each enabled repository.
+
+        This method tests if URL links from active repositories can be reached.
+        It is useful when network settings are changed so that we can verify if
+        repositories are still reachable.
+
+        :return: True if files haven't changed, otherwise False
+        """
+        return self.dnf_manager.verify_repomd_hashes()
 
     def get_repo_configurations(self):
         """Get RepoConfiguration structures for all sources.

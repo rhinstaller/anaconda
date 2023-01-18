@@ -22,6 +22,7 @@ from dasbus.server.property import emits_properties_changed
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_DNF
+from pyanaconda.modules.common.structures.comps import CompsEnvironmentData, CompsGroupData
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData, \
     PackagesSelectionData
@@ -122,6 +123,83 @@ class DNFInterface(PayloadBaseInterface):
         :return: True or False
         """
         return self.implementation.packages_kickstarted
+
+    def GetAvailableRepositories(self) -> List[Str]:
+        """Get a list of available repositories.
+
+        :return: a list with names of available repositories
+        """
+        return self.implementation.get_available_repositories()
+
+    def GetEnabledRepositories(self) -> List[Str]:
+        """Get a list of enabled repositories.
+
+        :return: a list with names of enabled repositories
+        """
+        return self.implementation.get_enabled_repositories()
+
+    def GetDefaultEnvironment(self) -> Str:
+        """Get a default environment.
+
+        :return: an identifier of an environment or an empty string
+        """
+        return self.implementation.get_default_environment()
+
+    def GetEnvironments(self) -> List[Str]:
+        """Get a list of environments defined in comps.xml files.
+
+        :return: a list with identifiers of environments
+        """
+        return self.implementation.get_environments()
+
+    def ResolveEnvironment(self, environment_spec: Str) -> Str:
+        """Translate the given specification to an environment identifier.
+
+        :param environment_spec: an environment specification
+        :return: an identifier of an environment or an empty string
+        """
+        return self.implementation.resolve_environment(environment_spec) or ""
+
+    def GetEnvironmentData(self, environment_spec: Str) -> Structure:
+        """Get data about the specified environment.
+
+        :param environment_spec: an environment specification
+        :return: a data structure defined by CompsEnvironmentData
+        :raise UnknownCompsEnvironmentError: if the environment is unknown
+        """
+        return CompsEnvironmentData.to_structure(
+            self.implementation.get_environment_data(environment_spec)
+        )
+
+    def ResolveGroup(self, group_spec: Str) -> Str:
+        """Translate the given specification into a group identifier.
+
+        :param group_spec: a group specification
+        :return: an identifier of a group or an empty string
+        """
+        return self.implementation.resolve_group(group_spec) or ""
+
+    def GetGroupData(self, group_spec: Str) -> Structure:
+        """Get data about the specified group.
+
+        :param group_spec: a group specification
+        :return: a data structure defined by CompsGroupData
+        :raise UnknownCompsGroupError: if the group is unknown
+        """
+        return CompsGroupData.to_structure(
+            self.implementation.get_group_data(group_spec)
+        )
+
+    def VerifyRepomdHashes(self) -> Bool:
+        """Verify a hash of the repomd.xml file for each enabled repository.
+
+        This method tests if URL links from active repositories can be reached.
+        It is useful when network settings are changed so that we can verify if
+        repositories are still reachable.
+
+        :return: True if files haven't changed, otherwise False
+        """
+        return self.implementation.verify_repomd_hashes()
 
     def GetRepoConfigurations(self) -> List[Structure]:
         """Get RepoConfigurationData structures for all attached sources.
