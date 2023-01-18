@@ -21,4 +21,5 @@ copy_logs() {
 trap copy_logs EXIT INT QUIT PIPE
 
 # run user-supplied command (by default, `make ci`)
+# shellcheck disable=SC2068
 $@

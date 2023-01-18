@@ -28,6 +28,7 @@
 
 set -eu
 
+# shellcheck disable=SC2068
 dnf install $@ make rpm-build npm virt-install
 
 TEMP=$(mktemp /tmp/anaconda.spec.XXXXXXX)
@@ -39,6 +40,7 @@ sed 's/@PACKAGE_VERSION@/0/; s/@PACKAGE_RELEASE@/0/; s/%{__python3}/python3/' ./
 # version could be problematic because of fedora version you are running and
 # they are mostly not important for automake
 deps=$(rpmspec -q --buildrequires $TEMP | sed 's/>=.*$//')
+# shellcheck disable=SC2068
 dnf install $@ $deps  # do NOT quote the list or it falls apart
 
 # clean up the temp file
