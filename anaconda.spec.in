@@ -464,6 +464,17 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jan 19 2023 github-actions <github-actions@github.com> - 38.17-1
+- Remove the is_complete method of the DNF payload class (vponcova)
+- Use another type to make new GCC warnings go away (vslavik)
+- Remove outdated GCC error suppression (vslavik)
+- Ignore non-quoted array expansion in ShellCheck (vslavik)
+- Handle the `repo` kickstart command in the DNF module (vponcova)
+- Extend the is_network_required method of the DNF module (vponcova)
+- Add the Repositories DBus property to the DNF module (vponcova)
+- Fix the check_kickstart_interface testing function (vponcova)
+- Always use blivet.arch.is_s390() to detect s390 (vslavik)
+
 * Tue Jan 17 2023 github-actions <github-actions@github.com> - 38.16-1
 - UI: Show error messages if the payload setup finishes early (vponcova)
 - Fix disk refresh reference for storage screen help (mkolman)
