@@ -80,8 +80,10 @@ bots:
 $(UPDATES_IMG): bots
 	test/prepare-updates-img
 
+# test runs in kernel_t context and triggers massive amounts of SELinux
+# denials; SELinux gets disabled, but would still trigger unexpected messages
 integration-test: bots test/common test/reference $(UPDATES_IMG)
-	test/run-tests
+	TEST_AUDIT_NO_SELINUX=1 test/run-tests
 
 # checkout Cockpit's test API; this has no API stability guarantee, so check out a stable tag
 # when you start a new project, use the latest release, and update it from time to time
