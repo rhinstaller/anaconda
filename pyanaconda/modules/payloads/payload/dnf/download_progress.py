@@ -18,8 +18,7 @@
 import collections
 import time
 
-import dnf
-import dnf.callback
+import libdnf5
 
 from blivet.size import Size
 
@@ -42,7 +41,7 @@ def paced(fn):
     return paced_fn
 
 
-class DownloadProgress(dnf.callback.DownloadProgress):
+class DownloadProgress(libdnf5.repo.DownloadCallbacks):
     """The class for receiving information about an ongoing download."""
 
     def __init__(self, callback):
@@ -52,47 +51,42 @@ class DownloadProgress(dnf.callback.DownloadProgress):
         """
         super().__init__()
         self.callback = callback
-        self.downloads = collections.defaultdict(int)
-        self.last_time = time.time()
-        self.total_files = 0
-        self.total_size = Size(0)
-        self.downloaded_size = Size(0)
 
-    @paced
-    def _report_progress(self):
-        # Update the downloaded size.
-        self.downloaded_size = Size(sum(self.downloads.values()))
+    def add_new_download(self, user_data, description, total_to_download):
+        """Notify the client that a new download has been created.
 
-        # Report the progress.
-        msg = _(
-            'Downloading {total_files} RPMs, '
-            '{downloaded_size} / {total_size} '
-            '({total_percent}%) done.'
-        ).format(
-            downloaded_size=self.downloaded_size,
-            total_percent=int(100 * self.downloaded_size / self.total_size),
-            total_files=self.total_files,
-            total_size=self.total_size
-        )
+        :param user_data: user data entered together with a package to download
+        :param str description: a message describing the package
+        :param float total_to_download: a total number of bytes to download
+        :return: associated user data for the new package download
+        """
+        self._report_progress("Downloading {} - {} bytes".format(
+            description, total_to_download
+        ))
+        return description
 
+    def progress(self, user_cb_data, total_to_download, downloaded):
+        """Download progress callback.
+
+        :param user_cb_data: associated user data obtained from add_new_download
+        :param float total_to_download: a total number of bytes to download
+        :param float downloaded: a number of bytes downloaded
+        """
+        self._report_progress("Downloading {} - {}/{} bytes".format(
+                user_cb_data, downloaded, total_to_download
+        ))
+
+    def end(self, user_cb_data, status, msg):
+        """End of download callback.
+
+        :param user_cb_data: associated user data obtained from add_new_download
+        :param status: the transfer status
+        :param msg: the error message in case of error
+        """
+        self._report_progress("Downloaded {} - {} ({})".format(
+            user_cb_data, status, msg
+        ))
+
+    def _report_progress(self, msg):
+        log.debug(msg)
         self.callback(msg)
-
-    def end(self, payload, status, msg):
-        nevra = str(payload)
-
-        if status is dnf.callback.STATUS_OK:
-            self.downloads[nevra] = payload.download_size
-            self._report_progress()
-            return
-
-        log.warning("Failed to download '%s': %d - %s", nevra, status, msg)
-
-    def progress(self, payload, done):
-        nevra = str(payload)
-        self.downloads[nevra] = done
-        self._report_progress()
-
-    def start(self, total_files, total_size, total_drpms=0):
-        del total_drpms
-        self.total_files = total_files
-        self.total_size = Size(total_size)
