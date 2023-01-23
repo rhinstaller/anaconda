@@ -21,13 +21,14 @@ import unittest
 import pytest
 import time
 import threading
-from unittest.mock import Mock, patch
+from unittest.mock import Mock, patch, call
 from textwrap import dedent
 
 from pyanaconda.modules.network.nm_client import get_ports_from_connections, \
     get_dracut_arguments_from_connection, get_config_file_connection_of_device, \
     get_kickstart_network_data, NM_BRIDGE_DUMPED_SETTINGS_DEFAULTS, \
-    update_connection_wired_settings_from_ksdata, get_new_nm_client, GError
+    update_connection_wired_settings_from_ksdata, get_new_nm_client, GError, \
+    update_connection_ip_settings_from_ksdata
 from pyanaconda.core.kickstart.commands import NetworkData
 from pyanaconda.core.glib import MainContext, sync_call_glib
 from pyanaconda.modules.network.constants import NM_CONNECTION_TYPE_WIFI, \
@@ -685,9 +686,13 @@ class NMClientTestCase(unittest.TestCase):
             "get_setting_ip4_config.return_value.get_method.return_value": NM.SETTING_IP4_CONFIG_METHOD_AUTO,
             "get_setting_ip4_config.return_value.get_num_dns.return_value": 0,
             "get_setting_ip4_config.return_value.get_dhcp_hostname.return_value": None,
+            "get_setting_ip4_config.return_value.get_ignore_auto_dns.return_value": False,
+            "get_setting_ip4_config.return_value.get_dns_search.return_value": "",
             "get_setting_ip6_config.return_value.get_num_dns.return_value": 0,
             "get_setting_ip6_config.return_value.get_method.return_value": NM.SETTING_IP6_CONFIG_METHOD_AUTO,
-          }],
+            "get_setting_ip6_config.return_value.get_ignore_auto_dns.return_value": False,
+            "get_setting_ip6_config.return_value.get_dns_search.return_value": "",
+         }],
           "network  --bootproto=dhcp --device=ens3 --mtu=1500 --ipv6=auto"),
          # dhcp-hostname setting the hostname is debatable and should be reviewed
          ([{
@@ -699,9 +704,13 @@ class NMClientTestCase(unittest.TestCase):
             "get_setting_ip4_config.return_value.get_method.return_value": NM.SETTING_IP4_CONFIG_METHOD_AUTO,
             "get_setting_ip4_config.return_value.get_num_dns.return_value": 0,
             "get_setting_ip4_config.return_value.get_dhcp_hostname.return_value": "dhcp.hostname",
+            "get_setting_ip4_config.return_value.get_ignore_auto_dns.return_value": False,
+            "get_setting_ip4_config.return_value.get_dns_search.return_value": "",
             "get_setting_ip6_config.return_value.get_num_dns.return_value": 0,
             "get_setting_ip6_config.return_value.get_method.return_value": NM.SETTING_IP6_CONFIG_METHOD_DHCP,
-          }],
+            "get_setting_ip6_config.return_value.get_ignore_auto_dns.return_value": False,
+            "get_setting_ip6_config.return_value.get_dns_search.return_value": "",
+         }],
           "network  --bootproto=dhcp --device=ens3 --hostname=dhcp.hostname --ipv6=dhcp"),
          ([{
             "get_connection_type.return_value": NM_CONNECTION_TYPE_ETHERNET,
@@ -716,9 +725,13 @@ class NMClientTestCase(unittest.TestCase):
             "get_setting_ip4_config.return_value.get_gateway.return_value": "192.168.141.1",
             "get_setting_ip4_config.return_value.get_address.side_effect": lambda i: ip4_addr_1,
             "get_setting_ip4_config.return_value.get_dhcp_hostname.return_value": None,
+            "get_setting_ip4_config.return_value.get_ignore_auto_dns.return_value": False,
+            "get_setting_ip4_config.return_value.get_dns_search.return_value": "",
             "get_setting_ip6_config.return_value.get_num_dns.return_value": 0,
             "get_setting_ip6_config.return_value.get_method.return_value": NM.SETTING_IP6_CONFIG_METHOD_DISABLED,
-          }],
+            "get_setting_ip6_config.return_value.get_ignore_auto_dns.return_value": False,
+            "get_setting_ip6_config.return_value.get_dns_search.return_value": "",
+         }],
           "network  --bootproto=static --device=ens7 --gateway=192.168.141.1 --ip=192.168.141.131 --nameserver=192.168.154.3,10.216.106.3 --netmask=255.255.255.0 --onboot=off --noipv6"),
          ([{
             "get_connection_type.return_value": NM_CONNECTION_TYPE_ETHERNET,
@@ -730,13 +743,17 @@ class NMClientTestCase(unittest.TestCase):
             "get_setting_ip4_config.return_value.get_method.return_value": NM.SETTING_IP4_CONFIG_METHOD_AUTO,
             "get_setting_ip4_config.return_value.get_num_dns.return_value": 2,
             "get_setting_ip4_config.return_value.get_dns.side_effect": lambda i: ip4_dns_list[i],
+            "get_setting_ip4_config.return_value.get_ignore_auto_dns.return_value": False,
+            "get_setting_ip4_config.return_value.get_dns_search.return_value": "",
             "get_setting_ip6_config.return_value.get_num_addresses.return_value": 1,
             "get_setting_ip6_config.return_value.get_address.side_effect": lambda i: ip6_addr_1,
             "get_setting_ip6_config.return_value.get_num_dns.return_value": 2,
             "get_setting_ip6_config.return_value.get_gateway.return_value": "2400:c980:0000:0002::1",
             "get_setting_ip6_config.return_value.get_dns.side_effect": lambda i: ip6_dns_list[i],
             "get_setting_ip6_config.return_value.get_method.return_value": NM.SETTING_IP6_CONFIG_METHOD_MANUAL,
-          }],
+            "get_setting_ip6_config.return_value.get_ignore_auto_dns.return_value": False,
+            "get_setting_ip6_config.return_value.get_dns_search.return_value": "",
+         }],
           "network  --bootproto=dhcp --device=ens7 --nameserver=192.168.154.3,10.216.106.3,2001:cafe::1,2001:cafe::2 --ipv6=2400:c980:0000:0002::3/64 --ipv6gateway=2400:c980:0000:0002::1"),
          ([{
             "get_connection_type.return_value": NM_CONNECTION_TYPE_BOND,
@@ -747,8 +764,12 @@ class NMClientTestCase(unittest.TestCase):
             "get_setting_ip4_config.return_value.get_num_dns.return_value": 0,
             "get_setting_ip4_config.return_value.get_dhcp_hostname.return_value": None,
             "get_setting_ip4_config.return_value.get_method.return_value": NM.SETTING_IP4_CONFIG_METHOD_AUTO,
+            "get_setting_ip4_config.return_value.get_ignore_auto_dns.return_value": False,
+            "get_setting_ip4_config.return_value.get_dns_search.return_value": "",
             "get_setting_ip6_config.return_value.get_num_dns.return_value": 0,
             "get_setting_ip6_config.return_value.get_method.return_value": NM.SETTING_IP6_CONFIG_METHOD_AUTO,
+            "get_setting_ip6_config.return_value.get_ignore_auto_dns.return_value": False,
+            "get_setting_ip6_config.return_value.get_dns_search.return_value": "",
             "get_setting_bond.return_value.get_num_options.return_value": 2,
             "get_setting_bond.return_value.get_option.side_effect": lambda i: bond_options_1[i],
           }],
@@ -762,8 +783,12 @@ class NMClientTestCase(unittest.TestCase):
             "get_setting_ip4_config.return_value.get_num_dns.return_value": 0,
             "get_setting_ip4_config.return_value.get_dhcp_hostname.return_value": None,
             "get_setting_ip4_config.return_value.get_method.return_value": NM.SETTING_IP4_CONFIG_METHOD_AUTO,
+            "get_setting_ip4_config.return_value.get_ignore_auto_dns.return_value": False,
+            "get_setting_ip4_config.return_value.get_dns_search.return_value": "",
             "get_setting_ip6_config.return_value.get_num_dns.return_value": 0,
             "get_setting_ip6_config.return_value.get_method.return_value": NM.SETTING_IP6_CONFIG_METHOD_AUTO,
+            "get_setting_ip6_config.return_value.get_ignore_auto_dns.return_value": False,
+            "get_setting_ip6_config.return_value.get_dns_search.return_value": "",
             "get_setting_bridge.return_value.get_property.side_effect": lambda i: bridge_properties_1[i],
           }],
           "network  --bootproto=dhcp --device=bridge0 --onboot=off --ipv6=auto --bridgeslaves=ens8 --bridgeopts=priority=32769,forward-delay=16,max-age=21"),
@@ -776,8 +801,12 @@ class NMClientTestCase(unittest.TestCase):
             "get_setting_ip4_config.return_value.get_num_dns.return_value": 0,
             "get_setting_ip4_config.return_value.get_dhcp_hostname.return_value": None,
             "get_setting_ip4_config.return_value.get_method.return_value": NM.SETTING_IP4_CONFIG_METHOD_AUTO,
+            "get_setting_ip4_config.return_value.get_ignore_auto_dns.return_value": False,
+            "get_setting_ip4_config.return_value.get_dns_search.return_value": "",
             "get_setting_ip6_config.return_value.get_num_dns.return_value": 0,
             "get_setting_ip6_config.return_value.get_method.return_value": NM.SETTING_IP6_CONFIG_METHOD_AUTO,
+            "get_setting_ip6_config.return_value.get_ignore_auto_dns.return_value": False,
+            "get_setting_ip6_config.return_value.get_dns_search.return_value": "",
             "get_setting_team.return_value.get_config.return_value": '{\n    "runner": {\n        "name": "activebackup",\n        "hwaddr_policy": "same_all"\n    },\n    "link_watch": {\n        "name": "ethtool"\n    }\n}',
           }],
           "network  --bootproto=dhcp --device=team0 --ipv6=auto --teamslaves=\"ens7'{\\\"prio\\\":100,\\\"sticky\\\":true}',ens8'{\\\"prio\\\":200}'\" --teamconfig=\"{\\\"runner\\\":{\\\"name\\\":\\\"activebackup\\\",\\\"hwaddr_policy\\\":\\\"same_all\\\"},\\\"link_watch\\\":{\\\"name\\\":\\\"ethtool\\\"}}\""),
@@ -792,8 +821,12 @@ class NMClientTestCase(unittest.TestCase):
             "get_setting_ip4_config.return_value.get_num_dns.return_value": 0,
             "get_setting_ip4_config.return_value.get_dhcp_hostname.return_value": None,
             "get_setting_ip4_config.return_value.get_method.return_value": NM.SETTING_IP4_CONFIG_METHOD_AUTO,
+            "get_setting_ip4_config.return_value.get_ignore_auto_dns.return_value": False,
+            "get_setting_ip4_config.return_value.get_dns_search.return_value": "",
             "get_setting_ip6_config.return_value.get_num_dns.return_value": 0,
             "get_setting_ip6_config.return_value.get_method.return_value": NM.SETTING_IP6_CONFIG_METHOD_AUTO,
+            "get_setting_ip6_config.return_value.get_ignore_auto_dns.return_value": False,
+            "get_setting_ip6_config.return_value.get_dns_search.return_value": "",
             "get_setting_vlan.return_value.get_id.return_value": 233,
             "get_setting_vlan.return_value.get_parent.return_value": "ens7",
           }],
@@ -809,8 +842,12 @@ class NMClientTestCase(unittest.TestCase):
             "get_setting_ip4_config.return_value.get_num_dns.return_value": 0,
             "get_setting_ip4_config.return_value.get_dhcp_hostname.return_value": None,
             "get_setting_ip4_config.return_value.get_method.return_value": NM.SETTING_IP4_CONFIG_METHOD_AUTO,
+            "get_setting_ip4_config.return_value.get_ignore_auto_dns.return_value": False,
+            "get_setting_ip4_config.return_value.get_dns_search.return_value": "",
             "get_setting_ip6_config.return_value.get_num_dns.return_value": 0,
             "get_setting_ip6_config.return_value.get_method.return_value": NM.SETTING_IP6_CONFIG_METHOD_AUTO,
+            "get_setting_ip6_config.return_value.get_ignore_auto_dns.return_value": False,
+            "get_setting_ip6_config.return_value.get_dns_search.return_value": "",
             "get_setting_vlan.return_value.get_id.return_value": 233,
             "get_setting_vlan.return_value.get_parent.return_value": ENS7_UUID,
           }],
@@ -826,8 +863,12 @@ class NMClientTestCase(unittest.TestCase):
             "get_setting_ip4_config.return_value.get_num_dns.return_value": 0,
             "get_setting_ip4_config.return_value.get_dhcp_hostname.return_value": None,
             "get_setting_ip4_config.return_value.get_method.return_value": NM.SETTING_IP4_CONFIG_METHOD_AUTO,
+            "get_setting_ip4_config.return_value.get_ignore_auto_dns.return_value": False,
+            "get_setting_ip4_config.return_value.get_dns_search.return_value": "",
             "get_setting_ip6_config.return_value.get_num_dns.return_value": 0,
             "get_setting_ip6_config.return_value.get_method.return_value": NM.SETTING_IP6_CONFIG_METHOD_AUTO,
+            "get_setting_ip6_config.return_value.get_ignore_auto_dns.return_value": False,
+            "get_setting_ip6_config.return_value.get_dns_search.return_value": "",
             "get_setting_vlan.return_value.get_id.return_value": 233,
             "get_setting_vlan.return_value.get_parent.return_value": ENS7_UUID,
           }],
@@ -847,6 +888,23 @@ class NMClientTestCase(unittest.TestCase):
             "get_setting_bond.return_value.get_option.side_effect": lambda i: bond_options_1[i],
           }],
           "network  --bootproto=dhcp --device=bond0 --bondslaves=ens7,ens8 --bondopts=mode=active-backup,primary=ens8"),
+         ([{
+            "get_connection_type.return_value": NM_CONNECTION_TYPE_ETHERNET,
+            "get_setting_connection.return_value.get_autoconnect.return_value": True,
+            "get_setting_connection.return_value.get_master.return_value": None,
+            "get_uuid.return_value": ENS3_UUID,
+            "get_setting_wired.return_value.get_mtu.return_value": None,
+            "get_setting_ip4_config.return_value.get_method.return_value": NM.SETTING_IP4_CONFIG_METHOD_AUTO,
+            "get_setting_ip4_config.return_value.get_num_dns.return_value": 0,
+            "get_setting_ip4_config.return_value.get_dhcp_hostname.return_value": None,
+            "get_setting_ip4_config.return_value.get_ignore_auto_dns.return_value": True,
+            "get_setting_ip4_config.return_value.get_dns_search.return_value": "fedoraproject.org",
+            "get_setting_ip6_config.return_value.get_num_dns.return_value": 0,
+            "get_setting_ip6_config.return_value.get_method.return_value": NM.SETTING_IP6_CONFIG_METHOD_AUTO,
+            "get_setting_ip6_config.return_value.get_ignore_auto_dns.return_value": True,
+            "get_setting_ip6_config.return_value.get_dns_search.return_value": "example.com,example2.com",
+          }],
+          "network  --bootproto=dhcp --device=ens3 --ipv6=auto --ipv4-dns-search=fedoraproject.org --ipv6-dns-search=example.com,example2.com --ipv4-ignore-auto-dns --ipv6-ignore-auto-dns"),
         ]
 
         for cons_specs, expected_ks in cons_to_test:
@@ -1008,3 +1066,62 @@ class NMClientTestCase(unittest.TestCase):
         thread = threading.Thread(target = self.test_sync_call_glib)
         thread.start()
         thread.join()
+
+    @patch("pyanaconda.modules.network.nm_client.NM.SettingIP4Config.new")
+    @patch("pyanaconda.modules.network.nm_client.NM.SettingIP6Config.new")
+    def _dns_ksdata_to_ip_sets(self, ipv4_search, ipv6_search, ipv4_ignoreauto, ipv6_ignoreauto,
+                               new6, new4):
+        connection = Mock()
+        ksdata = NetworkData(
+            ipv4_dns_search=ipv4_search,
+            ipv6_dns_search=ipv6_search,
+            ipv4_ignore_auto_dns=ipv4_ignoreauto,
+            ipv6_ignore_auto_dns=ipv6_ignoreauto
+        )
+
+        update_connection_ip_settings_from_ksdata(connection, ksdata)
+        new4.assert_called_once_with()
+        new6.assert_called_once_with()
+        connection.remove_setting.assert_called()
+        connection.add_setting.assert_called()
+
+        s_ipv4 = connection.add_setting.mock_calls[0].args[0]
+        s_ipv6 = connection.add_setting.mock_calls[1].args[0]
+        assert new4.return_value == s_ipv4
+        assert new6.return_value == s_ipv6
+
+        # these are set only if True, so skip comparing False with the implicitly present Mock
+        if ipv4_ignoreauto is True:
+            assert s_ipv4.ignore_auto_dns == ipv4_ignoreauto
+        if ipv6_ignoreauto is True:
+            assert s_ipv6.ignore_auto_dns == ipv6_ignoreauto
+
+        return s_ipv4, s_ipv6
+
+    def test_dns_update_connection_ip_settings_from_ksdata(self):
+        """Test DNS handling in update_connection_ip_settings_from_ksdata()"""
+        # pylint: disable=no-value-for-parameter
+        # first search domains
+        sv4, sv6 = self._dns_ksdata_to_ip_sets("fedoraproject.org,getfedora.org", "redhat.com", False, False)
+        sv4.add_dns_search.assert_has_calls([
+            call("fedoraproject.org"),
+            call("getfedora.org")
+        ])
+        sv6.add_dns_search.assert_called_once_with("redhat.com")
+
+        # then check permutations of the ignore_auto_dns props + no search domains
+        sv4, sv6 = self._dns_ksdata_to_ip_sets(None, None, False, False)
+        sv4.add_dns_search.assert_not_called()
+        sv6.add_dns_search.assert_not_called()
+
+        sv4, sv6 = self._dns_ksdata_to_ip_sets(None, None, True, True)
+        sv4.add_dns_search.assert_not_called()
+        sv6.add_dns_search.assert_not_called()
+
+        sv4, sv6 = self._dns_ksdata_to_ip_sets(None, None, True, False)
+        sv4.add_dns_search.assert_not_called()
+        sv6.add_dns_search.assert_not_called()
+
+        sv4, sv6 = self._dns_ksdata_to_ip_sets(None, None, False, False)
+        sv4.add_dns_search.assert_not_called()
+        sv6.add_dns_search.assert_not_called()
