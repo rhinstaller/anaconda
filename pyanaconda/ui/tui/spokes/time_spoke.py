@@ -304,7 +304,10 @@ class TimeZoneSpoke(NormalTUISpoke):
         return prompt
 
     def apply(self):
-        self._timezone_module.SetTimezone(self._selection)
+        self._timezone_module.SetTimezoneWithPriority(
+            self._selection,
+            constants.TIMEZONE_PRIORITY_USER
+        )
         self._timezone_module.SetKickstarted(False)
 
 
