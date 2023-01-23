@@ -21,7 +21,8 @@ from pykickstart.errors import KickstartParseError
 
 from pyanaconda.core.i18n import _
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import TIME_SOURCE_SERVER, TIME_SOURCE_POOL
+from pyanaconda.core.constants import TIME_SOURCE_SERVER, TIME_SOURCE_POOL, \
+    TIMEZONE_PRIORITY_USER, TIMEZONE_PRIORITY_DEFAULT, TIMEZONE_PRIORITY_KICKSTART
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartService
@@ -47,6 +48,7 @@ class TimezoneService(KickstartService):
         super().__init__()
         self.timezone_changed = Signal()
         self._timezone = "America/New_York"
+        self._priority = TIMEZONE_PRIORITY_DEFAULT
 
         self.geolocation_result_changed = Signal()
         self._geoloc_result = GeolocationData()
@@ -73,7 +75,7 @@ class TimezoneService(KickstartService):
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-        self.set_timezone(data.timezone.timezone)
+        self.set_timezone_with_priority(data.timezone.timezone, TIMEZONE_PRIORITY_KICKSTART)
         self.set_is_utc(data.timezone.isUtc)
         self.set_ntp_enabled(not data.timezone.nontp)
 
@@ -148,7 +150,20 @@ class TimezoneService(KickstartService):
 
     def set_timezone(self, timezone):
         """Set the timezone."""
+        self.set_timezone_with_priority(timezone, TIMEZONE_PRIORITY_USER)
+
+    def set_timezone_with_priority(self, timezone, priority):
+        """Set the timezone with priority.
+
+        Sets the timezone only if the priority is higher than the previous priority.
+        """
+        if priority < self._priority:
+            log.debug("Timezone did not change %s -> %s due to too low priority: %d > %d.",
+                      self._timezone, timezone, self._priority, priority)
+            return
+
         self._timezone = timezone
+        self._priority = priority
         self.timezone_changed.emit()
         log.debug("Timezone is set to %s.", timezone)
 

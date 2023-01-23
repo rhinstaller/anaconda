@@ -22,7 +22,9 @@ import unittest
 from dasbus.structure import compare_data
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
-from pyanaconda.core.constants import TIME_SOURCE_SERVER, TIME_SOURCE_POOL
+from pyanaconda.core.constants import TIME_SOURCE_SERVER, TIME_SOURCE_POOL, \
+    TIMEZONE_PRIORITY_DEFAULT, TIMEZONE_PRIORITY_LANGUAGE, TIMEZONE_PRIORITY_GEOLOCATION, \
+    TIMEZONE_PRIORITY_KICKSTART, TIMEZONE_PRIORITY_USER
 from pyanaconda.modules.common.constants.services import TIMEZONE
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.common.structures.timezone import TimeSourceData
@@ -98,6 +100,50 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
             "TimeSources",
             [server, pool]
         )
+
+    def test_timezone_priority_constants(self):
+        """Test the timezone priority constants are in correct order."""
+        # assert order of priorities is correct AND nothing equals
+        assert TIMEZONE_PRIORITY_DEFAULT \
+               < TIMEZONE_PRIORITY_LANGUAGE \
+               < TIMEZONE_PRIORITY_GEOLOCATION \
+               < TIMEZONE_PRIORITY_KICKSTART \
+               < TIMEZONE_PRIORITY_USER
+
+    def test_timezone_priority(self):
+        """Test the SetTimezoneWithPriority function."""
+        # initialize priority to a low value, which is impossible via the interface as other
+        # tests set just Timezone which uses the highest priority
+        self.timezone_module._timezone = "Default/Default"
+        self.timezone_module._priority = TIMEZONE_PRIORITY_DEFAULT
+        assert self.timezone_interface.Timezone == "Default/Default"  # as initialized
+        # check higher priority overwrites
+        self.timezone_interface.SetTimezoneWithPriority(
+            "Language/Spoke",
+            TIMEZONE_PRIORITY_LANGUAGE
+        )
+        assert self.timezone_interface.Timezone == "Language/Spoke"
+        # check same priority overwrites
+        self.timezone_interface.SetTimezoneWithPriority(
+            "More/Lang",
+            TIMEZONE_PRIORITY_LANGUAGE
+        )
+        assert self.timezone_interface.Timezone == "More/Lang"
+        # check lower priority does not overwrite
+        self.timezone_interface.SetTimezoneWithPriority(
+            "Back/To/Defaults",
+            TIMEZONE_PRIORITY_DEFAULT
+        )
+        assert self.timezone_interface.Timezone == "More/Lang"
+        # check that the unprioritized property uses the highest priority
+        # order of constants is guaranteed by testing elsewhere
+        self.timezone_interface.Timezone = "Highest"
+        assert self.timezone_interface.Timezone == "Highest"
+        self.timezone_interface.SetTimezoneWithPriority(
+            "Kick/Start",
+            TIMEZONE_PRIORITY_KICKSTART
+        )
+        assert self.timezone_interface.Timezone == "Highest"
 
     def _test_kickstart(self, ks_in, ks_out):
         check_kickstart_interface(self.timezone_interface, ks_in, ks_out)
