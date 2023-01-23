@@ -1,7 +1,7 @@
 #
 # utility functions using libnm
 #
-# Copyright (C) 2018 Red Hat, Inc.
+# Copyright (C) 2018-2023 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -839,6 +839,20 @@ def update_connection_ip_settings_from_ksdata(connection, network_data):
             else:
                 log.error("IP address %s is not valid", ns)
 
+    # DNS search domains
+    if network_data.ipv4_dns_search:
+        for domain in [str.strip(i) for i in network_data.ipv4_dns_search.split(",")]:
+            s_ip4.add_dns_search(domain)
+    if network_data.ipv6_dns_search:
+        for domain in [str.strip(i) for i in network_data.ipv6_dns_search.split(",")]:
+            s_ip6.add_dns_search(domain)
+
+    # ignore auto DNS
+    if network_data.ipv4_ignore_auto_dns:
+        s_ip4.props.ignore_auto_dns = network_data.ipv4_ignore_auto_dns
+    if network_data.ipv6_ignore_auto_dns:
+        s_ip6.props.ignore_auto_dns = network_data.ipv6_ignore_auto_dns
+
 
 def update_connection_wired_settings_from_ksdata(connection, network_data):
     """Update NM connection wired settings from kickstart in place.
@@ -1593,6 +1607,14 @@ def _update_ip4_config_kickstart_network_data(connection, network_data):
     if ip4_dhcp_hostname:
         network_data.hostname = ip4_dhcp_hostname
 
+    # dns
+    network_data.ipv4_ignore_auto_dns = s_ip4_config.get_ignore_auto_dns()
+    ip4_num_domains = s_ip4_config.get_num_dns_searches()
+    ip4_domains = [s_ip4_config.get_dns_search(i) for i in range(ip4_num_domains)]
+    ip4_dns_search = ",".join(ip4_domains)
+    if ip4_dns_search:
+        network_data.ipv4_dns_search = ip4_dns_search
+
 
 def _update_ip6_config_kickstart_network_data(connection, network_data):
     """Update IPv6 configuration of network data from connection.
@@ -1619,6 +1641,14 @@ def _update_ip6_config_kickstart_network_data(connection, network_data):
         gateway = s_ip6_config.get_gateway()
         if gateway:
             network_data.ipv6gateway = gateway
+
+    # dns
+    network_data.ipv6_ignore_auto_dns = s_ip6_config.get_ignore_auto_dns()
+    ip6_num_domains = s_ip6_config.get_num_dns_searches()
+    ip6_domains = [s_ip6_config.get_dns_search(i) for i in range(ip6_num_domains)]
+    ip6_dns_search = ",".join(ip6_domains)
+    if ip6_dns_search:
+        network_data.ipv6_dns_search = ip6_dns_search
 
 
 def _update_vlan_kickstart_network_data(nm_client, connection, network_data):
