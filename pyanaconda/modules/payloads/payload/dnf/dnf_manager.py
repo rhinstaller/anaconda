@@ -1040,7 +1040,7 @@ class DNFManager(object):
         """Verify a hash of the repomd.xml file for each enabled repository.
 
         This method tests if URL links from active repositories can be reached.
-        It is useful when network settings is changed so that we can verify if
+        It is useful when network settings are changed so that we can verify if
         repositories are still reachable.
 
         :return: True if files haven't changed, otherwise False
