@@ -54,6 +54,9 @@ dist_check_SCRIPTS = $(srcdir)/glade_tests/*.py \
 		     $(srcdir)/gettext_tests/*.py \
 		     gettext_tests/canary_tests.sh \
 		     $(srcdir)/*_tests/*.py \
+		     $(srcdir)/*_tests/*/*.py \
+		     $(srcdir)/*_tests/*/*/*.py \
+		     $(srcdir)/*_tests/*/*/*/*.py \
 		     $(srcdir)/unit_tests/*_tests/*.py \
 		     shellcheck/*.sh \
 		     webui_eslint/run_webui_eslint.sh \
