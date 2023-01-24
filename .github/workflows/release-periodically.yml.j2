@@ -18,9 +18,24 @@ permissions:
   contents: write
 
 jobs:
+  check-date:
+    # run only on even weeks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if the week number is even
+        id: check
+        run: |
+          week_no=$(date +"%V")
+          if [ $((10#${week_no}%2)) -eq 0 ]; then
+            echo "is_even=true" >> $GITHUB_OUTPUT
+          fi
+    outputs:
+      is_even: ${{ steps.check.outputs.is_even }}
+
   make-release-tag:
     # Don't run scheduled workflows on forks.
-    if: github.event_name != 'schedule' || github.repository == 'rhinstaller/anaconda'
+    needs: check-date
+    if: ${{ (github.event_name != 'schedule' || github.repository == 'rhinstaller/anaconda') && needs.check-date.outputs.is_even == 'true' }}
     runs-on: ubuntu-latest
     environment: releases
     steps:
