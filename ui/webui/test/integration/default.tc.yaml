@@ -1,0 +1,23 @@
+name: Default installation
+description: |
+  Performs instalation with minimal interaction with the UI
+author: zveleba@redhat.com
+tags:
+  - anaconda
+priority: 9
+execution:
+  type: anaconda-webui
+  automation_data:
+    script_file: ./ui/webui/test/integration/default.py
+    test_case: DefaultInstallation
+instructions:
+  setup:
+    - Start installation in VM
+  steps:
+    - step: Go through the required steps and keep as much as possible on default setting.
+    - step: Start installation
+      result: Installation finished successfully
+    - step: Reboot
+      result: Installed system starts
+  teardown:
+    - step: Remove VM

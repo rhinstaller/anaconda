@@ -34,6 +34,11 @@ class Storage():
         self.machine = machine
         self._step = InstallerSteps.STORAGE
 
+    def get_disks(self):
+        output = self.machine.execute('list-harddrives')
+        for disk in output.splitlines():
+            yield disk.split()[0]
+
     def select_disk(self, disk, selected=True):
         self.browser.set_checked(f"#{disk} input", selected)
         self.check_disk_selected(disk, selected)
