@@ -22,10 +22,9 @@ import sys
 TEST_DIR = os.environ['WEBUI_TEST_DIR']
 sys.path.append(TEST_DIR)
 sys.path.append(os.path.join(TEST_DIR, "common"))
-sys.path.append(os.path.join(TEST_DIR, "helpers"))
 sys.path.append(os.path.join(os.path.dirname(TEST_DIR), "bots/machine"))
 
-from integration import IntegrationTest  # pylint: disable=import-error
+from helpers.integration import IntegrationTest  # pylint: disable=import-error
 from testlib import test_main  # pylint: disable=import-error
 
 class DefaultInstallation(IntegrationTest):

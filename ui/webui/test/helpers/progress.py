@@ -15,12 +15,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program; If not, see <http://www.gnu.org/licenses/>.
 
-import os
-import sys
 import time
-
-HELPERS_DIR = os.path.dirname(__file__)
-sys.path.append(HELPERS_DIR)
 
 from installer import InstallerSteps  # pylint: disable=import-error
 
