@@ -18,7 +18,7 @@
 import signal
 import argparse
 
-from machine_install import VirtInstallMachine
+from .machine_install import VirtInstallMachine
 
 
 def cmd_cli():

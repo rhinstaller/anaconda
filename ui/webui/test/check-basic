@@ -15,16 +15,13 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program; If not, see <http://www.gnu.org/licenses/>.
 
-import os
-import sys
-
 # import Cockpit's machinery for test VMs and its browser test API
-from parent import setup_paths
+from .parent import setup_paths
 setup_paths()
 
-from helpers.installer import Installer
+from .helpers.installer import Installer
 from common.testlib import MachineCase, nondestructive, test_main  # pylint: disable=import-error
-from machine_install import VirtInstallMachine
+from .machine_install import VirtInstallMachine
 
 @nondestructive
 class TestBasic(MachineCase):
