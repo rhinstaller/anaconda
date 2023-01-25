@@ -23,11 +23,11 @@ from subprocess import CalledProcessError
 TEST_DIR = os.path.dirname(__file__)
 sys.path.append(os.path.join(os.path.dirname(TEST_DIR), "bots/machine"))
 
-from .installer import Installer
-from .language import Language
-from .storage import Storage
-from .review import Review
-from .progress import Progress
+from helpers.installer import Installer
+from helpers.language import Language
+from helpers.storage import Storage
+from helpers.review import Review
+from helpers.progress import Progress
 from common.testlib import MachineCase  # pylint: disable=import-error
 from machine_install import VirtInstallMachine
 

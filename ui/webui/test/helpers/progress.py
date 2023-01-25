@@ -17,7 +17,7 @@
 
 import time
 
-from installer import InstallerSteps  # pylint: disable=import-error
+from helpers.installer import InstallerSteps  # pylint: disable=import-error
 
 class Progress():
     def __init__(self, browser):
