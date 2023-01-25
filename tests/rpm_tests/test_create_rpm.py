@@ -60,7 +60,8 @@ class InstalledFilesTestCase(RPMTestCase):
                 FileFilters.isys_exclude,
                 FileFilters.glade_files_exclude,
                 FileFilters.text_files_exclude,
-                FileFilters.src_ignore_exclude
+                FileFilters.src_ignore_exclude,
+                FileFilters.template_exclude,
             ], self._get_source_files()
         )
 
@@ -329,6 +330,10 @@ class FileFilters(object):
     @staticmethod
     def text_files_exclude(path):
         return not path.endswith(".rst")
+
+    @staticmethod
+    def template_exclude(path):
+        return not path.endswith(".j2")
 
     @staticmethod
     def rpm_dbus_confs_only(path):
