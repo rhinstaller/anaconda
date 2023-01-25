@@ -21,7 +21,6 @@ from subprocess import CalledProcessError
 
 # import Cockpit's machinery for test VMs and its browser test API
 TEST_DIR = os.path.dirname(__file__)
-sys.path.append(os.path.join(TEST_DIR, "common"))
 sys.path.append(os.path.join(os.path.dirname(TEST_DIR), "bots/machine"))
 
 from .installer import Installer
@@ -29,7 +28,7 @@ from .language import Language
 from .storage import Storage
 from .review import Review
 from .progress import Progress
-from testlib import MachineCase  # pylint: disable=import-error
+from common.testlib import MachineCase  # pylint: disable=import-error
 from machine_install import VirtInstallMachine
 
 
