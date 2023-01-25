@@ -26,6 +26,7 @@ BOTS_DIR = f'{BASE_DIR}/bots'
 
 # pylint: disable=environment-modify
 sys.path.append(BOTS_DIR)
+sys.path.append(f'{TEST_DIR}/common')
 sys.path.append(f'{BOTS_DIR}/machine')
 
 import machine_install
