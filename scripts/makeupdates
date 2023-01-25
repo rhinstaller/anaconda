@@ -25,7 +25,6 @@ import subprocess
 import sys
 import re
 import glob
-import multiprocessing
 import argparse
 import tempfile
 
@@ -321,9 +320,6 @@ def _compilableChanged(tag, compilable):
 
     return False
 
-def isys_changed(tag):
-    return _compilableChanged(tag, 'pyanaconda/isys')
-
 def widgets_changed(tag):
     return _compilableChanged(tag, 'widgets')
 
@@ -335,24 +331,6 @@ def check_autotools(srcdir, builddir):
         os.chdir(builddir)
         os.system(os.path.join(srcdir, 'configure') + ' --prefix=`rpm --eval %_prefix`')
         os.chdir(srcdir)
-
-def copy_updated_isys(updates, srcdir, builddir):
-    os.chdir(srcdir)
-    print("copy_updated_isys BUILDDIR %s" % builddir)
-
-    check_autotools(srcdir, builddir)
-
-    os.system('make -C %s -j %d' % (builddir, multiprocessing.cpu_count()))
-
-    outdir = os.path.join(updates, SITE_PACKAGES_PATH, "pyanaconda")
-    if not os.path.isdir(outdir):
-        os.makedirs(outdir)
-
-    isysmodule = os.path.realpath(os.path.join(builddir, 'pyanaconda/isys/.libs/_isys.so'))
-
-    if os.path.isfile(isysmodule):
-        sys.stdout.write("Including %s\n" % isysmodule)
-        shutil.copy2(isysmodule, outdir)
 
 def copy_updated_widgets(updates, srcdir, builddir):
     os.chdir(srcdir)
@@ -459,7 +437,7 @@ def main():
                         help='do not delete updates subdirectory')
 
     parser.add_argument('-c', '--compile', action='store_true',
-                        help='compile code if there are isys changes')
+                        help='compile code if there are changes in widgets')
 
     parser.add_argument('-t', '--tag', action='store', type=str,
                         help='make updates image from TAG to HEAD')
@@ -507,9 +485,6 @@ def main():
     copy_updated_files(args.tag, updates, cwd, builddir)
 
     if args.compile:
-        if isys_changed(args.tag):
-            copy_updated_isys(updates, cwd, builddir)
-
         if widgets_changed(args.tag):
             copy_updated_widgets(updates, cwd, builddir)
 

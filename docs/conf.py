@@ -19,7 +19,7 @@ import sys, os, shutil
 sys.path.insert(0, os.path.abspath('..'))
 
 # configuration required to import test modules
-for path in ["../pyanaconda/isys/.libs", "../pyanaconda", "../tests", "../tests/lib", "../dracut", "../widgets"]:
+for path in ["../pyanaconda", "../tests", "../tests/lib", "../dracut", "../widgets"]:
     sys.path.append(os.path.abspath(path))
 
 # -- General configuration -----------------------------------------------------
@@ -356,6 +356,6 @@ class Mock(object):
     def __getitem__(cls, key):
         return cls.__getattr__(key)
 
-MOCK_MODULES = ['_isys']
+MOCK_MODULES = []
 for mod_name in MOCK_MODULES:
     sys.modules[mod_name] = Mock()
