@@ -20,14 +20,9 @@ import binascii
 import importlib.machinery
 import importlib.util
 
-BASE_DIR = os.path.normpath(os.path.dirname(__file__)+'/..')
-TEST_DIR = f'{BASE_DIR}/test'
-BOTS_DIR = f'{BASE_DIR}/bots'
-
-# pylint: disable=environment-modify
-sys.path.append(BOTS_DIR)
-sys.path.append(f'{TEST_DIR}/common')
-sys.path.append(f'{BOTS_DIR}/machine')
+# import Cockpit's machinery for test VMs and its browser test API
+from parent import setup_paths
+setup_paths()
 
 import machine_install
 # pylint: disable=import-error
