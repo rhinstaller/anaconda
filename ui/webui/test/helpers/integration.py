@@ -16,12 +16,7 @@
 # along with this program; If not, see <http://www.gnu.org/licenses/>.
 
 import os
-import sys
 from subprocess import CalledProcessError
-
-# import Cockpit's machinery for test VMs and its browser test API
-TEST_DIR = os.path.dirname(__file__)
-sys.path.append(os.path.join(os.path.dirname(TEST_DIR), "bots/machine"))
 
 from helpers.installer import Installer
 from helpers.language import Language
