@@ -29,7 +29,7 @@ Anaconda
    :alt: Test releasing and translations daily
    :target: https://github.com/rhinstaller/anaconda/actions/workflows/try-release-daily.yml
 
-.. |release-periodically| image:: https://github.com/rhinstaller/anaconda/actions/workflows/release-periodically/badge.svg
+.. |release-periodically| image:: https://github.com/rhinstaller/anaconda/actions/workflows/release-periodically.yml/badge.svg
    :alt: Make a rawhide/master release periodically
    :target: https://github.com/rhinstaller/anaconda/actions/workflows/release-periodically.yml
 
