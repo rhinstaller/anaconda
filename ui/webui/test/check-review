@@ -20,7 +20,7 @@ from .parent import setup_paths
 setup_paths()
 
 from .helpers.installer import Installer
-from .helpers.storage import Storage  # pylint: disable=import-error
+from .helpers.storage import Storage
 from .helpers.review import Review
 from common.testlib import MachineCase, nondestructive, test_main  # pylint: disable=import-error
 from .machine_install import VirtInstallMachine
