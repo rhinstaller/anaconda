@@ -21,7 +21,7 @@ import importlib.machinery
 import importlib.util
 
 # import Cockpit's machinery for test VMs and its browser test API
-from parent import setup_paths
+from .parent import setup_paths
 setup_paths()
 
 import machine_install
