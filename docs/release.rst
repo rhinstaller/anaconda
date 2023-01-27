@@ -304,29 +304,17 @@ Edit branch specific settings:
 
 ::
 
-   vim ./branch-config.mk
+   vim .branch-variables.yml
 
 And change content according to comments in the file.
 
-
-Then correct pykickstart version for the new Fedora release by changing all occurrences of
-the DEVEL constant imported from pykickstart for the F<version> constant.
-This has to be done on fedora-<version> branch only. For example:
+Then rebuild everything that is templatized:
 
 ::
 
-    from pykickstart.version import DEVEL as VERSION
+    make -f Makefile.am reload-infra
 
-to
-
-::
-
-    from pykickstart.version import F29 as VERSION
-
-Pykickstart generally does not do per Fedora version branches, so this needs to be done
-in the Fedora version specific branch on Anaconda side.
-
-Commit the result to your fedora-<version> upstream branch.
+This should set up infrastructure and some other parts like makefile variables and pykickstart version used.
 
 After doing this, please verify that Pykickstart supports Fedora <version> and <version + 1>
 if not, please file an `issue <https://github.com/pykickstart/pykickstart/issues>`_ on the
