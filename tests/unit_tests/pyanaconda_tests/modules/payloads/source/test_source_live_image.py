@@ -25,7 +25,7 @@ from dasbus.typing import get_variant, Str, Bool
 from requests import RequestException
 from unittest.mock import patch, Mock
 
-from pyanaconda.core.constants import SOURCE_TYPE_LIVE_IMAGE
+from pyanaconda.core.constants import SOURCE_TYPE_LIVE_IMAGE, NETWORK_CONNECTION_TIMEOUT
 from pyanaconda.core.path import make_directories, touch, join_paths
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_LIVE_IMAGE
 from pyanaconda.modules.common.errors.payload import SourceSetupError
@@ -294,6 +294,33 @@ class SetUpRemoteImageSourceTaskTestCase(unittest.TestCase):
         # Check the result.
         assert isinstance(result, SetupImageResult)
         assert result == SetupImageResult(4000)
+
+    @patch("pyanaconda.modules.payloads.source.live_image.initialization.requests_session")
+    def test_https_no_verify_ssl(self, session_getter):
+        """Test a request with ssl verification disabled."""
+        # Prepare the session.
+        session = session_getter.return_value.__enter__.return_value
+        response = session.head.return_value
+
+        response.status_code = 200
+        response.headers = {'content-length': 1000}
+
+        # Run the task.
+        configuration = LiveImageConfigurationData()
+        configuration.url = "https://my/fake/path"
+        configuration.ssl_verification_enabled = False
+
+        task = SetUpRemoteImageSourceTask(configuration)
+        result = task.run()
+
+        # Check the result.
+        assert isinstance(result, SetupImageResult)
+        session.head.assert_called_once_with(
+            url="https://my/fake/path",
+            proxies={},
+            verify=False,
+            timeout=NETWORK_CONNECTION_TIMEOUT
+        )
 
 
 class LiveImageInstallationTestCase(unittest.TestCase):
