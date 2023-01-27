@@ -49,13 +49,6 @@ RUN set -ex; \
   fi; \
   # Update the base container packages
   dnf update -y; \
-  # Install Rawhide-only fixes
-  if ! grep -q VARIANT.*eln /etc/os-release; then \
-    dnf -y install \
-    # FIXME: Temporarily add missing dependencies for npm-8.13.2-1.18.6.0.1.
-    https://kojipkgs.fedoraproject.org//packages/nodejs/18.6.0/1.fc37/x86_64/nodejs-18.6.0-1.fc37.x86_64.rpm \
-    https://kojipkgs.fedoraproject.org//packages/nodejs/18.6.0/1.fc37/x86_64/nodejs-libs-18.6.0-1.fc37.x86_64.rpm; \
-  fi; \
   # Install rest of the dependencies
   dnf install -y \
   /usr/bin/xargs \
