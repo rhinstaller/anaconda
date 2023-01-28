@@ -84,3 +84,15 @@ class ZFCPModule(KickstartBaseModule):
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
         data.zfcp.zfcp = self._zfcp_data
+        # So far, the data contains explicit zfcp statements from a
+        # kickstart file used as input for the installation. Now, add any
+        # missing entries that come from user interaction with the GUI.
+        for fcpdev in zfcp.fcpdevs:
+            zd = data.zfcp.dataClass()
+            zd.devnum = fcpdev.devnum
+            if "wwpn" in dir(fcpdev):
+                zd.wwpn = fcpdev.wwpn
+            if "fcplun" in dir(fcpdev):
+                zd.fcplun = fcpdev.fcplun
+            if zd not in data.zfcp.dataList():
+                data.zfcp.dataList().append(zd)
