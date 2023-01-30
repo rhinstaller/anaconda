@@ -51,8 +51,8 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, titl
         },
         {
             component: InstallationDestination,
-            id: "installation-destination",
-            label: _("Installation destination"),
+            id: "installation-desitnation",
+            label: _("Installation destination")
         },
         {
             component: ReviewConfiguration,
@@ -67,25 +67,40 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, titl
 
     const { path } = usePageLocation();
     const currentStepId = path[0] || "installation-language";
-    const steps = stepsOrder.map((s, idx) => {
-        return ({
-            id: s.id,
-            name: s.label,
-            component: (
-                <s.component
-                  idPrefix={s.id}
-                  setIsFormValid={setIsFormValid}
-                  onAddErrorNotification={onAddErrorNotification}
-                  toggleContextHelp={toggleContextHelp}
-                  stepNotification={stepNotification}
-                  isInProgress={isInProgress}
-                />
-            ),
-            stepNavItemProps: { id: s.id },
-            canJumpTo: idx <= stepsOrder.findIndex(s => s.id === currentStepId),
-            isFinishedStep: idx === stepsOrder.length - 1
+
+    const createSteps = (stepsOrder, subSteps = false) => {
+        const steps = stepsOrder.map((s, idx) => {
+            console.log(`creating step ${s.id}`);
+            let step = ({
+                id: s.id,
+                name: s.label,
+            });
+            if (s.component) {
+                step = ({
+                    ...step,
+                    component: (
+                        <s.component
+                          idPrefix={s.id}
+                          setIsFormValid={setIsFormValid}
+                          onAddErrorNotification={onAddErrorNotification}
+                          toggleContextHelp={toggleContextHelp}
+                          stepNotification={stepNotification}
+                          isInProgress={isInProgress}
+                        />
+                    ),
+                    stepNavItemProps: { id: s.id },
+                    canJumpTo: idx <= stepsOrder.findIndex(s => s.id === currentStepId),
+                    isFinishedStep: idx === stepsOrder.length - 1 && !subSteps
+                });
+            } else if (s.steps) {
+                step.steps = createSteps(s.steps, subSteps = true);
+            }
+            return step;
         });
-    });
+        console.log(steps);
+        return steps;
+    };
+    const steps = createSteps(stepsOrder);
 
     const startAtStep = steps.findIndex(step => step.id === path[0]) + 1;
     const goToStep = (newStep) => {
@@ -113,6 +128,7 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, titl
           onNext={goToStep}
           startAtStep={startAtStep}
           steps={steps}
+          isNavExpandable
         />
     );
 };
