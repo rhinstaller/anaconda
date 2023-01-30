@@ -255,9 +255,12 @@ def schedule_implicit_partitions(storage, disks, scheme, encrypted=False, luks_f
 
     return devs
 
+
 def get_default_partitioning(scheme=None):
     """Get the default partitioning requests.
 
+    :param scheme: a type of the partitioning scheme
+    :type scheme: int
     :return: a list of partitioning specs
     """
     # Get the platform-specific partitioning.
