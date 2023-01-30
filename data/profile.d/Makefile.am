@@ -29,6 +29,7 @@ dist_config_DATA    = \
 	fedora-workstation.conf \
 	fedora.conf \
 	ovirt.conf \
+	qubesos.conf \
 	rhel.conf \
 	rhvh.conf \
 	rocky.conf \
