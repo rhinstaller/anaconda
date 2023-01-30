@@ -57,7 +57,6 @@ class InstalledFilesTestCase(RPMTestCase):
                 FileFilters.pyc_exclude,
                 FileFilters.no_extension_exlude,
                 FileFilters.makefiles_exclude,
-                FileFilters.isys_exclude,
                 FileFilters.glade_files_exclude,
                 FileFilters.text_files_exclude,
                 FileFilters.src_ignore_exclude,
@@ -298,10 +297,6 @@ class FileFilters(object):
     @staticmethod
     def makefiles_exclude(path):
         return "Makefile" not in path
-
-    @staticmethod
-    def isys_exclude(path):
-        return "/isys/" not in path
 
     @staticmethod
     def pycache_exclude(path):

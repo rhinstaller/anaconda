@@ -19,7 +19,7 @@ import sys, os, shutil
 sys.path.insert(0, os.path.abspath('..'))
 
 # configuration required to import test modules
-for path in ["../pyanaconda/isys/.libs", "../pyanaconda", "../tests", "../tests/lib", "../dracut", "../widgets"]:
+for path in ["../pyanaconda", "../tests", "../tests/lib", "../dracut", "../widgets"]:
     sys.path.append(os.path.abspath(path))
 
 # -- General configuration -----------------------------------------------------
@@ -324,38 +324,3 @@ if not on_rtd:  # only import and set the theme if we're building docs locally
 autodoc_member_order = 'source'
 
 # otherwise, readthedocs.org uses their theme by default, so no need to specify it
-
-# This was taken directly from here:
-# http://read-the-docs.readthedocs.org/en/latest/faq.html#i-get-import-errors-on-libraries-that-depend-on-c-modules
-# I only added the __getitem__ method.
-# NOTE: this can be removed whenever we move to sphinx-1.3, at which point we'll
-#       be able to use autodoc_mock_imports (value is a list of modules to be
-#       mocked).
-class Mock(object):
-
-    __all__ = []
-
-    def __init__(self, *args, **kwargs):
-        pass
-
-    def __call__(self, *args, **kwargs):
-        return Mock()
-
-    @classmethod
-    def __getattr__(cls, name):
-        if name in ('__file__', '__path__'):
-            return '/dev/null'
-        elif name[0] == name[0].upper():
-            mockType = type(name, (), {})
-            mockType.__module__ = __name__
-            return mockType
-        else:
-            return Mock()
-
-    @classmethod
-    def __getitem__(cls, key):
-        return cls.__getattr__(key)
-
-MOCK_MODULES = ['_isys']
-for mod_name in MOCK_MODULES:
-    sys.modules[mod_name] = Mock()
