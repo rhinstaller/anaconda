@@ -464,6 +464,19 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 31 2023 github-actions <github-actions@github.com> - 38.19-1
+- Remove mocking of modules for sphinx docs builds (vslavik)
+- docs: Update branching instructions (vslavik)
+- docs: Fix release badge URL (vslavik)
+- Remove leftovers after the isys module removal (vslavik)
+- Templatize kickstart version (vslavik)
+- Ignore jinja templates in RPM tests (vslavik)
+- Show only usable devices in custom partitioning (jstodola)
+- Add base for integration testing and default installation test (zveleba)
+- Add storage helper function for listing disks (zveleba)
+- Add helper for back button to WebUI tests (zveleba)
+- Fix missing tests in release archive (marmarek)
+
 * Tue Jan 24 2023 github-actions <github-actions@github.com> - 38.18-1
 - Extend the DBus API of the DNF module (vponcova)
 - webui: Disable check for unexpected SELinux denials (martin)
