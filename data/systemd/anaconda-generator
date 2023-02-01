@@ -11,8 +11,8 @@ fi
 
 # set up dirs
 systemd_dir=/lib/systemd/system
-target_dir=$systemd_dir/anaconda.target.wants
-mkdir -p $target_dir
+target_dir="$1/anaconda.target.wants"
+mkdir -p "$target_dir"
 
 # create symlink anaconda.target.wants/SERVICE@TTY.service
 service_on_tty() {
@@ -41,6 +41,6 @@ for tty in hvc0 hvc1 xvc0 hvsi0 hvsi1 hvsi2; do
     fi
 done
 
-ln -sf $systemd_dir/anaconda-nm-config.service $target_dir/anaconda-nm-config.service
-ln -sf $systemd_dir/anaconda-nm-disable-autocons.service $target_dir/anaconda-nm-disable-autocons.service
-ln -sf $systemd_dir/anaconda-pre.service $target_dir/anaconda-pre.service
+ln -sf "$systemd_dir/anaconda-nm-config.service" "$target_dir/anaconda-nm-config.service"
+ln -sf "$systemd_dir/anaconda-nm-disable-autocons.service" "$target_dir/anaconda-nm-disable-autocons.service"
+ln -sf "$systemd_dir/anaconda-pre.service" "$target_dir/anaconda-pre.service"
