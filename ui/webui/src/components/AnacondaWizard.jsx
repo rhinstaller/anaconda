@@ -49,10 +49,16 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, titl
             id: "installation-language",
             label: _("Welcome"),
         },
+        // TODO rename installation-destination to disk-selection everywhere
+        // and -root thing as well
         {
-            component: InstallationDestination,
-            id: "installation-desitnation",
-            label: _("Installation destination")
+            id: "installation-destination-root",
+            label: _("Installation destination"),
+            steps: [{
+                component: InstallationDestination,
+                id: "installation-destination",
+                label: _("Disk selection")
+            }]
         },
         {
             component: ReviewConfiguration,
@@ -65,15 +71,39 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, titl
         }
     ];
 
+    // TODO generate
+    const linearStepsOrder = [
+        "installation-language",
+        "installation-destination-root",
+        "installation-destination",
+        "installation-review",
+        "installation-progress",
+    ];
+
     const { path } = usePageLocation();
     const currentStepId = path[0] || "installation-language";
 
-    const createSteps = (stepsOrder, subSteps = false) => {
+    // TODO will became methods of some steps list structure ?
+    const isFinishedStep = (stepId) => {
+        const stepIdx = linearStepsOrder.findIndex(s => s === stepId);
+        return stepIdx === linearStepsOrder.length - 1;
+    };
+
+    const canJumpToStep = (stepId, currentStepId) => {
+        const stepIdx = linearStepsOrder.findIndex(s => s === stepId);
+        const currentStepIdx = linearStepsOrder.findIndex(s => s === currentStepId);
+        return stepIdx <= currentStepIdx;
+    };
+
+    const createSteps = (stepsOrder) => {
         const steps = stepsOrder.map((s, idx) => {
             console.log(`creating step ${s.id}`);
             let step = ({
                 id: s.id,
                 name: s.label,
+                stepNavItemProps: { id: s.id },
+                canJumpTo: canJumpToStep(s.id, currentStepId),
+                isFinishedStep: isFinishedStep(s.id),
             });
             if (s.component) {
                 step = ({
@@ -88,12 +118,9 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, titl
                           isInProgress={isInProgress}
                         />
                     ),
-                    stepNavItemProps: { id: s.id },
-                    canJumpTo: idx <= stepsOrder.findIndex(s => s.id === currentStepId),
-                    isFinishedStep: idx === stepsOrder.length - 1 && !subSteps
                 });
             } else if (s.steps) {
-                step.steps = createSteps(s.steps, subSteps = true);
+                step.steps = createSteps(s.steps);
             }
             return step;
         });
