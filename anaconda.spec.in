@@ -411,6 +411,16 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Feb 02 2023 Jiri Konecny <jkonecny@redhat.com> - 34.25.2.7-1
+- Show an error message when subscription token transfer fails (mkolman)
+  Resolves: rhbz#2057472
+- Bump blivet version for NVMe-oF support (vslavik)
+  Resolves: rhbz#2164343
+- Make text in custom_storage_helper more accurate (ozobal)
+  Resolves: rhbz#2133046
+- Fix infobar colors in GTK GUI (ozobal)
+  Resolves: rhbz#2074827
+
 * Wed Jan 11 2023 Vladimír Slávik <vslavik@redhat.com> - 34.25.2.6-1
 - Add a NVMe-FC tab to the Advanced Storage screen (vslavik)
   Resolves: rhbz#2107346
