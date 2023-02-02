@@ -367,6 +367,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Feb 02 2023 Jiri Konecny <jkonecny@redhat.com> - 33.16.8.7-1
+- Report registration errors from kickstart (mkolman)
+  Resolves: rhbz#2127072
+- Make text in custom_storage_helper more accurate (ozobal)
+  Resolves: rhbz#2063288
+
 * Mon Jan 09 2023 Jiri Konecny <jkonecny@redhat.com> - 33.16.8.6-1
 - payload: fix repo --includepkgs option (rvykydal)
   Resolves: rhbz#2014103
