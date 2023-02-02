@@ -24,6 +24,7 @@ dist_config_DATA    = \
 	fedora-iot.conf \
 	fedora-kde.conf \
 	fedora-kinoite.conf \
+	fedora-sericea.conf \
 	fedora-server.conf \
 	fedora-silverblue.conf \
 	fedora-workstation.conf \
