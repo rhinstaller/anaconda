@@ -285,6 +285,21 @@ class ErrorHandler(object):
         else:
             return ERROR_RAISE
 
+    def _subscriptionTokenTransferErrorHandler(self, exn):
+        message = _("Failed to enable Red Hat subscription on the "
+                    "installed system."
+                    "\n\n"
+                    "Your Red Hat subscription might be invalid "
+                    "(such as due to an expired developer subscription)."
+                    "\n\n"
+                    "Would you like to ignore this and continue with "
+                    "installation?")
+
+        if self.ui.showYesNoQuestion(message):
+            return ERROR_CONTINUE
+        else:
+            return ERROR_RAISE
+
     def cb(self, exn):
         """This method is the callback that all error handling should pass
            through.  The return value is one of the ERROR_* constants defined
@@ -320,6 +335,7 @@ class ErrorHandler(object):
             "InsightsClientMissingError": self._insightsErrorHandler,
             "InsightsConnectError": self._insightsErrorHandler,
             "KickstartRegistrationError": self._kickstartRegistrationErrorHandler,
+            "SubscriptionTokenTransferError": self._subscriptionTokenTransferErrorHandler,
         }
 
         if exn.__class__.__name__ in _map:
