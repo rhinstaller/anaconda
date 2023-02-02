@@ -99,6 +99,10 @@ check_removed_no_inst_arg "kssendsn" "inst.ks.sendsn"
 # mpath
 check_removed_arg "inst.nompath"
 
+# dmraid & nodmraid
+check_removed_arg "inst.dmraid"
+check_removed_arg "inst.nodmraid"
+
 # Ignore self-signed SSL certs
 check_removed_no_inst_arg "noverifyssl" "inst.noverifyssl"
 if getargbool 0 inst.noverifyssl; then

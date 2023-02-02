@@ -682,19 +682,6 @@ back to a local boot.
 Storage options
 ---------------
 
-.. inst.nodmraid:
-
-inst.nodmraid
-^^^^^^^^^^^^^
-
-Disable support for dmraid.
-
-.. warning:: This option is never a good idea! If you have a disk that is
-             erroneously identified as part of a firmware RAID array, that means
-             it has some stale RAID metadata on it which must be removed using
-             an appropriate tool (dmraid and/or wipefs).
-
-
 .. inst.disklabel:
 
 inst.disklabel
@@ -1013,6 +1000,14 @@ repo=nfsiso:...
 Anaconda no longer needs explicit specification that a NFS location is an ISO image.
 The difference between an installable tree and a dir with an ``.iso`` file is now
 automatically detected, so this is the same as ``inst.repo=nfs:``...
+
+.. inst.nodmraid:
+
+inst.nodmraid
+^^^^^^^^^^^^^
+
+Anaconda no longer supports dmraid, BIOS/Firmware RAID devices are now handled by
+``mdadm``.
 
 .. inst.product:
 

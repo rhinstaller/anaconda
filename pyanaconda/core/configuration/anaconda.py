@@ -380,7 +380,6 @@ class AnacondaConfiguration(Configuration):
         self.bootloader._set_option("nonibft_iscsi_boot", opts.nonibftiscsiboot)
 
         # Set the storage flags.
-        self.storage._set_option("dmraid", opts.dmraid)
         self.storage._set_option("ibft", opts.ibft)
         self.storage._set_option("multipath_friendly_names", opts.multipath_friendly_names)
 

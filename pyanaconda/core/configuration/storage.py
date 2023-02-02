@@ -51,11 +51,6 @@ class StorageSection(Section):
     """The Storage section."""
 
     @property
-    def dmraid(self):
-        """Enable dmraid usage during the installation."""
-        return self._get_option("dmraid", bool)
-
-    @property
     def ibft(self):
         """Enable iBFT usage during the installation."""
         return self._get_option("ibft", bool)
