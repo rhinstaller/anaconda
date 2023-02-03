@@ -20,7 +20,6 @@ gi.require_version("BlockDev", "2.0")
 from gi.repository import BlockDev as blockdev
 
 from collections import defaultdict
-from distutils.version import LooseVersion
 
 from blivet import arch, util
 from blivet.devicefactory import get_device_type
@@ -34,6 +33,7 @@ from pyanaconda.core.constants import productName, STORAGE_REFORMAT_BLOCKLIST, \
     STORAGE_LUKS2_MIN_RAM, STORAGE_ROOT_DEVICE_TYPES, STORAGE_REQ_PARTITION_SIZES, \
     STORAGE_MUST_NOT_BE_ON_ROOT
 from pyanaconda.core.i18n import _
+from pyanaconda.core.payload import rpm_version_key
 from pyanaconda.core.storage import DEVICE_TEXT_MAP
 from pyanaconda.modules.storage.platform import platform
 
@@ -259,7 +259,7 @@ def _check_opal_firmware_kernel_version(detected_version, required_version):
     """
     try:
         if detected_version and required_version:
-            return LooseVersion(detected_version) >= LooseVersion(required_version)
+            return rpm_version_key(detected_version) >= rpm_version_key(required_version)
     except Exception as e:  # pylint: disable=broad-except
         log.warning("Couldn't check the firmware kernel version: %s", str(e))
 

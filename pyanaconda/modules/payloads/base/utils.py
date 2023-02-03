@@ -17,16 +17,14 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import functools
 import os
 import stat
-
-from distutils.version import LooseVersion
 
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.util import mkdirChain
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.payload import rpm_version_key
 log = get_module_logger(__name__)
 
 
@@ -95,11 +93,4 @@ def get_dir_size(directory):
 
 def sort_kernel_version_list(kernel_version_list):
     """Sort the given kernel version list."""
-    kernel_version_list.sort(key=functools.cmp_to_key(_compare_versions))
-
-
-def _compare_versions(v1, v2):
-    """Compare two version number strings."""
-    first_version = LooseVersion(v1)
-    second_version = LooseVersion(v2)
-    return (first_version > second_version) - (first_version < second_version)
+    kernel_version_list.sort(key=rpm_version_key)
