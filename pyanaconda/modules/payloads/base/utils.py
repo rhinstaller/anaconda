@@ -17,21 +17,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import functools
-
-from packaging.version import LegacyVersion as parse_version
-
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.payload import rpm_version_key
 log = get_module_logger(__name__)
 
 
 def sort_kernel_version_list(kernel_version_list):
     """Sort the given kernel version list."""
-    kernel_version_list.sort(key=functools.cmp_to_key(_compare_versions))
-
-
-def _compare_versions(v1, v2):
-    """Compare two version number strings."""
-    first_version = parse_version(v1)
-    second_version = parse_version(v2)
-    return (first_version > second_version) - (first_version < second_version)
+    kernel_version_list.sort(key=rpm_version_key)
