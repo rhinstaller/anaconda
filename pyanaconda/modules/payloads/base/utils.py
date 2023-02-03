@@ -19,8 +19,7 @@
 #
 import functools
 
-from packaging.version import LegacyVersion as parse_version
-
+from pyanaconda.modules.common.versions import RPMVersion as parse_version
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 

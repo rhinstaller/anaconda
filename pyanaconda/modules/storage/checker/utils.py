@@ -20,7 +20,6 @@ gi.require_version("BlockDev", "2.0")
 from gi.repository import BlockDev as blockdev
 
 from collections import defaultdict
-from packaging.version import LegacyVersion as parse_version
 
 from blivet import arch, util
 from blivet.devicefactory import get_device_type
@@ -35,6 +34,7 @@ from pyanaconda.core.constants import productName, STORAGE_REFORMAT_BLOCKLIST, \
     STORAGE_MUST_NOT_BE_ON_ROOT
 from pyanaconda.core.i18n import _
 from pyanaconda.core.storage import DEVICE_TEXT_MAP
+from pyanaconda.modules.common.versions import RPMVersion as parse_version
 from pyanaconda.modules.storage.platform import platform
 
 from pyanaconda.anaconda_loggers import get_module_logger
