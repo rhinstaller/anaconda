@@ -186,6 +186,12 @@ const Footer = ({ isFormValid, setIsFormValid, setStepNotification, isInProgress
                             />}
                             <ActionList>
                                 <Button
+                                  variant="secondary"
+                                  isDisabled={isBackDisabled}
+                                  onClick={onBack}>
+                                    {_("Back")}
+                                </Button>
+                                <Button
                                   id="installation-next-btn"
                                   aria-describedby="next-tooltip-ref"
                                   variant={nextButtonVariant}
@@ -212,13 +218,8 @@ const Footer = ({ isFormValid, setIsFormValid, setStepNotification, isInProgress
                                       isVisible={!isFormValid}
                                     />}
                                 <Button
-                                  variant="secondary"
-                                  isDisabled={isBackDisabled}
-                                  onClick={onBack}>
-                                    {_("Back")}
-                                </Button>
-                                <Button
                                   id="installation-quit-btn"
+                                  style={ { marginLeft: "var(--pf-global--spacer--2xl)"  } }
                                   variant="link"
                                   onClick={() => {
                                       setQuitWaitsConfirmation(true);
