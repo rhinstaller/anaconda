@@ -287,6 +287,12 @@ class ProfileConfigurationTestCase(unittest.TestCase):
             WORKSTATIONPLUS_PARTITIONING
         )
         self._check_default_profile(
+            "fedora-sericea",
+            ("fedora", "sericea"),
+            ["fedora.conf", "fedora-sericea.conf"],
+            WORKSTATIONPLUS_PARTITIONING
+        )
+        self._check_default_profile(
             "fedora-iot",
             ("fedora", "iot"),
             ["fedora.conf", "fedora-iot.conf"],
