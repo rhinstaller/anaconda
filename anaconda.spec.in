@@ -463,6 +463,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 07 2023 github-actions <github-actions@github.com> - 38.21-1
+- Sort RPM versions via rpm.labelCompare() and not via
+  packaging.version.LegacyVersion() (miro)
+
 * Tue Feb 07 2023 github-actions <github-actions@github.com> - 38.20-1
 - Add Sericea - ostree based Sway variant (jkonecny)
 - Fix the systemd generator for systemd 253 (#2165433) (awilliam)
