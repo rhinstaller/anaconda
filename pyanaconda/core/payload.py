@@ -16,13 +16,18 @@
 # Red Hat, Inc.
 #
 from collections import namedtuple
+from functools import cmp_to_key
 from urllib.parse import quote, unquote
+
+import rpm
 
 from pyanaconda.core.i18n import _
 from pyanaconda.core.regexes import URL_PARSE
 from pyanaconda.core.string import split_in_two
 
 NFSUrl = namedtuple("NFSUrl", ["options", "host", "path"])
+
+rpm_version_key = cmp_to_key(rpm.labelCompare)
 
 
 def parse_hdd_url(url):
