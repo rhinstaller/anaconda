@@ -464,6 +464,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 07 2023 github-actions <github-actions@github.com> - 38.20-1
+- Add Sericea - ostree based Sway variant (jkonecny)
+- Fix the systemd generator for systemd 253 (#2165433) (awilliam)
+- WebUI: Updated wizard footer buttons (ozobal)
+- Remove the dmraid and nodmraid boot options (vtrefny)
+
 * Tue Jan 31 2023 github-actions <github-actions@github.com> - 38.19-1
 - Remove mocking of modules for sphinx docs builds (vslavik)
 - docs: Update branching instructions (vslavik)
