@@ -913,7 +913,6 @@ class GraphicalUserInterface(UserInterface):
 
             if not self._actions:
                 sys.exit(0)
-                return
 
         nextAction.initialize()
         nextAction.window.set_beta(self._currentAction.window.get_beta())

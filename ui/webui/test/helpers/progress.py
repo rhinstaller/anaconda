@@ -36,7 +36,7 @@ class Progress():
             if self.browser.is_present(self._reboot_selector):
                 break
             if self.browser.is_present('.pf-c-alert.pf-m-danger'):
-                raise Exception('Error during instalation')
+                raise AssertionError('Error during installation')
             time.sleep(30)
         else:
             self.browser.wait_visible(self._reboot_selector)
