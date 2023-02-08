@@ -473,7 +473,7 @@ export const InstallationDestination = ({ idPrefix, setIsFormValid, onAddErrorNo
     }
 
     return (
-        <AnacondaPage title={_("Installation destination")}>
+        <AnacondaPage title={_("Select a storage devices(s)")}>
             <TextContent>
                 <Text id={idPrefix + "-hint"} component={TextVariants.p}>
                     {cockpit.format(_(
