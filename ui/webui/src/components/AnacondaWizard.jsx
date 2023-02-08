@@ -30,6 +30,7 @@ import {
 } from "@patternfly/react-core";
 
 import { InstallationDestination, applyDefaultStorage } from "./storage/InstallationDestination.jsx";
+import { StorageConfiguration } from "./storage/StorageConfiguration.jsx";
 import { InstallationLanguage } from "./localization/InstallationLanguage.jsx";
 import { InstallationProgress } from "./installation/InstallationProgress.jsx";
 import { ReviewConfiguration, ReviewConfigurationConfirmModal } from "./review/ReviewConfiguration.jsx";
@@ -57,6 +58,10 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, titl
                 component: InstallationDestination,
                 id: "storage-devices",
                 label: _("Storage devices")
+            }, {
+                component: StorageConfiguration,
+                id: "storage-configuration",
+                label: _("Storage configuration")
             }]
         },
         {
