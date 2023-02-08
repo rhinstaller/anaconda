@@ -31,6 +31,7 @@ import {
 
 import { InstallationDestination, applyDefaultStorage } from "./storage/InstallationDestination.jsx";
 import { StorageConfiguration } from "./storage/StorageConfiguration.jsx";
+import { DiskEncryption } from "./storage/DiskEncryption.jsx";
 import { InstallationLanguage } from "./localization/InstallationLanguage.jsx";
 import { InstallationProgress } from "./installation/InstallationProgress.jsx";
 import { ReviewConfiguration, ReviewConfigurationConfirmModal } from "./review/ReviewConfiguration.jsx";
@@ -62,6 +63,10 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, titl
                 component: StorageConfiguration,
                 id: "storage-configuration",
                 label: _("Storage configuration")
+            }, {
+                component: DiskEncryption,
+                id: "disk-encryption",
+                label: _("Disk encryption")
             }]
         },
         {
