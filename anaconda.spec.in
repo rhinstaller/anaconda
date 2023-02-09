@@ -411,6 +411,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Feb 09 2023 Jiri Konecny <jkonecny@redhat.com> - 34.25.2.8-1
+- Show only usable devices in custom partitioning (jstodola)
+  Resolves: rhbz#2052938
+
 * Thu Feb 02 2023 Jiri Konecny <jkonecny@redhat.com> - 34.25.2.7-1
 - Show an error message when subscription token transfer fails (mkolman)
   Resolves: rhbz#2057472
