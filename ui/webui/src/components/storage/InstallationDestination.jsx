@@ -20,15 +20,12 @@ import React, { useEffect, useState } from "react";
 import {
     Alert,
     AlertActionCloseButton,
-    Bullseye,
     Button,
     Divider,
     Dropdown,
     DropdownItem,
     DropdownToggle,
     DropdownToggleCheckbox,
-    EmptyState,
-    EmptyStateIcon,
     Flex,
     FlexItem,
     Form,
@@ -36,12 +33,10 @@ import {
     FormSection,
     Popover,
     PopoverPosition,
-    Spinner,
     Skeleton,
     Text,
     TextContent,
     TextVariants,
-    Title,
     Toolbar,
     ToolbarContent,
     ToolbarItem,
@@ -453,24 +448,6 @@ export const InstallationDestination = ({ idPrefix, setIsFormValid, onAddErrorNo
                     }, console.error);
                 }, console.error);
     }, []);
-
-    if (isInProgress) {
-        return (
-            <Bullseye>
-                <EmptyState id="installation-destination-next-spinner">
-                    <EmptyStateIcon variant="container" component={Spinner} />
-                    <Title size="lg" headingLevel="h4">
-                        {_("Checking disks")}
-                    </Title>
-                    <TextContent>
-                        <Text component={TextVariants.p}>
-                            {_("This may take a moment")}
-                        </Text>
-                    </TextContent>
-                </EmptyState>
-            </Bullseye>
-        );
-    }
 
     return (
         <AnacondaPage title={_("Select storage devices")}>

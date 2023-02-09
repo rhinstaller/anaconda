@@ -178,7 +178,7 @@ const Footer = ({ isFormValid, setIsFormValid, setStepNotification, isInProgress
         // first reset validation state to default
         setIsFormValid(true);
 
-        if (activeStep.id === "storage-devices") {
+        if (activeStep.id === "disk-encryption") {
             setIsInProgress(true);
 
             applyDefaultStorage({

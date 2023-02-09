@@ -18,11 +18,40 @@
 import cockpit from "cockpit";
 import React from "react";
 
+import {
+    Bullseye,
+    EmptyState,
+    EmptyStateIcon,
+    Spinner,
+    TextContent,
+    TextVariants,
+    Text,
+    Title,
+} from "@patternfly/react-core";
+
 import { AnacondaPage } from "../AnacondaPage.jsx";
 
 const _ = cockpit.gettext;
 
-export const DiskEncryption = () => {
+export const DiskEncryption = ({ isInProgress }) => {
+    if (isInProgress) {
+        return (
+            <Bullseye>
+                <EmptyState id="installation-destination-next-spinner">
+                    <EmptyStateIcon variant="container" component={Spinner} />
+                    <Title size="lg" headingLevel="h4">
+                        {_("Checking storage configuration")}
+                    </Title>
+                    <TextContent>
+                        <Text component={TextVariants.p}>
+                            {_("This may take a moment")}
+                        </Text>
+                    </TextContent>
+                </EmptyState>
+            </Bullseye>
+        );
+    }
+
     return (
         <AnacondaPage title={_("Encrypt the selected devices?")}>
             <p>TODO</p>
