@@ -16,15 +16,280 @@
  */
 
 import cockpit from "cockpit";
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import {
+    Alert,
+    Button,
+    DataList,
+    DataListAction,
+    DataListCell,
+    DataListItem,
+    DataListItemRow,
+    DataListItemCells,
+    Drawer,
+    DrawerContent,
+    DrawerContentBody,
+    DrawerActions,
+    DrawerHead,
+    DrawerPanelContent,
+    DrawerCloseButton,
+    Flex,
+    FlexItem,
+    HelperText,
+    HelperTextItem,
+    Popover,
+    PopoverPosition,
     TextContent,
+    Text,
+    Title,
+    Radio,
 } from "@patternfly/react-core";
+
+import { HelpIcon } from "@patternfly/react-icons";
+
+import ExclamationTriangleIcon from "@patternfly/react-icons/dist/esm/icons/exclamation-triangle-icon";
+
+import {
+    getRequiredDeviceSize,
+    getDiskTotalSpace,
+    getDiskFreeSpace,
+    getSelectedDisks,
+} from "../../apis/storage.js";
+
+import {
+    getRequiredSpace,
+} from "../../apis/payloads";
 
 import { AnacondaPage } from "../AnacondaPage.jsx";
 
 const _ = cockpit.gettext;
+
+// TODO unify with HelpDrawer ?
+const DetailDrawer = ({ isExpanded, setIsExpanded, detailContent, children }) => {
+    const drawerRef = useRef(null);
+
+    const onExpand = () => {
+        drawerRef.current && drawerRef.current.focus();
+    };
+
+    const onCloseClick = () => {
+        setIsExpanded(false);
+    };
+
+    const panelConent = (
+        <DrawerPanelContent>
+            <DrawerHead>
+                <span tabIndex={isExpanded ? 0 : -1} ref={drawerRef}>
+                    {detailContent}
+                </span>
+                <DrawerActions>
+                    <DrawerCloseButton onClick={onCloseClick} />
+                </DrawerActions>
+            </DrawerHead>
+        </DrawerPanelContent>
+    );
+
+    return (
+        <Drawer isExpanded={isExpanded} position="right" onExpand={onExpand}>
+            <DrawerContent panelContent={panelConent}>
+                <DrawerContentBody>{children}</DrawerContentBody>
+            </DrawerContent>
+        </Drawer>
+
+    );
+};
+
+function AvailabilityState (available = true, reason = null, hint = null) {
+    this.available = available;
+    this.reason = reason;
+    this.hint = hint;
+}
+
+// TODO total size check could go also to disk selection screen
+const checkEraseAll = async (selectedDisks, requiredSize) => {
+    const size = await getDiskTotalSpace({ diskNames: selectedDisks }).catch(console.error);
+    const availability = new AvailabilityState();
+    if (size < requiredSize) {
+        availability.available = false;
+        availability.reason = _("Not enough space on selected disks.");
+        availability.hint = cockpit.format(_(
+            "Total size: $0 Required size: $1"
+        ), cockpit.format_bytes(size), cockpit.format_bytes(requiredSize));
+    }
+    return availability;
+};
+
+const checkUseFreeSpace = async (selectedDisks, requiredSize) => {
+    const size = await getDiskFreeSpace({ diskNames: selectedDisks }).catch(console.error);
+    const availability = new AvailabilityState();
+    if (size < requiredSize) {
+        availability.available = false;
+        availability.reason = _("Not enough space on selected disks.");
+        availability.hint = cockpit.format(_(
+            "Free size: $0 Required size: $1"
+        ), cockpit.format_bytes(size), cockpit.format_bytes(requiredSize));
+    }
+    return availability;
+};
+
+export const scenarios = [{
+    id: "erase-all",
+    label: _("Erase devices and install"),
+    detail: _("Erase devices details ..."),
+    check: checkEraseAll,
+    default: true,
+}, {
+    id: "use-free-space",
+    label: _("Use free space for the installation"),
+    detail: _("Use free space details ..."),
+    check: checkUseFreeSpace,
+    default: false,
+}];
+
+// TODO add aria items
+// TODO put everything you can (and should) outside the component
+// TODO add prefixes to ids (for tests)
+const GuidedPartitioning = ({ scenarios }) => {
+    const [selectedScenario, setSelectedScenario] = useState(scenarios.filter(s => s.default)[0].id);
+    const [scenarioAvailability, setScenarioAvailability] = useState(Object.fromEntries(
+        scenarios.map((s) => [s.id, new AvailabilityState()])
+    ));
+    const [isDetailExpanded, setIsDetailExpanded] = useState(false);
+    const [detailContent, setDetailContent] = useState("");
+
+    useEffect(() => {
+        const updateScenariosAvailability = async (scenarios) => {
+            const requiredSpace = await getRequiredSpace();
+            const requiredSize = await getRequiredDeviceSize({ requiredSpace });
+            const selectedDisks = await getSelectedDisks();
+            scenarios.forEach(async scenario => {
+                const availability = await scenario.check(selectedDisks, requiredSize).catch(console.error);
+                setScenarioAvailability(ss => ({ ...ss, [scenario.id]: availability }));
+            });
+        };
+        updateScenariosAvailability(scenarios);
+    }, [scenarios]);
+
+    const scenarioDetailContent = (scenario, hint) => {
+        return (
+            <Flex direction={{ default: "column" }}>
+                <Title headingLevel="h3">
+                    {scenario.label}
+                </Title>
+                {hint &&
+                    <Alert
+                      id="scenario-disabled-hint"
+                      isInline
+                      title={_("This option is disabled")}
+                      variant="warning"
+                    >
+                        {hint}
+                    </Alert>}
+                <TextContent>
+                    <Text>
+                        {scenario.detail}
+                    </Text>
+                </TextContent>
+            </Flex>
+        );
+    };
+
+    const updateDetailContent = (scenarioId) => {
+        const scenario = scenarios.filter(s => s.id === scenarioId)[0];
+        const hint = scenarioAvailability[scenarioId].hint;
+        setDetailContent(scenarioDetailContent(scenario, hint));
+    };
+
+    const onScenarioToggled = (scenarioId) => {
+        setSelectedScenario(scenarioId);
+        updateDetailContent(scenarioId);
+    };
+
+    const showScenarioDetails = (scenarioId) => {
+        updateDetailContent(scenarioId);
+        setIsDetailExpanded(!isDetailExpanded);
+    };
+
+    const scenarioItems = scenarios.map(scenario =>
+        <DataListItem key={scenario.id}>
+            <DataListItemRow>
+                <DataListItemCells dataListCells={[
+                    <DataListAction key="radio">
+                        <Radio
+                          id={scenario.id}
+                          value={scenario.id}
+                          name="autopart-scenario"
+                          label={scenario.label}
+                          isDisabled={!scenarioAvailability[scenario.id].available}
+                          isChecked={selectedScenario === scenario.id}
+                          onChange={() => onScenarioToggled(scenario.id)}
+                        />
+                    </DataListAction>,
+                    <DataListCell key="more">
+                        {scenarioAvailability[scenario.id].reason &&
+                        <Flex spaceItems={{ default: "spaceItems2xl" }}>
+                            <FlexItem />
+                            <FlexItem>
+                                <HelperText>
+                                    <HelperTextItem variant="warning" icon=<ExclamationTriangleIcon />>
+                                        {scenarioAvailability[scenario.id].reason}
+                                    </HelperTextItem>
+                                </HelperText>
+                            </FlexItem>
+                            <FlexItem />
+                        </Flex>}
+                    </DataListCell>,
+                    <DataListAction key="details">
+                        <Button
+                          variant="link"
+                          isInline onClick={() => showScenarioDetails(scenario.id)}
+                        >
+                            {_("Learn more")}
+                        </Button>
+                    </DataListAction>,
+                ]} />
+            </DataListItemRow>
+        </DataListItem>
+    );
+
+    const GuidedPartitioningList = (
+        <DataList>
+            {scenarioItems}
+        </DataList>
+    );
+
+    const predefinedStorageInfo = (
+        <Popover
+          bodyContent={_(
+              "Pre-defined scenarios of the selected disks partitioning."
+          )}
+          position={PopoverPosition.auto}
+        >
+            <Button
+              variant="link"
+              aria-label={_("Pre-defined storage label info")}
+              icon={<HelpIcon />}
+            />
+        </Popover>
+    );
+
+    return (
+        <DetailDrawer
+          isExpanded={isDetailExpanded}
+          setIsExpanded={setIsDetailExpanded}
+          detailContent={detailContent}
+        >
+            <Title headingLevel="h3">
+                <Flex spaceItems={{ default: "spaceItemsXs" }}>
+                    <FlexItem>{_("Pre-defined storage configurations")}</FlexItem>
+                    <FlexItem>{predefinedStorageInfo}</FlexItem>
+                </Flex>
+            </Title>
+            {GuidedPartitioningList}
+        </DetailDrawer>
+    );
+};
 
 export const StorageConfiguration = () => {
     return (
@@ -32,7 +297,7 @@ export const StorageConfiguration = () => {
             <TextContent>
                 {_("Configure the partitioning scheme to be used on the selected disks.")}
             </TextContent>
+            <GuidedPartitioning scenarios={scenarios} />
         </AnacondaPage>
-
     );
 };
