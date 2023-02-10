@@ -148,6 +148,11 @@ PAYLOAD_SOURCE_RPM_OSTREE = DBusInterfaceIdentifier(
     basename="RPMOSTree"
 )
 
+PAYLOAD_SOURCE_RPM_OSTREE_CONTAINER = DBusInterfaceIdentifier(
+    namespace=SOURCE_NAMESPACE,
+    basename="RPMOSTreeContainer"
+)
+
 PAYLOAD_SOURCE_FLATPAK = DBusInterfaceIdentifier(
     namespace=SOURCE_NAMESPACE,
     basename="Flatpak"

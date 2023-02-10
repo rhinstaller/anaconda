@@ -293,6 +293,7 @@ class PayloadKickstartSpecification(KickstartSpecification):
         "liveimg": COMMANDS.Liveimg,
         "module": COMMANDS.Module,
         "nfs": COMMANDS.NFS,
+        "ostreecontainer": COMMANDS.OSTreeContainer,
         "ostreesetup": COMMANDS.OSTreeSetup,
         "repo": COMMANDS.Repo,
         "url": COMMANDS.Url
