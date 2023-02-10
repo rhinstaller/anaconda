@@ -45,7 +45,9 @@ class RPMOSTreeModule(PayloadBase):
     def supported_source_types(self):
         """Get list of sources supported by the RPM OSTree module."""
         return [
-            SourceType.RPM_OSTREE
+            SourceType.RPM_OSTREE,
+            SourceType.RPM_OSTREE_CONTAINER,
+            SourceType.FLATPAK,
         ]
 
     def process_kickstart(self, data):
@@ -72,18 +74,130 @@ class RPMOSTreeModule(PayloadBase):
         # TODO: Implement this method
         pass
 
+    def _get_ostree_source(self):
+        """Get source for RPM OSTree.
+
+        Find out if we need OSTree repo or container source type.
+        """
+        return self._get_source(SourceType.RPM_OSTREE_CONTAINER) or \
+            self._get_source(SourceType.RPM_OSTREE)
+
     def install_with_tasks(self):
         """Install the payload.
 
         :return: list of tasks
         """
-        # TODO: Implement this method
-        pass
+        ostree_source = self._get_ostree_source()
+
+        if not ostree_source:
+            log.debug("No OSTree RPM source is available.")
+            return []
+
+        data = ostree_source.configuration
+
+        tasks = [
+            InitOSTreeFsAndRepoTask(
+                physroot=conf.target.physical_root
+            ),
+            ChangeOSTreeRemoteTask(
+                data=data,
+                physroot=conf.target.physical_root
+            )
+        ]
+
+        # separate pulling of the container will be handled by deployment on the container
+        # otherwise handled by Deploy task
+        if not data.is_container():
+            tasks.append(
+                PullRemoteAndDeleteTask(
+                    data=data,
+                ))
+
+        tasks += [
+            DeployOSTreeTask(
+                data=data,
+                physroot=conf.target.physical_root
+            ),
+            SetSystemRootTask(
+                physroot=conf.target.physical_root
+            ),
+            CopyBootloaderDataTask(
+                physroot=conf.target.physical_root,
+                sysroot=conf.target.system_root
+            ),
+            PrepareOSTreeMountTargetsTask(
+                data=data,
+                physroot=conf.target.physical_root,
+                sysroot=conf.target.system_root
+            )
+        ]
+
+        flatpak_source = self._get_source(SourceType.FLATPAK)
+
+        if flatpak_source:
+            task = InstallFlatpaksTask(
+                sysroot=conf.target.system_root
+            )
+            tasks.append(task)
+
+        self._collect_mount_points_on_success(tasks)
+        return tasks
+
+    def _collect_mount_points_on_success(self, tasks):
+        """Collect mount points from successful tasks.
+
+        Ignore tasks that doesn't return a list of mount points.
+
+        :param tasks: a list of tasks
+        """
+        for task in tasks:
+            if isinstance(task, PrepareOSTreeMountTargetsTask):
+                task.succeeded_signal.connect(
+                    lambda t=task: self._add_internal_mounts(t.get_result())
+                )
+
+    def _add_internal_mounts(self, mount_points):
+        """Add mount points that will have to be unmounted.
+
+        :param mount_points: a list of mount points
+        """
+        self._internal_mounts.extend(mount_points)
+        log.debug("Internal mounts are set to: %s", self._internal_mounts)
 
     def post_install_with_tasks(self):
         """Execute post installation steps.
 
         :return: list of tasks
         """
-        # TODO: Implement this method
-        pass
+        ostree_source = self._get_ostree_source()
+
+        if not ostree_source:
+            log.debug("No OSTree RPM source is available.")
+            return []
+
+        return [
+            ChangeOSTreeRemoteTask(
+                data=ostree_source.configuration,
+                sysroot=conf.target.system_root
+            ),
+            ConfigureBootloader(
+                sysroot=conf.target.system_root,
+            )
+        ]
+
+    def tear_down_with_tasks(self):
+        """Returns teardown tasks for this payload.
+
+        Clean up everything after this payload.
+
+        :return: a list of tasks
+        """
+        tasks = super().tear_down_with_tasks()
+
+        tasks.append(
+            TearDownOSTreeMountTargetsTask(
+                mount_points=self._internal_mounts
+            )
+        )
+
+        return tasks

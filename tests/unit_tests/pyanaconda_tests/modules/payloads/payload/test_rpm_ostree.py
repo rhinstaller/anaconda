@@ -17,8 +17,16 @@
 #
 import unittest
 
-from pyanaconda.core.constants import SOURCE_TYPE_RPM_OSTREE
 from pyanaconda.modules.payloads.constants import PayloadType
+from pyanaconda.core.constants import SOURCE_TYPE_RPM_OSTREE, SOURCE_TYPE_RPM_OSTREE_CONTAINER, \
+    SOURCE_TYPE_FLATPAK, PAYLOAD_TYPE_RPM_OSTREE
+from pyanaconda.modules.payloads.base.initialization import TearDownSourcesTask
+from pyanaconda.modules.payloads.constants import SourceType
+from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_installation import InstallFlatpaksTask
+from pyanaconda.modules.payloads.payload.rpm_ostree.installation import InitOSTreeFsAndRepoTask, \
+    ChangeOSTreeRemoteTask, PullRemoteAndDeleteTask, DeployOSTreeTask, SetSystemRootTask, \
+    PrepareOSTreeMountTargetsTask, CopyBootloaderDataTask, TearDownOSTreeMountTargetsTask, \
+    ConfigureBootloader
 from pyanaconda.modules.payloads.payload.rpm_ostree.rpm_ostree import RPMOSTreeModule
 from pyanaconda.modules.payloads.payload.rpm_ostree.rpm_ostree_interface import RPMOSTreeInterface
 from pyanaconda.modules.payloads.payloads import PayloadsService
@@ -47,7 +55,9 @@ class RPMOSTreeInterfaceTestCase(unittest.TestCase):
     def test_supported_sources(self):
         """Test the SupportedSourceTypes property."""
         assert self.interface.SupportedSourceTypes == [
-            SOURCE_TYPE_RPM_OSTREE
+            SOURCE_TYPE_RPM_OSTREE,
+            SOURCE_TYPE_RPM_OSTREE_CONTAINER,
+            SOURCE_TYPE_FLATPAK,
         ]
 
 
@@ -85,6 +95,17 @@ class RPMOSTreeKickstartTestCase(unittest.TestCase):
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_RPM_OSTREE)
 
+    def test_ostree_container_kickstart(self):
+        ks_in = """
+        ostreecontainer --stateroot="fedora-coreos" --transport="repository" --remote="fedora" --url="quay.io/fedora/coreos:stable" --no-signature-verification
+        """
+        ks_out = """
+        # OSTree container setup
+        ostreecontainer --stateroot="fedora-coreos" --remote="fedora" --no-signature-verification --transport="repository" --url="quay.io/fedora/coreos:stable"
+        """
+        self.shared_ks_tests.check_kickstart(ks_in, ks_out)
+        self._check_properties(SOURCE_TYPE_RPM_OSTREE_CONTAINER)
+
     def test_priority_kickstart(self):
         ks_in = """
         ostreesetup --osname="fedora-iot" --url="https://compose/iot/" --ref="fedora/iot"
@@ -96,3 +117,184 @@ class RPMOSTreeKickstartTestCase(unittest.TestCase):
         """
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_RPM_OSTREE)
+
+    def test_ostreecontainer_priority_kickstart(self):
+        ks_in = """
+        url --url="https://compose/Everything"
+        ostreecontainer --stateroot="fedora-coreos" --remote="fedora" --url="quay.io/fedora/coreos:stable"
+        """
+        ks_out = """
+        # OSTree container setup
+        ostreecontainer --stateroot="fedora-coreos" --remote="fedora" --url="quay.io/fedora/coreos:stable"
+        """
+        self.shared_ks_tests.check_kickstart(ks_in, ks_out)
+        self._check_properties(SOURCE_TYPE_RPM_OSTREE_CONTAINER)
+
+
+class RPMOSTreeModuleTestCase(unittest.TestCase):
+    """Test the RPM OSTree module."""
+
+    def setUp(self):
+        self.maxDiff = None
+        self.module = RPMOSTreeModule()
+
+    def _assert_is_instance_list(self, objects, classes):
+        """Check if objects are instances of classes."""
+        assert len(objects) == len(classes)
+
+        for obj, cls in zip(objects, classes):
+            assert isinstance(obj, cls)
+
+    def test_get_kernel_version_list(self):
+        """Test the get_kernel_version_list method."""
+        assert self.module.get_kernel_version_list() == []
+
+    def test_install_with_tasks(self):
+        """Test the install_with_tasks method."""
+        assert self.module.install_with_tasks() == []
+
+        rpm_source = SourceFactory.create_source(SourceType.RPM_OSTREE)
+        self.module.set_sources([rpm_source])
+
+        tasks = self.module.install_with_tasks()
+        self._assert_is_instance_list(tasks, [
+            InitOSTreeFsAndRepoTask,
+            ChangeOSTreeRemoteTask,
+            PullRemoteAndDeleteTask,
+            DeployOSTreeTask,
+            SetSystemRootTask,
+            CopyBootloaderDataTask,
+            PrepareOSTreeMountTargetsTask,
+        ])
+
+        rpm_container_source = SourceFactory.create_source(SourceType.RPM_OSTREE_CONTAINER)
+        self.module.set_sources([rpm_container_source])
+
+        tasks = self.module.install_with_tasks()
+        self._assert_is_instance_list(tasks, [
+            InitOSTreeFsAndRepoTask,
+            ChangeOSTreeRemoteTask,
+            DeployOSTreeTask,
+            SetSystemRootTask,
+            CopyBootloaderDataTask,
+            PrepareOSTreeMountTargetsTask,
+        ])
+
+        flatpak_source = SourceFactory.create_source(SourceType.FLATPAK)
+        self.module.set_sources([rpm_source, flatpak_source])
+
+        tasks = self.module.install_with_tasks()
+        self._assert_is_instance_list(tasks, [
+            InitOSTreeFsAndRepoTask,
+            ChangeOSTreeRemoteTask,
+            PullRemoteAndDeleteTask,
+            DeployOSTreeTask,
+            SetSystemRootTask,
+            CopyBootloaderDataTask,
+            PrepareOSTreeMountTargetsTask,
+            InstallFlatpaksTask,
+        ])
+
+    def test_collect_mount_points(self):
+        """Collect mount points from successful tasks."""
+        rpm_source = SourceFactory.create_source(SourceType.RPM_OSTREE)
+        self.module.set_sources([rpm_source])
+        tasks = self.module.install_with_tasks()
+
+        for task in tasks:
+            # Fake the task results.
+            task_id = task.__class__.__name__
+            task._set_result([
+                "/path/{}/1".format(task_id),
+                "/path/{}/2".format(task_id)
+            ])
+
+            # Fake the task run.
+            task.succeeded_signal.emit()
+
+        assert self.module._internal_mounts == [
+            "/path/PrepareOSTreeMountTargetsTask/1",
+            "/path/PrepareOSTreeMountTargetsTask/2"
+        ]
+
+    def test_container_collect_mount_points(self):
+        """Collect mount points from successful tasks with ostreecontainer."""
+        rpm_source = SourceFactory.create_source(SourceType.RPM_OSTREE_CONTAINER)
+        self.module.set_sources([rpm_source])
+        tasks = self.module.install_with_tasks()
+
+        for task in tasks:
+            # Fake the task results.
+            task_id = task.__class__.__name__
+            task._set_result([
+                "/path/{}/1".format(task_id),
+                "/path/{}/2".format(task_id)
+            ])
+
+            # Fake the task run.
+            task.succeeded_signal.emit()
+
+        assert self.module._internal_mounts == [
+            "/path/PrepareOSTreeMountTargetsTask/1",
+            "/path/PrepareOSTreeMountTargetsTask/2"
+        ]
+
+    def test_post_install_with_tasks(self):
+        """Test the post_install_with_tasks method."""
+        assert self.module.post_install_with_tasks() == []
+
+        rpm_source = SourceFactory.create_source(SourceType.RPM_OSTREE)
+        self.module.set_sources([rpm_source])
+
+        tasks = self.module.post_install_with_tasks()
+        self._assert_is_instance_list(tasks, [
+            ChangeOSTreeRemoteTask,
+            ConfigureBootloader,
+        ])
+
+    def test_container_post_install_with_tasks(self):
+        """Test the post_install_with_tasks method with ostreecontainer."""
+        assert self.module.post_install_with_tasks() == []
+
+        rpm_source = SourceFactory.create_source(SourceType.RPM_OSTREE_CONTAINER)
+        self.module.set_sources([rpm_source])
+
+        tasks = self.module.post_install_with_tasks()
+        self._assert_is_instance_list(tasks, [
+            ChangeOSTreeRemoteTask,
+            ConfigureBootloader,
+        ])
+
+    def test_tear_down_with_tasks(self):
+        """Test the tear_down_with_tasks method."""
+        rpm_source = SourceFactory.create_source(SourceType.RPM_OSTREE)
+
+        self.module.set_sources([rpm_source])
+        self.module._add_internal_mounts(["/path/1", "/path/2"])
+
+        tasks = self.module.tear_down_with_tasks()
+
+        self._assert_is_instance_list(tasks, [
+            TearDownSourcesTask,
+            TearDownOSTreeMountTargetsTask
+        ])
+
+        assert tasks[0]._sources == [rpm_source]
+        assert tasks[1]._internal_mounts == ["/path/1", "/path/2"]
+
+    def test_container_tear_down_with_tasks(self):
+        """Test the tear_down_with_tasks method with ostreecontainer."""
+        rpm_source = SourceFactory.create_source(SourceType.RPM_OSTREE_CONTAINER)
+
+        self.module.set_sources([rpm_source])
+        self.module._add_internal_mounts(["/path/1", "/path/2"])
+
+        tasks = self.module.tear_down_with_tasks()
+
+        self._assert_is_instance_list(tasks, [
+            TearDownSourcesTask,
+            TearDownOSTreeMountTargetsTask
+        ])
+
+        assert tasks[0]._sources == [rpm_source]
+        assert tasks[1]._internal_mounts == ["/path/1", "/path/2"]

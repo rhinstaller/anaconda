@@ -23,9 +23,9 @@ import unittest
 from unittest.mock import patch, call, MagicMock
 
 from pyanaconda.core.glib import Variant, GError
-from pyanaconda.modules.common.structures.rpm_ostree import RPMOSTreeConfigurationData
-from pyanaconda.payload.errors import PayloadInstallError
-
+from pyanaconda.modules.common.errors.installation import PayloadInstallationError
+from pyanaconda.modules.common.structures.rpm_ostree import \
+    RPMOSTreeConfigurationData, RPMOSTreeContainerConfigurationData
 from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
     PrepareOSTreeMountTargetsTask, CopyBootloaderDataTask, InitOSTreeFsAndRepoTask, \
     ChangeOSTreeRemoteTask, ConfigureBootloader, DeployOSTreeTask, PullRemoteAndDeleteTask, \
@@ -46,17 +46,46 @@ def _make_config_data():
     return data
 
 
+def _make_container_config_data():
+    """Create OSTree container configuration data for testing
+
+    :return RPMOSTreeContainerConfigurationData: a data instance with all fields filled
+    """
+    data = RPMOSTreeContainerConfigurationData()
+    data.url = "url"
+    data.stateroot = "osname"
+    data.signature_verification_enabled = True
+    data.transport = "oci"
+    data.remote = "remote"
+    return data
+
+
 class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
-    def test_setup_internal_bindmount(self, exec_mock):
-        """Test OSTree mount target prepare task _setup_internal_bindmount()"""
+    def test_setup_internal_bindmount(self, exec_mock, mkdir_mock, exists_mock):
+        """Test OSTree mount target prepare task _setup_internal_bindmount"""
         exec_mock.return_value = 0
 
         data = _make_config_data()
         task = PrepareOSTreeMountTargetsTask("/sysroot", "/physroot", data)
         assert len(task._internal_mounts) == 0
+        self._check_setup_internal_bindmount(task, exec_mock, mkdir_mock, exists_mock)
 
+    @patch("os.path.exists")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.make_directories")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
+    def test_container_setup_internal_bindmount(self, exec_mock, mkdir_mock, exists_mock):
+        """Test OSTree mount target prepare task _setup_internal_bindmount with ostreecontainer"""
+        exec_mock.return_value = 0
+        exists_mock.return_value = True
+
+        data = _make_container_config_data()
+        task = PrepareOSTreeMountTargetsTask("/sysroot", "/physroot", data)
+        assert len(task._internal_mounts) == 0
+        self._check_setup_internal_bindmount(task, exec_mock, mkdir_mock, exists_mock)
+
+    def _check_setup_internal_bindmount(self, task, exec_mock, mkdir_mock, exists_mock):
         # everything left out
         task._setup_internal_bindmount("/src")
         exec_mock.assert_called_once_with("mount", ["--rbind", "/physroot/src", "/sysroot/src"])
@@ -104,6 +133,20 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
         exec_mock.return_value = 0
 
         data = _make_config_data()
+        self._check_run_with_var(data, exist_mock, storage_mock, mkdir_mock, exec_mock)
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.make_directories")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
+    @patch("os.path.exists", returns=True)
+    def test_container_run_with_var(self, exist_mock, storage_mock, mkdir_mock, exec_mock):
+        """Test OSTree mount target prepare task run() with /var with ostreecontainer"""
+        exec_mock.return_value = 0
+
+        data = _make_container_config_data()
+        self._check_run_with_var(data, exist_mock, storage_mock, mkdir_mock, exec_mock)
+
+    def _check_run_with_var(self, data, exist_mock, storage_mock, mkdir_mock, exec_mock):
         devicetree_mock = storage_mock.get_proxy()
 
         devicetree_mock.GetMountPoints.return_value = {
@@ -159,6 +202,20 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
         exec_mock.side_effect = [0] * 7 + [0, 65] * 5 + [0] * 3
 
         data = _make_config_data()
+        self._check_run_without_var(data, exists_mock, storage_mock, mkdir_mock, exec_mock)
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.make_directories")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
+    @patch("os.path.exists", returns=True)
+    def test_container_run_without_var(self, exists_mock, storage_mock, mkdir_mock, exec_mock):
+        """Test OSTree mount target prepare task run() without /var with ostreecontainer"""
+        exec_mock.side_effect = [0] * 7 + [0, 65] * 4 + [0] + [0] * 3
+
+        data = _make_container_config_data()
+        self._check_run_without_var(data, exists_mock, storage_mock, mkdir_mock, exec_mock)
+
+    def _check_run_without_var(self, data, exists_mock, storage_mock, mkdir_mock, exec_mock):
         devicetree_mock = storage_mock.get_proxy()
 
         devicetree_mock.GetMountPoints.return_value = {
@@ -213,6 +270,19 @@ class PrepareOSTreeMountTargetsTaskTestCase(unittest.TestCase):
         exec_mock.return_value = 1
 
         data = _make_config_data()
+        self._check_run_failed(data, storage_mock, mkdir_mock, exec_mock)
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.make_directories")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
+    def test_container_run_failed(self, storage_mock, mkdir_mock, exec_mock):
+        """Test the failed OSTree mount target prepare task with ostreecontainer."""
+        exec_mock.return_value = 1
+
+        data = _make_container_config_data()
+        self._check_run_failed(data, storage_mock, mkdir_mock, exec_mock)
+
+    def _check_run_failed(self, data, storage_mock, mkdir_mock, exec_mock):
         devicetree_mock = storage_mock.get_proxy()
 
         devicetree_mock.GetMountPoints.return_value = {
@@ -371,6 +441,11 @@ class ChangeOSTreeRemoteTaskTestCase(unittest.TestCase):
 
         task = ChangeOSTreeRemoteTask(data, use_sysroot, "/physroot")
         task.run()
+        
+    def _check_remote_changed(self, repo, remote="remote", sysroot_file=None, options=None):
+        """Check the remote_changed method."""
+        repo.remote_change.assert_called_once()
+        args, kwargs = repo.remote_change.call_args
 
         repo_mock.remote_change.assert_called_once()
         the_call = repo_mock.remote_change.mock_calls[0]
@@ -382,7 +457,8 @@ class ChangeOSTreeRemoteTaskTestCase(unittest.TestCase):
             assert args[0] == path_mock
         else:
             assert args[0] is None
-        assert args[2] == "remote"
+        assert args[0] == sysroot_file
+        assert args[2] == remote
         assert args[3] == "url"
 
         expected = {}
@@ -402,6 +478,148 @@ class ChangeOSTreeRemoteTaskTestCase(unittest.TestCase):
             for verify_ssl in (True, False):
                 for gpg_verify in (True, False):
                     self._execute_run_once(use_sysroot, gpg_verify, verify_ssl)
+        task = ChangeOSTreeRemoteTask(data, physroot="/physroot")
+        task.run()
+
+        self._check_remote_changed(repo, sysroot_file=None)
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.Gio.File")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.OSTree.Sysroot")
+    def test_container_install(self, sysroot_cls, gio_file_cls):
+        """Test the ChangeOSTreeRemoteTask installation task with ostreecontainer."""
+        data = _make_container_config_data()
+        repo = self._get_repo(sysroot_cls)
+
+        task = ChangeOSTreeRemoteTask(data, physroot="/physroot")
+        task.run()
+
+        self._check_remote_changed(repo, sysroot_file=None)
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.Gio.File")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.OSTree.Sysroot")
+    def test_container_install_no_remote(self, sysroot_cls, gio_file_cls):
+        """Test the ChangeOSTreeRemoteTask task with ostreecontainer no remote."""
+        data = _make_container_config_data()
+        data.remote = None
+        repo = self._get_repo(sysroot_cls)
+
+        task = ChangeOSTreeRemoteTask(data, physroot="/physroot")
+        task.run()
+
+        # remote is taken from the stateroot value
+        self._check_remote_changed(repo, remote="osname", sysroot_file=None)
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.Gio.File")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.OSTree.Sysroot")
+    def test_container_install_no_remote_and_stateroot(self, sysroot_cls, gio_file_cls):
+        """Test the ChangeOSTreeRemoteTask task with ostreecontainer no remote + stateroot."""
+        data = _make_container_config_data()
+        data.remote = None
+        data.stateroot = None
+        repo = self._get_repo(sysroot_cls)
+
+        task = ChangeOSTreeRemoteTask(data, physroot="/physroot")
+        task.run()
+
+        # remote is taken from the stateroot value which when empty will be "default"
+        self._check_remote_changed(repo, remote="default", sysroot_file=None)
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.Gio.File")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.OSTree.Sysroot")
+    def test_post_install(self, sysroot_cls, gio_file_cls):
+        """Test the ChangeOSTreeRemoteTask post-installation task."""
+        data = self._get_data()
+        repo = self._get_repo(sysroot_cls)
+        sysroot_file = gio_file_cls.new_for_path("/sysroot")
+
+        task = ChangeOSTreeRemoteTask(data, sysroot="/sysroot")
+        task.run()
+
+        self._check_remote_changed(repo, sysroot_file=sysroot_file)
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.Gio.File")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.OSTree.Sysroot")
+    def test_container_post_install(self, sysroot_cls, gio_file_cls):
+        """Test the ChangeOSTreeRemoteTask post-installation task with ostreecontainer."""
+        data = _make_container_config_data()
+        repo = self._get_repo(sysroot_cls)
+        sysroot_file = gio_file_cls.new_for_path("/sysroot")
+
+        task = ChangeOSTreeRemoteTask(data, sysroot="/sysroot")
+        task.run()
+
+        self._check_remote_changed(repo, sysroot_file=sysroot_file)
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.Gio.File")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.OSTree.Sysroot")
+    def test_container_post_install_no_remote(self, sysroot_cls, gio_file_cls):
+        """Test the ChangeOSTreeRemoteTask post task with ostreecontainer no remote."""
+        data = _make_container_config_data()
+        data.remote = None
+        repo = self._get_repo(sysroot_cls)
+        sysroot_file = gio_file_cls.new_for_path("/sysroot")
+
+        task = ChangeOSTreeRemoteTask(data, sysroot="/sysroot")
+        task.run()
+
+        # remote is taken from the stateroot value
+        self._check_remote_changed(repo, remote="osname", sysroot_file=sysroot_file)
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.Gio.File")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.OSTree.Sysroot")
+    def test_container_post_install_no_remote_and_stateroot(self, sysroot_cls, gio_file_cls):
+        """Test the ChangeOSTreeRemoteTask post task with ostreecontainer no remote + stateroot."""
+        data = _make_container_config_data()
+        data.remote = None
+        data.stateroot = None
+        repo = self._get_repo(sysroot_cls)
+        sysroot_file = gio_file_cls.new_for_path("/sysroot")
+
+        task = ChangeOSTreeRemoteTask(data, sysroot="/sysroot")
+        task.run()
+
+        # remote is taken from the stateroot value which when empty will be "default"
+        self._check_remote_changed(repo, remote="default", sysroot_file=sysroot_file)
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.conf")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.Gio.File")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.OSTree.Sysroot")
+    def test_options(self, sysroot_cls, gio_file_cls, conf_mock):
+        """Test the remote options of the ChangeOSTreeRemoteTask task."""
+        options = {
+            "gpg-verify": False,
+            "tls-permissive": True,
+        }
+
+        data = self._get_data()
+        repo = self._get_repo(sysroot_cls)
+        conf_mock.payload.verify_ssl = False
+        data.gpg_verification_enabled = False
+
+        task = ChangeOSTreeRemoteTask(data, physroot="/physroot")
+        task.run()
+
+        self._check_remote_changed(repo, sysroot_file=None, options=options)
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.conf")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.Gio.File")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.OSTree.Sysroot")
+    def test_container_options(self, sysroot_cls, gio_file_cls, conf_mock):
+        """Test the remote options of the ChangeOSTreeRemoteTask task with ostreecontainer."""
+        options = {
+            "gpg-verify": False,
+            "tls-permissive": True,
+        }
+
+        data = _make_container_config_data()
+        repo = self._get_repo(sysroot_cls)
+        conf_mock.payload.verify_ssl = False
+        data.signature_verification_enabled = False
+
+        task = ChangeOSTreeRemoteTask(data, physroot="/physroot")
+        task.run()
+
+        self._check_remote_changed(repo, sysroot_file=None, options=options)
 
 
 class ConfigureBootloaderTaskTestCase(unittest.TestCase):
@@ -518,14 +736,99 @@ class DeployOSTreeTaskTestCase(unittest.TestCase):
         exec_mock.return_value = 0
         data = _make_config_data()
 
-        task = DeployOSTreeTask(data, "/sysroot")
+        task = DeployOSTreeTask(data=data, physroot="/sysroot")
         task.run()
 
         exec_mock.assert_has_calls([
             call("ostree", ["admin", "--sysroot=/sysroot", "os-init", "osname"]),
-            call("ostree", ["admin", "--sysroot=/sysroot", "deploy", "--os=osname", "remote:ref"])
+            call("ostree", ["admin", "--sysroot=/sysroot", "deploy", "--os=osname", "remote:ref"]),
+            call("ostree", ["config", "--repo=/sysroot/ostree/repo",
+                            "set", "sysroot.readonly", "true"])
         ])
         # no need to mock RpmOstree.varsubst_basearch(), since "ref" won't change
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
+    def test_container_run(self, exec_mock):
+        """Test OSTree deploy task ostreecontainer"""
+        exec_mock.return_value = 0
+        data = _make_container_config_data()
+
+        task = DeployOSTreeTask(data=data, physroot="/sysroot")
+        task.run()
+
+        exec_mock.assert_has_calls([
+            call("ostree", ["admin", "--sysroot=/sysroot", "os-init", "osname"]),
+            call("ostree", ["container", "image", "deploy",
+                            "--sysroot=/sysroot",
+                            "--image=url",
+                            "--transport=oci",
+                            "--stateroot=osname"]),
+            call("ostree", ["config", "--repo=/sysroot/ostree/repo",
+                            "set", "sysroot.readonly", "true"])
+        ])
+        # no need to mock RpmOstree.varsubst_basearch(), since "ref" won't change
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
+    def test_container_run_with_no_stateroot(self, exec_mock):
+        """Test OSTree deploy task ostreecontainer without stateroot."""
+        exec_mock.return_value = 0
+        data = _make_container_config_data()
+        data.stateroot = None
+
+        task = DeployOSTreeTask(data=data, physroot="/sysroot")
+        task.run()
+
+        exec_mock.assert_has_calls([
+            call("ostree", ["admin", "--sysroot=/sysroot", "os-init", "default"]),
+            call("ostree", ["container", "image", "deploy",
+                            "--sysroot=/sysroot",
+                            "--image=url",
+                            "--transport=oci"]),
+            call("ostree", ["config", "--repo=/sysroot/ostree/repo",
+                            "set", "sysroot.readonly", "true"])
+        ])
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
+    def test_container_run_with_no_transport(self, exec_mock):
+        """Test OSTree deploy task ostreecontainer without transport."""
+        exec_mock.return_value = 0
+        data = _make_container_config_data()
+        data.transport = None
+
+        task = DeployOSTreeTask(data=data, physroot="/sysroot")
+        task.run()
+
+        exec_mock.assert_has_calls([
+            call("ostree", ["admin", "--sysroot=/sysroot", "os-init", "osname"]),
+            call("ostree", ["container", "image", "deploy",
+                            "--sysroot=/sysroot",
+                            "--image=url",
+                            "--stateroot=osname"]),
+            call("ostree", ["config", "--repo=/sysroot/ostree/repo",
+                            "set", "sysroot.readonly", "true"])
+        ])
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
+    def test_container_run_with_no_verification(self, exec_mock):
+        """Test OSTree deploy task ostreecontainer without signature verification."""
+        exec_mock.return_value = 0
+        data = _make_container_config_data()
+        data.signature_verification_enabled = False
+
+        task = DeployOSTreeTask(data=data, physroot="/sysroot")
+        task.run()
+
+        exec_mock.assert_has_calls([
+            call("ostree", ["admin", "--sysroot=/sysroot", "os-init", "osname"]),
+            call("ostree", ["container", "image", "deploy",
+                            "--sysroot=/sysroot",
+                            "--image=url",
+                            "--transport=oci",
+                            "--stateroot=osname",
+                            "--no-signature-verification"]),
+            call("ostree", ["config", "--repo=/sysroot/ostree/repo",
+                            "set", "sysroot.readonly", "true"])
+        ])
 
 
 class PullRemoteAndDeleteTaskTestCase(unittest.TestCase):
@@ -542,7 +845,7 @@ class PullRemoteAndDeleteTaskTestCase(unittest.TestCase):
         sysroot_mock.get_repo.return_value = [None, repo_mock]
 
         with patch.object(PullRemoteAndDeleteTask, "report_progress") as progress_mock:
-            task = PullRemoteAndDeleteTask(data)
+            task = PullRemoteAndDeleteTask(data=data)
             task.run()
 
         context_mock.assert_called_once()
@@ -570,8 +873,8 @@ class PullRemoteAndDeleteTaskTestCase(unittest.TestCase):
         repo_mock.pull_with_options.side_effect = [GError("blah")]
 
         with patch.object(PullRemoteAndDeleteTask, "report_progress") as progress_mock:
-            with pytest.raises(PayloadInstallError):
-                task = PullRemoteAndDeleteTask(data)
+            with pytest.raises(PayloadInstallationError):
+                task = PullRemoteAndDeleteTask(data=data)
                 task.run()
 
         context_mock.assert_called_once()
@@ -591,7 +894,7 @@ class PullRemoteAndDeleteTaskTestCase(unittest.TestCase):
         data = _make_config_data()
 
         with patch.object(PullRemoteAndDeleteTask, "report_progress") as progress_mock:
-            task = PullRemoteAndDeleteTask(data)
+            task = PullRemoteAndDeleteTask(data=data)
             async_mock = MagicMock()
             # Mocks below must use side_effect so as not to mix it with return_value.
 
