@@ -62,6 +62,7 @@ class RPMOSTreeModule(PayloadBase):
         """Get list of sources supported by the RPM OSTree module."""
         return [
             SourceType.RPM_OSTREE,
+            SourceType.RPM_OSTREE_CONTAINER,
             SourceType.FLATPAK,
         ]
 
@@ -81,31 +82,49 @@ class RPMOSTreeModule(PayloadBase):
         for source in self.sources:
             source.setup_kickstart(data)
 
+    def _get_ostree_source(self):
+        """Get source for RPM OSTree.
+
+        Find out if we need OSTree repo or container source type.
+        """
+        return self._get_source(SourceType.RPM_OSTREE_CONTAINER) or \
+            self._get_source(SourceType.RPM_OSTREE)
+
     def install_with_tasks(self):
         """Install the payload.
 
         :return: list of tasks
         """
-        ostree_source = self._get_source(SourceType.RPM_OSTREE)
+        ostree_source = self._get_ostree_source()
 
         if not ostree_source:
             log.debug("No OSTree RPM source is available.")
             return []
+
+        data = ostree_source.configuration
 
         tasks = [
             InitOSTreeFsAndRepoTask(
                 physroot=conf.target.physical_root
             ),
             ChangeOSTreeRemoteTask(
-                physroot=conf.target.physical_root,
-                data=ostree_source.configuration
-            ),
-            PullRemoteAndDeleteTask(
-                data=ostree_source.configuration
-            ),
+                data=data,
+                physroot=conf.target.physical_root
+            )
+        ]
+
+        # separate pulling of the container will be handled by deployment on the container
+        # otherwise handled by Deploy task
+        if not data.is_container():
+            tasks.append(
+                PullRemoteAndDeleteTask(
+                    data=data,
+                ))
+
+        tasks += [
             DeployOSTreeTask(
-                physroot=conf.target.physical_root,
-                data=ostree_source.configuration
+                data=data,
+                physroot=conf.target.physical_root
             ),
             SetSystemRootTask(
                 physroot=conf.target.physical_root
@@ -115,9 +134,9 @@ class RPMOSTreeModule(PayloadBase):
                 sysroot=conf.target.system_root
             ),
             PrepareOSTreeMountTargetsTask(
+                data=data,
                 physroot=conf.target.physical_root,
-                sysroot=conf.target.system_root,
-                data=ostree_source.configuration
+                sysroot=conf.target.system_root
             )
         ]
 
@@ -158,7 +177,7 @@ class RPMOSTreeModule(PayloadBase):
 
         :return: list of tasks
         """
-        ostree_source = self._get_source(SourceType.RPM_OSTREE)
+        ostree_source = self._get_ostree_source()
 
         if not ostree_source:
             log.debug("No OSTree RPM source is available.")
