@@ -83,7 +83,6 @@ class ResizeDialog(GUIObject):
         required_size = self._device_tree.GetRequiredDeviceSize(required_space)
 
         self._required_size = Size(required_size)
-        self._initial_free_space = Size(0)
         self._selected_reclaimable_space = Size(0)
         self._can_shrink_something = False
 
@@ -133,7 +132,6 @@ class ResizeDialog(GUIObject):
             return None
 
     def populate(self, disks):
-        self._initial_free_space = Size(0)
         self._selected_reclaimable_space = Size(0)
         self._can_shrink_something = False
 
@@ -300,9 +298,6 @@ class ResizeDialog(GUIObject):
             disk_free,
         ])
 
-        # Update the total free space.
-        self._initial_free_space += disk_free
-
     def _update_labels(self, num_disks=None, total_reclaimable=None, selected_reclaimable=None):
         if num_disks is not None and total_reclaimable is not None:
             text = P_(
@@ -419,7 +414,7 @@ class ResizeDialog(GUIObject):
             self._delete_button.set_sensitive(False)
 
     def _update_reclaim_button(self, got):
-        self._resize_button.set_sensitive(got + self._initial_free_space >= self._required_size)
+        self._resize_button.set_sensitive(got > Size(0))
 
     # pylint: disable=arguments-differ
     def refresh(self):
