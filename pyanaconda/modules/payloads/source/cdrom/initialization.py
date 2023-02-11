@@ -19,7 +19,7 @@ from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.payload import SourceSetupError
-from pyanaconda.modules.common.structures.storage import DeviceData
+from pyanaconda.modules.common.structures.storage import DeviceData, DeviceFormatData
 from pyanaconda.modules.payloads.source.mount_tasks import SetUpMountTask
 from pyanaconda.modules.payloads.source.utils import is_valid_install_disk
 from pyanaconda.payload.source.factory import SourceFactory, PayloadSourceTypeUnrecognized
@@ -97,7 +97,8 @@ class SetUpCdromSourceTask(SetUpMountTask):
         for dev_name in devices_candidates:
             try:
                 device_data = DeviceData.from_structure(device_tree.GetDeviceData(dev_name))
-                mount(device_data.path, self._target_mount, "iso9660", "ro")
+                format_data = DeviceFormatData.from_structure(device_tree.GetFormatData(dev_name))
+                mount(device_data.path, self._target_mount, format_data.type, "ro")
             except OSError as e:
                 log.debug("Failed to mount %s: %s", dev_name, str(e))
                 continue
