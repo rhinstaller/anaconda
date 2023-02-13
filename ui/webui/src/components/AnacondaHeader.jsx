@@ -52,7 +52,10 @@ export const AnacondaHeader = ({ beta, title }) => {
                   </TextContent>
               }
             >
-                <Label color="orange" icon={<InfoCircleIcon />} id="betanag-icon"> {prerelease} </Label>
+                {/* HACK Patternfly currently doesn't implement clickable labels so the styling had to be done manually. */}
+                <div style={{ cursor: "pointer", userSelect: "none" }}>
+                    <Label color="orange" icon={<InfoCircleIcon />} id="betanag-icon"> {prerelease} </Label>
+                </div>
             </Popover>
         )
         : null;
