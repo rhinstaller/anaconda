@@ -463,6 +463,11 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 14 2023 github-actions <github-actions@github.com> - 38.22-1
+- Web UI: Make Pre-release label look clickable (ozobal)
+- Web UI: Update help in Installation destination (ozobal)
+- Be more indulgent when reclaiming disk space (jstodola)
+
 * Tue Feb 07 2023 github-actions <github-actions@github.com> - 38.21-1
 - Sort RPM versions via rpm.labelCompare() and not via
   packaging.version.LegacyVersion() (miro)
