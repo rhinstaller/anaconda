@@ -90,6 +90,7 @@ class SetUpRemoteImageSourceTask(Task):
         super().__init__()
         self._url = configuration.url
         self._proxy = configuration.proxy
+        self._ssl_verify = configuration.ssl_verification_enabled
 
     @property
     def name(self):
@@ -125,7 +126,7 @@ class SetUpRemoteImageSourceTask(Task):
         response = session.head(
             url=self._url,
             proxies=proxies,
-            verify=True,
+            verify=self._ssl_verify,
             timeout=NETWORK_CONNECTION_TIMEOUT
         )
 
