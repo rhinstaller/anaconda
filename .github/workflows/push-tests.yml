@@ -10,7 +10,7 @@ on:
   push:
     branches:
       - master
-      - f[0-9]+-release
+      - fedora-[0-9]+
 
 permissions:
   contents: read
