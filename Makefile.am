@@ -330,7 +330,7 @@ check-branching:
 		CURRENT_BRANCH=$$(git rev-parse --abbrev-ref HEAD); \
 		if [ "$$CURRENT_BRANCH" != "$(GIT_BRANCH)" ]; then \
 			echo "*** Configuration is not adjusted for current branch!"; \
-			echo "This check will work only on main development branch fXX-release, rhel-X ..."; \
+			echo "This check will work only on main development branch fedora-XX, rhel-X ..."; \
 			echo "current branch:  $$CURRENT_BRANCH"; \
 			echo "expected branch: $(GIT_BRANCH)"; \
 			exit 1; \
