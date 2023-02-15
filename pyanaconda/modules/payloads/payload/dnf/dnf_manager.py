@@ -288,7 +288,7 @@ class DNFManager:
         :return: a list of ids
         """
         environments = libdnf5.comps.EnvironmentQuery(self._base)
-        return [env.get_environmentid() for env in environments]
+        return [env.get_environmentid() for env in environments.list()]
 
     def _get_environment(self, environment_name):
         """Translate the given environment name to a DNF object.
@@ -301,7 +301,7 @@ class DNFManager:
 
         environments = libdnf5.comps.EnvironmentQuery(self._base)
         environments.filter_name(environment_name)
-        return next(iter(environments), None)
+        return next(iter(environments.list()), None)
 
     def resolve_environment(self, environment_name):
         """Translate the given environment name to a group ID.
@@ -368,7 +368,7 @@ class DNFManager:
         :return: a list of IDs
         """
         groups = libdnf5.comps.GroupQuery(self._base)
-        return [g.get_groupid() for g in groups]
+        return [g.get_groupid() for g in groups.list()]
 
     def _get_group(self, group_name):
         """Translate the given group name into a DNF object.
@@ -378,7 +378,7 @@ class DNFManager:
         """
         groups = libdnf5.comps.GroupQuery(self._base)
         groups.filter_name(group_name)
-        return next(iter(groups), None)
+        return next(iter(groups.list()), None)
 
     def resolve_group(self, group_name):
         """Translate the given group name into a group ID.
@@ -467,7 +467,7 @@ class DNFManager:
             "\n%s"
             "\nvariables = %s",
             str(self._base.get_config()),
-            str(self._base.get_vars())
+            str(self._base.get_vars()),
         )
 
     def substitute(self, text):
@@ -809,7 +809,8 @@ class DNFManager:
         repositories.filter_id(repo_id)
 
         try:
-            return repositories.get()
+            weak_repo_ref = repositories.get()
+            return weak_repo_ref.get()
         except RuntimeError:
             raise UnknownRepositoryError(repo_id) from None
 
@@ -1040,13 +1041,9 @@ class DNFManager:
 
         try:
             repo.fetch_metadata()
-
-            repo = self._get_repository(repo_id)
             repo.load()
         except RuntimeError as e:
             log.debug("Failed to load metadata from '%s': %s", url, str(e))
-            # FIXME: Get a new object to avoid a crash.
-            repo = self._get_repository(repo_id)
             repo.disable()
             raise MetadataError(str(e)) from None
 
