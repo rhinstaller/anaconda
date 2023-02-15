@@ -58,6 +58,8 @@ install() {
     inst "$moddir/fetch-kickstart-disk" "/sbin/fetch-kickstart-disk"
     inst "$moddir/fetch-updates-disk" "/sbin/fetch-updates-disk"
     inst "$moddir/parse-kickstart" "/sbin/parse-kickstart"
+    # this is imported by parse-kickstart and is easiest to just dump into the same directory
+    inst "$moddir/kickstart_version.py" "/sbin/kickstart_version.py"
     # Driver Update Disks
     inst_hook cmdline 29 "$moddir/parse-anaconda-dd.sh"
     inst_hook pre-trigger 55 "$moddir/driver-updates-genrules.sh"
