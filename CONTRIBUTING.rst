@@ -31,15 +31,15 @@ How to Contribute to the Anaconda Installer (the short version)
 
 1) I want to contribute to the upstream Anaconda Installer (used in Fedora):
 
-- base and test your changes on a clone of the ``<next Fedora number>-devel`` branch.
-- open a pull request for the ``<next Fedora number>-devel`` branch (f25-devel, etc.)
+- base and test your changes on a clone of the ``fedora-<next Fedora number>`` branch.
+- open a pull request for the ``fedora-<next Fedora number>`` branch (``fedora-38``, etc.)
 - check the *Commit Messages* section below for how to format your commit messages
 - check the *Release Notes* section below for how to provide a release note
 
 2) I want to contribute to the RHEL Anaconda installer:
 
-- base and test your changes on a clone of the ``<RHEL number>-branch``  branch.
-- open a pull request for the ``<RHEL number>-branch``  branch (rhel7-branch, etc.)
+- base and test your changes on a clone of the ``rhel-<RHEL number>``  branch.
+- open a pull request for the ``rhel-<RHEL number>``  branch (``rhel-9``, etc.)
 - check the *Commits for RHEL Branches* section below for how to format your commit messages
 - check the *Release Notes* section below for how to provide a release note
 
@@ -51,25 +51,15 @@ Which is my target git branch?
 Depending on where you want to make your contribution please choose your correct branch based on the table below.
 
 +--------------------------+--------------+
-| Fedora Rawhide only      | master       |
+| Fedora Rawhide           | master       |
 +--------------------------+--------------+
-| Fedora XX and Rawhide    | fXX-devel    |
+| Fedora XX                | fedora-XX    |
 +--------------------------+--------------+
-| Fedora XX only           | fXX-release  |
-+--------------------------+--------------+
-| RHEL-X / CentOS Stream X | rhel-x       |
+| RHEL-X / CentOS Stream X | rhel-X       |
 +--------------------------+--------------+
 
-Notice that the ``master`` branch should only be a target of a pull request if the change does not apply to any
-of the branched Fedora versions. If the change applies to both Fedora Rawhide and Fedora XX, then a ``fXX-devel``
-branch has to be targeted. All changes to ``fXX-devel`` branches are merged back into ``master``, so there's no
-need to open a separate pull-request for ``master`` in that case.
-
-If a change only applies to a Fedora XX release and the changes don't have to be merged back into ``master``,
-then the target branch should be a ``fXX-release`` relese branch.
-
-The ``rhel-x`` branches on the other hand are not merged back into ``master``, and so a separate pull request
-has to be opened targeting either a ``fXX-devel`` branch or ``master``.
+All of these branches are independent, never merged into each another, so if you want to put your
+changes into multiple branches, you have to open multiple pull requests.
 
 Finding Bugs to Fix
 -------------------
@@ -95,55 +85,50 @@ Anaconda Installer Branching Policy (the long version)
 The basic premise is that there are the following branches:
 
 - master
-- <next fedora number>-release
-- <next fedora number>-devel
+- fedora-<next fedora number>
 
-``Master`` branch never waits for any release-related processes to take place and is used for Fedora Rawhide Anaconda builds.
+The ``master`` branch never waits for any release-related processes to take place and is used for Fedora Rawhide Anaconda builds.
 
 Concerning current RHEL branches, they are too divergent to integrate into this scheme. Thus, commits are merged onto, and builds are done on the RHEL branches.
-In this case, two pull requests will very likely be needed:
+In this case, multiple pull requests will very likely be needed:
 
 - one for the ``rhel<number>-branch``
-- one for the ``master`` or ``<fedora number>-devel`` branch (if the change is not RHEL only)
+- one for the ``master`` branch, if the change is not RHEL only
+- one for the ``fedora-<number>`` branch, if change should apply to branched Fedora too
 
 Releases
 ---------
 
-For specific Fedora version, the release process is as follows:
+The release process is as follows, for both Fedora Rawhide and branched Fedora versions:
 
-- ``<next Fedora number>-devel`` is merged onto ``<next Fedora number>-release``
-- a release commit is made (which bumps version in spec file) & tagged
-
-Concerning Fedora Rawhide, the release process is slightly different:
-
-- a release commit is made (which bumps version in spec file) & tagged
+- a release commit is made (which bumps version in spec file) & tagged on the ``fedora-XX`` or ``master`` branch
 
 Concerning the ``<next Fedora number>`` branches (which could also be called ``next stable release`` if we wanted to decouple our versioning from Fedora in the future):
 
-- work which goes into the next Fedora goes to ``<next Fedora number>-devel``, which is periodically merged back to ``master``
-- this way we can easily see what was developed in which Fedora timeframe and possibly due to given Fedora testing phase feedback (bugfixes, etc.)
+- work which goes into the next Fedora goes to ``fedora-<next Fedora number>`` and must have another PR for ``master``, too
 - stuff we *don't* want to go to the next Fedora (too cutting edge, etc.) goes only to ``master`` branch
-- commits specific to a given Fedora release (temporary fixes, etc.) go only to the ``<next Fedora number>-release`` branch
-- the ``<next Fedora number>-release`` branch also contains release commits
+- commits specific to a given Fedora release (temporary fixes, etc.) go only to the ``fedora-<next Fedora number>`` branch
+- this way we can easily see what was developed in which Fedora timeframe and possibly due to given Fedora testing phase feedback (bugfixes, etc.)
 
-Example for the F25 cycle
---------------------------
+Example for the F38 and F39 cycle
+----------------------------------
 
-- master
-- f25-devel
-- f25-release
+Once Fedora 38 is branched, we have these branches in the repository:
 
-This would continue until F25 is released, after which we:
+- ``master``
+- ``fedora-38``
 
-- drop the f25-devel branch
-- keep f25-release as an inactive record of the f25 cycle
-- branch f26-devel and f26-release from the master branch
+This would continue until f38 is released, after which we:
 
-This will result in the following branches for the F26 cycle:
+- keep the ``fedora-38`` branch as an inactive record of the f38 cycle
+- work on the ``master`` branch only
 
-- master
-- f26-devel
-- f26-release
+After a while, Fedora 39 is branched and we start the ``fedora-39`` branch off the ``master`` branch.
+
+This will result in the following branches for the f39 cycle:
+
+- ``master``
+- ``fedora-39``
 
 Guidelines for Commits
 -----------------------
@@ -151,7 +136,7 @@ Guidelines for Commits
 Commit Messages
 ^^^^^^^^^^^^^^^^
 
-The first line should be a succinct description of what the commit does, starting with capital and ending without a period ('.'). If your commit is fixing a bug in Red Hat's bugzilla instance, you should add `` (#123456)`` to the end of the first line of the commit message. The next line should be blank, followed (optionally) by a more in-depth description of your changes. Here's an example:
+The first line should be a succinct description of what the commit does, starting with capital and ending without a period ('.'). If your commit is fixing a bug in Red Hat's bugzilla instance, you should add ``(#123456)`` to the end of the first line of the commit message. The next line should be blank, followed (optionally) by a more in-depth description of your changes. Here's an example:
 
     Stop kickstart when space check fails
 
@@ -225,43 +210,17 @@ In general we are trying to be as close as possible to `PEP8 <https://www.python
 Merging examples
 ----------------
 
-Merging the Fedora ``devel`` branch back to the ``master`` branch
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-(Fedora 25 is used as an example, don't forget to use appropriate Fedora version.)
-
-Checkout and pull the master branch::
-
-    git checkout master
-    git pull
-
-Merge the Fedora devel branch to the master branch::
-
-    git merge --no-ff f25-devel
-
-Push the merge to the remote::
-
-    git push origin master
-
 Merging a GitHub pull request
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-(Fedora 25 is used as an example, don't forget to use appropriate Fedora version.)
+(Fedora 38 is used as an example, don't forget to use appropriate Fedora version.)
 
 Press the green *Merge pull request* button on the pull request page.
 
-If the pull request has been opened for:
-
-- master
-- f25-release
-- rhel7-branch
-
 Then you are done.
-
-If the pull request has been opened for the ``f25-devel`` branch, then you also need to merge the ``f25-devel``
-branch back to ``master`` once you merge your pull request (see "Merging the Fedora devel branch back to the master branch" above).
 
 Merging a topic branch manually
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-(Fedora 25 is used as an example, don't forget to use appropriate Fedora version.)
+(Fedora 38 is used as an example, don't forget to use appropriate Fedora version.)
 
 Let's say that there is a topic branch called "fix_foo_with_bar" that should be merged to a given Anaconda non-topic branch.
 
@@ -275,16 +234,7 @@ Then push the merge to the remote::
 
     git push origin <target branch>
 
-If the <target branch> was one of:
-
-- master
-- f25-release
-- rhel7-branch
-
-Then you are done.
-
-If the pull request has been opened for the ``f25-devel`` branch, then you also need to merge the ``f25-devel``
-branch back to ``master`` once you merge your pull request (see "Merging the Fedora devel branch back to the master branch" above).
+If the pull request has been opened for the ``fedora-38`` branch, then you also need to check if the same change should go to the ``master`` branch in anoter PR.
 
 .. _pure-community-features:
 

@@ -316,6 +316,12 @@ Then rebuild everything that is templatized:
 
 This should set up infrastructure and some other parts like makefile variables and pykickstart version used.
 
+Verify the changes and commit:
+
+::
+
+    git commit -a -m "Set up the fedora-NN branch"
+
 After doing this, please verify that Pykickstart supports Fedora <version> and <version + 1>
 if not, please file an `issue <https://github.com/pykickstart/pykickstart/issues>`_ on the
 Pykickstart project. The Pykickstart support for future release of Fedora will prevent
@@ -334,6 +340,25 @@ If everything works correctly you can push the branch to the origin (``-u`` make
     git checkout fedora-<version>
     git push -u origin fedora-<version>
 
+After the branching is done, you also need to update infrastructure on the ``master`` branch. Switch to that branch:
+
+::
+
+    git switch master
+
+Edit branch specific settings:
+
+::
+
+   vim .branch-variables.yml
+
+In the file, set the correct branched Fedora version, then rebuild the files, check and commit.
+Expect changes only in Github workflows that generate containers etc. for multiple branches.
+
+::
+
+    make -f Makefile.am reload-infra
+    git commit -a -m "infra: Configure for the new fedora-NN branch"
 
 How to add release version for next Fedora
 ------------------------------------------
