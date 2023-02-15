@@ -21,11 +21,11 @@ jobs:
       branch: master
 
   {% if branched_fedora_version is defined and branched_fedora_version %}
-  f{$ branched_fedora_version $}-release:
+  fedora-{$ branched_fedora_version $}:
     uses: ./.github/workflows/container-rebuild-action.yml
     secrets: inherit
     with:
-      container-tag: f{$ branched_fedora_version $}-release
-      branch: f{$ branched_fedora_version $}-release
+      container-tag: fedora-{$ branched_fedora_version $}
+      branch: fedora-{$ branched_fedora_version $}
   {% endif %}
 {% endif %}

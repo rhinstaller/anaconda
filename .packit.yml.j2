@@ -76,7 +76,7 @@ jobs:
     trigger: commit
     targets:
       - fedora-latest
-    branch: f{$ distro_release $}-release
+    branch: fedora-{$ distro_release $}
     owner: "@rhinstaller"
     project: Anaconda-devel
     preserve_project: True

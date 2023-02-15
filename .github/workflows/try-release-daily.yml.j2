@@ -20,7 +20,7 @@ jobs:
       fail-fast: false
       matrix:
         {% if branched_fedora_version is defined and branched_fedora_version %}
-        branch: ['master', 'rhel-8', 'rhel-9', 'f{$ branched_fedora_version $}-release']
+        branch: ['master', 'rhel-8', 'rhel-9', 'fedora-{$ branched_fedora_version $}']
         {% else %}
         branch: ['master', 'rhel-8', 'rhel-9']
         {% endif %}

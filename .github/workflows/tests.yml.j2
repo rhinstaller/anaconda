@@ -43,8 +43,8 @@ jobs:
         release: ['']
         include:
           - release: ''
-            target_branch: 'f{$ distro_release $}-release'
-            ci_tag: 'f{$ distro_release $}-release'
+            target_branch: 'fedora-{$ distro_release $}'
+            ci_tag: 'fedora-{$ distro_release $}'
         {% elif distro_name == "rhel" %}
         release: ['']
         include:
@@ -135,8 +135,8 @@ jobs:
         release: ['']
         include:
           - release: ''
-            target_branch: 'f{$ distro_release $}-release'
-            ci_tag: 'f{$ distro_release $}-release'
+            target_branch: 'fedora-{$ distro_release $}'
+            ci_tag: 'fedora-{$ distro_release $}'
         {% elif distro_name == "rhel" %}
         release: ['']
         include:
