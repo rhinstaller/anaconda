@@ -69,7 +69,6 @@ class DNF5TestCase(unittest.TestCase):
         base = libdnf5.base.Base()
         libdnf5.comps.GroupQuery(base)
 
-    @pytest.mark.skip("Fatal Python error: Aborted")
     def test_disable_failed_repository(self):
         base = libdnf5.base.Base()
         sack = base.get_repo_sack()
@@ -89,7 +88,8 @@ class DNF5TestCase(unittest.TestCase):
     def _get_repo(self, base, repo_id):
         repos = libdnf5.repo.RepoQuery(base)
         repos.filter_id(repo_id)
-        return repos.get()
+        weak_ref = repos.get()
+        return weak_ref.get()
 
     def test_simplify_config(self):
         """Test the simplify_config function."""
@@ -388,24 +388,30 @@ class DNFManagerCompsTestCase(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
         self.dnf_manager = DNFManager()
-        # self.dnf_manager._base._comps = self._create_comps()
 
-    @pytest.mark.skip("Fatal Python error: Aborted")
+    def _check_base_setup(self):
+        """Make sure that the base is set up."""
+        # FIXME: Figure this out on the manager level.
+        base = self.dnf_manager._base
+        assert base
+        base.setup()
+
+    @pytest.mark.skip("'SwigPyObject' object is not iterable")
     def test_groups(self):
         """Test the groups property."""
-        # FIXME: Handle unlocked base.
+        self._check_base_setup()
         assert self.dnf_manager.groups == []
 
-    @pytest.mark.skip("Fatal Python error: Aborted")
+    @pytest.mark.skip("'SwigPyObject' object is not iterable")
     def test_no_default_environment(self):
         """Test the default_environment property with no environments."""
-        # FIXME: Handle unlocked base.
+        self._check_base_setup()
         assert self.dnf_manager.default_environment is None
 
-    @pytest.mark.skip("Fatal Python error: Aborted")
+    @pytest.mark.skip("'SwigPyObject' object is not iterable")
     def test_environments(self):
         """Test the environments property."""
-        # FIXME: Handle unlocked base.
+        self._check_base_setup()
         assert self.dnf_manager.environments == []
 
 
@@ -880,8 +886,8 @@ class DNFManagerReposTestCase(unittest.TestCase):
             self._add_repository("r1", repo_dir=d)
             self.dnf_manager.load_repository("r1")
 
-            repo = self._get_repository("r1")
-            assert repo.is_enabled() is True
+        repo = self._get_repository("r1")
+        assert repo.is_enabled() is True
 
     def test_load_packages_metadata(self):
         """Test the load_packages_metadata method."""
