@@ -463,6 +463,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Feb 15 2023 github-actions <github-actions@github.com> - 38.23-1
+- Templatize pykickstart version in dracut code (vslavik)
+- Apply --noverifyssl option for liveimg kickstart command (jstodola)
+
 * Tue Feb 14 2023 github-actions <github-actions@github.com> - 38.22-1
 - Web UI: Make Pre-release label look clickable (ozobal)
 - Web UI: Update help in Installation destination (ozobal)
