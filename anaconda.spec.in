@@ -463,6 +463,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Feb 16 2023 Martin Kolman <mkolman@redhat.com> - 38.23.1-1
+- Apply templates for Fedora 38 (mkolman)
+- Fix new pylint detections (vslavik)
+
 * Wed Feb 15 2023 github-actions <github-actions@github.com> - 38.23-1
 - Templatize pykickstart version in dracut code (vslavik)
 - Apply --noverifyssl option for liveimg kickstart command (jstodola)
