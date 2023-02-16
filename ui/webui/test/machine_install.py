@@ -57,7 +57,7 @@ class VirtInstallMachine(VirtMachine):
     def start(self):
         update_img_file = os.path.join(ANACONDA_ROOT_DIR, "updates.img")
         if not os.path.exists(update_img_file):
-            raise Exception("Missing updates.img file")
+            raise FileNotFoundError("Missing updates.img file")
 
         # Make sure the server is created at anaconda root directory
         os.chdir(ANACONDA_ROOT_DIR)
@@ -99,7 +99,7 @@ class VirtInstallMachine(VirtMachine):
                 except subprocess.CalledProcessError:
                     time.sleep(10)
             else:
-                raise Exception("Webui initialization did not finish")
+                raise AssertionError("Webui initialization did not finish")
 
         except Exception as e:
             self.kill()
@@ -131,4 +131,4 @@ class VirtInstallMachine(VirtMachine):
             except subprocess.CalledProcessError:
                 time.sleep(2)
         else:
-            raise Exception("Test VM did not shut off")
+            raise AssertionError("Test VM did not shut off")

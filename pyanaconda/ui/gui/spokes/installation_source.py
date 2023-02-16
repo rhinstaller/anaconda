@@ -659,7 +659,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             self._network_button.set_active(True)
             self._updates_enabled = source_proxy.UpdatesEnabled
         else:
-            ValueError("Unsupported source type: '{}'".format(source_type))
+            raise ValueError("Unsupported source type: '{}'".format(source_type))
 
         self._setup_updates()
 

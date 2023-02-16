@@ -101,7 +101,7 @@ class TimezoneService(KickstartService):
                 source.type = TIME_SOURCE_POOL
                 source.hostname = source_data.ntp_pool
             else:
-                KickstartParseError(
+                raise KickstartParseError(
                     _("Invalid time source."),
                     lineno=source_data.lineno
                 )
