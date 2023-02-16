@@ -36,7 +36,7 @@ COPR_REPO ?= \@rhinstaller/Anaconda
 
 {% elif distro_name == "fedora" %}
 
-GIT_BRANCH ?= fedora{-$ distro_release $}
+GIT_BRANCH ?= fedora-{$ distro_release $}
 L10N_DIR ?= f{$ distro_release $}
 BASE_CONTAINER ?= registry.fedoraproject.org/fedora:{$ distro_release $}
 COPR_REPO ?= \@rhinstaller/Anaconda-devel
