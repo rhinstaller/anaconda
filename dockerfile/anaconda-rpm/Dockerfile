@@ -3,7 +3,7 @@
 
 # The `image` arg will set base image for the build.
 # possible values:
-#   registry.fedoraproject.org/fedora:35
+#   registry.fedoraproject.org/fedora:38
 #   registry.fedoraproject.org/fedora:rawhide
 #   registry-proxy.engineering.redhat.com/rh-osbs/ubi9:latest # private source
 #   registry.access.redhat.com/ubi8/ubi # public source
@@ -16,7 +16,7 @@ FROM ${image}
 # dependencies.
 # possible values:
 #   master
-#   f35-release
+#   fedora-38
 ARG git_branch
 ARG copr_repo=@rhinstaller/Anaconda
 LABEL maintainer=anaconda-devel@lists.fedoraproject.org
@@ -42,8 +42,7 @@ RUN set -ex; \
     if [ $BRANCH == "master" ]; then \
       BRANCH="rawhide"; \
     fi; \
-    BRANCH=${BRANCH%%-*}; \
-    BRANCH=${BRANCH#f}; \
+    BRANCH=${BRANCH#fedora-}; \
     dnf copr enable -y ${copr_repo} fedora-${BRANCH}-x86_64; \
     dnf copr enable -y @storage/blivet-daily fedora-${BRANCH}-x86_64; \
   else \
