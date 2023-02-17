@@ -282,20 +282,27 @@ ci:
 		exit $$status; \
 	fi
 
+# container-ci target will have disabled cockpit Makefiles by default
+# The SYS_CHROOT capability is required for user creation tests and was dropped on podman 4.4.X
+# https://bugzilla.redhat.com/show_bug.cgi?id=2170568
 container-ci:
 	$(CONTAINER_ENGINE) run \
 	--entrypoint /anaconda/dockerfile/anaconda-ci/run-build-and-arg \
 	$(CONTAINER_TEST_ARGS) \
 	$(CI_TEST_ARGS) \
+	--cap-add=SYS_CHROOT \
 	$(CONTAINER_ADD_ARGS) \
 	$(CI_NAME):$(CI_TAG) \
 	$(CI_CMD)
 
+# The SYS_CHROOT capability is required for user creation tests and was dropped on podman 4.4.X
+# https://bugzilla.redhat.com/show_bug.cgi?id=2170568
 container-shell:
 	$(CONTAINER_ENGINE) run -it \
 	$(CONTAINER_TEST_ARGS) \
 	$(CONTAINER_ADD_ARGS) \
 	$(CI_TEST_ARGS) \
+	--cap-add=SYS_CHROOT \
 	$(CI_NAME):$(CI_TAG)
 
 container-rpm-test:
