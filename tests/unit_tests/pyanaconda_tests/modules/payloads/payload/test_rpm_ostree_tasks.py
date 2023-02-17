@@ -509,15 +509,6 @@ class ChangeOSTreeRemoteTaskTestCase(unittest.TestCase):
         sysroot_mock.get_repo.return_value = [None, repo_mock]
         return repo_mock
 
-    def _get_data(self):
-        """Create the RPM OSTree configuration data."""
-        data = RPMOSTreeConfigurationData()
-        data.url = "url"
-        data.osname = "osname"
-        data.ref = "ref"
-        data.remote = "remote"
-        return data
-
     def _check_remote_changed(self, repo, remote="remote", sysroot_file=None, options=None):
         """Check the remote_changed method."""
         repo.remote_change.assert_called_once()
@@ -536,7 +527,7 @@ class ChangeOSTreeRemoteTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.OSTree.Sysroot")
     def test_install(self, sysroot_cls, gio_file_cls):
         """Test the ChangeOSTreeRemoteTask installation task."""
-        data = self._get_data()
+        data = _make_config_data()
         repo = self._get_repo(sysroot_cls)
 
         task = ChangeOSTreeRemoteTask(data, physroot="/physroot")
@@ -589,7 +580,7 @@ class ChangeOSTreeRemoteTaskTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.OSTree.Sysroot")
     def test_post_install(self, sysroot_cls, gio_file_cls):
         """Test the ChangeOSTreeRemoteTask post-installation task."""
-        data = self._get_data()
+        data = _make_config_data()
         repo = self._get_repo(sysroot_cls)
         sysroot_file = gio_file_cls.new_for_path("/sysroot")
 
@@ -652,7 +643,7 @@ class ChangeOSTreeRemoteTaskTestCase(unittest.TestCase):
             "tls-permissive": True,
         }
 
-        data = self._get_data()
+        data = _make_config_data()
         repo = self._get_repo(sysroot_cls)
         conf_mock.payload.verify_ssl = False
         data.gpg_verification_enabled = False
