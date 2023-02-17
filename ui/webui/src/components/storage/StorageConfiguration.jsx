@@ -55,6 +55,8 @@ import {
     getDiskTotalSpace,
     getDiskFreeSpace,
     getSelectedDisks,
+    getInitializationMode,
+    setInitializationMode,
 } from "../../apis/storage.js";
 
 import {
@@ -139,19 +141,23 @@ export const scenarios = [{
     detail: _("Erase devices details ..."),
     check: checkEraseAll,
     default: true,
+    // CLEAR_PARTITIONS_ALL = 1
+    initializationMode: 1,
 }, {
     id: "use-free-space",
     label: _("Use free space for the installation"),
     detail: _("Use free space details ..."),
     check: checkUseFreeSpace,
     default: false,
+    // CLEAR_PARTITIONS_NONE = 0
+    initializationMode: 0,
 }];
 
 // TODO add aria items
 // TODO put everything you can (and should) outside the component
 // TODO add prefixes to ids (for tests)
-const GuidedPartitioning = ({ scenarios }) => {
-    const [selectedScenario, setSelectedScenario] = useState(scenarios.filter(s => s.default)[0].id);
+const GuidedPartitioning = ({ scenarios, setIsFormValid }) => {
+    const [selectedScenario, setSelectedScenario] = useState();
     const [scenarioAvailability, setScenarioAvailability] = useState(Object.fromEntries(
         scenarios.map((s) => [s.id, new AvailabilityState()])
     ));
@@ -159,17 +165,45 @@ const GuidedPartitioning = ({ scenarios }) => {
     const [detailContent, setDetailContent] = useState("");
 
     useEffect(() => {
-        const updateScenariosAvailability = async (scenarios) => {
+        const updateScenarioState = async (scenarios) => {
             const requiredSpace = await getRequiredSpace();
             const requiredSize = await getRequiredDeviceSize({ requiredSpace });
             const selectedDisks = await getSelectedDisks();
-            scenarios.forEach(async scenario => {
+            const initializationMode = await getInitializationMode();
+            let selectedScenarioId = "";
+            let availableScenarioExists = false;
+            for await (const scenario of scenarios) {
                 const availability = await scenario.check(selectedDisks, requiredSize).catch(console.error);
                 setScenarioAvailability(ss => ({ ...ss, [scenario.id]: availability }));
-            });
+                if (availability.available) {
+                    availableScenarioExists = true;
+                    if (scenario.initializationMode === initializationMode) {
+                        console.log(`Selecting backend scenario ${scenario.id}`);
+                        selectedScenarioId = scenario.id;
+                    }
+                    if (!selectedScenarioId && scenario.default) {
+                        console.log(`Selecting default scenario ${scenario.id}`);
+                        selectedScenarioId = scenario.id;
+                    }
+                }
+            }
+            setSelectedScenario(selectedScenarioId);
+            setIsFormValid(availableScenarioExists);
         };
-        updateScenariosAvailability(scenarios);
-    }, [scenarios]);
+
+        updateScenarioState(scenarios);
+    }, [scenarios, setIsFormValid]);
+
+    useEffect(() => {
+        const applyScenario = async (scenarioId) => {
+            const scenario = scenarios.filter(s => s.id === scenarioId)[0];
+            console.log("Updating scenario selected in backend to", scenario.id);
+            await setInitializationMode({ mode: scenario.initializationMode }).catch(console.error);
+        };
+        if (selectedScenario) {
+            applyScenario(selectedScenario);
+        }
+    }, [scenarios, selectedScenario]);
 
     const scenarioDetailContent = (scenario, hint) => {
         return (
@@ -291,13 +325,13 @@ const GuidedPartitioning = ({ scenarios }) => {
     );
 };
 
-export const StorageConfiguration = () => {
+export const StorageConfiguration = ({ setIsFormValid }) => {
     return (
         <AnacondaPage title={_("Select a storage configuration")}>
             <TextContent>
                 {_("Configure the partitioning scheme to be used on the selected disks.")}
             </TextContent>
-            <GuidedPartitioning scenarios={scenarios} />
+            <GuidedPartitioning scenarios={scenarios} setIsFormValid={setIsFormValid} />
         </AnacondaPage>
     );
 };

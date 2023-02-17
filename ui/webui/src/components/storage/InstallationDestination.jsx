@@ -63,7 +63,6 @@ import {
     resetPartitioning,
     runStorageTask,
     scanDevicesWithTask,
-    setInitializationMode,
     setInitializeLabelsEnabled,
     setSelectedDisks,
     setBootloaderDrive,
@@ -482,8 +481,7 @@ export const InstallationDestination = ({ idPrefix, setIsFormValid, onAddErrorNo
 export const applyDefaultStorage = ({ onFail, onSuccess }) => {
     let partitioning;
     // CLEAR_PARTITIONS_ALL = 1
-    return setInitializationMode({ mode: 1 })
-            .then(() => sleep({ seconds: 2 }))
+    return sleep({ seconds: 2 })
             .then(() => setInitializeLabelsEnabled({ enabled: true }))
             .then(() => setBootloaderDrive({ drive: "" }))
             .then(() => createPartitioning({ method: "AUTOMATIC" }))
