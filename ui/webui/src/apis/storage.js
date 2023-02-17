@@ -209,6 +209,24 @@ export const scanDevicesWithTask = () => {
 };
 
 /**
+ * @returns {Promise}           The number of the mode
+ */
+export const getInitializationMode = () => {
+    return (
+        new StorageClient().client.call(
+            "/org/fedoraproject/Anaconda/Modules/Storage/DiskInitialization",
+            "org.freedesktop.DBus.Properties",
+            "Get",
+            [
+                "org.fedoraproject.Anaconda.Modules.Storage.DiskInitialization",
+                "InitializationMode",
+            ]
+        )
+                .then(res => res[0].v)
+    );
+};
+
+/**
  * @param {int} mode            The number of the mode
  */
 export const setInitializationMode = ({ mode }) => {
