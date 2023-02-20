@@ -107,15 +107,6 @@ jobs:
           mkdir -p ./anaconda_rpms/
           cp -av ./result/build/01-rpm-build/*.rpm ./anaconda_rpms/
 
-      - name: Prepare environment for lorax run
-        run: |
-          mkdir -p images
-          # We have to pre-create loop devices because they are not namespaced in kernel so
-          # podman can't access newly created ones. That caused failures of tests when runners
-          # were rebooted.
-          sudo mknod -m 0660 /dev/loop0 b 7 0  2> /dev/null || true
-          sudo mknod -m 0660 /dev/loop1 b 7 1  2> /dev/null || true
-
       - name: Build the boot.iso
         run: |
           # /var/tmp tmpfs speeds up lorax and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364

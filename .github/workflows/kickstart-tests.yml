@@ -208,15 +208,6 @@ jobs:
           mkdir -p ${{ github.workspace }}/kickstart-tests/data/additional_repo/
           cp -av ./result/build/01-rpm-build/*.rpm ${{ github.workspace }}/kickstart-tests/data/additional_repo/
 
-      - name: Prepare environment for lorax run
-        run: |
-          mkdir images
-          # We have to pre-create loop devices because they are not namespaced in kernel so
-          # podman can't access newly created ones. That caused failures of tests when runners
-          # were rebooted.
-          sudo mknod -m 0660 /dev/loop0 b 7 0  2> /dev/null || true
-          sudo mknod -m 0660 /dev/loop1 b 7 1  2> /dev/null || true
-
       - name: Build boot.iso
         run: |
           # /var/tmp tmpfs speeds up lorax and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
@@ -229,9 +220,6 @@ jobs:
       - name: Clean up after lorax
         if: always()
         run: |
-          sudo losetup -d /dev/loop0 2> /dev/null || true
-          sudo losetup -d /dev/loop1 2> /dev/null || true
-
           # remove container images together with the container
           sudo podman rmi -f $ISO_BUILD_CONTAINER_NAME:$CONTAINER_TAG || true
           sudo podman rmi -f $RPM_BUILD_CONTAINER_NAME:$CONTAINER_TAG || true
