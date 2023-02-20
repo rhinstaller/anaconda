@@ -18,7 +18,7 @@
 # Red Hat, Inc.
 #
 
-# Diable unused imports for the whole module.
+# Disable unused imports for the whole module.
 # pylint:disable=unused-import
 
 # Supported kickstart commands.
@@ -50,7 +50,7 @@ from pykickstart.commands.logvol import F29_LogVol as LogVol
 from pykickstart.commands.mediacheck import FC4_MediaCheck as MediaCheck
 from pykickstart.commands.method import F34_Method as Method
 from pykickstart.commands.mount import F27_Mount as Mount
-from pykickstart.commands.network import F27_Network as Network
+from pykickstart.commands.network import F38_Network as Network
 from pykickstart.commands.nfs import FC6_NFS as NFS
 from pykickstart.commands.nvdimm import F28_Nvdimm as Nvdimm
 from pykickstart.commands.ostreesetup import F21_OSTreeSetup as OSTreeSetup
@@ -91,7 +91,7 @@ from pykickstart.commands.group import F12_GroupData as GroupData
 from pykickstart.commands.iscsi import F17_IscsiData as IscsiData
 from pykickstart.commands.logvol import F29_LogVolData as LogVolData
 from pykickstart.commands.mount import F27_MountData as MountData
-from pykickstart.commands.network import F27_NetworkData as NetworkData
+from pykickstart.commands.network import F38_NetworkData as NetworkData
 from pykickstart.commands.nvdimm import F28_NvdimmData as NvdimmData
 from pykickstart.commands.partition import F29_PartData as PartData
 from pykickstart.commands.raid import F29_RaidData as RaidData
