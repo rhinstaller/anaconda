@@ -18,7 +18,7 @@ export const helpStorageOptions = (
 
         <Text component={TextVariants.p}>
             {_("In Installation destination, you can configure disks to be used as the " +
-            "installation target. You must select a minimum of 1 disk for the installation" +
+            "installation target. You must select a minimum of 1 disk for the installation " +
             "process to proceed.")}
         </Text>
 
