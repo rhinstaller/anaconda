@@ -93,6 +93,8 @@ class EFIBase(object):
         for line in buf.splitlines():
             try:
                 (slot, _product) = line.split(None, 1)
+                # keep only the name, if verbose output is default in this version
+                _product = _product.split("\t")[0]
             except ValueError:
                 continue
 
