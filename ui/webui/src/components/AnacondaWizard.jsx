@@ -31,7 +31,7 @@ import {
 
 import { InstallationDestination, applyDefaultStorage } from "./storage/InstallationDestination.jsx";
 import { StorageConfiguration } from "./storage/StorageConfiguration.jsx";
-import { DiskEncryption } from "./storage/DiskEncryption.jsx";
+import { DiskEncryption, StorageEncryptionState } from "./storage/DiskEncryption.jsx";
 import { InstallationLanguage } from "./localization/InstallationLanguage.jsx";
 import { InstallationProgress } from "./installation/InstallationProgress.jsx";
 import { ReviewConfiguration, ReviewConfigurationConfirmModal } from "./review/ReviewConfiguration.jsx";
@@ -44,6 +44,8 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, titl
     const [isFormValid, setIsFormValid] = useState(true);
     const [stepNotification, setStepNotification] = useState();
     const [isInProgress, setIsInProgress] = useState(false);
+    const [storageEncryption, setStorageEncryption] = useState(new StorageEncryptionState());
+    const [showPassphraseScreen, setShowPassphraseScreen] = useState(false);
 
     const stepsOrder = [
         {
@@ -129,6 +131,9 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, titl
                           toggleContextHelp={toggleContextHelp}
                           stepNotification={stepNotification}
                           isInProgress={isInProgress}
+                          storageEncryption={storageEncryption}
+                          setStorageEncryption={setStorageEncryption}
+                          showPassphraseScreen={showPassphraseScreen}
                         />
                     ),
                 });
@@ -157,6 +162,9 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, titl
             setStepNotification={setStepNotification}
             isInProgress={isInProgress}
             setIsInProgress={setIsInProgress}
+            storageEncryption={storageEncryption}
+            showPassphraseScreen={showPassphraseScreen}
+            setShowPassphraseScreen={setShowPassphraseScreen}
           />}
           hideClose
           mainAriaLabel={`${title} content`}
@@ -170,15 +178,28 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, titl
     );
 };
 
-const Footer = ({ isFormValid, setIsFormValid, setStepNotification, isInProgress, setIsInProgress }) => {
+const Footer = ({
+    isFormValid,
+    setIsFormValid,
+    setStepNotification,
+    isInProgress,
+    setIsInProgress,
+    storageEncryption,
+    showPassphraseScreen,
+    setShowPassphraseScreen,
+}) => {
     const [nextWaitsConfirmation, setNextWaitsConfirmation] = useState(false);
     const [quitWaitsConfirmation, setQuitWaitsConfirmation] = useState(false);
 
-    const goToStep = (activeStep, onNext) => {
+    const goToNextStep = (activeStep, onNext) => {
         // first reset validation state to default
         setIsFormValid(true);
 
         if (activeStep.id === "disk-encryption") {
+            if (!showPassphraseScreen && storageEncryption.encrypt) {
+                setShowPassphraseScreen(true);
+                return;
+            }
             setIsInProgress(true);
 
             applyDefaultStorage({
@@ -194,12 +215,24 @@ const Footer = ({ isFormValid, setIsFormValid, setStepNotification, isInProgress
                     // React will try to render the current step again.
                     setIsInProgress(false);
                     setStepNotification();
-                }
+                },
+                encrypt: storageEncryption.encrypt,
+                encryptPassword: storageEncryption.password,
             });
         } else if (activeStep.id === "installation-review") {
             setNextWaitsConfirmation(true);
         } else {
             onNext();
+        }
+    };
+
+    const goToPreviousStep = (activeStep, onBack) => {
+        // first reset validation state to default
+        setIsFormValid(true);
+        if (activeStep.id === "disk-encryption" && showPassphraseScreen) {
+            setShowPassphraseScreen(false);
+        } else {
+            onBack();
         }
     };
 
@@ -242,7 +275,7 @@ const Footer = ({ isFormValid, setIsFormValid, setStepNotification, isInProgress
                                 <Button
                                   variant="secondary"
                                   isDisabled={isBackDisabled}
-                                  onClick={onBack}>
+                                  onClick={() => goToPreviousStep(activeStep, onBack)}>
                                     {_("Back")}
                                 </Button>
                                 <Button
@@ -253,7 +286,7 @@ const Footer = ({ isFormValid, setIsFormValid, setStepNotification, isInProgress
                                       !isFormValid ||
                                       nextWaitsConfirmation
                                   }
-                                  onClick={() => goToStep(activeStep, onNext)}>
+                                  onClick={() => goToNextStep(activeStep, onNext)}>
                                     {nextButtonText}
                                 </Button>
                                 {activeStep.id === "storage-devices" &&
