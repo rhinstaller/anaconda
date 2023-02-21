@@ -66,6 +66,8 @@ import {
     setInitializeLabelsEnabled,
     setSelectedDisks,
     setBootloaderDrive,
+    partitioningSetPassphrase,
+    partitioningSetEncrypt,
 } from "../../apis/storage.js";
 
 import {
@@ -484,7 +486,8 @@ export const InstallationDestination = ({ idPrefix, setIsFormValid, onAddErrorNo
     );
 };
 
-export const applyDefaultStorage = ({ onFail, onSuccess }) => {
+export const applyDefaultStorage = ({ onFail, onSuccess, encrypt, encryptPassword }) => {
+    console.log(`applyDefaultStorage, encrypt: ${encrypt}`);
     let partitioning;
     // CLEAR_PARTITIONS_ALL = 1
     return sleep({ seconds: 2 })
@@ -493,8 +496,12 @@ export const applyDefaultStorage = ({ onFail, onSuccess }) => {
             .then(() => createPartitioning({ method: "AUTOMATIC" }))
             .then(res => {
                 partitioning = res[0];
-                return partitioningConfigureWithTask({ partitioning });
+                return partitioningSetEncrypt({ partitioning, encrypt });
             })
+            .then(() => {
+                return partitioningSetPassphrase({ partitioning, passphrase: encryptPassword });
+            })
+            .then(() => partitioningConfigureWithTask({ partitioning }))
             .then(tasks => {
                 runStorageTask({
                     task: tasks[0],
