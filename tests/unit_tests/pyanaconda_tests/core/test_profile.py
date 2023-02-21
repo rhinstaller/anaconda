@@ -293,6 +293,12 @@ class ProfileConfigurationTestCase(unittest.TestCase):
             WORKSTATIONPLUS_PARTITIONING
         )
         self._check_default_profile(
+            "fedora-designsuite",
+            ("fedora", "designsuite"),
+            ["fedora.conf", "fedora-workstation.conf", "fedora-designsuite.conf"],
+            WORKSTATION_PARTITIONING
+        )
+        self._check_default_profile(
             "fedora-iot",
             ("fedora", "iot"),
             ["fedora.conf", "fedora-iot.conf"],
