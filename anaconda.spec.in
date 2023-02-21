@@ -463,6 +463,11 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 21 2023 github-actions <github-actions@github.com> - 39.2-1
+- Add DNS search and ignore options from kickstart (vslavik)
+- Adjust templates after F38 branching (mkolman)
+- webui: Fix missing space (vslavik)
+
 * Thu Feb 16 2023 Martin Kolman <mkolman@redhat.com> - 39.1-1
 - Fix new pylint detections (vslavik)
 
