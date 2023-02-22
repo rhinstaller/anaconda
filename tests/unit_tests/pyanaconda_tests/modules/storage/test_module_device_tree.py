@@ -345,7 +345,8 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             size=Size("10 GiB"),
             fcp_lun="0x5719000000000000",
             wwpn="0x5005076300c18154",
-            hba_id="0.0.010a"
+            hba_id="0.0.010a",
+            id_path="ccw-0.0.010a-fc-0x5005076300c18154-lun-0x5719000000000000"
         ))
 
         data = self.interface.GetDeviceData("dev1")
@@ -353,7 +354,8 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         assert data['attrs'] == get_variant(Dict[Str, Str], {
             "fcp-lun": "0x5719000000000000",
             "wwpn": "0x5005076300c18154",
-            "hba-id": "0.0.010a"
+            "hba-id": "0.0.010a",
+            "path-id": "ccw-0.0.010a-fc-0x5005076300c18154-lun-0x5719000000000000"
         })
 
     def test_get_format_data(self):
