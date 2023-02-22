@@ -22,6 +22,7 @@ HELPERS_DIR = os.path.dirname(__file__)
 sys.path.append(HELPERS_DIR)
 
 from installer import InstallerSteps  # pylint: disable=import-error
+from step_logger import log_step
 
 
 STORAGE_INTERFACE = "org.fedoraproject.Anaconda.Modules.Storage"
@@ -39,38 +40,46 @@ class Storage():
         for disk in output.splitlines():
             yield disk.split()[0]
 
+    @log_step()
     def select_disk(self, disk, selected=True):
         self.browser.set_checked(f"#{disk} input", selected)
         self.check_disk_selected(disk, selected)
 
+    @log_step()
     def select_all_disks_and_check(self, disks):
         self.browser.click("#local-disks-bulk-select-toggle")
         self.browser.click("#local-disks-bulk-select-all")
         for disk in disks:
             self.check_disk_selected(disk)
 
+    @log_step()
     def select_none_disks_and_check(self, disks):
         self.browser.click("#local-disks-bulk-select-toggle")
         self.browser.click("#local-disks-bulk-select-none")
         for disk in disks:
             self.check_disk_selected(disk, False)
 
+    @log_step()
     def click_checkbox_and_check_all_disks(self, disks, selected):
         self.browser.click("#select-multiple-split-checkbox")
         for disk in disks:
             self.check_disk_selected(disk, selected)
 
+    @log_step(snapshot_before=True)
     def check_disk_selected(self, disk, selected=True):
         assert self.browser.get_checked(f"#{disk} input") == selected
 
+    @log_step()
     def wait_no_disks(self):
         self.browser.wait_in_text("#next-tooltip-ref",
                                   "To continue, select the devices(s) to install to.")
 
+    @log_step()
     def wait_no_disks_detected(self):
         self.browser.wait_in_text("#no-disks-detected-alert",
                                   "No additional disks detected")
 
+    @log_step()
     def wait_no_disks_detected_not_present(self):
         self.browser.wait_not_present("#no-disks-detected-alert")
 
@@ -81,15 +90,18 @@ class Storage():
             {STORAGE_OBJECT_PATH} \
             {STORAGE_INTERFACE}.ResetPartitioning')
 
+    @log_step(snapshots=True)
     def rescan_disks(self):
         self.browser.click(f"#{self._step}-rescan-disks")
 
+    @log_step(snapshot_before=True)
     def check_disk_visible(self, disk, visible=True):
         if visible:
             self.browser.wait_text(f"#{disk} > th[data-label=Name]", f"{disk}")
         else:
             self.browser.wait_not_present(f"#{disk}")
 
+    @log_step(snapshot_before=True)
     def check_disk_capacity(self, disk, total=None, free=None):
         if total:
             self.browser.wait_text(f"#{disk} > td[data-label=Total]", total)
