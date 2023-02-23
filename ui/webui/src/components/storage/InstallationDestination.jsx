@@ -91,7 +91,8 @@ const _ = cockpit.gettext;
 const selectDefaultDisks = ({ ignoredDisks, selectedDisks, usableDisks }) => {
     if (selectedDisks.length) {
         // Do nothing if there are some disks selected
-        return [];
+        console.log("Selecting disks selected in backend:", selectedDisks.join(","));
+        return selectedDisks;
     } else {
         const availableDisks = usableDisks.filter(disk => !ignoredDisks.includes(disk));
         console.log("Selecting one or less disks by default:", availableDisks.join(","));
@@ -243,9 +244,14 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
 
     // When the selected disks change in the UI, update in the backend as well
     useEffect(() => {
+        // Do not update on the inital value, wait for initialization by the other effect
+        if (Object.keys(disks).length === 0) {
+            return;
+        }
         setIsFormValid(selectedDisksCnt > 0);
 
         const selected = Object.keys(disks).filter(disk => disks[disk]);
+        console.log("Updating storage backend with selected disks:", selected.join(","));
 
         setSelectedDisks({ drives: selected }).catch(onAddErrorNotification);
     }, [disks, onAddErrorNotification, selectedDisksCnt, setIsFormValid]);
