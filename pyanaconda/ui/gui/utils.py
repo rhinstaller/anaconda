@@ -37,6 +37,7 @@ from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.async_utils import async_action_wait, run_in_loop
 from pyanaconda.core.constants import NOTICEABLE_FREEZE, PASSWORD_HIDE, PASSWORD_SHOW, \
                                       PASSWORD_HIDE_ICON, PASSWORD_SHOW_ICON
+from pyanaconda.core.i18n import _
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -542,10 +543,10 @@ def set_password_visibility(entry, visible):
 
     if visible:
         icon = PASSWORD_HIDE_ICON
-        text = PASSWORD_HIDE
+        text = _(PASSWORD_HIDE)
     else:
         icon = PASSWORD_SHOW_ICON
-        text = PASSWORD_SHOW
+        text = _(PASSWORD_SHOW)
 
     entry.set_visibility(visible)
     entry.set_icon_from_icon_name(position, icon)
