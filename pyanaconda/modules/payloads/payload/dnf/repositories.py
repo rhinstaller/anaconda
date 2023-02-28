@@ -97,3 +97,52 @@ def generate_treeinfo_repositories(repo_data: RepoConfigurationData, tree_info_m
         repositories.append(repo)
 
     return repositories
+
+
+def update_treeinfo_repositories(repositories, treeinfo_repositories):
+    """Update the treeinfo repositories.
+
+    :param [RepoConfigurationData] repositories: a list of repositories to update
+    :param [RepoConfigurationData] treeinfo_repositories: a list of treeinfo repositories
+    :return [RepoConfigurationData]: an updated list of repositories
+    """
+    log.debug("Update treeinfo repositories...")
+
+    # Find treeinfo repositories that were previously disabled and
+    # disable newly generated treeinfo repositories of the same name.
+    disabled = {
+        r.name for r in repositories
+        if r.origin == REPO_ORIGIN_TREEINFO and not r.enabled
+    }
+
+    for r in treeinfo_repositories:
+        if r.name in disabled:
+            r.enabled = False
+
+    # Exclude every treeinfo repository with the same url as a repository
+    # specified by a user. We don't want to create duplicate sources.
+    existing = {
+        r.url for r in repositories
+        if r.origin != REPO_ORIGIN_TREEINFO and r.url
+    }
+
+    treeinfo_repositories = [
+        r for r in treeinfo_repositories
+        if r.url not in existing
+    ]
+
+    # Update the list of repositories. Remove all previous treeinfo
+    # repositories and append the newly generated treeinfo repositories.
+    log.debug("Remove all treeinfo repositories.")
+
+    repositories = [
+        r for r in repositories
+        if r.origin != REPO_ORIGIN_TREEINFO
+    ]
+
+    for r in treeinfo_repositories:
+        log.debug("Add the '%s' treeinfo repository: %s", r.name, r)
+        repositories.append(r)
+
+    # Return the updated list of repositories.
+    return repositories

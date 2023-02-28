@@ -24,7 +24,8 @@ from unittest.mock import patch, Mock
 from pyanaconda.core.constants import URL_TYPE_METALINK, NETWORK_CONNECTION_TIMEOUT, \
     REPO_ORIGIN_TREEINFO
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.payloads.payload.dnf.repositories import generate_treeinfo_repositories
+from pyanaconda.modules.payloads.payload.dnf.repositories import generate_treeinfo_repositories, \
+    update_treeinfo_repositories
 from pyanaconda.modules.payloads.payload.dnf.tree_info import TreeInfoMetadata, NoTreeInfoError, \
     InvalidTreeInfoError
 
@@ -541,3 +542,64 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
     def _assert_repo_list_equal(self, l1, l2):
         assert RepoConfigurationData.to_structure_list(l1) == \
             RepoConfigurationData.to_structure_list(l2)
+
+    def test_update_treeinfo_repositories(self):
+        """Test the update_treeinfo_repositories function."""
+        r1 = RepoConfigurationData()
+        r1.name = "r1"
+        r1.url = "http://u1"
+
+        r2 = RepoConfigurationData()
+        r2.name = "r2"
+        r2.url = "http://u2"
+
+        t1 = RepoConfigurationData()
+        t1.origin = REPO_ORIGIN_TREEINFO
+        t1.name = "t1"
+        t1.url = "http://u3"
+
+        t2 = RepoConfigurationData()
+        t2.origin = REPO_ORIGIN_TREEINFO
+        t2.name = "t2"
+        t2.url = "http://u4"
+
+        n1 = RepoConfigurationData()
+        n1.origin = REPO_ORIGIN_TREEINFO
+        n1.name = "t1"
+        n1.url = "http://u5"
+
+        n2 = RepoConfigurationData()
+        n2.origin = REPO_ORIGIN_TREEINFO
+        n2.name = "t2"
+        n2.url = "http://u6"
+
+        n3 = RepoConfigurationData()
+        n3.origin = REPO_ORIGIN_TREEINFO
+        n3.name = "t3"
+        n3.url = "http://u2"
+
+        # Check removal of previous treeinfo repositories.
+        assert update_treeinfo_repositories([], []) == []
+        assert update_treeinfo_repositories([t1, t2], []) == []
+        assert update_treeinfo_repositories([r1, r2], []) == [r1, r2]
+        assert update_treeinfo_repositories([r1, t1, r2, t2], []) == [r1, r2]
+
+        # Check inclusion of new treeinfo repositories.
+        assert update_treeinfo_repositories([], [n1, n2]) == [n1, n2]
+        assert update_treeinfo_repositories([t1, t2], [n1, n2]) == [n1, n2]
+        assert update_treeinfo_repositories([r1, r2], [n1, n2]) == [r1, r2, n1, n2]
+        assert update_treeinfo_repositories([r1, t1, r2, t2], [n1, n2]) == [r1, r2, n1, n2]
+
+        # Check skipped new treeinfo repositories.
+        assert update_treeinfo_repositories([r1, r2, t1], [n1, n2, n3]) == [r1, r2, n1, n2]
+
+        # Check disabled treeinfo repositories with the same name.
+        assert n1.enabled and n2.enabled and n3.enabled
+
+        t1.enabled = False
+        assert update_treeinfo_repositories([r1, t1, t2], [n1, n2, n3]) == [r1, n1, n2, n3]
+        assert not n1.enabled and n2.enabled and n3.enabled
+
+        t2.enabled = False
+        assert update_treeinfo_repositories([r1, t1, t2], [n1, n2, n3]) == [r1, n1, n2, n3]
+        assert not n1.enabled and not n2.enabled and n3.enabled
