@@ -463,6 +463,11 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 28 2023 github-actions <github-actions@github.com> - 39.3-1
+- Add config for Fedora Designsuite (luya)
+- docs: Update contrib guide for current branching (vslavik)
+- efi: deal with verbose by default output from efibootmgr (marmarek)
+
 * Tue Feb 21 2023 github-actions <github-actions@github.com> - 39.2-1
 - Add DNS search and ignore options from kickstart (vslavik)
 - Adjust templates after F38 branching (mkolman)
