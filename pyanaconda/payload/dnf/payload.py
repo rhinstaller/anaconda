@@ -30,7 +30,7 @@ from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTa
     CleanUpDownloadLocationTask, ResolvePackagesTask, UpdateDNFConfigurationTask, \
     WriteRepositoriesTask
 from pyanaconda.modules.payloads.payload.dnf.repositories import \
-    generate_driver_disk_repositories, generate_treeinfo_repositories, update_treeinfo_repositories
+    generate_driver_disk_repositories, generate_treeinfo_repository, update_treeinfo_repositories
 from pyanaconda.modules.payloads.payload.dnf.tear_down import ResetDNFManagerTask
 from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_version_list, \
     calculate_required_space
@@ -726,10 +726,10 @@ class DNFPayload(Payload):
             base_repo_url = tree_info_metadata.get_base_repo_url()
 
             # Add the treeinfo repositories.
-            repositories = generate_treeinfo_repositories(
-                repo_data,
-                tree_info_metadata
-            )
+            repositories = [
+                generate_treeinfo_repository(repo_data, m)
+                for m in tree_info_metadata.repositories
+            ]
 
             # Ignore treeinfo repositories with the url of the base repository.
             repositories = [r for r in repositories if r.url != base_repo_url]

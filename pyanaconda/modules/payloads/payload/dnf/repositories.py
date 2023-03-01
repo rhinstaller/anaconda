@@ -73,30 +73,25 @@ def generate_driver_disk_repositories(path="/run/install"):
     return repositories
 
 
-def generate_treeinfo_repositories(repo_data: RepoConfigurationData, tree_info_metadata):
+def generate_treeinfo_repository(repo_data: RepoConfigurationData, repo_md):
     """Generate repositories from tree metadata of the specified repository.
 
-    :param RepoConfigurationData repo_data: a repository with metadata
-    :param TreeInfoMetadata tree_info_metadata: metadata of the repository
-    :return: a list of generated repo configuration data
+    :param RepoConfigurationData repo_data: a repository with the .treeinfo file
+    :param TreeInfoRepoMetadata repo_md: a metadata of a treeinfo repository
+    :return RepoConfigurationData: a treeinfo repository
     """
-    repositories = []
+    repo = copy.deepcopy(repo_data)
 
-    for repo_md in tree_info_metadata.repositories:
-        repo = copy.deepcopy(repo_data)
+    repo.origin = REPO_ORIGIN_TREEINFO
+    repo.name = repo_md.name
 
-        repo.origin = REPO_ORIGIN_TREEINFO
-        repo.name = repo_md.name
+    repo.type = URL_TYPE_BASEURL
+    repo.url = repo_md.url
 
-        repo.type = URL_TYPE_BASEURL
-        repo.url = repo_md.url
+    repo.enabled = repo_md.enabled
+    repo.installation_enabled = False
 
-        repo.enabled = repo_md.enabled
-        repo.installation_enabled = False
-
-        repositories.append(repo)
-
-    return repositories
+    return repo
 
 
 def update_treeinfo_repositories(repositories, treeinfo_repositories):
