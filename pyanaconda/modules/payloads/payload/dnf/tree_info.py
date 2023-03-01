@@ -317,7 +317,7 @@ class TreeInfoMetadata(object):
 
         :return: True or False
         """
-        repo_md = self._get_base_repository() or self._get_root_repository()
+        repo_md = self.get_base_repository() or self.get_root_repository()
 
         if not repo_md:
             log.debug("There is no usable repository available")
@@ -340,7 +340,7 @@ class TreeInfoMetadata(object):
 
         :return: an URL of the base repo
         """
-        repo_md = self._get_base_repository()
+        repo_md = self.get_base_repository()
 
         if repo_md:
             log.debug("The treeinfo defines a base repository at: %s", repo_md.url)
@@ -349,7 +349,7 @@ class TreeInfoMetadata(object):
         log.debug("No base repository found in the treeinfo. Using installation tree root.")
         return self._root_url
 
-    def _get_base_repository(self):
+    def get_base_repository(self):
         """Return metadata of the base repository.
 
         :return: an instance of TreeInfoRepoMetadata or None
@@ -360,7 +360,7 @@ class TreeInfoMetadata(object):
 
         return None
 
-    def _get_root_repository(self):
+    def get_root_repository(self):
         """Return metadata of the root repository.
 
         :return: an instance of TreeInfoRepoMetadata or None

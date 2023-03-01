@@ -196,6 +196,8 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
         assert self.metadata.release_version == ""
         assert self.metadata.repositories == []
         assert self.metadata.get_base_repo_url() == ""
+        assert self.metadata.get_base_repository() is None
+        assert self.metadata.get_root_repository() is None
 
     def test_release_version(self):
         """Test the release_version property."""
@@ -224,6 +226,9 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
         assert repo_md.relative_path == "../baseos"
         assert repo_md.url == "file:///tmp/baseos"
 
+        assert self.metadata.get_base_repository() is repo_md
+        assert self.metadata.get_root_repository() is None
+
     def test_fedora_treeinfo(self):
         """Test the Fedora metadata."""
         root_url = self._load_treeinfo(TREE_INFO_FEDORA)
@@ -235,6 +240,9 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
         assert repo_md.enabled is True
         assert repo_md.relative_path == "."
         assert repo_md.url == root_url
+
+        assert self.metadata.get_base_repository() is None
+        assert self.metadata.get_root_repository() is repo_md
 
     @patch("pyanaconda.modules.payloads.payload.dnf.tree_info.conf")
     def test_custom_treeinfo(self, mock_conf):
@@ -258,6 +266,9 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
         assert repo_md.enabled is True
         assert repo_md.relative_path == "./variant"
         assert repo_md.url == root_url + "/variant"
+
+        assert self.metadata.get_base_repository() is None
+        assert self.metadata.get_root_repository() is None
 
     def test_verify_image_base_repo(self):
         """Test the verify_image_base_repo method."""
