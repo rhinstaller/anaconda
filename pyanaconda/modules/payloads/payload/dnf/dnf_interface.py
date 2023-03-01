@@ -191,16 +191,18 @@ class DNFInterface(PayloadBaseInterface):
             self.implementation.get_group_data(group_spec)
         )
 
-    def VerifyRepomdHashes(self) -> Bool:
-        """Verify a hash of the repomd.xml file for each enabled repository.
+    def VerifyRepomdHashesWithTask(self) -> ObjPath:
+        """Verify a hash of the repomd.xml file for each enabled repository with a task.
 
-        This method tests if URL links from active repositories can be reached.
+        This task tests if URL links from active repositories can be reached.
         It is useful when network settings are changed so that we can verify if
-        repositories are still reachable.
+        repositories are still reachable. The task returns a validation report.
 
-        :return: True if files haven't changed, otherwise False
+        :return: a DBus path of the task
         """
-        return self.implementation.verify_repomd_hashes()
+        return TaskContainer.to_object_path(
+            self.implementation.verify_repomd_hashes_with_task()
+        )
 
     def ValidatePackagesSelectionWithTask(self, data: Structure) -> ObjPath:
         """Validate the specified packages selection.

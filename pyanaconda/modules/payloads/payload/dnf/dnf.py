@@ -28,7 +28,8 @@ from pyanaconda.modules.payloads.kickstart import convert_ks_repo_to_repo_data, 
     convert_packages_selection_to_ksdata, convert_ks_data_to_packages_configuration, \
     convert_packages_configuration_to_ksdata
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
-from pyanaconda.modules.payloads.payload.dnf.validation import CheckPackagesSelectionTask
+from pyanaconda.modules.payloads.payload.dnf.validation import CheckPackagesSelectionTask, \
+    VerifyRepomdHashesTask
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
 from pyanaconda.modules.payloads.source.factory import SourceFactory
@@ -299,16 +300,16 @@ class DNFModule(PayloadBase):
         """
         return self.dnf_manager.get_group_data(group_spec)
 
-    def verify_repomd_hashes(self):
-        """Verify a hash of the repomd.xml file for each enabled repository.
+    def verify_repomd_hashes_with_task(self):
+        """Verify a hash of the repomd.xml file for each enabled repository with a task.
 
         This method tests if URL links from active repositories can be reached.
         It is useful when network settings are changed so that we can verify if
-        repositories are still reachable.
+        repositories are still reachable. The task returns a validation report.
 
-        :return: True if files haven't changed, otherwise False
+        :return: a task
         """
-        return self.dnf_manager.verify_repomd_hashes()
+        return VerifyRepomdHashesTask(self.dnf_manager)
 
     def validate_packages_selection_with_task(self, data):
         """Validate the specified packages selection.

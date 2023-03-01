@@ -36,7 +36,8 @@ from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_version_lis
     calculate_required_space
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, DNFManagerError, \
     MetadataError
-from pyanaconda.modules.payloads.payload.dnf.validation import CheckPackagesSelectionTask
+from pyanaconda.modules.payloads.payload.dnf.validation import CheckPackagesSelectionTask, \
+    VerifyRepomdHashesTask
 from pyanaconda.modules.payloads.source.harddrive.initialization import SetUpHardDriveSourceTask
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from pyanaconda.modules.payloads.source.nfs.initialization import SetUpNFSSourceTask
@@ -485,14 +486,12 @@ class DNFPayload(Payload):
         :param bool try_media: whether to check for valid mounted media
         :param bool only_on_change: restart thread only if existing repositories changed
         """
+        # Reset the validation report.
         self._report = ValidationReport()
 
-        # Test if any repository changed from the last update
-        if only_on_change:
-            log.debug("Testing repositories availability")
-            if self.dnf_manager.verify_repomd_hashes():
-                log.debug("Payload isn't restarted, repositories are still available.")
-                return
+        # Skip the setup if possible.
+        if self._skip_if_no_changed_repositories(only_on_change):
+            return
 
         # It will be necessary to check the software selection again.
         self._software_validation_required = True
@@ -518,6 +517,26 @@ class DNFPayload(Payload):
 
         # run payload specific post configuration tasks
         self.dnf_manager.load_repomd_hashes()
+
+    def _skip_if_no_changed_repositories(self, only_on_change):
+        """Have the repositories changed since the last setup?
+
+        If the repositories haven't changed and we are allowed
+        to skip the payload setup, return True. Otherwise,
+        return False.
+        """
+        if not only_on_change:
+            return False
+
+        log.debug("Testing repositories availability")
+        task = VerifyRepomdHashesTask(self.dnf_manager)
+        report = task.run()
+
+        if not report.is_valid():
+            return False
+
+        log.debug("Payload won't be restarted, repositories are still available.")
+        return True
 
     def _update_base_repo(self, fallback=True, try_media=True):
         """Update the base repository from the DBus source."""

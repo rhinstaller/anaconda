@@ -18,6 +18,7 @@
 from contextlib import contextmanager
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.structures.packages import PackagesSelectionData
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.common.task import ValidationTask
@@ -27,6 +28,37 @@ from pyanaconda.modules.payloads.payload.dnf.utils import get_installation_specs
     get_kernel_package
 
 log = get_module_logger(__name__)
+
+
+class VerifyRepomdHashesTask(ValidationTask):
+    """Verification task for checking repomd hashes of enabled repositories."""
+
+    def __init__(self, dnf_manager):
+        """Create a task.
+
+        :param dnf_manager: a DNF manager
+        """
+        super().__init__()
+        self._dnf_manager = dnf_manager
+
+    @property
+    def name(self):
+        """The name of the task."""
+        return "Verify repomd hashes"
+
+    def run(self):
+        """Run the task.
+
+        :return: a validation report
+        """
+        report = ValidationReport()
+
+        if not self._dnf_manager.verify_repomd_hashes():
+            report.error_messages.append(_(
+                "Some of the repomd.xml files have changed or are unreachable."
+            ))
+
+        return report
 
 
 class CheckPackagesSelectionTask(ValidationTask):
