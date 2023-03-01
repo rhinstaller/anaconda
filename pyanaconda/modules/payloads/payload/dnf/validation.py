@@ -20,7 +20,7 @@ from contextlib import contextmanager
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.structures.packages import PackagesSelectionData
 from pyanaconda.modules.common.structures.validation import ValidationReport
-from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.common.task import ValidationTask
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import MissingSpecsError, \
     BrokenSpecsError, InvalidSelectionError
 from pyanaconda.modules.payloads.payload.dnf.utils import get_installation_specs, \
@@ -29,7 +29,7 @@ from pyanaconda.modules.payloads.payload.dnf.utils import get_installation_specs
 log = get_module_logger(__name__)
 
 
-class CheckPackagesSelectionTask(Task):
+class CheckPackagesSelectionTask(ValidationTask):
     """Validation task to check the software selection."""
 
     def __init__(self, dnf_manager, selection: PackagesSelectionData):

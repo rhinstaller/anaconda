@@ -20,6 +20,7 @@
 import unittest
 from unittest.mock import patch, PropertyMock, Mock
 
+from dasbus.structure import compare_data
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pykickstart.version import isRHEL as is_rhel
 
@@ -42,13 +43,15 @@ from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
+from pyanaconda.modules.payloads.payload.dnf.validation import CheckPackagesSelectionTask
 from pyanaconda.modules.payloads.payloads import PayloadsService
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 from pyanaconda.modules.payloads.source.cdrom.cdrom import CdromSourceModule
 from pyanaconda.modules.payloads.source.closest_mirror.closest_mirror import \
     ClosestMirrorSourceModule
 
-from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property
+from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
+    check_task_creation
 from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
     PayloadSharedTest, PayloadKickstartSharedTest
 
@@ -908,6 +911,22 @@ class DNFInterfaceTestCase(unittest.TestCase):
             'name': get_variant(Str, "The 'g1' group"),
             'description': get_variant(Str, "This is the 'g1' group.")
         }
+
+    @patch_dbus_publish_object
+    def test_validate_packages_selection_with_task(self, publisher):
+        """Test the ValidatePackagesSelectionWithTask method."""
+        data = PackagesSelectionData()
+        data.packages = ["p1", "p2", "p3"]
+
+        task_path = self.interface.ValidatePackagesSelectionWithTask(
+            PackagesSelectionData.to_structure(data)
+        )
+        task_proxy = check_task_creation(
+            task_path, publisher, CheckPackagesSelectionTask
+        )
+        task = task_proxy.implementation
+
+        assert compare_data(data, task._selection)
 
     @staticmethod
     def _generate_repository_structure(url=""):
