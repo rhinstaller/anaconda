@@ -193,7 +193,6 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
 
         assert self.metadata.release_version == ""
         assert self.metadata.repositories == []
-        assert self.metadata.get_base_repo_url() == ""
         assert self.metadata.get_base_repository() is None
         assert self.metadata.get_root_repository() is None
 
@@ -297,16 +296,6 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
             self._create_directory(path, "repodata")
             self.metadata.load_file(path)
             assert self.metadata.verify_image_base_repo()
-
-    def test_get_base_repo_url(self):
-        """Test the get_base_repo_url method."""
-        # Use the root repository.
-        root_url = self._load_treeinfo(TREE_INFO_FEDORA)
-        assert self.metadata.get_base_repo_url() == root_url
-
-        # Use the base repository.
-        self._load_treeinfo(TREE_INFO_RHEL)
-        assert self.metadata.get_base_repo_url() == "file:///tmp/baseos"
 
     def test_load_file(self):
         """Test the load_file method."""

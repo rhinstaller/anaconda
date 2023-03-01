@@ -340,20 +340,6 @@ class TreeInfoMetadata(object):
 
         return True
 
-    def get_base_repo_url(self):
-        """Return an URL of the base repository.
-
-        :return: an URL of the base repo
-        """
-        repo_md = self.get_base_repository()
-
-        if repo_md:
-            log.debug("The treeinfo defines a base repository at: %s", repo_md.url)
-            return repo_md.url
-
-        log.debug("No base repository found in the treeinfo. Using installation tree root.")
-        return self._root_url
-
     def get_base_repository(self):
         """Return metadata of the base repository.
 
