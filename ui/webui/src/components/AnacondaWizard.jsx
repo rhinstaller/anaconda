@@ -183,6 +183,7 @@ const Footer = ({ isFormValid, setIsFormValid, setStepNotification, isInProgress
 
             applyDefaultStorage({
                 onFail: ex => {
+                    console.error(ex);
                     setIsInProgress(false);
                     setStepNotification({ step: activeStep.id, ...ex });
                 },
