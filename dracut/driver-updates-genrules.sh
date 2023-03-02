@@ -42,6 +42,7 @@ for dd in $DD_OEMDRV $DD_DISKS; do
             when_diskdev_appears "$(disk_to_dev_path "$dd")" \
                 driver-updates --disk "$dd_whitespace_fix" \$devnode
         fi
+        wait_for_disks
     fi
 done
 
