@@ -30,6 +30,7 @@ from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
 from pyanaconda.ui.gui.utils import setup_gtk_direction, escape_markup
 from pyanaconda.core.async_utils import async_action_wait
+from pyanaconda.ui.gui.spokes.lib.beta_warning_dialog import BetaWarningDialog
 from pyanaconda.ui.gui.spokes.lib.lang_locale_handler import LangLocaleHandler
 from pyanaconda.ui.gui.spokes.lib.unsupported_hardware import UnsupportedHardwareDialog
 
@@ -57,8 +58,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
     mainWidgetName = "welcomeWindow"
     focusWidgetName = "languageEntry"
     uiFile = "spokes/welcome.glade"
-    builderObjects = ["languageStore", "languageStoreFilter", "localeStore",
-                      "welcomeWindow", "betaWarnDialog"]
+    builderObjects = ["languageStore", "languageStoreFilter", "localeStore", "welcomeWindow"]
 
     preForHub = SummaryHub
     priority = 0
@@ -261,14 +261,8 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
     def retranslate(self):
         # Change the translations on labels and buttons that do not have
         # substitution text.
-        for name in ["pickLanguageLabel", "betaWarnTitle", "betaWarnDesc"]:
+        for name in ["pickLanguageLabel"]:
             self._retranslate_one(name)
-
-        # It would be nice to be able to read the translation context from the
-        # widget, but we live in an imperfect world.
-        # See also: https://bugzilla.gnome.org/show_bug.cgi?id=729066
-        for name in ["quitButton", "continueButton"]:
-            self._retranslate_one(name, "GUI|Welcome|Beta Warn Dialog")
 
         # The welcome label is special - it has text that needs to be
         # substituted.
@@ -348,10 +342,11 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
     def _on_continue_clicked(self, window, user_data=None):
         # Don't display the betanag dialog if this is the final release.
         if not isFinal:
-            dlg = self.builder.get_object("betaWarnDialog")
-            with self.main_window.enlightbox(dlg):
-                rc = dlg.run()
-                dlg.hide()
+            dialog = BetaWarningDialog(self.data)
+
+            with self.main_window.enlightbox(dialog.window):
+                rc = dialog.run()
+
             if rc != 1:
                 ipmi_abort(scripts=self.data.scripts)
                 sys.exit(0)
