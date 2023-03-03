@@ -42,20 +42,12 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
         self.url_source_interface = URLSourceInterface(self.url_source_module)
 
     def _check_dbus_property(self, property_name, in_value):
-        if type(in_value) is dict and not in_value["name"]:
-            name = self._generate_repo_name()
-            in_value["name"] = get_variant(Str, name)
-
         check_dbus_property(
             PAYLOAD_SOURCE_URL,
             self.url_source_interface,
             property_name,
             in_value
         )
-
-    def _generate_repo_name(self):
-        """Set offset +1 for each time name wasn't set to structure."""
-        return self.url_source_module._url_source_name
 
     def test_type(self):
         """Test URL source has a correct type specified."""
@@ -76,18 +68,6 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
             "RepoConfiguration",
             RepoConfigurationData.to_structure(data)
         )
-
-    def test_name_uniqueness_properties(self):
-        module1 = URLSourceModule()
-        interface1 = URLSourceInterface(module1)
-
-        module2 = URLSourceModule()
-        interface2 = URLSourceInterface(module2)
-
-        conf1 = RepoConfigurationData.from_structure(interface1.RepoConfiguration)
-        conf2 = RepoConfigurationData.from_structure(interface2.RepoConfiguration)
-
-        assert conf1.name != conf2.name
 
     def test_set_url_base_source_properties(self):
         data = RepoConfigurationData()
@@ -284,7 +264,6 @@ class URLSourceInterfaceTestCase(unittest.TestCase):
 
     def test_default_repo_configuration_properties(self):
         data = RepoConfigurationData()
-        data.name = self._generate_repo_name()
 
         assert self.url_source_interface.RepoConfiguration == \
             RepoConfigurationData.to_structure(data)
