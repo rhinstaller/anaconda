@@ -36,6 +36,7 @@ from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_version_lis
     calculate_required_space
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, DNFManagerError, \
     MetadataError
+from pyanaconda.modules.payloads.payload.dnf.validation import CheckPackagesSelectionTask
 from pyanaconda.modules.payloads.source.harddrive.initialization import SetUpHardDriveSourceTask
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from pyanaconda.modules.payloads.source.nfs.initialization import SetUpNFSSourceTask
@@ -77,7 +78,7 @@ class DNFPayload(Payload):
         # Get a DBus payload to use.
         self._payload_proxy = get_payload(self.type)
 
-        self.tx_id = None
+        self._software_validation_required = True
 
         self._dnf_manager = DNFManager()
 
@@ -314,13 +315,6 @@ class DNFPayload(Payload):
         """Do the sources require a network?"""
         return self.service_proxy.IsNetworkRequired()
 
-    def bump_tx_id(self):
-        if self.tx_id is None:
-            self.tx_id = 1
-        else:
-            self.tx_id += 1
-        return self.tx_id
-
     def _get_proxy_url(self):
         """Get a proxy of the current source.
 
@@ -502,6 +496,9 @@ class DNFPayload(Payload):
                 log.debug("Payload isn't restarted, repositories are still available.")
                 return
 
+        # It will be necessary to check the software selection again.
+        self._software_validation_required = True
+
         # Download package metadata
         report_progress(_("Downloading package metadata..."))
 
@@ -531,8 +528,6 @@ class DNFPayload(Payload):
         self._tear_down_additional_sources()
 
         log.debug("Preparing the DNF base")
-        self.tx_id = None
-
         self._dnf_manager.clear_cache()
         self._dnf_manager.reset_substitution()
         self._dnf_manager.configure_base(self.get_packages_configuration())
@@ -837,3 +832,31 @@ class DNFPayload(Payload):
     @property
     def kernel_version_list(self):
         return get_kernel_version_list()
+
+    @property
+    def software_validation_required(self):
+        """Is it necessary to validate the software selection?"""
+        return self._software_validation_required
+
+    def check_software_selection(self, selection):
+        """Check the software selection.
+
+        :param selection: a packages selection data
+        :return ValidationReport: a validation report
+        """
+        log.debug("Checking the software selection...")
+
+        # Run the validation task.
+        task = CheckPackagesSelectionTask(
+            dnf_manager=self._dnf_manager,
+            selection=selection,
+        )
+
+        # Get the validation report.
+        report = task.run()
+
+        # This validation is no longer required.
+        self._software_validation_required = False
+
+        log.debug("The selection has been checked: %s", report)
+        return report

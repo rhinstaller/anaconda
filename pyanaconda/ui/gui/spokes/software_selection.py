@@ -74,7 +74,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
         super().__init__(*args, **kwargs)
         self._errors = []
         self._warnings = []
-        self._tx_id = None
 
         # Get the packages selection data.
         self._selection_cache = SoftwareSelectionCache(self._dnf_manager)
@@ -170,7 +169,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
     @property
     def _source_has_changed(self):
         """Has the installation source changed?"""
-        return self._tx_id != self.payload.tx_id
+        return self.payload.software_validation_required
 
     @property
     def _processing_data(self):
@@ -317,23 +316,10 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     def _check_software_selection(self):
         hubQ.send_message(self.__class__.__name__, _(PAYLOAD_STATUS_CHECKING_SOFTWARE))
-        self.payload.bump_tx_id()
+        report = self.payload.check_software_selection(self._selection)
 
-        # Run the validation task.
-        from pyanaconda.modules.payloads.payload.dnf.validation import CheckPackagesSelectionTask
-
-        task = CheckPackagesSelectionTask(
-            dnf_manager=self._dnf_manager,
-            selection=self._selection,
-        )
-
-        # Get the validation report.
-        report = task.run()
-
-        log.debug("The selection has been checked: %s", report)
         self._errors = list(report.error_messages)
         self._warnings = list(report.warning_messages)
-        self._tx_id = self.payload.tx_id
 
         hubQ.send_ready(self.__class__.__name__)
         hubQ.send_ready("SourceSpoke")
