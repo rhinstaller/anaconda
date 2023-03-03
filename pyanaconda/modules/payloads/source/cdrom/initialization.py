@@ -32,14 +32,14 @@ __all__ = ["SetUpCdromSourceTask"]
 
 
 class SetUpCdromSourceTask(SetUpMountTask):
-    """Task to setup installation source."""
+    """Task to set up a CD-ROM source."""
 
     @property
     def name(self):
-        return "Set up CD-ROM Installation Source"
+        return "Set up a CD-ROM source"
 
     def _do_mount(self):
-        """Run CD-ROM installation source setup.
+        """Set up an installation source.
 
         Try to discover installation media and mount that. Device used for booting (inst.stage2)
         has a priority.

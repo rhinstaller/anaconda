@@ -41,7 +41,7 @@ class TearDownMountTask(Task):
 
     @property
     def name(self):
-        return "Tear down mount installation source"
+        return "Unmount an installation source"
 
     def run(self):
         """Run source un-setup."""

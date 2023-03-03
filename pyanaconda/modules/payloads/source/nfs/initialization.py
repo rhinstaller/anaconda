@@ -42,11 +42,11 @@ class SetUpNFSSourceTask(Task):
 
     @property
     def name(self):
-        return "Set up NFS installation source"
+        return "Set up a NFS source"
 
     def run(self):
         """Set up the installation source."""
-        log.debug("Setting up NFS source: %s", self._url)
+        log.debug("Setting up a NFS source: %s", self._url)
 
         for mount_point in [self._device_mount, self._iso_mount]:
             if os.path.ismount(mount_point):

@@ -89,7 +89,7 @@ class DetectLiveOSImageTask(Task):
 
 
 class SetUpLiveOSSourceTask(SetUpMountTask):
-    """Task to setup installation source."""
+    """Task to set up a Live OS image."""
 
     def __init__(self, image_path, target_mount):
         """Create a new task.

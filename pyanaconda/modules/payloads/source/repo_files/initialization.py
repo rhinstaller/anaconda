@@ -28,7 +28,7 @@ __all__ = ["SetUpRepoFilesSourceTask"]
 
 
 class SetUpRepoFilesSourceTask(Task):
-    """Task to setup installation source."""
+    """Task to set up local repositories."""
 
     def __init__(self, repo_dirs):
         super().__init__()
@@ -36,12 +36,14 @@ class SetUpRepoFilesSourceTask(Task):
 
     @property
     def name(self):
-        return "Set up Repo files Installation Source"
+        return "Set up local repositories"
 
     def run(self):
-        """Run Repo files installation source setup."""
+        """Set up an installation source."""
         log.debug("Trying to detect repo files automatically")
+
         for repo_dir in self._repo_dirs:
             if len(glob.glob(join_paths(repo_dir, "*.repo"))) > 0:
                 return
-        raise SourceSetupError("repo files not found")
+
+        raise SourceSetupError("No .repo files found.")

@@ -84,7 +84,7 @@ class TearDownMountTaskTestCase(unittest.TestCase):
     def test_name(self):
         """Tear down mount source task name."""
         task = TearDownMountTask(mount_location)
-        assert task.name == "Tear down mount installation source"
+        assert task.name == "Unmount an installation source"
 
     @patch("pyanaconda.modules.payloads.source.mount_tasks.os.path.ismount", return_value=False)
     @patch("pyanaconda.modules.payloads.source.mount_tasks.unmount", return_value=True)

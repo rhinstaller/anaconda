@@ -49,7 +49,7 @@ class PrepareSystemForInstallationTask(Task):
 
     @property
     def name(self):
-        return "Prepare System for Installation"
+        return "Prepare system for installation"
 
     def run(self):
         """Create a root and write module denylist."""
@@ -109,7 +109,7 @@ class CopyDriverDisksFilesTask(Task):
 
     @property
     def name(self):
-        return "Copy Driver Disks Files"
+        return "Copy driver disks files"
 
     def run(self):
         """Copy files from the driver disks to the installed system."""
