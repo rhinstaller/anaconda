@@ -21,13 +21,15 @@ import pytest
 import unittest
 
 from unittest.mock import patch, Mock
+from dasbus.structure import compare_data
+
 from pyanaconda.core.constants import URL_TYPE_METALINK, NETWORK_CONNECTION_TIMEOUT, \
     REPO_ORIGIN_TREEINFO
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.payloads.payload.dnf.repositories import generate_treeinfo_repositories
+from pyanaconda.modules.payloads.payload.dnf.repositories import generate_treeinfo_repository, \
+    update_treeinfo_repositories
 from pyanaconda.modules.payloads.payload.dnf.tree_info import TreeInfoMetadata, NoTreeInfoError, \
-    InvalidTreeInfoError
-
+    InvalidTreeInfoError, LoadTreeInfoMetadataTask, LoadTreeInfoMetadataResult
 
 TREE_INFO_FEDORA = """
 [header]
@@ -191,7 +193,8 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
 
         assert self.metadata.release_version == ""
         assert self.metadata.repositories == []
-        assert self.metadata.get_base_repo_url() == ""
+        assert self.metadata.get_base_repository() is None
+        assert self.metadata.get_root_repository() is None
 
     def test_release_version(self):
         """Test the release_version property."""
@@ -220,6 +223,9 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
         assert repo_md.relative_path == "../baseos"
         assert repo_md.url == "file:///tmp/baseos"
 
+        assert self.metadata.get_base_repository() is repo_md
+        assert self.metadata.get_root_repository() is None
+
     def test_fedora_treeinfo(self):
         """Test the Fedora metadata."""
         root_url = self._load_treeinfo(TREE_INFO_FEDORA)
@@ -231,6 +237,9 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
         assert repo_md.enabled is True
         assert repo_md.relative_path == "."
         assert repo_md.url == root_url
+
+        assert self.metadata.get_base_repository() is None
+        assert self.metadata.get_root_repository() is repo_md
 
     @patch("pyanaconda.modules.payloads.payload.dnf.tree_info.conf")
     def test_custom_treeinfo(self, mock_conf):
@@ -254,6 +263,9 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
         assert repo_md.enabled is True
         assert repo_md.relative_path == "./variant"
         assert repo_md.url == root_url + "/variant"
+
+        assert self.metadata.get_base_repository() is None
+        assert self.metadata.get_root_repository() is None
 
     def test_verify_image_base_repo(self):
         """Test the verify_image_base_repo method."""
@@ -284,16 +296,6 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
             self._create_directory(path, "repodata")
             self.metadata.load_file(path)
             assert self.metadata.verify_image_base_repo()
-
-    def test_get_base_repo_url(self):
-        """Test the get_base_repo_url method."""
-        # Use the root repository.
-        root_url = self._load_treeinfo(TREE_INFO_FEDORA)
-        assert self.metadata.get_base_repo_url() == root_url
-
-        # Use the base repository.
-        self._load_treeinfo(TREE_INFO_RHEL)
-        assert self.metadata.get_base_repo_url() == "file:///tmp/baseos"
 
     def test_load_file(self):
         """Test the load_file method."""
@@ -445,15 +447,11 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
             timeout=NETWORK_CONNECTION_TIMEOUT
         )
 
-    def test_generate_treeinfo_repositories_none(self):
-        """Test the generate_treeinfo_repositories function with no repos."""
-        original = RepoConfigurationData()
-        generated = generate_treeinfo_repositories(original, self.metadata)
-        self._assert_repo_list_equal(generated, [])
-
-    def test_generate_treeinfo_repositories_fedora(self):
-        """Test the generate_treeinfo_repositories function with Fedora repos."""
+    def test_generate_treeinfo_repository_fedora(self):
+        """Test the generate_treeinfo_repository function with Fedora repos."""
         root_url = self._load_treeinfo(TREE_INFO_FEDORA)
+        repo_mds = self.metadata.repositories
+        assert len(repo_mds) == 1
 
         original = RepoConfigurationData()
         original.name = "anaconda"
@@ -467,8 +465,6 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
         original.ssl_configuration.client_key_path = "client.key"
         original.ssl_configuration.client_cert_path = "client.cert"
         original.installation_enabled = True
-
-        generated = generate_treeinfo_repositories(original, self.metadata)
 
         everything = RepoConfigurationData()
         everything.origin = REPO_ORIGIN_TREEINFO
@@ -485,17 +481,18 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
         everything.ssl_configuration.client_cert_path = "client.cert"
         everything.installation_enabled = False
 
-        self._assert_repo_list_equal(generated, [everything])
+        generated = generate_treeinfo_repository(original, repo_mds[0])
+        assert compare_data(generated, everything)
 
-    def test_generate_treeinfo_repositories_rhel(self):
-        """Test the generate_treeinfo_repositories function with RHEL repos."""
+    def test_generate_treeinfo_repository_rhel(self):
+        """Test the generate_treeinfo_repository function with RHEL repos."""
         root_url = self._load_treeinfo(TREE_INFO_RHEL)
+        repo_mds = self.metadata.repositories
+        assert len(repo_mds) == 2
 
         original = RepoConfigurationData()
         original.name = "anaconda"
         original.url = root_url
-
-        generated = generate_treeinfo_repositories(original, self.metadata)
 
         appstream = RepoConfigurationData()
         appstream.origin = REPO_ORIGIN_TREEINFO
@@ -509,19 +506,25 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
         baseos.enabled = True
         baseos.url = "file:///tmp/baseos"
 
-        self._assert_repo_list_equal(generated, [appstream, baseos])
+        generated = generate_treeinfo_repository(original, repo_mds[0])
+        assert compare_data(generated, appstream)
+
+        generated = generate_treeinfo_repository(original, repo_mds[1])
+        assert compare_data(generated, baseos)
 
     @patch("pyanaconda.modules.payloads.payload.dnf.tree_info.conf")
-    def test_generate_treeinfo_repositories_custom(self, mock_conf):
-        """Test the generate_treeinfo_repositories function with custom repos."""
+    def test_generate_treeinfo_repository_custom(self, mock_conf):
+        """Test the generate_treeinfo_repository function with custom repos."""
         mock_conf.payload.enabled_repositories_from_treeinfo = ["variant"]
         root_url = self._load_treeinfo(TREE_INFO_CUSTOM)
+        repo_mds = self.metadata.repositories
+
+        # Anaconda ignores addons and child variants.
+        assert len(repo_mds) == 2
 
         original = RepoConfigurationData()
         original.name = "anaconda"
         original.url = root_url
-
-        generated = generate_treeinfo_repositories(original, self.metadata)
 
         optional = RepoConfigurationData()
         optional.origin = REPO_ORIGIN_TREEINFO
@@ -535,9 +538,186 @@ class TreeInfoMetadataTestCase(unittest.TestCase):
         variant.enabled = True
         variant.url = root_url + "/variant"
 
-        # Anaconda ignores addons and child variants.
-        self._assert_repo_list_equal(generated, [optional, variant])
+        generated = generate_treeinfo_repository(original, repo_mds[0])
+        assert compare_data(generated, optional)
 
-    def _assert_repo_list_equal(self, l1, l2):
-        assert RepoConfigurationData.to_structure_list(l1) == \
-            RepoConfigurationData.to_structure_list(l2)
+        generated = generate_treeinfo_repository(original, repo_mds[1])
+        assert compare_data(generated, variant)
+
+    def test_update_treeinfo_repositories(self):
+        """Test the update_treeinfo_repositories function."""
+        r1 = RepoConfigurationData()
+        r1.name = "r1"
+        r1.url = "http://u1"
+
+        r2 = RepoConfigurationData()
+        r2.name = "r2"
+        r2.url = "http://u2"
+
+        t1 = RepoConfigurationData()
+        t1.origin = REPO_ORIGIN_TREEINFO
+        t1.name = "t1"
+        t1.url = "http://u3"
+
+        t2 = RepoConfigurationData()
+        t2.origin = REPO_ORIGIN_TREEINFO
+        t2.name = "t2"
+        t2.url = "http://u4"
+
+        n1 = RepoConfigurationData()
+        n1.origin = REPO_ORIGIN_TREEINFO
+        n1.name = "t1"
+        n1.url = "http://u5"
+
+        n2 = RepoConfigurationData()
+        n2.origin = REPO_ORIGIN_TREEINFO
+        n2.name = "t2"
+        n2.url = "http://u6"
+
+        n3 = RepoConfigurationData()
+        n3.origin = REPO_ORIGIN_TREEINFO
+        n3.name = "t3"
+        n3.url = "http://u2"
+
+        # Check removal of previous treeinfo repositories.
+        assert update_treeinfo_repositories([], []) == []
+        assert update_treeinfo_repositories([t1, t2], []) == []
+        assert update_treeinfo_repositories([r1, r2], []) == [r1, r2]
+        assert update_treeinfo_repositories([r1, t1, r2, t2], []) == [r1, r2]
+
+        # Check inclusion of new treeinfo repositories.
+        assert update_treeinfo_repositories([], [n1, n2]) == [n1, n2]
+        assert update_treeinfo_repositories([t1, t2], [n1, n2]) == [n1, n2]
+        assert update_treeinfo_repositories([r1, r2], [n1, n2]) == [r1, r2, n1, n2]
+        assert update_treeinfo_repositories([r1, t1, r2, t2], [n1, n2]) == [r1, r2, n1, n2]
+
+        # Check skipped new treeinfo repositories.
+        assert update_treeinfo_repositories([r1, r2, t1], [n1, n2, n3]) == [r1, r2, n1, n2]
+
+        # Check disabled treeinfo repositories with the same name.
+        assert n1.enabled and n2.enabled and n3.enabled
+
+        t1.enabled = False
+        assert update_treeinfo_repositories([r1, t1, t2], [n1, n2, n3]) == [r1, n1, n2, n3]
+        assert not n1.enabled and n2.enabled and n3.enabled
+
+        t2.enabled = False
+        assert update_treeinfo_repositories([r1, t1, t2], [n1, n2, n3]) == [r1, n1, n2, n3]
+        assert not n1.enabled and not n2.enabled and n3.enabled
+
+
+class LoadTreeInfoMetadataTaskTestCase(unittest.TestCase):
+    """Test the LoadTreeInfoMetadataTask class."""
+
+    def _run_task(self, data, content):
+        """Run the LoadTreeInfoMetadataTask task."""
+
+        def load_data(m, d):
+            return m._load_tree_info(
+                root_url=d.url,
+                file_content=content
+            )
+
+        with patch.object(TreeInfoMetadata, 'load_data', autospec=True) as loader:
+            loader.side_effect = load_data
+            task = LoadTreeInfoMetadataTask(data)
+            return task.run()
+
+    def test_no_metadata(self):
+        """Run the task with no available metadata."""
+        data = RepoConfigurationData()
+        task = LoadTreeInfoMetadataTask(data)
+        result = task.run()
+
+        assert isinstance(result, LoadTreeInfoMetadataResult)
+        assert result.release_version is None
+        assert result.repository_data is None
+        assert result.treeinfo_repositories == []
+
+    def test_fedora_metadata(self):
+        """Run the task with Fedora metadata."""
+        data = RepoConfigurationData()
+        data.ssl_verification_enabled = False
+        data.url = "http://repo"
+        data.proxy = "http://proxy"
+
+        # The root repository will be the new base repo.
+        root = RepoConfigurationData()
+        root.origin = REPO_ORIGIN_TREEINFO
+        root.ssl_verification_enabled = False
+        root.name = "Everything"
+        root.url = "http://repo"
+        root.proxy = "http://proxy"
+
+        result = self._run_task(data, content=TREE_INFO_FEDORA)
+
+        assert isinstance(result, LoadTreeInfoMetadataResult)
+        assert result.release_version == "34"
+        assert compare_data(result.repository_data, root)
+        assert result.treeinfo_repositories == []
+
+    def test_rhel_metadata(self):
+        """Run the task with RHEL metadata."""
+        data = RepoConfigurationData()
+        data.ssl_verification_enabled = False
+        data.url = "http://repo/unified"
+        data.proxy = "http://proxy"
+
+        # The BaseOs repository will be the new base repo.
+        baseos = RepoConfigurationData()
+        baseos.origin = REPO_ORIGIN_TREEINFO
+        baseos.ssl_verification_enabled = False
+        baseos.name = "BaseOS"
+        baseos.url = "http://repo/baseos"
+        baseos.proxy = "http://proxy"
+
+        appstream = RepoConfigurationData()
+        appstream.origin = REPO_ORIGIN_TREEINFO
+        appstream.ssl_verification_enabled = False
+        appstream.name = "AppStream"
+        appstream.url = "http://repo/appstream"
+        appstream.proxy = "http://proxy"
+
+        result = self._run_task(data, content=TREE_INFO_RHEL)
+
+        assert isinstance(result, LoadTreeInfoMetadataResult)
+        assert result.release_version == "8.5"
+        assert compare_data(result.repository_data, baseos)
+        assert len(result.treeinfo_repositories) == 1
+        assert compare_data(result.treeinfo_repositories[0], appstream)
+
+    @patch("pyanaconda.modules.payloads.payload.dnf.tree_info.conf")
+    def test_custom_metadata(self, mock_conf):
+        """Run the task with custom metadata."""
+        mock_conf.payload.enabled_repositories_from_treeinfo = ["variant"]
+
+        # The original repository will be the base repo.
+        data = RepoConfigurationData()
+        data.ssl_verification_enabled = False
+        data.url = "http://repo"
+        data.proxy = "http://proxy"
+
+        optional = RepoConfigurationData()
+        optional.origin = REPO_ORIGIN_TREEINFO
+        optional.ssl_verification_enabled = False
+        optional.name = "MyOptional"
+        optional.url = "http://repo/optional"
+        optional.proxy = "http://proxy"
+        optional.enabled = False
+
+        variant = RepoConfigurationData()
+        variant.origin = REPO_ORIGIN_TREEINFO
+        variant.ssl_verification_enabled = False
+        variant.name = "MyVariant"
+        variant.url = "http://repo/variant"
+        variant.proxy = "http://proxy"
+        variant.enabled = True
+
+        result = self._run_task(data, content=TREE_INFO_CUSTOM)
+
+        assert isinstance(result, LoadTreeInfoMetadataResult)
+        assert result.release_version == "1.0"
+        assert compare_data(result.repository_data, data)
+        assert len(result.treeinfo_repositories) == 2
+        assert compare_data(result.treeinfo_repositories[0], optional)
+        assert compare_data(result.treeinfo_repositories[1], variant)

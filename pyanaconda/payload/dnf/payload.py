@@ -30,7 +30,7 @@ from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTa
     CleanUpDownloadLocationTask, ResolvePackagesTask, UpdateDNFConfigurationTask, \
     WriteRepositoriesTask
 from pyanaconda.modules.payloads.payload.dnf.repositories import \
-    generate_driver_disk_repositories, generate_treeinfo_repositories
+    generate_driver_disk_repositories, update_treeinfo_repositories
 from pyanaconda.modules.payloads.payload.dnf.tear_down import ResetDNFManagerTask
 from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_version_list, \
     calculate_required_space
@@ -45,7 +45,7 @@ from pyanaconda.anaconda_loggers import get_packaging_logger
 from pyanaconda.core import constants
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, \
-    SOURCE_TYPE_URL, SOURCE_TYPE_CDROM, URL_TYPE_BASEURL, SOURCE_REPO_FILE_TYPES, \
+    SOURCE_TYPE_URL, SOURCE_TYPE_CDROM, SOURCE_REPO_FILE_TYPES, \
     SOURCE_TYPE_CDN, MULTILIB_POLICY_ALL, REPO_ORIGIN_SYSTEM, SOURCE_TYPE_CLOSEST_MIRROR, \
     REPO_ORIGIN_TREEINFO
 from pyanaconda.core.i18n import _
@@ -55,8 +55,7 @@ from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload.image import find_optical_install_media
-from pyanaconda.modules.payloads.payload.dnf.tree_info import TreeInfoMetadata, NoTreeInfoError, \
-    TreeInfoMetadataError
+from pyanaconda.modules.payloads.payload.dnf.tree_info import LoadTreeInfoMetadataTask
 from pyanaconda.ui.lib.payload import get_payload, get_source, create_source, set_source, \
     set_up_sources, tear_down_sources
 
@@ -592,18 +591,32 @@ class DNFPayload(Payload):
         data = RepoConfigurationData.from_structure(
             self.proxy.GetRepoConfigurations()[0]
         )
-
         log.debug("Using the repo configuration: %s", data)
-        data.name = constants.BASE_REPO_NAME
 
-        # Process the treeinfo metadata.
-        treeinfo_base_repo_url = self._reload_treeinfo_metadata(data)
+        # Load the treeinfo metadata.
+        task = LoadTreeInfoMetadataTask(data)
+        result = task.run()
 
-        if treeinfo_base_repo_url:
-            data.type = URL_TYPE_BASEURL
-            data.url = treeinfo_base_repo_url
+        # Update the repo configuration.
+        if result.repository_data:
+            data = result.repository_data
 
+        # Update the substitution variables.
+        if result.release_version:
+            self._dnf_manager.configure_substitution(
+                result.release_version
+            )
+
+        # Update the treeinfo repositories.
+        self.set_repo_configurations(update_treeinfo_repositories(
+            repositories=self.get_repo_configurations(),
+            treeinfo_repositories=result.treeinfo_repositories,
+        ))
+
+        # Add and load the base repository.
         log.debug("Add the base repository at %s.", data.url)
+        data.name = constants.BASE_REPO_NAME
+        data.enabled = True
 
         try:
             self._dnf_manager.add_repository(data)
@@ -689,92 +702,6 @@ class DNFPayload(Payload):
                 self.dnf_manager.load_repository(repo_id)
             except MetadataError as e:
                 self._report.warning_messages.append(str(e))
-
-    def _reload_treeinfo_metadata(self, repo_data):
-        """Reload treeinfo metadata.
-
-        :param RepoConfigurationData repo_data: configuration data of the base repo
-        :return: a URL of the base repository
-        """
-        log.debug("Reload treeinfo metadata.")
-        base_repo_url = None
-
-        try:
-            # Load the treeinfo metadata.
-            tree_info_metadata = TreeInfoMetadata()
-            tree_info_metadata.load_data(repo_data)
-
-            # Set up the substitutions.
-            self._dnf_manager.configure_substitution(
-                tree_info_metadata.release_version
-            )
-
-            # Get the new base repo URL.
-            base_repo_url = tree_info_metadata.get_base_repo_url()
-
-            # Add the treeinfo repositories.
-            repositories = generate_treeinfo_repositories(
-                repo_data,
-                tree_info_metadata
-            )
-
-            self._update_treeinfo_repositories(
-                treeinfo_repositories=repositories,
-                existing_urls=[base_repo_url],
-            )
-        except NoTreeInfoError as e:
-            log.debug("No treeinfo metadata to use: %s", str(e))
-            self._remove_treeinfo_repositories()
-
-        except TreeInfoMetadataError as e:
-            log.warning("Couldn't use treeinfo metadata: %s", str(e))
-            self._remove_treeinfo_repositories()
-
-        return base_repo_url
-
-    def _update_treeinfo_repositories(self, treeinfo_repositories, existing_urls):
-        """Add the treeinfo repositories.
-
-        :param [RepoConfigurationData] treeinfo_repositories: a list of treeinfo repositories
-        :param [str] existing_urls: a list of repository URLs that already exist
-        """
-        log.debug("Update treeinfo repositories...")
-
-        # Get the additional repositories.
-        repositories = self.get_repo_configurations()
-
-        # Remember names of disabled treeinfo repositories.
-        disabled_names = [
-            r.name for r in repositories
-            if not r.enabled and r.origin == REPO_ORIGIN_TREEINFO
-        ]
-
-        # Remove the previous treeinfo repositories.
-        log.debug("Remove all treeinfo repositories.")
-
-        repositories = [
-            r for r in repositories
-            if r.origin != REPO_ORIGIN_TREEINFO
-        ]
-
-        # Collect URLs of non-treeinfo repositories.
-        existing_urls += [r.url for r in repositories if r.url]
-
-        # Add the new treeinfo repositories.
-        for repo in treeinfo_repositories:
-            # Skip existing repositories.
-            if repo.url in existing_urls:
-                continue
-
-            # Disable if previously disabled.
-            if repo.name in disabled_names:
-                repo.enabled = False
-
-            repositories.append(repo)
-            log.debug("Add the '%s' treeinfo repository: %s", repo.name, repo)
-
-        # Set the additional repositories.
-        self.set_repo_configurations(repositories)
 
     def _remove_treeinfo_repositories(self):
         """Remove all old treeinfo repositories before loading new ones.
