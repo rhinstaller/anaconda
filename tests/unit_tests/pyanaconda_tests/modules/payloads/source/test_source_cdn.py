@@ -16,11 +16,16 @@
 # Red Hat, Inc.
 #
 #
+import pytest
 import unittest
 
 from pyanaconda.core.constants import SOURCE_TYPE_CDN
+from pyanaconda.modules.common.constants.services import BOSS, SUBSCRIPTION
+from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.payloads.source.cdn.cdn import CDNSourceModule
 from pyanaconda.modules.payloads.source.cdn.cdn_interface import CDNSourceInterface
+from pyanaconda.modules.payloads.source.cdn.initialization import SetUpCDNSourceTask
+from tests.unit_tests.pyanaconda_tests import patch_dbus_get_proxy_with_cache
 
 
 class CDNSourceInterfaceTestCase(unittest.TestCase):
@@ -44,3 +49,63 @@ class CDNSourceInterfaceTestCase(unittest.TestCase):
 
     def test_repr(self):
         assert repr(self.module) == "Source(type='CDN')"
+
+
+class CDNSourceModuleTestCase(unittest.TestCase):
+    """Test the CDN source module."""
+
+    def setUp(self):
+        self.module = CDNSourceModule()
+        self.interface = CDNSourceInterface(self.module)
+
+    def test_set_up_with_tasks(self):
+        """Test the set_up_with_tasks method."""
+        tasks = self.module.set_up_with_tasks()
+        assert len(tasks) == 1
+        assert isinstance(tasks[0], SetUpCDNSourceTask)
+
+
+class SetUpCDNSourceTaskTestCase(unittest.TestCase):
+    """Test the SetUpCDNSourceTask task."""
+
+    @patch_dbus_get_proxy_with_cache
+    def test_disabled_module(self, proxy_getter):
+        """Run the SetUpCDNSourceTask task with a disabled module."""
+        boss_proxy = BOSS.get_proxy()
+        boss_proxy.GetModules.return_value = []
+
+        with pytest.raises(SourceSetupError) as cm:
+            task = SetUpCDNSourceTask()
+            task.run()
+
+        assert str(cm.value) == "Red Hat CDN is unavailable for this installation."
+
+    @patch_dbus_get_proxy_with_cache
+    def test_missing_subscription(self, proxy_getter):
+        """Run the SetUpCDNSourceTask task with a missing subscription."""
+        boss_proxy = BOSS.get_proxy()
+        boss_proxy.GetModules.return_value = [SUBSCRIPTION.service_name]
+
+        subscription_proxy = SUBSCRIPTION.get_proxy()
+        subscription_proxy.IsSubscriptionAttached = False
+
+        with pytest.raises(SourceSetupError) as cm:
+            task = SetUpCDNSourceTask()
+            task.run()
+
+        msg = "To access the Red Hat CDN, a valid Red Hat subscription is required."
+        assert str(cm.value) == msg
+
+    @patch_dbus_get_proxy_with_cache
+    def test_valid_configuration(self, proxy_getter):
+        """Run the SetUpCDNSourceTask task with a valid configuration."""
+        boss_proxy = BOSS.get_proxy()
+        boss_proxy.GetModules.return_value = [SUBSCRIPTION.service_name]
+
+        subscription_proxy = SUBSCRIPTION.get_proxy()
+        subscription_proxy.IsSubscriptionAttached = True
+
+        task = SetUpCDNSourceTask()
+        task.run()
+
+        assert task.name == "Set up the CDN source"
