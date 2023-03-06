@@ -157,8 +157,46 @@ export const scenarios = [{
     initializationMode: 0,
 }];
 
+const scenarioDetailContent = (scenario, hint) => {
+    return (
+        <Flex direction={{ default: "column" }}>
+            <Title headingLevel="h3">
+                {scenario.label}
+            </Title>
+            {hint &&
+                <Alert
+                  id="scenario-disabled-hint"
+                  isInline
+                  title={_("This option is disabled")}
+                  variant="warning"
+                >
+                    {hint}
+                </Alert>}
+            <TextContent>
+                <Text>
+                    {scenario.detail}
+                </Text>
+            </TextContent>
+        </Flex>
+    );
+};
+
+const predefinedStorageInfo = (
+    <Popover
+      bodyContent={_(
+          "Pre-defined scenarios of the selected disks partitioning."
+      )}
+      position={PopoverPosition.auto}
+    >
+        <Button
+          variant="link"
+          aria-label={_("Pre-defined storage label info")}
+          icon={<HelpIcon />}
+        />
+    </Popover>
+);
+
 // TODO add aria items
-// TODO put everything you can (and should) outside the component
 // TODO add prefixes to ids (for tests)
 const GuidedPartitioning = ({ scenarios, setIsFormValid }) => {
     const [selectedScenario, setSelectedScenario] = useState();
@@ -208,30 +246,6 @@ const GuidedPartitioning = ({ scenarios, setIsFormValid }) => {
             applyScenario(selectedScenario);
         }
     }, [scenarios, selectedScenario]);
-
-    const scenarioDetailContent = (scenario, hint) => {
-        return (
-            <Flex direction={{ default: "column" }}>
-                <Title headingLevel="h3">
-                    {scenario.label}
-                </Title>
-                {hint &&
-                    <Alert
-                      id="scenario-disabled-hint"
-                      isInline
-                      title={_("This option is disabled")}
-                      variant="warning"
-                    >
-                        {hint}
-                    </Alert>}
-                <TextContent>
-                    <Text>
-                        {scenario.detail}
-                    </Text>
-                </TextContent>
-            </Flex>
-        );
-    };
 
     const updateDetailContent = (scenarioId) => {
         const scenario = scenarios.filter(s => s.id === scenarioId)[0];
@@ -301,21 +315,6 @@ const GuidedPartitioning = ({ scenarios, setIsFormValid }) => {
         <DataList>
             {scenarioItems}
         </DataList>
-    );
-
-    const predefinedStorageInfo = (
-        <Popover
-          bodyContent={_(
-              "Pre-defined scenarios of the selected disks partitioning."
-          )}
-          position={PopoverPosition.auto}
-        >
-            <Button
-              variant="link"
-              aria-label={_("Pre-defined storage label info")}
-              icon={<HelpIcon />}
-            />
-        </Popover>
     );
 
     return (
