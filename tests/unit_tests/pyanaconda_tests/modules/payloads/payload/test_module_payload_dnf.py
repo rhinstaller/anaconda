@@ -38,12 +38,14 @@ from pyanaconda.modules.common.structures.comps import CompsEnvironmentData, Com
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData, \
     PackagesSelectionData
+from pyanaconda.modules.common.task.task_interface import ValidationTaskInterface
 from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
-from pyanaconda.modules.payloads.payload.dnf.validation import CheckPackagesSelectionTask
+from pyanaconda.modules.payloads.payload.dnf.validation import CheckPackagesSelectionTask, \
+    VerifyRepomdHashesTask
 from pyanaconda.modules.payloads.payloads import PayloadsService
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 from pyanaconda.modules.payloads.source.cdrom.cdrom import CdromSourceModule
@@ -831,9 +833,12 @@ class DNFInterfaceTestCase(unittest.TestCase):
 
         assert self.interface.GetEnabledRepositories() == ["r1", "r3"]
 
-    def test_verify_repomd_hashes(self):
-        """Test the VerifyRepomdHashes method."""
-        assert self.interface.VerifyRepomdHashes() is False
+    @patch_dbus_publish_object
+    def test_verify_repomd_hashes_with_task(self, publisher):
+        """Test the VerifyRepomdHashesWithTask method."""
+        task_path = self.interface.VerifyRepomdHashesWithTask()
+        task_proxy = check_task_creation(task_path, publisher, VerifyRepomdHashesTask)
+        assert isinstance(task_proxy, ValidationTaskInterface)
 
     def test_get_default_environment(self):
         """Test the GetDefaultEnvironment method."""

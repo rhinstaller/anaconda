@@ -21,8 +21,9 @@ from unittest.mock import Mock, patch
 
 from pyanaconda.modules.common.structures.packages import PackagesSelectionData
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import InvalidSelectionError, \
-    MissingSpecsError, BrokenSpecsError
-from pyanaconda.modules.payloads.payload.dnf.validation import CheckPackagesSelectionTask
+    MissingSpecsError, BrokenSpecsError, DNFManager
+from pyanaconda.modules.payloads.payload.dnf.validation import CheckPackagesSelectionTask, \
+    VerifyRepomdHashesTask
 
 
 class CheckPackagesSelectionTaskTestCase(unittest.TestCase):
@@ -123,3 +124,33 @@ class CheckPackagesSelectionTaskTestCase(unittest.TestCase):
 
         assert report.error_messages == ["e2", "e4"]
         assert report.warning_messages == ["e1", "e3"]
+
+
+class VerifyRepomdHashesTaskTestCase(unittest.TestCase):
+    """Test the VerifyRepomdHashesTask task."""
+
+    def test_success(self):
+        """Run a task with the same repomd.xml files."""
+        dnf_manager = Mock(spec=DNFManager)
+        dnf_manager.verify_repomd_hashes.return_value = True
+
+        task = VerifyRepomdHashesTask(dnf_manager)
+        report = task.run()
+
+        assert report.is_valid() is True
+        assert report.error_messages == []
+        assert report.warning_messages == []
+
+    def test_failure(self):
+        """Run a task with the changed repomd.xml files."""
+        dnf_manager = Mock(spec=DNFManager)
+        dnf_manager.verify_repomd_hashes.return_value = False
+
+        task = VerifyRepomdHashesTask(dnf_manager)
+        report = task.run()
+
+        assert report.is_valid() is False
+        assert report.error_messages == [
+            "Some of the repomd.xml files have changed or are unreachable."
+        ]
+        assert report.warning_messages == []
