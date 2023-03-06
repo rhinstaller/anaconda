@@ -1601,7 +1601,9 @@ def _update_ip4_config_kickstart_network_data(connection, network_data):
 
     # dns
     network_data.ipv4_ignore_auto_dns = s_ip4_config.get_ignore_auto_dns()
-    ip4_dns_search = s_ip4_config.get_dns_search()
+    ip4_num_domains = s_ip4_config.get_num_dns_searches()
+    ip4_domains = [s_ip4_config.get_dns_search(i) for i in range(ip4_num_domains)]
+    ip4_dns_search = ",".join(ip4_domains)
     if ip4_dns_search:
         network_data.ipv4_dns_search = ip4_dns_search
 
@@ -1634,7 +1636,9 @@ def _update_ip6_config_kickstart_network_data(connection, network_data):
 
     # dns
     network_data.ipv6_ignore_auto_dns = s_ip6_config.get_ignore_auto_dns()
-    ip6_dns_search = s_ip6_config.get_dns_search()
+    ip6_num_domains = s_ip6_config.get_num_dns_searches()
+    ip6_domains = [s_ip6_config.get_dns_search(i) for i in range(ip6_num_domains)]
+    ip6_dns_search = ",".join(ip6_domains)
     if ip6_dns_search:
         network_data.ipv6_dns_search = ip6_dns_search
 
