@@ -21,6 +21,7 @@ from dasbus.server.interface import dbus_interface
 from dasbus.server.property import emits_properties_changed
 from dasbus.typing import *  # pylint: disable=wildcard-import
 
+from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_DNF
 from pyanaconda.modules.common.structures.comps import CompsEnvironmentData, CompsGroupData
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
@@ -200,6 +201,20 @@ class DNFInterface(PayloadBaseInterface):
         :return: True if files haven't changed, otherwise False
         """
         return self.implementation.verify_repomd_hashes()
+
+    def ValidatePackagesSelectionWithTask(self, data: Structure) -> ObjPath:
+        """Validate the specified packages selection.
+
+        Return a task for validation of the software selection.
+        The result of the task is a validation report.
+
+        :param data: a structure of the type PackagesSelectionData
+        :return: a DBus path of a task
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.validate_packages_selection_with_task(
+                PackagesSelectionData.from_structure(data))
+        )
 
     def GetRepoConfigurations(self) -> List[Structure]:
         """Get RepoConfigurationData structures for all attached sources.

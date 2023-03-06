@@ -28,6 +28,7 @@ from pyanaconda.modules.payloads.kickstart import convert_ks_repo_to_repo_data, 
     convert_packages_selection_to_ksdata, convert_ks_data_to_packages_configuration, \
     convert_packages_configuration_to_ksdata
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
+from pyanaconda.modules.payloads.payload.dnf.validation import CheckPackagesSelectionTask
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
 from pyanaconda.modules.payloads.source.factory import SourceFactory
@@ -308,6 +309,20 @@ class DNFModule(PayloadBase):
         :return: True if files haven't changed, otherwise False
         """
         return self.dnf_manager.verify_repomd_hashes()
+
+    def validate_packages_selection_with_task(self, data):
+        """Validate the specified packages selection.
+
+        Return a task for validation of the software selection.
+        The result of the task is a validation report.
+
+        :param PackagesSelectionData data: a packages selection
+        :return: a task
+        """
+        return CheckPackagesSelectionTask(
+            dnf_manager=self.dnf_manager,
+            selection=data,
+        )
 
     def get_repo_configurations(self):
         """Get RepoConfiguration structures for all sources.
