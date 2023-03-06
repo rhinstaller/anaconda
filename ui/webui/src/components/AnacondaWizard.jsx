@@ -219,7 +219,7 @@ const Footer = ({ isFormValid, setIsFormValid, setStepNotification, isInProgress
                                     />}
                                 <Button
                                   id="installation-quit-btn"
-                                  style={ { marginLeft: "var(--pf-global--spacer--2xl)"  } }
+                                  style={{ marginLeft: "var(--pf-c-wizard__footer-cancel--MarginLeft)" }}
                                   variant="link"
                                   onClick={() => {
                                       setQuitWaitsConfirmation(true);
