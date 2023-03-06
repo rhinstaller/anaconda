@@ -194,6 +194,22 @@ const getRuleLength = (password) => {
 
 const getRuleConfirmMatches = (password, confirm) => (password.length > 0 ? (password === confirm ? "success" : "error") : "indeterminate");
 
+const CheckDisksSpinner = (
+    <Bullseye>
+        <EmptyState id="installation-destination-next-spinner">
+            <EmptyStateIcon variant="container" component={Spinner} />
+            <Title size="lg" headingLevel="h4">
+                {_("Checking storage configuration")}
+            </Title>
+            <TextContent>
+                <Text component={TextVariants.p}>
+                    {_("This may take a moment")}
+                </Text>
+            </TextContent>
+        </EmptyState>
+    </Bullseye>
+);
+
 export const DiskEncryption = ({
     isInProgress,
     setIsFormValid,
@@ -266,21 +282,7 @@ export const DiskEncryption = ({
     }, [password, confirmPassword, setStorageEncryption]);
 
     if (isInProgress) {
-        return (
-            <Bullseye>
-                <EmptyState id="installation-destination-next-spinner">
-                    <EmptyStateIcon variant="container" component={Spinner} />
-                    <Title size="lg" headingLevel="h4">
-                        {_("Checking storage configuration")}
-                    </Title>
-                    <TextContent>
-                        <Text component={TextVariants.p}>
-                            {_("This may take a moment")}
-                        </Text>
-                    </TextContent>
-                </EmptyState>
-            </Bullseye>
-        );
+        return CheckDisksSpinner;
     }
 
     return (
