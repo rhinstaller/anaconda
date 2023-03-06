@@ -346,6 +346,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self._cdn_button = self.builder.get_object("cdnRadioButton")
         self._hmc_button = self.builder.get_object("hmcRadioButton")
         self._iso_button = self.builder.get_object("isoRadioButton")
+        self._iso_combo = self.builder.get_object("isoPartitionCombo")
         self._iso_box = self.builder.get_object("isoBox")
         self._network_button = self.builder.get_object("networkRadioButton")
         self._network_box = self.builder.get_object("networkBox")
@@ -399,6 +400,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self._cdn_button.connect("toggled", self.on_source_toggled, None)
         self._hmc_button.connect("toggled", self.on_source_toggled, None)
         self._iso_button.connect("toggled", self.on_source_toggled, self._iso_box)
+        self._iso_combo.connect("changed", self._on_iso_combo_changed)
         self._network_button.connect("toggled", self.on_source_toggled, self._network_box)
         self._network_button.connect("toggled", self._update_url_entry_check)
 
@@ -567,11 +569,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         for device_name in find_potential_hdiso_sources():
             device_info = get_hdiso_source_info(self._device_tree, device_name)
 
-            # With the label in here, the combo box can appear really long thus pushing
-            # the "pick an image" and the "verify" buttons off the screen.
-            if device_info["label"] != "":
-                device_info["label"] = "\n" + device_info["label"]
-
             device_desc = get_hdiso_source_description(device_info)
             store.append([device_name, device_desc])
 
@@ -588,8 +585,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         self._iso_button.set_visible(added)
 
         if added:
-            combo = self.builder.get_object("isoPartitionCombo")
-            combo.set_active(active_idx)
+            self._iso_combo.set_active(active_idx)
 
         # We defaults and if the method tells us something different later, we can change it.
         self._protocol_combo_box.set_active_id(PROTOCOL_MIRROR)
@@ -808,6 +804,12 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         # disabled) button.
         self._on_source_toggled(button, relatedBox)
         self._additional_repositories.remove_treeinfo_repositories()
+
+    def _on_iso_combo_changed(self, combo):
+        store = self.builder.get_object("partitionStore")
+        idx = combo.get_active()
+        if idx != -1:
+            combo.set_tooltip_text(store[idx][1])
 
     def _on_source_toggled(self, button, relatedBox):
         enabled = button.get_active()
