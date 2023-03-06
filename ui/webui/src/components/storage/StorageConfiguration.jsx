@@ -43,6 +43,7 @@ import {
     TextContent,
     Text,
     Title,
+    Tooltip,
     Radio,
 } from "@patternfly/react-core";
 
@@ -102,10 +103,11 @@ const DetailDrawer = ({ isExpanded, setIsExpanded, detailContent, children }) =>
     );
 };
 
-function AvailabilityState (available = true, reason = null, hint = null) {
+function AvailabilityState (available = true, reason = null, hint = null, shortHint = null) {
     this.available = available;
     this.reason = reason;
     this.hint = hint;
+    this.shortHint = shortHint;
 }
 
 // TODO total size check could go also to disk selection screen
@@ -118,6 +120,7 @@ const checkEraseAll = async (selectedDisks, requiredSize) => {
         availability.hint = cockpit.format(_(
             "Total size: $0 Required size: $1"
         ), cockpit.format_bytes(size), cockpit.format_bytes(requiredSize));
+        availability.shortHint = _("To enable select bigger disks");
     }
     return availability;
 };
@@ -131,6 +134,7 @@ const checkUseFreeSpace = async (selectedDisks, requiredSize) => {
         availability.hint = cockpit.format(_(
             "Free size: $0 Required size: $1"
         ), cockpit.format_bytes(size), cockpit.format_bytes(requiredSize));
+        availability.shortHint = _("To enable free up disk space");
     }
     return availability;
 };
@@ -250,8 +254,14 @@ const GuidedPartitioning = ({ scenarios, setIsFormValid }) => {
             <DataListItemRow>
                 <DataListItemCells dataListCells={[
                     <DataListAction key="radio">
+                        {!scenarioAvailability[scenario.id].available &&
+                        <Tooltip
+                          aria-live="polite"
+                          content={scenarioAvailability[scenario.id].shortHint}
+                          reference={() => document.getElementById("autopart-scenario" + scenario.id)}
+                        />}
                         <Radio
-                          id={scenario.id}
+                          id={"autopart-scenario" + scenario.id}
                           value={scenario.id}
                           name="autopart-scenario"
                           label={scenario.label}
