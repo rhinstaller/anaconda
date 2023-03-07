@@ -1,4 +1,4 @@
-#!/usr/bin/env gjs-console
+#!/usr/bin/gjs -m
 
 /*
  * Copyright (C) 2012 Red Hat, Inc.
@@ -18,17 +18,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-imports.gi.versions.Gdk = '3.0';
-imports.gi.versions.Gtk = '3.0';
+import Gdk from 'gi://Gdk?version=3.0';
+import Gio from 'gi://Gio';
+import GLib from 'gi://GLib';
+import GObject from 'gi://GObject';
+import Gtk from 'gi://Gtk?version=3.0';
 
-const Gdk = imports.gi.Gdk;
-const Gio = imports.gi.Gio;
-const GLib = imports.gi.GLib;
-const GObject = imports.gi.GObject;
-const Gtk = imports.gi.Gtk;
-
-const Gettext = imports.gettext;
-const _ = imports.gettext.gettext;
+import {gettext as _} from 'gettext';
+import Gettext from 'gettext';
 
 const LOCALE_DIR = '/usr/share/locale';
 
