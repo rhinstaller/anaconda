@@ -164,29 +164,38 @@ class WelcomeWindow extends Gtk.ApplicationWindow {
     }
 }
 
+class WelcomeApp extends Gtk.Application {
+    static {
+        GObject.registerClass(this);
+    }
+
+    constructor() {
+        super({application_id: 'org.fedoraproject.welcome-screen'});
+    }
+
+    vfunc_startup() {
+        GLib.set_prgname('fedora-welcome');
+
+        super.vfunc_startup();
+
+        Gtk.Settings.get_default().gtk_application_prefer_dark_theme = true;
+    }
+
+    vfunc_activate() {
+        let {activeWindow} = this;
+        if (!activeWindow)
+            activeWindow = new WelcomeWindow(this);
+        activeWindow.present();
+    }
+}
+
 Gettext.bindtextdomain('anaconda', LOCALE_DIR);
 Gettext.textdomain('anaconda');
-
-GLib.set_prgname('fedora-welcome');
-Gtk.init(null, null);
-Gtk.Settings.get_default().gtk_application_prefer_dark_theme = true;
 
 // provided by the 'anaconda' package
 anacondaApp = Gio.DesktopAppInfo.new('anaconda.desktop');
 if (!anacondaApp)
     anacondaApp = Gio.DesktopAppInfo.new('liveinst.desktop');
 
-if (anacondaApp) {
-    let application = new Gtk.Application({ application_id: 'org.fedoraproject.welcome-screen',
-                                            flags: Gio.ApplicationFlags.FLAGS_NONE });
-    let welcomeWindow = null;
-
-    application.connect('startup', () => {
-        welcomeWindow = new WelcomeWindow(application);
-    });
-    application.connect('activate', () => {
-        welcomeWindow.present();
-    });
-
-    application.run(ARGV);
-}
+if (anacondaApp)
+    new WelcomeApp().run(ARGV);
