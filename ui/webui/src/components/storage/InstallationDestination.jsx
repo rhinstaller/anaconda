@@ -486,6 +486,8 @@ export const InstallationDestination = ({ idPrefix, setIsFormValid, onAddErrorNo
     );
 };
 
+// TODO move to the right place (new or StorageConfiguration) when renaming this file
+// TODO migrate to async
 export const applyDefaultStorage = ({ onFail, onSuccess, encrypt, encryptPassword }) => {
     console.log(`applyDefaultStorage, encrypt: ${encrypt}`);
     let partitioning;
