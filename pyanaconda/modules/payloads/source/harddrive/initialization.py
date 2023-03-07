@@ -35,7 +35,7 @@ SetupHardDriveResult = namedtuple("SetupHardDriveResult", ["install_tree_path", 
 
 
 class SetUpHardDriveSourceTask(Task):
-    """Task to setup installation source."""
+    """Task to set up the hard drive installation source."""
 
     def __init__(self, device_mount, iso_mount, partition, directory):
         super().__init__()
@@ -46,10 +46,10 @@ class SetUpHardDriveSourceTask(Task):
 
     @property
     def name(self):
-        return "Set up Hard drive installation source"
+        return "Set up a hard drive source"
 
     def run(self):
-        """Run Hard drive installation source setup.
+        """Set up an installation source.
 
         Always sets up two mount points: First for the device, and second for the ISO image or a
         bind for unpacked ISO. These depend on each other, and must be destroyed in the correct
@@ -59,7 +59,7 @@ class SetUpHardDriveSourceTask(Task):
         :return: named tuple with path to the install tree and name of ISO if set or empty string
         :rtype: SetupHardDriveResult instance
         """
-        log.debug("Setting up Hard drive source")
+        log.debug("Setting up a hard drive source...")
 
         for mount_point in [self._device_mount, self._iso_mount]:
             if os.path.ismount(mount_point):

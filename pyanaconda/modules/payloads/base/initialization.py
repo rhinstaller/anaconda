@@ -15,8 +15,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import traceback
-
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.errors.payload import SourceSetupError, SourceTearDownError
 from pyanaconda.modules.common.task import Task
@@ -42,21 +40,28 @@ class SetUpSourcesTask(Task):
 
     @property
     def name(self):
-        return "Set Up Installation Sources"
+        return "Set up installation sources"
 
     def run(self):
-        """Collect and call set up tasks for all the sources."""
-        if not self._sources:
-            raise SourceSetupError("No sources specified for set up!")
+        """Run the task.
 
-        for source in self._sources:
+        :raise SourceSetupError: if a source fails to set up
+        """
+        log.debug("Setting up sources...")
+
+        if not self._sources:
+            raise SourceSetupError("No sources to set up!")
+
+        self._set_up_sources(self._sources)
+
+    def _set_up_sources(self, sources):
+        """Collect and call set up tasks for all the sources."""
+        for source in sources:
+            log.debug("Setting up a source: %s", str(source))
             tasks = source.set_up_with_tasks()
-            log.debug("Collected %s tasks from %s source",
-                      [task.name for task in tasks],
-                      source.type)
 
             for task in tasks:
-                log.debug("Running task %s", task.name)
+                log.debug("Running a task: %s", task.name)
                 task.run_with_signals()
 
 
@@ -73,33 +78,39 @@ class TearDownSourcesTask(Task):
         """
         super().__init__()
         self._sources = sources
+        self._errors = []
 
     @property
     def name(self):
-        return "Tear Down Installation Sources"
+        return "Tear down installation sources"
 
     def run(self):
-        """Collect and call tear down tasks for all the sources."""
+        """Run the task.
+
+        :raise SourceSetupError: if a source fails to tear down
+        """
+        log.debug("Tearing down sources...")
+
         if not self._sources:
-            raise SourceSetupError("No sources specified for tear down!")
+            raise SourceSetupError("No sources to tear down!")
 
-        errors = []
+        self._tear_down_sources(self._sources)
 
-        for source in self._sources:
+        if self._errors:
+            raise SourceTearDownError(
+                "Failed to tear down sources:\n" + "\n".join(self._errors)
+            )
+
+    def _tear_down_sources(self, sources):
+        """Collect and call tear down tasks for all the sources."""
+        for source in sources:
+            log.debug("Tearing down a source: %s", str(source))
             tasks = source.tear_down_with_tasks()
-            log.debug("Collected %s tasks from %s source",
-                      [task.name for task in tasks],
-                      source.type)
 
             for task in tasks:
-                log.debug("Running task %s", task.name)
+                log.debug("Running a task: %s", task.name)
                 try:
                     task.run()
                 except SourceTearDownError as e:
-                    message = "Task '{}' from source '{}' has failed, reason: {}".format(
-                        task.name, source.type, str(e))
-                    errors.append(message)
-                    log.error("%s\n%s", message, traceback.format_exc())
-
-        if errors:
-            raise SourceTearDownError("Sources tear down have failed", errors)
+                    log.exception(e)
+                    self._errors.append(str(e))

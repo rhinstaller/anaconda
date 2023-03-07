@@ -31,12 +31,6 @@ class SourceSetupError(AnacondaError):
 class SourceTearDownError(AnacondaError):
     """Error raised during the source tear down."""
 
-    def __init__(self, message, errors=None):
-        if errors:
-            message = message + "\n" + "\n".join(errors)
-
-        super().__init__(message)
-
 
 @dbus_error("IncompatibleSourceError", namespace=PAYLOADS_NAMESPACE)
 class IncompatibleSourceError(AnacondaError):

@@ -159,7 +159,7 @@ class NFSSourceSetupTaskTestCase(unittest.TestCase):
     def test_setup_install_source_task_name(self):
         """Test NFS Source setup installation source task name."""
         task = SetUpNFSSourceTask(DEVICE_MOUNT_LOCATION, ISO_MOUNT_LOCATION, NFS_URL)
-        assert task.name == "Set up NFS installation source"
+        assert task.name == "Set up a NFS source"
 
     @patch("pyanaconda.modules.payloads.source.nfs.initialization.find_and_mount_iso_image",
            return_value="trojan.iso")

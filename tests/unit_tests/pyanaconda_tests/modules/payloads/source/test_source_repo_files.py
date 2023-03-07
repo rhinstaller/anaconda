@@ -88,7 +88,7 @@ class RepoFilesSourceSetupTaskTestCase(unittest.TestCase):
     def test_setup_install_source_task_name(self):
         """Test Repo files Source setup installation source task name."""
         task = SetUpRepoFilesSourceTask([""])
-        assert task.name == "Set up Repo files Installation Source"
+        assert task.name == "Set up local repositories"
 
     def test_setup_install_source_task_success(self):
         with TemporaryDirectory() as temp_dir_name:
@@ -100,4 +100,4 @@ class RepoFilesSourceSetupTaskTestCase(unittest.TestCase):
             with pytest.raises(SourceSetupError) as cm:
                 SetUpRepoFilesSourceTask([temp_dir_name]).run()
 
-            assert str(cm.value) == "repo files not found"
+            assert str(cm.value) == "No .repo files found."

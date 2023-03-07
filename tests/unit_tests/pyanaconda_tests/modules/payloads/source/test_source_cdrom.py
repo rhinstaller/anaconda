@@ -136,8 +136,7 @@ class CdromSourceSetupTaskTestCase(unittest.TestCase):
     def test_setup_install_source_task_name(self):
         """Test CD-ROM Source setup installation source task name."""
         task = SetUpCdromSourceTask(self.mount_location)
-
-        assert task.name == "Set up CD-ROM Installation Source"
+        assert task.name == "Set up a CD-ROM source"
 
     @staticmethod
     def set_up_device_tree(num_cdroms):

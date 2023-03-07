@@ -183,7 +183,7 @@ class HardDriveSourceSetupTaskTestCase(unittest.TestCase):
     def test_setup_install_source_task_name(self):
         """Hard drive source setup task name."""
         task = _create_setup_task()
-        assert task.name == "Set up Hard drive installation source"
+        assert task.name == "Set up a hard drive source"
 
     @patch("pyanaconda.modules.payloads.source.harddrive.initialization.find_and_mount_device",
            return_value=True)
