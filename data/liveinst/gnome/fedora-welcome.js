@@ -37,9 +37,9 @@ let anacondaApp = null;
 function makeLabel(label, button) {
     let widget = new Gtk.Label();
 
-    if (button)
+    if (button) {
         widget.set_markup('<b><span size="x-large">' + label + '</span></b>');
-    else {
+    } else {
         widget.set_line_wrap(true);
         widget.set_justify(Gtk.Justification.CENTER);
         widget.set_margin_top(32);
