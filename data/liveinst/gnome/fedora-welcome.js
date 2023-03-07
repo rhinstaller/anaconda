@@ -27,6 +27,8 @@ import Gtk from 'gi://Gtk?version=3.0';
 import {gettext as _} from 'gettext';
 import Gettext from 'gettext';
 
+import {programArgs, programInvocationName} from 'system';
+
 const LOCALE_DIR = '/usr/share/locale';
 
 let anacondaApp = null;
@@ -195,4 +197,4 @@ if (!anacondaApp)
     anacondaApp = Gio.DesktopAppInfo.new('liveinst.desktop');
 
 if (anacondaApp)
-    new WelcomeApp().run(ARGV);
+    new WelcomeApp().run([programInvocationName, ...programArgs]);
