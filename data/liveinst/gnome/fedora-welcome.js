@@ -52,95 +52,117 @@ function makeLabel(label, button) {
 }
 
 const WelcomeWindow = new Lang.Class({
-  Name: 'WelcomeWindow',
+    Name: 'WelcomeWindow',
 
-  _init: function(application) {
-      this.window = new Gtk.ApplicationWindow({ application: application,
-                                                type: Gtk.WindowType.TOPLEVEL,
-                                                default_width: 600,
-                                                default_height: 550,
-                                                skip_taskbar_hint: true,
-                                                title: _('Welcome to Fedora'),
-                                                window_position: Gtk.WindowPosition.CENTER });
-      this.window.connect('key-press-event', Lang.bind(this,
-          function(w, event) {
-              let key = event.get_keyval()[1];
+    _init: function(application) {
+        this.window = new Gtk.ApplicationWindow({
+            application,
+            type: Gtk.WindowType.TOPLEVEL,
+            default_width: 600,
+            default_height: 550,
+            skip_taskbar_hint: true,
+            title: _('Welcome to Fedora'),
+            window_position: Gtk.WindowPosition.CENTER,
+        });
+        this.window.connect('key-press-event', Lang.bind(this,
+            function(w, event) {
+                let key = event.get_keyval()[1];
 
-              if (key == Gdk.KEY_Escape)
-                  this.window.destroy();
+                if (key === Gdk.KEY_Escape)
+                    this.window.destroy();
 
-              return false;
-          }));
+                return Gdk.EVENT_CONTINUE;
+            }));
 
-      let mainGrid = new Gtk.Grid({ orientation: Gtk.Orientation.VERTICAL,
-                                    row_spacing: 16,
-                                    vexpand: true,
-                                    hexpand: true,
-                                    halign: Gtk.Align.CENTER,
-                                    valign: Gtk.Align.CENTER });
-      this.window.add(mainGrid);
+        const mainGrid = new Gtk.Grid({
+            orientation: Gtk.Orientation.VERTICAL,
+            row_spacing: 16,
+            vexpand: true,
+            hexpand: true,
+            halign: Gtk.Align.CENTER,
+            valign: Gtk.Align.CENTER,
+        });
+        this.window.add(mainGrid);
 
-      let buttonBox = new Gtk.Grid({ orientation: Gtk.Orientation.HORIZONTAL,
-                                     column_spacing: 16,
-                                     halign: Gtk.Align.CENTER });
-      mainGrid.add(buttonBox);
+        const buttonBox = new Gtk.Grid({
+            orientation: Gtk.Orientation.HORIZONTAL,
+            column_spacing: 16,
+            halign: Gtk.Align.CENTER,
+        });
+        mainGrid.add(buttonBox);
 
-      let tryContent = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL,
-                                     spacing: 16 });
-      tryContent.add(new Gtk.Image({ icon_name: 'media-optical',
-                                     pixel_size: 256 }));
-      tryContent.add(makeLabel(_('Try Fedora'), true));
+        const tryContent = new Gtk.Box({
+            orientation: Gtk.Orientation.VERTICAL,
+            spacing: 16,
+        });
+        tryContent.add(new Gtk.Image({
+            icon_name: 'media-optical',
+            pixel_size: 256,
+        }));
+        tryContent.add(makeLabel(_('Try Fedora'), true));
 
-      let tryButton = new Gtk.Button({ child: tryContent });
-      buttonBox.add(tryButton);
+        const tryButton = new Gtk.Button({child: tryContent});
+        buttonBox.add(tryButton);
 
-      let installContent = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL,
-                                         spacing: 16 });
+        const installContent = new Gtk.Box({
+            orientation: Gtk.Orientation.VERTICAL,
+            spacing: 16,
+        });
 
-      // provided by the 'fedora-logos' package
-      installContent.add(new Gtk.Image({ icon_name: 'org.fedoraproject.AnacondaInstaller',
-                                         pixel_size: 256 }));
-      installContent.add(makeLabel(anacondaApp.get_name(), true));
+        // provided by the 'fedora-logos' package
+        installContent.add(new Gtk.Image({
+            icon_name: 'org.fedoraproject.AnacondaInstaller',
+            pixel_size: 256,
+        }));
+        installContent.add(makeLabel(anacondaApp.get_name(), true));
 
-      let installButton = new Gtk.Button({ child: installContent });
-      buttonBox.add(installButton);
+        const installButton = new Gtk.Button({child: installContent});
+        buttonBox.add(installButton);
 
-      this._label = makeLabel(_('You are currently running Fedora from live media.\nYou can install Fedora now, or choose "Install to Hard Drive" in the Activities Overview at any later time.'), false);
-      mainGrid.add(this._label);
+        this._label = makeLabel(
+            _('You are currently running Fedora from live media.\nYou can install Fedora now, or choose "Install to Hard Drive" in the Activities Overview at any later time.'),
+            false);
+        mainGrid.add(this._label);
 
-      installButton.connect('clicked', Lang.bind(this,
-          function() {
-              GLib.spawn_command_line_async('liveinst');
-              this.window.destroy();
-          }));
+        installButton.connect('clicked', Lang.bind(this,
+            function() {
+                GLib.spawn_command_line_async('liveinst');
+                this.window.destroy();
+            }));
 
-      tryButton.connect('clicked', Lang.bind(this,
-          function() {
-              buttonBox.destroy();
-              this._label.destroy();
+        tryButton.connect('clicked', Lang.bind(this,
+            function() {
+                buttonBox.destroy();
+                this._label.destroy();
 
-              // provided by the 'fedora-logos' package
-              let image = new Gtk.Image({ icon_name: 'org.fedoraproject.AnacondaInstaller',
-                                          pixel_size: 256,
-                                          halign: Gtk.Align.CENTER });
-              mainGrid.add(image);
+                // provided by the 'fedora-logos' package
+                const image = new Gtk.Image({
+                    icon_name: 'org.fedoraproject.AnacondaInstaller',
+                    pixel_size: 256,
+                    halign: Gtk.Align.CENTER,
+                });
+                mainGrid.add(image);
 
-              this._label = makeLabel(_('You can choose "Install to Hard Drive"\nin the Activities Overview at any later time.'), false);
-              mainGrid.add(this._label);
+                this._label = makeLabel(
+                    _('You can choose "Install to Hard Drive"\nin the Activities Overview at any later time.'),
+                    false);
+                mainGrid.add(this._label);
 
-              let closeLabel = makeLabel(_('Close'), true);
-              closeLabel.margin = 10;
-              let button = new Gtk.Button({ child: closeLabel,
-                                            halign: Gtk.Align.CENTER });
-              button.connect('clicked', Lang.bind(this,
-                  function() {
-                      this.window.destroy();
-                  }));
-              mainGrid.add(button);
+                const closeLabel = makeLabel(_('Close'), true);
+                closeLabel.margin = 10;
+                const button = new Gtk.Button({
+                    child: closeLabel,
+                    halign: Gtk.Align.CENTER,
+                });
+                button.connect('clicked', Lang.bind(this,
+                    function() {
+                        this.window.destroy();
+                    }));
+                mainGrid.add(button);
 
-              mainGrid.show_all();
-          }));
-  }
+                mainGrid.show_all();
+            }));
+    }
 });
 
 Gettext.bindtextdomain('anaconda', LOCALE_DIR);
