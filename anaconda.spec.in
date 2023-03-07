@@ -463,6 +463,21 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 07 2023 github-actions <github-actions@github.com> - 39.4-1
+- Verify repomd hashes with a task (vponcova)
+- WebUI: Give "Quit" button correct margin (ozobal)
+- Remove the tx_id functionality (vponcova)
+- Don't generate a repository name of the URL source (vponcova)
+- Fix translations of the pre-release warning dialog (#2165762) (vponcova)
+- Validate the CDN source early (vponcova)
+- Add the ValidatePackagesSelectionWithTask DBus method (vponcova)
+- Remove the get_base_repo_url method of the TreeInfoMetadata class (vponcova)
+- Load treeinfo metadata with the LoadTreeInfoMetadataTask task (vponcova)
+- Allow to get the base and root treeinfo repositories (vponcova)
+- Create the generate_treeinfo_repository function (vponcova)
+- Create the update_treeinfo_repositories function (vponcova)
+- password tooltip text adapt language (iasunsea)
+
 * Tue Feb 28 2023 github-actions <github-actions@github.com> - 39.3-1
 - Add config for Fedora Designsuite (luya)
 - docs: Update contrib guide for current branching (vslavik)
