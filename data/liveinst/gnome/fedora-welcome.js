@@ -159,6 +159,8 @@ class WelcomeWindow extends Gtk.ApplicationWindow {
 
             mainGrid.show_all();
         });
+
+        mainGrid.show_all();
     }
 }
 
@@ -183,7 +185,7 @@ if (anacondaApp) {
         welcomeWindow = new WelcomeWindow(application);
     });
     application.connect('activate', () => {
-        welcomeWindow.show_all();
+        welcomeWindow.present();
     });
 
     application.run(ARGV);
