@@ -18,8 +18,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-imports.gi.versions.Gdk = "3.0";
-imports.gi.versions.Gtk = "3.0";
+imports.gi.versions.Gdk = '3.0';
+imports.gi.versions.Gtk = '3.0';
 
 const Gdk = imports.gi.Gdk;
 const Gio = imports.gi.Gio;
@@ -60,7 +60,7 @@ const WelcomeWindow = new Lang.Class({
                                                 default_width: 600,
                                                 default_height: 550,
                                                 skip_taskbar_hint: true,
-                                                title: _("Welcome to Fedora"),
+                                                title: _('Welcome to Fedora'),
                                                 window_position: Gtk.WindowPosition.CENTER });
       this.window.connect('key-press-event', Lang.bind(this,
           function(w, event) {
@@ -89,7 +89,7 @@ const WelcomeWindow = new Lang.Class({
                                      spacing: 16 });
       tryContent.add(new Gtk.Image({ icon_name: 'media-optical',
                                      pixel_size: 256 }));
-      tryContent.add(makeLabel(_("Try Fedora"), true));
+      tryContent.add(makeLabel(_('Try Fedora'), true));
 
       let tryButton = new Gtk.Button({ child: tryContent });
       buttonBox.add(tryButton);
@@ -105,7 +105,7 @@ const WelcomeWindow = new Lang.Class({
       let installButton = new Gtk.Button({ child: installContent });
       buttonBox.add(installButton);
 
-      this._label = makeLabel(_("You are currently running Fedora from live media.\nYou can install Fedora now, or choose \"Install to Hard Drive\" in the Activities Overview at any later time."), false);
+      this._label = makeLabel(_('You are currently running Fedora from live media.\nYou can install Fedora now, or choose "Install to Hard Drive" in the Activities Overview at any later time.'), false);
       mainGrid.add(this._label);
 
       installButton.connect('clicked', Lang.bind(this,
@@ -125,10 +125,10 @@ const WelcomeWindow = new Lang.Class({
                                           halign: Gtk.Align.CENTER });
               mainGrid.add(image);
 
-              this._label = makeLabel(_("You can choose \"Install to Hard Drive\"\nin the Activities Overview at any later time."), false);
+              this._label = makeLabel(_('You can choose "Install to Hard Drive"\nin the Activities Overview at any later time.'), false);
               mainGrid.add(this._label);
 
-              let closeLabel = makeLabel(_("Close"), true);
+              let closeLabel = makeLabel(_('Close'), true);
               closeLabel.margin = 10;
               let button = new Gtk.Button({ child: closeLabel,
                                             halign: Gtk.Align.CENTER });
