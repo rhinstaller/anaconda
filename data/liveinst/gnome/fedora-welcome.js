@@ -38,14 +38,14 @@ function makeLabel(label, button) {
     let widget = new Gtk.Label();
 
     if (button) {
-        widget.set_markup('<b><span size="x-large">' + label + '</span></b>');
+        widget.set_markup(`<b><span size="x-large">${label}</span></b>`);
     } else {
         widget.set_line_wrap(true);
         widget.set_justify(Gtk.Justification.CENTER);
         widget.set_margin_top(32);
         widget.set_margin_bottom(32);
 
-        widget.set_markup('<span size="large">' + label + '</span>');
+        widget.set_markup(`<span size="large">${label}</span>`);
     }
 
     return widget;
