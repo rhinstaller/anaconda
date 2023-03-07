@@ -24,8 +24,8 @@ imports.gi.versions.Gtk = '3.0';
 const Gdk = imports.gi.Gdk;
 const Gio = imports.gi.Gio;
 const GLib = imports.gi.GLib;
+const GObject = imports.gi.GObject;
 const Gtk = imports.gi.Gtk;
-const Lang = imports.lang;
 
 const Gettext = imports.gettext;
 const _ = imports.gettext.gettext;
@@ -51,11 +51,13 @@ function makeLabel(label, button) {
     return widget;
 }
 
-const WelcomeWindow = new Lang.Class({
-    Name: 'WelcomeWindow',
+class WelcomeWindow extends Gtk.ApplicationWindow {
+    static {
+        GObject.registerClass(this);
+    }
 
-    _init: function(application) {
-        this.window = new Gtk.ApplicationWindow({
+    constructor(application) {
+        super({
             application,
             type: Gtk.WindowType.TOPLEVEL,
             default_width: 600,
@@ -64,15 +66,15 @@ const WelcomeWindow = new Lang.Class({
             title: _('Welcome to Fedora'),
             window_position: Gtk.WindowPosition.CENTER,
         });
-        this.window.connect('key-press-event', Lang.bind(this,
-            function(w, event) {
-                let key = event.get_keyval()[1];
 
-                if (key === Gdk.KEY_Escape)
-                    this.window.destroy();
+        this.connect('key-press-event', (w, event) => {
+            const key = event.get_keyval()[1];
 
-                return Gdk.EVENT_CONTINUE;
-            }));
+            if (key === Gdk.KEY_Escape)
+                this.destroy();
+
+            return Gdk.EVENT_CONTINUE;
+        });
 
         const mainGrid = new Gtk.Grid({
             orientation: Gtk.Orientation.VERTICAL,
@@ -82,7 +84,7 @@ const WelcomeWindow = new Lang.Class({
             halign: Gtk.Align.CENTER,
             valign: Gtk.Align.CENTER,
         });
-        this.window.add(mainGrid);
+        this.add(mainGrid);
 
         const buttonBox = new Gtk.Grid({
             orientation: Gtk.Orientation.HORIZONTAL,
@@ -124,46 +126,41 @@ const WelcomeWindow = new Lang.Class({
             false);
         mainGrid.add(this._label);
 
-        installButton.connect('clicked', Lang.bind(this,
-            function() {
-                GLib.spawn_command_line_async('liveinst');
-                this.window.destroy();
-            }));
+        installButton.connect('clicked', () => {
+            GLib.spawn_command_line_async('liveinst');
+            this.destroy();
+        });
 
-        tryButton.connect('clicked', Lang.bind(this,
-            function() {
-                buttonBox.destroy();
-                this._label.destroy();
+        tryButton.connect('clicked', () => {
+            buttonBox.destroy();
+            this._label.destroy();
 
-                // provided by the 'fedora-logos' package
-                const image = new Gtk.Image({
-                    icon_name: 'org.fedoraproject.AnacondaInstaller',
-                    pixel_size: 256,
-                    halign: Gtk.Align.CENTER,
-                });
-                mainGrid.add(image);
+            // provided by the 'fedora-logos' package
+            let image = new Gtk.Image({
+                icon_name: 'org.fedoraproject.AnacondaInstaller',
+                pixel_size: 256,
+                halign: Gtk.Align.CENTER,
+            });
+            mainGrid.add(image);
 
-                this._label = makeLabel(
-                    _('You can choose "Install to Hard Drive"\nin the Activities Overview at any later time.'),
-                    false);
-                mainGrid.add(this._label);
+            this._label = makeLabel(
+                _('You can choose "Install to Hard Drive"\nin the Activities Overview at any later time.'),
+                false);
+            mainGrid.add(this._label);
 
-                const closeLabel = makeLabel(_('Close'), true);
-                closeLabel.margin = 10;
-                const button = new Gtk.Button({
-                    child: closeLabel,
-                    halign: Gtk.Align.CENTER,
-                });
-                button.connect('clicked', Lang.bind(this,
-                    function() {
-                        this.window.destroy();
-                    }));
-                mainGrid.add(button);
+            const closeLabel = makeLabel(_('Close'), true);
+            closeLabel.margin = 10;
+            const button = new Gtk.Button({
+                child: closeLabel,
+                halign: Gtk.Align.CENTER,
+            });
+            button.connect('clicked', () => this.destroy());
+            mainGrid.add(button);
 
-                mainGrid.show_all();
-            }));
+            mainGrid.show_all();
+        });
     }
-});
+}
 
 Gettext.bindtextdomain('anaconda', LOCALE_DIR);
 Gettext.textdomain('anaconda');
@@ -182,14 +179,12 @@ if (anacondaApp) {
                                             flags: Gio.ApplicationFlags.FLAGS_NONE });
     let welcomeWindow = null;
 
-    application.connect('startup', Lang.bind(this,
-        function() {
-            welcomeWindow = new WelcomeWindow(application);
-        }));
-    application.connect('activate', Lang.bind(this,
-        function() {
-            welcomeWindow.window.show_all();
-        }));
+    application.connect('startup', () => {
+        welcomeWindow = new WelcomeWindow(application);
+    });
+    application.connect('activate', () => {
+        welcomeWindow.show_all();
+    });
 
     application.run(ARGV);
 }
