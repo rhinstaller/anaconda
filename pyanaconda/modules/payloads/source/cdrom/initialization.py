@@ -98,7 +98,10 @@ class SetUpCdromSourceTask(SetUpMountTask):
             try:
                 device_data = DeviceData.from_structure(device_tree.GetDeviceData(dev_name))
                 format_data = DeviceFormatData.from_structure(device_tree.GetFormatData(dev_name))
-                mount(device_data.path, self._target_mount, format_data.type, "ro")
+                if format_data is not None:
+                    mount(device_data.path, self._target_mount, format_data.type, "ro")
+                else:
+                    mount(device_data.path, self._target_mount, "iso9660", "ro")
             except OSError as e:
                 log.debug("Failed to mount %s: %s", dev_name, str(e))
                 continue
