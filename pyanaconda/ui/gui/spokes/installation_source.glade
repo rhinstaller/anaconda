@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.38.2 -->
+<!-- Generated with glade 3.40.0 -->
 <interface>
   <requires lib="gtk+" version="3.0"/>
   <requires lib="AnacondaWidgets" version="1.0"/>
@@ -194,38 +194,20 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkRadioButton" id="isoRadioButton">
-                                <property name="label" translatable="yes" context="GUI|Software Source">_ISO file:</property>
-                                <property name="can-focus">True</property>
-                                <property name="receives-default">False</property>
-                                <property name="no-show-all">True</property>
-                                <property name="margin-left">12</property>
-                                <property name="use-underline">True</property>
-                                <property name="xalign">0</property>
-                                <property name="active">True</property>
-                                <property name="draw-indicator">True</property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">5</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkBox" id="isoBox">
-                                <property name="sensitive">False</property>
+                              <object class="GtkBox" id="isoWrapperBox">
                                 <property name="can-focus">False</property>
-                                <property name="no-show-all">True</property>
-                                <property name="margin-left">24</property>
                                 <property name="spacing">6</property>
                                 <child>
-                                  <object class="GtkLabel" id="label6">
-                                    <property name="visible">True</property>
-                                    <property name="can-focus">False</property>
-                                    <property name="valign">start</property>
-                                    <property name="label" translatable="yes" context="GUI|Software Source">D_evice:</property>
+                                  <object class="GtkRadioButton" id="isoRadioButton">
+                                    <property name="label" translatable="yes" context="GUI|Software Source">Device with an _ISO file</property>
+                                    <property name="can-focus">True</property>
+                                    <property name="receives-default">False</property>
+                                    <property name="no-show-all">True</property>
+                                    <property name="margin-left">12</property>
                                     <property name="use-underline">True</property>
-                                    <property name="mnemonic-widget">isoPartitionCombo</property>
+                                    <property name="xalign">0</property>
+                                    <property name="active">True</property>
+                                    <property name="draw-indicator">True</property>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -234,16 +216,66 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkComboBox" id="isoPartitionCombo">
-                                    <property name="visible">True</property>
+                                  <object class="GtkBox" id="isoBox">
+                                    <property name="sensitive">False</property>
                                     <property name="can-focus">False</property>
-                                    <property name="valign">start</property>
-                                    <property name="model">partitionStore</property>
+                                    <property name="no-show-all">True</property>
+                                    <property name="spacing">6</property>
                                     <child>
-                                      <object class="GtkCellRendererText" id="partitionRenderer"/>
-                                      <attributes>
-                                        <attribute name="text">1</attribute>
-                                      </attributes>
+                                      <object class="GtkComboBox" id="isoPartitionCombo">
+                                        <property name="width-request">100</property>
+                                        <property name="visible">True</property>
+                                        <property name="can-focus">False</property>
+                                        <property name="valign">start</property>
+                                        <property name="resize-mode">queue</property>
+                                        <property name="model">partitionStore</property>
+                                        <child>
+                                          <object class="GtkCellRendererText" id="partitionRenderer">
+                                            <property name="ellipsize">end</property>
+                                          </object>
+                                          <attributes>
+                                            <attribute name="text">1</attribute>
+                                          </attributes>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">True</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkButton" id="isoChooserButton">
+                                        <property name="label" translatable="yes" context="GUI|Software Source">_Choose an ISO</property>
+                                        <property name="visible">True</property>
+                                        <property name="can-focus">True</property>
+                                        <property name="receives-default">True</property>
+                                        <property name="valign">start</property>
+                                        <property name="use-underline">True</property>
+                                        <signal name="clicked" handler="on_chooser_clicked" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">2</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkButton" id="verifyIsoButton">
+                                        <property name="label" translatable="yes" context="GUI|Software Source">_Verify</property>
+                                        <property name="visible">True</property>
+                                        <property name="sensitive">False</property>
+                                        <property name="can-focus">True</property>
+                                        <property name="receives-default">True</property>
+                                        <property name="valign">start</property>
+                                        <property name="use-underline">True</property>
+                                        <signal name="clicked" handler="on_verify_iso_clicked" object="isoChooserButton" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">3</property>
+                                      </packing>
                                     </child>
                                   </object>
                                   <packing>
@@ -252,44 +284,11 @@
                                     <property name="position">1</property>
                                   </packing>
                                 </child>
-                                <child>
-                                  <object class="GtkButton" id="isoChooserButton">
-                                    <property name="label" translatable="yes" context="GUI|Software Source">_Choose an ISO</property>
-                                    <property name="visible">True</property>
-                                    <property name="can-focus">True</property>
-                                    <property name="receives-default">True</property>
-                                    <property name="valign">start</property>
-                                    <property name="use-underline">True</property>
-                                    <signal name="clicked" handler="on_chooser_clicked" swapped="no"/>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">2</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkButton" id="verifyIsoButton">
-                                    <property name="label" translatable="yes" context="GUI|Software Source">_Verify</property>
-                                    <property name="visible">True</property>
-                                    <property name="sensitive">False</property>
-                                    <property name="can-focus">True</property>
-                                    <property name="receives-default">True</property>
-                                    <property name="valign">start</property>
-                                    <property name="use-underline">True</property>
-                                    <signal name="clicked" handler="on_verify_iso_clicked" object="isoChooserButton" swapped="no"/>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">3</property>
-                                  </packing>
-                                </child>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">True</property>
-                                <property name="position">6</property>
+                                <property name="position">5</property>
                               </packing>
                             </child>
                             <child>
