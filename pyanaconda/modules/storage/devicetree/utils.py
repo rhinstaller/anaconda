@@ -100,28 +100,28 @@ def download_escrow_certificate(url):
     return certificate
 
 
-def find_live_backing_device(devicetree):
-    """Find the backing device for the live image.
-
-    Note that this is a little bit of a hack since we're assuming
-    that /run/initramfs/live will exist
+def find_backing_device(devicetree, mount_point):
+    """Find the backing device of the specified mount point.
 
     :param devicetree: a device tree
+    :param mount_point: a mount point
     :return: a device or None
     """
-    for mnt in open("/proc/mounts").readlines():
-        if " /run/initramfs/live " not in mnt:
+    for line in open("/proc/mounts").readlines():
+        values = line.split()
+
+        if mount_point not in values:
             continue
 
-        # Return the device mounted at /run/initramfs/live.
-        device_path = mnt.split()[0]
+        # Return the mounted device if available.
+        device_path = values[0]
         device_name = device_path.split("/")[-1]
         device = devicetree.get_device_by_name(device_name, hidden=True)
 
         if device:
             return device
 
-        # Or return the disk of this device.
+        # Or return the disk of the mounted device.
         info = udev.get_device(device_node=device_path)
         disk_name = udev.device_get_partition_disk(info) if info else ""
         disk = devicetree.get_device_by_name(disk_name, hidden=True)

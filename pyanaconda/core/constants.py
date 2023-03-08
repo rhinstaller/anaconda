@@ -43,13 +43,21 @@ if productName.count(" "):                      # pylint: disable=no-member
 # The default virtio port.
 VIRTIO_PORT = "/dev/virtio-ports/org.fedoraproject.anaconda.log.0"
 
+# The clean-up tool.
 ANACONDA_CLEANUP = "anaconda-cleanup"
+
+# System mount points.
+LIVE_MOUNT_POINT = "/run/initramfs/live"
+
+# Source mount points.
 MOUNT_DIR = "/run/install"
 DRACUT_ISODIR = "/run/install/source"
 DRACUT_REPO_DIR = "/run/install/repo"
 ISO_DIR = MOUNT_DIR + "/isodir"
 INSTALL_TREE = MOUNT_DIR + "/source"
 SOURCES_DIR = MOUNT_DIR + "/sources"
+
+# Names of repositories.
 BASE_REPO_NAME = "anaconda"
 
 # Get list of repo names witch should be used as base repo
