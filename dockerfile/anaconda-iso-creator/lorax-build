@@ -16,8 +16,8 @@
 set -eux
 
 # pre-create loop devices manually. In the container you can't use losetup for that.
-sudo mknod -m 0660 /dev/loop0 b 7 0  2> /dev/null || true
-sudo mknod -m 0660 /dev/loop1 b 7 1  2> /dev/null || true
+mknod -m 0660 /dev/loop0 b 7 0  2> /dev/null || true
+mknod -m 0660 /dev/loop1 b 7 1  2> /dev/null || true
 
 INPUT_RPMS=/anaconda-rpms/
 REPO_DIR=/tmp/anaconda-rpms/
