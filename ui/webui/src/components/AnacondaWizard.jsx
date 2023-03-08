@@ -49,10 +49,15 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, titl
             id: "installation-language",
             label: _("Welcome"),
         },
+        // TODO: rename InstallationDestination component and its file ?
         {
-            component: InstallationDestination,
             id: "installation-destination",
             label: _("Installation destination"),
+            steps: [{
+                component: InstallationDestination,
+                id: "storage-devices",
+                label: _("Storage devices")
+            }]
         },
         {
             component: ReviewConfiguration,
@@ -65,29 +70,67 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, titl
         }
     ];
 
+    const getFlattenedStepsIds = (steps) => {
+        const stepIds = [];
+        for (const step of steps) {
+            if (step.steps) {
+                for (const childStep of step.steps) {
+                    stepIds.push(childStep.id);
+                }
+            } else {
+                stepIds.push(step.id);
+            }
+        }
+        return stepIds;
+    };
+    const flattenedStepsIds = getFlattenedStepsIds(stepsOrder);
+
     const { path } = usePageLocation();
     const currentStepId = path[0] || "installation-language";
-    const steps = stepsOrder.map((s, idx) => {
-        return ({
-            id: s.id,
-            name: s.label,
-            component: (
-                <s.component
-                  idPrefix={s.id}
-                  setIsFormValid={setIsFormValid}
-                  onAddErrorNotification={onAddErrorNotification}
-                  toggleContextHelp={toggleContextHelp}
-                  stepNotification={stepNotification}
-                  isInProgress={isInProgress}
-                />
-            ),
-            stepNavItemProps: { id: s.id },
-            canJumpTo: idx <= stepsOrder.findIndex(s => s.id === currentStepId),
-            isFinishedStep: idx === stepsOrder.length - 1
-        });
-    });
 
-    const startAtStep = steps.findIndex(step => step.id === path[0]) + 1;
+    const isFinishedStep = (stepId) => {
+        const stepIdx = flattenedStepsIds.findIndex(s => s === stepId);
+        return stepIdx === flattenedStepsIds.length - 1;
+    };
+
+    const canJumpToStep = (stepId, currentStepId) => {
+        const stepIdx = flattenedStepsIds.findIndex(s => s === stepId);
+        const currentStepIdx = flattenedStepsIds.findIndex(s => s === currentStepId);
+        return stepIdx <= currentStepIdx;
+    };
+
+    const createSteps = (stepsOrder) => {
+        const steps = stepsOrder.map((s, idx) => {
+            let step = ({
+                id: s.id,
+                name: s.label,
+                stepNavItemProps: { id: s.id },
+                canJumpTo: canJumpToStep(s.id, currentStepId),
+                isFinishedStep: isFinishedStep(s.id),
+            });
+            if (s.component) {
+                step = ({
+                    ...step,
+                    component: (
+                        <s.component
+                          idPrefix={s.id}
+                          setIsFormValid={setIsFormValid}
+                          onAddErrorNotification={onAddErrorNotification}
+                          toggleContextHelp={toggleContextHelp}
+                          stepNotification={stepNotification}
+                          isInProgress={isInProgress}
+                        />
+                    ),
+                });
+            } else if (s.steps) {
+                step.steps = createSteps(s.steps);
+            }
+            return step;
+        });
+        return steps;
+    };
+    const steps = createSteps(stepsOrder);
+
     const goToStep = (newStep) => {
         // first reset validation state to default
         setIsFormValid(true);
@@ -111,8 +154,8 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, titl
           onBack={goToStep}
           onGoToStep={goToStep}
           onNext={goToStep}
-          startAtStep={startAtStep}
           steps={steps}
+          isNavExpandable
         />
     );
 };
@@ -125,7 +168,7 @@ const Footer = ({ isFormValid, setIsFormValid, setStepNotification, isInProgress
         // first reset validation state to default
         setIsFormValid(true);
 
-        if (activeStep.id === "installation-destination") {
+        if (activeStep.id === "storage-devices") {
             setIsInProgress(true);
 
             applyDefaultStorage({
@@ -202,7 +245,7 @@ const Footer = ({ isFormValid, setIsFormValid, setStepNotification, isInProgress
                                   onClick={() => goToStep(activeStep, onNext)}>
                                     {nextButtonText}
                                 </Button>
-                                {activeStep.id === "installation-destination" &&
+                                {activeStep.id === "storage-devices" &&
                                     <Tooltip
                                       id="next-tooltip-ref"
                                       content={
