@@ -18,6 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+import Adw from 'gi://Adw?version=1';
 import Gio from 'gi://Gio';
 import GObject from 'gi://GObject';
 import Gtk from 'gi://Gtk?version=4.0';
@@ -48,7 +49,7 @@ function makeLabel(label, button) {
     return widget;
 }
 
-class WelcomeWindow extends Gtk.ApplicationWindow {
+class WelcomeWindow extends Adw.ApplicationWindow {
     static {
         GObject.registerClass(this);
 
@@ -62,29 +63,28 @@ class WelcomeWindow extends Gtk.ApplicationWindow {
     }
 
     constructor(application) {
+        const title = _('Welcome to Fedora!');
         super({
             application,
+            title,
+            content: new Gtk.WindowHandle(),
             default_width: 600,
             default_height: 550,
-            title: _('Welcome to Fedora'),
         });
 
-        const mainBox = new Gtk.Box({
-            orientation: Gtk.Orientation.VERTICAL,
-            spacing: 16,
-            vexpand: true,
-            hexpand: true,
-            halign: Gtk.Align.CENTER,
-            valign: Gtk.Align.CENTER,
+        const statusPage = new Adw.StatusPage({
+            title,
+            iconName: 'fedora-logo-icon',
+            description: _('This live media can be used to install Fedora or as a temporary system. Installation can be started at any time using the install icon in Activities.'),
         });
-        this.set_child(mainBox);
+        this.content.set_child(statusPage);
 
         const buttonBox = new Gtk.Box({
             orientation: Gtk.Orientation.HORIZONTAL,
             spacing: 16,
             halign: Gtk.Align.CENTER,
         });
-        mainBox.append(buttonBox);
+        statusPage.set_child(buttonBox);
 
         const tryContent = new Gtk.Box({
             orientation: Gtk.Orientation.VERTICAL,
@@ -119,11 +119,6 @@ class WelcomeWindow extends Gtk.ApplicationWindow {
             actionName: 'window.install-fedora',
         });
         buttonBox.append(installButton);
-
-        this._label = makeLabel(
-            _('This live media can be used to install Fedora or as a temporary system. Installation can be started at any time using the install icon in Activities.'),
-            false);
-        mainBox.append(this._label);
     }
 
     _installFedora() {
@@ -132,19 +127,14 @@ class WelcomeWindow extends Gtk.ApplicationWindow {
     }
 }
 
-class WelcomeApp extends Gtk.Application {
+class WelcomeApp extends Adw.Application {
     static {
         GObject.registerClass(this);
     }
 
     constructor() {
         super({application_id: 'org.fedoraproject.welcome-screen'});
-    }
-
-    vfunc_startup() {
-        super.vfunc_startup();
-
-        Gtk.Settings.get_default().gtk_application_prefer_dark_theme = true;
+        this.styleManager.colorScheme = Adw.ColorScheme.PREFER_DARK;
     }
 
     vfunc_activate() {
