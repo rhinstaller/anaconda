@@ -463,6 +463,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Mar 09 2023 Vladimír Slávik <vslavik@redhat.com> - 38.23.2-1
+- Retranslate welcome screen more simply (vslavik)
+- Fix translations of the pre-release warning dialog (#2165762) (vponcova)
+
 * Thu Feb 16 2023 Martin Kolman <mkolman@redhat.com> - 38.23.1-1
 - Apply templates for Fedora 38 (mkolman)
 - Fix new pylint detections (vslavik)
