@@ -18,10 +18,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-import Gdk from 'gi://Gdk?version=3.0';
 import Gio from 'gi://Gio';
 import GObject from 'gi://GObject';
-import Gtk from 'gi://Gtk?version=3.0';
+import Gtk from 'gi://Gtk?version=4.0';
 
 import {gettext as _} from 'gettext';
 import Gettext from 'gettext';
@@ -38,7 +37,7 @@ function makeLabel(label, button) {
     if (button) {
         widget.set_markup(`<b><span size="x-large">${label}</span></b>`);
     } else {
-        widget.set_line_wrap(true);
+        widget.set_wrap(true);
         widget.set_justify(Gtk.Justification.CENTER);
         widget.set_margin_top(32);
         widget.set_margin_bottom(32);
@@ -52,25 +51,19 @@ function makeLabel(label, button) {
 class WelcomeWindow extends Gtk.ApplicationWindow {
     static {
         GObject.registerClass(this);
+
+        this.add_shortcut(new Gtk.Shortcut({
+            trigger: Gtk.ShortcutTrigger.parse_string('Escape'),
+            action: Gtk.NamedAction.new('window.close'),
+        }));
     }
 
     constructor(application) {
         super({
             application,
-            type: Gtk.WindowType.TOPLEVEL,
             default_width: 600,
             default_height: 550,
             title: _('Welcome to Fedora'),
-            window_position: Gtk.WindowPosition.CENTER,
-        });
-
-        this.connect('key-press-event', (w, event) => {
-            const key = event.get_keyval()[1];
-
-            if (key === Gdk.KEY_Escape)
-                this.destroy();
-
-            return Gdk.EVENT_CONTINUE;
         });
 
         const mainBox = new Gtk.Box({
@@ -81,27 +74,27 @@ class WelcomeWindow extends Gtk.ApplicationWindow {
             halign: Gtk.Align.CENTER,
             valign: Gtk.Align.CENTER,
         });
-        this.add(mainBox);
+        this.set_child(mainBox);
 
         const buttonBox = new Gtk.Box({
             orientation: Gtk.Orientation.HORIZONTAL,
             spacing: 16,
             halign: Gtk.Align.CENTER,
         });
-        mainBox.add(buttonBox);
+        mainBox.append(buttonBox);
 
         const tryContent = new Gtk.Box({
             orientation: Gtk.Orientation.VERTICAL,
             spacing: 16,
         });
-        tryContent.add(new Gtk.Image({
+        tryContent.append(new Gtk.Image({
             icon_name: 'media-optical',
             pixel_size: 256,
         }));
-        tryContent.add(makeLabel(_('Not Now'), true));
+        tryContent.append(makeLabel(_('Not Now'), true));
 
         const tryButton = new Gtk.Button({child: tryContent});
-        buttonBox.add(tryButton);
+        buttonBox.append(tryButton);
 
         const installContent = new Gtk.Box({
             orientation: Gtk.Orientation.VERTICAL,
@@ -109,19 +102,19 @@ class WelcomeWindow extends Gtk.ApplicationWindow {
         });
 
         // provided by the 'fedora-logos' package
-        installContent.add(new Gtk.Image({
+        installContent.append(new Gtk.Image({
             icon_name: 'org.fedoraproject.AnacondaInstaller',
             pixel_size: 256,
         }));
-        installContent.add(makeLabel(_('Install Fedora…'), true));
+        installContent.append(makeLabel(_('Install Fedora…'), true));
 
         const installButton = new Gtk.Button({child: installContent});
-        buttonBox.add(installButton);
+        buttonBox.append(installButton);
 
         this._label = makeLabel(
             _('This live media can be used to install Fedora or as a temporary system. Installation can be started at any time using the install icon in Activities.'),
             false);
-        mainBox.add(this._label);
+        mainBox.append(this._label);
 
         installButton.connect('clicked', () => {
             anacondaApp.launch([], this.get_display().get_app_launch_context());
@@ -129,8 +122,6 @@ class WelcomeWindow extends Gtk.ApplicationWindow {
         });
 
         tryButton.connect('clicked', () => this.close());
-
-        mainBox.show_all();
     }
 }
 
