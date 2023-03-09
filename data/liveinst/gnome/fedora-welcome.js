@@ -56,6 +56,9 @@ class WelcomeWindow extends Gtk.ApplicationWindow {
             trigger: Gtk.ShortcutTrigger.parse_string('Escape'),
             action: Gtk.NamedAction.new('window.close'),
         }));
+
+        this.install_action('window.install-fedora', null,
+            self => self._installFedora());
     }
 
     constructor(application) {
@@ -93,7 +96,10 @@ class WelcomeWindow extends Gtk.ApplicationWindow {
         }));
         tryContent.append(makeLabel(_('Not Now'), true));
 
-        const tryButton = new Gtk.Button({child: tryContent});
+        const tryButton = new Gtk.Button({
+            child: tryContent,
+            actionName: 'window.close',
+        });
         buttonBox.append(tryButton);
 
         const installContent = new Gtk.Box({
@@ -108,20 +114,21 @@ class WelcomeWindow extends Gtk.ApplicationWindow {
         }));
         installContent.append(makeLabel(_('Install Fedora…'), true));
 
-        const installButton = new Gtk.Button({child: installContent});
+        const installButton = new Gtk.Button({
+            child: installContent,
+            actionName: 'window.install-fedora',
+        });
         buttonBox.append(installButton);
 
         this._label = makeLabel(
             _('This live media can be used to install Fedora or as a temporary system. Installation can be started at any time using the install icon in Activities.'),
             false);
         mainBox.append(this._label);
+    }
 
-        installButton.connect('clicked', () => {
-            anacondaApp.launch([], this.get_display().get_app_launch_context());
-            this.destroy();
-        });
-
-        tryButton.connect('clicked', () => this.close());
+    _installFedora() {
+        anacondaApp.launch([], this.display.get_app_launch_context());
+        this.close();
     }
 }
 
