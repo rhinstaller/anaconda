@@ -35,7 +35,7 @@ from pyanaconda.ui.gui.spokes.lib.lang_locale_handler import LangLocaleHandler
 from pyanaconda import localization
 from pyanaconda.product import distributionText, isFinal, productName, productVersion
 from pyanaconda import flags
-from pyanaconda.core.i18n import _, C_
+from pyanaconda.core.i18n import _
 from pyanaconda.core.util import ipmi_abort
 from pyanaconda.core.constants import DEFAULT_LANG, WINDOW_TITLE_TEXT
 from pyanaconda.modules.common.constants.services import TIMEZONE, LOCALIZATION
@@ -76,7 +76,6 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
     def __init__(self, *args, **kwargs):
         StandaloneSpoke.__init__(self, *args, **kwargs)
         LangLocaleHandler.__init__(self)
-        self._origStrings = {}
 
         self._l12_module = LOCALIZATION.get_proxy()
         self._tz_module = None
@@ -193,28 +192,14 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
         # report that we are done
         self.initialize_done()
 
-    def _retranslate_one(self, widgetName, context=None):
-        widget = self.builder.get_object(widgetName)
-        if not widget:
-            return
-
-        if widget not in self._origStrings:
-            self._origStrings[widget] = widget.get_label()
-
-        before = self._origStrings[widget]
-        if context is not None:
-            widget.set_label(C_(context, before))
-        else:
-            widget.set_label(_(before))
-
     def retranslate(self):
-        # Change the translations on labels and buttons that do not have
-        # substitution text.
-        for name in ["pickLanguageLabel"]:
-            self._retranslate_one(name)
+        # Change the translations on labels and buttons that do not have substitution text.
+        pickLabel = self.builder.get_object("pickLanguageLabel")
+        pickLabel.set_text(_(
+            "What language would you like to use during the installation process?"
+        ))
 
-        # The welcome label is special - it has text that needs to be
-        # substituted.
+        # The welcome label is special - it has text that needs to be substituted.
         welcomeLabel = self.builder.get_object("welcomeLabel")
 
         welcomeLabel.set_text(_("WELCOME TO %(name)s %(version)s.") %
@@ -222,10 +207,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
 
         # Retranslate the language (filtering) entry's placeholder text
         languageEntry = self.builder.get_object("languageEntry")
-        if languageEntry not in self._origStrings:
-            self._origStrings[languageEntry] = languageEntry.get_placeholder_text()
-
-        languageEntry.set_placeholder_text(_(self._origStrings[languageEntry]))
+        languageEntry.set_placeholder_text(_("Type here to search."))
 
         # And of course, don't forget the underlying window.
         self.window.set_property("distribution", distributionText())
