@@ -126,7 +126,7 @@ class WelcomeWindow extends Gtk.ApplicationWindow {
         mainGrid.add(this._label);
 
         installButton.connect('clicked', () => {
-            GLib.spawn_command_line_async('liveinst');
+            anacondaApp.launch([], this.get_display().get_app_launch_context());
             this.destroy();
         });
 
