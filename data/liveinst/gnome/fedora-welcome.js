@@ -32,23 +32,6 @@ const LOCALE_DIR = '/usr/share/locale';
 
 let anacondaApp = null;
 
-function makeLabel(label, button) {
-    let widget = new Gtk.Label();
-
-    if (button) {
-        widget.set_markup(`<b><span size="x-large">${label}</span></b>`);
-    } else {
-        widget.set_wrap(true);
-        widget.set_justify(Gtk.Justification.CENTER);
-        widget.set_margin_top(32);
-        widget.set_margin_bottom(32);
-
-        widget.set_markup(`<span size="large">${label}</span>`);
-    }
-
-    return widget;
-}
-
 class WelcomeWindow extends Adw.ApplicationWindow {
     static {
         GObject.registerClass(this);
@@ -81,43 +64,24 @@ class WelcomeWindow extends Adw.ApplicationWindow {
 
         const buttonBox = new Gtk.Box({
             orientation: Gtk.Orientation.HORIZONTAL,
-            spacing: 16,
+            homogeneous: true,
+            spacing: 24,
             halign: Gtk.Align.CENTER,
         });
         statusPage.set_child(buttonBox);
 
-        const tryContent = new Gtk.Box({
-            orientation: Gtk.Orientation.VERTICAL,
-            spacing: 16,
-        });
-        tryContent.append(new Gtk.Image({
-            icon_name: 'media-optical',
-            pixel_size: 256,
-        }));
-        tryContent.append(makeLabel(_('Not Now'), true));
-
         const tryButton = new Gtk.Button({
-            child: tryContent,
+            label: _('Not Now'),
             actionName: 'window.close',
         });
+        tryButton.add_css_class('pill');
         buttonBox.append(tryButton);
 
-        const installContent = new Gtk.Box({
-            orientation: Gtk.Orientation.VERTICAL,
-            spacing: 16,
-        });
-
-        // provided by the 'fedora-logos' package
-        installContent.append(new Gtk.Image({
-            icon_name: 'org.fedoraproject.AnacondaInstaller',
-            pixel_size: 256,
-        }));
-        installContent.append(makeLabel(_('Install Fedora…'), true));
-
         const installButton = new Gtk.Button({
-            child: installContent,
+            label: _('Install Fedora…'),
             actionName: 'window.install-fedora',
         });
+        installButton.add_css_class('pill');
         buttonBox.append(installButton);
     }
 
