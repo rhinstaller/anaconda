@@ -70,19 +70,20 @@ class WelcomeWindow extends Adw.ApplicationWindow {
         });
         statusPage.set_child(buttonBox);
 
+        const installButton = new Gtk.Button({
+            label: _('Install Fedora…'),
+            actionName: 'window.install-fedora',
+        });
+        installButton.add_css_class('pill');
+        installButton.add_css_class('suggested-action');
+        buttonBox.append(installButton);
+
         const tryButton = new Gtk.Button({
             label: _('Not Now'),
             actionName: 'window.close',
         });
         tryButton.add_css_class('pill');
         buttonBox.append(tryButton);
-
-        const installButton = new Gtk.Button({
-            label: _('Install Fedora…'),
-            actionName: 'window.install-fedora',
-        });
-        installButton.add_css_class('pill');
-        buttonBox.append(installButton);
     }
 
     _installFedora() {
