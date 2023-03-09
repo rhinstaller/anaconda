@@ -98,7 +98,7 @@ class WelcomeWindow extends Gtk.ApplicationWindow {
             icon_name: 'media-optical',
             pixel_size: 256,
         }));
-        tryContent.add(makeLabel(_('Try Fedora'), true));
+        tryContent.add(makeLabel(_('Not Now'), true));
 
         const tryButton = new Gtk.Button({child: tryContent});
         buttonBox.add(tryButton);
@@ -113,7 +113,7 @@ class WelcomeWindow extends Gtk.ApplicationWindow {
             icon_name: 'org.fedoraproject.AnacondaInstaller',
             pixel_size: 256,
         }));
-        installContent.add(makeLabel(anacondaApp.get_name(), true));
+        installContent.add(makeLabel(_('Install Fedora…'), true));
 
         const installButton = new Gtk.Button({child: installContent});
         buttonBox.add(installButton);
