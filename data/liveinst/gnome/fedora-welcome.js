@@ -61,7 +61,6 @@ class WelcomeWindow extends Gtk.ApplicationWindow {
             type: Gtk.WindowType.TOPLEVEL,
             default_width: 600,
             default_height: 550,
-            skip_taskbar_hint: true,
             title: _('Welcome to Fedora'),
             window_position: Gtk.WindowPosition.CENTER,
         });
