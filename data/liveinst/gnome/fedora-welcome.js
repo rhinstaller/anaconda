@@ -119,7 +119,7 @@ class WelcomeWindow extends Gtk.ApplicationWindow {
         buttonBox.add(installButton);
 
         this._label = makeLabel(
-            _('You are currently running Fedora from live media.\nYou can install Fedora now, or choose "Install to Hard Drive" in the Activities Overview at any later time.'),
+            _('This live media can be used to install Fedora or as a temporary system. Installation can be started at any time using the install icon in Activities.'),
             false);
         mainBox.add(this._label);
 
