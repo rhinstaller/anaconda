@@ -99,7 +99,6 @@ class WelcomeApp extends Adw.Application {
 
     constructor() {
         super({application_id: 'org.fedoraproject.welcome-screen'});
-        this.styleManager.colorScheme = Adw.ColorScheme.PREFER_DARK;
     }
 
     vfunc_activate() {
