@@ -75,22 +75,22 @@ class WelcomeWindow extends Gtk.ApplicationWindow {
             return Gdk.EVENT_CONTINUE;
         });
 
-        const mainGrid = new Gtk.Grid({
+        const mainBox = new Gtk.Box({
             orientation: Gtk.Orientation.VERTICAL,
-            row_spacing: 16,
+            spacing: 16,
             vexpand: true,
             hexpand: true,
             halign: Gtk.Align.CENTER,
             valign: Gtk.Align.CENTER,
         });
-        this.add(mainGrid);
+        this.add(mainBox);
 
-        const buttonBox = new Gtk.Grid({
+        const buttonBox = new Gtk.Box({
             orientation: Gtk.Orientation.HORIZONTAL,
-            column_spacing: 16,
+            spacing: 16,
             halign: Gtk.Align.CENTER,
         });
-        mainGrid.add(buttonBox);
+        mainBox.add(buttonBox);
 
         const tryContent = new Gtk.Box({
             orientation: Gtk.Orientation.VERTICAL,
@@ -123,7 +123,7 @@ class WelcomeWindow extends Gtk.ApplicationWindow {
         this._label = makeLabel(
             _('You are currently running Fedora from live media.\nYou can install Fedora now, or choose "Install to Hard Drive" in the Activities Overview at any later time.'),
             false);
-        mainGrid.add(this._label);
+        mainBox.add(this._label);
 
         installButton.connect('clicked', () => {
             anacondaApp.launch([], this.get_display().get_app_launch_context());
@@ -132,7 +132,7 @@ class WelcomeWindow extends Gtk.ApplicationWindow {
 
         tryButton.connect('clicked', () => this.close());
 
-        mainGrid.show_all();
+        mainBox.show_all();
     }
 }
 
