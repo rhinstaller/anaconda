@@ -130,34 +130,7 @@ class WelcomeWindow extends Gtk.ApplicationWindow {
             this.destroy();
         });
 
-        tryButton.connect('clicked', () => {
-            buttonBox.destroy();
-            this._label.destroy();
-
-            // provided by the 'fedora-logos' package
-            let image = new Gtk.Image({
-                icon_name: 'org.fedoraproject.AnacondaInstaller',
-                pixel_size: 256,
-                halign: Gtk.Align.CENTER,
-            });
-            mainGrid.add(image);
-
-            this._label = makeLabel(
-                _('You can choose "Install to Hard Drive"\nin the Activities Overview at any later time.'),
-                false);
-            mainGrid.add(this._label);
-
-            const closeLabel = makeLabel(_('Close'), true);
-            closeLabel.margin = 10;
-            const button = new Gtk.Button({
-                child: closeLabel,
-                halign: Gtk.Align.CENTER,
-            });
-            button.connect('clicked', () => this.destroy());
-            mainGrid.add(button);
-
-            mainGrid.show_all();
-        });
+        tryButton.connect('clicked', () => this.close());
 
         mainGrid.show_all();
     }
