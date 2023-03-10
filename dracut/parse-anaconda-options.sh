@@ -116,7 +116,7 @@ if updates=$(getarg inst.updates); then
     if [ -n "$updates" ]; then
         export anac_updates=$updates
         case $updates in
-            http*|ftp*|nfs*)
+            http*|ftp*|nfs*|tftp*)
                 echo "live.updates=$updates" \
                   >> /etc/cmdline.d/75-anaconda-options.conf ;;
         esac

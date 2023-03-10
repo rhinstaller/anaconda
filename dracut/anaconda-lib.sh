@@ -316,7 +316,7 @@ online_netdevs() {
     done
 }
 
-# Filter locations that are http, https or ftp urls.
+# Filter locations that are http, https, ftp or tftp urls.
 get_urls() {
     local locations="${1}"
     local location
@@ -324,7 +324,7 @@ get_urls() {
     # Filter locations.
     for location in $locations; do
         case "${location%%:*}" in
-            http|https|ftp)
+            http|https|ftp|tftp)
                 echo "$location"
             ;;
             *)

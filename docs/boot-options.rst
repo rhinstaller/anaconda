@@ -66,7 +66,7 @@ different ways:
     Mount the given disk partition and install from ISO file on the given path.
     This installation method requires ISO file, which contains an installable tree.
 
-``inst.repo=[http,https,ftp]://<host>/<path>``
+``inst.repo=[http,https,ftp,tftp]://<host>/<path>``
     Look for an installable tree at the given URL.
 
 ``inst.repo=nfs:[<options>:]<server>:/<path>``
@@ -107,7 +107,7 @@ Add additional repository which can be used as another *Installation Source*
 next to the main repository (see `inst.repo`_). This option can be used multiple
 times during one boot. This can be specified in a few different ways:
 
-``inst.addrepo=REPO_NAME,[http,https,ftp]://<host>/<path>``
+``inst.addrepo=REPO_NAME,[http,https,ftp,tftp]://<host>/<path>``
     Look for the installable tree at the given URL.
 
 ``inst.addrepo=REPO_NAME,nfs://<server>:/<path>``
@@ -172,7 +172,7 @@ packages will be ignored. Otherwise the same as `inst.repo`_.
 inst.stage2.all
 ^^^^^^^^^^^^^^^
 
-All locations of type http, https or ftp specified with inst.stage2 will
+All locations of type http, https, ftp or tftp specified with inst.stage2 will
 be used sequentially one by one until the image is fetched. Other locations
 will be ignored.
 
@@ -237,7 +237,7 @@ For example:
 inst.ks.all
 ^^^^^^^^^^^
 
-Use all locations of type ``http``, ``https`` or ``ftp`` specified with
+Use all locations of type ``http``, ``https``, ``ftp`` or ``tftp`` specified with
 multiple ``inst.ks`` sequentially one by one until kickstart file is fetched.
 Locations of other types (eg. ``nfs``) will be ignored.
 
