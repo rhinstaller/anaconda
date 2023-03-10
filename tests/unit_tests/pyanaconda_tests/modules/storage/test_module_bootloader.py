@@ -483,10 +483,12 @@ class BootloaderTasksTestCase(unittest.TestCase):
     @patch('pyanaconda.modules.storage.bootloader.utils.conf')
     def test_recreate_initrds(self, conf_mock, exec_mock):
         """Test the installation task that recreates initrds."""
+        storage = Mock(bootloader=EFIGRUB())
         version = "4.17.7-200.fc28.x86_64"
 
         with tempfile.TemporaryDirectory() as root:
             task = RecreateInitrdsTask(
+                storage=storage,
                 sysroot=root,
                 payload_type=PAYLOAD_TYPE_RPM_OSTREE,
                 kernel_versions=[version]
@@ -499,6 +501,7 @@ class BootloaderTasksTestCase(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as root:
             task = RecreateInitrdsTask(
+                storage=storage,
                 sysroot=root,
                 payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
                 kernel_versions=[version]
@@ -526,6 +529,7 @@ class BootloaderTasksTestCase(unittest.TestCase):
             open(root + "/usr/sbin/new-kernel-pkg", 'wb').close()
 
             task = RecreateInitrdsTask(
+                storage=storage,
                 sysroot=root,
                 payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
                 kernel_versions=[version]
@@ -546,6 +550,7 @@ class BootloaderTasksTestCase(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as root:
             task = RecreateInitrdsTask(
+                storage=storage,
                 sysroot=root,
                 payload_type=PAYLOAD_TYPE_LIVE_IMAGE,
                 kernel_versions=[version]

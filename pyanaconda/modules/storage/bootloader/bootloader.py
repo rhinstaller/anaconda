@@ -129,6 +129,9 @@ class BootloaderModule(KickstartBaseModule):
         if data.bootloader.extlinux:
             self.set_default_type(BootloaderType.EXTLINUX)
 
+        if data.bootloader.sdboot:
+            self.set_default_type(BootloaderType.SDBOOT)
+
         if data.bootloader.bootDrive:
             self.set_drive(data.bootloader.bootDrive)
 
@@ -183,6 +186,9 @@ class BootloaderModule(KickstartBaseModule):
         """Setup the kickstart data."""
         if self.get_default_type() == BootloaderType.EXTLINUX:
             data.bootloader.extlinux = True
+
+        if self.get_default_type() == BootloaderType.SDBOOT:
+            data.bootloader.sdboot = True
 
         if self.bootloader_mode == BootloaderMode.DISABLED:
             data.bootloader.disabled = True
@@ -503,6 +509,7 @@ class BootloaderModule(KickstartBaseModule):
         """
         return [
             RecreateInitrdsTask(
+                storage=self.storage,
                 payload_type=payload_type,
                 kernel_versions=kernel_versions,
                 sysroot=conf.target.system_root

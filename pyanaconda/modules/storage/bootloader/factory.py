@@ -82,6 +82,7 @@ class BootLoaderFactory(object):
 
         Supported values:
             EXTLINUX
+            SDBOOT
 
         :param name: a boot loader name or None
         :return: a boot loader class or None
@@ -89,6 +90,15 @@ class BootLoaderFactory(object):
         if name == "EXTLINUX":
             from pyanaconda.modules.storage.bootloader.extlinux import EXTLINUX
             return EXTLINUX
+
+        if name == "SDBOOT":
+            platform_class = platform.platform.__class__
+            if platform_class is platform.Aarch64EFI:
+                from pyanaconda.modules.storage.bootloader.efi import Aarch64EFISystemdBoot
+                return Aarch64EFISystemdBoot
+            if platform_class is platform.EFI:
+                from pyanaconda.modules.storage.bootloader.efi import X64EFISystemdBoot
+                return X64EFISystemdBoot
 
         return None
 

@@ -225,6 +225,11 @@ Use extlinux as the bootloader. Note that there's no attempt to validate
 that this will work for your platform or anything; it assumes that if you
 ask for it, you want to try.
 
+sdboot
+Use systemd-boot as the bootloader. Note that there's no attempt to validate
+that this will work for your platform or anything; it assumes that if you
+ask for it, you want to try.
+
 nombr
 
 If nombr is specified the grub2 bootloader will be installed but the

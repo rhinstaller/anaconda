@@ -21,7 +21,7 @@ from blivet import arch
 from blivet.devices import BTRFSDevice
 from pyanaconda.core.constants import PAYLOAD_TYPE_RPM_OSTREE, PAYLOAD_LIVE_TYPES
 from pyanaconda.modules.storage.bootloader import BootLoaderError
-
+from pyanaconda.modules.storage.bootloader.systemd import SystemdBoot
 from pyanaconda.core.util import execWithRedirect
 from pyanaconda.modules.common.errors.installation import BootloaderInstallationError
 from pyanaconda.modules.storage.constants import BootloaderMode
@@ -173,9 +173,10 @@ class CreateBLSEntriesTask(Task):
 class RecreateInitrdsTask(Task):
     """Installation task that recreates the initrds."""
 
-    def __init__(self, payload_type, kernel_versions, sysroot):
+    def __init__(self, storage, payload_type, kernel_versions, sysroot):
         """Create a new task."""
         super().__init__()
+        self._storage = storage
         self._payload_type = payload_type
         self._versions = kernel_versions
         self._sysroot = sysroot
@@ -191,6 +192,9 @@ class RecreateInitrdsTask(Task):
         # them per-machine.
         if self._payload_type == PAYLOAD_TYPE_RPM_OSTREE:
             log.debug("Don't regenerate initramfs on rpm-ostree systems.")
+            return
+        if isinstance(self._storage.bootloader, SystemdBoot):
+            log.debug("Don't regenerate initramfs on systemd-boot systems.")
             return
 
         recreate_initrds(

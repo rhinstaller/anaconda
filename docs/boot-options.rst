@@ -669,6 +669,15 @@ Use extlinux as the bootloader. Note that there's no attempt to validate that
 this will work for your platform or anything; it assumes that if you ask for it,
 you want to try.
 
+.. inst.sdboot:
+
+inst.sdboot
+^^^^^^^^^^^^^
+
+Use systemd-boot as the bootloader. Note that there's no attempt to validate that
+this will work for your platform or anything; it assumes that if you ask for it,
+you want to try.
+
 .. inst.leavebootorder:
 
 inst.leavebootorder

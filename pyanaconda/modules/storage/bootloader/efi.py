@@ -20,15 +20,18 @@ import re
 
 from pyanaconda.modules.storage.bootloader.base import BootLoaderError
 from pyanaconda.modules.storage.bootloader.grub2 import GRUB2
+from pyanaconda.modules.storage.bootloader.systemd import SystemdBoot
 from pyanaconda.core import util
-from pyanaconda.core.kernel import kernel_arguments
+from pyanaconda.core.i18n import _
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.kernel import kernel_arguments
+from pyanaconda.core.path import join_paths
 from pyanaconda.product import productName
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["EFIBase", "EFIGRUB", "Aarch64EFIGRUB", "ArmEFIGRUB", "MacEFIGRUB"]
+__all__ = ["EFIBase", "EFIGRUB", "Aarch64EFIGRUB", "ArmEFIGRUB", "MacEFIGRUB", "Aarch64EFISystemdBoot", "X64EFISystemdBoot"]
 
 
 class EFIBase(object):
@@ -41,6 +44,16 @@ class EFIBase(object):
     @property
     def _efi_config_dir(self):
         return "efi/EFI/{}".format(conf.bootloader.efi_dir)
+
+    def get_fw_platform_size(self):
+        try:
+            with open("/sys/firmware/efi/fw_platform_size", "r") as f:
+                value = f.readline().strip()
+        except OSError:
+            log.info("Reading /sys/firmware/efi/fw_platform_size failed, "
+                     "defaulting to 64-bit install.")
+            value = '64'
+        return value
 
     def efibootmgr(self, *args, **kwargs):
         if not conf.target.is_hardware:
@@ -134,7 +147,7 @@ class EFIBase(object):
 class EFIGRUB(EFIBase, GRUB2):
     """EFI GRUBv2"""
     _packages32 = [ "grub2-efi-ia32", "shim-ia32" ]
-    _packages_common = [ "efibootmgr", "grub2-tools" ]
+    _packages_common = ["efibootmgr", "grub2-tools", "grub2-tools-extra", "grubby" ]
     stage2_is_valid_stage1 = False
     stage2_bootable = False
 
@@ -144,14 +157,7 @@ class EFIGRUB(EFIBase, GRUB2):
         super().__init__()
         self._packages64 = [ "grub2-efi-x64", "shim-x64" ]
 
-        try:
-            f = open("/sys/firmware/efi/fw_platform_size", "r")
-            value = f.readline().strip()
-        except OSError:
-            log.info("Reading /sys/firmware/efi/fw_platform_size failed, "
-                     "defaulting to 64-bit install.")
-            value = '64'
-        if value == '32':
+        if self.get_fw_platform_size() == '32':
             self._is_32bit_firmware = True
 
     @property
@@ -197,13 +203,70 @@ class EFIGRUB(EFIBase, GRUB2):
         super().write_config()
 
 
+class EFISystemdBoot(EFIBase, SystemdBoot):
+    """EFI Systemd-boot"""
+    _packages_common = ["efibootmgr", "systemd-udev", "systemd-boot", "sdubby"]
+    _packages64 = []
+
+    def __init__(self):
+        super().__init__()
+
+        if self.get_fw_platform_size() == '32':
+            # not supported try a different bootloader
+            log.error("efi.py: systemd-boot is not supported on 32-bit platforms")
+            raise BootLoaderError(_("Systemd-boot is not supported on this platform"))
+
+    @property
+    def packages(self):
+        return self._packages64 + self._packages_common
+
+    @property
+    def efi_config_file(self):
+        """ Full path to EFI configuration file. """
+        return join_paths(self.efi_config_dir, self._config_file)
+
+    def write_config(self):
+        """ Write the config settings to config file (ex: grub.cfg) not needed for systemd. """
+        config_path = join_paths(conf.target.system_root, self.efi_config_file)
+
+        log.info("efi.py: (systemd) write_config systemd : %s ", config_path)
+
+        super().write_config()
+
+    def install(self, args=None):
+        log.info("efi.py: (systemd) install")
+        # force the resolution order, we don't want to:
+        #   efibootmgr remove old "fedora"
+        #   or use efiboot mgr to install a new one
+        # lets just use `bootctl install` directly.
+        # which will fix the efi boot variables too.
+        SystemdBoot.install(self)
+
+
 class Aarch64EFIGRUB(EFIGRUB):
     _serial_consoles = ["ttyAMA", "ttyS"]
     _efi_binary = "\\shimaa64.efi"
 
     def __init__(self):
         super().__init__()
-        self._packages64 = ["grub2-efi-aa64", "shim-aa64"]
+        self._packages64 = ["grub2-efi-aa64", "shim-aa64", "grub2-efi-aa64-cdboot"]
+
+
+class Aarch64EFISystemdBoot(EFISystemdBoot):
+    _serial_consoles = ["ttyAMA", "ttyS"]
+    _efi_binary = "\\systemd-bootaa64.efi"
+
+    def __init__(self):
+        super().__init__()
+        self._packages64 = []
+
+class X64EFISystemdBoot(EFISystemdBoot):
+    _efi_binary = "\\systemd-bootx64.efi"
+
+    def __init__(self):
+        super().__init__()
+        self._packages64 = []
+
 
 
 class ArmEFIGRUB(EFIGRUB):

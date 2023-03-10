@@ -591,6 +591,8 @@ def getArgumentParser(version_string, boot_cmdline=None):
                     help=help_parser.help_text("noeject"))
     ap.add_argument("--extlinux", action="store_true", default=False,
                     help=help_parser.help_text("extlinux"))
+    ap.add_argument("--sdboot", action="store_true", default=False,
+                    help=help_parser.help_text("sdboot"))
     ap.add_argument("--nombr", action="store_true", default=False,
                     help=help_parser.help_text("nombr"))
     ap.add_argument("--mpathfriendlynames", dest="multipath_friendly_names", action="store_true",
