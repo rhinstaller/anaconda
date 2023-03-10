@@ -70,12 +70,12 @@ jobs:
   - job: tests
     trigger: pull_request
     targets:
-      - fedora-latest
+      - fedora-{$ distro_release $}
 
   - job: copr_build
     trigger: commit
     targets:
-      - fedora-latest
+      - fedora-{$ distro_release $}
     branch: fedora-{$ distro_release $}
     owner: "@rhinstaller"
     project: Anaconda-devel
