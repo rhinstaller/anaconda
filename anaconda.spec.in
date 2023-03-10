@@ -352,7 +352,7 @@ rm -rf \
   %{buildroot}/%{_sbindir}/liveinst \
   %{buildroot}/%{_datadir}/anaconda/gnome \
   %{buildroot}/%{_datadir}/anaconda/gnome/fedora-welcome \
-  %{buildroot}/%{_datadir}/anaconda/gnome/fedora-welcome.desktop \
+  %{buildroot}/%{_datadir}/anaconda/gnome/org.fedoraproject.welcome-screen.desktop \
   %{buildroot}/%{_datadir}/applications/liveinst.desktop
 %endif
 

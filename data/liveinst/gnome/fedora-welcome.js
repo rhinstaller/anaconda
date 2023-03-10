@@ -20,7 +20,6 @@
 
 import Gdk from 'gi://Gdk?version=3.0';
 import Gio from 'gi://Gio';
-import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import Gtk from 'gi://Gtk?version=3.0';
 
@@ -145,8 +144,6 @@ class WelcomeApp extends Gtk.Application {
     }
 
     vfunc_startup() {
-        GLib.set_prgname('fedora-welcome');
-
         super.vfunc_startup();
 
         Gtk.Settings.get_default().gtk_application_prefer_dark_theme = true;

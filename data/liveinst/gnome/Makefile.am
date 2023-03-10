@@ -16,7 +16,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 welcomedir              = $(datadir)/$(PACKAGE_NAME)/gnome
-dist_welcome_DATA       = fedora-welcome.desktop
+welcome_appid           = org.fedoraproject.welcome-screen
+dist_welcome_DATA       = $(welcome_appid).desktop
 dist_welcome_SCRIPTS    = fedora-welcome.js
 
 MAINTAINERCLEANFILES = Makefile.in
@@ -28,10 +29,10 @@ MAINTAINERCLEANFILES = Makefile.in
 install-data-hook:
 	for p in $(top_builddir)/po/*.mpo ; do \
 	    [ -e $$p ] || exit 0 ; \
-	    $(MSGFMT) --desktop --template=$(DESTDIR)$(welcomedir)/fedora-welcome.desktop \
+	    $(MSGFMT) --desktop --template=$(DESTDIR)$(welcomedir)/$(welcome_appid).desktop \
 	        --locale=$$(basename $$p .mpo) \
-		-o $(DESTDIR)$(welcomedir)/fedora-welcome.desktop.new $$p || exit 1 ; \
-	    mv $(DESTDIR)$(welcomedir)/fedora-welcome.desktop.new $(DESTDIR)$(welcomedir)/fedora-welcome.desktop || exit 1 ; \
+		-o $(DESTDIR)$(welcomedir)/$(welcome_appid).desktop.new $$p || exit 1 ; \
+	    mv $(DESTDIR)$(welcomedir)/$(welcome_appid).desktop.new $(DESTDIR)$(welcomedir)/$(welcome_appid).desktop || exit 1 ; \
 	done
 	cd $(DESTDIR)$(welcomedir) && mv fedora-welcome.js fedora-welcome
 
