@@ -43,12 +43,12 @@ jobs:
   - job: tests
     trigger: pull_request
     targets:
-      - fedora-latest
+      - fedora-38
 
   - job: copr_build
     trigger: commit
     targets:
-      - fedora-latest
+      - fedora-38
     branch: fedora-38
     owner: "@rhinstaller"
     project: Anaconda-devel
