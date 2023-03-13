@@ -17,6 +17,9 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+
+import datetime
+
 from pykickstart.errors import KickstartParseError
 
 from pyanaconda.core.i18n import _
@@ -36,6 +39,7 @@ from pyanaconda.modules.timezone.installation import ConfigureHardwareClockTask,
     ConfigureNTPTask, ConfigureTimezoneTask
 from pyanaconda.modules.timezone.kickstart import TimezoneKickstartSpecification
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
+from pyanaconda.timezone import get_timezone, set_system_date_time, get_all_regions_and_timezones
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -167,6 +171,20 @@ class TimezoneService(KickstartService):
         self.timezone_changed.emit()
         log.debug("Timezone is set to %s.", timezone)
 
+    def get_timezones(self):
+        """Get all valid timezones.
+
+        :return: list of valid timezones
+        :rtype: list of str
+        """
+        timezone_dict = get_all_regions_and_timezones()
+        # convert to a dict of lists for easier transfer over DBus
+        # - change the nested sets to lists
+        new_timezone_dict = {}
+        for region in timezone_dict:
+            new_timezone_dict[region] = list(timezone_dict[region])
+        return new_timezone_dict
+
     @property
     def is_utc(self):
         """Is the hardware clock set to UTC?"""
@@ -259,3 +277,30 @@ class TimezoneService(KickstartService):
         :return GeolocationData: result of the lookup, empty if not ready yet
         """
         return self._geoloc_result
+
+    def get_system_date_time(self):
+        """Get system time as a ISO 8601 formatted string.
+
+        :return: system time as ISO 8601 formatted string
+        :rtype: str
+        """
+        # convert to the expected tzinfo format via get_timezone()
+        return datetime.datetime.now(get_timezone(self._timezone)).isoformat()
+
+    def set_system_date_time(self, date_time_spec):
+        """Set system time based on a ISO 8601 formatted string.
+
+        :param str date_time_spec: ISO 8601 time specification to use
+        """
+        log.debug("Setting system time to: %s, with timezone: %s", date_time_spec, self._timezone)
+        # first convert the ISO 8601 time string to a Python date object
+        date = datetime.datetime.fromisoformat(date_time_spec)
+        # set the date to the system
+        set_system_date_time(
+            year=date.year,
+            month=date.month,
+            day=date.day,
+            hour=date.hour,
+            minute=date.minute,
+            tz=self._timezone
+        )

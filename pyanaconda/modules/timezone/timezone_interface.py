@@ -79,6 +79,15 @@ class TimezoneInterface(KickstartModuleInterface):
         """
         self.implementation.set_timezone_with_priority(timezone, priority)
 
+    def GetTimezones(self) -> Dict[Str, List[Str]]:
+        """Get valid timezones.
+
+        Return a dictionary, where keys are region ids and values are lists of timezone names in the region.
+
+        :return: a dictionary of timezone lists per region
+        """
+        return self.implementation.get_timezones()
+
     @property
     def IsUTC(self) -> Bool:
         """Is the hardware clock set to UTC?
@@ -157,3 +166,17 @@ class TimezoneInterface(KickstartModuleInterface):
         return GeolocationData.to_structure(
             self.implementation.geolocation_result
         )
+
+    def GetSystemDateTime(self) -> Str:
+        """Get the current local date and time of the system.
+        The timezone set via the Timezone property affects the returned data.
+        :return: a string representing the date and time in ISO 8601 format
+        """
+        return self.implementation.get_system_date_time()
+
+    def SetSystemDateTime(self, date_time_spec: Str):
+        """Set the current local date and time of the system.
+        The timezone set via the Timezone property will be applied to the received data.
+        :param date_time_spec: a string representing the date and time in ISO 8601 format
+        """
+        self.implementation.set_system_date_time(date_time_spec)

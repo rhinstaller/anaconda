@@ -18,6 +18,9 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
+from unittest.mock import patch, MagicMock
+
+from collections import OrderedDict
 
 from dasbus.structure import compare_data
 from dasbus.typing import *  # pylint: disable=wildcard-import
@@ -25,6 +28,7 @@ from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.core.constants import TIME_SOURCE_SERVER, TIME_SOURCE_POOL, \
     TIMEZONE_PRIORITY_DEFAULT, TIMEZONE_PRIORITY_LANGUAGE, TIMEZONE_PRIORITY_GEOLOCATION, \
     TIMEZONE_PRIORITY_KICKSTART, TIMEZONE_PRIORITY_USER
+from pyanaconda.timezone import get_timezone
 from pyanaconda.modules.common.constants.services import TIMEZONE
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.common.structures.timezone import TimeSourceData
@@ -378,3 +382,57 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         result = GeolocationData.from_values(territory="", timezone="")
         self.timezone_module._set_geolocation_result(result)
         assert self.timezone_module.geolocation_result == result
+
+    @patch("pyanaconda.modules.timezone.timezone.get_all_regions_and_timezones")
+    def test_get_timezones(self, get_all_tz):
+        """Test getting a listing of all valid timezones."""
+        get_all_tz.return_value = OrderedDict([("foo", {"bar", "baz"})])
+        # as the timezones for a region are listed as a set, we need to be a bit careful
+        # when comparing the results
+        result = self.timezone_module.get_timezones()
+        assert list(result.keys()) == ["foo"]
+        assert sorted(result["foo"]) == ['bar', 'baz']
+        get_all_tz.assert_called_once()
+
+    @patch("pyanaconda.modules.timezone.timezone.datetime")
+    def test_get_system_date_time(self, fake_datetime):
+        """Test getting system date and time."""
+        # use a non-default timezone
+        self.timezone_module._timezone = "Antarctica/South_Pole"
+        # fake date object returned by now() call
+        fake_date = MagicMock()
+        fake_date.isoformat.return_value = "2023-06-22T18:49:36.878200"
+
+        def fake_now(value):
+            assert value == get_timezone("Antarctica/South_Pole")
+            return fake_date
+
+        fake_datetime.datetime.now.side_effect = fake_now
+        assert self.timezone_module.get_system_date_time() == "2023-06-22T18:49:36.878200"
+        fake_date.isoformat.assert_called_once()
+
+    @patch("pyanaconda.modules.timezone.timezone.set_system_date_time")
+    def test_set_system_date_time(self, fake_set_time):
+        """Test setting system date and time."""
+        self.timezone_module.set_system_date_time("2023-06-22T18:49:36.878200")
+        fake_set_time.assert_called_once_with(year=2023, month=6, day=22, hour=18, minute=49, tz="America/New_York")
+
+    def test_get_timezones_interface(self):
+        """Test the GetTimezones interface method."""
+        self.timezone_module.get_timezones = MagicMock()
+        self.timezone_module.get_timezones.return_value = {"foo": ["bar", "baz"]}
+        assert self.timezone_interface.GetTimezones() == {"foo": ["bar", "baz"]}
+
+    def test_get_system_date_time_interface(self):
+        """Test the GetSystemDateTime interface method."""
+        self.timezone_module.get_system_date_time = MagicMock()
+        self.timezone_module.get_system_date_time.return_value = "2023-06-22T18:49:36.878200"
+        assert self.timezone_interface.GetSystemDateTime() == "2023-06-22T18:49:36.878200"
+
+    def test_set_system_date_time_interface(self):
+        """Test the SetSystemDateTime interface method."""
+        self.timezone_module.set_system_date_time = MagicMock()
+        self.timezone_interface.SetSystemDateTime("2023-06-22T18:49:36.878200")
+        self.timezone_module.set_system_date_time.assert_called_once_with('2023-06-22T18:49:36.878200')
+
+
