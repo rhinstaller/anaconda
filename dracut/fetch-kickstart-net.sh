@@ -42,7 +42,7 @@ case $kickstart in
         # Use the prepared url.
         locations="$kickstart"
     ;;
-    http*|ftp*|tftp*)
+    http*|ftp*)
         # Use the location from the variable.
         locations="$kickstart"
     ;;
