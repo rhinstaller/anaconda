@@ -235,8 +235,8 @@ If any `inst.dd=...` (or `dd=...`) arguments are found, this scriptlet parses
 their values and writes appropriate values to `/tmp/dd_disk`, `/tmp/dd_net`, or
 `/tmp/dd_interactive`, as follows:
 
-1. Values that start with `http:`, `https:`, `ftp:`, `nfs:`, or `tftp:` are
-   assumed to be network URLs and get written to `/tmp/dd_net`.
+1. Values that start with `http:`, `https:`, `ftp:`, or `nfs:` are assumed to
+   be network URLs and get written to `/tmp/dd_net`.
 2. Values of the form `hd:<dev>`, `cdrom:<dev>`, `file:<path>`, or `path:<path>`
    will have the `<dev>` or `<path>` part written to `/tmp/dd_disk`.
 3. Any other value is assumed to be a disk device, and therefore also gets
