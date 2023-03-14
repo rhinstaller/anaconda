@@ -71,7 +71,6 @@ class UserCreateTest(unittest.TestCase):
                     return fields
         return None
 
-    @pytest.mark.xfail(raises=OSError, reason="groupadd fails")
     def test_create_group(self):
         """Create a group."""
         users.create_group("test_group", root=self.tmpdir)
@@ -84,7 +83,6 @@ class UserCreateTest(unittest.TestCase):
         assert fields is not None
         assert fields[0] == "test_group"
 
-    @pytest.mark.xfail(raises=OSError, reason="groupadd fails")
     def test_create_group_gid(self):
         """Create a group with a specific GID."""
         users.create_group("test_group", gid=47, root=self.tmpdir)
@@ -111,7 +109,6 @@ class UserCreateTest(unittest.TestCase):
         with pytest.raises(ValueError):
             users.create_group("test_group", gid=47, root=self.tmpdir)
 
-    @pytest.mark.xfail(raises=OSError, reason="useradd fails")
     def test_create_user(self):
         """Create a user."""
         users.create_user("test_user", root=self.tmpdir)
@@ -153,7 +150,6 @@ class UserCreateTest(unittest.TestCase):
         assert gshadow_fields is not None
         assert gshadow_fields[0] == "test_user"
 
-    @pytest.mark.xfail(raises=OSError, reason="useradd fails")
     def test_create_user_text_options(self):
         """Create a user with the text fields set."""
         users.create_user("test_user", gecos="Test User", homedir="/home/users/testuser", shell="/bin/test", root=self.tmpdir)
@@ -168,7 +164,6 @@ class UserCreateTest(unittest.TestCase):
         # Check that the home directory was created
         assert os.path.isdir(self.tmpdir + "/home/users/testuser")
 
-    @pytest.mark.xfail(raises=OSError, reason="groupadd fails")
     def test_create_user_groups(self):
         """Create a user with a list of groups."""
         # Create one of the groups
@@ -188,7 +183,6 @@ class UserCreateTest(unittest.TestCase):
         grp_fields3 = self._readFields("/etc/group", "test3")
         assert grp_fields3[3] == "test_user"
 
-    @pytest.mark.xfail(raises=OSError, reason="groupadd fails")
     def test_create_user_groups_gid_conflict(self):
         """Create a user with a bad list of groups."""
         # Create one of the groups
@@ -198,7 +192,6 @@ class UserCreateTest(unittest.TestCase):
         with pytest.raises(ValueError):
             users.create_user("test_user", groups=["test3(5002)"], root=self.tmpdir)
 
-    @pytest.mark.xfail(raises=OSError, reason="useradd fails")
     def test_create_user_password(self):
         """Create a user with a password."""
 
@@ -221,7 +214,6 @@ class UserCreateTest(unittest.TestCase):
         assert shadow_fields is not None
         assert "" == shadow_fields[1]
 
-    @pytest.mark.xfail(raises=OSError, reason="useradd fails")
     def test_create_user_lock(self):
         """Create a locked user account."""
 
@@ -238,7 +230,6 @@ class UserCreateTest(unittest.TestCase):
         assert shadow_fields[1].startswith("!")
         assert crypt.crypt("password", shadow_fields[1][1:]) == shadow_fields[1][1:]
 
-    @pytest.mark.xfail(raises=OSError, reason="useradd fails")
     def test_create_user_uid(self):
         """Create a user with a specific UID."""
 
@@ -247,7 +238,6 @@ class UserCreateTest(unittest.TestCase):
         assert pwd_fields is not None
         assert pwd_fields[2] == "1047"
 
-    @pytest.mark.xfail(raises=OSError, reason="groupadd fails")
     def test_create_user_gid(self):
         """Create a user with a specific GID."""
 
@@ -269,7 +259,6 @@ class UserCreateTest(unittest.TestCase):
         with pytest.raises(ValueError):
             users.create_user("test_user", root=self.tmpdir)
 
-    @pytest.mark.xfail(raises=OSError, reason="useradd fails")
     def test_create_user_uid_exists(self):
         """Create a user with a UID that already exists."""
         with open(self.tmpdir + "/etc/passwd", "w") as f:
@@ -278,7 +267,6 @@ class UserCreateTest(unittest.TestCase):
         with pytest.raises(ValueError):
             users.create_user("test_user", uid=1000, root=self.tmpdir)
 
-    @pytest.mark.xfail(raises=OSError, reason="groupadd fails with 1")
     def test_create_user_gid_exists(self):
         """Create a user with a GID of an existing group."""
         users.create_group("test_group", gid=5000, root=self.tmpdir)
@@ -288,7 +276,6 @@ class UserCreateTest(unittest.TestCase):
         assert passwd_fields is not None
         assert passwd_fields[3] == "5000"
 
-    @pytest.mark.xfail(raises=OSError, reason="useradd fails")
     def test_set_user_ssh_key(self):
         keydata = "THIS IS TOTALLY A SSH KEY"
 
@@ -335,7 +322,6 @@ class UserCreateTest(unittest.TestCase):
         shadow_fields = self._readFields("/etc/shadow", "root")
         assert password == shadow_fields[1]
 
-    @pytest.mark.xfail(raises=OSError, reason="groupadd fails")
     def test_create_user_reuse_home(self):
         # Create a user, reusing an old home directory
 
@@ -362,7 +348,6 @@ class UserCreateTest(unittest.TestCase):
         assert stat_fields.st_uid == 1000
         assert stat_fields.st_gid == 1000
 
-    @pytest.mark.xfail(raises=OSError, reason="groupadd fails")
     def test_create_user_gid_in_group_list(self):
         """Create a user with a GID equal to that of one of the requested groups"""
 
