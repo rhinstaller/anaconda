@@ -463,6 +463,24 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 14 2023 github-actions <github-actions@github.com> - 39.5-1
+- Revert "Enable TFTP support (#2071350)" (vslavik)
+- CONTRIBUTING: Add note about systemd-boot (jeremy.linton)
+- release-notes: Document that its possible to install with systemd-boot
+  (jeremy.linton)
+- Add kickstart/command line control to enable systemd-boot (jeremy.linton)
+- add x86 systemd-boot option (jeremy.linton)
+- Add the grub packages removed from comps to grub installs (jeremy.linton)
+- Add EFISYSTEMD class and enable aarch64 (jeremy.linton)
+- Hoist firmware bit size check (jeremy.linton)
+- storage: Add a systemd class for systemd-boot (jeremy.linton)
+- bootloader/base.py drop stage2 requirement (jeremy.linton)
+- Retranslate welcome screen more simply (vslavik)
+- Clean up ISO option in source selection spoke (ozobal)
+- Clean up strings in payload tasks (vponcova)
+- Clean up tasks for setting up and tearing down sources (vponcova)
+- Enable TFTP support (#2071350) (Inperpetuammemoriam)
+
 * Tue Mar 07 2023 github-actions <github-actions@github.com> - 39.4-1
 - Verify repomd hashes with a task (vponcova)
 - WebUI: Give "Quit" button correct margin (ozobal)
