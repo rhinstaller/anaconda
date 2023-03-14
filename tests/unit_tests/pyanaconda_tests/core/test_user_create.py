@@ -23,8 +23,6 @@ import tempfile
 import shutil
 import os
 import crypt  # pylint: disable=deprecated-module
-import platform
-import glob
 import pytest
 
 from pyanaconda.core import users
@@ -48,14 +46,6 @@ class UserCreateTest(unittest.TestCase):
             f.write("shadow: files\n")
             f.write("group: files\n")
             f.write("initgroups: files\n")
-        if platform.architecture()[0].startswith("64"):
-            libdir = "/lib64"
-        else:
-            libdir = "/lib"
-
-        os.mkdir(self.tmpdir + libdir)
-        for lib in glob.glob(libdir + "/libnss_files*"):
-            shutil.copy(lib, self.tmpdir + lib)
 
     def tearDown(self):
         shutil.rmtree(self.tmpdir)
