@@ -47,6 +47,9 @@ class UserCreateTest(unittest.TestCase):
             f.write("group: files\n")
             f.write("initgroups: files\n")
 
+        # provide also valid login.defs so that the created data is correct
+        shutil.copyfile("/etc/login.defs", self.tmpdir + "/etc/login.defs")
+
     def tearDown(self):
         shutil.rmtree(self.tmpdir)
 
