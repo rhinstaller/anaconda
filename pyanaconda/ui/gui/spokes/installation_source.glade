@@ -84,7 +84,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkRadioButton" id="autodetectRadioButton">
+                              <object class="GtkRadioButton" id="cdromRadioButton">
                                 <property name="label" translatable="yes" context="GUI|Software Source">_Auto-detected installation media:</property>
                                 <property name="can-focus">True</property>
                                 <property name="receives-default">False</property>
@@ -103,13 +103,13 @@
                             </child>
                             <child>
                               <!-- n-columns=2 n-rows=2 -->
-                              <object class="GtkGrid" id="autodetectBox">
+                              <object class="GtkGrid" id="cdromBox">
                                 <property name="sensitive">False</property>
                                 <property name="can-focus">False</property>
                                 <property name="no-show-all">True</property>
                                 <property name="margin-left">24</property>
                                 <child>
-                                  <object class="GtkLabel" id="autodetectDeviceLabel">
+                                  <object class="GtkLabel" id="cdromDeviceLabel">
                                     <property name="visible">True</property>
                                     <property name="can-focus">False</property>
                                     <property name="label" translatable="yes">Device:</property>
@@ -121,7 +121,7 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkLabel" id="autodetectLabel">
+                                  <object class="GtkLabel" id="cdromLabel">
                                     <property name="visible">True</property>
                                     <property name="can-focus">False</property>
                                     <property name="label" translatable="yes">Label:</property>
