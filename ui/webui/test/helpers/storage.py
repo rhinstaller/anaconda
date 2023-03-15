@@ -33,7 +33,7 @@ class Storage():
     def __init__(self, browser, machine):
         self.browser = browser
         self.machine = machine
-        self._step = InstallerSteps.STORAGE
+        self._step = InstallerSteps.STORAGE_DEVICES
 
     def get_disks(self):
         output = self.machine.execute('list-harddrives')

@@ -21,10 +21,12 @@ from step_logger import log_step
 
 class InstallerSteps(UserList):
     WELCOME = "installation-language"
-    STORAGE = "installation-destination"
+    STORAGE_DEVICES = "storage-devices"
+    STORAGE_CONFIGURATION = "storage-configuration"
+    DISK_ENCRYPTION = "disk-encryption"
     REVIEW = "installation-review"
     PROGRESS = "installation-progress"
-    _steps_list = (WELCOME, STORAGE, REVIEW, PROGRESS)
+    _steps_list = (WELCOME, STORAGE_DEVICES, STORAGE_CONFIGURATION, DISK_ENCRYPTION, REVIEW, PROGRESS)
 
     def __init__(self, initlist=_steps_list):
         super().__init__(initlist)
@@ -59,7 +61,7 @@ class Installer():
 
         # Wait for a disk to be pre-selected before clicking 'Next'.
         # FIXME: Find a better way.
-        if current_page == self.steps.STORAGE:
+        if current_page == self.steps.STORAGE_DEVICES:
             sleep(2)
 
         self.browser.click("button:contains(Next)")
