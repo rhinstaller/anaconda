@@ -105,5 +105,15 @@ class TestStorageExtraDisks(MachineCase):
         s.rescan_disks()
         s.wait_no_disks_detected()
 
+        # Check that disk selection is kept on Next and Back
+        disks = ["vdb"]
+        for disk in disks:
+            s.select_disk(disk)
+        i.next()
+        i.back()
+        for disk in disks:
+            s.check_disk_selected(disk)
+
+
 if __name__ == '__main__':
     test_main()
