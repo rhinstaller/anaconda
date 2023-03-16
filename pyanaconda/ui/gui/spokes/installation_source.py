@@ -254,9 +254,13 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
                 )
                 return
 
-            if source_type == SOURCE_TYPE_NFS \
-                    and source_proxy.URL == create_nfs_url(server, directory, opts):
-                return False
+            if source_type == SOURCE_TYPE_NFS:
+                configuration = RepoConfigurationData.from_structure(
+                    source_proxy.Configuration
+                )
+
+                if configuration.url == create_nfs_url(server, directory, opts):
+                    return False
 
             self.set_source_nfs(server, directory, opts)
 
@@ -646,7 +650,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             self._protocol_combo_box.set_active_id(PROTOCOL_NFS)
 
             # Get the current URL.
-            options, host, path = parse_nfs_url(source_proxy.URL)
+            configuration = RepoConfigurationData.from_structure(
+                source_proxy.Configuration
+            )
+            options, host, path = parse_nfs_url(configuration.url)
 
             self._url_entry.set_text("{}:{}".format(host, path))
             self._update_url_entry_check()
