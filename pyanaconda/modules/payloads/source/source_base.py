@@ -21,10 +21,19 @@ import os.path
 from abc import ABC, ABCMeta, abstractmethod
 
 from dasbus.server.publishable import Publishable
+from dasbus.signal import Signal
 
-from pyanaconda.modules.common.base import KickstartBaseModule
-from pyanaconda.modules.payloads.source.utils import MountPointGenerator
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.modules.common.base import KickstartBaseModule
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.modules.payloads.source.utils import MountPointGenerator
+
+__all__ = [
+    "PayloadSourceBase",
+    "MountingSourceMixin",
+    "RPMSourceMixin",
+    "RepositorySourceMixin"
+]
 
 log = get_module_logger(__name__)
 
@@ -172,3 +181,64 @@ class RPMSourceMixin(ABC):
         FIXME: This is a temporary solution. Will be removed after DNF payload logic is moved.
         """
         pass
+
+
+class RepositorySourceMixin(ABC):
+    """Mixin class for sources that provide access to a repository."""
+
+    def __init__(self):
+        super().__init__()
+        self._configuration = RepoConfigurationData()
+        self.configuration_changed = Signal()
+        self._repository = None
+
+    @property
+    def configuration(self):
+        """The configuration of the source.
+
+        This configuration will be used to set up the source
+        and generate a configuration of the available repository.
+
+        :return RepoConfigurationData: a configuration data
+        """
+        return self._configuration
+
+    def set_configuration(self, configuration):
+        """Set the source configuration.
+
+        :param RepoConfigurationData configuration: a configuration data
+        :raise InvalidValueError: if the configuration is invalid
+        """
+        self._validate_configuration(configuration)
+        self._configuration = configuration
+        self.configuration_changed.emit(configuration)
+        log.debug("The configuration is set to: %s", str(configuration))
+
+    @abstractmethod
+    def _validate_configuration(self, configuration):
+        """Validate the specified source configuration.
+
+        :param RepoConfigurationData configuration: a configuration data
+        :raise InvalidValueError: if the configuration is invalid
+        """
+        pass
+
+    @property
+    def repository(self):
+        """The repository configuration of the prepared source.
+
+        This configuration is generated after a successful setup of this
+        source. It represents the available repository, if there is any,
+        and it will be used to set up the repository via the DNF manager.
+
+        :return RepoConfigurationData: a configuration data
+        """
+        return self._repository
+
+    def _set_repository(self, repository):
+        """Set the repository configuration of the prepared source.
+
+        :return RepoConfigurationData: a configuration data
+        """
+        self._repository = repository
+        log.debug("The repository is set to: %s", str(repository))

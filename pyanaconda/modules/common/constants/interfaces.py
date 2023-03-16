@@ -93,6 +93,11 @@ PAYLOAD_SOURCE_LIVE_IMAGE = DBusInterfaceIdentifier(
     basename="LiveImage"
 )
 
+PAYLOAD_SOURCE_REPOSITORY = DBusInterfaceIdentifier(
+    namespace=SOURCE_NAMESPACE,
+    basename="Repository"
+)
+
 PAYLOAD_SOURCE_HMC = DBusInterfaceIdentifier(
     namespace=SOURCE_NAMESPACE,
     basename="HMC"
