@@ -64,7 +64,7 @@ class PwqualitySettingsCache(object):
     def get_settings_by_minlen(self, minlen):
         settings = self._pwq_settings.get(minlen)
         if settings is None:
-            settings = pwquality.PWQSettings()
+            settings = pwquality.PWQSettings()  # pylint: disable=c-extension-no-member
             settings.read_config()
             settings.minlen = minlen
             self._pwq_settings[minlen] = settings
@@ -136,6 +136,7 @@ class PasswordCheckRequest(object):
         :rtype: pwquality settings object or None
         """
         if not self._pwquality_settings:
+            # pylint: disable=c-extension-no-member
             self._pwquality_settings = pwquality_settings_cache.get_settings_by_minlen(
                 self.policy.min_length
             )
@@ -382,6 +383,7 @@ class PasswordValidityCheck(InputCheck):
         try:
             # lets run the password through libpwquality
             pw_quality = check_request.pwquality_settings.check(check_request.password, None, check_request.username)
+        # pylint: disable=c-extension-no-member
         except pwquality.PWQError as e:
             # Leave valid alone here: the password is weak but can still
             # be accepted.

@@ -93,7 +93,7 @@ class SetRPMMacrosTask(Task):
         """Add RPM macros to the global transaction environment."""
         for name, value in macros:
             log.debug("Set '%s' to '%s'.", name, value)
-            rpm.addMacro(name, value)
+            rpm.addMacro(name, value)  # pylint: disable=no-member
 
 
 class ResolvePackagesTask(CheckPackagesSelectionTask):

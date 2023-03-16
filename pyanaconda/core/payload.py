@@ -27,7 +27,7 @@ from pyanaconda.core.string import split_in_two
 
 NFSUrl = namedtuple("NFSUrl", ["options", "host", "path"])
 
-rpm_version_key = cmp_to_key(rpm.labelCompare)
+rpm_version_key = cmp_to_key(rpm.labelCompare)  # pylint: disable=no-member
 
 
 def parse_hdd_url(url):
