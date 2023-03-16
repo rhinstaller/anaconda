@@ -1022,7 +1022,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
         data.ssl_verification_enabled = False
         data.proxy = "http://MannyBianco/"
 
-        source.set_repo_configuration(data)
+        source.set_configuration(data)
         self.shared_tests.set_sources([source])
 
         expected = self._generate_repository_structure()

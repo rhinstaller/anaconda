@@ -17,41 +17,29 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import copy
+
 from pyanaconda.core.constants import URL_TYPE_BASEURL, URL_TYPE_METALINK, URL_TYPE_MIRRORLIST, \
     URL_TYPES
-from pyanaconda.core.signal import Signal
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.modules.common.errors.general import InvalidValueError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
-from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, RPMSourceMixin
-from pyanaconda.modules.payloads.source.url.url_interface import URLSourceInterface
+from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, RPMSourceMixin, \
+    RepositorySourceMixin
+from pyanaconda.modules.payloads.source.source_base_interface import RepositorySourceInterface
 from pyanaconda.modules.payloads.source.utils import has_network_protocol
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class URLSourceModule(PayloadSourceBase, RPMSourceMixin):
+class URLSourceModule(PayloadSourceBase, RepositorySourceMixin, RPMSourceMixin):
     """The URL source payload module."""
-
-    REPO_NAME_ID = 0
-
-    def __init__(self):
-        super().__init__()
-        self._repo_configuration = RepoConfigurationData()
-        self.repo_configuration_changed = Signal()
-
-    def __repr__(self):
-        return "Source(type='URL', url='{}')".format(self._repo_configuration.url)
 
     def for_publication(self):
         """Get the interface used to publish this source."""
-        return URLSourceInterface(self)
-
-    def get_state(self):
-        """Get state of this source."""
-        return SourceState.NOT_APPLICABLE
+        return RepositorySourceInterface(self)
 
     @property
     def type(self):
@@ -61,7 +49,12 @@ class URLSourceModule(PayloadSourceBase, RPMSourceMixin):
     @property
     def description(self):
         """Get description of this source."""
-        return self._repo_configuration.url
+        return self.configuration.url
+
+    @property
+    def supported_protocols(self):
+        """A list of supported URL protocols."""
+        return ["http:", "https:", "ftp:", "file:"]
 
     @property
     def network_required(self):
@@ -69,7 +62,7 @@ class URLSourceModule(PayloadSourceBase, RPMSourceMixin):
 
         :return: True or False
         """
-        return has_network_protocol(self._repo_configuration.url)
+        return has_network_protocol(self.configuration.url)
 
     @property
     def required_space(self):
@@ -79,6 +72,11 @@ class URLSourceModule(PayloadSourceBase, RPMSourceMixin):
         :rtype: int
         """
         return 0
+
+    def set_configuration(self, configuration):
+        """Set the source and repository configuration."""
+        super().set_configuration(configuration)
+        self._set_repository(copy.deepcopy(configuration))
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
@@ -100,28 +98,58 @@ class URLSourceModule(PayloadSourceBase, RPMSourceMixin):
         repo_data.ssl_configuration.client_cert_path = data.url.sslclientcert or ""
         repo_data.ssl_configuration.client_key_path = data.url.sslclientkey or ""
 
-        self.set_repo_configuration(repo_data)
+        self.set_configuration(repo_data)
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
-        if self.repo_configuration.type == URL_TYPE_BASEURL:
-            data.url.url = self.repo_configuration.url
-        elif self.repo_configuration.type == URL_TYPE_MIRRORLIST:
-            data.url.mirrorlist = self.repo_configuration.url
-        elif self.repo_configuration.type == URL_TYPE_METALINK:
-            data.url.metalink = self.repo_configuration.url
+        repo_data = self.configuration
 
-        data.url.proxy = self.repo_configuration.proxy
-        data.url.noverifyssl = not self.repo_configuration.ssl_verification_enabled
-        data.url.sslcacert = self.repo_configuration.ssl_configuration.ca_cert_path
-        data.url.sslclientcert = self.repo_configuration.ssl_configuration.client_cert_path
-        data.url.sslclientkey = self.repo_configuration.ssl_configuration.client_key_path
+        if repo_data.type == URL_TYPE_BASEURL:
+            data.url.url = repo_data.url
+        elif repo_data.type == URL_TYPE_MIRRORLIST:
+            data.url.mirrorlist = repo_data.url
+        elif repo_data.type == URL_TYPE_METALINK:
+            data.url.metalink = repo_data.url
+
+        data.url.proxy = repo_data.proxy
+        data.url.noverifyssl = not repo_data.ssl_verification_enabled
+        data.url.sslcacert = repo_data.ssl_configuration.ca_cert_path
+        data.url.sslclientcert = repo_data.ssl_configuration.client_cert_path
+        data.url.sslclientkey = repo_data.ssl_configuration.client_key_path
 
         data.url.seen = True
 
-    def generate_repo_configuration(self):
-        """Generate RepoConfigurationData structure."""
-        return self.repo_configuration
+    def _validate_configuration(self, configuration):
+        """Validate the specified source configuration."""
+        is_protocol_supported = any(
+            configuration.url.startswith(p)
+            for p in self.supported_protocols
+        )
+
+        if not is_protocol_supported:
+            raise InvalidValueError(
+                "Invalid protocol of an URL source: '{}'"
+                "".format(configuration.url)
+            )
+
+        if configuration.type not in URL_TYPES:
+            raise InvalidValueError(
+                "Invalid URL type of an URL source: '{}'"
+                "".format(configuration.type)
+            )
+
+        if configuration.proxy:
+            try:
+                ProxyString(configuration.proxy)
+            except ProxyStringError:
+                raise InvalidValueError(
+                    "Invalid proxy of an URL source: '{}'"
+                    "".format(configuration.proxy)
+                ) from None
+
+    def get_state(self):
+        """Get state of this source."""
+        return SourceState.NOT_APPLICABLE
 
     def set_up_with_tasks(self):
         """Set up the installation source.
@@ -139,37 +167,10 @@ class URLSourceModule(PayloadSourceBase, RPMSourceMixin):
         """
         return []
 
-    @property
-    def repo_configuration(self):
-        """Get repository configuration data.
+    def generate_repo_configuration(self):
+        """Generate RepoConfigurationData structure."""
+        return self.repository
 
-        :rtype: RepoConfigurationData data structure
-        """
-        return self._repo_configuration
-
-    def set_repo_configuration(self, repo_configuration):
-        """Set repository configuration data.
-
-        :param repo_configuration: configuration for this repository
-        :type repo_configuration: RepoConfigurationData data structure
-        """
-        self._validate_url(repo_configuration.type)
-        self._validate_proxy(repo_configuration.proxy)
-
-        self._repo_configuration = repo_configuration
-        self.repo_configuration_changed.emit(self._repo_configuration)
-        log.debug("The repo_configuration is set to %s", self._repo_configuration)
-
-    def _validate_proxy(self, proxy):
-        if not proxy:
-            return
-
-        try:
-            ProxyString(url=proxy)
-        except ProxyStringError as e:
-            raise InvalidValueError("Proxy URL does not have valid format: {}".format(str(e))) \
-                from e
-
-    def _validate_url(self, url_type):
-        if url_type not in URL_TYPES:
-            raise InvalidValueError("Invalid source type set '{}'".format(url_type))
+    def __repr__(self):
+        """Generate a string representation."""
+        return "Source(type='URL', url='{}')".format(self.configuration.url)

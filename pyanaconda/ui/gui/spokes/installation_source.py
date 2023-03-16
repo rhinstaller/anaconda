@@ -194,7 +194,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
             if source_type == SOURCE_TYPE_URL and not self._proxy_change:
                 repo_configuration = RepoConfigurationData.from_structure(
-                    source_proxy.RepoConfiguration
+                    source_proxy.Configuration
                 )
 
                 if repo_configuration.url == url:
@@ -223,7 +223,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
             if source_type == SOURCE_TYPE_URL and not self._proxy_change:
                 repo_configuration = RepoConfigurationData.from_structure(
-                    source_proxy.RepoConfiguration
+                    source_proxy.Configuration
                 )
 
                 if repo_configuration.url == url \
@@ -599,7 +599,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
             # Get the current configuration.
             repo_configuration = RepoConfigurationData.from_structure(
-                source_proxy.RepoConfiguration
+                source_proxy.Configuration
             )
 
             proto = repo_configuration.url

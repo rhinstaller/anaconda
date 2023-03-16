@@ -124,7 +124,7 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
         repo_conf.type = url_type
         repo_conf.proxy = proxy or ""
 
-        url_source_proxy.RepoConfiguration = \
+        url_source_proxy.Configuration = \
             RepoConfigurationData.to_structure(repo_conf)
 
         set_source(self.payload.proxy, url_source_proxy)
