@@ -21,7 +21,6 @@
 import os
 import os.path
 import subprocess
-from contextlib import contextmanager
 from pathlib import Path
 
 from pyanaconda.core import util
@@ -245,30 +244,6 @@ def _getgrgid(gid, root):
     return None
 
 
-@contextmanager
-def _ensure_login_defs(root):
-    """Runs a command after creating /etc/login.defs, if necessary.
-
-    The groupadd and useradd utilities need login.defs to exist in the chroot,
-    and if someone is doing a cloud image install or some kind of --nocore thing
-    it may not. An empty one is ok, though. If it's missing, create it,
-    run the command, then clean it up.
-
-    :param str root: filesystem root for the operation
-    """
-    login_defs_path = root + '/etc/login.defs'
-    if not os.path.exists(login_defs_path):
-        open(login_defs_path, "w").close()
-        login_defs_created = True
-    else:
-        login_defs_created = False
-
-    yield
-
-    if login_defs_created:
-        os.unlink(login_defs_path)
-
-
 def create_group(group_name, gid=None, root=None):
     """Create a new user on the system with the given name.
 
@@ -288,8 +263,7 @@ def create_group(group_name, gid=None, root=None):
         args.extend(["-g", str(gid)])
 
     args.append(group_name)
-    with _ensure_login_defs(root):
-        status = util.execWithRedirect("groupadd", args)
+    status = util.execWithRedirect("groupadd", args)
 
     if status == 4:
         raise ValueError("GID %s already exists" % gid)
@@ -448,8 +422,7 @@ def create_user(username, password=False, is_crypted=False, lock=False,
         args.extend(["-c", gecos])
 
     args.append(username)
-    with _ensure_login_defs(root):
-        status = util.execWithRedirect("useradd", args)
+    status = util.execWithRedirect("useradd", args)
 
     if status == 4:
         raise ValueError("UID %s already exists" % uid)
