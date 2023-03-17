@@ -83,12 +83,12 @@ export function StorageEncryptionState (password = "", confirmPassword = "", enc
     this.encrypt = encrypt;
 }
 
-const passwordStrengthLabel = (strength) => {
+const passwordStrengthLabel = (idPrefix, strength) => {
     const level = strengthLevels.filter(l => l.id === strength)[0];
     if (level) {
         return (
             <HelperText>
-                <HelperTextItem variant={level.variant} icon={level.icon}>
+                <HelperTextItem id={idPrefix + "-password-strength-label"} variant={level.variant} icon={level.icon}>
                     {level.label}
                 </HelperTextItem>
             </HelperText>
@@ -98,6 +98,7 @@ const passwordStrengthLabel = (strength) => {
 
 // TODO create strengthLevels object with methods passed to the component ?
 const PasswordFormFields = ({
+    idPrefix,
     password,
     passwordLabel,
     onChange,
@@ -114,14 +115,14 @@ const PasswordFormFields = ({
         <>
             <FormGroup
               label={passwordLabel}
-              labelInfo={ruleLength === "success" && passwordStrengthLabel(passwordStrength)}
+              labelInfo={ruleLength === "success" && passwordStrengthLabel(idPrefix, passwordStrength)}
             >
                 <InputGroup>
                     <TextInput
                       type={passwordHidden ? "password" : "text"}
                       value={password}
                       onChange={onChange}
-                      id="password-field"
+                      id={idPrefix + "-password-field"}
                     />
                     <Button
                       variant="control"
@@ -132,8 +133,13 @@ const PasswordFormFields = ({
                     </Button>
                 </InputGroup>
                 <FormHelperText isHidden={false} component="div">
-                    <HelperText component="ul" aria-live="polite" id="password-field-helper">
-                        <HelperTextItem isDynamic variant={ruleLength} component="li">
+                    <HelperText component="ul" aria-live="polite" id={idPrefix + "-password-field-helper"}>
+                        <HelperTextItem
+                          id={idPrefix + "-password-rule-8-chars"}
+                          isDynamic
+                          variant={ruleLength}
+                          component="li"
+                        >
                             {_("Must be at least 8 characters")}
                         </HelperTextItem>
                     </HelperText>
@@ -147,7 +153,7 @@ const PasswordFormFields = ({
                       type={confirmHidden ? "password" : "text"}
                       value={passwordConfirm}
                       onChange={onConfirmChange}
-                      id="password-confirm-field"
+                      id={idPrefix + "-password-confirm-field"}
                     />
                     <Button
                       variant="control"
@@ -159,7 +165,12 @@ const PasswordFormFields = ({
                 </InputGroup>
                 <FormHelperText isHidden={false} component="div">
                     <HelperText component="ul" aria-live="polite" id="password-confirm-field-helper">
-                        <HelperTextItem isDynamic variant={ruleConfirmMatches} component="li">
+                        <HelperTextItem
+                          id={idPrefix + "-password-rule-match"}
+                          isDynamic
+                          variant={ruleConfirmMatches}
+                          component="li"
+                        >
                             {_("Passphrases must match")}
                         </HelperTextItem>
                     </HelperText>
@@ -211,6 +222,7 @@ const CheckDisksSpinner = (
 );
 
 export const DiskEncryption = ({
+    idPrefix,
     isInProgress,
     setIsFormValid,
     storageEncryption,
@@ -224,7 +236,7 @@ export const DiskEncryption = ({
     const [ruleConfirmMatches, setRuleConfirmMatches] = useState("indeterminate");
     const encryptedDevicesCheckbox = (
         <Checkbox
-          id="encrypt_devices"
+          id={idPrefix + "-encrypt-devices"}
           label={_("Yes, I want device encryption (optional)")}
           description={_(
               "If you select this option you will be asked to create an encryption passphrase." +
@@ -244,6 +256,7 @@ export const DiskEncryption = ({
               titleElement="h3"
             >
                 <PasswordFormFields
+                  idPrefix={idPrefix}
                   password={password}
                   passwordLabel={_("Passphrase")}
                   passwordStrength={passwordStrength}

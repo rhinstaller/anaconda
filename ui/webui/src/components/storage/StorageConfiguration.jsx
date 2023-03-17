@@ -198,8 +198,7 @@ const predefinedStorageInfo = (
 );
 
 // TODO add aria items
-// TODO add prefixes to ids (for tests)
-const GuidedPartitioning = ({ scenarios, setIsFormValid }) => {
+const GuidedPartitioning = ({ idPrefix, scenarios, setIsFormValid }) => {
     const [selectedScenario, setSelectedScenario] = useState();
     const [scenarioAvailability, setScenarioAvailability] = useState(Object.fromEntries(
         scenarios.map((s) => [s.id, new AvailabilityState()])
@@ -273,10 +272,10 @@ const GuidedPartitioning = ({ scenarios, setIsFormValid }) => {
                         <Tooltip
                           aria-live="polite"
                           content={scenarioAvailability[scenario.id].shortHint}
-                          reference={() => document.getElementById("autopart-scenario" + scenario.id)}
+                          reference={() => document.getElementById(idPrefix + "-autopart-scenario-" + scenario.id)}
                         />}
                         <Radio
-                          id={"autopart-scenario" + scenario.id}
+                          id={idPrefix + "-autopart-scenario-" + scenario.id}
                           value={scenario.id}
                           name="autopart-scenario"
                           label={scenario.label}
@@ -335,13 +334,17 @@ const GuidedPartitioning = ({ scenarios, setIsFormValid }) => {
     );
 };
 
-export const StorageConfiguration = ({ setIsFormValid }) => {
+export const StorageConfiguration = ({ idPrefix, setIsFormValid }) => {
     return (
         <AnacondaPage title={_("Select a storage configuration")}>
             <TextContent>
                 {_("Configure the partitioning scheme to be used on the selected disks.")}
             </TextContent>
-            <GuidedPartitioning scenarios={scenarios} setIsFormValid={setIsFormValid} />
+            <GuidedPartitioning
+              idPrefix={idPrefix}
+              scenarios={scenarios}
+              setIsFormValid={setIsFormValid}
+            />
         </AnacondaPage>
     );
 };

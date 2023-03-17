@@ -54,7 +54,7 @@ class Installer():
             self.wait_current_page(self.steps[current_step_id+1])
 
     @log_step()
-    def next(self, should_fail=False):
+    def next(self, should_fail=False, subpage=False):
         current_step_id = self.get_current_page_id()
         current_page = self.steps[current_step_id]
         next_page = self.steps[current_step_id+1]
@@ -65,23 +65,24 @@ class Installer():
             sleep(2)
 
         self.browser.click("button:contains(Next)")
-        self.wait_current_page(current_page if should_fail else next_page)
+        self.wait_current_page(current_page if should_fail or subpage else next_page)
 
     @log_step()
-    def check_next_disabled(self):
+    def check_next_disabled(self, disabled=True):
         """Check if the Next button is disabled.
 
-        :return: True if Next is enabled, False otherwise
-        :rtype: bool
+        :param disabled: True if Next button should be disabled, False if not
+        :type disabled: bool, optional
         """
-        self.browser.wait_visible("#installation-next-btn:not([aria-disabled=false]")
+        value = "false" if disabled else "true"
+        self.browser.wait_visible(f"#installation-next-btn:not([aria-disabled={value}]")
 
     @log_step(snapshot_before=True)
-    def back(self, should_fail=False):
+    def back(self, should_fail=False, subpage=False):
         current_step_id = self.get_current_page_id()
         self.browser.click("button:contains(Back)")
 
-        if should_fail:
+        if should_fail or subpage:
             self.wait_current_page(self.steps[current_step_id])
         else:
             self.wait_current_page(self.steps[current_step_id-1])

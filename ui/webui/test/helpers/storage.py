@@ -107,3 +107,62 @@ class Storage():
             self.browser.wait_text(f"#{disk} > td[data-label=Total]", total)
         if free:
             self.browser.wait_text(f"#{disk} > td[data-label=Free]", free)
+
+    def _partitioning_selector(self, scenario):
+        return "#storage-configuration-autopart-scenario-" + scenario
+
+    def check_partitioning_selected(self, scenario):
+        self.browser.wait_visible(self._partitioning_selector(scenario) + ":checked")
+
+    def set_partitioning(self, scenario):
+        self.browser.set_checked(self._partitioning_selector(scenario), True)
+
+    def check_encryption_selected(self, selected):
+        sel = "#disk-encryption-encrypt-devices"
+        if selected:
+            self.browser.wait_visible(sel + ':checked')
+        else:
+            self.browser.wait_visible(sel + ':not([checked])')
+
+    def set_encryption_selected(self, selected):
+        sel = "#disk-encryption-encrypt-devices"
+        self.browser.set_checked(sel, selected)
+
+    def check_pw_rule(self, rule, value):
+        sel = "#disk-encryption-password-rule-" + rule
+        cls_value = "pf-m-" + value
+        self.browser.wait_visible(sel)
+        self.browser.wait_attr_contains(sel, "class", cls_value)
+
+    def set_password(self, password, append=False, value_check=True):
+        sel = "#disk-encryption-password-field"
+        self.browser.set_input_text(sel, password, append=append, value_check=value_check)
+
+    def check_password(self, password):
+        sel = "#disk-encryption-password-field"
+        self.browser.wait_val(sel, password)
+
+    def set_password_confirm(self, password):
+        sel = "#disk-encryption-password-confirm-field"
+        self.browser.set_input_text(sel, password)
+
+    def check_password_confirm(self, password):
+        sel = "#disk-encryption-password-confirm-field"
+        self.browser.wait_val(sel, password)
+
+    def check_pw_strength(self, strength):
+        sel = "#disk-encryption-password-strength-label"
+
+        if strength is None:
+            self.browser.wait_not_present(sel)
+            return
+
+        variant = ""
+        if strength == "weak":
+            variant = "error"
+        elif strength == "medium":
+            variant = "warning"
+        elif strength == "strong":
+            variant = "success"
+
+        self.browser.wait_attr_contains(sel, "class", "pf-m-" + variant)
