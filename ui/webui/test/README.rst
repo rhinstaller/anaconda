@@ -11,26 +11,23 @@ Preparation and general invocation
 *Warning*: Never run the build, test, or any other command here as root!
 
 To run the WebUI integration tests run the following from the root of the anaconda repo.
-(do NOT run the integration tests as root)::
+(do NOT run the integration tests as root).
 
-You first need to build anaconda RPMs. You might need to prepare your environment
-to be able to run `make` command first. See `<../../../CONTRIBUTING.rst#how-to-run-make-commands>`_::
+OSTree based systems (SilverBlue etc.) can use toolbx.
+See `<../../../CONTRIBUTING.rst#how-to-run-make-commands>`_.
 
-    make rpms
-
-Then prepare an updates.img containing the anaconda RPMs and the cockpit dependencies::
+Prepare an updates.img containing the anaconda RPMs and the cockpit dependencies::
 
     cd ui/webui
-    make ../../updates.img
+    make create-updates.img
+
+Then download test dependencies::
+
+    make prepare-test-deps
 
 Then download the ISO file that the test VMs will use::
 
-    make bots
     ./bots/image-download fedora-rawhide-boot
-
-Finally, fetch the testing library::
-
-    make test/common
 
 In most cases you want to run an individual test in a suite.
 You also need to specify `TEST_OS` for each test run, for example::

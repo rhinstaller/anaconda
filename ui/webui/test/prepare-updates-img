@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -eu
 
@@ -11,18 +11,26 @@ COCKPIT_URLS='
 '
 
 mkdir -p tmp/extra-rpms
-cd tmp/extra-rpms
+pushd tmp/extra-rpms
 for url in $COCKPIT_URLS; do
     test -e "$(basename "${url}")" || curl -LO "$url"
 done
 # shellcheck disable=SC2086,SC2046
 COCKPIT_RPMS="$(realpath $(basename -a ${COCKPIT_URLS}))"
-cd ../..
+popd
+
+# switch to root of the repository
+pushd ../..
+# remove old rpms and build new srpm
+rm -rf ../../result/build
+make srpm
+popd
 
 # build the anaconda srpm (and result RPMs go in `tmp/rpms`)
 test/build-rpms -v ../../result/build/00-srpm-build/anaconda-*.src.rpm
 
 # makeupdates must be run from the top level of the anaconda source tree
-cd ../../
+pushd ../../
 # shellcheck disable=SC2086,SC2046
 scripts/makeupdates --add ui/webui/tmp/rpms/anaconda-*.rpm ${COCKPIT_RPMS}
+popd

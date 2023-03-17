@@ -77,6 +77,8 @@ bots:
 	@echo "checked out bots/ ref $$(git -C bots rev-parse HEAD)"
 	cd test && ln -s ../bots/images images
 
+prepare-test-deps: bots test/common
+
 $(UPDATES_IMG): bots
 	test/prepare-updates-img
 
