@@ -282,7 +282,7 @@ class URLBasedSource(BasePayloadSource):
         repo_configuration.type = self.url_type
         repo_configuration.url = self.url
 
-        source_proxy.RepoConfiguration = \
+        source_proxy.Configuration = \
             RepoConfigurationData.to_structure(repo_configuration)
 
         return source_proxy
@@ -336,7 +336,7 @@ class FileSource(BasePayloadSource):
         repo_configuration.type = URL_TYPE_BASEURL
         repo_configuration.url = self.path
 
-        source_proxy.RepoConfiguration = \
+        source_proxy.Configuration = \
             RepoConfigurationData.to_structure(repo_configuration)
 
         return source_proxy

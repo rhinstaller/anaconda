@@ -20,9 +20,18 @@
 from abc import ABCMeta
 
 from dasbus.server.interface import dbus_interface
+from dasbus.server.property import emits_properties_changed
 from dasbus.typing import *  # pylint: disable=wildcard-import
+
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.base.base_template import ModuleInterfaceTemplate
-from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE
+from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE, \
+    PAYLOAD_SOURCE_REPOSITORY
+
+__all__ = [
+    "PayloadSourceBaseInterface",
+    "RepositorySourceInterface",
+]
 
 
 @dbus_interface(PAYLOAD_SOURCE.interface_name)
@@ -35,14 +44,44 @@ class PayloadSourceBaseInterface(ModuleInterfaceTemplate, metaclass=ABCMeta):
 
     @property
     def Type(self) -> Str:
-        """Get the type of this source.
-
-        Possible values are:
-         - LIVE_OS_IMAGE
-        """
+        """The type of this source."""
         return self.implementation.type.value
 
     @property
     def Description(self) -> Str:
-        """Get a description of this source."""
+        """The description of this source."""
         return self.implementation.description
+
+
+@dbus_interface(PAYLOAD_SOURCE_REPOSITORY.interface_name)
+class RepositorySourceInterface(PayloadSourceBaseInterface, metaclass=ABCMeta):
+    """DBus interface for sources that provide access to a repository."""
+
+    def connect_signals(self):
+        """Connect the signals."""
+        super().connect_signals()
+        self.watch_property("Configuration", self.implementation.configuration_changed)
+
+    @property
+    def Configuration(self) -> Structure:
+        """The source configuration.
+
+        This configuration will be used to set up the source
+        and generate a configuration of the available repository.
+
+        :return: a structure of the type RepoConfigurationData
+        """
+        return RepoConfigurationData.to_structure(
+            self.implementation.configuration
+        )
+
+    @Configuration.setter
+    @emits_properties_changed
+    def Configuration(self, configuration: Structure):
+        """Set the source configuration.
+
+        :param configuration: a structure of the type RepoConfigurationData
+        """
+        self.implementation.set_configuration(
+            RepoConfigurationData.from_structure(configuration)
+        )

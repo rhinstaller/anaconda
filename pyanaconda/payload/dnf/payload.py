@@ -168,7 +168,7 @@ class DNFPayload(Payload):
         if source_proxy.Type == SOURCE_TYPE_URL:
             # Get the repo configuration.
             repo_configuration = RepoConfigurationData.from_structure(
-                source_proxy.RepoConfiguration
+                source_proxy.Configuration
             )
 
             if opts.proxy:
@@ -178,7 +178,7 @@ class DNFPayload(Payload):
                 repo_configuration.ssl_verification_enabled = conf.payload.verify_ssl
 
             # Update the repo configuration.
-            source_proxy.RepoConfiguration = \
+            source_proxy.Configuration = \
                 RepoConfigurationData.to_structure(repo_configuration)
 
     def _set_additional_repos_from_opts(self, opts):
@@ -356,7 +356,7 @@ class DNFPayload(Payload):
             return None
 
         data = RepoConfigurationData.from_structure(
-            source_proxy.RepoConfiguration
+            source_proxy.Configuration
         )
 
         return data.proxy

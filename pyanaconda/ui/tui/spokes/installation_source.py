@@ -259,7 +259,7 @@ class SpecifyRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
 
         if source_proxy.Type == SOURCE_TYPE_URL:
             repo_configuration = RepoConfigurationData.from_structure(
-                source_proxy.RepoConfiguration
+                source_proxy.Configuration
             )
 
             return repo_configuration.url

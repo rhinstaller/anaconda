@@ -336,12 +336,7 @@ class DNFModule(PayloadBase):
         :return: RepoConfiguration structures for attached sources.
         :rtype: RepoConfigurationData instances
         """
-        structures = []
-
-        for source in self.sources:
-            structures.append(source.generate_repo_configuration())
-
-        return structures
+        return list(filter(None, [s.generate_repo_configuration() for s in self.sources]))
 
     def install_with_tasks(self):
         """Install the payload.

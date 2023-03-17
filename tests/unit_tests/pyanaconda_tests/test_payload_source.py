@@ -158,7 +158,7 @@ class TestSourceFactoryTests(unittest.TestCase):
         repo_configuration.type = URL_TYPE_BASEURL
         repo_configuration.url = "http://server.example.com/test"
 
-        assert proxy.RepoConfiguration ==  \
+        assert proxy.Configuration ==  \
             RepoConfigurationData.to_structure(repo_configuration)
 
     @patch_dbus_get_proxy_with_cache
@@ -169,7 +169,7 @@ class TestSourceFactoryTests(unittest.TestCase):
         repo_configuration.type = URL_TYPE_BASEURL
         repo_configuration.url = "file:///root/extremely_secret_file.txt"
 
-        assert proxy.RepoConfiguration == \
+        assert proxy.Configuration == \
             RepoConfigurationData.to_structure(repo_configuration)
 
     @patch_dbus_get_proxy_with_cache
