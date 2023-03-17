@@ -87,13 +87,7 @@ def _do_payload_restart(payload):
 
     :param payload: Anaconda payload instance
     """
-    # restart payload
-    payloadMgr.start(
-        payload=payload,
-        fallback=False,
-        try_media=False,
-        only_on_change=False
-    )
+    payloadMgr.start(payload)
 
 
 def check_cdn_is_installation_source(payload):

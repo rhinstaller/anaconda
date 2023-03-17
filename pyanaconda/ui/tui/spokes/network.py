@@ -437,7 +437,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
             self._apply = False
             if ANACONDA_ENVIRON in flags.environs:
                 from pyanaconda.payload.manager import payloadMgr
-                payloadMgr.start(self.payload, try_media=False)
+                payloadMgr.start(self.payload)
 
 
 class ConfigureDeviceSpoke(NormalTUISpoke):

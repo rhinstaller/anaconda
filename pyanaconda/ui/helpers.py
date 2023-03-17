@@ -57,6 +57,7 @@
 from abc import ABCMeta, abstractmethod
 
 from pyanaconda.core import constants
+from pyanaconda.core.constants import DRACUT_REPO_DIR
 from pyanaconda.core.payload import create_nfs_url
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.ui.lib.payload import create_source, set_source, tear_down_sources
@@ -158,6 +159,15 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
         hmc_source_proxy = create_source(constants.SOURCE_TYPE_HMC)
 
         set_source(self.payload.proxy, hmc_source_proxy)
+
+    def set_source_dracut(self):
+        """ Switch to install source provided by Dracut."""
+        self._tear_down_existing_source()
+
+        source_proxy = create_source(constants.SOURCE_TYPE_REPO_PATH)
+        source_proxy.Path = DRACUT_REPO_DIR
+
+        set_source(self.payload.proxy, source_proxy)
 
     def set_source_closest_mirror(self, updates_enabled=True):
         """ Switch to the closest mirror install source """

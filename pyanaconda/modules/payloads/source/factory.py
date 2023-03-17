@@ -53,6 +53,10 @@ class SourceFactory(object):
             from pyanaconda.modules.payloads.source.repo_files.repo_files import \
                 RepoFilesSourceModule
             return RepoFilesSourceModule()
+        elif source_type == SourceType.REPO_PATH:
+            from pyanaconda.modules.payloads.source.repo_path.repo_path import \
+                RepoPathSourceModule
+            return RepoPathSourceModule()
         elif source_type == SourceType.NFS:
             from pyanaconda.modules.payloads.source.nfs.nfs import NFSSourceModule
             return NFSSourceModule()

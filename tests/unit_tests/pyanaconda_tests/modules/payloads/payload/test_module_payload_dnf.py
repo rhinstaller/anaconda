@@ -28,7 +28,7 @@ from pyanaconda.core.constants import SOURCE_TYPE_CDROM, SOURCE_TYPE_HDD, SOURCE
     SOURCE_TYPE_NFS, SOURCE_TYPE_REPO_FILES, SOURCE_TYPE_URL, URL_TYPE_BASEURL, \
     SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN, GROUP_PACKAGE_TYPES_REQUIRED, \
     GROUP_PACKAGE_TYPES_ALL, MULTILIB_POLICY_ALL, PAYLOAD_TYPE_DNF, REPO_ORIGIN_SYSTEM, \
-    REPO_ORIGIN_USER, URL_TYPE_MIRRORLIST, URL_TYPE_METALINK
+    REPO_ORIGIN_USER, URL_TYPE_MIRRORLIST, URL_TYPE_METALINK, SOURCE_TYPE_REPO_PATH
 from pyanaconda.core.kickstart.specification import KickstartSpecificationHandler
 from pyanaconda.core.kickstart.version import VERSION
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_DNF
@@ -675,6 +675,7 @@ class DNFInterfaceTestCase(unittest.TestCase):
             SOURCE_TYPE_HMC,
             SOURCE_TYPE_NFS,
             SOURCE_TYPE_REPO_FILES,
+            SOURCE_TYPE_REPO_PATH,
             SOURCE_TYPE_CLOSEST_MIRROR,
             SOURCE_TYPE_CDN,
             SOURCE_TYPE_URL
@@ -967,6 +968,17 @@ class DNFInterfaceTestCase(unittest.TestCase):
 
         expected = [self._generate_repository_structure("file:///install_source/cdrom")]
 
+        assert self.interface.GetRepoConfigurations() == expected
+
+    @patch_dbus_publish_object
+    def test_repo_path_get_repo_configurations(self, publisher):
+        """Test DNF GetRepoConfigurations for the repo path source."""
+        source = self.shared_tests.prepare_source(SourceType.REPO_PATH)
+        source.set_path("/install_source/path")
+
+        self.shared_tests.set_sources([source])
+
+        expected = [self._generate_repository_structure("file:///install_source/path")]
         assert self.interface.GetRepoConfigurations() == expected
 
     @patch("pyanaconda.modules.payloads.source.hmc.hmc.HMCSourceModule.mount_point",

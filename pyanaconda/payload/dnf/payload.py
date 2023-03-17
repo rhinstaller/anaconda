@@ -41,21 +41,20 @@ from pyanaconda.modules.payloads.payload.dnf.validation import CheckPackagesSele
 from pyanaconda.modules.payloads.source.harddrive.initialization import SetUpHardDriveSourceTask
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from pyanaconda.modules.payloads.source.nfs.initialization import SetUpNFSSourceTask
+from pyanaconda.modules.payloads.source.utils import verify_valid_repository
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 from pyanaconda.anaconda_loggers import get_packaging_logger
 from pyanaconda.core import constants
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, \
-    SOURCE_TYPE_URL, SOURCE_TYPE_CDROM, SOURCE_REPO_FILE_TYPES, \
-    SOURCE_TYPE_CDN, MULTILIB_POLICY_ALL, REPO_ORIGIN_SYSTEM, SOURCE_TYPE_CLOSEST_MIRROR, \
-    REPO_ORIGIN_TREEINFO
+from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, SOURCE_TYPE_URL, \
+    SOURCE_REPO_FILE_TYPES, SOURCE_TYPE_REPO_PATH, SOURCE_TYPE_CDN, MULTILIB_POLICY_ALL, \
+    REPO_ORIGIN_SYSTEM, SOURCE_TYPE_CLOSEST_MIRROR, REPO_ORIGIN_TREEINFO, DRACUT_REPO_DIR
 from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import parse_hdd_url
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.payload.base import Payload
-from pyanaconda.payload.image import find_optical_install_media
 from pyanaconda.modules.payloads.payload.dnf.tree_info import LoadTreeInfoMetadataTask
 from pyanaconda.ui.lib.payload import get_payload, get_source, create_source, set_source, \
     set_up_sources, tear_down_sources
@@ -110,19 +109,39 @@ class DNFPayload(Payload):
 
         :param opts: a namespace of options
         """
-        self._set_source_from_opts(opts)
+        self._set_default_source(opts)
         self._set_source_configuration_from_opts(opts)
         self._set_additional_repos_from_opts(opts)
         self._generate_driver_disk_repositories()
         self._set_packages_from_opts(opts)
 
-    def _set_source_from_opts(self, opts):
-        """Change the source based on the Anaconda options.
+    def _set_default_source(self, opts):
+        """Set the default source.
 
         Set the source based on opts.method if it isn't already set
         - opts.method is currently set by command line/boot options.
+
+        Otherwise, use the source provided at a specific mount point
+        by Dracut if there is any.
+
+        Otherwise, use the default source specified in the Anaconda
+        configuration files as a fallback.
+
+        In summary, the installer chooses a default source of the DNF
+        payload based on data processed in this order:
+
+        1. Kickstart file
+        2. Boot options or command line options
+        3. Installation image mounted by Dracut
+        4. Anaconda configuration file
+
         """
-        if opts.method and (not self.proxy.Sources or self._is_source_default()):
+        if self.proxy.Sources:
+            log.debug("The DNF source is already set.")
+
+        elif opts.method:
+            log.debug("Use the DNF source from opts.")
+
             try:
                 source = SourceFactory.parse_repo_cmdline_string(opts.method)
             except PayloadSourceTypeUnrecognized:
@@ -130,6 +149,17 @@ class DNFPayload(Payload):
             else:
                 source_proxy = source.create_proxy()
                 set_source(self.proxy, source_proxy)
+
+        elif verify_valid_repository(DRACUT_REPO_DIR):
+            log.debug("Use the DNF source from Dracut.")
+            source_proxy = create_source(SOURCE_TYPE_REPO_PATH)
+            source_proxy.Path = DRACUT_REPO_DIR
+            set_source(self.proxy, source_proxy)
+
+        else:
+            log.debug("Use the DNF source from the Anaconda configuration file.")
+            source_proxy = create_source(conf.payload.default_source)
+            set_source(self.proxy, source_proxy)
 
     def _set_source_configuration_from_opts(self, opts):
         """Configure the source based on the Anaconda options."""
@@ -478,12 +508,10 @@ class DNFPayload(Payload):
         return self.source_type == conf.payload.default_source
 
     # pylint: disable=arguments-differ
-    def setup(self, report_progress, fallback=False, try_media=True, only_on_change=False):
+    def setup(self, report_progress, only_on_change=False):
         """Set up the payload.
 
         :param function report_progress: a callback for a progress reporting
-        :param bool fallback: whether to fall back to the default repo in case of error
-        :param bool try_media: whether to check for valid mounted media
         :param bool only_on_change: restart thread only if existing repositories changed
         """
         # Reset the validation report.
@@ -500,7 +528,7 @@ class DNFPayload(Payload):
         report_progress(_("Downloading package metadata..."))
 
         try:
-            self._update_base_repo(fallback=fallback, try_media=try_media)
+            self._update_base_repo()
         except (OSError, SourceSetupError, DNFManagerError) as e:
             self._report.error_messages.append(str(e))
             raise SourceSetupError(str(e)) from e
@@ -538,7 +566,7 @@ class DNFPayload(Payload):
         log.debug("Payload won't be restarted, repositories are still available.")
         return True
 
-    def _update_base_repo(self, fallback=True, try_media=True):
+    def _update_base_repo(self):
         """Update the base repository from the DBus source."""
         log.debug("Tearing down sources")
         tear_down_sources(self.proxy)
@@ -553,43 +581,14 @@ class DNFPayload(Payload):
         self._dnf_manager.read_system_repositories()
 
         log.info("Configuring the base repo")
-        # Find the source and its type.
-        source_proxy = self.get_source_proxy()
-        source_type = source_proxy.Type
-
-        # Change the default source to CDROM if there is a valid install media.
-        # FIXME: Set up the default source earlier.
-        if try_media and self._is_source_default() and find_optical_install_media():
-            source_type = SOURCE_TYPE_CDROM
-            source_proxy = create_source(source_type)
-            set_source(self.proxy, source_proxy)
 
         # Set up the source.
         set_up_sources(self.proxy)
 
-        # Add a new repo.
-        if source_type not in SOURCE_REPO_FILE_TYPES:
-            try:
-                self._add_base_repository()
-            except DNFManagerError as e:
-                # Fail if the fallback is not enabled.
-                if not fallback:
-                    raise e
-
-                # Fallback to the default source
-                #
-                # This is at the moment CDN on RHEL
-                # and closest mirror everywhere else.
-                tear_down_sources(self.proxy)
-
-                source_type = conf.payload.default_source
-                source_proxy = create_source(source_type)
-                set_source(self.proxy, source_proxy)
-
-                set_up_sources(self.proxy)
-
-        # We need to check this again separately in case REPO_FILES were set above.
-        if source_type in SOURCE_REPO_FILE_TYPES:
+        # Set up the base repo.
+        if self.source_type not in SOURCE_REPO_FILE_TYPES:
+            self._add_base_repository()
+        else:
             # Remove all treeinfo repositories.
             self._remove_treeinfo_repositories()
 

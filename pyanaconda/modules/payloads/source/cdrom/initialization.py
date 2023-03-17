@@ -15,14 +15,12 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.payloads.source.mount_tasks import SetUpMountTask
 from pyanaconda.modules.payloads.source.utils import is_valid_install_disk
-from pyanaconda.payload.source.factory import SourceFactory, PayloadSourceTypeUnrecognized
 from pyanaconda.payload.utils import mount, unmount
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -56,40 +54,7 @@ class SetUpCdromSourceTask(SetUpMountTask):
         return device_name
 
     def _get_device_candidate_list(self, device_tree):
-        stage2_device = self._probe_stage2_for_cdrom(device_tree)
-        device_candidates = device_tree.FindOpticalMedia()
-
-        if stage2_device in device_candidates:
-            device_candidates = [stage2_device] + device_candidates
-
-        return device_candidates
-
-    @staticmethod
-    def _probe_stage2_for_cdrom(device_tree):
-        # TODO: This is temporary method which should be moved closer to the inst.repo logic
-        log.debug("Testing if inst.stage2 is a CDROM device")
-        stage2_string = kernel_arguments.get("stage2")
-
-        if not stage2_string:
-            return None
-
-        try:
-            source = SourceFactory.parse_repo_cmdline_string(stage2_string)
-        except PayloadSourceTypeUnrecognized:
-            log.warning("Unknown stage2 method: %s", stage2_string)
-            return None
-
-        # We have HDD here because DVD ISO has inst.stage2=hd:LABEL=....
-        # TODO: Let's return back support of inst.cdrom=<device> which should work based on the
-        # documentation and use that as inst.stage2 parameter for Pungi
-        if not source.is_harddrive:
-            log.debug("Stage2 can't be used as source %s", stage2_string)
-            return None
-
-        # We can ignore source.path here because DVD ISOs are not using that.
-        stage2_device = device_tree.ResolveDevice(source.partition)
-        log.debug("Found possible stage2 default installation source %s", stage2_device)
-        return stage2_device
+        return device_tree.FindOpticalMedia()
 
     def _choose_installation_device(self, device_tree, devices_candidates):
         device_name = ""

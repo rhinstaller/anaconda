@@ -28,11 +28,11 @@ from blivet.devicelibs.crypto import DEFAULT_LUKS_VERSION
 
 from pyanaconda.modules.storage.bootloader import BootLoaderFactory
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import shortProductName
+from pyanaconda.core.constants import shortProductName, DRACUT_REPO_DIR, LIVE_MOUNT_POINT
 from pyanaconda.core.path import set_system_root
 from pyanaconda.modules.storage.devicetree.fsset import FSSet
 from pyanaconda.modules.storage.devicetree.utils import download_escrow_certificate, \
-    find_live_backing_device
+    find_backing_device
 from pyanaconda.modules.storage.devicetree.root import find_existing_installations
 from pyanaconda.modules.common.constants.services import NETWORK
 
@@ -290,12 +290,19 @@ class InstallerStorage(Blivet):
                 protected.append(dev)
 
         # Find the live backing device and its parents.
-        live_device = find_live_backing_device(self.devicetree)
+        live_device = find_backing_device(self.devicetree, LIVE_MOUNT_POINT)
 
         if live_device:
             log.debug("Resolved live device to %s.", live_device.name)
             protected.append(live_device)
             protected.extend(live_device.parents)
+
+        # Find the backing device of a stage2 source and its parents.
+        source_device = find_backing_device(self.devicetree, DRACUT_REPO_DIR)
+
+        if source_device:
+            log.debug("Resolved a stage2 source device to %s.", source_device.name)
+            protected.extend(source_device.ancestors)
 
         # For image installation setup_disk_images method marks all local
         # storage disks as ignored so they are protected from teardown.

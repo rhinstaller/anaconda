@@ -26,7 +26,8 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, SOURCE_TYPE_HDD, SOURCE_TYPE_URL, \
     SOURCE_TYPE_CDROM, SOURCE_TYPE_NFS, SOURCE_TYPE_HMC, URL_TYPE_BASEURL, \
     SOURCE_TYPE_CLOSEST_MIRROR, SOURCE_TYPE_CDN, PAYLOAD_STATUS_SETTING_SOURCE, \
-    PAYLOAD_STATUS_INVALID_SOURCE, PAYLOAD_STATUS_CHECKING_SOFTWARE
+    PAYLOAD_STATUS_INVALID_SOURCE, PAYLOAD_STATUS_CHECKING_SOFTWARE, SOURCE_TYPE_REPO_PATH, \
+    DRACUT_REPO_DIR
 from pyanaconda.core.i18n import _, CN_
 from pyanaconda.core.payload import parse_nfs_url, create_nfs_url
 from pyanaconda.core.regexes import URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
@@ -38,6 +39,7 @@ from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.util import is_module_available
+from pyanaconda.modules.payloads.source.utils import verify_valid_repository
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.image import find_optical_install_media
 from pyanaconda.payload.manager import payloadMgr
@@ -122,7 +124,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         if cdn_source and not self.subscribed:
             log.debug("CDN source but no subscribtion attached - skipping payload restart.")
         elif source_changed or repo_changed or self._error:
-            payloadMgr.start(self.payload, try_media=False)
+            payloadMgr.start(self.payload)
         else:
             log.debug("Nothing has changed - skipping payload restart.")
 
@@ -141,7 +143,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             if source_type == SOURCE_TYPE_CDN:
                 return False
             switch_source(self.payload, SOURCE_TYPE_CDN)
-        elif self._autodetect_button.get_active():
+        elif self._cdrom_button.get_active():
             if not self._cdrom:
                 return False
 
@@ -151,6 +153,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
                 return False
 
             self.set_source_cdrom()
+        elif self._dracut_button.get_active():
+            if source_type == SOURCE_TYPE_REPO_PATH:
+                return False
+            self.set_source_dracut()
         elif self._hmc_button.get_active():
             if source_type == SOURCE_TYPE_HMC:
                 return False
@@ -339,10 +345,11 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         return devices[0]
 
     def _grab_objects(self):
-        self._autodetect_button = self.builder.get_object("autodetectRadioButton")
-        self._autodetect_box = self.builder.get_object("autodetectBox")
-        self._autodetect_device_label = self.builder.get_object("autodetectDeviceLabel")
-        self._autodetect_label = self.builder.get_object("autodetectLabel")
+        self._cdrom_button = self.builder.get_object("cdromRadioButton")
+        self._cdrom_box = self.builder.get_object("cdromBox")
+        self._cdrom_device_label = self.builder.get_object("cdromDeviceLabel")
+        self._cdrom_label = self.builder.get_object("cdromLabel")
+        self._dracut_button = self.builder.get_object("dracutRadioButton")
         self._cdn_button = self.builder.get_object("cdnRadioButton")
         self._hmc_button = self.builder.get_object("hmcRadioButton")
         self._iso_button = self.builder.get_object("isoRadioButton")
@@ -396,7 +403,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         # I shouldn't have to do this outside GtkBuilder, but it really doesn't
         # want to let me pass in user data.
         # See also: https://bugzilla.gnome.org/show_bug.cgi?id=727919
-        self._autodetect_button.connect("toggled", self.on_source_toggled, self._autodetect_box)
+        self._cdrom_button.connect("toggled", self.on_source_toggled, self._cdrom_box)
+        self._dracut_button.connect("toggled", self.on_source_toggled, None)
         self._cdn_button.connect("toggled", self.on_source_toggled, None)
         self._hmc_button.connect("toggled", self.on_source_toggled, None)
         self._iso_button.connect("toggled", self.on_source_toggled, self._iso_box)
@@ -491,14 +499,23 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         # already been mounted by payload.setup.  We can't try to mount it
         # again.  So just use what we already know to create the selector.
         # Otherwise, check to see if there's anything available.
-        if source_type == SOURCE_TYPE_CDROM:
+
+        # Enable the local source option if requested.
+        if source_type == SOURCE_TYPE_REPO_PATH:
+            gtk_call_once(self._dracut_button.set_no_show_all, False)
+        # Enable the CD-ROM option if requested.
+        elif source_type == SOURCE_TYPE_CDROM:
             self._cdrom = source_proxy.DeviceName
+            self._show_cdrom_box_with_device(self._cdrom)
+        # Enable the local source option if available.
+        elif verify_valid_repository(DRACUT_REPO_DIR):
+            gtk_call_once(self._dracut_button.set_no_show_all, False)
+        # Enable the auto-detected CD-ROM option if available.
         elif not flags.automatedInstall:
             self._cdrom = find_optical_install_media()
+            self._show_cdrom_box_with_device(self._cdrom)
 
-        if self._cdrom:
-            self._show_autodetect_box_with_device(self._cdrom)
-
+        # Enable the HDD option.
         if source_type == SOURCE_TYPE_HDD:
             self._current_iso_file = source_proxy.GetIsoPath() or None
 
@@ -506,10 +523,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
                 # Installation from an expanded install tree
                 device_spec = source_proxy.Partition
                 device_name = self._get_device_name(device_spec)
-                self._show_autodetect_box(device_name, device_spec)
+                self._show_cdrom_box(device_name, device_spec)
 
         # Enable the SE/HMC option.
-        if self.payload.source_type == SOURCE_TYPE_HMC:
+        if source_type == SOURCE_TYPE_HMC:
             gtk_call_once(self._hmc_button.set_no_show_all, False)
 
         # Add the mirror manager URL in as the default for HTTP and HTTPS.
@@ -521,24 +538,28 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         # the spoke may not be set sensitive by _handleCompleteness in the hub.
         while not self.ready:
             time.sleep(1)
+
         hubQ.send_ready(self.__class__.__name__)
 
         # report that the source spoke has been initialized
         self.initialize_done()
 
-    def _show_autodetect_box_with_device(self, device_name):
+    def _show_cdrom_box_with_device(self, device_name):
+        if not device_name:
+            return
+
         device_data = DeviceData.from_structure(
             self._device_tree.GetDeviceData(device_name)
         )
         device_label = device_data.attrs.get("label", "")
-        self._show_autodetect_box(device_name, device_label)
+        self._show_cdrom_box(device_name, device_label)
 
-    def _show_autodetect_box(self, device_name, device_label):
-        fire_gtk_action(self._autodetect_device_label.set_text, _("Device: %s") % device_name)
-        fire_gtk_action(self._autodetect_label.set_text, _("Label: %s") % device_label)
+    def _show_cdrom_box(self, device_name, device_label):
+        fire_gtk_action(self._cdrom_device_label.set_text, _("Device: %s") % device_name)
+        fire_gtk_action(self._cdrom_label.set_text, _("Label: %s") % device_label)
 
-        gtk_call_once(self._autodetect_box.set_no_show_all, False)
-        gtk_call_once(self._autodetect_button.set_no_show_all, False)
+        gtk_call_once(self._cdrom_box.set_no_show_all, False)
+        gtk_call_once(self._cdrom_button.set_no_show_all, False)
 
     def refresh(self):
         NormalSpoke.refresh(self)
@@ -632,7 +653,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             self.builder.get_object("nfsOptsEntry").set_text(options or "")
         elif source_type == SOURCE_TYPE_HDD:
             if not self._current_iso_file:
-                self._autodetect_button.set_active(True)
+                self._cdrom_button.set_active(True)
             else:
                 self._iso_button.set_active(True)
                 self._verify_iso_button.set_sensitive(True)
@@ -647,8 +668,13 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         elif source_type == SOURCE_TYPE_CDROM:
             # Go with autodetected media if that was provided,
             # otherwise fall back to the closest mirror.
-            if not self._autodetect_button.get_no_show_all():
-                self._autodetect_button.set_active(True)
+            if not self._cdrom_button.get_no_show_all():
+                self._cdrom_button.set_active(True)
+            else:
+                self._network_button.set_active(True)
+        elif source_type == SOURCE_TYPE_REPO_PATH:
+            if not self._dracut_button.get_no_show_all():
+                self._dracut_button.set_active(True)
             else:
                 self._network_button.set_active(True)
         elif source_type == SOURCE_TYPE_CLOSEST_MIRROR:
@@ -673,7 +699,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         # Whichever radio button is selected should have gotten a signal
         # already, but the ones that are not selected need a signal in order
         # to disable the related box.
-        self._on_source_toggled(self._autodetect_button, self._autodetect_box)
+        self._on_source_toggled(self._cdrom_button, self._cdrom_box)
+        self._on_source_toggled(self._dracut_button, None)
         self._on_source_toggled(self._hmc_button, None)
         self._on_source_toggled(self._iso_button, self._iso_box)
         self._on_source_toggled(self._network_button, self._network_box)

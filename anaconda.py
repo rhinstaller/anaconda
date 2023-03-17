@@ -487,8 +487,6 @@ if __name__ == "__main__":
     protected_devices = anaconda.get_protected_devices(opts)
     disk_select_proxy.ProtectedDevices = protected_devices
 
-    from pyanaconda.payload.manager import payloadMgr
-
     if not conf.target.is_directory:
         from pyanaconda.ui.lib.storage import reset_storage
 
@@ -534,11 +532,9 @@ if __name__ == "__main__":
                 )
             )
 
-    # Fallback to default for interactive or for a kickstart with no installation method.
-    fallback = not flags.automatedInstall \
-        or anaconda.payload.source_type == conf.payload.default_source
-
-    payloadMgr.start(anaconda.payload, fallback=fallback)
+    # Start the setup tasks of the configured payload.
+    from pyanaconda.payload.manager import payloadMgr
+    payloadMgr.start(anaconda.payload)
 
     # initialize geolocation and start geolocation lookup if possible and enabled
     geoloc_task_proxy = startup_utils.start_geolocation_conditionally(opts)

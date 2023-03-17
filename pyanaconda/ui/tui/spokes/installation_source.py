@@ -233,7 +233,8 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
         # clear them at this point
         self._error = False
 
-        payloadMgr.start(self.payload, try_media=False)
+        # Restart the payload setup.
+        payloadMgr.start(self.payload)
 
 
 class SpecifyRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
