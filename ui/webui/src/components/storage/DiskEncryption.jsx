@@ -58,7 +58,7 @@ const strengthLevels = [{
     icon: <ExclamationCircleIcon />,
     lower_bound: 0,
     higher_bound: 29,
-    valid: false,
+    valid: true,
 }, {
     id: "medium",
     label: _("Medium"),
@@ -66,7 +66,7 @@ const strengthLevels = [{
     icon: <ExclamationTriangleIcon />,
     lower_bound: 30,
     higher_bound: 69,
-    valid: false,
+    valid: true,
 }, {
     id: "strong",
     label: _("Strong"),
