@@ -80,6 +80,10 @@ bots:
 $(UPDATES_IMG): bots
 	test/prepare-updates-img
 
+create-updates.img: bots
+	-rm $(UPDATES_IMG)
+	make $(UPDATES_IMG)
+
 # test runs in kernel_t context and triggers massive amounts of SELinux
 # denials; SELinux gets disabled, but would still trigger unexpected messages
 integration-test: bots test/common test/reference $(UPDATES_IMG)
