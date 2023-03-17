@@ -1114,9 +1114,9 @@ class NMClientTestCase(unittest.TestCase):
 
         # these are set only if True, so skip comparing False with the implicitly present Mock
         if ipv4_ignoreauto is True:
-            assert s_ipv4.ignore_auto_dns == ipv4_ignoreauto
+            assert s_ipv4.props.ignore_auto_dns == ipv4_ignoreauto
         if ipv6_ignoreauto is True:
-            assert s_ipv6.ignore_auto_dns == ipv6_ignoreauto
+            assert s_ipv6.props.ignore_auto_dns == ipv6_ignoreauto
 
         return s_ipv4, s_ipv6
 

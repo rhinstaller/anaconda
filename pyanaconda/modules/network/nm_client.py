@@ -845,9 +845,9 @@ def update_connection_ip_settings_from_ksdata(connection, network_data):
 
     # ignore auto DNS
     if network_data.ipv4_ignore_auto_dns:
-        s_ip4.ignore_auto_dns = network_data.ipv4_ignore_auto_dns
+        s_ip4.props.ignore_auto_dns = network_data.ipv4_ignore_auto_dns
     if network_data.ipv6_ignore_auto_dns:
-        s_ip6.ignore_auto_dns = network_data.ipv6_ignore_auto_dns
+        s_ip6.props.ignore_auto_dns = network_data.ipv6_ignore_auto_dns
 
 
 def update_connection_wired_settings_from_ksdata(connection, network_data):
