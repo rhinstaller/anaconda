@@ -115,13 +115,13 @@ class NFSSourceModule(PayloadSourceBase, RepositorySourceMixin, RPMSourceMixin):
         """Validate the specified source configuration."""
         if not configuration.url.startswith("nfs:"):
             raise InvalidValueError(
-                "Invalid protocol of a NFS source: '{}'"
+                "Invalid protocol of an NFS source: '{}'"
                 "".format(configuration.url)
             )
 
         if configuration.type != URL_TYPE_BASEURL:
             raise InvalidValueError(
-                "Invalid URL type of a NFS source: '{}'"
+                "Invalid URL type of an NFS source: '{}'"
                 "".format(configuration.type)
             )
 

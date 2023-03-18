@@ -305,7 +305,7 @@ class DNFKickstartTestCase(unittest.TestCase):
         assert data.url == "http://metalink"
 
     def test_repo_nfs(self):
-        """Test the repo command with a NFS url."""
+        """Test the repo command with an NFS url."""
         ks_in = """
         repo --name test --baseurl nfs://server:path
         """

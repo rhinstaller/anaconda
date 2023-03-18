@@ -235,7 +235,7 @@ def validate_repo_url(url):
     if url.startswith("hd:"):
         return InputCheck.CHECK_OK
 
-    # Validate a NFS source.
+    # Validate an NFS source.
     if url.startswith("nfs:"):
         _options, host, path = parse_nfs_url(url)
 
