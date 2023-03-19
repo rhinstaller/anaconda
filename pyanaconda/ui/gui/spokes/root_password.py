@@ -142,12 +142,6 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         self._password_bar.add_offset_value("medium", 3)
         self._password_bar.add_offset_value("high", 4)
 
-        # set visibility of the password entries
-        # - without this the password visibility toggle icon will
-        #   not be shown
-        set_password_visibility(self.password_entry, False)
-        set_password_visibility(self.password_confirmation_entry, False)
-
         # Send ready signal to main event loop
         hubQ.send_ready(self.__class__.__name__)
 
@@ -314,6 +308,16 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
     def on_password_icon_clicked(self, entry, icon_pos, event):
         """Called by Gtk callback when the icon of a password entry is clicked."""
         set_password_visibility(entry, not entry.get_visibility())
+
+    def on_password_entry_map(self, entry):
+        """Called when a password entry widget is going to be displayed.
+
+        - Without this the password visibility toggle icon would not be shown.
+        - The password should be hidden every time the entry widget is displayed
+          to avoid showing the password in plain text in case the user previously
+          displayed the password and then left the spoke, for example.
+        """
+        set_password_visibility(entry, False)
 
     def on_back_clicked(self, button):
         # the GUI spoke input check handler handles the spoke exit logic for us
