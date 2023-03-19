@@ -44,6 +44,7 @@ from pyanaconda.modules.common.task import sync_run_task, async_run_task
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.subscription import fill_combobox, \
     populate_attached_subscriptions_listbox
+from pyanaconda.ui.gui.utils import set_password_visibility
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.lib.subscription import username_password_sufficient, org_keys_sufficient, \
@@ -328,6 +329,20 @@ class SubscriptionSpoke(NormalSpoke):
         self.subscription_request.account_password.set_secret(entered_text)
         self._update_registration_state()
 
+    def on_password_icon_clicked(self, entry, icon_pos, event):
+        """Called by Gtk callback when the icon of a password entry is clicked."""
+        set_password_visibility(entry, not entry.get_visibility())
+
+    def on_password_entry_map(self, entry):
+        """Called when a password entry widget is going to be displayed.
+
+        - Without this the password visibility toggle icon would not be shown.
+        - The password should be hidden every time the entry widget is displayed
+          to avoid showing the password in plain text in case the user previously
+          displayed the password and then left the spoke, for example.
+        """
+        set_password_visibility(entry, False)
+
     def on_select_organization_combobox_changed(self, combobox):
         log.debug("Subscription GUI: organization selected for account: %s",
                   combobox.get_active_id())
@@ -466,6 +481,9 @@ class SubscriptionSpoke(NormalSpoke):
 
     def on_register_button_clicked(self, button):
         log.debug("Subscription GUI: register button clicked")
+        # hide the passwords during the registration process
+        set_password_visibility(self._password_entry, False)
+        set_password_visibility(self._http_proxy_password_entry, False)
         self._register()
 
     def on_unregister_button_clicked(self, button):
