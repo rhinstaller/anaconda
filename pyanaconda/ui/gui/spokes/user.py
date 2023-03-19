@@ -377,12 +377,6 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         self._advanced_user_dialog = AdvancedUserDialog(self)
         self._advanced_user_dialog.initialize()
 
-        # set the visibility of the password entries
-        # - without this the password visibility toggle icon will
-        #   not be shown
-        set_password_visibility(self.password_entry, False)
-        set_password_visibility(self.password_confirmation_entry, False)
-
         # report that we are done
         self.initialize_done()
 
@@ -526,6 +520,16 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
     def on_password_icon_clicked(self, entry, icon_pos, event):
         """Called by Gtk callback when the icon of a password entry is clicked."""
         set_password_visibility(entry, not entry.get_visibility())
+
+    def on_password_entry_map(self, entry):
+        """Called when a password entry widget is going to be displayed.
+
+        - Without this the password visibility toggle icon would not be shown.
+        - The password should be hidden every time the entry widget is displayed
+          to avoid showing the password in plain text in case the user previously
+          displayed the password and then left the spoke, for example.
+        """
+        set_password_visibility(entry, False)
 
     def on_username_set_by_user(self, editable, data=None):
         """Called by Gtk on user-driven changes to the username field.
