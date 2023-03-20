@@ -40,7 +40,7 @@ import { usePageLocation } from "hooks";
 
 const _ = cockpit.gettext;
 
-export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, title }) => {
+export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, title, conf }) => {
     const [isFormValid, setIsFormValid] = useState(true);
     const [stepNotification, setStepNotification] = useState();
     const [isInProgress, setIsInProgress] = useState(false);
@@ -165,6 +165,7 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, titl
             storageEncryption={storageEncryption}
             showPassphraseScreen={showPassphraseScreen}
             setShowPassphraseScreen={setShowPassphraseScreen}
+            isQuitReboot={conf["Installation System"].type == "BOOT_ISO"}
           />}
           hideClose
           mainAriaLabel={`${title} content`}
@@ -187,6 +188,7 @@ const Footer = ({
     storageEncryption,
     showPassphraseScreen,
     setShowPassphraseScreen,
+    isQuitReboot,
 }) => {
     const [nextWaitsConfirmation, setNextWaitsConfirmation] = useState(false);
     const [quitWaitsConfirmation, setQuitWaitsConfirmation] = useState(false);
@@ -270,6 +272,7 @@ const Footer = ({
                             <QuitInstallationConfirmModal
                               exitGui={exitGui}
                               setQuitWaitsConfirmation={setQuitWaitsConfirmation}
+                              isQuitReboot={isQuitReboot}
                             />}
                             <ActionList>
                                 <Button
@@ -312,7 +315,7 @@ const Footer = ({
                                       setQuitWaitsConfirmation(true);
                                   }}
                                 >
-                                    {_("Quit")}
+                                    {isQuitReboot ? _("Reboot") : _("Quit")}
                                 </Button>
                             </ActionList>
                         </Stack>
@@ -323,7 +326,7 @@ const Footer = ({
     );
 };
 
-export const QuitInstallationConfirmModal = ({ exitGui, setQuitWaitsConfirmation }) => {
+export const QuitInstallationConfirmModal = ({ exitGui, setQuitWaitsConfirmation, isQuitReboot }) => {
     return (
         <Modal
           id="installation-quit-confirm-dialog"
@@ -336,7 +339,7 @@ export const QuitInstallationConfirmModal = ({ exitGui, setQuitWaitsConfirmation
                 }}
                 variant="danger"
               >
-                  {_("Quit")}
+                  {isQuitReboot ? _("Reboot") : _("Quit")}
               </Button>,
               <Button
                 id="installation-quit-confirm-cancel-btn"
@@ -348,7 +351,7 @@ export const QuitInstallationConfirmModal = ({ exitGui, setQuitWaitsConfirmation
           ]}
           isOpen
           onClose={() => setQuitWaitsConfirmation(false)}
-          title={_("Quit installer?")}
+          title={isQuitReboot ? _("Reboot system?") : _("Quit installer?")}
           titleIconVariant="warning"
           variant={ModalVariant.small}
         >
