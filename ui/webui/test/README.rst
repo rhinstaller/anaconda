@@ -151,6 +151,9 @@ You can set these environment variables to configure the test suite::
     TEST_SHOW_BROWSER  Set to run browser interactively. When not specified,
                        browser is run in headless mode.
 
+    TEST_AUDIT_NO_SELINUX  Ignore unexpected journal messages related to selinux audit.
+                           Can be useful when running tests locally.
+
 Debugging tests
 ---------------
 
