@@ -26,6 +26,7 @@ from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.core.constants import SOURCE_TYPE_URL
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_REPOSITORY
 from pyanaconda.modules.common.errors.general import InvalidValueError
+from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.source.url.url import URLSourceModule
 from tests.unit_tests.pyanaconda_tests import check_dbus_property
@@ -172,10 +173,15 @@ class URLSourceTestCase(unittest.TestCase):
         """
         assert self.module.tear_down_with_tasks() == []
 
+    def test_no_repository_configuration(self):
+        """Test a missing repository configuration."""
+        with pytest.raises(SourceSetupError) as cm:
+            assert self.module.repository
+
+        assert str(cm.value) == "The repository configuration is unavailable."
+
     def test_repository_configuration(self):
         """Test the repository configuration."""
-        assert self.module.repository is None
-
         data = RepoConfigurationData()
         data.url = "http://test"
         self.module.set_configuration(data)
