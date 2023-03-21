@@ -409,7 +409,10 @@ def add_rpms(updates_path, rpms):
     for rpm in resolved_rpms:
         cmd = "cd %s && rpm2cpio %s | cpio -dium" % (updates_path, rpm)
         sys.stdout.write(cmd+"\n")
-        os.system(cmd)
+        ret = os.system(cmd)
+
+        if ret != 0:
+            raise RuntimeError(f"RPM {rpm} can't be added to the updates image!")
 
 def create_updates_image(cwd, updates):
     os.chdir(updates)
