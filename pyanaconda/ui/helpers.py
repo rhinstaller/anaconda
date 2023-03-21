@@ -58,7 +58,8 @@ from abc import ABCMeta, abstractmethod
 
 from pyanaconda.core import constants
 from pyanaconda.core.constants import DRACUT_REPO_DIR
-from pyanaconda.core.payload import create_nfs_url
+from pyanaconda.core.path import join_paths
+from pyanaconda.core.payload import create_nfs_url, create_hdd_url
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.ui.lib.payload import create_source, set_source, tear_down_sources
 
@@ -97,10 +98,11 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
         :param iso_path: full path to the source ISO file
         :type iso_path: string
         """
+        configuration = RepoConfigurationData()
+        configuration.url = create_hdd_url(device_name, join_paths("/", iso_path))
+
         source_proxy = create_source(constants.SOURCE_TYPE_HDD)
-        source_proxy.Partition = device_name
-        # the / gets stripped off by payload.ISO_image
-        source_proxy.Directory = "/" + iso_path
+        source_proxy.Configuration = RepoConfigurationData.to_structure(configuration)
         self._set_source(source_proxy)
 
     def set_source_url(self, url, url_type=constants.URL_TYPE_BASEURL, proxy=None):

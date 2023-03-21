@@ -16,7 +16,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.path import join_paths
 from pyanaconda.modules.common.errors.installation import NonCriticalInstallationError, \
     InstallationError
 from pyanaconda.modules.common.errors.payload import UnknownRepositoryError, SourceSetupError
@@ -39,19 +38,17 @@ from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, DNFM
     MetadataError
 from pyanaconda.modules.payloads.payload.dnf.validation import CheckPackagesSelectionTask, \
     VerifyRepomdHashesTask
-from pyanaconda.modules.payloads.source.harddrive.initialization import SetUpHardDriveSourceTask
-from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
+from pyanaconda.modules.payloads.source.harddrive.harddrive import HardDriveSourceModule
 from pyanaconda.modules.payloads.source.nfs.nfs import NFSSourceModule
 from pyanaconda.modules.payloads.source.utils import verify_valid_repository, MountPointGenerator
 from pyanaconda.anaconda_loggers import get_packaging_logger
 from pyanaconda.core import constants
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, SOURCE_TYPE_URL, \
+from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, SOURCE_TYPE_URL, \
     SOURCE_REPO_FILE_TYPES, SOURCE_TYPE_REPO_PATH, SOURCE_TYPE_CDN, MULTILIB_POLICY_ALL, \
     REPO_ORIGIN_SYSTEM, SOURCE_TYPE_CLOSEST_MIRROR, REPO_ORIGIN_TREEINFO, DRACUT_REPO_DIR, \
     SOURCE_TYPE_CDROM, SOURCE_TYPE_NFS, SOURCE_TYPE_HDD, SOURCE_TYPE_HMC
 from pyanaconda.core.i18n import _
-from pyanaconda.core.payload import parse_hdd_url
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common.util import is_module_available
@@ -81,8 +78,7 @@ class DNFPayload(Payload):
 
         self._dnf_manager = DNFManager()
 
-        # List of internal mount points and sources.
-        self._mount_points = []
+        # List of internal sources.
         self._internal_sources = []
 
         # Generate mount points in a different interval to
@@ -188,9 +184,12 @@ class DNFPayload(Payload):
 
         if url.startswith("hd:"):
             source_proxy = create_source(SOURCE_TYPE_HDD)
-            device, path = parse_hdd_url(url)
-            source_proxy.Partition = device
-            source_proxy.Directory = path
+
+            source_proxy.Configuration = \
+                RepoConfigurationData.to_structure(
+                    RepoConfigurationData.from_url(url)
+                )
+
             return source_proxy
 
         if any(map(url.startswith, ["http:", "https:", "ftp:", "file:"])):
@@ -434,48 +433,24 @@ class DNFPayload(Payload):
 
         # Set up the HDD source.
         if data.url.startswith("hd:"):
-            device_mount = self._create_mount_point(
-                ISO_DIR + "-" + data.name + "-hdd-device"
-            )
-            iso_mount = self._create_mount_point(
-                INSTALL_TREE + "-" + data.name + "-hdd-iso"
-            )
+            source = HardDriveSourceModule()
+            source.set_configuration(data)
+            self._internal_sources.append(source)
 
-            partition, directory = parse_hdd_url(data.url)
+            task = SetUpSourcesTask([source])
+            task.run()
 
-            task = SetUpHardDriveSourceTask(
-                device_mount=device_mount,
-                iso_mount=iso_mount,
-                partition=partition,
-                directory=directory,
-            )
-            result = task.run()
-            data.url = "file://" + result.install_tree_path
-            return data
+            return source.repository
 
         # Otherwise, raise an error.
         msg = _("The '{repository_name}' repository uses an unsupported protocol.")
         raise SourceSetupError(msg.format(repository_name=data.name)) from None
-
-    def _create_mount_point(self, *paths):
-        """Create a mount point from specified paths.
-
-        FIXME: This is a temporary workaround.
-        """
-        mount_point = join_paths(*paths)
-        self._mount_points.append(mount_point)
-        return mount_point
 
     def _tear_down_additional_sources(self):
         """Tear down sources of additional repositories.
 
         FIXME: This is a temporary workaround.
         """
-        while self._mount_points:
-            mount_point = self._mount_points.pop()
-            task = TearDownMountTask(mount_point)
-            task.run()
-
         while self._internal_sources:
             source = self._internal_sources.pop()
             task = TearDownSourcesTask([source])

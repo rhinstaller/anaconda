@@ -209,5 +209,5 @@ class DNFPayloadOptionsTests(unittest.TestCase):
         create_source("hd:UUID=8176c7bf-04ff-403a:/path/to/iso.iso")
 
         proxy = create_source("hd:/dev/sda2:/path/to/iso.iso")
-        assert proxy.Partition == "/dev/sda2"
-        assert proxy.Directory == "/path/to/iso.iso"
+        configuration = RepoConfigurationData.from_structure(proxy.Configuration)
+        assert configuration.url == "hd:/dev/sda2:/path/to/iso.iso"

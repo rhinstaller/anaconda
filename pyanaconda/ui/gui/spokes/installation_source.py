@@ -29,9 +29,9 @@ from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, SOURCE_TYPE_HDD, SOURCE_
     PAYLOAD_STATUS_INVALID_SOURCE, PAYLOAD_STATUS_CHECKING_SOFTWARE, SOURCE_TYPE_REPO_PATH, \
     DRACUT_REPO_DIR
 from pyanaconda.core.i18n import _, CN_
-from pyanaconda.core.payload import parse_nfs_url, create_nfs_url
+from pyanaconda.core.path import join_paths
+from pyanaconda.core.payload import parse_nfs_url, create_nfs_url, parse_hdd_url
 from pyanaconda.core.regexes import URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
-from pyanaconda.core.storage import device_matches
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
@@ -167,15 +167,17 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             # happen) or didn't choose a directory (more likely), then return
             # as if they never did anything.
             partition = self._get_selected_partition()
-            if not partition or not self._current_iso_file:
+            iso_file = self._current_iso_file
+
+            if not partition or not iso_file:
                 return False
 
             if source_type == SOURCE_TYPE_HDD \
-                    and payload_utils.resolve_device(source_proxy.Partition) == partition \
-                    and source_proxy.Directory in [self._current_iso_file, "/" + self._current_iso_file]:
+                    and source_proxy.GetDevice() == partition \
+                    and source_proxy.GetISOFile() == iso_file:
                 return False
 
-            self.set_source_hdd_iso(partition, "/" + self._current_iso_file)
+            self.set_source_hdd_iso(partition, iso_file)
         elif self._mirror_active():
             if source_type == SOURCE_TYPE_CLOSEST_MIRROR \
                     and self.payload.is_ready() \
@@ -336,17 +338,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
         source_proxy = self.payload.get_source_proxy()
         return source_proxy.Description
-
-    def _get_device_name(self, device_spec):
-        devices = device_matches(device_spec)
-
-        if not devices:
-            log.warning("Device for installation from HDD can't be found!")
-            return ""
-        elif len(devices) > 1:
-            log.warning("More than one device is found for HDD installation!")
-
-        return devices[0]
 
     def _grab_objects(self):
         self._cdrom_button = self.builder.get_object("cdromRadioButton")
@@ -521,13 +512,15 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
         # Enable the HDD option.
         if source_type == SOURCE_TYPE_HDD:
-            self._current_iso_file = source_proxy.GetIsoPath() or None
+            self._current_iso_file = source_proxy.GetISOFile() or None
 
             if not self._current_iso_file:
-                # Installation from an expanded install tree
-                device_spec = source_proxy.Partition
-                device_name = self._get_device_name(device_spec)
-                self._show_cdrom_box(device_name, device_spec)
+                # Installation from an expanded installation tree.
+                configuration = RepoConfigurationData.from_structure(
+                    source_proxy.Configuration
+                )
+                device, path = parse_hdd_url(configuration.url)
+                self._show_hdd_box(device, path)
 
         # Enable the SE/HMC option.
         if source_type == SOURCE_TYPE_HMC:
@@ -565,6 +558,14 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         gtk_call_once(self._cdrom_box.set_no_show_all, False)
         gtk_call_once(self._cdrom_button.set_no_show_all, False)
 
+    def _show_hdd_box(self, device_name, source_path):
+        """Use the CD-ROM box to display a HDD source without an ISO image."""
+        fire_gtk_action(self._cdrom_device_label.set_text, _("Device: %s") % device_name)
+        fire_gtk_action(self._cdrom_label.set_text, _("Path: %s") % source_path)
+
+        gtk_call_once(self._cdrom_box.set_no_show_all, False)
+        gtk_call_once(self._cdrom_button.set_no_show_all, False)
+
     def refresh(self):
         NormalSpoke.refresh(self)
 
@@ -588,12 +589,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         source_type = source_proxy.Type
 
         if source_type == SOURCE_TYPE_HDD:
-            device_spec = source_proxy.Partition
-            active_name = self._get_device_name(device_spec)
+            active_name = source_proxy.GetDevice()
 
         for device_name in find_potential_hdiso_sources():
             device_info = get_hdiso_source_info(self._device_tree, device_name)
-
             device_desc = get_hdiso_source_description(device_info)
             store.append([device_name, device_desc])
 
@@ -665,10 +664,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
                 self._iso_button.set_active(True)
                 self._verify_iso_button.set_sensitive(True)
 
-                if self._current_iso_file:
-                    self._iso_chooser_button.set_label(os.path.basename(self._current_iso_file))
-                else:
-                    self._iso_chooser_button.set_label("")
+                iso_name = os.path.basename(self._current_iso_file)
+                self._iso_chooser_button.set_label(iso_name)
                 self._iso_chooser_button.set_use_underline(False)
         elif source_type == SOURCE_TYPE_HMC:
             self._hmc_button.set_active(True)
@@ -883,22 +880,19 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             dlg.destroy()
 
     def on_chooser_clicked(self, button):
-        dialog = IsoChooser(self.data)
-
         # If the chooser has been run once before, we should make it default to
         # the previously selected file.
-        if self._current_iso_file:
-            dialog.refresh(currentFile=self._current_iso_file)
-        else:
-            dialog.refresh()
+        dialog = IsoChooser(self.data, current_file=self._current_iso_file)
 
         with self.main_window.enlightbox(dialog.window):
             iso_file = dialog.run(self._get_selected_partition())
 
         if iso_file and iso_file.endswith(".iso"):
-            self._current_iso_file = iso_file
+            self._current_iso_file = join_paths("/", iso_file)
+
             button.set_label(os.path.basename(iso_file))
             button.set_use_underline(False)
+
             self._verify_iso_button.set_sensitive(True)
             self._additional_repositories.remove_treeinfo_repositories()
 
@@ -933,7 +927,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
                 # We're not mounted to either location, so do the mount
                 mountpoint = constants.ISO_DIR
                 payload_utils.mount_device(partition, mountpoint)
-            dialog.run(constants.ISO_DIR + "/" + iso_file)
+
+            dialog.run(join_paths(constants.ISO_DIR, iso_file))
 
             if not mounts:
                 payload_utils.unmount_device(partition, mountpoint)
