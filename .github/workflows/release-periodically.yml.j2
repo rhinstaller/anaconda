@@ -74,6 +74,16 @@ jobs:
             '${{ secrets.GCHAT_URL }}' \
             -d "{\"text\": \"New release tagged, please review the Packit dist-git PR soon to be found at https://src.fedoraproject.org/rpms/anaconda/pull-requests\"}"
 
+      - name: Notify in Slack
+        if: steps.check-tag.outputs.can_bump_version
+        # https://api.slack.com/messaging/webhooks
+        run: |
+          curl \
+            -X POST \
+            -H 'Content-Type: application/json' \
+            --data '{"text":"New release tagged, please review the Packit dist-git PR soon to be found at https://src.fedoraproject.org/rpms/anaconda/pull-requests"}' \
+            '${{ secrets.SLACK_URL }}'
+
 # This only makes a tag and pushes it, which is then picked up by another action that builds
 # the tarball and posts the actual release entity/page with it.
 #
