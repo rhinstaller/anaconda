@@ -41,7 +41,6 @@ import {
     Popover,
     PopoverPosition,
     TextContent,
-    Text,
     Title,
     Tooltip,
     Radio,
@@ -50,6 +49,8 @@ import {
 import { HelpIcon } from "@patternfly/react-icons";
 
 import ExclamationTriangleIcon from "@patternfly/react-icons/dist/esm/icons/exclamation-triangle-icon";
+
+import { helpEraseAll, helpUseFreeSpace } from "./HelpAutopartOptions.jsx";
 
 import {
     getRequiredDeviceSize,
@@ -142,7 +143,7 @@ const checkUseFreeSpace = async (selectedDisks, requiredSize) => {
 export const scenarios = [{
     id: "erase-all",
     label: _("Erase devices and install"),
-    detail: _("Erase devices details ..."),
+    detail: helpEraseAll,
     check: checkEraseAll,
     default: true,
     // CLEAR_PARTITIONS_ALL = 1
@@ -150,7 +151,7 @@ export const scenarios = [{
 }, {
     id: "use-free-space",
     label: _("Use free space for the installation"),
-    detail: _("Use free space details ..."),
+    detail: helpUseFreeSpace,
     check: checkUseFreeSpace,
     default: false,
     // CLEAR_PARTITIONS_NONE = 0
@@ -172,11 +173,7 @@ const scenarioDetailContent = (scenario, hint) => {
                 >
                     {hint}
                 </Alert>}
-            <TextContent>
-                <Text>
-                    {scenario.detail}
-                </Text>
-            </TextContent>
+            {scenario.detail}
         </Flex>
     );
 };
