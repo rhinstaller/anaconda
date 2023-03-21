@@ -20,44 +20,38 @@
 import os
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.signal import Signal
-from pyanaconda.core.path import join_paths
+from pyanaconda.core.constants import URL_TYPE_BASEURL
+from pyanaconda.core.payload import parse_hdd_url, create_hdd_url
+from pyanaconda.core.storage import device_matches
+from pyanaconda.modules.common.errors.general import InvalidValueError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
-from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, RPMSourceMixin
-from pyanaconda.modules.payloads.source.utils import MountPointGenerator
 from pyanaconda.modules.payloads.source.harddrive.harddrive_interface import \
     HardDriveSourceInterface
-from pyanaconda.modules.payloads.source.harddrive.initialization import SetUpHardDriveSourceTask
+from pyanaconda.modules.payloads.source.harddrive.initialization import SetUpHardDriveSourceTask, \
+    SetupHardDriveResult
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
+from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase, RPMSourceMixin, \
+    RepositorySourceMixin
+from pyanaconda.modules.payloads.source.utils import MountPointGenerator
 
 log = get_module_logger(__name__)
 
+__all__ = ["HardDriveSourceModule"]
 
-class HardDriveSourceModule(PayloadSourceBase, RPMSourceMixin):
+
+class HardDriveSourceModule(PayloadSourceBase, RepositorySourceMixin, RPMSourceMixin):
     """The Hard drive source payload module."""
 
     def __init__(self):
         super().__init__()
-        self._directory = ""
-        self.directory_changed = Signal()
-        self._device = ""
-        self.device_changed = Signal()
-        self._install_tree_path = ""
         self._device_mount = MountPointGenerator.generate_mount_point(
             self.type.value.lower() + "-device"
         )
         self._iso_mount = MountPointGenerator.generate_mount_point(
             self.type.value.lower() + "-iso"
         )
-        self._iso_name = ""
-
-    def __repr__(self):
-        result = "Source(type='HDD', partition='{}', directory='{}')".format(
-            self._device,
-            self.directory,
-        )
-        return result
+        self._iso_file = None
 
     def for_publication(self):
         """Get the interface used to publish this source."""
@@ -71,7 +65,8 @@ class HardDriveSourceModule(PayloadSourceBase, RPMSourceMixin):
     @property
     def description(self):
         """Get description of this source."""
-        return "{}:{}".format(self._device, self._directory)
+        hdd = parse_hdd_url(self.configuration.url)
+        return "{}:{}".format(hdd.device, hdd.path)
 
     @property
     def network_required(self):
@@ -90,71 +85,69 @@ class HardDriveSourceModule(PayloadSourceBase, RPMSourceMixin):
         """
         return 0
 
+    def get_device(self):
+        """Get a device that contains the installation source.
+
+        :return str: a resolved device name
+        """
+        hdd = parse_hdd_url(self.configuration.url)
+        devices = device_matches(hdd.device)
+
+        if not devices:
+            log.warning("Device for installation from HDD can't be found.")
+            return ""
+
+        if len(devices) > 1:
+            log.warning("More than one device is found for HDD installation.")
+
+        return devices[0]
+
+    def get_iso_file(self):
+        """Get a path to the ISO image from the device root.
+
+        Returns an empty string if the source is pointing
+        to an installation tree instead of an ISO image.
+
+        :return str: an absolute path from the device root
+        """
+        return self._iso_file or ""
+
     def get_state(self):
         """Get state of this source."""
-        res = os.path.ismount(self._device_mount) and bool(self._install_tree_path)
-        return SourceState.from_bool(res)
+        return SourceState.from_bool(
+            os.path.ismount(self._device_mount)
+            and bool(self._repository)
+        )
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-        self.set_device(data.harddrive.partition)
-        self.set_directory(data.harddrive.dir)
+        configuration = RepoConfigurationData()
+        configuration.url = create_hdd_url(
+            data.harddrive.partition,
+            data.harddrive.dir
+        )
+        self.set_configuration(configuration)
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
-        data.harddrive.partition = self.device
-        data.harddrive.dir = self.directory
+        device, path = parse_hdd_url(self.configuration.url)
+        data.harddrive.partition = device
+        data.harddrive.dir = path
         data.harddrive.seen = True
 
-    def generate_repo_configuration(self):
-        """Generate RepoConfigurationData structure."""
-        return RepoConfigurationData.from_directory(self.install_tree_path)
+    def _validate_configuration(self, configuration):
+        """Validate the specified source configuration."""
+        if not configuration.url.startswith("hd:"):
+            raise InvalidValueError(
+                "Invalid protocol of a HDD source: '{}'"
+                "".format(configuration.url)
+            )
 
-    @property
-    def directory(self):
-        """Path to the repository on the partition.
-
-        :rtype: str
-        """
-        return self._directory
-
-    def set_directory(self, directory):
-        """Set path to the repository on the partition.
-
-        :param directory: the path
-        :type directory: str
-        """
-        self._directory = directory
-        self.directory_changed.emit()
-        log.debug("Hard drive directory is set to '%s'", self._directory)
-
-    @property
-    def device(self):
-        """Device containing the repository.
-
-        :rtype: str
-        """
-        return self._device
-
-    def set_device(self, device):
-        """Set device containing the directory.
-
-        :param device: a device spec for the partition
-        :type device: str
-        """
-        self._device = device
-        self.device_changed.emit()
-        log.debug("Hard drive partition is set to '%s'", self._device)
-
-    @property
-    def install_tree_path(self):
-        """Path to the install tree.
-
-        Read only, and available only after the setup task finishes successfully.
-
-        :rtype: str
-        """
-        return self._install_tree_path
+        if configuration.type != URL_TYPE_BASEURL:
+            raise InvalidValueError(
+                "Invalid URL type of a HDD source: '{}'"
+                "".format(configuration.type)
+            )
 
     def set_up_with_tasks(self):
         """Set up the installation source.
@@ -163,13 +156,19 @@ class HardDriveSourceModule(PayloadSourceBase, RPMSourceMixin):
         :rtype: [Task]
         """
         task = SetUpHardDriveSourceTask(
+            self.configuration,
             self._device_mount,
             self._iso_mount,
-            self._device,
-            self._directory
         )
-        task.succeeded_signal.connect(lambda: self._handle_setup_task_result(task))
+        task.succeeded_signal.connect(
+            lambda: self._on_set_up_succeeded(task.get_result())
+        )
         return [task]
+
+    def _on_set_up_succeeded(self, result: SetupHardDriveResult):
+        """Update the generated repository configuration."""
+        self._set_repository(result.repository)
+        self._iso_file = result.iso_file
 
     def tear_down_with_tasks(self):
         """Tear down the installation source.
@@ -183,22 +182,10 @@ class HardDriveSourceModule(PayloadSourceBase, RPMSourceMixin):
         ]
         return tasks
 
-    def get_iso_path(self):
-        """Get path to the ISO from the partition root.
+    def generate_repo_configuration(self):
+        """Generate RepoConfigurationData structure."""
+        return self.repository
 
-        This could be an empty string if the source is pointing to
-        installation tree instead of ISO.
-
-        :return: path to the ISO or empty string if no ISO is involved
-        :rtype: str
-        """
-        if not self._iso_name:
-            return ""
-
-        return join_paths(self.directory, self._iso_name)
-
-    def _handle_setup_task_result(self, task):
-        result = task.get_result()
-        self._install_tree_path = result.install_tree_path
-        self._iso_name = result.iso_name
-        log.debug("Hard drive install tree path is set to '%s'", self._install_tree_path)
+    def __repr__(self):
+        """Generate a string representation."""
+        return "Source(type='HDD', url='{}')".format(self.configuration.url)

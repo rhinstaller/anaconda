@@ -972,11 +972,9 @@ class DNFInterfaceTestCase(unittest.TestCase):
         """Test DNF GetRepoConfigurations for CDROM source."""
         mount_point.return_value = "/install_source/cdrom"
         source = self.shared_tests.prepare_source(SourceType.CDROM)
-
         self.shared_tests.set_sources([source])
 
         expected = [self._generate_repository_structure("file:///install_source/cdrom")]
-
         assert self.interface.GetRepoConfigurations() == expected
 
     @patch_dbus_publish_object
@@ -984,7 +982,6 @@ class DNFInterfaceTestCase(unittest.TestCase):
         """Test DNF GetRepoConfigurations for the repo path source."""
         source = self.shared_tests.prepare_source(SourceType.REPO_PATH)
         source.set_path("/install_source/path")
-
         self.shared_tests.set_sources([source])
 
         expected = [self._generate_repository_structure("file:///install_source/path")]
@@ -997,11 +994,9 @@ class DNFInterfaceTestCase(unittest.TestCase):
         """Test DNF GetRepoConfigurations for CDROM source."""
         mount_point.return_value = "/install_source/hmc"
         source = self.shared_tests.prepare_source(SourceType.HMC)
-
         self.shared_tests.set_sources([source])
 
         expected = [self._generate_repository_structure("file:///install_source/hmc")]
-
         assert self.interface.GetRepoConfigurations() == expected
 
     @patch_dbus_publish_object
@@ -1017,19 +1012,18 @@ class DNFInterfaceTestCase(unittest.TestCase):
         expected = [self._generate_repository_structure("file:///install_source/nfs")]
         assert self.interface.GetRepoConfigurations() == expected
 
-    @patch("pyanaconda.modules.payloads.source.harddrive.harddrive.HardDriveSourceModule.install_tree_path",
-           new_callable=PropertyMock)
     @patch_dbus_get_proxy
     @patch_dbus_publish_object
-    def test_harddrive_get_repo_configurations(self, publisher, proxy_getter, install_tree_path_mock):
-        """Test DNF GetRepoConfigurations for HARDDRIVE source."""
-        install_tree_path_mock.return_value = "/install_source/harddrive"
-        source = self.shared_tests.prepare_source(SourceType.HDD)
+    def test_harddrive_get_repo_configurations(self, publisher, proxy_getter):
+        """Test DNF GetRepoConfigurations for HDD source."""
+        configuration = RepoConfigurationData()
+        configuration.url = "file:///install_source/hdd"
 
+        source = self.shared_tests.prepare_source(SourceType.HDD)
+        source._set_repository(configuration)
         self.shared_tests.set_sources([source])
 
-        expected = [self._generate_repository_structure("file:///install_source/harddrive")]
-
+        expected = [self._generate_repository_structure("file:///install_source/hdd")]
         assert self.interface.GetRepoConfigurations() == expected
 
     @patch_dbus_publish_object
@@ -1104,7 +1098,7 @@ class DNFModuleTestCase(unittest.TestCase):
 
         # Make sure that HDD source will be protected.
         source = HardDriveSourceModule()
-        source.set_device("dev3")
+        source.configuration.url = "hd:dev3"
         self.module.set_sources([source])
 
         assert proxy.ProtectedDevices == ["dev1", "dev2", "dev3"]

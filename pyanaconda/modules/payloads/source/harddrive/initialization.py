@@ -15,10 +15,13 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import copy
 import os.path
 
 from collections import namedtuple
 
+from pyanaconda.core.path import join_paths
+from pyanaconda.core.payload import parse_hdd_url
 from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payloads.source.utils import find_and_mount_device, \
@@ -26,23 +29,30 @@ from pyanaconda.modules.payloads.source.utils import find_and_mount_device, \
 from pyanaconda.payload.utils import unmount
 from pyanaconda.anaconda_loggers import get_module_logger
 
+__all__ = ["SetUpHardDriveSourceTask", "SetupHardDriveResult"]
+
 log = get_module_logger(__name__)
 
-__all__ = ["SetUpHardDriveSourceTask"]
-
-
-SetupHardDriveResult = namedtuple("SetupHardDriveResult", ["install_tree_path", "iso_name"])
+SetupHardDriveResult = namedtuple(
+    "SetupHardDriveResult",
+    ["repository", "iso_file"]
+)
 
 
 class SetUpHardDriveSourceTask(Task):
     """Task to set up the hard drive installation source."""
 
-    def __init__(self, device_mount, iso_mount, partition, directory):
+    def __init__(self, configuration, device_mount, iso_mount):
+        """Create a new task.
+
+        :param RepoConfigurationData configuration: a source data
+        :param device_mount: a mount point for a device
+        :param iso_mount: a mount point for an iso
+        """
         super().__init__()
+        self._configuration = configuration
         self._device_mount = device_mount
         self._iso_mount = iso_mount
-        self._partition = partition
-        self._directory = directory
 
     @property
     def name(self):
@@ -55,39 +65,57 @@ class SetUpHardDriveSourceTask(Task):
         bind for unpacked ISO. These depend on each other, and must be destroyed in the correct
         order again.
 
-        :raise: SourceSetupError
-        :return: named tuple with path to the install tree and name of ISO if set or empty string
-        :rtype: SetupHardDriveResult instance
+        :return SetupHardDriveResult: a result data
+        :raise SourceSetupError: if the source fails to set up
         """
         log.debug("Setting up a hard drive source...")
 
-        for mount_point in [self._device_mount, self._iso_mount]:
-            if os.path.ismount(mount_point):
-                raise SourceSetupError("The mount point {} is already in use.".format(
-                    mount_point
-                ))
+        # Set up the HDD source.
+        install_tree_path, iso_file = self._set_up_source()
 
-        if not find_and_mount_device(self._partition, self._device_mount):
-            raise SourceSetupError(
-                "Could not mount device specified as {}".format(self._partition)
-            )
+        # Generate a valid repository configuration.
+        repository = copy.deepcopy(self._configuration)
+        repository.url = "file://" + install_tree_path
 
-        full_path_on_mounted_device = os.path.normpath(
-            "{}/{}".format(self._device_mount, self._directory)
+        return SetupHardDriveResult(
+            repository=repository,
+            iso_file=iso_file,
         )
 
+    def _set_up_source(self):
+        """Set up the HDD source and return a path to a valid repository and an ISO if any."""
+        # Parse the URL.
+        partition, directory = parse_hdd_url(self._configuration.url)
+
+        # Check the mount points.
+        for mount_point in [self._device_mount, self._iso_mount]:
+            if os.path.ismount(mount_point):
+                raise SourceSetupError(
+                    "The mount point {} is already in use.".format(mount_point)
+                )
+
+        # Mount the hard drive.
+        if not find_and_mount_device(partition, self._device_mount):
+            raise SourceSetupError(
+                "Failed to mount the '{}' HDD source.".format(partition)
+            )
+
+        # Mount an ISO if any.
+        full_path_on_mounted_device = join_paths(self._device_mount, directory)
         iso_name = find_and_mount_iso_image(full_path_on_mounted_device, self._iso_mount)
 
         if iso_name:
             log.debug("Using the ISO '%s' mounted at '%s'.", iso_name, self._iso_mount)
-            return SetupHardDriveResult(self._iso_mount, iso_name)
+            return self._iso_mount, join_paths("/", directory, iso_name)
 
         if verify_valid_repository(full_path_on_mounted_device):
             log.debug("Using the directory at '%s'.", full_path_on_mounted_device)
-            return SetupHardDriveResult(full_path_on_mounted_device, "")
+            return full_path_on_mounted_device, None
 
-        # nothing found unmount the existing device
+        # Nothing found.
         unmount(self._device_mount)
+
         raise SourceSetupError(
-            "Nothing useful found for Hard drive ISO source at partition={} directory={}".format(
-                self._partition, self._directory))
+            "Nothing useful found for the HDD source at '{}:{}'."
+            "".format(partition, directory)
+        )
