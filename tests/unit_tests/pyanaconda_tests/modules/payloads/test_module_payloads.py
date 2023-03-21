@@ -67,6 +67,7 @@ class PayloadsInterfaceTestCase(TestCase):
             "liveimg",
             "module",
             "nfs",
+            "ostreecontainer",
             "ostreesetup",
             "repo",
             "url"

@@ -20,7 +20,7 @@
 from dasbus.structure import DBusData
 from dasbus.typing import Str, Bool
 
-__all__ = ["RPMOSTreeConfigurationData"]
+__all__ = ["RPMOSTreeConfigurationData", "RPMOSTreeContainerConfigurationData"]
 
 
 class RPMOSTreeConfigurationData(DBusData):
@@ -32,6 +32,11 @@ class RPMOSTreeConfigurationData(DBusData):
         self._url = ""
         self._ref = ""
         self._gpg_verification_enabled = True
+
+    @staticmethod
+    def is_container():
+        """Is this native container source?"""
+        return False
 
     @property
     def osname(self) -> Str:
@@ -77,3 +82,70 @@ class RPMOSTreeConfigurationData(DBusData):
     @gpg_verification_enabled.setter
     def gpg_verification_enabled(self, value: Bool):
         self._gpg_verification_enabled = value
+
+
+class RPMOSTreeContainerConfigurationData(DBusData):
+    """Structure to hold RPM OSTree from container configuration."""
+
+    def __init__(self):
+        self._stateroot = ""
+        self._remote = ""
+        self._transport = ""
+        self._url = ""
+        self._signature_verification_enabled = True
+
+    @staticmethod
+    def is_container():
+        """Is this native container source?"""
+        return True
+
+    @property
+    def stateroot(self) -> Str:
+        """Name for the state directory, also known as "osname".
+
+        This could be optional.
+        """
+        return self._stateroot
+
+    @stateroot.setter
+    def stateroot(self, value: Str):
+        self._stateroot = value
+
+    @property
+    def transport(self) -> Str:
+        """Ostree transport protocol used.
+
+        This could be optional (default will be 'repository').
+        """
+        return self._transport
+
+    @transport.setter
+    def transport(self, value: Str):
+        self._transport = value
+
+    @property
+    def remote(self) -> Str:
+        """Name of the OSTree remote."""
+        return self._remote
+
+    @remote.setter
+    def remote(self, value: Str):
+        self._remote = value
+
+    @property
+    def url(self) -> Str:
+        """URL of the repository to install from."""
+        return self._url
+
+    @url.setter
+    def url(self, value: Str):
+        self._url = value
+
+    @property
+    def signature_verification_enabled(self) -> Bool:
+        """Is the GPG key verification enabled?"""
+        return self._signature_verification_enabled
+
+    @signature_verification_enabled.setter
+    def signature_verification_enabled(self, value: Bool):
+        self._signature_verification_enabled = value
