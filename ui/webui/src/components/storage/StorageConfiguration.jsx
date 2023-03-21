@@ -119,7 +119,9 @@ const checkEraseAll = async (selectedDisks, requiredSize) => {
         availability.available = false;
         availability.reason = _("Not enough space on selected disks.");
         availability.hint = cockpit.format(_(
-            "Total size: $0 Required size: $1"
+            "There is not enough space on the selected disks. " +
+            "The installation requires $1 of available space " +
+            "while there is only $0 of space available."
         ), cockpit.format_bytes(size), cockpit.format_bytes(requiredSize));
         availability.shortHint = _("To enable select bigger disks");
     }
@@ -133,7 +135,9 @@ const checkUseFreeSpace = async (selectedDisks, requiredSize) => {
         availability.available = false;
         availability.reason = _("Not enough space on selected disks.");
         availability.hint = cockpit.format(_(
-            "Free size: $0 Required size: $1"
+            "There is not enough free space on the selected disks. " +
+            "The installation requires $1 of available space " +
+            "while there is only $0 of free space available."
         ), cockpit.format_bytes(size), cockpit.format_bytes(requiredSize));
         availability.shortHint = _("To enable free up disk space");
     }
