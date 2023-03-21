@@ -62,7 +62,7 @@ def load_glade_trees_from_files():
     # Parse all of the glade files
     log.info("Parsing glade files...")
     for glade_file in glade_files:
-        trees.append(etree.parse(glade_file))
+        trees.append(etree.parse(glade_file))  # pylint: disable=c-extension-no-member
 
     return trees
 

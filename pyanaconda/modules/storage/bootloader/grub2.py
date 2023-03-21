@@ -17,7 +17,7 @@
 #
 import os
 import re
-from _ped import PARTITION_BIOS_GRUB
+from _ped import PARTITION_BIOS_GRUB  # pylint: disable=no-name-in-module
 
 from blivet.devicelibs import raid
 
