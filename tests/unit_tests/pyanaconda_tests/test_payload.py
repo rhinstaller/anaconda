@@ -25,7 +25,7 @@ import pytest
 import pyanaconda.core.payload as util
 from pyanaconda.core.constants import SOURCE_TYPE_CDROM, SOURCE_TYPE_URL, SOURCE_TYPE_NFS, \
     SOURCE_TYPE_HDD, SOURCE_TYPE_HMC
-from pyanaconda.core.payload import parse_hdd_url
+from pyanaconda.core.payload import parse_hdd_url, create_hdd_url
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.payload.dnf import DNFPayload
@@ -69,7 +69,7 @@ class PayloadUtilsTests(unittest.TestCase):
         assert util.create_nfs_url("", "", None) == ""
         assert util.create_nfs_url("", "", "") == ""
 
-        assert util.create_nfs_url("host", "") == "nfs:host:"
+        assert util.create_nfs_url("host", "") == "nfs:host"
         assert util.create_nfs_url("host", "", "options") == "nfs:options:host:"
 
         assert util.create_nfs_url("host", "path") == "nfs:host:path"
@@ -117,6 +117,17 @@ class PayloadUtilsTests(unittest.TestCase):
         assert parse_hdd_url("hd:/dev/test:/absolute") == ("/dev/test", "/absolute")
         assert parse_hdd_url("hd:/dev/test:relative/path") == ("/dev/test", "relative/path")
         assert parse_hdd_url("hd:/dev/test:/absolute/path") == ("/dev/test", "/absolute/path")
+
+    def test_create_hdd_url(self):
+        """Test the create_hdd_url function."""
+        assert create_hdd_url("") == ""
+        assert create_hdd_url("", "") == ""
+        assert create_hdd_url("test") == "hd:test"
+        assert create_hdd_url("/dev/test") == "hd:/dev/test"
+        assert create_hdd_url("/dev/test", "relative") == "hd:/dev/test:relative"
+        assert create_hdd_url("/dev/test", "/absolute") == "hd:/dev/test:/absolute"
+        assert create_hdd_url("/dev/test", "relative/path") == "hd:/dev/test:relative/path"
+        assert create_hdd_url("/dev/test", "/absolute/path") == "hd:/dev/test:/absolute/path"
 
 
 class DNFPayloadOptionsTests(unittest.TestCase):

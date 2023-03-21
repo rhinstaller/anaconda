@@ -26,6 +26,7 @@ from pyanaconda.core.regexes import URL_PARSE
 from pyanaconda.core.string import split_in_two
 
 NFSUrl = namedtuple("NFSUrl", ["options", "host", "path"])
+HDDUrl = namedtuple("HDDUrl", ["device", "path"])
 
 rpm_version_key = cmp_to_key(rpm.labelCompare)  # pylint: disable=no-member
 
@@ -34,7 +35,7 @@ def parse_hdd_url(url):
     """Parse HDD URL into components.
 
     :param str url: a raw URL, including "hd:"
-    :return (str, str): a tuple with a device and a path
+    :return HDDUrl: a tuple with a device and a path
     """
     # Remove the prefix.
     url = url.removeprefix("hd:")
@@ -42,7 +43,23 @@ def parse_hdd_url(url):
     # Split the specified URL into two components.
     device, path = split_in_two(url, delimiter=":")
 
-    return device, path
+    # Return a named tuple.
+    return HDDUrl(device=device, path=path)
+
+
+def create_hdd_url(device, path=None):
+    """Compose the HDD URL from components.
+
+    :param str device: a device spec
+    :param str path: a path or None
+    """
+    if not device:
+        return ""
+
+    if path:
+        return ":".join(["hd", device, path])
+    else:
+        return ":".join(["hd", device])
 
 
 def parse_nfs_url(nfs_url):
@@ -92,13 +109,15 @@ def create_nfs_url(host, path, options=None):
     :return: NFS url created from the components given
     :rtype: str
     """
-    if host == "":
+    if not host:
         return ""
 
     if options:
-        return "nfs:{opts}:{server}:{path}".format(opts=options, server=host, path=path)
-
-    return "nfs:{server}:{path}".format(server=host, path=path)
+        return ":".join(["nfs", options, host, path])
+    elif path:
+        return ":".join(["nfs", host, path])
+    else:
+        return ":".join(["nfs", host])
 
 
 def split_protocol(url):
