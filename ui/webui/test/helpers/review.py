@@ -22,6 +22,7 @@ HELPERS_DIR = os.path.dirname(__file__)
 sys.path.append(HELPERS_DIR)
 
 from installer import InstallerSteps  # pylint: disable=import-error
+from step_logger import log_step
 
 
 class Review():
@@ -29,11 +30,14 @@ class Review():
         self.browser = browser
         self._step = InstallerSteps.REVIEW
 
+    @log_step()
     def check_language(self, lang):
         self.browser.wait_in_text(f"#{self._step}-target-system-language > .pf-c-description-list__text", lang)
 
+    @log_step()
     def check_disk_label(self, disk, label):
         self.browser.wait_in_text(f"#{self._step}-disk-label-{disk}", label)
 
+    @log_step()
     def check_disk_description(self, disk, description):
         self.browser.wait_in_text(f"#{self._step}-disk-description-{disk}", description)

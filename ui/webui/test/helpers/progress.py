@@ -23,6 +23,8 @@ HELPERS_DIR = os.path.dirname(__file__)
 sys.path.append(HELPERS_DIR)
 
 from installer import InstallerSteps  # pylint: disable=import-error
+from step_logger import log_step
+
 
 class Progress():
     def __init__(self, browser):
@@ -30,6 +32,7 @@ class Progress():
         self.steps = InstallerSteps()
         self._reboot_selector = "button:contains(Reboot)"
 
+    @log_step(snapshot_after=True)
     def wait_done(self, timeout=1200):
         timeout += time.time()
         while timeout > time.time():
@@ -41,6 +44,7 @@ class Progress():
         else:
             self.browser.wait_visible(self._reboot_selector)
 
+    @log_step()
     def reboot(self):
         self.browser.click(self._reboot_selector)
 

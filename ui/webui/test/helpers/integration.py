@@ -32,6 +32,7 @@ from review import Review
 from progress import Progress
 from testlib import MachineCase  # pylint: disable=import-error
 from machine_install import VirtInstallMachine
+from step_logger import log_step
 
 
 class IntegrationTest(MachineCase):
@@ -90,7 +91,9 @@ class IntegrationTest(MachineCase):
         self._progress.reboot()
         self.machine.wait_reboot()
 
+    @log_step(docstring=True)
     def check_installed_system(self):
+        """ Tries to set root password """
         self.machine.execute('echo "test" | passwd --stdin root') # Workaround for locked root account
 
     def run_integration_test(self):

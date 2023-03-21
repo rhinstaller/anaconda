@@ -16,6 +16,7 @@
 # along with this program; If not, see <http://www.gnu.org/licenses/>.
 from collections import UserList
 from time import sleep
+from step_logger import log_step
 
 
 class InstallerSteps(UserList):
@@ -35,6 +36,7 @@ class Installer():
         self.machine = machine
         self.steps = InstallerSteps()
 
+    @log_step(snapshot_before=True)
     def begin_installation(self, should_fail=False, confirm_erase=True):
         current_step_id = self.get_current_page_id()
         self.browser.click("button:contains('Erase disks and install')")
@@ -49,6 +51,7 @@ class Installer():
         else:
             self.wait_current_page(self.steps[current_step_id+1])
 
+    @log_step()
     def next(self, should_fail=False):
         current_step_id = self.get_current_page_id()
         current_page = self.steps[current_step_id]
@@ -62,6 +65,7 @@ class Installer():
         self.browser.click("button:contains(Next)")
         self.wait_current_page(current_page if should_fail else next_page)
 
+    @log_step()
     def check_next_disabled(self):
         """Check if the Next button is disabled.
 
@@ -70,6 +74,7 @@ class Installer():
         """
         self.browser.wait_visible("#installation-next-btn:not([aria-disabled=false]")
 
+    @log_step(snapshot_before=True)
     def back(self, should_fail=False):
         current_step_id = self.get_current_page_id()
         self.browser.click("button:contains(Back)")
@@ -79,6 +84,7 @@ class Installer():
         else:
             self.wait_current_page(self.steps[current_step_id-1])
 
+    @log_step()
     def open(self, step="installation-language"):
         self.browser.open(f"/cockpit/@localhost/anaconda-webui/index.html#/{step}")
         self.wait_current_page(step)
@@ -87,6 +93,7 @@ class Installer():
         page = self.browser.eval_js('window.location.hash;').replace('#/', '') or self.steps[0]
         return self.steps.index(page)
 
+    @log_step(snapshot_after=True)
     def wait_current_page(self, page):
         self.browser.wait_not_present("#installation-destination-next-spinner")
         self.browser.wait_js_cond(f'window.location.hash === "#/{page}"')
@@ -96,6 +103,7 @@ class Installer():
         else:
             self.browser.wait_visible(f"#{page}.pf-m-current")
 
+    @log_step(snapshot_after=True)
     def check_prerelease_info(self, is_expected=None):
         """ Checks whether the pre-release information is visible or not.
 
@@ -115,6 +123,7 @@ class Installer():
         else:
             self.browser.wait_not_present("#betang-icon")
 
+    @log_step()
     def quit(self):
         self.browser.click("#installation-quit-btn")
         self.browser.wait_visible("#installation-quit-confirm-dialog")
