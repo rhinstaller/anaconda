@@ -27,10 +27,15 @@ from pyanaconda.core.constants import GROUP_PACKAGE_TYPES_REQUIRED, GROUP_PACKAG
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.structures.packages import PackagesSelectionData
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.modules.payloads.payload.dnf.utils import get_kernel_package, \
     get_product_release_version, get_installation_specs, get_kernel_version_list, \
-    pick_download_location, calculate_required_space, get_free_space_map, _pick_mount_points
+    pick_download_location, calculate_required_space, get_free_space_map, _pick_mount_points, \
+    collect_installation_devices
+from pyanaconda.modules.payloads.source.cdrom.cdrom import CdromSourceModule
+from pyanaconda.modules.payloads.source.harddrive.harddrive import HardDriveSourceModule
+from pyanaconda.modules.payloads.source.url.url import URLSourceModule
 
 from tests.unit_tests.pyanaconda_tests import patch_dbus_get_proxy_with_cache
 
@@ -408,3 +413,40 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
             "/mnt/sysroot": total_size
         }
         assert calculate_required_space(dnf_manager) == total_size
+
+    def test_collect_installation_devices(self):
+        """Test the collect_installation_devices function."""
+        devices = collect_installation_devices([], [])
+        assert devices == set()
+
+        r1 = RepoConfigurationData()
+        r1.url = "cdrom"
+
+        r2 = RepoConfigurationData()
+        r2.url = "hd:dev1"
+
+        r3 = RepoConfigurationData()
+        r3.url = "http://test"
+
+        r4 = RepoConfigurationData()
+        r4.url = "hd:/dev/dev2:/local/path"
+
+        devices = collect_installation_devices([], [r1, r2, r3, r4])
+        assert devices == {"dev1", "/dev/dev2"}
+
+        s1 = CdromSourceModule()
+
+        s2 = HardDriveSourceModule()
+        s2.set_device("dev3")
+
+        s3 = URLSourceModule()
+        s3.set_configuration(r3)
+
+        s4 = HardDriveSourceModule()
+        s4.set_device("/dev/dev4")
+
+        devices = collect_installation_devices([s1, s2, s3, s4], [])
+        assert devices == {"dev3", "/dev/dev4"}
+
+        devices = collect_installation_devices([s1, s2, s3, s4], [r1, r2, r3, r4])
+        assert devices == {"dev1", "/dev/dev2", "dev3", "/dev/dev4"}

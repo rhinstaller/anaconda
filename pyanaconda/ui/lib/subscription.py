@@ -21,7 +21,7 @@ from enum import Enum
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import THREAD_WAIT_FOR_CONNECTING_NM, \
     SUBSCRIPTION_REQUEST_TYPE_USERNAME_PASSWORD, SUBSCRIPTION_REQUEST_TYPE_ORG_KEY, \
-    SOURCE_TYPE_HDD, SOURCE_TYPE_CDN, SOURCE_TYPES_OVERRIDEN_BY_CDN, SECRET_TYPE_HIDDEN, \
+    SOURCE_TYPE_CDN, SOURCE_TYPES_OVERRIDEN_BY_CDN, SECRET_TYPE_HIDDEN, \
     SECRET_TYPE_TEXT, PAYLOAD_TYPE_DNF
 from pyanaconda.core.i18n import _
 from pyanaconda.errors import errorHandler, ERROR_RAISE
@@ -35,7 +35,6 @@ from pyanaconda.modules.common.errors.subscription import RegistrationError, \
 from pyanaconda.payload.manager import payloadMgr
 from pyanaconda.threading import threadMgr
 from pyanaconda.ui.lib.payload import create_source, set_source, tear_down_sources
-from pyanaconda.ui.lib.storage import unmark_protected_device
 
 log = get_module_logger(__name__)
 
@@ -54,27 +53,13 @@ class SubscriptionPhase(Enum):
 # temporary methods for Subscription/CDN related source switching
 
 
-def _tear_down_existing_source(payload):
-    """Tear down existing payload, so we can set a new one.
-
-    :param payload: Anaconda payload instance
-    """
-    source_proxy = payload.get_source_proxy()
-
-    if source_proxy.Type == SOURCE_TYPE_HDD and source_proxy.Partition:
-        unmark_protected_device(source_proxy.Partition)
-
-    tear_down_sources(payload.proxy)
-
-
 def switch_source(payload, source_type):
     """Switch to an installation source.
 
     :param payload: Anaconda payload instance
     :param source_type: installation source type
     """
-    _tear_down_existing_source(payload)
-
+    tear_down_sources(payload.proxy)
     new_source_proxy = create_source(source_type)
     set_source(payload.proxy, new_source_proxy)
 

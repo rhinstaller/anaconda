@@ -24,13 +24,15 @@ from blivet.size import Size
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.payload import parse_hdd_url
 from pyanaconda.core.regexes import VERSION_DIGITS
 from pyanaconda.core.util import execWithCapture
 from pyanaconda.core.hw import is_lpae_available
 from pyanaconda.core.path import join_paths
-from pyanaconda.modules.common.constants.objects import DEVICE_TREE
+from pyanaconda.modules.common.constants.objects import DEVICE_TREE, DISK_SELECTION
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.structures.packages import PackagesSelectionData
+from pyanaconda.modules.payloads.constants import SourceType
 from pyanaconda.product import productName, productVersion
 from pyanaconda.modules.payloads.base.utils import sort_kernel_version_list
 
@@ -362,3 +364,48 @@ def calculate_required_space(dnf_manager):
 
     log.debug("The package installation requires %s.", required_space)
     return required_space
+
+
+def collect_installation_devices(sources, repositories):
+    """Collect devices of installation sources.
+
+    :return: a list of device specifications
+    """
+    devices = set()
+
+    for source in sources:
+        if source.type == SourceType.HDD:
+            devices.add(source.device)
+
+    for repository in repositories:
+        if repository.url.startswith("hd:"):
+            device, _path = parse_hdd_url(repository.url)
+            devices.add(device)
+
+    return devices
+
+
+def protect_installation_devices(previous_devices, current_devices):
+    """Protect installation devices.
+
+    :param previous_devices: a list of device specifications
+    :param current_devices: a list of device specifications
+    """
+    # Nothing has changed.
+    if previous_devices == current_devices:
+        return
+
+    disk_selection_proxy = STORAGE.get_proxy(DISK_SELECTION)
+    protected_devices = disk_selection_proxy.ProtectedDevices
+
+    # Remove previous devices from the list.
+    for spec in previous_devices:
+        if spec in protected_devices:
+            protected_devices.remove(spec)
+
+    # Add current devices from the list.
+    for spec in sorted(current_devices):
+        if spec not in protected_devices:
+            protected_devices.append(spec)
+
+    disk_selection_proxy.ProtectedDevices = protected_devices
