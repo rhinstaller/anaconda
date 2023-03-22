@@ -250,7 +250,6 @@ class LanguageSelector extends React.Component {
         }
 
         const options = this.renderOptions(this.state.search);
-        const inputRef = React.createRef(null);
 
         return (
             <Menu
@@ -282,9 +281,6 @@ class LanguageSelector extends React.Component {
                     </Title>
                     <SearchInput
                       id={this.props.idPrefix + "-language-search"}
-                      ref={inputRef}
-                      // Select all text on click
-                      onFocus={() => inputRef && inputRef.current && inputRef.current.select()}
                       value={this.state.search}
                       onChange={value => this.setState({ ...this.state, search: value })}
                       onClear={() => this.setState({ ...this.state, search: "" })}
