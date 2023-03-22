@@ -6,8 +6,8 @@ set -eu
 # This will change once we include this changes upstream and start building boot.iso with the new dependencies
 # Then we can safely remove this workaround
 COCKPIT_URLS='
-    https://dl.fedoraproject.org/pub/fedora/linux/development/38/Everything/x86_64/os/Packages/c/cockpit-ws-287-1.fc38.x86_64.rpm
-    https://dl.fedoraproject.org/pub/fedora/linux/development/38/Everything/x86_64/os/Packages/c/cockpit-bridge-287-1.fc38.x86_64.rpm
+    https://kojipkgs.fedoraproject.org//packages/cockpit/287/1.fc38/x86_64/cockpit-ws-287-1.fc38.x86_64.rpm
+    https://kojipkgs.fedoraproject.org//packages/cockpit/287/1.fc38/x86_64/cockpit-bridge-287-1.fc38.x86_64.rpm
 '
 
 mkdir -p tmp/extra-rpms
