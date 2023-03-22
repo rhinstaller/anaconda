@@ -196,26 +196,6 @@ class DNFPayload(Payload):
                             "be used!", repo_name)
                 continue
 
-            # Parse the URL of the repository.
-            try:
-                source = SourceFactory.parse_repo_cmdline_string(repo_url)
-            except PayloadSourceTypeUnrecognized:
-                log.error("Type for additional repository %s is not recognized!", repo_url)
-                continue
-
-            # Check the source type of the repository.
-            is_supported = source.is_nfs \
-                or source.is_http \
-                or source.is_https \
-                or source.is_ftp \
-                or source.is_file \
-                or source.is_harddrive
-
-            if not is_supported:
-                log.error("Source type %s for additional repository %s is not supported!",
-                          source.source_type.value, repo_url)
-                continue
-
             # Generate the configuration data for the new repository.
             data = RepoConfigurationData()
             data.name = repo_name
