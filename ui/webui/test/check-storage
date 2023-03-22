@@ -82,11 +82,27 @@ class TestStorage(MachineCase):
 
         i.next()
         # Storage Configuration
+
+        b.assert_pixels(
+            "#app",
+            "storage-step-autopart",
+            ignore=["#betanag-icon"],
+            wait_animations=False,
+        )
+
         s.check_partitioning_selected("erase-all")
         s.set_partitioning("use-free-space")
 
         i.next()
         # Disk Encryption
+
+        b.assert_pixels(
+            "#app",
+            "storage-step-encrypt",
+            ignore=["#betanag-icon"],
+            wait_animations=False,
+        )
+
         s.check_encryption_selected(False)
         encrypt = True
         s.set_encryption_selected(encrypt)
@@ -104,6 +120,13 @@ class TestStorage(MachineCase):
         # Encryption password is on the same page
         i.next(subpage=encrypt)
         # Disk Encryption / password screen
+
+        b.assert_pixels(
+            "#app",
+            "storage-step-password",
+            ignore=["#betanag-icon"],
+            wait_animations=False,
+        )
 
         # No password set
         s.check_pw_rule("8-chars", "indeterminate")
