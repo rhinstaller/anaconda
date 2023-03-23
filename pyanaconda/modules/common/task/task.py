@@ -32,7 +32,7 @@ from pyanaconda.modules.common.task.cancellable import Cancellable
 from pyanaconda.modules.common.task.progress import ProgressReporter
 from pyanaconda.modules.common.task.result import ResultProvider
 from pyanaconda.modules.common.task.runnable import Runnable
-from pyanaconda.core.threading import thread_manager, AnacondaThread
+from pyanaconda.core.threads import thread_manager, AnacondaThread
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)

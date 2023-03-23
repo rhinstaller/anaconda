@@ -20,7 +20,7 @@
 from enum import IntEnum
 
 from pyanaconda.flags import flags
-from pyanaconda.core.threading import thread_manager, AnacondaThread
+from pyanaconda.core.threads import thread_manager, AnacondaThread
 
 from pyanaconda.core.i18n import _, CN_
 from pyanaconda.core.constants import SECRET_TYPE_HIDDEN, \

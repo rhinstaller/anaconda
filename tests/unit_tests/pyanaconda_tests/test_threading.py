@@ -19,7 +19,7 @@ import pytest
 import unittest
 
 from time import sleep
-from pyanaconda.core.threading import ThreadManager, AnacondaThread
+from pyanaconda.core.threads import ThreadManager, AnacondaThread
 
 
 class ThreadManagerTestCase(unittest.TestCase):

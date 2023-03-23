@@ -42,7 +42,7 @@ from pyanaconda.core.constants import THREAD_EXCEPTION_HANDLING_TEST, IPMI_FAILE
 from pyanaconda.errors import NonInteractiveError
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.storage import UnusableStorageError
-from pyanaconda.core.threading import thread_manager
+from pyanaconda.core.threads import thread_manager
 from pyanaconda.ui.communication import hubQ
 
 from simpleline import App
@@ -400,7 +400,7 @@ f%s(msg, non_ascii)
     msg = "NOTABUG: testing exception handling"
 
     # raise exception from a separate thread
-    from pyanaconda.core.threading import AnacondaThread
+    from pyanaconda.core.threads import AnacondaThread
     thread_manager.add(AnacondaThread(name=THREAD_EXCEPTION_HANDLING_TEST,
                                       target=raise_exception,
                                       args=(msg, non_ascii)))

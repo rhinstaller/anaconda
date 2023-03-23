@@ -33,7 +33,7 @@ from gi.repository import Gdk, Gtk
 from contextlib import contextmanager
 
 from pyanaconda.core import glib
-from pyanaconda.core.threading import thread_manager, AnacondaThread
+from pyanaconda.core.threads import thread_manager, AnacondaThread
 from pyanaconda.core.async_utils import async_action_wait, run_in_loop
 from pyanaconda.core.constants import NOTICEABLE_FREEZE, PASSWORD_HIDE, PASSWORD_SHOW, \
                                       PASSWORD_HIDE_ICON, PASSWORD_SHOW_ICON

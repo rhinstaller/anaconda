@@ -34,7 +34,7 @@ from pyanaconda.core.constants import THREAD_STORAGE
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
 from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.core.threading import thread_manager
+from pyanaconda.core.threads import thread_manager
 from blivet import arch
 
 from pyanaconda.anaconda_loggers import get_module_logger

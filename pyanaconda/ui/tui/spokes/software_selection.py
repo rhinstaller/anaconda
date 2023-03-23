@@ -22,7 +22,7 @@ from pyanaconda.ui.context import context
 from pyanaconda.ui.lib.software import get_software_selection_status, \
     is_software_selection_complete, SoftwareSelectionCache
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
-from pyanaconda.core.threading import thread_manager, AnacondaThread
+from pyanaconda.core.threads import thread_manager, AnacondaThread
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.constants import THREAD_PAYLOAD, THREAD_CHECK_SOFTWARE, \
     THREAD_SOFTWARE_WATCHER, PAYLOAD_TYPE_DNF

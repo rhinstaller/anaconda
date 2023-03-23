@@ -33,7 +33,7 @@ from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.modules.common.errors.subscription import RegistrationError, \
     UnregistrationError, SubscriptionError
 from pyanaconda.payload.manager import payloadMgr
-from pyanaconda.core.threading import thread_manager
+from pyanaconda.core.threads import thread_manager
 from pyanaconda.ui.lib.payload import create_source, set_source, tear_down_sources
 from pyanaconda.ui.lib.storage import unmark_protected_device
 

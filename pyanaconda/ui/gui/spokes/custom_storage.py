@@ -51,7 +51,7 @@ from pyanaconda.core.storage import DEVICE_TYPE_UNSUPPORTED, DEVICE_TEXT_MAP, \
     MOUNTPOINT_DESCRIPTIONS, NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES, device_type_from_autopart, \
     PROTECTED_FORMAT_TYPES, DEVICE_TYPE_BTRFS, DEVICE_TYPE_MD, Size
 
-from pyanaconda.core.threading import thread_manager
+from pyanaconda.core.threads import thread_manager
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke

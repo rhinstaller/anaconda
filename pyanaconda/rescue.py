@@ -24,7 +24,7 @@ from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.storage import MountFilesystemError
 from pyanaconda.modules.common.structures.storage import OSData, DeviceFormatData
 from pyanaconda.modules.common.task import sync_run_task
-from pyanaconda.core.threading import thread_manager
+from pyanaconda.core.threads import thread_manager
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, N_
 from pyanaconda.kickstart import runPostScripts

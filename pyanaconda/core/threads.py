@@ -1,7 +1,7 @@
 #
-# threading.py:  anaconda thread management
+# threads.py:  anaconda thread management
 #
-# Copyright (C) 2012
+# Copyright (C) 2012-2023
 # Red Hat, Inc.  All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify

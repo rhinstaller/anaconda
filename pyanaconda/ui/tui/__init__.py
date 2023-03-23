@@ -19,7 +19,7 @@
 from pyanaconda import ui
 from pyanaconda.core.constants import IPMI_ABORTED, QUIT_MESSAGE
 from pyanaconda.flags import flags
-from pyanaconda.core.threading import thread_manager
+from pyanaconda.core.threads import thread_manager
 from pyanaconda.core.util import ipmi_report
 from pyanaconda.ui.tui.hubs.summary import SummaryHub
 from pyanaconda.ui.tui.signals import SendMessageSignal

@@ -213,7 +213,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
 
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
-    @patch("pyanaconda.core.threading.thread_manager.wait")
+    @patch("pyanaconda.core.threads.thread_manager.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
     def test_register_org_key(self, get_proxy, thread_mgr_wait, run_task, switch_source):
         """Test the register_and_subscribe() helper method - org & key."""
@@ -253,7 +253,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
 
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
-    @patch("pyanaconda.core.threading.thread_manager.wait")
+    @patch("pyanaconda.core.threads.thread_manager.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
     def test_register_username_password(self, get_proxy, thread_mgr_wait, run_task, switch_source):
         """Test the register_and_subscribe() helper method - username & password."""
@@ -294,7 +294,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
 
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
-    @patch("pyanaconda.core.threading.thread_manager.wait")
+    @patch("pyanaconda.core.threads.thread_manager.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
     def test_unregister_register(self, get_proxy, thread_mgr_wait, run_task, switch_source):
         """Test the register_and_subscribe() helper method - registered system."""
@@ -337,7 +337,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
 
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
-    @patch("pyanaconda.core.threading.thread_manager.wait")
+    @patch("pyanaconda.core.threads.thread_manager.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
     def test_unregister_task_failed(self, get_proxy, thread_mgr_wait, run_task, switch_source):
         """Test the register_and_subscribe() helper method - unregistration failed."""
@@ -375,7 +375,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
 
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
-    @patch("pyanaconda.core.threading.thread_manager.wait")
+    @patch("pyanaconda.core.threads.thread_manager.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
     def test_register_org_key_failed(self, get_proxy, thread_mgr_wait, run_task, switch_source):
         """Test the register_and_subscribe() helper method - org & key failed."""
@@ -412,7 +412,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
 
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
-    @patch("pyanaconda.core.threading.thread_manager.wait")
+    @patch("pyanaconda.core.threads.thread_manager.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
     def test_register_key_missing(self, get_proxy, thread_mgr_wait, run_task, switch_source):
         """Test the register_and_subscribe() helper method - key missing."""
@@ -446,7 +446,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
 
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
-    @patch("pyanaconda.core.threading.thread_manager.wait")
+    @patch("pyanaconda.core.threads.thread_manager.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
     def test_register_username_password_task_failed(self, get_proxy, thread_mgr_wait,
                                                     run_task, switch_source):
@@ -484,7 +484,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
 
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
-    @patch("pyanaconda.core.threading.thread_manager.wait")
+    @patch("pyanaconda.core.threads.thread_manager.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
     def test_register_password_missing(self, get_proxy, thread_mgr_wait, run_task, switch_source):
         """Test the register_and_subscribe() helper method - password missing."""
@@ -519,7 +519,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
     @patch("pyanaconda.payload.manager.payloadMgr.start")
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
-    @patch("pyanaconda.core.threading.thread_manager.wait")
+    @patch("pyanaconda.core.threads.thread_manager.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
     def test_register_override_cdrom(self, get_proxy, thread_mgr_wait, run_task, switch_source,
                                      restart_thread):
@@ -573,7 +573,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
     @patch("pyanaconda.payload.manager.payloadMgr.start")
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
-    @patch("pyanaconda.core.threading.thread_manager.wait")
+    @patch("pyanaconda.core.threads.thread_manager.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
     def test_register_override_cdrom_no_restart(self, get_proxy, thread_mgr_wait, run_task,
                                                 switch_source, restart_thread):
@@ -625,7 +625,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
 
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
-    @patch("pyanaconda.core.threading.thread_manager.wait")
+    @patch("pyanaconda.core.threads.thread_manager.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
     def test_subscription_task_failed(self, get_proxy, thread_mgr_wait, run_task, switch_source):
         """Test the register_and_subscribe() helper method - failed to attach subscription."""
@@ -831,7 +831,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
 
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
-    @patch("pyanaconda.core.threading.thread_manager.wait")
+    @patch("pyanaconda.core.threads.thread_manager.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
     def test_unsupported_payload_reg(self, get_proxy, thread_mgr_wait, run_task, switch_source):
         """Test registration handles unsupported payload."""
@@ -905,7 +905,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
     @patch("pyanaconda.payload.manager.payloadMgr.start")
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
-    @patch("pyanaconda.core.threading.thread_manager.wait")
+    @patch("pyanaconda.core.threads.thread_manager.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
     def test_register_payload_restart(self, get_proxy, thread_mgr_wait, run_task, switch_source,
                                       restart_thread):
@@ -951,7 +951,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
     @patch("pyanaconda.payload.manager.payloadMgr.start")
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
-    @patch("pyanaconda.core.threading.thread_manager.wait")
+    @patch("pyanaconda.core.threads.thread_manager.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
     def test_register_payload_no_restart(self, get_proxy, thread_mgr_wait, run_task, switch_source,
                                          restart_thread):
@@ -996,7 +996,7 @@ class AsynchronousRegistrationTestCase(unittest.TestCase):
     @patch("pyanaconda.payload.manager.payloadMgr.start")
     @patch("pyanaconda.ui.lib.subscription.switch_source")
     @patch("pyanaconda.modules.common.task.sync_run_task")
-    @patch("pyanaconda.core.threading.thread_manager.wait")
+    @patch("pyanaconda.core.threads.thread_manager.wait")
     @patch("pyanaconda.modules.common.constants.services.SUBSCRIPTION.get_proxy")
     def test_register_no_payload_restart(self, get_proxy, thread_mgr_wait, run_task, switch_source,
                                          restart_thread):

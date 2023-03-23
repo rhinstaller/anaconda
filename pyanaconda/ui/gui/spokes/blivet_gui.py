@@ -39,7 +39,7 @@ from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, \
     PARTITIONING_METHOD_BLIVET
 from pyanaconda.core.i18n import _, CN_, C_
 from pyanaconda.ui.lib.storage import create_partitioning, apply_partitioning
-from pyanaconda.core.threading import thread_manager
+from pyanaconda.core.threads import thread_manager
 from pyanaconda.modules.common.constants.services import STORAGE
 
 import gi

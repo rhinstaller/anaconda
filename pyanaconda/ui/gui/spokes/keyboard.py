@@ -38,7 +38,7 @@ from pyanaconda.ui.communication import hubQ
 from pyanaconda.core.string import strip_accents, have_word_match
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.common.util import is_module_available
-from pyanaconda.core.threading import thread_manager, AnacondaThread
+from pyanaconda.core.threads import thread_manager, AnacondaThread
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)

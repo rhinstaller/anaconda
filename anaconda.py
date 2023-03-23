@@ -180,7 +180,7 @@ if __name__ == "__main__":
     sys.path.extend(ADDON_PATHS)
 
     # init threading before Gtk can do anything and before we start using threads
-    from pyanaconda.core.threading import AnacondaThread, thread_manager
+    from pyanaconda.core.threads import AnacondaThread, thread_manager
     from pyanaconda.core.i18n import _
     from pyanaconda.core import util, constants, path
     from pyanaconda import startup_utils

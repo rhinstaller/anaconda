@@ -24,7 +24,7 @@ from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, THREAD_SOFTWARE_WATCHER,
 from pyanaconda.core.i18n import _, C_, CN_
 from pyanaconda.core.util import ipmi_abort
 from pyanaconda.flags import flags
-from pyanaconda.core.threading import thread_manager, AnacondaThread
+from pyanaconda.core.threads import thread_manager, AnacondaThread
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.context import context

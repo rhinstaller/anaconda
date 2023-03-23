@@ -35,7 +35,7 @@ from pyanaconda.modules.common.structures.partitioning import PartitioningReques
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.core.storage import suggest_swap_size
-from pyanaconda.core.threading import thread_manager, AnacondaThread
+from pyanaconda.core.threads import thread_manager, AnacondaThread
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
