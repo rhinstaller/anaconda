@@ -51,7 +51,7 @@ from pyanaconda.core.storage import DEVICE_TYPE_UNSUPPORTED, DEVICE_TEXT_MAP, \
     MOUNTPOINT_DESCRIPTIONS, NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES, device_type_from_autopart, \
     PROTECTED_FORMAT_TYPES, DEVICE_TYPE_BTRFS, DEVICE_TYPE_MD, Size
 
-from pyanaconda.threading import threadMgr
+from pyanaconda.threading import thread_manager
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -292,7 +292,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # Make sure the storage spoke execute method has finished before we
         # copy the storage instance.
         for thread_name in [THREAD_EXECUTE_STORAGE, THREAD_STORAGE]:
-            threadMgr.wait(thread_name)
+            thread_manager.wait(thread_name)
 
         if not self._partitioning:
             # Create the partitioning now. It cannot by done earlier, because

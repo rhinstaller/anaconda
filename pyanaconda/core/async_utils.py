@@ -18,7 +18,7 @@
 #
 
 from queue import Queue
-from pyanaconda.threading import threadMgr
+from pyanaconda.threading import thread_manager
 from pyanaconda.core.glib import idle_add
 
 
@@ -46,7 +46,7 @@ def async_action_wait(func):
         """The new body for the decorated method. If needed, it uses closure
            bound queue_instance variable which is valid until the reference to this
            method is destroyed."""
-        if threadMgr.in_main_thread():
+        if thread_manager.in_main_thread():
             # nothing special has to be done in the main thread
             return func(*args, **kwargs)
 
@@ -71,7 +71,7 @@ def async_action_nowait(func):
     def _call_method(*args, **kwargs):
         """The new body for the decorated method.
         """
-        if threadMgr.in_main_thread():
+        if thread_manager.in_main_thread():
             # nothing special has to be done in the main thread
             func(*args, **kwargs)
             return

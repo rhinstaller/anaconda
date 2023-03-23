@@ -35,7 +35,7 @@ from pyanaconda.modules.common.structures.partitioning import PartitioningReques
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.core.storage import suggest_swap_size
-from pyanaconda.threading import threadMgr, AnacondaThread
+from pyanaconda.threading import thread_manager, AnacondaThread
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -241,7 +241,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # Spawn storage execution as a separate thread so there's no big delay
         # going back from this spoke to the hub while StorageCheckHandler.run runs.
         # Yes, this means there's a thread spawning another thread.  Sorry.
-        threadMgr.add(AnacondaThread(
+        thread_manager.add(AnacondaThread(
             name=constants.THREAD_EXECUTE_STORAGE,
             target=self._do_execute
         ))
@@ -279,9 +279,9 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # By default, the storage spoke is not ready.  We have to wait until
         # storageInitialize is done.
         return self._ready \
-            and not threadMgr.get(constants.THREAD_STORAGE) \
-            and not threadMgr.get(constants.THREAD_DASDFMT) \
-            and not threadMgr.get(constants.THREAD_EXECUTE_STORAGE)
+            and not thread_manager.get(constants.THREAD_STORAGE) \
+            and not thread_manager.get(constants.THREAD_DASDFMT) \
+            and not thread_manager.get(constants.THREAD_EXECUTE_STORAGE)
 
     @property
     def status(self):
@@ -444,8 +444,8 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         self._main_box.set_focus_vadjustment(
             Gtk.Scrollable.get_vadjustment(self._main_viewport))
 
-        threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE_WATCHER,
-                                     target=self._initialize))
+        thread_manager.add(AnacondaThread(name=constants.THREAD_STORAGE_WATCHER,
+                                          target=self._initialize))
 
     def _add_disk_overview(self, device_data, box):
         if device_data.type == "dm-multipath":
@@ -494,7 +494,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         """
         # Wait for storage.
         hubQ.send_message(self.__class__.__name__, _(constants.PAYLOAD_STATUS_PROBING_STORAGE))
-        threadMgr.wait(constants.THREAD_STORAGE)
+        thread_manager.wait(constants.THREAD_STORAGE)
 
         # Automatically format DASDs if allowed.
         disks = self._disk_select_module.GetUsableDisks()

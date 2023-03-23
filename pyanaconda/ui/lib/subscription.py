@@ -33,7 +33,7 @@ from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.modules.common.errors.subscription import RegistrationError, \
     UnregistrationError, SubscriptionError
 from pyanaconda.payload.manager import payloadMgr
-from pyanaconda.threading import threadMgr
+from pyanaconda.threading import thread_manager
 from pyanaconda.ui.lib.payload import create_source, set_source, tear_down_sources
 from pyanaconda.ui.lib.storage import unmark_protected_device
 
@@ -227,7 +227,7 @@ def register_and_subscribe(payload, progress_callback=noop, error_callback=noop,
     # by waiting for the connectivity check thread
     # to finish, in case it is running, usually early
     # during Anaconda startup.
-    threadMgr.wait(THREAD_WAIT_FOR_CONNECTING_NM)
+    thread_manager.wait(THREAD_WAIT_FOR_CONNECTING_NM)
 
     # Next we make sure to set RHSM config options
     # to be in sync with the current subscription request.

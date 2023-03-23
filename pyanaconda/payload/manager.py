@@ -23,7 +23,7 @@ from pyanaconda.core.constants import THREAD_STORAGE, THREAD_PAYLOAD, THREAD_PAY
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.task.progress import ProgressReporter
 from pyanaconda.modules.common.task.runnable import Runnable
-from pyanaconda.threading import threadMgr, AnacondaThread
+from pyanaconda.threading import thread_manager, AnacondaThread
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.anaconda_loggers import get_module_logger
 
@@ -44,7 +44,7 @@ class _PayloadManager(Runnable, ProgressReporter):
     """Framework for starting and watching the payload thread.
 
     The payload thread data should be accessed using the payloadMgr object,
-    and the running thread can be accessed using threadMgr with the
+    and the running thread can be accessed using thread_manager with the
     THREAD_PAYLOAD constant, if you need to wait for it or something. The
     thread should be started using payloadMgr.start.
     """
@@ -57,7 +57,7 @@ class _PayloadManager(Runnable, ProgressReporter):
     @property
     def is_running(self):
         """Is the payload thread running right now?"""
-        return threadMgr.exists(THREAD_PAYLOAD_RESTART) or threadMgr.exists(THREAD_PAYLOAD)
+        return thread_manager.exists(THREAD_PAYLOAD_RESTART) or thread_manager.exists(THREAD_PAYLOAD)
 
     def start(self, *args, **kwargs):
         """Start or restart the payload thread.
@@ -70,11 +70,11 @@ class _PayloadManager(Runnable, ProgressReporter):
         log.debug("Restarting payload thread")
 
         # If a restart thread is already running, don't start a new one.
-        if threadMgr.get(THREAD_PAYLOAD_RESTART):
+        if thread_manager.get(THREAD_PAYLOAD_RESTART):
             return
 
         # Launch a new thread so that this method can return immediately.
-        threadMgr.add(AnacondaThread(
+        thread_manager.add(AnacondaThread(
             name=THREAD_PAYLOAD_RESTART,
             target=self._start,
             args=args,
@@ -84,10 +84,10 @@ class _PayloadManager(Runnable, ProgressReporter):
     def _start(self, *args, **kwargs):
         """Start the payload thread after it is finished."""
         # Wait for the previous payload thread to finish.
-        threadMgr.wait(THREAD_PAYLOAD)
+        thread_manager.wait(THREAD_PAYLOAD)
 
         # Start a new payload thread.
-        threadMgr.add(
+        thread_manager.add(
             AnacondaThread(
                 name=THREAD_PAYLOAD,
                 target=self._task_run_callback,
@@ -131,17 +131,17 @@ class _PayloadManager(Runnable, ProgressReporter):
         """
         # Wait for storage
         self.report_progress(PAYLOAD_STATUS_PROBING_STORAGE)
-        threadMgr.wait(THREAD_STORAGE)
-        threadMgr.wait(THREAD_STORAGE_WATCHER)
-        threadMgr.wait(THREAD_EXECUTE_STORAGE)
+        thread_manager.wait(THREAD_STORAGE)
+        thread_manager.wait(THREAD_STORAGE_WATCHER)
+        thread_manager.wait(THREAD_EXECUTE_STORAGE)
 
         # Wait for network
         # FIXME: condition for cases where we don't want network
         # (set and use payload.needs_network ?)
-        threadMgr.wait(THREAD_WAIT_FOR_CONNECTING_NM)
+        thread_manager.wait(THREAD_WAIT_FOR_CONNECTING_NM)
 
         # Wait for subscription
-        threadMgr.wait(THREAD_SUBSCRIPTION)
+        thread_manager.wait(THREAD_SUBSCRIPTION)
 
         # Set up the payload.
         self.report_progress(_(PAYLOAD_STATUS_SETTING_SOURCE))

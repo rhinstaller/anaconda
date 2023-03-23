@@ -139,7 +139,7 @@ class StartRHSMTaskTestCase(unittest.TestCase):
         # test the method
         assert not task.is_service_available(1)
 
-    @patch("pyanaconda.threading.threadMgr.get")
+    @patch("pyanaconda.threading.thread_manager.get")
     def test_is_service_available_timeout(self, thread_mgr_get):
         """Test StartRHSMTask - test is_service_available() - timeout."""
 
@@ -166,7 +166,7 @@ class StartRHSMTaskTestCase(unittest.TestCase):
             # timeout
             mock_thread.join.assert_called_once_with(1.0)
 
-    @patch("pyanaconda.threading.threadMgr.get")
+    @patch("pyanaconda.threading.thread_manager.get")
     def test_is_service_available_waiting(self, thread_mgr_get):
         """Test StartRHSMTask - test is_service_available() - waiting."""
 

@@ -180,7 +180,7 @@ if __name__ == "__main__":
     sys.path.extend(ADDON_PATHS)
 
     # init threading before Gtk can do anything and before we start using threads
-    from pyanaconda.threading import AnacondaThread, threadMgr
+    from pyanaconda.threading import AnacondaThread, thread_manager
     from pyanaconda.core.i18n import _
     from pyanaconda.core import util, constants, path
     from pyanaconda import startup_utils
@@ -426,8 +426,8 @@ if __name__ == "__main__":
         wait_for_connected_NM(timeout=opts.waitfornet)
 
     # In any case do some actions only after NM finishes its connecting.
-    threadMgr.add(AnacondaThread(name=constants.THREAD_WAIT_FOR_CONNECTING_NM,
-                                 target=wait_for_connecting_NM_thread))
+    thread_manager.add(AnacondaThread(name=constants.THREAD_WAIT_FOR_CONNECTING_NM,
+                                      target=wait_for_connecting_NM_thread))
 
     # now start the interface
     display.setup_display(anaconda, opts)
@@ -490,8 +490,8 @@ if __name__ == "__main__":
     if not conf.target.is_directory:
         from pyanaconda.ui.lib.storage import reset_storage
 
-        threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE,
-                                     target=reset_storage))
+        thread_manager.add(AnacondaThread(name=constants.THREAD_STORAGE,
+                                          target=reset_storage))
 
     # Initialize the system clock.
     startup_utils.initialize_system_clock()
@@ -523,7 +523,7 @@ if __name__ == "__main__":
         from pyanaconda.ui.lib.subscription import org_keys_sufficient, \
             register_and_subscribe, kickstart_error_handler
         if org_keys_sufficient():
-            threadMgr.add(
+            thread_manager.add(
                 AnacondaThread(
                     name=constants.THREAD_SUBSCRIPTION,
                     target=register_and_subscribe,
@@ -556,7 +556,7 @@ if __name__ == "__main__":
     if snapshot_proxy.IsRequested(SNAPSHOT_WHEN_PRE_INSTALL):
         # What for the storage to load devices.
         # FIXME: Don't block the main thread!
-        threadMgr.wait(constants.THREAD_STORAGE)
+        thread_manager.wait(constants.THREAD_STORAGE)
 
         # Run the task.
         snapshot_task_path = snapshot_proxy.CreateWithTask(SNAPSHOT_WHEN_PRE_INSTALL)

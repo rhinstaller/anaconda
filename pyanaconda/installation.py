@@ -30,7 +30,7 @@ from pyanaconda.core import util
 from pyanaconda.core.path import open_with_perm
 from pyanaconda import network
 from pyanaconda.core.i18n import _
-from pyanaconda.threading import threadMgr
+from pyanaconda.threading import thread_manager
 from pyanaconda.kickstart import runPostScripts, runPreInstallScripts
 from pyanaconda.kexec import setup_kexec
 from pyanaconda.installation_tasks import Task, TaskQueue, DBusTask
@@ -292,12 +292,12 @@ class RunInstallationTask(InstallationTask):
         """
 
         # This should be the only thread running, wait for the others to finish if not.
-        if threadMgr.running > 1:
+        if thread_manager.running > 1:
             # show a progress message
-            self.report_progress(_("Waiting for %s threads to finish") % (threadMgr.running - 1))
-            for message in ("Thread %s is running" % n for n in threadMgr.names):
+            self.report_progress(_("Waiting for %s threads to finish") % (thread_manager.running - 1))
+            for message in ("Thread %s is running" % n for n in thread_manager.names):
                 log.debug(message)
-            threadMgr.wait_all()
+            thread_manager.wait_all()
             log.debug("No more threads are running, assembling installation task queue.")
 
     def _prepare_installation(self, payload, ksdata):

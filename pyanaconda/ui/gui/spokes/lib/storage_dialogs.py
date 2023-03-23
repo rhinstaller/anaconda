@@ -22,7 +22,7 @@ from pyanaconda.core.constants import PAYLOAD_LIVE_TYPES
 from pyanaconda.core.i18n import _
 from pyanaconda.core.timer import Timer
 from pyanaconda.product import productName
-from pyanaconda.threading import threadMgr
+from pyanaconda.threading import thread_manager
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import escape_markup
 
@@ -92,9 +92,9 @@ class InstallOptionsDialogBase(GUIObject):
     # Methods to handle sensitivity of the modify button.
     def _software_is_ready(self):
         # FIXME:  Would be nicer to just ask the spoke if it's ready.
-        return (not threadMgr.get(constants.THREAD_PAYLOAD) and
-                not threadMgr.get(constants.THREAD_SOFTWARE_WATCHER) and
-                not threadMgr.get(constants.THREAD_CHECK_SOFTWARE) and
+        return (not thread_manager.get(constants.THREAD_PAYLOAD) and
+                not thread_manager.get(constants.THREAD_SOFTWARE_WATCHER) and
+                not thread_manager.get(constants.THREAD_CHECK_SOFTWARE) and
                 self.payload.is_ready())
 
     def _check_for_storage_thread(self, button):

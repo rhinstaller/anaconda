@@ -42,7 +42,7 @@ from pyanaconda.core.constants import THREAD_EXCEPTION_HANDLING_TEST, IPMI_FAILE
 from pyanaconda.errors import NonInteractiveError
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.storage import UnusableStorageError
-from pyanaconda.threading import threadMgr
+from pyanaconda.threading import thread_manager
 from pyanaconda.ui.communication import hubQ
 
 from simpleline import App
@@ -170,7 +170,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
         except (RuntimeError, ImportError, ValueError):
             log.debug("Gtk cannot be initialized")
             # X not running (Gtk cannot be initialized)
-            if threadMgr.in_main_thread():
+            if thread_manager.in_main_thread():
                 log.debug("In the main thread, running exception handler")
                 if issubclass(ty, NonInteractiveError) or not self._interactive:
                     if issubclass(ty, NonInteractiveError):
@@ -401,6 +401,6 @@ f%s(msg, non_ascii)
 
     # raise exception from a separate thread
     from pyanaconda.threading import AnacondaThread
-    threadMgr.add(AnacondaThread(name=THREAD_EXCEPTION_HANDLING_TEST,
-                                 target=raise_exception,
-                                 args=(msg, non_ascii)))
+    thread_manager.add(AnacondaThread(name=THREAD_EXCEPTION_HANDLING_TEST,
+                                      target=raise_exception,
+                                      args=(msg, non_ascii)))

@@ -43,7 +43,7 @@ from pyanaconda.modules.payloads.source.utils import verify_valid_repository
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.image import find_optical_install_media
 from pyanaconda.payload.manager import payloadMgr
-from pyanaconda.threading import threadMgr, AnacondaThread
+from pyanaconda.threading import thread_manager, AnacondaThread
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.context import context
@@ -285,9 +285,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
     @property
     def ready(self):
         return (self._ready and
-                not threadMgr.get(constants.THREAD_PAYLOAD) and
-                not threadMgr.get(constants.THREAD_SOFTWARE_WATCHER) and
-                not threadMgr.get(constants.THREAD_CHECK_SOFTWARE))
+                not thread_manager.get(constants.THREAD_PAYLOAD) and
+                not thread_manager.get(constants.THREAD_SOFTWARE_WATCHER) and
+                not thread_manager.get(constants.THREAD_CHECK_SOFTWARE))
 
     @property
     def subscribed(self):
@@ -321,7 +321,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             source_proxy = self.payload.get_source_proxy()
             return source_proxy.Description
 
-        if threadMgr.get(constants.THREAD_CHECK_SOFTWARE):
+        if thread_manager.get(constants.THREAD_CHECK_SOFTWARE):
             return _(PAYLOAD_STATUS_CHECKING_SOFTWARE)
 
         if not self.ready:
@@ -434,7 +434,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
         # Start the thread last so that we are sure initialize_done() is really called only
         # after all initialization has been done.
-        threadMgr.add(AnacondaThread(
+        thread_manager.add(AnacondaThread(
             name=constants.THREAD_SOURCE_WATCHER,
             target=self._initialize
         ))
@@ -485,7 +485,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
                 model.remove(itr)
 
     def _initialize(self):
-        threadMgr.wait(constants.THREAD_PAYLOAD)
+        thread_manager.wait(constants.THREAD_PAYLOAD)
 
         # If there is the Subscriptiopn DBus module, make the CDN radio button visible
         if is_module_available(SUBSCRIPTION):

@@ -22,7 +22,7 @@ from pyanaconda.ui.context import context
 from pyanaconda.ui.lib.software import get_software_selection_status, \
     is_software_selection_complete, SoftwareSelectionCache
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
-from pyanaconda.threading import threadMgr, AnacondaThread
+from pyanaconda.threading import thread_manager, AnacondaThread
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.constants import THREAD_PAYLOAD, THREAD_CHECK_SOFTWARE, \
     THREAD_SOFTWARE_WATCHER, PAYLOAD_TYPE_DNF
@@ -88,14 +88,14 @@ class SoftwareSpoke(NormalTUISpoke):
         super().initialize()
         self.initialize_start()
 
-        threadMgr.add(AnacondaThread(
+        thread_manager.add(AnacondaThread(
             name=THREAD_SOFTWARE_WATCHER,
             target=self._initialize
         ))
 
     def _initialize(self):
         """Initialize the spoke in a separate thread."""
-        threadMgr.wait(THREAD_PAYLOAD)
+        thread_manager.wait(THREAD_PAYLOAD)
 
         # Initialize and check the software selection.
         self._initialize_selection()
@@ -124,7 +124,7 @@ class SoftwareSpoke(NormalTUISpoke):
         # Wait for the software selection thread that might be started by execute().
         # We are already running in a thread, so it should not needlessly block anything
         # and only like this we can be sure we are really initialized.
-        threadMgr.wait(THREAD_CHECK_SOFTWARE)
+        thread_manager.wait(THREAD_CHECK_SOFTWARE)
 
     @property
     def ready(self):
@@ -150,9 +150,9 @@ class SoftwareSpoke(NormalTUISpoke):
     @property
     def _processing_data(self):
         """Is the spoke processing data?"""
-        return threadMgr.get(THREAD_SOFTWARE_WATCHER) \
-            or threadMgr.get(THREAD_PAYLOAD) \
-            or threadMgr.get(THREAD_CHECK_SOFTWARE)
+        return thread_manager.get(THREAD_SOFTWARE_WATCHER) \
+            or thread_manager.get(THREAD_PAYLOAD) \
+            or thread_manager.get(THREAD_CHECK_SOFTWARE)
 
     @property
     def status(self):
@@ -191,8 +191,8 @@ class SoftwareSpoke(NormalTUISpoke):
         super().setup(args)
 
         # Wait for the payload to be ready.
-        threadMgr.wait(THREAD_SOFTWARE_WATCHER)
-        threadMgr.wait(THREAD_PAYLOAD)
+        thread_manager.wait(THREAD_SOFTWARE_WATCHER)
+        thread_manager.wait(THREAD_PAYLOAD)
 
         # Create a new software selection cache.
         self._selection_cache = SoftwareSelectionCache(self._dnf_manager)
@@ -210,7 +210,7 @@ class SoftwareSpoke(NormalTUISpoke):
             self.window.add_with_separator(message)
             return
 
-        threadMgr.wait(THREAD_CHECK_SOFTWARE)
+        thread_manager.wait(THREAD_CHECK_SOFTWARE)
         self._container = ListColumnContainer(
             columns=2,
             columns_width=38,
@@ -278,7 +278,7 @@ class SoftwareSpoke(NormalTUISpoke):
 
     def execute(self):
         """Execute the changes."""
-        threadMgr.add(AnacondaThread(
+        thread_manager.add(AnacondaThread(
             name=THREAD_CHECK_SOFTWARE,
             target=self._check_software_selection
         ))

@@ -32,7 +32,7 @@ from pyanaconda.modules.common.task.cancellable import Cancellable
 from pyanaconda.modules.common.task.progress import ProgressReporter
 from pyanaconda.modules.common.task.result import ResultProvider
 from pyanaconda.modules.common.task.runnable import Runnable
-from pyanaconda.threading import threadMgr, AnacondaThread
+from pyanaconda.threading import thread_manager, AnacondaThread
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -76,11 +76,11 @@ class Task(AbstractTask):
     @property
     def is_running(self):
         """Is the task running."""
-        return threadMgr.exists(self._thread_name)
+        return thread_manager.exists(self._thread_name)
 
     def start(self):
         """Start the task in a new thread."""
-        threadMgr.add(
+        thread_manager.add(
             AnacondaThread(
                 name=self._thread_name,
                 target=self._thread_run_callback,
@@ -172,7 +172,7 @@ class Task(AbstractTask):
         Call this method after the task has stopped. If there was raised
         an exception during the task run, it will be raised here again.
         """
-        threadMgr.raise_if_error(self._thread_name)
+        thread_manager.raise_if_error(self._thread_name)
 
     @classmethod
     def _generate_thread_name(cls):

@@ -261,7 +261,7 @@ class AnacondaThread(threading.Thread):
             import sys
             sys.excepthook(*exc_info)
         else:
-            threadMgr.set_error(self.name, *exc_info)
+            thread_manager.set_error(self.name, *exc_info)
 
         if self._target_failed_callback:
             self._target_failed_callback(*exc_info)
@@ -278,8 +278,8 @@ class AnacondaThread(threading.Thread):
             self._target_failed(*sys.exc_info())
 
         finally:
-            threadMgr.remove(self.name)
+            thread_manager.remove(self.name)
             self._target_stopped()
 
 
-threadMgr = ThreadManager()
+thread_manager = ThreadManager()

@@ -748,7 +748,7 @@ class GraphicalUserInterface(UserInterface):
             log.error("Unhandled exception caught, waiting for python-meh to "\
                       "exit")
 
-            anaconda_threading.threadMgr.wait_for_error_threads()
+            anaconda_threading.thread_manager.wait_for_error_threads()
             sys.exit(1)
 
         try:

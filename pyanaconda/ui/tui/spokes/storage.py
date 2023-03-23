@@ -36,7 +36,7 @@ from pyanaconda.ui.lib.format_dasd import DasdFormatting
 
 from blivet.size import Size
 from pyanaconda.flags import flags
-from pyanaconda.threading import threadMgr, AnacondaThread
+from pyanaconda.threading import thread_manager, AnacondaThread
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
     PAYLOAD_STATUS_PROBING_STORAGE, CLEAR_PARTITIONS_ALL, \
@@ -125,8 +125,8 @@ class StorageSpoke(NormalTUISpoke):
         # By default, the storage spoke is not ready.  We have to wait until
         # storageInitialize is done.
         return self._ready \
-            and not threadMgr.get(THREAD_STORAGE) \
-            and not threadMgr.get(THREAD_STORAGE_WATCHER)
+            and not thread_manager.get(THREAD_STORAGE) \
+            and not thread_manager.get(THREAD_STORAGE_WATCHER)
 
     @property
     def mandatory(self):
@@ -183,7 +183,7 @@ class StorageSpoke(NormalTUISpoke):
         # Join the initialization thread to block on it
         # This print is foul.  Need a better message display
         print(_(PAYLOAD_STATUS_PROBING_STORAGE))
-        threadMgr.wait(THREAD_STORAGE_WATCHER)
+        thread_manager.wait(THREAD_STORAGE_WATCHER)
 
         self._available_disks = self._disk_select_module.GetUsableDisks()
         self._selected_disks = self._disk_select_module.SelectedDisks
@@ -270,7 +270,7 @@ class StorageSpoke(NormalTUISpoke):
                     # Is DASD formatting supported?
                     if DasdFormatting.is_supported():
                         # Wait for storage.
-                        threadMgr.wait(THREAD_STORAGE)
+                        thread_manager.wait(THREAD_STORAGE)
 
                         # Allow to format DASDs.
                         self._disk_init_module.FormatUnrecognizedEnabled = True
@@ -398,8 +398,8 @@ class StorageSpoke(NormalTUISpoke):
         if flags.automatedInstall and flags.ksprompt:
             self.run_passphrase_dialog()
 
-        threadMgr.add(AnacondaThread(name=THREAD_STORAGE_WATCHER,
-                                     target=self._initialize))
+        thread_manager.add(AnacondaThread(name=THREAD_STORAGE_WATCHER,
+                                          target=self._initialize))
 
     def _initialize(self):
         """
@@ -407,7 +407,7 @@ class StorageSpoke(NormalTUISpoke):
         populating our disk list
         """
         # Wait for storage.
-        threadMgr.wait(THREAD_STORAGE)
+        thread_manager.wait(THREAD_STORAGE)
 
         # Automatically format DASDs if allowed.
         disks = self._disk_select_module.GetUsableDisks()
