@@ -18,13 +18,22 @@
 # Authors: Jiri Konecny <jkonecny@redhat.com>
 #
 import unittest
+from functools import partial
+
 import pytest
 
 import pyanaconda.core.payload as util
+from pyanaconda.core.constants import SOURCE_TYPE_CDROM, SOURCE_TYPE_URL, SOURCE_TYPE_NFS, \
+    SOURCE_TYPE_HDD, SOURCE_TYPE_HMC
 from pyanaconda.core.payload import parse_hdd_url
+from pyanaconda.modules.common.constants.services import PAYLOADS
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.payload.dnf import DNFPayload
+from tests.unit_tests.pyanaconda_tests import patch_dbus_get_proxy_with_cache
 
 
 class PayloadUtilsTests(unittest.TestCase):
+    """Test the payload utilities."""
 
     def test_parse_nfs_url(self):
         """Test parseNfsUrl."""
@@ -108,3 +117,86 @@ class PayloadUtilsTests(unittest.TestCase):
         assert parse_hdd_url("hd:/dev/test:/absolute") == ("/dev/test", "/absolute")
         assert parse_hdd_url("hd:/dev/test:relative/path") == ("/dev/test", "relative/path")
         assert parse_hdd_url("hd:/dev/test:/absolute/path") == ("/dev/test", "/absolute/path")
+
+
+class DNFPayloadOptionsTests(unittest.TestCase):
+    """Test the DNF payload support for cmdline and boot options."""
+
+    def _generate_id(self):
+        """Generate a unique number."""
+        count = 0
+
+        while True:
+            yield count
+            count += 1
+
+    def _create_source(self, source_type, source_url):
+        """Create a source from the specified URL and check its type."""
+        source_path = "/my/source/{}".format(str(self._generate_id()))
+
+        payloads_proxy = PAYLOADS.get_proxy()
+        payloads_proxy.CreateSource.return_value = source_path
+
+        source_proxy = DNFPayload._create_source_from_url(source_url)
+        payloads_proxy.CreateSource.assert_called_with(source_type)
+        return source_proxy
+
+    @patch_dbus_get_proxy_with_cache
+    def test_create_source_from_url_invalid(self, proxy_getter):
+        """Test the create_source_from_url function with invalid values."""
+        with pytest.raises(ValueError) as cm:
+            self._create_source(SOURCE_TYPE_HMC, "invalid:/path")
+
+        msg = "Unknown type of the installation source: invalid:/path"
+        assert str(cm.value) == msg
+
+    @patch_dbus_get_proxy_with_cache
+    def test_create_source_from_url_hmc(self, proxy_getter):
+        """Test HMC sources created by the create_source_from_url function."""
+        self._create_source(SOURCE_TYPE_HMC, "hmc")
+
+    @patch_dbus_get_proxy_with_cache
+    def test_create_source_from_url_cdrom(self, proxy_getter):
+        """Test CDROM sources created by the create_source_from_url function."""
+        self._create_source(SOURCE_TYPE_CDROM, "cdrom")
+        self._create_source(SOURCE_TYPE_CDROM, "cdrom:/dev/cdrom")
+
+    @patch_dbus_get_proxy_with_cache
+    def test_create_source_from_url(self, proxy_getter):
+        """Test URL sources created by the create_source_from_url function."""
+        create_source = partial(self._create_source, SOURCE_TYPE_URL)
+
+        create_source("http://server.example.com/test")
+        create_source("https://server.example.com/test")
+        create_source("ftp://server.example.com/test")
+        create_source("file:///local/path/test")
+
+        proxy = create_source("http://server.example.com/test")
+        configuration = RepoConfigurationData.from_structure(proxy.Configuration)
+        assert configuration.url == "http://server.example.com/test"
+
+    @patch_dbus_get_proxy_with_cache
+    def test_create_source_from_url_nfs(self, proxy_getter):
+        """Test NFS sources created by the create_source_from_url function."""
+        create_source = partial(self._create_source, SOURCE_TYPE_NFS)
+
+        create_source("nfs://server.nfs.com:/path/on/server")
+        create_source("nfs:soft,async:server.com:/path/to/install_tree")
+        create_source("nfs:server.example.com:/path/to/install_tree")
+
+        proxy = create_source("nfs://server.nfs.com:/path/on/server")
+        configuration = RepoConfigurationData.from_structure(proxy.Configuration)
+        assert configuration.url == "nfs://server.nfs.com:/path/on/server"
+
+    @patch_dbus_get_proxy_with_cache
+    def test_create_source_from_url_hdd(self, proxy_getter):
+        """Test HDD sources created by the create_source_from_url function."""
+        create_source = partial(self._create_source, SOURCE_TYPE_HDD)
+
+        create_source("hd:/dev/sda2:/path/to/iso.iso")
+        create_source("hd:LABEL=TEST:/path/to/iso.iso")
+        create_source("hd:UUID=8176c7bf-04ff-403a:/path/to/iso.iso")
+
+        proxy = create_source("hd:/dev/sda2:/path/to/iso.iso")
+        assert proxy.Partition == "/dev/sda2"
+        assert proxy.Directory == "/path/to/iso.iso"
