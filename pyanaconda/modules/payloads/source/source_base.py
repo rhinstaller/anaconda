@@ -24,7 +24,9 @@ from dasbus.server.publishable import Publishable
 from dasbus.signal import Signal
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.async_utils import async_action_wait
 from pyanaconda.modules.common.base import KickstartBaseModule
+from pyanaconda.modules.common.errors.payload import SourceSetupError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.source.utils import MountPointGenerator
 
@@ -224,6 +226,7 @@ class RepositorySourceMixin(ABC):
         pass
 
     @property
+    @async_action_wait
     def repository(self):
         """The repository configuration of the prepared source.
 
@@ -232,8 +235,14 @@ class RepositorySourceMixin(ABC):
         and it will be used to set up the repository via the DNF manager.
 
         :return RepoConfigurationData: a configuration data
+        :raise SourceSetupError: if there are no configuration data
         """
-        return self._repository
+        repository = self._repository
+
+        if not repository:
+            raise SourceSetupError("The repository configuration is unavailable.")
+
+        return repository
 
     def _set_repository(self, repository):
         """Set the repository configuration of the prepared source.

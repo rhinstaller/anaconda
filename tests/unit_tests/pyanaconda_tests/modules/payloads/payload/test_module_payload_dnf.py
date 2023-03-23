@@ -995,18 +995,17 @@ class DNFInterfaceTestCase(unittest.TestCase):
 
         assert self.interface.GetRepoConfigurations() == expected
 
-    @patch("pyanaconda.modules.payloads.source.nfs.nfs.NFSSourceModule.install_tree_path",
-           new_callable=PropertyMock)
     @patch_dbus_publish_object
-    def test_nfs_get_repo_configurations(self, publisher, install_tree_path_mock):
+    def test_nfs_get_repo_configurations(self, publisher):
         """Test DNF GetRepoConfigurations for NFS source."""
-        install_tree_path_mock.return_value = "/install_source/nfs"
-        source = self.shared_tests.prepare_source(SourceType.NFS)
+        configuration = RepoConfigurationData()
+        configuration.url = "file:///install_source/nfs"
 
+        source = self.shared_tests.prepare_source(SourceType.NFS)
+        source._set_repository(configuration)
         self.shared_tests.set_sources([source])
 
         expected = [self._generate_repository_structure("file:///install_source/nfs")]
-
         assert self.interface.GetRepoConfigurations() == expected
 
     @patch("pyanaconda.modules.payloads.source.harddrive.harddrive.HardDriveSourceModule.install_tree_path",

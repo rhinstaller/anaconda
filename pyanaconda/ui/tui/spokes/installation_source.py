@@ -326,7 +326,10 @@ class SpecifyNFSRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
         source_proxy = self.payload.get_source_proxy()
 
         if source_proxy.Type == SOURCE_TYPE_NFS:
-            return parse_nfs_url(source_proxy.URL)
+            configuration = RepoConfigurationData.from_structure(
+                source_proxy.Configuration
+            )
+            return parse_nfs_url(configuration.url)
 
         return "", "", ""
 

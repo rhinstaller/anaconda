@@ -135,12 +135,13 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
         # clean any old HDD ISO sources
         self._tear_down_existing_source()
 
-        nfs_url = create_nfs_url(server, directory, opts)
+        configuration = RepoConfigurationData()
+        configuration.url = create_nfs_url(server, directory, opts)
 
-        nfs_source_proxy = create_source(constants.SOURCE_TYPE_NFS)
-        nfs_source_proxy.URL = nfs_url
+        source_proxy = create_source(constants.SOURCE_TYPE_NFS)
+        source_proxy.Configuration = RepoConfigurationData.to_structure(configuration)
 
-        set_source(self.payload.proxy, nfs_source_proxy)
+        set_source(self.payload.proxy, source_proxy)
 
     def set_source_cdrom(self):
         """ Switch to cdrom install source """

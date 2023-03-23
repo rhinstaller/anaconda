@@ -148,7 +148,13 @@ class TestSourceFactoryTests(unittest.TestCase):
     @patch_dbus_get_proxy_with_cache
     def test_create_proxy_nfs(self, proxy_getter):
         proxy = self._check_create_proxy(SOURCE_TYPE_NFS, "nfs:server.com:/path/to/install_tree")
-        assert proxy.URL == "nfs:server.com:/path/to/install_tree"
+
+        repo_configuration = RepoConfigurationData()
+        repo_configuration.type = URL_TYPE_BASEURL
+        repo_configuration.url = "nfs:server.com:/path/to/install_tree"
+
+        assert proxy.Configuration ==  \
+            RepoConfigurationData.to_structure(repo_configuration)
 
     @patch_dbus_get_proxy_with_cache
     def test_create_proxy_url(self, proxy_getter):

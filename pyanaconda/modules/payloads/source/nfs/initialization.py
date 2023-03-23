@@ -15,7 +15,9 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import copy
 import os.path
+from collections import namedtuple
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.payload import parse_nfs_url
@@ -28,41 +30,77 @@ from pyanaconda.payload.utils import mount, unmount
 
 log = get_module_logger(__name__)
 
-__all__ = ["SetUpNFSSourceTask"]
+__all__ = [
+    "SetUpNFSSourceTask",
+    "SetUpNFSSourceResult"
+]
+
+SetUpNFSSourceResult = namedtuple(
+    "SetUpNFSSourceResult",
+    ["repository"]
+)
 
 
 class SetUpNFSSourceTask(Task):
     """Task to set up the NFS source."""
 
-    def __init__(self, device_mount, iso_mount, url):
+    def __init__(self, configuration, device_mount, iso_mount):
+        """Create a new task.
+
+        :param RepoConfigurationData configuration: a source data
+        :param device_mount: a mount point for a device
+        :param iso_mount: a mount point for an iso
+        """
         super().__init__()
+        self._configuration = configuration
+        self._url = self._configuration.url
         self._device_mount = device_mount
         self._iso_mount = iso_mount
-        self._url = url
 
     @property
     def name(self):
         return "Set up a NFS source"
 
     def run(self):
-        """Set up the installation source."""
+        """Set up the installation source.
+
+        :return SetUpNFSSourceResult: a result data
+        """
         log.debug("Setting up a NFS source: %s", self._url)
 
+        # Set up the NFS source.
+        install_tree_path = self._set_up_source()
+
+        # Generate a valid repository configuration.
+        repository = copy.deepcopy(self._configuration)
+        repository.url = "file://" + install_tree_path
+
+        return SetUpNFSSourceResult(
+            repository=repository
+        )
+
+    def _set_up_source(self):
+        """Set up the NFS source and return a path to a valid repository."""
+
+        # Check the mount points.
         for mount_point in [self._device_mount, self._iso_mount]:
             if os.path.ismount(mount_point):
                 raise SourceSetupError("The mount point {} is already in use.".format(
                     mount_point
                 ))
 
+        # Mount the NFS.
         options, host, path = parse_nfs_url(self._url)
         path, image = self._split_iso_from_path(path)
+
         try:
-            self._mount_nfs(host, options, path)
-        except OSError as exn:
-            raise SourceSetupError("Could not mount NFS url '{}'".format(self._url)) from exn
+            self._mount_nfs(host, options, path, self._device_mount)
+        except OSError as e:
+            msg = "Failed to mount the NFS source at '{}': {}".format(self._url, str(e))
+            raise SourceSetupError(msg) from None
 
+        # Mount an ISO if any.
         iso_source_path = join_paths(self._device_mount, image) if image else self._device_mount
-
         iso_name = find_and_mount_iso_image(iso_source_path, self._iso_mount)
 
         if iso_name:
@@ -73,10 +111,12 @@ class SetUpNFSSourceTask(Task):
             log.debug("Using the directory at '%s'.", self._device_mount)
             return self._device_mount
 
-        # nothing found unmount the existing device
+        # Nothing found.
         unmount(self._device_mount)
+
         raise SourceSetupError(
-            "Nothing useful found for NFS source at {}".format(self._url))
+            "Nothing useful found for the NFS source at '{}'.".format(self._url)
+        )
 
     @staticmethod
     def _split_iso_from_path(path):
@@ -95,10 +135,12 @@ class SetUpNFSSourceTask(Task):
 
         return path, ""
 
-    def _mount_nfs(self, host, options, path):
+    @staticmethod
+    def _mount_nfs(host, options, path, mount_point):
+        """Mount NFS using the specified data."""
         if not options:
             options = "nolock"
         elif "nolock" not in options:
             options += ",nolock"
 
-        mount("{}:{}".format(host, path), self._device_mount, fstype="nfs", options=options)
+        mount("{}:{}".format(host, path), mount_point, fstype="nfs", options=options)

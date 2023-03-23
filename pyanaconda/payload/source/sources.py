@@ -179,9 +179,12 @@ class NFSSource(BasePayloadSource):
 
         :return: a DBus proxy of a source
         """
+        configuration = RepoConfigurationData()
+        configuration.url = create_nfs_url(self.server, self.path, self.options)
+
         source_proxy = create_source(SOURCE_TYPE_NFS)
-        source_url = create_nfs_url(self.server, self.path, self.options)
-        source_proxy.URL = source_url
+        source_proxy.Configuration = RepoConfigurationData.to_structure(configuration)
+
         return source_proxy
 
 

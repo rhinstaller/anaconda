@@ -16,65 +16,52 @@
 # Red Hat, Inc.
 #
 import unittest
+from unittest.mock import patch
+
 import pytest
 
-from unittest.mock import patch, Mock
-
-from pyanaconda.core.constants import SOURCE_TYPE_NFS
-from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_NFS
+from pyanaconda.core.constants import SOURCE_TYPE_NFS, URL_TYPE_MIRRORLIST
+from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_REPOSITORY
+from pyanaconda.modules.common.errors.general import InvalidValueError
 from pyanaconda.modules.common.errors.payload import SourceSetupError
+from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
-from pyanaconda.modules.payloads.source.nfs.nfs import NFSSourceModule
-from pyanaconda.modules.payloads.source.nfs.nfs_interface import NFSSourceInterface
-from pyanaconda.modules.payloads.source.nfs.initialization import SetUpNFSSourceTask
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
-
-from tests.unit_tests.pyanaconda_tests import check_dbus_property, PropertiesChangedCallback
-
-
-NFS_ADDRESS = "example.com:/some/path"
-NFS_URL = "nfs:" + NFS_ADDRESS
-DEVICE_MOUNT_LOCATION = "/mnt/put-nfs-here"
-ISO_MOUNT_LOCATION = "/mnt/put-nfs-iso-here"
-
-
-def _create_setup_task(url=NFS_URL):
-    return SetUpNFSSourceTask(
-        DEVICE_MOUNT_LOCATION,
-        ISO_MOUNT_LOCATION,
-        url
-    )
+from pyanaconda.modules.payloads.source.nfs.initialization import SetUpNFSSourceTask, \
+    SetUpNFSSourceResult
+from pyanaconda.modules.payloads.source.nfs.nfs import NFSSourceModule
+from tests.unit_tests.pyanaconda_tests import check_dbus_property
 
 
 class NFSSourceInterfaceTestCase(unittest.TestCase):
 
     def setUp(self):
         self.module = NFSSourceModule()
-        self.interface = NFSSourceInterface(self.module)
-
-        self.callback = PropertiesChangedCallback()
-        self.interface.PropertiesChanged.connect(self.callback)
+        self.interface = self.module.for_publication()
 
     def test_type(self):
         """Test NFS source has a correct type specified."""
-        assert SOURCE_TYPE_NFS == self.interface.Type
+        assert self.interface.Type == SOURCE_TYPE_NFS
 
     def test_description(self):
         """Test NFS source description."""
-        self.interface.URL = "nfs:server:/path"
-        assert "NFS server nfs:server:/path" == self.interface.Description
+        self.module.configuration.url = "nfs:example.com:/path"
+        assert self.interface.Description == "NFS server example.com:/path"
 
-    def test_url_empty_properties(self):
-        """Test NFS source URL property when not set."""
-        assert self.interface.URL == ""
+    def test_configuration_property(self):
+        """Test the configuration property."""
+        configuration = RepoConfigurationData()
+        configuration.url = "nfs:server:/path"
 
-    def test_url_properties(self):
-        """Test NFS source URL property is correctly set."""
+        structure = RepoConfigurationData.to_structure(
+            configuration
+        )
+
         check_dbus_property(
-            PAYLOAD_SOURCE_NFS,
+            PAYLOAD_SOURCE_REPOSITORY,
             self.interface,
-            "URL",
-            NFS_URL
+            "Configuration",
+            structure
         )
 
 
@@ -104,11 +91,14 @@ class NFSSourceTestCase(unittest.TestCase):
         ismount_mock.reset_mock()
         ismount_mock.return_value = True
 
-        task = self.module.set_up_with_tasks()[0]
-        task.get_result = Mock(return_value="/my/path")
-        task.succeeded_signal.emit()
-        assert SourceState.READY == self.module.get_state()
+        configuration = RepoConfigurationData()
+        configuration.url = "/my/path"
 
+        for task in self.module.set_up_with_tasks():
+            task._set_result(SetUpNFSSourceResult(configuration))
+            task.succeeded_signal.emit()
+
+        assert SourceState.READY == self.module.get_state()
         ismount_mock.assert_called_once_with(self.module._device_mount)
 
     def test_set_up_with_tasks(self):
@@ -144,175 +134,235 @@ class NFSSourceTestCase(unittest.TestCase):
         for i in range(task_number):
             assert isinstance(tasks[i], task_classes[i])
 
-    def test_url_property(self):
-        """Test NFS source URL property is correctly set."""
-        self.module.set_url(NFS_URL)
-        assert NFS_URL == self.module.url
+    def test_configuration_invalid_protocol(self):
+        """Test the source configuration with an invalid protocol."""
+        configuration = RepoConfigurationData()
+        configuration.url = "cdrom"
+
+        with pytest.raises(InvalidValueError) as cm:
+            self.module.set_configuration(configuration)
+
+        assert str(cm.value) == "Invalid protocol of a NFS source: 'cdrom'"
+
+    def test_configuration_invalid_url_type(self):
+        """Test the source configuration with an invalid URL type."""
+        configuration = RepoConfigurationData()
+        configuration.url = "nfs:example.com:/some/path"
+        configuration.type = URL_TYPE_MIRRORLIST
+
+        with pytest.raises(InvalidValueError) as cm:
+            self.module.set_configuration(configuration)
+
+        assert str(cm.value) == "Invalid URL type of a NFS source: 'MIRRORLIST'"
+
+    def test_repository_configuration(self):
+        """Test the repository configuration."""
+        configuration = RepoConfigurationData()
+        configuration.url = "file:///mnt/device"
+
+        for task in self.module.set_up_with_tasks():
+            task._set_result(SetUpNFSSourceResult(configuration))
+            task.succeeded_signal.emit()
+
+        assert self.module.repository is configuration
 
     def test_repr(self):
-        self.module.set_url(NFS_URL)
+        """Test the string representation of the NFS source."""
+        self.module.configuration.url = "nfs:example.com:/some/path"
         assert repr(self.module) == "Source(type='NFS', url='nfs:example.com:/some/path')"
 
 
 class NFSSourceSetupTaskTestCase(unittest.TestCase):
+    """Test the SetUpNFSSourceTask task."""
 
-    def test_setup_install_source_task_name(self):
-        """Test NFS Source setup installation source task name."""
-        task = SetUpNFSSourceTask(DEVICE_MOUNT_LOCATION, ISO_MOUNT_LOCATION, NFS_URL)
+    def _run_task(self, url, expected=None):
+        """Run the set-up task of the NFS source."""
+        configuration = RepoConfigurationData()
+        configuration.url = url
+
+        task = SetUpNFSSourceTask(
+            configuration=configuration,
+            device_mount="/mnt/device",
+            iso_mount="/mnt/image",
+        )
+        result = task.run()
+
         assert task.name == "Set up a NFS source"
+        assert isinstance(result, SetUpNFSSourceResult)
+        assert isinstance(result.repository, RepoConfigurationData)
+        assert result.repository.url == expected
+        assert result.repository is not configuration
 
-    @patch("pyanaconda.modules.payloads.source.nfs.initialization.find_and_mount_iso_image",
-           return_value="trojan.iso")
+    @patch("pyanaconda.modules.payloads.source.nfs.initialization.find_and_mount_iso_image")
     @patch("pyanaconda.modules.payloads.source.nfs.initialization.mount")
-    def test_success_find_iso(self,
-                              mount_mock,
-                              find_and_mount_iso_image_mock):
+    def test_success_find_iso(self, mount_mock, find_image_mock):
         """Test NFS source setup find ISO success"""
-        task = _create_setup_task()
-        result = task.run()
+        find_image_mock.return_value = "image.iso"
 
-        mount_mock.assert_called_once_with(NFS_ADDRESS,
-                                           DEVICE_MOUNT_LOCATION,
-                                           fstype="nfs",
-                                           options="nolock")
+        self._run_task(
+            "nfs:example.com:/some/path",
+            expected="file:///mnt/image"
+        )
+        mount_mock.assert_called_once_with(
+            "example.com:/some/path",
+            "/mnt/device",
+            fstype="nfs",
+            options="nolock"
+        )
+        find_image_mock.assert_called_once_with(
+            "/mnt/device",
+            "/mnt/image"
+        )
 
-        find_and_mount_iso_image_mock.assert_called_once_with(DEVICE_MOUNT_LOCATION,
-                                                              ISO_MOUNT_LOCATION)
-
-        assert result == ISO_MOUNT_LOCATION
-
-    @patch("pyanaconda.modules.payloads.source.nfs.initialization.find_and_mount_iso_image",
-           return_value="trojan.iso")
+    @patch("pyanaconda.modules.payloads.source.nfs.initialization.find_and_mount_iso_image")
     @patch("pyanaconda.modules.payloads.source.nfs.initialization.mount")
-    def test_success_find_path_with_iso(self,
-                                        mount_mock,
-                                        find_and_mount_iso_image_mock):
+    def test_success_find_path_with_iso(self, mount_mock, find_image_mock):
         """Test NFS source setup when url has ISO in a path success"""
-        task = _create_setup_task("nfs:secret.com:/path/to/super.iso")
-        result = task.run()
+        find_image_mock.return_value = "image.iso"
 
-        mount_mock.assert_called_once_with("secret.com:/path/to",
-                                           DEVICE_MOUNT_LOCATION,
-                                           fstype="nfs",
-                                           options="nolock")
+        self._run_task(
+            "nfs:example.com:/path/to/super.iso",
+            expected="file:///mnt/image"
+        )
+        mount_mock.assert_called_once_with(
+            "example.com:/path/to",
+            "/mnt/device",
+            fstype="nfs",
+            options="nolock"
+        )
+        find_image_mock.assert_called_once_with(
+            "/mnt/device/super.iso",
+            "/mnt/image"
+        )
 
-        find_and_mount_iso_image_mock.assert_called_once_with(DEVICE_MOUNT_LOCATION + "/super.iso",
-                                                              ISO_MOUNT_LOCATION)
-
-        assert result == ISO_MOUNT_LOCATION
-
-    @patch("pyanaconda.modules.payloads.source.nfs.initialization.verify_valid_repository",
-           return_value=True)
-    @patch("pyanaconda.modules.payloads.source.nfs.initialization.find_and_mount_iso_image",
-           return_value="")
+    @patch("pyanaconda.modules.payloads.source.nfs.initialization.verify_valid_repository")
+    @patch("pyanaconda.modules.payloads.source.nfs.initialization.find_and_mount_iso_image")
     @patch("pyanaconda.modules.payloads.source.nfs.initialization.mount")
-    def test_success_find_dir(self,
-                              mount_mock,
-                              find_and_mount_iso_image_mock,
-                              verify_valid_repository_mock):
+    def test_success_find_directory(self, mount_mock, find_image_mock, verify_mock):
         """Test NFS source setup find installation tree success"""
-        task = _create_setup_task()
-        result = task.run()
+        find_image_mock.return_value = ""
+        verify_mock.return_value = True
 
-        mount_mock.assert_called_once_with(NFS_ADDRESS,
-                                           DEVICE_MOUNT_LOCATION,
-                                           fstype="nfs",
-                                           options="nolock")
+        self._run_task(
+            "nfs:example.com:/some/path",
+            expected="file:///mnt/device"
+        )
+        mount_mock.assert_called_once_with(
+            "example.com:/some/path",
+            "/mnt/device",
+            fstype="nfs",
+            options="nolock"
+        )
+        find_image_mock.assert_called_once_with(
+            "/mnt/device",
+            "/mnt/image"
+        )
+        verify_mock.assert_called_once_with(
+            "/mnt/device"
+        )
 
-        find_and_mount_iso_image_mock.assert_called_once_with(DEVICE_MOUNT_LOCATION,
-                                                              ISO_MOUNT_LOCATION)
-
-        verify_valid_repository_mock.assert_called_once_with(DEVICE_MOUNT_LOCATION)
-
-        assert result == DEVICE_MOUNT_LOCATION
-
-    @patch("pyanaconda.modules.payloads.source.nfs.initialization.find_and_mount_iso_image",
-           return_value="trojan.iso")
+    @patch("pyanaconda.modules.payloads.source.nfs.initialization.find_and_mount_iso_image")
     @patch("pyanaconda.modules.payloads.source.nfs.initialization.mount")
-    def test_setup_install_source_task_options_nolock(self,
-                                                      mount_mock,
-                                                      find_and_mount_iso_image_mock):
+    def test_success_options_nolock(self, mount_mock, find_image_mock):
         """Test NFS source setup adding nolock to options"""
-        task = SetUpNFSSourceTask(DEVICE_MOUNT_LOCATION,
-                                  ISO_MOUNT_LOCATION,
-                                  "nfs:some-option:" + NFS_ADDRESS)
-        task.run()
-        mount_mock.assert_called_with(NFS_ADDRESS, DEVICE_MOUNT_LOCATION, fstype="nfs",
-                                      options="some-option,nolock")
+        find_image_mock.return_value = "image.iso"
 
-        find_and_mount_iso_image_mock.assert_called_once_with(DEVICE_MOUNT_LOCATION,
-                                                              ISO_MOUNT_LOCATION)
+        self._run_task(
+            "nfs:timeo=50:example.com:/some/path",
+            expected="file:///mnt/image"
+        )
+        mount_mock.assert_called_with(
+            "example.com:/some/path",
+            "/mnt/device",
+            fstype="nfs",
+            options="timeo=50,nolock"
+        )
+        find_image_mock.assert_called_once_with(
+            "/mnt/device",
+            "/mnt/image"
+        )
 
-    @patch("pyanaconda.modules.payloads.source.nfs.initialization.find_and_mount_iso_image",
-           return_value="trojan.iso")
+    @patch("pyanaconda.modules.payloads.source.nfs.initialization.find_and_mount_iso_image")
     @patch("pyanaconda.modules.payloads.source.nfs.initialization.mount")
-    def test_setup_install_source_task_success_options(self,
-                                                       mount_mock,
-                                                       find_and_mount_iso_image_mock):
+    def test_success_options(self, mount_mock, find_image_mock):
         """Test NFS source setup handling nolock in options"""
-        task = SetUpNFSSourceTask(DEVICE_MOUNT_LOCATION,
-                                  ISO_MOUNT_LOCATION,
-                                  "nfs:some-option,nolock:" + NFS_ADDRESS)
-        task.run()
-        mount_mock.assert_called_with(NFS_ADDRESS, DEVICE_MOUNT_LOCATION, fstype="nfs",
-                                      options="some-option,nolock")
+        find_image_mock.return_value = "image.iso"
 
-        find_and_mount_iso_image_mock.assert_called_once_with(DEVICE_MOUNT_LOCATION,
-                                                              ISO_MOUNT_LOCATION)
+        self._run_task(
+            "nfs:nolock,timeo=50:example.com:/some/path",
+            expected="file:///mnt/image"
+        )
+        mount_mock.assert_called_with(
+            "example.com:/some/path",
+            "/mnt/device",
+            fstype="nfs",
+            options="nolock,timeo=50"
+        )
+        find_image_mock.assert_called_once_with(
+            "/mnt/device",
+            "/mnt/image"
+        )
 
-    @patch("pyanaconda.modules.payloads.source.nfs.initialization.mount",
-           side_effect=OSError("Testing..."))
-    def test_setup_install_source_task_mount_failure(self, mount_mock):
+    @patch("pyanaconda.modules.payloads.source.nfs.initialization.mount")
+    def test_failure_mount(self, mount_mock):
         """Test NFS source setup failure"""
-        task = SetUpNFSSourceTask(DEVICE_MOUNT_LOCATION, ISO_MOUNT_LOCATION, NFS_URL)
+        mount_mock.side_effect = OSError("Fake error!")
 
-        with pytest.raises(SourceSetupError):
-            task.run()
+        with pytest.raises(SourceSetupError) as cm:
+            self._run_task("nfs:example.com:/some/path")
 
-        mount_mock.assert_called_once_with(NFS_ADDRESS, DEVICE_MOUNT_LOCATION, fstype="nfs",
-                                           options="nolock")
+        mount_mock.assert_called_once_with(
+            "example.com:/some/path",
+            "/mnt/device",
+            fstype="nfs",
+            options="nolock"
+        )
+
+        msg = "Failed to mount the NFS source at 'nfs:example.com:/some/path': Fake error!"
+        assert str(cm.value) == msg
 
     @patch("pyanaconda.modules.payloads.source.nfs.initialization.unmount")
-    @patch("pyanaconda.modules.payloads.source.nfs.initialization.verify_valid_repository",
-           return_value=False)
-    @patch("pyanaconda.modules.payloads.source.nfs.initialization.find_and_mount_iso_image",
-           return_value="")
+    @patch("pyanaconda.modules.payloads.source.nfs.initialization.verify_valid_repository")
+    @patch("pyanaconda.modules.payloads.source.nfs.initialization.find_and_mount_iso_image")
     @patch("pyanaconda.modules.payloads.source.nfs.initialization.mount")
-    def test_setup_install_source_task_find_anything_failure(self,
-                                                             mount_mock,
-                                                             find_and_mount_iso_image_mock,
-                                                             verify_valid_repository_mock,
-                                                             unmount_mock):
+    def test_failure(self, mount_mock, find_image_mock, verify_mock, unmount_mock):
         """Test NFS can't find anything to install from"""
-        task = SetUpNFSSourceTask(DEVICE_MOUNT_LOCATION, ISO_MOUNT_LOCATION, NFS_URL)
+        verify_mock.return_value = False
+        find_image_mock.return_value = ""
 
-        with pytest.raises(SourceSetupError):
-            task.run()
+        with pytest.raises(SourceSetupError) as cm:
+            self._run_task("nfs:example.com:/some/path")
 
-        mount_mock.assert_called_once_with(NFS_ADDRESS, DEVICE_MOUNT_LOCATION, fstype="nfs",
-                                           options="nolock")
-
-        find_and_mount_iso_image_mock.assert_called_once_with(DEVICE_MOUNT_LOCATION,
-                                                              ISO_MOUNT_LOCATION)
-
-        verify_valid_repository_mock.assert_called_once_with(DEVICE_MOUNT_LOCATION)
-
+        mount_mock.assert_called_once_with(
+            "example.com:/some/path",
+            "/mnt/device",
+            fstype="nfs",
+            options="nolock"
+        )
+        find_image_mock.assert_called_once_with(
+            "/mnt/device",
+            "/mnt/image"
+        )
+        verify_mock.assert_called_once_with(
+            "/mnt/device"
+        )
         unmount_mock.assert_called_once_with(
-            DEVICE_MOUNT_LOCATION
+            "/mnt/device"
         )
 
-    @patch("pyanaconda.modules.payloads.source.nfs.initialization.os.path.ismount",
-           return_value=True)
+        msg = "Nothing useful found for the NFS source at 'nfs:example.com:/some/path'."
+        assert str(cm.value) == msg
+
+    @patch("pyanaconda.modules.payloads.source.nfs.initialization.os.path.ismount")
     def test_failure_mount_already_used(self, ismount_mock):
         """NFS source setup failure to mount partition device."""
-        task = _create_setup_task()
-        with pytest.raises(SourceSetupError) as cm:
-            task.run()
+        ismount_mock.return_value = True
 
-        ismount_mock.assert_called_once()  # must die on first check
-        assert str(cm.value).startswith(
-            "The mount point"
-        )
+        with pytest.raises(SourceSetupError) as cm:
+            self._run_task("nfs:example.com:/some/path")
+
+        ismount_mock.assert_called_once()
+        assert str(cm.value) == "The mount point /mnt/device is already in use."
 
 
 class NFSSourceTearDownTestCase(unittest.TestCase):

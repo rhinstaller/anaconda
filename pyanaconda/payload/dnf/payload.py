@@ -24,6 +24,7 @@ from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData, \
     PackagesSelectionData
 from pyanaconda.modules.common.structures.validation import ValidationReport
+from pyanaconda.modules.payloads.base.initialization import SetUpSourcesTask, TearDownSourcesTask
 from pyanaconda.modules.payloads.payload.dnf.initialization import configure_dnf_logging
 from pyanaconda.modules.payloads.payload.dnf.installation import ImportRPMKeysTask, \
     SetRPMMacrosTask, DownloadPackagesTask, InstallPackagesTask, PrepareDownloadLocationTask, \
@@ -40,8 +41,8 @@ from pyanaconda.modules.payloads.payload.dnf.validation import CheckPackagesSele
     VerifyRepomdHashesTask
 from pyanaconda.modules.payloads.source.harddrive.initialization import SetUpHardDriveSourceTask
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
-from pyanaconda.modules.payloads.source.nfs.initialization import SetUpNFSSourceTask
-from pyanaconda.modules.payloads.source.utils import verify_valid_repository
+from pyanaconda.modules.payloads.source.nfs.nfs import NFSSourceModule
+from pyanaconda.modules.payloads.source.utils import verify_valid_repository, MountPointGenerator
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 from pyanaconda.anaconda_loggers import get_packaging_logger
 from pyanaconda.core import constants
@@ -80,8 +81,14 @@ class DNFPayload(Payload):
 
         self._dnf_manager = DNFManager()
 
-        # List of internal mount points.
+        # List of internal mount points and sources.
         self._mount_points = []
+        self._internal_sources = []
+
+        # Generate mount points in a different interval to
+        # avoid conflicts with mount points generated in
+        # the DBus module. This is a temporary workaround.
+        MountPointGenerator._counter = 1000
 
         # Configure the DNF logging.
         configure_dnf_logging()
@@ -360,7 +367,11 @@ class DNFPayload(Payload):
             raise SourceSetupError(msg.format(data.name)) from None
 
     def _set_up_additional_repository(self, data):
-        """Set up sources for the additional repository."""
+        """Set up sources for the additional repository.
+
+        :param RepoConfigurationData data: a source configuration
+        :return RepoConfigurationData: a repository configuration
+        """
         # Check the validity of the repository.
         if not data.url:
             msg = _("The '{repository_name}' repository has no mirror, baseurl or metalink set.")
@@ -368,26 +379,21 @@ class DNFPayload(Payload):
 
         # There is nothing to set up for sources natively supported by DNF.
         if any(data.url.startswith(p) for p in ["file:", "http:", "https:", "ftp:"]):
-            return
+            return data
 
         # Set up the NFS source with a substituted URL.
         if data.url.startswith("nfs:"):
-            device_mount = self._create_mount_point(
-                constants.MOUNT_DIR,
-                data.name + "-nfs-device"
+            data.url = self._dnf_manager.substitute(
+                data.url
             )
-            iso_mount = self._create_mount_point(
-                constants.MOUNT_DIR,
-                data.name + "-nfs-iso"
-            )
-            task = SetUpNFSSourceTask(
-                device_mount=device_mount,
-                iso_mount=iso_mount,
-                url=self._dnf_manager.substitute(data.url)
-            )
-            mount_point = task.run()
-            data.url = "file://" + mount_point
-            return
+            source = NFSSourceModule()
+            source.set_configuration(data)
+            self._internal_sources.append(source)
+
+            task = SetUpSourcesTask([source])
+            task.run()
+
+            return source.repository
 
         # Set up the HDD source.
         if data.url.startswith("hd:"):
@@ -408,7 +414,7 @@ class DNFPayload(Payload):
             )
             result = task.run()
             data.url = "file://" + result.install_tree_path
-            return
+            return data
 
         # Otherwise, raise an error.
         msg = _("The '{repository_name}' repository uses an unsupported protocol.")
@@ -431,6 +437,11 @@ class DNFPayload(Payload):
         while self._mount_points:
             mount_point = self._mount_points.pop()
             task = TearDownMountTask(mount_point)
+            task.run()
+
+        while self._internal_sources:
+            source = self._internal_sources.pop()
+            task = TearDownSourcesTask([source])
             task.run()
 
     @property
@@ -678,13 +689,13 @@ class DNFPayload(Payload):
                 return
 
             # Set up additional sources.
-            self._set_up_additional_repository(data)
+            repository = self._set_up_additional_repository(data)
 
             # Add a new repository.
-            self._dnf_manager.add_repository(data)
+            self._dnf_manager.add_repository(repository)
 
             # Load an enabled repository to check its validity.
-            self._dnf_manager.load_repository(data.name)
+            self._dnf_manager.load_repository(repository.name)
 
     def _validate_enabled_repositories(self):
         """Validate all enabled repositories.
