@@ -19,7 +19,6 @@
 
 import os
 import sys
-from glob import glob
 from tempfile import mkstemp
 import threading
 
@@ -124,10 +123,6 @@ class Anaconda(object):
         for _repo_name, repo_url in opts.addRepo:
             if SourceFactory.is_harddrive(repo_url):
                 specs.append(repo_url[3:].split(":", 3)[0])
-
-        # zRAM swap devices need to be protected
-        for zram_dev in glob("/dev/zram*"):
-            specs.append(zram_dev)
 
         return specs
 
