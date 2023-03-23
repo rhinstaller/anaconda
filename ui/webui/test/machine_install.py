@@ -73,7 +73,7 @@ class VirtInstallMachine(VirtMachine):
                 "--connect qemu:///session "
                 "--quiet "
                 f"--name {self.label} "
-                f"--os-variant {self.image.rstrip('-boot')} "
+                f"--os-variant=detect=on "
                 "--memory 2048 "
                 "--noautoconsole "
                 f"--graphics vnc,listen={self.ssh_address} "
