@@ -1,4 +1,3 @@
-{% if distro_release == "rawhide" %}
 name: Release periodically
 # Create a GitHub release on schedule
 # This only makes a tag and pushes it, which is then picked up by another action that builds
@@ -7,12 +6,14 @@ name: Release periodically
 
 on:
   workflow_dispatch:
+{% if distro_release == "rawhide" %}
   schedule:
     - cron: 48 4 * * TUE
     # GH workers run on UTC+0 time. The timing is so that the draft can be reviewed at start of
     # work day in Brno which is in UTC+1 or UTC+2.
     # Tuesdays are the traditional rawhide anaconda release day, so that there are enough days to
     # unbreak things.
+{% endif %}
 
 permissions:
   contents: write
@@ -28,7 +29,7 @@ jobs:
       - name: Check out repo
         uses: actions/checkout@v3
         with:
-          ref: "master"
+          ref: ${{ github.ref_name }}
           fetch-depth: 0
           token: ${{ secrets.INSTALLKER_TOKEN }}
 
@@ -58,7 +59,7 @@ jobs:
         run: |
           tag_to_push=$(git describe --tags --exact-match)
           if [ -n "${tag_to_push}" ] ; then
-            git push --atomic origin master "$tag_to_push"
+            git push --atomic origin ${{ github.ref_name }} "$tag_to_push"
           else
             exit 1
           fi
@@ -88,4 +89,3 @@ jobs:
 # the tarball and posts the actual release entity/page with it.
 #
 # See: tag-release.yml
-{% endif %}
