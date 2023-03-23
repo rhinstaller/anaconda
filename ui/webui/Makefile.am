@@ -26,7 +26,7 @@ WEBPACK_TEST_PRODUCTION=dist/index.css.gz
 PACKAGE_NAME=anaconda-webui
 # stamp file to check if/when npm install ran
 NODE_MODULES_TEST=package-lock.json
-TEST_OS=fedora-rawhide-boot
+TEST_OS=fedora-38-boot
 GITHUB_BASE=rhinstaller/anaconda
 UPDATES_IMG=../../updates.img
 
