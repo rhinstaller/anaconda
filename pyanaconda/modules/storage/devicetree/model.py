@@ -302,14 +302,13 @@ class InstallerStorage(Blivet):
         if live_device:
             log.debug("Resolved live device to %s.", live_device.name)
             protected.append(live_device)
-            protected.extend(live_device.parents)
 
         # Find the backing device of a stage2 source and its parents.
         source_device = find_backing_device(self.devicetree, DRACUT_REPO_DIR)
 
         if source_device:
             log.debug("Resolved a stage2 source device to %s.", source_device.name)
-            protected.extend(source_device.ancestors)
+            protected.append(source_device)
 
         # For image installation setup_disk_images method marks all local
         # storage disks as ignored so they are protected from teardown.
@@ -324,8 +323,7 @@ class InstallerStorage(Blivet):
 
         # Mark the collected devices as protected.
         for dev in protected:
-            log.debug("Marking device %s as protected.", dev.name)
-            dev.protected = True
+            self._mark_protected_device(dev)
 
     def protect_devices(self, protected_names):
         """Protect given devices.
@@ -339,22 +337,34 @@ class InstallerStorage(Blivet):
         # Skip devices that should stay protected.
         for spec in unprotected - protected:
             device = self.devicetree.resolve_device(spec)
-
-            if device:
-                log.debug("Marking device %s as unprotected.", device.name)
-                device.protected = False
+            self._mark_unprotected_device(device)
 
         # Mark protected devices.
         # Skip devices that are already protected.
         for spec in protected - unprotected:
             device = self.devicetree.resolve_device(spec)
-
-            if device:
-                log.debug("Marking device %s as protected.", device.name)
-                device.protected = True
+            self._mark_protected_device(device)
 
         # Update the list.
         self.protected_devices = protected_names
+
+    def _mark_protected_device(self, device):
+        """Mark a device and its ancestors as protected."""
+        if not device:
+            return
+
+        for d in device.ancestors:
+            log.debug("Marking device %s as protected.", d.name)
+            d.protected = True
+
+    def _mark_unprotected_device(self, device):
+        """Mark a device and its ancestors as unprotected."""
+        if not device:
+            return
+
+        for d in device.ancestors:
+            log.debug("Marking device %s as unprotected.", d.name)
+            d.protected = False
 
     @property
     def usable_disks(self):
