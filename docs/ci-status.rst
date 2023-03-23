@@ -29,9 +29,9 @@ Anaconda
    :alt: Test releasing and translations daily
    :target: https://github.com/rhinstaller/anaconda/actions/workflows/try-release-daily.yml
 
-.. |release-periodically| image:: https://github.com/rhinstaller/anaconda/actions/workflows/release-periodically.yml/badge.svg
-   :alt: Make a rawhide/master release periodically
-   :target: https://github.com/rhinstaller/anaconda/actions/workflows/release-periodically.yml
+.. |release-automatically| image:: https://github.com/rhinstaller/anaconda/actions/workflows/release-automatically.yml/badge.svg
+   :alt: Make a Rawhide release automatically
+   :target: https://github.com/rhinstaller/anaconda/actions/workflows/release-automatically.yml
 
 .. _Dependabot: https://github.com/rhinstaller/anaconda/network/updates
 
@@ -47,8 +47,9 @@ Anaconda
 |try-release-daily|
   Tests the release process daily, including checks for missing important translations.
 
-|release-periodically|
-  Makes a master/rawhide release periodically with no human oversight for the upstream/non-Fedora part of the process.
+|release-automatically|
+  Makes a Rawhide release automatically with no human oversight for the upstream/non-Fedora part
+  of the process.
 
 Dependabot_
   Checks Anaconda dependencies and opens pull requests for new versions.
