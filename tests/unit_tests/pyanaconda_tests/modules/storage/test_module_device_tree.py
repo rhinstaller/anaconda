@@ -34,6 +34,7 @@ from blivet.formats.luks import LUKS
 from blivet.size import Size
 
 from dasbus.typing import *  # pylint: disable=wildcard-import
+from pyanaconda.core.kernel import KernelArguments
 from pyanaconda.modules.common.errors.storage import UnknownDeviceError, MountFilesystemError
 from pyanaconda.modules.common.structures.storage import DeviceFormatData
 from pyanaconda.modules.storage.devicetree import DeviceTreeModule, create_storage, utils
@@ -889,3 +890,25 @@ class DeviceTreeUtilsTestCase(unittest.TestCase):
         assert utils.is_supported_filesystem("disklabel") is False
         assert utils.is_supported_filesystem("ntfs") is False
         assert utils.is_supported_filesystem("tmpfs") is False
+
+    def test_find_stage2_device(self):
+        """Test the find_stage2_device function."""
+        storage = create_storage()
+
+        self._test_find_stage2_device(storage, "", None)
+        self._test_find_stage2_device(storage, "stage2=http://test", None)
+        self._test_find_stage2_device(storage, "stage2=hd:/dev/dev1", None)
+
+        device = StorageDevice("dev1", fmt=get_format("ext4"))
+        storage.devicetree._add_device(device)
+
+        self._test_find_stage2_device(storage, "stage2=hd:dev1", device)
+        self._test_find_stage2_device(storage, "stage2=hd:/dev/dev1", device)
+        self._test_find_stage2_device(storage, "stage2=hd:/dev/dev1:/path", device)
+
+    def _test_find_stage2_device(self, storage, cmdline, expected_device):
+        """Call the find_stage2_device function and check its return value."""
+        args = KernelArguments.from_string(cmdline)
+
+        with patch("pyanaconda.modules.storage.devicetree.utils.kernel_arguments", args):
+            return utils.find_stage2_device(storage.devicetree) == expected_device

@@ -32,7 +32,7 @@ from pyanaconda.core.constants import shortProductName, DRACUT_REPO_DIR, LIVE_MO
 from pyanaconda.core.path import set_system_root
 from pyanaconda.modules.storage.devicetree.fsset import FSSet
 from pyanaconda.modules.storage.devicetree.utils import download_escrow_certificate, \
-    find_backing_device
+    find_backing_device, find_stage2_device
 from pyanaconda.modules.storage.devicetree.root import find_existing_installations
 from pyanaconda.modules.common.constants.services import NETWORK
 
@@ -288,6 +288,13 @@ class InstallerStorage(Blivet):
             if dev is not None:
                 log.debug("Protected device spec %s resolved to %s.", spec, dev.name)
                 protected.append(dev)
+
+        # Find the stage2 backing device and its parents.
+        stage2_device = find_stage2_device(self.devicetree)
+
+        if stage2_device:
+            log.debug("Resolved stage2 device to %s.", stage2_device.name)
+            protected.append(stage2_device)
 
         # Find the live backing device and its parents.
         live_device = find_backing_device(self.devicetree, LIVE_MOUNT_POINT)

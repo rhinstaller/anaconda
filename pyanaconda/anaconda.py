@@ -117,9 +117,6 @@ class Anaconda(object):
         if opts.method and SourceFactory.is_harddrive(opts.method):
             specs.append(opts.method[3:].split(":", 3)[0])
 
-        if opts.stage2 and SourceFactory.is_harddrive(opts.stage2):
-            specs.append(opts.stage2[3:].split(":", 3)[0])
-
         for _repo_name, repo_url in opts.addRepo:
             if SourceFactory.is_harddrive(repo_url):
                 specs.append(repo_url[3:].split(":", 3)[0])

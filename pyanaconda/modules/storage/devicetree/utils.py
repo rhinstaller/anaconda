@@ -26,9 +26,11 @@ from bytesize.bytesize import MiB, ROUND_UP
 
 from pyanaconda.core import util
 from pyanaconda.core.i18n import _
+from pyanaconda.core.kernel import kernel_arguments
+from pyanaconda.core.payload import parse_hdd_url
 from pyanaconda.modules.common.constants.services import NETWORK
-
 from pyanaconda.anaconda_loggers import get_module_logger
+
 log = get_module_logger(__name__)
 
 
@@ -128,6 +130,21 @@ def find_backing_device(devicetree, mount_point):
 
         if disk:
             return disk
+
+    return None
+
+
+def find_stage2_device(devicetree):
+    """Find the backing device of the stage2 image.
+
+    :param devicetree: a device tree
+    :return: a device or None
+    """
+    url = kernel_arguments.get("stage2")
+
+    if url and url.startswith("hd:"):
+        device, _path = parse_hdd_url(url)
+        return devicetree.resolve_device(device)
 
     return None
 
