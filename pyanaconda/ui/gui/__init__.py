@@ -38,7 +38,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda import product
 from pyanaconda.core import util, constants
 from pyanaconda.core.path import make_directories
-from pyanaconda import threading as anaconda_threading
+from pyanaconda.core import threading as anaconda_threading
 
 from pyanaconda.core.glib import Bytes, GError
 from pyanaconda.keyboard import can_configure_keyboard

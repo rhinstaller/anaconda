@@ -22,7 +22,7 @@ from pyanaconda import ui
 from pyanaconda.core.constants import QUIT_MESSAGE, PAYLOAD_TYPE_DNF
 from pyanaconda.core.util import startProgram
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.threading import thread_manager
+from pyanaconda.core.threading import thread_manager
 
 log = get_module_logger(__name__)
 

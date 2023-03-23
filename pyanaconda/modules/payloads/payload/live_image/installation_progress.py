@@ -27,7 +27,7 @@ from pyanaconda.core.path import join_paths
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.task.cancellable import Cancellable
-from pyanaconda.threading import thread_manager, AnacondaThread
+from pyanaconda.core.threading import thread_manager, AnacondaThread
 
 log = get_module_logger(__name__)
 

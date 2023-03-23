@@ -28,7 +28,7 @@ from pyanaconda.core.service import is_service_installed, start_service
 from pyanaconda.core.constants import RHSM_SERVICE_TIMEOUT
 from pyanaconda.modules.common.constants.objects import RHSM_CONFIG
 from pyanaconda.modules.common.constants.services import RHSM
-from pyanaconda.threading import thread_manager
+from pyanaconda.core.threading import thread_manager
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.errors.task import NoResultError
 

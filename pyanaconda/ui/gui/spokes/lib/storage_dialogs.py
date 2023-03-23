@@ -22,7 +22,7 @@ from pyanaconda.core.constants import PAYLOAD_LIVE_TYPES
 from pyanaconda.core.i18n import _
 from pyanaconda.core.timer import Timer
 from pyanaconda.product import productName
-from pyanaconda.threading import thread_manager
+from pyanaconda.core.threading import thread_manager
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import escape_markup
 

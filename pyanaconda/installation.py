@@ -30,7 +30,7 @@ from pyanaconda.core import util
 from pyanaconda.core.path import open_with_perm
 from pyanaconda import network
 from pyanaconda.core.i18n import _
-from pyanaconda.threading import thread_manager
+from pyanaconda.core.threading import thread_manager
 from pyanaconda.kickstart import runPostScripts, runPreInstallScripts
 from pyanaconda.kexec import setup_kexec
 from pyanaconda.installation_tasks import Task, TaskQueue, DBusTask

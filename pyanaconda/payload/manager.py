@@ -23,7 +23,7 @@ from pyanaconda.core.constants import THREAD_STORAGE, THREAD_PAYLOAD, THREAD_PAY
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.task.progress import ProgressReporter
 from pyanaconda.modules.common.task.runnable import Runnable
-from pyanaconda.threading import thread_manager, AnacondaThread
+from pyanaconda.core.threading import thread_manager, AnacondaThread
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.anaconda_loggers import get_module_logger
 

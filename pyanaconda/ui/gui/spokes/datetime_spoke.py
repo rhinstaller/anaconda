@@ -45,7 +45,7 @@ from pyanaconda.ui.gui.utils import blockedHandler
 from pyanaconda.ui.gui.spokes.lib.ntp_dialog import NTPConfigDialog
 from pyanaconda.timezone import NTP_SERVICE, get_all_regions_and_timezones, get_timezone, \
     is_valid_timezone, set_system_date_time
-from pyanaconda.threading import thread_manager, AnacondaThread
+from pyanaconda.core.threading import thread_manager, AnacondaThread
 
 import gi
 gi.require_version("Gdk", "3.0")

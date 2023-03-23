@@ -43,7 +43,7 @@ from pyanaconda.modules.payloads.source.utils import verify_valid_repository
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.image import find_optical_install_media
 from pyanaconda.payload.manager import payloadMgr
-from pyanaconda.threading import thread_manager, AnacondaThread
+from pyanaconda.core.threading import thread_manager, AnacondaThread
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.context import context

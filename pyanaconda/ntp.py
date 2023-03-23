@@ -34,7 +34,7 @@ from pyanaconda.core.constants import NTP_SERVER_TIMEOUT, NTP_SERVER_QUERY, \
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.util import execWithRedirect
 from pyanaconda.modules.common.structures.timezone import TimeSourceData
-from pyanaconda.threading import thread_manager, AnacondaThread
+from pyanaconda.core.threading import thread_manager, AnacondaThread
 
 NTP_CONFIG_FILE = "/etc/chrony.conf"
 

@@ -17,7 +17,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.core.timer import Timer
-from pyanaconda.threading import thread_manager, AnacondaThread
+from pyanaconda.core.threading import thread_manager, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.core import constants
 from pyanaconda.ui.lib.storage import reset_storage

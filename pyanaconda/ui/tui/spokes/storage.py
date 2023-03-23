@@ -36,7 +36,7 @@ from pyanaconda.ui.lib.format_dasd import DasdFormatting
 
 from blivet.size import Size
 from pyanaconda.flags import flags
-from pyanaconda.threading import thread_manager, AnacondaThread
+from pyanaconda.core.threading import thread_manager, AnacondaThread
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
     PAYLOAD_STATUS_PROBING_STORAGE, CLEAR_PARTITIONS_ALL, \

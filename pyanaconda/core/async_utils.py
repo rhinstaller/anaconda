@@ -18,7 +18,7 @@
 #
 
 from queue import Queue
-from pyanaconda.threading import thread_manager
+from pyanaconda.core.threading import thread_manager
 from pyanaconda.core.glib import idle_add
 
 
