@@ -26,10 +26,10 @@ from dasbus.structure import compare_data
 from pyanaconda.core.constants import URL_TYPE_METALINK, NETWORK_CONNECTION_TIMEOUT, \
     REPO_ORIGIN_TREEINFO
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
-from pyanaconda.modules.payloads.payload.dnf.repositories import generate_treeinfo_repository, \
-    update_treeinfo_repositories
+from pyanaconda.modules.payloads.payload.dnf.repositories import update_treeinfo_repositories
 from pyanaconda.modules.payloads.payload.dnf.tree_info import TreeInfoMetadata, NoTreeInfoError, \
-    InvalidTreeInfoError, LoadTreeInfoMetadataTask, LoadTreeInfoMetadataResult
+    InvalidTreeInfoError, LoadTreeInfoMetadataTask, LoadTreeInfoMetadataResult, \
+    generate_treeinfo_repository
 
 TREE_INFO_FEDORA = """
 [header]

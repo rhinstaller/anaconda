@@ -16,6 +16,7 @@
 # Red Hat, Inc.
 #
 import configparser
+import copy
 import os
 import time
 from collections import namedtuple
@@ -23,13 +24,12 @@ from collections import namedtuple
 from functools import partial
 from productmd.treeinfo import TreeInfo
 from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.payloads.payload.dnf.repositories import generate_treeinfo_repository
 from requests import RequestException
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import URL_TYPE_BASEURL, NETWORK_CONNECTION_TIMEOUT, \
-    DEFAULT_REPOS, USER_AGENT
+    DEFAULT_REPOS, USER_AGENT, REPO_ORIGIN_TREEINFO
 from pyanaconda.core.path import join_paths
 from pyanaconda.core.payload import split_protocol, ProxyString, ProxyStringError
 from pyanaconda.core.util import requests_session, xprogressive_delay
@@ -45,6 +45,27 @@ __all__ = [
     "LoadTreeInfoMetadataResult",
     "LoadTreeInfoMetadataTask",
 ]
+
+
+def generate_treeinfo_repository(repo_data: RepoConfigurationData, repo_md):
+    """Generate repositories from tree metadata of the specified repository.
+
+    :param RepoConfigurationData repo_data: a repository with the .treeinfo file
+    :param TreeInfoRepoMetadata repo_md: a metadata of a treeinfo repository
+    :return RepoConfigurationData: a treeinfo repository
+    """
+    repo = copy.deepcopy(repo_data)
+
+    repo.origin = REPO_ORIGIN_TREEINFO
+    repo.name = repo_md.name
+
+    repo.type = URL_TYPE_BASEURL
+    repo.url = repo_md.url
+
+    repo.enabled = repo_md.enabled
+    repo.installation_enabled = False
+
+    return repo
 
 
 class TreeInfoMetadataError(Exception):
