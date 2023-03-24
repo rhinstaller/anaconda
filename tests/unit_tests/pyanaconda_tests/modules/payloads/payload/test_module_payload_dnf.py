@@ -32,6 +32,8 @@ from pyanaconda.core.constants import SOURCE_TYPE_CDROM, SOURCE_TYPE_HDD, SOURCE
 from pyanaconda.core.kickstart.specification import KickstartSpecificationHandler
 from pyanaconda.core.kickstart.version import VERSION
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_DNF
+from pyanaconda.modules.common.constants.objects import DISK_SELECTION
+from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.payload import UnknownCompsGroupError, \
     UnknownCompsEnvironmentError
 from pyanaconda.modules.common.structures.comps import CompsEnvironmentData, CompsGroupData
@@ -49,11 +51,12 @@ from pyanaconda.modules.payloads.payload.dnf.validation import CheckPackagesSele
 from pyanaconda.modules.payloads.payloads import PayloadsService
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 from pyanaconda.modules.payloads.source.cdrom.cdrom import CdromSourceModule
+from pyanaconda.modules.payloads.source.harddrive.harddrive import HardDriveSourceModule
 from pyanaconda.modules.payloads.source.closest_mirror.closest_mirror import \
     ClosestMirrorSourceModule
 
 from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
-    check_task_creation
+    check_task_creation, patch_dbus_get_proxy_with_cache, patch_dbus_get_proxy
 from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
     PayloadSharedTest, PayloadKickstartSharedTest
 
@@ -113,7 +116,8 @@ class DNFKSTestCase(unittest.TestCase):
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_HMC)
 
-    def test_harddrive_kickstart(self):
+    @patch_dbus_get_proxy_with_cache
+    def test_harddrive_kickstart(self, proxy_getter):
         ks_in = """
         harddrive --partition=nsa-device --dir=top-secret
         """
@@ -125,8 +129,13 @@ class DNFKSTestCase(unittest.TestCase):
 
         %end
         """
+        proxy = STORAGE.get_proxy(DISK_SELECTION)
+        proxy.ProtectedDevices = []
+
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_HDD)
+
+        assert proxy.ProtectedDevices == ["nsa-device"]
 
     def test_harddrive_kickstart_failed(self):
         ks_in = """
@@ -1010,8 +1019,9 @@ class DNFInterfaceTestCase(unittest.TestCase):
 
     @patch("pyanaconda.modules.payloads.source.harddrive.harddrive.HardDriveSourceModule.install_tree_path",
            new_callable=PropertyMock)
+    @patch_dbus_get_proxy
     @patch_dbus_publish_object
-    def test_harddrive_get_repo_configurations(self, publisher, install_tree_path_mock):
+    def test_harddrive_get_repo_configurations(self, publisher, proxy_getter, install_tree_path_mock):
         """Test DNF GetRepoConfigurations for HARDDRIVE source."""
         install_tree_path_mock.return_value = "/install_source/harddrive"
         source = self.shared_tests.prepare_source(SourceType.HDD)
@@ -1083,3 +1093,44 @@ class DNFModuleTestCase(unittest.TestCase):
         r1.enabled = False
         self.module.set_repositories([r1, r2])
         assert self.module.is_network_required() is False
+
+    @patch_dbus_get_proxy_with_cache
+    def test_update_protected_devices(self, proxy_getter):
+        """Test the update of protected devices."""
+        proxy = STORAGE.get_proxy(DISK_SELECTION)
+
+        # Set some default protected devices.
+        proxy.ProtectedDevices = ["dev1", "dev2"]
+
+        # Make sure that HDD source will be protected.
+        source = HardDriveSourceModule()
+        source.set_device("dev3")
+        self.module.set_sources([source])
+
+        assert proxy.ProtectedDevices == ["dev1", "dev2", "dev3"]
+
+        # Make sure that HDD repository will be protected.
+        repository = RepoConfigurationData()
+        repository.url = "hd:dev4:/local/path"
+        self.module.set_repositories([repository])
+
+        assert proxy.ProtectedDevices == ["dev1", "dev2", "dev3", "dev4"]
+
+        # Replace the source.
+        source = CdromSourceModule()
+        self.module.set_sources([source])
+
+        assert proxy.ProtectedDevices == ["dev1", "dev2", "dev4"]
+
+        # Replace the repository.
+        repository = RepoConfigurationData()
+        repository.url = "http://test"
+        self.module.set_repositories([repository])
+
+        assert proxy.ProtectedDevices == ["dev1", "dev2"]
+
+        # Replace both.
+        self.module.set_sources([])
+        self.module.set_repositories([])
+
+        assert proxy.ProtectedDevices == ["dev1", "dev2"]

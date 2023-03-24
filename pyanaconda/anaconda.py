@@ -28,7 +28,6 @@ from pyanaconda.core import constants
 from pyanaconda.core.startup.dbus_launcher import AnacondaDBusLauncher
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.modules.common.constants.services import PAYLOADS
-from pyanaconda.payload.source import SourceFactory
 from pyanaconda.ui.lib.addons import collect_addon_ui_paths
 
 from pyanaconda.anaconda_loggers import get_stdout_logger
@@ -107,21 +106,6 @@ class Anaconda(object):
 
         object_proxy = PAYLOADS.get_proxy(object_path)
         return object_proxy.Type
-
-    @staticmethod
-    def get_protected_devices(opts):
-        specs = []
-
-        # methodstr and stage2 become strings in ways that pylint can't figure out
-        # pylint: disable=unsubscriptable-object
-        if opts.method and SourceFactory.is_harddrive(opts.method):
-            specs.append(opts.method[3:].split(":", 3)[0])
-
-        for _repo_name, repo_url in opts.addRepo:
-            if SourceFactory.is_harddrive(repo_url):
-                specs.append(repo_url[3:].split(":", 3)[0])
-
-        return specs
 
     @property
     def display_mode(self):

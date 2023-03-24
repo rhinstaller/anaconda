@@ -28,6 +28,8 @@ from pyanaconda.modules.payloads.kickstart import convert_ks_repo_to_repo_data, 
     convert_packages_selection_to_ksdata, convert_ks_data_to_packages_configuration, \
     convert_packages_configuration_to_ksdata
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
+from pyanaconda.modules.payloads.payload.dnf.utils import protect_installation_devices, \
+    collect_installation_devices
 from pyanaconda.modules.payloads.payload.dnf.validation import CheckPackagesSelectionTask, \
     VerifyRepomdHashesTask
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
@@ -58,6 +60,11 @@ class DNFModule(PayloadBase):
         self.packages_selection_changed = Signal()
 
         self._packages_kickstarted = False
+
+        # Protect installation sources.
+        self._protected_devices = set()
+        self.sources_changed.connect(self._update_protected_devices)
+        self.repositories_changed.connect(self._update_protected_devices)
 
     def for_publication(self):
         """Get the interface used to publish this source."""
@@ -238,6 +245,19 @@ class DNFModule(PayloadBase):
         """Set up the kickstart packages selection."""
         convert_packages_selection_to_ksdata(self.packages_selection, data)
         convert_packages_configuration_to_ksdata(self.packages_configuration, data)
+
+    def _update_protected_devices(self):
+        """Protect devices specified by installation sources."""
+        previous_devices = self._protected_devices
+        current_devices = collect_installation_devices(
+            self.sources,
+            self.repositories,
+        )
+        protect_installation_devices(
+            previous_devices,
+            current_devices,
+        )
+        self._protected_devices = current_devices
 
     def get_available_repositories(self):
         """Get a list of available repositories.

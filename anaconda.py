@@ -484,9 +484,6 @@ if __name__ == "__main__":
     # Specify protected devices.
     from pyanaconda.modules.common.constants.services import STORAGE
 
-    protected_devices = anaconda.get_protected_devices(opts)
-    disk_select_proxy.ProtectedDevices = protected_devices
-
     if not conf.target.is_directory:
         from pyanaconda.ui.lib.storage import reset_storage
 
