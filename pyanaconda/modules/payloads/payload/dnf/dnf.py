@@ -32,12 +32,24 @@ from pyanaconda.modules.payloads.payload.dnf.utils import protect_installation_d
     collect_installation_devices
 from pyanaconda.modules.payloads.payload.dnf.validation import CheckPackagesSelectionTask, \
     VerifyRepomdHashesTask
+from pyanaconda.modules.payloads.payload.dnf.initialization import configure_dnf_logging, \
+    SetUpDNFSourcesTask, SetUpDNFSourcesResult, TearDownDNFSourcesTask
+from pyanaconda.modules.payloads.payload.dnf.installation import SetRPMMacrosTask, \
+    ResolvePackagesTask, PrepareDownloadLocationTask, DownloadPackagesTask, InstallPackagesTask, \
+    CleanUpDownloadLocationTask, WriteRepositoriesTask, ImportRPMKeysTask, \
+    UpdateDNFConfigurationTask
+from pyanaconda.modules.payloads.payload.dnf.tear_down import ResetDNFManagerTask
+from pyanaconda.modules.payloads.payload.dnf.utils import calculate_required_space
 from pyanaconda.modules.payloads.payload.payload_base import PayloadBase
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
 from pyanaconda.modules.payloads.source.factory import SourceFactory
 from pyanaconda.modules.payloads.source.utils import has_network_protocol
 
+# Set up the modules logger.
 log = get_module_logger(__name__)
+
+# Configure the DNF logging.
+configure_dnf_logging()
 
 __all__ = ["DNFModule"]
 
@@ -48,7 +60,8 @@ class DNFModule(PayloadBase):
     def __init__(self):
         """Create a DNF module."""
         super().__init__()
-        self._dnf_manager = None
+        self._dnf_manager = DNFManager()
+        self._internal_sources = []
 
         self._repositories = []
         self.repositories_changed = Signal()
@@ -114,10 +127,12 @@ class DNFModule(PayloadBase):
     @property
     def dnf_manager(self):
         """The DNF manager of this payload."""
-        if not self._dnf_manager:
-            self._dnf_manager = DNFManager()
-
         return self._dnf_manager
+
+    def _set_dnf_manager(self, dnf_manager):
+        """Set the DNF manager of this payload."""
+        self._dnf_manager = dnf_manager
+        log.debug("The DNF manager is set.")
 
     @property
     def repositories(self):
@@ -346,6 +361,15 @@ class DNFModule(PayloadBase):
             selection=data,
         )
 
+    def calculate_required_space(self):
+        """Calculate space required for the installation.
+
+        :return: required size in bytes
+        :rtype: int
+        """
+        required_space = calculate_required_space(self.dnf_manager)
+        return required_space.get_bytes()
+
     def get_repo_configurations(self):
         """Get RepoConfiguration structures for all sources.
 
@@ -358,18 +382,98 @@ class DNFModule(PayloadBase):
         """
         return list(filter(None, [s.generate_repo_configuration() for s in self.sources]))
 
+    def set_up_sources_with_task(self):
+        """Set up installation sources."""
+        task = SetUpDNFSourcesTask(
+            sources=self.sources,
+            repositories=self.repositories,
+            configuration=self.packages_configuration,
+        )
+        task.succeeded_signal.connect(
+            lambda: self._set_up_sources_on_success(task.get_result())
+        )
+        return task
+
+    def _set_up_sources_on_success(self, result: SetUpDNFSourcesResult):
+        """Update the module based on the configured sources."""
+        self._set_dnf_manager(result.dnf_manager)
+        self.set_repositories(result.repositories)
+        self._internal_sources += result.sources
+
+    def tear_down_sources_with_task(self):
+        """Tear down installation sources."""
+        return TearDownDNFSourcesTask(
+            dnf_manager=self.dnf_manager,
+            sources=self._internal_sources + self.sources
+        )
+
     def install_with_tasks(self):
         """Install the payload.
 
         :return: list of tasks
         """
-        # TODO: Implement this method
-        return []
+        tasks = [
+            SetRPMMacrosTask(
+                configuration=self.packages_configuration
+            ),
+            ResolvePackagesTask(
+                dnf_manager=self.dnf_manager,
+                selection=self.packages_selection,
+            ),
+            PrepareDownloadLocationTask(
+                dnf_manager=self.dnf_manager,
+            ),
+            DownloadPackagesTask(
+                dnf_manager=self.dnf_manager,
+            ),
+            InstallPackagesTask(
+                dnf_manager=self.dnf_manager,
+            ),
+            CleanUpDownloadLocationTask(
+                dnf_manager=self.dnf_manager,
+            ),
+        ]
+
+        self._collect_kernels_on_success(InstallPackagesTask, tasks)
+        return tasks
+
+    def _collect_kernels_on_success(self, task_class, tasks):
+        """Collect kernel version lists from a task specified by its class.
+
+        Find an instance of the specified task class that should return
+        a kernel version list if successful. Connect to its signal and
+        update the kernel version list of the module when the task is
+        finished.
+
+        :param task_class: a class of a scheduled task
+        :param tasks: a list of scheduled tasks
+        """
+        for task in tasks:
+            if isinstance(task, task_class):
+                task.succeeded_signal.connect(
+                    lambda t=task: self.set_kernel_version_list(t.get_result())
+                )
 
     def post_install_with_tasks(self):
         """Execute post installation steps.
 
         :return: list of tasks
         """
-        # TODO: Implement this method
-        return []
+        return [
+            WriteRepositoriesTask(
+                sysroot=conf.target.system_root,
+                dnf_manager=self.dnf_manager,
+                repositories=self.repositories,
+            ),
+            ImportRPMKeysTask(
+                sysroot=conf.target.system_root,
+                gpg_keys=conf.payload.default_rpm_gpg_keys
+            ),
+            UpdateDNFConfigurationTask(
+                sysroot=conf.target.system_root,
+                configuration=self.packages_configuration,
+            ),
+            ResetDNFManagerTask(
+                dnf_manager=self.dnf_manager
+            )
+        ]

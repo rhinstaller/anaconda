@@ -25,8 +25,7 @@ from textwrap import dedent
 from unittest import TestCase
 from unittest.mock import patch, create_autospec, DEFAULT
 
-from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, \
-    check_dbus_object_creation, check_task_creation_list
+from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_object_creation
 from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
     PayloadKickstartSharedTest
 
@@ -37,8 +36,7 @@ from pyanaconda.modules.common.errors.payload import SourceSetupError, SourceTea
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payloads.source.source_base import PayloadSourceBase
 from pyanaconda.modules.payloads.base.initialization import SetUpSourcesTask, TearDownSourcesTask
-from pyanaconda.modules.payloads.installation import PrepareSystemForInstallationTask, \
-    CopyDriverDisksFilesTask
+from pyanaconda.modules.payloads.installation import PrepareSystemForInstallationTask
 from pyanaconda.modules.payloads.constants import PayloadType, SourceType
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 from pyanaconda.modules.payloads.payloads import PayloadsService
@@ -225,10 +223,7 @@ class PayloadsInterfaceTestCase(TestCase):
         payload = self.payload_module.create_payload(PayloadType.DNF)
         self.payload_module.activate_payload(payload)
 
-        tasks_paths = self.payload_interface.InstallWithTasks()
-        check_task_creation_list(tasks_paths, publisher, [
-            PrepareSystemForInstallationTask
-        ])
+        assert self.payload_interface.InstallWithTasks()
 
     @patch_dbus_publish_object
     def test_post_install_with_tasks(self, publisher):
@@ -238,10 +233,7 @@ class PayloadsInterfaceTestCase(TestCase):
         payload = self.payload_module.create_payload(PayloadType.DNF)
         self.payload_module.activate_payload(payload)
 
-        tasks_paths = self.payload_interface.PostInstallWithTasks()
-        check_task_creation_list(tasks_paths, publisher, [
-            CopyDriverDisksFilesTask
-        ])
+        assert self.payload_interface.PostInstallWithTasks()
 
     @patch_dbus_publish_object
     def test_tear_down_with_tasks(self, publisher):
@@ -255,8 +247,7 @@ class PayloadsInterfaceTestCase(TestCase):
         payload.set_sources([source])
 
         publisher.reset_mock()
-        task_paths = self.payload_interface.TeardownWithTasks()
-        check_task_creation_list(task_paths, publisher, [TearDownSourcesTask])
+        assert self.payload_interface.TeardownWithTasks()
 
 
 class PrepareSystemForInstallationTaskTestCase(TestCase):

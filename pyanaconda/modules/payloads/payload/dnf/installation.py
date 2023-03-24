@@ -32,7 +32,8 @@ from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.payloads.payload.dnf.requirements import collect_remote_requirements, \
     collect_language_requirements, collect_platform_requirements, \
     collect_driver_disk_requirements, apply_requirements
-from pyanaconda.modules.payloads.payload.dnf.utils import pick_download_location
+from pyanaconda.modules.payloads.payload.dnf.utils import pick_download_location, \
+    get_kernel_version_list
 from pyanaconda.modules.payloads.payload.dnf.validation import CheckPackagesSelectionTask
 
 log = get_module_logger(__name__)
@@ -41,13 +42,13 @@ log = get_module_logger(__name__)
 class SetRPMMacrosTask(Task):
     """Installation task to set RPM macros."""
 
-    def __init__(self, data: PackagesConfigurationData):
+    def __init__(self, configuration: PackagesConfigurationData):
         """Create a task.
 
-        :param data: a packages configuration data
+        :param configuration: a packages configuration data
         """
         super().__init__()
-        self._data = data
+        self._data = configuration
         self._macros = []
 
     @property
@@ -239,9 +240,13 @@ class InstallPackagesTask(Task):
         return "Install packages"
 
     def run(self):
-        """Run the task."""
+        """Run the task.
+
+        :return: a list of installed kernel versions
+        """
         self.report_progress(_("Preparing transaction from installation source"))
         self._dnf_manager.install_packages(self.report_progress)
+        return get_kernel_version_list()
 
 
 class WriteRepositoriesTask(Task):
@@ -372,15 +377,15 @@ class ImportRPMKeysTask(Task):
 class UpdateDNFConfigurationTask(Task):
     """The installation task to update the dnf.conf file."""
 
-    def __init__(self, sysroot, data: PackagesConfigurationData):
+    def __init__(self, sysroot, configuration: PackagesConfigurationData):
         """Create a new task.
 
         :param sysroot: a path to the system root
-        :param data: a packages configuration data
+        :param configuration: a packages configuration data
         """
         super().__init__()
         self._sysroot = sysroot
-        self._data = data
+        self._data = configuration
 
     @property
     def name(self):
