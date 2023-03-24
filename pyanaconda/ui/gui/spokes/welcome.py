@@ -39,7 +39,7 @@ from pyanaconda.product import distributionText, isFinal, productName, productVe
 from pyanaconda import flags
 from pyanaconda.core.i18n import _
 from pyanaconda.core.util import ipmi_abort
-from pyanaconda.core.constants import DEFAULT_LANG, WINDOW_TITLE_TEXT
+from pyanaconda.core.constants import DEFAULT_LANG, WINDOW_TITLE_TEXT, TIMEZONE_PRIORITY_LANGUAGE
 from pyanaconda.modules.common.constants.services import TIMEZONE, LOCALIZATION
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -101,6 +101,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
         """Apply the selected locale."""
         locale = localization.setup_locale(locale, self._l12_module, text_mode=False)
         self._set_lang(locale)
+        self._try_set_timezone(locale)
 
     @property
     def completed(self):
@@ -320,3 +321,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
 
         # pylint: disable=environment-modify
         os.environ["LANG"] = lang
+
+    def _try_set_timezone(self, locale):
+        loc_timezones = localization.get_locale_timezones(locale)
+        self._tz_module.SetTimezoneWithPriority(loc_timezones[0], TIMEZONE_PRIORITY_LANGUAGE)
