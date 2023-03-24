@@ -74,7 +74,6 @@ class SimpleImportTestCase(unittest.TestCase):
             "pyanaconda.core.configuration.anaconda",
             "pyanaconda.modules.common.constants.interfaces",
             "pyanaconda.modules.storage.checker.utils",
-            "pyanaconda.payload.source.factory",
             "pyanaconda.ui.categories",
             "pyanaconda.ui.gui.spokes.lib.cart",
             "pyanaconda.ui.tui.spokes.askvnc",
