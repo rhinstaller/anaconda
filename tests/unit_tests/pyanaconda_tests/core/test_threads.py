@@ -15,8 +15,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+
+import sys
 import pytest
 import unittest
+from unittest.mock import patch
 
 from time import sleep
 from pyanaconda.core.threads import ThreadManager, AnacondaThread
@@ -52,3 +55,121 @@ class ThreadManagerTestCase(unittest.TestCase):
         self._thread_manager.add(self._thread)
         self._thread_manager.wait(self._thread_name)
         self._thread_manager.add(self._thread)
+
+    def test_add_thread(self):
+        """Test basic thread creation and waiting."""
+        with patch("pyanaconda.core.threads.thread_manager", new=self._thread_manager):
+            self._thread_manager.add_thread(
+                name="test_add_thread-1",
+                target=self._thread_target
+            )
+            assert self._thread_manager.running == 1
+            assert self._thread_manager.names == ["test_add_thread-1"]
+
+            # now it's running
+            thread = self._thread_manager.get("test_add_thread-1")
+            assert thread.is_alive() is True
+
+            # after waiting, it's not running and is removed
+            self._thread_manager.wait("test_add_thread-1")
+            assert thread.is_alive() is False
+            assert self._thread_manager.running == 0
+            assert self._thread_manager.names == []
+
+            # now add more
+            self._thread_manager.add_thread(
+                name="test_add_thread-2",
+                target=self._thread_target
+            )
+            self._thread_manager.add_thread(
+                name="test_add_thread-3",
+                target=self._thread_target
+            )
+
+            # must have only the new ones
+            assert self._thread_manager.running == 2
+            assert self._thread_manager.names == ["test_add_thread-2", "test_add_thread-3"]
+
+            self._thread_manager.wait_all()
+            assert self._thread_manager.any_errors is False
+
+    def _thread_target_error(self):
+        sleep(1)
+        raise RuntimeError("Testing errors raised in threads")
+
+    def test_thread_simple_errors(self):
+        """Test normal thread error handling."""
+        with patch("pyanaconda.core.threads.thread_manager", new=self._thread_manager):
+            self._thread_manager.add_thread(
+                name="test_thread_errors-1",
+                target=self._thread_target
+            )
+            self._thread_manager.add_thread(
+                name="test_thread_errors-2",
+                target=self._thread_target_error
+            )
+            assert self._thread_manager.running == 2
+
+            self._thread_manager.wait_all()
+            # the error is "resolved" immediately and is no longer "active" at the end?
+            assert self._thread_manager.any_errors is False
+
+    def test_thread_fatal_errors(self):
+        """Test thread fatal error handling.
+
+            The errors happen in the thread, so catch them via an exception hook.
+        """
+        tb_info = None
+
+        def exc_handler(exc_type, value, traceback):
+            nonlocal tb_info
+            tb_info = (exc_type, value, traceback)
+
+        old_hook = sys.excepthook
+        sys.excepthook = exc_handler
+
+        with patch("pyanaconda.core.threads.thread_manager", new=self._thread_manager):
+            self._thread_manager.add_thread(
+                name="test_thread_errors-1",
+                target=self._thread_target_error,
+                fatal=True
+            )
+            assert self._thread_manager.running == 1
+            self._thread_manager.wait_all()
+            assert self._thread_manager.any_errors is False
+            assert tb_info[0] == RuntimeError  # pylint: disable=unsubscriptable-object
+
+        sys.excepthook = old_hook
+
+    def test_wait_get_thread(self):
+        """Test getting threads and waiting for threads"""
+        with patch("pyanaconda.core.threads.thread_manager", new=self._thread_manager):
+            self._thread_manager.add_thread(
+                name="test_wait_thread-1",
+                target=self._thread_target
+            )
+            assert isinstance(self._thread_manager.get("test_wait_thread-1"), AnacondaThread)
+            # consecutive waits are ok, but the thread is done after first wait
+            assert self._thread_manager.wait("test_wait_thread-1") is True
+            assert self._thread_manager.wait("test_wait_thread-1") is False
+
+            # waiting for a nonexistent thread is same as for done
+            assert self._thread_manager.wait("test_wait_thread-nonexistent") is False
+
+
+class AnacondaThreadTests(unittest.TestCase):
+    """Tests for the AnacondaThread class"""
+    def test_prefix(self):
+        """Test automatic prefixes for threads."""
+        for prefix in ("foo", "bar"):
+            for i in range(3):
+                t = AnacondaThread(
+                    prefix=prefix,
+                    target=None,
+                )
+                assert t.name == prefix + str(i+1)
+
+    def test_auto_naming(self):
+        """Test automatic naming of threads without name and prefix"""
+        t = AnacondaThread()
+        assert t.name == "AnaWorkerThread1"
