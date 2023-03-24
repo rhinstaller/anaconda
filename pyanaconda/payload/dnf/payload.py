@@ -43,13 +43,13 @@ from pyanaconda.modules.payloads.source.harddrive.initialization import SetUpHar
 from pyanaconda.modules.payloads.source.mount_tasks import TearDownMountTask
 from pyanaconda.modules.payloads.source.nfs.nfs import NFSSourceModule
 from pyanaconda.modules.payloads.source.utils import verify_valid_repository, MountPointGenerator
-from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 from pyanaconda.anaconda_loggers import get_packaging_logger
 from pyanaconda.core import constants
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import INSTALL_TREE, ISO_DIR, PAYLOAD_TYPE_DNF, SOURCE_TYPE_URL, \
     SOURCE_REPO_FILE_TYPES, SOURCE_TYPE_REPO_PATH, SOURCE_TYPE_CDN, MULTILIB_POLICY_ALL, \
-    REPO_ORIGIN_SYSTEM, SOURCE_TYPE_CLOSEST_MIRROR, REPO_ORIGIN_TREEINFO, DRACUT_REPO_DIR
+    REPO_ORIGIN_SYSTEM, SOURCE_TYPE_CLOSEST_MIRROR, REPO_ORIGIN_TREEINFO, DRACUT_REPO_DIR, \
+    SOURCE_TYPE_CDROM, SOURCE_TYPE_NFS, SOURCE_TYPE_HDD, SOURCE_TYPE_HMC
 from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import parse_hdd_url
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
@@ -148,14 +148,8 @@ class DNFPayload(Payload):
 
         elif opts.method:
             log.debug("Use the DNF source from opts.")
-
-            try:
-                source = SourceFactory.parse_repo_cmdline_string(opts.method)
-            except PayloadSourceTypeUnrecognized:
-                log.error("Unknown method: %s", opts.method)
-            else:
-                source_proxy = source.create_proxy()
-                set_source(self.proxy, source_proxy)
+            source_proxy = self._create_source_from_url(opts.method)
+            set_source(self.proxy, source_proxy)
 
         elif verify_valid_repository(DRACUT_REPO_DIR):
             log.debug("Use the DNF source from Dracut.")
@@ -167,6 +161,49 @@ class DNFPayload(Payload):
             log.debug("Use the DNF source from the Anaconda configuration file.")
             source_proxy = create_source(conf.payload.default_source)
             set_source(self.proxy, source_proxy)
+
+    @staticmethod
+    def _create_source_from_url(url):
+        """Create a new source for the specified URL.
+
+        :param str url: the URL of the source
+        :return: a DBus proxy of the new source
+        :raise ValueError: if the URL is unsupported
+        """
+        if url.startswith("cdrom"):
+            return create_source(SOURCE_TYPE_CDROM)
+
+        if url.startswith("hmc"):
+            return create_source(SOURCE_TYPE_HMC)
+
+        if url.startswith("nfs:"):
+            source_proxy = create_source(SOURCE_TYPE_NFS)
+
+            source_proxy.Configuration = \
+                RepoConfigurationData.to_structure(
+                    RepoConfigurationData.from_url(url)
+                )
+
+            return source_proxy
+
+        if url.startswith("hd:"):
+            source_proxy = create_source(SOURCE_TYPE_HDD)
+            device, path = parse_hdd_url(url)
+            source_proxy.Partition = device
+            source_proxy.Directory = path
+            return source_proxy
+
+        if any(map(url.startswith, ["http:", "https:", "ftp:", "file:"])):
+            source_proxy = create_source(SOURCE_TYPE_URL)
+
+            source_proxy.Configuration = \
+                RepoConfigurationData.to_structure(
+                    RepoConfigurationData.from_url(url)
+                )
+
+            return source_proxy
+
+        raise ValueError("Unknown type of the installation source: {}".format(url))
 
     def _set_source_configuration_from_opts(self, opts):
         """Configure the source based on the Anaconda options."""

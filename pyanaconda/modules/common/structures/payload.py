@@ -114,6 +114,17 @@ class RepoConfigurationData(DBusData):
 
         return data
 
+    @classmethod
+    def from_url(cls, url):
+        """Create a new configuration for the specified URL.
+
+        :param str url: a URL of the installation source
+        :return RepoConfigurationData: a new configuration
+        """
+        data = RepoConfigurationData()
+        data.url = url
+        return data
+
     @property
     def name(self) -> Str:
         """Get name of this repository.
