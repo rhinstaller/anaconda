@@ -408,6 +408,20 @@ def get_common_keyboard_layouts():
     return langtable.list_common_keyboards()
 
 
+def get_locale_timezones(locale):
+    """Function returning preferred timezones for the given locale.
+
+    :param locale: locale string
+    :type locale: str
+    :return: list of preferred timezones
+    :rtype: list of strings
+    :raise InvalidLocaleSpec: if an invalid locale is given (see is_valid_langcode)
+    """
+    raise_on_invalid_locale(locale)
+
+    return langtable.list_timezones(languageId=locale)
+
+
 def get_locale_console_fonts(locale):
     """Function returning preferred console fonts for the given locale.
 
