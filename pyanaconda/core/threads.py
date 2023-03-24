@@ -64,6 +64,11 @@ class ThreadManager(object):
 
         return obj.name
 
+    def add_thread(self, *args, **kwargs):
+        """Add an AnacondaThread object"""
+        thread = AnacondaThread(*args, **kwargs)
+        self.add(thread)
+
     def remove(self, name):
         """Removes a thread from the list of known objects.  This should only
            be called when a thread exits, or there will be no way to get a

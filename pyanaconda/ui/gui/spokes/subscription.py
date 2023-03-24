@@ -20,7 +20,7 @@
 from enum import IntEnum
 
 from pyanaconda.flags import flags
-from pyanaconda.core.threads import thread_manager, AnacondaThread
+from pyanaconda.core.threads import thread_manager
 
 from pyanaconda.core.i18n import _, CN_
 from pyanaconda.core.constants import SECRET_TYPE_HIDDEN, \
@@ -626,8 +626,10 @@ class SubscriptionSpoke(NormalSpoke):
         # start the rest of spoke initialization which might take some time
         # (mainly due to waiting for various initialization threads to finish)
         # in a separate thread
-        thread_manager.add(AnacondaThread(name=THREAD_SUBSCRIPTION_SPOKE_INIT,
-                                          target=self._initialize))
+        thread_manager.add_thread(
+            name=THREAD_SUBSCRIPTION_SPOKE_INIT,
+            target=self._initialize
+        )
 
     def _initialize(self):
         # wait for subscription thread to finish (if any)
@@ -871,17 +873,15 @@ class SubscriptionSpoke(NormalSpoke):
 
         # try to register
         log.debug("Subscription GUI: attempting to register")
-        thread_manager.add(
-            AnacondaThread(
-                name=THREAD_SUBSCRIPTION,
-                target=register_and_subscribe,
-                kwargs={
-                    "payload": self.payload,
-                    "progress_callback": self._subscription_progress_callback,
-                    "error_callback": self._subscription_error_callback,
-                    "restart_payload": True
-                }
-            )
+        thread_manager.add_thread(
+            name=THREAD_SUBSCRIPTION,
+            target=register_and_subscribe,
+            kwargs={
+                "payload": self.payload,
+                "progress_callback": self._subscription_progress_callback,
+                "error_callback": self._subscription_error_callback,
+                "restart_payload": True
+            }
         )
 
     def _unregister(self):
@@ -897,18 +897,16 @@ class SubscriptionSpoke(NormalSpoke):
 
         # try to unregister
         log.debug("Subscription GUI: attempting to unregister")
-        thread_manager.add(
-            AnacondaThread(
-                name=THREAD_SUBSCRIPTION,
-                target=unregister,
-                kwargs={
-                    "payload": self.payload,
-                    "overridden_source_type": self._overridden_source_type,
-                    "progress_callback": self._subscription_progress_callback,
-                    "error_callback": self._subscription_error_callback,
-                    "restart_payload": True
-                }
-            )
+        thread_manager.add_thread(
+            name=THREAD_SUBSCRIPTION,
+            target=unregister,
+            kwargs={
+                "payload": self.payload,
+                "overridden_source_type": self._overridden_source_type,
+                "progress_callback": self._subscription_progress_callback,
+                "error_callback": self._subscription_error_callback,
+                "restart_payload": True
+            }
         )
 
     @async_action_wait

@@ -38,7 +38,7 @@ from pyanaconda.ui.communication import hubQ
 from pyanaconda.core.string import strip_accents, have_word_match
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.common.util import is_module_available
-from pyanaconda.core.threads import thread_manager, AnacondaThread
+from pyanaconda.core.threads import thread_manager
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -136,8 +136,10 @@ class AddLayoutDialog(GUIObject):
         self._newLayoutSelection = self.builder.get_object("newLayoutSelection")
 
         self._store = self.builder.get_object("newLayoutStore")
-        thread_manager.add(AnacondaThread(name=THREAD_ADD_LAYOUTS_INIT,
-                                          target=self._initialize))
+        thread_manager.add_thread(
+            name=THREAD_ADD_LAYOUTS_INIT,
+            target=self._initialize
+        )
 
     def _initialize(self):
         common_layouts = self._xkl_wrapper.get_common_layouts()
@@ -430,8 +432,10 @@ class KeyboardSpoke(NormalSpoke):
         hubQ.send_not_ready(self.__class__.__name__)
         hubQ.send_message(self.__class__.__name__,
                           _("Getting list of layouts..."))
-        thread_manager.add(AnacondaThread(name=THREAD_KEYBOARD_INIT,
-                                          target=self._wait_ready))
+        thread_manager.add_thread(
+            name=THREAD_KEYBOARD_INIT,
+            target=self._wait_ready
+        )
 
     def _wait_ready(self):
         self._add_dialog.wait_initialize()

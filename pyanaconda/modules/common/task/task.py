@@ -32,7 +32,7 @@ from pyanaconda.modules.common.task.cancellable import Cancellable
 from pyanaconda.modules.common.task.progress import ProgressReporter
 from pyanaconda.modules.common.task.result import ResultProvider
 from pyanaconda.modules.common.task.runnable import Runnable
-from pyanaconda.core.threads import thread_manager, AnacondaThread
+from pyanaconda.core.threads import thread_manager
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -80,15 +80,13 @@ class Task(AbstractTask):
 
     def start(self):
         """Start the task in a new thread."""
-        thread_manager.add(
-            AnacondaThread(
-                name=self._thread_name,
-                target=self._thread_run_callback,
-                target_started=self._task_started_callback,
-                target_stopped=self._task_stopped_callback,
-                target_failed=self._thread_failed_callback,
-                fatal=False
-            )
+        thread_manager.add_thread(
+            name=self._thread_name,
+            target=self._thread_run_callback,
+            target_started=self._task_started_callback,
+            target_stopped=self._task_stopped_callback,
+            target_failed=self._thread_failed_callback,
+            fatal=False
         )
 
     def _thread_run_callback(self):

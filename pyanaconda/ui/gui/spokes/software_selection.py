@@ -24,7 +24,7 @@ from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, THREAD_SOFTWARE_WATCHER,
 from pyanaconda.core.i18n import _, C_, CN_
 from pyanaconda.core.util import ipmi_abort
 from pyanaconda.flags import flags
-from pyanaconda.core.threads import thread_manager, AnacondaThread
+from pyanaconda.core.threads import thread_manager
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.context import context
@@ -109,10 +109,10 @@ class SoftwareSelectionSpoke(NormalSpoke):
         super().initialize()
         self.initialize_start()
 
-        thread_manager.add(AnacondaThread(
+        thread_manager.add_thread(
             name=THREAD_SOFTWARE_WATCHER,
             target=self._initialize
-        ))
+        )
 
     def _initialize(self):
         """Initialize the spoke in a separate thread."""
@@ -309,10 +309,10 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     def execute(self):
         """Execute the changes."""
-        thread_manager.add(AnacondaThread(
+        thread_manager.add_thread(
             name=THREAD_CHECK_SOFTWARE,
             target=self._check_software_selection
-        ))
+        )
 
     def _check_software_selection(self):
         hubQ.send_message(self.__class__.__name__, _(PAYLOAD_STATUS_CHECKING_SOFTWARE))

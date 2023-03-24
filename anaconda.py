@@ -180,7 +180,7 @@ if __name__ == "__main__":
     sys.path.extend(ADDON_PATHS)
 
     # init threading before Gtk can do anything and before we start using threads
-    from pyanaconda.core.threads import AnacondaThread, thread_manager
+    from pyanaconda.core.threads import thread_manager
     from pyanaconda.core.i18n import _
     from pyanaconda.core import util, constants, path
     from pyanaconda import startup_utils
@@ -426,8 +426,10 @@ if __name__ == "__main__":
         wait_for_connected_NM(timeout=opts.waitfornet)
 
     # In any case do some actions only after NM finishes its connecting.
-    thread_manager.add(AnacondaThread(name=constants.THREAD_WAIT_FOR_CONNECTING_NM,
-                                      target=wait_for_connecting_NM_thread))
+    thread_manager.add_thread(
+        name=constants.THREAD_WAIT_FOR_CONNECTING_NM,
+        target=wait_for_connecting_NM_thread
+    )
 
     # now start the interface
     display.setup_display(anaconda, opts)
@@ -490,8 +492,10 @@ if __name__ == "__main__":
     if not conf.target.is_directory:
         from pyanaconda.ui.lib.storage import reset_storage
 
-        thread_manager.add(AnacondaThread(name=constants.THREAD_STORAGE,
-                                          target=reset_storage))
+        thread_manager.add_thread(
+            name=constants.THREAD_STORAGE,
+            target=reset_storage
+        )
 
     # Initialize the system clock.
     startup_utils.initialize_system_clock()
@@ -523,13 +527,11 @@ if __name__ == "__main__":
         from pyanaconda.ui.lib.subscription import org_keys_sufficient, \
             register_and_subscribe, kickstart_error_handler
         if org_keys_sufficient():
-            thread_manager.add(
-                AnacondaThread(
-                    name=constants.THREAD_SUBSCRIPTION,
-                    target=register_and_subscribe,
-                    args=[anaconda.payload],
-                    kwargs={"error_callback": kickstart_error_handler}
-                )
+            thread_manager.add_thread(
+                name=constants.THREAD_SUBSCRIPTION,
+                target=register_and_subscribe,
+                args=[anaconda.payload],
+                kwargs={"error_callback": kickstart_error_handler}
             )
 
     # Start the setup tasks of the configured payload.

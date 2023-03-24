@@ -23,7 +23,7 @@ from pyanaconda.core.constants import THREAD_STORAGE, THREAD_PAYLOAD, THREAD_PAY
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.task.progress import ProgressReporter
 from pyanaconda.modules.common.task.runnable import Runnable
-from pyanaconda.core.threads import thread_manager, AnacondaThread
+from pyanaconda.core.threads import thread_manager
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.anaconda_loggers import get_module_logger
 
@@ -74,12 +74,12 @@ class _PayloadManager(Runnable, ProgressReporter):
             return
 
         # Launch a new thread so that this method can return immediately.
-        thread_manager.add(AnacondaThread(
+        thread_manager.add_thread(
             name=THREAD_PAYLOAD_RESTART,
             target=self._start,
             args=args,
             kwargs=kwargs,
-        ))
+        )
 
     def _start(self, *args, **kwargs):
         """Start the payload thread after it is finished."""
@@ -87,15 +87,13 @@ class _PayloadManager(Runnable, ProgressReporter):
         thread_manager.wait(THREAD_PAYLOAD)
 
         # Start a new payload thread.
-        thread_manager.add(
-            AnacondaThread(
-                name=THREAD_PAYLOAD,
-                target=self._task_run_callback,
-                target_started=self._task_started_callback,
-                target_stopped=self._task_stopped_callback,
-                args=args,
-                kwargs=kwargs,
-            )
+        thread_manager.add_thread(
+            name=THREAD_PAYLOAD,
+            target=self._task_run_callback,
+            target_started=self._task_started_callback,
+            target_stopped=self._task_stopped_callback,
+            args=args,
+            kwargs=kwargs,
         )
 
     def _task_run_callback(self, *args, **kwargs):

@@ -26,7 +26,7 @@ from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.context import context
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog
-from pyanaconda.core.threads import thread_manager, AnacondaThread
+from pyanaconda.core.threads import thread_manager
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.manager import payloadMgr
 from pyanaconda.core.i18n import N_, _
@@ -102,10 +102,10 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
             self._on_payload_failed()
 
         # Finish the initialization.
-        thread_manager.add(AnacondaThread(
+        thread_manager.add_thread(
             name=THREAD_SOURCE_WATCHER,
             target=self._initialize
-        ))
+        )
 
     def _initialize(self):
         """ Private initialize. """

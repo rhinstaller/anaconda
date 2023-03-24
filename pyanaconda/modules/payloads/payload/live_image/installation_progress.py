@@ -27,7 +27,7 @@ from pyanaconda.core.path import join_paths
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.task.cancellable import Cancellable
-from pyanaconda.core.threads import thread_manager, AnacondaThread
+from pyanaconda.core.threads import thread_manager
 
 log = get_module_logger(__name__)
 
@@ -53,10 +53,10 @@ class InstallationProgress(Cancellable):
     def __enter__(self):
         """Start to monitor the progress."""
         # Start the thread.
-        thread_manager.add(AnacondaThread(
+        thread_manager.add_thread(
             name=self._thread_name,
             target=self._monitor_progress
-        ))
+        )
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         """Stop to monitor the progress."""

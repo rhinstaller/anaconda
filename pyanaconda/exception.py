@@ -400,7 +400,8 @@ f%s(msg, non_ascii)
     msg = "NOTABUG: testing exception handling"
 
     # raise exception from a separate thread
-    from pyanaconda.core.threads import AnacondaThread
-    thread_manager.add(AnacondaThread(name=THREAD_EXCEPTION_HANDLING_TEST,
-                                      target=raise_exception,
-                                      args=(msg, non_ascii)))
+    thread_manager.add_thread(
+        name=THREAD_EXCEPTION_HANDLING_TEST,
+        target=raise_exception,
+        args=(msg, non_ascii)
+    )

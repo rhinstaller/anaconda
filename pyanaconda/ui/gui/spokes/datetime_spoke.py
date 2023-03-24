@@ -45,7 +45,7 @@ from pyanaconda.ui.gui.utils import blockedHandler
 from pyanaconda.ui.gui.spokes.lib.ntp_dialog import NTPConfigDialog
 from pyanaconda.timezone import NTP_SERVICE, get_all_regions_and_timezones, get_timezone, \
     is_valid_timezone, set_system_date_time
-from pyanaconda.core.threads import thread_manager, AnacondaThread
+from pyanaconda.core.threads import thread_manager
 
 import gi
 gi.require_version("Gdk", "3.0")
@@ -275,8 +275,10 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         if not conf.system.can_set_system_clock:
             self._hide_date_time_setting()
 
-        thread_manager.add(AnacondaThread(name=constants.THREAD_DATE_TIME,
-                                          target=self._initialize))
+        thread_manager.add_thread(
+            name=constants.THREAD_DATE_TIME,
+            target=self._initialize
+        )
 
     def _initialize(self):
         # a bit hacky way, but should return the translated strings

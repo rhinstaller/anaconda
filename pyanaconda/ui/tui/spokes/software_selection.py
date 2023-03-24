@@ -22,7 +22,7 @@ from pyanaconda.ui.context import context
 from pyanaconda.ui.lib.software import get_software_selection_status, \
     is_software_selection_complete, SoftwareSelectionCache
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
-from pyanaconda.core.threads import thread_manager, AnacondaThread
+from pyanaconda.core.threads import thread_manager
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.constants import THREAD_PAYLOAD, THREAD_CHECK_SOFTWARE, \
     THREAD_SOFTWARE_WATCHER, PAYLOAD_TYPE_DNF
@@ -88,10 +88,10 @@ class SoftwareSpoke(NormalTUISpoke):
         super().initialize()
         self.initialize_start()
 
-        thread_manager.add(AnacondaThread(
+        thread_manager.add_thread(
             name=THREAD_SOFTWARE_WATCHER,
             target=self._initialize
-        ))
+        )
 
     def _initialize(self):
         """Initialize the spoke in a separate thread."""
@@ -278,10 +278,10 @@ class SoftwareSpoke(NormalTUISpoke):
 
     def execute(self):
         """Execute the changes."""
-        thread_manager.add(AnacondaThread(
+        thread_manager.add_thread(
             name=THREAD_CHECK_SOFTWARE,
             target=self._check_software_selection
-        ))
+        )
 
     def _check_software_selection(self):
         """Check the software selection."""

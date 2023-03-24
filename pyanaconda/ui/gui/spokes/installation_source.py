@@ -43,7 +43,7 @@ from pyanaconda.modules.payloads.source.utils import verify_valid_repository
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.image import find_optical_install_media
 from pyanaconda.payload.manager import payloadMgr
-from pyanaconda.core.threads import thread_manager, AnacondaThread
+from pyanaconda.core.threads import thread_manager
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.context import context
@@ -434,10 +434,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
         # Start the thread last so that we are sure initialize_done() is really called only
         # after all initialization has been done.
-        thread_manager.add(AnacondaThread(
+        thread_manager.add_thread(
             name=constants.THREAD_SOURCE_WATCHER,
             target=self._initialize
-        ))
+        )
 
     def _on_payload_started(self):
         # Disable the software selection.

@@ -36,7 +36,7 @@ from pyanaconda.ui.lib.format_dasd import DasdFormatting
 
 from blivet.size import Size
 from pyanaconda.flags import flags
-from pyanaconda.core.threads import thread_manager, AnacondaThread
+from pyanaconda.core.threads import thread_manager
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
     PAYLOAD_STATUS_PROBING_STORAGE, CLEAR_PARTITIONS_ALL, \
@@ -398,8 +398,10 @@ class StorageSpoke(NormalTUISpoke):
         if flags.automatedInstall and flags.ksprompt:
             self.run_passphrase_dialog()
 
-        thread_manager.add(AnacondaThread(name=THREAD_STORAGE_WATCHER,
-                                          target=self._initialize))
+        thread_manager.add_thread(
+            name=THREAD_STORAGE_WATCHER,
+            target=self._initialize
+        )
 
     def _initialize(self):
         """

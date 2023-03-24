@@ -35,7 +35,7 @@ from pyanaconda.modules.common.structures.partitioning import PartitioningReques
 from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.core.storage import suggest_swap_size
-from pyanaconda.core.threads import thread_manager, AnacondaThread
+from pyanaconda.core.threads import thread_manager
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -241,10 +241,10 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # Spawn storage execution as a separate thread so there's no big delay
         # going back from this spoke to the hub while StorageCheckHandler.run runs.
         # Yes, this means there's a thread spawning another thread.  Sorry.
-        thread_manager.add(AnacondaThread(
+        thread_manager.add_thread(
             name=constants.THREAD_EXECUTE_STORAGE,
             target=self._do_execute
-        ))
+        )
 
     def _do_execute(self):
         """Apply a non-interactive partitioning."""
@@ -444,8 +444,10 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         self._main_box.set_focus_vadjustment(
             Gtk.Scrollable.get_vadjustment(self._main_viewport))
 
-        thread_manager.add(AnacondaThread(name=constants.THREAD_STORAGE_WATCHER,
-                                          target=self._initialize))
+        thread_manager.add_thread(
+            name=constants.THREAD_STORAGE_WATCHER,
+            target=self._initialize
+        )
 
     def _add_disk_overview(self, device_data, box):
         if device_data.type == "dm-multipath":
