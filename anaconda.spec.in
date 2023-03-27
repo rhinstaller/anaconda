@@ -103,11 +103,6 @@ Requires: python3-systemd
 Requires: python3-productmd
 Requires: python3-dasbus >= %{dasbusver}
 Requires: flatpak-libs
-# dependencies for rpm-ostree payload module
-Requires: rpm-ostree >= %{rpmostreever}
-Requires: ostree
-# used by ostree command for native containers
-Requires: skopeo
 %if %{defined rhel} && %{undefined centos}
 Requires: subscription-manager >= %{subscriptionmanagerver}
 %endif
@@ -243,6 +238,11 @@ Requires: nm-connection-editor
 Requires: librsvg2
 Requires: gnome-kiosk
 Requires: brltty
+# dependencies for rpm-ostree payload module
+Requires: rpm-ostree >= %{rpmostreever}
+Requires: ostree
+# used by ostree command for native containers
+Requires: skopeo
 
 %description install-img-deps
 The anaconda-install-img-deps metapackage lists all boot.iso installation image dependencies.
