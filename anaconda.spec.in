@@ -469,6 +469,32 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 28 2023 github-actions <github-actions@github.com> - 39.7-1
+- Remove the SourceFactory class from the pyanaconda.payload module (vponcova)
+- Simplify creation of a source based on its URL (vponcova)
+- Protect the specified devices with all their ancestors (vponcova)
+- Protect HDD sources from the Payloads module (vponcova)
+- Use the simplified NFS source in the UI (vponcova)
+- Simplify the NFS source (vponcova)
+- Improve access to the repository configuration of a source (vponcova)
+- Protect the stage2 device from the Storage module (vponcova)
+- Don't protect unavailable devices (vponcova)
+- Update pixel tests for a new cockpit-ws (jkonecny)
+- webui: update links for downloading cockpit-ws and cockpit-bridge RPMs
+  (kkoukiou)
+- Don't parse additional repositories during start-up (vponcova)
+- Implement needs_network for rpm_ostree_container (#2125655) (jkonecny)
+- Move rpm-ostree deps from Lorax to Anaconda (#2125655) (jkonecny)
+- Deduplicate test data creation func in rpm ostree (jkonecny)
+- Add release note for ostreecontainer (#2125655) (jkonecny)
+- Add new OSTree container source test (#2125655) (jkonecny)
+- Enable RPM OSTree from container source in payload (#2125655) (jkonecny)
+- Add RPM OSTree source from container (#2125655) (jkonecny)
+- WebUI: Fix keyboard navigation on welcome screen (ozobal)
+- Add test step logging and screenshots to WebUI tests (zveleba)
+- Ignore newly found pylint detections (vslavik)
+- Fix network configuration from kickstart in intramfs (rvykydal)
+
 * Tue Mar 21 2023 github-actions <github-actions@github.com> - 39.6-1
 - Adjust to pykickstart moving new network commands to F39 (awilliam)
 - Generate the ostreesetup kickstart command (vponcova)
