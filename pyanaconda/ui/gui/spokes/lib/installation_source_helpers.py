@@ -26,6 +26,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import glib, constants
 from pyanaconda.core.constants import REPO_ORIGIN_USER
 from pyanaconda.core.i18n import _, N_, C_
+from pyanaconda.core.path import join_paths
 from pyanaconda.core.payload import ProxyString, ProxyStringError, parse_nfs_url
 from pyanaconda.core.process_watchers import PidWatcher
 from pyanaconda.core.regexes import URL_PARSE, REPO_NAME_VALID, HOSTNAME_PATTERN_WITHOUT_ANCHORS
@@ -551,9 +552,12 @@ class IsoChooser(GUIObject):
     mainWidgetName = "isoChooserDialog"
     uiFile = "spokes/lib/installation_source_helpers.glade"
 
-    def __init__(self, data):
+    def __init__(self, data, current_file=None):
         super().__init__(data)
+        self._current_file = current_file or ""
         self._chooser = self.builder.get_object("isoChooserDialog")
+        self._chooser.connect("current-folder-changed", self.on_folder_changed)
+        self._chooser.set_filename(join_paths(constants.ISO_DIR, self._current_file))
 
         # Hide the places sidebar, since it makes no sense in this context
         # This is discouraged, but the alternative suggested is to reinvent the
@@ -562,12 +566,6 @@ class IsoChooser(GUIObject):
                                           lambda x: isinstance(x, Gtk.PlacesSidebar))
         if places_sidebar:
             really_hide(places_sidebar)
-
-    # pylint: disable=arguments-differ
-    def refresh(self, currentFile=""):
-        super().refresh()
-        self._chooser.connect("current-folder-changed", self.on_folder_changed)
-        self._chooser.set_filename(constants.ISO_DIR + "/" + currentFile)
 
     def run(self, device_name):
         retval = None

@@ -54,7 +54,6 @@ MOUNT_DIR = "/run/install"
 DRACUT_ISODIR = "/run/install/source"
 DRACUT_REPO_DIR = "/run/install/repo"
 ISO_DIR = MOUNT_DIR + "/isodir"
-INSTALL_TREE = MOUNT_DIR + "/source"
 SOURCES_DIR = MOUNT_DIR + "/sources"
 
 # Names of repositories.

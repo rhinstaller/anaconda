@@ -437,13 +437,13 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         s1 = CdromSourceModule()
 
         s2 = HardDriveSourceModule()
-        s2.set_device("dev3")
+        s2.configuration.url = "hd:dev3"
 
         s3 = URLSourceModule()
-        s3.set_configuration(r3)
+        s3.configuration.url = "ftp://test"
 
         s4 = HardDriveSourceModule()
-        s4.set_device("/dev/dev4")
+        s4.configuration.url = "hd:/dev/dev4:/some/path"
 
         devices = collect_installation_devices([s1, s2, s3, s4], [])
         assert devices == {"dev3", "/dev/dev4"}

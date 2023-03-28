@@ -19,46 +19,29 @@
 #
 from dasbus.server.interface import dbus_interface
 from dasbus.typing import *  # pylint: disable=wildcard-import
-from dasbus.server.property import emits_properties_changed
 from pyanaconda.modules.common.constants.interfaces import PAYLOAD_SOURCE_HARDDRIVE
-from pyanaconda.modules.payloads.source.source_base_interface import PayloadSourceBaseInterface
+from pyanaconda.modules.payloads.source.source_base_interface import RepositorySourceInterface
+
+__all__ = ["HardDriveSourceInterface"]
 
 
 @dbus_interface(PAYLOAD_SOURCE_HARDDRIVE.interface_name)
-class HardDriveSourceInterface(PayloadSourceBaseInterface):
-    """Interface for the payload Hard drive image source."""
+class HardDriveSourceInterface(RepositorySourceInterface):
+    """Interface for the payload hard drive image source."""
 
-    def connect_signals(self):
-        super().connect_signals()
-        self.watch_property("Directory", self.implementation.directory_changed)
-        self.watch_property("Partition", self.implementation.device_changed)
+    def GetDevice(self) -> Str:
+        """Get a device that contains the installation source.
 
-    @property
-    def Directory(self) -> Str:
-        """Get the path to the repository on the partition."""
-        return self.implementation.directory
-
-    @Directory.setter
-    @emits_properties_changed
-    def Directory(self, directory: Str):
-        """Set the path to the repository on the partition."""
-        self.implementation.set_directory(directory)
-
-    @property
-    def Partition(self) -> Str:
-        """Get the partition containing the repository."""
-        return self.implementation.device
-
-    @Partition.setter
-    @emits_properties_changed
-    def Partition(self, partition: Str):
-        """Set the partition containing the repository."""
-        self.implementation.set_device(partition)
-
-    def GetIsoPath(self) -> Str:
-        """Get path to the ISO from the partition root.
-
-        This could be an empty string if the source is pointing to
-        installation tree instead of ISO.
+        :return str: a resolved device name
         """
-        return self.implementation.get_iso_path()
+        return self.implementation.get_device()
+
+    def GetISOFile(self) -> Str:
+        """Get a path to the ISO image from the device root.
+
+        Returns an empty string if the source is pointing
+        to an installation tree instead of an ISO image.
+
+        :return str: an absolute path
+        """
+        return self.implementation.get_iso_file()

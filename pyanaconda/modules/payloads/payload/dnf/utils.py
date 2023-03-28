@@ -373,11 +373,13 @@ def collect_installation_devices(sources, repositories):
     """
     devices = set()
 
-    for source in sources:
-        if source.type == SourceType.HDD:
-            devices.add(source.device)
+    configurations = [
+        s.configuration
+        for s in sources
+        if s.type == SourceType.HDD
+    ]
 
-    for repository in repositories:
+    for repository in configurations + repositories:
         if repository.url.startswith("hd:"):
             device, _path = parse_hdd_url(repository.url)
             devices.add(device)
