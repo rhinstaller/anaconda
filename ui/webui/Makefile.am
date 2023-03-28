@@ -77,8 +77,14 @@ bots:
 	@echo "checked out bots/ ref $$(git -C bots rev-parse HEAD)"
 	cd test && ln -s ../bots/images images
 
+prepare-test-deps: bots test/common
+
 $(UPDATES_IMG): bots
 	test/prepare-updates-img
+
+create-updates.img: bots
+	-rm $(UPDATES_IMG)
+	make $(UPDATES_IMG)
 
 # test runs in kernel_t context and triggers massive amounts of SELinux
 # denials; SELinux gets disabled, but would still trigger unexpected messages

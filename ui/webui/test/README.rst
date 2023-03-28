@@ -11,26 +11,23 @@ Preparation and general invocation
 *Warning*: Never run the build, test, or any other command here as root!
 
 To run the WebUI integration tests run the following from the root of the anaconda repo.
-(do NOT run the integration tests as root)::
+(do NOT run the integration tests as root).
 
-You first need to build anaconda RPMs. You might need to prepare your environment
-to be able to run `make` command first. See `<../../../CONTRIBUTING.rst#how-to-run-make-commands>`_::
+OSTree based systems (SilverBlue etc.) can use toolbx.
+See `<../../../CONTRIBUTING.rst#how-to-run-make-commands>`_.
 
-    make rpms
-
-Then prepare an updates.img containing the anaconda RPMs and the cockpit dependencies::
+Then download test dependencies::
 
     cd ui/webui
-    make ../../updates.img
+    make prepare-test-deps
+
+Prepare an updates.img containing the anaconda RPMs and the cockpit dependencies::
+
+    make create-updates.img
 
 Then download the ISO file that the test VMs will use::
 
-    make bots
     ./bots/image-download fedora-rawhide-boot
-
-Finally, fetch the testing library::
-
-    make test/common
 
 In most cases you want to run an individual test in a suite.
 You also need to specify `TEST_OS` for each test run, for example::
@@ -129,11 +126,59 @@ Make sure to set::
 
     GITHUB_BASE=rhinstaller/anaconda
 
-before running any commands suggested there. For updating pixel test reference images you can use
-the available the Makefile target::
+For updating (pushing) updated pixel test reference images you can use the available the Makefile target::
 
     make update-reference-images
 
+How to fix failed pixel tests
+-----------------------------
+
+For all the steps below you have to be in `ui/webui` directory of the project.
+
+Locally just copy the broken tests images to the `test/reference` directory. However, easier
+option to deal with this is to use automation which will download all the broken images from
+fail test on PR::
+
+    ./test/common/pixel-tests fetch <link to HTML with failed tests>
+
+Example of such a call::
+
+    ./test/common/pixel-tests fetch https://cockpit-logs.us-east-1.linodeobjects.com/pull-4551-20230322-101308-479c2fc1-fedora-rawhide-boot-rhinstaller-anaconda
+
+The link will be link accessible from the `Details` button on GitHub PR with failed tests.
+
+When the images are correctly updated just call to push the changes to pixel repository
+(no review is required)::
+
+    make update-reference-images
+
+Then new commit is pushed to
+["anaconda pixel tests repository"](https://github.com/rhinstaller/pixel-test-reference)
+and just add reference git submodule to your existing PR by::
+
+    git add test/reference
+    git commit
+    git push <your fork>
+
+If everything went well your PR should be green now.
+
+Outdated Cockpit CI image for testing
+-------------------------------------
+
+From time to time you can face an issue that the fedora-X-boot image on Cockpit side is
+missig dependency for your PR. **You should not push your PR without fixing the image first!**
+
+To update the image please ping #cockpit on IRC and they will provide a PR with the new image.
+It will look similar to ["this"](https://github.com/cockpit-project/bots/pull/4551).
+
+Then you can test your Anaconda PR against this new builded image on cockpit PR by::
+
+    ./bots/tests-trigger --bots-pr <PR number on cockpit repo> <your Anaconda PR number> <image-name>
+
+Example of such a call could be::
+
+    ./bots/tests-trigger --bots-pr 4551 4634 fedora-rawhide-boot
+    ./bots/tests-trigger --bots-pr 4551 4634 fedora-38-boot
 
 Test Configuration
 ------------------

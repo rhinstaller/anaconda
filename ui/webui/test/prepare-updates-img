@@ -1,28 +1,19 @@
-#!/bin/sh
+#!/bin/bash
 
 set -eu
 
-# FIXME boot.iso on rawhide does not currently contain the new cockpit dependencies
-# This will change once we include this changes upstream and start building boot.iso with the new dependencies
-# Then we can safely remove this workaround
-COCKPIT_URLS='
-    https://kojipkgs.fedoraproject.org//packages/cockpit/287/1.fc39/x86_64/cockpit-ws-287-1.fc39.x86_64.rpm
-    https://kojipkgs.fedoraproject.org//packages/cockpit/287/1.fc39/x86_64/cockpit-bridge-287-1.fc39.x86_64.rpm
-'
+# switch to root of the repository
+pushd ../..
+# remove old rpms and build new srpm
+rm -rf ../../result/build
+make srpm
+popd
 
-mkdir -p tmp/extra-rpms
-cd tmp/extra-rpms
-for url in $COCKPIT_URLS; do
-    test -e "$(basename "${url}")" || curl -LO "$url"
-done
-# shellcheck disable=SC2086,SC2046
-COCKPIT_RPMS="$(realpath $(basename -a ${COCKPIT_URLS}))"
-cd ../..
-
-# build the anaconda srpm (and result RPMs go in `tmp/rpms`)
+# build the anaconda srpm (and result RPMs go in `tmp/rpms`) && download cockpit RPMs
 test/build-rpms -v ../../result/build/00-srpm-build/anaconda-*.src.rpm
 
 # makeupdates must be run from the top level of the anaconda source tree
-cd ../../
+pushd ../../
 # shellcheck disable=SC2086,SC2046
-scripts/makeupdates --add ui/webui/tmp/rpms/anaconda-*.rpm ${COCKPIT_RPMS}
+scripts/makeupdates --add ui/webui/tmp/rpms/anaconda-*.rpm ui/webui/tmp/rpms/cockpit-*.rpm
+popd

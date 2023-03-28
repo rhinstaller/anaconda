@@ -31,6 +31,14 @@ set -eu
 # shellcheck disable=SC2068
 dnf install $@ make rpm-build npm virt-install
 
+# cockpit tests depencies - taken from https://github.com/cockpit-project/cockpituous/blob/main/tasks/Dockerfile
+# shellcheck disable=SC2068
+dnf install $@ \
+    qemu-kvm-core \
+    firefox \
+    chromium-headless
+
+
 TEMP=$(mktemp /tmp/anaconda.spec.XXXXXXX)
 
 # remove all problematic pieces from anaconda spec to be able to get dependencies
