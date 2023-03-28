@@ -67,17 +67,6 @@ jobs:
             exit 1
           fi
 
-      - name: Notify in Google chat
-        if: steps.check-tag.outputs.can_bump_version
-        # https://developers.google.com/chat/how-tos/webhooks
-        # https://developers.googleblog.com/2018/06/hangouts-chat-alerts-notifications-with.html
-        run: |
-          curl \
-            -X POST \
-            -H 'Content-Type: application/json' \
-            '${{ secrets.GCHAT_URL }}' \
-            -d "{\"text\": \"New release tagged, please review the Packit dist-git PR soon to be found at https://src.fedoraproject.org/rpms/anaconda/pull-requests\"}"
-
       - name: Notify in Slack
         if: steps.check-tag.outputs.can_bump_version
         # https://api.slack.com/messaging/webhooks
