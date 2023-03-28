@@ -469,6 +469,18 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 28 2023 github-actions <github-actions@github.com> - 39.8-1
+- Move ostreecontainer deps to install-img-deps (jkonecny)
+- Add 'vga' to the list of preserved kernel arguments (#2176782) (awilliam)
+- Improve documentation of our Cockpit CI tests (jkonecny)
+- Download cockpit rpms during build (jkonecny)
+- Add --strict mode to makeupdates script (jkonecny)
+- docs: Document the `autopart --nohome` issue (vponcova)
+- Remove a react-core tarball (mkolman)
+- WebUI tweak local test execution (jkonecny)
+- Add missing deps to install_dependencies.sh (jkonecny)
+- WebUI: do not force to manually remove updates.img (jkonecny)
+
 * Tue Mar 28 2023 github-actions <github-actions@github.com> - 39.7-1
 - Remove the SourceFactory class from the pyanaconda.payload module (vponcova)
 - Simplify creation of a source based on its URL (vponcova)
