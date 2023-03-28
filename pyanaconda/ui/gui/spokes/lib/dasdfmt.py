@@ -16,7 +16,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.threading import threadMgr, AnacondaThread
+from pyanaconda.core.threads import thread_manager
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import gtk_call_once
 from pyanaconda.core.async_utils import async_action_wait
@@ -85,7 +85,10 @@ class DasdFormatDialog(GUIObject):
         self._notebook.set_current_page(1)
 
         # Format dasds and update the storage.
-        threadMgr.add(AnacondaThread(name=constants.THREAD_DASDFMT, target=self.run_format, args=()))
+        thread_manager.add_thread(
+            name=constants.THREAD_DASDFMT,
+            target=self.run_format, args=()
+        )
 
     def run_format(self):
         """Run the dasd formatting and update the storage."""

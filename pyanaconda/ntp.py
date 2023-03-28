@@ -34,7 +34,7 @@ from pyanaconda.core.constants import NTP_SERVER_TIMEOUT, NTP_SERVER_QUERY, \
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.util import execWithRedirect
 from pyanaconda.modules.common.structures.timezone import TimeSourceData
-from pyanaconda.threading import threadMgr, AnacondaThread
+from pyanaconda.core.threads import thread_manager
 
 NTP_CONFIG_FILE = "/etc/chrony.conf"
 
@@ -273,10 +273,10 @@ class NTPServerStatusCache(object):
         self._set_status(hostname, NTP_SERVER_QUERY)
 
         # Start the check.
-        threadMgr.add(AnacondaThread(
+        thread_manager.add_thread(
             prefix=THREAD_NTP_SERVER_CHECK,
             target=self._check_status,
-            args=(hostname, nts_enabled))
+            args=(hostname, nts_enabled)
         )
 
     def _set_status(self, hostname, status):

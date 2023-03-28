@@ -17,7 +17,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.core.timer import Timer
-from pyanaconda.threading import threadMgr, AnacondaThread
+from pyanaconda.core.threads import thread_manager
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.core import constants
 from pyanaconda.ui.lib.storage import reset_storage
@@ -45,7 +45,7 @@ class RefreshDialog(GUIObject):
         return rc
 
     def _check_rescan(self, *args):
-        if threadMgr.get(constants.THREAD_STORAGE):
+        if thread_manager.get(constants.THREAD_STORAGE):
             self._elapsed += 1
 
             # If more than five seconds has elapsed since the rescan started,
@@ -82,9 +82,11 @@ class RefreshDialog(GUIObject):
         self._notebook.set_current_page(1)
 
         # And now to fire up the storage reinitialization.
-        threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE,
-                                     target=reset_storage,
-                                     kwargs={"scan_all": True}))
+        thread_manager.add_thread(
+            name=constants.THREAD_STORAGE,
+            target=reset_storage,
+            kwargs={"scan_all": True}
+        )
 
         self._elapsed = 0
 

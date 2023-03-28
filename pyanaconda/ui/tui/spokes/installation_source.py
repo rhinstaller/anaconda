@@ -26,7 +26,7 @@ from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.context import context
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog
-from pyanaconda.threading import threadMgr, AnacondaThread
+from pyanaconda.core.threads import thread_manager
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.manager import payloadMgr
 from pyanaconda.core.i18n import N_, _
@@ -102,14 +102,14 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
             self._on_payload_failed()
 
         # Finish the initialization.
-        threadMgr.add(AnacondaThread(
+        thread_manager.add_thread(
             name=THREAD_SOURCE_WATCHER,
             target=self._initialize
-        ))
+        )
 
     def _initialize(self):
         """ Private initialize. """
-        threadMgr.wait(THREAD_PAYLOAD)
+        thread_manager.wait(THREAD_PAYLOAD)
 
         # Enable the SE/HMC option.
         if self.payload.source_type == SOURCE_TYPE_HMC:
@@ -142,7 +142,7 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
 
     def refresh(self, args=None):
         NormalTUISpoke.refresh(self, args)
-        threadMgr.wait(THREAD_PAYLOAD)
+        thread_manager.wait(THREAD_PAYLOAD)
 
         self._container = ListColumnContainer(1, columns_width=78, spacing=1)
 
@@ -224,8 +224,8 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
     def ready(self):
         """ Check if the spoke is ready. """
         return (self._ready and
-                not threadMgr.get(THREAD_PAYLOAD) and
-                not threadMgr.get(THREAD_CHECK_SOFTWARE))
+                not thread_manager.get(THREAD_PAYLOAD) and
+                not thread_manager.get(THREAD_CHECK_SOFTWARE))
 
     def apply(self):
         """ Execute the selections made. """
@@ -423,7 +423,7 @@ class SelectDeviceSpoke(NormalTUISpoke):
         self._container = ListColumnContainer(1, columns_width=78, spacing=1)
 
         # check if the storage refresh thread is running
-        if threadMgr.get(THREAD_STORAGE_WATCHER):
+        if thread_manager.get(THREAD_STORAGE_WATCHER):
             # storage refresh is running - just report it
             # so that the user can refresh until it is done
             # TODO: refresh once the thread is done ?

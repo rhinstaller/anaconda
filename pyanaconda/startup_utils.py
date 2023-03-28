@@ -48,7 +48,7 @@ from pyanaconda.modules.common.constants.objects import STORAGE_CHECKER
 from pyanaconda.modules.common.constants.services import TIMEZONE, LOCALIZATION, SERVICES, \
     SECURITY, STORAGE
 from pyanaconda.modules.common.util import is_module_available
-from pyanaconda.threading import AnacondaThread, threadMgr
+from pyanaconda.core.threads import thread_manager
 
 stdout_log = get_stdout_logger()
 log = get_module_logger(__name__)
@@ -437,11 +437,11 @@ def initialize_system_clock():
     from pyanaconda.timezone import time_initialize
     timezone_proxy = TIMEZONE.get_proxy()
 
-    threadMgr.add(AnacondaThread(
+    thread_manager.add_thread(
         name=THREAD_TIME_INIT,
         target=time_initialize,
         args=(timezone_proxy,)
-    ))
+    )
 
 
 def start_chronyd():

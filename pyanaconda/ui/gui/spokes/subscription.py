@@ -20,7 +20,7 @@
 from enum import IntEnum
 
 from pyanaconda.flags import flags
-from pyanaconda.threading import threadMgr, AnacondaThread
+from pyanaconda.core.threads import thread_manager
 
 from pyanaconda.core.i18n import _, CN_
 from pyanaconda.core.constants import SECRET_TYPE_HIDDEN, \
@@ -626,16 +626,18 @@ class SubscriptionSpoke(NormalSpoke):
         # start the rest of spoke initialization which might take some time
         # (mainly due to waiting for various initialization threads to finish)
         # in a separate thread
-        threadMgr.add(AnacondaThread(name=THREAD_SUBSCRIPTION_SPOKE_INIT,
-                                     target=self._initialize))
+        thread_manager.add_thread(
+            name=THREAD_SUBSCRIPTION_SPOKE_INIT,
+            target=self._initialize
+        )
 
     def _initialize(self):
         # wait for subscription thread to finish (if any)
-        threadMgr.wait(THREAD_SUBSCRIPTION)
+        thread_manager.wait(THREAD_SUBSCRIPTION)
         # also wait for the payload thread, which migh still be processing
         # a CDROM source, to avoid the Subscription being mandatory by mistake
         # due to CDN still being default at the time of evaulation
-        threadMgr.wait(THREAD_PAYLOAD)
+        thread_manager.wait(THREAD_PAYLOAD)
 
         # update overall state
         self._update_registration_state()
@@ -857,7 +859,7 @@ class SubscriptionSpoke(NormalSpoke):
         self.set_registration_controls_sensitive(False)
 
         # wait for the previous subscription thread to finish
-        threadMgr.wait(THREAD_SUBSCRIPTION)
+        thread_manager.wait(THREAD_SUBSCRIPTION)
 
         # check if the current installation source will be overriden
         # and remember it if it is the case
@@ -871,17 +873,15 @@ class SubscriptionSpoke(NormalSpoke):
 
         # try to register
         log.debug("Subscription GUI: attempting to register")
-        threadMgr.add(
-            AnacondaThread(
-                name=THREAD_SUBSCRIPTION,
-                target=register_and_subscribe,
-                kwargs={
-                    "payload": self.payload,
-                    "progress_callback": self._subscription_progress_callback,
-                    "error_callback": self._subscription_error_callback,
-                    "restart_payload": True
-                }
-            )
+        thread_manager.add_thread(
+            name=THREAD_SUBSCRIPTION,
+            target=register_and_subscribe,
+            kwargs={
+                "payload": self.payload,
+                "progress_callback": self._subscription_progress_callback,
+                "error_callback": self._subscription_error_callback,
+                "restart_payload": True
+            }
         )
 
     def _unregister(self):
@@ -893,22 +893,20 @@ class SubscriptionSpoke(NormalSpoke):
         self.set_registration_controls_sensitive(False)
 
         # wait for the previous subscription thread to finish
-        threadMgr.wait(THREAD_SUBSCRIPTION)
+        thread_manager.wait(THREAD_SUBSCRIPTION)
 
         # try to unregister
         log.debug("Subscription GUI: attempting to unregister")
-        threadMgr.add(
-            AnacondaThread(
-                name=THREAD_SUBSCRIPTION,
-                target=unregister,
-                kwargs={
-                    "payload": self.payload,
-                    "overridden_source_type": self._overridden_source_type,
-                    "progress_callback": self._subscription_progress_callback,
-                    "error_callback": self._subscription_error_callback,
-                    "restart_payload": True
-                }
-            )
+        thread_manager.add_thread(
+            name=THREAD_SUBSCRIPTION,
+            target=unregister,
+            kwargs={
+                "payload": self.payload,
+                "overridden_source_type": self._overridden_source_type,
+                "progress_callback": self._subscription_progress_callback,
+                "error_callback": self._subscription_error_callback,
+                "restart_payload": True
+            }
         )
 
     @async_action_wait

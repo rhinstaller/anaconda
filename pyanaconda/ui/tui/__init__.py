@@ -19,7 +19,7 @@
 from pyanaconda import ui
 from pyanaconda.core.constants import IPMI_ABORTED, QUIT_MESSAGE
 from pyanaconda.flags import flags
-from pyanaconda.threading import threadMgr
+from pyanaconda.core.threads import thread_manager
 from pyanaconda.core.util import ipmi_report
 from pyanaconda.ui.tui.hubs.summary import SummaryHub
 from pyanaconda.ui.tui.signals import SendMessageSignal
@@ -266,7 +266,7 @@ class TextUserInterface(ui.UserInterface):
         :type args: any
         """
 
-        if threadMgr.in_main_thread():
+        if thread_manager.in_main_thread():
             # call the function directly
             return msg_fn(*args)
         else:

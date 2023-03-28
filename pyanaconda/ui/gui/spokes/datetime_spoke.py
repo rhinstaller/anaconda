@@ -45,7 +45,7 @@ from pyanaconda.ui.gui.utils import blockedHandler
 from pyanaconda.ui.gui.spokes.lib.ntp_dialog import NTPConfigDialog
 from pyanaconda.timezone import NTP_SERVICE, get_all_regions_and_timezones, get_timezone, \
     is_valid_timezone, set_system_date_time
-from pyanaconda.threading import threadMgr, AnacondaThread
+from pyanaconda.core.threads import thread_manager
 
 import gi
 gi.require_version("Gdk", "3.0")
@@ -275,8 +275,10 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         if not conf.system.can_set_system_clock:
             self._hide_date_time_setting()
 
-        threadMgr.add(AnacondaThread(name=constants.THREAD_DATE_TIME,
-                                     target=self._initialize))
+        thread_manager.add_thread(
+            name=constants.THREAD_DATE_TIME,
+            target=self._initialize
+        )
 
     def _initialize(self):
         # a bit hacky way, but should return the translated strings
@@ -313,11 +315,11 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             self._set_timezone(DEFAULT_TZ)
             self._timezone_module.Timezone = DEFAULT_TZ
 
-        time_init_thread = threadMgr.get(constants.THREAD_TIME_INIT)
+        time_init_thread = thread_manager.get(constants.THREAD_TIME_INIT)
         if time_init_thread is not None:
             hubQ.send_message(self.__class__.__name__,
                              _("Restoring hardware time..."))
-            threadMgr.wait(constants.THREAD_TIME_INIT)
+            thread_manager.wait(constants.THREAD_TIME_INIT)
 
         hubQ.send_ready(self.__class__.__name__)
 
@@ -363,7 +365,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     @property
     def ready(self):
-        return not threadMgr.get(constants.THREAD_DATE_TIME)
+        return not thread_manager.get(constants.THREAD_DATE_TIME)
 
     @property
     def completed(self):

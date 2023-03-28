@@ -38,7 +38,7 @@ from pyanaconda.ui.communication import hubQ
 from pyanaconda.core.string import strip_accents, have_word_match
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.common.util import is_module_available
-from pyanaconda.threading import threadMgr, AnacondaThread
+from pyanaconda.core.threads import thread_manager
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -136,8 +136,10 @@ class AddLayoutDialog(GUIObject):
         self._newLayoutSelection = self.builder.get_object("newLayoutSelection")
 
         self._store = self.builder.get_object("newLayoutStore")
-        threadMgr.add(AnacondaThread(name=THREAD_ADD_LAYOUTS_INIT,
-                                     target=self._initialize))
+        thread_manager.add_thread(
+            name=THREAD_ADD_LAYOUTS_INIT,
+            target=self._initialize
+        )
 
     def _initialize(self):
         common_layouts = self._xkl_wrapper.get_common_layouts()
@@ -159,7 +161,7 @@ class AddLayoutDialog(GUIObject):
         self._store.set(sep_itr, 0, "", 1, True)
 
     def wait_initialize(self):
-        threadMgr.wait(THREAD_ADD_LAYOUTS_INIT)
+        thread_manager.wait(THREAD_ADD_LAYOUTS_INIT)
 
     def run(self):
         self.window.show()
@@ -373,7 +375,7 @@ class KeyboardSpoke(NormalSpoke):
 
     @property
     def ready(self):
-        return self._ready and threadMgr.get(ADD_LAYOUTS_INITIALIZE_THREAD) is None
+        return self._ready and thread_manager.get(ADD_LAYOUTS_INITIALIZE_THREAD) is None
 
     def initialize(self):
         super().initialize()
@@ -430,8 +432,10 @@ class KeyboardSpoke(NormalSpoke):
         hubQ.send_not_ready(self.__class__.__name__)
         hubQ.send_message(self.__class__.__name__,
                           _("Getting list of layouts..."))
-        threadMgr.add(AnacondaThread(name=THREAD_KEYBOARD_INIT,
-                                     target=self._wait_ready))
+        thread_manager.add_thread(
+            name=THREAD_KEYBOARD_INIT,
+            target=self._wait_ready
+        )
 
     def _wait_ready(self):
         self._add_dialog.wait_initialize()

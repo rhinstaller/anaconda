@@ -38,7 +38,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda import product
 from pyanaconda.core import util, constants
 from pyanaconda.core.path import make_directories
-from pyanaconda import threading as anaconda_threading
+from pyanaconda.core.threads import thread_manager
 
 from pyanaconda.core.glib import Bytes, GError
 from pyanaconda.keyboard import can_configure_keyboard
@@ -748,7 +748,7 @@ class GraphicalUserInterface(UserInterface):
             log.error("Unhandled exception caught, waiting for python-meh to "\
                       "exit")
 
-            anaconda_threading.threadMgr.wait_for_error_threads()
+            thread_manager.wait_for_error_threads()
             sys.exit(1)
 
         try:

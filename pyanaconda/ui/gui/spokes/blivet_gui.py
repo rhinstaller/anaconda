@@ -39,7 +39,7 @@ from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, \
     PARTITIONING_METHOD_BLIVET
 from pyanaconda.core.i18n import _, CN_, C_
 from pyanaconda.ui.lib.storage import create_partitioning, apply_partitioning
-from pyanaconda.threading import threadMgr
+from pyanaconda.core.threads import thread_manager
 from pyanaconda.modules.common.constants.services import STORAGE
 
 import gi
@@ -178,7 +178,7 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
         :see: pyanaconda.ui.common.UIObject.refresh
         """
         for thread_name in [THREAD_EXECUTE_STORAGE, THREAD_STORAGE]:
-            threadMgr.wait(thread_name)
+            thread_manager.wait(thread_name)
 
         if not self._partitioning:
             # Create the partitioning now. It cannot by done earlier, because

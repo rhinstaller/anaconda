@@ -24,7 +24,7 @@ from pyanaconda.core.constants import PAYLOAD_TYPE_DNF, THREAD_SOFTWARE_WATCHER,
 from pyanaconda.core.i18n import _, C_, CN_
 from pyanaconda.core.util import ipmi_abort
 from pyanaconda.flags import flags
-from pyanaconda.threading import threadMgr, AnacondaThread
+from pyanaconda.core.threads import thread_manager
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.context import context
@@ -109,14 +109,14 @@ class SoftwareSelectionSpoke(NormalSpoke):
         super().initialize()
         self.initialize_start()
 
-        threadMgr.add(AnacondaThread(
+        thread_manager.add_thread(
             name=THREAD_SOFTWARE_WATCHER,
             target=self._initialize
-        ))
+        )
 
     def _initialize(self):
         """Initialize the spoke in a separate thread."""
-        threadMgr.wait(THREAD_PAYLOAD)
+        thread_manager.wait(THREAD_PAYLOAD)
 
         # Initialize and check the software selection.
         self._initialize_selection()
@@ -148,7 +148,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # Wait for the software selection thread that might be started by execute().
         # We are already running in a thread, so it should not needlessly block anything
         # and only like this we can be sure we are really initialized.
-        threadMgr.wait(THREAD_CHECK_SOFTWARE)
+        thread_manager.wait(THREAD_CHECK_SOFTWARE)
 
     @property
     def ready(self):
@@ -174,9 +174,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
     @property
     def _processing_data(self):
         """Is the spoke processing data?"""
-        return threadMgr.get(THREAD_SOFTWARE_WATCHER) \
-            or threadMgr.get(THREAD_PAYLOAD) \
-            or threadMgr.get(THREAD_CHECK_SOFTWARE)
+        return thread_manager.get(THREAD_SOFTWARE_WATCHER) \
+            or thread_manager.get(THREAD_PAYLOAD) \
+            or thread_manager.get(THREAD_CHECK_SOFTWARE)
 
     @property
     def status(self):
@@ -214,7 +214,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     def refresh(self):
         super().refresh()
-        threadMgr.wait(THREAD_PAYLOAD)
+        thread_manager.wait(THREAD_PAYLOAD)
 
         # Create a new software selection cache.
         self._selection_cache = SoftwareSelectionCache(self._dnf_manager)
@@ -309,10 +309,10 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     def execute(self):
         """Execute the changes."""
-        threadMgr.add(AnacondaThread(
+        thread_manager.add_thread(
             name=THREAD_CHECK_SOFTWARE,
             target=self._check_software_selection
-        ))
+        )
 
     def _check_software_selection(self):
         hubQ.send_message(self.__class__.__name__, _(PAYLOAD_STATUS_CHECKING_SOFTWARE))

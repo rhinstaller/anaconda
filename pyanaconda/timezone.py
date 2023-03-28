@@ -34,7 +34,7 @@ from pyanaconda.core.constants import THREAD_STORAGE
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
 from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.threading import threadMgr
+from pyanaconda.core.threads import thread_manager
 from blivet import arch
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -66,7 +66,7 @@ def time_initialize(timezone_proxy):
 
     if not timezone_proxy.IsUTC and not flags.automatedInstall:
         # if set in the kickstart, no magic needed here
-        threadMgr.wait(THREAD_STORAGE)
+        thread_manager.wait(THREAD_STORAGE)
         bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
         timezone_proxy.IsUTC = not bootloader_proxy.DetectWindows()
 

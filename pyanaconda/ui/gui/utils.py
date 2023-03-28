@@ -33,7 +33,7 @@ from gi.repository import Gdk, Gtk
 from contextlib import contextmanager
 
 from pyanaconda.core import glib
-from pyanaconda.threading import threadMgr, AnacondaThread
+from pyanaconda.core.threads import thread_manager
 from pyanaconda.core.async_utils import async_action_wait, run_in_loop
 from pyanaconda.core.constants import NOTICEABLE_FREEZE, PASSWORD_HIDE, PASSWORD_SHOW, \
                                       PASSWORD_HIDE_ICON, PASSWORD_SHOW_ICON
@@ -94,7 +94,7 @@ def gtk_batch_map(action, items, args=(), pre_func=None, batch_size=1):
 
     """
 
-    assert(not threadMgr.in_main_thread())
+    assert(not thread_manager.in_main_thread())
 
     def preprocess(queue_instance):
         if pre_func:
@@ -139,9 +139,11 @@ def gtk_batch_map(action, items, args=(), pre_func=None, batch_size=1):
     log.debug("Starting applying %s on %s", action, object.__repr__(items))
 
     # start a thread putting preprocessed items into the queue_instance
-    threadMgr.add(AnacondaThread(prefix="AnaGtkBatchPre",
-                                 target=preprocess,
-                                 args=(item_queue_instance,)))
+    thread_manager.add_thread(
+        prefix="AnaGtkBatchPre",
+        target=preprocess,
+        args=(item_queue_instance,)
+    )
 
     run_in_loop(process_one_batch, (item_queue_instance, action, done_event))
     done_event.wait()

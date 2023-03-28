@@ -28,7 +28,7 @@ from pyanaconda.core.service import is_service_installed, start_service
 from pyanaconda.core.constants import RHSM_SERVICE_TIMEOUT
 from pyanaconda.modules.common.constants.objects import RHSM_CONFIG
 from pyanaconda.modules.common.constants.services import RHSM
-from pyanaconda.threading import threadMgr
+from pyanaconda.core.threads import thread_manager
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.errors.task import NoResultError
 
@@ -127,7 +127,7 @@ class StartRHSMTask(Task):
             # Wait up to defined timeout for the service to startup
             # by joining the thread running the task. We specify a timeout when
             # joining to prevent a deadlocked task blocking this method forever.
-            thread = threadMgr.get(self._thread_name)
+            thread = thread_manager.get(self._thread_name)
             if thread:
                 log.debug("subscription: waiting for RHSM service to start for up to %f seconds.",
                           timeout)

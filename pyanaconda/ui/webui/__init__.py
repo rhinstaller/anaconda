@@ -22,7 +22,7 @@ from pyanaconda import ui
 from pyanaconda.core.constants import QUIT_MESSAGE, PAYLOAD_TYPE_DNF
 from pyanaconda.core.util import startProgram
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.threading import threadMgr
+from pyanaconda.core.threads import thread_manager
 
 log = get_module_logger(__name__)
 
@@ -77,7 +77,7 @@ class CockpitUserInterface(ui.UserInterface):
         # Finish all initialization jobs.
         # FIXME: Control the initialization via DBus.
         self._print_message("Waiting for all threads to finish...")
-        threadMgr.wait_all()
+        thread_manager.wait_all()
 
         # Verify the payload type.
         # FIXME: This is a temporary check.
