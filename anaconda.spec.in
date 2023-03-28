@@ -469,6 +469,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 28 2023 github-actions <github-actions@github.com> - 38.23.4-1
+- Add 'vga' to the list of preserved kernel arguments (#2176782) (awilliam)
+- Move ostreecontainer deps to install-img-deps (jkonecny)
+
 * Fri Mar 24 2023 github-actions <github-actions@github.com> - 38.23.3-1
 - Fix virt-install cockpit run on fedora-X images (jkonecny)
 - For user unit tests, provide valid login.defs (vslavik)
