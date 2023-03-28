@@ -1,0 +1,242 @@
+# Run webui integration tests in a PR
+# Triggered by a "/webui-test <LAUNCH ARGS>" comment from an organization member.
+# Currently the only <LAUNCH ARG> is supported - "os" URL for InstallationSource
+name: webui-tests
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  pr-info:
+    if: startsWith(github.event.comment.body, '/webui-test')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Query comment author repository permissions
+        uses: octokit/request-action@v2.x
+        id: user_permission
+        with:
+          route: GET /repos/${{ github.repository }}/collaborators/${{ github.event.sender.login }}/permission
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # restrict running of tests to users with admin or write permission for the repository
+      # see https://docs.github.com/en/free-pro-team@latest/rest/reference/repos#get-repository-permissions-for-a-user
+      # store output if user is allowed in allowed_user job output so it has to be checked in downstream job
+      - name: Check if user does have correct permissions
+        if: contains('admin write', fromJson(steps.user_permission.outputs.data).permission)
+        id: check_user_perm
+        run: |
+          echo "User '${{ github.event.sender.login }}' has permission '${{ fromJson(steps.user_permission.outputs.data).permission }}' allowed values: 'admin', 'write'"
+          echo "allowed_user=true" >> $GITHUB_OUTPUT
+
+      - name: Get information for pull request
+        uses: octokit/request-action@v2.x
+        id: pr_api
+        with:
+          route: GET /repos/${{ github.repository }}/pulls/${{ github.event.issue.number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Parse launch arguments
+        id: parse_launch_args
+        # Do not use comment body directly in the shell command to avoid possible code injection.
+        env:
+          BODY: ${{ github.event.comment.body }}
+        run: |
+          # extract first line and cut out the "/webui-test" first word
+          LAUNCH_ARGS=$(echo "$BODY" | sed -n '1 s/^[^ ]* *//p')
+          echo "launch arguments are: $LAUNCH_ARGS"
+          echo "launch_args=${LAUNCH_ARGS}" >> $GITHUB_OUTPUT
+
+    outputs:
+      allowed_user: ${{ steps.check_user_perm.outputs.allowed_user }}
+      base_ref: ${{ fromJson(steps.pr_api.outputs.data).base.ref }}
+      sha: ${{ fromJson(steps.pr_api.outputs.data).head.sha }}
+      launch_args: ${{ steps.parse_launch_args.outputs.launch_args }}
+
+  run:
+    needs: pr-info
+    if: needs.pr-info.outputs.allowed_user == 'true' && ! contains(github.event.comment.body, '--waive')
+    runs-on: [self-hosted, kstest]
+    timeout-minutes: 65
+    env:
+      STATUS_NAME: webui-test
+      TARGET_BRANCH: ${{ needs.pr-info.outputs.base_ref }}
+      # ocp-master-xxl: 32GB RAM / 4GB RAM per VM
+      TEST_JOBS: 8
+      # The timeout should be a few minutes less then the job's timeout-minutes
+      # so that we get partial results and logs in case of the timeout.
+      LAUNCHER_TIMEOUT_MINUTES: 60
+      # URL to the unpacked installation image
+      # TODO: use preview image
+      STATIC_REPO_URL: "https://fedorapeople.org/groups/anaconda/webui_permian_tests/sources/periodic/x86_64/"
+
+    steps:
+      # we post statuses manually as this does not run from a pull_request event
+      # https://developer.github.com/v3/repos/statuses/#create-a-status
+      - name: Create in-progress status
+        uses: octokit/request-action@v2.x
+        with:
+          route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
+          context: '${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.launch_args }}'
+          description: 'gathering repositories [${{ runner.name }}]'
+          state: pending
+          target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # self-hosted runners don't do this automatically; also useful to keep stuff around for debugging
+      # need to run sudo as the launch script and the container create root/other user owned files
+      - name: Clean up previous run
+        run: |
+          sudo podman ps -q --all --filter='ancestor=kstest-runner' | xargs -tr sudo podman rm -f
+          sudo podman volume rm --all || true
+          sudo rm -rf * .git
+
+      - name: Clone repository
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ needs.pr-info.outputs.sha }}
+          fetch-depth: 0
+          path: anaconda
+
+      - name: Rebase to current ${{ env.TARGET_BRANCH }}
+        working-directory: ./anaconda
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git log --oneline -1 origin/${{ env.TARGET_BRANCH }}
+          git rebase origin/${{ env.TARGET_BRANCH }}
+
+      # TODO: use main branch when the webui workflow is merged there
+      - name: Clone Permian repository
+        uses: actions/checkout@v3.3.0
+        with:
+          repository: rhinstaller/permian
+          path: permian
+          ref: devel
+
+      - name: Clone tplib repository
+        uses: actions/checkout@v3.3.0
+        with:
+          repository: rhinstaller/tplib
+          path: tplib
+
+      - name: Post status building artifacts
+        uses: octokit/request-action@v2.x
+        with:
+          route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
+          context: '${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.launch_args }}'
+          description: 'TODO building artifacts [${{ runner.name }}]'
+          state: pending
+          target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # TODO build the image from PR
+      - name: Set the image to be tested
+        id: prepare_repo
+        run: |
+          set -eux
+          if [ -n "${{ needs.pr-info.outputs.launch_args }}" ]; then
+            echo "repo_url=${{ needs.pr-info.outputs.launch_args }}" >> $GITHUB_OUTPUT
+          else
+            echo "repo_url=$STATIC_REPO_URL" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Permian settings file
+        working-directory: ./permian
+        run: |
+          cat <<EOF > settings.ini
+          [AnacondaWebUI]
+          anaconda_repo=file://${{ github.workspace }}/anaconda
+          hypervisor_vm_limit=${{ env.TEST_JOBS }}
+          test_timeout=${{ env.LAUNCHER_TIMEOUT_MINUTES }}
+          [library]
+          directPath=${{ github.workspace }}/anaconda/ui/webui/test/integration
+          EOF
+
+      - name: Post status running tests
+        uses: octokit/request-action@v2.x
+        with:
+          route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
+          context: '${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.launch_args }}'
+          description: 'running tests [${{ runner.name }}]'
+          state: pending
+          target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run webui integration tests
+        working-directory: ./permian
+        run: |
+          PYTHONPATH=${PYTHONPATH:-}:${{ github.workspace }}/tplib \
+          ./pipeline --debug-log permian.log \
+            --settings settings.ini \
+            --override workflows.dry_run=False \
+            run_event '{
+              "type":"github.pr.anaconda",
+              "InstallationSource":{
+                "base_repo_id": "bootiso",
+                "repos": {
+                  "bootiso":{
+                    "x86_64":{
+                      "os": "${{ steps.prepare_repo.outputs.repo_url }}",
+                      "kernel": "images/pxeboot/vmlinuz",
+                      "initrd": "images/pxeboot/initrd.img"
+                    }
+                  }
+                }
+              }
+            }'
+
+      - name: Collect Permian logs
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: 'logs'
+          path: |
+            permian/permian.log
+            permian/local_logs/
+            permian/*.dump
+
+      - name: Set result status
+        if: always()
+        uses: octokit/request-action@v2.x
+        with:
+          route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
+          context: '${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.launch_args }}'
+          description: 'finished [${{ runner.name }}]'
+          state: ${{ job.status }}
+          target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  waive:
+    runs-on: ubuntu-latest
+    needs: pr-info
+    if: needs.pr-info.outputs.allowed_user == 'true' && contains(github.event.comment.body, '--waive')
+    steps:
+
+      - name: Get the waiving reason
+        id: get_reason
+        env:
+          BODY: ${{ github.event.comment.body }}
+        run: |
+          REASON=$(echo "$BODY" | sed -e "s#/kickstart-test --waive ##")
+          echo "reason=Waived, $REASON" >> $GITHUB_OUTPUT
+
+      - name: Set status
+        uses: octokit/request-action@v2.x
+        with:
+          route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
+          context: 'kickstart-test --testtype smoke'
+          description: '${{ steps.get_reason.outputs.reason }}'
+          state: ${{ job.status }}
+          target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
