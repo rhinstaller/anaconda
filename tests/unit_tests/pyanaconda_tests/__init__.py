@@ -66,6 +66,14 @@ class run_in_glib(object):
         return create_loop
 
 
+def check_instances(objects, classes):
+    """Check if objects are instances of specified classes."""
+    assert len(objects) == len(classes)
+
+    for obj, cls in zip(objects, classes):
+        assert isinstance(obj, cls)
+
+
 def clear_version_from_kickstart_string(ks_in):
     """Remove leading line comment with version from kickstart, if present.
 

@@ -31,6 +31,7 @@ from pyanaconda.modules.payloads.payload.rpm_ostree.rpm_ostree_interface import 
 from pyanaconda.modules.payloads.payloads import PayloadsService
 from pyanaconda.modules.payloads.payloads_interface import PayloadsInterface
 from pyanaconda.modules.payloads.source.factory import SourceFactory
+from tests.unit_tests.pyanaconda_tests import check_instances
 
 from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
     PayloadKickstartSharedTest
@@ -137,13 +138,6 @@ class RPMOSTreeModuleTestCase(unittest.TestCase):
         self.maxDiff = None
         self.module = RPMOSTreeModule()
 
-    def _assert_is_instance_list(self, objects, classes):
-        """Check if objects are instances of classes."""
-        assert len(objects) == len(classes)
-
-        for obj, cls in zip(objects, classes):
-            assert isinstance(obj, cls)
-
     def test_get_kernel_version_list(self):
         """Test the get_kernel_version_list method."""
         assert self.module.get_kernel_version_list() == []
@@ -156,7 +150,7 @@ class RPMOSTreeModuleTestCase(unittest.TestCase):
         self.module.set_sources([rpm_source])
 
         tasks = self.module.install_with_tasks()
-        self._assert_is_instance_list(tasks, [
+        check_instances(tasks, [
             InitOSTreeFsAndRepoTask,
             ChangeOSTreeRemoteTask,
             PullRemoteAndDeleteTask,
@@ -170,7 +164,7 @@ class RPMOSTreeModuleTestCase(unittest.TestCase):
         self.module.set_sources([rpm_container_source])
 
         tasks = self.module.install_with_tasks()
-        self._assert_is_instance_list(tasks, [
+        check_instances(tasks, [
             InitOSTreeFsAndRepoTask,
             ChangeOSTreeRemoteTask,
             DeployOSTreeTask,
@@ -183,7 +177,7 @@ class RPMOSTreeModuleTestCase(unittest.TestCase):
         self.module.set_sources([rpm_source, flatpak_source])
 
         tasks = self.module.install_with_tasks()
-        self._assert_is_instance_list(tasks, [
+        check_instances(tasks, [
             InitOSTreeFsAndRepoTask,
             ChangeOSTreeRemoteTask,
             PullRemoteAndDeleteTask,
@@ -246,7 +240,7 @@ class RPMOSTreeModuleTestCase(unittest.TestCase):
         self.module.set_sources([rpm_source])
 
         tasks = self.module.post_install_with_tasks()
-        self._assert_is_instance_list(tasks, [
+        check_instances(tasks, [
             ChangeOSTreeRemoteTask,
             ConfigureBootloader,
         ])
@@ -259,7 +253,7 @@ class RPMOSTreeModuleTestCase(unittest.TestCase):
         self.module.set_sources([rpm_source])
 
         tasks = self.module.post_install_with_tasks()
-        self._assert_is_instance_list(tasks, [
+        check_instances(tasks, [
             ChangeOSTreeRemoteTask,
             ConfigureBootloader,
         ])
@@ -273,7 +267,7 @@ class RPMOSTreeModuleTestCase(unittest.TestCase):
 
         tasks = self.module.tear_down_with_tasks()
 
-        self._assert_is_instance_list(tasks, [
+        check_instances(tasks, [
             TearDownSourcesTask,
             TearDownOSTreeMountTargetsTask
         ])
@@ -290,7 +284,7 @@ class RPMOSTreeModuleTestCase(unittest.TestCase):
 
         tasks = self.module.tear_down_with_tasks()
 
-        self._assert_is_instance_list(tasks, [
+        check_instances(tasks, [
             TearDownSourcesTask,
             TearDownOSTreeMountTargetsTask
         ])
