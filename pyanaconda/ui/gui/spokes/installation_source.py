@@ -421,7 +421,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
         # It is possible that the payload manager is finished by now. In that case,
         # trigger the failed callback manually to set up the error messages.
-        if not payloadMgr.is_running and not self.payload.report.is_valid():
+        if not payloadMgr.is_running and not payloadMgr.report.is_valid():
             self._on_payload_failed()
 
         # Report progress messages of the payload manager.
@@ -448,7 +448,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             "check their configurations."
         )
 
-        if self.payload.report.get_messages():
+        if payloadMgr.report.get_messages():
             self._error += _(CLICK_FOR_DETAILS)
 
     def _on_payload_succeeded(self):
@@ -862,7 +862,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
     def on_info_bar_clicked(self, *args):
         log.debug("info bar clicked: %s (%s)", self._error, args)
-        messages = self.payload.report.get_messages()
+        messages = payloadMgr.report.get_messages()
 
         if not messages:
             return

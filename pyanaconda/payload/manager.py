@@ -15,12 +15,12 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from dasbus.error import DBusError
 from pyanaconda.core.constants import THREAD_STORAGE, THREAD_PAYLOAD, THREAD_PAYLOAD_RESTART, \
-    THREAD_WAIT_FOR_CONNECTING_NM, THREAD_SUBSCRIPTION, PAYLOAD_TYPE_DNF, \
-    THREAD_STORAGE_WATCHER, THREAD_EXECUTE_STORAGE, PAYLOAD_STATUS_PROBING_STORAGE, \
-    PAYLOAD_STATUS_SETTING_SOURCE
+    THREAD_WAIT_FOR_CONNECTING_NM, THREAD_SUBSCRIPTION, THREAD_STORAGE_WATCHER, \
+    THREAD_EXECUTE_STORAGE, PAYLOAD_STATUS_PROBING_STORAGE, PAYLOAD_STATUS_SETTING_SOURCE
 from pyanaconda.core.i18n import _
+from pyanaconda.modules.common.errors.payload import SourceSetupError
+from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.common.task.progress import ProgressReporter
 from pyanaconda.modules.common.task.runnable import Runnable
 from pyanaconda.core.threads import thread_manager
@@ -29,15 +29,12 @@ from pyanaconda.anaconda_loggers import get_module_logger
 
 log = get_module_logger(__name__)
 
-__all__ = ["payloadMgr"]
+__all__ = ["payloadMgr", "NonCriticalSourceSetupError"]
 
 
-class _PayloadFailed(Exception):
-    """Failed to set up the installation source."""
-
-
-class _InteractivePayloadFailed(_PayloadFailed):
-    """The installation source requires reconfiguration in the UI."""
+class NonCriticalSourceSetupError(SourceSetupError):
+    """Non-critical error raised during the source setup."""
+    pass
 
 
 class _PayloadManager(Runnable, ProgressReporter):
@@ -48,6 +45,15 @@ class _PayloadManager(Runnable, ProgressReporter):
     THREAD_PAYLOAD constant, if you need to wait for it or something. The
     thread should be started using payloadMgr.start.
     """
+
+    def __init__(self):
+        super().__init__()
+        self._report = ValidationReport()
+
+    @property
+    def report(self):
+        """The latest validation report."""
+        return self._report
 
     @property
     def steps(self):
@@ -98,18 +104,25 @@ class _PayloadManager(Runnable, ProgressReporter):
 
     def _task_run_callback(self, *args, **kwargs):
         """Run the task."""
+        self._report = ValidationReport()
+
         try:
             # Try to set up the payload.
             self._run(*args, **kwargs)
-        except _InteractivePayloadFailed:
+        except NonCriticalSourceSetupError as e:
+            # Report the non-fatal error.
+            self._report.error_messages.append(str(e))
+
             # The payload has failed, but it can be reconfigured in the UI.
             # Emit the failed signal, but don't propagate the error.
             self._task_failed_callback()
+
         except Exception as e:  # pylint: disable=broad-except
             # The payload has failed and it cannot be reconfigured in the UI.
             # Emit the failed signal and ask the user what to do.
             self._task_failed_callback()
 
+            # Handle the fatal error.
             if error_handler.cb(e) == ERROR_RAISE:
                 raise
         else:
@@ -145,19 +158,13 @@ class _PayloadManager(Runnable, ProgressReporter):
         self.report_progress(_(PAYLOAD_STATUS_SETTING_SOURCE))
 
         try:
-            # Set up the payload.
+            # Try to set up the payload.
             payload.setup(self.report_progress, **kwargs)
-        except DBusError as e:
-            # Tear down the payload.
+
+        except Exception:  # pylint: disable=broad-except
+            # Tear down the payload if we failed.
             payload.unsetup()
-
-            # Handle the error in a DNF payload.
-            if payload.type == PAYLOAD_TYPE_DNF:
-                log.error("The DNF payload failed with: %s", str(payload.report))
-                raise _InteractivePayloadFailed(str(e)) from e
-
-            # Handle the error in a non-package payload.
-            raise e
+            raise
 
     def finish(self):
         """Finish the task run.

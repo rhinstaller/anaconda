@@ -31,10 +31,9 @@ from pyanaconda.modules.common.structures.packages import PackagesConfigurationD
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.modules.common.task import sync_run_task
-from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManagerError
 from pyanaconda.modules.payloads.payload.dnf.repositories import generate_driver_disk_repositories
 from pyanaconda.modules.payloads.source.utils import verify_valid_repository
-from pyanaconda.payload.manager import payloadMgr as payload_manager
+from pyanaconda.payload.manager import payloadMgr as payload_manager, NonCriticalSourceSetupError
 from pyanaconda.payload.migrated import MigratedDBusPayload
 from pyanaconda.ui.lib.payload import create_source, set_source, set_up_sources, tear_down_sources
 
@@ -48,7 +47,6 @@ class DNFPayload(MigratedDBusPayload):
 
     def __init__(self, data):
         super().__init__()
-        self._report = ValidationReport()
         self._software_validation_required = True
 
     @property
@@ -260,11 +258,6 @@ class DNFPayload(MigratedDBusPayload):
 
         return self.proxy.GetEnabledRepositories()
 
-    @property
-    def report(self):
-        """The latest report from the payload setup."""
-        return self._report
-
     # pylint: disable=arguments-differ
     def setup(self, report_progress, only_on_change=False):
         """Set up the payload.
@@ -282,9 +275,6 @@ class DNFPayload(MigratedDBusPayload):
         # It will be necessary to validate the software selection again.
         self._software_validation_required = True
 
-        # Set up repositories and download their metadata.
-        self._report = ValidationReport()
-
         try:
             log.debug("Tearing down sources")
             tear_down_sources(self.proxy)
@@ -292,9 +282,9 @@ class DNFPayload(MigratedDBusPayload):
             log.debug("Setting up sources")
             set_up_sources(self.proxy)
 
-        except (OSError, SourceSetupError, DNFManagerError) as e:
-            self._report.error_messages.append(str(e))
-            raise SourceSetupError(str(e)) from e
+        except SourceSetupError as e:
+            # Errors of the DNF payload can be handled in the UI.
+            raise NonCriticalSourceSetupError(str(e)) from e
 
     def _skip_if_no_changed_repositories(self, only_on_change):
         """Have the repositories changed since the last setup?
