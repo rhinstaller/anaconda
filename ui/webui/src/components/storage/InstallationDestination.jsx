@@ -461,7 +461,7 @@ export const InstallationDestination = ({ idPrefix, setIsFormValid, onAddErrorNo
             <TextContent>
                 <Text id={idPrefix + "-hint"} component={TextVariants.p}>
                     {cockpit.format(_(
-                        "Select the device(s) to install to. The installation requires " +
+                        "Select the devices to install to. The installation requires " +
                         "$0 of available space. Storage will be automatically partitioned."
                     ), cockpit.format_bytes(requiredSize))}
                     {" "}

@@ -294,7 +294,7 @@ const Footer = ({
                                       id="next-tooltip-ref"
                                       content={
                                           <div>
-                                              {_("To continue, select the devices(s) to install to.")}
+                                              {_("To continue, select the devices to install to.")}
                                           </div>
                                       }
                                       // Only show the tooltip on installation destination spoke that is not valid (no disks selected).
