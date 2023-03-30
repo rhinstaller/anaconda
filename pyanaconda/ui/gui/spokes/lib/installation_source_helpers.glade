@@ -461,6 +461,8 @@
                         <property name="invisible-char">●</property>
                         <property name="activates-default">True</property>
                         <signal name="changed" handler="on_proxyPasswordEntry_changed" swapped="no"/>
+                        <signal name="icon-release" handler="on_password_icon_clicked" swapped="no"/>
+                        <signal name="map" handler="on_password_entry_map" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left-attach">1</property>

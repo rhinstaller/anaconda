@@ -35,7 +35,7 @@ from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.ui.gui import GUIObject, really_hide
 from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
-from pyanaconda.ui.gui.utils import find_first_child
+from pyanaconda.ui.gui.utils import find_first_child, set_password_visibility
 from pyanaconda.ui.helpers import InputCheck
 
 import gi
@@ -356,6 +356,20 @@ class ProxyDialog(GUIObject, GUIDialogInputCheckHandler):
     def on_proxy_auth_toggled(self, button, *args):
         self._proxy_auth_box.set_sensitive(button.get_active())
         self._proxy_validate.update_check_status()
+
+    def on_password_icon_clicked(self, entry, icon_pos, event):
+        """Called by Gtk callback when the icon of a password entry is clicked."""
+        set_password_visibility(entry, not entry.get_visibility())
+
+    def on_password_entry_map(self, entry):
+        """Called when a proxy password entry widget is going to be displayed.
+
+        - Without this the password visibility toggle icon would not be shown.
+        - The password should be hidden every time the entry widget is displayed
+          to avoid showing the password in plain text in case the user previously
+          displayed the password and then closed the dialog.
+        """
+        set_password_visibility(entry, False)
 
     def refresh(self):
         GUIObject.refresh(self)

@@ -193,6 +193,8 @@
                                                 <property name="visibility">False</property>
                                                 <property name="invisible_char">●</property>
                                                 <signal name="changed" handler="on_password_entry_changed" swapped="no"/>
+                                                <signal name="icon-release" handler="on_password_icon_clicked" swapped="no"/>
+                                                <signal name="map" handler="on_password_entry_map" swapped="no"/>
                                               </object>
                                               <packing>
                                                 <property name="left_attach">1</property>
@@ -605,6 +607,8 @@
                                                     <property name="visibility">False</property>
                                                     <property name="invisible_char">●</property>
                                                     <signal name="changed" handler="on_http_proxy_password_entry_changed" swapped="no"/>
+                                                    <signal name="icon-release" handler="on_password_icon_clicked" swapped="no"/>
+                                                    <signal name="map" handler="on_password_entry_map" swapped="no"/>
                                                   </object>
                                                   <packing>
                                                     <property name="left_attach">1</property>
