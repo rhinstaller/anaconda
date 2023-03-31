@@ -1,7 +1,7 @@
-Integration Tests of Anaconda WebUI
-===================================
+Tests of Anaconda WebUI
+=======================
 
-This directory contains automated integration tests for Anaconda WebUI, and the support files for them.
+This directory contains automated tests for Anaconda WebUI, and the support files for them.
 
 Before running the tests refer to the ``CONTRIBUTING`` guide in the root of the repository for installation of all the necessary build and test dependencies.
 
@@ -111,6 +111,18 @@ Once you have a test machine that contains the version of Anaconda that you want
 to test, you can run tests by picking a program and just executing it against the running machine::
 
     test/check-basic --machine=127.0.0.2:22000 --browser 127.0.0.2:9091
+
+Integration tests
+-----------------
+
+Integration tests run the installation to the end and do also checks on the installed system after its reboot. They are located in the `<integration>`_ subdirectory. Usually they are run by a Permian workflow provisioning rebootable virtual machines, but it is also possible to run them just by executing the test. To run them completely, including the post-reboot checks, they should be run on a en existing machine that can be rebooted as a part of the test::
+
+    WEBUI_TEST_DIR=./test test/integration/default.py --machine 192.168.122.235:22 --browser 192.168.122.235:9090
+
+If you run the tests on a machine created by the test script, they will timeout when rebooting, but it can be still useful to use this workflow for example for local testing during an integration test update or development::
+
+    WEBUI_TEST_DIR=./test test/integration/default.py DefaultInstallation.test_default_installation
+
 
 Pixel tests
 -----------
