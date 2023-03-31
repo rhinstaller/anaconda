@@ -74,9 +74,15 @@ class IntegrationTest(MachineCase):
     def configure_language(self):
         pass
 
-    def configure_storage(self):
+    def configure_storage_disks(self):
         disks = list(self._storage.get_disks())
         self._storage.select_disk(disks[0])
+
+    def configure_storage_partitioning(self):
+        pass
+
+    def configure_storage_encryption(self):
+        pass
 
     def check_review_screen(self):
         pass
@@ -100,7 +106,11 @@ class IntegrationTest(MachineCase):
         self._installer.open()
         self.configure_language()
         self._installer.next()
-        self.configure_storage()
+        self.configure_storage_disks()
+        self._installer.next()
+        self.configure_storage_partitioning()
+        self._installer.next()
+        self.configure_storage_encryption()
         self._installer.next()
         self.check_review_screen()
         self._installer.begin_installation()
