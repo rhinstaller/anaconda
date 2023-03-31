@@ -1,5 +1,6 @@
 
 .. include:: ../tests/README.rst
+.. include:: ../ui/webui/test/README.rst
 
 What to do if there are broken Rawhide dependencies
 ===================================================

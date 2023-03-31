@@ -1,8 +1,38 @@
-Integration Tests of Anaconda WebUI
-===================================
+Anaconda Web UI tests
+=====================
 
-This directory contains automated integration tests for Anaconda WebUI, and the support files for them.
+The Web UI tests are based on cockpit's testing framework which in turn is based
+on python's unittest library. There are two kinds of Web UI tests, "integration"
+that test only one specific feature at a time and "end to end" that go through the
+entire installation process including reboot to the installed system. Both types
+use the same library of helper functions, to avoid duplicating code and to make
+the test development easier, but they are executed in different ways because of
+the higher requirements of the end to end tests.
 
+Test development
+----------------
+
+Before test case for testing a new user interface can be written any new elements
+in the UI that are going to be interacted with need to be covered by helper
+functions. These helper functions are located in ``./ui/webui/test/helpers`` and
+are organized by screens or installations steps. These helper functions are then
+used in both integration and end to end tests.
+
+For interaction with elements on page use class `Browser <https://github.com/cockpit-project/cockpit/blob/292/test/common/testlib.py#L182>`_.
+For running commands in the installation environment use class `Machine <https://github.com/cockpit-project/bots/blob/1df595efa53fbf02731108d7a3657642d5b92c9e/machine/machine_core/machine.py#L55>`_ / `SSHConnection <https://github.com/cockpit-project/bots/blob/1df595efa53fbf02731108d7a3657642d5b92c9e/machine/machine_core/ssh_connection.py#L45>`_.
+
+All helper functions should be decorated with `log_step <https://github.com/rhinstaller/anaconda/blob/anaconda-39.16-1/ui/webui/test/helpers/step_logger.py#L11>`_.
+That makes sure the call and parameters are logged in the test output. The decorator
+also has options to create browser snapshots (screenshot and html), currently enabled
+only for end to end tests, and those should be used whenever the helper function is
+interacting with the UI.
+
+Web UI integration tests
+========================
+
+Integration tests are stored in directory `./ui/webui/test`, in files named `check-{something}`.
+
+For information about the @nondestructive decorator and some best practices read `Cockpit's test documentation <https://github.com/cockpit-project/cockpit/tree/main/test/#nondestructive-tests>`_.
 Before running the tests refer to the ``CONTRIBUTING`` guide in the root of the repository for installation of all the necessary build and test dependencies.
 
 Preparation and general invocation
@@ -10,8 +40,8 @@ Preparation and general invocation
 
 *Warning*: Never run the build, test, or any other command here as root!
 
-To run the WebUI integration tests run the following from the root of the anaconda repo.
-(do NOT run the integration tests as root).
+To run the WebUI tests run the following from the root of the anaconda repo.
+(do NOT run the tests as root).
 
 OSTree based systems (SilverBlue etc.) can use toolbx.
 See `<../../../CONTRIBUTING.rst#setting-up-development-container>`_.
@@ -119,12 +149,6 @@ image like so::
 Once the machine is booted and the cockpit socket has been activated, a
 message will be printed describing how to access the virtual machine, via
 ssh and web.  See the "Helpful tips" section below.
-
-
-Guidelines for writing tests
-----------------------------
-
-For information about the @nondestructive decorator and some best practices read `Cockpit's test documentation <https://github.com/cockpit-project/cockpit/tree/main/test/#guidelines-for-writing-tests>`_.
 
 Running tests against existing machines
 ---------------------------------------
@@ -256,3 +280,56 @@ Cockpit's CI
 WebUI tests when running in CI they use Cockpit's infrastructure.
 For information on the internals of Cockpit's CI see
 `cockpituous documentation <https://github.com/cockpit-project/cockpituous/tree/main/tasks#readme>`_.
+
+Web UI End to end tests
+=======================
+
+The end-to-end tests, along with tplib test cases and test plans (only required when
+executing tests using Permian), are located in the ``./ui/webui/test/end2end`` directory.
+
+End to end tests use one more level of abstraction, class `End2EndTest <https://github.com/rhinstaller/anaconda/blob/anaconda-39.16-1/ui/webui/test/helpers/end2end.py#L38>`_.
+This class handles flow through all the required installation steps with default
+options. So when writing new test you only have to use this class as parent and
+extend it or reimplement the functions that are important for the test case.
+
+End to end tests examples
+--------------------------
+
+There are three test cases in the anaconda repository that can be used as examples.
+
+**Default**
+
+Performs default installation.
+Test script ``default.py``, test case file ``default.tc.yaml``.
+
+**Storage encryption**
+
+Makes changes, compared to default installation, only in the storage section of
+the installation wizard and runs some commands before the system is rebooted.
+Test script ``storage_encryption.py``, test case file ``storage_encryption.tc.yaml``.
+
+**Wizard navigation**
+
+Changes the way how the test steps through the installation wizard.
+Test script ``wizard_navigation.py``, test case file ``wizard_navigation.tc.yam``.
+
+Running End to end tests
+-------------------------
+
+The recommended way to run these tests is through a Permian workflow, which is explained
+in detail in the documentation available `here <https://permian.readthedocs.io/en/devel/workflows/anaconda-webui.html>`_.
+Alternatively, you can manually set up the environment and execute the tests individually.
+Please refer to the `Preparation and general invocation`_ section for this.
+
+For a comprehensive execution, including post-reboot checks, the tests need to be executed
+on an existing machine where the installer is running with the cmdline options
+``inst.sshd inst.webui.remote``. (VM spawned by cockpit framework won't survive reboot).
+Here is an example that runs default test on VM with IP 192.168.122.235::
+
+    WEBUI_TEST_DIR=./ui/webui/test ./ui/webui/test/end2end/default.py --machine 192.168.122.235:22 --browser 192.168.122.235:9090
+
+If you run the tests on a machine created by the test script, they will timeout
+when rebooting, but it can be still useful to use this workflow, eg. for local
+testing during a test update or development::
+
+    WEBUI_TEST_DIR=./ui/webui/test ./ui/webui/test/end2end/default.py DefaultInstallation.test_default_installation
