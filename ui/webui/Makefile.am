@@ -17,13 +17,13 @@
 SUBDIRS =
 MAINTAINERCLEANFILES = Makefile.in
 
-# one example file in src/lib to check if it was already checked out
-LIB_TEST=src/lib/cockpit-po-plugin.js
 # stamp file to check if/when npm install ran
 # one example file in dist/ from webpack to check if that already ran
 WEBPACK_TEST=dist/manifest.json
 WEBPACK_TEST_PRODUCTION=dist/index.css.gz
 PACKAGE_NAME=anaconda-webui
+# one example file in pkg/lib to check if it was already checked out
+COCKPIT_REPO_STAMP=pkg/lib/cockpit-po-plugin.js
 # stamp file to check if/when npm install ran
 NODE_MODULES_TEST=package-lock.json
 TEST_OS=fedora-rawhide-boot
@@ -36,12 +36,13 @@ export TEST_OS
 # makes sure it gets built as part of `make` and `make dist`
 dist_noinst_DATA = \
 	$(WEBPACK_TEST) \
+	$(COCKPIT_REPO_STAMP) \
 	org.cockpit-project.anaconda-webui.metainfo.xml \
 	package-lock.json \
 	package.json \
 	webpack.config.js
 
-$(WEBPACK_TEST): $(LIB_TEST) $(shell find src/ -type f) $(NODE_MODULES_TEST) package.json webpack.config.js
+$(WEBPACK_TEST): $(COCKPIT_REPO_STAMP) $(shell find src/ -type f) $(NODE_MODULES_TEST) package.json webpack.config.js
 	NODE_ENV=production $(CURDIR)/node_modules/.bin/webpack
 
 watch:
@@ -59,11 +60,25 @@ install-data-hook: $(WEBPACK_TEST)
 
 EXTRA_DIST = dist src
 
-# checkout Cockpit's PF/React/build library; again this has no API stability guarantee, so check out a stable tag
-$(LIB_TEST):
-	git clone -b 260 --depth=1 https://github.com/cockpit-project/cockpit.git tmp/cockpit
-	mv tmp/cockpit/pkg/lib src/
-	rm -rf tmp/cockpit
+# checkout common files from Cockpit repository required to build this project;
+# this has no API stability guarantee, so check out a stable tag when you start
+# a new project, use the latest release, and update it from time to time
+COCKPIT_REPO_FILES = \
+	pkg/lib \
+	test/common \
+	tools/git-utils.sh \
+	tools/make-bots \
+	$(NULL)
+
+COCKPIT_REPO_URL = https://github.com/cockpit-project/cockpit.git
+COCKPIT_REPO_COMMIT = 6073b2703acd68e216bd9dbc116c30d2d7a9701c # 288 + esbuild-common
+
+$(COCKPIT_REPO_FILES): $(COCKPIT_REPO_STAMP)
+COCKPIT_REPO_TREE = '$(strip $(COCKPIT_REPO_COMMIT))^{tree}'
+$(COCKPIT_REPO_STAMP): Makefile.am
+	@git rev-list --quiet --objects $(COCKPIT_REPO_TREE) -- 2>/dev/null || \
+	     git fetch --no-tags --no-write-fetch-head --depth=1 $(COCKPIT_REPO_URL) $(COCKPIT_REPO_COMMIT)
+	git -C ../../ archive $(COCKPIT_REPO_TREE) -- $(COCKPIT_REPO_FILES) | tar x
 
 # checkout Cockpit's bots for standard test VM images and API to launch them
 # must be from main, as only that has current and existing images; but testvm.py API is stable
@@ -71,10 +86,8 @@ $(LIB_TEST):
 # Workaround cockpit's expectation for test/images directory. This is not really needed in our case
 # as we consume ready ISOs
 # https://github.com/cockpit-project/cockpit/blob/main/test/common/testlib.py#L1118
-bots:
-	git clone --quiet --reference-if-able $${XDG_CACHE_HOME:-$$HOME/.cache}/cockpit-project/bots https://github.com/cockpit-project/bots.git
-	if [ -n "$$COCKPIT_BOTS_REF" ]; then git -C bots fetch --quiet --depth=1 origin "$$COCKPIT_BOTS_REF"; git -C bots checkout --quiet FETCH_HEAD; fi
-	@echo "checked out bots/ ref $$(git -C bots rev-parse HEAD)"
+bots: tools/make-bots
+	GITHUB_BASE="cockpit-project/cockpit" tools/make-bots
 	cd test && ln -s ../bots/images images
 
 prepare-test-deps: bots test/common
@@ -90,13 +103,6 @@ create-updates.img: bots
 # denials; SELinux gets disabled, but would still trigger unexpected messages
 integration-test: bots test/common test/reference $(UPDATES_IMG)
 	TEST_AUDIT_NO_SELINUX=1 test/run-tests
-
-# checkout Cockpit's test API; this has no API stability guarantee, so check out a stable tag
-# when you start a new project, use the latest release, and update it from time to time
-test/common:
-	git clone -b 281 --depth=1 https://github.com/cockpit-project/cockpit.git tmp/cockpit
-	mv tmp/cockpit/test/common test/common
-	rm -rf tmp/cockpit
 
 test/reference: test/common
 	test/common/pixel-tests pull

@@ -7,8 +7,8 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const CompressionPlugin = require("compression-webpack-plugin");
 const ESLintPlugin = require('eslint-webpack-plugin');
-const CockpitPoPlugin = require("./src/lib/cockpit-po-plugin");
-const CockpitRsyncPlugin = require("./src/lib/cockpit-rsync-plugin");
+const CockpitPoPlugin = require("./pkg/lib/cockpit-po-plugin");
+const CockpitRsyncPlugin = require("./pkg/lib/cockpit-rsync-plugin");
 
 // HACK: OpenSSL 3 does not support md4 any more, but webpack hardcodes it all over the place: https://github.com/webpack/webpack/issues/13572
 const crypto = require("crypto");
@@ -56,11 +56,11 @@ if (production) {
 module.exports = {
     mode: production ? 'production' : 'development',
     resolve: {
-        modules: [ "node_modules", path.resolve(__dirname, 'src/lib') ],
+        modules: [ "node_modules", path.resolve(__dirname, 'pkg/lib') ],
         alias: { 'font-awesome': 'font-awesome-sass/assets/stylesheets' },
     },
     resolveLoader: {
-        modules: [ "node_modules", path.resolve(__dirname, 'src/lib') ],
+        modules: [ "node_modules", path.resolve(__dirname, 'pkg/lib') ],
     },
     watchOptions: {
         ignored: /node_modules/,
