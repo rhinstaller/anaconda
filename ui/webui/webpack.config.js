@@ -33,7 +33,7 @@ const copy_files = [
 const plugins = [
     new copy({ patterns: copy_files }),
     new extract({filename: "[name].css"}),
-    new CockpitPoWebpackPlugin({ reference_patterns: ["ui/webui/src/.*"] }),
+    new CockpitPoWebpackPlugin({ src_directory: "ui/webui/src/" }),
     new CockpitRsyncWebpackPlugin({ dest: packageJson.name }),
 ];
 
