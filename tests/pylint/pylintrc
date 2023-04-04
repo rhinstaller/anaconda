@@ -14,6 +14,7 @@ ignore=
 # The regex matches against paths.
 ignore-paths=^.*ui/webui/bots/.*$,
              ^.*ui/webui/pkg/lib/.*$,
+             ^.*ui/webui/test/run-tests,
              ^.*ui/webui/test/common/.*$
 
 # Add files or directories matching the regex patterns to the denylist. The
