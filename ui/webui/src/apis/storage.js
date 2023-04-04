@@ -155,6 +155,65 @@ export const getSelectedDisks = () => {
 };
 
 /**
+ * @param {string} partitioning    DBus path to a partitioning
+ * @param {string} passphrase      passphrase for disk encryption
+ */
+export const partitioningSetPassphrase = ({ partitioning, passphrase }) => {
+    return new StorageClient().client.call(
+        partitioning,
+        "org.fedoraproject.Anaconda.Modules.Storage.Partitioning.Automatic",
+        "SetPassphrase", [passphrase]
+    );
+};
+
+/**
+ * @param {string} partitioning     DBus path to a partitioning
+ * @param {boolean} encrypt         True if partitions should be encrypted, False otherwise
+ */
+export const partitioningSetEncrypt = ({ partitioning, encrypt }) => {
+    return getPartitioningRequest({ partitioning })
+            .then(request => {
+                request.encrypted = cockpit.variant("b", encrypt);
+                return setPartitioningRequest({ partitioning, request });
+            });
+};
+
+/**
+ * @returns {Promise}           The request of automatic partitioning
+ */
+export const getPartitioningRequest = ({ partitioning }) => {
+    return (
+        new StorageClient().client.call(
+            partitioning,
+            "org.freedesktop.DBus.Properties",
+            "Get",
+            [
+                "org.fedoraproject.Anaconda.Modules.Storage.Partitioning.Automatic",
+                "Request",
+            ]
+        )
+                .then(res => res[0].v)
+    );
+};
+
+/**
+ * @param {string} partitioning     DBus path to a partitioning
+ * @param {Object} request          A data object with the request
+ */
+export const setPartitioningRequest = ({ partitioning, request }) => {
+    return new StorageClient().client.call(
+        partitioning,
+        "org.freedesktop.DBus.Properties",
+        "Set",
+        [
+            "org.fedoraproject.Anaconda.Modules.Storage.Partitioning.Automatic",
+            "Request",
+            cockpit.variant("a{sv}", request)
+        ]
+    );
+};
+
+/**
  * @param {string} partitioning DBus path to a partitioning
  *
  * @returns {Promise}           Resolves a DBus path to a task
@@ -205,6 +264,24 @@ export const scanDevicesWithTask = () => {
         "/org/fedoraproject/Anaconda/Modules/Storage",
         "org.fedoraproject.Anaconda.Modules.Storage",
         "ScanDevicesWithTask", []
+    );
+};
+
+/**
+ * @returns {Promise}           The number of the mode
+ */
+export const getInitializationMode = () => {
+    return (
+        new StorageClient().client.call(
+            "/org/fedoraproject/Anaconda/Modules/Storage/DiskInitialization",
+            "org.freedesktop.DBus.Properties",
+            "Get",
+            [
+                "org.fedoraproject.Anaconda.Modules.Storage.DiskInitialization",
+                "InitializationMode",
+            ]
+        )
+                .then(res => res[0].v)
     );
 };
 

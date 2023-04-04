@@ -30,6 +30,8 @@ import {
 } from "@patternfly/react-core";
 
 import { InstallationDestination, applyDefaultStorage } from "./storage/InstallationDestination.jsx";
+import { StorageConfiguration } from "./storage/StorageConfiguration.jsx";
+import { DiskEncryption, StorageEncryptionState } from "./storage/DiskEncryption.jsx";
 import { InstallationLanguage } from "./localization/InstallationLanguage.jsx";
 import { InstallationProgress } from "./installation/InstallationProgress.jsx";
 import { ReviewConfiguration, ReviewConfigurationConfirmModal } from "./review/ReviewConfiguration.jsx";
@@ -42,6 +44,8 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, titl
     const [isFormValid, setIsFormValid] = useState(true);
     const [stepNotification, setStepNotification] = useState();
     const [isInProgress, setIsInProgress] = useState(false);
+    const [storageEncryption, setStorageEncryption] = useState(new StorageEncryptionState());
+    const [showPassphraseScreen, setShowPassphraseScreen] = useState(false);
 
     const stepsOrder = [
         {
@@ -49,10 +53,23 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, titl
             id: "installation-language",
             label: _("Welcome"),
         },
+        // TODO: rename InstallationDestination component and its file ?
         {
-            component: InstallationDestination,
             id: "installation-destination",
             label: _("Installation destination"),
+            steps: [{
+                component: InstallationDestination,
+                id: "storage-devices",
+                label: _("Storage devices")
+            }, {
+                component: StorageConfiguration,
+                id: "storage-configuration",
+                label: _("Storage configuration")
+            }, {
+                component: DiskEncryption,
+                id: "disk-encryption",
+                label: _("Disk encryption")
+            }]
         },
         {
             component: ReviewConfiguration,
@@ -65,29 +82,70 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, titl
         }
     ];
 
+    const getFlattenedStepsIds = (steps) => {
+        const stepIds = [];
+        for (const step of steps) {
+            if (step.steps) {
+                for (const childStep of step.steps) {
+                    stepIds.push(childStep.id);
+                }
+            } else {
+                stepIds.push(step.id);
+            }
+        }
+        return stepIds;
+    };
+    const flattenedStepsIds = getFlattenedStepsIds(stepsOrder);
+
     const { path } = usePageLocation();
     const currentStepId = path[0] || "installation-language";
-    const steps = stepsOrder.map((s, idx) => {
-        return ({
-            id: s.id,
-            name: s.label,
-            component: (
-                <s.component
-                  idPrefix={s.id}
-                  setIsFormValid={setIsFormValid}
-                  onAddErrorNotification={onAddErrorNotification}
-                  toggleContextHelp={toggleContextHelp}
-                  stepNotification={stepNotification}
-                  isInProgress={isInProgress}
-                />
-            ),
-            stepNavItemProps: { id: s.id },
-            canJumpTo: idx <= stepsOrder.findIndex(s => s.id === currentStepId),
-            isFinishedStep: idx === stepsOrder.length - 1
-        });
-    });
 
-    const startAtStep = steps.findIndex(step => step.id === path[0]) + 1;
+    const isFinishedStep = (stepId) => {
+        const stepIdx = flattenedStepsIds.findIndex(s => s === stepId);
+        return stepIdx === flattenedStepsIds.length - 1;
+    };
+
+    const canJumpToStep = (stepId, currentStepId) => {
+        const stepIdx = flattenedStepsIds.findIndex(s => s === stepId);
+        const currentStepIdx = flattenedStepsIds.findIndex(s => s === currentStepId);
+        return stepIdx <= currentStepIdx;
+    };
+
+    const createSteps = (stepsOrder) => {
+        const steps = stepsOrder.map((s, idx) => {
+            let step = ({
+                id: s.id,
+                name: s.label,
+                stepNavItemProps: { id: s.id },
+                canJumpTo: canJumpToStep(s.id, currentStepId),
+                isFinishedStep: isFinishedStep(s.id),
+            });
+            if (s.component) {
+                step = ({
+                    ...step,
+                    component: (
+                        <s.component
+                          idPrefix={s.id}
+                          setIsFormValid={setIsFormValid}
+                          onAddErrorNotification={onAddErrorNotification}
+                          toggleContextHelp={toggleContextHelp}
+                          stepNotification={stepNotification}
+                          isInProgress={isInProgress}
+                          storageEncryption={storageEncryption}
+                          setStorageEncryption={setStorageEncryption}
+                          showPassphraseScreen={showPassphraseScreen}
+                        />
+                    ),
+                });
+            } else if (s.steps) {
+                step.steps = createSteps(s.steps);
+            }
+            return step;
+        });
+        return steps;
+    };
+    const steps = createSteps(stepsOrder);
+
     const goToStep = (newStep) => {
         // first reset validation state to default
         setIsFormValid(true);
@@ -104,6 +162,9 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, titl
             setStepNotification={setStepNotification}
             isInProgress={isInProgress}
             setIsInProgress={setIsInProgress}
+            storageEncryption={storageEncryption}
+            showPassphraseScreen={showPassphraseScreen}
+            setShowPassphraseScreen={setShowPassphraseScreen}
           />}
           hideClose
           mainAriaLabel={`${title} content`}
@@ -111,25 +172,39 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, titl
           onBack={goToStep}
           onGoToStep={goToStep}
           onNext={goToStep}
-          startAtStep={startAtStep}
           steps={steps}
+          isNavExpandable
         />
     );
 };
 
-const Footer = ({ isFormValid, setIsFormValid, setStepNotification, isInProgress, setIsInProgress }) => {
+const Footer = ({
+    isFormValid,
+    setIsFormValid,
+    setStepNotification,
+    isInProgress,
+    setIsInProgress,
+    storageEncryption,
+    showPassphraseScreen,
+    setShowPassphraseScreen,
+}) => {
     const [nextWaitsConfirmation, setNextWaitsConfirmation] = useState(false);
     const [quitWaitsConfirmation, setQuitWaitsConfirmation] = useState(false);
 
-    const goToStep = (activeStep, onNext) => {
+    const goToNextStep = (activeStep, onNext) => {
         // first reset validation state to default
         setIsFormValid(true);
 
-        if (activeStep.id === "installation-destination") {
+        if (activeStep.id === "disk-encryption") {
+            if (!showPassphraseScreen && storageEncryption.encrypt) {
+                setShowPassphraseScreen(true);
+                return;
+            }
             setIsInProgress(true);
 
             applyDefaultStorage({
                 onFail: ex => {
+                    console.error(ex);
                     setIsInProgress(false);
                     setStepNotification({ step: activeStep.id, ...ex });
                 },
@@ -140,12 +215,24 @@ const Footer = ({ isFormValid, setIsFormValid, setStepNotification, isInProgress
                     // React will try to render the current step again.
                     setIsInProgress(false);
                     setStepNotification();
-                }
+                },
+                encrypt: storageEncryption.encrypt,
+                encryptPassword: storageEncryption.password,
             });
         } else if (activeStep.id === "installation-review") {
             setNextWaitsConfirmation(true);
         } else {
             onNext();
+        }
+    };
+
+    const goToPreviousStep = (activeStep, onBack) => {
+        // first reset validation state to default
+        setIsFormValid(true);
+        if (activeStep.id === "disk-encryption" && showPassphraseScreen) {
+            setShowPassphraseScreen(false);
+        } else {
+            onBack();
         }
     };
 
@@ -188,7 +275,7 @@ const Footer = ({ isFormValid, setIsFormValid, setStepNotification, isInProgress
                                 <Button
                                   variant="secondary"
                                   isDisabled={isBackDisabled}
-                                  onClick={onBack}>
+                                  onClick={() => goToPreviousStep(activeStep, onBack)}>
                                     {_("Back")}
                                 </Button>
                                 <Button
@@ -199,15 +286,15 @@ const Footer = ({ isFormValid, setIsFormValid, setStepNotification, isInProgress
                                       !isFormValid ||
                                       nextWaitsConfirmation
                                   }
-                                  onClick={() => goToStep(activeStep, onNext)}>
+                                  onClick={() => goToNextStep(activeStep, onNext)}>
                                     {nextButtonText}
                                 </Button>
-                                {activeStep.id === "installation-destination" &&
+                                {activeStep.id === "storage-devices" &&
                                     <Tooltip
                                       id="next-tooltip-ref"
                                       content={
                                           <div>
-                                              {_("To continue, select the devices(s) to install to.")}
+                                              {_("To continue, select the devices to install to.")}
                                           </div>
                                       }
                                       // Only show the tooltip on installation destination spoke that is not valid (no disks selected).

@@ -68,8 +68,110 @@ class TestStorage(MachineCase):
         # Check the next button is disabled if no disks are selected
         i.check_next_disabled()
 
+    # Test moving back and forth between screens.
+    def testAutopartitioning(self):
+        b = self.browser
+        i = Installer(b, self.machine)
+        s = Storage(b, self.machine)
+
+        i.open()
+        # Language selection
+
+        i.next()
+        # Storage Devices
+
+        i.next()
+        # Storage Configuration
+
+        b.assert_pixels(
+            "#app",
+            "storage-step-autopart",
+            ignore=["#betanag-icon"],
+            wait_animations=False,
+        )
+
+        s.check_partitioning_selected("erase-all")
+        s.set_partitioning("use-free-space")
+
+        i.next()
+        # Disk Encryption
+
+        b.assert_pixels(
+            "#app",
+            "storage-step-encrypt",
+            ignore=["#betanag-icon"],
+            wait_animations=False,
+        )
+
+        s.check_encryption_selected(False)
+        encrypt = True
+        s.set_encryption_selected(encrypt)
+
+        i.back()
+        # Storage Configuration
+        # The choice is preserved (stored in the backend).
+        s.check_partitioning_selected("use-free-space")
+
+        i.next()
+        # Disk Encryption
+        # The value is preserved
+        s.check_encryption_selected(encrypt)
+
+        # Encryption password is on the same page
+        i.next(subpage=encrypt)
+        # Disk Encryption / password screen
+
+        b.assert_pixels(
+            "#app",
+            "storage-step-password",
+            ignore=["#betanag-icon"],
+            wait_animations=False,
+        )
+
+        # No password set
+        s.check_pw_rule("8-chars", "indeterminate")
+        s.check_pw_rule("match", "indeterminate")
+        i.check_next_disabled()
+
+        # Set pw which is too short
+        s.set_password("abcd")
+        s.check_pw_strength(None)
+        i.check_next_disabled()
+        s.check_pw_rule("8-chars", "error")
+        s.check_pw_rule("match", "error")
+
+        # Make the pw 8 chars long
+        s.set_password("efgh", append=True, value_check=False)
+        i.check_next_disabled()
+        s.check_password("abcdefgh")
+        s.check_pw_rule("8-chars", "success")
+        s.check_pw_rule("match", "error")
+        s.check_pw_strength("weak")
+
+        # Set the password confirm
+        s.set_password_confirm("abcdefg")
+        s.check_pw_rule("match", "error")
+        s.set_password_confirm("abcdefgh")
+        s.check_pw_rule("match", "success")
+        i.check_next_disabled(disabled=False)
+
+        # Check the values are preserved on Back and Next
+        i.back(subpage=True)
+        i.next(subpage=encrypt)
+        s.check_pw_rule("8-chars", "success")
+        s.check_pw_rule("match", "success")
+        s.check_pw_strength("weak")
+        s.check_password("abcdefgh")
+        s.check_password_confirm("abcdefgh")
+        i.check_next_disabled(disabled=False)
+
+        # Check setting strong password
+        s.set_password("Rwce82ybF7dXtCzFumanchu!!!!!!!!")
+        s.check_pw_strength("strong")
+
 # We can't run this test case on an existing machine,
 # with --machine because MachineCase is not aware of add_disk method
+# TODO add next back test keeping the choice
 class TestStorageExtraDisks(MachineCase):
     MachineCase.machine_class = VirtInstallMachine
 
@@ -104,6 +206,16 @@ class TestStorageExtraDisks(MachineCase):
 
         s.rescan_disks()
         s.wait_no_disks_detected()
+
+        # Check that disk selection is kept on Next and Back
+        disks = ["vdb"]
+        for disk in disks:
+            s.select_disk(disk)
+        i.next()
+        i.back()
+        for disk in disks:
+            s.check_disk_selected(disk)
+
 
 if __name__ == '__main__':
     test_main()

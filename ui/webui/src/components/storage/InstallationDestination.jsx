@@ -20,15 +20,12 @@ import React, { useEffect, useState } from "react";
 import {
     Alert,
     AlertActionCloseButton,
-    Bullseye,
     Button,
     Divider,
     Dropdown,
     DropdownItem,
     DropdownToggle,
     DropdownToggleCheckbox,
-    EmptyState,
-    EmptyStateIcon,
     Flex,
     FlexItem,
     Form,
@@ -36,12 +33,10 @@ import {
     FormSection,
     Popover,
     PopoverPosition,
-    Spinner,
     Skeleton,
     Text,
     TextContent,
     TextVariants,
-    Title,
     Toolbar,
     ToolbarContent,
     ToolbarItem,
@@ -68,10 +63,11 @@ import {
     resetPartitioning,
     runStorageTask,
     scanDevicesWithTask,
-    setInitializationMode,
     setInitializeLabelsEnabled,
     setSelectedDisks,
     setBootloaderDrive,
+    partitioningSetPassphrase,
+    partitioningSetEncrypt,
 } from "../../apis/storage.js";
 
 import {
@@ -97,7 +93,8 @@ const _ = cockpit.gettext;
 const selectDefaultDisks = ({ ignoredDisks, selectedDisks, usableDisks }) => {
     if (selectedDisks.length) {
         // Do nothing if there are some disks selected
-        return [];
+        console.log("Selecting disks selected in backend:", selectedDisks.join(","));
+        return selectedDisks;
     } else {
         const availableDisks = usableDisks.filter(disk => !ignoredDisks.includes(disk));
         console.log("Selecting one or less disks by default:", availableDisks.join(","));
@@ -249,9 +246,14 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
 
     // When the selected disks change in the UI, update in the backend as well
     useEffect(() => {
+        // Do not update on the inital value, wait for initialization by the other effect
+        if (Object.keys(disks).length === 0) {
+            return;
+        }
         setIsFormValid(selectedDisksCnt > 0);
 
         const selected = Object.keys(disks).filter(disk => disks[disk]);
+        console.log("Updating storage backend with selected disks:", selected.join(","));
 
         setSelectedDisks({ drives: selected }).catch(onAddErrorNotification);
     }, [disks, onAddErrorNotification, selectedDisksCnt, setIsFormValid]);
@@ -454,30 +456,12 @@ export const InstallationDestination = ({ idPrefix, setIsFormValid, onAddErrorNo
                 }, console.error);
     }, []);
 
-    if (isInProgress) {
-        return (
-            <Bullseye>
-                <EmptyState id="installation-destination-next-spinner">
-                    <EmptyStateIcon variant="container" component={Spinner} />
-                    <Title size="lg" headingLevel="h4">
-                        {_("Checking disks")}
-                    </Title>
-                    <TextContent>
-                        <Text component={TextVariants.p}>
-                            {_("This may take a moment")}
-                        </Text>
-                    </TextContent>
-                </EmptyState>
-            </Bullseye>
-        );
-    }
-
     return (
-        <AnacondaPage title={_("Installation destination")}>
+        <AnacondaPage title={_("Select storage devices")}>
             <TextContent>
                 <Text id={idPrefix + "-hint"} component={TextVariants.p}>
                     {cockpit.format(_(
-                        "Select the device(s) to install to. The installation requires " +
+                        "Select the devices to install to. The installation requires " +
                         "$0 of available space. Storage will be automatically partitioned."
                     ), cockpit.format_bytes(requiredSize))}
                     {" "}
@@ -502,18 +486,24 @@ export const InstallationDestination = ({ idPrefix, setIsFormValid, onAddErrorNo
     );
 };
 
-export const applyDefaultStorage = ({ onFail, onSuccess }) => {
+// TODO move to the right place (new or StorageConfiguration) when renaming this file
+// TODO migrate to async
+export const applyDefaultStorage = ({ onFail, onSuccess, encrypt, encryptPassword }) => {
+    console.log(`applyDefaultStorage, encrypt: ${encrypt}`);
     let partitioning;
     // CLEAR_PARTITIONS_ALL = 1
-    return setInitializationMode({ mode: 1 })
-            .then(() => sleep({ seconds: 2 }))
+    return sleep({ seconds: 2 })
             .then(() => setInitializeLabelsEnabled({ enabled: true }))
             .then(() => setBootloaderDrive({ drive: "" }))
             .then(() => createPartitioning({ method: "AUTOMATIC" }))
             .then(res => {
                 partitioning = res[0];
-                return partitioningConfigureWithTask({ partitioning });
+                return partitioningSetEncrypt({ partitioning, encrypt });
             })
+            .then(() => {
+                return partitioningSetPassphrase({ partitioning, passphrase: encryptPassword });
+            })
+            .then(() => partitioningConfigureWithTask({ partitioning }))
             .then(tasks => {
                 runStorageTask({
                     task: tasks[0],
