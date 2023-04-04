@@ -1,0 +1,107 @@
+# Run webui e2e tests periodically in Permian
+name: webui-periodic
+on:
+  schedule:
+    - cron: 0 23 * * *
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  scenario:
+    name: Webui periodic
+    runs-on: [self-hosted, kstest-permian]
+
+    timeout-minutes: 65
+    env:
+      # ocp-master-xxl: 32GB RAM / 4GB RAM per VM
+      TEST_JOBS: 8
+      # The timeout should be a few minutes less then the job's timeout-minutes
+      # so that we get partial results and logs in case of the timeout.
+      LAUNCHER_TIMEOUT_MINUTES: 60
+      # URL to the unpacked installation image
+      # TODO: use preview image
+      STATIC_REPO_URL: "https://fedorapeople.org/groups/anaconda/webui_permian_tests/sources/periodic/x86_64/"
+
+    steps:
+      # self-hosted runners don't do this automatically; also useful to keep stuff around for debugging
+      # need to run sudo as the launch script and the container create root/other user owned files
+      - name: Clean up previous run
+        run: |
+          sudo podman ps -q --all --filter='ancestor=kstest-runner' | xargs -tr sudo podman rm -f
+          sudo podman volume rm --all || true
+          sudo rm -rf *
+
+      # The test library is in anaconda repository
+      - name: Clone anaconda repository
+        uses: actions/checkout@v3
+        with:
+          ref: master
+          fetch-depth: 0
+          path: anaconda
+
+      # TODO: use main branch when the webui workflow is merged there
+      - name: Clone Permian repository
+        uses: actions/checkout@v3.3.0
+        with:
+          repository: rhinstaller/permian
+          path: permian
+          ref: devel
+
+      - name: Clone tplib repository
+        uses: actions/checkout@v3.3.0
+        with:
+          repository: rhinstaller/tplib
+          path: tplib
+
+      # Use static URL to unpacked image
+      # TODO: unpack the image as the part of the workflow
+      - name: Set the image to be tested
+        id: prepare_repo
+        run:
+          echo "repo_url=$STATIC_REPO_URL" >> $GITHUB_OUTPUT
+
+      - name: Create Permian settings file
+        working-directory: ./permian
+        run: |
+          cat <<EOF > settings.ini
+          [AnacondaWebUI]
+          hypervisor_vm_limit=${{ env.TEST_JOBS }}
+          test_timeout=${{ env.LAUNCHER_TIMEOUT_MINUTES }}
+          [library]
+          directPath=${{ github.workspace }}/anaconda/ui/webui/test/integration
+          EOF
+
+      - name: Run webui integration tests
+        working-directory: ./permian
+        run: |
+          PYTHONPATH=${PYTHONPATH:-}:${{ github.workspace }}/tplib \
+          ./pipeline --debug-log permian.log \
+            --settings settings.ini \
+            --override workflows.dry_run=False \
+            run_event '{
+              "type":"github.scheduled.preview",
+              "InstallationSource":{
+                "base_repo_id": "bootiso",
+                "repos": {
+                  "bootiso":{
+                    "x86_64":{
+                      "os": "${{ steps.prepare_repo.outputs.repo_url }}",
+                      "kernel": "images/pxeboot/vmlinuz",
+                      "initrd": "images/pxeboot/initrd.img"
+                    }
+                  }
+                }
+              }
+            }'
+
+      - name: Collect Permian logs
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: 'logs'
+          path: |
+            permian/permian.log
+            permian/local_logs/
+            permian/*.dump
