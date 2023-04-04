@@ -31,8 +31,8 @@ sys.path.append(BOTS_DIR)
 sys.path.append(f'{BOTS_DIR}/machine')
 
 # pylint: disable=import-error
-from testvm import VirtMachine  # nopep8
-from testvm import Machine  # nopep8
+from testvm_original import VirtMachine  # nopep8
+from testvm_original import Machine  # nopep8
 
 # This env variable must be always set for anaconda webui tests.
 # In the anaconda environment /run/nologin always exists however cockpit test

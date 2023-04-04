@@ -17,16 +17,42 @@
 
 import signal
 import argparse
+import os
+import sys
 
-from machine_install import VirtInstallMachine
+BASE_DIR = os.path.normpath(os.path.dirname(__file__)+'/../..')
+TEST_DIR = f'{BASE_DIR}/test'
+BOTS_DIR = f'{BASE_DIR}/bots'
 
+# pylint: disable=environment-modify
+sys.path.append(BOTS_DIR)
+sys.path.append(TEST_DIR)
+sys.path.append(f'{BOTS_DIR}/machine')
+
+from machine_install import VirtInstallMachine as VirtMachine
+from machine_core.timeout import Timeout
+from machine_core.machine import Machine
+from machine_core.exceptions import Failure, RepeatableFailure
+from machine_core.machine_virtual import VirtNetwork
+from lib.constants import BOTS_DIR, TEST_DIR, IMAGES_DIR, SCRIPTS_DIR, DEFAULT_IMAGE, TEST_OS_DEFAULT
+from lib.directories import get_images_data_dir
+from machine_core.cli import cmd_cli
+from lib.testmap import get_build_image, get_test_image
+
+
+__all__ = (
+    "Timeout", "Machine", "Failure", "RepeatableFailure", "VirtMachine",
+    "VirtNetwork", "get_build_image", "get_test_image", "get_images_data_dir",
+    "BOTS_DIR", "TEST_DIR", "IMAGES_DIR", "SCRIPTS_DIR",
+    "DEFAULT_IMAGE", "TEST_OS_DEFAULT"
+)
 
 def cmd_cli():
     parser = argparse.ArgumentParser(description="Run a VM image until SIGTERM or SIGINT")
     parser.add_argument("image", help="Image name")
     args = parser.parse_args()
 
-    machine = VirtInstallMachine(image=args.image)
+    machine = VirtMachine(image=args.image)
     machine.start()
 
     print("You can connect to the VM in the following ways:")
