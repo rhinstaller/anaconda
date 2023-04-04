@@ -143,7 +143,7 @@ const checkUseFreeSpace = async (selectedDisks, requiredSize) => {
     return availability;
 };
 
-export const scenarios = [{
+const scenarios = [{
     id: "erase-all",
     label: _("Erase devices and install"),
     detail: helpEraseAll,
@@ -151,6 +151,12 @@ export const scenarios = [{
     default: true,
     // CLEAR_PARTITIONS_ALL = 1
     initializationMode: 1,
+    buttonLabel: _("Erase disks and install"),
+    buttonVariant: "danger",
+    screenWarning: _("Erasing the disks cannot be undone."),
+    dialogTitleIconVariant: "warning",
+    dialogWarningTitle: _("Erase disks and install?"),
+    dialogWarning: _("The selected disks will be erased, this cannot be undone. Are you sure you want to continue with the installation?"),
 }, {
     id: "use-free-space",
     label: _("Use free space for the installation"),
@@ -159,7 +165,24 @@ export const scenarios = [{
     default: false,
     // CLEAR_PARTITIONS_NONE = 0
     initializationMode: 0,
+    buttonLabel: _("Install"),
+    buttonVariant: "primary",
+    screenWarning: "",
+    dialogTitleIconVariant: "",
+    dialogWarningTitle: _("Install on the free space?"),
+    dialogWarning: _("The installation will use the available space on your devices and will not erase any device data."),
 }];
+
+export const getScenario = (scenarioId) => {
+    return scenarios.filter(s => s.id === scenarioId)[0];
+};
+
+export const scenarioForInitializationMode = (mode) => {
+    const ss = scenarios.filter(s => s.initializationMode === mode);
+    if (ss.length > 0) {
+        return ss[0];
+    }
+};
 
 const scenarioDetailContent = (scenario, hint) => {
     return (
@@ -237,7 +260,7 @@ const GuidedPartitioning = ({ idPrefix, scenarios, setIsFormValid }) => {
 
     useEffect(() => {
         const applyScenario = async (scenarioId) => {
-            const scenario = scenarios.filter(s => s.id === scenarioId)[0];
+            const scenario = getScenario(scenarioId);
             console.log("Updating scenario selected in backend to", scenario.id);
             await setInitializationMode({ mode: scenario.initializationMode }).catch(console.error);
         };
@@ -247,7 +270,7 @@ const GuidedPartitioning = ({ idPrefix, scenarios, setIsFormValid }) => {
     }, [scenarios, selectedScenario]);
 
     const updateDetailContent = (scenarioId) => {
-        const scenario = scenarios.filter(s => s.id === scenarioId)[0];
+        const scenario = getScenario(scenarioId);
         const hint = scenarioAvailability[scenarioId].hint;
         setDetailContent(scenarioDetailContent(scenario, hint));
     };

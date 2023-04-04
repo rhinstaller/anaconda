@@ -39,5 +39,13 @@ class Review():
         self.browser.wait_in_text(f"#{self._step}-disk-label-{disk}", label)
 
     @log_step()
+    def check_encryption(self, state):
+        self.browser.wait_in_text(f"#{self._step}-target-system-encrypt > .pf-c-description-list__text", state)
+
+    @log_step()
+    def check_storage_config(self, scenario):
+        self.browser.wait_in_text(f"#{self._step}-target-system-mode > .pf-c-description-list__text", scenario)
+
+    @log_step()
     def check_disk_description(self, disk, description):
         self.browser.wait_in_text(f"#{self._step}-disk-description-{disk}", description)

@@ -50,6 +50,12 @@ class TestReview(anacondalib.VirtInstallMachineCase):
         r.check_disk_label("vda", "Local standard disk")
         r.check_disk_description("vda", "0x1af4 (vda)")
 
+        # check encryption choice
+        r.check_encryption("Disabled")
+
+        # check storage configuration
+        r.check_storage_config("Erase devices and install")
+
         # Pixel test the review step
         b.assert_pixels(
             "#app",

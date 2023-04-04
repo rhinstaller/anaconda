@@ -30,7 +30,7 @@ import {
 } from "@patternfly/react-core";
 
 import { InstallationDestination, applyDefaultStorage } from "./storage/InstallationDestination.jsx";
-import { StorageConfiguration } from "./storage/StorageConfiguration.jsx";
+import { StorageConfiguration, getScenario } from "./storage/StorageConfiguration.jsx";
 import { DiskEncryption, StorageEncryptionState } from "./storage/DiskEncryption.jsx";
 import { InstallationLanguage } from "./localization/InstallationLanguage.jsx";
 import { InstallationProgress } from "./installation/InstallationProgress.jsx";
@@ -46,6 +46,7 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, titl
     const [isInProgress, setIsInProgress] = useState(false);
     const [storageEncryption, setStorageEncryption] = useState(new StorageEncryptionState());
     const [showPassphraseScreen, setShowPassphraseScreen] = useState(false);
+    const [storageScenarioId, setStorageScenarioId] = useState("use-free-space");
 
     const stepsOrder = [
         {
@@ -134,6 +135,7 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, titl
                           storageEncryption={storageEncryption}
                           setStorageEncryption={setStorageEncryption}
                           showPassphraseScreen={showPassphraseScreen}
+                          setStorageScenarioId={setStorageScenarioId}
                         />
                     ),
                 });
@@ -165,6 +167,7 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, titl
             storageEncryption={storageEncryption}
             showPassphraseScreen={showPassphraseScreen}
             setShowPassphraseScreen={setShowPassphraseScreen}
+            storageScenarioId={storageScenarioId}
             isQuitReboot={conf["Installation System"].type === "BOOT_ISO"}
           />}
           hideClose
@@ -188,6 +191,7 @@ const Footer = ({
     storageEncryption,
     showPassphraseScreen,
     setShowPassphraseScreen,
+    storageScenarioId,
     isQuitReboot,
 }) => {
     const [nextWaitsConfirmation, setNextWaitsConfirmation] = useState(false);
@@ -251,7 +255,7 @@ const Footer = ({
                     );
                     const nextButtonText = (
                         activeStep.id === "installation-review"
-                            ? _("Erase disks and install")
+                            ? getScenario(storageScenarioId).buttonLabel
                             : _("Next")
                     );
                     const nextButtonVariant = (
@@ -267,6 +271,7 @@ const Footer = ({
                               idPrefix={activeStep.id}
                               onNext={onNext}
                               setNextWaitsConfirmation={setNextWaitsConfirmation}
+                              storageScenarioId={storageScenarioId}
                             />}
                             {quitWaitsConfirmation &&
                             <QuitInstallationConfirmModal
