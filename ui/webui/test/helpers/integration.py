@@ -31,12 +31,10 @@ from storage import Storage
 from review import Review
 from progress import Progress
 from testlib import MachineCase  # pylint: disable=import-error
-from machine_install import VirtInstallMachine
 from step_logger import log_step
 
 
 class IntegrationTest(MachineCase):
-    MachineCase.machine_class = VirtInstallMachine
 
     def setUp(self):
         super().setUp()

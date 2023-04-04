@@ -27,11 +27,9 @@ sys.path.append(os.path.join(os.path.dirname(TEST_DIR), "bots/machine"))
 from installer import Installer
 from language import Language
 from testlib import MachineCase, nondestructive, test_main # pylint: disable=import-error
-from machine_install import VirtInstallMachine
 
 @nondestructive
 class TestLanguage(MachineCase):
-    MachineCase.machine_class = VirtInstallMachine
 
     def testOtherDefault(self):
         b = self.browser

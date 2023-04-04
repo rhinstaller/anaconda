@@ -21,7 +21,7 @@ import subprocess
 import sys
 import time
 
-ANACONDA_ROOT_DIR = os.path.normpath(os.path.dirname(__file__)+'/../../..')
+ANACONDA_ROOT_DIR = os.path.normpath(os.path.dirname(os.path.realpath(__file__))+'/../../../')
 WEBUI_DIR = f'{ANACONDA_ROOT_DIR}/ui/webui'
 WEBUI_TEST_DIR = f'{WEBUI_DIR}/test'
 BOTS_DIR = f'{WEBUI_DIR}/bots'
@@ -29,10 +29,13 @@ BOTS_DIR = f'{WEBUI_DIR}/bots'
 # pylint: disable=environment-modify
 sys.path.append(BOTS_DIR)
 sys.path.append(f'{BOTS_DIR}/machine')
+sys.path.append(f'{BOTS_DIR}/machine/machine_core')
 
-# pylint: disable=import-error
-from testvm import VirtMachine  # nopep8
-from testvm import Machine  # nopep8
+# pylint: disable=relative-beyond-top-level
+from .machine_virtual_original import VirtMachine as VirtMachineOriginal # nopep8
+# pylint: disable=unused-import
+from .machine_virtual_original import VirtNetwork
+from .machine import Machine  # nopep8
 
 # This env variable must be always set for anaconda webui tests.
 # In the anaconda environment /run/nologin always exists however cockpit test
@@ -40,7 +43,7 @@ from testvm import Machine  # nopep8
 os.environ["TEST_ALLOW_NOLOGIN"] = "true"
 
 
-class VirtInstallMachine(VirtMachine):
+class VirtMachine(VirtMachineOriginal):
     http_server = None
 
     def _execute(self, cmd):

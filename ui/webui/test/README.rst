@@ -55,7 +55,7 @@ The cockpit and SSH addresses of the test instance will be printed::
 
 You can also run *all* the tests, with some parallelism::
 
-    test/run-tests --jobs 2
+    test/common/run-tests --jobs 2
 
 The tests will automatically download the VM isos they need, so expect
 that the initial run may take a few minutes.
@@ -92,7 +92,7 @@ Manual testing
 You can conduct manual interactive testing against a test image by starting the
 image like so::
 
-    webui_testvm.py fedora-rawhide-boot
+    bots/machine/testvm.py fedora-rawhide-boot
 
 Once the machine is booted and the cockpit socket has been activated, a
 message will be printed describing how to access the virtual machine, via

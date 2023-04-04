@@ -13,12 +13,12 @@ sys.path.append(BOTS_DIR)
 
 cockpit_packages = "cockpit-ws cockpit-bridge"
 
-from machine.machine_core import machine_virtual  # NOQA: imported through parent.py
+from machine.machine_core import machine_virtual_original # NOQA: imported through parent.py
 
 
 def build_rpms(srpm, image, verbose, quick):
     subprocess.check_call([os.path.join(BOTS_DIR, "image-download"), image])
-    machine = machine_virtual.VirtMachine(image=image)
+    machine = machine_virtual_original.VirtMachine(image=image)
     try:
         machine.start()
         machine.wait_boot()

@@ -89,6 +89,7 @@ $(COCKPIT_REPO_STAMP): Makefile.am
 bots: tools/make-bots
 	GITHUB_BASE="cockpit-project/cockpit" tools/make-bots
 	cd test && ln -s ../bots/images images
+	cd bots/machine/machine_core && cp machine_virtual.py machine_virtual_original.py && ln -sfT ../../../test/machine_virtual.py machine_virtual.py
 
 prepare-test-deps: bots test/common
 
@@ -102,7 +103,7 @@ create-updates.img: bots
 # test runs in kernel_t context and triggers massive amounts of SELinux
 # denials; SELinux gets disabled, but would still trigger unexpected messages
 integration-test: bots test/common test/reference $(UPDATES_IMG)
-	TEST_AUDIT_NO_SELINUX=1 test/run-tests
+	TEST_AUDIT_NO_SELINUX=1 test/common/run-tests
 
 test/reference: test/common
 	test/common/pixel-tests pull

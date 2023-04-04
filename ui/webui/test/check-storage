@@ -27,11 +27,9 @@ sys.path.append(os.path.join(os.path.dirname(TEST_DIR), "bots/machine"))
 from installer import Installer
 from storage import Storage
 from testlib import MachineCase, nondestructive, test_main  # pylint: disable=import-error
-from machine_install import VirtInstallMachine
 
 @nondestructive
 class TestStorage(MachineCase):
-    MachineCase.machine_class = VirtInstallMachine
 
     def testLocalStandardDisks(self):
         b = self.browser
@@ -173,7 +171,6 @@ class TestStorage(MachineCase):
 # with --machine because MachineCase is not aware of add_disk method
 # TODO add next back test keeping the choice
 class TestStorageExtraDisks(MachineCase):
-    MachineCase.machine_class = VirtInstallMachine
 
     def testLocalDisksSyncNew(self):
         b = self.browser

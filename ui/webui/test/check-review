@@ -28,11 +28,9 @@ from installer import Installer
 from storage import Storage  # pylint: disable=import-error
 from review import Review
 from testlib import MachineCase, nondestructive, test_main  # pylint: disable=import-error
-from machine_install import VirtInstallMachine
 
 @nondestructive
 class TestReview(MachineCase):
-    MachineCase.machine_class = VirtInstallMachine
 
     def testBasic(self):
         b = self.browser
