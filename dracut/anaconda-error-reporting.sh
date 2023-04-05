@@ -14,9 +14,13 @@ warn "Please also note that the 'inst.' prefix is now mandatory."
 warn "#                                                         #"
 warn "####     Installer errors encountered during boot:     ####"
 warn "#                                                         #"
-while read -r line; do
-    warn "$line"
-done < /run/anaconda/initrd_errors.txt
+if ! [ -e /run/anaconda/initrd_errors.txt ]; then
+    warn "Reason unknown"
+else
+    while read -r line; do
+        warn "$line"
+    done < /run/anaconda/initrd_errors.txt
+fi
 warn "#                                                         #"
 warn "############# Anaconda installer errors end ###############"
 
