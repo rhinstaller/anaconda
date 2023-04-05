@@ -847,16 +847,6 @@ class DNFManagerCompsTestCase(unittest.TestCase):
         assert self.dnf_manager.resolve_environment("e1") == "e1"
         assert self.dnf_manager.resolve_environment("e2") is None
 
-    def test_is_environment_valid(self):
-        """Test the is_environment_valid method."""
-        assert self.dnf_manager.is_environment_valid("") is False
-        assert self.dnf_manager.is_environment_valid("e1") is False
-
-        self._add_environment("e1")
-
-        assert self.dnf_manager.is_environment_valid("e1") is True
-        assert self.dnf_manager.is_environment_valid("e2") is False
-
     def test_get_environment_data_error(self):
         """Test the failed get_environment_data method."""
         with pytest.raises(UnknownCompsEnvironmentError):

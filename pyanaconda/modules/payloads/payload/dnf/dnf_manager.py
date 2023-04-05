@@ -257,17 +257,6 @@ class DNFManager(object):
 
         return env.id
 
-    def is_environment_valid(self, environment_name):
-        """Is the given environment valid?
-
-        FIXME: Could we use the resolve_environment method instead?
-
-        :param environment_name: an identifier of an environment
-        :return: True or False
-        """
-        environment_id = self.resolve_environment(environment_name)
-        return environment_id in self.environments
-
     def get_environment_data(self, environment_name) -> CompsEnvironmentData:
         """Get the data of the specified environment.
 
