@@ -119,13 +119,11 @@ class TreeInfoMetadata(object):
 
     def __init__(self):
         """Create a new instance."""
-        self._root_url = ""
         self._release_version = ""
         self._repositories = []
 
     def _reset(self):
         """Reset the metadata."""
-        self._root_url = ""
         self._release_version = ""
         self._repositories = []
 
@@ -214,7 +212,6 @@ class TreeInfoMetadata(object):
             raise InvalidTreeInfoError("Invalid metadata: {}".format(str(e))) from None
 
         # Update this treeinfo representation.
-        self._root_url = root_url
         self._repositories = repo_list
         self._release_version = release_version
 
@@ -396,7 +393,6 @@ class TreeInfoRepoMetadata(object):
         """
         self._name = repo_name
         self._type = tree_info.type
-        self._root_url = root_url
         self._relative_path = tree_info.paths.repository
         self._url = self._get_url(
             root_url=root_url,
