@@ -50,7 +50,6 @@ PROTOCOL_HTTP = 'http'
 PROTOCOL_HTTPS = 'https'
 PROTOCOL_FTP = 'ftp'
 PROTOCOL_NFS = 'nfs'
-PROTOCOL_FILE = 'file'
 PROTOCOL_MIRROR = 'Closest mirror'
 
 
