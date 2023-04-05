@@ -17,11 +17,23 @@
 #
 # Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
 #
+import pytest
 import unittest
 from unittest.mock import patch, PropertyMock, Mock
 
+from blivet.size import Size
 from dasbus.structure import compare_data
 from dasbus.typing import *  # pylint: disable=wildcard-import
+
+from pyanaconda.modules.common.errors.general import UnavailableValueError
+from pyanaconda.modules.payloads.payload.dnf.tear_down import ResetDNFManagerTask
+
+from pyanaconda.modules.payloads.payload.dnf.installation import SetRPMMacrosTask, \
+    ResolvePackagesTask, PrepareDownloadLocationTask, DownloadPackagesTask, InstallPackagesTask, \
+    CleanUpDownloadLocationTask, WriteRepositoriesTask, ImportRPMKeysTask, \
+    UpdateDNFConfigurationTask
+
+from pyanaconda.modules.payloads.source.factory import SourceFactory
 from pykickstart.version import isRHEL as is_rhel
 
 from pyanaconda.core.constants import SOURCE_TYPE_CDROM, SOURCE_TYPE_HDD, SOURCE_TYPE_HMC, \
@@ -35,17 +47,19 @@ from pyanaconda.modules.common.constants.interfaces import PAYLOAD_DNF
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.payload import UnknownCompsGroupError, \
-    UnknownCompsEnvironmentError
+    UnknownCompsEnvironmentError, SourceSetupError, IncompatibleSourceError
 from pyanaconda.modules.common.structures.comps import CompsEnvironmentData, CompsGroupData
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
 from pyanaconda.modules.common.structures.packages import PackagesConfigurationData, \
     PackagesSelectionData
 from pyanaconda.modules.common.task.task_interface import ValidationTaskInterface
-from pyanaconda.modules.payloads.constants import SourceType
+from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 from pyanaconda.modules.payloads.payload.dnf.dnf_interface import DNFInterface
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
+from pyanaconda.modules.payloads.payload.dnf.initialization import SetUpDNFSourcesTask, \
+    TearDownDNFSourcesTask, SetUpDNFSourcesResult
 from pyanaconda.modules.payloads.payload.dnf.validation import CheckPackagesSelectionTask, \
     VerifyRepomdHashesTask
 from pyanaconda.modules.payloads.payloads import PayloadsService
@@ -56,20 +70,22 @@ from pyanaconda.modules.payloads.source.closest_mirror.closest_mirror import \
     ClosestMirrorSourceModule
 
 from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_dbus_property, \
-    check_task_creation, patch_dbus_get_proxy_with_cache, patch_dbus_get_proxy
+    check_task_creation, patch_dbus_get_proxy_with_cache, patch_dbus_get_proxy, check_instances
 from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
     PayloadSharedTest, PayloadKickstartSharedTest
 
 
-class DNFKSTestCase(unittest.TestCase):
+class DNFKickstartTestCase(unittest.TestCase):
+    """Test the DNF kickstart commands."""
 
     def setUp(self):
         self.maxDiff = None
         self.module = PayloadsService()
         self.interface = PayloadsInterface(self.module)
-
-        self.shared_ks_tests = PayloadKickstartSharedTest(self.module,
-                                                          self.interface)
+        self.shared_ks_tests = PayloadKickstartSharedTest(
+            payload_service=self.module,
+            payload_service_intf=self.interface
+        )
 
     def _check_properties(self, expected_source_type):
         payload = self.shared_ks_tests.get_payload()
@@ -98,7 +114,7 @@ class DNFKSTestCase(unittest.TestCase):
 
         %end
         """
-        self.shared_ks_tests.check_kickstart(ks_in, ks_out)
+        self._test_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_CDROM)
 
     def test_hmc_kickstart(self):
@@ -113,7 +129,7 @@ class DNFKSTestCase(unittest.TestCase):
 
         %end
         """
-        self.shared_ks_tests.check_kickstart(ks_in, ks_out)
+        self._test_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_HMC)
 
     @patch_dbus_get_proxy_with_cache
@@ -132,7 +148,7 @@ class DNFKSTestCase(unittest.TestCase):
         proxy = STORAGE.get_proxy(DISK_SELECTION)
         proxy.ProtectedDevices = []
 
-        self.shared_ks_tests.check_kickstart(ks_in, ks_out)
+        self._test_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_HDD)
 
         assert proxy.ProtectedDevices == ["nsa-device"]
@@ -141,7 +157,7 @@ class DNFKSTestCase(unittest.TestCase):
         ks_in = """
         harddrive --partition=nsa-device
         """
-        self.shared_ks_tests.check_kickstart(ks_in, ks_valid=False, expected_publish_calls=0)
+        self._test_kickstart(ks_in, None, ks_valid=False, expected_publish_calls=0)
         assert self.interface.ActivePayload == ""
 
     def test_nfs_kickstart(self):
@@ -156,7 +172,7 @@ class DNFKSTestCase(unittest.TestCase):
 
         %end
         """
-        self.shared_ks_tests.check_kickstart(ks_in, ks_out)
+        self._test_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_NFS)
 
     def test_url_kickstart(self):
@@ -171,7 +187,7 @@ class DNFKSTestCase(unittest.TestCase):
 
         %end
         """
-        self.shared_ks_tests.check_kickstart(ks_in, ks_out)
+        self._test_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_URL)
 
     def test_url_mirrorlist_kickstart(self):
@@ -186,7 +202,7 @@ class DNFKSTestCase(unittest.TestCase):
 
         %end
         """
-        self.shared_ks_tests.check_kickstart(ks_in, ks_out)
+        self._test_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_URL)
 
     def test_url_metalink_kickstart(self):
@@ -201,7 +217,7 @@ class DNFKSTestCase(unittest.TestCase):
 
         %end
         """
-        self.shared_ks_tests.check_kickstart(ks_in, ks_out)
+        self._test_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_URL)
 
     def test_repo_updates(self):
@@ -466,7 +482,7 @@ class DNFKSTestCase(unittest.TestCase):
 
         %end
         """
-        self.shared_ks_tests.check_kickstart(ks_in, ks_out)
+        self._test_kickstart(ks_in, ks_out)
 
     def test_packages_section_empty_kickstart(self):
         """Test the empty packages section."""
@@ -479,9 +495,7 @@ class DNFKSTestCase(unittest.TestCase):
 
         %end
         """
-        self.shared_ks_tests.check_kickstart(
-            ks_in, ks_out
-        )
+        self._test_kickstart(ks_in, ks_out)
 
     def test_packages_attributes_ignore_missing(self):
         """Test the packages section with ignored missing packages."""
@@ -494,9 +508,7 @@ class DNFKSTestCase(unittest.TestCase):
 
         %end
         """
-        self.shared_ks_tests.check_kickstart(
-            ks_in, ks_out
-        )
+        self._test_kickstart(ks_in, ks_out)
 
     def test_packages_attributes_ignore_broken(self):
         """Test the packages section with ignored broken packages."""
@@ -509,7 +521,7 @@ class DNFKSTestCase(unittest.TestCase):
 
         %end
         """
-        self.shared_ks_tests.check_kickstart(
+        self._test_kickstart(
             ks_in, ks_out, ks_valid=not is_rhel(VERSION)
         )
 
@@ -524,9 +536,7 @@ class DNFKSTestCase(unittest.TestCase):
 
         %end
         """
-        self.shared_ks_tests.check_kickstart(
-            ks_in, ks_out
-        )
+        self._test_kickstart(ks_in, ks_out)
 
     def test_packages_attributes_other_kickstart(self):
         """Test the packages section with other attributes."""
@@ -540,9 +550,7 @@ class DNFKSTestCase(unittest.TestCase):
 
         %end
         """
-        self.shared_ks_tests.check_kickstart(
-            ks_in, ks_out
-        )
+        self._test_kickstart(ks_in, ks_out)
 
     def test_packages_section_include_kickstart(self):
         """Test the packages section."""
@@ -565,9 +573,7 @@ class DNFKSTestCase(unittest.TestCase):
 
         %end
         """
-        self.shared_ks_tests.check_kickstart(
-            ks_in, ks_out
-        )
+        self._test_kickstart(ks_in, ks_out)
 
     def test_packages_section_complex_include_kickstart(self):
         """Test the packages section with duplicates."""
@@ -608,9 +614,7 @@ class DNFKSTestCase(unittest.TestCase):
 
         %end
         """
-        self.shared_ks_tests.check_kickstart(
-            ks_in, ks_out
-        )
+        self._test_kickstart(ks_in, ks_out)
 
     def test_packages_section_exclude_kickstart(self):
         """Test the packages section with excludes."""
@@ -625,9 +629,7 @@ class DNFKSTestCase(unittest.TestCase):
 
         %end
         """
-        self.shared_ks_tests.check_kickstart(
-            ks_in, ks_out
-        )
+        self._test_kickstart(ks_in, ks_out)
 
     def test_packages_section_complex_exclude_kickstart(self):
         """Test the packages section with complex exclude example."""
@@ -654,9 +656,7 @@ class DNFKSTestCase(unittest.TestCase):
 
         %end
         """
-        self.shared_ks_tests.check_kickstart(
-            ks_in, ks_out
-        )
+        self._test_kickstart(ks_in, ks_out)
 
 
 class DNFInterfaceTestCase(unittest.TestCase):
@@ -665,8 +665,10 @@ class DNFInterfaceTestCase(unittest.TestCase):
     def setUp(self):
         self.module = DNFModule()
         self.interface = DNFInterface(self.module)
-        self.shared_tests = PayloadSharedTest(payload=self.module,
-                                              payload_intf=self.interface)
+        self.shared_tests = PayloadSharedTest(
+            payload=self.module,
+            payload_intf=self.interface
+        )
 
     def test_type(self):
         """Test the Type property."""
@@ -689,6 +691,134 @@ class DNFInterfaceTestCase(unittest.TestCase):
             SOURCE_TYPE_CDN,
             SOURCE_TYPE_URL
         ]
+
+    @patch.object(DNFModule, "supported_source_types", [SourceType.URL])
+    @patch_dbus_publish_object
+    def test_set_source(self, publisher):
+        """Test if set source API payload."""
+        sources = [self.shared_tests.prepare_source(SourceType.URL)]
+
+        self.shared_tests.set_and_check_sources(sources)
+
+    @patch.object(DNFModule, "supported_source_types", [SourceType.URL])
+    @patch_dbus_publish_object
+    def test_add_source(self, publisher):
+        """Test module API to add source."""
+        source1 = self.shared_tests.prepare_source(SourceType.URL, SourceState.NOT_APPLICABLE)
+
+        sources = [source1]
+        self.shared_tests.set_and_check_sources(sources)
+
+        source2 = self.shared_tests.prepare_source(SourceType.URL)
+        self.module.add_source(source2)
+
+        sources.append(source2)
+        self.shared_tests.check_sources(sources)
+
+    @patch.object(DNFModule, "supported_source_types", [SourceType.URL])
+    @patch_dbus_publish_object
+    def test_add_source_incompatible_source_failed(self, publisher):
+        """Test module API to add source failed with incompatible source."""
+        source1 = self.shared_tests.prepare_source(SourceType.URL, SourceState.NOT_APPLICABLE)
+
+        sources = [source1]
+        self.shared_tests.set_and_check_sources(sources)
+
+        source2 = self.shared_tests.prepare_source(SourceType.NFS)
+        with pytest.raises(IncompatibleSourceError):
+            self.module.add_source(source2)
+
+        self.shared_tests.check_sources(sources)
+
+    @patch.object(DNFModule, "supported_source_types", [SourceType.URL])
+    @patch_dbus_publish_object
+    def test_add_source_ready_failed(self, publisher):
+        """Test module API to add source failed with ready source."""
+        source1 = self.shared_tests.prepare_source(SourceType.URL, SourceState.READY)
+
+        sources = [source1]
+        self.shared_tests.set_and_check_sources(sources)
+
+        source2 = self.shared_tests.prepare_source(SourceType.URL)
+        with pytest.raises(SourceSetupError):
+            self.module.add_source(source2)
+
+        self.shared_tests.check_sources(sources)
+
+    @patch.object(DNFModule, "supported_source_types", [SourceType.URL, SourceType.NFS])
+    @patch_dbus_publish_object
+    def test_set_multiple_source(self, publisher):
+        """Test payload setting multiple compatible sources."""
+        sources = [
+            self.shared_tests.prepare_source(SourceType.NFS),
+            self.shared_tests.prepare_source(SourceType.URL),
+            self.shared_tests.prepare_source(SourceType.URL),
+        ]
+
+        self.shared_tests.set_and_check_sources(sources)
+
+    @patch_dbus_publish_object
+    def test_set_incompatible_source(self, publisher):
+        """Test payload setting incompatible sources."""
+        source = self.shared_tests.prepare_source(SourceType.LIVE_OS_IMAGE)
+        cm = self.shared_tests.set_and_check_sources([source], exception=IncompatibleSourceError)
+        msg = "Source type LIVE_OS_IMAGE is not supported by this payload."
+        assert str(cm.value) == msg
+
+    @patch.object(DNFModule, "supported_source_types", [SourceType.NFS, SourceType.URL])
+    @patch_dbus_publish_object
+    def test_set_when_initialized_source_fail(self, publisher):
+        """Test payload can't set new sources if the old ones are initialized."""
+        source1 = self.shared_tests.prepare_source(SourceType.NFS)
+        source2 = self.shared_tests.prepare_source(SourceType.URL, state=SourceState.NOT_APPLICABLE)
+        self.shared_tests.set_and_check_sources([source1])
+
+        # can't switch source if attached source is ready
+        source1.get_state.return_value = SourceState.READY
+        self.shared_tests.set_sources([source2], SourceSetupError)
+        self.shared_tests.check_sources([source1])
+
+        # change to source2 when attached source state is UNREADY
+        source1.get_state.return_value = SourceState.UNREADY
+        self.shared_tests.set_and_check_sources([source2])
+
+        # can change back anytime because source2 has state NOT_APPLICABLE
+        self.shared_tests.set_and_check_sources([source1])
+
+    @patch_dbus_publish_object
+    def test_set_up_sources_with_task(self, publisher):
+        """Test SetUpSourcesWithTask."""
+        source = SourceFactory.create_source(SourceType.CDROM)
+        self.module.add_source(source)
+
+        repository = RepoConfigurationData()
+        repository.name = "test"
+        repository.url = "http://test"
+        self.module.set_repositories([repository])
+
+        configuration = PackagesConfigurationData()
+        self.module.set_packages_configuration(configuration)
+
+        task_path = self.interface.SetUpSourcesWithTask()
+        obj = check_task_creation(task_path, publisher, SetUpDNFSourcesTask)
+        assert obj.implementation._sources == [source]
+        assert obj.implementation._repositories == [repository]
+        assert obj.implementation._configuration == configuration
+
+    @patch_dbus_publish_object
+    def test_tear_down_sources_with_task(self, publisher):
+        """Test TearDownSourcesWithTask."""
+        s1 = SourceFactory.create_source(SourceType.CDROM)
+        self.module.add_source(s1)
+
+        s11 = SourceFactory.create_source(SourceType.URL)
+        s12 = SourceFactory.create_source(SourceType.NFS)
+        self.module._internal_sources = [s11, s12]
+
+        task_path = self.interface.TearDownSourcesWithTask()
+        obj = check_task_creation(task_path, publisher, TearDownDNFSourcesTask)
+        assert obj.implementation._dnf_manager == self.module.dnf_manager
+        assert obj.implementation._sources == [s11, s12, s1]
 
     def _check_dbus_property(self, *args, **kwargs):
         check_dbus_property(
@@ -1088,6 +1218,25 @@ class DNFModuleTestCase(unittest.TestCase):
         self.module.set_repositories([r1, r2])
         assert self.module.is_network_required() is False
 
+    @patch("pyanaconda.modules.payloads.payload.dnf.dnf.calculate_required_space")
+    def test_calculate_required_space(self, space_getter):
+        """Test the calculate_required_space method."""
+        space_getter.return_value = Size("1 MiB")
+        assert self.module.calculate_required_space() == 1048576
+
+    def test_get_kernel_version_list(self):
+        """Test the get_kernel_version_list method."""
+        with pytest.raises(UnavailableValueError):
+            self.module.get_kernel_version_list()
+
+        for task in self.module.install_with_tasks():
+            if isinstance(task, InstallPackagesTask):
+                task._set_result(["1.2-3.x86_64"])
+
+            task.succeeded_signal.emit()
+
+        assert self.module.get_kernel_version_list() == ["1.2-3.x86_64"]
+
     @patch_dbus_get_proxy_with_cache
     def test_update_protected_devices(self, proxy_getter):
         """Test the update of protected devices."""
@@ -1128,3 +1277,60 @@ class DNFModuleTestCase(unittest.TestCase):
         self.module.set_repositories([])
 
         assert proxy.ProtectedDevices == ["dev1", "dev2"]
+
+    def test_install_with_tasks(self):
+        """Test the install_with_tasks method."""
+        tasks = self.module.install_with_tasks()
+        check_instances(tasks, [
+            SetRPMMacrosTask,
+            ResolvePackagesTask,
+            PrepareDownloadLocationTask,
+            DownloadPackagesTask,
+            InstallPackagesTask,
+            CleanUpDownloadLocationTask,
+        ])
+
+    def test_post_install_with_tasks(self):
+        """Test the post_install_with_tasks method."""
+        tasks = self.module.post_install_with_tasks()
+        check_instances(tasks, [
+            WriteRepositoriesTask,
+            ImportRPMKeysTask,
+            UpdateDNFConfigurationTask,
+            ResetDNFManagerTask,
+        ])
+
+    def test_set_up_sources_on_success(self):
+        """Test the on-set-up callback."""
+        dnf_manager = DNFManager()
+
+        assert self.module.dnf_manager is not None
+        assert self.module.dnf_manager != dnf_manager
+        assert self.module.repositories == []
+        assert self.module._internal_sources == []
+
+        repositories = [
+            RepoConfigurationData.from_url("http://server/1"),
+            RepoConfigurationData.from_url("nfs:server:2"),
+            RepoConfigurationData.from_url("hdd:device:/3"),
+        ]
+
+        sources = [
+            SourceFactory.create_source(SourceType.URL),
+            SourceFactory.create_source(SourceType.NFS),
+            SourceFactory.create_source(SourceType.HDD),
+        ]
+
+        result = SetUpDNFSourcesResult(
+            dnf_manager=dnf_manager,
+            repositories=repositories,
+            sources=sources,
+        )
+
+        task = self.module.set_up_sources_with_task()
+        task._set_result(result)
+        task.succeeded_signal.emit()
+
+        assert self.module.dnf_manager == dnf_manager
+        assert self.module.repositories == repositories
+        assert self.module._internal_sources == sources

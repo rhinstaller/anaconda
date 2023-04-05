@@ -162,7 +162,7 @@ def collect_conflicting_repo_names(payload):
     """Collect repo names that could conflict with additional repositories."""
     current_repositories = payload.get_repo_configurations()
     allowed_names = [r.name for r in current_repositories]
-    forbidden_names = set(payload.dnf_manager.repositories)
+    forbidden_names = set(payload.proxy.GetAvailableRepositories())
     return list(forbidden_names - set(allowed_names))
 
 

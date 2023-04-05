@@ -592,6 +592,16 @@ class DNFManagerTestCase(unittest.TestCase):
             "releasever": "123"
         })
 
+        # Ignore an undefined release version.
+        self.dnf_manager.configure_substitution(
+            release_version=""
+        )
+        self._check_substitutions({
+            "arch": "x86_64",
+            "basearch": "x86_64",
+            "releasever": "123"
+        })
+
     def test_reset_substitution(self):
         """Test the reset_substitution method."""
         self.dnf_manager.configure_substitution(

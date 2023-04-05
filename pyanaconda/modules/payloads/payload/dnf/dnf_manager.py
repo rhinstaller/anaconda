@@ -435,6 +435,9 @@ class DNFManager(object):
 
         :param release_version: a string for $releasever
         """
+        if not release_version:
+            return
+
         self._base.conf.releasever = release_version
         log.debug("The $releasever variable is set to '%s'.", release_version)
 

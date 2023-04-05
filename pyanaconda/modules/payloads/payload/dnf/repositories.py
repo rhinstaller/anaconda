@@ -15,18 +15,23 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import copy
 import os
-
+import copy
 from glob import glob
 from itertools import count
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import REPO_ORIGIN_TREEINFO, URL_TYPE_BASEURL
+from pyanaconda.core.constants import isFinal as is_final_release, REPO_ORIGIN_TREEINFO, \
+    REPO_ORIGIN_SYSTEM
+from pyanaconda.core.i18n import _
 from pyanaconda.core.path import join_paths
 from pyanaconda.core.util import execWithRedirect
+from pyanaconda.modules.common.errors.payload import UnknownRepositoryError, SourceSetupError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
+from pyanaconda.modules.payloads.constants import SourceType
+from pyanaconda.modules.payloads.payload.dnf.dnf_manager import MetadataError
+from pyanaconda.modules.payloads.source.factory import SourceFactory
 
 log = get_module_logger(__name__)
 
@@ -71,27 +76,6 @@ def generate_driver_disk_repositories(path="/run/install"):
         repositories.append(repo)
 
     return repositories
-
-
-def generate_treeinfo_repository(repo_data: RepoConfigurationData, repo_md):
-    """Generate repositories from tree metadata of the specified repository.
-
-    :param RepoConfigurationData repo_data: a repository with the .treeinfo file
-    :param TreeInfoRepoMetadata repo_md: a metadata of a treeinfo repository
-    :return RepoConfigurationData: a treeinfo repository
-    """
-    repo = copy.deepcopy(repo_data)
-
-    repo.origin = REPO_ORIGIN_TREEINFO
-    repo.name = repo_md.name
-
-    repo.type = URL_TYPE_BASEURL
-    repo.url = repo_md.url
-
-    repo.enabled = repo_md.enabled
-    repo.installation_enabled = False
-
-    return repo
 
 
 def update_treeinfo_repositories(repositories, treeinfo_repositories):
@@ -141,3 +125,117 @@ def update_treeinfo_repositories(repositories, treeinfo_repositories):
 
     # Return the updated list of repositories.
     return repositories
+
+
+def generate_source_from_repository(repository, substitute=None):
+    """Generate an installation source from the specified repository.
+
+    :param RepoConfigurationData repository: an additional repository
+    :param function substitute: a substitution function for urls
+    :return PayloadSourceBase: a generated installation source
+    """
+    repository = copy.deepcopy(repository)
+    substitute = substitute or (lambda x: x)
+
+    if repository.origin == REPO_ORIGIN_SYSTEM:
+        msg = "Unsupported origin of the '{name}' repository: {origin}"
+        raise ValueError(msg.format(name=repository.name, origin=repository.origin))
+
+    if not repository.url:
+        msg = _("The '{name}' repository has no mirror, baseurl or metalink set.")
+        raise SourceSetupError(msg.format(name=repository.name))
+
+    if any(repository.url.startswith(p) for p in ["file:", "http:", "https:", "ftp:"]):
+        source = SourceFactory.create_source(SourceType.URL)
+        source.set_configuration(repository)
+        return source
+
+    if repository.url.startswith("nfs:"):
+        source = SourceFactory.create_source(SourceType.NFS)
+        repository.url = substitute(repository.url)
+        source.set_configuration(repository)
+        return source
+
+    if repository.url.startswith("hd:"):
+        source = SourceFactory.create_source(SourceType.HDD)
+        source.set_configuration(repository)
+        return source
+
+    msg = _("The '{name}' repository uses an unsupported protocol.")
+    raise SourceSetupError(msg.format(name=repository.name))
+
+
+def enable_updates_repositories(dnf_manager, enabled):
+    """Enable or disable updates repositories.
+
+    :param DNFManager dnf_manager: a configured DNF manager
+    :param bool enabled: True to enable the updates repositories, otherwise False
+    """
+    log.debug("Enable or disable updates repositories.")
+    enable_matching_repositories(dnf_manager, conf.payload.updates_repositories, enabled)
+
+
+def disable_default_repositories(dnf_manager):
+    """Disable some repositories by default.
+
+    Some repositories should be disabled by default based on
+    the Anaconda configuration file and the current product.
+
+    :param DNFManager dnf_manager: a configured DNF manager
+    """
+    log.debug("Disable repositories based on the Anaconda configuration file.")
+    enable_matching_repositories(dnf_manager, conf.payload.disabled_repositories, False)
+
+    if not is_final_release:
+        return
+
+    log.debug("Disable rawhide repositories.")
+    enable_matching_repositories(dnf_manager, ["*rawhide*"], False)
+
+
+def enable_matching_repositories(dnf_manager, patterns, enabled=True):
+    """Enable or disable matching repositories.
+
+    :param DNFManager dnf_manager: a configured DNF manager
+    :param patterns: a list of patterns to match the repo ids
+    :param enabled: True to enable, False to disable
+    """
+    names = set()
+
+    for pattern in patterns:
+        names.update(dnf_manager.get_matching_repositories(pattern))
+
+    for name in sorted(names):
+        dnf_manager.set_repository_enabled(name, enabled)
+
+
+def create_repository(dnf_manager, repository):
+    """Create a new repository and check its validity.
+
+    :param DNFManager dnf_manager: a configured DNF manager
+    :param RepoConfigurationData repository: a resolved repository data
+    """
+    log.debug("Add the '%s' repository (%s).", repository.name, repository)
+    try:
+        dnf_manager.add_repository(repository)
+        dnf_manager.load_repository(repository.name)
+    except MetadataError as e:
+        msg = _("Failed to add the '{name}' repository: {details}")
+        raise SourceSetupError(msg.format(name=repository.name, details=str(e))) from None
+
+
+def enable_existing_repository(dnf_manager, repository):
+    """Enable or disable an existing repository.
+
+    Users can try to do "repo --name=updates" in a kickstart file. We can
+    only enable or disable the already existing on-disk repo configuration.
+
+    :param DNFManager dnf_manager: a configured DNF manager
+    :param RepoConfigurationData repository: a system repository data
+    :raise: SourceSetupError if the system repository is not available
+    """
+    try:
+        dnf_manager.set_repository_enabled(repository.name, repository.enabled)
+    except UnknownRepositoryError:
+        msg = _("The '{}' repository is not one of the pre-defined repositories.")
+        raise SourceSetupError(msg.format(repository.name)) from None

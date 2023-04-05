@@ -15,12 +15,28 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import dnf.logging
 import logging
+from collections import namedtuple
+
+import dnf.logging
 import libdnf
+
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.constants import BASE_REPO_NAME, REPO_ORIGIN_SYSTEM
+from pyanaconda.core.i18n import _
+from pyanaconda.modules.common.errors.payload import SourceSetupError
+from pyanaconda.modules.payloads.base.initialization import SetUpSourcesTask, TearDownSourcesTask
+from pyanaconda.modules.payloads.constants import SourceType
+from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager, MetadataError
+from pyanaconda.modules.payloads.payload.dnf.repositories import update_treeinfo_repositories, \
+    disable_default_repositories, enable_updates_repositories, create_repository, \
+    enable_existing_repository, generate_source_from_repository
+from pyanaconda.modules.payloads.payload.dnf.tree_info import LoadTreeInfoMetadataTask
 
 DNF_LIBREPO_LOG = "/tmp/dnf.librepo.log"
 DNF_LOGGER = "dnf"
+
+log = get_module_logger(__name__)
 
 
 def configure_dnf_logging():
@@ -35,3 +51,243 @@ def configure_dnf_logging():
     # Set up DNF. Increase the log level to the custom DDEBUG level.
     dnf_logger = logging.getLogger(DNF_LOGGER)
     dnf_logger.setLevel(dnf.logging.DDEBUG)
+
+
+SetUpDNFSourcesResult = namedtuple(
+    "LoadTreeInfoMetadataResult", [
+        "dnf_manager",
+        "repositories",
+        "sources",
+    ]
+)
+SetUpDNFSourcesResult.__doc__ += """
+The result of the SetUpDNFSourcesTask task.
+"""
+
+
+class SetUpDNFSourcesTask(SetUpSourcesTask):
+    """Set up all the installation source of the DNF payload."""
+
+    def __init__(self, sources, repositories, configuration):
+        """Create a new task."""
+        super().__init__(sources)
+        self._configuration = configuration
+        self._repositories = repositories
+        self._treeinfo_repositories = []
+        self._release_version = None
+        self._proxy = None
+
+    @property
+    def _source(self):
+        return self._sources[0]
+
+    def run(self):
+        """Run the task.
+
+        The task returns a named tuple with the following values:
+
+            dnf_manager     a DNF manager with a configured base
+            repositories    an updated list of additional repositories
+            sources         a list of generated additional sources
+
+        :return SetUpDNFSourcesResult: a result of the task
+        """
+        # Set up the main source.
+        super().run()
+
+        # Process the configuration of the main source.
+        repository = self._process_source_metadata(self._source)
+
+        # Process the treeinfo metadata of the main source.
+        # Update the treeinfo repositories if any.
+        repositories = update_treeinfo_repositories(
+            self._repositories,
+            self._treeinfo_repositories
+        )
+
+        # Configure the DNF manager.
+        dnf_manager = self._configure_dnf_manager()
+
+        # Generate and set up additional sources.
+        sources = self._generate_additional_sources(
+            repositories=repositories,
+            substitute=dnf_manager.substitute
+        )
+
+        self._set_up_sources(sources)
+
+        # Load the main source.
+        self._load_source(dnf_manager, self._source, repository)
+
+        # Load additional sources.
+        self._load_additional_sources(dnf_manager, sources, repositories)
+
+        # Validate enabled repositories.
+        self._validate_repositories(dnf_manager)
+
+        # Load package and group metadata.
+        self.report_progress(_("Downloading group metadata..."))
+        self._load_metadata(dnf_manager)
+
+        return SetUpDNFSourcesResult(
+            dnf_manager=dnf_manager,
+            repositories=repositories,
+            sources=sources,
+        )
+
+    def _process_source_metadata(self, source):
+        """Process metadata of a prepared source.
+
+        Load treeinfo metadata of the specified source
+        and process the retrieved results.
+
+        :param source: a prepared source with metadata
+        :return: a resolved repository of the source
+        """
+        if source.type in [SourceType.CDN, SourceType.CLOSEST_MIRROR]:
+            return
+
+        # Generate the initial repository configuration.
+        repository = source.generate_repo_configuration()
+
+        # Load and process treeinfo metadata of the source if any.
+        task = LoadTreeInfoMetadataTask(repository)
+        result = task.run()
+
+        if result.repository_data:
+            repository = result.repository_data
+
+        if result.treeinfo_repositories:
+            self._treeinfo_repositories = result.treeinfo_repositories
+
+        if result.release_version:
+            self._release_version = result.release_version
+
+        # Change the default proxy configuration.
+        if repository.proxy:
+            self._proxy = repository.proxy
+
+        # Rename and enable the chosen repository.
+        repository.name = BASE_REPO_NAME
+        repository.enabled = True
+        return repository
+
+    @staticmethod
+    def _generate_additional_sources(repositories, substitute=None):
+        """Generate internal sources for additional repositories.
+
+        :param repositories: a list of additional repositories
+        :param function substitute: a substitution function
+        :return: a list of generated sources
+        """
+        return [
+            generate_source_from_repository(r, substitute)
+            for r in repositories
+            if r.origin != REPO_ORIGIN_SYSTEM
+        ]
+
+    def _configure_dnf_manager(self):
+        """Create and configure the DNF manager.
+
+        Create a new instance of the DNF manager and configure it
+        based on the provided packages configuration and loaded
+        source metadata.
+
+        :return DNFManager: a configured DNF manager
+        """
+        log.debug("Preparing the DNF base...")
+        dnf_manager = DNFManager()
+        dnf_manager.clear_cache()
+        dnf_manager.configure_base(self._configuration)
+        dnf_manager.configure_proxy(self._proxy)
+        dnf_manager.configure_substitution(self._release_version)
+        dnf_manager.dump_configuration()
+        dnf_manager.read_system_repositories()
+        return dnf_manager
+
+    def _load_source(self, dnf_manager, source, repository=None):
+        """Load the prepared source.
+
+        Create, enable or disabled repositories based on the configuration
+        of the prepared source and its resolved repository data if any.
+
+        :param DNFManager dnf_manager: a configured DNF manager
+        :param source: a prepared installation source
+        :param repository: a resolved repository of the source
+        """
+        if source.type == SourceType.CDN:
+            dnf_manager.restore_system_repositories()
+            disable_default_repositories(dnf_manager)
+
+        elif source.type == SourceType.CLOSEST_MIRROR:
+            dnf_manager.restore_system_repositories()
+            enable_updates_repositories(dnf_manager, source.updates_enabled)
+            disable_default_repositories(dnf_manager)
+
+        else:
+            repository = repository or source.generate_repo_configuration()
+            create_repository(dnf_manager, repository)
+
+    def _load_additional_sources(self, dnf_manager, sources, repositories):
+        """Load additional sources and handle system repositories.
+
+        :param DNFManager dnf_manager: a configured DNF manager
+        :param sources: a list of prepared additional sources
+        :param repositories: a list of updated additional repositories
+        """
+        for source in sources:
+            self._load_source(dnf_manager, source)
+
+        for repository in repositories:
+            if repository.origin == REPO_ORIGIN_SYSTEM:
+                enable_existing_repository(dnf_manager, repository)
+
+    @staticmethod
+    def _validate_repositories(dnf_manager):
+        """Validate all enabled repositories.
+
+        Collect error messages about invalid repositories.
+        All invalid repositories are disabled.
+
+        The user repositories are validated when we add them
+        to DNF, so this covers invalid system repositories.
+
+        :param DNFManager dnf_manager: a configured DNF manager
+        """
+        # Check if there is at least one enabled repository.
+        if not dnf_manager.enabled_repositories:
+            raise SourceSetupError(_("No repository is configured."))
+
+        # Load all enabled repositories and report warnings if any.
+        for repo_id in dnf_manager.enabled_repositories:
+            try:
+                dnf_manager.load_repository(repo_id)
+            except MetadataError as e:
+                log.warning(str(e))
+
+    @staticmethod
+    def _load_metadata(dnf_manager):
+        """Load metadata of configured repositories.
+
+        :param DNFManager dnf_manager: a configured DNF manager
+        """
+        dnf_manager.load_packages_metadata()
+        dnf_manager.load_repomd_hashes()
+
+
+class TearDownDNFSourcesTask(TearDownSourcesTask):
+    """Tear down all the installation sources of the DNF payload."""
+
+    def __init__(self, sources, dnf_manager):
+        """Create a new task."""
+        super().__init__(sources)
+        self._dnf_manager = dnf_manager
+
+    def run(self):
+        """Run the task."""
+        try:
+            # Tear down the sources.
+            super().run()
+        finally:
+            # Close the DNF base.
+            self._dnf_manager.reset_base()

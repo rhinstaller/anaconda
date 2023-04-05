@@ -98,7 +98,7 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
 
         # It is possible that the payload manager is finished by now. In that case,
         # trigger the failed callback manually to set up the error messages.
-        if not payloadMgr.is_running and not self.payload.report.is_valid():
+        if not payloadMgr.is_running and not payloadMgr.report.is_valid():
             self._on_payload_failed()
 
         # Finish the initialization.
