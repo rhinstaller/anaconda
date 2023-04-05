@@ -437,3 +437,18 @@ wait_for_updates() {
 wait_for_dd() {
     echo "[ -e /tmp/dd.done ]" > "$hookdir/initqueue/finished/dd.sh"
 }
+
+wait_for_disks() {
+    # Allow up to 'inst.wait_for_disks' seconds for disks to be enumerated and
+    # related udev rules to execute (defaults to 5 seconds, 0 disables the
+    # feature). This prevents dracut-initqueue from finishing early.
+    # Since a 0.5 second delay is used between two runs of dracut-initqueue, we
+    # force the latter to retry up to twice the value configured, e.g:
+    # 'inst.wait_for_disks=15' --> force looping 30 times at least
+    # 'inst.wait_for_disks=0'  --> force looping 0 times (so no wait time)
+    finished_hook="$hookdir/initqueue/finished/wait_for_disks.sh"
+    [ -e "$finished_hook" ] && return
+    DISKS_WAIT_DELAY=$(getargnum 5 0 10000 inst.wait_for_disks)
+    DISKS_WAIT_RETRIES=$((DISKS_WAIT_DELAY * 2))
+    echo "[ \"\$main_loop\" -ge \"$DISKS_WAIT_RETRIES\" ]" > "$finished_hook"
+}
