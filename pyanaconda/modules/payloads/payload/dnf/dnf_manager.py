@@ -125,8 +125,11 @@ class DNFManager(object):
         base.conf.gpgcheck = False
         base.conf.skip_if_unavailable = False
 
-        # Set the substitution variables.
-        cls._reset_substitution(base)
+        # Set the default release version.
+        base.conf.releasever = get_product_release_version()
+
+        # Load variables from the host (rhbz#1920735).
+        base.conf.substitutions.update_from_etc("/")
 
         # Set the installation root.
         base.conf.installroot = conf.target.system_root
@@ -148,15 +151,6 @@ class DNFManager(object):
 
         log.debug("The DNF base has been created.")
         return base
-
-    @classmethod
-    def _reset_substitution(cls, base):
-        """Reset substitution variables of the given DNF base."""
-        # Set the default release version.
-        base.conf.releasever = get_product_release_version()
-
-        # Load variables from the host (rhbz#1920735).
-        base.conf.substitutions.update_from_etc("/")
 
     def reset_base(self):
         """Reset the DNF base.
@@ -429,11 +423,6 @@ class DNFManager(object):
 
         self._base.conf.releasever = release_version
         log.debug("The $releasever variable is set to '%s'.", release_version)
-
-    def reset_substitution(self):
-        """Reset the substitution variables."""
-        self._reset_substitution(self._base)
-        log.debug("The substitution variables have been reset.")
 
     def get_installation_size(self):
         """Calculate the installation size.

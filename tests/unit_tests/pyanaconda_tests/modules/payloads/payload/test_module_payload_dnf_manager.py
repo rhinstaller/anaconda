@@ -602,24 +602,6 @@ class DNFManagerTestCase(unittest.TestCase):
             "releasever": "123"
         })
 
-    def test_reset_substitution(self):
-        """Test the reset_substitution method."""
-        self.dnf_manager.configure_substitution(
-            release_version="123"
-        )
-        self._check_substitutions({
-            "arch": "x86_64",
-            "basearch": "x86_64",
-            "releasever": "123"
-        })
-
-        self.dnf_manager.reset_substitution()
-        self._check_substitutions({
-            "arch": "x86_64",
-            "basearch": "x86_64",
-            "releasever": "rawhide"
-        })
-
     @patch("dnf.subject.Subject.get_best_query")
     def test_is_package_available(self, get_best_query):
         """Test the is_package_available method."""
