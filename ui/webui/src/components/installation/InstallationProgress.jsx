@@ -83,8 +83,6 @@ export class InstallationProgress extends React.Component {
                             }
                             if (message) {
                                 this.setState({ statusMessage: message });
-                            } else {
-                                this.setState({ step });
                             }
                         });
                         taskProxy.addEventListener("Failed", () => {
