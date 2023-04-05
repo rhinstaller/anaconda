@@ -1,21 +1,19 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import crypto from "crypto";
 
-const copy = require("copy-webpack-plugin");
-const extract = require("mini-css-extract-plugin");
-const TerserJSPlugin = require('terser-webpack-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const CompressionPlugin = require("compression-webpack-plugin");
-const ESLintPlugin = require('eslint-webpack-plugin');
-const CockpitPoPlugin = require("./src/lib/cockpit-po-plugin");
-const CockpitRsyncPlugin = require("./src/lib/cockpit-rsync-plugin");
+import copy from "copy-webpack-plugin";
+import extract from "mini-css-extract-plugin";
+import TerserJSPlugin from 'terser-webpack-plugin';
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import CompressionPlugin from "compression-webpack-plugin";
+import ESLintPlugin from 'eslint-webpack-plugin';
+
+import { CockpitPoWebpackPlugin } from "./pkg/lib/cockpit-po-plugin.js";
+import { CockpitRsyncWebpackPlugin } from "./pkg/lib/cockpit-rsync-plugin.js";
 
 // HACK: OpenSSL 3 does not support md4 any more, but webpack hardcodes it all over the place: https://github.com/webpack/webpack/issues/13572
-const crypto = require("crypto");
 const crypto_orig_createHash = crypto.createHash;
 crypto.createHash = algorithm => crypto_orig_createHash(algorithm == "md4" ? "sha256" : algorithm);
-
-const webpack = require("webpack");
 
 // Obtain package name from package.json
 const packageJson = JSON.parse(fs.readFileSync('package.json'));
@@ -35,8 +33,8 @@ const copy_files = [
 const plugins = [
     new copy({ patterns: copy_files }),
     new extract({filename: "[name].css"}),
-    new CockpitPoPlugin({ reference_patterns: ["ui/webui/src/.*"] }),
-    new CockpitRsyncPlugin({ dest: packageJson.name }),
+    new CockpitPoWebpackPlugin({ src_directory: "ui/webui/src/" }),
+    new CockpitRsyncWebpackPlugin({ dest: packageJson.name }),
 ];
 
 if (eslint) {
@@ -53,14 +51,14 @@ if (production) {
     }));
 }
 
-module.exports = {
+const config = {
     mode: production ? 'production' : 'development',
     resolve: {
-        modules: [ "node_modules", path.resolve(__dirname, 'src/lib') ],
+        modules: [ "node_modules", "pkg/lib" ],
         alias: { 'font-awesome': 'font-awesome-sass/assets/stylesheets' },
     },
     resolveLoader: {
-        modules: [ "node_modules", path.resolve(__dirname, 'src/lib') ],
+        modules: [ "node_modules", "pkg/lib" ],
     },
     watchOptions: {
         ignored: /node_modules/,
@@ -160,4 +158,6 @@ module.exports = {
         ]
     },
     plugins: plugins
-}
+};
+
+export default config;
