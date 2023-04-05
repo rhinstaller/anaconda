@@ -172,7 +172,7 @@ const DropdownBulkSelect = ({
           isChecked={selectedCnt > 0 ? (selectedCnt === totalCnt ? true : null) : false}
           onChange={onChange}
         >
-            {selectedCnt > 0 ? cockpit.format(cockpit.ngettext("$0 selected", "$0 selected", selectedCnt), selectedCnt) : ""}
+            {selectedCnt > 0 ? cockpit.format(_("$0 selected"), selectedCnt) : ""}
         </DropdownToggleCheckbox>,
     ];
 
