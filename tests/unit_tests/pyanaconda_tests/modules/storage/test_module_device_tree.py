@@ -584,22 +584,6 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         assert self.interface.GetAncestors(["dev2", "dev3"]) == ["dev1", "dev2"]
         assert self.interface.GetAncestors(["dev2", "dev5"]) == ["dev1", "dev4"]
 
-    @patch.object(StorageDevice, "setup")
-    def test_setup_device(self, setup):
-        """Test SetupDevice."""
-        self._add_device(StorageDevice("dev1"))
-
-        self.interface.SetupDevice("dev1")
-        setup.assert_called_once()
-
-    @patch.object(StorageDevice, "teardown")
-    def test_teardown_device(self, teardown):
-        """Test TeardownDevice."""
-        self._add_device(StorageDevice("dev1"))
-
-        self.interface.TeardownDevice("dev1")
-        teardown.assert_called_once()
-
     @patch.object(FS, "mount")
     def test_mount_device(self, mount):
         """Test MountDevice."""

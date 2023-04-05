@@ -30,22 +30,6 @@ __all__ = ["DeviceTreeHandlerInterface"]
 class DeviceTreeHandlerInterface(InterfaceTemplate):
     """DBus interface for the device tree handler."""
 
-    def SetupDevice(self, device_name: Str):
-        """Open, or set up, a device.
-
-        :param device_name: a name of the device
-        :raise: DeviceSetupError in case of failure
-        """
-        self.implementation.setup_device(device_name)
-
-    def TeardownDevice(self, device_name: Str):
-        """Close, or tear down, a device.
-
-        :param device_name: a name of the device
-        :raise: DeviceSetupError in case of failure
-        """
-        self.implementation.teardown_device(device_name)
-
     def MountDevice(self, device_name: Str, mount_point: Str, options: Str):
         """Mount a filesystem on the device.
 
