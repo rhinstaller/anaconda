@@ -131,7 +131,9 @@ export class InstallationProgress extends React.Component {
             },
         ];
 
-        if (steps === undefined) { return null }
+        if (steps === undefined) {
+            return null;
+        }
 
         let icon;
         let title;
