@@ -450,6 +450,7 @@ class TreeInfoRepoMetadata(object):
         return protocol + os.path.normpath(absolute_path)
 
 
+# The result of the LoadTreeInfoMetadataTask task.
 LoadTreeInfoMetadataResult = namedtuple(
     "LoadTreeInfoMetadataResult", [
         "repository_data",
@@ -457,9 +458,6 @@ LoadTreeInfoMetadataResult = namedtuple(
         "treeinfo_repositories"
     ]
 )
-LoadTreeInfoMetadataResult.__doc__ += """
-The result of the LoadTreeInfoMetadataTask task.
-"""
 
 
 class LoadTreeInfoMetadataTask(Task):

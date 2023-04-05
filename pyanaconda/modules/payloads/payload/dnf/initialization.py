@@ -53,6 +53,7 @@ def configure_dnf_logging():
     dnf_logger.setLevel(dnf.logging.DDEBUG)
 
 
+# The result of the SetUpDNFSourcesTask task.
 SetUpDNFSourcesResult = namedtuple(
     "LoadTreeInfoMetadataResult", [
         "dnf_manager",
@@ -60,9 +61,6 @@ SetUpDNFSourcesResult = namedtuple(
         "sources",
     ]
 )
-SetUpDNFSourcesResult.__doc__ += """
-The result of the SetUpDNFSourcesTask task.
-"""
 
 
 class SetUpDNFSourcesTask(SetUpSourcesTask):
