@@ -835,20 +835,6 @@ class DNFManager(object):
 
         return repo
 
-    def remove_repository(self, repo_id):
-        """Remove a repository.
-
-        Remove a repository with the specified name.
-        Do nothing if the repository doesn't exist.
-
-        :param repo_id: an identifier of a repository
-        """
-        with self._lock:
-            if repo_id in self._base.repos:
-                self._base.repos.pop(repo_id)
-
-        log.info("Removed the '%s' repository.", repo_id)
-
     def generate_repo_file(self, data: RepoConfigurationData):
         """Generate a content of the .repo file.
 
