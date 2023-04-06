@@ -430,7 +430,7 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
                           isInline
                           title={_("No additional disks detected")}
                           variant="info"
-                          actionClose=<AlertActionCloseButton onClose={() => setEqualDisksNotify(false)} />
+                          actionClose={<AlertActionCloseButton onClose={() => setEqualDisksNotify(false)} />}
                         />}
                     {localDisksToolbar}
                     {localDisksTable}

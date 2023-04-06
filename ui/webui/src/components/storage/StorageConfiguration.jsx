@@ -291,7 +291,7 @@ const GuidedPartitioning = ({ idPrefix, scenarios, setIsFormValid }) => {
                                     <FlexItem />
                                     <FlexItem>
                                         <HelperText>
-                                            <HelperTextItem variant="warning" icon=<ExclamationTriangleIcon />>
+                                            <HelperTextItem variant="warning" icon={<ExclamationTriangleIcon />}>
                                                 {scenarioAvailability[scenario.id].reason}
                                             </HelperTextItem>
                                         </HelperText>
