@@ -15,7 +15,7 @@ Running eslint
 Anaconda Web UI uses `ESLint <https://eslint.org/>`_ to automatically check
 JavaScript code style in `.js` and `.jsx` files.
 
-The linter is executed within every build as a webpack preloader.
+The linter is executed within every build as a plugin of esbuild.
 
 For developer convenience, the ESLint can be started explicitly by::
 
@@ -30,7 +30,7 @@ Rules configuration can be found in the `.eslintrc.json` file.
 Development with rsync mode
 ---------------------------
 
-When developing the Web UI, after every change to your sources the webpacks need to be rebuilt
+When developing the Web UI, after every change to your sources we need to re-build
 and the contents of dist directory need to be copied to the SSH target's
 /usr/share/cockpit/anaconda-webui directory.
 

@@ -426,8 +426,9 @@ rm -rf \
 
 %files webui
 %dir %{_datadir}/cockpit/anaconda-webui
-%{_datadir}/cockpit/anaconda-webui/index.js.LICENSE.txt.gz
-%{_datadir}/cockpit/anaconda-webui/index.html.gz
+%{_datadir}/cockpit/anaconda-webui/index.js.LEGAL.txt
+%{_datadir}/cockpit/anaconda-webui/index.css.LEGAL.txt
+%{_datadir}/cockpit/anaconda-webui/index.html
 %{_datadir}/cockpit/anaconda-webui/index.js.gz
 %{_datadir}/cockpit/anaconda-webui/index.css.gz
 %{_datadir}/cockpit/anaconda-webui/manifest.json
