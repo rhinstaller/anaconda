@@ -469,6 +469,48 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 11 2023 github-actions <github-actions@github.com> - 39.10-1
+- webui: update reference images (kkoukiou)
+- webui: update CockpitPoWebpackPlugin and adjust configuration options
+  (kkoukiou)
+- webui: update run-tests script (kkoukiou)
+- webui: build: Move to a webpack module (kkoukiou)
+- webui: modernize the makefile (kkoukiou)
+- webui: update integration tests for v1 of autopartitioning (rvykydal)
+- Fix wrong dracut timeout message (jkonecny)
+- Run webui-periodic workflow on a testing runner for some time (rvykydal)
+- Add GH workflow for periodic webui integration tests in Permian (rvykydal)
+- webui: update pixeltest reference (rvykydal)
+- webui: update microcopy plurals to remove "(s)" suffixes (rvykydal)
+- webui: add pixel tests for the new storage config screens (rvykydal)
+- webui: add test for autopartitioning (rvykydal)
+- webui: test that disk selection persists Next and Back (INSTALLER-3029)
+  (rvykydal)
+- webui: make not enough space warning in detail a phrase (rvykydal)
+- webui: add content for autopartitioning options details (rvykydal)
+- webui: allow weak passwords for disk encryption (rvykydal)
+- webui: fix tests for split Installation Destination step (rvykydal)
+- webui: add TODO for applyPartitioning (rvykydal)
+- webui: move some subcomponents out of components (rvykydal)
+- webui: implement Disk Encryption subscreens in scope of the single substep
+  (rvykydal)
+- webui: log exception in case of partitioning application error (rvykydal)
+- webui: keep disk selection in the UI when going back (rvykydal)
+- webui: add a tooltip hint to disabled autopartitioning scenarios (rvykydal)
+- webui: connect Storage Configuration to backend initalization mode (rvykydal)
+- webui: implement Storage Configuration (guided partitioning) (rvykydal)
+- webui: move storage validation to the last storage substep (rvykydal)
+- webui: add Disk Encryption subscreen skeleton (rvykydal)
+- webui: add Storage Configuration subscreen skeleton (rvykydal)
+- webui: move disk selection into a wizard substep (rvykydal)
+- Move the validation report to the payload manager (vponcova)
+- Use the DNF module in TUI and GUI (vponcova)
+- Extend the DNF module (vponcova)
+- Handle an undefined release version (vponcova)
+- Move the generate_treeinfo_repository function (vponcova)
+- Create the check_instances function for unit tests (vponcova)
+- oemdrv: wait up to 5 seconds for disks to be handled (rmetrich)
+
 * Tue Apr 04 2023 github-actions <github-actions@github.com> - 39.9-1
 - fsset: Catch SwapSpaceError when trying to activate swaps (vtrefny)
 - Add tests for threads (vslavik)
