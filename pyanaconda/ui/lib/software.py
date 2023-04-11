@@ -19,13 +19,16 @@ from collections import namedtuple
 from blivet.arch import is_arm
 from pyanaconda.core.i18n import _
 
+FEATURE_UPSTREAM = "upstream"
 FEATURE_64K = "64k"
-KernelFeatures = namedtuple("KernelFeatures", ["page_size_64k"])
+
+KernelFeatures = namedtuple("KernelFeatures", ["upstream", "page_size_64k"])
 
 def get_available_kernel_features(payload):
     """Returns a dictionary with that shows which kernels should be shown in the UI.
     """
     features = {
+        FEATURE_UPSTREAM: any(payload.match_available_packages("kernel-redhat")),
         FEATURE_64K: is_arm() and any(payload.match_available_packages("kernel-64k"))
     }
 
@@ -35,6 +38,8 @@ def get_kernel_titles_and_descriptions():
     """Returns a dictionary with descriptions and titles for different kernel options.
     """
     kernel_features = {
+        "standard": (_("kernel"), _("Optimized for stability")),
+        "upstream": (_("kernel-redhat"), _("Access newer kernel features")),
         "4k": (_("4k"), _("More efficient memory usage in smaller environments")),
         "64k": (_("64k"), _("System performance gains for memory-intensive workloads")),
     }
@@ -46,10 +51,11 @@ def get_kernel_from_properties(features):
     or returns None if no properties were selected.
     """
     kernels = {
-        # ARM 64k    Package Name
-        ( False   ): None,
-        ( True    ): "kernel-64k",
+        # RedHat Kernel  ARM 64k    Package Name
+        ( False,         False   ): None,
+        ( True,          False   ): "kernel-redhat",
+        ( False,         True    ): "kernel-64k",
+        ( True,          True    ): "kernel-redhat-64k",
     }
-
-    kernel_package = kernels[features[0]]
+    kernel_package = kernels[features]
     return kernel_package

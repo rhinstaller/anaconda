@@ -37,8 +37,9 @@ from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.utils import blockedHandler, escape_markup
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.lib.subscription import check_cdn_is_installation_source
-from pyanaconda.ui.lib.software import FEATURE_64K, KernelFeatures, \
+from pyanaconda.ui.lib.software import FEATURE_UPSTREAM, FEATURE_64K, KernelFeatures, \
     get_kernel_from_properties, get_available_kernel_features, get_kernel_titles_and_descriptions
+
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.common.util import is_module_available
 
@@ -134,17 +135,25 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._kernel_box = self.builder.get_object("kernelBox")
         self._combo_kernel_page_size = self.builder.get_object("kernelPageSizeCombo")
         self._label_kernel_page_size = self.builder.get_object("kernelPageSizeLabel")
+        self._combo_kernel_version = self.builder.get_object("kernelVersionCombo")
+        self._label_kernel_version = self.builder.get_object("kernelVersionLabel")
 
         # Normally I would create these in the .glade file but due to a bug they weren't
         # created properly
         self._model_kernel_page_size = Gtk.ListStore(str, str)
+        self._model_kernel_version = Gtk.ListStore(str, str)
 
         kernel_labels = get_kernel_titles_and_descriptions()
         for i in ["4k", "64k"]:
             self._model_kernel_page_size.append([i, "<b>%s</b>\n%s" % \
                                                 (escape_markup(kernel_labels[i][0]),
                                                 escape_markup(kernel_labels[i][1]))])
+        for i in ["upstream", "standard"]:
+            self._model_kernel_version.append([i, "<b>%s</b>\n%s" % \
+                                              (escape_markup(kernel_labels[i][0]),
+                                              escape_markup(kernel_labels[i][1]))])
         self._combo_kernel_page_size.set_model(self._model_kernel_page_size)
+        self._combo_kernel_version.set_model(self._model_kernel_version)
         self._available_kernels = get_available_kernel_features(self.payload)
 
     # Payload event handlers
@@ -215,7 +224,10 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # Select kernel
         property_64k = self._available_kernels[FEATURE_64K] and \
             self._combo_kernel_page_size.get_active_id() == FEATURE_64K
-        kernel_properties = KernelFeatures(property_64k)
+        property_upstream = self._available_kernels[FEATURE_UPSTREAM] and \
+            self._combo_kernel_version.get_active_id() == FEATURE_UPSTREAM
+
+        kernel_properties = KernelFeatures(property_upstream, property_64k)
         kernel = get_kernel_from_properties(kernel_properties)
         if kernel is not None:
             log.debug("Selected kernel package: %s", kernel)
@@ -587,6 +599,12 @@ class SoftwareSelectionSpoke(NormalSpoke):
         if show_kernels:
             self._kernel_box.set_visible(True)
             self._kernel_box.set_no_show_all(False)
+
+            # Kernel version combo
+            self._combo_kernel_version.set_visible(self._available_kernels[FEATURE_UPSTREAM])
+            self._combo_kernel_version.set_no_show_all(not self._available_kernels[FEATURE_UPSTREAM])
+            self._label_kernel_version.set_visible(self._available_kernels[FEATURE_UPSTREAM])
+            self._label_kernel_version.set_no_show_all(not self._available_kernels[FEATURE_UPSTREAM])
 
             # Arm 64k page size kernel combo
             self._combo_kernel_page_size.set_visible(self._available_kernels[FEATURE_64K])

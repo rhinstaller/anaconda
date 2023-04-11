@@ -20,8 +20,9 @@ from pyanaconda.flags import flags
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.context import context
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
-from pyanaconda.ui.lib.software import FEATURE_64K, KernelFeatures, \
+from pyanaconda.ui.lib.software import FEATURE_UPSTREAM, FEATURE_64K, KernelFeatures, \
     get_kernel_from_properties, get_available_kernel_features, get_kernel_titles_and_descriptions
+
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.payload.errors import DependencyError, NoSuchGroup
@@ -102,6 +103,10 @@ class SoftwareSpoke(NormalTUISpoke):
 
         self._available_kernels = get_available_kernel_features(self.payload)
         self._kernel_selection = dict.fromkeys(self._available_kernels, False)
+
+        # kernel-redhat should be the default when available
+        if FEATURE_UPSTREAM in self._kernel_selection:
+            self._kernel_selection[FEATURE_UPSTREAM] = True
 
         # Initialize and check the software selection.
         self._initialize_selection()
@@ -310,10 +315,12 @@ class SoftwareSpoke(NormalTUISpoke):
         self._available_kernels = get_available_kernel_features(self.payload)
 
         # Processing chosen kernel
+        feature_upstream = self._available_kernels[FEATURE_UPSTREAM] and \
+            self._kernel_selection[FEATURE_UPSTREAM]
         feature_64k = self._available_kernels[FEATURE_64K] and \
             self._kernel_selection[FEATURE_64K]
 
-        features = KernelFeatures(feature_64k)
+        features = KernelFeatures(feature_upstream, feature_64k)
         kernel = get_kernel_from_properties(features)
         if kernel:
             log.debug("Selected kernel package: %s", kernel)
