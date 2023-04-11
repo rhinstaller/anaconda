@@ -88,7 +88,7 @@ $(COCKPIT_REPO_STAMP): Makefile.am
 # https://github.com/cockpit-project/cockpit/blob/main/test/common/testlib.py#L1118
 bots: tools/make-bots
 	GITHUB_BASE="cockpit-project/cockpit" tools/make-bots
-	cd test && ln -s ../bots/images images
+	cd test && ln -sf ../bots/images images
 
 prepare-test-deps: bots test/common
 
