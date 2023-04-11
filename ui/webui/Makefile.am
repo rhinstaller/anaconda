@@ -44,6 +44,7 @@ dist_noinst_DATA = \
 
 $(WEBPACK_TEST): $(COCKPIT_REPO_STAMP) $(shell find src/ -type f) $(NODE_MODULES_TEST) package.json webpack.config.js
 	NODE_ENV=production $(CURDIR)/node_modules/.bin/webpack
+	touch $(WEBPACK_TEST)  # HACK: Explicit touch as webpack does not touch files if nothing changed
 
 watch:
 	rm -f dist/*
