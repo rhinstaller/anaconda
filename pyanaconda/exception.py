@@ -138,6 +138,10 @@ class AnacondaExceptionHandler(ExceptionHandler):
         """
 
         log.debug("running handleException")
+        # don't try and attach empty or non-existent files (#2185827)
+        self.conf.fileList = [
+            fn for fn in self.conf.fileList if os.path.exists(fn) and os.path.getsize(fn) > 0
+        ]
         exception_lines = traceback.format_exception(*dump_info.exc_info)
         log.critical("\n".join(exception_lines))
 
