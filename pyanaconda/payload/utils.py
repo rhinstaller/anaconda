@@ -26,16 +26,6 @@ from pyanaconda.modules.common.structures.storage import DeviceData
 log = get_module_logger(__name__)
 
 
-def resolve_device(dev_spec):
-    """Get the device matching the provided device specification.
-
-    :param str dev_spec: a string describing a block device
-    :return: a device name or None
-    """
-    device_tree = STORAGE.get_proxy(DEVICE_TREE)
-    return device_tree.ResolveDevice(dev_spec) or None
-
-
 def get_device_path(device_name):
     """Return a device path.
 

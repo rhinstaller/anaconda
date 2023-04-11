@@ -421,13 +421,6 @@ SOURCE_TYPE_URL = "URL"
 SOURCE_TYPE_HDD = "HDD"
 SOURCE_TYPE_CDN = "CDN"
 
-# All types that use repo files.
-SOURCE_REPO_FILE_TYPES = (
-    SOURCE_TYPE_REPO_FILES,
-    SOURCE_TYPE_CLOSEST_MIRROR,
-    SOURCE_TYPE_CDN,
-)
-
 # Payload sources overriden by the CDN
 
 # This set lists sources the Red Hat CDN should automatically

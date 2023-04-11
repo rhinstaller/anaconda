@@ -602,24 +602,6 @@ class DNFManagerTestCase(unittest.TestCase):
             "releasever": "123"
         })
 
-    def test_reset_substitution(self):
-        """Test the reset_substitution method."""
-        self.dnf_manager.configure_substitution(
-            release_version="123"
-        )
-        self._check_substitutions({
-            "arch": "x86_64",
-            "basearch": "x86_64",
-            "releasever": "123"
-        })
-
-        self.dnf_manager.reset_substitution()
-        self._check_substitutions({
-            "arch": "x86_64",
-            "basearch": "x86_64",
-            "releasever": "rawhide"
-        })
-
     @patch("dnf.subject.Subject.get_best_query")
     def test_is_package_available(self, get_best_query):
         """Test the is_package_available method."""
@@ -846,16 +828,6 @@ class DNFManagerCompsTestCase(unittest.TestCase):
 
         assert self.dnf_manager.resolve_environment("e1") == "e1"
         assert self.dnf_manager.resolve_environment("e2") is None
-
-    def test_is_environment_valid(self):
-        """Test the is_environment_valid method."""
-        assert self.dnf_manager.is_environment_valid("") is False
-        assert self.dnf_manager.is_environment_valid("e1") is False
-
-        self._add_environment("e1")
-
-        assert self.dnf_manager.is_environment_valid("e1") is True
-        assert self.dnf_manager.is_environment_valid("e2") is False
 
     def test_get_environment_data_error(self):
         """Test the failed get_environment_data method."""
@@ -1212,24 +1184,6 @@ class DNFManagerReposTestCase(unittest.TestCase):
         self._check_repo("r1", [
             "baseurl = http://u2",
         ])
-
-    def test_remove_repository(self):
-        """Test the remove_repository method."""
-        assert self.dnf_manager.repositories == []
-
-        self._add_repo("r1")
-        self._add_repo("r2")
-
-        assert self.dnf_manager.repositories == ["r1", "r2"]
-
-        self.dnf_manager.remove_repository("r1")
-        assert self.dnf_manager.repositories == ["r2"]
-
-        self.dnf_manager.remove_repository("r3")
-        assert self.dnf_manager.repositories == ["r2"]
-
-        self.dnf_manager.remove_repository("r2")
-        assert self.dnf_manager.repositories == []
 
     def test_generate_repo_file_baseurl(self):
         """Test the generate_repo_file method with baseurl."""

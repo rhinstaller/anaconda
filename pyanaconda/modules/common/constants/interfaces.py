@@ -123,16 +123,6 @@ PAYLOAD_SOURCE_CLOSEST_MIRROR = DBusInterfaceIdentifier(
     basename="ClosestMirror"
 )
 
-PAYLOAD_SOURCE_NFS = DBusInterfaceIdentifier(
-    namespace=SOURCE_NAMESPACE,
-    basename="NFS"
-)
-
-PAYLOAD_SOURCE_URL = DBusInterfaceIdentifier(
-    namespace=SOURCE_NAMESPACE,
-    basename="URL"
-)
-
 PAYLOAD_SOURCE_HARDDRIVE = DBusInterfaceIdentifier(
     namespace=SOURCE_NAMESPACE,
     basename="HDD"

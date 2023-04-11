@@ -125,8 +125,11 @@ class DNFManager(object):
         base.conf.gpgcheck = False
         base.conf.skip_if_unavailable = False
 
-        # Set the substitution variables.
-        cls._reset_substitution(base)
+        # Set the default release version.
+        base.conf.releasever = get_product_release_version()
+
+        # Load variables from the host (rhbz#1920735).
+        base.conf.substitutions.update_from_etc("/")
 
         # Set the installation root.
         base.conf.installroot = conf.target.system_root
@@ -148,15 +151,6 @@ class DNFManager(object):
 
         log.debug("The DNF base has been created.")
         return base
-
-    @classmethod
-    def _reset_substitution(cls, base):
-        """Reset substitution variables of the given DNF base."""
-        # Set the default release version.
-        base.conf.releasever = get_product_release_version()
-
-        # Load variables from the host (rhbz#1920735).
-        base.conf.substitutions.update_from_etc("/")
 
     def reset_base(self):
         """Reset the DNF base.
@@ -256,17 +250,6 @@ class DNFManager(object):
             return None
 
         return env.id
-
-    def is_environment_valid(self, environment_name):
-        """Is the given environment valid?
-
-        FIXME: Could we use the resolve_environment method instead?
-
-        :param environment_name: an identifier of an environment
-        :return: True or False
-        """
-        environment_id = self.resolve_environment(environment_name)
-        return environment_id in self.environments
 
     def get_environment_data(self, environment_name) -> CompsEnvironmentData:
         """Get the data of the specified environment.
@@ -440,11 +423,6 @@ class DNFManager(object):
 
         self._base.conf.releasever = release_version
         log.debug("The $releasever variable is set to '%s'.", release_version)
-
-    def reset_substitution(self):
-        """Reset the substitution variables."""
-        self._reset_substitution(self._base)
-        log.debug("The substitution variables have been reset.")
 
     def get_installation_size(self):
         """Calculate the installation size.
@@ -856,20 +834,6 @@ class DNFManager(object):
             repo.sslclientkey = data.ssl_configuration.client_key_path
 
         return repo
-
-    def remove_repository(self, repo_id):
-        """Remove a repository.
-
-        Remove a repository with the specified name.
-        Do nothing if the repository doesn't exist.
-
-        :param repo_id: an identifier of a repository
-        """
-        with self._lock:
-            if repo_id in self._base.repos:
-                self._base.repos.pop(repo_id)
-
-        log.info("Removed the '%s' repository.", repo_id)
 
     def generate_repo_file(self, data: RepoConfigurationData):
         """Generate a content of the .repo file.
