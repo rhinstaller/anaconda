@@ -47,7 +47,7 @@ jobs:
           BODY: ${{ github.event.comment.body }}
         run: |
           # extract first line and cut out the "/kickstart-tests" first word
-          LAUNCH_ARGS=$(echo "$BODY" | sed -n '1 s/^[^ ]* *//p')
+          LAUNCH_ARGS=$(echo "$BODY" | sed -n '1 s/^[^ ]* *//p' | sed 's/[[:space:]]*$//')
           echo "launch arguments are: $LAUNCH_ARGS"
           echo "launch_args=${LAUNCH_ARGS}" >> $GITHUB_OUTPUT
 
@@ -334,7 +334,7 @@ jobs:
         env:
           BODY: ${{ github.event.comment.body }}
         run: |
-          REASON=$(echo "$BODY" | sed -e "s#/kickstart-test --waive ##")
+          REASON=$(echo "$BODY" | sed -e "s#/kickstart-test --waive ##" | sed 's/[[:space:]]*$//')
           echo "reason=Waived, $REASON" >> $GITHUB_OUTPUT
 
       - name: Set status
