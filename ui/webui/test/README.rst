@@ -55,7 +55,7 @@ The cockpit and SSH addresses of the test instance will be printed::
 
 You can also run *all* the tests, with some parallelism::
 
-    test/run-tests --jobs 2
+    TEST_OS=fedora-rawhide-boot test/common/run-tests --jobs 2
 
 The tests will automatically download the VM isos they need, so expect
 that the initial run may take a few minutes.
