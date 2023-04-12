@@ -18,7 +18,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.modules.common import init
-init()
+init("/tmp/packaging.log")
 
 import os
 if "LD_PRELOAD" in os.environ:

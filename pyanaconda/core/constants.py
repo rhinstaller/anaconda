@@ -328,9 +328,6 @@ LOGGER_ANACONDA_ROOT = "anaconda"
 LOGGER_MAIN = "anaconda.main"
 LOGGER_STDOUT = "anaconda.stdout"
 LOGGER_PROGRAM = "program"
-LOGGER_PACKAGING = "packaging"
-LOGGER_DNF = "dnf"
-LOGGER_LIBREPO = "librepo"  # second DNF logger for librepo
 LOGGER_SIMPLELINE = "simpleline"
 
 # Timeout for starting X

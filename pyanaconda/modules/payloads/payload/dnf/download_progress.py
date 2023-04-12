@@ -23,10 +23,10 @@ import dnf.callback
 
 from blivet.size import Size
 
-from pyanaconda.anaconda_loggers import get_packaging_logger
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 
-log = get_packaging_logger()
+log = get_module_logger(__name__)
 
 __all__ = ["DownloadProgress"]
 
