@@ -47,17 +47,37 @@ class TimezoneInterface(KickstartModuleInterface):
     @Timezone.setter
     @emits_properties_changed
     def Timezone(self, timezone: Str):
-        """Set the timezone.
+        """Set the timezone with maximal priority.
 
-        Sets the system time zone to timezone. To view a list of
-        available time zones, use the timedatectl list-timezones
-        command.
-
-        Example: Europe/Prague
+        See SetTimezoneWithPriority for more details.
 
         :param timezone: a string with a timezone
         """
         self.implementation.set_timezone(timezone)
+
+    @emits_properties_changed
+    def SetTimezoneWithPriority(self, timezone: Str, priority: UInt16):
+        """Set the timezone with a given priority.
+
+        Sets the system time zone to timezone, if the already stored timezone does not have higher
+        priority.
+
+        To view a list of available time zones, use the `timedatectl list-timezones` command.
+
+        Example: Europe/Prague
+
+        The priority is a positive number. Use values defined in pyanaconda.core.constants
+        as TIMEZONE_PRIORITY_* :
+            TIMEZONE_PRIORITY_DEFAULT = 0
+            TIMEZONE_PRIORITY_LANGUAGE = 30
+            TIMEZONE_PRIORITY_GEOLOCATION = 50
+            TIMEZONE_PRIORITY_KICKSTART = 70
+            TIMEZONE_PRIORITY_USER = 90
+
+        :param timezone: a string with a timezone specification in the Olson db aka tzdata format
+        :param priority: priority for the timezone; see the respective constants
+        """
+        self.implementation.set_timezone_with_priority(timezone, priority)
 
     @property
     def IsUTC(self) -> Bool:

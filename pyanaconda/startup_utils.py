@@ -35,7 +35,7 @@ from pyanaconda.core.hw import minimal_memory_needed
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import TEXT_ONLY_TARGET, SETUP_ON_BOOT_DEFAULT, \
     SETUP_ON_BOOT_ENABLED, DRACUT_ERRORS_PATH, IPMI_ABORTED, STORAGE_MIN_RAM, SELINUX_DEFAULT, \
-    THREAD_TIME_INIT, DisplayModes, GEOLOC_CONNECTION_TIMEOUT
+    THREAD_TIME_INIT, DisplayModes, GEOLOC_CONNECTION_TIMEOUT, TIMEZONE_PRIORITY_GEOLOCATION
 from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import ProxyString, ProxyStringError
 from pyanaconda.core.service import start_service
@@ -724,7 +724,10 @@ def apply_geolocation_result(display_mode):
         # (the geolocation module makes sure that the returned timezone is
         # either a valid timezone or empty string)
         log.info("Geoloc: using timezone determined by geolocation")
-        timezone_module.Timezone = geoloc_result.timezone
+        timezone_module.SetTimezoneWithPriority(
+            geoloc_result.timezone,
+            TIMEZONE_PRIORITY_GEOLOCATION
+        )
         # Either this is an interactive install and timezone.seen propagates
         # from the interactive default kickstart, or this is a kickstart
         # install where the user explicitly requested geolocation to be used.

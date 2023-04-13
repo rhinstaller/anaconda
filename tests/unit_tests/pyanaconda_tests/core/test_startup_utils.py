@@ -27,7 +27,7 @@ from textwrap import dedent
 
 from pyanaconda.startup_utils import print_dracut_errors, check_if_geolocation_should_be_used, \
     start_geolocation_conditionally, wait_for_geolocation_and_use, apply_geolocation_result
-from pyanaconda.core.constants import GEOLOC_CONNECTION_TIMEOUT
+from pyanaconda.core.constants import GEOLOC_CONNECTION_TIMEOUT, TIMEZONE_PRIORITY_GEOLOCATION
 from pyanaconda.modules.common.structures.timezone import GeolocationData
 
 class StartupUtilsTestCase(unittest.TestCase):
@@ -215,13 +215,15 @@ class StartupUtilsGeolocApplyTestCase(unittest.TestCase):
             timezone="Europe/Madrid"
         )
         tz_proxy = tz_mock.get_proxy.return_value
-        tz_proxy.Timezone = ""
         loc_proxy = loc_mock.get_proxy.return_value
         loc_proxy.Language = ""
 
         apply_geolocation_result(None)
 
-        assert tz_proxy.Timezone == "Europe/Madrid"
+        tz_proxy.SetTimezoneWithPriority.assert_called_once_with(
+            "Europe/Madrid",
+            TIMEZONE_PRIORITY_GEOLOCATION
+        )
         setup_locale_mock.assert_called_once_with("es_ES.UTF-8", loc_proxy, text_mode=False)
         assert os.environ == {"LANG": "es_ES.UTF-8"}
 
@@ -239,13 +241,15 @@ class StartupUtilsGeolocApplyTestCase(unittest.TestCase):
             timezone="Europe/Madrid"
         )
         tz_proxy = tz_mock.get_proxy.return_value
-        tz_proxy.Timezone = ""
         loc_proxy = loc_mock.get_proxy.return_value
         loc_proxy.Language = ""
 
         apply_geolocation_result(None)
 
-        assert tz_proxy.Timezone == "Europe/Madrid"
+        tz_proxy.SetTimezoneWithPriority.assert_called_once_with(
+            "Europe/Madrid",
+            TIMEZONE_PRIORITY_GEOLOCATION
+        )
         setup_locale_mock.assert_not_called()
         assert not os.environ
 
@@ -263,14 +267,16 @@ class StartupUtilsGeolocApplyTestCase(unittest.TestCase):
             timezone="Europe/Madrid"
         )
         tz_proxy = tz_mock.get_proxy.return_value
-        tz_proxy.Timezone = ""
         loc_proxy = loc_mock.get_proxy.return_value
         loc_proxy.Language = "ko_KO.UTF-8"
         loc_proxy.LanguageKickstarted = True
 
         apply_geolocation_result(None)
 
-        assert tz_proxy.Timezone == "Europe/Madrid"
+        tz_proxy.SetTimezoneWithPriority.assert_called_once_with(
+            "Europe/Madrid",
+            TIMEZONE_PRIORITY_GEOLOCATION
+        )
         setup_locale_mock.assert_not_called()
         assert not os.environ
 

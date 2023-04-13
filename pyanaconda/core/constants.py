@@ -507,3 +507,10 @@ ID_MODE_USE_DEFAULT = "ID_MODE_USE_DEFAULT"
 
 # Path to the initrd critical warnings log file created by us in Dracut.
 DRACUT_ERRORS_PATH = "/run/anaconda/initrd_errors.txt"
+
+# Timezone setting priorities
+TIMEZONE_PRIORITY_DEFAULT = 0
+TIMEZONE_PRIORITY_LANGUAGE = 30
+TIMEZONE_PRIORITY_GEOLOCATION = 50
+TIMEZONE_PRIORITY_KICKSTART = 70
+TIMEZONE_PRIORITY_USER = 90
