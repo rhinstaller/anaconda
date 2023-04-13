@@ -15,23 +15,15 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program; If not, see <http://www.gnu.org/licenses/>.
 
-import os
-import sys
-
-# import Cockpit's machinery for test VMs and its browser test API
-TEST_DIR = os.path.dirname(__file__)
-sys.path.append(os.path.join(TEST_DIR, "common"))
-sys.path.append(os.path.join(TEST_DIR, "helpers"))
-sys.path.append(os.path.join(os.path.dirname(TEST_DIR), "bots/machine"))
+import anacondalib
 
 from installer import Installer
 from language import Language
-from testlib import MachineCase, nondestructive, test_main # pylint: disable=import-error
-from machine_install import VirtInstallMachine
+from testlib import nondestructive, test_main  # pylint: disable=import-error
+
 
 @nondestructive
-class TestLanguage(MachineCase):
-    MachineCase.machine_class = VirtInstallMachine
+class TestLanguage(anacondalib.VirtInstallMachineCase):
 
     def testOtherDefault(self):
         b = self.browser
