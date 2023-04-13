@@ -118,7 +118,8 @@ Changes in package groups and environments
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 :Issue: The reporter wants a new package to be installed by default.
-:Solution: Reassigning to comps.
+:Solution: The package groups and environments are defined by comps (see
+    https://pagure.io/fedora-comps/). Reassigning to distribution.
 :Example: `rhbz#1787018 <https://bugzilla.redhat.com/show_bug.cgi?id=1787018>`_
 
 Corrupted ISO
