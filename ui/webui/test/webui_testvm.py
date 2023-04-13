@@ -16,6 +16,7 @@
 # along with this program; If not, see <http://www.gnu.org/licenses/>.
 
 import signal
+import subprocess
 import argparse
 
 from machine_install import VirtInstallMachine
@@ -24,6 +25,8 @@ from machine_install import VirtInstallMachine
 def cmd_cli():
     parser = argparse.ArgumentParser(description="Run a VM image until SIGTERM or SIGINT")
     parser.add_argument("image", help="Image name")
+    parser.add_argument("--rsync", help="Rsync development files over on startup", action='store_true')
+    parser.add_argument("--host", help="Hostname to rsync", default='test-updates')
     args = parser.parse_args()
 
     machine = VirtInstallMachine(image=args.image)
@@ -38,6 +41,15 @@ def cmd_cli():
         "http://%s:%s/cockpit/@localhost/anaconda-webui/index.html" %
         (machine.web_address, machine.web_port)
     )
+
+    # rsync development files over so /usr/local/share/cockpit is created with a development version
+    # after restarting cockpit.service cockpit-bridge will select the /usr/local/share version over the released version from
+    # the installed rpm package.
+    if args.rsync:
+        # Rather annoying the node_modules path needs to be explicitly added for webpack
+        subprocess.check_call(["npm", "run", "build"], env={'RSYNC': args.host, "PATH": "/usr/bin/:node_modules/.bin", "ESLINT": "0"})
+        machine.execute("systemctl restart cockpit.service")
+
     # print marker that the VM is ready; tests can poll for this to wait for the VM
     print("RUNNING")
 
