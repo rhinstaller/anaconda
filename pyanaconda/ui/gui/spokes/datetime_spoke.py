@@ -309,14 +309,6 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         kickstart_timezone = self._timezone_module.Timezone
         if is_valid_timezone(kickstart_timezone):
             self._set_timezone(kickstart_timezone)
-        elif not flags.flags.automatedInstall:
-            log.warning("%s is not a valid timezone, falling back to default (%s)",
-                        kickstart_timezone, DEFAULT_TZ)
-            self._set_timezone(DEFAULT_TZ)
-            self._timezone_module.SetTimezoneWithPriority(
-                DEFAULT_TZ,
-                constants.TIMEZONE_PRIORITY_KICKSTART
-            )
 
         time_init_thread = thread_manager.get(constants.THREAD_TIME_INIT)
         if time_init_thread is not None:
