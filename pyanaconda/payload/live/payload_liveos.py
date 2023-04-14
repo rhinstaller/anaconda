@@ -15,13 +15,13 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.anaconda_loggers import get_packaging_logger
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import PAYLOAD_TYPE_LIVE_OS
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.payload.migrated import MigratedDBusPayload
 
-log = get_packaging_logger()
+log = get_module_logger(__name__)
 
 __all__ = ["LiveOSPayload"]
 
