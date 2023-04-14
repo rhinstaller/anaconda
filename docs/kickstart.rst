@@ -7,6 +7,13 @@ Anaconda Kickstart Documentation
 Anaconda uses `kickstart <https://github.com/pykickstart/pykickstart>`_ to parse and generate
 kickstart files.
 
+Automatically load the Kickstart file
+-------------------------------------
+
+If you need to load Kickstart file automatically you can store your Kickstart file as ``/ks.cfg``
+into the storage device which is accessible during the boot process and is labeled as ``OEMDRV``.
+Such a device is automatically discovered during boot and the Kickstart file will be used.
+
 %anaconda
 ---------
 
