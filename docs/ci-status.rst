@@ -37,6 +37,10 @@ Anaconda
    :alt: Run unit and RPM tests daily
    :target: https://github.com/rhinstaller/anaconda/actions/workflows/tests-daily.yml
 
+.. |cockpit-lib-update| image:: https://github.com/rhinstaller/anaconda/actions/workflows/cockpit-lib-update.yml/badge.svg
+   :alt: Updates Cockpit library
+   :target: https://github.com/rhinstaller/anaconda/actions/workflows/cockpit-lib-update.yml
+
 .. _Dependabot: https://github.com/rhinstaller/anaconda/network/updates
 
 |container-autoupdate-fedora|
@@ -57,6 +61,9 @@ Anaconda
 
 |tests-daily|
   Runs unit and RPM tests every day, independent of any changes to code or containers.
+
+|cockpit-lib-update|
+  Updates the COCKPIT_REPO_COMMIT in ui/webui/Makefile.am and opens a pull request.
 
 Dependabot_
   Checks Anaconda dependencies and opens pull requests for new versions.
