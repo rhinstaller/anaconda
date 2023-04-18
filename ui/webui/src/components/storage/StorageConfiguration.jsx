@@ -22,7 +22,6 @@ import {
     Alert,
     Button,
     DataList,
-    DataListAction,
     DataListCell,
     DataListItem,
     DataListItemRow,
@@ -267,45 +266,49 @@ const GuidedPartitioning = ({ idPrefix, scenarios, setIsFormValid }) => {
         <DataListItem key={scenario.id}>
             <DataListItemRow>
                 <DataListItemCells dataListCells={[
-                    <DataListAction key="radio">
+                    <DataListCell key="radio">
                         {!scenarioAvailability[scenario.id].available &&
                         <Tooltip
                           aria-live="polite"
                           content={scenarioAvailability[scenario.id].shortHint}
                           reference={() => document.getElementById(idPrefix + "-autopart-scenario-" + scenario.id)}
                         />}
-                        <Radio
-                          id={idPrefix + "-autopart-scenario-" + scenario.id}
-                          value={scenario.id}
-                          name="autopart-scenario"
-                          label={scenario.label}
-                          isDisabled={!scenarioAvailability[scenario.id].available}
-                          isChecked={selectedScenario === scenario.id}
-                          onChange={() => onScenarioToggled(scenario.id)}
-                        />
-                    </DataListAction>,
-                    <DataListCell key="more">
-                        {scenarioAvailability[scenario.id].reason &&
-                        <Flex spaceItems={{ default: "spaceItems2xl" }}>
-                            <FlexItem />
+                        <Flex direction={{ default: "column" }} spaceItems={{ default: "spaceItemsSm" }}>
                             <FlexItem>
-                                <HelperText>
-                                    <HelperTextItem variant="warning" icon=<ExclamationTriangleIcon />>
-                                        {scenarioAvailability[scenario.id].reason}
-                                    </HelperTextItem>
-                                </HelperText>
+                                <Radio
+                                  id={idPrefix + "-autopart-scenario-" + scenario.id}
+                                  value={scenario.id}
+                                  name="autopart-scenario"
+                                  label={scenario.label}
+                                  isDisabled={!scenarioAvailability[scenario.id].available}
+                                  isChecked={selectedScenario === scenario.id}
+                                  onChange={() => onScenarioToggled(scenario.id)}
+                                />
                             </FlexItem>
-                            <FlexItem />
-                        </Flex>}
+                            {scenarioAvailability[scenario.id].reason &&
+                            <FlexItem>
+                                <Flex spaceItems={{ default: "spaceItemsLg" }}>
+                                    <FlexItem />
+                                    <FlexItem>
+                                        <HelperText>
+                                            <HelperTextItem variant="warning" icon=<ExclamationTriangleIcon />>
+                                                {scenarioAvailability[scenario.id].reason}
+                                            </HelperTextItem>
+                                        </HelperText>
+                                    </FlexItem>
+                                </Flex>
+                            </FlexItem>}
+                        </Flex>
                     </DataListCell>,
-                    <DataListAction key="details">
+                    <DataListCell isFilled={false} key="details">
                         <Button
                           variant="link"
-                          isInline onClick={() => showScenarioDetails(scenario.id)}
+                          isInline
+                          onClick={() => showScenarioDetails(scenario.id)}
                         >
                             {_("Learn more")}
                         </Button>
-                    </DataListAction>,
+                    </DataListCell>
                 ]} />
             </DataListItemRow>
         </DataListItem>
