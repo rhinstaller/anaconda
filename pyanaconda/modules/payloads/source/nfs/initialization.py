@@ -59,14 +59,14 @@ class SetUpNFSSourceTask(Task):
 
     @property
     def name(self):
-        return "Set up a NFS source"
+        return "Set up an NFS source"
 
     def run(self):
         """Set up the installation source.
 
         :return SetUpNFSSourceResult: a result data
         """
-        log.debug("Setting up a NFS source: %s", self._url)
+        log.debug("Setting up an NFS source: %s", self._url)
 
         # Set up the NFS source.
         install_tree_path = self._set_up_source()

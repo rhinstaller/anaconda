@@ -142,7 +142,7 @@ class NFSSourceTestCase(unittest.TestCase):
         with pytest.raises(InvalidValueError) as cm:
             self.module.set_configuration(configuration)
 
-        assert str(cm.value) == "Invalid protocol of a NFS source: 'cdrom'"
+        assert str(cm.value) == "Invalid protocol of an NFS source: 'cdrom'"
 
     def test_configuration_invalid_url_type(self):
         """Test the source configuration with an invalid URL type."""
@@ -153,7 +153,7 @@ class NFSSourceTestCase(unittest.TestCase):
         with pytest.raises(InvalidValueError) as cm:
             self.module.set_configuration(configuration)
 
-        assert str(cm.value) == "Invalid URL type of a NFS source: 'MIRRORLIST'"
+        assert str(cm.value) == "Invalid URL type of an NFS source: 'MIRRORLIST'"
 
     def test_repository_configuration(self):
         """Test the repository configuration."""
@@ -187,7 +187,7 @@ class NFSSourceSetupTaskTestCase(unittest.TestCase):
         )
         result = task.run()
 
-        assert task.name == "Set up a NFS source"
+        assert task.name == "Set up an NFS source"
         assert isinstance(result, SetUpNFSSourceResult)
         assert isinstance(result.repository, RepoConfigurationData)
         assert result.repository.url == expected
