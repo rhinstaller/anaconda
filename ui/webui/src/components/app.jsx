@@ -134,6 +134,7 @@ export const Application = () => {
                   onAddErrorNotification={onAddErrorNotification}
                   toggleContextHelp={toggleContextHelp}
                   title={title}
+                  conf={conf}
                 />
             </AddressContext.Provider>
         </Page>
