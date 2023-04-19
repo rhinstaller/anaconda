@@ -119,7 +119,7 @@ class KickstartModuleInterface(KickstartModuleInterfaceTemplate):
 
         Examples: "cs_CZ.UTF-8", "fr_FR"
         """
-        return self.implementation.set_locale(locale)
+        self.implementation.set_locale(locale)
 
     def ConfigureWithTasks(self) -> List[ObjPath]:
         """Configure the runtime environment.
