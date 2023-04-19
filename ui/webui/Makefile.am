@@ -71,7 +71,7 @@ COCKPIT_REPO_FILES = \
 	$(NULL)
 
 COCKPIT_REPO_URL = https://github.com/cockpit-project/cockpit.git
-COCKPIT_REPO_COMMIT = 54a8ebd2dfe4d53bcfa5db660701469e3f21dbba # 288.2 + cockpit-po-plugin fix
+COCKPIT_REPO_COMMIT = 84c7ee507b57485b5edd97ed3321982a59032f20 # 289 + run-tests machine_class fix
 
 $(COCKPIT_REPO_FILES): $(COCKPIT_REPO_STAMP)
 COCKPIT_REPO_TREE = '$(strip $(COCKPIT_REPO_COMMIT))^{tree}'
@@ -102,7 +102,7 @@ create-updates.img: bots
 # test runs in kernel_t context and triggers massive amounts of SELinux
 # denials; SELinux gets disabled, but would still trigger unexpected messages
 integration-test: bots test/common test/reference $(UPDATES_IMG)
-	TEST_AUDIT_NO_SELINUX=1 test/run-tests
+	TEST_AUDIT_NO_SELINUX=1 test/common/run-tests
 
 test/reference: test/common
 	test/common/pixel-tests pull
