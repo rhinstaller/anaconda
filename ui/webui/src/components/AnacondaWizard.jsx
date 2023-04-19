@@ -165,7 +165,7 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, titl
             storageEncryption={storageEncryption}
             showPassphraseScreen={showPassphraseScreen}
             setShowPassphraseScreen={setShowPassphraseScreen}
-            isQuitReboot={conf["Installation System"].type == "BOOT_ISO"}
+            isQuitReboot={conf["Installation System"].type === "BOOT_ISO"}
           />}
           hideClose
           mainAriaLabel={`${title} content`}
