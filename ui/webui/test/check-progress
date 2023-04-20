@@ -43,7 +43,7 @@ class TestInstallationProgress(anacondalib.VirtInstallMachineCase):
 
         # the warning can take longer to show up than the regular wait_in_text() timeout
         with b.wait_timeout(600):
-            b.wait_in_text("h2", "Installed")
+            b.wait_in_text("h2", "Successfully installed")
 
         # Pixel test the complete progress step
         b.assert_pixels(
