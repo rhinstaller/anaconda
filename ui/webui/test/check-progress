@@ -45,11 +45,6 @@ class TestInstallationProgress(anacondalib.VirtInstallMachineCase):
         with b.wait_timeout(600):
             b.wait_in_text("h2", "Installed")
 
-        b.wait_visible("#installation-progress-step-0[aria-label='completed step'] > div:first-child")
-        b.wait_visible("#installation-progress-step-1[aria-label='completed step'] > div:first-child")
-        b.wait_visible("#installation-progress-step-2[aria-label='completed step'] > div:first-child")
-        b.wait_visible("#installation-progress-step-3[aria-label='completed step'] > div:first-child")
-
         # Pixel test the complete progress step
         b.assert_pixels(
             "#app",

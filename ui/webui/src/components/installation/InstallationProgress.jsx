@@ -23,7 +23,6 @@ import {
     ProgressStep,
     ProgressStepper,
     Stack,
-    TextContent,
     Text,
 } from "@patternfly/react-core";
 import {
@@ -137,7 +136,7 @@ export class InstallationProgress extends React.Component {
         let title;
         if (status === "success") {
             icon = CheckCircleIcon;
-            title = _("Installed");
+            title = _("Successfully installed");
         } else if (status === "danger") {
             icon = ExclamationCircleIcon;
             title = _("Installation failed");
@@ -152,58 +151,64 @@ export class InstallationProgress extends React.Component {
                   loading={!icon}
                   paragraph={
                       <Flex direction={{ default: "column" }}>
-                          <TextContent>
-                              {currentProgressStep < 4 ? progressSteps[currentProgressStep].description : null}
-                          </TextContent>
-                          <FlexItem spacer={{ default: "spacerXl" }} />
-                          <ProgressStepper isCenterAligned>
-                              {progressSteps.map((progressStep, index) => {
-                                  let variant = "pending";
-                                  let ariaLabel = _("pending step");
-                                  let phaseText = _("Pending");
-                                  let statusText = "";
-                                  let phaseIcon = <PendingIcon />;
-                                  if (index < currentProgressStep) {
-                                      variant = "success";
-                                      ariaLabel = _("completed step");
-                                      phaseText = _("Completed");
-                                      phaseIcon = <CheckCircleIcon />;
-                                  } else if (index === currentProgressStep) {
-                                      variant = status === "danger" ? status : "info";
-                                      ariaLabel = _("current step");
-                                      phaseText = _("In progress");
-                                      statusText = statusMessage;
-                                      if (status === "danger") {
-                                          phaseIcon = <ExclamationCircleIcon />;
-                                      } else {
-                                          phaseIcon = <InProgressIcon />;
-                                      }
-                                  }
-                                  return (
-                                      <ProgressStep
-                                        aria-label={ariaLabel}
-                                        id={idPrefix + "-step-" + index}
-                                        isCurrent={index === currentProgressStep}
-                                        icon={phaseIcon}
-                                        titleId={progressStep.id}
-                                        key={index}
-                                        variant={variant}
-                                        description={
-                                            <Flex direction={{ default: "column" }}>
-                                                <FlexItem spacer={{ default: "spacerNone" }}>
-                                                    <Text>{phaseText}</Text>
-                                                </FlexItem>
-                                                <FlexItem spacer={{ default: "spacerNone" }}>
-                                                    <Text>{statusText}</Text>
-                                                </FlexItem>
-                                            </Flex>
-                                        }
-                                      >
-                                          {progressStep.title}
-                                      </ProgressStep>
-                                  );
-                              })}
-                          </ProgressStepper>
+                          <Text>
+                              {currentProgressStep < 4
+                                  ? progressSteps[currentProgressStep].description
+                                  // TODO Replace the placeholder text with an actual product name.
+                                  : _("To begin using Fedora 39 (Workstation Edition), reboot your system.")}
+                          </Text>
+                          {currentProgressStep < 4 && (
+                              <>
+                                  <FlexItem spacer={{ default: "spacerXl" }} />
+                                  <ProgressStepper isCenterAligned>
+                                      {progressSteps.map((progressStep, index) => {
+                                          let variant = "pending";
+                                          let ariaLabel = _("pending step");
+                                          let phaseText = _("Pending");
+                                          let statusText = "";
+                                          let phaseIcon = <PendingIcon />;
+                                          if (index < currentProgressStep) {
+                                              variant = "success";
+                                              ariaLabel = _("completed step");
+                                              phaseText = _("Completed");
+                                              phaseIcon = <CheckCircleIcon />;
+                                          } else if (index === currentProgressStep) {
+                                              variant = status === "danger" ? status : "info";
+                                              ariaLabel = _("current step");
+                                              phaseText = _("In progress");
+                                              statusText = statusMessage;
+                                              if (status === "danger") {
+                                                  phaseIcon = <ExclamationCircleIcon />;
+                                              } else {
+                                                  phaseIcon = <InProgressIcon />;
+                                              }
+                                          }
+                                          return (
+                                              <ProgressStep
+                                                aria-label={ariaLabel}
+                                                id={idPrefix + "-step-" + index}
+                                                isCurrent={index === currentProgressStep}
+                                                icon={phaseIcon}
+                                                titleId={progressStep.id}
+                                                key={index}
+                                                variant={variant}
+                                                description={
+                                                    <Flex direction={{ default: "column" }}>
+                                                        <FlexItem spacer={{ default: "spacerNone" }}>
+                                                            <Text>{phaseText}</Text>
+                                                        </FlexItem>
+                                                        <FlexItem spacer={{ default: "spacerNone" }}>
+                                                            <Text>{statusText}</Text>
+                                                        </FlexItem>
+                                                    </Flex>
+                                                }
+                                              >
+                                                  {progressStep.title}
+                                              </ProgressStep>
+                                          );
+                                      })}
+                                  </ProgressStepper>
+                              </>)}
                       </Flex>
                   }
                   secondary={
