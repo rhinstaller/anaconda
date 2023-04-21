@@ -25,8 +25,11 @@ from installer import InstallerSteps  # pylint: disable=import-error
 from step_logger import log_step
 
 
-STORAGE_INTERFACE = "org.fedoraproject.Anaconda.Modules.Storage"
+STORAGE_SERVICE = "org.fedoraproject.Anaconda.Modules.Storage"
+STORAGE_INTERFACE = STORAGE_SERVICE
+DISK_INITIALIZATION_INTERFACE = "org.fedoraproject.Anaconda.Modules.Storage.DiskInitialization"
 STORAGE_OBJECT_PATH = "/org/fedoraproject/Anaconda/Modules/Storage"
+DISK_INITIALIZATION_OBJECT_PATH = "/org/fedoraproject/Anaconda/Modules/Storage/DiskInitialization"
 
 
 class Storage():
@@ -34,6 +37,7 @@ class Storage():
         self.browser = browser
         self.machine = machine
         self._step = InstallerSteps.STORAGE_DEVICES
+        self._bus_address = self.machine.execute("cat /run/anaconda/bus.address")
 
     def get_disks(self):
         output = self.machine.execute('list-harddrives')
@@ -84,11 +88,17 @@ class Storage():
         self.browser.wait_not_present("#no-disks-detected-alert")
 
     def dbus_reset_partitioning(self):
-        bus_address = self.machine.execute("cat /run/anaconda/bus.address")
-        self.machine.execute(f'dbus-send --print-reply --bus="{bus_address}" \
-            --dest={STORAGE_INTERFACE} \
+        self.machine.execute(f'dbus-send --print-reply --bus="{self._bus_address}" \
+            --dest={STORAGE_SERVICE} \
             {STORAGE_OBJECT_PATH} \
             {STORAGE_INTERFACE}.ResetPartitioning')
+
+    def dbus_set_initialization_mode(self, value):
+        self.machine.execute(f'dbus-send --print-reply --bus="{self._bus_address}" \
+            --dest={STORAGE_SERVICE} \
+            {DISK_INITIALIZATION_OBJECT_PATH} \
+            org.freedesktop.DBus.Properties.Set \
+            string:"{DISK_INITIALIZATION_INTERFACE}" string:"InitializationMode" variant:int32:{value}')
 
     @log_step(snapshots=True)
     def rescan_disks(self):
