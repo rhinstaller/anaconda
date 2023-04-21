@@ -35,11 +35,28 @@ class KickstartManager(object):
 
     def __init__(self):
         self._module_observers = []
+        self._direct_observer = None
+        self._direct_observer_name = ""
 
     @property
     def module_observers(self):
         """Get all module observers for kickstart distribution."""
         return self._module_observers
+
+    @property
+    def direct_observer(self):
+        """Get the direct observer for kickstart distribution."""
+        return self._direct_observer
+
+    @property
+    def direct_observer_name(self):
+        """Get the direct observer name."""
+        return self._direct_observer_name
+
+    def set_direct_observer(self, observer, name):
+        """Set the direct observer and its name."""
+        self._direct_observer = observer
+        self._direct_observer_name = name
 
     def on_module_observers_changed(self, observers):
         """Set module observers for kickstart distribution."""
@@ -55,14 +72,16 @@ class KickstartManager(object):
 
         try:
             elements = self._split_to_elements(path)
-            reports = self._distribute_to_modules(elements)
+            module_reports = self._distribute_to_modules(elements)
+            direct_report = self._distribute_to_direct(elements)
         except KickstartError as e:
             data = KickstartMessage.for_error(e)
             data.module_name = BOSS.service_name
             data.file_name = path
             report.error_messages.append(data)
         else:
-            self._merge_module_reports(report, reports)
+            self._merge_module_reports(report, module_reports)
+            self._merge_module_reports(report, [direct_report])
 
         return report
 
@@ -125,8 +144,54 @@ class KickstartManager(object):
 
         return reports
 
+    def _distribute_to_direct(self, elements):
+        """Distribute split kickstart to direct consumer, synchronously.
+
+        :returns: list of (Line number, Message) errors reported by the consumer when
+                  distributing kickstart
+        :rtype: kickstart reports
+        """
+        if not self._direct_observer:
+            return KickstartReport()
+
+        spec = self._direct_observer.kickstart_specification
+
+        log.info("%s handles commands %s sections %s addons %s.",
+                 self._direct_observer_name, spec.commands, spec.sections, spec.addons)
+
+        observer_elements = elements.get_and_process_elements(
+            commands=spec.commands,
+            sections=spec.sections,
+            addons=spec.addons
+        )
+
+        observer_kickstart = elements.get_kickstart_from_elements(
+            observer_elements
+        )
+
+        if not observer_kickstart:
+            log.info("There are no kickstart data for %s.", self._direct_observer_name)
+            return KickstartReport()
+
+        observer_report = self._direct_observer.read_kickstart(
+            observer_kickstart
+        )
+
+        line_references = elements.get_references_from_elements(
+            observer_elements
+        )
+
+        for message in observer_report.get_messages():
+            line_number, file_name = line_references[message.line_number]
+            message.line_number = line_number
+            message.file_name = file_name
+            message.module_name = self._direct_observer_name
+
+        return observer_report
+
     def _merge_module_reports(self, report, module_reports):
         """Merge the module reports into the final report."""
+        print("_merge_module_reports", "report:", report, "module_reports:", module_reports)
         for module_report in module_reports:
             report.error_messages.extend(module_report.error_messages)
             report.warning_messages.extend(module_report.warning_messages)
@@ -136,7 +201,15 @@ class KickstartManager(object):
 
         :return: a kickstart string
         """
-        kickstarts = self._generate_from_modules()
+        module_kickstarts = self._generate_from_modules()
+
+        if self._direct_observer:
+            direct_kickstart = self._generate_from_direct()
+            name = self._direct_observer_name
+            kickstarts = module_kickstarts | {name: direct_kickstart}
+        else:
+            kickstarts = module_kickstarts
+
         return self._merge_module_kickstarts(kickstarts)
 
     def _generate_from_modules(self):
@@ -156,6 +229,17 @@ class KickstartManager(object):
             result[module_name] = module_kickstart
 
         return result
+
+    def _generate_from_direct(self):
+        """Generate kickstart from the direct observer.
+
+        :return: kickstart strings
+        """
+        if not self._direct_observer:
+            return ""
+
+        kickstart = self._direct_observer.generate_kickstart()
+        return kickstart
 
     def _merge_module_kickstarts(self, module_kickstarts):
         """Merge kickstart from modules

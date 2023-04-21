@@ -18,6 +18,7 @@
 
 import unittest
 import os
+from types import SimpleNamespace
 from contextlib import contextmanager
 from unittest.mock import Mock
 
@@ -52,6 +53,8 @@ clearpart --all --drives=vda
 ignoredisk --only-use=vda
 
 firewall --enabled
+
+sheep --graze
 
 # Partitioning conflicts with autopart
 #part /boot --fstype=xfs --onpart=vda1
@@ -135,7 +138,11 @@ m3_kickstart = """
 %end
 """.lstrip()
 
-m123_kickstart = """
+direct_kickstart = """
+sheep --graze
+""".lstrip()
+
+m123d_kickstart = """
 network --device ens3
 network --device ens4 --activate
 network --device=ens51 --activate
@@ -153,6 +160,8 @@ firewall --enabled
 @PARSE_ERROR
 @base
 %end
+
+sheep --graze
 """.strip()
 
 unprocessed_kickstart = """
@@ -198,7 +207,8 @@ class KickstartManagerTestCase(unittest.TestCase):
         self._m1_kickstart = m1_kickstart
         self._m2_kickstart = m2_kickstart
         self._m3_kickstart = m3_kickstart
-        self._m123_kickstart = m123_kickstart
+        self._direct_kickstart = direct_kickstart
+        self._m123d_kickstart = m123d_kickstart
 
     @contextmanager
     def _create_ks_files(self, kickstart):
@@ -226,12 +236,14 @@ class KickstartManagerTestCase(unittest.TestCase):
         module2 = TestModule(addons=["pony"])
         module3 = TestModule(sections=["packages"])
         module4 = TestModule(addons=["scorched"])
+        direct = DirectTestModule()
 
         m1_observer = self._get_module_observer("1", module1)
         m2_observer = self._get_module_observer("2", module2)
         m3_observer = self._get_module_observer("3", module3)
         m4_observer = self._get_module_observer("4", module4, available=False)
 
+        manager.set_direct_observer(direct, "Direct")
         manager.on_module_observers_changed([
             m1_observer,
             m2_observer,
@@ -246,6 +258,7 @@ class KickstartManagerTestCase(unittest.TestCase):
         assert module2.kickstart == self._m2_kickstart
         assert module3.kickstart == self._m3_kickstart
         assert module4.kickstart == ""
+        assert direct.kickstart == self._direct_kickstart
 
         assert report.is_valid() is False
         assert len(report.get_messages()) == 2
@@ -259,10 +272,10 @@ class KickstartManagerTestCase(unittest.TestCase):
         error = report.get_messages()[1]
         assert error.module_name == "3"
         assert error.file_name == "ks.manager.test.include.cfg"
-        assert error.line_number == 41
+        assert error.line_number == 43
         assert error.message == "Mocked parse error: \"PARSE_ERROR\" found"
 
-        assert manager.generate_kickstart() == self._m123_kickstart
+        assert manager.generate_kickstart() == self._m123d_kickstart
 
     def test_nothing_to_parse(self):
         ks_content = ""
@@ -375,3 +388,24 @@ class TestModule(object):
     def GenerateKickstart(self):
         """Mock generating a kickstart."""
         return self.kickstart
+
+
+class DirectTestModule:
+    def __init__(self):
+        self._ks = ""
+
+    @property
+    def kickstart_specification(self):
+        """Mock a KickstartSpecification subclass return."""
+        return SimpleNamespace(commands={"sheep": None,}, sections={}, addons={})
+
+    def generate_kickstart(self):
+        return self._ks
+
+    def read_kickstart(self, ks_str):
+        self._ks = ks_str
+        return KickstartReport()
+
+    @property
+    def kickstart(self):
+        return self._ks
