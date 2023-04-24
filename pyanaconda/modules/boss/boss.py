@@ -91,7 +91,7 @@ class Boss(Service):
         log.info("Reading a kickstart file at %s.", path)
         return self._kickstart_manager.read_kickstart_file(path)
 
-    def generate_kickstart(self):
+    def generate_whole_kickstart(self):
         """Return a kickstart representation of modules.
 
         :return: a kickstart string

@@ -137,9 +137,9 @@ class BossInterfaceTestCase(unittest.TestCase):
             "warning-messages": get_variant(List[Structure], [])
         }
 
-    def test_generate_kickstart(self):
-        """Test GenerateKickstart."""
-        assert self.interface.GenerateKickstart() == ""
+    def test_generate_whole_kickstart(self):
+        """Test GenerateWholeKickstart."""
+        assert self.interface.GenerateWholeKickstart() == ""
 
     def test_set_locale(self):
         """Test SetLocale."""

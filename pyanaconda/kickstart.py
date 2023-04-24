@@ -271,7 +271,7 @@ class AnacondaKSHandler(superclass):
 
     def __str__(self):
         proxy = BOSS.get_proxy()
-        modules = proxy.GenerateKickstart().strip()
+        modules = proxy.GenerateWholeKickstart().strip()
         return super().__str__() + "\n" + modules
 
 
