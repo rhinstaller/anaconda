@@ -1,5 +1,7 @@
 #
-# Copyright (C) 2018 Red Hat, Inc.
+# Kickstart handler for date and time settings.
+#
+# Copyright (C) 2023 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -15,12 +17,19 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.modules.common.base.base import BaseModule, Service, KickstartService, \
-    KickstartBaseModule, KickstartParsingModule
-from pyanaconda.modules.common.base.base_interface import KickstartModuleInterface
-from pyanaconda.modules.common.base.base_template import ModuleInterfaceTemplate, \
-    KickstartModuleInterfaceTemplate
+from pyanaconda.core.kickstart import KickstartSpecification, commands as COMMANDS
 
-__all__ = ["BaseModule", "Service", "KickstartBaseModule", "KickstartService",
-           "ModuleInterfaceTemplate", "KickstartModuleInterfaceTemplate",
-           "KickstartModuleInterface", "KickstartParsingModule"]
+
+class BossKickstartSpecification(KickstartSpecification):
+
+    commands = {
+        "driverdisk": COMMANDS.DriverDisk,
+        "mediacheck": COMMANDS.MediaCheck,
+        "sshpw": COMMANDS.SshPw,
+        "updates": COMMANDS.Updates,
+    }
+
+    commands_data = {
+        "DriverDiskData": COMMANDS.DriverDiskData,
+        "SshPwData": COMMANDS.SshPwData,
+    }

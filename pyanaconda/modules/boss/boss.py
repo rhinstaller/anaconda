@@ -1,7 +1,7 @@
 #
 # Anaconda main DBus module & module manager.
 #
-# Copyright (C) 2017 Red Hat, Inc.
+# Copyright (C) 2023 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -24,9 +24,11 @@ from pyanaconda.modules.boss.boss_interface import BossInterface
 from pyanaconda.modules.boss.module_manager import ModuleManager
 from pyanaconda.modules.boss.install_manager import InstallManager
 from pyanaconda.modules.boss.installation import CopyLogsTask, SetContextsTask
+from pyanaconda.modules.boss.kickstart import BossKickstartSpecification
 from pyanaconda.modules.boss.kickstart_manager import KickstartManager
 from pyanaconda.modules.boss.user_interface import UIModule
-from pyanaconda.modules.common.base import Service
+from pyanaconda.modules.boss.dracut_only_commands import DracutOnlyCommandsModule
+from pyanaconda.modules.common.base import Service, KickstartParsingModule
 from pyanaconda.modules.common.constants.services import BOSS
 from pyanaconda.modules.common.containers import TaskContainer
 
@@ -35,7 +37,7 @@ log = get_module_logger(__name__)
 __all__ = ["Boss"]
 
 
-class Boss(Service):
+class Boss(Service, KickstartParsingModule):
     """The Boss service."""
 
     def __init__(self):
@@ -43,8 +45,16 @@ class Boss(Service):
         self._module_manager = ModuleManager()
         self._kickstart_manager = KickstartManager()
         self._install_manager = InstallManager()
-        self._ui_module = UIModule()
 
+        self._child_modules = []
+
+        self._ui_module = UIModule()
+        self._add_module(self._ui_module)
+
+        self._dracut_only_command_module = DracutOnlyCommandsModule()
+        self._add_module(self._dracut_only_command_module)
+
+        self._kickstart_manager.set_direct_observer(self, "Boss")
         self._module_manager.module_observers_changed.connect(
             self._kickstart_manager.on_module_observers_changed
         )
@@ -53,15 +63,35 @@ class Boss(Service):
             self._install_manager.on_module_observers_changed
         )
 
+    def _add_module(self, child_module):
+        """Add a base kickstart module."""
+        self._child_modules.append(child_module)
+
     def publish(self):
         """Publish the boss."""
         TaskContainer.set_namespace(BOSS.namespace)
 
         # Publish submodules.
-        self._ui_module.publish()
+        for kickstart_module in self._child_modules:
+            kickstart_module.publish()
 
         DBus.publish_object(BOSS.object_path, BossInterface(self))
         DBus.register_service(BOSS.service_name)
+
+    @property
+    def kickstart_specification(self):
+        """Return the kickstart specification."""
+        return BossKickstartSpecification
+
+    def process_kickstart(self, data):
+        """Process the kickstart data."""
+        for kickstart_module in self._child_modules:
+            kickstart_module.process_kickstart(data)
+
+    def setup_kickstart(self, data):
+        """Set up the kickstart data."""
+        for kickstart_module in self._child_modules:
+            kickstart_module.setup_kickstart(data)
 
     def get_modules(self):
         """Get service names of running modules.

@@ -146,10 +146,10 @@ class KickstartBaseModule(BaseModule):
         return []
 
 
-class KickstartService(Service, KickstartBaseModule):
-    """Implementation of a DBus service with kickstart support.
+class KickstartParsingModule(KickstartBaseModule):
+    """Implementation of a module with kickstart support.
 
-    The kickstart service is able to parse and generate the given
+    The module is able to parse and generate the given
     kickstart string based on its kickstart specification.
     """
 
@@ -258,6 +258,14 @@ class KickstartService(Service, KickstartBaseModule):
         handler = self.get_kickstart_handler()
         self.setup_kickstart(handler)
         return str(handler)
+
+
+class KickstartService(Service, KickstartParsingModule):
+    """Implementation of a DBus service with kickstart support.
+
+    The kickstart service is able to parse and generate the given
+    kickstart string based on its kickstart specification.
+    """
 
     def configure_with_tasks(self):
         """Configure the runtime environment.

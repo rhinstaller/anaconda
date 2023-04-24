@@ -1,6 +1,5 @@
-# modules/boss/Makefile.am for anaconda
 #
-# Copyright (C) 2017  Red Hat, Inc.
+# Copyright (C) 2023  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -15,10 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = install_manager kickstart_manager module_manager user_interface dracut_only_commands
-
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-bossdir = $(pkgpyexecdir)/modules/boss
-boss_PYTHON = $(srcdir)/*.py
+dracut_only_commandsdir = $(pkgpyexecdir)/modules/boss/dracut_only_commands
+dracut_only_commands_PYTHON = $(srcdir)/*.py
 
 MAINTAINERCLEANFILES = Makefile.in

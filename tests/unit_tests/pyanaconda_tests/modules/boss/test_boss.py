@@ -17,6 +17,7 @@
 #
 import tempfile
 import unittest
+from textwrap import dedent
 from unittest.mock import Mock, patch
 
 from dasbus.typing import *  # pylint: disable=wildcard-import
@@ -258,3 +259,38 @@ class BossInterfaceTestCase(unittest.TestCase):
     def test_quit(self):
         """Test Quit."""
         assert self.interface.Quit() is None
+
+    def _test_kickstart(self, ks_in, ks_out):
+        self.module.read_kickstart(ks_in)
+        result = self.module.generate_kickstart()
+        assert result == ks_out
+
+    def test_kickstart_empty(self):
+        """Test empty kickstart processing in Boss."""
+        ks_in = ""
+        ks_out = ""
+        self._test_kickstart(ks_in, ks_out)
+
+    def test_kickstart1(self):
+        """Test kickstart processing in Boss (1)."""
+        ks_in = dedent("""
+        mediacheck
+        updates http://somewhere.url/path/file.image
+        sshpw --username root --plaintext anaconda
+        sshpw --username vslavik --lock --iscrypted  $y$j9T$bLceUf7O5RmwKa1Vt3Hbg.$evO.pNo0Z8kxG.u3uDxraPaffuthT7sS9QSpPFWEnf6
+        driverdisk --source nfs:host:/path/to/img
+        """)
+        ks_out = dedent("""
+        driverdisk --source=nfs:host:/path/to/img
+        mediacheck
+        sshpw --username=root --plaintext anaconda
+        sshpw --username=vslavik --lock --iscrypted $y$j9T$bLceUf7O5RmwKa1Vt3Hbg.$evO.pNo0Z8kxG.u3uDxraPaffuthT7sS9QSpPFWEnf6
+        updates http://somewhere.url/path/file.image
+        """).lstrip()
+        self._test_kickstart(ks_in, ks_out)
+
+    def test_kickstart2(self):
+        """Test kickstart processing in Boss (2)."""
+        ks_in = "driverdisk UUID=whatever\n"
+        ks_out = "driverdisk UUID=whatever\n"
+        self._test_kickstart(ks_in, ks_out)

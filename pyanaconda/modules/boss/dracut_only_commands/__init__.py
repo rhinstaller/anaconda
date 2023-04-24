@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2018 Red Hat, Inc.
+# Copyright (C) 2023 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -15,12 +15,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.modules.common.base.base import BaseModule, Service, KickstartService, \
-    KickstartBaseModule, KickstartParsingModule
-from pyanaconda.modules.common.base.base_interface import KickstartModuleInterface
-from pyanaconda.modules.common.base.base_template import ModuleInterfaceTemplate, \
-    KickstartModuleInterfaceTemplate
+from pyanaconda.modules.boss.dracut_only_commands.dracut_only_commands import \
+    DracutOnlyCommandsModule
 
-__all__ = ["BaseModule", "Service", "KickstartBaseModule", "KickstartService",
-           "ModuleInterfaceTemplate", "KickstartModuleInterfaceTemplate",
-           "KickstartModuleInterface", "KickstartParsingModule"]
+__all__ = ["DracutOnlyCommandsModule"]
