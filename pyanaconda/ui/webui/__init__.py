@@ -93,9 +93,20 @@ class CockpitUserInterface(ui.UserInterface):
         """Run the interface."""
         log.debug("web-ui: starting cockpit web view")
         if self.remote:
+            # Override the cockpit.service unit to allow root
+            with open("/etc/systemd/system/cockpit.service", "w") as f:
+                f.write("""
+[Unit]
+Description=Cockpit Web Service
+
+[Service]
+ExecStart=/usr/libexec/cockpit-ws --no-tls --port 9090 --local-session=cockpit-bridge
+""")
             startProgram([
-                "/usr/libexec/cockpit-ws", "--no-tls",
-                "--port", "9090", "--local-session=cockpit-bridge"
+                "/usr/bin/systemctl", "daemon-reload"
+            ])
+            startProgram([
+                "/usr/bin/systemctl", "enable", "--now", "cockpit.socket"
             ])
 
         proc = startProgram(["/usr/libexec/cockpit-desktop",
