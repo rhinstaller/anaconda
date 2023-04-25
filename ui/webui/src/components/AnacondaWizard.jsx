@@ -37,6 +37,7 @@ import { InstallationProgress } from "./installation/InstallationProgress.jsx";
 import { ReviewConfiguration, ReviewConfigurationConfirmModal } from "./review/ReviewConfiguration.jsx";
 import { exitGui } from "../helpers/exit.js";
 import { usePageLocation } from "hooks";
+import { resetPartitioning } from "../apis/storage.js";
 
 const _ = cockpit.gettext;
 
@@ -235,6 +236,11 @@ const Footer = ({
             setShowPassphraseScreen(false);
         } else {
             onBack();
+        }
+        if (activeStep.id === "installation-review") {
+            resetPartitioning().then(() => {
+                console.log("resetPartitioning");
+            }, console.error);
         }
     };
 
