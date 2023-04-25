@@ -33,6 +33,7 @@ import { HelpDrawer } from "./HelpDrawer.jsx";
 import { BossClient } from "../apis/boss.js";
 import { LocalizationClient } from "../apis/localization.js";
 import { StorageClient, startEventMonitorStorage } from "../apis/storage.js";
+import { TimezoneClient } from "../apis/timezone.js";
 import { PayloadsClient } from "../apis/payloads";
 
 import { readBuildstamp, getIsFinal } from "../helpers/betanag.js";
@@ -55,6 +56,7 @@ export const Application = () => {
             const clients = [
                 new LocalizationClient(address),
                 new StorageClient(address),
+                new TimezoneClient(address),
                 new PayloadsClient(address),
                 new BossClient(address)
             ];
