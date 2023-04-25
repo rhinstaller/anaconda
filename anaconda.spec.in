@@ -469,6 +469,26 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 25 2023 github-actions <github-actions@github.com> - 39.12-1
+- WebUI: [pixel tests]  Hide progress stepper after finishing (rvykydal)
+- WebUI: allow webui_testvm to pick up development files (jvanderwaa)
+- pyanaconda: start cockpit-ws from a systemd unit (jvanderwaa)
+- webui: reset storage backend before autopart test (rvykydal)
+- WebUI: Update test for Hide progress stepper after finishing (rvykydal)
+- WebUI: Hide progress stepper after finishing (ozobal)
+- webui: [pixel tests] fix spacing of Storage Congfiguration options (rvykydal)
+- webui: fix spacing of Storage Congfiguration options (rvykydal)
+- Fix indefinite articles before "NFS" (jstodola)
+- Remove redundant return (vslavik)
+- Fix virt-install cockpit run on fedora-X images (jkonecny)
+- WebUI: Dynamically choose Quit/Reboot button label (ozobal)
+- WebUI: use Cockpit's run-tests (jvanderwaa)
+- WebUI: introduce a new MachineCase subclass for VirtInstallMachine
+  (jvanderwaa)
+- WebUI: touch dist/manifest.json explicitly (jvanderwaa)
+- Run webui-tests workflow on a testing runner for some time (rvykydal)
+- Add GH workflow to run webui integration tests in Permian on PR (rvykydal)
+
 * Tue Apr 18 2023 github-actions <github-actions@github.com> - 39.11-1
 - Add missing documentation about OEMDRV (#2171811) (jkonecny)
 - gui: Simplify invalid timezone handling. (vslavik)
