@@ -164,14 +164,9 @@ If you are submitting a patch that should be documented in the release notes, cr
 ``docs/release-notes/template.rst`` file, modify its content and add the new file to your patch, so
 it can be reviewed and merged together with your changes.
 
-The template has the following content:
-
-.. include:: ./docs/release-notes/template.rst
-    :literal:
-
 After a final release (for example, Fedora GA), we will remove all release notes from
-``docs/release-notes/`` of the release branch and create a new file in ``docs/releases/``
-with their content.
+``docs/release-notes/`` of the release branch and add the content into the ``docs/release-notes.rst``
+file.
 
 This change will be ported to upstream to remove the already documented release notes from
 ``docs/release-notes/`` of the upstream branch. In a case of RHEL, port only the new release file.
