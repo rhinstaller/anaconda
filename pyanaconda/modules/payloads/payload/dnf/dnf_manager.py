@@ -275,3 +275,16 @@ class DNFManager(object):
         return exception.error_group_specs \
             or exception.error_pkg_specs \
             or exception.module_depsolv_errors
+
+    def match_available_packages(self, pattern):
+        """Find available packages that match the specified pattern.
+
+        :param pattern: a pattern for package names
+        :return: a list of matched package names
+        """
+        if not self._base.sack:
+            log.warning("There is no metadata about packages!")
+            return []
+
+        packages = self._base.sack.query().available().filter(name__glob=pattern)
+        return [p.name for p in packages]
