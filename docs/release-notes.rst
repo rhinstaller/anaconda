@@ -3,6 +3,36 @@ Release notes
 
 This document describes major installer-related changes in Fedora releases.
 
+Fedora 38
+#########
+
+Architecture support changes
+----------------------------
+
+Do not pass the `rd.znet` boot argument on to the installed system unconditionally
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+With this change, the `rd.znet` boot argument is no longer passed on to the installed
+system unconditionally on IBM Z systems and the network device is configured and
+activated after switchroot by udev/NetworkManager. When networking is needed early in
+initramfs (like in a case of the root file system on iSCSI), `rd.znet` is automatically
+added to the kernel command line of the installed via a different mechanism.
+See the pull request `#4303 <https://github.com/rhinstaller/anaconda/pull/4303>`__.
+
+Payload changes
+-----------------
+
+Add support for OSTree native containers
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Fedora is adding a new enhanced container support for the (rpm-)ostree stack to
+natively support OCI/Docker containers as a transport and delivery mechanism
+for operating system content. Anaconda now supports these containers by
+a new kickstart command `ostreecontainer`.
+See the pull request `#4617 <https://github.com/rhinstaller/anaconda/pull/4617>`__,
+`Fedora Change <https://fedoraproject.org/wiki/Changes/OstreeNativeContainerStable>`__
+and `Pykickstart <https://pykickstart.readthedocs.io/en/latest/kickstart-docs.html#ostreecontainer>`__.
+
 Fedora 37
 #########
 
