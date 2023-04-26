@@ -27,5 +27,5 @@ npm install
 echo
 
 echo "Linting:"
-npx eslint --format stylish --no-color src/
+npx eslint --format stylish --no-color --ext .js --ext .jsx src/
 exit $?
