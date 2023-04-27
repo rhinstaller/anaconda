@@ -23,7 +23,7 @@ srpm_build_deps:
   - libarchive-devel
   - rpm-devel
   - nss_wrapper
-  - npm
+  - nodejs-npm
 
 actions:
   post-upstream-clone:
