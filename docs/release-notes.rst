@@ -6,6 +6,16 @@ This document describes major installer-related changes in Fedora releases.
 Fedora 38
 #########
 
+Changes in the graphical interface
+----------------------------------
+
+Modernized welcome screen on Live CD
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The welcome screen on Live CD has been changed to follow the current design patterns,
+as well as fit better into the surrounding GTK4-based interface.
+See the pull request `#4616 <https://github.com/rhinstaller/anaconda/pull/4616>`__ for more information.
+
 Architecture support changes
 ----------------------------
 
@@ -32,6 +42,29 @@ a new kickstart command `ostreecontainer`.
 See the pull request `#4617 <https://github.com/rhinstaller/anaconda/pull/4617>`__,
 `Fedora Change <https://fedoraproject.org/wiki/Changes/OstreeNativeContainerStable>`__
 and `Pykickstart <https://pykickstart.readthedocs.io/en/latest/kickstart-docs.html#ostreecontainer>`__.
+
+rpm-ostree now validates checksums for local repositories
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Previously, rpm-ostree installations verified checksums only for installations from a remote
+repository, while installations from local repositories did not verify the checksums.
+As a consequence, rpm-ostree installations from local repositories could install corrupted data
+without any indication. This behavior is now unified, and Anaconda verifies checksums for all
+rpm-ostree repositories. As a result, all rpm-ostree installations are now protected against
+installing corrupted data.
+See the pull request `#4357 <https://github.com/rhinstaller/anaconda/pull/4357>`__ for more information.
+
+General changes
+---------------
+
+Faster core dumps
+^^^^^^^^^^^^^^^^^
+
+Previously, Anaconda used a custom setup for handling tracebacks and saving core dumps. This is
+now realized by using the ``faulthandler`` Python module and the ``systemd-coredump`` service.
+As a result, the same debugging data is still available, while the installation environment
+becomes responsive significantly sooner after tracebacks. As a side effect, the logs from Anaconda
+and the installation environment now contain different error messages.
+See the `pull request <https://github.com/rhinstaller/anaconda/pull/4350>`__ for more information.
 
 Fedora 37
 #########
