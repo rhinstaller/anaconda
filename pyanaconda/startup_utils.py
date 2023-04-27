@@ -736,6 +736,10 @@ def apply_geolocation_result(display_mode):
         # by geolocation before continuing the installation.
         timezone_module.Kickstarted = True
 
+    if not conf.localization.use_geolocation:
+        log.info("Geoloc: skipping locale because of use_geolocation configuration")
+        return
+
     # skip language setup if already set by boot options or kickstart
     language = localization_module.Language
     if language and localization_module.LanguageKickstarted:

@@ -34,6 +34,7 @@ from pyanaconda.core.configuration.base import Section, Configuration, Configura
 from pyanaconda.core.configuration.profile import ProfileLoader
 from pyanaconda.core.configuration.ui import UserInterfaceSection
 from pyanaconda.core.configuration.timezone import TimezoneSection
+from pyanaconda.core.configuration.localization import LocalizationSection
 from pyanaconda.core.constants import ANACONDA_CONFIG_TMP, ANACONDA_CONFIG_DIR, \
     GEOLOC_PROVIDER_FEDORA_GEOIP, GEOLOC_PROVIDER_HOSTIP, GEOLOC_DEFAULT_PROVIDER, \
     GEOLOC_URL_FEDORA_GEOIP, GEOLOC_URL_HOSTIP
@@ -188,6 +189,10 @@ class AnacondaConfiguration(Configuration):
             "Timezone", self.get_parser()
         )
 
+        self._localization = LocalizationSection(
+            "Localization", self.get_parser()
+        )
+
     @property
     def anaconda(self):
         """The Anaconda section."""
@@ -247,6 +252,11 @@ class AnacondaConfiguration(Configuration):
     def timezone(self):
         """The Timezone section."""
         return self._timezone
+
+    @property
+    def localization(self):
+        """The Localization section."""
+        return self._localization
 
     def set_from_defaults(self):
         """Set the configuration from the default configuration files.
