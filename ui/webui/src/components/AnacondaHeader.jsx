@@ -29,9 +29,8 @@ import { InfoCircleIcon } from "@patternfly/react-icons";
 
 const _ = cockpit.gettext;
 
-const prerelease = _("Pre-release");
-
 export const AnacondaHeader = ({ beta, title }) => {
+    const prerelease = _("Pre-release");
     const betanag = beta
         ? (
             <Popover
