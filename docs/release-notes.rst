@@ -16,8 +16,26 @@ The welcome screen on Live CD has been changed to follow the current design patt
 as well as fit better into the surrounding GTK4-based interface.
 See the pull request `#4616 <https://github.com/rhinstaller/anaconda/pull/4616>`__ for more information.
 
-Architecture support changes
-----------------------------
+Improved configuration of additional repositories in GUI
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Configuration of additional repositories in the graphical user interface has been improved.
+The protocol selection is now replaced with a drop-down menu of source actions.
+The screen also shows only configuration options relevant to the selected source action.
+See the pull request `#4498 <https://github.com/rhinstaller/anaconda/pull/4498>`__ for more details.
+
+Installation source errors are visible again
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Previously, errors related to contents of the Installation Source screen did not cause the
+error message bar to appear at the bottom of the screen. As a consequence, users could not review
+the error messages and immediately correct the errors on the screen. The error message bar now
+appears correctly when errors occur. As a result, users can immediately notice errors in the
+Installation Source screen and correct them.
+See the pull request `#4501 <https://github.com/rhinstaller/anaconda/pull/4501>`__.
+
+Architecture and hardware support changes
+-----------------------------------------
 
 Do not pass the `rd.znet` boot argument on to the installed system unconditionally
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -28,6 +46,28 @@ activated after switchroot by udev/NetworkManager. When networking is needed ear
 initramfs (like in a case of the root file system on iSCSI), `rd.znet` is automatically
 added to the kernel command line of the installed via a different mechanism.
 See the pull request `#4303 <https://github.com/rhinstaller/anaconda/pull/4303>`__.
+
+The dmraid and nodmraid boot options are removed
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``inst.dmraid`` and ``inst.nodmraid`` boot options have been removed. These options no longer
+controlled any functionality, after Anaconda started using ``mdadm`` instead of ``dmraid``.
+See the pull request `#4517 <https://github.com/rhinstaller/anaconda/pull/4517>`__ and the related
+`Fedora Change <https://fedoraproject.org/wiki/Changes/UseMdadmForBIOSRAIDInAnaconda>`__.
+
+Biosboot partition verification
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The biosboot partition is now verified on all installation target disks.
+This improves support for booting from an array.
+See the pull request `#4277 <https://github.com/rhinstaller/anaconda/pull/4277>`__.
+
+Multiple bootloader devices on the Manual Partitioning screen
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+With this change, the graphical interface displays correctly all bootloader devices on the
+Manual Partitioning screen.
+See the pull request `#4271 <https://github.com/rhinstaller/anaconda/pull/4271>`__.
 
 Payload changes
 -----------------
