@@ -39,6 +39,10 @@ class GeolocationTask(Task):
     def run(self):
         url = conf.timezone.geolocation_provider
 
+        if not url:
+            log.info("Geoloc: skipping because no provider was set")
+            return GeolocationData()
+
         log.info("Geoloc: starting lookup using provider: %s", url)
         start_time = time.time()
 
