@@ -34,6 +34,15 @@ appears correctly when errors occur. As a result, users can immediately notice e
 Installation Source screen and correct them.
 See the pull request `#4501 <https://github.com/rhinstaller/anaconda/pull/4501>`__.
 
+Japanese translation fits the whole screen
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Previously, using Anaconda in Japanese caused the main screen elements to use larger font than in
+other languages. As a consequence, the user settings were hidden outside the visible screen area
+and required scrolling. The sizing has been corrected, and Japanese users can now see the user
+settings icon and description even on the smallest supported screen sizes again.
+See the pull request `#4325 <https://github.com/rhinstaller/anaconda/pull/4325>`__.
+
 Architecture and hardware support changes
 -----------------------------------------
 
@@ -92,6 +101,16 @@ without any indication. This behavior is now unified, and Anaconda verifies chec
 rpm-ostree repositories. As a result, all rpm-ostree installations are now protected against
 installing corrupted data.
 See the pull request `#4357 <https://github.com/rhinstaller/anaconda/pull/4357>`__ for more information.
+
+Kickstart support
+-----------------
+
+Creating hibernation swap from kickstart
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The new ``autopart (...) --hibernation`` kickstart option creates a swap partition with an
+automatically determined size that is big enough for hibernation.
+See the pull request `#4275 <https://github.com/rhinstaller/anaconda/pull/4275>`__.
 
 General changes
 ---------------
