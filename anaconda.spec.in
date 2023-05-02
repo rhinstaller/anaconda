@@ -469,6 +469,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 02 2023 github-actions <github-actions@github.com> - 39.13-1
+- WebUI: fix eslint error (jvanderwaa)
+- WebUI: run eslint in CI (jvanderwaa)
+
 * Tue Apr 25 2023 github-actions <github-actions@github.com> - 39.12-1
 - WebUI: [pixel tests]  Hide progress stepper after finishing (rvykydal)
 - WebUI: allow webui_testvm to pick up development files (jvanderwaa)
