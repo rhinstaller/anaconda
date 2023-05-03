@@ -25,12 +25,17 @@ import {
     DataListCell,
     DescriptionList, DescriptionListGroup,
     DescriptionListTerm, DescriptionListDescription,
+    ExpandableSection,
     Modal, ModalVariant,
     Alert
 } from "@patternfly/react-core";
 
 import {
-    getSelectedDisks, getDeviceData,
+    getSelectedDisks,
+    getDeviceData,
+    getAppliedPartitioning,
+    getPartitioningRequest,
+    getInitializationMode,
 } from "../../apis/storage.js";
 
 import {
@@ -38,13 +43,37 @@ import {
 } from "../../apis/localization.js";
 import { AnacondaPage } from "../AnacondaPage.jsx";
 
+import { scenarioForInitializationMode, getScenario } from "../storage/StorageConfiguration.jsx";
+
 const _ = cockpit.gettext;
 
-export const ReviewConfiguration = ({ idPrefix }) => {
+export const ReviewDescriptionList = ({ children }) => {
+    return (
+        <DescriptionList
+          isHorizontal
+          horizontalTermWidthModifier={{
+              default: "12ch",
+              sm: "15ch",
+              md: "20ch",
+              lg: "20ch",
+              xl: "20ch",
+              "2xl": "20ch",
+          }}
+        >
+            {children}
+        </DescriptionList>
+    );
+};
+
+export const ReviewConfiguration = ({ idPrefix, setStorageScenarioId }) => {
     const [deviceData, setDeviceData] = useState({});
     const [selectedDisks, setSelectedDisks] = useState();
     const [systemLanguage, setSystemLanguage] = useState();
+    const [disksExpanded, setDisksExpanded] = useState();
+    const [encrypt, setEncrypt] = useState();
+    const [storageScenario, setStorageScenario] = useState();
 
+    // TODO migrate to async/await
     useEffect(() => {
         getLanguage()
                 .then(res => {
@@ -54,6 +83,7 @@ export const ReviewConfiguration = ({ idPrefix }) => {
                 }, console.error);
         getSelectedDisks()
                 .then(res => {
+                    setDisksExpanded(res.length < 2);
                     setSelectedDisks(res);
                     // get detailed data for the selected disks
                     res.forEach(disk => {
@@ -63,16 +93,35 @@ export const ReviewConfiguration = ({ idPrefix }) => {
                                 }, console.error);
                     });
                 }, console.error);
+        getAppliedPartitioning()
+                .then(partitioning => {
+                    return getPartitioningRequest({ partitioning });
+                }, console.error)
+                .then(request => {
+                    setEncrypt(request.encrypted.v);
+                }, console.error);
+        getInitializationMode()
+                .then(mode => {
+                    const scenarioId = scenarioForInitializationMode(mode).id;
+                    setStorageScenario(scenarioId);
+                }, console.error);
     }, []);
 
+    useEffect(() => {
+        if (typeof storageScenario !== "undefined") {
+            setStorageScenarioId(storageScenario);
+            console.log("Global storageScenario id set to", storageScenario);
+        }
+    }, [storageScenario, setStorageScenarioId]);
+
     // handle case of disks not (yet) loaded
-    if (!selectedDisks || !systemLanguage) {
+    if (!selectedDisks || !systemLanguage || !storageScenario) {
         return null;
     }
 
     return (
         <AnacondaPage title={_("Review and install")}>
-            <DescriptionList isHorizontal>
+            <ReviewDescriptionList>
                 <DescriptionListGroup>
                     <DescriptionListTerm>
                         {_("Language")}
@@ -81,7 +130,7 @@ export const ReviewConfiguration = ({ idPrefix }) => {
                         {systemLanguage}
                     </DescriptionListDescription>
                 </DescriptionListGroup>
-            </DescriptionList>
+            </ReviewDescriptionList>
             <Title headingLevel="h3">
                 {_("Installation destination")}
             </Title>
@@ -91,35 +140,59 @@ export const ReviewConfiguration = ({ idPrefix }) => {
               title={_("To prevent loss, make sure to backup your data. ")}
             >
                 <p>
-                    {_("Erasing the disks cannot be undone.")}
+                    {getScenario(storageScenario).screenWarning}
                 </p>
             </Alert>
-            <DataList>
-                {selectedDisks.map(selectedDisk => (
-                    <DataListItem key={selectedDisk}>
-                        <DataListItemRow>
-                            <DataListItemCells
-                              dataListCells={[
-                                  <DataListCell key={selectedDisk} id={idPrefix + "-disk-label-" + selectedDisk}>
-                                      {_("Local standard disk")}
-                                  </DataListCell>,
-                                  <DataListCell key={"description-" + selectedDisk} id={idPrefix + "-disk-description-" + selectedDisk}>
-                                      {deviceData && deviceData[selectedDisk] && deviceData[selectedDisk].description.v + " (" + selectedDisk + ")"}
-                                  </DataListCell>,
-                                  <DataListCell key={"size-" + selectedDisk} id={idPrefix + "-disk-size-" + selectedDisk}>
-                                      {cockpit.format_bytes(deviceData && deviceData[selectedDisk] && deviceData[selectedDisk].size.v) + " " + _("total")}
-                                  </DataListCell>
-                              ]}
-                            />
-                        </DataListItemRow>
-                    </DataListItem>
-                ))}
-            </DataList>
+            <ExpandableSection
+              toggleText={_("Storage devices")}
+              onToggle={() => setDisksExpanded(!disksExpanded)}
+              isExpanded={disksExpanded}
+              isIndented
+            >
+                <DataList isCompact>
+                    {selectedDisks.map(selectedDisk => (
+                        <DataListItem key={selectedDisk}>
+                            <DataListItemRow>
+                                <DataListItemCells
+                                  dataListCells={[
+                                      <DataListCell key={selectedDisk} id={idPrefix + "-disk-label-" + selectedDisk}>
+                                          {_("Local standard disk")}
+                                      </DataListCell>,
+                                      <DataListCell key={"description-" + selectedDisk} id={idPrefix + "-disk-description-" + selectedDisk}>
+                                          {deviceData && deviceData[selectedDisk] && deviceData[selectedDisk].description.v + " (" + selectedDisk + ")"}
+                                      </DataListCell>,
+                                      <DataListCell key={"size-" + selectedDisk} id={idPrefix + "-disk-size-" + selectedDisk}>
+                                          {cockpit.format_bytes(deviceData && deviceData[selectedDisk] && deviceData[selectedDisk].size.v) + " " + _("total")}
+                                      </DataListCell>
+                                  ]}
+                                />
+                            </DataListItemRow>
+                        </DataListItem>
+                    ))}
+                </DataList>
+            </ExpandableSection>
+            <ReviewDescriptionList>
+                <DescriptionListGroup>
+                    <DescriptionListTerm>
+                        {_("Storage Configuration")}
+                    </DescriptionListTerm>
+                    <DescriptionListDescription id={idPrefix + "-target-system-mode"}>
+                        {getScenario(storageScenario).label}
+                    </DescriptionListDescription>
+                    <DescriptionListTerm>
+                        {_("Disk Encryption")}
+                    </DescriptionListTerm>
+                    <DescriptionListDescription id={idPrefix + "-target-system-encrypt"}>
+                        {encrypt ? _("Enabled") : _("Disabled")}
+                    </DescriptionListDescription>
+                </DescriptionListGroup>
+            </ReviewDescriptionList>
         </AnacondaPage>
     );
 };
 
-export const ReviewConfigurationConfirmModal = ({ idPrefix, onNext, setNextWaitsConfirmation }) => {
+export const ReviewConfigurationConfirmModal = ({ idPrefix, onNext, setNextWaitsConfirmation, storageScenarioId }) => {
+    const scenario = getScenario(storageScenarioId);
     return (
         <Modal
           actions={[
@@ -130,24 +203,24 @@ export const ReviewConfigurationConfirmModal = ({ idPrefix, onNext, setNextWaits
                     setNextWaitsConfirmation(false);
                     onNext();
                 }}
-                variant="danger"
+                variant={scenario.buttonVariant}
               >
-                  {_("Erase disks and install")}
+                  {scenario.buttonLabel}
               </Button>,
               <Button
                 key="cancel"
                 onClick={() => setNextWaitsConfirmation(false)}
-                variant="secondary">
+                variant="link">
                   {_("Back")}
               </Button>
           ]}
           isOpen
           onClose={() => setNextWaitsConfirmation(false)}
-          title={_("Erase disks and install?")}
-          titleIconVariant="warning"
+          title={scenario.dialogWarningTitle}
+          titleIconVariant={scenario.dialogTitleIconVariant}
           variant={ModalVariant.small}
         >
-            {_("The selected disks will be erased, this cannot be undone. Are you sure you want to continue with the installation?")}
+            {scenario.dialogWarning}
         </Modal>
     );
 };

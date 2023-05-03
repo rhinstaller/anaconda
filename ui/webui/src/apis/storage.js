@@ -197,6 +197,24 @@ export const getPartitioningRequest = ({ partitioning }) => {
 };
 
 /**
+ * @returns {Promise}           The applied partitioning
+ */
+export const getAppliedPartitioning = () => {
+    return (
+        new StorageClient().client.call(
+            "/org/fedoraproject/Anaconda/Modules/Storage",
+            "org.freedesktop.DBus.Properties",
+            "Get",
+            [
+                "org.fedoraproject.Anaconda.Modules.Storage",
+                "AppliedPartitioning",
+            ]
+        )
+                .then(res => res[0].v)
+    );
+};
+
+/**
  * @param {string} partitioning     DBus path to a partitioning
  * @param {Object} request          A data object with the request
  */
