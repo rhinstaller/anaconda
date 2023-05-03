@@ -51,7 +51,6 @@ RUN set -ex; \
   # Install rest of the dependencies
   dnf install -y \
   /usr/bin/xargs \
-  npm \
   rpm-build \
   git \
   bzip2 \
@@ -70,7 +69,12 @@ RUN set -ex; \
   rpmspec -q --buildrequires /tmp/anaconda.spec | xargs -d '\n' dnf install -y; \
   # xisxwayland is specifically excluded because it isn't in ELN
   rpmspec -q --requires /tmp/anaconda.spec | grep -v anaconda | grep -v xisxwayland | xargs -d '\n' dnf install -y; \
-  dnf clean all
+  dnf clean all; \
+  if [ $BRANCH == "rawhide" ]; then \
+    # HACK: nodejs 20 is very segfaulty: https://bugzilla.redhat.com/show_bug.cgi?id=2190075
+    dnf install -y nodejs18; \
+    ln -sfn node-18 /usr/bin/node; \
+  fi;
 
 RUN pip install --no-cache-dir --upgrade pip; \
   pip install --no-cache-dir -r /root/requirements.txt

@@ -31,7 +31,6 @@ RUN set -ex; \
   # Install dependencies
   dnf install -y \
   'dnf-command(copr)' \
-  npm \
   git \
   curl \
   python3-polib \
@@ -51,6 +50,11 @@ RUN set -ex; \
   cat /root/anaconda.spec.in | sed 's/@PACKAGE_VERSION@/0/; s/@PACKAGE_RELEASE@/0/; s/%{__python3}/python3/' > /tmp/anaconda.spec; \
   rpmspec -q --buildrequires /tmp/anaconda.spec | xargs -d '\n' dnf install -y; \
   dnf clean all; \
-  mkdir /anaconda
+  mkdir /anaconda; \
+  if [ $BRANCH == "rawhide" ]; then \
+    # HACK: nodejs 20 is very segfaulty: https://bugzilla.redhat.com/show_bug.cgi?id=2190075
+    dnf install -y nodejs18; \
+    ln -sfn node-18 /usr/bin/node; \
+  fi;
 
 WORKDIR /anaconda
