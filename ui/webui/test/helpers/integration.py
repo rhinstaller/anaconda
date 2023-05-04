@@ -97,6 +97,9 @@ class IntegrationTest(MachineCase):
         self._progress.reboot()
         self.machine.wait_reboot()
 
+    def post_install_step(self):
+        pass
+
     @log_step(docstring=True)
     def check_installed_system(self):
         """ Tries to set root password """
@@ -115,6 +118,7 @@ class IntegrationTest(MachineCase):
         self.check_review_screen()
         self._installer.begin_installation()
         self.monitor_progress()
+        self.post_install_step()
         self.reboot_to_installed_system()
         self.check_installed_system()
 
