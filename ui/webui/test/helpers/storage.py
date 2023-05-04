@@ -121,12 +121,15 @@ class Storage():
     def _partitioning_selector(self, scenario):
         return "#storage-configuration-autopart-scenario-" + scenario
 
+    @log_step(snapshot_before=True)
     def check_partitioning_selected(self, scenario):
         self.browser.wait_visible(self._partitioning_selector(scenario) + ":checked")
 
+    @log_step(snapshot_before=True)
     def set_partitioning(self, scenario):
         self.browser.set_checked(self._partitioning_selector(scenario), True)
 
+    @log_step(snapshot_before=True)
     def check_encryption_selected(self, selected):
         sel = "#disk-encryption-encrypt-devices"
         if selected:
@@ -134,32 +137,39 @@ class Storage():
         else:
             self.browser.wait_visible(sel + ':not([checked])')
 
+    @log_step(snapshot_before=True)
     def set_encryption_selected(self, selected):
         sel = "#disk-encryption-encrypt-devices"
         self.browser.set_checked(sel, selected)
 
+    @log_step(snapshot_before=True)
     def check_pw_rule(self, rule, value):
         sel = "#disk-encryption-password-rule-" + rule
         cls_value = "pf-m-" + value
         self.browser.wait_visible(sel)
         self.browser.wait_attr_contains(sel, "class", cls_value)
 
+    @log_step(snapshot_before=True)
     def set_password(self, password, append=False, value_check=True):
         sel = "#disk-encryption-password-field"
         self.browser.set_input_text(sel, password, append=append, value_check=value_check)
 
+    @log_step(snapshot_before=True)
     def check_password(self, password):
         sel = "#disk-encryption-password-field"
         self.browser.wait_val(sel, password)
 
+    @log_step(snapshot_before=True)
     def set_password_confirm(self, password):
         sel = "#disk-encryption-password-confirm-field"
         self.browser.set_input_text(sel, password)
 
+    @log_step(snapshot_before=True)
     def check_password_confirm(self, password):
         sel = "#disk-encryption-password-confirm-field"
         self.browser.wait_val(sel, password)
 
+    @log_step(snapshot_before=True)
     def check_pw_strength(self, strength):
         sel = "#disk-encryption-password-strength-label"
 
