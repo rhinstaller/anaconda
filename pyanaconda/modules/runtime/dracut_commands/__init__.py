@@ -1,6 +1,4 @@
 #
-# DBus interface for the runtime module.
-#
 # Copyright (C) 2023 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
@@ -17,15 +15,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from dasbus.server.interface import dbus_interface
+from pyanaconda.modules.runtime.dracut_commands.dracut_commands import DracutCommandsModule
 
-from pyanaconda.modules.common.constants.services import RUNTIME
-from pyanaconda.modules.common.base import KickstartModuleInterface
-
-__all__ = ["RuntimeInterface"]
-
-
-@dbus_interface(RUNTIME.interface_name)
-class RuntimeInterface(KickstartModuleInterface):
-    """DBus interface for the Runtime module."""
-    pass
+__all__ = ["DracutCommandsModule"]

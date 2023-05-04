@@ -20,6 +20,8 @@
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.runtime.runtime_interface import RuntimeInterface
+from pyanaconda.modules.runtime.kickstart import RuntimeKickstartSpecification
+from pyanaconda.modules.runtime.dracut_commands import DracutCommandsModule
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import RUNTIME
 from pyanaconda.modules.common.containers import TaskContainer
@@ -35,12 +37,21 @@ class RuntimeService(KickstartService):
     This service provides runtime data storage on D-Bus. It must always run.
     """
 
-    # def __init__(self):
-    #     super().__init__()
+    def __init__(self):
+        super().__init__()
+
+        # Initialize modules.
+        self._modules = []
+
+        self._dracut_module = DracutCommandsModule()
+        self._modules.append(self._dracut_module)
 
     def publish(self):
         """Publish the module."""
         TaskContainer.set_namespace(RUNTIME.namespace)
+
+        for kickstart_module in self._modules:
+            kickstart_module.publish()
 
         DBus.publish_object(RUNTIME.object_path, RuntimeInterface(self))
         DBus.register_service(RUNTIME.service_name)
@@ -48,15 +59,17 @@ class RuntimeService(KickstartService):
     @property
     def kickstart_specification(self):
         """Return the kickstart specification."""
-        return None
+        return RuntimeKickstartSpecification
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-        pass
+        for kickstart_module in self._modules:
+            kickstart_module.process_kickstart(data)
 
     def setup_kickstart(self, data):
         """Set up the kickstart data."""
-        pass
+        for kickstart_module in self._modules:
+            kickstart_module.setup_kickstart(data)
 
     def collect_requirements(self):
         """Return installation requirements for this module.

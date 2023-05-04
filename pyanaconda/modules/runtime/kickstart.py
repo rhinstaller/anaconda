@@ -1,5 +1,5 @@
 #
-# DBus interface for the runtime module.
+# Kickstart handler for runtime settings.
 #
 # Copyright (C) 2023 Red Hat, Inc.
 #
@@ -17,15 +17,20 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from dasbus.server.interface import dbus_interface
-
-from pyanaconda.modules.common.constants.services import RUNTIME
-from pyanaconda.modules.common.base import KickstartModuleInterface
-
-__all__ = ["RuntimeInterface"]
+from pyanaconda.core.kickstart import KickstartSpecification, commands as COMMANDS
 
 
-@dbus_interface(RUNTIME.interface_name)
-class RuntimeInterface(KickstartModuleInterface):
-    """DBus interface for the Runtime module."""
-    pass
+class RuntimeKickstartSpecification(KickstartSpecification):
+    """Kickstart specification of the runtime module."""
+
+    commands = {
+        "driverdisk": COMMANDS.DriverDisk,
+        "mediacheck": COMMANDS.MediaCheck,
+        "sshpw": COMMANDS.SshPw,
+        "updates": COMMANDS.Updates,
+    }
+
+    commands_data = {
+        "DriverDiskData": COMMANDS.DriverDiskData,
+        "SshPwData": COMMANDS.SshPwData,
+    }

@@ -193,26 +193,17 @@ class AnacondaKickstartSpecification(KickstartSpecification):
     commands = {
         "autostep": COMMANDS.AutoStep,
         "cmdline": COMMANDS.DisplayMode,
-        "driverdisk": COMMANDS.DriverDisk,
         "eula": COMMANDS.Eula,
         "graphical": COMMANDS.DisplayMode,
         "halt": COMMANDS.Reboot,
         "logging": COMMANDS.Logging,
-        "mediacheck": COMMANDS.MediaCheck,
         "method": COMMANDS.Method,
         "poweroff": COMMANDS.Reboot,
         "reboot": COMMANDS.Reboot,
         "rescue": COMMANDS.Rescue,
         "shutdown": COMMANDS.Reboot,
-        "sshpw": COMMANDS.SshPw,
         "text": COMMANDS.DisplayMode,
-        "updates": COMMANDS.Updates,
         "vnc": COMMANDS.Vnc,
-    }
-
-    commands_data = {
-        "DriverDiskData": COMMANDS.DriverDiskData,
-        "SshPwData": COMMANDS.SshPwData,
     }
 
     @classmethod
