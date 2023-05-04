@@ -54,7 +54,7 @@ class Boss(Service, KickstartParsingModule):
         self._dracut_only_command_module = DracutOnlyCommandsModule()
         self._add_module(self._dracut_only_command_module)
 
-        self._kickstart_manager.set_direct_observer(self, "Boss")
+        self._kickstart_manager.attach_direct_observer(self, "Boss")
         self._module_manager.module_observers_changed.connect(
             self._kickstart_manager.on_module_observers_changed
         )

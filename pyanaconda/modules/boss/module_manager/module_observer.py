@@ -19,6 +19,7 @@ from dasbus.client.observer import DBusObserver, DBusObserverError
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.constants.namespaces import ADDONS_NAMESPACE
+from pyanaconda.modules.common.structures.kickstart import KickstartReport
 from pyanaconda.modules.boss.kickstart_manager.local_observer import KickstartHandlingObserver
 
 log = get_module_logger(__name__)
@@ -92,4 +93,6 @@ class ModuleObserver(DBusObserver, KickstartHandlingObserver):
         return self.proxy.GenerateKickstart()
 
     def read_kickstart(self, ks_string):
-        self.proxy.ReadKickstart(ks_string)
+        return KickstartReport.from_structure(
+            self.proxy.ReadKickstart(ks_string)
+        )

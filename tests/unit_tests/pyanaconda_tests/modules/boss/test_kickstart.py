@@ -243,7 +243,7 @@ class KickstartManagerTestCase(unittest.TestCase):
         m3_observer = self._get_module_observer("3", module3)
         m4_observer = self._get_module_observer("4", module4, available=False)
 
-        manager.set_direct_observer(direct, "Direct")
+        manager.attach_direct_observer(direct, "Direct")
         manager.on_module_observers_changed([
             m1_observer,
             m2_observer,
