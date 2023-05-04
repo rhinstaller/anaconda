@@ -75,7 +75,7 @@ class LocalObserver(KickstartHandlingObserver):
         return self._service.generate_kickstart()
 
     def read_kickstart(self, ks_string):
-        self._service.read_kickstart(ks_string)
+        return self._service.read_kickstart(ks_string)
 
     @property
     def kickstart_commands(self):
