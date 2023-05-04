@@ -19,11 +19,12 @@ from dasbus.client.observer import DBusObserver, DBusObserverError
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.constants.namespaces import ADDONS_NAMESPACE
+from pyanaconda.modules.boss.kickstart_manager.local_observer import KickstartHandlingObserver
 
 log = get_module_logger(__name__)
 
 
-class ModuleObserver(DBusObserver):
+class ModuleObserver(DBusObserver, KickstartHandlingObserver):
     """Observer of an Anaconda module."""
 
     def __init__(self, message_bus, service_name):
@@ -74,3 +75,21 @@ class ModuleObserver(DBusObserver):
         return "{}({},{})".format(self.__class__.__name__,
                                   self._service_name,
                                   self._object_path)
+
+    @property
+    def kickstart_commands(self):
+        return self.proxy.KickstartCommands
+
+    @property
+    def kickstart_sections(self):
+        return self.proxy.KickstartSections
+
+    @property
+    def kickstart_addons(self):
+        return self.proxy.KickstartAddons
+
+    def generate_kickstart(self):
+        return self.proxy.GenerateKickstart()
+
+    def read_kickstart(self, ks_string):
+        self.proxy.ReadKickstart(ks_string)
