@@ -186,3 +186,21 @@ class Storage():
             variant = "success"
 
         self.browser.wait_attr_contains(sel, "class", "pf-m-" + variant)
+
+    @log_step(docstring=True)
+    def unlock_storage_on_boot(self, password):
+        """ Add keyfile to unlock luks encrypted storage on boot """
+        self.machine.write('/mnt/sysroot/root/keyfile', password, perm='0400')
+        self.machine.write('/mnt/sysroot/root/add_keyfile.sh', '''
+            awk -v "KEY_FILE=/root/keyfile" '{$3=KEY_FILE; print $0}' /etc/crypttab > crypttab_mod
+            mv -Z crypttab_mod /etc/crypttab
+            chmod 0600 /etc/crypttab
+            kernel_file=`grubby --default-kernel`
+            kernel_version=`rpm -qf $kernel_file --qf '%{VERSION}-%{RELEASE}.%{ARCH}'`
+            initrd_file="/boot/initramfs-${kernel_version}.img"
+            dracut -f -I /root/keyfile $initrd_file $kernel_version
+            if [ -x /sbin/zipl ]; then
+                /sbin/zipl
+            fi
+        ''')
+        self.machine.execute('chroot /mnt/sysroot bash /root/add_keyfile.sh')
