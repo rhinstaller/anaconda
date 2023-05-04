@@ -21,12 +21,17 @@ from dasbus.identifier import DBusServiceIdentifier
 from pyanaconda.modules.common.constants.namespaces import BOSS_NAMESPACE, TIMEZONE_NAMESPACE, \
     NETWORK_NAMESPACE, LOCALIZATION_NAMESPACE, SECURITY_NAMESPACE, USERS_NAMESPACE, \
     PAYLOADS_NAMESPACE, STORAGE_NAMESPACE, SERVICES_NAMESPACE, SUBSCRIPTION_NAMESPACE, \
-    RHSM_NAMESPACE, NETWORK_MANAGER_NAMESPACE
+    RHSM_NAMESPACE, NETWORK_MANAGER_NAMESPACE, RUNTIME_NAMESPACE
 
 # Anaconda services.
 
 BOSS = DBusServiceIdentifier(
     namespace=BOSS_NAMESPACE,
+    message_bus=DBus
+)
+
+RUNTIME = DBusServiceIdentifier(
+    namespace=RUNTIME_NAMESPACE,
     message_bus=DBus
 )
 
