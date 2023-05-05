@@ -126,9 +126,7 @@ class VirtInstallMachine(VirtMachine):
 
     # pylint: disable=arguments-differ  # this fails locally if you have bots checked out
     def add_disk(self, size=2):
-        image = f"/var/tmp/disk-{self.label}.qcow2"
-
-        self._create_disk_image(size, image_path=image)
+        image = self._create_disk_image(size)
         self._execute(f"virt-xml -c qemu:///session {self.label} --update --add-device --disk {image},format=qcow2,size={size}")
 
     # pylint: disable=arguments-differ  # this fails locally if you have bots checked out
