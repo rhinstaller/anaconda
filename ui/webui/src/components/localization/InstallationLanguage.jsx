@@ -130,6 +130,7 @@ class LanguageSelector extends React.Component {
                     }
                 }
             }
+            console.warn(`Locale with code ${localeCode} not found.`);
         };
 
         // Returns a new instance of MenuItem from a given locale and with given prefix in it's key
@@ -178,9 +179,10 @@ class LanguageSelector extends React.Component {
                       key="group-common-languages"
                     >
                         {
-                            this.state.commonLocales.map(locale => {
-                                return createMenuItem(findLocaleWithId(locale), "option-common-");
-                            })
+                            this.state.commonLocales
+                                    .map(findLocaleWithId)
+                                    .filter(locale => locale)
+                                    .map(locale => createMenuItem(locale, "option-common-"))
                         }
                     </MenuGroup>
                     <Divider />
