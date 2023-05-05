@@ -55,11 +55,12 @@ class VirtInstallMachine(VirtMachine):
                 return port
             port = port + 1
 
-    def _create_disk_image(self, size=15):
-        name = f"disk-anaconda-{self.label}"
-        _, image = tempfile.mkstemp(suffix='.qcow2', prefix=name, dir=self.run_dir)
-        subprocess.check_call(["qemu-img", "create", "-q", "-f", "qcow2", image, str(size)+"G"])
-        return image
+    def _create_disk_image(self, size, image_path=None, quiet=False):
+        if not image_path:
+            _, image_path = tempfile.mkstemp(suffix='.qcow2', prefix=f"disk-anaconda-{self.label}", dir=self.run_dir)
+        quiet = "-q" if quiet else ""
+        self._execute(f"qemu-img create -f qcow2 {quiet} {image_path} {size}G")
+        return image_path
 
     def start(self):
         update_img_file = os.path.join(ANACONDA_ROOT_DIR, "updates.img")
@@ -74,7 +75,7 @@ class VirtInstallMachine(VirtMachine):
         self.http_server = subprocess.Popen(["python3", "-m", "http.server", str(http_port)])
         os.chdir(WEBUI_DIR)
 
-        disk_image = self._create_disk_image(15)
+        disk_image = self._create_disk_image(15, quiet=True)
 
         try:
             self._execute(
@@ -127,7 +128,7 @@ class VirtInstallMachine(VirtMachine):
     def add_disk(self, size=2):
         image = f"/var/tmp/disk-{self.label}.qcow2"
 
-        self._execute(f"qemu-img create -f qcow2 {image} {size}G")
+        self._create_disk_image(size, image_path=image)
         self._execute(f"virt-xml -c qemu:///session {self.label} --update --add-device --disk {image},format=qcow2,size={size}")
 
     # pylint: disable=arguments-differ  # this fails locally if you have bots checked out
