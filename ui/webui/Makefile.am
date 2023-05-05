@@ -18,7 +18,7 @@ SUBDIRS =
 MAINTAINERCLEANFILES = Makefile.in
 
 # stamp file to check if/when npm install ran
-# one example file in dist/ from webpack to check if that already ran
+# one example file in dist/ to check if that already ran
 WEBPACK_TEST=dist/manifest.json
 WEBPACK_TEST_PRODUCTION=dist/index.css.gz
 PACKAGE_NAME=anaconda-webui
@@ -40,15 +40,14 @@ dist_noinst_DATA = \
 	org.cockpit-project.anaconda-webui.metainfo.xml \
 	package-lock.json \
 	package.json \
-	webpack.config.js
+	build.js
 
-$(WEBPACK_TEST): $(COCKPIT_REPO_STAMP) $(shell find src/ -type f) $(NODE_MODULES_TEST) package.json webpack.config.js
-	NODE_ENV=production $(CURDIR)/node_modules/.bin/webpack
-	touch $(WEBPACK_TEST)  # HACK: Explicit touch as webpack does not touch files if nothing changed
+$(WEBPACK_TEST): $(COCKPIT_REPO_STAMP) $(shell find src/ -type f) $(NODE_MODULES_TEST) package.json build.js
+	NODE_ENV=production ./build.js
 
 watch:
 	rm -f dist/*
-	NODE_ENV=$(NODE_ENV) node_modules/.bin/webpack --watch
+	NODE_ENV=$(NODE_ENV) ESBUILD_WATCH=true ./build.js
 
 rsync:
 	RSYNC=$${RSYNC:-test-updates} make watch
