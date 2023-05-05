@@ -113,5 +113,5 @@ update-reference-images: test/common test/reference
 
 $(NODE_MODULES_TEST): package.json
 	rm -f package-lock.json #  if it exists already, npm install won't update it; force that so that we always get up-to-date packages
-	env -u NODE_ENV npm install #  unset NODE_ENV, skips devDependencies otherwise
+	env -u NODE_ENV npm install --verbose #  unset NODE_ENV, skips devDependencies otherwise
 	env -u NODE_ENV npm prune
