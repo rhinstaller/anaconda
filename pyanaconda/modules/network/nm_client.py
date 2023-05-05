@@ -1,7 +1,7 @@
 #
 # utility functions using libnm
 #
-# Copyright (C) 2018 Red Hat, Inc.
+# Copyright (C) 2018-2023 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -735,6 +735,20 @@ def update_connection_ip_settings_from_ksdata(connection, network_data):
                 s_ip4.add_dns(ns)
             else:
                 log.error("IP address %s is not valid", ns)
+
+    # DNS search domains
+    if network_data.ipv4_dns_search:
+        for domain in [str.strip(i) for i in network_data.ipv4_dns_search.split(",")]:
+            s_ip4.add_dns_search(domain)
+    if network_data.ipv6_dns_search:
+        for domain in [str.strip(i) for i in network_data.ipv6_dns_search.split(",")]:
+            s_ip6.add_dns_search(domain)
+
+    # ignore auto DNS
+    if network_data.ipv4_ignore_auto_dns:
+        s_ip4.props.ignore_auto_dns = network_data.ipv4_ignore_auto_dns
+    if network_data.ipv6_ignore_auto_dns:
+        s_ip6.props.ignore_auto_dns = network_data.ipv6_ignore_auto_dns
 
 
 def update_connection_wired_settings_from_ksdata(connection, network_data):
