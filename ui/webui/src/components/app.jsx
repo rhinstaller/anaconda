@@ -23,7 +23,7 @@ import {
     Page,
 } from "@patternfly/react-core";
 
-import { AddressContext } from "./Common.jsx";
+import { AddressContext, LanguageContext } from "./Common.jsx";
 import { AnacondaHeader } from "./AnacondaHeader.jsx";
 import { AnacondaWizard } from "./AnacondaWizard.jsx";
 import { HelpDrawer } from "./HelpDrawer.jsx";
@@ -42,6 +42,7 @@ export const Application = () => {
     const [address, setAddress] = useState();
     const [beta, setBeta] = useState();
     const [conf, setConf] = useState();
+    const [language, setLanguage] = useState();
     const [notifications, setNotifications] = useState({});
     const [isHelpExpanded, setIsHelpExpanded] = useState(false);
     const [helpContent, setHelpContent] = useState("");
@@ -141,12 +142,14 @@ export const Application = () => {
     );
 
     return (
-        <HelpDrawer
-          isExpanded={isHelpExpanded}
-          setIsExpanded={setIsHelpExpanded}
-          helpContent={helpContent}
-        >
-            {page}
-        </HelpDrawer>
+        <LanguageContext.Provider value={{ language, setLanguage }}>
+            <HelpDrawer
+              isExpanded={isHelpExpanded}
+              setIsExpanded={setIsHelpExpanded}
+              helpContent={helpContent}
+            >
+                {page}
+            </HelpDrawer>
+        </LanguageContext.Provider>
     );
 };

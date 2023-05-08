@@ -34,7 +34,7 @@ import {
 } from "@patternfly/react-core";
 
 import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
-import { AddressContext } from "../Common.jsx";
+import { AddressContext, LanguageContext } from "../Common.jsx";
 import { setLocale } from "../../apis/boss.js";
 
 import {
@@ -299,6 +299,7 @@ LanguageSelector.contextType = AddressContext;
 
 export const InstallationLanguage = ({ idPrefix, setIsFormValid, onAddErrorNotification }) => {
     const [nativeName, setNativeName] = React.useState(false);
+    const { setLanguage } = React.useContext(LanguageContext);
 
     return (
         <AnacondaPage title={_("Welcome to the Anaconda installer")}>
@@ -326,6 +327,7 @@ export const InstallationLanguage = ({ idPrefix, setIsFormValid, onAddErrorNotif
                       setIsFormValid={setIsFormValid}
                       onAddErrorNotification={onAddErrorNotification}
                       getNativeName={setNativeName}
+                      reRenderApp={setLanguage}
                     />
                 </FormGroup>
             </Form>

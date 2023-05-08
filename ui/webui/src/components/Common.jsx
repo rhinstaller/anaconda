@@ -20,6 +20,7 @@ import { Popover, PopoverPosition } from "@patternfly/react-core";
 
 export const AddressContext = createContext("");
 export const ConfContext = createContext();
+export const LanguageContext = createContext("");
 
 export const sleep = ({ seconds }) => {
     return new Promise(resolve => setTimeout(resolve, seconds * 1000));
