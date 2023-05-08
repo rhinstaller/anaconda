@@ -236,7 +236,19 @@ class LanguageSelector extends React.Component {
                                 .catch(this.props.onAddErrorNotification);
                         this.setState({ lang: item });
                         this.updateNativeName(localeItem);
-                        window.location.reload(true);
+                        fetch("po.js").then(response => response.text())
+                                .then(body => {
+                                    // always reset old translations
+                                    cockpit.locale(null);
+                                    // en_US is always null
+                                    if (body.trim() === "") {
+                                        cockpit.locale(null);
+                                    } else {
+                                        // eslint-disable-next-line no-eval
+                                        eval(body);
+                                    }
+                                    this.props.reRenderApp(item);
+                                });
                         return;
                     }
                 }
