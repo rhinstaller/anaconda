@@ -33,6 +33,10 @@ Anaconda
    :alt: Make a Rawhide release automatically
    :target: https://github.com/rhinstaller/anaconda/actions/workflows/release-automatically.yml
 
+.. |webui-periodic| image:: https://github.com/rhinstaller/anaconda/actions/workflows/webui-periodic.yml/badge.svg
+   :alt: Run WebUI intergration tests daily
+   :target: https://github.com/rhinstaller/anaconda/actions/workflows/webui-periodic.yml
+
 .. _Dependabot: https://github.com/rhinstaller/anaconda/network/updates
 
 |container-autoupdate-fedora|
@@ -50,6 +54,9 @@ Anaconda
 |release-automatically|
   Makes a Rawhide release automatically with no human oversight for the upstream/non-Fedora part
   of the process.
+
+|webui-periodic|
+  Runs WebUI integration end-to-end tests every day.
 
 Dependabot_
   Checks Anaconda dependencies and opens pull requests for new versions.
