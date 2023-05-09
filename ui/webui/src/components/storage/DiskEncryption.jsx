@@ -303,7 +303,7 @@ export const DiskEncryption = ({
             <TextContent>
                 {_(
                     "You can create encrypted devices during installation." +
-                    " This allows you to easily configure a system with ecrypted partitions." +
+                    " This allows you to easily configure a system with encrypted partitions." +
                     " To enable block device encryption, check the \"Encrypt System\" checkbox"
                 )}
             </TextContent>
