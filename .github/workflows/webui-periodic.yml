@@ -1,5 +1,5 @@
 # Run webui e2e tests periodically in Permian
-name: webui-periodic
+name: Periodic webui integration tests
 on:
   schedule:
     - cron: 0 23 * * *
