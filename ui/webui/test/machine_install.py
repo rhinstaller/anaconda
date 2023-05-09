@@ -20,6 +20,7 @@ import socket
 import subprocess
 import sys
 import time
+import tempfile
 
 ANACONDA_ROOT_DIR = os.path.normpath(os.path.dirname(__file__)+'/../../..')
 WEBUI_DIR = f'{ANACONDA_ROOT_DIR}/ui/webui'
@@ -54,6 +55,12 @@ class VirtInstallMachine(VirtMachine):
                 return port
             port = port + 1
 
+    def _create_disk_image(self, size=15):
+        name = f"disk-anaconda-{self.label}"
+        _, image = tempfile.mkstemp(suffix='.qcow2', prefix=name, dir=self.run_dir)
+        subprocess.check_call(["qemu-img", "create", "-q", "-f", "qcow2", image, str(size)+"G"])
+        return image
+
     def start(self):
         update_img_file = os.path.join(ANACONDA_ROOT_DIR, "updates.img")
         if not os.path.exists(update_img_file):
@@ -66,6 +73,8 @@ class VirtInstallMachine(VirtMachine):
         http_port = self._get_free_port(8000)
         self.http_server = subprocess.Popen(["python3", "-m", "http.server", str(http_port)])
         os.chdir(WEBUI_DIR)
+
+        disk_image = self._create_disk_image(15)
 
         try:
             self._execute(
@@ -87,7 +96,7 @@ class VirtInstallMachine(VirtMachine):
                 "-device virtio-net-pci,netdev=hostnet0,id=net0,addr=0x4' "
                 f"--initrd-inject {os.getcwd()}/test/ks.cfg "
                 "--extra-args 'inst.ks=file:/ks.cfg' "
-                "--disk size=15,format=qcow2 "
+                f"--disk path={disk_image},bus=virtio,cache=unsafe "
                 f"--location {os.getcwd()}/bots/images/{self.image}"
             )
             Machine.wait_boot(self)
