@@ -41,7 +41,7 @@ import { resetPartitioning } from "../apis/storage.js";
 
 const _ = cockpit.gettext;
 
-export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, title, conf }) => {
+export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, hideContextHelp, title, conf }) => {
     const [isFormValid, setIsFormValid] = useState(true);
     const [stepNotification, setStepNotification] = useState();
     const [isInProgress, setIsInProgress] = useState(false);
@@ -154,6 +154,7 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, titl
         setIsFormValid(true);
 
         cockpit.location.go([newStep.id]);
+        hideContextHelp();
     };
 
     return (

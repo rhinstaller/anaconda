@@ -465,7 +465,7 @@ export const InstallationDestination = ({ idPrefix, setIsFormValid, onAddErrorNo
                         "$0 of available space. Storage will be automatically partitioned."
                     ), cockpit.format_bytes(requiredSize))}
                     {" "}
-                    <Button variant="link" isInline onClick={toggleHelpStorageOptions}>
+                    <Button id="learn-more-about-storage-options" variant="link" isInline onClick={toggleHelpStorageOptions}>
                         {_("Learn more about your storage options.")}
                     </Button>
                 </Text>
