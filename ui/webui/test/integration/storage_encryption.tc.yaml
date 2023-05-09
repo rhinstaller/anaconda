@@ -1,0 +1,25 @@
+name: Storage encryption
+description: |
+  Checks disk encryption can be selected and is then enabled in installed system.
+author: zveleba@redhat.com
+tags:
+  - anaconda
+priority: 5
+execution:
+  type: anaconda-webui
+  automation_data:
+    script_file: ./ui/webui/test/integration/storage_encryption.py
+    test_case: StorageEncryption
+instructions:
+  setup:
+    - Start installation in VM
+  steps:
+    - step: Go through the required steps
+    - step: On Disk encryption step select yes
+    - step: Enter passphrase 'password'
+      result: Passphrase is accepted but marked as weak
+    - step: Finish installation
+    - step: Start installed system, enter luks passphrase when asked.
+    - step: Check that encryption is used
+  teardown:
+    - step: Remove VM
