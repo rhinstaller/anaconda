@@ -47,7 +47,7 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, titl
     const [isInProgress, setIsInProgress] = useState(false);
     const [storageEncryption, setStorageEncryption] = useState(new StorageEncryptionState());
     const [showPassphraseScreen, setShowPassphraseScreen] = useState(false);
-    const [storageScenarioId, setStorageScenarioId] = useState(getDefaultScenario().id);
+    const [storageScenarioId, setStorageScenarioId] = useState(window.sessionStorage.getItem("storage-scenario-id") || getDefaultScenario().id);
 
     const stepsOrder = [
         {
@@ -136,7 +136,11 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, titl
                           storageEncryption={storageEncryption}
                           setStorageEncryption={setStorageEncryption}
                           showPassphraseScreen={showPassphraseScreen}
-                          setStorageScenarioId={setStorageScenarioId}
+                          storageScenarioId={storageScenarioId}
+                          setStorageScenarioId={(scenarioId) => {
+                              window.sessionStorage.setItem("storage-scenario-id", scenarioId);
+                              setStorageScenarioId(scenarioId);
+                          }}
                         />
                     ),
                 });
