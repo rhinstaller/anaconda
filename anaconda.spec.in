@@ -46,6 +46,7 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define subscriptionmanagerver 1.26
 %define utillinuxver 2.15.1
 %define rpmostreever 2023.2
+%define s390utilscorever 2.31.0
 
 BuildRequires: libtool
 BuildRequires: gettext-devel >= %{gettextver}
@@ -125,7 +126,7 @@ Requires: NetworkManager-team
 %endif
 %ifarch s390 s390x
 Requires: openssh
-Requires: s390utils-core
+Requires: s390utils-core >= %{s390utilscorever}
 %endif
 Requires: NetworkManager >= %{nmver}
 Requires: NetworkManager-libnm >= %{nmver}
