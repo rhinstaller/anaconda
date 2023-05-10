@@ -1,0 +1,21 @@
+[Unit]
+# This service is to be run before anaconda starts and log data before anaconda changes them
+# Import persistent config of any s390 devices (dasd, zfcp, znet) from
+# initrd to retain user choices made with rd.dasd, rd.zfcp, rd.znet.
+Description=pre-anaconda s390 device persistent config import
+ConditionArchitecture=s390x
+Requires=basic.target
+After=basic.target
+Before=anaconda.target
+Wants=rsyslog.service
+Wants=systemd-udev-settle.service
+Wants=plymouth-quit.service plymouth-quit-wait.service
+Wants=systemd-logind.service
+
+[Service]
+Type=oneshot
+ExecStart=-/sbin/chzdev --import /run/zdev.initrd.config --persistent --yes --no-root-update --force --verbose
+StandardInput=tty
+StandardOutput=journal+console
+StandardError=journal+console
+TimeoutSec=0
