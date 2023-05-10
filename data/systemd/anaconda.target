@@ -12,6 +12,7 @@ Wants=anaconda-direct.service anaconda.service
 Wants=anaconda-sshd.service
 Wants=anaconda-pre.service
 Wants=anaconda-fips.service
+Wants=anaconda-s390-device-config-import.service
 Wants=systemd-logind.service
 Wants=brltty.service
 Wants=rhsm.service
