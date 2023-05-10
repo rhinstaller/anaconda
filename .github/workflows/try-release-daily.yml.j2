@@ -36,11 +36,12 @@ jobs:
           make -f Makefile.am anaconda-release-build
 
       - name: Run the build in the container
+        id: build
         run: |
           make -f Makefile.am container-release | tee release.log
 
       - name: Check logs for malformed translations
-        continue-on-error: true
+        if: ${{ steps.build.outcome == 'success' }}
         run: |
           errors=$(grep -E "Unable to compile [^:]+: .*" release.log || true)  # grep exits with 1 if no lines found
           if [ -n "$errors" ]; then
@@ -52,7 +53,7 @@ jobs:
           fi
 
       - name: Check if translation files are present in tarball
-        continue-on-error: true
+        if: ${{ always() && steps.build.outcome == 'success' }}
         run: |
           tarfiles=$(tar -tf anaconda-*.tar.bz2)
           missing=0
