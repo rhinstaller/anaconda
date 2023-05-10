@@ -184,6 +184,10 @@ export const scenarioForInitializationMode = (mode) => {
     }
 };
 
+export const getDefaultScenario = () => {
+    return scenarios.filter(s => s.default)[0];
+};
+
 const scenarioDetailContent = (scenario, hint) => {
     return (
         <Flex direction={{ default: "column" }}>
