@@ -73,38 +73,34 @@ export const ReviewConfiguration = ({ idPrefix, setStorageScenarioId }) => {
     const [encrypt, setEncrypt] = useState();
     const [storageScenario, setStorageScenario] = useState();
 
-    // TODO migrate to async/await
     useEffect(() => {
-        getLanguage()
-                .then(res => {
-                    getLanguageData({ lang: res }).then(res => {
-                        setSystemLanguage(res["native-name"].v);
-                    }, console.error);
-                }, console.error);
-        getSelectedDisks()
-                .then(res => {
-                    setDisksExpanded(res.length < 2);
-                    setSelectedDisks(res);
-                    // get detailed data for the selected disks
-                    res.forEach(disk => {
-                        getDeviceData({ disk })
-                                .then(res => {
-                                    setDeviceData(d => ({ ...d, [disk]: res[0] }));
-                                }, console.error);
-                    });
-                }, console.error);
-        getAppliedPartitioning()
-                .then(partitioning => {
-                    return getPartitioningRequest({ partitioning });
-                }, console.error)
-                .then(request => {
-                    setEncrypt(request.encrypted.v);
-                }, console.error);
-        getInitializationMode()
-                .then(mode => {
-                    const scenarioId = scenarioForInitializationMode(mode).id;
-                    setStorageScenario(scenarioId);
-                }, console.error);
+        const initializeLanguage = async () => {
+            const lang = await getLanguage().catch(console.error);
+            const langData = await getLanguageData({ lang }).catch(console.error);
+            setSystemLanguage(langData["native-name"].v);
+        };
+        const initializeDisks = async () => {
+            const selDisks = await getSelectedDisks().catch(console.error);
+            setDisksExpanded(selDisks.length < 2);
+            setSelectedDisks(selDisks);
+            for (const disk of selDisks) {
+                const devData = await getDeviceData({ disk }).catch(console.error);
+                setDeviceData(d => ({ ...d, [disk]: devData[0] }));
+            }
+        };
+        const initializeEncrypt = async () => {
+            const partitioning = await getAppliedPartitioning().catch(console.error);
+            const request = await getPartitioningRequest({ partitioning }).catch(console.error);
+            setEncrypt(request.encrypted.v);
+        };
+        const initializeScenario = async () => {
+            const mode = await getInitializationMode().catch(console.error);
+            setStorageScenario(scenarioForInitializationMode(mode).id);
+        };
+        initializeLanguage();
+        initializeDisks();
+        initializeEncrypt();
+        initializeScenario();
     }, []);
 
     useEffect(() => {
