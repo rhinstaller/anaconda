@@ -118,6 +118,7 @@ Requires: NetworkManager-team
 %endif
 %ifarch s390 s390x
 Requires: openssh
+Requires: s390utils-core
 %endif
 Requires: NetworkManager >= %{nmver}
 Requires: NetworkManager-libnm >= %{nmver}
