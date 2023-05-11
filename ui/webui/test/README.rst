@@ -139,11 +139,11 @@ Locally just copy the broken tests images to the `test/reference` directory. How
 option to deal with this is to use automation which will download all the broken images from
 fail test on PR::
 
-    ./test/common/pixel-tests fetch <link to HTML with failed tests>
+    GITHUB_BASE=rhinstaller/anaconda ./test/common/pixel-tests fetch <link to HTML with failed tests>
 
 Example of such a call::
 
-    ./test/common/pixel-tests fetch https://cockpit-logs.us-east-1.linodeobjects.com/pull-4551-20230322-101308-479c2fc1-fedora-rawhide-boot-rhinstaller-anaconda
+    GITHUB_BASE=rhinstaller/anaconda ./test/common/pixel-tests fetch https://cockpit-logs.us-east-1.linodeobjects.com/pull-4551-20230322-101308-479c2fc1-fedora-rawhide-boot-rhinstaller-anaconda
 
 The link will be link accessible from the `Details` button on GitHub PR with failed tests.
 
