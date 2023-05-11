@@ -411,6 +411,22 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu May 11 2023 Radek Vykydal <rvykydal@redhat.com> - 34.25.3.1-1
+- Add DNS search and ignore options from kickstart (vslavik)
+  Resolves: rhbz#2065754
+- driver_updates: migrate driver_updates.py to pep8 format (jkonecny)
+  Related: rhbz#2154906
+- driver_updates: adding tests for the new logging solution (jkonecny)
+  Related: rhbz#2154906
+- driver_updates: add lot of debug logs for easier debugging (jkonecny)
+  Related: rhbz#2154906
+- driver_updates: extend where we print log messages (jkonecny)
+  Resolves: rhbz#2154906
+- Add missing documentation about OEMDRV (jkonecny)
+  Related: rhbz#2171811
+- oemdrv: wait up to 5 seconds for disks to be handled (rmetrich)
+  Resolves: rhbz#2171811
+
 * Wed Mar 22 2023 Martin Kolman <mkolman@redhat.com> - 34.25.2.10-1
 - Update translations
   Resolves: rhbz#2139640
