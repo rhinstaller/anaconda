@@ -68,6 +68,7 @@ import {
     setBootloaderDrive,
     partitioningSetPassphrase,
     partitioningSetEncrypt,
+    findPartitioning,
 } from "../../apis/storage.js";
 
 import {
@@ -516,4 +517,18 @@ export const applyDefaultStorage = ({ onFail, onSuccess, encrypt, encryptPasswor
                 });
             })
             .catch(onFail);
+};
+
+export const applyMountPointStorage = async ({ onFail, onSuccess }) => {
+    console.log("applyMountPointStorage");
+    await setInitializeLabelsEnabled({ enabled: true });
+    await setBootloaderDrive({ drive: "" });
+    const [partitioning] = await findPartitioning({ method: "MANUAL" });
+    const tasks = await partitioningConfigureWithTask({ partitioning });
+    runStorageTask({
+        task: tasks[0],
+        onFail,
+        onSuccess: () => applyPartitioning({ partitioning }).then(onSuccess)
+                .catch(onFail)
+    });
 };

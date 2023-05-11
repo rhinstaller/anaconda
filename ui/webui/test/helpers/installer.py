@@ -23,6 +23,7 @@ class InstallerSteps(UserList):
     WELCOME = "installation-language"
     STORAGE_DEVICES = "storage-devices"
     STORAGE_CONFIGURATION = "storage-configuration"
+    CUSTOM_MOUNT_POINT = "custom-mountpoint"
     DISK_ENCRYPTION = "disk-encryption"
     REVIEW = "installation-review"
     PROGRESS = "installation-progress"
@@ -54,10 +55,10 @@ class Installer():
             self.wait_current_page(self.steps[current_step_id+1])
 
     @log_step()
-    def next(self, should_fail=False, subpage=False):
+    def next(self, should_fail=False, subpage=False, next_page=""):
         current_step_id = self.get_current_page_id()
         current_page = self.steps[current_step_id]
-        next_page = self.steps[current_step_id+1]
+        next_page = next_page or self.steps[current_step_id+1]
 
         # Wait for a disk to be pre-selected before clicking 'Next'.
         # FIXME: Find a better way.

@@ -26,6 +26,7 @@ import {
     DataListToggle,
     DataListItemRow, DataListItemCells,
     DataListCell,
+    DataListContent,
     DescriptionList, DescriptionListGroup,
     DescriptionListTerm, DescriptionListDescription,
     ExpandableSection,
@@ -38,7 +39,9 @@ import {
     getSelectedDisks,
     getDeviceData,
     getAppliedPartitioning,
+    getManualPartitioningRequests,
     getPartitioningRequest,
+    getPartitioningMethod,
 } from "../../apis/storage.js";
 
 import {
@@ -47,6 +50,9 @@ import {
 import { AnacondaPage } from "../AnacondaPage.jsx";
 
 import { getScenario } from "../storage/StorageConfiguration.jsx";
+import { CheckCircleIcon } from "@patternfly/react-icons";
+
+import { ListingTable } from "cockpit-components-table.jsx";
 
 import "./ReviewConfiguration.scss";
 
@@ -70,17 +76,39 @@ export const ReviewDescriptionList = ({ children }) => {
     );
 };
 
-const DeviceRow = ({ name, data }) => {
+const DeviceRow = ({ name, data, requests }) => {
     const [isExpanded, setIsExpanded] = useState(false);
+
+    const renderRow = row => {
+        const iconColumn = row.reformat.v ? <CheckCircleIcon /> : null;
+        return {
+            props: { key: row["device-spec"].v },
+            columns: [
+                { title: row["device-spec"].v },
+                { title: row["format-type"].v },
+                { title: row["mount-point"].v },
+                { title: iconColumn },
+            ]
+        };
+    };
+
+    const imageRows = requests?.filter(req => req["device-spec"].v.includes(name)).map(renderRow) || [];
+
+    const columnTitles = [
+        _("Partition"),
+        _("Format type"),
+        _("Mount"),
+        _("Reformat"),
+    ];
 
     return (
         <DataListItem id={`data-list-${name}`} isExpanded={isExpanded} key={name}>
             <DataListItemRow>
                 <DataListToggle
-                  buttonProps={{ isDisabled: true }}
-                  onClick={() => setIsExpanded(!isExpanded)}
+                  onClick={() => requests !== null ? setIsExpanded(!isExpanded) : {}}
                   isExpanded={isExpanded}
                   id={name + "-expander"}
+                  buttonProps={{ isDisabled: requests === null }}
                 />
                 <DataListItemCells
                   dataListCells={[
@@ -96,6 +124,15 @@ const DeviceRow = ({ name, data }) => {
                   ]}
                 />
             </DataListItemRow>
+            <DataListContent isHidden={!isExpanded}>
+                <ListingTable
+                  id="partitions-table"
+                  aria-label={_("Disk partitions")}
+                  emptyCaption={_("No partitions found")}
+                  variant="compact"
+                  columns={columnTitles}
+                  rows={imageRows} />
+            </DataListContent>
         </DataListItem>
     );
 };
@@ -105,6 +142,7 @@ export const ReviewConfiguration = ({ idPrefix, storageScenarioId }) => {
     const [selectedDisks, setSelectedDisks] = useState();
     const [systemLanguage, setSystemLanguage] = useState();
     const [encrypt, setEncrypt] = useState();
+    const [requests, setRequests] = useState(null);
     const [showLanguageSection, setShowLanguageSection] = useState(true);
     const [showInstallationDestSection, setShowInstallationDestSection] = useState(true);
 
@@ -124,8 +162,14 @@ export const ReviewConfiguration = ({ idPrefix, storageScenarioId }) => {
         };
         const initializeEncrypt = async () => {
             const partitioning = await getAppliedPartitioning().catch(console.error);
-            const request = await getPartitioningRequest({ partitioning }).catch(console.error);
-            setEncrypt(request.encrypted.v);
+            const method = await getPartitioningMethod({ partitioning }).catch(console.error);
+            if (method === "AUTOMATIC") {
+                const request = await getPartitioningRequest({ partitioning }).catch(console.error);
+                setEncrypt(request.encrypted.v);
+            } else {
+                const requests = await getManualPartitioningRequests({ partitioning });
+                setRequests(requests);
+            }
         };
         initializeLanguage();
         initializeDisks();
@@ -181,18 +225,21 @@ export const ReviewConfiguration = ({ idPrefix, storageScenarioId }) => {
                         <DescriptionListDescription className="description-list-description" id={idPrefix + "-target-system-mode"}>
                             {getScenario(storageScenarioId).label}
                         </DescriptionListDescription>
-                        <DescriptionListTerm className="description-list-term">
-                            {_("Disk Encryption")}
-                        </DescriptionListTerm>
-                        <DescriptionListDescription className="description-list-description" id={idPrefix + "-target-system-encrypt"}>
-                            {encrypt ? _("Enabled") : _("Disabled")}
-                        </DescriptionListDescription>
+                        {storageScenarioId !== "custom-mount-point" &&
+                        <>
+                            <DescriptionListTerm className="description-list-term">
+                                {_("Disk Encryption")}
+                            </DescriptionListTerm>
+                            <DescriptionListDescription className="description-list-description" id={idPrefix + "-target-system-encrypt"}>
+                                {encrypt ? _("Enabled") : _("Disabled")}
+                            </DescriptionListDescription>
+                        </>}
                     </DescriptionListGroup>
                 </ReviewDescriptionList>
                 <Title className="storage-devices-configuration-title" headingLevel="h4">{_("Storage devices and configurations")}</Title>
                 <DataList isCompact>
                     {Object.keys(deviceData).map(deviceName =>
-                        <DeviceRow key={deviceName} name={deviceName} data={deviceData[deviceName]} />
+                        <DeviceRow key={deviceName} name={deviceName} data={deviceData[deviceName]} requests={requests} />
                     )}
                 </DataList>
             </ExpandableSection>

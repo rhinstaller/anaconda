@@ -49,7 +49,7 @@ import { HelpIcon } from "@patternfly/react-icons";
 
 import ExclamationTriangleIcon from "@patternfly/react-icons/dist/esm/icons/exclamation-triangle-icon";
 
-import { helpEraseAll, helpUseFreeSpace } from "./HelpAutopartOptions.jsx";
+import { helpEraseAll, helpUseFreeSpace, helpCustomMountPoint } from "./HelpAutopartOptions.jsx";
 
 import {
     getRequiredDeviceSize,
@@ -142,6 +142,12 @@ const checkUseFreeSpace = async (selectedDisks, requiredSize) => {
     return availability;
 };
 
+// TODO: what prevents us from selecting the custom mount point feature?
+const checkCustomMountPoint = async (selectedDisks, requiredSize) => {
+    const availability = new AvailabilityState();
+    return availability;
+};
+
 const scenarios = [{
     id: "erase-all",
     label: _("Erase data and install"),
@@ -170,6 +176,21 @@ const scenarios = [{
     dialogTitleIconVariant: "",
     dialogWarningTitle: _("Install on the free space?"),
     dialogWarning: _("The installation will use the available space on your devices and will not erase any device data."),
+}, {
+    id: "custom-mount-point",
+    label: _("Mount point assignment"),
+    default: false,
+    detail: helpCustomMountPoint,
+    check: checkCustomMountPoint,
+    // https://github.com/rhinstaller/anaconda/blob/f8bba497cbff37c94c8f05b11da3fa951cefcb0b/pyanaconda/ui/tui/spokes/storage.py#L506
+    // CLEAR_PARTITIONS_NONE = 0
+    initializationMode: 0,
+    buttonLabel: _("Apply mount point assignment and install"),
+    buttonVariant: "danger",
+    screenWarnings: "",
+    dialogTitleIconVariant: "",
+    dialogWarningTitle: _("Install on the custom mount points?"),
+    dialogWarning: _("The installation will use your configured partitioning layout."),
 }];
 
 export const getScenario = (scenarioId) => {

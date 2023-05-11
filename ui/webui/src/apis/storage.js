@@ -61,6 +61,43 @@ export const createPartitioning = ({ method }) => {
 };
 
 /**
+ * @param {string} method       A partitioning method
+ *
+ * Based on find_partitioning, finds the most recent CreatedPartitioning
+ * https://github.com/rhinstaller/anaconda/blob/f8bba497cbff37c94c8f05b11da3fa951cefcb0b/pyanaconda/ui/lib/storage.py#L59
+ *
+ * @returns {Promise}           Resolves the DBus path to the partitioning
+ */
+export const findPartitioning = ({ method }) => {
+    return new StorageClient().client.call(
+        "/org/fedoraproject/Anaconda/Modules/Storage",
+        "org.freedesktop.DBus.Properties",
+        "Get",
+        [
+            "org.fedoraproject.Anaconda.Modules.Storage",
+            "CreatedPartitioning",
+        ]
+    )
+            .then(([res]) => {
+                if (res.v.length === 0) {
+                    return createPartitioning({ method });
+                } else {
+                    const lastPartitiong = res.v[res.v.length - 1];
+                    return getPartitioningMethod({ partitioning: lastPartitiong }).then(partitioningMethod => {
+                        if (partitioningMethod !== method) {
+                            return createPartitioning({ method });
+                        } else {
+                            return new Promise((resolve) => {
+                                // Return as list to mimmick createPartitioning
+                                resolve([res.v[res.v.length - 1]]);
+                            });
+                        }
+                    });
+                }
+            });
+};
+
+/**
  * @returns {Promise}           Resolves all properties of DiskSelection interface
  */
 export const getAllDiskSelection = () => {
@@ -190,6 +227,26 @@ export const getPartitioningRequest = ({ partitioning }) => {
             [
                 "org.fedoraproject.Anaconda.Modules.Storage.Partitioning.Automatic",
                 "Request",
+            ]
+        )
+                .then(res => res[0].v)
+    );
+};
+
+/**
+ * @param {string} partitioning     DBus path to a partitioning
+ *
+ * @returns {Promise}               The partitioning method
+ */
+export const getPartitioningMethod = ({ partitioning }) => {
+    return (
+        new StorageClient().client.call(
+            partitioning,
+            "org.freedesktop.DBus.Properties",
+            "Get",
+            [
+                "org.fedoraproject.Anaconda.Modules.Storage.Partitioning",
+                "PartitioningMethod",
             ]
         )
                 .then(res => res[0].v)
@@ -364,5 +421,54 @@ export const setSelectedDisks = ({ drives }) => {
             "SelectedDisks",
             cockpit.variant("as", drives)
         ]
+    );
+};
+
+/*
+ * @param {string} partitioning DBus path to a partitioning
+ * @param {Array.<Object>} requests An array of request objects
+ */
+export const setManualPartitioningRequests = ({ partitioning, requests }) => {
+    return new StorageClient().client.call(
+        partitioning,
+        "org.freedesktop.DBus.Properties",
+        "Set",
+        [
+            "org.fedoraproject.Anaconda.Modules.Storage.Partitioning.Manual",
+            "Requests",
+            cockpit.variant("aa{sv}", requests)
+        ]
+    );
+};
+
+/**
+ * @returns {Promise}           The request of automatic partitioning
+ */
+export const getManualPartitioningRequests = ({ partitioning }) => {
+    return (
+        new StorageClient().client.call(
+            partitioning,
+            "org.freedesktop.DBus.Properties",
+            "Get",
+            [
+                "org.fedoraproject.Anaconda.Modules.Storage.Partitioning.Manual",
+                "Requests",
+            ]
+        )
+                .then(res => res[0].v)
+    );
+};
+
+/**
+ * @param {string}             partitioning DBus path to a partitioning
+ *
+ * @returns {Promise}          The gathered requests for manual partitioning
+ */
+export const gatherRequests = ({ partitioning }) => {
+    return new StorageClient().client.call(
+        partitioning,
+        "org.fedoraproject.Anaconda.Modules.Storage.Partitioning.Manual",
+        "GatherRequests",
+        []
     );
 };

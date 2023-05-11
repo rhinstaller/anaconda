@@ -32,3 +32,12 @@ export const helpUseFreeSpace = (
         </Text>
     </TextContent>
 );
+
+export const helpCustomMountPoint = (
+    <TextContent>
+        <Text component={TextVariants.p}>
+            {_("This option requires you to first partition and format your disk and " +
+            "then assign custom mount points in the next step.")}
+        </Text>
+    </TextContent>
+);

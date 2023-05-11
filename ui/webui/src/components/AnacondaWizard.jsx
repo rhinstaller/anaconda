@@ -32,8 +32,9 @@ import {
     WizardContextConsumer,
 } from "@patternfly/react-core";
 
-import { InstallationDestination, applyDefaultStorage } from "./storage/InstallationDestination.jsx";
+import { InstallationDestination, applyDefaultStorage, applyMountPointStorage } from "./storage/InstallationDestination.jsx";
 import { StorageConfiguration, getScenario, getDefaultScenario } from "./storage/StorageConfiguration.jsx";
+import { CustomMountPoint } from "./storage/CustomMountPoint.jsx";
 import { DiskEncryption, StorageEncryptionState } from "./storage/DiskEncryption.jsx";
 import { InstallationLanguage } from "./localization/InstallationLanguage.jsx";
 import { InstallationProgress } from "./installation/InstallationProgress.jsx";
@@ -71,9 +72,15 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, hide
                 id: "storage-configuration",
                 label: _("Storage configuration")
             }, {
+                component: CustomMountPoint,
+                id: "custom-mountpoint",
+                label: _("Custom mount point"),
+                isHidden: storageScenarioId !== "custom-mount-point"
+            }, {
                 component: DiskEncryption,
                 id: "disk-encryption",
-                label: _("Disk encryption")
+                label: _("Disk encryption"),
+                isHidden: storageScenarioId === "custom-mount-point"
             }]
         },
         {
@@ -92,7 +99,9 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, hide
         for (const step of steps) {
             if (step.steps) {
                 for (const childStep of step.steps) {
-                    stepIds.push(childStep.id);
+                    if (childStep?.isHidden !== true) {
+                        stepIds.push(childStep.id);
+                    }
                 }
             } else {
                 stepIds.push(step.id);
@@ -117,7 +126,7 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, hide
     };
 
     const createSteps = (stepsOrder) => {
-        const steps = stepsOrder.map((s, idx) => {
+        const steps = stepsOrder.filter(s => !s.isHidden).map(s => {
             let step = ({
                 id: s.id,
                 name: s.label,
@@ -238,6 +247,24 @@ const Footer = ({
             });
         } else if (activeStep.id === "installation-review") {
             setNextWaitsConfirmation(true);
+        } else if (activeStep.id === "custom-mountpoint") {
+            setIsInProgress(true);
+
+            applyMountPointStorage({
+                onFail: ex => {
+                    console.error(ex);
+                    setIsInProgress(false);
+                    setStepNotification({ step: activeStep.id, ...ex });
+                },
+                onSuccess: () => {
+                    onNext();
+
+                    // Reset the state after the onNext call. Otherwise,
+                    // React will try to render the current step again.
+                    setIsInProgress(false);
+                    setStepNotification();
+                },
+            });
         } else {
             onNext();
         }
