@@ -372,6 +372,16 @@ def get_kickstart_network_data(ifcfg, nm_client, network_data_class, root_path="
     if iface:
         kwargs["device"] = iface
 
+    # DNS search etc.
+    if ifcfg.get("DOMAIN"):
+        kwargs["ipv4_dns_search"] = ifcfg.get("DOMAIN").replace(" ", ",")
+    if ifcfg.get("IPV6_DOMAIN"):
+        kwargs["ipv6_dns_search"] = ifcfg.get("IPV6_DOMAIN").replace(" ", ",")
+    if ifcfg.get("PEERDNS") == "no":
+        kwargs["ipv4_ignore_auto_dns"] = True
+    if ifcfg.get("IPV6_PEERDNS") == "no":
+        kwargs["ipv6_ignore_auto_dns"] = True
+
     # bonding
     # FIXME: dracut has only BOND_OPTS
     if ifcfg.get("BONDING_MASTER") == "yes" or ifcfg.get("TYPE") == "Bond":
