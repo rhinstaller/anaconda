@@ -51,18 +51,11 @@ import { ListingTable } from "cockpit-components-table.jsx";
 import { helpStorageOptions } from "./HelpStorageOptions.jsx";
 
 import {
-    applyPartitioning,
-    createPartitioning,
     getRequiredDeviceSize,
-    partitioningConfigureWithTask,
     resetPartitioning,
     runStorageTask,
     scanDevicesWithTask,
-    setInitializeLabelsEnabled,
     setSelectedDisks,
-    setBootloaderDrive,
-    partitioningSetPassphrase,
-    partitioningSetEncrypt,
 } from "../../apis/storage.js";
 
 import {
@@ -70,9 +63,6 @@ import {
 } from "../../apis/payloads";
 import { getDevicesAction, getDiskSelectionAction } from "../../actions/storage-actions.js";
 
-import {
-    sleep,
-} from "../Common.jsx";
 import { AnacondaPage } from "../AnacondaPage.jsx";
 
 const _ = cockpit.gettext;
@@ -263,7 +253,7 @@ const LocalStandardDisks = ({ deviceData, diskSelection, dispatch, idPrefix, set
               setSelectedDisks({ drives: [] });
               scanDevicesWithTask()
                       .then(res => {
-                          runStorageTask({
+                          return runStorageTask({
                               task: res[0],
                               onSuccess: () => resetPartitioning().then(() => {
                                   dispatch(getDevicesAction());
@@ -506,36 +496,4 @@ export const InstallationDestination = ({ deviceData, diskSelection, dispatch, i
             />
         </AnacondaPage>
     );
-};
-
-// TODO move to the right place (new or StorageConfiguration) when renaming this file
-// TODO migrate to async
-export const applyDefaultStorage = ({ onFail, onSuccess, encrypt, encryptPassword }) => {
-    console.log(`applyDefaultStorage, encrypt: ${encrypt}`);
-    let partitioning;
-    // CLEAR_PARTITIONS_ALL = 1
-    return sleep({ seconds: 2 })
-            .then(() => setInitializeLabelsEnabled({ enabled: true }))
-            .then(() => setBootloaderDrive({ drive: "" }))
-            .then(() => createPartitioning({ method: "AUTOMATIC" }))
-            .then(res => {
-                partitioning = res[0];
-                return partitioningSetEncrypt({ partitioning, encrypt });
-            })
-            .then(() => {
-                return partitioningSetPassphrase({ partitioning, passphrase: encryptPassword });
-            })
-            .then(() => partitioningConfigureWithTask({ partitioning }))
-            .then(tasks => {
-                runStorageTask({
-                    task: tasks[0],
-                    onSuccess: () => (
-                        applyPartitioning({ partitioning })
-                                .then(onSuccess)
-                                .catch(onFail)
-                    ),
-                    onFail
-                });
-            })
-            .catch(onFail);
 };

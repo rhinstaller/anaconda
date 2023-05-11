@@ -16,7 +16,10 @@
  */
 import cockpit from "cockpit";
 
-import { getDiskSelectionAction } from "../actions/storage-actions.js";
+import {
+    getDiskSelectionAction,
+    getPartitioningDataAction
+} from "../actions/storage-actions.js";
 
 export class StorageClient {
     constructor (address) {
@@ -223,6 +226,26 @@ export const getPartitioningRequest = ({ partitioning }) => {
 };
 
 /**
+ * @param {string} partitioning     DBus path to a partitioning
+ *
+ * @returns {Promise}               The partitioning method
+ */
+export const getPartitioningMethod = ({ partitioning }) => {
+    return (
+        new StorageClient().client.call(
+            partitioning,
+            "org.freedesktop.DBus.Properties",
+            "Get",
+            [
+                "org.fedoraproject.Anaconda.Modules.Storage.Partitioning",
+                "PartitioningMethod",
+            ]
+        )
+                .then(res => res[0].v)
+    );
+};
+
+/**
  * @returns {Promise}           The applied partitioning
  */
 export const getAppliedPartitioning = () => {
@@ -401,6 +424,37 @@ export const setSelectedDisks = ({ drives }) => {
     );
 };
 
+/*
+ * @param {string} partitioning DBus path to a partitioning
+ * @param {Array.<Object>} requests An array of request objects
+ */
+export const setManualPartitioningRequests = ({ partitioning, requests }) => {
+    return new StorageClient().client.call(
+        partitioning,
+        "org.freedesktop.DBus.Properties",
+        "Set",
+        [
+            "org.fedoraproject.Anaconda.Modules.Storage.Partitioning.Manual",
+            "Requests",
+            cockpit.variant("aa{sv}", requests)
+        ]
+    );
+};
+
+/**
+ * @param {string} partitioning DBus path to a partitioning
+ *
+ * @returns {Promise}           The gathered requests for manual partitioning
+ */
+export const gatherRequests = ({ partitioning }) => {
+    return new StorageClient().client.call(
+        partitioning,
+        "org.fedoraproject.Anaconda.Modules.Storage.Partitioning.Manual",
+        "GatherRequests",
+        []
+    );
+};
+
 export const startEventMonitorStorage = ({ dispatch }) => {
     return new StorageClient().client.subscribe(
         { },
@@ -409,10 +463,58 @@ export const startEventMonitorStorage = ({ dispatch }) => {
             case "PropertiesChanged":
                 if (args[0] === "org.fedoraproject.Anaconda.Modules.Storage.DiskSelection") {
                     dispatch(getDiskSelectionAction());
+                } else if (args[0] === "org.fedoraproject.Anaconda.Modules.Storage.Partitioning.Manual" && Object.hasOwn(args[1], "Requests")) {
+                    dispatch(getPartitioningDataAction({ requests: args[1].Requests.v, partitioning: path, updateOnly: true }));
+                } else if (args[0] === "org.fedoraproject.Anaconda.Modules.Storage" && Object.hasOwn(args[1], "CreatedPartitioning")) {
+                    const last = args[1].CreatedPartitioning.v.length - 1;
+                    dispatch(getPartitioningDataAction({ partitioning: args[1].CreatedPartitioning.v[last] }));
+                } else {
+                    console.debug(`Unhandled signal on ${path}: ${iface}.${signal} ${JSON.stringify(args)}`);
                 }
                 break;
             default:
-                console.debug(`Unhandled signal on ${path}: ${iface}.${signal}`);
+                console.debug(`Unhandled signal on ${path}: ${iface}.${signal} ${JSON.stringify(args)}`);
             }
         });
+};
+
+export const initDataStorage = ({ dispatch }) => {
+    return new StorageClient().client.call(
+        "/org/fedoraproject/Anaconda/Modules/Storage",
+        "org.freedesktop.DBus.Properties",
+        "Get",
+        [
+            "org.fedoraproject.Anaconda.Modules.Storage",
+            "CreatedPartitioning",
+        ]
+    )
+            .then(([res]) => {
+                if (res.v.length !== 0) {
+                    return res.v.forEach(path => dispatch(getPartitioningDataAction({ partitioning: path })));
+                }
+            });
+};
+
+export const applyStorage = async ({ partitioning, encrypt, encryptPassword, onFail, onSuccess }) => {
+    await setInitializeLabelsEnabled({ enabled: true });
+    await setBootloaderDrive({ drive: "" });
+
+    const [part] = partitioning ? [partitioning] : await createPartitioning({ method: "AUTOMATIC" });
+
+    if (encrypt) {
+        await partitioningSetEncrypt({ partitioning: part, encrypt });
+    }
+    if (encryptPassword) {
+        await partitioningSetPassphrase({ partitioning: part, passphrase: encryptPassword });
+    }
+
+    const tasks = await partitioningConfigureWithTask({ partitioning: part });
+
+    runStorageTask({
+        task: tasks[0],
+        onFail,
+        onSuccess: () => applyPartitioning({ partitioning: part })
+                .then(onSuccess)
+                .catch(onFail)
+    });
 };

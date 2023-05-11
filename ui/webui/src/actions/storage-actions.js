@@ -18,12 +18,14 @@
 import cockpit from "cockpit";
 
 import {
+    gatherRequests,
     getAllDiskSelection,
     getDeviceData,
     getDevices,
     getDiskFreeSpace,
     getDiskTotalSpace,
     getFormatData,
+    getPartitioningMethod,
     getUsableDisks,
 } from "../apis/storage.js";
 
@@ -79,6 +81,29 @@ export const getDiskSelectionAction = () => {
                     usableDisks: usableDisks[0],
                 }
             },
+        });
+    };
+};
+
+export const getPartitioningDataAction = ({ requests, partitioning, updateOnly }) => {
+    return async function fetchUserThunk (dispatch) {
+        const props = { path: partitioning };
+        const convertRequests = reqs => reqs.map(request => Object.entries(request).reduce((acc, [key, value]) => ({ ...acc, [key]: value.v }), {}));
+
+        if (!updateOnly) {
+            props.method = await getPartitioningMethod({ partitioning });
+            if (props.method === "MANUAL") {
+                const reqs = await gatherRequests({ partitioning });
+
+                props.requests = convertRequests(reqs[0]);
+            }
+        } else {
+            props.requests = convertRequests(requests);
+        }
+
+        return dispatch({
+            type: "GET_PARTITIONING_DATA",
+            payload: { path: partitioning, partitioningData: props }
         });
     };
 };

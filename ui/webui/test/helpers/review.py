@@ -49,3 +49,12 @@ class Review():
     @log_step()
     def check_disk_description(self, disk, description):
         self.browser.wait_in_text(f"#{self._step}-disk-description-{disk}", description)
+
+    def expand_disk_table(self, disk):
+        self.browser.click(f"#{disk}-expander")
+
+    def check_disk_row_reformatted(self, disk, row, label):
+        self.browser.is_present(f"#data-list-{disk} tbody tr:nth-child({row}) td[data-label='{label}'] > svg")
+
+    def check_disk_row(self, disk, row, label, text):
+        self.browser.wait_in_text(f"#data-list-{disk} tbody tr:nth-child({row}) td[data-label='{label}']", text)

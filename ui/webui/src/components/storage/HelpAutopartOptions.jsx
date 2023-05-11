@@ -32,3 +32,11 @@ export const helpUseFreeSpace = (
         </Text>
     </TextContent>
 );
+
+export const helpCustomMountPoint = (
+    <TextContent>
+        <Text component={TextVariants.p}>
+            {_("This option requires that the selected device has formated partitions.")}
+        </Text>
+    </TextContent>
+);

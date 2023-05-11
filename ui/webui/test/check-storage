@@ -19,6 +19,7 @@ import anacondalib
 
 from installer import Installer
 from storage import Storage
+from review import Review
 from testlib import nondestructive, test_main  # pylint: disable=import-error
 
 
@@ -319,6 +320,267 @@ class TestStorageExtraDisks(anacondalib.VirtInstallMachineCase):
             "storage-step-basic-partitions",
             wait_animations=False,
         )
+
+class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
+
+    def select_mountpoint(self, i ,s, disks, expected_partitions):
+        i.open()
+        i.next()
+        s.rescan_disks()
+        for disk in disks:
+            dev = disk.split('/')[-1]
+            s.select_disk(dev)
+            s.set_expand_disk_row(dev, True)
+
+        for disk, partitions in expected_partitions.items():
+            dev = disk.split('/')[-1]
+            for partition in partitions:
+                s.check_disk_partition(dev, partition)
+
+        i.next()
+        s.set_partitioning("custom-mount-point")
+
+        i.next(next_page=i.steps.CUSTOM_MOUNT_POINT)
+
+    def select_from_dropdown(self, row, name, mountpoint, create=False):
+        b = self.browser
+        if create:
+            b.set_input_text(f"#custom-mountpoint-table tbody tr:nth-child({row}) td[data-label='Mount point'] .pf-c-form-control.pf-c-select__toggle-typeahead", mountpoint)
+            b.click(f"#custom-mountpoint-table tbody tr:nth-child({row}) td[data-label='Mount point'] button.pf-c-select__menu-item")
+        else:
+            b.click(f"#custom-mountpoint-table tbody tr:nth-child({row}) td[data-label='Mount point'] .pf-c-select__toggle button")
+            b.click(f"#custom-mountpoint-table tbody tr:nth-child({row}) td[data-label='Mount point'] .pf-c-select__menu-item.select-option-{name}")
+        b.wait_val(f"#custom-mountpoint-table tbody tr:nth-child({row}) td[data-label='Mount point'] .pf-c-select__toggle-typeahead", mountpoint)
+
+    def check_format_type(self, row, format_type):
+        self.browser.wait_in_text(f"#custom-mountpoint-table tbody tr:nth-child({row}) td[data-label='Format type']", format_type)
+
+    def select_reformat(self, row):
+        self.browser.set_checked(f"#custom-mountpoint-table tbody tr:nth-child({row}) td[data-label='Reformat'] input", True)
+
+    def check_reformat(self, row, checked):
+        checked_selector = "input:checked" if checked else "input:not(:checked)"
+        self.browser.wait_visible(f"#custom-mountpoint-table tbody tr:nth-child({row}) td[data-label='Reformat'] {checked_selector}")
+
+    def check_select_disabled(self, row):
+        self.browser.wait_visible(f"#custom-mountpoint-table tbody tr:nth-child({row}) td[data-label='Mount point'] .pf-c-select__toggle.pf-m-disabled")
+
+    def check_reformat_disabled(self, row):
+        self.browser.wait_visible(f"#custom-mountpoint-table tbody tr:nth-child({row}) td[data-label='Reformat'] .pf-c-check__input:disabled")
+
+    def assert_inline_error(self, text):
+        self.browser.wait_in_text(".pf-c-alert.pf-m-inline.pf-m-danger", text)
+
+    def udevadm_settle(self):
+        # Workaround to not have any empty mountpoint labels
+        self.machine.execute("""
+        udevadm trigger
+        udevadm settle --timeout=120
+        """)
+
+    def testBasic(self):
+        b = self.browser
+        m = self.machine
+        i = Installer(b, m)
+        s = Storage(b, m)
+        r = Review(b)
+
+        disk = "/dev/vda"
+        m.execute(f"""
+        sgdisk --zap-all {disk}
+        sgdisk --new=0:0:+1MiB -t 0:ef02 {disk}
+        sgdisk --new=0:0:+1GiB {disk}
+        sgdisk --new=0:0:+10GiB {disk}
+        sgdisk --new=0:0:0 {disk}
+        mkfs.ext4 {disk}2
+        mkfs.xfs {disk}3
+        mkfs.btrfs {disk}4
+        """)
+
+        self.udevadm_settle()
+        partitions = {}
+        partitions[disk] = [f"{disk}2", f"{disk}3", f"{disk}4"]
+        self.select_mountpoint(i, s, [disk], partitions)
+
+        # verify gathered requests
+        self.check_format_type(1, "biosboot")
+        self.check_select_disabled(1)
+        self.check_reformat_disabled(1)
+
+        self.check_format_type(2, "ext4")
+        self.select_from_dropdown(2, "boot", "/boot")
+        self.check_reformat(2, False)
+
+        self.check_format_type(3, "xfs")
+        self.select_from_dropdown(3, "root", "/")
+        self.check_reformat(3, True)
+
+        self.check_format_type(4, "btrfs")
+        self.select_from_dropdown(4, "home", "/home")
+        self.check_reformat(4, False)
+        self.check_reformat_disabled(4)
+
+        # Toggle reformat option
+        self.select_reformat(2)
+        self.check_reformat(2, True)
+
+        b.assert_pixels(
+            "#app",
+            "custom-mountpoint-table",
+            wait_animations=False,
+        )
+
+        b.click("#installation-next-btn")
+        page = i.steps.REVIEW
+        self.browser.wait_not_present("#installation-destination-next-spinner")
+        self.browser.wait_js_cond(f'window.location.hash === "#/{page}"')
+
+        # verify review screen
+        disk = "vda"
+        r.check_disk_label(disk, disk)
+        r.expand_disk_table(disk)
+
+        row = 1
+        r.check_disk_row(disk, row, "Partition", f"/dev/vda{row}")
+        r.check_disk_row(disk, row, "Format type", "biosboot")
+        row = 2
+        r.check_disk_row(disk, row, "Partition", f"/dev/vda{row}")
+        r.check_disk_row(disk, row, "Format type", "ext4")
+        r.check_disk_row(disk, row, "Mount point", "/boot")
+        r.check_disk_row_reformatted(disk, row, "Reformat")
+        row = 3
+        r.check_disk_row(disk, row, "Partition", f"/dev/vda{row}")
+        r.check_disk_row(disk, row, "Format type", "xfs")
+        r.check_disk_row(disk, row, "Mount point", "/")
+        r.check_disk_row_reformatted(disk, row, "Reformat")
+        row = 4
+        r.check_disk_row(disk, row, "Partition", f"/dev/vda{row}")
+        r.check_disk_row(disk, row, "Format type", "btrfs")
+        r.check_disk_row(disk, row, "Mount point", "/")
+
+    def testNoRootMountPoint(self):
+        b = self.browser
+        m = self.machine
+        i = Installer(b, m)
+        s = Storage(b, m)
+
+        # BIOS boot /boot on ext4 / on xfs /home on btrfs
+        disk = "/dev/vda"
+        m.execute(f"""
+        sgdisk --zap-all {disk}
+        sgdisk --new=0:0:+1MiB -t 0:ef02 {disk}
+        sgdisk --new=0:0:+1GiB {disk}
+        sgdisk --new=0:0:+10GiB {disk}
+        sgdisk --new=0:0:0 {disk}
+        mkfs.ext4 {disk}2
+        mkfs.xfs {disk}3
+        mkfs.ext4 {disk}4
+        """)
+
+        self.udevadm_settle()
+
+        partitions = {}
+        partitions[disk] = [f"{disk}2", f"{disk}3", f"{disk}4"]
+        self.select_mountpoint(i, s, [disk], partitions)
+
+        # verify gathered requests
+        self.check_format_type(1, "biosboot")
+        self.check_select_disabled(1)
+        self.check_reformat_disabled(1)
+
+        self.check_format_type(2, "ext4")
+        self.select_from_dropdown(2, "boot", "/boot")
+        self.check_reformat(2, False)
+
+        self.check_format_type(3, "xfs")
+        self.select_from_dropdown(3, "/foo", "/foo", create=True)
+        self.check_reformat(3, False)
+
+        self.check_format_type(4, "ext4")
+        self.select_from_dropdown(4, "home", "/home")
+        self.check_reformat(4, False)
+
+        b.click("#installation-next-btn")
+        self.assert_inline_error("You have not defined a root partition")
+
+    def testMultipleDisks(self):
+        b = self.browser
+        m = self.machine
+        i = Installer(b, m)
+        s = Storage(b, m)
+        r = Review(b)
+
+        m.add_disk(10)
+
+        # BIOS boot partition, /boot partition, /
+        disk1 = "/dev/vda"
+        m.execute(f"""
+        sgdisk --zap-all {disk1}
+        sgdisk --new=0:0:+1MiB -t 0:ef02 {disk1}
+        sgdisk --new=0:0:+1GiB {disk1}
+        sgdisk --new=0:0:0 {disk1}
+        mkfs.xfs {disk1}2
+        mkfs.xfs {disk1}3
+        """)
+
+        # /dev/vdb1 /home partition
+        disk2 = "/dev/vdb"
+        m.execute(f"""
+        sgdisk --zap-all {disk2}
+        sgdisk --new=0:0 {disk2}
+        mkfs.xfs {disk2}1
+        """)
+
+        self.udevadm_settle()
+
+        partitions = {}
+        partitions[disk1] = [f"{disk1}2", f"{disk1}3"]
+        partitions[disk2] = [f"{disk2}1"]
+        self.select_mountpoint(i, s, [disk1, disk2], partitions)
+
+        self.check_format_type(2, "xfs")
+        self.select_from_dropdown(2, "boot", "/boot")
+        self.check_reformat(2, False)
+
+        self.check_format_type(3, "xfs")
+        self.select_from_dropdown(3, "root", "/")
+        self.check_reformat(3, True)
+
+        self.check_format_type(4, "xfs")
+        self.select_from_dropdown(4, "home", "/home")
+        self.check_reformat(4, False)
+
+        b.click("#installation-next-btn")
+        page = i.steps.REVIEW
+        self.browser.wait_not_present("#installation-destination-next-spinner")
+        self.browser.wait_js_cond(f'window.location.hash === "#/{page}"')
+
+        # verify review screen
+        disk = "vda"
+        r.check_disk_label(disk, disk)
+        r.expand_disk_table(disk)
+
+        row = 1
+        r.check_disk_row(disk, row, "Partition", f"/dev/vda{row}")
+        r.check_disk_row(disk, row, "Format type", "biosboot")
+        row = 2
+        r.check_disk_row(disk, row, "Partition", f"/dev/vda{row}")
+        r.check_disk_row(disk, row, "Format type", "xfs")
+        r.check_disk_row(disk, row, "Mount point", "/boot")
+        row = 3
+        r.check_disk_row(disk, row, "Partition", f"/dev/vda{row}")
+        r.check_disk_row(disk, row, "Format type", "xfs")
+        r.check_disk_row(disk, row, "Mount point", "/")
+        r.check_disk_row_reformatted(disk, row, "Reformat")
+
+        disk = "vdb"
+        r.check_disk_label(disk, disk)
+        r.expand_disk_table(disk)
+
+        row = 1
+        r.check_disk_row(disk, row, "Partition", f"/dev/vdb{row}")
+        r.check_disk_row(disk, row, "Format type", "xfs")
+        r.check_disk_row(disk, row, "Mount point", "/home")
 
 if __name__ == '__main__':
     test_main()
