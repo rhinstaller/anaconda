@@ -47,7 +47,7 @@ lorax -p Fedora -v "$VERSION_ID" -r "$VERSION_ID" \
       -s http://dl.fedoraproject.org/pub/fedora/linux/development/rawhide/Everything/x86_64/os/ \
       -s https://fedorapeople.org/groups/anaconda/webui_new_payload/repo/ \
       -s file://$REPO_DIR/ \
-      -i anaconda-webui -i webui_payload -i cockpit-ws -i cockpit-bridge --rootfs-size 5 \
+      -i anaconda-webui -i webui_payload -i cockpit-ws -i cockpit-bridge -i firefox -i dbus-glib --rootfs-size 5 \
       "$@" \
       output || cp *.log /images/
 

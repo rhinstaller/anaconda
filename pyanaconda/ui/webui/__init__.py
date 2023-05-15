@@ -16,6 +16,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import os
 import meh
 
 from pyanaconda import ui
@@ -109,6 +110,12 @@ ExecStart=/usr/libexec/cockpit-ws --no-tls --port 9090 --local-session=cockpit-b
                 "/usr/bin/systemctl", "enable", "--now", "cockpit.socket"
             ])
 
+        # Force Firefox to be used via the BROWSER environment variable.
+        # This is read by cockpit-desktop and makes it launch Firefox in kiosk mode
+        # instead of the GTK WebKit based web view it launches by default.
+
+        # pylint: disable=environment-modify
+        os.environ["BROWSER"] = "/usr/bin/firefox --kiosk"
         proc = startProgram(["/usr/libexec/cockpit-desktop",
                             "/cockpit/@localhost/anaconda-webui/index.html"],
                             reset_lang=False)

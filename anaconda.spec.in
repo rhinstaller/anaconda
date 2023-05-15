@@ -252,10 +252,10 @@ Add this package to an image build (eg. with lorax) to ensure all Anaconda capab
 Summary: Cockpit based user interface for the Anaconda installer
 Requires: cockpit-bridge >= %{cockpitver}
 Requires: cockpit-ws >= %{cockpitver}
-# WebKit dependency needs to be specified there as cockpit web-view does not have a hard dependency on webkit as
-# it can normally fall back to a regular browser. This does not work in the limited installer
-# environment, so we need to make sure the WebKit API is available.
-Requires: webkit2gtk4.1
+# Firefox dependency needs to be specified there as cockpit web-view does not have a hard dependency on Firefox as
+# it can often fall back to a diferent browser. This does not work in the limited installer
+# environment, so we need to make sure Firefox is available.
+Requires: firefox
 
 %description webui
 This package contains Cockpit based user interface for the Anaconda installer.
