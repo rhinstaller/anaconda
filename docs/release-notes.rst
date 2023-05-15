@@ -123,7 +123,7 @@ now realized by using the ``faulthandler`` Python module and the ``systemd-cored
 As a result, the same debugging data is still available, while the installation environment
 becomes responsive significantly sooner after tracebacks. As a side effect, the logs from Anaconda
 and the installation environment now contain different error messages.
-See the `pull request <https://github.com/rhinstaller/anaconda/pull/4350>`__ for more information.
+See the pull request `#4350 <https://github.com/rhinstaller/anaconda/pull/4350>`__ for more information.
 
 Fedora 37
 #########
