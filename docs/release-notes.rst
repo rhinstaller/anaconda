@@ -125,6 +125,16 @@ becomes responsive significantly sooner after tracebacks. As a side effect, the 
 and the installation environment now contain different error messages.
 See the pull request `#4350 <https://github.com/rhinstaller/anaconda/pull/4350>`__ for more information.
 
+The Web UI of Anaconda is now packaged in Fedora
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Anaconda team is working for some time on the new Web UI frontend for the installer and to make
+this in development Web UI more accessible to people we decided to add this as a new package to
+Fedora repositories. To be able to consume this Web UI, you need to build ISO with the Web UI
+package and add kernel boot arguments `inst.webui`. This package is not included in the existing
+Fedora images by default.
+See the pull request `#4269 <https://github.com/rhinstaller/anaconda/pull/4269>`__.
+
 Fedora 37
 #########
 
