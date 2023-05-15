@@ -59,7 +59,6 @@ dist_check_SCRIPTS = $(srcdir)/glade_tests/*.py \
 		     $(srcdir)/*_tests/*/*/*/*.py \
 		     $(srcdir)/unit_tests/*_tests/*.py \
 		     shellcheck/*.sh \
-		     webui_eslint/run_webui_eslint.sh \
 		     pep8/runpep8.sh
 
 
@@ -72,8 +71,7 @@ TESTS = \
 	glade_tests/glade_tests.sh \
 	shellcheck/run_shellcheck.sh \
 	unit_tests/unit_tests.sh \
-	pylint/runpylint.py \
-	webui_eslint/run_webui_eslint.sh
+	pylint/runpylint.py
 
 clean-local:
 	-rm -rf pylint/.pylint.d
