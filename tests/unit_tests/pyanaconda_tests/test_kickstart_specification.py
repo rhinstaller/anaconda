@@ -47,6 +47,7 @@ from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
 from pyanaconda.modules.subscription.kickstart import SubscriptionKickstartSpecification
 from pyanaconda.modules.timezone.kickstart import TimezoneKickstartSpecification
 from pyanaconda.modules.users.kickstart import UsersKickstartSpecification
+from pyanaconda.modules.runtime.kickstart import RuntimeKickstartSpecification
 
 
 class TestData1(AddonData):
@@ -402,6 +403,7 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
         SubscriptionKickstartSpecification,
         TimezoneKickstartSpecification,
         UsersKickstartSpecification,
+        RuntimeKickstartSpecification,
     ]
 
     # Names of the kickstart commands and data that should be temporarily ignored.

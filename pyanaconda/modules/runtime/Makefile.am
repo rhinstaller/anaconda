@@ -1,4 +1,4 @@
-# modules/Makefile.am for anaconda
+# modules/boss/Makefile.am for anaconda
 #
 # Copyright (C) 2017  Red Hat, Inc.
 #
@@ -15,10 +15,10 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = common boss timezone network localization security users payloads storage services subscription runtime
+SUBDIRS = dracut_commands
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-modulesdir = $(pkgpyexecdir)/modules
-modules_PYTHON = $(srcdir)/*.py
+runtimedir = $(pkgpyexecdir)/modules/runtime
+runtime_PYTHON = $(srcdir)/*.py
 
 MAINTAINERCLEANFILES = Makefile.in

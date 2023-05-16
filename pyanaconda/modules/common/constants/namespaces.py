@@ -36,6 +36,11 @@ BOSS_NAMESPACE = (
     "Boss"
 )
 
+RUNTIME_NAMESPACE = (
+    *MODULES_NAMESPACE,
+    "Runtime"
+)
+
 TIMEZONE_NAMESPACE = (
     *MODULES_NAMESPACE,
     "Timezone"
