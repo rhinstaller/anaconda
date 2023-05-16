@@ -47,7 +47,7 @@ def cmd_cli():
     # the installed rpm package.
     if args.rsync:
         # Rather annoying the node_modules path needs to be explicitly added for webpack
-        subprocess.check_call(["npm", "run", "build"], env={'RSYNC': args.host, "PATH": "/usr/bin/:node_modules/.bin", "ESLINT": "0"})
+        subprocess.check_call(["npm", "run", "build"], env={'RSYNC': args.host, "PATH": "/usr/bin/:node_modules/.bin", "LINT": "0"})
         machine.execute("systemctl restart cockpit.service")
 
     # print marker that the VM is ready; tests can poll for this to wait for the VM
