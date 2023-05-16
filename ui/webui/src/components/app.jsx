@@ -133,6 +133,7 @@ export const Application = () => {
                 <AnacondaWizard
                   onAddErrorNotification={onAddErrorNotification}
                   toggleContextHelp={toggleContextHelp}
+                  hideContextHelp={() => setIsHelpExpanded(false)}
                   title={title}
                   conf={conf}
                 />

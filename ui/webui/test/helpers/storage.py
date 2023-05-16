@@ -204,3 +204,7 @@ class Storage():
             fi
         ''')
         self.machine.execute('chroot /mnt/sysroot bash /root/add_keyfile.sh')
+
+    def open_storage_options_help_drawer(self):
+        self.browser.click(".pf-c-wizard__main-body #learn-more-about-storage-options")
+        self.browser.wait_visible(".pf-c-drawer__panel-main")
