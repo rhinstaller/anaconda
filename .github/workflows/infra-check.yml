@@ -6,7 +6,7 @@
 #
 # The list of infrastructure files is located in .structure-config.
 
-name: infrastructure-check
+name: Infrastructure check
 on:
   pull_request_target:
     types: [ "synchronize", "reopened", "labeled", "unlabeled" ]
