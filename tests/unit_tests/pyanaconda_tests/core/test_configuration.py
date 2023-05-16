@@ -384,110 +384,11 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
         for pattern in conf.anaconda.activatable_modules:
             self._check_pattern(pattern)
 
-    def test_kickstart_modules(self):
-        """Test the kickstart_modules option."""
-        message = \
-            "The kickstart_modules configuration option is " \
-            "deprecated and will be removed in in the future."
-
-        conf = AnacondaConfiguration.from_defaults()
-        assert conf.anaconda.activatable_modules == [
-            "org.fedoraproject.Anaconda.Modules.*",
-            "org.fedoraproject.Anaconda.Addons.*"
-
-        ]
-
-        parser = conf.get_parser()
-        parser.read_string(dedent("""
-
-        [Anaconda]
-        kickstart_modules =
-            org.fedoraproject.Anaconda.Modules.Timezone
-            org.fedoraproject.Anaconda.Modules.Localization
-            org.fedoraproject.Anaconda.Modules.Security
-
-        """))
-
-        with pytest.warns(DeprecationWarning, match=message):
-            activatable_modules = conf.anaconda.activatable_modules
-
-        assert activatable_modules == [
-            "org.fedoraproject.Anaconda.Modules.Timezone",
-            "org.fedoraproject.Anaconda.Modules.Localization",
-            "org.fedoraproject.Anaconda.Modules.Security",
-            "org.fedoraproject.Anaconda.Addons.*"
-        ]
-
-        for pattern in activatable_modules:
-            self._check_pattern(pattern)
-
     def test_forbidden_modules(self):
         """Test the forbidden_modules option."""
         conf = AnacondaConfiguration.from_defaults()
 
         for pattern in conf.anaconda.forbidden_modules:
-            self._check_pattern(pattern)
-
-    def test_addons_enabled_modules(self):
-        """Test the addons_enabled option."""
-        message = \
-            "The addons_enabled configuration option is " \
-            "deprecated and will be removed in in the future."
-
-        conf = AnacondaConfiguration.from_defaults()
-        assert conf.anaconda.forbidden_modules == []
-
-        parser = conf.get_parser()
-        parser.read_string(dedent("""
-
-        [Anaconda]
-        forbidden_modules =
-            org.fedoraproject.Anaconda.Modules.Timezone
-            org.fedoraproject.Anaconda.Modules.Localization
-            org.fedoraproject.Anaconda.Modules.Security
-
-        """))
-
-        assert conf.anaconda.forbidden_modules == [
-            "org.fedoraproject.Anaconda.Modules.Timezone",
-            "org.fedoraproject.Anaconda.Modules.Localization",
-            "org.fedoraproject.Anaconda.Modules.Security",
-        ]
-
-        parser.read_string(dedent("""
-
-        [Anaconda]
-        addons_enabled = True
-
-        """))
-
-        with pytest.warns(DeprecationWarning, match=message):
-            forbidden_modules = conf.anaconda.forbidden_modules
-
-        assert forbidden_modules == [
-            "org.fedoraproject.Anaconda.Modules.Timezone",
-            "org.fedoraproject.Anaconda.Modules.Localization",
-            "org.fedoraproject.Anaconda.Modules.Security",
-        ]
-
-        parser.read_string(dedent("""
-
-        [Anaconda]
-        addons_enabled = False
-
-        """))
-
-        with pytest.warns(DeprecationWarning, match=message):
-            forbidden_modules = conf.anaconda.forbidden_modules
-
-        assert forbidden_modules == [
-            "org.fedoraproject.Anaconda.Addons.*",
-            "org.fedoraproject.Anaconda.Modules.Timezone",
-            "org.fedoraproject.Anaconda.Modules.Localization",
-            "org.fedoraproject.Anaconda.Modules.Security",
-        ]
-
-        for pattern in forbidden_modules:
             self._check_pattern(pattern)
 
     def test_optional_modules(self):
