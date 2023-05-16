@@ -1,0 +1,45 @@
+# Check if there is a release note, when the "release note required" label is present.
+
+name: Release note check
+on:
+  pull_request_target:
+    types: [ "synchronize", "reopened", "labeled", "unlabeled" ]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  release-note-check:
+    if: contains(github.event.pull_request.labels.*.name, 'release note required')
+    runs-on: ubuntu-20.04
+    name: Release notes present
+
+    steps:
+      - name: Clone Anaconda repository
+        uses: actions/checkout@v3
+        with:
+          # TODO: Are we able to remove ref, fetch-depth and Rebase task? Seems that the checkout
+          # without ref is doing the rebase for us.
+          # otherwise we are testing target branch instead of the PR branch (see pull_request_target trigger)
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - name: Check commits for release note changes
+        run: |
+          BASE=$(git merge-base origin/${{ github.event.pull_request.base.ref }} ${{ github.event.pull_request.head.sha }})
+          echo "Common ancestor commit with ${{ github.event.pull_request.base.ref }} is: $BASE"
+
+          # filter AM = Added or Modified; we need only changes that can add release notes
+          FILES=$(git diff --name-only --diff-filter=AM $BASE ${{ github.event.pull_request.head.sha }})
+          printf "Files added or modified since that commit: \n$FILES\n"
+
+          NOTES=$(echo "$FILES" | grep docs/release-notes)
+          if [[ ! -z $NOTES ]] ; then
+            printf "Detected release notes: \n$NOTES\n"
+          else
+            echo "No changes to release notes found, but the label 'release notes required' is present."
+            echo "Add a release note file to make the test pass."
+            echo "See also: https://anaconda-installer.readthedocs.io/en/latest/contributing.html#release-notes"
+            exit 1
+          fi
