@@ -37,6 +37,10 @@ Anaconda
    :alt: Run WebUI intergration tests daily
    :target: https://github.com/rhinstaller/anaconda/actions/workflows/webui-periodic.yml
 
+.. |tests-daily| image:: https://github.com/rhinstaller/anaconda/actions/workflows/tests-daily.yml/badge.svg
+   :alt: Run unit and RPM tests daily
+   :target: https://github.com/rhinstaller/anaconda/actions/workflows/tests-daily.yml
+
 .. _Dependabot: https://github.com/rhinstaller/anaconda/network/updates
 
 |container-autoupdate-fedora|
@@ -57,6 +61,9 @@ Anaconda
 
 |webui-periodic|
   Runs WebUI integration end-to-end tests every day.
+
+|tests-daily|
+  Runs unit and RPM tests every day, independent of any changes to code or containers.
 
 Dependabot_
   Checks Anaconda dependencies and opens pull requests for new versions.
