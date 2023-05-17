@@ -30,7 +30,7 @@ import {
 } from "@patternfly/react-core";
 
 import { InstallationDestination, applyDefaultStorage } from "./storage/InstallationDestination.jsx";
-import { StorageConfiguration, getScenario } from "./storage/StorageConfiguration.jsx";
+import { StorageConfiguration, getScenario, getDefaultScenario } from "./storage/StorageConfiguration.jsx";
 import { DiskEncryption, StorageEncryptionState } from "./storage/DiskEncryption.jsx";
 import { InstallationLanguage } from "./localization/InstallationLanguage.jsx";
 import { InstallationProgress } from "./installation/InstallationProgress.jsx";
@@ -47,7 +47,7 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, hide
     const [isInProgress, setIsInProgress] = useState(false);
     const [storageEncryption, setStorageEncryption] = useState(new StorageEncryptionState());
     const [showPassphraseScreen, setShowPassphraseScreen] = useState(false);
-    const [storageScenarioId, setStorageScenarioId] = useState("use-free-space");
+    const [storageScenarioId, setStorageScenarioId] = useState(window.sessionStorage.getItem("storage-scenario-id") || getDefaultScenario().id);
 
     const stepsOrder = [
         {
@@ -136,7 +136,11 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, hide
                           storageEncryption={storageEncryption}
                           setStorageEncryption={setStorageEncryption}
                           showPassphraseScreen={showPassphraseScreen}
-                          setStorageScenarioId={setStorageScenarioId}
+                          storageScenarioId={storageScenarioId}
+                          setStorageScenarioId={(scenarioId) => {
+                              window.sessionStorage.setItem("storage-scenario-id", scenarioId);
+                              setStorageScenarioId(scenarioId);
+                          }}
                         />
                     ),
                 });

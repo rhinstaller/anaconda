@@ -35,7 +35,6 @@ import {
     getDeviceData,
     getAppliedPartitioning,
     getPartitioningRequest,
-    getInitializationMode,
 } from "../../apis/storage.js";
 
 import {
@@ -43,7 +42,7 @@ import {
 } from "../../apis/localization.js";
 import { AnacondaPage } from "../AnacondaPage.jsx";
 
-import { scenarioForInitializationMode, getScenario } from "../storage/StorageConfiguration.jsx";
+import { getScenario } from "../storage/StorageConfiguration.jsx";
 
 const _ = cockpit.gettext;
 
@@ -65,13 +64,12 @@ export const ReviewDescriptionList = ({ children }) => {
     );
 };
 
-export const ReviewConfiguration = ({ idPrefix, setStorageScenarioId }) => {
+export const ReviewConfiguration = ({ idPrefix, storageScenarioId }) => {
     const [deviceData, setDeviceData] = useState({});
     const [selectedDisks, setSelectedDisks] = useState();
     const [systemLanguage, setSystemLanguage] = useState();
     const [disksExpanded, setDisksExpanded] = useState();
     const [encrypt, setEncrypt] = useState();
-    const [storageScenario, setStorageScenario] = useState();
 
     useEffect(() => {
         const initializeLanguage = async () => {
@@ -93,25 +91,13 @@ export const ReviewConfiguration = ({ idPrefix, setStorageScenarioId }) => {
             const request = await getPartitioningRequest({ partitioning }).catch(console.error);
             setEncrypt(request.encrypted.v);
         };
-        const initializeScenario = async () => {
-            const mode = await getInitializationMode().catch(console.error);
-            setStorageScenario(scenarioForInitializationMode(mode).id);
-        };
         initializeLanguage();
         initializeDisks();
         initializeEncrypt();
-        initializeScenario();
     }, []);
 
-    useEffect(() => {
-        if (typeof storageScenario !== "undefined") {
-            setStorageScenarioId(storageScenario);
-            console.log("Global storageScenario id set to", storageScenario);
-        }
-    }, [storageScenario, setStorageScenarioId]);
-
     // handle case of disks not (yet) loaded
-    if (!selectedDisks || !systemLanguage || !storageScenario) {
+    if (!selectedDisks || !systemLanguage) {
         return null;
     }
 
@@ -136,7 +122,7 @@ export const ReviewConfiguration = ({ idPrefix, setStorageScenarioId }) => {
               title={_("To prevent loss, make sure to backup your data. ")}
             >
                 <p>
-                    {getScenario(storageScenario).screenWarning}
+                    {getScenario(storageScenarioId).screenWarning}
                 </p>
             </Alert>
             <ExpandableSection
@@ -173,7 +159,7 @@ export const ReviewConfiguration = ({ idPrefix, setStorageScenarioId }) => {
                         {_("Storage Configuration")}
                     </DescriptionListTerm>
                     <DescriptionListDescription id={idPrefix + "-target-system-mode"}>
-                        {getScenario(storageScenario).label}
+                        {getScenario(storageScenarioId).label}
                     </DescriptionListDescription>
                     <DescriptionListTerm>
                         {_("Disk Encryption")}

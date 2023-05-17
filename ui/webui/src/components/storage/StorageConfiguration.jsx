@@ -56,7 +56,6 @@ import {
     getDiskTotalSpace,
     getDiskFreeSpace,
     getSelectedDisks,
-    getInitializationMode,
     setInitializationMode,
 } from "../../apis/storage.js";
 
@@ -184,6 +183,10 @@ export const scenarioForInitializationMode = (mode) => {
     }
 };
 
+export const getDefaultScenario = () => {
+    return scenarios.filter(s => s.default)[0];
+};
+
 const scenarioDetailContent = (scenario, hint) => {
     return (
         <Flex direction={{ default: "column" }}>
@@ -220,7 +223,7 @@ const predefinedStorageInfo = (
 );
 
 // TODO add aria items
-const GuidedPartitioning = ({ idPrefix, scenarios, setIsFormValid }) => {
+const GuidedPartitioning = ({ idPrefix, scenarios, storageScenarioId, setStorageScenarioId, setIsFormValid }) => {
     const [selectedScenario, setSelectedScenario] = useState();
     const [scenarioAvailability, setScenarioAvailability] = useState(Object.fromEntries(
         scenarios.map((s) => [s.id, new AvailabilityState()])
@@ -233,7 +236,6 @@ const GuidedPartitioning = ({ idPrefix, scenarios, setIsFormValid }) => {
             const requiredSpace = await getRequiredSpace();
             const requiredSize = await getRequiredDeviceSize({ requiredSpace });
             const selectedDisks = await getSelectedDisks();
-            const initializationMode = await getInitializationMode();
             let selectedScenarioId = "";
             let availableScenarioExists = false;
             for await (const scenario of scenarios) {
@@ -241,7 +243,7 @@ const GuidedPartitioning = ({ idPrefix, scenarios, setIsFormValid }) => {
                 setScenarioAvailability(ss => ({ ...ss, [scenario.id]: availability }));
                 if (availability.available) {
                     availableScenarioExists = true;
-                    if (scenario.initializationMode === initializationMode) {
+                    if (scenario.id === storageScenarioId) {
                         console.log(`Selecting backend scenario ${scenario.id}`);
                         selectedScenarioId = scenario.id;
                     }
@@ -256,18 +258,19 @@ const GuidedPartitioning = ({ idPrefix, scenarios, setIsFormValid }) => {
         };
 
         updateScenarioState(scenarios);
-    }, [scenarios, setIsFormValid]);
+    }, [scenarios, setIsFormValid, storageScenarioId]);
 
     useEffect(() => {
         const applyScenario = async (scenarioId) => {
             const scenario = getScenario(scenarioId);
+            setStorageScenarioId(scenarioId);
             console.log("Updating scenario selected in backend to", scenario.id);
             await setInitializationMode({ mode: scenario.initializationMode }).catch(console.error);
         };
         if (selectedScenario) {
             applyScenario(selectedScenario);
         }
-    }, [scenarios, selectedScenario]);
+    }, [scenarios, selectedScenario, setStorageScenarioId]);
 
     const updateDetailContent = (scenarioId) => {
         const scenario = getScenario(scenarioId);
@@ -360,7 +363,7 @@ const GuidedPartitioning = ({ idPrefix, scenarios, setIsFormValid }) => {
     );
 };
 
-export const StorageConfiguration = ({ idPrefix, setIsFormValid }) => {
+export const StorageConfiguration = ({ idPrefix, setIsFormValid, storageScenarioId, setStorageScenarioId }) => {
     return (
         <AnacondaPage title={_("Select a storage configuration")}>
             <TextContent>
@@ -370,6 +373,8 @@ export const StorageConfiguration = ({ idPrefix, setIsFormValid }) => {
               idPrefix={idPrefix}
               scenarios={scenarios}
               setIsFormValid={setIsFormValid}
+              storageScenarioId={storageScenarioId}
+              setStorageScenarioId={setStorageScenarioId}
             />
         </AnacondaPage>
     );
