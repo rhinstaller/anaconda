@@ -54,7 +54,7 @@ class TestReview(anacondalib.VirtInstallMachineCase):
         r.check_encryption("Disabled")
 
         # check storage configuration
-        r.check_storage_config("Erase devices and install")
+        r.check_storage_config("Erase data and install")
 
         # Pixel test the review step
         b.assert_pixels(
