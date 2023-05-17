@@ -30,31 +30,31 @@ def cmd_cli():
     args = parser.parse_args()
 
     machine = VirtInstallMachine(image=args.image)
-    machine.start()
-
-    print("You can connect to the VM in the following ways:")
-    # print ssh command
-    print("ssh -o ControlPath=%s -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p %s %s@%s" %
-          (machine.ssh_master, machine.ssh_port, machine.ssh_user, machine.ssh_address))
-    # print Cockpit web address
-    print(
-        "http://%s:%s/cockpit/@localhost/anaconda-webui/index.html" %
-        (machine.web_address, machine.web_port)
-    )
-
-    # rsync development files over so /usr/local/share/cockpit is created with a development version
-    # after restarting cockpit.service cockpit-bridge will select the /usr/local/share version over the released version from
-    # the installed rpm package.
-    if args.rsync:
-        # Rather annoying the node_modules path needs to be explicitly added for webpack
-        subprocess.check_call(["npm", "run", "build"], env={'RSYNC': args.host, "PATH": "/usr/bin/:node_modules/.bin", "LINT": "0"})
-        machine.execute("systemctl restart cockpit.service")
-
-    # print marker that the VM is ready; tests can poll for this to wait for the VM
-    print("RUNNING")
-
-    signal.signal(signal.SIGTERM, lambda sig, frame: machine.stop())
     try:
+        machine.start()
+
+        print("You can connect to the VM in the following ways:")
+        # print ssh command
+        print("ssh -o ControlPath=%s -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p %s %s@%s" %
+              (machine.ssh_master, machine.ssh_port, machine.ssh_user, machine.ssh_address))
+        # print Cockpit web address
+        print(
+            "http://%s:%s/cockpit/@localhost/anaconda-webui/index.html" %
+            (machine.web_address, machine.web_port)
+        )
+
+        # rsync development files over so /usr/local/share/cockpit is created with a development version
+        # after restarting cockpit.service cockpit-bridge will select the /usr/local/share version over the released version from
+        # the installed rpm package.
+        if args.rsync:
+            # Rather annoying the node_modules path needs to be explicitly added for webpack
+            subprocess.check_call(["npm", "run", "build"], env={'RSYNC': args.host, "PATH": "/usr/bin/:node_modules/.bin", "LINT": "0"})
+            machine.execute("systemctl restart cockpit.service")
+
+        # print marker that the VM is ready; tests can poll for this to wait for the VM
+        print("RUNNING")
+
+        signal.signal(signal.SIGTERM, lambda sig, frame: machine.stop())
         signal.pause()
     except KeyboardInterrupt:
         machine.stop()
