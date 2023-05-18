@@ -117,9 +117,9 @@ const checkEraseAll = async (selectedDisks, requiredSize) => {
         availability.available = false;
         availability.reason = _("Not enough space on selected disks.");
         availability.hint = cockpit.format(_(
-            "There is not enough space on the selected disks. " +
-            "The installation requires $1 of available space " +
-            "while there is only $0 of space available."
+            "There is not enough space on the disks to install. " +
+            "The installation needs $1 of disk space; " +
+            "however, the capacity of the selected disks is only $0."
         ), cockpit.format_bytes(size), cockpit.format_bytes(requiredSize));
         availability.shortHint = _("To enable select bigger disks");
     }
@@ -131,11 +131,11 @@ const checkUseFreeSpace = async (selectedDisks, requiredSize) => {
     const availability = new AvailabilityState();
     if (size < requiredSize) {
         availability.available = false;
-        availability.reason = _("Not enough space on selected disks.");
+        availability.reason = _("Not enough free space.");
         availability.hint = cockpit.format(_(
-            "There is not enough free space on the selected disks. " +
-            "The installation requires $1 of available space " +
-            "while there is only $0 of free space available."
+            "There is not enough available free space to install. " +
+            "The installation needs $1 of available disk space; " +
+            "however, only $0 is currently available on the selected disks."
         ), cockpit.format_bytes(size), cockpit.format_bytes(requiredSize));
         availability.shortHint = _("To enable free up disk space");
     }
@@ -187,7 +187,7 @@ export const getDefaultScenario = () => {
     return scenarios.filter(s => s.default)[0];
 };
 
-const scenarioDetailContent = (scenario, hint) => {
+const scenarioDetailContent = (scenario, reason, hint) => {
     return (
         <Flex direction={{ default: "column" }}>
             <Title headingLevel="h3">
@@ -197,7 +197,7 @@ const scenarioDetailContent = (scenario, hint) => {
                 <Alert
                   id="scenario-disabled-hint"
                   isInline
-                  title={_("This option is disabled")}
+                  title={reason}
                   variant="warning"
                 >
                     {hint}
@@ -274,8 +274,9 @@ const GuidedPartitioning = ({ idPrefix, scenarios, storageScenarioId, setStorage
 
     const updateDetailContent = (scenarioId) => {
         const scenario = getScenario(scenarioId);
+        const reason = scenarioAvailability[scenarioId].reason;
         const hint = scenarioAvailability[scenarioId].hint;
-        setDetailContent(scenarioDetailContent(scenario, hint));
+        setDetailContent(scenarioDetailContent(scenario, reason, hint));
     };
 
     const onScenarioToggled = (scenarioId) => {
