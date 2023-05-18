@@ -574,7 +574,7 @@ if __name__ == "__main__":
     payloadMgr.restart_thread(anaconda.payload, fallback=fallback)
 
     # initialize geolocation and start geolocation lookup if possible and enabled
-    geoloc_task_proxy = startup_utils.start_geolocation_conditionally(opts)
+    geoloc_task_proxy = startup_utils.start_geolocation_conditionally(opts, anaconda.display_mode)
 
     # setup ntp servers and start NTP daemon if not requested otherwise
     startup_utils.start_chronyd()

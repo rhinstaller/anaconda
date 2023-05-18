@@ -600,7 +600,7 @@ def print_dracut_errors(stdout_logger):
         pass
 
 
-def check_if_geolocation_should_be_used(opts):
+def check_if_geolocation_should_be_used(opts, display_mode):
     """Check if geolocation can be used during this installation run.
 
     The result is based on current installation type - fully interactive vs
@@ -628,6 +628,11 @@ def check_if_geolocation_should_be_used(opts):
         log.info("Geolocation is disabled by the geoloc option.")
         return False
 
+    # don't use geolocation during text mode
+    if display_mode == DisplayModes.TUI:
+        log.warning("Geolocation is disabled due to text mode.")
+        return False
+
     # don't use geolocation during kickstart installation unless explicitly
     # requested by the user
     if flags.automatedInstall:
@@ -645,13 +650,15 @@ def check_if_geolocation_should_be_used(opts):
     return True
 
 
-def start_geolocation_conditionally(opts):
+def start_geolocation_conditionally(opts, display_mode):
     """Start geolocation conditionally, according to the command line or boot options.
 
     :param opts: the command line/boot options
+    :param DisplayModes display_mode: display mode (see constants.DisplayModes)
     :return: D-Bus proxy for the geolocation task
     """
-    use_geoloc = check_if_geolocation_should_be_used(opts)
+    use_geoloc = check_if_geolocation_should_be_used(opts, display_mode)
+    log.debug("Geoloc: should be used: %s", use_geoloc)
     if not use_geoloc:
         return None
 
