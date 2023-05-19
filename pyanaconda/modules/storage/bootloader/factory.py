@@ -38,7 +38,7 @@ class BootLoaderFactory(object):
         boot_loader_class = cls.get_class()
         boot_loader_instance = boot_loader_class()
 
-        log.info("Created the boot loader %s.", boot_loader_class.__name__)
+        log.info("Created the boot loader {}.", boot_loader_class.__name__)
         return boot_loader_instance
 
     @classmethod

@@ -62,11 +62,11 @@ def get_help_width():
         data = fcntl.ioctl(sys.stdout, termios.TIOCGWINSZ, '1234')
         columns = int(struct.unpack('hh', data)[1])
     except (OSError, ValueError) as e:
-        log.info("Unable to determine terminal width: %s", e)
+        log.info("Unable to determine terminal width: {}", e)
         print("terminal size detection failed, using default width")
         return DEFAULT_HELP_WIDTH
 
-    log.debug("detected window size of %s", columns)
+    log.debug("detected window size of {}", columns)
 
     # apply the right padding
     columns = columns - RIGHT_PADDING
@@ -203,7 +203,7 @@ class AnacondaArgumentParser(ArgumentParser):
                 # nargs == 0 -> the option expects one or more arguments but the
                 # boot option was not given any, so we skip it
                 log.warning("boot option specified without expected number of "
-                            "arguments and will be ignored: %s", arg)
+                            "arguments and will be ignored: {}", arg)
                 continue
             elif option.nargs == 0 and option.const is not None:
                 # nargs == 0 & constr == True -> store_true
@@ -365,7 +365,7 @@ class HelpTextParser(object):
                     for parsed_option, parsed_text in self.read(lines):
                         self._help_text[parsed_option] = parsed_text
             except OSError as e:
-                log.error("error reading help text file %s: %s", self._path, e)
+                log.error("error reading help text file {}: {}", self._path, e)
 
         return self._help_text.get(option, "")
 

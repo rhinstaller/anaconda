@@ -542,12 +542,12 @@ class ResizeDialog(GUIObject):
     def _schedule_actions(self, obj):
         """Schedule actions for the given row object."""
         if obj.action == _(PRESERVE):
-            log.debug("Preserve %s.", obj.name)
+            log.debug("Preserve {}.", obj.name)
         elif obj.action == _(SHRINK):
-            log.debug("Shrink %s to %s.", obj.name, Size(obj.target))
+            log.debug("Shrink {} to {}.", obj.name, Size(obj.target))
             self._device_tree.ShrinkDevice(obj.name, obj.target)
         elif obj.action == _(DELETE):
-            log.debug("Remove %s.", obj.name)
+            log.debug("Remove {}.", obj.name)
             self._device_tree.RemoveDevice(obj.name)
 
     def on_resize_clicked(self, *args):

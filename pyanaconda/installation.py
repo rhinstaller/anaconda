@@ -501,13 +501,13 @@ class RunInstallationTask(InstallationTask):
         task_started_counter = util.item_counter(queue.task_count)
         task_completed_counter = util.item_counter(queue.task_count)
         queue.queue_started.connect(
-            lambda x: log.info("Queue started: %s (%s)", x.name, next(queue_counter))
+            lambda x: log.info("Queue started: {} ({})", x.name, next(queue_counter))
         )
         queue.task_started.connect(
-            lambda x: log.info("Task started: %s (%s)", x.name, next(task_started_counter))
+            lambda x: log.info("Task started: {} ({})", x.name, next(task_started_counter))
         )
         queue.task_completed.connect(
-            lambda x: log.debug("Task completed: %s (%s) (%1.1f s)", x.name,
+            lambda x: log.debug("Task completed: {} ({}) ({1.1f} s)", x.name,
                                 next(task_completed_counter), x.elapsed_time)
         )
 

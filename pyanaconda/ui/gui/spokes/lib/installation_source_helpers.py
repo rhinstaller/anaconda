@@ -119,15 +119,15 @@ def validate_additional_repositories(additional_repositories, conflicting_names=
 
     # Collect names of validated additional repositories.
     occupied_names = [r.name for r in additional_repositories]
-    log.debug("Occupied names: %s", ", ".join(occupied_names))
+    log.debug("Occupied names: {}", ", ".join(occupied_names))
 
     # Collect names of possibly conflicting repositories.
     conflicting_names = conflicting_names or []
-    log.debug("Conflicting names: %s", ", ".join(conflicting_names))
+    log.debug("Conflicting names: {}", ", ".join(conflicting_names))
 
     # Check additional repositories.
     for repo_data in additional_repositories:
-        log.debug("Validating the '%s' repository: %s", repo_data.name, repo_data)
+        log.debug("Validating the '{}' repository: {}", repo_data.name, repo_data)
 
         # Define a an error handler.
         handle_error = partial(_report_invalid_repository, report, repo_data)
@@ -153,7 +153,7 @@ def validate_additional_repositories(additional_repositories, conflicting_names=
         # Check the proxy configuration.
         handle_error(validate_proxy(repo_data.proxy))
 
-    log.debug("The validation has been completed: %s", report)
+    log.debug("The validation has been completed: {}", report)
     return report
 
 
@@ -388,7 +388,7 @@ class ProxyDialog(GUIObject, GUIDialogInputCheckHandler):
                 self._proxy_password_entry.set_text(proxy.password)
             self._proxy_url_entry.set_text(proxy.noauth_url)
         except ProxyStringError as e:
-            log.error("Failed to parse proxy for ProxyDialog.refresh %s: %s", self.proxy_url, e)
+            log.error("Failed to parse proxy for ProxyDialog.refresh {}: {}", self.proxy_url, e)
             return
 
         self._proxy_check.set_active(True)

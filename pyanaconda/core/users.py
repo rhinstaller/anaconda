@@ -304,7 +304,7 @@ def _reown_homedir(root, homedir, username):
         util.restorecon([homedir], root=root)
 
     except OSError as e:
-        log.critical("Unable to change owner of existing home directory: %s", e.strerror)
+        log.critical("Unable to change owner of existing home directory: {}", e.strerror)
         raise
 
 
@@ -434,7 +434,7 @@ def create_user(username, password=False, is_crypted=False, lock=False,
         raise OSError("Unable to create user %s: status=%s" % (username, status))
 
     if not mk_homedir:
-        log.info("Home directory for the user %s already existed, "
+        log.info("Home directory for the user {} already existed, "
                  "fixing the owner and SELinux context.", username)
         _reown_homedir(root, homedir, username)
 
@@ -470,13 +470,13 @@ def set_user_password(username, password, is_crypted, lock, root="/"):
     # Otherwise leave it alone (defaults to locked for new users) and reset sp_lstchg
     if password or password == "":
         if password == "":
-            log.info("user account %s setup with no password", username)
+            log.info("user account {} setup with no password", username)
         elif not is_crypted:
             password = crypt_password(password)
 
         if lock:
             password = "!" + password
-            log.info("user account %s locked", username)
+            log.info("user account {} locked", username)
 
         proc = util.startProgram(["chpasswd", "-R", root, "-e"], stdin=subprocess.PIPE)
         proc.communicate(("%s:%s\n" % (username, password)).encode("utf-8"))
@@ -516,7 +516,7 @@ def set_user_ssh_key(username, key, root=None):
 
     homedir = root + pwent[5]
     if not os.path.exists(homedir):
-        log.error("set_user_ssh_key: home directory for %s does not exist", username)
+        log.error("set_user_ssh_key: home directory for {} does not exist", username)
         raise ValueError("set_user_ssh_key: home directory for %s does not exist" % username)
 
     uid = pwent[2]

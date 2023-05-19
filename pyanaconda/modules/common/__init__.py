@@ -57,4 +57,4 @@ def init(log_filename=None, log_stream=sys.stderr):
     from pyanaconda.core.configuration.anaconda import conf
     from pyanaconda.anaconda_loggers import get_module_logger
     log = get_module_logger(__name__)
-    log.debug("The configuration is loaded from: %s", conf.get_sources())
+    log.debug("The configuration is loaded from: {}", conf.get_sources())

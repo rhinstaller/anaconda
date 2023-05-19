@@ -101,7 +101,7 @@ class InstallerStorage(Blivet):
         :param version: a string with LUKS version
         :raises: ValueError on invalid input
         """
-        log.debug("trying to set new default luks version to '%s'", version)
+        log.debug("trying to set new default luks version to '{}'", version)
         self._check_valid_luks_version(version)
         self._default_luks_version = version
 
@@ -286,28 +286,28 @@ class InstallerStorage(Blivet):
             dev = self.devicetree.resolve_device(spec)
 
             if dev is not None:
-                log.debug("Protected device spec %s resolved to %s.", spec, dev.name)
+                log.debug("Protected device spec {} resolved to {}.", spec, dev.name)
                 protected.append(dev)
 
         # Find the stage2 backing device and its parents.
         stage2_device = find_stage2_device(self.devicetree)
 
         if stage2_device:
-            log.debug("Resolved stage2 device to %s.", stage2_device.name)
+            log.debug("Resolved stage2 device to {}.", stage2_device.name)
             protected.append(stage2_device)
 
         # Find the live backing device and its parents.
         live_device = find_backing_device(self.devicetree, LIVE_MOUNT_POINT)
 
         if live_device:
-            log.debug("Resolved live device to %s.", live_device.name)
+            log.debug("Resolved live device to {}.", live_device.name)
             protected.append(live_device)
 
         # Find the backing device of a stage2 source and its parents.
         source_device = find_backing_device(self.devicetree, DRACUT_REPO_DIR)
 
         if source_device:
-            log.debug("Resolved a stage2 source device to %s.", source_device.name)
+            log.debug("Resolved a stage2 source device to {}.", source_device.name)
             protected.append(source_device)
 
         # For image installation setup_disk_images method marks all local
@@ -354,7 +354,7 @@ class InstallerStorage(Blivet):
             return
 
         for d in device.ancestors:
-            log.debug("Marking device %s as protected.", d.name)
+            log.debug("Marking device {} as protected.", d.name)
             d.protected = True
 
     def _mark_unprotected_device(self, device):
@@ -363,7 +363,7 @@ class InstallerStorage(Blivet):
             return
 
         for d in device.ancestors:
-            log.debug("Marking device %s as unprotected.", d.name)
+            log.debug("Marking device {} as unprotected.", d.name)
             d.protected = False
 
     @property

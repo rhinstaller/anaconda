@@ -57,7 +57,7 @@ class AddDeviceTask(Task):
 
         :raise: StorageConfigurationError if the device cannot be created
         """
-        log.debug("Add device: %s", self._request)
+        log.debug("Add device: {}", self._request)
 
         # Complete the device info.
         self._complete_device_factory_request(self._storage, self._request)
@@ -85,7 +85,7 @@ class AddDeviceTask(Task):
             # Ignore the second error.
             pass
 
-        log.error("Failed to add a device: %s", message)
+        log.error("Failed to add a device: {}", message)
         raise StorageConfigurationError(message) from exception
 
     def _complete_device_factory_request(self, storage, request: DeviceFactoryRequest):
@@ -167,8 +167,8 @@ class AddDeviceTask(Task):
         try:
             storage.factory_device(**dev_info)
         except StorageError as e:
-            log.error("The device creation has failed: %s", e)
+            log.error("The device creation has failed: {}", e)
             raise
         except OverflowError as e:
-            log.exception("Invalid partition size set: %s", str(e))
+            log.exception("Invalid partition size set: {}", str(e))
             raise StorageError("Invalid partition size set. Use a valid integer.") from None

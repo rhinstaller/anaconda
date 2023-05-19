@@ -83,11 +83,11 @@ class WiredTUIConfigurationData():
                 self.ip = addr.get_address()
                 self.netmask = network.prefix_to_netmask(addr.get_prefix())
             else:
-                log.error("No ip4 address found for manual method in %s", connection_uuid)
+                log.error("No ip4 address found for manual method in {}", connection_uuid)
         elif ip4_method == NM.SETTING_IP4_CONFIG_METHOD_DISABLED:
             self.ip = ""
         else:
-            log.error("Unexpected ipv4 method %s found in connection %s", ip4_method, connection_uuid)
+            log.error("Unexpected ipv4 method {} found in connection {}", ip4_method, connection_uuid)
             self.ip = "dhcp"
         self.gateway = ip4_config.get_gateway() or ""
 
@@ -105,9 +105,9 @@ class WiredTUIConfigurationData():
                 addr = ip6_config.get_address(0)
                 self.ipv6 = "{}/{}".format(addr.get_address(), addr.get_prefix())
             else:
-                log.error("No ip6 address found for manual method in %s", connection_uuid)
+                log.error("No ip6 address found for manual method in {}", connection_uuid)
         else:
-            log.error("Unexpected ipv6 method %s found in connection %s", ip6_method, connection_uuid)
+            log.error("Unexpected ipv6 method {} found in connection {}", ip6_method, connection_uuid)
             self.ipv6 = "auto"
         self.ipv6gateway = ip6_config.get_gateway() or ""
 
@@ -179,7 +179,7 @@ class WiredTUIConfigurationData():
                 elif NM.utils_ipaddr_valid(socket.AF_INET, ns):
                     s_ip4.add_dns(ns)
                 else:
-                    log.error("IP address %s is not valid", ns)
+                    log.error("IP address {} is not valid", ns)
 
         s_con = connection.get_setting_connection()
         s_con.set_property(NM.SETTING_CONNECTION_AUTOCONNECT, self.onboot)
@@ -240,7 +240,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self.initialize_done()
 
     def _device_configurations_changed(self, device_configurations):
-        log.debug("device configurations changed: %s", device_configurations)
+        log.debug("device configurations changed: {}", device_configurations)
         self._update_editable_configurations()
 
     def _update_editable_configurations(self):
@@ -361,7 +361,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
                     device_type = self.nm_client.get_device_by_iface(iface).get_device_type()
                     connection = get_default_connection(iface, device_type)
                     connection_uuid = connection.get_uuid()
-                    log.debug("adding default connection %s for %s", connection_uuid, iface)
+                    log.debug("adding default connection {} for {}", connection_uuid, iface)
                     data = (iface, connection_uuid)
                     self.nm_client.add_connection2(
                         connection.to_dbus(NM.ConnectionSerializationFlags.ALL),
@@ -374,7 +374,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
                         data
                     )
                 return
-        log.error("device configuration for %s not found", iface)
+        log.error("device configuration for {} not found", iface)
 
     def _default_connection_added_cb(self, client, result, data):
         iface, connection_uuid = data
@@ -387,7 +387,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
             self.errors.append(msg)
             self.redraw()
         else:
-            log.debug("added default connection %s for %s: %s", connection_uuid, iface, result)
+            log.debug("added default connection {} for {}: {}", connection_uuid, iface, result)
             self._configure_connection(iface, connection_uuid)
 
     def _configure_connection(self, iface, connection_uuid):
@@ -459,7 +459,7 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
         self._data = WiredTUIConfigurationData()
         self._data.set_from_connection(self._connection)
 
-        log.debug("Configure iface %s: connection %s -> %s", self._iface, self._connection_uuid,
+        log.debug("Configure iface {}: connection {} -> {}", self._iface, self._connection_uuid,
                   self._data)
 
     def refresh(self, args=None):
@@ -584,7 +584,7 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
 
     def apply(self):
         """Apply changes to NM connection."""
-        log.debug("updating connection %s:\n%s", self._connection_uuid,
+        log.debug("updating connection {}:\n{}", self._connection_uuid,
                   self._connection.to_dbus(NM.ConnectionSerializationFlags.ALL))
 
         updated_connection = NM.SimpleConnection.new_clone(self._connection)
@@ -602,12 +602,12 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
 
     def _connection_updated_cb(self, connection, result, connection_uuid):
         connection.update2_finish(result)
-        log.debug("updated connection %s:\n%s", connection_uuid,
+        log.debug("updated connection {}:\n{}", connection_uuid,
                   connection.to_dbus(NM.ConnectionSerializationFlags.ALL))
         if self.apply_configuration:
             nm_client = network.get_nm_client()
             device = nm_client.get_device_by_iface(self._iface)
-            log.debug("activating connection %s with device %s",
+            log.debug("activating connection {} with device {}",
                       connection_uuid, self._iface)
             nm_client.activate_connection_async(connection, device, None, None)
 

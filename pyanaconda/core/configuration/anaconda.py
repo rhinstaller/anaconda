@@ -329,7 +329,7 @@ class AnacondaConfiguration(Configuration):
             )
 
         # Read the configuration files of the profile.
-        log.info("Load the '%s' profile configuration.", profile_id)
+        log.info("Load the '{}' profile configuration.", profile_id)
         config_paths = loader.collect_configurations(profile_id)
 
         for config_path in config_paths:
@@ -451,7 +451,7 @@ def _convert_geoloc_provider_id_to_url(provider_id):
     try:
         return available_providers[provider_id]
     except KeyError:
-        log.error('Conf: Geoloc: wrong provider id specified: %s, using default %s',
+        log.error('Conf: Geoloc: wrong provider id specified: {}, using default {}',
                   provider_id, GEOLOC_DEFAULT_PROVIDER)
         return available_providers[GEOLOC_DEFAULT_PROVIDER]
 

@@ -83,14 +83,14 @@ class KickstartManager(object):
 
         for observer in self._module_observers:
             if not observer.is_service_available:
-                log.warning("Module %s not available!", observer.service_name)
+                log.warning("Module {} not available!", observer.service_name)
                 continue
 
             commands = observer.proxy.KickstartCommands
             sections = observer.proxy.KickstartSections
             addons = observer.proxy.KickstartAddons
 
-            log.info("%s handles commands %s sections %s addons %s.",
+            log.info("{} handles commands {} sections {} addons {}.",
                      observer.service_name, commands, sections, addons)
 
             module_elements = elements.get_and_process_elements(
@@ -104,7 +104,7 @@ class KickstartManager(object):
             )
 
             if not module_kickstart:
-                log.info("There are no kickstart data for %s.", observer.service_name)
+                log.info("There are no kickstart data for {}.", observer.service_name)
                 continue
 
             module_report = KickstartReport.from_structure(
@@ -148,7 +148,7 @@ class KickstartManager(object):
 
         for observer in self._module_observers:
             if not observer.is_service_available:
-                log.warning("Module %s not available!", observer.service_name)
+                log.warning("Module {} not available!", observer.service_name)
                 continue
 
             module_name = observer.service_name

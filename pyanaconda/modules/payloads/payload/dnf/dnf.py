@@ -149,7 +149,7 @@ class DNFModule(PayloadBase):
         """
         self._repositories = data
         self.repositories_changed.emit()
-        log.debug("Repositories are set to: %s", data)
+        log.debug("Repositories are set to: {}", data)
 
     @property
     def packages_configuration(self):
@@ -166,7 +166,7 @@ class DNFModule(PayloadBase):
         """
         self._packages_configuration = data
         self.packages_configuration_changed.emit()
-        log.debug("Packages configuration is set to '%s'.", data)
+        log.debug("Packages configuration is set to '{}'.", data)
 
     @property
     def packages_selection(self):
@@ -183,7 +183,7 @@ class DNFModule(PayloadBase):
         """
         self._packages_selection = data
         self.packages_selection_changed.emit()
-        log.debug("Packages selection is set to '%s'.", data)
+        log.debug("Packages selection is set to '{}'.", data)
 
     @property
     def packages_kickstarted(self):
@@ -198,7 +198,7 @@ class DNFModule(PayloadBase):
     def set_packages_kickstarted(self, value):
         """Are the packages set from a kickstart?"""
         self._packages_kickstarted = value
-        log.debug("Are the packages set from a kickstart? %s", value)
+        log.debug("Are the packages set from a kickstart? {}", value)
 
     def process_kickstart(self, data):
         """Process the kickstart data."""

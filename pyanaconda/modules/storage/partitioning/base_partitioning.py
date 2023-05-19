@@ -74,7 +74,7 @@ class PartitioningTask(Task, metaclass=ABCMeta):
         :param message: an error message to use
         :raise: StorageConfigurationError
         """
-        log.error("Storage configuration has failed: %s", message)
+        log.error("Storage configuration has failed: {}", message)
 
         # Reset the boot loader configuration.
         # FIXME: Handle the boot loader reset in a better way.
@@ -89,7 +89,7 @@ class PartitioningTask(Task, metaclass=ABCMeta):
         :param message: an error message to use
         :raise: BootloaderConfigurationError
         """
-        log.error("Bootloader configuration has failed: %s", message)
+        log.error("Bootloader configuration has failed: {}", message)
 
         # Reset the boot loader configuration.
         # FIXME: Handle the boot loader reset in a better way.

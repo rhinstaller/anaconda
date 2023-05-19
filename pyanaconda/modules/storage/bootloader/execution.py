@@ -49,7 +49,7 @@ class BootloaderExecutor(object):
 
     def execute(self, storage, dry_run=False):
         """Execute the bootloader."""
-        log.debug("Execute the bootloader with dry run %s.", dry_run)
+        log.debug("Execute the bootloader with dry run {}.", dry_run)
         bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
 
         # Skip bootloader for s390x image installation.
@@ -80,7 +80,7 @@ class BootloaderExecutor(object):
     def _apply_location(self, storage, bootloader_proxy):
         """Set the location."""
         location = bootloader_proxy.PreferredLocation
-        log.debug("Applying bootloader location: %s", location)
+        log.debug("Applying bootloader location: {}", location)
 
         storage.bootloader.set_preferred_stage1_type(
             "boot" if location == BOOTLOADER_LOCATION_PARTITION else "mbr"
@@ -126,11 +126,11 @@ class BootloaderExecutor(object):
                 valid_disks.extend(matched_disks)
             else:
                 drive_order.remove(drive)
-                log.warning("Requested drive %s in boot drive order doesn't exist "
+                log.warning("Requested drive {} in boot drive order doesn't exist "
                             "or cannot be used.", drive)
 
         # Apply the drive order.
-        log.debug("Applying drive order: %s", valid_disks)
+        log.debug("Applying drive order: {}", valid_disks)
         storage.bootloader.disk_order = valid_disks
 
         # Update the module.
@@ -168,7 +168,7 @@ class BootloaderExecutor(object):
                 if drive not in usable_disks:
                     continue
 
-                log.debug("Found a drive with a valid stage1: %s", drive)
+                log.debug("Found a drive with a valid stage1: {}", drive)
                 return drive
 
         # No usable disk found.
@@ -218,7 +218,7 @@ class BootloaderExecutor(object):
     def _apply_boot_drive(self, storage, bootloader_proxy, dry_run=False):
         """Apply the boot drive."""
         boot_drive = self._get_boot_drive(storage, bootloader_proxy)
-        log.debug("Using a boot drive: %s", boot_drive)
+        log.debug("Using a boot drive: {}", boot_drive)
 
         # Apply the boot drive.
         drive = storage.devicetree.resolve_device(boot_drive)

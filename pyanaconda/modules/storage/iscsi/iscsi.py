@@ -72,9 +72,9 @@ class ISCSIModule(KickstartBaseModule):
         if not iscsi.initiator_set:
             iscsi.initiator = initiator
             self.initiator_changed.emit()
-            log.debug("The iSCSI initiator is set to '%s'.", initiator)
+            log.debug("The iSCSI initiator is set to '{}'.", initiator)
         else:
-            log.debug("The iSCSI initiator has already been set to '%s'.", iscsi.initiator)
+            log.debug("The iSCSI initiator has already been set to '{}'.", iscsi.initiator)
 
     def can_set_initiator(self):
         """Can the initiator be set?
@@ -96,7 +96,7 @@ class ISCSIModule(KickstartBaseModule):
         elif mode == "bind":
             return IscsiInterfacesMode.IFACENAME
         else:
-            log.error("Unknown iSCSI interface mode %s set by blivet, using UNSET", mode)
+            log.error("Unknown iSCSI interface mode {} set by blivet, using UNSET", mode)
             return IscsiInterfacesMode.UNSET
 
     def discover_with_task(self, portal, credentials, interfaces_mode):
@@ -215,7 +215,7 @@ class ISCSIModule(KickstartBaseModule):
 
         FIXME: This is just a temporary method.
         """
-        log.debug("Getting dracut arguments for iSCSI node %s", node)
+        log.debug("Getting dracut arguments for iSCSI node {}", node)
 
         if self.is_node_from_ibft(node):
             return ["rd.iscsi.firmware"]
@@ -223,7 +223,7 @@ class ISCSIModule(KickstartBaseModule):
         blivet_node = iscsi.get_node(node.name, node.address, node.port, node.iface)
 
         if not blivet_node:
-            log.error("No iSCSI node %s found for device", node)
+            log.error("No iSCSI node {} found for device", node)
             return []
 
         address = blivet_node.address

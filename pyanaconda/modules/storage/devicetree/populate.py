@@ -53,6 +53,6 @@ class FindDevicesTask(Task):
             self._devicetree.populate()
             self._devicetree.teardown_all()
         except UnusableConfigurationError as e:
-            log.error("Failed to find devices: %s", e)
+            log.error("Failed to find devices: {}", e)
             message = "\n\n".join([str(e), _(e.suggestion)])
             raise UnusableStorageError(message) from None

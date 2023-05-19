@@ -98,7 +98,7 @@ def find_and_mount_device(device_spec, mount_point):
     """
     matches = device_matches(device_spec)
     if not matches:
-        log.error("Device spec %s does not resolve to anything", device_spec)
+        log.error("Device spec {} does not resolve to anything", device_spec)
         return False
 
     device_path = "/dev/" + matches[0]
@@ -110,7 +110,7 @@ def find_and_mount_device(device_spec, mount_point):
               options="defaults,ro")
         return True
     except OSError as e:
-        log.error("Mount of device failed: %s", e)
+        log.error("Mount of device failed: {}", e)
         return False
 
 
@@ -161,11 +161,11 @@ def _find_first_iso_image(path, mount_path="/mnt/install/cdimage"):
 
     for fn in files:
         what = os.path.join(path, fn)
-        log.debug("Checking %s", what)
+        log.debug("Checking {}", what)
         if not _is_iso_image(what):
             continue
 
-        log.debug("Mounting %s on %s", what, mount_path)
+        log.debug("Mounting {} on {}", what, mount_path)
         try:
             blivet.util.mount(what, mount_path, fstype="iso9660", options="ro")
         except OSError:
@@ -184,12 +184,12 @@ def _find_first_iso_image(path, mount_path="/mnt/install/cdimage"):
             disc_info.load(discinfo_path)
             disc_arch = disc_info.arch
         except Exception as ex:  # pylint: disable=broad-except
-            log.warning(".discinfo file can't be loaded: %s", ex)
+            log.warning(".discinfo file can't be loaded: {}", ex)
             continue
 
-        log.debug("discArch = %s", disc_arch)
+        log.debug("discArch = {}", disc_arch)
         if disc_arch != arch:
-            log.warning("Architectures mismatch in find_first_iso_image: %s != %s",
+            log.warning("Architectures mismatch in find_first_iso_image: {} != {}",
                         disc_arch, arch)
             blivet.util.umount(mount_path)
             continue
@@ -197,14 +197,14 @@ def _find_first_iso_image(path, mount_path="/mnt/install/cdimage"):
         # If there's no repodata, there's no point in trying to
         # install from it.
         if not _check_repodata(mount_path):
-            log.warning("%s doesn't have a valid repodata, skipping", what)
+            log.warning("{} doesn't have a valid repodata, skipping", what)
             blivet.util.umount(mount_path)
             continue
 
         # warn user if images appears to be wrong size
         if os.stat(what)[stat.ST_SIZE] % 2048:
             log.warning(
-                "The ISO image %s has a size which is not "
+                "The ISO image {} has a size which is not "
                 "a multiple of 2048 bytes. This may mean it "
                 "was corrupted on transfer to this computer.",
                 what
@@ -212,7 +212,7 @@ def _find_first_iso_image(path, mount_path="/mnt/install/cdimage"):
             blivet.util.umount(mount_path)
             continue
 
-        log.info("Found disc at %s", fn)
+        log.info("Found disc at {}", fn)
         blivet.util.umount(mount_path)
         return fn
 
@@ -243,7 +243,7 @@ def _check_repodata(mount_path):
         tree_info_metadata.load_file(mount_path)
         return tree_info_metadata.verify_image_base_repo()
     except TreeInfoMetadataError as e:
-        log.debug("Can't read install tree metadata: %s", str(e))
+        log.debug("Can't read install tree metadata: {}", str(e))
         return False
 
 
@@ -260,7 +260,7 @@ def mount_iso_image(image_path, mount_point):
         mount(image_path, mount_point, fstype='iso9660', options="ro")
         return True
     except OSError as e:
-        log.error("Mount of ISO file failed: %s", e)
+        log.error("Mount of ISO file failed: {}", e)
         return False
 
 

@@ -57,12 +57,12 @@ class DetectLiveOSImageTask(Task):
         if not block_device:
             raise SourceSetupError("No Live OS image found!")
 
-        log.debug("Detected the Live OS image '%s'.", block_device)
+        log.debug("Detected the Live OS image '{}'.", block_device)
         return block_device
 
     def _check_block_device(self, block_device):
         """Check the specified block device."""
-        log.debug("Checking the %s block device.", block_device)
+        log.debug("Checking the {} block device.", block_device)
 
         try:
             if stat.S_ISBLK(os.stat(block_device)[stat.ST_MODE]):
@@ -74,7 +74,7 @@ class DetectLiveOSImageTask(Task):
 
     def _check_mount_point(self, mount_point):
         """Check a block device at the specified mount point."""
-        log.debug("Checking the %s mount point.", mount_point)
+        log.debug("Checking the {} mount point.", mount_point)
 
         if not os.path.exists(mount_point):
             return None
@@ -111,7 +111,7 @@ class SetUpLiveOSSourceTask(SetUpMountTask):
         """Calculate size of the live image image."""
         source = os.statvfs(self._target_mount)
         required_space = source.f_frsize * (source.f_blocks - source.f_bfree)
-        log.debug("Required space: %s", Size(required_space))
+        log.debug("Required space: {}", Size(required_space))
         return required_space
 
     @property
@@ -128,7 +128,7 @@ class SetUpLiveOSSourceTask(SetUpMountTask):
 
     def _get_device_path(self):
         """Get a device path of the block device."""
-        log.debug("Resolving %s.", self._image_path)
+        log.debug("Resolving {}.", self._image_path)
         device_tree = STORAGE.get_proxy(DEVICE_TREE)
 
         # Get the device name.
@@ -150,7 +150,7 @@ class SetUpLiveOSSourceTask(SetUpMountTask):
 
     def _mount_device(self, device_path):
         """Mount the specified device."""
-        log.debug("Mounting %s at %s.", device_path, self._target_mount)
+        log.debug("Mounting {} at {}.", device_path, self._target_mount)
 
         try:
             rc = blivet.util.mount(

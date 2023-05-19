@@ -64,12 +64,12 @@ class SetUpCdromSourceTask(SetUpMountTask):
                 device_data = DeviceData.from_structure(device_tree.GetDeviceData(dev_name))
                 mount(device_data.path, self._target_mount, "iso9660", "ro")
             except OSError as e:
-                log.debug("Failed to mount %s: %s", dev_name, str(e))
+                log.debug("Failed to mount {}: {}", dev_name, str(e))
                 continue
 
             if is_valid_install_disk(self._target_mount):
                 device_name = dev_name
-                log.info("using CD-ROM device %s mounted at %s", dev_name, self._target_mount)
+                log.info("using CD-ROM device {} mounted at {}", dev_name, self._target_mount)
                 break
             else:
                 unmount(self._target_mount)

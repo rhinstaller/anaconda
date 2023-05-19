@@ -78,7 +78,7 @@ class FlatpakManager(object):
 
         :param str target_path: path where we want to install flatpaks
         """
-        log.debug("Configure flatpak for path %s", target_path)
+        log.debug("Configure flatpak for path {}", target_path)
         remote = self._create_flatpak_remote(self.LOCAL_REMOTE_NAME, self.LOCAL_REMOTE_PATH, False)
 
         installation = self._create_flatpak_installation(remote, target_path)
@@ -120,7 +120,7 @@ class FlatpakManager(object):
             path = path.get_path()  # unpack the Gio.File
 
             if os.path.exists(path):
-                log.debug("Removing flatpak repository %s", path)
+                log.debug("Removing flatpak repository {}", path)
                 shutil.rmtree(path)
 
         self._transaction = None
@@ -148,7 +148,7 @@ class FlatpakManager(object):
         :param str name: name of the remote
         :param str url: url pointing to the remote (use file:// for local paths)
         """
-        log.debug("Adding a new flatpak remote %s: %s", name, url)
+        log.debug("Adding a new flatpak remote {}: {}", name, url)
         remote = self._create_flatpak_remote(name, url, True)
 
         installation = self._transaction.get_installation()
@@ -159,13 +159,13 @@ class FlatpakManager(object):
 
         :param str name: Name of the remote to remove.
         """
-        log.debug("Removing a flatpak remote %s", name)
+        log.debug("Removing a flatpak remote {}", name)
         installation = self._transaction.get_installation()
 
         for remote in installation.list_remotes():
             if remote.get_name() == name:
                 installation.remove_remote(name, None)
-                log.debug("Flatpak remote %s removed", name)
+                log.debug("Flatpak remote {} removed", name)
 
     def install_all(self):
         """Install all the refs contained on the remote."""
@@ -228,7 +228,7 @@ class FlatpakManager(object):
         :type details: int value of Flatpak.TransactionErrorDetails
         """
         self._log_operation(operation, "failed")
-        log.error("Flatpak operation has failed with a message: '%s'", error.message)
+        log.error("Flatpak operation has failed with a message: '{}'", error.message)
 
     def _report_progress(self, message):
         """Report a progress message."""
@@ -241,7 +241,7 @@ class FlatpakManager(object):
     def _log_operation(operation, state):
         """Log a Flatpak operation."""
         operation_type_str = TransactionOperationType.to_string(operation.get_operation_type())
-        log.debug("Flatpak operation: %s of ref %s state %s",
+        log.debug("Flatpak operation: {} of ref {} state {}",
                   operation_type_str, operation.get_ref(), state)
 
 

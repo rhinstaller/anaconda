@@ -178,17 +178,17 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         :param encrypted: encrypt the scheduled partitions
         :param luks_fmt_args: arguments for the LUKS format constructor
         """
-        log.debug("scheme: %s", scheme)
-        log.debug("requests:\n%s", "".join([str(p) for p in requests]))
-        log.debug("encrypted: %s", encrypted)
-        log.debug("storage.disks: %s", [d.name for d in storage.disks])
-        log.debug("storage.partitioned: %s",
+        log.debug("scheme: {}", scheme)
+        log.debug("requests:\n{}", "".join([str(p) for p in requests]))
+        log.debug("encrypted: {}", encrypted)
+        log.debug("storage.disks: {}", [d.name for d in storage.disks])
+        log.debug("storage.partitioned: {}",
                   [d.name for d in storage.partitioned if d.format.supported])
-        log.debug("all names: %s", [d.name for d in storage.devices])
-        log.debug("boot disk: %s", getattr(storage.bootloader.stage1_disk, "name", None))
+        log.debug("all names: {}", [d.name for d in storage.devices])
+        log.debug("boot disk: {}", getattr(storage.bootloader.stage1_disk, "name", None))
 
         disks = get_candidate_disks(storage)
-        log.debug("candidate disks: %s", [d.name for d in disks])
+        log.debug("candidate disks: {}", [d.name for d in disks])
 
         # Schedule implicit partitions.
         extra_disks = get_disks_for_implicit_partitions(disks, scheme, requests)

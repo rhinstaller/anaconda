@@ -100,7 +100,7 @@ class Task(AbstractTask):
         Don't run the task if the task was canceled.
         """
         if self.check_cancel():
-            log.info("'%s' is canceled.", self.name)
+            log.info("'{}' is canceled.", self.name)
             return
 
         log.info(self.name)
@@ -118,7 +118,7 @@ class Task(AbstractTask):
         """Log the error and report the failure."""
         # pylint: disable=no-value-for-parameter
         formatted_info = "".join(traceback.format_exception(*exc_info))
-        log.error("Thread %s has failed: %s", self._thread_name, formatted_info)
+        log.error("Thread {} has failed: {}", self._thread_name, formatted_info)
         self._task_failed_callback()
 
     def run_with_signals(self):

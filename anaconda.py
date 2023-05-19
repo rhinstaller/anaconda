@@ -220,15 +220,15 @@ if __name__ == "__main__":
     if startup_utils.prompt_for_ssh(opts):
         sys.exit(0)
 
-    log.info("%s %s", sys.argv[0], util.get_anaconda_version_string(build_time_version=True))
+    log.info("{} {}", sys.argv[0], util.get_anaconda_version_string(build_time_version=True))
 
     if opts.updates_url:
-        log.info("Using updates from: %s", opts.updates_url)
+        log.info("Using updates from: {}", opts.updates_url)
 
     # warn users that they should use inst. prefix all the time
     for arg in removed_no_inst_args:
-        stdout_log.warning("Kernel boot argument '%s' detected. "
-                           "Did you want to use 'inst.%s' for the installer instead?",
+        stdout_log.warning("Kernel boot argument '{}' detected. "
+                           "Did you want to use 'inst.{}' for the installer instead?",
                            arg, arg)
     if removed_no_inst_args:
         stdout_log.warning("All Anaconda kernel boot arguments are now required to use "
@@ -285,7 +285,7 @@ if __name__ == "__main__":
     try:
         pidfile.create()
     except pid.PidFileError as e:
-        log.error("Unable to create %s, exiting", pidfile.filename)
+        log.error("Unable to create {}, exiting", pidfile.filename)
 
         # If we had a $DISPLAY at start and zenity is available, we may be
         # running in a live environment and we can display an error dialog.
@@ -348,8 +348,8 @@ if __name__ == "__main__":
         except OSError:
             pass
 
-    log.info("anaconda called with cmdline = %s", sys.argv)
-    log.info("Default encoding = %s ", sys.getdefaultencoding())
+    log.info("anaconda called with cmdline = {}", sys.argv)
+    log.info("Default encoding = {} ", sys.getdefaultencoding())
 
     # start dbus session (if not already running) and run boss in it
     try:
@@ -363,7 +363,7 @@ if __name__ == "__main__":
 
     # Find a kickstart file.
     kspath = startup_utils.find_kickstart(opts)
-    log.info("Found a kickstart file: %s", kspath)
+    log.info("Found a kickstart file: {}", kspath)
 
     # Run %pre scripts.
     startup_utils.run_pre_scripts(kspath)
@@ -422,7 +422,7 @@ if __name__ == "__main__":
     initialize_network()
     # If required by user, wait for connection before starting the installation.
     if opts.waitfornet:
-        log.info("network: waiting for connectivity requested by inst.waitfornet=%d", opts.waitfornet)
+        log.info("network: waiting for connectivity requested by inst.waitfornet={}", opts.waitfornet)
         wait_for_connected_NM(timeout=opts.waitfornet)
 
     # In any case do some actions only after NM finishes its connecting.
@@ -466,10 +466,10 @@ if __name__ == "__main__":
 
     try:
         for (name, path) in name_path_pairs(opts.images):
-            log.info("naming disk image '%s' '%s'", path, name)
+            log.info("naming disk image '{}' '{}'", path, name)
             disk_images[name] = path
     except ValueError as e:
-        stdout_log.error("error specifying image file: %s", e)
+        stdout_log.error("error specifying image file: {}", e)
         util.ipmi_abort(scripts=ksdata.scripts)
         sys.exit(1)
 

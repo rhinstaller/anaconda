@@ -94,7 +94,7 @@ class ManualPartitioningModule(PartitioningModule):
         """
         self._requests = requests
         self.requests_changed.emit()
-        log.debug("Requests are set to '%s'.", requests)
+        log.debug("Requests are set to '{}'.", requests)
 
     def gather_requests(self):
         """Gather all mount point requests.

@@ -66,7 +66,7 @@ def generate_driver_disk_repositories(path="/run/install"):
 
         # Create a repository if there are no repodata.
         if not os.path.isdir(join_paths(repo_path, "repodata")):
-            log.info("Running createrepo on %s", repo_path)
+            log.info("Running createrepo on {}", repo_path)
             execWithRedirect("createrepo_c", [repo_path])
 
         # Generate a repo configuration.
@@ -120,7 +120,7 @@ def update_treeinfo_repositories(repositories, treeinfo_repositories):
     ]
 
     for r in treeinfo_repositories:
-        log.debug("Add the '%s' treeinfo repository: %s", r.name, r)
+        log.debug("Add the '{}' treeinfo repository: {}", r.name, r)
         repositories.append(r)
 
     # Return the updated list of repositories.
@@ -215,7 +215,7 @@ def create_repository(dnf_manager, repository):
     :param DNFManager dnf_manager: a configured DNF manager
     :param RepoConfigurationData repository: a resolved repository data
     """
-    log.debug("Add the '%s' repository (%s).", repository.name, repository)
+    log.debug("Add the '{}' repository ({}).", repository.name, repository)
     try:
         dnf_manager.add_repository(repository)
         dnf_manager.load_repository(repository.name)

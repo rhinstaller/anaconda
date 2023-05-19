@@ -105,11 +105,11 @@ class SetUpHardDriveSourceTask(Task):
         iso_name = find_and_mount_iso_image(full_path_on_mounted_device, self._iso_mount)
 
         if iso_name:
-            log.debug("Using the ISO '%s' mounted at '%s'.", iso_name, self._iso_mount)
+            log.debug("Using the ISO '{}' mounted at '{}'.", iso_name, self._iso_mount)
             return self._iso_mount, join_paths("/", directory, iso_name)
 
         if verify_valid_repository(full_path_on_mounted_device):
-            log.debug("Using the directory at '%s'.", full_path_on_mounted_device)
+            log.debug("Using the directory at '{}'.", full_path_on_mounted_device)
             return full_path_on_mounted_device, None
 
         # Nothing found.

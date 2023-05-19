@@ -85,11 +85,11 @@ def start_spice_vd_agent():
     try:
         status = util.execWithRedirect("spice-vdagent", [])
     except OSError as e:
-        log.warning("spice-vdagent failed: %s", e)
+        log.warning("spice-vdagent failed: {}", e)
         return
 
     if status:
-        log.info("spice-vdagent exited with status %d", status)
+        log.info("spice-vdagent exited with status {}", status)
     else:
         log.info("Started spice-vdagent.")
 
@@ -209,7 +209,7 @@ def set_x_resolution(runres):
     :param str runres: a resolution specification string
     """
     try:
-        log.info("Setting the screen resolution to: %s.", runres)
+        log.info("Setting the screen resolution to: {}.", runres)
         util.execWithRedirect("xrandr", ["-d", ":1", "-s", runres])
     except RuntimeError:
         log.error("The X resolution was not set")
@@ -256,7 +256,7 @@ def setup_display(anaconda, options):
     try:
         xtimeout = int(options.xtimeout)
     except ValueError:
-        log.warning("invalid inst.xtimeout option value: %s", options.xtimeout)
+        log.warning("invalid inst.xtimeout option value: {}", options.xtimeout)
         xtimeout = constants.X_TIMEOUT
 
     vnc_server = vnc.VncServer()  # The vnc Server object.
@@ -351,7 +351,7 @@ def setup_display(anaconda, options):
             start_x11(xtimeout)
             do_startup_x11_actions()
         except TimeoutError as e:
-            log.warning("X startup failed: %s", e)
+            log.warning("X startup failed: {}", e)
             print("\nX did not start in the expected time, falling back to text mode. There are "
                   "multiple ways to avoid this issue:")
             wrapper = textwrap.TextWrapper(initial_indent=" * ", subsequent_indent="   ",
@@ -364,7 +364,7 @@ def setup_display(anaconda, options):
             time.sleep(2)
 
         except (OSError, RuntimeError) as e:
-            log.warning("X or window manager startup failed: %s", e)
+            log.warning("X or window manager startup failed: {}", e)
             print("\nX or window manager startup failed, falling back to text mode.")
             util.vtActivate(1)
             anaconda.display_mode = constants.DisplayModes.TUI

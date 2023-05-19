@@ -67,7 +67,7 @@ def makeFStab(instPath=""):
             f.write(buf)
         f.close()
     except OSError as e:
-        log.info("failed to write /etc/fstab: %s", e)
+        log.info("failed to write /etc/fstab: {}", e)
 
 
 def makeResolvConf(instPath):
@@ -111,7 +111,7 @@ def create_etc_symlinks():
         try:
             os.symlink('/mnt/runtime/etc/' + f, '/etc/' + f)
         except OSError:
-            log.debug("Failed to create symlink for /mnt/runtime/etc/%s", f)
+            log.debug("Failed to create symlink for /mnt/runtime/etc/{}", f)
 
 
 class RescueModeStatus(Enum):
@@ -194,9 +194,9 @@ class Rescue(object):
             )
             task_proxy = STORAGE.get_proxy(task_path)
             sync_run_task(task_proxy)
-            log.info("System has been mounted under: %s", conf.target.system_root)
+            log.info("System has been mounted under: {}", conf.target.system_root)
         except MountFilesystemError as e:
-            log.error("Mounting system under %s failed: %s", conf.target.system_root, e)
+            log.error("Mounting system under {} failed: {}", conf.target.system_root, e)
             self.status = RescueModeStatus.MOUNT_FAILED
             self.error = e
             return False
@@ -209,7 +209,7 @@ class Rescue(object):
                 fd = open("%s/.autorelabel" % conf.target.system_root, "w+")
                 fd.close()
             except OSError as e:
-                log.warning("Error turning on selinux: %s", e)
+                log.warning("Error turning on selinux: {}", e)
 
         # set a libpath to use mounted fs
         libdirs = os.environ.get("LD_LIBRARY_PATH", "").split(":")
@@ -221,14 +221,14 @@ class Rescue(object):
             if os.access("/usr/bin/bash", os.R_OK):
                 os.symlink("/usr/bin/bash", "/bin/bash")
         except OSError as e:
-            log.error("Error symlinking bash: %s", e)
+            log.error("Error symlinking bash: {}", e)
 
         # make resolv.conf in chroot
         if not self.ro:
             try:
                 makeResolvConf(conf.target.system_root)
             except OSError as e:
-                log.error("Error making resolv.conf: %s", e)
+                log.error("Error making resolv.conf: {}", e)
 
         # create /etc/fstab in ramdisk so it's easier to work with RO mounted fs
         makeFStab()

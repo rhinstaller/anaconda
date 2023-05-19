@@ -689,10 +689,10 @@ class KeyboardSpoke(NormalSpoke):
                 self._addLayout(self._store, layout)
                 valid_layouts += layout
             except XklWrapperError:
-                log.error("Failed to add layout '%s'", layout)
+                log.error("Failed to add layout '{}'", layout)
 
         if not valid_layouts:
-            log.error("No valid layout given, falling back to default %s", DEFAULT_KEYBOARD)
+            log.error("No valid layout given, falling back to default {}", DEFAULT_KEYBOARD)
             self._addLayout(self._store, DEFAULT_KEYBOARD)
             self._l12_module.XLayouts = [DEFAULT_KEYBOARD]
 

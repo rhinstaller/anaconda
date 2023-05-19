@@ -99,7 +99,7 @@ def get_default_route_iface(family="inet"):
     """
     routes = util.execWithCapture("ip", ["-f", family, "route", "show"])
     if not routes:
-        log.debug("Could not get default %s route device", family)
+        log.debug("Could not get default {} route device", family)
         return None
 
     for line in routes.split("\n"):
@@ -108,7 +108,7 @@ def get_default_route_iface(family="inet"):
             if len(parts) >= 5 and parts[3] == "dev":
                 return parts[4]
             else:
-                log.debug("Could not parse default %s route device", family)
+                log.debug("Could not parse default {} route device", family)
                 return None
 
     return None

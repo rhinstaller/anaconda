@@ -249,7 +249,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             try:
                 server, directory = url.split(":", 2)
             except ValueError as e:
-                log.error("ValueError: %s", e)
+                log.error("ValueError: {}", e)
                 self._error = _(
                     "Failed to set up installation source; "
                     "check the NFS configuration."
@@ -861,7 +861,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
         NormalSpoke.on_back_clicked(self, button)
 
     def on_info_bar_clicked(self, *args):
-        log.debug("info bar clicked: %s (%s)", self._error, args)
+        log.debug("info bar clicked: {} ({})", self._error, args)
         messages = payloadMgr.report.get_messages()
 
         if not messages:

@@ -254,7 +254,7 @@ class NTPConfigDialog(GUIObject):
 
         (valid, error) = network.is_valid_hostname(new_text)
         if not valid:
-            log.error("'%s' is not a valid hostname: %s", new_text, error)
+            log.error("'{}' is not a valid hostname: {}", new_text, error)
             return
 
         itr = self._serversStore.get_iter(path)

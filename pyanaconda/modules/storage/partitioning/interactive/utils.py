@@ -463,7 +463,7 @@ def revert_reformat(storage, device):
     """
     # Skip if formats exists.
     if device.format.exists and device.raw_device.format.exists:
-        log.debug("Nothing to revert for %s.", device.name)
+        log.debug("Nothing to revert for {}.", device.name)
         return
 
     # Figure out the existing device.
@@ -473,7 +473,7 @@ def revert_reformat(storage, device):
         original_device = device
 
     # Reset it.
-    log.debug("Resetting device %s.", original_device.name)
+    log.debug("Resetting device {}.", original_device.name)
     storage.reset_device(original_device)
 
 
@@ -487,7 +487,7 @@ def resize_device(storage, device, new_size, old_size):
     :return: True if the device changed its size, otherwise False
     :raise: StorageError if we fail to schedule the device resize
     """
-    log.debug("Resizing device %s to %s.", device, new_size)
+    log.debug("Resizing device {} to {}.", device, new_size)
 
     # If a LUKS device is being displayed, adjust the size
     # to the appropriate size for the raw device.
@@ -508,12 +508,12 @@ def resize_device(storage, device, new_size, old_size):
 
     if use_size == device.size or use_size == device.raw_device.size:
         # The size hasn't changed.
-        log.debug("Canceled resize of device %s to %s.", device.raw_device.name, use_size)
+        log.debug("Canceled resize of device {} to {}.", device.raw_device.name, use_size)
         return False
 
     if new_size == device.current_size or use_size == device.current_size:
         # The size has been set back to its original value.
-        log.debug("Removing resize of device %s.", device.raw_device.name)
+        log.debug("Removing resize of device {}.", device.raw_device.name)
 
         actions = storage.devicetree.actions.find(
             action_type="resize",
@@ -526,17 +526,17 @@ def resize_device(storage, device, new_size, old_size):
         return bool(actions)
     else:
         # the size has changed
-        log.debug("Scheduling resize of device %s to %s.", device.raw_device.name, use_size)
+        log.debug("Scheduling resize of device {} to {}.", device.raw_device.name, use_size)
 
         try:
             storage.resize_device(device.raw_device, use_size)
         except (StorageError, ValueError) as e:
-            log.exception("Failed to schedule device resize: %s", e)
+            log.exception("Failed to schedule device resize: {}", e)
             device.raw_device.size = use_old_size
             raise StorageError(str(e)) from None
 
         log.debug(
-            "Device %s has size: %s (target %s)",
+            "Device {} has size: {} (target {})",
             device.raw_device.name,
             device.raw_device.size, device.raw_device.target_size
         )
@@ -564,26 +564,26 @@ def bound_size(size, device, old_size):
     if not size:
         if max_size:
             log.info("No size specified, using maximum size for "
-                     "this device (%d).", max_size)
+                     "this device ({:d}).", max_size)
             size = max_size
         else:
             log.warning("No size specified and no maximum size available, "
-                        "setting size back to original size (%d).", old_size)
+                        "setting size back to original size {:d}.", old_size)
             size = old_size
     else:
         if max_size:
             if size > max_size:
-                log.warning("Size specified (%d) is greater than the maximum "
-                            "size for this device (%d), using maximum size.",
+                log.warning("Size specified ({:d}) is greater than the maximum "
+                            "size for this device {:%d}, using maximum size.",
                             size, max_size)
                 size = max_size
         else:
-            log.warning("Unknown upper bound on size. Using requested size (%d).",
+            log.warning("Unknown upper bound on size. Using requested size ({:d}).",
                         size)
 
         if size < min_size:
-            log.warning("Size specified (%d) is less than the minimum size for "
-                        "this device (%d), using minimum size.", size, min_size)
+            log.warning("Size specified ({:d}) is less than the minimum size for "
+                        "this device ({:d}), using minimum size.", size, min_size)
             size = min_size
 
     return size
@@ -599,11 +599,11 @@ def change_encryption(storage, device, encrypted, luks_version):
     :return: a LUKS device or a LUKS device parent device
     """
     if not encrypted:
-        log.info("Removing encryption from %s.", device.name)
+        log.info("Removing encryption from {}.", device.name)
         storage.destroy_device(device)
         return device.raw_device
     else:
-        log.info("Applying encryption to %s.", device.name)
+        log.info("Applying encryption to {}.", device.name)
         new_fmt = get_format("luks", device=device.path, luks_version=luks_version)
         storage.format_device(device, new_fmt)
         luks_dev = LUKSDevice("luks-" + device.name, parents=[device])
@@ -621,7 +621,7 @@ def reformat_device(storage, device, fstype, mountpoint, label):
     :param label: a label
     :raise: StorageError if we fail to format the device
     """
-    log.info("Scheduling reformat of %s as %s.", device.name, fstype)
+    log.info("Scheduling reformat of {} as {}.", device.name, fstype)
 
     old_format = device.format
     new_format = get_format(
@@ -634,7 +634,7 @@ def reformat_device(storage, device, fstype, mountpoint, label):
     try:
         storage.format_device(device, new_format)
     except (StorageError, ValueError) as e:
-        log.exception("Failed to register device format action: %s", e)
+        log.exception("Failed to register device format action: {}", e)
         device.format = old_format
         raise StorageError(str(e)) from None
 
@@ -793,7 +793,7 @@ def get_device_factory_arguments(storage, request: DeviceFactoryRequest, subset=
         args = {name: value for name, value in args.items() if name in subset}
 
     log.debug(
-        "Generated factory arguments: {\n%s\n}",
+        "Generated factory arguments: {\n{}\n}",
         ",\n".join("{} = {}".format(name, repr(value)) for name, value in args.items())
     )
 
@@ -1018,7 +1018,7 @@ def reset_device(storage, device):
     :param device: an instance of a device
     :raise: StorageConfigurationError in case of failure
     """
-    log.debug("Reset device: %s", device.name)
+    log.debug("Reset device: {}", device.name)
 
     try:
         if device.exists:
@@ -1028,7 +1028,7 @@ def reset_device(storage, device):
             # Destroy a non-existing device.
             _destroy_device(storage, device)
     except (StorageError, ValueError) as e:
-        log.exception("Failed to reset a device: %s", e)
+        log.exception("Failed to reset a device: {}", e)
         raise StorageConfigurationError(str(e)) from None
 
 
@@ -1039,12 +1039,12 @@ def destroy_device(storage, device):
     :param device: an instance of a device
     :raise: StorageConfigurationError in case of failure
     """
-    log.debug("Destroy device: %s", device.name)
+    log.debug("Destroy device: {}", device.name)
 
     try:
         _destroy_device(storage, device)
     except (StorageError, ValueError) as e:
-        log.exception("Failed to destroy a device: %s", e)
+        log.exception("Failed to destroy a device: {}", e)
         raise StorageConfigurationError(str(e)) from None
 
 
@@ -1123,12 +1123,12 @@ def rename_container(storage, container, name):
     :param container: an instance of a container
     :param name: a new name of the container
     """
-    log.debug("Rename container %s to %s.", container.name, name)
+    log.debug("Rename container {} to {}.", container.name, name)
 
     try:
         container.name = name
     except ValueError as e:
-        log.exception("Failed to rename container: %s", str(e))
+        log.exception("Failed to rename container: {}", str(e))
         raise StorageError(str(e)) from None
 
     # Fix the btrfs label.

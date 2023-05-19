@@ -181,7 +181,7 @@ class CopyLogsTask(Task):
         :param str dest: path to destination file within sysroot
         """
         if os.path.exists(src):
-            log.info("Copying file: %s -> %s", src, dest)
+            log.info("Copying file: {} -> {}", src, dest)
             full_dest_path = join_paths(self._sysroot, dest)
             shutil.copyfile(
                 src,
@@ -196,7 +196,7 @@ class CopyLogsTask(Task):
         :param str dest: path to destination directory within sysroot
         """
         if os.path.exists(src):
-            log.info("Copying directory tree: %s -> %s", src, dest)
+            log.info("Copying directory tree: {} -> {}", src, dest)
             full_dest_path = join_paths(self._sysroot, dest)
             shutil.copytree(
                 src,

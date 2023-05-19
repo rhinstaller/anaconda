@@ -151,7 +151,7 @@ def get_servers_from_config(conf_file_path=NTP_CONFIG_FILE):
                         server.options.append(' '.join(words[i:i+2]))
                         skip_argument = True
                     else:
-                        log.debug("Unknown NTP server option %s", words[i])
+                        log.debug("Unknown NTP server option {}", words[i])
 
                 servers.append(server)
 
@@ -301,14 +301,14 @@ class NTPServerStatusCache(object):
 
         :param str hostname: a hostname of an NTP server
         """
-        log.debug("Checking NTP server %s", hostname)
+        log.debug("Checking NTP server {}", hostname)
         result = ntp_server_working(hostname, nts_enabled)
 
         if result:
-            log.debug("NTP server %s appears to be working.", hostname)
+            log.debug("NTP server {} appears to be working.", hostname)
             self._set_status(hostname, NTP_SERVER_OK)
         else:
-            log.debug("NTP server %s appears not to be working.", hostname)
+            log.debug("NTP server {} appears not to be working.", hostname)
             self._set_status(hostname, NTP_SERVER_NOK)
 
         self._report_status_changed()

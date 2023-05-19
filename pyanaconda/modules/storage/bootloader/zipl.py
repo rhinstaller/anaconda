@@ -95,7 +95,7 @@ class ZIPL(BootLoader):
             bls_path = "%s%s-%s.conf" % (bls_dir, machine_id, image.version)
 
         if not os.access(bls_path, os.W_OK):
-            log.error("failed to update boot args in BLS file %s", bls_path)
+            log.error("failed to update boot args in BLS file {}", bls_path)
             return
 
         with open(bls_path, "r") as bls:
@@ -118,7 +118,7 @@ class ZIPL(BootLoader):
             args.update(self.boot_args)
             if image.device.type == "btrfs subvolume":
                 args.add("rootflags=subvol=%s" % image.device.name)
-            log.info("bootloader.py: used boot args: %s ", args)
+            log.info("bootloader.py: used boot args: {} ", args)
 
             if self.use_bls:
                 self.update_bls_args(image, args)

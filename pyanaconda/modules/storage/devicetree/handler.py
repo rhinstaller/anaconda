@@ -144,7 +144,7 @@ class DeviceTreeHandler(ABC):
         """
         device = self._get_device(device_name)
         device.format.options = mount_options or None
-        log.debug("Mount options of %s are set to '%s'.", device_name, mount_options)
+        log.debug("Mount options of {} are set to '{}'.", device_name, mount_options)
 
     def find_devices_with_task(self):
         """Find new devices.

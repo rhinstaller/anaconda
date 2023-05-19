@@ -61,7 +61,7 @@ class StorageCheckerModule(KickstartBaseModule):
                 "Constraint '{}' is not supported.".format(name)
             )
 
-        log.debug("Constraint '%s' is set to '%s'.", name, value)
+        log.debug("Constraint '{}' is set to '{}'.", name, value)
 
     def process_kickstart(self, data):
         """Process the kickstart data."""

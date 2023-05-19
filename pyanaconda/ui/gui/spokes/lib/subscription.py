@@ -119,7 +119,7 @@ def add_attached_subscription_delegate(listbox, subscription, delegate_index):
     :type: AttachedSubscription instance
     :param int delegate_index: index of the delegate in the listbox
     """
-    log.debug("Subscription GUI: adding subscription to listbox: %s", subscription.name)
+    log.debug("Subscription GUI: adding subscription to listbox: {}", subscription.name)
     # if we are not the first delegate, we should pre-pend a spacer, so that the
     # actual delegates are nicely delimited
     if delegate_index != 0:

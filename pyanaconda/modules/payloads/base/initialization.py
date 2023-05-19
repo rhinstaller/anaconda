@@ -57,11 +57,11 @@ class SetUpSourcesTask(Task):
     def _set_up_sources(self, sources):
         """Collect and call set up tasks for all the sources."""
         for source in sources:
-            log.debug("Setting up a source: %s", str(source))
+            log.debug("Setting up a source: {}", str(source))
             tasks = source.set_up_with_tasks()
 
             for task in tasks:
-                log.debug("Running a task: %s", task.name)
+                log.debug("Running a task: {}", task.name)
                 task.run_with_signals()
 
 
@@ -104,11 +104,11 @@ class TearDownSourcesTask(Task):
     def _tear_down_sources(self, sources):
         """Collect and call tear down tasks for all the sources."""
         for source in sources:
-            log.debug("Tearing down a source: %s", str(source))
+            log.debug("Tearing down a source: {}", str(source))
             tasks = source.tear_down_with_tasks()
 
             for task in tasks:
-                log.debug("Running a task: %s", task.name)
+                log.debug("Running a task: {}", task.name)
                 try:
                     task.run()
                 except SourceTearDownError as e:

@@ -105,8 +105,8 @@ class XklWrapper(object):
                 lay_var_str = ",".join(map(join_layout_variant,
                                            self._rec.layouts,
                                            self._rec.variants))
-                log.error("Failed to activate layouts: '%s', "
-                          "falling back to default %s", lay_var_str, DEFAULT_KEYBOARD)
+                log.error("Failed to activate layouts: '{}', "
+                          "falling back to default {}", lay_var_str, DEFAULT_KEYBOARD)
                 self._rec.set_layouts([DEFAULT_KEYBOARD])
                 self._rec.set_variants([""])
 

@@ -130,7 +130,7 @@ class DownloadImageTask(Task):
 
         self.report_progress(_("Downloading {}").format(self._url))
         image_file.write(response.content)
-        log.debug("Downloaded %s.", self._url)
+        log.debug("Downloaded {}.", self._url)
 
     def _stream_download(self, response, image_file):
         """Download the image in 1 MB chunks."""
@@ -187,7 +187,7 @@ class VerifyImageChecksumTask(Task):
         calculated_checksum = self._calculate_checksum(self._image_path)
 
         if expected_checksum != calculated_checksum:
-            log.error("'%s' does not match '%s'", calculated_checksum, expected_checksum)
+            log.error("'{}' does not match '{}'", calculated_checksum, expected_checksum)
             raise PayloadInstallationError("Checksum of the image does not match.")
 
         log.debug("Checksum of the image does match.")
@@ -210,7 +210,7 @@ class VerifyImageChecksumTask(Task):
                 sha256.update(data)
 
         checksum = sha256.hexdigest()
-        log.debug("sha256 of %s: %s", file_path, checksum)
+        log.debug("sha256 of {}: {}", file_path, checksum)
         return checksum
 
 
@@ -476,5 +476,5 @@ class RemoveImageTask(Task):
             log.info("Nothing to remove.")
             return
 
-        log.debug("Removing the downloaded image at %s.", self._download_path)
+        log.debug("Removing the downloaded image at {}.", self._download_path)
         os.unlink(self._download_path)

@@ -138,7 +138,7 @@ class InstallBootloaderTask(Task):
         try:
             install_boot_loader(storage=self._storage)
         except BootLoaderError as e:
-            log.exception("Bootloader installation has failed: %s", e)
+            log.exception("Bootloader installation has failed: {}", e)
             raise BootloaderInstallationError(str(e)) from None
 
 

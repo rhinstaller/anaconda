@@ -243,7 +243,7 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
 
     ### handlers ###
     def on_info_bar_clicked(self, *args):
-        log.debug("info bar clicked: %s (%s)", self._error, args)
+        log.debug("info bar clicked: {} ({})", self._error, args)
         if not self._error:
             return
 

@@ -62,7 +62,7 @@ class UIModule(KickstartBaseModule):
         """
         self._password_policies = policies
         self.password_policies_changed.emit()
-        log.debug("Password policies are set to '%s'.", policies)
+        log.debug("Password policies are set to '{}'.", policies)
 
     def get_default_password_policies(self):
         """Get the default password policies.

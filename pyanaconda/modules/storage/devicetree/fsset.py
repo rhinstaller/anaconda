@@ -42,12 +42,12 @@ __all__ = ["BlkidTab", "CryptTab", "FSSet"]
 def copy_to_system(source):
     """ Copy the source file the target OS installation. """
     if not os.access(source, os.R_OK):
-        log.info("copy_to_system: source '%s' does not exist.", source)
+        log.info("copy_to_system: source '{}' does not exist.", source)
         return False
 
     target = conf.target.system_root + source
     target_dir = os.path.dirname(target)
-    log.debug("copy_to_system: '%s' -> '%s'.", source, target)
+    log.debug("copy_to_system: '{}' -> '{}'.", source, target)
     if not os.path.isdir(target_dir):
         os.makedirs(target_dir)
     shutil.copy(source, target)
@@ -69,7 +69,7 @@ def get_containing_device(path, devicetree):
     try:
         device_name = os.path.basename(os.readlink(link))
     except Exception:  # pylint: disable=broad-except
-        log_exception_info(fmt_str="failed to find device name for path %s", fmt_args=[path])
+        log_exception_info(fmt_str="failed to find device name for path {}", fmt_args=[path])
         return None
 
     if device_name.startswith("dm-"):
@@ -185,7 +185,7 @@ class BlkidTab(object):
         if not os.access(path, os.R_OK):
             return
 
-        log.debug("parsing %s", path)
+        log.debug("parsing {}", path)
         with open(path) as f:
             for line in f.readlines():
                 # this is pretty ugly, but an XML parser is more work than
@@ -233,7 +233,7 @@ class CryptTab(object):
         if not os.access(path, os.R_OK):
             return
 
-        log.debug("parsing %s", path)
+        log.debug("parsing {}", path)
         with open(path) as f:
             if not self.blkid_tab:
                 try:
@@ -397,14 +397,14 @@ class FSSet(object):
                 device = NoDevice(fmt=fmt)
 
         if device is None:
-            log.error("failed to resolve %s (%s) from fstab", devspec,
+            log.error("failed to resolve {} ({}) from fstab", devspec,
                       fstype)
             raise UnrecognizedFSTabEntryError()
 
         device.setup()
         fmt = get_format(fstype, device=device.path, exists=True)
         if fstype != "auto" and None in (device.format.type, fmt.type):
-            log.info("Unrecognized filesystem type for %s (%s)",
+            log.info("Unrecognized filesystem type for {} ({})",
                      device.name, fstype)
             device.teardown()
             raise UnrecognizedFSTabEntryError()
@@ -414,7 +414,7 @@ class FSSet(object):
         ftype = getattr(fmt, "mount_type", fmt.type)
         dtype = getattr(device.format, "mount_type", device.format.type)
         if hasattr(fmt, "test_mount") and fstype != "auto" and ftype != dtype:
-            log.info("fstab says %s at %s is %s", dtype, mountpoint, ftype)
+            log.info("fstab says {} at {} is {}", dtype, mountpoint, ftype)
             if fmt.test_mount():     # pylint: disable=no-member
                 device.format = fmt
             else:
@@ -456,13 +456,13 @@ class FSSet(object):
         path = "%s/etc/fstab" % chroot
         if not os.access(path, os.R_OK):
             # XXX should we raise an exception instead?
-            log.info("cannot open %s for read", path)
+            log.info("cannot open {} for read", path)
             return
 
         blkid_tab = BlkidTab(chroot=chroot)
         try:
             blkid_tab.parse()
-            log.debug("blkid.tab devs: %s", list(blkid_tab.devices.keys()))
+            log.debug("blkid.tab devs: {}", list(blkid_tab.devices.keys()))
         except Exception:  # pylint: disable=broad-except
             log_exception_info(log.info, "error parsing blkid.tab")
             blkid_tab = None
@@ -470,7 +470,7 @@ class FSSet(object):
         crypt_tab = CryptTab(self.devicetree, blkid_tab=blkid_tab, chroot=chroot)
         try:
             crypt_tab.parse(chroot=chroot)
-            log.debug("crypttab maps: %s", list(crypt_tab.mappings.keys()))
+            log.debug("crypttab maps: {}", list(crypt_tab.mappings.keys()))
         except Exception:  # pylint: disable=broad-except
             log_exception_info(log.info, "error parsing crypttab")
             crypt_tab = None
@@ -479,7 +479,7 @@ class FSSet(object):
         self.crypt_tab = crypt_tab
 
         with open(path) as f:
-            log.debug("parsing %s", path)
+            log.debug("parsing {}", path)
 
             lines = f.readlines()
 
@@ -517,7 +517,7 @@ class FSSet(object):
                 parent = get_containing_device(target_dir, self.devicetree)
                 if not parent:
                     log.error("cannot determine which device contains "
-                              "directory %s", device.path)
+                              "directory {}", device.path)
                     device.parents = []
                     self.devicetree._remove_device(device)
                     continue
@@ -531,7 +531,7 @@ class FSSet(object):
                     device.setup()
                     device.format.setup()
                 except (SwapSpaceError, blockdev.SwapActivateError) as e:
-                    log.error("Failed to activate swap on '%s': %s", device.name, str(e))
+                    log.error("Failed to activate swap on '{}': {}", device.name, str(e))
                     break
                 else:
                     break
@@ -580,7 +580,7 @@ class FSSet(object):
                 parent = get_containing_device(target_dir, self.devicetree)
                 if not parent:
                     log.error("cannot determine which device contains "
-                              "directory %s", device.path)
+                              "directory {}", device.path)
                     device.parents = []
                     self.devicetree._remove_device(device)
                     continue
@@ -763,7 +763,7 @@ class FSSet(object):
                 mountpoint = device.format.mountpoint
                 options = device.format.options
                 if not mountpoint:
-                    log.warning("%s filesystem on %s has no mount point",
+                    log.warning("{} filesystem on {} has no mount point",
                                 fstype,
                                 device.path)
                     continue

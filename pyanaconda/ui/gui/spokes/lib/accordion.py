@@ -138,7 +138,7 @@ class Accordion(Gtk.Box):
         self._current_selector = selector
         self._last_selected = selector
         self._activate_selector(selector, activate=True, show_arrow=True)
-        log.debug("Select device: %s", selector.device_name)
+        log.debug("Select device: {}", selector.device_name)
 
     def _select_with_shift(self, clicked_selector):
         # No items selected, only select this one
@@ -189,7 +189,7 @@ class Accordion(Gtk.Box):
                 self._activate_selector(s, activate=True, show_arrow=False)
             else:
                 self._activate_selector(s, activate=True, show_arrow=True)
-            log.debug("Append device %s to the selection.", s.device_name)
+            log.debug("Append device {} to the selection.", s.device_name)
 
         if len(selectors) == 1:
             self._last_selected = selectors[-1]
@@ -198,7 +198,7 @@ class Accordion(Gtk.Box):
             self._current_selector = None
         else:
             self._current_selector = self._active_selectors[0]
-        log.debug("Selected items %s; added items %s",
+        log.debug("Selected items {}; added items {}",
                   len(self._active_selectors), len(selectors))
 
     def remove_selection(self, selectors):
@@ -214,14 +214,14 @@ class Accordion(Gtk.Box):
             if s in self._active_selectors:
                 self._activate_selector(s, activate=False, show_arrow=False)
                 self._active_selectors.remove(s)
-                log.debug("Device %s is removed from the selection.", s)
+                log.debug("Device {} is removed from the selection.", s)
 
         if len(self._active_selectors) == 1:
             self._current_selector = self._active_selectors[0]
             self._current_selector.props.show_arrow = True
         else:
             self._current_selector = None
-        log.debug("Selected items %s; removed items %s",
+        log.debug("Selected items {}; removed items {}",
                   len(self._active_selectors), len(selectors))
 
     @property

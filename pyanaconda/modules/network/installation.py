@@ -301,7 +301,7 @@ class ConfigureActivationOnBootTask(Task):
 
     def _run(self, nm_client):
         if not nm_client:
-            log.debug("%s: No NetworkManager available.", self.name)
+            log.debug("{}: No NetworkManager available.", self.name)
             return None
 
         for iface in self._onboot_ifaces:
@@ -314,4 +314,4 @@ class ConfigureActivationOnBootTask(Task):
                 )
                 commit_changes_with_autoconnection_blocked(con, nm_client)
             else:
-                log.warning("Configure ONBOOT: can't find config for %s", iface)
+                log.warning("Configure ONBOOT: can't find config for {}", iface)

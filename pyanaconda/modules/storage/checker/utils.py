@@ -264,7 +264,7 @@ def _check_opal_firmware_kernel_version(detected_version, required_version):
         if detected_version and required_version:
             return rpm_version_key(detected_version) >= rpm_version_key(required_version)
     except Exception as e:  # pylint: disable=broad-except
-        log.warning("Couldn't check the firmware kernel version: %s", str(e))
+        log.warning("Couldn't check the firmware kernel version: {}", str(e))
 
     return False
 
@@ -281,10 +281,10 @@ def _get_opal_firmware_kernel_version():
     try:
         with open("/proc/device-tree/ibm,firmware-versions/linux") as f:
             version = f.read().strip().removeprefix("v")
-            log.debug("The firmware kernel version is '%s'.", version)
+            log.debug("The firmware kernel version is '{}'.", version)
 
     except IOError as e:
-        log.warning("Couldn't get the firmware kernel version: %s", str(e))
+        log.warning("Couldn't get the firmware kernel version: {}", str(e))
 
     return version
 
@@ -454,7 +454,7 @@ def verify_luks2_memory_requirements(storage, constraints, report_error, report_
                and not d.format.exists]
 
     available_memory = util.available_memory()
-    log.debug("Available memory: %s", available_memory)
+    log.debug("Available memory: {}", available_memory)
 
     if devices and available_memory < constraints[STORAGE_LUKS2_MIN_RAM]:
         report_warning(_("The available memory is less than %(size)s which can "
@@ -493,7 +493,7 @@ def verify_mounted_partitions(storage, constraints, report_error, report_warning
     for path, part in partitions_to_check.items():
         part_dev = storage.devicetree.get_device_by_path(path)
         if part_dev and part_dev.protected:
-            log.debug("Not checking protected %s for being mounted, assuming live "
+            log.debug("Not checking protected {} for being mounted, assuming live "
                       "image mount", path)
             return
 

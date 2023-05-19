@@ -66,4 +66,4 @@ class ClosestMirrorSourceModule(RepoFilesSourceModule):
         """
         self._updates_enabled = enabled
         self.updates_enabled_changed.emit()
-        log.debug("Updates enabled is set to '%s'.", enabled)
+        log.debug("Updates enabled is set to '{}'.", enabled)

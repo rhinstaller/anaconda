@@ -93,7 +93,7 @@ class SetRPMMacrosTask(Task):
     def _install_macros(self, macros):
         """Add RPM macros to the global transaction environment."""
         for name, value in macros:
-            log.debug("Set '%s' to '%s'.", name, value)
+            log.debug("Set '{}' to '{}'.", name, value)
             rpm.addMacro(name, value)  # pylint: disable=no-member
 
 
@@ -115,12 +115,12 @@ class ResolvePackagesTask(CheckPackagesSelectionTask):
 
         if report.error_messages:
             message = "\n\n".join(report.error_messages)
-            log.error("The packages couldn't be resolved:\n\n%s", message)
+            log.error("The packages couldn't be resolved:\n\n{}", message)
             raise PayloadInstallationError(message)
 
         if report.warning_messages:
             message = "\n\n".join(report.warning_messages)
-            log.warning("The packages were resolved with warnings:\n\n%s", message)
+            log.warning("The packages were resolved with warnings:\n\n{}", message)
             raise NonCriticalInstallationError(message)
 
     @property
@@ -165,7 +165,7 @@ class PrepareDownloadLocationTask(Task):
         path = pick_download_location(self._dnf_manager)
 
         if os.path.exists(path):
-            log.info("Removing existing package download location: %s", path)
+            log.info("Removing existing package download location: {}", path)
             shutil.rmtree(path)
 
         self._dnf_manager.set_download_location(path)
@@ -197,10 +197,10 @@ class CleanUpDownloadLocationTask(Task):
         path = self._dnf_manager.download_location
 
         if not os.path.exists(path):
-            log.warning("The download location %s doesn't exist.", path)
+            log.warning("The download location {} doesn't exist.", path)
             return
 
-        log.info("Removing downloaded packages from %s.", path)
+        log.info("Removing downloaded packages from {}.", path)
         shutil.rmtree(path)
 
 
@@ -272,10 +272,10 @@ class WriteRepositoriesTask(Task):
         """Run the task."""
         for repo in self._repositories:
             if not self._can_write_repo(repo):
-                log.debug("Couldn't write %s.repo to the target system.", repo.name)
+                log.debug("Couldn't write {}.repo to the target system.", repo.name)
                 continue
 
-            log.info("Writing %s.repo to the target system.", repo.name)
+            log.info("Writing {}.repo to the target system.", repo.name)
             content = self._dnf_manager.generate_repo_file(repo)
             self._write_repo_file(repo.name, content)
 
@@ -353,7 +353,7 @@ class ImportRPMKeysTask(Task):
             log.error(
                 "Can not import GPG keys to RPM database because "
                 "the 'rpm' executable is missing on the target "
-                "system. The following keys were not imported:\n%s",
+                "system. The following keys were not imported:\n{}",
                 "\n".join(self._gpg_keys)
             )
             return
@@ -367,7 +367,7 @@ class ImportRPMKeysTask(Task):
         for key in self._gpg_keys:
             key = key.replace("$releasever", releasever).replace("$basearch", basearch)
 
-            log.info("Importing GPG key to RPM database: %s", key)
+            log.info("Importing GPG key to RPM database: {}", key)
             rc = util.execWithRedirect("rpm", ["--import", key], root=self._sysroot)
 
             if rc:
@@ -402,7 +402,7 @@ class UpdateDNFConfigurationTask(Task):
         :param option: a name of the option
         :param value: a value of the option
         """
-        log.debug("Setting '%s' to '%s'.", option, value)
+        log.debug("Setting '{}' to '{}'.", option, value)
 
         cmd = "dnf"
         args = [
@@ -414,9 +414,9 @@ class UpdateDNFConfigurationTask(Task):
         try:
             rc = util.execWithRedirect(cmd, args, root=self._sysroot)
         except OSError as e:
-            log.warning("Couldn't update the DNF configuration: %s", e)
+            log.warning("Couldn't update the DNF configuration: {}", e)
             return
 
         if rc != 0:
-            log.warning("Failed to update the DNF configuration (%s).", rc)
+            log.warning("Failed to update the DNF configuration ({}).", rc)
             return

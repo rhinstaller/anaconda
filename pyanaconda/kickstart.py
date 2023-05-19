@@ -116,7 +116,7 @@ class AnacondaKSScript(KSScript):
                                        root=scriptRoot)
 
         if rc != 0:
-            script_log.error("Error code %s running the kickstart script at line %s", rc, self.lineno)
+            script_log.error("Error code {} running the kickstart script at line {}", rc, self.lineno)
             if self.errorOnFail:
                 err = ""
                 with open(messages, "r") as fp:
@@ -171,7 +171,7 @@ class UselessCommand(KickstartCommand):
         We can keep this method for the checks if it is possible, but
         it shouldn't parse anything.
         """
-        log.warning("Command %s will be parsed in DBus module.", self.currentCmd)
+        log.warning("Command {} will be parsed in DBus module.", self.currentCmd)
 
 
 class UselessObject(KickstartObject):
@@ -402,10 +402,10 @@ def runPostScripts(scripts):
     if len(postScripts) == 0:
         return
 
-    script_log.info("Running kickstart %%post script(s)")
+    script_log.info("Running kickstart %post script(s)")
     for script in postScripts:
         script.run(conf.target.system_root)
-    script_log.info("All kickstart %%post script(s) have been run")
+    script_log.info("All kickstart %post script(s) have been run")
 
 
 def runPreScripts(scripts):
@@ -414,13 +414,13 @@ def runPreScripts(scripts):
     if len(preScripts) == 0:
         return
 
-    script_log.info("Running kickstart %%pre script(s)")
+    script_log.info("Running kickstart %pre script(s)")
     stdoutLog.info(_("Running pre-installation scripts"))
 
     for script in preScripts:
         script.run("/")
 
-    script_log.info("All kickstart %%pre script(s) have been run")
+    script_log.info("All kickstart %pre script(s) have been run")
 
 
 def runPreInstallScripts(scripts):
@@ -429,16 +429,16 @@ def runPreInstallScripts(scripts):
     if len(preInstallScripts) == 0:
         return
 
-    script_log.info("Running kickstart %%pre-install script(s)")
+    script_log.info("Running kickstart %pre-install script(s)")
 
     for script in preInstallScripts:
         script.run("/")
 
-    script_log.info("All kickstart %%pre-install script(s) have been run")
+    script_log.info("All kickstart %pre-install script(s) have been run")
 
 
 def runTracebackScripts(scripts):
-    script_log.info("Running kickstart %%traceback script(s)")
+    script_log.info("Running kickstart %traceback script(s)")
     for script in filter(lambda s: s.type == KS_SCRIPT_TRACEBACK, scripts):
         script.run("/")
-    script_log.info("All kickstart %%traceback script(s) have been run")
+    script_log.info("All kickstart %traceback script(s) have been run")

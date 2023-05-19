@@ -38,7 +38,7 @@ def get_snapshot_device(request, devicetree):
     snap_name = request.name.replace('-', '--')
     origin = request.origin.replace('-', '--').replace('/', '-')
     origin_dev = devicetree.get_device_by_name(origin)
-    log.debug("Snapshot: name %s has origin %s", request.name, origin_dev)
+    log.debug("Snapshot: name {} has origin {}", request.name, origin_dev)
 
     if origin_dev is None:
         raise StorageError(

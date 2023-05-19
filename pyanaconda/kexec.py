@@ -71,7 +71,7 @@ def run_grubby(args=None):
             if not boot_info_fields:
                 break
     except OSError as e:
-        log.error("run_grubby failed: %s", e)
+        log.error("run_grubby failed: {}", e)
         raise GrubbyInfoError(e) from e
 
     if boot_info_fields:
@@ -83,7 +83,7 @@ def run_grubby(args=None):
         boot_info_args["initrd"] = boot_info_args["initrd"].split(" ")[0]
 
     boot_info = boot_info_class(**boot_info_args)
-    log.info("grubby boot info for (%s): %s", args, boot_info)
+    log.info("grubby boot info for ({}): {}", args, boot_info)
     return boot_info
 
 
@@ -118,6 +118,6 @@ def setup_kexec():
     try:
         rc = execWithRedirect("kexec", args)
     except OSError as e:
-        log.error("setup_kexec failed: %s", e)
+        log.error("setup_kexec failed: {}", e)
     if rc != 0:
-        log.error("setup_kexec failed with rc=%d: See program.log for output", rc)
+        log.error("setup_kexec failed with rc={:d}: See program.log for output", rc)

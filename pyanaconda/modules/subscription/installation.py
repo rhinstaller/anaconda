@@ -189,7 +189,7 @@ class TransferSubscriptionTokensTask(Task):
 
     def _transfer_file(self, target_path, target_name):
         """Transfer a file with nice logs and raise an exception if it does not exist."""
-        log.debug("subscription: transferring %s", target_name)
+        log.debug("subscription: transferring {}", target_name)
         target_repo_file_path = join_paths(self._sysroot, target_path)
         if not self._copy_file(target_path, target_repo_file_path):
             msg = "{} ({}) is missing".format(target_name, self.RHSM_REPO_FILE_PATH)

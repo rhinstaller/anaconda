@@ -93,8 +93,8 @@ class AnacondaDBusLauncher(object):
         if not os.path.exists(dirname):
             os.makedirs(dirname)
 
-        log.info("Configuration loaded from: %s", conf.get_sources())
-        log.info("Writing the runtime configuration to: %s", ANACONDA_CONFIG_TMP)
+        log.info("Configuration loaded from: {}", conf.get_sources())
+        log.info("Writing the runtime configuration to: {}", ANACONDA_CONFIG_TMP)
         conf.write(ANACONDA_CONFIG_TMP)
 
     def _remove_temporary_config(self):
@@ -150,7 +150,7 @@ class AnacondaDBusLauncher(object):
         if ret_code is None:
             log.error("DBus daemon can't be killed!")
         elif ret_code != 0:
-            log.error("DBus daemon exited with error %s", ret_code)
+            log.error("DBus daemon exited with error {}", ret_code)
 
     def _set_environment(self):
         """Set the environment variables."""

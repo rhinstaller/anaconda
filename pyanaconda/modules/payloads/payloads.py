@@ -67,7 +67,7 @@ class PayloadsService(KickstartService):
         """Add a created payload module."""
         self._created_payloads.append(module)
         self.created_payloads_changed.emit(module)
-        log.debug("Created the payload %s.", module.type)
+        log.debug("Created the payload {}.", module.type)
 
     @property
     def active_payload(self):
@@ -88,7 +88,7 @@ class PayloadsService(KickstartService):
         """Activate the payload."""
         self._active_payload = payload
         self.active_payload_changed.emit()
-        log.debug("Activated the payload %s.", payload.type)
+        log.debug("Activated the payload {}.", payload.type)
 
     def process_kickstart(self, data):
         """Process the kickstart data."""

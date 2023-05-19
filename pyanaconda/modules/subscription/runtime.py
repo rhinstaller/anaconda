@@ -201,7 +201,7 @@ class SetRHSMConfigurationTask(Task):
                 # if no value is present in request, use
                 # value from the original RHSM config state
                 # (if any)
-                log.debug("subscription: restoring original value for RHSM config key %s", key)
+                log.debug("subscription: restoring original value for RHSM config key {}", key)
                 config_dict[key] = get_variant(Str, self._rhsm_config_defaults.get(key, ""))
 
         # and finally set the dict to RHSM via the DBus API
@@ -252,7 +252,7 @@ class RegisterWithUsernamePasswordTask(Task):
                                                 locale)
                 log.debug("subscription: registered with username and password")
             except DBusError as e:
-                log.debug("subscription: failed to register with username and password: %s",
+                log.debug("subscription: failed to register with username and password: {}",
                           str(e))
                 # RHSM exception contain details as JSON due to DBus exception handling limitations
                 exception_dict = json.loads(str(e))
@@ -299,7 +299,7 @@ class RegisterWithOrganizationKeyTask(Task):
                                                                   locale)
                 log.debug("subscription: registered with organization and activation key")
             except DBusError as e:
-                log.debug("subscription: failed to register with organization & key: %s", str(e))
+                log.debug("subscription: failed to register with organization & key: {}", str(e))
                 # RHSM exception contain details as JSON due to DBus exception handling limitations
                 exception_dict = json.loads(str(e))
                 # return a generic error message in case the RHSM provided error message is missing
@@ -330,7 +330,7 @@ class UnregisterTask(Task):
             self._rhsm_unregister_proxy.Unregister({}, locale)
             log.debug("subscription: the system has been unregistered")
         except DBusError as e:
-            log.exception("subscription: failed to unregister: %s", str(e))
+            log.exception("subscription: failed to unregister: {}", str(e))
             exception_dict = json.loads(str(e))
             # return a generic error message in case the RHSM provided error message
             # is missing
@@ -370,7 +370,7 @@ class AttachSubscriptionTask(Task):
             self._rhsm_attach_proxy.AutoAttach(self._sla, {}, locale)
             log.debug("subscription: auto-attached a subscription")
         except DBusError as e:
-            log.debug("subscription: auto-attach failed: %s", str(e))
+            log.debug("subscription: auto-attach failed: {}", str(e))
             exception_dict = json.loads(str(e))
             # return a generic error message in case the RHSM provided error message
             # is missing
@@ -415,7 +415,7 @@ class ParseAttachedSubscriptionsTask(Task):
             # get a nice human readable date
             date_string = date.strftime("%b %d, %Y")
         except ValueError:
-            log.warning("subscription: date parsing failed: %s", date_from_json)
+            log.warning("subscription: date parsing failed: {}", date_from_json)
         return date_string
 
     @classmethod
@@ -440,7 +440,7 @@ class ParseAttachedSubscriptionsTask(Task):
             return []
         # find the list of subscriptions
         consumed_subscriptions = subscriptions.get("consumed", [])
-        log.debug("subscription: parsing %d attached subscriptions",
+        log.debug("subscription: parsing {:d} attached subscriptions",
                   len(consumed_subscriptions))
         # split the list of subscriptions into separate subscription dictionaries
         for subscription_info in consumed_subscriptions:
@@ -563,7 +563,7 @@ class ParseAttachedSubscriptionsTask(Task):
         # stored on the target system.
         if subscription_json:
             subscription_data_length = len(subscription_json)
-            log.debug("subscription: fetched subscription status data: %d characters",
+            log.debug("subscription: fetched subscription status data: {:d} characters",
                       subscription_data_length)
         else:
             log.warning("subscription: fetched empty subscription status data")
@@ -571,7 +571,7 @@ class ParseAttachedSubscriptionsTask(Task):
         # fetch final system purpose data
         log.debug("subscription: fetching final syspurpose data")
         final_syspurpose_json = self._rhsm_syspurpose_proxy.GetSyspurpose(locale)
-        log.debug("subscription: final syspurpose data: %s", final_syspurpose_json)
+        log.debug("subscription: final syspurpose data: {}", final_syspurpose_json)
 
         # parse the JSON strings
         attached_subscriptions = self._parse_subscription_json(subscription_json)

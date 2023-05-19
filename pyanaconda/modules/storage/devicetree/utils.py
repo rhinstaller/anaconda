@@ -80,7 +80,7 @@ def download_escrow_certificate(url):
             )
 
     # Download the certificate.
-    log.info("Downloading an escrow certificate from: %s", url)
+    log.info("Downloading an escrow certificate from: {}", url)
 
     try:
         request = util.requests_session().get(url, verify=True)
@@ -236,7 +236,7 @@ def unlock_device(storage, device, passphrase):
         device.setup()
         device.format.setup()
     except StorageError as err:
-        log.error("Failed to unlock %s: %s", device.name, err)
+        log.error("Failed to unlock {}: {}", device.name, err)
 
         # Teardown the device.
         device.teardown(recursive=True)

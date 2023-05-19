@@ -135,7 +135,7 @@ class TimezoneService(KickstartService):
             elif source.type == TIME_SOURCE_POOL:
                 source_data.ntp_pool = source.hostname
             else:
-                log.warning("Skipping %s.", source)
+                log.warning("Skipping {}.", source)
                 continue
 
             if "nts" in source.options:
@@ -158,14 +158,14 @@ class TimezoneService(KickstartService):
         Sets the timezone only if the priority is higher than the previous priority.
         """
         if priority < self._priority:
-            log.debug("Timezone did not change %s -> %s due to too low priority: %d > %d.",
+            log.debug("Timezone did not change {} -> {} due to too low priority: {} > {}.",
                       self._timezone, timezone, self._priority, priority)
             return
 
         self._timezone = timezone
         self._priority = priority
         self.timezone_changed.emit()
-        log.debug("Timezone is set to %s.", timezone)
+        log.debug("Timezone is set to {}.", timezone)
 
     @property
     def is_utc(self):
@@ -176,7 +176,7 @@ class TimezoneService(KickstartService):
         """Set if the hardware clock is set to UTC."""
         self._is_utc = is_utc
         self.is_utc_changed.emit()
-        log.debug("UTC is set to %s.", is_utc)
+        log.debug("UTC is set to {}.", is_utc)
 
     @property
     def ntp_enabled(self):
@@ -187,7 +187,7 @@ class TimezoneService(KickstartService):
         """Enable or disable automatic starting of NTP service."""
         self._ntp_enabled = ntp_enabled
         self.ntp_enabled_changed.emit()
-        log.debug("NTP is set to %s.", ntp_enabled)
+        log.debug("NTP is set to {}.", ntp_enabled)
 
     @property
     def time_sources(self):
@@ -198,7 +198,7 @@ class TimezoneService(KickstartService):
         """Set time sources."""
         self._time_sources = list(servers)
         self.time_sources_changed.emit()
-        log.debug("Time sources are set to: %s", servers)
+        log.debug("Time sources are set to: {}", servers)
 
     def collect_requirements(self):
         """Return installation requirements for this module.
@@ -240,7 +240,7 @@ class TimezoneService(KickstartService):
         """Set geolocation result when the task finished."""
         self._geoloc_result = result
         self.geolocation_result_changed.emit()
-        log.debug("Geolocation result is set, valid=%s", not self._geoloc_result.is_empty())
+        log.debug("Geolocation result is set, valid={}", not self._geoloc_result.is_empty())
 
     def start_geolocation_with_task(self):
         """Start geolocation.

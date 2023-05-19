@@ -81,7 +81,7 @@ class FCOEModule(KickstartBaseModule):
 
         FIXME: This is just a temporary method taken from blivet.
         """
-        log.debug("Getting dracut arguments for FCoE nic %s", nic)
+        log.debug("Getting dracut arguments for FCoE nic {}", nic)
 
         dcb = True
 

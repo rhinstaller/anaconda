@@ -119,14 +119,14 @@ class NetworkService(KickstartService):
         :type specification: str
         """
         self._default_device_specification = specification
-        log.debug("default kickstart device specification set to %s", specification)
+        log.debug("default kickstart device specification set to {}", specification)
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
         # Handle default value for --device
         spec = self.default_device_specification
         if update_network_data_with_default_device(data.network.network, spec):
-            log.debug("used '%s' for missing network --device options", spec)
+            log.debug("used '{}' for missing network --device options", spec)
         if update_first_network_command_activate_value(data.network.network):
             log.debug("updated activate value of the first network command (None -> True)")
 
@@ -166,7 +166,7 @@ class NetworkService(KickstartService):
                 con = self.nm_client.get_connection_by_uuid(uuid)
                 filename = con.get_filename() or ""
                 if not is_config_file_for_system(filename):
-                    log.debug("Config file for %s not found, not generating ks command.", uuid)
+                    log.debug("Config file for {} not found, not generating ks command.", uuid)
                     continue
                 connection = self.nm_client.get_connection_by_uuid(uuid)
                 if connection:
@@ -174,9 +174,9 @@ class NetworkService(KickstartService):
                                                               self.nm_client,
                                                               network_data_class)
                 else:
-                    log.debug("Connection %s for kickstart data generating not found", uuid)
+                    log.debug("Connection {} for kickstart data generating not found", uuid)
             if not network_data:
-                log.debug("Device configuration %s does not generate any kickstart data", cfg)
+                log.debug("Device configuration {} does not generate any kickstart data", cfg)
                 continue
             if cfg.device_name:
                 if self._is_device_activated(cfg.device_name):
@@ -199,7 +199,7 @@ class NetworkService(KickstartService):
         """Set the hostname."""
         self._hostname = hostname
         self.hostname_changed.emit()
-        log.debug("Hostname is set to %s", hostname)
+        log.debug("Hostname is set to {}", hostname)
 
     @staticmethod
     def _get_hostname_proxy():
@@ -251,7 +251,7 @@ class NetworkService(KickstartService):
         if interface == HOSTNAME.interface_name and "Hostname" in changed:
             hostname = changed["Hostname"].unpack()
             self.current_hostname_changed.emit(hostname)
-            log.debug("Current hostname changed to %s", hostname)
+            log.debug("Current hostname changed to {}", hostname)
 
     def get_current_hostname(self):
         """Return current hostname of the system.
@@ -276,7 +276,7 @@ class NetworkService(KickstartService):
             return
 
         self._hostname_service_proxy.SetStaticHostname(hostname, False)
-        log.debug("Current static hostname is set to %s", hostname)
+        log.debug("Current static hostname is set to {}", hostname)
 
     @property
     def nm_available(self):
@@ -296,7 +296,7 @@ class NetworkService(KickstartService):
         self._connected = connected
         self.connected_changed.emit()
         self.module_properties_changed.emit()
-        log.debug("Connected to network: %s", connected)
+        log.debug("Connected to network: {}", connected)
 
     def is_connecting(self):
         """Is NM in connecting state?"""
@@ -314,7 +314,7 @@ class NetworkService(KickstartService):
 
     def _nm_state_changed(self, *args):
         state = self.nm_client.get_state()
-        log.debug("NeworkManager state changed to %s", state)
+        log.debug("NeworkManager state changed to {}", state)
         self.set_connected(self._nm_state_connected(state))
 
     @property
@@ -330,7 +330,7 @@ class NetworkService(KickstartService):
         :type disable_ipv6: bool
         """
         self._disable_ipv6 = disable_ipv6
-        log.debug("disable IPv6 is set to %s", disable_ipv6)
+        log.debug("disable IPv6 is set to {}", disable_ipv6)
 
     def collect_requirements(self):
         """Return installation requirements for this module.
@@ -382,7 +382,7 @@ class NetworkService(KickstartService):
                 conf.network.default_on_boot
             )
 
-        log.debug("Configure ONBOOT: set to yes for %s (reqested) %s (policy)",
+        log.debug("Configure ONBOOT: set to yes for {} (reqested) {} (policy)",
                   onboot_ifaces, onboot_ifaces_by_policy)
 
         all_onboot_ifaces = list(set(onboot_ifaces + onboot_ifaces_by_policy))
@@ -450,11 +450,11 @@ class NetworkService(KickstartService):
             con = self.nm_client.get_connection_by_uuid(uuid)
             if con:
                 if (con.get_flags() & NM.SettingsConnectionFlags.UNSAVED):
-                    log.debug("ONBOOT policy: not considering UNSAVED connection %s",
+                    log.debug("ONBOOT policy: not considering UNSAVED connection {}",
                               con.get_uuid())
                     continue
                 if con.get_setting_connection().get_autoconnect():
-                    log.debug("ONBOOT policy: %s has 'autoconnect' == True", con.get_uuid())
+                    log.debug("ONBOOT policy: {} has 'autoconnect' == True", con.get_uuid())
                     return True
         return False
 
@@ -496,7 +496,7 @@ class NetworkService(KickstartService):
         )
         self._device_configurations.reload()
         self._device_configurations.connect()
-        log.debug("Device configurations created: %s", self._device_configurations)
+        log.debug("Device configurations created: {}", self._device_configurations)
 
     def get_device_configurations(self):
         if not self._device_configurations:
@@ -504,7 +504,7 @@ class NetworkService(KickstartService):
         return self._device_configurations.get_all()
 
     def device_configurations_changed_cb(self, changes):
-        log.debug("Device configurations changed: %s", changes)
+        log.debug("Device configurations changed: {}", changes)
         self.configurations_changed.emit(changes)
 
     def get_supported_devices(self):
@@ -525,7 +525,7 @@ class NetworkService(KickstartService):
             dev_info = NetworkDeviceInfo()
             dev_info.set_from_nm_device(device)
             if not all((dev_info.device_name, dev_info.device_type, dev_info.hw_address)):
-                log.warning("Missing value when setting NetworkDeviceInfo from NM device: %s",
+                log.warning("Missing value when setting NetworkDeviceInfo from NM device: {}",
                             dev_info)
             supported_devices.append(dev_info)
 
@@ -584,7 +584,7 @@ class NetworkService(KickstartService):
         :type specification: str
         """
         self._bootif = specification
-        log.debug("bootif device specification is set to %s", specification)
+        log.debug("bootif device specification is set to {}", specification)
 
     @property
     def ifname_option_values(self):
@@ -599,7 +599,7 @@ class NetworkService(KickstartService):
         :type values: list(str)
         """
         self._ifname_option_values = values
-        log.debug("ifname boot option values are set to %s", values)
+        log.debug("ifname boot option values are set to {}", values)
 
     def apply_kickstart_with_task(self):
         """Apply kickstart configuration which has not already been applied.
@@ -659,7 +659,7 @@ class NetworkService(KickstartService):
         :param hostname: static hostname to be configured
         :param ibft: the device should be configured from iBFT
         """
-        log.debug("Getting dracut arguments for iface %s target %s (ibft==%s)",
+        log.debug("Getting dracut arguments for iface {} target {} (ibft=={})",
                   iface, target_ip, ibft)
         dracut_args = []
 
@@ -668,7 +668,7 @@ class NetworkService(KickstartService):
             return dracut_args
 
         if iface and iface not in (device.get_iface() for device in self.nm_client.get_devices()):
-            log.error("Get dracut arguments for %s: device not found", iface)
+            log.error("Get dracut arguments for {}: device not found", iface)
             return dracut_args
 
         if ibft:
@@ -694,11 +694,11 @@ class NetworkService(KickstartService):
             if target_connections:
                 if len(target_connections) > 1:
                     log.debug("Get dracut arguments: "
-                              "multiple connections found for target %s: %s, taking the first one",
+                              "multiple connections found for target {}: {}, taking the first one",
                               [con.get_uuid() for con in target_connections], target_ip)
                 connection = target_connections[0]
             else:
-                log.error("Get dracut arguments: can't find connection for target %s", target_ip)
+                log.error("Get dracut arguments: can't find connection for target {}", target_ip)
                 return dracut_args
 
             dracut_args = list(get_dracut_arguments_from_connection(
@@ -716,7 +716,7 @@ class NetworkService(KickstartService):
         :param kernel_args: structure holding installer boot options
         :type kernel_args: KernelArguments
         """
-        log.debug("Applying boot options %s", kernel_args)
+        log.debug("Applying boot options {}", kernel_args)
         if 'ksdevice' in kernel_args:
             self.default_device_specification = kernel_args.get('ksdevice')
         if 'BOOTIF' in kernel_args:
@@ -731,7 +731,7 @@ class NetworkService(KickstartService):
             self.log_configuration_state(task.name, root_path)
         else:
             result = task.get_result()
-            log.debug("%s result: %s", task.name, result)
+            log.debug("{} result: {}", task.name, result)
             if result:
                 self.log_configuration_state(task.name, root_path)
 
@@ -740,7 +740,7 @@ class NetworkService(KickstartService):
 
         Logs NM config files and NM connections
         """
-        log.debug("Dumping configuration state - %s", msg_header)
+        log.debug("Dumping configuration state - {}", msg_header)
         for line in get_config_files_content(root_path=root_path).splitlines():
             log.debug(line)
         if self.nm_available:

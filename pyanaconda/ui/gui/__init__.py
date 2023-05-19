@@ -560,7 +560,7 @@ class MainWindow(Gtk.Window):
                                             root_window.get_width(),
                                             root_window.get_height())
         pixbuf.savev(fn, 'png', [], [])
-        log.info("%s taken", screenshot_filename)
+        log.info("{} taken", screenshot_filename)
         self._screenshot_index += 1
 
 
@@ -617,7 +617,7 @@ class GraphicalUserInterface(UserInterface):
         # First, check if the GDK_SCALE environment variable is already set. If so,
         # leave it alone.
         if "GDK_SCALE" in os.environ:
-            log.debug("GDK_SCALE already set to %s, not scaling", os.environ["GDK_SCALE"])
+            log.debug("GDK_SCALE already set to {}, not scaling", os.environ["GDK_SCALE"])
             return
 
         # Next, check if a scaling factor is already being applied via XSETTINGS,
@@ -627,7 +627,7 @@ class GraphicalUserInterface(UserInterface):
         val = GObject.Value()
         val.init(GObject.TYPE_INT)
         if screen.get_setting("gdk-window-scaling-factor", val):
-            log.debug("Window scale set to %s by XSETTINGS, not scaling", val.get_int())
+            log.debug("Window scale set to {} by XSETTINGS, not scaling", val.get_int())
             return
 
         # Get the primary monitor dimensions in pixels and mm from Gdk
@@ -654,7 +654,7 @@ class GraphicalUserInterface(UserInterface):
         monitor_dpi_x = monitor_width_px / (monitor_width_mm / 25.4)
         monitor_dpi_y = monitor_height_px / (monitor_height_mm / 25.4)
 
-        log.debug("Detected primary monitor: %dx%d %ddpix %ddpiy", monitor_width_px,
+        log.debug("Detected primary monitor: {:d}x{:d} {:d}dpix {:d}dpiy", monitor_width_px,
                 monitor_height_px, monitor_dpi_x, monitor_dpi_y)
         if monitor_height_px >= 1200 and monitor_dpi_x > 192 and monitor_dpi_y > 192:
             display.set_window_scale(2)
@@ -797,7 +797,7 @@ class GraphicalUserInterface(UserInterface):
                     Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
                             STYLE_PROVIDER_PRIORITY_CUSTOM)
                 except GError as e:
-                    log.error("Custom stylesheet %s failed to load:\n%s",
+                    log.error("Custom stylesheet {} failed to load:\n{}",
                               conf.ui.custom_stylesheet, e)
 
             # Look for updates to the stylesheet and apply them at a higher priority

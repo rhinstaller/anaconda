@@ -88,7 +88,7 @@ class Boss(Service):
         :param path: a path to a file
         :returns: a kickstart report
         """
-        log.info("Reading a kickstart file at %s.", path)
+        log.info("Reading a kickstart file at {}.", path)
         return self._kickstart_manager.read_kickstart_file(path)
 
     def generate_kickstart(self):
@@ -157,7 +157,7 @@ class Boss(Service):
 
         :param str locale: locale to set
         """
-        log.info("Setting locale of all modules to %s.", locale)
+        log.info("Setting locale of all modules to {}.", locale)
         super().set_locale(locale)
         self._module_manager.set_modules_locale(locale)
 

@@ -123,7 +123,7 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
 
         disks = get_candidate_disks(storage)
 
-        log.debug("Applying requirements:\n%s", "".join(map(str, requests)))
+        log.debug("Applying requirements:\n{}", "".join(map(str, requests)))
         schedule_partitions(storage, disks, [], scheme=AUTOPART_TYPE_PLAIN, requests=requests)
 
     def _execute_partition(self, storage, data):
@@ -302,7 +302,7 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
             # if this is a multipath member promote it to the real mpath
             if disk and disk.format.type == "multipath_member":
                 mpath_device = disk.children[0]
-                log.info("kickstart: part: promoting %s to %s", disk.name, mpath_device.name)
+                log.info("kickstart: part: promoting {} to {}", disk.name, mpath_device.name)
                 disk = mpath_device
             if not disk:
                 raise StorageError(
@@ -1001,7 +1001,7 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
                         pool_args["profile"] = profile
                     else:
                         log.warning(
-                            "No matching profile for %s found in LVM configuration",
+                            "No matching profile for {} found in LVM configuration",
                             logvol_data.profile
                         )
                 if logvol_data.metadata_size:

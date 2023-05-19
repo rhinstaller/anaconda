@@ -48,7 +48,7 @@ class InstallManager(object):
 
         for observer in self._module_observers:
             if not observer.is_service_available:
-                log.warning("Module %s not available!", observer.service_name)
+                log.warning("Module {} not available!", observer.service_name)
                 continue
 
             module_name = observer.service_name
@@ -56,7 +56,7 @@ class InstallManager(object):
                 observer.proxy.CollectRequirements()
             )
 
-            log.debug("Module %s requires: %s", module_name, module_requirements)
+            log.debug("Module {} requires: {}", module_name, module_requirements)
             requirements.extend(module_requirements)
 
         return requirements
@@ -110,7 +110,7 @@ class InstallManager(object):
             # Normally, all given modules should be available once
             # we start the installation.
             if not observer.is_service_available:
-                log.error("Module %s is not available!", observer.service_name)
+                log.error("Module {} is not available!", observer.service_name)
                 continue
 
             # FIXME: Enable for all modules.
@@ -121,7 +121,7 @@ class InstallManager(object):
             task_paths = collector(observer.proxy)
 
             for object_path in task_paths:
-                log.debug("Getting task %s from module %s", object_path, service_name)
+                log.debug("Getting task {} from module {}", object_path, service_name)
                 task_proxy = DBus.get_proxy(service_name, object_path)
                 tasks.append(task_proxy)
 

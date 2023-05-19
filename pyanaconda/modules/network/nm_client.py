@@ -87,7 +87,7 @@ def get_new_nm_client():
     try:
         nm_client = NM.Client.new(None)
     except GError as e:
-        log.debug("get new NM Client constructor failed: %s", e)
+        log.debug("get new NM Client constructor failed: {}", e)
         return None
 
     if not nm_client.get_nm_running():
@@ -151,7 +151,7 @@ def get_iface_from_hwaddr(nm_client, hwaddr):
                 if not address:
                     address = device.get_hw_address()
             except AttributeError as e:
-                log.warning("Device %s: %s", device.get_iface(), e)
+                log.warning("Device {}: {}", device.get_iface(), e)
                 address = device.get_hw_address()
         else:
             address = device.get_hw_address()
@@ -238,7 +238,7 @@ def get_device_name_from_network_data(nm_client, network_data, supported_devices
             device_name = default_ks_vlan_interface_name(device_name, network_data.vlanid)
             msg = "vlan device name inferred from parent and vlanid"
 
-    log.debug("kickstart specification --device=%s -> %s (%s)", spec, device_name, msg)
+    log.debug("kickstart specification --device={} -> {} ({})", spec, device_name, msg)
     return device_name
 
 
@@ -276,7 +276,7 @@ def _update_bond_connection_from_ksdata(connection, network_data):
             if s_bond.validate_option(key, value):
                 s_bond.add_option(key, value)
             else:
-                log.warning("ignoring invalid bond option '%s=%s'", key, value)
+                log.warning("ignoring invalid bond option '{}={}'", key, value)
     connection.add_setting(s_bond)
 
 
@@ -384,7 +384,7 @@ def _update_bridge_connection_from_ksdata(connection, network_data):
             try:
                 value = int(value)
             except ValueError:
-                log.error("Invalid bridge option %s", opt)
+                log.error("Invalid bridge option {}", opt)
                 continue
         s_bridge.set_property(key, value)
     connection.add_setting(s_bridge)
@@ -535,7 +535,7 @@ def create_connections_from_ksdata(nm_client, network_data, device_name, ifname_
         bound_mac = bound_hwaddr_of_device(nm_client, device_name, ifname_option_values)
         _update_ethernet_connection_from_ksdata(con, network_data, bound_mac)
         if bound_mac:
-            log.debug("add connection: mac %s is bound to name %s",
+            log.debug("add connection: mac {} is bound to name {}",
                       bound_mac, device_name)
         else:
             bind_connection(nm_client, con, network_data.bindto, device_name)
@@ -574,7 +574,7 @@ def add_connection_from_ksdata(nm_client, network_data, device_name, activate=Fa
     )
 
     for connection, device_name in connections:
-        log.debug("add connection (activate=%s): %s for %s\n%s",
+        log.debug("add connection (activate={}): {} for {}\n{}",
                   activate, connection.get_uuid(), device_name,
                   connection.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
         added_connection = add_connection_sync(
@@ -589,9 +589,9 @@ def add_connection_from_ksdata(nm_client, network_data, device_name, activate=Fa
             if device_name:
                 device = nm_client.get_device_by_iface(device_name)
                 if device:
-                    log.debug("activating with device %s", device.get_iface())
+                    log.debug("activating with device {}", device.get_iface())
                 else:
-                    log.debug("activating without device specified - device %s not found",
+                    log.debug("activating without device specified - device {} not found",
                               device_name)
             else:
                 device = None
@@ -627,13 +627,13 @@ def add_connection_sync(nm_client, connection):
     )
 
     if result.failed:
-        log.error("adding of a connection %s failed: %s",
+        log.error("adding of a connection {} failed: {}",
                   connection.get_uuid(),
                   result.error_message)
         return None
 
     con, _res = result.received_data
-    log.debug("connection %s added:\n%s", connection.get_uuid(),
+    log.debug("connection {} added:\n{}", connection.get_uuid(),
               connection.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
 
     return con
@@ -717,7 +717,7 @@ def bound_hwaddr_of_device(nm_client, device_name, ifname_option_values):
             if iface == get_iface_from_hwaddr(nm_client, mac):
                 return mac.upper()
             else:
-                log.warning("MAC address of ifname %s does not correspond to ifname=%s",
+                log.warning("MAC address of ifname {} does not correspond to ifname={}",
                             iface, ifname_value)
     return None
 
@@ -735,7 +735,7 @@ def update_connection_from_ksdata(nm_client, connection, network_data, device_na
     :param ifname_option_values: list of ifname boot option values
     :type ifname_option_values: list(str)
     """
-    log.debug("updating connection %s:\n%s", connection.get_uuid(),
+    log.debug("updating connection {}:\n{}", connection.get_uuid(),
               connection.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
 
     ifname_option_values = ifname_option_values or []
@@ -754,7 +754,7 @@ def update_connection_from_ksdata(nm_client, connection, network_data, device_na
                                                 NM_CONNECTION_TYPE_BRIDGE):
         bound_mac = bound_hwaddr_of_device(nm_client, device_name, ifname_option_values)
         if bound_mac:
-            log.debug("update connection: mac %s is bound to name %s", bound_mac, device_name)
+            log.debug("update connection: mac {} is bound to name {}", bound_mac, device_name)
             # The connection is already bound to iface name by NM in initramfs,
             # still bind also to MAC until this method of renaming is abandoned (rhbz#1875485)
             bind_connection(nm_client, connection, BIND_TO_MAC, device_name,
@@ -764,7 +764,7 @@ def update_connection_from_ksdata(nm_client, connection, network_data, device_na
 
     commit_changes_with_autoconnection_blocked(connection, nm_client)
 
-    log.debug("updated connection %s:\n%s", connection.get_uuid(),
+    log.debug("updated connection {}:\n{}", connection.get_uuid(),
               connection.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
 
 
@@ -833,7 +833,7 @@ def update_connection_ip_settings_from_ksdata(connection, network_data):
             elif NM.utils_ipaddr_valid(socket.AF_INET, ns):
                 s_ip4.add_dns(ns)
             else:
-                log.error("IP address %s is not valid", ns)
+                log.error("IP address {} is not valid", ns)
 
     # DNS search domains
     if network_data.ipv4_dns_search:
@@ -862,7 +862,7 @@ def update_connection_wired_settings_from_ksdata(connection, network_data):
         try:
             mtu = int(network_data.mtu)
         except ValueError:
-            log.error("Value of network --mtu option is not valid: %s", network_data.mtu)
+            log.error("Value of network --mtu option is not valid: {}", network_data.mtu)
         else:
             s_wired = connection.get_setting_wired()
             if not s_wired:
@@ -890,7 +890,7 @@ def bind_settings_to_mac(nm_client, s_connection, s_wired, device_name=None, bin
     modified = False
 
     if mac_address:
-        log.debug("Bind to mac: already bound to %s", mac_address)
+        log.debug("Bind to mac: already bound to {}", mac_address)
     else:
         iface = device_name or interface_name
         if not iface:
@@ -904,12 +904,12 @@ def bind_settings_to_mac(nm_client, s_connection, s_wired, device_name=None, bin
                 perm_hwaddr = None
             hwaddr = perm_hwaddr or device.get_hw_address()
             s_wired.props.mac_address = hwaddr
-            log.debug("Bind to mac: bound to %s", hwaddr)
+            log.debug("Bind to mac: bound to {}", hwaddr)
             modified = True
 
     if bind_exclusively and interface_name:
         s_connection.props.interface_name = None
-        log.debug("Bind to mac: removed interface-name %s from connection", interface_name)
+        log.debug("Bind to mac: removed interface-name {} from connection", interface_name)
         modified = True
 
     return modified
@@ -936,14 +936,14 @@ def bind_settings_to_device(nm_client, s_connection, s_wired, device_name=None,
 
     if device_name:
         s_connection.props.interface_name = device_name
-        log.debug("Bind to device: %s -> %s", interface_name, device_name)
+        log.debug("Bind to device: {} -> {}", interface_name, device_name)
         modified = interface_name != device_name
     else:
         if not interface_name:
             log.debug("Bind to device: no device to bind to")
             return False
         else:
-            log.debug("Bind to device: already bound to %s", interface_name)
+            log.debug("Bind to device: already bound to {}", interface_name)
 
     if bind_exclusively and mac_address:
         s_wired.props.mac_address = None
@@ -973,13 +973,13 @@ def bind_connection(nm_client, connection, bindto, device_name=None, bind_exclus
 
     s_con = connection.get_setting_connection()
     if not s_con:
-        log.warning("%s no connection settings, bailing", msg)
+        log.warning("{} no connection settings, bailing", msg)
         return False
     s_wired = connection.get_setting_wired()
 
     if bindto == BIND_TO_MAC:
         if not s_wired:
-            log.warning("%s no wired settings, bailing", msg)
+            log.warning("{} no wired settings, bailing", msg)
             return False
         modified = bind_settings_to_mac(nm_client, s_con, s_wired, device_name, bind_exclusively)
     else:
@@ -1032,12 +1032,12 @@ def update_connection_values(connection, new_values):
         setting = connection.get_setting_by_name(setting_name)
         if setting:
             setting.set_property(setting_property, value)
-            log.debug("updating connection %s setting '%s' '%s' to '%s'",
+            log.debug("updating connection {} setting '{}' '{}' to '{}'",
                       connection.get_uuid(), setting_name, setting_property, value)
         else:
-            log.debug("setting '%s' not found while updating connection %s",
+            log.debug("setting '{}' not found while updating connection {}",
                       setting_name, connection.get_uuid())
-    log.debug("updated connection %s:\n%s", connection.get_uuid(),
+    log.debug("updated connection {}:\n{}", connection.get_uuid(),
               connection.to_dbus(NM.ConnectionSerializationFlags.ALL))
 
 
@@ -1111,7 +1111,7 @@ def commit_changes_with_autoconnection_blocked(connection, nm_client, save_to_di
     )
 
     if result.failed:
-        log.error("comitting changes of connection %s failed: %s",
+        log.error("comitting changes of connection {} failed: {}",
                   connection.get_uuid(),
                   result.error_message)
         return None
@@ -1136,11 +1136,11 @@ def clone_connection_sync(nm_client, connection, con_id=None, uuid=None):
     s_con.props.uuid = uuid or NM.utils_uuid_generate()
     s_con.props.id = con_id or "{}-clone".format(connection.get_id())
 
-    log.debug("cloning connection %s", connection.get_uuid())
+    log.debug("cloning connection {}", connection.get_uuid())
     added_connection = add_connection_sync(nm_client, cloned_connection)
 
     if added_connection:
-        log.debug("connection was cloned into %s", added_connection.get_uuid())
+        log.debug("connection was cloned into {}", added_connection.get_uuid())
     else:
         log.debug("connection cloning failed")
     return added_connection
@@ -1179,14 +1179,14 @@ def get_dracut_arguments_from_connection(nm_client, connection, iface, target_ip
             if ipv6_arg:
                 netargs.add(ipv6_arg)
             else:
-                log.error("No IPv6 configuration found in connection %s", connection.get_uuid())
+                log.error("No IPv6 configuration found in connection {}", connection.get_uuid())
         else:
             # Using IPv4 target IP
             ipv4_arg = _get_dracut_ipv4_argument(connection, iface, hostname)
             if ipv4_arg:
                 netargs.add(ipv4_arg)
             else:
-                log.error("No IPv4 configuration found in connection %s", connection.get_uuid())
+                log.error("No IPv4 configuration found in connection {}", connection.get_uuid())
 
         ifname_arg = _get_dracut_ifname_argument_from_connection(connection, iface)
         if ifname_arg:
@@ -1348,7 +1348,7 @@ def _get_dracut_vlan_argument_from_connection(nm_client, connection, iface):
             parent = parent_spec
             parent_cons = get_connections_available_for_iface(nm_client, parent)
             if len(parent_cons) != 1:
-                log.error("unexpected number of connections found for vlan parent %s",
+                log.error("unexpected number of connections found for vlan parent {}",
                           parent_spec)
             if parent_cons:
                 parent_con = parent_cons[0]
@@ -1356,10 +1356,10 @@ def _get_dracut_vlan_argument_from_connection(nm_client, connection, iface):
         if parent:
             argument = "vlan={}:{}".format(iface, parent)
         else:
-            log.error("can't find parent interface of vlan device %s specified by %s",
+            log.error("can't find parent interface of vlan device {} specified by {}",
                       iface, parent_spec)
         if not parent_con:
-            log.error("can't find parent connection of vlan device %s specified by %s",
+            log.error("can't find parent connection of vlan device {} specified by {}",
                       iface, parent_spec)
 
     return argument, parent_con
@@ -1475,13 +1475,13 @@ def get_config_file_connection_of_device(nm_client, device_name, device_hwaddr=N
                 cons.append(con)
 
     if len(cons) > 1:
-        log.debug("Unexpected number of config files found for %s: %s", device_name,
+        log.debug("Unexpected number of config files found for {}: {}", device_name,
                   [con.get_filename() for con in cons])
 
     if cons:
         return cons[0].get_uuid()
     else:
-        log.debug("Config file for %s not found", device_name)
+        log.debug("Config file for {} not found", device_name)
         return ""
 
 

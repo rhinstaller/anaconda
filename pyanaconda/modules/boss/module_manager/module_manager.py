@@ -75,10 +75,10 @@ class ModuleManager(object):
 
         :param str locale: locale to set
         """
-        log.info("Setting locale of all modules to %s.", locale)
+        log.info("Setting locale of all modules to {}.", locale)
         for observer in self.module_observers:
             if not observer.is_service_available:
-                log.warning("%s is not available when setting locale", observer)
+                log.warning("{} is not available when setting locale", observer)
                 continue
             observer.proxy.SetLocale(locale)
 
@@ -92,4 +92,4 @@ class ModuleManager(object):
             # Call synchronously, because we need to wait for the
             # modules to quit before the boss can quit itself.
             observer.proxy.Quit()
-            log.debug("%s has quit.", observer)
+            log.debug("{} has quit.", observer)

@@ -78,7 +78,7 @@ class SnapshotCreateTask(Task):
         :param storage: an instance of Blivet
         :param request: a snapshot request
         """
-        log.debug("Snapshot: creating snapshot %s", request.name)
+        log.debug("Snapshot: creating snapshot {}", request.name)
         device = get_snapshot_device(request, storage.devicetree)
         device.create()
 

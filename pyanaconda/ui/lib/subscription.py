@@ -244,7 +244,7 @@ def register_and_subscribe(payload, progress_callback=noop, error_callback=noop,
         try:
             task.sync_run_task(task_proxy)
         except UnregistrationError as e:
-            log.debug("subscription thread: unregistration failed: %s", e)
+            log.debug("subscription thread: unregistration failed: {}", e)
             # Failing to unregister the system is an unrecoverable error,
             # so we end there.
             error_callback(str(e))
@@ -274,7 +274,7 @@ def register_and_subscribe(payload, progress_callback=noop, error_callback=noop,
         try:
             task.sync_run_task(task_proxy)
         except RegistrationError as e:
-            log.debug("subscription thread: registration attempt failed: %s", e)
+            log.debug("subscription thread: registration attempt failed: {}", e)
             log.debug("subscription thread: skipping auto attach due to registration error")
             error_callback(str(e))
             return
@@ -292,7 +292,7 @@ def register_and_subscribe(payload, progress_callback=noop, error_callback=noop,
     try:
         task.sync_run_task(task_proxy)
     except SubscriptionError as e:
-        log.debug("subscription thread: failed to attach subscription: %s", e)
+        log.debug("subscription thread: failed to attach subscription: {}", e)
         error_callback(str(e))
         return
 
@@ -363,7 +363,7 @@ def unregister(payload, overridden_source_type, progress_callback=noop, error_ca
         try:
             task.sync_run_task(task_proxy)
         except UnregistrationError as e:
-            log.debug("subscription thread: unregistration failed: %s", e)
+            log.debug("subscription thread: unregistration failed: {}", e)
             error_callback(str(e))
             return
 

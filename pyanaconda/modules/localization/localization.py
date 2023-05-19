@@ -173,7 +173,7 @@ class LocalizationService(KickstartService):
         """Set the language."""
         self._language = language
         self.language_changed.emit()
-        log.debug("Language is set to %s.", language)
+        log.debug("Language is set to {}.", language)
 
     @property
     def language_support(self):
@@ -184,7 +184,7 @@ class LocalizationService(KickstartService):
         """Set supported languages."""
         self._language_support = language_support
         self.language_support_changed.emit()
-        log.debug("Language support is set to %s.", language_support)
+        log.debug("Language support is set to {}.", language_support)
 
     @property
     def language_seen(self):
@@ -195,7 +195,7 @@ class LocalizationService(KickstartService):
         """Set whether language command was seen in kickstart."""
         self._language_seen = seen
         self.language_seen_changed.emit()
-        log.debug("Language seen set to %s.", seen)
+        log.debug("Language seen set to {}.", seen)
 
     @property
     def vc_keymap(self):
@@ -206,7 +206,7 @@ class LocalizationService(KickstartService):
         """Set virtual console keymap."""
         self._vc_keymap = vc_keymap
         self.vc_keymap_changed.emit()
-        log.debug("Virtual console keymap is set to %s.", vc_keymap)
+        log.debug("Virtual console keymap is set to {}.", vc_keymap)
 
     @property
     def x_layouts(self):
@@ -217,7 +217,7 @@ class LocalizationService(KickstartService):
         """Set X Keyboard Layouts."""
         self._x_layouts = x_layouts
         self.x_layouts_changed.emit()
-        log.debug("X Layouts are set to %s.", x_layouts)
+        log.debug("X Layouts are set to {}.", x_layouts)
 
     @property
     def switch_options(self):
@@ -228,7 +228,7 @@ class LocalizationService(KickstartService):
         """Set X layout switching options."""
         self._switch_options = switch_options
         self.switch_options_changed.emit()
-        log.debug("X layout switch options are set to %s.", switch_options)
+        log.debug("X layout switch options are set to {}.", switch_options)
 
     @property
     def keyboard_seen(self):
@@ -239,7 +239,7 @@ class LocalizationService(KickstartService):
         """Set whether keyboard command was seen in kickstart."""
         self._keyboard_seen = keyboard_seen
         self.keyboard_seen_changed.emit()
-        log.debug("keyboard command considered seen in kicksatart: %s.", keyboard_seen)
+        log.debug("keyboard command considered seen in kicksatart: {}.", keyboard_seen)
 
     @property
     def localed_wrapper(self):
@@ -322,7 +322,7 @@ class LocalizationService(KickstartService):
 
         :param keyboard:
         """
-        log.debug("Setting keyboard from generic setting value '%s'.", keyboard)
+        log.debug("Setting keyboard from generic setting value '{}'.", keyboard)
         if self.vc_keymap or self.x_layouts:
             log.debug("Ignoring generic keyboard setting as we have a specific one.")
             return

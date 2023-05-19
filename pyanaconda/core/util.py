@@ -133,9 +133,9 @@ def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subp
 
     with program_log_lock:
         if target_root != '/':
-            program_log.info("Running in chroot '%s'... %s", target_root, " ".join(argv))
+            program_log.info("Running in chroot '{}'... {}", target_root, " ".join(argv))
         else:
-            program_log.info("Running... %s", " ".join(argv))
+            program_log.info("Running... {}", " ".join(argv))
 
     env = augmentEnv()
     for var in env_prune:
@@ -197,7 +197,7 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
         if x11_status.started:
             return
         x11_status.timed_out = True
-        log.error("Timeout trying to start %s", argv[0])
+        log.error("Timeout trying to start {}", argv[0])
 
     # Handle delayed start after timeout
     def sigusr1_too_late_handler(num, frame):
@@ -219,7 +219,7 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
         old_sigalrm_handler = signal.signal(signal.SIGALRM, sigalrm_handler)
 
         # Start the timer
-        log.debug("Setting timeout %s seconds for starting X.", timeout)
+        log.debug("Setting timeout {} seconds for starting X.", timeout)
         signal.alarm(timeout)
 
         childproc = startProgram(argv, stdout=output_redirect, stderr=output_redirect,
@@ -313,11 +313,11 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_ou
 
     except OSError as e:
         with program_log_lock:
-            program_log.error("Error running %s: %s", argv[0], e.strerror)
+            program_log.error("Error running {}: {}", argv[0], e.strerror)
         raise
 
     with program_log_lock:
-        program_log.debug("Return code: %d", proc.returncode)
+        program_log.debug("Return code: {:d}", proc.returncode)
 
     return (proc.returncode, output_string)
 
@@ -430,7 +430,7 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None, filter_st
         proc = startProgram(argv, root=root, stdin=stdin, stderr=stderr, env_prune=env_prune)
     except OSError as e:
         with program_log_lock:
-            program_log.error("Error running %s: %s", argv[0], e.strerror)
+            program_log.error("Error running {}: {}", argv[0], e.strerror)
         raise
 
     return ExecLineReader(proc, argv)
@@ -466,7 +466,7 @@ def get_active_console(dev="console"):
         else:
             # At least some consoles on PPC have the "active" attribute, but it is empty.
             # (see rhbz#1569045 for more details)
-            log.warning("%s is empty while console name is expected", console_path)
+            log.warning("{} is empty while console name is expected", console_path)
             # We can't continue to a next console if active is empty, so set dev to ""
             # and break the search loop.
             dev = ""
@@ -485,7 +485,7 @@ def reIPL(ipldev):
         rc = execWithRedirect("chreipl", ["node", "/dev/" + ipldev])
     except RuntimeError as e:
         rc = True
-        log.info("Unable to set reIPL device to %s: %s",
+        log.info("Unable to set reIPL device to {}: {}",
                  ipldev, e)
 
     if rc:
@@ -514,9 +514,9 @@ def dracut_eject(device):
 
         f.write("eject %s\n" % (device,))
         f.close()
-        log.info("Wrote dracut shutdown eject hook for %s", device)
+        log.info("Wrote dracut shutdown eject hook for {}", device)
     except OSError as e:
-        log.error("Error writing dracut shutdown eject hook for %s: %s", device, e)
+        log.error("Error writing dracut shutdown eject hook for {}: {}", device, e)
 
 
 def vtActivate(num):
@@ -533,10 +533,10 @@ def vtActivate(num):
         ret = execWithRedirect("chvt", [str(num)])
     except OSError as oserr:
         ret = -1
-        log.error("Failed to run chvt: %s", oserr.strerror)
+        log.error("Failed to run chvt: {}", oserr.strerror)
 
     if ret != 0:
-        log.error("Failed to switch to tty%d", num)
+        log.error("Failed to switch to tty{:d}", num)
 
     return ret == 0
 
@@ -573,7 +573,7 @@ _supports_ipmi = None
 
 
 def ipmi_report(event):
-    log.info("Reporting the IPMI event: %s", event)
+    log.info("Reporting the IPMI event: {}", event)
 
     global _supports_ipmi
     if _supports_ipmi is None:
@@ -608,10 +608,10 @@ def runOnErrorScripts(scripts):
     if not scripts:
         return
 
-    log.info("Running kickstart %%onerror script(s)")
+    log.info("Running kickstart %onerror script(s)")
     for script in filter(lambda s: s.type == KS_SCRIPT_ONERROR, scripts):
         script.run("/")
-    log.info("All kickstart %%onerror script(s) have been run")
+    log.info("All kickstart %onerror script(s) have been run")
 
 
 def requests_session():
@@ -741,7 +741,7 @@ def collect(module_pattern, path, pred):
             if module_path and "pyanaconda" in module_path:
                 # failure when importing our own module:
                 raise
-            log.error("Failed to import module %s from path %s in collect: %s", mod_name, module_path, imperr)
+            log.error("Failed to import module {} from path {} in collect: {}", mod_name, module_path, imperr)
             continue
 
         p = lambda obj: inspect.isclass(obj) and pred(obj)
@@ -903,7 +903,7 @@ def get_os_release_value(name, sysroot="/"):
             pass
 
     # No value found.
-    log.debug("%s not found in os-release files", name[:-1])
+    log.debug("{} not found in os-release files", name[:-1])
     return None
 
 

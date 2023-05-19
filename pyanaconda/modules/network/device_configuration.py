@@ -130,7 +130,7 @@ class DeviceConfigurations(object):
                 self.nm_client.disconnect_by_func(cb)
             except TypeError as e:
                 if "nothing connected" not in str(e):
-                    log.debug("%s", e)
+                    log.debug("{}", e)
 
     def add(self, device_name=None, connection_uuid=None, device_type=None):
         """Add a new NetworkDeviceConfiguration."""
@@ -142,7 +142,7 @@ class DeviceConfigurations(object):
         if device_type is not None:
             new_dev_cfg.device_type = device_type
         self._device_configurations.append(new_dev_cfg)
-        log.debug("added %s", new_dev_cfg)
+        log.debug("added {}", new_dev_cfg)
         self.configurations_changed.emit([(NetworkDeviceConfiguration(), new_dev_cfg)])
 
     def attach(self, dev_cfg, device_name=None, connection_uuid=None):
@@ -152,10 +152,10 @@ class DeviceConfigurations(object):
         old_dev_cfg = copy.deepcopy(dev_cfg)
         if device_name:
             dev_cfg.device_name = device_name
-            log.debug("attached device name to %s", dev_cfg)
+            log.debug("attached device name to {}", dev_cfg)
         if connection_uuid:
             dev_cfg.connection_uuid = connection_uuid
-            log.debug("attached connection uuid to %s", dev_cfg)
+            log.debug("attached connection uuid to {}", dev_cfg)
         self.configurations_changed.emit([(old_dev_cfg, dev_cfg)])
 
     def _should_add_device(self, device):
@@ -204,7 +204,7 @@ class DeviceConfigurations(object):
                     return True
             else:
                 log.debug("can't get remote connection of active connection "
-                          "of device %s", device.get_iface())
+                          "of device {}", device.get_iface())
         return False
 
     def _find_connection_uuid_of_device(self, device):
@@ -228,23 +228,23 @@ class DeviceConfigurations(object):
             if ac:
                 uuid = ac.get_connection().get_uuid()
             else:
-                log.debug("no active connection for virtual device %s", iface)
+                log.debug("no active connection for virtual device {}", iface)
         # For physical device we need to pick the right connection in some
         # cases.
         else:
             cons = device.get_available_connections()
             config_uuid = None
             if not cons:
-                log.debug("no available connection for physical device %s", iface)
+                log.debug("no available connection for physical device {}", iface)
             elif len(cons) > 1:
                 # This can happen when activating device in initramfs and
                 # reconfiguring it via kickstart without activation.
-                log.debug("physical device %s has multiple connections: %s",
+                log.debug("physical device {} has multiple connections: {}",
                           iface, [c.get_uuid() for c in cons])
                 hwaddr = device.get_hw_address()
                 config_uuid = get_config_file_connection_of_device(
                     self.nm_client, iface, device_hwaddr=hwaddr)
-                log.debug("config file connection for %s: %s", iface, config_uuid)
+                log.debug("config file connection for {}: {}", iface, config_uuid)
 
             for c in cons:
                 # Ignore port connections
@@ -276,16 +276,16 @@ class DeviceConfigurations(object):
         # Only single configuration per existing device
         existing_cfgs = self.get_for_device(iface)
         if existing_cfgs:
-            log.debug("add_device: not adding %s: already there: %s", iface, existing_cfgs)
+            log.debug("add_device: not adding {}: already there: {}", iface, existing_cfgs)
             return False
 
         # Filter out special or unsupported devices
         should_add, reason = self._should_add_device(device)
         if not should_add:
-            log.debug("add_device: not adding %s: %s", iface, reason)
+            log.debug("add_device: not adding {}: {}", iface, reason)
             return False
 
-        log.debug("add device: adding device %s", iface)
+        log.debug("add device: adding device {}", iface)
 
         # Handle wireless device
         # TODO needs testing
@@ -354,7 +354,7 @@ class DeviceConfigurations(object):
         cfgs = self.get_for_device(iface)
         if cfgs:
             if len(cfgs) > 1:
-                log.error("multiple configurations for device %s: %s", iface, cfgs)
+                log.error("multiple configurations for device {}: {}", iface, cfgs)
             return cfgs[0]
         return None
 
@@ -375,13 +375,13 @@ class DeviceConfigurations(object):
 
         existing_cfg = self.get_for_uuid(uuid)
         if existing_cfg:
-            log.debug("add_connection: not adding %s: already existing: %s", uuid, existing_cfg)
+            log.debug("add_connection: not adding {}: already existing: {}", uuid, existing_cfg)
             return False
 
         # Filter out special or unsupported devices
         should_add, reason = self._should_add_connection(connection)
         if not should_add:
-            log.debug("add_connection: not adding %s: %s", uuid, reason)
+            log.debug("add_connection: not adding {}: {}", uuid, reason)
             return False
 
         connection_type = connection.get_connection_type()
@@ -390,7 +390,7 @@ class DeviceConfigurations(object):
 
         # Require interface name for physical devices
         if device_type in supported_wired_device_types and not iface:
-            log.debug("add_connection: not adding %s: interface name is required for type %s",
+            log.debug("add_connection: not adding {}: interface name is required for type {}",
                       uuid, device_type)
             return False
 
@@ -398,12 +398,12 @@ class DeviceConfigurations(object):
         if device_type == NM.DeviceType.VLAN:
             if not iface:
                 iface = get_vlan_interface_name_from_connection(self.nm_client, connection)
-                log.debug("add_connection: interface name for vlan connection %s inferred: %s",
+                log.debug("add_connection: interface name for vlan connection {} inferred: {}",
                           uuid, iface)
 
         iface_cfg = self._find_existing_cfg_for_iface(iface)
 
-        log.debug("add_connection: adding connection %s", uuid)
+        log.debug("add_connection: adding connection {}", uuid)
 
         # virtual devices
         if device_type in virtual_device_types:
@@ -413,14 +413,14 @@ class DeviceConfigurations(object):
                     return True
                 else:
                     # TODO check that the device shouldn't be reattached?
-                    log.debug("add_connection: already have %s for device %s, adding another one",
+                    log.debug("add_connection: already have {} for device {}, adding another one",
                               iface_cfg.connection_uuid, iface_cfg.device_name)
             self.add(connection_uuid=uuid, device_type=device_type)
         # physical devices
         else:
             if iface_cfg:
                 if iface_cfg.connection_uuid:
-                    log.debug("add_connection: already have %s for device %s, not adding %s",
+                    log.debug("add_connection: already have {} for device {}, not adding {}",
                               iface_cfg.connection_uuid, iface_cfg.device_name, uuid)
                     return False
                 else:
@@ -442,7 +442,7 @@ class DeviceConfigurations(object):
 
     def _device_added_cb(self, client, device, *args):
         # We need to wait for valid state before adding the device
-        log.debug("NM device added: %s", device.get_iface())
+        log.debug("NM device added: {}", device.get_iface())
         if device.get_state() == NM.DeviceState.UNKNOWN:
             device.connect("state-changed", self._added_device_state_changed_cb)
         else:
@@ -458,38 +458,38 @@ class DeviceConfigurations(object):
         # We just remove the device from the NetworkDeviceConfiguration, keeping the object
         # assuming it is just a disconnected virtual device.
         iface = device.get_iface()
-        log.debug("NM device removed: %s", iface)
+        log.debug("NM device removed: {}", iface)
         dev_cfgs = self.get_for_device(iface)
         for cfg in dev_cfgs:
             if cfg.connection_uuid and cfg.device_type in virtual_device_types:
                 old_cfg = copy.deepcopy(cfg)
                 cfg.device_name = ""
                 self.configurations_changed.emit([(old_cfg, cfg)])
-                log.debug("device name %s removed from %s", iface, cfg)
+                log.debug("device name {} removed from {}", iface, cfg)
             else:
                 empty_cfg = NetworkDeviceConfiguration()
                 self._device_configurations.remove(cfg)
                 self.configurations_changed.emit([(cfg, empty_cfg)])
-                log.debug("%s removed", cfg)
+                log.debug("{} removed", cfg)
 
     def _connection_added_cb(self, client, connection):
-        log.debug("NM connection added: %s", connection.get_uuid())
+        log.debug("NM connection added: {}", connection.get_uuid())
         self.add_connection(connection)
 
     def _active_connection_added_cb(self, client, connection):
         connection_uuid = connection.get_uuid()
-        log.debug("NM active connection added: %s", connection_uuid)
+        log.debug("NM active connection added: {}", connection_uuid)
         dev_cfgs = self.get_for_uuid(connection_uuid)
         for cfg in dev_cfgs:
             if not cfg.device_name:
                 devices = connection.get_devices()
                 if devices:
-                    log.debug("adding active connection %s", connection_uuid)
+                    log.debug("adding active connection {}", connection_uuid)
                     self.attach(cfg, device_name=devices[0].get_iface())
 
     def _connection_removed_cb(self, client, connection):
         uuid = connection.get_uuid()
-        log.debug("NM connection removed: %s", uuid)
+        log.debug("NM connection removed: {}", uuid)
         # Remove the configuration if it does not have a device_name
         # which means it is a virtual device configurtation
         dev_cfgs = self.get_for_uuid(uuid)
@@ -498,12 +498,12 @@ class DeviceConfigurations(object):
                 old_cfg = copy.deepcopy(cfg)
                 cfg.connection_uuid = ""
                 self.configurations_changed.emit([(old_cfg, cfg)])
-                log.debug("connection uuid %s removed from %s", uuid, cfg)
+                log.debug("connection uuid {} removed from {}", uuid, cfg)
             else:
                 empty_cfg = NetworkDeviceConfiguration()
                 self._device_configurations.remove(cfg)
                 self.configurations_changed.emit([(cfg, empty_cfg)])
-                log.debug("%s removed", cfg)
+                log.debug("{} removed", cfg)
 
     def __str__(self):
         return str(self._device_configurations)

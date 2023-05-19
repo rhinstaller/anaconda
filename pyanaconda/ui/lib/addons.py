@@ -55,7 +55,7 @@ def collect_addon_ui_paths(addon_paths, subdir):
                 module_paths["spokes"].append(
                     ("%s.%s.spokes.%%s" % (addon_id, subdir), addon_spoke_path)
                 )
-                log.debug('Loading spokes into module path for addon %s', addon_id)
+                log.debug('Loading spokes into module path for addon {}', addon_id)
 
             addon_category_path = os.path.join(path, addon_id, "categories")
 
@@ -63,6 +63,6 @@ def collect_addon_ui_paths(addon_paths, subdir):
                 module_paths["categories"].append(
                     ("%s.categories.%%s" % addon_id, addon_category_path)
                 )
-                log.debug('Loading categories into module path for addon %s', addon_id)
+                log.debug('Loading categories into module path for addon {}', addon_id)
 
     return module_paths

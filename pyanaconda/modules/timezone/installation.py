@@ -95,7 +95,7 @@ class ConfigureTimezoneTask(Task):
         """Ensure the timezone is valid."""
         if not is_valid_timezone(self._timezone):
             # this should never happen, but for pity's sake
-            log.warning("Timezone %s set in kickstart is not valid, "
+            log.warning("Timezone {} set in kickstart is not valid, "
                         "falling back to default (America/New_York).", self._timezone)
             self._timezone = "America/New_York"
 
@@ -109,7 +109,7 @@ class ConfigureTimezoneTask(Task):
         link_path = os.path.normpath(self._sysroot + "/etc/localtime")
 
         if not os.access(rooted_tz_file, os.R_OK):
-            log.error("Timezone to be linked (%s) doesn't exist", rooted_tz_file)
+            log.error("Timezone to be linked ({}) doesn't exist", rooted_tz_file)
             return
 
         try:
@@ -121,7 +121,7 @@ class ConfigureTimezoneTask(Task):
         try:
             os.symlink(relative_path, link_path)
         except OSError as oserr:
-            log.error("Error when symlinking timezone (from %s): %s",
+            log.error("Error when symlinking timezone (from {}): {}",
                       rooted_tz_file, oserr.strerror)
 
     def _write_etc_adjtime(self):
@@ -204,7 +204,7 @@ class ConfigureNTPTask(Task):
                     conf_file_path=chronyd_conf_path
                 )
             except ntp.NTPconfigError as ntperr:
-                log.warning("Failed to save NTP configuration: %s", ntperr)
+                log.warning("Failed to save NTP configuration: {}", ntperr)
 
         # use chrony conf file from installation environment when
         # chrony is not installed (chrony conf file is missing)
@@ -218,5 +218,5 @@ class ConfigureNTPTask(Task):
                     out_file_path=chronyd_conf_path
                 )
             except ntp.NTPconfigError as ntperr:
-                log.warning("Failed to save NTP configuration without chrony package: %s",
+                log.warning("Failed to save NTP configuration without chrony package: {}",
                             ntperr)

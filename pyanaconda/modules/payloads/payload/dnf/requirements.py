@@ -68,7 +68,7 @@ def collect_language_requirements(dnf_manager):
         best_locale = find_best_locale_match(locale, codes)
 
         if not best_locale:
-            log.warning("Selected locale '%s' does not match "
+            log.warning("Selected locale '{}' does not match "
                         "any available langpacks.", locale)
             continue
 
@@ -96,7 +96,7 @@ def collect_platform_requirements(dnf_manager):
     group = "platform-" + platform.lower()
 
     if group not in dnf_manager.groups:
-        log.warning("Platform group %s not available.", group)
+        log.warning("Platform group {} not available.", group)
         return []
 
     return [Requirement.for_group(
@@ -134,7 +134,7 @@ def apply_requirements(requirements, include_list, exclude_list):
     :param include_list: a list of specs to include in the transaction
     :param exclude_list: a list of specs to exclude from the transaction
     """
-    log.debug("Applying requirements: %s", requirements)
+    log.debug("Applying requirements: {}", requirements)
 
     for r in requirements:
         # Generate a spec for the requirement.
@@ -143,18 +143,18 @@ def apply_requirements(requirements, include_list, exclude_list):
         elif r.type == REQUIREMENT_TYPE_GROUP:
             spec = "@{}".format(r.name)
         else:
-            log.warning("Unsupported type '%s' of the requirement.", r.type)
+            log.warning("Unsupported type '{}' of the requirement.", r.type)
             continue
 
         # Check if the requirement can be applied.
         if spec in conf.payload.ignored_packages:
-            log.debug("Requirement '%s' is ignored by the configuration.", spec)
+            log.debug("Requirement '{}' is ignored by the configuration.", spec)
             continue
 
         if spec in exclude_list:
-            log.debug("Requirement '%s' is ignored because it's excluded.", spec)
+            log.debug("Requirement '{}' is ignored because it's excluded.", spec)
             continue
 
         # Apply the requirement.
         include_list.append(spec)
-        log.debug("Requirement '%s' is applied. Reason: %s", spec, r.reason)
+        log.debug("Requirement '{}' is applied. Reason: {}", spec, r.reason)

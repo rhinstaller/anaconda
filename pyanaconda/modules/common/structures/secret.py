@@ -82,7 +82,7 @@ def hide_secrets(obj: DBusData):
             hidden.append(field.name)
 
     if hidden:
-        log.debug("Hiding DBus fields %s.", ", ".join(hidden))
+        log.debug("Hiding DBus fields {}.", ", ".join(hidden))
 
 
 class SecretData(DBusData):

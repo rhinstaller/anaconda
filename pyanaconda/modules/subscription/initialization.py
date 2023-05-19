@@ -97,7 +97,7 @@ class StartRHSMTask(Task):
         rc = start_service(RHSM_SERVICE_NAME)
         if rc:
             log.warning(
-                "subscription: RHSM systemd service failed to start with error code: %s",
+                "subscription: RHSM systemd service failed to start with error code: {}",
                 rc
             )
             return False
@@ -129,7 +129,7 @@ class StartRHSMTask(Task):
             # joining to prevent a deadlocked task blocking this method forever.
             thread = thread_manager.get(self._thread_name)
             if thread:
-                log.debug("subscription: waiting for RHSM service to start for up to %f seconds.",
+                log.debug("subscription: waiting for RHSM service to start for up to {:f} seconds.",
                           timeout)
                 thread.join(timeout)
             else:
@@ -139,7 +139,7 @@ class StartRHSMTask(Task):
         # now check again if the task is still running
         if self.is_running:
             # looks like we timed out
-            log.debug("subscription: RHSM service not available after waiting for %f seconds.",
+            log.debug("subscription: RHSM service not available after waiting for {:f} seconds.",
                       timeout)
             return False
         else:

@@ -94,7 +94,7 @@ class SystemdBoot(BootLoader):
         # For now we are just updating the timeout to actually
         # implement the bootloader --timeout option
         config_path = join_paths(conf.target.system_root, self.config_file)
-        log.info("systemd.py: write_config systemd loader conf : %s ", config_path)
+        log.info("systemd.py: write_config systemd loader conf : {} ", config_path)
 
         with open(config_path, "w") as config:
             config.write("timeout "+ str(self.timeout) + "\n")
@@ -103,10 +103,10 @@ class SystemdBoot(BootLoader):
         # update /etc/kernel/cmdline
         # should look something like "root=UUID=45b931b7-592a-46dc-9c33-d38d5901ec29 ro resume=/dev/sda3"
         config_path = join_paths(conf.target.system_root, "/etc/kernel/cmdline")
-        log.info("systemd.py: write_config systemd commandline : %s ", config_path)
+        log.info("systemd.py: write_config systemd commandline : {} ", config_path)
         with open(config_path, "w") as config:
             args = str(self.boot_args)
-            log.info("systemd.py: systemd used boot args: %s ", args)
+            log.info("systemd.py: systemd used boot args: {} ", args)
 
             # pick up the UUID of the mounted rootfs,
             root_uuid = util.execWithCapture("findmnt", [ "-sfn", "-oUUID", "/" ],
@@ -131,7 +131,7 @@ class SystemdBoot(BootLoader):
     # installation
     #
     def install(self, args=None):
-        log.info("systemd.py: install systemd boot install (root=%s)", conf.target.system_root)
+        log.info("systemd.py: install systemd boot install (root={})", conf.target.system_root)
 
         # the --esp-path= isn't strictly required, but we want to be explicit about it.
         rc = util.execWithRedirect("bootctl", [ "install", "--esp-path=/boot/efi",

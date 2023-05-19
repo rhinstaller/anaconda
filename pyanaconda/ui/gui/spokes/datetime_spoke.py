@@ -583,7 +583,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         day = self._get_combo_selection(self._dayCombo)[0]
         #day may be None if there is no such in the selected year and month
         if day:
-            log.debug("Setting year %s, month %s, day %s, hours %s, minutes %s, tz %s",
+            log.debug("Setting year {}, month {}, day {}, hours {}, minutes {}, tz {}",
                       year, month, day, hours, minutes, self._tz.key)
             set_system_date_time(year, month, day, hours, minutes, tz=self._tz.key)
 
@@ -779,7 +779,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
                 # zone four hours west of Greenwich; i.e., four hours before. Reverse
                 # the sign to match the libtimezone map.
             else:
-                log.warning("Unknown time zone selected in GUI: Etc/%s", city)
+                log.warning("Unknown time zone selected in GUI: Etc/{}", city)
 
             self._tzmap.set_selected_offset(offset)
             time.tzset()

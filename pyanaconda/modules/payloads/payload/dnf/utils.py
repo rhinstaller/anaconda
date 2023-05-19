@@ -74,12 +74,12 @@ def get_kernel_package(dnf_manager, exclude_list):
             continue
 
         if not dnf_manager.is_package_available(kernel_package):
-            log.info("No such package: %s", kernel_package)
+            log.info("No such package: {}", kernel_package)
             continue
 
         return kernel_package
 
-    log.error("Failed to select a kernel from: %s", kernels)
+    log.error("Failed to select a kernel from: {}", kernels)
     return None
 
 
@@ -93,7 +93,7 @@ def get_product_release_version():
     except AttributeError:
         release_version = "rawhide"
 
-    log.debug("Release version of %s is %s.", productName, release_version)
+    log.debug("Release version of {} is {}.", productName, release_version)
     return release_version
 
 
@@ -112,7 +112,7 @@ def get_installation_specs(data: PackagesSelectionData, default_environment=None
 
     # Handle the environment.
     if data.default_environment_enabled and default_environment:
-        log.info("Selecting default environment '%s'.", default_environment)
+        log.info("Selecting default environment '{}'.", default_environment)
         include_list.append("@{}".format(default_environment))
     elif data.environment:
         include_list.append("@{}".format(data.environment))
@@ -272,11 +272,11 @@ def _pick_mount_points(mount_points, download_size, install_size):
             continue
 
         if size >= (download_size + install_size):
-            log.debug("Considering %s (%s) for download and install.", mount_point, size)
+            log.debug("Considering {} ({}) for download and install.", mount_point, size)
             sufficient.add(mount_point)
 
         elif size >= download_size and not mount_point.startswith(conf.target.system_root):
-            log.debug("Considering %s (%s) for download.", mount_point, size)
+            log.debug("Considering {} ({}) for download.", mount_point, size)
             sufficient.add(mount_point)
 
     return sufficient
@@ -328,7 +328,7 @@ def pick_download_location(dnf_manager):
     # Choose the biggest sufficient mount point.
     mount_point = _get_biggest_mount_point(mount_points, sufficient)
 
-    log.info("Mount point %s picked as download location", mount_point)
+    log.info("Mount point {} picked as download location", mount_point)
     location = join_paths(mount_point, DNF_PACKAGE_CACHE_DIR_SUFFIX)
 
     return location
@@ -358,11 +358,11 @@ def calculate_required_space(dnf_manager):
         log.debug("The install and download space is required.")
         required_space = installation_size + download_size
     else:
-        log.debug("Use the %s mount point for the %s download.", mount_point, download_size)
+        log.debug("Use the {} mount point for the {} download.", mount_point, download_size)
         log.debug("Only the install space is required.")
         required_space = installation_size
 
-    log.debug("The package installation requires %s.", required_space)
+    log.debug("The package installation requires {}.", required_space)
     return required_space
 
 

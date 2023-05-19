@@ -62,7 +62,7 @@ class ScanDevicesTask(Task):
             self._reload_modules()
             self._reset_storage(self._storage)
         except UnusableConfigurationError as e:
-            log.exception("Failed to scan devices: %s", e)
+            log.exception("Failed to scan devices: {}", e)
             message = "\n\n".join([str(e), _(e.suggestion)])
             raise UnusableStorageError(message) from None
 

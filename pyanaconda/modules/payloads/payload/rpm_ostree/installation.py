@@ -307,7 +307,7 @@ class TearDownOSTreeMountTargetsTask(Task):
             try:
                 blivet.util.umount(mount_point)
             except (OSError, CalledProcessError) as e:
-                log.debug("Unmounting %s has failed: %s", mount_point, str(e))
+                log.debug("Unmounting {} has failed: {}", mount_point, str(e))
 
 
 class CopyBootloaderDataTask(Task):
@@ -366,7 +366,7 @@ class CopyBootloaderDataTask(Task):
             # that's expected to already exist (so if we used copytree, we'd traceback). If it
             # doesn't, we're not on a UEFI system, so we don't want to copy the data.
             if not fname == 'efi' or is_efi and os.path.isdir(os.path.join(physboot, fname)):
-                log.info("Copying bootloader data: %s", fname)
+                log.info("Copying bootloader data: {}", fname)
                 safe_exec_with_redirect('cp', ['-r', '-p', srcpath, physboot])
 
             # Unfortunate hack, see https://github.com/rhinstaller/anaconda/issues/1188
@@ -505,7 +505,7 @@ class ConfigureBootloader(Task):
         target_grub_cfg = self._sysroot + '/boot/loader/grub.cfg'
 
         if os.path.isfile(boot_grub2_cfg):
-            log.info("Moving %s -> %s", boot_grub2_cfg, target_grub_cfg)
+            log.info("Moving {} -> {}", boot_grub2_cfg, target_grub_cfg)
             os.rename(boot_grub2_cfg, target_grub_cfg)
             os.symlink('../loader/grub.cfg', boot_grub2_cfg)
 
@@ -684,7 +684,7 @@ class PullRemoteAndDeleteTask(Task):
         except GError as e:
             raise PayloadInstallationError("Failed to pull from repository: %s" % e) from e
 
-        log.info("ostree pull: %s", progress.get_status() or "")
+        log.info("ostree pull: {}", progress.get_status() or "")
         self.report_progress(_("Preparing deployment of {}").format(ref))
 
         # Now that we have the data pulled, delete the remote for now. This will allow a remote

@@ -93,7 +93,7 @@ class RepoPathSourceModule(PayloadSourceBase, RPMSourceMixin):
         """
         self._path = path
         self.path_changed.emit()
-        log.debug("Repository path is set to: '%s'", path)
+        log.debug("Repository path is set to: '{}'", path)
 
     def process_kickstart(self, data):
         """Process the kickstart data."""

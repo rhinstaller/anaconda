@@ -136,7 +136,7 @@ def gtk_batch_map(action, items, args=(), pre_func=None, batch_size=1):
     done_event = threading.Event()
 
     # we don't want to log the whole list, type and address is enough
-    log.debug("Starting applying %s on %s", action, object.__repr__(items))
+    log.debug("Starting applying {} on {}", action, object.__repr__(items))
 
     # start a thread putting preprocessed items into the queue_instance
     thread_manager.add_thread(
@@ -147,7 +147,7 @@ def gtk_batch_map(action, items, args=(), pre_func=None, batch_size=1):
 
     run_in_loop(process_one_batch, (item_queue_instance, action, done_event))
     done_event.wait()
-    log.debug("Finished applying %s on %s", action, object.__repr__(items))
+    log.debug("Finished applying {} on {}", action, object.__repr__(items))
 
 
 def timed_action(delay=300, threshold=750, busy_cursor=True):

@@ -182,7 +182,7 @@ class DNFPayload(MigratedDBusPayload):
             is_unique = repo_name not in existing_names
 
             if not is_unique:
-                log.warning("Repository name %s is not unique. Only the first repo will "
+                log.warning("Repository name {} is not unique. Only the first repo will "
                             "be used!", repo_name)
                 continue
 
@@ -339,5 +339,5 @@ class DNFPayload(MigratedDBusPayload):
         # This validation is no longer required.
         self._software_validation_required = False
 
-        log.debug("The selection has been checked: %s", report)
+        log.debug("The selection has been checked: {}", report)
         return report

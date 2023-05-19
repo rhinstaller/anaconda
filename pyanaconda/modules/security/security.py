@@ -120,7 +120,7 @@ class SecurityService(KickstartService):
         """
         self._selinux = value
         self.selinux_changed.emit()
-        log.debug("SElinux is set to %s.", value)
+        log.debug("SElinux is set to {}.", value)
 
     @property
     def authselect(self):
@@ -137,7 +137,7 @@ class SecurityService(KickstartService):
         """
         self._authselect_args = args
         self.authselect_changed.emit()
-        log.debug("Authselect is set to %s.", args)
+        log.debug("Authselect is set to {}.", args)
 
     @property
     def fingerprint_auth_enabled(self):
@@ -156,7 +156,7 @@ class SecurityService(KickstartService):
         """
         self._fingerprint_auth_enabled = fingerprint_auth_enabled
         self.fingerprint_auth_enabled_changed.emit()
-        log.debug("Fingerprint authentication enabled is set to %s.",
+        log.debug("Fingerprint authentication enabled is set to {}.",
                   self.fingerprint_auth_enabled)
 
     @property
@@ -174,7 +174,7 @@ class SecurityService(KickstartService):
         """
         self._realm = realm
         self.realm_changed.emit()
-        log.debug("Realm is set to %s.", realm)
+        log.debug("Realm is set to {}.", realm)
 
     def handle_realm_discover_results(self, realm_data):
         """ Handle results from the RealmDiscover task.

@@ -383,7 +383,7 @@ class SpecifyNFSRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
         try:
             (server, directory) = self._nfs_server.split(":", 2)
         except ValueError as err:
-            log.error("ValueError: %s", err)
+            log.error("ValueError: {}", err)
             self._error = True
             return
 

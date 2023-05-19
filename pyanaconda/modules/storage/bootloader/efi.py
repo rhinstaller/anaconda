@@ -115,7 +115,7 @@ class EFIBase(object):
                 slot_id = slot[4:8]
                 # slot_id is hex, we can't use .isint and use this regex:
                 if not re.match("^[0-9a-fA-F]+$", slot_id):
-                    log.warning("failed to parse efi boot slot (%s)", slot)
+                    log.warning("failed to parse efi boot slot ({})", slot)
                     continue
 
                 rc = self.efibootmgr("-b", slot_id, "-B")
@@ -229,7 +229,7 @@ class EFISystemdBoot(EFIBase, SystemdBoot):
         """ Write the config settings to config file (ex: grub.cfg) not needed for systemd. """
         config_path = join_paths(conf.target.system_root, self.efi_config_file)
 
-        log.info("efi.py: (systemd) write_config systemd : %s ", config_path)
+        log.info("efi.py: (systemd) write_config systemd : {} ", config_path)
 
         super().write_config()
 
@@ -303,7 +303,7 @@ class MacEFIGRUB(EFIGRUB):
             valid = False
 
         if hasattr(device.format, "name"):
-            log.debug("device.format.name is '%s'", device.format.name)
+            log.debug("device.format.name is '{}'", device.format.name)
 
-        log.debug("MacEFIGRUB.is_valid_stage1_device(%s) returning %s", device.name, valid)
+        log.debug("MacEFIGRUB.is_valid_stage1_device({}) returning {}", device.name, valid)
         return valid

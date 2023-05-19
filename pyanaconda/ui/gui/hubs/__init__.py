@@ -213,7 +213,7 @@ class Hub(GUIObject, common.Hub):
         if hub_controller:
             hub_controller.all_modules_added()
         else:
-            log.error("Initialization controller for hub %s expected but missing.", self.__class__.__name__)
+            log.error("Initialization controller for hub {} expected but missing.", self.__class__.__name__)
 
         spokeArea = self.window.get_spoke_area()
         viewport = Gtk.Viewport()
@@ -236,11 +236,11 @@ class Hub(GUIObject, common.Hub):
         if not spoke.mandatory or spoke.completed:
             if spoke in self._incompleteSpokes:
                 self._incompleteSpokes.remove(spoke)
-                log.debug("incomplete spokes: %s", self._incompleteSpokes)
+                log.debug("incomplete spokes: {}", self._incompleteSpokes)
         else:
             if spoke not in self._incompleteSpokes:
                 self._incompleteSpokes.append(spoke)
-                log.debug("incomplete spokes: %s", self._incompleteSpokes)
+                log.debug("incomplete spokes: {}", self._incompleteSpokes)
 
         if update_continue:
             self._updateContinue()
@@ -292,7 +292,7 @@ class Hub(GUIObject, common.Hub):
 
         if not self._spokes and self.window.get_may_continue() and self.continue_if_empty:
             # no spokes, move on
-            log.debug("no spokes available on %s, continuing automatically", self)
+            log.debug("no spokes available on {}, continuing automatically", self)
             gtk_call_once(self.window.emit, "continue-clicked")
 
         # Grab all messages that may have appeared since last time this method ran.
@@ -316,7 +316,7 @@ class Hub(GUIObject, common.Hub):
                     self._notReadySpokes.append(spoke)
 
                 self._updateContinueButton()
-                log.debug("spoke is not ready: %s", spoke)
+                log.debug("spoke is not ready: {}", spoke)
             elif code == hubQ.HUB_CODE_READY:
                 self._updateCompleteness(spoke)
 
@@ -324,7 +324,7 @@ class Hub(GUIObject, common.Hub):
                     self._notReadySpokes.remove(spoke)
 
                 self._updateContinueButton()
-                log.debug("spoke is ready: %s", spoke)
+                log.debug("spoke is ready: {}", spoke)
 
                 # If this is a real kickstart install (the kind with an input ks file)
                 # and all spokes are now completed, we should skip ahead to the next
@@ -337,7 +337,7 @@ class Hub(GUIObject, common.Hub):
                     if not spoke.completed and spoke.mandatory:
                         autoinstall_stopped("User interaction required on spoke %s" % spoke_title)
                     else:
-                        log.debug("kickstart installation, spoke %s is ready", spoke_title)
+                        log.debug("kickstart installation, spoke {} is ready", spoke_title)
 
                     if self.continuePossible:
                         if self._inSpoke:
@@ -347,7 +347,7 @@ class Hub(GUIObject, common.Hub):
 
             elif code == hubQ.HUB_CODE_MESSAGE:
                 spoke.selector.set_property("status", args[1])
-                log.debug("setting %s status to: %s", spoke, args[1])
+                log.debug("setting {} status to: {}", spoke, args[1])
 
             q.task_done()
 
@@ -368,11 +368,11 @@ class Hub(GUIObject, common.Hub):
 
         for hub in Hub._hubs_collection:
             if hub.timeout is not None:
-                log.debug("Disabling event loop for hub %s", hub.__class__.__name__)
+                log.debug("Disabling event loop for hub {}", hub.__class__.__name__)
                 hub.timeout.cancel()
                 hub.timeout = None
 
-        log.debug("Starting event loop for hub %s", self.__class__.__name__)
+        log.debug("Starting event loop for hub {}", self.__class__.__name__)
         self.timeout = Timer()
         self.timeout.timeout_msec(100, self._update_spokes)
 

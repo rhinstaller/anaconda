@@ -352,7 +352,7 @@ class Spoke(Screen):
            more specific information, but an overridden method should finish
            by calling this method so the entry will be logged.
         """
-        log.debug("Entered spoke: %s", spoke_instance)
+        log.debug("Entered spoke: {}", spoke_instance)
 
     def exit_logger(self, spoke_instance):
         """Log when a user leaves the spoke.  Subclasses may override this
@@ -360,7 +360,7 @@ class Spoke(Screen):
            overridden method should finish by calling this method so the
            exit will be logged.
         """
-        log.debug("Left spoke: %s", spoke_instance)
+        log.debug("Left spoke: {}", spoke_instance)
 
     def finished(self):
         """Called when exiting the Summary Hub
@@ -597,7 +597,7 @@ class Hub(Screen):
            and then coming back to the hub does not count as exiting and
            entering.
         """
-        log.debug("Entered hub: %s", hub_instance)
+        log.debug("Entered hub: {}", hub_instance)
 
     def _collectCategoriesAndSpokes(self):
         """This method is provided so that is can be overridden in a subclass
@@ -616,7 +616,7 @@ class Hub(Screen):
            user selects a spoke from the hub.  They are only exited when the
            continue or quit button is clicked on the hub.
         """
-        log.debug("Left hub: %s", hub_instance)
+        log.debug("Left hub: {}", hub_instance)
 
     def __repr__(self):
         """Return the class name as representation.
@@ -647,7 +647,7 @@ def collect_spokes(mask_paths, category):
         hidden_spokes = conf.ui.hidden_spokes
         for candidate in candidate_spokes:
             if candidate.__name__ in hidden_spokes:
-                log.info("Spoke %s will not be displayed because it is hidden by "
+                log.info("Spoke {} will not be displayed because it is hidden by "
                          "the Anaconda configuration file.", candidate.__name__)
             else:
                 visible_spokes.append(candidate)

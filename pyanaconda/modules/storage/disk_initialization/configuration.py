@@ -125,7 +125,7 @@ class DiskInitializationConfig(object):
         :param disk: an instance of the disk we want to format
         :return: True or False
         """
-        log.debug("Can %s be initialized?", disk.name)
+        log.debug("Can {} be initialized?", disk.name)
 
         # Skip protected and readonly disks.
         if disk.protected:

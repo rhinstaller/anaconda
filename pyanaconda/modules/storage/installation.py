@@ -89,13 +89,13 @@ class CreateStorageLayoutTask(Task):
                 callbacks=register
             )
         except (FSResizeError, FormatResizeError) as e:
-            log.exception("Failed to resize device %s: %s", e.details, str(e))
+            log.exception("Failed to resize device {}: {}", e.details, str(e))
             message = _("An error occurred while resizing the device {}: {}").format(
                 e.details, str(e)
             )
             raise StorageInstallationError(message) from None
         except StorageError as e:
-            log.exception("Failed to create storage layout: %s", str(e))
+            log.exception("Failed to create storage layout: {}", str(e))
             raise StorageInstallationError(str(e)) from None
 
     def _report_message(self, data):
@@ -191,7 +191,7 @@ class CreateStorageLayoutTask(Task):
 
         for dev in boot_devs:
             if not hasattr(dev, "bootable"):
-                log.info("Skipping %s, not bootable", dev)
+                log.info("Skipping {}, not bootable", dev)
                 continue
 
             # Dos labels can only have one partition marked as active
@@ -212,20 +212,20 @@ class CreateStorageLayoutTask(Task):
                 skip = True
 
             if skip:
-                log.info("Skipping %s", dev.name)
+                log.info("Skipping {}", dev.name)
                 continue
 
             # hfs+ partitions on gpt can't be marked bootable via parted
             if dev.disk.format.parted_disk.type != "gpt" or \
                     dev.format.type not in ["hfs+", "macefi"]:
-                log.info("setting boot flag on %s", dev.name)
+                log.info("setting boot flag on {}", dev.name)
                 dev.bootable = True
 
             # Set the boot partition's name on disk labels that support it
             if dev.parted_partition.disk.supportsFeature(parted.DISK_TYPE_PARTITION_NAME):
                 ped_partition = dev.parted_partition.getPedPartition()
                 ped_partition.set_name(dev.format.name)
-                log.info("Setting label on %s to '%s'", dev, dev.format.name)
+                log.info("Setting label on {} to '{}'", dev, dev.format.name)
 
             dev.disk.setup()
             dev.disk.format.commit_to_disk()
@@ -320,17 +320,17 @@ class WriteConfigurationTask(Task):
 
         try:
             escrow_dir = sysroot + "/root"
-            log.debug("escrow: writing escrow packets to %s", escrow_dir)
+            log.debug("escrow: writing escrow packets to {}", escrow_dir)
             blivet_util.makedirs(escrow_dir)
             for device in escrow_devices:
-                log.debug("escrow: device %s: %s",
+                log.debug("escrow: device {}: {}",
                           repr(device.path), repr(device.format.type))
                 device.format.escrow(escrow_dir,
                                      backup_passphrase)
 
         except (OSError, RuntimeError) as e:
             # TODO: real error handling
-            log.error("failed to store encryption key: %s", e)
+            log.error("failed to store encryption key: {}", e)
 
         log.debug("escrow: write_escrow_packets done")
 

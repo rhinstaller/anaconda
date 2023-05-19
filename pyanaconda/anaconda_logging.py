@@ -28,13 +28,13 @@ import warnings
 
 from pyanaconda.core import constants
 
-ENTRY_FORMAT = "%(asctime)s,%(msecs)03d %(levelname)s %(name)s: %(message)s"
-STDOUT_FORMAT = "%(asctime)s %(message)s"
+ENTRY_FORMAT = "{asctime},{msecs:03d} {levelname} {name}: {message}"
+STDOUT_FORMAT = "{asctime} {message}"
 DATE_FORMAT = "%H:%M:%S"
 
 # the Anaconda log uses structured logging
-ANACONDA_ENTRY_FORMAT = "%(asctime)s,%(msecs)03d %(levelname)s %(log_prefix)s: %(message)s"
-ANACONDA_SYSLOG_FORMAT = "anaconda: %(log_prefix)s: %(message)s"
+ANACONDA_ENTRY_FORMAT = "{asctime},{msecs:03d} {levelname} {log_prefix}: {message}"
+ANACONDA_SYSLOG_FORMAT = "anaconda: {log_prefix}: {message}"
 
 MAIN_LOG_FILE = "/tmp/anaconda.log"
 PROGRAM_LOG_FILE = "/tmp/program.log"
@@ -175,7 +175,7 @@ class AnacondaLog(object):
             log_filter=AnacondaPrefixFilter(),
             log_formatter=logging.Formatter(
                 fmt=ANACONDA_SYSLOG_FORMAT,
-                style="%"
+                style="{"
             )
         )
 
@@ -215,7 +215,7 @@ class AnacondaLog(object):
             logfile_handler.setFormatter(logging.Formatter(
                 fmt=fmtStr,
                 datefmt=DATE_FORMAT,
-                style="%"
+                style="{"
             ))
             addToLogger.addHandler(logfile_handler)
         except OSError:
@@ -249,7 +249,7 @@ class AnacondaLog(object):
             The warnings mechanism is used by some libraries we use,
             notably pykickstart.
         """
-        self.anaconda_logger.warning("%s", warnings.formatwarning(
+        self.anaconda_logger.warning("{}", warnings.formatwarning(
                                      message, category, filename, lineno, line))
 
     def setup_remotelog(self, host, port):
@@ -257,7 +257,7 @@ class AnacondaLog(object):
         remotelog.setFormatter(logging.Formatter(
             fmt=ENTRY_FORMAT,
             datefmt=DATE_FORMAT,
-            style="%"
+            style="{"
         ))
         remotelog.setLevel(logging.DEBUG)
         logging.getLogger().addHandler(remotelog)

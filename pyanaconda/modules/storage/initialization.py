@@ -92,8 +92,8 @@ def _set_default_label_type():
         disklabel_class.set_default_label_type(requested_type)
     else:
         log.warning(
-            "The requested disk label type '%s' is not supported on "
-            "this platform. Using the default disk label '%s' instead.",
+            "The requested disk label type '{}' is not supported on "
+            "this platform. Using the default disk label '{}' instead.",
             conf.storage.disk_label_type, default_type
         )
 

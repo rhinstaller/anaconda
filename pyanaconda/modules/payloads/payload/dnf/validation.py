@@ -142,7 +142,7 @@ class CheckPackagesSelectionTask(ValidationTask):
         with self._reported_errors(report):
             self._dnf_manager.resolve_selection()
 
-        log.debug("Resolving has been completed: %s", report)
+        log.debug("Resolving has been completed: {}", report)
         return report
 
     @contextmanager

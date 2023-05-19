@@ -74,7 +74,7 @@ class SetUpLocalImageSourceTask(Task):
             log.debug("Unknown required space.")
             return None
 
-        log.debug("Required space: %s", size)
+        log.debug("Required space: {}", size)
         return size
 
 
@@ -153,5 +153,5 @@ class SetUpRemoteImageSourceTask(Task):
             log.debug("Unknown required space.")
             return None
 
-        log.debug("Required space: %s", size)
+        log.debug("Required space: {}", size)
         return size

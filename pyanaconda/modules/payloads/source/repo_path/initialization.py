@@ -39,7 +39,7 @@ class SetUpRepoPathSourceTask(Task):
 
     def run(self):
         """Run the task."""
-        log.debug("Trying to detect a repository at '%s'.", self._path)
+        log.debug("Trying to detect a repository at '{}'.", self._path)
 
         if not verify_valid_repository(self._path):
             raise SourceSetupError("Nothing useful found at '{}'".format(self._path))

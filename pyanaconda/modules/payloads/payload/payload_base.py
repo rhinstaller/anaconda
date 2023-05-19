@@ -119,7 +119,7 @@ class PayloadBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
                                    "initialized! Please tear down the sources first.")
 
         self._sources = sources
-        log.debug("New sources %s were added.", sources)
+        log.debug("New sources {} were added.", sources)
         self.sources_changed.emit()
 
     def add_source(self, source):
@@ -177,7 +177,7 @@ class PayloadBase(KickstartBaseModule, Publishable, metaclass=ABCMeta):
         :param kernels: a list of kernel versions
         """
         self._kernel_version_list = kernels
-        log.debug("The kernel version list is set to: %s", kernels)
+        log.debug("The kernel version list is set to: {}", kernels)
 
     @abstractmethod
     def install_with_tasks(self):

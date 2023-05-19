@@ -408,7 +408,7 @@ class NetworkControlBox(GObject.GObject):
             selection.select_iter(itr)
 
     def on_device_configurations_changed(self, changes):
-        log.debug("device configurations changed: %s", changes)
+        log.debug("device configurations changed: {}", changes)
         self._update_device_configurations(changes)
         self.refresh_ui()
 
@@ -551,7 +551,7 @@ class NetworkControlBox(GObject.GObject):
 
             con = self.client.get_connection_by_uuid(con_uuid)
             if not con:
-                log.debug("on_edit_connection: connection %s for ap %s not found",
+                log.debug("on_edit_connection: connection {} for ap {} not found",
                           con_uuid, selected_ssid)
                 return
 
@@ -564,12 +564,12 @@ class NetworkControlBox(GObject.GObject):
             activate = (con, device, restart_device_condition)
         else:
             if not con:
-                log.debug("on_edit_connection: connection for device %s not found", iface)
+                log.debug("on_edit_connection: connection for device {} not found", iface)
                 if device_type == NM.DeviceType.ETHERNET:
                     # Create default connection for the device and run nm-c-e on it
                     default_con = self._default_eth_con(iface, autoconnect=False)
                     persistent = False
-                    log.info("creating new connection for %s device", iface)
+                    log.info("creating new connection for {} device", iface)
                     self.client.add_connection_async(default_con, persistent, None,
                             self._default_connection_added_cb, activate)
                 return
@@ -580,14 +580,14 @@ class NetworkControlBox(GObject.GObject):
                 settings_changed = lambda: settings != con.to_dbus(NM.ConnectionSerializationFlags.ALL)
                 activate = (con, device, settings_changed)
 
-        log.info("configuring connection %s device %s ssid %s",
+        log.info("configuring connection {} device {} ssid {}",
                  con.get_uuid(), iface, selected_ssid)
         self._run_nmce(con.get_uuid(), activate)
 
     def _default_connection_added_cb(self, client, result, activate):
         con = client.add_connection_finish(result)
         uuid = con.get_setting_connection().get_uuid()
-        log.info("configuring new connection %s", uuid)
+        log.info("configuring new connection {}", uuid)
         self._run_nmce(uuid, activate)
 
     def _run_nmce(self, uuid, activate):
@@ -614,7 +614,7 @@ class NetworkControlBox(GObject.GObject):
         if not self._running_nmce:
             return False
 
-        log.debug("killing running nm-c-e %s: %s", self._running_nmce.pid, msg)
+        log.debug("killing running nm-c-e {}: {}", self._running_nmce.pid, msg)
         self._running_nmce.kill()
         self._running_nmce = None
         return True
@@ -622,7 +622,7 @@ class NetworkControlBox(GObject.GObject):
     def on_nmce_exited(self, pid, condition, activate=None):
         # waitpid() has been called, make sure we don't do anything else with the proc
         self._running_nmce = None
-        log.debug("nm-c-e exited with status %s", condition)
+        log.debug("nm-c-e exited with status {}", condition)
 
         # nm-c-e was closed normally, not killed by anaconda
         if condition == 0:
@@ -656,20 +656,20 @@ class NetworkControlBox(GObject.GObject):
         con = self.client.get_connection_by_uuid(dev_cfg.connection_uuid)
         iface = dev_cfg.device_name
 
-        log.info("device %s switched %s", iface, "on" if active else "off")
+        log.info("device {} switched {}", iface, "on" if active else "off")
 
         if dev_cfg.device_type == NM.DeviceType.WIFI:
             self.client.wireless_set_enabled(active)
         else:
             if active:
                 if not con:
-                    log.debug("on_device_off_toggled: no connection for %s", iface)
+                    log.debug("on_device_off_toggled: no connection for {}", iface)
                     return
 
                 self.client.activate_connection_async(con, device, None, None)
             else:
                 if not device:
-                    log.debug("on_device_off_toggled: no device for %s", iface)
+                    log.debug("on_device_off_toggled: no device for {}", iface)
                     return
                 device.disconnect(None)
 
@@ -701,7 +701,7 @@ class NetworkControlBox(GObject.GObject):
         self.emit("apply-hostname")
 
     def add_device(self, ty):
-        log.info("adding device of type %s", ty)
+        log.info("adding device of type {}", ty)
         self.kill_nmce(msg="Add device button clicked")
         proc = startProgram(["nm-connection-editor", "--keep-above", "--create", "--type=%s" % ty], reset_lang=False)
         self._running_nmce = proc
@@ -716,7 +716,7 @@ class NetworkControlBox(GObject.GObject):
         return model[itr][DEVICES_COLUMN_OBJECT]
 
     def add_dev_cfg(self, dev_cfg):
-        log.debug("adding device configuration: %s", dev_cfg)
+        log.debug("adding device configuration: {}", dev_cfg)
         row = [None, None, None, dev_cfg]
         self._update_row_from_object(row)
         self.dev_cfg_store.append(row)
@@ -735,7 +735,7 @@ class NetworkControlBox(GObject.GObject):
             device.connect("state-changed", self.on_device_state_changed)
 
     def remove_dev_cfg(self, dev_cfg):
-        log.debug("removing device configuration: %s", dev_cfg)
+        log.debug("removing device configuration: {}", dev_cfg)
         for row in self.dev_cfg_store:
             stored_cfg = row[DEVICES_COLUMN_OBJECT]
             if stored_cfg == dev_cfg:
@@ -744,7 +744,7 @@ class NetworkControlBox(GObject.GObject):
         log.debug("configuration to be removed not found")
 
     def update_dev_cfg(self, old_cfg, new_cfg):
-        log.debug("updating device configuration: %s -> %s", old_cfg, new_cfg)
+        log.debug("updating device configuration: {} -> {}", old_cfg, new_cfg)
         for row in self.dev_cfg_store:
             stored_cfg = row[DEVICES_COLUMN_OBJECT]
             if stored_cfg == old_cfg:
@@ -759,7 +759,7 @@ class NetworkControlBox(GObject.GObject):
         Register callback on properties (IP address, gateway...) of these ipX-config
         objects when they are created.
         """
-        log.debug("%s object changed", args[1])
+        log.debug("{} object changed", args[1])
         self.on_device_config_changed(device)
         if args[1] == IPV4_CONFIG:
             config = device.props.ip4_config
@@ -1161,7 +1161,7 @@ def _try_disconnect(obj, callback):
         obj.disconnect_by_func(callback)
     except TypeError as e:
         if "nothing connected" not in str(e):
-            log.debug("%s", e)
+            log.debug("{}", e)
 
 
 class ConfigureWirelessNetworksDialog(GUIObject):
@@ -1210,7 +1210,7 @@ class ConfigureWirelessNetworksDialog(GUIObject):
     def refresh(self, device_name):
         device = self._nm_client.get_device_by_iface(device_name)
         if not device:
-            log.warnig("device for interface %s not found", device)
+            log.warnig("device for interface {} not found", device)
             return
 
         cons = _safe_device_filter_connections(device, self._nm_client.get_connections())
@@ -1325,7 +1325,7 @@ class SelectWirelessNetworksDialog(GUIObject):
     def refresh(self, device_name):
         device = self._nm_client.get_device_by_iface(device_name)
         if not device:
-            log.warnig("device for interface %s not found", device)
+            log.warnig("device for interface {} not found", device)
             return
 
         self._device_name = device_name
@@ -1398,12 +1398,12 @@ class SelectWirelessNetworksDialog(GUIObject):
         if rc == 1:
             ssid = self.selected_ssid
             if ssid:
-                log.info("selected access point to be activated: %s", ssid)
+                log.info("selected access point to be activated: {}", ssid)
                 device = self._nm_client.get_device_by_iface(self._device_name)
                 if device:
                     self._activate_wireless_network(device, ssid)
                 else:
-                    log.warnig("device for interface %s not found", device)
+                    log.warnig("device for interface {} not found", device)
 
         return rc
 
@@ -1432,7 +1432,7 @@ class SelectWirelessNetworksDialog(GUIObject):
                 con.add_setting(s_con)
                 con.add_setting(s_wireless)
                 persistent = True
-                log.debug("adding connection for WPA-Enterprise AP %s", ssid_str)
+                log.debug("adding connection for WPA-Enterprise AP {}", ssid_str)
                 self._nm_client.add_connection_async(con, persistent, None)
             else:
                 self._nm_client.add_and_activate_connection_async(
@@ -1662,7 +1662,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
                                          self.on_apply_hostname)
 
         self._initially_available = self.completed
-        log.debug("network standalone spoke (init): completed: %s", self._initially_available)
+        log.debug("network standalone spoke (init): completed: {}", self._initially_available)
         self._now_available = False
 
     def _hostname_changed(self, hostname):
@@ -1677,7 +1677,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
         self._now_available = self.completed
 
-        log.debug("network standalone spoke (apply) payload: %s completed: %s",
+        log.debug("network standalone spoke (apply) payload: {} completed: {}",
                   self.payload.is_ready(), self._now_available)
 
         if (not self.payload.is_ready() and not self._initially_available

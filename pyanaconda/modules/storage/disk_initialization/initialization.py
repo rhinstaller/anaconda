@@ -166,7 +166,7 @@ class DiskInitializationModule(KickstartBaseModule):
         """
         self._initialization_mode = mode
         self.initialization_mode_changed.emit()
-        log.debug("The initialization mode is set to '%s'.", mode)
+        log.debug("The initialization mode is set to '{}'.", mode)
 
     @property
     def devices_to_clear(self):
@@ -180,7 +180,7 @@ class DiskInitializationModule(KickstartBaseModule):
         """
         self._devices_to_clear = devices
         self.devices_to_clear_changed.emit()
-        log.debug("Devices to clear are set to '%s'.", devices)
+        log.debug("Devices to clear are set to '{}'.", devices)
 
     @property
     def drives_to_clear(self):
@@ -194,7 +194,7 @@ class DiskInitializationModule(KickstartBaseModule):
         """
         self._drives_to_clear = drives
         self.drives_to_clear_changed.emit()
-        log.debug("Drives to clear are set to '%s'.", drives)
+        log.debug("Drives to clear are set to '{}'.", drives)
 
     @property
     def default_disk_label(self):
@@ -208,7 +208,7 @@ class DiskInitializationModule(KickstartBaseModule):
         """
         self._default_disk_label = label
         self.default_disk_label_changed.emit()
-        log.debug("Default disk label is set to '%s'.", label)
+        log.debug("Default disk label is set to '{}'.", label)
 
     @property
     def format_unrecognized_enabled(self):
@@ -222,7 +222,7 @@ class DiskInitializationModule(KickstartBaseModule):
         """
         self._format_unrecognized_enabled = value
         self.format_unrecognized_enabled_changed.emit(value)
-        log.debug("Can format unrecognized is set to '%s'.", value)
+        log.debug("Can format unrecognized is set to '{}'.", value)
 
     @property
     def initialize_labels_enabled(self):
@@ -236,7 +236,7 @@ class DiskInitializationModule(KickstartBaseModule):
         """
         self._initialize_labels_enabled = value
         self.initialize_labels_enabled_changed.emit()
-        log.debug("Can initialize labels is set to '%s'.", value)
+        log.debug("Can initialize labels is set to '{}'.", value)
 
     @property
     def format_ldl_enabled(self):
@@ -250,7 +250,7 @@ class DiskInitializationModule(KickstartBaseModule):
         """
         self._format_ldl_enabled = value
         self.format_ldl_enabled_changed.emit(value)
-        log.debug("Can format LDL is set to '%s'.", value)
+        log.debug("Can format LDL is set to '{}'.", value)
 
     @staticmethod
     def _find_cleared_devices(storage):

@@ -53,5 +53,5 @@ def get_proxies_from_option(proxy_option):
             proxies = {"http": proxy.url,
                        "https": proxy.url}
         except ProxyStringError as e:
-            log.info("Failed to parse proxy \"%s\": %s", proxy_option, e)
+            log.info("Failed to parse proxy \"{}\": {}", proxy_option, e)
     return proxies

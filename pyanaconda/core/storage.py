@@ -208,7 +208,7 @@ def device_matches(spec, devicetree=None, disks_only=False):
         if dev_name and dev_name not in matches:
             matches.append(dev_name)
 
-    log.debug("%s matches %s for devicetree=%s and disks_only=%s",
+    log.debug("{} matches {} for devicetree={} and disks_only={}",
               spec, matches, devicetree, disks_only)
 
     return matches
@@ -270,7 +270,7 @@ def suggest_swap_size(hibernation=False, disk_space=None):
     """
     mem = total_memory()
     mem = ((mem / 16) + 1) * 16
-    log.info("Detected %s of memory", mem)
+    log.info("Detected {} of memory", mem)
 
     sixty_four_gib = Size("64 GiB")
 
@@ -297,19 +297,19 @@ def suggest_swap_size(hibernation=False, disk_space=None):
         if mem <= sixty_four_gib:
             swap = mem + swap
         else:
-            log.info("Ignoring --hibernation option on systems with greater than %s of RAM",
+            log.info("Ignoring --hibernation option on systems with greater than {} of RAM",
                      sixty_four_gib)
 
     elif disk_space is not None:
         max_swap = disk_space * MAX_SWAP_DISK_RATIO
 
         if swap > max_swap:
-            log.info("Suggested swap size (%(swap)s) exceeds %(percent)d %% of "
-                     "disk space, using %(percent)d %% of disk space (%(size)s) "
+            log.info("Suggested swap size ({swap}) exceeds {percent:d} % of "
+                     "disk space, using {percent:d} % of disk space ({size}) "
                      "instead.", {"percent": MAX_SWAP_DISK_RATIO * 100,
                                   "swap": swap,
                                   "size": max_swap})
             swap = max_swap
 
-    log.info("Swap attempt of %s", swap)
+    log.info("Swap attempt of {}", swap)
     return swap

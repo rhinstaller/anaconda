@@ -214,7 +214,7 @@ class RepositorySourceMixin(ABC):
         self._validate_configuration(configuration)
         self._configuration = configuration
         self.configuration_changed.emit(configuration)
-        log.debug("The configuration is set to: %s", str(configuration))
+        log.debug("The configuration is set to: {}", str(configuration))
 
     @abstractmethod
     def _validate_configuration(self, configuration):
@@ -250,4 +250,4 @@ class RepositorySourceMixin(ABC):
         :return RepoConfigurationData: a configuration data
         """
         self._repository = repository
-        log.debug("The repository is set to: %s", str(repository))
+        log.debug("The repository is set to: {}", str(repository))

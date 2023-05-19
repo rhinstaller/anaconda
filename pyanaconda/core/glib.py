@@ -109,20 +109,20 @@ def sync_call_glib(context, async_call, async_call_finish, timeout, *call_args):
     callbacks = [loop.quit]
 
     def _stop_loop():
-        log.debug("sync_call_glib[%s]: quit", info)
+        log.debug("sync_call_glib[{}]: quit", info)
         while callbacks:
             callback = callbacks.pop()
             callback()
 
     def _cancellable_cb():
-        log.debug("sync_call_glib[%s]: cancelled", info)
+        log.debug("sync_call_glib[{}]: cancelled", info)
 
     cancellable = Cancellable()
     cancellable_id = cancellable.connect(_cancellable_cb)
     callbacks.append(lambda: cancellable.disconnect(cancellable_id))
 
     def _timeout_cb(user_data):
-        log.debug("sync_call_glib[%s]: timeout", info)
+        log.debug("sync_call_glib[{}]: timeout", info)
         result.timeout = True
         cancellable.cancel()
         return False
@@ -133,7 +133,7 @@ def sync_call_glib(context, async_call, async_call_finish, timeout, *call_args):
     callbacks.append(timeout_source.destroy)
 
     def _finish_cb(source_object, async_result):
-        log.debug("sync_call_glib[%s]: call %s",
+        log.debug("sync_call_glib[{}]: call {}",
                   info,
                   async_call_finish.get_symbol())
         try:
@@ -145,7 +145,7 @@ def sync_call_glib(context, async_call, async_call_finish, timeout, *call_args):
 
     context.push_thread_default()
 
-    log.debug("sync_call_glib[%s]: call", info)
+    log.debug("sync_call_glib[{}]: call", info)
     try:
         async_call(
             *call_args,

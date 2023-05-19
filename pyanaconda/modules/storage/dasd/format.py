@@ -66,7 +66,7 @@ class FindFormattableDASDTask(Task):
 
         for disk in disks:
             if self._is_unformatted_dasd(disk):
-                log.debug("Found unformatted DASD: %s (%s)", disk.path, disk.busid)
+                log.debug("Found unformatted DASD: {} ({})", disk.path, disk.busid)
                 result.append(disk)
 
         return result
@@ -91,7 +91,7 @@ class FindFormattableDASDTask(Task):
 
         for disk in disks:
             if self._is_ldl_dasd(disk):
-                log.debug("Found LDL DASD: %s (%s)", disk.path, disk.busid)
+                log.debug("Found LDL DASD: {} ({})", disk.path, disk.busid)
                 result.append(disk)
 
         return result

@@ -55,10 +55,10 @@ def get_valid_fields(valid_fields_file_path=VALID_FIELDS_FILE_PATH):
                 valid_slas = valid_fields_json.get("service_level_agreement", [])
                 valid_usage_types = valid_fields_json.get("usage", [])
         except (OSError, json.JSONDecodeError):
-            log.exception("parsing of syspurpose valid fields file at %s failed",
+            log.exception("parsing of syspurpose valid fields file at {} failed",
                           valid_fields_file_path)
     else:
-        log.warning("system purpose valid fields file not found at %s", valid_fields_file_path)
+        log.warning("system purpose valid fields file not found at {}", valid_fields_file_path)
     return valid_roles, valid_slas, valid_usage_types
 
 
@@ -131,13 +131,13 @@ def process_field(syspurpose_value, valid_values, value_name):
         value_match = None
 
     if value_match:
-        log.info("%s system purpose value %s from kickstart matched to known valid field %s",
+        log.info("{} system purpose value {} from kickstart matched to known valid field {}",
                  value_name,
                  syspurpose_value,
                  value_match)
         return value_match
     elif syspurpose_value:
-        log.info("using custom %s system purpose value from kickstart: %s",
+        log.info("using custom {} system purpose value from kickstart: {}",
                  value_name,
                  syspurpose_value)
         return syspurpose_value
@@ -195,7 +195,7 @@ def give_the_system_purpose(sysroot, rhsm_syspurpose_proxy, role, sla, usage, ad
             log.debug("subscription: system purpose has been set")
             return True
         except DBusError as e:
-            log.debug("subscription: failed to set system purpose: %s", str(e))
+            log.debug("subscription: failed to set system purpose: {}", str(e))
             return False
     else:
         log.warning("subscription: syspurpose will not be set as no fields have been provided")

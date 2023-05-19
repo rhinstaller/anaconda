@@ -54,7 +54,7 @@ def create_rescue_images(sysroot, kernel_versions):
         use_nkp = False
 
     for kernel in kernel_versions:
-        log.info("Generating rescue image for %s.", kernel)
+        log.info("Generating rescue image for {}.", kernel)
 
         if use_nkp:
             execWithRedirect(
@@ -119,7 +119,7 @@ def _collect_os_images(storage, kernel_versions):
     :param storage: an instance of the storage
     :param kernel_versions: a list of kernel versions
     """
-    log.debug("Collecting the OS images for: %s", ", ".join(kernel_versions))
+    log.debug("Collecting the OS images for: {}", ", ".join(kernel_versions))
 
     # all the linux images' labels are based on the default image's
     base_label = productName
@@ -203,10 +203,10 @@ def install_boot_loader(storage):
     log.debug("Installing the boot loader.")
 
     stage1_device = storage.bootloader.stage1_device
-    log.info("boot loader stage1 target device is %s", stage1_device.name)
+    log.info("boot loader stage1 target device is {}", stage1_device.name)
 
     stage2_device = storage.bootloader.stage2_device
-    log.info("boot loader stage2 target device is %s", stage2_device.name)
+    log.info("boot loader stage2 target device is {}", stage2_device.name)
 
     # Prepare the bootloader for the installation.
     storage.bootloader.prepare(storage)
@@ -229,12 +229,12 @@ def create_bls_entries(sysroot, storage, kernel_versions):
     # Remove any existing BLS entries, they will not match the new system's
     # machine-id or /boot mountpoint.
     for file in glob(sysroot + "/boot/loader/entries/*.conf"):
-        log.info("Removing old BLS entry: %s", file)
+        log.info("Removing old BLS entry: {}", file)
         os.unlink(file)
 
     # Create new BLS entries for this system
     for kernel in kernel_versions:
-        log.info("Regenerating BLS info for %s", kernel)
+        log.info("Regenerating BLS info for {}", kernel)
         execWithRedirect(
             "kernel-install",
             ["add", kernel, "/lib/modules/{0}/vmlinuz".format(kernel)],
@@ -272,7 +272,7 @@ def recreate_initrds(sysroot, kernel_versions):
         use_dracut = True
 
     for kernel in kernel_versions:
-        log.info("Recreating initrd for %s", kernel)
+        log.info("Recreating initrd for {}", kernel)
 
         if conf.target.is_image:
             # Dracut runs in the host-only mode by default, so we need to

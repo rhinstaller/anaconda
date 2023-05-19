@@ -132,7 +132,7 @@ class ThreadManager(object):
         for name in names:
             if self.get(name) == threading.current_thread():
                 continue
-            log.debug("Waiting for thread %s to exit", name)
+            log.debug("Waiting for thread {} to exit", name)
             self.wait(name)
 
         if self.any_errors:
@@ -248,19 +248,19 @@ class AnacondaThread(threading.Thread):
         self.daemon = True
 
     def _target_started(self):
-        log.info("Running Thread: %s (%s)", self.name, self.ident)
+        log.info("Running Thread: {} ({})", self.name, self.ident)
 
         if self._target_started_callback:
             self._target_started_callback()
 
     def _target_stopped(self):
-        log.info("Thread Done: %s (%s)", self.name, self.ident)
+        log.info("Thread Done: {} ({})", self.name, self.ident)
 
         if self._target_stopped_callback:
             self._target_stopped_callback()
 
     def _target_failed(self, *exc_info):
-        log.info("Thread Failed: %s (%s)", self.name, self.ident)
+        log.info("Thread Failed: {} ({})", self.name, self.ident)
 
         if self._fatal:
             import sys

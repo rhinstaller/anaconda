@@ -135,7 +135,7 @@ class AutoPartitioningModule(PartitioningModule):
         """
         self._request = request
         self.request_changed.emit()
-        log.debug("Request is set to '%s'.", request)
+        log.debug("Request is set to '{}'.", request)
 
     def requires_passphrase(self):
         """Is the default passphrase required?

@@ -212,7 +212,7 @@ class FilterPage(object):
         if not self.is_member(row.type):
             return False
 
-        log.debug("Filter %s with %s.", row.name, str(self))
+        log.debug("Filter {} with {}.", row.name, str(self))
 
         filter_by = self._combo.get_active_id()
         if filter_by == self.SEARCH_TYPE_NONE:
@@ -661,7 +661,7 @@ class FilterSpoke(NormalSpoke):
         page.is_active = True
         page.model.refilter()
 
-        log.debug("Show the page %s.", str(page))
+        log.debug("Show the page {}.", str(page))
 
         # Set up the UI.
         notebook.get_nth_page(new_page_num).show_all()

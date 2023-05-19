@@ -63,7 +63,7 @@ def mount_existing_system(storage, root_device, read_only=None):
         try:
             storage.fsset.turn_on_swap(root_path=root_path)
         except StorageError as e:
-            log.error("Error enabling swap: %s", str(e))
+            log.error("Error enabling swap: {}", str(e))
 
     # Generate mtab.
     if not read_only:
@@ -107,14 +107,14 @@ def _find_existing_installations(devicetree):
         try:
             device.setup()
         except Exception:  # pylint: disable=broad-except
-            log_exception_info(log.warning, "setup of %s failed", [device.name])
+            log_exception_info(log.warning, "setup of {} failed", [device.name])
             continue
 
         options = device.format.options + ",ro"
         try:
             device.format.mount(options=options, mountpoint=sysroot)
         except Exception:  # pylint: disable=broad-except
-            log_exception_info(log.warning, "mount of %s as %s failed", [device.name, device.format.type])
+            log_exception_info(log.warning, "mount of {} as {} failed", [device.name, device.format.type])
             blivet_util.umount(mountpoint=sysroot)
             continue
 
@@ -257,13 +257,13 @@ def _parse_fstab(devicetree, chroot):
     path = "%s/etc/fstab" % chroot
     if not os.access(path, os.R_OK):
         # XXX should we raise an exception instead?
-        log.info("cannot open %s for read", path)
+        log.info("cannot open {} for read", path)
         return mounts, devices
 
     blkid_tab = BlkidTab(chroot=chroot)
     try:
         blkid_tab.parse()
-        log.debug("blkid.tab devs: %s", list(blkid_tab.devices.keys()))
+        log.debug("blkid.tab devs: {}", list(blkid_tab.devices.keys()))
     except Exception:  # pylint: disable=broad-except
         log_exception_info(log.info, "error parsing blkid.tab")
         blkid_tab = None
@@ -271,13 +271,13 @@ def _parse_fstab(devicetree, chroot):
     crypt_tab = CryptTab(devicetree, blkid_tab=blkid_tab, chroot=chroot)
     try:
         crypt_tab.parse(chroot=chroot)
-        log.debug("crypttab maps: %s", list(crypt_tab.mappings.keys()))
+        log.debug("crypttab maps: {}", list(crypt_tab.mappings.keys()))
     except Exception:  # pylint: disable=broad-except
         log_exception_info(log.info, "error parsing crypttab")
         crypt_tab = None
 
     with open(path) as f:
-        log.debug("parsing %s", path)
+        log.debug("parsing {}", path)
         for line in f.readlines():
 
             (line, _pound, _comment) = line.partition("#")

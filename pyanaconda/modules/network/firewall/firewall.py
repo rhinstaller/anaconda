@@ -104,7 +104,7 @@ class FirewallModule(KickstartBaseModule):
         :param bool firewall_seen: if the firewall command has been present in input kickstart
         """
         self._firewall_seen = firewall_seen
-        log.debug("Firewall command considered seen in kickstart: %s.", self._firewall_seen)
+        log.debug("Firewall command considered seen in kickstart: {}.", self._firewall_seen)
 
     @property
     def firewall_mode(self):
@@ -123,7 +123,7 @@ class FirewallModule(KickstartBaseModule):
         """
         self._firewall_mode = firewall_mode
         self.firewall_mode_changed.emit()
-        log.debug("Firewall mode will be: %s", firewall_mode)
+        log.debug("Firewall mode will be: {}", firewall_mode)
 
     @property
     def enabled_ports(self):
@@ -142,7 +142,7 @@ class FirewallModule(KickstartBaseModule):
         """
         self._enabled_ports = list(enabled_ports)
         self.enabled_ports_changed.emit()
-        log.debug("Ports that will be allowed through the firewall: %s", self._enabled_ports)
+        log.debug("Ports that will be allowed through the firewall: {}", self._enabled_ports)
 
     @property
     def trusts(self):
@@ -161,7 +161,7 @@ class FirewallModule(KickstartBaseModule):
         """
         self._trusts = list(trusts)
         self.trusts_changed.emit()
-        log.debug("Trusted devices that will be allowed through the firewall: %s", self._trusts)
+        log.debug("Trusted devices that will be allowed through the firewall: {}", self._trusts)
 
     @property
     def enabled_services(self):
@@ -180,7 +180,7 @@ class FirewallModule(KickstartBaseModule):
         """
         self._enabled_services = list(enabled_services)
         self.enabled_services_changed.emit()
-        log.debug("Services that will be allowed through the firewall: %s",
+        log.debug("Services that will be allowed through the firewall: {}",
                   self._enabled_services)
 
     @property
@@ -200,7 +200,7 @@ class FirewallModule(KickstartBaseModule):
         """
         self._disabled_services = list(disabled_services)
         self.disabled_services_changed.emit()
-        log.debug("Services that will be explicitly disabled on the firewall: %s",
+        log.debug("Services that will be explicitly disabled on the firewall: {}",
                   self._disabled_services)
 
     def collect_requirements(self):

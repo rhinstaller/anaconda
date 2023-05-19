@@ -66,7 +66,7 @@ class SetUpNFSSourceTask(Task):
 
         :return SetUpNFSSourceResult: a result data
         """
-        log.debug("Setting up an NFS source: %s", self._url)
+        log.debug("Setting up an NFS source: {}", self._url)
 
         # Set up the NFS source.
         install_tree_path = self._set_up_source()
@@ -104,11 +104,11 @@ class SetUpNFSSourceTask(Task):
         iso_name = find_and_mount_iso_image(iso_source_path, self._iso_mount)
 
         if iso_name:
-            log.debug("Using the ISO '%s' mounted at '%s'.", iso_name, self._iso_mount)
+            log.debug("Using the ISO '{}' mounted at '{}'.", iso_name, self._iso_mount)
             return self._iso_mount
 
         if verify_valid_repository(self._device_mount):
-            log.debug("Using the directory at '%s'.", self._device_mount)
+            log.debug("Using the directory at '{}'.", self._device_mount)
             return self._device_mount
 
         # Nothing found.

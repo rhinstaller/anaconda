@@ -45,7 +45,7 @@ def get_config_files_paths(root_path=""):
     for directory in (os.path.normpath(root_path + IFCFG_DIR),
                       os.path.normpath(root_path + KEYFILE_DIR)):
         if not os.path.exists(directory):
-            log.info("network device config directory %s does not exist, skipping", directory)
+            log.info("network device config directory {} does not exist, skipping", directory)
             continue
 
         for filename in os.listdir(directory):

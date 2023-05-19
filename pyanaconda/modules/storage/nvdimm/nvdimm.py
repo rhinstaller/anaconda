@@ -124,21 +124,21 @@ class NVDIMMModule(KickstartBaseModule):
         for ns_name, ns_info in nvdimm.namespaces.items():
             # this is happening when namespace is set to DEVDAX mode - block device is not present
             if ns_info.blockdev is None:
-                log.debug("%s will be skipped - NVDIMM namespace block device information "
+                log.debug("{} will be skipped - NVDIMM namespace block device information "
                           "can't be retrieved", ns_name)
                 continue
 
             info = udev.get_device(device_node="/dev/" + ns_info.blockdev)
 
             if info and udev.device_get_format(info) == "iso9660":
-                log.debug("%s / %s won't be ignored - NVDIMM device has "
+                log.debug("{} / {} won't be ignored - NVDIMM device has "
                           "an iso9660 file system", ns_name, ns_info.blockdev)
                 continue
             elif ns_info.mode != blockdev.NVDIMMNamespaceMode.SECTOR:
-                log.debug("%s / %s will be ignored - NVDIMM device is not "
+                log.debug("{} / {} will be ignored - NVDIMM device is not "
                           "in sector mode", ns_name, ns_info.blockdev)
             elif ns_name not in namespaces_to_use and ns_info.blockdev not in devices_to_use:
-                log.debug("%s / %s will be ignored - NVDIMM device has not been "
+                log.debug("{} / {} will be ignored - NVDIMM device has not been "
                           "configured to be used", ns_name, ns_info.blockdev)
             else:
                 continue
@@ -213,7 +213,7 @@ class NVDIMMModule(KickstartBaseModule):
         :param namespaces: a list of namespaces
         :return: a list of actions
         """
-        log.debug("Setting namespaces to use to: %s", namespaces)
+        log.debug("Setting namespaces to use to: {}", namespaces)
 
         # Keep the reconfiguration actions.
         reconfigure_actions = [

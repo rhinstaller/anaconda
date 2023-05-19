@@ -61,7 +61,7 @@ class ConfigureInitialSetupTask(Task):
             enable_service(self.INITIAL_SETUP_UNIT_NAME, root=self._sysroot)
         else:
             log.debug("Initial Setup will not be started on first boot, because "
-                      "its unit file (%s) is not installed.", self.INITIAL_SETUP_UNIT_NAME)
+                      "its unit file ({}) is not installed.", self.INITIAL_SETUP_UNIT_NAME)
 
     def _disable_service(self):
         """Disable the Initial Setup service."""
@@ -122,7 +122,7 @@ class ConfigurePostInstallationToolsTask(Task):
     def _write_config(self, parser):
         """Write the user interaction config file."""
         path = os.path.join(self._sysroot, "etc/sysconfig/anaconda")
-        log.info("Writing out user interaction config at %s", path)
+        log.info("Writing out user interaction config at {}", path)
 
         try:
             with open(path, "wt") as f:
@@ -163,11 +163,11 @@ class ConfigureServicesTask(Task):
 
     def run(self):
         for service_name in self._disabled_services:
-            log.debug("Disabling service: %s.", service_name)
+            log.debug("Disabling service: {}.", service_name)
             disable_service(service_name, root=self._sysroot)
 
         for service_name in self._enabled_services:
-            log.debug("Enabling service: %s.", service_name)
+            log.debug("Enabling service: {}.", service_name)
             enable_service(service_name, root=self._sysroot)
 
 
@@ -230,14 +230,14 @@ class ConfigureSystemdDefaultTargetTask(Task):
         if not self._default_target:
             self._default_target = TEXT_ONLY_TARGET
 
-        log.debug("Setting systemd default target to: %s", self._default_target)
+        log.debug("Setting systemd default target to: {}", self._default_target)
         default_target_path = os.path.join(self._sysroot, 'etc/systemd/system/default.target')
         # unlink any links already in place
         if os.path.islink(default_target_path):
             os.unlink(default_target_path)
         # symlink the selected target
         selected_target_path = os.path.join('/usr/lib/systemd/system', self._default_target)
-        log.debug("Linking %s as systemd default target.", selected_target_path)
+        log.debug("Linking {} as systemd default target.", selected_target_path)
         os.symlink(selected_target_path, default_target_path)
 
 

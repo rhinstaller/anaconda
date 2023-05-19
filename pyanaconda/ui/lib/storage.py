@@ -144,7 +144,7 @@ def select_default_disks():
         # Select all disks.
         selected_disks = [d for d in all_disks if d not in ignored_disks]
         disk_select_proxy.SelectedDisks = selected_disks
-        log.debug("Selecting all disks by default: %s", ",".join(selected_disks))
+        log.debug("Selecting all disks by default: {}", ",".join(selected_disks))
     else:
         # Get usable disks.
         usable_disks = disk_select_proxy.GetUsableDisks()
@@ -155,7 +155,7 @@ def select_default_disks():
             selected_disks = available_disks
             apply_disk_selection(selected_disks)
 
-        log.debug("Selecting one or less disks by default: %s", ",".join(selected_disks))
+        log.debug("Selecting one or less disks by default: {}", ",".join(selected_disks))
 
     return selected_disks
 
@@ -302,7 +302,7 @@ def apply_partitioning(partitioning, show_message_cb, reset_storage_cb):
 
         result = unwrap_variant(task_proxy.GetResult())
         report = ValidationReport.from_structure(result)
-        log.debug("Validation has been completed: %s", report)
+        log.debug("Validation has been completed: {}", report)
 
         if report.is_valid():
             storage_proxy = STORAGE.get_proxy()
@@ -374,7 +374,7 @@ def ignore_nvdimm_blockdevs():
     if not ignored_nvdimm_devs:
         return
 
-    log.debug("Adding NVDIMM devices %s to ignored disks", ",".join(ignored_nvdimm_devs))
+    log.debug("Adding NVDIMM devices {} to ignored disks", ",".join(ignored_nvdimm_devs))
 
     disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
     ignored_disks = disk_select_proxy.IgnoredDisks
@@ -391,7 +391,7 @@ def ignore_oemdrv_disks():
         ignored_disks = disk_select_proxy.IgnoredDisks
 
         if oemdrv_disk not in ignored_disks:
-            log.info("Adding disk %s labeled OEMDRV to ignored disks.", oemdrv_disk)
+            log.info("Adding disk {} labeled OEMDRV to ignored disks.", oemdrv_disk)
             ignored_disks.append(oemdrv_disk)
             disk_select_proxy.IgnoredDisks = ignored_disks
 

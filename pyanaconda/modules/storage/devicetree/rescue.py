@@ -83,5 +83,5 @@ class MountExistingSystemTask(Task):
                 read_only=self._read_only
             )
         except StorageError as e:
-            log.error("Failed to mount the system: %s", e)
+            log.error("Failed to mount the system: {}", e)
             raise MountFilesystemError(str(e)) from e

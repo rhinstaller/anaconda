@@ -151,7 +151,7 @@ class TreeInfoMetadata(object):
         """
         self._reset()
 
-        log.debug("Load treeinfo metadata for '%s'.", path)
+        log.debug("Load treeinfo metadata for '{}'.", path)
 
         for name in self.TREE_INFO_NAMES:
             file_path = os.path.join(path, name)
@@ -183,7 +183,7 @@ class TreeInfoMetadata(object):
                 tree_info.load(file_path)
 
             tree_info.validate()
-            log.debug("Loaded treeinfo metadata:\n%s", tree_info.dumps())
+            log.debug("Loaded treeinfo metadata:\n{}", tree_info.dumps())
 
             # Load the release version.
             release_version = tree_info.release.version.lower()
@@ -193,7 +193,7 @@ class TreeInfoMetadata(object):
             repo_list = []
 
             for name in tree_info.variants:
-                log.debug("Processing the '%s' variant.", name)
+                log.debug("Processing the '{}' variant.", name)
 
                 # Get the variant metadata.
                 data = tree_info.variants[name]
@@ -208,7 +208,7 @@ class TreeInfoMetadata(object):
                 repo_list.append(repo_md)
 
         except configparser.Error as e:
-            log.debug("Failed to load treeinfo metadata: %s", e)
+            log.debug("Failed to load treeinfo metadata: {}", e)
             raise InvalidTreeInfoError("Invalid metadata: {}".format(str(e))) from None
 
         # Update this treeinfo representation.
@@ -232,7 +232,7 @@ class TreeInfoMetadata(object):
             raise NoTreeInfoError("No URL specified.")
 
         # Download the metadata.
-        log.debug("Load treeinfo metadata for '%s'.", data.url)
+        log.debug("Load treeinfo metadata for '{}'.", data.url)
 
         with requests_session() as session:
             downloader = self._get_downloader(session, data)
@@ -277,7 +277,7 @@ class TreeInfoMetadata(object):
                     "https": proxy.url
                 }
             except ProxyStringError as e:
-                log.debug("Failed to parse the proxy '%s': %s", proxy_url, e)
+                log.debug("Failed to parse the proxy '{}': {}", proxy_url, e)
 
         # Prepare headers.
         headers = {"user-agent": USER_AGENT}
@@ -308,7 +308,7 @@ class TreeInfoMetadata(object):
         for retry_count in range(0, retry_max):
             # Delay if we are retrying the download.
             if retry_count > 0:
-                log.info("Retrying download (%d/%d)", retry_count, retry_max - 1)
+                log.info("Retrying download ({:d}/{:d})", retry_count, retry_max - 1)
                 time.sleep(next(xdelay))
 
             # Download the metadata file.
@@ -324,7 +324,7 @@ class TreeInfoMetadata(object):
                         return r.text
 
                 except RequestException as e:
-                    log.debug("Failed to download '%s': %s", name, e)
+                    log.debug("Failed to download '{}': {}", name, e)
                     continue
 
             if not_found == set(self.TREE_INFO_NAMES):
@@ -482,9 +482,9 @@ class LoadTreeInfoMetadataTask(Task):
         try:
             return self._load_treeinfo_metadata()
         except NoTreeInfoError as e:
-            log.debug("No treeinfo metadata to use: %s", str(e))
+            log.debug("No treeinfo metadata to use: {}", str(e))
         except TreeInfoMetadataError as e:
-            log.warning("Couldn't use treeinfo metadata: %s", str(e))
+            log.warning("Couldn't use treeinfo metadata: {}", str(e))
 
         return self._handle_no_treeinfo_metadata()
 

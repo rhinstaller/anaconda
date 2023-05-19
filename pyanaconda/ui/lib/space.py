@@ -90,7 +90,7 @@ class FileSystemSpaceChecker(object):
         """
         free = self._calculate_free_space()
         needed = self._calculate_needed_space()
-        log.info("fs space: %s  needed: %s", free, needed)
+        log.info("fs space: {}  needed: {}", free, needed)
 
         if free > needed:
             result = True

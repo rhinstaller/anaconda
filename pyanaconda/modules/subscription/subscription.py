@@ -311,7 +311,7 @@ class SubscriptionService(KickstartService):
         """
         self._system_purpose_data = system_purpose_data
         self.system_purpose_data_changed.emit()
-        log.debug("System purpose data set to %s.", system_purpose_data)
+        log.debug("System purpose data set to {}.", system_purpose_data)
 
     def _apply_syspurpose(self):
         """Apply system purpose information to the installation environment."""
@@ -360,7 +360,7 @@ class SubscriptionService(KickstartService):
         """
         self._replace_current_subscription_request(subscription_request)
         self.subscription_request_changed.emit()
-        log.debug("A subscription request set: %s", str(self._subscription_request))
+        log.debug("A subscription request set: {}", str(self._subscription_request))
 
     @property
     def attached_subscriptions(self):
@@ -386,7 +386,7 @@ class SubscriptionService(KickstartService):
         # as there is no public setter in the DBus API, we need to emit
         # the properties changed signal here manually
         self.module_properties_changed.emit()
-        log.debug("Attached subscriptions set: %s", str(self._attached_subscriptions))
+        log.debug("Attached subscriptions set: {}", str(self._attached_subscriptions))
 
     def _replace_current_subscription_request(self, new_request):
         """Replace current subscription request without loosing sensitive data.
@@ -446,7 +446,7 @@ class SubscriptionService(KickstartService):
         """
         self._connect_to_insights = connect
         self.connect_to_insights_changed.emit()
-        log.debug("Connect target system to Insights set to: %s", self._connect_to_insights)
+        log.debug("Connect target system to Insights set to: {}", self._connect_to_insights)
 
     # registration status
 
@@ -475,7 +475,7 @@ class SubscriptionService(KickstartService):
         # as there is no public setter in the DBus API, we need to emit
         # the properties changed signal here manually
         self.module_properties_changed.emit()
-        log.debug("System registered set to: %s", system_registered)
+        log.debug("System registered set to: {}", system_registered)
 
     # subscription status
 
@@ -498,7 +498,7 @@ class SubscriptionService(KickstartService):
         # as there is no public setter in the DBus API, we need to emit
         # the properties changed signal here manually
         self.module_properties_changed.emit()
-        log.debug("Subscription attached set to: %s", system_subscription_attached)
+        log.debug("Subscription attached set to: {}", system_subscription_attached)
 
     # tasks
 

@@ -68,7 +68,7 @@ class PreconfigureFIPSTask(Task):
             return
 
         if self._payload_type != PAYLOAD_TYPE_DNF:
-            log.debug("Don't set up FIPS for the %s payload.", self._payload_type)
+            log.debug("Don't set up FIPS for the {} payload.", self._payload_type)
             return
 
         if not self._check_fips():
@@ -85,7 +85,7 @@ class PreconfigureFIPSTask(Task):
         config_path = "/etc/crypto-policies/config"
 
         if not os.path.exists(config_path):
-            log.error("File '%s' doesn't exist.", config_path)
+            log.error("File '{}' doesn't exist.", config_path)
             return False
 
         with open(config_path) as f:
@@ -156,7 +156,7 @@ class ConfigureFIPSTask(Task):
             return
 
         if not conf.target.is_hardware:
-            log.debug("Don't set up FIPS on %s.", conf.target.type.value)
+            log.debug("Don't set up FIPS on {}.", conf.target.type.value)
             return
 
         # We use the --no-bootcfg option as we don't want fips-mode-setup
@@ -204,13 +204,13 @@ class ConfigureSELinuxTask(Task):
             return
 
         if self._selinux_mode not in self.SELINUX_STATES:
-            log.error("Unknown SELinux state for %s.", self._selinux_mode)
+            log.error("Unknown SELinux state for {}.", self._selinux_mode)
             return
 
         try:
             # Read the SELinux configuration file.
             path = join_paths(self._sysroot, self.SELINUX_CONFIG_PATH)
-            log.debug("Modifying the configuration at %s.", path)
+            log.debug("Modifying the configuration at {}.", path)
 
             with open(path, "r") as f:
                 lines = f.readlines()
@@ -223,7 +223,7 @@ class ConfigureSELinuxTask(Task):
                 f.writelines(lines)
 
         except OSError as msg:
-            log.error("SELinux configuration failed: %s", msg)
+            log.error("SELinux configuration failed: {}", msg)
 
     @property
     def _selinux_state(self):
@@ -233,9 +233,9 @@ class ConfigureSELinuxTask(Task):
     def _process_line(self, line):
         """Process a line from the SELinux configuration file."""
         if line.strip().startswith("SELINUX="):
-            log.debug("Found '%s'.", line.strip())
+            log.debug("Found '{}'.", line.strip())
             line = "SELINUX={}\n".format(self._selinux_state)
-            log.debug("Setting '%s'.", line.strip())
+            log.debug("Setting '{}'.", line.strip())
             return line
 
         return line
@@ -283,7 +283,7 @@ class RealmDiscoverTask(Task):
         lines = output.split("\n")
         if lines:
             discovered_realm_data = lines.pop(0).strip()
-            log.info("Realm discovered: %s", discovered_realm_data)
+            log.info("Realm discovered: {}", discovered_realm_data)
             for line in lines:
                 parts = line.split(":", 1)
                 if len(parts) == 2 and parts[0].strip() == "required-package":
@@ -292,7 +292,7 @@ class RealmDiscoverTask(Task):
                     if package_spec:
                         required_packages.append(package_spec)
 
-            log.info("Realm %s needs packages %s",
+            log.info("Realm {} needs packages {}",
                      discovered_realm_data, ", ".join(required_packages))
         return bool(discovered_realm_data), required_packages
 
@@ -346,7 +346,7 @@ class RealmJoinTask(Task):
 
     def set_realm_data(self, realm_data):
         """Set a new version of realm data to the task."""
-        log.debug("Setting new realm data for realm join task: %s", realm_data)
+        log.debug("Setting new realm data for realm join task: {}", realm_data)
         self._realm_data = realm_data
 
     def run(self):
@@ -368,13 +368,13 @@ class RealmJoinTask(Task):
         try:
             rc = util.execWithRedirect(REALM_TOOL_NAME, argv)
         except OSError:
-            log.exception("Realm %s join failed with exception.", self._realm_data.name)
+            log.exception("Realm {} join failed with exception.", self._realm_data.name)
             pass
 
         if rc == 0:
-            log.info("Joined realm %s", self._realm_data.name)
+            log.info("Joined realm {}", self._realm_data.name)
         else:
-            log.info("Joining realm %s failed", self._realm_data.name)
+            log.info("Joining realm {} failed", self._realm_data.name)
 
 
 def run_auth_tool(cmd, args, root, required=True):
@@ -397,10 +397,10 @@ def run_auth_tool(cmd, args, root, required=True):
             log.error(msg)
             return
     try:
-        log.debug("Configuring authentication: %s %s", cmd, args)
+        log.debug("Configuring authentication: {} {}", cmd, args)
         util.execWithRedirect(cmd, args, root=root)
     except RuntimeError as msg:
-        log.error("Error running %s %s: %s", cmd, args, msg)
+        log.error("Error running {} {}: {}", cmd, args, msg)
 
 
 class ConfigureFingerprintAuthTask(Task):

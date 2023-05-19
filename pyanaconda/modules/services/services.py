@@ -146,7 +146,7 @@ class ServicesService(KickstartService):
         """
         self._enabled_services = list(services)
         self.enabled_services_changed.emit()
-        log.debug("Enabled services are set to %s.", services)
+        log.debug("Enabled services are set to {}.", services)
 
     @property
     def disabled_services(self):
@@ -160,7 +160,7 @@ class ServicesService(KickstartService):
         """
         self._disabled_services = list(services)
         self.disabled_services_changed.emit()
-        log.debug("Disabled services are set to %s.", services)
+        log.debug("Disabled services are set to {}.", services)
 
     @property
     def default_target(self):
@@ -180,7 +180,7 @@ class ServicesService(KickstartService):
 
         self._default_target = target
         self.default_target_changed.emit()
-        log.debug("Default target is set to %s.", target)
+        log.debug("Default target is set to {}.", target)
 
     @property
     def default_desktop(self):
@@ -194,7 +194,7 @@ class ServicesService(KickstartService):
         """
         self._default_desktop = desktop
         self.default_desktop_changed.emit()
-        log.debug("Default desktop is set to %s.", desktop)
+        log.debug("Default desktop is set to {}.", desktop)
 
     @property
     def setup_on_boot(self):
@@ -208,7 +208,7 @@ class ServicesService(KickstartService):
         """
         self._setup_on_boot = value
         self.setup_on_boot_changed.emit()
-        log.debug("Setup on boot is set to %s.", value)
+        log.debug("Setup on boot is set to {}.", value)
 
     @property
     def post_install_tools_enabled(self):

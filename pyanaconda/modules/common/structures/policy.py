@@ -104,7 +104,7 @@ class PasswordPolicy(DBusData):
             break
         else:
             log.debug(
-                "No default %s password policy is "
+                "No default {} password policy is "
                 "configured.", policy_name
             )
 

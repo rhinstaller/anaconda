@@ -93,7 +93,7 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         elif constants.FIRSTBOOT_ENVIRON in flags.environs:
             self._ntp_servers = ntp.get_servers_from_config()
         else:
-            log.error("tui time spoke: unsupported environment configuration %s,"
+            log.error("tui time spoke: unsupported environment configuration {},"
                       "can't decide where to get initial NTP servers", flags.environs)
 
         # check if the newly added NTP servers work fine

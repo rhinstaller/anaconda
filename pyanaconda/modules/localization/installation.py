@@ -68,8 +68,8 @@ class LanguageInstallationTask(Task):
         if self._is_language_support_installed(self._lang):
             return self._lang
 
-        log.debug("The '%s' locale is unsupported.", self._lang)
-        log.debug("Using the '%s' locale as a fallback.", self.LOCALE_FALLBACK)
+        log.debug("The '{}' locale is unsupported.", self._lang)
+        log.debug("Using the '{}' locale as a fallback.", self.LOCALE_FALLBACK)
         return self.LOCALE_FALLBACK
 
     def _is_language_support_installed(self, lang):
@@ -84,12 +84,12 @@ class LanguageInstallationTask(Task):
         try:
             output = execWithCapture("locale", ["-a"], root=self._sysroot)
         except OSError as e:
-            log.warning("Couldn't get supported locales: %s", e)
+            log.warning("Couldn't get supported locales: {}", e)
             return True
 
         match = find_best_locale_match(lang, output.splitlines())
 
-        log.debug("The '%s' locale matched '%s'.", lang, match)
+        log.debug("The '{}' locale matched '{}'.", lang, match)
         return bool(match)
 
     def _write_language_configuration(self, lang):
@@ -99,7 +99,7 @@ class LanguageInstallationTask(Task):
         """
         try:
             fpath = join_paths(self._sysroot, self.LOCALE_CONF_FILE_PATH)
-            log.debug("Writing the '%s' locale to %s.", lang, fpath)
+            log.debug("Writing the '{}' locale to {}.", lang, fpath)
 
             with open(fpath, "w") as fobj:
                 fobj.write('LANG="{}"\n'.format(lang))
@@ -184,7 +184,7 @@ def write_x_configuration(localed_wrapper, x_layouts, switch_options, x_conf_dir
             os.makedirs(x_conf_dir_path)
     except OSError:
         # Non-fatal, systemd-localed may create the directory on its own.
-        log.debug("Cannot create X Layouts configuration directory %s", x_conf_dir_path)
+        log.debug("Cannot create X Layouts configuration directory {}", x_conf_dir_path)
 
     if root != "/":
         # Writing to a different root, we need to save these values, so that
@@ -211,7 +211,7 @@ def write_x_configuration(localed_wrapper, x_layouts, switch_options, x_conf_dir
         try:
             shutil.copy2(xconf_file_path, rooted_xconf_file_path)
         except OSError as ioerr:
-            log.error("Cannot copy X layouts configuration file %s to target system: %s.",
+            log.error("Cannot copy X layouts configuration file {} to target system: {}.",
                       xconf_file_path, ioerr.strerror)
 
         # Restore the original values.

@@ -241,7 +241,7 @@ class BootloaderModule(KickstartBaseModule):
         """
         self._bootloader_mode = mode
         self.bootloader_mode_changed.emit()
-        log.debug("Bootloader mode is set to '%s'.", mode)
+        log.debug("Bootloader mode is set to '{}'.", mode)
 
     def get_default_type(self):
         """Get the default type of the boot loader.
@@ -263,7 +263,7 @@ class BootloaderModule(KickstartBaseModule):
 
         # Set up the property.
         self._default_type = default_type
-        log.debug("The default type is set to '%s'.", default_type)
+        log.debug("The default type is set to '{}'.", default_type)
 
     @property
     def preferred_location(self):
@@ -279,7 +279,7 @@ class BootloaderModule(KickstartBaseModule):
         """
         self._preferred_location = location
         self.preferred_location_changed.emit()
-        log.debug("Preferred location is set to '%s'.", location)
+        log.debug("Preferred location is set to '{}'.", location)
 
     @property
     def drive(self):
@@ -293,7 +293,7 @@ class BootloaderModule(KickstartBaseModule):
         """
         self._drive = drive
         self.drive_changed.emit()
-        log.debug("Drive is set to '%s'.", drive)
+        log.debug("Drive is set to '{}'.", drive)
 
     @property
     def drive_order(self):
@@ -307,7 +307,7 @@ class BootloaderModule(KickstartBaseModule):
         """
         self._drive_order = drives
         self.drive_order_changed.emit()
-        log.debug("Drive order is set to '%s'.", drives)
+        log.debug("Drive order is set to '{}'.", drives)
 
     @property
     def keep_mbr(self):
@@ -321,7 +321,7 @@ class BootloaderModule(KickstartBaseModule):
         """
         self._keep_mbr = value
         self.keep_mbr_changed.emit()
-        log.debug("Keep MBR is set to '%s'.", value)
+        log.debug("Keep MBR is set to '{}'.", value)
 
     @property
     def keep_boot_order(self):
@@ -336,7 +336,7 @@ class BootloaderModule(KickstartBaseModule):
         """
         self._keep_boot_order = value
         self.keep_boot_order_changed.emit()
-        log.debug("Keep boot order is set to '%s'.", value)
+        log.debug("Keep boot order is set to '{}'.", value)
 
     @property
     def extra_arguments(self):
@@ -350,7 +350,7 @@ class BootloaderModule(KickstartBaseModule):
         """
         self._extra_arguments = args
         self.extra_arguments_changed.emit()
-        log.debug("Extra arguments are set to '%s'.", args)
+        log.debug("Extra arguments are set to '{}'.", args)
 
     @property
     def timeout(self):
@@ -364,7 +364,7 @@ class BootloaderModule(KickstartBaseModule):
         """
         self._timeout = timeout
         self.timeout_changed.emit()
-        log.debug("Timeout is set to '%s'.", timeout)
+        log.debug("Timeout is set to '{}'.", timeout)
 
     @property
     def zipl_secure_boot(self):
@@ -384,7 +384,7 @@ class BootloaderModule(KickstartBaseModule):
         """
         self._zipl_secure_boot = value
         self.zipl_secure_boot_changed.emit()
-        log.debug("ZIPL Secure Boot is set to '%s'.", value)
+        log.debug("ZIPL Secure Boot is set to '{}'.", value)
 
     @property
     def password(self):

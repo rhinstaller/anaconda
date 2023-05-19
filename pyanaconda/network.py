@@ -86,7 +86,7 @@ def check_ip_address(address, version=None):
         elif not version:  # any of those
             ipaddress.ip_address(address)
         else:
-            log.error("IP version %s is not supported", version)
+            log.error("IP version {} is not supported", version)
             return False
         return True
     except ValueError:
@@ -202,13 +202,13 @@ def iface_for_host_ip(host_ip):
     """Get interface used to access given host IP."""
     route = util.execWithCapture("ip", ["route", "get", "to", host_ip])
     if not route:
-        log.error("Could not get interface for route to %s", host_ip)
+        log.error("Could not get interface for route to {}", host_ip)
         return ""
 
     route_info = route.split()
     if route_info[0] != host_ip or len(route_info) < 5 or \
        "dev" not in route_info or route_info.index("dev") > 3:
-        log.error('Unexpected "ip route get to %s" reply: %s', host_ip, route_info)
+        log.error('Unexpected "ip route get to {}" reply: {}', host_ip, route_info)
         return ""
 
     return route_info[route_info.index("dev") + 1]
@@ -217,7 +217,7 @@ def iface_for_host_ip(host_ip):
 def run_network_initialization_task(task_path):
     """Run network initialization task and log the result."""
     task_proxy = NETWORK.get_proxy(task_path)
-    log.debug("Running task %s", task_proxy.Name)
+    log.debug("Running task {}", task_proxy.Name)
     sync_run_task(task_proxy)
     result = get_native(task_proxy.GetResult())
     msg = "%s result: %s" % (task_proxy.Name, result)
@@ -235,7 +235,7 @@ def initialize_network():
     log.debug(msg)
     network_proxy.LogConfigurationState(msg)
 
-    log.debug("Devices found: %s",
+    log.debug("Devices found: {}",
               [dev.device_name for dev in get_supported_devices()])
 
     run_network_initialization_task(network_proxy.ApplyKickstartWithTask())
@@ -244,7 +244,7 @@ def initialize_network():
     if not network_proxy.Hostname:
         bootopts_hostname = hostname_from_cmdline(kernel_arguments)
         if bootopts_hostname:
-            log.debug("Updating host name from boot options: %s", bootopts_hostname)
+            log.debug("Updating host name from boot options: {}", bootopts_hostname)
             network_proxy.Hostname = bootopts_hostname
 
     # Create device configuration tracking in the module.
@@ -291,14 +291,14 @@ def _set_ntp_servers_from_dhcp():
 
     timezone_proxy = TIMEZONE.get_proxy()
     ntp_servers = get_ntp_servers_from_dhcp(get_nm_client())
-    log.info("got %d NTP servers from DHCP", len(ntp_servers))
+    log.info("got {:d} NTP servers from DHCP", len(ntp_servers))
     hostnames = []
     for server_address in ntp_servers:
         try:
             hostname = socket.gethostbyaddr(server_address)[0]
         except socket.error:
             # getting hostname failed, just use the address returned from DHCP
-            log.debug("getting NTP server host name failed for address: %s",
+            log.debug("getting NTP server host name failed for address: {}",
                       server_address)
             hostname = server_address
         hostnames.append(hostname)
@@ -340,24 +340,24 @@ def wait_for_connected_NM(timeout=constants.NETWORK_CONNECTION_TIMEOUT, only_con
 
     if only_connecting:
         if network_proxy.IsConnecting():
-            log.debug("waiting for connecting NM (dhcp in progress?), timeout=%d", timeout)
+            log.debug("waiting for connecting NM (dhcp in progress?), timeout={:d}", timeout)
         else:
             return False
     else:
-        log.debug("waiting for connected NM, timeout=%d", timeout)
+        log.debug("waiting for connected NM, timeout={:d}", timeout)
 
     i = 0
     while i < timeout:
         i += constants.NETWORK_CONNECTED_CHECK_INTERVAL
         time.sleep(constants.NETWORK_CONNECTED_CHECK_INTERVAL)
         if network_proxy.Connected:
-            log.debug("NM connected, waited %d seconds", i)
+            log.debug("NM connected, waited {:d} seconds", i)
             return True
         elif only_connecting:
             if not network_proxy.IsConnecting():
                 break
 
-    log.debug("NM not connected, waited %d seconds", i)
+    log.debug("NM not connected, waited {:d} seconds", i)
     return False
 
 
@@ -365,7 +365,7 @@ def wait_for_network_devices(devices, timeout=constants.NETWORK_CONNECTION_TIMEO
     """Wait for network devices to be activated with a connection."""
     devices = set(devices)
     i = 0
-    log.debug("waiting for connection of devices %s for iscsi", devices)
+    log.debug("waiting for connection of devices {} for iscsi", devices)
     while i < timeout:
         network_proxy = NETWORK.get_proxy()
         activated_devices = network_proxy.GetActivatedInterfaces()

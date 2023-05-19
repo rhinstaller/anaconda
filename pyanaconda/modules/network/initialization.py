@@ -80,17 +80,17 @@ class ApplyKickstartTask(Task):
         applied_devices = []
 
         if not self._network_data:
-            log.debug("%s: No kickstart data.", self.name)
+            log.debug("{}: No kickstart data.", self.name)
             return applied_devices
 
         if not nm_client:
-            log.debug("%s: No NetworkManager available.", self.name)
+            log.debug("{}: No NetworkManager available.", self.name)
             return applied_devices
 
         for network_data in self._network_data:
             # Wireless is not supported
             if network_data.essid:
-                log.info("%s: Wireless devices configuration is not supported.", self.name)
+                log.info("{}: Wireless devices configuration is not supported.", self.name)
                 continue
 
             device_name = get_device_name_from_network_data(nm_client,
@@ -98,7 +98,7 @@ class ApplyKickstartTask(Task):
                                                             self._supported_devices,
                                                             self._bootif)
             if not device_name:
-                log.warning("%s: --device %s not found", self.name, network_data.device)
+                log.warning("{}: --device {} not found", self.name, network_data.device)
                 continue
 
             applied_devices.append(device_name)
@@ -107,7 +107,7 @@ class ApplyKickstartTask(Task):
 
             if connection:
                 # if the device was already configured in initramfs update the settings
-                log.debug("%s: updating connection %s of device %s",
+                log.debug("{}: updating connection {} of device {}",
                           self.name, connection.get_uuid(), device_name)
                 update_connection_from_ksdata(
                     nm_client,
@@ -119,10 +119,10 @@ class ApplyKickstartTask(Task):
                 if network_data.activate:
                     device = nm_client.get_device_by_iface(device_name)
                     nm_client.activate_connection_async(connection, device, None, None)
-                    log.debug("%s: activating updated connection %s with device %s",
+                    log.debug("{}: activating updated connection {} with device {}",
                               self.name, connection.get_uuid(), device_name)
             else:
-                log.debug("%s: adding connection for %s", self.name, device_name)
+                log.debug("{}: adding connection for {}", self.name, device_name)
                 add_connection_from_ksdata(
                     nm_client,
                     network_data,
@@ -176,7 +176,7 @@ class DumpMissingConfigFilesTask(Task):
                 if allow_ports or not con.get_setting_connection().get_master():
                     return con
             else:
-                log.debug("%s: active connection for %s can't be used as persistent",
+                log.debug("{}: active connection for {} can't be used as persistent",
                           self.name, iface)
         for con in cons:
             if con.get_interface_name() == iface:
@@ -185,7 +185,7 @@ class DumpMissingConfigFilesTask(Task):
         return None
 
     def _update_connection(self, nm_client, con, iface):
-        log.debug("%s: updating id and binding (interface-name) of connection %s for %s",
+        log.debug("{}: updating id and binding (interface-name) of connection {} for {}",
                   self.name, con.get_uuid(), iface)
         s_con = con.get_setting_connection()
         s_con.set_property(NM.SETTING_CONNECTION_ID, iface)
@@ -197,9 +197,9 @@ class DumpMissingConfigFilesTask(Task):
             bound_mac = bound_hwaddr_of_device(nm_client, iface, self._ifname_option_values)
             if bound_mac:
                 s_wired.set_property(NM.SETTING_WIRED_MAC_ADDRESS, bound_mac)
-                log.debug("%s: iface %s bound to mac address %s by ifname boot option",
+                log.debug("{}: iface {} bound to mac address {} by ifname boot option",
                           self.name, iface, bound_mac)
-        log.debug("%s: updating addr-gen-mode of connection %s for %s",
+        log.debug("{}: updating addr-gen-mode of connection {} for {}",
                   self.name, con.get_uuid(), iface)
         s_ipv6 = con.get_setting_ip6_config()
         # For example port connections do not have ipv6 setting present
@@ -221,7 +221,7 @@ class DumpMissingConfigFilesTask(Task):
         new_configs = []
 
         if not nm_client:
-            log.debug("%s: No NetworkManager available.", self.name)
+            log.debug("{}: No NetworkManager available.", self.name)
             return new_configs
 
         dumped_device_types = supported_wired_device_types + virtual_device_types
@@ -234,7 +234,7 @@ class DumpMissingConfigFilesTask(Task):
                 continue
 
             cons = device.get_available_connections()
-            log.debug("%s: %s connections found for device %s", self.name,
+            log.debug("{}: {} connections found for device {}", self.name,
                       [con.get_uuid() for con in cons], iface)
             n_cons = len(cons)
             con = None
@@ -243,12 +243,12 @@ class DumpMissingConfigFilesTask(Task):
             if device_is_port:
                 # We have to dump persistent ifcfg files for ports created in initramfs
                 if n_cons == 1 and self._is_initramfs_connection(cons[0], iface):
-                    log.debug("%s: device %s has an initramfs port connection",
+                    log.debug("{}: device {} has an initramfs port connection",
                               self.name, iface)
                     con = self._select_persistent_connection_for_device(
                         device, cons, allow_ports=True)
                 else:
-                    log.debug("%s: creating default connection for port device %s",
+                    log.debug("{}: creating default connection for port device {}",
                               self.name, iface)
 
             if not con:
@@ -256,7 +256,7 @@ class DumpMissingConfigFilesTask(Task):
 
             has_initramfs_con = any(self._is_initramfs_connection(con, iface) for con in cons)
             if has_initramfs_con:
-                log.debug("%s: device %s has initramfs connection", self.name, iface)
+                log.debug("{}: device %s has initramfs connection", self.name, iface)
                 if not con and n_cons == 1:
                     # Try to clone the persistent connection for the device
                     # from the connection which should be a generic (not bound
@@ -285,17 +285,17 @@ class DumpMissingConfigFilesTask(Task):
                              -1)
                         ]
                     )
-                log.debug("%s: dumping connection %s to config file for %s",
+                log.debug("{}: dumping connection %s to config file for {}",
                           self.name, con.get_uuid(), iface)
                 commit_changes_with_autoconnection_blocked(con, nm_client)
             else:
-                log.debug("%s: none of the connections can be dumped as persistent",
+                log.debug("{}: none of the connections can be dumped as persistent",
                           self.name)
                 if n_cons > 1 and not device_is_port:
-                    log.warning("%s: unexpected number of connections, not dumping any",
+                    log.warning("{}: unexpected number of connections, not dumping any",
                                 self.name)
                     continue
-                log.debug("%s: creating default connection for %s", self.name, iface)
+                log.debug("{}: creating default connection for {}", self.name, iface)
                 network_data = copy.deepcopy(self._default_network_data)
                 if has_initramfs_con:
                     network_data.onboot = True

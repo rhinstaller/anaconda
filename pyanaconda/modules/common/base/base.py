@@ -114,7 +114,7 @@ class Service(BaseModule):
         setlocale(LC_ALL, locale)
         # Set locale for child processes
         setenv("LANG", locale)
-        log.debug("Locale is set to %s.", locale)
+        log.debug("Locale is set to {}.", locale)
 
 
 class KickstartBaseModule(BaseModule):
@@ -193,7 +193,7 @@ class KickstartService(Service, KickstartBaseModule):
     def kickstarted(self, value):
         self._kickstarted = value
         self.kickstarted_changed.emit()
-        log.debug("Kickstarted is set to %s.", value)
+        log.debug("Kickstarted is set to {}.", value)
 
     def get_kickstart_handler(self):
         """Return a kickstart handler.

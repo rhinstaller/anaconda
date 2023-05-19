@@ -367,7 +367,7 @@ class DNFManager(object):
             return
 
         # Set the proxy configuration.
-        log.info("Using '%s' as a proxy.", url)
+        log.info("Using '{}' as a proxy.", url)
         base.conf.proxy = proxy.noauth_url
         base.conf.proxy_username = proxy.username or ""
         base.conf.proxy_password = proxy.password or ""
@@ -384,7 +384,7 @@ class DNFManager(object):
         try:
             return ProxyString(url)
         except ProxyStringError as e:
-            log.error("Failed to parse the proxy '%s': %s", url, e)
+            log.error("Failed to parse the proxy '{}': {}", url, e)
 
         return None
 
@@ -392,8 +392,8 @@ class DNFManager(object):
         """Log the state of the DNF configuration."""
         log.debug(
             "DNF configuration:"
-            "\n%s"
-            "\nsubstitutions = %s",
+            "\n{}"
+            "\nsubstitutions = {}",
             self._base.conf.dump().strip(),
             self._base.conf.substitutions
         )
@@ -422,7 +422,7 @@ class DNFManager(object):
             return
 
         self._base.conf.releasever = release_version
-        log.debug("The $releasever variable is set to '%s'.", release_version)
+        log.debug("The $releasever variable is set to '{}'.", release_version)
 
     def get_installation_size(self):
         """Calculate the installation size.
@@ -448,7 +448,7 @@ class DNFManager(object):
         # Get the total size. Add another 10% as safeguard.
         total_space = Size((packages_size + files_size) * 1.1)
 
-        log.info("Total install size: %s", total_space)
+        log.info("Total install size: {}", total_space)
         return total_space
 
     def get_download_size(self):
@@ -469,7 +469,7 @@ class DNFManager(object):
         # Get the total size. Reserve extra space.
         total_space = download_size + Size("150 MiB")
 
-        log.info("Total download size: %s", total_space)
+        log.info("Total download size: {}", total_space)
         return total_space
 
     def clear_cache(self):
@@ -517,13 +517,13 @@ class DNFManager(object):
         :raise MissingSpecsError: if there are missing specs
         :raise BrokenSpecsError: if there are broken specs
         """
-        log.debug("Enabling modules: %s", module_specs)
+        log.debug("Enabling modules: {}", module_specs)
 
         try:
             module_base = dnf.module.module_base.ModuleBase(self._base)
             module_base.enable(module_specs)
         except dnf.exceptions.MarkingErrors as e:
-            log.error("Failed to enable modules!\n%s", str(e))
+            log.error("Failed to enable modules!\n{}", str(e))
             self._handle_marking_errors(e)
 
     def disable_modules(self, module_specs):
@@ -536,12 +536,12 @@ class DNFManager(object):
         :raise MissingSpecsError: if there are missing specs
         :raise BrokenSpecsError: if there are broken specs
         """
-        log.debug("Disabling modules: %s", module_specs)
+        log.debug("Disabling modules: {}", module_specs)
         try:
             module_base = dnf.module.module_base.ModuleBase(self._base)
             module_base.disable(module_specs)
         except dnf.exceptions.MarkingErrors as e:
-            log.error("Failed to disable modules!\n%s", str(e))
+            log.error("Failed to disable modules!\n{}", str(e))
             self._handle_marking_errors(e)
 
     def apply_specs(self, include_list, exclude_list):
@@ -552,8 +552,8 @@ class DNFManager(object):
         :raise MissingSpecsError: if there are missing specs
         :raise BrokenSpecsError: if there are broken specs
         """
-        log.info("Including specs: %s", include_list)
-        log.info("Excluding specs: %s", exclude_list)
+        log.info("Including specs: {}", include_list)
+        log.info("Excluding specs: {}", exclude_list)
 
         try:
             self._base.install_specs(
@@ -562,7 +562,7 @@ class DNFManager(object):
                 strict=not self._ignore_broken_packages
             )
         except dnf.exceptions.MarkingErrors as e:
-            log.error("Failed to apply specs!\n%s", str(e))
+            log.error("Failed to apply specs!\n{}", str(e))
             self._handle_marking_errors(e, self._ignore_missing_packages)
 
     def _handle_marking_errors(self, exception, ignore_missing_packages=False):
@@ -608,7 +608,7 @@ class DNFManager(object):
         try:
             self._base.resolve()
         except dnf.exceptions.DepsolveError as e:
-            log.error("The software couldn't be resolved!\n%s", str(e))
+            log.error("The software couldn't be resolved!\n{}", str(e))
 
             message = _(
                 "The following software marked for installation has errors.\n"
@@ -617,7 +617,7 @@ class DNFManager(object):
 
             raise InvalidSelectionError(message + "\n\n" + str(e).strip()) from None
 
-        log.info("The software selection has been resolved (%d packages selected).",
+        log.info("The software selection has been resolved ({:d} packages selected).",
                  len(self._base.transaction))
 
     def clear_selection(self):
@@ -649,7 +649,7 @@ class DNFManager(object):
         packages = self._base.transaction.install_set  # pylint: disable=no-member
         progress = DownloadProgress(callback=callback)
 
-        log.info("Downloading packages to %s.", self.download_location)
+        log.info("Downloading packages to {}.", self.download_location)
 
         try:
             self._base.download_packages(packages, progress)
@@ -688,7 +688,7 @@ class DNFManager(object):
             # Kill the transaction after the timeout.
             process.join(timeout)
             process.kill()
-            log.debug("The transaction process exited with %s.", process.exitcode)
+            log.debug("The transaction process exited with {}.", process.exitcode)
 
     @staticmethod
     def _run_transaction(base, display):
@@ -708,7 +708,7 @@ class DNFManager(object):
             base.do_transaction(display)
             exit_reason = "DNF done"
         except BaseException as e:  # pylint: disable=broad-except
-            log.error("The transaction has ended abruptly: %s", str(e))
+            log.error("The transaction has ended abruptly: {}", str(e))
             exit_reason = str(e) + traceback.format_exc()
         finally:
             log.debug("The transaction has ended.")
@@ -777,7 +777,7 @@ class DNFManager(object):
             # Add the new repository.
             self._base.repos.add(repo)
 
-        log.info("Added the '%s' repository: %s", repo.id, repo)
+        log.info("Added the '{}' repository: {}", repo.id, repo)
 
     def _create_repository(self, data: RepoConfigurationData):
         """Create a DNF repository.
@@ -906,10 +906,10 @@ class DNFManager(object):
 
         if enabled:
             repo.enable()
-            log.info("The '%s' repository is enabled.", repo_id)
+            log.info("The '{}' repository is enabled.", repo_id)
         else:
             repo.disable()
-            log.info("The '%s' repository is disabled.", repo_id)
+            log.info("The '{}' repository is disabled.", repo_id)
 
     def read_system_repositories(self):
         """Read the system repositories.
@@ -947,7 +947,7 @@ class DNFManager(object):
             try:
                 self.set_repository_enabled(repo_id, True)
             except UnknownRepositoryError:
-                log.debug("There is no '%s' repository to enable.", repo_id)
+                log.debug("There is no '{}' repository to enable.", repo_id)
 
     def load_repository(self, repo_id):
         """Download repo metadata.
@@ -961,7 +961,7 @@ class DNFManager(object):
         :param str repo_id: an identifier of a repository
         :raise: MetadataError if the metadata cannot be loaded
         """
-        log.debug("Load metadata for the '%s' repository.", repo_id)
+        log.debug("Load metadata for the '{}' repository.", repo_id)
 
         repo = self._get_repository(repo_id)
         url = repo.baseurl or repo.mirrorlist or repo.metalink
@@ -973,11 +973,11 @@ class DNFManager(object):
         try:
             repo.load()
         except dnf.exceptions.RepoError as e:
-            log.debug("Failed to load metadata from '%s': %s", url, str(e))
+            log.debug("Failed to load metadata from '{}': {}", url, str(e))
             repo.disable()
             raise MetadataError(str(e)) from None
 
-        log.info("Loaded metadata from '%s'.", url)
+        log.info("Loaded metadata from '{}'.", url)
 
     def load_packages_metadata(self):
         """Load metadata about packages in available repositories.
@@ -1026,7 +1026,7 @@ class DNFManager(object):
             md_hash = calculate_hash(content) if content else None
             md_hashes[repo.id] = md_hash
 
-        log.debug("Loaded repomd.xml hashes: %s", md_hashes)
+        log.debug("Loaded repomd.xml hashes: {}", md_hashes)
         return md_hashes
 
     def _get_repomd_content(self, repo):
@@ -1043,7 +1043,7 @@ class DNFManager(object):
                     return f.read()
 
             except OSError as e:
-                log.debug("Can't download repomd.xml from: %s", str(e))
+                log.debug("Can't download repomd.xml from: {}", str(e))
                 continue
 
         return ""

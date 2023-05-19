@@ -47,7 +47,7 @@ def autoinstall_stopped(reason):
         :param data: Kickstart data object.
         :param reason: Why the automatic kickstart installation stopped.
     """
-    log.info("kickstart installation stopped for info: %s", reason)
+    log.info("kickstart installation stopped for info: {}", reason)
     if not flags.ksprompt:
         raise NonInteractiveError("Non interactive installation failed: %s" % reason)
 

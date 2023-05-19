@@ -99,7 +99,7 @@ class RepoConfigurationPage(object):
 
         :param load_data: load the matching repo data
         """
-        log.debug("Selecting the '%s' page.", self)
+        log.debug("Selecting the '{}' page.", self)
 
         # Refresh the widgets on this page.
         with self._block_changes():
@@ -123,7 +123,7 @@ class RepoConfigurationPage(object):
     @timed_action()
     def _on_data_changed(self, *args, **kwargs):
         """Apply the changed data and emit a signal."""
-        log.debug("The '%s' repository has changed.", self._repo_data.name)
+        log.debug("The '{}' repository has changed.", self._repo_data.name)
         self._save_data()
         self._data_changed.emit()
 
@@ -439,7 +439,7 @@ class AdditionalRepositoriesSection(GUIObject):
     def _add_repo_row(self, repo_data: RepoConfigurationData):
         """Add a row with an additional repository to the repo store."""
         log.debug(
-            "Add the '%s' repository:\n%s",
+            "Add the '{}' repository:\n{}",
             repo_data.name, generate_repository_description(repo_data)
         )
         return self._repo_store.append([
@@ -498,7 +498,7 @@ class AdditionalRepositoriesSection(GUIObject):
         repo_data.enabled = not repo_data.enabled
         repo_row[REPO_COLUMN_ENABLED] = repo_data.enabled
 
-        log.debug("The '%s' repo enabled has changed: %s", repo_data.name, repo_data.enabled)
+        log.debug("The '{}' repo enabled has changed: {}", repo_data.name, repo_data.enabled)
         self.validate()
 
     def on_repo_name_entry_changed(self, entry):
@@ -514,7 +514,7 @@ class AdditionalRepositoriesSection(GUIObject):
         repo_data.name = self._repo_name_entry.get_text().strip()
         repo_row[REPO_COLUMN_NAME] = repo_data.name
 
-        log.debug("The '%s' repo name has changed: %s", previous_name, repo_data.name)
+        log.debug("The '{}' repo name has changed: {}", previous_name, repo_data.name)
         self.validate()
 
     def _get_selected_repo_row(self):
@@ -552,7 +552,7 @@ class AdditionalRepositoriesSection(GUIObject):
             # to the next item or invalidated. Set it to None in that
             # case to stop the iteration.
             if repo_data.origin == REPO_ORIGIN_TREEINFO:
-                log.debug("Removing the '%s' repository.", repo_data.name)
+                log.debug("Removing the '{}' repository.", repo_data.name)
                 valid_itr = self._repo_store.remove(itr)
                 itr = itr if valid_itr else None
                 continue
@@ -571,7 +571,7 @@ class AdditionalRepositoriesSection(GUIObject):
             return
 
         repo_data = repo_row[REPO_COLUMN_DATA]
-        log.debug("The repo selection has changed: %s", repo_data.name)
+        log.debug("The repo selection has changed: {}", repo_data.name)
 
         # Show the editable area and reset its widgets.
         self._repo_name_entry.set_sensitive(True)
@@ -626,7 +626,7 @@ class AdditionalRepositoriesSection(GUIObject):
         if not repo_row or source_action < 0:
             return
 
-        log.debug("The source action has changed: %s", source_action)
+        log.debug("The source action has changed: {}", source_action)
         repo_row[REPO_COLUMN_ACTION] = source_action
 
         self._select_repo_page(source_action)
@@ -681,7 +681,7 @@ class AdditionalRepositoriesSection(GUIObject):
             return False
 
         log.debug(
-            "The additional repositories has changed:\n%s",
+            "The additional repositories has changed:\n{}",
             "\n".join(map(generate_repository_description, new_repositories))
         )
 

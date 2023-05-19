@@ -320,7 +320,7 @@ class StorageService(KickstartService):
         """Add a created partitioning module."""
         self._created_partitioning.append(module)
         self.created_partitioning_changed.emit(module)
-        log.debug("Created the partitioning %s.", module)
+        log.debug("Created the partitioning {}.", module)
 
     def apply_partitioning(self, module):
         """Apply a partitioning.
@@ -356,7 +356,7 @@ class StorageService(KickstartService):
         if module is None:
             module = "NONE"
 
-        log.debug("The partitioning %s is applied.", module)
+        log.debug("The partitioning {} is applied.", module)
 
     def reset_partitioning(self):
         """Reset the partitioning."""

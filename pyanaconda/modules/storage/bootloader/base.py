@@ -252,7 +252,7 @@ class BootLoader(object):
 
     @disk_order.setter
     def disk_order(self, order):
-        log.debug("new disk order: %s", order)
+        log.debug("new disk order: {}", order)
         self._disk_order = order
         if self.disks:
             self._sort_disks()
@@ -263,7 +263,7 @@ class BootLoader(object):
             try:
                 idx = [d.name for d in self.disks].index(name)
             except ValueError:
-                log.error("bios order specified unknown disk %s", name)
+                log.error("bios order specified unknown disk {}", name)
                 continue
 
             self.disks.insert(0, self.disks.pop(idx))
@@ -271,7 +271,7 @@ class BootLoader(object):
     def set_disk_list(self, disks):
         self.disks = disks[:]
         self._sort_disks()
-        log.debug("new disk list: %s", self.disks)
+        log.debug("new disk list: {}", self.disks)
 
     #
     # image list access
@@ -289,7 +289,7 @@ class BootLoader(object):
         if image not in self.images:
             raise ValueError("new default image not in image list")
 
-        log.debug("new default image: %s", image)
+        log.debug("new default image: {}", image)
         self._default_image = image
 
     @property
@@ -350,7 +350,7 @@ class BootLoader(object):
                                        % {"desc": desc, "types": ",".join(member_types)})
                     ret = False
 
-        log.debug("_is_valid_md(%s) returning %s", device.name, ret)
+        log.debug("_is_valid_md({}) returning {}", device.name, ret)
         return ret
 
     def _is_valid_disklabel(self, device, disklabel_types=None):
@@ -365,7 +365,7 @@ class BootLoader(object):
                                        % {"name": device.name, "types": types_str})
                     ret = False
 
-        log.debug("_is_valid_disklabel(%s) returning %s", device.name, ret)
+        log.debug("_is_valid_disklabel({}) returning {}", device.name, ret)
         return ret
 
     def _is_valid_format(self, device, format_types=None, mountpoints=None,
@@ -382,7 +382,7 @@ class BootLoader(object):
                                % {"desc": desc, "mountpoints": ", ".join(mountpoints)})
             ret = False
 
-        log.debug("_is_valid_format(%s) returning %s", device.name, ret)
+        log.debug("_is_valid_format({}) returning {}", device.name, ret)
         return ret
 
     def _is_valid_size(self, device, desc=""):
@@ -413,7 +413,7 @@ class BootLoader(object):
 
             ret = False
 
-        log.debug("_is_valid_size(%s) returning %s", device.name, ret)
+        log.debug("_is_valid_size({}) returning {}", device.name, ret)
         return ret
 
     def _is_valid_location(self, device, max_end=None, desc=""):
@@ -427,7 +427,7 @@ class BootLoader(object):
                                      "the disk.") % {"desc": desc, "max_end": max_end})
                 ret = False
 
-        log.debug("_is_valid_location(%s) returning %s", device.name, ret)
+        log.debug("_is_valid_location({}) returning {}", device.name, ret)
         return ret
 
     def _is_valid_partition(self, device, primary=None, desc=""):
@@ -436,7 +436,7 @@ class BootLoader(object):
             self.errors.append(_("%s must be on a primary partition.") % desc)
             ret = False
 
-        log.debug("_is_valid_partition(%s) returning %s", device.name, ret)
+        log.debug("_is_valid_partition({}) returning {}", device.name, ret)
         return ret
 
     #
@@ -509,10 +509,10 @@ class BootLoader(object):
         if device is None:
             return False
 
-        log.debug("Is %s a valid stage1 target device?", device.name)
+        log.debug("Is {} a valid stage1 target device?", device.name)
 
         if not self._device_type_match(device, constraints[PLATFORM_DEVICE_TYPES]):
-            log.debug("stage1 device cannot be of type %s", device.type)
+            log.debug("stage1 device cannot be of type {}", device.type)
             return False
 
         if is_on_non_ibft_sw_iscsi(device):
@@ -558,7 +558,7 @@ class BootLoader(object):
             valid = False
 
         if not self.stage2_bootable and not getattr(device, "bootable", True):
-            log.warning("%s not bootable", device.name)
+            log.warning("{} not bootable", device.name)
 
         # XXX does this need to be here?
         if getattr(device.format, "label", None) in ("ANACONDA", "LIVE"):
@@ -581,7 +581,7 @@ class BootLoader(object):
                                  "device.") % description)
             valid = False
 
-        log.debug("is_valid_stage1_device(%s) returning %s", device.name, valid)
+        log.debug("is_valid_stage1_device({}) returning {}", device.name, valid)
         return valid
 
     def set_stage1_device(self, devices):
@@ -644,7 +644,7 @@ class BootLoader(object):
         if device is None:
             return False
 
-        log.debug("Is %s a valid stage2 target device?", device.name)
+        log.debug("Is {} a valid stage2 target device?", device.name)
 
         if not self.stage2_required:
             log.debug("stage2 not required")
@@ -655,7 +655,7 @@ class BootLoader(object):
 
         if is_on_non_ibft_sw_iscsi(device):
             if conf.bootloader.nonibft_iscsi_boot:
-                log.info("%s on non-iBFT iSCSI disk allowed by boot option inst.nonibftiscsiboot",
+                log.info("{} on non-iBFT iSCSI disk allowed by boot option inst.nonibftiscsiboot",
                          self.stage2_description)
             else:
                 self.errors.append(_("%(bootloader_stage2_description)s cannot be on "
@@ -710,7 +710,7 @@ class BootLoader(object):
                                  "device.") % _(self.stage2_description))
             valid = False
 
-        log.debug("is_valid_stage2_device(%s) returning %s", device.name, valid)
+        log.debug("is_valid_stage2_device({}) returning {}", device.name, valid)
         return valid
 
     #
@@ -778,7 +778,7 @@ class BootLoader(object):
         """Set the timeout."""
         timeout = bootloader_proxy.Timeout
         if timeout != BOOTLOADER_TIMEOUT_UNSET:
-            log.debug("Applying bootloader timeout: %s", timeout)
+            log.debug("Applying bootloader timeout: {}", timeout)
             self.timeout = timeout
 
     def _apply_zipl_secure_boot(self, bootloader_proxy):
@@ -787,7 +787,7 @@ class BootLoader(object):
             return
 
         secure_boot = bootloader_proxy.ZIPLSecureBoot
-        log.debug("Applying ZIPL Secure Boot: %s", secure_boot)
+        log.debug("Applying ZIPL Secure Boot: {}", secure_boot)
         self.secure = secure_boot
 
     def _set_extra_boot_args(self, bootloader_proxy):
@@ -847,16 +847,16 @@ class BootLoader(object):
                     continue
 
                 if isinstance(dep, blivet.devices.FcoeDiskDevice):
-                    log.debug("Getting dracut arguments for FCoE device %s", dep)
+                    log.debug("Getting dracut arguments for FCoE device {}", dep)
                     setup_args = fcoe_proxy.GetDracutArguments(dep.nic)
                 elif isinstance(dep, blivet.devices.iScsiDiskDevice):
                     # (partial) offload devices do not need setup in dracut
                     if not dep.offload:
-                        log.debug("Getting dracut arguments for iSCSI device %s", dep)
+                        log.debug("Getting dracut arguments for iSCSI device {}", dep)
                         node = _get_iscsi_node_from_device(dep)
                         setup_args = iscsi_proxy.GetDracutArguments(Node.to_structure(node))
                     else:
-                        log.debug("No need for dracut arguments for offload iSCSI device %s", dep)
+                        log.debug("No need for dracut arguments for offload iSCSI device {}", dep)
                 else:
                     setup_args = dep.dracut_setup_args()
 
@@ -978,7 +978,7 @@ class BootLoader(object):
         console = os.path.basename(console)
         self.console, _x, self.console_options = console.partition(",")
 
-        log.debug("Console is set to %s with options '%s'", self.console, self.console_options)
+        log.debug("Console is set to {} with options '{}'", self.console, self.console_options)
 
     def write_config_console(self, config):
         """Write console-related configuration lines."""

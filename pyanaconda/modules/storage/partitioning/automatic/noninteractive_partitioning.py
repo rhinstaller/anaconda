@@ -63,8 +63,8 @@ class NonInteractivePartitioningTask(PartitioningTask, metaclass=ABCMeta):
         disk_label = disk_init_proxy.DefaultDiskLabel
 
         if disk_label and not DiskLabel.set_default_label_type(disk_label):
-            log.warning("%s is not a supported disklabel type on this platform. "
-                        "Using default disklabel %s instead.", disk_label,
+            log.warning("{} is not a supported disklabel type on this platform. "
+                        "Using default disklabel {} instead.", disk_label,
                         DiskLabel.get_platform_label_types()[0])
 
         return config
@@ -85,25 +85,25 @@ class NonInteractivePartitioningTask(PartitioningTask, metaclass=ABCMeta):
                             key=lambda p: getattr(p.parted_partition, "number", 1),
                             reverse=True)
         for part in partitions:
-            log.debug("Looking at partition: %s", part.name)
+            log.debug("Looking at partition: {}", part.name)
             if not config.can_remove(storage, part):
                 continue
 
             storage.recursive_remove(part)
-            log.debug("Partitions: %s", [p.name for p in part.disk.children])
+            log.debug("Partitions: {}", [p.name for p in part.disk.children])
 
         # Now remove any empty extended partitions.
         storage.remove_empty_extended_partitions()
 
         # Ensure all disks have appropriate disk labels.
         for disk in storage.disks:
-            log.debug("Looking at disk: %s", disk.name)
+            log.debug("Looking at disk: {}", disk.name)
             if config.can_remove(storage, disk):
-                log.debug("Removing %s.", disk.name)
+                log.debug("Removing {}.", disk.name)
                 storage.recursive_remove(disk)
 
             if config.can_initialize(storage, disk):
-                log.debug("Initializing %s.", disk.name)
+                log.debug("Initializing {}.", disk.name)
                 storage.initialize_disk(disk)
 
         # Check the usable disks.

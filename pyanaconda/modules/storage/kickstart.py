@@ -150,7 +150,7 @@ class Fcoe(COMMANDS.Fcoe):
                                         "exist.").format(fc.nic), lineno=self.lineno)
 
         if fc.nic in (info[0] for info in fcoe.nics):
-            log.info("Kickstart fcoe device %s was already added from EDD, ignoring.", fc.nic)
+            log.info("Kickstart fcoe device {} was already added from EDD, ignoring.", fc.nic)
         else:
             msg = fcoe.add_san(nic=fc.nic, dcb=fc.dcb, auto_vlan=True)
 
@@ -158,7 +158,7 @@ class Fcoe(COMMANDS.Fcoe):
                 msg = "Succeeded."
                 fcoe.added_nics.append(fc.nic)
 
-            log.info("Adding FCoE SAN on %s: %s", fc.nic, msg)
+            log.info("Adding FCoE SAN on {}: {}", fc.nic, msg)
 
         return fc
 
@@ -193,10 +193,10 @@ class Iscsi(COMMANDS.Iscsi):
 
         try:
             if tg.target:
-                log.info("adding iscsi target %s at %s:%d via %s",
+                log.info("adding iscsi target {} at {}:{:d} via {:d}",
                          tg.target, tg.ipaddr, tg.port, tg.iface)
             else:
-                log.info("adding all iscsi targets discovered at %s:%d via %s",
+                log.info("adding all iscsi targets discovered at {}:{:d} via {:d}",
                          tg.ipaddr, tg.port, tg.iface)
             iscsi.add_target(tg.ipaddr, tg.port, tg.user,
                              tg.password, tg.user_in,
@@ -228,7 +228,7 @@ class Nvdimm(COMMANDS.Nvdimm):
                 raise KickstartParseError(_("Namespace \"{}\" given in nvdimm command was not "
                                             "found.").format(action.namespace), lineno=self.lineno)
 
-            log.info("Reconfiguring the namespace %s to %s mode", action.namespace, action.mode)
+            log.info("Reconfiguring the namespace {} to {} mode", action.namespace, action.mode)
             nvdimm.reconfigure_namespace(
                 action.namespace,
                 action.mode,

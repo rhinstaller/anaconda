@@ -90,11 +90,11 @@ def shrink_device(storage, device, size):
 
     # The device size is small enough.
     if device.size <= size:
-        log.debug("The size of %s is already %s.", device.name, device.size)
+        log.debug("The size of {} is already {}.", device.name, device.size)
         return
 
     # Resize the device.
-    log.debug("Shrinking a size of %s to %s.", device.name, size)
+    log.debug("Shrinking a size of {} to {}.", device.name, size)
     aligned_size = device.align_target_size(size)
     storage.resize_device(device, aligned_size)
 
@@ -113,7 +113,7 @@ def remove_device(storage, device):
 
     # Only remove unprotected children if any protected.
     if any(d.protected for d in device.children):
-        log.debug("Removing unprotected children of %s.", device.name)
+        log.debug("Removing unprotected children of {}.", device.name)
 
         for child in (d for d in device.children if not d.protected):
             storage.recursive_remove(child)
@@ -121,7 +121,7 @@ def remove_device(storage, device):
         return
 
     # No protected children, remove the device
-    log.debug("Removing device %s.", device.name)
+    log.debug("Removing device {}.", device.name)
     storage.recursive_remove(device)
 
 
@@ -200,12 +200,12 @@ def get_disks_for_implicit_partitions(disks, scheme, requests):
         # Skip disks that will be used for requested partitions.
         if requested_slots and not supports_extended and available_slots <= requested_slots:
             requested_slots -= available_slots
-            log.debug("Don't use %s for implicit partitions.", disk.name)
+            log.debug("Don't use {} for implicit partitions.", disk.name)
         else:
             requested_slots = 0
             extra_disks.append(disk)
 
-    log.debug("Found disks for implicit partitions: %s", [d.name for d in extra_disks])
+    log.debug("Found disks for implicit partitions: {}", [d.name for d in extra_disks])
     return extra_disks
 
 
@@ -251,7 +251,7 @@ def schedule_implicit_partitions(storage, disks, scheme, encrypted=False, luks_f
                                      parents=[disk])
         storage.create_device(part)
         devs.append(part)
-        log.debug("Created the implicit partition %s for %s.", part.name, disk.name)
+        log.debug("Created the implicit partition {} for {}.", part.name, disk.name)
 
     return devs
 
@@ -328,7 +328,7 @@ def schedule_partitions(storage, disks, implicit_devices, scheme, requests, encr
     if not all_free:
         # this should never happen since we've already filtered the disks
         # to those with at least 500MiB free
-        log.error("no free space on disks %s", [d.name for d in disks])
+        log.error("no free space on disks {}", [d.name for d in disks])
         return
 
     free = all_free[0]
@@ -363,14 +363,14 @@ def schedule_partitions(storage, disks, implicit_devices, scheme, requests, encr
                 (storage.bootloader.skip_bootloader or stage1_device):
             # there should never be a need for more than one of these
             # partitions, so skip them.
-            log.info("skipping unneeded stage1 %s request", request.fstype)
-            log.debug("%s", request)
+            log.info("skipping unneeded stage1 {} request", request.fstype)
+            log.debug("{}", request)
 
             if request.fstype in ["efi", "macefi"] and stage1_device:
                 # Set the mountpoint for the existing EFI boot partition
                 stage1_device.format.mountpoint = "/boot/efi"
 
-            log.debug("%s", stage1_device)
+            log.debug("{}", stage1_device)
             continue
         elif request.fstype == "biosboot":
             is_gpt = (stage1_device and
@@ -384,9 +384,9 @@ def schedule_partitions(storage, disks, implicit_devices, scheme, requests, encr
                      is_gpt and not has_bios_boot)):
                 # there should never be a need for more than one of these
                 # partitions, so skip them.
-                log.info("skipping unneeded stage1 %s request", request.fstype)
-                log.debug("%s", request)
-                log.debug("%s", stage1_device)
+                log.info("skipping unneeded stage1 {} request", request.fstype)
+                log.debug("{}", request)
+                log.debug("{}", stage1_device)
                 continue
 
         if request.size > all_free[0]:

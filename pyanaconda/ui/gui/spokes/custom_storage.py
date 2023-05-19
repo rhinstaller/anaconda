@@ -397,7 +397,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         )
 
         # Now it's time to populate the accordion.
-        log.debug("Populating accordion for devices %s (unused %s, new %s).",
+        log.debug("Populating accordion for devices {} (unused {}, new {}).",
                   all_devices, unused_devices, new_devices)
 
         # Add the initial page.
@@ -575,7 +575,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         self.reset_state()
 
-        log.debug("Saving the right side for device: %s", device_name)
+        log.debug("Saving the right side for device: {}", device_name)
 
         # Get the device factory request.
         old_request = self._original_request
@@ -587,7 +587,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         # Log the results.
         description = generate_request_description(new_request, old_request)
-        log.debug("Device request: %s", description)
+        log.debug("Device request: {}", description)
 
         # Validate the device info.
         report = ValidationReport.from_structure(
@@ -597,7 +597,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         )
 
         if not report.is_valid():
-            log.debug("Validation has failed: %s", report)
+            log.debug("Validation has failed: {}", report)
             self.set_warning(" ".join(report.get_messages()))
             self._populate_right_side(selector)
             return
@@ -609,7 +609,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 DeviceFactoryRequest.to_structure(old_request)
             )
         except StorageConfigurationError as e:
-            log.error("Failed to reconfigure the device: %s", e)
+            log.error("Failed to reconfigure the device: {}", e)
             self.set_detailed_error(_("Device reconfiguration failed."), e)
             self._reset_storage()
             self._do_refresh()
@@ -725,7 +725,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         # For existing unsupported device add the information in the UI.
         if device_type not in device_types:
-            log.debug("Existing device with unsupported type %s found.", device_type)
+            log.debug("Existing device with unsupported type {} found.", device_type)
             device_type = DEVICE_TYPE_UNSUPPORTED
             device_types.append(device_type)
 
@@ -789,7 +789,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._update_permissions()
 
         description = generate_request_description(self._request)
-        log.debug("Populating the right side for device %s: %s", device_name, description)
+        log.debug("Populating the right side for device {}: {}", device_name, description)
 
         self._selectedDeviceLabel.set_text(device_name)
         self._selectedDeviceDescLabel.set_text(
@@ -1021,7 +1021,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         # Make sure there's something displayed on the RHS.  If a page and
         # mountpoint within that page is given, display that.
-        log.debug("Showing mount point: %s", page.page_title)
+        log.debug("Showing mount point: {}", page.page_title)
 
         if not page.members:
             self._accordion.clear_current_selector()
@@ -1066,7 +1066,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         try:
             self._remove_selected_devices()
         except StorageConfigurationError as e:
-            log.error("The device removal has failed: %s", e)
+            log.error("The device removal has failed: {}", e)
             self.set_detailed_warning(_("Device removal request failed."), e)
 
         # Now that devices have been removed from the installation root,
@@ -1087,11 +1087,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             page = self._accordion.page_for_selector(selector)
             device_name = selector.device_name
             root_name = selector.root_name or page.page_title
-            log.debug("Removing device %s from page %s.", device_name, root_name)
+            log.debug("Removing device {} from page {}.", device_name, root_name)
 
             # Skip if the device isn't in the device tree.
             if not self._device_tree.IsDevice(device_name):
-                log.debug("Device %s isn't in the device tree.", device_name)
+                log.debug("Device {} isn't in the device tree.", device_name)
                 continue
 
             if root_name == self._os_name:
@@ -1128,7 +1128,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 for other_name in self._find_unshared_devices(page):
                     # Skip if the device isn't in the device tree.
                     if not self._device_tree.IsDevice(other_name):
-                        log.debug("Device %s isn't in the device tree.", other_name)
+                        log.debug("Device {} isn't in the device tree.", other_name)
                         continue
 
                     # we only want to delete boot partitions if they're not
@@ -1141,7 +1141,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                         or other_format.type not in PROTECTED_FORMAT_TYPES
 
                     if not can_destroy:
-                        log.debug("Device %s cannot be removed.", other_name)
+                        log.debug("Device {} cannot be removed.", other_name)
                         continue
 
                     self._device_tree.DestroyDevice(other_name)
@@ -1837,7 +1837,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         NormalSpoke.on_back_clicked(self, None)
 
     def on_info_bar_clicked(self, *args):
-        log.debug("Clicked on the info bar: %s (%s)", self._error, args)
+        log.debug("Clicked on the info bar: {} ({})", self._error, args)
         if not self._error:
             return
 
@@ -1883,7 +1883,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         device_name = selector.device_name
         passphrase = self._passphraseEntry.get_text()
 
-        log.info("Trying to unlock device %s.", device_name)
+        log.info("Trying to unlock device {}.", device_name)
         unlocked = self._device_tree.UnlockDevice(device_name, passphrase)
 
         if not unlocked:

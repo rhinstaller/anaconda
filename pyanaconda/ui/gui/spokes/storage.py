@@ -235,7 +235,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             log.debug("Skipping the execute method for the BLIVET partitioning method.")
             return
 
-        log.debug("Running the execute method for the %s partitioning method.",
+        log.debug("Running the execute method for the {} partitioning method.",
                   self._last_partitioning_method)
 
         # Spawn storage execution as a separate thread so there's no big delay
@@ -662,7 +662,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # Count swap only if the default partitioning scheme includes it.
         auto_swap = suggest_swap_size() if self._is_swap_configured() else Size(0)
 
-        log.debug("disk free: %s  fs free: %s  sw needs: %s  auto swap: %s",
+        log.debug("disk free: {}  fs free: {}  sw needs: {}  auto swap: {}",
                   disk_free, fs_free, sw_space, auto_swap)
 
         # We need enough space for the software, the swap and the metadata.
@@ -764,7 +764,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # Same thing for switching between different storage configuration
         # methods (auto/custom/blivet-gui), at least for now.
         if method != current_method:
-            log.info("Partitioning method has changed from %s to %s.",
+            log.info("Partitioning method has changed from {} to {}.",
                      method, current_method)
             reset = True
 

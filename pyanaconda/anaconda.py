@@ -116,13 +116,13 @@ class Anaconda(object):
         if isinstance(new_mode, DisplayModes):
             if self._display_mode:
                 old_mode = self._display_mode
-                log.debug("changing display mode from %s to %s",
+                log.debug("changing display mode from {} to {}",
                           old_mode.value, new_mode.value)
             else:
-                log.debug("setting display mode to %s", new_mode.value)
+                log.debug("setting display mode to {}", new_mode.value)
             self._display_mode = new_mode
         else:  # unknown mode name - ignore & log an error
-            log.error("tried to set an unknown display mode name: %s", new_mode.value)
+            log.error("tried to set an unknown display mode name: {}", new_mode.value)
 
     @property
     def interactive_mode(self):
@@ -152,7 +152,7 @@ class Anaconda(object):
             log.error("Display mode is not set!")
             return
 
-        log.info("Display mode is set to '%s %s'.",
+        log.info("Display mode is set to '{} {}'.",
                  constants.INTERACTIVE_MODE_NAME[self.interactive_mode],
                  constants.DISPLAY_MODE_NAME[self.display_mode])
 

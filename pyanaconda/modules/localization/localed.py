@@ -167,7 +167,7 @@ class LocaledWrapper(object):
             try:
                 (layout, variant) = parse_layout_variant(layout_variant)
             except InvalidLayoutVariantSpec as e:
-                log.debug("Parsing of %s failed: %s", layout_variant, e)
+                log.debug("Parsing of {} failed: {}", layout_variant, e)
                 parsing_failed = True
                 continue
             layouts.append(layout)
@@ -243,16 +243,16 @@ def get_missing_keyboard_configuration(localed_wrapper, x_layouts, vc_keymap):
     :rtype: (list(str), str))
     """
     if not vc_keymap and not x_layouts:
-        log.debug("Using default value %s for missing virtual console keymap.", DEFAULT_KEYBOARD)
+        log.debug("Using default value {} for missing virtual console keymap.", DEFAULT_KEYBOARD)
         vc_keymap = DEFAULT_KEYBOARD
 
     if not vc_keymap:
         vc_keymap = localed_wrapper.convert_layouts(x_layouts)
-        log.debug("Missing virtual console keymap value %s converted from %s X layouts",
+        log.debug("Missing virtual console keymap value {} converted from {} X layouts",
                   vc_keymap, x_layouts)
     if not x_layouts:
         x_layouts = localed_wrapper.convert_keymap(vc_keymap)
-        log.debug("Missing X layouts value %s converted from %s virtual console keymap",
+        log.debug("Missing X layouts value {} converted from {} virtual console keymap",
                   x_layouts, vc_keymap)
 
     return x_layouts, vc_keymap

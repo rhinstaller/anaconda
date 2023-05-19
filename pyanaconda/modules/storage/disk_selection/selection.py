@@ -97,7 +97,7 @@ class DiskSelectionModule(KickstartBaseModule):
         """
         self._selected_disks = drives
         self.selected_disks_changed.emit(list(drives))
-        log.debug("Selected disks are set to '%s'.", drives)
+        log.debug("Selected disks are set to '{}'.", drives)
 
     def validate_selected_disks(self, drives):
         """Validate the list of selected disks.
@@ -127,7 +127,7 @@ class DiskSelectionModule(KickstartBaseModule):
         """
         self._exclusive_disks = drives
         self.exclusive_disks_changed.emit()
-        log.debug("Exclusive disks are set to '%s'.", drives)
+        log.debug("Exclusive disks are set to '{}'.", drives)
 
     @property
     def ignored_disks(self):
@@ -144,7 +144,7 @@ class DiskSelectionModule(KickstartBaseModule):
         """
         self._ignored_disks = drives
         self.ignored_disks_changed.emit()
-        log.debug("Ignored disks are set to '%s'.", drives)
+        log.debug("Ignored disks are set to '{}'.", drives)
 
     @property
     def protected_devices(self):
@@ -160,7 +160,7 @@ class DiskSelectionModule(KickstartBaseModule):
         """
         self._protected_devices = devices
         self.protected_devices_changed.emit(list(devices))
-        log.debug("Protected devices are set to '%s'.", devices)
+        log.debug("Protected devices are set to '{}'.", devices)
 
     @property
     def disk_images(self):
@@ -174,7 +174,7 @@ class DiskSelectionModule(KickstartBaseModule):
         """
         self._disk_images = disk_images
         self.disk_images_changed.emit()
-        log.debug("Disk images are set to '%s'.", disk_images)
+        log.debug("Disk images are set to '{}'.", disk_images)
 
     def get_usable_disks(self):
         """Get a list of disks that can be used for the installation.

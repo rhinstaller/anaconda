@@ -42,7 +42,7 @@ class AnacondaMessageBus(MessageBus):
         """Get a connection to a bus at the specified address."""
         bus_address = self._find_bus_address()
 
-        log.info("Connecting to the Anaconda bus at %s.", bus_address)
+        log.info("Connecting to the Anaconda bus at {}.", bus_address)
         return self._provider.get_addressed_bus_connection(bus_address)
 
     def _find_bus_address(self):

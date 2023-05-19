@@ -109,7 +109,7 @@ def check_memory(anaconda, options, display_mode=None):
     # count the squashfs.img in if it is kept in RAM
     with_squashfs = not persistent_root_image()
     needed_ram = minimal_memory_needed(with_gui=False, with_squashfs=with_squashfs)
-    log.info("check_memory(): total:%s, needed:%s", total_ram, needed_ram)
+    log.info("check_memory(): total:{}, needed:{}", total_ram, needed_ram)
 
     if not options.memcheck:
         log.warning("CHECK_MEMORY DISABLED")
@@ -136,7 +136,7 @@ def check_memory(anaconda, options, display_mode=None):
     # override display mode if machine cannot nicely run X
     if display_mode != DisplayModes.TUI and not flags.usevnc:
         needed_ram = minimal_memory_needed(with_gui=True, with_squashfs=with_squashfs)
-        log.info("check_memory(): total:%s, graphical:%s", total_ram, needed_ram)
+        log.info("check_memory(): total:{}, graphical:{}", total_ram, needed_ram)
         reason_args["needed_ram"] = needed_ram
         reason = reason_graphical
 
@@ -187,7 +187,7 @@ def setup_logging_from_options(options):
             port = int(port)
             anaconda_logging.logger.setup_remotelog(host, port)
         except ValueError:
-            log.error("Could not setup remotelog with %s", options.remotelog)
+            log.error("Could not setup remotelog with {}", options.remotelog)
 
 
 def setup_logging_from_kickstart(data):
@@ -221,7 +221,7 @@ def set_up_proxy_variables(proxy):
     try:
         proxy = ProxyString(proxy)
     except ProxyStringError as e:
-        log.info("Failed to parse proxy \"%s\": %s", proxy, e)
+        log.info("Failed to parse proxy \"{}\": {}", proxy, e)
     else:
         # Set environmental variables to be used by pre/post scripts
         setenv("PROXY", proxy.noauth_url)
@@ -272,7 +272,7 @@ def prompt_for_ssh(options):
     try:
         hinfo = socket.gethostbyaddr(ipstr)
     except socket.herror as e:
-        stdout_log.debug("Exception caught trying to get host name of %s: %s", ipstr, e)
+        stdout_log.debug("Exception caught trying to get host name of {}: {}", ipstr, e)
         name = socket.gethostname()
     else:
         if len(hinfo) == 3:
@@ -289,7 +289,7 @@ def prompt_for_ssh(options):
         connxinfo = None
 
     if connxinfo:
-        stdout_log.info(_("Please ssh install@%s to begin the install."), connxinfo)
+        stdout_log.info(_("Please ssh install@{} to begin the install."), connxinfo)
     else:
         stdout_log.info(_("Please ssh install@HOSTNAME to continue installation."))
 
@@ -375,7 +375,7 @@ def find_kickstart(options):
     """
     if options.ksfile and not options.liveinst:
         if not os.path.exists(options.ksfile):
-            stdout_log.error("Kickstart file %s is missing.", options.ksfile)
+            stdout_log.error("Kickstart file {} is missing.", options.ksfile)
             ipmi_report(IPMI_ABORTED)
             sys.exit(1)
 
@@ -419,7 +419,7 @@ def parse_kickstart(ks, strict_mode=False):
     ksdata = kickstart.AnacondaKSHandler()
 
     if ks is not None:
-        log.info("Parsing kickstart: %s", ks)
+        log.info("Parsing kickstart: {}", ks)
         kickstart.parseKickstart(ksdata, ks, strict_mode=strict_mode, pass_to_boss=True)
 
     return ksdata

@@ -43,7 +43,7 @@ class GeolocationTask(Task):
             log.info("Geoloc: skipping because no provider was set")
             return GeolocationData()
 
-        log.info("Geoloc: starting lookup using provider: %s", url)
+        log.info("Geoloc: starting lookup using provider: {}", url)
         start_time = time.time()
 
         if not self._wait_for_network():
@@ -52,7 +52,7 @@ class GeolocationTask(Task):
 
         result = self._locate(url)
         log.info(
-            "Geoloc: lookup finished in %1.1f seconds, result is valid: %s",
+            "Geoloc: lookup finished in {1.1f} seconds, result is valid: {}",
             time.time() - start_time,
             not result.is_empty()
         )
@@ -112,11 +112,11 @@ class GeolocationTask(Task):
                         timezone=timezone,
                     )
             else:
-                log.error("Geoloc: API lookup failed with status code: %s", reply.status_code)
+                log.error("Geoloc: API lookup failed with status code: {}", reply.status_code)
 
         except requests.exceptions.RequestException as exc:
-            log.debug("Geoloc: RequestException for API lookup:\n%s", exc)
+            log.debug("Geoloc: RequestException for API lookup:\n{}", exc)
         except ValueError as exc:
-            log.debug("Geoloc: Unable to decode JSON:\n%s", exc)
+            log.debug("Geoloc: Unable to decode JSON:\n{}", exc)
 
         return GeolocationData()

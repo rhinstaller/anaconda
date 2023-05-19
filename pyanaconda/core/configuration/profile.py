@@ -114,7 +114,7 @@ class ProfileLoader(object):
 
         :param config_dir: a path to a directory
         """
-        log.info("Loading information about profiles from %s.", config_dir)
+        log.info("Loading information about profiles from {}.", config_dir)
 
         for file_name in sorted(os.listdir(config_dir)):
             if not file_name.endswith(".conf"):
@@ -125,7 +125,7 @@ class ProfileLoader(object):
             try:
                 self.load_profile(config_path)
             except ConfigurationError as e:
-                log.error("Skipping an invalid configuration at %s: %s", config_path, e)
+                log.error("Skipping an invalid configuration at {}: {}", config_path, e)
 
     def load_profile(self, config_path):
         """Load information about a profile from the given configuration file.
@@ -143,7 +143,7 @@ class ProfileLoader(object):
             raise ConfigurationError("The '{}' profile was already loaded.".format(profile_id))
 
         # Add the profile.
-        log.info("Found the '%s' profile at %s.", profile_id, config_path)
+        log.info("Found the '{}' profile at {}.", profile_id, config_path)
         self._profiles[profile_id] = data
 
     def check_profile(self, profile_id):
@@ -153,13 +153,13 @@ class ProfileLoader(object):
         :return: True if the profile is supported, otherwise False
         """
         if profile_id not in self._profiles:
-            log.warning("No support for the '%s' profile.", profile_id)
+            log.warning("No support for the '{}' profile.", profile_id)
             return False
 
         try:
             self._get_profile_bases(profile_id)
         except ConfigurationError as e:
-            log.warning("Invalid support for the '%s' profile: %s", profile_id, e)
+            log.warning("Invalid support for the '{}' profile: {}", profile_id, e)
             return False
 
         return True
@@ -171,7 +171,7 @@ class ProfileLoader(object):
         :param str variant_id: an id of a specific variant of the operating system or None
         :return: a product id or None
         """
-        log.debug("Detecting a profile for ID=%s, VARIANT_ID=%s.", os_id, variant_id)
+        log.debug("Detecting a profile for ID={}, VARIANT_ID={}.", os_id, variant_id)
 
         # Collect keys and profiles for the detection.
         profiles = {}
@@ -189,7 +189,7 @@ class ProfileLoader(object):
         profile_id = profiles.get((os_id, variant_id)) or profiles.get((os_id, ""))
 
         if profile_id:
-            log.info("The '%s' profile is detected.", profile_id)
+            log.info("The '{}' profile is detected.", profile_id)
 
         return profile_id
 

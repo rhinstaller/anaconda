@@ -267,7 +267,7 @@ class SoftwareSpoke(NormalTUISpoke):
         self._kickstarted = False
 
         selection = self._selection_cache.get_selection_data()
-        log.debug("Setting new software selection: %s", selection)
+        log.debug("Setting new software selection: {}", selection)
 
         self.payload.set_packages_selection(selection)
 

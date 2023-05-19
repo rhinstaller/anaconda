@@ -227,10 +227,10 @@ def setup_locale(locale, localization_proxy=None, text_mode=False):
         # font to use for correctly displaying the given language/locale
 
         script_supported = locale_supported_in_console(locale)
-        log.debug("scripts found for locale %s: %s", locale, get_locale_scripts(locale))
+        log.debug("scripts found for locale {}: {}", locale, get_locale_scripts(locale))
 
         console_fonts = get_locale_console_fonts(locale)
-        log.debug("console fonts found for locale %s: %s", locale, console_fonts)
+        log.debug("console fonts found for locale {}: {}", locale, console_fonts)
 
         font_set = False
         if script_supported and console_fonts:
@@ -242,14 +242,14 @@ def setup_locale(locale, localization_proxy=None, text_mode=False):
                     break
 
         if not font_set:
-            log.warning("can't set console font for locale %s", locale)
+            log.warning("can't set console font for locale {}", locale)
             # report what exactly went wrong
             if not script_supported:
-                log.warning("script not supported by console for locale %s", locale)
+                log.warning("script not supported by console for locale {}", locale)
             if not console_fonts:  # no fonts known for locale
-                log.warning("no console font found for locale %s", locale)
+                log.warning("no console font found for locale {}", locale)
             if script_supported and console_fonts:
-                log.warning("none of the suggested fonts can be set for locale %s", locale)
+                log.warning("none of the suggested fonts can be set for locale {}", locale)
             log.warning("falling back to the English locale")
             locale = constants.DEFAULT_LANG
             os.environ["LANG"] = locale  # pylint: disable=environment-modify
@@ -257,13 +257,13 @@ def setup_locale(locale, localization_proxy=None, text_mode=False):
     # set the locale to the value we have selected
     # Since glibc does not install all locales, an installable locale may not
     # actually be available right now. Give it a shot and fallback.
-    log.debug("setting locale to: %s", locale)
+    log.debug("setting locale to: {}", locale)
     setenv("LANG", locale)
 
     try:
         locale_mod.setlocale(locale_mod.LC_ALL, locale)
     except locale_mod.Error as e:
-        log.debug("setlocale failed: %s", e)
+        log.debug("setlocale failed: {}", e)
         locale = constants.DEFAULT_LANG
         setenv("LANG", locale)
         locale_mod.setlocale(locale_mod.LC_ALL, locale)
@@ -505,15 +505,15 @@ def get_firmware_language(text_mode=False):
     d += '.UTF-8'
 
     if not is_supported_locale(d):
-        log.debug("PlatformLang was '%s', which is unsupported.", d)
+        log.debug("PlatformLang was '{}', which is unsupported.", d)
         return None
 
     locales = get_language_locales(d)
     if not locales:
-        log.debug("No locales found for the PlatformLang '%s'.", d)
+        log.debug("No locales found for the PlatformLang '{}'.", d)
         return None
 
-    log.debug("Using UEFI PlatformLang '%s' ('%s') as our language.", d, locales[0])
+    log.debug("Using UEFI PlatformLang '{}' ('{}') as our language.", d, locales[0])
     return locales[0]
 
 
@@ -609,13 +609,13 @@ def set_console_font(font):
     :returns: True on success, False on failure
     :rtype: bool
     """
-    log.debug("setting console font to %s", font)
+    log.debug("setting console font to {}", font)
     rc = execWithRedirect("setfont", [font])
     if rc == 0:
-        log.debug("console font set successfully to %s", font)
+        log.debug("console font set successfully to {}", font)
         return True
     else:
-        log.error("setting console font to %s failed", font)
+        log.error("setting console font to {} failed", font)
         return False
 
 
@@ -667,7 +667,7 @@ def setup_locale_environment(locale=None, text_mode=False, prefer_environment=Fa
             # the first language is the best match
             locale = env_langs[0]
         except (InvalidLocaleSpec, IndexError):
-            log.error("Invalid locale '%s' given on command line, kickstart or environment", locale)
+            log.error("Invalid locale '{}' given on command line, kickstart or environment", locale)
             locale = None
 
     # If langtable returned no locales, or if nothing was configured, fall back to the default

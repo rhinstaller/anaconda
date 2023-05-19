@@ -68,7 +68,7 @@ class InstallationProgress(Cancellable):
 
     def _monitor_progress(self):
         """Monitor the amount of disk space used on the target and source."""
-        log.debug("Installing %s.", Size(self._installation_size))
+        log.debug("Installing {}.", Size(self._installation_size))
 
         # Force write everything to disk.
         self._callback(_("Synchronizing writes to disk"))
@@ -77,7 +77,7 @@ class InstallationProgress(Cancellable):
         # Calculate the starting size used by the system.
         mount_points = self._get_mount_points()
         starting_size = self._calculate_used_size(mount_points)
-        log.debug("Used %s by %s.", Size(starting_size), ", ".join(mount_points))
+        log.debug("Used {} by {}.", Size(starting_size), ", ".join(mount_points))
 
         pct = 0
         last_pct = -1
@@ -91,7 +91,7 @@ class InstallationProgress(Cancellable):
             pct = min(int(100 * installed_size / self._installation_size), 100)
 
             if pct != last_pct:
-                log.debug("Installed %s (%s%%)", Size(installed_size), pct)
+                log.debug("Installed {} ({}%)", Size(installed_size), pct)
                 self._callback(_("Installing software {}%").format(pct))
 
             last_pct = pct

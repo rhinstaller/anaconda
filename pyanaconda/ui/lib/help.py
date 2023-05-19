@@ -60,11 +60,11 @@ def show_graphical_help_for_screen(screen_id):
 
     :param str screen_id: an identifier of a ui screen
     """
-    log.info("Requested a graphical help for the '%s' screen.", screen_id)
+    log.info("Requested a graphical help for the '{}' screen.", screen_id)
     help_args = _get_help_args_for_screen(DisplayModes.GUI, screen_id)
 
     if not help_args:
-        log.debug("There is no help for the '%s' screen.", screen_id)
+        log.debug("There is no help for the '{}' screen.", screen_id)
         return
 
     show_graphical_help(help_args.path, help_args.anchor)
@@ -77,11 +77,11 @@ def get_help_path_for_screen(screen_id, display_mode=DisplayModes.TUI):
     :param DisplayModes display_mode: a type of the display mode
     :return str: an absolute path to the help file or None
     """
-    log.info("Requested a help path for the '%s' screen.", screen_id)
+    log.info("Requested a help path for the '{}' screen.", screen_id)
     help_args = _get_help_args_for_screen(display_mode, screen_id)
 
     if not help_args:
-        log.debug("There is no help for the '%s' screen.", screen_id)
+        log.debug("There is no help for the '{}' screen.", screen_id)
         return None
 
     return help_args.path
@@ -105,7 +105,7 @@ def _get_help_args_for_screen(display_mode, screen_id):
         if help_args.path:
             return help_args
 
-        log.debug("There is no help for the '%s' help id.", help_id)
+        log.debug("There is no help for the '{}' help id.", help_id)
 
     return None
 
@@ -129,7 +129,7 @@ def _get_help_mapping(display_mode):
     path = join_paths(help_directory, name)
 
     if not os.path.exists(path):
-        log.error("The help mapping file is not found at %s.", path)
+        log.error("The help mapping file is not found at {}.", path)
         return {}
 
     mapping = {}
@@ -138,7 +138,7 @@ def _get_help_mapping(display_mode):
         with open(path, "rt") as f:
             mapping = json.load(f)
     except (IOError, json.JSONDecodeError) as e:
-        log.error("Failed to parse the help mapping file at %s: %s", path, str(e))
+        log.error("Failed to parse the help mapping file at {}: {}", path, str(e))
 
     return mapping
 
@@ -201,7 +201,7 @@ def _collect_help_files(help_directory, help_file):
         return {}
 
     if not help_directory or not os.path.exists(help_directory):
-        log.debug("The %s help directory does not exist.", help_directory)
+        log.debug("The {} help directory does not exist.", help_directory)
         return {}
 
     files = {}

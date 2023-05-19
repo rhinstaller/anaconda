@@ -72,7 +72,7 @@ class EXTLINUX(BootLoader):
             if image.device.type == "btrfs subvolume":
                 args.add("rootflags=subvol=%s" % image.device.name)
             args.update(self.boot_args)
-            log.info("bootloader.py: used boot args: %s ", args)
+            log.info("bootloader.py: used boot args: {} ", args)
 
             # extlinux labels cannot have spaces
             label = "%s(%s)" % (self.image_label(image), image.version)
@@ -113,7 +113,7 @@ class EXTLINUX(BootLoader):
             try:
                 os.symlink("../boot/%s" % self._config_file, etc_extlinux)
             except OSError as e:
-                log.warning("failed to create /etc/extlinux.conf symlink: %s", e)
+                log.warning("failed to create /etc/extlinux.conf symlink: {}", e)
 
     #
     # installation

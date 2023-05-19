@@ -220,7 +220,7 @@ def set_x_keyboard_defaults(localization_proxy, xkl_wrapper):
             # refer: https://bugzilla.redhat.com/show_bug.cgi?id=1039185
             new_layouts.insert(0, DEFAULT_KEYBOARD)
     else:
-        log.error("Failed to get layout for chosen locale '%s'", locale)
+        log.error("Failed to get layout for chosen locale '{}'", locale)
         new_layouts = [DEFAULT_KEYBOARD]
 
     localization_proxy.XLayouts = new_layouts

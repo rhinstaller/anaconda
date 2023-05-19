@@ -75,7 +75,7 @@ class LiveImageSourceModule(PayloadSourceBase):
         """
         self._configuration = configuration
         self.configuration_changed.emit()
-        log.debug("Configuration is set to '%s'.", configuration)
+        log.debug("Configuration is set to '{}'.", configuration)
 
     @property
     def network_required(self):

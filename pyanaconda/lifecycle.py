@@ -73,7 +73,7 @@ def add_controller(controller_name, controller_categories):
     if controller_name is None:
         log.warning("Controller name is None.")
     else:
-        log.info("Adding controller: %s", controller_name)
+        log.info("Adding controller: {}", controller_name)
     controller = Controller()
     _controllers[controller_name] = controller
     _controller_categories_map[controller_name] = controller_categories
@@ -97,9 +97,9 @@ class Controller(object):
         :param module: a module which has started initialization
         """
         if self._all_modules_added:
-            log.warning("Late module_init_start() from: %s", self)
+            log.warning("Late module_init_start() from: {}", self)
         elif module in self._modules:
-            log.warning("Module already marked as initializing: %s", module)
+            log.warning("Module already marked as initializing: {}", module)
         else:
             self._added_module_count += 1
             self._modules.add(module)
@@ -117,7 +117,7 @@ class Controller(object):
         """
         init_done = False
         with self._lock:
-            log.info("Initialization of all modules (%d) has been started.", self._added_module_count)
+            log.info("Initialization of all modules ({:d}) has been started.", self._added_module_count)
             self._all_modules_added = True
 
             # if all modules finished initialization before this was added then
@@ -144,13 +144,13 @@ class Controller(object):
             # prevent the init_done signal from
             # being triggered more than once
             if self._init_done_triggered:
-                log.warning("Late module_init_done from module %s.", module)
+                log.warning("Late module_init_done from module {}.", module)
             else:
                 if module in self._modules:
-                    log.info("Module initialized: %s", module)
+                    log.info("Module initialized: {}", module)
                     self._modules.discard(module)
                 else:
-                    log.warning("Unknown module reported as initialized: %s", module)
+                    log.warning("Unknown module reported as initialized: {}", module)
                 # don't trigger the signal if all modules have not yet been added
                 if self._all_modules_added and not self._modules:
                     init_done = True

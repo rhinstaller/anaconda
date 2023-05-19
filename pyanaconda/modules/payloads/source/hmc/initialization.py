@@ -48,4 +48,4 @@ class SetUpHMCSourceTask(SetUpMountTask):
         if execWithRedirect("/usr/bin/hmcdrvfs", [self._target_mount]):
             raise SourceSetupError("The content of HMC media drive couldn't be mounted.")
 
-        log.debug("We are ready to use the HMC at %s.", self._target_mount)
+        log.debug("We are ready to use the HMC at {}.", self._target_mount)

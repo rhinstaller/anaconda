@@ -138,5 +138,5 @@ ExecStart=/usr/libexec/cockpit-ws --no-tls --port 9090 --local-session=cockpit-b
 
     def showYesNoQuestion(self, message):
         """Answer no by default."""
-        log.debug("Skipping the following question: %s", message)
+        log.debug("Skipping the following question: {}", message)
         return False

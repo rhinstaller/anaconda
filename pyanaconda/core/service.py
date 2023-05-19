@@ -136,4 +136,4 @@ def disable_service(service, root="/"):
     # we ignore the error so we can disable services even if they don't
     # exist, because that's effectively disabled
     if ret != 0:
-        log.warning("Disabling %s failed. It probably doesn't exist", service)
+        log.warning("Disabling {} failed. It probably doesn't exist", service)

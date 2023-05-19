@@ -107,13 +107,13 @@ class StartModulesTask(Task):
             # Forbidden modules are not allowed to run.
             if self._match_module(service_name, self._forbidden):
                 log.debug(
-                    "Skip %s. The module won't be started, because it's "
+                    "Skip {}. The module won't be started, because it's "
                     "marked as forbidden in the Anaconda configuration "
                     "files.", service_name
                 )
                 continue
 
-            log.debug("Found %s.", service_name)
+            log.debug("Found {}.", service_name)
             modules.append(ModuleObserver(
                 self._message_bus,
                 service_name,
@@ -126,7 +126,7 @@ class StartModulesTask(Task):
         dbus = self._message_bus.proxy
 
         for observer in module_observers:
-            log.debug("Starting %s.", observer)
+            log.debug("Starting {}.", observer)
 
             dbus.StartServiceByName(
                 observer.service_name,
@@ -149,9 +149,9 @@ class StartModulesTask(Task):
             ) from error
 
         if returned != DBUS_START_REPLY_SUCCESS:
-            log.warning("Service %s is already running.", observer)
+            log.warning("Service {} is already running.", observer)
         else:
-            log.debug("Service %s started successfully.", observer)
+            log.debug("Service {} started successfully.", observer)
 
         # Connect the observer once the service is available.
         observer.service_available.connect(self._service_available_callback)
@@ -164,7 +164,7 @@ class StartModulesTask(Task):
 
     def _service_available_handler(self, observer):
         """Handler for the service_available signal."""
-        log.debug("%s is available.", observer)
+        log.debug("{} is available.", observer)
         observer.proxy.Ping()
         return True
 
@@ -204,7 +204,7 @@ class StartModulesTask(Task):
                 # The failure of an optional module is not fatal. Remove
                 # it from the list of available modules and continue.
                 log.debug(
-                    "Skip %s. The optional module has failed to start, "
+                    "Skip {}. The optional module has failed to start, "
                     "so it won't be available during the installation.",
                     observer.service_name
                 )

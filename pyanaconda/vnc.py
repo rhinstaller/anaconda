@@ -53,7 +53,7 @@ def shutdownServer():
         util.execWithCapture("killall", [XVNC_BINARY_NAME])
         log.info("The XVNC server has been shut down.")
     except OSError as e:
-        log.error("Shutdown of the XVNC server failed with exception:\n%s", e)
+        log.error("Shutdown of the XVNC server failed with exception:\n{}", e)
 
 
 class VncServer(object):
@@ -94,7 +94,7 @@ class VncServer(object):
         out, err = proc.communicate(password_string.encode("utf-8"))
 
         if proc.returncode != 0:
-            log.error("vncpasswd has failed with %d: %s", proc.returncode, err.decode("utf-8"))
+            log.error("vncpasswd has failed with {:d}: {}", proc.returncode, err.decode("utf-8"))
             raise OSError("Unable to set the VNC password.")
 
         with open(self.pw_file, "wb") as pw_file:
@@ -127,7 +127,7 @@ class VncServer(object):
                 if len(hinfo[2]) == 1:
                     self.name = hinfo[0]
         except socket.herror as e:
-            log.debug("Exception caught trying to get host name of %s: %s", ipstr, e)
+            log.debug("Exception caught trying to get host name of {}: {}", ipstr, e)
 
         if self.name is not None and not self.name.startswith('localhost'):
             self.connxinfo = "%s:%s (%s:%s)" % (socket.getfqdn(name=self.name),
@@ -163,7 +163,7 @@ class VncServer(object):
         """Attempt to connect to self.vncconnecthost"""
 
         maxTries = 10
-        self.log.info(_("Attempting to connect to vnc client on host %s..."), self.vncconnecthost)
+        self.log.info(_("Attempting to connect to vnc client on host {}..."), self.vncconnecthost)
 
         if self.vncconnectport != "":
             hostarg = self.vncconnecthost + ":" + self.vncconnectport
@@ -187,8 +187,8 @@ class VncServer(object):
                 log.critical(err)
                 util.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
                 sys.exit(1)
-        self.log.error(P_("Giving up attempting to connect after %d try!\n",
-                          "Giving up attempting to connect after %d tries!\n",
+        self.log.error(P_("Giving up attempting to connect after {:d} try!\n",
+                          "Giving up attempting to connect after {:d} tries!\n",
                           maxTries), maxTries)
         return False
 
@@ -208,9 +208,9 @@ class VncServer(object):
         We dont really have to do anything for the server to listen :)
         """
         if self.connxinfo is not None:
-            self.log.info(_("Please manually connect your vnc client to %s to begin the install."), self.connxinfo)
+            self.log.info(_("Please manually connect your vnc client to {} to begin the install."), self.connxinfo)
         else:
-            self.log.info(_("Please manually connect your vnc client to IP-ADDRESS:%s "
+            self.log.info(_("Please manually connect your vnc client to IP-ADDRESS:{} "
                             "to begin the install. Switch to the shell (Ctrl-B 2) and "
                             "run 'ip addr' to find the IP-ADDRESS."), constants.X_DISPLAY_NUMBER)
 
@@ -222,7 +222,7 @@ class VncServer(object):
         try:
             self.initialize()
         except (socket.herror, ValueError) as e:
-            stdoutLog.critical("Could not initialize the VNC server: %s", e)
+            stdoutLog.critical("Could not initialize the VNC server: {}", e)
             util.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
             sys.exit(1)
 

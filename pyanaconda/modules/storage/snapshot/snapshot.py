@@ -118,7 +118,7 @@ class SnapshotModule(KickstartBaseModule):
         requests = self.get_requests(SNAPSHOT_WHEN_POST_INSTALL)
 
         for request in requests:
-            log.debug("Validating the snapshot request for: %s", request.name)
+            log.debug("Validating the snapshot request for: {}", request.name)
             try:
                 get_snapshot_device(request, storage.devicetree)
             except (StorageError, ValueError) as e:

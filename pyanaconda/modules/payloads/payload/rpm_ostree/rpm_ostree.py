@@ -170,7 +170,7 @@ class RPMOSTreeModule(PayloadBase):
         :param mount_points: a list of mount points
         """
         self._internal_mounts.extend(mount_points)
-        log.debug("Internal mounts are set to: %s", self._internal_mounts)
+        log.debug("Internal mounts are set to: {}", self._internal_mounts)
 
     def post_install_with_tasks(self):
         """Execute post installation steps.

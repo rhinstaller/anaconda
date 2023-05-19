@@ -65,7 +65,7 @@ class ChangeDeviceTask(Task):
 
         :raise: StorageConfigurationError if the device cannot be changed
         """
-        log.debug("Change device: %s", self._request)
+        log.debug("Change device: {}", self._request)
 
         # Nothing to do. Skip.
         if compare_data(self._request, self._original_request):
@@ -93,7 +93,7 @@ class ChangeDeviceTask(Task):
 
     def _handle_storage_error(self, exception, message):
         """Handle the storage error."""
-        log.error("Failed to change a device: %s", message)
+        log.error("Failed to change a device: {}", message)
         raise StorageConfigurationError(message) from exception
 
     def _rename_container(self):
@@ -111,12 +111,12 @@ class ChangeDeviceTask(Task):
         if not container:
             return
 
-        log.debug("Changing container name: %s", container_name)
+        log.debug("Changing container name: {}", container_name)
 
         try:
             rename_container(self._storage, container, container_name)
         except StorageError as e:
-            log.error("Invalid container name: %s", e)
+            log.error("Invalid container name: {}", e)
             raise StorageError(str(e)) from e
 
     def _replace_device(self):
@@ -192,7 +192,7 @@ class ChangeDeviceTask(Task):
         if size == original_size:
             return
 
-        log.debug("Changing device size: %s", size)
+        log.debug("Changing device size: {}", size)
         resize_device(self._storage, self._device, size, original_size)
 
     def _should_reformat_device(self):
@@ -225,7 +225,7 @@ class ChangeDeviceTask(Task):
         luks_version = self._request.luks_version
 
         if self._original_request.device_encrypted != encrypted:
-            log.debug("Changing device encryption: %s", encrypted)
+            log.debug("Changing device encryption: {}", encrypted)
             device = change_encryption(
                 storage=storage,
                 device=device,
@@ -233,7 +233,7 @@ class ChangeDeviceTask(Task):
                 luks_version=luks_version
             )
         elif encrypted and self._original_request.luks_version != luks_version:
-            log.debug("Changing LUKS version: %s", luks_version)
+            log.debug("Changing LUKS version: {}", luks_version)
 
             # LUKS version cannot be easily changed,
             # so remove the current LUKS device.
@@ -257,7 +257,7 @@ class ChangeDeviceTask(Task):
 
     def _change_device_format(self):
         """Change the device format."""
-        log.debug("Changing device format: %s", self._request.format_type)
+        log.debug("Changing device format: {}", self._request.format_type)
 
         reformat_device(
             storage=self._storage,
@@ -286,7 +286,7 @@ class ChangeDeviceTask(Task):
             log.warning("Cannot set an invalid label.")
             return
 
-        log.debug("Changing device label: %s", label)
+        log.debug("Changing device label: {}", label)
         self._device.format.label = label
 
     def _change_device_mount_point(self):
@@ -299,7 +299,7 @@ class ChangeDeviceTask(Task):
         if self._original_request.mount_point == mount_point:
             return
 
-        log.debug("Changing device mount point: %s", mount_point)
+        log.debug("Changing device mount point: {}", mount_point)
         self._device.format.mountpoint = mount_point
 
     def _change_device_name(self):
@@ -310,10 +310,10 @@ class ChangeDeviceTask(Task):
         if name == original_name:
             return
 
-        log.debug("Changing device name: %s", name)
+        log.debug("Changing device name: {}", name)
 
         try:
             self._device.raw_device.name = name
         except ValueError as e:
-            log.error("Invalid device name: %s", e)
+            log.error("Invalid device name: {}", e)
             raise StorageError(str(e)) from e

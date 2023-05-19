@@ -154,7 +154,7 @@ class SecretAgent(object):
         Supports WEP and WPA key management.
         For WPA Enterprise returns empty secrets for further configuration in nm-c-e.
         """
-        log.debug("GetSecrets: secrets requested path '%s' setting '%s' hints '%s' new %d",
+        log.debug("GetSecrets: secrets requested path '{}' setting '{}' hints '{}' new {:d}",
                   connection_path, setting_name, str(hints), flags)
         if not (flags & NM_SECRET_AGENT_GET_SECRETS_FLAG_ALLOW_INTERACTION):
             return
@@ -183,7 +183,7 @@ class SecretAgent(object):
                 % {'network_id': str(connection_hash['connection']['id'])}
             content['secrets'] = self._get_wireless_secrets(setting_name, connection_hash)
         else:
-            log.info("Connection type %s not supported by secret agent", connection_type)
+            log.info("Connection type {} not supported by secret agent", connection_type)
 
         return content
 
@@ -244,7 +244,7 @@ class SecretAgent(object):
                     'password': True
                 })
         else:
-            log.info("Unsupported wireless key management: %s", key_mgmt)
+            log.info("Unsupported wireless key management: {}", key_mgmt)
 
         return secrets
 
@@ -272,7 +272,7 @@ class SecretAgent(object):
 
     def SaveSecrets(self, connection_hash: Dict[Str, Structure], connection_path: ObjPath):
         """Noop implementation of NetworkManager SecretAgent interface SaveSecrets method"""
-        log.debug("SaveSecrets called for %s", connection_path)
+        log.debug("SaveSecrets called for {}", connection_path)
 
 
 def register_secret_agent(spoke):

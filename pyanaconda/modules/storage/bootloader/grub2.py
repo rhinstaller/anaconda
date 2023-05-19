@@ -266,7 +266,7 @@ class GRUB2(BootLoader):
         # this is going to cause problems for systems containing multiple
         # linux installations or even multiple boot entries with different
         # boot arguments
-        log.info("bootloader.py: used boot args: %s ", self.boot_args)
+        log.info("bootloader.py: used boot args: {} ", self.boot_args)
         defaults.write("GRUB_CMDLINE_LINUX=\"%s\"\n" % self.boot_args)
         defaults.write("GRUB_DISABLE_RECOVERY=\"true\"\n")
         #defaults.write("GRUB_THEME=\"/boot/grub2/themes/system/theme.txt\"\n")
@@ -331,7 +331,7 @@ class GRUB2(BootLoader):
         try:
             self.write_password_config()
         except (BootLoaderError, OSError, RuntimeError) as e:
-            log.error("boot loader password setup failed: %s", e)
+            log.error("boot loader password setup failed: {}", e)
 
         # make sure the default entry is the OS we are installing
         if self.default is not None:
@@ -350,7 +350,7 @@ class GRUB2(BootLoader):
                 root=conf.target.system_root
             )
             if rc:
-                log.error("failed to set default menu entry to %s", productName)
+                log.error("failed to set default menu entry to {}", productName)
 
         # set menu_auto_hide grubenv variable if we should enable menu_auto_hide
         # set boot_success so that the menu is hidden on the boot after install
@@ -571,7 +571,7 @@ class IPSeriesGRUB2(GRUB2):
         if not conf.target.is_hardware:
             return
 
-        log.debug("updateNVRAMBootList: self.stage1_device.path = %s", self.stage1_device.path)
+        log.debug("updateNVRAMBootList: self.stage1_device.path = {}", self.stage1_device.path)
 
         rc = util.execWithRedirect("bootlist",
                                    ["-m", "normal", "-o", self.stage1_device.path])

@@ -50,7 +50,7 @@ class DownloadProgress(object):
 
         self._last_pct = pct
 
-        log.debug("Downloaded %s (%s%%)", Size(self._downloaded_size), pct)
+        log.debug("Downloaded {} ({}%)", Size(self._downloaded_size), pct)
         self._callback(_("Downloading {} ({}%)").format(self._url, pct))
 
     def start(self):

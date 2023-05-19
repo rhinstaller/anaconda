@@ -88,7 +88,7 @@ class LiveOSSourceModule(PayloadSourceBase, MountingSourceMixin):
         """
         self._image_path = image_path
         self.image_path_changed.emit()
-        log.debug("LiveOS image path is set to '%s'", self._image_path)
+        log.debug("LiveOS image path is set to '{}'", self._image_path)
 
     def detect_image_with_task(self):
         """Detect a Live OS image with a task.

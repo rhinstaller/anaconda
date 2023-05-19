@@ -80,7 +80,7 @@ class TUIHub(TUIObject, common.Hub):
                     if spoke.showable:
                         spoke.initialize()
                     else:
-                        log.warning("Spoke %s initialization failure!", spoke.__class__.__name__)
+                        log.warning("Spoke {} initialization failure!", spoke.__class__.__name__)
                         del spoke
                         continue
 
@@ -102,7 +102,7 @@ class TUIHub(TUIObject, common.Hub):
             if hub_controller:
                 hub_controller.all_modules_added()
             else:
-                log.error("Initialization controller for hub %s expected but missing.", self.__class__.__name__)
+                log.error("Initialization controller for hub {} expected but missing.", self.__class__.__name__)
 
         # only schedule the hub if it has some spokes
         return self._spoke_count != 0

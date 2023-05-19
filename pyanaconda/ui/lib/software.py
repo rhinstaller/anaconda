@@ -159,7 +159,7 @@ class SoftwareSelectionCache(object):
 
         :param str environment: an identifier of an environment
         """
-        log.debug("Selecting the '%s' environment.", environment)
+        log.debug("Selecting the '{}' environment.", environment)
 
         # Reset the environment configuration.
         self._environment = ""
@@ -197,7 +197,7 @@ class SoftwareSelectionCache(object):
 
         :param str group: an identifier of a group
         """
-        log.debug("Selecting the '%s' group.", group)
+        log.debug("Selecting the '{}' group.", group)
 
         # Get the group data.
         group_data = CompsGroupData.from_structure(
@@ -216,7 +216,7 @@ class SoftwareSelectionCache(object):
 
         :param str group: an identifier of a group
         """
-        log.debug("Deselecting the '%s' group.", group)
+        log.debug("Deselecting the '{}' group.", group)
 
         # Get the group data.
         group_data = CompsGroupData.from_structure(
@@ -257,7 +257,7 @@ class SoftwareSelectionCache(object):
         if self._dnf_proxy.ResolveEnvironment(selection.environment):
             self.select_environment(selection.environment)
         else:
-            log.warning("The '%s' environment couldn't be selected.", selection.environment)
+            log.warning("The '{}' environment couldn't be selected.", selection.environment)
             self.select_environment(self._dnf_proxy.GetDefaultEnvironment())
 
         # Select groups.
@@ -269,7 +269,7 @@ class SoftwareSelectionCache(object):
                 self.select_group(group)
                 continue
 
-            log.warning("The '%s' group couldn't be selected.", group)
+            log.warning("The '{}' group couldn't be selected.", group)
 
     def get_selection_data(self) -> PackagesSelectionData:
         """Generate the selection data.

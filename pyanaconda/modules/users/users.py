@@ -217,7 +217,7 @@ class UsersService(KickstartService):
         # make sure the user account is locked by default unless a password
         # is set in kickstart
         if not user_ksdata.password:
-            log.debug("user (%s) specified in kickstart without password, locking account",
+            log.debug("user ({}) specified in kickstart without password, locking account",
                       user_ksdata.name)
             user_data.lock = True
         user_data.shell = user_ksdata.shell
@@ -252,7 +252,7 @@ class UsersService(KickstartService):
         """Set the list of UserData instances, one per user."""
         self._users = users
         self.users_changed.emit()
-        log.debug("A new user list has been set: %s", self._users)
+        log.debug("A new user list has been set: {}", self._users)
 
     @property
     def groups(self):
@@ -263,7 +263,7 @@ class UsersService(KickstartService):
         """Set the list of GroupData instances, one per group."""
         self._groups = groups
         self.groups_changed.emit()
-        log.debug("A new group list has been set: %s", self._groups)
+        log.debug("A new group list has been set: {}", self._groups)
 
     @property
     def ssh_keys(self):
@@ -274,7 +274,7 @@ class UsersService(KickstartService):
         """Set the list of SshKeyData instances, one per ssh keys."""
         self._ssh_keys = ssh_keys
         self.ssh_keys_changed.emit()
-        log.debug("A new ssh key list has been set: %s", self._ssh_keys)
+        log.debug("A new ssh key list has been set: {}", self._ssh_keys)
 
     @property
     def can_change_root_password(self):
@@ -283,7 +283,7 @@ class UsersService(KickstartService):
     def set_can_change_root_password(self, can_change_root_password):
         self._can_change_root_password = can_change_root_password
         self.can_change_root_password_changed.emit()
-        log.debug("Can change root password state changed: %s.", can_change_root_password)
+        log.debug("Can change root password state changed: {}.", can_change_root_password)
 
     @property
     def root_password(self):

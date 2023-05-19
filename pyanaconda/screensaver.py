@@ -95,7 +95,7 @@ def inhibit_screensaver():
             session_proxy = SCREENSAVER.get_proxy()
             inhibit_id = session_proxy.Inhibit("anaconda", "Installing")
     except DBusError as e:
-        log.warning("Unable to inhibit the screensaver: %s", e)
+        log.warning("Unable to inhibit the screensaver: {}", e)
 
 
 def uninhibit_screensaver():
@@ -107,4 +107,4 @@ def uninhibit_screensaver():
         with SetEuidFromConsolehelper():
             session_proxy.UnInhibit(inhibit_id)
     except (DBusError, KeyError) as e:
-        log.warning("Unable to uninhibit the screensaver: %s", e)
+        log.warning("Unable to uninhibit the screensaver: {}", e)

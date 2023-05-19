@@ -82,8 +82,8 @@ class PartitioningModule(KickstartBaseModule, Publishable):
     def _create_storage_playground(self):
         """Prepare the current storage model for partitioning."""
         log.debug(
-            "Creating a new storage playground for %s with "
-            "selected disks %s.", self, self._selected_disks
+            "Creating a new storage playground for {} with "
+            "selected disks {}.", self, self._selected_disks
         )
         storage = self._current_storage.copy()
         storage.select_disks(self._selected_disks)
@@ -190,7 +190,7 @@ class PartitioningModule(KickstartBaseModule, Publishable):
             cls = next((c for c in ks_map if isinstance(device, c)), None)
 
             if cls is None:
-                log.info("Omitting kickstart data for: %s", device)
+                log.info("Omitting kickstart data for: {}", device)
                 continue
 
             class_attr, list_attr = ks_map[cls]
@@ -201,7 +201,7 @@ class PartitioningModule(KickstartBaseModule, Publishable):
             complements = [d for d in complementary_devices if d.raw_device is device]
 
             if len(complements) > 1:
-                log.warning("Omitting kickstart data for %s, found too many (%d) "
+                log.warning("Omitting kickstart data for {}, found too many ({:d}) "
                             "complementary devices.", device, len(complements))
                 continue
 
