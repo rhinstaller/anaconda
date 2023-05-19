@@ -917,6 +917,6 @@ if __name__ == '__main__':
     try:
         main(sys.argv[1:])
     except KeyboardInterrupt:
-        log.info("exiting.")
+        log.debug("exiting.")
 
-    log.info("leaving the driver_updates script")
+    log.debug("leaving the driver_updates script")
