@@ -164,12 +164,20 @@ class AnacondaLog(object):
         self.anaconda_logger.propagate = False
         self.anaconda_logger.setLevel(logging.DEBUG)
         warnings.showwarning = self.showwarning
-        self.addFileHandler(MAIN_LOG_FILE, self.anaconda_logger,
-                            fmtStr=ANACONDA_ENTRY_FORMAT,
-                            log_filter=AnacondaPrefixFilter())
-        self.forwardToJournal(self.anaconda_logger,
-                              log_filter=AnacondaPrefixFilter(),
-                              log_formatter=logging.Formatter(ANACONDA_SYSLOG_FORMAT))
+        self.addFileHandler(
+            MAIN_LOG_FILE,
+            self.anaconda_logger,
+            fmtStr=ANACONDA_ENTRY_FORMAT,
+            log_filter=AnacondaPrefixFilter()
+        )
+        self.forwardToJournal(
+            self.anaconda_logger,
+            log_filter=AnacondaPrefixFilter(),
+            log_formatter=logging.Formatter(
+                fmt=ANACONDA_SYSLOG_FORMAT,
+                style="%"
+            )
+        )
 
         # External program output log
         program_logger = logging.getLogger(constants.LOGGER_PROGRAM)
@@ -204,7 +212,11 @@ class AnacondaLog(object):
             if log_filter:
                 logfile_handler.addFilter(log_filter)
 
-            logfile_handler.setFormatter(logging.Formatter(fmtStr, DATE_FORMAT))
+            logfile_handler.setFormatter(logging.Formatter(
+                fmt=fmtStr,
+                datefmt=DATE_FORMAT,
+                style="%"
+            ))
             addToLogger.addHandler(logfile_handler)
         except OSError:
             pass
@@ -242,7 +254,11 @@ class AnacondaLog(object):
 
     def setup_remotelog(self, host, port):
         remotelog = AnacondaSocketHandler(host, port)
-        remotelog.setFormatter(logging.Formatter(ENTRY_FORMAT, DATE_FORMAT))
+        remotelog.setFormatter(logging.Formatter(
+            fmt=ENTRY_FORMAT,
+            datefmt=DATE_FORMAT,
+            style="%"
+        ))
         remotelog.setLevel(logging.DEBUG)
         logging.getLogger().addHandler(remotelog)
 

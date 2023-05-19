@@ -816,7 +816,7 @@ def _set_syslog_logging():
     handler.setLevel(logging.DEBUG)
 
     # log also message level to the syslog
-    formatter = logging.Formatter("DD (%(levelname)s): %(message)s")
+    formatter = logging.Formatter(fmt="DD (%(levelname)s): %(message)s", style="%")
     handler.setFormatter(formatter)
 
     log.addHandler(handler)
