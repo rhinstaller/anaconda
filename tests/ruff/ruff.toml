@@ -1,0 +1,10 @@
+# ruff configuration
+
+line-length = 99
+
+[lint]
+select = [
+    "W", # pycodestyle warning (mostly whitespace related)
+    "ICN", # flake8-import-conventions
+    "G", # flake8-logging-format
+]
