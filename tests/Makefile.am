@@ -59,7 +59,8 @@ dist_check_SCRIPTS = $(srcdir)/glade_tests/*.py \
 		     $(srcdir)/*_tests/*/*/*/*.py \
 		     $(srcdir)/unit_tests/*_tests/*.py \
 		     shellcheck/*.sh \
-		     pep8/runpep8.sh
+		     pep8/runpep8.sh \
+		     ruff/run_ruff.sh
 
 
 TESTS = \
@@ -70,6 +71,7 @@ TESTS = \
 	gettext_tests/canary_tests.sh \
 	glade_tests/glade_tests.sh \
 	shellcheck/run_shellcheck.sh \
+	ruff/run_ruff.sh \
 	unit_tests/unit_tests.sh \
 	pylint/runpylint.py
 
