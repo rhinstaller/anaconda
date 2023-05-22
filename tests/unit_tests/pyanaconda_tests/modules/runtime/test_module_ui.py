@@ -20,8 +20,8 @@ import unittest
 from dasbus.structure import compare_data
 from dasbus.typing import get_variant, Bool, UInt16
 
-from pyanaconda.modules.boss.user_interface import UIModule
-from pyanaconda.modules.boss.user_interface.ui_interface import UIInterface
+from pyanaconda.modules.runtime.user_interface import UIModule
+from pyanaconda.modules.runtime.user_interface.ui_interface import UIInterface
 from pyanaconda.modules.common.constants.objects import USER_INTERFACE
 from pyanaconda.modules.common.structures.policy import PasswordPolicy
 from tests.unit_tests.pyanaconda_tests import check_dbus_property

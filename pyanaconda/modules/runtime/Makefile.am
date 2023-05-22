@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = dracut_commands
+SUBDIRS = dracut_commands user_interface
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 runtimedir = $(pkgpyexecdir)/modules/runtime

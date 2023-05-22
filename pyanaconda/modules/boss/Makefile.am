@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = install_manager kickstart_manager module_manager user_interface
+SUBDIRS = install_manager kickstart_manager module_manager
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 bossdir = $(pkgpyexecdir)/modules/boss

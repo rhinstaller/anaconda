@@ -19,12 +19,12 @@
 from dasbus.identifier import DBusObjectIdentifier
 from pyanaconda.modules.common.constants.namespaces import STORAGE_NAMESPACE, NETWORK_NAMESPACE, \
     PARTITIONING_NAMESPACE, DEVICE_TREE_NAMESPACE, \
-    RHSM_NAMESPACE, BOSS_NAMESPACE
+    RHSM_NAMESPACE, RUNTIME_NAMESPACE
 
 # Boss objects.
 
 USER_INTERFACE = DBusObjectIdentifier(
-    namespace=BOSS_NAMESPACE,
+    namespace=RUNTIME_NAMESPACE,
     basename="UserInterface"
 )
 
