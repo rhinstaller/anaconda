@@ -890,7 +890,7 @@ class PullRemoteAndDeleteTaskTestCase(unittest.TestCase):
         repo_mock = MagicMock()
         sysroot_mock.get_repo.return_value = [None, repo_mock]
 
-        with patch.object(PullRemoteAndDeleteTask, "report_progress") as progress_mock:
+        with patch.object(PullRemoteAndDeleteTask, "report_progress"):
             task = PullRemoteAndDeleteTask(data=data)
             task.run()
 
@@ -918,7 +918,7 @@ class PullRemoteAndDeleteTaskTestCase(unittest.TestCase):
         sysroot_mock.get_repo.return_value = [None, repo_mock]
         repo_mock.pull_with_options.side_effect = [GError("blah")]
 
-        with patch.object(PullRemoteAndDeleteTask, "report_progress") as progress_mock:
+        with patch.object(PullRemoteAndDeleteTask, "report_progress"):
             with pytest.raises(PayloadInstallationError):
                 task = PullRemoteAndDeleteTask(data=data)
                 task.run()

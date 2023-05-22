@@ -749,7 +749,7 @@ def apply_geolocation_result(display_mode):
     territory = geoloc_result.territory
     locales = get_territory_locales(territory)
     try:
-        locale = next(l for l in locales if locale_has_translation(l))
+        locale = next(loc for loc in locales if locale_has_translation(loc))
     except StopIteration:
         log.info("Geoloc: detected languages are not translated, skipping locale")
         return

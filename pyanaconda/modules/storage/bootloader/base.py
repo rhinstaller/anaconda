@@ -327,7 +327,7 @@ class BootLoader(object):
             return ret
 
         if raid_levels and device.level not in raid_levels:
-            levels_str = ",".join("%s" % l for l in raid_levels)
+            levels_str = ",".join("%s" % level for level in raid_levels)
             self.errors.append(_("RAID sets that contain '%(desc)s' must have one "
                                  "of the following raid levels: %(raid_level)s.")
                                % {"desc": desc, "raid_level": levels_str})

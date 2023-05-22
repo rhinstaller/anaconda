@@ -279,7 +279,9 @@ class AnacondaThread(threading.Thread):
             self._target_started()
             threading.Thread.run(self)
 
-        except:  # pylint: disable=bare-except
+        # pylint: disable=bare-except
+        # ruff: noqa: E722
+        except:
             self._target_failed(*sys.exc_info())
 
         finally:

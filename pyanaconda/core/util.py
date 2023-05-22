@@ -694,8 +694,8 @@ def collect(module_pattern, path, pred):
                     module_parts.pop()
 
                     # make sure all "parent" modules are in sys.modules
-                    for l in range(len(module_parts)):
-                        module_part_name = ".".join(module_parts[:l + 1])
+                    for ind in range(len(module_parts)):
+                        module_part_name = ".".join(module_parts[:ind + 1])
                         if module_part_name not in sys.modules:
                             module_part = types.ModuleType(module_part_name)
                             module_part.__path__ = [path]

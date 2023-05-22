@@ -69,12 +69,12 @@ class MountingSourceMixinTestCase(unittest.TestCase):
         """Mount source state for set up."""
         ismount_mock.return_value = False
         module = DummyMountingSourceSubclass()
-        assert False == module.get_mount_state()
+        assert module.get_mount_state() is False
 
         ismount_mock.reset_mock()
         ismount_mock.return_value = True
 
-        assert True == module.get_mount_state()
+        assert module.get_mount_state() is True
 
         ismount_mock.assert_called_once_with(module.mount_point)
 

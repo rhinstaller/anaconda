@@ -20,6 +20,7 @@ __all__ = ["register_errors"]
 def register_errors():
     """Register all Anaconda's DBus errors."""
     # pylint:disable=unused-import
+    # ruff: noqa: F401
     from pyanaconda.modules.common.errors import (
         configuration,
         general,

@@ -719,7 +719,8 @@ class ProcessDriverDiskTestCase(unittest.TestCase):
                                 side_effect=lambda: self.moddict),
         )
         self.mocks = {p.attribute:p.start() for p in patches}
-        for p in patches: self.addCleanup(p.stop)
+        for p in patches:
+            self.addCleanup(p.stop)
 
     def test_basic(self):
         """process_driver_disk: mount disk, extract RPMs, grab + load drivers"""
@@ -770,7 +771,8 @@ class ProcessDriverRPMTestCase(unittest.TestCase):
                                 side_effect=lambda: self.moddict),
         )
         self.mocks = {p.attribute:p.start() for p in patches}
-        for p in patches: self.addCleanup(p.stop)
+        for p in patches:
+            self.addCleanup(p.stop)
 
     def test_basic(self):
         """process_driver_rpm: extract RPM, grab + load driver"""
@@ -889,7 +891,8 @@ class DeviceMenuTestCase(unittest.TestCase):
             mock.patch('driver_updates.get_deviceinfo',return_value=devicelist),
         )
         self.mocks = {p.attribute:p.start() for p in patches}
-        for p in patches: self.addCleanup(p.stop)
+        for p in patches:
+            self.addCleanup(p.stop)
 
     def test_device_menu_exit(self):
         """device_menu: 'c' exits the menu"""
@@ -915,8 +918,8 @@ class DeviceMenuTestCase(unittest.TestCase):
         dev = result[0]
         assert vars(dev) == vars(devicelist[int(choose_num)-1])
         # find the corresponding line on-screen
-        screen = [l.strip() for l in stdout.getvalue().splitlines()]
-        match = [l for l in screen if l.startswith(choose_num+')')]
+        screen = [line.strip() for line in stdout.getvalue().splitlines()]
+        match = [line for line in screen if line.startswith(choose_num+')')]
         assert len(match) == 1
         line = match.pop(0)
         # the device name (at least) should be on this line
