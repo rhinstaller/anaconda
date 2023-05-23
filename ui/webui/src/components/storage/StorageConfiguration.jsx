@@ -144,17 +144,17 @@ const checkUseFreeSpace = async (selectedDisks, requiredSize) => {
 
 const scenarios = [{
     id: "erase-all",
-    label: _("Erase data and install"),
+    label: _("Erase disks and install"),
     detail: helpEraseAll,
     check: checkEraseAll,
     default: true,
     // CLEAR_PARTITIONS_ALL = 1
     initializationMode: 1,
-    buttonLabel: _("Erase data and install"),
+    buttonLabel: _("Erase disks and install"),
     buttonVariant: "danger",
     screenWarning: _("Erasing the data cannot be undone."),
     dialogTitleIconVariant: "warning",
-    dialogWarningTitle: _("Erase data and install?"),
+    dialogWarningTitle: _("Erase disks and install?"),
     dialogWarning: _("The selected disks will be erased, this cannot be undone. Are you sure you want to continue with the installation?"),
 }, {
     id: "use-free-space",
