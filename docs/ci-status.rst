@@ -21,10 +21,6 @@ Anaconda
    :alt: Refresh ELN container images
    :target: https://github.com/rhinstaller/anaconda/actions/workflows/container-autoupdate-eln.yml
 
-.. |container-daily-rhel-copr| image:: https://github.com/rhinstaller/anaconda/actions/workflows/daily-rhel-copr.yml/badge.svg
-   :alt: Build current anaconda rhel-8 branch in RHEL COPR
-   :target: https://github.com/rhinstaller/anaconda/actions/workflows/daily-rhel-copr.yml
-
 .. |try-release-daily| image:: https://github.com/rhinstaller/anaconda/actions/workflows/try-release-daily.yml/badge.svg
    :alt: Test releasing and translations daily
    :target: https://github.com/rhinstaller/anaconda/actions/workflows/try-release-daily.yml
@@ -48,9 +44,6 @@ Anaconda
 
 |container-autoupdate-eln|
   Same as above but for ELN. It is expected this can often fail.
-
-|container-daily-rhel-copr|
-  Daily builds of Anaconda in RHEL 8 COPR (internal).
 
 |try-release-daily|
   Tests the release process daily, including checks for missing important translations.
