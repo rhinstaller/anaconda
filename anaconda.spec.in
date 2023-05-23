@@ -470,6 +470,33 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 23 2023 github-actions <github-actions@github.com> - 39.16-1
+- Change driver_updates exit info messages to debug (#2154904) (jkonecny)
+- Add readme for the conf.d drop dir (vslavik)
+- webui: use the reason in title of disabled partitioing warning (rvykydal)
+- WebUI: improve handling of removal of testvm's (jvanderwaa)
+- webui: [pixel-tests] update microcopy of "erase-all" storage scenario
+  (rvykydal)
+- webui: update microcopy of "erase-all" storage scenario (rvykydal)
+- Add a draft release note for the Runtime module (vslavik)
+- Add tests for the Runtime and Dracut modules (vslavik)
+- Add the dracut command module (vslavik)
+- Add the Runtime module (vslavik)
+- Add release notes packaging Web UI (jkonecny)
+- Fix release notes link consistency (jkonecny)
+- docs: Add other f38 release notes (vslavik)
+- docs: Add vponcova f38 release notes (vslavik)
+- docs: Add F38 release notes for vslavik PRs (vslavik)
+- Create Fedora 38 release notes (jkonecny)
+- Remove link to the release notes template.rst (jkonecny)
+- WebUI: close embedded panel when clicking prev/next (jvanderwaa)
+- WebUI: update ESLINT to LINT (jvanderwaa)
+- WebUI: use StorageScenarioId in all components (jvanderwaa)
+- WebUI: set default storage scenario based on scenarios constant (jvanderwaa)
+- webui: use the same naming for disk images created in machine_install
+  (rvykydal)
+- webui: consolidate creating images in machine_install (rvykydal)
+
 * Tue May 16 2023 github-actions <github-actions@github.com> - 39.15-1
 - tests: Remove eslint unit test (vslavik)
 - docs: Add WebUI integration tests badge to CI status (vslavik)
