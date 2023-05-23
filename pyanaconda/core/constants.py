@@ -529,3 +529,6 @@ ID_MODE_USE_DEFAULT = "ID_MODE_USE_DEFAULT"
 
 # Path to the initrd critical warnings log file created by us in Dracut.
 DRACUT_ERRORS_PATH = "/run/anaconda/initrd_errors.txt"
+
+# FIPS mode minimum LUKS passphrase length
+FIPS_PASSPHRASE_MIN_LENGTH = 8
