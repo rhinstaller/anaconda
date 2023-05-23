@@ -22,6 +22,7 @@ import pwquality
 
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.i18n import _
+from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core import constants, regexes
 from pyanaconda.core import users
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -435,6 +436,25 @@ class PasswordValidityCheck(InputCheck):
         self.result.password_quality = pw_quality  # pylint: disable=attribute-defined-outside-init
         self.result.error_message = error_message  # pylint: disable=attribute-defined-outside-init
         self.result.length_ok = length_ok  # pylint: disable=attribute-defined-outside-init
+
+
+class PasswordFIPSCheck(InputCheck):
+    """Check if the password is valid under FIPS, if applicable."""
+
+    def run(self, check_request):
+        self.result.success = True
+        self.result.error_message = ""
+
+        if not kernel_arguments.is_enabled("fips"):
+            return
+
+        if len(check_request.password) >= constants.FIPS_PASSPHRASE_MIN_LENGTH:
+            return
+
+        self.result.success = False
+        self.result.error_message = _(
+            "In FIPS mode, the passphrase must be at least {} letters long."
+        ).format(constants.FIPS_PASSPHRASE_MIN_LENGTH)
 
 
 class PasswordConfirmationCheck(InputCheck):
