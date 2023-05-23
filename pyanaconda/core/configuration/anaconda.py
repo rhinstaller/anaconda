@@ -408,6 +408,10 @@ class AnacondaConfiguration(Configuration):
         # Set geolocation provider
         # FIXME: This will be removed once the boot option becomes a boolean
         if "geoloc" in opts and opts.geoloc and opts.geoloc != "0":
+            if isinstance(opts.geoloc, str) and opts.geoloc.startswith("provider"):
+                log.warning("Setting the geolocation provider from the inst.geoloc boot option "
+                            "is deprecated and will be removed in the future. Use the "
+                            "geolocation_provider=<URL> option in the configuration files.")
             self.timezone._set_option(
                 "geolocation_provider",
                 _convert_geoloc_provider_id_to_url(opts.geoloc)
