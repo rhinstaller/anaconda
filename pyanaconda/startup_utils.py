@@ -616,6 +616,7 @@ def check_if_geolocation_should_be_used(opts, display_mode):
     inst.geoloc=0
 
     :param opts: the command line/boot options
+    :return bool: should geolocation be started and used
     """
     # don't use geolocation during image and directory installation
     if not conf.target.is_hardware:
@@ -698,8 +699,8 @@ def wait_for_geolocation_and_use(geoloc_task_proxy, display_mode):
 def apply_geolocation_result(display_mode):
     """Apply geolocation result.
 
-    This does not check for kickstart installations, because in that case geolocation is not even
-    started.
+    This runs after the geolocation task finishes. No need to check here if the result should be
+    applied, because the task does not even start in that case.
 
     :param display_mode: a display mode to use for the check
     """
