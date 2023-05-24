@@ -277,6 +277,7 @@ jobs:
       # Needed so that other jobs are able to clean the working dir
       # FIXME: we should investigate running permian/launch sudo-less
       - name: Make artefacts created by sudo cleanable
+        if: always()
         run:
           sudo chown -R github:github .
 
