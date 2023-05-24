@@ -110,6 +110,11 @@ if getargbool 0 inst.noverifyssl; then
     echo "rd.noverifyssl" >> /etc/cmdline.d/75-anaconda-options.conf
 fi
 
+# add proxy= to the dracut so stage1 downloads (stage2,kickstart...) don't ignore inst.proxy
+if proxy=$(getarg inst.proxy); then
+    echo "proxy=$proxy" >> /etc/cmdline.d/75-anaconda-options.conf
+fi
+
 # updates
 check_removed_no_inst_arg "updates" "inst.updates"
 if updates=$(getarg inst.updates); then
