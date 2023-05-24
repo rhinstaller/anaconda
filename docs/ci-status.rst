@@ -21,10 +21,6 @@ Anaconda
    :alt: Refresh ELN container images
    :target: https://github.com/rhinstaller/anaconda/actions/workflows/container-autoupdate-eln.yml
 
-.. |container-daily-rhel-copr| image:: https://github.com/rhinstaller/anaconda/actions/workflows/daily-rhel-copr.yml/badge.svg
-   :alt: Build current anaconda rhel-8 branch in RHEL COPR
-   :target: https://github.com/rhinstaller/anaconda/actions/workflows/daily-rhel-copr.yml
-
 .. |try-release-daily| image:: https://github.com/rhinstaller/anaconda/actions/workflows/try-release-daily.yml/badge.svg
    :alt: Test releasing and translations daily
    :target: https://github.com/rhinstaller/anaconda/actions/workflows/try-release-daily.yml
@@ -41,6 +37,10 @@ Anaconda
    :alt: Run unit and RPM tests daily
    :target: https://github.com/rhinstaller/anaconda/actions/workflows/tests-daily.yml
 
+.. |cockpit-lib-update| image:: https://github.com/rhinstaller/anaconda/actions/workflows/cockpit-lib-update.yml/badge.svg
+   :alt: Updates Cockpit library
+   :target: https://github.com/rhinstaller/anaconda/actions/workflows/cockpit-lib-update.yml
+
 .. _Dependabot: https://github.com/rhinstaller/anaconda/network/updates
 
 |container-autoupdate-fedora|
@@ -48,9 +48,6 @@ Anaconda
 
 |container-autoupdate-eln|
   Same as above but for ELN. It is expected this can often fail.
-
-|container-daily-rhel-copr|
-  Daily builds of Anaconda in RHEL 8 COPR (internal).
 
 |try-release-daily|
   Tests the release process daily, including checks for missing important translations.
@@ -64,6 +61,9 @@ Anaconda
 
 |tests-daily|
   Runs unit and RPM tests every day, independent of any changes to code or containers.
+
+|cockpit-lib-update|
+  Updates the COCKPIT_REPO_COMMIT in ui/webui/Makefile.am and opens a pull request.
 
 Dependabot_
   Checks Anaconda dependencies and opens pull requests for new versions.
