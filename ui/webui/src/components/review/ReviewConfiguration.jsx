@@ -103,6 +103,15 @@ export const ReviewConfiguration = ({ idPrefix, storageScenarioId }) => {
 
     return (
         <AnacondaPage title={_("Review and install")}>
+            <Alert
+              isInline
+              variant="warning"
+              title={_("To prevent loss, make sure to backup your data. ")}
+            >
+                <p>
+                    {getScenario(storageScenarioId).screenWarning}
+                </p>
+            </Alert>
             <ReviewDescriptionList>
                 <DescriptionListGroup>
                     <DescriptionListTerm>
@@ -116,15 +125,6 @@ export const ReviewConfiguration = ({ idPrefix, storageScenarioId }) => {
             <Title headingLevel="h3">
                 {_("Installation destination")}
             </Title>
-            <Alert
-              isInline
-              variant="warning"
-              title={_("To prevent loss, make sure to backup your data. ")}
-            >
-                <p>
-                    {getScenario(storageScenarioId).screenWarning}
-                </p>
-            </Alert>
             <ExpandableSection
               toggleText={_("Storage devices")}
               onToggle={() => setDisksExpanded(!disksExpanded)}
