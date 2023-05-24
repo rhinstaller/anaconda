@@ -157,7 +157,7 @@ class DracutURL(Url, DracutArgsMixin):
         if self.noverifyssl:
             args.append("rd.noverifyssl")
         if self.proxy:
-            args.append("inst.proxy=%s" % self.proxy)
+            args.append("proxy=%s" % self.proxy)
 
         return "\n".join(args)
 
