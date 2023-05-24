@@ -47,8 +47,8 @@ class TestReview(anacondalib.VirtInstallMachineCase):
         r.check_language("English (United States)")
 
         # check selected disks are shown
-        r.check_disk_label("vda", "Local standard disk")
-        r.check_disk_description("vda", "0x1af4 (vda)")
+        r.check_disk_label("vda", "vda")
+        r.check_disk_description("vda", "0x1af4")
 
         # check encryption choice
         r.check_encryption("Disabled")
