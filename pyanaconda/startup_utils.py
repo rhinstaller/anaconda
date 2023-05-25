@@ -400,27 +400,27 @@ def find_kickstart(options):
     return None
 
 
-def run_pre_scripts(ks):
+def run_pre_scripts(ks_path):
     """Run %pre scripts.
 
-    :param ks: a path to a kickstart file or None
+    :param ks_path: a path to a kickstart file or None
     """
-    if ks is not None:
-        kickstart.preScriptPass(ks)
+    if ks_path is not None:
+        kickstart.preScriptPass(ks_path)
 
 
-def parse_kickstart(ks, strict_mode=False):
+def parse_kickstart(ks_path, strict_mode=False):
     """Parse the given kickstart file.
 
-    :param ks: a path to a kickstart file or None
+    :param ks_path: a path to a kickstart file or None
     :param strict_mode: process warnings as errors if True
     :returns: kickstart parsed to a data model
     """
     ksdata = kickstart.AnacondaKSHandler()
 
-    if ks is not None:
-        log.info("Parsing kickstart: %s", ks)
-        kickstart.parseKickstart(ksdata, ks, strict_mode=strict_mode, pass_to_boss=True)
+    if ks_path is not None:
+        log.info("Parsing kickstart: %s", ks_path)
+        kickstart.parseKickstart(ksdata, ks_path, strict_mode=strict_mode, pass_to_boss=True)
 
     return ksdata
 
