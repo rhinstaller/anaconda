@@ -525,14 +525,13 @@ def initialize_locale(opts, text_mode):
     localization.setup_locale(os.environ["LANG"], localization_proxy, text_mode=text_mode)
 
 
-def reinitialize_locale(opts, text_mode):
+def reinitialize_locale(text_mode):
     """Reinitialize locale.
 
     We need to reinitialize the locale if GUI startup failed.
     The text mode might not be able to display the characters
     from our current locale.
 
-    :param opts: the command line/boot options
     :param text_mode: is the locale being set up for the text mode?
     """
     from pyanaconda import localization
