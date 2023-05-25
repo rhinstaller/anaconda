@@ -353,11 +353,8 @@ def print_startup_note(options):
         print(separate_attachements_note)
 
 
-def live_startup(anaconda):
-    """Live environment startup tasks.
-
-    :param anaconda: instance of the Anaconda class
-    """
+def live_startup():
+    """Live environment startup tasks."""
     inhibit_screensaver()
 
 
