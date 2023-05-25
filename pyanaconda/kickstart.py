@@ -319,7 +319,7 @@ def preScriptPass(f):
     runPreScripts(ksparser.handler.scripts)
 
 
-def parseKickstart(handler, f, strict_mode=False, pass_to_boss=False):
+def parseKickstart(handler, f, strict_mode=False):
     # preprocessing the kickstart file has already been handled in initramfs.
 
     ksparser = AnacondaKSParser(handler)
@@ -342,16 +342,15 @@ def parseKickstart(handler, f, strict_mode=False, pass_to_boss=False):
             warnings.simplefilter("always", category=KickstartParseWarning)
 
             # Parse the kickstart file in DBus modules.
-            if pass_to_boss:
-                boss = BOSS.get_proxy()
-                report = KickstartReport.from_structure(
-                    boss.ReadKickstartFile(f)
-                )
-                for warn in report.warning_messages:
-                    warnings.warn(warn.message, KickstartParseWarning)
-                if not report.is_valid():
-                    message = "\n\n".join(map(str, report.error_messages))
-                    raise KickstartError(message)
+            boss = BOSS.get_proxy()
+            report = KickstartReport.from_structure(
+                boss.ReadKickstartFile(f)
+            )
+            for warn in report.warning_messages:
+                warnings.warn(warn.message, KickstartParseWarning)
+            if not report.is_valid():
+                message = "\n\n".join(map(str, report.error_messages))
+                raise KickstartError(message)
 
             # Parse the kickstart file in anaconda.
             ksparser.readKickstart(f)

@@ -420,7 +420,7 @@ def parse_kickstart(ks_path, strict_mode=False):
 
     if ks_path is not None:
         log.info("Parsing kickstart: %s", ks_path)
-        kickstart.parseKickstart(ksdata, ks_path, strict_mode=strict_mode, pass_to_boss=True)
+        kickstart.parseKickstart(ksdata, ks_path, strict_mode=strict_mode)
 
     return ksdata
 
