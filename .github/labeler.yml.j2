@@ -1,0 +1,21 @@
+# File to automatically label pull requests
+# See https://github.com/actions/labeler
+
+# Always apply target fedora version to any changes
+{% if distro_release == "rawhide" %}
+f{$ rawhide_fedora_version $}:
+{% else %}
+f{$ branched_fedora_version $}:
+{% endif %}
+- '*'
+- '**/*'
+
+webui:
+- ui/webui/*
+
+documentation:
+ - docs/*
+
+infrastructure:
+- '.github'
+- dockerfile
