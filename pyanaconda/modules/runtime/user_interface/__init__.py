@@ -15,6 +15,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.modules.boss.user_interface.ui import UIModule
+from pyanaconda.modules.runtime.user_interface.ui import UIModule
 
 __all__ = ["UIModule"]

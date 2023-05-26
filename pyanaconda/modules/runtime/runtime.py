@@ -22,6 +22,7 @@ from pyanaconda.core.dbus import DBus
 from pyanaconda.modules.runtime.runtime_interface import RuntimeInterface
 from pyanaconda.modules.runtime.kickstart import RuntimeKickstartSpecification
 from pyanaconda.modules.runtime.dracut_commands import DracutCommandsModule
+from pyanaconda.modules.runtime.user_interface import UIModule
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import RUNTIME
 from pyanaconda.modules.common.containers import TaskContainer
@@ -45,6 +46,9 @@ class RuntimeService(KickstartService):
 
         self._dracut_module = DracutCommandsModule()
         self._modules.append(self._dracut_module)
+
+        self._ui_module = UIModule()
+        self._modules.append(self._ui_module)
 
     def publish(self):
         """Publish the module."""

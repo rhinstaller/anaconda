@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-user_interfacedir = $(pkgpyexecdir)/modules/boss/user_interface
+user_interfacedir = $(pkgpyexecdir)/modules/runtime/user_interface
 user_interface_PYTHON = $(srcdir)/*.py
 
 MAINTAINERCLEANFILES = Makefile.in

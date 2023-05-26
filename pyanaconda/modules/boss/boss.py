@@ -25,7 +25,6 @@ from pyanaconda.modules.boss.module_manager import ModuleManager
 from pyanaconda.modules.boss.install_manager import InstallManager
 from pyanaconda.modules.boss.installation import CopyLogsTask, SetContextsTask
 from pyanaconda.modules.boss.kickstart_manager import KickstartManager
-from pyanaconda.modules.boss.user_interface import UIModule
 from pyanaconda.modules.common.base import Service
 from pyanaconda.modules.common.constants.services import BOSS
 from pyanaconda.modules.common.containers import TaskContainer
@@ -43,7 +42,6 @@ class Boss(Service):
         self._module_manager = ModuleManager()
         self._kickstart_manager = KickstartManager()
         self._install_manager = InstallManager()
-        self._ui_module = UIModule()
 
         self._module_manager.module_observers_changed.connect(
             self._kickstart_manager.on_module_observers_changed
@@ -56,10 +54,6 @@ class Boss(Service):
     def publish(self):
         """Publish the boss."""
         TaskContainer.set_namespace(BOSS.namespace)
-
-        # Publish submodules.
-        self._ui_module.publish()
-
         DBus.publish_object(BOSS.object_path, BossInterface(self))
         DBus.register_service(BOSS.service_name)
 
