@@ -224,8 +224,8 @@ class EFI(Platform):
         return PartSpec(
             mountpoint="/boot/efi",
             fstype="efi",
-            size=Size("200MiB"),
-            max_size=Size("600MiB"),
+            size=Size("500MiB"),
+            max_size=Size("2GiB"),
             grow=True
         )
 
