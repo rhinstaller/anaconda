@@ -325,7 +325,7 @@ if __name__ == "__main__":
     flags.kexec = opts.kexec
 
     if opts.liveinst:
-        startup_utils.live_startup(anaconda)
+        startup_utils.live_startup()
 
     # Switch to tty1 on exception in case something goes wrong during X start.
     # This way if, for example, window manager doesn't start, we switch back to a
@@ -437,7 +437,7 @@ if __name__ == "__main__":
         # we need to reinitialize the locale if GUI startup failed,
         # as we might now be in text mode, which might not be able to display
         # the characters from our current locale
-        startup_utils.reinitialize_locale(opts, text_mode=anaconda.tui_mode)
+        startup_utils.reinitialize_locale(text_mode=anaconda.tui_mode)
 
     # we now know in which mode we are going to run so store the information
     from pykickstart import constants as pykickstart_constants

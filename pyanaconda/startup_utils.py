@@ -353,11 +353,8 @@ def print_startup_note(options):
         print(separate_attachements_note)
 
 
-def live_startup(anaconda):
-    """Live environment startup tasks.
-
-    :param anaconda: instance of the Anaconda class
-    """
+def live_startup():
+    """Live environment startup tasks."""
     inhibit_screensaver()
 
 
@@ -400,27 +397,27 @@ def find_kickstart(options):
     return None
 
 
-def run_pre_scripts(ks):
+def run_pre_scripts(ks_path):
     """Run %pre scripts.
 
-    :param ks: a path to a kickstart file or None
+    :param ks_path: a path to a kickstart file or None
     """
-    if ks is not None:
-        kickstart.preScriptPass(ks)
+    if ks_path is not None:
+        kickstart.preScriptPass(ks_path)
 
 
-def parse_kickstart(ks, strict_mode=False):
+def parse_kickstart(ks_path, strict_mode=False):
     """Parse the given kickstart file.
 
-    :param ks: a path to a kickstart file or None
+    :param ks_path: a path to a kickstart file or None
     :param strict_mode: process warnings as errors if True
     :returns: kickstart parsed to a data model
     """
     ksdata = kickstart.AnacondaKSHandler()
 
-    if ks is not None:
-        log.info("Parsing kickstart: %s", ks)
-        kickstart.parseKickstart(ksdata, ks, strict_mode=strict_mode, pass_to_boss=True)
+    if ks_path is not None:
+        log.info("Parsing kickstart: %s", ks_path)
+        kickstart.parseKickstart(ksdata, ks_path, strict_mode=strict_mode)
 
     return ksdata
 
@@ -525,14 +522,13 @@ def initialize_locale(opts, text_mode):
     localization.setup_locale(os.environ["LANG"], localization_proxy, text_mode=text_mode)
 
 
-def reinitialize_locale(opts, text_mode):
+def reinitialize_locale(text_mode):
     """Reinitialize locale.
 
     We need to reinitialize the locale if GUI startup failed.
     The text mode might not be able to display the characters
     from our current locale.
 
-    :param opts: the command line/boot options
     :param text_mode: is the locale being set up for the text mode?
     """
     from pyanaconda import localization
