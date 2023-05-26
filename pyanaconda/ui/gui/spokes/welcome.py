@@ -172,7 +172,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
             else:
                 # we don't have translation for this language,
                 # so dump all locales for it
-                locales = [l for l in locales if localization.get_language_id(l) != lang]
+                locales = [loc for loc in locales if localization.get_language_id(loc) != lang]
 
         # And then we add a separator after the selected best language
         # and any additional languages (that have translations) from geoip

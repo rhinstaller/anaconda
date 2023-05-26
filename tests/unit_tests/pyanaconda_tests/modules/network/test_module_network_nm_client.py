@@ -1019,11 +1019,11 @@ class NMClientTestCase(unittest.TestCase):
             flags,
             io_priority
         )
-        assert result.succeeded == True
-        assert result.failed == False
+        assert result.succeeded is True
+        assert result.failed is False
         assert result.error_message == ""
         assert result.received_data.get_name() == filename
-        assert result.timeout == False
+        assert result.timeout is False
 
         # Test run with error
         filepath = "/nowaythiscanbeonyourfilesystem"
@@ -1037,11 +1037,11 @@ class NMClientTestCase(unittest.TestCase):
             flags,
             io_priority
         )
-        assert result.succeeded == False
-        assert result.failed == True
+        assert result.succeeded is False
+        assert result.failed is True
         assert result.error_message != ""
-        assert result.received_data == None
-        assert result.timeout == False
+        assert result.received_data is None
+        assert result.timeout is False
 
         # Test timeout
         delay = timeout + 1
@@ -1075,10 +1075,10 @@ class NMClientTestCase(unittest.TestCase):
             io_priority
         )
 
-        assert result.succeeded == False
+        assert result.succeeded is False
         assert result.error_message == "g-io-error-quark: Operation was cancelled (19)"
-        assert result.received_data == None
-        assert result.timeout == True
+        assert result.received_data is None
+        assert result.timeout is True
 
         mainctx.pop_thread_default()
 

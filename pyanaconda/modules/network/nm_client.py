@@ -1403,7 +1403,7 @@ def get_ports_from_connections(nm_client, port_types, controller_specs):
     """
     ports = set()
     for con in nm_client.get_connections():
-        if not con.get_setting_connection().get_slave_type() in port_types:
+        if con.get_setting_connection().get_slave_type() not in port_types:
             continue
         if con.get_setting_connection().get_master() in controller_specs:
             iface = get_iface_from_connection(nm_client, con.get_uuid())

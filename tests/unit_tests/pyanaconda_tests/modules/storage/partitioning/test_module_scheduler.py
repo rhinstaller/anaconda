@@ -355,7 +355,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         request.container_raid_level = "raid1"
         request.reset_container_data()
 
-        assert compare_data(request, default) == True
+        assert compare_data(request, default) is True
 
     def test_get_default_luks_version(self):
         """Test GetDefaultLUKSVersion."""

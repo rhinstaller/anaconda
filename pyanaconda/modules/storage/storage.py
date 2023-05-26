@@ -19,7 +19,7 @@
 #
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.dbus import DBus
-from pyanaconda.core.storage import blivet_version
+from blivet import __version__ as blivet_version
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.containers import TaskContainer

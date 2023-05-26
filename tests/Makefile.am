@@ -43,23 +43,25 @@ UNIT_TESTS_PATTERN ?= ""
 PEP8_TARGETS ?= ""
 
 # Test scripts need to be listed both here and in TESTS
-dist_check_SCRIPTS = $(srcdir)/glade_tests/*.py \
-		     $(srcdir)/lib/*.py \
-		     $(srcdir)/lib/*.sh \
-		     unit_tests/unit_tests.sh \
-		     rpm_tests/rpm_tests.sh \
-		     pylint/runpylint.py \
-		     cppcheck/runcppcheck.sh \
-		     testenv.sh \
-		     $(srcdir)/gettext_tests/*.py \
-		     gettext_tests/canary_tests.sh \
-		     $(srcdir)/*_tests/*.py \
-		     $(srcdir)/*_tests/*/*.py \
-		     $(srcdir)/*_tests/*/*/*.py \
-		     $(srcdir)/*_tests/*/*/*/*.py \
-		     $(srcdir)/unit_tests/*_tests/*.py \
-		     shellcheck/*.sh \
-		     pep8/runpep8.sh
+dist_check_SCRIPTS = \
+	$(srcdir)/glade_tests/*.py \
+	$(srcdir)/lib/*.py \
+	$(srcdir)/lib/*.sh \
+	unit_tests/unit_tests.sh \
+	rpm_tests/rpm_tests.sh \
+	pylint/runpylint.py \
+	cppcheck/runcppcheck.sh \
+	testenv.sh \
+	$(srcdir)/gettext_tests/*.py \
+	gettext_tests/canary_tests.sh \
+	$(srcdir)/*_tests/*.py \
+	$(srcdir)/*_tests/*/*.py \
+	$(srcdir)/*_tests/*/*/*.py \
+	$(srcdir)/*_tests/*/*/*/*.py \
+	$(srcdir)/unit_tests/*_tests/*.py \
+	shellcheck/*.sh \
+	pep8/runpep8.sh \
+	ruff/run_ruff.sh
 
 
 TESTS = \
@@ -70,6 +72,7 @@ TESTS = \
 	gettext_tests/canary_tests.sh \
 	glade_tests/glade_tests.sh \
 	shellcheck/run_shellcheck.sh \
+	ruff/run_ruff.sh \
 	unit_tests/unit_tests.sh \
 	pylint/runpylint.py
 

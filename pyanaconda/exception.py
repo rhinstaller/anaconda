@@ -244,6 +244,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
             util.runOnErrorScripts(anaconda.ksdata.scripts)
             kickstart.runTracebackScripts(anaconda.ksdata.scripts)
         # pylint: disable=bare-except
+        # ruff: noqa: E722
         except:
             pass
 

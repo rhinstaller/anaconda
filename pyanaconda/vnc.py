@@ -17,7 +17,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import os, sys
+import os
+import sys
 import time
 from pyanaconda import network, product
 from pyanaconda.core import util, constants

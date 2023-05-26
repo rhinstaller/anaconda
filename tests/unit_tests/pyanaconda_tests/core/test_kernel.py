@@ -33,8 +33,8 @@ class KernelArgumentsTests(unittest.TestCase):
         # test using "in" operator on the class
         assert "blah" in ka
         assert "foo" in ka
-        assert not ("thisisnotthere" in ka)
-        assert not ("body" in ka)
+        assert "thisisnotthere" not in ka
+        assert "body" not in ka
         assert "nobody" in ka
 
         # test the get() method

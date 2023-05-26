@@ -507,7 +507,7 @@ class ProfileConfigurationTestCase(unittest.TestCase):
 
     def test_find_nonexistent_profile(self):
         assert self._loader.check_profile("custom-profile") is False
-        assert self._loader.detect_profile("custom-os", "custom-variant") == None
+        assert self._loader.detect_profile("custom-os", "custom-variant") is None
 
     def test_ignore_invalid_profile(self):
         with tempfile.TemporaryDirectory() as config_dir:

@@ -160,7 +160,9 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     def _is_blivet_gui_supported(self):
         """Is the partitioning with blivet-gui supported?"""
         try:
-            import pyanaconda.ui.gui.spokes.blivet_gui  # pylint:disable=unused-import
+            # pylint:disable=unused-import
+            # ruff: noqa: F401
+            import pyanaconda.ui.gui.spokes.blivet_gui
         except ImportError:
             return False
 

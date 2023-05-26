@@ -15,7 +15,9 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import os, re, sys
+import os
+import re
+import sys
 
 # Something like looks more or less like an <a> tag
 link_re = re.compile(r'<\s*a(\s|>)')

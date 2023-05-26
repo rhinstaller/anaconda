@@ -32,7 +32,6 @@ __all__ = ["CensorshipLinter", "CensorshipConfig"]
 
 import sys
 import re
-import multiprocessing
 
 from io import StringIO
 

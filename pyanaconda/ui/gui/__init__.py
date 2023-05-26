@@ -16,7 +16,10 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import inspect, os, sys, site
+import inspect
+import os
+import sys
+import site
 import meh.ui.gui
 
 from contextlib import contextmanager

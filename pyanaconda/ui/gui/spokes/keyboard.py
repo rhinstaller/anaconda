@@ -520,7 +520,7 @@ class KeyboardSpoke(NormalSpoke):
 
             if self._remove_last_attempt:
                 itr = self._store.get_iter_first()
-                if not self._store[itr][0] in self._add_dialog.chosen_layouts:
+                if self._store[itr][0] not in self._add_dialog.chosen_layouts:
                     self._removeLayout(self._store, itr)
                 self._remove_last_attempt = False
 
