@@ -58,13 +58,12 @@ jobs:
       CI_TAG: '${{ matrix.ci_tag }}'
       # Always avoid using cache because cache is not correctly invalidated.
       CONTAINER_BUILD_ARGS: '--no-cache ${{ matrix.build-args }}'
-      TARGET_BRANCH_NAME: 'origin/${{ matrix.target_branch }}'
 
     steps:
       - name: Clone repository
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ matrix.target_branch }}
 
       - name: Run tests in anaconda-ci container
         run: |
@@ -97,13 +96,12 @@ jobs:
       CI_TAG: '${{ matrix.ci_tag }}'
       # Always avoid using cache because cache is not correctly invalidated.
       CONTAINER_BUILD_ARGS: '--no-cache ${{ matrix.build-args }}'
-      TARGET_BRANCH_NAME: 'origin/${{ matrix.target_branch }}'
 
     steps:
       - name: Clone repository
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ matrix.target_branch }}
 
       - name: Run RPM tests in container
         run: make -f Makefile.am container-rpm-test
