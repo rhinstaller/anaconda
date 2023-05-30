@@ -41,6 +41,17 @@ class UserNameTests(unittest.TestCase):
         self._assert_username("root", False)
         self._assert_username("home", False)
         self._assert_username("system", False)
+        self._assert_username("mail", False)
+        self._assert_username("nobody", False)
+        self._assert_username("operator", False)
+        self._assert_username("ftp", False)
+        self._assert_username("adm", False)
+        self._assert_username("bin", False)
+        self._assert_username("lp", False)
+        self._assert_username("sync", False)
+        self._assert_username("shutdown", False)
+        self._assert_username("halt", False)
+        self._assert_username("games", False)
 
         self._assert_username("foo", True)
 

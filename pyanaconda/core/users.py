@@ -78,7 +78,26 @@ def check_username(name):
     """
 
     # Check reserved names.
-    if name in os.listdir("/") + ["root", "home", "daemon", "system"]:
+    reserved_names = [
+        # passwd contents from setup.rpm
+        "root",
+        "bin",
+        "daemon",
+        "adm",
+        "lp",
+        "sync",
+        "shutdown",
+        "halt",
+        "mail",
+        "operator",
+        "games",
+        "ftp",
+        "nobody",
+        # from older version of the function
+        "home",
+        "system",
+    ]
+    if name in os.listdir("/") + reserved_names:
         return False, _("User name is reserved for system: %s") % name
 
     return is_valid_name(name)
