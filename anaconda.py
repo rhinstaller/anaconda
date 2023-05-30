@@ -149,6 +149,11 @@ def setup_environment():
     else:
         os.environ["DISPLAY"] = ":%s" % constants.X_DISPLAY_NUMBER
 
+    # We mostly don't run from bash, so it won't load the file for us, and libreport will then
+    # show vi instead of nano. Resolves https://bugzilla.redhat.com/show_bug.cgi?id=1889674
+    if "EDITOR" not in os.environ and os.path.isfile("/etc/profile.d/nano-default-editor.sh"):
+        os.environ["EDITOR"] = "/usr/bin/nano"
+
 
 if __name__ == "__main__":
     # check if the CLI help is requested and return it at once,
