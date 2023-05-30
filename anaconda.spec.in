@@ -470,6 +470,18 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 30 2023 github-actions <github-actions@github.com> - 39.17-1
+- Remove unused parameter anaconda (vslavik)
+- Remove unused parameter opts (vslavik)
+- Remove unused parameter pass_to_boss (vslavik)
+- Rename parameters ks->ks_path (vslavik)
+- WebUI: move alert under header for review screen (jvanderwaa)
+- Reindent test file list (vslavik)
+- Fix ruff detections (vslavik)
+- Add ruff, a very fast linter (vslavik)
+- Move the User Interface module under Runtime (vslavik)
+- Increase the minimum EFI System Partition (ESP) size to 500MiB (richard)
+
 * Tue May 23 2023 github-actions <github-actions@github.com> - 39.16-1
 - Change driver_updates exit info messages to debug (#2154904) (jkonecny)
 - Add readme for the conf.d drop dir (vslavik)
