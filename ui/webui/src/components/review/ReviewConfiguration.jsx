@@ -18,16 +18,20 @@ import cockpit from "cockpit";
 import React, { useEffect, useState } from "react";
 
 import {
+    Badge,
     Button,
+    Flex,
     Title,
     DataList, DataListItem,
+    DataListToggle,
     DataListItemRow, DataListItemCells,
     DataListCell,
     DescriptionList, DescriptionListGroup,
     DescriptionListTerm, DescriptionListDescription,
     ExpandableSection,
     Modal, ModalVariant,
-    Alert
+    Alert,
+    Tooltip,
 } from "@patternfly/react-core";
 
 import {
@@ -43,6 +47,8 @@ import {
 import { AnacondaPage } from "../AnacondaPage.jsx";
 
 import { getScenario } from "../storage/StorageConfiguration.jsx";
+
+import "./ReviewConfiguration.scss";
 
 const _ = cockpit.gettext;
 
@@ -64,12 +70,43 @@ export const ReviewDescriptionList = ({ children }) => {
     );
 };
 
+const DeviceRow = ({ name, data }) => {
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    return (
+        <DataListItem id={`data-list-${name}`} isExpanded={isExpanded} key={name}>
+            <DataListItemRow>
+                <DataListToggle
+                  buttonProps={{ isDisabled: true }}
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  isExpanded={isExpanded}
+                  id={name + "-expander"}
+                />
+                <DataListItemCells
+                  dataListCells={[
+                      <DataListCell key={name + "-name"}>
+                          <Flex>
+                              <span id={`installation-review-disk-label-${name}`} className="review-disk-label">{name}</span>
+                              <span id={`installation-review-disk-description-${name}`}>{"(" + data.description.v + ")"}</span>
+                              <Tooltip content={_("Total disk size")}>
+                                  <Badge screenReaderText={_("Total disk size")}>{cockpit.format_bytes(data.size.v)}</Badge>
+                              </Tooltip>
+                          </Flex>
+                      </DataListCell>
+                  ]}
+                />
+            </DataListItemRow>
+        </DataListItem>
+    );
+};
+
 export const ReviewConfiguration = ({ idPrefix, storageScenarioId }) => {
     const [deviceData, setDeviceData] = useState({});
     const [selectedDisks, setSelectedDisks] = useState();
     const [systemLanguage, setSystemLanguage] = useState();
-    const [disksExpanded, setDisksExpanded] = useState();
     const [encrypt, setEncrypt] = useState();
+    const [showLanguageSection, setShowLanguageSection] = useState(true);
+    const [showInstallationDestSection, setShowInstallationDestSection] = useState(true);
 
     useEffect(() => {
         const initializeLanguage = async () => {
@@ -79,7 +116,6 @@ export const ReviewConfiguration = ({ idPrefix, storageScenarioId }) => {
         };
         const initializeDisks = async () => {
             const selDisks = await getSelectedDisks().catch(console.error);
-            setDisksExpanded(selDisks.length < 2);
             setSelectedDisks(selDisks);
             for (const disk of selDisks) {
                 const devData = await getDeviceData({ disk }).catch(console.error);
@@ -112,63 +148,54 @@ export const ReviewConfiguration = ({ idPrefix, storageScenarioId }) => {
                     {getScenario(storageScenarioId).screenWarning}
                 </p>
             </Alert>
-            <ReviewDescriptionList>
-                <DescriptionListGroup>
-                    <DescriptionListTerm>
-                        {_("Language")}
-                    </DescriptionListTerm>
-                    <DescriptionListDescription id={idPrefix + "-target-system-language"}>
-                        {systemLanguage}
-                    </DescriptionListDescription>
-                </DescriptionListGroup>
-            </ReviewDescriptionList>
-            <Title headingLevel="h3">
-                {_("Installation destination")}
-            </Title>
             <ExpandableSection
-              toggleText={_("Storage devices")}
-              onToggle={() => setDisksExpanded(!disksExpanded)}
-              isExpanded={disksExpanded}
+              className="review-expandable-section"
+              toggleText={<Title headingLevel="h3">{_("Language")}</Title>}
+              onToggle={() => setShowLanguageSection(!showLanguageSection)}
+              isExpanded={showLanguageSection}
               isIndented
             >
+                <ReviewDescriptionList>
+                    <DescriptionListGroup>
+                        <DescriptionListTerm className="description-list-term">
+                            {_("Language")}
+                        </DescriptionListTerm>
+                        <DescriptionListDescription className="description-list-description" id={idPrefix + "-target-system-language"}>
+                            {systemLanguage}
+                        </DescriptionListDescription>
+                    </DescriptionListGroup>
+                </ReviewDescriptionList>
+            </ExpandableSection>
+            <ExpandableSection
+              className="review-expandable-section"
+              toggleText={<Title headingLevel="h3">{_("Installation destination")}</Title>}
+              onToggle={() => setShowInstallationDestSection(!showInstallationDestSection)}
+              isExpanded={showInstallationDestSection}
+              isIndented
+            >
+                <ReviewDescriptionList>
+                    <DescriptionListGroup>
+                        <DescriptionListTerm className="description-list-term">
+                            {_("Storage Configuration")}
+                        </DescriptionListTerm>
+                        <DescriptionListDescription className="description-list-description" id={idPrefix + "-target-system-mode"}>
+                            {getScenario(storageScenarioId).label}
+                        </DescriptionListDescription>
+                        <DescriptionListTerm className="description-list-term">
+                            {_("Disk Encryption")}
+                        </DescriptionListTerm>
+                        <DescriptionListDescription className="description-list-description" id={idPrefix + "-target-system-encrypt"}>
+                            {encrypt ? _("Enabled") : _("Disabled")}
+                        </DescriptionListDescription>
+                    </DescriptionListGroup>
+                </ReviewDescriptionList>
+                <Title className="storage-devices-configuration-title" headingLevel="h4">{_("Storage devices and configurations")}</Title>
                 <DataList isCompact>
-                    {selectedDisks.map(selectedDisk => (
-                        <DataListItem key={selectedDisk}>
-                            <DataListItemRow>
-                                <DataListItemCells
-                                  dataListCells={[
-                                      <DataListCell key={selectedDisk} id={idPrefix + "-disk-label-" + selectedDisk}>
-                                          {_("Local standard disk")}
-                                      </DataListCell>,
-                                      <DataListCell key={"description-" + selectedDisk} id={idPrefix + "-disk-description-" + selectedDisk}>
-                                          {deviceData && deviceData[selectedDisk] && deviceData[selectedDisk].description.v + " (" + selectedDisk + ")"}
-                                      </DataListCell>,
-                                      <DataListCell key={"size-" + selectedDisk} id={idPrefix + "-disk-size-" + selectedDisk}>
-                                          {cockpit.format_bytes(deviceData && deviceData[selectedDisk] && deviceData[selectedDisk].size.v) + " " + _("total")}
-                                      </DataListCell>
-                                  ]}
-                                />
-                            </DataListItemRow>
-                        </DataListItem>
-                    ))}
+                    {Object.keys(deviceData).map(deviceName =>
+                        <DeviceRow key={deviceName} name={deviceName} data={deviceData[deviceName]} />
+                    )}
                 </DataList>
             </ExpandableSection>
-            <ReviewDescriptionList>
-                <DescriptionListGroup>
-                    <DescriptionListTerm>
-                        {_("Storage Configuration")}
-                    </DescriptionListTerm>
-                    <DescriptionListDescription id={idPrefix + "-target-system-mode"}>
-                        {getScenario(storageScenarioId).label}
-                    </DescriptionListDescription>
-                    <DescriptionListTerm>
-                        {_("Disk Encryption")}
-                    </DescriptionListTerm>
-                    <DescriptionListDescription id={idPrefix + "-target-system-encrypt"}>
-                        {encrypt ? _("Enabled") : _("Disabled")}
-                    </DescriptionListDescription>
-                </DescriptionListGroup>
-            </ReviewDescriptionList>
         </AnacondaPage>
     );
 };
