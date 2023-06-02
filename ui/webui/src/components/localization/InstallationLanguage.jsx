@@ -248,6 +248,9 @@ class LanguageSelector extends React.Component {
                                     } else {
                                         // eslint-disable-next-line no-eval
                                         eval(body);
+
+                                        const langEvent = new CustomEvent("cockpit-lang");
+                                        window.dispatchEvent(langEvent);
                                     }
                                     this.props.reRenderApp(item);
                                 });
