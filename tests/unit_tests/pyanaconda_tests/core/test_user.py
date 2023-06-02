@@ -33,69 +33,77 @@ class UserNameTests(unittest.TestCase):
         assert valid == expected_validity, message
         assert (not valid) == (message is not None)
 
-    def _assert_username(self, name, expected_validity):
-        self._assert_name(name, expected_validity)
-
     def test_reserved_names(self):
         """Test the reserved names."""
-        self._assert_username("root", False)
-        self._assert_username("home", False)
-        self._assert_username("system", False)
+        self._assert_name("root", False)
+        self._assert_name("home", False)
+        self._assert_name("system", False)
+        self._assert_name("mail", False)
+        self._assert_name("nobody", False)
+        self._assert_name("operator", False)
+        self._assert_name("ftp", False)
+        self._assert_name("adm", False)
+        self._assert_name("bin", False)
+        self._assert_name("lp", False)
+        self._assert_name("sync", False)
+        self._assert_name("shutdown", False)
+        self._assert_name("halt", False)
+        self._assert_name("games", False)
 
-        self._assert_username("foo", True)
+        self._assert_name("foo", True)
 
     def test_hyphen(self):
         """Test names with a hyphen."""
-        self._assert_username("-foo", False)
-        self._assert_username("-f", False)
-        self._assert_username("-", False)
+        self._assert_name("-foo", False)
+        self._assert_name("-f", False)
+        self._assert_name("-", False)
 
-        self._assert_username("f-", True)
-        self._assert_username("foo-", True)
+        self._assert_name("f-", True)
+        self._assert_name("foo-", True)
 
     def test_dots(self):
         """Test dots."""
-        self._assert_username(".", False)
-        self._assert_username("..", False)
+        self._assert_name(".", False)
+        self._assert_name("..", False)
 
-        self._assert_username("...", True)
+        self._assert_name("...", True)
 
     def test_numbers(self):
         """Test numbers in names."""
-        self._assert_username("1", False)
-        self._assert_username("12", False)
-        self._assert_username("123", False)
+        self._assert_name("1", False)
+        self._assert_name("12", False)
+        self._assert_name("123", False)
 
-        self._assert_username("1a", True)
-        self._assert_username("12a", True)
-        self._assert_username("123a", True)
+        self._assert_name("1a", True)
+        self._assert_name("12a", True)
+        self._assert_name("123a", True)
 
     def test_dolar(self):
         """Test a dolar in names."""
-        self._assert_username("$", False)
-        self._assert_username("$f", False)
-        self._assert_username("f$oo", False)
+        self._assert_name("$", False)
+        self._assert_name("$f", False)
+        self._assert_name("f$oo", False)
 
-        self._assert_username("f$", True)
-        self._assert_username("foo$", True)
+        self._assert_name("f$", True)
+        self._assert_name("foo$", True)
 
     def test_chars(self):
         """Test invalid characters."""
-        self._assert_username("?", False)
-        self._assert_username("f?", False)
-        self._assert_username("foo?", False)
+        self._assert_name("?", False)
+        self._assert_name("f?", False)
+        self._assert_name("foo?", False)
 
-        self._assert_username("fo.o", True)
-        self._assert_username("fo_o", True)
-        self._assert_username("fo-o", True)
-        self._assert_username("fo9o", True)
+        self._assert_name("fo.o", True)
+        self._assert_name("fo_o", True)
+        self._assert_name("fo-o", True)
+        self._assert_name("fo9o", True)
 
     def test_length(self):
         """Test the length of names."""
-        self._assert_username("f" * 33, False)
+        self._assert_name("f" * 33, False)
 
-        self._assert_username("f" * 32, True)
-        self._assert_username("f" * 1, True)
+        self._assert_name("f" * 32, True)
+        self._assert_name("f" * 1, True)
 
 
 class GroupNameTests(UserNameTests):

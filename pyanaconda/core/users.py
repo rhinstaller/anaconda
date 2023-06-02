@@ -17,7 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# Used for ascii_letters and digits constants
 import os
 import os.path
 import subprocess
@@ -27,7 +26,8 @@ from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.path import make_directories, open_with_perm
 from pyanaconda.core.string import strip_accents
-from pyanaconda.core.regexes import GROUPLIST_FANCY_PARSE, NAME_VALID, PORTABLE_FS_CHARS, GROUPLIST_SIMPLE_VALID
+from pyanaconda.core.regexes import GROUPLIST_FANCY_PARSE, NAME_VALID, PORTABLE_FS_CHARS, \
+    GROUPLIST_SIMPLE_VALID
 import crypt  # pylint: disable=deprecated-module
 from pyanaconda.core.i18n import _
 import re
@@ -78,7 +78,26 @@ def check_username(name):
     """
 
     # Check reserved names.
-    if name in os.listdir("/") + ["root", "home", "daemon", "system"]:
+    reserved_names = [
+        # passwd contents from setup.rpm
+        "root",
+        "bin",
+        "daemon",
+        "adm",
+        "lp",
+        "sync",
+        "shutdown",
+        "halt",
+        "mail",
+        "operator",
+        "games",
+        "ftp",
+        "nobody",
+        # from older version of the function
+        "home",
+        "system",
+    ]
+    if name in os.listdir("/") + reserved_names:
         return False, _("User name is reserved for system: %s") % name
 
     return is_valid_name(name)
