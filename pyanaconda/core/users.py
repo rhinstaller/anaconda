@@ -17,7 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# Used for ascii_letters and digits constants
 import os
 import os.path
 import subprocess
@@ -27,7 +26,8 @@ from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.path import make_directories, open_with_perm
 from pyanaconda.core.string import strip_accents
-from pyanaconda.core.regexes import GROUPLIST_FANCY_PARSE, NAME_VALID, PORTABLE_FS_CHARS, GROUPLIST_SIMPLE_VALID
+from pyanaconda.core.regexes import GROUPLIST_FANCY_PARSE, NAME_VALID, PORTABLE_FS_CHARS, \
+    GROUPLIST_SIMPLE_VALID
 import crypt  # pylint: disable=deprecated-module
 from pyanaconda.core.i18n import _
 import re
