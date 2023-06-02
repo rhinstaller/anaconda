@@ -287,7 +287,7 @@ jobs:
         run:
           sudo chown -R github:github .
 
-      - name: Collect anaconda logs
+      - name: Collect logs
         if: always()
         uses: actions/upload-artifact@v3
         with:
@@ -297,15 +297,7 @@ jobs:
             kickstart-tests/data/logs/kstest.log
             kickstart-tests/data/logs/kstest-*/*.log
             kickstart-tests/data/additional_repo/*.rpm
-
-      - name: Collect Permian logs
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: 'logs-permian'
-          path: |
             permian/permian.log
-
 
       # Permian hides the exit code of launcher
       - name: Pass the launch script exit code
