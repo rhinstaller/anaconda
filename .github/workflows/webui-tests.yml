@@ -71,7 +71,7 @@ jobs:
     runs-on: [self-hosted, kstest-permian]
     timeout-minutes: 65
     env:
-      STATUS_NAME: webui-test
+      STATUS_NAME: Permian WebUI e2e
       TARGET_BRANCH: ${{ needs.pr-info.outputs.base_ref }}
       # ocp-master-xxl: 32GB RAM / 4GB RAM per VM
       TEST_JOBS: 8
@@ -172,7 +172,7 @@ jobs:
         with:
           route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
           context: '${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.launch_args }}'
-          description: 'running tests [${{ runner.name }}]'
+          description: 'running pipeline [${{ runner.name }}]'
           state: pending
           target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
         env:
@@ -184,7 +184,9 @@ jobs:
           PYTHONPATH=${PYTHONPATH:-}:${{ github.workspace }}/tplib \
           ./pipeline --debug-log permian.log \
             --settings settings.ini \
-            --override workflows.dry_run=False \
+            -o github.pull-request=${{ github.event.issue.number }} \
+            -o github.repository=${{ github.repository }} \
+            -o github.token=${{ secrets.GITHUB_TOKEN }} \
             run_event '{
               "type":"github.pr.anaconda",
               "InstallationSource":{
@@ -209,7 +211,22 @@ jobs:
           path: |
             permian/permian.log
             permian/local_logs/
+            permian/pipeline_data
+            permian/static/
+            permian/index.html
+            permian/xunit*.xml
             permian/*.dump
+
+      # Permian exit code doesn't reflect the test results
+      - name: Check tests results
+        working-directory: ./permian
+        run: |
+          fails=$( grep -E '<failure .* type="failure"/>|<error .* type="error"/>' xunit*.xml )
+          if [ -n "$fails" ]; then
+            exit 111
+          else
+            exit 0
+          fi
 
       - name: Set result status
         if: always()

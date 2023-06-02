@@ -1,5 +1,5 @@
-name: WebUI Integration on PR
-description: Runs all WebUI integration tests on pull request
+name: WebUI e2e on PR
+description: Runs all WebUI end to end tests on pull request
 point_person: rvykydal@redhat.com
 artifact_type: github.pr.anaconda
 verified_by:
@@ -8,8 +8,6 @@ verified_by:
 configurations:
   - architecture: x86_64
     branch: master
-#reporting:
-#  - type: github-pr
-#    data:
-#      pr-check-name: "WebUI integration tests"
-#      pr-check-summary: "WebUI integration tests run on a pull request comment"
+reporting:
+  - type: github-pr
+  - type: xunit
