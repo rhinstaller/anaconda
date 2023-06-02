@@ -34,7 +34,7 @@ import {
 } from "@patternfly/react-core";
 
 import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
-import { AddressContext } from "../Common.jsx";
+import { AddressContext, LanguageContext } from "../Common.jsx";
 import { setLocale } from "../../apis/boss.js";
 
 import {
@@ -238,7 +238,19 @@ class LanguageSelector extends React.Component {
                                 .catch(this.props.onAddErrorNotification);
                         this.setState({ lang: item });
                         this.updateNativeName(localeItem);
-                        window.location.reload(true);
+                        fetch("po.js").then(response => response.text())
+                                .then(body => {
+                                    // always reset old translations
+                                    cockpit.locale(null);
+                                    // en_US is always null
+                                    if (body.trim() === "") {
+                                        cockpit.locale(null);
+                                    } else {
+                                        // eslint-disable-next-line no-eval
+                                        eval(body);
+                                    }
+                                    this.props.reRenderApp(item);
+                                });
                         return;
                     }
                 }
@@ -301,6 +313,7 @@ LanguageSelector.contextType = AddressContext;
 
 export const InstallationLanguage = ({ idPrefix, setIsFormValid, onAddErrorNotification }) => {
     const [nativeName, setNativeName] = React.useState(false);
+    const { setLanguage } = React.useContext(LanguageContext);
 
     return (
         <AnacondaPage title={_("Welcome to the Anaconda installer")}>
@@ -328,6 +341,7 @@ export const InstallationLanguage = ({ idPrefix, setIsFormValid, onAddErrorNotif
                       setIsFormValid={setIsFormValid}
                       onAddErrorNotification={onAddErrorNotification}
                       getNativeName={setNativeName}
+                      reRenderApp={setLanguage}
                     />
                 </FormGroup>
             </Form>
