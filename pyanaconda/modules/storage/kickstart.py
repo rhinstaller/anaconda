@@ -28,7 +28,9 @@ from pykickstart.errors import KickstartParseError
 
 from pyanaconda.network import get_supported_devices, wait_for_network_devices
 from pyanaconda.modules.common.constants.services import NETWORK
+from pyanaconda.core.constants import FIPS_PASSPHRASE_MIN_LENGTH
 from pyanaconda.core.i18n import _
+from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.kickstart import KickstartSpecification, commands as COMMANDS
 from pyanaconda.core.storage import device_matches
 
@@ -52,6 +54,34 @@ def get_device_names(specs, disks_only=False, msg="{}", lineno=None):
     return drives
 
 
+def fips_check_luks_passphrase(luks_passphrase, command_name, line_number):
+    """Is the LUKS passphrase long enough in FIPS mode?
+
+    Signal a parse error if not.
+
+    This function is meant to be called indiscriminately, it will determine itself if FIPS is on.
+
+    :param str luks_passphrase: LUKS passphrase to check
+    :param str command_name: name of the command that had the passphrase
+    :param int line_number: line number where the command is found
+    :raise KickstartParseError: When the passphrase is not long enough
+    """
+    if not luks_passphrase:
+        return
+
+    if not kernel_arguments.is_enabled("fips"):
+        return
+
+    if len(luks_passphrase) >= FIPS_PASSPHRASE_MIN_LENGTH:
+        return
+
+    raise KickstartParseError(
+        _("Passphrase given in the {} command is too short in FIPS mode. "
+          "Please use at least {} characters.").format(command_name, FIPS_PASSPHRASE_MIN_LENGTH),
+        lineno=line_number
+    )
+
+
 class AutoPart(COMMANDS.AutoPart):
     """The autopart kickstart command."""
 
@@ -64,6 +94,9 @@ class AutoPart(COMMANDS.AutoPart):
             if not fmt or fmt.type is None:
                 raise KickstartParseError(_("File system type \"{}\" given in autopart command is "
                                             "invalid.").format(self.fstype), lineno=self.lineno)
+
+        fips_check_luks_passphrase(self.passphrase, "autopart", self.lineno)
+
         return retval
 
 
@@ -218,6 +251,14 @@ class IscsiName(COMMANDS.IscsiName):
         return retval
 
 
+class LogVol(COMMANDS.LogVol):
+    def parse(self, args):
+        retval = super().parse(args)
+
+        fips_check_luks_passphrase(retval.passphrase, "logvol", self.lineno)
+
+        return retval
+
 class Nvdimm(COMMANDS.Nvdimm):
     """The nvdimm kickstart command."""
 
@@ -247,6 +288,24 @@ class Nvdimm(COMMANDS.Nvdimm):
                                                       "not exist."))
 
         return action
+
+
+class Partition(COMMANDS.Partition):
+    def parse(self, args):
+        retval = super().parse(args)
+
+        fips_check_luks_passphrase(retval.passphrase, self.currentCmd, self.lineno)
+
+        return retval
+
+
+class Raid(COMMANDS.Raid):
+    def parse(self, args):
+        retval = super().parse(args)
+
+        fips_check_luks_passphrase(retval.passphrase, "raid", self.lineno)
+
+        return retval
 
 
 class Snapshot(COMMANDS.Snapshot):
@@ -290,12 +349,12 @@ class StorageKickstartSpecification(KickstartSpecification):
         "ignoredisk": IgnoreDisk,
         "iscsi": Iscsi,
         "iscsiname": IscsiName,
-        "logvol": COMMANDS.LogVol,
+        "logvol": LogVol,
         "mount": COMMANDS.Mount,
         "nvdimm": Nvdimm,
-        "part": COMMANDS.Partition,
-        "partition": COMMANDS.Partition,
-        "raid": COMMANDS.Raid,
+        "part": Partition,
+        "partition": Partition,
+        "raid": Raid,
         "reqpart": COMMANDS.ReqPart,
         "snapshot": Snapshot,
         "volgroup": COMMANDS.VolGroup,

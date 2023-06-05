@@ -80,6 +80,8 @@ class PassphraseDialog(GUIObject):
         # connect UI updates to validity check results
         self._validity_check.result.password_score_changed.connect(self._set_password_strength)
         self._validity_check.result.status_text_changed.connect(self._set_password_status_text)
+        # check if the passphrase satisfies the FIPS requirements
+        self._fips_check = input_checking.PasswordFIPSCheck()
         # check if the passphrase contains non-ascii characters
         self._ascii_check = input_checking.PasswordASCIICheck()
         # check if the passphrase is empty
@@ -91,6 +93,7 @@ class PassphraseDialog(GUIObject):
         # 3) is the passphrase free of non-ASCII characters ?
         self._checker.add_check(self._confirm_check)
         self._checker.add_check(self._validity_check)
+        self._checker.add_check(self._fips_check)
         self._checker.add_check(self._ascii_check)
         self._checker.add_check(self._empty_check)
 
