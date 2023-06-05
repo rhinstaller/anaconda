@@ -102,5 +102,18 @@ class TestLanguage(anacondalib.VirtInstallMachineCase):
         language_new = l.dbus_get_language()
         self.assertIn('string "de_DE.UTF-8"', language_new)
 
+        # Expect language direction to be set to RTL for selected languages
+        l.select_locale("he_IL", False)
+        l.check_selected_locale("he_IL")
+        b.wait_attr("html", "dir", "rtl")
+
+        # Language direction should persist after reload
+        b.reload()
+        b.wait_attr("html", "dir", "rtl")
+
+        l.select_locale("de_DE")
+        l.check_selected_locale("de_DE")
+        b.wait_attr("html", "dir", "ltr")
+
 if __name__ == '__main__':
     test_main()
