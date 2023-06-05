@@ -1110,9 +1110,9 @@ def _destroy_device(storage, device):
         # Configure the factory's devices.
         factory.configure()
 
-    # Finally, remove empty parents of the device.
+    # Finally, remove empty parents of the device, except for btrfs subvolumes.
     for parent in device.parents:
-        if not parent.children and not parent.is_disk:
+        if not parent.children and not parent.is_disk and not parent.type == "btrfs subvolume":
             destroy_device(storage, parent)
 
 
