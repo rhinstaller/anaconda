@@ -17,9 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import gi
-gi.require_version("BlockDev", "2.0")
-from gi.repository import BlockDev as blockdev
+from blivet import blockdev
 
 from pyanaconda.core.regexes import DASD_DEVICE_NUMBER
 from pyanaconda.modules.common.task import Task

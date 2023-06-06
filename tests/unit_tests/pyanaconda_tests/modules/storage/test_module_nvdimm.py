@@ -23,6 +23,7 @@ import pytest
 from textwrap import dedent
 from unittest.mock import patch, Mock
 
+from blivet import blockdev
 from blivet.devices import NVDIMMNamespaceDevice
 from blivet.formats import get_format
 from blivet.size import Size
@@ -37,10 +38,6 @@ from pyanaconda.modules.storage.nvdimm.nvdimm_interface import NVDIMMInterface
 from pyanaconda.modules.storage.nvdimm.reconfigure import NVDIMMReconfigureTask
 from pyanaconda.modules.storage.storage import StorageService
 from pykickstart.constants import NVDIMM_MODE_SECTOR, NVDIMM_ACTION_RECONFIGURE
-
-import gi
-gi.require_version("BlockDev", "2.0")
-from gi.repository import BlockDev as blockdev
 
 
 class NVDIMMInterfaceTestCase(unittest.TestCase):

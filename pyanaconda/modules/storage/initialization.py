@@ -15,6 +15,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet import blockdev
 from blivet import util as blivet_util, udev, arch
 from blivet.devicelibs import crypto
 from blivet.flags import flags as blivet_flags
@@ -24,10 +25,6 @@ from blivet.static_data import luks_data
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.core.configuration.anaconda import conf
-
-import gi
-gi.require_version("BlockDev", "2.0")
-from gi.repository import BlockDev as blockdev
 
 __all__ = ["enable_installer_mode"]
 

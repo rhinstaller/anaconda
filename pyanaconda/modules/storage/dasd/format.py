@@ -20,9 +20,7 @@
 from pyanaconda.modules.common.task import Task
 from pyanaconda.anaconda_loggers import get_module_logger
 
-import gi
-gi.require_version("BlockDev", "2.0")
-from gi.repository import BlockDev as blockdev
+from blivet import blockdev
 
 log = get_module_logger(__name__)
 
