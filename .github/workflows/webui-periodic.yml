@@ -18,7 +18,7 @@ permissions:
 jobs:
   scenario:
     name: Webui periodic
-    runs-on: [self-hosted, kstest-permian]
+    runs-on: [self-hosted, kstest]
 
     timeout-minutes: 65
     env:
