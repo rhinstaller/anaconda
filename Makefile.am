@@ -325,6 +325,28 @@ container-rpms:
 container-rpms-scratch:
 	$(MAKE) -f ./Makefile.am CONTAINER_ADD_ARGS="-e TEST_BUILD=true" container-rpms
 
+# Build ISO from Anaconda RPM files build here
+container-iso-build:
+	@sudo -nv 2>/dev/null || echo "You will be prompted for sudo password because of loop device mounting in Lorax!"
+
+	@if ! ls $(srcdir)/result/build/01-rpm-build/anaconda-*.rpm >/dev/null 2>/dev/null; then \
+		echo "You need to have anaconda RPMs build first. Please run 'make -f ./Makefile.am container-rpms-scratch' before this command."; \
+		exit 1; \
+	fi
+
+	mkdir -p result/iso
+	sudo $(CONTAINER_ENGINE) run \
+	--rm --privileged  --tmpfs /var/tmp:rw,mode=1777 \
+	-v $(srcdir)/result/build/01-rpm-build:/anaconda-rpms:ro \
+	-v $(srcdir)/result/iso:/images:z \
+	$(CONTAINER_ADD_ARGS) \
+	$(ISO_CREATOR_NAME):$(CI_TAG)
+	@echo "ISO is stored in $(scrdir)/result/iso/"
+
+# Build WebUI ISO from Anaconda RPM files build here
+container-webui-iso-build:
+	$(MAKE) -f ./Makefile.am container-iso-build-scratch CONTAINER_ADD_ARGS="--entrypoint=/lorax-build-webui"
+
 check-branching:
 # checking if branching can be finished and all the pieces are in place
 	@echo "===================================="
