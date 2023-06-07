@@ -4,4 +4,7 @@
 
 set -eu
 
+# linters are off by default for production builds, but we want to run them in CI
+export LINT=1
+
 ./autogen.sh && ./configure && make webui-tests
