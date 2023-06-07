@@ -51,6 +51,11 @@ case $kickstart in
         # We will try them one by one until we succeed.
         locations="$(</tmp/ks_urls)"
     ;;
+    cdrom*|hd*)
+        # do not print the unknown network kickstart in case the local kickstart file
+        # is processed in the fetch-kickstart-disk script
+        return 0
+    ;;
     *)
         warn_critical "unknown network kickstart URL: $kickstart"
         return 1
