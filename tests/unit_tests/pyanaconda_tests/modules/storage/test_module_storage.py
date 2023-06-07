@@ -30,6 +30,8 @@ from blivet.formats import get_format
 from blivet.formats.fs import BTRFS
 from blivet.size import Size
 
+from pykickstart.errors import KickstartParseError
+
 from pyanaconda.modules.storage.bootloader import BootLoaderFactory
 from pyanaconda.modules.storage.bootloader.extlinux import EXTLINUX
 from pyanaconda.core.constants import PARTITIONING_METHOD_AUTOMATIC, PARTITIONING_METHOD_MANUAL, \
@@ -64,6 +66,7 @@ from pyanaconda.modules.storage.storage import StorageService
 from pyanaconda.modules.storage.storage_interface import StorageInterface
 from pyanaconda.modules.storage.teardown import UnmountFilesystemsTask, TeardownDiskImagesTask
 from pyanaconda.modules.storage.checker.utils import StorageCheckerReport
+from pyanaconda.modules.storage.kickstart import fips_check_luks_passphrase
 
 
 class StorageInterfaceTestCase(unittest.TestCase):
@@ -1449,6 +1452,52 @@ class StorageInterfaceTestCase(unittest.TestCase):
         formattable.return_value = False
         self._test_kickstart(ks_in, ks_out, ks_valid=False)
 
+    @patch_dbus_publish_object
+    @patch("pyanaconda.modules.storage.kickstart.kernel_arguments")
+    def test_autopart_fips_passphrase_bad_kickstart(self, kargs, publisher):
+        """Test the autopart command with too weak LUKS password in FIPS mode."""
+        kargs.is_enabled.return_value=True
+        ks_in = """
+        autopart --passphrase=weak
+        """
+        ks_out = """
+        autopart --passphrase=weak
+        """
+        self._test_kickstart(ks_in, ks_out, ks_valid=False)
+
+    @patch_dbus_publish_object
+    @patch("pyanaconda.modules.storage.kickstart.kernel_arguments")
+    def test_logvol_fips_passphrase_bad_kickstart(self, kargs, publisher):
+        """Test the logvol command with too weak LUKS password in FIPS mode."""
+        kargs.is_enabled.return_value = True
+        ks_in = """
+        logvol / --name=root  --vgname=fedora --size=4000 --passphrase=weak
+        """
+        ks_out = ""
+        self._test_kickstart(ks_in, ks_out, ks_valid=False)
+
+    @patch_dbus_publish_object
+    @patch("pyanaconda.modules.storage.kickstart.kernel_arguments")
+    def test_raid_fips_passphrase_bad_kickstart(self, kargs, publisher):
+        """Test the raid command with too weak LUKS password in FIPS mode."""
+        kargs.is_enabled.return_value = True
+        ks_in = """
+        raid / --level=1 --device=0 raid.01 raid.02 --passphrase=weak
+        """
+        ks_out = ""
+        self._test_kickstart(ks_in, ks_out, ks_valid=False)
+
+    @patch_dbus_publish_object
+    @patch("pyanaconda.modules.storage.kickstart.kernel_arguments")
+    def test_part_fips_passphrase_bad_kickstart(self, kargs, publisher):
+        """Test the part command with too weak LUKS password in FIPS mode."""
+        kargs.is_enabled.return_value = True
+        ks_in = """
+        part / --fstype=ext4 --size=3000 --passphrase=weak
+        """
+        ks_out = ""
+        self._test_kickstart(ks_in, ks_out, ks_valid=False)
+
 
 class StorageModuleTestCase(unittest.TestCase):
     """Test the storage module."""
@@ -1611,3 +1660,46 @@ class StorageValidationTasksTestCase(unittest.TestCase):
         assert report.is_valid() is False
         assert report.error_messages == ["Fake error."]
         assert report.warning_messages == ["Fake warning.", "Fake another warning."]
+
+
+class StorageHelpersTestCase(unittest.TestCase):
+    """Test the storage module helpers."""
+
+    @patch("pyanaconda.modules.storage.kickstart.kernel_arguments")
+    def test_fips_luks_passphrase_nofips(self, mock_kargs):
+        """Test fips_check_luks_passphrase without FIPS."""
+        mock_kargs.is_enabled.return_value = False
+
+        fips_check_luks_passphrase("", "command name", 0)
+        mock_kargs.is_enabled.assert_not_called()
+
+        fips_check_luks_passphrase("a", "command name", 0)
+        mock_kargs.is_enabled.assert_called_once_with("fips")
+
+        fips_check_luks_passphrase("weak", "command name", 0)
+
+        fips_check_luks_passphrase("whatever", "command name", 0)
+
+        fips_check_luks_passphrase("king kong strong", "command name", 0)
+
+    @patch("pyanaconda.modules.storage.kickstart.kernel_arguments")
+    def test_fips_luks_passphrase_fips(self, mock_kargs):
+        """Test fips_check_luks_passphrase with FIPS."""
+        mock_kargs.is_enabled.return_value = True
+
+        fips_check_luks_passphrase("", "command name", 0)
+        mock_kargs.is_enabled.assert_not_called()
+
+        with pytest.raises(KickstartParseError):
+            fips_check_luks_passphrase("a", "command name", 0)
+        mock_kargs.is_enabled.assert_called_once_with("fips")
+
+        with pytest.raises(KickstartParseError):
+            fips_check_luks_passphrase("weak", "command name", 0)
+
+        with pytest.raises(KickstartParseError):
+            fips_check_luks_passphrase("short", "command name", 0)
+
+        fips_check_luks_passphrase("whatever", "command name", 0)
+
+        fips_check_luks_passphrase("king kong strong", "command name", 0)
