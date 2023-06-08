@@ -6,22 +6,37 @@ help with implementing changes in Anaconda, please follow our
 `blog series <https://rhinstaller.wordpress.com/2019/10/11/anaconda-debugging-and-testing-part-1/>`_ or
 an `addon guide <http://rhinstaller.github.io/anaconda-addon-development-guide/index.html>`_ to create Anaconda addon.
 
+Setting up development container
+--------------------------------
+
+The anaconda team uses a containerized development environment using toolbx.
+If you can install [toolbx](https://containertoolbx.org/) or
+[distrobox](https://distrobox.privatedns.org/) on your system, it is highly
+recommended to do that:
+
+ - It is known to work and gives you reproducible results.
+ - It avoids having to install development packages on your main machine.
+
+If you are not interested in dealing with containers, just skip this part and continue on the next one::
+
+    sudo dnf install toolbox
+
+To create and enter a development toolbx for Anaconda (not Web UI) just run these commands::
+
+    toolbox create
+    toolbox enter
+
+To create and enter a development toolbx for Anaconda Web UI run this command instead::
+
+    toolbox create --image quay.io/cockpit/tasks -c anaconda-webui
+    toolbox enter anaconda-webui
+
 How to run make commands
 ------------------------
 
 Anaconda has plenty of dependencies and because of that it's hard to set an environment
-for Anaconda properly. To get all the dependencies, you are free to use a helper script
-in the Anaconda repository.
-
-Follow these steps to keep your machine clean from all the Anaconda dependencies. It will
-create a container where you can install all the dependencies. If you are not interested in
-dealing with containers, just skip this part and continue on the next one::
-
-    sudo dnf install toolbox
-    toolbox create
-    toolbox enter
-
-To prepare the environment in the container or on your system just run these commands::
+for Anaconda properly. To get all the dependencies and prepare the environment in the container or
+on your system just run these commands::
 
     sudo ./scripts/testing/install_dependencies.sh
     ./autogen.sh && ./configure
