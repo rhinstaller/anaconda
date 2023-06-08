@@ -33,7 +33,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase):
         i.open()
         i.next()
 
-        b.wait_visible('section:contains(Local standard disks)')
+        b.wait_in_text('#installation-wizard', 'Local standard disks')
 
         # Check disks table details
         s.check_disk_visible("vda")
