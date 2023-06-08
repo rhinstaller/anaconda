@@ -31,14 +31,28 @@ To create and enter a development toolbx for Anaconda Web UI run this command in
     toolbox create --image quay.io/cockpit/tasks -c anaconda-webui
     toolbox enter anaconda-webui
 
-How to run make commands
-------------------------
+Installing dependencies
+-----------------------
 
-Anaconda has plenty of dependencies and because of that it's hard to set an environment
-for Anaconda properly. To get all the dependencies and prepare the environment in the container or
+If you are using [cockpit/tasks container](https://quay.io/repository/cockpit/tasks)
+for Web UI development only, you can skip this part.
+
+To get all the dependencies and prepare the environment in the container or
 on your system just run these commands::
 
     sudo ./scripts/testing/install_dependencies.sh
+
+For testing also the Web UI, you need to install additional dependencies::
+
+    sudo ./scripts/testing/install_webui_dependencies.sh
+
+
+How to run make commands
+------------------------
+
+Anaconda uses autotools so there are familiar `./configure` script and  Makefile targets.
+To prepare Anaconda sources, you need to run these commands::
+
     ./autogen.sh && ./configure
 
 How to Contribute to the Anaconda Installer (the short version)
