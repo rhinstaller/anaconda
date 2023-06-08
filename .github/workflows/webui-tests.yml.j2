@@ -75,6 +75,8 @@ jobs:
       # URL to the unpacked installation image
       # TODO: use preview image
       STATIC_REPO_URL: "https://fedorapeople.org/groups/anaconda/webui_permian_tests/sources/periodic/x86_64/"
+      CONTAINER_TAG: master
+      ISO_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-iso-creator'
 
     steps:
       # we post statuses manually as this does not run from a pull_request event
@@ -98,7 +100,7 @@ jobs:
           sudo podman volume rm --all || true
           sudo rm -rf * .git
 
-      - name: Clone repository
+      - name: Clone anaconda repository
         uses: actions/checkout@v3
         with:
           ref: ${{ needs.pr-info.outputs.sha }}
@@ -115,14 +117,14 @@ jobs:
 
       # TODO: use main branch when the webui workflow is merged there
       - name: Clone Permian repository
-        uses: actions/checkout@v3.3.0
+        uses: actions/checkout@v3
         with:
           repository: rhinstaller/permian
           path: permian
           ref: devel
 
       - name: Clone tplib repository
-        uses: actions/checkout@v3.3.0
+        uses: actions/checkout@v3
         with:
           repository: rhinstaller/tplib
           path: tplib
@@ -138,16 +140,44 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # TODO build the image from PR
-      - name: Set the image to be tested
-        id: prepare_repo
+      - name: Build anaconda-rpm container (for RPM build)
+        working-directory: ./anaconda
         run: |
-          set -eux
-          if [ -n "${{ needs.pr-info.outputs.launch_args }}" ]; then
-            echo "repo_url=${{ needs.pr-info.outputs.launch_args }}" >> $GITHUB_OUTPUT
-          else
-            echo "repo_url=$STATIC_REPO_URL" >> $GITHUB_OUTPUT
-          fi
+          # set static tag to avoid complications when looking what tag is used
+          make -f Makefile.am anaconda-rpm-build CI_TAG=$CONTAINER_TAG
+
+      - name: Build Anaconda RPM files
+        working-directory: ./anaconda
+        run: |
+          # output of the build will be stored in ./result/build/01-rpm-build/*.rpm
+          make -f Makefile.am container-rpms-scratch CI_TAG=$CONTAINER_TAG
+          mkdir -p ./anaconda_rpms/
+          cp -av ./result/build/01-rpm-build/*.rpm ./anaconda_rpms/
+
+      - name: Build anaconda-iso-creator container image
+        working-directory: ./anaconda
+        run: |
+          # set static tag to avoid complications when looking what tag is used
+          sudo make -f Makefile.am anaconda-iso-creator-build CI_TAG=$CONTAINER_TAG
+
+      - name: Build the boot.iso
+        working-directory: ./anaconda
+        run: |
+          mkdir -p images
+          # /var/tmp tmpfs speeds up lorax and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
+          sudo podman run -i --rm --privileged \
+            --tmpfs /var/tmp:rw,mode=1777 \
+            -v `pwd`/anaconda_rpms:/anaconda-rpms:ro \
+            -v `pwd`/images:/images:z \
+            --entrypoint /lorax-build-webui \
+            $ISO_BUILD_CONTAINER_NAME:$CONTAINER_TAG
+
+      - name: Clean up after lorax
+        if: always()
+        run: |
+          # remove container images together with the container
+          sudo podman rmi -f $ISO_BUILD_CONTAINER_NAME:$CONTAINER_TAG || true
+          sudo podman rmi -f $RPM_BUILD_CONTAINER_NAME:$CONTAINER_TAG || true
 
       - name: Create Permian settings file
         working-directory: ./permian
@@ -183,21 +213,12 @@ jobs:
             -o github.token=${{ secrets.GITHUB_TOKEN }} \
             run_event '{
               "type":"github.pr.anaconda",
-              "InstallationSource":{
-                "base_repo_id": "bootiso",
-                "repos": {
-                  "bootiso":{
-                    "x86_64":{
-                      "os": "${{ steps.prepare_repo.outputs.repo_url }}",
-                      "kernel": "images/pxeboot/vmlinuz",
-                      "initrd": "images/pxeboot/initrd.img"
-                    }
-                  }
-                }
+              "bootIso": {
+                "x86_64": "file://${{ github.workspace }}/anaconda/images/boot.iso"
               }
             }'
 
-      - name: Collect Permian logs
+      - name: Collect logs
         if: always()
         uses: actions/upload-artifact@v2
         with:
