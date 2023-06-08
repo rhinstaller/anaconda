@@ -18,5 +18,6 @@ dnf install $@ \
     chromium-headless \
     firefox \
     npm \
+    qemu-img \
     qemu-kvm-core \
     virt-install
