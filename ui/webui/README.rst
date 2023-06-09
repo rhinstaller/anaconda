@@ -2,7 +2,7 @@ Anaconda Web UI
 ===============
 
 Getting the source
--------------------------------
+------------------
 
 Here's where to get the code::
 
