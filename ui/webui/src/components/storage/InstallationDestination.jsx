@@ -43,7 +43,7 @@ import {
     Tooltip,
 } from "@patternfly/react-core";
 
-import { HelpIcon } from "@patternfly/react-icons";
+import { HelpIcon, LockIcon } from "@patternfly/react-icons";
 
 import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
 import { ListingTable } from "cockpit-components-table.jsx";
@@ -54,9 +54,11 @@ import {
     applyPartitioning,
     createPartitioning,
     getAllDiskSelection,
+    getDevices,
     getDeviceData,
     getDiskFreeSpace,
     getDiskTotalSpace,
+    getFormatData,
     getRequiredDeviceSize,
     getUsableDisks,
     partitioningConfigureWithTask,
@@ -203,7 +205,12 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
 
     useEffect(() => {
         let usableDisks;
-        getUsableDisks()
+        let devices;
+        getDevices()
+                .then(ret => {
+                    devices = ret[0];
+                    return getUsableDisks();
+                })
                 .then(res => {
                     usableDisks = res[0];
                     return getAllDiskSelection();
@@ -218,7 +225,7 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
                     setDisks(usableDisks.reduce((acc, cur) => ({ ...acc, [cur]: defaultDisks.includes(cur) }), {}));
 
                     // Show disks data
-                    usableDisks.forEach(disk => {
+                    devices.forEach(disk => {
                         let deviceData = {};
                         const diskNames = [disk];
 
@@ -235,6 +242,10 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
                                 }, console.error)
                                 .then(total => {
                                     deviceData.total = cockpit.variant(String, total[0]);
+                                    return getFormatData({ diskName: disk });
+                                }, console.error)
+                                .then(formatData => {
+                                    deviceData.formatData = formatData[0];
                                     setDeviceData(d => ({ ...d, [disk]: deviceData }));
                                 }, console.error);
                     });
@@ -258,7 +269,8 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
         setSelectedDisks({ drives: selected }).catch(onAddErrorNotification);
     }, [disks, onAddErrorNotification, selectedDisksCnt, setIsFormValid]);
 
-    if (totalDisksCnt === 0) {
+    const loading = Object.keys(disks).some(disk => !deviceData[disk]);
+    if (loading) {
         return <EmptyStatePanel loading />;
     }
 
@@ -333,18 +345,44 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
         },
     ];
 
-    const localDisksRows = Object.keys(disks).map(disk => (
-        {
+    const expandedContent = (disk) => (
+        <ListingTable
+          variant="compact"
+          columns={[_("Partition"), _("Type"), _("Size")]}
+          rows={deviceData[disk]?.children?.v.map(child => {
+              const partition = deviceData[child];
+              const path = {
+                  title: (
+                      <Flex spaceItems={{ default: "spaceItemsSm" }}>
+                          <FlexItem>{partition.path.v}</FlexItem>
+                          {partition.formatData.type.v === "luks" && <FlexItem><LockIcon /></FlexItem>}
+                      </Flex>
+                  )
+              };
+              const size = { title: cockpit.format_bytes(partition.total.v) };
+              const type = { title: partition.formatData.description.v };
+
+              return ({ columns: [path, type, size] });
+          })}
+        />
+    );
+
+    const localDisksRows = Object.keys(disks).map(disk => {
+        const hasPartitions = deviceData[disk]?.children?.v.length && deviceData[disk]?.children?.v.every(partition => deviceData[partition]);
+
+        return ({
             selected: !!disks[disk],
+            hasPadding: true,
             props: { key: disk, id: disk },
             columns: [
                 { title: disk },
                 { title: deviceData[disk] && deviceData[disk].description.v },
                 { title: cockpit.format_bytes(deviceData[disk] && deviceData[disk].total.v) },
                 { title: cockpit.format_bytes(deviceData[disk] && deviceData[disk].free.v) },
-            ]
-        }
-    ));
+            ],
+            ...(hasPartitions && { expandedContent: expandedContent(disk) }),
+        });
+    });
 
     const rescanningDisksColumns = localDisksColumns.map(col => ({ ...col, sortable: false }));
 

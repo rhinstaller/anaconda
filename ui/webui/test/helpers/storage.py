@@ -111,6 +111,12 @@ class Storage():
         else:
             self.browser.wait_not_present(f"#{disk}")
 
+    def check_disk_expandable(self, disk, expandable=True):
+        if expandable:
+            self.browser.wait_visible(f"#{disk} .pf-c-table__toggle")
+        else:
+            self.browser.wait_not_present(f"#{disk} .pf-c-table__toggle")
+
     @log_step(snapshot_before=True)
     def check_disk_capacity(self, disk, total=None, free=None):
         if total:
@@ -208,3 +214,20 @@ class Storage():
     def open_storage_options_help_drawer(self):
         self.browser.click(".pf-c-wizard__main-body #learn-more-about-storage-options")
         self.browser.wait_visible(".pf-c-drawer__panel-main")
+
+    def set_expand_disk_row(self, disk, expanded=True):
+        if not expanded:
+            self.browser.wait_visible(f"#{disk} + .pf-c-table__expandable-row.pf-m-expanded")
+        else:
+            self.browser._wait_present(f"#{disk} + .pf-c-table__expandable-row[hidden]")
+
+        self.browser.click(f"#{disk} > .pf-c-table__toggle button")
+
+        if not expanded:
+            self.browser._wait_present(f"#{disk} + .pf-c-table__expandable-row[hidden]")
+        else:
+            self.browser.wait_visible(f"#{disk} + .pf-c-table__expandable-row.pf-m-expanded")
+
+    def check_disk_partition(self, disk, partition, fs_type, size):
+        self.browser.wait_in_text(f"#{disk} + .pf-c-table__expandable-row.pf-m-expanded tr:contains('{partition}') td[data-label=Type]", fs_type)
+        self.browser.wait_in_text(f"#{disk} + .pf-c-table__expandable-row.pf-m-expanded tr:contains('{partition}') td[data-label=Size]", size)
