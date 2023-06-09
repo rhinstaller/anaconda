@@ -8,6 +8,8 @@ import {
     Title,
 } from "@patternfly/react-core";
 
+import { fmt_to_fragments as fmtToFragments } from "utils.jsx";
+
 const _ = cockpit.gettext;
 
 export const helpStorageOptions = (
@@ -28,10 +30,8 @@ export const helpStorageOptions = (
         </Text>
 
         <Text component={TextVariants.p}>
-            {_("Use the ")}
-            <strong>Detect disks</strong>
-            {_(" button to view and configure the local storage devices " +
-            "connected after starting the installation process.")}
+            {fmtToFragments(_("Use the $0 button to view and configure the local storage devices " +
+             "connected after starting the installation process."), <strong>{_("Detect disks")}</strong>)}
         </Text>
 
         <Text component={TextVariants.p}>
