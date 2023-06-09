@@ -48,7 +48,8 @@ from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler, GUISpokeInputC
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.utils import blockedHandler, fire_gtk_action, find_first_child
-from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show, fancy_set_sensitive
+from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show, fancy_set_sensitive, \
+    set_password_visibility
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.manager import payloadMgr, PayloadState
@@ -190,6 +191,19 @@ class ProxyDialog(GUIObject, GUIDialogInputCheckHandler):
     def on_proxy_auth_toggled(self, button, *args):
         self._proxy_auth_box.set_sensitive(button.get_active())
         self._proxy_validate.update_check_status()
+
+    def on_password_icon_clicked(self, entry, icon_pos, event):
+        """Called by Gtk callback when the icon of a password entry is clicked."""
+        set_password_visibility(entry, not entry.get_visibility())
+
+    def on_password_entry_map(self, entry):
+        """Called when a proxy password entry widget is going to be displayed.
+        - Without this the password visibility toggle icon would not be shown.
+        - The password should be hidden every time the entry widget is displayed
+          to avoid showing the password in plain text in case the user previously
+          displayed the password and then closed the dialog.
+        """
+        set_password_visibility(entry, False)
 
     def refresh(self):
         GUIObject.refresh(self)
@@ -1882,6 +1896,19 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
             repo.proxy = proxy.url
         except ProxyStringError as e:
             log.error("Failed to parse proxy - %s:%s@%s: %s", username, password, url, e)
+
+    def on_repoProxyPassword_icon_clicked(self, entry, icon_pos, event):
+        """Called by Gtk callback when the icon of a password entry is clicked."""
+        set_password_visibility(entry, not entry.get_visibility())
+
+    def on_repoProxyPassword_entry_map(self, entry):
+        """Called when a repo proxy password entry widget is going to be displayed.
+        - Without this the password visibility toggle icon would not be shown.
+        - The password should be hidden every time the entry widget is displayed
+          to avoid showing the password in plain text in case the user previously
+          displayed the password and then closed the dialog.
+        """
+        set_password_visibility(entry, False)
 
     def on_repoStore_row_changed(self, model, path, itr, user_data=None):
         self._duplicate_repo_check.update_check_status()
