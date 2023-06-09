@@ -97,6 +97,14 @@ class AnacondaArgumentParser(ArgumentParser):
         self.removed_no_inst_bootargs = []
         self.bootarg_prefix = kwargs.pop("bootarg_prefix", "")
         self.require_prefix = kwargs.pop("require_prefix", True)
+
+        # List of boot options which are correct with and without the inst. prefix
+        # Please add here options which are processed by us but also by someone
+        # else during the boot.
+        # NOTE: Adding this to add_argument() directly could be problematic because just specific
+        # long option variants could be allowed from multiple, so it would have to be list which
+        # somehow kills the benefit.
+        self._require_prefix_ignore_list = ["proxy"]
         ArgumentParser.__init__(self, description=DESCRIPTION,
                                 formatter_class=lambda prog: HelpFormatter(
                                     prog, max_help_position=LEFT_PADDING, width=help_width),
@@ -130,6 +138,7 @@ class AnacondaArgumentParser(ArgumentParser):
                         "conflicting bootopt string: %s" % b, option)
                 else:
                     self._boot_arg[b] = option
+
         return option
 
     def _get_bootarg_option(self, arg):
@@ -150,7 +159,8 @@ class AnacondaArgumentParser(ArgumentParser):
         option = self._boot_arg.get(arg)
 
         if option and self.bootarg_prefix and not prefixed_option:
-            self.removed_no_inst_bootargs.append(arg)
+            if arg not in self._require_prefix_ignore_list:
+                self.removed_no_inst_bootargs.append(arg)
 
         # From Fedora 34 this prefix is required. However, leave the code here for some time to
         # tell users that we are ignoring the old variants.
