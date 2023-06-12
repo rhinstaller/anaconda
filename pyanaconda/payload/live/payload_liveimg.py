@@ -89,10 +89,11 @@ class LiveImagePayload(BaseLivePayload):
 
         error = None
         try:
+            ssl_verify = not self.data.liveimg.noverifyssl
             response = self._session.head(
                 self.data.liveimg.url,
                 proxies=self._proxies,
-                verify=True,
+                verify=ssl_verify,
                 timeout=NETWORK_CONNECTION_TIMEOUT
             )
 
