@@ -23,7 +23,12 @@ case "${kickstart%%:*}" in
         if [ "$kstype" = "cdrom" ]; then
             # if we reset main_loop to 0 every loop, we never hit the timeout.
             # (see dracut's dracut-initqueue.sh for details on the mainloop)
-            echo "main_loop=0" > "$hookdir/initqueue/ks-cdrom-wait-forever.sh"
+            #
+            # Stop this behavior when kickstart is already processed otherwise we
+            # will get into infinite loop in Dracut because of 5 sec wait for OEMDRV
+            # feature.
+            # See rbhz#2209599 for more info
+            echo "[ -e /tmp/ks.cfg.done ] || main_loop=0" > "$hookdir/initqueue/ks-cdrom-wait-forever.sh"
         fi
         wait_for_kickstart
     ;;
