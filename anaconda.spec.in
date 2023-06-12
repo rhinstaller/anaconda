@@ -367,6 +367,14 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jun 12 2023 Vladimír Slávik <vslavik@redhat.com> - 33.16.9.2-1
+- Stop infinite wait for CDROM when KS is processed (jkonecny)
+  Resolves: rhbz#2209602
+- Apply --noverifyssl option for liveimg kickstart command (jstodola)
+  Resolves: rhbz#1886985
+- Change driver_updates exit info messages to debug (jkonecny)
+  Related: rhbz#2154904
+
 * Thu May 11 2023 Radek Vykydal <rvykydal@redhat.com> - 33.16.9.1-1
 - driver_updates: migrate driver_updates.py to pep8 format (jkonecny)
   Related: rhbz#2154904
