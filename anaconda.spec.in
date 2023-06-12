@@ -411,6 +411,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jun 12 2023 Vladimír Slávik <vslavik@redhat.com> - 34.25.3.3-1
+- Stop infinite wait for CDROM when KS is processed (jkonecny)
+  Resolves: rhbz#2209599
+- Apply --noverifyssl option for liveimg kickstart command (jstodola)
+  Resolves: rhbz#2157921
+
 * Mon Jun 05 2023 Vladimír Slávik <vslavik@redhat.com> - 34.25.3.2-1
 - Fix kickstart proxy cmd in stage1 (jkonecny)
   Resolves: rhbz#2177219
