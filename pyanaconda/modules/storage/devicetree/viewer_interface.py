@@ -107,6 +107,9 @@ class DeviceTreeViewerInterface(InterfaceTemplate):
         The spec can be anything from a device name (eg: 'sda3') to a
         device node path (eg: '/dev/mapper/fedora-root') to something
         like 'UUID=xyz-tuv-qrs' or 'LABEL=rootfs'.
+        For btrfs subvolumes the subvolume can be specified by the UUID of
+        the volume and the name of the subvolume, as:
+        'UUID=2252ec30-1fce-4f8e-bdef-c50c3a44ede4@root'
 
         If no device is found, return an empty string.
 

@@ -714,10 +714,17 @@ class MountPointAssignSpoke(NormalTUISpoke):
         )
 
         # Generate the description.
-        description = "{} ({})".format(request.device_spec, Size(device_data.size))
+        if device_data.type in ("btrfs volume", "btrfs subvolume"):
+            title = device_data.name
+            format_detail = device_data.type
+        else:
+            title = request.device_spec
+            format_detail = request.format_type
+
+        description = "{} ({})".format(title, Size(device_data.size))
 
         if request.format_type:
-            description += "\n {}".format(request.format_type)
+            description += "\n {}".format(format_detail)
 
             if request.reformat:
                 description += "*"

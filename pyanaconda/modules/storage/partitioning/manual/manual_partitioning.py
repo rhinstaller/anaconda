@@ -22,6 +22,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.storage.partitioning.automatic.noninteractive_partitioning import \
     NonInteractivePartitioningTask
+from pyanaconda.modules.storage.devicetree.utils import resolve_device
 
 log = get_module_logger(__name__)
 
@@ -59,7 +60,7 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
         reformat = mount_data.reformat
         format_type = mount_data.format_type
 
-        device = storage.devicetree.resolve_device(device_spec)
+        device = resolve_device(storage, device_spec)
         if device is None:
             raise StorageError(
                 _("Unknown or invalid device '{}' specified").format(device_spec)

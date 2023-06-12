@@ -290,3 +290,24 @@ def find_unconfigured_luks(storage):
         devices.append(device)
 
     return devices
+
+def resolve_device(storage, dev_spec):
+    """Return the device matching the provided device specification.
+
+    A wrapper of Blivet's resolve_device function supporting also
+    resolution of btrfs volumes specified by UUID of the volume
+    and name of the subvolume, as:
+    'UUID=2252ec30-1fce-4f8e-bdef-c50c3a44ede4@root'
+
+    :param storage: an instance of Blivet
+    :param dev_spec: a string describing a block device
+    :returns: the device
+    :rtype: :class:`~.devices.StorageDevice` or None
+    """
+
+    options = None
+    if dev_spec.startswith("UUID") and "@" in dev_spec:
+        dev_spec, _, subvol = dev_spec.partition("@")
+        options = "subvol={}".format(subvol)
+
+    return storage.devicetree.resolve_device(dev_spec, options=options)

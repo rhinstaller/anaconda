@@ -28,6 +28,7 @@ from pyanaconda.modules.storage.partitioning.manual.manual_interface import \
     ManualPartitioningInterface
 from pyanaconda.modules.storage.partitioning.manual.manual_partitioning import \
     ManualPartitioningTask
+from pyanaconda.modules.storage.devicetree.utils import resolve_device
 
 log = get_module_logger(__name__)
 
@@ -131,7 +132,11 @@ class ManualPartitioningModule(PartitioningModule):
         """
         selected_disks = set(self._selected_disks)
 
-        for device in self.storage.devicetree.leaves:
+        for device in self.storage.devicetree.devices:
+
+            if not device.isleaf and not device.raw_device.type == "btrfs subvolume" and not device.raw_device.type == "btrfs volume":
+                continue
+
             # Is the device usable?
             if device.protected or device.size == Size(0):
                 continue
@@ -150,7 +155,7 @@ class ManualPartitioningModule(PartitioningModule):
         :return: an instance of MountPointRequest or None
         """
         for request in requests:
-            if device is self.storage.devicetree.resolve_device(request.device_spec):
+            if device is resolve_device(self.storage, request.device_spec):
                 return request
 
         return None
@@ -162,7 +167,7 @@ class ManualPartitioningModule(PartitioningModule):
         :return: an instance of MountPointRequest
         """
         request = MountPointRequest()
-        request.device_spec = device.path
+        request.device_spec = self._btrfs_device_spec(device) or device.path
         request.format_type = device.format.type or ""
         request.reformat = False
 
@@ -170,6 +175,44 @@ class ManualPartitioningModule(PartitioningModule):
             request.mount_point = device.format.mountpoint
 
         return request
+
+    def _btrfs_device_spec(self, device):
+        """Get btrfs device specification of the device.
+
+        Examples:
+        'UUID=2252ec30-1fce-4f8e-bdef-c50c3a44ede4'
+        'UUID=2252ec30-1fce-4f8e-bdef-c50c3a44ede4@root'
+
+        :param device: a Blivet's device object
+        :return: a btrfs device specification or None
+        """
+        device_spec = None
+        if device.raw_device.type in ("btrfs volume", "btrfs subvolume"):
+
+            uuid = self._get_btrfs_volume_uuid(device)
+            if uuid:
+                device_spec = "UUID={}".format(uuid)
+            else:
+                log.error("volume UUID of a btrfs device not found")
+
+            if device.raw_device.type == "btrfs subvolume":
+                device_spec = device_spec + "@{}".format(device.name)
+
+        return device_spec
+
+    def _get_btrfs_volume_uuid(self, device):
+        """Get UUID of the volume of a btrfs device.
+
+        :param device: a Blivet's device object
+        :return: a btrfs volume UUID of the device or None
+        """
+        while True:
+            if device.uuid is not None:
+                return device.uuid
+            if not device.parents:
+                return None
+            device = device.parents[0]
+        return None
 
     def configure_with_task(self):
         """Schedule the partitioning actions."""

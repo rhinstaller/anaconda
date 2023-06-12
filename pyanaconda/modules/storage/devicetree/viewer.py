@@ -28,7 +28,7 @@ from pyanaconda.modules.common.errors.storage import UnknownDeviceError
 from pyanaconda.modules.common.structures.storage import DeviceData, DeviceActionData, \
     DeviceFormatData, OSData
 from pyanaconda.modules.storage.devicetree.utils import get_required_device_size, \
-    get_supported_filesystems
+    get_supported_filesystems, resolve_device
 
 log = get_module_logger(__name__)
 
@@ -347,13 +347,16 @@ class DeviceTreeViewer(ABC):
         The spec can be anything from a device name (eg: 'sda3') to a
         device node path (eg: '/dev/mapper/fedora-root') to something
         like 'UUID=xyz-tuv-qrs' or 'LABEL=rootfs'.
+        For btrfs subvolumes the subvolume can be specified by the UUID of
+        the volume and the name of the subvolume, as:
+        'UUID=2252ec30-1fce-4f8e-bdef-c50c3a44ede4@root'
 
         If no device is found, return an empty string.
 
         :param dev_spec: a string describing a block device
         :return: a device name or an empty string
         """
-        device = self.storage.devicetree.resolve_device(dev_spec)
+        device = resolve_device(self.storage, dev_spec)
 
         if not device:
             return ""
