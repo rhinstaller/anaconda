@@ -23,6 +23,9 @@ from pyanaconda.core.i18n import _
 from pyanaconda.modules.storage.partitioning.automatic.noninteractive_partitioning import \
     NonInteractivePartitioningTask
 from pyanaconda.modules.storage.devicetree.utils import resolve_device
+from pyanaconda.modules.storage.partitioning.interactive.utils import destroy_device, \
+    generate_device_factory_request
+from pyanaconda.modules.storage.partitioning.interactive.add_device import AddDeviceTask
 
 log = get_module_logger(__name__)
 
@@ -82,7 +85,13 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
                     raise StorageError(_("No format on device '{}'").format(device_spec))
 
                 fmt = get_format(old_fmt.type)
-            storage.format_device(device, fmt)
+
+            if device.raw_device.type == "btrfs subvolume":
+                # 'Format', or rather clear the device by recreating it
+                device = self._recreate_device(storage, device_spec)
+            else:
+                storage.format_device(device, fmt)
+
             # make sure swaps end up in /etc/fstab
             if fmt.type == "swap":
                 storage.add_fstab_swap(device)
@@ -95,3 +104,18 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
 
         device.format.create_options = mount_data.format_options
         device.format.options = mount_data.mount_options
+
+    def _recreate_device(self, storage, dev_spec):
+        """Recreate a device by destroying and adding it.
+
+        :param storage: an instance of the Blivet's storage object
+        :param dev_spec: a string describing a block device to be recreated
+        """
+        device = resolve_device(storage, dev_spec)
+        request = generate_device_factory_request(storage, device)
+        destroy_device(storage, device)
+        task = AddDeviceTask(storage, request)
+        task.run()
+        device = resolve_device(storage, dev_spec)
+
+        return device
