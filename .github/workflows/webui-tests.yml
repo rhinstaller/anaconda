@@ -127,7 +127,8 @@ jobs:
         with:
           repository: rhinstaller/permian
           path: permian
-          ref: devel
+          #ref: devel
+          ref: awebui-bootiso
 
       - name: Clone tplib repository
         uses: actions/checkout@v3
