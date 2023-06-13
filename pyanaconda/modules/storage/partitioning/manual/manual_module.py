@@ -170,11 +170,23 @@ class ManualPartitioningModule(PartitioningModule):
         request.device_spec = self._btrfs_device_spec(device) or device.path
         request.format_type = device.format.type or ""
         request.reformat = False
+        request.mount_options += self._btrfs_mount_options(device)
 
         if device.format.mountable and device.format.mountpoint:
             request.mount_point = device.format.mountpoint
 
         return request
+
+    def _btrfs_mount_options(self, device):
+        """Get btrfs subvolume mount options.
+
+        :param device: a Blivet's device object
+        :return: a btrfs subvolume mount options
+        """
+        if device.raw_device.type == "btrfs subvolume":
+            return "subvol={}".format(device.name)
+        else:
+            return ""
 
     def _btrfs_device_spec(self, device):
         """Get btrfs device specification of the device.
