@@ -470,6 +470,20 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 13 2023 github-actions <github-actions@github.com> - 39.19-1
+- webui: remove redundant dashes from README (kkoukiou)
+- docs: remove confusion for which toolbox to use for webui development
+  (kkoukiou)
+- webui: enable linter for webui CI runs (kkoukiou)
+- Check minimal LUKS passphrase length in FIPS mode for Kickstart (vslavik)
+- GUI: Require 8 chars of LUKS passwords in FIPS mode (vslavik)
+- Use Firefox in kiosk mode for running the Web UI locally (mkolman)
+- Do not print error on inst.ks=cdrom|hd (#2077045) (jkonecny)
+- storage: fix resolving btrfs subvolumes from fstab (#2186158) (rvykydal)
+- storage: improve btrfs devices removing in custom partitioning (#2186158)
+  (rvykydal)
+- Don't override blivet's preferred disk label type by default (awilliam)
+
 * Tue Jun 06 2023 github-actions <github-actions@github.com> - 39.18-1
 - webui: change the language direction when language changes (kkoukiou)
 - Fix webui-tests workflow waiving (zveleba)
