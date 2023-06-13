@@ -134,7 +134,7 @@ class ManualPartitioningModule(PartitioningModule):
 
         for device in self.storage.devicetree.devices:
 
-            if not device.isleaf and not device.raw_device.type == "btrfs subvolume" and not device.raw_device.type == "btrfs volume":
+            if not device.isleaf and not device.raw_device.type == "btrfs subvolume":
                 continue
 
             # Is the device usable?
