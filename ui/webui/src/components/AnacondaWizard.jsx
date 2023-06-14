@@ -22,6 +22,9 @@ import {
     Button,
     Modal,
     ModalVariant,
+    PageSection,
+    PageSectionTypes,
+    PageSectionVariants,
     Stack,
     Tooltip,
     Wizard,
@@ -162,29 +165,31 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, hide
     };
 
     return (
-        <Wizard
-          id="installation-wizard"
-          footer={<Footer
-            isFormValid={isFormValid}
-            setIsFormValid={setIsFormValid}
-            setStepNotification={setStepNotification}
-            isInProgress={isInProgress}
-            setIsInProgress={setIsInProgress}
-            storageEncryption={storageEncryption}
-            showPassphraseScreen={showPassphraseScreen}
-            setShowPassphraseScreen={setShowPassphraseScreen}
-            storageScenarioId={storageScenarioId}
-            isQuitReboot={conf["Installation System"].type === "BOOT_ISO"}
-          />}
-          hideClose
-          mainAriaLabel={`${title} content`}
-          navAriaLabel={`${title} steps`}
-          onBack={goToStep}
-          onGoToStep={goToStep}
-          onNext={goToStep}
-          steps={steps}
-          isNavExpandable
-        />
+        <PageSection type={PageSectionTypes.wizard} variant={PageSectionVariants.light}>
+            <Wizard
+              id="installation-wizard"
+              footer={<Footer
+                isFormValid={isFormValid}
+                setIsFormValid={setIsFormValid}
+                setStepNotification={setStepNotification}
+                isInProgress={isInProgress}
+                setIsInProgress={setIsInProgress}
+                storageEncryption={storageEncryption}
+                showPassphraseScreen={showPassphraseScreen}
+                setShowPassphraseScreen={setShowPassphraseScreen}
+                storageScenarioId={storageScenarioId}
+                isQuitReboot={conf["Installation System"].type === "BOOT_ISO"}
+              />}
+              hideClose
+              mainAriaLabel={`${title} content`}
+              navAriaLabel={`${title} steps`}
+              onBack={goToStep}
+              onGoToStep={goToStep}
+              onNext={goToStep}
+              steps={steps}
+              isNavExpandable
+            />
+        </PageSection>
     );
 };
 
