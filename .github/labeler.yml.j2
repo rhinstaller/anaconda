@@ -7,15 +7,14 @@ f{$ rawhide_fedora_version $}:
 {% else %}
 f{$ branched_fedora_version $}:
 {% endif %}
-- '*'
-- '**/*'
+- '**'
 
 webui:
-- ui/webui/*
+- 'ui/webui/**'
 
 documentation:
- - docs/*
+- 'docs/**'
 
 infrastructure:
-- '.github'
-- dockerfile
+- '.github/**'
+- 'dockerfile/**'

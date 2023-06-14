@@ -10,15 +10,14 @@
 
 # Always apply target fedora version to any changes
 f39:
-- '*'
-- '**/*'
+- '**'
 
 webui:
-- ui/webui/*
+- 'ui/webui/**'
 
 documentation:
- - docs/*
+- 'docs/**'
 
 infrastructure:
-- '.github'
-- dockerfile
+- '.github/**'
+- 'dockerfile/**'
