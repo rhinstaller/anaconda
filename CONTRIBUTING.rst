@@ -93,6 +93,37 @@ category. You can quickly list these by searching the Red Hat bugzilla for bugs 
 
 Patches for bugs without keywords are welcome, too!
 
+Testing Anaconda changes
+------------------------
+
+To test changes in Anaconda you have a few options based on what you need to do.
+
+WebUI development
+^^^^^^^^^^^^^^^^^
+See ``ui/webui/README.rst`` and ``ui/webui/test/README.rst`` for more details about how to develop and test Web UI interface of Anaconda.
+
+Backend and TUI development
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+There are two options to develop and test changes which are not yet released.
+
+To find out more information about quick way to propagate your changes into the existing installation ISO image see `this blogpost <https://rhinstaller.wordpress.com/2019/10/11/anaconda-debugging-and-testing-part-1/>`_.
+
+Another way is to build the boot.iso directly (takes more time but it's easier to do).
+
+Build Anaconda RPM files with our container::
+
+  make -f ./Makefile.am container-rpms-scratch
+
+Then build ISO from these RPMs by this call (beware because of loop device mounting it needs root priviledges)::
+
+  make -f ./Makefile.am container-iso-build
+
+or for Web UI image run::
+
+  make -f ./Makefile.am container-webui-iso-build
+
+The resulting ISO will be stored in ``./result/iso`` directory.
+
 
 Anaconda Installer Branching Policy (the long version)
 -------------------------------------------------------
