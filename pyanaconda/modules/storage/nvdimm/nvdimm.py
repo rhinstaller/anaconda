@@ -17,7 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from blivet import udev
+from blivet import blockdev, udev
 from blivet.devices import NVDIMMNamespaceDevice
 from blivet.static_data import nvdimm
 
@@ -30,10 +30,6 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.constants.objects import NVDIMM
 from pyanaconda.modules.storage.nvdimm.nvdimm_interface import NVDIMMInterface
 from pyanaconda.modules.storage.nvdimm.reconfigure import NVDIMMReconfigureTask
-
-import gi
-gi.require_version("BlockDev", "2.0")
-from gi.repository import BlockDev as blockdev
 
 log = get_module_logger(__name__)
 

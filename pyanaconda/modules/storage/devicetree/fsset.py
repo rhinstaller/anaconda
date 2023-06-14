@@ -19,10 +19,7 @@ import os
 import shutil
 import time
 
-import gi
-gi.require_version("BlockDev", "2.0")
-from gi.repository import BlockDev as blockdev
-
+from blivet import blockdev
 from blivet.devices import NoDevice, DirectoryDevice, NFSDevice, FileDevice, MDRaidArrayDevice, \
     NetworkStorageDevice, OpticalDevice
 from blivet.errors import UnrecognizedFSTabEntryError, FSTabTypeMismatchError, SwapSpaceError
