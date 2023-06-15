@@ -19,7 +19,6 @@ import cockpit from "cockpit";
 import React, { useState, useEffect } from "react";
 
 import {
-    Bullseye,
     Button,
     Checkbox,
     EmptyState,
@@ -206,19 +205,17 @@ const getRuleLength = (password) => {
 const getRuleConfirmMatches = (password, confirm) => (password.length > 0 ? (password === confirm ? "success" : "error") : "indeterminate");
 
 const CheckDisksSpinner = (
-    <Bullseye>
-        <EmptyState id="installation-destination-next-spinner">
-            <EmptyStateIcon variant="container" component={Spinner} />
-            <Title size="lg" headingLevel="h4">
-                {_("Checking storage configuration")}
-            </Title>
-            <TextContent>
-                <Text component={TextVariants.p}>
-                    {_("This may take a moment")}
-                </Text>
-            </TextContent>
-        </EmptyState>
-    </Bullseye>
+    <EmptyState id="installation-destination-next-spinner">
+        <EmptyStateIcon variant="container" component={Spinner} />
+        <Title size="lg" headingLevel="h4">
+            {_("Checking storage configuration")}
+        </Title>
+        <TextContent>
+            <Text component={TextVariants.p}>
+                {_("This may take a moment")}
+            </Text>
+        </TextContent>
+    </EmptyState>
 );
 
 export const DiskEncryption = ({
