@@ -239,6 +239,14 @@ jobs:
             permian/xunit*.xml
             permian/*.dump
 
+      - name: Upload image artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: images
+          path: |
+            anaconda/images/boot.iso
+
       # Permian exit code doesn't reflect the test results
       - name: Check tests results
         working-directory: ./permian
