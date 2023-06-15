@@ -30,3 +30,8 @@ from testlib import MachineCase  # pylint: disable=import-error
 
 class VirtInstallMachineCase(MachineCase):
     MachineCase.machine_class = VirtInstallMachine
+
+    def setUp(self):
+        super().setUp()
+
+        self.allow_journal_messages('.*cockpit.bridge-WARNING: Could not start ssh-agent.*')
