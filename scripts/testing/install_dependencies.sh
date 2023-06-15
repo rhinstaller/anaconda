@@ -29,15 +29,7 @@
 set -eu
 
 # shellcheck disable=SC2068
-dnf install $@ make rpm-build npm virt-install
-
-# cockpit tests depencies - taken from https://github.com/cockpit-project/cockpituous/blob/main/tasks/Dockerfile
-# shellcheck disable=SC2068
-dnf install $@ \
-    qemu-kvm-core \
-    firefox \
-    chromium-headless
-
+dnf install $@ make rpm-build python3-polib
 
 TEMP=$(mktemp /tmp/anaconda.spec.XXXXXXX)
 
