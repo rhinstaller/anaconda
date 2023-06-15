@@ -1,3 +1,5 @@
+@import "global-variables";
+
 // Copied from cockpit/pkg/lib/page.scss instead of including it in its entirety:
 // Let PF4 handle the scrolling through page component otherwise we might get double scrollbar
 html:not(.index-page) body {
@@ -14,4 +16,24 @@ html:not(.index-page) body {
 }
 #installation-wizard .pf-c-wizard__main-body {
   flex: 1 1 auto;
+}
+
+// Nested tables showing partitions in the local standards disks table should not fill space in larger screens
+@media (min-width: $pf-global--breakpoint--lg) {
+  .ct-table .pf-c-table__expandable-row-content {
+    display: flex;
+  }
+  .ct-table .ct-table {
+    flex: 75% 0 0;
+  }
+}
+
+// Nested tables showing partitions in the local standards disks table don't need borders for last row
+.ct-table .ct-table tr:last-child {
+  border: none;
+}
+
+// Nested tables showing partitions in the local standards disks table don't need extra padding
+.ct-table .pf-c-table__expandable-row-content {
+  padding: 0;
 }

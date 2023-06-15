@@ -99,6 +99,19 @@ export const getDiskFreeSpace = ({ diskNames }) => {
 };
 
 /**
+ * @param {string} disk         Name A disk name
+ *
+ * @returns {Promise}           Resolves the device format data
+ */
+export const getFormatData = ({ diskName }) => {
+    return new StorageClient().client.call(
+        "/org/fedoraproject/Anaconda/Modules/Storage/DeviceTree",
+        "org.fedoraproject.Anaconda.Modules.Storage.DeviceTree.Viewer",
+        "GetFormatData", [diskName]
+    );
+};
+
+/**
  * @param {int} requiredSpace A required space in bytes
  *
  * @returns {Promise}           Resolves the total free space on the given disks
@@ -122,6 +135,17 @@ export const getDiskTotalSpace = ({ diskNames }) => {
         "/org/fedoraproject/Anaconda/Modules/Storage/DeviceTree",
         "org.fedoraproject.Anaconda.Modules.Storage.DeviceTree.Viewer",
         "GetDiskTotalSpace", [diskNames]
+    );
+};
+
+/**
+ * @returns {Promise}           Resolves all devices in a device tree
+ */
+export const getDevices = () => {
+    return new StorageClient().client.call(
+        "/org/fedoraproject/Anaconda/Modules/Storage/DeviceTree",
+        "org.fedoraproject.Anaconda.Modules.Storage.DeviceTree.Viewer",
+        "GetDevices", []
     );
 };
 

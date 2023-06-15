@@ -281,5 +281,41 @@ class TestStorageExtraDisks(anacondalib.VirtInstallMachineCase):
             s.check_disk_selected(disk)
 
 
+    def testStoragePartitions(self):
+        b = self.browser
+        m = self.machine
+
+        m.add_disk(size=2)
+        disk="/dev/vdb"
+        m.execute(f'parted -s {disk} mktable gpt')
+        m.execute(f'parted -s {disk} mkpart primary ext4 0% 20%')
+        m.execute(f"echo einszweidrei | cryptsetup luksFormat {disk}1")
+
+        m.execute(f'parted -s {disk} mkpart primary ext4 20% 60%')
+        m.execute(f'mkfs.ext4 {disk}2')
+
+        i = Installer(b, m)
+        s = Storage(b, m)
+
+        i.open()
+        i.next()
+
+        s.rescan_disks()
+
+        s.check_disk_visible("vda")
+        s.check_disk_expandable("vda", False)
+        s.check_disk_visible("vdb", False)
+        s.check_disk_expandable("vdb", True)
+
+        s.set_expand_disk_row("vdb", True)
+        s.check_disk_partition("vdb", "/dev/vdb1", "Encrypted (LUKS)", "429 MB")
+        s.check_disk_partition("vdb", "/dev/vdb2", "ext4", "859 MB")
+
+        b.assert_pixels(
+            "#app",
+            "storage-step-basic-partitions",
+            wait_animations=False,
+        )
+
 if __name__ == '__main__':
     test_main()
