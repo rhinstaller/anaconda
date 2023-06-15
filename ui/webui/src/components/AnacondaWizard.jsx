@@ -40,11 +40,13 @@ import { InstallationProgress } from "./installation/InstallationProgress.jsx";
 import { ReviewConfiguration, ReviewConfigurationConfirmModal } from "./review/ReviewConfiguration.jsx";
 import { exitGui } from "../helpers/exit.js";
 import { usePageLocation } from "hooks";
-import { resetPartitioning } from "../apis/storage.js";
+import {
+    resetPartitioning
+} from "../apis/storage.js";
 
 const _ = cockpit.gettext;
 
-export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, hideContextHelp, title, conf }) => {
+export const AnacondaWizard = ({ dispatch, deviceData, diskSelection, onAddErrorNotification, toggleContextHelp, hideContextHelp, title, conf }) => {
     const [isFormValid, setIsFormValid] = useState(true);
     const [stepNotification, setStepNotification] = useState();
     const [isInProgress, setIsInProgress] = useState(false);
@@ -64,6 +66,7 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, hide
             label: _("Installation destination"),
             steps: [{
                 component: InstallationDestination,
+                data: { deviceData, diskSelection, dispatch },
                 id: "storage-devices",
                 label: _("Storage devices")
             }, {
@@ -78,6 +81,7 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, hide
         },
         {
             component: ReviewConfiguration,
+            data: { deviceData },
             id: "installation-review",
             label: _("Review and install"),
         },
@@ -144,6 +148,7 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, hide
                               window.sessionStorage.setItem("storage-scenario-id", scenarioId);
                               setStorageScenarioId(scenarioId);
                           }}
+                          {...s.data}
                         />
                     ),
                 });

@@ -53,14 +53,7 @@ import { helpStorageOptions } from "./HelpStorageOptions.jsx";
 import {
     applyPartitioning,
     createPartitioning,
-    getAllDiskSelection,
-    getDevices,
-    getDeviceData,
-    getDiskFreeSpace,
-    getDiskTotalSpace,
-    getFormatData,
     getRequiredDeviceSize,
-    getUsableDisks,
     partitioningConfigureWithTask,
     resetPartitioning,
     runStorageTask,
@@ -75,6 +68,7 @@ import {
 import {
     getRequiredSpace,
 } from "../../apis/payloads";
+import { getDevicesAction, getDiskSelectionAction } from "../../actions.js";
 
 import {
     sleep,
@@ -195,8 +189,7 @@ const DropdownBulkSelect = ({
     );
 };
 
-const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }) => {
-    const [deviceData, setDeviceData] = useState({});
+const LocalStandardDisks = ({ deviceData, diskSelection, dispatch, idPrefix, setIsFormValid, onAddErrorNotification }) => {
     const [disks, setDisks] = useState({});
     const [refreshCnt, setRefreshCnt] = useState(0);
     const [isRescanningDisks, setIsRescanningDisks] = useState(false);
@@ -204,53 +197,19 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
     const [equalDisksNotify, setEqualDisksNotify] = useState(false);
 
     useEffect(() => {
-        let usableDisks;
-        let devices;
-        getDevices()
-                .then(ret => {
-                    devices = ret[0];
-                    return getUsableDisks();
-                })
-                .then(res => {
-                    usableDisks = res[0];
-                    return getAllDiskSelection();
-                })
-                .then(props => {
-                    // Select default disks for the partitioning
-                    const defaultDisks = selectDefaultDisks({
-                        ignoredDisks: props[0].IgnoredDisks.v,
-                        selectedDisks: props[0].SelectedDisks.v,
-                        usableDisks,
-                    });
-                    setDisks(usableDisks.reduce((acc, cur) => ({ ...acc, [cur]: defaultDisks.includes(cur) }), {}));
+        // Select default disks for the partitioning
+        const defaultDisks = selectDefaultDisks({
+            ignoredDisks: diskSelection.ignoredDisks,
+            selectedDisks: diskSelection.selectedDisks,
+            usableDisks: diskSelection.usableDisks,
+        });
+        setDisks(diskSelection.usableDisks.reduce((acc, cur) => ({ ...acc, [cur]: defaultDisks.includes(cur) }), {}));
+    }, [refreshCnt, dispatch, diskSelection]);
 
-                    // Show disks data
-                    devices.forEach(disk => {
-                        let deviceData = {};
-                        const diskNames = [disk];
-
-                        getDeviceData({ disk })
-                                .then(res => {
-                                    deviceData = res[0];
-                                    return getDiskFreeSpace({ diskNames });
-                                }, console.error)
-                                .then(free => {
-                                    // Since the getDeviceData returns an object with variants as values,
-                                    // extend it with variants to keep the format consistent
-                                    deviceData.free = cockpit.variant(String, free[0]);
-                                    return getDiskTotalSpace({ diskNames });
-                                }, console.error)
-                                .then(total => {
-                                    deviceData.total = cockpit.variant(String, total[0]);
-                                    return getFormatData({ diskName: disk });
-                                }, console.error)
-                                .then(formatData => {
-                                    deviceData.formatData = formatData[0];
-                                    setDeviceData(d => ({ ...d, [disk]: deviceData }));
-                                }, console.error);
-                    });
-                }, console.error);
-    }, [refreshCnt]);
+    useEffect(() => {
+        dispatch(getDevicesAction());
+        dispatch(getDiskSelectionAction());
+    }, [dispatch, refreshCnt]);
 
     const totalDisksCnt = Object.keys(disks).length;
     const selectedDisksCnt = Object.keys(disks).filter(disk => !!disks[disk]).length;
@@ -269,7 +228,7 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
         setSelectedDisks({ drives: selected }).catch(onAddErrorNotification);
     }, [disks, onAddErrorNotification, selectedDisksCnt, setIsFormValid]);
 
-    const loading = Object.keys(disks).some(disk => !deviceData[disk]);
+    const loading = !deviceData || Object.keys(disks).some(disk => !deviceData[disk]);
     if (loading) {
         return <EmptyStatePanel loading />;
     }
@@ -478,7 +437,7 @@ const LocalStandardDisks = ({ idPrefix, setIsFormValid, onAddErrorNotification }
     );
 };
 
-export const InstallationDestination = ({ idPrefix, setIsFormValid, onAddErrorNotification, toggleContextHelp, stepNotification, isInProgress }) => {
+export const InstallationDestination = ({ deviceData, diskSelection, dispatch, idPrefix, setIsFormValid, onAddErrorNotification, toggleContextHelp, stepNotification, isInProgress }) => {
     const [requiredSize, setRequiredSize] = useState(0);
 
     const toggleHelpStorageOptions = () => {
@@ -516,6 +475,9 @@ export const InstallationDestination = ({ idPrefix, setIsFormValid, onAddErrorNo
                   variant="danger"
                 />}
             <LocalStandardDisks
+              deviceData={deviceData}
+              diskSelection={diskSelection}
+              dispatch={dispatch}
               idPrefix={idPrefix}
               setIsFormValid={setIsFormValid}
               onAddErrorNotification={onAddErrorNotification}

@@ -36,7 +36,6 @@ import {
 
 import {
     getSelectedDisks,
-    getDeviceData,
     getAppliedPartitioning,
     getPartitioningRequest,
 } from "../../apis/storage.js";
@@ -100,8 +99,7 @@ const DeviceRow = ({ name, data }) => {
     );
 };
 
-export const ReviewConfiguration = ({ idPrefix, storageScenarioId }) => {
-    const [deviceData, setDeviceData] = useState({});
+export const ReviewConfiguration = ({ deviceData, idPrefix, storageScenarioId }) => {
     const [selectedDisks, setSelectedDisks] = useState();
     const [systemLanguage, setSystemLanguage] = useState();
     const [encrypt, setEncrypt] = useState();
@@ -117,10 +115,6 @@ export const ReviewConfiguration = ({ idPrefix, storageScenarioId }) => {
         const initializeDisks = async () => {
             const selDisks = await getSelectedDisks().catch(console.error);
             setSelectedDisks(selDisks);
-            for (const disk of selDisks) {
-                const devData = await getDeviceData({ disk }).catch(console.error);
-                setDeviceData(d => ({ ...d, [disk]: devData[0] }));
-            }
         };
         const initializeEncrypt = async () => {
             const partitioning = await getAppliedPartitioning().catch(console.error);
@@ -191,7 +185,7 @@ export const ReviewConfiguration = ({ idPrefix, storageScenarioId }) => {
                 </ReviewDescriptionList>
                 <Title className="storage-devices-configuration-title" headingLevel="h4">{_("Storage devices and configurations")}</Title>
                 <DataList isCompact>
-                    {Object.keys(deviceData).map(deviceName =>
+                    {selectedDisks.map(deviceName =>
                         <DeviceRow key={deviceName} name={deviceName} data={deviceData[deviceName]} />
                     )}
                 </DataList>

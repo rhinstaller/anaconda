@@ -37,6 +37,7 @@ import { PayloadsClient } from "../apis/payloads";
 
 import { readBuildstamp, getIsFinal } from "../helpers/betanag.js";
 import { readConf } from "../helpers/conf.js";
+import { useReducerWithThunk, reducer, initialState } from "../reducer.js";
 
 export const Application = () => {
     const [address, setAddress] = useState();
@@ -47,6 +48,7 @@ export const Application = () => {
     const [isHelpExpanded, setIsHelpExpanded] = useState(false);
     const [helpContent, setHelpContent] = useState("");
     const [prettyName, setPrettyName] = useState("");
+    const [state, dispatch] = useReducerWithThunk(reducer, initialState);
 
     useEffect(() => {
         cockpit.file("/run/anaconda/bus.address").watch(address => {
@@ -139,6 +141,9 @@ export const Application = () => {
                   toggleContextHelp={toggleContextHelp}
                   hideContextHelp={() => setIsHelpExpanded(false)}
                   title={title}
+                  deviceData={state.devices}
+                  diskSelection={state.diskSelection}
+                  dispatch={dispatch}
                   conf={conf}
                 />
             </AddressContext.Provider>
