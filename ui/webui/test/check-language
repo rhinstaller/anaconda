@@ -40,7 +40,7 @@ class TestLanguage(anacondalib.VirtInstallMachineCase):
 
         # Expect the backend set language to be preselected and the WebUI translated
         l.check_selected_locale("de_DE")
-        b.wait_in_text("h1", "Anaconda-Installationsprogramm")
+        b.wait_in_text("h2 + h3", "Wählen Sie eine Sprache aus")
 
     def testLanguageSwitching(self):
         b = self.browser
@@ -53,7 +53,7 @@ class TestLanguage(anacondalib.VirtInstallMachineCase):
         i.open()
 
         # Expect the default language - this is en at this point - adjust the test when better guess is implemented
-        b.wait_in_text("h2", "Welcome to the Anaconda installer")
+        b.wait_in_text("h2", "Welcome to Fedora Linux")
 
         l.check_selected_locale("en_US")
 
@@ -93,8 +93,7 @@ class TestLanguage(anacondalib.VirtInstallMachineCase):
             wait_animations=False,
         )
 
-        # TODO: Add checks for translations when these are present
-        b.wait_in_text("h1", "Anaconda-Installationsprogramm")
+        b.wait_in_text("h2 + h3", "Wählen Sie eine Sprache aus")
         # TODO: Add checks for plural translations when these are present
 
         # Check that the language is updated in the backend

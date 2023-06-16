@@ -35,8 +35,7 @@ import { PayloadsClient } from "../apis/payloads";
 
 import { readBuildstamp, getIsFinal } from "../helpers/betanag.js";
 import { readConf } from "../helpers/conf.js";
-
-const _ = cockpit.gettext;
+import { getOsReleaseByKey } from "../helpers/product.js";
 
 export const Application = () => {
     const [address, setAddress] = useState();
@@ -46,6 +45,7 @@ export const Application = () => {
     const [notifications, setNotifications] = useState({});
     const [isHelpExpanded, setIsHelpExpanded] = useState(false);
     const [helpContent, setHelpContent] = useState("");
+    const [prettyName, setPrettyName] = useState("");
 
     useEffect(() => {
         cockpit.file("/run/anaconda/bus.address").watch(address => {
@@ -68,6 +68,10 @@ export const Application = () => {
         readBuildstamp().then(
             buildstamp => setBeta(!getIsFinal(buildstamp)),
             ex => console.error("Failed to parse anaconda buildstamp file")
+        );
+
+        getOsReleaseByKey("PRETTY_NAME").then(
+            setPrettyName
         );
     }, []);
 
@@ -95,7 +99,7 @@ export const Application = () => {
     }
     console.info("conf: ", conf);
 
-    const title = _("Anaconda installer");
+    const title = cockpit.format("$0 installation", prettyName);
 
     const page = (
         <Page
