@@ -53,7 +53,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        container-type: ['ci', 'rpm']
+        container-type: ['ci', 'rpm', 'iso-creator']
     env:
       CI_TAG: '${{ inputs.container-tag }}'
     timeout-minutes: 60
