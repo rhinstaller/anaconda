@@ -15,7 +15,7 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import cockpit from "cockpit";
 
 import {
@@ -53,6 +53,7 @@ import {
     setLangCookie
 } from "../../helpers/language.js";
 import { AnacondaPage } from "../AnacondaPage.jsx";
+import { getOsReleaseByKey } from "../../helpers/product.js";
 
 import "./InstallationLanguage.scss";
 
@@ -317,9 +318,16 @@ LanguageSelector.contextType = AddressContext;
 export const InstallationLanguage = ({ idPrefix, setIsFormValid, onAddErrorNotification }) => {
     const [nativeName, setNativeName] = React.useState(false);
     const { setLanguage } = React.useContext(LanguageContext);
+    const [distributionName, setDistributionName] = useState("");
+
+    useEffect(() => {
+        getOsReleaseByKey("NAME").then(
+            setDistributionName
+        );
+    }, []);
 
     return (
-        <AnacondaPage title={_("Welcome to the Anaconda installer")}>
+        <AnacondaPage title={cockpit.format("Welcome to $0", distributionName)}>
             <Title
               headingLevel="h3"
             >
