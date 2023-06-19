@@ -36,9 +36,9 @@ def log_step(snapshots=False, snapshot_before=False, snapshot_after=False, docst
                 print(f'[DOC] {function.__doc__}')
             if snapshots or snapshot_before:
                 BrowserSnapshot.new(args[0].browser)
-            
+
             result = function(*args, **kwargs)
-            
+
             if snapshots or snapshot_after:
                 BrowserSnapshot.new(args[0].browser)
 
