@@ -345,7 +345,7 @@ container-iso-build:
 
 # Build WebUI ISO from Anaconda RPM files build here
 container-webui-iso-build:
-	$(MAKE) -f ./Makefile.am container-iso-build-scratch CONTAINER_ADD_ARGS="--entrypoint=/lorax-build-webui"
+	$(MAKE) -f ./Makefile.am container-iso-build CONTAINER_ADD_ARGS="--entrypoint=/lorax-build-webui"
 
 check-branching:
 # checking if branching can be finished and all the pieces are in place
