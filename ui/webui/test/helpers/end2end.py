@@ -35,7 +35,7 @@ from machine_install import VirtInstallMachine
 from step_logger import log_step
 
 
-class IntegrationTest(MachineCase):
+class End2EndTest(MachineCase):
     MachineCase.machine_class = VirtInstallMachine
 
     def setUp(self):

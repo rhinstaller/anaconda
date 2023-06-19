@@ -25,10 +25,10 @@ sys.path.append(os.path.join(TEST_DIR, "common"))
 sys.path.append(os.path.join(TEST_DIR, "helpers"))
 sys.path.append(os.path.join(os.path.dirname(TEST_DIR), "bots/machine"))
 
-from integration import IntegrationTest  # pylint: disable=import-error
+from end2end import End2EndTest  # pylint: disable=import-error
 from testlib import test_main  # pylint: disable=import-error
 
-class DefaultInstallation(IntegrationTest):
+class DefaultInstallation(End2EndTest):
     def test_default_installation(self):
         self.run_integration_test()
 

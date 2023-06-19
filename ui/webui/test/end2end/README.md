@@ -18,10 +18,10 @@ sys.path.append(os.path.join(TEST_DIR, "common"))
 sys.path.append(os.path.join(TEST_DIR, "helpers"))
 sys.path.append(os.path.join(os.path.dirname(TEST_DIR), "bots/machine"))
 
-from integration import IntegrationTest
+from end2end import End2EndTest
 from testlib import test_main
 
-class ExampleMinimal(IntegrationTest):
+class ExampleMinimal(End2EndTest):
     def test_installation(self):
         self.run_integration_test()
 
@@ -70,10 +70,10 @@ sys.path.append(os.path.join(TEST_DIR, "common"))
 sys.path.append(os.path.join(TEST_DIR, "helpers"))
 sys.path.append(os.path.join(os.path.dirname(TEST_DIR), "bots/machine"))
 
-from integration import IntegrationTest
+from end2end import End2EndTest
 from testlib import test_main
 
-class ExampleSmall(IntegrationTest):
+class ExampleSmall(End2EndTest):
     def test_installation(self):
         self.run_integration_test()
 
@@ -134,10 +134,10 @@ sys.path.append(os.path.join(TEST_DIR, "common"))
 sys.path.append(os.path.join(TEST_DIR, "helpers"))
 sys.path.append(os.path.join(os.path.dirname(TEST_DIR), "bots/machine"))
 
-from integration import IntegrationTest
+from end2end import End2EndTest
 from testlib import test_main
 
-class ExampleLarge(IntegrationTest):
+class ExampleLarge(End2EndTest):
     def test_installation(self):
         self._installer.open()
         self.configure_language()
