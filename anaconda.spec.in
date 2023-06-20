@@ -411,6 +411,71 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 20 2023 Jiri Konecny <jkonecny@redhat.com> - 34.25.3.4-1
+- Warn about deprecated inst.geoloc=provider_... (vslavik)
+  Resolves: rhbz#2127473
+- Improve doc strings for geolocation (vslavik)
+  Related: rhbz#2127473
+- Do not run geolocation for TUI (vslavik)
+  Resolves: rhbz#2127473
+- gui: Simplify invalid timezone handling. (vslavik)
+  Related: rhbz#2127473
+- Try to set timezone from language on welcome spoke (vslavik)
+  Resolves: rhbz#2127473
+- Always set timezone with priority (vslavik)
+  Resolves: rhbz#2127473
+- Add timezone priority to module backend and interface (vslavik)
+  Resolves: rhbz#2127473
+- Use existing locale in welcome spoke (vslavik)
+  Resolves: rhbz#2127473
+- Apply geolocation in main process (vslavik)
+  Related: rhbz#2127473
+- Add back waiting for geolocation (vslavik)
+  Related: rhbz#2127473
+- Add wait_for_task() to wait for a Task with timeout (vslavik)
+  Related: rhbz#2127473
+- Don't fall back to default timezone in welcome spoke (vslavik)
+  Related: rhbz#2127473
+- Use directly URLs in conf geoloc provider field (vslavik)
+  Related: rhbz#2127473
+- Remove unmodularized geolocation (vslavik)
+  Related: rhbz#2127473
+- Use modularized geolocation instead of unmodularized (vslavik)
+  Related: rhbz#2127473
+- Hide the geolocation task in Timezone's interface (vslavik)
+  Related: rhbz#2127473
+- Add GeolocationTask to the Timezone module (vslavik)
+  Related: rhbz#2127473
+- Add a D-Bus structure for geolocation data (vslavik)
+  Related: rhbz#2127473
+- Add conf option for geolocation provider (vslavik)
+  Related: rhbz#2127473
+- Retranslate welcome screen more simply (vslavik)
+  Related: rhbz#2127473
+- Fix translations of the pre-release warning dialog (vponcova)
+  Resolves: rhbz#2165762
+  Related: rhbz#2127473
+- Split Timezone module tests for tasks to new file (vslavik)
+  Related: rhbz#2127473
+- Make check for geolocation start a standalone helper (vslavik)
+  Related: rhbz#2127473
+- Keep Timezone proxy in Welcome spoke (vslavik)
+  Related: rhbz#2127473
+- Split starting locales in welcome spoke to a helper (vslavik)
+  Related: rhbz#2127473
+- Rename constant to reflect its usage (vslavik)
+  Related: rhbz#2127473
+- Fix "proxy" boot option is printing inst. warning (jkonecny)
+  Related: rhbz#2177219
+- Allow showing proxy passwords on the installation source spoke (jstodola)
+  Resolves: rhbz#2013190
+- Allow showing passwords on the subscription spoke (jstodola)
+  Resolves: rhbz#2013190
+- Always hide the user password by default (jstodola)
+  Related: rhbz#2013190
+- Always hide the root password by default (jstodola)
+  Related: rhbz#2013190
+
 * Mon Jun 12 2023 Vladimír Slávik <vslavik@redhat.com> - 34.25.3.3-1
 - Stop infinite wait for CDROM when KS is processed (jkonecny)
   Resolves: rhbz#2209599
