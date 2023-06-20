@@ -15,7 +15,7 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 import cockpit from "cockpit";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
     Button,
     Flex,
@@ -32,21 +32,19 @@ import {
     ExclamationCircleIcon
 } from "@patternfly/react-icons";
 import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
-import { AddressContext } from "../Common.jsx";
 import { BossClient, getSteps, installWithTasks } from "../../apis/boss.js";
 import { exitGui } from "../../helpers/exit.js";
 import "./InstallationProgress.scss";
 
 const _ = cockpit.gettext;
 
-export class InstallationProgress extends React.Component {
-    constructor (props) {
-        super(props);
-        this.state = { statusMessage: "", currentProgressStep: 0 };
-        this.logViewerRef = React.createRef();
-    }
+export const InstallationProgress = ({ onAddErrorNotification, idPrefix }) => {
+    const [status, setStatus] = useState();
+    const [statusMessage, setStatusMessage] = useState("");
+    const [steps, setSteps] = useState();
+    const [currentProgressStep, setCurrentProgressStep] = useState(0);
 
-    componentDidMount () {
+    useEffect(() => {
         installWithTasks()
                 .then(tasks => {
                     const taskProxy = new BossClient().client.proxy(
@@ -59,8 +57,8 @@ export class InstallationProgress extends React.Component {
                             if (step === 0) {
                                 getSteps({ task: tasks[0] })
                                         .then(
-                                            ret => this.setState({ steps: ret.v }),
-                                            this.props.onAddErrorNotification
+                                            ret => setSteps(ret.v),
+                                            onAddErrorNotification
                                         );
                             // FIXME: hardcoded progress steps
                             //        - if ProgressStepper turns out to be viable,
@@ -69,29 +67,30 @@ export class InstallationProgress extends React.Component {
                             //
                             // storage
                             } else if (step <= 3) {
-                                this.setState({ currentProgressStep: 0 });
+                                setCurrentProgressStep(0);
                             // payload
                             } else if (step === 4) {
-                                this.setState({ currentProgressStep: 1 });
+                                setCurrentProgressStep(1);
                             // configuration
                             } else if (step >= 5 && step <= 11) {
-                                this.setState({ currentProgressStep: 2 });
+                                setCurrentProgressStep(2);
                             // bootloader
                             } else if (step >= 12) {
-                                this.setState({ currentProgressStep: 3 });
+                                setCurrentProgressStep(3);
                             }
                             if (message) {
-                                this.setState({ statusMessage: message });
+                                setStatusMessage(message);
                             }
                         });
                         taskProxy.addEventListener("Failed", () => {
-                            this.setState({ status: "danger" });
+                            setStatus("danger");
                         });
                         taskProxy.addEventListener("Stopped", () => {
-                            taskProxy.Finish().catch(this.props.onAddErrorNotification);
+                            taskProxy.Finish().catch(onAddErrorNotification);
                         });
                         taskProxy.addEventListener("Succeeded", () => {
-                            this.setState({ status: "success", currentProgressStep: 4 });
+                            setStatus("success");
+                            setCurrentProgressStep(4);
                         });
                     };
                     taskProxy.wait(() => {
@@ -99,127 +98,121 @@ export class InstallationProgress extends React.Component {
                         taskProxy.Start().catch(console.error);
                     });
                 }, console.error);
+    }, [onAddErrorNotification]);
+
+    const progressSteps = [
+        {
+            title: _("Storage configuration"),
+            id: "installation-progress-step-storage",
+            description: _("Storage configuration: Storage is currently being configured."),
+        },
+        {
+            title: _("Software installation"),
+            id: "installation-progress-step-payload",
+            description: _("Software installation: Storage configuration complete. The software is now being installed onto your device."),
+        },
+        {
+            title: _("System configuration"),
+            id: "installation-progress-step-configuration",
+            description: _("System configuration: Software installation complete. The system is now being configured."),
+        },
+        {
+            title: _("Finalization"),
+            id: "installation-progress-step-boot-loader",
+            description: _("Finalizing: The system configuration is complete. Finalizing installation may take a few moments."),
+        },
+    ];
+
+    if (steps === undefined) {
+        return null;
     }
 
-    render () {
-        const idPrefix = this.props.idPrefix;
-        const { steps, currentProgressStep, status, statusMessage } = this.state;
+    let icon;
+    let title;
+    if (status === "success") {
+        icon = CheckCircleIcon;
+        title = _("Successfully installed");
+    } else if (status === "danger") {
+        icon = ExclamationCircleIcon;
+        title = _("Installation failed");
+    } else {
+        title = _("Installing");
+    }
 
-        const progressSteps = [
-            {
-                title: _("Storage configuration"),
-                id: "installation-progress-step-storage",
-                description: _("Storage configuration: Storage is currently being configured."),
-            },
-            {
-                title: _("Software installation"),
-                id: "installation-progress-step-payload",
-                description: _("Software installation: Storage configuration complete. The software is now being installed onto your device."),
-            },
-            {
-                title: _("System configuration"),
-                id: "installation-progress-step-configuration",
-                description: _("System configuration: Software installation complete. The system is now being configured."),
-            },
-            {
-                title: _("Finalization"),
-                id: "installation-progress-step-boot-loader",
-                description: _("Finalizing: The system configuration is complete. Finalizing installation may take a few moments."),
-            },
-        ];
-
-        if (steps === undefined) {
-            return null;
-        }
-
-        let icon;
-        let title;
-        if (status === "success") {
-            icon = CheckCircleIcon;
-            title = _("Successfully installed");
-        } else if (status === "danger") {
-            icon = ExclamationCircleIcon;
-            title = _("Installation failed");
-        } else {
-            title = _("Installing");
-        }
-
-        return (
-            <Stack hasGutter className={idPrefix + "-status-" + status}>
-                <EmptyStatePanel
-                  icon={icon}
-                  loading={!icon}
-                  paragraph={
-                      <Flex direction={{ default: "column" }}>
-                          <Text>
-                              {currentProgressStep < 4
-                                  ? progressSteps[currentProgressStep].description
-                                  // TODO Replace the placeholder text with an actual product name.
-                                  : _("To begin using Fedora 39 (Workstation Edition), reboot your system.")}
-                          </Text>
-                          {currentProgressStep < 4 && (
-                              <>
-                                  <FlexItem spacer={{ default: "spacerXl" }} />
-                                  <ProgressStepper isCenterAligned>
-                                      {progressSteps.map((progressStep, index) => {
-                                          let variant = "pending";
-                                          let ariaLabel = _("pending step");
-                                          let phaseText = _("Pending");
-                                          let statusText = "";
-                                          let phaseIcon = <PendingIcon />;
-                                          if (index < currentProgressStep) {
-                                              variant = "success";
-                                              ariaLabel = _("completed step");
-                                              phaseText = _("Completed");
-                                              phaseIcon = <CheckCircleIcon />;
-                                          } else if (index === currentProgressStep) {
-                                              variant = status === "danger" ? status : "info";
-                                              ariaLabel = _("current step");
-                                              phaseText = _("In progress");
-                                              statusText = statusMessage;
-                                              if (status === "danger") {
-                                                  phaseIcon = <ExclamationCircleIcon />;
-                                              } else {
-                                                  phaseIcon = <InProgressIcon />;
-                                              }
+    return (
+        <Stack hasGutter className={idPrefix + "-status-" + status}>
+            <EmptyStatePanel
+              icon={icon}
+              loading={!icon}
+              paragraph={
+                  <Flex direction={{ default: "column" }}>
+                      <Text>
+                          {currentProgressStep < 4
+                              ? progressSteps[currentProgressStep].description
+                              // TODO Replace the placeholder text with an actual product name.
+                              : _("To begin using Fedora 39 (Workstation Edition), reboot your system.")}
+                      </Text>
+                      {currentProgressStep < 4 && (
+                          <>
+                              <FlexItem spacer={{ default: "spacerXl" }} />
+                              <ProgressStepper isCenterAligned>
+                                  {progressSteps.map((progressStep, index) => {
+                                      let variant = "pending";
+                                      let ariaLabel = _("pending step");
+                                      let phaseText = _("Pending");
+                                      let statusText = "";
+                                      let phaseIcon = <PendingIcon />;
+                                      if (index < currentProgressStep) {
+                                          variant = "success";
+                                          ariaLabel = _("completed step");
+                                          phaseText = _("Completed");
+                                          phaseIcon = <CheckCircleIcon />;
+                                      } else if (index === currentProgressStep) {
+                                          variant = status === "danger" ? status : "info";
+                                          ariaLabel = _("current step");
+                                          phaseText = _("In progress");
+                                          statusText = statusMessage;
+                                          if (status === "danger") {
+                                              phaseIcon = <ExclamationCircleIcon />;
+                                          } else {
+                                              phaseIcon = <InProgressIcon />;
                                           }
-                                          return (
-                                              <ProgressStep
-                                                aria-label={ariaLabel}
-                                                id={idPrefix + "-step-" + index}
-                                                isCurrent={index === currentProgressStep}
-                                                icon={phaseIcon}
-                                                titleId={progressStep.id}
-                                                key={index}
-                                                variant={variant}
-                                                description={
-                                                    <Flex direction={{ default: "column" }}>
-                                                        <FlexItem spacer={{ default: "spacerNone" }}>
-                                                            <Text>{phaseText}</Text>
-                                                        </FlexItem>
-                                                        <FlexItem spacer={{ default: "spacerNone" }}>
-                                                            <Text>{statusText}</Text>
-                                                        </FlexItem>
-                                                    </Flex>
-                                                }
-                                              >
-                                                  {progressStep.title}
-                                              </ProgressStep>
-                                          );
-                                      })}
-                                  </ProgressStepper>
-                              </>)}
-                      </Flex>
-                  }
-                  secondary={
-                      status === "success" &&
-                      <Button onClick={exitGui}>{_("Reboot")}</Button>
-                  }
-                  title={title}
-                  headingLevel="h2"
-                />
-            </Stack>
-        );
-    }
-}
-InstallationProgress.contextType = AddressContext;
+                                      }
+                                      return (
+                                          <ProgressStep
+                                            aria-label={ariaLabel}
+                                            id={idPrefix + "-step-" + index}
+                                            isCurrent={index === currentProgressStep}
+                                            icon={phaseIcon}
+                                            titleId={progressStep.id}
+                                            key={index}
+                                            variant={variant}
+                                            description={
+                                                <Flex direction={{ default: "column" }}>
+                                                    <FlexItem spacer={{ default: "spacerNone" }}>
+                                                        <Text>{phaseText}</Text>
+                                                    </FlexItem>
+                                                    <FlexItem spacer={{ default: "spacerNone" }}>
+                                                        <Text>{statusText}</Text>
+                                                    </FlexItem>
+                                                </Flex>
+                                            }
+                                          >
+                                              {progressStep.title}
+                                          </ProgressStep>
+                                      );
+                                  })}
+                              </ProgressStepper>
+                          </>)}
+                  </Flex>
+              }
+              secondary={
+                  status === "success" &&
+                  <Button onClick={exitGui}>{_("Reboot")}</Button>
+              }
+              title={title}
+              headingLevel="h2"
+            />
+        </Stack>
+    );
+};
