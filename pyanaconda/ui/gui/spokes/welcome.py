@@ -30,16 +30,16 @@ from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
 from pyanaconda.ui.gui.utils import setup_gtk_direction, escape_markup
 from pyanaconda.core.async_utils import async_action_wait
+from pyanaconda.ui.gui.spokes.lib.beta_warning_dialog import BetaWarningDialog
 from pyanaconda.ui.gui.spokes.lib.lang_locale_handler import LangLocaleHandler
 from pyanaconda.ui.gui.spokes.lib.unsupported_hardware import UnsupportedHardwareDialog
 
 from pyanaconda import localization
 from pyanaconda.product import distributionText, isFinal, productName, productVersion
 from pyanaconda import flags
-from pyanaconda import geoloc
-from pyanaconda.core.i18n import _, C_
+from pyanaconda.core.i18n import _
 from pyanaconda.core.util import ipmi_abort
-from pyanaconda.core.constants import DEFAULT_LANG, WINDOW_TITLE_TEXT
+from pyanaconda.core.constants import DEFAULT_LANG, WINDOW_TITLE_TEXT, TIMEZONE_PRIORITY_LANGUAGE
 from pyanaconda.modules.common.constants.services import TIMEZONE, LOCALIZATION
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -57,8 +57,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
     mainWidgetName = "welcomeWindow"
     focusWidgetName = "languageEntry"
     uiFile = "spokes/welcome.glade"
-    builderObjects = ["languageStore", "languageStoreFilter", "localeStore",
-                      "welcomeWindow", "betaWarnDialog"]
+    builderObjects = ["languageStore", "languageStoreFilter", "localeStore", "welcomeWindow"]
 
     preForHub = SummaryHub
     priority = 0
@@ -79,9 +78,11 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
     def __init__(self, *args, **kwargs):
         StandaloneSpoke.__init__(self, *args, **kwargs)
         LangLocaleHandler.__init__(self)
-        self._origStrings = {}
 
         self._l12_module = LOCALIZATION.get_proxy()
+        self._tz_module = None
+        if is_module_available(TIMEZONE):
+            self._tz_module = TIMEZONE.get_proxy()
 
         self._only_existing_locales = True
 
@@ -95,44 +96,12 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
         locale = store[itr][1]
 
         self._apply_selected_locale(locale)
-        self._apply_geolocation_results()
 
     def _apply_selected_locale(self, locale):
         """Apply the selected locale."""
         locale = localization.setup_locale(locale, self._l12_module, text_mode=False)
         self._set_lang(locale)
-
-    def _apply_geolocation_results(self):
-        """Apply the geolocation results if any."""
-        # Skip timezone and keyboard default setting for kickstart installs.
-        # The user may have provided these values via kickstart and if not, we
-        # need to prompt for them. But do continue if geolocation-with-kickstart
-        # is enabled.
-        if flags.flags.automatedInstall and not geoloc.geoloc.enabled:
-            return
-
-        if not is_module_available(TIMEZONE):
-            return
-
-        timezone_proxy = TIMEZONE.get_proxy()
-        loc_timezones = localization.get_locale_timezones(self._l12_module.Language)
-        if geoloc.geoloc.result.timezone:
-            # (the geolocation module makes sure that the returned timezone is
-            # either a valid timezone or None)
-            log.info("using timezone determined by geolocation")
-            timezone_proxy.SetTimezone(geoloc.geoloc.result.timezone)
-            # Either this is an interactive install and timezone.seen propagates
-            # from the interactive default kickstart, or this is a kickstart
-            # install where the user explicitly requested geolocation to be used.
-            # So set timezone.seen to True, so that the user isn't forced to
-            # enter the Date & Time spoke to acknowledge the timezone detected
-            # by geolocation before continuing the installation.
-            timezone_proxy.SetKickstarted(True)
-        elif loc_timezones and not timezone_proxy.Timezone:
-            # no data is provided by Geolocation, try to get timezone from the
-            # current language
-            log.info("geolocation not finished in time, using default timezone")
-            timezone_proxy.SetTimezone(loc_timezones[0])
+        self._try_set_timezone(locale)
 
     @property
     def completed(self):
@@ -161,23 +130,9 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
         # We need to tell the view whether something is a separator or not.
         self._langView.set_row_separator_func(self._row_is_separator, None)
 
-        # We can use the territory from geolocation here
-        # to preselect the translation, when it's available.
-        #
-        # But as the lookup might still be in progress we need to make sure
-        # to wait for it to finish. If the lookup has already finished
-        # the wait function is basically a noop.
-        geoloc.geoloc.wait_for_refresh_to_finish()
-
-        # the lookup should be done now, get the teorritory
-        territory = geoloc.geoloc.result.territory_code
-
-        # bootopts and kickstart have priority over geoip
-        language = self._l12_module.Language
-        if language and self._l12_module.LanguageKickstarted:
-            locales = [language]
-        else:
-            locales = localization.get_territory_locales(territory) or [DEFAULT_LANG]
+        # Start with the already set locale. Whether kickstart, geolocation, or default - it does
+        # not matter, it's resolved and loaded by now.
+        locales = [self._l12_module.Language] or [DEFAULT_LANG]
 
         # get the data models
         filter_store = self._languageStoreFilter
@@ -241,34 +196,14 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
         # report that we are done
         self.initialize_done()
 
-    def _retranslate_one(self, widgetName, context=None):
-        widget = self.builder.get_object(widgetName)
-        if not widget:
-            return
-
-        if widget not in self._origStrings:
-            self._origStrings[widget] = widget.get_label()
-
-        before = self._origStrings[widget]
-        if context is not None:
-            widget.set_label(C_(context, before))
-        else:
-            widget.set_label(_(before))
-
     def retranslate(self):
-        # Change the translations on labels and buttons that do not have
-        # substitution text.
-        for name in ["pickLanguageLabel", "betaWarnTitle", "betaWarnDesc"]:
-            self._retranslate_one(name)
+        # Change the translations on labels and buttons that do not have substitution text.
+        pickLabel = self.builder.get_object("pickLanguageLabel")
+        pickLabel.set_text(_(
+            "What language would you like to use during the installation process?"
+        ))
 
-        # It would be nice to be able to read the translation context from the
-        # widget, but we live in an imperfect world.
-        # See also: https://bugzilla.gnome.org/show_bug.cgi?id=729066
-        for name in ["quitButton", "continueButton"]:
-            self._retranslate_one(name, "GUI|Welcome|Beta Warn Dialog")
-
-        # The welcome label is special - it has text that needs to be
-        # substituted.
+        # The welcome label is special - it has text that needs to be substituted.
         welcomeLabel = self.builder.get_object("welcomeLabel")
 
         welcomeLabel.set_text(_("WELCOME TO %(name)s %(version)s.") %
@@ -276,10 +211,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
 
         # Retranslate the language (filtering) entry's placeholder text
         languageEntry = self.builder.get_object("languageEntry")
-        if languageEntry not in self._origStrings:
-            self._origStrings[languageEntry] = languageEntry.get_placeholder_text()
-
-        languageEntry.set_placeholder_text(_(self._origStrings[languageEntry]))
+        languageEntry.set_placeholder_text(_("Type here to search."))
 
         # And of course, don't forget the underlying window.
         self.window.set_property("distribution", distributionText())
@@ -345,10 +277,11 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
     def _on_continue_clicked(self, window, user_data=None):
         # Don't display the betanag dialog if this is the final release.
         if not isFinal:
-            dlg = self.builder.get_object("betaWarnDialog")
-            with self.main_window.enlightbox(dlg):
-                rc = dlg.run()
-                dlg.hide()
+            dialog = BetaWarningDialog(self.data)
+
+            with self.main_window.enlightbox(dialog.window):
+                rc = dialog.run()
+
             if rc != 1:
                 ipmi_abort(scripts=self.data.scripts)
                 sys.exit(0)
@@ -388,3 +321,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
 
         # pylint: disable=environment-modify
         os.environ["LANG"] = lang
+
+    def _try_set_timezone(self, locale):
+        loc_timezones = localization.get_locale_timezones(locale)
+        self._tz_module.SetTimezoneWithPriority(loc_timezones[0], TIMEZONE_PRIORITY_LANGUAGE)

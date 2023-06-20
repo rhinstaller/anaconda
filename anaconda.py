@@ -269,7 +269,6 @@ if __name__ == "__main__":
     from pyanaconda import display
     from pyanaconda import startup_utils
     from pyanaconda import rescue
-    from pyanaconda import geoloc
 
     # Print the usual "startup note" that contains Anaconda version
     # and short usage & bug reporting instructions.
@@ -574,12 +573,8 @@ if __name__ == "__main__":
 
     payloadMgr.restart_thread(anaconda.payload, fallback=fallback)
 
-    # initialize the geolocation singleton
-    geoloc.init_geolocation(geoloc_option=opts.geoloc, options_override=opts.geoloc_use_with_ks)
-
-    # start geolocation lookup if enabled
-    if geoloc.geoloc.enabled:
-        geoloc.geoloc.refresh()
+    # initialize geolocation and start geolocation lookup if possible and enabled
+    geoloc_task_proxy = startup_utils.start_geolocation_conditionally(opts, anaconda.display_mode)
 
     # setup ntp servers and start NTP daemon if not requested otherwise
     startup_utils.start_chronyd()
@@ -606,6 +601,9 @@ if __name__ == "__main__":
 
         with check_kickstart_error():
             sync_run_task(snapshot_task_proxy)
+
+    # wait for geolocation, if needed
+    startup_utils.wait_for_geolocation_and_use(geoloc_task_proxy, anaconda.display_mode)
 
     anaconda.intf.setup(ksdata)
     anaconda.intf.run()

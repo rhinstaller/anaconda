@@ -21,9 +21,10 @@ from dasbus.server.property import emits_properties_changed
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from dasbus.server.interface import dbus_interface
 
+from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.modules.common.constants.services import TIMEZONE
-from pyanaconda.modules.common.structures.timezone import TimeSourceData
+from pyanaconda.modules.common.structures.timezone import TimeSourceData, GeolocationData
 
 
 @dbus_interface(TIMEZONE.interface_name)
@@ -36,6 +37,7 @@ class TimezoneInterface(KickstartModuleInterface):
         self.watch_property("IsUTC", self.implementation.is_utc_changed)
         self.watch_property("NTPEnabled", self.implementation.ntp_enabled_changed)
         self.watch_property("TimeSources", self.implementation.time_sources_changed)
+        self.watch_property("GeolocationResult", self.implementation.geolocation_result_changed)
 
     @property
     def Timezone(self) -> Str:
@@ -44,17 +46,37 @@ class TimezoneInterface(KickstartModuleInterface):
 
     @emits_properties_changed
     def SetTimezone(self, timezone: Str):
-        """Set the timezone.
+        """Set the timezone with maximal priority.
 
-        Sets the system time zone to timezone. To view a list of
-        available time zones, use the timedatectl list-timezones
-        command.
-
-        Example: Europe/Prague
+        See SetTimezoneWithPriority for more details.
 
         :param timezone: a string with a timezone
         """
         self.implementation.set_timezone(timezone)
+
+    @emits_properties_changed
+    def SetTimezoneWithPriority(self, timezone: Str, priority: UInt16):
+        """Set the timezone with a given priority.
+
+        Sets the system time zone to timezone, if the already stored timezone does not have higher
+        priority.
+
+        To view a list of available time zones, use the `timedatectl list-timezones` command.
+
+        Example: Europe/Prague
+
+        The priority is a positive number. Use values defined in pyanaconda.core.constants
+        as TIMEZONE_PRIORITY_* :
+            TIMEZONE_PRIORITY_DEFAULT = 0
+            TIMEZONE_PRIORITY_LANGUAGE = 30
+            TIMEZONE_PRIORITY_GEOLOCATION = 50
+            TIMEZONE_PRIORITY_KICKSTART = 70
+            TIMEZONE_PRIORITY_USER = 90
+
+        :param timezone: a string with a timezone specification in the Olson db aka tzdata format
+        :param priority: priority for the timezone; see the respective constants
+        """
+        self.implementation.set_timezone_with_priority(timezone, priority)
 
     @property
     def IsUTC(self) -> Bool:
@@ -111,4 +133,23 @@ class TimezoneInterface(KickstartModuleInterface):
         """
         self.implementation.set_time_sources(
             TimeSourceData.from_structure_list(sources)
+        )
+
+    def StartGeolocationWithTask(self) -> ObjPath:
+        """Start geolocation with task.
+
+        :return: a DBus path of the task
+        """
+        return TaskContainer.to_object_path(
+            self.implementation.start_geolocation_with_task()
+        )
+
+    @property
+    def GeolocationResult(self) -> Structure:
+        """Get geolocation result, if any.
+
+        :return DBusData: geolocation result data
+        """
+        return GeolocationData.to_structure(
+            self.implementation.geolocation_result
         )

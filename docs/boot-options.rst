@@ -438,12 +438,6 @@ language and time zone.
 ``inst.geoloc=0``
     Disables geolocation.
 
-``inst.geoloc=provider_fedora_geoip``
-    Use the Fedora GeoIP API (default).
-
-``inst.geoloc=provider_hostip``
-    Use the Hostip.info GeoIP API.
-
 .. inst.geoloc-use-with-ks
 
 inst.geoloc-use-with-ks
@@ -933,6 +927,13 @@ ethtool
 ^^^^^^^
 
 Who needs to force half-duplex 10-base-T anymore?
+
+.. inst.geoloc_provider
+
+inst.geoloc=provider_...
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+To set geolocation provider, use the ``geolocation_provider`` option in configuration file instead.
 
 .. gdb:
 

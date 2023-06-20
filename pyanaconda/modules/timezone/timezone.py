@@ -21,15 +21,17 @@ from pykickstart.errors import KickstartParseError
 
 from pyanaconda.core.i18n import _
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import TIME_SOURCE_SERVER, TIME_SOURCE_POOL
+from pyanaconda.core.constants import TIME_SOURCE_SERVER, TIME_SOURCE_POOL, \
+    TIMEZONE_PRIORITY_USER, TIMEZONE_PRIORITY_DEFAULT, TIMEZONE_PRIORITY_KICKSTART
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import TIMEZONE
-from pyanaconda.modules.common.structures.timezone import TimeSourceData
+from pyanaconda.modules.common.structures.timezone import TimeSourceData, GeolocationData
 from pyanaconda.timezone import NTP_PACKAGE
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.structures.requirement import Requirement
+from pyanaconda.modules.timezone.initialization import GeolocationTask
 from pyanaconda.modules.timezone.installation import ConfigureNTPTask, ConfigureTimezoneTask
 from pyanaconda.modules.timezone.kickstart import TimezoneKickstartSpecification
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
@@ -45,6 +47,10 @@ class TimezoneService(KickstartService):
         super().__init__()
         self.timezone_changed = Signal()
         self._timezone = "America/New_York"
+        self._priority = TIMEZONE_PRIORITY_DEFAULT
+
+        self.geolocation_result_changed = Signal()
+        self._geoloc_result = GeolocationData()
 
         self.is_utc_changed = Signal()
         self._is_utc = False
@@ -68,7 +74,7 @@ class TimezoneService(KickstartService):
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-        self.set_timezone(data.timezone.timezone)
+        self.set_timezone_with_priority(data.timezone.timezone, TIMEZONE_PRIORITY_KICKSTART)
         self.set_is_utc(data.timezone.isUtc)
         self.set_ntp_enabled(not data.timezone.nontp)
 
@@ -143,7 +149,20 @@ class TimezoneService(KickstartService):
 
     def set_timezone(self, timezone):
         """Set the timezone."""
+        self.set_timezone_with_priority(timezone, TIMEZONE_PRIORITY_USER)
+
+    def set_timezone_with_priority(self, timezone, priority):
+        """Set the timezone with priority.
+
+        Sets the timezone only if the priority is higher than the previous priority.
+        """
+        if priority < self._priority:
+            log.debug("Timezone did not change %s -> %s due to too low priority: %d > %d.",
+                      self._timezone, timezone, self._priority, priority)
+            return
+
         self._timezone = timezone
+        self._priority = priority
         self.timezone_changed.emit()
         log.debug("Timezone is set to %s.", timezone)
 
@@ -212,3 +231,27 @@ class TimezoneService(KickstartService):
                 ntp_servers=self.time_sources
             )
         ]
+
+    def _set_geolocation_result(self, result):
+        """Set geolocation result when the task finished."""
+        self._geoloc_result = result
+        self.geolocation_result_changed.emit()
+        log.debug("Geolocation result is set, valid=%s", not self._geoloc_result.is_empty())
+
+    def start_geolocation_with_task(self):
+        """Start geolocation.
+
+        :return: task to run for geolocation
+        :rtype: Task
+        """
+        task = GeolocationTask()
+        task.succeeded_signal.connect(lambda: self._set_geolocation_result(task.get_result()))
+        return task
+
+    @property
+    def geolocation_result(self):
+        """Get geolocation result.
+
+        :return GeolocationData: result of the lookup, empty if not ready yet
+        """
+        return self._geoloc_result

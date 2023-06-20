@@ -20,6 +20,7 @@
 import os
 import warnings
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.bootloader import BootloaderSection, BootloaderType
 from pyanaconda.core.configuration.license import LicenseSection
 from pyanaconda.core.configuration.network import NetworkSection
@@ -32,8 +33,12 @@ from pyanaconda.core.configuration.target import TargetType, TargetSection
 from pyanaconda.core.configuration.base import Section, Configuration, ConfigurationError
 from pyanaconda.core.configuration.product import ProductLoader
 from pyanaconda.core.configuration.ui import UserInterfaceSection
-from pyanaconda.core.constants import ANACONDA_CONFIG_TMP, ANACONDA_CONFIG_DIR
+from pyanaconda.core.configuration.timezone import TimezoneSection
+from pyanaconda.core.constants import ANACONDA_CONFIG_TMP, ANACONDA_CONFIG_DIR, \
+    GEOLOC_PROVIDER_FEDORA_GEOIP, GEOLOC_PROVIDER_HOSTIP, GEOLOC_DEFAULT_PROVIDER, \
+    GEOLOC_URL_FEDORA_GEOIP, GEOLOC_URL_HOSTIP
 
+log = get_module_logger(__name__)
 
 __all__ = ["conf", "AnacondaConfiguration"]
 
@@ -179,6 +184,9 @@ class AnacondaConfiguration(Configuration):
         self._license = LicenseSection(
             "License", self.get_parser()
         )
+        self._timezone = TimezoneSection(
+            "Timezone", self.get_parser()
+        )
 
     @property
     def anaconda(self):
@@ -234,6 +242,11 @@ class AnacondaConfiguration(Configuration):
     def license(self):
         """The License section."""
         return self._license
+
+    @property
+    def timezone(self):
+        """The Timezone section."""
+        return self._timezone
 
     def set_from_defaults(self):
         """Set the configuration from the default configuration files.
@@ -392,7 +405,37 @@ class AnacondaConfiguration(Configuration):
         if opts.noverifyssl:
             self.payload._set_option("verify_ssl", not opts.noverifyssl)
 
+        # Set geolocation provider
+        # FIXME: This will be removed once the boot option becomes a boolean
+        if "geoloc" in opts and opts.geoloc and opts.geoloc != "0":
+            if isinstance(opts.geoloc, str) and opts.geoloc.startswith("provider"):
+                log.warning("Setting the geolocation provider from the inst.geoloc boot option "
+                            "is deprecated and will be removed in the future. Use the "
+                            "geolocation_provider=<URL> option in the configuration files.")
+            self.timezone._set_option(
+                "geolocation_provider",
+                _convert_geoloc_provider_id_to_url(opts.geoloc)
+            )
+
         self.validate()
+
+
+def _convert_geoloc_provider_id_to_url(provider_id):
+    """Convert provider ID to URL of the corresponding service.
+
+    :param str provider_id: id of the geolocation provider service
+    :return str: URL to use
+    """
+    available_providers = {
+        GEOLOC_PROVIDER_FEDORA_GEOIP: GEOLOC_URL_FEDORA_GEOIP,
+        GEOLOC_PROVIDER_HOSTIP: GEOLOC_URL_HOSTIP,
+    }
+    try:
+        return available_providers[provider_id]
+    except KeyError:
+        log.error('Conf: Geoloc: wrong provider id specified: %s, using default %s',
+                  provider_id, GEOLOC_DEFAULT_PROVIDER)
+        return available_providers[GEOLOC_DEFAULT_PROVIDER]
 
 
 conf = AnacondaConfiguration.from_defaults()
