@@ -470,6 +470,23 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 20 2023 github-actions <github-actions@github.com> - 39.20-1
+- webui: add PRETTY_NAME to use in title instead of anaconda generic title
+  (acruzgon)
+- Revert "WebUI: explicitly specify GITHUB_BASE for pixel test commands"
+  (kkoukiou)
+- webui: add expected journal messages coming from cockpit's new python bridge
+  (kkoukiou)
+- WebUI: Remove centering from loading screen (ozobal)
+- webui: show partitions of local standard disks (kkoukiou)
+- webui: increase timeout when downloading anaconda-webui rpm dependencies
+  (acruzgon)
+- webui: add PageSection variant 'wizard' to give Wizard in-page styling
+  (acruzgon)
+- webui: use fmt_to_fragments so that the translation does not break (kkoukiou)
+- Import BlockDev from blivet instead of gi (vtrefny)
+- Stop infinite wait for CDROM when KS is processed (#2209599) (jkonecny)
+
 * Tue Jun 13 2023 github-actions <github-actions@github.com> - 39.19-1
 - webui: remove redundant dashes from README (kkoukiou)
 - docs: remove confusion for which toolbox to use for webui development
