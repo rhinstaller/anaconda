@@ -40,12 +40,7 @@ import { setLocale } from "../../apis/boss.js";
 
 import {
     getLanguage,
-    getLanguages,
-    getLanguageData,
-    getLocales,
-    getLocaleData,
     setLanguage,
-    getCommonLocales,
 } from "../../apis/localization.js";
 
 import {
@@ -54,6 +49,7 @@ import {
     setLangCookie
 } from "../../helpers/language.js";
 import { AnacondaPage } from "../AnacondaPage.jsx";
+import { getLanguagesAction } from "../../actions.js";
 
 import "./InstallationLanguage.scss";
 
@@ -69,9 +65,6 @@ class LanguageSelector extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            languages: [],
-            locales: [],
-            commonLocales: [],
             search: "",
             lang: "",
         };
@@ -93,28 +86,14 @@ class LanguageSelector extends React.Component {
         } catch (e) {
             this.props.onAddErrorNotification(e);
         }
-
-        const languageIds = await getLanguages();
-        // Create the languages state object
-        this.setState({ languages: await Promise.all(languageIds.map(async lang => await getLanguageData({ lang }))) });
-        // Create the locales state object
-        const localeIds = await Promise.all(languageIds.map(async lang => await getLocales({ lang })));
-        const locales = await Promise.all(localeIds.map(async localeId => {
-            return await Promise.all(localeId.map(async locale => await getLocaleData({ locale })));
-        }));
-        this.setState({ locales }, this.updateNativeName);
-
-        // Create a list of common locales.
-        this.setState({ commonLocales: await getCommonLocales() });
     }
 
-    async updateNativeName (localeData) {
-        localeData = localeData || await getLocaleData({ locale: this.state.lang });
-        this.props.getNativeName(getLocaleNativeName(localeData));
+    async updateNativeName (localeItem) {
+        this.props.setNativeName(getLocaleNativeName(localeItem));
     }
 
     renderOptions (filter) {
-        const { languages, locales } = this.state;
+        const { languages } = this.props;
         const idPrefix = this.props.idPrefix;
         const filterLow = filter.toLowerCase();
 
@@ -124,10 +103,11 @@ class LanguageSelector extends React.Component {
         let foundSelected = false;
         // Returns a locale with a given code.
         const findLocaleWithId = (localeCode) => {
-            for (const locale of this.state.locales) {
-                for (const subLocale of locale) {
-                    if (getLocaleId(subLocale) === localeCode) {
-                        return subLocale;
+            for (const languageId in languages) {
+                const languageItem = languages[languageId];
+                for (const locale of languageItem.locales) {
+                    if (getLocaleId(locale) === localeCode) {
+                        return locale;
                     }
                 }
             }
@@ -180,7 +160,7 @@ class LanguageSelector extends React.Component {
                       key="group-common-languages"
                     >
                         {
-                            this.state.commonLocales
+                            this.props.commonLocales
                                     .map(findLocaleWithId)
                                     .filter(locale => locale)
                                     .map(locale => createMenuItem(locale, "option-common-"))
@@ -192,20 +172,20 @@ class LanguageSelector extends React.Component {
         }
 
         // List alphabetically.
-        for (const langLocales of locales) {
-            const currentLang = languages.find(lang => getLanguageId(lang) === getLanguageId(langLocales[0]));
-
-            const label = cockpit.format("$0 ($1)", getLanguageNativeName(currentLang), getLanguageEnglishName(currentLang));
+        const languagesIds = Object.keys(languages).sort();
+        for (const languageId of languagesIds) {
+            const languageItem = languages[languageId];
+            const label = cockpit.format("$0 ($1)", getLanguageNativeName(languageItem.languageData), getLanguageEnglishName(languageItem.languageData));
 
             if (!filter || label.toLowerCase().indexOf(filterLow) !== -1) {
                 filtered.push(
                     <MenuGroup
                       label={label}
                       labelHeadingLevel="h3"
-                      id={idPrefix + "-group-" + getLanguageId(currentLang)}
-                      key={"group-" + getLanguageId(currentLang)}
+                      id={idPrefix + "-group-" + getLanguageId(languageItem.languageData)}
+                      key={"group-" + getLanguageId(languageItem.languageData)}
                     >
-                        {langLocales.map(locale => createMenuItem(locale, "option-alpha-"))}
+                        {languageItem.locales.map(locale => createMenuItem(locale, "option-alpha-"))}
                     </MenuGroup>
                 );
             }
@@ -227,11 +207,12 @@ class LanguageSelector extends React.Component {
     }
 
     render () {
-        const { languages, locales, lang, commonLocales } = this.state;
+        const { lang } = this.state;
+        const { languages, commonLocales } = this.props;
+
         const handleOnSelect = (_event, item) => {
-            const { locales } = this.state;
-            for (const locale of locales) {
-                for (const localeItem of locale) {
+            for (const languageItem in languages) {
+                for (const localeItem of languages[languageItem].locales) {
                     if (getLocaleId(localeItem) === item) {
                         setLangCookie({ cockpitLang: convertToCockpitLang({ lang: getLocaleId(localeItem) }) });
                         setLanguage({ lang: getLocaleId(localeItem) })
@@ -261,7 +242,7 @@ class LanguageSelector extends React.Component {
             }
         };
 
-        const isLoading = languages.length === 0 || languages.length !== locales.length || commonLocales.length === 0;
+        const isLoading = languages.length === 0 || commonLocales.length === 0;
 
         if (isLoading) {
             return <EmptyStatePanel loading />;
@@ -315,14 +296,15 @@ class LanguageSelector extends React.Component {
 }
 LanguageSelector.contextType = AddressContext;
 
-export const InstallationLanguage = ({ idPrefix, setIsFormValid, onAddErrorNotification }) => {
+export const InstallationLanguage = ({ idPrefix, languages, commonLocales, dispatch, setIsFormValid, onAddErrorNotification }) => {
     const [nativeName, setNativeName] = React.useState(false);
     const { setLanguage } = React.useContext(LanguageContext);
     const [distributionName, setDistributionName] = useState("");
 
     useEffect(() => {
         readOsRelease().then(osRelease => setDistributionName(osRelease.NAME));
-    }, []);
+        dispatch(getLanguagesAction());
+    }, [dispatch]);
 
     return (
         <AnacondaPage title={cockpit.format("Welcome to $0", distributionName)}>
@@ -347,9 +329,11 @@ export const InstallationLanguage = ({ idPrefix, setIsFormValid, onAddErrorNotif
                     <LanguageSelector
                       id="language-selector"
                       idPrefix={idPrefix}
+                      languages={languages}
+                      commonLocales={commonLocales}
                       setIsFormValid={setIsFormValid}
                       onAddErrorNotification={onAddErrorNotification}
-                      getNativeName={setNativeName}
+                      setNativeName={setNativeName}
                       reRenderApp={setLanguage}
                     />
                 </FormGroup>

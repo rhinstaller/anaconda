@@ -46,7 +46,7 @@ import {
 
 const _ = cockpit.gettext;
 
-export const AnacondaWizard = ({ dispatch, deviceData, diskSelection, onAddErrorNotification, toggleContextHelp, hideContextHelp, title, conf }) => {
+export const AnacondaWizard = ({ dispatch, deviceData, diskSelection, languages, commonLocales, onAddErrorNotification, toggleContextHelp, hideContextHelp, title, conf }) => {
     const [isFormValid, setIsFormValid] = useState(true);
     const [stepNotification, setStepNotification] = useState();
     const [isInProgress, setIsInProgress] = useState(false);
@@ -57,6 +57,7 @@ export const AnacondaWizard = ({ dispatch, deviceData, diskSelection, onAddError
     const stepsOrder = [
         {
             component: InstallationLanguage,
+            data: { dispatch, languages, commonLocales },
             id: "installation-language",
             label: _("Welcome"),
         },

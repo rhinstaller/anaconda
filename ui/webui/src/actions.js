@@ -25,6 +25,13 @@ import {
     getFormatData,
     getUsableDisks,
 } from "./apis/storage.js";
+import {
+    getCommonLocales,
+    getLanguages,
+    getLanguageData,
+    getLocales,
+    getLocaleData,
+} from "./apis/localization.js";
 
 export const getDevicesAction = () => {
     return async function fetchUserThunk (dispatch) {
@@ -78,6 +85,39 @@ export const getDiskSelectionAction = () => {
                     usableDisks: usableDisks[0],
                 }
             },
+        });
+    };
+};
+
+export const getLanguagesAction = () => {
+    return async function fetchUserThunk (dispatch) {
+        const languageIds = await getLanguages();
+
+        dispatch(getCommonLocalesAction());
+        return languageIds.map(language => dispatch(getLanguageDataAction({ language })));
+    };
+};
+
+export const getLanguageDataAction = ({ language }) => {
+    return async function fetchUserThunk (dispatch) {
+        const localeIds = await getLocales({ lang: language });
+        const languageData = await getLanguageData({ lang: language });
+        const locales = await Promise.all(localeIds.map(async locale => await getLocaleData({ locale })));
+
+        return dispatch({
+            type: "GET_LANGUAGE_DATA",
+            payload: { languageData: { [language]: { languageData, locales } } }
+        });
+    };
+};
+
+export const getCommonLocalesAction = () => {
+    return async function fetchUserThunk (dispatch) {
+        const commonLocales = await getCommonLocales();
+
+        return dispatch({
+            type: "GET_COMMON_LOCALES",
+            payload: { commonLocales }
         });
     };
 };

@@ -41,6 +41,14 @@ export const reducer = (state, action) => {
     } else if (action.type === "GET_DISK_SELECTION") {
         return { ...state, diskSelection: action.payload.diskSelection };
     }
+
+    if (action.type === "GET_LANGUAGE_DATA") {
+        return { ...state, languages: { ...action.payload.languageData, ...state.languages } };
+    }
+
+    if (action.type === "GET_COMMON_LOCALES") {
+        return { ...state, commonLocales: action.payload.commonLocales };
+    }
 };
 
 export const initialState = {
@@ -49,5 +57,8 @@ export const initialState = {
         usableDisks: [],
         selectedDisks: [],
         ignoredDisks: []
-    }
+    },
+
+    languages: {},
+    commonLocales: []
 };
