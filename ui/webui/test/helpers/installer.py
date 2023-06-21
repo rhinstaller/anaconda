@@ -132,5 +132,8 @@ class Installer():
         self.browser.wait_visible("#installation-quit-confirm-dialog")
         self.browser.click("#installation-quit-confirm-btn")
 
-    def is_drawer_open(self):
-        return self.browser.is_present(".pf-c-drawer__panel-main")
+    def wait_drawer_open(self, is_open=True):
+        if is_open:
+            self.browser.wait_visible(".pf-c-drawer__panel-main")
+        else:
+            self.browser.wait_not_present(".pf-c-drawer__panel-main")
