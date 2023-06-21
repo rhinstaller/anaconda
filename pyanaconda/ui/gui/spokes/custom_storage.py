@@ -68,7 +68,7 @@ from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
 from pyanaconda.ui.gui.utils import setViewportBackground, fancy_set_sensitive, ignoreEscape, \
-    really_hide, really_show, timed_action, escape_markup
+    really_hide, really_show, timed_action, escape_markup, set_password_visibility
 from pyanaconda.ui.helpers import StorageCheckHandler
 
 import gi
@@ -1870,6 +1870,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._applyButton.set_sensitive(False)
 
     def on_unlock_clicked(self, *args):
+        # hide the passphrase during unlocking
+        set_password_visibility(self._passphraseEntry, False)
+
         self._unlock_device(self._accordion.current_selector)
 
     @timed_action(delay=50, threshold=100)
@@ -1901,6 +1904,20 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         self._accordion.clear_current_selector()
         self._do_refresh()
+
+    def on_passphrase_icon_clicked(self, entry, icon_pos, event):
+        """Called by Gtk callback when the icon of a passphrase entry is clicked."""
+        set_password_visibility(entry, not entry.get_visibility())
+
+    def on_passphrase_entry_map(self, entry):
+        """Called when a passphrase entry widget is going to be displayed.
+
+        - Without this the passphrase visibility toggle icon would not be shown.
+        - The passphrase should be hidden every time the entry widget is displayed
+          to avoid showing the passphrase in plain text in case the user previously
+          displayed the passphrase and then left the screen.
+        """
+        set_password_visibility(entry, False)
 
     def on_value_changed(self, *args):
         self._applyButton.set_sensitive(True)
