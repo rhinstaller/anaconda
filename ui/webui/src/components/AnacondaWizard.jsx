@@ -46,7 +46,7 @@ import {
 
 const _ = cockpit.gettext;
 
-export const AnacondaWizard = ({ dispatch, deviceData, diskSelection, languages, commonLocales, onAddErrorNotification, toggleContextHelp, hideContextHelp, title, conf }) => {
+export const AnacondaWizard = ({ dispatch, storageData, localizationData, onAddErrorNotification, toggleContextHelp, hideContextHelp, title, conf }) => {
     const [isFormValid, setIsFormValid] = useState(true);
     const [stepNotification, setStepNotification] = useState();
     const [isInProgress, setIsInProgress] = useState(false);
@@ -57,7 +57,7 @@ export const AnacondaWizard = ({ dispatch, deviceData, diskSelection, languages,
     const stepsOrder = [
         {
             component: InstallationLanguage,
-            data: { dispatch, languages, commonLocales },
+            data: { dispatch, languages: localizationData.languages, commonLocales: localizationData.commonLocales },
             id: "installation-language",
             label: _("Welcome"),
         },
@@ -67,7 +67,7 @@ export const AnacondaWizard = ({ dispatch, deviceData, diskSelection, languages,
             label: _("Installation destination"),
             steps: [{
                 component: InstallationDestination,
-                data: { deviceData, diskSelection, dispatch },
+                data: { deviceData: storageData.devices, diskSelection: storageData.diskSelection, dispatch },
                 id: "storage-devices",
                 label: _("Storage devices")
             }, {
@@ -82,7 +82,7 @@ export const AnacondaWizard = ({ dispatch, deviceData, diskSelection, languages,
         },
         {
             component: ReviewConfiguration,
-            data: { deviceData },
+            data: { deviceData: storageData.devices },
             id: "installation-review",
             label: _("Review and install"),
         },

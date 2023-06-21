@@ -141,10 +141,8 @@ export const Application = () => {
                   toggleContextHelp={toggleContextHelp}
                   hideContextHelp={() => setIsHelpExpanded(false)}
                   title={title}
-                  deviceData={state.devices}
-                  languages={state.languages}
-                  commonLocales={state.commonLocales}
-                  diskSelection={state.diskSelection}
+                  storageData={state.storage}
+                  localizationData={state.localization}
                   dispatch={dispatch}
                   conf={conf}
                 />

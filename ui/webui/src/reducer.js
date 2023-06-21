@@ -17,6 +17,29 @@
 
 import { useReducer, useCallback } from "react";
 
+/* Initial state for the storeage store substate */
+export const storageInitialState = {
+    devices: {},
+    diskSelection: {
+        usableDisks: [],
+        selectedDisks: [],
+        ignoredDisks: []
+    },
+};
+
+/* Initial state for the localization store substate */
+export const localizationInitialState = {
+    languages: {},
+    commonLocales: []
+};
+
+/* Initial state for the global store */
+export const initialState = {
+    localization: localizationInitialState,
+    storage: storageInitialState,
+};
+
+/* Custom hook to use the reducer with async actions */
 export const useReducerWithThunk = (reducer, initialState) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -36,29 +59,28 @@ export const useReducerWithThunk = (reducer, initialState) => {
 };
 
 export const reducer = (state, action) => {
+    return ({
+        localization: localizationReducer(state.localization, action),
+        storage: storageReducer(state.storage, action),
+    });
+};
+
+export const storageReducer = (state = storageInitialState, action) => {
     if (action.type === "GET_DEVICE_DATA") {
         return { ...state, devices: { ...action.payload.deviceData, ...state.devices } };
     } else if (action.type === "GET_DISK_SELECTION") {
         return { ...state, diskSelection: action.payload.diskSelection };
-    }
-
-    if (action.type === "GET_LANGUAGE_DATA") {
-        return { ...state, languages: { ...action.payload.languageData, ...state.languages } };
-    }
-
-    if (action.type === "GET_COMMON_LOCALES") {
-        return { ...state, commonLocales: action.payload.commonLocales };
+    } else {
+        return state;
     }
 };
 
-export const initialState = {
-    devices: {},
-    diskSelection: {
-        usableDisks: [],
-        selectedDisks: [],
-        ignoredDisks: []
-    },
-
-    languages: {},
-    commonLocales: []
+export const localizationReducer = (state = localizationInitialState, action) => {
+    if (action.type === "GET_LANGUAGE_DATA") {
+        return { ...state, languages: { ...action.payload.languageData, ...state.languages } };
+    } else if (action.type === "GET_COMMON_LOCALES") {
+        return { ...state, commonLocales: action.payload.commonLocales };
+    } else {
+        return state;
+    }
 };
