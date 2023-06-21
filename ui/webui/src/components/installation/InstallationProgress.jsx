@@ -38,7 +38,7 @@ import "./InstallationProgress.scss";
 
 const _ = cockpit.gettext;
 
-export const InstallationProgress = ({ onAddErrorNotification, idPrefix }) => {
+export const InstallationProgress = ({ onAddErrorNotification, idPrefix, isBootIso }) => {
     const [status, setStatus] = useState();
     const [statusMessage, setStatusMessage] = useState("");
     const [steps, setSteps] = useState();
@@ -208,7 +208,7 @@ export const InstallationProgress = ({ onAddErrorNotification, idPrefix }) => {
               }
               secondary={
                   status === "success" &&
-                  <Button onClick={exitGui}>{_("Reboot")}</Button>
+                  <Button onClick={exitGui}>{isBootIso ? _("Reboot") : _("Quit")}</Button>
               }
               title={title}
               headingLevel="h2"

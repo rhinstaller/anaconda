@@ -52,6 +52,9 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, hide
     const [showPassphraseScreen, setShowPassphraseScreen] = useState(false);
     const [storageScenarioId, setStorageScenarioId] = useState(window.sessionStorage.getItem("storage-scenario-id") || getDefaultScenario().id);
 
+    // On live media rebooting the system will actually shut it off
+    const isBootIso = conf["Installation System"].type === "BOOT_ISO";
+
     const stepsOrder = [
         {
             component: InstallationLanguage,
@@ -140,6 +143,7 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, hide
                           setStorageEncryption={setStorageEncryption}
                           showPassphraseScreen={showPassphraseScreen}
                           storageScenarioId={storageScenarioId}
+                          isBootIso={isBootIso}
                           setStorageScenarioId={(scenarioId) => {
                               window.sessionStorage.setItem("storage-scenario-id", scenarioId);
                               setStorageScenarioId(scenarioId);
@@ -178,7 +182,7 @@ export const AnacondaWizard = ({ onAddErrorNotification, toggleContextHelp, hide
                 showPassphraseScreen={showPassphraseScreen}
                 setShowPassphraseScreen={setShowPassphraseScreen}
                 storageScenarioId={storageScenarioId}
-                isQuitReboot={conf["Installation System"].type === "BOOT_ISO"}
+                isBootIso={isBootIso}
               />}
               hideClose
               mainAriaLabel={`${title} content`}
@@ -203,7 +207,7 @@ const Footer = ({
     showPassphraseScreen,
     setShowPassphraseScreen,
     storageScenarioId,
-    isQuitReboot,
+    isBootIso,
 }) => {
     const [nextWaitsConfirmation, setNextWaitsConfirmation] = useState(false);
     const [quitWaitsConfirmation, setQuitWaitsConfirmation] = useState(false);
@@ -293,7 +297,7 @@ const Footer = ({
                             <QuitInstallationConfirmModal
                               exitGui={exitGui}
                               setQuitWaitsConfirmation={setQuitWaitsConfirmation}
-                              isQuitReboot={isQuitReboot}
+                              isBootIso={isBootIso}
                             />}
                             <ActionList>
                                 <Button
@@ -336,7 +340,7 @@ const Footer = ({
                                       setQuitWaitsConfirmation(true);
                                   }}
                                 >
-                                    {isQuitReboot ? _("Reboot") : _("Quit")}
+                                    {isBootIso ? _("Reboot") : _("Quit")}
                                 </Button>
                             </ActionList>
                         </Stack>
@@ -347,7 +351,7 @@ const Footer = ({
     );
 };
 
-export const QuitInstallationConfirmModal = ({ exitGui, setQuitWaitsConfirmation, isQuitReboot }) => {
+export const QuitInstallationConfirmModal = ({ exitGui, setQuitWaitsConfirmation, isBootIso }) => {
     return (
         <Modal
           id="installation-quit-confirm-dialog"
@@ -360,7 +364,7 @@ export const QuitInstallationConfirmModal = ({ exitGui, setQuitWaitsConfirmation
                 }}
                 variant="danger"
               >
-                  {isQuitReboot ? _("Reboot") : _("Quit")}
+                  {isBootIso ? _("Reboot") : _("Quit")}
               </Button>,
               <Button
                 id="installation-quit-confirm-cancel-btn"
@@ -372,7 +376,7 @@ export const QuitInstallationConfirmModal = ({ exitGui, setQuitWaitsConfirmation
           ]}
           isOpen
           onClose={() => setQuitWaitsConfirmation(false)}
-          title={isQuitReboot ? _("Reboot system?") : _("Quit installer?")}
+          title={isBootIso ? _("Reboot system?") : _("Quit installer?")}
           titleIconVariant="warning"
           variant={ModalVariant.small}
         >
