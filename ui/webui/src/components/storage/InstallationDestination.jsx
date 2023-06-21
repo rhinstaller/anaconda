@@ -68,7 +68,7 @@ import {
 import {
     getRequiredSpace,
 } from "../../apis/payloads";
-import { getDevicesAction, getDiskSelectionAction } from "../../actions.js";
+import { getDevicesAction, getDiskSelectionAction } from "../../actions/storage-actions.js";
 
 import {
     sleep,

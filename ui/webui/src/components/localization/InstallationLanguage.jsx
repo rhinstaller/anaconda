@@ -49,7 +49,7 @@ import {
     setLangCookie
 } from "../../helpers/language.js";
 import { AnacondaPage } from "../AnacondaPage.jsx";
-import { getLanguagesAction } from "../../actions.js";
+import { getLanguagesAction } from "../../actions/localization-actions.js";
 
 import "./InstallationLanguage.scss";
 
