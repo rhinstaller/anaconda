@@ -42,6 +42,7 @@ class Progress():
                 raise AssertionError('Error during installation')
             time.sleep(30)
         else:
+            # This fails
             self.browser.wait_visible(self._reboot_selector)
 
     @log_step()
