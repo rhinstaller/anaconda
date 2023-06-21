@@ -311,6 +311,9 @@ class TestStorageExtraDisks(anacondalib.VirtInstallMachineCase):
         s.check_disk_partition("vdb", "/dev/vdb1", "Encrypted (LUKS)", "429 MB")
         s.check_disk_partition("vdb", "/dev/vdb2", "ext4", "859 MB")
 
+        s.check_disk_selected("vda", True)
+        s.check_disk_selected("vdb", False)
+
         b.assert_pixels(
             "#app",
             "storage-step-basic-partitions",
