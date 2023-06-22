@@ -32,7 +32,7 @@ import { HelpDrawer } from "./HelpDrawer.jsx";
 
 import { BossClient } from "../apis/boss.js";
 import { LocalizationClient } from "../apis/localization.js";
-import { StorageClient } from "../apis/storage.js";
+import { StorageClient, startEventMonitorStorage } from "../apis/storage.js";
 import { PayloadsClient } from "../apis/payloads";
 
 import { readBuildstamp, getIsFinal } from "../helpers/betanag.js";
@@ -61,6 +61,8 @@ export const Application = () => {
             clients.forEach(c => c.init());
 
             setAddress(address);
+
+            startEventMonitorStorage({ dispatch });
         });
 
         readConf().then(
@@ -74,7 +76,7 @@ export const Application = () => {
         );
 
         readOsRelease().then(osRelease => setPrettyName(osRelease.PRETTY_NAME));
-    }, []);
+    }, [dispatch]);
 
     const onAddNotification = (notificationProps) => {
         setNotifications({

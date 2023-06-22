@@ -82,7 +82,7 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onAddE
         },
         {
             component: ReviewConfiguration,
-            data: { deviceData: storageData.devices },
+            data: { deviceData: storageData.devices, diskSelection: storageData.diskSelection },
             id: "installation-review",
             label: _("Review and install"),
         },

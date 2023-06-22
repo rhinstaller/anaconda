@@ -15,7 +15,7 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 import cockpit from "cockpit";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import {
     Alert,
@@ -103,14 +103,10 @@ const selectDefaultDisks = ({ ignoredDisks, selectedDisks, usableDisks }) => {
     }
 };
 
-const setSelectionForAllDisks = ({ disks, value }) => {
-    return (Object.keys(disks).reduce((acc, cur) => ({ ...acc, [cur]: value }), {}));
-};
-
 const containEqualDisks = (disks1, disks2) => {
-    const disks1Str = Object.keys(disks1).sort()
+    const disks1Str = disks1.sort()
             .join();
-    const disks2Str = Object.keys(disks2).sort()
+    const disks2Str = disks2.sort()
             .join();
     return disks1Str === disks2Str;
 };
@@ -190,45 +186,53 @@ const DropdownBulkSelect = ({
 };
 
 const LocalStandardDisks = ({ deviceData, diskSelection, dispatch, idPrefix, setIsFormValid, onAddErrorNotification }) => {
-    const [disks, setDisks] = useState({});
-    const [refreshCnt, setRefreshCnt] = useState(0);
     const [isRescanningDisks, setIsRescanningDisks] = useState(false);
-    const [lastRescanDisks, setLastRescanDisks] = useState({});
     const [equalDisksNotify, setEqualDisksNotify] = useState(false);
+    const refUsableDisks = useRef();
 
     useEffect(() => {
-        // Select default disks for the partitioning
+        if (isRescanningDisks) {
+            refUsableDisks.current = diskSelection.usableDisks;
+            setEqualDisksNotify(true);
+        }
+    }, [isRescanningDisks, diskSelection.usableDisks]);
+
+    useEffect(() => {
+        // Select default disks for the partitioning on component mount
+        if (refUsableDisks.current !== undefined) {
+            return;
+        }
+
         const defaultDisks = selectDefaultDisks({
             ignoredDisks: diskSelection.ignoredDisks,
             selectedDisks: diskSelection.selectedDisks,
             usableDisks: diskSelection.usableDisks,
         });
-        setDisks(diskSelection.usableDisks.reduce((acc, cur) => ({ ...acc, [cur]: defaultDisks.includes(cur) }), {}));
-    }, [refreshCnt, dispatch, diskSelection]);
+
+        if (!containEqualDisks(diskSelection.selectedDisks, defaultDisks)) {
+            refUsableDisks.current = diskSelection.usableDisks;
+            setSelectedDisks({ drives: defaultDisks });
+        }
+    }, [diskSelection]);
 
     useEffect(() => {
         dispatch(getDevicesAction());
         dispatch(getDiskSelectionAction());
-    }, [dispatch, refreshCnt]);
+    }, [dispatch]);
 
-    const totalDisksCnt = Object.keys(disks).length;
-    const selectedDisksCnt = Object.keys(disks).filter(disk => !!disks[disk]).length;
+    const totalDisksCnt = diskSelection.usableDisks.length;
+    const selectedDisksCnt = diskSelection.selectedDisks.length;
 
     // When the selected disks change in the UI, update in the backend as well
     useEffect(() => {
         // Do not update on the inital value, wait for initialization by the other effect
-        if (Object.keys(disks).length === 0) {
+        if (refUsableDisks.current === undefined) {
             return;
         }
         setIsFormValid(selectedDisksCnt > 0);
+    }, [selectedDisksCnt, setIsFormValid]);
 
-        const selected = Object.keys(disks).filter(disk => disks[disk]);
-        console.log("Updating storage backend with selected disks:", selected.join(","));
-
-        setSelectedDisks({ drives: selected }).catch(onAddErrorNotification);
-    }, [disks, onAddErrorNotification, selectedDisksCnt, setIsFormValid]);
-
-    const loading = !deviceData || Object.keys(disks).some(disk => !deviceData[disk]);
+    const loading = !deviceData || diskSelection.usableDisks.some(disk => !deviceData[disk]);
     if (loading) {
         return <EmptyStatePanel loading />;
     }
@@ -256,17 +260,19 @@ const LocalStandardDisks = ({ deviceData, diskSelection, dispatch, idPrefix, set
           variant="secondary"
           onClick={() => {
               setIsRescanningDisks(true);
-              setLastRescanDisks({ ...disks });
-              setDisks(setSelectionForAllDisks({ disks, value: false }));
+              setSelectedDisks({ drives: [] });
               scanDevicesWithTask()
                       .then(res => {
                           runStorageTask({
                               task: res[0],
-                              onSuccess: () => resetPartitioning().then(() => setRefreshCnt(refreshCnt + 1), onAddErrorNotification),
+                              onSuccess: () => resetPartitioning().then(() => {
+                                  dispatch(getDevicesAction());
+                                  dispatch(getDiskSelectionAction());
+                              }, onAddErrorNotification),
                               onFail: onAddErrorNotification
                           });
                       })
-                      .finally(() => { setIsRescanningDisks(false); setEqualDisksNotify(true) });
+                      .finally(() => setIsRescanningDisks(false));
           }}
         >
             <Tooltip
@@ -326,11 +332,11 @@ const LocalStandardDisks = ({ deviceData, diskSelection, dispatch, idPrefix, set
         />
     );
 
-    const localDisksRows = Object.keys(disks).map(disk => {
+    const localDisksRows = diskSelection.usableDisks.map(disk => {
         const hasPartitions = deviceData[disk]?.children?.v.length && deviceData[disk]?.children?.v.every(partition => deviceData[partition]);
 
         return ({
-            selected: !!disks[disk],
+            selected: !!diskSelection.selectedDisks.includes(disk),
             hasPadding: true,
             props: { key: disk, id: disk },
             columns: [
@@ -354,7 +360,7 @@ const LocalStandardDisks = ({ deviceData, diskSelection, dispatch, idPrefix, set
         ]
     );
 
-    const rescanningDisksRows = Object.keys(disks).map(disk => (
+    const rescanningDisksRows = diskSelection.usableDisks.map(disk => (
         {
             columns: rescanningDisksRow
         }
@@ -362,9 +368,15 @@ const LocalStandardDisks = ({ deviceData, diskSelection, dispatch, idPrefix, set
 
     const dropdownBulkSelect = (
         <DropdownBulkSelect
-          onSelectAll={() => setDisks(setSelectionForAllDisks({ disks, value: true }))}
-          onSelectNone={() => setDisks(setSelectionForAllDisks({ disks, value: false }))}
-          onChange={(checked) => setDisks(setSelectionForAllDisks({ disks, value: checked }))}
+          onSelectAll={() => setSelectedDisks({ drives: diskSelection.usableDisks })}
+          onSelectNone={() => setSelectedDisks({ drives: [] })}
+          onChange={(checked) => {
+              if (checked) {
+                  setSelectedDisks({ drives: diskSelection.usableDisks });
+              } else {
+                  setSelectedDisks({ drives: [] });
+              }
+          }}
           selectedCnt={selectedDisksCnt}
           totalCnt={totalDisksCnt}
           isDisabled={isRescanningDisks}
@@ -399,7 +411,15 @@ const LocalStandardDisks = ({ deviceData, diskSelection, dispatch, idPrefix, set
           }
           onSelect={
               !isRescanningDisks
-                  ? (_, isSelected, diskId) => setDisks({ ...disks, [Object.keys(disks)[diskId]]: isSelected })
+                  ? (_, isSelected, diskId) => {
+                      const newDisk = diskSelection.usableDisks[diskId];
+
+                      if (isSelected) {
+                          setSelectedDisks({ drives: [...diskSelection.selectedDisks, newDisk] });
+                      } else {
+                          setSelectedDisks({ drives: diskSelection.selectedDisks.filter(disk => disk !== newDisk) });
+                      }
+                  }
                   : () => {}
           }
           rows={
@@ -409,6 +429,8 @@ const LocalStandardDisks = ({ deviceData, diskSelection, dispatch, idPrefix, set
           }
         />
     );
+
+    const equalDisks = refUsableDisks.current && containEqualDisks(refUsableDisks.current, diskSelection.usableDisks);
 
     return (
         <Form>
@@ -421,13 +443,13 @@ const LocalStandardDisks = ({ deviceData, diskSelection, dispatch, idPrefix, set
               }
             >
                 <FormGroup>
-                    {equalDisksNotify && containEqualDisks(disks, lastRescanDisks) &&
+                    {equalDisksNotify && equalDisks &&
                         <Alert
                           id="no-disks-detected-alert"
                           isInline
                           title={_("No additional disks detected")}
                           variant="info"
-                          actionClose={<AlertActionCloseButton onClose={() => setEqualDisksNotify(false)} />}
+                          actionClose={<AlertActionCloseButton onClose={() => { setEqualDisksNotify(false) }} />}
                         />}
                     {localDisksToolbar}
                     {localDisksTable}
