@@ -23,6 +23,8 @@ import {
     Page,
 } from "@patternfly/react-core";
 
+import { read_os_release as readOsRelease } from "os-release.js";
+
 import { AddressContext, LanguageContext } from "./Common.jsx";
 import { AnacondaHeader } from "./AnacondaHeader.jsx";
 import { AnacondaWizard } from "./AnacondaWizard.jsx";
@@ -35,7 +37,6 @@ import { PayloadsClient } from "../apis/payloads";
 
 import { readBuildstamp, getIsFinal } from "../helpers/betanag.js";
 import { readConf } from "../helpers/conf.js";
-import { getOsReleaseByKey } from "../helpers/product.js";
 
 export const Application = () => {
     const [address, setAddress] = useState();
@@ -70,9 +71,7 @@ export const Application = () => {
             ex => console.error("Failed to parse anaconda buildstamp file")
         );
 
-        getOsReleaseByKey("PRETTY_NAME").then(
-            setPrettyName
-        );
+        readOsRelease().then(osRelease => setPrettyName(osRelease.PRETTY_NAME));
     }, []);
 
     const onAddNotification = (notificationProps) => {
