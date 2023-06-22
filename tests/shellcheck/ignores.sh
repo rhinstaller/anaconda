@@ -5,4 +5,5 @@ ignore_patterns=(
 dockerfile/
 scripts/
 widgets/
+webui-desktop  # This is just a temporary file, needed to run the Web UI on the Live image, to be replaced with a long term solution eventually
 )
