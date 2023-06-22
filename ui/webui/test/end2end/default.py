@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 #
-# Copyright (C) 2023 Red Hat, Inc.
+# Copyright (C) 2022 Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published by
@@ -25,37 +25,12 @@ sys.path.append(os.path.join(TEST_DIR, "common"))
 sys.path.append(os.path.join(TEST_DIR, "helpers"))
 sys.path.append(os.path.join(os.path.dirname(TEST_DIR), "bots/machine"))
 
-from integration import IntegrationTest  # pylint: disable=import-error
+from end2end import End2EndTest  # pylint: disable=import-error
 from testlib import test_main  # pylint: disable=import-error
 
-class WizardNavigation(IntegrationTest):
-    def test_wizard_navigation(self):
-        self._installer.open()
-        self.configure_language()
-        self._installer.next()
-        self.configure_storage_disks()
-        self._installer.next()
-        self.configure_storage_partitioning()
-        self._installer.next()
-        self.configure_storage_encryption()
-        self._installer.next()
-        # Get Back to disk selection
-        self._installer.back()
-        self._installer.back()
-        self._installer.back()
-        # Redo storage configuration
-        self.configure_storage_disks()
-        self._installer.next()
-        self.configure_storage_partitioning()
-        self._installer.next()
-        self.configure_storage_encryption()
-        self._installer.next()
-        # Finish installation
-        self.check_review_screen()
-        self._installer.begin_installation()
-        self.monitor_progress()
-        self.reboot_to_installed_system()
-        self.check_installed_system()
+class DefaultInstallation(End2EndTest):
+    def test_default_installation(self):
+        self.run_integration_test()
 
 if __name__ == '__main__':
     test_main()

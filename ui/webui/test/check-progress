@@ -33,18 +33,15 @@ class TestInstallationProgress(anacondalib.VirtInstallMachineCase):
         s = Storage(b, self.machine)
 
         i.open()
-        drawer_open = False
 
         for page in i.steps[:-1]:
             # with the pages basically empty of common elements (as those are provided by the top-level installer widget)
             # we at least iterate over them to check this works as expected
             i.wait_current_page(page)
-            if drawer_open:
-                self.assertFalse(i.is_drawer_open())
+            i.wait_drawer_open(False)
             if page == i.steps.STORAGE_DEVICES:
                 # Open the help drawer, which should go away when pressing next.
                 s.open_storage_options_help_drawer()
-                drawer_open = True
             if page != i.steps.REVIEW:
                 i.next()
             else:

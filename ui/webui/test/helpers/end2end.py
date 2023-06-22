@@ -35,7 +35,7 @@ from machine_install import VirtInstallMachine
 from step_logger import log_step
 
 
-class IntegrationTest(MachineCase):
+class End2EndTest(MachineCase):
     MachineCase.machine_class = VirtInstallMachine
 
     def setUp(self):
@@ -49,6 +49,7 @@ class IntegrationTest(MachineCase):
         self.logs_dir = os.path.join('./test_logs', self.__class__.__name__)
         if not os.path.isdir(self.logs_dir):
             os.makedirs(self.logs_dir)
+        os.environ["END2END"] = True  # pylint: disable=environment-modify
 
     def __add_public_key(self):
         with open(self.machine.identity_file + '.pub', 'r') as pub:

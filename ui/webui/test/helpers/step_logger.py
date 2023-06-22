@@ -1,3 +1,4 @@
+import os
 
 class BrowserSnapshot():
     SNAPSHOT_NUMBER = 0
@@ -23,7 +24,6 @@ def log_step(snapshots=False, snapshot_before=False, snapshot_after=False, docst
     :type docstring: bool, optional
     """
     def decorator(function):
-
         def wrapper(*args, **kwargs):
             nice_args = ', '.join(str(a) for a in args[1:])
             if kwargs:
@@ -34,12 +34,15 @@ def log_step(snapshots=False, snapshot_before=False, snapshot_after=False, docst
             print(f'[TEST STEP] {function.__name__}{nice_args}')
             if docstring:
                 print(f'[DOC] {function.__doc__}')
-            if snapshots or snapshot_before:
+
+            end2end = os.environ.get('END2END', False)
+
+            if end2end and (snapshots or snapshot_before):
                 BrowserSnapshot.new(args[0].browser)
-            
+
             result = function(*args, **kwargs)
-            
-            if snapshots or snapshot_after:
+
+            if end2end and (snapshots or snapshot_after):
                 BrowserSnapshot.new(args[0].browser)
 
             return result

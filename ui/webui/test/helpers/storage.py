@@ -113,9 +113,9 @@ class Storage():
 
     def check_disk_expandable(self, disk, expandable=True):
         if expandable:
-            self.browser.wait_visible(f"#{disk} .pf-c-table__toggle")
+            self.browser.wait_visible(f"#{disk} .pf-c-table__toggle button")
         else:
-            self.browser.wait_not_present(f"#{disk} .pf-c-table__toggle")
+            self.browser.wait_not_present(f"#{disk} .pf-c-table__toggle button")
 
     @log_step(snapshot_before=True)
     def check_disk_capacity(self, disk, total=None, free=None):
