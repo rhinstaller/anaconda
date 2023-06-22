@@ -49,10 +49,6 @@ jobs:
     trigger: pull_request
     targets:
       - fedora-rawhide
-    additional_repos:
-      # This repository contains fixup of Rawhide broken environment.
-      # Mainly useful when there is a package which is not yet in Rawhide but build is available.
-      - "https://fedorapeople.org/groups/anaconda/repos/anaconda_fixup_repo/"
 
   - job: copr_build
     trigger: commit
@@ -61,9 +57,5 @@ jobs:
     branch: master
     owner: "@rhinstaller"
     project: Anaconda
-    additional_repos:
-      # This repository contains fixup of Rawhide broken environment.
-      # Mainly useful when there is a package which is not yet in Rawhide but build is available.
-      - "https://fedorapeople.org/groups/anaconda/repos/anaconda_fixup_repo/"
     preserve_project: True
 
