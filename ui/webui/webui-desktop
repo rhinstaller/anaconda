@@ -54,7 +54,27 @@ detect_browser()
         return 0
     fi
 
+    for browser in chromium-browser chromium google-chrome; do
+        if type $browser >/dev/null 2>&1; then
+            # need to disable sandboxing in user namespace, but that already isolates
+            # TODO: Find a way to disable the URL bar
+            BROWSER="$browser --no-sandbox --disable-infobars"
+            return 0
+        fi
+    done
+
+    if type firefox >/dev/null 2>&1; then
+        # TODO: Find a way to disable the privacy notice tab, via mozilla.cfg?
+        # TODO: Find a way to disable the URL bar
+        BROWSER="firefox --no-remote"
+        return 0
+    fi
+
+    # TODO: is there a simple way to use webkitgtk?
+    echo "No suitable browser found (Chromium/Chrome, or Firefox)" >&2
+    exit 1
 }
+
 
 if [ -z "${1:-}" ]; then
     echo "Usage: $0 <Cockpit path> [ssh host]" >&2
@@ -116,4 +136,4 @@ fi
 
 HOME="$BROWSER_HOME" '$BROWSER' http://127.0.0.90'"$URL_PATH"'
 '
-bash -c "$SCRIPT" <&${COPROC[0]} >&${COPROC[1]}
+/bin/bash -c "$SCRIPT" <&${COPROC[0]} >&${COPROC[1]}
