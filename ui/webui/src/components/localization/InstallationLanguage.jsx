@@ -34,6 +34,7 @@ import {
 } from "@patternfly/react-core";
 
 import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
+import { read_os_release as readOsRelease } from "os-release.js";
 import { AddressContext, LanguageContext } from "../Common.jsx";
 import { setLocale } from "../../apis/boss.js";
 
@@ -53,7 +54,6 @@ import {
     setLangCookie
 } from "../../helpers/language.js";
 import { AnacondaPage } from "../AnacondaPage.jsx";
-import { getOsReleaseByKey } from "../../helpers/product.js";
 
 import "./InstallationLanguage.scss";
 
@@ -321,9 +321,7 @@ export const InstallationLanguage = ({ idPrefix, setIsFormValid, onAddErrorNotif
     const [distributionName, setDistributionName] = useState("");
 
     useEffect(() => {
-        getOsReleaseByKey("NAME").then(
-            setDistributionName
-        );
+        readOsRelease().then(osRelease => setDistributionName(osRelease.NAME));
     }, []);
 
     return (
