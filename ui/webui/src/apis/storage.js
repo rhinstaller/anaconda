@@ -16,6 +16,8 @@
  */
 import cockpit from "cockpit";
 
+import { getDiskSelectionAction } from "../actions/storage-actions.js";
+
 export class StorageClient {
     constructor (address) {
         if (StorageClient.instance) {
@@ -284,13 +286,21 @@ export const resetPartitioning = () => {
  * @returns {Promise}           Resolves a DBus path to a task
  */
 export const runStorageTask = ({ task, onSuccess, onFail }) => {
+    // FIXME: This is a workaround for 'Succeeded' signal being emited twice
+    let succeededEmitted = false;
     const taskProxy = new StorageClient().client.proxy(
         "org.fedoraproject.Anaconda.Task",
         task
     );
     const addEventListeners = () => {
         taskProxy.addEventListener("Stopped", () => taskProxy.Finish().catch(onFail));
-        taskProxy.addEventListener("Succeeded", onSuccess);
+        taskProxy.addEventListener("Succeeded", () => {
+            if (succeededEmitted) {
+                return;
+            }
+            succeededEmitted = true;
+            onSuccess();
+        });
     };
     taskProxy.wait(() => {
         addEventListeners();
@@ -389,4 +399,20 @@ export const setSelectedDisks = ({ drives }) => {
             cockpit.variant("as", drives)
         ]
     );
+};
+
+export const startEventMonitorStorage = ({ dispatch }) => {
+    return new StorageClient().client.subscribe(
+        { },
+        (path, iface, signal, args) => {
+            switch (signal) {
+            case "PropertiesChanged":
+                if (args[0] === "org.fedoraproject.Anaconda.Modules.Storage.DiskSelection") {
+                    dispatch(getDiskSelectionAction());
+                }
+                break;
+            default:
+                console.debug(`Unhandled signal on ${path}: ${iface}.${signal}`);
+            }
+        });
 };

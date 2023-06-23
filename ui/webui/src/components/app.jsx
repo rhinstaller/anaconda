@@ -32,11 +32,12 @@ import { HelpDrawer } from "./HelpDrawer.jsx";
 
 import { BossClient } from "../apis/boss.js";
 import { LocalizationClient } from "../apis/localization.js";
-import { StorageClient } from "../apis/storage.js";
+import { StorageClient, startEventMonitorStorage } from "../apis/storage.js";
 import { PayloadsClient } from "../apis/payloads";
 
 import { readBuildstamp, getIsFinal } from "../helpers/betanag.js";
 import { readConf } from "../helpers/conf.js";
+import { useReducerWithThunk, reducer, initialState } from "../reducer.js";
 
 export const Application = () => {
     const [address, setAddress] = useState();
@@ -47,6 +48,7 @@ export const Application = () => {
     const [isHelpExpanded, setIsHelpExpanded] = useState(false);
     const [helpContent, setHelpContent] = useState("");
     const [prettyName, setPrettyName] = useState("");
+    const [state, dispatch] = useReducerWithThunk(reducer, initialState);
 
     useEffect(() => {
         cockpit.file("/run/anaconda/bus.address").watch(address => {
@@ -59,6 +61,8 @@ export const Application = () => {
             clients.forEach(c => c.init());
 
             setAddress(address);
+
+            startEventMonitorStorage({ dispatch });
         });
 
         readConf().then(
@@ -72,7 +76,7 @@ export const Application = () => {
         );
 
         readOsRelease().then(osRelease => setPrettyName(osRelease.PRETTY_NAME));
-    }, []);
+    }, [dispatch]);
 
     const onAddNotification = (notificationProps) => {
         setNotifications({
@@ -139,6 +143,9 @@ export const Application = () => {
                   toggleContextHelp={toggleContextHelp}
                   hideContextHelp={() => setIsHelpExpanded(false)}
                   title={title}
+                  storageData={state.storage}
+                  localizationData={state.localization}
+                  dispatch={dispatch}
                   conf={conf}
                 />
             </AddressContext.Provider>

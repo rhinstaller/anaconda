@@ -35,8 +35,6 @@ import {
 } from "@patternfly/react-core";
 
 import {
-    getSelectedDisks,
-    getDeviceData,
     getAppliedPartitioning,
     getPartitioningRequest,
 } from "../../apis/storage.js";
@@ -100,9 +98,7 @@ const DeviceRow = ({ name, data }) => {
     );
 };
 
-export const ReviewConfiguration = ({ idPrefix, storageScenarioId }) => {
-    const [deviceData, setDeviceData] = useState({});
-    const [selectedDisks, setSelectedDisks] = useState();
+export const ReviewConfiguration = ({ deviceData, diskSelection, idPrefix, storageScenarioId }) => {
     const [systemLanguage, setSystemLanguage] = useState();
     const [encrypt, setEncrypt] = useState();
     const [showLanguageSection, setShowLanguageSection] = useState(true);
@@ -114,26 +110,17 @@ export const ReviewConfiguration = ({ idPrefix, storageScenarioId }) => {
             const langData = await getLanguageData({ lang }).catch(console.error);
             setSystemLanguage(langData["native-name"].v);
         };
-        const initializeDisks = async () => {
-            const selDisks = await getSelectedDisks().catch(console.error);
-            setSelectedDisks(selDisks);
-            for (const disk of selDisks) {
-                const devData = await getDeviceData({ disk }).catch(console.error);
-                setDeviceData(d => ({ ...d, [disk]: devData[0] }));
-            }
-        };
         const initializeEncrypt = async () => {
             const partitioning = await getAppliedPartitioning().catch(console.error);
             const request = await getPartitioningRequest({ partitioning }).catch(console.error);
             setEncrypt(request.encrypted.v);
         };
         initializeLanguage();
-        initializeDisks();
         initializeEncrypt();
     }, []);
 
     // handle case of disks not (yet) loaded
-    if (!selectedDisks || !systemLanguage) {
+    if (!systemLanguage) {
         return null;
     }
 
@@ -191,7 +178,7 @@ export const ReviewConfiguration = ({ idPrefix, storageScenarioId }) => {
                 </ReviewDescriptionList>
                 <Title className="storage-devices-configuration-title" headingLevel="h4">{_("Storage devices and configurations")}</Title>
                 <DataList isCompact>
-                    {Object.keys(deviceData).map(deviceName =>
+                    {diskSelection.selectedDisks.map(deviceName =>
                         <DeviceRow key={deviceName} name={deviceName} data={deviceData[deviceName]} />
                     )}
                 </DataList>
