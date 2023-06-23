@@ -17,6 +17,8 @@
 
 import cockpit from "cockpit";
 
+import { getLanguageAction } from "../actions/localization-actions.js";
+
 export class LocalizationClient {
     constructor (address) {
         if (LocalizationClient.instance) {
@@ -142,4 +144,22 @@ export const setLanguage = ({ lang }) => {
             ]
         )
     );
+};
+
+export const startEventMonitorLocalization = ({ dispatch }) => {
+    return new LocalizationClient().client.subscribe(
+        { },
+        (path, iface, signal, args) => {
+            switch (signal) {
+            case "PropertiesChanged":
+                if (args[0] === "org.fedoraproject.Anaconda.Modules.Localization" && Object.hasOwn(args[1], "Language")) {
+                    dispatch(getLanguageAction());
+                } else {
+                    console.debug(`Unhandled signal on ${path}: ${iface}.${signal}`, JSON.stringify(args));
+                }
+                break;
+            default:
+                console.debug(`Unhandled signal on ${path}: ${iface}.${signal}`, JSON.stringify(args));
+            }
+        });
 };

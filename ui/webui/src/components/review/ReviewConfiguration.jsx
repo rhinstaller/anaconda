@@ -41,9 +41,6 @@ import {
     getPartitioningMethod,
 } from "../../apis/storage.js";
 
-import {
-    getLanguage, getLanguageData,
-} from "../../apis/localization.js";
 import { AnacondaPage } from "../AnacondaPage.jsx";
 
 import { getScenario } from "../storage/StorageConfiguration.jsx";
@@ -128,18 +125,12 @@ const DeviceRow = ({ data, requests }) => {
     );
 };
 
-export const ReviewConfiguration = ({ deviceData, diskSelection, requests, idPrefix, storageScenarioId }) => {
-    const [systemLanguage, setSystemLanguage] = useState();
+export const ReviewConfiguration = ({ deviceData, diskSelection, language, requests, idPrefix, storageScenarioId }) => {
     const [encrypt, setEncrypt] = useState();
     const [showLanguageSection, setShowLanguageSection] = useState(true);
     const [showInstallationDestSection, setShowInstallationDestSection] = useState(true);
 
     useEffect(() => {
-        const initializeLanguage = async () => {
-            const lang = await getLanguage().catch(console.error);
-            const langData = await getLanguageData({ lang }).catch(console.error);
-            setSystemLanguage(langData["native-name"].v);
-        };
         const initializeEncrypt = async () => {
             const partitioning = await getAppliedPartitioning().catch(console.error);
             const method = await getPartitioningMethod({ partitioning }).catch(console.error);
@@ -148,12 +139,11 @@ export const ReviewConfiguration = ({ deviceData, diskSelection, requests, idPre
                 setEncrypt(request.encrypted.v);
             }
         };
-        initializeLanguage();
         initializeEncrypt();
     }, []);
 
     // handle case of disks not (yet) loaded
-    if (!systemLanguage) {
+    if (!language) {
         return null;
     }
 
@@ -181,7 +171,7 @@ export const ReviewConfiguration = ({ deviceData, diskSelection, requests, idPre
                             {_("Language")}
                         </DescriptionListTerm>
                         <DescriptionListDescription className="description-list-description" id={idPrefix + "-target-system-language"}>
-                            {systemLanguage}
+                            {language["native-name"].v}
                         </DescriptionListDescription>
                     </DescriptionListGroup>
                 </ReviewDescriptionList>

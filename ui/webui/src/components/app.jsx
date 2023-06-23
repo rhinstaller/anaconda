@@ -31,7 +31,7 @@ import { AnacondaWizard } from "./AnacondaWizard.jsx";
 import { HelpDrawer } from "./HelpDrawer.jsx";
 
 import { BossClient } from "../apis/boss.js";
-import { LocalizationClient } from "../apis/localization.js";
+import { LocalizationClient, startEventMonitorLocalization } from "../apis/localization.js";
 import { StorageClient, initDataStorage, startEventMonitorStorage } from "../apis/storage.js";
 import { PayloadsClient } from "../apis/payloads";
 
@@ -64,6 +64,8 @@ export const Application = () => {
 
             initDataStorage({ dispatch });
             startEventMonitorStorage({ dispatch });
+
+            startEventMonitorLocalization({ dispatch });
         });
 
         readConf().then(

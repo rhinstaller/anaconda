@@ -39,7 +39,6 @@ import { AddressContext, LanguageContext } from "../Common.jsx";
 import { setLocale } from "../../apis/boss.js";
 
 import {
-    getLanguage,
     setLanguage,
 } from "../../apis/localization.js";
 
@@ -49,7 +48,7 @@ import {
     setLangCookie
 } from "../../helpers/language.js";
 import { AnacondaPage } from "../AnacondaPage.jsx";
-import { getLanguagesAction } from "../../actions/localization-actions.js";
+import { getLanguagesAction, getLanguageAction } from "../../actions/localization-actions.js";
 
 import "./InstallationLanguage.scss";
 
@@ -66,23 +65,20 @@ class LanguageSelector extends React.Component {
         super(props);
         this.state = {
             search: "",
-            lang: "",
         };
 
         this.updateNativeName = this.updateNativeName.bind(this);
         this.renderOptions = this.renderOptions.bind(this);
     }
 
-    async componentDidMount () {
+    componentDidMount () {
         try {
-            const lang = await getLanguage();
-            this.setState({ lang });
-            const cockpitLang = convertToCockpitLang({ lang });
+            const cockpitLang = convertToCockpitLang({ lang: this.props.language });
             if (getLangCookie() !== cockpitLang) {
                 setLangCookie({ cockpitLang });
                 window.location.reload(true);
             }
-            setLocale({ locale: lang });
+            setLocale({ locale: this.props.language });
         } catch (e) {
             this.props.onAddErrorNotification(e);
         }
@@ -93,7 +89,7 @@ class LanguageSelector extends React.Component {
     }
 
     renderOptions (filter) {
-        const { languages } = this.props;
+        const { languages, commonLocales } = this.props;
         const idPrefix = this.props.idPrefix;
         const filterLow = filter.toLowerCase();
 
@@ -117,7 +113,7 @@ class LanguageSelector extends React.Component {
         // Returns a new instance of MenuItem from a given locale and with given prefix in it's key
         // and id.
         const createMenuItem = (locale, prefix) => {
-            const isSelected = this.state.lang === getLocaleId(locale);
+            const isSelected = this.props.language === getLocaleId(locale);
 
             // Creating a ref that will be applied to the selected language and cause it to scroll into view.
             const scrollRef = (isSelected && !foundSelected)
@@ -160,7 +156,7 @@ class LanguageSelector extends React.Component {
                       key="group-common-languages"
                     >
                         {
-                            this.props.commonLocales
+                            commonLocales
                                     .map(findLocaleWithId)
                                     .filter(locale => locale)
                                     .map(locale => createMenuItem(locale, "option-common-"))
@@ -208,7 +204,7 @@ class LanguageSelector extends React.Component {
 
     render () {
         const { lang } = this.state;
-        const { languages, commonLocales } = this.props;
+        const { languages } = this.props;
 
         const handleOnSelect = (_event, item) => {
             for (const languageItem in languages) {
@@ -242,12 +238,6 @@ class LanguageSelector extends React.Component {
             }
         };
 
-        const isLoading = languages.length === 0 || commonLocales.length === 0;
-
-        if (isLoading) {
-            return <EmptyStatePanel loading />;
-        }
-
         const options = this.renderOptions(this.state.search);
 
         return (
@@ -256,7 +246,6 @@ class LanguageSelector extends React.Component {
               isScrollable
               onSelect={handleOnSelect}
               aria-invalid={!lang}
-              {...(isLoading && { loadingVariant: "spinner" })}
             >
                 <MenuInput>
                     <Title
@@ -296,7 +285,7 @@ class LanguageSelector extends React.Component {
 }
 LanguageSelector.contextType = AddressContext;
 
-export const InstallationLanguage = ({ idPrefix, languages, commonLocales, dispatch, setIsFormValid, onAddErrorNotification }) => {
+export const InstallationLanguage = ({ idPrefix, languages, language, commonLocales, dispatch, setIsFormValid, onAddErrorNotification }) => {
     const [nativeName, setNativeName] = React.useState(false);
     const { setLanguage } = React.useContext(LanguageContext);
     const [distributionName, setDistributionName] = useState("");
@@ -304,7 +293,14 @@ export const InstallationLanguage = ({ idPrefix, languages, commonLocales, dispa
     useEffect(() => {
         readOsRelease().then(osRelease => setDistributionName(osRelease.NAME));
         dispatch(getLanguagesAction());
+        dispatch(getLanguageAction());
     }, [dispatch]);
+
+    const isLoading = !language || languages.length === 0 || commonLocales.length === 0;
+
+    if (isLoading) {
+        return <EmptyStatePanel loading />;
+    }
 
     return (
         <AnacondaPage title={cockpit.format("Welcome to $0", distributionName)}>
@@ -331,6 +327,7 @@ export const InstallationLanguage = ({ idPrefix, languages, commonLocales, dispa
                       idPrefix={idPrefix}
                       languages={languages}
                       commonLocales={commonLocales}
+                      language={language}
                       setIsFormValid={setIsFormValid}
                       onAddErrorNotification={onAddErrorNotification}
                       setNativeName={setNativeName}
