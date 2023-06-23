@@ -8,7 +8,7 @@ priority: 9
 execution:
   type: anaconda-webui
   automation_data:
-    script_file: ./ui/webui/test/integration/default.py
+    script_file: ./ui/webui/test/end2end/default.py
     test_case: DefaultInstallation
 instructions:
   setup:
