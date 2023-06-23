@@ -71,7 +71,11 @@ class Storage():
 
     @log_step(snapshot_before=True)
     def check_disk_selected(self, disk, selected=True):
-        assert self.browser.get_checked(f"#{disk} input") == selected
+        if selected:
+            self.browser.wait_visible(f"#{disk} input:checked")
+        else:
+            self.browser.wait_visible(f"#{disk} input:not(:checked)")
+
 
     @log_step()
     def wait_no_disks(self):
