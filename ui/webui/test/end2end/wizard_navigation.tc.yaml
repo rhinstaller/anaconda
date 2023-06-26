@@ -9,7 +9,7 @@ priority: 5
 execution:
   type: anaconda-webui
   automation_data:
-    script_file: ./ui/webui/test/integration/wizard_navigation.py
+    script_file: ./ui/webui/test/end2end/wizard_navigation.py
     test_case: WizardNavigation
 instructions:
   setup:
