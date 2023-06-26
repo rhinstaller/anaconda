@@ -124,10 +124,6 @@ class BootLoaderFactory(object):
             from pyanaconda.modules.storage.bootloader.efi import EFIGRUB
             return EFIGRUB
 
-        if platform_class is platform.MacEFI:
-            from pyanaconda.modules.storage.bootloader.efi import MacEFIGRUB
-            return MacEFIGRUB
-
         if platform_class is platform.PPC:
             from pyanaconda.modules.storage.bootloader.grub2 import GRUB2
             return GRUB2
