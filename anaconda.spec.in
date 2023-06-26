@@ -411,6 +411,20 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jun 26 2023 Jiri Konecny <jkonecny@redhat.com> - 34.25.3.5-1
+- Add option for installing RedHat kernel (ozobal)
+  Related: rhbz#2164819
+  Resolves: rhbz#2214266
+- Add TUI for installing non-standard kernels (ozobal)
+  Resolves: rhbz#2214266
+  Resolves: rhbz#2164819
+- Add GUI option for installing 64k ARM kernel (ozobal)
+  Resolves: rhbz#2214266
+  Resolves: rhbz#2164819
+- Add match_available_packages to dnf_manager (ozobal)
+  Related: rhbz#2214266
+  Related: rhbz#2164819
+
 * Tue Jun 20 2023 Jiri Konecny <jkonecny@redhat.com> - 34.25.3.4-1
 - Warn about deprecated inst.geoloc=provider_... (vslavik)
   Resolves: rhbz#2127473
