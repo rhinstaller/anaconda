@@ -1547,3 +1547,6 @@ class DNFPayload(Payload):
     @property
     def kernel_version_list(self):
         return get_kernel_version_list()
+
+    def match_available_packages(self, pattern):
+        return self._dnf_manager.match_available_packages(pattern)

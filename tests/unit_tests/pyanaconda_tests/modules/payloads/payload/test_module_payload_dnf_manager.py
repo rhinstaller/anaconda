@@ -22,6 +22,7 @@ from unittest.mock import patch, Mock
 
 from blivet.size import Size, ROUND_UP
 from dnf.exceptions import MarkingErrors
+from dnf.package import Package
 
 from pyanaconda.core.constants import MULTILIB_POLICY_ALL
 from pyanaconda.modules.common.structures.payload import PackagesConfigurationData
@@ -46,6 +47,16 @@ class DNFMangerTestCase(unittest.TestCase):
     def _check_substitutions(self, substitutions):
         """Check the DNF substitutions."""
         assert dict(self.dnf_manager._base.conf.substitutions) == substitutions
+
+    def _get_package(self, name):
+        """Get a mocked package of the specified name."""
+        package = Mock(spec=Package)
+        package.name = name
+        package.arch = "x86_64"
+        package.evr = "1.2-3"
+        package.buildtime = 100
+        package.returnIdSum.return_value = ("", "1a2b3c")
+        return package
 
     def test_create_base(self):
         """Test the creation of the DNF base."""
@@ -303,3 +314,31 @@ class DNFMangerTestCase(unittest.TestCase):
                 include_list=["@g1", "p1"],
                 exclude_list=["@g2", "p2"]
             )
+
+    def test_match_available_packages(self):
+        """Test the match_available_packages method"""
+        p1 = self._get_package("langpacks-cs")
+        p2 = self._get_package("langpacks-core-cs")
+        p3 = self._get_package("langpacks-core-font-cs")
+
+        sack = Mock()
+        sack.query.return_value.available.return_value.filter.return_value = [
+            p1, p2, p3
+        ]
+
+        # With metadata.
+        self.dnf_manager._base._sack = sack
+        assert self.dnf_manager.match_available_packages("langpacks-*") == [
+            "langpacks-cs",
+            "langpacks-core-cs",
+            "langpacks-core-font-cs"
+        ]
+
+        # No metadata.
+        self.dnf_manager._base._sack = None
+
+        with self.assertLogs(level="WARNING") as cm:
+            assert self.dnf_manager.match_available_packages("langpacks-*") == []
+
+        msg = "There is no metadata about packages!"
+        assert any(map(lambda x: msg in x, cm.output))
