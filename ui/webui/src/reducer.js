@@ -67,7 +67,7 @@ export const reducer = (state, action) => {
 
 export const storageReducer = (state = storageInitialState, action) => {
     if (action.type === "GET_DEVICE_DATA") {
-        return { ...state, devices: { ...action.payload.deviceData, ...state.devices } };
+        return { ...state, devices: { ...state.devices, ...action.payload.deviceData } };
     } else if (action.type === "GET_DISK_SELECTION") {
         return { ...state, diskSelection: action.payload.diskSelection };
     } else {
@@ -77,7 +77,7 @@ export const storageReducer = (state = storageInitialState, action) => {
 
 export const localizationReducer = (state = localizationInitialState, action) => {
     if (action.type === "GET_LANGUAGE_DATA") {
-        return { ...state, languages: { ...action.payload.languageData, ...state.languages } };
+        return { ...state, languages: { ...state.languages, ...action.payload.languageData } };
     } else if (action.type === "GET_COMMON_LOCALES") {
         return { ...state, commonLocales: action.payload.commonLocales };
     } else {
