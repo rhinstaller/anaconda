@@ -107,14 +107,114 @@ category. You can quickly list these by searching the Red Hat bugzilla for bugs 
 
 Patches for bugs without keywords are welcome, too!
 
+WebUI development
+-----------------
+
+For good starting points how to develop and test Web UI interface of Anaconda see ``ui/webui/README.rst`` and ``ui/webui/test/README.rst``.
+
+PatternFly
+^^^^^^^^^^
+
+Provides all the Web UI Widgets we use.
+
+https://www.patternfly.org/v4/
+
+NOTE: Right now we are using PatternFly 4 & version 5 is about to be released. Please take this into account when referencing the documentation.
+
+Pixel tests
+^^^^^^^^^^^
+
+Make it possible to watch for unintended graphical changes as well as verifying that automated NPM dependency updates have not caused any visible breakage.
+
+At a glance - on the Cockpit blog:
+
+https://cockpit-project.org/blog/pixel-testing.html
+
+Cockpit test framework
+^^^^^^^^^^^^^^^^^^^^^^
+
+An easy to use Python test framework, that makes it possible to test the Web UI. All our Web UI unit tests use this framework.
+
+https://github.com/cockpit-project/cockpit/tree/main/test
+
+There is a some documentation about how to use this framework from the Cockpit PoV, which still can be a useful reference for the various available options:
+
+https://cockpit-project.org/external/source/test/README
+
+Our cockpit test framework based tests for the Anaconda Web UI are located here:
+
+https://github.com/rhinstaller/anaconda/tree/master/ui/webui/test
+
+Do note that we try to de-duplicate often used testing functionality in a library, located in the ``helpers`` directory.
+
+Cockpit CI infrastructure
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Web UI pull request tests run on Cockpit CI infrastructure.
+
+https://github.com/cockpit-project/cockpituous/tree/main/tasks#github-webhook-integration
+
+Basically all the tests that run in Cockpit infra can be run locally, which can be very handy development and to debug CI issues.
+
+Build Web UI boot.iso from a pull request
+-----------------------------------------
+
+We have a workflow setup to build boot.iso images that boot into the Anaconda Web UI from arbitrary pull requests.
+
+To trigger a Web UI boot iso build, go to a pull request page and post a comment like this:
+
+    /boot-iso --webui
+
+This will trigger an automated Web UI boot iso build - you can check its progress via the "boot-iso" status among the status listing for the PR.
+
+Once the workflow finishes running, checkout the "boot-iso" status again & look for a big zip file in the "artifacts" section - it will contain the resulting boot.iso corresponding to the PR.
+
+Debugging Anaconda Web UI on the Live image
+-------------------------------------------
+
+The way Anaconda is currently setup, once the ``anaconda-webui`` package is installed, the Web UI will be started instead of the GTK GUI.
+
+This is very useful, as it makes it possible to easily test Web UI changes on Live images (both regular & Live images built with ``anaconda-webui`` already installed) by just installing RPMS corresponding to the Anaconda code one wants to test.
+
+The first step is to on the Live image (presumably running on a network reachable VM or machine) set password for the default user account & start sshd:
+
+    sudo passwd liveuser
+    sudo systemctl start sshd
+
+Also check the IP of the machine:
+
+    ip a
+
+Then on your machine from your anaconda checkout, build the Anaconda RPMs:
+
+    make -f Makefile.am container-rpms
+
+Once the build finishes, enter the results directory and copy the RPMs to the Live image environment:
+
+    cd result/build/01-rpm-build/
+    scp *.rpm liveuser@<Live machine IP>:/tmp
+
+Back on the Live media, install the new Anaconda RPMs:
+
+    cd /tmp
+    sudo dnf install *.rpm
+
+After this, the Anaconda Web UI should be started when you launch the liveinst script:
+
+    liveinst
+
+Or when you click the "install to hard drive" icon.
+
+It should be possible to do the whole build-scp-install-run multiple times on a single Live image boot.
+
+Just take into account that the system Journal will contain log messages from all the installation runs, which could be confusing.
+
+If you want to revert back to the GTK UI for some reason, just uininstall the ``anaconda-webui`` package.
+
 Testing Anaconda changes
 ------------------------
 
 To test changes in Anaconda you have a few options based on what you need to do.
-
-WebUI development
-^^^^^^^^^^^^^^^^^
-See ``ui/webui/README.rst`` and ``ui/webui/test/README.rst`` for more details about how to develop and test Web UI interface of Anaconda.
 
 Backend and TUI development
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
