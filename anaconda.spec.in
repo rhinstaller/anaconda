@@ -471,6 +471,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 27 2023 github-actions <github-actions@github.com> - 39.22-1
+- Update the bundled cockpit-desktop script (martin.kolman)
+- Revert "Revert "webui: start using custom webui-desktop script instead of
+  cockpit-desktop"" (martin.kolman)
+- docs: Document the distribution component (vponcova)
+
 * Tue Jun 27 2023 github-actions <github-actions@github.com> - 39.21-1
 - webui: Fix handling of END2END env variable in WebUI tests (zveleba)
 - webui: tests: wait for the webui to update disk selection instead of
