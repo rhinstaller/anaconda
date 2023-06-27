@@ -470,6 +470,32 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 27 2023 github-actions <github-actions@github.com> - 39.21-1
+- webui: Fix handling of END2END env variable in WebUI tests (zveleba)
+- webui: tests: wait for the webui to update disk selection instead of
+  asserting the state (kkoukiou)
+- webui: use the store as single source of truth for disk selection (kkoukiou)
+- webui: split actions per data type (kkoukiou)
+- webui: split reducers acording to the data type (kkoukiou)
+- webui: use useReducer also for language state collection (kkoukiou)
+- webui: start using useReducer for managing complicated state objects
+  centrally (kkoukiou)
+- WebUI: Switch Quit/Reboot button in Progress spoke (ozobal)
+- WebUI: update pixel tests for new tasks container (jvanderwaa)
+- WebUI: Use Cockpit's os-release implementation (jvanderwaa)
+- webui: test: ensure that disk selection is updated before taking screenshot
+  (kkoukiou)
+- webui: tests: increase specificity for the disk toggle selector (kkoukiou)
+- webui: tests: wait for drawer status instead of asserting it directly
+  (kkoukiou)
+- webui: tests: don't create screenshots in step_logger decorator for non
+  end2end tests (kkoukiou)
+- WebUI: Convert InstallationProgress to function (ozobal)
+- webui: tests: rename IntegrationTest class and associated file to End2EndTest
+  (kkoukiou)
+- webui: tests: rename 'integration' directory to 'end2end' (kkoukiou)
+- webui: remove some trailing whitespace from test files (kkoukiou)
+
 * Tue Jun 20 2023 github-actions <github-actions@github.com> - 39.20-1
 - webui: add PRETTY_NAME to use in title instead of anaconda generic title
   (acruzgon)
