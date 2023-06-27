@@ -434,6 +434,7 @@ rm -rf \
 %{_datadir}/cockpit/anaconda-webui/manifest.json
 %{_datadir}/metainfo/org.cockpit-project.anaconda-webui.metainfo.xml
 %{_datadir}/cockpit/anaconda-webui/po.*.js.gz
+%{_libexecdir}/webui-desktop
 
 %files gui
 %{python3_sitearch}/pyanaconda/ui/gui/*

@@ -116,7 +116,7 @@ ExecStart=/usr/libexec/cockpit-ws --no-tls --port 9090 --local-session=cockpit-b
 
         # pylint: disable=environment-modify
         os.environ["BROWSER"] = "/usr/bin/firefox --kiosk"
-        proc = startProgram(["/usr/libexec/cockpit-desktop",
+        proc = startProgram(["/usr/libexec/webui-desktop",
                             "/cockpit/@localhost/anaconda-webui/index.html"],
                             reset_lang=False)
         log.debug("cockpit web view has been started")
