@@ -40,10 +40,12 @@ jobs:
     trigger: release
     dist_git_branches: main
 
-  - job: tests
-    trigger: pull_request
-    targets:
-      - fedora-rawhide
+# TODO: Return back the test when DNF5 issue is resolved
+# https://gitlab.com/testing-farm/tests/-/merge_requests/24
+#  - job: tests
+#   trigger: pull_request
+#    targets:
+#      - fedora-rawhide
 
   - job: copr_build
     trigger: pull_request
