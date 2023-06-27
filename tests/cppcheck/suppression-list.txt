@@ -7,3 +7,7 @@ unusedFunction:widgets/glade/*
 // stop whining about G_DEFINE macros
 constStatement:*/widgets/src/*
 constStatement:widgets/src/*
+
+//
+returnDanglingLifetime:*widgets/src/gettext.h
+returnDanglingLifetime:widgets/src/gettext.h

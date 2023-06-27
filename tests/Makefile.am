@@ -46,7 +46,6 @@ PEP8_TARGETS ?= ""
 dist_check_SCRIPTS = \
 	$(srcdir)/glade_tests/*.py \
 	$(srcdir)/lib/*.py \
-	$(srcdir)/lib/*.sh \
 	unit_tests/unit_tests.sh \
 	rpm_tests/rpm_tests.sh \
 	pylint/runpylint.py \
