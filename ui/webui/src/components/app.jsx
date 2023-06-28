@@ -100,7 +100,6 @@ export const Application = () => {
     if (!address || !conf) {
         return null;
     }
-    console.info("conf: ", conf);
 
     const title = cockpit.format("$0 installation", prettyName);
 
