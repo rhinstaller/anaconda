@@ -38,7 +38,7 @@ export const HelpDrawer = ({ isExpanded, setIsExpanded, helpContent, children })
     };
 
     const panelContent = (
-        <DrawerPanelContent isResizable defaultSize="450px" minSize="150px">
+        <DrawerPanelContent isResizable defaultSize="28rem" minSize="185px" maxSize="50vw">
             <DrawerHead>
                 <span tabIndex={isExpanded ? 0 : -1} ref={drawerRef}>
                     {helpContent}
