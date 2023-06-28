@@ -75,6 +75,7 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onAddE
                 label: _("Storage devices")
             }, {
                 component: StorageConfiguration,
+                data: { selectedDisks: storageData.diskSelection.selectedDisks },
                 id: "storage-configuration",
                 label: _("Storage configuration")
             }, {

@@ -50,20 +50,19 @@ import { HelpIcon } from "@patternfly/react-icons";
 import ExclamationTriangleIcon from "@patternfly/react-icons/dist/esm/icons/exclamation-triangle-icon";
 
 import { helpEraseAll, helpUseFreeSpace } from "./HelpAutopartOptions.jsx";
+import { AnacondaPage } from "../AnacondaPage.jsx";
+import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
 
 import {
     getRequiredDeviceSize,
     getDiskTotalSpace,
     getDiskFreeSpace,
-    getSelectedDisks,
     setInitializationMode,
 } from "../../apis/storage.js";
 
 import {
     getRequiredSpace,
 } from "../../apis/payloads";
-
-import { AnacondaPage } from "../AnacondaPage.jsx";
 
 const _ = cockpit.gettext;
 
@@ -223,7 +222,7 @@ const predefinedStorageInfo = (
 );
 
 // TODO add aria items
-const GuidedPartitioning = ({ idPrefix, scenarios, storageScenarioId, setStorageScenarioId, setIsFormValid }) => {
+const GuidedPartitioning = ({ idPrefix, scenarios, selectedDisks, storageScenarioId, setStorageScenarioId, setIsFormValid }) => {
     const [selectedScenario, setSelectedScenario] = useState();
     const [scenarioAvailability, setScenarioAvailability] = useState(Object.fromEntries(
         scenarios.map((s) => [s.id, new AvailabilityState()])
@@ -235,7 +234,6 @@ const GuidedPartitioning = ({ idPrefix, scenarios, storageScenarioId, setStorage
         const updateScenarioState = async (scenarios) => {
             const requiredSpace = await getRequiredSpace();
             const requiredSize = await getRequiredDeviceSize({ requiredSpace });
-            const selectedDisks = await getSelectedDisks();
             let selectedScenarioId = "";
             let availableScenarioExists = false;
             for await (const scenario of scenarios) {
@@ -258,7 +256,7 @@ const GuidedPartitioning = ({ idPrefix, scenarios, storageScenarioId, setStorage
         };
 
         updateScenarioState(scenarios);
-    }, [scenarios, setIsFormValid, storageScenarioId]);
+    }, [scenarios, setIsFormValid, storageScenarioId, selectedDisks]);
 
     useEffect(() => {
         const applyScenario = async (scenarioId) => {
@@ -288,6 +286,10 @@ const GuidedPartitioning = ({ idPrefix, scenarios, storageScenarioId, setStorage
         updateDetailContent(scenarioId);
         setIsDetailExpanded(!isDetailExpanded);
     };
+
+    if (!selectedScenario) {
+        return <EmptyStatePanel loading />;
+    }
 
     const scenarioItems = scenarios.map(scenario =>
         <DataListItem key={scenario.id}>
@@ -364,7 +366,7 @@ const GuidedPartitioning = ({ idPrefix, scenarios, storageScenarioId, setStorage
     );
 };
 
-export const StorageConfiguration = ({ idPrefix, setIsFormValid, storageScenarioId, setStorageScenarioId }) => {
+export const StorageConfiguration = ({ idPrefix, selectedDisks, setIsFormValid, storageScenarioId, setStorageScenarioId }) => {
     return (
         <AnacondaPage title={_("Select a storage configuration")}>
             <TextContent>
@@ -373,6 +375,7 @@ export const StorageConfiguration = ({ idPrefix, setIsFormValid, storageScenario
             <GuidedPartitioning
               idPrefix={idPrefix}
               scenarios={scenarios}
+              selectedDisks={selectedDisks}
               setIsFormValid={setIsFormValid}
               storageScenarioId={storageScenarioId}
               setStorageScenarioId={setStorageScenarioId}
