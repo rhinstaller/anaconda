@@ -1,4 +1,4 @@
-From 592a784d0a7f85d921b030398d093186ebe29af4 Mon Sep 17 00:00:00 2001
+From 2c0b5bb71aab27a3a78c1cc792cd93e1d60e3ea8 Mon Sep 17 00:00:00 2001
 From: Martin Kolman <mkolman@redhat.com>
 Date: Fri, 6 May 2022 12:05:57 +0200
 Subject: [PATCH] Add boot options to the Web UI
@@ -13,10 +13,35 @@ Changes:
 - for better debugging drop quiet boot option
 - add anaconda-webui package
 ---
+ .../config_files/x86/grub2-bios.cfg           |  6 ++---
  .../99-generic/config_files/x86/grub2-efi.cfg | 15 ++++++++-----
  .../99-generic/config_files/x86/isolinux.cfg  | 22 ++++++++++++++-----
- 2 files changed, 26 insertions(+), 11 deletions(-)
+ 3 files changed, 29 insertions(+), 14 deletions(-)
 
+diff --git a/share/templates.d/99-generic/config_files/x86/grub2-bios.cfg b/share/templates.d/99-generic/config_files/x86/grub2-bios.cfg
+index cfca1bf6..cafee5d6 100644
+--- a/share/templates.d/99-generic/config_files/x86/grub2-bios.cfg
++++ b/share/templates.d/99-generic/config_files/x86/grub2-bios.cfg
+@@ -18,16 +18,16 @@ search --no-floppy --set=root -l '@ISOLABEL@'
+ 
+ ### BEGIN /etc/grub.d/10_linux ###
+ menuentry 'Install @PRODUCT@ @VERSION@' --class fedora --class gnu-linux --class gnu --class os {
+-	linux @KERNELPATH@ @ROOT@ quiet
++	linux @KERNELPATH@ @ROOT@ inst.webui inst.webui.remote inst.resolution=1280x1024
+ 	initrd @INITRDPATH@
+ }
+ menuentry 'Test this media & install @PRODUCT@ @VERSION@' --class fedora --class gnu-linux --class gnu --class os {
+-	linux @KERNELPATH@ @ROOT@ rd.live.check quiet
++	linux @KERNELPATH@ @ROOT@ rd.live.check inst.webui inst.webui.remote inst.resolution=1280x1024
+ 	initrd @INITRDPATH@
+ }
+ submenu 'Troubleshooting -->' {
+ 	menuentry 'Install @PRODUCT@ @VERSION@ in basic graphics mode' --class fedora --class gnu-linux --class gnu --class os {
+-		linux @KERNELPATH@ @ROOT@ nomodeset quiet
++		linux @KERNELPATH@ @ROOT@ nomodeset quiet inst.resolution=1280x1024
+ 		initrd @INITRDPATH@
+ 	}
+ 	menuentry 'Rescue a @PRODUCT@ system' --class fedora --class gnu-linux --class gnu --class os {
 diff --git a/share/templates.d/99-generic/config_files/x86/grub2-efi.cfg b/share/templates.d/99-generic/config_files/x86/grub2-efi.cfg
 index 8c9adadd..e349d20a 100644
 --- a/share/templates.d/99-generic/config_files/x86/grub2-efi.cfg
@@ -103,5 +128,5 @@ index 216d36f2..3c516843 100644
    menu indent count 5
    menu label Install using ^basic graphics mode
 -- 
-2.40.1
+2.41.0
 
