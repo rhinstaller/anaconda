@@ -16,7 +16,7 @@
 # Red Hat, Inc.
 #
 from collections import namedtuple
-from blivet.arch import is_arm
+from blivet.arch import is_aarch64
 from pyanaconda.core.i18n import _
 
 FEATURE_UPSTREAM = "upstream"
@@ -29,7 +29,7 @@ def get_available_kernel_features(payload):
     """
     features = {
         FEATURE_UPSTREAM: any(payload.match_available_packages("kernel-redhat")),
-        FEATURE_64K: is_arm() and any(payload.match_available_packages("kernel-64k"))
+        FEATURE_64K: is_aarch64() and any(payload.match_available_packages("kernel-64k"))
     }
 
     return features
