@@ -32,7 +32,7 @@ import { HelpDrawer } from "./HelpDrawer.jsx";
 
 import { BossClient } from "../apis/boss.js";
 import { LocalizationClient } from "../apis/localization.js";
-import { StorageClient, startEventMonitorStorage } from "../apis/storage.js";
+import { StorageClient, initDataStorage, startEventMonitorStorage } from "../apis/storage.js";
 import { PayloadsClient } from "../apis/payloads";
 
 import { readBuildstamp, getIsFinal } from "../helpers/betanag.js";
@@ -62,6 +62,7 @@ export const Application = () => {
 
             setAddress(address);
 
+            initDataStorage({ dispatch });
             startEventMonitorStorage({ dispatch });
         });
 
@@ -100,7 +101,6 @@ export const Application = () => {
     if (!address || !conf) {
         return null;
     }
-    console.info("conf: ", conf);
 
     const title = cockpit.format("$0 installation", prettyName);
 

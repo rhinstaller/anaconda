@@ -25,6 +25,7 @@ export const storageInitialState = {
         selectedDisks: [],
         ignoredDisks: []
     },
+    partitioning: {}
 };
 
 /* Initial state for the localization store substate */
@@ -70,6 +71,10 @@ export const storageReducer = (state = storageInitialState, action) => {
         return { ...state, devices: { ...state.devices, ...action.payload.deviceData } };
     } else if (action.type === "GET_DISK_SELECTION") {
         return { ...state, diskSelection: action.payload.diskSelection };
+    } else if (action.type === "GET_PARTITIONING_DATA") {
+        const partitioning = { ...state.partitioning[action.payload.path], ...action.payload.partitioningData };
+
+        return { ...state, partitioning: { ...state.partitioning, [action.payload.path]: partitioning } };
     } else {
         return state;
     }

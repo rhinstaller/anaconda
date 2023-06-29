@@ -232,6 +232,9 @@ class Storage():
         else:
             self.browser.wait_visible(f"#{disk} + .pf-c-table__expandable-row.pf-m-expanded")
 
-    def check_disk_partition(self, disk, partition, fs_type, size):
-        self.browser.wait_in_text(f"#{disk} + .pf-c-table__expandable-row.pf-m-expanded tr:contains('{partition}') td[data-label=Type]", fs_type)
-        self.browser.wait_in_text(f"#{disk} + .pf-c-table__expandable-row.pf-m-expanded tr:contains('{partition}') td[data-label=Size]", size)
+    def check_disk_partition(self, disk, partition, fs_type=None, size=None):
+        self.browser.wait_visible(f"#{disk} + .pf-c-table__expandable-row.pf-m-expanded tr:contains('{partition}')")
+        if fs_type:
+            self.browser.wait_in_text(f"#{disk} + .pf-c-table__expandable-row.pf-m-expanded tr:contains('{partition}') td[data-label=Type]", fs_type)
+        if size:
+            self.browser.wait_in_text(f"#{disk} + .pf-c-table__expandable-row.pf-m-expanded tr:contains('{partition}') td[data-label=Size]", size)

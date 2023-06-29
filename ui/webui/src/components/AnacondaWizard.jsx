@@ -15,7 +15,7 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 import cockpit from "cockpit";
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 
 import {
     ActionList,
@@ -32,8 +32,9 @@ import {
     WizardContextConsumer,
 } from "@patternfly/react-core";
 
-import { InstallationDestination, applyDefaultStorage } from "./storage/InstallationDestination.jsx";
+import { InstallationDestination } from "./storage/InstallationDestination.jsx";
 import { StorageConfiguration, getScenario, getDefaultScenario } from "./storage/StorageConfiguration.jsx";
+import { CustomMountPoint } from "./storage/CustomMountPoint.jsx";
 import { DiskEncryption, StorageEncryptionState } from "./storage/DiskEncryption.jsx";
 import { InstallationLanguage } from "./localization/InstallationLanguage.jsx";
 import { InstallationProgress } from "./installation/InstallationProgress.jsx";
@@ -41,7 +42,8 @@ import { ReviewConfiguration, ReviewConfigurationConfirmModal } from "./review/R
 import { exitGui } from "../helpers/exit.js";
 import { usePageLocation } from "hooks";
 import {
-    resetPartitioning
+    applyStorage,
+    resetPartitioning,
 } from "../apis/storage.js";
 
 const _ = cockpit.gettext;
@@ -53,6 +55,11 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onAddE
     const [storageEncryption, setStorageEncryption] = useState(new StorageEncryptionState());
     const [showPassphraseScreen, setShowPassphraseScreen] = useState(false);
     const [storageScenarioId, setStorageScenarioId] = useState(window.sessionStorage.getItem("storage-scenario-id") || getDefaultScenario().id);
+    const lastPartitioning = useMemo(() => {
+        const lastPartitioningKey = Object.keys(storageData.partitioning || {}).find(path => parseInt(path[path.length - 1]) === Object.keys(storageData.partitioning).length);
+
+        return storageData.partitioning?.[lastPartitioningKey];
+    }, [storageData.partitioning]);
 
     // On live media rebooting the system will actually shut it off
     const isBootIso = conf["Installation System"].type === "BOOT_ISO";
@@ -75,18 +82,26 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onAddE
                 label: _("Storage devices")
             }, {
                 component: StorageConfiguration,
-                data: { selectedDisks: storageData.diskSelection.selectedDisks },
+                data: { deviceData: storageData.devices, diskSelection: storageData.diskSelection },
                 id: "storage-configuration",
                 label: _("Storage configuration")
             }, {
+                component: CustomMountPoint,
+                data: { deviceData: storageData.devices, partitioningData: lastPartitioning, dispatch },
+                id: "custom-mountpoint",
+                label: _("Custom mount point"),
+                isHidden: storageScenarioId !== "custom-mount-point"
+
+            }, {
                 component: DiskEncryption,
                 id: "disk-encryption",
-                label: _("Disk encryption")
+                label: _("Disk encryption"),
+                isHidden: storageScenarioId === "custom-mount-point"
             }]
         },
         {
             component: ReviewConfiguration,
-            data: { deviceData: storageData.devices, diskSelection: storageData.diskSelection },
+            data: { deviceData: storageData.devices, diskSelection: storageData.diskSelection, requests: lastPartitioning ? lastPartitioning.requests : null },
             id: "installation-review",
             label: _("Review and install"),
         },
@@ -101,7 +116,9 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onAddE
         for (const step of steps) {
             if (step.steps) {
                 for (const childStep of step.steps) {
-                    stepIds.push(childStep.id);
+                    if (childStep?.isHidden !== true) {
+                        stepIds.push(childStep.id);
+                    }
                 }
             } else {
                 stepIds.push(step.id);
@@ -126,7 +143,7 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onAddE
     };
 
     const createSteps = (stepsOrder) => {
-        const steps = stepsOrder.map((s, idx) => {
+        const steps = stepsOrder.filter(s => !s.isHidden).map(s => {
             let step = ({
                 id: s.id,
                 name: s.label,
@@ -181,6 +198,7 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onAddE
               id="installation-wizard"
               footer={<Footer
                 isFormValid={isFormValid}
+                partitioning={lastPartitioning?.path}
                 setIsFormValid={setIsFormValid}
                 setStepNotification={setStepNotification}
                 isInProgress={isInProgress}
@@ -209,6 +227,7 @@ const Footer = ({
     setIsFormValid,
     setStepNotification,
     isInProgress,
+    partitioning,
     setIsInProgress,
     storageEncryption,
     showPassphraseScreen,
@@ -230,7 +249,7 @@ const Footer = ({
             }
             setIsInProgress(true);
 
-            applyDefaultStorage({
+            applyStorage({
                 onFail: ex => {
                     console.error(ex);
                     setIsInProgress(false);
@@ -249,6 +268,25 @@ const Footer = ({
             });
         } else if (activeStep.id === "installation-review") {
             setNextWaitsConfirmation(true);
+        } else if (activeStep.id === "custom-mountpoint") {
+            setIsInProgress(true);
+
+            applyStorage({
+                partitioning,
+                onFail: ex => {
+                    console.error(ex);
+                    setIsInProgress(false);
+                    setStepNotification({ step: activeStep.id, ...ex });
+                },
+                onSuccess: () => {
+                    onNext();
+
+                    // Reset the state after the onNext call. Otherwise,
+                    // React will try to render the current step again.
+                    setIsInProgress(false);
+                    setStepNotification();
+                },
+            });
         } else {
             onNext();
         }

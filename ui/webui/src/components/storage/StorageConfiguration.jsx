@@ -49,7 +49,7 @@ import { HelpIcon } from "@patternfly/react-icons";
 
 import ExclamationTriangleIcon from "@patternfly/react-icons/dist/esm/icons/exclamation-triangle-icon";
 
-import { helpEraseAll, helpUseFreeSpace } from "./HelpAutopartOptions.jsx";
+import { helpEraseAll, helpUseFreeSpace, helpCustomMountPoint } from "./HelpAutopartOptions.jsx";
 import { AnacondaPage } from "../AnacondaPage.jsx";
 import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
 
@@ -141,6 +141,16 @@ const checkUseFreeSpace = async (selectedDisks, requiredSize) => {
     return availability;
 };
 
+const checkCustomMountPoint = async (selectedDisks, requiredSize, deviceData) => {
+    const availability = new AvailabilityState();
+
+    if (!selectedDisks.some(device => deviceData[device].children.v.some(child => deviceData[child].type.v === "partition"))) {
+        availability.available = false;
+        availability.reason = _("No existing partitions on the selected disks.");
+    }
+    return availability;
+};
+
 const scenarios = [{
     id: "erase-all",
     label: _("Erase data and install"),
@@ -169,6 +179,20 @@ const scenarios = [{
     dialogTitleIconVariant: "",
     dialogWarningTitle: _("Install on the free space?"),
     dialogWarning: _("The installation will use the available space on your devices and will not erase any device data."),
+}, {
+    id: "custom-mount-point",
+    label: _("Mount point assignment"),
+    default: false,
+    detail: helpCustomMountPoint,
+    check: checkCustomMountPoint,
+    // CLEAR_PARTITIONS_NONE = 0
+    initializationMode: 0,
+    buttonLabel: _("Apply mount point assignment and install"),
+    buttonVariant: "danger",
+    screenWarnings: "",
+    dialogTitleIconVariant: "",
+    dialogWarningTitle: _("Install on the custom mount points?"),
+    dialogWarning: _("The installation will use your configured partitioning layout."),
 }];
 
 export const getScenario = (scenarioId) => {
@@ -222,7 +246,7 @@ const predefinedStorageInfo = (
 );
 
 // TODO add aria items
-const GuidedPartitioning = ({ idPrefix, scenarios, selectedDisks, storageScenarioId, setStorageScenarioId, setIsFormValid }) => {
+const GuidedPartitioning = ({ deviceData, selectedDisks, idPrefix, scenarios, storageScenarioId, setStorageScenarioId, setIsFormValid }) => {
     const [selectedScenario, setSelectedScenario] = useState();
     const [scenarioAvailability, setScenarioAvailability] = useState(Object.fromEntries(
         scenarios.map((s) => [s.id, new AvailabilityState()])
@@ -237,7 +261,7 @@ const GuidedPartitioning = ({ idPrefix, scenarios, selectedDisks, storageScenari
             let selectedScenarioId = "";
             let availableScenarioExists = false;
             for await (const scenario of scenarios) {
-                const availability = await scenario.check(selectedDisks, requiredSize).catch(console.error);
+                const availability = await scenario.check(selectedDisks, requiredSize, deviceData).catch(console.error);
                 setScenarioAvailability(ss => ({ ...ss, [scenario.id]: availability }));
                 if (availability.available) {
                     availableScenarioExists = true;
@@ -256,7 +280,7 @@ const GuidedPartitioning = ({ idPrefix, scenarios, selectedDisks, storageScenari
         };
 
         updateScenarioState(scenarios);
-    }, [scenarios, setIsFormValid, storageScenarioId, selectedDisks]);
+    }, [scenarios, deviceData, selectedDisks, setIsFormValid, storageScenarioId]);
 
     useEffect(() => {
         const applyScenario = async (scenarioId) => {
@@ -366,16 +390,17 @@ const GuidedPartitioning = ({ idPrefix, scenarios, selectedDisks, storageScenari
     );
 };
 
-export const StorageConfiguration = ({ idPrefix, selectedDisks, setIsFormValid, storageScenarioId, setStorageScenarioId }) => {
+export const StorageConfiguration = ({ deviceData, diskSelection, idPrefix, setIsFormValid, storageScenarioId, setStorageScenarioId }) => {
     return (
         <AnacondaPage title={_("Select a storage configuration")}>
             <TextContent>
                 {_("Configure the partitioning scheme to be used on the selected disks.")}
             </TextContent>
             <GuidedPartitioning
+              deviceData={deviceData}
+              selectedDisks={diskSelection.selectedDisks}
               idPrefix={idPrefix}
               scenarios={scenarios}
-              selectedDisks={selectedDisks}
               setIsFormValid={setIsFormValid}
               storageScenarioId={storageScenarioId}
               setStorageScenarioId={setStorageScenarioId}

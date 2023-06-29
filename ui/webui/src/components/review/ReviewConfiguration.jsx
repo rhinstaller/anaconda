@@ -26,6 +26,7 @@ import {
     DataListToggle,
     DataListItemRow, DataListItemCells,
     DataListCell,
+    DataListContent,
     DescriptionList, DescriptionListGroup,
     DescriptionListTerm, DescriptionListDescription,
     ExpandableSection,
@@ -37,6 +38,7 @@ import {
 import {
     getAppliedPartitioning,
     getPartitioningRequest,
+    getPartitioningMethod,
 } from "../../apis/storage.js";
 
 import {
@@ -45,6 +47,9 @@ import {
 import { AnacondaPage } from "../AnacondaPage.jsx";
 
 import { getScenario } from "../storage/StorageConfiguration.jsx";
+import { CheckCircleIcon } from "@patternfly/react-icons";
+
+import { ListingTable } from "cockpit-components-table.jsx";
 
 import "./ReviewConfiguration.scss";
 
@@ -68,15 +73,31 @@ export const ReviewDescriptionList = ({ children }) => {
     );
 };
 
-const DeviceRow = ({ name, data }) => {
+const DeviceRow = ({ data, requests }) => {
+    const name = data.name.v;
     const [isExpanded, setIsExpanded] = useState(false);
+
+    const renderRow = row => {
+        const iconColumn = row.reformat.v ? <CheckCircleIcon /> : null;
+        return {
+            props: { key: row["device-spec"] },
+            columns: [
+                { title: row["device-spec"] },
+                { title: row["format-type"] },
+                { title: row["mount-point"] },
+                { title: iconColumn },
+            ]
+        };
+    };
+
+    const partitionRows = requests?.filter(req => req["device-spec"].includes(name)).map(renderRow) || [];
 
     return (
         <DataListItem id={`data-list-${name}`} isExpanded={isExpanded} key={name}>
             <DataListItemRow>
                 <DataListToggle
-                  buttonProps={{ isDisabled: true }}
-                  onClick={() => setIsExpanded(!isExpanded)}
+                  buttonProps={{ isDisabled: requests === null }}
+                  onClick={() => requests !== null ? setIsExpanded(!isExpanded) : {}}
                   isExpanded={isExpanded}
                   id={name + "-expander"}
                 />
@@ -94,11 +115,20 @@ const DeviceRow = ({ name, data }) => {
                   ]}
                 />
             </DataListItemRow>
+            <DataListContent isHidden={!isExpanded}>
+                <ListingTable
+                  id="partitions-table"
+                  aria-label={_("Disk partitions")}
+                  emptyCaption={_("No partitions found")}
+                  variant="compact"
+                  columns={[_("Partition"), _("Format type"), _("Mount point"), _("Reformat")]}
+                  rows={partitionRows} />
+            </DataListContent>
         </DataListItem>
     );
 };
 
-export const ReviewConfiguration = ({ deviceData, diskSelection, idPrefix, storageScenarioId }) => {
+export const ReviewConfiguration = ({ deviceData, diskSelection, requests, idPrefix, storageScenarioId }) => {
     const [systemLanguage, setSystemLanguage] = useState();
     const [encrypt, setEncrypt] = useState();
     const [showLanguageSection, setShowLanguageSection] = useState(true);
@@ -112,8 +142,11 @@ export const ReviewConfiguration = ({ deviceData, diskSelection, idPrefix, stora
         };
         const initializeEncrypt = async () => {
             const partitioning = await getAppliedPartitioning().catch(console.error);
-            const request = await getPartitioningRequest({ partitioning }).catch(console.error);
-            setEncrypt(request.encrypted.v);
+            const method = await getPartitioningMethod({ partitioning }).catch(console.error);
+            if (method === "AUTOMATIC") {
+                const request = await getPartitioningRequest({ partitioning }).catch(console.error);
+                setEncrypt(request.encrypted.v);
+            }
         };
         initializeLanguage();
         initializeEncrypt();
@@ -168,19 +201,22 @@ export const ReviewConfiguration = ({ deviceData, diskSelection, idPrefix, stora
                         <DescriptionListDescription className="description-list-description" id={idPrefix + "-target-system-mode"}>
                             {getScenario(storageScenarioId).label}
                         </DescriptionListDescription>
-                        <DescriptionListTerm className="description-list-term">
-                            {_("Disk Encryption")}
-                        </DescriptionListTerm>
-                        <DescriptionListDescription className="description-list-description" id={idPrefix + "-target-system-encrypt"}>
-                            {encrypt ? _("Enabled") : _("Disabled")}
-                        </DescriptionListDescription>
+                        {storageScenarioId !== "custom-mount-point" &&
+                        <>
+                            <DescriptionListTerm className="description-list-term">
+                                {_("Disk Encryption")}
+                            </DescriptionListTerm>
+                            <DescriptionListDescription className="description-list-description" id={idPrefix + "-target-system-encrypt"}>
+                                {encrypt ? _("Enabled") : _("Disabled")}
+                            </DescriptionListDescription>
+                        </>}
                     </DescriptionListGroup>
                 </ReviewDescriptionList>
                 <Title className="storage-devices-configuration-title" headingLevel="h4">{_("Storage devices and configurations")}</Title>
                 <DataList isCompact>
-                    {diskSelection.selectedDisks.map(deviceName =>
-                        <DeviceRow key={deviceName} name={deviceName} data={deviceData[deviceName]} />
-                    )}
+                    {diskSelection.selectedDisks.map(disk => {
+                        return <DeviceRow key={disk} data={deviceData[disk]} requests={storageScenarioId === "custom-mount-point" ? requests : null} />;
+                    })}
                 </DataList>
             </ExpandableSection>
         </AnacondaPage>
