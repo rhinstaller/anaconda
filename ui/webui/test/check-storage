@@ -301,6 +301,8 @@ class TestStorageExtraDisks(anacondalib.VirtInstallMachineCase):
         i.open()
         i.next()
 
+        s.check_disk_selected("vda", True)
+
         s.rescan_disks()
 
         s.check_disk_visible("vda")

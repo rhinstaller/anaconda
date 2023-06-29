@@ -223,9 +223,6 @@ const LocalStandardDisks = ({ deviceData, diskSelection, dispatch, idPrefix, set
     }, [selectedDisksCnt, setIsFormValid]);
 
     const loading = !deviceData || diskSelection.usableDisks.some(disk => !deviceData[disk]);
-    if (loading) {
-        return <EmptyStatePanel loading />;
-    }
 
     const localDisksInfo = (
         <Popover
@@ -246,6 +243,7 @@ const LocalStandardDisks = ({ deviceData, diskSelection, dispatch, idPrefix, set
     const rescanDisksButton = (
         <Button
           aria-label={_("Detect disks")}
+          isDisabled={isRescanningDisks || loading}
           id={idPrefix + "-rescan-disks"}
           variant="secondary"
           onClick={() => {
@@ -442,7 +440,8 @@ const LocalStandardDisks = ({ deviceData, diskSelection, dispatch, idPrefix, set
                           actionClose={<AlertActionCloseButton onClose={() => { setEqualDisksNotify(false) }} />}
                         />}
                     {localDisksToolbar}
-                    {localDisksTable}
+                    {!loading && localDisksTable}
+                    {loading && <EmptyStatePanel loading />}
                 </FormGroup>
             </FormSection>
         </Form>
