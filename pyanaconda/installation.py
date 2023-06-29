@@ -153,9 +153,9 @@ class RunInstallationTask(InstallationTask):
 
         configuration_queue.append(os_config)
 
+        overwrite = payload.type in PAYLOAD_LIVE_TYPES
         # schedule network configuration (if required)
         if conf.target.can_configure_network and conf.system.provides_network_config:
-            overwrite = payload.type in PAYLOAD_LIVE_TYPES
             network_config = TaskQueue(
                 "Network configuration",
                 _("Writing network configuration")
@@ -166,6 +166,18 @@ class RunInstallationTask(InstallationTask):
                 (overwrite, )
             ))
             configuration_queue.append(network_config)
+        # schedule hostname configuration (if required)
+        if conf.system.can_change_hostname:
+            hostname_config = TaskQueue(
+                "Hostname configuration",
+                _("Writing hostname configuration")
+            )
+            hostname_config.append(Task(
+                "Hostname configuration",
+                network.write_configuration_hostname,
+                (overwrite, )
+            ))
+            configuration_queue.append(hostname_config)
 
         # add installation tasks for the Users DBus module
         if is_module_available(USERS):

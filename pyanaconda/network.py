@@ -54,7 +54,7 @@ _nm_client = None
 __all__ = ["get_supported_devices", "status_message", "wait_for_connectivity",
            "wait_for_connecting_NM_thread", "wait_for_network_devices", "wait_for_connected_NM",
            "initialize_network", "prefix_to_netmask", "netmask_to_prefix", "get_first_ip_address",
-           "is_valid_hostname", "check_ip_address", "get_nm_client", "write_configuration"]
+           "is_valid_hostname", "check_ip_address", "get_nm_client", "write_configuration", "write_configuration_hostname"]
 
 
 def get_nm_client():
@@ -273,6 +273,10 @@ def write_configuration(overwrite=False):
     task_proxy = NETWORK.get_proxy(task_path)
     sync_run_task(task_proxy)
 
+
+def write_configuration_hostname(overwrite=False):
+    """Install hostname configuration to target system."""
+    network_proxy = NETWORK.get_proxy()
     task_path = network_proxy.ConfigureHostnameWithTask(overwrite)
     task_proxy = NETWORK.get_proxy(task_path)
     sync_run_task(task_proxy)
