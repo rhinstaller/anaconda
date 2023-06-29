@@ -213,12 +213,7 @@ const LocalStandardDisks = ({ deviceData, diskSelection, dispatch, idPrefix, set
     const totalDisksCnt = diskSelection.usableDisks.length;
     const selectedDisksCnt = diskSelection.selectedDisks.length;
 
-    // When the selected disks change in the UI, update in the backend as well
     useEffect(() => {
-        // Do not update on the inital value, wait for initialization by the other effect
-        if (refUsableDisks.current === undefined) {
-            return;
-        }
         setIsFormValid(selectedDisksCnt > 0);
     }, [selectedDisksCnt, setIsFormValid]);
 
