@@ -202,7 +202,7 @@ class Anaconda(object):
 
         # this boot option is meant to be temporary, so just check it directly
         # from kernel boot command line like this
-        if "webui" in kernel_arguments:
+        if "webui" in kernel_arguments or os.path.exists("/usr/share/cockpit/anaconda-webui"):
             from pyanaconda.ui.webui import CockpitUserInterface
             self._intf = CockpitUserInterface(
                 None,
