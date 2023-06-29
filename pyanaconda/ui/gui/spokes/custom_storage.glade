@@ -1167,6 +1167,8 @@
                                             <property name="visibility">False</property>
                                             <property name="invisible_char">●</property>
                                             <signal name="activate" handler="on_unlock_clicked" swapped="no"/>
+                                            <signal name="icon-release" handler="on_passphrase_icon_clicked" swapped="no"/>
+                                            <signal name="map" handler="on_passphrase_entry_map" swapped="no"/>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
