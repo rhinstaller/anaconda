@@ -85,8 +85,6 @@ class SoftwareSpoke(NormalTUISpoke):
         payloadMgr.add_listener(PayloadState.STARTED, self._payload_start)
         payloadMgr.add_listener(PayloadState.ERROR, self._payload_error)
 
-        self.shown_environment = False
-
     def initialize(self):
         """Initialize the spoke."""
         super().initialize()
