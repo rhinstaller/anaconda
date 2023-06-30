@@ -27,20 +27,20 @@ class SoftwareUITestCase(unittest.TestCase):
         assert get_kernel_from_properties(KernelFeatures(upstream=True, page_size_64k=True)) == "kernel-redhat-64k"
 
     @patch("pyanaconda.payload.dnf.payload")
-    @patch("pyanaconda.ui.lib.software.is_arm")
-    def test_get_available_kernel_features(self, is_arm, payload):
+    @patch("pyanaconda.ui.lib.software.is_aarch64")
+    def test_get_available_kernel_features(self, is_aarch64, payload):
         payload.match_available_packages.return_value = ["ntoskrnl"]
-        is_arm.return_value = False
+        is_aarch64.return_value = False
 
         res = get_available_kernel_features(payload)
         assert isinstance(res, dict)
         assert len(res) > 0
         assert res["upstream"]
         assert res["64k"] is False
-        is_arm.assert_called_once()
+        is_aarch64.assert_called_once()
 
-        is_arm.return_value = True
-        assert is_arm()
+        is_aarch64.return_value = True
+        assert is_aarch64()
         res = get_available_kernel_features(payload)
         assert res["upstream"]
         assert res["64k"]
