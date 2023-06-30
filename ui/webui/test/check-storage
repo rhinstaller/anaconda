@@ -368,6 +368,9 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
     def select_mountpoint(self, i ,s, disks, expected_partitions):
         i.open()
         i.next()
+
+        s.check_disk_visible("vda")
+
         s.rescan_disks()
         for disk in disks:
             dev = disk.split('/')[-1]
@@ -399,6 +402,15 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
 
     def check_partition(self, row, partition):
         self.browser.wait_in_text(f"#custom-mountpoint-table tbody tr:nth-child({row}) td[data-label='Partition']", partition)
+
+    def unlock_device(self, passphrase, xfail=None):
+        self.browser.wait_visible("#unlock-device-dialog")
+        self.browser.set_input_text("#unlock-device-dialog-luks-password", passphrase)
+        self.browser.click("#unlock-device-dialog-submit-btn")
+        if xfail:
+            self.browser.wait_in_text("#unlock-device-dialog .pf-c-alert", xfail)
+            self.browser.click("#unlock-device-dialog-cancel-btn")
+        self.browser.wait_not_present("#unlock-device-dialog")
 
     def select_reformat(self, row):
         self.browser.set_checked(f"#custom-mountpoint-table tbody tr:nth-child({row}) td[data-label='Reformat'] input", True)
@@ -636,6 +648,61 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         r.check_disk_row(disk, row, "Partition", f"/dev/vdb{row}")
         r.check_disk_row(disk, row, "Format type", "xfs")
         r.check_disk_row(disk, row, "Mount point", "/home")
+
+    def testEncryptedUnlock(self):
+        b = self.browser
+        m = self.machine
+        i = Installer(b, m)
+        s = Storage(b, m)
+        r = Review(b)
+
+        m.add_disk(10)
+
+        # BIOS boot partition, /boot partition, /
+        disk1 = "/dev/vda"
+        m.execute(f"""
+        sgdisk --zap-all {disk1}
+        sgdisk --new=0:0:+1MiB -t 0:ef02 {disk1}
+        sgdisk --new=0:0:+1GiB {disk1}
+        sgdisk --new=0:0:0 {disk1}
+        mkfs.xfs {disk1}2
+        mkfs.xfs {disk1}3
+        """)
+
+
+        disk2 = "vdb"
+        m.execute(f"""
+        sgdisk --zap-all /dev/{disk2}
+        sgdisk --new=0:0 /dev/{disk2}
+        echo einszweidrei | cryptsetup luksFormat /dev/{disk2}1
+        echo einszweidrei | cryptsetup luksOpen /dev/{disk2}1 encrypted-vol
+        mkfs.xfs /dev/mapper/encrypted-vol
+        cryptsetup luksClose encrypted-vol
+        """)
+        self.udevadm_settle()
+
+        partitions = {}
+        partitions[disk1] = [f"{disk1}2", f"{disk1}3"]
+        partitions[disk2] = [f"{disk2}1"]
+        self.select_mountpoint(i, s, [disk1, disk2], partitions)
+
+        self.unlock_device("1234", "Failed to unlock LUKS partition")
+
+        b.click("#custom-mountpoint-table tbody tr:nth-child(4) td[data-label='Format type'] #unlock-luks-btn")
+        self.unlock_device("einszweidrei")
+        b.wait_not_present("#custom-mountpoint-table tbody tr:nth-child(4) td[data-label='Format type'] #unlock-luks-btn")
+
+        self.check_partition(4, "/dev/mapper/luks")
+        self.check_format_type(4, "xfs")
+
+        self.select_from_dropdown(2, "boot", "/boot")
+        self.select_from_dropdown(3, "root", "/")
+        self.select_from_dropdown(4, "home", "/home")
+
+        i.next()
+
+        r.expand_disk_table(disk2)
+        r.check_disk_row(disk2, 1, "Partition", "/dev/mapper/luks")
 
 if __name__ == '__main__':
     test_main()

@@ -149,17 +149,19 @@ export const Application = () => {
                 })}
             </AlertGroup>}
             <AddressContext.Provider value={address}>
-                <AnacondaWizard
-                  isBootIso={isBootIso}
-                  onAddErrorNotification={onAddErrorNotification}
-                  toggleContextHelp={toggleContextHelp}
-                  hideContextHelp={() => setIsHelpExpanded(false)}
-                  title={title}
-                  storageData={state.storage}
-                  localizationData={state.localization}
-                  dispatch={dispatch}
-                  conf={conf}
-                />
+                <WithDialogs>
+                    <AnacondaWizard
+                      isBootIso={isBootIso}
+                      onAddErrorNotification={onAddErrorNotification}
+                      toggleContextHelp={toggleContextHelp}
+                      hideContextHelp={() => setIsHelpExpanded(false)}
+                      title={title}
+                      storageData={state.storage}
+                      localizationData={state.localization}
+                      dispatch={dispatch}
+                      conf={conf}
+                    />
+                </WithDialogs>
             </AddressContext.Provider>
         </Page>
     );

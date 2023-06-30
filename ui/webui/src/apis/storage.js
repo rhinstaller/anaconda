@@ -83,6 +83,20 @@ export const getAllDiskSelection = () => {
 };
 
 /**
+ * @param {string} deviceName   A device name
+ * @param {string} password     A password
+ *
+ * @returns {Promise}           Resolves true if success otherwise false
+ */
+export const unlockDevice = ({ deviceName, passphrase }) => {
+    return new StorageClient().client.call(
+        "/org/fedoraproject/Anaconda/Modules/Storage/DeviceTree",
+        "org.fedoraproject.Anaconda.Modules.Storage.DeviceTree.Handler",
+        "UnlockDevice", [deviceName, passphrase]
+    );
+};
+
+/**
  * @param {string} disk         A device name
  *
  * @returns {Promise}           Resolves an object with the device data
