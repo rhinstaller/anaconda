@@ -245,6 +245,9 @@ class DeviceFormatData(DBusData):
         Attributes for file systems:
             mount-point
 
+        Attributes for LUKS:
+            has_key
+
         :return: a dictionary of attributes
         """
         return self._attrs
