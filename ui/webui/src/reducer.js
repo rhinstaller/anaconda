@@ -30,6 +30,7 @@ export const storageInitialState = {
 
 /* Initial state for the localization store substate */
 export const localizationInitialState = {
+    language: "",
     languages: {},
     commonLocales: []
 };
@@ -85,6 +86,8 @@ export const localizationReducer = (state = localizationInitialState, action) =>
         return { ...state, languages: { ...state.languages, ...action.payload.languageData } };
     } else if (action.type === "GET_COMMON_LOCALES") {
         return { ...state, commonLocales: action.payload.commonLocales };
+    } else if (action.type === "GET_LANGUAGE") {
+        return { ...state, language: action.payload.language };
     } else {
         return state;
     }

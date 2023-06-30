@@ -61,13 +61,23 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onAddE
         return storageData.partitioning?.[lastPartitioningKey];
     }, [storageData.partitioning]);
 
+    const language = useMemo(() => {
+        for (const l of Object.keys(localizationData.languages)) {
+            const locale = localizationData.languages[l].locales.find(locale => locale["locale-id"].v === localizationData.language);
+
+            if (locale) {
+                return locale;
+            }
+        }
+    }, [localizationData]);
+
     // On live media rebooting the system will actually shut it off
     const isBootIso = conf["Installation System"].type === "BOOT_ISO";
 
     const stepsOrder = [
         {
             component: InstallationLanguage,
-            data: { dispatch, languages: localizationData.languages, commonLocales: localizationData.commonLocales },
+            data: { dispatch, languages: localizationData.languages, language: localizationData.language, commonLocales: localizationData.commonLocales },
             id: "installation-language",
             label: _("Welcome"),
         },
@@ -101,7 +111,12 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onAddE
         },
         {
             component: ReviewConfiguration,
-            data: { deviceData: storageData.devices, diskSelection: storageData.diskSelection, requests: lastPartitioning ? lastPartitioning.requests : null },
+            data: {
+                deviceData: storageData.devices,
+                diskSelection: storageData.diskSelection,
+                requests: lastPartitioning ? lastPartitioning.requests : null,
+                language
+            },
             id: "installation-review",
             label: _("Review and install"),
         },

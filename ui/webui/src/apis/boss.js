@@ -71,7 +71,6 @@ export const installWithTasks = () => {
  * @param {string} locale       Locale id
  */
 export const setLocale = ({ locale }) => {
-    console.info({ locale });
     return new BossClient().client.call(
         "/org/fedoraproject/Anaconda/Boss",
         "org.fedoraproject.Anaconda.Boss",

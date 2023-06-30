@@ -17,6 +17,7 @@
 
 import {
     getCommonLocales,
+    getLanguage,
     getLanguages,
     getLanguageData,
     getLocales,
@@ -41,6 +42,17 @@ export const getLanguageDataAction = ({ language }) => {
         return dispatch({
             type: "GET_LANGUAGE_DATA",
             payload: { languageData: { [language]: { languageData, locales } } }
+        });
+    };
+};
+
+export const getLanguageAction = () => {
+    return async function fetchUserThunk (dispatch) {
+        const language = await getLanguage();
+
+        return dispatch({
+            type: "GET_LANGUAGE",
+            payload: { language }
         });
     };
 };
