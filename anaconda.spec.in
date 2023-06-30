@@ -411,6 +411,13 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jun 30 2023 Jiri Konecny <jkonecny@redhat.com> - 34.25.3.6-1
+- Remove unused variable in TUI software selection (ozobal)
+  Related: rhbz#2214266
+  Related: rhbz#2164819
+- Fix aarch64 architecture detection (jstodola)
+  Resolves: rhbz#2164819
+
 * Mon Jun 26 2023 Jiri Konecny <jkonecny@redhat.com> - 34.25.3.5-1
 - Add option for installing RedHat kernel (ozobal)
   Related: rhbz#2164819
