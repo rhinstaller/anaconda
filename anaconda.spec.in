@@ -471,6 +471,25 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jul 03 2023 github-actions <github-actions@github.com> - 39.23-1
+- webui: store system language information in the global store (kkoukiou)
+- webui: Start Web UI when the anaconda-webui package is installed (mkolman)
+- webui: remove redundant console.info (kkoukiou)
+- webui: always disable next button if the form is invalid (kkoukiou)
+- webui: when re-scanning disks or loading initial date disable the re-scan
+  button (kkoukiou)
+- webui: mount point assignment support (jvanderwaa)
+- webui: remove forgotten console.info object (kkoukiou)
+- WebUI: Change help drawer width (ozobal)
+- webui: show empty state while the selected scenario is not available
+  (kkoukiou)
+- webui: the value we want to take effect should be last in destructured object
+  (kkoukiou)
+- Fix cppcheck failure on gettext.h (jkonecny)
+- Inline testlib.sh file (jkonecny)
+- webui: Make RPM building DNF5 compatible (mkolman)
+- Allow showing passphrase when unlocking LUKS device (jstodola)
+
 * Tue Jun 27 2023 github-actions <github-actions@github.com> - 39.22-1
 - Update the bundled cockpit-desktop script (martin.kolman)
 - Revert "Revert "webui: start using custom webui-desktop script instead of
