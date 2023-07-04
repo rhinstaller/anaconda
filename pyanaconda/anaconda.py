@@ -147,6 +147,15 @@ class Anaconda(object):
         """Report if Anaconda should run with the TUI."""
         return self._display_mode == DisplayModes.TUI
 
+    @property
+    def webui_mode(self):
+        """Report if Anaconda should run with WebUI."""
+        # this boot option is meant to be temporary, so just check it directly
+        # from kernel boot command line like this
+        return self.display_mode == DisplayModes.WEBUI \
+            or "webui" in kernel_arguments \
+            or os.path.exists("/usr/share/cockpit/anaconda-webui")
+
     def log_display_mode(self):
         if not self.display_mode:
             log.error("Display mode is not set!")
@@ -200,9 +209,7 @@ class Anaconda(object):
         if self._intf:
             raise RuntimeError("Second attempt to initialize the InstallInterface")
 
-        # this boot option is meant to be temporary, so just check it directly
-        # from kernel boot command line like this
-        if "webui" in kernel_arguments or os.path.exists("/usr/share/cockpit/anaconda-webui"):
+        if self.webui_mode:
             from pyanaconda.ui.webui import CockpitUserInterface
             self._intf = CockpitUserInterface(
                 None,
