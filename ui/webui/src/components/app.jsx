@@ -25,10 +25,12 @@ import {
 
 import { read_os_release as readOsRelease } from "os-release.js";
 
+import { WithDialogs } from "dialogs.jsx";
 import { AddressContext, LanguageContext } from "./Common.jsx";
 import { AnacondaHeader } from "./AnacondaHeader.jsx";
 import { AnacondaWizard } from "./AnacondaWizard.jsx";
 import { HelpDrawer } from "./HelpDrawer.jsx";
+import { CriticalError } from "./Error.jsx";
 
 import { BossClient } from "../apis/boss.js";
 import { LocalizationClient, startEventMonitorLocalization } from "../apis/localization.js";
@@ -41,6 +43,7 @@ import { useReducerWithThunk, reducer, initialState } from "../reducer.js";
 
 export const Application = () => {
     const [address, setAddress] = useState();
+    const [criticalError, setCriticalError] = useState();
     const [beta, setBeta] = useState();
     const [conf, setConf] = useState();
     const [language, setLanguage] = useState();
@@ -52,6 +55,7 @@ export const Application = () => {
 
     useEffect(() => {
         cockpit.file("/run/anaconda/bus.address").watch(address => {
+            setCriticalError();
             const clients = [
                 new LocalizationClient(address),
                 new StorageClient(address),
@@ -62,7 +66,7 @@ export const Application = () => {
 
             setAddress(address);
 
-            initDataStorage({ dispatch });
+            initDataStorage({ dispatch }).catch(setCriticalError);
             startEventMonitorStorage({ dispatch });
 
             startEventMonitorLocalization({ dispatch });
@@ -70,12 +74,12 @@ export const Application = () => {
 
         readConf().then(
             setConf,
-            ex => console.error("Failed to parse anaconda configuration")
+            setCriticalError
         );
 
         readBuildstamp().then(
             buildstamp => setBeta(!getIsFinal(buildstamp)),
-            ex => console.error("Failed to parse anaconda buildstamp file")
+            setCriticalError
         );
 
         readOsRelease().then(osRelease => setPrettyName(osRelease.PRETTY_NAME));
@@ -104,6 +108,9 @@ export const Application = () => {
         console.debug("Loading initial data...");
         return null;
     }
+
+    // On live media rebooting the system will actually shut it off
+    const isBootIso = conf["Installation System"].type === "BOOT_ISO";
 
     const title = cockpit.format("$0 installation", prettyName);
 
@@ -142,6 +149,7 @@ export const Application = () => {
             </AlertGroup>}
             <AddressContext.Provider value={address}>
                 <AnacondaWizard
+                  isBootIso={isBootIso}
                   onAddErrorNotification={onAddErrorNotification}
                   toggleContextHelp={toggleContextHelp}
                   hideContextHelp={() => setIsHelpExpanded(false)}
@@ -156,14 +164,17 @@ export const Application = () => {
     );
 
     return (
-        <LanguageContext.Provider value={{ language, setLanguage }}>
-            <HelpDrawer
-              isExpanded={isHelpExpanded}
-              setIsExpanded={setIsHelpExpanded}
-              helpContent={helpContent}
-            >
-                {page}
-            </HelpDrawer>
-        </LanguageContext.Provider>
+        <WithDialogs>
+            {criticalError && <CriticalError exception={criticalError} isBootIso={isBootIso} />}
+            <LanguageContext.Provider value={{ language, setLanguage }}>
+                <HelpDrawer
+                  isExpanded={isHelpExpanded}
+                  setIsExpanded={setIsHelpExpanded}
+                  helpContent={helpContent}
+                >
+                    {page}
+                </HelpDrawer>
+            </LanguageContext.Provider>
+        </WithDialogs>
     );
 };

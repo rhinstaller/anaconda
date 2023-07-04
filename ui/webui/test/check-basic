@@ -18,6 +18,7 @@
 import anacondalib
 
 from installer import Installer
+from language import Language
 from testlib import nondestructive, test_main  # pylint: disable=import-error
 
 
@@ -68,6 +69,27 @@ class TestQuit(anacondalib.VirtInstallMachineCase):
 
         i.open()
         i.quit()
+        m.wait_poweroff()
+
+
+    # TODO: Try converting this to a non-destructive test
+    def testErrorHandling(self):
+        b = self.browser
+        m = self.machine
+        i = Installer(b, m)
+        l = Language(b, m)
+
+        i.open()
+
+        l.locale_option_visible('de_DE')
+        b.wait_not_present("#critical-error-modal")
+
+        # Mess up the anaconda bus address and make sure we get a critical error
+        m.execute("cp /run/anaconda/bus.address /tmp/; echo trash > /run/anaconda/bus.address")
+        b.wait_visible("#critical-error-modal")
+
+        # Exit installer
+        b.click("#critical-error-modal .pf-c-button.pf-m-secondary")
         m.wait_poweroff()
 
 if __name__ == '__main__':
