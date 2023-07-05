@@ -14,12 +14,12 @@
 #
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program; If not, see <http://www.gnu.org/licenses/>.
-from collections import UserList
+from collections import UserDict
 from time import sleep
 from step_logger import log_step
 
 
-class InstallerSteps(UserList):
+class InstallerSteps(UserDict):
     WELCOME = "installation-language"
     STORAGE_DEVICES = "storage-devices"
     STORAGE_CONFIGURATION = "storage-configuration"
@@ -27,11 +27,15 @@ class InstallerSteps(UserList):
     DISK_ENCRYPTION = "disk-encryption"
     REVIEW = "installation-review"
     PROGRESS = "installation-progress"
-    _steps_list = (WELCOME, STORAGE_DEVICES, STORAGE_CONFIGURATION, DISK_ENCRYPTION, REVIEW, PROGRESS)
 
-    def __init__(self, initlist=_steps_list):
-        super().__init__(initlist)
-
+    _steps_jump = {}
+    _steps_jump[WELCOME] = STORAGE_DEVICES
+    _steps_jump[STORAGE_DEVICES] = STORAGE_CONFIGURATION
+    _steps_jump[STORAGE_CONFIGURATION] = [DISK_ENCRYPTION, CUSTOM_MOUNT_POINT]
+    _steps_jump[DISK_ENCRYPTION] = REVIEW
+    _steps_jump[CUSTOM_MOUNT_POINT] = REVIEW
+    _steps_jump[REVIEW] = PROGRESS
+    _steps_jump[PROGRESS] = []
 
 class Installer():
     def __init__(self, browser, machine):
@@ -41,7 +45,8 @@ class Installer():
 
     @log_step(snapshot_before=True)
     def begin_installation(self, should_fail=False, confirm_erase=True):
-        current_step_id = self.get_current_page_id()
+        current_page = self.get_current_page()
+
         self.browser.click("button:contains('Erase data and install')")
 
         if confirm_erase:
@@ -50,15 +55,19 @@ class Installer():
             self.browser.click(".pf-c-modal-box button:contains(Back)")
 
         if should_fail:
-            self.wait_current_page(self.steps[current_step_id])
+            self.wait_current_page(current_page)
         else:
-            self.wait_current_page(self.steps[current_step_id+1])
+            self.wait_current_page(self.steps._steps_jump[current_page])
 
     @log_step()
     def next(self, should_fail=False, subpage=False, next_page=""):
-        current_step_id = self.get_current_page_id()
-        current_page = self.steps[current_step_id]
-        next_page = next_page or self.steps[current_step_id+1]
+        current_page = self.get_current_page()
+        # If not explicitly specified, get the first item for next page from the steps dict
+        if not next_page:
+            if type(self.steps._steps_jump[current_page]) is list:
+                next_page = self.steps._steps_jump[current_page][0]
+            else:
+                next_page = self.steps._steps_jump[current_page]
 
         # Wait for a disk to be pre-selected before clicking 'Next'.
         # FIXME: Find a better way.
@@ -66,7 +75,9 @@ class Installer():
             sleep(2)
 
         self.browser.click("button:contains(Next)")
-        self.wait_current_page(current_page if should_fail or subpage else next_page)
+        expected_page = current_page if should_fail or subpage else next_page
+        self.wait_current_page(expected_page)
+        return expected_page
 
     @log_step()
     def check_next_disabled(self, disabled=True):
@@ -80,22 +91,23 @@ class Installer():
 
     @log_step(snapshot_before=True)
     def back(self, should_fail=False, subpage=False):
-        current_step_id = self.get_current_page_id()
+        current_page = self.get_current_page()
+
         self.browser.click("button:contains(Back)")
 
         if should_fail or subpage:
-            self.wait_current_page(self.steps[current_step_id])
+            self.wait_current_page(current_page)
         else:
-            self.wait_current_page(self.steps[current_step_id-1])
+            prev = [k for k, v in self.steps._steps_jump.items() if current_page in v][0]
+            self.wait_current_page(prev)
 
     @log_step()
     def open(self, step="installation-language"):
         self.browser.open(f"/cockpit/@localhost/anaconda-webui/index.html#/{step}")
         self.wait_current_page(step)
 
-    def get_current_page_id(self):
-        page = self.browser.eval_js('window.location.hash;').replace('#/', '') or self.steps[0]
-        return self.steps.index(page)
+    def get_current_page(self):
+        return self.browser.eval_js('window.location.hash;').replace('#/', '') or self.steps[0]
 
     @log_step(snapshot_after=True)
     def wait_current_page(self, page):
