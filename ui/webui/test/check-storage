@@ -226,6 +226,53 @@ class TestStorage(anacondalib.VirtInstallMachineCase):
         # (there is enough free space)
         s.check_partitioning_selected("use-free-space")
 
+    def testPartitioningObject(self):
+        # Test which partitioning object ends up being the AppliedPartitioning
+        # when we go back and forward the storage steps
+
+        b = self.browser
+        i = Installer(b, self.machine)
+        s = Storage(b, self.machine)
+
+        self.addCleanup(s.dbus_reset_partitioning)
+
+        # Read partitioning data before we do anything
+        created_partitioning = s.dbus_get_created_partitioning()
+
+        # Go to Review step
+        i.open()
+        i.next()
+        i.next()
+        i.next()
+        i.next()
+
+        # Read partitioning data after we went to Review step
+        new_applied_partitioning = s.dbus_get_applied_partitioning()
+        new_created_partitioning = s.dbus_get_created_partitioning()
+
+        # A new AUTOMATIC partitioning object should be created each time the user enters the review page
+        self.assertEqual(len(created_partitioning) + 1, len(new_created_partitioning))
+        # The applied partitioning object should be the last one created
+        self.assertEqual(new_applied_partitioning, new_created_partitioning[-1])
+
+        created_partitioning = new_created_partitioning
+
+        # Create a few partitioning objects and ensure that these will not mess up with the user's
+        # configuration
+        for _ in range(10):
+            s.dbus_create_partitioning("AUTOMATIC")
+
+        # Go back to the previous page and re-enter the review screen.
+        # This should create again a new partitioning object and apply it
+        # no matter how many partitioning objects were created before
+        i.back()
+        i.next()
+        new_applied_partitioning = s.dbus_get_applied_partitioning()
+        new_created_partitioning = s.dbus_get_created_partitioning()
+
+        self.assertEqual(len(created_partitioning) + 11, len(new_created_partitioning))
+        self.assertEqual(new_applied_partitioning, new_created_partitioning[-1])
+
 
 # We can't run this test case on an existing machine,
 # with --machine because MachineCase is not aware of add_disk method

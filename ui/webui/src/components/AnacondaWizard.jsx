@@ -56,7 +56,7 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onAddE
     const [showPassphraseScreen, setShowPassphraseScreen] = useState(false);
     const [storageScenarioId, setStorageScenarioId] = useState(window.sessionStorage.getItem("storage-scenario-id") || getDefaultScenario().id);
     const lastPartitioning = useMemo(() => {
-        const lastPartitioningKey = Object.keys(storageData.partitioning || {}).find(path => parseInt(path[path.length - 1]) === Object.keys(storageData.partitioning).length);
+        const lastPartitioningKey = Object.keys(storageData.partitioning || {}).find(path => parseInt(path.match(/\d+$/)[0]) === Object.keys(storageData.partitioning).length);
 
         return storageData.partitioning?.[lastPartitioningKey];
     }, [storageData.partitioning]);
