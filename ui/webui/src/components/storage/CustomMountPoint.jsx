@@ -117,7 +117,7 @@ const MountpointCheckbox = ({ reformat, isRootMountPoint, handleCheckReFormat, p
     );
 };
 
-export const CustomMountPoint = ({ deviceData, partitioningData, dispatch, idPrefix, setIsFormValid, onAddErrorNotification, toggleContextHelp, stepNotification }) => {
+export const CustomMountPoint = ({ deviceData, diskSelection, partitioningData, dispatch, idPrefix, setIsFormValid, onAddErrorNotification, toggleContextHelp, stepNotification }) => {
     const [creatingPartitioning, setCreatingPartitioning] = useState(true);
     useEffect(() => {
         const validateMountPoints = requests => {
@@ -131,8 +131,13 @@ export const CustomMountPoint = ({ deviceData, partitioningData, dispatch, idPre
         validateMountPoints(partitioningData?.requests);
     }, [partitioningData?.requests, setIsFormValid]);
 
+    // If device selection changed since the last partitioning request redo the partitioning
+    const selectedDevicesPaths = diskSelection.selectedDisks.map(d => deviceData[d].path.v) || [];
+    const partitioningDevicesPaths = partitioningData?.requests.map(r => r["device-spec"]) || [];
+    const canReusePartitioning = selectedDevicesPaths.length === partitioningDevicesPaths.length && selectedDevicesPaths.every(d => partitioningDevicesPaths.includes(d));
+
     useEffect(() => {
-        if (partitioningData?.method === "MANUAL") {
+        if (canReusePartitioning) {
             setCreatingPartitioning(false);
         } else {
             /* Reset the bootloader drive before we schedule partitions
@@ -145,7 +150,7 @@ export const CustomMountPoint = ({ deviceData, partitioningData, dispatch, idPre
                     .then(() => createPartitioning({ method: "MANUAL" }))
                     .then(() => setCreatingPartitioning(false));
         }
-    }, [partitioningData?.method]);
+    }, [canReusePartitioning]);
 
     if (creatingPartitioning) {
         return <EmptyStatePanel loading />;

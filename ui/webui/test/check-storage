@@ -357,6 +357,9 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
     def check_format_type(self, row, format_type):
         self.browser.wait_in_text(f"#custom-mountpoint-table tbody tr:nth-child({row}) td[data-label='Format type']", format_type)
 
+    def check_partition(self, row, partition):
+        self.browser.wait_in_text(f"#custom-mountpoint-table tbody tr:nth-child({row}) td[data-label='Partition']", partition)
+
     def select_reformat(self, row):
         self.browser.set_checked(f"#custom-mountpoint-table tbody tr:nth-child({row}) td[data-label='Reformat'] input", True)
 
@@ -536,18 +539,34 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         self.udevadm_settle()
 
         partitions = {}
-        partitions[disk1] = [f"{disk1}2", f"{disk1}3"]
+
+        # Select first only vdb disk and verify that the partitioning request is correct
         partitions[disk2] = [f"{disk2}1"]
+        self.select_mountpoint(i, s, [disk2], partitions)
+
+        self.check_partition(1, "/dev/vdb1")
+
+        # Go back and change the disk selection. The partitioning should be re-created
+        b.click("button:contains(Back)")
+        b.click("button:contains(Back)")
+        b.click("button:contains(Back)")
+
+        partitions[disk1] = [f"{disk1}2", f"{disk1}3"]
         self.select_mountpoint(i, s, [disk1, disk2], partitions)
 
+        self.check_partition(1, "/dev/vda1")
+
+        self.check_partition(2, "/dev/vda2")
         self.check_format_type(2, "xfs")
         self.select_from_dropdown(2, "boot", "/boot")
         self.check_reformat(2, False)
 
+        self.check_partition(3, "/dev/vda3")
         self.check_format_type(3, "xfs")
         self.select_from_dropdown(3, "root", "/")
         self.check_reformat(3, True)
 
+        self.check_partition(4, "/dev/vdb1")
         self.check_format_type(4, "xfs")
         self.select_from_dropdown(4, "home", "/home")
         self.check_reformat(4, False)

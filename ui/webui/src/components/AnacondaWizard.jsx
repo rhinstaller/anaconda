@@ -97,7 +97,7 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onAddE
                 label: _("Storage configuration")
             }, {
                 component: CustomMountPoint,
-                data: { deviceData: storageData.devices, partitioningData: lastPartitioning, dispatch },
+                data: { deviceData: storageData.devices, diskSelection: storageData.diskSelection, partitioningData: lastPartitioning, dispatch },
                 id: "custom-mountpoint",
                 label: _("Custom mount point"),
                 isHidden: storageScenarioId !== "custom-mount-point"
