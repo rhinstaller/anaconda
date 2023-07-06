@@ -27,12 +27,26 @@ sys.path.append(os.path.join(os.path.dirname(TEST_DIR), "bots/machine"))
 from machine_install import VirtInstallMachine
 from testlib import MachineCase  # pylint: disable=import-error
 
+from storage import Storage
+
 
 class VirtInstallMachineCase(MachineCase):
     MachineCase.machine_class = VirtInstallMachine
 
     def setUp(self):
+        # FIXME: running this in destructive tests fails because the SSH session closes before this is run
+        if self.is_nondestructive():
+            self.addCleanup(self.rescanStorage)
+
         super().setUp()
 
         self.machine.execute("systemctl restart cockpit")
         self.allow_journal_messages('.*cockpit.bridge-WARNING: Could not start ssh-agent.*')
+
+    def rescanStorage(self):
+        # Ensures that anaconda has the latest storage configuration data
+        m = self.machine
+        b = self.browser
+        s = Storage(b, m)
+
+        s.dbus_scan_devices()

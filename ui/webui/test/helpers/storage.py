@@ -97,6 +97,18 @@ class Storage():
     def wait_no_disks_detected_not_present(self):
         self.browser.wait_not_present("#no-disks-detected-alert")
 
+    def dbus_scan_devices(self):
+        task = self.machine.execute(f'dbus-send --print-reply --bus="{self._bus_address}" \
+            --dest={STORAGE_SERVICE} \
+            {STORAGE_OBJECT_PATH} \
+            {STORAGE_INTERFACE}.ScanDevicesWithTask')
+        task = task.splitlines()[-1].split()[-1]
+
+        self.machine.execute(f'dbus-send --print-reply --bus="{self._bus_address}" \
+            --dest={STORAGE_SERVICE} \
+            {task} \
+            org.fedoraproject.Anaconda.Task.Start')
+
     def dbus_reset_partitioning(self):
         self.machine.execute(f'dbus-send --print-reply --bus="{self._bus_address}" \
             --dest={STORAGE_SERVICE} \
