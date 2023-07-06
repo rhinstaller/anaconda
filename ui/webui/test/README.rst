@@ -225,6 +225,8 @@ connect to the test VMs by typing `ssh test-updates`::
         Hostname 127.0.0.2
         Port 2201
         User root
+        StrictHostKeyChecking=no
+        UserKnownHostsFile=/dev/null
 
 Cockpit's CI
 ------------
