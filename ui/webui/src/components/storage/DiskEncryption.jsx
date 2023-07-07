@@ -19,6 +19,7 @@ import cockpit from "cockpit";
 import React, { useState, useEffect } from "react";
 
 import {
+    Alert,
     Button,
     Checkbox,
     EmptyState,
@@ -222,6 +223,7 @@ export const DiskEncryption = ({
     idPrefix,
     isInProgress,
     setIsFormValid,
+    stepNotification,
     storageEncryption,
     setStorageEncryption,
     showPassphraseScreen,
@@ -297,6 +299,12 @@ export const DiskEncryption = ({
 
     return (
         <AnacondaPage title={_("Encrypt the selected devices?")}>
+            {stepNotification && (stepNotification.step === "disk-encryption") &&
+                <Alert
+                  isInline
+                  title={stepNotification.message}
+                  variant="danger"
+                />}
             <TextContent>
                 {_(
                     "You can create encrypted devices during installation." +
