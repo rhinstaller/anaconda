@@ -147,7 +147,7 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onAddE
     const flattenedStepsIds = getFlattenedStepsIds(stepsOrder);
 
     const { path } = usePageLocation();
-    const currentStepId = !isBootIso ? path[0] || "installation-language" : path[1] || "storage-devices";
+    const currentStepId = !isBootIso ? path[0] || "installation-language" : path[0] || "storage-devices";
 
     const isFinishedStep = (stepId) => {
         const stepIdx = flattenedStepsIds.findIndex(s => s === stepId);
