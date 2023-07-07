@@ -45,6 +45,20 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         # Ensure that the 'actual' UI process is running/
         self.assertIn("/usr/libexec/webui-desktop", m.execute("ps aux"))
 
+    def testLanguageScreenHiddenLive(self):
+        b = self.browser
+        m = self.machine
+        i = Installer(b, m)
+
+        self.restore_file('/run/anaconda/anaconda.conf')
+        m.execute("sed -i 's/type = BOOT_ISO/type = LIVE_OS/g' /run/anaconda/anaconda.conf")
+
+        # For live media the first screen is the storage-devices
+        i.open(step="storage-devices")
+
+        # Back button should be disabled on the first screen
+        b.wait_visible(f"#installation-back-btn:not([aria-disabled={True}]")
+
 class TestQuit(anacondalib.VirtInstallMachineCase):
 
     def testQuitInstallation(self):
