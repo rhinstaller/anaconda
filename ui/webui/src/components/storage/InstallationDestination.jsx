@@ -245,16 +245,13 @@ const LocalStandardDisks = ({ deviceData, diskSelection, dispatch, idPrefix, set
               setIsRescanningDisks(true);
               setSelectedDisks({ drives: [] });
               scanDevicesWithTask()
-                      .then(res => {
-                          return runStorageTask({
-                              task: res[0],
-                              onSuccess: () => resetPartitioning().then(() => {
-                                  dispatch(getDevicesAction());
-                                  dispatch(getDiskSelectionAction());
-                              }, onAddErrorNotification),
-                              onFail: onAddErrorNotification
-                          });
+                      .then(res => runStorageTask({ task: res[0] }))
+                      .then(resetPartitioning)
+                      .then(() => {
+                          dispatch(getDevicesAction());
+                          dispatch(getDiskSelectionAction());
                       })
+                      .catch(onAddErrorNotification)
                       .finally(() => setIsRescanningDisks(false));
           }}
         >

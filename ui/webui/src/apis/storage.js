@@ -303,32 +303,15 @@ export const resetPartitioning = () => {
 
 /**
  * @param {string} task         DBus path to a task
- * @param {string} onSuccess    Callback to run after Succeeded signal is received
- * @param {string} onFail       Callback to run as an error handler
  *
- * @returns {Promise}           Resolves a DBus path to a task
+ * @returns {Promise}
  */
-export const runStorageTask = ({ task, onSuccess, onFail }) => {
-    // FIXME: This is a workaround for 'Succeeded' signal being emited twice
-    let succeededEmitted = false;
-    const taskProxy = new StorageClient().client.proxy(
+export const runStorageTask = ({ task }) => {
+    return new StorageClient().client.call(
+        task,
         "org.fedoraproject.Anaconda.Task",
-        task
+        "Start", []
     );
-    const addEventListeners = () => {
-        taskProxy.addEventListener("Stopped", () => taskProxy.Finish().catch(onFail));
-        taskProxy.addEventListener("Succeeded", () => {
-            if (succeededEmitted) {
-                return;
-            }
-            succeededEmitted = true;
-            onSuccess();
-        });
-    };
-    taskProxy.wait(() => {
-        addEventListeners();
-        taskProxy.Start().catch(onFail);
-    });
 };
 
 /**
@@ -495,7 +478,7 @@ export const initDataStorage = ({ dispatch }) => {
             });
 };
 
-export const applyStorage = async ({ partitioning, encrypt, encryptPassword, onFail, onSuccess }) => {
+export const applyStorage = async ({ partitioning, encrypt, encryptPassword }) => {
     await setInitializeLabelsEnabled({ enabled: true });
     await setBootloaderDrive({ drive: "" });
 
@@ -510,11 +493,5 @@ export const applyStorage = async ({ partitioning, encrypt, encryptPassword, onF
 
     const tasks = await partitioningConfigureWithTask({ partitioning: part });
 
-    runStorageTask({
-        task: tasks[0],
-        onFail,
-        onSuccess: () => applyPartitioning({ partitioning: part })
-                .then(onSuccess)
-                .catch(onFail)
-    });
+    return runStorageTask({ task: tasks[0] }).then(() => applyPartitioning({ partitioning: part }));
 };

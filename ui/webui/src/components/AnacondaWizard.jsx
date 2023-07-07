@@ -265,43 +265,45 @@ const Footer = ({
             setIsInProgress(true);
 
             applyStorage({
-                onFail: ex => {
-                    console.error(ex);
-                    setIsInProgress(false);
-                    setStepNotification({ step: activeStep.id, ...ex });
-                },
-                onSuccess: () => {
-                    onNext();
-
-                    // Reset the state after the onNext call. Otherwise,
-                    // React will try to render the current step again.
-                    setIsInProgress(false);
-                    setStepNotification();
-                },
                 encrypt: storageEncryption.encrypt,
                 encryptPassword: storageEncryption.password,
-            });
+            })
+                    .then(
+                        () => {
+                            onNext();
+
+                            // Reset the state after the onNext call. Otherwise,
+                            // React will try to render the current step again.
+                            setIsInProgress(false);
+                            setStepNotification();
+                        },
+                        ex => {
+                            console.error(ex);
+                            setIsInProgress(false);
+                            setStepNotification({ step: activeStep.id, ...ex });
+                        },
+                    );
         } else if (activeStep.id === "installation-review") {
             setNextWaitsConfirmation(true);
         } else if (activeStep.id === "custom-mountpoint") {
             setIsInProgress(true);
 
-            applyStorage({
-                partitioning,
-                onFail: ex => {
-                    console.error(ex);
-                    setIsInProgress(false);
-                    setStepNotification({ step: activeStep.id, ...ex });
-                },
-                onSuccess: () => {
-                    onNext();
+            applyStorage({ partitioning })
+                    .then(
+                        () => {
+                            onNext();
 
-                    // Reset the state after the onNext call. Otherwise,
-                    // React will try to render the current step again.
-                    setIsInProgress(false);
-                    setStepNotification();
-                },
-            });
+                            // Reset the state after the onNext call. Otherwise,
+                            // React will try to render the current step again.
+                            setIsInProgress(false);
+                            setStepNotification();
+                        },
+                        ex => {
+                            console.error(ex);
+                            setIsInProgress(false);
+                            setStepNotification({ step: activeStep.id, ...ex });
+                        },
+                    );
         } else {
             onNext();
         }
