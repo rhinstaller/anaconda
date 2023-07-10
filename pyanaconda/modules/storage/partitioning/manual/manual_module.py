@@ -165,7 +165,7 @@ class ManualPartitioningModule(PartitioningModule):
         :return: an instance of MountPointRequest
         """
         request = MountPointRequest()
-        request.device_spec = device.path
+        request.device_spec = device.name
         request.format_type = device.format.type or ""
         request.reformat = False
 

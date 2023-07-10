@@ -170,7 +170,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
 
         assert self.interface.GatherRequests() == [
             {
-                'device-spec': get_variant(Str, '/dev/dev1'),
+                'device-spec': get_variant(Str, 'dev1'),
                 'format-options': get_variant(Str, ''),
                 'format-type': get_variant(Str, 'ext4'),
                 'mount-options': get_variant(Str, ''),
@@ -178,7 +178,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
                 'reformat': get_variant(Bool, False)
             },
             {
-                'device-spec': get_variant(Str, '/dev/dev2'),
+                'device-spec': get_variant(Str, 'dev2'),
                 'format-options': get_variant(Str, ''),
                 'format-type': get_variant(Str, 'swap'),
                 'mount-options': get_variant(Str, ''),
@@ -206,7 +206,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
 
         # Add requests for dev1 and dev3.
         req1 = MountPointRequest()
-        req1.device_spec = '/dev/dev1'
+        req1.device_spec = 'dev1'
         req1.format_options = '-L BOOT'
         req1.format_type = 'xfs'
         req1.mount_options = 'user'
@@ -214,7 +214,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
         req1.reformat = True
 
         req3 = MountPointRequest()
-        req3.device_spec = '/dev/dev3'
+        req3.device_spec = 'dev3'
         req3.mount_point = '/'
 
         self.module.set_requests([req1, req3])
@@ -222,7 +222,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
         # Get requests for dev1 and dev2.
         assert self.interface.GatherRequests() == [
             {
-                'device-spec': get_variant(Str, '/dev/dev1'),
+                'device-spec': get_variant(Str, 'dev1'),
                 'format-options': get_variant(Str, '-L BOOT'),
                 'format-type': get_variant(Str, 'xfs'),
                 'mount-options': get_variant(Str, 'user'),
@@ -230,7 +230,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
                 'reformat': get_variant(Bool, True)
             },
             {
-                'device-spec': get_variant(Str, '/dev/dev2'),
+                'device-spec': get_variant(Str, 'dev2'),
                 'format-options': get_variant(Str, ''),
                 'format-type': get_variant(Str, 'swap'),
                 'mount-options': get_variant(Str, ''),
