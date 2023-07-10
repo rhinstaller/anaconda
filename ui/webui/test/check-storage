@@ -435,10 +435,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
             wait_animations=False,
         )
 
-        b.click("#installation-next-btn")
-        page = i.steps.REVIEW
-        self.browser.wait_not_present("#installation-destination-next-spinner")
-        self.browser.wait_js_cond(f'window.location.hash === "#/{page}"')
+        i.next()
 
         # verify review screen
         disk = "vda"
@@ -505,7 +502,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         self.select_from_dropdown(4, "home", "/home")
         self.check_reformat(4, False)
 
-        b.click("#installation-next-btn")
+        i.next(should_fail=True)
         self.assert_inline_error("You have not defined a root partition")
 
     def testMultipleDisks(self):
@@ -571,10 +568,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         self.select_from_dropdown(4, "home", "/home")
         self.check_reformat(4, False)
 
-        b.click("#installation-next-btn")
-        page = i.steps.REVIEW
-        self.browser.wait_not_present("#installation-destination-next-spinner")
-        self.browser.wait_js_cond(f'window.location.hash === "#/{page}"')
+        i.next()
 
         # verify review screen
         disk = "vda"
