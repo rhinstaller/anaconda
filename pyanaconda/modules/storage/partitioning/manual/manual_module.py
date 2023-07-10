@@ -169,8 +169,11 @@ class ManualPartitioningModule(PartitioningModule):
         request.format_type = device.format.type or ""
         request.reformat = False
 
-        if device.format.mountable and device.format.mountpoint:
-            request.mount_point = device.format.mountpoint
+        if device.format.mountable:
+            if device.format.mountpoint:
+                request.mount_point = device.format.mountpoint
+            if device.format.mountopts:
+                request.mount_options = device.format.mountopts
 
         return request
 
