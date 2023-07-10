@@ -36,6 +36,8 @@ except ImportError:
 
 # Gather tests from this directory
 import pkgutil
+import importlib
+
 _tests = []
 for finder, mod_name, _ispkg in pkgutil.iter_modules(__path__):
     # Skip __main__
@@ -43,7 +45,8 @@ for finder, mod_name, _ispkg in pkgutil.iter_modules(__path__):
         continue
 
     # Load the module
-    module = finder.find_module(mod_name).load_module()
+    full_name = "{}.{}".format(__name__, mod_name)
+    module = importlib.import_module(full_name)
 
     # Look for attributes that start with 'test_' and add them to the test list
     for attrname, attr in module.__dict__.items():
