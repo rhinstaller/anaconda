@@ -18,15 +18,19 @@ import cockpit from "cockpit";
 
 export class PayloadsClient {
     constructor (address) {
-        if (PayloadsClient.instance) {
+        if (PayloadsClient.instance && (!address || PayloadsClient.instance.address === address)) {
             return PayloadsClient.instance;
         }
+
+        PayloadsClient.instance?.client.close();
+
         PayloadsClient.instance = this;
 
         this.client = cockpit.dbus(
             "org.fedoraproject.Anaconda.Modules.Payloads",
             { superuser: "try", bus: "none", address }
         );
+        this.address = address;
     }
 
     init () {

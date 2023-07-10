@@ -24,15 +24,19 @@ import cockpit from "cockpit";
  */
 export class BossClient {
     constructor (address) {
-        if (BossClient.instance) {
+        if (BossClient.instance && (!address || BossClient.instance.address === address)) {
             return BossClient.instance;
         }
+
+        BossClient.instance?.client.close();
+
         BossClient.instance = this;
 
         this.client = cockpit.dbus(
             "org.fedoraproject.Anaconda.Boss",
             { superuser: "try", bus: "none", address }
         );
+        this.address = address;
     }
 
     init () {

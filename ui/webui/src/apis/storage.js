@@ -24,15 +24,19 @@ import {
 
 export class StorageClient {
     constructor (address) {
-        if (StorageClient.instance) {
+        if (StorageClient.instance && (!address || StorageClient.instance.address === address)) {
             return StorageClient.instance;
         }
+
+        StorageClient.instance?.client.close();
+
         StorageClient.instance = this;
 
         this.client = cockpit.dbus(
             "org.fedoraproject.Anaconda.Modules.Storage",
             { superuser: "try", bus: "none", address }
         );
+        this.address = address;
     }
 
     init () {
