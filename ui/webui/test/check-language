@@ -25,6 +25,12 @@ from testlib import nondestructive, test_main  # pylint: disable=import-error
 @nondestructive
 class TestLanguage(anacondalib.VirtInstallMachineCase):
 
+    def setUp(self):
+        super().setUp()
+
+        # Switching to a language might produce these messages, which seem to be harmless.
+        self.allow_journal_messages("Error .* data: Connection reset by peer")
+
     def testOtherDefault(self):
         b = self.browser
         m = self.machine
