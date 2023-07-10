@@ -100,7 +100,8 @@ export const Application = () => {
     };
 
     // Postpone rendering anything until we read the dbus address and the default configuration
-    if (!address || !conf) {
+    if (!address || !conf || !beta || !prettyName) {
+        console.debug("Loading initial data...");
         return null;
     }
 

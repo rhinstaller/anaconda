@@ -104,7 +104,10 @@ class Installer():
     @log_step()
     def open(self, step="installation-language"):
         self.browser.open(f"/cockpit/@localhost/anaconda-webui/index.html#/{step}")
-        self.wait_current_page(step)
+
+        self.browser.switch_to_top()
+        self.browser._wait_present('body')
+        self.browser.wait_visible('body')
 
     def get_current_page(self):
         return self.browser.eval_js('window.location.hash;').replace('#/', '') or self.steps[0]
