@@ -131,7 +131,10 @@ class ManualPartitioningModule(PartitioningModule):
         """
         selected_disks = set(self._selected_disks)
 
-        for device in self.storage.devicetree.leaves:
+        for device in self.storage.devicetree.devices:
+            if not device.isleaf and not device.raw_device.type == "btrfs subvolume":
+                continue
+
             # Is the device usable?
             if device.protected or device.size == Size(0):
                 continue
