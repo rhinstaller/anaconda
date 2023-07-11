@@ -76,11 +76,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase):
         i.open()
         # Language selection
 
-        i.next()
-        # Storage Devices
-
-        i.next()
-        # Storage Configuration
+        i.reach(i.steps.STORAGE_CONFIGURATION)
 
         # Check the default mode
         s.check_partitioning_selected("erase-all")
@@ -184,11 +180,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase):
         i.open()
         # Language selection
 
-        i.next()
-        # Storage Devices
-
-        i.next()
-        # Storage Configuration
+        i.reach(i.steps.STORAGE_CONFIGURATION)
 
         # Check the default mode
         s.check_partitioning_selected("erase-all")
