@@ -75,6 +75,10 @@ RUN set -ex; \
 RUN pip install --no-cache-dir --upgrade pip; \
   pip install --no-cache-dir -r /root/requirements.txt
 
+# TODO: Remove once pylint and astroid from pip work on 3.12 in f39
+RUN pip uninstall -y pylint astroid; \
+  dnf install -y pylint python3-astroid; dnf clean all
+
 RUN mkdir /anaconda
 
 WORKDIR /anaconda
