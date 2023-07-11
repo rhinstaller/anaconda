@@ -411,6 +411,14 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jul 12 2023 Jiri Konecny <jkonecny@redhat.com> - 34.25.3.7-1
+- Allow showing passphrase when unlocking LUKS device (jstodola)
+  Resolves: rhbz#2013190
+- Be more indulgent when reclaiming disk space (jstodola)
+  Resolves: rhbz#2187371
+- Do not print error on inst.ks=cdrom|hd (jkonecny)
+  Resolves: rhbz#2077045
+
 * Fri Jun 30 2023 Jiri Konecny <jkonecny@redhat.com> - 34.25.3.6-1
 - Remove unused variable in TUI software selection (ozobal)
   Related: rhbz#2214266
