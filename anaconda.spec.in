@@ -367,6 +367,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jul 11 2023 Jiri Konecny <jkonecny@redhat.com> - 33.16.9.3-1
+- Be more indulgent when reclaiming disk space (jstodola)
+  Resolves: rhbz#1855371
+- Do not print error on inst.ks=cdrom|hd (jkonecny)
+  Resolves: rhbz#2211857
+
 * Mon Jun 12 2023 Vladimír Slávik <vslavik@redhat.com> - 33.16.9.2-1
 - Stop infinite wait for CDROM when KS is processed (jkonecny)
   Resolves: rhbz#2209602
