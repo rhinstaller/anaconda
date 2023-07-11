@@ -6,8 +6,8 @@ set -eu
 # This will change once we include this changes upstream and start building boot.iso with the new dependencies
 # Then we can safely remove this workaround
 ANACONDA_WEBUI_DEPS_URLS='
-    https://kojipkgs.fedoraproject.org//packages/cockpit/294/1.fc39/x86_64/cockpit-ws-294-1.fc39.x86_64.rpm
-    https://kojipkgs.fedoraproject.org//packages/cockpit/294/1.fc39/x86_64/cockpit-bridge-294-1.fc39.x86_64.rpm
+    https://kojipkgs.fedoraproject.org//packages/cockpit/293/1.fc39/x86_64/cockpit-ws-293-1.fc39.x86_64.rpm
+    https://kojipkgs.fedoraproject.org//packages/cockpit/293/1.fc39/x86_64/cockpit-bridge-293-1.fc39.x86_64.rpm
 '
 
 mkdir -p tmp/extra-rpms
