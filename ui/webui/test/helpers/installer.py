@@ -59,6 +59,20 @@ class Installer():
         else:
             self.wait_current_page(self.steps._steps_jump[current_page])
 
+    def reach(self, target_page):
+        path = []
+        page = target_page
+        current_page = self.get_current_page()
+
+        while current_page != page:
+            path.append(page)
+            prev = [k for k, v in self.steps._steps_jump.items() if page in v][0]
+            page = prev
+
+        while self.get_current_page() != target_page:
+            next_page = path.pop()
+            self.next(next_page=next_page)
+
     @log_step()
     def next(self, should_fail=False, subpage=False, next_page=""):
         current_page = self.get_current_page()

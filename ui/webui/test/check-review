@@ -34,14 +34,10 @@ class TestReview(anacondalib.VirtInstallMachineCase):
         r = Review(b)
 
         i.open()
-        i.next()
-        i.next()
-        i.next()
-
         # After clicking 'Next' on the storage step, partitioning is done, thus changing the available space on the disk
         # Since this is a non-destructive test we need to make sure the we reset partitioning to how it was before the test started
         self.addCleanup(s.dbus_reset_partitioning)
-        i.next()
+        i.reach(i.steps.REVIEW)
 
         # check language is shown
         r.check_language("English (United States)")
@@ -74,9 +70,7 @@ class TestReview(anacondalib.VirtInstallMachineCase):
 
         i.open()
 
-        current_page = i.get_current_page()
-        while current_page is not i.steps.REVIEW:
-            current_page = i.next()
+        i.reach(i.steps.REVIEW)
         i.begin_installation(should_fail=True, confirm_erase=False)
 
 if __name__ == '__main__':

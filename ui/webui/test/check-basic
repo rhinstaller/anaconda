@@ -37,14 +37,10 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         )
 
         i.check_prerelease_info()
-
-        current_page = i.get_current_page()
         # Do not start the installation in non-destructive tests as this performs non revertible changes
-        while current_page is not i.steps.REVIEW:
-            # with the pages basically empty of common elements (as those are provided by the top-level installer widget)
-            # we at least iterate over them to check this works as expected
-            i.wait_current_page(current_page)
-            current_page = i.next()
+        # with the pages basically empty of common elements (as those are provided by the top-level installer widget)
+        # we at least iterate over them to check this works as expected
+        i.reach(i.steps.REVIEW)
 
         # Ensure that the 'actual' UI process is running/
         self.assertIn("/usr/libexec/webui-desktop", m.execute("ps aux"))
