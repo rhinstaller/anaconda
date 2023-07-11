@@ -34,4 +34,5 @@ class VirtInstallMachineCase(MachineCase):
     def setUp(self):
         super().setUp()
 
+        self.machine.execute("systemctl restart cockpit")
         self.allow_journal_messages('.*cockpit.bridge-WARNING: Could not start ssh-agent.*')
