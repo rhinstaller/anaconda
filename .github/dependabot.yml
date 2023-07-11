@@ -39,3 +39,9 @@ updates:
     labels:
       - "infrastructure"
       - "sanity check required"
+    groups:
+      # update pylint stuff together
+      pylint-and-astroid:
+        patterns:
+          - "pylint"
+          - "astroid"
