@@ -349,12 +349,12 @@ class FlatpakTest(unittest.TestCase):
         flatpak.replace_installed_refs_remote("cylon_officer")
 
         # test that every file is read and written
-        open_mock.has_calls([
+        open_mock.assert_has_calls([
             call("/path/app/org.test/x86_64/stable/active/deploy", "rb"),
             call("/path/app/org.test/x86_64/stable/active/deploy", "wb"),
             call("/path/runtime/org.run/x86_64/stable/active/deploy", "rb"),
             call("/path/runtime/org.run/x86_64/stable/active/deploy", "wb"),
-        ])
+        ], any_order=True)
 
 
 class OperationMock(object):
