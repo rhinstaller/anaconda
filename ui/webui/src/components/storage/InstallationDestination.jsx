@@ -218,6 +218,8 @@ const LocalStandardDisks = ({ deviceData, diskSelection, dispatch, idPrefix, set
     }, [selectedDisksCnt, setIsFormValid]);
 
     const loading = !deviceData || diskSelection.usableDisks.some(disk => !deviceData[disk]);
+    console.debug("Loading:", loading, JSON.stringify(deviceData), JSON.stringify(diskSelection.usableDisks));
+    console.debug("isRescanningDisks", isRescanningDisks);
 
     const localDisksInfo = (
         <Popover
