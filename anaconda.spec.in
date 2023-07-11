@@ -471,6 +471,18 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jul 11 2023 github-actions <github-actions@github.com> - 39.24-1
+- webui: extend the list of the data we need to wait for before showing the app
+  (kkoukiou)
+- webui: tests: attempt to rebustify tests by more carefully implementing the
+  page enter (kkoukiou)
+- webui: test: extend allowed journal messages for language tests (kkoukiou)
+- webui: tests: adjust next and back helper methods (kkoukiou)
+- webui: pin down cockpit-* packages versions for gating purposes (kkoukiou)
+- webui: if device selection changed since last partitioning request redo the
+  partitioning (kkoukiou)
+- webui: Disable strict host checking in SSH config snippet (mkolman)
+
 * Mon Jul 03 2023 github-actions <github-actions@github.com> - 39.23-1
 - webui: store system language information in the global store (kkoukiou)
 - webui: Start Web UI when the anaconda-webui package is installed (mkolman)
