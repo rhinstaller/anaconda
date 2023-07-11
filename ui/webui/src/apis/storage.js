@@ -495,7 +495,7 @@ export const initDataStorage = ({ dispatch }) => {
     )
             .then(([res]) => {
                 if (res.v.length !== 0) {
-                    return res.v.forEach(path => dispatch(getPartitioningDataAction({ partitioning: path })));
+                    return Promise.all(res.v.map(path => dispatch(getPartitioningDataAction({ partitioning: path }))));
                 }
             })
             .then(() => dispatch(getDevicesAction()))
