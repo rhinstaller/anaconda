@@ -38,6 +38,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase):
 
         # Check disks table details
         s.check_disk_visible("vda")
+        s.check_disk_selected("vda", True)
         s.check_disk_capacity("vda", "16.1 GB", "16.1 GB")
 
         # Pixel test the storage step
