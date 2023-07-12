@@ -23,9 +23,12 @@ from pyanaconda.core.constants import QUIT_MESSAGE, PAYLOAD_TYPE_DNF
 from pyanaconda.core.util import startProgram
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.threads import thread_manager
+from pyanaconda.core.configuration.anaconda import conf
 
 log = get_module_logger(__name__)
 
+FIREFOX_THEME_DEFAULT = "default"
+FIREFOX_THEME_LIVE = "live"
 
 class CockpitUserInterface(ui.UserInterface):
     """This is the main class for Cockpit user interface."""
@@ -107,8 +110,15 @@ ExecStart=/usr/libexec/cockpit-ws --no-tls --port 9090 --local-session=cockpit-b
         # This is read by cockpit-desktop and makes it launch Firefox in kiosk mode
         # instead of the GTK WebKit based web view it launches by default.
 
+        # FIXME: looks like "type" should not be used and _is_live_os is private ?
+        if conf.system.provides_liveuser:
+            profile_name = FIREFOX_THEME_LIVE
+        else:
+            profile_name = FIREFOX_THEME_DEFAULT
+
         proc = startProgram(["/usr/libexec/webui-desktop",
-                            "/cockpit/@localhost/anaconda-webui/index.html"],
+                            "/cockpit/@localhost/anaconda-webui/index.html",
+                            profile_name],
                             reset_lang=False)
         log.debug("cockpit web view has been started")
         with open("/run/anaconda/webui_script.pid", "w") as f:
