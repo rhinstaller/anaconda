@@ -88,6 +88,7 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
             if device.raw_device.type == "btrfs subvolume":
                 # 'Format', or rather clear the device by recreating it
                 device = self._recreate_device(storage, device_spec)
+                mount_data.mount_options = device.format.options
             else:
                 storage.format_device(device, fmt)
 
