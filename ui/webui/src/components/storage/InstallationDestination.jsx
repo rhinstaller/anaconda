@@ -205,11 +205,6 @@ const LocalStandardDisks = ({ deviceData, diskSelection, dispatch, idPrefix, set
         }
     }, [diskSelection]);
 
-    useEffect(() => {
-        dispatch(getDevicesAction());
-        dispatch(getDiskSelectionAction());
-    }, [dispatch]);
-
     const totalDisksCnt = diskSelection.usableDisks.length;
     const selectedDisksCnt = diskSelection.selectedDisks.length;
 

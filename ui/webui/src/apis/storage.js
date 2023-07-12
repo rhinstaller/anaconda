@@ -17,6 +17,7 @@
 import cockpit from "cockpit";
 
 import {
+    getDevicesAction,
     getDiskSelectionAction,
     getPartitioningDataAction
 } from "../actions/storage-actions.js";
@@ -492,7 +493,9 @@ export const initDataStorage = ({ dispatch }) => {
                 if (res.v.length !== 0) {
                     return res.v.forEach(path => dispatch(getPartitioningDataAction({ partitioning: path })));
                 }
-            });
+            })
+            .then(() => dispatch(getDevicesAction()))
+            .then(() => dispatch(getDiskSelectionAction()));
 };
 
 export const applyStorage = async ({ partitioning, encrypt, encryptPassword, onFail, onSuccess }) => {
