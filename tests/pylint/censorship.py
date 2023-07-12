@@ -35,6 +35,7 @@ import re
 
 from io import StringIO
 
+import astroid
 import pylint.lint
 
 from pylint.reporters.text import TextReporter
@@ -105,6 +106,7 @@ class CensorshipLinter():
         args = self._prepare_args()
 
         print("Pylint version: ", pylint.__version__)
+        print("Astroid version: ", astroid.__version__)
         print("Running pylint with args: ", args)
 
         pylint.lint.Run(args,
