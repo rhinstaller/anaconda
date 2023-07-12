@@ -37,6 +37,22 @@ class AnacondaLintConfig(CensorshipConfig):
             FalsePositive(r"E1101.*: Instance of 'int' has no 'name_from_node' member"),
             FalsePositive(r"E1101.*: Instance of 'int' has no 'generate_backup_passphrase' member"),
             FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_is_ldl' member"),
+
+            # TODO: Issue with pylint on newest python 3.12
+            # Problem with datetime members
+            FalsePositive(r"E1101.*: Class 'date' has no 'today' member"),
+            FalsePositive(r"E1101.*: Class 'datetime' has no '(now|strptime)' member"),
+            FalsePositive(r"E1101.*: Instance of 'date' has no 'strftime' member"),
+            FalsePositive(r"E1101.*: Instance of 'datetime' has no 'timestamp' member"),
+            # New pylint has an issue to work with unpacked (*) variables in function calls
+            FalsePositive(r"E1120.*test_dnf_initialization\.py.*: "
+                          "No value for argument 'path' in function call"),
+            FalsePositive(r"E1120.*: .*Spoke.__init__: "
+                          "No value for argument '(data|storage|payload)' in method call"),
+            FalsePositive(r"E1120.*: .*Spoke.__init__: "
+                          "No value for argument '(data|storage|payload)' in unbound method call"),
+            # Can't find AnacondaWidgets from gi.repository
+            FalsePositive(r"E0611.*: No name 'AnacondaWidgets' in module 'gi.repository'")
         ]
 
     def _files(self):

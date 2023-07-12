@@ -85,6 +85,8 @@ def exitHandler(rebootData):
 
         if flags.eject or rebootData.eject:
             for device_path in optical_media:
+                # path is already imported in __main__ as other things used here -> disable pylint
+                # pylint: disable=undefined-loop-variable
                 if path.get_mount_paths(device_path):
                     util.dracut_eject(device_path)
 
