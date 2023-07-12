@@ -180,6 +180,8 @@ const LocalStandardDisks = ({ deviceData, diskSelection, dispatch, idPrefix, set
     const [equalDisksNotify, setEqualDisksNotify] = useState(false);
     const refUsableDisks = useRef();
 
+    console.debug("LocalStandardDisks: deviceData: ", JSON.stringify(Object.keys(deviceData)), ", diskSelection: ", JSON.stringify(diskSelection));
+
     useEffect(() => {
         if (isRescanningDisks) {
             refUsableDisks.current = diskSelection.usableDisks;
