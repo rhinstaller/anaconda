@@ -349,7 +349,8 @@ def execWithRedirect(command, argv, stdin=None, stdout=None, root='/', env_prune
                         log_output=log_output, binary_output=binary_output, do_preexec=do_preexec)[0]
 
 
-def execWithCapture(command, argv, stdin=None, root='/', log_output=True, filter_stderr=False):
+def execWithCapture(command, argv, stdin=None, root='/', log_output=True, filter_stderr=False,
+                    do_preexec=True):
     """ Run an external program and capture standard out and err.
 
         :param command: The command to run
@@ -358,11 +359,12 @@ def execWithCapture(command, argv, stdin=None, root='/', log_output=True, filter
         :param root: The directory to chroot to before running command.
         :param log_output: Whether to log the output of command
         :param filter_stderr: Whether stderr should be excluded from the returned output
+        :param do_preexec: whether to use the preexec function
         :return: The output of the command
     """
     argv = [command] + argv
     return _run_program(argv, stdin=stdin, root=root, log_output=log_output,
-                        filter_stderr=filter_stderr)[1]
+                        filter_stderr=filter_stderr, do_preexec=do_preexec)[1]
 
 
 def execReadlines(command, argv, stdin=None, root='/', env_prune=None, filter_stderr=False):
