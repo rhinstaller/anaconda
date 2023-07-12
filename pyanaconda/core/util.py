@@ -137,30 +137,31 @@ def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subp
                                  close_fds=True,
                                  restore_signals=restore_signals,
                                  cwd=root, env=env, **kwargs)
-    if do_preexec:
-        # Check for and save a preexec_fn argument
-        preexec_fn = kwargs.pop("preexec_fn", None)
+    if not do_preexec:
+        return partsubp()
 
-        def preexec():
-            # If a target root was specificed, chroot into it
-            if target_root and target_root != '/':
-                os.chroot(target_root)
-                os.chdir("/")
+    # Check for and save a preexec_fn argument
+    preexec_fn = kwargs.pop("preexec_fn", None)
 
-            # Signal handlers set to SIG_IGN persist across exec. Reset
-            # these to SIG_DFL if requested. In particular this will include the
-            # SIGPIPE handler set by python.
-            if reset_handlers:
-                for signum in range(1, signal.NSIG):
-                    if signal.getsignal(signum) == signal.SIG_IGN:
-                        signal.signal(signum, signal.SIG_DFL)
+    def preexec():
+        # If a target root was specificed, chroot into it
+        if target_root and target_root != '/':
+            os.chroot(target_root)
+            os.chdir("/")
 
-            # If the user specified an additional preexec_fn argument, run it
-            if preexec_fn is not None:
-                preexec_fn()
+        # Signal handlers set to SIG_IGN persist across exec. Reset
+        # these to SIG_DFL if requested. In particular this will include the
+        # SIGPIPE handler set by python.
+        if reset_handlers:
+            for signum in range(1, signal.NSIG):
+                if signal.getsignal(signum) == signal.SIG_IGN:
+                    signal.signal(signum, signal.SIG_DFL)
 
-        return partsubp(preexec_fn=preexec)
-    return partsubp()
+        # If the user specified an additional preexec_fn argument, run it
+        if preexec_fn is not None:
+            preexec_fn()
+
+    return partsubp(preexec_fn=preexec)
 
 
 class X11Status:
