@@ -56,6 +56,12 @@ class TestStorage(anacondalib.VirtInstallMachineCase):
         s.click_checkbox_and_check_all_disks(["vda"], selected=True)
         s.click_checkbox_and_check_all_disks(["vda"], selected=False)
 
+        # Check that the disk selection persists when moving next and back
+        s.select_disk("vda", True)
+        i.next()
+        i.back()
+        s.check_disk_selected("vda", True)
+
         # Try unselecting the single disk and expect and error
         s.select_disk("vda", False)
         s.wait_no_disks()
