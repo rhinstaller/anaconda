@@ -85,7 +85,7 @@ class Storage():
 
     @log_step()
     def wait_no_disks(self):
-        self.browser.wait_in_text("#next-tooltip-ref",
+        self.browser.wait_in_text("#next-helper-text",
                                   "To continue, select the devices to install to.")
 
     @log_step()
