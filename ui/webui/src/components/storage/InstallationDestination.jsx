@@ -180,6 +180,8 @@ const LocalStandardDisks = ({ deviceData, diskSelection, dispatch, idPrefix, set
     const [equalDisksNotify, setEqualDisksNotify] = useState(false);
     const refUsableDisks = useRef();
 
+    console.debug("LocalStandardDisks: deviceData: ", JSON.stringify(Object.keys(deviceData)), ", diskSelection: ", JSON.stringify(diskSelection));
+
     useEffect(() => {
         if (isRescanningDisks) {
             refUsableDisks.current = diskSelection.usableDisks;
@@ -204,11 +206,6 @@ const LocalStandardDisks = ({ deviceData, diskSelection, dispatch, idPrefix, set
             setSelectedDisks({ drives: defaultDisks });
         }
     }, [diskSelection]);
-
-    useEffect(() => {
-        dispatch(getDevicesAction());
-        dispatch(getDiskSelectionAction());
-    }, [dispatch]);
 
     const totalDisksCnt = diskSelection.usableDisks.length;
     const selectedDisksCnt = diskSelection.selectedDisks.length;

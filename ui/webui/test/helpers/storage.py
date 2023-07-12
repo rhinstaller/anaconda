@@ -97,6 +97,31 @@ class Storage():
             {STORAGE_OBJECT_PATH} \
             {STORAGE_INTERFACE}.ResetPartitioning')
 
+    def dbus_create_partitioning(self, method="MANUAL"):
+        return self.machine.execute(f'dbus-send --print-reply --bus="{self._bus_address}" \
+            --dest={STORAGE_SERVICE} \
+            {STORAGE_OBJECT_PATH} \
+            {STORAGE_INTERFACE}.CreatePartitioning string:"{method}"')
+
+    def dbus_get_applied_partitioning(self):
+        ret = self.machine.execute(f'dbus-send --print-reply=literal --bus="{self._bus_address}" \
+            --dest={STORAGE_SERVICE} \
+            {STORAGE_OBJECT_PATH} \
+            org.freedesktop.DBus.Properties.Get \
+            string:{STORAGE_INTERFACE} string:AppliedPartitioning')
+
+        print("ret: ", ret)
+        return ret.split('variant')[1].strip()
+
+    def dbus_get_created_partitioning(self):
+        ret = self.machine.execute(f'dbus-send --print-reply=literal --bus="{self._bus_address}" \
+            --dest={STORAGE_SERVICE} \
+            {STORAGE_OBJECT_PATH} \
+            org.freedesktop.DBus.Properties.Get \
+            string:{STORAGE_INTERFACE} string:CreatedPartitioning')
+
+        return ret[ret.find("[")+1:ret.rfind("]")].split()
+
     def dbus_set_initialization_mode(self, value):
         self.machine.execute(f'dbus-send --print-reply --bus="{self._bus_address}" \
             --dest={STORAGE_SERVICE} \
