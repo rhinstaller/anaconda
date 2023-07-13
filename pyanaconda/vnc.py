@@ -51,7 +51,7 @@ def shutdownServer():
     it by calling a function of the vnc module.
     """
     try:
-        util.execWithCapture("killall", [XVNC_BINARY_NAME])
+        util.execWithCapture("killall", [XVNC_BINARY_NAME], do_preexec=False)
         log.info("The XVNC server has been shut down.")
     except OSError as e:
         log.error("Shutdown of the XVNC server failed with exception:\n%s", e)

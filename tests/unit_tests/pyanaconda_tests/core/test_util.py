@@ -446,6 +446,31 @@ done
         with pytest.raises(ExitError):
             WatchProcesses.watch_process(proc, "test2")
 
+    @patch("pyanaconda.core.util.startProgram")
+    def test_do_preexec(self, mock_start_program):
+        """Test the do_preexec option of exec*** functions."""
+        mock_start_program.return_value.communicate.return_value = (b"", b"")
+
+        util.execWithRedirect("ls", [])
+        mock_start_program.assert_called_once()
+        assert mock_start_program.call_args.kwargs["do_preexec"] is True
+        mock_start_program.reset_mock()
+
+        util.execWithRedirect("ls", [], do_preexec=False)
+        mock_start_program.assert_called_once()
+        assert mock_start_program.call_args.kwargs["do_preexec"] is False
+        mock_start_program.reset_mock()
+
+        util.execWithCapture("ls", [], do_preexec=True)
+        mock_start_program.assert_called_once()
+        assert mock_start_program.call_args.kwargs["do_preexec"] is True
+        mock_start_program.reset_mock()
+
+        util.execWithCapture("ls", [], do_preexec=False)
+        mock_start_program.assert_called_once()
+        assert mock_start_program.call_args.kwargs["do_preexec"] is False
+        mock_start_program.reset_mock()
+
 
 class MiscTests(unittest.TestCase):
 

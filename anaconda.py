@@ -89,15 +89,15 @@ def exitHandler(rebootData):
                     util.dracut_eject(device_path)
 
         if flags.kexec:
-            util.execWithRedirect("systemctl", ["--no-wall", "kexec"])
+            util.execWithRedirect("systemctl", ["--no-wall", "kexec"], do_preexec=False)
             while True:
                 time.sleep(10000)
         elif rebootData.action == KS_SHUTDOWN:
-            util.execWithRedirect("systemctl", ["--no-wall", "poweroff"])
+            util.execWithRedirect("systemctl", ["--no-wall", "poweroff"], do_preexec=False)
         elif rebootData.action == KS_WAIT:
-            util.execWithRedirect("systemctl", ["--no-wall", "halt"])
+            util.execWithRedirect("systemctl", ["--no-wall", "halt"], do_preexec=False)
         else:  # reboot action is KS_REBOOT or None
-            util.execWithRedirect("systemctl", ["--no-wall", "reboot"])
+            util.execWithRedirect("systemctl", ["--no-wall", "reboot"], do_preexec=False)
 
 
 def parse_arguments(argv=None, boot_cmdline=None):

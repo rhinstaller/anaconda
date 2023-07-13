@@ -76,7 +76,8 @@ def augmentEnv():
 
 
 def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                 env_prune=None, env_add=None, reset_handlers=True, reset_lang=True, **kwargs):
+                 env_prune=None, env_add=None, reset_handlers=True, reset_lang=True,
+                 do_preexec=True, **kwargs):
     """ Start an external program and return the Popen object.
 
         The root and reset_handlers arguments are handled by passing a
@@ -93,6 +94,7 @@ def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subp
         :param env_add: environment variables to add before execution
         :param reset_handlers: whether to reset to SIG_DFL any signal handlers set to SIG_IGN
         :param reset_lang: whether to set the locale of the child process to C
+        :param do_preexec: whether to use the preexec function
         :param kwargs: Additional parameters to pass to subprocess.Popen
         :return: A Popen object for the running command.
     """
@@ -105,13 +107,41 @@ def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subp
     if target_root == conf.target.physical_root:
         target_root = conf.target.system_root
 
-    # Check for and save a preexec_fn argument
-    preexec_fn = kwargs.pop("preexec_fn", None)
-
     # Map reset_handlers to the restore_signals Popen argument.
     # restore_signals handles SIGPIPE, and preexec below handles any additional
     # signals ignored by anaconda.
     restore_signals = reset_handlers
+
+    with program_log_lock:
+        if target_root != '/':
+            program_log.info("Running in chroot '%s'... %s", target_root, " ".join(argv))
+        else:
+            program_log.info("Running... %s", " ".join(argv))
+
+    env = augmentEnv()
+    for var in env_prune:
+        env.pop(var, None)
+
+    if reset_lang:
+        env.update({"LC_ALL": "C"})
+
+    if env_add:
+        env.update(env_add)
+
+    # pylint: disable=subprocess-popen-preexec-fn
+    partsubp = functools.partial(subprocess.Popen,
+                                 argv,
+                                 stdin=stdin,
+                                 stdout=stdout,
+                                 stderr=stderr,
+                                 close_fds=True,
+                                 restore_signals=restore_signals,
+                                 cwd=root, env=env, **kwargs)
+    if not do_preexec:
+        return partsubp()
+
+    # Check for and save a preexec_fn argument
+    preexec_fn = kwargs.pop("preexec_fn", None)
 
     def preexec():
         # If a target root was specificed, chroot into it
@@ -131,30 +161,7 @@ def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subp
         if preexec_fn is not None:
             preexec_fn()
 
-    with program_log_lock:
-        if target_root != '/':
-            program_log.info("Running in chroot '%s'... %s", target_root, " ".join(argv))
-        else:
-            program_log.info("Running... %s", " ".join(argv))
-
-    env = augmentEnv()
-    for var in env_prune:
-        env.pop(var, None)
-
-    if reset_lang:
-        env.update({"LC_ALL": "C"})
-
-    if env_add:
-        env.update(env_add)
-
-    # pylint: disable=subprocess-popen-preexec-fn
-    return subprocess.Popen(argv,
-                            stdin=stdin,
-                            stdout=stdout,
-                            stderr=stderr,
-                            close_fds=True,
-                            restore_signals=restore_signals,
-                            preexec_fn=preexec, cwd=root, env=env, **kwargs)
+    return partsubp(preexec_fn=preexec)
 
 
 class X11Status:
@@ -253,7 +260,7 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
 
 
 def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_output=True,
-                 binary_output=False, filter_stderr=False):
+                 binary_output=False, filter_stderr=False, do_preexec=True):
     """ Run an external program, log the output and return it to the caller
 
         NOTE/WARNING: UnicodeDecodeError will be raised if the output of the of the
@@ -267,6 +274,7 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_ou
         :param log_output: whether to log the output of command
         :param binary_output: whether to treat the output of command as binary data
         :param filter_stderr: whether to exclude the contents of stderr from the returned output
+        :param do_preexec: whether to use a preexec_fn for subprocess.Popen
         :return: The return code of the command and the output
     """
     try:
@@ -276,7 +284,7 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_ou
             stderr = subprocess.STDOUT
 
         proc = startProgram(argv, root=root, stdin=stdin, stdout=subprocess.PIPE, stderr=stderr,
-                            env_prune=env_prune)
+                            env_prune=env_prune, do_preexec=do_preexec)
 
         (output_string, err_string) = proc.communicate()
         if not binary_output:
@@ -322,8 +330,8 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_ou
     return (proc.returncode, output_string)
 
 
-def execWithRedirect(command, argv, stdin=None, stdout=None,
-                     root='/', env_prune=None, log_output=True, binary_output=False):
+def execWithRedirect(command, argv, stdin=None, stdout=None, root='/', env_prune=None,
+                     log_output=True, binary_output=False, do_preexec=True):
     """ Run an external program and redirect the output to a file.
 
         :param command: The command to run
@@ -334,14 +342,16 @@ def execWithRedirect(command, argv, stdin=None, stdout=None,
         :param env_prune: environment variable to remove before execution
         :param log_output: whether to log the output of command
         :param binary_output: whether to treat the output of command as binary data
+        :param do_preexec: whether to use a preexec_fn for subprocess.Popen
         :return: The return code of the command
     """
     argv = [command] + argv
     return _run_program(argv, stdin=stdin, stdout=stdout, root=root, env_prune=env_prune,
-                        log_output=log_output, binary_output=binary_output)[0]
+                        log_output=log_output, binary_output=binary_output, do_preexec=do_preexec)[0]
 
 
-def execWithCapture(command, argv, stdin=None, root='/', log_output=True, filter_stderr=False):
+def execWithCapture(command, argv, stdin=None, root='/', log_output=True, filter_stderr=False,
+                    do_preexec=True):
     """ Run an external program and capture standard out and err.
 
         :param command: The command to run
@@ -350,11 +360,12 @@ def execWithCapture(command, argv, stdin=None, root='/', log_output=True, filter
         :param root: The directory to chroot to before running command.
         :param log_output: Whether to log the output of command
         :param filter_stderr: Whether stderr should be excluded from the returned output
+        :param do_preexec: whether to use the preexec function
         :return: The output of the command
     """
     argv = [command] + argv
     return _run_program(argv, stdin=stdin, root=root, log_output=log_output,
-                        filter_stderr=filter_stderr)[1]
+                        filter_stderr=filter_stderr, do_preexec=do_preexec)[1]
 
 
 def execReadlines(command, argv, stdin=None, root='/', env_prune=None, filter_stderr=False):
