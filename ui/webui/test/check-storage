@@ -38,6 +38,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase):
 
         # Check disks table details
         s.check_disk_visible("vda")
+        s.check_disk_selected("vda", True)
         s.check_disk_capacity("vda", "16.1 GB", "16.1 GB")
 
         # Pixel test the storage step
@@ -54,6 +55,12 @@ class TestStorage(anacondalib.VirtInstallMachineCase):
 
         s.click_checkbox_and_check_all_disks(["vda"], selected=True)
         s.click_checkbox_and_check_all_disks(["vda"], selected=False)
+
+        # Check that the disk selection persists when moving next and back
+        s.select_disk("vda", True)
+        i.next()
+        i.back()
+        s.check_disk_selected("vda", True)
 
         # Try unselecting the single disk and expect and error
         s.select_disk("vda", False)

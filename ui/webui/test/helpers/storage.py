@@ -53,6 +53,7 @@ class Storage():
     def select_all_disks_and_check(self, disks):
         self.browser.click("#local-disks-bulk-select-toggle")
         self.browser.click("#local-disks-bulk-select-all")
+        self.browser.wait_visible("#select-multiple-split-checkbox:checked")
         for disk in disks:
             self.check_disk_selected(disk)
 
@@ -60,12 +61,17 @@ class Storage():
     def select_none_disks_and_check(self, disks):
         self.browser.click("#local-disks-bulk-select-toggle")
         self.browser.click("#local-disks-bulk-select-none")
+        self.browser.wait_visible("#select-multiple-split-checkbox:not(:checked)")
         for disk in disks:
             self.check_disk_selected(disk, False)
 
     @log_step()
     def click_checkbox_and_check_all_disks(self, disks, selected):
         self.browser.click("#select-multiple-split-checkbox")
+        if selected:
+            self.browser.wait_visible("#select-multiple-split-checkbox:checked")
+        else:
+            self.browser.wait_visible("#select-multiple-split-checkbox:not(:checked)")
         for disk in disks:
             self.check_disk_selected(disk, selected)
 

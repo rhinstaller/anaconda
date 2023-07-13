@@ -194,6 +194,7 @@ const LocalStandardDisks = ({ deviceData, diskSelection, dispatch, idPrefix, set
         if (refUsableDisks.current !== undefined) {
             return;
         }
+        refUsableDisks.current = diskSelection.usableDisks;
 
         const defaultDisks = selectDefaultDisks({
             ignoredDisks: diskSelection.ignoredDisks,
@@ -202,7 +203,6 @@ const LocalStandardDisks = ({ deviceData, diskSelection, dispatch, idPrefix, set
         });
 
         if (!containEqualDisks(diskSelection.selectedDisks, defaultDisks)) {
-            refUsableDisks.current = diskSelection.usableDisks;
             setSelectedDisks({ drives: defaultDisks });
         }
     }, [diskSelection]);
