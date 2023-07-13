@@ -76,12 +76,14 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onAddE
     const isBootIso = conf["Installation System"].type === "BOOT_ISO";
 
     const stepsOrder = [
-        {
-            component: InstallationLanguage,
-            data: { dispatch, languages: localizationData.languages, language: localizationData.language, commonLocales: localizationData.commonLocales },
-            id: "installation-language",
-            label: _("Welcome"),
-        },
+        ...(isBootIso
+            ? [{
+                component: InstallationLanguage,
+                data: { dispatch, languages: localizationData.languages, language: localizationData.language, commonLocales: localizationData.commonLocales },
+                id: "installation-language",
+                label: _("Welcome"),
+            }]
+            : []),
         // TODO: rename InstallationDestination component and its file ?
         {
             id: "installation-destination",
@@ -145,7 +147,7 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onAddE
     const flattenedStepsIds = getFlattenedStepsIds(stepsOrder);
 
     const { path } = usePageLocation();
-    const currentStepId = path[0] || "installation-language";
+    const currentStepId = isBootIso ? path[0] || "installation-language" : path[0] || "storage-devices";
 
     const isFinishedStep = (stepId) => {
         const stepIdx = flattenedStepsIds.findIndex(s => s === stepId);
@@ -249,7 +251,7 @@ const Footer = ({
     showPassphraseScreen,
     setShowPassphraseScreen,
     storageScenarioId,
-    isBootIso,
+    isBootIso
 }) => {
     const [nextWaitsConfirmation, setNextWaitsConfirmation] = useState(false);
     const [quitWaitsConfirmation, setQuitWaitsConfirmation] = useState(false);
@@ -331,8 +333,8 @@ const Footer = ({
         <WizardFooter>
             <WizardContextConsumer>
                 {({ activeStep, onNext, onBack }) => {
-                    const isBackDisabled = (
-                        activeStep.id === "installation-language"
+                    const isFirstScreen = (
+                        activeStep.id === "installation-language" || (activeStep.id === "storage-devices" && !isBootIso)
                     );
                     const nextButtonText = (
                         activeStep.id === "installation-review"
@@ -369,8 +371,9 @@ const Footer = ({
                                 </HelperText>}
                             <ActionList>
                                 <Button
+                                  id="installation-back-btn"
                                   variant="secondary"
-                                  isDisabled={isBackDisabled}
+                                  isDisabled={isFirstScreen}
                                   onClick={() => goToPreviousStep(activeStep, onBack)}>
                                     {_("Back")}
                                 </Button>
