@@ -21,6 +21,7 @@ from installer import Installer
 from storage import Storage
 from review import Review
 from testlib import nondestructive, test_main  # pylint: disable=import-error
+from storagelib import StorageHelpers  # pylint: disable=import-error
 
 
 @nondestructive
@@ -281,10 +282,9 @@ class TestStorage(anacondalib.VirtInstallMachineCase):
         self.assertEqual(new_applied_partitioning, new_created_partitioning[-1])
 
 
-# We can't run this test case on an existing machine,
-# with --machine because MachineCase is not aware of add_disk method
 # TODO add next back test keeping the choice
-class TestStorageExtraDisks(anacondalib.VirtInstallMachineCase):
+@nondestructive
+class TestStorageExtraDisks(anacondalib.VirtInstallMachineCase, StorageHelpers):
 
     def testLocalDisksSyncNew(self):
         b = self.browser
@@ -296,7 +296,8 @@ class TestStorageExtraDisks(anacondalib.VirtInstallMachineCase):
         # However, since the storage module initialization is long completed
         # the newly added disk, will not be visible in the UI,
         # until the test clicks on the re-scan button
-        m.add_disk(2)
+        dev = self.add_ram_disk(2)
+        dev = dev.split("/")[-1]
 
         i.open()
         i.next()
@@ -304,22 +305,22 @@ class TestStorageExtraDisks(anacondalib.VirtInstallMachineCase):
         s.wait_no_disks_detected_not_present()
 
         s.check_disk_visible("vda")
-        s.check_disk_visible("vdb", False)
+        s.check_disk_visible(dev, False)
 
         s.rescan_disks()
         s.check_disk_visible("vda")
-        s.check_disk_visible("vdb")
+        s.check_disk_visible(dev)
 
         s.wait_no_disks_detected_not_present()
 
         s.check_disk_selected("vda", False)
-        s.check_disk_selected("vdb", False)
+        s.check_disk_selected(dev, False)
 
         s.rescan_disks()
         s.wait_no_disks_detected()
 
         # Check that disk selection is kept on Next and Back
-        disks = ["vdb"]
+        disks = [dev]
         for disk in disks:
             s.select_disk(disk)
         i.next()
@@ -332,14 +333,14 @@ class TestStorageExtraDisks(anacondalib.VirtInstallMachineCase):
         b = self.browser
         m = self.machine
 
-        m.add_disk(size=2)
-        disk="/dev/vdb"
-        m.execute(f'parted -s {disk} mktable gpt')
-        m.execute(f'parted -s {disk} mkpart primary ext4 0% 20%')
-        m.execute(f"echo einszweidrei | cryptsetup luksFormat {disk}1")
+        dev = self.add_ram_disk(100)
 
-        m.execute(f'parted -s {disk} mkpart primary ext4 20% 60%')
-        m.execute(f'mkfs.ext4 {disk}2')
+        m.execute(f'parted -s {dev} mktable gpt')
+        m.execute(f'parted -s {dev} mkpart primary ext4 0% 20%')
+        m.execute(f"echo einszweidrei | cryptsetup luksFormat {dev}1")
+
+        m.execute(f'parted -s {dev} mkpart primary ext4 20% 60%')
+        m.execute(f'mkfs.ext4 {dev}2')
 
         i = Installer(b, m)
         s = Storage(b, m)
@@ -351,17 +352,18 @@ class TestStorageExtraDisks(anacondalib.VirtInstallMachineCase):
 
         s.rescan_disks()
 
+        dev = dev.split("/")[-1]
         s.check_disk_visible("vda")
         s.check_disk_expandable("vda", False)
-        s.check_disk_visible("vdb", False)
-        s.check_disk_expandable("vdb", True)
+        s.check_disk_visible(dev, False)
+        s.check_disk_expandable(dev, True)
 
-        s.set_expand_disk_row("vdb", True)
-        s.check_disk_partition("vdb", "/dev/vdb1", "Encrypted (LUKS)", "429 MB")
-        s.check_disk_partition("vdb", "/dev/vdb2", "ext4", "859 MB")
+        s.set_expand_disk_row(dev, True)
+        s.check_disk_partition(dev, f"/dev/{dev}1", "Encrypted (LUKS)", "21.0 MB")
+        s.check_disk_partition(dev, f"/dev/{dev}2", "ext4", "41.9 MB")
 
         s.check_disk_selected("vda", False)
-        s.check_disk_selected("vdb", False)
+        s.check_disk_selected(dev, False)
 
         b.assert_pixels(
             "#app",
