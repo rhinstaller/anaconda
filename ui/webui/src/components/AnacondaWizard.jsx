@@ -20,13 +20,14 @@ import React, { useState, useMemo } from "react";
 import {
     ActionList,
     Button,
+    HelperText,
+    HelperTextItem,
     Modal,
     ModalVariant,
     PageSection,
     PageSectionTypes,
     PageSectionVariants,
     Stack,
-    Tooltip,
     Wizard,
     WizardFooter,
     WizardContextConsumer,
@@ -359,6 +360,13 @@ const Footer = ({
                               setQuitWaitsConfirmation={setQuitWaitsConfirmation}
                               isBootIso={isBootIso}
                             />}
+                            {activeStep.id === "storage-devices" && !isFormValid &&
+                                <HelperText id="next-helper-text">
+                                    <HelperTextItem
+                                      variant="indeterminate">
+                                        {_("To continue, select the devices to install to.")}
+                                    </HelperTextItem>
+                                </HelperText>}
                             <ActionList>
                                 <Button
                                   variant="secondary"
@@ -368,7 +376,6 @@ const Footer = ({
                                 </Button>
                                 <Button
                                   id="installation-next-btn"
-                                  aria-describedby="next-tooltip-ref"
                                   variant={nextButtonVariant}
                                   isDisabled={
                                       !isFormValid ||
@@ -377,21 +384,6 @@ const Footer = ({
                                   onClick={() => goToNextStep(activeStep, onNext)}>
                                     {nextButtonText}
                                 </Button>
-                                {activeStep.id === "storage-devices" &&
-                                    <Tooltip
-                                      id="next-tooltip-ref"
-                                      content={
-                                          <div>
-                                              {_("To continue, select the devices to install to.")}
-                                          </div>
-                                      }
-                                      // Only show the tooltip on installation destination spoke that is not valid (no disks selected).
-                                      // NOTE: As PatternFly Button with isDisabled set apprently does not get any mouse events anymore,
-                                      //       we need to manually trigger the tooltip.
-                                      reference={() => document.getElementById("installation-next-btn")}
-                                      trigger="manual"
-                                      isVisible={!isFormValid}
-                                    />}
                                 <Button
                                   id="installation-quit-btn"
                                   style={{ marginLeft: "var(--pf-c-wizard__footer-cancel--MarginLeft)" }}
