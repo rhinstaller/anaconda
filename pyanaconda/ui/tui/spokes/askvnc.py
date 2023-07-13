@@ -160,6 +160,7 @@ class VNCPassSpoke(NormalTUISpoke):
             self.apply()
             self.close()
 
+        # ruff: noqa: PLR1711
         return None
 
     def _print_error_and_redraw(self, msg):

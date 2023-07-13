@@ -121,7 +121,6 @@ ExecStart=/usr/libexec/cockpit-ws --no-tls --port 9090 --local-session=cockpit-b
             f.write(repr(proc.pid))
         proc.wait()
         log.debug("cockpit web view has finished running")
-        return
 
     @property
     def meh_interface(self):
