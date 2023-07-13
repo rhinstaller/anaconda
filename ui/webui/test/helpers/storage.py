@@ -98,54 +98,58 @@ class Storage():
         self.browser.wait_not_present("#no-disks-detected-alert")
 
     def dbus_scan_devices(self):
-        task = self.machine.execute(f'dbus-send --print-reply --bus="{self._bus_address}" \
-            --dest={STORAGE_SERVICE} \
+        task = self.machine.execute(f'busctl --address="{self._bus_address}" \
+            call \
+            {STORAGE_SERVICE} \
             {STORAGE_OBJECT_PATH} \
-            {STORAGE_INTERFACE}.ScanDevicesWithTask')
+            {STORAGE_INTERFACE} ScanDevicesWithTask')
         task = task.splitlines()[-1].split()[-1]
 
-        self.machine.execute(f'dbus-send --print-reply --bus="{self._bus_address}" \
-            --dest={STORAGE_SERVICE} \
+        self.machine.execute(f'busctl --address="{self._bus_address}" \
+            call \
+            {STORAGE_SERVICE} \
             {task} \
-            org.fedoraproject.Anaconda.Task.Start')
+            org.fedoraproject.Anaconda.Task Start')
 
     def dbus_reset_partitioning(self):
-        self.machine.execute(f'dbus-send --print-reply --bus="{self._bus_address}" \
-            --dest={STORAGE_SERVICE} \
+        self.machine.execute(f'busctl --address="{self._bus_address}" \
+            call \
+            {STORAGE_SERVICE} \
             {STORAGE_OBJECT_PATH} \
-            {STORAGE_INTERFACE}.ResetPartitioning')
+            {STORAGE_INTERFACE} ResetPartitioning')
 
     def dbus_create_partitioning(self, method="MANUAL"):
-        return self.machine.execute(f'dbus-send --print-reply --bus="{self._bus_address}" \
-            --dest={STORAGE_SERVICE} \
+        return self.machine.execute(f'busctl --address="{self._bus_address}" \
+            call \
+            {STORAGE_SERVICE} \
             {STORAGE_OBJECT_PATH} \
-            {STORAGE_INTERFACE}.CreatePartitioning string:"{method}"')
+            {STORAGE_INTERFACE} CreatePartitioning s {method}')
 
     def dbus_get_applied_partitioning(self):
-        ret = self.machine.execute(f'dbus-send --print-reply=literal --bus="{self._bus_address}" \
-            --dest={STORAGE_SERVICE} \
+        ret = self.machine.execute(f'busctl --address="{self._bus_address}" \
+            get-property  \
+            {STORAGE_SERVICE} \
             {STORAGE_OBJECT_PATH} \
-            org.freedesktop.DBus.Properties.Get \
-            string:{STORAGE_INTERFACE} string:AppliedPartitioning')
+            {STORAGE_INTERFACE} AppliedPartitioning')
 
         print("ret: ", ret)
-        return ret.split('variant')[1].strip()
+        return ret.split('s ')[1].strip()
 
     def dbus_get_created_partitioning(self):
-        ret = self.machine.execute(f'dbus-send --print-reply=literal --bus="{self._bus_address}" \
-            --dest={STORAGE_SERVICE} \
+        ret = self.machine.execute(f'busctl --address="{self._bus_address}" \
+            get-property  \
+            {STORAGE_SERVICE} \
             {STORAGE_OBJECT_PATH} \
-            org.freedesktop.DBus.Properties.Get \
-            string:{STORAGE_INTERFACE} string:CreatedPartitioning')
+            {STORAGE_INTERFACE} CreatedPartitioning')
 
         return ret[ret.find("[")+1:ret.rfind("]")].split()
 
     def dbus_set_initialization_mode(self, value):
-        self.machine.execute(f'dbus-send --print-reply --bus="{self._bus_address}" \
-            --dest={STORAGE_SERVICE} \
+        self.machine.execute(f'busctl --address="{self._bus_address}" \
+            set-property \
+            {STORAGE_SERVICE} \
             {DISK_INITIALIZATION_OBJECT_PATH} \
-            org.freedesktop.DBus.Properties.Set \
-            string:"{DISK_INITIALIZATION_INTERFACE}" string:"InitializationMode" variant:int32:{value}')
+            {DISK_INITIALIZATION_INTERFACE} InitializationMode i -- {value}')
 
     @log_step(snapshots=True)
     def rescan_disks(self):
