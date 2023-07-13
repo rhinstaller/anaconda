@@ -111,6 +111,13 @@ class Storage():
             {task} \
             org.fedoraproject.Anaconda.Task Start')
 
+    def dbus_reset_selected_disks(self):
+        self.machine.execute(f'busctl --address="{self._bus_address}" \
+            set-property \
+            {STORAGE_SERVICE} \
+            {STORAGE_OBJECT_PATH}/DiskSelection \
+            {STORAGE_INTERFACE}.DiskSelection SelectedDisks as 0')
+
     def dbus_reset_partitioning(self):
         self.machine.execute(f'busctl --address="{self._bus_address}" \
             call \
