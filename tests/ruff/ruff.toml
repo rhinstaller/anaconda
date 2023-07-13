@@ -2,7 +2,12 @@
 
 line-length = 99
 
-select = ["E", "F", "PL"]
+select = [
+    "E", # pycodestyle error
+    "F", # pyflakes
+    "W", # pycodestyle warning (mostly whitespace related)
+    "PL", # pylint
+]
 
 ignore = [
     "E501", # Line too long
