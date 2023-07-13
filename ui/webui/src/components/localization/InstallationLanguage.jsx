@@ -148,12 +148,11 @@ class LanguageSelector extends React.Component {
         // List common languages.
         if (!filter) {
             filtered.push(
-                <>
+                <React.Fragment key="group-common-languages">
                     <MenuGroup
                       label={_("Common languages")}
                       id={idPrefix + "-common-languages"}
                       labelHeadingLevel="h3"
-                      key="group-common-languages"
                     >
                         {
                             commonLocales
@@ -163,7 +162,7 @@ class LanguageSelector extends React.Component {
                         }
                     </MenuGroup>
                     <Divider />
-                </>
+                </React.Fragment>
             );
         }
 
