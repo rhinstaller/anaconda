@@ -8,6 +8,7 @@ select = [
     "W", # pycodestyle warning (mostly whitespace related)
     "PL", # pylint
     "ICN", # flake8-import-conventions
+    "G", # flake8-logging-format
 ]
 
 ignore = [
