@@ -62,7 +62,7 @@ dist_check_SCRIPTS = \
 	pep8/runpep8.sh \
 	ruff/run_ruff.sh
 
-
+# TODO: Return back pylint/runpylint.py when it works on python 3.12
 TESTS = \
 	cppcheck/runcppcheck.sh \
 	gettext_tests/click.py \
@@ -72,8 +72,7 @@ TESTS = \
 	glade_tests/glade_tests.sh \
 	shellcheck/run_shellcheck.sh \
 	ruff/run_ruff.sh \
-	unit_tests/unit_tests.sh \
-	pylint/runpylint.py
+	unit_tests/unit_tests.sh
 
 clean-local:
 	-rm -rf pylint/.pylint.d
