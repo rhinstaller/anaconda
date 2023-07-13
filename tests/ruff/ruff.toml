@@ -9,6 +9,7 @@ select = [
     "PL", # pylint
     "ICN", # flake8-import-conventions
     "G", # flake8-logging-format
+    "RUF", # Ruff-specific rules
 ]
 
 ignore = [
@@ -26,4 +27,6 @@ ignore = [
     "PLR5501", # Consider using `elif` instead of `else` then `if` to remove one indentation level
     "PLC1901", # `<str comparison>` can be simplified to `<str comparison>` as an empty string is falsey
     "PLW2901", # `for` loop variable `<name>` overwritten by assignment target
+    "RUF005", # Consider `<expression>` instead of concatenation
+    "RUF012", # Mutable class attributes should be annotated with `typing.ClassVar`
 ]
