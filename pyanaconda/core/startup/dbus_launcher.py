@@ -110,7 +110,7 @@ class AnacondaDBusLauncher(object):
             "--syslog",
             "--config-file={}".format(ANACONDA_BUS_CONF_FILE)
         ]
-        
+
         def dbus_preexec():
             # to set dbus subprocess SIGINT handler
             signal.signal(signal.SIGINT, signal.SIG_IGN)

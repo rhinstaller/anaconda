@@ -38,7 +38,7 @@ class CheckFormatString(TestCase):
         for translatable in glade_tree.xpath(".//*[@translatable='yes']"):
             # Look for % followed by an open parenthesis (indicating %(name)
             # style substitution), one of the python format conversion flags
-            # (#0- +hlL), or one of the python conversion types 
+            # (#0- +hlL), or one of the python conversion types
             # (diouxXeEfFgGcrs)
             self.assertNotRegex(translatable.text,
                     r'%[-(#0 +hlLdiouxXeEfFgGcrs]',
