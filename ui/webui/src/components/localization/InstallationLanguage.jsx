@@ -287,18 +287,18 @@ LanguageSelector.contextType = AddressContext;
 
 export const InstallationLanguage = ({ idPrefix, languages, language, commonLocales, dispatch, setIsFormValid, onAddErrorNotification }) => {
     const [nativeName, setNativeName] = React.useState(false);
+    const [loading, setLoading] = React.useState(true);
     const { setLanguage } = React.useContext(LanguageContext);
     const [distributionName, setDistributionName] = useState("");
 
     useEffect(() => {
         readOsRelease().then(osRelease => setDistributionName(osRelease.NAME));
-        dispatch(getLanguagesAction());
+        dispatch(getLanguagesAction())
+                .finally(() => setLoading(false));
         dispatch(getLanguageAction());
     }, [dispatch]);
 
-    const isLoading = !language || languages.length === 0 || commonLocales.length === 0;
-
-    if (isLoading) {
+    if (loading) {
         return <EmptyStatePanel loading />;
     }
 
