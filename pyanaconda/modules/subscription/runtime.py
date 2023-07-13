@@ -409,7 +409,7 @@ class ParseAttachedSubscriptionsTask(Task):
             pass
         try:
             # The start/end date in GetPools() output seems to be formatted as
-            # "Locale’s appropriate date representation.".
+            # "Locale's appropriate date representation.".
             # See bug 1793501 for possible issues with RHSM provided date parsing.
             date = datetime.datetime.strptime(date_from_json, "%m/%d/%y")
             # get a nice human readable date
