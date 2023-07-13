@@ -471,6 +471,31 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jul 13 2023 github-actions <github-actions@github.com> - 39.25-1
+- webui: replace the Tooltip with HelperText in Storage devices step (acruzgon)
+- webui: Hide the language selection screen on Live images (akankovs)
+- webui: tests: switch some storage tests to nondestructive (kkoukiou)
+- webui: fix disk selection not working when moving back to the disk selection
+  screen (kkoukiou)
+- webui: tests: check status of the bulk select checkbox in the helper
+  functions (kkoukiou)
+- Fix and add tests for the preexec changes (vslavik)
+- webui: tests: wait for the checkboxes to get initialized before taking
+  screenshot (kkoukiou)
+- Change startProgram preexec check to early exit style (vslavik)
+- Add do_preexec propagation also to execWithCapture and shutdownServer
+  (vslavik)
+- webui: add some helper debug logs in the storage page (kkoukiou)
+- webui: fetch device data on the initial app load (kkoukiou)
+- webui: correct the last partitioning getter (kkoukiou)
+- webui: pin down cockpit-ws and cockpit-bridge versions before the python
+  bridge release (kkoukiou)
+- webui: tests: implement a 'reach' helper method (kkoukiou)
+- Squashed 'translation-canary/' changes from 3bc2ad68a8..5bb81253b4 (vslavik)
+- webui: tests: restart cockpit-ws between tests (kkoukiou)
+- Use correct call assert method in flapak test (vslavik)
+- Handle subprocess disallowing preexec during shutdown (awilliam)
+
 * Tue Jul 11 2023 github-actions <github-actions@github.com> - 39.24-1
 - webui: extend the list of the data we need to wait for before showing the app
   (kkoukiou)
