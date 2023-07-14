@@ -28,8 +28,10 @@ export const getLanguagesAction = () => {
     return async function fetchUserThunk (dispatch) {
         const languageIds = await getLanguages();
 
-        dispatch(getCommonLocalesAction());
-        return languageIds.map(language => dispatch(getLanguageDataAction({ language })));
+        return Promise.all([
+            dispatch(getCommonLocalesAction()),
+            ...languageIds.map(language => dispatch(getLanguageDataAction({ language })))
+        ]);
     };
 };
 
