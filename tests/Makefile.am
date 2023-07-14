@@ -48,7 +48,7 @@ dist_check_SCRIPTS = \
 	$(srcdir)/lib/*.py \
 	unit_tests/unit_tests.sh \
 	rpm_tests/rpm_tests.sh \
-	pylint/runpylint.py \
+	pylint/runpylint \
 	cppcheck/runcppcheck.sh \
 	testenv.sh \
 	$(srcdir)/gettext_tests/*.py \
