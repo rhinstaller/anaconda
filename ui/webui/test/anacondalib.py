@@ -36,17 +36,18 @@ class VirtInstallMachineCase(MachineCase):
     def setUp(self):
         # FIXME: running this in destructive tests fails because the SSH session closes before this is run
         if self.is_nondestructive():
-            self.addCleanup(self.rescanStorage)
+            self.addCleanup(self.resetStorage)
 
         super().setUp()
 
         self.machine.execute("systemctl restart cockpit")
         self.allow_journal_messages('.*cockpit.bridge-WARNING: Could not start ssh-agent.*')
 
-    def rescanStorage(self):
+    def resetStorage(self):
         # Ensures that anaconda has the latest storage configuration data
         m = self.machine
         b = self.browser
         s = Storage(b, m)
 
+        s.dbus_reset_selected_disks()
         s.dbus_scan_devices()
