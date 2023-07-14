@@ -299,6 +299,9 @@ container-shell:
 	--cap-add=SYS_CHROOT \
 	$(CI_NAME):$(CI_TAG)
 
+container-pylint-only:
+	$(MAKE) -f ./Makefile.am container-ci CI_CMD="make tests-pylint"
+
 container-rpm-test:
 	$(CONTAINER_ENGINE) run \
 	$(CONTAINER_TEST_ARGS) \
@@ -414,7 +417,10 @@ tests-pep8:
 
 tests-pylint:
 	$(MAKE)
-	$(MAKE) TMPDIR=/var/tmp TEST_SUITE_LOG=test-suite.log TESTS=pylint/runpylint.py check
+# For a weird reason when pylint is not in TESTS included for automake (during configure)
+# it won't allow us to use makefile check to start the tests.
+# Unfortunately, we removed pylint from the TESTS because we don't want it to run as default
+	$(srcdir)/tests/pylint/runpylint | tee $(srcdir)/tests/pylint/runpylint.log
 
 tests-unit-only:
 	@mkdir -p $(USER_SITE_PACKAGES)
