@@ -33,7 +33,6 @@ import {
     Alert,
 } from "@patternfly/react-core";
 
-import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
 import { read_os_release as readOsRelease } from "os-release.js";
 import { AddressContext, LanguageContext } from "../Common.jsx";
 import { setLocale } from "../../apis/boss.js";
@@ -48,7 +47,6 @@ import {
     setLangCookie
 } from "../../helpers/language.js";
 import { AnacondaPage } from "../AnacondaPage.jsx";
-import { getLanguagesAction, getLanguageAction } from "../../actions/localization-actions.js";
 
 import "./InstallationLanguage.scss";
 
@@ -284,22 +282,14 @@ class LanguageSelector extends React.Component {
 }
 LanguageSelector.contextType = AddressContext;
 
-export const InstallationLanguage = ({ idPrefix, languages, language, commonLocales, dispatch, setIsFormValid, onAddErrorNotification }) => {
+export const InstallationLanguage = ({ idPrefix, languages, language, commonLocales, setIsFormValid, onAddErrorNotification }) => {
     const [nativeName, setNativeName] = React.useState(false);
-    const [loading, setLoading] = React.useState(true);
     const { setLanguage } = React.useContext(LanguageContext);
     const [distributionName, setDistributionName] = useState("");
 
     useEffect(() => {
         readOsRelease().then(osRelease => setDistributionName(osRelease.NAME));
-        dispatch(getLanguagesAction())
-                .finally(() => setLoading(false));
-        dispatch(getLanguageAction());
-    }, [dispatch]);
-
-    if (loading) {
-        return <EmptyStatePanel loading />;
-    }
+    }, []);
 
     return (
         <AnacondaPage title={cockpit.format("Welcome to $0", distributionName)}>

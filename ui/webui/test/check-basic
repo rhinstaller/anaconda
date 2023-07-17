@@ -19,6 +19,7 @@ import anacondalib
 
 from installer import Installer
 from language import Language
+from review import Review
 from testlib import nondestructive, test_main  # pylint: disable=import-error
 
 
@@ -50,6 +51,7 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         b = self.browser
         m = self.machine
         i = Installer(b, m)
+        r = Review(b)
 
         self.restore_file('/run/anaconda/anaconda.conf')
         m.execute("sed -i 's/type = BOOT_ISO/type = LIVE_OS/g' /run/anaconda/anaconda.conf")
@@ -59,6 +61,10 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
 
         # Back button should be disabled on the first screen
         b.wait_visible(f"#installation-back-btn:not([aria-disabled={True}]")
+
+        # For live media in the review screen language details should still be displayed
+        i.reach(i.steps.REVIEW)
+        r.check_language("English (United States)")
 
 class TestQuit(anacondalib.VirtInstallMachineCase):
 

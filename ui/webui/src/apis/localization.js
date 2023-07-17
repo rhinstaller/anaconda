@@ -17,7 +17,7 @@
 
 import cockpit from "cockpit";
 
-import { getLanguageAction } from "../actions/localization-actions.js";
+import { getLanguageAction, getLanguagesAction } from "../actions/localization-actions.js";
 
 export class LocalizationClient {
     constructor (address) {
@@ -166,4 +166,11 @@ export const startEventMonitorLocalization = ({ dispatch }) => {
                 console.debug(`Unhandled signal on ${path}: ${iface}.${signal}`, JSON.stringify(args));
             }
         });
+};
+
+export const initDataLocalization = ({ dispatch }) => {
+    return Promise.all([
+        dispatch(getLanguageAction()),
+        dispatch(getLanguagesAction())
+    ]);
 };
