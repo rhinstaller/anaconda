@@ -29,7 +29,6 @@ import { WithDialogs } from "dialogs.jsx";
 import { AddressContext, LanguageContext } from "./Common.jsx";
 import { AnacondaHeader } from "./AnacondaHeader.jsx";
 import { AnacondaWizard } from "./AnacondaWizard.jsx";
-import { HelpDrawer } from "./HelpDrawer.jsx";
 import { CriticalError } from "./Error.jsx";
 
 import { BossClient } from "../apis/boss.js";
@@ -48,9 +47,7 @@ export const Application = () => {
     const [conf, setConf] = useState();
     const [language, setLanguage] = useState();
     const [notifications, setNotifications] = useState({});
-    const [isHelpExpanded, setIsHelpExpanded] = useState(false);
-    const [helpContent, setHelpContent] = useState("");
-    const [prettyName, setPrettyName] = useState("");
+    const [osRelease, setOsRelease] = useState("");
     const [state, dispatch] = useReducerWithThunk(reducer, initialState);
     const [storeInitilized, setStoreInitialized] = useState(false);
 
@@ -90,7 +87,7 @@ export const Application = () => {
             setCriticalError
         );
 
-        readOsRelease().then(osRelease => setPrettyName(osRelease.PRETTY_NAME));
+        readOsRelease().then(osRelease => setOsRelease(osRelease));
     }, [dispatch]);
 
     const onAddNotification = (notificationProps) => {
@@ -104,23 +101,15 @@ export const Application = () => {
         onAddNotification({ title: ex.name, message: ex.message, variant: "danger" });
     };
 
-    const toggleContextHelp = (content) => {
-        if (!isHelpExpanded) {
-            setHelpContent(content);
-        }
-        setIsHelpExpanded(!isHelpExpanded);
-    };
-
     // Postpone rendering anything until we read the dbus address and the default configuration
-    if (!criticalError && (!address || !conf || beta === undefined || !prettyName || !storeInitilized)) {
+    if (!criticalError && (!address || !conf || beta === undefined || !osRelease || !storeInitilized)) {
         console.debug("Loading initial data...");
         return null;
     }
 
     // On live media rebooting the system will actually shut it off
     const isBootIso = conf?.["Installation System"].type === "BOOT_ISO";
-
-    const title = cockpit.format("$0 installation", prettyName);
+    const title = cockpit.format("$0 installation", osRelease.PRETTY_NAME);
 
     const page = (
         criticalError
@@ -163,13 +152,12 @@ export const Application = () => {
                             <AnacondaWizard
                               isBootIso={isBootIso}
                               onAddErrorNotification={onAddErrorNotification}
-                              toggleContextHelp={toggleContextHelp}
-                              hideContextHelp={() => setIsHelpExpanded(false)}
                               title={title}
                               storageData={state.storage}
                               localizationData={state.localization}
                               dispatch={dispatch}
                               conf={conf}
+                              osRelease={osRelease}
                             />
                         </WithDialogs>
                     </AddressContext.Provider>
@@ -180,13 +168,7 @@ export const Application = () => {
     return (
         <WithDialogs>
             <LanguageContext.Provider value={{ language, setLanguage }}>
-                <HelpDrawer
-                  isExpanded={isHelpExpanded}
-                  setIsExpanded={setIsHelpExpanded}
-                  helpContent={helpContent}
-                >
-                    {page}
-                </HelpDrawer>
+                {page}
             </LanguageContext.Provider>
         </WithDialogs>
     );

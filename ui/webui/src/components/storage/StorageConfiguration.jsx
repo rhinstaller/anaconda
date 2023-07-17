@@ -16,41 +16,15 @@
  */
 
 import cockpit from "cockpit";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
-    Alert,
-    Button,
-    DataList,
-    DataListCell,
-    DataListItem,
-    DataListItemRow,
-    DataListItemCells,
-    Drawer,
-    DrawerContent,
-    DrawerContentBody,
-    DrawerActions,
-    DrawerHead,
-    DrawerPanelContent,
-    DrawerCloseButton,
-    Flex,
-    FlexItem,
-    HelperText,
-    HelperTextItem,
-    Popover,
-    PopoverPosition,
-    TextContent,
-    Title,
-    Tooltip,
+    FormGroup,
     Radio,
+    Title,
 } from "@patternfly/react-core";
 
-import { HelpIcon } from "@patternfly/react-icons";
-
-import ExclamationTriangleIcon from "@patternfly/react-icons/dist/esm/icons/exclamation-triangle-icon";
-
 import { helpEraseAll, helpUseFreeSpace, helpCustomMountPoint } from "./HelpAutopartOptions.jsx";
-import { AnacondaPage } from "../AnacondaPage.jsx";
 import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
 
 import {
@@ -65,41 +39,6 @@ import {
 } from "../../apis/payloads";
 
 const _ = cockpit.gettext;
-
-// TODO unify with HelpDrawer ?
-const DetailDrawer = ({ isExpanded, setIsExpanded, detailContent, children }) => {
-    const drawerRef = useRef(null);
-
-    const onExpand = () => {
-        drawerRef.current && drawerRef.current.focus();
-    };
-
-    const onCloseClick = () => {
-        setIsExpanded(false);
-    };
-
-    const panelConent = (
-        <DrawerPanelContent>
-            <DrawerHead>
-                <span tabIndex={isExpanded ? 0 : -1} ref={drawerRef}>
-                    {detailContent}
-                </span>
-                <DrawerActions>
-                    <DrawerCloseButton onClick={onCloseClick} />
-                </DrawerActions>
-            </DrawerHead>
-        </DrawerPanelContent>
-    );
-
-    return (
-        <Drawer isExpanded={isExpanded} position="right" onExpand={onExpand}>
-            <DrawerContent panelContent={panelConent}>
-                <DrawerContentBody>{children}</DrawerContentBody>
-            </DrawerContent>
-        </Drawer>
-
-    );
-};
 
 function AvailabilityState (available = true, reason = null, hint = null, shortHint = null) {
     this.available = available;
@@ -208,49 +147,11 @@ export const getDefaultScenario = () => {
     return scenarios.filter(s => s.default)[0];
 };
 
-const scenarioDetailContent = (scenario, reason, hint) => {
-    return (
-        <Flex direction={{ default: "column" }}>
-            <Title headingLevel="h3">
-                {scenario.label}
-            </Title>
-            {hint &&
-                <Alert
-                  id="scenario-disabled-hint"
-                  isInline
-                  title={reason}
-                  variant="warning"
-                >
-                    {hint}
-                </Alert>}
-            {scenario.detail}
-        </Flex>
-    );
-};
-
-const predefinedStorageInfo = (
-    <Popover
-      bodyContent={_(
-          "Pre-defined scenarios of the selected disks partitioning."
-      )}
-      position={PopoverPosition.auto}
-    >
-        <Button
-          variant="link"
-          aria-label={_("Pre-defined storage label info")}
-          icon={<HelpIcon />}
-        />
-    </Popover>
-);
-
-// TODO add aria items
 const GuidedPartitioning = ({ deviceData, selectedDisks, idPrefix, scenarios, storageScenarioId, setStorageScenarioId, setIsFormValid }) => {
     const [selectedScenario, setSelectedScenario] = useState();
     const [scenarioAvailability, setScenarioAvailability] = useState(Object.fromEntries(
         scenarios.map((s) => [s.id, new AvailabilityState()])
     ));
-    const [isDetailExpanded, setIsDetailExpanded] = useState(false);
-    const [detailContent, setDetailContent] = useState("");
     const [requiredSize, setRequiredSize] = useState();
     const [diskTotalSpace, setDiskTotalSpace] = useState();
     const [diskFreeSpace, setDiskFreeSpace] = useState();
@@ -315,6 +216,7 @@ const GuidedPartitioning = ({ deviceData, selectedDisks, idPrefix, scenarios, st
             const scenario = getScenario(scenarioId);
             setStorageScenarioId(scenarioId);
             console.log("Updating scenario selected in backend to", scenario.id);
+
             await setInitializationMode({ mode: scenario.initializationMode }).catch(console.error);
         };
         if (selectedScenario) {
@@ -322,117 +224,57 @@ const GuidedPartitioning = ({ deviceData, selectedDisks, idPrefix, scenarios, st
         }
     }, [scenarios, selectedScenario, setStorageScenarioId]);
 
-    const updateDetailContent = (scenarioId) => {
-        const scenario = getScenario(scenarioId);
-        const reason = scenarioAvailability[scenarioId].reason;
-        const hint = scenarioAvailability[scenarioId].hint;
-        setDetailContent(scenarioDetailContent(scenario, reason, hint));
-    };
-
     const onScenarioToggled = (scenarioId) => {
         setSelectedScenario(scenarioId);
-        updateDetailContent(scenarioId);
-    };
-
-    const showScenarioDetails = (scenarioId) => {
-        updateDetailContent(scenarioId);
-        setIsDetailExpanded(!isDetailExpanded);
     };
 
     if (!selectedScenario) {
         return <EmptyStatePanel loading />;
     }
 
-    const scenarioItems = scenarios.map(scenario =>
-        <DataListItem key={scenario.id}>
-            <DataListItemRow>
-                <DataListItemCells dataListCells={[
-                    <DataListCell key="radio">
-                        {!scenarioAvailability[scenario.id].available &&
-                        <Tooltip
-                          aria-live="polite"
-                          content={scenarioAvailability[scenario.id].shortHint}
-                          reference={() => document.getElementById(idPrefix + "-autopart-scenario-" + scenario.id)}
-                        />}
-                        <Flex direction={{ default: "column" }} spaceItems={{ default: "spaceItemsSm" }}>
-                            <FlexItem>
-                                <Radio
-                                  id={idPrefix + "-autopart-scenario-" + scenario.id}
-                                  value={scenario.id}
-                                  name="autopart-scenario"
-                                  label={scenario.label}
-                                  isDisabled={!scenarioAvailability[scenario.id].available}
-                                  isChecked={selectedScenario === scenario.id}
-                                  onChange={() => onScenarioToggled(scenario.id)}
-                                />
-                            </FlexItem>
-                            {scenarioAvailability[scenario.id].reason &&
-                            <FlexItem>
-                                <Flex spaceItems={{ default: "spaceItemsLg" }}>
-                                    <FlexItem />
-                                    <FlexItem>
-                                        <HelperText>
-                                            <HelperTextItem variant="warning" icon={<ExclamationTriangleIcon />}>
-                                                {scenarioAvailability[scenario.id].reason}
-                                            </HelperTextItem>
-                                        </HelperText>
-                                    </FlexItem>
-                                </Flex>
-                            </FlexItem>}
-                        </Flex>
-                    </DataListCell>,
-                    <DataListCell isFilled={false} key="details">
-                        <Button
-                          variant="link"
-                          isInline
-                          onClick={() => showScenarioDetails(scenario.id)}
-                        >
-                            {_("Learn more")}
-                        </Button>
-                    </DataListCell>
-                ]} />
-            </DataListItemRow>
-        </DataListItem>
-    );
+    const scenarioItems = scenarios.map(scenario => (
+        <Radio
+          className={idPrefix + "-scenario"}
+          key={scenario.id}
+          id={idPrefix + "-autopart-scenario-" + scenario.id}
+          value={scenario.id}
+          name="autopart-scenario"
+          label={scenario.label}
+          isDisabled={!scenarioAvailability[scenario.id].available}
+          isChecked={storageScenarioId === scenario.id}
+          onChange={() => onScenarioToggled(scenario.id)}
+          description={scenario.detail}
+          body={
+              <>
+                  {selectedDisks.length > 0 && scenarioAvailability[scenario.id].reason &&
+                  <span className={idPrefix + "-scenario-disabled-reason"}>
+                      {scenarioAvailability[scenario.id].reason}
+                  </span>}
+                  {selectedDisks.length > 0 && <span className={idPrefix + "-scenario-disabled-shorthint"}>{scenarioAvailability[scenario.id].shortHint}</span>}
+              </>
+          } />
+    ));
 
-    const GuidedPartitioningList = (
-        <DataList>
-            {scenarioItems}
-        </DataList>
-    );
-
-    return (
-        <DetailDrawer
-          isExpanded={isDetailExpanded}
-          setIsExpanded={setIsDetailExpanded}
-          detailContent={detailContent}
-        >
-            <Title headingLevel="h3">
-                <Flex spaceItems={{ default: "spaceItemsXs" }}>
-                    <FlexItem>{_("Pre-defined storage configurations")}</FlexItem>
-                    <FlexItem>{predefinedStorageInfo}</FlexItem>
-                </Flex>
-            </Title>
-            {GuidedPartitioningList}
-        </DetailDrawer>
-    );
+    return scenarioItems;
 };
 
-export const StorageConfiguration = ({ deviceData, diskSelection, idPrefix, setIsFormValid, storageScenarioId, setStorageScenarioId }) => {
+export const StorageConfiguration = ({ deviceData, diskSelection, idPrefix, setIsFormValid, storageScenarioId, setStorageScenarioId, isBootIso }) => {
+    const headingLevel = isBootIso ? "h2" : "h3";
+
     return (
-        <AnacondaPage title={_("Select a storage configuration")}>
-            <TextContent>
-                {_("Configure the partitioning scheme to be used on the selected disks.")}
-            </TextContent>
-            <GuidedPartitioning
-              deviceData={deviceData}
-              selectedDisks={diskSelection.selectedDisks}
-              idPrefix={idPrefix}
-              scenarios={scenarios}
-              setIsFormValid={setIsFormValid}
-              storageScenarioId={storageScenarioId}
-              setStorageScenarioId={setStorageScenarioId}
-            />
-        </AnacondaPage>
+        <>
+            <Title headingLevel={headingLevel}>{_("How would you like to install?")}</Title>
+            <FormGroup isStack hasNoPaddingTop>
+                <GuidedPartitioning
+                  deviceData={deviceData}
+                  selectedDisks={diskSelection.selectedDisks}
+                  idPrefix={idPrefix}
+                  scenarios={scenarios}
+                  setIsFormValid={setIsFormValid}
+                  storageScenarioId={storageScenarioId}
+                  setStorageScenarioId={setStorageScenarioId}
+                />
+            </FormGroup>
+        </>
     );
 };

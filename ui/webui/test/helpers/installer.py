@@ -21,17 +21,15 @@ from step_logger import log_step
 
 class InstallerSteps(UserDict):
     WELCOME = "installation-language"
-    STORAGE_DEVICES = "storage-devices"
-    STORAGE_CONFIGURATION = "storage-configuration"
+    INSTALLATION_METHOD = "installation-method"
     CUSTOM_MOUNT_POINT = "custom-mountpoint"
     DISK_ENCRYPTION = "disk-encryption"
     REVIEW = "installation-review"
     PROGRESS = "installation-progress"
 
     _steps_jump = {}
-    _steps_jump[WELCOME] = STORAGE_DEVICES
-    _steps_jump[STORAGE_DEVICES] = STORAGE_CONFIGURATION
-    _steps_jump[STORAGE_CONFIGURATION] = [DISK_ENCRYPTION, CUSTOM_MOUNT_POINT]
+    _steps_jump[WELCOME] = INSTALLATION_METHOD
+    _steps_jump[INSTALLATION_METHOD] = [DISK_ENCRYPTION, CUSTOM_MOUNT_POINT]
     _steps_jump[DISK_ENCRYPTION] = REVIEW
     _steps_jump[CUSTOM_MOUNT_POINT] = REVIEW
     _steps_jump[REVIEW] = PROGRESS
@@ -85,7 +83,7 @@ class Installer():
 
         # Wait for a disk to be pre-selected before clicking 'Next'.
         # FIXME: Find a better way.
-        if current_page == self.steps.STORAGE_DEVICES:
+        if current_page == self.steps.INSTALLATION_METHOD:
             sleep(2)
 
         self.browser.click("button:contains(Next)")
@@ -161,9 +159,3 @@ class Installer():
         self.browser.click("#installation-quit-btn")
         self.browser.wait_visible("#installation-quit-confirm-dialog")
         self.browser.click("#installation-quit-confirm-btn")
-
-    def wait_drawer_open(self, is_open=True):
-        if is_open:
-            self.browser.wait_visible(".pf-c-drawer__panel-main")
-        else:
-            self.browser.wait_not_present(".pf-c-drawer__panel-main")

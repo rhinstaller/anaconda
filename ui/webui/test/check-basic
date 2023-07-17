@@ -56,8 +56,8 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         self.restore_file('/run/anaconda/anaconda.conf')
         m.execute("sed -i 's/type = BOOT_ISO/type = LIVE_OS/g' /run/anaconda/anaconda.conf")
 
-        # For live media the first screen is the storage-devices
-        i.open(step="storage-devices")
+        # For live media the first screen is the installation-method
+        i.open(step="installation-method")
 
         # Back button should be disabled on the first screen
         b.wait_visible(f"#installation-back-btn:not([aria-disabled={True}]")

@@ -17,6 +17,7 @@
 
 import os
 import sys
+import re
 
 HELPERS_DIR = os.path.dirname(__file__)
 sys.path.append(HELPERS_DIR)
@@ -31,12 +32,13 @@ DISK_INITIALIZATION_INTERFACE = "org.fedoraproject.Anaconda.Modules.Storage.Disk
 STORAGE_OBJECT_PATH = "/org/fedoraproject/Anaconda/Modules/Storage"
 DISK_INITIALIZATION_OBJECT_PATH = "/org/fedoraproject/Anaconda/Modules/Storage/DiskInitialization"
 
+id_prefix = "installation-method"
 
 class Storage():
     def __init__(self, browser, machine):
         self.browser = browser
         self.machine = machine
-        self._step = InstallerSteps.STORAGE_DEVICES
+        self._step = InstallerSteps.INSTALLATION_METHOD
         self._bus_address = self.machine.execute("cat /run/anaconda/bus.address")
 
     def get_disks(self):
@@ -45,43 +47,40 @@ class Storage():
             yield disk.split()[0]
 
     @log_step()
-    def select_disk(self, disk, selected=True):
-        self.browser.set_checked(f"#{disk} input", selected)
-        self.check_disk_selected(disk, selected)
+    def select_disk(self, disk, selected=True, is_single_disk=False):
+        if not self.browser.is_present(f"ul[aria-labelledby='{id_prefix}-disk-selector-title']"):
+            self.browser.click(f"#{id_prefix}-disk-selector-toggle")
 
-    @log_step()
-    def select_all_disks_and_check(self, disks):
-        self.browser.click("#local-disks-bulk-select-toggle")
-        self.browser.click("#local-disks-bulk-select-all")
-        self.browser.wait_visible("#select-multiple-split-checkbox:checked")
-        for disk in disks:
-            self.check_disk_selected(disk)
+        if selected:
+            self.browser.click(f"#{id_prefix}-disk-selector-option-{disk} button:not(.pf-m-selected)")
+        else:
+            self.browser.click(f"#{id_prefix}-disk-selector-option-{disk} button.pf-m-selected")
+
+        if is_single_disk:
+            self.check_single_disk_destination(disk)
+        else:
+            self.check_disk_selected(disk, selected)
 
     @log_step()
     def select_none_disks_and_check(self, disks):
-        self.browser.click("#local-disks-bulk-select-toggle")
-        self.browser.click("#local-disks-bulk-select-none")
-        self.browser.wait_visible("#select-multiple-split-checkbox:not(:checked)")
+        self.browser.click(".pf-c-select__toggle-clear")
         for disk in disks:
             self.check_disk_selected(disk, False)
 
-    @log_step()
-    def click_checkbox_and_check_all_disks(self, disks, selected):
-        self.browser.click("#select-multiple-split-checkbox")
-        if selected:
-            self.browser.wait_visible("#select-multiple-split-checkbox:checked")
-        else:
-            self.browser.wait_visible("#select-multiple-split-checkbox:not(:checked)")
-        for disk in disks:
-            self.check_disk_selected(disk, selected)
+    def check_single_disk_destination(self, disk, capacity=None):
+        self.browser.wait_in_text(f"#{id_prefix}-target-disk", disk)
+        if capacity:
+            self.browser.wait_in_text(f"#{id_prefix}-target-disk", capacity)
 
     @log_step(snapshot_before=True)
     def check_disk_selected(self, disk, selected=True):
         if selected:
-            self.browser.wait_visible(f"#{disk} input:checked")
+            self.browser.wait_visible(f"#{id_prefix}-selector-form li.pf-c-chip-group__list-item:contains('{disk}')")
         else:
-            self.browser.wait_visible(f"#{disk} input:not(:checked)")
+            self.browser.wait_not_present(f"#{id_prefix}-selector-form li.pf-c-chip-group__list-item:contains({disk})")
 
+    def get_disk_selected(self, disk):
+        return self.browser.is_present(f"#{id_prefix}-selector-form li.pf-c-chip-group__list-item:contains({disk})")
 
     @log_step()
     def wait_no_disks(self):
@@ -110,6 +109,15 @@ class Storage():
             {STORAGE_SERVICE} \
             {task} \
             org.fedoraproject.Anaconda.Task Start')
+
+    def dbus_get_usable_disks(self):
+        ret = self.machine.execute(f'busctl --address="{self._bus_address}" \
+            call \
+            {STORAGE_SERVICE} \
+            {STORAGE_OBJECT_PATH}/DiskSelection \
+            {STORAGE_INTERFACE}.DiskSelection GetUsableDisks')
+
+        return re.findall('"([^"]*)"', ret)
 
     def dbus_reset_selected_disks(self):
         self.machine.execute(f'busctl --address="{self._bus_address}" \
@@ -164,26 +172,19 @@ class Storage():
 
     @log_step(snapshot_before=True)
     def check_disk_visible(self, disk, visible=True):
+        if not self.browser.is_present(f"ul[aria-labelledby='{id_prefix}-disk-selector-title']"):
+            self.browser.click(f"#{id_prefix}-disk-selector-toggle")
+
         if visible:
-            self.browser.wait_text(f"#{disk} > th[data-label=Name]", f"{disk}")
+            self.browser.wait_visible(f"#{id_prefix}-disk-selector-option-{disk}")
         else:
-            self.browser.wait_not_present(f"#{disk}")
+            self.browser.wait_not_present(f"#{id_prefix}-disk-selector-option-{disk}")
 
-    def check_disk_expandable(self, disk, expandable=True):
-        if expandable:
-            self.browser.wait_visible(f"#{disk} .pf-c-table__toggle button")
-        else:
-            self.browser.wait_not_present(f"#{disk} .pf-c-table__toggle button")
-
-    @log_step(snapshot_before=True)
-    def check_disk_capacity(self, disk, total=None, free=None):
-        if total:
-            self.browser.wait_text(f"#{disk} > td[data-label=Total]", total)
-        if free:
-            self.browser.wait_text(f"#{disk} > td[data-label=Free]", free)
+        self.browser.click(f"#{id_prefix}-disk-selector-toggle")
+        self.browser.wait_not_present(f"ul[aria-labelledby='{id_prefix}-disk-selector-title']")
 
     def _partitioning_selector(self, scenario):
-        return "#storage-configuration-autopart-scenario-" + scenario
+        return f"#{id_prefix}-autopart-scenario-" + scenario
 
     @log_step(snapshot_before=True)
     def check_partitioning_selected(self, scenario):
@@ -192,6 +193,7 @@ class Storage():
     @log_step(snapshot_before=True)
     def set_partitioning(self, scenario):
         self.browser.set_checked(self._partitioning_selector(scenario), True)
+        self.browser.wait_visible(self._partitioning_selector(scenario) + ":checked")
 
     @log_step(snapshot_before=True)
     def check_encryption_selected(self, selected):
@@ -268,27 +270,3 @@ class Storage():
             fi
         ''')
         self.machine.execute('chroot /mnt/sysroot bash /root/add_keyfile.sh')
-
-    def open_storage_options_help_drawer(self):
-        self.browser.click(".pf-c-wizard__main-body #learn-more-about-storage-options")
-        self.browser.wait_visible(".pf-c-drawer__panel-main")
-
-    def set_expand_disk_row(self, disk, expanded=True):
-        if not expanded:
-            self.browser.wait_visible(f"#{disk} + .pf-c-table__expandable-row.pf-m-expanded")
-        else:
-            self.browser._wait_present(f"#{disk} + .pf-c-table__expandable-row[hidden]")
-
-        self.browser.click(f"#{disk} > .pf-c-table__toggle button")
-
-        if not expanded:
-            self.browser._wait_present(f"#{disk} + .pf-c-table__expandable-row[hidden]")
-        else:
-            self.browser.wait_visible(f"#{disk} + .pf-c-table__expandable-row.pf-m-expanded")
-
-    def check_disk_partition(self, disk, partition, fs_type=None, size=None):
-        self.browser.wait_visible(f"#{disk} + .pf-c-table__expandable-row.pf-m-expanded tr:contains('{partition}')")
-        if fs_type:
-            self.browser.wait_in_text(f"#{disk} + .pf-c-table__expandable-row.pf-m-expanded tr:contains('{partition}') td[data-label=Type]", fs_type)
-        if size:
-            self.browser.wait_in_text(f"#{disk} + .pf-c-table__expandable-row.pf-m-expanded tr:contains('{partition}') td[data-label=Size]", size)
