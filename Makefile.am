@@ -279,6 +279,8 @@ ci:
 # The SYS_CHROOT capability is required for user creation tests and was dropped on podman 4.4.X
 # https://bugzilla.redhat.com/show_bug.cgi?id=2170568
 container-ci:
+	@./scripts/testing/check-container-age.sh "$(CI_NAME):$(CI_TAG)"
+
 	$(CONTAINER_ENGINE) run \
 	--entrypoint /anaconda/dockerfile/anaconda-ci/run-build-and-arg \
 	-e CONFIGURE_ARGS="--disable-webui" \
@@ -303,6 +305,8 @@ container-pylint-only:
 	$(MAKE) -f ./Makefile.am container-ci CI_CMD="make tests-pylint"
 
 container-rpm-test:
+	@./scripts/testing/check-container-age.sh "$(RPM_NAME):$(CI_TAG)"
+
 	$(CONTAINER_ENGINE) run \
 	$(CONTAINER_TEST_ARGS) \
 	$(CI_TEST_ARGS) \
@@ -314,6 +318,8 @@ container-rpm-test:
 	    dnf install -y /tmp/anaconda/result/build/01-rpm-build/*.rpm'
 
 container-rpms:
+	@./scripts/testing/check-container-age.sh "$(RPM_NAME):$(CI_TAG)"
+
 	$(CONTAINER_ENGINE) run \
 	$(CONTAINER_TEST_ARGS) \
 	$(CI_TEST_ARGS) \
