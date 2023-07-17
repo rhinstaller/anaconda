@@ -2,7 +2,7 @@ Summary: Graphical system installer
 Name:    anaconda
 Version: @PACKAGE_VERSION@
 Release: @PACKAGE_RELEASE@%{?dist}
-License: GPLv2+ and MIT
+License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
 
 # To generate Source0 do:
@@ -82,6 +82,8 @@ The anaconda package is a metapackage for the Anaconda installer.
 
 %package core
 Summary: Core of the Anaconda installer
+# core/signal.py is under MIT
+License: GPL-2.0-or-later AND MIT
 Requires: python3-libs
 Requires: python3-dnf >= %{dnfver}
 Requires: python3-blivet >= %{pythonblivetver}
@@ -250,6 +252,8 @@ Add this package to an image build (eg. with lorax) to ensure all Anaconda capab
 
 %package webui
 Summary: Cockpit based user interface for the Anaconda installer
+# ours + what npm brings in and we vendor
+License: GPL-2.0-or-later AND MIT AND 0BSD
 Requires: cockpit-bridge >= %{cockpitver}
 Requires: cockpit-ws >= %{cockpitver}
 # Firefox dependency needs to be specified there as cockpit web-view does not have a hard dependency on Firefox as
