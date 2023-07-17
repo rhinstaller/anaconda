@@ -127,7 +127,7 @@ class StorageInterface(KickstartModuleInterface):
         """Reset the scheduled partitioning.
 
         Reset the applied partitioning and reset the storage models of all
-        partitioning modules to the latest model of the system’s storage
+        partitioning modules to the latest model of the system's storage
         configuration.
 
         This method will not rescan the system.

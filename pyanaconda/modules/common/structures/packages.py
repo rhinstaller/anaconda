@@ -310,7 +310,7 @@ class PackagesConfigurationData(DBusData):
 
             all     Install all available packages with compatible
                     architectures.
-            best    Prefer packages which best match the system’s
+            best    Prefer packages which best match the system's
                     architecture.
 
         :return: 'all' or 'best'

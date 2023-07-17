@@ -19,7 +19,7 @@
 # test_driver_updates.py - unittests for driver_updates.py
 
 import unittest
-import unittest.mock as mock
+from unittest import mock
 
 import os
 import tempfile

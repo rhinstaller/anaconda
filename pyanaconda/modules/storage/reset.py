@@ -37,7 +37,7 @@ __all__ = ["ScanDevicesTask"]
 class ScanDevicesTask(Task):
     """A task for scanning all devices.
 
-    Scan the system’s storage configuration and store it in the tree.
+    Scan the system's storage configuration and store it in the tree.
     This task will reset the given instance of Blivet.
     """
 

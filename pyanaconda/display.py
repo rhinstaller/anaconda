@@ -196,7 +196,7 @@ def do_startup_x11_actions():
     def x11_preexec():
         # to set GUI subprocess SIGINT handler
         signal.signal(signal.SIGINT, signal.SIG_IGN)
-        
+
     childproc = util.startProgram(["gnome-kiosk", "--display", ":1", "--sm-disable", "--x11"],
                                   env_add={'XDG_DATA_DIRS': xdg_data_dirs},
                                   preexec_fn=x11_preexec)

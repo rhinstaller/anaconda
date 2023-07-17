@@ -74,4 +74,5 @@ class ShellSpoke(NormalTUISpoke):
         self.close()
 
         # suppress the prompt
+        # ruff: noqa: PLR1711
         return None

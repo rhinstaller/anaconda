@@ -214,7 +214,7 @@ class StorageService(KickstartService):
         """Set the current storage model.
 
         The current storage is the latest model of
-        the system’s storage configuration created
+        the system's storage configuration created
         by scanning all devices.
 
         :param storage: a storage

@@ -162,7 +162,7 @@ class UserData(DBusData):
 
     @property
     def gid(self) -> UInt32:
-        """The GID of the user’s primary group.
+        """The GID of the user's primary group.
 
         If ignored due to gid_mode, defaults to the next available non-system GID.
 
@@ -314,7 +314,7 @@ class UserData(DBusData):
         """Provides the GECOS information for the user.
 
         This is a string of various system-specific fields separated by a comma.
-        It is frequently used to specify the user’s full name, office number, and the like.
+        It is frequently used to specify the user's full name, office number, and the like.
         See man 5 passwd for more details.
 
         For examples: "foo"

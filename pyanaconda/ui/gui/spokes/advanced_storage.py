@@ -569,7 +569,7 @@ class FilterSpoke(NormalSpoke):
         super().refresh()
 
         # Reset the scheduled partitioning if any to make sure that we
-        # are working with the current system’s storage configuration.
+        # are working with the current system's storage configuration.
         # FIXME: Change modules and UI to work with the right device tree.
         self._storage_module.ResetPartitioning()
 

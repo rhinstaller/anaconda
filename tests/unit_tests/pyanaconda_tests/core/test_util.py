@@ -775,6 +775,7 @@ class LazyObjectTestCase(unittest.TestCase):
         assert lazy_a1 == lazy_a2
         assert lazy_a2 == lazy_a1
 
+        # ruff: noqa: PLR0124
         assert lazy_a1 == lazy_a1
         assert lazy_a2 == lazy_a2
 

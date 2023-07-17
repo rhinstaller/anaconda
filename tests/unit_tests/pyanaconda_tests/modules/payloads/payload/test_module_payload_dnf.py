@@ -225,6 +225,7 @@ class DNFKickstartTestCase(unittest.TestCase):
         ks_in = """
         repo --name updates
         """
+        # ruff: noqa: W291
         ks_out = """
         repo --name="updates" 
 
