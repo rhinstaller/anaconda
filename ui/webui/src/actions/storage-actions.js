@@ -32,7 +32,7 @@ import {
 export const getDevicesAction = () => {
     return async function fetchUserThunk (dispatch) {
         const devices = await getDevices();
-        return devices[0].map(device => dispatch(getDeviceDataAction({ device })));
+        return Promise.all(devices[0].map(device => dispatch(getDeviceDataAction({ device }))));
     };
 };
 
