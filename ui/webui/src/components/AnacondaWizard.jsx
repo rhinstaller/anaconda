@@ -49,7 +49,7 @@ import {
 
 const _ = cockpit.gettext;
 
-export const AnacondaWizard = ({ dispatch, storageData, localizationData, onAddErrorNotification, toggleContextHelp, hideContextHelp, title, conf }) => {
+export const AnacondaWizard = ({ dispatch, isBootIso, storageData, localizationData, onAddErrorNotification, toggleContextHelp, hideContextHelp, title, conf }) => {
     const [isFormValid, setIsFormValid] = useState(true);
     const [stepNotification, setStepNotification] = useState();
     const [isInProgress, setIsInProgress] = useState(false);
@@ -71,10 +71,6 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onAddE
             }
         }
     }, [localizationData]);
-
-    // On live media rebooting the system will actually shut it off
-    const isBootIso = conf["Installation System"].type === "BOOT_ISO";
-
     const stepsOrder = [
         ...(isBootIso
             ? [{

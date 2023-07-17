@@ -24,15 +24,19 @@ import {
 
 export class StorageClient {
     constructor (address) {
-        if (StorageClient.instance) {
+        if (StorageClient.instance && (!address || StorageClient.instance.address === address)) {
             return StorageClient.instance;
         }
+
+        StorageClient.instance?.client.close();
+
         StorageClient.instance = this;
 
         this.client = cockpit.dbus(
             "org.fedoraproject.Anaconda.Modules.Storage",
             { superuser: "try", bus: "none", address }
         );
+        this.address = address;
     }
 
     init () {
@@ -491,7 +495,7 @@ export const initDataStorage = ({ dispatch }) => {
     )
             .then(([res]) => {
                 if (res.v.length !== 0) {
-                    return res.v.forEach(path => dispatch(getPartitioningDataAction({ partitioning: path })));
+                    return Promise.all(res.v.map(path => dispatch(getPartitioningDataAction({ partitioning: path }))));
                 }
             })
             .then(() => dispatch(getDevicesAction()))

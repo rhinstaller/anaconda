@@ -21,15 +21,19 @@ import { getLanguageAction } from "../actions/localization-actions.js";
 
 export class LocalizationClient {
     constructor (address) {
-        if (LocalizationClient.instance) {
+        if (LocalizationClient.instance && (!address || LocalizationClient.instance.address === address)) {
             return LocalizationClient.instance;
         }
+
+        LocalizationClient.instance?.client.close();
+
         LocalizationClient.instance = this;
 
         this.client = cockpit.dbus(
             "org.fedoraproject.Anaconda.Modules.Localization",
             { superuser: "try", bus: "none", address }
         );
+        this.address = address;
     }
 
     init () {
