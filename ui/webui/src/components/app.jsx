@@ -52,6 +52,7 @@ export const Application = () => {
     const [helpContent, setHelpContent] = useState("");
     const [prettyName, setPrettyName] = useState("");
     const [state, dispatch] = useReducerWithThunk(reducer, initialState);
+    const [storeInitilized, setStoreInitialized] = useState(false);
 
     useEffect(() => {
         cockpit.file("/run/anaconda/bus.address").watch(address => {
@@ -66,7 +67,7 @@ export const Application = () => {
 
             setAddress(address);
 
-            initDataStorage({ dispatch }).catch(setCriticalError);
+            initDataStorage({ dispatch }).then(() => setStoreInitialized(true), setCriticalError);
             startEventMonitorStorage({ dispatch });
 
             startEventMonitorLocalization({ dispatch });
@@ -104,7 +105,7 @@ export const Application = () => {
     };
 
     // Postpone rendering anything until we read the dbus address and the default configuration
-    if (!address || !conf || !beta || !prettyName) {
+    if (!address || !conf || !beta || !prettyName || !storeInitilized) {
         console.debug("Loading initial data...");
         return null;
     }
