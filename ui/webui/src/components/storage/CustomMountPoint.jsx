@@ -16,25 +16,31 @@
  */
 
 import cockpit from "cockpit";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 
 import {
     Alert,
+    Button,
     Checkbox,
     Flex,
+    FlexItem,
     HelperText,
     HelperTextItem,
     Popover,
     Select,
     SelectOption,
     SelectVariant,
+    Text,
     TextContent,
+    TextVariants,
 } from "@patternfly/react-core";
 import { HelpIcon } from "@patternfly/react-icons";
 
 import { ListingTable } from "cockpit-components-table.jsx";
 import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
+
 import { AnacondaPage } from "../AnacondaPage.jsx";
+import { UnlockDialog } from "./UnlockDialog.jsx";
 
 import {
     createPartitioning,
@@ -119,6 +125,20 @@ const MountpointCheckbox = ({ reformat, isRootMountPoint, handleCheckReFormat, p
 
 export const CustomMountPoint = ({ deviceData, diskSelection, partitioningData, dispatch, idPrefix, setIsFormValid, onAddErrorNotification, toggleContextHelp, stepNotification }) => {
     const [creatingPartitioning, setCreatingPartitioning] = useState(true);
+    const [showUnlockDialog, setShowUnlockDialog] = useState(false);
+
+    const lockedLUKSPartitions = useMemo(() => {
+        const devs = partitioningData?.requests?.map(r => r["device-spec"]) || [];
+
+        return Object.keys(deviceData).filter(d => {
+            return (
+                devs.includes(deviceData[d].path.v) &&
+                deviceData[d].formatData.type.v === "luks" &&
+                deviceData[d].formatData.attrs.v.has_key !== "True"
+            );
+        });
+    }, [deviceData, partitioningData?.requests]);
+
     useEffect(() => {
         const validateMountPoints = requests => {
             if (requests) {
@@ -135,6 +155,10 @@ export const CustomMountPoint = ({ deviceData, diskSelection, partitioningData, 
     const selectedDevicesPaths = diskSelection.selectedDisks.map(d => deviceData[d].path.v) || [];
     const partitioningDevicesPaths = partitioningData?.requests.map(r => r["device-spec"]) || [];
     const canReusePartitioning = selectedDevicesPaths.length === partitioningDevicesPaths.length && selectedDevicesPaths.every(d => partitioningDevicesPaths.includes(d));
+
+    useEffect(() => {
+        setShowUnlockDialog(lockedLUKSPartitions.length > 0);
+    }, [lockedLUKSPartitions]);
 
     useEffect(() => {
         if (canReusePartitioning) {
@@ -204,16 +228,28 @@ export const CustomMountPoint = ({ deviceData, diskSelection, partitioningData, 
         const isNotMountPoint = ["biosboot"].includes(row["format-type"]);
         // TODO: Anaconda does not support formatting btrfs yet
         const isBtrfs = row["format-type"] === "btrfs";
+        const isLockedLUKS = lockedLUKSPartitions.some(p => row["device-spec"].includes(p));
+
         return {
             props: { key: row["device-spec"] },
             columns: [
                 { title: row["device-spec"] },
-                { title: row["format-type"] },
+                {
+                    title: (
+                        <Flex>
+                            <FlexItem>{row["format-type"]}</FlexItem>
+                            {isLockedLUKS &&
+                            <Button variant="secondary" onClick={() => setShowUnlockDialog(true)} id="unlock-luks-btn">
+                                {_("Unlock")}
+                            </Button>}
+                        </Flex>
+                    )
+                },
                 {
                     title: (
                         <MountPointSelect
                           handleOnSelect={handleOnSelect}
-                          isDisabled={isNotMountPoint}
+                          isDisabled={isNotMountPoint || isLockedLUKS}
                           mountpoint={row["mount-point"]}
                           partition={row["device-spec"]}
                           requests={partitioningData.requests}
@@ -227,7 +263,7 @@ export const CustomMountPoint = ({ deviceData, diskSelection, partitioningData, 
                           isRootMountPoint={isRootMountPoint}
                           partition={row["device-spec"]}
                           handleCheckReFormat={handleCheckReFormat}
-                          isDisabled={isNotMountPoint || isBtrfs}
+                          isDisabled={isNotMountPoint || isBtrfs || isLockedLUKS}
                         />
                     )
                 },
@@ -245,15 +281,19 @@ export const CustomMountPoint = ({ deviceData, diskSelection, partitioningData, 
                   title={stepNotification.message}
                   variant="danger"
                 />}
-            <TextContent>
-                {_("We discovered your partitioned and formatted filesystems, so now you can select your own custom mount point for each filesystem.")}
-            </TextContent>
-            <ListingTable
-              aria-label={_("Partitions")}
-              columns={[_("Partition"), _("Format type"), _("Mount point"), _("Reformat")]}
-              emptyCaption={_("No partitions")}
-              id="custom-mountpoint-table"
-              rows={partitionRows} />
+            <>
+                <TextContent>
+                    <Text component={TextVariants.p}>{_("We discovered your partitioned and formatted filesystems, so now you can select your own custom mount point for each filesystem.")}</Text>
+                </TextContent>
+                <ListingTable
+                  aria-label={_("Partitions")}
+                  columns={[_("Partition"), _("Format type"), _("Mount point"), _("Reformat")]}
+                  emptyCaption={_("No partitions")}
+                  id="custom-mountpoint-table"
+                  rows={partitionRows} />
+            </>
+            {showUnlockDialog &&
+            <UnlockDialog dispatch={dispatch} onClose={() => setShowUnlockDialog(false)} partition={lockedLUKSPartitions[0]} />}
         </AnacondaPage>
     );
 };

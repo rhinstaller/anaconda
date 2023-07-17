@@ -70,9 +70,23 @@ export const ReviewDescriptionList = ({ children }) => {
     );
 };
 
-const DeviceRow = ({ data, requests }) => {
-    const name = data.name.v;
+const checkDeviceInSubTree = (device, rootDevice, deviceData) => {
+    const parents = device.parents.v;
+
+    if (parents.length && parents[0] === rootDevice) {
+        return true;
+    } else if (parents.length && parents[0] !== rootDevice) {
+        return checkDeviceInSubTree(deviceData[parents[0]], rootDevice, deviceData);
+    } else {
+        return false;
+    }
+};
+
+const DeviceRow = ({ deviceData, disk, requests }) => {
     const [isExpanded, setIsExpanded] = useState(false);
+
+    const data = deviceData[disk];
+    const name = data.name.v;
 
     const renderRow = row => {
         const iconColumn = row.reformat.v ? <CheckCircleIcon /> : null;
@@ -87,7 +101,12 @@ const DeviceRow = ({ data, requests }) => {
         };
     };
 
-    const partitionRows = requests?.filter(req => req["device-spec"].includes(name)).map(renderRow) || [];
+    const partitionRows = requests?.filter(req => {
+        const partitionName = Object.keys(deviceData).find(device => deviceData[device].path.v === req["device-spec"]);
+        const device = deviceData[partitionName];
+
+        return checkDeviceInSubTree(device, name, deviceData);
+    }).map(renderRow) || [];
 
     return (
         <DataListItem id={`data-list-${name}`} isExpanded={isExpanded} key={name}>
@@ -205,7 +224,7 @@ export const ReviewConfiguration = ({ deviceData, diskSelection, language, reque
                 <Title className="storage-devices-configuration-title" headingLevel="h4">{_("Storage devices and configurations")}</Title>
                 <DataList isCompact>
                     {diskSelection.selectedDisks.map(disk => {
-                        return <DeviceRow key={disk} data={deviceData[disk]} requests={storageScenarioId === "custom-mount-point" ? requests : null} />;
+                        return <DeviceRow key={disk} deviceData={deviceData} disk={disk} requests={storageScenarioId === "custom-mount-point" ? requests : null} />;
                     })}
                 </DataList>
             </ExpandableSection>

@@ -190,6 +190,7 @@ class DeviceTreeViewer(ABC):
         data.description = fmt.name or ""
 
         # Collect the additional attributes.
+        data.attrs["has_key"] = self._get_attribute(fmt, "has_key")
         data.attrs["uuid"] = self._get_attribute(fmt, "uuid")
         data.attrs["label"] = self._get_attribute(fmt, "label")
         data.attrs["mount-point"] = self._get_attribute(fmt, "mountpoint")

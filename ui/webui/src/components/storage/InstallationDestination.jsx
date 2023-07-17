@@ -43,7 +43,7 @@ import {
     Tooltip,
 } from "@patternfly/react-core";
 
-import { HelpIcon, LockIcon } from "@patternfly/react-icons";
+import { HelpIcon, LockIcon, LockOpenIcon } from "@patternfly/react-icons";
 
 import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
 import { ListingTable } from "cockpit-components-table.jsx";
@@ -290,6 +290,16 @@ const LocalStandardDisks = ({ deviceData, diskSelection, dispatch, idPrefix, set
         },
     ];
 
+    const lockIcon = partition => {
+        const isLocked = partition.formatData.attrs.v.has_key?.toLowerCase() !== "true";
+
+        if (isLocked) {
+            return <LockIcon />;
+        } else {
+            return <LockOpenIcon />;
+        }
+    };
+
     const expandedContent = (disk) => (
         <ListingTable
           variant="compact"
@@ -300,7 +310,7 @@ const LocalStandardDisks = ({ deviceData, diskSelection, dispatch, idPrefix, set
                   title: (
                       <Flex spaceItems={{ default: "spaceItemsSm" }}>
                           <FlexItem>{partition.path.v}</FlexItem>
-                          {partition.formatData.type.v === "luks" && <FlexItem><LockIcon /></FlexItem>}
+                          {partition.formatData.type.v === "luks" && <FlexItem>{lockIcon(partition)}</FlexItem>}
                       </Flex>
                   )
               };

@@ -679,6 +679,12 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
 
         dev2 = LUKSDevice("dev2", parents=[dev1], fmt=get_format("luks"), size=Size("10 GiB"))
         self._add_device(dev2)
+        assert self.interface.GetFormatData("dev2") == {
+            'type': get_variant(Str, 'luks'),
+            'mountable': get_variant(Bool, False),
+            'attrs': get_variant(Dict[Str, Str], { }),
+            'description': get_variant(Str, 'LUKS'),
+        }
 
         assert self.interface.UnlockDevice("dev2", "passphrase") is True
 
@@ -688,6 +694,12 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         self.storage.devicetree.populate.assert_called_once()
         self.storage.devicetree.teardown_all.assert_called_once()
         assert dev2.format.has_key
+        assert self.interface.GetFormatData("dev2") == {
+            'type': get_variant(Str, 'luks'),
+            'mountable': get_variant(Bool, False),
+            'attrs': get_variant(Dict[Str, Str], { "has_key": "True" }),
+            'description': get_variant(Str, 'LUKS'),
+        }
 
         device_setup.side_effect = StorageError("Fake error")
         assert self.interface.UnlockDevice("dev2", "passphrase") is False
