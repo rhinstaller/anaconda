@@ -49,5 +49,8 @@ class VirtInstallMachineCase(MachineCase):
         b = self.browser
         s = Storage(b, m)
 
+        s.dbus_reset_partitioning()
         s.dbus_reset_selected_disks()
+        # CLEAR_PARTITIONS_DEFAULT = -1
+        s.dbus_set_initialization_mode(-1)
         s.dbus_scan_devices()

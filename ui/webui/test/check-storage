@@ -77,10 +77,6 @@ class TestStorage(anacondalib.VirtInstallMachineCase):
         i = Installer(b, self.machine)
         s = Storage(b, self.machine)
 
-        # Reset the state of the backend
-        # CLEAR_PARTITIONS_DEFAULT = -1
-        s.dbus_set_initialization_mode(-1)
-
         i.open()
         # Language selection
 
@@ -180,10 +176,6 @@ class TestStorage(anacondalib.VirtInstallMachineCase):
         b = self.browser
         i = Installer(b, self.machine)
         s = Storage(b, self.machine)
-
-        # Reset the state of the backend
-        # CLEAR_PARTITIONS_DEFAULT = -1
-        s.dbus_set_initialization_mode(-1)
 
         i.open()
         # Language selection
