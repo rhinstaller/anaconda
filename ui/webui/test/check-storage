@@ -118,10 +118,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase):
         # The value is preserved
         s.check_encryption_selected(encrypt)
 
-        # Encryption password is on the same page
-        i.next(subpage=encrypt)
         # Disk Encryption / password screen
-
         b.assert_pixels(
             "#app",
             "storage-step-password",
@@ -154,13 +151,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase):
         s.check_pw_rule("match", "error")
         s.set_password_confirm("abcdefgh")
         s.check_pw_rule("match", "success")
-        i.check_next_disabled(disabled=False)
-
-        # Check the values are preserved on Back and Next
-        i.back(subpage=True)
-        i.next(subpage=encrypt)
         s.check_pw_rule("8-chars", "success")
-        s.check_pw_rule("match", "success")
         s.check_pw_strength("weak")
         s.check_password("abcdefgh")
         s.check_password_confirm("abcdefgh")
@@ -211,12 +202,9 @@ class TestStorage(anacondalib.VirtInstallMachineCase):
         # Review screen
 
         i.back()
-        # Disk Encryption / password screen
+        # Disk Encryption
         s.check_password_confirm(pw)
         s.check_password(pw)
-
-        i.back(subpage=encrypt)
-        # Disk Encryption
         s.check_encryption_selected(encrypt)
 
         i.back()

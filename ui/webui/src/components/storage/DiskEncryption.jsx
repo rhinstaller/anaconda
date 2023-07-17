@@ -25,7 +25,6 @@ import {
     EmptyStateIcon,
     Form,
     FormGroup,
-    FormSection,
     FormHelperText,
     HelperText,
     HelperTextItem,
@@ -47,6 +46,7 @@ import ExclamationTriangleIcon from "@patternfly/react-icons/dist/esm/icons/excl
 import CheckCircleIcon from "@patternfly/react-icons/dist/esm/icons/check-circle-icon";
 
 import { AnacondaPage } from "../AnacondaPage.jsx";
+import "./DiskEncryption.scss";
 
 const _ = cockpit.gettext;
 
@@ -224,52 +224,40 @@ export const DiskEncryption = ({
     setIsFormValid,
     storageEncryption,
     setStorageEncryption,
-    showPassphraseScreen,
 }) => {
     const [password, setPassword] = useState(storageEncryption.password);
     const [confirmPassword, setConfirmPassword] = useState(storageEncryption.confirmPassword);
     const [passwordStrength, setPasswordStrength] = useState("");
     const [ruleLength, setRuleLength] = useState("indeterminate");
     const [ruleConfirmMatches, setRuleConfirmMatches] = useState("indeterminate");
-    const encryptedDevicesCheckbox = (
+    const isEncrypted = storageEncryption.encrypt;
+    const encryptedDevicesCheckbox = content => (
         <Checkbox
           id={idPrefix + "-encrypt-devices"}
-          label={_("Yes, I want device encryption (optional)")}
-          description={_(
-              "If you select this option you will be asked to create an encryption passphrase." +
-              " You will use the passphrase to access your data when you start your computer." +
-              " You won't be able to switch between keyboard layouts (from the default one)" +
-              " when you decrypt your disks after install."
-          )}
-          isChecked={storageEncryption.encrypt}
+          label={_("Encrypt my data")}
+          isChecked={isEncrypted}
           onChange={(encrypt) => setStorageEncryption(se => ({ ...se, encrypt }))}
+          body={content}
         />
     );
 
     const passphraseForm = (
-        <Form>
-            <FormSection
-              title={_("Create a passphrase")}
-              titleElement="h3"
-            >
-                <PasswordFormFields
-                  idPrefix={idPrefix}
-                  password={password}
-                  passwordLabel={_("Passphrase")}
-                  passwordStrength={passwordStrength}
-                  passwordConfirm={confirmPassword}
-                  passwordConfirmLabel={_("Confirm passphrase")}
-                  ruleLength={ruleLength}
-                  ruleConfirmMatches={ruleConfirmMatches}
-                  onChange={setPassword}
-                  onConfirmChange={setConfirmPassword}
-                />
-            </FormSection>
-        </Form>
+        <PasswordFormFields
+          idPrefix={idPrefix}
+          password={password}
+          passwordLabel={_("Passphrase")}
+          passwordStrength={passwordStrength}
+          passwordConfirm={confirmPassword}
+          passwordConfirmLabel={_("Confirm passphrase")}
+          ruleLength={ruleLength}
+          ruleConfirmMatches={ruleConfirmMatches}
+          onChange={setPassword}
+          onConfirmChange={setConfirmPassword}
+        />
     );
 
     useEffect(() => {
-        const updateValidity = async (password, confirmPassword, showPassphraseScreen) => {
+        const updateValidity = async (password, confirmPassword, isEncrypted) => {
             const passwordStrength = await getPasswordStrength(password);
             setPasswordStrength(passwordStrength);
             const ruleLength = getRuleLength(password);
@@ -281,11 +269,11 @@ export const DiskEncryption = ({
                 ruleConfirmMatches === "success" &&
                 isValidStrength(passwordStrength)
             );
-            setIsFormValid(!showPassphraseScreen || passphraseValid);
+            setIsFormValid(!isEncrypted || passphraseValid);
         };
 
-        updateValidity(password, confirmPassword, showPassphraseScreen);
-    }, [setIsFormValid, showPassphraseScreen, password, confirmPassword]);
+        updateValidity(password, confirmPassword, isEncrypted);
+    }, [setIsFormValid, isEncrypted, password, confirmPassword]);
 
     useEffect(() => {
         setStorageEncryption(se => ({ ...se, password, confirmPassword }));
@@ -298,14 +286,16 @@ export const DiskEncryption = ({
     return (
         <AnacondaPage title={_("Encrypt the selected devices?")}>
             <TextContent>
-                {_(
-                    "You can create encrypted devices during installation." +
-                    " This allows you to easily configure a system with encrypted partitions." +
-                    " To enable block device encryption, check the \"Encrypt System\" checkbox"
-                )}
+                <Text component={TextVariants.p}>
+                    {_("Encryption helps secure your data, to prevent others from accessing it.")}
+                </Text>
+                <Text component={TextVariants.p}>
+                    {_("Only new partitions will be encrypted. Existing partitions will remain untouched.")}
+                </Text>
             </TextContent>
-            {showPassphraseScreen ? passphraseForm : encryptedDevicesCheckbox}
+            <Form>
+                {encryptedDevicesCheckbox(isEncrypted ? passphraseForm : null)}
+            </Form>
         </AnacondaPage>
-
     );
 };
