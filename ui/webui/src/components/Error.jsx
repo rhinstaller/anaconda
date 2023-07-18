@@ -48,11 +48,30 @@ export const CriticalError = ({ exception, isBootIso }) => {
                   </Button>
               </>
           }>
+            {exception.contextData?.context &&
             <TextContent>
                 <Text component={TextVariants.p}>
-                    {exception.message}
+                    {cockpit.format(_("Action: $0"), exception.contextData.context)}
+                </Text>
+            </TextContent>}
+            <TextContent>
+                <Text component={TextVariants.p}>
+                    {cockpit.format(_("Error: $0"), exception.message)}
                 </Text>
             </TextContent>
+            {exception.contextData?.hint &&
+            <TextContent>
+                <Text component={TextVariants.p}>
+                    {cockpit.format(_("Hint: $0"), exception.contextData.hint)}
+                </Text>
+            </TextContent>}
         </Modal>
     );
+};
+
+export const errorHandlerWithContext = (contextData, handler) => {
+    return (exception) => {
+        exception.contextData = contextData;
+        handler(exception);
+    };
 };

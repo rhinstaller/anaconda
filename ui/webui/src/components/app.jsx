@@ -29,7 +29,7 @@ import { WithDialogs } from "dialogs.jsx";
 import { AddressContext, LanguageContext } from "./Common.jsx";
 import { AnacondaHeader } from "./AnacondaHeader.jsx";
 import { AnacondaWizard } from "./AnacondaWizard.jsx";
-import { CriticalError } from "./Error.jsx";
+import { CriticalError, errorHandlerWithContext } from "./Error.jsx";
 
 import { BossClient } from "../apis/boss.js";
 import { LocalizationClient, initDataLocalization, startEventMonitorLocalization } from "../apis/localization.js";
@@ -54,6 +54,10 @@ export const Application = () => {
     const [state, dispatch] = useReducerWithThunk(reducer, initialState);
     const [storeInitilized, setStoreInitialized] = useState(false);
 
+    const onCritFail = (contextData) => {
+        return errorHandlerWithContext(contextData, setCriticalError);
+    };
+
     useEffect(() => {
         cockpit.file("/run/anaconda/bus.address").watch(address => {
             setCriticalError();
@@ -68,26 +72,32 @@ export const Application = () => {
 
             setAddress(address);
 
+            const errorContext = {
+                context: _("Initialize information about system."),
+                hint: _("Please report the error."),
+            };
+
+            const errorHandler = onCritFail(errorContext);
+
             Promise.all([
                 initDataStorage({ dispatch }),
                 initDataLocalization({ dispatch }),
             ])
                     .then(() => {
                         setStoreInitialized(true);
-
                         startEventMonitorStorage({ dispatch });
                         startEventMonitorLocalization({ dispatch });
-                    }, setCriticalError);
+                    }, errorHandler);
 
             getIsFinal().then(
                 isFinal => setBeta(!isFinal),
-                setCriticalError
+                onCritFail({ context: _("Read installer version information.") })
             );
         });
 
         readConf().then(
             setConf,
-            setCriticalError
+            onCritFail({ context: _("Read installer configuration") })
         );
 
         readOsRelease().then(osRelease => setOsRelease(osRelease));
