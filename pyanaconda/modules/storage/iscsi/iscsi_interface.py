@@ -71,11 +71,7 @@ class ISCSIInterface(KickstartModuleInterfaceTemplate):
     def CanSetInitiator(self) -> Bool:
         """Can the iSCSI initator be set?
 
-        Once the initiator name is set it can't be changed.
-        FIXME
-        Investigate if it needs to be so strict? Perhaps it has to be frozen only
-        once there are active nodes logged in, or once any nodes were discovered.
-        This would need to be changed in blivet/iscsi.py.
+        Initiator name can be changed when no sessions are active.
         """
         return self.implementation.can_set_initiator()
 

@@ -69,7 +69,7 @@ class ISCSIModule(KickstartBaseModule):
 
         :param initiator: a name of the initiator
         """
-        if not iscsi.initiator_set:
+        if not iscsi.initiator_set or (initiator != iscsi.initiator and self.can_set_initiator()):
             iscsi.initiator = initiator
             self.initiator_changed.emit()
             log.debug("The iSCSI initiator is set to '%s'.", initiator)
@@ -79,9 +79,10 @@ class ISCSIModule(KickstartBaseModule):
     def can_set_initiator(self):
         """Can the initiator be set?
 
-        Once the initiator name is set it can't be changed.
+        Initiator name can be changed when no sessions are active.
         """
-        return not iscsi.initiator_set
+        active = iscsi._get_active_sessions()
+        return not active
 
     def get_interface_mode(self):
         """Get the mode of interfaces used for iSCSI operations.
