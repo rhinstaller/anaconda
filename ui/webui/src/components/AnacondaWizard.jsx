@@ -54,7 +54,6 @@ export const AnacondaWizard = ({ dispatch, isBootIso, storageData, localizationD
     const [stepNotification, setStepNotification] = useState();
     const [isInProgress, setIsInProgress] = useState(false);
     const [storageEncryption, setStorageEncryption] = useState(new StorageEncryptionState());
-    const [showPassphraseScreen, setShowPassphraseScreen] = useState(false);
     const [storageScenarioId, setStorageScenarioId] = useState(window.sessionStorage.getItem("storage-scenario-id") || getDefaultScenario().id);
     const lastPartitioning = useMemo(() => {
         const lastPartitioningKey = Object.keys(storageData.partitioning || {}).find(path => parseInt(path.match(/\d+$/)[0]) === Object.keys(storageData.partitioning).length);
@@ -178,7 +177,6 @@ export const AnacondaWizard = ({ dispatch, isBootIso, storageData, localizationD
                           isInProgress={isInProgress}
                           storageEncryption={storageEncryption}
                           setStorageEncryption={setStorageEncryption}
-                          showPassphraseScreen={showPassphraseScreen}
                           storageScenarioId={storageScenarioId}
                           isBootIso={isBootIso}
                           setStorageScenarioId={(scenarioId) => {
@@ -218,8 +216,6 @@ export const AnacondaWizard = ({ dispatch, isBootIso, storageData, localizationD
                 isInProgress={isInProgress}
                 setIsInProgress={setIsInProgress}
                 storageEncryption={storageEncryption}
-                showPassphraseScreen={showPassphraseScreen}
-                setShowPassphraseScreen={setShowPassphraseScreen}
                 storageScenarioId={storageScenarioId}
                 isBootIso={isBootIso}
               />}
@@ -244,8 +240,6 @@ const Footer = ({
     partitioning,
     setIsInProgress,
     storageEncryption,
-    showPassphraseScreen,
-    setShowPassphraseScreen,
     storageScenarioId,
     isBootIso
 }) => {
@@ -257,10 +251,6 @@ const Footer = ({
         setIsFormValid(true);
 
         if (activeStep.id === "disk-encryption") {
-            if (!showPassphraseScreen && storageEncryption.encrypt) {
-                setShowPassphraseScreen(true);
-                return;
-            }
             setIsInProgress(true);
 
             applyStorage({
@@ -309,11 +299,7 @@ const Footer = ({
     const goToPreviousStep = (activeStep, onBack) => {
         // first reset validation state to default
         setIsFormValid(true);
-        if (activeStep.id === "disk-encryption" && showPassphraseScreen) {
-            setShowPassphraseScreen(false);
-        } else {
-            onBack();
-        }
+        onBack();
         if (activeStep.id === "installation-review") {
             resetPartitioning().then(() => {
                 console.log("resetPartitioning");
