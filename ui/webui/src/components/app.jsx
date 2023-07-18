@@ -105,7 +105,7 @@ export const Application = () => {
     };
 
     // Postpone rendering anything until we read the dbus address and the default configuration
-    if (!address || !conf || !beta || !prettyName || !storeInitilized) {
+    if (!criticalError && (!address || !conf || !beta || !prettyName || !storeInitilized)) {
         console.debug("Loading initial data...");
         return null;
     }
@@ -116,59 +116,62 @@ export const Application = () => {
     const title = cockpit.format("$0 installation", prettyName);
 
     const page = (
-        <Page
-          data-debug={conf.Anaconda.debug}
-          additionalGroupedContent={
-              <AnacondaHeader beta={beta} title={title} />
-          }
-          groupProps={{
-              sticky: "top"
-          }}
-        >
-            {Object.keys(notifications).length > 0 &&
-            <AlertGroup isToast isLiveRegion>
-                {Object.keys(notifications).map(idx => {
-                    const notification = notifications[idx];
-                    const newNotifications = { ...notifications };
-                    delete newNotifications[notification.index];
+        criticalError
+            ? <CriticalError exception={criticalError} isBootIso={isBootIso} />
+            : (
+                <Page
+                  data-debug={conf.Anaconda.debug}
+                  additionalGroupedContent={
+                      <AnacondaHeader beta={beta} title={title} />
+                  }
+                  groupProps={{
+                      sticky: "top"
+                  }}
+                >
+                    {Object.keys(notifications).length > 0 &&
+                    <AlertGroup isToast isLiveRegion>
+                        {Object.keys(notifications).map(idx => {
+                            const notification = notifications[idx];
+                            const newNotifications = { ...notifications };
+                            delete newNotifications[notification.index];
 
-                    return (
-                        <Alert
-                          variant={AlertVariant[notification.variant]}
-                          title={notification.title}
-                          actionClose={
-                              <AlertActionCloseButton
-                                title={notifications.title}
-                                onClose={() => setNotifications(newNotifications)}
-                              />
-                          }
-                          key={notification.index}>
-                            {notification.message}
-                        </Alert>
-                    );
-                })}
-            </AlertGroup>}
-            <AddressContext.Provider value={address}>
-                <WithDialogs>
-                    <AnacondaWizard
-                      isBootIso={isBootIso}
-                      onAddErrorNotification={onAddErrorNotification}
-                      toggleContextHelp={toggleContextHelp}
-                      hideContextHelp={() => setIsHelpExpanded(false)}
-                      title={title}
-                      storageData={state.storage}
-                      localizationData={state.localization}
-                      dispatch={dispatch}
-                      conf={conf}
-                    />
-                </WithDialogs>
-            </AddressContext.Provider>
-        </Page>
+                            return (
+                                <Alert
+                                  variant={AlertVariant[notification.variant]}
+                                  title={notification.title}
+                                  actionClose={
+                                      <AlertActionCloseButton
+                                        title={notifications.title}
+                                        onClose={() => setNotifications(newNotifications)}
+                                      />
+                                  }
+                                  key={notification.index}>
+                                    {notification.message}
+                                </Alert>
+                            );
+                        })}
+                    </AlertGroup>}
+                    <AddressContext.Provider value={address}>
+                        <WithDialogs>
+                            <AnacondaWizard
+                              isBootIso={isBootIso}
+                              onAddErrorNotification={onAddErrorNotification}
+                              toggleContextHelp={toggleContextHelp}
+                              hideContextHelp={() => setIsHelpExpanded(false)}
+                              title={title}
+                              storageData={state.storage}
+                              localizationData={state.localization}
+                              dispatch={dispatch}
+                              conf={conf}
+                            />
+                        </WithDialogs>
+                    </AddressContext.Provider>
+                </Page>
+            )
     );
 
     return (
         <WithDialogs>
-            {criticalError && <CriticalError exception={criticalError} isBootIso={isBootIso} />}
             <LanguageContext.Provider value={{ language, setLanguage }}>
                 <HelpDrawer
                   isExpanded={isHelpExpanded}
