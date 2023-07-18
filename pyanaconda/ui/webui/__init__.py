@@ -31,7 +31,7 @@ class CockpitUserInterface(ui.UserInterface):
     """This is the main class for Cockpit user interface."""
 
     def __init__(self, storage, payload, remote,
-                 productTitle="Anaconda", isFinal=True,
+                 productTitle="Anaconda",
                  quitMessage=QUIT_MESSAGE):
         """
         For detailed description of the arguments see
@@ -50,11 +50,6 @@ class CockpitUserInterface(ui.UserInterface):
         :param productTitle: the name of the product
         :type productTitle: str
 
-        :param isFinal: Boolean that marks the release
-                        as final (True) or development
-                        (False) version.
-        :type isFinal: bool
-
         :param quitMessage: The text to be used in quit
                             dialog question. It should not
                             be translated to allow for change
@@ -65,7 +60,6 @@ class CockpitUserInterface(ui.UserInterface):
         super().__init__(storage, payload)
         self.productTitle = productTitle
         self.remote = remote
-        self.isFinal = isFinal
         self.quitMessage = quitMessage
         self._meh_interface = meh.ui.text.TextIntf()
 
