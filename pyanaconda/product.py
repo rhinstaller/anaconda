@@ -22,6 +22,15 @@ import os
 
 from pyanaconda.core.i18n import _
 
+__all__ = ["isFinal", "productName", "productVersion", "distributionText"]
+
+# Order of precedence for the variables published in __all__ is:
+#   1) Buildstamp file specified by the PRODBUILDPATH environment variable
+#   2) Buildstamp file /.buildstamp
+#   3) Environment variable ANACONDA_ISFINAL
+#   4) In absence of any data, fall back to "false"
+
+
 # First, load in the defaults.  In order of precedence:  contents of
 # .buildstamp, environment, stupid last ditch hardcoded defaults.
 config = configparser.ConfigParser()

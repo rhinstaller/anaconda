@@ -74,3 +74,16 @@ class UIModule(KickstartBaseModule):
             PASSWORD_POLICY_USER: PasswordPolicy.from_defaults(PASSWORD_POLICY_USER),
             PASSWORD_POLICY_LUKS: PasswordPolicy.from_defaults(PASSWORD_POLICY_LUKS),
         }
+
+    @property
+    def is_final(self):
+        """Does the installation environment declare itself as "final"?
+
+        This is false for Rawhide and Beta, true for GA/Gold.
+
+        FIXME: This is a temporary getter. Replace it by the intended product API
+
+        :return bool: final or not
+        """
+        from pyanaconda import product
+        return product.isFinal

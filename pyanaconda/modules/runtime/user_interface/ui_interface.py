@@ -60,3 +60,11 @@ class UIInterface(KickstartModuleInterfaceTemplate):
         self.implementation.set_password_policies(
             PasswordPolicy.from_structure_dict(policies)
         )
+
+    @property
+    def IsFinal(self) -> Bool:
+        """Does the installation environment declare itself as "final"?
+
+        FIXME: This is a temporary getter. Replace it by the intended product API
+        """
+        return self.implementation.is_final
