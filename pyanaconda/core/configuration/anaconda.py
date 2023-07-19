@@ -18,7 +18,6 @@
 #  Author(s):  Vendula Poncova <vponcova@redhat.com>
 #
 import os
-import warnings
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.bootloader import BootloaderSection, BootloaderType
@@ -63,27 +62,7 @@ class AnacondaSection(Section):
 
         :return: a list of patterns
         """
-        return self._get_deprecated_activatable_modules() \
-            or self._get_option("activatable_modules").split()
-
-    def _get_deprecated_activatable_modules(self):
-        """Get a list of deprecated activatable modules.
-
-        FIXME: This is a temporary workaround.
-
-        If the kickstart_modules option is defined in the configuration,
-        allow to activate only the specified modules and Anaconda addons.
-        """
-        if not self._has_option("kickstart_modules"):
-            return []
-
-        warnings.warn(
-            "The kickstart_modules configuration option is deprecated and "
-            "will be removed in in the future.", DeprecationWarning
-        )
-
-        return self._get_option("kickstart_modules").split() \
-            + ["org.fedoraproject.Anaconda.Addons.*"]
+        return self._get_option("activatable_modules").split()
 
     @property
     def forbidden_modules(self):
@@ -96,29 +75,7 @@ class AnacondaSection(Section):
 
         :return: a list of patterns
         """
-        return self._get_deprecated_forbidden_modules() \
-            + self._get_option("forbidden_modules").split()
-
-    def _get_deprecated_forbidden_modules(self):
-        """Get a list of deprecated forbidden modules.
-
-        FIXME: This is a temporary workaround.
-
-        If the addons_enabled option is defined in the configuration
-        and set to False, don't allow to activate Anaconda addons.
-        """
-        if not self._has_option("addons_enabled"):
-            return []
-
-        warnings.warn(
-            "The addons_enabled configuration option is deprecated and "
-            "will be removed in in the future.", DeprecationWarning
-        )
-
-        if self._get_option("addons_enabled", bool):
-            return []
-
-        return ["org.fedoraproject.Anaconda.Addons.*"]
+        return self._get_option("forbidden_modules").split()
 
     @property
     def optional_modules(self):
