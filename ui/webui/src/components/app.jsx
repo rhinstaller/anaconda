@@ -111,7 +111,7 @@ export const Application = () => {
     }
 
     // On live media rebooting the system will actually shut it off
-    const isBootIso = conf["Installation System"].type === "BOOT_ISO";
+    const isBootIso = conf?.["Installation System"].type === "BOOT_ISO";
 
     const title = cockpit.format("$0 installation", prettyName);
 
