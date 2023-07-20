@@ -161,11 +161,6 @@ export const ReviewConfiguration = ({ deviceData, diskSelection, language, reque
         initializeEncrypt();
     }, []);
 
-    // handle case of disks not (yet) loaded
-    if (!language) {
-        return null;
-    }
-
     return (
         <AnacondaPage title={_("Review and install")}>
             <Alert
@@ -179,6 +174,7 @@ export const ReviewConfiguration = ({ deviceData, diskSelection, language, reque
             </Alert>
             <ExpandableSection
               className="review-expandable-section"
+              id={`${idPrefix}-language`}
               toggleText={<Title headingLevel="h3">{_("Language")}</Title>}
               onToggle={() => setShowLanguageSection(!showLanguageSection)}
               isExpanded={showLanguageSection}

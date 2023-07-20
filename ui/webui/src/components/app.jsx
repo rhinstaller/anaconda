@@ -33,7 +33,7 @@ import { HelpDrawer } from "./HelpDrawer.jsx";
 import { CriticalError } from "./Error.jsx";
 
 import { BossClient } from "../apis/boss.js";
-import { LocalizationClient, startEventMonitorLocalization } from "../apis/localization.js";
+import { LocalizationClient, initDataLocalization, startEventMonitorLocalization } from "../apis/localization.js";
 import { StorageClient, initDataStorage, startEventMonitorStorage } from "../apis/storage.js";
 import { PayloadsClient } from "../apis/payloads";
 
@@ -67,10 +67,16 @@ export const Application = () => {
 
             setAddress(address);
 
-            initDataStorage({ dispatch }).then(() => setStoreInitialized(true), setCriticalError);
-            startEventMonitorStorage({ dispatch });
+            Promise.all([
+                initDataStorage({ dispatch }),
+                initDataLocalization({ dispatch }),
+            ])
+                    .then(() => {
+                        setStoreInitialized(true);
 
-            startEventMonitorLocalization({ dispatch });
+                        startEventMonitorStorage({ dispatch });
+                        startEventMonitorLocalization({ dispatch });
+                    }, setCriticalError);
         });
 
         readConf().then(
