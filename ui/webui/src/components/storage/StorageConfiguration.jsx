@@ -144,7 +144,7 @@ const checkUseFreeSpace = async (selectedDisks, requiredSize) => {
 const checkCustomMountPoint = async (selectedDisks, requiredSize, deviceData) => {
     const availability = new AvailabilityState();
 
-    if (!selectedDisks.some(device => deviceData[device].children.v.some(child => deviceData[child].type.v === "partition"))) {
+    if (!selectedDisks.some(device => deviceData[device]?.children.v.some(child => deviceData[child]?.type.v === "partition"))) {
         availability.available = false;
         availability.reason = _("No existing partitions on the selected disks.");
     }
