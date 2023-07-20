@@ -66,6 +66,48 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         i.reach(i.steps.REVIEW)
         r.check_language("English (United States)")
 
+    def testAboutModal(self):
+        b = self.browser
+        m = self.machine
+        i = Installer(b, m)
+
+        i.open()
+
+        # Obtain pretty name and versions from the CLI
+        pretty_name = m.execute("cat /etc/os-release | grep PRETTY_NAME | cut -d '\"' -f 2 | tr -d '\n'")
+        version = m.execute("anaconda --version | cut -d ' ' -f 2 | tail -1")
+
+        # Click on the kebab
+        b.click("#toggle-kebab")
+
+        # Click on the "About" item from the dropdown
+        b.click("#about-modal-dropdown-item")
+
+        # Expect PRETTY_NAME to be shown in modal title
+        b.wait_in_text("#about-modal-title", pretty_name)
+
+        # Expect "Powered by Anaconda" to be shown in modal subtitle
+        b.wait_in_text("#about-modal-subtitle", "Powered by Anaconda")
+
+        # Expect About modal body to be shown
+        b.wait_in_text("#about-modal-versions dt", "Anaconda")
+        b.wait_in_text("#about-modal-versions dd", version.strip())
+
+        # Expect button link for Anaconda project page to be shown
+        b.wait_in_text("#anaconda-page-button", "Anaconda project page")
+
+        # Pixel test the language step
+        b.assert_pixels(
+            ".pf-c-about-modal-box",
+            "about-modal",
+            ignore=["#about-modal-versions dd"],
+            wait_animations=False,
+        )
+
+        #Close about modal
+        b.click(".pf-c-button[aria-label='Close Dialog']")
+        b.wait_not_present("#about-modal")
+
 class TestQuit(anacondalib.VirtInstallMachineCase):
 
     def testQuitInstallation(self):

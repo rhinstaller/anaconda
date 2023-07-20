@@ -27,6 +27,8 @@ import {
 } from "@patternfly/react-core";
 import { InfoCircleIcon } from "@patternfly/react-icons";
 
+import { HeaderKebab } from "./HeaderKebab.jsx";
+
 const _ = cockpit.gettext;
 
 export const AnacondaHeader = ({ beta, title }) => {
@@ -66,6 +68,7 @@ export const AnacondaHeader = ({ beta, title }) => {
                     <Text component="h1">{title}</Text>
                 </TextContent>
                 {betanag}
+                <HeaderKebab />
             </Flex>
         </PageSection>
     );
