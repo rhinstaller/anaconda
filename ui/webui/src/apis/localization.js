@@ -51,7 +51,7 @@ export const getLanguages = () => {
             "org.fedoraproject.Anaconda.Modules.Localization",
             "GetLanguages", []
         )
-                .then(res => res[0], console.info)
+                .then(res => res[0])
     );
 };
 
