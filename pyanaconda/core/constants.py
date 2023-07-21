@@ -32,13 +32,8 @@ ADDON_PATHS = ["/usr/share/anaconda/addons"]
 # common string needs to be easy to change
 from pyanaconda import product
 productName = product.productName
-productVersion = product.productVersion
 isFinal = product.isFinal
-
-# for use in device names, eg: "fedora", "rhel"
-shortProductName = productName.lower()          # pylint: disable=no-member
-if productName.count(" "):                      # pylint: disable=no-member
-    shortProductName = ''.join(s[0] for s in shortProductName.split())
+shortProductName = product.shortProductName
 
 # The default virtio port.
 VIRTIO_PORT = "/dev/virtio-ports/org.fedoraproject.anaconda.log.0"
@@ -60,12 +55,14 @@ SOURCES_DIR = MOUNT_DIR + "/sources"
 BASE_REPO_NAME = "anaconda"
 
 # Get list of repo names witch should be used as base repo
-DEFAULT_REPOS = [productName.split('-')[0].lower(),  # pylint: disable=no-member
-                 "fedora-modular-server",
-                 "rawhide",
-                 "BaseOS",      # Used by RHEL
-                 "baseos",      # Used by CentOS Stream
-                 "eln-baseos"]  # Used by Fedora ELN
+DEFAULT_REPOS = [
+    product.productName.split('-')[0].lower(),  # pylint: disable=no-member
+    "fedora-modular-server",
+    "rawhide",
+    "BaseOS",      # Used by RHEL
+    "baseos",      # Used by CentOS Stream
+    "eln-baseos",  # Used by Fedora ELN
+]
 
 DBUS_ANACONDA_SESSION_ADDRESS = "DBUS_ANACONDA_SESSION_BUS_ADDRESS"
 
@@ -104,7 +101,7 @@ NETWORK_CONNECTION_TIMEOUT = 46  # in seconds
 NETWORK_CONNECTED_CHECK_INTERVAL = 0.1  # in seconds
 
 # Anaconda user agent
-USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)
+USER_AGENT = "%s (anaconda)/%s" % (product.productName, product.productVersion)
 
 # Thread names
 THREAD_EXECUTE_STORAGE = "AnaExecuteStorageThread"
