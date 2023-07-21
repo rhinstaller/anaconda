@@ -305,7 +305,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         assert self.interface.GetFormatData("dev2") == {
             'type': get_variant(Str, 'luks'),
             'mountable': get_variant(Bool, False),
-            'attrs': get_variant(Dict[Str, Str], {}),
+            'attrs': get_variant(Dict[Str, Str], {'has_key': 'False'}),
             'description': get_variant(Str, 'LUKS'),
         }
 
@@ -682,7 +682,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         assert self.interface.GetFormatData("dev2") == {
             'type': get_variant(Str, 'luks'),
             'mountable': get_variant(Bool, False),
-            'attrs': get_variant(Dict[Str, Str], { }),
+            'attrs': get_variant(Dict[Str, Str], {'has_key': 'False'}),
             'description': get_variant(Str, 'LUKS'),
         }
 
