@@ -109,42 +109,40 @@ function AvailabilityState (available = true, reason = null, hint = null, shortH
 }
 
 // TODO total size check could go also to disk selection screen
-const checkEraseAll = async (selectedDisks, requiredSize) => {
-    const size = await getDiskTotalSpace({ diskNames: selectedDisks }).catch(console.error);
+const checkEraseAll = ({ requiredSize, diskTotalSpace }) => {
     const availability = new AvailabilityState();
-    if (size < requiredSize) {
+    if (diskTotalSpace < requiredSize) {
         availability.available = false;
         availability.reason = _("Not enough space on selected disks.");
         availability.hint = cockpit.format(_(
             "There is not enough space on the disks to install. " +
             "The installation needs $1 of disk space; " +
             "however, the capacity of the selected disks is only $0."
-        ), cockpit.format_bytes(size), cockpit.format_bytes(requiredSize));
+        ), cockpit.format_bytes(diskTotalSpace), cockpit.format_bytes(requiredSize));
         availability.shortHint = _("To enable select bigger disks");
     }
     return availability;
 };
 
-const checkUseFreeSpace = async (selectedDisks, requiredSize) => {
-    const size = await getDiskFreeSpace({ diskNames: selectedDisks }).catch(console.error);
+const checkUseFreeSpace = ({ diskFreeSpace, requiredSize }) => {
     const availability = new AvailabilityState();
-    if (size < requiredSize) {
+    if (diskFreeSpace < requiredSize) {
         availability.available = false;
         availability.reason = _("Not enough free space.");
         availability.hint = cockpit.format(_(
             "There is not enough available free space to install. " +
             "The installation needs $1 of available disk space; " +
             "however, only $0 is currently available on the selected disks."
-        ), cockpit.format_bytes(size), cockpit.format_bytes(requiredSize));
+        ), cockpit.format_bytes(diskFreeSpace), cockpit.format_bytes(requiredSize));
         availability.shortHint = _("To enable free up disk space");
     }
     return availability;
 };
 
-const checkCustomMountPoint = async (selectedDisks, requiredSize, deviceData) => {
+const checkCustomMountPoint = ({ hasPartitions }) => {
     const availability = new AvailabilityState();
 
-    if (!selectedDisks.some(device => deviceData[device]?.children.v.some(child => deviceData[child]?.type.v === "partition"))) {
+    if (!hasPartitions) {
         availability.available = false;
         availability.reason = _("No existing partitions on the selected disks.");
     }
@@ -253,34 +251,64 @@ const GuidedPartitioning = ({ deviceData, selectedDisks, idPrefix, scenarios, st
     ));
     const [isDetailExpanded, setIsDetailExpanded] = useState(false);
     const [detailContent, setDetailContent] = useState("");
+    const [requiredSize, setRequiredSize] = useState();
+    const [diskTotalSpace, setDiskTotalSpace] = useState();
+    const [diskFreeSpace, setDiskFreeSpace] = useState();
+    const [hasPartitions, setHasPartitions] = useState();
 
     useEffect(() => {
-        const updateScenarioState = async (scenarios) => {
-            const requiredSpace = await getRequiredSpace();
-            const requiredSize = await getRequiredDeviceSize({ requiredSpace });
-            let selectedScenarioId = "";
-            let availableScenarioExists = false;
-            for await (const scenario of scenarios) {
-                const availability = await scenario.check(selectedDisks, requiredSize, deviceData).catch(console.error);
-                setScenarioAvailability(ss => ({ ...ss, [scenario.id]: availability }));
-                if (availability.available) {
-                    availableScenarioExists = true;
-                    if (scenario.id === storageScenarioId) {
-                        console.log(`Selecting backend scenario ${scenario.id}`);
-                        selectedScenarioId = scenario.id;
-                    }
-                    if (!selectedScenarioId && scenario.default) {
-                        console.log(`Selecting default scenario ${scenario.id}`);
-                        selectedScenarioId = scenario.id;
-                    }
+        const updateSizes = async () => {
+            const diskTotalSpace = await getDiskTotalSpace({ diskNames: selectedDisks }).catch(console.error);
+            const diskFreeSpace = await getDiskFreeSpace({ diskNames: selectedDisks }).catch(console.error);
+
+            setDiskTotalSpace(diskTotalSpace);
+            setDiskFreeSpace(diskFreeSpace);
+        };
+        updateSizes();
+    }, [selectedDisks]);
+
+    useEffect(() => {
+        const updateRequiredSize = async () => {
+            const requiredSpace = await getRequiredSpace().catch(console.error);
+            const requiredSize = await getRequiredDeviceSize({ requiredSpace }).catch(console.error);
+
+            setRequiredSize(requiredSize);
+        };
+        updateRequiredSize();
+    }, []);
+
+    useEffect(() => {
+        const hasPartitions = selectedDisks.some(device => deviceData[device]?.children.v.some(child => deviceData[child]?.type.v === "partition"));
+
+        setHasPartitions(hasPartitions);
+    }, [selectedDisks, deviceData]);
+
+    useEffect(() => {
+        let selectedScenarioId = "";
+        let availableScenarioExists = false;
+
+        if (requiredSize === undefined) {
+            return;
+        }
+
+        for (const scenario of scenarios) {
+            const availability = scenario.check({ diskTotalSpace, diskFreeSpace, hasPartitions, requiredSize });
+            setScenarioAvailability(ss => ({ ...ss, [scenario.id]: availability }));
+            if (availability.available) {
+                availableScenarioExists = true;
+                if (scenario.id === storageScenarioId) {
+                    console.log(`Selecting backend scenario ${scenario.id}`);
+                    selectedScenarioId = scenario.id;
+                }
+                if (!selectedScenarioId && scenario.default) {
+                    console.log(`Selecting default scenario ${scenario.id}`);
+                    selectedScenarioId = scenario.id;
                 }
             }
-            setSelectedScenario(selectedScenarioId);
-            setIsFormValid(availableScenarioExists);
-        };
-
-        updateScenarioState(scenarios);
-    }, [scenarios, deviceData, selectedDisks, setIsFormValid, storageScenarioId]);
+        }
+        setSelectedScenario(selectedScenarioId);
+        setIsFormValid(availableScenarioExists);
+    }, [scenarios, deviceData, hasPartitions, requiredSize, diskFreeSpace, diskTotalSpace, setIsFormValid, storageScenarioId]);
 
     useEffect(() => {
         const applyScenario = async (scenarioId) => {
