@@ -25,7 +25,6 @@ import {
 } from "@patternfly/react-core";
 
 import { helpEraseAll, helpUseFreeSpace, helpCustomMountPoint } from "./HelpAutopartOptions.jsx";
-import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
 
 import {
     getRequiredDeviceSize,
@@ -227,10 +226,6 @@ const GuidedPartitioning = ({ deviceData, selectedDisks, idPrefix, scenarios, st
     const onScenarioToggled = (scenarioId) => {
         setSelectedScenario(scenarioId);
     };
-
-    if (!selectedScenario) {
-        return <EmptyStatePanel loading />;
-    }
 
     const scenarioItems = scenarios.map(scenario => (
         <Radio
