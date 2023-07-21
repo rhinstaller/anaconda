@@ -189,7 +189,7 @@ const scenarios = [{
     initializationMode: 0,
     buttonLabel: _("Apply mount point assignment and install"),
     buttonVariant: "danger",
-    screenWarnings: "",
+    screenWarning: "",
     dialogTitleIconVariant: "",
     dialogWarningTitle: _("Install on the custom mount points?"),
     dialogWarning: _("The installation will use your configured partitioning layout."),
