@@ -225,10 +225,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase):
 
         # Go to Review step
         i.open()
-        i.next()
-        i.next()
-        i.next()
-        i.next()
+        i.reach(i.steps.REVIEW)
 
         # Read partitioning data after we went to Review step
         new_applied_partitioning = s.dbus_get_applied_partitioning()
@@ -296,7 +293,7 @@ class TestStorageExtraDisks(anacondalib.VirtInstallMachineCase, StorageHelpers):
         s.wait_no_disks_detected()
 
         # Check that disk selection is kept on Next and Back
-        disks = [dev]
+        disks = ["vda"]
         for disk in disks:
             s.select_disk(disk)
         i.next()
