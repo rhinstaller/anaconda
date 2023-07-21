@@ -36,8 +36,8 @@ import { BossClient } from "../apis/boss.js";
 import { LocalizationClient, initDataLocalization, startEventMonitorLocalization } from "../apis/localization.js";
 import { StorageClient, initDataStorage, startEventMonitorStorage } from "../apis/storage.js";
 import { PayloadsClient } from "../apis/payloads";
+import { RuntimeClient, getIsFinal } from "../apis/runtime";
 
-import { readBuildstamp, getIsFinal } from "../helpers/betanag.js";
 import { readConf } from "../helpers/conf.js";
 import { useReducerWithThunk, reducer, initialState } from "../reducer.js";
 
@@ -61,6 +61,7 @@ export const Application = () => {
                 new LocalizationClient(address),
                 new StorageClient(address),
                 new PayloadsClient(address),
+                new RuntimeClient(address),
                 new BossClient(address)
             ];
             clients.forEach(c => c.init());
@@ -77,15 +78,15 @@ export const Application = () => {
                         startEventMonitorStorage({ dispatch });
                         startEventMonitorLocalization({ dispatch });
                     }, setCriticalError);
+
+            getIsFinal().then(
+                isFinal => setBeta(!isFinal),
+                setCriticalError
+            );
         });
 
         readConf().then(
             setConf,
-            setCriticalError
-        );
-
-        readBuildstamp().then(
-            buildstamp => setBeta(!getIsFinal(buildstamp)),
             setCriticalError
         );
 
