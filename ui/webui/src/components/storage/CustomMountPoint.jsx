@@ -153,7 +153,7 @@ export const CustomMountPoint = ({ deviceData, diskSelection, partitioningData, 
 
     // If device selection changed since the last partitioning request redo the partitioning
     const selectedDevicesPaths = diskSelection.selectedDisks.map(d => deviceData[d].path.v) || [];
-    const partitioningDevicesPaths = partitioningData?.requests.map(r => r["device-spec"]) || [];
+    const partitioningDevicesPaths = partitioningData?.requests?.map(r => r["device-spec"]) || [];
     const canReusePartitioning = selectedDevicesPaths.length === partitioningDevicesPaths.length && selectedDevicesPaths.every(d => partitioningDevicesPaths.includes(d));
 
     useEffect(() => {
