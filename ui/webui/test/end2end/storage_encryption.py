@@ -38,8 +38,6 @@ class StorageEncryption(End2EndTest):
         self._storage.set_encryption_selected(True)
         self._storage.check_encryption_selected(True)
 
-        self._installer.next(subpage=True)
-
         self._storage.set_password(self.luks_pass)
         self._storage.check_password(self.luks_pass)
         self._storage.set_password_confirm(self.luks_pass)
