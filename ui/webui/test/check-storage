@@ -296,7 +296,7 @@ class TestStorageExtraDisks(anacondalib.VirtInstallMachineCase, StorageHelpers):
         s.wait_no_disks_detected()
 
         # Check that disk selection is kept on Next and Back
-        disks = [dev]
+        disks = ["vda"]
         for disk in disks:
             s.select_disk(disk)
         i.next()
