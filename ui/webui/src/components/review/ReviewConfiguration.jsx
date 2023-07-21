@@ -206,7 +206,7 @@ export const ReviewConfiguration = ({ deviceData, diskSelection, language, reque
                         <DescriptionListDescription className="description-list-description" id={idPrefix + "-target-system-mode"}>
                             {getScenario(storageScenarioId).label}
                         </DescriptionListDescription>
-                        {storageScenarioId !== "custom-mount-point" &&
+                        {storageScenarioId !== "mount-point-mapping" &&
                         <>
                             <DescriptionListTerm className="description-list-term">
                                 {_("Disk Encryption")}
@@ -220,7 +220,7 @@ export const ReviewConfiguration = ({ deviceData, diskSelection, language, reque
                 <Title className="storage-devices-configuration-title" headingLevel="h4">{_("Storage devices and configurations")}</Title>
                 <DataList isCompact>
                     {diskSelection.selectedDisks.map(disk => {
-                        return <DeviceRow key={disk} deviceData={deviceData} disk={disk} requests={storageScenarioId === "custom-mount-point" ? requests : null} />;
+                        return <DeviceRow key={disk} deviceData={deviceData} disk={disk} requests={storageScenarioId === "mount-point-mapping" ? requests : null} />;
                     })}
                 </DataList>
             </ExpandableSection>

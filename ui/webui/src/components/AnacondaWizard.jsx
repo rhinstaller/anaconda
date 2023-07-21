@@ -35,7 +35,7 @@ import {
 
 import { InstallationMethod } from "./storage/InstallationMethod.jsx";
 import { getScenario, getDefaultScenario } from "./storage/StorageConfiguration.jsx";
-import { CustomMountPoint } from "./storage/CustomMountPoint.jsx";
+import { MountPointMapping } from "./storage/MountPointMapping.jsx";
 import { DiskEncryption, StorageEncryptionState } from "./storage/DiskEncryption.jsx";
 import { InstallationLanguage } from "./localization/InstallationLanguage.jsx";
 import { InstallationProgress } from "./installation/InstallationProgress.jsx";
@@ -89,17 +89,17 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
             id: "disk-configuration",
             label: _("Disk configuration"),
             steps: [{
-                component: CustomMountPoint,
+                component: MountPointMapping,
                 data: { deviceData: storageData.devices, diskSelection: storageData.diskSelection, partitioningData: lastPartitioning, dispatch },
-                id: "custom-mountpoint",
-                label: _("Custom mount point"),
-                isHidden: storageScenarioId !== "custom-mount-point"
+                id: "mount-point-mapping",
+                label: _("Manual disk configuration"),
+                isHidden: storageScenarioId !== "mount-point-mapping"
 
             }, {
                 component: DiskEncryption,
                 id: "disk-encryption",
                 label: _("Disk encryption"),
-                isHidden: storageScenarioId === "custom-mount-point"
+                isHidden: storageScenarioId === "mount-point-mapping"
             }]
         },
         {
@@ -266,7 +266,7 @@ const Footer = ({
             });
         } else if (activeStep.id === "installation-review") {
             setNextWaitsConfirmation(true);
-        } else if (activeStep.id === "custom-mountpoint") {
+        } else if (activeStep.id === "mount-point-mapping") {
             setIsInProgress(true);
 
             applyStorage({

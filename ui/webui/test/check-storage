@@ -321,24 +321,24 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
             if current_selection != disk[1]:
                 s.select_disk(disk[0], disk[1], len(disks) == 1)
 
-        s.set_partitioning("custom-mount-point")
+        s.set_partitioning("mount-point-mapping")
         i.next(next_page=i.steps.CUSTOM_MOUNT_POINT)
 
     def select_from_dropdown(self, row, name, mountpoint, create=False):
         b = self.browser
         if create:
-            b.set_input_text(f"#custom-mountpoint-table tbody tr:nth-child({row}) td[data-label='Mount point'] .pf-c-form-control.pf-c-select__toggle-typeahead", mountpoint)
-            b.click(f"#custom-mountpoint-table tbody tr:nth-child({row}) td[data-label='Mount point'] button.pf-c-select__menu-item")
+            b.set_input_text(f"#mount-point-mapping-table tbody tr:nth-child({row}) td[data-label='Mount point'] .pf-c-form-control.pf-c-select__toggle-typeahead", mountpoint)
+            b.click(f"#mount-point-mapping-table tbody tr:nth-child({row}) td[data-label='Mount point'] button.pf-c-select__menu-item")
         else:
-            b.click(f"#custom-mountpoint-table tbody tr:nth-child({row}) td[data-label='Mount point'] .pf-c-select__toggle button")
-            b.click(f"#custom-mountpoint-table tbody tr:nth-child({row}) td[data-label='Mount point'] .pf-c-select__menu-item.select-option-{name}")
-        b.wait_val(f"#custom-mountpoint-table tbody tr:nth-child({row}) td[data-label='Mount point'] .pf-c-select__toggle-typeahead", mountpoint)
+            b.click(f"#mount-point-mapping-table tbody tr:nth-child({row}) td[data-label='Mount point'] .pf-c-select__toggle button")
+            b.click(f"#mount-point-mapping-table tbody tr:nth-child({row}) td[data-label='Mount point'] .pf-c-select__menu-item.select-option-{name}")
+        b.wait_val(f"#mount-point-mapping-table tbody tr:nth-child({row}) td[data-label='Mount point'] .pf-c-select__toggle-typeahead", mountpoint)
 
     def check_format_type(self, row, format_type):
-        self.browser.wait_in_text(f"#custom-mountpoint-table tbody tr:nth-child({row}) td[data-label='Format type']", format_type)
+        self.browser.wait_in_text(f"#mount-point-mapping-table tbody tr:nth-child({row}) td[data-label='Format type']", format_type)
 
     def check_partition(self, row, partition):
-        self.browser.wait_in_text(f"#custom-mountpoint-table tbody tr:nth-child({row}) td[data-label='Partition']", partition)
+        self.browser.wait_in_text(f"#mount-point-mapping-table tbody tr:nth-child({row}) td[data-label='Partition']", partition)
 
     def unlock_device(self, passphrase, xfail=None):
         self.browser.wait_visible("#unlock-device-dialog")
@@ -350,17 +350,17 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         self.browser.wait_not_present("#unlock-device-dialog")
 
     def select_reformat(self, row):
-        self.browser.set_checked(f"#custom-mountpoint-table tbody tr:nth-child({row}) td[data-label='Reformat'] input", True)
+        self.browser.set_checked(f"#mount-point-mapping-table tbody tr:nth-child({row}) td[data-label='Reformat'] input", True)
 
     def check_reformat(self, row, checked):
         checked_selector = "input:checked" if checked else "input:not(:checked)"
-        self.browser.wait_visible(f"#custom-mountpoint-table tbody tr:nth-child({row}) td[data-label='Reformat'] {checked_selector}")
+        self.browser.wait_visible(f"#mount-point-mapping-table tbody tr:nth-child({row}) td[data-label='Reformat'] {checked_selector}")
 
     def check_select_disabled(self, row):
-        self.browser.wait_visible(f"#custom-mountpoint-table tbody tr:nth-child({row}) td[data-label='Mount point'] .pf-c-select__toggle.pf-m-disabled")
+        self.browser.wait_visible(f"#mount-point-mapping-table tbody tr:nth-child({row}) td[data-label='Mount point'] .pf-c-select__toggle.pf-m-disabled")
 
     def check_reformat_disabled(self, row):
-        self.browser.wait_visible(f"#custom-mountpoint-table tbody tr:nth-child({row}) td[data-label='Reformat'] .pf-c-check__input:disabled")
+        self.browser.wait_visible(f"#mount-point-mapping-table tbody tr:nth-child({row}) td[data-label='Reformat'] .pf-c-check__input:disabled")
 
     def assert_inline_error(self, text):
         self.browser.wait_in_text(".pf-c-alert.pf-m-inline.pf-m-danger", text)
@@ -427,7 +427,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
 
         b.assert_pixels(
             "#app",
-            "custom-mountpoint-table",
+            "mount-point-mapping-table",
             wait_animations=False,
         )
 
@@ -641,9 +641,9 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
 
         self.unlock_device("1234", "Failed to unlock LUKS partition")
 
-        b.click("#custom-mountpoint-table tbody tr:nth-child(4) td[data-label='Format type'] #unlock-luks-btn")
+        b.click("#mount-point-mapping-table tbody tr:nth-child(4) td[data-label='Format type'] #unlock-luks-btn")
         self.unlock_device("einszweidrei")
-        b.wait_not_present("#custom-mountpoint-table tbody tr:nth-child(4) td[data-label='Format type'] #unlock-luks-btn")
+        b.wait_not_present("#mount-point-mapping-table tbody tr:nth-child(4) td[data-label='Format type'] #unlock-luks-btn")
 
         self.check_partition(4, "/dev/mapper/luks")
         self.check_format_type(4, "xfs")
