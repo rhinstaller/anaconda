@@ -179,15 +179,11 @@ class TestStorage(anacondalib.VirtInstallMachineCase):
         s.set_partitioning("use-free-space")
 
         i.next()
-        # Disk Encryption
+        # Disk Encryption / password screen
 
         encrypt = True
         s.set_encryption_selected(encrypt)
         s.check_encryption_selected(encrypt)
-
-        # Encryption password is on the same page
-        i.next(subpage=encrypt)
-        # Disk Encryption / password screen
 
         # Set valid password
         pw = "abcdefgh"

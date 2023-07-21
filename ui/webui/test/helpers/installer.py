@@ -74,7 +74,7 @@ class Installer():
             self.next(next_page=next_page)
 
     @log_step()
-    def next(self, should_fail=False, subpage=False, next_page=""):
+    def next(self, should_fail=False, next_page=""):
         current_page = self.get_current_page()
         # If not explicitly specified, get the first item for next page from the steps dict
         if not next_page:
@@ -89,7 +89,7 @@ class Installer():
             sleep(2)
 
         self.browser.click("button:contains(Next)")
-        expected_page = current_page if should_fail or subpage else next_page
+        expected_page = current_page if should_fail else next_page
         self.wait_current_page(expected_page)
         return expected_page
 
@@ -104,12 +104,12 @@ class Installer():
         self.browser.wait_visible(f"#installation-next-btn:not([aria-disabled={value}]")
 
     @log_step(snapshot_before=True)
-    def back(self, should_fail=False, subpage=False):
+    def back(self, should_fail=False):
         current_page = self.get_current_page()
 
         self.browser.click("button:contains(Back)")
 
-        if should_fail or subpage:
+        if should_fail:
             self.wait_current_page(current_page)
         else:
             prev = [k for k, v in self.steps._steps_jump.items() if current_page in v][0]
