@@ -423,12 +423,15 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         udevadm settle --timeout=120
         """)
 
+    @nondestructive
     def testBasic(self):
         b = self.browser
         m = self.machine
         i = Installer(b, m)
         s = Storage(b, m)
         r = Review(b)
+
+        self.addCleanup(m.execute, "wipefs --all /dev/vda")
 
         disk = "/dev/vda"
         m.execute(f"""
@@ -438,8 +441,8 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         sgdisk --new=0:0:+10GiB {disk}
         sgdisk --new=0:0:0 {disk}
         mkfs.ext4 {disk}2
-        mkfs.xfs {disk}3
-        mkfs.btrfs {disk}4
+        mkfs.xfs -f {disk}3
+        mkfs.btrfs -f {disk}4
         """)
 
         self.udevadm_settle()
@@ -500,11 +503,14 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         r.check_disk_row(disk, row, "Format type", "btrfs")
         r.check_disk_row(disk, row, "Mount point", "/")
 
+    @nondestructive
     def testNoRootMountPoint(self):
         b = self.browser
         m = self.machine
         i = Installer(b, m)
         s = Storage(b, m)
+
+        self.addCleanup(m.execute, "wipefs --all /dev/vda")
 
         # BIOS boot /boot on ext4 / on xfs /home on btrfs
         disk = "/dev/vda"
@@ -515,7 +521,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         sgdisk --new=0:0:+10GiB {disk}
         sgdisk --new=0:0:0 {disk}
         mkfs.ext4 {disk}2
-        mkfs.xfs {disk}3
+        mkfs.xfs -f {disk}3
         mkfs.ext4 {disk}4
         """)
 
