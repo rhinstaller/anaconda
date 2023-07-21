@@ -17,11 +17,12 @@
     display: none;
 }
 
-/* Make the close button more obvious, since we hide the side graphic*/
+/* Make the close button more obvious, since we hide the side graphic */
 .pf-c-about-modal-box__close .pf-c-button.pf-m-plain {
   --pf-c-about-modal-box__close--c-button--BackgroundColor: var(--pf-global--BackgroundColor--dark-200);
   position: absolute;
 }
+
 .pf-c-about-modal-box__close .pf-c-button.pf-m-plain:hover {
   --pf-c-about-modal-box__close--c-button--BackgroundColor: var(--pf-global--BackgroundColor--dark-400);
 }
@@ -30,6 +31,7 @@
   .title {
       font-size: var(--pf-c-title--m-3xl--FontSize);
   }
+
   .subtitle {
     font-size: var(--pf-c-title--m-xl--FontSize);
   }
