@@ -1,0 +1,85 @@
+#!/bin/bash
+#
+# Build a Fedora Workstation Live ISO by livemedia-creator. The Live iso will be stored in the `/images/` directory.
+# We have to build the RPMs files of Anaconda first and then add them as volume
+# mount to /anaconda-rpms to the container (could be RO mount).
+#
+#   sudo make -f ./Makefile.am container-rpms-scratch
+#   sudo podman run -i --rm --privileged --tmpfs /var/tmp:rw,mode=1777 -v `pwd`/result/build/01-rpm-build:/anaconda-rpms:ro -v `pwd`/output-dir:/images:z quay.io/rhinstaller/anaconda-live-iso-creator:master
+#
+# Input directory:
+# /anaconda-rpms/ (Anaconda RPM files for the build)
+#
+# Output directory:
+# /images (Where the boot.iso will be stored)
+
+set -eux
+
+# pre-create loop devices manually. In the container you can't use losetup for that.
+mknod -m 0660 /dev/loop0 b 7 0  2> /dev/null || true
+mknod -m 0660 /dev/loop1 b 7 1  2> /dev/null || true
+mknod -m 0660 /dev/loop2 b 7 2  2> /dev/null || true
+mknod -m 0660 /dev/loop3 b 7 3  2> /dev/null || true
+
+# fedora-kickstarts clone during the Anaconda build
+# https://pagure.io/fedora-kickstarts/tree/main
+WORKSTATION_KS=/lorax/workstation.ks
+
+# create repo from provided Anaconda RPMs
+# TODO: Add repository consumable by qemu machine
+
+
+#### get ISO for build ####
+# download new cockpit CI rawhide iso (it's gated)
+mkdir /var/tmp/lmc-build
+pushd /var/tmp/lmc-build
+git clone --depth 1 https://github.com/cockpit-project/bots.git
+./bots/image-download fedora-rawhide-boot
+cp -L ./bots/images/fedora-rawhide-boot /lorax/fedora-rawhide-boot.iso
+rm -rf ./bots
+popd
+
+
+#### find out recommended power for qemu ####
+mem=$(awk -F":" '$1~/MemTotal/{print int($2 / 1024) }' /proc/meminfo )
+cpu=$(nproc)
+
+# use 80% of available power
+proposed_cpu=$((cpu*80/100))
+proposed_mem=$((mem*80/100))
+
+# do not get lower than 2048MB (default) and 1 cpu
+if [ $proposed_mem -lt 2048 ]; then
+    proposed_mem=2048
+fi
+
+if [ $proposed_cpu -lt 1 ]; then
+    proposed_cpu=1
+fi
+
+echo "Virtual machine will start with cpu:$proposed_cpu memory:${proposed_mem}MB"
+
+
+#### add webui dependencies to kickstart ####
+cat >> $WORKSTATION_KS << EOF
+%packages
+anaconda-webui
+%end
+EOF
+
+#### build the live ISO ####
+livemedia-creator \
+    --make-iso \
+    --iso-only \
+    --iso-name="Fedora-Workstation.iso" \
+    --macboot \
+    --project=Fedora-Workstation-Live \
+    --releasever=Rawhide \
+    --vcpus=$proposed_cpu \
+    --ram=$proposed_mem \
+    --iso=/lorax/fedora-rawhide-boot.iso \
+    --ks=$WORKSTATION_KS \
+    --logfile=/images/logs/build.log \
+    --resultdir=/lorax/result
+
+cp ./result/Fedora-Workstation.iso /images/
