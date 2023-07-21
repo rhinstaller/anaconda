@@ -10,6 +10,7 @@ import { cleanPlugin } from './pkg/lib/esbuild-cleanup-plugin.js';
 import { cockpitPoEsbuildPlugin } from './pkg/lib/cockpit-po-plugin.js';
 import { cockpitRsyncEsbuildPlugin } from './pkg/lib/cockpit-rsync-plugin.js';
 import { eslintPlugin } from './pkg/lib/esbuild-eslint-plugin.js';
+import { stylelintPlugin } from './pkg/lib/esbuild-stylelint-plugin.js';
 import { replace } from 'esbuild-plugin-replace';
 import { sassPlugin } from 'esbuild-sass-plugin';
 
@@ -70,6 +71,7 @@ const context = await esbuild.context({
         cleanPlugin(),
         ...lint
             ? [
+                stylelintPlugin({ filter: new RegExp(cwd + '/src/.*\\.(css?|scss?)$') }),
                 eslintPlugin({ filter: new RegExp(cwd + '\/src\/.*\.(jsx?|js?)$') })
             ]
             : [],
