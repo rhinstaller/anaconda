@@ -35,6 +35,8 @@ RUN set -ex; \
   createrepo_c \
 # for clonning cockpit-project/bots/
   git \
+# to be able to read ip of the container and pass that to VM
+  iproute \
   lorax-lmc-virt; \
   dnf clean all
 

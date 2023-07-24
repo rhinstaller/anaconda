@@ -15,18 +15,43 @@
 
 set -eux
 
+INPUT_RPMS=/anaconda-rpms/
+REPO_DIR=/tmp/anaconda-rpms/
+LOG_DIR=/images/logs/
+# fedora-kickstarts clone during the Anaconda build
+# https://pagure.io/fedora-kickstarts/tree/main
+WORKSTATION_KS=/lorax/workstation.ks
+
+HTTP_LOG=$LOG_DIR/http.log
+HTTP_PID=/lorax/httpd.pid
+
+start_http_server() {
+    python -m http.server -d . 1>&2 2>$HTTP_LOG &
+    echo "$!" > $HTTP_PID
+
+    # extract container IP
+    IP=$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1 -d'/')
+    echo "http://$IP:8000/"
+}
+
+stop_http_server() {
+    kill -s SIGTERM "$(cat $HTTP_PID)"
+}
+
 # pre-create loop devices manually. In the container you can't use losetup for that.
 mknod -m 0660 /dev/loop0 b 7 0  2> /dev/null || true
 mknod -m 0660 /dev/loop1 b 7 1  2> /dev/null || true
 mknod -m 0660 /dev/loop2 b 7 2  2> /dev/null || true
 mknod -m 0660 /dev/loop3 b 7 3  2> /dev/null || true
 
-# fedora-kickstarts clone during the Anaconda build
-# https://pagure.io/fedora-kickstarts/tree/main
-WORKSTATION_KS=/lorax/workstation.ks
 
-# create repo from provided Anaconda RPMs
-# TODO: Add repository consumable by qemu machine
+#### create and serve repo from provided Anaconda RPMs ####
+mkdir -p $REPO_DIR
+cp -a $INPUT_RPMS/* $REPO_DIR || echo "RPM files can't be copied!"  # We could just do the build with official repositories only
+createrepo_c $REPO_DIR
+pushd $REPO_DIR
+HTTP_SERVER=$(start_http_server)
+popd
 
 
 #### get ISO for build ####
@@ -62,10 +87,14 @@ echo "Virtual machine will start with cpu:$proposed_cpu memory:${proposed_mem}MB
 
 #### add webui dependencies to kickstart ####
 cat >> $WORKSTATION_KS << EOF
+repo --name anaconda-local --baseurl=$HTTP_SERVER
+
 %packages
 anaconda-webui
 %end
 EOF
+
+cp $WORKSTATION_KS /images/logs/input.ks
 
 #### build the live ISO ####
 livemedia-creator \
@@ -81,5 +110,7 @@ livemedia-creator \
     --ks=$WORKSTATION_KS \
     --logfile=/images/logs/build.log \
     --resultdir=/lorax/result
+
+stop_http_server
 
 cp ./result/Fedora-Workstation.iso /images/
