@@ -1,3 +1,15 @@
-.mountpoint-select.pf-c-select {
-    width: 160px;
+.mount-point-mapping__mountpoint-text {
+  flex: 2;
+}
+
+.mount-point-mapping__mountpoint-text + div {
+  flex: 1;
+}
+
+.mount-point-mapping-table__column {
+  vertical-align: middle !important;
+}
+
+.mount-point-mapping-empty-state-body {
+  align-items: center;
 }
