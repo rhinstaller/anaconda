@@ -25,7 +25,7 @@ import {
 } from "../apis/localization.js";
 
 export const getLanguagesAction = () => {
-    return async function fetchUserThunk (dispatch) {
+    return async (dispatch) => {
         const languageIds = await getLanguages();
 
         return Promise.all([
@@ -36,7 +36,7 @@ export const getLanguagesAction = () => {
 };
 
 export const getLanguageDataAction = ({ language }) => {
-    return async function fetchUserThunk (dispatch) {
+    return async (dispatch) => {
         const localeIds = await getLocales({ lang: language });
         const languageData = await getLanguageData({ lang: language });
         const locales = await Promise.all(localeIds.map(async locale => await getLocaleData({ locale })));
@@ -49,7 +49,7 @@ export const getLanguageDataAction = ({ language }) => {
 };
 
 export const getLanguageAction = () => {
-    return async function fetchUserThunk (dispatch) {
+    return async (dispatch) => {
         const language = await getLanguage();
 
         return dispatch({
@@ -60,7 +60,7 @@ export const getLanguageAction = () => {
 };
 
 export const getCommonLocalesAction = () => {
-    return async function fetchUserThunk (dispatch) {
+    return async (dispatch) => {
         const commonLocales = await getCommonLocales();
 
         return dispatch({

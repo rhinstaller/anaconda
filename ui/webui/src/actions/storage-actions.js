@@ -30,14 +30,14 @@ import {
 } from "../apis/storage.js";
 
 export const getDevicesAction = () => {
-    return async function fetchUserThunk (dispatch) {
+    return async (dispatch) => {
         const devices = await getDevices();
         return Promise.all(devices[0].map(device => dispatch(getDeviceDataAction({ device }))));
     };
 };
 
 export const getDeviceDataAction = ({ device }) => {
-    return async function fetchUserThunk (dispatch) {
+    return async (dispatch) => {
         let devData = {};
         const deviceData = await getDeviceData({ disk: device })
                 .then(res => {
@@ -68,7 +68,7 @@ export const getDeviceDataAction = ({ device }) => {
 };
 
 export const getDiskSelectionAction = () => {
-    return async function fetchUserThunk (dispatch) {
+    return async (dispatch) => {
         const usableDisks = await getUsableDisks();
         const diskSelection = await getAllDiskSelection();
 
@@ -86,7 +86,7 @@ export const getDiskSelectionAction = () => {
 };
 
 export const getPartitioningDataAction = ({ requests, partitioning, updateOnly }) => {
-    return async function fetchUserThunk (dispatch) {
+    return async (dispatch) => {
         const props = { path: partitioning };
         const convertRequests = reqs => reqs.map(request => Object.entries(request).reduce((acc, [key, value]) => ({ ...acc, [key]: value.v }), {}));
 
