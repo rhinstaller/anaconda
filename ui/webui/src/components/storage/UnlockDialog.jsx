@@ -42,7 +42,7 @@ import {
 
 const _ = cockpit.gettext;
 
-export const UnlockDialog = ({ partition, onClose, dispatch }) => {
+export const UnlockDialog = ({ device, onClose, dispatch }) => {
     const [password, setPassword] = useState("");
     const [passwordHidden, setPasswordHidden] = useState(true);
     const [dialogError, dialogErrorSet] = useState();
@@ -50,7 +50,7 @@ export const UnlockDialog = ({ partition, onClose, dispatch }) => {
 
     const onSubmit = () => {
         setInProgress(true);
-        return unlockDevice({ deviceName: partition, passphrase: password })
+        return unlockDevice({ deviceName: device, passphrase: password })
                 .then(
                     res => {
                         if (res[0]) {
@@ -76,10 +76,10 @@ export const UnlockDialog = ({ partition, onClose, dispatch }) => {
         <Modal
           id="unlock-device-dialog"
           position="top" variant="small" isOpen onClose={() => onClose()}
-          title={cockpit.format(_("Unlock encrypted partition $0"), partition)}
+          title={cockpit.format(_("Unlock encrypted device $0"), device)}
           description={
               <TextContent>
-                  <Text component={TextVariants.p}>{_("You need to unlock encrypted partitions before you can continue.")}</Text>
+                  <Text component={TextVariants.p}>{_("You need to unlock encrypted devices before you can continue.")}</Text>
               </TextContent>
           }
           footer={
@@ -97,7 +97,7 @@ export const UnlockDialog = ({ partition, onClose, dispatch }) => {
                   e.preventDefault();
                   onSubmit();
               }}>
-                {dialogError && <ModalError dialogError={_("Failed to unlock LUKS partition")} dialogErrorDetail={dialogError} />}
+                {dialogError && <ModalError dialogError={_("Failed to unlock LUKS device")} dialogErrorDetail={dialogError} />}
                 <FormGroup fieldId="unlock-device-dialog-luks-password" label={_("Password")}>
                     <InputGroup>
                         <TextInput

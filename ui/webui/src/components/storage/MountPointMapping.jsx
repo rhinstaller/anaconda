@@ -52,7 +52,7 @@ import "./MountPointMapping.scss";
 
 const _ = cockpit.gettext;
 
-const MountPointSelect = ({ partition, requests, mountpoint, handleOnSelect, isDisabled }) => {
+const MountPointSelect = ({ device, requests, mountpoint, handleOnSelect, isDisabled }) => {
     // TODO: extend?
     const defaultOptions = [
         { value: "/", name: "root" },
@@ -80,7 +80,7 @@ const MountPointSelect = ({ partition, requests, mountpoint, handleOnSelect, isD
               selections={mountpoint || null}
               isOpen={isOpen}
               onToggle={isOpen => setIsOpen(isOpen)}
-              onSelect={(_evt, selection, _) => { setIsOpen(false); handleOnSelect(selection, partition) }}
+              onSelect={(_evt, selection, _) => { setIsOpen(false); handleOnSelect(selection, device) }}
               isDisabled={isDisabled}
               isCreatable
               shouldResetOnSelect
@@ -103,15 +103,15 @@ const MountPointSelect = ({ partition, requests, mountpoint, handleOnSelect, isD
     );
 };
 
-const MountpointCheckbox = ({ reformat, isRootMountPoint, handleCheckReFormat, partition, isDisabled }) => {
+const MountpointCheckbox = ({ reformat, isRootMountPoint, handleCheckReFormat, device, isDisabled }) => {
     return (
         <Flex>
             <Checkbox
               label={_("Format")}
               isChecked={reformat}
               isDisabled={isRootMountPoint || isDisabled}
-              onChange={(checked, _) => handleCheckReFormat(checked, partition)}
-              id={partition}
+              onChange={(checked, _) => handleCheckReFormat(checked, device)}
+              id={device}
             />
             {isRootMountPoint &&
                 <Popover
@@ -251,7 +251,7 @@ export const MountPointMapping = ({ deviceData, diskSelection, partitioningData,
                           handleOnSelect={handleOnSelect}
                           isDisabled={isNotMountPoint || isLockedLUKS}
                           mountpoint={row["mount-point"]}
-                          partition={row["device-spec"]}
+                          device={row["device-spec"]}
                           requests={partitioningData.requests}
                         />
                     )
@@ -261,7 +261,7 @@ export const MountPointMapping = ({ deviceData, diskSelection, partitioningData,
                         <MountpointCheckbox
                           reformat={row.reformat}
                           isRootMountPoint={isRootMountPoint}
-                          partition={row["device-spec"]}
+                          device={row["device-spec"]}
                           handleCheckReFormat={handleCheckReFormat}
                           isDisabled={isNotMountPoint || isBtrfs || isLockedLUKS}
                         />
@@ -271,7 +271,7 @@ export const MountPointMapping = ({ deviceData, diskSelection, partitioningData,
         };
     };
 
-    const partitionRows = partitioningData?.requests?.map(renderRow) || [];
+    const deviceRows = partitioningData?.requests?.map(renderRow) || [];
 
     return (
         <AnacondaPage title={_("Select a custom mount point")}>
@@ -288,12 +288,12 @@ export const MountPointMapping = ({ deviceData, diskSelection, partitioningData,
                 <ListingTable
                   aria-label={_("Partitions")}
                   columns={[_("Partition"), _("Format type"), _("Mount point"), _("Reformat")]}
-                  emptyCaption={_("No partitions")}
+                  emptyCaption={_("No devices")}
                   id="mount-point-mapping-table"
-                  rows={partitionRows} />
+                  rows={deviceRows} />
             </>
             {showUnlockDialog &&
-            <UnlockDialog dispatch={dispatch} onClose={() => setShowUnlockDialog(false)} partition={lockedLUKSPartitions[0]} />}
+            <UnlockDialog dispatch={dispatch} onClose={() => setShowUnlockDialog(false)} device={lockedLUKSPartitions[0]} />}
         </AnacondaPage>
     );
 };
