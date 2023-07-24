@@ -33,8 +33,8 @@ import {
     WizardContextConsumer,
 } from "@patternfly/react-core";
 
-import { InstallationDestination } from "./storage/InstallationDestination.jsx";
-import { StorageConfiguration, getScenario, getDefaultScenario } from "./storage/StorageConfiguration.jsx";
+import { InstallationMethod } from "./storage/InstallationMethod.jsx";
+import { getScenario, getDefaultScenario } from "./storage/StorageConfiguration.jsx";
 import { CustomMountPoint } from "./storage/CustomMountPoint.jsx";
 import { DiskEncryption, StorageEncryptionState } from "./storage/DiskEncryption.jsx";
 import { InstallationLanguage } from "./localization/InstallationLanguage.jsx";
@@ -49,7 +49,7 @@ import {
 
 const _ = cockpit.gettext;
 
-export const AnacondaWizard = ({ dispatch, isBootIso, storageData, localizationData, onAddErrorNotification, toggleContextHelp, hideContextHelp, title, conf }) => {
+export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, localizationData, onAddErrorNotification, title, conf }) => {
     const [isFormValid, setIsFormValid] = useState(true);
     const [stepNotification, setStepNotification] = useState();
     const [isInProgress, setIsInProgress] = useState(false);
@@ -79,21 +79,16 @@ export const AnacondaWizard = ({ dispatch, isBootIso, storageData, localizationD
                 label: _("Welcome"),
             }]
             : []),
-        // TODO: rename InstallationDestination component and its file ?
         {
-            id: "installation-destination",
-            label: _("Installation destination"),
+            component: InstallationMethod,
+            data: { deviceData: storageData.devices, diskSelection: storageData.diskSelection, dispatch },
+            id: "installation-method",
+            label: _("Installation method"),
+        },
+        {
+            id: "disk-configuration",
+            label: _("Disk configuration"),
             steps: [{
-                component: InstallationDestination,
-                data: { deviceData: storageData.devices, diskSelection: storageData.diskSelection, dispatch },
-                id: "storage-devices",
-                label: _("Storage devices")
-            }, {
-                component: StorageConfiguration,
-                data: { deviceData: storageData.devices, diskSelection: storageData.diskSelection },
-                id: "storage-configuration",
-                label: _("Storage configuration")
-            }, {
                 component: CustomMountPoint,
                 data: { deviceData: storageData.devices, diskSelection: storageData.diskSelection, partitioningData: lastPartitioning, dispatch },
                 id: "custom-mountpoint",
@@ -142,7 +137,7 @@ export const AnacondaWizard = ({ dispatch, isBootIso, storageData, localizationD
     const flattenedStepsIds = getFlattenedStepsIds(stepsOrder);
 
     const { path } = usePageLocation();
-    const currentStepId = isBootIso ? path[0] || "installation-language" : path[0] || "storage-devices";
+    const currentStepId = isBootIso ? path[0] || "installation-language" : path[0] || "installation-method";
 
     const isFinishedStep = (stepId) => {
         const stepIdx = flattenedStepsIds.findIndex(s => s === stepId);
@@ -172,13 +167,13 @@ export const AnacondaWizard = ({ dispatch, isBootIso, storageData, localizationD
                           idPrefix={s.id}
                           setIsFormValid={setIsFormValid}
                           onAddErrorNotification={onAddErrorNotification}
-                          toggleContextHelp={toggleContextHelp}
                           stepNotification={stepNotification}
                           isInProgress={isInProgress}
                           storageEncryption={storageEncryption}
                           setStorageEncryption={setStorageEncryption}
                           storageScenarioId={storageScenarioId}
                           isBootIso={isBootIso}
+                          osRelease={osRelease}
                           setStorageScenarioId={(scenarioId) => {
                               window.sessionStorage.setItem("storage-scenario-id", scenarioId);
                               setStorageScenarioId(scenarioId);
@@ -201,7 +196,6 @@ export const AnacondaWizard = ({ dispatch, isBootIso, storageData, localizationD
         setIsFormValid(true);
 
         cockpit.location.go([newStep.id]);
-        hideContextHelp();
     };
 
     return (
@@ -316,7 +310,7 @@ const Footer = ({
             <WizardContextConsumer>
                 {({ activeStep, onNext, onBack }) => {
                     const isFirstScreen = (
-                        activeStep.id === "installation-language" || (activeStep.id === "storage-devices" && !isBootIso)
+                        activeStep.id === "installation-language" || (activeStep.id === "installation-method" && !isBootIso)
                     );
                     const nextButtonText = (
                         activeStep.id === "installation-review"
@@ -344,7 +338,7 @@ const Footer = ({
                               setQuitWaitsConfirmation={setQuitWaitsConfirmation}
                               isBootIso={isBootIso}
                             />}
-                            {activeStep.id === "storage-devices" && !isFormValid &&
+                            {activeStep.id === "installation-method" && !isFormValid &&
                                 <HelperText id="next-helper-text">
                                     <HelperTextItem
                                       variant="indeterminate">

@@ -34,18 +34,7 @@ class TestInstallationProgress(anacondalib.VirtInstallMachineCase):
 
         i.open()
 
-        current_page = i.get_current_page()
-        while current_page is not i.steps.REVIEW:
-            # with the pages basically empty of common elements (as those are provided by the top-level installer widget)
-            # we at least iterate over them to check this works as expected
-            i.wait_current_page(current_page)
-            i.wait_drawer_open(False)
-            if current_page == i.steps.STORAGE_DEVICES:
-                # Open the help drawer, which should go away when pressing next.
-                s.open_storage_options_help_drawer()
-            if current_page != i.steps.REVIEW:
-                current_page = i.next()
-
+        i.reach(i.steps.REVIEW)
         i.begin_installation()
 
         # the warning can take longer to show up than the regular wait_in_text() timeout

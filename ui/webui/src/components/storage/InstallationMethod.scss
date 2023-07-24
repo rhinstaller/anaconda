@@ -1,0 +1,26 @@
+.installation-method-selector {
+  .pf-c-select {
+    width: 50%;
+  }
+
+  .pf-c-form__section-title {
+    font-size: var(--pf-global--FontSize--md);
+  }
+}
+
+.installation-method-target-disk-size {
+  color: var(--pf-global--Color--200);
+  font-size: var(--pf-global--FontSize--sm);
+}
+
+.installation-method-scenario {
+  .pf-c-radio__body {
+    margin-top: 0;
+    font-size: var(--pf-global--FontSize--sm);
+
+    .installation-method-scenario-disabled-reason {
+      font-weight: var(--pf-global--FontWeight--bold);
+      margin-inline-end: var(--pf-global--spacer--xs);
+    }
+  }
+}

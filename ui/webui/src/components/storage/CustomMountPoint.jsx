@@ -123,7 +123,7 @@ const MountpointCheckbox = ({ reformat, isRootMountPoint, handleCheckReFormat, p
     );
 };
 
-export const CustomMountPoint = ({ deviceData, diskSelection, partitioningData, dispatch, idPrefix, setIsFormValid, onAddErrorNotification, toggleContextHelp, stepNotification }) => {
+export const CustomMountPoint = ({ deviceData, diskSelection, partitioningData, dispatch, idPrefix, setIsFormValid, onAddErrorNotification, stepNotification }) => {
     const [creatingPartitioning, setCreatingPartitioning] = useState(true);
     const [showUnlockDialog, setShowUnlockDialog] = useState(false);
 
