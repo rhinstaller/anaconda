@@ -85,10 +85,12 @@ CI_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-ci
 RPM_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-rpm
 RELEASE_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-release
 ISO_CREATOR_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-iso-creator
+LIVE_ISO_CREATOR_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-live-iso-creator
 CI_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-ci
 RPM_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-rpm
 RELEASE_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-release
 ISO_CREATOR_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-iso-creator
+LIVE_ISO_CREATOR_NAME ?= $(CONTAINER_REGISTRY)/rhinstaller/anaconda-live-iso-creator
 CI_TAG := $(or $(CI_TAG),$(GIT_BRANCH))
 CI_TEST_ARGS ?= --rm -v $(srcdir):/anaconda:z
 CI_CMD ?= make ci
@@ -212,7 +214,15 @@ anaconda-iso-creator-build:
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=image=$(BASE_CONTAINER) \
 	-t $(ISO_CREATOR_NAME):$(CI_TAG) \
-  $(ISO_CREATOR_DOCKERFILE)
+	$(ISO_CREATOR_DOCKERFILE)
+
+anaconda-live-iso-creator-build:
+	$(CONTAINER_ENGINE) build \
+	$(CONTAINER_BUILD_ARGS) --pull-always \
+	$(CONTAINER_ADD_ARGS) \
+	--build-arg=image=$(BASE_CONTAINER) \
+	-t $(LIVE_ISO_CREATOR_NAME):$(CI_TAG) \
+	$(LIVE_ISO_CREATOR_DOCKERFILE)
 
 # User has to be logged first to be able to push the image.
 # See `podman login` for more info.
@@ -355,6 +365,24 @@ container-iso-build:
 # Build WebUI ISO from Anaconda RPM files build here
 container-webui-iso-build:
 	$(MAKE) -f ./Makefile.am container-iso-build CONTAINER_ADD_ARGS="--entrypoint=/lorax-build-webui"
+
+# Build LIVE ISO from Anaconda RPM files build here
+container-live-iso-build:
+	@sudo -nv 2>/dev/null || echo "You will be prompted for sudo password because of loop device mounting in Lorax!"
+
+	@if ! ls $(srcdir)/result/build/01-rpm-build/anaconda-*.rpm >/dev/null 2>/dev/null; then \
+		echo "You need to have anaconda RPMs build first. Please run 'make -f ./Makefile.am container-rpms-scratch' before this command."; \
+		exit 1; \
+	fi
+
+	mkdir -p result/iso
+	sudo $(CONTAINER_ENGINE) run \
+	--rm -t --privileged --tmpfs /var/tmp:rw,mode=1777 --device /dev/kvm \
+	-v $(srcdir)/result/build/01-rpm-build:/anaconda-rpms:ro \
+	-v $(srcdir)/result/iso:/images:z \
+	$(CONTAINER_ADD_ARGS) \
+	$(LIVE_ISO_CREATOR_NAME):$(CI_TAG)
+	@echo "ISO is stored in $(scrdir)/result/iso/"
 
 check-branching:
 # checking if branching can be finished and all the pieces are in place

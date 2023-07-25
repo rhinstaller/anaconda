@@ -130,11 +130,18 @@ Build Anaconda RPM files with our container::
 
 Then build ISO from these RPMs by this call (beware because of loop device mounting it needs root priviledges)::
 
-  make -f ./Makefile.am container-iso-build
+  sudo make -f ./Makefile.am anaconda-iso-creator-build # to build the container if it doesn't exists already
+  sudo make -f ./Makefile.am container-iso-build
 
 or for Web UI image run::
 
-  make -f ./Makefile.am container-webui-iso-build
+  sudo make -f ./Makefile.am anaconda-iso-creator-build # to build the container if it doesn't exists already
+  sudo make -f ./Makefile.am container-webui-iso-build
+
+or for Web UI in Live media run::
+
+  sudo make -f ./Makefile.am anaconda-live-iso-creator-build # to build the container if it doesn't exists already
+  sudo make -f ./Makefile.am container-live-iso-build
 
 The resulting ISO will be stored in ``./result/iso`` directory.
 
