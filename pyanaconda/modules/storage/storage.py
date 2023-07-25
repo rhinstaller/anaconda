@@ -25,6 +25,7 @@ from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.containers import TaskContainer
 from pyanaconda.modules.common.errors.storage import InvalidStorageError
 from pyanaconda.modules.common.structures.requirement import Requirement
+from pyanaconda.modules.common.submodule_manager import SubmoduleManager
 from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.checker import StorageCheckerModule
 from pyanaconda.modules.storage.dasd import DASDModule
@@ -71,40 +72,40 @@ class StorageService(KickstartService):
         self.partitioning_reset = Signal()
 
         # Initialize modules.
-        self._modules = []
+        self._modules = SubmoduleManager()
 
         self._storage_checker_module = StorageCheckerModule()
-        self._add_module(self._storage_checker_module)
+        self._modules.add_module(self._storage_checker_module)
 
         self._device_tree_module = DeviceTreeModule()
-        self._add_module(self._device_tree_module)
+        self._modules.add_module(self._device_tree_module)
 
         self._disk_init_module = DiskInitializationModule()
-        self._add_module(self._disk_init_module)
+        self._modules.add_module(self._disk_init_module)
 
         self._disk_selection_module = DiskSelectionModule()
-        self._add_module(self._disk_selection_module)
+        self._modules.add_module(self._disk_selection_module)
 
         self._snapshot_module = SnapshotModule()
-        self._add_module(self._snapshot_module)
+        self._modules.add_module(self._snapshot_module)
 
         self._bootloader_module = BootloaderModule()
-        self._add_module(self._bootloader_module)
+        self._modules.add_module(self._bootloader_module)
 
         self._fcoe_module = FCOEModule()
-        self._add_module(self._fcoe_module)
+        self._modules.add_module(self._fcoe_module)
 
         self._iscsi_module = ISCSIModule()
-        self._add_module(self._iscsi_module)
+        self._modules.add_module(self._iscsi_module)
 
         self._nvdimm_module = NVDIMMModule()
-        self._add_module(self._nvdimm_module)
+        self._modules.add_module(self._nvdimm_module)
 
         self._dasd_module = DASDModule()
-        self._add_module(self._dasd_module)
+        self._modules.add_module(self._dasd_module)
 
         self._zfcp_module = ZFCPModule()
-        self._add_module(self._zfcp_module)
+        self._modules.add_module(self._zfcp_module)
 
         # Connect modules to signals.
         self.storage_changed.connect(
@@ -142,16 +143,11 @@ class StorageService(KickstartService):
         # storage model. It will be propagated to all modules.
         self._set_storage(create_storage())
 
-    def _add_module(self, storage_module):
-        """Add a base kickstart module."""
-        self._modules.append(storage_module)
-
     def publish(self):
         """Publish the module."""
         TaskContainer.set_namespace(STORAGE.namespace)
 
-        for kickstart_module in self._modules:
-            kickstart_module.publish()
+        self._modules.publish_modules()
 
         DBus.publish_object(STORAGE.object_path, StorageInterface(self))
         DBus.register_service(STORAGE.service_name)
@@ -164,8 +160,7 @@ class StorageService(KickstartService):
     def process_kickstart(self, data):
         """Process the kickstart data."""
         # Process the kickstart data in modules.
-        for kickstart_module in self._modules:
-            kickstart_module.process_kickstart(data)
+        self._modules.process_kickstart(data)
 
         # Set the default filesystem type.
         if data.autopart.autopart and data.autopart.fstype:
@@ -180,8 +175,7 @@ class StorageService(KickstartService):
 
     def setup_kickstart(self, data):
         """Set up the kickstart data."""
-        for kickstart_module in self._modules:
-            kickstart_module.setup_kickstart(data)
+        self._modules.setup_kickstart(data)
 
         if self.applied_partitioning:
             self.applied_partitioning.setup_kickstart(data)
@@ -384,8 +378,7 @@ class StorageService(KickstartService):
             ))
 
         # Add other requirements, for example for bootloader.
-        for kickstart_module in self._modules:
-            requirements.extend(kickstart_module.collect_requirements())
+        requirements.extend(self._modules.collect_requirements())
 
         return requirements
 
