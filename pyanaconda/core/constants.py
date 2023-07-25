@@ -308,11 +308,13 @@ STORAGE_LUKS2_MIN_RAM = "luks2_min_ram"
 class DisplayModes(Enum):
     GUI = "GUI"
     TUI = "TUI"
+    WEBUI = "WEBUI"
 
 
 DISPLAY_MODE_NAME = {
     DisplayModes.GUI: "graphical mode",
-    DisplayModes.TUI: "text mode"
+    DisplayModes.TUI: "text mode",
+    DisplayModes.WEBUI: "webui mode"
 }
 
 INTERACTIVE_MODE_NAME = {
