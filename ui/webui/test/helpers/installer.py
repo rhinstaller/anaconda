@@ -22,7 +22,7 @@ from step_logger import log_step
 class InstallerSteps(UserDict):
     WELCOME = "installation-language"
     INSTALLATION_METHOD = "installation-method"
-    CUSTOM_MOUNT_POINT = "custom-mountpoint"
+    CUSTOM_MOUNT_POINT = "mount-point-mapping"
     DISK_ENCRYPTION = "disk-encryption"
     REVIEW = "installation-review"
     PROGRESS = "installation-progress"

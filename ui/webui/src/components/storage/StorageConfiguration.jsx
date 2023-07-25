@@ -24,7 +24,7 @@ import {
     Title,
 } from "@patternfly/react-core";
 
-import { helpEraseAll, helpUseFreeSpace, helpCustomMountPoint } from "./HelpAutopartOptions.jsx";
+import { helpEraseAll, helpUseFreeSpace, helpMountPointMapping } from "./HelpAutopartOptions.jsx";
 
 import {
     getRequiredDeviceSize,
@@ -77,7 +77,7 @@ const checkUseFreeSpace = ({ diskFreeSpace, requiredSize }) => {
     return availability;
 };
 
-const checkCustomMountPoint = ({ hasPartitions }) => {
+const checkMountPointMapping = ({ hasPartitions }) => {
     const availability = new AvailabilityState();
 
     if (!hasPartitions) {
@@ -116,11 +116,11 @@ const scenarios = [{
     dialogWarningTitle: _("Install on the free space?"),
     dialogWarning: _("The installation will use the available space on your devices and will not erase any device data."),
 }, {
-    id: "custom-mount-point",
+    id: "mount-point-mapping",
     label: _("Mount point assignment"),
     default: false,
-    detail: helpCustomMountPoint,
-    check: checkCustomMountPoint,
+    detail: helpMountPointMapping,
+    check: checkMountPointMapping,
     // CLEAR_PARTITIONS_NONE = 0
     initializationMode: 0,
     buttonLabel: _("Apply mount point assignment and install"),

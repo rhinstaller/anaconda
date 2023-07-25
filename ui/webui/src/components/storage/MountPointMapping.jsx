@@ -48,7 +48,7 @@ import {
     setManualPartitioningRequests,
 } from "../../apis/storage.js";
 
-import "./CustomMountPoint.scss";
+import "./MountPointMapping.scss";
 
 const _ = cockpit.gettext;
 
@@ -123,7 +123,7 @@ const MountpointCheckbox = ({ reformat, isRootMountPoint, handleCheckReFormat, p
     );
 };
 
-export const CustomMountPoint = ({ deviceData, diskSelection, partitioningData, dispatch, idPrefix, setIsFormValid, onAddErrorNotification, stepNotification }) => {
+export const MountPointMapping = ({ deviceData, diskSelection, partitioningData, dispatch, idPrefix, setIsFormValid, onAddErrorNotification, stepNotification }) => {
     const [creatingPartitioning, setCreatingPartitioning] = useState(true);
     const [showUnlockDialog, setShowUnlockDialog] = useState(false);
 
@@ -275,7 +275,7 @@ export const CustomMountPoint = ({ deviceData, diskSelection, partitioningData, 
 
     return (
         <AnacondaPage title={_("Select a custom mount point")}>
-            {stepNotification && stepNotification.step === "custom-mountpoint" &&
+            {stepNotification && stepNotification.step === "mount-point-mapping" &&
                 <Alert
                   isInline
                   title={stepNotification.message}
@@ -289,7 +289,7 @@ export const CustomMountPoint = ({ deviceData, diskSelection, partitioningData, 
                   aria-label={_("Partitions")}
                   columns={[_("Partition"), _("Format type"), _("Mount point"), _("Reformat")]}
                   emptyCaption={_("No partitions")}
-                  id="custom-mountpoint-table"
+                  id="mount-point-mapping-table"
                   rows={partitionRows} />
             </>
             {showUnlockDialog &&
