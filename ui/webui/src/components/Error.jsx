@@ -30,7 +30,34 @@ import { exitGui } from "../helpers/exit.js";
 
 const _ = cockpit.gettext;
 
-export const CriticalError = ({ exception, isBootIso }) => {
+export const bugzillaPrefiledReportURL = (productQueryData) => {
+    const baseURL = "https://bugzilla.redhat.com";
+    const queryData = {
+        ...productQueryData,
+        component: "anaconda",
+    };
+
+    const reportURL = new URL(baseURL);
+    reportURL.pathname = "enter_bug.cgi";
+    Object.keys(queryData).map(query => reportURL.searchParams.append(query, queryData[query]));
+    return reportURL.href;
+};
+
+const addExceptionDataToReportURL = (url, exception) => {
+    const newUrl = new URL(url);
+    newUrl.searchParams.append(
+        "short_desc",
+        "WebUI: " + exception.message
+    );
+    newUrl.searchParams.append(
+        "comment",
+        "Instructions about what to fill here and which logs tarball to attach"
+    );
+    return newUrl.href;
+};
+
+export const CriticalError = ({ exception, isBootIso, reportLinkURL }) => {
+    const reportURL = addExceptionDataToReportURL(reportLinkURL, exception);
     return (
         <Modal
           description={_("The installer cannot continue due to a critical error.")}
@@ -63,6 +90,12 @@ export const CriticalError = ({ exception, isBootIso }) => {
             <TextContent>
                 <Text component={TextVariants.p}>
                     {cockpit.format(_("Hint: $0"), exception.contextData.hint)}
+                </Text>
+            </TextContent>}
+            {reportLinkURL &&
+            <TextContent>
+                <Text component={TextVariants.p}>
+                    {cockpit.format("Report: $0", reportURL)}
                 </Text>
             </TextContent>}
         </Modal>
