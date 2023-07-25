@@ -25,6 +25,7 @@ import {
     TextVariants,
     Text,
 } from "@patternfly/react-core";
+import { ExternalLinkAltIcon } from "@patternfly/react-icons";
 
 import { exitGui } from "../helpers/exit.js";
 
@@ -58,6 +59,11 @@ const addExceptionDataToReportURL = (url, exception) => {
 
 export const CriticalError = ({ exception, isBootIso, reportLinkURL }) => {
     const reportURL = addExceptionDataToReportURL(reportLinkURL, exception);
+
+    const openBZIssue = (reportURL) => {
+        window.open(reportURL, "_blank");
+    };
+
     return (
         <Modal
           description={_("The installer cannot continue due to a critical error.")}
@@ -70,6 +76,14 @@ export const CriticalError = ({ exception, isBootIso, reportLinkURL }) => {
           variant="small"
           footer={
               <>
+                  {reportLinkURL &&
+                  <Button
+                    variant="primary"
+                    icon={<ExternalLinkAltIcon />}
+                    onClick={() => openBZIssue(reportURL)}
+                    component="a">
+                      {_("Send issue to Bugzilla")}
+                  </Button>}
                   <Button variant="secondary" onClick={exitGui}>
                       {isBootIso ? _("Reboot") : _("Quit")}
                   </Button>
@@ -90,12 +104,6 @@ export const CriticalError = ({ exception, isBootIso, reportLinkURL }) => {
             <TextContent>
                 <Text component={TextVariants.p}>
                     {cockpit.format(_("Hint: $0"), exception.contextData.hint)}
-                </Text>
-            </TextContent>}
-            {reportLinkURL &&
-            <TextContent>
-                <Text component={TextVariants.p}>
-                    {cockpit.format("Report: $0", reportURL)}
                 </Text>
             </TextContent>}
         </Modal>
