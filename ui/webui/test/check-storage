@@ -384,6 +384,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
 
         disk = "/dev/vda"
         dev = "vda"
+        btrfsname = "btrfstest"
         m.execute(f"""
         sgdisk --zap-all {disk}
         sgdisk --new=0:0:+1MiB -t 0:ef02 {disk}
@@ -392,7 +393,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         sgdisk --new=0:0:0 {disk}
         mkfs.ext4 {disk}2
         mkfs.xfs -f {disk}3
-        mkfs.btrfs -f {disk}4
+        mkfs.btrfs -f -L {btrfsname} {disk}4
         """)
 
         self.udevadm_settle()
