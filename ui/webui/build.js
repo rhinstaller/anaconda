@@ -63,7 +63,7 @@ const context = await esbuild.context({
         ".js": "jsx",
         ".py": "text",
     },
-    minify: production,
+    minify: false,
     nodePaths,
     outdir,
     target: ['es2020'],
