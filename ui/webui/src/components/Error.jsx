@@ -25,12 +25,48 @@ import {
     TextVariants,
     Text,
 } from "@patternfly/react-core";
+import { ExternalLinkAltIcon } from "@patternfly/react-icons";
 
 import { exitGui } from "../helpers/exit.js";
 
 const _ = cockpit.gettext;
 
-export const CriticalError = ({ exception, isBootIso }) => {
+export const bugzillaPrefiledReportURL = (productQueryData) => {
+    const baseURL = "https://bugzilla.redhat.com";
+    const queryData = {
+        ...productQueryData,
+        component: "anaconda",
+    };
+
+    const reportURL = new URL(baseURL);
+    reportURL.pathname = "enter_bug.cgi";
+    Object.keys(queryData).map(query => reportURL.searchParams.append(query, queryData[query]));
+    return reportURL.href;
+};
+
+const addExceptionDataToReportURL = (url, exception) => {
+    const newUrl = new URL(url);
+
+    const context = exception.contextData?.context ? exception.contextData?.context + " " : "";
+
+    newUrl.searchParams.append(
+        "short_desc",
+        "WebUI: " + context + exception.name + ": " + exception.message
+    );
+    newUrl.searchParams.append(
+        "comment",
+        "Installer WebUI Critical Error:\n" + context + exception.name + ": " + exception.message + "\n\n" + _("Please attach the file /tmp/webui.log to the issue.")
+    );
+    return newUrl.href;
+};
+
+export const CriticalError = ({ exception, isBootIso, reportLinkURL }) => {
+    const reportURL = addExceptionDataToReportURL(reportLinkURL, exception);
+
+    const openBZIssue = (reportURL) => {
+        window.open(reportURL, "_blank", "noopener,noreferer");
+    };
+
     return (
         <Modal
           description={_("The installer cannot continue due to a critical error.")}
@@ -43,6 +79,14 @@ export const CriticalError = ({ exception, isBootIso }) => {
           variant="small"
           footer={
               <>
+                  {reportLinkURL &&
+                  <Button
+                    variant="primary"
+                    icon={<ExternalLinkAltIcon />}
+                    onClick={() => openBZIssue(reportURL)}
+                    component="a">
+                      {_("Send issue to Bugzilla")}
+                  </Button>}
                   <Button variant="secondary" onClick={exitGui}>
                       {isBootIso ? _("Reboot") : _("Quit")}
                   </Button>

@@ -29,7 +29,7 @@ import { WithDialogs } from "dialogs.jsx";
 import { AddressContext, LanguageContext } from "./Common.jsx";
 import { AnacondaHeader } from "./AnacondaHeader.jsx";
 import { AnacondaWizard } from "./AnacondaWizard.jsx";
-import { CriticalError, errorHandlerWithContext } from "./Error.jsx";
+import { CriticalError, errorHandlerWithContext, bugzillaPrefiledReportURL } from "./Error.jsx";
 
 import { BossClient } from "../apis/boss.js";
 import { LocalizationClient, initDataLocalization, startEventMonitorLocalization } from "../apis/localization.js";
@@ -119,9 +119,14 @@ export const Application = () => {
     const isBootIso = conf?.["Installation System"].type === "BOOT_ISO";
     const title = cockpit.format(_("$0 installation"), osRelease.PRETTY_NAME);
 
+    const bzReportURL = bugzillaPrefiledReportURL({
+        product: osRelease.REDHAT_BUGZILLA_PRODUCT,
+        version: osRelease.REDHAT_BUGZILLA_PRODUCT_VERSION,
+    });
+
     const page = (
         criticalError
-            ? <CriticalError exception={criticalError} isBootIso={isBootIso} />
+            ? <CriticalError exception={criticalError} isBootIso={isBootIso} reportLinkURL={bzReportURL} />
             : (
                 <Page
                   data-debug={conf.Anaconda.debug}
