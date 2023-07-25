@@ -478,6 +478,47 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jul 25 2023 github-actions <github-actions@github.com> - 39.27-1
+- webui: if no scenario is available for selection show the options but
+  disabled (kkoukiou)
+- webui: new design for welcome page in live image (kkoukiou)
+- webui: rephrase text hints for disabled options (kkoukiou)
+- webui: make all actions return anonymous functions (kkoukiou)
+- webui: re-calculate the scenarios only if the selected devices or device data
+  changed (kkoukiou)
+- webui: tests: use installer helper 'reach' method for moving ahead multiple
+  steps (kkoukiou)
+- webui: fix typo 'screenWarning' for custom mountpoint selection (kkoukiou)
+- webui: select 'vda' disk instead of the scsi ram disk in the test (kkoukiou)
+- webui: safeguard access to deviceData properties to avoid crashes while state
+  is not fully loaded (kkoukiou)
+- webui: return a Promise when fetching all device data (kkoukiou)
+- webui: edit style files with errors (akankovs)
+- webui: setup lint for style files (akankovs)
+- tests: Fix expected value for "has_key" with latest blivet (vtrefny)
+- webui: tests: make some more tests non-destructive (kkoukiou)
+- webui: don't crash in case a AUTOMATIC partitioning object exists (kkoukiou)
+- webui: the encryption password screen is not subpage anymore (kkoukiou)
+- webui: Check for beta variable being undefined (mkolman)
+- Use DBus API to check for final release (mkolman)
+- webui: introduce an About screen (acruzgon)
+- Move more product-related values to the module itself (vslavik)
+- Simplify product-related constants (vslavik)
+- Drop the isFinal UI constructor parameter from WebUI (vslavik)
+- webui: do not silence exception when parsing languages from backend
+  (kkoukiou)
+- webui: language information should be fetched also for live media (kkoukiou)
+- Add minimal documentation to pyanaconda.product (vslavik)
+- Add IsFinal property to the UI module (vslavik)
+- webui: accept conf being undefined (yet) during a CriticalError (rvykydal)
+- webui: design adjustment on the disk encryption screen (kkoukiou)
+- spec: Honor 79 char limit for descriptions (vslavik)
+- webui: allow critical errors also in the first load of the application
+  (kkoukiou)
+- Add TUI for installing non-standard kernels (ozobal)
+- Add GUI option for installing 64k ARM kernel (ozobal)
+- Remove deprecated conf: kickstart_modules, addons_enabled (vslavik)
+
 * Tue Jul 18 2023 github-actions <github-actions@github.com> - 39.26-1
 - webui: introduce dialog to unlock existing locked LUKS partitions (kkoukiou)
 - Introduce 'has_key' property in the attrs of DeviceFormatData object
