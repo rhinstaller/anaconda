@@ -63,13 +63,10 @@ that the initial run may take a few minutes.
 Updating the testing environment
 --------------------------------
 
-After the code is changed the testing environemnt needs to be updated.
-The most robust way of doing this is (from top level directory)::
+After the code is changed the testing environment needs to be updated.
+The most robust way of doing this is::
 
-    rm -rf ui/webui/dist/ updates.img
-    make rpms
-    cd ui/webui
-    make ../../updates.img
+    make create-updates.img
 
 Interactive browser
 -------------------
