@@ -31,26 +31,24 @@ from pyanaconda.core.constants import BOOTLOADER_LOCATION_DEFAULT, BOOTLOADER_TI
 from pyanaconda.core.i18n import _
 from pyanaconda.core.dbus import DBus
 from pyanaconda.core.signal import Signal
-from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
-from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
 from pyanaconda.modules.storage.bootloader.installation import ConfigureBootloaderTask, \
     InstallBootloaderTask, FixZIPLBootloaderTask, FixBTRFSBootloaderTask, RecreateInitrdsTask, \
     CreateRescueImagesTask, CreateBLSEntriesTask
 from pyanaconda.modules.storage.constants import BootloaderMode, ZIPLSecureBoot
+from pyanaconda.modules.storage.storage_subscriber import StorageSubscriberModule
 
 log = get_module_logger(__name__)
 
 
-class BootloaderModule(KickstartBaseModule):
+class BootloaderModule(StorageSubscriberModule):
     """The bootloader module."""
 
     def __init__(self):
         """Initialize the module."""
         super().__init__()
-        self._current_storage = None
 
         self.bootloader_mode_changed = Signal()
         self._bootloader_mode = BootloaderMode.ENABLED
@@ -85,21 +83,6 @@ class BootloaderModule(KickstartBaseModule):
         self.password_is_set_changed = Signal()
         self._password = ""
         self._password_is_encrypted = False
-
-    @property
-    def storage(self):
-        """The storage model.
-
-        :return: an instance of Blivet
-        """
-        if self._current_storage is None:
-            raise UnavailableStorageError()
-
-        return self._current_storage
-
-    def on_storage_changed(self, storage):
-        """Keep the instance of the current storage."""
-        self._current_storage = storage
 
     def publish(self):
         """Publish the module."""

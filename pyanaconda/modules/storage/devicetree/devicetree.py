@@ -21,39 +21,19 @@ from pyanaconda.core.dbus import DBus
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from dasbus.server.publishable import Publishable
-from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
-from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface
 from pyanaconda.modules.storage.devicetree.handler import DeviceTreeHandler
 from pyanaconda.modules.storage.devicetree.viewer import DeviceTreeViewer
+from pyanaconda.modules.storage.storage_subscriber import StorageSubscriberModule
 
 log = get_module_logger(__name__)
 
 __all__ = ["DeviceTreeModule"]
 
 
-class DeviceTreeModule(KickstartBaseModule, DeviceTreeViewer, DeviceTreeHandler, Publishable):
+class DeviceTreeModule(StorageSubscriberModule, DeviceTreeViewer, DeviceTreeHandler, Publishable):
     """The device tree module."""
-
-    def __init__(self):
-        super().__init__()
-        self._storage = None
-
-    @property
-    def storage(self):
-        """The storage model.
-
-        :return: an instance of Blivet
-        """
-        if self._storage is None:
-            raise UnavailableStorageError()
-
-        return self._storage
-
-    def on_storage_changed(self, storage):
-        """Keep the instance of the current storage."""
-        self._storage = storage
 
     def for_publication(self):
         """Return a DBus representation."""
