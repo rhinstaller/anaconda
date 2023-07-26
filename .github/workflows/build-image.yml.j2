@@ -1,8 +1,17 @@
 {% if distro_release == "rawhide" %}
-# Build a boot.iso from a PR triggered by a "/boot-iso" comment or manually.
-# You can use the --webui option to build a webui boot.iso instead
+# Build a bootable image from a PR triggered by a "/build-image" comment or manually.
+#
+# Choose type of the image with these options:
+# --boot.iso
+# --live
+#
+# If none of these is present, --boot-iso is assumed.
+# If both are present, both variants are built.
+#
+# To use webui on boot.iso, add also:
+# --webui
 
-name: Build boot.iso
+name: Build images
 on:
   issue_comment:
     types: [created]
@@ -16,7 +25,7 @@ permissions:
 
 jobs:
   pr-info:
-    if: github.event_name == 'workflow_dispatch' || startsWith(github.event.comment.body, '/boot-iso')
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.event.comment.body, '/build-image')
     runs-on: ubuntu-latest
     steps:
       - name: Query comment author repository permissions
@@ -53,9 +62,13 @@ jobs:
         env:
           BODY: ${{ github.event.comment.body }}
         run: |
-          # extract first line and cut out the "/boot-iso" first word
+          # extract first line and cut out the "/build-image" first word
           ARGS=$(echo "$BODY" | sed -n '1 s/^[^ ]* *//p' | sed 's/[[:space:]]*$//')
           echo "arguments are: $ARGS"
+          if ! [[ "$ARGS" == *"--boot.iso"* || "$ARGS" == *"--live"* ]] ; then
+            ARGS="$ARGS --boot.iso"
+            echo "adding implicit --boot.iso, arguments now are: $ARGS"
+          fi
           echo "args=${ARGS}" >> $GITHUB_OUTPUT
 
       - name: Construct image description
@@ -106,10 +119,10 @@ jobs:
       args: ${{ steps.parse_args.outputs.args }}
       image_description: ${{ steps.image_description.outputs.image_description }}
 
-  run:
+  boot-iso:
     needs: pr-info
     # only do this for Fedora for now; once we have RHEL 8/9 boot.iso builds working, also support these
-    if: needs.pr-info.outputs.allowed_user == 'true'
+    if: needs.pr-info.outputs.allowed_user == 'true' && contains(needs.pr-info.outputs.args, '--boot.iso')
     runs-on: [self-hosted, kstest]
     timeout-minutes: 300
     env:
@@ -152,7 +165,7 @@ jobs:
           mkdir -p ./anaconda_rpms/
           cp -av ./result/build/01-rpm-build/*.rpm ./anaconda_rpms/
 
-      - name: Build the boot.iso
+      - name: Build the ISO image
         run: |
           mkdir -p images
           if [[ "${{ needs.pr-info.outputs.args }}" == *"--webui"* ]] ; then
@@ -178,7 +191,7 @@ jobs:
       - name: Upload image
         uses: actions/upload-artifact@v3
         with:
-          name: image ${{ needs.pr-info.outputs.image_description }}
+          name: boot.iso image for ${{ needs.pr-info.outputs.image_description }}
           path: |
             images/*.iso
 
@@ -194,6 +207,86 @@ jobs:
           echo "Comment to be posted:"
           cat comment.txt
           gh pr comment ${{ github.event.issue.number }} -F comment.txt
+
+      - name: Set result status
+        if: always()
+        uses: octokit/request-action@v2.x
+        with:
+          route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
+          context: '${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.launch_args }}'
+          state: ${{ job.status }}
+          target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  live-iso:
+    needs: pr-info
+    if: needs.pr-info.outputs.allowed_user == 'true' && contains(needs.pr-info.outputs.args, '--live')
+    runs-on: [self-hosted, kstest]
+    timeout-minutes: 300
+    env:
+       STATUS_NAME: live-iso
+       CONTAINER_TAG: 'lorax'
+       ISO_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-live-iso-creator'
+    steps:
+      # we post statuses manually as this does not run from a pull_request event
+      # https://developer.github.com/v3/repos/statuses/#create-a-status
+      - name: Create in-progress status
+        uses: octokit/request-action@v2.x
+        with:
+          route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
+          context: '${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.launch_args }}'
+          state: pending
+          target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Clone repository
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ needs.pr-info.outputs.sha }}
+          fetch-depth: 0
+
+      - name: Build anaconda-rpm container (for RPM build)
+        run: |
+          # set static tag to avoid complications when looking what tag is used
+          make -f ./Makefile.am anaconda-rpm-build CI_TAG=$CONTAINER_TAG
+
+      - name: Build Anaconda RPM files
+        run: |
+          # output of the build will be stored in ./result/build/01-rpm-build/*.rpm
+          make -f ./Makefile.am container-rpms-scratch CI_TAG=$CONTAINER_TAG
+
+      - name: Build anaconda-live-iso-creator container image
+        run: |
+          # set static tag to avoid complications when looking what tag is used
+          make -f ./Makefile.am anaconda-live-iso-creator-build CI_TAG=$CONTAINER_TAG
+
+      - name: Build the ISO image
+        run: |
+          mkdir -p images
+          make -f Makefile.am container-live-iso-build CI_TAG=$CONTAINER_TAG
+          mv result/iso/Fedora-Workstation.iso "images/${{ needs.pr-info.outputs.image_description }}-Fedora-Workstation.iso"
+
+      - name: Make artefacts created by sudo cleanable
+        if: always()
+        run:
+          sudo chown -R github:github .
+
+      - name: Collect logs
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: 'logs'
+          path: |
+           images/*.log
+
+      - name: Upload image artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: live image for ${{ needs.pr-info.outputs.image_description }}
+          path: |
+            images/*.iso
 
       - name: Set result status
         if: always()
