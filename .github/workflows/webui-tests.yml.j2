@@ -236,6 +236,7 @@ jobs:
       # Permian exit code doesn't reflect the test results
       - name: Check tests results
         working-directory: ./permian
+        shell: bash {0}
         run: |
           fails=$( grep -E '<failure .* type="failure"/>|<error .* type="error"/>' xunit*.xml )
           if [ -n "$fails" ]; then
