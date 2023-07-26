@@ -45,6 +45,7 @@ from pyanaconda.modules.storage.platform import platform
 from pyanaconda.modules.storage.reset import ScanDevicesTask
 from pyanaconda.modules.storage.snapshot import SnapshotModule
 from pyanaconda.modules.storage.storage_interface import StorageInterface
+from pyanaconda.modules.storage.storage_subscriber import StorageSubscriberModule
 from pyanaconda.modules.storage.teardown import UnmountFilesystemsTask, TeardownDiskImagesTask
 from pyanaconda.modules.storage.zfcp import ZFCPModule
 
@@ -108,27 +109,10 @@ class StorageService(KickstartService):
         self._modules.add_module(self._zfcp_module)
 
         # Connect modules to signals.
-        self.storage_changed.connect(
-            self._device_tree_module.on_storage_changed
-        )
-        self.storage_changed.connect(
-            self._disk_init_module.on_storage_changed
-        )
-        self.storage_changed.connect(
-            self._disk_selection_module.on_storage_changed
-        )
-        self.storage_changed.connect(
-            self._snapshot_module.on_storage_changed
-        )
-        self.storage_changed.connect(
-            self._bootloader_module.on_storage_changed
-        )
-        self.storage_changed.connect(
-            self._nvdimm_module.on_storage_changed
-        )
-        self.storage_changed.connect(
-            self._dasd_module.on_storage_changed
-        )
+        for module in self._modules:
+            if isinstance(module, StorageSubscriberModule):
+                self.storage_changed.connect(module.on_storage_changed)
+
         self._disk_init_module.format_unrecognized_enabled_changed.connect(
             self._dasd_module.on_format_unrecognized_enabled_changed
         )
