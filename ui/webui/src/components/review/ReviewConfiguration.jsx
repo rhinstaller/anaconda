@@ -102,7 +102,7 @@ const DeviceRow = ({ deviceData, disk, requests }) => {
     };
 
     const partitionRows = requests?.filter(req => {
-        const partitionName = Object.keys(deviceData).find(device => deviceData[device].path.v === req["device-spec"]);
+        const partitionName = Object.keys(deviceData).find(device => deviceData[device].name.v === req["device-spec"]);
         const device = deviceData[partitionName];
 
         return checkDeviceInSubTree(device, name, deviceData);

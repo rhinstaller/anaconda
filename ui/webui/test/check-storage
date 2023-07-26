@@ -384,6 +384,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
 
         disk = "/dev/vda"
         dev = "vda"
+        btrfsname = "btrfstest"
         m.execute(f"""
         sgdisk --zap-all {disk}
         sgdisk --new=0:0:+1MiB -t 0:ef02 {disk}
@@ -392,7 +393,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         sgdisk --new=0:0:0 {disk}
         mkfs.ext4 {disk}2
         mkfs.xfs -f {disk}3
-        mkfs.btrfs -f {disk}4
+        mkfs.btrfs -f -L {btrfsname} {disk}4
         """)
 
         self.udevadm_settle()
@@ -439,20 +440,20 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         r.expand_disk_table(disk)
 
         row = 1
-        r.check_disk_row(disk, row, "Partition", f"/dev/vda{row}")
+        r.check_disk_row(disk, row, "Partition", f"vda{row}")
         r.check_disk_row(disk, row, "Format type", "biosboot")
         row = 2
-        r.check_disk_row(disk, row, "Partition", f"/dev/vda{row}")
+        r.check_disk_row(disk, row, "Partition", f"vda{row}")
         r.check_disk_row(disk, row, "Format type", "ext4")
         r.check_disk_row(disk, row, "Mount point", "/boot")
         r.check_disk_row_reformatted(disk, row, "Reformat")
         row = 3
-        r.check_disk_row(disk, row, "Partition", f"/dev/vda{row}")
+        r.check_disk_row(disk, row, "Partition", f"vda{row}")
         r.check_disk_row(disk, row, "Format type", "xfs")
         r.check_disk_row(disk, row, "Mount point", "/")
         r.check_disk_row_reformatted(disk, row, "Reformat")
         row = 4
-        r.check_disk_row(disk, row, "Partition", f"/dev/vda{row}")
+        r.check_disk_row(disk, row, "Partition", btrfsname)
         r.check_disk_row(disk, row, "Format type", "btrfs")
         r.check_disk_row(disk, row, "Mount point", "/")
 
@@ -546,7 +547,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
 
         self.select_mountpoint(i, s, [(dev1, False), (dev2, True)])
 
-        self.check_partition(1, "/dev/vdb1")
+        self.check_partition(1, "vdb1")
 
         # Go back and change the disk selection. The partitioning should be re-created
         i.back()
@@ -554,19 +555,19 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         self.browser.click(".pf-c-select__toggle-clear")
         self.select_mountpoint(i, s, [(dev1, True), (dev2, True)])
 
-        self.check_partition(1, "/dev/vda1")
+        self.check_partition(1, "vda1")
 
-        self.check_partition(2, "/dev/vda2")
+        self.check_partition(2, "vda2")
         self.check_format_type(2, "xfs")
         self.select_from_dropdown(2, "boot", "/boot")
         self.check_reformat(2, False)
 
-        self.check_partition(3, "/dev/vda3")
+        self.check_partition(3, "vda3")
         self.check_format_type(3, "xfs")
         self.select_from_dropdown(3, "root", "/")
         self.check_reformat(3, True)
 
-        self.check_partition(4, "/dev/vdb1")
+        self.check_partition(4, "vdb1")
         self.check_format_type(4, "xfs")
         self.select_from_dropdown(4, "home", "/home")
         self.check_reformat(4, False)
@@ -579,14 +580,14 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         r.expand_disk_table(disk)
 
         row = 1
-        r.check_disk_row(disk, row, "Partition", f"/dev/vda{row}")
+        r.check_disk_row(disk, row, "Partition", f"vda{row}")
         r.check_disk_row(disk, row, "Format type", "biosboot")
         row = 2
-        r.check_disk_row(disk, row, "Partition", f"/dev/vda{row}")
+        r.check_disk_row(disk, row, "Partition", f"vda{row}")
         r.check_disk_row(disk, row, "Format type", "xfs")
         r.check_disk_row(disk, row, "Mount point", "/boot")
         row = 3
-        r.check_disk_row(disk, row, "Partition", f"/dev/vda{row}")
+        r.check_disk_row(disk, row, "Partition", f"vda{row}")
         r.check_disk_row(disk, row, "Format type", "xfs")
         r.check_disk_row(disk, row, "Mount point", "/")
         r.check_disk_row_reformatted(disk, row, "Reformat")
@@ -596,7 +597,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         r.expand_disk_table(disk)
 
         row = 1
-        r.check_disk_row(disk, row, "Partition", f"/dev/vdb{row}")
+        r.check_disk_row(disk, row, "Partition", f"vdb{row}")
         r.check_disk_row(disk, row, "Format type", "xfs")
         r.check_disk_row(disk, row, "Mount point", "/home")
 
@@ -645,7 +646,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         self.unlock_device("einszweidrei")
         b.wait_not_present("#mount-point-mapping-table tbody tr:nth-child(4) td[data-label='Format type'] #unlock-luks-btn")
 
-        self.check_partition(4, "/dev/mapper/luks")
+        self.check_partition(4, "luks")
         self.check_format_type(4, "xfs")
 
         self.select_from_dropdown(2, "boot", "/boot")
@@ -655,7 +656,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         i.next()
 
         r.expand_disk_table(dev2)
-        r.check_disk_row(dev2, 1, "Partition", "/dev/mapper/luks")
+        r.check_disk_row(dev2, 1, "Partition", "luks")
 
 if __name__ == '__main__':
     test_main()

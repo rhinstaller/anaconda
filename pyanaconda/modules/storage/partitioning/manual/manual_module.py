@@ -131,7 +131,10 @@ class ManualPartitioningModule(PartitioningModule):
         """
         selected_disks = set(self._selected_disks)
 
-        for device in self.storage.devicetree.leaves:
+        for device in self.storage.devicetree.devices:
+            if not device.isleaf and not device.raw_device.type == "btrfs subvolume":
+                continue
+
             # Is the device usable?
             if device.protected or device.size == Size(0):
                 continue
@@ -162,12 +165,15 @@ class ManualPartitioningModule(PartitioningModule):
         :return: an instance of MountPointRequest
         """
         request = MountPointRequest()
-        request.device_spec = device.path
+        request.device_spec = device.name
         request.format_type = device.format.type or ""
         request.reformat = False
 
-        if device.format.mountable and device.format.mountpoint:
-            request.mount_point = device.format.mountpoint
+        if device.format.mountable:
+            if device.format.mountpoint:
+                request.mount_point = device.format.mountpoint
+            if device.format.mountopts:
+                request.mount_options = device.format.mountopts
 
         return request
 

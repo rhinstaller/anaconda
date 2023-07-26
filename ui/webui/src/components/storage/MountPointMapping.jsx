@@ -132,7 +132,7 @@ export const MountPointMapping = ({ deviceData, diskSelection, partitioningData,
 
         return Object.keys(deviceData).filter(d => {
             return (
-                devs.includes(deviceData[d].path.v) &&
+                devs.includes(deviceData[d].name.v) &&
                 deviceData[d].formatData.type.v === "luks" &&
                 deviceData[d].formatData.attrs.v.has_key !== "True"
             );
@@ -152,7 +152,7 @@ export const MountPointMapping = ({ deviceData, diskSelection, partitioningData,
     }, [partitioningData?.requests, setIsFormValid]);
 
     // If device selection changed since the last partitioning request redo the partitioning
-    const selectedDevicesPaths = diskSelection.selectedDisks.map(d => deviceData[d].path.v) || [];
+    const selectedDevicesPaths = diskSelection.selectedDisks.map(d => deviceData[d].name.v) || [];
     const partitioningDevicesPaths = partitioningData?.requests?.map(r => r["device-spec"]) || [];
     const canReusePartitioning = selectedDevicesPaths.length === partitioningDevicesPaths.length && selectedDevicesPaths.every(d => partitioningDevicesPaths.includes(d));
 
