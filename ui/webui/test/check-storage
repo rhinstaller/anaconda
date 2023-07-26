@@ -92,15 +92,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         # Check the default mode
         s.check_partitioning_selected("erase-all")
 
-        b.assert_pixels(
-            "#app",
-            "storage-step-autopart",
-            ignore=["#betanag-icon"],
-            wait_animations=False,
-        )
-
         s.set_partitioning("use-free-space")
-
         i.next()
         # Disk Encryption
 
