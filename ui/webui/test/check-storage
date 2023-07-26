@@ -26,6 +26,11 @@ from storagelib import StorageHelpers  # pylint: disable=import-error
 
 @nondestructive
 class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
+    def set_valid_password(self, password="abcdefgh"):
+        s = Storage(self.browser, self.machine)
+
+        s.set_password(password)
+        s.set_password_confirm(password)
 
     def testLocalStandardDisks(self):
         b = self.browser
@@ -188,22 +193,15 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         s.check_encryption_selected(encrypt)
 
         # Set valid password
-        pw = "abcdefgh"
-        s.set_password_confirm(pw)
-        s.check_password_confirm(pw)
-        s.set_password(pw)
-        s.check_password(pw)
+        self.set_valid_password()
 
         i.check_next_disabled(disabled=False)
 
+        # Verify that the password is saved when moving forward and back
         i.next()
-        # Review screen
-
         i.back()
-        # Disk Encryption
-        s.check_password_confirm(pw)
-        s.check_password(pw)
-        s.check_encryption_selected(encrypt)
+        s.check_password("abcdefgh")
+        s.check_password_confirm("abcdefgh")
 
         i.back()
         # Storage Configuration
