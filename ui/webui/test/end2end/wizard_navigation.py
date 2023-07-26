@@ -35,18 +35,13 @@ class WizardNavigation(End2EndTest):
         self._installer.next()
         self.configure_storage_disks()
         self._installer.next()
-        self.configure_storage_partitioning()
-        self._installer.next()
         self.configure_storage_encryption()
         self._installer.next()
         # Get Back to disk selection
         self._installer.back()
         self._installer.back()
-        self._installer.back()
         # Redo storage configuration
         self.configure_storage_disks()
-        self._installer.next()
-        self.configure_storage_partitioning()
         self._installer.next()
         self.configure_storage_encryption()
         self._installer.next()

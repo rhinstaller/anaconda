@@ -76,10 +76,6 @@ class End2EndTest(MachineCase):
         pass
 
     def configure_storage_disks(self):
-        disks = list(self._storage.get_disks())
-        self._storage.select_disk(disks[0])
-
-    def configure_storage_partitioning(self):
         pass
 
     def configure_storage_encryption(self):
@@ -111,8 +107,6 @@ class End2EndTest(MachineCase):
         self.configure_language()
         self._installer.next()
         self.configure_storage_disks()
-        self._installer.next()
-        self.configure_storage_partitioning()
         self._installer.next()
         self.configure_storage_encryption()
         self._installer.next()

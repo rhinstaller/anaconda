@@ -30,7 +30,7 @@ class Progress():
     def __init__(self, browser):
         self.browser = browser
         self.steps = InstallerSteps()
-        self._reboot_selector = "button:contains(Reboot)"
+        self._reboot_selector = ".installation-progress-status-success button:contains('Reboot')"
 
     @log_step(snapshot_after=True)
     def wait_done(self, timeout=1200):
