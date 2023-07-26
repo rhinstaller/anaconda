@@ -17,6 +17,7 @@
 
 import cockpit from "cockpit";
 import React, { useState, useEffect } from "react";
+import { debounce } from "throttle-debounce";
 
 import {
     Button,
@@ -110,6 +111,12 @@ const PasswordFormFields = ({
 }) => {
     const [passwordHidden, setPasswordHidden] = useState(true);
     const [confirmHidden, setConfirmHidden] = useState(true);
+    const [_password, _setPassword] = useState(password);
+
+    useEffect(() => {
+        debounce(300, () => onChange(_password))();
+    }, [_password, onChange]);
+
     return (
         <>
             <FormGroup
@@ -119,8 +126,8 @@ const PasswordFormFields = ({
                 <InputGroup>
                     <TextInput
                       type={passwordHidden ? "password" : "text"}
-                      value={password}
-                      onChange={onChange}
+                      value={_password}
+                      onChange={_setPassword}
                       id={idPrefix + "-password-field"}
                     />
                     <Button
