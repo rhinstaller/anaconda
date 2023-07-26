@@ -299,6 +299,8 @@ class TestStorageExtraDisks(anacondalib.VirtInstallMachineCase, StorageHelpers):
             s.check_disk_selected(disk)
 
 class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
+    def table_row(self, row):
+        return f"#mount-point-mapping-table-row-{row}";
 
     def disks_loaded(self, s, disks):
         usable_disks = s.dbus_get_usable_disks()
@@ -322,11 +324,11 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
 
     def select_row_mountpoint(self, row,  mountpoint):
         b = self.browser
-        b.set_input_text(f"#mount-point-mapping-table-row-{row} td[data-label='Mount point'] input", mountpoint)
+        b.set_input_text(f"{self.table_row(row)} td[data-label='Mount point'] input", mountpoint)
 
     def select_row_device(self, row,  device):
         b = self.browser
-        selector = f"#mount-point-mapping-table-row-{row} .pf-c-select__toggle"
+        selector = f"{self.table_row(row)} .pf-c-select__toggle"
 
         self.browser.click(f"{selector}:not([disabled]):not([aria-disabled=true])")
         select_entry = f"{selector} + ul button:contains('{device}')"
@@ -335,28 +337,28 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
 
     def toggle_row_device(self, row):
         b = self.browser
-        b.click(f"#mount-point-mapping-table-row-{row}-device-select-toggle")
+        b.click(f"{self.table_row(row)}-device-select-toggle")
 
     def check_row_device(self, row,  device):
-        self.browser.wait_text(f"#mount-point-mapping-table-row-{row} .pf-c-select__toggle-text", device)
+        self.browser.wait_text(f"{self.table_row(row)} .pf-c-select__toggle-text", device)
 
     def check_row_mountpoint(self, row,  mountpoint, isRequired=True):
         if isRequired:
-            self.browser.wait_text(f"#mount-point-mapping-table-row-{row}-mountpoint", mountpoint)
+            self.browser.wait_text(f"{self.table_row(row)}-mountpoint", mountpoint)
         else:
-            self.browser.wait_val(f"#mount-point-mapping-table-row-{row}-mountpoint", mountpoint)
+            self.browser.wait_val(f"{self.table_row(row)}-mountpoint", mountpoint)
 
     def check_format_type(self, row, format_type):
         self.toggle_row_device(row)
-        self.browser.wait_in_text(f"#mount-point-mapping-table-row-{row} ul li button.pf-m-selected", format_type)
+        self.browser.wait_in_text(f"{self.table_row(row)} ul li button.pf-m-selected", format_type)
         self.toggle_row_device(row)
 
     def check_device_available(self, row, device, available=True):
         self.toggle_row_device(row)
         if available:
-            self.browser.wait_visible(f"#mount-point-mapping-table-row-{row} ul li button:contains({device})")
+            self.browser.wait_visible(f"{self.table_row(row)} ul li button:contains({device})")
         else:
-            self.browser.wait_not_present(f"#mount-point-mapping-table-row-{row} ul li button:contains({device})")
+            self.browser.wait_not_present(f"{self.table_row(row)} ul li button:contains({device})")
         self.toggle_row_device(row)
 
     def unlock_device(self, passphrase, xfail=None):
@@ -369,17 +371,17 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         self.browser.wait_not_present("#unlock-device-dialog")
 
     def select_reformat(self, row):
-        self.browser.set_checked(f"#mount-point-mapping-table-row-{row} td[data-label='Reformat'] input", True)
+        self.browser.set_checked(f"{self.table_row(row)} td[data-label='Reformat'] input", True)
 
     def check_reformat(self, row, checked):
         checked_selector = "input:checked" if checked else "input:not(:checked)"
-        self.browser.wait_visible(f"#mount-point-mapping-table-row-{row} td[data-label='Reformat'] {checked_selector}")
+        self.browser.wait_visible(f"{self.table_row(row)} td[data-label='Reformat'] {checked_selector}")
 
     def check_select_disabled(self, row):
-        self.browser.wait_visible(f"#mount-point-mapping-table-row-{row} td[data-label='Device'] .pf-c-select__toggle.pf-m-disabled")
+        self.browser.wait_visible(f"{self.table_row(row)} td[data-label='Device'] .pf-c-select__toggle.pf-m-disabled")
 
     def check_reformat_disabled(self, row):
-        self.browser.wait_visible(f"#mount-point-mapping-table-row-{row} td[data-label='Reformat'] .pf-c-check__input:disabled")
+        self.browser.wait_visible(f"{self.table_row(row)} td[data-label='Reformat'] .pf-c-check__input:disabled")
 
     def add_mount(self):
         self.browser.click("button:contains('Add mount')")
