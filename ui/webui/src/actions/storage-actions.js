@@ -57,8 +57,7 @@ export const getDeviceDataAction = ({ device }) => {
                 .then(formatData => {
                     devData.formatData = formatData;
                     return ({ [device]: devData });
-                })
-                .catch(console.error);
+                });
 
         return dispatch({
             type: "GET_DEVICE_DATA",
