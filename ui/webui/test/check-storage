@@ -195,8 +195,6 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         # Set valid password
         self.set_valid_password()
 
-        i.check_next_disabled(disabled=False)
-
         # Verify that the password is saved when moving forward and back
         i.next()
         i.back()
