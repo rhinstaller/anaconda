@@ -16,13 +16,25 @@
 # Red Hat, Inc.
 #
 from pyanaconda.core.constants import DEFAULT_KEYBOARD
+from pyanaconda.modules.localization.live_keyboard import get_live_keyboard_instance
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
 def get_missing_keyboard_configuration(localed_wrapper, x_layouts, vc_keymap):
-    """Get missing keyboard settings by conversion and default values.
+    """Get keyboard configuration if not set by user.
+
+    Algorith works as this:
+    1. Check if keyboard configuration is not already set by user
+       -> return these
+    2. Check if keyboard confifuration can be obtained from live system
+       -> read layouts
+       -> convert currently used live layout to virtual console keymap by localed
+    3a. If still no configuration is present
+       -> use DEFAULT_KEYBOARD
+    3b. If only one of the keyboard layout or virtual console keymap is set
+       -> convert one to the other by localed
 
     :param localed_wrapper: instance of systemd-localed service wrapper
     :type localed_wrapper: LocaledWrapper
@@ -33,10 +45,35 @@ def get_missing_keyboard_configuration(localed_wrapper, x_layouts, vc_keymap):
     :returns: tuple of X layouts and VC keyboard settings
     :rtype: (list(str), str))
     """
+    if vc_keymap and x_layouts:
+        log.debug("Keyboard layouts and virtual console keymap already set - nothing to do")
+        return x_layouts, vc_keymap
+
+    live_keyboard = get_live_keyboard_instance()
+
+    if live_keyboard:
+        log.debug("Keyboad configuration from Live system is available")
+        x_layouts = _resolve_missing_from_live(live_keyboard, x_layouts)
+
     if not vc_keymap and not x_layouts:
         log.debug("Using default value %s for missing virtual console keymap", DEFAULT_KEYBOARD)
         vc_keymap = DEFAULT_KEYBOARD
 
+    if not vc_keymap or not x_layouts:
+        x_layouts, vc_keymap = _resolve_missing_by_conversion(localed_wrapper, x_layouts, vc_keymap)
+
+    return x_layouts, vc_keymap
+
+
+def _resolve_missing_from_live(live_keyboard, x_layouts):
+
+    if not x_layouts:
+        return live_keyboard.read_keyboard_layouts()
+
+    return x_layouts
+
+
+def _resolve_missing_by_conversion(localed_wrapper, x_layouts, vc_keymap):
     if not vc_keymap:
         vc_keymap = localed_wrapper.convert_layouts(x_layouts)
         log.debug("Missing virtual console keymap value %s converted from %s X layouts",
