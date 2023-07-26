@@ -55,3 +55,6 @@ class SubmoduleManager:
             requirements.extend(module.collect_requirements())
 
         return requirements
+
+    def __iter__(self):
+        return iter(self._modules)
