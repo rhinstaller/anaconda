@@ -92,7 +92,15 @@ XDG_CONFIG_DIRS="$BROWSER_HOME" COCKPIT_SUPERUSER="pkexec" /usr/libexec/cockpit-
 WS_PID=$!
 exec 1>&2
 
-trap 'set +e; kill $WS_PID; wait $WS_PID; rm -rf $BROWSER_HOME' EXIT INT QUIT PIPE
+# Cleanup function
+cleanup() {
+    set +e
+    kill $WS_PID
+    wait $WS_PID
+    kill $B_PID
+    rm -rf $BROWSER_HOME
+}
+trap 'cleanup' EXIT INT QUIT PIPE
 
 # if we have netcat, use it for waiting until ws is up
 if type nc >/dev/null 2>&1; then
@@ -105,4 +113,7 @@ else
     sleep 3
 fi
 
-HOME="$BROWSER_HOME" $BROWSER http://127.0.0.90"$URL_PATH"
+HOME="$BROWSER_HOME" $BROWSER http://127.0.0.90"$URL_PATH" &
+B_PID=$!
+
+wait $B_PID
