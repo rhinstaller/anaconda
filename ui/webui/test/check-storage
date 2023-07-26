@@ -324,21 +324,44 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         s.set_partitioning("mount-point-mapping")
         i.next(next_page=i.steps.CUSTOM_MOUNT_POINT)
 
-    def select_from_dropdown(self, row, name, mountpoint, create=False):
+    def select_row_mountpoint(self, row,  mountpoint):
         b = self.browser
-        if create:
-            b.set_input_text(f"#mount-point-mapping-table tbody tr:nth-child({row}) td[data-label='Mount point'] .pf-c-form-control.pf-c-select__toggle-typeahead", mountpoint)
-            b.click(f"#mount-point-mapping-table tbody tr:nth-child({row}) td[data-label='Mount point'] button.pf-c-select__menu-item")
+        b.set_input_text(f"#mount-point-mapping-table-row-{row} td[data-label='Mount point'] input", mountpoint)
+
+    def select_row_device(self, row,  device):
+        b = self.browser
+        selector = f"#mount-point-mapping-table-row-{row} .pf-c-select__toggle"
+
+        self.browser.click(f"{selector}:not([disabled]):not([aria-disabled=true])")
+        select_entry = f"{selector} + ul button:contains('{device}')"
+        self.browser.click(select_entry)
+        self.browser.wait_in_text(f"{selector} .pf-c-select__toggle-text", device)
+
+    def toggle_row_device(self, row):
+        b = self.browser
+        b.click(f"#mount-point-mapping-table-row-{row}-device-select-toggle")
+
+    def check_row_device(self, row,  device):
+        self.browser.wait_text(f"#mount-point-mapping-table-row-{row} .pf-c-select__toggle-text", device)
+
+    def check_row_mountpoint(self, row,  mountpoint, isRequired=True):
+        if isRequired:
+            self.browser.wait_text(f"#mount-point-mapping-table-row-{row}-mountpoint", mountpoint)
         else:
-            b.click(f"#mount-point-mapping-table tbody tr:nth-child({row}) td[data-label='Mount point'] .pf-c-select__toggle button")
-            b.click(f"#mount-point-mapping-table tbody tr:nth-child({row}) td[data-label='Mount point'] .pf-c-select__menu-item.select-option-{name}")
-        b.wait_val(f"#mount-point-mapping-table tbody tr:nth-child({row}) td[data-label='Mount point'] .pf-c-select__toggle-typeahead", mountpoint)
+            self.browser.wait_val(f"#mount-point-mapping-table-row-{row}-mountpoint", mountpoint)
 
     def check_format_type(self, row, format_type):
-        self.browser.wait_in_text(f"#mount-point-mapping-table tbody tr:nth-child({row}) td[data-label='Format type']", format_type)
+        self.toggle_row_device(row)
+        self.browser.wait_in_text(f"#mount-point-mapping-table-row-{row} ul li button.pf-m-selected", format_type)
+        self.toggle_row_device(row)
 
-    def check_partition(self, row, partition):
-        self.browser.wait_in_text(f"#mount-point-mapping-table tbody tr:nth-child({row}) td[data-label='Partition']", partition)
+    def check_device_available(self, row, device, available=True):
+        self.toggle_row_device(row)
+        if available:
+            self.browser.wait_visible(f"#mount-point-mapping-table-row-{row} ul li button:contains({device})")
+        else:
+            self.browser.wait_not_present(f"#mount-point-mapping-table-row-{row} ul li button:contains({device})")
+        self.toggle_row_device(row)
 
     def unlock_device(self, passphrase, xfail=None):
         self.browser.wait_visible("#unlock-device-dialog")
@@ -350,17 +373,27 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         self.browser.wait_not_present("#unlock-device-dialog")
 
     def select_reformat(self, row):
-        self.browser.set_checked(f"#mount-point-mapping-table tbody tr:nth-child({row}) td[data-label='Reformat'] input", True)
+        self.browser.set_checked(f"#mount-point-mapping-table-row-{row} td[data-label='Reformat'] input", True)
 
     def check_reformat(self, row, checked):
         checked_selector = "input:checked" if checked else "input:not(:checked)"
-        self.browser.wait_visible(f"#mount-point-mapping-table tbody tr:nth-child({row}) td[data-label='Reformat'] {checked_selector}")
+        self.browser.wait_visible(f"#mount-point-mapping-table-row-{row} td[data-label='Reformat'] {checked_selector}")
 
     def check_select_disabled(self, row):
-        self.browser.wait_visible(f"#mount-point-mapping-table tbody tr:nth-child({row}) td[data-label='Mount point'] .pf-c-select__toggle.pf-m-disabled")
+        self.browser.wait_visible(f"#mount-point-mapping-table-row-{row} td[data-label='Device'] .pf-c-select__toggle.pf-m-disabled")
 
     def check_reformat_disabled(self, row):
-        self.browser.wait_visible(f"#mount-point-mapping-table tbody tr:nth-child({row}) td[data-label='Reformat'] .pf-c-check__input:disabled")
+        self.browser.wait_visible(f"#mount-point-mapping-table-row-{row} td[data-label='Reformat'] .pf-c-check__input:disabled")
+
+    def add_mount(self):
+        self.browser.click("button:contains('Add mount')")
+
+    def unlock_all_encrypted(self):
+        self.browser.click("button:contains('Unlock')")
+
+    def unlock_all_encrypted_skip(self):
+        self.browser.click("button:contains('Skip')")
+
 
     def assert_inline_error(self, text):
         self.browser.wait_in_text(".pf-c-alert.pf-m-inline.pf-m-danger", text)
@@ -405,26 +438,28 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         self.select_mountpoint(i, s, [(dev, True)])
 
         # verify gathered requests
-        self.check_format_type(1, "biosboot")
-        self.check_select_disabled(1)
-        self.check_reformat_disabled(1)
+        # root partition is not auto-mapped
+        self.check_row_mountpoint(1, "/boot")
+        self.check_row_device(1, "Select a device")
+        self.check_reformat(1, False)
+        self.select_row_device(1, f"{dev}2")
+        self.check_format_type(1, "ext4")
 
-        self.check_format_type(2, "ext4")
-        self.select_from_dropdown(2, "boot", "/boot")
-        self.check_reformat(2, False)
+        self.check_row_mountpoint(2, "/")
+        self.check_row_device(2, "Select a device")
+        self.check_reformat(2, True)
+        self.select_row_device(2, f"{dev}3")
+        self.check_format_type(2, "xfs")
 
-        self.check_format_type(3, "xfs")
-        self.select_from_dropdown(3, "root", "/")
-        self.check_reformat(3, True)
-
-        self.check_format_type(4, "btrfs")
-        self.select_from_dropdown(4, "home", "/home")
-        self.check_reformat(4, False)
-        self.check_reformat_disabled(4)
+        self.add_mount()
+        self.select_row_device(3, f"btrfs")
+        self.check_format_type(3, "btrfs")
+        self.select_row_mountpoint(3, "/home")
+        self.check_reformat(3, False)
 
         # Toggle reformat option
-        self.select_reformat(2)
-        self.check_reformat(2, True)
+        self.select_reformat(1)
+        self.check_reformat(1, True)
 
         b.assert_pixels(
             "#app",
@@ -489,24 +524,22 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         self.select_mountpoint(i, s, [(dev, True)])
 
         # verify gathered requests
-        self.check_format_type(1, "biosboot")
-        self.check_select_disabled(1)
-        self.check_reformat_disabled(1)
+        self.select_row_device(1, f"{dev}2")
+        self.check_format_type(1, "ext4")
+        self.check_row_mountpoint(1, "/boot")
+        self.check_reformat(1, False)
 
-        self.check_format_type(2, "ext4")
-        self.select_from_dropdown(2, "boot", "/boot")
-        self.check_reformat(2, False)
+        self.check_row_mountpoint(2, "/")
+        self.check_row_device(2, "Select a device")
+        self.check_reformat(2, True)
 
-        self.check_format_type(3, "xfs")
-        self.select_from_dropdown(3, "/foo", "/foo", create=True)
+        self.add_mount()
+        self.select_row_device(3, f"{dev}4")
+        self.check_format_type(3, "ext4")
+        self.select_row_mountpoint(3, "/home")
         self.check_reformat(3, False)
 
-        self.check_format_type(4, "ext4")
-        self.select_from_dropdown(4, "home", "/home")
-        self.check_reformat(4, False)
-
-        i.next(should_fail=True)
-        self.assert_inline_error("You have not defined a root partition")
+        i.check_next_disabled()
 
     def testMultipleDisks(self):
         b = self.browser
@@ -547,7 +580,8 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
 
         self.select_mountpoint(i, s, [(dev1, False), (dev2, True)])
 
-        self.check_partition(1, "vdb1")
+        self.check_device_available(1, "vda2", False)
+        self.check_device_available(1, "vdb1")
 
         # Go back and change the disk selection. The partitioning should be re-created
         i.back()
@@ -555,22 +589,24 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         self.browser.click(".pf-c-select__toggle-clear")
         self.select_mountpoint(i, s, [(dev1, True), (dev2, True)])
 
-        self.check_partition(1, "vda1")
+        self.check_device_available(1, "vda2", True)
+        self.check_device_available(1, "vdb1")
 
-        self.check_partition(2, "vda2")
+        self.select_row_device(1, f"{dev1}2")
+        self.check_format_type(1, "xfs")
+        self.check_row_mountpoint(1, "/boot")
+        self.check_reformat(1, False)
+
+        self.select_row_device(2, f"{dev1}3")
         self.check_format_type(2, "xfs")
-        self.select_from_dropdown(2, "boot", "/boot")
-        self.check_reformat(2, False)
+        self.check_row_mountpoint(2, "/")
+        self.check_reformat(2, True)
 
-        self.check_partition(3, "vda3")
+        self.add_mount()
+        self.select_row_device(3, f"{dev2}1")
         self.check_format_type(3, "xfs")
-        self.select_from_dropdown(3, "root", "/")
-        self.check_reformat(3, True)
-
-        self.check_partition(4, "vdb1")
-        self.check_format_type(4, "xfs")
-        self.select_from_dropdown(4, "home", "/home")
-        self.check_reformat(4, False)
+        self.select_row_mountpoint(3, "/home")
+        self.check_reformat(3, False)
 
         i.next()
 
@@ -601,14 +637,13 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         r.check_disk_row(disk, row, "Format type", "xfs")
         r.check_disk_row(disk, row, "Mount point", "/home")
 
+    @nondestructive
     def testEncryptedUnlock(self):
         b = self.browser
         m = self.machine
         i = Installer(b, m)
         s = Storage(b, m)
         r = Review(b)
-
-        m.add_disk(10)
 
         # BIOS boot partition, /boot partition, /
         disk1 = "/dev/vda"
@@ -618,18 +653,10 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         sgdisk --new=0:0:+1MiB -t 0:ef02 {disk1}
         sgdisk --new=0:0:+1GiB {disk1}
         sgdisk --new=0:0:0 {disk1}
-        mkfs.xfs {disk1}2
-        mkfs.xfs {disk1}3
-        """)
-
-        disk2 = "/dev/vdb"
-        dev2 = "vdb"
-        m.execute(f"""
-        sgdisk --zap-all {disk2}
-        sgdisk --new=0:0 {disk2}
-        echo einszweidrei | cryptsetup luksFormat {disk2}1
-        echo einszweidrei | cryptsetup luksOpen {disk2}1 encrypted-vol
-        mkfs.xfs /dev/mapper/encrypted-vol
+        mkfs.xfs -f {disk1}2
+        echo einszweidrei | cryptsetup luksFormat {disk1}3
+        echo einszweidrei | cryptsetup luksOpen {disk1}3 encrypted-vol
+        mkfs.xfs -f /dev/mapper/encrypted-vol
         cryptsetup luksClose encrypted-vol
         """)
         self.udevadm_settle()
@@ -638,25 +665,32 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         i.next()
         s.rescan_disks()
 
-        self.select_mountpoint(i, s, [(dev1, True), (dev2, True)])
+        self.select_mountpoint(i, s, [(dev1, True)])
 
-        self.unlock_device("1234", "Failed to unlock LUKS partition")
+        self.unlock_all_encrypted()
+        self.unlock_device("1234", "Some LUKS devices were not unlocked")
 
-        b.click("#mount-point-mapping-table tbody tr:nth-child(4) td[data-label='Format type'] #unlock-luks-btn")
+        self.unlock_all_encrypted_skip()
+        b.wait_not_present("button:contains(Unlock)")
+
+        i.back()
+        i.next(next_page=i.steps.CUSTOM_MOUNT_POINT)
+
+        self.unlock_all_encrypted()
         self.unlock_device("einszweidrei")
         b.wait_not_present("#mount-point-mapping-table tbody tr:nth-child(4) td[data-label='Format type'] #unlock-luks-btn")
 
-        self.check_partition(4, "luks")
-        self.check_format_type(4, "xfs")
+        self.check_row_mountpoint(1, "/boot")
+        self.select_row_device(1, f"{dev1}2")
 
-        self.select_from_dropdown(2, "boot", "/boot")
-        self.select_from_dropdown(3, "root", "/")
-        self.select_from_dropdown(4, "home", "/home")
+        self.check_row_mountpoint(2, "/")
+        self.select_row_device(2, "luks")
+        self.check_format_type(2, "xfs")
 
         i.next()
 
-        r.expand_disk_table(dev2)
-        r.check_disk_row(dev2, 1, "Partition", "luks")
+        r.expand_disk_table(dev1)
+        r.check_disk_row(dev1, 3, "Partition", "luks")
 
 if __name__ == '__main__':
     test_main()
