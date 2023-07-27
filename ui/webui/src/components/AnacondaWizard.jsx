@@ -50,7 +50,7 @@ import {
 
 const _ = cockpit.gettext;
 
-export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, localizationData, onAddErrorNotification, title, conf }) => {
+export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, localizationData, onCritFail, onAddErrorNotification, title, conf }) => {
     const [isFormValid, setIsFormValid] = useState(false);
     const [stepNotification, setStepNotification] = useState();
     const [isInProgress, setIsInProgress] = useState(false);
@@ -177,6 +177,7 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
                         <s.component
                           idPrefix={s.id}
                           setIsFormValid={setIsFormValid}
+                          onCritFail={onCritFail}
                           onAddErrorNotification={onAddErrorNotification}
                           stepNotification={stepNotification}
                           isInProgress={isInProgress}

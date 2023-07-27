@@ -159,6 +159,7 @@ export const Application = () => {
                         <WithDialogs>
                             <AnacondaWizard
                               isBootIso={isBootIso}
+                              onCritFail={onCritFail}
                               onAddErrorNotification={onAddErrorNotification}
                               title={title}
                               storageData={state.storage}
