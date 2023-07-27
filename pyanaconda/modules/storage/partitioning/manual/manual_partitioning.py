@@ -85,7 +85,7 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
 
                 fmt = get_format(old_fmt.type)
 
-            if device.raw_device.type == "btrfs subvolume":
+            if device.raw_device.type in ("btrfs volume", "btrfs subvolume"):
                 # 'Format', or rather clear the device by recreating it
                 device = self._recreate_device(storage, device_spec)
                 mount_data.mount_options = device.format.options
@@ -105,6 +105,24 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
         device.format.create_options = mount_data.format_options
         device.format.options = mount_data.mount_options
 
+    def _recreate_btrfs_volume(self, storage, device):
+        """Recreate a btrfs volume device by destroying and adding it.
+
+        :param storage: an instance of the Blivet's storage object
+        :param dev_spec: a BtrfsVolumeDevice to recreate
+        """
+        if device.children:
+            raise StorageError(
+                _("Cannot reformat Btrfs volume '{}' with "
+                  "existing subvolumes").format(device.name))
+        storage.destroy_device(device)
+        for parent in device.parents:
+            storage.format_device(parent, get_format("btrfs"))
+        new_btrfs = storage.new_btrfs(parents=device.parents[:],
+                                      name=device.name)
+        storage.create_device(new_btrfs)
+        return new_btrfs
+
     def _recreate_device(self, storage, dev_spec):
         """Recreate a device by destroying and adding it.
 
@@ -112,10 +130,15 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
         :param dev_spec: a string describing a block device to be recreated
         """
         device = storage.devicetree.resolve_device(dev_spec)
-        request = generate_device_factory_request(storage, device)
-        destroy_device(storage, device)
-        task = AddDeviceTask(storage, request)
-        task.run()
-        device = storage.devicetree.resolve_device(dev_spec)
 
-        return device
+        if device.type == "btrfs volume":
+            # can't use device factory for just the volume
+            return self._recreate_btrfs_volume(storage, device)
+        else:
+            request = generate_device_factory_request(storage, device)
+            destroy_device(storage, device)
+            task = AddDeviceTask(storage, request)
+            task.run()
+            device = storage.devicetree.resolve_device(dev_spec)
+
+            return device
