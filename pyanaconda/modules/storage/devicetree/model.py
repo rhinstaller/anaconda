@@ -20,6 +20,7 @@
 import os
 
 from blivet.blivet import Blivet
+from blivet.flags import flags as blivet_flags
 from blivet.devices import BTRFSSubVolumeDevice
 from blivet.formats import get_format
 from blivet.formats.disklabel import DiskLabel
@@ -69,6 +70,9 @@ class InstallerStorage(Blivet):
 
         # Set the default LUKS version.
         self.set_default_luks_version(conf.storage.luks_version or self.default_luks_version)
+
+        # Enable GPT discoverable partitions
+        blivet_flags.gpt_discoverable_partitions = conf.storage.gpt_discoverable_partitions
 
     @property
     def bootloader(self):
