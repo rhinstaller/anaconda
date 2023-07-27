@@ -90,10 +90,6 @@ class UserInterfaceSection(Section):
         """Convert a policies string into a list of dictionaries."""
         return list(map(self._convert_policy_line, value.strip().split("\n")))
 
-    @property
-    def show_kernel_options(self):
-        return self._get_option("show_kernel_options", bool)
-
     @classmethod
     def _convert_policy_line(cls, line):
         """Convert a policy line into a dictionary."""
