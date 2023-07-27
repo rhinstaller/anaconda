@@ -461,26 +461,12 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
 
         # verify review screen
         disk = "vda"
-        r.check_disk_label(disk, disk)
-        r.expand_disk_table(disk)
+        r.check_disk(disk, "16.1 GB vda (0x1af4)")
 
-        row = 1
-        r.check_disk_row(disk, row, "Partition", f"vda{row}")
-        r.check_disk_row(disk, row, "Format type", "biosboot")
-        row = 2
-        r.check_disk_row(disk, row, "Partition", f"vda{row}")
-        r.check_disk_row(disk, row, "Format type", "ext4")
-        r.check_disk_row(disk, row, "Mount point", "/boot")
-        r.check_disk_row_reformatted(disk, row, "Reformat")
-        row = 3
-        r.check_disk_row(disk, row, "Partition", f"vda{row}")
-        r.check_disk_row(disk, row, "Format type", "xfs")
-        r.check_disk_row(disk, row, "Mount point", "/")
-        r.check_disk_row_reformatted(disk, row, "Reformat")
-        row = 4
-        r.check_disk_row(disk, row, "Partition", btrfsname)
-        r.check_disk_row(disk, row, "Format type", "btrfs")
-        r.check_disk_row(disk, row, "Mount point", "/")
+        r.check_disk_row(disk, 1, "vda1: format as biosboot")
+        r.check_disk_row(disk, 2, "vda2: format as ext4, /boot, reformat")
+        r.check_disk_row(disk, 3, "vda3: format as xfs, /, reformat")
+        r.check_disk_row(disk, 4, "btrfstest: format as btrfs, /home")
 
     @nondestructive
     def testNoRootMountPoint(self):
@@ -602,30 +588,20 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
 
         # verify review screen
         disk = "vda"
-        r.check_disk_label(disk, disk)
-        r.expand_disk_table(disk)
-
-        row = 1
-        r.check_disk_row(disk, row, "Partition", f"vda{row}")
-        r.check_disk_row(disk, row, "Format type", "biosboot")
-        row = 2
-        r.check_disk_row(disk, row, "Partition", f"vda{row}")
-        r.check_disk_row(disk, row, "Format type", "xfs")
-        r.check_disk_row(disk, row, "Mount point", "/boot")
-        row = 3
-        r.check_disk_row(disk, row, "Partition", f"vda{row}")
-        r.check_disk_row(disk, row, "Format type", "xfs")
-        r.check_disk_row(disk, row, "Mount point", "/")
-        r.check_disk_row_reformatted(disk, row, "Reformat")
+        r.check_disk(disk, "16.1 GB vda (0x1af4)")
+        r.check_disk_row(disk, 1, "vda1: format as biosboot")
+        r.check_disk_row(disk, 2, "vda2: format as xfs, /boot")
+        r.check_disk_row(disk, 3, "vda3: format as xfs, /, reformat")
 
         disk = "vdb"
-        r.check_disk_label(disk, disk)
-        r.expand_disk_table(disk)
+        r.check_disk(disk, "10.7 GB vdb (0x1af4)")
+        r.check_disk_row(disk, 1, "vdb1: format as xfs, /home")
 
-        row = 1
-        r.check_disk_row(disk, row, "Partition", f"vdb{row}")
-        r.check_disk_row(disk, row, "Format type", "xfs")
-        r.check_disk_row(disk, row, "Mount point", "/home")
+        b.assert_pixels(
+            "#app",
+            "review-multiple-disks",
+            wait_animations=False,
+        )
 
     @nondestructive
     def testEncryptedUnlock(self):
@@ -679,8 +655,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
 
         i.next()
 
-        r.expand_disk_table(dev1)
-        r.check_disk_row(dev1, 3, "Partition", "luks")
+        r.check_in_disk_row(dev1, 3, "luks-")
 
 if __name__ == '__main__':
     test_main()

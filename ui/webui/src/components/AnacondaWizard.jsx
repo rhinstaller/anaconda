@@ -109,7 +109,8 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
                 deviceData: storageData.devices,
                 diskSelection: storageData.diskSelection,
                 requests: lastPartitioning ? lastPartitioning.requests : null,
-                language
+                language,
+                osRelease
             },
             id: "installation-review",
             label: _("Review and install"),
