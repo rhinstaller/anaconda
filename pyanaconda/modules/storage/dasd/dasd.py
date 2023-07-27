@@ -21,22 +21,21 @@ from blivet import arch
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.dbus import DBus
-from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import DASD
-from pyanaconda.modules.common.errors.storage import UnavailableStorageError, UnknownDeviceError
+from pyanaconda.modules.common.errors.storage import UnknownDeviceError
 from pyanaconda.modules.storage.dasd.dasd_interface import DASDInterface
 from pyanaconda.modules.storage.dasd.discover import DASDDiscoverTask
 from pyanaconda.modules.storage.dasd.format import DASDFormatTask, FindFormattableDASDTask
+from pyanaconda.modules.storage.storage_subscriber import StorageSubscriberModule
 
 log = get_module_logger(__name__)
 
 
-class DASDModule(KickstartBaseModule):
+class DASDModule(StorageSubscriberModule):
     """The DASD module."""
 
     def __init__(self):
         super().__init__()
-        self._storage = None
         self._can_format_unformatted = False
         self._can_format_ldl = False
 
@@ -47,18 +46,6 @@ class DASDModule(KickstartBaseModule):
     def is_supported(self):
         """Is this module supported?"""
         return arch.is_s390()
-
-    @property
-    def storage(self):
-        """The storage model.
-
-        :return: an instance of Blivet
-        :raise: UnavailableStorageError if not available
-        """
-        if self._storage is None:
-            raise UnavailableStorageError()
-
-        return self._storage
 
     def _get_device(self, name):
         """Find a device by its name.
@@ -81,10 +68,6 @@ class DASDModule(KickstartBaseModule):
         :return: a list of instances of the Blivet's device
         """
         return list(map(self._get_device, names))
-
-    def on_storage_changed(self, storage):
-        """Keep the instance of the current storage."""
-        self._storage = storage
 
     def on_format_unrecognized_enabled_changed(self, value):
         """Update the flag for formatting unformatted DASDs."""

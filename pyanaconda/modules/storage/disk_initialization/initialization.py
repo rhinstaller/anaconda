@@ -22,23 +22,21 @@ from pykickstart.constants import CLEARPART_TYPE_ALL, CLEARPART_TYPE_NONE, CLEAR
 
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.dbus import DBus
-from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION
-from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.storage.constants import InitializationMode
 from pyanaconda.modules.storage.disk_initialization.initialization_interface import \
     DiskInitializationInterface
+from pyanaconda.modules.storage.storage_subscriber import StorageSubscriberModule
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class DiskInitializationModule(KickstartBaseModule):
+class DiskInitializationModule(StorageSubscriberModule):
     """The disk initialization module."""
 
     def __init__(self):
         super().__init__()
-        self._storage = None
 
         self.format_unrecognized_enabled_changed = Signal()
         self._format_unrecognized_enabled = False
@@ -60,21 +58,6 @@ class DiskInitializationModule(KickstartBaseModule):
 
         self.drives_to_clear_changed = Signal()
         self._drives_to_clear = []
-
-    @property
-    def storage(self):
-        """The storage model.
-
-        :return: an instance of Blivet
-        """
-        if self._storage is None:
-            raise UnavailableStorageError()
-
-        return self._storage
-
-    def on_storage_changed(self, storage):
-        """Keep the instance of the current storage."""
-        self._storage = storage
 
     def publish(self):
         """Publish the module."""

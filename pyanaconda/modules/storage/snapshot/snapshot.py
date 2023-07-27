@@ -23,42 +23,25 @@ from pykickstart.constants import SNAPSHOT_WHEN_PRE_INSTALL, CLEARPART_TYPE_ALL,
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.dbus import DBus
-from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import SNAPSHOT
-from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.storage.snapshot.create import SnapshotCreateTask
 from pyanaconda.modules.storage.snapshot.device import get_snapshot_device
 from pyanaconda.modules.storage.snapshot.snapshot_interface import SnapshotInterface
 from pyanaconda.modules.storage.checker.utils import storage_checker
+from pyanaconda.modules.storage.storage_subscriber import StorageSubscriberModule
 
 log = get_module_logger(__name__)
 
 
-class SnapshotModule(KickstartBaseModule):
+class SnapshotModule(StorageSubscriberModule):
     """The snapshot module."""
 
     def __init__(self):
         super().__init__()
         self._requests = []
-        self._storage = None
 
         # Register a check for the storage checker.
         storage_checker.add_check(self.verify_requests)
-
-    @property
-    def storage(self):
-        """The storage model.
-
-        :return: an instance of Blivet
-        """
-        if self._storage is None:
-            raise UnavailableStorageError()
-
-        return self._storage
-
-    def on_storage_changed(self, storage):
-        """Keep the instance of the current storage."""
-        self._storage = storage
 
     def publish(self):
         """Publish the module."""

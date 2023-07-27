@@ -26,6 +26,7 @@ from pyanaconda.modules.runtime.user_interface import UIModule
 from pyanaconda.modules.common.base import KickstartService
 from pyanaconda.modules.common.constants.services import RUNTIME
 from pyanaconda.modules.common.containers import TaskContainer
+from pyanaconda.modules.common.submodule_manager import SubmoduleManager
 
 log = get_module_logger(__name__)
 
@@ -42,20 +43,19 @@ class RuntimeService(KickstartService):
         super().__init__()
 
         # Initialize modules.
-        self._modules = []
+        self._modules = SubmoduleManager()
 
         self._dracut_module = DracutCommandsModule()
-        self._modules.append(self._dracut_module)
+        self._modules.add_module(self._dracut_module)
 
         self._ui_module = UIModule()
-        self._modules.append(self._ui_module)
+        self._modules.add_module(self._ui_module)
 
     def publish(self):
         """Publish the module."""
         TaskContainer.set_namespace(RUNTIME.namespace)
 
-        for kickstart_module in self._modules:
-            kickstart_module.publish()
+        self._modules.publish_modules()
 
         DBus.publish_object(RUNTIME.object_path, RuntimeInterface(self))
         DBus.register_service(RUNTIME.service_name)
@@ -67,13 +67,11 @@ class RuntimeService(KickstartService):
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-        for kickstart_module in self._modules:
-            kickstart_module.process_kickstart(data)
+        self._modules.process_kickstart(data)
 
     def setup_kickstart(self, data):
         """Set up the kickstart data."""
-        for kickstart_module in self._modules:
-            kickstart_module.setup_kickstart(data)
+        self._modules.setup_kickstart(data)
 
     def collect_requirements(self):
         """Return installation requirements for this module.
@@ -81,4 +79,5 @@ class RuntimeService(KickstartService):
         :return: a list of requirements
         """
         requirements = []
+        requirements.extend(self._modules.collect_requirements())
         return requirements
