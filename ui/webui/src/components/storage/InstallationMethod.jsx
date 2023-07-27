@@ -139,10 +139,12 @@ const InstallationDestination = ({ deviceData, diskSelection, dispatch, idPrefix
                       .then(res => {
                           return runStorageTask({
                               task: res[0],
-                              onSuccess: () => resetPartitioning().then(() => {
-                                  dispatch(getDevicesAction());
-                                  dispatch(getDiskSelectionAction());
-                              }, onAddErrorNotification),
+                              onSuccess: () => resetPartitioning()
+                                      .then(() => Promise.all([
+                                          dispatch(getDevicesAction()),
+                                          dispatch(getDiskSelectionAction())
+                                      ]))
+                                      .catch(onAddErrorNotification),
                               onFail: onAddErrorNotification
                           });
                       })
