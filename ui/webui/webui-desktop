@@ -39,7 +39,6 @@ set -eu
 # exec_prefix= is set because the default /usr/libexec contains "${exec_prefix}"
 exec_prefix="/usr"
 libexecdir="/usr/libexec"
-
 if [ -z "${1:-}" ]; then
     echo "Usage: $0 <Cockpit path> [ssh host]" >&2
     exit 1
@@ -61,7 +60,27 @@ case "$1" in
         ;;
 esac
 
-BROWSER="/usr/bin/firefox --kiosk"
+# prepare empty firefox profile dir with theme based on the passed profile id
+FIREFOX_THEME_DIR="/usr/share/anaconda/firefox-theme"
+FIREFOX_PROFILE_PATH="/tmp/anaconda-firefox-profile"
+THEME_ID=$2
+
+# make sure the profile directory exists and is empty
+if [ -d ${FIREFOX_PROFILE_PATH} ]
+then
+    echo "Cleaning up existing Anaconda Firefox profile directory."
+    rm -rf ${FIREFOX_PROFILE_PATH}
+fi
+mkdir -p ${FIREFOX_PROFILE_PATH}
+
+# populate the profile directory with our custom Firefox theme
+# - theme id is passed as the second argument of this script
+THEME_PATH="${FIREFOX_THEME_DIR}/${THEME_ID}"
+
+cp -a "${THEME_PATH}/." ${FIREFOX_PROFILE_PATH}
+
+# FIXME: is this hardcoded resolution necessary ?
+BROWSER="/usr/bin/firefox --new-instance --window-size 1024,768 --profile ${FIREFOX_PROFILE_PATH}"
 
 # start browser in a temporary home dir, so that it does not interfere with your real one
 BROWSER_HOME=$(mktemp --directory --tmpdir cockpit.desktop.XXXXXX)

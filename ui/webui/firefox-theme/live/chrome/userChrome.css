@@ -1,0 +1,16 @@
+/* Hide things we're not going to use when there's only 1 tab */
+:has(#tabbrowser-tabs tab:only-of-type) :is(#tab-notification-deck, #PersonalToolbar, #statuspanel) {
+  display: none;
+}
+
+/* When there's 1 tab, ajdust the minimum tab height */
+#tabbrowser-tabs:has(tab:only-of-type) {
+  --tab-min-height: auto;
+}
+
+/* Hide the tab and unfocused nav bars for 1 tab */
+#tabbrowser-tabs :is(tab:only-of-type, tab:only-of-type ~ *),
+#tabbrowser-tabs:has(tab:only-of-type) + #alltabs-button,
+#titlebar:has(#tabbrowser-tabs tab:only-of-type) + #nav-bar:not(:focus-within) {
+  visibility: collapse;
+}

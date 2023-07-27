@@ -441,6 +441,15 @@ rm -rf \
 %{_datadir}/cockpit/anaconda-webui/manifest.json
 %{_datadir}/metainfo/org.cockpit-project.anaconda-webui.metainfo.xml
 %{_datadir}/cockpit/anaconda-webui/po.*.js.gz
+%dir %{_datadir}/anaconda/firefox-theme
+%dir %{_datadir}/anaconda/firefox-theme/default
+%dir %{_datadir}/anaconda/firefox-theme/default/chrome
+%{_datadir}/anaconda/firefox-theme/default/user.js
+%{_datadir}/anaconda/firefox-theme/default/chrome/userChrome.css
+%dir %{_datadir}/anaconda/firefox-theme/live
+%dir %{_datadir}/anaconda/firefox-theme/live/chrome
+%{_datadir}/anaconda/firefox-theme/live/user.js
+%{_datadir}/anaconda/firefox-theme/live/chrome/userChrome.css
 %{_libexecdir}/webui-desktop
 
 %files gui

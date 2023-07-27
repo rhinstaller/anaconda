@@ -56,11 +56,13 @@ rsync:
 install-data-hook: $(WEBPACK_TEST)
 	mkdir -p $(DESTDIR)/usr/share/cockpit/$(PACKAGE_NAME)
 	cp -r dist/* $(DESTDIR)/usr/share/cockpit/$(PACKAGE_NAME)
+	mkdir -p $(DESTDIR)/usr/share/anaconda
+	cp -r firefox-theme $(DESTDIR)/usr/share/anaconda/
 	mkdir -p $(DESTDIR)/usr/share/metainfo/
 	cp org.cockpit-project.$(PACKAGE_NAME).metainfo.xml $(DESTDIR)/usr/share/metainfo/
 	cp webui-desktop $(DESTDIR)/usr/libexec/
 
-EXTRA_DIST = dist src
+EXTRA_DIST = dist src firefox-theme
 
 # checkout common files from Cockpit repository required to build this project;
 # this has no API stability guarantee, so check out a stable tag when you start
