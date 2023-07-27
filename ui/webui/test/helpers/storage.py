@@ -184,7 +184,7 @@ class Storage():
         self.browser.wait_not_present(f"ul[aria-labelledby='{id_prefix}-disk-selector-title']")
 
     def _partitioning_selector(self, scenario):
-        return f"#{id_prefix}-autopart-scenario-" + scenario
+        return f"#{id_prefix}-scenario-" + scenario
 
     @log_step(snapshot_before=True)
     def check_partitioning_selected(self, scenario):

@@ -230,9 +230,9 @@ const GuidedPartitioning = ({ deviceData, selectedDisks, idPrefix, scenarios, st
         <Radio
           className={idPrefix + "-scenario"}
           key={scenario.id}
-          id={idPrefix + "-autopart-scenario-" + scenario.id}
+          id={idPrefix + "-scenario-" + scenario.id}
           value={scenario.id}
-          name="autopart-scenario"
+          name={idPrefix + "-scenario"}
           label={scenario.label}
           isDisabled={!scenarioAvailability[scenario.id].available}
           isChecked={storageScenarioId === scenario.id}
