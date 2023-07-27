@@ -31,7 +31,6 @@ import {
     DescriptionListTerm, DescriptionListDescription,
     ExpandableSection,
     Modal, ModalVariant,
-    Alert,
     Tooltip,
 } from "@patternfly/react-core";
 
@@ -163,15 +162,6 @@ export const ReviewConfiguration = ({ deviceData, diskSelection, language, reque
 
     return (
         <AnacondaPage title={_("Review and install")}>
-            <Alert
-              isInline
-              variant="warning"
-              title={_("To prevent loss, make sure to backup your data. ")}
-            >
-                <p>
-                    {getScenario(storageScenarioId).screenWarning}
-                </p>
-            </Alert>
             <ExpandableSection
               className="review-expandable-section"
               id={`${idPrefix}-language`}
