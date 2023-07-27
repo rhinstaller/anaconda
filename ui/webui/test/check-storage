@@ -425,8 +425,8 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         sgdisk --new=0:0:+10GiB {disk}
         sgdisk --new=0:0:0 {disk}
         mkfs.ext4 {disk}2
-        mkfs.xfs -f {disk}3
-        mkfs.btrfs -f -L {btrfsname} {disk}4
+        mkfs.btrfs -f -L {btrfsname} {disk}3
+        mkfs.xfs -f {disk}4
         """)
 
         self.udevadm_settle()
@@ -448,14 +448,14 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         self.check_row_mountpoint(2, "/")
         self.check_row_device(2, "Select a device")
         self.check_reformat(2, True)
-        self.select_row_device(2, f"{dev}3")
-        self.check_format_type(2, "xfs")
+        self.select_row_device(2, f"btrfs")
+        self.check_format_type(2, "btrfs")
 
         self.add_mount()
-        self.select_row_device(3, f"btrfs")
-        self.check_format_type(3, "btrfs")
-        self.select_row_mountpoint(3, "/home")
+        self.select_row_device(3, f"{dev}4")
         self.check_reformat(3, False)
+        self.select_row_mountpoint(3, "/home")
+        self.check_format_type(3, "xfs")
 
         # Toggle reformat option
         self.select_reformat(1)
@@ -483,13 +483,13 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         r.check_disk_row(disk, row, "Mount point", "/boot")
         r.check_disk_row_reformatted(disk, row, "Reformat")
         row = 3
-        r.check_disk_row(disk, row, "Partition", f"vda{row}")
-        r.check_disk_row(disk, row, "Format type", "xfs")
+        r.check_disk_row(disk, row, "Partition", btrfsname)
+        r.check_disk_row(disk, row, "Format type", "btrfs")
         r.check_disk_row(disk, row, "Mount point", "/")
         r.check_disk_row_reformatted(disk, row, "Reformat")
         row = 4
-        r.check_disk_row(disk, row, "Partition", btrfsname)
-        r.check_disk_row(disk, row, "Format type", "btrfs")
+        r.check_disk_row(disk, row, "Partition", f"vda{row}")
+        r.check_disk_row(disk, row, "Format type", "xfs")
         r.check_disk_row(disk, row, "Mount point", "/")
 
     @nondestructive
