@@ -186,6 +186,12 @@ class Storage():
     def _partitioning_selector(self, scenario):
         return f"#{id_prefix}-scenario-" + scenario
 
+    def wait_scenario_visible(self, scenario, visible=True):
+        if visible:
+            self.browser.wait_visible(self._partitioning_selector(scenario))
+        else:
+            self.browser.wait_not_present(self._partitioning_selector(scenario))
+
     @log_step(snapshot_before=True)
     def check_partitioning_selected(self, scenario):
         self.browser.wait_visible(self._partitioning_selector(scenario) + ":checked")
@@ -270,3 +276,9 @@ class Storage():
             fi
         ''')
         self.machine.execute('chroot /mnt/sysroot bash /root/add_keyfile.sh')
+
+    def add_basic_partitioning(self, target="vda", size="1GiB"):
+        # Add a partition for "Use free space" scenario to be present
+        self.machine.execute(f"sgdisk --new=0:0:+{size} /dev/{target}")
+        self.rescan_disks()
+        self.select_disk(target, True, True)
