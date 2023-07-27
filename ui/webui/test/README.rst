@@ -82,6 +82,31 @@ You can also run a test against Firefox instead of Chromium::
 
 See below for details.
 
+Debug logging
+-------------
+Enable debug messages in an interactive browser in the JS console with:
+
+.. code-block:: javascript
+
+    window.debugging = "anaconda"
+
+You can do that in a test as well, after the `Installer.open()` call:
+
+.. code-block:: python
+
+    self.brower.eval_js('window.debugging = "anaconda"')
+
+This also supports other values, e.g. get verbose logging for `dbus` interactions. See
+`Cockpit documentation <https://github.com/cockpit-project/cockpit/blob/main/HACKING.md#debug-logging-in-javascript-console>`_.
+
+For debugging failures on CI without interactive access, it is helpful to
+enable CDP and VM interaction logging as well:
+
+.. code-block:: python
+
+    self.browser.cdp.trace = True
+    self.machine.verbose = True
+
 
 Manual testing
 --------------

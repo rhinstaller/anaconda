@@ -38,6 +38,7 @@ import { PayloadsClient } from "../apis/payloads";
 import { RuntimeClient, getIsFinal } from "../apis/runtime";
 
 import { readConf } from "../helpers/conf.js";
+import { debug } from "../helpers/log.js";
 import { useReducerWithThunk, reducer, initialState } from "../reducer.js";
 
 export const Application = () => {
@@ -103,7 +104,7 @@ export const Application = () => {
 
     // Postpone rendering anything until we read the dbus address and the default configuration
     if (!criticalError && (!address || !conf || beta === undefined || !osRelease || !storeInitilized)) {
-        console.debug("Loading initial data...");
+        debug("Loading initial data...");
         return null;
     }
 

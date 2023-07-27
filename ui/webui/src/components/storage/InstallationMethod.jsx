@@ -42,8 +42,8 @@ import {
 } from "../../apis/storage.js";
 
 import { getDevicesAction, getDiskSelectionAction } from "../../actions/storage-actions.js";
-
 import { AnacondaPage } from "../AnacondaPage.jsx";
+import { debug } from "../../helpers/log.js";
 
 import "./InstallationMethod.scss";
 
@@ -89,7 +89,7 @@ const LocalStandardDisks = ({ deviceData, diskSelection, dispatch, idPrefix, isB
     const [isOpen, setIsOpen] = useState(false);
     const refUsableDisks = useRef();
 
-    console.debug("LocalStandardDisks: deviceData: ", JSON.stringify(Object.keys(deviceData)), ", diskSelection: ", JSON.stringify(diskSelection));
+    debug("LocalStandardDisks: deviceData: ", JSON.stringify(Object.keys(deviceData)), ", diskSelection: ", JSON.stringify(diskSelection));
 
     useEffect(() => {
         if (isRescanningDisks) {
