@@ -206,6 +206,7 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
             <Wizard
               id="installation-wizard"
               footer={<Footer
+                onCritFail={onCritFail}
                 isFormValid={isFormValid}
                 partitioning={lastPartitioning?.path}
                 setIsFormValid={setIsFormValid}
@@ -230,6 +231,7 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
 };
 
 const Footer = ({
+    onCritFail,
     isFormValid,
     setIsFormValid,
     setStepNotification,
@@ -293,14 +295,14 @@ const Footer = ({
         }
     };
 
-    const goToPreviousStep = (activeStep, onBack) => {
+    const goToPreviousStep = (activeStep, onBack, errorHandler) => {
         // first reset validation state to default
         setIsFormValid(true);
         onBack();
         if (activeStep.id === "installation-review") {
             resetPartitioning().then(() => {
                 debug("resetPartitioning");
-            }, console.error);
+            }, errorHandler);
         }
     };
 
@@ -364,7 +366,11 @@ const Footer = ({
                                   id="installation-back-btn"
                                   variant="secondary"
                                   isDisabled={isFirstScreen}
-                                  onClick={() => goToPreviousStep(activeStep, onBack)}>
+                                  onClick={() => goToPreviousStep(
+                                      activeStep,
+                                      onBack,
+                                      onCritFail({ context: cockpit.format(_("Go back from $0"), activeStep.name) })
+                                  )}>
                                     {_("Back")}
                                 </Button>
                                 <Button
