@@ -72,6 +72,7 @@ COPYRIGHT_HOLDER = Red Hat, Inc.
 MSGID_BUGS_ADDRESS = anaconda-devel@lists.fedoraproject.org
 
 include $(top_srcdir)/branch-config.mk
+include ./l10n-config.mk
 
 PO_DOWNLOADED_FLAG = $(srcdir)/.po_downloaded
 
@@ -220,7 +221,8 @@ $(POFILES): $(PO_DOWNLOADED_FLAG)
 
 $(PO_DOWNLOADED_FLAG):
 	TEMP_DIR=$$(mktemp --tmpdir -d anaconda-localization-XXXXXXXXXX) && \
-	git clone --depth 1 -b $(GIT_L10N_BRANCH) -- $(L10N_REPOSITORY) $$TEMP_DIR && \
+	git clone --depth 1 -b $(GIT_L10N_BRANCH) --no-checkout -- $(L10N_REPOSITORY) $$TEMP_DIR && \
+	(cd $$TEMP_DIR && git fetch --depth 1 origin $(GIT_L10N_SHA) && git checkout $(GIT_L10N_SHA)) && \
 	cp $$TEMP_DIR/$(L10N_DIR)/*.po $(srcdir)/ && \
 	rm -rf $$TEMP_DIR && \
 	find $(srcdir)/ -type f -exec sed -ri '/^\"Plural-Forms:/ s/;(\\n")$$/\1/' {} +
