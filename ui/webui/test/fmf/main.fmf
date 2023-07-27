@@ -1,0 +1,12 @@
+summary:
+    Run webui browser integration tests on the host
+require:
+  # test dependencies
+  - chromium-headless
+  - git-core
+  - nodejs-npm
+  - libvirt-python3
+  - make
+  - python3
+test: ./run.sh
+duration: 30m
