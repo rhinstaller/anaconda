@@ -145,7 +145,7 @@ export const getDefaultScenario = () => {
     return scenarios.filter(s => s.default)[0];
 };
 
-const GuidedPartitioning = ({ deviceData, selectedDisks, idPrefix, scenarios, storageScenarioId, setStorageScenarioId, setIsFormValid }) => {
+const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, scenarios, storageScenarioId, setStorageScenarioId, setIsFormValid }) => {
     const [selectedScenario, setSelectedScenario] = useState();
     const [scenarioAvailability, setScenarioAvailability] = useState(Object.fromEntries(
         scenarios.map((s) => [s.id, new AvailabilityState()])
@@ -252,14 +252,14 @@ const GuidedPartitioning = ({ deviceData, selectedDisks, idPrefix, scenarios, st
     return scenarioItems;
 };
 
-export const StorageConfiguration = ({ deviceData, diskSelection, idPrefix, setIsFormValid, storageScenarioId, setStorageScenarioId, isBootIso }) => {
+export const InstallationScenario = ({ deviceData, diskSelection, idPrefix, setIsFormValid, storageScenarioId, setStorageScenarioId, isBootIso }) => {
     const headingLevel = isBootIso ? "h2" : "h3";
 
     return (
         <>
             <Title headingLevel={headingLevel}>{_("How would you like to install?")}</Title>
             <FormGroup isStack hasNoPaddingTop>
-                <GuidedPartitioning
+                <InstallationScenarioSelector
                   deviceData={deviceData}
                   selectedDisks={diskSelection.selectedDisks}
                   idPrefix={idPrefix}
