@@ -121,7 +121,8 @@ export const getDiskFreeSpace = ({ diskNames }) => {
         "/org/fedoraproject/Anaconda/Modules/Storage/DeviceTree",
         "org.fedoraproject.Anaconda.Modules.Storage.DeviceTree.Viewer",
         "GetDiskFreeSpace", [diskNames]
-    );
+    )
+            .then(res => res[0]);
 };
 
 /**
@@ -134,7 +135,8 @@ export const getFormatData = ({ diskName }) => {
         "/org/fedoraproject/Anaconda/Modules/Storage/DeviceTree",
         "org.fedoraproject.Anaconda.Modules.Storage.DeviceTree.Viewer",
         "GetFormatData", [diskName]
-    );
+    )
+            .then(res => res[0]);
 };
 
 /**
@@ -161,7 +163,8 @@ export const getDiskTotalSpace = ({ diskNames }) => {
         "/org/fedoraproject/Anaconda/Modules/Storage/DeviceTree",
         "org.fedoraproject.Anaconda.Modules.Storage.DeviceTree.Viewer",
         "GetDiskTotalSpace", [diskNames]
-    );
+    )
+            .then(res => res[0]);
 };
 
 /**

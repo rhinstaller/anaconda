@@ -47,15 +47,15 @@ export const getDeviceDataAction = ({ device }) => {
                 .then(free => {
                     // Since the getDeviceData returns an object with variants as values,
                     // extend it with variants to keep the format consistent
-                    devData.free = cockpit.variant(String, free[0]);
+                    devData.free = cockpit.variant(String, free);
                     return getDiskTotalSpace({ diskNames: [device] });
                 })
                 .then(total => {
-                    devData.total = cockpit.variant(String, total[0]);
+                    devData.total = cockpit.variant(String, total);
                     return getFormatData({ diskName: device });
                 })
                 .then(formatData => {
-                    devData.formatData = formatData[0];
+                    devData.formatData = formatData;
                     return ({ [device]: devData });
                 })
                 .catch(console.error);
