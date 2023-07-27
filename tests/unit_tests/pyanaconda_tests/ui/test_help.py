@@ -19,12 +19,12 @@ import os
 import tempfile
 
 import unittest
-from unittest.mock import patch, Mock
+from unittest.mock import patch
 
 from pyanaconda.core.constants import DisplayModes
 from pyanaconda.ui.lib.help import _get_help_mapping, show_graphical_help, _get_help_args, \
     HelpArguments, get_help_path_for_screen, show_graphical_help_for_screen, localize_help_file, \
-    _get_help_args_for_screen, _get_help_user, HelpUser
+    _get_help_args_for_screen
 
 INVALID_MAPPING = """
 This is an invalid mapping.
@@ -206,7 +206,7 @@ class HelpSupportTestCase(unittest.TestCase):
             assert _get_help_args_for_screen(DisplayModes.GUI, "user-configuration") == \
                 HelpArguments(help_path, "UserSpoke.xml", "create-user")
 
-    @patch("pyanaconda.ui.lib.help._get_help_user", return_value=None)
+    @patch("pyanaconda.ui.lib.help.get_live_user", return_value=None)
     @patch('pyanaconda.ui.lib.help.startProgram')
     def test_show_graphical_help(self, starter, user_mock):
         """Test the show_graphical_help function."""
@@ -260,7 +260,7 @@ class HelpSupportTestCase(unittest.TestCase):
             assert get_help_path_for_screen("user-configuration") == \
                 os.path.join(tmp_dir, "en-US", "UserSpoke.txt")
 
-    @patch("pyanaconda.ui.lib.help._get_help_user", return_value=None)
+    @patch("pyanaconda.ui.lib.help.get_live_user", return_value=None)
     @patch('pyanaconda.ui.lib.help.startProgram')
     @patch('pyanaconda.ui.lib.help.conf')
     def test_show_graphical_help_for_screen(self, conf_mock, starter, user_mock):
@@ -308,23 +308,3 @@ class HelpSupportTestCase(unittest.TestCase):
                 env_prune=None,
                 env_add=None,
             )
-
-    @patch("pyanaconda.ui.lib.help.conf")
-    @patch("pyanaconda.ui.lib.help.getpwnam")
-    def test_get_help_username(self, getpwnam_mock, conf_mock):
-        # not live = early exit
-        conf_mock.system.provides_liveuser = False
-        assert _get_help_user() is None
-        getpwnam_mock.assert_not_called()
-
-        # live and has user
-        conf_mock.system.provides_liveuser = True
-        getpwnam_mock.return_value = Mock(pw_uid=1024)
-        assert _get_help_user() == HelpUser(name="liveuser", uid=1024)
-        getpwnam_mock.assert_called_once_with("liveuser")
-        getpwnam_mock.reset_mock()
-
-        # supposedly live but missing user
-        getpwnam_mock.side_effect = KeyError
-        assert _get_help_user() is None
-        getpwnam_mock.assert_called_once_with("liveuser")
