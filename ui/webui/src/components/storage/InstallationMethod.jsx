@@ -83,7 +83,7 @@ const containEqualDisks = (disks1, disks2) => {
     return disks1Str === disks2Str;
 };
 
-const InstallationDestination = ({ deviceData, diskSelection, dispatch, idPrefix, isBootIso, setIsFormValid, onAddErrorNotification }) => {
+const InstallationDestination = ({ deviceData, diskSelection, dispatch, idPrefix, isBootIso, setIsFormValid, onCritFail }) => {
     const [isRescanningDisks, setIsRescanningDisks] = useState(false);
     const [equalDisksNotify, setEqualDisksNotify] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
@@ -124,6 +124,10 @@ const InstallationDestination = ({ deviceData, diskSelection, dispatch, idPrefix
 
     const loading = !deviceData || diskSelection.usableDisks.some(disk => !deviceData[disk]);
 
+    const errorHandler = onCritFail({
+        context: _("Rescanning of the disks failed.")
+    });
+
     const rescanDisksButton = (
         <Button
           aria-label={_("Re-scan")}
@@ -144,8 +148,8 @@ const InstallationDestination = ({ deviceData, diskSelection, dispatch, idPrefix
                                           dispatch(getDevicesAction()),
                                           dispatch(getDiskSelectionAction())
                                       ]))
-                                      .catch(onAddErrorNotification),
-                              onFail: onAddErrorNotification
+                                      .catch(errorHandler),
+                              onFail: errorHandler
                           });
                       })
                       .finally(() => setIsRescanningDisks(false));
@@ -264,7 +268,7 @@ export const InstallationMethod = ({
     idPrefix,
     isBootIso,
     isInProgress,
-    onAddErrorNotification,
+    onCritFail,
     osRelease,
     setIsFormValid,
     setStorageScenarioId,
@@ -287,7 +291,7 @@ export const InstallationMethod = ({
                   idPrefix={idPrefix}
                   isBootIso={isBootIso}
                   setIsFormValid={setIsFormValid}
-                  onAddErrorNotification={onAddErrorNotification}
+                  onCritFail={onCritFail}
                 />
                 <InstallationScenario
                   deviceData={deviceData}

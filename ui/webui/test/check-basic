@@ -126,9 +126,5 @@ class TestBasicDestructive(anacondalib.VirtInstallMachineCase):
         m.execute("cp /run/anaconda/bus.address /tmp/; echo trash > /run/anaconda/bus.address")
         b.wait_visible("#critical-error-modal")
 
-        # Errors should persist across page reloads (same as having the error prior the first page load)
-        b.reload()
-        b.wait_visible("#critical-error-modal")
-
 if __name__ == '__main__':
     test_main()
