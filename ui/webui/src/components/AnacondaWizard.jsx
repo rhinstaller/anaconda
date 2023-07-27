@@ -322,6 +322,9 @@ const Footer = ({
                             ? "warning"
                             : "primary"
                     );
+
+                    const reviewWarning = getScenario(storageScenarioId).screenWarning;
+
                     return (
                         <Stack hasGutter>
                             {activeStep.id === "installation-review" &&
@@ -343,6 +346,14 @@ const Footer = ({
                                     <HelperTextItem
                                       variant="indeterminate">
                                         {_("To continue, select the devices to install to.")}
+                                    </HelperTextItem>
+                                </HelperText>}
+                            {activeStep.id === "installation-review" && reviewWarning &&
+                                <HelperText id="review-warning-text">
+                                    <HelperTextItem
+                                      variant="warning"
+                                      hasIcon>
+                                        {reviewWarning}
                                     </HelperTextItem>
                                 </HelperText>}
                             <ActionList>
