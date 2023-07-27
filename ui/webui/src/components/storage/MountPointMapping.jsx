@@ -140,18 +140,13 @@ const DeviceColumnSelect = ({ deviceData, devices, idPrefix, lockedLUKSDevices, 
     const device = request["device-spec"];
     const options = devices.map(device => {
         const format = deviceData[device]?.formatData.description.v;
-        const formatType = deviceData[device]?.formatData.type.v;
         const size = cockpit.format_bytes(deviceData[device]?.total.v);
         const description = cockpit.format("$0, $1", format, size);
         const isLockedLUKS = lockedLUKSDevices.some(p => device.includes(p));
-        const isBiosBoot = formatType === "biosboot";
-
-        // TODO: Anaconda does not support formatting btrfs yet
-        const isBtrfsRoot = formatType === "btrfs" && request["mount-point"] === "/";
 
         return (
             <SelectOption
-              isDisabled={isLockedLUKS || isBtrfsRoot || isBiosBoot}
+              isDisabled={isLockedLUKS}
               description={description}
               key={device}
               value={device}
@@ -208,18 +203,14 @@ const DeviceColumn = ({ deviceData, devices, idPrefix, handleRequestChange, lock
 
 const FormatColumn = ({ deviceData, handleRequestChange, idPrefix, request }) => {
     const mountpoint = request["mount-point"];
-    const format = request["format-type"];
     const isRootMountPoint = mountpoint === "/";
-
-    // TODO: Anaconda does not support formatting btrfs yet
-    const isBtrfs = format === "btrfs";
 
     return (
         <Flex>
             <Checkbox
               id={idPrefix + "-checkbox"}
               isChecked={request.reformat}
-              isDisabled={isRootMountPoint || isBtrfs}
+              isDisabled={isRootMountPoint}
               label={_("Reformat")}
               onChange={checked => handleRequestChange(request["mount-point"], request["device-spec"], request["request-id"], checked)}
             />
