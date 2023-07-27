@@ -112,10 +112,15 @@ const PasswordFormFields = ({
     const [passwordHidden, setPasswordHidden] = useState(true);
     const [confirmHidden, setConfirmHidden] = useState(true);
     const [_password, _setPassword] = useState(password);
+    const [_passwordConfirm, _setPasswordConfirm] = useState(passwordConfirm);
 
     useEffect(() => {
         debounce(300, () => onChange(_password))();
     }, [_password, onChange]);
+
+    useEffect(() => {
+        debounce(300, () => onConfirmChange(_passwordConfirm))();
+    }, [_passwordConfirm, onConfirmChange]);
 
     return (
         <>
@@ -157,8 +162,8 @@ const PasswordFormFields = ({
                 <InputGroup>
                     <TextInput
                       type={confirmHidden ? "password" : "text"}
-                      value={passwordConfirm}
-                      onChange={onConfirmChange}
+                      value={_passwordConfirm}
+                      onChange={_setPasswordConfirm}
                       id={idPrefix + "-password-confirm-field"}
                     />
                     <Button
