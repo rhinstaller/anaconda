@@ -46,7 +46,6 @@ function AvailabilityState (available = true, reason = null, hint = null, shortH
     this.shortHint = shortHint;
 }
 
-// TODO total size check could go also to disk selection screen
 const checkEraseAll = ({ requiredSize, diskTotalSpace }) => {
     const availability = new AvailabilityState();
     if (diskTotalSpace < requiredSize) {
