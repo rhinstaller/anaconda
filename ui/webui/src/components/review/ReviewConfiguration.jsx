@@ -42,7 +42,7 @@ import {
 
 import { AnacondaPage } from "../AnacondaPage.jsx";
 
-import { getScenario } from "../storage/StorageConfiguration.jsx";
+import { getScenario } from "../storage/InstallationScenario.jsx";
 import { CheckCircleIcon } from "@patternfly/react-icons";
 
 import { ListingTable } from "cockpit-components-table.jsx";

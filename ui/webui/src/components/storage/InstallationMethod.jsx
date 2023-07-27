@@ -32,7 +32,7 @@ import {
 } from "@patternfly/react-core";
 import { SyncAltIcon } from "@patternfly/react-icons";
 
-import { StorageConfiguration } from "./StorageConfiguration.jsx";
+import { InstallationScenario } from "./InstallationScenario.jsx";
 
 import {
     resetPartitioning,
@@ -83,13 +83,13 @@ const containEqualDisks = (disks1, disks2) => {
     return disks1Str === disks2Str;
 };
 
-const LocalStandardDisks = ({ deviceData, diskSelection, dispatch, idPrefix, isBootIso, setIsFormValid, onAddErrorNotification }) => {
+const InstallationDestination = ({ deviceData, diskSelection, dispatch, idPrefix, isBootIso, setIsFormValid, onAddErrorNotification }) => {
     const [isRescanningDisks, setIsRescanningDisks] = useState(false);
     const [equalDisksNotify, setEqualDisksNotify] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const refUsableDisks = useRef();
 
-    debug("LocalStandardDisks: deviceData: ", JSON.stringify(Object.keys(deviceData)), ", diskSelection: ", JSON.stringify(diskSelection));
+    debug("DiskSelector: deviceData: ", JSON.stringify(Object.keys(deviceData)), ", diskSelection: ", JSON.stringify(diskSelection));
 
     useEffect(() => {
         if (isRescanningDisks) {
@@ -278,7 +278,7 @@ export const InstallationMethod = ({
                       title={stepNotification.message}
                       variant="danger"
                     />}
-                <LocalStandardDisks
+                <InstallationDestination
                   deviceData={deviceData}
                   diskSelection={diskSelection}
                   dispatch={dispatch}
@@ -287,7 +287,7 @@ export const InstallationMethod = ({
                   setIsFormValid={setIsFormValid}
                   onAddErrorNotification={onAddErrorNotification}
                 />
-                <StorageConfiguration
+                <InstallationScenario
                   deviceData={deviceData}
                   diskSelection={diskSelection}
                   dispatch={dispatch}

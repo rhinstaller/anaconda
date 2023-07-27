@@ -34,7 +34,7 @@ import {
 } from "@patternfly/react-core";
 
 import { InstallationMethod } from "./storage/InstallationMethod.jsx";
-import { getScenario, getDefaultScenario } from "./storage/StorageConfiguration.jsx";
+import { getScenario, getDefaultScenario } from "./storage/InstallationScenario.jsx";
 import { MountPointMapping } from "./storage/MountPointMapping.jsx";
 import { DiskEncryption, StorageEncryptionState } from "./storage/DiskEncryption.jsx";
 import { InstallationLanguage } from "./localization/InstallationLanguage.jsx";
