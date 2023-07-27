@@ -428,3 +428,15 @@ reload-infra:
 	@for template in $$(find . -type f -name '*.j2'); do \
 		$(TEMPLATE_RENDERER) $${template} $${template%.j2}; \
 	done
+
+bump-l10n-sha:
+	@new_sha=$$(git ls-remote "$(L10N_REPOSITORY)" "refs/heads/$(GIT_L10N_BRANCH)" | cut -f 1); \
+	echo "New SHA: $$new_sha"; \
+	old_sha=$$(grep "GIT_L10N_SHA" po/l10n-config.mk | FS="?=" awk '{print $$3}'); \
+	echo "Old SHA: $$old_sha"; \
+	if [ "$$old_sha" != "$$new_sha" ] ; then \
+		echo "Writing new SHA."; \
+		sed -i "s/GIT_L10N_SHA ?= $$old_sha/GIT_L10N_SHA ?= $$new_sha/g" po/l10n-config.mk; \
+	else \
+		echo "Nothing to do."; \
+	fi
