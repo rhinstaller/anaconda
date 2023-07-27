@@ -42,6 +42,12 @@ class VirtInstallMachineCase(MachineCase):
 
         self.allow_journal_messages('.*cockpit.bridge-WARNING: Could not start ssh-agent.*')
 
+    def tearDown(self):
+        if self.browser:
+            self.browser.write_coverage_data()
+
+        super().tearDown()
+
     def resetStorage(self):
         # Ensures that anaconda has the latest storage configuration data
         m = self.machine

@@ -30,6 +30,7 @@ TEST_OS=fedora-rawhide-boot
 PAYLOAD=fedora-rawhide-anaconda-payload
 GITHUB_BASE=rhinstaller/anaconda
 UPDATES_IMG=../../updates.img
+NODE_ENV ?= production
 
 export GITHUB_BASE
 export TEST_OS
@@ -45,11 +46,11 @@ dist_noinst_DATA = \
 	build.js
 
 $(WEBPACK_TEST): $(COCKPIT_REPO_STAMP) $(shell find src/ -type f) $(NODE_MODULES_TEST) package.json build.js
-	NODE_ENV=production ./build.js
+	NODE_ENV=$(NODE_ENV) ./build.js
 
 watch:
 	rm -f dist/*
-	NODE_ENV=$(NODE_ENV) ESBUILD_WATCH=true ./build.js
+	NODE_ENV= ESBUILD_WATCH=true ./build.js
 
 rsync:
 	RSYNC=$${RSYNC:-test-updates} make watch
@@ -78,12 +79,15 @@ COCKPIT_REPO_FILES = \
 COCKPIT_REPO_URL = https://github.com/cockpit-project/cockpit.git
 COCKPIT_REPO_COMMIT = 84c7ee507b57485b5edd97ed3321982a59032f20 # 289 + run-tests machine_class fix
 
+# HACK: Cockpit diff's against main instead of master as we can't easily upate test/common
+# apply a hack.
 $(COCKPIT_REPO_FILES): $(COCKPIT_REPO_STAMP)
 COCKPIT_REPO_TREE = '$(strip $(COCKPIT_REPO_COMMIT))^{tree}'
 $(COCKPIT_REPO_STAMP): Makefile.am
 	@git rev-list --quiet --objects $(COCKPIT_REPO_TREE) -- 2>/dev/null || \
 	     git fetch --no-tags --no-write-fetch-head --depth=1 $(COCKPIT_REPO_URL) $(COCKPIT_REPO_COMMIT)
 	git -C ../../ archive $(COCKPIT_REPO_TREE) -- $(COCKPIT_REPO_FILES) | tar x
+	sed -i 's/main/master/' test/common/lcov.py
 
 # checkout Cockpit's bots for standard test VM images and API to launch them
 # must be from main, as only that has current and existing images; but testvm.py API is stable
@@ -111,7 +115,7 @@ create-updates.img: bots
 # test runs in kernel_t context and triggers massive amounts of SELinux
 # denials; SELinux gets disabled, but would still trigger unexpected messages
 integration-test: prepare-test-deps test/reference $(UPDATES_IMG)
-	TEST_AUDIT_NO_SELINUX=1 test/common/run-tests
+	TEST_AUDIT_NO_SELINUX=1 test/common/run-tests $(RUN_TESTS_OPTIONS)
 
 test/reference: test/common
 	test/common/pixel-tests pull
