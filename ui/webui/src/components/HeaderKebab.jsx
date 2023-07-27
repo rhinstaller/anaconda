@@ -71,7 +71,7 @@ const ProductName = () => {
 
     return (
         <Stack hasGutter>
-            <StackItem id="about-modal-title" className="title">{cockpit.format("$0 installer", osRelease.PRETTY_NAME)}</StackItem>
+            <StackItem id="about-modal-title" className="title">{cockpit.format(_("$0 installer"), osRelease.PRETTY_NAME)}</StackItem>
             <StackItem id="about-modal-subtitle" className="subtitle">{_("Powered by Anaconda")}</StackItem>
         </Stack>
     );

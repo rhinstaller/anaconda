@@ -41,6 +41,8 @@ import { readConf } from "../helpers/conf.js";
 import { debug } from "../helpers/log.js";
 import { useReducerWithThunk, reducer, initialState } from "../reducer.js";
 
+const _ = cockpit.gettext;
+
 export const Application = () => {
     const [address, setAddress] = useState();
     const [criticalError, setCriticalError] = useState();
@@ -110,7 +112,7 @@ export const Application = () => {
 
     // On live media rebooting the system will actually shut it off
     const isBootIso = conf?.["Installation System"].type === "BOOT_ISO";
-    const title = cockpit.format("$0 installation", osRelease.PRETTY_NAME);
+    const title = cockpit.format(_("$0 installation"), osRelease.PRETTY_NAME);
 
     const page = (
         criticalError

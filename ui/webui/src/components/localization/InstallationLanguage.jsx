@@ -292,7 +292,7 @@ export const InstallationLanguage = ({ idPrefix, languages, language, commonLoca
     }, []);
 
     return (
-        <AnacondaPage title={cockpit.format("Welcome to $0", distributionName)}>
+        <AnacondaPage title={cockpit.format(_("Welcome to $0"), distributionName)}>
             <Title
               headingLevel="h3"
             >
