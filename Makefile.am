@@ -16,6 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 include ./branch-config.mk
+include ./po/l10n-config.mk
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -134,7 +135,7 @@ pot-update-check: pot
 # - copy pot file to this repository
 # - check if pot file is changed (ignore the POT-Creation-Date otherwise it's always changed)
 	@TEMP_DIR=$$(mktemp --tmpdir -d anaconda-localization-XXXXXXXXXX) || exit 5 ; \
-	git clone --depth 1 -b $(GIT_L10N_BRANCH) -- $(L10N_REPOSITORY) $$TEMP_DIR || exit 6 ; \
+	git clone --depth 1 -b $(GIT_L10N_SHA) -- $(L10N_REPOSITORY) $$TEMP_DIR || exit 6 ; \
 	cp $(srcdir)/po/anaconda.pot $$TEMP_DIR/$(L10N_DIR)/ || exit 7 ; \
 	pushd $$TEMP_DIR/$(L10N_DIR) ; \
 	git difftool --trust-exit-code -y -x "diff -u -I '^\"POT-Creation-Date: .*$$'" HEAD ./anaconda.pot &>/dev/null ; \
@@ -353,10 +354,10 @@ check-branching:
 	@echo "===================================="
 	@echo "Testing localization for $(L10N_DIR)"
 	@echo "===================================="
-	@curl --fail --silent --show-error -L https://raw.githubusercontent.com/rhinstaller/anaconda-l10n/$(GIT_L10N_BRANCH)/$(L10N_DIR)/anaconda.pot >/dev/null ||  \
+	@curl --fail --silent --show-error -L https://raw.githubusercontent.com/rhinstaller/anaconda-l10n/$(GIT_L10N_SHA)/$(L10N_DIR)/anaconda.pot >/dev/null ||  \
 		(echo "*** Can't download translations from a localization repository"; \
 		 echo "repository: $(L10N_REPOSITORY)"; \
-		 echo "branch:     $(GIT_L10N_BRANCH)"; \
+		 echo "sha:        $(GIT_L10N_SHA)"; \
 		 echo "directory:  $(L10N_DIR)"; \
 		 exit 2)
 
