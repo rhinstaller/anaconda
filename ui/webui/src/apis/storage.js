@@ -22,6 +22,8 @@ import {
     getPartitioningDataAction
 } from "../actions/storage-actions.js";
 
+import { debug } from "../helpers/log.js";
+
 export class StorageClient {
     constructor (address) {
         if (StorageClient.instance && (!address || StorageClient.instance.address === address)) {
@@ -488,11 +490,11 @@ export const startEventMonitorStorage = ({ dispatch }) => {
                     const last = args[1].CreatedPartitioning.v.length - 1;
                     dispatch(getPartitioningDataAction({ partitioning: args[1].CreatedPartitioning.v[last] }));
                 } else {
-                    console.debug(`Unhandled signal on ${path}: ${iface}.${signal} ${JSON.stringify(args)}`);
+                    debug(`Unhandled signal on ${path}: ${iface}.${signal} ${JSON.stringify(args)}`);
                 }
                 break;
             default:
-                console.debug(`Unhandled signal on ${path}: ${iface}.${signal} ${JSON.stringify(args)}`);
+                debug(`Unhandled signal on ${path}: ${iface}.${signal} ${JSON.stringify(args)}`);
             }
         });
 };

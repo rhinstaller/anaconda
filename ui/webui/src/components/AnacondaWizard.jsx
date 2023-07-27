@@ -41,6 +41,7 @@ import { InstallationLanguage } from "./localization/InstallationLanguage.jsx";
 import { InstallationProgress } from "./installation/InstallationProgress.jsx";
 import { ReviewConfiguration, ReviewConfigurationConfirmModal } from "./review/ReviewConfiguration.jsx";
 import { exitGui } from "../helpers/exit.js";
+import { debug } from "../helpers/log.js";
 import { usePageLocation } from "hooks";
 import {
     applyStorage,
@@ -296,7 +297,7 @@ const Footer = ({
         onBack();
         if (activeStep.id === "installation-review") {
             resetPartitioning().then(() => {
-                console.log("resetPartitioning");
+                debug("resetPartitioning");
             }, console.error);
         }
     };
