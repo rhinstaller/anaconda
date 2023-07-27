@@ -36,6 +36,7 @@ RUN set -ex; \
   curl \
   python3-polib \
   /usr/bin/xargs \
+  rsync \
   rpm-build; \
   if ! grep -q VARIANT.*eln /etc/os-release; then \
     BRANCH="${git_branch}"; \

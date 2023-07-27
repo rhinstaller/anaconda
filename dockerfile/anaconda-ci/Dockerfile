@@ -58,6 +58,7 @@ RUN set -ex; \
   bzip2 \
   rpm-ostree \
   python3-pip \
+  rsync \
   # Need to have restorecon for the tests execution
   policycoreutils; \
   # Install non-ELN dependencies
