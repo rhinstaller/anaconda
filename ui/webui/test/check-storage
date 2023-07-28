@@ -395,6 +395,38 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         udevadm settle --timeout=120
         """)
 
+    # partitions_params expected structure: [("size", "file system" {, "other mkfs.fs flags"})]
+    def partition_disk(self, disk, partitions_params):
+        command = f"sgdisk --zap-all {disk}"
+
+        for i, params in enumerate(partitions_params):
+            sgdisk = ["sgdisk", f"--new=0:0{':+' + params[0] if params[0] != '' else ':0'}"]
+
+            if params[1] == "biosboot":
+                sgdisk.append("--typecode=0:ef02")
+
+            sgdisk.append(disk)
+
+            command += f"\n{' '.join(sgdisk)}"
+
+            if params[1] != "biosboot":
+                mkfs = [f"mkfs.{params[1]}"]
+
+                # force flag
+                if params[1] in ["xfs", "btrfs"]:
+                    mkfs.append("-f")
+                elif params[1] in ["ext4", "etx3", "ext2", "ntfs"]:
+                    mkfs.append("-F")
+
+                # additional mkfs flags
+                if len(params) > 2:
+                    mkfs += params[2:]
+
+                mkfs.append(f"{disk}{i + 1}")
+                command += f"\n{' '.join(mkfs)}"
+
+        self.machine.execute(command)
+
     @nondestructive
     def testBasic(self):
         b = self.browser
@@ -408,17 +440,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         disk = "/dev/vda"
         dev = "vda"
         btrfsname = "btrfstest"
-        m.execute(f"""
-        sgdisk --zap-all {disk}
-        sgdisk --new=0:0:+1MiB -t 0:ef02 {disk}
-        sgdisk --new=0:0:+1GiB {disk}
-        sgdisk --new=0:0:+10GiB {disk}
-        sgdisk --new=0:0:0 {disk}
-        mkfs.ext4 {disk}2
-        mkfs.xfs -f {disk}3
-        mkfs.btrfs -f -L {btrfsname} {disk}4
-        """)
-
+        self.partition_disk(disk, [("1MiB", "biosboot"), ("1GB", "ext4"), ("10GiB", "xfs"), ("", "btrfs", "-f", "-L", btrfsname)])
         self.udevadm_settle()
 
         i.open()
@@ -494,17 +516,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         # BIOS boot /boot on ext4 / on xfs /home on btrfs
         disk = "/dev/vda"
         dev = "vda"
-        m.execute(f"""
-        sgdisk --zap-all {disk}
-        sgdisk --new=0:0:+1MiB -t 0:ef02 {disk}
-        sgdisk --new=0:0:+1GiB {disk}
-        sgdisk --new=0:0:+10GiB {disk}
-        sgdisk --new=0:0:0 {disk}
-        mkfs.ext4 {disk}2
-        mkfs.xfs -f {disk}3
-        mkfs.ext4 {disk}4
-        """)
-
+        self.partition_disk(disk, [("1MiB", "biosboot"), ("1GB", "ext4"), ("10GiB", "xfs"), ("", "ext4")])
         self.udevadm_settle()
 
         i.open()
@@ -543,24 +555,12 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         # BIOS boot partition, /boot partition, /
         disk1 = "/dev/vda"
         dev1 = "vda"
-        m.execute(f"""
-        sgdisk --zap-all {disk1}
-        sgdisk --new=0:0:+1MiB -t 0:ef02 {disk1}
-        sgdisk --new=0:0:+1GiB {disk1}
-        sgdisk --new=0:0:0 {disk1}
-        mkfs.xfs {disk1}2
-        mkfs.xfs {disk1}3
-        """)
+        self.partition_disk(disk1, [("1MiB", "biosboot"), ("1GB", "xfs"), ("", "xfs")])
 
         # /dev/vdb1 /home partition
         disk2 = "/dev/vdb"
         dev2 = "vdb"
-        m.execute(f"""
-        sgdisk --zap-all {disk2}
-        sgdisk --new=0:0 {disk2}
-        mkfs.xfs {disk2}1
-        """)
-
+        self.partition_disk(disk2, [("", "xfs")])
         self.udevadm_settle()
 
         # Select first only vdb disk and verify that the partitioning request is correct
@@ -638,12 +638,8 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         # BIOS boot partition, /boot partition, /
         disk1 = "/dev/vda"
         dev1 = "vda"
+        self.partition_disk(disk1, [("1MiB", "biosboot"), ("1GB", "xfs"), ("", "xfs")])
         m.execute(f"""
-        sgdisk --zap-all {disk1}
-        sgdisk --new=0:0:+1MiB -t 0:ef02 {disk1}
-        sgdisk --new=0:0:+1GiB {disk1}
-        sgdisk --new=0:0:0 {disk1}
-        mkfs.xfs -f {disk1}2
         echo einszweidrei | cryptsetup luksFormat {disk1}3
         echo einszweidrei | cryptsetup luksOpen {disk1}3 encrypted-vol
         mkfs.xfs -f /dev/mapper/encrypted-vol
