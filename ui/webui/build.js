@@ -54,7 +54,7 @@ function watch_dirs(dir, on_change) {
 }
 
 const context = await esbuild.context({
-    ...!production ? { sourcemap: "linked" } : {},
+    sourcemap: "linked",
     bundle: true,
     entryPoints: ["./src/index.js"],
     external: ['*.woff', '*.woff2', '*.jpg', '*.svg', '../../assets*'], // Allow external font files which live in ../../static/fonts
@@ -63,7 +63,7 @@ const context = await esbuild.context({
         ".js": "jsx",
         ".py": "text",
     },
-    minify: false,
+    minify: production,
     nodePaths,
     outdir,
     target: ['es2020'],
