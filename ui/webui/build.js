@@ -104,7 +104,7 @@ const context = await esbuild.context({
         }),
         cockpitPoEsbuildPlugin({ src_directory: "ui/webui/src/" }),
 
-        ...production ? [cockpitCompressPlugin()] : [],
+        cockpitCompressPlugin(),
         cockpitRsyncEsbuildPlugin({ dest: packageJson.name }),
 
         {
