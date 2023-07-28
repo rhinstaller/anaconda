@@ -35,10 +35,6 @@ class Review():
         self.browser.wait_in_text(f"#{self._step}-target-system-language > .pf-c-description-list__text", lang)
 
     @log_step()
-    def check_disk_label(self, disk, label):
-        self.browser.wait_in_text(f"#{self._step}-disk-label-{disk}", label)
-
-    @log_step()
     def check_encryption(self, state):
         self.browser.wait_in_text(f"#{self._step}-target-system-encrypt > .pf-c-description-list__text", state)
 
@@ -46,15 +42,11 @@ class Review():
     def check_storage_config(self, scenario):
         self.browser.wait_in_text(f"#{self._step}-target-system-mode > .pf-c-description-list__text", scenario)
 
-    @log_step()
-    def check_disk_description(self, disk, description):
-        self.browser.wait_in_text(f"#{self._step}-disk-description-{disk}", description)
+    def check_disk(self, disk, text):
+        self.browser.wait_text(f"#disk-{disk} span", text)
 
-    def expand_disk_table(self, disk):
-        self.browser.click(f"#{disk}-expander")
+    def check_disk_row(self, disk, row, text):
+        self.browser.wait_text(f"#disk-{disk} ul li:nth-child({row})", text)
 
-    def check_disk_row_reformatted(self, disk, row, label):
-        self.browser.is_present(f"#data-list-{disk} tbody tr:nth-child({row}) td[data-label='{label}'] > svg")
-
-    def check_disk_row(self, disk, row, label, text):
-        self.browser.wait_in_text(f"#data-list-{disk} tbody tr:nth-child({row}) td[data-label='{label}']", text)
+    def check_in_disk_row(self, disk, row, text):
+        self.browser.wait_in_text(f"#disk-{disk} ul li:nth-child({row})", text)

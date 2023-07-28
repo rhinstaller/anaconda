@@ -18,20 +18,12 @@ import cockpit from "cockpit";
 import React, { useEffect, useState } from "react";
 
 import {
-    Badge,
     Button,
-    Flex,
-    Title,
-    DataList, DataListItem,
-    DataListToggle,
-    DataListItemRow, DataListItemCells,
-    DataListCell,
-    DataListContent,
     DescriptionList, DescriptionListGroup,
     DescriptionListTerm, DescriptionListDescription,
-    ExpandableSection,
+    List, ListItem,
     Modal, ModalVariant,
-    Tooltip,
+    Stack,
 } from "@patternfly/react-core";
 
 import {
@@ -43,15 +35,12 @@ import {
 import { AnacondaPage } from "../AnacondaPage.jsx";
 
 import { getScenario } from "../storage/InstallationScenario.jsx";
-import { CheckCircleIcon } from "@patternfly/react-icons";
-
-import { ListingTable } from "cockpit-components-table.jsx";
 
 import "./ReviewConfiguration.scss";
 
 const _ = cockpit.gettext;
 
-export const ReviewDescriptionList = ({ children }) => {
+const ReviewDescriptionList = ({ children }) => {
     return (
         <DescriptionList
           isHorizontal
@@ -82,22 +71,20 @@ const checkDeviceInSubTree = (device, rootDevice, deviceData) => {
 };
 
 const DeviceRow = ({ deviceData, disk, requests }) => {
-    const [isExpanded, setIsExpanded] = useState(false);
-
     const data = deviceData[disk];
     const name = data.name.v;
 
     const renderRow = row => {
-        const iconColumn = row.reformat.v ? <CheckCircleIcon /> : null;
-        return {
-            props: { key: row["device-spec"] },
-            columns: [
-                { title: row["device-spec"] },
-                { title: row["format-type"] },
-                { title: row["mount-point"] },
-                { title: iconColumn },
-            ]
-        };
+        const format = row["format-type"] ? cockpit.format(_("format as $0"), row["format-type"]) : null;
+        const mount = row["mount-point"] || null;
+        const reformat = row.reformat ? _("reformat") : null;
+        const actions = [format, mount, reformat].filter(Boolean).join(", ");
+
+        return (
+            <ListItem className="pf-u-font-size-s">
+                {row["device-spec"]}: {actions}
+            </ListItem>
+        );
     };
 
     const partitionRows = requests?.filter(req => {
@@ -108,45 +95,17 @@ const DeviceRow = ({ deviceData, disk, requests }) => {
     }).map(renderRow) || [];
 
     return (
-        <DataListItem id={`data-list-${name}`} isExpanded={isExpanded} key={name}>
-            <DataListItemRow>
-                <DataListToggle
-                  buttonProps={{ isDisabled: requests === null }}
-                  onClick={() => requests !== null ? setIsExpanded(!isExpanded) : {}}
-                  isExpanded={isExpanded}
-                  id={name + "-expander"}
-                />
-                <DataListItemCells
-                  dataListCells={[
-                      <DataListCell key={name + "-name"}>
-                          <Flex>
-                              <span id={`installation-review-disk-label-${name}`} className="review-disk-label">{name}</span>
-                              <span id={`installation-review-disk-description-${name}`}>{"(" + data.description.v + ")"}</span>
-                              <Tooltip content={_("Total disk size")}>
-                                  <Badge screenReaderText={_("Total disk size")}>{cockpit.format_bytes(data.size.v)}</Badge>
-                              </Tooltip>
-                          </Flex>
-                      </DataListCell>
-                  ]}
-                />
-            </DataListItemRow>
-            <DataListContent isHidden={!isExpanded}>
-                <ListingTable
-                  id="partitions-table"
-                  aria-label={_("Disk partitions")}
-                  emptyCaption={_("No partitions found")}
-                  variant="compact"
-                  columns={[_("Partition"), _("Format type"), _("Mount point"), _("Reformat")]}
-                  rows={partitionRows} />
-            </DataListContent>
-        </DataListItem>
+        <Stack id={`disk-${name}`} hasGutter>
+            <span>{cockpit.format_bytes(data.size.v)} {name} {"(" + data.description.v + ")"}</span>
+            <List>
+                {partitionRows}
+            </List>
+        </Stack>
     );
 };
 
-export const ReviewConfiguration = ({ deviceData, diskSelection, language, requests, idPrefix, storageScenarioId }) => {
+export const ReviewConfiguration = ({ deviceData, diskSelection, language, osRelease, requests, idPrefix, storageScenarioId }) => {
     const [encrypt, setEncrypt] = useState();
-    const [showLanguageSection, setShowLanguageSection] = useState(true);
-    const [showInstallationDestSection, setShowInstallationDestSection] = useState(true);
 
     useEffect(() => {
         const initializeEncrypt = async () => {
@@ -162,58 +121,61 @@ export const ReviewConfiguration = ({ deviceData, diskSelection, language, reque
 
     return (
         <AnacondaPage title={_("Review and install")}>
-            <ExpandableSection
-              className="review-expandable-section"
-              id={`${idPrefix}-language`}
-              toggleText={<Title headingLevel="h3">{_("Language")}</Title>}
-              onToggle={() => setShowLanguageSection(!showLanguageSection)}
-              isExpanded={showLanguageSection}
-              isIndented
-            >
+            <ReviewDescriptionList>
+                <DescriptionListGroup>
+                    <DescriptionListTerm>
+                        {_("Operating system")}
+                    </DescriptionListTerm>
+                    <DescriptionListDescription id={idPrefix + "-target-operating-system"}>
+                        {osRelease.PRETTY_NAME}
+                    </DescriptionListDescription>
+                </DescriptionListGroup>
+            </ReviewDescriptionList>
+            <ReviewDescriptionList>
+                <DescriptionListGroup>
+                    <DescriptionListTerm>
+                        {_("Language")}
+                    </DescriptionListTerm>
+                    <DescriptionListDescription id={idPrefix + "-target-system-language"}>
+                        {language["native-name"].v}
+                    </DescriptionListDescription>
+                </DescriptionListGroup>
+            </ReviewDescriptionList>
+            <ReviewDescriptionList>
+                <DescriptionListGroup>
+                    <DescriptionListTerm>
+                        {_("Installation type")}
+                    </DescriptionListTerm>
+                    <DescriptionListDescription id={idPrefix + "-target-system-mode"}>
+                        {getScenario(storageScenarioId).label}
+                    </DescriptionListDescription>
+                </DescriptionListGroup>
+            </ReviewDescriptionList>
+            {storageScenarioId !== "mount-point-mapping" &&
                 <ReviewDescriptionList>
                     <DescriptionListGroup>
-                        <DescriptionListTerm className="description-list-term">
-                            {_("Language")}
+                        <DescriptionListTerm>
+                            {_("Disk encryption")}
                         </DescriptionListTerm>
-                        <DescriptionListDescription className="description-list-description" id={idPrefix + "-target-system-language"}>
-                            {language["native-name"].v}
+                        <DescriptionListDescription id={idPrefix + "-target-system-encrypt"}>
+                            {encrypt ? _("Enabled") : _("Disabled")}
                         </DescriptionListDescription>
                     </DescriptionListGroup>
-                </ReviewDescriptionList>
-            </ExpandableSection>
-            <ExpandableSection
-              className="review-expandable-section"
-              toggleText={<Title headingLevel="h3">{_("Installation destination")}</Title>}
-              onToggle={() => setShowInstallationDestSection(!showInstallationDestSection)}
-              isExpanded={showInstallationDestSection}
-              isIndented
-            >
-                <ReviewDescriptionList>
-                    <DescriptionListGroup>
-                        <DescriptionListTerm className="description-list-term">
-                            {_("Storage Configuration")}
-                        </DescriptionListTerm>
-                        <DescriptionListDescription className="description-list-description" id={idPrefix + "-target-system-mode"}>
-                            {getScenario(storageScenarioId).label}
-                        </DescriptionListDescription>
-                        {storageScenarioId !== "mount-point-mapping" &&
-                        <>
-                            <DescriptionListTerm className="description-list-term">
-                                {_("Disk Encryption")}
-                            </DescriptionListTerm>
-                            <DescriptionListDescription className="description-list-description" id={idPrefix + "-target-system-encrypt"}>
-                                {encrypt ? _("Enabled") : _("Disabled")}
-                            </DescriptionListDescription>
-                        </>}
-                    </DescriptionListGroup>
-                </ReviewDescriptionList>
-                <Title className="storage-devices-configuration-title" headingLevel="h4">{_("Storage devices and configurations")}</Title>
-                <DataList isCompact>
-                    {diskSelection.selectedDisks.map(disk => {
-                        return <DeviceRow key={disk} deviceData={deviceData} disk={disk} requests={storageScenarioId === "mount-point-mapping" ? requests : null} />;
-                    })}
-                </DataList>
-            </ExpandableSection>
+                </ReviewDescriptionList>}
+            <ReviewDescriptionList>
+                <DescriptionListGroup>
+                    <DescriptionListTerm>
+                        {_("Storage")}
+                    </DescriptionListTerm>
+                    <DescriptionListDescription id={idPrefix + "-target-storage"}>
+                        <Stack hasGutter>
+                            {diskSelection.selectedDisks.map(disk => {
+                                return <DeviceRow key={disk} deviceData={deviceData} disk={disk} requests={storageScenarioId === "mount-point-mapping" ? requests : null} />;
+                            })}
+                        </Stack>
+                    </DescriptionListDescription>
+                </DescriptionListGroup>
+            </ReviewDescriptionList>
         </AnacondaPage>
     );
 };
