@@ -114,7 +114,7 @@ Manual testing
 You can conduct manual interactive testing against a test image by starting the
 image like so::
 
-    webui_testvm.py fedora-rawhide-boot
+    test/webui_testvm.py fedora-rawhide-boot
 
 Once the machine is booted and the cockpit socket has been activated, a
 message will be printed describing how to access the virtual machine, via
