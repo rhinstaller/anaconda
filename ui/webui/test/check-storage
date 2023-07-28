@@ -654,5 +654,71 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
 
         r.check_in_disk_row(dev1, 3, "luks-")
 
+    @nondestructive
+    def testBtrfsSubvolumes(self):
+        b = self.browser
+        m = self.machine
+        i = Installer(b, m)
+        s = Storage(b, m)
+        r = Review(b)
+
+        self.addCleanup(m.execute, "wipefs --all /dev/vda")
+
+        disk = "/dev/vda"
+        dev = "vda"
+        tmp_mount = "/tmp/btrfs-mount-test"
+        self.partition_disk(disk, [("1MiB", "biosboot"), ("1GB", "ext4"), ("", "btrfs")])
+        m.execute(f"""
+        mkdir {tmp_mount}
+        mount {disk}3 {tmp_mount}
+        btrfs subvolume create {tmp_mount}/root
+        btrfs subvolume create {tmp_mount}/home
+        umount {tmp_mount}
+        rmdir {tmp_mount}
+        """)
+
+        self.udevadm_settle()
+
+        i.open()
+        i.next()
+        s.rescan_disks()
+
+        self.select_mountpoint(i, s, [(dev, True)])
+
+        # verify gathered requests
+        # root partition is not auto-mapped
+        self.check_row_mountpoint(1, "/boot")
+        self.check_row_device(1, "Select a device")
+        self.check_reformat(1, False)
+        self.select_row_device(1, f"{dev}2")
+        self.check_format_type(1, "ext4")
+
+        self.check_row_mountpoint(2, "/")
+        self.check_row_device(2, "Select a device")
+        self.check_reformat(2, True)
+        self.select_row_device(2, "root")
+        self.check_format_type(2, "btrfs")
+
+        self.add_mount()
+        self.select_row_device(3, "home")
+        self.check_reformat(3, False)
+        self.select_row_mountpoint(3, "/home")
+        self.check_format_type(3, "btrfs")
+
+        # Toggle reformat option
+        self.select_reformat(1)
+        self.check_reformat(1, True)
+
+        i.next()
+
+        # verify review screen
+        disk = "vda"
+        r.check_disk(disk, "16.1 GB vda (0x1af4)")
+
+        r.check_disk_row(disk, 1, "vda1: format as biosboot")
+        r.check_disk_row(disk, 2, "vda2: format as ext4, /boot, reformat")
+        r.check_disk_row(disk, 3, "root: format as btrfs, /, reformat")
+        r.check_disk_row(disk, 4, "home: format as btrfs, /home")
+
 if __name__ == '__main__':
     test_main()
