@@ -30,6 +30,7 @@ from language import Language
 from storage import Storage
 from review import Review
 from progress import Progress
+from utils import add_public_key
 from testlib import MachineCase  # pylint: disable=import-error
 from machine_install import VirtInstallMachine
 from step_logger import log_step
@@ -50,16 +51,6 @@ class End2EndTest(MachineCase):
         if not os.path.isdir(self.logs_dir):
             os.makedirs(self.logs_dir)
         os.environ["END2END"] = '1'  # pylint: disable=environment-modify
-
-    def __add_public_key(self):
-        with open(self.machine.identity_file + '.pub', 'r') as pub:
-            public_key = pub.read()
-
-        sysroot_ssh = '/mnt/sysroot/root/.ssh'
-        authorized_keys = os.path.join(sysroot_ssh, 'authorized_keys')
-        self.machine.execute(fr'''mkdir -p {sysroot_ssh}
-            echo "{public_key}" >> {authorized_keys}
-            chmod 700 {sysroot_ssh}''')
 
     def __download_logs(self):
         self.machine.download('/tmp/anaconda.log', 'anaconda.log', self.logs_dir)
@@ -88,7 +79,7 @@ class End2EndTest(MachineCase):
         self._progress.wait_done()
 
     def reboot_to_installed_system(self):
-        self.__add_public_key()
+        add_public_key(self.machine)
         self.__download_logs()
         self.__installation_finished = True
         self._progress.reboot()

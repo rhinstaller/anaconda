@@ -20,6 +20,8 @@ import anacondalib
 from installer import Installer
 from storage import Storage  # pylint: disable=import-error
 from review import Review
+from progress import Progress
+from utils import add_public_key
 from testlib import nondestructive, test_main  # pylint: disable=import-error
 
 
