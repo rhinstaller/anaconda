@@ -16,7 +16,6 @@
 # Red Hat, Inc.
 #
 import unittest
-from unittest.mock import patch
 from unittest.mock import Mock
 
 from dasbus.structure import compare_data
@@ -26,8 +25,8 @@ from pyanaconda.modules.common.structures.packages import PackagesSelectionData
 from pyanaconda.modules.payloads.payload.dnf.dnf import DNFModule
 from pyanaconda.modules.payloads.payload.dnf.dnf_manager import DNFManager
 from pyanaconda.ui.lib.software import is_software_selection_complete, \
-    get_software_selection_status, SoftwareSelectionCache, get_kernel_from_properties, \
-    get_available_kernel_features, KernelFeatures
+    get_software_selection_status, SoftwareSelectionCache
+
 
 def get_dnf_proxy(dnf_manager):
     """Create a DNF payload proxy using the specified DNF manager."""
@@ -95,35 +94,6 @@ class SoftwareSelectionUITestCase(unittest.TestCase):
 
         status = get_software_selection_status(self.dnf_proxy, selection, kickstarted=True)
         assert status == "Custom software selected"
-
-    def test_get_kernel_from_properties(self):
-        """Test if kernel features are translated to corrent package names."""
-        assert get_kernel_from_properties(
-            KernelFeatures(page_size_64k=False)) is None
-        assert get_kernel_from_properties(
-            KernelFeatures(page_size_64k=True)) == "kernel-64k"
-
-    @patch("pyanaconda.ui.lib.software.is_aarch64")
-    def test_get_available_kernel_features(self, is_aarch64):
-        """test availability of kernel packages"""
-        payload = Mock()
-        payload.match_available_packages.return_value = ["ntoskrnl"]
-        is_aarch64.return_value = False
-
-        res = get_available_kernel_features(payload)
-        assert isinstance(res, dict)
-        assert len(res) > 0
-        assert not res["64k"]
-        is_aarch64.assert_called_once()
-
-        is_aarch64.return_value = True
-        assert is_aarch64()
-        res = get_available_kernel_features(payload)
-        assert res["64k"]
-
-        payload.match_available_packages.return_value = []
-        res = get_available_kernel_features(payload)
-        assert not res["64k"]
 
 
 class SoftwareSelectionCacheTestCase(unittest.TestCase):
