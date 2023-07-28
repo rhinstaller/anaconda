@@ -5,9 +5,13 @@ set -eu
 # FIXME boot.iso on rawhide does not currently contain the new cockpit dependencies
 # This will change once we include this changes upstream and start building boot.iso with the new dependencies
 # Then we can safely remove this workaround
+#
+# FIXME: Use fix from cockpit-project/cockpit#19147
+# Until that gets released, install cockpit-bridge from the PR COPR instead
+# Original URL: https://kojipkgs.fedoraproject.org//packages/cockpit/297/1.fc39/x86_64/cockpit-bridge-297-1.fc39.x86_64.rpm
 ANACONDA_WEBUI_DEPS_URLS='
-    https://kojipkgs.fedoraproject.org//packages/cockpit/293/1.fc39/x86_64/cockpit-ws-293-1.fc39.x86_64.rpm
-    https://kojipkgs.fedoraproject.org//packages/cockpit/293/1.fc39/x86_64/cockpit-bridge-293-1.fc39.x86_64.rpm
+    https://kojipkgs.fedoraproject.org//packages/cockpit/297/1.fc39/x86_64/cockpit-ws-297-1.fc39.x86_64.rpm
+    https://download.copr.fedorainfracloud.org/results/packit/cockpit-project-cockpit-19147/fedora-rawhide-x86_64/06219778-cockpit/cockpit-bridge-297-1.20230728101545089726.pr19147.3.g2e50bc074.fc39.x86_64.rpm
 '
 
 mkdir -p tmp/extra-rpms
