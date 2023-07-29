@@ -75,15 +75,16 @@ const DeviceRow = ({ deviceData, disk, requests }) => {
     const name = data.name.v;
 
     const renderRow = row => {
+        const name = row["device-spec"];
         const format = row["format-type"] ? cockpit.format(_("format as $0"), row["format-type"]) : null;
         const mount = row["mount-point"] || null;
         const reformat = row.reformat ? _("reformat") : null;
         const actions = [format, mount, reformat].filter(Boolean).join(", ");
-        const size = cockpit.format_bytes(deviceData[row["device-spec"]].size.v);
+        const size = cockpit.format_bytes(deviceData[name].size.v);
 
         return (
-            <ListItem className="pf-u-font-size-s">
-                {row["device-spec"]}, {size}: {actions}
+            <ListItem className="pf-u-font-size-s" key={name}>
+                {name}, {size}: {actions}
             </ListItem>
         );
     };
