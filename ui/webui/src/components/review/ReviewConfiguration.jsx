@@ -79,10 +79,11 @@ const DeviceRow = ({ deviceData, disk, requests }) => {
         const mount = row["mount-point"] || null;
         const reformat = row.reformat ? _("reformat") : null;
         const actions = [format, mount, reformat].filter(Boolean).join(", ");
+        const size = cockpit.format_bytes(deviceData[row["device-spec"]].size.v);
 
         return (
             <ListItem className="pf-u-font-size-s">
-                {row["device-spec"]}: {actions}
+                {row["device-spec"]}, {size}: {actions}
             </ListItem>
         );
     };
