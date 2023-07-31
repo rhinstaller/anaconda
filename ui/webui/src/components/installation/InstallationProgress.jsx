@@ -89,7 +89,7 @@ export const InstallationProgress = ({ onCritFail, idPrefix, isBootIso }) => {
                         });
                         taskProxy.addEventListener("Stopped", () => {
                             taskProxy.Finish().catch(onCritFail({
-                                context: cockpit.format(_("Installing the system: $0"), refStatusMessage.current),
+                                context: cockpit.format(_("Installation of the system failed: $0"), refStatusMessage.current),
                             }));
                         });
                         taskProxy.addEventListener("Succeeded", () => {

@@ -73,7 +73,7 @@ export const Application = () => {
             setAddress(address);
 
             const errorContext = {
-                context: _("Initialize information about system."),
+                context: _("Reading information about the computer failed."),
                 hint: _("Please report the error."),
             };
 
@@ -91,13 +91,13 @@ export const Application = () => {
 
             getIsFinal().then(
                 isFinal => setBeta(!isFinal),
-                onCritFail({ context: _("Read installer version information.") })
+                onCritFail({ context: _("Reading installer version information failed.") })
             );
         });
 
         readConf().then(
             setConf,
-            onCritFail({ context: _("Read installer configuration") })
+            onCritFail({ context: _("Reading installer configuration failed.") })
         );
 
         readOsRelease().then(osRelease => setOsRelease(osRelease));

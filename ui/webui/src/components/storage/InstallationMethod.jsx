@@ -125,7 +125,7 @@ const InstallationDestination = ({ deviceData, diskSelection, dispatch, idPrefix
     const loading = !deviceData || diskSelection.usableDisks.some(disk => !deviceData[disk]);
 
     const errorHandler = onCritFail({
-        context: _("Rescanning disks.")
+        context: _("Rescanning of the disks failed.")
     });
 
     const rescanDisksButton = (

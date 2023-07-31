@@ -369,7 +369,7 @@ const Footer = ({
                                   onClick={() => goToPreviousStep(
                                       activeStep,
                                       onBack,
-                                      onCritFail({ context: cockpit.format(_("Go back from $0"), activeStep.name) })
+                                      onCritFail({ context: cockpit.format(_("Error was hit when going back from $0."), activeStep.name) })
                                   )}>
                                     {_("Back")}
                                 </Button>
