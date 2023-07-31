@@ -690,6 +690,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         mount {disk}3 {tmp_mount}
         btrfs subvolume create {tmp_mount}/root
         btrfs subvolume create {tmp_mount}/home
+        btrfs subvolume snapshot {tmp_mount}/root {tmp_mount}/snapshot1
         umount {tmp_mount}
         rmdir {tmp_mount}
         """)
@@ -701,6 +702,9 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         s.rescan_disks()
 
         self.select_mountpoint(i, s, [(dev, True)])
+
+        # btrfs snapshots should not be available
+        self.check_device_available(1, "snapshot1", False)
 
         # verify gathered requests
         # root partition is not auto-mapped
