@@ -54,7 +54,7 @@ const addExceptionDataToReportURL = (url, exception) => {
     const newUrl = new URL(url);
     newUrl.searchParams.append(
         "short_desc",
-        "WebUI: " + exception.message
+        "WebUI: " + exception.name + ": " + exception.message
     );
     newUrl.searchParams.append(
         "comment",
