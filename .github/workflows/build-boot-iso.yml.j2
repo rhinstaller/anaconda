@@ -12,6 +12,7 @@ on:
 permissions:
   contents: read
   statuses: write
+  pull-requests: write
 
 jobs:
   pr-info:
@@ -72,6 +73,19 @@ jobs:
             sha="${{ steps.pr_api.outcome == 'success' && fromJson(steps.pr_api.outputs.data).head.sha }}"
             echo "image_description=pr$pr_num-$sha" >> $GITHUB_OUTPUT
           fi
+
+      - name: Mark comment as seen
+        if: github.event_name != 'workflow_dispatch'
+        # https://docs.github.com/en/rest/reactions/reactions?apiVersion=2022-11-28#create-reaction-for-an-issue-comment
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "/repos/$GITHUB_REPOSITORY/issues/comments/${{ github.event.comment.id }}/reactions" \
+            -f content='eyes'
 
       - name: Set outputs
         id: set_outputs
