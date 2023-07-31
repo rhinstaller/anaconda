@@ -188,6 +188,19 @@ jobs:
           path: |
             images/*.iso
 
+      - name: Add comment with link to PR
+        if: github.event_name != 'workflow_dispatch'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sha="${{ needs.pr-info.outputs.sha }}"
+          url="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          echo -n "\`boot.iso\` built successfully based on commit $sha. " >> comment.txt
+          echo -e "Download it from the bottom of the [job status page]($url).\n" >> comment.txt
+          echo "Comment to be posted:"
+          cat comment.txt
+          gh pr comment ${{ github.event.issue.number }} -F comment.txt
+
       - name: Set result status
         if: always()
         uses: octokit/request-action@v2.x
