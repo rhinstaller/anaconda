@@ -27,6 +27,7 @@ COCKPIT_REPO_STAMP=pkg/lib/cockpit-po-plugin.js
 # stamp file to check if/when npm install ran
 NODE_MODULES_TEST=package-lock.json
 TEST_OS=fedora-rawhide-boot
+PAYLOAD=fedora-rawhide-anaconda-payload
 GITHUB_BASE=rhinstaller/anaconda
 UPDATES_IMG=../../updates.img
 
@@ -94,7 +95,11 @@ bots: tools/make-bots
 	GITHUB_BASE="cockpit-project/cockpit" tools/make-bots
 	cd test && ln -sf ../bots/images images
 
-prepare-test-deps: bots test/common
+prepare-test-deps: bots test/common payload
+
+.PHONY: payload
+payload: bots
+	bots/image-download $(PAYLOAD)
 
 $(UPDATES_IMG): bots
 	test/prepare-updates-img
@@ -105,7 +110,7 @@ create-updates.img: bots
 
 # test runs in kernel_t context and triggers massive amounts of SELinux
 # denials; SELinux gets disabled, but would still trigger unexpected messages
-integration-test: bots test/common test/reference $(UPDATES_IMG)
+integration-test: prepare-test-deps test/reference $(UPDATES_IMG)
 	TEST_AUDIT_NO_SELINUX=1 test/common/run-tests
 
 test/reference: test/common
