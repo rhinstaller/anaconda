@@ -487,6 +487,65 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Aug 01 2023 github-actions <github-actions@github.com> - 39.28-1
+- webui: update cockpit dependencies to the latest released in rawhide
+  (kkoukiou)
+- webui: tests: add method to partition disk (tomatus777)
+- webui: Quit button does not work on the Live image (akankovs)
+- webui: Update and simplify review page (mmarusak)
+- docs: use correct path for VM command (90795679+MahmoudHamdy02)
+- webui: Translate strings used in cockpit.format (mmarusak)
+- Allow reformatting of 'plain' btrfs volumes (vtrefny)
+- webui: catch also exceptions from GetDevicesAction when rescanning disks
+  (rvykydal)
+- webui: unpack GetDiskFreeSpace and GetDiskTotalSpace from array (skobyda)
+- webui: tests: remove duplicate pixel tests for the first storage page
+  (kkoukiou)
+- webui: tests: create a variable with the table row selector (kkoukiou)
+- webui: tests: simplify the open test helper (kkoukiou)
+- webui: tests: remove redundant check for disabled 'Next' button (kkoukiou)
+- webui: tests: add helper method for setting a valid password (kkoukiou)
+- webui: rename some components to more self explanatory names (kkoukiou)
+- webui: fix prefix for identifiers of the installation scenarios (kkoukiou)
+- webui: remove obsolete TODO (kkoukiou)
+- webui: change Alert on review screen to HelperText (mmarusak)
+- webui: Introduce cockpit-style debug() helper (martin)
+- Revert "Add GUI option for installing 64k ARM kernel" (jkonecny)
+- Revert "Add TUI for installing non-standard kernels" (jkonecny)
+- webui: debounce changes on the password confirmation field (kkoukiou)
+- webui: docs: fix documentation on how to re-create the updates.img (kkoukiou)
+- Simplify submodule subscription to storage changes (vslavik)
+- Enable iterating over managed modules (vslavik)
+- Use the new class in relevant Storage submodules (vslavik)
+- webui: Disable minification (mkolman)
+- Add a class for modules that keep track of storage (vslavik)
+- Use the submodule manager in Storage (vslavik)
+- Use the submodule manager in Runtime (vslavik)
+- Add a submodule manager class (vslavik)
+- webui: redesign and refactor custom partition mapper (kkoukiou)
+- webui: Add Firefox theme for use on Live media (mkolman)
+- webui: tests: Fix end to end tests to work with new storage design (zveleba)
+- webui: tests: Make reboot button selector more specific (zveleba)
+- webui: use term 'devices' not 'partitions' in the custom mountpoint step
+  (kkoukiou)
+- webui: debounce password quality checks to be done only once per 300ms
+  (kkoukiou)
+- tests: Update reference images for mountpoint assignment (vtrefny)
+- webui: Use device name instead of path as identifier (vtrefny)
+- tests: Fix expected device specs in check-storage (vtrefny)
+- webui: Use custom label when creating btrfs for tests (vtrefny)
+- Use blivet mount options for new subvolumes in mountpoint assignment
+  (vtrefny)
+- tui: Preserve blivet mount options in mountpoint assignment (vtrefny)
+- tui: allow to 'format' btrfs subvolumes in mount point assignment (rvykydal)
+- tui: Use name instead of path for devspec in mountpoint assignment (vtrefny)
+- tui: Use all btrfs subvolumes in mountpoint assignment (vtrefny)
+- webui: Update pixel tests broken from localization updates (kkoukiou)
+- ruff: Silence new warnings with 0.0.280 (vslavik)
+- webui: rename custom mountpoint assignment step to mountpoint mapper
+  (kkoukiou)
+- Check for webui with property (vslavik)
+
 * Tue Jul 25 2023 github-actions <github-actions@github.com> - 39.27-1
 - webui: if no scenario is available for selection show the options but
   disabled (kkoukiou)
