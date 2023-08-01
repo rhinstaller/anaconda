@@ -125,58 +125,58 @@ export const Application = () => {
     });
 
     const page = (
-        criticalError
-            ? <CriticalError exception={criticalError} isBootIso={isBootIso} reportLinkURL={bzReportURL} />
-            : (
-                <Page
-                  data-debug={conf.Anaconda.debug}
-                  additionalGroupedContent={
-                      <AnacondaHeader beta={beta} title={title} />
-                  }
-                  groupProps={{
-                      sticky: "top"
-                  }}
-                >
-                    {Object.keys(notifications).length > 0 &&
-                    <AlertGroup isToast isLiveRegion>
-                        {Object.keys(notifications).map(idx => {
-                            const notification = notifications[idx];
-                            const newNotifications = { ...notifications };
-                            delete newNotifications[notification.index];
+        <>
+            {criticalError &&
+            <CriticalError exception={criticalError} isBootIso={isBootIso} reportLinkURL={bzReportURL} />}
+            <Page
+              data-debug={conf.Anaconda.debug}
+              additionalGroupedContent={
+                  <AnacondaHeader beta={beta} title={title} />
+              }
+              groupProps={{
+                  sticky: "top"
+              }}
+            >
+                {Object.keys(notifications).length > 0 &&
+                <AlertGroup isToast isLiveRegion>
+                    {Object.keys(notifications).map(idx => {
+                        const notification = notifications[idx];
+                        const newNotifications = { ...notifications };
+                        delete newNotifications[notification.index];
 
-                            return (
-                                <Alert
-                                  variant={AlertVariant[notification.variant]}
-                                  title={notification.title}
-                                  actionClose={
-                                      <AlertActionCloseButton
-                                        title={notifications.title}
-                                        onClose={() => setNotifications(newNotifications)}
-                                      />
-                                  }
-                                  key={notification.index}>
-                                    {notification.message}
-                                </Alert>
-                            );
-                        })}
-                    </AlertGroup>}
-                    <AddressContext.Provider value={address}>
-                        <WithDialogs>
-                            <AnacondaWizard
-                              isBootIso={isBootIso}
-                              onCritFail={onCritFail}
-                              onAddErrorNotification={onAddErrorNotification}
-                              title={title}
-                              storageData={state.storage}
-                              localizationData={state.localization}
-                              dispatch={dispatch}
-                              conf={conf}
-                              osRelease={osRelease}
-                            />
-                        </WithDialogs>
-                    </AddressContext.Provider>
-                </Page>
+                        return (
+                            <Alert
+                              variant={AlertVariant[notification.variant]}
+                              title={notification.title}
+                              actionClose={
+                                  <AlertActionCloseButton
+                                    title={notifications.title}
+                                    onClose={() => setNotifications(newNotifications)}
+                                  />
+                              }
+                              key={notification.index}>
+                                {notification.message}
+                            </Alert>
+                        );
+                    })}
+                </AlertGroup>}
+                <AddressContext.Provider value={address}>
+                    <WithDialogs>
+                        <AnacondaWizard
+                          isBootIso={isBootIso}
+                          onAddErrorNotification={onAddErrorNotification}
+                          title={title}
+                          storageData={state.storage}
+                          localizationData={state.localization}
+                          dispatch={dispatch}
+                          conf={conf}
+                          osRelease={osRelease}
+                        />
+                    </WithDialogs>
+                </AddressContext.Provider>
+            </Page>
             )
+        </>
     );
 
     return (
