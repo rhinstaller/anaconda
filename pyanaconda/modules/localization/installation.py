@@ -26,7 +26,7 @@ from pyanaconda.localization import get_locale_console_fonts, find_best_locale_m
 from pyanaconda.modules.common.errors.installation import LanguageInstallationError, \
     KeyboardInstallationError
 from pyanaconda.modules.common.task import Task
-from pyanaconda.modules.localization.localed import get_missing_keyboard_configuration
+from pyanaconda.modules.localization.utils import get_missing_keyboard_configuration
 
 log = get_module_logger(__name__)
 

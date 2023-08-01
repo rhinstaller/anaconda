@@ -20,7 +20,6 @@ from pyanaconda.modules.common.constants.services import LOCALED
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.keyboard import join_layout_variant, parse_layout_variant, \
     InvalidLayoutVariantSpec
-from pyanaconda.core.constants import DEFAULT_KEYBOARD
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -228,31 +227,3 @@ class LocaledWrapper(object):
         self.set_keymap(orig_keymap)
 
         return ret
-
-
-def get_missing_keyboard_configuration(localed_wrapper, x_layouts, vc_keymap):
-    """Get missing keyboard settings by conversion and default values.
-
-    :param localed_wrapper: instance of systemd-localed service wrapper
-    :type localed_wrapper: LocaledWrapper
-    :param x_layouts: list of X layout specifications
-    :type x_layouts: list(str)
-    :param vc_keymap: virtual console keyboard mapping name
-    :type vc_keymap: str
-    :returns: tuple of X layouts and VC keyboard settings
-    :rtype: (list(str), str))
-    """
-    if not vc_keymap and not x_layouts:
-        log.debug("Using default value %s for missing virtual console keymap.", DEFAULT_KEYBOARD)
-        vc_keymap = DEFAULT_KEYBOARD
-
-    if not vc_keymap:
-        vc_keymap = localed_wrapper.convert_layouts(x_layouts)
-        log.debug("Missing virtual console keymap value %s converted from %s X layouts",
-                  vc_keymap, x_layouts)
-    if not x_layouts:
-        x_layouts = localed_wrapper.convert_keymap(vc_keymap)
-        log.debug("Missing X layouts value %s converted from %s virtual console keymap",
-                  x_layouts, vc_keymap)
-
-    return x_layouts, vc_keymap

@@ -39,11 +39,11 @@ from pyanaconda.modules.localization.installation import LanguageInstallationTas
     KeyboardInstallationTask, write_vc_configuration, VC_CONF_FILE_PATH, write_x_configuration, \
     X_CONF_DIR, X_CONF_FILE_NAME
 from pyanaconda.modules.localization.localization import LocalizationService
-from pyanaconda.modules.localization.localed import get_missing_keyboard_configuration, \
-    LocaledWrapper
+from pyanaconda.modules.localization.localed import LocaledWrapper
 from pyanaconda.modules.localization.localization_interface import LocalizationInterface
 from pyanaconda.modules.localization.runtime import GetMissingKeyboardConfigurationTask, \
     ApplyKeyboardTask, AssignGenericKeyboardSettingTask, try_to_load_keymap
+from pyanaconda.modules.localization.utils import get_missing_keyboard_configuration
 from pyanaconda.modules.common.task import TaskInterface
 from dasbus.typing import get_variant, Str, Bool
 
