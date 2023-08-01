@@ -25,6 +25,7 @@ import langtable
 
 from unittest.mock import patch, Mock, call
 from textwrap import dedent
+from contextlib import contextmanager
 
 from tests.unit_tests.pyanaconda_tests import check_kickstart_interface, \
     patch_dbus_publish_object, PropertiesChangedCallback, check_dbus_property, check_task_creation
@@ -656,20 +657,43 @@ class LocalizationTasksTestCase(unittest.TestCase):
         result = task.run()
         assert result == (x_layouts_result, vc_keymap_result)
 
-    def _get_missing_keyboard_configuration_test(self,
-                                                 x_layouts,
-                                                 converted_x_layouts,
-                                                 live_x_layouts,
-                                                 vc_keymap,
-                                                 converted_vc_keymap,
-                                                 result_x_layouts,
-                                                 result_vc_keymap):
+    @contextmanager
+    def _create_localed_mock(self,
+                             convert_layouts_output,
+                             convert_keymap_output,
+                             expected_convert_layouts_input=None,
+                             expected_convert_keymap_input=None):
         localed = Mock()
-        localed.convert_keymap.return_value = converted_vc_keymap
-        localed.convert_layouts.return_value = converted_x_layouts
+        localed.convert_layouts.return_value = convert_layouts_output
+        localed.convert_keymap.return_value = convert_keymap_output
 
-        live_keyboard = Mock()
-        live_keyboard.read_keyboard_layouts.return_value = live_x_layouts
+        yield localed
+
+        if expected_convert_layouts_input is None:
+            localed.convert_layouts.assert_not_called()
+        else:
+            localed.convert_layouts.assert_called_once_with(expected_convert_layouts_input)
+
+        if expected_convert_keymap_input is None:
+            localed.convert_keymap.assert_not_called()
+        else:
+            localed.convert_keymap.assert_called_once_with(expected_convert_keymap_input)
+
+    def _create_live_keyboard_mock(self, layouts, current_layout):
+        live_keyboard_mock = Mock()
+
+        live_keyboard_mock.read_keyboard_layouts.return_value = layouts
+        live_keyboard_mock.read_current_keyboard_layout.return_value = current_layout
+
+        return live_keyboard_mock
+
+    def _get_missing_keyboard_configuration_test(self,
+                                                 input_x_layouts,
+                                                 input_vc_keymap,
+                                                 result_x_layouts,
+                                                 result_vc_keymap,
+                                                 localed,
+                                                 live_keyboard):
 
         with patch("pyanaconda.modules.localization.utils.get_live_keyboard_instance") as \
              get_live_keyboard_mock:
@@ -678,64 +702,156 @@ class LocalizationTasksTestCase(unittest.TestCase):
 
             result = get_missing_keyboard_configuration(
                 localed,
-                x_layouts,
-                vc_keymap
+                input_x_layouts,
+                input_vc_keymap
             )
             assert result == (result_x_layouts, result_vc_keymap)
 
     def test_get_missing_keyboard_configuration(self):
         """Test the get_missing_keyboard_configuration."""
         # No value available
-        # pylint: disable=no-value-for-parameter
-        self._get_missing_keyboard_configuration_test(
-            x_layouts=[],
-            converted_x_layouts="",
-            live_x_layouts=[],
-            vc_keymap="",
-            converted_vc_keymap=[DEFAULT_KEYBOARD],
-            result_x_layouts=[DEFAULT_KEYBOARD],
-            result_vc_keymap=DEFAULT_KEYBOARD,
-        )
+        with self._create_localed_mock(
+                convert_layouts_output="",
+                convert_keymap_output=[DEFAULT_KEYBOARD],
+                expected_convert_layouts_input=None,
+                expected_convert_keymap_input=DEFAULT_KEYBOARD
+        ) as mocked_localed:
+            self._get_missing_keyboard_configuration_test(
+                input_x_layouts=[],
+                input_vc_keymap="",
+                result_x_layouts=[DEFAULT_KEYBOARD],
+                result_vc_keymap=DEFAULT_KEYBOARD,
+                localed=mocked_localed,
+                live_keyboard=None
+            )
         # Both values available
-        self._get_missing_keyboard_configuration_test(
-            x_layouts=["cz (qwerty)"],
-            converted_x_layouts="cz-qwerty",
-            live_x_layouts=[],
-            vc_keymap="us",
-            converted_vc_keymap=["us"],
-            result_x_layouts=["cz (qwerty)"],
-            result_vc_keymap="us",
-        )
+        with self._create_localed_mock(
+                convert_layouts_output="cz-qwerty",
+                convert_keymap_output=["us"],
+                expected_convert_layouts_input=None,
+                expected_convert_keymap_input=None
+        ) as mocked_localed:
+            self._get_missing_keyboard_configuration_test(
+                input_x_layouts=["cz (qwerty)"],
+                input_vc_keymap="us",
+                result_x_layouts=["cz (qwerty)"],
+                result_vc_keymap="us",
+                localed=mocked_localed,
+                live_keyboard=None
+            )
         # Only X laylouts available
-        self._get_missing_keyboard_configuration_test(
-            x_layouts=["cz (qwerty)"],
-            converted_x_layouts="cz-qwerty",
-            live_x_layouts=[],
-            vc_keymap="",
-            converted_vc_keymap=[""],
-            result_x_layouts=["cz (qwerty)"],
-            result_vc_keymap="cz-qwerty",
-        )
+        with self._create_localed_mock(
+                convert_layouts_output="cz-qwerty",
+                convert_keymap_output=["us"],
+                expected_convert_layouts_input=["cz (qwerty)"],
+                expected_convert_keymap_input=None
+        ) as mocked_localed:
+            self._get_missing_keyboard_configuration_test(
+                input_x_layouts=["cz (qwerty)"],
+                input_vc_keymap="",
+                result_x_layouts=["cz (qwerty)"],
+                result_vc_keymap="cz-qwerty",
+                localed=mocked_localed,
+                live_keyboard=None
+            )
         # Only virtual console keymap available
-        self._get_missing_keyboard_configuration_test(
-            x_layouts=[],
-            converted_x_layouts="",
-            live_x_layouts=[],
-            vc_keymap="us",
-            converted_vc_keymap=["us"],
-            result_x_layouts=["us"],
-            result_vc_keymap="us",
-        )
-        # Take layouts from Live system (vc will be converted from Live layouts)
-        self._get_missing_keyboard_configuration_test(
-            x_layouts=[],
-            converted_x_layouts="cz",
-            live_x_layouts=["cz", "cz (qwerty)"],
-            vc_keymap="",
-            converted_vc_keymap=[""],
-            result_x_layouts=["cz", "cz (qwerty)"],
-            result_vc_keymap="cz",
-        )
+        with self._create_localed_mock(
+                convert_layouts_output="",
+                convert_keymap_output=["us"],
+                expected_convert_layouts_input=None,
+                expected_convert_keymap_input="us"
+        ) as mocked_localed:
+            self._get_missing_keyboard_configuration_test(
+                input_x_layouts=[],
+                input_vc_keymap="us",
+                result_x_layouts=["us"],
+                result_vc_keymap="us",
+                localed=mocked_localed,
+                live_keyboard=None
+            )
+
+    def test_get_missing_keyboard_configuration_from_live(self):
+        """Test the gt_missing_keyboard_configuration from Live system."""
+        # Take layouts from Live system but their are empty
+        with self._create_localed_mock(
+                convert_layouts_output="",
+                convert_keymap_output=[DEFAULT_KEYBOARD],
+                expected_convert_layouts_input=None,
+                expected_convert_keymap_input=DEFAULT_KEYBOARD
+        ) as mocked_localed:
+            self._get_missing_keyboard_configuration_test(
+                input_x_layouts=[],
+                input_vc_keymap="",
+                result_x_layouts=[DEFAULT_KEYBOARD],
+                result_vc_keymap=DEFAULT_KEYBOARD,
+                localed=mocked_localed,
+                live_keyboard=self._create_live_keyboard_mock(layouts=[],
+                                                              current_layout="")
+            )
+        # Take layouts and current_layout from Live system
+        with self._create_localed_mock(
+                convert_layouts_output="cz",
+                convert_keymap_output=[DEFAULT_KEYBOARD],
+                expected_convert_layouts_input=["cz"],
+                expected_convert_keymap_input=None
+        ) as mocked_localed:
+            self._get_missing_keyboard_configuration_test(
+                input_x_layouts=[],
+                input_vc_keymap="",
+                result_x_layouts=["cz", "us"],
+                result_vc_keymap="cz",
+                localed=mocked_localed,
+                live_keyboard=self._create_live_keyboard_mock(layouts=["cz", "us"],
+                                                              current_layout="cz")
+            )
+        # Take layouts only from Live system (vc_keymap is converted from live layouts)
+        with self._create_localed_mock(
+                convert_layouts_output="cz",
+                convert_keymap_output=[],
+                expected_convert_layouts_input=["cz", "us"],
+                expected_convert_keymap_input=None
+        ) as mocked_localed:
+            self._get_missing_keyboard_configuration_test(
+                input_x_layouts=[],
+                input_vc_keymap="",
+                result_x_layouts=["cz", "us"],
+                result_vc_keymap="cz",
+                localed=mocked_localed,
+                live_keyboard=self._create_live_keyboard_mock(layouts=["cz", "us"],
+                                                              current_layout="")
+            )
+        # Layouts are set by user but vc_keymap not (convert layouts to VC without live)
+        with self._create_localed_mock(
+                convert_layouts_output="cz",
+                convert_keymap_output=[],
+                expected_convert_layouts_input=["cz"],
+                expected_convert_keymap_input=None
+        ) as mocked_localed:
+            self._get_missing_keyboard_configuration_test(
+                input_x_layouts=["cz"],
+                input_vc_keymap="",
+                result_x_layouts=["cz"],
+                result_vc_keymap="cz",
+                localed=mocked_localed,
+                live_keyboard=self._create_live_keyboard_mock(layouts=[],
+                                                              current_layout="")
+            )
+        # VC keymap is set by user but layouts are taken from Live
+        with self._create_localed_mock(
+                convert_layouts_output="",
+                convert_keymap_output=[],
+                expected_convert_layouts_input=None,
+                expected_convert_keymap_input=None
+        ) as mocked_localed:
+            self._get_missing_keyboard_configuration_test(
+                input_x_layouts=[],
+                input_vc_keymap="cz",
+                result_x_layouts=["us"],
+                result_vc_keymap="cz",
+                localed=mocked_localed,
+                live_keyboard=self._create_live_keyboard_mock(layouts=["us"],
+                                                              current_layout="")
+            )
 
     @patch("pyanaconda.modules.localization.runtime.conf")
     @patch("pyanaconda.modules.localization.runtime.try_to_load_keymap")
@@ -1138,9 +1254,22 @@ class LiveSystemKeyboardTestCase(unittest.TestCase):
             ["get", "org.gnome.desktop.input-sources", "sources"]
             )
 
+    def _check_gnome_shell_current_layout_conversion(self, mocked_exec_with_capture, system_input,
+                                                     output):
+        mocked_exec_with_capture.reset_mock()
+        mocked_exec_with_capture.return_value = system_input
+
+        gs = GnomeShellKeyboard()
+
+        assert gs.read_current_keyboard_layout() == output
+        mocked_exec_with_capture.assert_called_once_with(
+            "gsettings",
+            ["get", "org.gnome.desktop.input-sources", "mru-sources"]
+            )
+
     @patch("pyanaconda.modules.localization.live_keyboard.execWithCaptureAsLiveUser")
     def test_gnome_shell_keyboard(self, mocked_exec_with_capture):
-        """Test GnomeShellKeyboard live instance."""
+        """Test GnomeShellKeyboard live instance layouts."""
         # test one simple layout set
         self._check_gnome_shell_layouts_conversion(
             mocked_exec_with_capture=mocked_exec_with_capture,
@@ -1181,4 +1310,56 @@ class LiveSystemKeyboardTestCase(unittest.TestCase):
             mocked_exec_with_capture=mocked_exec_with_capture,
             system_input=r"wrong input",
             output=[]
+        )
+
+    @patch("pyanaconda.modules.localization.live_keyboard.execWithCaptureAsLiveUser")
+    def test_gnome_shell_current_keyboard_layout(self, mocked_exec_with_capture):
+        """Test GnomeShellKeyboard live instance current layout."""
+        # test one simple layout is set
+        self._check_gnome_shell_current_layout_conversion(
+            mocked_exec_with_capture=mocked_exec_with_capture,
+            system_input=r"[('xkb', 'us')]",
+            output="us"
+        )
+
+        # test one complex layout is set
+        self._check_gnome_shell_current_layout_conversion(
+            mocked_exec_with_capture=mocked_exec_with_capture,
+            system_input=r"[('xkb', 'cz+qwerty')]",
+            output="cz (qwerty)"
+        )
+
+        # test multiple layouts are set
+        self._check_gnome_shell_current_layout_conversion(
+            mocked_exec_with_capture=mocked_exec_with_capture,
+            system_input=r"[('xkb', 'cz+qwerty'), ('xkb', 'us')]",
+            output="cz (qwerty)"
+        )
+
+        # test layouts with ibus (ibus is ignored)
+        self._check_gnome_shell_current_layout_conversion(
+            mocked_exec_with_capture=mocked_exec_with_capture,
+            system_input=r"[('xkb', 'cz'), ('ibus', 'libpinyin')]",
+            output="cz"
+        )
+
+        # test layouts with ibus first (ibus should be skipped)
+        self._check_gnome_shell_current_layout_conversion(
+            mocked_exec_with_capture=mocked_exec_with_capture,
+            system_input=r"[('ibus', 'libpinyin'), ('xkb', 'us')]",
+            output="us"
+        )
+
+        # test only ibus layout
+        self._check_gnome_shell_current_layout_conversion(
+            mocked_exec_with_capture=mocked_exec_with_capture,
+            system_input=r"[('ibus', 'libpinyin')]",
+            output=""
+        )
+
+        # test wrong input
+        self._check_gnome_shell_current_layout_conversion(
+            mocked_exec_with_capture=mocked_exec_with_capture,
+            system_input=r"wrong input",
+            output=""
         )

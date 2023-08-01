@@ -50,6 +50,17 @@ class LiveSystemKeyboardBase(ABC):
         """
         pass
 
+    @abstractmethod
+    def read_current_keyboard_layout(self):
+        """Read keyboard layout currently used.
+
+        It is the best candidate for the virtual console keymap.
+
+        :return: keyboard layout used for virtual_console (e.g: LUKS during boot)
+        :rtype: str
+        """
+        pass
+
     @staticmethod
     def _run_as_liveuser(argv):
         """Run the command in a system as liveuser user.
@@ -74,15 +85,34 @@ class GnomeShellKeyboard(LiveSystemKeyboardBase):
         """
         command_args = ["gsettings", "get", "org.gnome.desktop.input-sources", "sources"]
         sources = self._run_as_liveuser(command_args)
+        result = self._convert_to_xkb_format(sources)
+        return result
 
-        # convert output "[('xkb', 'us'), ('xkb', 'cz+qwerty')]\n"
+    def read_current_keyboard_layout(self):
+        """Read keyboard layout currently used.
+
+        It is the best candidate for the virtual console keymap.
+
+        :return: keyboard layout used for virtual_console (e.g: LUKS during boot)
+        :rtype: str
+        """
+        command_args = ["gsettings", "get", "org.gnome.desktop.input-sources", "mru-sources"]
+        sources = self._run_as_liveuser(command_args)
+        result = self._convert_to_xkb_format(sources)
+        # take first recently used which is the currently used
+        if result:
+            return result[0]
+        return ""
+
+    def _convert_to_xkb_format(self, sources):
+        # convert input "[('xkb', 'us'), ('xkb', 'cz+qwerty')]\n"
+        # to a python list of '["us", "cz (qwerty)"]'
         try:
             sources = eval(sources.rstrip())
         except SyntaxError:
             log.error("Gnome Shell keyboard configuration can't be obtained from source %s!",
                       sources)
             return []
-
         result = []
 
         for t in sources:
