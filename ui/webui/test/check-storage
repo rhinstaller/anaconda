@@ -615,12 +615,16 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         # BIOS boot partition, /boot partition, /
         disk1 = "/dev/vda"
         dev1 = "vda"
-        self.partition_disk(disk1, [("1MiB", "biosboot"), ("1GB", "xfs"), ("", "xfs")])
+        self.partition_disk(disk1, [("1MiB", "biosboot"), ("1GB", "xfs"), ("1GB", "xfs"), ("", "xfs")])
         m.execute(f"""
         echo einszweidrei | cryptsetup luksFormat {disk1}3
         echo einszweidrei | cryptsetup luksOpen {disk1}3 encrypted-vol
         mkfs.xfs -f /dev/mapper/encrypted-vol
         cryptsetup luksClose encrypted-vol
+        echo einszweidreivier | cryptsetup luksFormat {disk1}4
+        echo einszweidreivier | cryptsetup luksOpen {disk1}4 encrypted-vol2
+        mkfs.xfs -f /dev/mapper/encrypted-vol2
+        cryptsetup luksClose encrypted-vol2
         """)
         self.udevadm_settle()
 
@@ -640,14 +644,27 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         i.next(next_page=i.steps.CUSTOM_MOUNT_POINT)
 
         self.unlock_all_encrypted()
-        self.unlock_device("einszweidrei")
+        self.unlock_device("einszweidrei", "Some LUKS devices were not unlocked")
+
+        self.unlock_all_encrypted_skip()
+        b.wait_not_present("button:contains(Unlock)")
+
+        i.back()
+        i.next(next_page=i.steps.CUSTOM_MOUNT_POINT)
+
+        self.unlock_all_encrypted()
+        self.unlock_device("einszweidreivier")
         b.wait_not_present("#mount-point-mapping-table tbody tr:nth-child(4) td[data-label='Format type'] #unlock-luks-btn")
 
         self.check_row_mountpoint(1, "/boot")
         self.select_row_device(1, f"{dev1}2")
 
         self.check_row_mountpoint(2, "/")
-        self.select_row_device(2, "luks")
+        selector = "#mount-point-mapping-table-row-2 .pf-c-select__toggle"
+        self.browser.click(f"{selector}:not([disabled]):not([aria-disabled=true])")
+        select_entry = f"{selector} + ul li:nth-of-type(3) button"
+        self.browser.click(select_entry)
+        self.browser.wait_in_text(f"{selector} .pf-c-select__toggle-text", "luks")
         self.check_format_type(2, "xfs")
 
         i.next()
