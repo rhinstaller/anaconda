@@ -76,10 +76,13 @@ const DeviceRow = ({ deviceData, disk, requests }) => {
 
     const renderRow = row => {
         const name = row["device-spec"];
-        const format = row["format-type"] ? cockpit.format(_("format as $0"), row["format-type"]) : null;
+        const action = (
+            row.reformat
+                ? (row["format-type"] ? cockpit.format(_("format as $0"), row["format-type"]) : null)
+                : ((row["format-type"] === "biosboot") ? row["format-type"] : _("mount"))
+        );
         const mount = row["mount-point"] || null;
-        const reformat = row.reformat ? _("reformat") : null;
-        const actions = [format, mount, reformat].filter(Boolean).join(", ");
+        const actions = [action, mount].filter(Boolean).join(", ");
         const size = cockpit.format_bytes(deviceData[name].size.v);
 
         return (
