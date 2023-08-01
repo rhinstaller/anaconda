@@ -96,6 +96,8 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         i.next()
         # Disk Encryption
 
+        i.check_next_disabled(False)
+
         b.assert_pixels(
             "#app",
             "storage-step-encrypt",
