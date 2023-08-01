@@ -104,7 +104,7 @@ const DeviceRow = ({ deviceData, disk, requests }) => {
     );
 };
 
-export const ReviewConfiguration = ({ deviceData, diskSelection, language, osRelease, requests, idPrefix, storageScenarioId }) => {
+export const ReviewConfiguration = ({ deviceData, diskSelection, language, osRelease, requests, idPrefix, setIsFormValid, storageScenarioId }) => {
     const [encrypt, setEncrypt] = useState();
 
     useEffect(() => {
@@ -117,7 +117,8 @@ export const ReviewConfiguration = ({ deviceData, diskSelection, language, osRel
             }
         };
         initializeEncrypt();
-    }, []);
+        setIsFormValid(true);
+    }, [setIsFormValid]);
 
     return (
         <AnacondaPage title={_("Review and install")}>
