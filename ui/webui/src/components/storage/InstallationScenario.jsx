@@ -190,9 +190,10 @@ const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, sce
             return;
         }
 
+        const newAvailability = {};
         for (const scenario of scenarios) {
             const availability = scenario.check({ diskTotalSpace, diskFreeSpace, hasPartitions, requiredSize });
-            setScenarioAvailability(ss => ({ ...ss, [scenario.id]: availability }));
+            newAvailability[scenario.id] = availability;
             if (availability.available) {
                 availableScenarioExists = true;
                 if (scenario.id === storageScenarioId) {
@@ -206,6 +207,7 @@ const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, sce
             }
         }
         setSelectedScenario(selectedScenarioId);
+        setScenarioAvailability(newAvailability);
         setIsFormValid(availableScenarioExists);
     }, [scenarios, deviceData, hasPartitions, requiredSize, diskFreeSpace, diskTotalSpace, setIsFormValid, storageScenarioId]);
 
