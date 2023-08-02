@@ -22,7 +22,7 @@ import string
 from enum import Enum
 
 from pyanaconda.core.i18n import N_
-from pyanaconda import product
+from pyanaconda.core.product import get_product_name, get_product_version
 
 
 # Use -1 to indicate that the selinux configuration is unset
@@ -52,7 +52,7 @@ BASE_REPO_NAME = "anaconda"
 
 # Get list of repo names witch should be used as base repo
 DEFAULT_REPOS = [
-    product.productName.split('-')[0].lower(),  # pylint: disable=no-member
+    get_product_name().split('-')[0].lower(),  # pylint: disable=no-member
     "fedora-modular-server",
     "rawhide",
     "BaseOS",      # Used by RHEL
@@ -97,7 +97,7 @@ NETWORK_CONNECTION_TIMEOUT = 46  # in seconds
 NETWORK_CONNECTED_CHECK_INTERVAL = 0.1  # in seconds
 
 # Anaconda user agent
-USER_AGENT = "%s (anaconda)/%s" % (product.productName, product.productVersion)
+USER_AGENT = "%s (anaconda)/%s" % (get_product_name(), get_product_version())
 
 # Thread names
 THREAD_EXECUTE_STORAGE = "AnaExecuteStorageThread"
