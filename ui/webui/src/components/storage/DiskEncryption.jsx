@@ -77,10 +77,8 @@ const strengthLevels = [{
     valid: true,
 }];
 
-export function StorageEncryptionState (password = "", confirmPassword = "", encrypt = false) {
-    this.password = password;
-    this.confirmPassword = confirmPassword;
-    this.encrypt = encrypt;
+export function getStorageEncryptionState (password = "", confirmPassword = "", encrypt = false) {
+    return { password, confirmPassword, encrypt };
 }
 
 const passwordStrengthLabel = (idPrefix, strength) => {
@@ -288,8 +286,12 @@ export const DiskEncryption = ({
     }, [setIsFormValid, isEncrypted, password, confirmPassword]);
 
     useEffect(() => {
-        setStorageEncryption(se => ({ ...se, password, confirmPassword }));
-    }, [password, confirmPassword, setStorageEncryption]);
+        setStorageEncryption(se => ({ ...se, password }));
+    }, [password, setStorageEncryption]);
+
+    useEffect(() => {
+        setStorageEncryption(se => ({ ...se, confirmPassword }));
+    }, [confirmPassword, setStorageEncryption]);
 
     if (isInProgress) {
         return CheckDisksSpinner;
