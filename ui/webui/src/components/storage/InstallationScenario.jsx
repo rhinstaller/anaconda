@@ -145,7 +145,7 @@ export const getDefaultScenario = () => {
     return scenarios.filter(s => s.default)[0];
 };
 
-const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, scenarios, storageScenarioId, setStorageScenarioId, setIsFormValid }) => {
+const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, storageScenarioId, setStorageScenarioId, setIsFormValid }) => {
     const [selectedScenario, setSelectedScenario] = useState();
     const [scenarioAvailability, setScenarioAvailability] = useState(Object.fromEntries(
         scenarios.map((s) => [s.id, new AvailabilityState()])
@@ -209,7 +209,7 @@ const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, sce
         setSelectedScenario(selectedScenarioId);
         setScenarioAvailability(newAvailability);
         setIsFormValid(availableScenarioExists);
-    }, [scenarios, deviceData, hasPartitions, requiredSize, diskFreeSpace, diskTotalSpace, setIsFormValid, storageScenarioId]);
+    }, [deviceData, hasPartitions, requiredSize, diskFreeSpace, diskTotalSpace, setIsFormValid, storageScenarioId]);
 
     useEffect(() => {
         const applyScenario = async (scenarioId) => {
@@ -222,7 +222,7 @@ const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, sce
         if (selectedScenario) {
             applyScenario(selectedScenario);
         }
-    }, [scenarios, selectedScenario, setStorageScenarioId]);
+    }, [selectedScenario, setStorageScenarioId]);
 
     const onScenarioToggled = (scenarioId) => {
         setSelectedScenario(scenarioId);
@@ -265,7 +265,6 @@ export const InstallationScenario = ({ deviceData, diskSelection, idPrefix, setI
                   deviceData={deviceData}
                   selectedDisks={diskSelection.selectedDisks}
                   idPrefix={idPrefix}
-                  scenarios={scenarios}
                   setIsFormValid={setIsFormValid}
                   storageScenarioId={storageScenarioId}
                   setStorageScenarioId={setStorageScenarioId}
