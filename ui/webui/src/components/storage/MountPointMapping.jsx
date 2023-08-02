@@ -453,18 +453,11 @@ const MountPointMappingContent = ({ deviceData, partitioningData, dispatch, idPr
     }
 };
 
-export const MountPointMapping = ({ deviceData, diskSelection, partitioningData, dispatch, idPrefix, setIsFormValid, onAddErrorNotification, stepNotification }) => {
-    const [creatingPartitioning, setCreatingPartitioning] = useState(true);
-
-    // If device selection changed since the last partitioning request redo the partitioning
-    const selectedDevices = diskSelection.selectedDisks;
-    const partitioningDevices = partitioningData?.requests?.map(r => r["device-spec"]) || [];
-    const canReusePartitioning = selectedDevices.length === partitioningDevices.length && selectedDevices.every(d => partitioningDevices.includes(d));
+export const MountPointMapping = ({ deviceData, diskSelection, partitioningData, dispatch, idPrefix, setIsFormValid, onAddErrorNotification, reusePartitioning, setReusePartitioning, stepNotification }) => {
+    const [usedPartitioning, setUsedPartitioning] = useState(partitioningData?.path);
 
     useEffect(() => {
-        if (canReusePartitioning) {
-            setCreatingPartitioning(false);
-        } else {
+        if (!reusePartitioning || partitioningData?.method !== "MANUAL") {
             /* Reset the bootloader drive before we schedule partitions
              * The bootloader drive is automatically set during the partitioning, so
              * make sure we always reset the previous value before we run another one,
@@ -473,11 +466,14 @@ export const MountPointMapping = ({ deviceData, diskSelection, partitioningData,
              */
             setBootloaderDrive({ drive: "" })
                     .then(() => createPartitioning({ method: "MANUAL" }))
-                    .then(() => setCreatingPartitioning(false));
+                    .then(path => {
+                        setUsedPartitioning(path[0]);
+                        setReusePartitioning(true);
+                    });
         }
-    }, [canReusePartitioning]);
+    }, [reusePartitioning, setReusePartitioning, partitioningData?.method, partitioningData?.path]);
 
-    if (creatingPartitioning || !partitioningData?.path || (partitioningData?.requests?.length || 0) < 1) {
+    if (!reusePartitioning || usedPartitioning !== partitioningData.path) {
         return <EmptyStatePanel loading />;
     }
 

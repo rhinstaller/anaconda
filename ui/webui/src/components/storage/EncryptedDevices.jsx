@@ -41,7 +41,6 @@ import { ModalError } from "cockpit-components-inline-notification.jsx";
 import { getDevicesAction } from "../../actions/storage-actions.js";
 
 import {
-    createPartitioning,
     unlockDevice,
 } from "../../apis/storage.js";
 
@@ -111,9 +110,6 @@ const UnlockDialog = ({ lockedLUKSDevices, onClose, dispatch }) => {
                     dispatch(getDevicesAction());
 
                     if (res.every(r => r.value[0])) {
-                        // Also refresh the partitioning data which will now show the children
-                        // of the unlocked device.
-                        createPartitioning({ method: "MANUAL" });
                         onClose();
                     } else {
                         dialogErrorSet(_("Incorrect passphrase"));
