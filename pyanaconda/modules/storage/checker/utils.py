@@ -23,13 +23,14 @@ from blivet.size import Size
 
 from pyanaconda.core.hw import NO_SWAP_EXTRA_RAM
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import productName, STORAGE_REFORMAT_BLOCKLIST, \
+from pyanaconda.core.constants import STORAGE_REFORMAT_BLOCKLIST, \
     STORAGE_REFORMAT_ALLOWLIST, STORAGE_MIN_PARTITION_SIZES, STORAGE_MIN_RAM, \
     STORAGE_SWAP_IS_RECOMMENDED, STORAGE_MUST_BE_ON_ROOT, STORAGE_MUST_BE_ON_LINUXFS, \
     STORAGE_LUKS2_MIN_RAM, STORAGE_ROOT_DEVICE_TYPES, STORAGE_REQ_PARTITION_SIZES, \
     STORAGE_MUST_NOT_BE_ON_ROOT
 from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import rpm_version_key
+from pyanaconda.core.product import get_product_name
 from pyanaconda.core.storage import DEVICE_TEXT_MAP
 from pyanaconda.modules.storage.platform import platform
 
@@ -50,7 +51,7 @@ def verify_root(storage, constraints, report_error, report_warning):
     if not root:
         report_error(_("You have not defined a root partition (/), "
                        "which is required for installation of %s"
-                       " to continue.") % (productName,))
+                       " to continue.") % (get_product_name(),))
 
     if root and root.format.exists and root.format.mountable and root.format.mountpoint == "/":
         report_error(_("You must create a new file system on the root device."))
@@ -120,7 +121,7 @@ def verify_partition_sizes(storage, constraints, report_error, report_warning):
                              "%(size)s which is lower than recommended "
                              "for a normal %(productName)s install.")
                            % {'mount': mount, 'size': size,
-                              'productName': productName})
+                              'productName': get_product_name()})
 
     for (mount, size) in constraints[STORAGE_REQ_PARTITION_SIZES].items():
         if mount in filesystems and filesystems[mount].size < size:

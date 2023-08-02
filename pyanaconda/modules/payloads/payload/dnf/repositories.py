@@ -22,10 +22,10 @@ from itertools import count
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import isFinal as is_final_release, REPO_ORIGIN_TREEINFO, \
-    REPO_ORIGIN_SYSTEM
+from pyanaconda.core.constants import REPO_ORIGIN_TREEINFO, REPO_ORIGIN_SYSTEM
 from pyanaconda.core.i18n import _
 from pyanaconda.core.path import join_paths
+from pyanaconda.core.product import get_product_is_final_release
 from pyanaconda.core.util import execWithRedirect
 from pyanaconda.modules.common.errors.payload import UnknownRepositoryError, SourceSetupError
 from pyanaconda.modules.common.structures.payload import RepoConfigurationData
@@ -186,7 +186,7 @@ def disable_default_repositories(dnf_manager):
     log.debug("Disable repositories based on the Anaconda configuration file.")
     enable_matching_repositories(dnf_manager, conf.payload.disabled_repositories, False)
 
-    if not is_final_release:
+    if not get_product_is_final_release():
         return
 
     log.debug("Disable rawhide repositories.")

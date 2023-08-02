@@ -19,21 +19,17 @@
 
 # Used for digits, ascii_letters, punctuation constants
 import string
-from pyanaconda.core.i18n import N_
-
 from enum import Enum
+
+from pyanaconda.core.i18n import N_
+from pyanaconda import product
+
 
 # Use -1 to indicate that the selinux configuration is unset
 SELINUX_DEFAULT = -1
 
 # where to look for 3rd party addons
 ADDON_PATHS = ["/usr/share/anaconda/addons"]
-
-# common string needs to be easy to change
-from pyanaconda import product
-productName = product.productName
-isFinal = product.isFinal
-shortProductName = product.shortProductName
 
 # The default virtio port.
 VIRTIO_PORT = "/dev/virtio-ports/org.fedoraproject.anaconda.log.0"
