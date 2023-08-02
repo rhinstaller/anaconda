@@ -16,61 +16,23 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-
-import configparser
-import os
-
+from pyanaconda.core.product import get_product_is_final_release, get_product_name, \
+    get_product_version, get_product_short_name
 from pyanaconda.core.i18n import _
 
 __all__ = ["isFinal", "productName", "productVersion", "shortProductName", "distributionText"]
 
-# Order of precedence for the variables published in __all__ is:
-#   1) Buildstamp file specified by the PRODBUILDPATH environment variable
-#   2) Buildstamp file /.buildstamp
-#   3) Environment variable ANACONDA_ISFINAL
-#   4) In absence of any data, fall back to "false"
 
-
-# First, load in the defaults.  In order of precedence:  contents of
-# .buildstamp, environment, stupid last ditch hardcoded defaults.
-config = configparser.ConfigParser()
-config.add_section("Main")
-config.set("Main", "IsFinal", os.environ.get("ANACONDA_ISFINAL", "false"))
-config.set("Main", "Product", os.environ.get("ANACONDA_PRODUCTNAME", "anaconda"))
-config.set("Main", "Version", os.environ.get("ANACONDA_PRODUCTVERSION", "bluesky"))
-
-# Now read in the .buildstamp file, wherever it may be.
-config.read(["/.buildstamp", os.environ.get("PRODBUILDPATH", "")])
-
-# Set up some variables we import throughout, applying a couple transforms as necessary.
-isFinal = config.getboolean("Main", "IsFinal")
-productName = config.get("Main", "Product")
-productVersion = config.get("Main", "Version")
-
-if productVersion == "development":
-    productVersion = "rawhide"
-
-# for use in device names, eg: "fedora", "rhel"
-shortProductName = productName.lower()          # pylint: disable=no-member
-if productName.count(" "):                      # pylint: disable=no-member
-    shortProductName = ''.join(s[0] for s in shortProductName.split())
-
-
-def trim_product_version_for_ui(version):
-    """Trim off parts of version that should not be displayed in UI.
-
-    Example: 8.0.1 -> 8.0
-    """
-    if version.count('.') >= 2:
-        version = '.'.join(version.split('.')[:2])
-    return version
-
-
-productVersion = trim_product_version_for_ui(productVersion)
+# TODO: Remove all usages of these variables by replacing them with the actual getters from
+#  pyanaconda.core.product, then resolve the helper below, finally remove this file.
+isFinal = get_product_is_final_release()
+productName = get_product_name()
+productVersion = get_product_version()
+shortProductName = get_product_short_name()
 
 
 def distributionText():
     return _("%(productName)s %(productVersion)s INSTALLATION") % {
-        "productName": productName.upper(),
-        "productVersion": productVersion.upper()
+        "productName": get_product_name().upper(),
+        "productVersion": get_product_version().upper()
     }
