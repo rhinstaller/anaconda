@@ -75,7 +75,7 @@ export const CriticalError = ({ exception, isBootIso, reportLinkURL }) => {
 
     const openBZIssue = (reportURL) => {
         cockpit.file("/tmp/webui.log").replace(logContent)
-                .then(window.open(reportURL, "_blank"));
+                .then(window.open(reportURL, "_blank", "noopener,noreferer"));
     };
 
     const context = exception.contextData?.context;
