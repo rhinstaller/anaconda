@@ -92,10 +92,6 @@ ANACONDA_PKG_CHECK_MODULES([LIBARCHIVE], [libarchive >= 3.0.4])
 # Add remaining compiler flags we want to use
 CFLAGS="$CFLAGS -Wall -Werror -fanalyzer"
 
-# Localization specific settings (used in main and po Makefile.am)
-AC_SUBST(L10N_REPOSITORY, [https://github.com/rhinstaller/anaconda-l10n.git])
-# Branch used in anaconda-l10n repository. This should be master all the time.
-AC_SUBST(GIT_L10N_BRANCH, [master])
 
 # Perform arch related tests
 AC_CANONICAL_BUILD
