@@ -73,9 +73,7 @@ export const storageReducer = (state = storageInitialState, action) => {
     } else if (action.type === "GET_DISK_SELECTION") {
         return { ...state, diskSelection: action.payload.diskSelection };
     } else if (action.type === "GET_PARTITIONING_DATA") {
-        const partitioning = { ...state.partitioning[action.payload.path], ...action.payload.partitioningData };
-
-        return { ...state, partitioning: { ...state.partitioning, [action.payload.path]: partitioning } };
+        return { ...state, partitioning: action.payload.partitioningData };
     } else {
         return state;
     }

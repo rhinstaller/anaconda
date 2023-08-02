@@ -56,11 +56,6 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
     const [isInProgress, setIsInProgress] = useState(false);
     const [storageEncryption, setStorageEncryption] = useState(getStorageEncryptionState());
     const [storageScenarioId, setStorageScenarioId] = useState(window.sessionStorage.getItem("storage-scenario-id") || getDefaultScenario().id);
-    const lastPartitioning = useMemo(() => {
-        const lastPartitioningKey = Object.keys(storageData.partitioning || {}).find(path => parseInt(path.match(/\d+$/)[0]) === Object.keys(storageData.partitioning).length);
-
-        return storageData.partitioning?.[lastPartitioningKey];
-    }, [storageData.partitioning]);
 
     const language = useMemo(() => {
         for (const l of Object.keys(localizationData.languages)) {
@@ -91,7 +86,7 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
             label: _("Disk configuration"),
             steps: [{
                 component: MountPointMapping,
-                data: { deviceData: storageData.devices, diskSelection: storageData.diskSelection, partitioningData: lastPartitioning, dispatch },
+                data: { deviceData: storageData.devices, diskSelection: storageData.diskSelection, partitioningData: storageData.partitioning, dispatch },
                 id: "mount-point-mapping",
                 label: _("Manual disk configuration"),
                 isHidden: storageScenarioId !== "mount-point-mapping"
@@ -108,7 +103,7 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
             data: {
                 deviceData: storageData.devices,
                 diskSelection: storageData.diskSelection,
-                requests: lastPartitioning ? lastPartitioning.requests : null,
+                requests: storageData.partitioning ? storageData.partitioning.requests : null,
                 language,
                 osRelease
             },
@@ -206,7 +201,7 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
               id="installation-wizard"
               footer={<Footer
                 isFormValid={isFormValid}
-                partitioning={lastPartitioning?.path}
+                partitioning={storageData.partitioning?.path}
                 setIsFormValid={setIsFormValid}
                 setStepNotification={setStepNotification}
                 isInProgress={isInProgress}
