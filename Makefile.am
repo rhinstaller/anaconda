@@ -375,7 +375,7 @@ container-live-iso-build:
 		exit 1; \
 	fi
 
-	mkdir -p result/iso
+	mkdir -p result/iso/logs
 	sudo $(CONTAINER_ENGINE) run \
 	--rm -t --privileged --tmpfs /var/tmp:rw,mode=1777 --device /dev/kvm \
 	-v $(srcdir)/result/build/01-rpm-build:/anaconda-rpms:ro \
