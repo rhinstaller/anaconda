@@ -95,7 +95,7 @@ const getLockedLUKSDevices = (requests, deviceData) => {
 };
 
 const MountPointColumn = ({ handleRequestChange, idPrefix, isRequiredMountPoint, request, requests }) => {
-    const mountpoint = request["mount-point"];
+    const mountpoint = request["mount-point"] || "";
 
     const [mountPointText, setMountPointText] = useState(mountpoint);
 

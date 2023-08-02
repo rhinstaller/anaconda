@@ -75,14 +75,19 @@ const DeviceRow = ({ deviceData, disk, requests }) => {
     const name = data.name.v;
 
     const renderRow = row => {
-        const format = row["format-type"] ? cockpit.format(_("format as $0"), row["format-type"]) : null;
+        const name = row["device-spec"];
+        const action = (
+            row.reformat
+                ? (row["format-type"] ? cockpit.format(_("format as $0"), row["format-type"]) : null)
+                : ((row["format-type"] === "biosboot") ? row["format-type"] : _("mount"))
+        );
         const mount = row["mount-point"] || null;
-        const reformat = row.reformat ? _("reformat") : null;
-        const actions = [format, mount, reformat].filter(Boolean).join(", ");
+        const actions = [action, mount].filter(Boolean).join(", ");
+        const size = cockpit.format_bytes(deviceData[name].size.v);
 
         return (
-            <ListItem className="pf-u-font-size-s">
-                {row["device-spec"]}: {actions}
+            <ListItem className="pf-u-font-size-s" key={name}>
+                {name}, {size}: {actions}
             </ListItem>
         );
     };
