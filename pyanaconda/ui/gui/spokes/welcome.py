@@ -33,7 +33,7 @@ from pyanaconda.core.async_utils import async_action_wait
 from pyanaconda.ui.gui.spokes.lib.beta_warning_dialog import BetaWarningDialog
 from pyanaconda.ui.gui.spokes.lib.lang_locale_handler import LangLocaleHandler
 from pyanaconda import localization
-from pyanaconda.product import distributionText
+from pyanaconda.ui.helpers import get_distribution_text
 from pyanaconda.core.product import get_product_is_final_release, get_product_name, \
     get_product_version
 from pyanaconda import flags
@@ -213,7 +213,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
         languageEntry.set_placeholder_text(_("Type here to search."))
 
         # And of course, don't forget the underlying window.
-        self.window.set_property("distribution", distributionText())
+        self.window.set_property("distribution", get_distribution_text())
         self.window.retranslate()
 
         # Retranslate the window title text
