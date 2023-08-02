@@ -192,7 +192,7 @@ class Storage():
 
     @log_step(snapshot_before=True)
     def set_partitioning(self, scenario):
-        self.browser.set_checked(self._partitioning_selector(scenario), True)
+        self.browser.click(self._partitioning_selector(scenario))
         self.browser.wait_visible(self._partitioning_selector(scenario) + ":checked")
 
     @log_step(snapshot_before=True)

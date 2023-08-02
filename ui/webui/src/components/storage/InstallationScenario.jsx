@@ -39,7 +39,7 @@ import {
 
 const _ = cockpit.gettext;
 
-function AvailabilityState (available = true, reason = null, hint = null, shortHint = null) {
+function AvailabilityState (available = false, reason = null, hint = null, shortHint = null) {
     this.available = available;
     this.reason = reason;
     this.hint = hint;
@@ -57,6 +57,8 @@ const checkEraseAll = ({ requiredSize, diskTotalSpace }) => {
             "however, the capacity of the selected disks is only $0."
         ), cockpit.format_bytes(diskTotalSpace), cockpit.format_bytes(requiredSize));
         availability.shortHint = _("To enable select bigger disks");
+    } else {
+        availability.available = true;
     }
     return availability;
 };
@@ -72,6 +74,8 @@ const checkUseFreeSpace = ({ diskFreeSpace, requiredSize }) => {
             "however, only $0 is currently available on the selected disks."
         ), cockpit.format_bytes(diskFreeSpace), cockpit.format_bytes(requiredSize));
         availability.shortHint = _("To enable free up disk space");
+    } else {
+        availability.available = true;
     }
     return availability;
 };
@@ -82,6 +86,8 @@ const checkMountPointMapping = ({ hasPartitions }) => {
     if (!hasPartitions) {
         availability.available = false;
         availability.reason = _("No existing partitions on the selected disks.");
+    } else {
+        availability.available = true;
     }
     return availability;
 };
@@ -145,7 +151,7 @@ export const getDefaultScenario = () => {
     return scenarios.filter(s => s.default)[0];
 };
 
-const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, scenarios, storageScenarioId, setStorageScenarioId, setIsFormValid }) => {
+const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, storageScenarioId, setStorageScenarioId, setIsFormValid }) => {
     const [selectedScenario, setSelectedScenario] = useState();
     const [scenarioAvailability, setScenarioAvailability] = useState(Object.fromEntries(
         scenarios.map((s) => [s.id, new AvailabilityState()])
@@ -190,9 +196,10 @@ const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, sce
             return;
         }
 
+        const newAvailability = {};
         for (const scenario of scenarios) {
             const availability = scenario.check({ diskTotalSpace, diskFreeSpace, hasPartitions, requiredSize });
-            setScenarioAvailability(ss => ({ ...ss, [scenario.id]: availability }));
+            newAvailability[scenario.id] = availability;
             if (availability.available) {
                 availableScenarioExists = true;
                 if (scenario.id === storageScenarioId) {
@@ -206,8 +213,9 @@ const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, sce
             }
         }
         setSelectedScenario(selectedScenarioId);
+        setScenarioAvailability(newAvailability);
         setIsFormValid(availableScenarioExists);
-    }, [scenarios, deviceData, hasPartitions, requiredSize, diskFreeSpace, diskTotalSpace, setIsFormValid, storageScenarioId]);
+    }, [deviceData, hasPartitions, requiredSize, diskFreeSpace, diskTotalSpace, setIsFormValid, storageScenarioId]);
 
     useEffect(() => {
         const applyScenario = async (scenarioId) => {
@@ -220,7 +228,7 @@ const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, sce
         if (selectedScenario) {
             applyScenario(selectedScenario);
         }
-    }, [scenarios, selectedScenario, setStorageScenarioId]);
+    }, [selectedScenario, setStorageScenarioId]);
 
     const onScenarioToggled = (scenarioId) => {
         setSelectedScenario(scenarioId);
@@ -263,7 +271,6 @@ export const InstallationScenario = ({ deviceData, diskSelection, idPrefix, setI
                   deviceData={deviceData}
                   selectedDisks={diskSelection.selectedDisks}
                   idPrefix={idPrefix}
-                  scenarios={scenarios}
                   setIsFormValid={setIsFormValid}
                   storageScenarioId={storageScenarioId}
                   setStorageScenarioId={setStorageScenarioId}

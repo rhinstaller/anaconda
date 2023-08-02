@@ -36,7 +36,7 @@ import {
 import { InstallationMethod } from "./storage/InstallationMethod.jsx";
 import { getScenario, getDefaultScenario } from "./storage/InstallationScenario.jsx";
 import { MountPointMapping } from "./storage/MountPointMapping.jsx";
-import { DiskEncryption, StorageEncryptionState } from "./storage/DiskEncryption.jsx";
+import { DiskEncryption, getStorageEncryptionState } from "./storage/DiskEncryption.jsx";
 import { InstallationLanguage } from "./localization/InstallationLanguage.jsx";
 import { InstallationProgress } from "./installation/InstallationProgress.jsx";
 import { ReviewConfiguration, ReviewConfigurationConfirmModal } from "./review/ReviewConfiguration.jsx";
@@ -54,7 +54,7 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
     const [isFormValid, setIsFormValid] = useState(true);
     const [stepNotification, setStepNotification] = useState();
     const [isInProgress, setIsInProgress] = useState(false);
-    const [storageEncryption, setStorageEncryption] = useState(new StorageEncryptionState());
+    const [storageEncryption, setStorageEncryption] = useState(getStorageEncryptionState());
     const [storageScenarioId, setStorageScenarioId] = useState(window.sessionStorage.getItem("storage-scenario-id") || getDefaultScenario().id);
     const lastPartitioning = useMemo(() => {
         const lastPartitioningKey = Object.keys(storageData.partitioning || {}).find(path => parseInt(path.match(/\d+$/)[0]) === Object.keys(storageData.partitioning).length);
