@@ -92,7 +92,6 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         # Check the default mode
         s.check_partitioning_selected("erase-all")
 
-        s.set_partitioning("use-free-space")
         i.next()
         # Disk Encryption
 
@@ -108,16 +107,6 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         s.check_encryption_selected(False)
         encrypt = True
         s.set_encryption_selected(encrypt)
-
-        i.back()
-        # Storage Configuration
-        # The choice is preserved (stored in the backend).
-        s.check_partitioning_selected("use-free-space")
-
-        i.next()
-        # Disk Encryption
-        # The value is preserved
-        s.check_encryption_selected(encrypt)
 
         # Disk Encryption / password screen
         b.assert_pixels(
@@ -177,6 +166,13 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         # Check the default mode
         s.check_partitioning_selected("erase-all")
 
+        # Check that when an unpartitioned disk is selected the "Use free space" scenario is hidden
+        s.wait_scenario_visible("use-free-space", False)
+
+        # Check that when a partitioned disk is selected the "Use free space" scenario is visible
+        s.add_basic_partitioning()
+        s.wait_scenario_visible("use-free-space")
+
         s.set_partitioning("use-free-space")
 
         i.next()
@@ -201,6 +197,10 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         # The choice is available only if the partitioning was reset
         # (there is enough free space)
         s.check_partitioning_selected("use-free-space")
+
+        i.next()
+        # The value is preserved
+        s.check_encryption_selected(encrypt)
 
     def testPartitioningObject(self):
         # Test which partitioning object ends up being the AppliedPartitioning

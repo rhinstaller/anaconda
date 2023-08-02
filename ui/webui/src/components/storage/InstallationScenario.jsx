@@ -39,8 +39,9 @@ import {
 
 const _ = cockpit.gettext;
 
-function AvailabilityState (available = false, reason = null, hint = null, shortHint = null) {
+function AvailabilityState (available = false, hidden = false, reason = null, hint = null, shortHint = null) {
     this.available = available;
+    this.hidden = hidden;
     this.reason = reason;
     this.hint = hint;
     this.shortHint = shortHint;
@@ -63,8 +64,11 @@ const checkEraseAll = ({ requiredSize, diskTotalSpace }) => {
     return availability;
 };
 
-const checkUseFreeSpace = ({ diskFreeSpace, requiredSize }) => {
+const checkUseFreeSpace = ({ diskFreeSpace, diskTotalSpace, requiredSize }) => {
     const availability = new AvailabilityState();
+    if (diskFreeSpace > 0 && diskTotalSpace > 0) {
+        availability.hidden = diskFreeSpace === diskTotalSpace;
+    }
     if (diskFreeSpace < requiredSize) {
         availability.available = false;
         availability.reason = _("Not enough free space.");
@@ -234,7 +238,7 @@ const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, sto
         setSelectedScenario(scenarioId);
     };
 
-    const scenarioItems = scenarios.map(scenario => (
+    const scenarioItems = scenarios.filter(scenario => !scenarioAvailability[scenario.id].hidden).map(scenario => (
         <Radio
           className={idPrefix + "-scenario"}
           key={scenario.id}
