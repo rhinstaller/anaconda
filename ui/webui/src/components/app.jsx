@@ -72,13 +72,6 @@ export const Application = () => {
 
             setAddress(address);
 
-            const errorContext = {
-                context: _("Reading information about the computer failed."),
-                hint: _("Please report the error."),
-            };
-
-            const errorHandler = onCritFail(errorContext);
-
             Promise.all([
                 initDataStorage({ dispatch }),
                 initDataLocalization({ dispatch }),
@@ -87,7 +80,7 @@ export const Application = () => {
                         setStoreInitialized(true);
                         startEventMonitorStorage({ dispatch });
                         startEventMonitorLocalization({ dispatch });
-                    }, errorHandler);
+                    }, onCritFail({ context: _("Reading information about the computer failed.") }));
 
             getIsFinal().then(
                 isFinal => setBeta(!isFinal),
