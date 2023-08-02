@@ -62,6 +62,10 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
         reformat = mount_data.reformat
         format_type = mount_data.format_type
 
+        if not reformat and not mount_data.mount_point:
+            # XXX empty request, ignore
+            return
+
         device = storage.devicetree.resolve_device(device_spec)
         if device is None:
             raise StorageError(
