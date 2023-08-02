@@ -68,8 +68,8 @@ export const CriticalError = ({ exception, isBootIso, reportLinkURL }) => {
     const [logContent, setLogContent] = useState("");
 
     useEffect(() => {
-        const syslogFile = cockpit.file("/tmp/syslog");
-        syslogFile.read().then(content => setLogContent(content));
+        cockpit.spawn(["journalctl", "-a"])
+                .then(content => setLogContent(content));
     }, []);
 
     const openBZIssue = (reportURL) => {
