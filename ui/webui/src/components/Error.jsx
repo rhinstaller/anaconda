@@ -26,6 +26,7 @@ import {
     HelperText,
     HelperTextItem,
     Modal,
+    ModalVariant,
     TextArea,
     TextContent,
     TextVariants,
@@ -77,16 +78,20 @@ export const CriticalError = ({ exception, isBootIso, reportLinkURL }) => {
                 .then(window.open(reportURL, "_blank"));
     };
 
+    const context = exception.contextData?.context;
+
     return (
         <Modal
-          description={_("The installer cannot continue due to a critical error.")}
+          description={context
+              ? cockpit.format(_("The installer cannot continue due to a critical error: $0"), context)
+              : _("The installer cannot continue due to a critical error.")}
           id="critical-error-modal"
           isOpen
           position="top"
           showClose={false}
           title={_("Critical error")}
           titleIconVariant="danger"
-          variant="small"
+          variant={ModalVariant.large}
           footer={
               <>
                   {reportLinkURL &&
@@ -95,7 +100,7 @@ export const CriticalError = ({ exception, isBootIso, reportLinkURL }) => {
                     icon={<ExternalLinkAltIcon />}
                     onClick={() => openBZIssue(reportURL)}
                     component="a">
-                      {_("Send issue to Bugzilla")}
+                      {_("Report issue")}
                   </Button>}
                   <Button variant="secondary" onClick={exitGui}>
                       {isBootIso ? _("Reboot") : _("Quit")}
@@ -103,21 +108,7 @@ export const CriticalError = ({ exception, isBootIso, reportLinkURL }) => {
               </>
           }>
             <Form>
-                <FormGroup label={_("Details")}>
-                    {exception.contextData?.context &&
-                    <TextContent>
-                        <Text component={TextVariants.p}>
-                            {exception.contextData.context}
-                        </Text>
-                    </TextContent>}
-                    {exception.contextData?.hint &&
-                    <TextContent>
-                        <Text component={TextVariants.p}>
-                            {cockpit.format(_("Hint: $0"), exception.contextData.hint)}
-                        </Text>
-                    </TextContent>}
-                </FormGroup>
-                <FormGroup label={_("Error")}>
+                <FormGroup label={_("Error details")}>
                     <TextContent>
                         <Text component={TextVariants.p}>
                             {exception.name + ": " + exception.message}
@@ -125,18 +116,19 @@ export const CriticalError = ({ exception, isBootIso, reportLinkURL }) => {
                     </TextContent>
                 </FormGroup>
                 <FormGroup
-                  label={_("Log attachment")}
+                  label={_("Log")}
                 >
-                    <FormHelperText isHidden={false}>
-                        <HelperText>
-                            <HelperTextItem>{_("Please review the content of the log to be attached optionally when opening the Bugzilla issue report and remove any sensitive information if you agree with attaching the log.")}</HelperTextItem>
-                        </HelperText>
-                    </FormHelperText>
                     <TextArea
                       value={logContent}
                       onChange={setLogContent}
                       aria-label="review-attached-log"
+                      resizeOrientation="vertical"
                     />
+                    <FormHelperText isHidden={false}>
+                        <HelperText>
+                            <HelperTextItem>{_("Reporting an issue will send information over the network. Plese review and edit the attached log to remove any sensitive information.")}</HelperTextItem>
+                        </HelperText>
+                    </FormHelperText>
                 </FormGroup>
             </Form>
         </Modal>
