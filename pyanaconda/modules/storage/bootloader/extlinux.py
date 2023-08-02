@@ -21,7 +21,7 @@ from pyanaconda.modules.storage.bootloader.base import BootLoader, BootLoaderArg
     BootLoaderError
 from pyanaconda.core.util import execWithRedirect
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.product import productName
+from pyanaconda.core.product import get_product_name
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -96,7 +96,7 @@ class EXTLINUX(BootLoader):
                   "menu hidden\n\n"
                   "timeout %(timeout)d\n"
                   "#totaltimeout 9000\n\n"
-                  % {"productName": productName, "timeout": self.timeout * 10})
+                  % {"productName": get_product_name(), "timeout": self.timeout * 10})
         config.write(header)
         if self.default is not None:
             config.write("default %(default)s\n\n" % {"default": self.image_label(self.default).replace(" ", "")})

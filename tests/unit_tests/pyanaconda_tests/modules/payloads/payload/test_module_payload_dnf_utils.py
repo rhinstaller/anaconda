@@ -84,18 +84,20 @@ class DNFUtilsPackagesTestCase(unittest.TestCase):
         kernel = get_kernel_package(dnf_manager, exclude_list=[])
         assert kernel == "kernel"
 
-    @patch("pyanaconda.modules.payloads.payload.dnf.utils.productVersion", "invalid")
-    def test_get_product_release_version_invalid(self):
+    @patch("pyanaconda.modules.payloads.payload.dnf.utils.get_product_version",
+           return_value="invalid")
+    def test_get_product_release_version_invalid(self, version_mock):
         """Test the get_product_release_version function with an invalid value."""
         assert get_product_release_version() == "rawhide"
 
-    @patch("pyanaconda.modules.payloads.payload.dnf.utils.productVersion", "28")
-    def test_get_product_release_version_number(self):
+    @patch("pyanaconda.modules.payloads.payload.dnf.utils.get_product_version", return_value="28")
+    def test_get_product_release_version_number(self, version_mock):
         """Test the get_product_release_version function with a valid number."""
         assert get_product_release_version() == "28"
 
-    @patch("pyanaconda.modules.payloads.payload.dnf.utils.productVersion", "7.4")
-    def test_get_product_release_version_dot(self):
+    @patch("pyanaconda.modules.payloads.payload.dnf.utils.get_product_version",
+           return_value="7.4")
+    def test_get_product_release_version_dot(self, version_mock):
         """Test the get_product_release_version function with a dot."""
         assert get_product_release_version() == "7.4"
 

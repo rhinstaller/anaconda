@@ -41,6 +41,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda import product
 from pyanaconda.core import util, constants
 from pyanaconda.core.path import make_directories
+from pyanaconda.core.product import get_product_is_final_release
 from pyanaconda.core.threads import thread_manager
 
 from pyanaconda.core.glib import Bytes, GError
@@ -572,8 +573,11 @@ class GraphicalUserInterface(UserInterface):
        It is suitable for use both directly and via VNC.
     """
     def __init__(self, storage, payload,
-                 distributionText=product.distributionText, isFinal=product.isFinal,
-                 quitDialog=QuitDialog, gui_lock=None, fullscreen=False):
+                 distributionText=product.distributionText,
+                 isFinal=get_product_is_final_release(),
+                 quitDialog=QuitDialog,
+                 gui_lock=None,
+                 fullscreen=False):
 
         super().__init__(storage, payload)
 

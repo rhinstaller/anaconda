@@ -35,7 +35,7 @@ from pyanaconda.modules.common.structures.device_factory import DeviceFactoryReq
     DeviceFactoryPermissions
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
 from pyanaconda.modules.storage.platform import platform, PLATFORM_MOUNT_POINTS
-from pyanaconda.product import productName, productVersion
+from pyanaconda.core.product import get_product_name, get_product_version
 from pyanaconda.modules.storage.devicetree.root import Root
 from pyanaconda.modules.storage.devicetree.utils import get_supported_filesystems, \
     is_supported_filesystem
@@ -211,7 +211,7 @@ def get_new_root_name():
     :return: a translated string
     """
     return _("New {name} {version} Installation").format(
-        name=productName, version=productVersion
+        name=get_product_name(), version=get_product_version()
     )
 
 

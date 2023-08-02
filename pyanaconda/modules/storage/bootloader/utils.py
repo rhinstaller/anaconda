@@ -22,7 +22,7 @@ from pyanaconda.modules.common.errors.installation import BootloaderInstallation
 from pyanaconda.modules.storage.bootloader.image import LinuxBootLoaderImage
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import execWithRedirect
-from pyanaconda.product import productName
+from pyanaconda.core.product import get_product_name
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -122,7 +122,7 @@ def _collect_os_images(storage, kernel_versions):
     log.debug("Collecting the OS images for: %s", ", ".join(kernel_versions))
 
     # all the linux images' labels are based on the default image's
-    base_label = productName
+    base_label = get_product_name()
 
     # The first one is the default kernel. Update the bootloader's default
     # entry to reflect the details of the default kernel.

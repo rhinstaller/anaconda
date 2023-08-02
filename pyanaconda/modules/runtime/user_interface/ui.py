@@ -21,6 +21,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import PASSWORD_POLICY_LUKS, PASSWORD_POLICY_ROOT, \
     PASSWORD_POLICY_USER
 from pyanaconda.core.dbus import DBus
+from pyanaconda.core.product import get_product_is_final_release
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.runtime.user_interface.ui_interface import UIInterface
 from pyanaconda.modules.common.base import KickstartBaseModule
@@ -85,5 +86,4 @@ class UIModule(KickstartBaseModule):
 
         :return bool: final or not
         """
-        from pyanaconda import product
-        return product.isFinal
+        return get_product_is_final_release()

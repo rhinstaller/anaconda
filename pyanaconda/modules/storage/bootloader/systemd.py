@@ -21,7 +21,7 @@ from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
 from pyanaconda.core.path import join_paths
-from pyanaconda.product import productName
+from pyanaconda.core.product import get_product_name
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -134,10 +134,16 @@ class SystemdBoot(BootLoader):
         log.info("systemd.py: install systemd boot install (root=%s)", conf.target.system_root)
 
         # the --esp-path= isn't strictly required, but we want to be explicit about it.
-        rc = util.execWithRedirect("bootctl", [ "install", "--esp-path=/boot/efi",
-                                                "--efi-boot-option-description=" + productName.split("-")[0] ],
-                                   root=conf.target.system_root,
-                                   env_prune=['MALLOC_PERTURB_'])
+        rc = util.execWithRedirect(
+            "bootctl",
+            [
+                "install",
+                "--esp-path=/boot/efi",
+                "--efi-boot-option-description=" + get_product_name().split("-")[0]
+            ],
+            root=conf.target.system_root,
+            env_prune=['MALLOC_PERTURB_']
+        )
         if rc:
             raise BootLoaderError(_("bootctl failed to install UEFI boot loader. "
                                     "More information may be found in the log files stored in /tmp"))

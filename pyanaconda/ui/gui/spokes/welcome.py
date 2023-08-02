@@ -33,7 +33,9 @@ from pyanaconda.core.async_utils import async_action_wait
 from pyanaconda.ui.gui.spokes.lib.beta_warning_dialog import BetaWarningDialog
 from pyanaconda.ui.gui.spokes.lib.lang_locale_handler import LangLocaleHandler
 from pyanaconda import localization
-from pyanaconda.product import distributionText, isFinal, productName, productVersion
+from pyanaconda.product import distributionText
+from pyanaconda.core.product import get_product_is_final_release, get_product_name, \
+    get_product_version
 from pyanaconda import flags
 from pyanaconda.core.i18n import _
 from pyanaconda.core.util import ipmi_abort
@@ -204,7 +206,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
         welcomeLabel = self.builder.get_object("welcomeLabel")
 
         welcomeLabel.set_text(_("WELCOME TO %(name)s %(version)s.") %
-                {"name" : productName.upper(), "version" : productVersion})         # pylint: disable=no-member
+                {"name" : get_product_name().upper(), "version" : get_product_version()})
 
         # Retranslate the language (filtering) entry's placeholder text
         languageEntry = self.builder.get_object("languageEntry")
@@ -273,7 +275,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke, LangLocaleHandler):
     # warning dialog first.
     def _on_continue_clicked(self, window, user_data=None):
         # Don't display the betanag dialog if this is the final release.
-        if not isFinal:
+        if not get_product_is_final_release():
             dialog = BetaWarningDialog(self.data)
 
             with self.main_window.enlightbox(dialog.window):

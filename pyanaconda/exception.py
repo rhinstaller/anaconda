@@ -35,10 +35,10 @@ from meh.handler import ExceptionHandler
 
 from pyanaconda import kickstart
 from pyanaconda.core import util
-from pyanaconda import product
 from pyanaconda.core.async_utils import run_in_loop
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import THREAD_EXCEPTION_HANDLING_TEST, IPMI_FAILED
+from pyanaconda.core.product import get_product_is_final_release
 from pyanaconda.errors import NonInteractiveError
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.storage import UnusableStorageError
@@ -326,7 +326,7 @@ def initExceptionHandling(anaconda):
         # anaconda-tb file
         config.register_callback("journalctl", journalctl_callback, attchmnt_only=False)
 
-    if not product.isFinal:
+    if not get_product_is_final_release():
         config.register_callback("release_type", lambda: "pre-release", attchmnt_only=True)
 
     handler = AnacondaExceptionHandler(config, anaconda.intf.meh_interface,

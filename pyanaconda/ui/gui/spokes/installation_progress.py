@@ -16,7 +16,7 @@
 # Red Hat, Inc.
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _, C_
-from pyanaconda.product import productName
+from pyanaconda.core.product import get_product_name
 from pyanaconda.flags import flags
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
@@ -114,12 +114,12 @@ class ProgressSpoke(StandaloneSpoke):
             continue_text = _(
                 "%s is now successfully installed and ready for you to use!\n"
                 "Go ahead and reboot your system to start using it!"
-            ) % productName
+            ) % get_product_name
         else:
             continue_text = _(
                 "%s is now successfully installed and ready for you to use!\n"
                 "Go ahead and quit the application to start using it!"
-            ) % productName
+            ) % get_product_name
 
         label = self.builder.get_object("rebootLabel")
         label.set_text(continue_text)

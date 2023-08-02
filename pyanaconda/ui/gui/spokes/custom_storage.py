@@ -44,7 +44,7 @@ from pyanaconda.modules.common.errors.configuration import BootloaderConfigurati
 from pyanaconda.modules.common.structures.partitioning import PartitioningRequest
 from pyanaconda.modules.common.structures.device_factory import DeviceFactoryRequest, \
     DeviceFactoryPermissions
-from pyanaconda.product import productName, productVersion
+from pyanaconda.core.product import get_product_name, get_product_version
 from pyanaconda.ui.lib.storage import create_partitioning, apply_partitioning, \
     filter_disks_by_names
 from pyanaconda.core.storage import DEVICE_TYPE_UNSUPPORTED, DEVICE_TEXT_MAP, \
@@ -381,7 +381,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             self._pageLabel.set_text(
                 _("When you create mount points for your %(name)s %(version)s "
                   "installation, you'll be able to view their details here.")
-                % {"name": productName, "version": productVersion})
+                % {"name": get_product_name(), "version": get_product_version()})
 
     def _populate_accordion(self):
         # Make sure we start with a clean state.
