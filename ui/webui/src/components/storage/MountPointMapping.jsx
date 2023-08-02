@@ -345,8 +345,8 @@ const MountPointMappingContent = ({ deviceData, partitioningData, dispatch, idPr
                 return {
                     "device-spec": cockpit.variant("s", row["device-spec"]),
                     "format-type": cockpit.variant("s", row["format-type"]),
-                    "mount-point": cockpit.variant("s", newRequest !== undefined ? newRequest["mount-point"] : row["mount-point"]),
-                    reformat: cockpit.variant("b", newRequest !== undefined ? !!newRequest.reformat : row.reformat),
+                    "mount-point": cockpit.variant("s", newRequest !== undefined ? newRequest["mount-point"] : ""),
+                    reformat: cockpit.variant("b", newRequest !== undefined ? !!newRequest.reformat : false),
                 };
             });
         };
