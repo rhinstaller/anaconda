@@ -489,6 +489,39 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Aug 03 2023 github-actions <github-actions@github.com> - 39.29-1
+- webui: spread the state update function into seperate hooks and useMemo
+  (kkoukiou)
+- webui: Clear mount point and reformat flag for removed requests (vtrefny)
+- manual: Return error when trying to use removed nested subvolumes (vtrefny)
+- webui: show 'format as' only when reformatting partition (kkoukiou)
+- webui: Empty value for input should not be null nor undefined (mmarusak)
+- webui: Define unique key for list on review page (mmarusak)
+- webui: Show partition size on review page (mmarusak)
+- manual: Ignore no-op mount point requests (vtrefny)
+- webui: when the disk is empty hide "Use free space" scenario (skobyda)
+- webui: InstallationScenario: assume non-availability (kkoukiou)
+- webui: update only the needed encryption state attributes (kkoukiou)
+- webui: scenarios is a global variable, no need to pass it as propertry
+  (kkoukiou)
+- webui: tests: use 'click' helper test method on radio buttons (kkoukiou)
+- webui: tests: next button is enabled before the screenshot (kkoukiou)
+- webui: update scenario availability state only after parsing all scenarios
+  (kkoukiou)
+- Ignore btrfs snapshots in mountpoint assignment (vtrefny)
+- webui: start using payload from the bots repository (kkoukiou)
+- webui: make 'Next' by default 'disabled' and let each component update it
+  (kkoukiou)
+- webui: Enable source maps and enable minification (mkolman)
+- webui: Add mount point assignment test case with LVM (vtrefny)
+- webui: Add mount point assignment test case with btrfs subvolumes (vtrefny)
+- webui: remove limitation for formating btrfs subvolumes (kkoukiou)
+- add another encrypted disk to test case (mahmoud-mahgoub1)
+- l10n: Lock to current HEAD (vslavik)
+- make: Add target to automatically bump l10n ref (vslavik)
+- make: Move l10n constants from configure.ac to include file (vslavik)
+- make: Add l10n config file with SHA variable, use (vslavik)
+
 * Tue Aug 01 2023 github-actions <github-actions@github.com> - 39.28-1
 - webui: update cockpit dependencies to the latest released in rawhide
   (kkoukiou)
