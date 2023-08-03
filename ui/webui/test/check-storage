@@ -365,7 +365,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         self.browser.wait_not_present("#unlock-device-dialog")
 
     def select_reformat(self, row):
-        self.browser.set_checked(f"{self.table_row(row)} td[data-label='Reformat'] input", True)
+        self.browser.click(f"{self.table_row(row)} td[data-label='Reformat'] input")
 
     def check_reformat(self, row, checked):
         checked_selector = "input:checked" if checked else "input:not(:checked)"

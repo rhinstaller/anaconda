@@ -21,19 +21,18 @@ import React, { useState, useRef, useEffect, useMemo, useCallback } from "react"
 import {
     Alert,
     Button,
-    Checkbox,
+    Switch,
     Flex,
     FlexItem,
     HelperText,
     HelperTextItem,
     Label,
-    Popover,
     Select,
     SelectOption,
     SelectVariant,
-    TextInput,
+    TextInput, Tooltip,
 } from "@patternfly/react-core";
-import { HelpIcon, TrashIcon } from "@patternfly/react-icons";
+import { TrashIcon } from "@patternfly/react-icons";
 
 import { ListingTable } from "cockpit-components-table.jsx";
 import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
@@ -201,25 +200,30 @@ const DeviceColumn = ({ deviceData, devices, idPrefix, handleRequestChange, lock
     );
 };
 
-const FormatColumn = ({ deviceData, handleRequestChange, idPrefix, request }) => {
+const FormatColumn = ({ handleRequestChange, idPrefix, request }) => {
     const mountpoint = request["mount-point"];
     const isRootMountPoint = mountpoint === "/";
+    const FormatSwitch = () => {
+        return (
+            <Switch
+              id={idPrefix + "-switch"}
+              isChecked={!!request.reformat}
+              isDisabled={isRootMountPoint}
+              aria-label={_("Reformat")}
+              onChange={checked => handleRequestChange(request["mount-point"], request["device-spec"], request["request-id"], checked)}
+            />
+        );
+    };
 
     return (
         <Flex>
-            <Checkbox
-              id={idPrefix + "-checkbox"}
-              isChecked={request.reformat}
-              isDisabled={isRootMountPoint}
-              label={_("Reformat")}
-              onChange={checked => handleRequestChange(request["mount-point"], request["device-spec"], request["request-id"], checked)}
-            />
+            {!isRootMountPoint &&
+                <FormatSwitch />}
             {isRootMountPoint &&
-                <Popover
-                  bodyContent={_("The root partition is always re-formatted by the installer.")}
-                  showClose={false}>
-                    <HelpIcon />
-                </Popover>}
+                <Tooltip
+                  content={_("The root partition is always re-formatted by the installer.")}>
+                    <FormatSwitch />
+                </Tooltip>}
         </Flex>
     );
 };
