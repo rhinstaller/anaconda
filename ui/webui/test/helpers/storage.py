@@ -321,3 +321,6 @@ class Storage():
         udevadm trigger
         udevadm settle --timeout=120
         """)
+
+    def set_partition_uuid(self, disk, partition, uuid):
+        self.machine.execute(f"sfdisk --part-uuid {disk} {partition} {uuid}")
