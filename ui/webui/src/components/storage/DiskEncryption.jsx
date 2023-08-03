@@ -16,7 +16,7 @@
  */
 
 import cockpit from "cockpit";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { debounce } from "throttle-debounce";
 
 import {
@@ -238,9 +238,16 @@ export const DiskEncryption = ({
     const [password, setPassword] = useState(storageEncryption.password);
     const [confirmPassword, setConfirmPassword] = useState(storageEncryption.confirmPassword);
     const [passwordStrength, setPasswordStrength] = useState("");
-    const [ruleLength, setRuleLength] = useState("indeterminate");
-    const [ruleConfirmMatches, setRuleConfirmMatches] = useState("indeterminate");
     const isEncrypted = storageEncryption.encrypt;
+
+    const ruleConfirmMatches = useMemo(() => {
+        return getRuleConfirmMatches(password, confirmPassword);
+    }, [password, confirmPassword]);
+
+    const ruleLength = useMemo(() => {
+        return getRuleLength(password);
+    }, [password]);
+
     const encryptedDevicesCheckbox = content => (
         <Checkbox
           id={idPrefix + "-encrypt-devices"}
@@ -267,13 +274,15 @@ export const DiskEncryption = ({
     );
 
     useEffect(() => {
-        const updateValidity = async (password, confirmPassword, isEncrypted) => {
-            const passwordStrength = await getPasswordStrength(password);
-            setPasswordStrength(passwordStrength);
-            const ruleLength = getRuleLength(password);
-            setRuleLength(ruleLength);
-            const ruleConfirmMatches = getRuleConfirmMatches(password, confirmPassword);
-            setRuleConfirmMatches(ruleConfirmMatches);
+        const updatePasswordStrength = async () => {
+            const _passwordStrength = await getPasswordStrength(password);
+            setPasswordStrength(_passwordStrength);
+        };
+        updatePasswordStrength();
+    }, [password]);
+
+    useEffect(() => {
+        const updateValidity = (isEncrypted) => {
             const passphraseValid = (
                 ruleLength === "success" &&
                 ruleConfirmMatches === "success" &&
@@ -282,8 +291,8 @@ export const DiskEncryption = ({
             setIsFormValid(!isEncrypted || passphraseValid);
         };
 
-        updateValidity(password, confirmPassword, isEncrypted);
-    }, [setIsFormValid, isEncrypted, password, confirmPassword]);
+        updateValidity(isEncrypted);
+    }, [setIsFormValid, isEncrypted, ruleConfirmMatches, ruleLength, passwordStrength]);
 
     useEffect(() => {
         setStorageEncryption(se => ({ ...se, password }));
