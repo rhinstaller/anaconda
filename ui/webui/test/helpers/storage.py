@@ -282,3 +282,42 @@ class Storage():
         self.machine.execute(f"sgdisk --new=0:0:+{size} /dev/{target}")
         self.rescan_disks()
         self.select_disk(target, True, True)
+
+    # partitions_params expected structure: [("size", "file system" {, "other mkfs.fs flags"})]
+    def partition_disk(self, disk, partitions_params):
+        command = f"sgdisk --zap-all {disk}"
+
+        for i, params in enumerate(partitions_params):
+            sgdisk = ["sgdisk", f"--new=0:0{':+' + params[0] if params[0] != '' else ':0'}"]
+
+            if params[1] == "biosboot":
+                sgdisk.append("--typecode=0:ef02")
+
+            sgdisk.append(disk)
+
+            command += f"\n{' '.join(sgdisk)}"
+
+            if params[1] not in ("biosboot", None):
+                mkfs = [f"mkfs.{params[1]}"]
+
+                # force flag
+                if params[1] in ["xfs", "btrfs"]:
+                    mkfs.append("-f")
+                elif params[1] in ["ext4", "etx3", "ext2", "ntfs"]:
+                    mkfs.append("-F")
+
+                # additional mkfs flags
+                if len(params) > 2:
+                    mkfs += params[2:]
+
+                mkfs.append(f"{disk}{i + 1}")
+                command += f"\n{' '.join(mkfs)}"
+
+        self.machine.execute(command)
+
+    def udevadm_settle(self):
+        # Workaround to not have any empty mountpoint labels
+        self.machine.execute("""
+        udevadm trigger
+        udevadm settle --timeout=120
+        """)
