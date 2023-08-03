@@ -196,7 +196,7 @@ const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, sto
         let selectedScenarioId = "";
         let availableScenarioExists = false;
 
-        if (requiredSize === undefined) {
+        if ([diskTotalSpace, diskFreeSpace, hasPartitions, requiredSize].some(itm => itm === undefined)) {
             return;
         }
 
