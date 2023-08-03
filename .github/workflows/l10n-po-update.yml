@@ -68,8 +68,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # https://cli.github.com/manual/gh_pr_create
           gh pr create \
             --base ${{ matrix.branch }} \
             --head ${{ steps.make_branch.outputs.branch_name }} \
             --title 'Update translations from Weblate' \
-            --body 'Created by Github actions'
+            --body 'Created by Github actions' \
+            --label 'sanity check required'
