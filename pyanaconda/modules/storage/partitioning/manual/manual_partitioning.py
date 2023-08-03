@@ -62,6 +62,10 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
         reformat = mount_data.reformat
         format_type = mount_data.format_type
 
+        if not reformat and not mount_data.mount_point:
+            # XXX empty request, ignore
+            return
+
         device = storage.devicetree.resolve_device(device_spec)
         if device is None:
             raise StorageError(
@@ -87,6 +91,26 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
 
             if device.raw_device.type in ("btrfs volume", "btrfs subvolume"):
                 # 'Format', or rather clear the device by recreating it
+
+                # recreating @device will remove all nested subvolumes of it, we cannot allow
+                # using these nested subvolumes for other MountPointRequest without also
+                # re-creating them
+                if device.raw_device.type == "btrfs volume":
+                    depending_subvolumes = device.raw_device.subvolumes
+                elif device.raw_device.type == "btrfs subvolume":
+                    depending_subvolumes = [sub.name for sub in device.raw_device.volume.subvolumes
+                                            if sub.depends_on(device.raw_device)]
+                problem_subvolumes = [req for req in self._requests if (req.mount_point
+                                                                        and not req.reformat
+                                                                        and req.device_spec in
+                                                                        depending_subvolumes)]
+                if problem_subvolumes:
+                    err = (_("{} mounted as {}").format(dep.device_spec,
+                                                        dep.mount_point) for dep in problem_subvolumes)
+                    raise StorageError(
+                        _("Reformatting the '{}' subvolume will remove the following nested "
+                          "subvolumes which cannot be reused: {}").format(device.raw_device.name,
+                                                                          ", ".join(err)))
                 device = self._recreate_device(storage, device_spec)
                 mount_data.mount_options = device.format.options
             else:
