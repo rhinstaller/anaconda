@@ -37,6 +37,10 @@ Anaconda
    :alt: Run unit and RPM tests daily
    :target: https://github.com/rhinstaller/anaconda/actions/workflows/tests-daily.yml
 
+.. |l10n-po-update| image:: https://github.com/rhinstaller/anaconda/actions/workflows/l10n-po-update.yml/badge.svg
+   :alt: Update translations
+   :target: https://github.com/rhinstaller/anaconda/actions/workflows/l10n-po-update.yml
+
 .. |cockpit-lib-update| image:: https://github.com/rhinstaller/anaconda/actions/workflows/cockpit-lib-update.yml/badge.svg
    :alt: Updates Cockpit library
    :target: https://github.com/rhinstaller/anaconda/actions/workflows/cockpit-lib-update.yml
@@ -61,6 +65,11 @@ Anaconda
 
 |tests-daily|
   Runs unit and RPM tests every day, independent of any changes to code or containers.
+
+|l10n-po-update|
+  Updates translations weekly, by opening a PR that bumps the pinned hash used to download when building RPMs.
+
+  The PR runs the usual tests, where potential failures caused by translation changes are caught.
 
 |cockpit-lib-update|
   Updates the COCKPIT_REPO_COMMIT in ui/webui/Makefile.am and opens a pull request.

@@ -58,7 +58,7 @@ jobs:
         if: steps.bump_sha.outputs.changed == 'true'
         run: |
           git commit po/l10n-config.mk -m "Update translations from Weblate for ${{ matrix.branch }}"
-          branch_name="${{ matrix.branch }}-l10n-update-$(date '+%Y-%M-%d--%H-%M-%S')"
+          branch_name="l10n-update/${{ matrix.branch }}-$(date '+%Y-%M-%d--%H-%M-%S')"
           git checkout -b "$branch_name"
           git push origin "$branch_name"
           echo "branch_name=$branch_name" >> $GITHUB_OUTPUT
@@ -66,10 +66,12 @@ jobs:
       - name: Make pull request
         if: steps.bump_sha.outputs.changed == 'true'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.INSTALLKER_TOKEN }}
         run: |
+          # https://cli.github.com/manual/gh_pr_create
           gh pr create \
             --base ${{ matrix.branch }} \
             --head ${{ steps.make_branch.outputs.branch_name }} \
             --title 'Update translations from Weblate' \
-            --body 'Created by Github actions'
+            --body 'Created by Github actions' \
+            --label 'sanity check required'
