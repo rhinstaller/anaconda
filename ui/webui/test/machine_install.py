@@ -129,7 +129,7 @@ class VirtInstallMachine(VirtMachine):
                 f"--qemu-commandline="
                 "'-netdev user,id=hostnet0,"
                 f"hostfwd=tcp:{self.ssh_address}:{self.ssh_port}-:22,"
-                f"hostfwd=tcp:{self.web_address}:{self.web_port}-:9090 "
+                f"hostfwd=tcp:{self.web_address}:{self.web_port}-:80 "
                 "-device virtio-net-pci,netdev=hostnet0,id=net0,addr=0x4' "
                 f"--initrd-inject {self.payload_ks_path} "
                 f"--extra-args 'inst.ks=file:/{os.path.basename(self.payload_ks_path)}' "

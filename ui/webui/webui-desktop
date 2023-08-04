@@ -22,28 +22,32 @@
 # have cockpit.socket enabled. The web server and browser run in an unshared
 # network namespace, and thus are totally isolated from everything else.
 #
-# Examples:
-#   cockpit-desktop /cockpit/@localhost/system/index.html
-#   cockpit-desktop network/firewall
-#   cockpit-desktop users
+# Usage:
+#     cockpit-desktop /cockpit/@localhost/system/index.html -t default -r 0
+# For testing purposes one can also make cockpit-ws bind to all addresses
+# (this is insecure and should not be used in prodcuction):
+#     cockpit-desktop /cockpit/@localhost/system/index.html -t default -r 1
 #
-# As an experimental/demo feature, the bridge can also be started on a remote
-# ssh host. The host name is given as (optional) second argument, which is
-# passed verbatim to ssh.
-#
-# Example:
-#   cockpit-desktop system svr1
-#   cockpit-desktop / username@svr1
 set -eu
 
 # exec_prefix= is set because the default /usr/libexec contains "${exec_prefix}"
 exec_prefix="/usr"
 libexecdir="/usr/libexec"
-if [ -z "${1:-}" ]; then
-    echo "Usage: $0 <Cockpit path> [ssh host]" >&2
-    exit 1
-fi
 
+THEME_ID="default"
+WEBUI_REMOTE=0
+while getopts t:r: option
+do
+    case "${option}"
+        in
+        t)THEME_ID=${OPTARG};;
+        r)WEBUI_REMOTE=${OPTARG};;
+        *) echo "Usage: $0 [-t THEME_ID] [-r WEBUI_REMOTE] <Cockpit path>" >&2
+       exit 1 ;;
+    esac
+done
+
+shift "$((OPTIND-1))"
 # Expand the commandline argument into a url
 case "$1" in
     /*)
@@ -63,7 +67,6 @@ esac
 # prepare empty firefox profile dir with theme based on the passed profile id
 FIREFOX_THEME_DIR="/usr/share/anaconda/firefox-theme"
 FIREFOX_PROFILE_PATH="/tmp/anaconda-firefox-profile"
-THEME_ID=$2
 
 # make sure the profile directory exists and is empty
 if [ -d ${FIREFOX_PROFILE_PATH} ]
@@ -85,10 +88,16 @@ BROWSER="/usr/bin/firefox --new-instance --window-size 1024,768 --profile ${FIRE
 # start browser in a temporary home dir, so that it does not interfere with your real one
 BROWSER_HOME=$(mktemp --directory --tmpdir cockpit.desktop.XXXXXX)
 
+WEBUI_ADDRESS="127.0.0.1"
+if [[ "$WEBUI_REMOTE" == "1" ]]
+then
+    WEBUI_ADDRESS="0.0.0.0"
+fi
+
 # forward parent stdin and stdout (from bridge) to cockpit-ws
 # it pretty well does not matter which port we use in our own namespace, so use standard http
 # disable /etc/cockpit/
-XDG_CONFIG_DIRS="$BROWSER_HOME" COCKPIT_SUPERUSER="pkexec" /usr/libexec/cockpit-ws -p 80 -a 127.0.0.90 --no-tls --local-session=cockpit-bridge &
+XDG_CONFIG_DIRS="$BROWSER_HOME" COCKPIT_SUPERUSER="pkexec" /usr/libexec/cockpit-ws -p 80 -a "$WEBUI_ADDRESS" --no-tls --local-session=cockpit-bridge &
 WS_PID=$!
 exec 1>&2
 
@@ -105,7 +114,7 @@ trap 'cleanup' EXIT INT QUIT PIPE
 # if we have netcat, use it for waiting until ws is up
 if type nc >/dev/null 2>&1; then
     for _ in `seq 10`; do
-        nc -z 127.0.0.90 80 && break
+        nc -z "$WEBUI_ADDRESS" 80 && break
         sleep 0.5;
     done
 else
@@ -113,7 +122,7 @@ else
     sleep 3
 fi
 
-HOME="$BROWSER_HOME" $BROWSER http://127.0.0.90"$URL_PATH" &
+HOME="$BROWSER_HOME" $BROWSER http://"$WEBUI_ADDRESS""$URL_PATH" &
 B_PID=$!
 
 wait $B_PID
