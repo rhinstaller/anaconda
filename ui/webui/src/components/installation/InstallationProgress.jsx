@@ -37,6 +37,7 @@ import { exitGui } from "../../helpers/exit.js";
 import "./InstallationProgress.scss";
 
 const _ = cockpit.gettext;
+const N_ = cockpit.noop;
 
 export const InstallationProgress = ({ onCritFail, idPrefix, isBootIso }) => {
     const [status, setStatus] = useState();
@@ -89,7 +90,7 @@ export const InstallationProgress = ({ onCritFail, idPrefix, isBootIso }) => {
                         });
                         taskProxy.addEventListener("Stopped", () => {
                             taskProxy.Finish().catch(onCritFail({
-                                context: cockpit.format(_("Installation of the system failed: $0"), refStatusMessage.current),
+                                context: cockpit.format(N_("Installation of the system failed: $0"), refStatusMessage.current),
                             }));
                         });
                         taskProxy.addEventListener("Succeeded", () => {

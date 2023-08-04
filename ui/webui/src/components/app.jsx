@@ -42,6 +42,7 @@ import { debug } from "../helpers/log.js";
 import { useReducerWithThunk, reducer, initialState } from "../reducer.js";
 
 const _ = cockpit.gettext;
+const N_ = cockpit.noop;
 
 export const Application = () => {
     const [address, setAddress] = useState();
@@ -82,17 +83,17 @@ export const Application = () => {
                         setStoreInitialized(true);
                         startEventMonitorStorage({ dispatch });
                         startEventMonitorLocalization({ dispatch });
-                    }, onCritFail({ context: _("Reading information about the computer failed.") }));
+                    }, onCritFail({ context: N_("Reading information about the computer failed.") }));
 
             getIsFinal().then(
                 isFinal => setBeta(!isFinal),
-                onCritFail({ context: _("Reading installer version information failed.") })
+                onCritFail({ context: N_("Reading installer version information failed.") })
             );
         });
 
         readConf().then(
             setConf,
-            onCritFail({ context: _("Reading installer configuration failed.") })
+            onCritFail({ context: N_("Reading installer configuration failed.") })
         );
 
         readOsRelease().then(osRelease => setOsRelease(osRelease));

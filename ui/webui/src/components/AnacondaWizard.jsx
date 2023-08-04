@@ -49,6 +49,7 @@ import {
 } from "../apis/storage.js";
 
 const _ = cockpit.gettext;
+const N_ = cockpit.noop;
 
 export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, localizationData, onCritFail, onAddErrorNotification, title, conf }) => {
     const [isFormValid, setIsFormValid] = useState(false);
@@ -378,7 +379,7 @@ const Footer = ({
                                   onClick={() => goToPreviousStep(
                                       activeStep,
                                       onBack,
-                                      onCritFail({ context: cockpit.format(_("Error was hit when going back from $0."), activeStep.name) })
+                                      onCritFail({ context: cockpit.format(N_("Error was hit when going back from $0."), activeStep.name) })
                                   )}>
                                     {_("Back")}
                                 </Button>

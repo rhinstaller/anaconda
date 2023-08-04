@@ -86,7 +86,7 @@ export const CriticalError = ({ exception, isBootIso, reportLinkURL }) => {
     return (
         <Modal
           description={context
-              ? cockpit.format(_("The installer cannot continue due to a critical error: $0"), context)
+              ? cockpit.format(_("The installer cannot continue due to a critical error: $0"), _(context))
               : _("The installer cannot continue due to a critical error.")}
           id="critical-error-modal"
           isOpen
