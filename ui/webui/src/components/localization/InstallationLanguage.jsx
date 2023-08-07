@@ -291,6 +291,10 @@ export const InstallationLanguage = ({ idPrefix, languages, language, commonLoca
         readOsRelease().then(osRelease => setDistributionName(osRelease.NAME));
     }, []);
 
+    useEffect(() => {
+        setIsFormValid(language !== "");
+    }, [language, setIsFormValid]);
+
     return (
         <AnacondaPage title={cockpit.format(_("Welcome to $0"), distributionName)}>
             <Title
