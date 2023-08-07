@@ -89,22 +89,6 @@ class CockpitUserInterface(ui.UserInterface):
     def run(self):
         """Run the interface."""
         log.debug("web-ui: starting cockpit web view")
-        if self.remote:
-            # Override the cockpit.service unit to allow root
-            with open("/etc/systemd/system/cockpit.service", "w") as f:
-                f.write("""
-[Unit]
-Description=Cockpit Web Service
-
-[Service]
-ExecStart=/usr/libexec/cockpit-ws --no-tls --port 9090 --local-session=cockpit-bridge
-""")
-            startProgram([
-                "/usr/bin/systemctl", "daemon-reload"
-            ])
-            startProgram([
-                "/usr/bin/systemctl", "enable", "--now", "cockpit.socket"
-            ])
 
         # Force Firefox to be used via the BROWSER environment variable.
         # This is read by cockpit-desktop and makes it launch Firefox in kiosk mode
@@ -117,8 +101,8 @@ ExecStart=/usr/libexec/cockpit-ws --no-tls --port 9090 --local-session=cockpit-b
             profile_name = FIREFOX_THEME_DEFAULT
 
         proc = startProgram(["/usr/libexec/webui-desktop",
-                            "/cockpit/@localhost/anaconda-webui/index.html",
-                            profile_name],
+                            "-t", profile_name, "-r", str(int(self.remote)),
+                            "/cockpit/@localhost/anaconda-webui/index.html"],
                             reset_lang=False)
         log.debug("cockpit web view has been started")
         with open("/run/anaconda/webui_script.pid", "w") as f:
