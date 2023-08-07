@@ -51,7 +51,7 @@ import {
 const _ = cockpit.gettext;
 
 export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, localizationData, onAddErrorNotification, title, conf }) => {
-    const [isFormValid, setIsFormValid] = useState(true);
+    const [isFormValid, setIsFormValid] = useState(false);
     const [stepNotification, setStepNotification] = useState();
     const [isInProgress, setIsInProgress] = useState(false);
     const [storageEncryption, setStorageEncryption] = useState(getStorageEncryptionState());
