@@ -21,7 +21,8 @@ from installer import Installer
 from language import Language
 from review import Review
 from storage import Storage
-from testlib import nondestructive, test_main  # pylint: disable=import-error
+from testlib import nondestructive, test_main, wait  # pylint: disable=import-error
+from time import sleep
 
 
 @nondestructive
@@ -136,6 +137,20 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         s.rescan_disks()
 
         b.wait_visible("#critical-error-modal")
+
+        # Test review of logs
+        logfile = "/tmp/webui.log"
+
+        self.assertFalse(self.file_exists(logfile))
+
+        # Click report issue: save reviewed log and open BZ URL
+        b.click("#critical-error-modal .pf-c-button.pf-m-primary")
+
+        with b.wait_timeout(20):
+            b.wait(lambda: self.file_exists(logfile))
+
+        # Reviewed log contains more than 100 lines
+        wait(lambda: int(m.execute(f"wc -l {logfile} | cut -d' ' -f1").strip()) > 100)
 
 if __name__ == '__main__':
     test_main()
