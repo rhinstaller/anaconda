@@ -109,8 +109,6 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         b.click(".pf-c-button[aria-label='Close Dialog']")
         b.wait_not_present("#about-modal")
 
-class TestBasicDestructive(anacondalib.VirtInstallMachineCase):
-    # TODO: Try converting this to a non-destructive test
     def testErrorHandling(self):
         b = self.browser
         m = self.machine
