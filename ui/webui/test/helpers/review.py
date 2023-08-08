@@ -50,3 +50,6 @@ class Review():
 
     def check_in_disk_row(self, disk, row, text):
         self.browser.wait_in_text(f"#disk-{disk} ul li:nth-child({row})", text)
+
+    def check_disk_row_not_present(self, disk, text):
+        self.browser.wait_not_present(f"#disk-{disk} ul li:contains({text})")

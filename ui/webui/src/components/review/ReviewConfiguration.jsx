@@ -96,6 +96,10 @@ const DeviceRow = ({ deviceData, disk, requests }) => {
         const partitionName = Object.keys(deviceData).find(device => deviceData[device].name.v === req["device-spec"]);
         const device = deviceData[partitionName];
 
+        if (!req.reformat && req["mount-point"] === "") {
+            return false;
+        }
+
         return checkDeviceInSubTree(device, name, deviceData);
     }).map(renderRow) || [];
 
