@@ -139,6 +139,7 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         b.wait_visible("#critical-error-modal")
 
         # Test review of logs
+        self.addCleanup(m.execute, "rm -f /tmp/webui.log")
         logfile = "/tmp/webui.log"
 
         self.assertFalse(self.file_exists(logfile))
