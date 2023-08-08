@@ -23,6 +23,5 @@ def add_public_key(machine):
 
     sysroot_ssh = '/mnt/sysroot/root/.ssh'
     authorized_keys = os.path.join(sysroot_ssh, 'authorized_keys')
-    machine.execute(fr'''mkdir -p {sysroot_ssh}
-        echo "{public_key}" >> {authorized_keys}
-        chmod 700 {sysroot_ssh}''')
+    machine.execute(f"chmod 700 {sysroot_ssh}")
+    machine.write(authorized_keys, public_key, perm="0600")
