@@ -85,12 +85,12 @@ export const getDiskSelectionAction = () => {
     };
 };
 
-export const getPartitioningDataAction = ({ requests, partitioning, updateOnly }) => {
+export const getPartitioningDataAction = ({ requests, partitioning }) => {
     return async (dispatch) => {
         const props = { path: partitioning };
         const convertRequests = reqs => reqs.map(request => Object.entries(request).reduce((acc, [key, value]) => ({ ...acc, [key]: value.v }), {}));
 
-        if (!updateOnly) {
+        if (!requests) {
             props.method = await getPartitioningMethod({ partitioning });
             if (props.method === "MANUAL") {
                 const reqs = await gatherRequests({ partitioning });

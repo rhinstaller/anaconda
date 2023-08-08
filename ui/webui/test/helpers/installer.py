@@ -102,7 +102,7 @@ class Installer():
         self.browser.wait_visible(f"#installation-next-btn:not([aria-disabled={value}]")
 
     @log_step(snapshot_before=True)
-    def back(self, should_fail=False):
+    def back(self, should_fail=False, previous_page=""):
         current_page = self.get_current_page()
 
         self.browser.click("button:contains(Back)")
@@ -110,8 +110,10 @@ class Installer():
         if should_fail:
             self.wait_current_page(current_page)
         else:
-            prev = [k for k, v in self.steps._steps_jump.items() if current_page in v][0]
-            self.wait_current_page(prev)
+            if not previous_page:
+                previous_page = [k for k, v in self.steps._steps_jump.items() if current_page in v][0]
+
+            self.wait_current_page(previous_page)
 
     @log_step()
     def open(self, step="installation-language"):

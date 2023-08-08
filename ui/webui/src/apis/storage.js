@@ -488,7 +488,7 @@ export const startEventMonitorStorage = ({ dispatch }) => {
                 if (args[0] === "org.fedoraproject.Anaconda.Modules.Storage.DiskSelection") {
                     dispatch(getDiskSelectionAction());
                 } else if (args[0] === "org.fedoraproject.Anaconda.Modules.Storage.Partitioning.Manual" && Object.hasOwn(args[1], "Requests")) {
-                    dispatch(getPartitioningDataAction({ requests: args[1].Requests.v, partitioning: path, updateOnly: true }));
+                    dispatch(getPartitioningDataAction({ requests: args[1].Requests.v, partitioning: path }));
                 } else if (args[0] === "org.fedoraproject.Anaconda.Modules.Storage" && Object.hasOwn(args[1], "CreatedPartitioning")) {
                     const last = args[1].CreatedPartitioning.v.length - 1;
                     dispatch(getPartitioningDataAction({ partitioning: args[1].CreatedPartitioning.v[last] }));

@@ -485,13 +485,30 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         i.next()
 
         # verify review screen
-        disk = "vda"
-        r.check_disk(disk, "16.1 GB vda (0x1af4)")
+        r.check_disk(dev, "16.1 GB vda (0x1af4)")
 
-        r.check_disk_row(disk, 1, "vda1, 1.05 MB: biosboot")
-        r.check_disk_row(disk, 2, "vda2, 1.07 GB: format as ext4, /boot")
-        r.check_disk_row(disk, 3, "btrfstest, 10.7 GB: format as btrfs, /")
-        r.check_disk_row(disk, 4, "vda4, 4.29 GB: mount, /home")
+        r.check_disk_row(dev, 1, "vda1, 1.05 MB: biosboot")
+        r.check_disk_row(dev, 2, "vda2, 1.07 GB: format as ext4, /boot")
+        r.check_disk_row(dev, 3, "btrfstest, 10.7 GB: format as btrfs, /")
+        r.check_disk_row(dev, 4, "vda4, 4.29 GB: mount, /home")
+
+        applied_partitioning = s.dbus_get_applied_partitioning()
+
+        # When adding a new partition a new partitioning should be created
+        i.back(previous_page=i.steps.CUSTOM_MOUNT_POINT)
+        i.back()
+
+        m.execute(f"sgdisk --new=0:0:0 {disk}")
+        s.rescan_disks()
+        self.select_mountpoint(i, s, [(dev, True)])
+        self.check_row_device(1, "Select a device")
+        self.check_row_device(2, "Select a device")
+        self.select_row_device(1, f"{dev}2")
+        self.select_row_device(2, f"btrfs")
+
+        i.next()
+        new_applied_partitioning = s.dbus_get_applied_partitioning()
+        self.assertNotEqual(new_applied_partitioning, applied_partitioning)
 
     @nondestructive
     def testNoRootMountPoint(self):
