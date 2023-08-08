@@ -202,6 +202,14 @@ $(POTFILE): main.pot extra.pot
 $(POFILES): $(PO_DOWNLOADED_FLAG)
 
 $(PO_DOWNLOADED_FLAG):
+# To download po files from the l10n repo at an arbitrary commit $(GIT_L10N_SHA):
+# - clone the repo into /tmp at any branch without actually checking out any files
+# - fetch the commit, so it can be checked out
+# - check out the commit
+# - copy the .po files
+# - remove the repo again
+# - remove any trailing semicolons (";") in Plural-Forms header entries
+# - create the flag file
 	TEMP_DIR=$$(mktemp --tmpdir -d anaconda-localization-XXXXXXXXXX) && \
 	git clone --depth 1 -b $(GIT_L10N_BRANCH) --no-checkout -- $(L10N_REPOSITORY) $$TEMP_DIR && \
 	(cd $$TEMP_DIR && git fetch --depth 1 origin $(GIT_L10N_SHA) && git checkout $(GIT_L10N_SHA)) && \
