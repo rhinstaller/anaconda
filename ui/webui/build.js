@@ -83,13 +83,6 @@ const context = await esbuild.context({
                 { from: ['./src/index.html'], to: ['./index.html'] },
             ]
         }),
-        replace({
-            include: /DataList.js$/,
-            values: {
-                'import stylesGrid': "// HACK: revert when https://github.com/patternfly/patternfly-react/pull/8864 is released",
-                stylesGrid: 'styles',
-            }
-        }),
         sassPlugin({
             loadPaths: [...nodePaths, 'node_modules'],
             quietDeps: true,
