@@ -18,7 +18,9 @@
 import anacondalib
 
 from installer import Installer
+from progress import Progress
 from storage import Storage
+from utils import add_public_key
 from testlib import test_main  # pylint: disable=import-error
 
 
@@ -29,7 +31,9 @@ class TestInstallationProgress(anacondalib.VirtInstallMachineCase):
         self.allow_journal_messages(".*denied.*comm=\"tar\" name=\"/\".*")
 
         b = self.browser
+        m = self.machine
         i = Installer(b, self.machine)
+        p = Progress(b)
         s = Storage(b, self.machine)
 
         i.open()
@@ -48,6 +52,11 @@ class TestInstallationProgress(anacondalib.VirtInstallMachineCase):
             ignore=["#betanag-icon"],
             wait_animations=False,
         )
+
+        p.wait_done()
+        add_public_key(self.machine)
+        p.reboot()
+        m.wait_reboot()
 
 if __name__ == '__main__':
     test_main()

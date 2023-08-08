@@ -116,6 +116,7 @@ class VirtInstallMachine(VirtMachine):
         try:
             self._execute(
                 "virt-install "
+                "--wait "
                 "--connect qemu:///session "
                 "--quiet "
                 f"--name {self.label} "
@@ -134,7 +135,7 @@ class VirtInstallMachine(VirtMachine):
                 f"--initrd-inject {self.payload_ks_path} "
                 f"--extra-args 'inst.ks=file:/{os.path.basename(self.payload_ks_path)}' "
                 f"--disk path={disk_image},bus=virtio,cache=unsafe "
-                f"--location {os.getcwd()}/bots/images/{self.image}"
+                f"--location {os.getcwd()}/bots/images/{self.image} &"
             )
             Machine.wait_boot(self)
 
