@@ -514,7 +514,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         self.check_row_device(1, "Select a device")
         self.check_row_device(2, "Select a device")
         self.select_row_device(1, f"{dev}2")
-        self.select_row_device(2, f"btrfs")
+        self.select_row_device(2, f"btrfstest")
 
         i.next()
         new_applied_partitioning = s.dbus_get_applied_partitioning()

@@ -253,7 +253,7 @@ const FormatColumn = ({ deviceData, handleRequestChange, idPrefix, request, requ
     };
 
     return (
-        <Flex>
+        <Flex id={idPrefix}>
             {!isRootMountPoint &&
                 <FormatSwitch />}
             {isRootMountPoint &&
