@@ -30,7 +30,7 @@ RUN set -ex; \
   dnf update -y; \
   # Install dependencies
   dnf install -y \
-  dnf5-plugins \
+  'dnf-command(copr)' \
   npm \
   git \
   curl \
