@@ -16,11 +16,18 @@
  */
 
 import cockpit from "cockpit";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import {
     Button,
+    Form,
+    FormGroup,
+    FormHelperText,
+    HelperText,
+    HelperTextItem,
     Modal,
+    ModalVariant,
+    TextArea,
     TextContent,
     TextVariants,
     Text,
@@ -62,21 +69,32 @@ const addExceptionDataToReportURL = (url, exception) => {
 
 export const CriticalError = ({ exception, isBootIso, reportLinkURL }) => {
     const reportURL = addExceptionDataToReportURL(reportLinkURL, exception);
+    const [logContent, setLogContent] = useState("");
+
+    useEffect(() => {
+        cockpit.spawn(["journalctl", "-a"])
+                .then(content => setLogContent(content));
+    }, []);
 
     const openBZIssue = (reportURL) => {
-        window.open(reportURL, "_blank", "noopener,noreferer");
+        cockpit.file("/tmp/webui.log").replace(logContent)
+                .then(window.open(reportURL, "_blank", "noopener,noreferer"));
     };
+
+    const context = exception.contextData?.context;
 
     return (
         <Modal
-          description={_("The installer cannot continue due to a critical error.")}
+          description={context
+              ? cockpit.format(_("The installer cannot continue due to a critical error: $0"), context)
+              : _("The installer cannot continue due to a critical error.")}
           id="critical-error-modal"
           isOpen
           position="top"
           showClose={false}
           title={_("Critical error")}
           titleIconVariant="danger"
-          variant="small"
+          variant={ModalVariant.large}
           footer={
               <>
                   {reportLinkURL &&
@@ -85,30 +103,41 @@ export const CriticalError = ({ exception, isBootIso, reportLinkURL }) => {
                     icon={<ExternalLinkAltIcon />}
                     onClick={() => openBZIssue(reportURL)}
                     component="a">
-                      {_("Send issue to Bugzilla")}
+                      {_("Report issue")}
                   </Button>}
                   <Button variant="secondary" onClick={exitGui}>
                       {isBootIso ? _("Reboot") : _("Quit")}
                   </Button>
               </>
           }>
-            {exception.contextData?.context &&
-            <TextContent>
-                <Text component={TextVariants.p}>
-                    {cockpit.format(_("Action: $0"), exception.contextData.context)}
-                </Text>
-            </TextContent>}
-            <TextContent>
-                <Text component={TextVariants.p}>
-                    {cockpit.format(_("Error: $0"), exception.message)}
-                </Text>
-            </TextContent>
-            {exception.contextData?.hint &&
-            <TextContent>
-                <Text component={TextVariants.p}>
-                    {cockpit.format(_("Hint: $0"), exception.contextData.hint)}
-                </Text>
-            </TextContent>}
+            <Form>
+                <FormGroup
+                  fieldId="critical-error-review-details"
+                  label={_("Error details")}
+                >
+                    <TextContent id="critical-error-review-details">
+                        <Text component={TextVariants.p}>
+                            {exception.name + ": " + exception.message}
+                        </Text>
+                    </TextContent>
+                </FormGroup>
+                <FormGroup
+                  fieldId="critical-error-review-attached-log"
+                  label={_("Log")}
+                >
+                    <TextArea
+                      value={logContent}
+                      onChange={setLogContent}
+                      resizeOrientation="vertical"
+                      id="critical-error-review-attached-log"
+                    />
+                    <FormHelperText isHidden={false}>
+                        <HelperText>
+                            <HelperTextItem>{_("Reporting an issue will send information over the network. Plese review and edit the attached log to remove any sensitive information.")}</HelperTextItem>
+                        </HelperText>
+                    </FormHelperText>
+                </FormGroup>
+            </Form>
         </Modal>
     );
 };
