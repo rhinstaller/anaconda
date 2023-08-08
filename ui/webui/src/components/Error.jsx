@@ -70,6 +70,7 @@ const addExceptionDataToReportURL = (url, exception) => {
 export const CriticalError = ({ exception, isBootIso, reportLinkURL }) => {
     const reportURL = addExceptionDataToReportURL(reportLinkURL, exception);
     const [logContent, setLogContent] = useState("");
+    const [preparingReport, setPreparingReport] = useState(false);
 
     useEffect(() => {
         cockpit.spawn(["journalctl", "-a"])
@@ -77,8 +78,12 @@ export const CriticalError = ({ exception, isBootIso, reportLinkURL }) => {
     }, []);
 
     const openBZIssue = (reportURL) => {
-        cockpit.file("/tmp/webui.log").replace(logContent)
-                .then(window.open(reportURL, "_blank", "noopener,noreferer"));
+        setPreparingReport(true);
+        cockpit
+                .file("/tmp/webui.log")
+                .replace(logContent)
+                .always(() => setPreparingReport(false))
+                .then(() => window.open(reportURL, "_blank", "noopener,noreferer"));
     };
 
     const context = exception.contextData?.context;
@@ -100,10 +105,12 @@ export const CriticalError = ({ exception, isBootIso, reportLinkURL }) => {
                   {reportLinkURL &&
                   <Button
                     variant="primary"
+                    isLoading={preparingReport}
+                    isDisabled={preparingReport}
                     icon={<ExternalLinkAltIcon />}
                     onClick={() => openBZIssue(reportURL)}
                     component="a">
-                      {_("Report issue")}
+                      {preparingReport ? _("Preparing report") : _("Report issue")}
                   </Button>}
                   <Button variant="secondary" onClick={exitGui}>
                       {isBootIso ? _("Reboot") : _("Quit")}
