@@ -55,6 +55,8 @@ export const Application = () => {
     const [storeInitilized, setStoreInitialized] = useState(false);
 
     useEffect(() => {
+        // Before unload ask the user for verification
+        window.onbeforeunload = e => "";
         cockpit.file("/run/anaconda/bus.address").watch(address => {
             setCriticalError();
             const clients = [

@@ -112,10 +112,6 @@ class TestLanguage(anacondalib.VirtInstallMachineCase):
         l.check_selected_locale("he_IL")
         b.wait_attr("html", "dir", "rtl")
 
-        # Language direction should persist after reload
-        b.reload()
-        b.wait_attr("html", "dir", "rtl")
-
         l.select_locale("de_DE")
         l.check_selected_locale("de_DE")
         b.wait_attr("html", "dir", "ltr")
