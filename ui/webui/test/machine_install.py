@@ -147,6 +147,8 @@ class VirtInstallMachine(VirtMachine):
             else:
                 raise AssertionError("Webui initialization did not finish")
 
+            # Symlink /usr/share/cockpit to /usr/local/share/cockpit so that rsync works without killing cockpit-bridge
+            Machine.execute(self, "mkdir -p /usr/local/share/cockpit/anaconda-webui && mount --bind /usr/share/cockpit /usr/local/share/cockpit")
         except Exception as e:
             self.kill()
             raise e
