@@ -206,8 +206,10 @@ main.pot: $(POTFILE_INPUT)
 	$(GETTEXT_V_EXTRACT)$(XGETTEXT) $(XGETTEXT_OPTIONS) --directory=$(top_srcdir) -o $@ \
 	    $(patsubst $(top_srcdir)/%,%,$(POTFILE_INPUT))
 
+# Javascript parsing is buggy in xgettext: template strings within JSX silently stop parsing the
+# whole file. To work around this, explicitly set parsed language to C, which somehow works.
 main_js.pot: $(POTFILE_INPUT)
-	$(GETTEXT_V_EXTRACT)$(XGETTEXT) $(XGETTEXT_OPTIONS) --language=JavaScript --directory=$(top_srcdir) -o $@ \
+	$(GETTEXT_V_EXTRACT)$(XGETTEXT) $(XGETTEXT_OPTIONS) --language=C --directory=$(top_srcdir) -o $@ \
 	    $(patsubst $(top_srcdir)/%,%,$(POTFILE_JS_INPUT))
 
 extra.pot: $(POTFILE_EXTRA)
