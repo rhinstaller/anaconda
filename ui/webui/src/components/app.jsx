@@ -29,7 +29,7 @@ import { WithDialogs } from "dialogs.jsx";
 import { AddressContext, LanguageContext } from "./Common.jsx";
 import { AnacondaHeader } from "./AnacondaHeader.jsx";
 import { AnacondaWizard } from "./AnacondaWizard.jsx";
-import { CriticalError } from "./Error.jsx";
+import { CriticalError, errorHandlerWithContext } from "./Error.jsx";
 
 import { BossClient } from "../apis/boss.js";
 import { LocalizationClient, initDataLocalization, startEventMonitorLocalization } from "../apis/localization.js";
@@ -54,6 +54,10 @@ export const Application = () => {
     const [state, dispatch] = useReducerWithThunk(reducer, initialState);
     const [storeInitilized, setStoreInitialized] = useState(false);
 
+    const onCritFail = (contextData) => {
+        return errorHandlerWithContext(contextData, setCriticalError);
+    };
+
     useEffect(() => {
         // Before unload ask the user for verification
         window.onbeforeunload = e => "";
@@ -76,20 +80,19 @@ export const Application = () => {
             ])
                     .then(() => {
                         setStoreInitialized(true);
-
                         startEventMonitorStorage({ dispatch });
                         startEventMonitorLocalization({ dispatch });
-                    }, setCriticalError);
+                    }, onCritFail({ context: _("Reading information about the computer failed.") }));
 
             getIsFinal().then(
                 isFinal => setBeta(!isFinal),
-                setCriticalError
+                onCritFail({ context: _("Reading installer version information failed.") })
             );
         });
 
         readConf().then(
             setConf,
-            setCriticalError
+            onCritFail({ context: _("Reading installer configuration failed.") })
         );
 
         readOsRelease().then(osRelease => setOsRelease(osRelease));
@@ -156,6 +159,7 @@ export const Application = () => {
                         <WithDialogs>
                             <AnacondaWizard
                               isBootIso={isBootIso}
+                              onCritFail={onCritFail}
                               onAddErrorNotification={onAddErrorNotification}
                               title={title}
                               storageData={state.storage}

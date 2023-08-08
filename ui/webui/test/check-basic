@@ -20,7 +20,7 @@ import anacondalib
 from installer import Installer
 from language import Language
 from review import Review
-from utils import add_public_key
+from storage import Storage
 from testlib import nondestructive, test_main  # pylint: disable=import-error
 
 
@@ -109,25 +109,32 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         b.click(".pf-c-button[aria-label='Close Dialog']")
         b.wait_not_present("#about-modal")
 
-class TestBasicDestructive(anacondalib.VirtInstallMachineCase):
-    # TODO: Try converting this to a non-destructive test
     def testErrorHandling(self):
         b = self.browser
         m = self.machine
         i = Installer(b, m)
         l = Language(b, m)
+        s = Storage(b, m)
+
+        # BIOS boot /boot on ext4 / on xfs /home on btrfs
+        disk = "/dev/vda"
+        dev = "vda"
+        s.partition_disk(disk, [("1MiB", "biosboot"), ("1GB", "ext4"), ("10GiB", "xfs"), ("", "ext4")])
+
+        # Two partitions on the same disk with the same UUID raise exception in
+        # Blivet
+        s.set_partition_uuid(disk, 3, "66f47a35-b00e-4341-8f31-f4855fac24a2")
+        s.set_partition_uuid(disk, 4, "66f47a35-b00e-4341-8f31-f4855fac24a2")
+
+        s.udevadm_settle()
 
         i.open()
+        i.next()
 
-        l.locale_option_visible('de_DE')
         b.wait_not_present("#critical-error-modal")
 
-        # Mess up the anaconda bus address and make sure we get a critical error
-        m.execute("cp /run/anaconda/bus.address /tmp/; echo trash > /run/anaconda/bus.address")
-        b.wait_visible("#critical-error-modal")
+        s.rescan_disks()
 
-        # Errors should persist across page reloads (same as having the error prior the first page load)
-        b.reload()
         b.wait_visible("#critical-error-modal")
 
 if __name__ == '__main__':

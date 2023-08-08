@@ -15,7 +15,7 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 import cockpit from "cockpit";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
     Button,
     Flex,
@@ -38,11 +38,12 @@ import "./InstallationProgress.scss";
 
 const _ = cockpit.gettext;
 
-export const InstallationProgress = ({ onAddErrorNotification, idPrefix, isBootIso }) => {
+export const InstallationProgress = ({ onCritFail, idPrefix, isBootIso }) => {
     const [status, setStatus] = useState();
     const [statusMessage, setStatusMessage] = useState("");
     const [steps, setSteps] = useState();
     const [currentProgressStep, setCurrentProgressStep] = useState(0);
+    const refStatusMessage = useRef("");
 
     useEffect(() => {
         installWithTasks()
@@ -58,7 +59,7 @@ export const InstallationProgress = ({ onAddErrorNotification, idPrefix, isBootI
                                 getSteps({ task: tasks[0] })
                                         .then(
                                             ret => setSteps(ret.v),
-                                            onAddErrorNotification
+                                            onCritFail()
                                         );
                             // FIXME: hardcoded progress steps
                             //        - if ProgressStepper turns out to be viable,
@@ -80,13 +81,16 @@ export const InstallationProgress = ({ onAddErrorNotification, idPrefix, isBootI
                             }
                             if (message) {
                                 setStatusMessage(message);
+                                refStatusMessage.current = message;
                             }
                         });
                         taskProxy.addEventListener("Failed", () => {
                             setStatus("danger");
                         });
                         taskProxy.addEventListener("Stopped", () => {
-                            taskProxy.Finish().catch(onAddErrorNotification);
+                            taskProxy.Finish().catch(onCritFail({
+                                context: cockpit.format(_("Installation of the system failed: $0"), refStatusMessage.current),
+                            }));
                         });
                         taskProxy.addEventListener("Succeeded", () => {
                             setStatus("success");
@@ -98,7 +102,7 @@ export const InstallationProgress = ({ onAddErrorNotification, idPrefix, isBootI
                         taskProxy.Start().catch(console.error);
                     });
                 }, console.error);
-    }, [onAddErrorNotification]);
+    }, [onCritFail]);
 
     const progressSteps = [
         {
