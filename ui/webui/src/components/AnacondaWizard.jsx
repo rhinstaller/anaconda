@@ -15,7 +15,7 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 import cockpit from "cockpit";
-import React, { useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 
 import {
     ActionList,
@@ -56,6 +56,20 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
     const [isInProgress, setIsInProgress] = useState(false);
     const [storageEncryption, setStorageEncryption] = useState(getStorageEncryptionState());
     const [storageScenarioId, setStorageScenarioId] = useState(window.sessionStorage.getItem("storage-scenario-id") || getDefaultScenario().id);
+    const [reusePartitioning, setReusePartitioning] = useState(false);
+
+    const availableDevices = useMemo(() => {
+        return Object.keys(storageData.devices);
+    }, [storageData.devices]);
+
+    useEffect(() => {
+        /*
+         * When disk selection changes or the user re-scans the devices we need to re-create the partitioning.
+         * For Automatic partitioning we do it each time we go to review page,
+         * but for custom mount assignment we try to reuse the partitioning when possible.
+         */
+        setReusePartitioning(false);
+    }, [availableDevices, storageData.diskSelection.selectedDisks]);
 
     const language = useMemo(() => {
         for (const l of Object.keys(localizationData.languages)) {
@@ -86,7 +100,7 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
             label: _("Disk configuration"),
             steps: [{
                 component: MountPointMapping,
-                data: { deviceData: storageData.devices, diskSelection: storageData.diskSelection, partitioningData: storageData.partitioning, dispatch },
+                data: { deviceData: storageData.devices, diskSelection: storageData.diskSelection, partitioningData: storageData.partitioning, dispatch, reusePartitioning, setReusePartitioning },
                 id: "mount-point-mapping",
                 label: _("Manual disk configuration"),
                 isHidden: storageScenarioId !== "mount-point-mapping"

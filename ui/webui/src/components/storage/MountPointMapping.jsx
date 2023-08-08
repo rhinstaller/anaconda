@@ -55,6 +55,21 @@ const requiredMountPointOptions = [
     { value: "/", name: "root" },
 ];
 
+const getDeviceChildren = ({ deviceData, device }) => {
+    const children = [];
+    const deviceChildren = deviceData[device]?.children?.v || [];
+
+    if (deviceChildren.length === 0) {
+        children.push(device);
+    } else {
+        deviceChildren.forEach(child => {
+            children.push(...getDeviceChildren({ deviceData, device: child }));
+        });
+    }
+
+    return children;
+};
+
 const getInitialRequests = (partitioningData) => {
     const bootOriginalRequest = partitioningData.requests.find(r => r["mount-point"] === "/boot");
     const rootOriginalRequest = partitioningData.requests.find(r => r["mount-point"] === "/");
@@ -79,6 +94,26 @@ const getInitialRequests = (partitioningData) => {
 
 const isDuplicateRequestField = (requests, fieldName, fieldValue) => {
     return requests.filter((request) => request[fieldName] === fieldValue).length > 1;
+};
+
+const isReformatValid = (deviceData, request, requests) => {
+    const device = request["device-spec"];
+
+    if (!device || !request.reformat) {
+        return true;
+    }
+
+    const children = getDeviceChildren({ deviceData, device });
+
+    /* When parent device is re-formatted all children must:
+     * - either exist in the mount points mapper table and  be re-formatted
+     * - or not exist in the mountpoints mapper table
+     */
+    return children.every(child => {
+        const childRequest = requests.find(r => r["device-spec"] === child);
+
+        return !childRequest || childRequest.reformat === true;
+    });
 };
 
 const getLockedLUKSDevices = (requests, deviceData) => {
@@ -145,6 +180,7 @@ const DeviceColumnSelect = ({ deviceData, devices, idPrefix, lockedLUKSDevices, 
 
         return (
             <SelectOption
+              data-value={device}
               isDisabled={isLockedLUKS}
               description={description}
               key={device}
@@ -200,9 +236,10 @@ const DeviceColumn = ({ deviceData, devices, idPrefix, handleRequestChange, lock
     );
 };
 
-const FormatColumn = ({ handleRequestChange, idPrefix, request }) => {
+const FormatColumn = ({ deviceData, handleRequestChange, idPrefix, request, requests }) => {
     const mountpoint = request["mount-point"];
     const isRootMountPoint = mountpoint === "/";
+    const reformatInvalid = !isReformatValid(deviceData, request, requests);
     const FormatSwitch = () => {
         return (
             <Switch
@@ -224,6 +261,12 @@ const FormatColumn = ({ handleRequestChange, idPrefix, request }) => {
                   content={_("The root partition is always re-formatted by the installer.")}>
                     <FormatSwitch />
                 </Tooltip>}
+            {reformatInvalid &&
+                <HelperText>
+                    <HelperTextItem variant="error" hasIcon>
+                        {_("Mismatch between parent device and child device reformat selection.")}
+                    </HelperTextItem>
+                </HelperText>}
         </Flex>
     );
 };
@@ -294,6 +337,7 @@ const RequestsTable = ({
                           handleRequestChange={handleRequestChange}
                           idPrefix={rowId + "-format"}
                           request={request}
+                          requests={requests}
                         />
                     ),
                     props: { className: columnClassName }
@@ -377,8 +421,10 @@ const MountPointMappingContent = ({ deviceData, partitioningData, dispatch, idPr
         if (requests) {
             const mountPoints = requests.map(r => r["mount-point"]);
             const devices = requests.map(r => r["device-spec"]);
+            const reformatInvalid = requests.some(request => !isReformatValid(deviceData, request, requests));
 
             const isFormValid = (
+                !reformatInvalid &&
                 new Set(mountPoints).size === mountPoints.length &&
                 new Set(devices).size === devices.length &&
                 mountPoints.every(m => m) &&
@@ -390,7 +436,7 @@ const MountPointMappingContent = ({ deviceData, partitioningData, dispatch, idPr
                 setUpdateRequestCnt(updateRequestCnt => updateRequestCnt + 1);
             }
         }
-    }, [requests, setIsFormValid]);
+    }, [deviceData, requests, setIsFormValid]);
 
     const handleRequestChange = (mountpoint, device, newRequestId, reformat) => {
         const data = deviceData[device];
@@ -457,18 +503,11 @@ const MountPointMappingContent = ({ deviceData, partitioningData, dispatch, idPr
     }
 };
 
-export const MountPointMapping = ({ deviceData, diskSelection, partitioningData, dispatch, idPrefix, setIsFormValid, onAddErrorNotification, stepNotification }) => {
-    const [creatingPartitioning, setCreatingPartitioning] = useState(true);
-
-    // If device selection changed since the last partitioning request redo the partitioning
-    const selectedDevices = diskSelection.selectedDisks;
-    const partitioningDevices = partitioningData?.requests?.map(r => r["device-spec"]) || [];
-    const canReusePartitioning = selectedDevices.length === partitioningDevices.length && selectedDevices.every(d => partitioningDevices.includes(d));
+export const MountPointMapping = ({ deviceData, diskSelection, partitioningData, dispatch, idPrefix, setIsFormValid, onAddErrorNotification, reusePartitioning, setReusePartitioning, stepNotification }) => {
+    const [usedPartitioning, setUsedPartitioning] = useState(partitioningData?.path);
 
     useEffect(() => {
-        if (canReusePartitioning) {
-            setCreatingPartitioning(false);
-        } else {
+        if (!reusePartitioning || partitioningData?.method !== "MANUAL") {
             /* Reset the bootloader drive before we schedule partitions
              * The bootloader drive is automatically set during the partitioning, so
              * make sure we always reset the previous value before we run another one,
@@ -477,11 +516,14 @@ export const MountPointMapping = ({ deviceData, diskSelection, partitioningData,
              */
             setBootloaderDrive({ drive: "" })
                     .then(() => createPartitioning({ method: "MANUAL" }))
-                    .then(() => setCreatingPartitioning(false));
+                    .then(path => {
+                        setUsedPartitioning(path[0]);
+                        setReusePartitioning(true);
+                    });
         }
-    }, [canReusePartitioning]);
+    }, [reusePartitioning, setReusePartitioning, partitioningData?.method, partitioningData?.path]);
 
-    if (creatingPartitioning || !partitioningData?.path || (partitioningData?.requests?.length || 0) < 1) {
+    if (!reusePartitioning || usedPartitioning !== partitioningData.path) {
         return <EmptyStatePanel loading />;
     }
 

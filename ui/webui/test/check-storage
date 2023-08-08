@@ -325,7 +325,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         selector = f"{self.table_row(row)} .pf-c-select__toggle"
 
         self.browser.click(f"{selector}:not([disabled]):not([aria-disabled=true])")
-        select_entry = f"{selector} + ul button:contains('{device}')"
+        select_entry = f"{selector} + ul button[data-value='{device}']"
         self.browser.click(select_entry)
         self.browser.wait_in_text(f"{selector} .pf-c-select__toggle-text", device)
 
@@ -364,8 +364,11 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
             self.browser.click("#unlock-device-dialog-cancel-btn")
         self.browser.wait_not_present("#unlock-device-dialog")
 
-    def select_reformat(self, row):
-        self.browser.click(f"{self.table_row(row)} td[data-label='Reformat'] input")
+    def select_reformat(self, row, selected=True):
+        self.browser.set_checked(f"{self.table_row(row)} td[data-label='Reformat'] input", selected)
+
+    def remove_row(self, row):
+        self.browser.click(f"{self.table_row(row)} button[aria-label='Remove']")
 
     def check_reformat(self, row, checked):
         checked_selector = "input:checked" if checked else "input:not(:checked)"
@@ -385,7 +388,6 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
 
     def unlock_all_encrypted_skip(self):
         self.browser.click("button:contains('Skip')")
-
 
     def assert_inline_error(self, text):
         self.browser.wait_in_text(".pf-c-alert.pf-m-inline.pf-m-danger", text)
@@ -429,6 +431,14 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
 
         self.machine.execute(command)
 
+    def wait_mount_point_table_column_helper(self, row, column, text=None, present=True):
+        b = self.browser
+
+        if present:
+            b.wait_in_text(f"#mount-point-mapping-table-row-{row}-{column} .pf-c-helper-text__item.pf-m-error", text)
+        else:
+            b.wait_not_present(f"#mount-point-mapping-table-row-{row}-{column} .pf-c-helper-text__item.pf-m-error")
+
     @nondestructive
     def testBasic(self):
         b = self.browser
@@ -463,7 +473,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         self.check_row_mountpoint(2, "/")
         self.check_row_device(2, "Select a device")
         self.check_reformat(2, True)
-        self.select_row_device(2, f"btrfs")
+        self.select_row_device(2, f"btrfstest")
         self.check_format_type(2, "btrfs")
 
         self.add_mount()
@@ -485,13 +495,30 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         i.next()
 
         # verify review screen
-        disk = "vda"
-        r.check_disk(disk, "16.1 GB vda (0x1af4)")
+        r.check_disk(dev, "16.1 GB vda (0x1af4)")
 
-        r.check_disk_row(disk, 1, "vda1, 1.05 MB: biosboot")
-        r.check_disk_row(disk, 2, "vda2, 1.07 GB: format as ext4, /boot")
-        r.check_disk_row(disk, 3, "btrfstest, 10.7 GB: format as btrfs, /")
-        r.check_disk_row(disk, 4, "vda4, 4.29 GB: mount, /home")
+        r.check_disk_row(dev, 1, "vda1, 1.05 MB: biosboot")
+        r.check_disk_row(dev, 2, "vda2, 1.07 GB: format as ext4, /boot")
+        r.check_disk_row(dev, 3, "btrfstest, 10.7 GB: format as btrfs, /")
+        r.check_disk_row(dev, 4, "vda4, 4.29 GB: mount, /home")
+
+        applied_partitioning = s.dbus_get_applied_partitioning()
+
+        # When adding a new partition a new partitioning should be created
+        i.back(previous_page=i.steps.CUSTOM_MOUNT_POINT)
+        i.back()
+
+        m.execute(f"sgdisk --new=0:0:0 {disk}")
+        s.rescan_disks()
+        self.select_mountpoint(i, s, [(dev, True)])
+        self.check_row_device(1, "Select a device")
+        self.check_row_device(2, "Select a device")
+        self.select_row_device(1, f"{dev}2")
+        self.select_row_device(2, f"btrfs")
+
+        i.next()
+        new_applied_partitioning = s.dbus_get_applied_partitioning()
+        self.assertNotEqual(new_applied_partitioning, applied_partitioning)
 
     @nondestructive
     def testNoRootMountPoint(self):
@@ -688,7 +715,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         tmp_mount = "/tmp/btrfs-mount-test"
         self.partition_disk(disk, [("1MiB", "biosboot"), ("1GB", "ext4"), ("", "btrfs")])
         m.execute(f"""
-        mkdir {tmp_mount}
+        mkdir -p {tmp_mount}
         mount {disk}3 {tmp_mount}
         btrfs subvolume create {tmp_mount}/root
         btrfs subvolume create {tmp_mount}/home
@@ -735,13 +762,72 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         i.next()
 
         # verify review screen
-        disk = "vda"
-        r.check_disk(disk, "16.1 GB vda (0x1af4)")
+        r.check_disk(dev, "16.1 GB vda (0x1af4)")
 
-        r.check_disk_row(disk, 1, "vda1, 1.05 MB: biosboot")
-        r.check_disk_row(disk, 2, "vda2, 1.07 GB: format as ext4, /boot")
-        r.check_disk_row(disk, 3, "root, 15.0 GB: format as btrfs, /")
-        r.check_disk_row(disk, 4, "home, 15.0 GB: mount, /home")
+        r.check_disk_row(dev, 1, "vda1, 1.05 MB: biosboot")
+        r.check_disk_row(dev, 2, "vda2, 1.07 GB: format as ext4, /boot")
+        r.check_disk_row(dev, 3, "root, 15.0 GB: format as btrfs, /")
+        r.check_disk_row(dev, 4, "home, 15.0 GB: mount, /home")
+
+        i.back(previous_page=i.steps.CUSTOM_MOUNT_POINT)
+        i.back()
+
+        # Checks for nested btrfs subvolume
+        tmp_mount = "/tmp/btrfs-mount-test"
+        m.execute(f"""
+        mkdir -p {tmp_mount}
+        mount {disk}3 {tmp_mount}
+        btrfs subvolume create {tmp_mount}/home/Movies
+        btrfs subvolume create {tmp_mount}/home/Movies/Good_Movies
+        btrfs subvolume create {tmp_mount}/home/Movies/Bad_Movies
+        umount {tmp_mount}
+        rmdir {tmp_mount}
+        """)
+        s.rescan_disks()
+        self.select_mountpoint(i, s, [(dev, True)])
+
+        self.select_row_device(1, f"{dev}2")
+        self.select_row_device(2, "root")
+        self.add_mount()
+        self.select_row_device(3, "home")
+        self.select_row_mountpoint(3, "/home")
+        self.add_mount()
+        self.select_row_device(4, "home/Movies")
+        self.select_row_mountpoint(4, "/home/Movies")
+        self.add_mount()
+        self.select_row_device(5, "home/Movies/Good_Movies")
+        self.select_row_mountpoint(5, "/home/Movies/Good_Movies")
+        self.add_mount()
+        self.select_row_device(6, "home/Movies/Bad_Movies")
+        self.select_row_mountpoint(6, "/home/Movies/Bad_Movies")
+
+        # No error when no devices are reformatted
+        for row in range(3, 6):
+            self.wait_mount_point_table_column_helper(row, "format", present=False)
+
+        # When parent is re-formatted all child devices must be reformatted
+        self.select_row_device(4, "home/Movies")
+        self.select_reformat(4)
+        self.wait_mount_point_table_column_helper(4, "format", text="Mismatch")
+        self.select_reformat(5)
+        self.select_reformat(6)
+        self.wait_mount_point_table_column_helper(4, "format", present=False)
+
+        # Check also that the rules apply to children deeper in the device tree
+        self.select_reformat(3)
+        self.wait_mount_point_table_column_helper(3, "format", present=False)
+        self.select_reformat(6, False)
+        self.wait_mount_point_table_column_helper(3, "format", text="Mismatch")
+
+        # When parent is re-formmated all child devices should be
+        # * either also reformated if selected
+        # * either not selected (not part of the mountpoint assignment table)
+        self.remove_row(5)
+        self.remove_row(6)
+        self.wait_mount_point_table_column_helper(3, "format", present=False)
+        self.wait_mount_point_table_column_helper(4, "format", present=False)
+
+        i.check_next_disabled(False)
 
     @nondestructive
     def testLVM(self):
