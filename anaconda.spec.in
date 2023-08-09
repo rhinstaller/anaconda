@@ -411,6 +411,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Aug 09 2023 Jiri Konecny <jkonecny@redhat.com> - 34.25.3.8-1
+- iscsi: Allow changing iSCSI initiator name once set (vtrefny)
+  Resolves: rhbz#2223977
+
 * Wed Jul 12 2023 Jiri Konecny <jkonecny@redhat.com> - 34.25.3.7-1
 - Allow showing passphrase when unlocking LUKS device (jstodola)
   Resolves: rhbz#2013190
