@@ -144,6 +144,8 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
 
         self.assertFalse(self.file_exists(logfile))
 
+        # FIXME: wait for the log being read in more clever way
+        sleep(3)
         # Click report issue: save reviewed log and open BZ URL
         b.click("#critical-error-modal .pf-c-button.pf-m-primary")
 
