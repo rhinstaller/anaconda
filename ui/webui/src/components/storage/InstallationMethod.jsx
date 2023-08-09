@@ -48,6 +48,7 @@ import { debug } from "../../helpers/log.js";
 import "./InstallationMethod.scss";
 
 const _ = cockpit.gettext;
+const N_ = cockpit.noop;
 
 /**
  *  Select default disks for the partitioning.
@@ -125,7 +126,7 @@ const InstallationDestination = ({ deviceData, diskSelection, dispatch, idPrefix
     const loading = !deviceData || diskSelection.usableDisks.some(disk => !deviceData[disk]);
 
     const errorHandler = onCritFail({
-        context: _("Rescanning of the disks failed.")
+        context: N_("Rescanning of the disks failed.")
     });
 
     const rescanDisksButton = (

@@ -29,7 +29,7 @@ import { WithDialogs } from "dialogs.jsx";
 import { AddressContext, LanguageContext } from "./Common.jsx";
 import { AnacondaHeader } from "./AnacondaHeader.jsx";
 import { AnacondaWizard } from "./AnacondaWizard.jsx";
-import { CriticalError, errorHandlerWithContext } from "./Error.jsx";
+import { CriticalError, errorHandlerWithContext, bugzillaPrefiledReportURL } from "./Error.jsx";
 
 import { BossClient } from "../apis/boss.js";
 import { LocalizationClient, initDataLocalization, startEventMonitorLocalization } from "../apis/localization.js";
@@ -42,6 +42,7 @@ import { debug } from "../helpers/log.js";
 import { useReducerWithThunk, reducer, initialState } from "../reducer.js";
 
 const _ = cockpit.gettext;
+const N_ = cockpit.noop;
 
 export const Application = () => {
     const [address, setAddress] = useState();
@@ -82,17 +83,17 @@ export const Application = () => {
                         setStoreInitialized(true);
                         startEventMonitorStorage({ dispatch });
                         startEventMonitorLocalization({ dispatch });
-                    }, onCritFail({ context: _("Reading information about the computer failed.") }));
+                    }, onCritFail({ context: N_("Reading information about the computer failed.") }));
 
             getIsFinal().then(
                 isFinal => setBeta(!isFinal),
-                onCritFail({ context: _("Reading installer version information failed.") })
+                onCritFail({ context: N_("Reading installer version information failed.") })
             );
         });
 
         readConf().then(
             setConf,
-            onCritFail({ context: _("Reading installer configuration failed.") })
+            onCritFail({ context: N_("Reading installer configuration failed.") })
         );
 
         readOsRelease().then(osRelease => setOsRelease(osRelease));
@@ -119,59 +120,65 @@ export const Application = () => {
     const isBootIso = conf?.["Installation System"].type === "BOOT_ISO";
     const title = cockpit.format(_("$0 installation"), osRelease.PRETTY_NAME);
 
-    const page = (
-        criticalError
-            ? <CriticalError exception={criticalError} isBootIso={isBootIso} />
-            : (
-                <Page
-                  data-debug={conf.Anaconda.debug}
-                  additionalGroupedContent={
-                      <AnacondaHeader beta={beta} title={title} />
-                  }
-                  groupProps={{
-                      sticky: "top"
-                  }}
-                >
-                    {Object.keys(notifications).length > 0 &&
-                    <AlertGroup isToast isLiveRegion>
-                        {Object.keys(notifications).map(idx => {
-                            const notification = notifications[idx];
-                            const newNotifications = { ...notifications };
-                            delete newNotifications[notification.index];
+    const bzReportURL = bugzillaPrefiledReportURL({
+        product: osRelease.REDHAT_BUGZILLA_PRODUCT,
+        version: osRelease.REDHAT_BUGZILLA_PRODUCT_VERSION,
+    });
 
-                            return (
-                                <Alert
-                                  variant={AlertVariant[notification.variant]}
-                                  title={notification.title}
-                                  actionClose={
-                                      <AlertActionCloseButton
-                                        title={notifications.title}
-                                        onClose={() => setNotifications(newNotifications)}
-                                      />
-                                  }
-                                  key={notification.index}>
-                                    {notification.message}
-                                </Alert>
-                            );
-                        })}
-                    </AlertGroup>}
-                    <AddressContext.Provider value={address}>
-                        <WithDialogs>
-                            <AnacondaWizard
-                              isBootIso={isBootIso}
-                              onCritFail={onCritFail}
-                              onAddErrorNotification={onAddErrorNotification}
-                              title={title}
-                              storageData={state.storage}
-                              localizationData={state.localization}
-                              dispatch={dispatch}
-                              conf={conf}
-                              osRelease={osRelease}
-                            />
-                        </WithDialogs>
-                    </AddressContext.Provider>
-                </Page>
+    const page = (
+        <>
+            {criticalError &&
+            <CriticalError exception={criticalError} isBootIso={isBootIso} reportLinkURL={bzReportURL} />}
+            <Page
+              data-debug={conf.Anaconda.debug}
+              additionalGroupedContent={
+                  <AnacondaHeader beta={beta} title={title} />
+              }
+              groupProps={{
+                  sticky: "top"
+              }}
+            >
+                {Object.keys(notifications).length > 0 &&
+                <AlertGroup isToast isLiveRegion>
+                    {Object.keys(notifications).map(idx => {
+                        const notification = notifications[idx];
+                        const newNotifications = { ...notifications };
+                        delete newNotifications[notification.index];
+
+                        return (
+                            <Alert
+                              variant={AlertVariant[notification.variant]}
+                              title={notification.title}
+                              actionClose={
+                                  <AlertActionCloseButton
+                                    title={notifications.title}
+                                    onClose={() => setNotifications(newNotifications)}
+                                  />
+                              }
+                              key={notification.index}>
+                                {notification.message}
+                            </Alert>
+                        );
+                    })}
+                </AlertGroup>}
+                <AddressContext.Provider value={address}>
+                    <WithDialogs>
+                        <AnacondaWizard
+                          isBootIso={isBootIso}
+                          onCritFail={onCritFail}
+                          onAddErrorNotification={onAddErrorNotification}
+                          title={title}
+                          storageData={state.storage}
+                          localizationData={state.localization}
+                          dispatch={dispatch}
+                          conf={conf}
+                          osRelease={osRelease}
+                        />
+                    </WithDialogs>
+                </AddressContext.Provider>
+            </Page>
             )
+        </>
     );
 
     return (
