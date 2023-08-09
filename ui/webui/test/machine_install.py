@@ -43,8 +43,6 @@ os.environ["TEST_ALLOW_NOLOGIN"] = "true"
 
 
 class VirtInstallMachine(VirtMachine):
-    http_server = None
-
     def _execute(self, cmd):
         return subprocess.check_call(cmd, stderr=subprocess.STDOUT, shell=True)
 
@@ -73,11 +71,11 @@ class VirtInstallMachine(VirtMachine):
             self._execute(WAIT_HTTP_RUNNING)
 
     def _serve_updates_img(self):
-        http_port = self._get_free_port()
-        self.http_server = subprocess.Popen(["python3", "-m", "http.server", "-d", ANACONDA_ROOT_DIR, str(http_port)])
-        self._wait_http_server_running(http_port)
+        http_updates_img_port = self._get_free_port()
+        self.http_updates_img_server = subprocess.Popen(["python3", "-m", "http.server", "-d", ANACONDA_ROOT_DIR, str(http_updates_img_port)])
+        self._wait_http_server_running(http_updates_img_port)
 
-        return http_port
+        return http_updates_img_port
 
     def _serve_payload(self):
         payload_cached_path = os.path.realpath(os.path.join(BOTS_DIR, "./images/fedora-rawhide-anaconda-payload"))
@@ -106,12 +104,26 @@ class VirtInstallMachine(VirtMachine):
         if not os.path.exists(update_img_file):
             raise FileNotFoundError("Missing updates.img file")
 
-        self.http_port = self._serve_updates_img()
+        self.http_updates_img_port = self._serve_updates_img()
 
         payload_cached_name, http_payload_port = self._serve_payload()
         self.payload_ks_path = self._get_payload_ks_path(payload_cached_name, http_payload_port)
 
         disk_image = self._create_disk_image(15, quiet=True)
+
+        iso_path = f"{os.getcwd()}/bots/images/{self.image}"
+        if self.is_live():
+            # Live install ISO has different directory structure inside
+            # that doesn't follow the standard distribution tree directory structure.
+            location = f"{iso_path},kernel=images/pxeboot/vmlinuz,initrd=images/pxeboot/initrd.img"
+
+            # Live install ISO will not start automatically without providing correct
+            # kernel arguments to load the LiveOS/squashfs.img file as that's where everything is stored.
+            volume_id = self.get_volume_id(iso_path)
+            extra_args = f"root=live:CDLABEL={volume_id} rd.live.image quiet rhgb"
+        else:
+            location = f"{iso_path}"
+            extra_args = f"inst.ks=file:/{os.path.basename(self.payload_ks_path)}"
 
         try:
             self._execute(
@@ -125,31 +137,35 @@ class VirtInstallMachine(VirtMachine):
                 "--noautoconsole "
                 f"--graphics vnc,listen={self.ssh_address} "
                 "--extra-args "
-                f"'inst.sshd inst.webui.remote inst.webui inst.updates=http://10.0.2.2:{self.http_port}/updates.img' "
+                f"'inst.sshd inst.webui.remote inst.webui inst.updates=http://10.0.2.2:{self.http_updates_img_port}/updates.img' "
                 "--network none "
                 f"--qemu-commandline="
                 "'-netdev user,id=hostnet0,"
                 f"hostfwd=tcp:{self.ssh_address}:{self.ssh_port}-:22,"
                 f"hostfwd=tcp:{self.web_address}:{self.web_port}-:80 "
-                "-device virtio-net-pci,netdev=hostnet0,id=net0,addr=0x4' "
+                "-device virtio-net-pci,netdev=hostnet0,id=net0,addr=0x16' "
                 f"--initrd-inject {self.payload_ks_path} "
-                f"--extra-args 'inst.ks=file:/{os.path.basename(self.payload_ks_path)}' "
+                f"--extra-args '{extra_args}' "
                 f"--disk path={disk_image},bus=virtio,cache=unsafe "
-                f"--location {os.getcwd()}/bots/images/{self.image} &"
+                f"--location {location} &"
             )
-            Machine.wait_boot(self)
 
-            for _ in range(30):
-                try:
-                    Machine.execute(self, "journalctl -t anaconda | grep 'anaconda: ui.webui: cockpit web view has been started'")
-                    break
-                except subprocess.CalledProcessError:
-                    time.sleep(10)
-            else:
-                raise AssertionError("Webui initialization did not finish")
+            # Live install ISO does not have sshd service enabled by default
+            # so we can't run any Machine.* methods on it.
+            if not self.is_live():
+                Machine.wait_boot(self)
 
-            # Symlink /usr/share/cockpit to /usr/local/share/cockpit so that rsync works without killing cockpit-bridge
-            Machine.execute(self, "mkdir -p /usr/local/share/cockpit/anaconda-webui && mount --bind /usr/share/cockpit /usr/local/share/cockpit")
+                for _ in range(30):
+                    try:
+                        Machine.execute(self, "journalctl -t anaconda | grep 'anaconda: ui.webui: cockpit web view has been started'")
+                        break
+                    except subprocess.CalledProcessError:
+                        time.sleep(10)
+                else:
+                    raise AssertionError("Webui initialization did not finish")
+
+                # Symlink /usr/share/cockpit to /usr/local/share/cockpit so that rsync works without killing cockpit-bridge
+                Machine.execute(self, "mkdir -p /usr/local/share/cockpit/anaconda-webui && mount --bind /usr/share/cockpit /usr/local/share/cockpit")
         except Exception as e:
             self.kill()
             raise e
@@ -161,8 +177,8 @@ class VirtInstallMachine(VirtMachine):
             f"--remove-all-storage {self.label} || true"
         )
         os.remove(self.payload_ks_path)
-        if self.http_server:
-            self.http_server.kill()
+        if self.http_updates_img_server:
+            self.http_updates_img_server.kill()
         if self.http_payload_server:
             self.http_payload_server.kill()
 
@@ -182,3 +198,9 @@ class VirtInstallMachine(VirtMachine):
                 time.sleep(2)
         else:
             raise AssertionError("Test VM did not shut off")
+
+    def is_live(self):
+        return "live" in self.image
+
+    def get_volume_id(self, iso_path):
+        return subprocess.check_output(fr"isoinfo -d -i {iso_path} |  grep -oP 'Volume id: \K.*'", shell=True).decode(sys.stdout.encoding).strip()

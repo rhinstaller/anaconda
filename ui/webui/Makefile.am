@@ -95,6 +95,9 @@ bots: tools/make-bots
 	GITHUB_BASE="cockpit-project/cockpit" tools/make-bots
 	cd test && ln -sf ../bots/images images
 
+live-vm: bots $(UPDATES_IMG)
+	./test/testvm.py $(TEST_LIVE_OS)
+
 prepare-test-deps: bots test/common payload
 
 .PHONY: payload
