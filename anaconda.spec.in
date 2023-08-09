@@ -367,6 +367,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Aug 09 2023 Jiri Konecny <jkonecny@redhat.com> - 33.16.9.4-1
+- iscsi: Allow changing iSCSI initiator name once set (vtrefny)
+  Resolves: rhbz#2223980
+
 * Tue Jul 11 2023 Jiri Konecny <jkonecny@redhat.com> - 33.16.9.3-1
 - Be more indulgent when reclaiming disk space (jstodola)
   Resolves: rhbz#1855371
