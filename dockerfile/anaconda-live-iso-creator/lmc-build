@@ -26,7 +26,7 @@ HTTP_LOG=$LOG_DIR/http.log
 HTTP_PID=/lorax/httpd.pid
 
 start_http_server() {
-    python -m http.server -d . 1>&2 2>$HTTP_LOG &
+    python3 -m http.server -d . 1>&2 2>$HTTP_LOG &
     echo "$!" > $HTTP_PID
 
     # extract container IP
