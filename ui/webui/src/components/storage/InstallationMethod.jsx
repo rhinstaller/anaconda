@@ -30,7 +30,7 @@ import {
     SelectVariant,
     Title,
 } from "@patternfly/react-core";
-import { SyncAltIcon } from "@patternfly/react-icons";
+import { SyncAltIcon, WrenchIcon } from "@patternfly/react-icons";
 
 import { InstallationScenario } from "./InstallationScenario.jsx";
 
@@ -256,9 +256,22 @@ const InstallationDestination = ({ deviceData, diskSelection, dispatch, idPrefix
                                 : _("No usable disks detected")
                         )}
                     {rescanDisksButton}
+                    <ModifyStorageButton isBootIso={isBootIso} />
                 </Flex>
             </FormGroup>
         </>
+    );
+};
+
+const ModifyStorageButton = ({ isBootIso }) => {
+    if (isBootIso) {
+        return null;
+    }
+
+    return (
+        <Button variant="link" icon={<WrenchIcon />} onClick={() => cockpit.spawn(["blivet-gui"])}>
+            {_("Modify storage")}
+        </Button>
     );
 };
 
