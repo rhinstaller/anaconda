@@ -36,6 +36,8 @@ import { ExternalLinkAltIcon } from "@patternfly/react-icons";
 
 import { exitGui } from "../helpers/exit.js";
 
+import "./Error.scss";
+
 const _ = cockpit.gettext;
 
 export const bugzillaPrefiledReportURL = (productQueryData) => {
