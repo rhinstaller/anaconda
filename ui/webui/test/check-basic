@@ -152,5 +152,12 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         # Reviewed log contains more than 100 lines
         wait(lambda: int(m.execute(f"wc -l {logfile} | cut -d' ' -f1").strip()) > 100)
 
+        # Test editing of the log
+        user_text = "STRING_ADDED_BY_USER_TO_LOG"
+        b.set_input_text("#critical-error-review-attached-log", user_text)
+        b.click("#critical-error-modal .pf-c-button.pf-m-primary")
+        wait(lambda: (m.execute(f"cat {logfile}")) == user_text)
+
+
 if __name__ == '__main__':
     test_main()
