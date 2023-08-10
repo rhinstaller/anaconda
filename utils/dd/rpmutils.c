@@ -161,7 +161,7 @@ static int readRPM(const char *source, FD_t *fdi, Header *h)
 }
 
 /*
- * Check if the RPM is a properly formated driver
+ * Check if the RPM is a properly formatted driver
  * update package. Call ok(Header*) if it is.
  */
 int checkDDRPM(const char *source,

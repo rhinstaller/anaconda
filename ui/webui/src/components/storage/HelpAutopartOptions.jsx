@@ -6,4 +6,4 @@ export const helpEraseAll = _("Remove all partitions on the selected devices, in
 
 export const helpUseFreeSpace = _("Keeps current disk layout and uses only available space.");
 
-export const helpMountPointMapping = _("This option requires that the selected device has formated partitions.");
+export const helpMountPointMapping = _("This option requires that the selected device has formatted partitions.");
