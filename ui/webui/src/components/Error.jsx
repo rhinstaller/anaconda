@@ -69,7 +69,7 @@ const addExceptionDataToReportURL = (url, exception) => {
 
 export const CriticalError = ({ exception, isBootIso, reportLinkURL }) => {
     const reportURL = addExceptionDataToReportURL(reportLinkURL, exception);
-    const [logContent, setLogContent] = useState("");
+    const [logContent, setLogContent] = useState();
     const [preparingReport, setPreparingReport] = useState(false);
 
     useEffect(() => {
@@ -106,7 +106,7 @@ export const CriticalError = ({ exception, isBootIso, reportLinkURL }) => {
                   <Button
                     variant="primary"
                     isLoading={preparingReport}
-                    isDisabled={preparingReport}
+                    isDisabled={logContent === undefined || preparingReport}
                     icon={<ExternalLinkAltIcon />}
                     onClick={() => openBZIssue(reportURL)}
                     component="a">

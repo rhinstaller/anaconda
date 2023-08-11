@@ -22,7 +22,6 @@ from language import Language
 from review import Review
 from storage import Storage
 from testlib import nondestructive, test_main, wait  # pylint: disable=import-error
-from time import sleep
 
 
 @nondestructive
@@ -144,8 +143,6 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
 
         self.assertFalse(self.file_exists(logfile))
 
-        # FIXME: wait for the log being read in more clever way
-        sleep(3)
         # Click report issue: save reviewed log and open BZ URL
         b.click("#critical-error-modal .pf-c-button.pf-m-primary")
 
