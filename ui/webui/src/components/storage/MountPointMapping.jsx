@@ -439,17 +439,11 @@ const MountPointMappingContent = ({ deviceData, partitioningData, dispatch, idPr
     }, [deviceData, requests, setIsFormValid]);
 
     const handleRequestChange = (mountpoint, device, newRequestId, reformat) => {
-        const data = deviceData[device];
         const _requests = requests.map(row => {
             const newRow = { ...row };
             if (row["request-id"] === newRequestId) {
                 // Reset reformat option when changing from /
                 if (row["mount-point"] === "/" && mountpoint !== row["mount-point"] && row.reformat) {
-                    newRow.reformat = false;
-                }
-
-                // TODO: Anaconda does not support formatting btrfs yet
-                if (row["device-spec"] !== device && data?.["format-type"] === "btrfs") {
                     newRow.reformat = false;
                 }
 
