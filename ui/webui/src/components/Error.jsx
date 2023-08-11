@@ -137,6 +137,7 @@ export const CriticalError = ({ exception, isBootIso, reportLinkURL }) => {
                       onChange={setLogContent}
                       resizeOrientation="vertical"
                       id="critical-error-review-attached-log"
+                      rows={7}
                     />
                     <FormHelperText isHidden={false}>
                         <HelperText>
