@@ -116,22 +116,31 @@ int dlabelFilter(const char* name, const struct stat *fstat, int packageflags, v
     if ((packageflags & dup_firmwares) && !strncmp("lib/firmware/", name, 13))
         return 1;
 
-    /* we do not want kernel files */
-    if (!(packageflags & dup_modules))
-        return 0;
+    /* unpack kernel modules if the package was marked as module-package */
+    if ((packageflags & dup_modules)) {
+        /* check if the file has at least three chars eg .SS */
+        if (l>=3) {
+            if (!strcmp(".ko", name+l-3))
+                return 1;
+        }
+        /* check if the file has at least six chars eg .SS.CC */
+        if (l>=6) {
+            if (!strcmp(".ko.gz", name+l-6))
+                return 1;
+            if (!strcmp(".ko.xz", name+l-6))
+                return 1;
+        }
+        /* check if the file has at least seven chars eg .SS.CCC */
+        if (l>=7) {
+            if (!strcmp(".ko.bz2", name+l-7))
+                return 1;
+            if (!strcmp(".ko.zst", name+l-7))
+                return 1;
+        }
+    }
 
-    /* check if the file has at least four chars eg X.SS */
-    if (l<3)
-        return 0;
-    l-=3;
-
-    /* and we want only .ko files here */
-    if (strcmp(".ko", name+l))
-        return 0;
-
-    /* we are unpacking kernel module.. */
-
-    return 1;
+    /* we do not want kernel files etc. */
+    return 0;
 }
 
 int main(int argc, char *argv[])
