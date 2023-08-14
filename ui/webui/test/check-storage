@@ -782,7 +782,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         self.wait_mount_point_table_column_helper(3, "format", text="Mismatch")
 
         # When parent is re-formmated all child devices should be
-        # * either also reformated if selected
+        # * either also reformatted if selected
         # * either not selected (not part of the mountpoint assignment table)
         self.remove_row(5)
         self.remove_row(6)
