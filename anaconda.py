@@ -353,6 +353,16 @@ if __name__ == "__main__":
         except OSError:
             pass
 
+    from pyanaconda.core.hw import detect_virtualized_platform
+    if not conf.system.provides_liveuser and detect_virtualized_platform():
+        # If we're virtualized boot.iso, stop brltty. Virtual machines won't have any specialized
+        # hardware attached. It could still spam logs very thoroughly about device confusion,
+        # which we don't want. On live, it is managed by gnome shell and we don't want to stop it.
+        try:
+            util.execWithRedirect("systemctl", ["stop", "brltty"])
+        except OSError:
+            pass
+
     log.info("anaconda called with cmdline = %s", sys.argv)
     log.info("Default encoding = %s ", sys.getdefaultencoding())
 
