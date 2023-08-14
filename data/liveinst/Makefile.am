@@ -15,9 +15,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = console.apps gnome pam.d
-
-dist_sbin_SCRIPTS  = liveinst
+SUBDIRS = gnome
+dist_bin_SCRIPTS  = liveinst
 
 desktopdir         = $(datadir)/applications
 dist_desktop_DATA  = liveinst.desktop
@@ -27,9 +26,8 @@ dist_libexec_SCRIPTS = liveinst-setup.sh
 autostartdir       = $(sysconfdir)/xdg/autostart
 dist_autostart_DATA = liveinst-setup.desktop
 
-install-exec-local:
-	$(MKDIR_P) $(DESTDIR)$(bindir)
-	$(LN_S) consolehelper $(DESTDIR)$(bindir)/liveinst
+polkitdir           = $(datadir)/polkit-1/actions
+dist_polkit_DATA    = org.fedoraproject.pkexec.liveinst.policy
 
 # Merge translations into the desktop file
 # Use the merged translations in $(builddir). If no merged translations exist,
@@ -42,9 +40,6 @@ install-data-hook:
 		-o $(DESTDIR)$(desktopdir)/liveinst.desktop.new $$p || exit 1 ; \
 	    mv $(DESTDIR)$(desktopdir)/liveinst.desktop.new $(DESTDIR)$(desktopdir)/liveinst.desktop || exit 1 ; \
 	done
-
-uninstall-local:
-	rm -f $(DESTDIR)$(bindir)/liveinst
 
 EXTRA_DIST = README
 

@@ -81,14 +81,6 @@ POTFILE_SUFFIXES = py c glade desktop
 # Specify seperate jsx and js files in order to pass --language=JavaScript as jsx extension is not auto-detected
 POTFILE_JS_SUFFIXES = jsx js
 
-# Extra files to scan for strings
-# This is the config file used by userhelper. The startup notification can be
-# translated. Just pull the string out and stick in a C-style header.
-POTFILE_EXTRA = $(top_builddir)/data/liveinst/console.apps/liveinst.h
-
-$(top_builddir)/data/liveinst/console.apps/liveinst.h: $(top_srcdir)/data/liveinst/console.apps/liveinst
-	$(AM_V_GEN)sed -n 's/^STARTUP_NOTIFICATION_NAME=\(.*\)/char *s = N_(\1)/p' < $< > $@
-
 # Below this line is the part that shouldn't need to be changed for other
 # projects
 
@@ -212,11 +204,8 @@ main_js.pot: $(POTFILE_INPUT)
 	$(GETTEXT_V_EXTRACT)$(XGETTEXT) $(XGETTEXT_OPTIONS) --language=C --directory=$(top_srcdir) -o $@ \
 	    $(patsubst $(top_srcdir)/%,%,$(POTFILE_JS_INPUT))
 
-extra.pot: $(POTFILE_EXTRA)
-	$(GETTEXT_V_EXTRACT)$(XGETTEXT) $(XGETTEXT_OPTIONS) -o $@ $(POTFILE_EXTRA)
-
-$(POTFILE): main_js.pot main.pot extra.pot
-	$(AM_V_GEN)$(MSGCAT) -o $@ main.pot main_js.pot extra.pot
+$(POTFILE): main_js.pot main.pot
+	$(AM_V_GEN)$(MSGCAT) -o $@ main.pot main_js.pot
 
 # Request po files download before collecting them in the POFILES variable.
 $(POFILES): $(PO_DOWNLOADED_FLAG)
@@ -275,4 +264,4 @@ uninstall-local:
 		rm -f $(DESTDIR)$(localedir)/$$lang/LC_MESSAGES/$(PACKAGE).mo ; \
 	done
 
-CLEANFILES = $(MERGED_POFILES) $(MOFILES) $(POTFILE) main.pot extra.pot $(PO_DOWNLOADED_FLAG)
+CLEANFILES = $(MERGED_POFILES) $(MOFILES) $(POTFILE) main.pot $(PO_DOWNLOADED_FLAG)

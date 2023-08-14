@@ -108,9 +108,7 @@ AC_CONFIG_FILES([Makefile
                  data/conf.d/Makefile
                  data/profile.d/Makefile
                  data/liveinst/Makefile
-                 data/liveinst/console.apps/Makefile
                  data/liveinst/gnome/Makefile
-                 data/liveinst/pam.d/Makefile
                  data/systemd/Makefile
                  data/dbus/Makefile
                  data/window-manager/Makefile
