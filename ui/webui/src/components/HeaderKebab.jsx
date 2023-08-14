@@ -38,6 +38,7 @@ import { ExternalLinkAltIcon } from "@patternfly/react-icons";
 
 import { read_os_release as readOsRelease } from "os-release.js";
 import { getAnacondaVersion } from "../helpers/product.js";
+import { UserIssue } from "./Error.jsx";
 
 import "./HeaderKebab.scss";
 
@@ -109,9 +110,10 @@ const AnacondaAboutModal = ({ isModalOpen, setIsAboutModalOpen }) => {
     );
 };
 
-export const HeaderKebab = () => {
+export const HeaderKebab = ({ reportLinkURL }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isAboutModalOpen, setIsAboutModalOpen] = useState(false);
+    const [isReportIssueOpen, setIsReportIssueOpen] = useState(false);
 
     const onToggle = isOpen => {
         setIsOpen(isOpen);
@@ -129,9 +131,16 @@ export const HeaderKebab = () => {
         setIsAboutModalOpen(true);
     };
 
+    const handleReportIssue = () => {
+        setIsReportIssueOpen(true);
+    };
+
     const dropdownItems = [
-        <DropdownItem id="about-modal-dropdown-item" key="separated link" onClick={handleAboutModal}>
+        <DropdownItem id="about-modal-dropdown-item-about" key="about" onClick={handleAboutModal}>
             {_("About")}
+        </DropdownItem>,
+        <DropdownItem id="about-modal-dropdown-item-report" key="report issue" onClick={handleReportIssue}>
+            {_("Report Issue")}
         </DropdownItem>,
     ];
     return (
@@ -153,6 +162,11 @@ export const HeaderKebab = () => {
             <AnacondaAboutModal
               isModalOpen={isAboutModalOpen}
               setIsAboutModalOpen={setIsAboutModalOpen}
+            />}
+            {isReportIssueOpen &&
+            <UserIssue
+              reportLinkURL={reportLinkURL}
+              setIsReportIssueOpen={setIsReportIssueOpen}
             />}
         </>
     );
