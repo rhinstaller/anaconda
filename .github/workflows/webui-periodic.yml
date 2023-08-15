@@ -154,3 +154,11 @@ jobs:
           else
             exit 0
           fi
+
+      - name: Upload image artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: images
+          path: |
+            anaconda/images/boot.iso
