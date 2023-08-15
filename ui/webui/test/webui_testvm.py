@@ -33,20 +33,25 @@ def cmd_cli():
     try:
         machine.start()
 
-        print("You can connect to the VM in the following ways:")
-        # print ssh command
-        print("ssh -o ControlPath=%s -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p %s %s@%s" %
-              (machine.ssh_master, machine.ssh_port, machine.ssh_user, machine.ssh_address))
-        # print Cockpit web address
-        print(
-            "http://%s:%s/cockpit/@localhost/anaconda-webui/index.html" %
-            (machine.web_address, machine.web_port)
-        )
+        live_os = machine.is_live()
+        if not live_os:
+            print("You can connect to the VM in the following ways:")
+            # print ssh command
+            print("ssh -o ControlPath=%s -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p %s %s@%s" %
+                  (machine.ssh_master, machine.ssh_port, machine.ssh_user, machine.ssh_address))
+            # print Cockpit web address
+            print(
+                "http://%s:%s/cockpit/@localhost/anaconda-webui/index.html" %
+                (machine.web_address, machine.web_port)
+            )
 
-        # rsync development files over so /usr/local/share/cockpit is created with a development version
-        if args.rsync:
-            # Rather annoying the node_modules path needs to be explicitly added for webpack
-            subprocess.check_call(["npm", "run", "build"], env={'RSYNC': args.host, "PATH": "/usr/bin/:node_modules/.bin", "LINT": "0"})
+            # rsync development files over so /usr/local/share/cockpit is created with a development version
+            if args.rsync:
+                # Rather annoying the node_modules path needs to be explicitly added for webpack
+                subprocess.check_call(["npm", "run", "build"], env={'RSYNC': args.host, "PATH": "/usr/bin/:node_modules/.bin", "LINT": "0"})
+        else:
+            print("You can start the installer by running the following command on the terminal in the test VM:")
+            print("liveinst --graphical --updates=http://10.0.2.2:%s/updates.img" % (machine.http_updates_img_port))
 
         # print marker that the VM is ready; tests can poll for this to wait for the VM
         print("RUNNING")
