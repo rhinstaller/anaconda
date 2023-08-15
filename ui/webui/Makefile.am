@@ -63,6 +63,7 @@ install-data-hook: $(WEBPACK_TEST)
 	mkdir -p $(DESTDIR)/usr/share/metainfo/
 	cp org.cockpit-project.$(PACKAGE_NAME).metainfo.xml $(DESTDIR)/usr/share/metainfo/
 	cp webui-desktop $(DESTDIR)/usr/libexec/
+	ln -sTfr $(DESTDIR)/usr/share/pixmaps/fedora-logo-sprite.svg $(DESTDIR)/usr/share/cockpit/$(PACKAGE_NAME)/logo.svg
 
 EXTRA_DIST = dist src firefox-theme
 

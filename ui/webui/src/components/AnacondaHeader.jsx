@@ -29,6 +29,8 @@ import { InfoCircleIcon } from "@patternfly/react-icons";
 
 import { HeaderKebab } from "./HeaderKebab.jsx";
 
+import "./AnacondaHeader.scss";
+
 const _ = cockpit.gettext;
 
 export const AnacondaHeader = ({ beta, title, reportLinkURL, isConnected }) => {
@@ -64,6 +66,7 @@ export const AnacondaHeader = ({ beta, title, reportLinkURL, isConnected }) => {
     return (
         <PageSection variant={PageSectionVariants.light}>
             <Flex spaceItems={{ default: "spaceItemsSm" }} alignItems={{ default: "alignItemsCenter" }}>
+                <span className="logo" />
                 <TextContent>
                     <Text component="h1">{title}</Text>
                 </TextContent>
