@@ -811,8 +811,10 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         vgcreate -y -f {vgname} {disk}3
         lvcreate -y -l40%FREE -n root {vgname}
         mkfs.ext4 -F /dev/{vgname}/root
-        lvcreate -y -l100%FREE -n home {vgname}
+        lvcreate -y -l90%FREE -n home {vgname}
         mkfs.ext4 -F /dev/{vgname}/home
+        lvcreate -y -l100%FREE -n swap {vgname}
+        mkswap /dev/{vgname}/swap
         """)
 
         s.udevadm_settle()
@@ -843,6 +845,12 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         self.select_row_mountpoint(3, "/home")
         self.check_format_type(3, "ext4")
 
+        self.add_mount()
+        self.select_row_device(4, f"{vgname}-swap")
+        self.check_reformat(4, False)
+        self.check_row_mountpoint(4, "swap")
+        self.check_format_type(4, "swap")
+
         # Toggle reformat option
         self.select_reformat(1)
         self.check_reformat(1, True)
@@ -856,7 +864,8 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         r.check_disk_row(disk, 1, "vda1, 1.05 MB: biosboot")
         r.check_disk_row(disk, 2, "vda2, 1.07 GB: format as ext4, /boot")
         r.check_disk_row(disk, 3, f"{vgname}-root, 6.01 GB: format as ext4, /")
-        r.check_disk_row(disk, 4, f"{vgname}-home, 9.02 GB: mount, /home")
+        r.check_disk_row(disk, 4, f"{vgname}-home, 8.12 GB: mount, /home")
+        r.check_disk_row(disk, 5, f"{vgname}-swap, 902 MB: mount, swap")
 
 if __name__ == '__main__':
     test_main()

@@ -128,17 +128,28 @@ const getLockedLUKSDevices = (requests, deviceData) => {
     });
 };
 
+const isDuplicateMountPoint = (requests, mountpoint) => {
+    // we can have multiple swap devices "mounted"
+    if (mountpoint === "swap") {
+        return false;
+    }
+
+    return isDuplicateRequestField(requests, "mount-point", mountpoint);
+};
+
 const MountPointColumn = ({ handleRequestChange, idPrefix, isRequiredMountPoint, request, requests }) => {
     const mountpoint = request["mount-point"] || "";
 
     const [mountPointText, setMountPointText] = useState(mountpoint);
 
-    const duplicatedMountPoint = isDuplicateRequestField(requests, "mount-point", mountpoint);
+    const duplicatedMountPoint = isDuplicateMountPoint(requests, mountpoint);
+
+    const swapMountpoint = mountpoint === "swap";
 
     return (
         <Flex direction={{ default: "column" }} spaceItems={{ default: "spaceItemsNone" }}>
             <Flex spaceItems={{ default: "spaceItemsMd" }}>
-                {isRequiredMountPoint && !duplicatedMountPoint
+                {(isRequiredMountPoint && !duplicatedMountPoint) || swapMountpoint
                     ? (
                         <FlexItem
                           className="mount-point-mapping__mountpoint-text"
@@ -420,7 +431,7 @@ const MountPointMappingContent = ({ deviceData, partitioningData, dispatch, idPr
     /* When requests change check for duplicate mount point or device assignments and update form validity */
     useEffect(() => {
         if (requests) {
-            const mountPoints = requests.map(r => r["mount-point"]);
+            const mountPoints = requests.filter(r => r["mount-point"] !== "swap").map(r => r["mount-point"]);
             const devices = requests.map(r => r["device-spec"]);
             const reformatInvalid = requests.some(request => !isReformatValid(deviceData, request, requests));
 
@@ -440,6 +451,7 @@ const MountPointMappingContent = ({ deviceData, partitioningData, dispatch, idPr
     }, [deviceData, requests, setIsFormValid]);
 
     const handleRequestChange = (mountpoint, device, newRequestId, reformat) => {
+        const data = deviceData[device];
         const _requests = requests.map(row => {
             const newRow = { ...row };
             if (row["request-id"] === newRequestId) {
@@ -455,6 +467,16 @@ const MountPointMappingContent = ({ deviceData, partitioningData, dispatch, idPr
 
                 if (reformat !== undefined) {
                     newRow.reformat = reformat;
+                }
+
+                // set "swap" as the default mountpoint for swap devices
+                if (device !== undefined && data !== undefined && data.formatData.type.v === "swap") {
+                    mountpoint = "swap";
+                }
+
+                // device changed to a non-swap device, reset mountpoint
+                if (row["device-spec"] !== device && mountpoint === "swap" && data !== undefined && data.formatData.type.v !== "swap") {
+                    mountpoint = undefined;
                 }
 
                 newRow["mount-point"] = mountpoint;
