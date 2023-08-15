@@ -31,7 +31,12 @@ from storage import Storage
 
 
 class VirtInstallMachineCase(MachineCase):
+    efi = False
     MachineCase.machine_class = VirtInstallMachine
+
+    @classmethod
+    def setUpClass(cls):
+        VirtInstallMachine.efi = cls.efi
 
     def setUp(self):
         # FIXME: running this in destructive tests fails because the SSH session closes before this is run
