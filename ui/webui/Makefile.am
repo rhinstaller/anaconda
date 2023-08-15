@@ -30,6 +30,7 @@ TEST_OS=fedora-rawhide-boot
 PAYLOAD=fedora-rawhide-anaconda-payload
 GITHUB_BASE=rhinstaller/anaconda
 UPDATES_IMG=../../updates.img
+TEST_LIVE_OS=fedora-rawhide-live-boot
 
 export GITHUB_BASE
 export TEST_OS
@@ -96,7 +97,7 @@ bots: tools/make-bots
 	cd test && ln -sf ../bots/images images
 
 live-vm: bots $(UPDATES_IMG)
-	./test/testvm.py $(TEST_LIVE_OS)
+	./test/webui_testvm.py $(TEST_LIVE_OS)
 
 prepare-test-deps: bots test/common payload
 
