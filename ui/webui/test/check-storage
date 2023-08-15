@@ -26,6 +26,8 @@ from storagelib import StorageHelpers  # pylint: disable=import-error
 
 @nondestructive
 class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
+    efi = False
+
     def set_valid_password(self, password="abcdefgh"):
         s = Storage(self.browser, self.machine)
 
@@ -250,6 +252,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
 # TODO add next back test keeping the choice
 @nondestructive
 class TestStorageExtraDisks(anacondalib.VirtInstallMachineCase, StorageHelpers):
+    efi = False
 
     def testLocalDisksSyncNew(self):
         b = self.browser
@@ -293,6 +296,8 @@ class TestStorageExtraDisks(anacondalib.VirtInstallMachineCase, StorageHelpers):
             s.check_disk_selected(disk)
 
 class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
+    efi = False
+
     def table_row(self, row):
         return f"#mount-point-mapping-table-row-{row}";
 
