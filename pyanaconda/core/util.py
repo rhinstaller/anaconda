@@ -41,6 +41,7 @@ from pyanaconda.core.path import make_directories, open_with_perm, join_paths
 from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.core.constants import DRACUT_SHUTDOWN_EJECT, \
     IPMI_ABORTED, X_TIMEOUT
+from pyanaconda.core.live_user import get_live_user
 from pyanaconda.errors import RemovedModuleError
 
 from pyanaconda.anaconda_logging import program_log_lock
@@ -259,8 +260,9 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
             raise TimeoutError("Timeout trying to start %s" % argv[0])
 
 
-def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_output=True,
-                 binary_output=False, filter_stderr=False, do_preexec=True):
+def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None,
+                 log_output=True, binary_output=False, filter_stderr=False,
+                 do_preexec=True, env_add=None, user=None):
     """ Run an external program, log the output and return it to the caller
 
         NOTE/WARNING: UnicodeDecodeError will be raised if the output of the of the
@@ -275,6 +277,8 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_ou
         :param binary_output: whether to treat the output of command as binary data
         :param filter_stderr: whether to exclude the contents of stderr from the returned output
         :param do_preexec: whether to use a preexec_fn for subprocess.Popen
+        :param env_add: environment variables added for the execution
+        :param user: Specify user UID under which the command will be executed
         :return: The return code of the command and the output
     """
     try:
@@ -284,7 +288,7 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_ou
             stderr = subprocess.STDOUT
 
         proc = startProgram(argv, root=root, stdin=stdin, stdout=subprocess.PIPE, stderr=stderr,
-                            env_prune=env_prune, do_preexec=do_preexec)
+                            env_prune=env_prune, env_add=env_add, do_preexec=do_preexec, user=user)
 
         (output_string, err_string) = proc.communicate()
         if not binary_output:
@@ -364,8 +368,37 @@ def execWithCapture(command, argv, stdin=None, root='/', log_output=True, filter
         :return: The output of the command
     """
     argv = [command] + argv
+
     return _run_program(argv, stdin=stdin, root=root, log_output=log_output,
                         filter_stderr=filter_stderr, do_preexec=do_preexec)[1]
+
+
+def execWithCaptureAsLiveUser(command, argv, stdin=None, root='/', log_output=True,
+                              filter_stderr=False, do_preexec=True):
+    """ Run an external program and capture standard out and err as liveuser user.
+
+        The liveuser user account is used on Fedora live media. If we need to read values from the
+        running live system we might need to run the commands under the liveuser account.
+
+        :param command: The command to run
+        :param argv: The argument list
+        :param stdin: The file object to read stdin from.
+        :param root: The directory to chroot to before running command.
+        :param log_output: Whether to log the output of command
+        :param filter_stderr: Whether stderr should be excluded from the returned output
+        :param do_preexec: whether to use the preexec function
+        :return: The output of the command
+    """
+    argv = [command] + argv
+
+    user = get_live_user()
+
+    if user is None:
+        raise OSError("Live user is requested to run command but can't be found")
+
+    return _run_program(argv, stdin=stdin, root=root, log_output=log_output,
+                        filter_stderr=filter_stderr, do_preexec=do_preexec,
+                        user=user.uid, env_add=user.env_add, env_prune=user.env_prune)[1]
 
 
 def execReadlines(command, argv, stdin=None, root='/', env_prune=None, filter_stderr=False):

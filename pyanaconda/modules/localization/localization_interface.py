@@ -179,7 +179,7 @@ class LocalizationInterface(KickstartModuleInterface):
         """Set the X layouts for the system.
 
         The layout is specified by values used by setxkbmap(1).  Accepts either
-        layout format (eg "cz") or the layout(variant) format (eg "cz (qerty)")
+        layout format (eg "cz") or the layout(variant) format (eg "cz (qwerty)")
 
         :param x_layouts: List of x layout specifications.
         """

@@ -34,6 +34,7 @@ from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.core import util
 from pyanaconda.core.util import synchronized, LazyObject
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.live_user import User
 
 
 ANACONDA_TEST_DIR = '/tmp/anaconda_tests_dir'
@@ -105,6 +106,24 @@ echo "error" >&2
 
         # check that the output is an empty string
         assert util.execWithCapture("/bin/sh", ["-c", "exit 0"]) == ""
+
+    @patch("pyanaconda.core.util.startProgram")
+    @patch("pyanaconda.core.util.get_live_user")
+    def test_exec_with_capture_as_live_user(self, mock_get_live_user, mock_start_program):
+        """Test execWithCaptureAsLiveUser."""
+        mock_get_live_user.return_value = User(name="testlive",
+                                               uid=1000,
+                                               env_add={"TEST": "test"},
+                                               env_prune=("TEST_PRUNE",)
+                                               )
+        mock_start_program.return_value.communicate.return_value = (b"", b"")
+
+        util.execWithCaptureAsLiveUser('ls', [])
+
+        mock_start_program.assert_called_once()
+        assert mock_start_program.call_args.kwargs["user"] == 1000
+        assert mock_start_program.call_args.kwargs["env_add"] == {"TEST": "test"}
+        assert mock_start_program.call_args.kwargs["env_prune"] == ("TEST_PRUNE",)
 
     def test_exec_readlines(self):
         """Test execReadlines."""
