@@ -138,7 +138,7 @@ const MountPointColumn = ({ handleRequestChange, idPrefix, isRequiredMountPoint,
     return (
         <Flex direction={{ default: "column" }} spaceItems={{ default: "spaceItemsNone" }}>
             <Flex spaceItems={{ default: "spaceItemsMd" }}>
-                {isRequiredMountPoint
+                {isRequiredMountPoint && !duplicatedMountPoint
                     ? (
                         <FlexItem
                           className="mount-point-mapping__mountpoint-text"
@@ -299,6 +299,7 @@ const RequestsTable = ({
     const columnClassName = idPrefix + "__column";
     const getRequestRow = (request) => {
         const isRequiredMountPoint = !!requiredMountPointOptions.find(val => val.value === request["mount-point"]);
+        const duplicatedMountPoint = isDuplicateRequestField(requests, "mount-point", request["mount-point"]);
         const rowId = idPrefix + "-row-" + request["request-id"];
 
         return {
@@ -344,7 +345,7 @@ const RequestsTable = ({
                 },
                 {
                     title: (
-                        isRequiredMountPoint ? null : <MountPointRowRemove request={request} setRequests={setRequests} />
+                        (isRequiredMountPoint && !duplicatedMountPoint) ? null : <MountPointRowRemove request={request} setRequests={setRequests} />
                     ),
                     props: { className: columnClassName }
                 }
