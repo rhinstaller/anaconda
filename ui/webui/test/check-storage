@@ -866,5 +866,33 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         r.check_disk_row(disk, 3, f"{vgname}-home, 8.12 GB: mount, /home")
         r.check_disk_row(disk, 4, f"{vgname}-swap, 902 MB: mount, swap")
 
+    @nondestructive
+    def testUnusableFormats(self):
+        b = self.browser
+        m = self.machine
+        i = Installer(b, m)
+        s = Storage(b, m)
+
+        self.addCleanup(m.execute, "wipefs --all /dev/vda")
+
+        disk = "/dev/vda"
+        dev = "vda"
+        s.partition_disk(disk, [("1GB", "udf")])
+        s.udevadm_settle()
+
+        i.open()
+        i.next()
+        s.rescan_disks()
+
+        self.select_mountpoint(i, s, [(dev, True)])
+
+        # UDF filesystem cannot be reformatted by blivet
+        self.add_mount()
+        self.select_row_device(3, f"{dev}1")
+        self.select_row_mountpoint(3, "/data")
+        self.check_format_type(3, "udf")
+        self.select_reformat(3)
+        self.wait_mount_point_table_column_helper(3, "format", text="Selected")
+
 if __name__ == '__main__':
     test_main()
