@@ -148,6 +148,10 @@ jobs:
         working-directory: ./permian
         shell: bash {0}
         run: |
+          ls xunit*.xml > /dev/null
+          if [ $? -ne 0 ]; then
+            exit 112
+          fi
           fails=$( grep -E '<failure .* type="failure"/>|<error .* type="error"/>' xunit*.xml )
           if [ -n "$fails" ]; then
             exit 111
