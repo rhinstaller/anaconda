@@ -357,15 +357,13 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %else
 # Remove all live-installer files from the buildroot
 rm -rf \
-  %{buildroot}/%{_sysconfdir}/pam.d/liveinst \
-  %{buildroot}/%{_sysconfdir}/security/console.apps/liveinst \
   %{buildroot}/%{_sysconfdir}/xdg/autostart/liveinst-setup.desktop \
   %{buildroot}/%{_bindir}/liveinst \
   %{buildroot}/%{_libexecdir}/liveinst-setup.sh \
-  %{buildroot}/%{_sbindir}/liveinst \
   %{buildroot}/%{_datadir}/anaconda/gnome \
   %{buildroot}/%{_datadir}/anaconda/gnome/fedora-welcome \
   %{buildroot}/%{_datadir}/anaconda/gnome/org.fedoraproject.welcome-screen.desktop \
+  %{buildroot}/%{_datadir}/polkit-1/actions/* \
   %{buildroot}/%{_datadir}/applications/liveinst.desktop
 %endif
 
@@ -421,9 +419,7 @@ rm -rf \
 
 %files live
 %{_bindir}/liveinst
-%{_sbindir}/liveinst
-%config(noreplace) %{_sysconfdir}/pam.d/*
-%config(noreplace) %{_sysconfdir}/security/console.apps/*
+%{_datadir}/polkit-1/actions/*
 %{_libexecdir}/liveinst-setup.sh
 %{_datadir}/applications/*.desktop
 %{_datadir}/anaconda/gnome

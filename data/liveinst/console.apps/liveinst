@@ -1,9 +1,0 @@
-USER=root
-PROGRAM=/usr/sbin/liveinst
-SESSION=true
-# has to be here otherwise consolehelper switches off the waiting cursor too early
-STARTUP_NOTIFICATION_NAME="Starting Install to Hard Drive"
-DOMAIN=anaconda
-# DBus session connections fail when running setuid unless we pass DBUS_SESSION_BUS_ADDRESS through
-# Keep the Gdk scale settings from the user environment
-KEEP_ENV_VARS=DBUS_SESSION_BUS_ADDRESS,LIVECMD,GDK_SCALE
