@@ -292,7 +292,7 @@ class DD_Extract_TestCase(unittest.TestCase):
                 assert binmode & expectmode == expectmode
 
     def test_dd_extract_modules(self):
-        """dd_extract: using --modules extracts only .ko files"""
+        """dd_extract: using --modules extracts only .ko, .ko.bz2, .ko.gz, .ko.xz and .ko.zst files"""
         outfiles = self.dd_extract(flags='--modules')
         assert outfiles == set([self.outdir+kofile.path, self.outdir+koxzfile.path, self.outdir+kozstfile.path])
 
