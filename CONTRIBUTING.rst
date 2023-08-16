@@ -122,23 +122,30 @@ There are two options to develop and test changes which are not yet released.
 
 To find out more information about quick way to propagate your changes into the existing installation ISO image see `this blogpost <https://rhinstaller.wordpress.com/2019/10/11/anaconda-debugging-and-testing-part-1/>`_.
 
-Another way is to build the boot.iso directly (takes more time but it's easier to do).
+Building installation images
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Build Anaconda RPM files with our container::
+Another way is to build the boot.iso or Live image directly (takes more time but it's easier to do).
+
+**First build Anaconda RPM files with our container**::
 
   make -f ./Makefile.am container-rpms-scratch
 
-Then build ISO from these RPMs by this call (beware because of loop device mounting it needs root priviledges)::
+Then build an image containing those RPMs.
+
+**NOTE: Do not run this in the Anaconda toolbox - it will not work due to the need for root privileges.**
+
+To build a regular boot.iso from these RPMs use (loop device mounting requires root privileges)::
 
   sudo make -f ./Makefile.am anaconda-iso-creator-build # to build the container if it doesn't exists already
   sudo make -f ./Makefile.am container-iso-build
 
-or for Web UI image run::
+To build a Web UI boot.iso run::
 
   sudo make -f ./Makefile.am anaconda-iso-creator-build # to build the container if it doesn't exists already
   sudo make -f ./Makefile.am container-webui-iso-build
 
-or for Web UI in Live media run::
+To build a Web UI in Live image run::
 
   sudo make -f ./Makefile.am anaconda-live-iso-creator-build # to build the container if it doesn't exists already
   sudo make -f ./Makefile.am container-live-iso-build
