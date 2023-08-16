@@ -459,10 +459,9 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         # verify review screen
         r.check_disk(dev, "16.1 GB vda (0x1af4)")
 
-        r.check_disk_row(dev, 1, "vda1, 1.05 MB: biosboot")
-        r.check_disk_row(dev, 2, "vda2, 1.07 GB: format as ext4, /boot")
-        r.check_disk_row(dev, 3, "btrfstest, 10.7 GB: format as btrfs, /")
-        r.check_disk_row(dev, 4, "vda4, 4.29 GB: mount, /home")
+        r.check_disk_row(dev, 1, "vda2, 1.07 GB: format as ext4, /boot")
+        r.check_disk_row(dev, 2, "btrfstest, 10.7 GB: format as btrfs, /")
+        r.check_disk_row(dev, 3, "vda4, 4.29 GB: mount, /home")
 
         applied_partitioning = s.dbus_get_applied_partitioning()
 
@@ -581,9 +580,8 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         # verify review screen
         disk = "vda"
         r.check_disk(disk, "16.1 GB vda (0x1af4)")
-        r.check_disk_row(disk, 1, "vda1, 1.05 MB: biosboot")
-        r.check_disk_row(disk, 2, "vda2, 1.07 GB: mount, /boot")
-        r.check_disk_row(disk, 3, "vda3, 15.0 GB: format as xfs, /")
+        r.check_disk_row(disk, 1, "vda2, 1.07 GB: mount, /boot")
+        r.check_disk_row(disk, 2, "vda3, 15.0 GB: format as xfs, /")
 
         disk = "vdb"
         r.check_disk(disk, "10.7 GB vdb (0x1af4)")
@@ -660,7 +658,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
 
         i.next()
 
-        r.check_in_disk_row(dev1, 3, "luks-")
+        r.check_in_disk_row(dev1, 2, "luks-")
 
     @nondestructive
     def testBtrfsSubvolumes(self):
@@ -681,6 +679,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         mount {disk}3 {tmp_mount}
         btrfs subvolume create {tmp_mount}/root
         btrfs subvolume create {tmp_mount}/home
+        btrfs subvolume create {tmp_mount}/unused
         btrfs subvolume snapshot {tmp_mount}/root {tmp_mount}/snapshot1
         umount {tmp_mount}
         rmdir {tmp_mount}
@@ -726,10 +725,10 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         # verify review screen
         r.check_disk(dev, "16.1 GB vda (0x1af4)")
 
-        r.check_disk_row(dev, 1, "vda1, 1.05 MB: biosboot")
-        r.check_disk_row(dev, 2, "vda2, 1.07 GB: format as ext4, /boot")
-        r.check_disk_row(dev, 3, "root, 15.0 GB: format as btrfs, /")
-        r.check_disk_row(dev, 4, "home, 15.0 GB: mount, /home")
+        r.check_disk_row(dev, 1, "vda2, 1.07 GB: format as ext4, /boot")
+        r.check_disk_row(dev, 2, "root, 15.0 GB: format as btrfs, /")
+        r.check_disk_row(dev, 3, "home, 15.0 GB: mount, /home")
+        r.check_disk_row_not_present(dev, f"unused")
 
         i.back(previous_page=i.steps.CUSTOM_MOUNT_POINT)
         i.back()
@@ -861,11 +860,10 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         disk = "vda"
         r.check_disk(disk, "16.1 GB vda (0x1af4)")
 
-        r.check_disk_row(disk, 1, "vda1, 1.05 MB: biosboot")
-        r.check_disk_row(disk, 2, "vda2, 1.07 GB: format as ext4, /boot")
-        r.check_disk_row(disk, 3, f"{vgname}-root, 6.01 GB: format as ext4, /")
-        r.check_disk_row(disk, 4, f"{vgname}-home, 8.12 GB: mount, /home")
-        r.check_disk_row(disk, 5, f"{vgname}-swap, 902 MB: mount, swap")
+        r.check_disk_row(disk, 1, "vda2, 1.07 GB: format as ext4, /boot")
+        r.check_disk_row(disk, 2, f"{vgname}-root, 6.01 GB: format as ext4, /")
+        r.check_disk_row(disk, 3, f"{vgname}-home, 8.12 GB: mount, /home")
+        r.check_disk_row(disk, 4, f"{vgname}-swap, 902 MB: mount, swap")
 
 if __name__ == '__main__':
     test_main()
