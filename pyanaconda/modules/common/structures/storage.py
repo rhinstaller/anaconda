@@ -207,6 +207,7 @@ class DeviceFormatData(DBusData):
     def __init__(self):
         self._type = ""
         self._mountable = False
+        self._formattable = False
         self._attrs = {}
         self._description = ""
 
@@ -230,6 +231,15 @@ class DeviceFormatData(DBusData):
     @mountable.setter
     def mountable(self, value: Bool):
         self._mountable = value
+
+    @property
+    def formattable(self) -> Bool:
+        """Is this something we can format?"""
+        return self._formattable
+
+    @formattable.setter
+    def formattable(self, value: Bool):
+        self._formattable = value
 
     @property
     def attrs(self) -> Dict[Str, Str]:
