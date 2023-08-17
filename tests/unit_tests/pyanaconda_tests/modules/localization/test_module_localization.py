@@ -20,7 +20,7 @@
 import unittest
 import langtable
 
-from unittest.mock import patch, Mock
+from unittest.mock import patch
 from textwrap import dedent
 
 from tests.unit_tests.pyanaconda_tests import check_kickstart_interface, \
@@ -32,7 +32,6 @@ from pyanaconda.modules.common.structures.language import LanguageData, LocaleDa
 from pyanaconda.modules.localization.installation import LanguageInstallationTask, \
     KeyboardInstallationTask
 from pyanaconda.modules.localization.localization import LocalizationService
-from pyanaconda.modules.localization.localed import LocaledWrapper
 from pyanaconda.modules.localization.localization_interface import LocalizationInterface
 from pyanaconda.modules.localization.runtime import GetMissingKeyboardConfigurationTask, \
     ApplyKeyboardTask
@@ -442,108 +441,3 @@ class LocalizationModuleTestCase(unittest.TestCase):
         self.localization_module._update_settings_from_task(result)
         assert self.localization_module.vc_keymap == ""
         assert self.localization_module.x_layouts == []
-
-
-class LocaledWrapperTestCase(unittest.TestCase):
-    """Test LocaledWrapper."""
-
-    @patch("pyanaconda.modules.localization.localed.conf")
-    def test_localed_wrapper_no_systembus_conf(self, mocked_conf):
-        """Test LocaledWrapper on environments with nonavailability of systembus configured."""
-        mocked_conf.system.provides_system_bus = False
-        localed_wrapper = LocaledWrapper()
-        self._guarded_localed_wrapper_calls_check(localed_wrapper)
-
-    def _guarded_localed_wrapper_calls_check(self, localed_wrapper):
-        """Test that calls to LocaledWrapper are guarded not to fail."""
-        assert localed_wrapper.keymap == ""
-        assert localed_wrapper.options == []
-        assert localed_wrapper.layouts_variants == []
-        localed_wrapper.set_keymap("cz")
-        localed_wrapper.set_keymap("cz", convert=True)
-        localed_wrapper.convert_keymap("cz")
-        localed_wrapper.set_and_convert_keymap("cz")
-        localed_wrapper.set_layouts(["cz (qwerty)", "us (euro)"],
-                                    options="grp:alt_shift_toggle",
-                                    convert=True)
-        localed_wrapper.set_and_convert_layouts(["cz (qwerty)", "us (euro)"])
-        localed_wrapper.convert_layouts(["cz (qwerty)", "us (euro)"])
-        localed_wrapper.set_layouts(["us-altgr-intl"])
-
-    @patch("pyanaconda.modules.localization.localed.SystemBus")
-    @patch("pyanaconda.modules.localization.localed.LOCALED")
-    @patch("pyanaconda.modules.localization.localed.conf")
-    def test_localed_wrapper_properties(self, mocked_conf, mocked_localed_service,
-                                        mocked_system_bus):
-        """Test conversion of return values from Localed service to LocaledWraper."""
-        mocked_system_bus.check_connection.return_value = True
-        mocked_conf.system.provides_system_bus = True
-        mocked_localed_proxy = Mock()
-        mocked_localed_service.get_proxy.return_value = mocked_localed_proxy
-        localed_wrapper = LocaledWrapper()
-        mocked_localed_proxy.VConsoleKeymap = "cz"
-        mocked_localed_proxy.X11Layout = "cz,fi,us,fr"
-        mocked_localed_proxy.X11Variant = "qwerty,,euro"
-        mocked_localed_proxy.X11Options = "grp:alt_shift_toggle,grp:ctrl_alt_toggle"
-        assert localed_wrapper.keymap == \
-            "cz"
-        assert localed_wrapper.layouts_variants == \
-            ["cz (qwerty)", "fi", "us (euro)", "fr"]
-        assert localed_wrapper.options == \
-            ["grp:alt_shift_toggle", "grp:ctrl_alt_toggle"]
-
-        mocked_localed_proxy.VConsoleKeymap = ""
-        mocked_localed_proxy.X11Layout = ""
-        mocked_localed_proxy.X11Variant = ""
-        mocked_localed_proxy.X11Options = ""
-        assert localed_wrapper.keymap == ""
-        assert localed_wrapper.options == []
-        assert localed_wrapper.layouts_variants == []
-
-    @patch("pyanaconda.modules.localization.localed.SystemBus")
-    @patch("pyanaconda.modules.localization.localed.LOCALED")
-    @patch("pyanaconda.modules.localization.localed.conf")
-    def test_localed_wrapper_safe_calls(self, mocked_conf, mocked_localed_service,
-                                        mocked_system_bus):
-        """Test calling LocaledWrapper with invalid values does not raise exception."""
-        mocked_system_bus.check_connection.return_value = True
-        mocked_conf.system.provides_system_bus = True
-        mocked_localed_proxy = Mock()
-        mocked_localed_service.get_proxy.return_value = mocked_localed_proxy
-        mocked_localed_proxy.VConsoleKeymap = "cz"
-        mocked_localed_proxy.X11Layout = "cz,fi,us,fr"
-        mocked_localed_proxy.X11Variant = "qwerty,,euro"
-        mocked_localed_proxy.X11Options = "grp:alt_shift_toggle,grp:ctrl_alt_toggle"
-        localed_wrapper = LocaledWrapper()
-        # valid values
-        localed_wrapper.set_keymap("cz")
-        localed_wrapper.set_keymap("cz", convert=True)
-        localed_wrapper.convert_keymap("cz")
-        localed_wrapper.set_and_convert_keymap("cz")
-        # invalid values
-        localed_wrapper.set_keymap("iinvalid")
-        localed_wrapper.set_keymap("iinvalid", convert=True)
-        localed_wrapper.convert_keymap("iinvalid")
-        localed_wrapper.set_and_convert_keymap("iinvalid")
-        # valid values
-        localed_wrapper.set_layouts(["cz (qwerty)", "us (euro)"],
-                                    options="grp:alt_shift_toggle",
-                                    convert=True)
-        localed_wrapper.set_and_convert_layouts(["cz (qwerty)", "us (euro)"])
-        localed_wrapper.convert_layouts(["cz (qwerty)", "us (euro)"])
-        # invalid values
-        # rhbz#1843379
-        localed_wrapper.set_layouts(["us-altgr-intl"])
-        localed_wrapper.set_and_convert_layouts(["us-altgr-intl"])
-        localed_wrapper.convert_layouts(["us-altgr-intl"])
-
-    @patch("pyanaconda.modules.localization.localed.SystemBus")
-    def test_localed_wrapper_no_systembus(self, mocked_system_bus):
-        """Test LocaledWrapper in environment without system bus.
-
-        Which is also the environment of our tests.
-        """
-        # Emulates mock environment
-        mocked_system_bus.check_connection.return_value = False
-        localed_wrapper = LocaledWrapper()
-        self._guarded_localed_wrapper_calls_check(localed_wrapper)
