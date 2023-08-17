@@ -17,7 +17,8 @@ set -eux
 
 INPUT_RPMS=/anaconda-rpms/
 REPO_DIR=/tmp/anaconda-rpms/
-LOG_DIR=/images/logs/
+OUT_DIR=/images/
+LOG_DIR="$OUT_DIR"/logs/
 # fedora-kickstarts clone during the Anaconda build
 # https://pagure.io/fedora-kickstarts/tree/main
 WORKSTATION_KS=/lorax/workstation.ks
@@ -108,9 +109,12 @@ livemedia-creator \
     --ram=$proposed_mem \
     --iso=/lorax/fedora-rawhide-boot.iso \
     --ks=$WORKSTATION_KS \
-    --logfile=/images/logs/build.log \
+    --logfile="$LOG_DIR/build.log" \
     --resultdir=/lorax/result
 
 stop_http_server
 
-cp ./result/Fedora-Workstation.iso /images/
+cp ./result/Fedora-Workstation.iso "$OUT_DIR"
+
+# fix permissions to user permissions on the built artifacts
+chown -Rv --reference="$INPUT_RPMS" "$OUT_DIR"
