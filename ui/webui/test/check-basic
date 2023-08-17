@@ -35,7 +35,7 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         i.open()
 
         self.assertIn(
-            b.attr("#app .pf-c-page", "data-debug").lower(),
+            b.attr("#app .pf-v5-c-page", "data-debug").lower(),
             ["false", "true"]
         )
 
@@ -99,14 +99,14 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
 
         # Pixel test the language step
         b.assert_pixels(
-            ".pf-c-about-modal-box",
+            ".pf-v5-c-about-modal-box",
             "about-modal",
             ignore=["#about-modal-versions dd"],
             wait_animations=False,
         )
 
         #Close about modal
-        b.click(".pf-c-button[aria-label='Close Dialog']")
+        b.click(".pf-v5-c-button[aria-label='Close Dialog']")
         b.wait_not_present("#about-modal")
 
     def testErrorHandling(self):
@@ -144,7 +144,7 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         self.assertFalse(self.file_exists(logfile))
 
         # Click report issue: save reviewed log and open BZ URL
-        b.click("#critical-error-modal .pf-c-button.pf-m-primary")
+        b.click("#critical-error-modal .pf-v5-c-button.pf-m-primary")
 
         with b.wait_timeout(20):
             b.wait(lambda: self.file_exists(logfile))
@@ -155,7 +155,7 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         # Test editing of the log
         user_text = "STRING_ADDED_BY_USER_TO_LOG"
         b.set_input_text("#critical-error-review-attached-log", user_text)
-        b.click("#critical-error-modal .pf-c-button.pf-m-primary")
+        b.click("#critical-error-modal .pf-v5-c-button.pf-m-primary")
         wait(lambda: (m.execute(f"cat {logfile}")) == user_text)
 
 

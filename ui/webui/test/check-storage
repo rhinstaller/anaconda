@@ -322,19 +322,19 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
 
     def select_row_device(self, row,  device):
         b = self.browser
-        selector = f"{self.table_row(row)} .pf-c-select__toggle"
+        selector = f"{self.table_row(row)} .pf-v5-c-select__toggle"
 
         self.browser.click(f"{selector}:not([disabled]):not([aria-disabled=true])")
         select_entry = f"{selector} + ul button[data-value='{device}']"
         self.browser.click(select_entry)
-        self.browser.wait_in_text(f"{selector} .pf-c-select__toggle-text", device)
+        self.browser.wait_in_text(f"{selector} .pf-v5-c-select__toggle-text", device)
 
     def toggle_row_device(self, row):
         b = self.browser
         b.click(f"{self.table_row(row)}-device-select-toggle")
 
     def check_row_device(self, row,  device):
-        self.browser.wait_text(f"{self.table_row(row)} .pf-c-select__toggle-text", device)
+        self.browser.wait_text(f"{self.table_row(row)} .pf-v5-c-select__toggle-text", device)
 
     def check_row_mountpoint(self, row,  mountpoint, isRequired=True):
         if isRequired:
@@ -360,7 +360,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         self.browser.set_input_text("#unlock-device-dialog-luks-password", passphrase)
         self.browser.click("#unlock-device-dialog-submit-btn")
         if xfail:
-            self.browser.wait_in_text("#unlock-device-dialog .pf-c-alert", xfail)
+            self.browser.wait_in_text("#unlock-device-dialog .pf-v5-c-alert", xfail)
             self.browser.click("#unlock-device-dialog-cancel-btn")
         self.browser.wait_not_present("#unlock-device-dialog")
 
@@ -375,10 +375,10 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         self.browser.wait_visible(f"{self.table_row(row)} td[data-label='Reformat'] {checked_selector}")
 
     def check_select_disabled(self, row):
-        self.browser.wait_visible(f"{self.table_row(row)} td[data-label='Device'] .pf-c-select__toggle.pf-m-disabled")
+        self.browser.wait_visible(f"{self.table_row(row)} td[data-label='Device'] .pf-v5-c-select__toggle.pf-m-disabled")
 
     def check_reformat_disabled(self, row):
-        self.browser.wait_visible(f"{self.table_row(row)} td[data-label='Reformat'] .pf-c-check__input:disabled")
+        self.browser.wait_visible(f"{self.table_row(row)} td[data-label='Reformat'] .pf-v5-c-check__input:disabled")
 
     def add_mount(self):
         self.browser.click("button:contains('Add mount')")
@@ -390,16 +390,16 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         self.browser.click("button:contains('Skip')")
 
     def assert_inline_error(self, text):
-        self.browser.wait_in_text(".pf-c-alert.pf-m-inline.pf-m-danger", text)
+        self.browser.wait_in_text(".pf-v5-c-alert.pf-m-inline.pf-m-danger", text)
 
 
     def wait_mount_point_table_column_helper(self, row, column, text=None, present=True):
         b = self.browser
 
         if present:
-            b.wait_in_text(f"#mount-point-mapping-table-row-{row}-{column} .pf-c-helper-text__item.pf-m-error", text)
+            b.wait_in_text(f"#mount-point-mapping-table-row-{row}-{column} .pf-v5-c-helper-text__item.pf-m-error", text)
         else:
-            b.wait_not_present(f"#mount-point-mapping-table-row-{row}-{column} .pf-c-helper-text__item.pf-m-error")
+            b.wait_not_present(f"#mount-point-mapping-table-row-{row}-{column} .pf-v5-c-helper-text__item.pf-m-error")
 
     @nondestructive
     def testBasic(self):
@@ -553,7 +553,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         # Go back and change the disk selection. The partitioning should be re-created
         i.back()
 
-        self.browser.click(".pf-c-select__toggle-clear")
+        self.browser.click(".pf-v5-c-select__toggle-clear")
         self.select_mountpoint(i, s, [(dev1, True), (dev2, True)])
 
         self.check_device_available(1, "vda2", True)
@@ -649,11 +649,11 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         self.select_row_device(1, f"{dev1}2")
 
         self.check_row_mountpoint(2, "/")
-        selector = "#mount-point-mapping-table-row-2 .pf-c-select__toggle"
+        selector = "#mount-point-mapping-table-row-2 .pf-v5-c-select__toggle"
         self.browser.click(f"{selector}:not([disabled]):not([aria-disabled=true])")
         select_entry = f"{selector} + ul li:nth-of-type(3) button"
         self.browser.click(select_entry)
-        self.browser.wait_in_text(f"{selector} .pf-c-select__toggle-text", "luks")
+        self.browser.wait_in_text(f"{selector} .pf-v5-c-select__toggle-text", "luks")
         self.check_format_type(2, "xfs")
 
         i.next()

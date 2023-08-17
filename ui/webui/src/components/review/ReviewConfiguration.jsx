@@ -86,7 +86,7 @@ const DeviceRow = ({ deviceData, disk, requests }) => {
         const size = cockpit.format_bytes(deviceData[name].size.v);
 
         return (
-            <ListItem className="pf-u-font-size-s" key={name}>
+            <ListItem className="pf-v5-u-font-size-s" key={name}>
                 {name}, {size}: {actions}
             </ListItem>
         );

@@ -25,11 +25,13 @@ import {
     FlexItem,
     Form,
     FormGroup,
+    Title
+} from "@patternfly/react-core";
+import {
     Select,
     SelectOption,
     SelectVariant,
-    Title,
-} from "@patternfly/react-core";
+} from "@patternfly/react-core/deprecated";
 import { SyncAltIcon, WrenchIcon } from "@patternfly/react-icons";
 
 import { InstallationScenario } from "./InstallationScenario.jsx";

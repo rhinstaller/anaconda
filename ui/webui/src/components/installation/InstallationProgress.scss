@@ -1,13 +1,13 @@
-.pf-c-empty-state__content {
+.pf-v5-c-empty-state__content {
     width: 100%;
 }
 
 .installation-progress-status {
-    &-success .pf-c-empty-state__icon {
-        color: var(--pf-global--success-color--100);
+    &-success .pf-v5-c-empty-state__icon {
+        color: var(--pf-v5-global--success-color--100);
     }
 
-    &-danger .pf-c-empty-state__icon {
-        color: var(--pf-global--danger-color--100);
+    &-danger .pf-v5-c-empty-state__icon {
+        color: var(--pf-v5-global--danger-color--100);
     }
 }

@@ -63,7 +63,7 @@ class Storage():
 
     @log_step()
     def select_none_disks_and_check(self, disks):
-        self.browser.click(".pf-c-select__toggle-clear")
+        self.browser.click(".pf-v5-c-select__toggle-clear")
         for disk in disks:
             self.check_disk_selected(disk, False)
 
@@ -75,12 +75,12 @@ class Storage():
     @log_step(snapshot_before=True)
     def check_disk_selected(self, disk, selected=True):
         if selected:
-            self.browser.wait_visible(f"#{id_prefix}-selector-form li.pf-c-chip-group__list-item:contains('{disk}')")
+            self.browser.wait_visible(f"#{id_prefix}-selector-form li.pf-v5-c-chip-group__list-item:contains('{disk}')")
         else:
-            self.browser.wait_not_present(f"#{id_prefix}-selector-form li.pf-c-chip-group__list-item:contains({disk})")
+            self.browser.wait_not_present(f"#{id_prefix}-selector-form li.pf-v5-c-chip-group__list-item:contains({disk})")
 
     def get_disk_selected(self, disk):
-        return self.browser.is_present(f"#{id_prefix}-selector-form li.pf-c-chip-group__list-item:contains({disk})")
+        return self.browser.is_present(f"#{id_prefix}-selector-form li.pf-v5-c-chip-group__list-item:contains({disk})")
 
     @log_step()
     def wait_no_disks(self):

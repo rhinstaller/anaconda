@@ -136,7 +136,7 @@ export const CriticalError = ({ exception, isBootIso, reportLinkURL }) => {
                 >
                     <TextArea
                       value={logContent}
-                      onChange={setLogContent}
+                      onChange={(_, value) => setLogContent(value)}
                       resizeOrientation="vertical"
                       id="critical-error-review-attached-log"
                       isDisabled={logContent === undefined || preparingReport}
