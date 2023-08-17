@@ -130,6 +130,23 @@ const isReformatInvalid = (deviceData, request, requests) => {
     }
 };
 
+const isDeviceMountPointInvalid = (deviceData, request) => {
+    const device = request["device-spec"];
+
+    if (!device || !request["mount-point"]) {
+        return [false, ""];
+    }
+
+    // /boot/efi must be on EFI System Partition
+    if (request["mount-point"] === "/boot/efi") {
+        if (deviceData[device].formatData.type.v !== "efi") {
+            return [true, _("/boot/efi must be on a EFI System Partition device")];
+        }
+    }
+
+    return [false, ""];
+};
+
 const getLockedLUKSDevices = (requests, deviceData) => {
     const devs = requests?.map(r => r["device-spec"]) || [];
 
@@ -244,6 +261,7 @@ const DeviceColumnSelect = ({ deviceData, devices, idPrefix, lockedLUKSDevices, 
 const DeviceColumn = ({ deviceData, devices, idPrefix, handleRequestChange, lockedLUKSDevices, request, requests }) => {
     const device = request["device-spec"];
     const duplicatedDevice = isDuplicateRequestField(requests, "device-spec", device);
+    const [deviceInvalid, errorMessage] = isDeviceMountPointInvalid(deviceData, request);
 
     return (
         <Flex direction={{ default: "column" }} spaceItems={{ default: "spaceItemsNone" }}>
@@ -259,6 +277,12 @@ const DeviceColumn = ({ deviceData, devices, idPrefix, handleRequestChange, lock
                 <HelperText>
                     <HelperTextItem variant="error" hasIcon>
                         {_("Duplicate device.")}
+                    </HelperTextItem>
+                </HelperText>}
+            {deviceInvalid &&
+                <HelperText>
+                    <HelperTextItem variant="error" hasIcon>
+                        {errorMessage}
                     </HelperTextItem>
                 </HelperText>}
         </Flex>
