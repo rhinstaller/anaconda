@@ -31,6 +31,7 @@ import {
     Select,
     SelectList,
     SelectOption,
+    Spinner,
     TextInputGroup,
     TextInputGroupMain,
     TextInputGroupUtilities,
@@ -94,7 +95,12 @@ const LocalDisksSelect = ({ deviceData, diskSelection, idPrefix, setSelectedDisk
     const [isOpen, setIsOpen] = useState(false);
     const [inputValue, setInputValue] = useState("");
     const [focusedItemIndex, setFocusedItemIndex] = useState(null);
+    const [diskSelectionInProgress, setDiskSelectionInProgress] = useState(false);
     const textInputRef = useRef();
+
+    useEffect(() => {
+        setDiskSelectionInProgress(false);
+    }, [diskSelection.selectedDisks]);
 
     let selectOptions = diskSelection.usableDisks
             .map(disk => ({
@@ -119,12 +125,15 @@ const LocalDisksSelect = ({ deviceData, diskSelection, idPrefix, setSelectedDisk
     }
 
     const onSelect = (selectedDisk) => {
+        setDiskSelectionInProgress(true);
+
         if (diskSelection.selectedDisks.includes(selectedDisk)) {
             setSelectedDisks({ drives: diskSelection.selectedDisks.filter(disk => disk !== selectedDisk) });
         } else {
             setSelectedDisks({ drives: [...diskSelection.selectedDisks, selectedDisk] });
         }
         textInputRef.current?.focus();
+        setIsOpen(false);
     };
 
     const clearSelection = () => {
@@ -198,6 +207,7 @@ const LocalDisksSelect = ({ deviceData, diskSelection, idPrefix, setSelectedDisk
           onClick={onToggleClick}
           innerRef={toggleRef}
           isExpanded={isOpen}
+          isDisabled={diskSelectionInProgress}
           className={idPrefix}
         >
             <TextInputGroup isPlain>
@@ -208,7 +218,7 @@ const LocalDisksSelect = ({ deviceData, diskSelection, idPrefix, setSelectedDisk
                   onKeyDown={onInputKeyDown}
                   autoComplete="off"
                   innerRef={textInputRef}
-                  placeholder={_("Select a disk")}
+                  placeholder={!diskSelectionInProgress ? _("Select a disk") : _("Applying new disk selection...")}
                   role="combobox"
                   isExpanded={isOpen}
                 >
@@ -241,6 +251,7 @@ const LocalDisksSelect = ({ deviceData, diskSelection, idPrefix, setSelectedDisk
                             <TimesIcon aria-hidden />
                         </Button>
                     )}
+                    {diskSelectionInProgress && <Spinner size="lg" />}
                 </TextInputGroupUtilities>
             </TextInputGroup>
         </MenuToggle>
