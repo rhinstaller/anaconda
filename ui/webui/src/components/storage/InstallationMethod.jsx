@@ -91,7 +91,7 @@ const containEqualDisks = (disks1, disks2) => {
     return disks1Str === disks2Str;
 };
 
-const LocalDisksSelect = ({ deviceData, diskSelection, idPrefix, setSelectedDisks }) => {
+const LocalDisksSelect = ({ deviceData, diskSelection, idPrefix, isRescanningDisks, setSelectedDisks }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [inputValue, setInputValue] = useState("");
     const [focusedItemIndex, setFocusedItemIndex] = useState(null);
@@ -207,7 +207,7 @@ const LocalDisksSelect = ({ deviceData, diskSelection, idPrefix, setSelectedDisk
           onClick={onToggleClick}
           innerRef={toggleRef}
           isExpanded={isOpen}
-          isDisabled={diskSelectionInProgress}
+          isDisabled={diskSelectionInProgress || isRescanningDisks}
           className={idPrefix}
         >
             <TextInputGroup isPlain>
@@ -339,6 +339,7 @@ const InstallationDestination = ({ deviceData, diskSelection, dispatch, idPrefix
           isInline
           id={idPrefix + "-rescan-disks"}
           variant="link"
+          isLoading={isRescanningDisks}
           icon={<SyncAltIcon />}
           onClick={() => {
               setIsRescanningDisks(true);
@@ -369,6 +370,7 @@ const InstallationDestination = ({ deviceData, diskSelection, dispatch, idPrefix
           deviceData={deviceData}
           diskSelection={diskSelection}
           setSelectedDisks={setSelectedDisks}
+          isRescanningDisks={isRescanningDisks}
         />
     );
 
