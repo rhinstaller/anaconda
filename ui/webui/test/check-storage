@@ -554,7 +554,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         # Go back and change the disk selection. The partitioning should be re-created
         i.back()
 
-        self.browser.click(".pf-v5-c-select__toggle-clear")
+        self.browser.click("#installation-method-disk-selector-clear")
         self.select_mountpoint(i, s, [(dev1, True), (dev2, True)])
 
         self.check_device_available(1, "vda2", True)

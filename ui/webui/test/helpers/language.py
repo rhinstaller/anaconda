@@ -66,7 +66,7 @@ class Language():
 
     @log_step(snapshot_before=True)
     def check_selected_locale(self, locale):
-        self.browser.wait_visible(f"#{self._step}-option-alpha-{locale} .pf-m-selected")
+        self.browser.wait_visible(f"#{self._step}-option-alpha-{locale}.pf-m-selected")
 
     def dbus_set_language(self, value):
         self.machine.execute(f'dbus-send --print-reply --bus="{self._bus_address}" \
