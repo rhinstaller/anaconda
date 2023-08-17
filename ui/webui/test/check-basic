@@ -131,11 +131,12 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         i.open()
         i.next()
 
-        b.wait_not_present("#critical-error-modal")
+        # FIXME: Remove PF5 specific selector: https://github.com/patternfly/patternfly-react/issues/9512
+        b.wait_not_present("#critical-error-modal.pf-v5-c-modal-box")
 
         s.rescan_disks()
 
-        b.wait_visible("#critical-error-modal")
+        b.wait_visible("#critical-error-modal.pf-v5-c-modal-box")
 
         # Test review of logs
         self.addCleanup(m.execute, "rm -f /tmp/webui.log")
@@ -144,7 +145,7 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         self.assertFalse(self.file_exists(logfile))
 
         # Click report issue: save reviewed log and open BZ URL
-        b.click("#critical-error-modal .pf-v5-c-button.pf-m-primary")
+        b.click("#critical-error-modal.pf-v5-c-modal-box .pf-v5-c-button.pf-m-primary")
 
         with b.wait_timeout(20):
             b.wait(lambda: self.file_exists(logfile))
@@ -155,7 +156,7 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         # Test editing of the log
         user_text = "STRING_ADDED_BY_USER_TO_LOG"
         b.set_input_text("#critical-error-review-attached-log", user_text)
-        b.click("#critical-error-modal .pf-v5-c-button.pf-m-primary")
+        b.click("#critical-error-modal.pf-v5-c-modal-box .pf-v5-c-button.pf-m-primary")
         wait(lambda: (m.execute(f"cat {logfile}")) == user_text)
 
 
