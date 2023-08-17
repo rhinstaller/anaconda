@@ -21,6 +21,7 @@ mknod -m 0660 /dev/loop0 b 7 0  2> /dev/null || true
 mknod -m 0660 /dev/loop1 b 7 1  2> /dev/null || true
 
 INPUT_RPMS=/anaconda-rpms/
+OUT_DIR=/images/
 REPO_DIR=/tmp/anaconda-rpms/
 
 # create repo from provided Anaconda RPMs
@@ -37,6 +38,9 @@ lorax -p Fedora -v "$VERSION_ID" -r "$VERSION_ID" \
       -s http://dl.fedoraproject.org/pub/fedora/linux/development/rawhide/Everything/x86_64/os/ \
       -s file://$REPO_DIR/ \
       "$@" \
-      output || cp *.log /images/
+      output || cp *.log "$OUT_DIR"
 
-cp output/images/boot.iso /images/
+cp output/images/boot.iso "$OUT_DIR"
+
+# fix permissions to user permissions on the built artifacts
+chown -Rv --reference="$INPUT_RPMS" "$OUT_DIR"
