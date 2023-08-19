@@ -122,6 +122,10 @@ else
     sleep 3
 fi
 
+# We're running firefox as root, and it doesn't like that, so clear XAUTHORITY and
+# XDG_RUNTIME_DIR so it is willing to start.
+unset XAUTHORITY XDG_RUNTIME_DIR
+
 HOME="$BROWSER_HOME" MOZ_APP_TITLE="" MOZ_APP_REMOTINGNAME="liveinst" XDG_CURRENT_DESKTOP=GNOME MOZ_GTK_TITLEBAR_DECORATION=client $BROWSER http://"$WEBUI_ADDRESS""$URL_PATH" &
 B_PID=$!
 
