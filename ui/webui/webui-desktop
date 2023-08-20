@@ -83,7 +83,7 @@ THEME_PATH="${FIREFOX_THEME_DIR}/${THEME_ID}"
 cp -a "${THEME_PATH}/." ${FIREFOX_PROFILE_PATH}
 
 # FIXME: is this hardcoded resolution necessary ?
-BROWSER="/usr/bin/firefox --new-instance --window-size 1024,768 --profile ${FIREFOX_PROFILE_PATH}"
+BROWSER=(/usr/bin/firefox --new-instance --window-size "1024,768" --profile "${FIREFOX_PROFILE_PATH}")
 
 # start browser in a temporary home dir, so that it does not interfere with your real one
 BROWSER_HOME=$(mktemp --directory --tmpdir cockpit.desktop.XXXXXX)
@@ -126,7 +126,7 @@ fi
 # XDG_RUNTIME_DIR so it is willing to start.
 unset XAUTHORITY XDG_RUNTIME_DIR
 
-HOME="$BROWSER_HOME" MOZ_APP_TITLE="" MOZ_APP_REMOTINGNAME="liveinst" XDG_CURRENT_DESKTOP=GNOME MOZ_GTK_TITLEBAR_DECORATION=client $BROWSER http://"$WEBUI_ADDRESS""$URL_PATH" &
+HOME="$BROWSER_HOME" MOZ_APP_TITLE="" MOZ_APP_REMOTINGNAME="liveinst" XDG_CURRENT_DESKTOP=GNOME MOZ_GTK_TITLEBAR_DECORATION=client "${BROWSER[@]}" http://"$WEBUI_ADDRESS""$URL_PATH" &
 B_PID=$!
 
 wait $B_PID
