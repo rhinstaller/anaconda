@@ -351,6 +351,8 @@ mkdir %{buildroot}%{_datadir}/anaconda/addons
 # Create an empty directory for post-scripts
 mkdir %{buildroot}%{_datadir}/anaconda/post-scripts
 
+desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/anaconda-storage.desktop
+
 %if %{with live}
 # required for live installations
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/liveinst.desktop
@@ -421,7 +423,7 @@ rm -rf \
 %{_bindir}/liveinst
 %{_datadir}/polkit-1/actions/*
 %{_libexecdir}/liveinst-setup.sh
-%{_datadir}/applications/*.desktop
+%{_datadir}/applications/liveinst.desktop
 %{_datadir}/anaconda/gnome
 %{_sysconfdir}/xdg/autostart/*.desktop
 
@@ -448,6 +450,7 @@ rm -rf \
 %dir %{_datadir}/anaconda/firefox-theme/live/chrome
 %{_datadir}/anaconda/firefox-theme/live/user.js
 %{_datadir}/anaconda/firefox-theme/live/chrome/userChrome.css
+%{_datadir}/applications/anaconda-storage.desktop
 %{_libexecdir}/webui-desktop
 
 %files gui

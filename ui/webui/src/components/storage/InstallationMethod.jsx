@@ -423,7 +423,13 @@ const ModifyStorageButton = ({ isBootIso }) => {
     }
 
     return (
-        <Button variant="link" icon={<WrenchIcon />} onClick={() => cockpit.spawn(["blivet-gui"])}>
+        <Button variant="link" icon={<WrenchIcon />}
+                onClick={() => {
+                    const onBeforeUnload = window.onbeforeunload;
+                    window.onbeforeunload = null;
+                    window.location.href = "anaconda-storage:";
+                    window.onbeforeunload = onBeforeUnload;
+                }}>
             {_("Modify storage")}
         </Button>
     );

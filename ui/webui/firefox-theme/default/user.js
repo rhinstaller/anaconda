@@ -45,3 +45,6 @@ user_pref("datareporting.policy.dataSubmissionEnabled", false);
 user_pref("toolkit.telemetry.unified", false);
 user_pref("trailhead.firstrun.didSeeAboutWelcome", true);
 
+// Allow anaconda-storage url handler
+user_pref("network.protocol-handler.external.anaconda-storage", true);
+
