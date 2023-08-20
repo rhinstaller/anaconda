@@ -66,7 +66,18 @@ esac
 
 # prepare empty firefox profile dir with theme based on the passed profile id
 FIREFOX_THEME_DIR="/usr/share/anaconda/firefox-theme"
-FIREFOX_PROFILE_PATH="/tmp/anaconda-firefox-profile"
+
+# PKEXEC_UID is the uid for "gnome-initial-setup" or "liveuser"
+# depending on how the installer gets started.
+#
+# It's unset on non-live-images, so we just use the current user then (root)
+if [ -n "$PKEXEC_UID" ]; then
+  INSTALLER_USER=$(id -n -u ${PKEXEC_UID})
+else
+  INSTALLER_USER=$(id -n -u)
+fi
+
+FIREFOX_PROFILE_PATH="${XDG_RUNTIME_DIR}/anaconda/firefox-profile"
 
 # make sure the profile directory exists and is empty
 if [ -d ${FIREFOX_PROFILE_PATH} ]
@@ -74,13 +85,13 @@ then
     echo "Cleaning up existing Anaconda Firefox profile directory."
     rm -rf ${FIREFOX_PROFILE_PATH}
 fi
-mkdir -p ${FIREFOX_PROFILE_PATH}
+pkexec --user "${INSTALLER_USER}" mkdir -p ${FIREFOX_PROFILE_PATH}
 
 # populate the profile directory with our custom Firefox theme
 # - theme id is passed as the second argument of this script
 THEME_PATH="${FIREFOX_THEME_DIR}/${THEME_ID}"
 
-cp -a "${THEME_PATH}/." ${FIREFOX_PROFILE_PATH}
+pkexec --user "${INSTALLER_USER}" cp -a "${THEME_PATH}/." ${FIREFOX_PROFILE_PATH}
 
 # FIXME: is this hardcoded resolution necessary ?
 BROWSER=(/usr/bin/firefox --new-instance --window-size "1024,768" --profile "${FIREFOX_PROFILE_PATH}")
@@ -122,11 +133,9 @@ else
     sleep 3
 fi
 
-# We're running firefox as root, and it doesn't like that, so clear XAUTHORITY and
-# XDG_RUNTIME_DIR so it is willing to start.
-unset XAUTHORITY XDG_RUNTIME_DIR
+readarray -t user_environment < <(pkexec --user "${INSTALLER_USER}" env XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR}" systemctl --user show-environment)
 
-HOME="$BROWSER_HOME" MOZ_APP_TITLE="" MOZ_APP_REMOTINGNAME="liveinst" XDG_CURRENT_DESKTOP=GNOME MOZ_GTK_TITLEBAR_DECORATION=client "${BROWSER[@]}" http://"$WEBUI_ADDRESS""$URL_PATH" &
+HOME="$BROWSER_HOME" MOZ_APP_TITLE="" MOZ_APP_REMOTINGNAME="liveinst" XDG_CURRENT_DESKTOP=GNOME MOZ_GTK_TITLEBAR_DECORATION=client pkexec --user $INSTALLER_USER env "${user_environment[@]}" "${BROWSER[@]}" http://"$WEBUI_ADDRESS""$URL_PATH" &
 B_PID=$!
 
 wait $B_PID
