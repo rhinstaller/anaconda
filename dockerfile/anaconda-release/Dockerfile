@@ -9,12 +9,12 @@ LABEL maintainer=anaconda-list@redhat.com
 
 # Add missing dependencies required to do the build.
 RUN set -e; \
-  dnf update -y; \
-  dnf install -y \
+  dnf update -y --setopt install_weak_deps=False; \
+  dnf install -y --setopt install_weak_deps=False \
   git \
   python3-polib \
   python3-pip; \
-  dnf clean all;
+  dnf clean all
 
 RUN pip3 install --no-cache-dir --upgrade pip; \
     pip3 install --no-cache-dir \

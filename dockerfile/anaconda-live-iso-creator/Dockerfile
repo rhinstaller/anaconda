@@ -30,8 +30,8 @@ LABEL maintainer=anaconda-devel@lists.fedoraproject.org
 
 # Prepare environment and install build dependencies
 RUN set -ex; \
-  dnf update -y; \
-  dnf install -y \
+  dnf update -y --setopt install_weak_deps=False; \
+  dnf install -y --setopt install_weak_deps=False \
   createrepo_c \
 # for clonning cockpit-project/bots/
   git \
@@ -45,7 +45,7 @@ RUN mkdir /lorax /anaconda-rpms /images
 # Generate kickstart file for Fedora Workstation
 # TODO: add our local repository to the kickstart file
 RUN set -ex; \
-  dnf install -y \
+  dnf install -y --setopt install_weak_deps=False \
 # required for ksflatten
   pykickstart; \
   mkdir /fedora-kickstarts; \

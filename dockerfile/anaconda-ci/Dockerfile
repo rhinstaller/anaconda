@@ -32,7 +32,7 @@ COPY ["anaconda.spec.in", "requirements.txt", "/root/"]
 
 # Prepare environment and install build dependencies
 RUN set -ex; \
-  dnf install -y \
+  dnf install -y --setopt install_weak_deps=False \
   'dnf-command(copr)'; \
   # Enable COPR repositories
   if ! grep -q VARIANT.*eln /etc/os-release; then \
@@ -48,9 +48,9 @@ RUN set -ex; \
     dnf copr enable -y ${copr_repo} fedora-eln-x86_64; \
   fi; \
   # Update the base container packages
-  dnf update -y; \
+  dnf update -y --setopt install_weak_deps=False; \
   # Install rest of the dependencies
-  dnf install -y \
+  dnf install -y --setopt install_weak_deps=False \
   /usr/bin/xargs \
   npm \
   rpm-build \
@@ -63,14 +63,15 @@ RUN set -ex; \
   policycoreutils; \
   # Install non-ELN dependencies
   if ! grep -q VARIANT.*eln /etc/os-release; then \
-    dnf -y install \
+    dnf -y install --setopt install_weak_deps=False \
     cppcheck \
     ShellCheck; \
   fi; \
   # Install Anaconda dependencies
   cat /root/anaconda.spec.in | sed 's/@PACKAGE_VERSION@/0/; s/@PACKAGE_RELEASE@/0/; s/%{__python3}/python3/' > /tmp/anaconda.spec; \
-  rpmspec -q --buildrequires /tmp/anaconda.spec | xargs -d '\n' dnf install -y; \
+  rpmspec -q --buildrequires /tmp/anaconda.spec | xargs -d '\n' dnf install -y --setopt install_weak_deps=False; \
   # xisxwayland is specifically excluded because it isn't in ELN
+  # we need to install weak-dependencies here otherwise blivet won't drag in libblockdev plugins and the tests will fail
   rpmspec -q --requires /tmp/anaconda.spec | grep -v anaconda | grep -v xisxwayland | xargs -d '\n' dnf install -y; \
   dnf clean all
 

@@ -32,8 +32,8 @@ LABEL maintainer=anaconda-devel@lists.fedoraproject.org
 
 # Prepare environment and install build dependencies
 RUN set -ex; \
-  dnf update -y; \
-  dnf install -y \
+  dnf update -y --setopt install_weak_deps=False; \
+  dnf install -y --setopt install_weak_deps=False \
   createrepo_c \
 # required for lorax-build-webui script
   patch \
