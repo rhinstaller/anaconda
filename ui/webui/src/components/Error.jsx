@@ -123,7 +123,7 @@ export const BZReportModal = ({
                       resizeOrientation="vertical"
                       id={idPrefix + "-bz-report-modal-review-log"}
                       isDisabled={logContent === undefined || preparingReport}
-                      rows={7}
+                      rows={25}
                     />
                     <FormHelperText isHidden={false}>
                         <HelperText>
