@@ -48,13 +48,13 @@ class Storage():
 
     @log_step()
     def select_disk(self, disk, selected=True, is_single_disk=False):
-        if not self.browser.is_present(f"ul[aria-labelledby='{id_prefix}-disk-selector-title']"):
-            self.browser.click(f"#{id_prefix}-disk-selector-toggle")
+        if not self.browser.is_present(f".pf-v5-c-menu[aria-labelledby='{id_prefix}-disk-selector-title']"):
+            self.browser.click(f"#{id_prefix}-disk-selector-toggle > button")
 
         if selected:
-            self.browser.click(f"#{id_prefix}-disk-selector-option-{disk} button:not(.pf-m-selected)")
+            self.browser.click(f"#{id_prefix}-disk-selector-option-{disk}:not(.pf-m-selected)")
         else:
-            self.browser.click(f"#{id_prefix}-disk-selector-option-{disk} button.pf-m-selected")
+            self.browser.click(f"#{id_prefix}-disk-selector-option-{disk}.pf-m-selected")
 
         if is_single_disk:
             self.check_single_disk_destination(disk)
@@ -63,7 +63,7 @@ class Storage():
 
     @log_step()
     def select_none_disks_and_check(self, disks):
-        self.browser.click(".pf-c-select__toggle-clear")
+        self.browser.click(f"#{id_prefix}-disk-selector-clear")
         for disk in disks:
             self.check_disk_selected(disk, False)
 
@@ -75,12 +75,12 @@ class Storage():
     @log_step(snapshot_before=True)
     def check_disk_selected(self, disk, selected=True):
         if selected:
-            self.browser.wait_visible(f"#{id_prefix}-selector-form li.pf-c-chip-group__list-item:contains('{disk}')")
+            self.browser.wait_visible(f"#{id_prefix}-selector-form li.pf-v5-c-chip-group__list-item:contains('{disk}')")
         else:
-            self.browser.wait_not_present(f"#{id_prefix}-selector-form li.pf-c-chip-group__list-item:contains({disk})")
+            self.browser.wait_not_present(f"#{id_prefix}-selector-form li.pf-v5-c-chip-group__list-item:contains({disk})")
 
     def get_disk_selected(self, disk):
-        return self.browser.is_present(f"#{id_prefix}-selector-form li.pf-c-chip-group__list-item:contains({disk})")
+        return self.browser.is_present(f"#{id_prefix}-selector-form li.pf-v5-c-chip-group__list-item:contains({disk})")
 
     @log_step()
     def wait_no_disks(self):
@@ -172,16 +172,16 @@ class Storage():
 
     @log_step(snapshot_before=True)
     def check_disk_visible(self, disk, visible=True):
-        if not self.browser.is_present(f"ul[aria-labelledby='{id_prefix}-disk-selector-title']"):
-            self.browser.click(f"#{id_prefix}-disk-selector-toggle")
+        if not self.browser.is_present(f".pf-v5-c-menu[aria-labelledby='{id_prefix}-disk-selector-title']"):
+            self.browser.click(f"#{id_prefix}-disk-selector-toggle > button")
 
         if visible:
             self.browser.wait_visible(f"#{id_prefix}-disk-selector-option-{disk}")
         else:
             self.browser.wait_not_present(f"#{id_prefix}-disk-selector-option-{disk}")
 
-        self.browser.click(f"#{id_prefix}-disk-selector-toggle")
-        self.browser.wait_not_present(f"ul[aria-labelledby='{id_prefix}-disk-selector-title']")
+        self.browser.click(f"#{id_prefix}-disk-selector-toggle > button")
+        self.browser.wait_not_present(f".pf-v5-c-menu[aria-labelledby='{id_prefix}-disk-selector-title']")
 
     def _partitioning_selector(self, scenario):
         return f"#{id_prefix}-scenario-" + scenario

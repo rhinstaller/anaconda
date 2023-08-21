@@ -31,7 +31,7 @@ import {
     Modal,
     Stack,
     StackItem,
-    TextInput,
+    TextInput, InputGroupItem,
 } from "@patternfly/react-core";
 import { EyeIcon, EyeSlashIcon, LockIcon } from "@patternfly/react-icons";
 
@@ -148,21 +148,25 @@ const UnlockDialog = ({ lockedLUKSDevices, onClose, dispatch }) => {
                 {dialogError && <ModalError dialogError={_("Some LUKS devices were not unlocked")} dialogErrorDetail={dialogError} />}
                 <FormGroup fieldId="unlock-device-dialog-luks-password" label={_("Password")}>
                     <InputGroup>
-                        <TextInput
-                          isRequired
-                          id="unlock-device-dialog-luks-password"
-                          type={passwordHidden ? "password" : "text"}
-                          aria-label={_("Password")}
-                          value={password}
-                          onChange={setPassword}
-                        />
-                        <Button
-                          variant="control"
-                          onClick={() => setPasswordHidden(!passwordHidden)}
-                          aria-label={passwordHidden ? _("Show password") : _("Hide password")}
-                        >
-                            {passwordHidden ? <EyeIcon /> : <EyeSlashIcon />}
-                        </Button>
+                        <InputGroupItem isFill>
+                            <TextInput
+                              isRequired
+                              id="unlock-device-dialog-luks-password"
+                              type={passwordHidden ? "password" : "text"}
+                              aria-label={_("Password")}
+                              value={password}
+                              onChange={(_event, val) => setPassword(val)}
+                            />
+                        </InputGroupItem>
+                        <InputGroupItem>
+                            <Button
+                              variant="control"
+                              onClick={() => setPasswordHidden(!passwordHidden)}
+                              aria-label={passwordHidden ? _("Show password") : _("Hide password")}
+                            >
+                                {passwordHidden ? <EyeIcon /> : <EyeSlashIcon />}
+                            </Button>
+                        </InputGroupItem>
                     </InputGroup>
                 </FormGroup>
             </Form>

@@ -50,7 +50,7 @@ class Installer():
         if confirm_erase:
             self.browser.click(f"#{self.steps.REVIEW}-disk-erase-confirm")
         else:
-            self.browser.click(".pf-c-modal-box button:contains(Back)")
+            self.browser.click(".pf-v5-c-modal-box button:contains(Back)")
 
         if should_fail:
             self.wait_current_page(current_page)
@@ -129,7 +129,7 @@ class Installer():
         self.browser.wait_js_cond(f'window.location.hash === "#/{page}"')
 
         if page == self.steps.PROGRESS:
-            self.browser.wait_visible(".pf-c-progress-stepper")
+            self.browser.wait_visible(".pf-v5-c-progress-stepper")
         else:
             self.browser.wait_visible(f"#{page}.pf-m-current")
 

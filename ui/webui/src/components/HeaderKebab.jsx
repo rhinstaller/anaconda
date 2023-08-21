@@ -24,14 +24,16 @@ import {
     DescriptionListDescription,
     DescriptionListGroup,
     DescriptionListTerm,
+    Flex,
+    Stack,
+    StackItem
+} from "@patternfly/react-core";
+import {
     Dropdown,
     DropdownItem,
     DropdownPosition,
-    Flex,
-    KebabToggle,
-    Stack,
-    StackItem,
-} from "@patternfly/react-core";
+    KebabToggle
+} from "@patternfly/react-core/deprecated";
 import { ExternalLinkAltIcon } from "@patternfly/react-icons";
 
 import { read_os_release as readOsRelease } from "os-release.js";
@@ -140,7 +142,7 @@ export const HeaderKebab = () => {
               toggle={
                   <KebabToggle
                     id="toggle-kebab"
-                    onToggle={onToggle}
+                    onToggle={(_event, isOpen) => onToggle(isOpen)}
                   />
               }
               isOpen={isOpen}

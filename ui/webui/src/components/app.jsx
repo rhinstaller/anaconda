@@ -20,7 +20,7 @@ import React, { useEffect, useState } from "react";
 
 import {
     AlertGroup, AlertVariant, AlertActionCloseButton, Alert,
-    Page,
+    Page, PageGroup,
 } from "@patternfly/react-core";
 
 import { read_os_release as readOsRelease } from "os-release.js";
@@ -131,12 +131,6 @@ export const Application = () => {
             <CriticalError exception={criticalError} isBootIso={isBootIso} reportLinkURL={bzReportURL} />}
             <Page
               data-debug={conf.Anaconda.debug}
-              additionalGroupedContent={
-                  <AnacondaHeader beta={beta} title={title} />
-              }
-              groupProps={{
-                  sticky: "top"
-              }}
             >
                 {Object.keys(notifications).length > 0 &&
                 <AlertGroup isToast isLiveRegion>
@@ -161,6 +155,9 @@ export const Application = () => {
                         );
                     })}
                 </AlertGroup>}
+                <PageGroup stickyOnBreakpoint={{ default: "top" }}>
+                    <AnacondaHeader beta={beta} title={title} />
+                </PageGroup>
                 <AddressContext.Provider value={address}>
                     <WithDialogs>
                         <AnacondaWizard

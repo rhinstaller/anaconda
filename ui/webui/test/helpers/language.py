@@ -38,17 +38,17 @@ class Language():
     @log_step()
     def select_locale(self, locale, is_common=True):
         common_prefix = "common-" if is_common else "alpha-"
-        if self.browser.val(f"#{self._step}-language-search .pf-c-text-input-group__text-input") != "":
+        if self.browser.val(f"#{self._step}-language-search .pf-v5-c-text-input-group__text-input") != "":
             self.input_locale_search("")
-        self.browser.click(f"#{self._step}-option-{common_prefix}{locale} > button")
+        self.browser.click(f"#{self._step}-option-{common_prefix}{locale}")
 
     @log_step()
     def get_locale_search(self):
-        return self.browser.val(f"#{self._step}-language-search .pf-c-text-input-group__text-input")
+        return self.browser.val(f"#{self._step}-language-search .pf-v5-c-text-input-group__text-input")
 
     @log_step()
     def input_locale_search(self, text):
-        self.browser.set_input_text(f"#{self._step}-language-search .pf-c-text-input-group__text-input", text)
+        self.browser.set_input_text(f"#{self._step}-language-search .pf-v5-c-text-input-group__text-input", text)
 
     @log_step()
     def locale_option_visible(self, locale, visible=True):
@@ -66,7 +66,7 @@ class Language():
 
     @log_step(snapshot_before=True)
     def check_selected_locale(self, locale):
-        self.browser.wait_visible(f"#{self._step}-option-alpha-{locale} .pf-m-selected")
+        self.browser.wait_visible(f"#{self._step}-option-alpha-{locale}.pf-m-selected")
 
     def dbus_set_language(self, value):
         self.machine.execute(f'dbus-send --print-reply --bus="{self._bus_address}" \

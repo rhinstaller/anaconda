@@ -24,13 +24,13 @@ import {
     Title,
     Menu,
     MenuList,
-    MenuInput,
+    MenuSearch,
     MenuItem,
     MenuContent,
     MenuGroup,
     SearchInput,
     Divider,
-    Alert,
+    Alert, MenuSearchInput,
 } from "@patternfly/react-core";
 
 import { read_os_release as readOsRelease } from "os-release.js";
@@ -129,7 +129,7 @@ class LanguageSelector extends React.Component {
                   isSelected={isSelected}
                   itemId={getLocaleId(locale)}
                   ref={scrollRef}
-                  style={isSelected ? { backgroundColor: "var(--pf-c-menu__list-item--hover--BackgroundColor)" } : undefined}
+                  style={isSelected ? { backgroundColor: "var(--pf-v5-c-menu__list-item--hover--BackgroundColor)" } : undefined}
                 >
                     {getLocaleNativeName(locale)}
                 </MenuItem>
@@ -244,33 +244,35 @@ class LanguageSelector extends React.Component {
               onSelect={handleOnSelect}
               aria-invalid={!lang}
             >
-                <MenuInput>
-                    <Title
-                      headingLevel="h3"
-                      className="pf-c-menu__group-title"
-                      style={
-                          // HACK This title should look like the ones in PF Menu. Simply adding it's class
-                          // doesn't give it all the attributes.
-                          {
-                              fontSize: "var(--pf-c-menu__group-title--FontSize)",
-                              paddingLeft: "0",
-                              paddingTop: "0",
-                              marginBottom: "0.5em",
-                              fontWeight: "var(--pf-c-menu__group-title--FontWeight)",
-                              fontFamily: "var(--pf-global--FontFamily--sans-serif)",
-                              color: "var(--pf-c-menu__group-title--Color)"
+                <MenuSearch>
+                    <MenuSearchInput>
+                        <Title
+                          headingLevel="h3"
+                          className="pf-v5-c-menu__group-title"
+                          style={
+                              // HACK This title should look like the ones in PF Menu. Simply adding it's class
+                              // doesn't give it all the attributes.
+                              {
+                                  fontSize: "var(--pf-v5-c-menu__group-title--FontSize)",
+                                  paddingLeft: "0",
+                                  paddingTop: "0",
+                                  marginBottom: "0.5em",
+                                  fontWeight: "var(--pf-v5-c-menu__group-title--FontWeight)",
+                                  fontFamily: "var(--pf-v5-global--FontFamily--sans-serif)",
+                                  color: "var(--pf-v5-c-menu__group-title--Color)"
+                              }
                           }
-                      }
-                    >
-                        {_("Find a language")}
-                    </Title>
-                    <SearchInput
-                      id={this.props.idPrefix + "-language-search"}
-                      value={this.state.search}
-                      onChange={(_, value) => this.setState({ search: value })}
-                      onClear={() => this.setState({ search: "" })}
-                    />
-                </MenuInput>
+                        >
+                            {_("Find a language")}
+                        </Title>
+                        <SearchInput
+                          id={this.props.idPrefix + "-language-search"}
+                          value={this.state.search}
+                          onChange={(_, value) => this.setState({ search: value })}
+                          onClear={() => this.setState({ search: "" })}
+                        />
+                    </MenuSearchInput>
+                </MenuSearch>
                 <MenuContent maxMenuHeight="25vh">
                     <MenuList>
                         {options}

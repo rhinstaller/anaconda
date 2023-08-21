@@ -11,17 +11,17 @@ html:not(.index-page) body {
   }
 }
 
-#installation-wizard .pf-c-wizard__main {
+#installation-wizard .pf-v5-c-wizard__main {
   display: flex;
 }
 
-#installation-wizard .pf-c-wizard__main-body {
+#installation-wizard .pf-v5-c-wizard__main-body {
   flex: 1 1 auto;
 }
 
 // Nested tables showing partitions in the local standards disks table should not fill space in larger screens
-@media (min-width: $pf-global--breakpoint--lg) {
-  .ct-table .pf-c-table__expandable-row-content {
+@media (min-width: $pf-v5-global--breakpoint--lg) {
+  .ct-table .pf-v5-c-table__expandable-row-content {
     display: flex;
   }
 
@@ -36,6 +36,6 @@ html:not(.index-page) body {
 }
 
 // Nested tables showing partitions in the local standards disks table don't need extra padding
-.ct-table .pf-c-table__expandable-row-content {
+.ct-table .pf-v5-c-table__expandable-row-content {
   padding: 0;
 }

@@ -1,26 +1,26 @@
 .installation-method-selector {
-  .pf-c-select {
+  .installation-method-disk-selector {
     width: 50%;
   }
 
-  .pf-c-form__section-title {
-    font-size: var(--pf-global--FontSize--md);
+  .pf-v5-c-form__section-title {
+    font-size: var(--pf-v5-global--FontSize--md);
   }
 }
 
 .installation-method-target-disk-size {
-  color: var(--pf-global--Color--200);
-  font-size: var(--pf-global--FontSize--sm);
+  color: var(--pf-v5-global--Color--200);
+  font-size: var(--pf-v5-global--FontSize--sm);
 }
 
 .installation-method-scenario {
-  .pf-c-radio__body {
+  .pf-v5-c-radio__body {
     margin-top: 0;
-    font-size: var(--pf-global--FontSize--sm);
+    font-size: var(--pf-v5-global--FontSize--sm);
 
     .installation-method-scenario-disabled-reason {
-      font-weight: var(--pf-global--FontWeight--bold);
-      margin-inline-end: var(--pf-global--spacer--xs);
+      font-weight: var(--pf-v5-global--FontWeight--bold);
+      margin-inline-end: var(--pf-v5-global--spacer--xs);
     }
   }
 }

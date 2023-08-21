@@ -34,8 +34,7 @@ import {
     TextInput,
     TextContent,
     TextVariants,
-    Text,
-    Title,
+    Text, EmptyStateHeader, EmptyStateFooter, InputGroupItem,
 } from "@patternfly/react-core";
 
 // eslint-disable-next-line camelcase
@@ -127,21 +126,25 @@ const PasswordFormFields = ({
               labelInfo={ruleLength === "success" && passwordStrengthLabel(idPrefix, passwordStrength)}
             >
                 <InputGroup>
-                    <TextInput
-                      type={passwordHidden ? "password" : "text"}
-                      value={_password}
-                      onChange={_setPassword}
-                      id={idPrefix + "-password-field"}
-                    />
-                    <Button
-                      variant="control"
-                      onClick={() => setPasswordHidden(!passwordHidden)}
-                      aria-label={passwordHidden ? _("Show password") : _("Hide password")}
-                    >
-                        {passwordHidden ? <EyeIcon /> : <EyeSlashIcon />}
-                    </Button>
+                    <InputGroupItem isFill>
+                        <TextInput
+                          type={passwordHidden ? "password" : "text"}
+                          value={_password}
+                          onChange={(_event, val) => _setPassword(val)}
+                          id={idPrefix + "-password-field"}
+                        />
+                    </InputGroupItem>
+                    <InputGroupItem>
+                        <Button
+                          variant="control"
+                          onClick={() => setPasswordHidden(!passwordHidden)}
+                          aria-label={passwordHidden ? _("Show password") : _("Hide password")}
+                        >
+                            {passwordHidden ? <EyeIcon /> : <EyeSlashIcon />}
+                        </Button>
+                    </InputGroupItem>
                 </InputGroup>
-                <FormHelperText isHidden={false} component="div">
+                <FormHelperText>
                     <HelperText component="ul" aria-live="polite" id={idPrefix + "-password-field-helper"}>
                         <HelperTextItem
                           id={idPrefix + "-password-rule-8-chars"}
@@ -158,21 +161,24 @@ const PasswordFormFields = ({
               label={passwordConfirmLabel}
             >
                 <InputGroup>
-                    <TextInput
+                    <InputGroupItem isFill><TextInput
                       type={confirmHidden ? "password" : "text"}
                       value={_passwordConfirm}
-                      onChange={_setPasswordConfirm}
+                      onChange={(_event, val) => _setPasswordConfirm(val)}
                       id={idPrefix + "-password-confirm-field"}
                     />
-                    <Button
-                      variant="control"
-                      onClick={() => setConfirmHidden(!confirmHidden)}
-                      aria-label={confirmHidden ? _("Show confirmed password") : _("Hide confirmed password")}
-                    >
-                        {confirmHidden ? <EyeIcon /> : <EyeSlashIcon />}
-                    </Button>
+                    </InputGroupItem>
+                    <InputGroupItem>
+                        <Button
+                          variant="control"
+                          onClick={() => setConfirmHidden(!confirmHidden)}
+                          aria-label={confirmHidden ? _("Show confirmed password") : _("Hide confirmed password")}
+                        >
+                            {confirmHidden ? <EyeIcon /> : <EyeSlashIcon />}
+                        </Button>
+                    </InputGroupItem>
                 </InputGroup>
-                <FormHelperText isHidden={false} component="div">
+                <FormHelperText>
                     <HelperText component="ul" aria-live="polite" id="password-confirm-field-helper">
                         <HelperTextItem
                           id={idPrefix + "-password-rule-match"}
@@ -216,15 +222,14 @@ const getRuleConfirmMatches = (password, confirm) => (password.length > 0 ? (pas
 
 const CheckDisksSpinner = (
     <EmptyState id="installation-destination-next-spinner">
-        <EmptyStateIcon variant="container" component={Spinner} />
-        <Title size="lg" headingLevel="h4">
-            {_("Checking storage configuration")}
-        </Title>
-        <TextContent>
-            <Text component={TextVariants.p}>
-                {_("This may take a moment")}
-            </Text>
-        </TextContent>
+        <EmptyStateHeader titleText={<>{_("Checking storage configuration")}</>} icon={<EmptyStateIcon icon={Spinner} />} headingLevel="h4" />
+        <EmptyStateFooter>
+            <TextContent>
+                <Text component={TextVariants.p}>
+                    {_("This may take a moment")}
+                </Text>
+            </TextContent>
+        </EmptyStateFooter>
     </EmptyState>
 );
 
@@ -253,7 +258,7 @@ export const DiskEncryption = ({
           id={idPrefix + "-encrypt-devices"}
           label={_("Encrypt my data")}
           isChecked={isEncrypted}
-          onChange={(encrypt) => setStorageEncryption(se => ({ ...se, encrypt }))}
+          onChange={(_event, encrypt) => setStorageEncryption(se => ({ ...se, encrypt }))}
           body={content}
         />
     );

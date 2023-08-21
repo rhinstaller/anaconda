@@ -72,12 +72,10 @@ EXTRA_DIST = dist src firefox-theme
 COCKPIT_REPO_FILES = \
 	pkg/lib \
 	test/common \
-	tools/git-utils.sh \
-	tools/make-bots \
 	$(NULL)
 
 COCKPIT_REPO_URL = https://github.com/cockpit-project/cockpit.git
-COCKPIT_REPO_COMMIT = 84c7ee507b57485b5edd97ed3321982a59032f20 # 289 + run-tests machine_class fix
+COCKPIT_REPO_COMMIT = 4133eb93dc20f00db996d1fefdd5fcbfd1d6b320 # 298
 
 $(COCKPIT_REPO_FILES): $(COCKPIT_REPO_STAMP)
 COCKPIT_REPO_TREE = '$(strip $(COCKPIT_REPO_COMMIT))^{tree}'
@@ -92,8 +90,8 @@ $(COCKPIT_REPO_STAMP): Makefile.am
 # Workaround cockpit's expectation for test/images directory. This is not really needed in our case
 # as we consume ready ISOs
 # https://github.com/cockpit-project/cockpit/blob/main/test/common/testlib.py#L1118
-bots: tools/make-bots
-	GITHUB_BASE="cockpit-project/cockpit" tools/make-bots
+bots: test/common
+	GITHUB_BASE="cockpit-project/cockpit" test/common/make-bots
 	cd test && ln -sf ../bots/images images
 
 live-vm: bots $(UPDATES_IMG)

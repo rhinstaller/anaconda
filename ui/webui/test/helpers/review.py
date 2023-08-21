@@ -32,15 +32,15 @@ class Review():
 
     @log_step()
     def check_language(self, lang):
-        self.browser.wait_in_text(f"#{self._step}-target-system-language > .pf-c-description-list__text", lang)
+        self.browser.wait_in_text(f"#{self._step}-target-system-language > .pf-v5-c-description-list__text", lang)
 
     @log_step()
     def check_encryption(self, state):
-        self.browser.wait_in_text(f"#{self._step}-target-system-encrypt > .pf-c-description-list__text", state)
+        self.browser.wait_in_text(f"#{self._step}-target-system-encrypt > .pf-v5-c-description-list__text", state)
 
     @log_step()
     def check_storage_config(self, scenario):
-        self.browser.wait_in_text(f"#{self._step}-target-system-mode > .pf-c-description-list__text", scenario)
+        self.browser.wait_in_text(f"#{self._step}-target-system-mode > .pf-v5-c-description-list__text", scenario)
 
     def check_disk(self, disk, text):
         self.browser.wait_text(f"#disk-{disk} span", text)

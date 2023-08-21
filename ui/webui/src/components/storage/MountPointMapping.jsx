@@ -27,11 +27,14 @@ import {
     HelperText,
     HelperTextItem,
     Label,
+    TextInput,
+    Tooltip
+} from "@patternfly/react-core";
+import {
     Select,
     SelectOption,
-    SelectVariant,
-    TextInput, Tooltip,
-} from "@patternfly/react-core";
+    SelectVariant
+} from "@patternfly/react-core/deprecated";
 import { TrashIcon } from "@patternfly/react-icons";
 
 import { ListingTable } from "cockpit-components-table.jsx";
@@ -162,7 +165,7 @@ const MountPointColumn = ({ handleRequestChange, idPrefix, isRequiredMountPoint,
                         className="mount-point-mapping__mountpoint-text"
                         id={idPrefix}
                         onBlur={() => handleRequestChange(mountPointText, request["device-spec"], request["request-id"])}
-                        onChange={setMountPointText}
+                        onChange={(_event, val) => setMountPointText(val)}
                         value={mountPointText}
                     />}
                 {isRequiredMountPoint && <Label color="gold">{_("Required")}</Label>}
@@ -207,7 +210,7 @@ const DeviceColumnSelect = ({ deviceData, devices, idPrefix, lockedLUKSDevices, 
           placeholderText={_("Select a device")}
           selections={device ? [device] : []}
           variant={SelectVariant.single}
-          onToggle={setIsOpen}
+          onToggle={(_event, val) => setIsOpen(val)}
           onSelect={(_, selection, isAPlaceHolder) => {
               handleRequestChange(request["mount-point"], selection, request["request-id"]);
               setIsOpen(false);
@@ -258,7 +261,7 @@ const FormatColumn = ({ deviceData, handleRequestChange, idPrefix, request, requ
               isChecked={!!request.reformat}
               isDisabled={isRootMountPoint}
               aria-label={_("Reformat")}
-              onChange={checked => handleRequestChange(request["mount-point"], request["device-spec"], request["request-id"], checked)}
+              onChange={(_event, checked) => handleRequestChange(request["mount-point"], request["device-spec"], request["request-id"], checked)}
             />
         );
     };

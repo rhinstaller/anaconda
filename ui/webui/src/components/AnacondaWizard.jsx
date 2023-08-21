@@ -27,11 +27,13 @@ import {
     PageSection,
     PageSectionTypes,
     PageSectionVariants,
-    Stack,
+    Stack
+} from "@patternfly/react-core";
+import {
     Wizard,
     WizardFooter,
-    WizardContextConsumer,
-} from "@patternfly/react-core";
+    WizardContextConsumer
+} from "@patternfly/react-core/deprecated";
 
 import { InstallationMethod } from "./storage/InstallationMethod.jsx";
 import { getScenario, getDefaultScenario } from "./storage/InstallationScenario.jsx";
@@ -395,7 +397,7 @@ const Footer = ({
                                 </Button>
                                 <Button
                                   id="installation-quit-btn"
-                                  style={{ marginLeft: "var(--pf-c-wizard__footer-cancel--MarginLeft)" }}
+                                  style={{ marginLeft: "var(--pf-v5-c-wizard__footer-cancel--MarginLeft)" }}
                                   variant="link"
                                   onClick={() => {
                                       setQuitWaitsConfirmation(true);
