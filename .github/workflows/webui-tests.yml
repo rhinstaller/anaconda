@@ -80,8 +80,6 @@ jobs:
       # so that we get partial results and logs in case of the timeout.
       LAUNCHER_TIMEOUT_MINUTES: 60
       # URL to the unpacked installation image
-      # TODO: use preview image
-      STATIC_REPO_URL: "https://fedorapeople.org/groups/anaconda/webui_permian_tests/sources/periodic/x86_64/"
       CONTAINER_TAG: master
       ISO_BUILD_CONTAINER_NAME: 'quay.io/rhinstaller/anaconda-iso-creator'
 
@@ -244,6 +242,10 @@ jobs:
         working-directory: ./permian
         shell: bash {0}
         run: |
+          ls xunit*.xml > /dev/null
+          if [ $? -ne 0 ]; then
+            exit 112
+          fi
           fails=$( grep -E '<failure .* type="failure"/>|<error .* type="error"/>' xunit*.xml )
           if [ -n "$fails" ]; then
             exit 111
