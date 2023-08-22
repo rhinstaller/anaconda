@@ -56,6 +56,25 @@ export const bugzillaPrefiledReportURL = (productQueryData) => {
     return reportURL.href;
 };
 
+const ensureMaximumReportURLLength = (reportURL) => {
+    const newUrl = new URL(reportURL);
+    // The current limit on URL length is 8KiB server limit.
+    const searchParamsLimits = [
+        // Summary should be short
+        { param: "short_desc", length: 256 },
+        // We reserve some space in Details text for attachment message which
+        // will be always appended to the end.
+        { param: "comment", length: 8192 - 256 - 100 },
+    ];
+    const sp = newUrl.searchParams;
+    searchParamsLimits.forEach((limit) => {
+        if (sp.get(limit.param)?.length > limit.length) {
+            sp.set(limit.param, sp.get(limit.param).slice(0, limit.length));
+        }
+    });
+    return newUrl.href;
+};
+
 const addLogAttachmentCommentToReportURL = (reportURL, logFile) => {
     const newUrl = new URL(reportURL);
     const comment = newUrl.searchParams.get("comment") || "";
@@ -85,6 +104,7 @@ export const BZReportModal = ({
     }, []);
 
     const openBZIssue = (reportURL, logFile, logContent) => {
+        reportURL = ensureMaximumReportURLLength(reportURL);
         reportURL = addLogAttachmentCommentToReportURL(reportURL, logFile);
         setPreparingReport(true);
         cockpit
