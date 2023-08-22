@@ -53,24 +53,17 @@ export const bugzillaPrefiledReportURL = (productQueryData) => {
     return reportURL.href;
 };
 
-const addExceptionDataToReportURL = (url, exception) => {
-    const newUrl = new URL(url);
-
-    const context = exception.contextData?.context ? exception.contextData?.context + " " : "";
-
-    newUrl.searchParams.append(
-        "short_desc",
-        "WebUI: " + context + exception.name + ": " + exception.message
-    );
-    newUrl.searchParams.append(
-        "comment",
-        "Installer WebUI Critical Error:\n" + context + exception.name + ": " + exception.message + "\n\n" + _("Please attach the file /tmp/webui.log to the issue.")
-    );
-    return newUrl.href;
-};
-
-export const CriticalError = ({ exception, isBootIso, reportLinkURL }) => {
-    const reportURL = addExceptionDataToReportURL(reportLinkURL, exception);
+export const BZReportModal = ({
+    description,
+    reportLinkURL,
+    idPrefix,
+    title,
+    titleIconVariant,
+    logFile,
+    detailsLabel,
+    detailsContent,
+    buttons
+}) => {
     const [logContent, setLogContent] = useState();
     const [preparingReport, setPreparingReport] = useState(false);
 
@@ -82,65 +75,55 @@ export const CriticalError = ({ exception, isBootIso, reportLinkURL }) => {
     const openBZIssue = (reportURL) => {
         setPreparingReport(true);
         cockpit
-                .file("/tmp/webui.log")
+                .file(logFile)
                 .replace(logContent)
                 .always(() => setPreparingReport(false))
                 .then(() => window.open(reportURL, "_blank", "noopener,noreferer"));
     };
 
-    const context = exception.contextData?.context;
-
     return (
         <Modal
-          description={context
-              ? cockpit.format(_("The installer cannot continue due to a critical error: $0"), _(context))
-              : _("The installer cannot continue due to a critical error.")}
-          id="critical-error-modal"
+          description={description}
+          id={idPrefix + "-bz-report-modal"}
           isOpen
           position="top"
           showClose={false}
-          title={_("Critical error")}
-          titleIconVariant="danger"
+          title={title}
+          titleIconVariant={titleIconVariant}
           variant={ModalVariant.large}
           footer={
               <>
-                  {reportLinkURL &&
                   <Button
                     variant="primary"
                     isLoading={preparingReport}
                     isDisabled={logContent === undefined || preparingReport}
                     icon={<ExternalLinkAltIcon />}
-                    onClick={() => openBZIssue(reportURL)}
+                    onClick={() => openBZIssue(reportLinkURL)}
                     component="a">
                       {preparingReport ? _("Preparing report") : _("Report issue")}
-                  </Button>}
-                  <Button variant="secondary" onClick={exitGui}>
-                      {isBootIso ? _("Reboot") : _("Quit")}
                   </Button>
+                  {buttons}
               </>
           }>
             <Form>
+                {detailsLabel &&
                 <FormGroup
-                  fieldId="critical-error-review-details"
-                  label={_("Error details")}
+                  fieldId={idPrefix + "-bz-report-modal-details"}
+                  label={detailsLabel}
                 >
-                    <TextContent id="critical-error-review-details">
-                        <Text component={TextVariants.p}>
-                            {exception.name + ": " + exception.message}
-                        </Text>
-                    </TextContent>
-                </FormGroup>
+                    {detailsContent}
+                </FormGroup>}
                 <FormGroup
-                  fieldId="critical-error-review-attached-log"
+                  fieldId={idPrefix + "-bz-report-modal-review-log"}
                   label={_("Log")}
                 >
                     <TextArea
                       value={logContent}
                       onChange={(_, value) => setLogContent(value)}
                       resizeOrientation="vertical"
-                      id="critical-error-review-attached-log"
+                      id={idPrefix + "-bz-report-modal-review-log"}
                       isDisabled={logContent === undefined || preparingReport}
-                      rows={7}
+                      rows={25}
                     />
                     <FormHelperText isHidden={false}>
                         <HelperText>
@@ -150,6 +133,92 @@ export const CriticalError = ({ exception, isBootIso, reportLinkURL }) => {
                 </FormGroup>
             </Form>
         </Modal>
+    );
+};
+
+const addExceptionDataToReportURL = (url, exception) => {
+    const newUrl = new URL(url);
+    const context = exception.contextData?.context ? exception.contextData?.context + " " : "";
+    newUrl.searchParams.append(
+        "short_desc",
+        "WebUI: " + context + exception.name + ": " + exception.message
+    );
+    newUrl.searchParams.append(
+        "comment",
+        "Installer WebUI Critical Error:\n" + context + exception.name + ": " + exception.message + "\n\n" + _("Please attach the file /tmp/webui.log to the issue.")
+    );
+    return newUrl.href;
+};
+
+const exceptionInfo = (exception, idPrefix) => {
+    return (
+        <TextContent id={idPrefix + "-bz-report-modal-details"}>
+            <Text component={TextVariants.p}>
+                {exception.name + ": " + exception.message}
+            </Text>
+        </TextContent>
+    );
+};
+
+const quitButton = (isBootIso) => {
+    return (
+        <Button variant="secondary" onClick={exitGui} key="reboot">
+            {isBootIso ? _("Reboot") : _("Quit")}
+        </Button>
+    );
+};
+
+export const CriticalError = ({ exception, isBootIso, reportLinkURL }) => {
+    const context = exception.contextData?.context;
+    const description = context
+        ? cockpit.format(_("The installer cannot continue due to a critical error: $0"), _(context))
+        : _("The installer cannot continue due to a critical error.");
+    const idPrefix = "critical-error";
+
+    return (
+        <BZReportModal
+          description={description}
+          reportLinkURL={addExceptionDataToReportURL(reportLinkURL, exception)}
+          idPrefix={idPrefix}
+          title={_("Criticall error")}
+          titleIconVariant="danger"
+          logFile="/tmp/webui.log"
+          detailsLabel={_("Error details")}
+          detailsContent={exceptionInfo(exception, idPrefix)}
+          buttons={[quitButton(isBootIso)]}
+        />
+
+    );
+};
+
+const addUserIssueDataToReportURL = (url) => {
+    const newUrl = new URL(url);
+    newUrl.searchParams.append(
+        "comment",
+        _("Please attach the log file /tmp/webui.log to the issue.")
+    );
+    return newUrl.href;
+};
+
+const cancelButton = (onClose) => {
+    return (
+        <Button variant="link" onClick={() => onClose()} id="user-issue-dialog-cancel-btn" key="cancel">
+            {_("Cancel")}
+        </Button>
+    );
+};
+
+export const UserIssue = ({ reportLinkURL, setIsReportIssueOpen }) => {
+    return (
+        <BZReportModal
+          description={_("The following log will be sent to the issue tracking system where you may provide additional details.")}
+          reportLinkURL={addUserIssueDataToReportURL(reportLinkURL)}
+          idPrefix="user-issue"
+          title={_("Report issue")}
+          titleIconVariant={null}
+          logFile="/tmp/webui.log"
+          buttons={[cancelButton(() => setIsReportIssueOpen(false))]}
+        />
     );
 };
 

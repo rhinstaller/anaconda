@@ -82,7 +82,7 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         b.click("#toggle-kebab")
 
         # Click on the "About" item from the dropdown
-        b.click("#about-modal-dropdown-item")
+        b.click("#about-modal-dropdown-item-about")
 
         # Expect PRETTY_NAME to be shown in modal title
         b.wait_in_text("#about-modal-title", pretty_name)
@@ -109,6 +109,50 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         b.click(".pf-v5-c-button[aria-label='Close Dialog']")
         b.wait_not_present("#about-modal")
 
+    def _testLogReview(self, b, m, idPrefix):
+        # Test review of logs
+        self.addCleanup(m.execute, "rm -f /tmp/webui.log")
+        logfile = "/tmp/webui.log"
+
+        self.assertFalse(self.file_exists(logfile))
+
+        # FIXME: Remove PF5 specific selector: https://github.com/patternfly/patternfly-react/issues/9512
+        # Click report issue: save reviewed log and open BZ URL
+        b.click(f"#{idPrefix}-bz-report-modal.pf-v5-c-modal-box .pf-v5-c-button.pf-m-primary")
+
+        with b.wait_timeout(20):
+            b.wait(lambda: self.file_exists(logfile))
+
+        # Reviewed log contains more than 100 lines
+        wait(lambda: int(m.execute(f"wc -l {logfile} | cut -d' ' -f1").strip()) > 100)
+
+        # Test editing of the log
+        user_text = "STRING_ADDED_BY_USER_TO_LOG"
+        b.set_input_text(f"#{idPrefix}-bz-report-modal-review-log", user_text)
+        b.click(f"#{idPrefix}-bz-report-modal.pf-v5-c-modal-box .pf-v5-c-button.pf-m-primary")
+        wait(lambda: (m.execute(f"cat {logfile}")) == user_text)
+
+    def testReportIssue(self):
+        b = self.browser
+        m = self.machine
+        i = Installer(b, m)
+
+        i.open()
+
+        # FIXME: Remove PF5 specific selector: https://github.com/patternfly/patternfly-react/issues/9512
+        b.wait_not_present("#user-issue-bz-report-modal.pf-v5-c-modal-box")
+
+        b.click("#toggle-kebab")
+
+        b.click("#about-modal-dropdown-item-report")
+
+        b.wait_visible("#user-issue-bz-report-modal.pf-v5-c-modal-box")
+
+        self._testLogReview(b, m, "user-issue")
+
+        b.click("#user-issue-dialog-cancel-btn")
+        b.wait_not_present("#user-issue-bz-report-modal.pf-v5-c-modal-box")
+
     def testErrorHandling(self):
         b = self.browser
         m = self.machine
@@ -132,32 +176,13 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         i.next()
 
         # FIXME: Remove PF5 specific selector: https://github.com/patternfly/patternfly-react/issues/9512
-        b.wait_not_present("#critical-error-modal.pf-v5-c-modal-box")
+        b.wait_not_present("#critical-error-bz-report-modal.pf-v5-c-modal-box")
 
         s.rescan_disks()
 
-        b.wait_visible("#critical-error-modal.pf-v5-c-modal-box")
+        b.wait_visible("#critical-error-bz-report-modal.pf-v5-c-modal-box")
 
-        # Test review of logs
-        self.addCleanup(m.execute, "rm -f /tmp/webui.log")
-        logfile = "/tmp/webui.log"
-
-        self.assertFalse(self.file_exists(logfile))
-
-        # Click report issue: save reviewed log and open BZ URL
-        b.click("#critical-error-modal.pf-v5-c-modal-box .pf-v5-c-button.pf-m-primary")
-
-        with b.wait_timeout(20):
-            b.wait(lambda: self.file_exists(logfile))
-
-        # Reviewed log contains more than 100 lines
-        wait(lambda: int(m.execute(f"wc -l {logfile} | cut -d' ' -f1").strip()) > 100)
-
-        # Test editing of the log
-        user_text = "STRING_ADDED_BY_USER_TO_LOG"
-        b.set_input_text("#critical-error-review-attached-log", user_text)
-        b.click("#critical-error-modal.pf-v5-c-modal-box .pf-v5-c-button.pf-m-primary")
-        wait(lambda: (m.execute(f"cat {logfile}")) == user_text)
+        self._testLogReview(b, m, "critical-error")
 
 
 if __name__ == '__main__':

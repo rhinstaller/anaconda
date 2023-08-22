@@ -156,7 +156,7 @@ export const Application = () => {
                     })}
                 </AlertGroup>}
                 <PageGroup stickyOnBreakpoint={{ default: "top" }}>
-                    <AnacondaHeader beta={beta} title={title} />
+                    <AnacondaHeader beta={beta} title={title} reportLinkURL={bzReportURL} />
                 </PageGroup>
                 <AddressContext.Provider value={address}>
                     <WithDialogs>

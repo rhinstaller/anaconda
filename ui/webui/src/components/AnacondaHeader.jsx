@@ -31,7 +31,7 @@ import { HeaderKebab } from "./HeaderKebab.jsx";
 
 const _ = cockpit.gettext;
 
-export const AnacondaHeader = ({ beta, title }) => {
+export const AnacondaHeader = ({ beta, title, reportLinkURL }) => {
     const prerelease = _("Pre-release");
     const betanag = beta
         ? (
@@ -68,7 +68,7 @@ export const AnacondaHeader = ({ beta, title }) => {
                     <Text component="h1">{title}</Text>
                 </TextContent>
                 {betanag}
-                <HeaderKebab />
+                <HeaderKebab reportLinkURL={reportLinkURL} />
             </Flex>
         </PageSection>
     );
