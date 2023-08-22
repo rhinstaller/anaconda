@@ -60,18 +60,18 @@ session_proxy = None
 inhibit_id = None
 
 
-class SetEuidFromConsolehelper():
+class SetEuidFromPkexec():
     """Context manager to temporarily set euid from env. variable set by consolehelper.
 
-    Live installs use consolehelper to run as root, which sets the original UID in $USERHELPER_UID.
+    Live installs use pkexec to run as root, which sets the original UID in $PKEXEC_UID.
     """
     def __init__(self):
         self.old_euid = None
 
     def __enter__(self):
-        if "USERHELPER_UID" in os.environ:
+        if "PKEXEC_UID" in os.environ:
             self.old_euid = os.geteuid()
-            new_euid = int(os.environ["USERHELPER_UID"])
+            new_euid = int(os.environ["PKEXEC_UID"])
             os.seteuid(new_euid)
         return self
 
@@ -87,7 +87,7 @@ def inhibit_screensaver():
     global session_proxy
     global inhibit_id
     try:
-        with SetEuidFromConsolehelper():
+        with SetEuidFromPkexec():
             SCREENSAVER = DBusServiceIdentifier(
                 namespace=("org", "freedesktop", "ScreenSaver"),
                 message_bus=SessionMessageBus()
@@ -104,7 +104,7 @@ def uninhibit_screensaver():
         return
     log.info("Un-inhibiting screensaver.")
     try:
-        with SetEuidFromConsolehelper():
+        with SetEuidFromPkexec():
             session_proxy.UnInhibit(inhibit_id)
     except (DBusError, KeyError) as e:
         log.warning("Unable to uninhibit the screensaver: %s", e)
