@@ -485,6 +485,26 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Aug 22 2023 github-actions <github-actions@github.com> - 39.32-1
+- liveinst: Ensure DBUS_SESSION_BUS_ADDRESS is set in live install (rstrode)
+- screensaver: Look at $PKEXEC_UID not $USERHELPER_UID (rstrode)
+- webui: disable disk selection while disks are being rescanned (kkoukiou)
+- webui: show spinner in the disk selection while the backend did not update
+  (kkoukiou)
+- WebUI: update pixel tests for Fedora 40 (jvanderwaa)
+- webui: show 25 rows in the bug report log review. (rvykydal)
+- webui: add option to report an issue to global menu (rvykydal)
+- webui: bump cockpit-* dependencies in updates.img (kkoukiou)
+- Update translations from Weblate for master (github-actions)
+- release-notes: Document support for compressed kernel modules in Driver Discs
+  (peter.georg)
+- Add documentation about support for compressed kernel modules (peter.georg)
+- dd_extract: Update test info to reflect added support for compressed kernel
+  modules (peter.georg)
+- dd_extract: Add test for zstd compressed kernel module (peter.georg)
+- dd_extract: Add test for xz compressed kernel module (peter.georg)
+- dd_extract: Add support for compressed kernel modules (peter.georg)
+
 * Tue Aug 22 2023 github-actions <github-actions@github.com> - 39.31-1
 - po: Don't try to delete extra.pot (vslavik)
 - tests: Rename test to match file with code (vslavik)
