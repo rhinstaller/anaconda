@@ -76,7 +76,7 @@ class Installer():
         current_page = self.get_current_page()
         # If not explicitly specified, get the first item for next page from the steps dict
         if not next_page:
-            if type(self.steps._steps_jump[current_page]) is list:
+            if isinstance(self.steps._steps_jump[current_page], list):
                 next_page = self.steps._steps_jump[current_page][0]
             else:
                 next_page = self.steps._steps_jump[current_page]

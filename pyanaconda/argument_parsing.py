@@ -221,7 +221,7 @@ class AnacondaArgumentParser(ArgumentParser):
                 # we hate you.
 
                 continue
-            elif type(val) is list:
+            elif isinstance(val, list):
                 for item in val:
                     option(self, namespace, item)
                 continue
