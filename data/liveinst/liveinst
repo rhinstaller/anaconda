@@ -26,6 +26,11 @@ if [ "$(id -u)" -ne 0 ]; then
     exec pkexec "$0" "$@"
 fi
 
+# pkexec clears DBUS_SESSION_BUS_ADDRESS from environment
+if [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
+    export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${PKEXEC_UID}/bus
+fi
+
 # Allow running another command in the place of anaconda, but in this same
 # environment.  This allows storage testing to make use of all the module
 # loading and lvm control in this file, too.
