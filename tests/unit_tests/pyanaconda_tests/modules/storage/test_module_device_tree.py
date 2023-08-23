@@ -283,6 +283,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         assert self.interface.GetFormatData("dev1") == {
             'type': get_variant(Str, 'ext4'),
             'mountable': get_variant(Bool, True),
+            'formattable': get_variant(Bool, True),
             'attrs': get_variant(Dict[Str, Str], {
                 "uuid": "1234-56-7890",
                 "label": "LABEL",
@@ -305,8 +306,28 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         assert self.interface.GetFormatData("dev2") == {
             'type': get_variant(Str, 'luks'),
             'mountable': get_variant(Bool, False),
+            'formattable': get_variant(Bool, True),
             'attrs': get_variant(Dict[Str, Str], {'has_key': 'False'}),
             'description': get_variant(Str, 'LUKS'),
+        }
+
+        fmt3 = get_format(
+            ""
+        )
+        dev3 = StorageDevice(
+            "dev3",
+            parents=[dev1],
+            fmt=fmt3,
+            size=Size("10 GiB")
+        )
+        self._add_device(dev3)
+
+        assert self.interface.GetFormatData("dev3") == {
+            'type': get_variant(Str, ''),
+            'mountable': get_variant(Bool, False),
+            'formattable': get_variant(Bool, False),
+            'description': get_variant(Str, 'Unknown'),
+            'attrs': get_variant(Dict[Str, Str], {}),
         }
 
     def test_get_format_type_data(self):
@@ -314,6 +335,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         assert self.interface.GetFormatTypeData("swap") == {
             'type': get_variant(Str, 'swap'),
             'mountable': get_variant(Bool, False),
+            'formattable': get_variant(Bool, False),
             'attrs': get_variant(Dict[Str, Str], {}),
             'description': get_variant(Str, 'swap'),
         }
@@ -682,6 +704,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         assert self.interface.GetFormatData("dev2") == {
             'type': get_variant(Str, 'luks'),
             'mountable': get_variant(Bool, False),
+            'formattable': get_variant(Bool, True),
             'attrs': get_variant(Dict[Str, Str], {'has_key': 'False'}),
             'description': get_variant(Str, 'LUKS'),
         }
@@ -697,6 +720,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         assert self.interface.GetFormatData("dev2") == {
             'type': get_variant(Str, 'luks'),
             'mountable': get_variant(Bool, False),
+            'formattable': get_variant(Bool, True),
             'attrs': get_variant(Dict[Str, Str], { "has_key": "True" }),
             'description': get_variant(Str, 'LUKS'),
         }

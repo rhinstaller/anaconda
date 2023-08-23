@@ -99,11 +99,16 @@ const isDuplicateRequestField = (requests, fieldName, fieldValue) => {
     return requests.filter((request) => request[fieldName] === fieldValue).length > 1;
 };
 
-const isReformatValid = (deviceData, request, requests) => {
+const isReformatInvalid = (deviceData, request, requests) => {
     const device = request["device-spec"];
 
     if (!device || !request.reformat) {
-        return true;
+        return [false, ""];
+    }
+
+    if (!deviceData[device].formatData.formattable.v) {
+        return [true, cockpit.format(_("Selected device's format '$0' cannot be reformatted."),
+                                     deviceData[device].formatData.type.v)];
     }
 
     const children = getDeviceChildren({ deviceData, device });
@@ -112,11 +117,17 @@ const isReformatValid = (deviceData, request, requests) => {
      * - either exist in the mount points mapper table and  be re-formatted
      * - or not exist in the mountpoints mapper table
      */
-    return children.every(child => {
+    const isChildReformatValid = children.every(child => {
         const childRequest = requests.find(r => r["device-spec"] === child);
 
         return !childRequest || childRequest.reformat === true;
     });
+
+    if (!isChildReformatValid) {
+        return [true, _("Mismatch between parent device and child device reformat selection.")];
+    } else {
+        return [false, ""];
+    }
 };
 
 const getLockedLUKSDevices = (requests, deviceData) => {
@@ -253,7 +264,7 @@ const DeviceColumn = ({ deviceData, devices, idPrefix, handleRequestChange, lock
 const FormatColumn = ({ deviceData, handleRequestChange, idPrefix, request, requests }) => {
     const mountpoint = request["mount-point"];
     const isRootMountPoint = mountpoint === "/";
-    const reformatInvalid = !isReformatValid(deviceData, request, requests);
+    const [reformatInvalid, reformatErrorMsg] = isReformatInvalid(deviceData, request, requests);
     const FormatSwitch = () => {
         return (
             <Switch
@@ -278,7 +289,7 @@ const FormatColumn = ({ deviceData, handleRequestChange, idPrefix, request, requ
             {reformatInvalid &&
                 <HelperText>
                     <HelperTextItem variant="error" hasIcon>
-                        {_("Mismatch between parent device and child device reformat selection.")}
+                        {reformatErrorMsg}
                     </HelperTextItem>
                 </HelperText>}
         </Flex>
@@ -436,7 +447,7 @@ const MountPointMappingContent = ({ deviceData, partitioningData, dispatch, idPr
         if (requests) {
             const mountPoints = requests.filter(r => r["mount-point"] !== "swap").map(r => r["mount-point"]);
             const devices = requests.map(r => r["device-spec"]);
-            const reformatInvalid = requests.some(request => !isReformatValid(deviceData, request, requests));
+            const reformatInvalid = requests.some(request => isReformatInvalid(deviceData, request, requests)[0]);
 
             const isFormValid = (
                 !reformatInvalid &&
