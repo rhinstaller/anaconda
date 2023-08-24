@@ -62,7 +62,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         s.rescan_disks()
 
         # Check that the disk selection persists when moving next and back
-        s.select_disk("vda", True)
+        s.check_disk_selected("vda", True)
         i.next()
         i.back()
         s.check_disk_selected("vda", True)
@@ -292,14 +292,12 @@ class TestStorageExtraDisks(anacondalib.VirtInstallMachineCase, StorageHelpers):
 
         s.wait_no_disks_detected_not_present()
 
-        s.check_disk_selected("vda", False)
+        s.check_disk_selected("vda", True)
         s.check_disk_selected(dev, False)
 
         s.rescan_disks()
-        s.wait_no_disks_detected()
 
         # Check that disk selection is kept on Next and Back
-        disks = ["vda"]
         for disk in disks:
             s.select_disk(disk)
         i.next()
@@ -324,7 +322,7 @@ class TestUtils():
         b.wait(lambda : self.disks_loaded(s, disks))
 
         for disk in disks:
-            current_selection = s.get_disk_selected(disk)
+            current_selection = s.get_disk_selected(disk[0])
             if current_selection != disk[1]:
                 s.select_disk(disk[0], disk[1], len(disks) == 1)
 
