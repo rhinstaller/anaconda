@@ -132,7 +132,7 @@ export const Application = () => {
     const page = (
         <>
             {criticalError &&
-            <CriticalError exception={criticalError} isBootIso={isBootIso} reportLinkURL={bzReportURL} />}
+            <CriticalError exception={criticalError} isBootIso={isBootIso} isConnected={state.network.connected} reportLinkURL={bzReportURL} />}
             <Page
               data-debug={conf.Anaconda.debug}
             >
@@ -160,7 +160,12 @@ export const Application = () => {
                     })}
                 </AlertGroup>}
                 <PageGroup stickyOnBreakpoint={{ default: "top" }}>
-                    <AnacondaHeader beta={beta} title={title} reportLinkURL={bzReportURL} />
+                    <AnacondaHeader
+                      beta={beta}
+                      title={title}
+                      reportLinkURL={bzReportURL}
+                      isConnected={state.network.connected}
+                    />
                 </PageGroup>
                 <AddressContext.Provider value={address}>
                     <WithDialogs>

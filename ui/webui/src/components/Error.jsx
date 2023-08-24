@@ -34,7 +34,7 @@ import {
     TextVariants,
     Text,
 } from "@patternfly/react-core";
-import { ExternalLinkAltIcon } from "@patternfly/react-icons";
+import { ExternalLinkAltIcon, DisconnectedIcon } from "@patternfly/react-icons";
 
 import { exitGui } from "../helpers/exit.js";
 
@@ -64,7 +64,8 @@ export const BZReportModal = ({
     logFile,
     detailsLabel,
     detailsContent,
-    buttons
+    buttons,
+    isConnected
 }) => {
     const [logContent, setLogContent] = useState();
     const [preparingReport, setPreparingReport] = useState(false);
@@ -97,14 +98,16 @@ export const BZReportModal = ({
               <Stack hasGutter>
                   <FormHelperText isHidden={false}>
                       <HelperText>
-                          <HelperTextItem>{_("Reporting an issue will send information over the network. Plese review and edit the attached log to remove any sensitive information.")}</HelperTextItem>
+                          {isConnected
+                              ? <HelperTextItem> {_("Reporting an issue will send information over the network. Please review and edit the attached log to remove any sensitive information.")} </HelperTextItem>
+                              : <HelperTextItem icon={<DisconnectedIcon />}> {_("Network not available. Configure the network in the top bar menu to report the issue.")} </HelperTextItem>}
                       </HelperText>
                   </FormHelperText>
                   <StackItem>
                       <Button
                         variant="primary"
                         isLoading={preparingReport}
-                        isDisabled={logContent === undefined || preparingReport}
+                        isDisabled={logContent === undefined || preparingReport || !isConnected}
                         icon={<ExternalLinkAltIcon />}
                         onClick={() => openBZIssue(reportLinkURL)}
                         component="a">
@@ -172,7 +175,7 @@ const quitButton = (isBootIso) => {
     );
 };
 
-export const CriticalError = ({ exception, isBootIso, reportLinkURL }) => {
+export const CriticalError = ({ exception, isBootIso, isConnected, reportLinkURL }) => {
     const context = exception.contextData?.context;
     const description = context
         ? cockpit.format(_("The installer cannot continue due to a critical error: $0"), _(context))
@@ -190,6 +193,7 @@ export const CriticalError = ({ exception, isBootIso, reportLinkURL }) => {
           detailsLabel={_("Error details")}
           detailsContent={exceptionInfo(exception, idPrefix)}
           buttons={[quitButton(isBootIso)]}
+          isConnected={isConnected}
         />
 
     );
@@ -212,7 +216,7 @@ const cancelButton = (onClose) => {
     );
 };
 
-export const UserIssue = ({ reportLinkURL, setIsReportIssueOpen }) => {
+export const UserIssue = ({ reportLinkURL, setIsReportIssueOpen, isConnected }) => {
     return (
         <BZReportModal
           description={_("The following log will be sent to the issue tracking system where you may provide additional details.")}
@@ -222,6 +226,7 @@ export const UserIssue = ({ reportLinkURL, setIsReportIssueOpen }) => {
           titleIconVariant={null}
           logFile="/tmp/webui.log"
           buttons={[cancelButton(() => setIsReportIssueOpen(false))]}
+          isConnected={isConnected}
         />
     );
 };
