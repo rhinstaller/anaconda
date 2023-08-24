@@ -201,19 +201,6 @@ jobs:
           path: |
             images/*.iso
 
-      - name: Add comment with link to PR
-        if: github.event_name != 'workflow_dispatch'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          sha="${{ needs.pr-info.outputs.sha }}"
-          url="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          echo -n "\`boot.iso\` built successfully based on commit $sha. " >> comment.txt
-          echo -e "Download it from the bottom of the [job status page]($url).\n" >> comment.txt
-          echo "Comment to be posted:"
-          cat comment.txt
-          gh pr comment ${{ github.event.issue.number }} -F comment.txt
-
       - name: Set result status
         if: always()
         uses: octokit/request-action@v2.x
@@ -304,3 +291,43 @@ jobs:
           target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+  finalize:
+    needs: [pr-info, boot-iso, live-iso]
+    runs-on: ubuntu-latest
+    # needs always() to run even if builds failed
+    if: ${{ always() && !cancelled() && github.event_name != 'workflow_dispatch' && needs.pr-info.outputs.allowed_user == 'true' }}
+    steps:
+
+      - name: Clone repository
+        # need the repo to successfully post a comment :-/
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ needs.pr-info.outputs.sha }}
+          fetch-depth: 1
+
+      - name: Add comment with link to PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sha="${{ needs.pr-info.outputs.sha }}"
+          url="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}#artifacts"
+
+          echo -e -n "Images built based on commit $sha:\n" > comment.txt
+          if [[ "${{ needs.pr-info.outputs.args }}" == *"--boot.iso"* ]] ; then
+            # <job>.result can be success, failure, cancelled, or skipped
+            # https://docs.github.com/en/actions/learn-github-actions/contexts#jobs-context
+            echo -e "- \`boot.iso\`: ${{ needs.boot-iso.result }}\n" >> comment.txt
+          fi
+          if [[ "${{ needs.pr-info.outputs.args }}" == *"--live"* ]] ; then
+            echo -e "- Live: ${{ needs.live-iso.result }}\n" >> comment.txt
+          fi
+          echo -e "\nDownload the images from the bottom of the [job status page]($url).\n" >> comment.txt
+
+          echo "Comment to be posted:"
+          cat comment.txt
+
+          gh pr comment \
+            ${{ github.event.issue.number }} \
+            -F comment.txt
