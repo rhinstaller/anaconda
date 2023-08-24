@@ -80,7 +80,11 @@ class Storage():
             self.browser.wait_not_present(f"#{id_prefix}-selector-form li.pf-v5-c-chip-group__list-item:contains({disk})")
 
     def get_disk_selected(self, disk):
-        return self.browser.is_present(f"#{id_prefix}-selector-form li.pf-v5-c-chip-group__list-item:contains({disk})")
+        return (
+            self.browser.is_present(f"#{id_prefix}-selector-form li.pf-v5-c-chip-group__list-item:contains({disk})") or
+            (self.browser.is_present(f"#{id_prefix}-target-disk") and
+             disk in self.browser.text(f"#{id_prefix}-target-disk"))
+        )
 
     @log_step()
     def wait_no_disks(self):
@@ -281,7 +285,6 @@ class Storage():
         # Add a partition for "Use free space" scenario to be present
         self.machine.execute(f"sgdisk --new=0:0:+{size} /dev/{target}")
         self.rescan_disks()
-        self.select_disk(target, True, True)
 
     # partitions_params expected structure: [("size", "file system" {, "other mkfs.fs flags"})]
     def partition_disk(self, disk, partitions_params):
