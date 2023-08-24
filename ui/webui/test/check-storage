@@ -62,7 +62,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         s.rescan_disks()
 
         # Check that the disk selection persists when moving next and back
-        s.select_disk("vda", True)
+        s.check_disk_selected("vda", True)
         i.next()
         i.back()
         s.check_disk_selected("vda", True)
@@ -287,24 +287,26 @@ class TestStorageExtraDisks(anacondalib.VirtInstallMachineCase, StorageHelpers):
         s.check_single_disk_destination("vda")
 
         s.rescan_disks()
+
         s.check_disk_visible("vda")
         s.check_disk_visible(dev)
 
         s.wait_no_disks_detected_not_present()
 
-        s.check_disk_selected("vda", False)
+        s.check_disk_selected("vda", True)
         s.check_disk_selected(dev, False)
 
         s.rescan_disks()
-        s.wait_no_disks_detected()
+
+        s.check_disk_selected("vda", True)
+        s.check_disk_selected(dev, False)
+
+        s.select_disk(dev)
 
         # Check that disk selection is kept on Next and Back
-        disks = ["vda"]
-        for disk in disks:
-            s.select_disk(disk)
         i.next()
         i.back()
-        for disk in disks:
+        for disk in ["vda", dev]:
             s.check_disk_selected(disk)
 
 class TestUtils():
@@ -324,7 +326,7 @@ class TestUtils():
         b.wait(lambda : self.disks_loaded(s, disks))
 
         for disk in disks:
-            current_selection = s.get_disk_selected(disk)
+            current_selection = s.get_disk_selected(disk[0])
             if current_selection != disk[1]:
                 s.select_disk(disk[0], disk[1], len(disks) == 1)
 
@@ -556,6 +558,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, TestUtils):
         # Select first only vdb disk and verify that the partitioning request is correct
         i.open()
         i.next()
+
         s.rescan_disks()
 
         self.select_mountpoint(b, i, s, [(dev1, False), (dev2, True)])
