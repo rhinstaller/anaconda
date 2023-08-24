@@ -37,6 +37,8 @@ jobs:
   unit-tests:
     runs-on: ubuntu-20.04
     timeout-minutes: 30
+    # Don't run scheduled workflows on forks.
+    if: github.event_name != 'schedule' || github.repository == 'rhinstaller/anaconda'
     strategy:
       fail-fast: false
       matrix:
@@ -77,6 +79,8 @@ jobs:
   rpm-tests:
     runs-on: ubuntu-20.04
     timeout-minutes: 30
+    # Don't run scheduled workflows on forks.
+    if: github.event_name != 'schedule' || github.repository == 'rhinstaller/anaconda'
     strategy:
       fail-fast: false
       matrix:
