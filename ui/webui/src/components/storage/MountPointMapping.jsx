@@ -160,6 +160,10 @@ const MountPointColumn = ({ handleRequestChange, idPrefix, isRequiredMountPoint,
 
     const swapMountpoint = mountpoint === "swap";
 
+    useEffect(() => {
+        setMountPointText(request["mount-point"] || "");
+    }, [request]);
+
     return (
         <Flex direction={{ default: "column" }} spaceItems={{ default: "spaceItemsNone" }}>
             <Flex spaceItems={{ default: "spaceItemsMd" }}>
@@ -298,7 +302,13 @@ const FormatColumn = ({ deviceData, handleRequestChange, idPrefix, request, requ
 
 const MountPointRowRemove = ({ request, setRequests }) => {
     const handleRemove = () => {
-        setRequests(requests => requests.filter(r => r["request-id"] !== request["request-id"]));
+        // remove row from requests and update requests with higher ID
+        setRequests(requests => requests.filter(r => r["request-id"] !== request["request-id"]).map(({
+            ...r
+        }) => ({
+            ...r,
+            "request-id": r["request-id"] > request["request-id"] ? r["request-id"] - 1 : r["request-id"],
+        })));
     };
 
     return (
