@@ -180,7 +180,7 @@ export const CriticalError = ({ exception, isBootIso, reportLinkURL }) => {
           description={description}
           reportLinkURL={addExceptionDataToReportURL(reportLinkURL, exception)}
           idPrefix={idPrefix}
-          title={_("Criticall error")}
+          title={_("Critical error")}
           titleIconVariant="danger"
           logFile="/tmp/webui.log"
           detailsLabel={_("Error details")}
