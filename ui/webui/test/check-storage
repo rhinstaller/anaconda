@@ -884,5 +884,29 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         r.check_disk_row(disk, 2, f"{vgname}-root, 6.01 GB: format as ext4, /")
         r.check_disk_row(disk, 3, f"{vgname}-swap, 902 MB: mount, swap")
 
+    @nondestructive
+    def testUnusableFormats(self):
+        b = self.browser
+        m = self.machine
+        i = Installer(b, m)
+        s = Storage(b, m)
+
+        self.addCleanup(m.execute, "wipefs --all /dev/vda")
+
+        disk = "/dev/vda"
+        dev = "vda"
+        s.partition_disk(disk, [("1GB", "ext4"), ("1GB", None), ("1GB", "lvmpv")])
+        s.udevadm_settle()
+
+        i.open()
+        i.next()
+        s.rescan_disks()
+
+        self.select_mountpoint(i, s, [(dev, True)])
+
+        # unformatted and unmountable devices should not be available
+        self.check_device_available(1, f"{dev}2", False)
+        self.check_device_available(1, f"{dev}3", False)
+
 if __name__ == '__main__':
     test_main()
