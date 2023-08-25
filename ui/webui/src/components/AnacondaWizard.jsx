@@ -206,11 +206,12 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
     };
     const steps = createSteps(stepsOrder);
 
-    const goToStep = (newStep) => {
-        // first reset validation state to default
-        setIsFormValid(false);
-
-        cockpit.location.go([newStep.id]);
+    const goToStep = (newStep, prevStep) => {
+        if (prevStep.prevId !== newStep.id) {
+            // first reset validation state to default
+            setIsFormValid(false);
+            cockpit.location.go([newStep.id]);
+        }
     };
 
     return (
