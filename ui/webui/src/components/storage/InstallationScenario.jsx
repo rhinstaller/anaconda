@@ -84,12 +84,12 @@ const checkUseFreeSpace = ({ diskFreeSpace, diskTotalSpace, requiredSize }) => {
     return availability;
 };
 
-const checkMountPointMapping = ({ hasPartitions }) => {
+const checkMountPointMapping = ({ hasFilesystems }) => {
     const availability = new AvailabilityState();
 
-    if (!hasPartitions) {
+    if (!hasFilesystems) {
         availability.available = false;
-        availability.reason = _("No existing partitions on the selected disks.");
+        availability.reason = _("No usable devices on the selected disks.");
     } else {
         availability.available = true;
     }
@@ -163,7 +163,7 @@ const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, sto
     const [requiredSize, setRequiredSize] = useState();
     const [diskTotalSpace, setDiskTotalSpace] = useState();
     const [diskFreeSpace, setDiskFreeSpace] = useState();
-    const [hasPartitions, setHasPartitions] = useState();
+    const [hasFilesystems, setHasFilesystems] = useState();
 
     useEffect(() => {
         const updateSizes = async () => {
@@ -187,22 +187,22 @@ const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, sto
     }, []);
 
     useEffect(() => {
-        const hasPartitions = selectedDisks.some(device => deviceData[device]?.children.v.some(child => deviceData[child]?.type.v === "partition"));
+        const hasFilesystems = selectedDisks.some(device => deviceData[device]?.children.v.some(child => deviceData[child]?.formatData.mountable.v || deviceData[child]?.formatData.type.v === "luks"));
 
-        setHasPartitions(hasPartitions);
+        setHasFilesystems(hasFilesystems);
     }, [selectedDisks, deviceData]);
 
     useEffect(() => {
         let selectedScenarioId = "";
         let availableScenarioExists = false;
 
-        if ([diskTotalSpace, diskFreeSpace, hasPartitions, requiredSize].some(itm => itm === undefined)) {
+        if ([diskTotalSpace, diskFreeSpace, hasFilesystems, requiredSize].some(itm => itm === undefined)) {
             return;
         }
 
         const newAvailability = {};
         for (const scenario of scenarios) {
-            const availability = scenario.check({ diskTotalSpace, diskFreeSpace, hasPartitions, requiredSize });
+            const availability = scenario.check({ diskTotalSpace, diskFreeSpace, hasFilesystems, requiredSize });
             newAvailability[scenario.id] = availability;
             if (availability.available) {
                 availableScenarioExists = true;
@@ -219,7 +219,7 @@ const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, sto
         setSelectedScenario(selectedScenarioId);
         setScenarioAvailability(newAvailability);
         setIsFormValid(availableScenarioExists);
-    }, [deviceData, hasPartitions, requiredSize, diskFreeSpace, diskTotalSpace, setIsFormValid, storageScenarioId]);
+    }, [deviceData, hasFilesystems, requiredSize, diskFreeSpace, diskTotalSpace, setIsFormValid, storageScenarioId]);
 
     useEffect(() => {
         const applyScenario = async (scenarioId) => {
