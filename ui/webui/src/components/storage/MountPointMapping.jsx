@@ -73,9 +73,9 @@ const getDeviceChildren = ({ deviceData, device }) => {
     return children;
 };
 
-const getInitialRequests = (partitioningData) => {
-    const bootOriginalRequest = partitioningData.requests.find(r => r["mount-point"] === "/boot");
-    const rootOriginalRequest = partitioningData.requests.find(r => r["mount-point"] === "/");
+const getInitialRequests = (usablePartitioningRequests) => {
+    const bootOriginalRequest = usablePartitioningRequests.find(r => r["mount-point"] === "/boot");
+    const rootOriginalRequest = usablePartitioningRequests.find(r => r["mount-point"] === "/");
 
     const requests = requiredMountPointOptions.map((mountPoint, idx) => {
         const request = ({ "mount-point": mountPoint.value, reformat: mountPoint.name === "root" });
@@ -91,7 +91,7 @@ const getInitialRequests = (partitioningData) => {
         return request;
     });
 
-    const extraRequests = partitioningData.requests.filter(r => r["mount-point"] && r["mount-point"] !== "/" && r["mount-point"] !== "/boot" && r["format-type"] !== "biosboot") || [];
+    const extraRequests = usablePartitioningRequests.filter(r => r["mount-point"] && r["mount-point"] !== "/" && r["mount-point"] !== "/boot" && r["format-type"] !== "biosboot") || [];
     return [...requests, ...extraRequests].map((request, idx) => ({ ...request, "request-id": idx + 1 }));
 };
 
@@ -403,19 +403,19 @@ const RequestsTable = ({
     );
 };
 
-const MountPointMappingContent = ({ deviceData, partitioningData, dispatch, idPrefix, setIsFormValid, onAddErrorNotification }) => {
+const MountPointMappingContent = ({ deviceData, partitioningData, usablePartitioningRequests, dispatch, idPrefix, setIsFormValid, onAddErrorNotification }) => {
     const [skipUnlock, setSkipUnlock] = useState(false);
-    const [requests, setRequests] = useState(getInitialRequests(partitioningData));
+    const [requests, setRequests] = useState(getInitialRequests(usablePartitioningRequests));
     const [updateRequestCnt, setUpdateRequestCnt] = useState(0);
     const currentUpdateRequestCnt = useRef(0);
 
     const allDevices = useMemo(() => {
-        return partitioningData.requests?.map(r => r["device-spec"]) || [];
-    }, [partitioningData.requests]);
+        return usablePartitioningRequests?.map(r => r["device-spec"]) || [];
+    }, [usablePartitioningRequests]);
 
     const lockedLUKSDevices = useMemo(
-        () => getLockedLUKSDevices(partitioningData.requests, deviceData),
-        [deviceData, partitioningData.requests]
+        () => getLockedLUKSDevices(usablePartitioningRequests, deviceData),
+        [deviceData, usablePartitioningRequests]
     );
 
     const handlePartitioningRequestsChange = useCallback(_requests => {
@@ -437,12 +437,12 @@ const MountPointMappingContent = ({ deviceData, partitioningData, dispatch, idPr
 
         setManualPartitioningRequests({
             partitioning: partitioningData.path,
-            requests: requestsToDbus(partitioningData.requests)
+            requests: requestsToDbus(usablePartitioningRequests)
         }).catch(ex => {
             onAddErrorNotification(ex);
             setIsFormValid(false);
         });
-    }, [partitioningData.path, onAddErrorNotification, partitioningData.requests, setIsFormValid]);
+    }, [partitioningData.path, onAddErrorNotification, usablePartitioningRequests, setIsFormValid]);
 
     /* When requests change apply directly to the backend */
     useEffect(() => {
@@ -547,6 +547,29 @@ const MountPointMappingContent = ({ deviceData, partitioningData, dispatch, idPr
 export const MountPointMapping = ({ deviceData, diskSelection, partitioningData, dispatch, idPrefix, setIsFormValid, onAddErrorNotification, reusePartitioning, setReusePartitioning, stepNotification }) => {
     const [usedPartitioning, setUsedPartitioning] = useState(partitioningData?.path);
 
+    const isUsableDevice = (devSpec, deviceData) => {
+        const device = deviceData[devSpec];
+        if (device === undefined || device.formatData === undefined) {
+            return false;
+        }
+
+        // luks is allowed -- we need to be able to unlock it
+        if (device.formatData.type.v === "luks") {
+            return true;
+        }
+
+        // only swap and mountable filesystems should be shown in the mount point assignment
+        if (device.formatData.type.v === "swap" || device.formatData.mountable.v === true) {
+            return true;
+        }
+
+        return false;
+    };
+
+    const usablePartitioningRequests = useMemo(() => {
+        return partitioningData.requests?.filter(r => isUsableDevice(r["device-spec"], deviceData)) || [];
+    }, [partitioningData.requests, deviceData]);
+
     useEffect(() => {
         if (!reusePartitioning || partitioningData?.method !== "MANUAL") {
             /* Reset the bootloader drive before we schedule partitions
@@ -582,6 +605,7 @@ export const MountPointMapping = ({ deviceData, diskSelection, partitioningData,
               idPrefix={idPrefix}
               onAddErrorNotification={onAddErrorNotification}
               partitioningData={partitioningData}
+              usablePartitioningRequests={usablePartitioningRequests}
               setIsFormValid={setIsFormValid}
             />
         </AnacondaPage>

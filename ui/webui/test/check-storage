@@ -895,7 +895,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
 
         disk = "/dev/vda"
         dev = "vda"
-        s.partition_disk(disk, [("1GB", "udf")])
+        s.partition_disk(disk, [("1GB", "udf"), ("1GB", None), ("1GB", "lvmpv")])
         s.udevadm_settle()
 
         i.open()
@@ -911,6 +911,10 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         self.check_format_type(3, "udf")
         self.select_reformat(3)
         self.wait_mount_point_table_column_helper(3, "format", text="Selected")
+
+        # unformatted and unmountable devices should not be available
+        self.check_device_available(1, f"{dev}2", False)
+        self.check_device_available(1, f"{dev}3", False)
 
 if __name__ == '__main__':
     test_main()
