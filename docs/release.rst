@@ -304,6 +304,12 @@ Then rebuild everything that is templatized:
 
 This should set up infrastructure and some other parts like makefile variables and pykickstart version used.
 
+Lastly it is necessary to set up updated l10n commit hash - check the commit hash of the ``anaconda-l10n`` repo,
+the one where the new f<version> folder has been added and put the hash to the ``GIT_L10N_SHA`` variable in the
+``po/l10n-config.mk`` file.
+
+This is necessary for the Web UI related translation pinning to work & l10n branching checks to pass.
+
 Verify the changes and commit:
 
 ::
