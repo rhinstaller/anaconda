@@ -417,7 +417,7 @@ check-branching:
 	@echo "Testing pykickstart configuration"
 	@echo "===================================="
 	@substituted_branch=$$(echo "$(GIT_BRANCH)" | sed 's/^master$$/DEVEL/'); \
-	for i in $$(git grep 'from pykickstart.version import DEVEL as VERSION' -- pyanaconda/ dracut/ | awk -F "[: ]" '{print $$1 ";" $$5}'); do \
+	for i in $$(git grep 'from pykickstart.version import DEVEL as VERSION' -- pyanaconda/ dracut/ | awk -F "[: ]" '!/.j2:/ {print $$1 ";" $$5}'); do \
 		i=$${i^^}; \
 		if [ "$${i#*;}" != "$$substituted_branch" ]; then \
 			echo "$${i%;*} is not substituted properly!"; \
