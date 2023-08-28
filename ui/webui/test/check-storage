@@ -785,7 +785,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         # * either also reformatted if selected
         # * either not selected (not part of the mountpoint assignment table)
         self.remove_row(5)
-        self.remove_row(6)
+        self.remove_row(5)
         self.wait_mount_point_table_column_helper(3, "format", present=False)
         self.wait_mount_point_table_column_helper(4, "format", present=False)
 
@@ -865,6 +865,24 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase):
         r.check_disk_row(disk, 2, f"{vgname}-root, 6.01 GB: format as ext4, /")
         r.check_disk_row(disk, 3, f"{vgname}-home, 8.12 GB: mount, /home")
         r.check_disk_row(disk, 4, f"{vgname}-swap, 902 MB: mount, swap")
+
+        i.back(previous_page=i.steps.CUSTOM_MOUNT_POINT)
+
+        # remove the /home row and check that row 3 is now swap
+        self.remove_row(3)
+
+        self.check_row_mountpoint(3, "swap")
+        self.check_row_device(3, f"{vgname}-swap")
+
+        i.next()
+
+        # verify review screen
+        disk = "vda"
+        r.check_disk(disk, "16.1 GB vda (0x1af4)")
+
+        r.check_disk_row(disk, 1, "vda2, 1.07 GB: mount, /boot")
+        r.check_disk_row(disk, 2, f"{vgname}-root, 6.01 GB: format as ext4, /")
+        r.check_disk_row(disk, 3, f"{vgname}-swap, 902 MB: mount, swap")
 
     @nondestructive
     def testUnusableFormats(self):
