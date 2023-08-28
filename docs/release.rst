@@ -360,6 +360,13 @@ Then, finally, push the updated master branch:
 
     git push origin master
 
+Container rebuilds after branching
+----------------------------------
+
+Container rebuilds currently do not happen automatically after branching. So do not forget to rebuild
+all relevant containers after Fedora branching.
+
+
 How to add release version for next Fedora
 ------------------------------------------
 
