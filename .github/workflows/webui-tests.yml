@@ -18,6 +18,9 @@ permissions:
   statuses: write
   checks: write
 
+env:
+  STATUS_NAME: Permian WebUI e2e
+
 jobs:
   pr-info:
     if: startsWith(github.event.comment.body, '/webui-test')
@@ -72,7 +75,6 @@ jobs:
     runs-on: [self-hosted, kstest]
     timeout-minutes: 65
     env:
-      STATUS_NAME: Permian WebUI e2e
       TARGET_BRANCH: ${{ needs.pr-info.outputs.base_ref }}
       # ocp-master-xxl: 32GB RAM / 4GB RAM per VM
       TEST_JOBS: 8
@@ -276,14 +278,14 @@ jobs:
         env:
           BODY: ${{ github.event.comment.body }}
         run: |
-          REASON=$(echo "$BODY" | sed -e "s#/kickstart-test --waive ##")
+          REASON=$(echo "$BODY" | sed -e "s#/webui-test --waive ##")
           echo "reason=Waived, $REASON" >> $GITHUB_OUTPUT
 
       - name: Set status
         uses: octokit/request-action@v2.x
         with:
           route: 'POST /repos/${{ github.repository }}/statuses/${{ needs.pr-info.outputs.sha }}'
-          context: '${{ env.STATUS_NAME }} ${{ needs.pr-info.outputs.launch_args }}'
+          context: ${{ env.STATUS_NAME }}
           description: '${{ steps.get_reason.outputs.reason }}'
           state: ${{ job.status }}
           target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
