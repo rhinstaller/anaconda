@@ -354,6 +354,12 @@ Expect changes only in Github workflows that generate containers etc. for multip
     make -f Makefile.am reload-infra
     git commit -a -m "infra: Configure for the new fedora-NN branch"
 
+Then, finally, push the updated master branch:
+
+::
+
+    git push origin master
+
 How to add release version for next Fedora
 ------------------------------------------
 
