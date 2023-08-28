@@ -26,3 +26,9 @@ jobs:
       container-tag: master
       branch: master
 
+  fedora-39:
+    uses: ./.github/workflows/container-rebuild-action.yml
+    secrets: inherit
+    with:
+      container-tag: fedora-39
+      branch: fedora-39
