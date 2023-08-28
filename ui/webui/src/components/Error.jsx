@@ -27,6 +27,8 @@ import {
     HelperTextItem,
     Modal,
     ModalVariant,
+    Stack,
+    StackItem,
     TextArea,
     TextContent,
     TextVariants,
@@ -92,18 +94,25 @@ export const BZReportModal = ({
           titleIconVariant={titleIconVariant}
           variant={ModalVariant.large}
           footer={
-              <>
-                  <Button
-                    variant="primary"
-                    isLoading={preparingReport}
-                    isDisabled={logContent === undefined || preparingReport}
-                    icon={<ExternalLinkAltIcon />}
-                    onClick={() => openBZIssue(reportLinkURL)}
-                    component="a">
-                      {preparingReport ? _("Preparing report") : _("Report issue")}
-                  </Button>
-                  {buttons}
-              </>
+              <Stack hasGutter>
+                  <FormHelperText isHidden={false}>
+                      <HelperText>
+                          <HelperTextItem>{_("Reporting an issue will send information over the network. Plese review and edit the attached log to remove any sensitive information.")}</HelperTextItem>
+                      </HelperText>
+                  </FormHelperText>
+                  <StackItem>
+                      <Button
+                        variant="primary"
+                        isLoading={preparingReport}
+                        isDisabled={logContent === undefined || preparingReport}
+                        icon={<ExternalLinkAltIcon />}
+                        onClick={() => openBZIssue(reportLinkURL)}
+                        component="a">
+                          {preparingReport ? _("Preparing report") : _("Report issue")}
+                      </Button>
+                      {buttons}
+                  </StackItem>
+              </Stack>
           }>
             <Form>
                 {detailsLabel &&
@@ -125,11 +134,6 @@ export const BZReportModal = ({
                       isDisabled={logContent === undefined || preparingReport}
                       rows={25}
                     />
-                    <FormHelperText isHidden={false}>
-                        <HelperText>
-                            <HelperTextItem>{_("Reporting an issue will send information over the network. Plese review and edit the attached log to remove any sensitive information.")}</HelperTextItem>
-                        </HelperText>
-                    </FormHelperText>
                 </FormGroup>
             </Form>
         </Modal>
