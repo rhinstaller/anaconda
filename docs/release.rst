@@ -246,13 +246,13 @@ Create a new localization directory from ``master`` directory:
 
 ::
 
-   cp -r master fedora-<version>
+   cp -r master f<version>
 
 Add the new folder to git:
 
 ::
 
-   git add fedora-<version>
+   git add f<version>
 
 Commit these changes:
 
