@@ -91,6 +91,12 @@ def load_file(path: str) -> str:
     with open(path, "r", encoding="utf8") as file:
         return file.read()
 
+def remove_empty_result(path: str):
+    """Remove empty result of conversion"""
+    print("Empty result, removing {}".format(path))
+    if os.path.exists(path):
+        os.remove(path)
+
 def main():
     """Entry point of the script."""
     config = parse_args()
@@ -101,16 +107,16 @@ def main():
 
     print("Loading template {}".format(config["input"]))
     rendered_file = render_file(config, variables)
-    if rendered_file.strip():
-        rendered_disclaimer = render_string(DISCLAIMER, variables)
-        content = rendered_disclaimer + rendered_file
-        print("Saving rendered result to {}".format(config["output"]))
-        write_file(content, config["output"])
-    else:
-        # delete files that end up completely empty
-        print("Empty result, removing {}".format(config["output"]))
-        if os.path.exists(config["output"]):
-            os.remove(config["output"])
+
+    # delete files that end up completely empty
+    if not rendered_file.strip():
+        remove_empty_result(config["output"])
+        return
+
+    rendered_disclaimer = render_string(DISCLAIMER, variables)
+    content = rendered_disclaimer + rendered_file
+    print("Saving rendered result to {}".format(config["output"]))
+    write_file(content, config["output"])
 
 if __name__ == "__main__":
     main()
