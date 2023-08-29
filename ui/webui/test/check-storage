@@ -138,6 +138,18 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         s.check_pw_rule("match", "error")
         s.check_pw_strength("weak")
 
+        # Non-ASCII password
+        s.set_password(8 * "š")
+        s.check_password(8 * "š")
+        s.check_pw_rule("8-chars", "success")
+        s.check_pw_rule("match", "error")
+        s.check_pw_rule("ascii", "warning")
+        s.check_pw_strength("weak")
+
+        # Valid ASCII password
+        s.set_password("abcdefgh")
+        s.check_password("abcdefgh")
+
         # Set the password confirm
         s.set_password_confirm("abcdefg")
         s.check_pw_rule("match", "error")
