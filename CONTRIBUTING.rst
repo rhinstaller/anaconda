@@ -122,10 +122,15 @@ There are two options to develop and test changes which are not yet released.
 
 To find out more information about quick way to propagate your changes into the existing installation ISO image see `this blogpost <https://rhinstaller.wordpress.com/2019/10/11/anaconda-debugging-and-testing-part-1/>`_.
 
+Another way is to build the boot.iso directly (takes more time but it's easier to do). See the next section to find out how to build the ISO.
+
 Building installation images
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Bulding the ISO is the most precise way to find the behavior of Anaconda in the installation environment. However, it needs a lot of HW resources and time to build.
+During the build, you will be ask for ``sudo`` password. Unfortunately, it is required to run the build as root because the build process needs to work with ``/dev/loop`` devices.
+Please do not use `toolbx <https://github.com/containers/toolbox>`_ or `distrobox <https://github.com/89luca89/distrobox>`_ because the commands below are calling podman under root which is hard to achieve from inside of other container.
 
-Another way is to build the boot.iso or Live image directly (takes more time but it's easier to do).
+Follow these steps to build the ISO you need.
 
 **First build Anaconda RPM files with our container**::
 
@@ -137,18 +142,18 @@ Then build an image containing those RPMs.
 
 To build a regular boot.iso from these RPMs use (loop device mounting requires root privileges)::
 
-  sudo make -f ./Makefile.am anaconda-iso-creator-build # to build the container if it doesn't exists already
-  sudo make -f ./Makefile.am container-iso-build
+  make -f ./Makefile.am anaconda-iso-creator-build # to build the container if it doesn't exists already
+  make -f ./Makefile.am container-iso-build
 
 To build a Web UI boot.iso run::
 
-  sudo make -f ./Makefile.am anaconda-iso-creator-build # to build the container if it doesn't exists already
-  sudo make -f ./Makefile.am container-webui-iso-build
+  make -f ./Makefile.am anaconda-iso-creator-build # to build the container if it doesn't exists already
+  make -f ./Makefile.am container-webui-iso-build
 
 To build a Web UI in Live image run::
 
-  sudo make -f ./Makefile.am anaconda-live-iso-creator-build # to build the container if it doesn't exists already
-  sudo make -f ./Makefile.am container-live-iso-build
+  make -f ./Makefile.am anaconda-live-iso-creator-build # to build the container if it doesn't exists already
+  make -f ./Makefile.am container-live-iso-build
 
 The resulting ISO will be stored in ``./result/iso`` directory.
 
