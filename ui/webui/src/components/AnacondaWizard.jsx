@@ -207,10 +207,14 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
     const steps = createSteps(stepsOrder);
 
     const goToStep = (newStep) => {
-        // first reset validation state to default
-        setIsFormValid(true);
-
-        cockpit.location.go([newStep.id]);
+        // Reset validation state to default, but only when actual
+        // navigation will happen.  Without navigation, the validation
+        // state will not be re-computed by the actual step component,
+        // and we shouldn't touch it.
+        if (newStep.id !== currentStepId) {
+            setIsFormValid(true);
+            cockpit.location.go([newStep.id]);
+        }
     };
 
     return (
