@@ -48,6 +48,35 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         # Ensure that the 'actual' UI process is running/
         self.assertIn("/usr/libexec/webui-desktop", m.execute("ps aux"))
 
+    def testSidebarNavigation(self):
+        b = self.browser
+        m = self.machine
+        i = Installer(b, m)
+
+        i.open()
+
+        i.check_prerelease_info()
+
+        # Test that clicking on current step does not break navigation
+        i.click_step_on_sidebar()
+
+        i.reach(i.steps.REVIEW)
+
+        # Test going back
+        steps = [
+            i.steps.DISK_CONFIGURATION,
+            i.steps.DISK_ENCRYPTION,
+            i.steps.DISK_CONFIGURATION,
+            i.steps.INSTALLATION_METHOD,
+            i.steps.WELCOME,
+            i.steps.WELCOME,
+        ]
+
+        for step in steps:
+            i.click_step_on_sidebar(step)
+
+        i.reach(i.steps.REVIEW)
+
     def testLanguageScreenHiddenLive(self):
         b = self.browser
         m = self.machine
