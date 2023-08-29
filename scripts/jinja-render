@@ -97,6 +97,19 @@ def remove_empty_result(path: str):
     if os.path.exists(path):
         os.remove(path)
 
+def add_disclaimer(disclaimer: str, content: str) -> str:
+    """Add disclaimer to rendered content
+
+    If a hashbang is present, keep it at the beginning of result.
+    """
+    has_hashbang = content.startswith("#!")
+
+    if not has_hashbang:
+        return disclaimer + content
+
+    content_lines = content.splitlines(keepends=True)
+    return content_lines[0] + disclaimer + "".join(content_lines[1:])
+
 def main():
     """Entry point of the script."""
     config = parse_args()
@@ -114,7 +127,7 @@ def main():
         return
 
     rendered_disclaimer = render_string(DISCLAIMER, variables)
-    content = rendered_disclaimer + rendered_file
+    content = add_disclaimer(rendered_disclaimer, rendered_file)
     print("Saving rendered result to {}".format(config["output"]))
     write_file(content, config["output"])
 
