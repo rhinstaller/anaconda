@@ -208,7 +208,7 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
 
     const goToStep = (newStep) => {
         // first reset validation state to default
-        setIsFormValid(false);
+        setIsFormValid(true);
 
         cockpit.location.go([newStep.id]);
     };
