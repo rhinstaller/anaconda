@@ -28,16 +28,20 @@ import {
     Form,
     FormGroup,
     MenuToggle,
+    Modal,
     Select,
     SelectList,
     SelectOption,
     Spinner,
+    Text,
+    TextContent,
     TextInputGroup,
     TextInputGroupMain,
     TextInputGroupUtilities,
+    TextVariants,
     Title,
 } from "@patternfly/react-core";
-import { SyncAltIcon, TimesIcon, WrenchIcon } from "@patternfly/react-icons";
+import { SyncAltIcon, TimesIcon, WrenchIcon, ExternalLinkAltIcon } from "@patternfly/react-icons";
 
 import { InstallationScenario } from "./InstallationScenario.jsx";
 
@@ -288,9 +292,38 @@ const LocalDisksSelect = ({ deviceData, diskSelection, idPrefix, isRescanningDis
     );
 };
 
-const InstallationDestination = ({ deviceData, diskSelection, dispatch, idPrefix, isBootIso, setIsFormValid, onCritFail }) => {
+const rescanDisks = (setIsRescanningDisks, refUsableDisks, dispatch, errorHandler) => {
+    setIsRescanningDisks(true);
+    refUsableDisks.current = undefined;
+    scanDevicesWithTask()
+            .then(res => {
+                return runStorageTask({
+                    task: res[0],
+                    onSuccess: () => resetPartitioning()
+                            .then(() => Promise.all([
+                                dispatch(getDevicesAction()),
+                                dispatch(getDiskSelectionAction())
+                            ]))
+                            .catch(errorHandler),
+                    onFail: errorHandler
+                });
+            })
+            .finally(() => setIsRescanningDisks(false));
+};
+
+const InstallationDestination = ({
+    deviceData,
+    diskSelection,
+    dispatch,
+    idPrefix,
+    isBootIso,
+    setIsFormValid,
+    onRescanDisks,
+    onCritFail
+}) => {
     const [isRescanningDisks, setIsRescanningDisks] = useState(false);
     const [equalDisksNotify, setEqualDisksNotify] = useState(false);
+    const [openedDialog, setOpenedDialog] = useState("");
     const refUsableDisks = useRef();
 
     debug("DiskSelector: deviceData: ", JSON.stringify(Object.keys(deviceData)), ", diskSelection: ", JSON.stringify(diskSelection));
@@ -327,7 +360,7 @@ const InstallationDestination = ({ deviceData, diskSelection, dispatch, idPrefix
 
     const loading = !deviceData || diskSelection.usableDisks.some(disk => !deviceData[disk]);
 
-    const errorHandler = onCritFail({
+    const rescanErrorHandler = onCritFail({
         context: N_("Rescanning of the disks failed.")
     });
 
@@ -340,24 +373,12 @@ const InstallationDestination = ({ deviceData, diskSelection, dispatch, idPrefix
           variant="link"
           isLoading={isRescanningDisks}
           icon={<SyncAltIcon />}
-          onClick={() => {
-              setIsRescanningDisks(true);
-              refUsableDisks.current = undefined;
-              scanDevicesWithTask()
-                      .then(res => {
-                          return runStorageTask({
-                              task: res[0],
-                              onSuccess: () => resetPartitioning()
-                                      .then(() => Promise.all([
-                                          dispatch(getDevicesAction()),
-                                          dispatch(getDiskSelectionAction())
-                                      ]))
-                                      .catch(errorHandler),
-                              onFail: errorHandler
-                          });
-                      })
-                      .finally(() => setIsRescanningDisks(false));
-          }}
+          onClick={() => rescanDisks(
+              setIsRescanningDisks,
+              refUsableDisks,
+              dispatch,
+              rescanErrorHandler
+          )}
         >
             {_("Rescan")}
         </Button>
@@ -410,22 +431,134 @@ const InstallationDestination = ({ deviceData, diskSelection, dispatch, idPrefix
                                 : _("No usable disks detected")
                         )}
                     {rescanDisksButton}
-                    <ModifyStorageButton isBootIso={isBootIso} />
+                    <ModifyStorageButton idPrefix={idPrefix} isBootIso={isBootIso} onModifyStorage={() => setOpenedDialog("modify")} />
                 </Flex>
             </FormGroup>
+            {openedDialog === "modify" &&
+            <ModifyStorageModal
+              onClose={() => setOpenedDialog("")}
+              onToolStarted={() => {
+                  setOpenedDialog("rescan");
+              }}
+            />}
+            {openedDialog === "rescan" &&
+            <StorageModifiedModal
+              onClose={() => setOpenedDialog("")}
+              onRescan={() => rescanDisks(
+                  setIsRescanningDisks,
+                  refUsableDisks,
+                  dispatch,
+                  rescanErrorHandler
+              )}
+            />}
         </>
     );
 };
 
-const ModifyStorageButton = ({ isBootIso }) => {
+const ModifyStorageButton = ({ idPrefix, isBootIso, onModifyStorage }) => {
     if (isBootIso) {
         return null;
     }
 
     return (
-        <Button variant="link" icon={<WrenchIcon />} onClick={() => cockpit.spawn(["blivet-gui"])}>
+        <Button
+          id={idPrefix + "-modify-storage"}
+          variant="link"
+          icon={<WrenchIcon />}
+          onClick={() => onModifyStorage()}>
             {_("Modify storage")}
         </Button>
+    );
+};
+
+const startBlivet = (onStart, onStarted) => {
+    console.log("Spawning Blivet.");
+    cockpit.spawn(["blivet-gui"]).then(() => console.log("Blivet exited."));
+    // We don't have an event informing that Blivet started so just wait a bit.
+    window.setTimeout(onStarted, 1000);
+    onStart();
+};
+
+const StorageModifiedModal = ({ onClose, onRescan }) => {
+    return (
+        <Modal
+          id="storage-modified-modal"
+          title={_("Modified storage")}
+          isOpen
+          variant="small"
+          showClose={false}
+          footer={
+              <>
+                  <Button
+                    onClick={() => { onClose(); onRescan() }}
+                    variant="primary"
+                    id="storage-modified-modal-rescan-btn"
+                    key="rescan"
+                  >
+                      {_("Rescan storage")}
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    onClick={() => onClose()}
+                    id="storage-modified-modal-ignore-btn"
+                    key="ignore"
+                  >
+                      {_("Ignore")}
+                  </Button>
+              </>
+          }>
+            {_("If you have made changes on partitions or disks, please rescan storage.")}
+        </Modal>
+    );
+};
+
+const ModifyStorageModal = ({ onClose, onToolStarted }) => {
+    const [toolIsStarting, setToolIsStarting] = useState(false);
+    const onStart = () => setToolIsStarting(true);
+    const onStarted = () => { setToolIsStarting(false); onToolStarted() };
+    return (
+        <Modal
+          id="modify-storage-modal"
+          title={_("Modify storage")}
+          isOpen
+          variant="small"
+          titleIconVariant="warning"
+          showClose={false}
+          footer={
+              <>
+                  <Button
+                    onClick={() => startBlivet(
+                        onStart,
+                        onStarted
+                    )}
+                    id="modify-storage-modal-modify-btn"
+                    icon={toolIsStarting ? null : <ExternalLinkAltIcon />}
+                    isLoading={toolIsStarting}
+                    isDisabled={toolIsStarting}
+                    variant="primary"
+                  >
+                      {_("Launch Blivet storage editor")}
+                  </Button>
+                  <Button
+                    variant="link"
+                    onClick={() => onClose()}
+                    id="modify-storage-modal-cancel-btn"
+                    key="cancel"
+                    isDisabled={toolIsStarting}
+                  >
+                      {_("Cancel")}
+                  </Button>
+              </>
+          }>
+            <TextContent>
+                <Text component={TextVariants.p}>
+                    {_("Blivet is and advanced storage editor that lets you resize, delete, and create partitions. It can set up LVM and much more.")}
+                </Text>
+                <Text component={TextVariants.p}>
+                    {_("Changes made in Blivet will directly affect your storage.")}
+                </Text>
+            </TextContent>
+        </Modal>
     );
 };
 
