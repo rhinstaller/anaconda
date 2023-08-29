@@ -23,6 +23,7 @@ class InstallerSteps(UserDict):
     WELCOME = "installation-language"
     INSTALLATION_METHOD = "installation-method"
     CUSTOM_MOUNT_POINT = "mount-point-mapping"
+    DISK_CONFIGURATION = "disk-configuration"
     DISK_ENCRYPTION = "disk-encryption"
     REVIEW = "installation-review"
     PROGRESS = "installation-progress"
@@ -119,6 +120,10 @@ class Installer():
     def open(self, step="installation-language"):
         self.browser.open(f"/cockpit/@localhost/anaconda-webui/index.html#/{step}")
         self.wait_current_page(step)
+
+    def click_step_on_sidebar(self, step=None):
+        step = step or self.get_current_page()
+        self.browser.click(f"#{step}")
 
     def get_current_page(self):
         return self.browser.eval_js('window.location.hash;').replace('#/', '') or self.steps[0]
