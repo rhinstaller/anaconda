@@ -437,9 +437,7 @@ const InstallationDestination = ({
             {openedDialog === "modify" &&
             <ModifyStorageModal
               onClose={() => setOpenedDialog("")}
-              onToolStarted={() => {
-                  setOpenedDialog("rescan");
-              }}
+              onToolStarted={() => setOpenedDialog("rescan")}
               errorHandler={onCritFail({ context: N_("Modifying the storage failed.") })}
             />}
             {openedDialog === "rescan" &&
@@ -474,14 +472,14 @@ const ModifyStorageButton = ({ idPrefix, isBootIso, onModifyStorage }) => {
 
 const startBlivet = (onStart, onStarted, errorHandler) => {
     console.log("Spawning Blivet.");
-    cockpit.spawn(["blivet-gui"])
+    // We don't have an event informing that Blivet started so just wait a bit.
+    const timeoutId = window.setTimeout(onStarted, 3000);
+    cockpit.spawn(["blivet-gui"], { err: "message" })
             .then(() => {
                 console.log("Blivet exited.");
             })
-            .catch(errorHandler);
+            .catch((error) => { window.clearTimeout(timeoutId); errorHandler(error) });
     onStart();
-    // We don't have an event informing that Blivet started so just wait a bit.
-    window.setTimeout(onStarted, 1000);
 };
 
 const StorageModifiedModal = ({ onClose, onRescan }) => {
