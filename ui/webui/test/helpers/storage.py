@@ -292,6 +292,8 @@ class Storage():
 
             if params[1] == "biosboot":
                 sgdisk.append("--typecode=0:ef02")
+            if params[1] == "efi":
+                sgdisk.append("--typecode=0:ef00")
 
             sgdisk.append(disk)
 
@@ -301,7 +303,11 @@ class Storage():
                 if params[1] == "lvmpv":
                     mkfs = ["pvcreate"]
                 else:
-                    mkfs = [f"mkfs.{params[1]}"]
+                    if params[1] == "efi":
+                        fs = "vfat"
+                    else:
+                        fs = params[1]
+                    mkfs = [f"mkfs.{fs}"]
 
                 # force flag
                 if params[1] in ["xfs", "btrfs", "lvmpv"]:
