@@ -20,6 +20,7 @@
 #
 import os
 
+from shutil import copystat
 from argparse import ArgumentParser
 from jinja2 import Environment, BaseLoader, FileSystemLoader, StrictUndefined
 from yaml import safe_load # pyyaml
@@ -81,10 +82,12 @@ def render_string(string: str, variables) -> str:
     content = template.render(variables)
     return content
 
-def write_file(content: str, output_file: str):
+def write_file(content: str, input_file: str, output_file: str):
     """Writes given content to a given path."""
     with open(output_file, "w", encoding="utf8") as file:
         file.write(content)
+
+    copystat(input_file, output_file)
 
 def load_file(path: str) -> str:
     """Outputs contents of a file at given path"""
@@ -129,7 +132,7 @@ def main():
     rendered_disclaimer = render_string(DISCLAIMER, variables)
     content = add_disclaimer(rendered_disclaimer, rendered_file)
     print("Saving rendered result to {}".format(config["output"]))
-    write_file(content, config["output"])
+    write_file(content, config["input"], config["output"])
 
 if __name__ == "__main__":
     main()
