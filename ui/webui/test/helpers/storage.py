@@ -298,10 +298,13 @@ class Storage():
             command += f"\n{' '.join(sgdisk)}"
 
             if params[1] not in ("biosboot", None):
-                mkfs = [f"mkfs.{params[1]}"]
+                if params[1] == "lvmpv":
+                    mkfs = ["pvcreate"]
+                else:
+                    mkfs = [f"mkfs.{params[1]}"]
 
                 # force flag
-                if params[1] in ["xfs", "btrfs"]:
+                if params[1] in ["xfs", "btrfs", "lvmpv"]:
                     mkfs.append("-f")
                 elif params[1] in ["ext4", "etx3", "ext2", "ntfs"]:
                     mkfs.append("-F")
