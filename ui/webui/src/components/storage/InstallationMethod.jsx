@@ -473,10 +473,14 @@ const ModifyStorageButton = ({ idPrefix, isBootIso, onModifyStorage }) => {
 
 const startBlivet = (onStart, onStarted) => {
     console.log("Spawning Blivet.");
-    cockpit.spawn(["blivet-gui"]).then(() => console.log("Blivet exited."));
+    cockpit.spawn(["blivet-gui"])
+            .then(() => {
+                console.log("Blivet exited.");
+            })
+            .catch(console.error);
+    onStart();
     // We don't have an event informing that Blivet started so just wait a bit.
     window.setTimeout(onStarted, 1000);
-    onStart();
 };
 
 const StorageModifiedModal = ({ onClose, onRescan }) => {
