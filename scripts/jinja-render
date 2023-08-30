@@ -42,6 +42,7 @@ DISCLAIMER = """\
 # The template is located in: {$ template_file_name $}\n
 """
 
+
 def parse_args():
     """Parse command line arguments for quick configuration override."""
     parser = ArgumentParser(description="Render a jinja template.")
@@ -51,6 +52,7 @@ def parse_args():
 
     config = parser.parse_args()
     return vars(config)
+
 
 def make_env(loader):
     """Create a jinja environment with a given loader."""
@@ -67,6 +69,7 @@ def make_env(loader):
     )
     return env
 
+
 def render_file(config, variables):
     """Renders a file as a Jinja2 template and populates it with variables."""
     env = make_env(FileSystemLoader(os.path.dirname(config["input"])))
@@ -75,12 +78,14 @@ def render_file(config, variables):
 
     return content
 
+
 def render_string(string: str, variables) -> str:
     """Renders a given string as a Jinja2 template and populates it with variables."""
     env = make_env(BaseLoader)
     template = env.from_string(string)
     content = template.render(variables)
     return content
+
 
 def write_file(content: str, input_file: str, output_file: str):
     """Writes given content to a given path."""
@@ -89,16 +94,19 @@ def write_file(content: str, input_file: str, output_file: str):
 
     copystat(input_file, output_file)
 
+
 def load_file(path: str) -> str:
     """Outputs contents of a file at given path"""
     with open(path, "r", encoding="utf8") as file:
         return file.read()
+
 
 def remove_empty_result(path: str):
     """Remove empty result of conversion"""
     print("Empty result, removing {}".format(path))
     if os.path.exists(path):
         os.remove(path)
+
 
 def add_disclaimer(disclaimer: str, content: str) -> str:
     """Add disclaimer to rendered content
@@ -112,6 +120,7 @@ def add_disclaimer(disclaimer: str, content: str) -> str:
 
     content_lines = content.splitlines(keepends=True)
     return content_lines[0] + disclaimer + "".join(content_lines[1:])
+
 
 def main():
     """Entry point of the script."""
@@ -133,6 +142,7 @@ def main():
     content = add_disclaimer(rendered_disclaimer, rendered_file)
     print("Saving rendered result to {}".format(config["output"]))
     write_file(content, config["input"], config["output"])
+
 
 if __name__ == "__main__":
     main()
