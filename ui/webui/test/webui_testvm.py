@@ -19,7 +19,7 @@ import signal
 import subprocess
 import argparse
 
-from machine_install import VirtInstallMachine
+from machine_install import VirtInstallMachine, VirtInstallEFIMachine
 
 
 def cmd_cli():
@@ -27,9 +27,13 @@ def cmd_cli():
     parser.add_argument("image", help="Image name")
     parser.add_argument("--rsync", help="Rsync development files over on startup", action='store_true')
     parser.add_argument("--host", help="Hostname to rsync", default='test-updates')
+    parser.add_argument("--efi", help="Start the VM with an EFI firmware", action='store_true')
     args = parser.parse_args()
 
-    machine = VirtInstallMachine(image=args.image)
+    if args.efi:
+        machine = VirtInstallEFIMachine(image=args.image)
+    else:
+        machine = VirtInstallMachine(image=args.image)
     try:
         machine.start()
 

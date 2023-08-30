@@ -53,11 +53,6 @@ import "./MountPointMapping.scss";
 
 const _ = cockpit.gettext;
 
-const requiredMountPointOptions = [
-    { value: "/boot", name: "boot" },
-    { value: "/", name: "root" },
-];
-
 const getDeviceChildren = ({ deviceData, device }) => {
     const children = [];
     const deviceChildren = deviceData[device]?.children?.v || [];
@@ -73,11 +68,12 @@ const getDeviceChildren = ({ deviceData, device }) => {
     return children;
 };
 
-const getInitialRequests = (partitioningData) => {
-    const bootOriginalRequest = partitioningData.requests.find(r => r["mount-point"] === "/boot");
-    const rootOriginalRequest = partitioningData.requests.find(r => r["mount-point"] === "/");
+const getInitialRequests = (usablePartitioningRequests, requiredMountPoints) => {
+    const bootOriginalRequest = usablePartitioningRequests.find(r => r["mount-point"] === "/boot");
+    const rootOriginalRequest = usablePartitioningRequests.find(r => r["mount-point"] === "/");
+    const bootEfiOriginalRequest = usablePartitioningRequests.find(r => r["mount-point"] === "/boot/efi");
 
-    const requests = requiredMountPointOptions.map((mountPoint, idx) => {
+    const requests = requiredMountPoints.map((mountPoint, idx) => {
         const request = ({ "mount-point": mountPoint.value, reformat: mountPoint.name === "root" });
 
         if (mountPoint.name === "boot" && bootOriginalRequest) {
@@ -88,10 +84,14 @@ const getInitialRequests = (partitioningData) => {
             return { ...rootOriginalRequest, ...request };
         }
 
+        if (mountPoint.name === "boot-efi" && bootEfiOriginalRequest) {
+            return { ...bootEfiOriginalRequest, ...request };
+        }
+
         return request;
     });
 
-    const extraRequests = partitioningData.requests.filter(r => r["mount-point"] && r["mount-point"] !== "/" && r["mount-point"] !== "/boot" && r["format-type"] !== "biosboot") || [];
+    const extraRequests = usablePartitioningRequests.filter(r => r["mount-point"] && r["mount-point"] !== "/" && r["mount-point"] !== "/boot" && r["mount-point"] !== "/boot/efi" && r["format-type"] !== "biosboot") || [];
     return [...requests, ...extraRequests].map((request, idx) => ({ ...request, "request-id": idx + 1 }));
 };
 
@@ -117,6 +117,23 @@ const isReformatValid = (deviceData, request, requests) => {
 
         return !childRequest || childRequest.reformat === true;
     });
+};
+
+const isDeviceMountPointInvalid = (deviceData, request) => {
+    const device = request["device-spec"];
+
+    if (!device || !request["mount-point"]) {
+        return [false, ""];
+    }
+
+    // /boot/efi must be on EFI System Partition
+    if (request["mount-point"] === "/boot/efi") {
+        if (deviceData[device].formatData.type.v !== "efi") {
+            return [true, _("/boot/efi must be on a EFI System Partition device")];
+        }
+    }
+
+    return [false, ""];
 };
 
 const getLockedLUKSDevices = (requests, deviceData) => {
@@ -233,6 +250,7 @@ const DeviceColumnSelect = ({ deviceData, devices, idPrefix, lockedLUKSDevices, 
 const DeviceColumn = ({ deviceData, devices, idPrefix, handleRequestChange, lockedLUKSDevices, request, requests }) => {
     const device = request["device-spec"];
     const duplicatedDevice = isDuplicateRequestField(requests, "device-spec", device);
+    const [deviceInvalid, errorMessage] = isDeviceMountPointInvalid(deviceData, request);
 
     return (
         <Flex direction={{ default: "column" }} spaceItems={{ default: "spaceItemsNone" }}>
@@ -248,6 +266,12 @@ const DeviceColumn = ({ deviceData, devices, idPrefix, handleRequestChange, lock
                 <HelperText>
                     <HelperTextItem variant="error" hasIcon>
                         {_("Duplicate device.")}
+                    </HelperTextItem>
+                </HelperText>}
+            {deviceInvalid &&
+                <HelperText>
+                    <HelperTextItem variant="error" hasIcon>
+                        {errorMessage}
                     </HelperTextItem>
                 </HelperText>}
         </Flex>
@@ -314,6 +338,7 @@ const MountPointRowRemove = ({ request, setRequests }) => {
 const RequestsTable = ({
     allDevices,
     deviceData,
+    requiredMountPoints,
     handleRequestChange,
     idPrefix,
     lockedLUKSDevices,
@@ -322,7 +347,7 @@ const RequestsTable = ({
 }) => {
     const columnClassName = idPrefix + "__column";
     const getRequestRow = (request) => {
-        const isRequiredMountPoint = !!requiredMountPointOptions.find(val => val.value === request["mount-point"]);
+        const isRequiredMountPoint = !!requiredMountPoints.find(val => val.value === request["mount-point"]);
         const duplicatedMountPoint = isDuplicateRequestField(requests, "mount-point", request["mount-point"]);
         const rowId = idPrefix + "-row-" + request["request-id"];
 
@@ -392,19 +417,19 @@ const RequestsTable = ({
     );
 };
 
-const MountPointMappingContent = ({ deviceData, partitioningData, dispatch, idPrefix, setIsFormValid, onAddErrorNotification }) => {
+const MountPointMappingContent = ({ deviceData, partitioningData, usablePartitioningRequests, requiredMountPoints, dispatch, idPrefix, setIsFormValid, onAddErrorNotification }) => {
     const [skipUnlock, setSkipUnlock] = useState(false);
-    const [requests, setRequests] = useState(getInitialRequests(partitioningData));
+    const [requests, setRequests] = useState(getInitialRequests(usablePartitioningRequests, requiredMountPoints));
     const [updateRequestCnt, setUpdateRequestCnt] = useState(0);
     const currentUpdateRequestCnt = useRef(0);
 
     const allDevices = useMemo(() => {
-        return partitioningData.requests?.map(r => r["device-spec"]) || [];
-    }, [partitioningData.requests]);
+        return usablePartitioningRequests?.map(r => r["device-spec"]) || [];
+    }, [usablePartitioningRequests]);
 
     const lockedLUKSDevices = useMemo(
-        () => getLockedLUKSDevices(partitioningData.requests, deviceData),
-        [deviceData, partitioningData.requests]
+        () => getLockedLUKSDevices(usablePartitioningRequests, deviceData),
+        [deviceData, usablePartitioningRequests]
     );
 
     const handlePartitioningRequestsChange = useCallback(_requests => {
@@ -426,12 +451,12 @@ const MountPointMappingContent = ({ deviceData, partitioningData, dispatch, idPr
 
         setManualPartitioningRequests({
             partitioning: partitioningData.path,
-            requests: requestsToDbus(partitioningData.requests)
+            requests: requestsToDbus(usablePartitioningRequests)
         }).catch(ex => {
             onAddErrorNotification(ex);
             setIsFormValid(false);
         });
-    }, [partitioningData.path, onAddErrorNotification, partitioningData.requests, setIsFormValid]);
+    }, [partitioningData.path, onAddErrorNotification, usablePartitioningRequests, setIsFormValid]);
 
     /* When requests change apply directly to the backend */
     useEffect(() => {
@@ -515,6 +540,7 @@ const MountPointMappingContent = ({ deviceData, partitioningData, dispatch, idPr
                 <RequestsTable
                   allDevices={allDevices}
                   deviceData={deviceData}
+                  requiredMountPoints={requiredMountPoints}
                   handleRequestChange={handleRequestChange}
                   idPrefix={idPrefix + "-table"}
                   lockedLUKSDevices={lockedLUKSDevices}
@@ -535,6 +561,40 @@ const MountPointMappingContent = ({ deviceData, partitioningData, dispatch, idPr
 
 export const MountPointMapping = ({ deviceData, diskSelection, partitioningData, dispatch, idPrefix, setIsFormValid, onAddErrorNotification, reusePartitioning, setReusePartitioning, stepNotification }) => {
     const [usedPartitioning, setUsedPartitioning] = useState(partitioningData?.path);
+    const requiredMountPoints = useMemo(() => {
+        const mounts = [
+            { value: "/boot", name: "boot" },
+            { value: "/", name: "root" },
+        ];
+
+        cockpit.spawn(["ls", "/sys/firmware/efi"], { err: "ignore" })
+                .then(() => { mounts.push({ value: "/boot/efi", name: "boot-efi" }) });
+
+        return mounts;
+    }, []);
+
+    const isUsableDevice = (devSpec, deviceData) => {
+        const device = deviceData[devSpec];
+        if (device === undefined || device.formatData === undefined) {
+            return false;
+        }
+
+        // luks is allowed -- we need to be able to unlock it
+        if (device.formatData.type.v === "luks") {
+            return true;
+        }
+
+        // only swap and mountable filesystems should be shown in the mount point assignment
+        if (device.formatData.type.v === "swap" || device.formatData.mountable.v === true) {
+            return true;
+        }
+
+        return false;
+    };
+
+    const usablePartitioningRequests = useMemo(() => {
+        return partitioningData.requests?.filter(r => isUsableDevice(r["device-spec"], deviceData)) || [];
+    }, [partitioningData.requests, deviceData]);
 
     useEffect(() => {
         if (!reusePartitioning || partitioningData?.method !== "MANUAL") {
@@ -571,7 +631,9 @@ export const MountPointMapping = ({ deviceData, diskSelection, partitioningData,
               idPrefix={idPrefix}
               onAddErrorNotification={onAddErrorNotification}
               partitioningData={partitioningData}
+              usablePartitioningRequests={usablePartitioningRequests}
               setIsFormValid={setIsFormValid}
+              requiredMountPoints={requiredMountPoints}
             />
         </AnacondaPage>
     );

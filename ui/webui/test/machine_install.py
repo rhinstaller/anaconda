@@ -43,6 +43,8 @@ os.environ["TEST_ALLOW_NOLOGIN"] = "true"
 
 
 class VirtInstallMachine(VirtMachine):
+    efi = False
+
     def _execute(self, cmd):
         return subprocess.check_call(cmd, stderr=subprocess.STDOUT, shell=True)
 
@@ -125,12 +127,18 @@ class VirtInstallMachine(VirtMachine):
             location = f"{iso_path}"
             extra_args = f"inst.ks=file:/{os.path.basename(self.payload_ks_path)}"
 
+        if self.efi:
+            boot_arg = "--boot uefi "
+        else:
+            boot_arg = ""
+
         try:
             self._execute(
                 "virt-install "
                 "--wait "
                 "--connect qemu:///session "
                 "--quiet "
+                f"{boot_arg} "
                 f"--name {self.label} "
                 f"--os-variant=detect=on "
                 "--memory 2048 "
@@ -173,7 +181,7 @@ class VirtInstallMachine(VirtMachine):
     def kill(self):
         self._execute(f"virsh -q -c qemu:///session destroy {self.label} || true")
         self._execute(
-            f"virsh -q -c qemu:///session undefine "
+            f"virsh -q -c qemu:///session undefine --nvram "  # tell undefine to also delete the EFI NVRAM device
             f"--remove-all-storage {self.label} || true"
         )
         os.remove(self.payload_ks_path)
@@ -204,3 +212,7 @@ class VirtInstallMachine(VirtMachine):
 
     def get_volume_id(self, iso_path):
         return subprocess.check_output(fr"isoinfo -d -i {iso_path} |  grep -oP 'Volume id: \K.*'", shell=True).decode(sys.stdout.encoding).strip()
+
+
+class VirtInstallEFIMachine(VirtInstallMachine):
+    efi = True
