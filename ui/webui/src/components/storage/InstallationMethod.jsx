@@ -440,6 +440,7 @@ const InstallationDestination = ({
               onToolStarted={() => {
                   setOpenedDialog("rescan");
               }}
+              errorHandler={onCritFail({ context: N_("Modifying the storage failed.") })}
             />}
             {openedDialog === "rescan" &&
             <StorageModifiedModal
@@ -471,13 +472,13 @@ const ModifyStorageButton = ({ idPrefix, isBootIso, onModifyStorage }) => {
     );
 };
 
-const startBlivet = (onStart, onStarted) => {
+const startBlivet = (onStart, onStarted, errorHandler) => {
     console.log("Spawning Blivet.");
     cockpit.spawn(["blivet-gui"])
             .then(() => {
                 console.log("Blivet exited.");
             })
-            .catch(console.error);
+            .catch(errorHandler);
     onStart();
     // We don't have an event informing that Blivet started so just wait a bit.
     window.setTimeout(onStarted, 1000);
@@ -516,7 +517,7 @@ const StorageModifiedModal = ({ onClose, onRescan }) => {
     );
 };
 
-const ModifyStorageModal = ({ onClose, onToolStarted }) => {
+const ModifyStorageModal = ({ onClose, onToolStarted, errorHandler }) => {
     const [toolIsStarting, setToolIsStarting] = useState(false);
     const onStart = () => setToolIsStarting(true);
     const onStarted = () => { setToolIsStarting(false); onToolStarted() };
@@ -533,7 +534,8 @@ const ModifyStorageModal = ({ onClose, onToolStarted }) => {
                   <Button
                     onClick={() => startBlivet(
                         onStart,
-                        onStarted
+                        onStarted,
+                        errorHandler
                     )}
                     id="modify-storage-modal-modify-btn"
                     icon={toolIsStarting ? null : <ExternalLinkAltIcon />}
