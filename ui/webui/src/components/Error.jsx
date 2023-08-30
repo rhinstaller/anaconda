@@ -158,10 +158,11 @@ const addExceptionDataToReportURL = (url, exception) => {
 };
 
 const exceptionInfo = (exception, idPrefix) => {
+    const exceptionNamePrefix = exception.name ? exception.name + ": " : "";
     return (
         <TextContent id={idPrefix + "-bz-report-modal-details"}>
             <Text component={TextVariants.p}>
-                {exception.name + ": " + exception.message}
+                {exceptionNamePrefix + exception.message}
             </Text>
         </TextContent>
     );
