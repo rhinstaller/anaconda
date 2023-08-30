@@ -485,6 +485,23 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Aug 30 2023 Martin Kolman <mkolman@redhat.com> - 40.1-1
+- tests: Add a webui test case with EFI system (vtrefny)
+- webui: Show error when mounting /boot/efi to a non-EFI partition (vtrefny)
+- webui: Add /boot/efi to required mount points when in EFI mode (vtrefny)
+- tests: Add support for running webui tests in an EFI VM (vtrefny)
+- Update translations from Weblate for master (github-actions)
+- j2 render: Preserve hashbangs (vslavik)
+- j2 render: Flip logic for empty result (vslavik)
+- j2 render: Clean up details (vslavik)
+- webui: Do not show unusable devices in mount point assignment (vtrefny)
+- webui: Enable mount point mapping based on filesystem not partition (vtrefny)
+- webui: add basic test for sidebar navigation (#2233805) (rvykydal)
+- webui: do not reset validity of step id moving to the same step (#2233805)
+  (rvykydal)
+- webui: add offline version to BZ report dialog (rvykydal)
+- webui: monitor network connection state from the Anaconda backend (rvykydal)
+
 * Tue Aug 29 2023 github-actions <github-actions@github.com> - 39.33-1
 - webui: Update request IDs when removing mount point row (vtrefny)
 - Update translations from Weblate for master (github-actions)
