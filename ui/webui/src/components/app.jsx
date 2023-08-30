@@ -36,6 +36,7 @@ import { LocalizationClient, initDataLocalization, startEventMonitorLocalization
 import { StorageClient, initDataStorage, startEventMonitorStorage } from "../apis/storage.js";
 import { PayloadsClient } from "../apis/payloads";
 import { RuntimeClient, getIsFinal } from "../apis/runtime";
+import { NetworkClient, initDataNetwork, startEventMonitorNetwork } from "../apis/network.js";
 
 import { readConf } from "../helpers/conf.js";
 import { debug } from "../helpers/log.js";
@@ -69,7 +70,8 @@ export const Application = () => {
                 new StorageClient(address),
                 new PayloadsClient(address),
                 new RuntimeClient(address),
-                new BossClient(address)
+                new BossClient(address),
+                new NetworkClient(address),
             ];
             clients.forEach(c => c.init());
 
@@ -78,11 +80,13 @@ export const Application = () => {
             Promise.all([
                 initDataStorage({ dispatch }),
                 initDataLocalization({ dispatch }),
+                initDataNetwork({ dispatch }),
             ])
                     .then(() => {
                         setStoreInitialized(true);
                         startEventMonitorStorage({ dispatch });
                         startEventMonitorLocalization({ dispatch });
+                        startEventMonitorNetwork({ dispatch });
                     }, onCritFail({ context: N_("Reading information about the computer failed.") }));
 
             getIsFinal().then(
@@ -128,7 +132,7 @@ export const Application = () => {
     const page = (
         <>
             {criticalError &&
-            <CriticalError exception={criticalError} isBootIso={isBootIso} reportLinkURL={bzReportURL} />}
+            <CriticalError exception={criticalError} isBootIso={isBootIso} isConnected={state.network.connected} reportLinkURL={bzReportURL} />}
             <Page
               data-debug={conf.Anaconda.debug}
             >
@@ -156,7 +160,12 @@ export const Application = () => {
                     })}
                 </AlertGroup>}
                 <PageGroup stickyOnBreakpoint={{ default: "top" }}>
-                    <AnacondaHeader beta={beta} title={title} reportLinkURL={bzReportURL} />
+                    <AnacondaHeader
+                      beta={beta}
+                      title={title}
+                      reportLinkURL={bzReportURL}
+                      isConnected={state.network.connected}
+                    />
                 </PageGroup>
                 <AddressContext.Provider value={address}>
                     <WithDialogs>
