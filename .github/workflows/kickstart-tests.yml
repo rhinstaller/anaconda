@@ -192,7 +192,7 @@ jobs:
         working-directory: ./anaconda
         run: |
           # set static tag to avoid complications when looking what tag is used
-          sudo make -f ./Makefile.am anaconda-iso-creator-build CI_TAG=$CONTAINER_TAG
+          make -f ./Makefile.am anaconda-iso-creator-build CI_TAG=$CONTAINER_TAG
 
       - name: Build anaconda-rpm container (for RPM build)
         working-directory: ./anaconda
@@ -206,17 +206,12 @@ jobs:
           # output of the build will be stored in ./result/build/01-rpm-build/*.rpm
           make -f ./Makefile.am container-rpms-scratch CI_TAG=$CONTAINER_TAG
           mkdir -p ${{ github.workspace }}/kickstart-tests/data/additional_repo/
-          cp -av ./result/build/01-rpm-build/*.rpm ${{ github.workspace }}/kickstart-tests/data/additional_repo/
 
       - name: Build boot.iso
         run: |
           mkdir -p images
-          # /var/tmp tmpfs speeds up lorax and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
-          sudo podman run -i --rm --privileged \
-            --tmpfs /var/tmp:rw,mode=1777 \
-            -v ${{ github.workspace }}/kickstart-tests/data/additional_repo:/anaconda-rpms:ro \
-            -v ${{ github.workspace }}/images:/images:z \
-            $ISO_BUILD_CONTAINER_NAME:$CONTAINER_TAG
+          make -f ./Makefile.am container-iso-build
+          mv ./result/iso/boot.iso /images/
 
       - name: Clean up after lorax
         if: always()
