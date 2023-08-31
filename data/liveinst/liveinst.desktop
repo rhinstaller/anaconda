@@ -3,10 +3,11 @@ Name=Install to Hard Drive
 GenericName=Install
 Comment=Install the live CD to your hard disk
 Categories=System;Utility;X-Red-Hat-Base;X-Fedora;GNOME;GTK;
-Exec=/usr/bin/liveinst
+Exec=liveinst
 Terminal=false
 Type=Application
 # TRANSLATORS: Icon name, probably should not be translated
 Icon=org.fedoraproject.AnacondaInstaller
 StartupNotify=true
+StartupWMClass=liveinst
 NoDisplay=true
