@@ -158,7 +158,7 @@ jobs:
       - name: Build anaconda-iso-creator container image
         run: |
           # set static tag to avoid complications when looking what tag is used
-          sudo make -f ./Makefile.am anaconda-iso-creator-build CI_TAG=$CONTAINER_TAG
+          make -f ./Makefile.am anaconda-iso-creator-build CI_TAG=$CONTAINER_TAG
 
       - name: Build anaconda-rpm container (for RPM build)
         run: |
@@ -176,16 +176,12 @@ jobs:
         run: |
           mkdir -p images
           if [[ "${{ needs.pr-info.outputs.args }}" == *"--webui"* ]] ; then
-            WEBUI_OPTIONAL_ARG="--entrypoint /lorax-build-webui"
+            make -f ./Makefile.am container-webui-iso-build
+          else
+            make -f ./Makefile.am container-iso-build
           fi
-          # /var/tmp tmpfs speeds up lorax and avoids https://bugzilla.redhat.com/show_bug.cgi?id=1906364
-          sudo podman run -i --rm --privileged \
-            --tmpfs /var/tmp:rw,mode=1777 \
-            -v `pwd`/anaconda_rpms:/anaconda-rpms:ro \
-            -v `pwd`/images:/images:z \
-            $WEBUI_OPTIONAL_ARG \
-            $ISO_BUILD_CONTAINER_NAME:$CONTAINER_TAG
-          mv images/boot.iso "images/${{ needs.pr-info.outputs.image_description }}-boot.iso"
+
+          mv result/iso/boot.iso "images/${{ needs.pr-info.outputs.image_description }}-boot.iso"
 
       - name: Collect logs
         if: always()
