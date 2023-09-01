@@ -79,10 +79,16 @@ class Storage():
         else:
             self.browser.wait_not_present(f"#{id_prefix}-selector-form li.pf-v5-c-chip-group__list-item:contains({disk})")
 
+    def _disk_selection_is_present(self):
+        return self.browser.is_present(f"#{id_prefix}-selector-form") or self.browser.is_present(f"#{id_prefix}-target-disk")
+
     def get_disk_selected(self, disk):
+        self.browser.wait(self._disk_selection_is_present)
         return (
-            self.browser.is_present(f"#{id_prefix}-selector-form li.pf-v5-c-chip-group__list-item:contains({disk})") or (disk in self.browser.text(f"#{id_prefix}-target-disk"))
-        );
+            self.browser.is_present(f"#{id_prefix}-selector-form li.pf-v5-c-chip-group__list-item:contains({disk})") or
+            (self.browser.is_present(f"#{id_prefix}-target-disk") and
+             disk in self.browser.text(f"#{id_prefix}-target-disk"))
+        )
 
     @log_step()
     def wait_no_disks(self):
