@@ -79,7 +79,7 @@ CONTAINER_BUILD_ARGS ?= --no-cache
 CONTAINER_TEST_ARGS ?= $(shell grep -q ID=ubuntu /etc/os-release && echo --security-opt=seccomp=unconfined)
 CONTAINER_REGISTRY ?= quay.io
 # Add additional args to the existing ones to container engine
-CONTAINER_ADD_ARGS ?=
+CONTAINER_ADD_ARGS ?= -ti
 
 # anaconda-ci container
 CI_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-ci
@@ -309,7 +309,7 @@ container-ci:
 # The SYS_CHROOT capability is required for user creation tests and was dropped on podman 4.4.X
 # https://bugzilla.redhat.com/show_bug.cgi?id=2170568
 container-shell:
-	$(CONTAINER_ENGINE) run -it \
+	$(CONTAINER_ENGINE) run \
 	$(CONTAINER_TEST_ARGS) \
 	$(CONTAINER_ADD_ARGS) \
 	$(CI_TEST_ARGS) \
