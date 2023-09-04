@@ -60,17 +60,17 @@ const N_ = cockpit.noop;
 /**
  *  Select default disks for the partitioning.
  *
- * If there are some disks already selected, do nothing.
+ * If there are some usable disks already selected, show these.
  * In the automatic installation, select all disks. In
  * the interactive installation, select a disk if there
  * is only one available.
  * @return: the list of selected disks
  */
 const selectDefaultDisks = ({ ignoredDisks, selectedDisks, usableDisks }) => {
-    if (selectedDisks.length) {
-        // Do nothing if there are some disks selected
+    if (selectedDisks.length && selectedDisks.some(disk => usableDisks.includes(disk))) {
+        // Filter the selection by checking the usable disks if there are some disks selected
         console.log("Selecting disks selected in backend:", selectedDisks.join(","));
-        return selectedDisks;
+        return selectedDisks.filter(disk => usableDisks.includes(disk));
     } else {
         const availableDisks = usableDisks.filter(disk => !ignoredDisks.includes(disk));
         console.log("Selecting one or less disks by default:", availableDisks.join(","));
@@ -307,7 +307,6 @@ const InstallationDestination = ({ deviceData, diskSelection, dispatch, idPrefix
         if (refUsableDisks.current !== undefined) {
             return;
         }
-        refUsableDisks.current = diskSelection.usableDisks;
 
         const defaultDisks = selectDefaultDisks({
             ignoredDisks: diskSelection.ignoredDisks,
@@ -343,7 +342,7 @@ const InstallationDestination = ({ deviceData, diskSelection, dispatch, idPrefix
           icon={<SyncAltIcon />}
           onClick={() => {
               setIsRescanningDisks(true);
-              setSelectedDisks({ drives: [] });
+              refUsableDisks.current = undefined;
               scanDevicesWithTask()
                       .then(res => {
                           return runStorageTask({
@@ -374,7 +373,7 @@ const InstallationDestination = ({ deviceData, diskSelection, dispatch, idPrefix
         />
     );
 
-    const equalDisks = refUsableDisks.current && containEqualDisks(refUsableDisks.current, diskSelection.usableDisks);
+    const equalDisks = !refUsableDisks.current || containEqualDisks(refUsableDisks.current, diskSelection.usableDisks);
     const headingLevel = isBootIso ? "h2" : "h3";
 
     return (
