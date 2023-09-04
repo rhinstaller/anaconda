@@ -246,13 +246,13 @@ Create a new localization directory from ``master`` directory:
 
 ::
 
-   cp -r master fedora-<version>
+   cp -r master f<version>
 
 Add the new folder to git:
 
 ::
 
-   git add fedora-<version>
+   git add f<version>
 
 Commit these changes:
 
@@ -271,21 +271,9 @@ Enable Cockpit CI for the new branch
 -------------------------------------------
 
 Anaconda is using the Cockpit CI infrastructure to run Web UI test. Cockpit CI tests are triggered
-automatically for all `listed <https://github.com/cockpit-project/bots/blob/main/lib/testmap.py>`_ projects and per-project branches. To enable Cockpit CI in automatic mode for the new Fedora branch, our new fedora-<version> upstream branch needs to be added under the 'rhinstaller/anaconda' key in the file. The end result could look like this:
+automatically for all `listed <https://github.com/cockpit-project/bots/blob/main/lib/testmap.py>`_ projects and per-project branches. To enable Cockpit CI in automatic mode for the new Fedora branch, our new fedora-<version> upstream branch needs to be added under the 'rhinstaller/anaconda' key in the file. See the previous PR (for F39) to see how this is to be done:
 
-::
-    'rhinstaller/anaconda': {
-        'master': [
-            'fedora-35/rawhide',
-        ],
-        'fedora-38': [
-            'fedora-38',
-        ],
-        '_manual': [
-        ]
-    },
-
-Just fork the repo `cockpit-project repo <https://github.com/cockpit-project/bots>`_ and submit the change to ``lib/testmap.py`` as a PR. In case something is not clear (such as what are the valid target strings - fedora-35/rawhide, fedora-36, etc.) reach out to the #cockpit IRC channel on libera.chat.
+https://github.com/cockpit-project/bots/pull/5176
 
 How to branch Anaconda
 ----------------------
@@ -315,6 +303,12 @@ Then rebuild everything that is templatized:
     make -f Makefile.am reload-infra
 
 This should set up infrastructure and some other parts like makefile variables and pykickstart version used.
+
+Lastly it is necessary to set up updated l10n commit hash - check the commit hash of the ``anaconda-l10n`` repo,
+the one where the new f<version> folder has been added and put the hash to the ``GIT_L10N_SHA`` variable in the
+``po/l10n-config.mk`` file.
+
+This is necessary for the Web UI related translation pinning to work & l10n branching checks to pass.
 
 Verify the changes and commit:
 
@@ -359,6 +353,19 @@ Expect changes only in Github workflows that generate containers etc. for multip
 
     make -f Makefile.am reload-infra
     git commit -a -m "infra: Configure for the new fedora-NN branch"
+
+Then, finally, push the updated master branch:
+
+::
+
+    git push origin master
+
+Container rebuilds after branching
+----------------------------------
+
+Container rebuilds currently do not happen automatically after branching. So do not forget to rebuild
+all relevant containers after Fedora branching.
+
 
 How to add release version for next Fedora
 ------------------------------------------
