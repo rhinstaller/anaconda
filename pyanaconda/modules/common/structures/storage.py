@@ -453,3 +453,63 @@ class OSData(DBusData):
         :return: a device name or None
         """
         return self.mount_points.get("/")
+
+
+class RequiredMountPointData(DBusData):
+    """Constrains (filesystem and device types allowed) for mount points required
+       for the installed system
+    """
+
+    def __init__(self):
+        self._mount_point = ""
+        self._required_filesystem_type = ""
+        self._encryption_allowed = False
+        self._logical_volume_allowed = False
+
+    @property
+    def mount_point(self) -> Str:
+        """Mount point value, e.g. /boot/efi
+
+        :return: a string with mount point
+        """
+        return self._mount_point
+
+    @mount_point.setter
+    def mount_point(self, mount_point: Str):
+        self._mount_point = mount_point
+
+    @property
+    def required_filesystem_type(self) -> Str:
+        """Filesystem type required for mount point
+
+        :return: a string with filesystem type required for this mount point
+        """
+        return self._required_filesystem_type
+
+    @required_filesystem_type.setter
+    def required_filesystem_type(self, required_filesystem_type: Str):
+        self._required_filesystem_type = required_filesystem_type
+
+    @property
+    def encryption_allowed(self) -> Bool:
+        """Whether this mount point can be encrypted or not
+
+        :return: bool
+        """
+        return self._encryption_allowed
+
+    @encryption_allowed.setter
+    def encryption_allowed(self, encryption_allowed: Bool):
+        self._encryption_allowed = encryption_allowed
+
+    @property
+    def logical_volume_allowed(self) -> Bool:
+        """Whether this mount point can be a LVM logical volume or not
+
+        :return: bool
+        """
+        return self._logical_volume_allowed
+
+    @logical_volume_allowed.setter
+    def logical_volume_allowed(self, logical_volume_allowed: Bool):
+        self._logical_volume_allowed = logical_volume_allowed
