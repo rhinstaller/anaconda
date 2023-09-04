@@ -173,6 +173,7 @@ class Storage():
     @log_step(snapshots=True)
     def rescan_disks(self):
         self.browser.click(f"#{self._step}-rescan-disks")
+        self.browser.wait_not_present(f"#{self._step}-rescan-disks.pf-m-disabled")
 
     @log_step(snapshot_before=True)
     def check_disk_visible(self, disk, visible=True):
