@@ -47,6 +47,7 @@ import { usePageLocation } from "hooks";
 import {
     applyStorage,
     resetPartitioning,
+    getRequiredMountPoints,
 } from "../apis/storage.js";
 
 const _ = cockpit.gettext;
@@ -59,10 +60,20 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
     const [storageEncryption, setStorageEncryption] = useState(getStorageEncryptionState());
     const [storageScenarioId, setStorageScenarioId] = useState(window.sessionStorage.getItem("storage-scenario-id") || getDefaultScenario().id);
     const [reusePartitioning, setReusePartitioning] = useState(false);
+    const [requiredMountPoints, setRequiredMountPoints] = useState();
 
     const availableDevices = useMemo(() => {
         return Object.keys(storageData.devices);
     }, [storageData.devices]);
+
+    useEffect(() => {
+        const updateRequiredMountPoints = async () => {
+            const requiredMountPoints = await getRequiredMountPoints().catch(console.error);
+
+            setRequiredMountPoints(requiredMountPoints);
+        };
+        updateRequiredMountPoints();
+    }, []);
 
     useEffect(() => {
         /*
@@ -102,7 +113,7 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
             label: _("Disk configuration"),
             steps: [{
                 component: MountPointMapping,
-                data: { deviceData: storageData.devices, diskSelection: storageData.diskSelection, partitioningData: storageData.partitioning, dispatch, reusePartitioning, setReusePartitioning },
+                data: { deviceData: storageData.devices, diskSelection: storageData.diskSelection, partitioningData: storageData.partitioning, requiredMountPoints, dispatch, reusePartitioning, setReusePartitioning },
                 id: "mount-point-mapping",
                 label: _("Manual disk configuration"),
                 isHidden: storageScenarioId !== "mount-point-mapping"

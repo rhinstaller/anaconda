@@ -154,6 +154,18 @@ export const getRequiredDeviceSize = ({ requiredSpace }) => {
 };
 
 /**
+ * @returns {Promise}           List of all mount points required on the platform
+ */
+export const getRequiredMountPoints = () => {
+    return new StorageClient().client.call(
+        "/org/fedoraproject/Anaconda/Modules/Storage/DeviceTree",
+        "org.fedoraproject.Anaconda.Modules.Storage.DeviceTree.Viewer",
+        "GetRequiredMountPoints", []
+    )
+            .then(res => res[0]);
+};
+
+/**
  * @param {Array[string]} diskNames A list of disk names
  *
  * @returns {Promise}           Resolves the total space on the given disks

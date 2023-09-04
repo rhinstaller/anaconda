@@ -1001,17 +1001,17 @@ class TestStorageMountPointsEFI(anacondalib.VirtInstallMachineCase):
 
         # verify gathered requests
         # root partition is not auto-mapped
-        s.check_mountpoint_row(1, "/boot", "Select a device", False)
-        s.select_mountpoint_row_device(1, f"{dev}2")
-        s.check_mountpoint_row_format_type(1, "ext4")
+        s.check_mountpoint_row(1, "/boot/efi", "Select a device", False)
+        s.select_mountpoint_row_device(1, f"{dev}1")
+        s.check_mountpoint_row_format_type(1, "EFI System Partition")
 
-        s.check_mountpoint_row(2, "/", "Select a device", True)
-        s.select_mountpoint_row_device(2, f"{dev}3")
-        s.check_mountpoint_row_format_type(2, "xfs")
+        s.check_mountpoint_row(2, "/boot", "Select a device", False)
+        s.select_mountpoint_row_device(2, f"{dev}2")
+        s.check_mountpoint_row_format_type(2, "ext4")
 
-        s.check_mountpoint_row(3, "/boot/efi", "Select a device", False)
-        s.select_mountpoint_row_device(3, f"{dev}1")
-        s.check_mountpoint_row_format_type(3, "EFI System Partition")
+        s.check_mountpoint_row(3, "/", "Select a device", True)
+        s.select_mountpoint_row_device(3, f"{dev}3")
+        s.check_mountpoint_row_format_type(3, "xfs")
 
         i.next()
 
