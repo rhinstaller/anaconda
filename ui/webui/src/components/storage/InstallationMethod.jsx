@@ -470,14 +470,14 @@ const ModifyStorageButton = ({ idPrefix, isBootIso, onModifyStorage }) => {
     );
 };
 
-const startBlivet = (onStart, onStarted, errorHandler) => {
-    console.log("Spawning Blivet.");
-    // We don't have an event informing that Blivet started so just wait a bit.
+const startBlivetGUI = (onStart, onStarted, errorHandler) => {
+    console.log("Spawning blivet-gui.");
+    // We don't have an event informing that blivet-gui started so just wait a bit.
     const timeoutId = window.setTimeout(onStarted, 3000);
     cockpit.spawn(["blivet-gui"], { err: "message" })
             .then(() => {
-                console.log("Blivet exited.");
-                // If the Blivet exits earlier cancel the delay
+                console.log("blivet-gui exited.");
+                // If the blivet-gui exits earlier cancel the delay
                 window.clearTimeout(timeoutId);
                 return onStarted();
             })
@@ -533,7 +533,7 @@ const ModifyStorageModal = ({ onClose, onToolStarted, errorHandler }) => {
           footer={
               <>
                   <Button
-                    onClick={() => startBlivet(
+                    onClick={() => startBlivetGUI(
                         onStart,
                         onStarted,
                         errorHandler
@@ -544,7 +544,7 @@ const ModifyStorageModal = ({ onClose, onToolStarted, errorHandler }) => {
                     isDisabled={toolIsStarting}
                     variant="primary"
                   >
-                      {_("Launch Blivet storage editor")}
+                      {_("Launch Blivet-gui storage editor")}
                   </Button>
                   <Button
                     variant="link"
@@ -559,10 +559,10 @@ const ModifyStorageModal = ({ onClose, onToolStarted, errorHandler }) => {
           }>
             <TextContent>
                 <Text component={TextVariants.p}>
-                    {_("Blivet is and advanced storage editor that lets you resize, delete, and create partitions. It can set up LVM and much more.")}
+                    {_("Blivet-gui is and advanced storage editor that lets you resize, delete, and create partitions. It can set up LVM and much more.")}
                 </Text>
                 <Text component={TextVariants.p}>
-                    {_("Changes made in Blivet will directly affect your storage.")}
+                    {_("Changes made in Blivet-gui will directly affect your storage.")}
                 </Text>
             </TextContent>
         </Modal>
