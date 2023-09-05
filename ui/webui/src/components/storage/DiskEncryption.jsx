@@ -104,7 +104,8 @@ const PasswordFormFields = ({
     onConfirmChange,
     passwordStrength,
     ruleLength,
-    ruleConfirmMatches
+    ruleConfirmMatches,
+    ruleAscii
 }) => {
     const [passwordHidden, setPasswordHidden] = useState(true);
     const [confirmHidden, setConfirmHidden] = useState(true);
@@ -154,6 +155,15 @@ const PasswordFormFields = ({
                         >
                             {_("Must be at least 8 characters")}
                         </HelperTextItem>
+                        {ruleAscii &&
+                        <HelperTextItem
+                          id={idPrefix + "-password-rule-ascii"}
+                          isDynamic
+                          variant="warning"
+                          component="li"
+                        >
+                            {_("The passphrase you have provided contains non-ASCII characters. You may not be able to switch between keyboard layouts when typing it.")}
+                        </HelperTextItem>}
                     </HelperText>
                 </FormHelperText>
             </FormGroup>
@@ -253,6 +263,10 @@ export const DiskEncryption = ({
         return getRuleLength(password);
     }, [password]);
 
+    const ruleAscii = useMemo(() => {
+        return password.length > 0 && !/^[\x20-\x7F]*$/.test(password);
+    }, [password]);
+
     const encryptedDevicesCheckbox = content => (
         <Checkbox
           id={idPrefix + "-encrypt-devices"}
@@ -273,6 +287,7 @@ export const DiskEncryption = ({
           passwordConfirmLabel={_("Confirm passphrase")}
           ruleLength={ruleLength}
           ruleConfirmMatches={ruleConfirmMatches}
+          ruleAscii={ruleAscii}
           onChange={setPassword}
           onConfirmChange={setConfirmPassword}
         />
