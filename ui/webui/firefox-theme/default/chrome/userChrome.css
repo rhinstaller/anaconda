@@ -14,3 +14,7 @@
 #titlebar:has(#tabbrowser-tabs tab:only-of-type) + #nav-bar:not(:focus-within) {
   visibility: collapse;
 }
+
+.titlebar-close {
+  display: none;
+}
