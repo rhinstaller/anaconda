@@ -29,9 +29,9 @@ jobs:
         with:
           severity: warning
           token: ${{ secrets.GITHUB_TOKEN }}
-          exclude-path:
-            - '*.j2'
-            - '**/*.j2'
+          exclude-path: |
+            *.j2
+            **/*.j2
 
       - if: ${{ always() }}
         name: Upload artifact with ShellCheck defects in SARIF format
