@@ -130,18 +130,20 @@ const isReformatInvalid = (deviceData, request, requests) => {
     }
 };
 
-const isDeviceMountPointInvalid = (deviceData, request) => {
+const isDeviceMountPointInvalid = (deviceData, requiredMountPoints, request) => {
     const device = request["device-spec"];
+    const requiredMountPointData = requiredMountPoints.find(val => val["mount-point"].v === request["mount-point"]);
 
-    if (!device || !request["mount-point"]) {
+    if (!device || !request["mount-point"] || !requiredMountPointData) {
         return [false, ""];
     }
 
-    // /boot/efi must be on EFI System Partition
-    if (request["mount-point"] === "/boot/efi") {
-        if (deviceData[device].formatData.type.v !== "efi") {
-            return [true, _("/boot/efi must be on a EFI System Partition device")];
-        }
+    // we have constraints for filesystem type for required mount points from the backend) {
+    if (requiredMountPointData && requiredMountPointData["required-filesystem-type"].v !== "" &&
+        deviceData[device].formatData.type.v !== requiredMountPointData["required-filesystem-type"].v) {
+        return [true,
+            cockpit.format(_("'$0' must be on a device formatted to '$1'"),
+                           request["mount-point"], requiredMountPointData["required-filesystem-type"].v)];
     }
 
     return [false, ""];
@@ -278,10 +280,10 @@ const DeviceColumnSelect = ({ deviceData, devices, idPrefix, lockedLUKSDevices, 
     );
 };
 
-const DeviceColumn = ({ deviceData, devices, idPrefix, handleRequestChange, lockedLUKSDevices, request, requests }) => {
+const DeviceColumn = ({ deviceData, devices, requiredMountPoints, idPrefix, handleRequestChange, lockedLUKSDevices, request, requests }) => {
     const device = request["device-spec"];
     const duplicatedDevice = isDuplicateRequestField(requests, "device-spec", device);
-    const [deviceInvalid, errorMessage] = isDeviceMountPointInvalid(deviceData, request);
+    const [deviceInvalid, errorMessage] = isDeviceMountPointInvalid(deviceData, requiredMountPoints, request);
 
     return (
         <Flex direction={{ default: "column" }} spaceItems={{ default: "spaceItemsNone" }}>
@@ -402,6 +404,7 @@ const RequestsTable = ({
                         <DeviceColumn
                           deviceData={deviceData}
                           devices={allDevices}
+                          requiredMountPoints={requiredMountPoints}
                           handleRequestChange={handleRequestChange}
                           idPrefix={rowId + "-device"}
                           lockedLUKSDevices={lockedLUKSDevices}
