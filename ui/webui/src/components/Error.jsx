@@ -19,6 +19,7 @@ import cockpit from "cockpit";
 import React, { useEffect, useState } from "react";
 
 import {
+    ActionList,
     Button,
     Form,
     FormGroup,
@@ -104,16 +105,18 @@ export const BZReportModal = ({
                       </HelperText>
                   </FormHelperText>
                   <StackItem>
-                      <Button
-                        variant="primary"
-                        isLoading={preparingReport}
-                        isDisabled={logContent === undefined || preparingReport || !isConnected}
-                        icon={<ExternalLinkAltIcon />}
-                        onClick={() => openBZIssue(reportLinkURL)}
-                        component="a">
-                          {preparingReport ? _("Preparing report") : _("Report issue")}
-                      </Button>
-                      {buttons}
+                      <ActionList>
+                          <Button
+                            variant="primary"
+                            isLoading={preparingReport}
+                            isDisabled={logContent === undefined || preparingReport || !isConnected}
+                            icon={<ExternalLinkAltIcon />}
+                            onClick={() => openBZIssue(reportLinkURL)}
+                            component="a">
+                              {preparingReport ? _("Preparing report") : _("Report issue")}
+                          </Button>
+                          {buttons}
+                      </ActionList>
                   </StackItem>
               </Stack>
           }>
