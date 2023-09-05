@@ -477,6 +477,9 @@ const startBlivet = (onStart, onStarted, errorHandler) => {
     cockpit.spawn(["blivet-gui"], { err: "message" })
             .then(() => {
                 console.log("Blivet exited.");
+                // If the Blivet exits earlier cancel the delay
+                window.clearTimeout(timeoutId);
+                return onStarted();
             })
             .catch((error) => { window.clearTimeout(timeoutId); errorHandler(error) });
     onStart();
