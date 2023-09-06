@@ -35,8 +35,6 @@ log = get_module_logger(__name__)
 def get_s390_settings(devname):
     cfg = {
         'SUBCHANNELS': '',
-        'NETTYPE': '',
-        'OPTIONS': ''
     }
 
     subchannels = []
@@ -45,23 +43,6 @@ def get_s390_settings(devname):
     if not subchannels:
         return cfg
     cfg['SUBCHANNELS'] = ','.join(subchannels)
-
-    # Example of the ccw.conf file content:
-    # qeth,0.0.0900,0.0.0901,0.0.0902,layer2=0,portname=FOOBAR,portno=0
-    #
-    # SUBCHANNELS="0.0.0900,0.0.0901,0.0.0902"
-    # NETTYPE="qeth"
-    # OPTIONS="layer2=1 portname=FOOBAR portno=0"
-    if not os.path.exists('/run/install/ccw.conf'):
-        return cfg
-    with open('/run/install/ccw.conf') as f:
-        # pylint: disable=redefined-outer-name
-        for line in f:
-            if cfg['SUBCHANNELS'] in line:
-                items = line.strip().split(',')
-                cfg['NETTYPE'] = items[0]
-                cfg['OPTIONS'] = " ".join(i for i in items[1:] if '=' in i)
-                break
 
     return cfg
 
