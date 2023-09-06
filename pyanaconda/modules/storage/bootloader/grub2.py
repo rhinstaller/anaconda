@@ -26,7 +26,7 @@ from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
 from pyanaconda.core.path import open_with_perm
-from pyanaconda.product import productName
+from pyanaconda.core.product import get_product_name
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -184,7 +184,7 @@ class GRUB2(BootLoader):
 
     @property
     def stage2_format_types(self):
-        if productName.startswith("Red Hat "): # pylint: disable=no-member
+        if get_product_name().startswith("Red Hat "): # pylint: disable=no-member
             return ["xfs", "ext4", "ext3", "ext2"]
         else:
             return ["ext4", "ext3", "ext2", "btrfs", "xfs"]
@@ -350,7 +350,7 @@ class GRUB2(BootLoader):
                 root=conf.target.system_root
             )
             if rc:
-                log.error("failed to set default menu entry to %s", productName)
+                log.error("failed to set default menu entry to %s", get_product_name())
 
         # set menu_auto_hide grubenv variable if we should enable menu_auto_hide
         # set boot_success so that the menu is hidden on the boot after install

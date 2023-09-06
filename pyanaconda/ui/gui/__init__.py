@@ -38,14 +38,15 @@ from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, C_
 from pyanaconda.core.constants import WINDOW_TITLE_TEXT
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda import product
 from pyanaconda.core import util, constants
 from pyanaconda.core.path import make_directories
+from pyanaconda.core.product import get_product_is_final_release
 from pyanaconda.core.threads import thread_manager
 
 from pyanaconda.core.glib import Bytes, GError
 from pyanaconda.keyboard import can_configure_keyboard
 from pyanaconda.ui import UserInterface, common
+from pyanaconda.ui.helpers import get_distribution_text
 from pyanaconda.ui.gui.utils import unbusyCursor, really_hide
 from pyanaconda.core.async_utils import async_action_wait
 from pyanaconda.ui.gui.utils import watch_children, unwatch_children
@@ -572,8 +573,11 @@ class GraphicalUserInterface(UserInterface):
        It is suitable for use both directly and via VNC.
     """
     def __init__(self, storage, payload,
-                 distributionText=product.distributionText, isFinal=product.isFinal,
-                 quitDialog=QuitDialog, gui_lock=None, fullscreen=False):
+                 distributionText=get_distribution_text,
+                 isFinal=get_product_is_final_release(),
+                 quitDialog=QuitDialog,
+                 gui_lock=None,
+                 fullscreen=False):
 
         super().__init__(storage, payload)
 

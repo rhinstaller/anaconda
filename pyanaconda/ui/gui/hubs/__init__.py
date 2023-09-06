@@ -19,11 +19,11 @@
 
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, C_
-from pyanaconda.product import distributionText
 from pyanaconda import lifecycle
 from pyanaconda.core.timer import Timer
 
 from pyanaconda.ui import common
+from pyanaconda.ui.helpers import get_distribution_text
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.helpers import autoinstall_stopped
 from pyanaconda.ui.gui.utils import gtk_call_once, escape_markup
@@ -142,7 +142,7 @@ class Hub(GUIObject, common.Hub):
                 # From here on, this Spoke will always exist.
                 spoke = spokeClass(self.data, self.storage, self.payload)
                 spoke.window.set_beta(self.window.get_beta())
-                spoke.window.set_property("distribution", distributionText())
+                spoke.window.set_property("distribution", get_distribution_text())
 
                 # If a spoke is not showable, it is unreachable in the UI.  We
                 # might as well get rid of it.

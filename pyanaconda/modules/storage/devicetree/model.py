@@ -28,8 +28,9 @@ from blivet.devicelibs.crypto import DEFAULT_LUKS_VERSION
 
 from pyanaconda.modules.storage.bootloader import BootLoaderFactory
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import shortProductName, DRACUT_REPO_DIR, LIVE_MOUNT_POINT
+from pyanaconda.core.constants import DRACUT_REPO_DIR, LIVE_MOUNT_POINT
 from pyanaconda.core.path import set_system_root
+from pyanaconda.core.product import get_product_short_name
 from pyanaconda.modules.storage.devicetree.fsset import FSSet
 from pyanaconda.modules.storage.devicetree.utils import download_escrow_certificate, \
     find_backing_device, find_stage2_device
@@ -60,7 +61,7 @@ class InstallerStorage(Blivet):
         self._escrow_certificates = {}
         self._bootloader = None
         self.fsset = FSSet(self.devicetree)
-        self._short_product_name = shortProductName
+        self._short_product_name = get_product_short_name()
         self._default_luks_version = DEFAULT_LUKS_VERSION
 
         # Set the default filesystem type.

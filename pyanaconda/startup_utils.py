@@ -24,7 +24,7 @@ from blivet.arch import is_s390
 from blivet.util import total_memory
 from dasbus.typing import get_variant, Int
 
-from pyanaconda import product, ntp
+from pyanaconda import ntp
 from pyanaconda import anaconda_logging
 from pyanaconda import network
 from pyanaconda import kickstart
@@ -38,6 +38,8 @@ from pyanaconda.core.constants import TEXT_ONLY_TARGET, SETUP_ON_BOOT_DEFAULT, \
     THREAD_TIME_INIT, DisplayModes, GEOLOC_CONNECTION_TIMEOUT, TIMEZONE_PRIORITY_GEOLOCATION
 from pyanaconda.core.i18n import _
 from pyanaconda.core.payload import ProxyString, ProxyStringError
+from pyanaconda.core.product import get_product_is_final_release, get_product_name, \
+    get_product_version
 from pyanaconda.core.service import start_service
 from pyanaconda.flags import flags
 from pyanaconda.localization import get_territory_locales, setup_locale, locale_has_translation
@@ -115,7 +117,7 @@ def check_memory(anaconda, options, display_mode=None):
         log.warning("CHECK_MEMORY DISABLED")
         return
 
-    reason_args = {"product_name": product.productName,
+    reason_args = {"product_name": get_product_name(),
                    "needed_ram": needed_ram,
                    "total_ram": total_ram}
     if needed_ram > total_ram:
@@ -321,7 +323,7 @@ def print_startup_note(options):
     :param options: command line/boot options
     """
     verdesc = "%s for %s %s" % (get_anaconda_version_string(build_time_version=True),
-                                product.productName, product.productVersion)
+                                get_product_name(), get_product_version())
     logs_note = " * installation log files are stored in /tmp during the installation"
     shell_and_tmux_note = " * shell is available on TTY2"
     shell_only_note = " * shell is available on TTY2 and in second TMUX pane (ctrl+b, then press 2)"
@@ -330,7 +332,7 @@ def print_startup_note(options):
                      "   inst.text bootoption to start text installation"
     separate_attachements_note = " * when reporting a bug add logs from /tmp as separate text/plain attachments"
 
-    if product.isFinal:
+    if get_product_is_final_release():
         print("anaconda %s started." % verdesc)
     else:
         print("anaconda %s (pre-release) started." % verdesc)

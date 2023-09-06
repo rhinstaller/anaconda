@@ -21,7 +21,7 @@ from pyanaconda.core import constants
 from pyanaconda.core.constants import PAYLOAD_LIVE_TYPES
 from pyanaconda.core.i18n import _
 from pyanaconda.core.timer import Timer
-from pyanaconda.product import productName
+from pyanaconda.core.product import get_product_name
 from pyanaconda.core.threads import thread_manager
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import escape_markup
@@ -73,7 +73,7 @@ class InstallOptionsDialogBase(GUIObject):
                          "selection requires <b>%(total)s</b> of available "
                          "space, including <b>%(software)s</b> for software and "
                          "<b>%(swap)s</b> for swap space.")
-                       % {"product": escape_markup(productName),
+                       % {"product": escape_markup(get_product_name()),
                           "total": escape_markup(str(required_space)),
                           "software": escape_markup(str(sw_space)),
                           "swap": escape_markup(str(auto_swap))})
@@ -83,7 +83,7 @@ class InstallOptionsDialogBase(GUIObject):
                          "space, including <b>%(software)s</b> for software and "
                          "<b>%(swap)s</b> for swap space.")
                        % {"tooltip": escape_markup(tooltip),
-                          "product": escape_markup(productName),
+                          "product": escape_markup(get_product_name()),
                           "total": escape_markup(str(required_space)),
                           "software": escape_markup(str(sw_space)),
                           "swap": escape_markup(str(auto_swap))})
@@ -143,7 +143,7 @@ class NeedSpaceDialog(InstallOptionsDialogBase):
                        "%s</b>.  You can shrink or remove existing partitions "
                        "via our guided reclaim space tool, or you can adjust your "
                        "partitions on your own in the custom partitioning "
-                       "interface.") % escape_markup(productName)
+                       "interface.") % escape_markup(get_product_name())
         self.builder.get_object("need_space_options_label").set_markup(label_text)
         self._add_modify_watcher(label)
 
@@ -166,7 +166,7 @@ class NoSpaceDialog(InstallOptionsDialogBase):
         label_text += (_("  You don't have enough space available to install "
                          "<b>%(product)s</b>, even if you used all of the free space "
                          "available on the selected disks.")
-                       % {"product": escape_markup(productName)})
+                       % {"product": escape_markup(get_product_name())})
         label = self.builder.get_object("no_space_desc_label")
         label.set_markup(label_text)
 
@@ -181,7 +181,7 @@ class NoSpaceDialog(InstallOptionsDialogBase):
                        "disks for additional space, "
                        "modify your software selection to install a smaller "
                        "version of <b>%(productName)s</b>, or quit the installer.") % \
-                               {"productName": escape_markup(productName)}
+                               {"productName": escape_markup(get_product_name())}
         self.builder.get_object("no_space_options_label").set_markup(label_text)
 
         self._add_modify_watcher(label)

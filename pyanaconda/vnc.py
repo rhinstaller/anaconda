@@ -20,8 +20,9 @@
 import os
 import sys
 import time
-from pyanaconda import network, product
+from pyanaconda import network
 from pyanaconda.core import util, constants
+from pyanaconda.core.product import get_product_name, get_product_version
 import socket
 import subprocess
 
@@ -77,8 +78,8 @@ class VncServer(object):
         self.log = get_stdout_logger()
 
         self.desktop = _("%(productName)s %(productVersion)s installation")\
-                       % {'productName': product.productName,
-                          'productVersion': product.productVersion}
+                       % {'productName': get_product_name(),
+                          'productVersion': get_product_version()}
 
     def setVNCPassword(self):
         """Set the vnc server password. Output to file. """
@@ -147,8 +148,8 @@ class VncServer(object):
         if host:
             self.desktop = _("%(productName)s %(productVersion)s installation "
                              "on host %(name)s") \
-                           % {'productName': product.productName,
-                              'productVersion': product.productVersion,
+                           % {'productName': get_product_name(),
+                              'productVersion': get_product_version(),
                               'name': host}
 
     def openlogfile(self):

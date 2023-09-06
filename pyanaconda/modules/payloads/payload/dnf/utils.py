@@ -33,7 +33,7 @@ from pyanaconda.modules.common.constants.objects import DEVICE_TREE, DISK_SELECT
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.structures.packages import PackagesSelectionData
 from pyanaconda.modules.payloads.constants import SourceType
-from pyanaconda.product import productName, productVersion
+from pyanaconda.core.product import get_product_name, get_product_version
 from pyanaconda.modules.payloads.base.utils import sort_kernel_version_list
 
 log = get_module_logger(__name__)
@@ -89,11 +89,11 @@ def get_product_release_version():
     :return: a string with the release version
     """
     try:
-        release_version = VERSION_DIGITS.match(productVersion).group(1)
+        release_version = VERSION_DIGITS.match(get_product_version()).group(1)
     except AttributeError:
         release_version = "rawhide"
 
-    log.debug("Release version of %s is %s.", productName, release_version)
+    log.debug("Release version of %s is %s.", get_product_name(), release_version)
     return release_version
 
 

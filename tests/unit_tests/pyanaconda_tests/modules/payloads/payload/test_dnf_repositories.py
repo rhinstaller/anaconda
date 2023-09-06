@@ -254,8 +254,9 @@ class DNFRepositoriesUtilsTestCase(unittest.TestCase):
             call("r3", True),
         ]
 
-    @patch("pyanaconda.modules.payloads.payload.dnf.repositories.is_final_release", True)
-    def test_disable_default_repositories(self):
+    @patch("pyanaconda.modules.payloads.payload.dnf.repositories.get_product_is_final_release",
+           return_value=True)
+    def test_disable_default_repositories(self, mock_isfinal):
         """Test the disable_default_repositories function."""
         dnf_manager = MagicMock(spec=DNFManager)
         dnf_manager.get_matching_repositories.return_value = [
@@ -271,8 +272,9 @@ class DNFRepositoriesUtilsTestCase(unittest.TestCase):
             call("*rawhide*"),
         ]
 
-    @patch("pyanaconda.modules.payloads.payload.dnf.repositories.is_final_release", False)
-    def test_disable_default_repositories_rawhide(self):
+    @patch("pyanaconda.modules.payloads.payload.dnf.repositories.get_product_is_final_release",
+           return_value=False)
+    def test_disable_default_repositories_rawhide(self, mock_isfinal):
         """Test the disable_default_repositories function for Rawhide."""
         dnf_manager = MagicMock(spec=DNFManager)
         dnf_manager.get_matching_repositories.return_value = [

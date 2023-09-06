@@ -26,7 +26,7 @@ from pyanaconda.core.i18n import _
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core.path import join_paths
-from pyanaconda.product import productName
+from pyanaconda.core.product import get_product_name
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -85,7 +85,7 @@ class EFIBase(object):
         create_method = "-C" if self.keep_boot_order else "-c" # pylint: disable=no-member
 
         rc = self.efibootmgr(
-            create_method, "-w", "-L", productName.split("-")[0],  # pylint: disable=no-member
+            create_method, "-w", "-L", get_product_name().split("-")[0],  # pylint: disable=no-member
             "-d", boot_disk.path, "-p", boot_part_num,
             "-l", self.efi_dir_as_efifs_dir + self._efi_binary,  # pylint: disable=no-member
             root=conf.target.system_root
@@ -111,7 +111,7 @@ class EFIBase(object):
             except ValueError:
                 continue
 
-            if _product == productName.split("-")[0]:           # pylint: disable=no-member
+            if _product == get_product_name().split("-")[0]:           # pylint: disable=no-member
                 slot_id = slot[4:8]
                 # slot_id is hex, we can't use .isint and use this regex:
                 if not re.match("^[0-9a-fA-F]+$", slot_id):
