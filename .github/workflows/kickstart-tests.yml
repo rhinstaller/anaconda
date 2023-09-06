@@ -231,6 +231,7 @@ jobs:
         run: |
           set -eux
           PERMIAN_QUERY=$(scripts/generate-permian-query.py \
+             --skip-testtypes manual,knownfailure \
              --skip-testtypes ${{ needs.pr-info.outputs.skip_tests }} \
              ${{ needs.pr-info.outputs.launch_args }} )
           if [ $? == 0 ]; then
