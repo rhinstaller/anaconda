@@ -25,16 +25,20 @@ from pyanaconda.core.live_user import get_live_user, User
 class GetLiveUserTests(TestCase):
 
     @patch("pyanaconda.core.live_user.conf")
-    @patch("pyanaconda.core.live_user.getpwnam")
-    def test_get_live_user(self, getpwnam_mock, conf_mock):
+    @patch("pyanaconda.core.live_user.getpwuid")
+    def test_get_live_user_not_on_live(self, getpwuid_mock, conf_mock):
         # not live = early exit
         conf_mock.system.provides_liveuser = False
         assert get_live_user() is None
-        getpwnam_mock.assert_not_called()
+        getpwuid_mock.assert_not_called()
 
+    @patch("pyanaconda.core.live_user.conf")
+    @patch("pyanaconda.core.live_user.getpwuid")
+    @patch.dict("pyanaconda.core.live_user.os.environ", {"PKEXEC_UID": "1024"})
+    def test_get_live_user(self, getpwuid_mock, conf_mock):
         # live and has user
         conf_mock.system.provides_liveuser = True
-        getpwnam_mock.return_value = Mock(pw_uid=1024)
+        getpwuid_mock.return_value = Mock(pw_uid=1024, pw_dir='/home/liveuser', pw_name='liveuser')
         assert get_live_user() == User(name="liveuser",
                                        uid=1024,
                                        env_prune=("GDK_BACKEND",),
@@ -43,10 +47,44 @@ class GetLiveUserTests(TestCase):
                                            "USER": "liveuser",
                                            "HOME": "/home/liveuser",
                                        })
-        getpwnam_mock.assert_called_once_with("liveuser")
-        getpwnam_mock.reset_mock()
+        getpwuid_mock.assert_called_once_with(1024)
+        getpwuid_mock.reset_mock()
 
+    @patch("pyanaconda.core.live_user.conf")
+    @patch("pyanaconda.core.live_user.getpwuid")
+    @patch.dict("pyanaconda.core.live_user.os.environ", {"PKEXEC_UID": "1024"})
+    def test_get_live_user_with_failed_getpwuid(self, getpwuid_mock, conf_mock):
         # supposedly live but missing user
-        getpwnam_mock.side_effect = KeyError
+        conf_mock.system.provides_liveuser = True
+        getpwuid_mock.side_effect = KeyError
         assert get_live_user() is None
-        getpwnam_mock.assert_called_once_with("liveuser")
+        getpwuid_mock.assert_called_once_with(1024)
+
+    @patch("pyanaconda.core.live_user.conf")
+    @patch("pyanaconda.core.live_user.getpwuid")
+    @patch.dict("pyanaconda.core.live_user.os.environ", dict())
+    def test_get_live_user_with_missing_pkexec_env(self, getpwuid_mock, conf_mock):
+
+        conf_mock.system.provides_liveuser = True
+
+        assert get_live_user() is None
+        getpwuid_mock.assert_not_called()
+
+    @patch("pyanaconda.core.live_user.conf")
+    def test_get_live_user_failed_on_pkexec_env(self, conf_mock):
+        conf_mock.system.provides_liveuser = True
+
+        with patch.dict("pyanaconda.core.live_user.os.environ", {"PKEXEC_UID": ""}):
+            assert get_live_user() is None
+
+        with patch.dict("pyanaconda.core.live_user.os.environ", {"PKEXEC_UID": "hello world"}):
+            assert get_live_user() is None
+
+        with patch.dict("pyanaconda.core.live_user.os.environ", {"PKEXEC_UID": "-1"}):
+            assert get_live_user() is None
+
+        with patch.dict("pyanaconda.core.live_user.os.environ", {"PKEXEC_UID": "999999999999999999999999"}):
+            assert get_live_user() is None
+
+        with patch.dict("pyanaconda.core.live_user.os.environ", {"PKEXEC_UID": "0"}):
+            assert get_live_user() is None
