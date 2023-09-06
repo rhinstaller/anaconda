@@ -184,7 +184,7 @@ anaconda-ci-build:
 	--build-arg=git_branch=$(GIT_BRANCH) \
 	--build-arg=image=$(BASE_CONTAINER) \
 	--build-arg=copr_repo=$(COPR_REPO) \
-	-t $(CI_NAME):$(CI_TAG) \
+	--tag $(CI_NAME):$(CI_TAG) \
 	$$TEMP/ && \
 	rm -rf $$TEMP
 
@@ -199,7 +199,7 @@ anaconda-rpm-build:
 	--build-arg=git_branch=$(GIT_BRANCH) \
 	--build-arg=image=$(BASE_CONTAINER) \
 	--build-arg=copr_repo=$(COPR_REPO) \
-	-t $(RPM_NAME):$(CI_TAG) \
+	--tag $(RPM_NAME):$(CI_TAG) \
 	$$TEMP/ && \
 	rm -rf $$TEMP
 
@@ -208,7 +208,7 @@ anaconda-release-build: anaconda-rpm-build
 	$(CONTAINER_BUILD_ARGS) \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=image=$(RPM_NAME):$(CI_TAG) \
-	-t $(RELEASE_NAME):$(CI_TAG) \
+	--tag $(RELEASE_NAME):$(CI_TAG) \
 	$(RELEASE_DOCKERFILE)
 
 anaconda-iso-creator-build:
@@ -219,7 +219,7 @@ anaconda-iso-creator-build:
 	--pull-always \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=image=$(BASE_CONTAINER) \
-	-t $(ISO_CREATOR_NAME):$(CI_TAG) \
+	--tag $(ISO_CREATOR_NAME):$(CI_TAG) \
 	$(ISO_CREATOR_DOCKERFILE)
 
 anaconda-live-iso-creator-build:
@@ -230,7 +230,7 @@ anaconda-live-iso-creator-build:
 	--pull-always \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=image=$(BASE_CONTAINER) \
-	-t $(LIVE_ISO_CREATOR_NAME):$(CI_TAG) \
+	--tag $(LIVE_ISO_CREATOR_NAME):$(CI_TAG) \
 	$(LIVE_ISO_CREATOR_DOCKERFILE)
 
 # User has to be logged first to be able to push the image.
@@ -389,7 +389,7 @@ container-live-iso-build:
 	mkdir -p result/iso/logs
 	sudo $(CONTAINER_ENGINE) run \
 	--rm \
-	-t \
+	--tty \
 	--privileged \
 	--tmpfs /var/tmp:rw,mode=1777 \
 	--device /dev/kvm \
