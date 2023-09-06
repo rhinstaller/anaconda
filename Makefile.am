@@ -178,7 +178,8 @@ anaconda-ci-build:
 	cp $(srcdir)/anaconda.spec.in $(CI_DOCKERFILE)/* $$TEMP/ && \
 	echo "Build dir is $$TEMP" && \
 	$(CONTAINER_ENGINE) build \
-	$(CONTAINER_BUILD_ARGS) --pull-always \
+	$(CONTAINER_BUILD_ARGS) \
+	--pull-always \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=git_branch=$(GIT_BRANCH) \
 	--build-arg=image=$(BASE_CONTAINER) \
@@ -192,7 +193,8 @@ anaconda-rpm-build:
 	cp $(srcdir)/anaconda.spec.in $(RPM_DOCKERFILE)/* $$TEMP/ && \
 	echo "Build dir is $$TEMP" && \
 	$(CONTAINER_ENGINE) build \
-	$(CONTAINER_BUILD_ARGS) --pull-always \
+	$(CONTAINER_BUILD_ARGS) \
+	--pull-always \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=git_branch=$(GIT_BRANCH) \
 	--build-arg=image=$(BASE_CONTAINER) \
@@ -213,7 +215,8 @@ anaconda-iso-creator-build:
 	@sudo -nv 2>/dev/null || echo "You will be prompted for sudo password because this container has to be used under root!"
 
 	sudo $(CONTAINER_ENGINE) build \
-	$(CONTAINER_BUILD_ARGS) --pull-always \
+	$(CONTAINER_BUILD_ARGS) \
+	--pull-always \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=image=$(BASE_CONTAINER) \
 	-t $(ISO_CREATOR_NAME):$(CI_TAG) \
@@ -223,7 +226,8 @@ anaconda-live-iso-creator-build:
 	@sudo -nv 2>/dev/null || echo "You will be prompted for sudo password because this container has to be used under root!"
 
 	sudo $(CONTAINER_ENGINE) build \
-	$(CONTAINER_BUILD_ARGS) --pull-always \
+	$(CONTAINER_BUILD_ARGS) \
+	--pull-always \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=image=$(BASE_CONTAINER) \
 	-t $(LIVE_ISO_CREATOR_NAME):$(CI_TAG) \
@@ -360,7 +364,9 @@ container-iso-build:
 
 	mkdir -p result/iso
 	sudo $(CONTAINER_ENGINE) run \
-	--rm --privileged  --tmpfs /var/tmp:rw,mode=1777 \
+	--rm \
+	--privileged \
+	--tmpfs /var/tmp:rw,mode=1777 \
 	-v $(srcdir)/result/build/01-rpm-build:/anaconda-rpms:ro \
 	-v $(srcdir)/result/iso:/images:z \
 	$(CONTAINER_ADD_ARGS) \
@@ -382,7 +388,11 @@ container-live-iso-build:
 
 	mkdir -p result/iso/logs
 	sudo $(CONTAINER_ENGINE) run \
-	--rm -t --privileged --tmpfs /var/tmp:rw,mode=1777 --device /dev/kvm \
+	--rm \
+	-t \
+	--privileged \
+	--tmpfs /var/tmp:rw,mode=1777 \
+	--device /dev/kvm \
 	-v $(srcdir)/result/build/01-rpm-build:/anaconda-rpms:ro \
 	-v $(srcdir)/result/iso:/images:z \
 	$(CONTAINER_ADD_ARGS) \
