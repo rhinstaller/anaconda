@@ -75,6 +75,8 @@ TEMPLATE_RENDERER = scripts/jinja-render
 CONTAINER_ENGINE ?= podman
 # build/run tweaks for all containers, such as --cap-add
 CONTAINER_BUILD_ARGS ?= --no-cache
+# run tweaks for all containers
+CONTAINER_RUN_ARGS ?=
 # HACK: bash's builtin `test -r` fails when running on Ubuntu host (GitHub) due to incompatible seccomp profile
 CONTAINER_TEST_ARGS ?= $(shell grep -q ID=ubuntu /etc/os-release && echo --security-opt=seccomp=unconfined)
 CONTAINER_REGISTRY ?= quay.io
@@ -166,6 +168,7 @@ container-release:
 	$(CONTAINER_TEST_ARGS) \
 	$(CI_TEST_ARGS) \
 	$(CONTAINER_ADD_ARGS) \
+	$(CONTAINER_RUN_ARGS) \
 	$(RELEASE_NAME):$(CI_TAG) \
 	sh -exc './autogen.sh && ./configure && make release'
 
@@ -305,6 +308,7 @@ container-ci:
 	-e CONFIGURE_ARGS="--disable-webui" \
 	$(CONTAINER_TEST_ARGS) \
 	$(CI_TEST_ARGS) \
+	$(CONTAINER_RUN_ARGS) \
 	--cap-add=SYS_CHROOT \
 	$(CONTAINER_ADD_ARGS) \
 	$(CI_NAME):$(CI_TAG) \
@@ -316,6 +320,7 @@ container-shell:
 	$(CONTAINER_ENGINE) run \
 	$(CONTAINER_TEST_ARGS) \
 	$(CONTAINER_ADD_ARGS) \
+	$(CONTAINER_RUN_ARGS) \
 	$(CI_TEST_ARGS) \
 	--cap-add=SYS_CHROOT \
 	$(CI_NAME):$(CI_TAG)
@@ -331,6 +336,7 @@ container-rpm-test:
 	$(CI_TEST_ARGS) \
 	-v $(CI_DOCKERFILE)/run-build-and-arg:/run-build-and-arg \
 	$(CONTAINER_ADD_ARGS) \
+	$(CONTAINER_RUN_ARGS) \
 	$(RPM_NAME):$(CI_TAG) \
 	sh -exc ' \
 	    /run-build-and-arg make run-rpm-tests-only; \
@@ -342,6 +348,7 @@ container-rpms:
 	$(CONTAINER_ENGINE) run \
 	$(CONTAINER_TEST_ARGS) \
 	$(CI_TEST_ARGS) \
+	$(CONTAINER_RUN_ARGS) \
 	-v $(CI_DOCKERFILE)/run-build-and-arg:/run-build-and-arg \
 	$(CONTAINER_ADD_ARGS) \
 	$(RPM_NAME):$(CI_TAG) \
@@ -370,6 +377,7 @@ container-iso-build:
 	-v $(srcdir)/result/build/01-rpm-build:/anaconda-rpms:ro \
 	-v $(srcdir)/result/iso:/images:z \
 	$(CONTAINER_ADD_ARGS) \
+	$(CONTAINER_RUN_ARGS) \
 	$(ISO_CREATOR_NAME):$(CI_TAG)
 	@echo "ISO is stored in $(scrdir)/result/iso/"
 
@@ -396,6 +404,7 @@ container-live-iso-build:
 	-v $(srcdir)/result/build/01-rpm-build:/anaconda-rpms:ro \
 	-v $(srcdir)/result/iso:/images:z \
 	$(CONTAINER_ADD_ARGS) \
+	$(CONTAINER_RUN_ARGS) \
 	$(LIVE_ISO_CREATOR_NAME):$(CI_TAG)
 	@echo "ISO is stored in $(scrdir)/result/iso/"
 
