@@ -225,7 +225,7 @@ class EFI(Platform):
             mountpoint="/boot/efi",
             fstype="efi",
             size=Size("500MiB"),
-            max_size=Size("2GiB"),
+            max_size=Size("600MiB"),
             grow=True
         )
 
