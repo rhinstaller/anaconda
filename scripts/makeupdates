@@ -259,7 +259,7 @@ def copy_updated_files(tag, updates, cwd, builddir):
         elif gitfile.startswith("data/profile.d"):
             install_to_dir(gitfile, "etc/anaconda/profile.d")
         elif gitfile == "data/liveinst/liveinst":
-            install_to_dir(gitfile, "usr/sbin")
+            install_to_dir(gitfile, "usr/bin")
         elif gitfile.startswith("data/liveinst/gnome"):
             install_to_dir(gitfile, "usr/share/anaconda/gnome")
         elif gitfile.startswith("data/pixmaps"):
