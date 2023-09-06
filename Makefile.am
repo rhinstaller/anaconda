@@ -75,11 +75,13 @@ TEMPLATE_RENDERER = scripts/jinja-render
 CONTAINER_ENGINE ?= podman
 # build/run tweaks for all containers, such as --cap-add
 CONTAINER_BUILD_ARGS ?= --no-cache
+# run tweaks for all containers
+CONTAINER_RUN_ARGS ?= --tty --interactive
 # HACK: bash's builtin `test -r` fails when running on Ubuntu host (GitHub) due to incompatible seccomp profile
 CONTAINER_TEST_ARGS ?= $(shell grep -q ID=ubuntu /etc/os-release && echo --security-opt=seccomp=unconfined)
 CONTAINER_REGISTRY ?= quay.io
 # Add additional args to the existing ones to container engine
-CONTAINER_ADD_ARGS ?= -ti
+CONTAINER_ADD_ARGS ?=
 
 # anaconda-ci container
 CI_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-ci
@@ -166,6 +168,7 @@ container-release:
 	$(CONTAINER_TEST_ARGS) \
 	$(CI_TEST_ARGS) \
 	$(CONTAINER_ADD_ARGS) \
+	$(CONTAINER_RUN_ARGS) \
 	$(RELEASE_NAME):$(CI_TAG) \
 	sh -exc './autogen.sh && ./configure && make release'
 
@@ -178,12 +181,13 @@ anaconda-ci-build:
 	cp $(srcdir)/anaconda.spec.in $(CI_DOCKERFILE)/* $$TEMP/ && \
 	echo "Build dir is $$TEMP" && \
 	$(CONTAINER_ENGINE) build \
-	$(CONTAINER_BUILD_ARGS) --pull-always \
+	$(CONTAINER_BUILD_ARGS) \
+	--pull-always \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=git_branch=$(GIT_BRANCH) \
 	--build-arg=image=$(BASE_CONTAINER) \
 	--build-arg=copr_repo=$(COPR_REPO) \
-	-t $(CI_NAME):$(CI_TAG) \
+	--tag $(CI_NAME):$(CI_TAG) \
 	$$TEMP/ && \
 	rm -rf $$TEMP
 
@@ -192,12 +196,13 @@ anaconda-rpm-build:
 	cp $(srcdir)/anaconda.spec.in $(RPM_DOCKERFILE)/* $$TEMP/ && \
 	echo "Build dir is $$TEMP" && \
 	$(CONTAINER_ENGINE) build \
-	$(CONTAINER_BUILD_ARGS) --pull-always \
+	$(CONTAINER_BUILD_ARGS) \
+	--pull-always \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=git_branch=$(GIT_BRANCH) \
 	--build-arg=image=$(BASE_CONTAINER) \
 	--build-arg=copr_repo=$(COPR_REPO) \
-	-t $(RPM_NAME):$(CI_TAG) \
+	--tag $(RPM_NAME):$(CI_TAG) \
 	$$TEMP/ && \
 	rm -rf $$TEMP
 
@@ -206,27 +211,29 @@ anaconda-release-build: anaconda-rpm-build
 	$(CONTAINER_BUILD_ARGS) \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=image=$(RPM_NAME):$(CI_TAG) \
-	-t $(RELEASE_NAME):$(CI_TAG) \
+	--tag $(RELEASE_NAME):$(CI_TAG) \
 	$(RELEASE_DOCKERFILE)
 
 anaconda-iso-creator-build:
 	@sudo -nv 2>/dev/null || echo "You will be prompted for sudo password because this container has to be used under root!"
 
 	sudo $(CONTAINER_ENGINE) build \
-	$(CONTAINER_BUILD_ARGS) --pull-always \
+	$(CONTAINER_BUILD_ARGS) \
+	--pull-always \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=image=$(BASE_CONTAINER) \
-	-t $(ISO_CREATOR_NAME):$(CI_TAG) \
+	--tag $(ISO_CREATOR_NAME):$(CI_TAG) \
 	$(ISO_CREATOR_DOCKERFILE)
 
 anaconda-live-iso-creator-build:
 	@sudo -nv 2>/dev/null || echo "You will be prompted for sudo password because this container has to be used under root!"
 
 	sudo $(CONTAINER_ENGINE) build \
-	$(CONTAINER_BUILD_ARGS) --pull-always \
+	$(CONTAINER_BUILD_ARGS) \
+	--pull-always \
 	$(CONTAINER_ADD_ARGS) \
 	--build-arg=image=$(BASE_CONTAINER) \
-	-t $(LIVE_ISO_CREATOR_NAME):$(CI_TAG) \
+	--tag $(LIVE_ISO_CREATOR_NAME):$(CI_TAG) \
 	$(LIVE_ISO_CREATOR_DOCKERFILE)
 
 # User has to be logged first to be able to push the image.
@@ -301,6 +308,7 @@ container-ci:
 	-e CONFIGURE_ARGS="--disable-webui" \
 	$(CONTAINER_TEST_ARGS) \
 	$(CI_TEST_ARGS) \
+	$(CONTAINER_RUN_ARGS) \
 	--cap-add=SYS_CHROOT \
 	$(CONTAINER_ADD_ARGS) \
 	$(CI_NAME):$(CI_TAG) \
@@ -312,6 +320,7 @@ container-shell:
 	$(CONTAINER_ENGINE) run \
 	$(CONTAINER_TEST_ARGS) \
 	$(CONTAINER_ADD_ARGS) \
+	$(CONTAINER_RUN_ARGS) \
 	$(CI_TEST_ARGS) \
 	--cap-add=SYS_CHROOT \
 	$(CI_NAME):$(CI_TAG)
@@ -327,6 +336,7 @@ container-rpm-test:
 	$(CI_TEST_ARGS) \
 	-v $(CI_DOCKERFILE)/run-build-and-arg:/run-build-and-arg \
 	$(CONTAINER_ADD_ARGS) \
+	$(CONTAINER_RUN_ARGS) \
 	$(RPM_NAME):$(CI_TAG) \
 	sh -exc ' \
 	    /run-build-and-arg make run-rpm-tests-only; \
@@ -338,6 +348,7 @@ container-rpms:
 	$(CONTAINER_ENGINE) run \
 	$(CONTAINER_TEST_ARGS) \
 	$(CI_TEST_ARGS) \
+	$(CONTAINER_RUN_ARGS) \
 	-v $(CI_DOCKERFILE)/run-build-and-arg:/run-build-and-arg \
 	$(CONTAINER_ADD_ARGS) \
 	$(RPM_NAME):$(CI_TAG) \
@@ -360,10 +371,13 @@ container-iso-build:
 
 	mkdir -p result/iso
 	sudo $(CONTAINER_ENGINE) run \
-	--rm --privileged  --tmpfs /var/tmp:rw,mode=1777 \
+	--rm \
+	--privileged \
+	--tmpfs /var/tmp:rw,mode=1777 \
 	-v $(srcdir)/result/build/01-rpm-build:/anaconda-rpms:ro \
 	-v $(srcdir)/result/iso:/images:z \
 	$(CONTAINER_ADD_ARGS) \
+	$(CONTAINER_RUN_ARGS) \
 	$(ISO_CREATOR_NAME):$(CI_TAG)
 	@echo "ISO is stored in $(scrdir)/result/iso/"
 
@@ -382,10 +396,15 @@ container-live-iso-build:
 
 	mkdir -p result/iso/logs
 	sudo $(CONTAINER_ENGINE) run \
-	--rm -t --privileged --tmpfs /var/tmp:rw,mode=1777 --device /dev/kvm \
+	--rm \
+	--tty \
+	--privileged \
+	--tmpfs /var/tmp:rw,mode=1777 \
+	--device /dev/kvm \
 	-v $(srcdir)/result/build/01-rpm-build:/anaconda-rpms:ro \
 	-v $(srcdir)/result/iso:/images:z \
 	$(CONTAINER_ADD_ARGS) \
+	$(CONTAINER_RUN_ARGS) \
 	$(LIVE_ISO_CREATOR_NAME):$(CI_TAG)
 	@echo "ISO is stored in $(scrdir)/result/iso/"
 
