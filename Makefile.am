@@ -76,12 +76,12 @@ CONTAINER_ENGINE ?= podman
 # build/run tweaks for all containers, such as --cap-add
 CONTAINER_BUILD_ARGS ?= --no-cache
 # run tweaks for all containers
-CONTAINER_RUN_ARGS ?=
+CONTAINER_RUN_ARGS ?= --tty --interactive
 # HACK: bash's builtin `test -r` fails when running on Ubuntu host (GitHub) due to incompatible seccomp profile
 CONTAINER_TEST_ARGS ?= $(shell grep -q ID=ubuntu /etc/os-release && echo --security-opt=seccomp=unconfined)
 CONTAINER_REGISTRY ?= quay.io
 # Add additional args to the existing ones to container engine
-CONTAINER_ADD_ARGS ?= -ti
+CONTAINER_ADD_ARGS ?=
 
 # anaconda-ci container
 CI_DOCKERFILE ?= $(srcdir)/dockerfile/anaconda-ci
