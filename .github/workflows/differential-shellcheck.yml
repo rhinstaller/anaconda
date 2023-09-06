@@ -1,10 +1,8 @@
----
-
 name: Differential ShellCheck
 on:
   push:
   pull_request:
-    branches: [ master, rhel-* ]
+    branches: [ master, rhel-*, fedora-* ]
 
 permissions:
   contents: read
@@ -39,5 +37,3 @@ jobs:
         with:
           name: Differential ShellCheck SARIF
           path: ${{ steps.ShellCheck.outputs.sarif }}
-
-...
