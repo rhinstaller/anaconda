@@ -20,9 +20,6 @@ user_pref("browser.startup.page", 0);
 user_pref("browser.startup.homepage", "about:blank");
 user_pref("browser.startup.homepage_override.once", {});
 
-// Use a window manager titlebar
-user_pref("browser.tabs.inTitlebar", 0);
-
 // Hide the bookmarks
 user_pref("browser.toolbars.bookmarks.visibility", "never");
 
