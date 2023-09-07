@@ -147,12 +147,32 @@ const isDeviceMountPointInvalid = (deviceData, request) => {
     return [false, ""];
 };
 
+const getDeviceAncestors = (deviceData, device) => {
+    // device ancestors including the device itself
+    const ancestors = [];
+    const deviceParents = deviceData[device]?.parents?.v || [];
+
+    ancestors.push(device);
+    deviceParents.forEach(parent => {
+        ancestors.push(...getDeviceAncestors(deviceData, parent));
+    });
+
+    return ancestors;
+};
+
 const getLockedLUKSDevices = (requests, deviceData) => {
     const devs = requests?.map(r => r["device-spec"]) || [];
 
+    // check for requests and all their ancestors for locked LUKS devices
+    const requestsAncestors = [];
+    devs.forEach(d => {
+        const ancestors = getDeviceAncestors(deviceData, d);
+        requestsAncestors.push(...ancestors);
+    });
+
     return Object.keys(deviceData).filter(d => {
         return (
-            devs.includes(d) &&
+            requestsAncestors.includes(d) &&
             deviceData[d].formatData.type.v === "luks" &&
             deviceData[d].formatData.attrs.v.has_key !== "True"
         );
