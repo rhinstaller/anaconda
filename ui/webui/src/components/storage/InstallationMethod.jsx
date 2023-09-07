@@ -559,7 +559,7 @@ const ModifyStorageModal = ({ onClose, onToolStarted, errorHandler }) => {
           }>
             <TextContent>
                 <Text component={TextVariants.p}>
-                    {_("Blivet-gui is and advanced storage editor that lets you resize, delete, and create partitions. It can set up LVM and much more.")}
+                    {_("Blivet-gui is an advanced storage editor that lets you resize, delete, and create partitions. It can set up LVM and much more.")}
                 </Text>
                 <Text component={TextVariants.p}>
                     {_("Changes made in Blivet-gui will directly affect your storage.")}
