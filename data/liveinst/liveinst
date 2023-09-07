@@ -138,13 +138,23 @@ if [ -n "$UPDATES" ]; then
 
 fi
 
+start_anaconda() {
+    # early execution of Firefox to reduce starting time
+    mkdir -p /run/anaconda
+    /usr/libexec/webui-desktop -t live /cockpit/@localhost/anaconda-webui/index.html &
+    echo "$!" > /run/anaconda/webui_script.pid
+
+    # start Anaconda main process
+    $ANACONDA "$@"
+}
+
 # Force the X11 backend since sudo and wayland do not mix
 export GDK_BACKEND=x11
 
 if [ -x /usr/bin/udisks ]; then
-    /usr/bin/udisks --inhibit -- "$ANACONDA" "$@"
+    /usr/bin/udisks --inhibit -- start_anaconda "$@"
 else
-    $ANACONDA "$@"
+    start_anaconda "$@"
 fi
 
 if [ -e /tmp/updates.img ]; then rm /tmp/updates.img; fi
