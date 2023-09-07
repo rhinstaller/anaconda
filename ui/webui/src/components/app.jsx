@@ -183,7 +183,6 @@ export const Application = () => {
                     </WithDialogs>
                 </AddressContext.Provider>
             </Page>
-            )
         </>
     );
 
