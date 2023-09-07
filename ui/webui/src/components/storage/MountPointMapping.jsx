@@ -45,6 +45,7 @@ import { EncryptedDevices } from "./EncryptedDevices.jsx";
 
 import {
     createPartitioning,
+    getExistingSystems,
     setBootloaderDrive,
     setManualPartitioningRequests,
 } from "../../apis/storage.js";
@@ -214,7 +215,7 @@ const MountPointColumn = ({ handleRequestChange, idPrefix, isRequiredMountPoint,
     );
 };
 
-const DeviceColumnSelect = ({ deviceData, devices, idPrefix, lockedLUKSDevices, handleRequestChange, request }) => {
+const DeviceColumnSelect = ({ deviceData, devices, existingSystems, idPrefix, lockedLUKSDevices, handleRequestChange, request }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const device = request["device-spec"];
@@ -224,6 +225,13 @@ const DeviceColumnSelect = ({ deviceData, devices, idPrefix, lockedLUKSDevices, 
         const description = cockpit.format("$0, $1", format, size);
         const isLockedLUKS = lockedLUKSDevices.some(p => device.includes(p));
 
+        let existingMountPointForDevice;
+        for (let i = 0; i < existingSystems.length && !existingMountPointForDevice; i++) {
+            const existingSystem = existingSystems[i];
+            const existingMountPoints = existingSystem["mount-points"].v;
+            existingMountPointForDevice = Object.keys(existingMountPoints).find(mount => existingMountPoints[mount] === device);
+        }
+
         return (
             <SelectOption
               data-value={device}
@@ -231,7 +239,9 @@ const DeviceColumnSelect = ({ deviceData, devices, idPrefix, lockedLUKSDevices, 
               description={description}
               key={device}
               value={device}
-            />
+            >
+                {existingMountPointForDevice ? cockpit.format("$0 (mounted as $1)", device, existingMountPointForDevice) : device}
+            </SelectOption>
         );
     });
 
@@ -258,7 +268,7 @@ const DeviceColumnSelect = ({ deviceData, devices, idPrefix, lockedLUKSDevices, 
     );
 };
 
-const DeviceColumn = ({ deviceData, devices, idPrefix, handleRequestChange, lockedLUKSDevices, request, requests }) => {
+const DeviceColumn = ({ deviceData, devices, existingSystems, idPrefix, handleRequestChange, lockedLUKSDevices, request, requests }) => {
     const device = request["device-spec"];
     const duplicatedDevice = isDuplicateRequestField(requests, "device-spec", device);
     const [deviceInvalid, errorMessage] = isDeviceMountPointInvalid(deviceData, request);
@@ -268,6 +278,7 @@ const DeviceColumn = ({ deviceData, devices, idPrefix, handleRequestChange, lock
             <DeviceColumnSelect
               deviceData={deviceData}
               devices={devices}
+              existingSystems={existingSystems}
               idPrefix={idPrefix}
               handleRequestChange={handleRequestChange}
               lockedLUKSDevices={lockedLUKSDevices}
@@ -349,6 +360,7 @@ const MountPointRowRemove = ({ request, setRequests }) => {
 const RequestsTable = ({
     allDevices,
     deviceData,
+    existingSystems,
     requiredMountPoints,
     handleRequestChange,
     idPrefix,
@@ -382,6 +394,7 @@ const RequestsTable = ({
                         <DeviceColumn
                           deviceData={deviceData}
                           devices={allDevices}
+                          existingSystems={existingSystems}
                           handleRequestChange={handleRequestChange}
                           idPrefix={rowId + "-device"}
                           lockedLUKSDevices={lockedLUKSDevices}
@@ -432,11 +445,19 @@ const MountPointMappingContent = ({ deviceData, partitioningData, usablePartitio
     const [skipUnlock, setSkipUnlock] = useState(false);
     const [requests, setRequests] = useState(getInitialRequests(usablePartitioningRequests, requiredMountPoints));
     const [updateRequestCnt, setUpdateRequestCnt] = useState(0);
+    const [existingSystems, setExistingSystems] = useState();
     const currentUpdateRequestCnt = useRef(0);
 
     const allDevices = useMemo(() => {
         return usablePartitioningRequests?.map(r => r["device-spec"]) || [];
     }, [usablePartitioningRequests]);
+
+    useEffect(() => {
+        getExistingSystems().then(res => {
+            console.info({ res });
+            setExistingSystems(res[0]);
+        });
+    }, [deviceData]);
 
     const lockedLUKSDevices = useMemo(
         () => getLockedLUKSDevices(usablePartitioningRequests, deviceData),
@@ -536,6 +557,10 @@ const MountPointMappingContent = ({ deviceData, partitioningData, usablePartitio
         setRequests(_requests);
     };
 
+    if (!existingSystems) {
+        return null;
+    }
+
     if (lockedLUKSDevices?.length > 0 && !skipUnlock) {
         return (
             <EncryptedDevices
@@ -551,6 +576,7 @@ const MountPointMappingContent = ({ deviceData, partitioningData, usablePartitio
                 <RequestsTable
                   allDevices={allDevices}
                   deviceData={deviceData}
+                  existingSystems={existingSystems}
                   requiredMountPoints={requiredMountPoints}
                   handleRequestChange={handleRequestChange}
                   idPrefix={idPrefix + "-table"}

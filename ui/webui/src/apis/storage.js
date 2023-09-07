@@ -326,6 +326,17 @@ export const resetPartitioning = () => {
 };
 
 /**
+ * @param {Array} A list of data about found installations
+ */
+export const getExistingSystems = () => {
+    return new StorageClient().client.call(
+        "/org/fedoraproject/Anaconda/Modules/Storage/DeviceTree",
+        "org.fedoraproject.Anaconda.Modules.Storage.DeviceTree.Viewer",
+        "GetExistingSystems", []
+    );
+};
+
+/**
  * @param {string} task         DBus path to a task
  * @param {string} onSuccess    Callback to run after Succeeded signal is received
  * @param {string} onFail       Callback to run as an error handler
