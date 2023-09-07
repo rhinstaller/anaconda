@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2019  Red Hat, Inc.
+# Copyright (C) 2023  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -22,12 +22,14 @@ import tempfile
 import unittest
 
 from pyanaconda.core.constants import SOURCE_TYPE_LIVE_OS_IMAGE, PAYLOAD_TYPE_LIVE_OS
-from pyanaconda.core.path import join_paths, touch
+from pyanaconda.core.path import join_paths, make_directories, touch
 from pyanaconda.modules.common.errors.payload import IncompatibleSourceError
 from pyanaconda.modules.payloads.constants import SourceType, SourceState
 from pyanaconda.modules.payloads.payload.live_os.live_os import LiveOSModule
 from pyanaconda.modules.payloads.payload.live_os.live_os_interface import LiveOSInterface
 from pyanaconda.modules.payloads.payload.live_image.installation import InstallFromImageTask
+from pyanaconda.modules.payloads.payload.live_os.installation import \
+    CopyTransientGnomeInitialSetupStateTask
 
 from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object
 from tests.unit_tests.pyanaconda_tests.modules.payloads.payload.module_payload_shared import \
@@ -106,8 +108,9 @@ class LiveOSModuleTestCase(unittest.TestCase):
         self.module.set_sources([source])
 
         tasks = self.module.install_with_tasks()
-        assert len(tasks) == 1
+        assert len(tasks) == 2
         assert isinstance(tasks[0], InstallFromImageTask)
+        assert isinstance(tasks[1], CopyTransientGnomeInitialSetupStateTask)
 
     def test_install_with_task_no_source(self):
         """Test Live OS install with tasks with no source fail."""
@@ -116,3 +119,40 @@ class LiveOSModuleTestCase(unittest.TestCase):
     def test_post_install_with_tasks(self):
         """Test Live OS post installation configuration task."""
         assert self.module.post_install_with_tasks() == []
+
+
+class LiveOSModuleTasksTestCase(unittest.TestCase):
+    """Test the Live OS payload module tasks."""
+
+    def test_transient_gis_task_present(self):
+        """Test copying GIS transient files when present"""
+        with tempfile.TemporaryDirectory() as oldroot, tempfile.TemporaryDirectory() as newroot:
+            task = CopyTransientGnomeInitialSetupStateTask(newroot)
+
+            mocked_path = join_paths(oldroot, task._paths[0])
+            make_directories(os.path.dirname(mocked_path))
+            with open(mocked_path, "w") as f:
+                f.write("some data to copy over")
+            assert os.path.isfile(mocked_path)
+            task._paths = [mocked_path] # HACK: overwrite the files to copy
+
+            task.run()
+
+            result_path = join_paths(newroot, mocked_path)
+            assert os.path.isfile(result_path)
+            with open(result_path, "r") as f:
+                assert f.readlines() == ["some data to copy over"]
+
+    def test_transient_gis_task_missing(self):
+        """Test copying GIS transient files when missing"""
+        with tempfile.TemporaryDirectory() as oldroot, tempfile.TemporaryDirectory() as newroot:
+            task = CopyTransientGnomeInitialSetupStateTask(newroot)
+            mocked_path = join_paths(oldroot, task._paths[0])
+            assert not os.path.exists(mocked_path)
+            task._paths = [mocked_path]  # HACK: overwrite the files to copy
+
+            task.run()
+            # must not fail with missing paths
+
+            result_path = join_paths(newroot, mocked_path)
+            assert not os.path.exists(result_path)
