@@ -230,7 +230,9 @@ jobs:
         working-directory: ./kickstart-tests
         run: |
           set -eux
+          source ./containers/runner/skip-testtypes
           PERMIAN_QUERY=$(scripts/generate-permian-query.py \
+             --skip-testtypes $SKIP_TESTTYPES_ANACONDA_PR \
              --skip-testtypes ${{ needs.pr-info.outputs.skip_tests }} \
              ${{ needs.pr-info.outputs.launch_args }} )
           if [ $? == 0 ]; then
