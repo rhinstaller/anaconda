@@ -485,6 +485,35 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Sep 07 2023 github-actions <github-actions@github.com> - 40.3-1
+- Use Firefox environment variables for styling (mkolman)
+- make: Pass interactive container arguments only for run (vslavik)
+- make: Add container run options (vslavik)
+- make: Expand the ambiguous container option -t (vslavik)
+- make: One option per line for all container calls (vslavik)
+- Remove old product.py (vslavik)
+- GUI: Move helper for window header distribution text (vslavik)
+- Convert usages of product to core.product (vslavik)
+- Stop using old product in constants (vslavik)
+- Replace all uses of product values via constants (vslavik)
+- Make old product just a wrapper of the new one (vslavik)
+- Add a new product.py (vslavik)
+- Copy /var/lib/gnome-initial-setup/state to installed system (rstrode)
+- webui: add pixel test for modify storage test (rvykydal)
+- webui: use Blivet-gui name instead of Blivet (rvykydal)
+- webui: add tests for modify storage dialogs (rvykydal)
+- webui: if blivet-gui exits earlier then the delay update the dialog
+  (rvykydal)
+- webui: do not show rescan dialog in case of critical error (rvykydal)
+- webui: make blivet-gui start failure a Critical Error (rvykydal)
+- webui: catch errors when spawning blivet-gui (rvykydal)
+- webui: add dialogs around launching blivet-gui (rvykydal)
+- webui: show error name in Critical Error dialog only if it exists (rvykydal)
+- core: Look up live user from PKEXEC_UID (rstrode)
+- Revert the ESP maximum size back to 600MiB (richard)
+- Docs: added to 'Common bugs and issues' workaround for setup on 4K block
+  devices (k0ste)
+
 * Tue Sep 05 2023 github-actions <github-actions@github.com> - 40.2-1
 - webui: tests: move wait for re-scanning to finish before moving forward with
   the tests (kkoukiou)
