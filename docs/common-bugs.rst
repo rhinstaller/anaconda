@@ -285,6 +285,18 @@ Bug in bootloader
     or ``storage.log`` for more information.
 :Solution: Could the bootloader team have a look at this bug, please?
 
+GRUB2 does not detect MD raid (level 1) 1.0 superblocks on 4k block devices
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:Issue: Installation failed on ``grub2-mkconfig`` command, with actual error
+    like: ``grub2-probe error disk mduuid/4589a761dde10c78a204bcfd705df061 not found.``
+    on block device with 4096 bytes sector size.
+:Solution: use workaround.
+:Workaround: make your EFI partitions as second disk partitions, i.e.
+  ``nvme0n1p1`` is for ``/`` RAID, and ``nvme0n1p2`` is partition for the
+  ``/boot/efi`` RAID.
+:Example: `rhbz#1443144 <https://bugzilla.redhat.com/show_bug.cgi?id=1443144>`_
+
 Disable ``rhgb quiet``
 ^^^^^^^^^^^^^^^^^^^^^^
 
@@ -369,7 +381,7 @@ Network issues
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 :Issue: Due to systemd update Fedora 35 installation tracebacks with ``dasbus.error.DBusError: [Errno 2] No such file or directory: '/mnt/sysroot/etc/resolv.conf'``.
-Happens since systemd-249.10-1.fc35, present also in systemd-249.11-1.fc35, systemd-249.12-1.fc35, ... ? 
+Happens since systemd-249.10-1.fc35, present also in systemd-249.11-1.fc35, systemd-249.12-1.fc35, ... ?
 
 :Solution: Reassign to systemd https://bugzilla.redhat.com/show_bug.cgi?id=2074083.
 
