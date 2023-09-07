@@ -485,6 +485,30 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Sep 07 2023 github-actions <github-actions@github.com> - 39.32.2-1
+- Use Firefox environment variables for styling (mkolman)
+- Copy /var/lib/gnome-initial-setup/state to installed system (rstrode)
+- webui: add pixel test for modify storage test (rvykydal)
+- webui: use Blivet-gui name instead of Blivet (rvykydal)
+- Revert the ESP maximum size back to 600MiB (richard)
+- webui: add tests for modify storage dialogs (rvykydal)
+- webui: if blivet-gui exits earlier then the delay update the dialog
+  (rvykydal)
+- webui: do not show rescan dialog in case of critical error (rvykydal)
+- webui: make blivet-gui start failure a Critical Error (rvykydal)
+- webui: catch errors when spawning blivet-gui (rvykydal)
+- webui: add dialogs around launching blivet-gui (rvykydal)
+- webui: show error name in Critical Error dialog only if it exists (rvykydal)
+- core: Look up live user from PKEXEC_UID (rstrode)
+- webui: Show warning when trying to use non-ASCII LUKS passphrase (vtrefny)
+- webui: tests: move wait for re-scanning to finish before moving forward with
+  the tests (kkoukiou)
+- webui: When re-scanning don't reset disk selection (kkoukiou)
+- Update translations from Weblate for fedora-39 (github-actions)
+- j2 render: Preserve hashbangs (vslavik)
+- j2 render: Flip logic for empty result (vslavik)
+- j2 render: Clean up details (vslavik)
+
 * Wed Aug 30 2023 Martin Kolman <mkolman@redhat.com> - 39.32.1-1
 - tests: Add a webui test case with EFI system (vtrefny)
 - webui: Show error when mounting /boot/efi to a non-EFI partition (vtrefny)
