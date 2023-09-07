@@ -22,6 +22,7 @@ from storage import Storage
 from review import Review
 from testlib import nondestructive, test_main  # pylint: disable=import-error
 from storagelib import StorageHelpers  # pylint: disable=import-error
+from utils import pretend_live_iso
 
 
 @nondestructive
@@ -77,6 +78,55 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         s.select_disk(dev, True)
         s.select_disk("vda", True)
         s.select_none_disks_and_check([dev, "vda"])
+
+    def testModifyStorage(self):
+        b = self.browser
+        m = self.machine
+        i = Installer(b, self.machine)
+        s = Storage(b, self.machine)
+
+        self.addCleanup(m.execute, "killall blivet-gui")
+
+        pretend_live_iso(self)
+
+        # For live media the first screen is the installation-method
+        i.open(step="installation-method")
+
+        disk="vda"
+
+        # Check the auto-selected disk's details
+        s.check_single_disk_destination(disk, "16.1 GB")
+
+        # Pixel test the storage step
+        b.assert_pixels(
+            "#app",
+            "storage-step-basic-live",
+            ignore=["#betanag-icon"],
+            wait_animations=False,
+        )
+
+        s.modify_storage()
+        b.click("#modify-storage-modal-cancel-btn")
+
+        s.modify_storage()
+        # Run the tool
+        b.click("#modify-storage-modal-modify-btn")
+        b.wait_visible(f"#modify-storage-modal-modify-btn:not([aria-disabled={True}]")
+        b.wait_visible(f"#storage-modified-modal-rescan-btn")
+        b.click("#storage-modified-modal-ignore-btn")
+        # The disk is still selected
+        s.check_single_disk_destination(disk, "16.1 GB")
+
+        #s.modify_storage()
+        #b.click("#modify-storage-modal-cancel-btn")
+
+        s.modify_storage()
+        b.click("#modify-storage-modal-modify-btn")
+        b.wait_visible(f"#modify-storage-modal-modify-btn:not([aria-disabled={True}]")
+        b.wait_visible(f"#storage-modified-modal-rescan-btn")
+        b.click("#storage-modified-modal-rescan-btn")
+        # The disk is still selected
+        s.check_single_disk_destination(disk, "16.1 GB")
 
     # Test moving back and forth between screens.
     # Disk initialization mode is applied to the backend in the test.

@@ -175,6 +175,9 @@ class Storage():
         self.browser.click(f"#{self._step}-rescan-disks")
         self.browser.wait_not_present(f"#{self._step}-rescan-disks.pf-m-disabled")
 
+    def modify_storage(self):
+        self.browser.click(f"#{self._step}-modify-storage")
+
     @log_step(snapshot_before=True)
     def check_disk_visible(self, disk, visible=True):
         if not self.browser.is_present(f".pf-v5-c-menu[aria-labelledby='{id_prefix}-disk-selector-title']"):
