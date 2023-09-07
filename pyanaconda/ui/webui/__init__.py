@@ -19,11 +19,13 @@
 import meh
 
 from pyanaconda import ui
-from pyanaconda.core.constants import QUIT_MESSAGE, PAYLOAD_TYPE_DNF
+from pyanaconda.core.constants import QUIT_MESSAGE, PAYLOAD_TYPE_DNF, WEBUI_VIEWER_PID_FILE
 from pyanaconda.core.util import startProgram
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.threads import thread_manager
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.process_watchers import PidWatcher
+from pyanaconda.core.glib import create_main_loop
 
 log = get_module_logger(__name__)
 
@@ -65,6 +67,8 @@ class CockpitUserInterface(ui.UserInterface):
         self.remote = remote
         self.quitMessage = quitMessage
         self._meh_interface = meh.ui.text.TextIntf()
+        self._main_loop = None
+        self._viewer_pid_file = WEBUI_VIEWER_PID_FILE
 
     def setup(self, data):
         """Construct all the objects required to implement this interface.
@@ -90,25 +94,59 @@ class CockpitUserInterface(ui.UserInterface):
         """Run the interface."""
         log.debug("web-ui: starting cockpit web view")
 
-        # Force Firefox to be used via the BROWSER environment variable.
-        # This is read by cockpit-desktop and makes it launch Firefox in kiosk mode
-        # instead of the GTK WebKit based web view it launches by default.
-
-        # FIXME: looks like "type" should not be used and _is_live_os is private ?
         if conf.system.provides_liveuser:
-            profile_name = FIREFOX_THEME_LIVE
+            self._watch_webui_on_live()
         else:
-            profile_name = FIREFOX_THEME_DEFAULT
+            self._run_webui()
+
+    def _run_webui(self):
+        # FIXME: This part should be start event loop (could use the WatchProcesses class)
+        # FIXME: We probably want to move this to early execution similar to what we have on live
+        profile_name = FIREFOX_THEME_DEFAULT
 
         proc = startProgram(["/usr/libexec/webui-desktop",
-                            "-t", profile_name, "-r", str(int(self.remote)),
-                            "/cockpit/@localhost/anaconda-webui/index.html"],
+                             "-t", profile_name, "-r", str(int(self.remote)),
+                             "/cockpit/@localhost/anaconda-webui/index.html"],
                             reset_lang=False)
         log.debug("cockpit web view has been started")
-        with open("/run/anaconda/webui_script.pid", "w") as f:
+        with open(self._viewer_pid_file, "w") as f:
             f.write(repr(proc.pid))
         proc.wait()
-        log.debug("cockpit web view has finished running")
+
+    def _watch_webui_on_live(self):
+        """Watch webui-desktop script process on Live.
+
+        It takes long time to start Firefox after the user interaction (on live even 20+ seconds).
+        To avoid that, we are starting the webui-desktop script early in the liveinst script.
+        Here we are just watching if the process is still running. If the browser is closed
+        Anaconda main process will stop.
+        """
+        log.debug("web-ui: watching webui-desktop pid on live environment")
+        pid = -1
+
+        try:
+            with open(self._viewer_pid_file, "tr") as f:
+                pid = int(f.readline().strip())
+        except ValueError:
+            raise ValueError("Anaconda can't obtain pid of the web UI viewer application")
+
+        if pid < 0:
+            raise ValueError("Anaconda web UI viewer pid file seems to be broken")
+
+        PidWatcher().watch_process(pid, self._webui_desktop_closed)
+
+        self._main_loop = create_main_loop()
+        self._main_loop.run()
+
+        log.debug("web-ui: cockpit web view has finished running")
+
+    def _webui_desktop_closed(self, pid, status):
+        if status != 0:
+            log.warning("web-ui: the webui-desktop script ended abruptly!")
+
+        log.debug("web-ui: closing main loop")
+
+        self._main_loop.quit()
 
     @property
     def meh_interface(self):

@@ -68,6 +68,9 @@ ANACONDA_BUS_ADDR_FILE = "/run/anaconda/bus.address"
 ANACONDA_CONFIG_DIR = "/etc/anaconda/"
 ANACONDA_CONFIG_TMP = "/run/anaconda/anaconda.conf"
 
+# file to store pid of the web viewer app to show Anaconda locally
+WEBUI_VIEWER_PID_FILE = "/run/anaconda/webui_script.pid"
+
 # NOTE: this should be LANG_TERRITORY.CODESET, e.g. en_US.UTF-8
 DEFAULT_LANG = "en_US.UTF-8"
 
