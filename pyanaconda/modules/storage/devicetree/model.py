@@ -417,7 +417,7 @@ class InstallerStorage(Blivet):
 
     def _get_hostname(self):
         """Return a hostname."""
-        ignored_hostnames = {None, "", 'localhost', 'localhost.localdomain'}
+        ignored_hostnames = {None, "", 'localhost', 'localhost.localdomain', 'localhost-live'}
 
         network_proxy = NETWORK.get_proxy()
         hostname = network_proxy.Hostname
