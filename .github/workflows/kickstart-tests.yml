@@ -282,6 +282,14 @@ jobs:
               "kstestParams":{"platform":"${{ needs.pr-info.outputs.platform }}"}
             }'
 
+          # Permian hides the exit code of launcher, so error out this step manually based on logs
+          rc=$( awk '/Runner return code: /{ print $4 }' permian.log)
+          if [ -n "$rc" ]; then
+            exit $rc
+          else
+            exit 111
+          fi
+
       # Needed so that other jobs are able to clean the working dir
       # FIXME: we should investigate running permian/launch sudo-less
       - name: Make artefacts created by sudo cleanable
@@ -300,17 +308,6 @@ jobs:
             kickstart-tests/data/logs/kstest-*/*.log
             kickstart-tests/data/additional_repo/*.rpm
             permian/permian.log
-
-      # Permian hides the exit code of launcher
-      - name: Pass the launch script exit code
-        working-directory: ./permian
-        run: |
-          rc=$( awk '/Runner return code: /{ print $4 }' permian.log)
-          if [ -n "$rc" ]; then
-            exit $rc
-          else
-            exit 111
-          fi
 
       - name: Set result status
         if: always()
