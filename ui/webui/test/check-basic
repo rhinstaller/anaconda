@@ -22,7 +22,7 @@ from language import Language
 from review import Review
 from storage import Storage
 from testlib import nondestructive, test_main, wait  # pylint: disable=import-error
-from utils import pretend_live_iso
+from utils import pretend_live_iso, get_pretty_name
 
 
 @nondestructive
@@ -104,7 +104,7 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         i.open()
 
         # Obtain pretty name and versions from the CLI
-        pretty_name = m.execute("cat /etc/os-release | grep PRETTY_NAME | cut -d '\"' -f 2 | tr -d '\n'")
+        pretty_name = get_pretty_name(m)
         version = m.execute("anaconda --version | cut -d ' ' -f 2 | tail -1")
 
         # Click on the kebab
