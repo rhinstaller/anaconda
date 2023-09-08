@@ -22,7 +22,6 @@ from pyanaconda import ui
 from pyanaconda.core.constants import QUIT_MESSAGE, PAYLOAD_TYPE_DNF, WEBUI_VIEWER_PID_FILE
 from pyanaconda.core.util import startProgram
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.threads import thread_manager
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.process_watchers import PidWatcher
 from pyanaconda.core.glib import create_main_loop
@@ -75,11 +74,6 @@ class CockpitUserInterface(ui.UserInterface):
 
         This method must be provided by all subclasses.
         """
-        # Finish all initialization jobs.
-        # FIXME: Control the initialization via DBus.
-        self._print_message("Waiting for all threads to finish...")
-        thread_manager.wait_all()
-
         # Verify the payload type.
         # FIXME: This is a temporary check.
         if self.payload.type == PAYLOAD_TYPE_DNF:
