@@ -82,7 +82,6 @@ jobs:
           # - get lines starting with %changelog, up to but excluding first following empty line
           # - then drop the first two lines (start at 3rd) which are %changelog and *DATE COMMITTER
           sed -n '/%changelog/,/^$/{/^$/!p}' anaconda.spec.in | sed -n '3,$ p' | tee release.txt
-          echo "- Update translations from Weblate" >> release.txt
 
           # drop line ending
           truncate -s -1 release.txt
