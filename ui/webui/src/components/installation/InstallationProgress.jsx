@@ -39,7 +39,7 @@ import "./InstallationProgress.scss";
 const _ = cockpit.gettext;
 const N_ = cockpit.noop;
 
-export const InstallationProgress = ({ onCritFail, idPrefix, isBootIso }) => {
+export const InstallationProgress = ({ onCritFail, idPrefix, isBootIso, osRelease }) => {
     const [status, setStatus] = useState();
     const [statusMessage, setStatusMessage] = useState("");
     const [steps, setSteps] = useState();
@@ -154,8 +154,7 @@ export const InstallationProgress = ({ onCritFail, idPrefix, isBootIso }) => {
                       <Text>
                           {currentProgressStep < 4
                               ? progressSteps[currentProgressStep].description
-                              // TODO Replace the placeholder text with an actual product name.
-                              : _("To begin using Fedora 39 (Workstation Edition), reboot your system.")}
+                              : cockpit.format(_("To begin using $0, reboot your system."), osRelease.PRETTY_NAME)}
                       </Text>
                       {currentProgressStep < 4 && (
                           <>

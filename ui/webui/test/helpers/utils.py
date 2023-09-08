@@ -29,3 +29,6 @@ def add_public_key(machine):
 def pretend_live_iso(test):
     test.restore_file('/run/anaconda/anaconda.conf')
     test.machine.execute("sed -i 's/type = BOOT_ISO/type = LIVE_OS/g' /run/anaconda/anaconda.conf")
+
+def get_pretty_name(machine):
+    return machine.execute("cat /etc/os-release | grep PRETTY_NAME | cut -d '\"' -f 2 | tr -d '\n'")
