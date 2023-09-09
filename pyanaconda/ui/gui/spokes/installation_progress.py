@@ -114,12 +114,12 @@ class ProgressSpoke(StandaloneSpoke):
             continue_text = _(
                 "%s is now successfully installed and ready for you to use!\n"
                 "Go ahead and reboot your system to start using it!"
-            ) % get_product_name
+            ) % get_product_name()
         else:
             continue_text = _(
                 "%s is now successfully installed and ready for you to use!\n"
                 "Go ahead and quit the application to start using it!"
-            ) % get_product_name
+            ) % get_product_name()
 
         label = self.builder.get_object("rebootLabel")
         label.set_text(continue_text)
