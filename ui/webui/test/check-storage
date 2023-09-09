@@ -726,6 +726,108 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, TestUtils):
 
         r.check_in_disk_row(dev1, 2, "luks-")
 
+    def testEncryptedUnlockRAIDonLUKS(self):
+        # RAID on LUKS: partition -> LUKS -> RAID -> filesystem
+        b = self.browser
+        m = self.machine
+        i = Installer(b, m)
+        s = Storage(b, m)
+        r = Review(b)
+
+        # BIOS boot partition, /boot partition, / on RAID
+        disk = "/dev/vda"
+        dev = "vda"
+        s.partition_disk(disk, [("1MiB", "biosboot"), ("1GB", "xfs"), ("5GB", None), ("5GB", None)])
+        m.execute(f"""
+        echo einszweidrei | cryptsetup luksFormat {disk}3
+        echo einszweidrei | cryptsetup luksOpen {disk}3 encrypted-vol
+        echo einszweidrei | cryptsetup luksFormat {disk}4
+        echo einszweidrei | cryptsetup luksOpen {disk}4 encrypted-vol2
+        mdadm --create --run encryptedraid --level=raid1 --raid-devices=2 /dev/mapper/encrypted-vol /dev/mapper/encrypted-vol2
+        mkfs.xfs /dev/md/encryptedraid
+        """)
+        s.udevadm_settle()
+
+        i.open()
+        i.next()
+        s.rescan_disks()
+
+        # select only vda and check that we don't try to unlock the LUKS partition on vdb
+        self.select_mountpoint(b, i, s, [(dev, True)])
+
+        self.unlock_all_encrypted(b)
+        self.unlock_device(b, "einszweidrei")
+        b.wait_not_present("#mount-point-mapping-table tbody tr:nth-child(4) td[data-label='Format type'] #unlock-luks-btn")
+
+        self.check_row_mountpoint(b, 1, "/boot")
+        self.select_row_device(b, 1, f"{dev}2")
+        self.select_reformat(b, 1)
+        self.check_reformat(b, 1, True)
+
+        self.check_row_mountpoint(b, 2, "/")
+        self.check_row_device(b, 2, "Select a device")
+        self.check_reformat(b, 2, True)
+        self.select_row_device(b, 2, "encryptedraid")
+        self.check_format_type(b, 2, "xfs")
+
+        i.next()
+
+        r.check_disk(dev, "16.1 GB vda (0x1af4)")
+
+        r.check_disk_row(dev, 1, "vda2, 1.07 GB: format as xfs, /boot")
+        r.check_disk_row(dev, 2, "encryptedraid, 5.35 GB: format as xfs, /")
+
+    def testEncryptedUnlockLUKSonRAID(self):
+        # LUKS on RAID: partition -> RAID -> LUKS -> filesystem
+        b = self.browser
+        m = self.machine
+        i = Installer(b, m)
+        s = Storage(b, m)
+        r = Review(b)
+
+        # BIOS boot partition, /boot partition, / on RAID
+        disk = "/dev/vda"
+        dev = "vda"
+        s.partition_disk(disk, [("1MiB", "biosboot"), ("1GB", "xfs"), ("5GB", None), ("5GB", None)])
+        m.execute(f"""
+        mdadm --create --run encryptedraid --level=raid1 --raid-devices=2 {disk}3 {disk}4
+        echo einszweidrei | cryptsetup luksFormat /dev/md/encryptedraid
+        echo einszweidrei | cryptsetup luksOpen /dev/md/encryptedraid encrypted-vol
+        mkfs.xfs /dev/mapper/encrypted-vol
+        cryptsetup luksClose /dev/mapper/encrypted-vol
+        """)
+        s.udevadm_settle()
+
+        i.open()
+        i.next()
+        s.rescan_disks()
+
+        # select only vda and check that we don't try to unlock the LUKS partition on vdb
+        self.select_mountpoint(b, i, s, [(dev, True)])
+
+        self.unlock_all_encrypted(b)
+        self.unlock_device(b, "einszweidrei")
+        b.wait_not_present("#mount-point-mapping-table tbody tr:nth-child(4) td[data-label='Format type'] #unlock-luks-btn")
+
+        self.check_row_mountpoint(b, 1, "/boot")
+        self.select_row_device(b, 1, f"{dev}2")
+        self.select_reformat(b, 1)
+        self.check_reformat(b, 1, True)
+
+        self.check_row_mountpoint(b, 2, "/")
+        selector = "#mount-point-mapping-table-row-2 .pf-v5-c-select__toggle"
+        b.click(f"{selector}:not([disabled]):not([aria-disabled=true])")
+        select_entry = f"{selector} + ul li:nth-of-type(2) button"
+        b.click(select_entry)
+        b.wait_in_text(f"{selector} .pf-v5-c-select__toggle-text", "luks")
+        self.check_format_type(b, 2, "xfs")
+
+        i.next()
+
+        r.check_disk(dev, "16.1 GB vda (0x1af4)")
+
+        r.check_in_disk_row(dev, 2, "luks-")
+
     @nondestructive
     def testBtrfsSubvolumes(self):
         b = self.browser
