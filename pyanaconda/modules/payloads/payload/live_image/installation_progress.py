@@ -26,6 +26,7 @@ from pyanaconda.core.i18n import _
 from pyanaconda.core.path import join_paths
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.structures.storage import DeviceData
 from pyanaconda.modules.common.task.cancellable import Cancellable
 from pyanaconda.core.threads import thread_manager
 
@@ -75,7 +76,7 @@ class InstallationProgress(Cancellable):
         os.sync()
 
         # Calculate the starting size used by the system.
-        mount_points = self._get_mount_points()
+        mount_points = self._get_mount_points_to_count()
         starting_size = self._calculate_used_size(mount_points)
         log.debug("Used %s by %s.", Size(starting_size), ", ".join(mount_points))
 
@@ -97,14 +98,34 @@ class InstallationProgress(Cancellable):
             last_pct = pct
             time.sleep(0.777)
 
-    def _get_mount_points(self):
-        """Get mount points in the device tree.
+    def _get_mount_points_to_count(self):
+        """Get mount points in the device tree, which should be queried for capacity.
 
         :return: a list of mount points
         """
         device_tree = STORAGE.get_proxy(DEVICE_TREE)
         mount_points = device_tree.GetMountPoints()
-        return [join_paths(self._sysroot, m) for m in mount_points]
+
+        result = []
+        counted_btrfs_volumes = []
+
+        for path, device in mount_points.items():
+            dev_data = DeviceData.from_structure(device_tree.GetDeviceData(device))
+
+            if not dev_data.type == "btrfs subvolume":
+                # not btrfs subvolume, so just take it as is
+                result.append(join_paths(self._sysroot, path))
+            else:
+                # For BTRFS, add only one mount-pointed subvolume per volume.
+                # That's because statvfs reports free/used as aggregate across the whole volume.
+                ancestors = device_tree.GetAncestors([device])
+                for ancestor in ancestors:
+                    anc_data = DeviceData.from_structure(device_tree.GetDeviceData(ancestor))
+                    if anc_data.type == "btrfs volume" and ancestor not in counted_btrfs_volumes:
+                        result.append(join_paths(self._sysroot, path))
+                        counted_btrfs_volumes.append(ancestor)
+
+        return result
 
     def _calculate_used_size(self, mount_points):
         """Calculate the total used size of the mount points.
