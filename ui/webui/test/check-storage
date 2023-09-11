@@ -310,6 +310,11 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         self.assertEqual(len(created_partitioning) + 11, len(new_created_partitioning))
         self.assertEqual(new_applied_partitioning, new_created_partitioning[-1])
 
+        # The applied partitioning should be reset when going back at any step from review page
+        i.click_step_on_sidebar(i.steps.INSTALLATION_METHOD)
+        new_applied_partitioning = s.dbus_get_applied_partitioning()
+        self.assertEqual(new_applied_partitioning, "")
+
 
 # TODO add next back test keeping the choice
 @nondestructive
