@@ -151,8 +151,7 @@ class Storage():
             {STORAGE_OBJECT_PATH} \
             {STORAGE_INTERFACE} AppliedPartitioning')
 
-        print("ret: ", ret)
-        return ret.split('s ')[1].strip()
+        return ret.split('s ')[1].strip().strip('"')
 
     def dbus_get_created_partitioning(self):
         ret = self.machine.execute(f'busctl --address="{self._bus_address}" \
@@ -161,7 +160,8 @@ class Storage():
             {STORAGE_OBJECT_PATH} \
             {STORAGE_INTERFACE} CreatedPartitioning')
 
-        return ret[ret.find("[")+1:ret.rfind("]")].split()
+        res = ret[ret.find("[")+1:ret.rfind("]")].split()
+        return [item.strip('"') for item in res]
 
     def dbus_set_initialization_mode(self, value):
         self.machine.execute(f'busctl --address="{self._bus_address}" \
