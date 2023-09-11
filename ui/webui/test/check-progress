@@ -20,7 +20,7 @@ import anacondalib
 from installer import Installer
 from progress import Progress
 from storage import Storage
-from utils import add_public_key
+from utils import add_public_key, get_pretty_name
 from testlib import test_main  # pylint: disable=import-error
 
 
@@ -44,6 +44,7 @@ class TestInstallationProgress(anacondalib.VirtInstallMachineCase):
         # the warning can take longer to show up than the regular wait_in_text() timeout
         with b.wait_timeout(600):
             b.wait_in_text("h2", "Successfully installed")
+            b.wait_in_text(".pf-v5-c-empty-state", f"To begin using {get_pretty_name(m)}, reboot your system")
 
         # Pixel test the complete progress step
         b.assert_pixels(

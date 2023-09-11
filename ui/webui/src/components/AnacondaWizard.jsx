@@ -130,6 +130,9 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
         {
             component: InstallationProgress,
             id: "installation-progress",
+            data: {
+                osRelease
+            }
         }
     ];
 
