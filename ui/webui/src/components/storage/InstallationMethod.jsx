@@ -44,6 +44,7 @@ import {
 import { SyncAltIcon, TimesIcon, WrenchIcon, ExternalLinkAltIcon } from "@patternfly/react-icons";
 
 import { InstallationScenario } from "./InstallationScenario.jsx";
+import { EmptyStatePanel } from "cockpit-components-empty-state";
 
 import {
     resetPartitioning,
@@ -583,6 +584,10 @@ export const InstallationMethod = ({
     stepNotification,
     storageScenarioId,
 }) => {
+    if (isInProgress) {
+        return <EmptyStatePanel loading />;
+    }
+
     return (
         <AnacondaPage title={!isBootIso ? cockpit.format(_("Welcome. Let's install $0 now."), osRelease.REDHAT_SUPPORT_PRODUCT) : null}>
             <Form

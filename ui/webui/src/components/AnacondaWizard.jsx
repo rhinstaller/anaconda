@@ -43,7 +43,6 @@ import { InstallationLanguage } from "./localization/InstallationLanguage.jsx";
 import { InstallationProgress } from "./installation/InstallationProgress.jsx";
 import { ReviewConfiguration, ReviewConfigurationConfirmModal } from "./review/ReviewConfiguration.jsx";
 import { exitGui } from "../helpers/exit.js";
-import { debug } from "../helpers/log.js";
 import { usePageLocation } from "hooks";
 import {
     applyStorage,
@@ -213,6 +212,18 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
         if (prevStep.prevId !== newStep.id) {
             // first reset validation state to default
             setIsFormValid(false);
+        }
+
+        // Reset the applied partitioning when going back from review page
+        if (prevStep.prevId === "installation-review" && newStep.id !== "installation-progress") {
+            setIsInProgress(true);
+            resetPartitioning()
+                    .then(
+                        () => cockpit.location.go([newStep.id]),
+                        () => onCritFail({ context: cockpit.format(N_("Error was hit when going back from $0."), prevStep.prevName) })
+                    )
+                    .always(() => setIsInProgress(false));
+        } else {
             cockpit.location.go([newStep.id]);
         }
     };
@@ -315,11 +326,6 @@ const Footer = ({
         // first reset validation state to default
         setIsFormValid(true);
         onBack();
-        if (activeStep.id === "installation-review") {
-            resetPartitioning().then(() => {
-                debug("resetPartitioning");
-            }, errorHandler);
-        }
     };
 
     if (isInProgress) {
