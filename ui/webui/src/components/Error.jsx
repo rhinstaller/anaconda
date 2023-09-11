@@ -56,6 +56,14 @@ export const bugzillaPrefiledReportURL = (productQueryData) => {
     return reportURL.href;
 };
 
+const addLogAttachmentCommentToReportURL = (reportURL, logFile) => {
+    const newUrl = new URL(reportURL);
+    const comment = newUrl.searchParams.get("comment") || "";
+    newUrl.searchParams.set("comment", comment +
+        "\n\n" + cockpit.format(_("Please attach the log file $0 to the issue."), logFile));
+    return newUrl.href;
+};
+
 export const BZReportModal = ({
     description,
     reportLinkURL,
@@ -76,7 +84,8 @@ export const BZReportModal = ({
                 .then(content => setLogContent(content));
     }, []);
 
-    const openBZIssue = (reportURL) => {
+    const openBZIssue = (reportURL, logFile, logContent) => {
+        reportURL = addLogAttachmentCommentToReportURL(reportURL, logFile);
         setPreparingReport(true);
         cockpit
                 .file(logFile)
@@ -111,7 +120,7 @@ export const BZReportModal = ({
                             isLoading={preparingReport}
                             isDisabled={logContent === undefined || preparingReport || !isConnected}
                             icon={<ExternalLinkAltIcon />}
-                            onClick={() => openBZIssue(reportLinkURL)}
+                            onClick={() => openBZIssue(reportLinkURL, logFile, logContent)}
                             component="a">
                               {preparingReport ? _("Preparing report") : _("Report issue")}
                           </Button>
@@ -155,7 +164,7 @@ const addExceptionDataToReportURL = (url, exception) => {
     );
     newUrl.searchParams.append(
         "comment",
-        "Installer WebUI Critical Error:\n" + context + exception.name + ": " + exception.message + "\n\n" + _("Please attach the file /tmp/webui.log to the issue.")
+        "Installer WebUI Critical Error:\n" + context + exception.name + ": " + exception.message
     );
     return newUrl.href;
 };
@@ -203,15 +212,6 @@ export const CriticalError = ({ exception, isBootIso, isConnected, reportLinkURL
     );
 };
 
-const addUserIssueDataToReportURL = (url) => {
-    const newUrl = new URL(url);
-    newUrl.searchParams.append(
-        "comment",
-        _("Please attach the log file /tmp/webui.log to the issue.")
-    );
-    return newUrl.href;
-};
-
 const cancelButton = (onClose) => {
     return (
         <Button variant="link" onClick={() => onClose()} id="user-issue-dialog-cancel-btn" key="cancel">
@@ -224,7 +224,7 @@ export const UserIssue = ({ reportLinkURL, setIsReportIssueOpen, isConnected }) 
     return (
         <BZReportModal
           description={_("The following log will be sent to the issue tracking system where you may provide additional details.")}
-          reportLinkURL={addUserIssueDataToReportURL(reportLinkURL)}
+          reportLinkURL={reportLinkURL}
           idPrefix="user-issue"
           title={_("Report issue")}
           titleIconVariant={null}
