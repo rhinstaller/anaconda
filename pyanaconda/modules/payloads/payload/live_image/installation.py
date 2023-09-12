@@ -25,7 +25,7 @@ import blivet.util
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import NETWORK_CONNECTION_TIMEOUT
 from pyanaconda.core.i18n import _
-from pyanaconda.core.util import execWithRedirect, requests_session
+from pyanaconda.core.util import execWithRedirect, execReadlines, requests_session
 from pyanaconda.core.path import join_paths
 from pyanaconda.core.string import lower_ascii
 from pyanaconda.modules.common.structures.live_image import LiveImageConfigurationData
@@ -388,35 +388,15 @@ class InstallFromImageTask(Task):
         super().__init__()
         self._sysroot = sysroot
         self._mount_point = mount_point
+        self._log_rsync = False
+        self._rsync_progress = ""
 
     @property
     def name(self):
         """The name of the task."""
         return "Install the payload from image"
 
-    @property
-    def _installation_size(self):
-        """The installation size of the image.
-
-        :return: a size in bytes
-        """
-        source = os.statvfs(self._mount_point)
-        return source.f_frsize * (source.f_blocks - source.f_bfree)
-
     def run(self):
-        """Run the task."""
-        with self._monitor_progress():
-            self._install_image()
-
-    def _monitor_progress(self):
-        """Get a progress monitor."""
-        return InstallationProgress(
-            sysroot=self._sysroot,
-            callback=self.report_progress,
-            installation_size=self._installation_size,
-        )
-
-    def _install_image(self):
         """Run installation of the payload from image.
 
         Preserve permissions, owners, groups, ACL's, xattrs, times,
@@ -426,10 +406,17 @@ class InstallFromImageTask(Task):
         Use a trailing slash on the source directory to copy the content
         instead of the directory itself. See `man rsync`.
         """
+        # Force write everything to disk.
+        self.report_progress(_("Synchronizing writes to disk"))
+        os.sync()
+
+        # Copy the mounted image to storage
         cmd = "rsync"
         args = [
             "-pogAXtlHrDx",
-            "--stats",
+            "--stats",  # show statistics at end of process
+            "--info=flist2,name,progress2",  # show progress after each file
+            "--no-inc-recursive",  # force calculating total work in advance
             "--exclude", "/dev/",
             "--exclude", "/proc/",
             "--exclude", "/tmp/*",
@@ -445,16 +432,68 @@ class InstallFromImageTask(Task):
         ]
 
         try:
-            rc = execWithRedirect(cmd, args)
+            self.report_progress(_("Installing software..."))
+            reader = execReadlines(cmd, args, raise_on_nozero=False)
+            for line in reader:
+                self._parse_rsync_update(line)
+
         except (OSError, RuntimeError) as e:
             msg = "Failed to install image: {}".format(e)
             raise PayloadInstallationError(msg) from None
 
-        if rc == 11:
+        if reader.rc == 11:
             raise PayloadInstallationError(
                 "Failed to install image: "
-                "{} exited with code {}".format(cmd, rc)
+                "{} exited with code {}".format(cmd, reader.rc)
             )
+
+    def _parse_rsync_update(self, line):
+        """Try to extract progress from rsync output.
+
+        This is called for every line. There are two things done here:
+
+        1) Extract progress. For rsync --info=progress2, the format is:
+
+           devel-tools/modify_install_iso/lib/__init__.py
+                   601.673  98%   14,32MB/s    0:00:00 (xfr#618, to-chk=3/858)
+
+           We are interested only in the second field of the last line, which holds the total
+           progress as a percentage, including the % sign. Unfortunately, rsync writes individual
+           file progress on the same line by overwriting it (essentially prints \r and the string
+           again), and after the transfer overwrites the same line with global progress.
+
+        2) Track whether the output should be logged. We want to see the statistics in logs, but
+           logging all output is too resource costly and can cause OOMs on low-end systems where
+           the journal is written to overlay in memory. Fortunately, the first empty line of output
+           comes after the transfers and before the statistics.
+
+        :param str line: line to process
+        """
+        # Take only part after last ^M (python: \r)
+        line = line.rsplit("\r", 1)[-1].strip()
+
+        # Start logging after first empty line
+        if not line:
+            self._log_rsync = True
+            return
+
+        if self._log_rsync:
+            log.debug("rsync output: %s", line)
+
+        # other cases handled already, now also skip lines that are not progress
+        if "to-chk=" not in line:
+            return
+
+        try:
+            # second field has global progress
+            str_pct = line.split()[1]
+            if self._rsync_progress == str_pct:
+                return
+            self._rsync_progress = str_pct
+            log.debug("rsync progress: %s", self._rsync_progress)
+            self.report_progress(_("Installing software {}").format(self._rsync_progress))
+        except IndexError:
+            pass
 
 
 class RemoveImageTask(Task):
