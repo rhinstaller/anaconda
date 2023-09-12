@@ -401,7 +401,8 @@ def execWithCaptureAsLiveUser(command, argv, stdin=None, root='/', log_output=Tr
                         user=user.uid, env_add=user.env_add, env_prune=user.env_prune)[1]
 
 
-def execReadlines(command, argv, stdin=None, root='/', env_prune=None, filter_stderr=False):
+def execReadlines(command, argv, stdin=None, root='/', env_prune=None, filter_stderr=False,
+                  raise_on_nozero=True):
     """ Execute an external command and return the line output of the command
         in real-time.
 
@@ -419,6 +420,7 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None, filter_st
         :param root: The directory to chroot to before running command.
         :param env_prune: environment variable to remove before execution
         :param filter_stderr: Whether stderr should be excluded from the returned output
+        :param raise_on_nozero: Whether a nonzero exit status of the tool should cause an exception
 
         Output from the file is not logged to program.log
         This returns an iterator with the lines from the command until it has finished
@@ -429,9 +431,10 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None, filter_st
            up the process when the output is no longer needed.
         """
 
-        def __init__(self, proc, argv):
+        def __init__(self, proc, argv, raise_on_nozero):
             self._proc = proc
             self._argv = argv
+            self._raise_on_nozero = raise_on_nozero
 
         def __iter__(self):
             return self
@@ -452,6 +455,10 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None, filter_st
                 # Output finished, wait for the process to end
                 self._proc.communicate()
 
+                # If we don't care about return codes, just finish
+                if not self._raise_on_nozero:
+                    raise StopIteration
+
                 # Check for successful exit
                 if self._proc.returncode < 0:
                     raise OSError("process '%s' was killed by signal %s" %
@@ -462,6 +469,10 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None, filter_st
                 raise StopIteration
 
             return line.strip()
+
+        @property
+        def rc(self):
+            return self._proc.returncode
 
     argv = [command] + argv
 
@@ -477,7 +488,7 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None, filter_st
             program_log.error("Error running %s: %s", argv[0], e.strerror)
         raise
 
-    return ExecLineReader(proc, argv)
+    return ExecLineReader(proc, argv, raise_on_nozero)
 
 
 ## Run a shell.

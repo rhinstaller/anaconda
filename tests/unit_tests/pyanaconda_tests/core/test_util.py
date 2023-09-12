@@ -255,6 +255,106 @@ kill -TERM $$
                 with pytest.raises(OSError):
                     rl_iterator.__next__()
 
+    def test_exec_readlines_exits_noraise(self):
+        """Test execReadlines in different child exit situations without raising errors."""
+
+        # No tests should raise anything.
+
+        # Test a normal, non-0 exit
+        with tempfile.NamedTemporaryFile(mode="wt") as testscript:
+            testscript.write("""#!/bin/sh
+        echo "one"
+        echo "two"
+        echo "three"
+        exit 1
+        """)
+            testscript.flush()
+
+            with timer(5):
+                rl_iterator = util.execReadlines(
+                    "/bin/sh",
+                    [testscript.name],
+                    raise_on_nozero=False
+                )
+                assert next(rl_iterator) == "one"
+                assert next(rl_iterator) == "two"
+                assert next(rl_iterator) == "three"
+                with pytest.raises(StopIteration):
+                    rl_iterator.__next__()
+
+                assert rl_iterator.rc == 1
+
+        # Test with signal
+        with tempfile.NamedTemporaryFile(mode="wt") as testscript:
+            testscript.write("""#!/bin/sh
+echo "one"
+echo "two"
+echo "three"
+kill -TERM $$
+""")
+            testscript.flush()
+
+            with timer(5):
+                rl_iterator = util.execReadlines(
+                    "/bin/sh",
+                    [testscript.name],
+                    raise_on_nozero=False
+                )
+                assert next(rl_iterator) == "one"
+                assert next(rl_iterator) == "two"
+                assert next(rl_iterator) == "three"
+                with pytest.raises(StopIteration):
+                    rl_iterator.__next__()
+
+                assert rl_iterator.rc == -15
+
+        # Same as above but exit before a final newline
+        with tempfile.NamedTemporaryFile(mode="wt") as testscript:
+            testscript.write("""#!/bin/sh
+echo "one"
+echo "two"
+echo -n "three"
+exit 1
+""")
+            testscript.flush()
+
+            with timer(5):
+                rl_iterator = util.execReadlines(
+                    "/bin/sh",
+                    [testscript.name],
+                    raise_on_nozero=False
+                )
+                assert next(rl_iterator) == "one"
+                assert next(rl_iterator) == "two"
+                assert next(rl_iterator) == "three"
+                with pytest.raises(StopIteration):
+                    rl_iterator.__next__()
+
+                assert rl_iterator.rc == 1
+
+        with tempfile.NamedTemporaryFile(mode="wt") as testscript:
+            testscript.write("""#!/bin/sh
+echo "one"
+echo "two"
+echo -n "three"
+kill -TERM $$
+""")
+            testscript.flush()
+
+            with timer(5):
+                rl_iterator = util.execReadlines(
+                    "/bin/sh",
+                    [testscript.name],
+                    raise_on_nozero=False
+                )
+                assert next(rl_iterator) == "one"
+                assert next(rl_iterator) == "two"
+                assert next(rl_iterator) == "three"
+                with pytest.raises(StopIteration):
+                    rl_iterator.__next__()
+
+                assert rl_iterator.rc == -15
+
     def test_exec_readlines_signals(self):
         """Test execReadlines and signal receipt."""
 
