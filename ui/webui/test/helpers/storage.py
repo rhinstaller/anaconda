@@ -200,6 +200,12 @@ class Storage():
         else:
             self.browser.wait_not_present(self._partitioning_selector(scenario))
 
+    def wait_scenario_available(self, scenario, available=True):
+        if available:
+            self.browser.wait_visible(f"{self._partitioning_selector(scenario)}:not([disabled])")
+        else:
+            self.browser.wait_visible(f"{self._partitioning_selector(scenario)}:disabled")
+
     @log_step(snapshot_before=True)
     def check_partitioning_selected(self, scenario):
         self.browser.wait_visible(self._partitioning_selector(scenario) + ":checked")

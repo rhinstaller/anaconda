@@ -616,6 +616,7 @@ export const InstallationMethod = ({
                   dispatch={dispatch}
                   idPrefix={idPrefix}
                   isBootIso={isBootIso}
+                  onCritFail={onCritFail}
                   setIsFormValid={setIsFormValid}
                   setStorageScenarioId={setStorageScenarioId}
                   storageScenarioId={storageScenarioId}
