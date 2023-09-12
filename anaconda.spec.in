@@ -17,7 +17,7 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 
 %if ! 0%{?rhel}
 %bcond_without live
-%define blivetguiver 2.1.12-1
+%define blivetguiver 2.4.2-3
 %else
 %bcond_with live
 %endif
