@@ -57,6 +57,7 @@ cppcheck_output="$(echo "$filelist" |
         -DG_DEFINE_ABSTRACT_TYPE \
         -DG_DEFINE_TYPE_WITH_CODE \
         -DHAVE_WORKING_FORK \
+        -DG_GNUC_END_IGNORE_DEPRECATIONS \
         --force \
         2>&1 )"
 
