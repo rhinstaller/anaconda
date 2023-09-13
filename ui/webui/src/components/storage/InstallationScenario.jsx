@@ -42,12 +42,11 @@ import {
 const _ = cockpit.gettext;
 const N_ = cockpit.noop;
 
-function AvailabilityState (available = false, hidden = false, reason = null, hint = null, shortHint = null) {
+function AvailabilityState (available = false, hidden = false, reason = null, hint = null) {
     this.available = available;
     this.hidden = hidden;
     this.reason = reason;
     this.hint = hint;
-    this.shortHint = shortHint;
 }
 
 const checkEraseAll = ({ requiredSize, diskTotalSpace }) => {
@@ -56,11 +55,9 @@ const checkEraseAll = ({ requiredSize, diskTotalSpace }) => {
         availability.available = false;
         availability.reason = _("Not enough space on selected disks.");
         availability.hint = cockpit.format(_(
-            "There is not enough space on the disks to install. " +
             "The installation needs $1 of disk space; " +
             "however, the capacity of the selected disks is only $0."
         ), cockpit.format_bytes(diskTotalSpace), cockpit.format_bytes(requiredSize));
-        availability.shortHint = _("To enable select bigger disks");
     } else {
         availability.available = true;
     }
@@ -74,13 +71,11 @@ const checkUseFreeSpace = ({ diskFreeSpace, diskTotalSpace, requiredSize }) => {
     }
     if (diskFreeSpace < requiredSize) {
         availability.available = false;
-        availability.reason = _("Not enough free space.");
-        availability.hint = cockpit.format(_(
-            "There is not enough available free space to install. " +
-            "The installation needs $1 of available disk space; " +
-            "however, only $0 is currently available on the selected disks."
-        ), cockpit.format_bytes(diskFreeSpace), cockpit.format_bytes(requiredSize));
-        availability.shortHint = _("To enable free up disk space");
+        availability.reason = _("Not enough free space on the selected disks.");
+        availability.hint = cockpit.format(
+            _("To use this option, resize or remove existing partitions to free up at least $0."),
+            cockpit.format_bytes(requiredSize)
+        );
     } else {
         availability.available = true;
     }
@@ -96,7 +91,7 @@ const checkMountPointMapping = ({ hasFilesystems, duplicateDeviceNames }) => {
     } else if (duplicateDeviceNames.length) {
         availability.available = false;
         availability.reason = cockpit.format(_("Some devices use the same name: $0."), duplicateDeviceNames.join(", "));
-        availability.shortHint = _("To use this option, rename devices to have unique names.");
+        availability.hint = _("To use this option, rename devices to have unique names.");
     } else {
         availability.available = true;
     }
@@ -275,7 +270,7 @@ const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, onC
                   <span className={idPrefix + "-scenario-disabled-reason"}>
                       {scenarioAvailability[scenario.id].reason}
                   </span>}
-                  {selectedDisks.length > 0 && <span className={idPrefix + "-scenario-disabled-shorthint"}>{scenarioAvailability[scenario.id].shortHint}</span>}
+                  {selectedDisks.length > 0 && <span className={idPrefix + "-scenario-disabled-shorthint"}>{scenarioAvailability[scenario.id].hint}</span>}
               </>
           } />
     ));
