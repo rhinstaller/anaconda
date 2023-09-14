@@ -112,6 +112,11 @@ class SystemdBoot(BootLoader):
             root_uuid = util.execWithCapture("findmnt", [ "-sfn", "-oUUID", "/" ],
                                              root=conf.target.system_root)
             args += " root=UUID=" + root_uuid
+
+            for image in self.images:
+                if image.device.type == "btrfs subvolume":
+                    args += "rootflags=subvol=" + image.device.name
+
             config.write(args)
 
         # rather than creating a mess in python lets just
