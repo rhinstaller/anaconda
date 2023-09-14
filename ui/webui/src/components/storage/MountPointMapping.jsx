@@ -21,20 +21,21 @@ import React, { useState, useRef, useEffect, useMemo, useCallback } from "react"
 import {
     Alert,
     Button,
-    Switch,
+    Divider,
     Flex,
     FlexItem,
     HelperText,
     HelperTextItem,
     Label,
+    MenuToggle,
+    Select,
+    SelectGroup,
+    SelectList,
+    SelectOption,
+    Switch,
     TextInput,
     Tooltip
 } from "@patternfly/react-core";
-import {
-    Select,
-    SelectOption,
-    SelectVariant
-} from "@patternfly/react-core/deprecated";
 import { TrashIcon } from "@patternfly/react-icons";
 
 import { ListingTable } from "cockpit-components-table.jsx";
@@ -237,41 +238,71 @@ const MountPointColumn = ({ handleRequestChange, idPrefix, isRequiredMountPoint,
 const DeviceColumnSelect = ({ deviceData, devices, idPrefix, lockedLUKSDevices, handleRequestChange, request }) => {
     const [isOpen, setIsOpen] = useState(false);
 
-    const device = request["device-spec"];
-    const options = devices.map(device => {
-        const format = deviceData[device]?.formatData.description.v;
-        const size = cockpit.format_bytes(deviceData[device]?.total.v);
-        const description = cockpit.format("$0, $1", format, size);
-        const isLockedLUKS = lockedLUKSDevices.some(p => device.includes(p));
+    const device = request["device-spec"] || _("Select a device");
+    const groups = new Set();
+    const devicesByGroup = devices.map(d => {
+        const group = getDeviceAncestors(deviceData, d).pop();
+        groups.add(group);
 
-        return (
-            <SelectOption
-              data-value={device}
-              isDisabled={isLockedLUKS}
-              description={description}
-              key={device}
-              value={device}
-            />
-        );
+        return { group, device: d };
     });
+    const options = (
+        [...groups].map((group, idx) => (
+            <React.Fragment key={idx}>
+                <SelectGroup label={group} key={group}>
+                    <SelectList>
+                        {
+                            devicesByGroup
+                                    .filter(d => d.group === group && d.device)
+                                    .map(d => {
+                                        const device = d.device;
+                                        const format = deviceData[device]?.formatData.description.v;
+                                        const size = cockpit.format_bytes(deviceData[device]?.total.v);
+                                        const description = cockpit.format("$0, $1", format, size);
+                                        const isLockedLUKS = lockedLUKSDevices.some(p => device.includes(p));
+
+                                        return (
+                                            <SelectOption
+                                              data-value={device}
+                                              isDisabled={isLockedLUKS}
+                                              description={description}
+                                              key={device}
+                                              value={device}
+                                            >
+                                                {device}
+                                            </SelectOption>
+                                        );
+                                    })
+                        }
+                    </SelectList>
+                </SelectGroup>
+                <Divider key={group + "-divider"} />
+            </React.Fragment>
+        ))
+    );
+
+    const toggle = toggleRef => (
+        <MenuToggle
+          id={idPrefix + "-select-toggle"}
+          isExpanded={isOpen}
+          onClick={() => setIsOpen(!isOpen)}
+          ref={toggleRef}
+        >
+            {device}
+        </MenuToggle>
+    );
 
     return (
         <Select
-          hasPlaceholderStyle
           isOpen={isOpen}
-          placeholderText={_("Select a device")}
-          selections={device ? [device] : []}
-          variant={SelectVariant.single}
-          onToggle={(_event, val) => setIsOpen(val)}
+          onOpenChange={setIsOpen}
+          selected={device}
+          shouldFocusToggleOnSelect
+          toggle={toggle}
           onSelect={(_, selection, isAPlaceHolder) => {
               handleRequestChange(request["mount-point"], selection, request["request-id"]);
               setIsOpen(false);
           }}
-          onClear={() => {
-              handleRequestChange(request["mount-point"], "", request["request-id"]);
-              setIsOpen();
-          }}
-          toggleId={idPrefix + "-select-toggle"}
         >
             {options}
         </Select>

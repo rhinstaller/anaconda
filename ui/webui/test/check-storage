@@ -392,18 +392,17 @@ class TestUtils():
         b.set_input_text(f"{self.table_row(row)} td[data-label='Mount point'] input", mountpoint)
 
     def select_row_device(self, b, row,  device):
-        selector = f"{self.table_row(row)} .pf-v5-c-select__toggle"
-
-        b.click(f"{selector}:not([disabled]):not([aria-disabled=true])")
-        select_entry = f"{selector} + ul button[data-value='{device}']"
+        selector = f"{self.table_row(row)}-device-select-toggle"
+        self.toggle_row_device(b, row)
+        select_entry = f"{selector} + .pf-v5-c-menu ul li[data-value='{device}'] button"
         b.click(select_entry)
-        b.wait_in_text(f"{selector} .pf-v5-c-select__toggle-text", device)
+        b.wait_in_text(f"{selector} .pf-v5-c-menu-toggle__text", device)
 
     def toggle_row_device(self, b, row):
         b.click(f"{self.table_row(row)}-device-select-toggle")
 
     def check_row_device(self, b, row,  device):
-        b.wait_text(f"{self.table_row(row)} .pf-v5-c-select__toggle-text", device)
+        b.wait_text(f"{self.table_row(row)} .pf-v5-c-menu-toggle__text", device)
 
     def check_row_mountpoint(self, b, row,  mountpoint, isRequired=True):
         if isRequired:
@@ -445,7 +444,7 @@ class TestUtils():
         b.wait_visible(f"{self.table_row(row)} td[data-label='Reformat'] {checked_selector}")
 
     def check_select_disabled(self, b, row):
-        b.wait_visible(f"{self.table_row(row)} td[data-label='Device'] .pf-v5-c-select__toggle.pf-m-disabled")
+        b.wait_visible(f"{self.table_row(row)} td[data-label='Device'] .pf-v5-c-menu-toggle.pf-m-disabled")
 
     def check_reformat_disabled(self, b, row):
         b.wait_visible(f"{self.table_row(row)} td[data-label='Reformat'] .pf-v5-c-check__input:disabled")
@@ -716,11 +715,11 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, TestUtils):
         self.select_row_device(b, 1, f"{dev1}2")
 
         self.check_row_mountpoint(b, 2, "/")
-        selector = "#mount-point-mapping-table-row-2 .pf-v5-c-select__toggle"
+        selector = "#mount-point-mapping-table-row-2-select-toggle"
         b.click(f"{selector}:not([disabled]):not([aria-disabled=true])")
         select_entry = f"{selector} + ul li:nth-of-type(3) button"
         b.click(select_entry)
-        b.wait_in_text(f"{selector} .pf-v5-c-select__toggle-text", "luks")
+        b.wait_in_text(f"{selector} .pf-v5-c-menu-toggle__text", "luks")
         self.check_format_type(b, 2, "xfs")
 
         i.next()
@@ -816,11 +815,11 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, TestUtils):
         self.check_reformat(b, 1, True)
 
         self.check_row_mountpoint(b, 2, "/")
-        selector = "#mount-point-mapping-table-row-2 .pf-v5-c-select__toggle"
+        selector = "#mount-point-mapping-table-row-2-select-toggle"
         b.click(f"{selector}:not([disabled]):not([aria-disabled=true])")
         select_entry = f"{selector} + ul li:nth-of-type(2) button"
         b.click(select_entry)
-        b.wait_in_text(f"{selector} .pf-v5-c-select__toggle-text", "luks")
+        b.wait_in_text(f"{selector} .pf-v5-c-menu-toggle__text", "luks")
         self.check_format_type(b, 2, "xfs")
 
         i.next()
