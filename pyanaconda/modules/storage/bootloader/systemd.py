@@ -156,3 +156,11 @@ class SystemdBoot(BootLoader):
 
     def write_config_images(self, config):
         return True
+
+    def is_valid_stage1_device(self, device, early=False):
+        valid = True
+        if conf.system.provides_liveuser:
+            raise BootLoaderError("systemd-boot cannot be utilized on live media with grub.")
+        else:
+            valid = super().is_valid_stage1_device(device, early)
+        return valid
