@@ -479,8 +479,6 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, TestUtils):
         s = Storage(b, m)
         r = Review(b)
 
-        self.addCleanup(m.execute, "wipefs --all /dev/vda")
-
         disk = "/dev/vda"
         dev = "vda"
         btrfsname = "btrfstest"
@@ -557,8 +555,6 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, TestUtils):
         m = self.machine
         i = Installer(b, m)
         s = Storage(b, m)
-
-        self.addCleanup(m.execute, "wipefs --all /dev/vda")
 
         # BIOS boot /boot on ext4 / on xfs /home on btrfs
         disk = "/dev/vda"
@@ -841,8 +837,6 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, TestUtils):
         s = Storage(b, m)
         r = Review(b)
 
-        self.addCleanup(m.execute, "wipefs --all /dev/vda")
-
         disk = "/dev/vda"
         dev = "vda"
         tmp_mount = "/tmp/btrfs-mount-test"
@@ -973,7 +967,6 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, TestUtils):
 
         vgname = "fedoravg"
 
-        self.addCleanup(m.execute, "wipefs --all /dev/vda")
         self.addCleanup(m.execute, f"vgremove -y -ff {vgname}")
 
         disk = "/dev/vda"
@@ -1063,8 +1056,6 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, TestUtils):
         i = Installer(b, m)
         s = Storage(b, m)
 
-        self.addCleanup(m.execute, "wipefs --all /dev/vda")
-
         disk = "/dev/vda"
         dev = "vda"
         s.partition_disk(disk, [("1GB", "udf"), ("1GB", None), ("1GB", "lvmpv")])
@@ -1098,8 +1089,6 @@ class TestStorageMountPointsEFI(anacondalib.VirtInstallMachineCase, TestUtils):
         i = Installer(b, m)
         s = Storage(b, m)
         r = Review(b)
-
-        self.addCleanup(m.execute, "wipefs --all /dev/vda")
 
         disk = "/dev/vda"
         dev = "vda"
