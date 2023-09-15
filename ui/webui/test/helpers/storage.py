@@ -380,7 +380,7 @@ class StorageMountPointMapping(StorageDBus, StorageDestination):
         StorageDestination.__init__(self, browser, machine)
 
     def table_row(self, row):
-        return f"#mount-point-mapping-table-row-{row}";
+        return f"#mount-point-mapping-table-row-{row}"
 
     def disks_loaded(self, disks):
         usable_disks = self.dbus_get_usable_disks()
