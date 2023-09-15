@@ -25,8 +25,10 @@ import {
 } from "@patternfly/react-core";
 
 import { helpEraseAll, helpUseFreeSpace, helpMountPointMapping } from "./HelpAutopartOptions.jsx";
+import { findDuplicatesInArray } from "../../helpers/utils.js";
 
 import {
+    getDevices,
     getRequiredDeviceSize,
     getDiskTotalSpace,
     getDiskFreeSpace,
@@ -38,13 +40,13 @@ import {
 } from "../../apis/payloads";
 
 const _ = cockpit.gettext;
+const N_ = cockpit.noop;
 
-function AvailabilityState (available = false, hidden = false, reason = null, hint = null, shortHint = null) {
+function AvailabilityState (available = false, hidden = false, reason = null, hint = null) {
     this.available = available;
     this.hidden = hidden;
     this.reason = reason;
     this.hint = hint;
-    this.shortHint = shortHint;
 }
 
 const checkEraseAll = ({ requiredSize, diskTotalSpace }) => {
@@ -53,11 +55,9 @@ const checkEraseAll = ({ requiredSize, diskTotalSpace }) => {
         availability.available = false;
         availability.reason = _("Not enough space on selected disks.");
         availability.hint = cockpit.format(_(
-            "There is not enough space on the disks to install. " +
             "The installation needs $1 of disk space; " +
             "however, the capacity of the selected disks is only $0."
         ), cockpit.format_bytes(diskTotalSpace), cockpit.format_bytes(requiredSize));
-        availability.shortHint = _("To enable select bigger disks");
     } else {
         availability.available = true;
     }
@@ -71,25 +71,27 @@ const checkUseFreeSpace = ({ diskFreeSpace, diskTotalSpace, requiredSize }) => {
     }
     if (diskFreeSpace < requiredSize) {
         availability.available = false;
-        availability.reason = _("Not enough free space.");
-        availability.hint = cockpit.format(_(
-            "There is not enough available free space to install. " +
-            "The installation needs $1 of available disk space; " +
-            "however, only $0 is currently available on the selected disks."
-        ), cockpit.format_bytes(diskFreeSpace), cockpit.format_bytes(requiredSize));
-        availability.shortHint = _("To enable free up disk space");
+        availability.reason = _("Not enough free space on the selected disks.");
+        availability.hint = cockpit.format(
+            _("To use this option, resize or remove existing partitions to free up at least $0."),
+            cockpit.format_bytes(requiredSize)
+        );
     } else {
         availability.available = true;
     }
     return availability;
 };
 
-const checkMountPointMapping = ({ hasFilesystems }) => {
+const checkMountPointMapping = ({ hasFilesystems, duplicateDeviceNames }) => {
     const availability = new AvailabilityState();
 
     if (!hasFilesystems) {
         availability.available = false;
         availability.reason = _("No usable devices on the selected disks.");
+    } else if (duplicateDeviceNames.length) {
+        availability.available = false;
+        availability.reason = cockpit.format(_("Some devices use the same name: $0."), duplicateDeviceNames.join(", "));
+        availability.hint = _("To use this option, rename devices to have unique names.");
     } else {
         availability.available = true;
     }
@@ -155,7 +157,7 @@ export const getDefaultScenario = () => {
     return scenarios.filter(s => s.default)[0];
 };
 
-const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, storageScenarioId, setStorageScenarioId, setIsFormValid }) => {
+const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, onCritFail, storageScenarioId, setStorageScenarioId, setIsFormValid }) => {
     const [selectedScenario, setSelectedScenario] = useState();
     const [scenarioAvailability, setScenarioAvailability] = useState(Object.fromEntries(
         scenarios.map((s) => [s.id, new AvailabilityState()])
@@ -164,12 +166,24 @@ const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, sto
     const [diskTotalSpace, setDiskTotalSpace] = useState();
     const [diskFreeSpace, setDiskFreeSpace] = useState();
     const [hasFilesystems, setHasFilesystems] = useState();
+    const [duplicateDeviceNames, setDuplicateDeviceNames] = useState([]);
+
+    useEffect(() => {
+        getDevices().then(res => {
+            const _duplicateDeviceNames = findDuplicatesInArray(res[0]);
+            setDuplicateDeviceNames(_duplicateDeviceNames);
+            setIsFormValid(_duplicateDeviceNames.length === 0);
+        }, onCritFail({ context: N_("Failed to get device names.") }));
+    }, [deviceData, onCritFail, setIsFormValid]);
 
     useEffect(() => {
         const updateSizes = async () => {
             const diskTotalSpace = await getDiskTotalSpace({ diskNames: selectedDisks }).catch(console.error);
             const diskFreeSpace = await getDiskFreeSpace({ diskNames: selectedDisks }).catch(console.error);
+            const devices = await getDevices().catch(console.error);
+            const _duplicateDeviceNames = findDuplicatesInArray(devices[0]);
 
+            setDuplicateDeviceNames(_duplicateDeviceNames);
             setDiskTotalSpace(diskTotalSpace);
             setDiskFreeSpace(diskFreeSpace);
         };
@@ -202,7 +216,7 @@ const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, sto
 
         const newAvailability = {};
         for (const scenario of scenarios) {
-            const availability = scenario.check({ diskTotalSpace, diskFreeSpace, hasFilesystems, requiredSize });
+            const availability = scenario.check({ diskTotalSpace, diskFreeSpace, hasFilesystems, requiredSize, duplicateDeviceNames });
             newAvailability[scenario.id] = availability;
             if (availability.available) {
                 availableScenarioExists = true;
@@ -219,7 +233,7 @@ const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, sto
         setSelectedScenario(selectedScenarioId);
         setScenarioAvailability(newAvailability);
         setIsFormValid(availableScenarioExists);
-    }, [deviceData, hasFilesystems, requiredSize, diskFreeSpace, diskTotalSpace, setIsFormValid, storageScenarioId]);
+    }, [deviceData, hasFilesystems, requiredSize, diskFreeSpace, diskTotalSpace, duplicateDeviceNames, setIsFormValid, storageScenarioId]);
 
     useEffect(() => {
         const applyScenario = async (scenarioId) => {
@@ -256,7 +270,7 @@ const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, sto
                   <span className={idPrefix + "-scenario-disabled-reason"}>
                       {scenarioAvailability[scenario.id].reason}
                   </span>}
-                  {selectedDisks.length > 0 && <span className={idPrefix + "-scenario-disabled-shorthint"}>{scenarioAvailability[scenario.id].shortHint}</span>}
+                  {selectedDisks.length > 0 && <span className={idPrefix + "-scenario-disabled-shorthint"}>{scenarioAvailability[scenario.id].hint}</span>}
               </>
           } />
     ));
@@ -264,7 +278,7 @@ const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, sto
     return scenarioItems;
 };
 
-export const InstallationScenario = ({ deviceData, diskSelection, idPrefix, setIsFormValid, storageScenarioId, setStorageScenarioId, isBootIso }) => {
+export const InstallationScenario = ({ deviceData, diskSelection, idPrefix, onCritFail, setIsFormValid, storageScenarioId, setStorageScenarioId, isBootIso }) => {
     const headingLevel = isBootIso ? "h2" : "h3";
 
     return (
@@ -275,6 +289,7 @@ export const InstallationScenario = ({ deviceData, diskSelection, idPrefix, setI
                   deviceData={deviceData}
                   selectedDisks={diskSelection.selectedDisks}
                   idPrefix={idPrefix}
+                  onCritFail={onCritFail}
                   setIsFormValid={setIsFormValid}
                   storageScenarioId={storageScenarioId}
                   setStorageScenarioId={setStorageScenarioId}

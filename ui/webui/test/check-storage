@@ -468,7 +468,7 @@ class TestUtils():
         else:
             b.wait_not_present(f"#mount-point-mapping-table-row-{row}-{column} .pf-v5-c-helper-text__item.pf-m-error")
 
-class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, TestUtils):
+class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, TestUtils, StorageHelpers):
     efi = False
 
     @nondestructive
@@ -956,6 +956,40 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, TestUtils):
         self.wait_mount_point_table_column_helper(b, 4, "format", present=False)
 
         i.check_next_disabled(False)
+
+    def testUnsupportedStorageConfiguration(self):
+        # Prevent the user from performing an installation if multiple devices exist with the same name
+        # https://bugzilla.redhat.com/show_bug.cgi?id=2237878
+        # TODO: Make the test nondestructive
+        b = self.browser
+        m = self.machine
+        i = Installer(b, m)
+        s = Storage(b, m)
+        r = Review(b)
+
+        disk = "/dev/vda"
+        dev = "vda"
+        tmp_mount = "/tmp/btrfs-mount-test"
+        s.partition_disk(disk, [("1MiB", "biosboot"), ("1GB", "btrfs"), ("", "btrfs")])
+        m.execute(f"""
+        mkdir -p {tmp_mount}
+
+        mount {disk}2 {tmp_mount}
+        btrfs subvolume create {tmp_mount}/home
+        umount {tmp_mount}
+
+        mount {disk}3 {tmp_mount}
+        btrfs subvolume create {tmp_mount}/home
+        umount {tmp_mount}
+        rmdir {tmp_mount}
+        """)
+
+        s.udevadm_settle()
+
+        i.open()
+        i.next()
+        s.rescan_disks()
+        s.wait_scenario_available("mount-point-mapping", False)
 
     @nondestructive
     def testLVM(self):
