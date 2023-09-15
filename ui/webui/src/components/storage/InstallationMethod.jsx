@@ -475,7 +475,7 @@ const startBlivetGUI = (onStart, onStarted, errorHandler) => {
     console.log("Spawning blivet-gui.");
     // We don't have an event informing that blivet-gui started so just wait a bit.
     const timeoutId = window.setTimeout(onStarted, 3000);
-    cockpit.spawn(["blivet-gui", "--auto-dev-updates"], { err: "message" })
+    cockpit.spawn(["blivet-gui", "--keep-above", "--auto-dev-updates"], { err: "message" })
             .then(() => {
                 console.log("blivet-gui exited.");
                 // If the blivet-gui exits earlier cancel the delay
