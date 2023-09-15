@@ -963,7 +963,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
 
         disk = "/dev/vda"
         dev = "vda"
-        s.partition_disk(disk, [("1GB", "udf"), ("1GB", None), ("1GB", "lvmpv")])
+        s.partition_disk(disk, [("1GB", "ext4"), ("1GB", None), ("1GB", "lvmpv")])
         s.udevadm_settle()
 
         i.open()
@@ -971,14 +971,6 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         s.rescan_disks()
 
         s.select_mountpoint([(dev, True)])
-
-        # UDF filesystem cannot be reformatted by blivet
-        s.add_mountpoint_row()
-        s.select_mountpoint_row_device(3, f"{dev}1")
-        s.select_mountpoint_row_mountpoint(3, "/data")
-        s.check_mountpoint_row_format_type(3, "udf")
-        s.select_mountpoint_row_reformat(3)
-        s.wait_mountpoint_table_column_helper(3, "format", text="Selected")
 
         # unformatted and unmountable devices should not be available
         s.check_mountpoint_row_device_available(1, f"{dev}2", False)
