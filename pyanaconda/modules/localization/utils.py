@@ -25,14 +25,13 @@ log = get_module_logger(__name__)
 def get_missing_keyboard_configuration(localed_wrapper, x_layouts, vc_keymap):
     """Get keyboard configuration if not set by user.
 
-    Algorith works as this:
-    1. Check if keyboard configuration is not already set by user
+    Algorithm works as this:
+    1. Check if full keyboard configuration is already set
        -> return these
-    2. Check if keyboard confifuration can be obtained from live system
-       -> read layouts
-       -> convert currently used live layout to virtual console keymap by localed
+    2. If no X layouts, check if they can be obtained from live system
+       -> read X layouts
     3a. If still no configuration is present
-       -> use DEFAULT_KEYBOARD
+       -> use DEFAULT_KEYBOARD as console layout and fall through to...
     3b. If only one of the keyboard layout or virtual console keymap is set
        -> convert one to the other by localed
 
@@ -52,11 +51,8 @@ def get_missing_keyboard_configuration(localed_wrapper, x_layouts, vc_keymap):
     live_keyboard = get_live_keyboard_instance()
     # layouts are not set by user, we should take a look for live configuration if available
     if not x_layouts and live_keyboard:
-        log.debug("Keyboad configuration from Live system is available")
-        x_layouts, vc_keymap = _resolve_missing_from_live(localed_wrapper,
-                                                          live_keyboard,
-                                                          x_layouts,
-                                                          vc_keymap)
+        log.debug("Keyboard configuration from Live system is available")
+        x_layouts = live_keyboard.read_keyboard_layouts()
 
     if not vc_keymap and not x_layouts:
         log.debug("Using default value %s for missing virtual console keymap", DEFAULT_KEYBOARD)
@@ -64,17 +60,6 @@ def get_missing_keyboard_configuration(localed_wrapper, x_layouts, vc_keymap):
 
     if not vc_keymap or not x_layouts:
         x_layouts, vc_keymap = _resolve_missing_by_conversion(localed_wrapper, x_layouts, vc_keymap)
-
-    return x_layouts, vc_keymap
-
-
-def _resolve_missing_from_live(localed_wrapper, live_keyboard, x_layouts, vc_keymap):
-    x_layouts = live_keyboard.read_keyboard_layouts()
-
-    if not vc_keymap:
-        live_layout = live_keyboard.read_current_keyboard_layout()
-        if live_layout:
-            vc_keymap = localed_wrapper.convert_layouts([live_layout])
 
     return x_layouts, vc_keymap
 

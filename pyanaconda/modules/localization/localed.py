@@ -181,7 +181,7 @@ class LocaledWrapper(object):
 
         self._localed_proxy.SetX11Keyboard(
             layouts_str,
-            "",
+            "pc105",
             variants_str,
             options_str,
             convert,
