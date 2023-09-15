@@ -22,7 +22,7 @@ import re
 HELPERS_DIR = os.path.dirname(__file__)
 sys.path.append(HELPERS_DIR)
 
-from installer import InstallerSteps  # pylint: disable=import-error
+from installer import Installer, InstallerSteps  # pylint: disable=import-error
 from step_logger import log_step
 
 
@@ -371,10 +371,134 @@ class StorageScenario():
         self.browser.wait_visible(self._partitioning_selector(scenario) + ":checked")
 
 
-class Storage(StorageDBus, StorageDestination, StorageEncryption, StorageScenario, StorageUtils):
+class StorageMountPointMapping(StorageDBus, StorageDestination):
     def __init__(self, browser, machine):
+        self.browser = browser
+        self.machine = machine
+
         StorageDBus.__init__(self, machine)
         StorageDestination.__init__(self, browser, machine)
+
+    def table_row(self, row):
+        return f"#mount-point-mapping-table-row-{row}";
+
+    def disks_loaded(self, disks):
+        usable_disks = self.dbus_get_usable_disks()
+        for disk in usable_disks:
+            disks_dict = dict(disks)
+            if disk not in disks_dict:
+                return False
+
+        return True
+
+    def check_mountpoint_row(self, row, mountpoint=None, device=None, reformat=None, format_type=None):
+        if mountpoint:
+            required = ["/", "/boot", "/boot/efi", "swap"].count(mountpoint)
+            self.check_mountpoint_row_mountpoint(row, mountpoint, required)
+        if device:
+            self.check_mountpoint_row_device(row, device)
+        if reformat:
+            self.check_mountpoint_row_reformat(row, reformat)
+        if format_type:
+            self.check_mountpoint_row_format_type(row, format_type)
+
+    def select_mountpoint(self, disks):
+        self.browser.wait(lambda : self.disks_loaded(disks))
+
+        for disk in disks:
+            current_selection = self.get_disk_selected(disk[0])
+            if current_selection != disk[1]:
+                self.select_disk(disk[0], disk[1], len(disks) == 1)
+
+        self.set_partitioning("mount-point-mapping")
+
+        i = Installer(self.browser, self.machine)
+        i.next(next_page=i.steps.CUSTOM_MOUNT_POINT)
+
+    def select_mountpoint_row_mountpoint(self, row,  mountpoint):
+        self.browser.set_input_text(f"{self.table_row(row)} td[data-label='Mount point'] input", mountpoint)
+
+    def select_mountpoint_row_device(self, row,  device):
+        selector = f"{self.table_row(row)} .pf-v5-c-select__toggle"
+
+        self.browser.click(f"{selector}:not([disabled]):not([aria-disabled=true])")
+        select_entry = f"{selector} + ul button[data-value='{device}']"
+        self.browser.click(select_entry)
+        self.browser.wait_in_text(f"{selector} .pf-v5-c-select__toggle-text", device)
+
+    def toggle_mountpoint_row_device(self, row):
+        self.browser.click(f"{self.table_row(row)}-device-select-toggle")
+
+    def check_mountpoint_row_device(self, row,  device):
+        self.browser.wait_text(f"{self.table_row(row)} .pf-v5-c-select__toggle-text", device)
+
+    def check_mountpoint_row_mountpoint(self, row,  mountpoint, isRequired=True):
+        if isRequired:
+            self.browser.wait_text(f"{self.table_row(row)}-mountpoint", mountpoint)
+        else:
+            self.browser.wait_val(f"{self.table_row(row)}-mountpoint", mountpoint)
+
+    def check_mountpoint_row_format_type(self, row, format_type):
+        self.toggle_mountpoint_row_device(row)
+        self.browser.wait_in_text(f"{self.table_row(row)} ul li button.pf-m-selected", format_type)
+        self.toggle_mountpoint_row_device(row)
+
+    def check_mountpoint_row_device_available(self, row, device, available=True):
+        self.toggle_mountpoint_row_device(row)
+        if available:
+            self.browser.wait_visible(f"{self.table_row(row)} ul li button:contains({device})")
+        else:
+            self.browser.wait_not_present(f"{self.table_row(row)} ul li button:contains({device})")
+        self.toggle_mountpoint_row_device(row)
+
+    def unlock_device(self, passphrase, xfail=None):
+        # FIXME: https://github.com/patternfly/patternfly-react/issues/9512
+        self.browser.wait_visible("#unlock-device-dialog.pf-v5-c-modal-box")
+        self.browser.set_input_text("#unlock-device-dialog-luks-password", passphrase)
+        self.browser.click("#unlock-device-dialog-submit-btn")
+        if xfail:
+            self.browser.wait_in_text("#unlock-device-dialog .pf-v5-c-alert", xfail)
+            self.browser.click("#unlock-device-dialog-cancel-btn")
+        self.browser.wait_not_present("#unlock-device-dialog.pf-v5-c-modal-box")
+
+    def select_mountpoint_row_reformat(self, row, selected=True):
+        self.browser.set_checked(f"{self.table_row(row)} td[data-label='Reformat'] input", selected)
+
+    def remove_mountpoint_row(self, row):
+        self.browser.click(f"{self.table_row(row)} button[aria-label='Remove']")
+
+    def check_mountpoint_row_reformat(self, row, checked):
+        checked_selector = "input:checked" if checked else "input:not(:checked)"
+        self.browser.wait_visible(f"{self.table_row(row)} td[data-label='Reformat'] {checked_selector}")
+
+    def check_mountpoint_row_device_disabled(self, row):
+        self.browser.wait_visible(f"{self.table_row(row)} td[data-label='Device'] .pf-v5-c-select__toggle.pf-m-disabled")
+
+    def check_mountpoint_row_reformat_disabled(self, row):
+        self.browser.wait_visible(f"{self.table_row(row)} td[data-label='Reformat'] .pf-v5-c-check__input:disabled")
+
+    def add_mountpoint_row(self):
+        self.browser.click("button:contains('Add mount')")
+
+    def unlock_all_encrypted(self):
+        self.browser.click("button:contains('Unlock')")
+
+    def unlock_all_encrypted_skip(self):
+        self.browser.click("button:contains('Skip')")
+
+    def assert_inline_error(self, text):
+        self.browser.wait_in_text(".pf-v5-c-alert.pf-m-inline.pf-m-danger", text)
+
+    def wait_mountpoint_table_column_helper(self, row, column, text=None, present=True):
+        if present:
+            self.browser.wait_in_text(f"#mount-point-mapping-table-row-{row}-{column} .pf-v5-c-helper-text__item.pf-m-error", text)
+        else:
+            self.browser.wait_not_present(f"#mount-point-mapping-table-row-{row}-{column} .pf-v5-c-helper-text__item.pf-m-error")
+
+
+class Storage(StorageEncryption, StorageMountPointMapping, StorageScenario, StorageUtils):
+    def __init__(self, browser, machine):
         StorageEncryption.__init__(self, browser, machine)
+        StorageMountPointMapping.__init__(self, browser, machine)
         StorageScenario.__init__(self, browser, machine)
         StorageUtils.__init__(self, browser, machine)
