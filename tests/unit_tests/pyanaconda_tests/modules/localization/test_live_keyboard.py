@@ -45,19 +45,6 @@ class LiveSystemKeyboardTestCase(unittest.TestCase):
             ["get", "org.gnome.desktop.input-sources", "sources"]
             )
 
-    def _check_gnome_shell_current_layout_conversion(self, mocked_exec_with_capture, system_input,
-                                                     output):
-        mocked_exec_with_capture.reset_mock()
-        mocked_exec_with_capture.return_value = system_input
-
-        gs = GnomeShellKeyboard()
-
-        assert gs.read_current_keyboard_layout() == output
-        mocked_exec_with_capture.assert_called_once_with(
-            "gsettings",
-            ["get", "org.gnome.desktop.input-sources", "mru-sources"]
-            )
-
     @patch("pyanaconda.modules.localization.live_keyboard.execWithCaptureAsLiveUser")
     def test_gnome_shell_keyboard(self, mocked_exec_with_capture):
         """Test GnomeShellKeyboard live instance layouts."""
@@ -101,56 +88,4 @@ class LiveSystemKeyboardTestCase(unittest.TestCase):
             mocked_exec_with_capture=mocked_exec_with_capture,
             system_input=r"wrong input",
             output=[]
-        )
-
-    @patch("pyanaconda.modules.localization.live_keyboard.execWithCaptureAsLiveUser")
-    def test_gnome_shell_current_keyboard_layout(self, mocked_exec_with_capture):
-        """Test GnomeShellKeyboard live instance current layout."""
-        # test one simple layout is set
-        self._check_gnome_shell_current_layout_conversion(
-            mocked_exec_with_capture=mocked_exec_with_capture,
-            system_input=r"[('xkb', 'us')]",
-            output="us"
-        )
-
-        # test one complex layout is set
-        self._check_gnome_shell_current_layout_conversion(
-            mocked_exec_with_capture=mocked_exec_with_capture,
-            system_input=r"[('xkb', 'cz+qwerty')]",
-            output="cz (qwerty)"
-        )
-
-        # test multiple layouts are set
-        self._check_gnome_shell_current_layout_conversion(
-            mocked_exec_with_capture=mocked_exec_with_capture,
-            system_input=r"[('xkb', 'cz+qwerty'), ('xkb', 'us')]",
-            output="cz (qwerty)"
-        )
-
-        # test layouts with ibus (ibus is ignored)
-        self._check_gnome_shell_current_layout_conversion(
-            mocked_exec_with_capture=mocked_exec_with_capture,
-            system_input=r"[('xkb', 'cz'), ('ibus', 'libpinyin')]",
-            output="cz"
-        )
-
-        # test layouts with ibus first (ibus should be skipped)
-        self._check_gnome_shell_current_layout_conversion(
-            mocked_exec_with_capture=mocked_exec_with_capture,
-            system_input=r"[('ibus', 'libpinyin'), ('xkb', 'us')]",
-            output="us"
-        )
-
-        # test only ibus layout
-        self._check_gnome_shell_current_layout_conversion(
-            mocked_exec_with_capture=mocked_exec_with_capture,
-            system_input=r"[('ibus', 'libpinyin')]",
-            output=""
-        )
-
-        # test wrong input
-        self._check_gnome_shell_current_layout_conversion(
-            mocked_exec_with_capture=mocked_exec_with_capture,
-            system_input=r"wrong input",
-            output=""
         )
