@@ -8,6 +8,7 @@ set -eu
 ANACONDA_WEBUI_DEPS_URLS='
     https://kojipkgs.fedoraproject.org/packages/cockpit/298/1.fc39/x86_64/cockpit-ws-298-1.fc39.x86_64.rpm
     https://kojipkgs.fedoraproject.org/packages/cockpit/298/1.fc39/x86_64/cockpit-bridge-298-1.fc39.x86_64.rpm
+    https://kojipkgs.fedoraproject.org/packages/blivet-gui/2.4.2/3.fc40/noarch/blivet-gui-runtime-2.4.2-3.fc40.noarch.rpm
 '
 
 mkdir -p tmp/extra-rpms
