@@ -505,11 +505,11 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, TestUtils, Stor
 
         # verify gathered requests
         # root partition is not auto-mapped
-        s.check_mountpoint_table_row(b, 1, "/boot", "Select a device", False)
+        self.check_mountpoint_table_row(b, 1, "/boot", "Select a device", False)
         self.select_row_device(b, 1, f"{dev}2")
         self.check_format_type(b, 1, "ext4")
 
-        s.check_mountpoint_table_row(b, 2, "/", "Select a device", True)
+        self.check_mountpoint_table_row(b, 2, "/", "Select a device", True)
         self.select_row_device(b, 2, f"btrfstest")
         self.check_format_type(b, 2, "btrfs")
 
@@ -578,7 +578,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, TestUtils, Stor
         # verify gathered requests
         self.select_row_device(b, 1, f"{dev}2")
         self.check_mountpoint_table_row(b, 1, "/boot", f"{dev}2", False, "ext4")
-        self.check_row_mountpoint(b, 2, "/", "Select a device", True)
+        self.check_mountpoint_table_row(b, 2, "/", "Select a device", True)
 
         self.add_mount(b)
         self.select_row_device(b, 3, f"{dev}4")
@@ -1131,7 +1131,7 @@ class TestStorageMountPointsEFI(anacondalib.VirtInstallMachineCase, TestUtils):
         self.select_row_device(b, 2, f"{dev}3")
         self.check_format_type(b, 2, "xfs")
 
-        self.check_row_mountpoint(3, "/boot/efi", "Select a device", False)
+        self.check_mountpoint_table_row(3, "/boot/efi", "Select a device", False)
         Self.select_row_device(b, 3, f"{dev}1")
         self.check_format_type(b, 3, "EFI System Partition")
 

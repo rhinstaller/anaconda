@@ -34,17 +34,11 @@ DISK_INITIALIZATION_OBJECT_PATH = "/org/fedoraproject/Anaconda/Modules/Storage/D
 
 id_prefix = "installation-method"
 
-class Storage():
+class StorageDestination():
     def __init__(self, browser, machine):
+        self._step = InstallerSteps.INSTALLATION_METHOD
         self.browser = browser
         self.machine = machine
-        self._step = InstallerSteps.INSTALLATION_METHOD
-        self._bus_address = self.machine.execute("cat /run/anaconda/bus.address")
-
-    def get_disks(self):
-        output = self.machine.execute('list-harddrives')
-        for disk in output.splitlines():
-            yield disk.split()[0]
 
     @log_step()
     def select_disk(self, disk, selected=True, is_single_disk=False):
@@ -100,76 +94,6 @@ class Storage():
     def wait_no_disks_detected_not_present(self):
         self.browser.wait_not_present("#no-disks-detected-alert")
 
-    def dbus_scan_devices(self):
-        task = self.machine.execute(f'busctl --address="{self._bus_address}" \
-            call \
-            {STORAGE_SERVICE} \
-            {STORAGE_OBJECT_PATH} \
-            {STORAGE_INTERFACE} ScanDevicesWithTask')
-        task = task.splitlines()[-1].split()[-1]
-
-        self.machine.execute(f'busctl --address="{self._bus_address}" \
-            call \
-            {STORAGE_SERVICE} \
-            {task} \
-            org.fedoraproject.Anaconda.Task Start')
-
-    def dbus_get_usable_disks(self):
-        ret = self.machine.execute(f'busctl --address="{self._bus_address}" \
-            call \
-            {STORAGE_SERVICE} \
-            {STORAGE_OBJECT_PATH}/DiskSelection \
-            {STORAGE_INTERFACE}.DiskSelection GetUsableDisks')
-
-        return re.findall('"([^"]*)"', ret)
-
-    def dbus_reset_selected_disks(self):
-        self.machine.execute(f'busctl --address="{self._bus_address}" \
-            set-property \
-            {STORAGE_SERVICE} \
-            {STORAGE_OBJECT_PATH}/DiskSelection \
-            {STORAGE_INTERFACE}.DiskSelection SelectedDisks as 0')
-
-    def dbus_reset_partitioning(self):
-        self.machine.execute(f'busctl --address="{self._bus_address}" \
-            call \
-            {STORAGE_SERVICE} \
-            {STORAGE_OBJECT_PATH} \
-            {STORAGE_INTERFACE} ResetPartitioning')
-
-    def dbus_create_partitioning(self, method="MANUAL"):
-        return self.machine.execute(f'busctl --address="{self._bus_address}" \
-            call \
-            {STORAGE_SERVICE} \
-            {STORAGE_OBJECT_PATH} \
-            {STORAGE_INTERFACE} CreatePartitioning s {method}')
-
-    def dbus_get_applied_partitioning(self):
-        ret = self.machine.execute(f'busctl --address="{self._bus_address}" \
-            get-property  \
-            {STORAGE_SERVICE} \
-            {STORAGE_OBJECT_PATH} \
-            {STORAGE_INTERFACE} AppliedPartitioning')
-
-        return ret.split('s ')[1].strip().strip('"')
-
-    def dbus_get_created_partitioning(self):
-        ret = self.machine.execute(f'busctl --address="{self._bus_address}" \
-            get-property  \
-            {STORAGE_SERVICE} \
-            {STORAGE_OBJECT_PATH} \
-            {STORAGE_INTERFACE} CreatedPartitioning')
-
-        res = ret[ret.find("[")+1:ret.rfind("]")].split()
-        return [item.strip('"') for item in res]
-
-    def dbus_set_initialization_mode(self, value):
-        self.machine.execute(f'busctl --address="{self._bus_address}" \
-            set-property \
-            {STORAGE_SERVICE} \
-            {DISK_INITIALIZATION_OBJECT_PATH} \
-            {DISK_INITIALIZATION_INTERFACE} InitializationMode i -- {value}')
-
     @log_step(snapshots=True)
     def rescan_disks(self):
         self.browser.click(f"#{self._step}-rescan-disks")
@@ -191,29 +115,11 @@ class Storage():
         self.browser.click(f"#{id_prefix}-disk-selector-toggle > button")
         self.browser.wait_not_present(f".pf-v5-c-menu[aria-labelledby='{id_prefix}-disk-selector-title']")
 
-    def _partitioning_selector(self, scenario):
-        return f"#{id_prefix}-scenario-" + scenario
 
-    def wait_scenario_visible(self, scenario, visible=True):
-        if visible:
-            self.browser.wait_visible(self._partitioning_selector(scenario))
-        else:
-            self.browser.wait_not_present(self._partitioning_selector(scenario))
-
-    def wait_scenario_available(self, scenario, available=True):
-        if available:
-            self.browser.wait_visible(f"{self._partitioning_selector(scenario)}:not([disabled])")
-        else:
-            self.browser.wait_visible(f"{self._partitioning_selector(scenario)}:disabled")
-
-    @log_step(snapshot_before=True)
-    def check_partitioning_selected(self, scenario):
-        self.browser.wait_visible(self._partitioning_selector(scenario) + ":checked")
-
-    @log_step(snapshot_before=True)
-    def set_partitioning(self, scenario):
-        self.browser.click(self._partitioning_selector(scenario))
-        self.browser.wait_visible(self._partitioning_selector(scenario) + ":checked")
+class StorageEncryption():
+    def __init__(self, browser, machine):
+        self.browser = browser
+        self.machine = machine
 
     @log_step(snapshot_before=True)
     def check_encryption_selected(self, selected):
@@ -272,6 +178,17 @@ class Storage():
             variant = "success"
 
         self.browser.wait_attr_contains(sel, "class", "pf-m-" + variant)
+
+
+class StorageUtils(StorageDestination):
+    def __init__(self, browser, machine):
+        self.browser = browser
+        self.machine = machine
+
+    def get_disks(self):
+        output = self.machine.execute('list-harddrives')
+        for disk in output.splitlines():
+            yield disk.split()[0]
 
     @log_step(docstring=True)
     def unlock_storage_on_boot(self, password):
@@ -346,3 +263,118 @@ class Storage():
 
     def set_partition_uuid(self, disk, partition, uuid):
         self.machine.execute(f"sfdisk --part-uuid {disk} {partition} {uuid}")
+
+
+class StorageDBus():
+    def __init__(self, machine):
+        self.machine = machine
+        self._bus_address = self.machine.execute("cat /run/anaconda/bus.address")
+
+    def dbus_scan_devices(self):
+        task = self.machine.execute(f'busctl --address="{self._bus_address}" \
+            call \
+            {STORAGE_SERVICE} \
+            {STORAGE_OBJECT_PATH} \
+            {STORAGE_INTERFACE} ScanDevicesWithTask')
+        task = task.splitlines()[-1].split()[-1]
+
+        self.machine.execute(f'busctl --address="{self._bus_address}" \
+            call \
+            {STORAGE_SERVICE} \
+            {task} \
+            org.fedoraproject.Anaconda.Task Start')
+
+    def dbus_get_usable_disks(self):
+        ret = self.machine.execute(f'busctl --address="{self._bus_address}" \
+            call \
+            {STORAGE_SERVICE} \
+            {STORAGE_OBJECT_PATH}/DiskSelection \
+            {STORAGE_INTERFACE}.DiskSelection GetUsableDisks')
+
+        return re.findall('"([^"]*)"', ret)
+
+    def dbus_reset_selected_disks(self):
+        self.machine.execute(f'busctl --address="{self._bus_address}" \
+            set-property \
+            {STORAGE_SERVICE} \
+            {STORAGE_OBJECT_PATH}/DiskSelection \
+            {STORAGE_INTERFACE}.DiskSelection SelectedDisks as 0')
+
+    def dbus_reset_partitioning(self):
+        self.machine.execute(f'busctl --address="{self._bus_address}" \
+            call \
+            {STORAGE_SERVICE} \
+            {STORAGE_OBJECT_PATH} \
+            {STORAGE_INTERFACE} ResetPartitioning')
+
+    def dbus_create_partitioning(self, method="MANUAL"):
+        return self.machine.execute(f'busctl --address="{self._bus_address}" \
+            call \
+            {STORAGE_SERVICE} \
+            {STORAGE_OBJECT_PATH} \
+            {STORAGE_INTERFACE} CreatePartitioning s {method}')
+
+    def dbus_get_applied_partitioning(self):
+        ret = self.machine.execute(f'busctl --address="{self._bus_address}" \
+            get-property  \
+            {STORAGE_SERVICE} \
+            {STORAGE_OBJECT_PATH} \
+            {STORAGE_INTERFACE} AppliedPartitioning')
+
+        return ret.split('s ')[1].strip().strip('"')
+
+    def dbus_get_created_partitioning(self):
+        ret = self.machine.execute(f'busctl --address="{self._bus_address}" \
+            get-property  \
+            {STORAGE_SERVICE} \
+            {STORAGE_OBJECT_PATH} \
+            {STORAGE_INTERFACE} CreatedPartitioning')
+
+        res = ret[ret.find("[")+1:ret.rfind("]")].split()
+        return [item.strip('"') for item in res]
+
+    def dbus_set_initialization_mode(self, value):
+        self.machine.execute(f'busctl --address="{self._bus_address}" \
+            set-property \
+            {STORAGE_SERVICE} \
+            {DISK_INITIALIZATION_OBJECT_PATH} \
+            {DISK_INITIALIZATION_INTERFACE} InitializationMode i -- {value}')
+
+
+class StorageScenario():
+    def __init__(self, browser, machine):
+        self.machine = machine
+        self.browser = browser
+
+    def _partitioning_selector(self, scenario):
+        return f"#{id_prefix}-scenario-" + scenario
+
+    def wait_scenario_visible(self, scenario, visible=True):
+        if visible:
+            self.browser.wait_visible(self._partitioning_selector(scenario))
+        else:
+            self.browser.wait_not_present(self._partitioning_selector(scenario))
+
+    def wait_scenario_available(self, scenario, available=True):
+        if available:
+            self.browser.wait_visible(f"{self._partitioning_selector(scenario)}:not([disabled])")
+        else:
+            self.browser.wait_visible(f"{self._partitioning_selector(scenario)}:disabled")
+
+    @log_step(snapshot_before=True)
+    def check_partitioning_selected(self, scenario):
+        self.browser.wait_visible(self._partitioning_selector(scenario) + ":checked")
+
+    @log_step(snapshot_before=True)
+    def set_partitioning(self, scenario):
+        self.browser.click(self._partitioning_selector(scenario))
+        self.browser.wait_visible(self._partitioning_selector(scenario) + ":checked")
+
+
+class Storage(StorageDBus, StorageDestination, StorageEncryption, StorageScenario, StorageUtils):
+    def __init__(self, browser, machine):
+        StorageDBus.__init__(self, machine)
+        StorageDestination.__init__(self, browser, machine)
+        StorageEncryption.__init__(self, browser, machine)
+        StorageScenario.__init__(self, browser, machine)
+        StorageUtils.__init__(self, browser, machine)
