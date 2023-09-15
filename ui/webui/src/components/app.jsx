@@ -54,6 +54,7 @@ export const Application = () => {
     const [state, dispatch] = useReducerWithThunk(reducer, initialState);
     const [storeInitilized, setStoreInitialized] = useState(false);
     const criticalError = state?.error?.criticalError;
+    const [jsError, setJsEroor] = useState();
 
     const onCritFail = useCallback((contextData) => {
         return errorHandlerWithContext(contextData, exc => dispatch(setCriticalErrorAction(exc)));
@@ -62,6 +63,12 @@ export const Application = () => {
     useEffect(() => {
         // Before unload ask the user for verification
         window.onbeforeunload = e => "";
+
+        // Listen on JS errors
+        window.onerror = (message, url, line, col, errObj) => {
+            setJsEroor(errObj);
+        };
+
         cockpit.file("/run/anaconda/bus.address").watch(address => {
             setCriticalErrorAction();
             const clients = [
@@ -115,8 +122,11 @@ export const Application = () => {
     const page = (
         <OsReleaseContext.Provider value={osRelease}>
             <SystemTypeContext.Provider value={systemType}>
-                {criticalError &&
-                <CriticalError exception={criticalError} isConnected={state.network.connected} reportLinkURL={bzReportURL} />}
+                {(criticalError || jsError) &&
+                    <CriticalError
+                      exception={{ ...criticalError, jsMessage: jsError?.message, backendMessage: criticalError?.message, stack: jsError?.stack }}
+                      isConnected={state.network.connected}
+                      reportLinkURL={bzReportURL} />}
                 <Page
                   data-debug={conf.Anaconda.debug}
                 >
@@ -137,6 +147,7 @@ export const Application = () => {
                               localizationData={state.localization}
                               dispatch={dispatch}
                               conf={conf}
+                              osRelease={osRelease}
                             />
                         </WithDialogs>
                     </AddressContext.Provider>

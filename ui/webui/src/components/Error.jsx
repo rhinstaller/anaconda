@@ -178,14 +178,19 @@ export const BZReportModal = ({
 
 const addExceptionDataToReportURL = (url, exception) => {
     const newUrl = new URL(url);
+    const backendMessage = exception.backendMessage ? exception.backendMessage + (exception.jsMessage ? " " : "") : "";
+    const bothSeparator = exception.backendMessage && exception.jsMessage ? "\n" : "";
     const context = exception.contextData?.context ? exception.contextData?.context + " " : "";
+    const jsMessage = exception.jsMessage ? exception.jsMessage : "";
+    const name = exception.name ? exception.name + ": " : "";
+    const stackTrace = exception.stack ? "\n\nStackTrace: " + exception.stack : "";
     newUrl.searchParams.append(
         "short_desc",
-        "WebUI: " + context + exception.name + ": " + exception.message
+        "WebUI: " + context + name + backendMessage + jsMessage
     );
     newUrl.searchParams.append(
         "comment",
-        "Installer WebUI Critical Error:\n" + context + exception.name + ": " + exception.message
+        "Installer WebUI Critical Error:\n" + context + name + backendMessage + bothSeparator + jsMessage + stackTrace
     );
     return newUrl.href;
 };
