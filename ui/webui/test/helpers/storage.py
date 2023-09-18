@@ -458,8 +458,9 @@ class StorageMountPointMapping(StorageDBus, StorageDestination):
         self.browser.click("#unlock-device-dialog-submit-btn")
         if xfail:
             self.browser.wait_in_text("#unlock-device-dialog .pf-v5-c-alert", xfail)
-            self.browser.click("#unlock-device-dialog-cancel-btn")
-        self.browser.wait_not_present("#unlock-device-dialog.pf-v5-c-modal-box")
+            self.browser.wait_visible("#unlock-device-dialog.pf-v5-c-modal-box")
+        else:
+            self.browser.wait_not_present("#unlock-device-dialog.pf-v5-c-modal-box")
 
     def select_mountpoint_row_reformat(self, row, selected=True):
         self.browser.set_checked(f"{self.table_row(row)} td[data-label='Reformat'] input", selected)
@@ -481,7 +482,7 @@ class StorageMountPointMapping(StorageDBus, StorageDestination):
         self.browser.click("button:contains('Add mount')")
 
     def unlock_all_encrypted(self):
-        self.browser.click("button:contains('Unlock')")
+        self.browser.click("#mount-point-mapping-unlock-devices-btn")
 
     def unlock_all_encrypted_skip(self):
         self.browser.click("button:contains('Skip')")

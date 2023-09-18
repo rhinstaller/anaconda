@@ -46,7 +46,7 @@ import {
 
 const _ = cockpit.gettext;
 
-export const EncryptedDevices = ({ dispatch, idPrefix, lockedLUKSDevices, setSkipUnlock }) => {
+export const EncryptedDevices = ({ dispatch, idPrefix, isLoadingNewPartitioning, lockedLUKSDevices, setSkipUnlock }) => {
     const [showUnlockDialog, setShowUnlockDialog] = useState(false);
     return (
         <>
@@ -71,7 +71,7 @@ export const EncryptedDevices = ({ dispatch, idPrefix, lockedLUKSDevices, setSki
               secondary={
                   <ActionList>
                       <ActionListItem>
-                          <Button variant="primary" onClick={() => setShowUnlockDialog(true)}>
+                          <Button id={idPrefix + "-unlock-devices-btn"} variant="primary" onClick={() => setShowUnlockDialog(true)}>
                               {_("Unlock devices")}
                           </Button>
                       </ActionListItem>
@@ -85,12 +85,16 @@ export const EncryptedDevices = ({ dispatch, idPrefix, lockedLUKSDevices, setSki
             />
             <Divider />
             {showUnlockDialog &&
-            <UnlockDialog dispatch={dispatch} onClose={() => setShowUnlockDialog(false)} lockedLUKSDevices={lockedLUKSDevices} />}
+            <UnlockDialog
+              dispatch={dispatch}
+              isLoadingNewPartitioning={isLoadingNewPartitioning}
+              onClose={() => setShowUnlockDialog(false)}
+              lockedLUKSDevices={lockedLUKSDevices} />}
         </>
     );
 };
 
-const UnlockDialog = ({ lockedLUKSDevices, onClose, dispatch }) => {
+const UnlockDialog = ({ isLoadingNewPartitioning, lockedLUKSDevices, onClose, dispatch }) => {
     const [password, setPassword] = useState("");
     const [passwordHidden, setPasswordHidden] = useState(true);
     const [dialogError, dialogErrorSet] = useState();
@@ -132,7 +136,7 @@ const UnlockDialog = ({ lockedLUKSDevices, onClose, dispatch }) => {
           description={_("All devices using this passphrase will be unlocked.")}
           footer={
               <>
-                  <Button variant="primary" onClick={onSubmit} isDisabled={inProgress} isLoading={inProgress} id="unlock-device-dialog-submit-btn">
+                  <Button variant="primary" onClick={onSubmit} isDisabled={inProgress || isLoadingNewPartitioning} isLoading={inProgress} id="unlock-device-dialog-submit-btn">
                       {_("Unlock")}
                   </Button>
                   <Button variant="link" onClick={() => onClose()} id="unlock-device-dialog-cancel-btn">

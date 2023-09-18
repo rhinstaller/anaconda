@@ -451,8 +451,18 @@ const RequestsTable = ({
     );
 };
 
-const MountPointMappingContent = ({ deviceData, partitioningData, usablePartitioningRequests, requiredMountPoints, dispatch, idPrefix, setIsFormValid, onAddErrorNotification }) => {
-    const [skipUnlock, setSkipUnlock] = useState(false);
+const MountPointMappingContent = ({
+    deviceData,
+    dispatch,
+    idPrefix,
+    isLoadingNewPartitioning,
+    lockedLUKSDevices,
+    onAddErrorNotification,
+    partitioningData,
+    requiredMountPoints,
+    setIsFormValid,
+    usablePartitioningRequests,
+}) => {
     const [requests, setRequests] = useState(getInitialRequests(usablePartitioningRequests, requiredMountPoints));
     const [updateRequestCnt, setUpdateRequestCnt] = useState(0);
     const currentUpdateRequestCnt = useRef(0);
@@ -460,11 +470,6 @@ const MountPointMappingContent = ({ deviceData, partitioningData, usablePartitio
     const allDevices = useMemo(() => {
         return usablePartitioningRequests?.map(r => r["device-spec"]) || [];
     }, [usablePartitioningRequests]);
-
-    const lockedLUKSDevices = useMemo(
-        () => getLockedLUKSDevices(usablePartitioningRequests, deviceData),
-        [deviceData, usablePartitioningRequests]
-    );
 
     const handlePartitioningRequestsChange = useCallback(_requests => {
         if (!_requests) {
@@ -559,14 +564,9 @@ const MountPointMappingContent = ({ deviceData, partitioningData, usablePartitio
         setRequests(_requests);
     };
 
-    if (lockedLUKSDevices?.length > 0 && !skipUnlock) {
+    if (isLoadingNewPartitioning) {
         return (
-            <EncryptedDevices
-              dispatch={dispatch}
-              idPrefix={idPrefix}
-              lockedLUKSDevices={lockedLUKSDevices}
-              setSkipUnlock={setSkipUnlock}
-            />
+            <EmptyStatePanel loading />
         );
     } else {
         return (
@@ -595,6 +595,7 @@ const MountPointMappingContent = ({ deviceData, partitioningData, usablePartitio
 
 export const MountPointMapping = ({ deviceData, diskSelection, partitioningData, requiredMountPoints, dispatch, idPrefix, setIsFormValid, onAddErrorNotification, reusePartitioning, setReusePartitioning, stepNotification }) => {
     const [usedPartitioning, setUsedPartitioning] = useState(partitioningData?.path);
+    const [skipUnlock, setSkipUnlock] = useState(false);
 
     const isUsableDevice = (devSpec, deviceData) => {
         const device = deviceData[devSpec];
@@ -619,6 +620,11 @@ export const MountPointMapping = ({ deviceData, diskSelection, partitioningData,
         return partitioningData.requests?.filter(r => isUsableDevice(r["device-spec"], deviceData)) || [];
     }, [partitioningData.requests, deviceData]);
 
+    const lockedLUKSDevices = useMemo(
+        () => getLockedLUKSDevices(usablePartitioningRequests, deviceData),
+        [deviceData, usablePartitioningRequests]
+    );
+
     useEffect(() => {
         if (!reusePartitioning || partitioningData?.method !== "MANUAL") {
             /* Reset the bootloader drive before we schedule partitions
@@ -636,9 +642,7 @@ export const MountPointMapping = ({ deviceData, diskSelection, partitioningData,
         }
     }, [reusePartitioning, setReusePartitioning, partitioningData?.method, partitioningData?.path]);
 
-    if (!reusePartitioning || usedPartitioning !== partitioningData.path) {
-        return <EmptyStatePanel loading />;
-    }
+    const isLoadingNewPartitioning = !reusePartitioning || usedPartitioning !== partitioningData.path;
 
     return (
         <AnacondaPage title={_("Manual disk configuration: Mount point mapping")}>
@@ -648,16 +652,31 @@ export const MountPointMapping = ({ deviceData, diskSelection, partitioningData,
                   title={stepNotification.message}
                   variant="danger"
                 />}
-            <MountPointMappingContent
-              deviceData={deviceData}
-              dispatch={dispatch}
-              idPrefix={idPrefix}
-              onAddErrorNotification={onAddErrorNotification}
-              partitioningData={partitioningData}
-              usablePartitioningRequests={usablePartitioningRequests}
-              setIsFormValid={setIsFormValid}
-              requiredMountPoints={requiredMountPoints}
-            />
+
+            {lockedLUKSDevices?.length > 0 && !skipUnlock
+                ? (
+                    <EncryptedDevices
+                      dispatch={dispatch}
+                      idPrefix={idPrefix}
+                      isLoadingNewPartitioning={isLoadingNewPartitioning}
+                      lockedLUKSDevices={lockedLUKSDevices}
+                      setSkipUnlock={setSkipUnlock}
+                    />
+                )
+                : (
+                    <MountPointMappingContent
+                      deviceData={deviceData}
+                      dispatch={dispatch}
+                      idPrefix={idPrefix}
+                      isLoadingNewPartitioning={isLoadingNewPartitioning}
+                      lockedLUKSDevices={lockedLUKSDevices}
+                      onAddErrorNotification={onAddErrorNotification}
+                      partitioningData={partitioningData}
+                      usablePartitioningRequests={usablePartitioningRequests}
+                      setIsFormValid={setIsFormValid}
+                      requiredMountPoints={requiredMountPoints}
+                    />
+                )}
         </AnacondaPage>
     );
 };
