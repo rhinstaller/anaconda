@@ -205,6 +205,17 @@ Requires: tmux
 Requires: gdb
 # support for installation from image and live & live image installations
 Requires: rsync
+# basic filesystem tools
+%if ! 0%{?rhel}
+Requires: btrfs-progs
+Requires: ntfs-3g
+Requires: ntfsprogs
+Requires: jfsutils
+Requires: f2fs-tools
+%endif
+Requires: xfsprogs
+Requires: dosfstools
+Requires: e2fsprogs
 
 %description install-env-deps
 The anaconda-install-env-deps metapackage lists all installation environment
