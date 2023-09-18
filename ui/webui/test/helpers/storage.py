@@ -451,17 +451,44 @@ class StorageMountPointMapping(StorageDBus, StorageDestination):
             self.browser.wait_not_present(f"{self.table_row(row)} ul li button:contains({device})")
         self.toggle_mountpoint_row_device(row)
 
-    def unlock_device(self, passphrase, xfail=None):
+    def unlock_device(self, passphrase, encrypted_devices=[], successfully_unlocked_devices=[]):
         # FIXME: https://github.com/patternfly/patternfly-react/issues/9512
-        self.browser.wait_visible("#unlock-device-dialog.pf-v5-c-modal-box")
-        self.browser.set_input_text("#unlock-device-dialog-luks-password", passphrase)
-        self.browser.click("#unlock-device-dialog-submit-btn")
-        with self.browser.wait_timeout(30):
-            if xfail:
-                self.browser.wait_in_text("#unlock-device-dialog .pf-v5-c-alert", xfail)
-                self.browser.wait_visible("#unlock-device-dialog.pf-v5-c-modal-box")
+        b = self.browser
+        for device in encrypted_devices:
+            b.wait_in_text(
+                "#unlock-device-dialog-luks-devices",
+                device,
+            )
+        b.set_input_text("#unlock-device-dialog-luks-password", passphrase)
+        b.click("#unlock-device-dialog-submit-btn")
+        # Wait for the dialog to either close or stop being in progress
+        with b.wait_timeout(30):
+            if successfully_unlocked_devices == encrypted_devices:
+                b.wait_not_present("#unlock-device-dialog")
+                return
             else:
-                self.browser.wait_not_present("#unlock-device-dialog.pf-v5-c-modal-box")
+                b.wait_visible("#unlock-device-dialog-submit-btn:not([disabled])")
+
+        # The devices that were successfully unlocked should not not be present
+        # in the 'Locked devices' form field
+        for device in successfully_unlocked_devices:
+            b.wait_not_present(f"#unlock-device-dialog-luks-devices:contains({device})")
+
+        # The locked devices should be present in the 'Locked devices' form field
+        for device in list(set(encrypted_devices) - set(successfully_unlocked_devices)):
+            b.wait_visible(f"#unlock-device-dialog-luks-devices:contains({device})")
+
+        # The devices that were successfully unlocked should appear in the info alert
+        if len(successfully_unlocked_devices) > 0:
+            b.wait_in_text(
+                "#unlock-device-dialog .pf-v5-c-alert.pf-m-info",
+                f"Successfully unlocked {', '.join(successfully_unlocked_devices)}."
+            )
+
+        # If the user did not unlock any device after submiting the form expect a warning
+        if successfully_unlocked_devices == []:
+            fail_text = "Passphrase did not match any locked device"
+            b.wait_in_text("#unlock-device-dialog .pf-v5-c-helper-text", fail_text)
 
     def select_mountpoint_row_reformat(self, row, selected=True):
         self.browser.set_checked(f"{self.table_row(row)} td[data-label='Reformat'] input", selected)

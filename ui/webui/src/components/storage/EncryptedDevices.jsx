@@ -36,7 +36,8 @@ import {
 import { EyeIcon, EyeSlashIcon, LockIcon } from "@patternfly/react-icons";
 
 import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
-import { ModalError } from "cockpit-components-inline-notification.jsx";
+import { InlineNotification } from "cockpit-components-inline-notification.jsx";
+import { FormHelper } from "cockpit-components-form-helper.jsx";
 
 import { getDevicesAction } from "../../actions/storage-actions.js";
 
@@ -45,6 +46,19 @@ import {
 } from "../../apis/storage.js";
 
 const _ = cockpit.gettext;
+
+const LuksDevices = ({ id, lockedLUKSDevices }) => {
+    return (
+        <Flex id={id} spaceItems={{ default: "spaceItemsLg" }}>
+            {lockedLUKSDevices.map(device => (
+                <Flex key={device} spaceItems={{ default: "spaceItemsXs" }} alignItems={{ default: "alignItemsCenter" }}>
+                    <LockIcon />
+                    <FlexItem>{device}</FlexItem>
+                </Flex>
+            ))}
+        </Flex>
+    );
+};
 
 export const EncryptedDevices = ({ dispatch, idPrefix, isLoadingNewPartitioning, lockedLUKSDevices, setSkipUnlock }) => {
     const [showUnlockDialog, setShowUnlockDialog] = useState(false);
@@ -57,14 +71,7 @@ export const EncryptedDevices = ({ dispatch, idPrefix, isLoadingNewPartitioning,
                   <Stack hasGutter className={idPrefix + "-empty-state-body"}>
                       <StackItem>{_("Devices should be unlocked before assigning mount points.")}</StackItem>
                       <StackItem>
-                          <Flex spaceItems={{ default: "spaceItemsLg" }}>
-                              {lockedLUKSDevices.map(device => (
-                                  <Flex key={device} spaceItems={{ default: "spaceItemsXs" }} alignItems={{ default: "alignItemsCenter" }}>
-                                      <LockIcon />
-                                      <FlexItem>{device}</FlexItem>
-                                  </Flex>
-                              ))}
-                          </Flex>
+                          <LuksDevices lockedLUKSDevices={lockedLUKSDevices} />
                       </StackItem>
                   </Stack>
               }
@@ -97,7 +104,8 @@ export const EncryptedDevices = ({ dispatch, idPrefix, isLoadingNewPartitioning,
 const UnlockDialog = ({ isLoadingNewPartitioning, lockedLUKSDevices, onClose, dispatch }) => {
     const [password, setPassword] = useState("");
     const [passwordHidden, setPasswordHidden] = useState(true);
-    const [dialogError, dialogErrorSet] = useState();
+    const [dialogWarning, dialogWarningSet] = useState();
+    const [dialogSuccess, dialogSuccessSet] = useState();
     const [inProgress, setInProgress] = useState(false);
 
     const onSubmit = () => {
@@ -109,20 +117,33 @@ const UnlockDialog = ({ isLoadingNewPartitioning, lockedLUKSDevices, onClose, di
         ).then(
             res => {
                 if (res.every(r => r.status === "fulfilled")) {
-                    // Blivet does not send a signal when a device is unlocked,
-                    // so we need to refresh the device data manually.
-                    dispatch(getDevicesAction());
-
                     if (res.every(r => r.value[0])) {
                         onClose();
                     } else {
-                        dialogErrorSet(_("Incorrect passphrase"));
+                        const unlockedDevs = res.reduce((acc, r, i) => {
+                            if (r.value[0]) {
+                                acc.push(lockedLUKSDevices[i]);
+                            }
+                            return acc;
+                        }, []);
+                        if (unlockedDevs.length > 0) {
+                            dialogSuccessSet(cockpit.format(_("Successfully unlocked $0."), unlockedDevs.join(", ")));
+                            dialogWarningSet(undefined);
+                            setPassword("");
+                        } else {
+                            dialogSuccessSet(undefined);
+                            dialogWarningSet(_("Passphrase did not match any locked device"));
+                        }
                         setInProgress(false);
                     }
+
+                    // Blivet does not send a signal when a device is unlocked,
+                    // so we need to refresh the device data manually.
+                    dispatch(getDevicesAction());
                 }
             },
             exc => {
-                dialogErrorSet(exc.message);
+                dialogWarningSet(exc.message);
                 setInProgress(false);
             }
         );
@@ -130,17 +151,17 @@ const UnlockDialog = ({ isLoadingNewPartitioning, lockedLUKSDevices, onClose, di
 
     return (
         <Modal
+          description={_("All devices using this passphrase will be unlocked")}
           id="unlock-device-dialog"
           position="top" variant="small" isOpen onClose={() => onClose()}
           title={_("Unlock encrypted devices")}
-          description={_("All devices using this passphrase will be unlocked.")}
           footer={
               <>
                   <Button variant="primary" onClick={onSubmit} isDisabled={inProgress || isLoadingNewPartitioning} isLoading={inProgress} id="unlock-device-dialog-submit-btn">
                       {_("Unlock")}
                   </Button>
-                  <Button variant="link" onClick={() => onClose()} id="unlock-device-dialog-cancel-btn">
-                      {_("Cancel")}
+                  <Button variant="secondary" onClick={() => onClose()} id="unlock-device-dialog-close-btn">
+                      {_("Close")}
                   </Button>
               </>
           }>
@@ -149,7 +170,10 @@ const UnlockDialog = ({ isLoadingNewPartitioning, lockedLUKSDevices, onClose, di
                   e.preventDefault();
                   onSubmit();
               }}>
-                {dialogError && <ModalError dialogError={_("Some LUKS devices were not unlocked")} dialogErrorDetail={dialogError} />}
+                {dialogSuccess && <InlineNotification type="info" text={dialogSuccess} />}
+                <FormGroup fieldId="unlock-device-dialog-luks-devices" label={_("Locked devices")}>
+                    <LuksDevices id="unlock-device-dialog-luks-devices" lockedLUKSDevices={lockedLUKSDevices} />
+                </FormGroup>
                 <FormGroup fieldId="unlock-device-dialog-luks-password" label={_("Password")}>
                     <InputGroup>
                         <InputGroupItem isFill>
@@ -172,6 +196,7 @@ const UnlockDialog = ({ isLoadingNewPartitioning, lockedLUKSDevices, onClose, di
                             </Button>
                         </InputGroupItem>
                     </InputGroup>
+                    <FormHelper helperText={dialogWarning} variant="warning" />
                 </FormGroup>
             </Form>
         </Modal>

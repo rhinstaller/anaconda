@@ -554,7 +554,10 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         # BIOS boot partition, /boot partition, /
         disk1 = "/dev/vda"
         dev1 = "vda"
-        s.partition_disk(disk1, [("1MiB", "biosboot"), ("1GB", "xfs"), ("1GB", "xfs"), ("", "xfs")])
+        s.partition_disk(
+            disk1,
+            [("1MiB", "biosboot"), ("1GB", "xfs"), ("1GB", "xfs"), ("1GB", "xfs"), ("", "xfs")]
+        )
         m.execute(f"""
         echo einszwei | cryptsetup luksFormat {disk1}2
         echo einszwei | cryptsetup luksOpen {disk1}2 encrypted-vol0
@@ -578,8 +581,8 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         s.select_mountpoint([(dev1, True)])
 
         s.unlock_all_encrypted()
-        s.unlock_device("1234", "Some LUKS devices were not unlocked")
-        b.click("#unlock-device-dialog-cancel-btn")
+        s.unlock_device("1234", ["vda2", "vda3", "vda4"], [])
+        b.click("#unlock-device-dialog-close-btn")
 
         # The 'Skip' button closes the dialog
         s.unlock_all_encrypted_skip()
@@ -589,17 +592,17 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         i.next(next_page=i.steps.CUSTOM_MOUNT_POINT)
 
         s.unlock_all_encrypted()
-        s.unlock_device("einszwei", "Some LUKS devices were not unlocked")
+        s.unlock_device("einszwei", ["vda2", "vda3", "vda4"], ["vda2"])
 
         # The 'Unlock' dialog should stay open unless all LUKS devices are unlocked
-        s.unlock_device("einszweidrei", "Some LUKS devices were not unlocked")
+        s.unlock_device("einszweidrei", ["vda3", "vda4"], ["vda3"])
 
         # The 'Unlock' dialog closes when all LUKS devices are unlocked
-        s.unlock_device("einszweidreivier")
+        s.unlock_device("einszweidreivier", ["vda4"], ["vda4"])
         b.wait_not_present("#mount-point-mapping-table tbody tr:nth-child(4) td[data-label='Format type'] #unlock-luks-btn")
 
         s.check_mountpoint_row_mountpoint(1, "/boot")
-        s.select_mountpoint_row_device(1, f"{dev1}2")
+        s.select_mountpoint_row_device(1, "vda5")
 
         s.check_mountpoint_row_mountpoint(2, "/")
         selector = "#mount-point-mapping-table-row-2 .pf-v5-c-select__toggle"
@@ -643,7 +646,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         s.select_mountpoint([(dev, True)])
 
         s.unlock_all_encrypted()
-        s.unlock_device("einszweidrei")
+        s.unlock_device("einszweidrei", ["vda3", "vda4"], ["vda3", "vda4"])
         b.wait_not_present("#mount-point-mapping-table tbody tr:nth-child(4) td[data-label='Format type'] #unlock-luks-btn")
 
         s.check_mountpoint_row_mountpoint(1, "/boot")
@@ -691,7 +694,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         s.select_mountpoint([(dev, True)])
 
         s.unlock_all_encrypted()
-        s.unlock_device("einszweidrei")
+        s.unlock_device("einszweidrei", ["encryptedraid"], ["encryptedraid"])
         b.wait_not_present("#mount-point-mapping-table tbody tr:nth-child(4) td[data-label='Format type'] #unlock-luks-btn")
 
         s.check_mountpoint_row_mountpoint(1, "/boot")
