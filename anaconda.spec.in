@@ -485,6 +485,14 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Sep 18 2023 github-actions <github-actions@github.com> - 39.32.3-1
+- Update translations from Weblate for fedora-39 (github-actions)
+- liveinst: Don't exec pkexec (rstrode)
+- cppcheck: Pretend we know more macros (vslavik)
+- Add 'localhost-live' to ignored hostnames for device naming (vtrefny)
+- Update translations from Weblate for fedora-39 (github-actions)
+- webui: Fix checking for locked LUKS devices (vtrefny)
+
 * Thu Sep 07 2023 github-actions <github-actions@github.com> - 39.32.2-1
 - Use Firefox environment variables for styling (mkolman)
 - Copy /var/lib/gnome-initial-setup/state to installed system (rstrode)
