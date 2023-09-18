@@ -367,6 +367,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Sep 18 2023 Jiri Konecny <jkonecny@redhat.com> - 33.16.9.5-1
+- [ja_JP] - Need to update string on anaconda screen for installation completed
+  Resolves: rhbz#2216746
+
 * Wed Aug 09 2023 Jiri Konecny <jkonecny@redhat.com> - 33.16.9.4-1
 - iscsi: Allow changing iSCSI initiator name once set (vtrefny)
   Resolves: rhbz#2223980
