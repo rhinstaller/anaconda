@@ -102,8 +102,8 @@ export const EncryptedDevices = ({ dispatch, idPrefix, isLoadingNewPartitioning,
 };
 
 const UnlockDialog = ({ isLoadingNewPartitioning, lockedLUKSDevices, onClose, dispatch }) => {
-    const [password, setPassword] = useState("");
-    const [passwordHidden, setPasswordHidden] = useState(true);
+    const [passphrase, setPassphrase] = useState("");
+    const [passphraseHidden, setPassphraseHidden] = useState(true);
     const [dialogWarning, dialogWarningSet] = useState();
     const [dialogSuccess, dialogSuccessSet] = useState();
     const [inProgress, setInProgress] = useState(false);
@@ -112,7 +112,7 @@ const UnlockDialog = ({ isLoadingNewPartitioning, lockedLUKSDevices, onClose, di
         setInProgress(true);
         return Promise.allSettled(
             lockedLUKSDevices.map(device => (
-                unlockDevice({ deviceName: device, passphrase: password })
+                unlockDevice({ deviceName: device, passphrase })
             ))
         ).then(
             res => {
@@ -129,7 +129,7 @@ const UnlockDialog = ({ isLoadingNewPartitioning, lockedLUKSDevices, onClose, di
                         if (unlockedDevs.length > 0) {
                             dialogSuccessSet(cockpit.format(_("Successfully unlocked $0."), unlockedDevs.join(", ")));
                             dialogWarningSet(undefined);
-                            setPassword("");
+                            setPassphrase("");
                         } else {
                             dialogSuccessSet(undefined);
                             dialogWarningSet(_("Passphrase did not match any locked device"));
@@ -174,25 +174,25 @@ const UnlockDialog = ({ isLoadingNewPartitioning, lockedLUKSDevices, onClose, di
                 <FormGroup fieldId="unlock-device-dialog-luks-devices" label={_("Locked devices")}>
                     <LuksDevices id="unlock-device-dialog-luks-devices" lockedLUKSDevices={lockedLUKSDevices} />
                 </FormGroup>
-                <FormGroup fieldId="unlock-device-dialog-luks-password" label={_("Password")}>
+                <FormGroup fieldId="unlock-device-dialog-luks-passphrase" label={_("Passphrase")}>
                     <InputGroup>
                         <InputGroupItem isFill>
                             <TextInput
                               isRequired
-                              id="unlock-device-dialog-luks-password"
-                              type={passwordHidden ? "password" : "text"}
-                              aria-label={_("Password")}
-                              value={password}
-                              onChange={(_event, val) => setPassword(val)}
+                              id="unlock-device-dialog-luks-passphrase"
+                              type={passphraseHidden ? "passphrase" : "text"}
+                              aria-label={_("Passphrase")}
+                              value={passphrase}
+                              onChange={(_event, val) => setPassphrase(val)}
                             />
                         </InputGroupItem>
                         <InputGroupItem>
                             <Button
                               variant="control"
-                              onClick={() => setPasswordHidden(!passwordHidden)}
-                              aria-label={passwordHidden ? _("Show password") : _("Hide password")}
+                              onClick={() => setPassphraseHidden(!passphraseHidden)}
+                              aria-label={passphraseHidden ? _("Show passphrase") : _("Hide passphrase")}
                             >
-                                {passwordHidden ? <EyeIcon /> : <EyeSlashIcon />}
+                                {passphraseHidden ? <EyeIcon /> : <EyeSlashIcon />}
                             </Button>
                         </InputGroupItem>
                     </InputGroup>
