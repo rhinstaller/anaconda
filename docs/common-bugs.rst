@@ -319,6 +319,20 @@ Invalid environment block
 :Solution: Duplicate of the bug 1814690.
 :Example: `rhbz#1823104 <https://bugzilla.redhat.com/show_bug.cgi?id=1823104>`_
 
+'utf-8' codec can't decode byte
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:Issue: Installing the boot loader fails with an exception UnicodeDecodeError. Logs contain a
+    message along these lines:
+
+        UnicodeDecodeError: 'utf-8' codec can't decode byte 0x?? in position ??: invalid start byte
+
+    Actual byte, position, and byte type (start, continuation, ???) vary.
+
+:Solution: Duplicate of bug `2148480 <https://bugzilla.redhat.com/show_bug.cgi?id=2148480>`_.
+:Example: `rhbz#2238691 <https://bugzilla.redhat.com/show_bug.cgi?id=2238691>`_
+
+
 User interface issues
 ---------------------
 
