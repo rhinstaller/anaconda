@@ -48,25 +48,16 @@ import {
     setBootloaderDrive,
     setManualPartitioningRequests,
 } from "../../apis/storage.js";
+import {
+    getDeviceChildren,
+    getLockedLUKSDevices,
+    hasDuplicateFields,
+    isDuplicateRequestField,
+} from "../../helpers/storage.js";
 
 import "./MountPointMapping.scss";
 
 const _ = cockpit.gettext;
-
-const getDeviceChildren = ({ deviceData, device }) => {
-    const children = [];
-    const deviceChildren = deviceData[device]?.children?.v || [];
-
-    if (deviceChildren.length === 0) {
-        children.push(device);
-    } else {
-        deviceChildren.forEach(child => {
-            children.push(...getDeviceChildren({ deviceData, device: child }));
-        });
-    }
-
-    return children;
-};
 
 const getInitialRequests = (usablePartitioningRequests, requiredMountPoints) => {
     const bootOriginalRequest = usablePartitioningRequests.find(r => r["mount-point"] === "/boot");
@@ -99,11 +90,7 @@ const getInitialRequests = (usablePartitioningRequests, requiredMountPoints) => 
         r["mount-point"] !== "biosboot"
     )) || [];
 
-    return [...requests, ...extraRequests].map((request, idx) => ({ ...request, "request-id": idx + 1 }));
-};
-
-const isDuplicateRequestField = (requests, fieldName, fieldValue) => {
-    return requests.filter((request) => request[fieldName] === fieldValue).length > 1;
+    return [...requests, ...extraRequests];
 };
 
 const isReformatInvalid = (deviceData, request, requests) => {
@@ -156,53 +143,12 @@ const isDeviceMountPointInvalid = (deviceData, requiredMountPoints, request) => 
     return [false, ""];
 };
 
-const getDeviceAncestors = (deviceData, device) => {
-    // device ancestors including the device itself
-    const ancestors = [];
-    const deviceParents = deviceData[device]?.parents?.v || [];
-
-    ancestors.push(device);
-    deviceParents.forEach(parent => {
-        ancestors.push(...getDeviceAncestors(deviceData, parent));
-    });
-
-    return ancestors;
-};
-
-const getLockedLUKSDevices = (requests, deviceData) => {
-    const devs = requests?.map(r => r["device-spec"]) || [];
-
-    // check for requests and all their ancestors for locked LUKS devices
-    const requestsAncestors = [];
-    devs.forEach(d => {
-        const ancestors = getDeviceAncestors(deviceData, d);
-        requestsAncestors.push(...ancestors);
-    });
-
-    return Object.keys(deviceData).filter(d => {
-        return (
-            requestsAncestors.includes(d) &&
-            deviceData[d].formatData.type.v === "luks" &&
-            deviceData[d].formatData.attrs.v.has_key !== "True"
-        );
-    });
-};
-
-const isDuplicateMountPoint = (requests, mountpoint) => {
-    // we can have multiple swap devices "mounted"
-    if (mountpoint === "swap") {
-        return false;
-    }
-
-    return isDuplicateRequestField(requests, "mount-point", mountpoint);
-};
-
-const MountPointColumn = ({ handleRequestChange, idPrefix, isRequiredMountPoint, request, requests }) => {
+const MountPointColumn = ({ handleRequestChange, idPrefix, isRequiredMountPoint, request, requests, requestIndex }) => {
     const mountpoint = request["mount-point"] || "";
 
     const [mountPointText, setMountPointText] = useState(mountpoint);
 
-    const duplicatedMountPoint = isDuplicateMountPoint(requests, mountpoint);
+    const duplicatedMountPoint = isDuplicateRequestField(requests, "mount-point", mountpoint);
 
     const swapMountpoint = mountpoint === "swap";
 
@@ -225,7 +171,7 @@ const MountPointColumn = ({ handleRequestChange, idPrefix, isRequiredMountPoint,
                     : <TextInput
                         className="mount-point-mapping__mountpoint-text"
                         id={idPrefix}
-                        onBlur={() => handleRequestChange(mountPointText, request["device-spec"], request["request-id"])}
+                        onBlur={() => handleRequestChange({ mountPoint: mountPointText, deviceSpec: request["device-spec"], requestIndex })}
                         onChange={(_event, val) => setMountPointText(val)}
                         value={mountPointText}
                     />}
@@ -243,7 +189,7 @@ const MountPointColumn = ({ handleRequestChange, idPrefix, isRequiredMountPoint,
     );
 };
 
-const DeviceColumnSelect = ({ deviceData, devices, idPrefix, lockedLUKSDevices, handleRequestChange, request }) => {
+const DeviceColumnSelect = ({ deviceData, devices, idPrefix, lockedLUKSDevices, handleRequestChange, request, requestIndex }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const device = request["device-spec"];
@@ -273,11 +219,11 @@ const DeviceColumnSelect = ({ deviceData, devices, idPrefix, lockedLUKSDevices, 
           variant={SelectVariant.single}
           onToggle={(_event, val) => setIsOpen(val)}
           onSelect={(_, selection, isAPlaceHolder) => {
-              handleRequestChange(request["mount-point"], selection, request["request-id"]);
+              handleRequestChange({ mountPoint: request["mount-point"], deviceSpec: selection, requestIndex });
               setIsOpen(false);
           }}
           onClear={() => {
-              handleRequestChange(request["mount-point"], "", request["request-id"]);
+              handleRequestChange({ mountPoint: request["mount-point"], deviceSpec: "", requestIndex });
               setIsOpen();
           }}
           toggleId={idPrefix + "-select-toggle"}
@@ -287,7 +233,7 @@ const DeviceColumnSelect = ({ deviceData, devices, idPrefix, lockedLUKSDevices, 
     );
 };
 
-const DeviceColumn = ({ deviceData, devices, requiredMountPoints, idPrefix, handleRequestChange, lockedLUKSDevices, request, requests }) => {
+const DeviceColumn = ({ deviceData, devices, requiredMountPoints, idPrefix, handleRequestChange, lockedLUKSDevices, request, requests, requestIndex }) => {
     const device = request["device-spec"];
     const duplicatedDevice = isDuplicateRequestField(requests, "device-spec", device);
     const [deviceInvalid, errorMessage] = isDeviceMountPointInvalid(deviceData, requiredMountPoints, request);
@@ -301,6 +247,7 @@ const DeviceColumn = ({ deviceData, devices, requiredMountPoints, idPrefix, hand
               handleRequestChange={handleRequestChange}
               lockedLUKSDevices={lockedLUKSDevices}
               request={request}
+              requestIndex={requestIndex}
             />
             {device && duplicatedDevice &&
                 <HelperText>
@@ -318,7 +265,7 @@ const DeviceColumn = ({ deviceData, devices, requiredMountPoints, idPrefix, hand
     );
 };
 
-const FormatColumn = ({ deviceData, handleRequestChange, idPrefix, request, requests }) => {
+const FormatColumn = ({ deviceData, handleRequestChange, idPrefix, request, requests, requestIndex }) => {
     const mountpoint = request["mount-point"];
     const isRootMountPoint = mountpoint === "/";
     const [reformatInvalid, reformatErrorMsg] = isReformatInvalid(deviceData, request, requests);
@@ -329,7 +276,7 @@ const FormatColumn = ({ deviceData, handleRequestChange, idPrefix, request, requ
               isChecked={!!request.reformat}
               isDisabled={isRootMountPoint}
               aria-label={_("Reformat")}
-              onChange={(_event, checked) => handleRequestChange(request["mount-point"], request["device-spec"], request["request-id"], checked)}
+              onChange={(_event, checked) => handleRequestChange({ mountPoint: request["mount-point"], deviceSpec: request["device-spec"], requestIndex, reformat: checked })}
             />
         );
     };
@@ -353,15 +300,10 @@ const FormatColumn = ({ deviceData, handleRequestChange, idPrefix, request, requ
     );
 };
 
-const MountPointRowRemove = ({ request, setRequests }) => {
+const MountPointRowRemove = ({ requestIndex, handleRequestChange }) => {
     const handleRemove = () => {
         // remove row from requests and update requests with higher ID
-        setRequests(requests => requests.filter(r => r["request-id"] !== request["request-id"]).map(({
-            ...r
-        }) => ({
-            ...r,
-            "request-id": r["request-id"] > request["request-id"] ? r["request-id"] - 1 : r["request-id"],
-        })));
+        handleRequestChange({ requestIndex, remove: true });
     };
 
     return (
@@ -375,261 +317,279 @@ const MountPointRowRemove = ({ request, setRequests }) => {
     );
 };
 
-const RequestsTable = ({
+const getRequestRow = ({
     allDevices,
     deviceData,
-    requiredMountPoints,
     handleRequestChange,
     idPrefix,
     lockedLUKSDevices,
+    request,
+    requestIndex,
     requests,
-    setRequests,
+    requiredMountPoints,
 }) => {
     const columnClassName = idPrefix + "__column";
-    const getRequestRow = (request) => {
-        const isRequiredMountPoint = !!requiredMountPoints.find(val => val["mount-point"].v === request["mount-point"]);
-        const duplicatedMountPoint = isDuplicateRequestField(requests, "mount-point", request["mount-point"]);
-        const rowId = idPrefix + "-row-" + request["request-id"];
+    const isRequiredMountPoint = !!requiredMountPoints.find(val => val["mount-point"].v === request["mount-point"]);
+    const duplicatedMountPoint = isDuplicateRequestField(requests, "mount-point", request["mount-point"]);
+    const rowId = idPrefix + "-row-" + (requestIndex + 1);
 
-        return {
-            props: { key: request["request-id"], id: rowId },
-            columns: [
-                {
-                    title: (
-                        <MountPointColumn
-                          handleRequestChange={handleRequestChange}
-                          idPrefix={rowId + "-mountpoint"}
-                          isRequiredMountPoint={isRequiredMountPoint}
-                          request={request}
-                          requests={requests}
-                        />
-                    ),
-                    props: { className: columnClassName }
-                },
-                {
-                    title: (
-                        <DeviceColumn
-                          deviceData={deviceData}
-                          devices={allDevices}
-                          requiredMountPoints={requiredMountPoints}
-                          handleRequestChange={handleRequestChange}
-                          idPrefix={rowId + "-device"}
-                          lockedLUKSDevices={lockedLUKSDevices}
-                          request={request}
-                          requests={requests}
-                        />
-                    ),
-                    props: { className: columnClassName }
-                },
-                {
-                    title: (
-                        <FormatColumn
-                          deviceData={deviceData}
-                          handleRequestChange={handleRequestChange}
-                          idPrefix={rowId + "-format"}
-                          request={request}
-                          requests={requests}
-                        />
-                    ),
-                    props: { className: columnClassName }
-                },
-                {
-                    title: (
-                        (isRequiredMountPoint && !duplicatedMountPoint) ? null : <MountPointRowRemove request={request} setRequests={setRequests} />
-                    ),
-                    props: { className: columnClassName }
-                }
-            ],
-        };
-    };
-
-    return (
-        <ListingTable
-          aria-label={_("Mount point assignment")}
-          columns={[
-              { title: _("Mount point"), props: { width: 30 } },
-              { title: _("Device"), props: { width: 40 } },
-              { title: _("Reformat"), props: { width: 20 } },
-              { title: "", props: { width: 10 } },
-          ]}
-          emptyCaption={_("No devices")}
-          id="mount-point-mapping-table"
-          rows={requests.map(getRequestRow)} />
-    );
+    return ({
+        props: { key: requestIndex, id: rowId },
+        columns: [
+            {
+                title: (
+                    <MountPointColumn
+                      handleRequestChange={handleRequestChange}
+                      idPrefix={rowId + "-mountpoint"}
+                      isRequiredMountPoint={isRequiredMountPoint}
+                      request={request}
+                      requestIndex={requestIndex}
+                      requests={requests}
+                    />
+                ),
+                props: { className: columnClassName }
+            },
+            {
+                title: (
+                    <DeviceColumn
+                      deviceData={deviceData}
+                      devices={allDevices}
+                      handleRequestChange={handleRequestChange}
+                      idPrefix={rowId + "-device"}
+                      lockedLUKSDevices={lockedLUKSDevices}
+                      request={request}
+                      requestIndex={requestIndex}
+                      requests={requests}
+                      requiredMountPoints={requiredMountPoints}
+                    />
+                ),
+                props: { className: columnClassName }
+            },
+            {
+                title: (
+                    <FormatColumn
+                      deviceData={deviceData}
+                      handleRequestChange={handleRequestChange}
+                      idPrefix={rowId + "-format"}
+                      request={request}
+                      requestIndex={requestIndex}
+                      requests={requests}
+                    />
+                ),
+                props: { className: columnClassName }
+            },
+            {
+                title: (
+                    (isRequiredMountPoint && !duplicatedMountPoint) ? null : <MountPointRowRemove requestIndex={requestIndex} handleRequestChange={handleRequestChange} />
+                ),
+                props: { className: columnClassName }
+            }
+        ],
+    });
 };
 
-const MountPointMappingContent = ({
+const getNewRequestProps = ({ mountPoint, deviceSpec, reformat, requests }) => {
+    const formatType = requests.find(device => device["device-spec"] === deviceSpec)?.["format-type"];
+    const newProps = {};
+
+    if (mountPoint !== undefined) {
+        newProps["mount-point"] = mountPoint;
+    }
+    if (deviceSpec !== undefined) {
+        newProps["device-spec"] = deviceSpec;
+        if (formatType === "swap") {
+            newProps["mount-point"] = "swap";
+        }
+    }
+    if (reformat !== undefined) {
+        newProps.reformat = !!reformat;
+    }
+    if (formatType !== undefined) {
+        newProps["format-type"] = formatType;
+    }
+
+    return newProps;
+};
+
+const RequestsTable = ({
     deviceData,
-    dispatch,
     idPrefix,
-    isLoadingNewPartitioning,
     lockedLUKSDevices,
     onAddErrorNotification,
-    partitioningData,
+    partitioningDataPath,
+    requests,
     requiredMountPoints,
     setIsFormValid,
-    usablePartitioningRequests,
 }) => {
-    const [requests, setRequests] = useState(getInitialRequests(usablePartitioningRequests, requiredMountPoints));
-    const [updateRequestCnt, setUpdateRequestCnt] = useState(0);
-    const currentUpdateRequestCnt = useRef(0);
-
+    const currentPartitioning = useRef();
+    const [unappliedRequests, setUnappliedRequests] = useState([]);
     const allDevices = useMemo(() => {
-        return usablePartitioningRequests?.map(r => r["device-spec"]) || [];
-    }, [usablePartitioningRequests]);
+        return requests?.filter(r => isUsableDevice(r["device-spec"], deviceData)).map(r => r["device-spec"]) || [];
+    }, [requests, deviceData]);
 
-    const handlePartitioningRequestsChange = useCallback(_requests => {
-        if (!_requests) {
+    // Add the required mount points to the initial requests
+    useEffect(() => {
+        if (partitioningDataPath === currentPartitioning.current) {
             return;
         }
-        const requestsToDbus = partitioningDataRequests => {
-            return partitioningDataRequests.map(row => {
-                const newRequest = _requests.find(r => r["device-spec"] === row["device-spec"]);
 
+        currentPartitioning.current = partitioningDataPath;
+
+        const initialRequests = getInitialRequests(requests, requiredMountPoints);
+        setUnappliedRequests(initialRequests);
+    }, [partitioningDataPath, requests, requiredMountPoints]);
+
+    const handleRequestChange = useCallback(({ mountPoint, deviceSpec, requestIndex, reformat, remove }) => {
+        const newRequests = [...unappliedRequests];
+        if (remove) {
+            // Remove a request from the specified index
+            newRequests.splice(requestIndex, 1);
+        } else {
+            const newRequest = {
+                ...(newRequests[requestIndex] || {}),
+                ...getNewRequestProps({ mountPoint, deviceSpec, reformat, requests })
+            };
+
+            if (requestIndex === unappliedRequests.length) {
+                // Add new request in the end of the array
+                newRequests.push(newRequest);
+            } else {
+                // Update existing request
+                newRequests[requestIndex] = newRequest;
+            }
+        }
+
+        const checkValidRequest = r => {
+            return (
+                r["mount-point"] &&
+                r["device-spec"] &&
+                !isReformatInvalid(deviceData, r, newRequests)[0]
+            );
+        };
+
+        /* When requests change check for duplicate mount point or device assignments and update form validity */
+        const isFormValid = (
+            !hasDuplicateFields(newRequests, "mount-point") &&
+            !hasDuplicateFields(newRequests, "device-spec") &&
+            newRequests.every(checkValidRequest)
+        );
+
+        setIsFormValid(isFormValid);
+
+        /* Build the backend-requests object from the unapplied requests.
+         * - When the 'device' is not selected in the front-end set the mount-point to empty string
+         * - Otherwise sync the object from the front-end to back-end
+         */
+        const backendRequests = [...requests];
+        backendRequests.forEach((backendRequest, backendRequestIndex) => {
+            const newRequestIndex = newRequests.findIndex(r => r["device-spec"] === backendRequest["device-spec"]);
+            if (newRequestIndex === -1) {
+                backendRequests[backendRequestIndex]["mount-point"] = "";
+            } else if (newRequests[newRequestIndex]?.["device-spec"]) {
+                backendRequests[backendRequestIndex] = newRequests[newRequestIndex];
+            }
+        });
+
+        const requestsToDbus = () => {
+            return backendRequests.map(row => {
                 return {
-                    "device-spec": cockpit.variant("s", row["device-spec"]),
-                    "format-type": cockpit.variant("s", row["format-type"]),
-                    "mount-point": cockpit.variant("s", newRequest !== undefined ? newRequest["mount-point"] : ""),
-                    reformat: cockpit.variant("b", newRequest !== undefined ? !!newRequest.reformat : false),
+                    "device-spec": cockpit.variant("s", row["device-spec"] || ""),
+                    "format-type": cockpit.variant("s", row["format-type"] || ""),
+                    "mount-point": cockpit.variant("s", row["mount-point"] || ""),
+                    reformat: cockpit.variant("b", !!row.reformat),
                 };
             });
         };
 
         setManualPartitioningRequests({
-            partitioning: partitioningData.path,
-            requests: requestsToDbus(usablePartitioningRequests)
+            partitioning: partitioningDataPath,
+            requests: requestsToDbus()
         }).catch(ex => {
             onAddErrorNotification(ex);
             setIsFormValid(false);
         });
-    }, [partitioningData.path, onAddErrorNotification, usablePartitioningRequests, setIsFormValid]);
 
-    /* When requests change apply directly to the backend */
-    useEffect(() => {
-        if (currentUpdateRequestCnt.current !== updateRequestCnt) {
-            currentUpdateRequestCnt.current = updateRequestCnt;
-            handlePartitioningRequestsChange(requests);
-        }
-    }, [updateRequestCnt, requests, handlePartitioningRequestsChange]);
+        setUnappliedRequests(newRequests);
+    }, [setIsFormValid, deviceData, unappliedRequests, requests, partitioningDataPath, onAddErrorNotification]);
 
-    /* When requests change check for duplicate mount point or device assignments and update form validity */
-    useEffect(() => {
-        if (requests) {
-            const mountPoints = requests.filter(r => r["mount-point"] !== "swap").map(r => r["mount-point"]);
-            const devices = requests.map(r => r["device-spec"]);
-            const reformatInvalid = requests.some(request => isReformatInvalid(deviceData, request, requests)[0]);
-
-            const isFormValid = (
-                !reformatInvalid &&
-                new Set(mountPoints).size === mountPoints.length &&
-                new Set(devices).size === devices.length &&
-                mountPoints.every(m => m) &&
-                devices.every(d => d)
-            );
-
-            setIsFormValid(isFormValid);
-            if (isFormValid) {
-                setUpdateRequestCnt(updateRequestCnt => updateRequestCnt + 1);
-            }
-        }
-    }, [deviceData, requests, setIsFormValid]);
-
-    const handleRequestChange = (mountpoint, device, newRequestId, reformat) => {
-        const data = deviceData[device];
-        const _requests = requests.map(row => {
-            const newRow = { ...row };
-            if (row["request-id"] === newRequestId) {
-                // Reset reformat option when changing from /
-                if (row["mount-point"] === "/" && mountpoint !== row["mount-point"] && row.reformat) {
-                    newRow.reformat = false;
-                }
-
-                // Always reformat the root partition
-                if (mountpoint === "/") {
-                    newRow.reformat = true;
-                }
-
-                if (reformat !== undefined) {
-                    newRow.reformat = reformat;
-                }
-
-                // set "swap" as the default mountpoint for swap devices
-                if (device !== undefined && data !== undefined && data.formatData.type.v === "swap") {
-                    mountpoint = "swap";
-                }
-
-                // device changed to a non-swap device, reset mountpoint
-                if (row["device-spec"] !== device && mountpoint === "swap" && data !== undefined && data.formatData.type.v !== "swap") {
-                    mountpoint = undefined;
-                }
-
-                newRow["mount-point"] = mountpoint;
-                newRow["device-spec"] = device;
-            }
-            return newRow;
-        });
-        setRequests(_requests);
-    };
-
-    if (isLoadingNewPartitioning) {
-        return (
-            <EmptyStatePanel loading />
-        );
-    } else {
-        return (
-            <>
-                <RequestsTable
-                  allDevices={allDevices}
-                  deviceData={deviceData}
-                  requiredMountPoints={requiredMountPoints}
-                  handleRequestChange={handleRequestChange}
-                  idPrefix={idPrefix + "-table"}
-                  lockedLUKSDevices={lockedLUKSDevices}
-                  requests={requests}
-                  setRequests={setRequests}
-                />
-                <div>
-                    <Button
-                      variant="secondary"
-                      onClick={() => setRequests([...requests, { "request-id": requests.length + 1 }])}>
-                        {_("Add mount")}
-                    </Button>
-                </div>
-            </>
-        );
+    if (!requests) {
+        return <EmptyStatePanel loading />;
     }
+
+    return (
+        <>
+            <ListingTable
+              aria-label={_("Mount point assignment")}
+              columns={[
+                  { title: _("Mount point"), props: { width: 30 } },
+                  { title: _("Device"), props: { width: 40 } },
+                  { title: _("Reformat"), props: { width: 20 } },
+                  { title: "", props: { width: 10 } },
+              ]}
+              emptyCaption={_("No devices")}
+              id={idPrefix}
+              rows={unappliedRequests
+                      .map((request, idx) => (
+                          getRequestRow({
+                              allDevices,
+                              deviceData,
+                              handleRequestChange,
+                              idPrefix,
+                              lockedLUKSDevices,
+                              request,
+                              requestIndex: idx,
+                              requests: unappliedRequests,
+                              requiredMountPoints,
+                          })
+                      ))} />
+            <div>
+                <Button
+                  variant="secondary"
+                  onClick={() => handleRequestChange({ requestIndex: unappliedRequests.length })}>
+                    {_("Add mount")}
+                </Button>
+            </div>
+        </>
+    );
 };
 
-export const MountPointMapping = ({ deviceData, diskSelection, partitioningData, requiredMountPoints, dispatch, idPrefix, setIsFormValid, onAddErrorNotification, reusePartitioning, setReusePartitioning, stepNotification }) => {
+const isUsableDevice = (devSpec, deviceData) => {
+    const device = deviceData[devSpec];
+    if (device === undefined || device.formatData === undefined) {
+        return false;
+    }
+
+    // luks is allowed -- we need to be able to unlock it
+    if (device.formatData.type.v === "luks") {
+        return true;
+    }
+
+    // only swap and mountable filesystems should be shown in the mount point assignment
+    if (device.formatData.type.v === "swap" || device.formatData.mountable.v === true) {
+        return true;
+    }
+
+    return false;
+};
+
+export const MountPointMapping = ({
+    deviceData,
+    diskSelection,
+    dispatch,
+    idPrefix,
+    onAddErrorNotification,
+    partitioningData,
+    requiredMountPoints,
+    reusePartitioning,
+    setIsFormValid,
+    setReusePartitioning,
+    stepNotification,
+}) => {
     const [usedPartitioning, setUsedPartitioning] = useState(partitioningData?.path);
     const [skipUnlock, setSkipUnlock] = useState(false);
-
-    const isUsableDevice = (devSpec, deviceData) => {
-        const device = deviceData[devSpec];
-        if (device === undefined || device.formatData === undefined) {
-            return false;
-        }
-
-        // luks is allowed -- we need to be able to unlock it
-        if (device.formatData.type.v === "luks") {
-            return true;
-        }
-
-        // only swap and mountable filesystems should be shown in the mount point assignment
-        if (device.formatData.type.v === "swap" || device.formatData.mountable.v === true) {
-            return true;
-        }
-
-        return false;
-    };
-
-    const usablePartitioningRequests = useMemo(() => {
-        return partitioningData.requests?.filter(r => isUsableDevice(r["device-spec"], deviceData)) || [];
-    }, [partitioningData.requests, deviceData]);
-
     const lockedLUKSDevices = useMemo(
-        () => getLockedLUKSDevices(usablePartitioningRequests, deviceData),
-        [deviceData, usablePartitioningRequests]
+        () => getLockedLUKSDevices(partitioningData?.requests, deviceData),
+        [deviceData, partitioningData?.requests]
     );
 
     useEffect(() => {
@@ -650,6 +610,7 @@ export const MountPointMapping = ({ deviceData, diskSelection, partitioningData,
     }, [reusePartitioning, setReusePartitioning, partitioningData?.method, partitioningData?.path]);
 
     const isLoadingNewPartitioning = !reusePartitioning || usedPartitioning !== partitioningData.path;
+    const showLuksUnlock = lockedLUKSDevices?.length > 0 && !skipUnlock;
 
     return (
         <AnacondaPage title={_("Manual disk configuration: Mount point mapping")}>
@@ -660,30 +621,33 @@ export const MountPointMapping = ({ deviceData, diskSelection, partitioningData,
                   variant="danger"
                 />}
 
-            {lockedLUKSDevices?.length > 0 && !skipUnlock
-                ? (
-                    <EncryptedDevices
-                      dispatch={dispatch}
-                      idPrefix={idPrefix}
-                      isLoadingNewPartitioning={isLoadingNewPartitioning}
-                      lockedLUKSDevices={lockedLUKSDevices}
-                      setSkipUnlock={setSkipUnlock}
-                    />
-                )
-                : (
-                    <MountPointMappingContent
-                      deviceData={deviceData}
-                      dispatch={dispatch}
-                      idPrefix={idPrefix}
-                      isLoadingNewPartitioning={isLoadingNewPartitioning}
-                      lockedLUKSDevices={lockedLUKSDevices}
-                      onAddErrorNotification={onAddErrorNotification}
-                      partitioningData={partitioningData}
-                      usablePartitioningRequests={usablePartitioningRequests}
-                      setIsFormValid={setIsFormValid}
-                      requiredMountPoints={requiredMountPoints}
-                    />
-                )}
+            {showLuksUnlock &&
+            (
+                <EncryptedDevices
+                  dispatch={dispatch}
+                  idPrefix={idPrefix}
+                  isLoadingNewPartitioning={isLoadingNewPartitioning}
+                  lockedLUKSDevices={lockedLUKSDevices}
+                  setSkipUnlock={setSkipUnlock}
+                />
+            )}
+            {!showLuksUnlock && (
+                (isLoadingNewPartitioning || !requiredMountPoints)
+                    ? (
+                        <EmptyStatePanel loading />
+                    )
+                    : (
+                        <RequestsTable
+                          deviceData={deviceData}
+                          idPrefix={idPrefix + "-table"}
+                          lockedLUKSDevices={lockedLUKSDevices}
+                          onAddErrorNotification={onAddErrorNotification}
+                          partitioningDataPath={partitioningData?.path}
+                          requests={partitioningData?.requests}
+                          requiredMountPoints={requiredMountPoints}
+                          setIsFormValid={setIsFormValid}
+                        />
+                    ))}
         </AnacondaPage>
     );
 };
