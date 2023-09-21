@@ -469,10 +469,6 @@ run-tests:
 	@rm -rf $(USER_SITE_BASE)
 	$(MAKE) coverage-report
 
-tests-pep8:
-	$(MAKE)
-	$(MAKE) TMPDIR=/var/tmp TEST_SUITE_LOG=test-suite.log TESTS=pep8/runpep8.sh check
-
 tests-pylint:
 	$(MAKE)
 # For a weird reason when pylint is not in TESTS included for automake (during configure)

@@ -4,12 +4,10 @@
 # for format details see https://pip.pypa.io/en/stable/reference/requirements-file-format/
 
 # unit tests of all kinds
-pocketlint
+pocketlint  # translatable strings and translations, used by pylint and glade tests
 coverage
-pycodestyle
-dogtail
-rpmfluff
-freezegun
+rpmfluff  # rpm mocking
+freezegun  # time manipulation
 pytest
 
 # jinja templates

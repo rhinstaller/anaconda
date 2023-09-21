@@ -40,7 +40,6 @@ EXTRA_DIST += $(top_srcdir)/translation-canary/translation_canary/*.py \
 	      $(top_srcdir)/translation-canary/translation_canary/*/*.py
 
 UNIT_TESTS_PATTERN ?= ""
-PEP8_TARGETS ?= ""
 
 # Test scripts need to be listed both here and in TESTS
 dist_check_SCRIPTS = \
@@ -59,7 +58,6 @@ dist_check_SCRIPTS = \
 	$(srcdir)/*_tests/*/*/*/*.py \
 	$(srcdir)/unit_tests/*_tests/*.py \
 	shellcheck/*.sh \
-	pep8/runpep8.sh \
 	ruff/run_ruff.sh
 
 # TODO: Return back pylint/runpylint.py when it works on python 3.12
