@@ -23,7 +23,7 @@ from blivet.devicelibs import raid
 from blivet.size import Size
 from pyanaconda.modules.storage.partitioning.specification import PartSpec
 from pyanaconda.modules.storage.platform import X86, get_platform, NewWorldPPC, IPSeriesPPC, \
-    PowerNV, PS3, S390, ARM, Aarch64EFI, EFI
+    PowerNV, PS3, S390, ARM, Aarch64EFI, EFI, RISCV64, RISCV64EFI
 
 
 class PlatformTestCase(unittest.TestCase):
@@ -43,6 +43,7 @@ class PlatformTestCase(unittest.TestCase):
         arch.is_arm.return_value = False
         arch.is_x86.return_value = False
         arch.is_arm.return_value = False
+        arch.is_riscv64.return_value = False
 
     def _check_platform(self, platform_cls, packages=None, non_linux_format_types=None):
         """Check the detected platform."""
@@ -169,6 +170,34 @@ class PlatformTestCase(unittest.TestCase):
         )
 
     @patch("pyanaconda.modules.storage.platform.arch")
+    def test_riscv64(self, arch):
+        """Test the ARM platform."""
+        self._reset_arch(arch)
+        arch.is_riscv64.return_value = True
+
+        self._check_platform(
+            platform_cls=RISCV64
+        )
+
+        self._check_partitions(
+            PartSpec(mountpoint="/boot", size=Size("1GiB"))
+        )
+
+        self._check_constraints(
+            constraints={
+                "device_types": ["disk"]
+            },
+            descriptions={
+                "disk": "Master Boot Record",
+                "partition": "First sector of boot partition",
+            },
+            error_message=str(
+                "You must include at least one MBR-formatted "
+                "disk as an install target."
+            )
+        )
+
+    @patch("pyanaconda.modules.storage.platform.arch")
     def test_efi(self, arch):
         """Test the EFI platform."""
         self._reset_arch(arch)
@@ -250,6 +279,43 @@ class PlatformTestCase(unittest.TestCase):
 
         self._check_platform(
             platform_cls=Aarch64EFI,
+            non_linux_format_types=["vfat", "ntfs"]
+        )
+
+        self._check_partitions(
+            PartSpec(mountpoint="/boot/efi", fstype="efi", grow=True,
+                     size=Size("500MiB"), max_size=Size("600MiB")),
+            PartSpec(mountpoint="/boot", size=Size("1GiB"))
+        )
+
+        self._check_constraints(
+            constraints={
+                "format_types": ["efi"],
+                "device_types": ["partition", "mdarray"],
+                "mountpoints": ["/boot/efi"],
+                "raid_levels": [raid.RAID1],
+                "raid_metadata": ["1.0"]
+            },
+            descriptions={
+                "partition": "EFI System Partition",
+                "mdarray": "RAID Device"
+            },
+            error_message=str(
+                "For a UEFI installation, you must include "
+                "an EFI System Partition on a GPT-formatted "
+                "disk, mounted at /boot/efi."
+            )
+        )
+
+    @patch("pyanaconda.modules.storage.platform.arch")
+    def test_riscv64_efi(self, arch):
+        """Test the ARM EFI platform."""
+        self._reset_arch(arch)
+        arch.is_efi.return_value = True
+        arch.is_riscv64.return_value = True
+
+        self._check_platform(
+            platform_cls=RISCV64EFI,
             non_linux_format_types=["vfat", "ntfs"]
         )
 
