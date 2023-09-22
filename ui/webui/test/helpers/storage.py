@@ -494,7 +494,9 @@ class StorageMountPointMapping(StorageDBus, StorageDestination):
         self.browser.set_checked(f"{self.table_row(row)} td[data-label='Reformat'] input", selected)
 
     def remove_mountpoint_row(self, row):
+        rows = self.browser.call_js_func("ph_count", '#mount-point-mapping-table tbody tr')
         self.browser.click(f"{self.table_row(row)} button[aria-label='Remove']")
+        self.browser.wait_js_cond(f"ph_count('#mount-point-mapping-table tbody tr') == {rows - 1}")
 
     def check_mountpoint_row_reformat(self, row, checked):
         checked_selector = "input:checked" if checked else "input:not(:checked)"
@@ -507,7 +509,9 @@ class StorageMountPointMapping(StorageDBus, StorageDestination):
         self.browser.wait_visible(f"{self.table_row(row)} td[data-label='Reformat'] .pf-v5-c-check__input:disabled")
 
     def add_mountpoint_row(self):
+        rows = self.browser.call_js_func("ph_count", '#mount-point-mapping-table tbody tr')
         self.browser.click("button:contains('Add mount')")
+        self.browser.wait_js_cond(f"ph_count('#mount-point-mapping-table tbody tr') == {rows + 1}")
 
     def unlock_all_encrypted(self):
         self.browser.click("#mount-point-mapping-unlock-devices-btn")
