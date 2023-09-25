@@ -189,20 +189,26 @@ const MountPointColumn = ({ handleRequestChange, idPrefix, isRequiredMountPoint,
     );
 };
 
-const DeviceColumnSelect = ({ deviceData, devices, idPrefix, lockedLUKSDevices, handleRequestChange, request, requestIndex }) => {
+const DeviceColumnSelect = ({ deviceData, devices, idPrefix, isRequiredMountPoint, lockedLUKSDevices, handleRequestChange, request, requestIndex }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const device = request["device-spec"];
     const options = devices.map(device => {
+        const formatType = deviceData[device]?.formatData.type.v;
         const format = deviceData[device]?.formatData.description.v;
         const size = cockpit.format_bytes(deviceData[device]?.total.v);
         const description = cockpit.format("$0, $1", format, size);
         const isLockedLUKS = lockedLUKSDevices.some(p => device.includes(p));
+        /* Disable the following devices:
+         * - Locked LUKS devices
+         * - Swap devices when the mount point is preset (required) as these reset it
+         */
+        const isDisabled = isLockedLUKS || (formatType === "swap" && isRequiredMountPoint);
 
         return (
             <SelectOption
               data-value={device}
-              isDisabled={isLockedLUKS}
+              isDisabled={isDisabled}
               description={description}
               key={device}
               value={device}
@@ -233,7 +239,7 @@ const DeviceColumnSelect = ({ deviceData, devices, idPrefix, lockedLUKSDevices, 
     );
 };
 
-const DeviceColumn = ({ deviceData, devices, requiredMountPoints, idPrefix, handleRequestChange, lockedLUKSDevices, request, requests, requestIndex }) => {
+const DeviceColumn = ({ deviceData, devices, requiredMountPoints, idPrefix, isRequiredMountPoint, handleRequestChange, lockedLUKSDevices, request, requests, requestIndex }) => {
     const device = request["device-spec"];
     const duplicatedDevice = isDuplicateRequestField(requests, "device-spec", device);
     const [deviceInvalid, errorMessage] = isDeviceMountPointInvalid(deviceData, requiredMountPoints, request);
@@ -244,6 +250,7 @@ const DeviceColumn = ({ deviceData, devices, requiredMountPoints, idPrefix, hand
               deviceData={deviceData}
               devices={devices}
               idPrefix={idPrefix}
+              isRequiredMountPoint={isRequiredMountPoint}
               handleRequestChange={handleRequestChange}
               lockedLUKSDevices={lockedLUKSDevices}
               request={request}
@@ -356,6 +363,7 @@ const getRequestRow = ({
                       devices={allDevices}
                       handleRequestChange={handleRequestChange}
                       idPrefix={rowId + "-device"}
+                      isRequiredMountPoint={isRequiredMountPoint}
                       lockedLUKSDevices={lockedLUKSDevices}
                       request={request}
                       requestIndex={requestIndex}
@@ -371,6 +379,7 @@ const getRequestRow = ({
                       deviceData={deviceData}
                       handleRequestChange={handleRequestChange}
                       idPrefix={rowId + "-format"}
+                      isRequiredMountPoint={isRequiredMountPoint}
                       request={request}
                       requestIndex={requestIndex}
                       requests={requests}

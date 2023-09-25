@@ -443,12 +443,15 @@ class StorageMountPointMapping(StorageDBus, StorageDestination):
         self.browser.wait_in_text(f"{self.table_row(row)} ul li button.pf-m-selected", format_type)
         self.toggle_mountpoint_row_device(row)
 
-    def check_mountpoint_row_device_available(self, row, device, available=True):
+    def check_mountpoint_row_device_available(self, row, device, available=True, disabled=False):
+        disabled_selector = ".pf-m-disabled" if disabled else ":not(.pf-m-disabled)"
+
         self.toggle_mountpoint_row_device(row)
+        main_selector = f"{self.table_row(row)} ul li button"
         if available:
-            self.browser.wait_visible(f"{self.table_row(row)} ul li button:contains({device})")
+            self.browser.wait_visible(f"{main_selector}{disabled_selector}:contains({device})")
         else:
-            self.browser.wait_not_present(f"{self.table_row(row)} ul li button:contains({device})")
+            self.browser.wait_not_present(f"{main_selector}:contains({device})")
         self.toggle_mountpoint_row_device(row)
 
     def unlock_device(self, passphrase, encrypted_devices=[], successfully_unlocked_devices=[]):

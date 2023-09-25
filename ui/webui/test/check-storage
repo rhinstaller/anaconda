@@ -442,6 +442,16 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         new_applied_partitioning = s.dbus_get_applied_partitioning()
         self.assertNotEqual(new_applied_partitioning, applied_partitioning)
 
+        # Swap partitions should not be selectable for the required mount point rows
+        # https://bugzilla.redhat.com/show_bug.cgi?id=2239836
+        i.back(previous_page=i.steps.CUSTOM_MOUNT_POINT)
+        i.back()
+
+        m.execute(f"mkswap {disk}5")
+        s.rescan_disks()
+        s.select_mountpoint([(dev, True)])
+        s.check_mountpoint_row_device_available(1, f"{dev}5", True, True)
+
     @nondestructive
     def testNoRootMountPoint(self):
         b = self.browser
