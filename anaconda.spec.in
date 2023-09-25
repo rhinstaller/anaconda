@@ -205,6 +205,8 @@ Requires: tmux
 Requires: gdb
 # support for installation from image and live & live image installations
 Requires: rsync
+# An addon that allows enabling kdump at install time
+Recommends: kdump-anaconda-addon
 # basic filesystem tools
 %if ! 0%{?rhel}
 Requires: btrfs-progs
@@ -234,6 +236,8 @@ Requires: fcoe-utils >= %{fcoeutilsver}
 %endif
 # only WeakRequires elsewhere and not guaranteed to be present
 Requires: device-mapper-multipath
+# only WeakRequires in -env-
+Requires: kdump-anaconda-addon
 %if ! 0%{?rhel}
 Requires: zram-generator-defaults
 %else
