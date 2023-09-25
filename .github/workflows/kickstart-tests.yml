@@ -125,7 +125,7 @@ jobs:
           sudo rm -rf * .git
 
       - name: Clone repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ needs.pr-info.outputs.sha }}
           fetch-depth: 0
@@ -140,7 +140,7 @@ jobs:
           git rebase origin/${{ env.TARGET_BRANCH }}
 
       - name: Check out kickstart-tests
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: rhinstaller/kickstart-tests
           path: kickstart-tests
@@ -150,14 +150,14 @@ jobs:
         run: scripts/generate-testcases.py -t ./testlib/test_cases/kstest-template.tc.yaml.j2 . -o ./testlib/test_cases
 
       - name: Clone Permian repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: rhinstaller/permian
           path: permian
           ref: main
 
       - name: Clone tplib repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: rhinstaller/tplib
           path: tplib
