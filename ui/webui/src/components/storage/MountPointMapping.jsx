@@ -91,7 +91,14 @@ const getInitialRequests = (usablePartitioningRequests, requiredMountPoints) => 
         return request;
     });
 
-    const extraRequests = usablePartitioningRequests.filter(r => r["mount-point"] && r["mount-point"] !== "/" && r["mount-point"] !== "/boot" && r["mount-point"] !== "/boot/efi" && r["format-type"] !== "biosboot") || [];
+    const extraRequests = usablePartitioningRequests.filter(r => (
+        r["mount-point"] &&
+        r["mount-point"] !== "/" &&
+        r["mount-point"] !== "/boot" &&
+        r["mount-point"] !== "/boot/efi" &&
+        r["mount-point"] !== "biosboot"
+    )) || [];
+
     return [...requests, ...extraRequests].map((request, idx) => ({ ...request, "request-id": idx + 1 }));
 };
 
