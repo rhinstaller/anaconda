@@ -74,17 +74,17 @@ const getInitialRequests = (usablePartitioningRequests, requiredMountPoints) => 
     const bootEfiOriginalRequest = usablePartitioningRequests.find(r => r["mount-point"] === "/boot/efi");
 
     const requests = requiredMountPoints.map((mountPoint, idx) => {
-        const request = ({ "mount-point": mountPoint.value, reformat: mountPoint.name === "root" });
+        const request = ({ "mount-point": mountPoint["mount-point"].v, reformat: mountPoint["mount-point"].v === "/" });
 
-        if (mountPoint.name === "boot" && bootOriginalRequest) {
+        if (mountPoint["mount-point"].v === "/boot" && bootOriginalRequest) {
             return { ...bootOriginalRequest, ...request };
         }
 
-        if (mountPoint.name === "root" && rootOriginalRequest) {
+        if (mountPoint["mount-point"].v === "/" && rootOriginalRequest) {
             return { ...rootOriginalRequest, ...request };
         }
 
-        if (mountPoint.name === "boot-efi" && bootEfiOriginalRequest) {
+        if (mountPoint["mount-point"].v === "/boot/efi" && bootEfiOriginalRequest) {
             return { ...bootEfiOriginalRequest, ...request };
         }
 
@@ -130,18 +130,20 @@ const isReformatInvalid = (deviceData, request, requests) => {
     }
 };
 
-const isDeviceMountPointInvalid = (deviceData, request) => {
+const isDeviceMountPointInvalid = (deviceData, requiredMountPoints, request) => {
     const device = request["device-spec"];
+    const requiredMountPointData = requiredMountPoints.find(val => val["mount-point"].v === request["mount-point"]);
 
-    if (!device || !request["mount-point"]) {
+    if (!device || !request["mount-point"] || !requiredMountPointData) {
         return [false, ""];
     }
 
-    // /boot/efi must be on EFI System Partition
-    if (request["mount-point"] === "/boot/efi") {
-        if (deviceData[device].formatData.type.v !== "efi") {
-            return [true, _("/boot/efi must be on a EFI System Partition device")];
-        }
+    // we have constraints for filesystem type for required mount points from the backend) {
+    if (requiredMountPointData && requiredMountPointData["required-filesystem-type"].v !== "" &&
+        deviceData[device].formatData.type.v !== requiredMountPointData["required-filesystem-type"].v) {
+        return [true,
+            cockpit.format(_("'$0' must be on a device formatted to '$1'"),
+                           request["mount-point"], requiredMountPointData["required-filesystem-type"].v)];
     }
 
     return [false, ""];
@@ -278,10 +280,10 @@ const DeviceColumnSelect = ({ deviceData, devices, idPrefix, lockedLUKSDevices, 
     );
 };
 
-const DeviceColumn = ({ deviceData, devices, idPrefix, handleRequestChange, lockedLUKSDevices, request, requests }) => {
+const DeviceColumn = ({ deviceData, devices, requiredMountPoints, idPrefix, handleRequestChange, lockedLUKSDevices, request, requests }) => {
     const device = request["device-spec"];
     const duplicatedDevice = isDuplicateRequestField(requests, "device-spec", device);
-    const [deviceInvalid, errorMessage] = isDeviceMountPointInvalid(deviceData, request);
+    const [deviceInvalid, errorMessage] = isDeviceMountPointInvalid(deviceData, requiredMountPoints, request);
 
     return (
         <Flex direction={{ default: "column" }} spaceItems={{ default: "spaceItemsNone" }}>
@@ -378,7 +380,7 @@ const RequestsTable = ({
 }) => {
     const columnClassName = idPrefix + "__column";
     const getRequestRow = (request) => {
-        const isRequiredMountPoint = !!requiredMountPoints.find(val => val.value === request["mount-point"]);
+        const isRequiredMountPoint = !!requiredMountPoints.find(val => val["mount-point"].v === request["mount-point"]);
         const duplicatedMountPoint = isDuplicateRequestField(requests, "mount-point", request["mount-point"]);
         const rowId = idPrefix + "-row-" + request["request-id"];
 
@@ -402,6 +404,7 @@ const RequestsTable = ({
                         <DeviceColumn
                           deviceData={deviceData}
                           devices={allDevices}
+                          requiredMountPoints={requiredMountPoints}
                           handleRequestChange={handleRequestChange}
                           idPrefix={rowId + "-device"}
                           lockedLUKSDevices={lockedLUKSDevices}
@@ -590,19 +593,8 @@ const MountPointMappingContent = ({ deviceData, partitioningData, usablePartitio
     }
 };
 
-export const MountPointMapping = ({ deviceData, diskSelection, partitioningData, dispatch, idPrefix, setIsFormValid, onAddErrorNotification, reusePartitioning, setReusePartitioning, stepNotification }) => {
+export const MountPointMapping = ({ deviceData, diskSelection, partitioningData, requiredMountPoints, dispatch, idPrefix, setIsFormValid, onAddErrorNotification, reusePartitioning, setReusePartitioning, stepNotification }) => {
     const [usedPartitioning, setUsedPartitioning] = useState(partitioningData?.path);
-    const requiredMountPoints = useMemo(() => {
-        const mounts = [
-            { value: "/boot", name: "boot" },
-            { value: "/", name: "root" },
-        ];
-
-        cockpit.spawn(["ls", "/sys/firmware/efi"], { err: "ignore" })
-                .then(() => { mounts.push({ value: "/boot/efi", name: "boot-efi" }) });
-
-        return mounts;
-    }, []);
 
     const isUsableDevice = (devSpec, deviceData) => {
         const device = deviceData[devSpec];

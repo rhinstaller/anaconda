@@ -26,9 +26,11 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.storage import UnknownDeviceError
 from pyanaconda.modules.common.structures.storage import DeviceData, DeviceActionData, \
-    DeviceFormatData, OSData
+    DeviceFormatData, OSData, RequiredMountPointData
 from pyanaconda.modules.storage.devicetree.utils import get_required_device_size, \
     get_supported_filesystems
+from pyanaconda.modules.storage.platform import platform
+from pyanaconda.modules.storage.partitioning.specification import PartSpec
 
 log = get_module_logger(__name__)
 
@@ -467,3 +469,30 @@ class DeviceTreeViewer(ABC):
             path: device.name for path, device in root.mounts.items()
         }
         return data
+
+    def _get_platform_mount_point_data(self, spec):
+        """Get the mount point data.
+
+        :param spec: an instance of PartSpec
+        :return: an instance of RequiredMountPointData
+        """
+        data = RequiredMountPointData()
+        data.mount_point = spec.mountpoint or ""
+        data.required_filesystem_type = spec.fstype or ""
+        data.encryption_allowed = spec.encrypted
+        data.logical_volume_allowed = spec.lv
+
+        return data
+
+    def get_required_mount_points(self):
+        """Get list of required mount points for the current platform
+
+        This includes mount points required to boot (e.g. /boot and /boot/efi)
+        and the / partition which is always considered to be required.
+
+        :return: a list of mount points
+        """
+        root_partition = PartSpec(mountpoint="/", lv=True, thin=True, encrypted=True)
+        ret = list(map(self._get_platform_mount_point_data,
+                       [p for p in platform.partitions if p.mountpoint] + [root_partition]))
+        return ret
