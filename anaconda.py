@@ -67,6 +67,7 @@ def exitHandler(rebootData):
 
     # Tear down the storage module.
     storage_proxy = STORAGE.get_proxy()
+    from pyanaconda.modules.common.task import sync_run_task
 
     for task_path in storage_proxy.TeardownWithTasks():
         task_proxy = STORAGE.get_proxy(task_path)
