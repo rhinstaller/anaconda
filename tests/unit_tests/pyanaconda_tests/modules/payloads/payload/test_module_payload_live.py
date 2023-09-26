@@ -25,7 +25,7 @@ import requests
 
 from contextlib import contextmanager
 from requests_file import FileAdapter
-from unittest.mock import patch, Mock, call
+from unittest.mock import call, patch, Mock, MagicMock
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.path import join_paths, touch
@@ -84,11 +84,17 @@ class LiveUtilsTestCase(unittest.TestCase):
 class InstallFromImageTaskTestCase(unittest.TestCase):
     """Test the InstallFromImageTask class."""
 
+    def _make_reader(self, rc):
+        reader = MagicMock()
+        reader.__iter__.return_value = []
+        reader.rc = rc
+        return reader
+
     @patch("pyanaconda.modules.payloads.payload.live_image.installation.os.sync")
-    @patch("pyanaconda.modules.payloads.payload.live_image.installation.execWithRedirect")
-    def test_install_image_task(self, exec_with_redirect, os_sync):
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.execReadlines")
+    def test_install_image_task(self, exec_readlines, os_sync):
         """Test installation from an image task."""
-        exec_with_redirect.return_value = 0
+        exec_readlines.return_value = self._make_reader(0)
 
         with tempfile.TemporaryDirectory() as mount_point:
             task = InstallFromImageTask(
@@ -97,9 +103,11 @@ class InstallFromImageTaskTestCase(unittest.TestCase):
             )
             task.run()
 
-        exec_with_redirect.assert_called_once_with("rsync", [
+        exec_readlines.assert_called_once_with("rsync", [
             "-pogAXtlHrDx",
             "--stats",
+            "--info=flist2,name,progress2",
+            "--no-inc-recursive",
             "--exclude", "/dev/",
             "--exclude", "/proc/",
             "--exclude", "/tmp/*",
@@ -112,13 +120,13 @@ class InstallFromImageTaskTestCase(unittest.TestCase):
             "--exclude", "/etc/machine-info",
             mount_point + "/",
             "/mnt/root"
-        ])
+        ], raise_on_nozero=False)
 
     @patch("pyanaconda.modules.payloads.payload.live_image.installation.os.sync")
-    @patch("pyanaconda.modules.payloads.payload.live_image.installation.execWithRedirect")
-    def test_install_image_task_failed_exception(self, exec_with_redirect, os_sync):
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.execReadlines")
+    def test_install_image_task_failed_exception(self, exec_readlines, os_sync):
         """Test installation from an image task with exception."""
-        exec_with_redirect.side_effect = OSError("Fake!")
+        exec_readlines.side_effect = OSError("Fake!")
 
         with tempfile.TemporaryDirectory() as mount_point:
             task = InstallFromImageTask(
@@ -133,10 +141,10 @@ class InstallFromImageTaskTestCase(unittest.TestCase):
         assert str(cm.value) == msg
 
     @patch("pyanaconda.modules.payloads.payload.live_image.installation.os.sync")
-    @patch("pyanaconda.modules.payloads.payload.live_image.installation.execWithRedirect")
-    def test_install_image_task_failed_return_code(self, exec_with_redirect, os_sync):
+    @patch("pyanaconda.modules.payloads.payload.live_image.installation.execReadlines")
+    def test_install_image_task_failed_return_code(self, exec_readlines, os_sync):
         """Test installation from an image task with bad return code."""
-        exec_with_redirect.return_value = 11
+        exec_readlines.return_value = self._make_reader(11)
 
         with tempfile.TemporaryDirectory() as mount_point:
             task = InstallFromImageTask(

@@ -27,6 +27,7 @@ from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.payloads.payload.live_image.installation_progress import \
     InstallationProgress
+from pyanaconda.modules.common.structures.storage import DeviceData
 from tests.unit_tests.pyanaconda_tests import patch_dbus_get_proxy_with_cache
 
 
@@ -49,6 +50,7 @@ class InstallationProgressTestCase(unittest.TestCase):
                 "/boot": "dev2",
                 "/home": "dev3",
             }
+            device_tree.GetDeviceData.return_value = DeviceData.to_structure(DeviceData())
 
             statvfs_mock.return_value = \
                 Mock(f_frsize=1024, f_blocks=150, f_bfree=100)
@@ -82,6 +84,7 @@ class InstallationProgressTestCase(unittest.TestCase):
                 "/boot": "dev2",
                 "/home": "dev3",
             }
+            device_tree.GetDeviceData.return_value = DeviceData.to_structure(DeviceData())
 
             statvfs_mock.side_effect = [
                 Mock(f_frsize=1024, f_blocks=150, f_bfree=125),
@@ -108,3 +111,47 @@ class InstallationProgressTestCase(unittest.TestCase):
             call("Installing software 100%"),
         ]
         assert callback.call_args_list == expected
+
+    @patch_dbus_get_proxy_with_cache
+    def test_btrfs_mountpoint_selection(self, proxy_getter):
+        """Test installation progress calculation with btrfs."""
+
+        def get_device_data(device):
+            data = DeviceData()
+            if device in ("root-btrfs-one", "home-btrfs-one"):
+                data.type = "btrfs subvolume"
+            elif device == "btrfs-one":
+                data.type = "btrfs volume"
+            return DeviceData.to_structure(data)
+
+        def get_device_ancestors(devices):
+            ancestors = {
+                "root-btrfs-one": ["btrfs-one", "dev1-disk", "dev2-disk"],
+                "dev2": ["dev2-disk"],
+                "home-btrfs-one": ["dev1-disk", "dev2-disk", "btrfs-one"],
+            }
+            return ancestors[devices[0]]
+
+        callback = Mock()
+
+        device_tree = STORAGE.get_proxy(DEVICE_TREE)
+        device_tree.GetMountPoints.return_value = {
+            "/": "root-btrfs-one",
+            "/boot": "dev2",
+            "/home": "home-btrfs-one",
+        }
+        device_tree.GetDeviceData = Mock(wraps=get_device_data)
+        device_tree.GetAncestors = Mock(wraps=get_device_ancestors)
+
+        progress = InstallationProgress(
+            sysroot="/somewhere",
+            callback=callback,
+            installation_size=1024 * 100
+        )
+
+        mount_points = progress._get_mount_points_to_count()
+
+        assert mount_points == [
+            "/somewhere/",
+            "/somewhere/boot",
+        ]
