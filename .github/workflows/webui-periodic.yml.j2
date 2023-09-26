@@ -38,7 +38,7 @@ jobs:
 
       # The test library is in anaconda repository
       - name: Clone anaconda repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: master
           fetch-depth: 0
@@ -46,14 +46,14 @@ jobs:
 
       # TODO: use main branch when the webui workflow is merged there
       - name: Clone Permian repository
-        uses: actions/checkout@v3.3.0
+        uses: actions/checkout@v4
         with:
           repository: rhinstaller/permian
           path: permian
           ref: devel
 
       - name: Clone tplib repository
-        uses: actions/checkout@v3.3.0
+        uses: actions/checkout@v4
         with:
           repository: rhinstaller/tplib
           path: tplib
