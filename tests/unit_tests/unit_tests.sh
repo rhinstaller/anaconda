@@ -11,4 +11,4 @@ if [ $# -eq 0 ]; then
     set -- "$top_srcdir/tests/unit_tests"
 fi
 
-exec pytest -vv --log-level=NOTSET ${UNIT_TESTS_PATTERN:+-k $UNIT_TESTS_PATTERN} "$@"
+exec pytest -vv --log-level=NOTSET -n auto ${UNIT_TESTS_PATTERN:+-k $UNIT_TESTS_PATTERN} "$@"

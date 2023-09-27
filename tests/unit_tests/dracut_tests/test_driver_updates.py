@@ -25,6 +25,7 @@ import os
 import tempfile
 import shutil
 import collections
+import re
 
 import logging
 
@@ -127,17 +128,20 @@ class DebuggingTestCase(FileTestCaseBase):
         # check logging level is set to DEBUG
         mock_log.setLevel.assert_called_once_with(logging.DEBUG)
 
-        calls = mock_log.addHandler.mock_calls
-        calls = list(map(repr, calls))
+        calls = "\n".join(list(map(repr, mock_log.addHandler.mock_calls)))
 
         # with debug mode disabled
         # DEBUG logs go to journal only
         assert "call(<SysLogHandler (DEBUG)>)" in calls
         # and INFO logs to the console
-        assert "call(<StreamHandler <_io.FileIO name=8 mode='rb+' closefd=True> (DEBUG)>)" \
-            not in calls
-        assert "call(<StreamHandler <_io.FileIO name=8 mode='rb+' closefd=True> (INFO)>)" \
-            in calls
+        assert [] == re.findall(
+            r"""call\(<StreamHandler <_io\.FileIO name=[0-9]+ mode='rb\+' closefd=True> \(DEBUG\)>\)""",
+            calls
+        )
+        assert len(re.findall(
+            r"""call\(<StreamHandler <_io\.FileIO name=[0-9]+ mode='rb\+' closefd=True> \(INFO\)>\)""",
+            calls
+        )) > 0
 
         mock_log.addHandler.reset_mock()
         mock_log.setLevel.reset_mock()
@@ -149,17 +153,21 @@ class DebuggingTestCase(FileTestCaseBase):
         # check logging level is set to DEBUG
         mock_log.setLevel.assert_called_once_with(logging.DEBUG)
 
-        calls = mock_log.addHandler.mock_calls
-        calls = list(map(repr, calls))
+        calls = "\n".join(list(map(repr, mock_log.addHandler.mock_calls)))
 
         # with debug mode enabled
         # debug logs go to journal but also console
         assert "call(<SysLogHandler (DEBUG)>)" in calls
-        assert "call(<StreamHandler <_io.FileIO name=8 mode='rb+' closefd=True> (DEBUG)>)" in calls
+        assert len(re.findall(
+            r"""call\(<StreamHandler <_io\.FileIO name=[0-9]+ mode='rb\+' closefd=True> \(DEBUG\)>\)""",
+            calls
+        )) > 0
         # there can't be INFO messages otherwise the logs would have duplicates (DEBUG includes all lower levels)
         assert "call(<SysLogHandler (INFO)>)" not in calls
-        assert "call(<StreamHandler <_io.FileIO name=8 mode='rb+' closefd=True> (INFO)>)" \
-            not in calls
+        assert [] == re.findall(
+            r"""call\(<StreamHandler <_io\.FileIO name=[0-9]+ mode='rb\+' closefd=True> \(INFO\)>\)""",
+            calls
+        )
 
 
 class SelfTestCase(FileTestCaseBase):
