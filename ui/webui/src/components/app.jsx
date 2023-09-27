@@ -122,6 +122,9 @@ export const Application = () => {
 
     // On live media rebooting the system will actually shut it off
     const isBootIso = conf?.["Installation System"].type === "BOOT_ISO";
+    const isBootedOS = conf?.["Installation System"].type === "BOOTED_OS";
+    const canReboot = isBootIso || isBootedOS;
+
     const title = cockpit.format(_("$0 installation"), osRelease.PRETTY_NAME);
 
     const bzReportURL = bugzillaPrefiledReportURL({
@@ -132,7 +135,7 @@ export const Application = () => {
     const page = (
         <>
             {criticalError &&
-            <CriticalError exception={criticalError} isBootIso={isBootIso} isConnected={state.network.connected} reportLinkURL={bzReportURL} />}
+            <CriticalError exception={criticalError} canReboot={canReboot} isConnected={state.network.connected} reportLinkURL={bzReportURL} />}
             <Page
               data-debug={conf.Anaconda.debug}
             >
@@ -171,6 +174,7 @@ export const Application = () => {
                     <WithDialogs>
                         <AnacondaWizard
                           isBootIso={isBootIso}
+                          canReboot={canReboot}
                           onCritFail={onCritFail}
                           onAddErrorNotification={onAddErrorNotification}
                           title={title}

@@ -53,7 +53,7 @@ import {
 const _ = cockpit.gettext;
 const N_ = cockpit.noop;
 
-export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, localizationData, onCritFail, onAddErrorNotification, title, conf }) => {
+export const AnacondaWizard = ({ dispatch, isBootIso, canReboot, osRelease, storageData, localizationData, onCritFail, onAddErrorNotification, title, conf }) => {
     const [isFormValid, setIsFormValid] = useState(false);
     const [stepNotification, setStepNotification] = useState();
     const [isInProgress, setIsInProgress] = useState(false);
@@ -253,6 +253,7 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
                 setIsInProgress={setIsInProgress}
                 storageEncryption={storageEncryption}
                 storageScenarioId={storageScenarioId}
+                canReboot={canReboot}
                 isBootIso={isBootIso}
               />}
               hideClose
@@ -278,6 +279,7 @@ const Footer = ({
     setIsInProgress,
     storageEncryption,
     storageScenarioId,
+    canReboot,
     isBootIso
 }) => {
     const [nextWaitsConfirmation, setNextWaitsConfirmation] = useState(false);
@@ -377,7 +379,7 @@ const Footer = ({
                             <QuitInstallationConfirmModal
                               exitGui={exitGui}
                               setQuitWaitsConfirmation={setQuitWaitsConfirmation}
-                              isBootIso={isBootIso}
+                              canReboot={canReboot}
                             />}
                             {activeStep.id === "installation-method" && !isFormValid &&
                                 <HelperText id="next-helper-text">
@@ -424,7 +426,7 @@ const Footer = ({
                                       setQuitWaitsConfirmation(true);
                                   }}
                                 >
-                                    {isBootIso ? _("Reboot") : _("Quit")}
+                                    {canReboot ? _("Reboot") : _("Quit")}
                                 </Button>
                             </ActionList>
                         </Stack>
@@ -435,7 +437,7 @@ const Footer = ({
     );
 };
 
-export const QuitInstallationConfirmModal = ({ exitGui, setQuitWaitsConfirmation, isBootIso }) => {
+export const QuitInstallationConfirmModal = ({ exitGui, setQuitWaitsConfirmation, canReboot }) => {
     return (
         <Modal
           id="installation-quit-confirm-dialog"
@@ -448,7 +450,7 @@ export const QuitInstallationConfirmModal = ({ exitGui, setQuitWaitsConfirmation
                 }}
                 variant="danger"
               >
-                  {isBootIso ? _("Reboot") : _("Quit")}
+                  {canReboot ? _("Reboot") : _("Quit")}
               </Button>,
               <Button
                 id="installation-quit-confirm-cancel-btn"
@@ -460,7 +462,7 @@ export const QuitInstallationConfirmModal = ({ exitGui, setQuitWaitsConfirmation
           ]}
           isOpen
           onClose={() => setQuitWaitsConfirmation(false)}
-          title={isBootIso ? _("Reboot system?") : _("Quit installer?")}
+          title={canReboot ? _("Reboot system?") : _("Quit installer?")}
           titleIconVariant="warning"
           variant={ModalVariant.small}
         >

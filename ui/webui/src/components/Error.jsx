@@ -200,15 +200,15 @@ const exceptionInfo = (exception, idPrefix) => {
     );
 };
 
-const quitButton = (isBootIso) => {
+const quitButton = (canReboot) => {
     return (
         <Button variant="secondary" onClick={exitGui} key="reboot">
-            {isBootIso ? _("Reboot") : _("Quit")}
+            {canReboot ? _("Reboot") : _("Quit")}
         </Button>
     );
 };
 
-export const CriticalError = ({ exception, isBootIso, isConnected, reportLinkURL }) => {
+export const CriticalError = ({ exception, canReboot, isConnected, reportLinkURL }) => {
     const context = exception.contextData?.context;
     const description = context
         ? cockpit.format(_("The installer cannot continue due to a critical error: $0"), _(context))
@@ -225,7 +225,7 @@ export const CriticalError = ({ exception, isBootIso, isConnected, reportLinkURL
           logFile="/tmp/webui.log"
           detailsLabel={_("Error details")}
           detailsContent={exceptionInfo(exception, idPrefix)}
-          buttons={[quitButton(isBootIso)]}
+          buttons={[quitButton(canReboot)]}
           isConnected={isConnected}
         />
 
