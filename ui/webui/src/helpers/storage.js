@@ -15,6 +15,12 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 
+/* Get the list of names of all the ancestors of the given device
+ * (including the device itself)
+ * @param {Object} deviceData - The device data object
+ * @param {string} device - The name of the device
+ * @returns {Array}
+ */
 const getDeviceAncestors = (deviceData, device) => {
     // device ancestors including the device itself
     const ancestors = [];
@@ -28,10 +34,22 @@ const getDeviceAncestors = (deviceData, device) => {
     return ancestors;
 };
 
+/* Check if the given device is a descendant of the given ancestor
+ * @param {string} device - The name of the device
+ * @param {string} rootDevice - The name of the ancestor
+ * @param {Object} deviceData - The device data object
+ * @returns {boolean}
+ */
 export const checkDeviceInSubTree = ({ device, rootDevice, deviceData }) => {
     return getDeviceChildren({ deviceData, device: rootDevice }).includes(device);
 };
 
+/* Get the list of names of all the descendants of the given device
+ * (including the device itself)
+ * @param {string} device - The name of the device
+ * @param {Object} deviceData - The device data object
+ * @returns {Array}
+ */
 export const getDeviceChildren = ({ deviceData, device }) => {
     const children = [];
     const deviceChildren = deviceData[device]?.children?.v || [];
@@ -47,6 +65,11 @@ export const getDeviceChildren = ({ deviceData, device }) => {
     return children;
 };
 
+/* Get the list of names of all LUKS devices
+ * @param {Object} deviceData - The device data object
+ * @param {Array} requests - The list of requests from a partitioning
+ * @returns {Array}
+ */
 export const getLockedLUKSDevices = (requests, deviceData) => {
     const devs = requests?.map(r => r["device-spec"]) || [];
 
@@ -66,6 +89,11 @@ export const getLockedLUKSDevices = (requests, deviceData) => {
     });
 };
 
+/* Check if the requests array contains duplicate entries
+ * @param {Array} requests - The list of requests from a partitioning
+ * @param {string} fieldName - The name of the field to check for duplicates, ex: "mount-point"
+ * @returns {boolean}
+ */
 export const hasDuplicateFields = (requests, fieldName) => {
     let _requests = requests;
     if (fieldName === "mount-point") {
@@ -79,6 +107,12 @@ export const hasDuplicateFields = (requests, fieldName) => {
     return new Set(items).size !== items.length;
 };
 
+/* Check if the requests array contains duplicate entries for a given field value
+ * @param {Array} requests - The list of requests from a partitioning
+ * @param {string} fieldName - The name of the field to check for duplicates, ex: "mount-point"
+ * @param {string} fieldValue - The value of the field to check for duplicates, ex: "/boot"
+ * @returns {boolean}
+ */
 export const isDuplicateRequestField = (requests, fieldName, fieldValue) => {
     return requests.filter((request) => request[fieldName] === fieldValue).length > 1;
 };
