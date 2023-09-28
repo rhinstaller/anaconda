@@ -28,6 +28,10 @@ const getDeviceAncestors = (deviceData, device) => {
     return ancestors;
 };
 
+export const checkDeviceInSubTree = ({ device, rootDevice, deviceData }) => {
+    return getDeviceChildren({ deviceData, device: rootDevice }).includes(device);
+};
+
 export const getDeviceChildren = ({ deviceData, device }) => {
     const children = [];
     const deviceChildren = deviceData[device]?.children?.v || [];
