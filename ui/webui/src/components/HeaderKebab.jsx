@@ -26,15 +26,16 @@ import {
     DescriptionListTerm,
     Flex,
     Stack,
-    StackItem
-} from "@patternfly/react-core";
-import {
+    StackItem,
     Dropdown,
     DropdownItem,
-    DropdownPosition,
-    KebabToggle
-} from "@patternfly/react-core/deprecated";
-import { ExternalLinkAltIcon } from "@patternfly/react-icons";
+    MenuToggle,
+    DropdownList
+} from "@patternfly/react-core";
+import {
+    ExternalLinkAltIcon,
+    EllipsisVIcon
+} from "@patternfly/react-icons";
 
 import { read_os_release as readOsRelease } from "os-release.js";
 import { getAnacondaVersion } from "../helpers/product.js";
@@ -115,16 +116,11 @@ export const HeaderKebab = ({ reportLinkURL, isConnected }) => {
     const [isAboutModalOpen, setIsAboutModalOpen] = useState(false);
     const [isReportIssueOpen, setIsReportIssueOpen] = useState(false);
 
-    const onToggle = isOpen => {
-        setIsOpen(isOpen);
-    };
-    const onFocus = () => {
-        const element = document.getElementById("toggle-kebab");
-        element.focus();
+    const onToggle = () => {
+        setIsOpen(!isOpen);
     };
     const onSelect = () => {
         setIsOpen(false);
-        onFocus();
     };
 
     const handleAboutModal = () => {
@@ -143,32 +139,39 @@ export const HeaderKebab = ({ reportLinkURL, isConnected }) => {
             {_("Report Issue")}
         </DropdownItem>,
     ];
+
     return (
         <>
             <Dropdown
-              position={DropdownPosition.right}
-              onSelect={onSelect}
-              toggle={
-                  <KebabToggle
-                    id="toggle-kebab"
-                    onToggle={(_event, isOpen) => onToggle(isOpen)}
-                  />
-              }
               isOpen={isOpen}
-              isPlain
-              dropdownItems={dropdownItems}
-            />
+              onSelect={onSelect}
+              popperProps={{ position: "right" }}
+              toggle={toggleRef =>
+                  <MenuToggle
+                    className="pf-m-align-right"
+                    id="toggle-kebab"
+                    isExpanded={isOpen}
+                    onClick={onToggle}
+                    ref={toggleRef}
+                    variant="plain">
+                      <EllipsisVIcon />
+                  </MenuToggle>}
+              shouldFocusToggleOnSelect>
+                <DropdownList>
+                    {dropdownItems}
+                </DropdownList>
+            </Dropdown>
             {isAboutModalOpen &&
-            <AnacondaAboutModal
-              isModalOpen={isAboutModalOpen}
-              setIsAboutModalOpen={setIsAboutModalOpen}
-            />}
+                <AnacondaAboutModal
+                  isModalOpen={isAboutModalOpen}
+                  setIsAboutModalOpen={setIsAboutModalOpen}
+                />}
             {isReportIssueOpen &&
-            <UserIssue
-              reportLinkURL={reportLinkURL}
-              setIsReportIssueOpen={setIsReportIssueOpen}
-              isConnected={isConnected}
-            />}
+                <UserIssue
+                  reportLinkURL={reportLinkURL}
+                  setIsReportIssueOpen={setIsReportIssueOpen}
+                  isConnected={isConnected}
+                />}
         </>
     );
 };
