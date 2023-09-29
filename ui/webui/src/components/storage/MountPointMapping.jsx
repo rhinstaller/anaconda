@@ -117,6 +117,44 @@ const isReformatInvalid = (deviceData, request, requests) => {
     }
 };
 
+const requestsToDbus = (requests) => {
+    return requests.map(row => {
+        return {
+            "device-spec": cockpit.variant("s", row["device-spec"] || ""),
+            "format-type": cockpit.variant("s", row["format-type"] || ""),
+            "mount-point": cockpit.variant("s", row["mount-point"] || ""),
+            reformat: cockpit.variant("b", !!row.reformat),
+        };
+    });
+};
+
+/* Build the backend-requests object from the unapplied requests.
+ * @param {Array.<Object>} requests An array of request objects from back-end
+ * @param {Array.<Object>} newRequests An array of request objects from front-end
+ * @param string partitioning DBus path to a partitioning
+ * @returns {Promise}
+ */
+const updatePartitioningRequests = ({ requests, newRequests, partitioning }) => {
+    const backendRequests = [...requests];
+
+    backendRequests.forEach((backendRequest, backendRequestIndex) => {
+        const newRequestIndex = newRequests.findIndex(r => r["device-spec"] === backendRequest["device-spec"]);
+
+        if (newRequestIndex === -1) {
+            // When a 'device' is not selected in the front-end set the mount-point to empty string
+            backendRequests[backendRequestIndex]["mount-point"] = "";
+        } else if (newRequests[newRequestIndex]?.["device-spec"]) {
+            //  Otherwise sync the object from the front-end to back-end
+            backendRequests[backendRequestIndex] = newRequests[newRequestIndex];
+        }
+    });
+
+    return setManualPartitioningRequests({
+        partitioning,
+        requests: requestsToDbus(backendRequests),
+    });
+};
+
 const isDeviceMountPointInvalid = (deviceData, requiredMountPoints, request) => {
     const device = request["device-spec"];
     const requiredMountPointData = requiredMountPoints.find(val => val["mount-point"].v === request["mount-point"]);
@@ -478,34 +516,11 @@ const RequestsTable = ({
 
         setIsFormValid(isFormValid);
 
-        /* Build the backend-requests object from the unapplied requests.
-         * - When the 'device' is not selected in the front-end set the mount-point to empty string
-         * - Otherwise sync the object from the front-end to back-end
-         */
-        const backendRequests = [...requests];
-        backendRequests.forEach((backendRequest, backendRequestIndex) => {
-            const newRequestIndex = newRequests.findIndex(r => r["device-spec"] === backendRequest["device-spec"]);
-            if (newRequestIndex === -1) {
-                backendRequests[backendRequestIndex]["mount-point"] = "";
-            } else if (newRequests[newRequestIndex]?.["device-spec"]) {
-                backendRequests[backendRequestIndex] = newRequests[newRequestIndex];
-            }
-        });
-
-        const requestsToDbus = () => {
-            return backendRequests.map(row => {
-                return {
-                    "device-spec": cockpit.variant("s", row["device-spec"] || ""),
-                    "format-type": cockpit.variant("s", row["format-type"] || ""),
-                    "mount-point": cockpit.variant("s", row["mount-point"] || ""),
-                    reformat: cockpit.variant("b", !!row.reformat),
-                };
-            });
-        };
-
-        setManualPartitioningRequests({
-            partitioning: partitioningDataPath,
-            requests: requestsToDbus()
+        /* Sync newRequests to the backend */
+        updatePartitioningRequests({
+            requests,
+            newRequests,
+            partitioning: partitioningDataPath
         }).catch(ex => {
             onAddErrorNotification(ex);
             setIsFormValid(false);
