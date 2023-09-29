@@ -59,3 +59,22 @@ export const getIsFinal = () => {
                 .then(res => res[0].v)
     );
 };
+
+/**
+ *
+ * @returns {Promise}           Returns the password policies
+ */
+export const getPasswordPolicies = () => {
+    return (
+        new RuntimeClient().client.call(
+            "/org/fedoraproject/Anaconda/Modules/Runtime/UserInterface",
+            "org.freedesktop.DBus.Properties",
+            "Get",
+            [
+                "org.fedoraproject.Anaconda.Modules.Runtime.UserInterface",
+                "PasswordPolicies",
+            ]
+        )
+                .then(res => res[0].v)
+    );
+};
