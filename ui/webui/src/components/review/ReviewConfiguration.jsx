@@ -176,7 +176,7 @@ export const ReviewConfiguration = ({ deviceData, diskSelection, language, osRel
     );
 };
 
-export const ReviewConfigurationConfirmModal = ({ idPrefix, onNext, setNextWaitsConfirmation, storageScenarioId }) => {
+export const ReviewConfigurationConfirmModal = ({ idPrefix, setNextWaitsConfirmation, storageScenarioId }) => {
     const scenario = getScenario(storageScenarioId);
     return (
         <Modal
@@ -186,7 +186,7 @@ export const ReviewConfigurationConfirmModal = ({ idPrefix, onNext, setNextWaits
                 key="confirm"
                 onClick={() => {
                     setNextWaitsConfirmation(false);
-                    onNext();
+                    cockpit.location.go("installation-progress");
                 }}
                 variant={scenario.buttonVariant}
               >
