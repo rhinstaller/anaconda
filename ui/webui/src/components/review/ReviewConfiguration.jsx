@@ -31,6 +31,7 @@ import {
     getPartitioningRequest,
     getPartitioningMethod,
 } from "../../apis/storage.js";
+import { checkDeviceInSubTree } from "../../helpers/storage.js";
 
 import { AnacondaPage } from "../AnacondaPage.jsx";
 
@@ -58,18 +59,6 @@ const ReviewDescriptionList = ({ children }) => {
     );
 };
 
-const checkDeviceInSubTree = (device, rootDevice, deviceData) => {
-    const parents = device.parents.v;
-
-    if (parents.length && parents[0] === rootDevice) {
-        return true;
-    } else if (parents.length && parents[0] !== rootDevice) {
-        return checkDeviceInSubTree(deviceData[parents[0]], rootDevice, deviceData);
-    } else {
-        return false;
-    }
-};
-
 const DeviceRow = ({ deviceData, disk, requests }) => {
     const data = deviceData[disk];
     const name = data.name.v;
@@ -93,14 +82,11 @@ const DeviceRow = ({ deviceData, disk, requests }) => {
     };
 
     const partitionRows = requests?.filter(req => {
-        const partitionName = Object.keys(deviceData).find(device => deviceData[device].name.v === req["device-spec"]);
-        const device = deviceData[partitionName];
-
         if (!req.reformat && req["mount-point"] === "") {
             return false;
         }
 
-        return checkDeviceInSubTree(device, name, deviceData);
+        return checkDeviceInSubTree({ device: req["device-spec"], rootDevice: name, deviceData });
     }).map(renderRow) || [];
 
     return (
