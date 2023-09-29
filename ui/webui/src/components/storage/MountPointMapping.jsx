@@ -59,38 +59,31 @@ import "./MountPointMapping.scss";
 
 const _ = cockpit.gettext;
 
-const getInitialRequests = (usablePartitioningRequests, requiredMountPoints) => {
-    const bootOriginalRequest = usablePartitioningRequests.find(r => r["mount-point"] === "/boot");
-    const rootOriginalRequest = usablePartitioningRequests.find(r => r["mount-point"] === "/");
-    const bootEfiOriginalRequest = usablePartitioningRequests.find(r => r["mount-point"] === "/boot/efi");
-
-    const requests = requiredMountPoints.map((mountPoint, idx) => {
+/* Filter out the partitioning requests array to contain only:
+ * - rows with required mount points
+ * - rows with mount points already selected by the user
+ * @param {Array} requests - partitioning requests
+ * @param {Array} requiredMountPoints - required mount points
+ * @returns {Array} filtered requests
+ */
+const getInitialRequests = (requests, requiredMountPoints) => {
+    const requiredRequests = requiredMountPoints.map((mountPoint, idx) => {
+        const originalRequest = requests.find(request => request["mount-point"] === mountPoint["mount-point"].v);
         const request = ({ "mount-point": mountPoint["mount-point"].v, reformat: mountPoint["mount-point"].v === "/" });
 
-        if (mountPoint["mount-point"].v === "/boot" && bootOriginalRequest) {
-            return { ...bootOriginalRequest, ...request };
-        }
-
-        if (mountPoint["mount-point"].v === "/" && rootOriginalRequest) {
-            return { ...rootOriginalRequest, ...request };
-        }
-
-        if (mountPoint["mount-point"].v === "/boot/efi" && bootEfiOriginalRequest) {
-            return { ...bootEfiOriginalRequest, ...request };
+        if (originalRequest) {
+            return { ...originalRequest, ...request };
         }
 
         return request;
     });
 
-    const extraRequests = usablePartitioningRequests.filter(r => (
+    const extraRequests = requests.filter(r => (
         r["mount-point"] &&
-        r["mount-point"] !== "/" &&
-        r["mount-point"] !== "/boot" &&
-        r["mount-point"] !== "/boot/efi" &&
-        r["mount-point"] !== "biosboot"
+        !requiredMountPoints.find(m => m["mount-point"].v === r["mount-point"])
     )) || [];
 
-    return [...requests, ...extraRequests];
+    return [...requiredRequests, ...extraRequests];
 };
 
 const isReformatInvalid = (deviceData, request, requests) => {
