@@ -53,6 +53,7 @@ import {
 import { getDevicesAction, getDiskSelectionAction } from "../../actions/storage-actions.js";
 import { AnacondaPage } from "../AnacondaPage.jsx";
 import { debug } from "../../helpers/log.js";
+import { checkIfArraysAreEqual } from "../../helpers/utils.js";
 
 import "./InstallationMethod.scss";
 
@@ -83,14 +84,6 @@ const selectDefaultDisks = ({ ignoredDisks, selectedDisks, usableDisks }) => {
         }
         return [];
     }
-};
-
-const containEqualDisks = (disks1, disks2) => {
-    const disks1Str = disks1.sort()
-            .join();
-    const disks2Str = disks2.sort()
-            .join();
-    return disks1Str === disks2Str;
 };
 
 const LocalDisksSelect = ({ deviceData, diskSelection, idPrefix, isRescanningDisks, setSelectedDisks }) => {
@@ -344,7 +337,7 @@ const InstallationDestination = ({
             usableDisks: diskSelection.usableDisks,
         });
 
-        if (!containEqualDisks(diskSelection.selectedDisks, defaultDisks)) {
+        if (!checkIfArraysAreEqual(diskSelection.selectedDisks, defaultDisks)) {
             setSelectedDisks({ drives: defaultDisks });
         }
     }, [diskSelection]);
@@ -392,7 +385,7 @@ const InstallationDestination = ({
         />
     );
 
-    const equalDisks = !refUsableDisks.current || containEqualDisks(refUsableDisks.current, diskSelection.usableDisks);
+    const equalDisks = !refUsableDisks.current || checkIfArraysAreEqual(refUsableDisks.current, diskSelection.usableDisks);
     const headingLevel = isBootIso ? "h2" : "h3";
 
     return (
