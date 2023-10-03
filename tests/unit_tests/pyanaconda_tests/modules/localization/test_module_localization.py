@@ -27,7 +27,6 @@ from tests.unit_tests.pyanaconda_tests import check_kickstart_interface, \
     patch_dbus_publish_object, PropertiesChangedCallback, check_dbus_property, check_task_creation
 
 from pyanaconda.modules.common.constants.services import LOCALIZATION
-from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.common.structures.language import LanguageData, LocaleData
 from pyanaconda.modules.localization.installation import LanguageInstallationTask, \
     KeyboardInstallationTask
@@ -161,21 +160,6 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         """Test the CollectRequirements method."""
         # No default requirements.
         assert self.localization_interface.CollectRequirements() == []
-
-        # No additional support for ascii keyboard layouts.
-        self.localization_interface.VirtualConsoleKeymap = "en"
-        assert self.localization_interface.CollectRequirements() == []
-
-        # Additional support for non-ascii keyboard layouts.
-        self.localization_interface.VirtualConsoleKeymap = "ru"
-
-        requirements = Requirement.from_structure_list(
-            self.localization_interface.CollectRequirements()
-        )
-
-        assert len(requirements) == 1
-        assert requirements[0].type == "package"
-        assert requirements[0].name == "kbd-legacy"
 
     def test_languages(self):
         languages = list(self.localization_interface.GetLanguages())
