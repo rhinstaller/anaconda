@@ -242,11 +242,13 @@ class DumpMissingConfigFilesTask(Task):
             device_is_port = any(con.get_setting_connection().get_master() for con in cons)
             if device_is_port:
                 # We have to dump persistent ifcfg files for ports created in initramfs
-                if n_cons == 1 and self._is_initramfs_connection(cons[0], iface):
+                # Filter out potenital connection created for BOOTIF option rhbz#2175664
+                port_cons = [c for c in cons if not c.get_id().startswith("BOOTIF Connection")]
+                if len(port_cons) == 1 and self._is_initramfs_connection(port_cons[0], iface):
                     log.debug("%s: device %s has an initramfs port connection",
                               self.name, iface)
                     con = self._select_persistent_connection_for_device(
-                        device, cons, allow_ports=True)
+                        device, port_cons, allow_ports=True)
                 else:
                     log.debug("%s: creating default connection for port device %s",
                               self.name, iface)
