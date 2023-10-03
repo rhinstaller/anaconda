@@ -501,6 +501,26 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Oct 03 2023 github-actions <github-actions@github.com> - 40.7-1
+- webui: tests: ignore the logo image selector in the pixel tests (kkoukiou)
+- webui: do not hardcode the required mount points in the getInitialRequests
+  (kkoukiou)
+- webui: helpers: Document storage helper methods (kkoukiou)
+- webui: reimplement checkDeviceInSubTree by re-using existing helper method
+  (kkoukiou)
+- webui: port dropdown to new PF5 implementation (akankovs)
+- Revert "tests: Run pytest in parallel on available cpu cores" (vslavik)
+- webui: add a logo to the header (akankovs)
+- install-{env,img}-deps: recommend/require kdump-anaconda-addon (awilliam)
+- Fix crash because of missing import statement (kkoukiou)
+- webui: prevent re-defining required mount points from the UI (kkoukiou)
+- Simplify keyboard layout handling, rely on localed more (awilliam)
+- tests: Run pytest in parallel on available cpu cores (vslavik)
+- tests: Don't hardcode file handle number (vslavik)
+- live: Report installation progress from rsync output (vslavik)
+- Change process return code handling in execReadlines (vslavik)
+- Count free space on btrfs subvolume mount points correctly (vslavik)
+
 * Tue Sep 26 2023 github-actions <github-actions@github.com> - 40.6-1
 - webui: robustify manual partitioning request manipulation (kkoukiou)
 - webui: split long line to more lines (kkoukiou)
