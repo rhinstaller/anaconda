@@ -242,11 +242,13 @@ class DumpMissingConfigFilesTask(Task):
             device_is_slave = any(con.get_setting_connection().get_master() for con in cons)
             if device_is_slave:
                 # We have to dump persistent ifcfg files for slaves created in initramfs
-                if n_cons == 1 and self._is_initramfs_connection(cons[0], iface):
+                # Filter out potenital connection created for BOOTIF option rhbz#2175664
+                slave_cons = [c for c in cons if not c.get_id().startswith("BOOTIF Connection")]
+                if len(slave_cons) == 1 and self._is_initramfs_connection(slave_cons[0], iface):
                     log.debug("%s: device %s has an initramfs slave connection",
                               self.name, iface)
                     con = self._select_persistent_connection_for_device(
-                        device, cons, allow_slaves=True)
+                        device, slave_cons, allow_slaves=True)
                 else:
                     log.debug("%s: creating default connection for slave device %s",
                               self.name, iface)
