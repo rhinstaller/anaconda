@@ -44,8 +44,6 @@ def process_transaction_progress(queue, callback):
             callback(_("Installing {}").format(msg))
         elif token == 'configure':
             callback(_("Configuring {}").format(msg))
-        elif token == 'verify':
-            callback(_("Verifying {}").format(msg))
         elif token == 'log':
             log.info(msg)
         elif token == 'post':
@@ -121,19 +119,6 @@ class TransactionProgress(dnf.callback.TransactionProgress):
             if self._postinst_phase:
                 msg = '%s.%s' % (package.name, package.arch)
                 self._queue.put(('configure', msg))
-
-        elif action == dnf.transaction.PKG_VERIFY:
-            msg = '%s.%s (%d/%d)' % (package.name, package.arch, ts_done, ts_total)
-            self._queue.put(('verify', msg))
-
-            # Log the exact package nevra, build time and checksum
-            nevra = "%s-%s.%s" % (package.name, package.evr, package.arch)
-            log_msg = "Verifying: %s %s %s" % (nevra, package.buildtime, package.returnIdSum()[1])
-            self._queue.put(('log', log_msg))
-
-            # Once the last package is verified the transaction is over
-            if ts_done == ts_total:
-                self._queue.put(('done', None))
 
     def error(self, message):
         """Report an error that occurred during the transaction.
