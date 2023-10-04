@@ -694,9 +694,7 @@ class DNFManager(object):
     def _run_transaction(base, display):
         """Run the DNF transaction.
 
-        Execute the DNF transaction and catch any errors. An error
-        doesn't always raise a BaseException, so presence of 'quit'
-        without a preceding 'done' message also indicates a problem.
+        Execute the DNF transaction and catch any errors.
 
         :param base: the DNF base
         :param display: the DNF progress-reporting object

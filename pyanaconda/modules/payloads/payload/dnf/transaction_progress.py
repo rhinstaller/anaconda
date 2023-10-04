@@ -30,9 +30,8 @@ __all__ = ["process_transaction_progress", "TransactionProgress"]
 def process_transaction_progress(queue, callback):
     """Process the transaction progress.
 
-    When the installation works correctly it will get 'install'
-    updates followed by a 'done' message and then a 'quit' message.
-    If the installation fails it will send 'quit' without 'done'.
+    When the installation works correctly it will end by 'quit' token
+    with 'DNF done' message.
 
     :param queue: a process shared queue
     :param callback: a callback for progress reporting
@@ -51,9 +50,10 @@ def process_transaction_progress(queue, callback):
             log.info(msg)
         elif token == 'post':
             callback(_("Performing post-installation setup tasks"))
-        elif token == 'done':
-            break  # Installation finished successfully
         elif token == 'quit':
+            if msg == 'DNF done':
+                log.info(msg)
+                break  # Installation finished successfully
             raise RuntimeError("The transaction process has ended abruptly: " + msg)
         elif token == 'error':
             raise PayloadInstallationError("An error occurred during the transaction: " + msg)
