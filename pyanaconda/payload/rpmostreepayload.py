@@ -20,8 +20,8 @@
 
 from subprocess import CalledProcessError
 
-from pyanaconda.core.constants import PAYLOAD_TYPE_RPM_OSTREE, SOURCE_TYPE_RPM_OSTREE
-from pyanaconda.modules.common.structures.rpm_ostree import RPMOSTreeConfigurationData
+from pyanaconda.core.constants import PAYLOAD_TYPE_RPM_OSTREE, SOURCE_TYPE_RPM_OSTREE, SOURCE_TYPE_RPM_OSTREE_CONTAINER
+from pyanaconda.modules.common.structures.rpm_ostree import RPMOSTreeContainerConfigurationData
 from pyanaconda.progress import progressQ
 from pyanaconda.payload.base import Payload
 from pyanaconda.payload import utils as payload_utils
@@ -62,13 +62,18 @@ class RPMOSTreePayload(Payload):
     def _get_source_configuration(self):
         """Get the configuration of the RPM OSTree source.
 
-        :return: an instance of RPMOSTreeConfigurationData
+        :return: an instance of RPMOSTreeContainerConfigurationData
         """
         source_proxy = self.get_source_proxy()
 
-        return RPMOSTreeConfigurationData.from_structure(
-            source_proxy.Configuration
-        )
+        if self.source_type == SOURCE_TYPE_RPM_OSTREE_CONTAINER:
+            return RPMOSTreeContainerConfigurationData.from_structure(
+                source_proxy.Configuration
+            )
+        else:
+            return RPMOSTreeConfigurationData.from_structure(
+                source_proxy.Configuration
+            )
 
     @property
     def kernel_version_list(self):
