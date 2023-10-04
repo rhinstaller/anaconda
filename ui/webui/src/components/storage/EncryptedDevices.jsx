@@ -107,6 +107,7 @@ const UnlockDialog = ({ isLoadingNewPartitioning, lockedLUKSDevices, onClose, di
     const [dialogWarning, dialogWarningSet] = useState();
     const [dialogSuccess, dialogSuccessSet] = useState();
     const [inProgress, setInProgress] = useState(false);
+    const idPrefix = "unlock-device-dialog";
 
     const onSubmit = () => {
         setInProgress(true);
@@ -152,15 +153,15 @@ const UnlockDialog = ({ isLoadingNewPartitioning, lockedLUKSDevices, onClose, di
     return (
         <Modal
           description={_("All devices using this passphrase will be unlocked")}
-          id="unlock-device-dialog"
+          id={idPrefix}
           position="top" variant="small" isOpen onClose={() => onClose()}
           title={_("Unlock encrypted devices")}
           footer={
               <>
-                  <Button variant="primary" onClick={onSubmit} isDisabled={inProgress || isLoadingNewPartitioning} isLoading={inProgress} id="unlock-device-dialog-submit-btn">
+                  <Button variant="primary" onClick={onSubmit} isDisabled={inProgress || isLoadingNewPartitioning} isLoading={inProgress} id={idPrefix + "-submit-btn"}>
                       {_("Unlock")}
                   </Button>
-                  <Button variant="secondary" onClick={() => onClose()} id="unlock-device-dialog-close-btn">
+                  <Button variant="secondary" onClick={() => onClose()} id={idPrefix + "-close-btn"}>
                       {_("Close")}
                   </Button>
               </>
@@ -171,15 +172,15 @@ const UnlockDialog = ({ isLoadingNewPartitioning, lockedLUKSDevices, onClose, di
                   onSubmit();
               }}>
                 {dialogSuccess && <InlineNotification type="info" text={dialogSuccess} />}
-                <FormGroup fieldId="unlock-device-dialog-luks-devices" label={_("Locked devices")}>
-                    <LuksDevices id="unlock-device-dialog-luks-devices" lockedLUKSDevices={lockedLUKSDevices} />
+                <FormGroup fieldId={idPrefix + "-luks-devices"} label={_("Locked devices")}>
+                    <LuksDevices id={idPrefix + "-luks-devices"} lockedLUKSDevices={lockedLUKSDevices} />
                 </FormGroup>
-                <FormGroup fieldId="unlock-device-dialog-luks-passphrase" label={_("Passphrase")}>
+                <FormGroup fieldId={idPrefix + "-luks-passphrase"} label={_("Passphrase")}>
                     <InputGroup>
                         <InputGroupItem isFill>
                             <TextInput
                               isRequired
-                              id="unlock-device-dialog-luks-passphrase"
+                              id={idPrefix + "-luks-passphrase"}
                               type={passphraseHidden ? "passphrase" : "text"}
                               aria-label={_("Passphrase")}
                               value={passphrase}
