@@ -109,7 +109,7 @@ class CensorshipLinter():
 
         pylint.lint.Run(args,
                         reporter=TextReporter(self._stdout),
-                        do_exit=False)
+                        exit=False)
 
         return self._process_output()
 
