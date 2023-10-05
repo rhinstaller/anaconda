@@ -31,8 +31,9 @@ from dnf.callback import STATUS_OK, STATUS_FAILED, PKG_SCRIPTLET
 from dnf.comps import Environment, Comps, Group
 from dnf.exceptions import MarkingErrors, DepsolveError, RepoError
 from dnf.package import Package
-from dnf.transaction import PKG_INSTALL, TRANS_POST, PKG_VERIFY
+from dnf.transaction import PKG_INSTALL, TRANS_POST
 from dnf.repo import Repo
+import libdnf.transaction
 
 from pyanaconda.core.constants import MULTILIB_POLICY_ALL, URL_TYPE_BASEURL, URL_TYPE_MIRRORLIST, \
     URL_TYPE_METALINK
@@ -452,6 +453,9 @@ class DNFManagerTestCase(unittest.TestCase):
         calls = []
         do_transaction.side_effect = self._install_packages
 
+        # Fake transaction.
+        self.dnf_manager._base.transaction = [Mock(), Mock(), Mock()]
+
         self.dnf_manager.install_packages(calls.append)
 
         assert calls == [
@@ -462,9 +466,6 @@ class DNFManagerTestCase(unittest.TestCase):
             'Configuring p1.x86_64',
             'Configuring p2.x86_64',
             'Configuring p3.x86_64',
-            'Verifying p1.x86_64 (1/3)',
-            'Verifying p2.x86_64 (2/3)',
-            'Verifying p3.x86_64 (3/3)',
         ]
 
     def _get_package(self, name):
@@ -493,9 +494,6 @@ class DNFManagerTestCase(unittest.TestCase):
         for ts_done, package in enumerate(packages):
             progress.progress(package, PKG_SCRIPTLET, 100, 100, ts_done + 1, ts_total)
 
-        for ts_done, package in enumerate(packages):
-            progress.progress(package, PKG_VERIFY, 100, 100, ts_done + 1, ts_total)
-
     @patch("dnf.base.Base.do_transaction")
     def test_install_packages_failed(self, do_transaction):
         """Test the failed install_packages method."""
@@ -516,15 +514,38 @@ class DNFManagerTestCase(unittest.TestCase):
         progress.error("The p1 package couldn't be installed!")
 
     @patch("dnf.base.Base.do_transaction")
+    def test_install_packages_dnf_ts_item_error(self, do_transaction):
+        """Test install_packages method failing on transaction item error."""
+        calls = []
+
+        # Fake transaction.
+        tsi_1 = Mock()
+        tsi_1.state = libdnf.transaction.TransactionItemState_ERROR
+
+        tsi_2 = Mock()
+
+        self.dnf_manager._base.transaction = [tsi_1, tsi_2]
+
+        with pytest.raises(PayloadInstallationError) as cm:
+            self.dnf_manager.install_packages(calls.append)
+
+        msg = "An error occurred during the transaction: " \
+              "The transaction process has ended with errors."
+
+        assert str(cm.value) == msg
+        assert calls == []
+
+    @patch("dnf.base.Base.do_transaction")
     def test_install_packages_quit(self, do_transaction):
         """Test the terminated install_packages method."""
         calls = []
         do_transaction.side_effect = self._install_packages_quit
 
-        with pytest.raises(RuntimeError) as cm:
+        with pytest.raises(PayloadInstallationError) as cm:
             self.dnf_manager.install_packages(calls.append)
 
-        msg = "The transaction process has ended abruptly: " \
+        msg = "An error occurred during the transaction: " \
+              "The transaction process has ended abruptly: " \
               "Something went wrong with the p1 package!"
 
         assert msg in str(cm.value)
