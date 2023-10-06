@@ -2,12 +2,8 @@
 
 set -eu
 
-# FIXME boot.iso on rawhide does not currently contain the new cockpit dependencies
-# This will change once we include this changes upstream and start building boot.iso with the new dependencies
-# Then we can safely remove this workaround
+# FIXME latest firefox breaks our tests: https://bugzilla.redhat.com/show_bug.cgi?id=2242446
 ANACONDA_WEBUI_DEPS_URLS='
-    https://kojipkgs.fedoraproject.org/packages/cockpit/298/1.fc39/x86_64/cockpit-ws-298-1.fc39.x86_64.rpm
-    https://kojipkgs.fedoraproject.org/packages/cockpit/298/1.fc39/x86_64/cockpit-bridge-298-1.fc39.x86_64.rpm
     https://kojipkgs.fedoraproject.org/packages/firefox/118.0/1.fc40/x86_64/firefox-118.0-1.fc40.x86_64.rpm
 '
 
@@ -28,11 +24,10 @@ make srpm
 popd
 
 # build the anaconda srpm (and result RPMs go in `tmp/rpms`) && download anaconda-webui missing dependencies
-# cockpit RPMs are hardcoded above for gating purposes
 test/build-rpms -v ../../result/build/00-srpm-build/anaconda-*.src.rpm
 
 # makeupdates must be run from the top level of the anaconda source tree
 pushd ../../
 # shellcheck disable=SC2086,SC2046
-scripts/makeupdates --add ui/webui/tmp/rpms/anaconda-*.rpm ${ANACONDA_WEBUI_DEPS_RPMS} ui/webui/tmp/rpms/firefox-*.rpm ui/webui/tmp/rpms/dbus-glib-*.rpm
+scripts/makeupdates --add ui/webui/tmp/rpms/anaconda-*.rpm ui/webui/tmp/rpms/cockpit-*.rpm ui/webui/tmp/rpms/dbus-glib-*.rpm ${ANACONDA_WEBUI_DEPS_RPMS}
 popd
