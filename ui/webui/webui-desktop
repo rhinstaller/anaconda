@@ -99,7 +99,7 @@ fi
 # disable /etc/cockpit/
 XDG_CONFIG_DIRS="$BROWSER_HOME" COCKPIT_SUPERUSER="pkexec" /usr/libexec/cockpit-ws -p 80 -a "$WEBUI_ADDRESS" --no-tls --local-session=cockpit-bridge &
 WS_PID=$!
-exec 1>&2
+exec > >(systemd-cat -t anaconda) 2>&1
 
 # Cleanup function
 cleanup() {
