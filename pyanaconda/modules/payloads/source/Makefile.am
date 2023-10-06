@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 SUBDIRS = hmc cdrom repo_files nfs url harddrive cdn closest_mirror rpm_ostree \
-    rpm_ostree_container flatpak live_image live_os live_tar repo_path
+    rpm_ostree_container live_image live_os
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 payload_moduledir = $(pkgpyexecdir)/modules/payloads/source
