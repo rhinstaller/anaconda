@@ -129,11 +129,12 @@ class RPMOSTreePayload(Payload):
         )
         task.run()
 
-        from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
-            PullRemoteAndDeleteTask
-        task = PullRemoteAndDeleteTask(data)
-        task.progress_changed_signal.connect(self._progress_cb)
-        task.run()
+        if not data.is_container():
+            from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
+                PullRemoteAndDeleteTask
+            task = PullRemoteAndDeleteTask(data)
+            task.progress_changed_signal.connect(self._progress_cb)
+            task.run()
 
         from pyanaconda.modules.payloads.payload.rpm_ostree.installation import DeployOSTreeTask
         task = DeployOSTreeTask(data, conf.target.physical_root)
