@@ -124,8 +124,8 @@ class RPMOSTreePayload(Payload):
             ChangeOSTreeRemoteTask
         task = ChangeOSTreeRemoteTask(
             data,
-            use_root=False,
-            root=conf.target.physical_root
+            sysroot=conf.target.system_root,
+            physroot=conf.target.physical_root
         )
         task.run()
 
