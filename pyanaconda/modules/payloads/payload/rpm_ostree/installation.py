@@ -509,14 +509,6 @@ class DeployOSTreeTask(Task):
 
         self.report_progress(_("Deployment starting: {}").format(ref))
 
-        safe_exec_with_redirect(
-            "ostree",
-            ["admin",
-             "--sysroot=" + self._sysroot,
-             "os-init",
-             stateroot]
-        )
-
         if self._data.is_container():
             log.info("ostree image deploy starting")
 
