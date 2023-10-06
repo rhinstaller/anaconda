@@ -4,6 +4,7 @@
 #
 # Execution example:
 #
+# make -f ./Makefile.am anaconda-rpm-build
 # make -f ./Makefile.am container-rpms-scratch # Create Anaconda RPM in `pwd`/result/... directory.
 # sudo make -f ./Makefile.am anaconda-iso-creator-build
 #
