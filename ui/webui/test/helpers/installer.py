@@ -120,6 +120,8 @@ class Installer():
     def open(self, step="installation-language"):
         self.browser.open(f"/cockpit/@localhost/anaconda-webui/index.html#/{step}")
         self.wait_current_page(step)
+        # Ensure that the logo is visible before proceeding as pixel tests get racy otherwise
+        self.browser.wait_js_cond("document.querySelector('.logo').complete")
 
     def click_step_on_sidebar(self, step=None):
         step = step or self.get_current_page()

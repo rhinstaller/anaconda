@@ -50,7 +50,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         b.assert_pixels(
             "#app",
             "storage-step-basic",
-            ignore=["#betanag-icon", ".logo"],
+            ignore=["#betanag-icon"],
             wait_animations=False,
         )
 
@@ -101,7 +101,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         b.assert_pixels(
             "#app",
             "storage-step-basic-live",
-            ignore=["#betanag-icon", ".logo"],
+            ignore=["#betanag-icon"],
             wait_animations=False,
         )
 
@@ -152,7 +152,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         b.assert_pixels(
             "#app",
             "storage-step-encrypt",
-            ignore=["#betanag-icon", ".logo"],
+            ignore=["#betanag-icon"],
             wait_animations=False,
         )
 
@@ -164,7 +164,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         b.assert_pixels(
             "#app",
             "storage-step-password",
-            ignore=["#betanag-icon", ".logo"],
+            ignore=["#betanag-icon"],
             wait_animations=False,
         )
 

@@ -57,7 +57,7 @@ class TestReview(anacondalib.VirtInstallMachineCase):
         b.assert_pixels(
             "#app",
             "review-step-basic",
-            ignore=["#betanag-icon", ".logo"],
+            ignore=["#betanag-icon"],
             wait_animations=False,
         )
 
