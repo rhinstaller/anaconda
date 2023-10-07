@@ -529,10 +529,6 @@ const RequestsTable = ({
         setUnappliedRequests(newRequests);
     }, [setIsFormValid, deviceData, unappliedRequests, requests, partitioningDataPath, onAddErrorNotification]);
 
-    if (!requests) {
-        return <EmptyStatePanel loading />;
-    }
-
     return (
         <>
             <ListingTable
@@ -649,7 +645,7 @@ export const MountPointMapping = ({
                 />
             )}
             {!showLuksUnlock && (
-                (isLoadingNewPartitioning || !requiredMountPoints)
+                (isLoadingNewPartitioning || !requiredMountPoints || !partitioningData?.requests)
                     ? (
                         <EmptyStatePanel loading />
                     )
