@@ -41,7 +41,6 @@ import { SyncAltIcon, TimesIcon } from "@patternfly/react-icons";
 
 import { InstallationScenario } from "./InstallationScenario.jsx";
 import { ModifyStorage } from "./ModifyStorage.jsx";
-import { EmptyStatePanel } from "cockpit-components-empty-state";
 
 import {
     resetPartitioning,
@@ -86,7 +85,7 @@ const selectDefaultDisks = ({ ignoredDisks, selectedDisks, usableDisks }) => {
     }
 };
 
-const LocalDisksSelect = ({ deviceData, diskSelection, idPrefix, isRescanningDisks, setSelectedDisks }) => {
+const LocalDisksSelect = ({ deviceData, diskSelection, idPrefix, isDisabled, setSelectedDisks }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [inputValue, setInputValue] = useState("");
     const [focusedItemIndex, setFocusedItemIndex] = useState(null);
@@ -202,7 +201,7 @@ const LocalDisksSelect = ({ deviceData, diskSelection, idPrefix, isRescanningDis
           onClick={onToggleClick}
           innerRef={toggleRef}
           isExpanded={isOpen}
-          isDisabled={diskSelectionInProgress || isRescanningDisks}
+          isDisabled={diskSelectionInProgress || isDisabled}
           className={idPrefix}
         >
             <TextInputGroup isPlain>
@@ -308,7 +307,9 @@ const InstallationDestination = ({
     dispatch,
     idPrefix,
     isBootIso,
+    isFormDisabled,
     setIsFormValid,
+    setIsFormDisabled,
     onRescanDisks,
     onCritFail
 }) => {
@@ -363,7 +364,7 @@ const InstallationDestination = ({
     const rescanDisksButton = (
         <Button
           aria-label={_("Re-scan")}
-          isDisabled={isRescanningDisks || loading}
+          isDisabled={isRescanningDisks || loading || isFormDisabled}
           isInline
           id={idPrefix + "-rescan-disks"}
           variant="link"
@@ -381,7 +382,7 @@ const InstallationDestination = ({
           deviceData={deviceData}
           diskSelection={diskSelection}
           setSelectedDisks={setSelectedDisks}
-          isRescanningDisks={isRescanningDisks}
+          isDisabled={isRescanningDisks || loading || isFormDisabled}
         />
     );
 
@@ -435,18 +436,15 @@ export const InstallationMethod = ({
     dispatch,
     idPrefix,
     isBootIso,
-    isInProgress,
+    isFormDisabled,
     onCritFail,
     osRelease,
     setIsFormValid,
+    setIsFormDisabled,
     setStorageScenarioId,
     stepNotification,
     storageScenarioId,
 }) => {
-    if (isInProgress) {
-        return <EmptyStatePanel loading />;
-    }
-
     return (
         <AnacondaPage title={!isBootIso ? cockpit.format(_("Welcome. Let's install $0 now."), osRelease.REDHAT_SUPPORT_PRODUCT) : null}>
             <Form
@@ -466,7 +464,9 @@ export const InstallationMethod = ({
                   dispatch={dispatch}
                   idPrefix={idPrefix}
                   isBootIso={isBootIso}
+                  isFormDisabled={isFormDisabled}
                   setIsFormValid={setIsFormValid}
+                  setIsFormDisabled={setIsFormDisabled}
                   onCritFail={onCritFail}
                 />
                 <InstallationScenario
@@ -476,6 +476,7 @@ export const InstallationMethod = ({
                   idPrefix={idPrefix}
                   isBootIso={isBootIso}
                   onCritFail={onCritFail}
+                  isFormDisabled={isFormDisabled}
                   setIsFormValid={setIsFormValid}
                   setStorageScenarioId={setStorageScenarioId}
                   storageScenarioId={storageScenarioId}
