@@ -29,5 +29,5 @@ test/build-rpms -v ../../result/build/00-srpm-build/anaconda-*.src.rpm
 # makeupdates must be run from the top level of the anaconda source tree
 pushd ../../
 # shellcheck disable=SC2086,SC2046
-scripts/makeupdates --add ui/webui/tmp/rpms/anaconda-*.rpm ui/webui/tmp/rpms/cockpit-*.rpm ui/webui/tmp/rpms/dbus-glib-*.rpm ${ANACONDA_WEBUI_DEPS_RPMS}
+scripts/makeupdates --add ui/webui/tmp/rpms/*.rpm ${ANACONDA_WEBUI_DEPS_RPMS}
 popd
