@@ -282,8 +282,9 @@ const LocalDisksSelect = ({ deviceData, diskSelection, idPrefix, isDisabled, set
     );
 };
 
-const rescanDisks = (setIsRescanningDisks, refUsableDisks, dispatch, errorHandler) => {
+const rescanDisks = (setIsRescanningDisks, refUsableDisks, dispatch, errorHandler, setIsFormDisabled) => {
     setIsRescanningDisks(true);
+    setIsFormDisabled(true);
     refUsableDisks.current = undefined;
     scanDevicesWithTask()
             .then(res => {
@@ -294,11 +295,18 @@ const rescanDisks = (setIsRescanningDisks, refUsableDisks, dispatch, errorHandle
                                 dispatch(getDevicesAction()),
                                 dispatch(getDiskSelectionAction())
                             ]))
+                            .finally(() => {
+                                setIsFormDisabled(false);
+                                setIsRescanningDisks(false);
+                            })
                             .catch(errorHandler),
-                    onFail: errorHandler
+                    onFail: exc => {
+                        setIsFormDisabled(false);
+                        setIsRescanningDisks(false);
+                        errorHandler(exc);
+                    }
                 });
-            })
-            .finally(() => setIsRescanningDisks(false));
+            });
 };
 
 const InstallationDestination = ({
@@ -358,7 +366,8 @@ const InstallationDestination = ({
         setIsRescanningDisks,
         refUsableDisks,
         dispatch,
-        rescanErrorHandler
+        rescanErrorHandler,
+        setIsFormDisabled,
     );
 
     const rescanDisksButton = (
