@@ -485,6 +485,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Oct 09 2023 github-actions <github-actions@github.com> - 39.32.4-1
+- Simplify keyboard layout handling, rely on localed more (awilliam)
+
 * Mon Sep 18 2023 github-actions <github-actions@github.com> - 39.32.3-1
 - Update translations from Weblate for fedora-39 (github-actions)
 - liveinst: Don't exec pkexec (rstrode)
