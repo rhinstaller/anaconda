@@ -35,7 +35,7 @@ def build_rpms(srpm, image, verbose, quick):
         # FIXME boot.iso on rawhide does not currently contain the new cockpit dependencies
         # This will change once we include this changes upstream and start building boot.iso with the new dependencies
         # Then we can safely remove this workaround
-        machine.execute(f"dnf download --destdir /var/tmp/build/ {missing_packages}", stdout=sys.stdout, timeout=1800)
+        machine.execute(f"dnf download --destdir /var/tmp/build/ {missing_packages}", stdout=sys.stdout, timeout=300)
 
         # download rpms
         vm_rpms = machine.execute("find /var/tmp/build -name '*.rpm' -not -name '*.src.rpm'").strip().split()
