@@ -11,7 +11,7 @@ import sys
 BOTS_DIR = os.path.realpath(f'{__file__}/../../bots')
 sys.path.append(BOTS_DIR)
 
-missing_packages = "cockpit-ws cockpit-bridge dbus-glib"
+missing_packages = "cockpit-ws cockpit-bridge cockpit-storaged dbus-glib"
 
 from machine.machine_core import machine_virtual  # NOQA: imported through parent.py
 
