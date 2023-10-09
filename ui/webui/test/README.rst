@@ -210,6 +210,10 @@ You can set these environment variables to configure the test suite::
     TEST_OS    The OS to run the tests in.  Currently supported values:
                   "fedora-rawhide-boot"
 
+    TEST_SCENARIO The only supported non-default scenario is `cockpit-pr-N`,
+                  to install the cockpit packages from its pull request #N,
+                  from the automatic packit COPR.
+
     TEST_BROWSER  What browser should be used for testing. Currently supported values:
                      "chromium"
                      "firefox"
