@@ -328,7 +328,7 @@ const InstallationDestination = ({
     debug("DiskSelector: deviceData: ", JSON.stringify(Object.keys(deviceData)), ", diskSelection: ", JSON.stringify(diskSelection));
 
     useEffect(() => {
-        if (isRescanningDisks) {
+        if (isRescanningDisks && refUsableDisks.current === undefined) {
             refUsableDisks.current = diskSelection.usableDisks;
             setEqualDisksNotify(true);
         }
@@ -395,7 +395,7 @@ const InstallationDestination = ({
         />
     );
 
-    const equalDisks = !refUsableDisks.current || checkIfArraysAreEqual(refUsableDisks.current, diskSelection.usableDisks);
+    const equalDisks = refUsableDisks.current && checkIfArraysAreEqual(refUsableDisks.current, diskSelection.usableDisks);
     const headingLevel = isBootIso ? "h2" : "h3";
 
     return (
