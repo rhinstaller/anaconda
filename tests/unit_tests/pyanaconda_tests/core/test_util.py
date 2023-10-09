@@ -20,7 +20,6 @@ import unittest
 import os
 import tempfile
 import signal
-import shutil
 import sys
 import pytest
 
@@ -35,9 +34,6 @@ from pyanaconda.core import util
 from pyanaconda.core.util import synchronized, LazyObject
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.live_user import User
-
-
-ANACONDA_TEST_DIR = '/tmp/anaconda_tests_dir'
 
 
 class RunProgramTests(unittest.TestCase):
@@ -592,15 +588,6 @@ done
 
 
 class MiscTests(unittest.TestCase):
-
-    def setUp(self):
-        # create the directory used for file/folder tests
-        if not os.path.exists(ANACONDA_TEST_DIR):
-            os.makedirs(ANACONDA_TEST_DIR)
-
-    def tearDown(self):
-        # remove the testing directory
-        shutil.rmtree(ANACONDA_TEST_DIR)
 
     def test_get_active_console(self):
         """Test get_active_console."""
