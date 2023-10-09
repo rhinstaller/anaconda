@@ -32,36 +32,28 @@ import {
 export const getDevicesAction = () => {
     return async (dispatch) => {
         const devices = await getDevices();
-        return Promise.all(devices[0].map(device => dispatch(getDeviceDataAction({ device }))));
-    };
-};
+        const devicesData = await Promise.all(devices[0].map(async (device) => {
+            let devData = await getDeviceData({ disk: device });
+            devData = devData[0];
 
-export const getDeviceDataAction = ({ device }) => {
-    return async (dispatch) => {
-        let devData = {};
-        const deviceData = await getDeviceData({ disk: device })
-                .then(res => {
-                    devData = res[0];
-                    return getDiskFreeSpace({ diskNames: [device] });
-                })
-                .then(free => {
-                    // Since the getDeviceData returns an object with variants as values,
-                    // extend it with variants to keep the format consistent
-                    devData.free = cockpit.variant(String, free);
-                    return getDiskTotalSpace({ diskNames: [device] });
-                })
-                .then(total => {
-                    devData.total = cockpit.variant(String, total);
-                    return getFormatData({ diskName: device });
-                })
-                .then(formatData => {
-                    devData.formatData = formatData;
-                    return ({ [device]: devData });
-                });
+            const free = await getDiskFreeSpace({ diskNames: [device] });
+            // extend it with variants to keep the format consistent
+            devData.free = cockpit.variant(String, free);
+
+            const total = await getDiskTotalSpace({ diskNames: [device] });
+            devData.total = cockpit.variant(String, total);
+
+            const formatData = await getFormatData({ diskName: device });
+            devData.formatData = formatData;
+
+            const deviceData = { [device]: devData };
+
+            return deviceData;
+        }));
 
         return dispatch({
-            type: "GET_DEVICE_DATA",
-            payload: { deviceData }
+            type: "GET_DEVICES_DATA",
+            payload: { devices: devicesData.reduce((acc, curr) => ({ ...acc, ...curr }), {}) }
         });
     };
 };
