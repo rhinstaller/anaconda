@@ -31,10 +31,15 @@ def build_rpms(srpm, image, verbose, quick):
         machine.execute("su builder -c 'mock --no-clean --disablerepo=* --offline --resultdir /var/tmp/build "
                         f"{mock_opts} --rebuild /var/tmp/build/SRPMS/*.src.rpm'", timeout=1800)
 
+        scenario = os.environ.get("TEST_SCENARIO")
+        if scenario and scenario.startswith("cockpit-pr-"):
+            cockpit_pr = scenario.split("-")[-1]
+            machine.execute(f"dnf copr enable -y packit/cockpit-project-cockpit-{cockpit_pr}", stdout=sys.stdout)
+
         # download cockpit rpms
         # FIXME boot.iso on rawhide does not currently contain the new cockpit dependencies
         # This will change once we include this changes upstream and start building boot.iso with the new dependencies
-        # Then we can safely remove this workaround
+        # Then we can move this to the /cockpit-pr scenario above
         machine.execute(f"dnf download --destdir /var/tmp/build/ {missing_packages}", stdout=sys.stdout, timeout=300)
 
         # download rpms
