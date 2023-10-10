@@ -79,8 +79,8 @@ class VirtInstallMachine(VirtMachine):
 
         return http_updates_img_port
 
-    def _serve_payload(self):
-        payload_cached_path = os.path.realpath(os.path.join(BOTS_DIR, "./images/fedora-rawhide-anaconda-payload"))
+    def _serve_payload(self, payload_path):
+        payload_cached_path = os.path.realpath(payload_path)
         payload_cached_dir = os.path.dirname(payload_cached_path)
         payload_cached_name = os.path.basename(payload_cached_path)
 
@@ -108,7 +108,11 @@ class VirtInstallMachine(VirtMachine):
 
         self.http_updates_img_port = self._serve_updates_img()
 
-        payload_cached_name, http_payload_port = self._serve_payload()
+        payload_path = os.path.join(BOTS_DIR, "./images/fedora-rawhide-anaconda-payload")
+        if not os.path.exists(payload_path):
+            raise FileNotFoundError(f"Missing payload file {payload_path}; use 'make payload'.")
+
+        payload_cached_name, http_payload_port = self._serve_payload(payload_path)
         self.payload_ks_path = self._get_payload_ks_path(payload_cached_name, http_payload_port)
 
         disk_image = self._create_disk_image(15, quiet=True)
