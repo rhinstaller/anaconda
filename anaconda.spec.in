@@ -501,6 +501,25 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Oct 10 2023 github-actions <github-actions@github.com> - 40.8-1
+- tests: Drop unused testing dir (vslavik)
+- webui: Install cockpit-storaged (martin)
+- webui: Support testing against a cockpit PR (martin)
+- webui: Reduce rpm download timeout (martin)
+- webui: Install all downloaded rpms (martin)
+- Update translations from Weblate for master (github-actions)
+- Revert "webui: pin down cockpit-* packages versions for gating purposes"
+  (martin)
+- webui: tests: temporarilly pin down firefox to unbreak CI (kkoukiou)
+- WebUI: drop eslint flowtype plugin (jvanderwaa)
+- pylint: Use 'exit' instead of 'do_exit' for pylint.lint.Run (vtrefny)
+- webui: replace specific checkEqualDisks with new checkIfArraysAreEqual helper
+  (kkoukiou)
+- webui: split 'Modify storage' modals into separate file (kkoukiou)
+- webui: utilize idPredix variable for ids in UnlockDialog component (kkoukiou)
+- webui: move code for updating backend requests to helper function (kkoukiou)
+- Drop kbd-legacy requirement in localization module (awilliam)
+
 * Tue Oct 03 2023 github-actions <github-actions@github.com> - 40.7-1
 - webui: tests: ignore the logo image selector in the pixel tests (kkoukiou)
 - webui: do not hardcode the required mount points in the getInitialRequests
