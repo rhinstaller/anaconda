@@ -350,22 +350,16 @@ class InstallerStorage(Blivet):
         self.protected_devices = protected_names
 
     def _mark_protected_device(self, device):
-        """Mark a device and its ancestors as protected."""
-        if not device:
-            return
-
-        for d in device.ancestors:
-            log.debug("Marking device %s as protected.", d.name)
-            d.protected = True
+        """Mark a device as protected from teardown."""
+        if device:
+            log.debug("Marking device %s as protected.", device.name)
+            device.protected = True
 
     def _mark_unprotected_device(self, device):
-        """Mark a device and its ancestors as unprotected."""
-        if not device:
-            return
-
-        for d in device.ancestors:
-            log.debug("Marking device %s as unprotected.", d.name)
-            d.protected = False
+        """Mark a device as unprotected from teardown."""
+        if device:
+            log.debug("Marking device %s as unprotected.", device.name)
+            device.protected = False
 
     @property
     def usable_disks(self):
