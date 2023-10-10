@@ -86,6 +86,30 @@ const getInitialRequests = (requests, requiredMountPoints) => {
     return [...requiredRequests, ...extraRequests];
 };
 
+/* Check validity of the requests array
+ * @param {Array} requests - partitioning requests
+ * @deviceData {Object} deviceData - device data
+ * @returns {boolean}
+ */
+const getRequestsValid = (requests, deviceData) => {
+    const checkValidRequest = r => {
+        return (
+            r["mount-point"] &&
+            r["device-spec"] &&
+            !isReformatInvalid(deviceData, r, requests)[0]
+        );
+    };
+
+    /* When requests change check for duplicate mount point or device assignments and update form validity */
+    const isFormValid = (
+        !hasDuplicateFields(requests, "mount-point") &&
+        !hasDuplicateFields(requests, "device-spec") &&
+        requests.every(checkValidRequest)
+    );
+
+    return isFormValid;
+};
+
 const isReformatInvalid = (deviceData, request, requests) => {
     const device = request["device-spec"];
 
@@ -477,7 +501,9 @@ const RequestsTable = ({
 
         const initialRequests = getInitialRequests(requests, requiredMountPoints);
         setUnappliedRequests(initialRequests);
-    }, [partitioningDataPath, requests, requiredMountPoints]);
+
+        setIsFormValid(getRequestsValid(initialRequests, deviceData));
+    }, [deviceData, setIsFormValid, partitioningDataPath, requests, requiredMountPoints]);
 
     const handleRequestChange = useCallback(({ mountPoint, deviceSpec, requestIndex, reformat, remove }) => {
         const newRequests = [...unappliedRequests];
@@ -499,22 +525,7 @@ const RequestsTable = ({
             }
         }
 
-        const checkValidRequest = r => {
-            return (
-                r["mount-point"] &&
-                r["device-spec"] &&
-                !isReformatInvalid(deviceData, r, newRequests)[0]
-            );
-        };
-
-        /* When requests change check for duplicate mount point or device assignments and update form validity */
-        const isFormValid = (
-            !hasDuplicateFields(newRequests, "mount-point") &&
-            !hasDuplicateFields(newRequests, "device-spec") &&
-            newRequests.every(checkValidRequest)
-        );
-
-        setIsFormValid(isFormValid);
+        setIsFormValid(getRequestsValid(newRequests, deviceData));
 
         /* Sync newRequests to the backend */
         updatePartitioningRequests({
