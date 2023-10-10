@@ -157,7 +157,7 @@ export const getDefaultScenario = () => {
     return scenarios.filter(s => s.default)[0];
 };
 
-const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, onCritFail, storageScenarioId, setStorageScenarioId, setIsFormValid }) => {
+const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, isFormDisabled, onCritFail, storageScenarioId, setStorageScenarioId, setIsFormValid }) => {
     const [selectedScenario, setSelectedScenario] = useState();
     const [scenarioAvailability, setScenarioAvailability] = useState(Object.fromEntries(
         scenarios.map((s) => [s.id, new AvailabilityState()])
@@ -260,7 +260,7 @@ const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, onC
           value={scenario.id}
           name={idPrefix + "-scenario"}
           label={scenario.label}
-          isDisabled={!scenarioAvailability[scenario.id].available}
+          isDisabled={!scenarioAvailability[scenario.id].available || isFormDisabled}
           isChecked={storageScenarioId === scenario.id}
           onChange={() => onScenarioToggled(scenario.id)}
           description={scenario.detail}
@@ -278,7 +278,7 @@ const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, onC
     return scenarioItems;
 };
 
-export const InstallationScenario = ({ deviceData, diskSelection, idPrefix, onCritFail, setIsFormValid, storageScenarioId, setStorageScenarioId, isBootIso }) => {
+export const InstallationScenario = ({ deviceData, diskSelection, idPrefix, isFormDisabled, onCritFail, setIsFormValid, storageScenarioId, setStorageScenarioId, isBootIso }) => {
     const headingLevel = isBootIso ? "h2" : "h3";
 
     return (
@@ -291,6 +291,7 @@ export const InstallationScenario = ({ deviceData, diskSelection, idPrefix, onCr
                   idPrefix={idPrefix}
                   onCritFail={onCritFail}
                   setIsFormValid={setIsFormValid}
+                  isFormDisabled={isFormDisabled}
                   storageScenarioId={storageScenarioId}
                   setStorageScenarioId={setStorageScenarioId}
                 />

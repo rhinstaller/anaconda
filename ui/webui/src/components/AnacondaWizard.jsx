@@ -56,7 +56,7 @@ const N_ = cockpit.noop;
 export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, localizationData, onCritFail, onAddErrorNotification, title, conf }) => {
     const [isFormValid, setIsFormValid] = useState(false);
     const [stepNotification, setStepNotification] = useState();
-    const [isInProgress, setIsInProgress] = useState(false);
+    const [isFormDisabled, setIsFormDisabled] = useState(false);
     const [storageEncryption, setStorageEncryption] = useState(getStorageEncryptionState());
     const [storageScenarioId, setStorageScenarioId] = useState(window.sessionStorage.getItem("storage-scenario-id") || getDefaultScenario().id);
     const [reusePartitioning, setReusePartitioning] = useState(false);
@@ -196,7 +196,8 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
                           onCritFail={onCritFail}
                           onAddErrorNotification={onAddErrorNotification}
                           stepNotification={stepNotification}
-                          isInProgress={isInProgress}
+                          isFormDisabled={isFormDisabled}
+                          setIsFormDisabled={setIsFormDisabled}
                           storageEncryption={storageEncryption}
                           setStorageEncryption={setStorageEncryption}
                           storageScenarioId={storageScenarioId}
@@ -227,13 +228,13 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
 
         // Reset the applied partitioning when going back from review page
         if (prevStep.prevId === "installation-review" && newStep.id !== "installation-progress") {
-            setIsInProgress(true);
+            setIsFormDisabled(true);
             resetPartitioning()
                     .then(
                         () => cockpit.location.go([newStep.id]),
                         () => onCritFail({ context: cockpit.format(N_("Error was hit when going back from $0."), prevStep.prevName) })
                     )
-                    .always(() => setIsInProgress(false));
+                    .always(() => setIsFormDisabled(false));
         } else {
             cockpit.location.go([newStep.id]);
         }
@@ -249,8 +250,8 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
                 partitioning={storageData.partitioning?.path}
                 setIsFormValid={setIsFormValid}
                 setStepNotification={setStepNotification}
-                isInProgress={isInProgress}
-                setIsInProgress={setIsInProgress}
+                isFormDisabled={isFormDisabled}
+                setIsFormDisabled={setIsFormDisabled}
                 storageEncryption={storageEncryption}
                 storageScenarioId={storageScenarioId}
                 isBootIso={isBootIso}
@@ -273,9 +274,9 @@ const Footer = ({
     isFormValid,
     setIsFormValid,
     setStepNotification,
-    isInProgress,
+    isFormDisabled,
     partitioning,
-    setIsInProgress,
+    setIsFormDisabled,
     storageEncryption,
     storageScenarioId,
     isBootIso
@@ -288,12 +289,12 @@ const Footer = ({
         setIsFormValid(true);
 
         if (activeStep.id === "disk-encryption") {
-            setIsInProgress(true);
+            setIsFormDisabled(true);
 
             applyStorage({
                 onFail: ex => {
                     console.error(ex);
-                    setIsInProgress(false);
+                    setIsFormDisabled(false);
                     setStepNotification({ step: activeStep.id, ...ex });
                 },
                 onSuccess: () => {
@@ -301,7 +302,7 @@ const Footer = ({
 
                     // Reset the state after the onNext call. Otherwise,
                     // React will try to render the current step again.
-                    setIsInProgress(false);
+                    setIsFormDisabled(false);
                     setStepNotification();
                 },
                 encrypt: storageEncryption.encrypt,
@@ -310,13 +311,13 @@ const Footer = ({
         } else if (activeStep.id === "installation-review") {
             setNextWaitsConfirmation(true);
         } else if (activeStep.id === "mount-point-mapping") {
-            setIsInProgress(true);
+            setIsFormDisabled(true);
 
             applyStorage({
                 partitioning,
                 onFail: ex => {
                     console.error(ex);
-                    setIsInProgress(false);
+                    setIsFormDisabled(false);
                     setStepNotification({ step: activeStep.id, ...ex });
                 },
                 onSuccess: () => {
@@ -324,7 +325,7 @@ const Footer = ({
 
                     // Reset the state after the onNext call. Otherwise,
                     // React will try to render the current step again.
-                    setIsInProgress(false);
+                    setIsFormDisabled(false);
                     setStepNotification();
                 },
             });
@@ -338,10 +339,6 @@ const Footer = ({
         setIsFormValid(true);
         onBack();
     };
-
-    if (isInProgress) {
-        return null;
-    }
 
     return (
         <WizardFooter>
@@ -398,7 +395,7 @@ const Footer = ({
                                 <Button
                                   id="installation-back-btn"
                                   variant="secondary"
-                                  isDisabled={isFirstScreen}
+                                  isDisabled={isFirstScreen || isFormDisabled}
                                   onClick={() => goToPreviousStep(
                                       activeStep,
                                       onBack,
@@ -411,6 +408,7 @@ const Footer = ({
                                   variant={nextButtonVariant}
                                   isDisabled={
                                       !isFormValid ||
+                                      isFormDisabled ||
                                       nextWaitsConfirmation
                                   }
                                   onClick={() => goToNextStep(activeStep, onNext)}>
@@ -418,6 +416,7 @@ const Footer = ({
                                 </Button>
                                 <Button
                                   id="installation-quit-btn"
+                                  isDisabled={isFormDisabled}
                                   style={{ marginLeft: "var(--pf-v5-c-wizard__footer-cancel--MarginLeft)" }}
                                   variant="link"
                                   onClick={() => {
