@@ -48,39 +48,57 @@ import CheckCircleIcon from "@patternfly/react-icons/dist/esm/icons/check-circle
 import { AnacondaPage } from "../AnacondaPage.jsx";
 import "./DiskEncryption.scss";
 
+import { getPasswordPolicies } from "../../apis/runtime.js";
+
 const _ = cockpit.gettext;
 
-const strengthLevels = [{
-    id: "weak",
-    label: _("Weak"),
-    variant: "error",
-    icon: <ExclamationCircleIcon />,
-    lower_bound: 0,
-    higher_bound: 29,
-    valid: true,
-}, {
-    id: "medium",
-    label: _("Medium"),
-    variant: "warning",
-    icon: <ExclamationTriangleIcon />,
-    lower_bound: 30,
-    higher_bound: 69,
-    valid: true,
-}, {
-    id: "strong",
-    label: _("Strong"),
-    variant: "success",
-    icon: <CheckCircleIcon />,
-    lower_bound: 70,
-    higher_bound: 100,
-    valid: true,
-}];
+/* Calculate the password quality levels based on the password policy
+ * If the policy specifies a 'is-strict' rule anything bellow the minimum specified by the policy
+ * is considered invalid
+ * @param {int} minQualility - the minimum quality level
+ * @return {array} - the password strengh levels
+ */
+const getStrengthLevels = (minQualility, isStrict) => {
+    const levels = [{
+        id: "weak",
+        label: _("Weak"),
+        variant: "error",
+        icon: <ExclamationCircleIcon />,
+        lower_bound: 0,
+        higher_bound: minQualility - 1,
+        valid: !isStrict,
+    }];
+
+    if (minQualility <= 69) {
+        levels.push({
+            id: "medium",
+            label: _("Medium"),
+            variant: "warning",
+            icon: <ExclamationTriangleIcon />,
+            lower_bound: minQualility,
+            higher_bound: 69,
+            valid: true,
+        });
+    }
+
+    levels.push({
+        id: "strong",
+        label: _("Strong"),
+        variant: "success",
+        icon: <CheckCircleIcon />,
+        lower_bound: Math.max(70, minQualility),
+        higher_bound: 100,
+        valid: true,
+    });
+
+    return levels;
+};
 
 export function getStorageEncryptionState (password = "", confirmPassword = "", encrypt = false) {
     return { password, confirmPassword, encrypt };
 }
 
-const passwordStrengthLabel = (idPrefix, strength) => {
+const passwordStrengthLabel = (idPrefix, strength, strengthLevels) => {
     const level = strengthLevels.filter(l => l.id === strength)[0];
     if (level) {
         return (
@@ -96,6 +114,7 @@ const passwordStrengthLabel = (idPrefix, strength) => {
 // TODO create strengthLevels object with methods passed to the component ?
 const PasswordFormFields = ({
     idPrefix,
+    luksPolicies,
     password,
     passwordLabel,
     onChange,
@@ -105,7 +124,8 @@ const PasswordFormFields = ({
     passwordStrength,
     ruleLength,
     ruleConfirmMatches,
-    ruleAscii
+    ruleAscii,
+    strengthLevels,
 }) => {
     const [passwordHidden, setPasswordHidden] = useState(true);
     const [confirmHidden, setConfirmHidden] = useState(true);
@@ -124,7 +144,7 @@ const PasswordFormFields = ({
         <>
             <FormGroup
               label={passwordLabel}
-              labelInfo={ruleLength === "success" && passwordStrengthLabel(idPrefix, passwordStrength)}
+              labelInfo={ruleLength === "success" && passwordStrengthLabel(idPrefix, passwordStrength, strengthLevels)}
             >
                 <InputGroup>
                     <InputGroupItem isFill>
@@ -148,12 +168,12 @@ const PasswordFormFields = ({
                 <FormHelperText>
                     <HelperText component="ul" aria-live="polite" id={idPrefix + "-password-field-helper"}>
                         <HelperTextItem
-                          id={idPrefix + "-password-rule-8-chars"}
+                          id={idPrefix + "-password-rule-min-chars"}
                           isDynamic
                           variant={ruleLength}
                           component="li"
                         >
-                            {_("Must be at least 8 characters")}
+                            {cockpit.format(_("Must be at least $0 characters"), luksPolicies["min-length"].v)}
                         </HelperTextItem>
                         {ruleAscii &&
                         <HelperTextItem
@@ -205,7 +225,7 @@ const PasswordFormFields = ({
     );
 };
 
-const getPasswordStrength = async (password) => {
+const getPasswordStrength = async (password, strengthLevels) => {
     // In case of unacceptable password just return 0
     const force = true;
     const quality = await password_quality(password, force);
@@ -213,16 +233,17 @@ const getPasswordStrength = async (password) => {
     return level.id;
 };
 
-const isValidStrength = (strength) => {
+const isValidStrength = (strength, strengthLevels) => {
     const level = strengthLevels.filter(l => l.id === strength)[0];
+
     return level ? level.valid : false;
 };
 
-const getRuleLength = (password) => {
+const getRuleLength = (password, minLength) => {
     let ruleState = "indeterminate";
-    if (password.length > 0 && password.length <= 7) {
+    if (password.length > 0 && password.length < minLength) {
         ruleState = "error";
-    } else if (password.length > 7) {
+    } else if (password.length >= minLength) {
         ruleState = "success";
     }
     return ruleState;
@@ -254,18 +275,27 @@ export const DiskEncryption = ({
     const [confirmPassword, setConfirmPassword] = useState(storageEncryption.confirmPassword);
     const [passwordStrength, setPasswordStrength] = useState("");
     const isEncrypted = storageEncryption.encrypt;
+    const [luksPolicies, setLuksPolicies] = useState();
+
+    useEffect(() => {
+        getPasswordPolicies().then(policies => setLuksPolicies(policies.luks));
+    }, []);
 
     const ruleConfirmMatches = useMemo(() => {
         return getRuleConfirmMatches(password, confirmPassword);
     }, [password, confirmPassword]);
 
     const ruleLength = useMemo(() => {
-        return getRuleLength(password);
-    }, [password]);
+        return luksPolicies && getRuleLength(password, luksPolicies["min-length"].v);
+    }, [password, luksPolicies]);
 
     const ruleAscii = useMemo(() => {
         return password.length > 0 && !/^[\x20-\x7F]*$/.test(password);
     }, [password]);
+
+    const strengthLevels = useMemo(() => {
+        return luksPolicies && getStrengthLevels(luksPolicies["min-quality"].v, luksPolicies["is-strict"].v);
+    }, [luksPolicies]);
 
     const encryptedDevicesCheckbox = content => (
         <Checkbox
@@ -280,6 +310,7 @@ export const DiskEncryption = ({
     const passphraseForm = (
         <PasswordFormFields
           idPrefix={idPrefix}
+          luksPolicies={luksPolicies}
           password={password}
           passwordLabel={_("Passphrase")}
           passwordStrength={passwordStrength}
@@ -288,31 +319,36 @@ export const DiskEncryption = ({
           ruleLength={ruleLength}
           ruleConfirmMatches={ruleConfirmMatches}
           ruleAscii={ruleAscii}
+          strengthLevels={strengthLevels}
           onChange={setPassword}
           onConfirmChange={setConfirmPassword}
         />
     );
 
     useEffect(() => {
+        if (!strengthLevels) {
+            return;
+        }
+
         const updatePasswordStrength = async () => {
-            const _passwordStrength = await getPasswordStrength(password);
+            const _passwordStrength = await getPasswordStrength(password, strengthLevels);
             setPasswordStrength(_passwordStrength);
         };
         updatePasswordStrength();
-    }, [password]);
+    }, [password, strengthLevels]);
 
     useEffect(() => {
         const updateValidity = (isEncrypted) => {
             const passphraseValid = (
                 ruleLength === "success" &&
                 ruleConfirmMatches === "success" &&
-                isValidStrength(passwordStrength)
+                isValidStrength(passwordStrength, strengthLevels)
             );
             setIsFormValid(!isEncrypted || passphraseValid);
         };
 
         updateValidity(isEncrypted);
-    }, [setIsFormValid, isEncrypted, ruleConfirmMatches, ruleLength, passwordStrength]);
+    }, [setIsFormValid, isEncrypted, ruleConfirmMatches, ruleLength, passwordStrength, strengthLevels]);
 
     useEffect(() => {
         setStorageEncryption(se => ({ ...se, password }));
@@ -322,7 +358,7 @@ export const DiskEncryption = ({
         setStorageEncryption(se => ({ ...se, confirmPassword }));
     }, [confirmPassword, setStorageEncryption]);
 
-    if (isInProgress) {
+    if (isInProgress || !luksPolicies) {
         return CheckDisksSpinner;
     }
 
