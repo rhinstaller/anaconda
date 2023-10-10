@@ -66,7 +66,7 @@ export const AnacondaHeader = ({ beta, title, reportLinkURL, isConnected }) => {
     return (
         <PageSection variant={PageSectionVariants.light}>
             <Flex spaceItems={{ default: "spaceItemsSm" }} alignItems={{ default: "alignItemsCenter" }}>
-                <span className="logo" />
+                <img src="./logo.svg" className="logo" />
                 <TextContent>
                     <Text component="h1">{title}</Text>
                 </TextContent>
