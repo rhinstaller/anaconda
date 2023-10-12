@@ -2,20 +2,6 @@
 
 set -eu
 
-# FIXME latest firefox breaks our tests: https://bugzilla.redhat.com/show_bug.cgi?id=2242446
-ANACONDA_WEBUI_DEPS_URLS='
-    https://kojipkgs.fedoraproject.org/packages/firefox/118.0/1.fc40/x86_64/firefox-118.0-1.fc40.x86_64.rpm
-'
-
-mkdir -p tmp/extra-rpms
-pushd tmp/extra-rpms
-for url in $ANACONDA_WEBUI_DEPS_URLS; do
-    test -e "$(basename "${url}")" || curl -LO "$url"
-done
-# shellcheck disable=SC2086,SC2046
-ANACONDA_WEBUI_DEPS_RPMS="$(realpath $(basename -a ${ANACONDA_WEBUI_DEPS_URLS}))"
-popd
-
 # switch to root of the repository
 pushd ../..
 # remove old rpms and build new srpm
@@ -29,5 +15,5 @@ test/build-rpms -v ../../result/build/00-srpm-build/anaconda-*.src.rpm
 # makeupdates must be run from the top level of the anaconda source tree
 pushd ../../
 # shellcheck disable=SC2086,SC2046
-scripts/makeupdates --add ui/webui/tmp/rpms/*.rpm ${ANACONDA_WEBUI_DEPS_RPMS}
+scripts/makeupdates --add ui/webui/tmp/rpms/*.rpm
 popd

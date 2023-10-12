@@ -11,7 +11,11 @@ import sys
 BOTS_DIR = os.path.realpath(f'{__file__}/../../bots')
 sys.path.append(BOTS_DIR)
 
-missing_packages = "cockpit-ws cockpit-bridge cockpit-storaged dbus-glib"
+# libvpx is a firefox dependency, but it is not available in the boot.iso
+# https://bugzilla.redhat.com/show_bug.cgi?id=2242446
+# Resolving all dependencies with dnf download is possible,
+# but it packs to many packages to updates.img
+missing_packages = "cockpit-ws cockpit-bridge cockpit-storaged firefox dbus-glib libvpx"
 
 from machine.machine_core import machine_virtual  # NOQA: imported through parent.py
 
