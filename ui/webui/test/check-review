@@ -20,6 +20,7 @@ import anacondalib
 from installer import Installer
 from storage import Storage  # pylint: disable=import-error
 from review import Review
+from language import Language
 from progress import Progress
 from utils import add_public_key
 from testlib import nondestructive, test_main  # pylint: disable=import-error
@@ -73,6 +74,22 @@ class TestReview(anacondalib.VirtInstallMachineCase):
 
         i.reach(i.steps.REVIEW)
         i.begin_installation(should_fail=True, confirm_erase=False)
+
+    def testUnknownLanguage(self):
+        b = self.browser
+        m = self.machine
+        i = Installer(b, m)
+        l = Language(b, m)
+        r = Review(b)
+
+        i.open()
+        # Set language to Macedonian that is now in the installer translated languages
+        # Go to review page after it
+        l.dbus_set_language("mk_MK.UTF-8")
+        i.reach(i.steps.REVIEW)
+
+        # test the macedonian language selected
+        r.check_language("mk_MK.UTF-8")
 
 if __name__ == '__main__':
     test_main()
