@@ -214,7 +214,9 @@ def set_x_keyboard_defaults(localization_proxy, xkl_wrapper):
         # take the first locale (with highest rank) from the list and
         # store it normalized
         new_layouts = [normalize_layout_variant(layouts[0])]
-        if not langtable.supports_ascii(layouts[0]):
+        # annoyingly, langtable expects *no* space between layout and
+        # (variant) here
+        if not langtable.supports_ascii(layouts[0].replace(" ", "")):
             # The default keymap setting should have "us" before the native layout
             # which does not support ascii,
             # refer: https://bugzilla.redhat.com/show_bug.cgi?id=1039185
