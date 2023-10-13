@@ -94,14 +94,13 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
         }
     }, [localizationData]);
     const stepsOrder = [
-        ...(isBootIso
-            ? [{
-                component: InstallationLanguage,
-                data: { dispatch, languages: localizationData.languages, language: localizationData.language, commonLocales: localizationData.commonLocales },
-                id: "installation-language",
-                label: _("Welcome"),
-            }]
-            : []),
+        {
+            component: InstallationLanguage,
+            data: { dispatch, languages: localizationData.languages, language: localizationData.language, commonLocales: localizationData.commonLocales },
+            id: "installation-language",
+            label: _("Welcome"),
+            isHidden: !isBootIso,
+        },
         {
             component: InstallationMethod,
             data: {
