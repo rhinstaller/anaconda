@@ -28,73 +28,88 @@ import {
     getPartitioningMethod,
     getUsableDisks,
 } from "../apis/storage.js";
+import {
+    setCriticalErrorAction,
+} from "../actions/miscellaneous-actions.js";
 
 export const getDevicesAction = () => {
     return async (dispatch) => {
-        const devices = await getDevices();
-        const devicesData = await Promise.all(devices[0].map(async (device) => {
-            let devData = await getDeviceData({ disk: device });
-            devData = devData[0];
+        try {
+            const devices = await getDevices();
+            const devicesData = await Promise.all(devices[0].map(async (device) => {
+                let devData = await getDeviceData({ disk: device });
+                devData = devData[0];
 
-            const free = await getDiskFreeSpace({ diskNames: [device] });
-            // extend it with variants to keep the format consistent
-            devData.free = cockpit.variant(String, free);
+                const free = await getDiskFreeSpace({ diskNames: [device] });
+                // extend it with variants to keep the format consistent
+                devData.free = cockpit.variant(String, free);
 
-            const total = await getDiskTotalSpace({ diskNames: [device] });
-            devData.total = cockpit.variant(String, total);
+                const total = await getDiskTotalSpace({ diskNames: [device] });
+                devData.total = cockpit.variant(String, total);
 
-            const formatData = await getFormatData({ diskName: device });
-            devData.formatData = formatData;
+                const formatData = await getFormatData({ diskName: device });
+                devData.formatData = formatData;
 
-            const deviceData = { [device]: devData };
+                const deviceData = { [device]: devData };
 
-            return deviceData;
-        }));
+                return deviceData;
+            }));
 
-        return dispatch({
-            type: "GET_DEVICES_DATA",
-            payload: { devices: devicesData.reduce((acc, curr) => ({ ...acc, ...curr }), {}) }
-        });
+            return dispatch({
+                type: "GET_DEVICES_DATA",
+                payload: { devices: devicesData.reduce((acc, curr) => ({ ...acc, ...curr }), {}) }
+            });
+        } catch (error) {
+            return dispatch(setCriticalErrorAction(error));
+        }
     };
 };
 
 export const getDiskSelectionAction = () => {
     return async (dispatch) => {
-        const usableDisks = await getUsableDisks();
-        const diskSelection = await getAllDiskSelection();
+        try {
+            const usableDisks = await getUsableDisks();
+            const diskSelection = await getAllDiskSelection();
 
-        return dispatch({
-            type: "GET_DISK_SELECTION",
-            payload: {
-                diskSelection: {
-                    ignoredDisks: diskSelection[0].IgnoredDisks.v,
-                    selectedDisks: diskSelection[0].SelectedDisks.v,
-                    usableDisks: usableDisks[0],
-                }
-            },
-        });
+            return dispatch({
+                type: "GET_DISK_SELECTION",
+                payload: {
+                    diskSelection: {
+                        ignoredDisks: diskSelection[0].IgnoredDisks.v,
+                        selectedDisks: diskSelection[0].SelectedDisks.v,
+                        usableDisks: usableDisks[0],
+                    }
+                },
+            });
+        } catch (error) {
+            return dispatch(setCriticalErrorAction(error));
+        }
     };
 };
 
 export const getPartitioningDataAction = ({ requests, partitioning }) => {
     return async (dispatch) => {
-        const props = { path: partitioning };
-        const convertRequests = reqs => reqs.map(request => Object.entries(request).reduce((acc, [key, value]) => ({ ...acc, [key]: value.v }), {}));
+        try {
+            const props = { path: partitioning };
+            const convertRequests = reqs => reqs.map(request => Object.entries(request).reduce((acc, [key, value]) => ({ ...acc, [key]: value.v }), {}));
 
-        if (!requests) {
-            props.method = await getPartitioningMethod({ partitioning });
-            if (props.method === "MANUAL") {
-                const reqs = await gatherRequests({ partitioning });
+            if (!requests) {
+                props.method = await getPartitioningMethod({ partitioning });
+                if (props.method === "MANUAL") {
+                    const reqs = await gatherRequests({ partitioning });
 
-                props.requests = convertRequests(reqs[0]);
+                    props.requests = convertRequests(reqs[0]);
+                }
+            } else {
+                props.requests = convertRequests(requests);
             }
-        } else {
-            props.requests = convertRequests(requests);
-        }
 
-        return dispatch({
-            type: "GET_PARTITIONING_DATA",
-            payload: { path: partitioning, partitioningData: props }
-        });
+            return dispatch({
+                type: "GET_PARTITIONING_DATA",
+                payload: { path: partitioning, partitioningData: props }
+            });
+        } catch (error) {
+            return dispatch(setCriticalErrorAction(error));
+        }
     };
 };

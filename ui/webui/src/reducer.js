@@ -40,11 +40,17 @@ export const networkInitialState = {
     connected: null
 };
 
+/* Initial state for the error store substate */
+export const errorInitialState = {
+    criticalError: null
+};
+
 /* Initial state for the global store */
 export const initialState = {
     localization: localizationInitialState,
     storage: storageInitialState,
     network: networkInitialState,
+    error: errorInitialState,
 };
 
 /* Custom hook to use the reducer with async actions */
@@ -71,6 +77,7 @@ export const reducer = (state, action) => {
         localization: localizationReducer(state.localization, action),
         storage: storageReducer(state.storage, action),
         network: networkReducer(state.network, action),
+        error: errorReducer(state.error, action)
     });
 };
 
@@ -101,6 +108,14 @@ export const localizationReducer = (state = localizationInitialState, action) =>
 export const networkReducer = (state = networkInitialState, action) => {
     if (action.type === "GET_NETWORK_CONNECTED") {
         return { ...state, connected: action.payload.connected };
+    } else {
+        return state;
+    }
+};
+
+const errorReducer = (state = errorInitialState, action) => {
+    if (action.type === "SET_CRITICAL_ERROR") {
+        return { ...state, criticalError: action.payload.criticalError };
     } else {
         return state;
     }

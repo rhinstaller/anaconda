@@ -15,22 +15,7 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {
-    getConnected,
-} from "../apis/network.js";
-import { setCriticalErrorAction } from "../actions/miscellaneous-actions.js";
-
-export const getConnectedAction = () => {
-    return async (dispatch) => {
-        try {
-            const connected = await getConnected();
-
-            return dispatch({
-                type: "GET_NETWORK_CONNECTED",
-                payload: { connected }
-            });
-        } catch (error) {
-            setCriticalErrorAction(error);
-        }
-    };
-};
+export const setCriticalErrorAction = (criticalError) => ({
+    type: "SET_CRITICAL_ERROR",
+    payload: { criticalError }
+});
