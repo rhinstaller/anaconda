@@ -33,8 +33,6 @@ import {
 } from "../../apis/storage.js";
 import { checkDeviceInSubTree } from "../../helpers/storage.js";
 
-import { AnacondaPage } from "../AnacondaPage.jsx";
-
 import { getScenario } from "../storage/InstallationScenario.jsx";
 
 import "./ReviewConfiguration.scss";
@@ -116,7 +114,7 @@ export const ReviewConfiguration = ({ deviceData, diskSelection, language, local
     }, [setIsFormValid]);
 
     return (
-        <AnacondaPage title={_("Review and install")}>
+        <>
             <ReviewDescriptionList>
                 <DescriptionListGroup>
                     <DescriptionListTerm>
@@ -172,7 +170,7 @@ export const ReviewConfiguration = ({ deviceData, diskSelection, language, local
                     </DescriptionListDescription>
                 </DescriptionListGroup>
             </ReviewDescriptionList>
-        </AnacondaPage>
+        </>
     );
 };
 

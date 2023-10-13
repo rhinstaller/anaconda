@@ -19,7 +19,6 @@ import cockpit from "cockpit";
 import React, { useState, useRef, useEffect, useMemo, useCallback } from "react";
 
 import {
-    Alert,
     Button,
     Switch,
     Flex,
@@ -40,7 +39,6 @@ import { TrashIcon } from "@patternfly/react-icons";
 import { ListingTable } from "cockpit-components-table.jsx";
 import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
 
-import { AnacondaPage } from "../AnacondaPage.jsx";
 import { EncryptedDevices } from "./EncryptedDevices.jsx";
 
 import {
@@ -479,7 +477,7 @@ const RequestsTable = ({
     deviceData,
     idPrefix,
     lockedLUKSDevices,
-    onAddErrorNotification,
+    setStepNotification,
     partitioningDataPath,
     requests,
     requiredMountPoints,
@@ -533,12 +531,12 @@ const RequestsTable = ({
             newRequests,
             partitioning: partitioningDataPath
         }).catch(ex => {
-            onAddErrorNotification(ex);
+            setStepNotification(ex);
             setIsFormValid(false);
         });
 
         setUnappliedRequests(newRequests);
-    }, [setIsFormValid, deviceData, unappliedRequests, requests, partitioningDataPath, onAddErrorNotification]);
+    }, [setIsFormValid, deviceData, unappliedRequests, requests, partitioningDataPath, setStepNotification]);
 
     return (
         <>
@@ -601,13 +599,12 @@ export const MountPointMapping = ({
     diskSelection,
     dispatch,
     idPrefix,
-    onAddErrorNotification,
     partitioningData,
     requiredMountPoints,
     reusePartitioning,
     setIsFormValid,
     setReusePartitioning,
-    stepNotification,
+    setStepNotification,
 }) => {
     const [usedPartitioning, setUsedPartitioning] = useState(partitioningData?.path);
     const [skipUnlock, setSkipUnlock] = useState(false);
@@ -637,14 +634,7 @@ export const MountPointMapping = ({
     const showLuksUnlock = lockedLUKSDevices?.length > 0 && !skipUnlock;
 
     return (
-        <AnacondaPage title={_("Manual disk configuration: Mount point mapping")}>
-            {stepNotification && stepNotification.step === "mount-point-mapping" &&
-                <Alert
-                  isInline
-                  title={stepNotification.message}
-                  variant="danger"
-                />}
-
+        <>
             {showLuksUnlock &&
             (
                 <EncryptedDevices
@@ -665,13 +655,13 @@ export const MountPointMapping = ({
                           deviceData={deviceData}
                           idPrefix={idPrefix + "-table"}
                           lockedLUKSDevices={lockedLUKSDevices}
-                          onAddErrorNotification={onAddErrorNotification}
+                          setStepNotification={setStepNotification}
                           partitioningDataPath={partitioningData?.path}
                           requests={partitioningData?.requests}
                           requiredMountPoints={requiredMountPoints}
                           setIsFormValid={setIsFormValid}
                         />
                     ))}
-        </AnacondaPage>
+        </>
     );
 };

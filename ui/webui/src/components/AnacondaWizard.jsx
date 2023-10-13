@@ -35,6 +35,7 @@ import {
     WizardContextConsumer
 } from "@patternfly/react-core/deprecated";
 
+import { AnacondaPage } from "./AnacondaPage.jsx";
 import { InstallationMethod } from "./storage/InstallationMethod.jsx";
 import { getScenario, getDefaultScenario } from "./storage/InstallationScenario.jsx";
 import { MountPointMapping } from "./storage/MountPointMapping.jsx";
@@ -53,7 +54,7 @@ import {
 const _ = cockpit.gettext;
 const N_ = cockpit.noop;
 
-export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, localizationData, onCritFail, onAddErrorNotification, title, conf }) => {
+export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, localizationData, onCritFail, title, conf }) => {
     const [isFormDisabled, setIsFormDisabled] = useState(false);
     const [isFormValid, setIsFormValid] = useState(false);
     const [requiredMountPoints, setRequiredMountPoints] = useState();
@@ -100,6 +101,7 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
             id: "installation-language",
             label: _("Welcome"),
             isHidden: !isBootIso,
+            title: cockpit.format(_("Welcome to $0"), osRelease.NAME),
         },
         {
             component: InstallationMethod,
@@ -115,6 +117,7 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
             },
             id: "installation-method",
             label: _("Installation method"),
+            title: !isBootIso ? cockpit.format(_("Welcome. Let's install $0 now."), osRelease.REDHAT_SUPPORT_PRODUCT) : null
         },
         {
             id: "disk-configuration",
@@ -132,14 +135,16 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
                 },
                 id: "mount-point-mapping",
                 label: _("Manual disk configuration"),
-                isHidden: storageScenarioId !== "mount-point-mapping"
+                isHidden: storageScenarioId !== "mount-point-mapping",
+                title: _("Manual disk configuration: Mount point mapping")
 
             }, {
                 component: DiskEncryption,
                 data: { storageEncryption, setStorageEncryption },
                 id: "disk-encryption",
                 label: _("Disk encryption"),
-                isHidden: storageScenarioId === "mount-point-mapping"
+                isHidden: storageScenarioId === "mount-point-mapping",
+                title: _("Encrypt the selected devices?")
             }]
         },
         {
@@ -155,6 +160,7 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
             },
             id: "installation-review",
             label: _("Review and install"),
+            title: _("Review and install")
         },
         {
             component: InstallationProgress,
@@ -209,18 +215,20 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
                 step = ({
                     ...step,
                     component: (
-                        <s.component
-                          idPrefix={s.id}
-                          setIsFormValid={setIsFormValid}
-                          onCritFail={onCritFail}
-                          onAddErrorNotification={onAddErrorNotification}
-                          stepNotification={stepNotification}
-                          isFormDisabled={isFormDisabled}
-                          setIsFormDisabled={setIsFormDisabled}
-                          isBootIso={isBootIso}
-                          osRelease={osRelease}
-                          {...s.data}
-                        />
+                        <AnacondaPage step={s.id} title={s.title} stepNotification={stepNotification}>
+                            <s.component
+                              idPrefix={s.id}
+                              setIsFormValid={setIsFormValid}
+                              onCritFail={onCritFail}
+                              setStepNotification={ex => setStepNotification({ step: s.id, ...ex })}
+                              stepNotification={stepNotification}
+                              isFormDisabled={isFormDisabled}
+                              setIsFormDisabled={setIsFormDisabled}
+                              isBootIso={isBootIso}
+                              osRelease={osRelease}
+                              {...s.data}
+                            />
+                        </AnacondaPage>
                     ),
                 });
             } else if (s.steps) {

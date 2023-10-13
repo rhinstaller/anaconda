@@ -50,7 +50,6 @@ import {
 } from "../../apis/storage.js";
 
 import { getDevicesAction, getDiskSelectionAction } from "../../actions/storage-actions.js";
-import { AnacondaPage } from "../AnacondaPage.jsx";
 import { debug } from "../../helpers/log.js";
 import { checkIfArraysAreEqual } from "../../helpers/utils.js";
 
@@ -455,7 +454,7 @@ export const InstallationMethod = ({
     storageScenarioId,
 }) => {
     return (
-        <AnacondaPage title={!isBootIso ? cockpit.format(_("Welcome. Let's install $0 now."), osRelease.REDHAT_SUPPORT_PRODUCT) : null}>
+        <>
             <Form
               className={idPrefix + "-selector"}
               id={idPrefix + "-selector-form"}
@@ -491,6 +490,6 @@ export const InstallationMethod = ({
                   storageScenarioId={storageScenarioId}
                 />
             </Form>
-        </AnacondaPage>
+        </>
     );
 };
