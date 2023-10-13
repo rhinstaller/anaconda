@@ -104,7 +104,16 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
             : []),
         {
             component: InstallationMethod,
-            data: { deviceData: storageData.devices, diskSelection: storageData.diskSelection, dispatch },
+            data: {
+                deviceData: storageData.devices,
+                diskSelection: storageData.diskSelection,
+                dispatch,
+                storageScenarioId,
+                setStorageScenarioId: (scenarioId) => {
+                    window.sessionStorage.setItem("storage-scenario-id", scenarioId);
+                    setStorageScenarioId(scenarioId);
+                }
+            },
             id: "installation-method",
             label: _("Installation method"),
         },
@@ -113,13 +122,22 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
             label: _("Disk configuration"),
             steps: [{
                 component: MountPointMapping,
-                data: { deviceData: storageData.devices, diskSelection: storageData.diskSelection, partitioningData: storageData.partitioning, requiredMountPoints, dispatch, reusePartitioning, setReusePartitioning },
+                data: {
+                    deviceData: storageData.devices,
+                    diskSelection: storageData.diskSelection,
+                    dispatch,
+                    partitioningData: storageData.partitioning,
+                    requiredMountPoints,
+                    reusePartitioning,
+                    setReusePartitioning,
+                },
                 id: "mount-point-mapping",
                 label: _("Manual disk configuration"),
                 isHidden: storageScenarioId !== "mount-point-mapping"
 
             }, {
                 component: DiskEncryption,
+                data: { storageEncryption, setStorageEncryption },
                 id: "disk-encryption",
                 label: _("Disk encryption"),
                 isHidden: storageScenarioId === "mount-point-mapping"
@@ -133,7 +151,8 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
                 requests: storageData.partitioning ? storageData.partitioning.requests : null,
                 language,
                 localizationData,
-                osRelease
+                osRelease,
+                storageScenarioId,
             },
             id: "installation-review",
             label: _("Review and install"),
@@ -199,15 +218,8 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
                           stepNotification={stepNotification}
                           isFormDisabled={isFormDisabled}
                           setIsFormDisabled={setIsFormDisabled}
-                          storageEncryption={storageEncryption}
-                          setStorageEncryption={setStorageEncryption}
-                          storageScenarioId={storageScenarioId}
                           isBootIso={isBootIso}
                           osRelease={osRelease}
-                          setStorageScenarioId={(scenarioId) => {
-                              window.sessionStorage.setItem("storage-scenario-id", scenarioId);
-                              setStorageScenarioId(scenarioId);
-                          }}
                           {...s.data}
                         />
                     ),
