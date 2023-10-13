@@ -207,3 +207,11 @@ export const ReviewConfigurationConfirmModal = ({ idPrefix, onNext, setNextWaits
         </Modal>
     );
 };
+
+export const getPageProps = () => {
+    return ({
+        id: "installation-review",
+        label: _("Review and install"),
+        title: _("Review and install")
+    });
+};

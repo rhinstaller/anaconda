@@ -493,3 +493,11 @@ export const InstallationMethod = ({
         </>
     );
 };
+
+export const getPageProps = ({ isBootIso, osRelease }) => {
+    return ({
+        id: "installation-method",
+        label: _("Installation method"),
+        title: !isBootIso ? cockpit.format(_("Welcome. Let's install $0 now."), osRelease.REDHAT_SUPPORT_PRODUCT) : null
+    });
+};

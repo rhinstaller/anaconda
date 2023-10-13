@@ -328,3 +328,12 @@ export const InstallationLanguage = ({ idPrefix, languages, language, commonLoca
         </>
     );
 };
+
+export const getPageProps = ({ isBootIso, osRelease }) => {
+    return ({
+        id: "installation-language",
+        label: _("Welcome"),
+        isHidden: !isBootIso,
+        title: cockpit.format(_("Welcome to $0"), osRelease.NAME),
+    });
+};

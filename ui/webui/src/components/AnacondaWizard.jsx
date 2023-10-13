@@ -36,13 +36,13 @@ import {
 } from "@patternfly/react-core/deprecated";
 
 import { AnacondaPage } from "./AnacondaPage.jsx";
-import { InstallationMethod } from "./storage/InstallationMethod.jsx";
+import { InstallationMethod, getPageProps as getInstallationMethodProps } from "./storage/InstallationMethod.jsx";
 import { getScenario, getDefaultScenario } from "./storage/InstallationScenario.jsx";
-import { MountPointMapping } from "./storage/MountPointMapping.jsx";
-import { DiskEncryption, getStorageEncryptionState } from "./storage/DiskEncryption.jsx";
-import { InstallationLanguage } from "./localization/InstallationLanguage.jsx";
+import { MountPointMapping, getPageProps as getMountPointMappingProps } from "./storage/MountPointMapping.jsx";
+import { DiskEncryption, getStorageEncryptionState, getPageProps as getDiskEncryptionProps } from "./storage/DiskEncryption.jsx";
+import { InstallationLanguage, getPageProps as getInstallationLanguageProps } from "./localization/InstallationLanguage.jsx";
 import { InstallationProgress } from "./installation/InstallationProgress.jsx";
-import { ReviewConfiguration, ReviewConfigurationConfirmModal } from "./review/ReviewConfiguration.jsx";
+import { ReviewConfiguration, ReviewConfigurationConfirmModal, getPageProps as getReviewConfigurationProps } from "./review/ReviewConfiguration.jsx";
 import { exitGui } from "../helpers/exit.js";
 import { usePageLocation } from "hooks";
 import {
@@ -98,10 +98,7 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
         {
             component: InstallationLanguage,
             data: { dispatch, languages: localizationData.languages, language: localizationData.language, commonLocales: localizationData.commonLocales },
-            id: "installation-language",
-            label: _("Welcome"),
-            isHidden: !isBootIso,
-            title: cockpit.format(_("Welcome to $0"), osRelease.NAME),
+            ...getInstallationLanguageProps({ isBootIso, osRelease })
         },
         {
             component: InstallationMethod,
@@ -115,9 +112,7 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
                     setStorageScenarioId(scenarioId);
                 }
             },
-            id: "installation-method",
-            label: _("Installation method"),
-            title: !isBootIso ? cockpit.format(_("Welcome. Let's install $0 now."), osRelease.REDHAT_SUPPORT_PRODUCT) : null
+            ...getInstallationMethodProps({ isBootIso, osRelease })
         },
         {
             id: "disk-configuration",
@@ -133,18 +128,11 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
                     reusePartitioning,
                     setReusePartitioning,
                 },
-                id: "mount-point-mapping",
-                label: _("Manual disk configuration"),
-                isHidden: storageScenarioId !== "mount-point-mapping",
-                title: _("Manual disk configuration: Mount point mapping")
-
+                ...getMountPointMappingProps({ storageScenarioId })
             }, {
                 component: DiskEncryption,
                 data: { storageEncryption, setStorageEncryption },
-                id: "disk-encryption",
-                label: _("Disk encryption"),
-                isHidden: storageScenarioId === "mount-point-mapping",
-                title: _("Encrypt the selected devices?")
+                ...getDiskEncryptionProps({ storageScenarioId })
             }]
         },
         {
@@ -158,9 +146,7 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
                 osRelease,
                 storageScenarioId,
             },
-            id: "installation-review",
-            label: _("Review and install"),
-            title: _("Review and install")
+            ...getReviewConfigurationProps()
         },
         {
             component: InstallationProgress,

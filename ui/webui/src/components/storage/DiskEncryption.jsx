@@ -377,3 +377,12 @@ export const DiskEncryption = ({
         </>
     );
 };
+
+export const getPageProps = ({ storageScenarioId }) => {
+    return ({
+        id: "disk-encryption",
+        label: _("Disk encryption"),
+        isHidden: storageScenarioId === "mount-point-mapping",
+        title: _("Encrypt the selected devices?")
+    });
+};

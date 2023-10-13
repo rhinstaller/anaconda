@@ -665,3 +665,12 @@ export const MountPointMapping = ({
         </>
     );
 };
+
+export const getPageProps = ({ storageScenarioId }) => {
+    return ({
+        id: "mount-point-mapping",
+        label: _("Manual disk configuration"),
+        isHidden: storageScenarioId !== "mount-point-mapping",
+        title: _("Manual disk configuration: Mount point mapping")
+    });
+};
