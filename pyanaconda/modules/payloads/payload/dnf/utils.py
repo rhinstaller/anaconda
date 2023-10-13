@@ -19,6 +19,7 @@ import fnmatch
 import hashlib
 import os
 import rpm
+from libdnf.transaction import TransactionItemState_ERROR
 
 from blivet.size import Size
 
@@ -411,3 +412,17 @@ def protect_installation_devices(previous_devices, current_devices):
             protected_devices.append(spec)
 
     disk_selection_proxy.ProtectedDevices = protected_devices
+
+
+def transaction_has_errors(transaction):
+    """Detect if finished DNF transaction has any errors.
+
+    :param transaction: the DNF transaction
+    :return: True if the transaction has any error, otherwise False
+    """
+    has_errors = False
+    for tsi in transaction:
+        if tsi.state == TransactionItemState_ERROR:
+            log.error("The transaction contains item %s in error state.", tsi)
+            has_errors = True
+    return has_errors

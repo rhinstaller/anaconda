@@ -49,7 +49,7 @@ from pyanaconda.modules.payloads.payload.dnf.download_progress import DownloadPr
 from pyanaconda.modules.payloads.payload.dnf.transaction_progress import TransactionProgress, \
     process_transaction_progress
 from pyanaconda.modules.payloads.payload.dnf.utils import get_product_release_version, \
-    calculate_hash
+    calculate_hash, transaction_has_errors
 
 log = get_module_logger(__name__)
 
@@ -694,26 +694,24 @@ class DNFManager(object):
     def _run_transaction(base, display):
         """Run the DNF transaction.
 
-        Execute the DNF transaction and catch any errors. An error
-        doesn't always raise a BaseException, so presence of 'quit'
-        without a preceding 'done' message also indicates a problem.
+        Execute the DNF transaction and catch any errors.
 
         :param base: the DNF base
         :param display: the DNF progress-reporting object
         """
         log.debug("Running the transaction...")
-        exit_reason = None
 
         try:
             base.do_transaction(display)
-            exit_reason = "DNF done"
+            if transaction_has_errors(base.transaction):
+                display.error("The transaction process has ended with errors.")
         except BaseException as e:  # pylint: disable=broad-except
-            log.error("The transaction has ended abruptly: %s", str(e))
-            exit_reason = str(e) + traceback.format_exc()
+            display.error("The transaction process has ended abruptly: {}\n{}".format(
+                str(e), traceback.format_exc()))
         finally:
             log.debug("The transaction has ended.")
             base.close()  # Always close this base.
-            display.quit(exit_reason or "DNF quit")
+            display.quit("DNF quit")
 
     @property
     def repositories(self):
