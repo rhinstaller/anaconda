@@ -54,13 +54,13 @@ const _ = cockpit.gettext;
 const N_ = cockpit.noop;
 
 export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, localizationData, onCritFail, onAddErrorNotification, title, conf }) => {
-    const [isFormValid, setIsFormValid] = useState(false);
-    const [stepNotification, setStepNotification] = useState();
     const [isFormDisabled, setIsFormDisabled] = useState(false);
+    const [isFormValid, setIsFormValid] = useState(false);
+    const [requiredMountPoints, setRequiredMountPoints] = useState();
+    const [reusePartitioning, setReusePartitioning] = useState(false);
+    const [stepNotification, setStepNotification] = useState();
     const [storageEncryption, setStorageEncryption] = useState(getStorageEncryptionState());
     const [storageScenarioId, setStorageScenarioId] = useState(window.sessionStorage.getItem("storage-scenario-id") || getDefaultScenario().id);
-    const [reusePartitioning, setReusePartitioning] = useState(false);
-    const [requiredMountPoints, setRequiredMountPoints] = useState();
 
     const availableDevices = useMemo(() => {
         return Object.keys(storageData.devices);
