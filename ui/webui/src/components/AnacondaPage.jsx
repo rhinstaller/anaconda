@@ -14,13 +14,19 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
-import { Stack, Title } from "@patternfly/react-core";
+import { Alert, Stack, Title } from "@patternfly/react-core";
 import React from "react";
 
-export const AnacondaPage = ({ title, children }) => {
+export const AnacondaPage = ({ title, children, step, stepNotification }) => {
     return (
         <Stack hasGutter>
             {title && <Title headingLevel="h2">{title}</Title>}
+            {stepNotification && stepNotification.step === step &&
+                <Alert
+                  isInline
+                  title={stepNotification.message}
+                  variant="danger"
+                />}
             {children}
         </Stack>
     );

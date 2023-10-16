@@ -19,7 +19,6 @@ import cockpit from "cockpit";
 import React, { useCallback, useEffect, useState } from "react";
 
 import {
-    AlertGroup, AlertVariant, AlertActionCloseButton, Alert,
     Page, PageGroup,
 } from "@patternfly/react-core";
 
@@ -52,7 +51,6 @@ export const Application = () => {
     const [beta, setBeta] = useState();
     const [conf, setConf] = useState();
     const [language, setLanguage] = useState();
-    const [notifications, setNotifications] = useState({});
     const [osRelease, setOsRelease] = useState("");
     const [state, dispatch] = useReducerWithThunk(reducer, initialState);
     const [storeInitilized, setStoreInitialized] = useState(false);
@@ -105,17 +103,6 @@ export const Application = () => {
         readOsRelease().then(osRelease => setOsRelease(osRelease));
     }, [dispatch, onCritFail]);
 
-    const onAddNotification = (notificationProps) => {
-        setNotifications({
-            ...notifications,
-            [notifications.length]: { index: notifications.length, ...notificationProps }
-        });
-    };
-
-    const onAddErrorNotification = ex => {
-        onAddNotification({ title: ex.name, message: ex.message, variant: "danger" });
-    };
-
     // Postpone rendering anything until we read the dbus address and the default configuration
     if (!criticalError && (!address || !conf || beta === undefined || !osRelease || !storeInitilized)) {
         debug("Loading initial data...");
@@ -138,29 +125,6 @@ export const Application = () => {
             <Page
               data-debug={conf.Anaconda.debug}
             >
-                {Object.keys(notifications).length > 0 &&
-                <AlertGroup isToast isLiveRegion>
-                    {Object.keys(notifications).map(idx => {
-                        const notification = notifications[idx];
-                        const newNotifications = { ...notifications };
-                        delete newNotifications[notification.index];
-
-                        return (
-                            <Alert
-                              variant={AlertVariant[notification.variant]}
-                              title={notification.title}
-                              actionClose={
-                                  <AlertActionCloseButton
-                                    title={notifications.title}
-                                    onClose={() => setNotifications(newNotifications)}
-                                  />
-                              }
-                              key={notification.index}>
-                                {notification.message}
-                            </Alert>
-                        );
-                    })}
-                </AlertGroup>}
                 <PageGroup stickyOnBreakpoint={{ default: "top" }}>
                     <AnacondaHeader
                       beta={beta}
@@ -174,7 +138,6 @@ export const Application = () => {
                         <AnacondaWizard
                           isBootIso={isBootIso}
                           onCritFail={onCritFail}
-                          onAddErrorNotification={onAddErrorNotification}
                           title={title}
                           storageData={state.storage}
                           localizationData={state.localization}

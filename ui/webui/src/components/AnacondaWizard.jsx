@@ -35,13 +35,14 @@ import {
     WizardContextConsumer
 } from "@patternfly/react-core/deprecated";
 
-import { InstallationMethod } from "./storage/InstallationMethod.jsx";
+import { AnacondaPage } from "./AnacondaPage.jsx";
+import { InstallationMethod, getPageProps as getInstallationMethodProps } from "./storage/InstallationMethod.jsx";
 import { getScenario, getDefaultScenario } from "./storage/InstallationScenario.jsx";
-import { MountPointMapping } from "./storage/MountPointMapping.jsx";
-import { DiskEncryption, getStorageEncryptionState } from "./storage/DiskEncryption.jsx";
-import { InstallationLanguage } from "./localization/InstallationLanguage.jsx";
+import { MountPointMapping, getPageProps as getMountPointMappingProps } from "./storage/MountPointMapping.jsx";
+import { DiskEncryption, getStorageEncryptionState, getPageProps as getDiskEncryptionProps } from "./storage/DiskEncryption.jsx";
+import { InstallationLanguage, getPageProps as getInstallationLanguageProps } from "./localization/InstallationLanguage.jsx";
 import { InstallationProgress } from "./installation/InstallationProgress.jsx";
-import { ReviewConfiguration, ReviewConfigurationConfirmModal } from "./review/ReviewConfiguration.jsx";
+import { ReviewConfiguration, ReviewConfigurationConfirmModal, getPageProps as getReviewConfigurationProps } from "./review/ReviewConfiguration.jsx";
 import { exitGui } from "../helpers/exit.js";
 import { usePageLocation } from "hooks";
 import {
@@ -53,14 +54,14 @@ import {
 const _ = cockpit.gettext;
 const N_ = cockpit.noop;
 
-export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, localizationData, onCritFail, onAddErrorNotification, title, conf }) => {
-    const [isFormValid, setIsFormValid] = useState(false);
-    const [stepNotification, setStepNotification] = useState();
+export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, localizationData, onCritFail, title, conf }) => {
     const [isFormDisabled, setIsFormDisabled] = useState(false);
+    const [isFormValid, setIsFormValid] = useState(false);
+    const [requiredMountPoints, setRequiredMountPoints] = useState();
+    const [reusePartitioning, setReusePartitioning] = useState(false);
+    const [stepNotification, setStepNotification] = useState();
     const [storageEncryption, setStorageEncryption] = useState(getStorageEncryptionState());
     const [storageScenarioId, setStorageScenarioId] = useState(window.sessionStorage.getItem("storage-scenario-id") || getDefaultScenario().id);
-    const [reusePartitioning, setReusePartitioning] = useState(false);
-    const [requiredMountPoints, setRequiredMountPoints] = useState();
 
     const availableDevices = useMemo(() => {
         return Object.keys(storageData.devices);
@@ -94,35 +95,44 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
         }
     }, [localizationData]);
     const stepsOrder = [
-        ...(isBootIso
-            ? [{
-                component: InstallationLanguage,
-                data: { dispatch, languages: localizationData.languages, language: localizationData.language, commonLocales: localizationData.commonLocales },
-                id: "installation-language",
-                label: _("Welcome"),
-            }]
-            : []),
+        {
+            component: InstallationLanguage,
+            data: { dispatch, languages: localizationData.languages, language: localizationData.language, commonLocales: localizationData.commonLocales },
+            ...getInstallationLanguageProps({ isBootIso, osRelease })
+        },
         {
             component: InstallationMethod,
-            data: { deviceData: storageData.devices, diskSelection: storageData.diskSelection, dispatch },
-            id: "installation-method",
-            label: _("Installation method"),
+            data: {
+                deviceData: storageData.devices,
+                diskSelection: storageData.diskSelection,
+                dispatch,
+                storageScenarioId,
+                setStorageScenarioId: (scenarioId) => {
+                    window.sessionStorage.setItem("storage-scenario-id", scenarioId);
+                    setStorageScenarioId(scenarioId);
+                }
+            },
+            ...getInstallationMethodProps({ isBootIso, osRelease })
         },
         {
             id: "disk-configuration",
             label: _("Disk configuration"),
             steps: [{
                 component: MountPointMapping,
-                data: { deviceData: storageData.devices, diskSelection: storageData.diskSelection, partitioningData: storageData.partitioning, requiredMountPoints, dispatch, reusePartitioning, setReusePartitioning },
-                id: "mount-point-mapping",
-                label: _("Manual disk configuration"),
-                isHidden: storageScenarioId !== "mount-point-mapping"
-
+                data: {
+                    deviceData: storageData.devices,
+                    diskSelection: storageData.diskSelection,
+                    dispatch,
+                    partitioningData: storageData.partitioning,
+                    requiredMountPoints,
+                    reusePartitioning,
+                    setReusePartitioning,
+                },
+                ...getMountPointMappingProps({ storageScenarioId })
             }, {
                 component: DiskEncryption,
-                id: "disk-encryption",
-                label: _("Disk encryption"),
-                isHidden: storageScenarioId === "mount-point-mapping"
+                data: { storageEncryption, setStorageEncryption },
+                ...getDiskEncryptionProps({ storageScenarioId })
             }]
         },
         {
@@ -133,10 +143,10 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
                 requests: storageData.partitioning ? storageData.partitioning.requests : null,
                 language,
                 localizationData,
-                osRelease
+                osRelease,
+                storageScenarioId,
             },
-            id: "installation-review",
-            label: _("Review and install"),
+            ...getReviewConfigurationProps()
         },
         {
             component: InstallationProgress,
@@ -191,25 +201,20 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
                 step = ({
                     ...step,
                     component: (
-                        <s.component
-                          idPrefix={s.id}
-                          setIsFormValid={setIsFormValid}
-                          onCritFail={onCritFail}
-                          onAddErrorNotification={onAddErrorNotification}
-                          stepNotification={stepNotification}
-                          isFormDisabled={isFormDisabled}
-                          setIsFormDisabled={setIsFormDisabled}
-                          storageEncryption={storageEncryption}
-                          setStorageEncryption={setStorageEncryption}
-                          storageScenarioId={storageScenarioId}
-                          isBootIso={isBootIso}
-                          osRelease={osRelease}
-                          setStorageScenarioId={(scenarioId) => {
-                              window.sessionStorage.setItem("storage-scenario-id", scenarioId);
-                              setStorageScenarioId(scenarioId);
-                          }}
-                          {...s.data}
-                        />
+                        <AnacondaPage step={s.id} title={s.title} stepNotification={stepNotification}>
+                            <s.component
+                              idPrefix={s.id}
+                              setIsFormValid={setIsFormValid}
+                              onCritFail={onCritFail}
+                              setStepNotification={ex => setStepNotification({ step: s.id, ...ex })}
+                              stepNotification={stepNotification}
+                              isFormDisabled={isFormDisabled}
+                              setIsFormDisabled={setIsFormDisabled}
+                              isBootIso={isBootIso}
+                              osRelease={osRelease}
+                              {...s.data}
+                            />
+                        </AnacondaPage>
                     ),
                 });
             } else if (s.steps) {

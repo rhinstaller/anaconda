@@ -45,7 +45,6 @@ import ExclamationCircleIcon from "@patternfly/react-icons/dist/esm/icons/exclam
 import ExclamationTriangleIcon from "@patternfly/react-icons/dist/esm/icons/exclamation-triangle-icon";
 import CheckCircleIcon from "@patternfly/react-icons/dist/esm/icons/check-circle-icon";
 
-import { AnacondaPage } from "../AnacondaPage.jsx";
 import "./DiskEncryption.scss";
 
 import { getPasswordPolicies } from "../../apis/runtime.js";
@@ -363,7 +362,7 @@ export const DiskEncryption = ({
     }
 
     return (
-        <AnacondaPage title={_("Encrypt the selected devices?")}>
+        <>
             <TextContent>
                 <Text component={TextVariants.p}>
                     {_("Encryption helps secure your data, to prevent others from accessing it.")}
@@ -375,6 +374,15 @@ export const DiskEncryption = ({
             <Form>
                 {encryptedDevicesCheckbox(isEncrypted ? passphraseForm : null)}
             </Form>
-        </AnacondaPage>
+        </>
     );
+};
+
+export const getPageProps = ({ storageScenarioId }) => {
+    return ({
+        id: "disk-encryption",
+        label: _("Disk encryption"),
+        isHidden: storageScenarioId === "mount-point-mapping",
+        title: _("Encrypt the selected devices?")
+    });
 };

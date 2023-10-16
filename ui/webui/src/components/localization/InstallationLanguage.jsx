@@ -33,7 +33,6 @@ import {
     Alert, MenuSearchInput,
 } from "@patternfly/react-core";
 
-import { read_os_release as readOsRelease } from "os-release.js";
 import { AddressContext, LanguageContext } from "../Common.jsx";
 import { setLocale } from "../../apis/boss.js";
 
@@ -46,7 +45,6 @@ import {
     getLangCookie,
     setLangCookie
 } from "../../helpers/language.js";
-import { AnacondaPage } from "../AnacondaPage.jsx";
 
 import "./InstallationLanguage.scss";
 
@@ -78,7 +76,7 @@ class LanguageSelector extends React.Component {
             }
             setLocale({ locale: this.props.language });
         } catch (e) {
-            this.props.onAddErrorNotification(e);
+            this.props.setStepNotification(e);
         }
     }
 
@@ -210,7 +208,10 @@ class LanguageSelector extends React.Component {
                         setLangCookie({ cockpitLang: convertToCockpitLang({ lang: getLocaleId(localeItem) }) });
                         setLanguage({ lang: getLocaleId(localeItem) })
                                 .then(() => setLocale({ locale: getLocaleId(localeItem) }))
-                                .catch(this.props.onAddErrorNotification);
+                                .catch(ex => {
+                                    console.info({ ex });
+                                    this.props.setStepNotification(ex);
+                                });
                         this.setState({ lang: item });
                         this.updateNativeName(localeItem);
                         fetch("po.js").then(response => response.text())
@@ -284,21 +285,15 @@ class LanguageSelector extends React.Component {
 }
 LanguageSelector.contextType = AddressContext;
 
-export const InstallationLanguage = ({ idPrefix, languages, language, commonLocales, setIsFormValid, onAddErrorNotification }) => {
-    const [nativeName, setNativeName] = React.useState(false);
+export const InstallationLanguage = ({ idPrefix, languages, language, commonLocales, setIsFormValid, setStepNotification }) => {
+    const [nativeName, setNativeName] = useState(false);
     const { setLanguage } = React.useContext(LanguageContext);
-    const [distributionName, setDistributionName] = useState("");
-
-    useEffect(() => {
-        readOsRelease().then(osRelease => setDistributionName(osRelease.NAME));
-    }, []);
-
     useEffect(() => {
         setIsFormValid(language !== "");
     }, [language, setIsFormValid]);
 
     return (
-        <AnacondaPage title={cockpit.format(_("Welcome to $0"), distributionName)}>
+        <>
             <Title
               headingLevel="h3"
             >
@@ -324,12 +319,21 @@ export const InstallationLanguage = ({ idPrefix, languages, language, commonLoca
                       commonLocales={commonLocales}
                       language={language}
                       setIsFormValid={setIsFormValid}
-                      onAddErrorNotification={onAddErrorNotification}
+                      setStepNotification={setStepNotification}
                       setNativeName={setNativeName}
                       reRenderApp={setLanguage}
                     />
                 </FormGroup>
             </Form>
-        </AnacondaPage>
+        </>
     );
+};
+
+export const getPageProps = ({ isBootIso, osRelease }) => {
+    return ({
+        id: "installation-language",
+        label: _("Welcome"),
+        isHidden: !isBootIso,
+        title: cockpit.format(_("Welcome to $0"), osRelease.NAME),
+    });
 };
