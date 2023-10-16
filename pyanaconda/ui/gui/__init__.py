@@ -28,11 +28,10 @@ import gi
 gi.require_version("Gdk", "3.0")
 gi.require_version("Gtk", "3.0")
 gi.require_version("AnacondaWidgets", "3.4")
-gi.require_version("Keybinder", "3.0")
 gi.require_version("GdkPixbuf", "2.0")
 gi.require_version("GObject", "2.0")
 
-from gi.repository import Gdk, Gtk, AnacondaWidgets, Keybinder, GdkPixbuf, GObject
+from gi.repository import Gdk, Gtk, AnacondaWidgets, GdkPixbuf, GObject
 
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, C_
@@ -361,10 +360,6 @@ class MainWindow(Gtk.Window):
         # Apply the initial language attributes
         self._language = None
         self.reapply_language()
-
-        # Keybinder from GI needs to be initialized before use
-        Keybinder.init()
-        Keybinder.bind("<Shift>Print", self._handle_print_screen, [])
 
         self._screenshot_index = 0
 
