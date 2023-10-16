@@ -25,14 +25,16 @@ class InstallerSteps(UserDict):
     CUSTOM_MOUNT_POINT = "mount-point-mapping"
     DISK_CONFIGURATION = "disk-configuration"
     DISK_ENCRYPTION = "disk-encryption"
+    ACCOUNTS = "accounts"
     REVIEW = "installation-review"
     PROGRESS = "installation-progress"
 
     _steps_jump = {}
     _steps_jump[WELCOME] = INSTALLATION_METHOD
     _steps_jump[INSTALLATION_METHOD] = [DISK_ENCRYPTION, CUSTOM_MOUNT_POINT]
-    _steps_jump[DISK_ENCRYPTION] = REVIEW
-    _steps_jump[CUSTOM_MOUNT_POINT] = REVIEW
+    _steps_jump[DISK_ENCRYPTION] = ACCOUNTS
+    _steps_jump[CUSTOM_MOUNT_POINT] = ACCOUNTS
+    _steps_jump[ACCOUNTS] = REVIEW
     _steps_jump[REVIEW] = PROGRESS
     _steps_jump[PROGRESS] = []
 

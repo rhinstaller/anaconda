@@ -295,9 +295,10 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         for _ in range(10):
             s.dbus_create_partitioning("AUTOMATIC")
 
-        # Go back to the previous page and re-enter the review screen.
+        # Go back to the Disk Configuration page and re-enter the review screen.
         # This should create again a new partitioning object and apply it
         # no matter how many partitioning objects were created before
+        i.back()
         i.back()
         i.reach(i.steps.REVIEW)
         new_applied_partitioning = s.dbus_get_applied_partitioning()
@@ -422,6 +423,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         applied_partitioning = s.dbus_get_applied_partitioning()
 
         # When adding a new partition a new partitioning should be created
+        i.back()
         i.back(previous_page=i.steps.CUSTOM_MOUNT_POINT)
         i.back()
 
@@ -788,6 +790,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         r.check_disk_row(dev, 3, "home, 15.0 GB: mount, /home")
         r.check_disk_row_not_present(dev, f"unused")
 
+        i.back()
         i.back(previous_page=i.steps.CUSTOM_MOUNT_POINT)
         i.back()
 
@@ -950,6 +953,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         r.check_disk_row(disk, 3, f"{vgname}-home, 8.12 GB: mount, /home")
         r.check_disk_row(disk, 4, f"{vgname}-swap, 902 MB: mount, swap")
 
+        i.back()
         i.back(previous_page=i.steps.CUSTOM_MOUNT_POINT)
 
         # remove the /home row and check that row 3 is now swap

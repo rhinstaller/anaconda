@@ -39,6 +39,7 @@ import { getDefaultScenario } from "./storage/InstallationScenario.jsx";
 import { MountPointMapping, getPageProps as getMountPointMappingProps } from "./storage/MountPointMapping.jsx";
 import { DiskEncryption, getStorageEncryptionState, getPageProps as getDiskEncryptionProps } from "./storage/DiskEncryption.jsx";
 import { InstallationLanguage, getPageProps as getInstallationLanguageProps } from "./localization/InstallationLanguage.jsx";
+import { Accounts, getPageProps as getAccountsProps } from "./users/Accounts.jsx";
 import { InstallationProgress } from "./installation/InstallationProgress.jsx";
 import { ReviewConfiguration, ReviewConfigurationConfirmModal, getPageProps as getReviewConfigurationProps } from "./review/ReviewConfiguration.jsx";
 import { exitGui } from "../helpers/exit.js";
@@ -142,6 +143,11 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, runtim
                 },
                 ...getDiskEncryptionProps({ storageScenarioId })
             }]
+        },
+        {
+            component: Accounts,
+            data: {},
+            ...getAccountsProps()
         },
         {
             component: ReviewConfiguration,
