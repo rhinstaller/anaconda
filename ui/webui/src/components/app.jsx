@@ -16,7 +16,7 @@
  */
 import cockpit from "cockpit";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import {
     AlertGroup, AlertVariant, AlertActionCloseButton, Alert,
@@ -38,6 +38,8 @@ import { PayloadsClient } from "../apis/payloads";
 import { RuntimeClient, getIsFinal } from "../apis/runtime";
 import { NetworkClient, initDataNetwork, startEventMonitorNetwork } from "../apis/network.js";
 
+import { setCriticalErrorAction } from "../actions/miscellaneous-actions.js";
+
 import { readConf } from "../helpers/conf.js";
 import { debug } from "../helpers/log.js";
 import { useReducerWithThunk, reducer, initialState } from "../reducer.js";
@@ -47,7 +49,6 @@ const N_ = cockpit.noop;
 
 export const Application = () => {
     const [address, setAddress] = useState();
-    const [criticalError, setCriticalError] = useState();
     const [beta, setBeta] = useState();
     const [conf, setConf] = useState();
     const [language, setLanguage] = useState();
@@ -55,16 +56,17 @@ export const Application = () => {
     const [osRelease, setOsRelease] = useState("");
     const [state, dispatch] = useReducerWithThunk(reducer, initialState);
     const [storeInitilized, setStoreInitialized] = useState(false);
+    const criticalError = state?.error?.criticalError;
 
-    const onCritFail = (contextData) => {
-        return errorHandlerWithContext(contextData, setCriticalError);
-    };
+    const onCritFail = useCallback((contextData) => {
+        return errorHandlerWithContext(contextData, exc => dispatch(setCriticalErrorAction(exc)));
+    }, [dispatch]);
 
     useEffect(() => {
         // Before unload ask the user for verification
         window.onbeforeunload = e => "";
         cockpit.file("/run/anaconda/bus.address").watch(address => {
-            setCriticalError();
+            setCriticalErrorAction();
             const clients = [
                 new LocalizationClient(address),
                 new StorageClient(address),
@@ -101,7 +103,7 @@ export const Application = () => {
         );
 
         readOsRelease().then(osRelease => setOsRelease(osRelease));
-    }, [dispatch]);
+    }, [dispatch, onCritFail]);
 
     const onAddNotification = (notificationProps) => {
         setNotifications({
