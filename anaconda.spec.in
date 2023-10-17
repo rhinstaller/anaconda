@@ -485,6 +485,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Oct 17 2023 github-actions <github-actions@github.com> - 39.32.5-1
+- Update translations from Weblate for fedora-39 (github-actions)
+- storage: Handle BTRFS with systemd-boot (jeremy.linton)
+
 * Mon Oct 09 2023 github-actions <github-actions@github.com> - 39.32.4-1
 - Simplify keyboard layout handling, rely on localed more (awilliam)
 
