@@ -25,7 +25,7 @@ import {
 import { read_os_release as readOsRelease } from "os-release.js";
 
 import { WithDialogs } from "dialogs.jsx";
-import { AddressContext, LanguageContext, SystemTypeContext } from "./Common.jsx";
+import { AddressContext, LanguageContext, SystemTypeContext, OsReleaseContext } from "./Common.jsx";
 import { AnacondaHeader } from "./AnacondaHeader.jsx";
 import { AnacondaWizard } from "./AnacondaWizard.jsx";
 import { CriticalError, errorHandlerWithContext, bugzillaPrefiledReportURL } from "./Error.jsx";
@@ -113,35 +113,36 @@ export const Application = () => {
     });
 
     const page = (
-        <SystemTypeContext.Provider value={systemType}>
-            {criticalError &&
-            <CriticalError exception={criticalError} isConnected={state.network.connected} reportLinkURL={bzReportURL} />}
-            <Page
-              data-debug={conf.Anaconda.debug}
-            >
-                <PageGroup stickyOnBreakpoint={{ default: "top" }}>
-                    <AnacondaHeader
-                      title={title}
-                      reportLinkURL={bzReportURL}
-                      isConnected={state.network.connected}
-                      onCritFail={onCritFail}
-                    />
-                </PageGroup>
-                <AddressContext.Provider value={address}>
-                    <WithDialogs>
-                        <AnacondaWizard
-                          onCritFail={onCritFail}
+        <OsReleaseContext.Provider value={osRelease}>
+            <SystemTypeContext.Provider value={systemType}>
+                {criticalError &&
+                <CriticalError exception={criticalError} isConnected={state.network.connected} reportLinkURL={bzReportURL} />}
+                <Page
+                  data-debug={conf.Anaconda.debug}
+                >
+                    <PageGroup stickyOnBreakpoint={{ default: "top" }}>
+                        <AnacondaHeader
                           title={title}
-                          storageData={state.storage}
-                          localizationData={state.localization}
-                          dispatch={dispatch}
-                          conf={conf}
-                          osRelease={osRelease}
+                          reportLinkURL={bzReportURL}
+                          isConnected={state.network.connected}
+                          onCritFail={onCritFail}
                         />
-                    </WithDialogs>
-                </AddressContext.Provider>
-            </Page>
-        </SystemTypeContext.Provider>
+                    </PageGroup>
+                    <AddressContext.Provider value={address}>
+                        <WithDialogs>
+                            <AnacondaWizard
+                              onCritFail={onCritFail}
+                              title={title}
+                              storageData={state.storage}
+                              localizationData={state.localization}
+                              dispatch={dispatch}
+                              conf={conf}
+                            />
+                        </WithDialogs>
+                    </AddressContext.Provider>
+                </Page>
+            </SystemTypeContext.Provider>
+        </OsReleaseContext.Provider>
     );
 
     return (

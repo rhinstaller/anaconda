@@ -16,7 +16,7 @@
  */
 import cockpit from "cockpit";
 
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
     AboutModal,
     Button,
@@ -37,9 +37,9 @@ import {
     EllipsisVIcon
 } from "@patternfly/react-icons";
 
-import { read_os_release as readOsRelease } from "os-release.js";
 import { getAnacondaVersion } from "../helpers/product.js";
 import { UserIssue } from "./Error.jsx";
+import { OsReleaseContext } from "./Common.jsx";
 
 import "./HeaderKebab.scss";
 
@@ -63,15 +63,7 @@ const AboutModalVersions = () => {
 };
 
 const ProductName = () => {
-    const [osRelease, setOsRelease] = useState();
-
-    useEffect(() => {
-        readOsRelease().then(setOsRelease);
-    }, []);
-
-    if (!osRelease) {
-        return null;
-    }
+    const osRelease = useContext(OsReleaseContext);
 
     return (
         <Stack hasGutter>

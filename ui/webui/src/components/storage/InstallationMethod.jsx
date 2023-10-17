@@ -34,7 +34,6 @@ export const InstallationMethod = ({
     idPrefix,
     isFormDisabled,
     onCritFail,
-    osRelease,
     setIsFormValid,
     setIsFormDisabled,
     setStorageScenarioId,

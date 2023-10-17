@@ -50,12 +50,12 @@ import {
     resetPartitioning,
     getRequiredMountPoints,
 } from "../apis/storage.js";
-import { SystemTypeContext } from "./Common.jsx";
+import { SystemTypeContext, OsReleaseContext } from "./Common.jsx";
 
 const _ = cockpit.gettext;
 const N_ = cockpit.noop;
 
-export const AnacondaWizard = ({ dispatch, osRelease, storageData, localizationData, onCritFail, title, conf }) => {
+export const AnacondaWizard = ({ dispatch, storageData, localizationData, onCritFail, title, conf }) => {
     const [isFormDisabled, setIsFormDisabled] = useState(false);
     const [isFormValid, setIsFormValid] = useState(false);
     const [requiredMountPoints, setRequiredMountPoints] = useState();
@@ -63,6 +63,7 @@ export const AnacondaWizard = ({ dispatch, osRelease, storageData, localizationD
     const [stepNotification, setStepNotification] = useState();
     const [storageEncryption, setStorageEncryption] = useState(getStorageEncryptionState());
     const [storageScenarioId, setStorageScenarioId] = useState(window.sessionStorage.getItem("storage-scenario-id") || getDefaultScenario().id);
+    const osRelease = useContext(OsReleaseContext);
     const isBootIso = useContext(SystemTypeContext) === "BOOT_ISO";
 
     const availableDevices = useMemo(() => {
@@ -145,7 +146,6 @@ export const AnacondaWizard = ({ dispatch, osRelease, storageData, localizationD
                 requests: storageData.partitioning ? storageData.partitioning.requests : null,
                 language,
                 localizationData,
-                osRelease,
                 storageScenarioId,
             },
             ...getReviewConfigurationProps()
@@ -153,9 +153,6 @@ export const AnacondaWizard = ({ dispatch, osRelease, storageData, localizationD
         {
             component: InstallationProgress,
             id: "installation-progress",
-            data: {
-                osRelease
-            }
         }
     ];
 
@@ -212,7 +209,6 @@ export const AnacondaWizard = ({ dispatch, osRelease, storageData, localizationD
                               stepNotification={stepNotification}
                               isFormDisabled={isFormDisabled}
                               setIsFormDisabled={setIsFormDisabled}
-                              osRelease={osRelease}
                               {...s.data}
                             />
                         </AnacondaPage>

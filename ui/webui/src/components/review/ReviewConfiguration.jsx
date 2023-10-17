@@ -15,7 +15,7 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 import cockpit from "cockpit";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import {
     Button,
@@ -34,6 +34,7 @@ import {
 import { checkDeviceInSubTree } from "../../helpers/storage.js";
 
 import { getScenario } from "../storage/InstallationScenario.jsx";
+import { OsReleaseContext } from "../Common.jsx";
 
 import "./ReviewConfiguration.scss";
 
@@ -97,8 +98,9 @@ const DeviceRow = ({ deviceData, disk, requests }) => {
     );
 };
 
-export const ReviewConfiguration = ({ deviceData, diskSelection, language, localizationData, osRelease, requests, idPrefix, setIsFormValid, storageScenarioId }) => {
+export const ReviewConfiguration = ({ deviceData, diskSelection, language, localizationData, requests, idPrefix, setIsFormValid, storageScenarioId }) => {
     const [encrypt, setEncrypt] = useState();
+    const osRelease = useContext(OsReleaseContext);
 
     useEffect(() => {
         const initializeEncrypt = async () => {
