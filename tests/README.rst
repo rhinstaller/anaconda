@@ -244,6 +244,7 @@ Anaconda has a complex test suite structure where each top-level directory
 represents a different class of tests. They are
 
 - *cppcheck/* - static C/C++ code analysis using the *cppcheck* tool;
+- *shellcheck/* - shell code analyzer config;
 - *dd_tests/* - Python unit tests for driver disk utilities (utils/dd);
 - *unit_tests/dracut_tests/* - Python unit tests for the dracut hooks used to configure the
   installation environment and load Anaconda;
@@ -257,6 +258,7 @@ represents a different class of tests. They are
 - *unit_tests/pyanaconda_tests/* - unit tests for the :mod:`pyanaconda` module;
 - *pylint/* - checks the validity of Python source code using the *pocketlint*
   tool;
+- *ruff/* - config for fast but not 100% correct linter for Python;
 - *unit_tests/regex_tests/* - Python unit tests for regular expressions defined in
   :mod:`pyanaconda.regexes`;
 
