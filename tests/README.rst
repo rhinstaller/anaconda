@@ -106,6 +106,32 @@ Then run the test in that container::
 
     make -f Makefile.am container-rpm-test
 
+Run unit tests with patched pykickstart or other libraries
+----------------------------------------------------------
+
+1. Pull the container::
+
+      podman pull quay.io/rhinstaller/anaconda-ci:master
+
+2. Run the container temporary with your required resources (pykickstart in this example)::
+
+      podman run --name=cnt-add --rm -it -v pykickstart/:/pykickstart:z quay.io/rhinstaller/anaconda-ci:master sh
+
+3. Do your required changes in the container (install pykickstart in this example)::
+
+      cd /pykickstart && make install DESTDIR=/
+
+4. Commit the changed container as updated one. **DO NOT exit the running container, run this command in new terminal!**
+
+      podman commit cnt-add quay.io/rhinstaller/anaconda-ci:master
+
+   You can change the ``master`` tag to something else if you don't want to replace the existing one.
+   Feel free to exit the running container now.
+
+5. Run other commands for container ci as usual. Don't forget to append ``CI_TAG=<your-tag>`` to
+   make calls if you committed the container under a custom tag.
+
+
 GitHub workflows
 ----------------
 
