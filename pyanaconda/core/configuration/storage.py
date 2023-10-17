@@ -65,6 +65,14 @@ class StorageSection(Section):
         return self._get_option("multipath_friendly_names", bool)
 
     @property
+    def gpt_discoverable_partitions(self):
+        """Use GPT discoverable partition type IDs, if possible.
+
+        Tell Blivet to do this.
+        """
+        return self._get_option("gpt_discoverable_partitions", bool)
+
+    @property
     def allow_imperfect_devices(self):
         """Do you want to allow imperfect devices?
 
