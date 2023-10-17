@@ -3,6 +3,8 @@ Release notes
 
 This document describes major installer-related changes in Fedora releases.
 
+A guide on adding new entries is in the release documentation.
+
 Fedora 39
 #########
 

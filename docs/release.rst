@@ -454,3 +454,23 @@ a Python release candidate (rc). This affects two things:
 - Pylint often does not handle unreleased Python, because it touches private interpreter
   and library internals. The only recourse is often to disable it and wait for the official Python
   release. Fortunately, ruff handles linting too.
+
+
+How to collect release notes after branched GA release
+------------------------------------------------------
+
+Release notes are collected in ``docs/release-notes/*.rst``. When a major Fedora version goes GA,
+these should be collected into the file ``docs/release-notes.rst``. To do so:
+
+0. Work on the master branch. Edit the file. New content is added on top.
+1. Create a heading for new Fedora version and subheadings for the broader areas. The previous
+   entry can provide some guidance.
+2. Copy the individual release notes contents into the document according to the headings, and edit
+   the contents to use the same form as in the document. Don't spend too much time on formatting,
+   just make sure it renders correctly.
+3. Delete the individual release note files.
+4. If you know there are some other major features missing, add them to the document too.
+5. Commit and make a PR.
+
+The branch used for the release is not touched. This might be surprising, but docs are always used
+from the ``master`` branch.
