@@ -501,6 +501,39 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Oct 17 2023 github-actions <github-actions@github.com> - 40.9-1
+- webui: catch exceptions from the backend in all actions (kkoukiou)
+- Update translations from Weblate for master (github-actions)
+- webui: move per-page title, id, label and hidden state into the components
+  (kkoukiou)
+- webui: Drop global notifications in favor of the per page notifications
+  (kkoukiou)
+- webui: let's be consistent on how we hide steps (kkoukiou)
+- webui: sort some state variables alphabetically (kkoukiou)
+- webui: pass the properties only to the components that use these (kkoukiou)
+- payload: check finished dnf transaction for transation item errors (rvykydal)
+- webui: check existence of payload image when running testing VM (rvykydal)
+- webui: Test for unknown language review crash (akankovs)
+- webui: Avoid crash on non-translated languages (akankovs)
+- webui: mount the RequestsTable component only once requests are available
+  (kkoukiou)
+- webui: tests: wait for logo to get visible when openning the page (kkoukiou)
+- webui: do not show `equal disks` notification when the previous disks are not
+  loaded (kkoukiou)
+- webui: disable the whole form when disk re-scan is taking place (kkoukiou)
+- webui: introduce `isFormDisabled` global state property (kkoukiou)
+- webui: rebuild devices object in the store with the getDevicesAction
+  (kkoukiou)
+- webui: set form validity also at the initial load of the mount point mapping
+  (kkoukiou)
+- payload: don't check PKG_VERIFY dnf progress messages (rvykydal)
+- payload: do not detect success of dnf transaction by PGK_VERIFY progress
+  (rvykydal)
+- webui: utilize PasswordPolicies rules from the backend for disk encryption
+  (kkoukiou)
+- set_x_keyboard_defaults: drop space when calling supports_ascii (awilliam)
+- storage: Handle BTRFS with systemd-boot (jeremy.linton)
+
 * Tue Oct 10 2023 github-actions <github-actions@github.com> - 40.8-1
 - tests: Drop unused testing dir (vslavik)
 - webui: Install cockpit-storaged (martin)
