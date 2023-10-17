@@ -16,7 +16,7 @@
  */
 
 import cockpit from "cockpit";
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 
 import {
     FormGroup,
@@ -24,6 +24,7 @@ import {
     Title,
 } from "@patternfly/react-core";
 
+import { SystemTypeContext } from "../Common.jsx";
 import { helpEraseAll, helpUseFreeSpace, helpMountPointMapping } from "./HelpAutopartOptions.jsx";
 import { findDuplicatesInArray } from "../../helpers/utils.js";
 
@@ -280,7 +281,8 @@ const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, isF
     return scenarioItems;
 };
 
-export const InstallationScenario = ({ deviceData, diskSelection, idPrefix, isFormDisabled, onCritFail, setIsFormValid, storageScenarioId, setStorageScenarioId, isBootIso }) => {
+export const InstallationScenario = ({ deviceData, diskSelection, idPrefix, isFormDisabled, onCritFail, setIsFormValid, storageScenarioId, setStorageScenarioId }) => {
+    const isBootIso = useContext(SystemTypeContext) === "BOOT_ISO";
     const headingLevel = isBootIso ? "h2" : "h3";
 
     return (

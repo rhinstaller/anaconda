@@ -32,7 +32,6 @@ export const InstallationMethod = ({
     diskSelection,
     dispatch,
     idPrefix,
-    isBootIso,
     isFormDisabled,
     onCritFail,
     osRelease,
@@ -60,7 +59,6 @@ export const InstallationMethod = ({
                   diskSelection={diskSelection}
                   dispatch={dispatch}
                   idPrefix={idPrefix}
-                  isBootIso={isBootIso}
                   isFormDisabled={isFormDisabled}
                   setIsFormValid={setIsFormValid}
                   setIsFormDisabled={setIsFormDisabled}
@@ -71,7 +69,6 @@ export const InstallationMethod = ({
                   diskSelection={diskSelection}
                   dispatch={dispatch}
                   idPrefix={idPrefix}
-                  isBootIso={isBootIso}
                   onCritFail={onCritFail}
                   isFormDisabled={isFormDisabled}
                   setIsFormValid={setIsFormValid}

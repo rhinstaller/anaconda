@@ -15,7 +15,7 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 import cockpit from "cockpit";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import {
     Button,
     Flex,
@@ -31,20 +31,25 @@ import {
     CheckCircleIcon,
     ExclamationCircleIcon
 } from "@patternfly/react-icons";
+
 import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
+import { SystemTypeContext } from "../Common.jsx";
+
 import { BossClient, getSteps, installWithTasks } from "../../apis/boss.js";
 import { exitGui } from "../../helpers/exit.js";
+
 import "./InstallationProgress.scss";
 
 const _ = cockpit.gettext;
 const N_ = cockpit.noop;
 
-export const InstallationProgress = ({ onCritFail, idPrefix, isBootIso, osRelease }) => {
+export const InstallationProgress = ({ onCritFail, idPrefix, osRelease }) => {
     const [status, setStatus] = useState();
     const [statusMessage, setStatusMessage] = useState("");
     const [steps, setSteps] = useState();
     const [currentProgressStep, setCurrentProgressStep] = useState(0);
     const refStatusMessage = useRef("");
+    const isBootIso = useContext(SystemTypeContext) === "BOOT_ISO";
 
     useEffect(() => {
         installWithTasks()

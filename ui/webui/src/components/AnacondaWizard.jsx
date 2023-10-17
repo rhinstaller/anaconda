@@ -15,7 +15,7 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 import cockpit from "cockpit";
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useContext, useEffect, useState, useMemo } from "react";
 
 import {
     ActionList,
@@ -50,11 +50,12 @@ import {
     resetPartitioning,
     getRequiredMountPoints,
 } from "../apis/storage.js";
+import { SystemTypeContext } from "./Common.jsx";
 
 const _ = cockpit.gettext;
 const N_ = cockpit.noop;
 
-export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, localizationData, onCritFail, title, conf }) => {
+export const AnacondaWizard = ({ dispatch, osRelease, storageData, localizationData, onCritFail, title, conf }) => {
     const [isFormDisabled, setIsFormDisabled] = useState(false);
     const [isFormValid, setIsFormValid] = useState(false);
     const [requiredMountPoints, setRequiredMountPoints] = useState();
@@ -62,6 +63,7 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
     const [stepNotification, setStepNotification] = useState();
     const [storageEncryption, setStorageEncryption] = useState(getStorageEncryptionState());
     const [storageScenarioId, setStorageScenarioId] = useState(window.sessionStorage.getItem("storage-scenario-id") || getDefaultScenario().id);
+    const isBootIso = useContext(SystemTypeContext) === "BOOT_ISO";
 
     const availableDevices = useMemo(() => {
         return Object.keys(storageData.devices);
@@ -210,7 +212,6 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
                               stepNotification={stepNotification}
                               isFormDisabled={isFormDisabled}
                               setIsFormDisabled={setIsFormDisabled}
-                              isBootIso={isBootIso}
                               osRelease={osRelease}
                               {...s.data}
                             />
@@ -260,7 +261,6 @@ export const AnacondaWizard = ({ dispatch, isBootIso, osRelease, storageData, lo
                 setIsFormDisabled={setIsFormDisabled}
                 storageEncryption={storageEncryption}
                 storageScenarioId={storageScenarioId}
-                isBootIso={isBootIso}
               />}
               hideClose
               mainAriaLabel={`${title} content`}
@@ -285,10 +285,10 @@ const Footer = ({
     setIsFormDisabled,
     storageEncryption,
     storageScenarioId,
-    isBootIso
 }) => {
     const [nextWaitsConfirmation, setNextWaitsConfirmation] = useState(false);
     const [quitWaitsConfirmation, setQuitWaitsConfirmation] = useState(false);
+    const isBootIso = useContext(SystemTypeContext) === "BOOT_ISO";
 
     const goToNextStep = (activeStep, onNext) => {
         // first reset validation state to default
@@ -380,7 +380,6 @@ const Footer = ({
                             <QuitInstallationConfirmModal
                               exitGui={exitGui}
                               setQuitWaitsConfirmation={setQuitWaitsConfirmation}
-                              isBootIso={isBootIso}
                             />}
                             {activeStep.id === "installation-method" && !isFormValid &&
                                 <HelperText id="next-helper-text">
@@ -440,7 +439,9 @@ const Footer = ({
     );
 };
 
-export const QuitInstallationConfirmModal = ({ exitGui, setQuitWaitsConfirmation, isBootIso }) => {
+export const QuitInstallationConfirmModal = ({ exitGui, setQuitWaitsConfirmation }) => {
+    const isBootIso = useContext(SystemTypeContext) === "BOOT_ISO";
+
     return (
         <Modal
           id="installation-quit-confirm-dialog"

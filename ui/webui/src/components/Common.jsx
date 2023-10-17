@@ -21,6 +21,7 @@ import { Popover, PopoverPosition } from "@patternfly/react-core";
 export const AddressContext = createContext("");
 export const ConfContext = createContext();
 export const LanguageContext = createContext("");
+export const SystemTypeContext = createContext(null);
 
 export const FormGroupHelpPopover = ({ helpContent }) => {
     return (

@@ -15,7 +15,7 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 import cockpit from "cockpit";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 
 import {
     Alert,
@@ -38,6 +38,7 @@ import {
 } from "@patternfly/react-core";
 import { SyncAltIcon, TimesIcon } from "@patternfly/react-icons";
 
+import { SystemTypeContext } from "../Common.jsx";
 import { ModifyStorage } from "./ModifyStorage.jsx";
 
 import {
@@ -311,7 +312,6 @@ export const InstallationDestination = ({
     diskSelection,
     dispatch,
     idPrefix,
-    isBootIso,
     isFormDisabled,
     setIsFormValid,
     setIsFormDisabled,
@@ -321,6 +321,7 @@ export const InstallationDestination = ({
     const [isRescanningDisks, setIsRescanningDisks] = useState(false);
     const [equalDisksNotify, setEqualDisksNotify] = useState(false);
     const refUsableDisks = useRef();
+    const isBootIso = useContext(SystemTypeContext) === "BOOT_ISO";
 
     debug("DiskSelector: deviceData: ", JSON.stringify(Object.keys(deviceData)), ", diskSelection: ", JSON.stringify(diskSelection));
 
@@ -429,7 +430,7 @@ export const InstallationDestination = ({
                                 : _("No usable disks detected")
                         )}
                     {rescanDisksButton}
-                    <ModifyStorage idPrefix={idPrefix} isBootIso={isBootIso} onCritFail={onCritFail} onRescan={onClickRescan} />
+                    <ModifyStorage idPrefix={idPrefix} onCritFail={onCritFail} onRescan={onClickRescan} />
                 </Flex>
             </FormGroup>
         </>

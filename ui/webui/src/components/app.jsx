@@ -25,7 +25,7 @@ import {
 import { read_os_release as readOsRelease } from "os-release.js";
 
 import { WithDialogs } from "dialogs.jsx";
-import { AddressContext, LanguageContext } from "./Common.jsx";
+import { AddressContext, LanguageContext, SystemTypeContext } from "./Common.jsx";
 import { AnacondaHeader } from "./AnacondaHeader.jsx";
 import { AnacondaWizard } from "./AnacondaWizard.jsx";
 import { CriticalError, errorHandlerWithContext, bugzillaPrefiledReportURL } from "./Error.jsx";
@@ -110,7 +110,7 @@ export const Application = () => {
     }
 
     // On live media rebooting the system will actually shut it off
-    const isBootIso = conf?.["Installation System"].type === "BOOT_ISO";
+    const systemType = conf?.["Installation System"].type;
     const title = cockpit.format(_("$0 installation"), osRelease.PRETTY_NAME);
 
     const bzReportURL = bugzillaPrefiledReportURL({
@@ -119,9 +119,9 @@ export const Application = () => {
     });
 
     const page = (
-        <>
+        <SystemTypeContext.Provider value={systemType}>
             {criticalError &&
-            <CriticalError exception={criticalError} isBootIso={isBootIso} isConnected={state.network.connected} reportLinkURL={bzReportURL} />}
+            <CriticalError exception={criticalError} isConnected={state.network.connected} reportLinkURL={bzReportURL} />}
             <Page
               data-debug={conf.Anaconda.debug}
             >
@@ -136,7 +136,6 @@ export const Application = () => {
                 <AddressContext.Provider value={address}>
                     <WithDialogs>
                         <AnacondaWizard
-                          isBootIso={isBootIso}
                           onCritFail={onCritFail}
                           title={title}
                           storageData={state.storage}
@@ -148,7 +147,7 @@ export const Application = () => {
                     </WithDialogs>
                 </AddressContext.Provider>
             </Page>
-        </>
+        </SystemTypeContext.Provider>
     );
 
     return (
