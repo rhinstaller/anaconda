@@ -430,3 +430,27 @@ If everything looks fine (changelog, new major version & the tag) push the chang
     git push origin master --tags
 
 Then continue with the normal Rawhide Anaconda build process.
+
+
+How to use a new Python version
+-------------------------------
+
+Fedora changes Python version from time to time.
+
+The only place where Python is explicitly listed in Anaconda code base and needs changing is in
+``scripts/makeupdates``::
+
+    # The Python site-packages path for pyanaconda.
+    SITE_PACKAGES_PATH = "./usr/lib64/python3.12/site-packages/"
+
+If this path is not correct, updates images "mysteriously stop working".
+
+Unfortunately, Python release timing is not well aligned with Fedora, so Rawhide mostly gets
+a Python release candidate (rc). This affects two things:
+
+- Usually, the stability of the interpreter is good, but there are deprecations and removals in the
+  standard library.
+
+- Pylint often does not handle unreleased Python, because it touches private interpreter
+  and library internals. The only recourse is often to disable it and wait for the official Python
+  release. Fortunately, ruff handles linting too.
