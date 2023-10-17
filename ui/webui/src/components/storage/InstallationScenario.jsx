@@ -39,6 +39,8 @@ import {
     getRequiredSpace,
 } from "../../apis/payloads";
 
+import "./InstallationScenario.scss";
+
 const _ = cockpit.gettext;
 const N_ = cockpit.noop;
 

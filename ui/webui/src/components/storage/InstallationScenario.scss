@@ -1,0 +1,11 @@
+.installation-method-scenario {
+  .pf-v5-c-radio__body {
+    margin-top: 0;
+    font-size: var(--pf-v5-global--FontSize--sm);
+
+    .installation-method-scenario-disabled-reason {
+      font-weight: var(--pf-v5-global--FontWeight--bold);
+      margin-inline-end: var(--pf-v5-global--spacer--xs);
+    }
+  }
+}
