@@ -510,6 +510,14 @@ class DeployOSTreeTask(Task):
         self.report_progress(_("Deployment starting: {}").format(ref))
 
         if self._data.is_container():
+            log.info("ostree os-init")
+
+            args = ["admin", "os-init",
+                    "--sysroot=" + self._physroot]
+            if self._data.stateroot:
+                args.append(self._data.stateroot)
+            safe_exec_with_redirect("ostree", args)
+
             log.info("ostree image deploy starting")
 
             args = ["container", "image", "deploy",
