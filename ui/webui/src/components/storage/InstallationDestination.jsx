@@ -430,7 +430,7 @@ export const InstallationDestination = ({
                                 : _("No usable disks detected")
                         )}
                     {rescanDisksButton}
-                    <ModifyStorage idPrefix={idPrefix} onCritFail={onCritFail} onRescan={onClickRescan} />
+                    {!isBootIso && <ModifyStorage idPrefix={idPrefix} onCritFail={onCritFail} onRescan={onClickRescan} />}
                 </Flex>
             </FormGroup>
         </>

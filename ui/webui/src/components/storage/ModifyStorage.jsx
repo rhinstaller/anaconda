@@ -15,7 +15,7 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 import cockpit from "cockpit";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 
 import {
     Button,
@@ -25,8 +25,6 @@ import {
     TextVariants,
 } from "@patternfly/react-core";
 import { WrenchIcon, ExternalLinkAltIcon } from "@patternfly/react-icons";
-
-import { SystemTypeContext } from "../Common.jsx";
 
 const _ = cockpit.gettext;
 const N_ = cockpit.noop;
@@ -132,11 +130,6 @@ const ModifyStorageModal = ({ onClose, onToolStarted, errorHandler }) => {
 
 export const ModifyStorage = ({ idPrefix, onCritFail, onRescan }) => {
     const [openedDialog, setOpenedDialog] = useState("");
-    const isBootIso = useContext(SystemTypeContext) === "BOOT_ISO";
-
-    if (isBootIso) {
-        return null;
-    }
 
     return (
         <>
