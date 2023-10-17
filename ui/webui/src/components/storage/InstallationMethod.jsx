@@ -47,7 +47,7 @@ export const InstallationMethod = ({
           id={idPrefix + "-selector-form"}
           onSubmit={e => { e.preventDefault(); return false }}
         >
-            {stepNotification && (stepNotification.step === "installation-method") &&
+            {stepNotification?.step === "installation-method" &&
                 <Alert
                   isInline
                   title={stepNotification.message}
