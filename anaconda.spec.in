@@ -485,6 +485,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Oct 17 2023 github-actions <github-actions@github.com> - 39.32.6-1
+- Revert "Disable geolocation on the Fedora Workstation live image" (kkoukiou)
+
 * Tue Oct 17 2023 github-actions <github-actions@github.com> - 39.32.5-1
 - Update translations from Weblate for fedora-39 (github-actions)
 - storage: Handle BTRFS with systemd-boot (jeremy.linton)
