@@ -21,7 +21,7 @@ export const AnacondaPage = ({ title, children, step, stepNotification }) => {
     return (
         <Stack hasGutter>
             {title && <Title headingLevel="h2">{title}</Title>}
-            {stepNotification && stepNotification.step === step &&
+            {stepNotification?.step === step &&
                 <Alert
                   isInline
                   title={stepNotification.message}

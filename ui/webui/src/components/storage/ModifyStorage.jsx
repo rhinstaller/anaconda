@@ -128,12 +128,8 @@ const ModifyStorageModal = ({ onClose, onToolStarted, errorHandler }) => {
     );
 };
 
-export const ModifyStorage = ({ idPrefix, isBootIso, onCritFail, onRescan }) => {
+export const ModifyStorage = ({ idPrefix, onCritFail, onRescan }) => {
     const [openedDialog, setOpenedDialog] = useState("");
-
-    if (isBootIso) {
-        return null;
-    }
 
     return (
         <>

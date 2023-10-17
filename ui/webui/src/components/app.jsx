@@ -25,7 +25,7 @@ import {
 import { read_os_release as readOsRelease } from "os-release.js";
 
 import { WithDialogs } from "dialogs.jsx";
-import { AddressContext, LanguageContext } from "./Common.jsx";
+import { AddressContext, LanguageContext, SystemTypeContext, OsReleaseContext } from "./Common.jsx";
 import { AnacondaHeader } from "./AnacondaHeader.jsx";
 import { AnacondaWizard } from "./AnacondaWizard.jsx";
 import { CriticalError, errorHandlerWithContext, bugzillaPrefiledReportURL } from "./Error.jsx";
@@ -34,7 +34,7 @@ import { BossClient } from "../apis/boss.js";
 import { LocalizationClient, initDataLocalization, startEventMonitorLocalization } from "../apis/localization.js";
 import { StorageClient, initDataStorage, startEventMonitorStorage } from "../apis/storage.js";
 import { PayloadsClient } from "../apis/payloads";
-import { RuntimeClient, getIsFinal } from "../apis/runtime";
+import { RuntimeClient } from "../apis/runtime";
 import { NetworkClient, initDataNetwork, startEventMonitorNetwork } from "../apis/network.js";
 
 import { setCriticalErrorAction } from "../actions/miscellaneous-actions.js";
@@ -48,7 +48,6 @@ const N_ = cockpit.noop;
 
 export const Application = () => {
     const [address, setAddress] = useState();
-    const [beta, setBeta] = useState();
     const [conf, setConf] = useState();
     const [language, setLanguage] = useState();
     const [osRelease, setOsRelease] = useState("");
@@ -88,11 +87,6 @@ export const Application = () => {
                         startEventMonitorLocalization({ dispatch });
                         startEventMonitorNetwork({ dispatch });
                     }, onCritFail({ context: N_("Reading information about the computer failed.") }));
-
-            getIsFinal().then(
-                isFinal => setBeta(!isFinal),
-                onCritFail({ context: N_("Reading installer version information failed.") })
-            );
         });
 
         readConf().then(
@@ -104,13 +98,13 @@ export const Application = () => {
     }, [dispatch, onCritFail]);
 
     // Postpone rendering anything until we read the dbus address and the default configuration
-    if (!criticalError && (!address || !conf || beta === undefined || !osRelease || !storeInitilized)) {
+    if (!criticalError && (!address || !conf || !osRelease || !storeInitilized)) {
         debug("Loading initial data...");
         return null;
     }
 
     // On live media rebooting the system will actually shut it off
-    const isBootIso = conf?.["Installation System"].type === "BOOT_ISO";
+    const systemType = conf?.["Installation System"].type;
     const title = cockpit.format(_("$0 installation"), osRelease.PRETTY_NAME);
 
     const bzReportURL = bugzillaPrefiledReportURL({
@@ -119,36 +113,36 @@ export const Application = () => {
     });
 
     const page = (
-        <>
-            {criticalError &&
-            <CriticalError exception={criticalError} isBootIso={isBootIso} isConnected={state.network.connected} reportLinkURL={bzReportURL} />}
-            <Page
-              data-debug={conf.Anaconda.debug}
-            >
-                <PageGroup stickyOnBreakpoint={{ default: "top" }}>
-                    <AnacondaHeader
-                      beta={beta}
-                      title={title}
-                      reportLinkURL={bzReportURL}
-                      isConnected={state.network.connected}
-                    />
-                </PageGroup>
-                <AddressContext.Provider value={address}>
-                    <WithDialogs>
-                        <AnacondaWizard
-                          isBootIso={isBootIso}
-                          onCritFail={onCritFail}
+        <OsReleaseContext.Provider value={osRelease}>
+            <SystemTypeContext.Provider value={systemType}>
+                {criticalError &&
+                <CriticalError exception={criticalError} isConnected={state.network.connected} reportLinkURL={bzReportURL} />}
+                <Page
+                  data-debug={conf.Anaconda.debug}
+                >
+                    <PageGroup stickyOnBreakpoint={{ default: "top" }}>
+                        <AnacondaHeader
                           title={title}
-                          storageData={state.storage}
-                          localizationData={state.localization}
-                          dispatch={dispatch}
-                          conf={conf}
-                          osRelease={osRelease}
+                          reportLinkURL={bzReportURL}
+                          isConnected={state.network.connected}
+                          onCritFail={onCritFail}
                         />
-                    </WithDialogs>
-                </AddressContext.Provider>
-            </Page>
-        </>
+                    </PageGroup>
+                    <AddressContext.Provider value={address}>
+                        <WithDialogs>
+                            <AnacondaWizard
+                              onCritFail={onCritFail}
+                              title={title}
+                              storageData={state.storage}
+                              localizationData={state.localization}
+                              dispatch={dispatch}
+                              conf={conf}
+                            />
+                        </WithDialogs>
+                    </AddressContext.Provider>
+                </Page>
+            </SystemTypeContext.Provider>
+        </OsReleaseContext.Provider>
     );
 
     return (

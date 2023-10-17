@@ -16,7 +16,7 @@
  */
 
 import cockpit from "cockpit";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import {
     ActionList,
@@ -38,6 +38,7 @@ import {
 import { ExternalLinkAltIcon, DisconnectedIcon } from "@patternfly/react-icons";
 
 import { exitGui } from "../helpers/exit.js";
+import { SystemTypeContext } from "./Common.jsx";
 
 import "./Error.scss";
 
@@ -208,7 +209,8 @@ const quitButton = (isBootIso) => {
     );
 };
 
-export const CriticalError = ({ exception, isBootIso, isConnected, reportLinkURL }) => {
+export const CriticalError = ({ exception, isConnected, reportLinkURL }) => {
+    const isBootIso = useContext(SystemTypeContext) === "BOOT_ISO";
     const context = exception.contextData?.context;
     const description = context
         ? cockpit.format(_("The installer cannot continue due to a critical error: $0"), _(context))
