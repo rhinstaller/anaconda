@@ -34,7 +34,7 @@ import { BossClient } from "../apis/boss.js";
 import { LocalizationClient, initDataLocalization, startEventMonitorLocalization } from "../apis/localization.js";
 import { StorageClient, initDataStorage, startEventMonitorStorage } from "../apis/storage.js";
 import { PayloadsClient } from "../apis/payloads";
-import { RuntimeClient, getIsFinal } from "../apis/runtime";
+import { RuntimeClient } from "../apis/runtime";
 import { NetworkClient, initDataNetwork, startEventMonitorNetwork } from "../apis/network.js";
 
 import { setCriticalErrorAction } from "../actions/miscellaneous-actions.js";
@@ -48,7 +48,6 @@ const N_ = cockpit.noop;
 
 export const Application = () => {
     const [address, setAddress] = useState();
-    const [beta, setBeta] = useState();
     const [conf, setConf] = useState();
     const [language, setLanguage] = useState();
     const [osRelease, setOsRelease] = useState("");
@@ -88,11 +87,6 @@ export const Application = () => {
                         startEventMonitorLocalization({ dispatch });
                         startEventMonitorNetwork({ dispatch });
                     }, onCritFail({ context: N_("Reading information about the computer failed.") }));
-
-            getIsFinal().then(
-                isFinal => setBeta(!isFinal),
-                onCritFail({ context: N_("Reading installer version information failed.") })
-            );
         });
 
         readConf().then(
@@ -104,7 +98,7 @@ export const Application = () => {
     }, [dispatch, onCritFail]);
 
     // Postpone rendering anything until we read the dbus address and the default configuration
-    if (!criticalError && (!address || !conf || beta === undefined || !osRelease || !storeInitilized)) {
+    if (!criticalError && (!address || !conf || !osRelease || !storeInitilized)) {
         debug("Loading initial data...");
         return null;
     }
@@ -127,10 +121,10 @@ export const Application = () => {
             >
                 <PageGroup stickyOnBreakpoint={{ default: "top" }}>
                     <AnacondaHeader
-                      beta={beta}
                       title={title}
                       reportLinkURL={bzReportURL}
                       isConnected={state.network.connected}
+                      onCritFail={onCritFail}
                     />
                 </PageGroup>
                 <AddressContext.Provider value={address}>
