@@ -227,6 +227,7 @@ if __name__ == "__main__":
         sys.exit(0)
 
     log.info("%s %s", sys.argv[0], util.get_anaconda_version_string(build_time_version=True))
+    log.debug("Image packages list: %s", util.get_image_packages_info())
 
     if opts.updates_url:
         log.info("Using updates from: %s", opts.updates_url)

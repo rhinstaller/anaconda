@@ -40,7 +40,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.path import make_directories, open_with_perm, join_paths
 from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.core.constants import DRACUT_SHUTDOWN_EJECT, \
-    IPMI_ABORTED, X_TIMEOUT
+    IPMI_ABORTED, X_TIMEOUT, PACKAGES_LIST_FILE
 from pyanaconda.core.live_user import get_live_user
 from pyanaconda.errors import RemovedModuleError
 
@@ -983,3 +983,10 @@ def restorecon(paths, root, skip_nonexistent=False):
         return False
     else:
         return True
+
+
+def get_image_packages_info():
+    if os.path.exists(PACKAGES_LIST_FILE):
+        return ' '.join(line.strip() for line in open(PACKAGES_LIST_FILE).readlines())
+    else:
+        return ''
