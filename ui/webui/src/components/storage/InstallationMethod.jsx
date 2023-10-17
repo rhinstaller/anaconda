@@ -42,41 +42,39 @@ export const InstallationMethod = ({
     storageScenarioId,
 }) => {
     return (
-        <>
-            <Form
-              className={idPrefix + "-selector"}
-              id={idPrefix + "-selector-form"}
-              onSubmit={e => { e.preventDefault(); return false }}
-            >
-                {stepNotification && (stepNotification.step === "installation-method") &&
-                    <Alert
-                      isInline
-                      title={stepNotification.message}
-                      variant="danger"
-                    />}
-                <InstallationDestination
-                  deviceData={deviceData}
-                  diskSelection={diskSelection}
-                  dispatch={dispatch}
-                  idPrefix={idPrefix}
-                  isFormDisabled={isFormDisabled}
-                  setIsFormValid={setIsFormValid}
-                  setIsFormDisabled={setIsFormDisabled}
-                  onCritFail={onCritFail}
-                />
-                <InstallationScenario
-                  deviceData={deviceData}
-                  diskSelection={diskSelection}
-                  dispatch={dispatch}
-                  idPrefix={idPrefix}
-                  onCritFail={onCritFail}
-                  isFormDisabled={isFormDisabled}
-                  setIsFormValid={setIsFormValid}
-                  setStorageScenarioId={setStorageScenarioId}
-                  storageScenarioId={storageScenarioId}
-                />
-            </Form>
-        </>
+        <Form
+          className={idPrefix + "-selector"}
+          id={idPrefix + "-selector-form"}
+          onSubmit={e => { e.preventDefault(); return false }}
+        >
+            {stepNotification && (stepNotification.step === "installation-method") &&
+                <Alert
+                  isInline
+                  title={stepNotification.message}
+                  variant="danger"
+                />}
+            <InstallationDestination
+              deviceData={deviceData}
+              diskSelection={diskSelection}
+              dispatch={dispatch}
+              idPrefix={idPrefix}
+              isFormDisabled={isFormDisabled}
+              setIsFormValid={setIsFormValid}
+              setIsFormDisabled={setIsFormDisabled}
+              onCritFail={onCritFail}
+            />
+            <InstallationScenario
+              deviceData={deviceData}
+              diskSelection={diskSelection}
+              dispatch={dispatch}
+              idPrefix={idPrefix}
+              onCritFail={onCritFail}
+              isFormDisabled={isFormDisabled}
+              setIsFormValid={setIsFormValid}
+              setStorageScenarioId={setStorageScenarioId}
+              storageScenarioId={storageScenarioId}
+            />
+        </Form>
     );
 };
 
