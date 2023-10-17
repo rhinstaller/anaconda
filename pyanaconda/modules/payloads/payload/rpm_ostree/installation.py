@@ -108,8 +108,9 @@ def _get_verification_enabled(data):
 class PrepareOSTreeMountTargetsTask(Task):
     """Task to prepare OSTree mount targets."""
 
-    def __init__(self, sysroot, physroot, source_config):
+    def __init__(self, data, sysroot, physroot, source_config):
         super().__init__()
+        self._data = data
         self._source_config = source_config
         self._sysroot = sysroot
         self._physroot = physroot

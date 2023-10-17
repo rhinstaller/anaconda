@@ -162,6 +162,7 @@ class RPMOSTreePayload(Payload):
         from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
             PrepareOSTreeMountTargetsTask
         task = PrepareOSTreeMountTargetsTask(
+            data=data,
             sysroot=conf.target.system_root,
             physroot=conf.target.physical_root,
             source_config=data
@@ -199,8 +200,8 @@ class RPMOSTreePayload(Payload):
             ChangeOSTreeRemoteTask
         task = ChangeOSTreeRemoteTask(
             data,
-            use_root=True,
-            root=conf.target.system_root
+            sysroot=conf.target.system_root,
+            physroot=conf.target.physical_root
         )
         task.run()
 
