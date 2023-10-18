@@ -122,35 +122,38 @@ export const Application = () => {
     const page = (
         <OsReleaseContext.Provider value={osRelease}>
             <SystemTypeContext.Provider value={systemType}>
-                {(criticalError || jsError) &&
+                <Page
+                  data-debug={conf.Anaconda.debug}
+                >
+                    {(criticalError || jsError) &&
                     <CriticalError
                       exception={{ ...criticalError, jsMessage: jsError?.message, backendMessage: criticalError?.message, stack: jsError?.stack }}
                       isConnected={state.network.connected}
                       reportLinkURL={bzReportURL} />}
-                <Page
-                  data-debug={conf.Anaconda.debug}
-                >
-                    <PageGroup stickyOnBreakpoint={{ default: "top" }}>
-                        <AnacondaHeader
-                          title={title}
-                          reportLinkURL={bzReportURL}
-                          isConnected={state.network.connected}
-                          onCritFail={onCritFail}
-                        />
-                    </PageGroup>
-                    <AddressContext.Provider value={address}>
-                        <WithDialogs>
-                            <AnacondaWizard
-                              onCritFail={onCritFail}
+                    {!jsError &&
+                    <>
+                        <PageGroup stickyOnBreakpoint={{ default: "top" }}>
+                            <AnacondaHeader
                               title={title}
-                              storageData={state.storage}
-                              localizationData={state.localization}
-                              dispatch={dispatch}
-                              conf={conf}
-                              osRelease={osRelease}
+                              reportLinkURL={bzReportURL}
+                              isConnected={state.network.connected}
+                              onCritFail={onCritFail}
                             />
-                        </WithDialogs>
-                    </AddressContext.Provider>
+                        </PageGroup>
+                        <AddressContext.Provider value={address}>
+                            <WithDialogs>
+                                <AnacondaWizard
+                                  onCritFail={onCritFail}
+                                  title={title}
+                                  storageData={state.storage}
+                                  localizationData={state.localization}
+                                  dispatch={dispatch}
+                                  conf={conf}
+                                  osRelease={osRelease}
+                                />
+                            </WithDialogs>
+                        </AddressContext.Provider>
+                    </>}
                 </Page>
             </SystemTypeContext.Provider>
         </OsReleaseContext.Provider>
