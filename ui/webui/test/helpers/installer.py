@@ -60,13 +60,13 @@ class Installer():
 
     def reach(self, target_page):
         path = []
-        page = target_page
+        prev_pages = [target_page]
         current_page = self.get_current_page()
 
-        while current_page != page:
+        while current_page not in prev_pages:
+            page = prev_pages[0]
             path.append(page)
-            prev = [k for k, v in self.steps._steps_jump.items() if page in v][0]
-            page = prev
+            prev_pages = [k for k, v in self.steps._steps_jump.items() if page in v]
 
         while self.get_current_page() != target_page:
             next_page = path.pop()
