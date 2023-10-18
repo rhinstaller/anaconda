@@ -303,7 +303,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         # This should create again a new partitioning object and apply it
         # no matter how many partitioning objects were created before
         i.back()
-        i.next()
+        i.reach(i.steps.REVIEW)
         new_applied_partitioning = s.dbus_get_applied_partitioning()
         new_created_partitioning = s.dbus_get_created_partitioning()
 
@@ -415,7 +415,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
             wait_animations=False,
         )
 
-        i.next()
+        i.reach(i.steps.REVIEW)
 
         # verify review screen
         r.check_disk(dev, "16.1 GB vda (0x1af4)")
@@ -539,7 +539,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         s.select_mountpoint_row_mountpoint(3, "/home")
         s.check_mountpoint_row(3, "/home", f"{dev2}1", False, "xfs")
 
-        i.next()
+        i.reach(i.steps.REVIEW)
 
         # verify review screen
         disk = "vda"
@@ -626,7 +626,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         b.wait_in_text(f"{selector} .pf-v5-c-select__toggle-text", "luks")
         s.check_mountpoint_row_format_type(2, "xfs")
 
-        i.next()
+        i.reach(i.steps.REVIEW)
 
         r.check_in_disk_row(dev1, 2, "luks-")
 
@@ -672,7 +672,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         s.select_mountpoint_row_device(2, "encryptedraid")
         s.check_mountpoint_row_format_type(2, "xfs")
 
-        i.next()
+        i.reach(i.steps.REVIEW)
 
         r.check_disk(dev, "16.1 GB vda (0x1af4)")
 
@@ -724,7 +724,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         b.wait_in_text(f"{selector} .pf-v5-c-select__toggle-text", "luks")
         s.check_mountpoint_row_format_type(2, "xfs")
 
-        i.next()
+        i.reach(i.steps.REVIEW)
 
         r.check_disk(dev, "16.1 GB vda (0x1af4)")
 
@@ -784,7 +784,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         s.select_mountpoint_row_reformat(1)
         s.check_mountpoint_row_reformat(1, True)
 
-        i.next()
+        i.reach(i.steps.REVIEW)
 
         # verify review screen
         r.check_disk(dev, "16.1 GB vda (0x1af4)")
@@ -945,7 +945,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         s.select_mountpoint_row_reformat(1)
         s.check_mountpoint_row_reformat(1, True)
 
-        i.next()
+        i.reach(i.steps.REVIEW)
 
         # verify review screen
         disk = "vda"
@@ -964,7 +964,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         s.check_mountpoint_row_mountpoint(3, "swap")
         s.check_mountpoint_row_device(3, f"{vgname}-swap")
 
-        i.next()
+        i.reach(i.steps.REVIEW)
 
         # verify review screen
         disk = "vda"
@@ -1033,7 +1033,7 @@ class TestStorageMountPointsEFI(anacondalib.VirtInstallMachineCase):
         s.select_mountpoint_row_device(3, f"{dev}3")
         s.check_mountpoint_row_format_type(3, "xfs")
 
-        i.next()
+        i.reach(i.steps.REVIEW)
 
         # verify review screen
         r.check_disk(dev, "16.1 GB vda (0x1af4)")
