@@ -172,7 +172,8 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onCrit
     const flattenedStepsIds = getFlattenedStepsIds(stepsOrder);
 
     const { path } = usePageLocation();
-    const currentStepId = isBootIso ? path[0] || "installation-language" : path[0] || "installation-method";
+    const firstStepId = stepsOrder.filter(step => !step.isHidden)[0].id;
+    const currentStepId = path[0] || firstStepId;
 
     const isFinishedStep = (stepId) => {
         const stepIdx = flattenedStepsIds.findIndex(s => s === stepId);
@@ -346,9 +347,7 @@ const Footer = ({
         <WizardFooter>
             <WizardContextConsumer>
                 {({ activeStep, onNext, onBack }) => {
-                    const isFirstScreen = (
-                        activeStep.id === "installation-language" || (activeStep.id === "installation-method" && !isBootIso)
-                    );
+                    const isFirstScreen = stepsOrder.filter(step => !step.isHidden)[0].id === activeStep.id;
                     const nextButtonText = (
                         activeStep.id === "installation-review"
                             ? getScenario(storageScenarioId).buttonLabel
