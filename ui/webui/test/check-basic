@@ -21,7 +21,7 @@ from installer import Installer
 from language import Language
 from review import Review
 from storage import Storage
-from testlib import nondestructive, test_main, wait  # pylint: disable=import-error
+from testlib import nondestructive, test_main, wait, Error  # pylint: disable=import-error
 from utils import pretend_live_iso, get_pretty_name
 
 
@@ -212,6 +212,29 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         b.wait_visible("#critical-error-bz-report-modal.pf-v5-c-modal-box")
 
         self._testLogReview(b, m, "critical-error")
+
+    def testJsErrorHandling(self):
+        b = self.browser
+        m = self.machine
+        i = Installer(b, m)
+
+        i.open()
+
+        b.wait_not_present("#critical-error-bz-report-modal.pf-v5-c-modal-box")
+
+        with self.assertRaises(RuntimeError):
+            b.eval_js("window.setTimeout(function() {throw new Error('Unexpected JS error')}, 0);")
+            # Some round trips, one of which should update the deferred exception
+            for _ in range(0, 5):
+                b.wait_in_text("#critical-error-bz-report-modal-details", "Error: Unexpected JS error")
+                time.sleep(2)
+
+        b.assert_pixels(
+            "#critical-error-bz-report-modal.pf-v5-c-modal-box",
+            "js-error-modal",
+            wait_animations=False,
+            ignore=["#critical-error-bz-report-modal-review-log"]
+        )
 
 
 if __name__ == '__main__':
