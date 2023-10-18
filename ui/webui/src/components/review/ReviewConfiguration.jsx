@@ -231,5 +231,7 @@ export const getPageProps = ({ storageScenarioId }) => {
         label: _("Review and install"),
         title: _("Review and install"),
         footerHelperText: <ReviewConfigurationFooterHelperText storageScenarioId={storageScenarioId} />,
+        nextButtonText: getScenario(storageScenarioId).buttonLabel,
+        nextButtonVariant: "warning",
     });
 };

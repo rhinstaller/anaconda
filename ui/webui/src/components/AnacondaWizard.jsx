@@ -35,7 +35,7 @@ import {
 
 import { AnacondaPage } from "./AnacondaPage.jsx";
 import { InstallationMethod, getPageProps as getInstallationMethodProps } from "./storage/InstallationMethod.jsx";
-import { getScenario, getDefaultScenario } from "./storage/InstallationScenario.jsx";
+import { getDefaultScenario } from "./storage/InstallationScenario.jsx";
 import { MountPointMapping, getPageProps as getMountPointMappingProps } from "./storage/MountPointMapping.jsx";
 import { DiskEncryption, getStorageEncryptionState, getPageProps as getDiskEncryptionProps } from "./storage/DiskEncryption.jsx";
 import { InstallationLanguage, getPageProps as getInstallationLanguageProps } from "./localization/InstallationLanguage.jsx";
@@ -348,19 +348,11 @@ const Footer = ({
         <WizardFooter>
             <WizardContextConsumer>
                 {({ activeStep, onNext, onBack }) => {
+                    const currentStep = stepsOrder.find(s => s.id === activeStep.id);
+                    const footerHelperText = currentStep?.footerHelperText;
                     const isFirstScreen = stepsOrder.filter(step => !step.isHidden)[0].id === activeStep.id;
-                    const nextButtonText = (
-                        activeStep.id === "installation-review"
-                            ? getScenario(storageScenarioId).buttonLabel
-                            : _("Next")
-                    );
-                    const nextButtonVariant = (
-                        activeStep.id === "installation-review"
-                            ? "warning"
-                            : "primary"
-                    );
-
-                    const footerHelperText = stepsOrder.find(step => step.id === activeStep.id)?.footerHelperText;
+                    const nextButtonText = currentStep?.nextButtonText || _("Next");
+                    const nextButtonVariant = currentStep?.nextButtonVariant || "primary";
 
                     return (
                         <Stack hasGutter>
