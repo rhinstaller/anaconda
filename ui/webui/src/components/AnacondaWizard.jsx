@@ -20,8 +20,6 @@ import React, { useContext, useEffect, useState, useMemo } from "react";
 import {
     ActionList,
     Button,
-    HelperText,
-    HelperTextItem,
     Modal,
     ModalVariant,
     PageSection,
@@ -115,7 +113,7 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onCrit
                     setStorageScenarioId(scenarioId);
                 }
             },
-            ...getInstallationMethodProps({ isBootIso, osRelease })
+            ...getInstallationMethodProps({ isBootIso, osRelease, isFormValid })
         },
         {
             id: "disk-configuration",
@@ -148,7 +146,7 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onCrit
                 localizationData,
                 storageScenarioId,
             },
-            ...getReviewConfigurationProps()
+            ...getReviewConfigurationProps({ storageScenarioId })
         },
         {
             component: InstallationProgress,
@@ -255,6 +253,7 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onCrit
                 setStepNotification={setStepNotification}
                 isFormDisabled={isFormDisabled}
                 setIsFormDisabled={setIsFormDisabled}
+                stepsOrder={stepsOrder}
                 storageEncryption={storageEncryption}
                 storageScenarioId={storageScenarioId}
               />}
@@ -279,6 +278,7 @@ const Footer = ({
     isFormDisabled,
     partitioning,
     setIsFormDisabled,
+    stepsOrder,
     storageEncryption,
     storageScenarioId,
 }) => {
@@ -360,7 +360,7 @@ const Footer = ({
                             : "primary"
                     );
 
-                    const reviewWarning = getScenario(storageScenarioId).screenWarning;
+                    const footerHelperText = stepsOrder.find(step => step.id === activeStep.id)?.footerHelperText;
 
                     return (
                         <Stack hasGutter>
@@ -377,21 +377,7 @@ const Footer = ({
                               exitGui={exitGui}
                               setQuitWaitsConfirmation={setQuitWaitsConfirmation}
                             />}
-                            {activeStep.id === "installation-method" && !isFormValid &&
-                                <HelperText id="next-helper-text">
-                                    <HelperTextItem
-                                      variant="indeterminate">
-                                        {_("To continue, select the devices to install to.")}
-                                    </HelperTextItem>
-                                </HelperText>}
-                            {activeStep.id === "installation-review" && reviewWarning &&
-                                <HelperText id="review-warning-text">
-                                    <HelperTextItem
-                                      variant="warning"
-                                      hasIcon>
-                                        {reviewWarning}
-                                    </HelperTextItem>
-                                </HelperText>}
+                            {footerHelperText}
                             <ActionList>
                                 <Button
                                   id="installation-back-btn"

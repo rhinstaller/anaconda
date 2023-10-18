@@ -20,6 +20,8 @@ import React from "react";
 import {
     Alert,
     Form,
+    HelperText,
+    HelperTextItem,
 } from "@patternfly/react-core";
 
 import { InstallationScenario } from "./InstallationScenario.jsx";
@@ -77,10 +79,20 @@ export const InstallationMethod = ({
     );
 };
 
-export const getPageProps = ({ isBootIso, osRelease }) => {
+const InstallationMethodFooterHelper = () => (
+    <HelperText id="next-helper-text">
+        <HelperTextItem
+          variant="indeterminate">
+            {_("To continue, select the devices to install to.")}
+        </HelperTextItem>
+    </HelperText>
+);
+
+export const getPageProps = ({ isBootIso, osRelease, isFormValid }) => {
     return ({
         id: "installation-method",
         label: _("Installation method"),
-        title: !isBootIso ? cockpit.format(_("Welcome. Let's install $0 now."), osRelease.REDHAT_SUPPORT_PRODUCT) : null
+        title: !isBootIso ? cockpit.format(_("Welcome. Let's install $0 now."), osRelease.REDHAT_SUPPORT_PRODUCT) : null,
+        footerHelperText: !isFormValid && <InstallationMethodFooterHelper />,
     });
 };
