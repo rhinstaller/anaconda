@@ -42,8 +42,9 @@ import "./InstallationProgress.scss";
 
 const _ = cockpit.gettext;
 const N_ = cockpit.noop;
+const idPrefix = "installation-progress";
 
-export const InstallationProgress = ({ onCritFail, idPrefix }) => {
+export const InstallationProgress = ({ onCritFail }) => {
     const [status, setStatus] = useState();
     const [statusMessage, setStatusMessage] = useState("");
     const [steps, setSteps] = useState();

@@ -61,6 +61,7 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onCrit
     const [stepNotification, setStepNotification] = useState();
     const [storageEncryption, setStorageEncryption] = useState(getStorageEncryptionState());
     const [storageScenarioId, setStorageScenarioId] = useState(window.sessionStorage.getItem("storage-scenario-id") || getDefaultScenario().id);
+    const [showWizard, setShowWizard] = useState(true);
     const osRelease = useContext(OsReleaseContext);
     const isBootIso = useContext(SystemTypeContext) === "BOOT_ISO";
 
@@ -148,10 +149,6 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onCrit
             },
             ...getReviewConfigurationProps({ storageScenarioId })
         },
-        {
-            component: InstallationProgress,
-            id: "installation-progress",
-        }
     ];
 
     const getFlattenedStepsIds = (steps) => {
@@ -175,11 +172,6 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onCrit
     const firstStepId = stepsOrder.filter(step => !step.isHidden)[0].id;
     const currentStepId = path[0] || firstStepId;
 
-    const isFinishedStep = (stepId) => {
-        const stepIdx = flattenedStepsIds.findIndex(s => s === stepId);
-        return stepIdx === flattenedStepsIds.length - 1;
-    };
-
     const canJumpToStep = (stepId, currentStepId) => {
         const stepIdx = flattenedStepsIds.findIndex(s => s === stepId);
         const currentStepIdx = flattenedStepsIds.findIndex(s => s === currentStepId);
@@ -193,7 +185,6 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onCrit
                 name: s.label,
                 stepNavItemProps: { id: s.id },
                 canJumpTo: canJumpToStep(s.id, currentStepId),
-                isFinishedStep: isFinishedStep(s.id),
             });
             if (s.component) {
                 step = ({
@@ -229,7 +220,7 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onCrit
         }
 
         // Reset the applied partitioning when going back from review page
-        if (prevStep.prevId === "installation-review" && newStep.id !== "installation-progress") {
+        if (prevStep.prevId === "installation-review") {
             setIsFormDisabled(true);
             resetPartitioning()
                     .then(
@@ -241,6 +232,14 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onCrit
             cockpit.location.go([newStep.id]);
         }
     };
+
+    if (!showWizard) {
+        return (
+            <PageSection variant={PageSectionVariants.light}>
+                <InstallationProgress onCritFail={onCritFail} />
+            </PageSection>
+        );
+    }
 
     return (
         <PageSection type={PageSectionTypes.wizard} variant={PageSectionVariants.light}>
@@ -254,6 +253,7 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onCrit
                 setStepNotification={setStepNotification}
                 isFormDisabled={isFormDisabled}
                 setIsFormDisabled={setIsFormDisabled}
+                setShowWizard={setShowWizard}
                 stepsOrder={stepsOrder}
                 storageEncryption={storageEncryption}
                 storageScenarioId={storageScenarioId}
@@ -279,6 +279,7 @@ const Footer = ({
     isFormDisabled,
     partitioning,
     setIsFormDisabled,
+    setShowWizard,
     stepsOrder,
     storageEncryption,
     storageScenarioId,
@@ -367,7 +368,7 @@ const Footer = ({
                             nextWaitsConfirmation &&
                             <ReviewConfigurationConfirmModal
                               idPrefix={activeStep.id}
-                              onNext={onNext}
+                              onNext={() => { setShowWizard(false); cockpit.location.go(["installation-progress"]) }}
                               setNextWaitsConfirmation={setNextWaitsConfirmation}
                               storageScenarioId={storageScenarioId}
                             />}
