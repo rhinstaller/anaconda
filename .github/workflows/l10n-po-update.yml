@@ -25,7 +25,8 @@ jobs:
       fail-fast: false
       max-parallel: 1
       matrix:
-        branch: ['master', 'fedora-39']
+        #branch: ['master', 'fedora-39']
+        branch: ['master']
 
     steps:
       - name: Set up dependencies
