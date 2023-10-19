@@ -196,7 +196,6 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onCrit
                               setIsFormValid={setIsFormValid}
                               onCritFail={onCritFail}
                               setStepNotification={ex => setStepNotification({ step: s.id, ...ex })}
-                              stepNotification={stepNotification}
                               isFormDisabled={isFormDisabled}
                               setIsFormDisabled={setIsFormDisabled}
                               {...s.data}
