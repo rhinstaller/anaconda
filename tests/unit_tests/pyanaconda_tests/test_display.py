@@ -39,6 +39,7 @@ class DisplayUtilsTestCase(TestCase):
         util_mock.reset_mock()
 
         # Start systemd --user on a boot.iso.
+        # pylint: disable=environment-modify
         os.environ["XDG_RUNTIME_DIR"] = "/my/xdg/path"
         conf_mock.system.can_start_user_systemd = True
         util_mock.startProgram.return_value = 100

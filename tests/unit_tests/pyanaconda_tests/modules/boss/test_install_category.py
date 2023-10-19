@@ -68,6 +68,7 @@ class InstallManagerTestCase(unittest.TestCase):
         interface = task.for_publication()
 
         callback = Mock()
+        # pylint: disable=no-member
         interface.CategoryChanged.connect(callback)
         task.run()
 
