@@ -473,7 +473,11 @@ tests-pylint:
 # For a weird reason when pylint is not in TESTS included for automake (during configure)
 # it won't allow us to use makefile check to start the tests.
 # Unfortunately, we removed pylint from the TESTS because we don't want it to run as default
-	$(srcdir)/tests/pylint/runpylint | tee $(srcdir)/tests/pylint/runpylint.log
+	set -o pipefail ; \
+	$(srcdir)/tests/pylint/runpylint | tee $(srcdir)/tests/pylint/runpylint.log ; \
+	rc=$$? ; \
+	$(MAKE) grab-logs ; \
+	exit $$rc
 
 tests-unit-only:
 	@mkdir -p $(USER_SITE_PACKAGES)
