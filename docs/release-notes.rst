@@ -3,6 +3,186 @@ Release notes
 
 This document describes major installer-related changes in Fedora releases.
 
+A guide on adding new entries is in the release documentation.
+
+Fedora 39
+#########
+
+Changes in the graphical interface
+----------------------------------
+
+Use keyboard layout configuration from the Live system
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Until now, users had to specify keyboard layout for the Live environment manually in Anaconda.
+With this change, live system itself is responsible for the keyboard configuration and
+Anaconda just reads the configuration from the live system for the installed system.
+
+The live keyboard layout is used automatically only if the user does not specify it manually.
+At this moment, only Gnome Shell environment is supported.
+
+This is proper fix for https://bugzilla.redhat.com/show_bug.cgi?id=2016613 which was resolved
+by a workaround in the past. It is also a step forward to resolve
+https://bugzilla.redhat.com/show_bug.cgi?id=1955025.
+
+See also:
+    - https://github.com/rhinstaller/anaconda/pull/4976
+    - https://bugzilla.redhat.com/show_bug.cgi?id=2016613
+    - https://bugzilla.redhat.com/show_bug.cgi?id=1955025
+
+Changes in kickstart support
+----------------------------
+
+New kickstart options to control DNS handling
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+There are several new options for the ``network`` kickstart command to control handling of DNS:
+
+- The ``--ipv4-dns-search`` and ``--ipv6-dns-search`` allow manual setting of DNS search
+  domains. These options mirror their respective NetworkManager properties, for example::
+
+      network --device ens3 --ipv4-dns-search example.com,custom-intranet-domain.biz (...)
+
+- ``--ipv4-ignore-auto-dns`` and ``--ipv6-ignore-auto-dns`` allow ignoring DNS settings from
+  DHCP. These options do not take any arguments.
+
+All of these ``network`` command options must be used together with the ``--device`` option.
+
+See also:
+    - https://github.com/pykickstart/pykickstart/pull/431
+    - https://github.com/rhinstaller/anaconda/pull/4519
+    - https://bugzilla.redhat.com/show_bug.cgi?id=1656662
+
+Changes in Anaconda configuration files
+---------------------------------------
+
+Deprecated configuration options are now removed
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The following deprecated configuration file options are now removed:
+
+- ``kickstart_modules``
+- ``addons_enabled``
+
+See also:
+    - https://github.com/rhinstaller/anaconda/pull/4764
+
+Allow to turn off geolocation for language selection
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+New ``Localization`` section with ``use_geolocation`` option is added to Anaconda
+configuration. The option allows to turn off geolocation for language selection.
+
+See also:
+    - https://github.com/rhinstaller/anaconda/pull/4719
+
+Architecture and hardware support changes
+-----------------------------------------
+
+Add support for compressed kernel modules
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Support for Driver Discs containing compressed kernel modules has been
+added. Support for compressed kernel modules is limited to file extensions
+.ko.bz2, .ko.gz, .ko.xz and .ko.zst.
+
+See also:
+    - https://bugzilla.redhat.com/show_bug.cgi?id=2032638
+    - https://github.com/rhinstaller/anaconda/pull/5041
+
+Wait 5 secs during boot for OEMDRV devices (#2171811)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Because disks can take some time to appear, an additional delay of 5 seconds
+has been added.  This can be overridden by boot argument
+``inst.wait_for_disks=<value>`` to let dracut wait up to <value> additional
+seconds (0 turns the feature off, causing dracut to only wait up to 500ms).
+Alternatively, if the ``OEMDRV`` device is known to be present but too slow to be
+autodetected, the user can boot with an argument like ``inst.dd=hd:LABEL=OEMDRV``
+to indicate that dracut should expect an ``OEMDRV`` device and not start the
+installer until it appears.
+
+See also:
+    - https://bugzilla.redhat.com/show_bug.cgi?id=2171811
+    - https://github.com/rhinstaller/anaconda/pull/4586
+
+General changes
+---------------
+
+New Runtime module
+^^^^^^^^^^^^^^^^^^
+
+Anaconda now has a new D-Bus module called ``Runtime``. This module stores run-time
+configuration of the installer and provides methods for the overall installer flow control.
+
+Warning: This module must always run, or anaconda crashes. Users of the following
+configuration file entries must adapt to this change:
+
+- ``kickstart_modules``
+- ``activatable_modules``
+- ``forbidden_modules``
+- ``optional_modules``
+
+See also:
+    - https://github.com/rhinstaller/anaconda/pull/4730
+
+Make the EFI System Partition at least 500MiB in size
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The minimum size of the EFI System Partition (ESP) created by Anaconda has changed from 200 MiB to
+500 MiB. The maximum size, which is used in most cases, remains at 600 MiB.
+
+The reasons for this change include:
+    - This partition is used to deploy firmware updates. These updates need free space of twice the
+      SPI flash size, which will grow from 64 to 128 MiB in near future and make the current
+      partition size too small.
+    - The new minimum is identical with what Microsoft mandates OEMs allocate for the partition.
+
+See also:
+    - https://fedoraproject.org/wiki/Changes/BiggerESP
+    - https://github.com/rhinstaller/anaconda/pull/4711
+    - https://github.com/rhinstaller/anaconda/pull/5081
+
+Respect preferred disk label type provided by blivet (#2092091, #2209760)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In Fedora 37, anaconda was changed to always format disks with GPT
+disk labels, so long as blivet reported that the platform supports
+them at all (even if blivet indicated that MBR labels should be
+preferred). This was intended to implement a plan to prefer GPT
+disk labels on x86_64 BIOS installs, but in fact resulted in GPT
+disk labels also being used in other cases. Now, we go back to
+respecting the preferred disk label type indicated by blivet, by
+default (a corresponding change has been made to blivet to make it
+prefer GPT labels on x86_64 BIOS systems). The inst.disklabel
+option can still be used to force a preference for gpt or mbr if
+desired.
+
+See also:
+    - https://bugzilla.redhat.com/show_bug.cgi?id=2092091
+    - https://bugzilla.redhat.com/show_bug.cgi?id=2209760
+
+Install an image using systemd-boot rather than grub (#2135531)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+With this release, systemd-boot can be selected as an alternative boot
+loader for testing and development purposes.
+
+This can be done with ``inst.sdboot`` from the grub/kernel command
+line or with ``--sdboot`` in a kickstart file as part of the
+bootloader command.  The resulting machine should be free of grub,
+shim, and grubby packages, with all the boot files on the EFI
+System Partition (ESP). This may mean that it is wise to dedicate
+the space previously allocated for ``/boot`` to the ESP in order to
+assure that future kernel upgrades will have sufficient space.
+
+For more information, refer to the anaconda and systemd-boot documentation.
+
+See also:
+    - https://bugzilla.redhat.com/show_bug.cgi?id=2135531
+    - https://github.com/rhinstaller/anaconda/pull/4368
+
+
 Fedora 38
 #########
 

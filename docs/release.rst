@@ -430,3 +430,47 @@ If everything looks fine (changelog, new major version & the tag) push the chang
     git push origin master --tags
 
 Then continue with the normal Rawhide Anaconda build process.
+
+
+How to use a new Python version
+-------------------------------
+
+Fedora changes Python version from time to time.
+
+The only place where Python is explicitly listed in Anaconda code base and needs changing is in
+``scripts/makeupdates``::
+
+    # The Python site-packages path for pyanaconda.
+    SITE_PACKAGES_PATH = "./usr/lib64/python3.12/site-packages/"
+
+If this path is not correct, updates images "mysteriously stop working".
+
+Unfortunately, Python release timing is not well aligned with Fedora, so Rawhide mostly gets
+a Python release candidate (rc). This affects two things:
+
+- Usually, the stability of the interpreter is good, but there are deprecations and removals in the
+  standard library.
+
+- Pylint often does not handle unreleased Python, because it touches private interpreter
+  and library internals. The only recourse is often to disable it and wait for the official Python
+  release. Fortunately, ruff handles linting too.
+
+
+How to collect release notes after branched GA release
+------------------------------------------------------
+
+Release notes are collected in ``docs/release-notes/*.rst``. When a major Fedora version goes GA,
+these should be collected into the file ``docs/release-notes.rst``. To do so:
+
+0. Work on the master branch. Edit the file. New content is added on top.
+1. Create a heading for new Fedora version and subheadings for the broader areas. The previous
+   entry can provide some guidance.
+2. Copy the individual release notes contents into the document according to the headings, and edit
+   the contents to use the same form as in the document. Don't spend too much time on formatting,
+   just make sure it renders correctly.
+3. Delete the individual release note files.
+4. If you know there are some other major features missing, add them to the document too.
+5. Commit and make a PR.
+
+The branch used for the release is not touched. This might be surprising, but docs are always used
+from the ``master`` branch.
