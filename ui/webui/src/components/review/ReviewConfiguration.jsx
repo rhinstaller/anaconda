@@ -21,6 +21,7 @@ import {
     Button,
     DescriptionList, DescriptionListGroup,
     DescriptionListTerm, DescriptionListDescription,
+    HelperText, HelperTextItem,
     List, ListItem,
     Modal, ModalVariant,
     Stack,
@@ -210,10 +211,27 @@ export const ReviewConfigurationConfirmModal = ({ idPrefix, onNext, setNextWaits
     );
 };
 
-export const getPageProps = () => {
+const ReviewConfigurationFooterHelperText = ({ storageScenarioId }) => {
+    const reviewWarning = getScenario(storageScenarioId).screenWarning;
+
+    return (
+        <HelperText id="review-warning-text">
+            <HelperTextItem
+              variant="warning"
+              hasIcon>
+                {reviewWarning}
+            </HelperTextItem>
+        </HelperText>
+    );
+};
+
+export const getPageProps = ({ storageScenarioId }) => {
     return ({
         id: "installation-review",
         label: _("Review and install"),
-        title: _("Review and install")
+        title: _("Review and install"),
+        footerHelperText: <ReviewConfigurationFooterHelperText storageScenarioId={storageScenarioId} />,
+        nextButtonText: getScenario(storageScenarioId).buttonLabel,
+        nextButtonVariant: "warning",
     });
 };

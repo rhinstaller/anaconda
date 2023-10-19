@@ -20,8 +20,6 @@ import React, { useContext, useEffect, useState, useMemo } from "react";
 import {
     ActionList,
     Button,
-    HelperText,
-    HelperTextItem,
     Modal,
     ModalVariant,
     PageSection,
@@ -37,7 +35,7 @@ import {
 
 import { AnacondaPage } from "./AnacondaPage.jsx";
 import { InstallationMethod, getPageProps as getInstallationMethodProps } from "./storage/InstallationMethod.jsx";
-import { getScenario, getDefaultScenario } from "./storage/InstallationScenario.jsx";
+import { getDefaultScenario } from "./storage/InstallationScenario.jsx";
 import { MountPointMapping, getPageProps as getMountPointMappingProps } from "./storage/MountPointMapping.jsx";
 import { DiskEncryption, getStorageEncryptionState, getPageProps as getDiskEncryptionProps } from "./storage/DiskEncryption.jsx";
 import { InstallationLanguage, getPageProps as getInstallationLanguageProps } from "./localization/InstallationLanguage.jsx";
@@ -63,6 +61,7 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onCrit
     const [stepNotification, setStepNotification] = useState();
     const [storageEncryption, setStorageEncryption] = useState(getStorageEncryptionState());
     const [storageScenarioId, setStorageScenarioId] = useState(window.sessionStorage.getItem("storage-scenario-id") || getDefaultScenario().id);
+    const [showWizard, setShowWizard] = useState(true);
     const osRelease = useContext(OsReleaseContext);
     const isBootIso = useContext(SystemTypeContext) === "BOOT_ISO";
 
@@ -115,7 +114,7 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onCrit
                     setStorageScenarioId(scenarioId);
                 }
             },
-            ...getInstallationMethodProps({ isBootIso, osRelease })
+            ...getInstallationMethodProps({ isBootIso, osRelease, isFormValid })
         },
         {
             id: "disk-configuration",
@@ -148,12 +147,8 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onCrit
                 localizationData,
                 storageScenarioId,
             },
-            ...getReviewConfigurationProps()
+            ...getReviewConfigurationProps({ storageScenarioId })
         },
-        {
-            component: InstallationProgress,
-            id: "installation-progress",
-        }
     ];
 
     const getFlattenedStepsIds = (steps) => {
@@ -174,12 +169,8 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onCrit
     const flattenedStepsIds = getFlattenedStepsIds(stepsOrder);
 
     const { path } = usePageLocation();
-    const currentStepId = isBootIso ? path[0] || "installation-language" : path[0] || "installation-method";
-
-    const isFinishedStep = (stepId) => {
-        const stepIdx = flattenedStepsIds.findIndex(s => s === stepId);
-        return stepIdx === flattenedStepsIds.length - 1;
-    };
+    const firstStepId = stepsOrder.filter(step => !step.isHidden)[0].id;
+    const currentStepId = path[0] || firstStepId;
 
     const canJumpToStep = (stepId, currentStepId) => {
         const stepIdx = flattenedStepsIds.findIndex(s => s === stepId);
@@ -194,7 +185,6 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onCrit
                 name: s.label,
                 stepNavItemProps: { id: s.id },
                 canJumpTo: canJumpToStep(s.id, currentStepId),
-                isFinishedStep: isFinishedStep(s.id),
             });
             if (s.component) {
                 step = ({
@@ -230,7 +220,7 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onCrit
         }
 
         // Reset the applied partitioning when going back from review page
-        if (prevStep.prevId === "installation-review" && newStep.id !== "installation-progress") {
+        if (prevStep.prevId === "installation-review") {
             setIsFormDisabled(true);
             resetPartitioning()
                     .then(
@@ -242,6 +232,14 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onCrit
             cockpit.location.go([newStep.id]);
         }
     };
+
+    if (!showWizard) {
+        return (
+            <PageSection variant={PageSectionVariants.light}>
+                <InstallationProgress onCritFail={onCritFail} />
+            </PageSection>
+        );
+    }
 
     return (
         <PageSection type={PageSectionTypes.wizard} variant={PageSectionVariants.light}>
@@ -255,6 +253,8 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onCrit
                 setStepNotification={setStepNotification}
                 isFormDisabled={isFormDisabled}
                 setIsFormDisabled={setIsFormDisabled}
+                setShowWizard={setShowWizard}
+                stepsOrder={stepsOrder}
                 storageEncryption={storageEncryption}
                 storageScenarioId={storageScenarioId}
               />}
@@ -279,6 +279,8 @@ const Footer = ({
     isFormDisabled,
     partitioning,
     setIsFormDisabled,
+    setShowWizard,
+    stepsOrder,
     storageEncryption,
     storageScenarioId,
 }) => {
@@ -346,21 +348,11 @@ const Footer = ({
         <WizardFooter>
             <WizardContextConsumer>
                 {({ activeStep, onNext, onBack }) => {
-                    const isFirstScreen = (
-                        activeStep.id === "installation-language" || (activeStep.id === "installation-method" && !isBootIso)
-                    );
-                    const nextButtonText = (
-                        activeStep.id === "installation-review"
-                            ? getScenario(storageScenarioId).buttonLabel
-                            : _("Next")
-                    );
-                    const nextButtonVariant = (
-                        activeStep.id === "installation-review"
-                            ? "warning"
-                            : "primary"
-                    );
-
-                    const reviewWarning = getScenario(storageScenarioId).screenWarning;
+                    const currentStep = stepsOrder.find(s => s.id === activeStep.id);
+                    const footerHelperText = currentStep?.footerHelperText;
+                    const isFirstScreen = stepsOrder.filter(step => !step.isHidden)[0].id === activeStep.id;
+                    const nextButtonText = currentStep?.nextButtonText || _("Next");
+                    const nextButtonVariant = currentStep?.nextButtonVariant || "primary";
 
                     return (
                         <Stack hasGutter>
@@ -368,7 +360,7 @@ const Footer = ({
                             nextWaitsConfirmation &&
                             <ReviewConfigurationConfirmModal
                               idPrefix={activeStep.id}
-                              onNext={onNext}
+                              onNext={() => { setShowWizard(false); cockpit.location.go(["installation-progress"]) }}
                               setNextWaitsConfirmation={setNextWaitsConfirmation}
                               storageScenarioId={storageScenarioId}
                             />}
@@ -377,21 +369,7 @@ const Footer = ({
                               exitGui={exitGui}
                               setQuitWaitsConfirmation={setQuitWaitsConfirmation}
                             />}
-                            {activeStep.id === "installation-method" && !isFormValid &&
-                                <HelperText id="next-helper-text">
-                                    <HelperTextItem
-                                      variant="indeterminate">
-                                        {_("To continue, select the devices to install to.")}
-                                    </HelperTextItem>
-                                </HelperText>}
-                            {activeStep.id === "installation-review" && reviewWarning &&
-                                <HelperText id="review-warning-text">
-                                    <HelperTextItem
-                                      variant="warning"
-                                      hasIcon>
-                                        {reviewWarning}
-                                    </HelperTextItem>
-                                </HelperText>}
+                            {footerHelperText}
                             <ActionList>
                                 <Button
                                   id="installation-back-btn"
