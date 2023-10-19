@@ -18,7 +18,6 @@ import cockpit from "cockpit";
 import React from "react";
 
 import {
-    Alert,
     Form,
     HelperText,
     HelperTextItem,
@@ -39,7 +38,6 @@ export const InstallationMethod = ({
     setIsFormValid,
     setIsFormDisabled,
     setStorageScenarioId,
-    stepNotification,
     storageScenarioId,
 }) => {
     return (
@@ -48,12 +46,6 @@ export const InstallationMethod = ({
           id={idPrefix + "-selector-form"}
           onSubmit={e => { e.preventDefault(); return false }}
         >
-            {stepNotification?.step === "installation-method" &&
-                <Alert
-                  isInline
-                  title={stepNotification.message}
-                  variant="danger"
-                />}
             <InstallationDestination
               deviceData={deviceData}
               diskSelection={diskSelection}
