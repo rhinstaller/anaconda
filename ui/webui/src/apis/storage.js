@@ -61,10 +61,11 @@ export class StorageClient {
  * @param {string} task         DBus path to a task
  * @param {string} onSuccess    Callback to run after Succeeded signal is received
  * @param {string} onFail       Callback to run as an error handler
+ * @param {Boolean} getResult   True if the result should be fetched, False otherwise
  *
  * @returns {Promise}           Resolves a DBus path to a task
  */
-export const runStorageTask = ({ task, onSuccess, onFail }) => {
+export const runStorageTask = ({ task, onSuccess, onFail, getResult = false }) => {
     // FIXME: This is a workaround for 'Succeeded' signal being emited twice
     let succeededEmitted = false;
     const taskProxy = new StorageClient().client.proxy(
@@ -78,7 +79,12 @@ export const runStorageTask = ({ task, onSuccess, onFail }) => {
                 return;
             }
             succeededEmitted = true;
-            onSuccess();
+
+            const promise = getResult ? taskProxy.GetResult() : Promise.resolve();
+
+            return promise
+                    .then(res => onSuccess(res?.v))
+                    .catch(onFail);
         });
     };
     taskProxy.wait(() => {

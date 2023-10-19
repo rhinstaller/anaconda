@@ -15,6 +15,10 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { getDevicesAction, getDiskSelectionAction } from "../actions/storage-actions.js";
+import { scanDevicesWithTask, runStorageTask } from "../apis/storage.js";
+import { resetPartitioning } from "../apis/storage_partitioning.js";
+
 /* Get the list of names of all the ancestors of the given device
  * (including the device itself)
  * @param {Object} deviceData - The device data object
@@ -115,4 +119,21 @@ export const hasDuplicateFields = (requests, fieldName) => {
  */
 export const isDuplicateRequestField = (requests, fieldName, fieldValue) => {
     return requests.filter((request) => request[fieldName] === fieldValue).length > 1;
+};
+
+export const rescanDevices = ({ onSuccess, onFail, dispatch }) => {
+    return scanDevicesWithTask()
+            .then(task => {
+                return runStorageTask({
+                    task,
+                    onSuccess: () => resetPartitioning()
+                            .then(() => Promise.all([
+                                dispatch(getDevicesAction()),
+                                dispatch(getDiskSelectionAction())
+                            ]))
+                            .finally(onSuccess)
+                            .catch(onFail),
+                    onFail
+                });
+            });
 };

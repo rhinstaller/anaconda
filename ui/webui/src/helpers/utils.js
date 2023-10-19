@@ -15,6 +15,8 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 
+import cockpit from "cockpit";
+
 /* Find duplicates in an array
  * @param {Array} array
  * @returns {Array} The duplicates
@@ -37,4 +39,20 @@ export const checkIfArraysAreEqual = (array1, array2) => {
         array1Sorted.length === array2Sorted.length &&
         array1Sorted.every((value, index) => value === array2Sorted[index])
     );
+};
+
+/* Converts an object with variant values to an object with normal values
+ * @param {Object} dbusObject
+ * @returns {Object} The converted object
+ */
+export const objectFromDBus = (dbusObject) => {
+    return Object.keys(dbusObject).reduce((acc, k) => { acc[k] = dbusObject[k].v; return acc }, {});
+};
+
+/* Converts an object with normal values to an object with variant string values
+ * @param {Object} object
+ * @returns {Object} The converted object
+ */
+export const objectToDBus = (object) => {
+    return Object.keys(object).reduce((acc, k) => { acc[k] = cockpit.variant("s", object[k]); return acc }, {});
 };

@@ -40,16 +40,12 @@ import { SyncAltIcon, TimesIcon } from "@patternfly/react-icons";
 
 import { SystemTypeContext } from "../Common.jsx";
 import { ModifyStorage } from "./ModifyStorage.jsx";
+import { SpecializedDisksSelect } from "./SpecializedDisksSelect.jsx";
 
-import {
-    runStorageTask,
-    scanDevicesWithTask,
-} from "../../apis/storage.js";
-import { resetPartitioning } from "../../apis/storage_partitioning.js";
 import { setSelectedDisks } from "../../apis/storage_disks_selection.js";
 
-import { getDevicesAction, getDiskSelectionAction } from "../../actions/storage-actions.js";
 import { debug } from "../../helpers/log.js";
+import { rescanDevices } from "../../helpers/storage.js";
 import { checkIfArraysAreEqual } from "../../helpers/utils.js";
 
 import "./InstallationDestination.scss";
@@ -83,7 +79,7 @@ const selectDefaultDisks = ({ ignoredDisks, selectedDisks, usableDisks }) => {
     }
 };
 
-const LocalDisksSelect = ({ deviceData, diskSelection, idPrefix, isDisabled, setSelectedDisks }) => {
+const DisksSelect = ({ deviceData, diskSelection, idPrefix, isDisabled, setSelectedDisks }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [inputValue, setInputValue] = useState("");
     const [focusedItemIndex, setFocusedItemIndex] = useState(null);
@@ -284,27 +280,18 @@ const rescanDisks = (setIsRescanningDisks, refUsableDisks, dispatch, errorHandle
     setIsRescanningDisks(true);
     setIsFormDisabled(true);
     refUsableDisks.current = undefined;
-    scanDevicesWithTask()
-            .then(task => {
-                return runStorageTask({
-                    task,
-                    onSuccess: () => resetPartitioning()
-                            .then(() => Promise.all([
-                                dispatch(getDevicesAction()),
-                                dispatch(getDiskSelectionAction())
-                            ]))
-                            .finally(() => {
-                                setIsFormDisabled(false);
-                                setIsRescanningDisks(false);
-                            })
-                            .catch(errorHandler),
-                    onFail: exc => {
-                        setIsFormDisabled(false);
-                        setIsRescanningDisks(false);
-                        errorHandler(exc);
-                    }
-                });
-            });
+    rescanDevices({
+        onSuccess: () => {
+            setIsFormDisabled(false);
+            setIsRescanningDisks(false);
+        },
+        onFail: exc => {
+            setIsFormDisabled(false);
+            setIsRescanningDisks(false);
+            errorHandler(exc);
+        },
+        dispatch,
+    });
 };
 
 export const InstallationDestination = ({
@@ -383,8 +370,8 @@ export const InstallationDestination = ({
         </Button>
     );
 
-    const localDisksSelect = (
-        <LocalDisksSelect
+    const disksSelect = (
+        <DisksSelect
           idPrefix={idPrefix + "-disk-selector"}
           deviceData={deviceData}
           diskSelection={diskSelection}
@@ -398,7 +385,12 @@ export const InstallationDestination = ({
 
     return (
         <>
-            <Title headingLevel={headingLevel} id={idPrefix + "-disk-selector-title"}>{_("Destination")}</Title>
+            <Flex justifyContent={{ default: "justifyContentSpaceBetween" }}>
+                <Title headingLevel={headingLevel} id={idPrefix + "-disk-selector-title"}>
+                    {_("Destination")}
+                </Title>
+                <SpecializedDisksSelect deviceData={deviceData} dispatch={dispatch} />
+            </Flex>
             {equalDisksNotify && equalDisks &&
                 <Alert
                   id="no-disks-detected-alert"
@@ -410,7 +402,7 @@ export const InstallationDestination = ({
             <FormGroup>
                 <Flex spaceItems={{ default: "spaceItemsMd" }} alignItems={{ default: "alignItemsCenter" }}>
                     {(diskSelection.usableDisks.length > 1 || (diskSelection.usableDisks.length === 1 && diskSelection.selectedDisks.length === 0))
-                        ? localDisksSelect
+                        ? disksSelect
                         : (
                             diskSelection.usableDisks.length === 1 && diskSelection.selectedDisks.length === 1
                                 ? (

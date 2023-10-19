@@ -1,0 +1,111 @@
+#!/usr/bin/python3
+#
+# Copyright (C) 2022 Red Hat, Inc.
+#
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation; either version 2.1 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this program; If not, see <http://www.gnu.org/licenses/>.
+
+import anacondalib
+
+from installer import Installer
+from storage import Storage
+from storage_iscsi import StorageISCSIHelpers, StorageISCSILoginDialog, StorageISCSIDiscoverDialog
+from review import Review
+from testlib import test_main  # pylint: disable=import-error
+
+class TestStorageISCSI(anacondalib.VirtInstallMachineCase):
+    provision = {
+        "0": {"address": "10.111.113.1/20", "dns": "10.111.112.100"},
+        "iscsi-server": {
+            "address": "10.111.113.2/20", "dns": "10.111.112.100",
+            "image": "fedora-rawhide", "memory_mb": 512, "inherit_machine_class": False
+        }
+    }
+
+    def testBasicCHAP(self):
+        b = self.browser
+        m = self.machine
+        i = Installer(b, m)
+        s = Storage(b, m)
+        r = Review(b)
+
+        iscsi_server = self.machines['iscsi-server']
+        iscsi = StorageISCSIHelpers(iscsi_server, m)
+
+        orig_iqn = iscsi.get_initiator_iqn()
+        auth_password = iscsi.auth_password
+        discovery_password  = iscsi.discovery_password
+        initiator_iqn = iscsi.initiator_iqn
+        target_iqn = iscsi.target_iqn
+        user_name = iscsi.user_name
+
+        iscsi.setup_iscsi_server()
+
+        i.open()
+        i.reach(i.steps.INSTALLATION_METHOD)
+
+        discover_dialog = StorageISCSIDiscoverDialog(b)
+        discover_dialog.open()
+        # Verify that the default value for IQN is pre-filled
+        b.wait_val("#add-iscsi-target-dialog-initiator-name", orig_iqn)
+        discover_dialog.cancel()
+
+        # Fill incorrect password and verify error
+        discover_dialog = StorageISCSIDiscoverDialog(
+            b, initiator_iqn, "10.111.113.2", user_name, "einszweidrei"
+        )
+        discover_dialog.open()
+        discover_dialog.fill()
+        discover_dialog.submit(xfail="initiator failed authorization")
+        discover_dialog.cancel()
+
+        # Fill the dialog and submit
+        discover_dialog = StorageISCSIDiscoverDialog(
+            b, initiator_iqn, "10.111.113.2", user_name, discovery_password
+        )
+        discover_dialog.open()
+        discover_dialog.fill()
+        b.wait_not_present("#add-iscsi-target-dialog-available-targets li")
+        discover_dialog.submit()
+        # Expect the discovered target to be present in the list
+        discover_dialog.check_available_targets([target_iqn])
+
+        # Login to the target
+        discover_dialog.login(target_iqn)
+
+        # Login to the target
+        # Fill incorrect password and verify error
+        login_dialog = StorageISCSILoginDialog(
+            self.browser,
+            target_iqn,
+            user_name,
+            "einszweidrei",
+        )
+        login_dialog.fill()
+        login_dialog.submit(xfail="Login failed")
+
+        login_dialog = StorageISCSILoginDialog(
+            self.browser,
+            target_iqn,
+            user_name,
+            auth_password,
+        )
+        login_dialog.fill()
+        login_dialog.submit()
+
+        # Select the iSCSI device for the installation destination
+        s.select_disk("vda", False)
+        s.select_disk("sda", True)
+
+if __name__ == '__main__':
+    test_main()

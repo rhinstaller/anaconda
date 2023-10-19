@@ -19,6 +19,7 @@ import anacondalib
 
 from installer import Installer
 from storage import Storage
+from storage_iscsi import StorageISCSIHelpers, StorageISCSILoginDialog, StorageISCSIDiscoverDialog
 from review import Review
 from testlib import nondestructive, test_main  # pylint: disable=import-error
 from storagelib import StorageHelpers  # pylint: disable=import-error

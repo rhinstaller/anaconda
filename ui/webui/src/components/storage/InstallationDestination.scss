@@ -8,7 +8,14 @@
   }
 }
 
-.installation-method-target-disk-size {
-  color: var(--pf-v5-global--Color--200);
-  font-size: var(--pf-v5-global--FontSize--sm);
+// Remove extra margin above form sections
+.pf-v5-c-form.installation-method-selector {
+    .pf-v5-c-form__section {
+        margin-top: 0;
+    }
+
+    // Make the expandable form field groups title bold
+    .pf-v5-c-form__field-group-header-title-text {
+        font-weight: var(--pf-v5-c-form__section-title--FontWeight);
+    }
 }
