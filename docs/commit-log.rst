@@ -5,18 +5,20 @@ git commit messages for anaconda should follow a consistent format.  The
 following are rules to follow when committing a change to the git repo:
 
 1) The first line of the commit message should be a short summary of the
-   change in the patch.  We also place (#BUGNUMBER) at the end of this
-   line to indicate the bugzilla.redhat.com bug number addressed in this
-   patch.  The bug number is optional since there may be no bug number,
-   but if you have one you are addressing, please include it on the
-   summary line.  Lastly, the summary lines need to be short.  Ideally
-   less than 75 characters, but certainly not longer than 80.
+   change in the patch. If the alterations pertain to a specific UI deliverable
+   in Anaconda, begin the line with the lowercase name - gui, webui, tui. We
+   also place (#BUGNUMBER) at the end of this line to indicate the
+   bugzilla.redhat.com bug number addressed in this patch. The bug number is
+   optional since there may be no bug number, but if you have one you are
+   addressing, please include it on the summary line. Lastly, the summary lines
+   need to be short. Ideally less than 75 characters, but certainly not longer
+   than 80.
 
    Here are acceptable first lines for git commit messages::
 
        Check partition and filesystem type on upgrade (#123456)
        Fix bootloader configuration setup on ppc64 (#987654)
-       Introduce a new screen for setting your preferred email client
+       webui: Introduce a new screen for setting your preferred email client
 
    The last one would be a new feature that we didn't have a bug number
    for.
