@@ -16,6 +16,7 @@
 # along with this program; If not, see <http://www.gnu.org/licenses/>.
 
 import os
+import random
 import socket
 import subprocess
 import sys
@@ -136,6 +137,9 @@ class VirtInstallMachine(VirtMachine):
         else:
             boot_arg = ""
 
+        mac = random.randint(0, 255)
+        mac = f'52:54:01:{(mac >> 16) & 0xff:02x}:{(mac >> 8) & 0xff:02x}:{mac & 0xff:02x}'
+
         try:
             self._execute(
                 "virt-install "
@@ -149,13 +153,15 @@ class VirtInstallMachine(VirtMachine):
                 "--noautoconsole "
                 f"--graphics vnc,listen={self.ssh_address} "
                 "--extra-args "
-                f"'inst.sshd inst.webui.remote inst.webui inst.updates=http://10.0.2.2:{self.http_updates_img_port}/updates.img' "
+                f"'inst.sshd inst.nokill inst.webui.remote inst.webui inst.updates=http://10.0.2.2:{self.http_updates_img_port}/updates.img' "
                 "--network none "
                 f"--qemu-commandline="
                 "'-netdev user,id=hostnet0,"
                 f"hostfwd=tcp:{self.ssh_address}:{self.ssh_port}-:22,"
                 f"hostfwd=tcp:{self.web_address}:{self.web_port}-:80 "
-                "-device virtio-net-pci,netdev=hostnet0,id=net0,addr=0x16' "
+                "-device virtio-net-pci,netdev=hostnet0,id=net0,addr=0x16 "
+                "-netdev socket,mcast=230.0.0.1:5500,id=mcast0,localaddr=127.0.0.1 "
+                f"-device virtio-net-pci,netdev=mcast0,mac={mac},addr=0x0f' "
                 f"--initrd-inject {self.payload_ks_path} "
                 f"--extra-args '{extra_args}' "
                 f"--disk path={disk_image},bus=virtio,cache=unsafe "
@@ -165,7 +171,7 @@ class VirtInstallMachine(VirtMachine):
             # Live install ISO does not have sshd service enabled by default
             # so we can't run any Machine.* methods on it.
             if not self.is_live():
-                Machine.wait_boot(self)
+                Machine.wait_boot(self, timeout_sec=180)
 
                 for _ in range(30):
                     try:
