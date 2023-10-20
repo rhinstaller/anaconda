@@ -91,6 +91,34 @@ const getStrengthLevels = (minQualility, isStrict) => {
     return levels;
 };
 
+const rules = [
+    {
+        id: "length",
+        text: (policy) => cockpit.format(_("Must be at least $0 characters"), policy["min-length"].v),
+        check: (policy, password) => password.length >= policy["min-length"].v,
+        isError: true,
+    },
+    {
+        id: "ascii",
+        text: (policy) => _("The passphrase you have provided contains non-ASCII characters. You may not be able to switch between keyboard layouts when typing it."),
+        check: (policy, password) => password.length > 0 && /^[\x20-\x7F]*$/.test(password),
+        isError: false,
+    },
+];
+
+const getRuleResults = (rules, policy, password) => {
+    return rules.map(rule => {
+        return {
+            id: rule.id,
+            text: rule.text(policy, password),
+            isSatisfied: password.length > 0 ? rule.check(policy, password) : null,
+            isError: rule.isError
+        };
+    });
+};
+
+const rulesSatisfied = ruleResults => ruleResults.every(r => r.isSatisfied || !r.isError);
+
 export function getStorageEncryptionState (password = "", confirmPassword = "", encrypt = false) {
     return { password, confirmPassword, encrypt };
 }
@@ -112,36 +140,68 @@ const passwordStrengthLabel = (idPrefix, strength, strengthLevels) => {
 const PasswordFormFields = ({
     idPrefix,
     policy,
-    password,
+    initialPassword,
     passwordLabel,
     onChange,
-    passwordConfirm,
-    passwordConfirmLabel,
+    initialConfirmPassword,
+    confirmPasswordLabel,
     onConfirmChange,
     passwordStrength,
-    ruleLength,
-    ruleConfirmMatches,
-    ruleAscii,
+    rules,
     strengthLevels,
 }) => {
     const [passwordHidden, setPasswordHidden] = useState(true);
     const [confirmHidden, setConfirmHidden] = useState(true);
-    const [_password, _setPassword] = useState(password);
-    const [_passwordConfirm, _setPasswordConfirm] = useState(passwordConfirm);
+    const [_password, _setPassword] = useState(initialPassword);
+    const [_confirmPassword, _setConfirmPassword] = useState(initialConfirmPassword);
+    const [password, setPassword] = useState(initialPassword);
+    const [confirmPassword, setConfirmPassword] = useState(initialConfirmPassword);
 
     useEffect(() => {
-        debounce(300, () => onChange(_password))();
+        debounce(300, () => { setPassword(_password); onChange(_password) })();
     }, [_password, onChange]);
 
     useEffect(() => {
-        debounce(300, () => onConfirmChange(_passwordConfirm))();
-    }, [_passwordConfirm, onConfirmChange]);
+        debounce(300, () => { setConfirmPassword(_confirmPassword); onConfirmChange(_confirmPassword) })();
+    }, [_confirmPassword, onConfirmChange]);
+
+    const ruleResults = useMemo(() => {
+        return getRuleResults(rules, policy, password);
+    }, [policy, password, rules]);
+
+    const ruleConfirmMatches = useMemo(() => {
+        return password.length > 0 ? password === confirmPassword : null;
+    }, [password, confirmPassword]);
+
+    const ruleHelperItems = ruleResults.map(rule => {
+        console.log(rule);
+        let variant = rule.isSatisfied === null ? "indeterminate" : rule.isSatisfied ? "success" : "error";
+        if (!rule.isError) {
+            if (rule.isSatisfied || rule.isSatisfied === null) {
+                return null;
+            }
+            variant = "warning";
+        }
+        return (
+            <HelperTextItem
+              key={rule.id}
+              id={idPrefix + "-password-rule-" + rule.id}
+              isDynamic
+              variant={variant}
+              component="li"
+            >
+                {rule.text}
+            </HelperTextItem>
+        );
+    });
+
+    const ruleConfirmVariant = ruleConfirmMatches === null ? "indeterminate" : ruleConfirmMatches ? "success" : "error";
 
     return (
         <>
             <FormGroup
               label={passwordLabel}
-              labelInfo={ruleLength === "success" && passwordStrengthLabel(idPrefix, passwordStrength, strengthLevels)}
+              labelInfo={rulesSatisfied(ruleResults) && passwordStrengthLabel(idPrefix, passwordStrength, strengthLevels)}
             >
                 <InputGroup>
                     <InputGroupItem isFill>
@@ -164,34 +224,18 @@ const PasswordFormFields = ({
                 </InputGroup>
                 <FormHelperText>
                     <HelperText component="ul" aria-live="polite" id={idPrefix + "-password-field-helper"}>
-                        <HelperTextItem
-                          id={idPrefix + "-password-rule-min-chars"}
-                          isDynamic
-                          variant={ruleLength}
-                          component="li"
-                        >
-                            {cockpit.format(_("Must be at least $0 characters"), policy["min-length"].v)}
-                        </HelperTextItem>
-                        {ruleAscii &&
-                        <HelperTextItem
-                          id={idPrefix + "-password-rule-ascii"}
-                          isDynamic
-                          variant="warning"
-                          component="li"
-                        >
-                            {_("The passphrase you have provided contains non-ASCII characters. You may not be able to switch between keyboard layouts when typing it.")}
-                        </HelperTextItem>}
+                        {ruleHelperItems}
                     </HelperText>
                 </FormHelperText>
             </FormGroup>
             <FormGroup
-              label={passwordConfirmLabel}
+              label={confirmPasswordLabel}
             >
                 <InputGroup>
                     <InputGroupItem isFill><TextInput
                       type={confirmHidden ? "password" : "text"}
-                      value={_passwordConfirm}
-                      onChange={(_event, val) => _setPasswordConfirm(val)}
+                      value={_confirmPassword}
+                      onChange={(_event, val) => _setConfirmPassword(val)}
                       id={idPrefix + "-password-confirm-field"}
                     />
                     </InputGroupItem>
@@ -210,7 +254,7 @@ const PasswordFormFields = ({
                         <HelperTextItem
                           id={idPrefix + "-password-rule-match"}
                           isDynamic
-                          variant={ruleConfirmMatches}
+                          variant={ruleConfirmVariant}
                           component="li"
                         >
                             {_("Passphrases must match")}
@@ -235,18 +279,6 @@ const isValidStrength = (strength, strengthLevels) => {
 
     return level ? level.valid : false;
 };
-
-const getRuleLength = (password, minLength) => {
-    let ruleState = "indeterminate";
-    if (password.length > 0 && password.length < minLength) {
-        ruleState = "error";
-    } else if (password.length >= minLength) {
-        ruleState = "success";
-    }
-    return ruleState;
-};
-
-const getRuleConfirmMatches = (password, confirm) => (password.length > 0 ? (password === confirm ? "success" : "error") : "indeterminate");
 
 const CheckDisksSpinner = (
     <EmptyState id="installation-destination-next-spinner">
@@ -275,18 +307,6 @@ export const DiskEncryption = ({
     const isEncrypted = storageEncryption.encrypt;
     const luksPolicy = passwordPolicies.luks;
 
-    const ruleConfirmMatches = useMemo(() => {
-        return getRuleConfirmMatches(password, confirmPassword);
-    }, [password, confirmPassword]);
-
-    const ruleLength = useMemo(() => {
-        return luksPolicy && getRuleLength(password, luksPolicy["min-length"].v);
-    }, [password, luksPolicy]);
-
-    const ruleAscii = useMemo(() => {
-        return password.length > 0 && !/^[\x20-\x7F]*$/.test(password);
-    }, [password]);
-
     const strengthLevels = useMemo(() => {
         return luksPolicy && getStrengthLevels(luksPolicy["min-quality"].v, luksPolicy["is-strict"].v);
     }, [luksPolicy]);
@@ -305,14 +325,12 @@ export const DiskEncryption = ({
         <PasswordFormFields
           idPrefix={idPrefix}
           policy={luksPolicy}
-          password={password}
+          initialPassword={password}
           passwordLabel={_("Passphrase")}
           passwordStrength={passwordStrength}
-          passwordConfirm={confirmPassword}
-          passwordConfirmLabel={_("Confirm passphrase")}
-          ruleLength={ruleLength}
-          ruleConfirmMatches={ruleConfirmMatches}
-          ruleAscii={ruleAscii}
+          initialConfirmPassword={confirmPassword}
+          confirmPasswordLabel={_("Confirm passphrase")}
+          rules={rules}
           strengthLevels={strengthLevels}
           onChange={setPassword}
           onConfirmChange={setConfirmPassword}
@@ -331,18 +349,17 @@ export const DiskEncryption = ({
         updatePasswordStrength();
     }, [password, strengthLevels]);
 
+    // TODO: use the state set from the child
     useEffect(() => {
         const updateValidity = (isEncrypted) => {
             const passphraseValid = (
-                ruleLength === "success" &&
-                ruleConfirmMatches === "success" &&
                 isValidStrength(passwordStrength, strengthLevels)
             );
             setIsFormValid(!isEncrypted || passphraseValid);
         };
 
         updateValidity(isEncrypted);
-    }, [setIsFormValid, isEncrypted, ruleConfirmMatches, ruleLength, passwordStrength, strengthLevels]);
+    }, [setIsFormValid, isEncrypted, passwordStrength, strengthLevels]);
 
     useEffect(() => {
         setStorageEncryption(se => ({ ...se, password }));

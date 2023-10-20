@@ -165,7 +165,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         )
 
         # No password set
-        s.check_pw_rule("min-chars", "indeterminate")
+        s.check_pw_rule("length", "indeterminate")
         s.check_pw_rule("match", "indeterminate")
         i.check_next_disabled()
 
@@ -173,21 +173,21 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         s.set_password("abcd")
         s.check_pw_strength(None)
         i.check_next_disabled()
-        s.check_pw_rule("min-chars", "error")
+        s.check_pw_rule("length", "error")
         s.check_pw_rule("match", "error")
 
         # Make the pw 8 chars long
         s.set_password("efgh", append=True, value_check=False)
         i.check_next_disabled()
         s.check_password("abcdefgh")
-        s.check_pw_rule("min-chars", "success")
+        s.check_pw_rule("length", "success")
         s.check_pw_rule("match", "error")
         s.check_pw_strength("weak")
 
         # Non-ASCII password
         s.set_password(8 * "š")
         s.check_password(8 * "š")
-        s.check_pw_rule("min-chars", "success")
+        s.check_pw_rule("length", "success")
         s.check_pw_rule("match", "error")
         s.check_pw_rule("ascii", "warning")
         s.check_pw_strength("weak")
@@ -201,7 +201,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         s.check_pw_rule("match", "error")
         s.set_password_confirm("abcdefgh")
         s.check_pw_rule("match", "success")
-        s.check_pw_rule("min-chars", "success")
+        s.check_pw_rule("length", "success")
         s.check_pw_strength("weak")
         s.check_password("abcdefgh")
         s.check_password_confirm("abcdefgh")
