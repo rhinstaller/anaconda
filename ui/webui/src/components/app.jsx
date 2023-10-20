@@ -149,6 +149,7 @@ export const Application = () => {
                                   title={title}
                                   storageData={state.storage}
                                   localizationData={state.localization}
+                                  runtimeData={state.runtime}
                                   dispatch={dispatch}
                                   conf={conf}
                                   osRelease={osRelease}

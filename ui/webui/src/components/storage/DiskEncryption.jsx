@@ -47,8 +47,6 @@ import CheckCircleIcon from "@patternfly/react-icons/dist/esm/icons/check-circle
 
 import "./DiskEncryption.scss";
 
-import { getPasswordPolicies } from "../../apis/runtime.js";
-
 const _ = cockpit.gettext;
 
 /* Calculate the password quality levels based on the password policy
@@ -113,7 +111,7 @@ const passwordStrengthLabel = (idPrefix, strength, strengthLevels) => {
 // TODO create strengthLevels object with methods passed to the component ?
 const PasswordFormFields = ({
     idPrefix,
-    luksPolicies,
+    policy,
     password,
     passwordLabel,
     onChange,
@@ -172,7 +170,7 @@ const PasswordFormFields = ({
                           variant={ruleLength}
                           component="li"
                         >
-                            {cockpit.format(_("Must be at least $0 characters"), luksPolicies["min-length"].v)}
+                            {cockpit.format(_("Must be at least $0 characters"), policy["min-length"].v)}
                         </HelperTextItem>
                         {ruleAscii &&
                         <HelperTextItem
@@ -269,32 +267,29 @@ export const DiskEncryption = ({
     setIsFormValid,
     storageEncryption,
     setStorageEncryption,
+    passwordPolicies,
 }) => {
     const [password, setPassword] = useState(storageEncryption.password);
     const [confirmPassword, setConfirmPassword] = useState(storageEncryption.confirmPassword);
     const [passwordStrength, setPasswordStrength] = useState("");
     const isEncrypted = storageEncryption.encrypt;
-    const [luksPolicies, setLuksPolicies] = useState();
-
-    useEffect(() => {
-        getPasswordPolicies().then(policies => setLuksPolicies(policies.luks));
-    }, []);
+    const luksPolicy = passwordPolicies.luks;
 
     const ruleConfirmMatches = useMemo(() => {
         return getRuleConfirmMatches(password, confirmPassword);
     }, [password, confirmPassword]);
 
     const ruleLength = useMemo(() => {
-        return luksPolicies && getRuleLength(password, luksPolicies["min-length"].v);
-    }, [password, luksPolicies]);
+        return luksPolicy && getRuleLength(password, luksPolicy["min-length"].v);
+    }, [password, luksPolicy]);
 
     const ruleAscii = useMemo(() => {
         return password.length > 0 && !/^[\x20-\x7F]*$/.test(password);
     }, [password]);
 
     const strengthLevels = useMemo(() => {
-        return luksPolicies && getStrengthLevels(luksPolicies["min-quality"].v, luksPolicies["is-strict"].v);
-    }, [luksPolicies]);
+        return luksPolicy && getStrengthLevels(luksPolicy["min-quality"].v, luksPolicy["is-strict"].v);
+    }, [luksPolicy]);
 
     const encryptedDevicesCheckbox = content => (
         <Checkbox
@@ -309,7 +304,7 @@ export const DiskEncryption = ({
     const passphraseForm = (
         <PasswordFormFields
           idPrefix={idPrefix}
-          luksPolicies={luksPolicies}
+          policy={luksPolicy}
           password={password}
           passwordLabel={_("Passphrase")}
           passwordStrength={passwordStrength}
@@ -357,7 +352,7 @@ export const DiskEncryption = ({
         setStorageEncryption(se => ({ ...se, confirmPassword }));
     }, [confirmPassword, setStorageEncryption]);
 
-    if (isInProgress || !luksPolicies) {
+    if (isInProgress) {
         return CheckDisksSpinner;
     }
 

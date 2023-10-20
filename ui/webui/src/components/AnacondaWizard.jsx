@@ -53,7 +53,7 @@ import { SystemTypeContext, OsReleaseContext } from "./Common.jsx";
 const _ = cockpit.gettext;
 const N_ = cockpit.noop;
 
-export const AnacondaWizard = ({ dispatch, storageData, localizationData, onCritFail, title, conf }) => {
+export const AnacondaWizard = ({ dispatch, storageData, localizationData, runtimeData, onCritFail, title, conf }) => {
     const [isFormDisabled, setIsFormDisabled] = useState(false);
     const [isFormValid, setIsFormValid] = useState(false);
     const [requiredMountPoints, setRequiredMountPoints] = useState();
@@ -133,7 +133,11 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, onCrit
                 ...getMountPointMappingProps({ storageScenarioId })
             }, {
                 component: DiskEncryption,
-                data: { storageEncryption, setStorageEncryption },
+                data: {
+                    storageEncryption,
+                    setStorageEncryption,
+                    passwordPolicies: runtimeData.passwordPolicies,
+                },
                 ...getDiskEncryptionProps({ storageScenarioId })
             }]
         },
