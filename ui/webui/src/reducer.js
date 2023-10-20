@@ -45,12 +45,18 @@ export const errorInitialState = {
     criticalError: null
 };
 
+/* Intial state for the runtime store substate */
+export const runtimeInitialState = {
+    connected: null
+};
+
 /* Initial state for the global store */
 export const initialState = {
     localization: localizationInitialState,
     storage: storageInitialState,
     network: networkInitialState,
     error: errorInitialState,
+    runtime: runtimeInitialState,
 };
 
 /* Custom hook to use the reducer with async actions */
@@ -77,7 +83,8 @@ export const reducer = (state, action) => {
         localization: localizationReducer(state.localization, action),
         storage: storageReducer(state.storage, action),
         network: networkReducer(state.network, action),
-        error: errorReducer(state.error, action)
+        error: errorReducer(state.error, action),
+        runtime: runtimeReducer(state.runtime, action),
     });
 };
 
@@ -116,6 +123,14 @@ export const networkReducer = (state = networkInitialState, action) => {
 const errorReducer = (state = errorInitialState, action) => {
     if (action.type === "SET_CRITICAL_ERROR") {
         return { ...state, criticalError: action.payload.criticalError };
+    } else {
+        return state;
+    }
+};
+
+export const runtimeReducer = (state = runtimeInitialState, action) => {
+    if (action.type === "GET_RUNTIME_PASSWORD_POLICIES") {
+        return { ...state, passwordPolicies: action.payload.passwordPolicies };
     } else {
         return state;
     }

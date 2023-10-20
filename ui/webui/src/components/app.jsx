@@ -34,7 +34,7 @@ import { BossClient } from "../apis/boss.js";
 import { LocalizationClient, initDataLocalization, startEventMonitorLocalization } from "../apis/localization.js";
 import { StorageClient, initDataStorage, startEventMonitorStorage } from "../apis/storage.js";
 import { PayloadsClient } from "../apis/payloads";
-import { RuntimeClient } from "../apis/runtime";
+import { RuntimeClient, initDataRuntime, startEventMonitorRuntime } from "../apis/runtime";
 import { NetworkClient, initDataNetwork, startEventMonitorNetwork } from "../apis/network.js";
 
 import { setCriticalErrorAction } from "../actions/miscellaneous-actions.js";
@@ -87,12 +87,14 @@ export const Application = () => {
                 initDataStorage({ dispatch }),
                 initDataLocalization({ dispatch }),
                 initDataNetwork({ dispatch }),
+                initDataRuntime({ dispatch }),
             ])
                     .then(() => {
                         setStoreInitialized(true);
                         startEventMonitorStorage({ dispatch });
                         startEventMonitorLocalization({ dispatch });
                         startEventMonitorNetwork({ dispatch });
+                        startEventMonitorRuntime({ dispatch });
                     }, onCritFail({ context: N_("Reading information about the computer failed.") }));
         });
 
