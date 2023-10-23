@@ -27,18 +27,9 @@ import {
 
 import "./Accounts.scss";
 
-import { PasswordFormFields } from "../Password.jsx";
+import { PasswordFormFields, ruleLength } from "../Password.jsx";
 
 const _ = cockpit.gettext;
-
-const rules = [
-    {
-        id: "length",
-        text: (policy) => cockpit.format(_("Must be at least $0 characters"), policy["min-length"].v),
-        check: (policy, password) => password.length >= policy["min-length"].v,
-        isWarning: false,
-    },
-];
 
 const CreateAccount = ({
     idPrefix,
@@ -63,7 +54,7 @@ const CreateAccount = ({
           passwordLabel={_("Passphrase")}
           initialConfirmPassword={confirmPassword}
           confirmPasswordLabel={_("Confirm passphrase")}
-          rules={rules}
+          rules={[ruleLength]}
           onChange={setPassword}
           onConfirmChange={setConfirmPassword}
           setIsValid={setIsPasswordValid}

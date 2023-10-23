@@ -33,24 +33,16 @@ import {
 
 import "./DiskEncryption.scss";
 
-import { PasswordFormFields } from "../Password.jsx";
+import { PasswordFormFields, ruleLength } from "../Password.jsx";
 
 const _ = cockpit.gettext;
 
-const rules = [
-    {
-        id: "length",
-        text: (policy) => cockpit.format(_("Must be at least $0 characters"), policy["min-length"].v),
-        check: (policy, password) => password.length >= policy["min-length"].v,
-        isError: true,
-    },
-    {
-        id: "ascii",
-        text: (policy) => _("The passphrase you have provided contains non-ASCII characters. You may not be able to switch between keyboard layouts when typing it."),
-        check: (policy, password) => password.length > 0 && /^[\x20-\x7F]*$/.test(password),
-        isError: false,
-    },
-];
+const ruleAscii = {
+    id: "ascii",
+    text: (policy) => _("The passphrase you have provided contains non-ASCII characters. You may not be able to switch between keyboard layouts when typing it."),
+    check: (policy, password) => password.length > 0 && /^[\x20-\x7F]*$/.test(password),
+    isError: false,
+};
 
 export function getStorageEncryptionState (password = "", confirmPassword = "", encrypt = false) {
     return { password, confirmPassword, encrypt };
@@ -100,7 +92,7 @@ export const DiskEncryption = ({
           passwordLabel={_("Passphrase")}
           initialConfirmPassword={confirmPassword}
           confirmPasswordLabel={_("Confirm passphrase")}
-          rules={rules}
+          rules={[ruleLength, ruleAscii]}
           onChange={setPassword}
           onConfirmChange={setConfirmPassword}
           setIsValid={setIsFormValid}
