@@ -136,7 +136,6 @@ const passwordStrengthLabel = (idPrefix, strength, strengthLevels) => {
     }
 };
 
-// TODO create strengthLevels object with methods passed to the component ?
 const PasswordFormFields = ({
     idPrefix,
     policy,
@@ -146,9 +145,8 @@ const PasswordFormFields = ({
     initialConfirmPassword,
     confirmPasswordLabel,
     onConfirmChange,
-    passwordStrength,
     rules,
-    strengthLevels,
+    setIsValid,
 }) => {
     const [passwordHidden, setPasswordHidden] = useState(true);
     const [confirmHidden, setConfirmHidden] = useState(true);
@@ -156,6 +154,7 @@ const PasswordFormFields = ({
     const [_confirmPassword, _setConfirmPassword] = useState(initialConfirmPassword);
     const [password, setPassword] = useState(initialPassword);
     const [confirmPassword, setConfirmPassword] = useState(initialConfirmPassword);
+    const [passwordStrength, setPasswordStrength] = useState("");
 
     useEffect(() => {
         debounce(300, () => { setPassword(_password); onChange(_password) })();
@@ -196,6 +195,26 @@ const PasswordFormFields = ({
     });
 
     const ruleConfirmVariant = ruleConfirmMatches === null ? "indeterminate" : ruleConfirmMatches ? "success" : "error";
+
+    const strengthLevels = useMemo(() => {
+        return policy && getStrengthLevels(policy["min-quality"].v, policy["is-strict"].v);
+    }, [policy]);
+
+    useEffect(() => {
+        const updatePasswordStrength = async () => {
+            const _passwordStrength = await getPasswordStrength(password, strengthLevels);
+            setPasswordStrength(_passwordStrength);
+        };
+        updatePasswordStrength();
+    }, [password, strengthLevels]);
+
+    useEffect(() => {
+        setIsValid(
+            rulesSatisfied(ruleResults) &&
+            ruleConfirmMatches &&
+            isValidStrength(passwordStrength, strengthLevels)
+        );
+    }, [setIsValid, ruleResults, ruleConfirmMatches, passwordStrength, strengthLevels]);
 
     return (
         <>
@@ -303,13 +322,8 @@ export const DiskEncryption = ({
 }) => {
     const [password, setPassword] = useState(storageEncryption.password);
     const [confirmPassword, setConfirmPassword] = useState(storageEncryption.confirmPassword);
-    const [passwordStrength, setPasswordStrength] = useState("");
     const isEncrypted = storageEncryption.encrypt;
     const luksPolicy = passwordPolicies.luks;
-
-    const strengthLevels = useMemo(() => {
-        return luksPolicy && getStrengthLevels(luksPolicy["min-quality"].v, luksPolicy["is-strict"].v);
-    }, [luksPolicy]);
 
     const encryptedDevicesCheckbox = content => (
         <Checkbox
@@ -327,39 +341,18 @@ export const DiskEncryption = ({
           policy={luksPolicy}
           initialPassword={password}
           passwordLabel={_("Passphrase")}
-          passwordStrength={passwordStrength}
           initialConfirmPassword={confirmPassword}
           confirmPasswordLabel={_("Confirm passphrase")}
           rules={rules}
-          strengthLevels={strengthLevels}
           onChange={setPassword}
           onConfirmChange={setConfirmPassword}
+          setIsValid={setIsFormValid}
         />
     );
 
     useEffect(() => {
-        if (!strengthLevels) {
-            return;
-        }
-
-        const updatePasswordStrength = async () => {
-            const _passwordStrength = await getPasswordStrength(password, strengthLevels);
-            setPasswordStrength(_passwordStrength);
-        };
-        updatePasswordStrength();
-    }, [password, strengthLevels]);
-
-    // TODO: use the state set from the child
-    useEffect(() => {
-        const updateValidity = (isEncrypted) => {
-            const passphraseValid = (
-                isValidStrength(passwordStrength, strengthLevels)
-            );
-            setIsFormValid(!isEncrypted || passphraseValid);
-        };
-
-        updateValidity(isEncrypted);
-    }, [setIsFormValid, isEncrypted, passwordStrength, strengthLevels]);
+        setIsFormValid(!isEncrypted);
+    }, [setIsFormValid, isEncrypted]);
 
     useEffect(() => {
         setStorageEncryption(se => ({ ...se, password }));
