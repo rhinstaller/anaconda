@@ -28,18 +28,16 @@ import gi
 gi.require_version("Gdk", "3.0")
 gi.require_version("Gtk", "3.0")
 gi.require_version("AnacondaWidgets", "3.4")
-gi.require_version("Keybinder", "3.0")
 gi.require_version("GdkPixbuf", "2.0")
 gi.require_version("GObject", "2.0")
 
-from gi.repository import Gdk, Gtk, AnacondaWidgets, Keybinder, GdkPixbuf, GObject
+from gi.repository import Gdk, Gtk, AnacondaWidgets, GdkPixbuf, GObject
 
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, C_
 from pyanaconda.core.constants import WINDOW_TITLE_TEXT
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core import util, constants
-from pyanaconda.core.path import make_directories
 from pyanaconda.core.product import get_product_is_final_release
 from pyanaconda.core.threads import thread_manager
 
@@ -362,12 +360,6 @@ class MainWindow(Gtk.Window):
         self._language = None
         self.reapply_language()
 
-        # Keybinder from GI needs to be initialized before use
-        Keybinder.init()
-        Keybinder.bind("<Shift>Print", self._handle_print_screen, [])
-
-        self._screenshot_index = 0
-
     def _on_delete_event(self, widget, event, user_data=None):
         # Use the quit-clicked signal on the the current standalone, even if the
         # standalone is not currently displayed.
@@ -538,34 +530,6 @@ class MainWindow(Gtk.Window):
 
         self._language = os.environ["LANG"]
         watch_children(self, self._on_child_added, self._language)
-
-    def _handle_print_screen(self, *args, **kwargs):
-        self.take_screenshot()
-
-    def take_screenshot(self, name=None):
-        """Take a screenshot of the whole screen (works even with multiple displays).
-
-        :param name: optional name for the screenshot that will be appended to the filename,
-                     after the standard prefix & screenshot number
-        :type name: str or NoneType
-        """
-        # Make sure the screenshot directory exists.
-        make_directories(constants.SCREENSHOTS_DIRECTORY)
-
-        if name is None:
-            screenshot_filename = "screenshot-%04d.png" % self._screenshot_index
-        else:
-            screenshot_filename = "screenshot-%04d-%s.png" % (self._screenshot_index, name)
-
-        fn = os.path.join(constants.SCREENSHOTS_DIRECTORY, screenshot_filename)
-
-        root_window = self.current_window.get_window()
-        pixbuf = Gdk.pixbuf_get_from_window(root_window, 0, 0,
-                                            root_window.get_width(),
-                                            root_window.get_height())
-        pixbuf.savev(fn, 'png', [], [])
-        log.info("%s taken", screenshot_filename)
-        self._screenshot_index += 1
 
 
 class GraphicalUserInterface(UserInterface):

@@ -239,9 +239,6 @@ NOTICEABLE_FREEZE = 0.1
 # all ASCII characters
 PW_ASCII_CHARS = string.digits + string.ascii_letters + string.punctuation + " "
 
-# screenshots
-SCREENSHOTS_DIRECTORY = "/tmp/anaconda-screenshots"
-
 PACKAGES_LIST_FILE = "/root/lorax-packages.log"
 
 CMDLINE_FILES = [

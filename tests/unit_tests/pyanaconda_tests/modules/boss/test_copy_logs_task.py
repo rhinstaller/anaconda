@@ -31,7 +31,6 @@ class CopyLogsTaskTest(unittest.TestCase):
                      glob_mock):
         """Test the log copying task."""
         glob_mock.side_effect = [
-            ["/tmp/anaconda-screenshots/screenshot-0001.png"],
             ["/tmp/ks-script-blabblah.log"],
             ["/somewhere/var/log/anaconda/anaconda.log"]
         ]
@@ -54,8 +53,6 @@ class CopyLogsTaskTest(unittest.TestCase):
             )
 
         copy_file_mock.assert_has_calls([
-            call("/tmp/anaconda-screenshots/screenshot-0001.png",
-                 "/root/anaconda-screenshots/screenshot-0001.png"),
             call("/root/lorax-packages.log", "/var/log/anaconda/lorax-packages.log"),
             call("/tmp/ks-script-blabblah.log", "/var/log/anaconda/ks-script-blabblah.log"),
             call("/tmp/journal.log", "/var/log/anaconda/journal.log")
@@ -67,7 +64,6 @@ class CopyLogsTaskTest(unittest.TestCase):
         ])
 
         glob_mock.assert_has_calls([
-            call("/tmp/anaconda-screenshots/*.png"),
             call("/tmp/ks-script*.log")
         ])
         open_mock.assert_called_once_with("/tmp/journal.log", "w")
@@ -96,7 +92,6 @@ class CopyLogsTaskTest(unittest.TestCase):
     def test_nosave_logs(self, open_mock, conf_mock, mkdir_mock, exec_wr_mock, glob_mock):
         """Test nosave for logs"""
         glob_mock.side_effect = [
-            [],  # no screenshots
             []   # no script logs
         ]
         conf_mock.target.can_save_installation_logs = False
@@ -112,7 +107,6 @@ class CopyLogsTaskTest(unittest.TestCase):
             "/root/original-ks.cfg"
         )
 
-        glob_mock.assert_called_once_with("/tmp/anaconda-screenshots/*.png")
         exec_wr_mock.assert_not_called()
         mkdir_mock.assert_not_called()
         copy_tree_mock.assert_not_called()
@@ -126,7 +120,6 @@ class CopyLogsTaskTest(unittest.TestCase):
     def test_nosave_input_ks(self, open_mock, conf_mock, mkdir_mock, exec_wr_mock, glob_mock):
         """Test nosave for kickstart"""
         glob_mock.side_effect = [
-            [],  # no screenshots
             ["/somewhere/var/log/anaconda/anaconda.log"]
         ]
         conf_mock.target.can_save_installation_logs = True
@@ -156,7 +149,6 @@ class CopyLogsTaskTest(unittest.TestCase):
                                       glob_mock):
         """Test nosave for both logs and kickstart"""
         glob_mock.side_effect = [
-            [],  # no screenshots
             []   # no script logs
         ]
         conf_mock.target.can_save_installation_logs = False
@@ -166,8 +158,6 @@ class CopyLogsTaskTest(unittest.TestCase):
         with patch.object(CopyLogsTask, "_copy_file_to_sysroot") as copy_file_mock:
             with patch.object(CopyLogsTask, "_copy_tree_to_sysroot") as copy_tree_mock:
                 task.run()
-
-        glob_mock.assert_called_once_with("/tmp/anaconda-screenshots/*.png")
 
         exec_wr_mock.assert_not_called()
         mkdir_mock.assert_not_called()
