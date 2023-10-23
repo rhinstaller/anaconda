@@ -17,6 +17,9 @@
 
 import cockpit from "cockpit";
 
+import { getPasswordPoliciesAction } from "../actions/runtime-actions.js";
+import { debug } from "../helpers/log.js";
+
 export class RuntimeClient {
     constructor (address) {
         if (RuntimeClient.instance && (!address || RuntimeClient.instance.address === address)) {
@@ -77,4 +80,29 @@ export const getPasswordPolicies = () => {
         )
                 .then(res => res[0].v)
     );
+};
+
+export const startEventMonitorRuntime = ({ dispatch }) => {
+    return new RuntimeClient().client.subscribe(
+        { },
+        (path, iface, signal, args) => {
+            switch (signal) {
+            case "PropertiesChanged":
+                if (args[0] === "org.fedoraproject.Anaconda.Modules.Runtime.UserInterface" && Object.hasOwn(args[1], "PasswordPolicies")) {
+                    dispatch(getPasswordPoliciesAction());
+                } else {
+                    debug(`Unhandled signal on ${path}: ${iface}.${signal}`, JSON.stringify(args));
+                }
+                break;
+            default:
+                debug(`Unhandled signal on ${path}: ${iface}.${signal}`, JSON.stringify(args));
+            }
+        }
+    );
+};
+
+export const initDataRuntime = ({ dispatch }) => {
+    return Promise.all([
+        dispatch(getPasswordPoliciesAction())
+    ]);
 };
