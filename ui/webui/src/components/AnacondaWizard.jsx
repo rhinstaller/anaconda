@@ -146,7 +146,9 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, runtim
         },
         {
             component: Accounts,
-            data: {},
+            data: {
+                passwordPolicies: runtimeData.passwordPolicies,
+            },
             ...getAccountsProps()
         },
         {

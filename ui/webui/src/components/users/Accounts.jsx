@@ -27,15 +27,48 @@ import {
 
 import "./Accounts.scss";
 
+import { PasswordFormFields } from "../Password.jsx";
+
 const _ = cockpit.gettext;
+
+const rules = [
+    {
+        id: "length",
+        text: (policy) => cockpit.format(_("Must be at least $0 characters"), policy["min-length"].v),
+        check: (policy, password) => password.length >= policy["min-length"].v,
+        isWarning: false,
+    },
+];
 
 const CreateAccount = ({
     idPrefix,
+    passwordPolicy,
+    setIsUserValid,
 }) => {
     const [fullName, setFullName] = useState();
     const [userAccount, setUserAccount] = useState();
-    const [password, setPassword] = useState();
-    const [confirmPassword, setConfirmPassword] = useState();
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [isPasswordValid, setIsPasswordValid] = useState(false);
+
+    useEffect(() => {
+        setIsUserValid(isPasswordValid);
+    }, [setIsUserValid, isPasswordValid]);
+
+    const passphraseForm = (
+        <PasswordFormFields
+          idPrefix={idPrefix + "-create-account-password-form"}
+          policy={passwordPolicy}
+          initialPassword={password}
+          passwordLabel={_("Passphrase")}
+          initialConfirmPassword={confirmPassword}
+          confirmPasswordLabel={_("Confirm passphrase")}
+          rules={rules}
+          onChange={setPassword}
+          onConfirmChange={setConfirmPassword}
+          setIsValid={setIsPasswordValid}
+        />
+    );
 
     return (
         <Form
@@ -69,26 +102,7 @@ const CreateAccount = ({
                   onChange={(_event, val) => setUserAccount(val)}
                 />
             </FormGroup>
-            <FormGroup
-              label={_("Password")}
-              fieldId={idPrefix + "-create-account-password"}
-            >
-                <TextInput
-                  id={idPrefix + "-create-account-password"}
-                  value={password}
-                  onChange={(_event, val) => setPassword}
-                />
-            </FormGroup>
-            <FormGroup
-              label={_("Confirm password")}
-              fieldId={idPrefix + "-create-account-confirm-password"}
-            >
-                <TextInput
-                  id={idPrefix + "-create-account-confirm-password"}
-                  value={confirmPassword}
-                  onChange={(_event, val) => setConfirmPassword}
-                />
-            </FormGroup>
+            {passphraseForm}
         </Form>
     );
 };
@@ -96,15 +110,19 @@ const CreateAccount = ({
 export const Accounts = ({
     idPrefix,
     setIsFormValid,
+    passwordPolicies,
 }) => {
+    const [isUserValid, setIsUserValid] = useState();
     useEffect(() => {
-        setIsFormValid(true);
-    }, [setIsFormValid]);
+        setIsFormValid(isUserValid);
+    }, [setIsFormValid, isUserValid]);
 
     return (
         <>
             <CreateAccount
               idPrefix={idPrefix}
+              passwordPolicy={passwordPolicies.user}
+              setIsUserValid={setIsUserValid}
             />
         </>
     );
