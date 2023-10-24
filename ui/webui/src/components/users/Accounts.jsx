@@ -36,15 +36,15 @@ const CreateAccount = ({
     passwordPolicy,
     setIsUserValid,
 }) => {
-    const [fullName, setFullName] = useState();
-    const [userAccount, setUserAccount] = useState();
+    const [fullName, setFullName] = useState("");
+    const [userAccount, setUserAccount] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [isPasswordValid, setIsPasswordValid] = useState(false);
 
     useEffect(() => {
-        setIsUserValid(isPasswordValid);
-    }, [setIsUserValid, isPasswordValid]);
+        setIsUserValid(isPasswordValid && userAccount.length > 0);
+    }, [setIsUserValid, isPasswordValid, userAccount]);
 
     const passphraseForm = (
         <PasswordFormFields
