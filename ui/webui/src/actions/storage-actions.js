@@ -40,9 +40,8 @@ export const getDevicesAction = () => {
     return async (dispatch) => {
         try {
             const devices = await getDevices();
-            const devicesData = await Promise.all(devices[0].map(async (device) => {
-                let devData = await getDeviceData({ disk: device });
-                devData = devData[0];
+            const devicesData = await Promise.all(devices.map(async (device) => {
+                const devData = await getDeviceData({ disk: device });
 
                 const free = await getDiskFreeSpace({ diskNames: [device] });
                 // extend it with variants to keep the format consistent
@@ -81,7 +80,7 @@ export const getDiskSelectionAction = () => {
                     diskSelection: {
                         ignoredDisks: diskSelection[0].IgnoredDisks.v,
                         selectedDisks: diskSelection[0].SelectedDisks.v,
-                        usableDisks: usableDisks[0],
+                        usableDisks,
                     }
                 },
             });
@@ -102,7 +101,7 @@ export const getPartitioningDataAction = ({ requests, partitioning }) => {
                 if (props.method === "MANUAL") {
                     const reqs = await gatherRequests({ partitioning });
 
-                    props.requests = convertRequests(reqs[0]);
+                    props.requests = convertRequests(reqs);
                 }
             } else {
                 props.requests = convertRequests(requests);

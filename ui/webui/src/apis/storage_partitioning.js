@@ -26,6 +26,20 @@ import {
 import {
     setInitializeLabelsEnabled,
 } from "./storage_disk_initialization.js";
+import { _callClient, _getProperty } from "./helpers.js";
+
+const INTERFACE_NAME_STORAGE = "org.fedoraproject.Anaconda.Modules.Storage";
+const INTERFACE_NAME_PARTITIONING = "org.fedoraproject.Anaconda.Modules.Storage.Partitioning";
+const INTERFACE_NAME_PARTITIONING_MANUAL = "org.fedoraproject.Anaconda.Modules.Storage.Partitioning.Manual";
+const INTERFACE_NAME_PARTITIONING_AUTOMATIC = "org.fedoraproject.Anaconda.Modules.Storage.Partitioning.Automatic";
+const OBJECT_PATH = "/org/fedoraproject/Anaconda/Modules/Storage";
+
+const callClient = (...args) => {
+    return _callClient(StorageClient, OBJECT_PATH, INTERFACE_NAME_STORAGE, ...args);
+};
+const getProperty = (...args) => {
+    return _getProperty(StorageClient, OBJECT_PATH, INTERFACE_NAME_STORAGE, ...args);
+};
 
 /**
  * @param {string} partitioning DBus path to a partitioning
@@ -33,11 +47,7 @@ import {
  * @returns {Promise}           Resolves the DBus path to the partitioning
  */
 export const applyPartitioning = ({ partitioning }) => {
-    return new StorageClient().client.call(
-        "/org/fedoraproject/Anaconda/Modules/Storage",
-        "org.fedoraproject.Anaconda.Modules.Storage",
-        "ApplyPartitioning", [partitioning]
-    );
+    return callClient("ApplyPartitioning", [partitioning]);
 };
 
 /**
@@ -46,11 +56,7 @@ export const applyPartitioning = ({ partitioning }) => {
  * @returns {Promise}           Resolves the DBus path to the partitioning
  */
 export const createPartitioning = ({ method }) => {
-    return new StorageClient().client.call(
-        "/org/fedoraproject/Anaconda/Modules/Storage",
-        "org.fedoraproject.Anaconda.Modules.Storage",
-        "CreatePartitioning", [method]
-    );
+    return callClient("CreatePartitioning", [method]);
 };
 
 /**
@@ -60,7 +66,7 @@ export const createPartitioning = ({ method }) => {
 export const partitioningSetPassphrase = ({ partitioning, passphrase }) => {
     return new StorageClient().client.call(
         partitioning,
-        "org.fedoraproject.Anaconda.Modules.Storage.Partitioning.Automatic",
+        INTERFACE_NAME_PARTITIONING_AUTOMATIC,
         "SetPassphrase", [passphrase]
     );
 };
@@ -87,7 +93,7 @@ export const getPartitioningRequest = ({ partitioning }) => {
             "org.freedesktop.DBus.Properties",
             "Get",
             [
-                "org.fedoraproject.Anaconda.Modules.Storage.Partitioning.Automatic",
+                INTERFACE_NAME_PARTITIONING_AUTOMATIC,
                 "Request",
             ]
         )
@@ -107,7 +113,7 @@ export const getPartitioningMethod = ({ partitioning }) => {
             "org.freedesktop.DBus.Properties",
             "Get",
             [
-                "org.fedoraproject.Anaconda.Modules.Storage.Partitioning",
+                INTERFACE_NAME_PARTITIONING,
                 "PartitioningMethod",
             ]
         )
@@ -119,18 +125,7 @@ export const getPartitioningMethod = ({ partitioning }) => {
  * @returns {Promise}           The applied partitioning
  */
 export const getAppliedPartitioning = () => {
-    return (
-        new StorageClient().client.call(
-            "/org/fedoraproject/Anaconda/Modules/Storage",
-            "org.freedesktop.DBus.Properties",
-            "Get",
-            [
-                "org.fedoraproject.Anaconda.Modules.Storage",
-                "AppliedPartitioning",
-            ]
-        )
-                .then(res => res[0].v)
-    );
+    return getProperty("AppliedPartitioning");
 };
 
 /**
@@ -143,7 +138,7 @@ export const setPartitioningRequest = ({ partitioning, request }) => {
         "org.freedesktop.DBus.Properties",
         "Set",
         [
-            "org.fedoraproject.Anaconda.Modules.Storage.Partitioning.Automatic",
+            INTERFACE_NAME_PARTITIONING_AUTOMATIC,
             "Request",
             cockpit.variant("a{sv}", request)
         ]
@@ -158,17 +153,13 @@ export const setPartitioningRequest = ({ partitioning, request }) => {
 export const partitioningConfigureWithTask = ({ partitioning }) => {
     return new StorageClient().client.call(
         partitioning,
-        "org.fedoraproject.Anaconda.Modules.Storage.Partitioning",
+        INTERFACE_NAME_PARTITIONING,
         "ConfigureWithTask", []
     );
 };
 
 export const resetPartitioning = () => {
-    return new StorageClient().client.call(
-        "/org/fedoraproject/Anaconda/Modules/Storage",
-        "org.fedoraproject.Anaconda.Modules.Storage",
-        "ResetPartitioning", []
-    );
+    return callClient("ResetPartitioning", []);
 };
 
 /*
@@ -181,7 +172,7 @@ export const setManualPartitioningRequests = ({ partitioning, requests }) => {
         "org.freedesktop.DBus.Properties",
         "Set",
         [
-            "org.fedoraproject.Anaconda.Modules.Storage.Partitioning.Manual",
+            INTERFACE_NAME_PARTITIONING_MANUAL,
             "Requests",
             cockpit.variant("aa{sv}", requests)
         ]
@@ -196,17 +187,17 @@ export const setManualPartitioningRequests = ({ partitioning, requests }) => {
 export const gatherRequests = ({ partitioning }) => {
     return new StorageClient().client.call(
         partitioning,
-        "org.fedoraproject.Anaconda.Modules.Storage.Partitioning.Manual",
+        INTERFACE_NAME_PARTITIONING_MANUAL,
         "GatherRequests",
         []
-    );
+    ).then(res => res[0]);
 };
 
 export const applyStorage = async ({ partitioning, encrypt, encryptPassword, onFail, onSuccess }) => {
     await setInitializeLabelsEnabled({ enabled: true });
     await setBootloaderDrive({ drive: "" });
 
-    const [part] = partitioning ? [partitioning] : await createPartitioning({ method: "AUTOMATIC" });
+    const part = partitioning || await createPartitioning({ method: "AUTOMATIC" });
 
     if (encrypt) {
         await partitioningSetEncrypt({ partitioning: part, encrypt });

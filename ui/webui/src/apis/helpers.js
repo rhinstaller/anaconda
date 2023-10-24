@@ -14,20 +14,19 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
-import cockpit from "cockpit";
-import { StorageClient } from "./storage.js";
-import { _setProperty } from "./helpers.js";
 
-const INTERFACE_NAME = "org.fedoraproject.Anaconda.Modules.Storage.Bootloader";
-const OBJECT_PATH = "/org/fedoraproject/Anaconda/Modules/Storage/Bootloader";
-
-const setProperty = (...args) => {
-    return _setProperty(StorageClient, OBJECT_PATH, INTERFACE_NAME, ...args);
+export const _callClient = (Client, OBJECT_PATH, INTERFACE_NAME, ...args) => {
+    return new Client().client.call(OBJECT_PATH, INTERFACE_NAME, ...args).then(res => res[0]);
 };
 
-/**
- * @param {string} drive     A drive name
- */
-export const setBootloaderDrive = ({ drive }) => {
-    return setProperty("Drive", cockpit.variant("s", drive));
+export const _setProperty = (Client, OBJECT_PATH, INTERFACE_NAME, ...args) => {
+    return new Client().client.call(
+        OBJECT_PATH, "org.freedesktop.DBus.Properties", "Set", [INTERFACE_NAME, ...args]
+    );
+};
+
+export const _getProperty = (Client, OBJECT_PATH, INTERFACE_NAME, ...args) => {
+    return new Client().client.call(
+        OBJECT_PATH, "org.freedesktop.DBus.Properties", "Get", [INTERFACE_NAME, ...args]
+    ).then(res => res[0].v);
 };

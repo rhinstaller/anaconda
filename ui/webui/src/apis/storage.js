@@ -23,6 +23,17 @@ import {
 } from "../actions/storage-actions.js";
 
 import { debug } from "../helpers/log.js";
+import { _callClient, _getProperty } from "./helpers.js";
+
+const INTERFACE_NAME = "org.fedoraproject.Anaconda.Modules.Storage";
+const OBJECT_PATH = "/org/fedoraproject/Anaconda/Modules/Storage";
+
+const callClient = (...args) => {
+    return _callClient(StorageClient, OBJECT_PATH, INTERFACE_NAME, ...args);
+};
+const getProperty = (...args) => {
+    return _getProperty(StorageClient, OBJECT_PATH, INTERFACE_NAME, ...args);
+};
 
 export class StorageClient {
     constructor (address) {
@@ -35,7 +46,7 @@ export class StorageClient {
         StorageClient.instance = this;
 
         this.client = cockpit.dbus(
-            "org.fedoraproject.Anaconda.Modules.Storage",
+            INTERFACE_NAME,
             { superuser: "try", bus: "none", address }
         );
         this.address = address;
@@ -80,11 +91,7 @@ export const runStorageTask = ({ task, onSuccess, onFail }) => {
  * @returns {Promise}           Resolves a DBus path to a task
  */
 export const scanDevicesWithTask = () => {
-    return new StorageClient().client.call(
-        "/org/fedoraproject/Anaconda/Modules/Storage",
-        "org.fedoraproject.Anaconda.Modules.Storage",
-        "ScanDevicesWithTask", []
-    );
+    return callClient("ScanDevicesWithTask", []);
 };
 
 export const startEventMonitorStorage = ({ dispatch }) => {
@@ -97,7 +104,7 @@ export const startEventMonitorStorage = ({ dispatch }) => {
                     dispatch(getDiskSelectionAction());
                 } else if (args[0] === "org.fedoraproject.Anaconda.Modules.Storage.Partitioning.Manual" && Object.hasOwn(args[1], "Requests")) {
                     dispatch(getPartitioningDataAction({ requests: args[1].Requests.v, partitioning: path }));
-                } else if (args[0] === "org.fedoraproject.Anaconda.Modules.Storage" && Object.hasOwn(args[1], "CreatedPartitioning")) {
+                } else if (args[0] === INTERFACE_NAME && Object.hasOwn(args[1], "CreatedPartitioning")) {
                     const last = args[1].CreatedPartitioning.v.length - 1;
                     dispatch(getPartitioningDataAction({ partitioning: args[1].CreatedPartitioning.v[last] }));
                 } else {
@@ -111,18 +118,10 @@ export const startEventMonitorStorage = ({ dispatch }) => {
 };
 
 export const initDataStorage = ({ dispatch }) => {
-    return new StorageClient().client.call(
-        "/org/fedoraproject/Anaconda/Modules/Storage",
-        "org.freedesktop.DBus.Properties",
-        "Get",
-        [
-            "org.fedoraproject.Anaconda.Modules.Storage",
-            "CreatedPartitioning",
-        ]
-    )
-            .then(([res]) => {
-                if (res.v.length !== 0) {
-                    return Promise.all(res.v.map(path => dispatch(getPartitioningDataAction({ partitioning: path }))));
+    return getProperty("CreatedPartitioning")
+            .then(res => {
+                if (res.length !== 0) {
+                    return Promise.all(res.map(path => dispatch(getPartitioningDataAction({ partitioning: path }))));
                 }
             })
             .then(() => dispatch(getDevicesAction()))

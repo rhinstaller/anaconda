@@ -19,6 +19,20 @@ import cockpit from "cockpit";
 
 import { getLanguageAction, getLanguagesAction } from "../actions/localization-actions.js";
 import { debug } from "../helpers/log.js";
+import { _callClient, _setProperty, _getProperty } from "./helpers.js";
+
+const OBJECT_PATH = "/org/fedoraproject/Anaconda/Modules/Localization";
+const INTERFACE_NAME = "org.fedoraproject.Anaconda.Modules.Localization";
+
+const callClient = (...args) => {
+    return _callClient(LocalizationClient, OBJECT_PATH, INTERFACE_NAME, ...args);
+};
+const setProperty = (...args) => {
+    return _setProperty(LocalizationClient, OBJECT_PATH, INTERFACE_NAME, ...args);
+};
+const getProperty = (...args) => {
+    return _getProperty(LocalizationClient, OBJECT_PATH, INTERFACE_NAME, ...args);
+};
 
 export class LocalizationClient {
     constructor (address) {
@@ -31,7 +45,7 @@ export class LocalizationClient {
         LocalizationClient.instance = this;
 
         this.client = cockpit.dbus(
-            "org.fedoraproject.Anaconda.Modules.Localization",
+            INTERFACE_NAME,
             { superuser: "try", bus: "none", address }
         );
         this.address = address;
@@ -46,29 +60,14 @@ export class LocalizationClient {
  * @returns {Promise}           Resolves a list of language ids
  */
 export const getLanguages = () => {
-    return (
-        new LocalizationClient().client.call(
-            "/org/fedoraproject/Anaconda/Modules/Localization",
-            "org.fedoraproject.Anaconda.Modules.Localization",
-            "GetLanguages", []
-        )
-                .then(res => res[0])
-    );
+    return callClient("GetLanguages", []);
 };
 
 /**
  * @returns {Promise}           The language the system will use
  */
 export const getLanguage = () => {
-    return (
-        new LocalizationClient().client.call(
-            "/org/fedoraproject/Anaconda/Modules/Localization",
-            "org.freedesktop.DBus.Properties",
-            "Get",
-            ["org.fedoraproject.Anaconda.Modules.Localization", "Language"]
-        )
-                .then(res => res[0].v)
-    );
+    return getProperty("Language");
 };
 
 /**
@@ -77,14 +76,7 @@ export const getLanguage = () => {
  * @returns {Promise}           Resolves a language data object
  */
 export const getLanguageData = ({ lang }) => {
-    return (
-        new LocalizationClient().client.call(
-            "/org/fedoraproject/Anaconda/Modules/Localization",
-            "org.fedoraproject.Anaconda.Modules.Localization",
-            "GetLanguageData", [lang]
-        )
-                .then(res => res[0])
-    );
+    return callClient("GetLanguageData", [lang]);
 };
 
 /**
@@ -93,28 +85,14 @@ export const getLanguageData = ({ lang }) => {
  * @returns {Promise}           Resolves a list of locales ids
  */
 export const getLocales = ({ lang }) => {
-    return (
-        new LocalizationClient().client.call(
-            "/org/fedoraproject/Anaconda/Modules/Localization",
-            "org.fedoraproject.Anaconda.Modules.Localization",
-            "GetLocales", [lang]
-        )
-                .then(res => res[0])
-    );
+    return callClient("GetLocales", [lang]);
 };
 
 /**
  * @returns {Promise}           Resolves a list of common locales id's.
  */
 export const getCommonLocales = () => {
-    return (
-        new LocalizationClient().client.call(
-            "/org/fedoraproject/Anaconda/Modules/Localization",
-            "org.fedoraproject.Anaconda.Modules.Localization",
-            "GetCommonLocales"
-        )
-                .then(res => res[0])
-    );
+    return callClient("GetCommonLocales");
 };
 
 /**
@@ -123,32 +101,14 @@ export const getCommonLocales = () => {
  * @returns {Promise}           Resolves a locale data object
  */
 export const getLocaleData = ({ locale }) => {
-    return (
-        new LocalizationClient().client.call(
-            "/org/fedoraproject/Anaconda/Modules/Localization",
-            "org.fedoraproject.Anaconda.Modules.Localization",
-            "GetLocaleData", [locale]
-        )
-                .then(res => res[0])
-    );
+    return callClient("GetLocaleData", [locale]);
 };
 
 /**
  * @param {string} lang         Language id
  */
 export const setLanguage = ({ lang }) => {
-    return (
-        new LocalizationClient().client.call(
-            "/org/fedoraproject/Anaconda/Modules/Localization",
-            "org.freedesktop.DBus.Properties",
-            "Set",
-            [
-                "org.fedoraproject.Anaconda.Modules.Localization",
-                "Language",
-                cockpit.variant("s", lang)
-            ]
-        )
-    );
+    return setProperty("Language", cockpit.variant("s", lang));
 };
 
 export const startEventMonitorLocalization = ({ dispatch }) => {
@@ -157,7 +117,7 @@ export const startEventMonitorLocalization = ({ dispatch }) => {
         (path, iface, signal, args) => {
             switch (signal) {
             case "PropertiesChanged":
-                if (args[0] === "org.fedoraproject.Anaconda.Modules.Localization" && Object.hasOwn(args[1], "Language")) {
+                if (args[0] === INTERFACE_NAME && Object.hasOwn(args[1], "Language")) {
                     dispatch(getLanguageAction());
                 } else {
                     debug(`Unhandled signal on ${path}: ${iface}.${signal}`, JSON.stringify(args));

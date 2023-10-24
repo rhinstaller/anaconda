@@ -285,9 +285,9 @@ const rescanDisks = (setIsRescanningDisks, refUsableDisks, dispatch, errorHandle
     setIsFormDisabled(true);
     refUsableDisks.current = undefined;
     scanDevicesWithTask()
-            .then(res => {
+            .then(task => {
                 return runStorageTask({
-                    task: res[0],
+                    task,
                     onSuccess: () => resetPartitioning()
                             .then(() => Promise.all([
                                 dispatch(getDevicesAction()),

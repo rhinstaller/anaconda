@@ -16,63 +16,45 @@
  */
 import cockpit from "cockpit";
 
-import {
-    StorageClient,
-} from "./storage.js";
+import { StorageClient } from "./storage.js";
+import { _callClient, _setProperty, _getProperty } from "./helpers.js";
 
+const INTERFACE_NAME = "org.fedoraproject.Anaconda.Modules.Storage.DiskSelection";
+const OBJECT_PATH = "/org/fedoraproject/Anaconda/Modules/Storage/DiskSelection";
+
+const callClient = (...args) => {
+    return _callClient(StorageClient, OBJECT_PATH, INTERFACE_NAME, ...args);
+};
+const setProperty = (...args) => {
+    return _setProperty(StorageClient, OBJECT_PATH, INTERFACE_NAME, ...args);
+};
+const getProperty = (...args) => {
+    return _getProperty(StorageClient, OBJECT_PATH, INTERFACE_NAME, ...args);
+};
 /**
  * @returns {Promise}           Resolves all properties of DiskSelection interface
  */
 export const getAllDiskSelection = () => {
-    return new StorageClient().client.call(
-        "/org/fedoraproject/Anaconda/Modules/Storage/DiskSelection",
-        "org.freedesktop.DBus.Properties",
-        "GetAll",
-        ["org.fedoraproject.Anaconda.Modules.Storage.DiskSelection"],
-    );
+    return new StorageClient().client.call(OBJECT_PATH, "org.freedesktop.DBus.Properties", "GetAll", [INTERFACE_NAME]);
 };
 
 /**
  * @returns {Promise}           Resolves a list with disk names
  */
 export const getUsableDisks = () => {
-    return new StorageClient().client.call(
-        "/org/fedoraproject/Anaconda/Modules/Storage/DiskSelection",
-        "org.fedoraproject.Anaconda.Modules.Storage.DiskSelection",
-        "GetUsableDisks", []
-    );
+    return callClient("GetUsableDisks", []);
 };
 
 /**
  * @returns {Promise}           The list of selected disks
  */
 export const getSelectedDisks = () => {
-    return (
-        new StorageClient().client.call(
-            "/org/fedoraproject/Anaconda/Modules/Storage/DiskSelection",
-            "org.freedesktop.DBus.Properties",
-            "Get",
-            [
-                "org.fedoraproject.Anaconda.Modules.Storage.DiskSelection",
-                "SelectedDisks"
-            ]
-        )
-                .then(res => res[0].v)
-    );
+    return getProperty("SelectedDisks");
 };
 
 /**
  * @param {Array.<string>} drives A list of drives names
  */
 export const setSelectedDisks = ({ drives }) => {
-    return new StorageClient().client.call(
-        "/org/fedoraproject/Anaconda/Modules/Storage/DiskSelection",
-        "org.freedesktop.DBus.Properties",
-        "Set",
-        [
-            "org.fedoraproject.Anaconda.Modules.Storage.DiskSelection",
-            "SelectedDisks",
-            cockpit.variant("as", drives)
-        ]
-    );
+    return setProperty("SelectedDisks", cockpit.variant("as", drives));
 };

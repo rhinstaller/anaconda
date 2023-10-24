@@ -16,56 +16,36 @@
  */
 import cockpit from "cockpit";
 
-import {
-    StorageClient,
-} from "./storage.js";
+import { StorageClient } from "./storage.js";
+import { _getProperty, _setProperty } from "./helpers.js";
+
+const INTERFACE_NAME = "org.fedoraproject.Anaconda.Modules.Storage.DiskInitialization";
+const OBJECT_PATH = "/org/fedoraproject/Anaconda/Modules/Storage/DiskInitialization";
+
+const getProperty = (...args) => {
+    return _getProperty(StorageClient, OBJECT_PATH, INTERFACE_NAME, ...args);
+};
+const setProperty = (...args) => {
+    return _setProperty(StorageClient, OBJECT_PATH, INTERFACE_NAME, ...args);
+};
 
 /**
  * @returns {Promise}           The number of the mode
  */
 export const getInitializationMode = () => {
-    return (
-        new StorageClient().client.call(
-            "/org/fedoraproject/Anaconda/Modules/Storage/DiskInitialization",
-            "org.freedesktop.DBus.Properties",
-            "Get",
-            [
-                "org.fedoraproject.Anaconda.Modules.Storage.DiskInitialization",
-                "InitializationMode",
-            ]
-        )
-                .then(res => res[0].v)
-    );
+    return getProperty("InitializationMode");
 };
 
 /**
  * @param {int} mode            The number of the mode
  */
 export const setInitializationMode = ({ mode }) => {
-    return new StorageClient().client.call(
-        "/org/fedoraproject/Anaconda/Modules/Storage/DiskInitialization",
-        "org.freedesktop.DBus.Properties",
-        "Set",
-        [
-            "org.fedoraproject.Anaconda.Modules.Storage.DiskInitialization",
-            "InitializationMode",
-            cockpit.variant("i", mode)
-        ]
-    );
+    return setProperty("InitializationMode", cockpit.variant("i", mode));
 };
 
 /**
  * @param {boolean} enabled     True if allowed, otherwise False
  */
 export const setInitializeLabelsEnabled = ({ enabled }) => {
-    return new StorageClient().client.call(
-        "/org/fedoraproject/Anaconda/Modules/Storage/DiskInitialization",
-        "org.freedesktop.DBus.Properties",
-        "Set",
-        [
-            "org.fedoraproject.Anaconda.Modules.Storage.DiskInitialization",
-            "InitializeLabelsEnabled",
-            cockpit.variant("b", enabled)
-        ]
-    );
+    return setProperty("InitializeLabelsEnabled", cockpit.variant("b", enabled));
 };

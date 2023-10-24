@@ -626,7 +626,7 @@ export const MountPointMapping = ({
             setBootloaderDrive({ drive: "" })
                     .then(() => createPartitioning({ method: "MANUAL" }))
                     .then(path => {
-                        setUsedPartitioning(path[0]);
+                        setUsedPartitioning(path);
                         setReusePartitioning(true);
                     });
         }

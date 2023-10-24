@@ -16,6 +16,14 @@
  */
 
 import cockpit from "cockpit";
+import { _callClient } from "./helpers.js";
+
+const OBJECT_PATH = "/org/fedoraproject/Anaconda/Boss";
+const INTERFACE_NAME = "org.fedoraproject.Anaconda.Boss";
+
+const callClient = (...args) => {
+    return _callClient(BossClient, OBJECT_PATH, INTERFACE_NAME, ...args);
+};
 
 /**
  * @param {string} address      Anaconda bus address
@@ -33,7 +41,7 @@ export class BossClient {
         BossClient.instance = this;
 
         this.client = cockpit.dbus(
-            "org.fedoraproject.Anaconda.Boss",
+            INTERFACE_NAME,
             { superuser: "try", bus: "none", address }
         );
         this.address = address;
@@ -63,21 +71,12 @@ export const getSteps = ({ task }) => {
  * @returns {Promise}           Resolves a list of tasks
  */
 export const installWithTasks = () => {
-    return new BossClient().client.call(
-        "/org/fedoraproject/Anaconda/Boss",
-        "org.fedoraproject.Anaconda.Boss",
-        "InstallWithTasks", []
-    )
-            .then(ret => ret[0]);
+    return callClient("InstallWithTasks", []);
 };
 
 /**
  * @param {string} locale       Locale id
  */
 export const setLocale = ({ locale }) => {
-    return new BossClient().client.call(
-        "/org/fedoraproject/Anaconda/Boss",
-        "org.fedoraproject.Anaconda.Boss",
-        "SetLocale", [locale]
-    );
+    return callClient("SetLocale", [locale]);
 };
