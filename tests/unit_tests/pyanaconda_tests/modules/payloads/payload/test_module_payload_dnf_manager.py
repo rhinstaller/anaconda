@@ -109,7 +109,9 @@ class DNFManagerTestCase(unittest.TestCase):
         self._check_substitutions({
             "arch": "x86_64",
             "basearch": "x86_64",
-            "releasever": "rawhide"
+            "releasever": "rawhide",
+            "releasever_major": "rawhide",
+            "releasever_minor": "",
         })
 
     @patch("pyanaconda.modules.payloads.payload.dnf.dnf_manager.get_os_release_value")
@@ -589,7 +591,9 @@ class DNFManagerTestCase(unittest.TestCase):
         self._check_substitutions({
             "arch": "x86_64",
             "basearch": "x86_64",
-            "releasever": "123"
+            "releasever": "123",
+            "releasever_major": "123",
+            "releasever_minor": "",
         })
 
         # Ignore an undefined release version.
@@ -599,7 +603,9 @@ class DNFManagerTestCase(unittest.TestCase):
         self._check_substitutions({
             "arch": "x86_64",
             "basearch": "x86_64",
-            "releasever": "123"
+            "releasever": "123",
+            "releasever_major": "123",
+            "releasever_minor": "",
         })
 
     @patch("dnf.subject.Subject.get_best_query")
