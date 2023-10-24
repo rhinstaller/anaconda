@@ -189,10 +189,14 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, runtim
     const firstStepId = stepsOrder.filter(step => !step.isHidden)[0].id;
     const currentStepId = path[0] || firstStepId;
 
+    const isStepFollowedBy = (earlierStepId, laterStepId) => {
+        const earlierStepIdx = flattenedStepsIds.findIndex(s => s === earlierStepId);
+        const laterStepIdx = flattenedStepsIds.findIndex(s => s === laterStepId);
+        return earlierStepIdx < laterStepIdx;
+    };
+
     const canJumpToStep = (stepId, currentStepId) => {
-        const stepIdx = flattenedStepsIds.findIndex(s => s === stepId);
-        const currentStepIdx = flattenedStepsIds.findIndex(s => s === currentStepId);
-        return stepIdx <= currentStepIdx;
+        return stepId === currentStepId || isStepFollowedBy(stepId, currentStepId);
     };
 
     const createSteps = (stepsOrder) => {
@@ -235,8 +239,10 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, runtim
             setIsFormValid(false);
         }
 
-        // Reset the applied partitioning when going back from review page
-        if (prevStep.prevId === "installation-review") {
+        // Reset the applied partitioning when going back from a step after creating partitioning to a step
+        // before creating partitioning.
+        if ((prevStep.prevId === "accounts" || isStepFollowedBy("accounts", prevStep.prevId)) &&
+            isStepFollowedBy(newStep.id, "accounts")) {
             setIsFormDisabled(true);
             resetPartitioning()
                     .then(
