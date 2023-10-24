@@ -500,6 +500,46 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Oct 24 2023 github-actions <github-actions@github.com> - 40.10-1
+- Update translations from Weblate for master (github-actions)
+- webui: use global password policy in DiskEncryption (rvykydal)
+- webui: add global state for password policies (rvykydal)
+- Add release note for the removal of screenshot support (mkolman)
+- Remove GUI screenshot support (mkolman)
+- Remove the use of the Keybinder library (mkolman)
+- Extend the Timezone DBus module (mkolman)
+- Webui: Fix for adding report for JS bugs (akankovs)
+- webui: remove step notification from the InstallationMethod component
+  (kkoukiou)
+- webui: document commit message suggestion for prefixing the ui name if
+  relevant (kkoukiou)
+- webui: get next button label and variant from the components (kkoukiou)
+- webui: move InstallationProgress component outside of the Wizard steps
+  (kkoukiou)
+- webui: get first step id by parsing the steps array (kkoukiou)
+- webui: remove logic for showing helpers in footer per component to the
+  components (kkoukiou)
+- webui: make installer.reach method more robust (rvykydal)
+- webui: be more robust in tests when moving to REVIEW screen (rvykydal)
+- webui: add report for JS bugs + test (kkoukiou)
+- docs: Document using customized ci containers (jkonecny)
+- test docs: Update tools list (vslavik)
+- docs: Describe release note gathering process. (vslavik)
+- docs: Describe updates for new Python version (vslavik)
+- docs: Collect release notes for F39 (vslavik)
+- webui: pass osRelease through context (kkoukiou)
+- webui: move code related to version parsing (beta) into separate component
+  (kkoukiou)
+- webui: use Optional Chaining operator where possible (kkoukiou)
+- webui: InstallationMethod: remove redundant nesting (kkoukiou)
+- webui: move conditional check for rendering ModifyStorage out of the
+  component itself (kkoukiou)
+- webui: pass system type through context (kkoukiou)
+- webui: split out components for disk selection to seperate file (kkoukiou)
+- logging: log content of /root/lorax-packages if available (rvykydal)
+- webui: unpin firefox version from updates.img (kkoukiou)
+- webui: send stderr from webui-desktop to the journal (kkoukiou)
+
 * Tue Oct 17 2023 github-actions <github-actions@github.com> - 40.9-1
 - webui: catch exceptions from the backend in all actions (kkoukiou)
 - Update translations from Weblate for master (github-actions)
