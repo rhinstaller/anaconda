@@ -42,10 +42,12 @@ import { EmptyStatePanel } from "cockpit-components-empty-state.jsx";
 import { EncryptedDevices } from "./EncryptedDevices.jsx";
 
 import {
-    createPartitioning,
     setBootloaderDrive,
-    setManualPartitioningRequests,
-} from "../../apis/storage.js";
+} from "../../apis/storage_bootloader.js";
+import {
+    createPartitioning,
+    setManualPartitioningRequests
+} from "../../apis/storage_partitioning.js";
 import {
     getDeviceChildren,
     getLockedLUKSDevices,

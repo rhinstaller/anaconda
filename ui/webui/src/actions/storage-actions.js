@@ -19,15 +19,19 @@ import cockpit from "cockpit";
 
 import {
     gatherRequests,
-    getAllDiskSelection,
+    getPartitioningMethod,
+} from "../apis/storage_partitioning.js";
+import {
     getDeviceData,
     getDevices,
     getDiskFreeSpace,
     getDiskTotalSpace,
     getFormatData,
-    getPartitioningMethod,
+} from "../apis/storage_devicetree.js";
+import {
+    getAllDiskSelection,
     getUsableDisks,
-} from "../apis/storage.js";
+} from "../apis/storage_disks_selection.js";
 import {
     setCriticalErrorAction,
 } from "../actions/miscellaneous-actions.js";

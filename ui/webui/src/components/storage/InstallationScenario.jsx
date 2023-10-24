@@ -33,8 +33,10 @@ import {
     getRequiredDeviceSize,
     getDiskTotalSpace,
     getDiskFreeSpace,
+} from "../../apis/storage_devicetree.js";
+import {
     setInitializationMode,
-} from "../../apis/storage.js";
+} from "../../apis/storage_disk_initialization.js";
 
 import {
     getRequiredSpace,

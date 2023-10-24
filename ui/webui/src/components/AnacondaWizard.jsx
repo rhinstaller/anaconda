@@ -44,10 +44,12 @@ import { ReviewConfiguration, ReviewConfigurationConfirmModal, getPageProps as g
 import { exitGui } from "../helpers/exit.js";
 import { usePageLocation } from "hooks";
 import {
+    getRequiredMountPoints,
+} from "../apis/storage_devicetree.js";
+import {
     applyStorage,
     resetPartitioning,
-    getRequiredMountPoints,
-} from "../apis/storage.js";
+} from "../apis/storage_partitioning.js";
 import { SystemTypeContext, OsReleaseContext } from "./Common.jsx";
 
 const _ = cockpit.gettext;

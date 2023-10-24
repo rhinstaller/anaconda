@@ -43,7 +43,7 @@ import { getDevicesAction } from "../../actions/storage-actions.js";
 
 import {
     unlockDevice,
-} from "../../apis/storage.js";
+} from "../../apis/storage_devicetree.js";
 
 const _ = cockpit.gettext;
 
