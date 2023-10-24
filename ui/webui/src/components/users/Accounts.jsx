@@ -31,15 +31,31 @@ import { PasswordFormFields, ruleLength } from "../Password.jsx";
 
 const _ = cockpit.gettext;
 
+export function getAccountsState (
+    fullName = "",
+    userAccount = "",
+    password = "",
+    confirmPassword = "",
+) {
+    return {
+        fullName,
+        userAccount,
+        password,
+        confirmPassword,
+    };
+}
+
 const CreateAccount = ({
     idPrefix,
     passwordPolicy,
     setIsUserValid,
+    accounts,
+    setAccounts,
 }) => {
-    const [fullName, setFullName] = useState("");
-    const [userAccount, setUserAccount] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+    const [fullName, setFullName] = useState(accounts.fullName);
+    const [userAccount, setUserAccount] = useState(accounts.userAccount);
+    const [password, setPassword] = useState(accounts.password);
+    const [confirmPassword, setConfirmPassword] = useState(accounts.confirmPassword);
     const [isPasswordValid, setIsPasswordValid] = useState(false);
 
     useEffect(() => {
@@ -60,6 +76,10 @@ const CreateAccount = ({
           setIsValid={setIsPasswordValid}
         />
     );
+
+    useEffect(() => {
+        setAccounts(ac => ({ ...ac, fullName, userAccount, password, confirmPassword }));
+    }, [setAccounts, fullName, userAccount, password, confirmPassword]);
 
     return (
         <Form
@@ -102,6 +122,8 @@ export const Accounts = ({
     idPrefix,
     setIsFormValid,
     passwordPolicies,
+    accounts,
+    setAccounts,
 }) => {
     const [isUserValid, setIsUserValid] = useState();
     useEffect(() => {
@@ -114,6 +136,8 @@ export const Accounts = ({
               idPrefix={idPrefix}
               passwordPolicy={passwordPolicies.user}
               setIsUserValid={setIsUserValid}
+              accounts={accounts}
+              setAccounts={setAccounts}
             />
         </>
     );

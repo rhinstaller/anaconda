@@ -39,7 +39,7 @@ import { getDefaultScenario } from "./storage/InstallationScenario.jsx";
 import { MountPointMapping, getPageProps as getMountPointMappingProps } from "./storage/MountPointMapping.jsx";
 import { DiskEncryption, getStorageEncryptionState, getPageProps as getDiskEncryptionProps } from "./storage/DiskEncryption.jsx";
 import { InstallationLanguage, getPageProps as getInstallationLanguageProps } from "./localization/InstallationLanguage.jsx";
-import { Accounts, getPageProps as getAccountsProps } from "./users/Accounts.jsx";
+import { Accounts, getPageProps as getAccountsProps, getAccountsState } from "./users/Accounts.jsx";
 import { InstallationProgress } from "./installation/InstallationProgress.jsx";
 import { ReviewConfiguration, ReviewConfigurationConfirmModal, getPageProps as getReviewConfigurationProps } from "./review/ReviewConfiguration.jsx";
 import { exitGui } from "../helpers/exit.js";
@@ -64,6 +64,7 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, runtim
     const [stepNotification, setStepNotification] = useState();
     const [storageEncryption, setStorageEncryption] = useState(getStorageEncryptionState());
     const [storageScenarioId, setStorageScenarioId] = useState(window.sessionStorage.getItem("storage-scenario-id") || getDefaultScenario().id);
+    const [accounts, setAccounts] = useState(getAccountsState());
     const [showWizard, setShowWizard] = useState(true);
     const osRelease = useContext(OsReleaseContext);
     const isBootIso = useContext(SystemTypeContext) === "BOOT_ISO";
@@ -147,6 +148,8 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, runtim
         {
             component: Accounts,
             data: {
+                accounts,
+                setAccounts,
                 passwordPolicies: runtimeData.passwordPolicies,
             },
             ...getAccountsProps()
@@ -270,6 +273,7 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, runtim
                 stepsOrder={stepsOrder}
                 storageEncryption={storageEncryption}
                 storageScenarioId={storageScenarioId}
+                accounts={accounts}
               />}
               hideClose
               mainAriaLabel={`${title} content`}
@@ -296,6 +300,7 @@ const Footer = ({
     stepsOrder,
     storageEncryption,
     storageScenarioId,
+    accounts,
 }) => {
     const [nextWaitsConfirmation, setNextWaitsConfirmation] = useState(false);
     const [quitWaitsConfirmation, setQuitWaitsConfirmation] = useState(false);
@@ -346,6 +351,8 @@ const Footer = ({
                     setStepNotification();
                 },
             });
+        } else if (activeStep.id === "accounts") {
+            onNext();
         } else {
             onNext();
         }
