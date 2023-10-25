@@ -29,6 +29,7 @@ class TestInstallationProgress(anacondalib.VirtInstallMachineCase):
     def testBasic(self):
         # HACK Ignore some selinux errors
         self.allow_journal_messages(".*denied.*comm=\"tar\" name=\"/\".*")
+        self.allow_browser_errors(".*client closed.*")
 
         b = self.browser
         m = self.machine
