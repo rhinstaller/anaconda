@@ -228,6 +228,7 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
                 b.wait_in_text("#critical-error-bz-report-modal-details", "Error: Unexpected JS error")
                 time.sleep(2)
 
+        b.wait_visible("a:contains('Report issue'):not([disabled])")
         b.assert_pixels(
             "#critical-error-bz-report-modal.pf-v5-c-modal-box",
             "js-error-modal",
