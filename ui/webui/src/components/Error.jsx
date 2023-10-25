@@ -115,6 +115,10 @@ export const BZReportModal = ({
                 .then(() => window.open(reportURL, "_blank", "noopener,noreferer"));
     };
 
+    const isBootIso = useContext(SystemTypeContext) === "BOOT_ISO";
+    const networkHelperMessageLive = _("Network not available. Configure the network in the top bar menu to report the issue.");
+    const networkHelperMessageBootIso = _("Network not available. Configure the network to report the issue.");
+
     return (
         <Modal
           description={description}
@@ -131,7 +135,7 @@ export const BZReportModal = ({
                       <HelperText>
                           {isConnected
                               ? <HelperTextItem> {_("Reporting an issue will send information over the network. Please review and edit the attached log to remove any sensitive information.")} </HelperTextItem>
-                              : <HelperTextItem icon={<DisconnectedIcon />}> {_("Network not available. Configure the network in the top bar menu to report the issue.")} </HelperTextItem>}
+                              : <HelperTextItem icon={<DisconnectedIcon />}> {isBootIso ? networkHelperMessageBootIso : networkHelperMessageLive} </HelperTextItem>}
                       </HelperText>
                   </FormHelperText>
                   <StackItem>
