@@ -96,7 +96,6 @@ class TestLanguage(anacondalib.VirtInstallMachineCase):
             # HACK pf-v5-c-menu__item-text is ignored because some of our CI infrastructure is
             # missing CJK and Cyrillic fonts..
             ignore=["#betanag-icon", ".pf-v5-c-menu__item-text"],
-            wait_animations=False,
         )
 
         b.wait_in_text("h2 + h3", "Wählen Sie eine Sprache aus")

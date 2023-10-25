@@ -51,7 +51,6 @@ class TestInstallationProgress(anacondalib.VirtInstallMachineCase):
             "#app",
             "installation-progress-complete",
             ignore=["#betanag-icon"],
-            wait_animations=False,
         )
 
         p.wait_done()

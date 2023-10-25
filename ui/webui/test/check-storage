@@ -51,7 +51,6 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
             "#app",
             "storage-step-basic",
             ignore=["#betanag-icon"],
-            wait_animations=False,
         )
 
         # This attaches a disk to the running VM
@@ -102,7 +101,6 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
             "#app",
             "storage-step-basic-live",
             ignore=["#betanag-icon"],
-            wait_animations=False,
         )
 
         s.modify_storage()
@@ -153,7 +151,6 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
             "#app",
             "storage-step-encrypt",
             ignore=["#betanag-icon"],
-            wait_animations=False,
         )
 
         s.check_encryption_selected(False)
@@ -165,7 +162,6 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
             "#app",
             "storage-step-password",
             ignore=["#betanag-icon"],
-            wait_animations=False,
         )
 
         # No password set
@@ -412,7 +408,6 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         b.assert_pixels(
             "#app",
             "mount-point-mapping-table",
-            wait_animations=False,
         )
 
         i.reach(i.steps.REVIEW)
@@ -554,7 +549,6 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         b.assert_pixels(
             "#app",
             "review-multiple-disks",
-            wait_animations=False,
         )
 
     @nondestructive

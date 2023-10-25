@@ -131,7 +131,6 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
             ".pf-v5-c-about-modal-box",
             "about-modal",
             ignore=["#about-modal-versions dd"],
-            wait_animations=False,
         )
 
         #Close about modal
@@ -232,7 +231,6 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         b.assert_pixels(
             "#critical-error-bz-report-modal.pf-v5-c-modal-box",
             "js-error-modal",
-            wait_animations=False,
             ignore=["#critical-error-bz-report-modal-review-log"]
         )
 
