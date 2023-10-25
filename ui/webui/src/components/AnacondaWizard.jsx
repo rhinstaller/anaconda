@@ -39,7 +39,7 @@ import { getDefaultScenario } from "./storage/InstallationScenario.jsx";
 import { MountPointMapping, getPageProps as getMountPointMappingProps } from "./storage/MountPointMapping.jsx";
 import { DiskEncryption, getStorageEncryptionState, getPageProps as getDiskEncryptionProps } from "./storage/DiskEncryption.jsx";
 import { InstallationLanguage, getPageProps as getInstallationLanguageProps } from "./localization/InstallationLanguage.jsx";
-import { Accounts, getPageProps as getAccountsProps, getAccountsState } from "./users/Accounts.jsx";
+import { Accounts, getPageProps as getAccountsProps, getAccountsState, accountsToDbusUsers } from "./users/Accounts.jsx";
 import { InstallationProgress } from "./installation/InstallationProgress.jsx";
 import { ReviewConfiguration, ReviewConfigurationConfirmModal, getPageProps as getReviewConfigurationProps } from "./review/ReviewConfiguration.jsx";
 import { exitGui } from "../helpers/exit.js";
@@ -51,6 +51,9 @@ import {
     applyStorage,
     resetPartitioning,
 } from "../apis/storage_partitioning.js";
+import {
+    setUsers,
+} from "../apis/users.js";
 import { SystemTypeContext, OsReleaseContext } from "./Common.jsx";
 
 const _ = cockpit.gettext;
@@ -358,6 +361,7 @@ const Footer = ({
                 },
             });
         } else if (activeStep.id === "accounts") {
+            setUsers(accountsToDbusUsers(accounts));
             onNext();
         } else {
             onNext();

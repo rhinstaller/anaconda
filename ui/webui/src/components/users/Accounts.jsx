@@ -45,6 +45,15 @@ export function getAccountsState (
     };
 }
 
+export const accountsToDbusUsers = (accounts) => {
+    return [{
+        name: cockpit.variant("s", accounts.userAccount || ""),
+        gecos: cockpit.variant("s", accounts.fullName || ""),
+        password: cockpit.variant("s", accounts.password || ""),
+        "is-crypted": cockpit.variant("b", false),
+    }];
+};
+
 const CreateAccount = ({
     idPrefix,
     passwordPolicy,

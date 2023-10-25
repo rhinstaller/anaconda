@@ -36,6 +36,7 @@ import { StorageClient, initDataStorage, startEventMonitorStorage } from "../api
 import { PayloadsClient } from "../apis/payloads";
 import { RuntimeClient, initDataRuntime, startEventMonitorRuntime } from "../apis/runtime";
 import { NetworkClient, initDataNetwork, startEventMonitorNetwork } from "../apis/network.js";
+import { UsersClient } from "../apis/users";
 
 import { setCriticalErrorAction } from "../actions/miscellaneous-actions.js";
 
@@ -78,6 +79,7 @@ export const Application = () => {
                 new RuntimeClient(address),
                 new BossClient(address),
                 new NetworkClient(address),
+                new UsersClient(address),
             ];
             clients.forEach(c => c.init());
 
