@@ -25,6 +25,6 @@ export const exitGui = () => {
                 console.log("Killing WebUI process, PID: ", pid);
                 return cockpit.spawn(["kill", pid]);
             })
-            .catch(() => console.error("Failed to kill WebUI process, PID: ", pid))
+            .catch(exc => console.error("Failed to kill WebUI process, PID: ", pid, exc.message))
             .finally(pidFile.close);
 };
