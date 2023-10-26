@@ -59,7 +59,6 @@ class TestReview(anacondalib.VirtInstallMachineCase):
             "#app",
             "review-step-basic",
             ignore=["#betanag-icon"],
-            wait_animations=False,
         )
 
     def testNoConfirmation(self):
