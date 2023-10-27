@@ -1548,29 +1548,26 @@ class StorageTasksTestCase(unittest.TestCase):
 
     @patch("os.chmod")
     @patch("os.makedirs")
-    @patch("blivet.util._run_program")
+    @patch("blivet.tasks.fsmount.FSMount.do_task")
     @patch("pyanaconda.core.util._run_program")
-    def test_mount_filesystems(self, core_run_program, blivet_run_program, makedirs, chmod):
+    def test_mount_filesystems(self, core_run_program, blivet_mount, makedirs, chmod):
         """Test MountFilesystemsTask."""
         storage = create_storage()
         storage._bootloader = Mock()
-        blivet_run_program.return_value = (0, "")
+        blivet_mount.return_value = None
         core_run_program.return_value = (0, "")
 
         task = MountFilesystemsTask(storage)
         task.run()
 
         # created mount points
-        makedirs.assert_any_call('/mnt/sysimage/dev', 0o755)
         makedirs.assert_any_call('/mnt/sysimage/tmp')
 
         # fixed permissions
         chmod.assert_any_call('/mnt/sysimage/tmp', 0o1777)
 
         # mounted devices
-        blivet_run_program.assert_any_call([
-            'mount', '-t', 'bind', '-o', 'bind,defaults', '/dev', '/mnt/sysimage/dev'
-        ])
+        blivet_mount.assert_any_call('/mnt/sysimage/dev', options='defaults')
 
         # remounted the root filesystem
         core_run_program.assert_any_call(
