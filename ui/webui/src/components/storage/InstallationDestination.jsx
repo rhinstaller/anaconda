@@ -42,11 +42,11 @@ import { SystemTypeContext } from "../Common.jsx";
 import { ModifyStorage } from "./ModifyStorage.jsx";
 
 import {
-    resetPartitioning,
     runStorageTask,
     scanDevicesWithTask,
-    setSelectedDisks,
 } from "../../apis/storage.js";
+import { resetPartitioning } from "../../apis/storage_partitioning.js";
+import { setSelectedDisks } from "../../apis/storage_disks_selection.js";
 
 import { getDevicesAction, getDiskSelectionAction } from "../../actions/storage-actions.js";
 import { debug } from "../../helpers/log.js";
@@ -285,9 +285,9 @@ const rescanDisks = (setIsRescanningDisks, refUsableDisks, dispatch, errorHandle
     setIsFormDisabled(true);
     refUsableDisks.current = undefined;
     scanDevicesWithTask()
-            .then(res => {
+            .then(task => {
                 return runStorageTask({
-                    task: res[0],
+                    task,
                     onSuccess: () => resetPartitioning()
                             .then(() => Promise.all([
                                 dispatch(getDevicesAction()),

@@ -19,6 +19,14 @@ import cockpit from "cockpit";
 
 import { getConnectedAction } from "../actions/network-actions.js";
 import { debug } from "../helpers/log.js";
+import { _getProperty } from "./helpers.js";
+
+const OBJECT_PATH = "/org/fedoraproject/Anaconda/Modules/Network";
+const INTERFACE_NAME = "org.fedoraproject.Anaconda.Modules.Network";
+
+const getProperty = (...args) => {
+    return _getProperty(NetworkClient, OBJECT_PATH, INTERFACE_NAME, ...args);
+};
 
 export class NetworkClient {
     constructor (address) {
@@ -31,7 +39,7 @@ export class NetworkClient {
         NetworkClient.instance = this;
 
         this.client = cockpit.dbus(
-            "org.fedoraproject.Anaconda.Modules.Network",
+            INTERFACE_NAME,
             { superuser: "try", bus: "none", address }
         );
         this.address = address;
@@ -46,15 +54,7 @@ export class NetworkClient {
  * @returns {Promise}           The bool state of the network connection
  */
 export const getConnected = () => {
-    return (
-        new NetworkClient().client.call(
-            "/org/fedoraproject/Anaconda/Modules/Network",
-            "org.freedesktop.DBus.Properties",
-            "Get",
-            ["org.fedoraproject.Anaconda.Modules.Network", "Connected"]
-        )
-                .then(res => res[0].v)
-    );
+    return getProperty("Connected");
 };
 
 export const startEventMonitorNetwork = ({ dispatch }) => {
@@ -63,7 +63,7 @@ export const startEventMonitorNetwork = ({ dispatch }) => {
         (path, iface, signal, args) => {
             switch (signal) {
             case "PropertiesChanged":
-                if (args[0] === "org.fedoraproject.Anaconda.Modules.Network" && Object.hasOwn(args[1], "Connected")) {
+                if (args[0] === INTERFACE_NAME && Object.hasOwn(args[1], "Connected")) {
                     dispatch(getConnectedAction());
                 } else {
                     debug(`Unhandled signal on ${path}: ${iface}.${signal}`, JSON.stringify(args));

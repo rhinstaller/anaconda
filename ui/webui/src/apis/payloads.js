@@ -15,6 +15,14 @@
  * along with This program; If not, see <http://www.gnu.org/licenses/>.
  */
 import cockpit from "cockpit";
+import { _callClient } from "./helpers.js";
+
+const OBJECT_PATH = "/org/fedoraproject/Anaconda/Modules/Payloads";
+const INTERFACE_NAME = "org.fedoraproject.Anaconda.Modules.Payloads";
+
+const callClient = (...args) => {
+    return _callClient(PayloadsClient, OBJECT_PATH, INTERFACE_NAME, ...args);
+};
 
 export class PayloadsClient {
     constructor (address) {
@@ -27,7 +35,7 @@ export class PayloadsClient {
         PayloadsClient.instance = this;
 
         this.client = cockpit.dbus(
-            "org.fedoraproject.Anaconda.Modules.Payloads",
+            INTERFACE_NAME,
             { superuser: "try", bus: "none", address }
         );
         this.address = address;
@@ -45,10 +53,5 @@ export class PayloadsClient {
  * @returns {Promise}           Resolves the total space required by the payload
  */
 export const getRequiredSpace = () => {
-    return new PayloadsClient().client.call(
-        "/org/fedoraproject/Anaconda/Modules/Payloads",
-        "org.fedoraproject.Anaconda.Modules.Payloads",
-        "CalculateRequiredSpace", []
-    )
-            .then(res => res[0]);
+    return callClient("CalculateRequiredSpace", []);
 };

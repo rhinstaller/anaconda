@@ -33,8 +33,10 @@ import {
     getRequiredDeviceSize,
     getDiskTotalSpace,
     getDiskFreeSpace,
+} from "../../apis/storage_devicetree.js";
+import {
     setInitializationMode,
-} from "../../apis/storage.js";
+} from "../../apis/storage_disk_initialization.js";
 
 import {
     getRequiredSpace,
@@ -173,7 +175,7 @@ const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, isF
 
     useEffect(() => {
         getDevices().then(res => {
-            const _duplicateDeviceNames = findDuplicatesInArray(res[0]);
+            const _duplicateDeviceNames = findDuplicatesInArray(res);
             setDuplicateDeviceNames(_duplicateDeviceNames);
             setIsFormValid(_duplicateDeviceNames.length === 0);
         }, onCritFail({ context: N_("Failed to get device names.") }));
@@ -184,7 +186,7 @@ const InstallationScenarioSelector = ({ deviceData, selectedDisks, idPrefix, isF
             const diskTotalSpace = await getDiskTotalSpace({ diskNames: selectedDisks }).catch(console.error);
             const diskFreeSpace = await getDiskFreeSpace({ diskNames: selectedDisks }).catch(console.error);
             const devices = await getDevices().catch(console.error);
-            const _duplicateDeviceNames = findDuplicatesInArray(devices[0]);
+            const _duplicateDeviceNames = findDuplicatesInArray(devices);
 
             setDuplicateDeviceNames(_duplicateDeviceNames);
             setDiskTotalSpace(diskTotalSpace);

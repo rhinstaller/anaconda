@@ -31,7 +31,7 @@ import {
     getAppliedPartitioning,
     getPartitioningRequest,
     getPartitioningMethod,
-} from "../../apis/storage.js";
+} from "../../apis/storage_partitioning.js";
 import { checkDeviceInSubTree } from "../../helpers/storage.js";
 
 import { getScenario } from "../storage/InstallationScenario.jsx";

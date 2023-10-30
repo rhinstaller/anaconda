@@ -43,7 +43,7 @@ import { getDevicesAction } from "../../actions/storage-actions.js";
 
 import {
     unlockDevice,
-} from "../../apis/storage.js";
+} from "../../apis/storage_devicetree.js";
 
 const _ = cockpit.gettext;
 
@@ -118,11 +118,11 @@ const UnlockDialog = ({ isLoadingNewPartitioning, lockedLUKSDevices, onClose, di
         ).then(
             res => {
                 if (res.every(r => r.status === "fulfilled")) {
-                    if (res.every(r => r.value[0])) {
+                    if (res.every(r => r.value)) {
                         onClose();
                     } else {
                         const unlockedDevs = res.reduce((acc, r, i) => {
-                            if (r.value[0]) {
+                            if (r.value) {
                                 acc.push(lockedLUKSDevices[i]);
                             }
                             return acc;

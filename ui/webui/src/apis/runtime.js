@@ -19,6 +19,14 @@ import cockpit from "cockpit";
 
 import { getPasswordPoliciesAction } from "../actions/runtime-actions.js";
 import { debug } from "../helpers/log.js";
+import { _getProperty } from "./helpers.js";
+
+const OBJECT_PATH = "/org/fedoraproject/Anaconda/Modules/Runtime/UserInterface";
+const INTERFACE_NAME = "org.fedoraproject.Anaconda.Modules.Runtime.UserInterface";
+
+const getProperty = (...args) => {
+    return _getProperty(RuntimeClient, OBJECT_PATH, INTERFACE_NAME, ...args);
+};
 
 export class RuntimeClient {
     constructor (address) {
@@ -49,18 +57,7 @@ export class RuntimeClient {
  * @returns {Promise}           Reports if the given OS release is considered final
  */
 export const getIsFinal = () => {
-    return (
-        new RuntimeClient().client.call(
-            "/org/fedoraproject/Anaconda/Modules/Runtime/UserInterface",
-            "org.freedesktop.DBus.Properties",
-            "Get",
-            [
-                "org.fedoraproject.Anaconda.Modules.Runtime.UserInterface",
-                "IsFinal",
-            ]
-        )
-                .then(res => res[0].v)
-    );
+    return getProperty("IsFinal");
 };
 
 /**
@@ -68,18 +65,7 @@ export const getIsFinal = () => {
  * @returns {Promise}           Returns the password policies
  */
 export const getPasswordPolicies = () => {
-    return (
-        new RuntimeClient().client.call(
-            "/org/fedoraproject/Anaconda/Modules/Runtime/UserInterface",
-            "org.freedesktop.DBus.Properties",
-            "Get",
-            [
-                "org.fedoraproject.Anaconda.Modules.Runtime.UserInterface",
-                "PasswordPolicies",
-            ]
-        )
-                .then(res => res[0].v)
-    );
+    return getProperty("PasswordPolicies");
 };
 
 export const startEventMonitorRuntime = ({ dispatch }) => {
@@ -88,7 +74,7 @@ export const startEventMonitorRuntime = ({ dispatch }) => {
         (path, iface, signal, args) => {
             switch (signal) {
             case "PropertiesChanged":
-                if (args[0] === "org.fedoraproject.Anaconda.Modules.Runtime.UserInterface" && Object.hasOwn(args[1], "PasswordPolicies")) {
+                if (args[0] === INTERFACE_NAME && Object.hasOwn(args[1], "PasswordPolicies")) {
                     dispatch(getPasswordPoliciesAction());
                 } else {
                     debug(`Unhandled signal on ${path}: ${iface}.${signal}`, JSON.stringify(args));
