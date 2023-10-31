@@ -51,6 +51,7 @@ export const accountsToDbusUsers = (accounts) => {
         gecos: cockpit.variant("s", accounts.fullName || ""),
         password: cockpit.variant("s", accounts.password || ""),
         "is-crypted": cockpit.variant("b", false),
+        groups: cockpit.variant("as", ["wheel"]),
     }];
 };
 
