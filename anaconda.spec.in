@@ -16,9 +16,11 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 # match the requires versions of things).
 
 %if ! 0%{?rhel}
+%bcond_without glade
 %bcond_without live
 %define blivetguiver 2.4.2-3
 %else
+%bcond_with glade
 %bcond_with live
 %endif
 %define cockpitver 275
@@ -55,7 +57,9 @@ BuildRequires: gtk-doc
 BuildRequires: gtk3-devel-docs >= %{gtk3ver}
 BuildRequires: glib2-doc
 BuildRequires: gobject-introspection-devel
+%if %{with glade}
 BuildRequires: glade-devel
+%endif
 BuildRequires: libgnomekbd-devel
 BuildRequires: libxklavier-devel >= %{libxklavierver}
 BuildRequires: make
@@ -326,7 +330,9 @@ installer.
 
 %package widgets-devel
 Summary: Development files for anaconda-widgets
+%if %{with glade}
 Requires: glade
+%endif
 Requires: %{name}-widgets%{?_isa} = %{version}-%{release}
 
 %description widgets-devel
@@ -352,7 +358,7 @@ runtime on NFS/HTTP/FTP servers or local disks.
 
 %build
 # use actual build-time release number, not tarball creation time release number
-%configure ANACONDA_RELEASE=%{release}
+%configure ANACONDA_RELEASE=%{release} %{!?with_glade:--disable-glade}
 %{__make} %{?_smp_mflags}
 
 %install
@@ -488,10 +494,12 @@ rm -rf \
 %{python3_sitearch}/gi/overrides/*
 
 %files widgets-devel
-%{_libdir}/libAnacondaWidgets.so
-%{_libdir}/glade/modules/libAnacondaWidgets.so
 %{_includedir}/*
+%{_libdir}/libAnacondaWidgets.so
+%if %{with glade}
+%{_libdir}/glade/modules/libAnacondaWidgets.so
 %{_datadir}/glade/catalogs/AnacondaWidgets.xml
+%endif
 %{_datadir}/gtk-doc
 
 %files dracut
