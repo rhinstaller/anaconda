@@ -302,7 +302,8 @@ def setup_display(anaconda, options):
         if vnc_server.vncconnectport == "":
             vnc_server.vncconnectport = anaconda.ksdata.vnc.port
 
-    if anaconda.gui_mode:
+    # check if GUI without WebUI
+    if anaconda.gui_mode and not anaconda.is_webui_supported:
         mods = (tup[1] for tup in pkgutil.iter_modules(pyanaconda.ui.__path__, "pyanaconda.ui."))
         if "pyanaconda.ui.gui" not in mods:
             stdout_log.warning("Graphical user interface not available, falling back to text mode")
