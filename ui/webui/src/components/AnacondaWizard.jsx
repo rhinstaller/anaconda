@@ -155,7 +155,7 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, runtim
                 setAccounts,
                 passwordPolicies: runtimeData.passwordPolicies,
             },
-            ...getAccountsProps()
+            ...getAccountsProps({ isBootIso })
         },
         {
             component: ReviewConfiguration,

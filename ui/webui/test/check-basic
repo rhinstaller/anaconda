@@ -93,7 +93,7 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         b.wait_visible(f"#installation-back-btn:not([aria-disabled={True}]")
 
         # For live media in the review screen language details should still be displayed
-        i.reach(i.steps.REVIEW)
+        i.reach(i.steps.REVIEW, hidden_steps=[i.steps.ACCOUNTS])
         r.check_language("English (United States)")
 
     def testAboutModal(self):

@@ -153,10 +153,11 @@ export const Accounts = ({
     );
 };
 
-export const getPageProps = () => {
+export const getPageProps = ({ isBootIso }) => {
     return ({
         id: "accounts",
         label: _("Create Account"),
+        isHidden: !isBootIso,
         title: null,
     });
 };

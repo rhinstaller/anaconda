@@ -60,7 +60,8 @@ class Installer():
         else:
             self.wait_current_page(self.steps._steps_jump[current_page])
 
-    def reach(self, target_page):
+    def reach(self, target_page, hidden_steps=None):
+        hidden_steps = hidden_steps or []
         path = []
         prev_pages = [target_page]
         current_page = self.get_current_page()
@@ -72,7 +73,8 @@ class Installer():
 
         while self.get_current_page() != target_page:
             next_page = path.pop()
-            self.next(next_page=next_page)
+            if next_page not in hidden_steps:
+                self.next(next_page=next_page)
 
     @log_step()
     def next(self, should_fail=False, next_page=""):
