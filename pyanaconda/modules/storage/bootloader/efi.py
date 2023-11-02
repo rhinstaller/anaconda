@@ -225,6 +225,11 @@ class EFISystemdBoot(EFIBase, SystemdBoot):
         """ Full path to EFI configuration file. """
         return join_paths(self.efi_config_dir, self._config_file)
 
+    def check(self):
+        """Verify the bootloader configuration."""
+        # Force the resolution order to run the systemd-boot check.
+        return SystemdBoot.check(self) and EFIBase.check(self)
+
     def write_config(self):
         """ Write the config settings to config file (ex: grub.cfg) not needed for systemd. """
         config_path = join_paths(conf.target.system_root, self.efi_config_file)
