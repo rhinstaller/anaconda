@@ -74,7 +74,7 @@ const CreateAccount = ({
 
     const passphraseForm = (
         <PasswordFormFields
-          idPrefix={idPrefix + "-create-account-password-form"}
+          idPrefix={idPrefix}
           policy={passwordPolicy}
           initialPassword={password}
           passwordLabel={_("Passphrase")}
@@ -94,31 +94,31 @@ const CreateAccount = ({
     return (
         <Form
           isHorizontal
-          id={idPrefix + "-create-account"}
+          id={idPrefix}
         >
             <Title
               headingLevel="h2"
-              id={idPrefix + "-create-account-title"}
+              id={idPrefix + "-title"}
             >
                 {_("Create account")}
             </Title>
             {_("This account will have administration priviledge with sudo.")}
             <FormGroup
               label={_("Full name")}
-              fieldId={idPrefix + "-create-account-full-name"}
+              fieldId={idPrefix + "-full-name"}
             >
                 <TextInput
-                  id={idPrefix + "-create-account-full-name"}
+                  id={idPrefix + "-full-name"}
                   value={fullName}
                   onChange={(_event, val) => setFullName(val)}
                 />
             </FormGroup>
             <FormGroup
               label={_("User account")}
-              fieldId={idPrefix + "-create-account-user-account"}
+              fieldId={idPrefix + "-user-account"}
             >
                 <TextInput
-                  id={idPrefix + "-create-account-user-account"}
+                  id={idPrefix + "-user-account"}
                   value={userAccount}
                   onChange={(_event, val) => setUserAccount(val)}
                 />
@@ -143,7 +143,7 @@ export const Accounts = ({
     return (
         <>
             <CreateAccount
-              idPrefix={idPrefix}
+              idPrefix={idPrefix + "-create-account"}
               passwordPolicy={passwordPolicies.user}
               setIsUserValid={setIsUserValid}
               accounts={accounts}

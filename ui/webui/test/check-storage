@@ -20,6 +20,7 @@ import anacondalib
 from installer import Installer
 from storage import Storage
 from review import Review
+from password import Password
 from testlib import nondestructive, test_main  # pylint: disable=import-error
 from storagelib import StorageHelpers  # pylint: disable=import-error
 from utils import pretend_live_iso
@@ -28,12 +29,13 @@ from utils import pretend_live_iso
 @nondestructive
 class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
     efi = False
+    encryption_id_prefix = "disk-encryption"
 
     def set_valid_password(self, password="abcdefgh"):
-        s = Storage(self.browser, self.machine)
+        p = Password(self.browser, self.encryption_id_prefix)
 
-        s.set_password(password)
-        s.set_password_confirm(password)
+        p.set_password(password)
+        p.set_password_confirm(password)
 
     def testLocalStandardDisks(self):
         b = self.browser
@@ -133,6 +135,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         b = self.browser
         i = Installer(b, self.machine)
         s = Storage(b, self.machine)
+        p = Password(b, self.encryption_id_prefix)
 
         i.open()
         # Language selection
@@ -165,51 +168,51 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         )
 
         # No password set
-        s.check_pw_rule("length", "indeterminate")
-        s.check_pw_rule("match", "indeterminate")
+        p.check_pw_rule("length", "indeterminate")
+        p.check_pw_rule("match", "indeterminate")
         i.check_next_disabled()
 
         # Set pw which is too short
-        s.set_password("abcd")
-        s.check_pw_strength(None)
+        p.set_password("abcd")
+        p.check_pw_strength(None)
         i.check_next_disabled()
-        s.check_pw_rule("length", "error")
-        s.check_pw_rule("match", "error")
+        p.check_pw_rule("length", "error")
+        p.check_pw_rule("match", "error")
 
         # Make the pw 8 chars long
-        s.set_password("efgh", append=True, value_check=False)
+        p.set_password("efgh", append=True, value_check=False)
         i.check_next_disabled()
-        s.check_password("abcdefgh")
-        s.check_pw_rule("length", "success")
-        s.check_pw_rule("match", "error")
-        s.check_pw_strength("weak")
+        p.check_password("abcdefgh")
+        p.check_pw_rule("length", "success")
+        p.check_pw_rule("match", "error")
+        p.check_pw_strength("weak")
 
         # Non-ASCII password
-        s.set_password(8 * "š")
-        s.check_password(8 * "š")
-        s.check_pw_rule("length", "success")
-        s.check_pw_rule("match", "error")
-        s.check_pw_rule("ascii", "warning")
-        s.check_pw_strength("weak")
+        p.set_password(8 * "š")
+        p.check_password(8 * "š")
+        p.check_pw_rule("length", "success")
+        p.check_pw_rule("match", "error")
+        p.check_pw_rule("ascii", "warning")
+        p.check_pw_strength("weak")
 
         # Valid ASCII password
-        s.set_password("abcdefgh")
-        s.check_password("abcdefgh")
+        p.set_password("abcdefgh")
+        p.check_password("abcdefgh")
 
         # Set the password confirm
-        s.set_password_confirm("abcdefg")
-        s.check_pw_rule("match", "error")
-        s.set_password_confirm("abcdefgh")
-        s.check_pw_rule("match", "success")
-        s.check_pw_rule("length", "success")
-        s.check_pw_strength("weak")
-        s.check_password("abcdefgh")
-        s.check_password_confirm("abcdefgh")
+        p.set_password_confirm("abcdefg")
+        p.check_pw_rule("match", "error")
+        p.set_password_confirm("abcdefgh")
+        p.check_pw_rule("match", "success")
+        p.check_pw_rule("length", "success")
+        p.check_pw_strength("weak")
+        p.check_password("abcdefgh")
+        p.check_password_confirm("abcdefgh")
         i.check_next_disabled(disabled=False)
 
         # Check setting strong password
-        s.set_password("Rwce82ybF7dXtCzFumanchu!!!!!!!!")
-        s.check_pw_strength("strong")
+        p.set_password("Rwce82ybF7dXtCzFumanchu!!!!!!!!")
+        p.check_pw_strength("strong")
 
     # Test moving back after partitioning is applied,
     # the partitioning should be reset.
@@ -217,6 +220,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         b = self.browser
         i = Installer(b, self.machine)
         s = Storage(b, self.machine)
+        p = Password(b, self.encryption_id_prefix)
 
         i.open()
         # Language selection
@@ -248,8 +252,8 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         # Verify that the password is saved when moving forward and back
         i.next()
         i.back()
-        s.check_password("abcdefgh")
-        s.check_password_confirm("abcdefgh")
+        p.check_password("abcdefgh")
+        p.check_password_confirm("abcdefgh")
 
         i.back()
         # Storage Configuration
