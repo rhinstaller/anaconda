@@ -21,6 +21,7 @@ import sys
 HELPERS_DIR = os.path.dirname(__file__)
 sys.path.append(HELPERS_DIR)
 
+from password import Password
 from step_logger import log_step
 
 
@@ -63,3 +64,16 @@ class Users(UsersDBus):
     def set_user_account(self, user_account, append=False, value_check=True):
         sel = "#accounts-create-account-user-account"
         self.browser.set_input_text(sel, user_account, append=append, value_check=value_check)
+
+
+def create_user(test, cleanup=True):
+    p = Password(test.browser, CREATE_ACCOUNT_ID_PREFIX)
+    u = Users(test.browser, test.machine)
+
+    password = "password"
+    p.set_password(password)
+    p.set_password_confirm(password)
+    u.set_user_account("tester")
+
+    if cleanup:
+        test.addCleanup(u.dbus_clear_users)

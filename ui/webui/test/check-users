@@ -18,8 +18,7 @@
 import anacondalib
 
 from installer import Installer
-from password import Password
-from users import Users, CREATE_ACCOUNT_ID_PREFIX
+from users import Users, CREATE_ACCOUNT_ID_PREFIX, create_user
 from testlib import nondestructive, test_main  # pylint: disable=import-error
 
 @nondestructive
@@ -30,25 +29,17 @@ class TestUsers(anacondalib.VirtInstallMachineCase):
     def testBasic(self):
         b = self.browser
         i = Installer(b, self.machine)
-        p = Password(b, CREATE_ACCOUNT_ID_PREFIX)
         u = Users(b, self.machine)
 
         i.open()
 
         i.reach(i.steps.ACCOUNTS)
-
-        password = "password"
-        p.set_password(password)
-        p.set_password_confirm(password)
-        u.set_user_account("tester")
-
+        create_user(self)
         b.assert_pixels(
             "#app",
             "users-step-basic",
             ignore=["#betanag-icon"],
         )
-
-        self.addCleanup(u.dbus_clear_users)
         i.reach(i.steps.REVIEW)
 
         users = u.dbus_get_users()

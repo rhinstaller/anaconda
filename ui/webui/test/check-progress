@@ -20,6 +20,7 @@ import anacondalib
 from installer import Installer
 from progress import Progress
 from storage import Storage
+from users import create_user
 from utils import add_public_key, get_pretty_name
 from testlib import test_main  # pylint: disable=import-error
 
@@ -40,7 +41,8 @@ class TestInstallationProgress(anacondalib.VirtInstallMachineCase):
 
         i.open()
 
-        i.reach(i.steps.REVIEW)
+        # Create user on the first pass through users step
+        i.reach(i.steps.REVIEW, step_callbacks={i.steps.ACCOUNTS: lambda: create_user(self, cleanup=False)})
         i.begin_installation()
 
         # the warning can take longer to show up than the regular wait_in_text() timeout
