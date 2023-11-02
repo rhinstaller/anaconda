@@ -36,7 +36,7 @@ from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
 from pyanaconda.modules.storage.bootloader.installation import ConfigureBootloaderTask, \
     InstallBootloaderTask, FixZIPLBootloaderTask, FixBTRFSBootloaderTask, RecreateInitrdsTask, \
-    CreateRescueImagesTask, CreateBLSEntriesTask
+    CreateRescueImagesTask, CreateBLSEntriesTask, InstallBootloaderTaskViaBootupd
 from pyanaconda.modules.storage.constants import BootloaderMode, ZIPLSecureBoot
 from pyanaconda.modules.storage.storage_subscriber import StorageSubscriberModule
 
@@ -83,6 +83,9 @@ class BootloaderModule(StorageSubscriberModule):
         self.password_is_set_changed = Signal()
         self._password = ""
         self._password_is_encrypted = False
+
+        # the ostree payload may turn this on if detected
+        self._use_bootupd = False
 
     def publish(self):
         """Publish the module."""
@@ -447,6 +450,16 @@ class BootloaderModule(StorageSubscriberModule):
 
         return requirements
 
+    @property
+    def use_bootupd(self):
+        """Whether bootupd is enabled"""
+        return self._use_bootupd
+
+    def set_use_bootupd(self):
+        """Install the bootloader using https://github.com/coreos/bootupd"""
+        self._use_bootupd = True
+        self.set_bootloader_mode(BootloaderMode.SKIPPED)
+
     def install_bootloader_with_tasks(self, payload_type, kernel_versions):
         """Install the bootloader with a list of tasks.
 
@@ -456,6 +469,11 @@ class BootloaderModule(StorageSubscriberModule):
         :param kernel_versions: a list of kernel versions
         :return: a list of tasks
         """
+        if self._use_bootupd:
+            return [
+                InstallBootloaderTaskViaBootupd(
+                    storage=self.storage, sysroot=conf.target.system_root)
+            ]
         return [
             CreateRescueImagesTask(
                 payload_type=payload_type,

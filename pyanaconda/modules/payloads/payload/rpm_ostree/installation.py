@@ -346,6 +346,8 @@ class CopyBootloaderDataTask(Task):
         be fixed to *copy* data into /boot at install time, instead of shipping it in the RPM).
         """
         bootloader = STORAGE.get_proxy(BOOTLOADER)
+        if bootloader.use_bootupd:
+            return
         is_efi = bootloader.IsEFI()
 
         physboot = self._physroot + '/boot'
@@ -496,8 +498,10 @@ class ConfigureBootloader(Task):
         return "Configure OSTree bootloader"
 
     def run(self):
-        self._move_grub_config()
-        self._set_kargs()
+        bootloader = STORAGE.get_proxy(BOOTLOADER)
+        if not bootloader.use_bootupd:
+            self._move_grub_config()
+        self._set_kargs(bootloader)
 
     def _move_grub_config(self):
         """If using GRUB2, move its config file, also with a compatibility symlink."""
@@ -509,7 +513,7 @@ class ConfigureBootloader(Task):
             os.rename(boot_grub2_cfg, target_grub_cfg)
             os.symlink('../loader/grub.cfg', boot_grub2_cfg)
 
-    def _set_kargs(self):
+    def _set_kargs(self, bootloader):
         """Set kernel arguments via OSTree-specific utils.
 
         OSTree owns the bootloader configuration, so here we give it an argument list computed
@@ -520,7 +524,6 @@ class ConfigureBootloader(Task):
         if conf.target.is_directory:
             return
 
-        bootloader = STORAGE.get_proxy(BOOTLOADER)
         device_tree = STORAGE.get_proxy(DEVICE_TREE)
 
         root_name = device_tree.GetRootDevice()
@@ -749,3 +752,9 @@ class SetSystemRootTask(Task):
         deployment = deployments[0]
         deployment_path = sysroot.get_deployment_directory(deployment)
         set_system_root(deployment_path.get_path())
+
+        have_bootupd = os.path.exists(deployment_path.get_path() + '/usr/bin/bootupctl')
+        if have_bootupd:
+            log.info("Found bootupd in target root, disabling Anaconda bootloader installation")
+            bootloader = STORAGE.get_proxy(BOOTLOADER)
+            bootloader.set_use_bootupd()

@@ -142,6 +142,34 @@ class InstallBootloaderTask(Task):
             raise BootloaderInstallationError(str(e)) from None
 
 
+class InstallBootloaderTaskViaBootupd(Task):
+    """Installation task for the bootloader via bootupd"""
+
+    def __init__(self, storage, sysroot):
+        """Create a new task."""
+        super().__init__()
+        self._storage = storage
+        self._sysroot = sysroot
+
+    @property
+    def name(self):
+        return "Install the bootloader"
+
+    def run(self):
+        """Run the task.
+
+        :raise: BootloaderInstallationError if the installation fails
+        """
+        rc = execWithRedirect(
+            "bootupctl",
+            ["backend", "install", "--auto", "--with-static-configs",
+             "--device", self._storage.root_device, self._sysroot],
+            root=self._sysroot)
+        if rc:
+            raise BootloaderInstallationError(
+                "failed to write boot loader configuration")
+
+
 class CreateBLSEntriesTask(Task):
     """The installation task that creates BLS entries."""
 
