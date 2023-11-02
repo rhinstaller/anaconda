@@ -65,6 +65,7 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
 
         # Test going back
         steps = [
+            i.steps.ACCOUNTS,
             i.steps.DISK_CONFIGURATION,
             i.steps.DISK_ENCRYPTION,
             i.steps.DISK_CONFIGURATION,
