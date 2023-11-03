@@ -30,13 +30,10 @@ from utils import pretend_live_iso
 @nondestructive
 class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
     efi = False
-    encryption_id_prefix = "disk-encryption"
 
-    def set_valid_password(self, password="abcdefgh"):
-        p = Password(self.browser, self.encryption_id_prefix)
-
-        p.set_password(password)
-        p.set_password_confirm(password)
+    def set_valid_password(self, password_ui, password="abcdefgh"):
+        password_ui.set_password(password)
+        password_ui.set_password_confirm(password)
 
     def testLocalStandardDisks(self):
         b = self.browser
@@ -136,7 +133,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         b = self.browser
         i = Installer(b, self.machine)
         s = Storage(b, self.machine)
-        p = Password(b, self.encryption_id_prefix)
+        p = Password(b, s.encryption_id_prefix)
 
         i.open()
         # Language selection
@@ -221,7 +218,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         b = self.browser
         i = Installer(b, self.machine)
         s = Storage(b, self.machine)
-        p = Password(b, self.encryption_id_prefix)
+        p = Password(b, s.encryption_id_prefix)
 
         i.open()
         # Language selection
@@ -248,7 +245,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         s.check_encryption_selected(encrypt)
 
         # Set valid password
-        self.set_valid_password()
+        self.set_valid_password(p)
 
         # Verify that the password is saved when moving forward and back
         i.next()

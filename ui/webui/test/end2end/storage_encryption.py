@@ -38,11 +38,11 @@ class StorageEncryption(End2EndTest):
         self._storage.set_encryption_selected(True)
         self._storage.check_encryption_selected(True)
 
-        self._storage.set_password(self.luks_pass)
-        self._storage.check_password(self.luks_pass)
-        self._storage.set_password_confirm(self.luks_pass)
-        self._storage.check_password_confirm(self.luks_pass)
-        self._storage.check_pw_strength('weak')
+        self._storage_password.set_password(self.luks_pass)
+        self._storage_password.check_password(self.luks_pass)
+        self._storage_password.set_password_confirm(self.luks_pass)
+        self._storage_password.check_password_confirm(self.luks_pass)
+        self._storage_password.check_pw_strength('weak')
 
     @log_step()
     def post_install_step(self):

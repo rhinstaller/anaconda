@@ -117,13 +117,15 @@ class StorageDestination():
 
 
 class StorageEncryption():
+    encryption_id_prefix = "disk-encryption"
+
     def __init__(self, browser, machine):
         self.browser = browser
         self.machine = machine
 
     @log_step(snapshot_before=True)
     def check_encryption_selected(self, selected):
-        sel = "#disk-encryption-encrypt-devices"
+        sel = f"#{self.encryption_id_prefix}-encrypt-devices"
         if selected:
             self.browser.wait_visible(sel + ':checked')
         else:
@@ -131,7 +133,7 @@ class StorageEncryption():
 
     @log_step(snapshot_before=True)
     def set_encryption_selected(self, selected):
-        sel = "#disk-encryption-encrypt-devices"
+        sel = f"#{self.encryption_id_prefix}-encrypt-devices"
         self.browser.set_checked(sel, selected)
 
 

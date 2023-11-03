@@ -30,6 +30,8 @@ from language import Language
 from storage import Storage
 from review import Review
 from progress import Progress
+from password import Password
+from users import create_user
 from utils import add_public_key
 from testlib import MachineCase  # pylint: disable=import-error
 from machine_install import VirtInstallMachine
@@ -44,6 +46,7 @@ class End2EndTest(MachineCase):
         self._installer = Installer(self.browser, self.machine)
         self._language = Language(self.browser, self.machine)
         self._storage = Storage(self.browser, self.machine)
+        self._storage_password = Password(self.browser, self._storage.encryption_id_prefix)
         self._review = Review(self.browser)
         self._progress = Progress(self.browser)
         self.__installation_finished = False
@@ -75,6 +78,9 @@ class End2EndTest(MachineCase):
     def check_review_screen(self):
         pass
 
+    def check_users_screen(self):
+        create_user(self.browser, self.machine)
+
     def monitor_progress(self):
         self._progress.wait_done()
 
@@ -100,6 +106,8 @@ class End2EndTest(MachineCase):
         self.configure_storage_disks()
         self._installer.next()
         self.configure_storage_encryption()
+        self._installer.next()
+        self.check_users_screen()
         self._installer.next()
         self.check_review_screen()
         self._installer.begin_installation()

@@ -45,6 +45,8 @@ class WizardNavigation(End2EndTest):
         self._installer.next()
         self.configure_storage_encryption()
         self._installer.next()
+        self.check_users_screen()
+        self._installer.next()
         # Finish installation
         self.check_review_screen()
         self._installer.begin_installation()
