@@ -34,7 +34,7 @@ class TestUsers(anacondalib.VirtInstallMachineCase):
         i.open()
 
         i.reach(i.steps.ACCOUNTS)
-        create_user(self)
+        create_user(b, self.machine)
         b.assert_pixels(
             "#app",
             "users-step-basic",

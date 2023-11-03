@@ -18,6 +18,8 @@ from collections import UserDict
 from time import sleep
 from step_logger import log_step
 
+from users import create_user
+
 
 class InstallerSteps(UserDict):
     WELCOME = "installation-language"
@@ -37,6 +39,9 @@ class InstallerSteps(UserDict):
     _steps_jump[ACCOUNTS] = REVIEW
     _steps_jump[REVIEW] = PROGRESS
     _steps_jump[PROGRESS] = []
+
+    _steps_callbacks = {}
+    _steps_callbacks[ACCOUNTS] = create_user
 
 class Installer():
     def __init__(self, browser, machine):
@@ -60,7 +65,7 @@ class Installer():
         else:
             self.wait_current_page(self.steps._steps_jump[current_page])
 
-    def reach(self, target_page, hidden_steps=None, step_callbacks={}):
+    def reach(self, target_page, hidden_steps=None):
         hidden_steps = hidden_steps or []
         path = []
         prev_pages = [target_page]
@@ -75,8 +80,8 @@ class Installer():
             next_page = path.pop()
             if next_page not in hidden_steps:
                 self.next(next_page=next_page)
-                if next_page in step_callbacks:
-                    step_callbacks[next_page]()
+                if next_page in self.steps._steps_callbacks:
+                    self.steps._steps_callbacks[next_page](self.browser, self.machine)
 
     @log_step()
     def next(self, should_fail=False, next_page=""):

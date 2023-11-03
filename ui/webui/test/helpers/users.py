@@ -66,14 +66,15 @@ class Users(UsersDBus):
         self.browser.set_input_text(sel, user_account, append=append, value_check=value_check)
 
 
-def create_user(test, cleanup=True):
-    p = Password(test.browser, CREATE_ACCOUNT_ID_PREFIX)
-    u = Users(test.browser, test.machine)
+def create_user(browser, machine):
+    p = Password(browser, CREATE_ACCOUNT_ID_PREFIX)
+    u = Users(browser, machine)
 
     password = "password"
     p.set_password(password)
     p.set_password_confirm(password)
     u.set_user_account("tester")
 
-    if cleanup:
-        test.addCleanup(u.dbus_clear_users)
+
+def dbus_reset_users(machine):
+    UsersDBus(machine).dbus_clear_users()

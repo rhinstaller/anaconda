@@ -19,9 +19,9 @@ import anacondalib
 
 from installer import Installer
 from storage import Storage
+from users import dbus_reset_users
 from review import Review
 from password import Password
-from users import create_user
 from testlib import nondestructive, test_main  # pylint: disable=import-error
 from storagelib import StorageHelpers  # pylint: disable=import-error
 from utils import pretend_live_iso
@@ -282,8 +282,8 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
 
         # Go to Review step
         i.open()
-        # Create user on the first pass through users step
-        i.reach(i.steps.REVIEW, step_callbacks={i.steps.ACCOUNTS: lambda: create_user(self)})
+        self.addCleanup(lambda: dbus_reset_users(self.machine))
+        i.reach(i.steps.REVIEW)
 
         # Read partitioning data after we went to Review step
         new_applied_partitioning = s.dbus_get_applied_partitioning()
@@ -417,8 +417,8 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
             "mount-point-mapping-table",
         )
 
-        # Create user on the first pass through users step
-        i.reach(i.steps.REVIEW, step_callbacks={i.steps.ACCOUNTS: lambda: create_user(self)})
+        self.addCleanup(lambda: dbus_reset_users(self.machine))
+        i.reach(i.steps.REVIEW)
 
 
         # verify review screen
@@ -544,8 +544,8 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         s.select_mountpoint_row_mountpoint(3, "/home")
         s.check_mountpoint_row(3, "/home", f"{dev2}1", False, "xfs")
 
-        # Create user on the first pass through users step
-        i.reach(i.steps.REVIEW, step_callbacks={i.steps.ACCOUNTS: lambda: create_user(self)})
+        self.addCleanup(lambda: dbus_reset_users(self.machine))
+        i.reach(i.steps.REVIEW)
 
         # verify review screen
         disk = "vda"
@@ -631,8 +631,8 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         b.wait_in_text(f"{selector} .pf-v5-c-select__toggle-text", "luks")
         s.check_mountpoint_row_format_type(2, "xfs")
 
-        # Create user on the first pass through users step
-        i.reach(i.steps.REVIEW, step_callbacks={i.steps.ACCOUNTS: lambda: create_user(self)})
+        self.addCleanup(lambda: dbus_reset_users(self.machine))
+        i.reach(i.steps.REVIEW)
 
         r.check_in_disk_row(dev1, 2, "luks-")
 
@@ -678,8 +678,8 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         s.select_mountpoint_row_device(2, "encryptedraid")
         s.check_mountpoint_row_format_type(2, "xfs")
 
-        # Create user on the first pass through users step
-        i.reach(i.steps.REVIEW, step_callbacks={i.steps.ACCOUNTS: lambda: create_user(self)})
+        self.addCleanup(lambda: dbus_reset_users(self.machine))
+        i.reach(i.steps.REVIEW)
 
         r.check_disk(dev, "16.1 GB vda (0x1af4)")
 
@@ -731,8 +731,8 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         b.wait_in_text(f"{selector} .pf-v5-c-select__toggle-text", "luks")
         s.check_mountpoint_row_format_type(2, "xfs")
 
-        # Create user on the first pass through users step
-        i.reach(i.steps.REVIEW, step_callbacks={i.steps.ACCOUNTS: lambda: create_user(self)})
+        self.addCleanup(lambda: dbus_reset_users(self.machine))
+        i.reach(i.steps.REVIEW)
 
         r.check_disk(dev, "16.1 GB vda (0x1af4)")
 
@@ -792,8 +792,8 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         s.select_mountpoint_row_reformat(1)
         s.check_mountpoint_row_reformat(1, True)
 
-        # Create user on the first pass through users step
-        i.reach(i.steps.REVIEW, step_callbacks={i.steps.ACCOUNTS: lambda: create_user(self)})
+        self.addCleanup(lambda: dbus_reset_users(self.machine))
+        i.reach(i.steps.REVIEW)
 
         # verify review screen
         r.check_disk(dev, "16.1 GB vda (0x1af4)")
@@ -955,8 +955,8 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         s.select_mountpoint_row_reformat(1)
         s.check_mountpoint_row_reformat(1, True)
 
-        # Create user on the first pass through users step
-        i.reach(i.steps.REVIEW, step_callbacks={i.steps.ACCOUNTS: lambda: create_user(self)})
+        self.addCleanup(lambda: dbus_reset_users(self.machine))
+        i.reach(i.steps.REVIEW)
 
         # verify review screen
         disk = "vda"
@@ -1045,8 +1045,8 @@ class TestStorageMountPointsEFI(anacondalib.VirtInstallMachineCase):
         s.select_mountpoint_row_device(3, f"{dev}3")
         s.check_mountpoint_row_format_type(3, "xfs")
 
-        # Create user on the first pass through users step
-        i.reach(i.steps.REVIEW, step_callbacks={i.steps.ACCOUNTS: lambda: create_user(self)})
+        self.addCleanup(lambda: dbus_reset_users(self.machine))
+        i.reach(i.steps.REVIEW)
 
         # verify review screen
         r.check_disk(dev, "16.1 GB vda (0x1af4)")

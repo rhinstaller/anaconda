@@ -22,7 +22,7 @@ from storage import Storage  # pylint: disable=import-error
 from review import Review
 from language import Language
 from progress import Progress
-from users import create_user
+from users import dbus_reset_users
 from utils import add_public_key
 from testlib import nondestructive, test_main  # pylint: disable=import-error
 
@@ -42,8 +42,8 @@ class TestReview(anacondalib.VirtInstallMachineCase):
         # Since this is a non-destructive test we need to make sure the we reset partitioning to how it was before the test started
         self.addCleanup(s.dbus_reset_partitioning)
 
-        # Create user on the first pass through users step
-        i.reach(i.steps.REVIEW, step_callbacks={i.steps.ACCOUNTS: lambda: create_user(self)})
+        self.addCleanup(lambda: dbus_reset_users(self.machine))
+        i.reach(i.steps.REVIEW)
 
         # check language is shown
         r.check_language("English (United States)")
@@ -74,8 +74,8 @@ class TestReview(anacondalib.VirtInstallMachineCase):
 
         i.open()
 
-        # Create user on the first pass through users step
-        i.reach(i.steps.REVIEW, step_callbacks={i.steps.ACCOUNTS: lambda: create_user(self)})
+        self.addCleanup(lambda: dbus_reset_users(self.machine))
+        i.reach(i.steps.REVIEW)
         i.begin_installation(should_fail=True, confirm_erase=False)
 
     def testUnknownLanguage(self):
@@ -89,8 +89,8 @@ class TestReview(anacondalib.VirtInstallMachineCase):
         # Set language to Macedonian that is now in the installer translated languages
         # Go to review page after it
         l.dbus_set_language("mk_MK.UTF-8")
-        # Create user on the first pass through users step
-        i.reach(i.steps.REVIEW, step_callbacks={i.steps.ACCOUNTS: lambda: create_user(self)})
+        self.addCleanup(lambda: dbus_reset_users(self.machine))
+        i.reach(i.steps.REVIEW)
 
         # test the macedonian language selected
         r.check_language("mk_MK.UTF-8")
