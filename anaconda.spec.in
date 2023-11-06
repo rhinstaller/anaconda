@@ -23,7 +23,6 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %bcond_with glade
 %bcond_with live
 %endif
-%define cockpitver 275
 %define dasbusver 1.3
 %define dbusver 1.2.3
 %define dnfver 3.6.0
@@ -270,20 +269,6 @@ The anaconda-install-img-deps metapackage lists all boot.iso installation
 image dependencies. Add this package to an image build (eg. with lorax) to
 ensure all Anaconda capabilities are supported in the resulting image.
 
-%package webui
-Summary: Cockpit based user interface for the Anaconda installer
-# ours + what npm brings in and we vendor
-License: GPL-2.0-or-later AND MIT AND 0BSD
-Requires: cockpit-bridge >= %{cockpitver}
-Requires: cockpit-ws >= %{cockpitver}
-# Firefox dependency needs to be specified there as cockpit web-view does not have a hard dependency on Firefox as
-# it can often fall back to a diferent browser. This does not work in the limited installer
-# environment, so we need to make sure Firefox is available.
-Requires: firefox
-
-%description webui
-This package contains Cockpit based user interface for the Anaconda installer.
-
 %package gui
 Summary: Graphical user interface for the Anaconda installer
 Requires: anaconda-core = %{version}-%{release}
@@ -444,30 +429,6 @@ rm -rf \
 %{_sysconfdir}/xdg/autostart/*.desktop
 
 %endif
-
-%files webui
-%dir %{_datadir}/cockpit/anaconda-webui
-%{_datadir}/cockpit/anaconda-webui/logo.svg
-%{_datadir}/cockpit/anaconda-webui/index.js.LEGAL.txt
-%{_datadir}/cockpit/anaconda-webui/index.css.LEGAL.txt
-%{_datadir}/cockpit/anaconda-webui/index.html
-%{_datadir}/cockpit/anaconda-webui/index.js.gz
-%{_datadir}/cockpit/anaconda-webui/index.js.map
-%{_datadir}/cockpit/anaconda-webui/index.css.gz
-%{_datadir}/cockpit/anaconda-webui/index.css.map
-%{_datadir}/cockpit/anaconda-webui/manifest.json
-%{_datadir}/metainfo/org.cockpit-project.anaconda-webui.metainfo.xml
-%{_datadir}/cockpit/anaconda-webui/po.*.js.gz
-%dir %{_datadir}/anaconda/firefox-theme
-%dir %{_datadir}/anaconda/firefox-theme/default
-%dir %{_datadir}/anaconda/firefox-theme/default/chrome
-%{_datadir}/anaconda/firefox-theme/default/user.js
-%{_datadir}/anaconda/firefox-theme/default/chrome/userChrome.css
-%dir %{_datadir}/anaconda/firefox-theme/live
-%dir %{_datadir}/anaconda/firefox-theme/live/chrome
-%{_datadir}/anaconda/firefox-theme/live/user.js
-%{_datadir}/anaconda/firefox-theme/live/chrome/userChrome.css
-%{_libexecdir}/webui-desktop
 
 %files gui
 %{python3_sitearch}/pyanaconda/ui/gui/*

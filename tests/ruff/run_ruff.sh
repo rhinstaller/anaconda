@@ -12,4 +12,3 @@ ruff check \
   "$top_srcdir/pyanaconda/" \
   "$top_srcdir/tests/" \
   "$top_srcdir/scripts/" \
-  "$top_srcdir/ui/webui/test/"

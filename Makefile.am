@@ -20,7 +20,7 @@ include ./po/l10n-config.mk
 
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS = data docs dracut po pyanaconda scripts tests widgets ui utils
+SUBDIRS = data docs dracut po pyanaconda scripts tests widgets utils
 
 EXTRA_DIST = COPYING
 
@@ -305,7 +305,6 @@ container-ci:
 
 	$(CONTAINER_ENGINE) run \
 	--entrypoint /anaconda/dockerfile/anaconda-ci/run-build-and-arg \
-	-e CONFIGURE_ARGS="--disable-webui" \
 	$(CONTAINER_TEST_ARGS) \
 	$(CI_TEST_ARGS) \
 	$(CONTAINER_RUN_ARGS) \
@@ -489,9 +488,6 @@ tests-unit-only:
 run-rpm-tests-only: rpms
 	$(MAKE) TEST_SUITE_LOG=test-suite.log RPM_PATH=$(RPM_BUILD_DIR) \
 			ROOT_ANACONDA_PATH=$(abs_srcdir) TESTS=rpm_tests/rpm_tests.sh check
-
-webui-tests: srpm
-	$(MAKE) --directory ui/webui integration-test
 
 coverage-report:
 	$(COVERAGE) combine tests/.coverage.*

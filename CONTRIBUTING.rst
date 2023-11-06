@@ -21,15 +21,10 @@ If you are not interested in dealing with containers, just skip this part and co
 
     sudo dnf install toolbox
 
-To create and enter a development toolbx for Anaconda (not Web UI) just run these commands::
+To create and enter a development toolbx for Anaconda just run these commands::
 
     toolbox create
     toolbox enter
-
-To create and enter a development toolbx for Anaconda Web UI run this command instead::
-
-    toolbox create --image quay.io/cockpit/tasks -c anaconda-webui
-    toolbox enter anaconda-webui
 
 Installing dependencies
 -----------------------
@@ -41,10 +36,6 @@ To get all the dependencies and prepare the environment in the container or
 on your system just run these commands::
 
     sudo ./scripts/testing/install_dependencies.sh
-
-For testing also the Web UI, you need to install additional dependencies::
-
-    sudo ./scripts/testing/install_webui_dependencies.sh
 
 
 How to run make commands
@@ -111,10 +102,6 @@ Testing Anaconda changes
 ------------------------
 
 To test changes in Anaconda you have a few options based on what you need to do.
-
-WebUI development
-^^^^^^^^^^^^^^^^^
-See ``ui/webui/README.rst`` and ``ui/webui/test/README.rst`` for more details about how to develop and test Web UI interface of Anaconda.
 
 Backend and TUI development
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
