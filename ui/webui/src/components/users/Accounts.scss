@@ -1,4 +1,10 @@
-// Span disk encryption password fields to take slightly more width than the default
+// Limit the width of input fields
 #accounts-create-account {
   width: min(60ch, 100%);
+}
+
+// FIXME: Undo when fixed upstream: https://github.com/patternfly/patternfly/issues/6032
+#accounts-create-account .pf-v5-c-form__group-label.pf-m-info {
+  flex-direction: column;
+  align-items: flex-start;
 }
