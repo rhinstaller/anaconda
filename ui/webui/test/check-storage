@@ -19,7 +19,9 @@ import anacondalib
 
 from installer import Installer
 from storage import Storage
+from users import dbus_reset_users
 from review import Review
+from password import Password
 from testlib import nondestructive, test_main  # pylint: disable=import-error
 from storagelib import StorageHelpers  # pylint: disable=import-error
 from utils import pretend_live_iso
@@ -29,11 +31,9 @@ from utils import pretend_live_iso
 class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
     efi = False
 
-    def set_valid_password(self, password="abcdefgh"):
-        s = Storage(self.browser, self.machine)
-
-        s.set_password(password)
-        s.set_password_confirm(password)
+    def set_valid_password(self, password_ui, password="abcdefgh"):
+        password_ui.set_password(password)
+        password_ui.set_password_confirm(password)
 
     def testLocalStandardDisks(self):
         b = self.browser
@@ -133,6 +133,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         b = self.browser
         i = Installer(b, self.machine)
         s = Storage(b, self.machine)
+        p = Password(b, s.encryption_id_prefix)
 
         i.open()
         # Language selection
@@ -165,51 +166,51 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         )
 
         # No password set
-        s.check_pw_rule("min-chars", "indeterminate")
-        s.check_pw_rule("match", "indeterminate")
+        p.check_pw_rule("length", "indeterminate")
+        p.check_pw_rule("match", "indeterminate")
         i.check_next_disabled()
 
         # Set pw which is too short
-        s.set_password("abcd")
-        s.check_pw_strength(None)
+        p.set_password("abcd")
+        p.check_pw_strength(None)
         i.check_next_disabled()
-        s.check_pw_rule("min-chars", "error")
-        s.check_pw_rule("match", "error")
+        p.check_pw_rule("length", "error")
+        p.check_pw_rule("match", "error")
 
         # Make the pw 8 chars long
-        s.set_password("efgh", append=True, value_check=False)
+        p.set_password("efgh", append=True, value_check=False)
         i.check_next_disabled()
-        s.check_password("abcdefgh")
-        s.check_pw_rule("min-chars", "success")
-        s.check_pw_rule("match", "error")
-        s.check_pw_strength("weak")
+        p.check_password("abcdefgh")
+        p.check_pw_rule("length", "success")
+        p.check_pw_rule("match", "error")
+        p.check_pw_strength("weak")
 
         # Non-ASCII password
-        s.set_password(8 * "š")
-        s.check_password(8 * "š")
-        s.check_pw_rule("min-chars", "success")
-        s.check_pw_rule("match", "error")
-        s.check_pw_rule("ascii", "warning")
-        s.check_pw_strength("weak")
+        p.set_password(8 * "š")
+        p.check_password(8 * "š")
+        p.check_pw_rule("length", "success")
+        p.check_pw_rule("match", "error")
+        p.check_pw_rule("ascii", "warning")
+        p.check_pw_strength("weak")
 
         # Valid ASCII password
-        s.set_password("abcdefgh")
-        s.check_password("abcdefgh")
+        p.set_password("abcdefgh")
+        p.check_password("abcdefgh")
 
         # Set the password confirm
-        s.set_password_confirm("abcdefg")
-        s.check_pw_rule("match", "error")
-        s.set_password_confirm("abcdefgh")
-        s.check_pw_rule("match", "success")
-        s.check_pw_rule("min-chars", "success")
-        s.check_pw_strength("weak")
-        s.check_password("abcdefgh")
-        s.check_password_confirm("abcdefgh")
+        p.set_password_confirm("abcdefg")
+        p.check_pw_rule("match", "error")
+        p.set_password_confirm("abcdefgh")
+        p.check_pw_rule("match", "success")
+        p.check_pw_rule("length", "success")
+        p.check_pw_strength("weak")
+        p.check_password("abcdefgh")
+        p.check_password_confirm("abcdefgh")
         i.check_next_disabled(disabled=False)
 
         # Check setting strong password
-        s.set_password("Rwce82ybF7dXtCzFumanchu!!!!!!!!")
-        s.check_pw_strength("strong")
+        p.set_password("Rwce82ybF7dXtCzFumanchu!!!!!!!!")
+        p.check_pw_strength("strong")
 
     # Test moving back after partitioning is applied,
     # the partitioning should be reset.
@@ -217,6 +218,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         b = self.browser
         i = Installer(b, self.machine)
         s = Storage(b, self.machine)
+        p = Password(b, s.encryption_id_prefix)
 
         i.open()
         # Language selection
@@ -243,13 +245,13 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         s.check_encryption_selected(encrypt)
 
         # Set valid password
-        self.set_valid_password()
+        self.set_valid_password(p)
 
         # Verify that the password is saved when moving forward and back
         i.next()
         i.back()
-        s.check_password("abcdefgh")
-        s.check_password_confirm("abcdefgh")
+        p.check_password("abcdefgh")
+        p.check_password_confirm("abcdefgh")
 
         i.back()
         # Storage Configuration
@@ -277,6 +279,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
 
         # Go to Review step
         i.open()
+        self.addCleanup(lambda: dbus_reset_users(self.machine))
         i.reach(i.steps.REVIEW)
 
         # Read partitioning data after we went to Review step
@@ -295,9 +298,10 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         for _ in range(10):
             s.dbus_create_partitioning("AUTOMATIC")
 
-        # Go back to the previous page and re-enter the review screen.
+        # Go back to the Disk Configuration page and re-enter the review screen.
         # This should create again a new partitioning object and apply it
         # no matter how many partitioning objects were created before
+        i.back()
         i.back()
         i.reach(i.steps.REVIEW)
         new_applied_partitioning = s.dbus_get_applied_partitioning()
@@ -306,7 +310,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         self.assertEqual(len(created_partitioning) + 11, len(new_created_partitioning))
         self.assertEqual(new_applied_partitioning, new_created_partitioning[-1])
 
-        # The applied partitioning should be reset when going back at any step from review page
+        # The applied partitioning should be reset also when going back to installation method
         i.click_step_on_sidebar(i.steps.INSTALLATION_METHOD)
         new_applied_partitioning = s.dbus_get_applied_partitioning()
         self.assertEqual(new_applied_partitioning, "")
@@ -410,7 +414,9 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
             "mount-point-mapping-table",
         )
 
+        self.addCleanup(lambda: dbus_reset_users(self.machine))
         i.reach(i.steps.REVIEW)
+
 
         # verify review screen
         r.check_disk(dev, "16.1 GB vda (0x1af4)")
@@ -422,6 +428,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         applied_partitioning = s.dbus_get_applied_partitioning()
 
         # When adding a new partition a new partitioning should be created
+        i.back()
         i.back(previous_page=i.steps.CUSTOM_MOUNT_POINT)
         i.back()
 
@@ -534,6 +541,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         s.select_mountpoint_row_mountpoint(3, "/home")
         s.check_mountpoint_row(3, "/home", f"{dev2}1", False, "xfs")
 
+        self.addCleanup(lambda: dbus_reset_users(self.machine))
         i.reach(i.steps.REVIEW)
 
         # verify review screen
@@ -620,6 +628,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         b.wait_in_text(f"{selector} .pf-v5-c-select__toggle-text", "luks")
         s.check_mountpoint_row_format_type(2, "xfs")
 
+        self.addCleanup(lambda: dbus_reset_users(self.machine))
         i.reach(i.steps.REVIEW)
 
         r.check_in_disk_row(dev1, 2, "luks-")
@@ -666,6 +675,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         s.select_mountpoint_row_device(2, "encryptedraid")
         s.check_mountpoint_row_format_type(2, "xfs")
 
+        self.addCleanup(lambda: dbus_reset_users(self.machine))
         i.reach(i.steps.REVIEW)
 
         r.check_disk(dev, "16.1 GB vda (0x1af4)")
@@ -718,6 +728,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         b.wait_in_text(f"{selector} .pf-v5-c-select__toggle-text", "luks")
         s.check_mountpoint_row_format_type(2, "xfs")
 
+        self.addCleanup(lambda: dbus_reset_users(self.machine))
         i.reach(i.steps.REVIEW)
 
         r.check_disk(dev, "16.1 GB vda (0x1af4)")
@@ -778,6 +789,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         s.select_mountpoint_row_reformat(1)
         s.check_mountpoint_row_reformat(1, True)
 
+        self.addCleanup(lambda: dbus_reset_users(self.machine))
         i.reach(i.steps.REVIEW)
 
         # verify review screen
@@ -788,6 +800,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         r.check_disk_row(dev, 3, "home, 15.0 GB: mount, /home")
         r.check_disk_row_not_present(dev, f"unused")
 
+        i.back()
         i.back(previous_page=i.steps.CUSTOM_MOUNT_POINT)
         i.back()
 
@@ -939,6 +952,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         s.select_mountpoint_row_reformat(1)
         s.check_mountpoint_row_reformat(1, True)
 
+        self.addCleanup(lambda: dbus_reset_users(self.machine))
         i.reach(i.steps.REVIEW)
 
         # verify review screen
@@ -950,6 +964,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         r.check_disk_row(disk, 3, f"{vgname}-home, 8.12 GB: mount, /home")
         r.check_disk_row(disk, 4, f"{vgname}-swap, 902 MB: mount, swap")
 
+        i.back()
         i.back(previous_page=i.steps.CUSTOM_MOUNT_POINT)
 
         # remove the /home row and check that row 3 is now swap
@@ -1027,6 +1042,7 @@ class TestStorageMountPointsEFI(anacondalib.VirtInstallMachineCase):
         s.select_mountpoint_row_device(3, f"{dev}3")
         s.check_mountpoint_row_format_type(3, "xfs")
 
+        self.addCleanup(lambda: dbus_reset_users(self.machine))
         i.reach(i.steps.REVIEW)
 
         # verify review screen

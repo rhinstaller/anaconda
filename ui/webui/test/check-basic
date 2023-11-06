@@ -21,6 +21,7 @@ from installer import Installer
 from language import Language
 from review import Review
 from storage import Storage
+from users import dbus_reset_users
 from testlib import nondestructive, test_main, wait, Error  # pylint: disable=import-error
 from utils import pretend_live_iso, get_pretty_name
 
@@ -44,6 +45,7 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         # Do not start the installation in non-destructive tests as this performs non revertible changes
         # with the pages basically empty of common elements (as those are provided by the top-level installer widget)
         # we at least iterate over them to check this works as expected
+        self.addCleanup(lambda: dbus_reset_users(self.machine))
         i.reach(i.steps.REVIEW)
 
         # Ensure that the 'actual' UI process is running/
@@ -61,10 +63,12 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         # Test that clicking on current step does not break navigation
         i.click_step_on_sidebar()
 
+        self.addCleanup(lambda: dbus_reset_users(self.machine))
         i.reach(i.steps.REVIEW)
 
         # Test going back
         steps = [
+            i.steps.ACCOUNTS,
             i.steps.DISK_CONFIGURATION,
             i.steps.DISK_ENCRYPTION,
             i.steps.DISK_CONFIGURATION,
@@ -93,7 +97,7 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         b.wait_visible(f"#installation-back-btn:not([aria-disabled={True}]")
 
         # For live media in the review screen language details should still be displayed
-        i.reach(i.steps.REVIEW)
+        i.reach(i.steps.REVIEW, hidden_steps=[i.steps.ACCOUNTS])
         r.check_language("English (United States)")
 
     def testAboutModal(self):

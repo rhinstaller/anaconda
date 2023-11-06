@@ -39,6 +39,7 @@ import { getDefaultScenario } from "./storage/InstallationScenario.jsx";
 import { MountPointMapping, getPageProps as getMountPointMappingProps } from "./storage/MountPointMapping.jsx";
 import { DiskEncryption, getStorageEncryptionState, getPageProps as getDiskEncryptionProps } from "./storage/DiskEncryption.jsx";
 import { InstallationLanguage, getPageProps as getInstallationLanguageProps } from "./localization/InstallationLanguage.jsx";
+import { Accounts, getPageProps as getAccountsProps, getAccountsState, accountsToDbusUsers } from "./users/Accounts.jsx";
 import { InstallationProgress } from "./installation/InstallationProgress.jsx";
 import { ReviewConfiguration, ReviewConfigurationConfirmModal, getPageProps as getReviewConfigurationProps } from "./review/ReviewConfiguration.jsx";
 import { exitGui } from "../helpers/exit.js";
@@ -50,6 +51,9 @@ import {
     applyStorage,
     resetPartitioning,
 } from "../apis/storage_partitioning.js";
+import {
+    setUsers,
+} from "../apis/users.js";
 import { SystemTypeContext, OsReleaseContext } from "./Common.jsx";
 
 const _ = cockpit.gettext;
@@ -63,6 +67,7 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, runtim
     const [stepNotification, setStepNotification] = useState();
     const [storageEncryption, setStorageEncryption] = useState(getStorageEncryptionState());
     const [storageScenarioId, setStorageScenarioId] = useState(window.sessionStorage.getItem("storage-scenario-id") || getDefaultScenario().id);
+    const [accounts, setAccounts] = useState(getAccountsState());
     const [showWizard, setShowWizard] = useState(true);
     const osRelease = useContext(OsReleaseContext);
     const isBootIso = useContext(SystemTypeContext) === "BOOT_ISO";
@@ -144,6 +149,15 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, runtim
             }]
         },
         {
+            component: Accounts,
+            data: {
+                accounts,
+                setAccounts,
+                passwordPolicies: runtimeData.passwordPolicies,
+            },
+            ...getAccountsProps({ isBootIso })
+        },
+        {
             component: ReviewConfiguration,
             data: {
                 deviceData: storageData.devices,
@@ -178,10 +192,14 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, runtim
     const firstStepId = stepsOrder.filter(step => !step.isHidden)[0].id;
     const currentStepId = path[0] || firstStepId;
 
+    const isStepFollowedBy = (earlierStepId, laterStepId) => {
+        const earlierStepIdx = flattenedStepsIds.findIndex(s => s === earlierStepId);
+        const laterStepIdx = flattenedStepsIds.findIndex(s => s === laterStepId);
+        return earlierStepIdx < laterStepIdx;
+    };
+
     const canJumpToStep = (stepId, currentStepId) => {
-        const stepIdx = flattenedStepsIds.findIndex(s => s === stepId);
-        const currentStepIdx = flattenedStepsIds.findIndex(s => s === currentStepId);
-        return stepIdx <= currentStepIdx;
+        return stepId === currentStepId || isStepFollowedBy(stepId, currentStepId);
     };
 
     const createSteps = (stepsOrder) => {
@@ -224,8 +242,10 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, runtim
             setIsFormValid(false);
         }
 
-        // Reset the applied partitioning when going back from review page
-        if (prevStep.prevId === "installation-review") {
+        // Reset the applied partitioning when going back from a step after creating partitioning to a step
+        // before creating partitioning.
+        if ((prevStep.prevId === "accounts" || isStepFollowedBy("accounts", prevStep.prevId)) &&
+            isStepFollowedBy(newStep.id, "accounts")) {
             setIsFormDisabled(true);
             resetPartitioning()
                     .then(
@@ -262,6 +282,7 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, runtim
                 stepsOrder={stepsOrder}
                 storageEncryption={storageEncryption}
                 storageScenarioId={storageScenarioId}
+                accounts={accounts}
               />}
               hideClose
               mainAriaLabel={`${title} content`}
@@ -288,6 +309,7 @@ const Footer = ({
     stepsOrder,
     storageEncryption,
     storageScenarioId,
+    accounts,
 }) => {
     const [nextWaitsConfirmation, setNextWaitsConfirmation] = useState(false);
     const [quitWaitsConfirmation, setQuitWaitsConfirmation] = useState(false);
@@ -338,6 +360,9 @@ const Footer = ({
                     setStepNotification();
                 },
             });
+        } else if (activeStep.id === "accounts") {
+            setUsers(accountsToDbusUsers(accounts));
+            onNext();
         } else {
             onNext();
         }

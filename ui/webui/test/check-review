@@ -22,6 +22,7 @@ from storage import Storage  # pylint: disable=import-error
 from review import Review
 from language import Language
 from progress import Progress
+from users import dbus_reset_users
 from utils import add_public_key
 from testlib import nondestructive, test_main  # pylint: disable=import-error
 
@@ -40,6 +41,8 @@ class TestReview(anacondalib.VirtInstallMachineCase):
         # After clicking 'Next' on the storage step, partitioning is done, thus changing the available space on the disk
         # Since this is a non-destructive test we need to make sure the we reset partitioning to how it was before the test started
         self.addCleanup(s.dbus_reset_partitioning)
+
+        self.addCleanup(lambda: dbus_reset_users(self.machine))
         i.reach(i.steps.REVIEW)
 
         # check language is shown
@@ -71,6 +74,7 @@ class TestReview(anacondalib.VirtInstallMachineCase):
 
         i.open()
 
+        self.addCleanup(lambda: dbus_reset_users(self.machine))
         i.reach(i.steps.REVIEW)
         i.begin_installation(should_fail=True, confirm_erase=False)
 
@@ -85,6 +89,7 @@ class TestReview(anacondalib.VirtInstallMachineCase):
         # Set language to Macedonian that is now in the installer translated languages
         # Go to review page after it
         l.dbus_set_language("mk_MK.UTF-8")
+        self.addCleanup(lambda: dbus_reset_users(self.machine))
         i.reach(i.steps.REVIEW)
 
         # test the macedonian language selected

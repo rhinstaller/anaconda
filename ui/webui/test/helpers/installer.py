@@ -18,6 +18,8 @@ from collections import UserDict
 from time import sleep
 from step_logger import log_step
 
+from users import create_user
+
 
 class InstallerSteps(UserDict):
     WELCOME = "installation-language"
@@ -25,16 +27,21 @@ class InstallerSteps(UserDict):
     CUSTOM_MOUNT_POINT = "mount-point-mapping"
     DISK_CONFIGURATION = "disk-configuration"
     DISK_ENCRYPTION = "disk-encryption"
+    ACCOUNTS = "accounts"
     REVIEW = "installation-review"
     PROGRESS = "installation-progress"
 
     _steps_jump = {}
     _steps_jump[WELCOME] = INSTALLATION_METHOD
     _steps_jump[INSTALLATION_METHOD] = [DISK_ENCRYPTION, CUSTOM_MOUNT_POINT]
-    _steps_jump[DISK_ENCRYPTION] = REVIEW
-    _steps_jump[CUSTOM_MOUNT_POINT] = REVIEW
+    _steps_jump[DISK_ENCRYPTION] = ACCOUNTS
+    _steps_jump[CUSTOM_MOUNT_POINT] = ACCOUNTS
+    _steps_jump[ACCOUNTS] = REVIEW
     _steps_jump[REVIEW] = PROGRESS
     _steps_jump[PROGRESS] = []
+
+    _steps_callbacks = {}
+    _steps_callbacks[ACCOUNTS] = create_user
 
 class Installer():
     def __init__(self, browser, machine):
@@ -58,7 +65,8 @@ class Installer():
         else:
             self.wait_current_page(self.steps._steps_jump[current_page])
 
-    def reach(self, target_page):
+    def reach(self, target_page, hidden_steps=None):
+        hidden_steps = hidden_steps or []
         path = []
         prev_pages = [target_page]
         current_page = self.get_current_page()
@@ -70,7 +78,10 @@ class Installer():
 
         while self.get_current_page() != target_page:
             next_page = path.pop()
-            self.next(next_page=next_page)
+            if next_page not in hidden_steps:
+                self.next(next_page=next_page)
+                if next_page in self.steps._steps_callbacks:
+                    self.steps._steps_callbacks[next_page](self.browser, self.machine)
 
     @log_step()
     def next(self, should_fail=False, next_page=""):

@@ -117,13 +117,15 @@ class StorageDestination():
 
 
 class StorageEncryption():
+    encryption_id_prefix = "disk-encryption"
+
     def __init__(self, browser, machine):
         self.browser = browser
         self.machine = machine
 
     @log_step(snapshot_before=True)
     def check_encryption_selected(self, selected):
-        sel = "#disk-encryption-encrypt-devices"
+        sel = f"#{self.encryption_id_prefix}-encrypt-devices"
         if selected:
             self.browser.wait_visible(sel + ':checked')
         else:
@@ -131,53 +133,8 @@ class StorageEncryption():
 
     @log_step(snapshot_before=True)
     def set_encryption_selected(self, selected):
-        sel = "#disk-encryption-encrypt-devices"
+        sel = f"#{self.encryption_id_prefix}-encrypt-devices"
         self.browser.set_checked(sel, selected)
-
-    @log_step(snapshot_before=True)
-    def check_pw_rule(self, rule, value):
-        sel = "#disk-encryption-password-rule-" + rule
-        cls_value = "pf-m-" + value
-        self.browser.wait_visible(sel)
-        self.browser.wait_attr_contains(sel, "class", cls_value)
-
-    @log_step(snapshot_before=True)
-    def set_password(self, password, append=False, value_check=True):
-        sel = "#disk-encryption-password-field"
-        self.browser.set_input_text(sel, password, append=append, value_check=value_check)
-
-    @log_step(snapshot_before=True)
-    def check_password(self, password):
-        sel = "#disk-encryption-password-field"
-        self.browser.wait_val(sel, password)
-
-    @log_step(snapshot_before=True)
-    def set_password_confirm(self, password):
-        sel = "#disk-encryption-password-confirm-field"
-        self.browser.set_input_text(sel, password)
-
-    @log_step(snapshot_before=True)
-    def check_password_confirm(self, password):
-        sel = "#disk-encryption-password-confirm-field"
-        self.browser.wait_val(sel, password)
-
-    @log_step(snapshot_before=True)
-    def check_pw_strength(self, strength):
-        sel = "#disk-encryption-password-strength-label"
-
-        if strength is None:
-            self.browser.wait_not_present(sel)
-            return
-
-        variant = ""
-        if strength == "weak":
-            variant = "error"
-        elif strength == "medium":
-            variant = "warning"
-        elif strength == "strong":
-            variant = "success"
-
-        self.browser.wait_attr_contains(sel, "class", "pf-m-" + variant)
 
 
 class StorageUtils(StorageDestination):
