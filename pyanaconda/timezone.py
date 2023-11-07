@@ -148,9 +148,9 @@ def get_all_regions_and_timezones():
     return result
 
 
-def is_valid_timezone(timezone):
+def is_valid_ui_timezone(timezone):
     """
-    Check if a given string is an existing timezone.
+    Check if a given string is a timezone specification offered by GUI.
 
     :type timezone: str
     :rtype: bool
@@ -160,6 +160,23 @@ def is_valid_timezone(timezone):
     etc_zones = ["Etc/" + zone for zone in ETC_ZONES]
 
     return timezone in pytz.common_timezones + etc_zones
+
+
+def is_valid_timezone(timezone):
+    """
+    Check if a given string is a valid timezone specification.
+
+    This includes also deprecated/backward timezones linked to other timezones
+    in tz database (eg Japan -> Asia/Tokyo). Both the tzdata package (installed
+    system) and TimezoneMap widget (installer GUI) should support them and be
+    able link them to the correct timezone specification using the data from
+    "backward" file.
+
+    :type timezone: str
+    :rtype: bool
+    """
+
+    return is_valid_ui_timezone(timezone) or timezone in pytz.all_timezones
 
 
 def get_timezone(timezone):
