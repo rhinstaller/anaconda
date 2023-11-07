@@ -99,7 +99,7 @@ const DeviceRow = ({ deviceData, disk, requests }) => {
     );
 };
 
-export const ReviewConfiguration = ({ deviceData, diskSelection, language, localizationData, requests, idPrefix, setIsFormValid, storageScenarioId }) => {
+export const ReviewConfiguration = ({ deviceData, diskSelection, language, localizationData, requests, idPrefix, setIsFormValid, storageScenarioId, accounts }) => {
     const [encrypt, setEncrypt] = useState();
     const osRelease = useContext(OsReleaseContext);
 
@@ -135,6 +135,16 @@ export const ReviewConfiguration = ({ deviceData, diskSelection, language, local
                     </DescriptionListTerm>
                     <DescriptionListDescription id={idPrefix + "-target-system-language"}>
                         {language ? language["native-name"].v : localizationData.language}
+                    </DescriptionListDescription>
+                </DescriptionListGroup>
+            </ReviewDescriptionList>
+            <ReviewDescriptionList>
+                <DescriptionListGroup>
+                    <DescriptionListTerm>
+                        {_("Account")}
+                    </DescriptionListTerm>
+                    <DescriptionListDescription id={idPrefix + "-target-system-account"}>
+                        {accounts.fullName ? `${accounts.fullName} (${accounts.userAccount})` : accounts.userAccount}
                     </DescriptionListDescription>
                 </DescriptionListGroup>
             </ReviewDescriptionList>

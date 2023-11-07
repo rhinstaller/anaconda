@@ -35,6 +35,10 @@ class Review():
         self.browser.wait_in_text(f"#{self._step}-target-system-language > .pf-v5-c-description-list__text", lang)
 
     @log_step()
+    def check_account(self, account):
+        self.browser.wait_in_text(f"#{self._step}-target-system-account > .pf-v5-c-description-list__text", account)
+
+    @log_step()
     def check_encryption(self, state):
         self.browser.wait_in_text(f"#{self._step}-target-system-encrypt > .pf-v5-c-description-list__text", state)
 

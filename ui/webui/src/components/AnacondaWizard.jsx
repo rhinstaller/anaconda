@@ -166,6 +166,7 @@ export const AnacondaWizard = ({ dispatch, storageData, localizationData, runtim
                 language,
                 localizationData,
                 storageScenarioId,
+                accounts,
             },
             ...getReviewConfigurationProps({ storageScenarioId })
         },
