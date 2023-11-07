@@ -24,7 +24,7 @@ from pyanaconda.timezone import NTP_SERVICE
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.errors.installation import TimezoneConfigurationError
 from pyanaconda.modules.common.task import Task
-from pyanaconda.timezone import is_valid_timezone
+from pyanaconda.timezone import is_valid_timezone, is_valid_ui_timezone
 
 from blivet import arch
 
@@ -60,7 +60,11 @@ class ConfigureTimezoneTask(Task):
 
     def _correct_timezone(self):
         """Ensure the timezone is valid."""
-        if not is_valid_timezone(self._timezone):
+        if is_valid_timezone(self._timezone):
+            if not is_valid_ui_timezone(self._timezone):
+                log.warning("Timezone specification %s set in kickstart is "
+                            "not offered by installer GUI.", self._timezone)
+        else:
             # this should never happen, but for pity's sake
             log.warning("Timezone %s set in kickstart is not valid, "
                         "falling back to default (America/New_York).", self._timezone)
