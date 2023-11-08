@@ -65,6 +65,21 @@ class Users(UsersDBus):
         sel = "#accounts-create-account-user-account"
         self.browser.set_input_text(sel, user_account, append=append, value_check=value_check)
 
+    @log_step(snapshot_before=True)
+    def check_user_account(self, user_account):
+        sel = "#accounts-create-account-user-account"
+        self.browser.wait_val(sel, user_account)
+
+    @log_step(snapshot_before=True)
+    def set_full_name(self, full_name, append=False, value_check=True):
+        sel = "#accounts-create-account-full-name"
+        self.browser.set_input_text(sel, full_name, append=append, value_check=value_check)
+
+    @log_step(snapshot_before=True)
+    def check_full_name(self, full_name):
+        sel = "#accounts-create-account-full-name"
+        self.browser.wait_val(sel, full_name)
+
 
 def create_user(browser, machine):
     p = Password(browser, CREATE_ACCOUNT_ID_PREFIX)

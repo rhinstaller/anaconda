@@ -18,8 +18,10 @@
 import anacondalib
 
 from installer import Installer
-from users import Users, CREATE_ACCOUNT_ID_PREFIX, create_user
-from testlib import nondestructive, test_main  # pylint: disable=import-error
+from password import Password
+from review import Review
+from users import Users, CREATE_ACCOUNT_ID_PREFIX, create_user, dbus_reset_users
+from testlib import nondestructive, test_main, sit  # pylint: disable=import-error
 
 @nondestructive
 class TestUsers(anacondalib.VirtInstallMachineCase):
@@ -30,6 +32,8 @@ class TestUsers(anacondalib.VirtInstallMachineCase):
         b = self.browser
         i = Installer(b, self.machine)
         u = Users(b, self.machine)
+
+        self.addCleanup(lambda: dbus_reset_users(self.machine))
 
         i.open()
 
@@ -46,6 +50,102 @@ class TestUsers(anacondalib.VirtInstallMachineCase):
         self.assertIn('"groups" as 1 "wheel"', users)
         self.assertIn('"is-crypted" b false', users)
         self.assertIn('"password" s "password"', users)
+
+    def testAccessAndValidation(self):
+        b = self.browser
+        i = Installer(b, self.machine)
+        p = Password(b, CREATE_ACCOUNT_ID_PREFIX)
+        u = Users(b, self.machine)
+
+        self.addCleanup(lambda: dbus_reset_users(self.machine))
+
+        i.open()
+
+        i.reach(i.steps.ACCOUNTS)
+
+        # Fill in valid values
+        password = "password"
+        full_name = "Full Tester"
+        user_account = "tester"
+
+        p.set_password(password)
+        p.set_password_confirm(password)
+        u.set_full_name(full_name)
+        u.set_user_account(user_account)
+
+        p.check_password(password)
+        p.check_password_confirm(password)
+        u.check_full_name(full_name)
+        u.check_user_account(user_account)
+
+        # Test that you can move forward and going back keeps values
+        i.next()
+        i.back()
+        p.check_password(password)
+        p.check_password_confirm(password)
+        u.check_full_name(full_name)
+        u.check_user_account(user_account)
+
+        # Test that moving back and forward keeps values
+        i.back()
+        i.next()
+        p.check_password(password)
+        p.check_password_confirm(password)
+        u.check_full_name(full_name)
+        u.check_user_account(user_account)
+
+        # Test full name validation
+        u.set_full_name("")
+        i.check_next_disabled(disabled=False)
+        u.set_full_name(full_name)
+
+        # Test account validation
+        u.set_user_account("")
+        i.check_next_disabled()
+        u.set_user_account(user_account)
+
+        # Test password validation
+        # No password set
+        p.set_password("")
+        p.set_password_confirm("")
+        p.check_pw_rule("length", "indeterminate")
+        p.check_pw_rule("match", "indeterminate")
+        i.check_next_disabled()
+        # Start which pw which is too short
+        p.set_password("abcd")
+        p.check_pw_strength(None)
+        i.check_next_disabled()
+        p.check_pw_rule("length", "error")
+        p.check_pw_rule("match", "error")
+        # Make the pw 6 chars long
+        p.set_password("ef", append=True, value_check=False)
+        i.check_next_disabled()
+        p.check_password("abcdef")
+        p.check_pw_rule("length", "success")
+        p.check_pw_rule("match", "error")
+        p.check_pw_strength("weak")
+        # Set the password confirm
+        p.set_password_confirm("abcde")
+        p.check_pw_rule("match", "error")
+        p.set_password_confirm("abcdef")
+        p.check_pw_rule("match", "success")
+        p.check_pw_rule("length", "success")
+        p.check_pw_strength("weak")
+        i.check_next_disabled(disabled=False)
+
+        # Test password strength
+        p.set_password("Rwce82ybF7dXtCzFumanchu!!!!!!!!")
+        p.check_pw_strength("strong")
+
+        # Test review values
+        p.set_password(password)
+        p.set_password_confirm(password)
+        u.set_full_name(full_name)
+        u.set_user_account(user_account)
+        r = Review(b)
+        i.reach(i.steps.REVIEW)
+        r.check_account(f"{full_name} ({user_account})")
+
 
 if __name__ == '__main__':
     test_main()
