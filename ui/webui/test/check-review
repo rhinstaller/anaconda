@@ -48,6 +48,9 @@ class TestReview(anacondalib.VirtInstallMachineCase):
         # check language is shown
         r.check_language("English (United States)")
 
+        # check account is shown
+        r.check_account("tester")
+
         # check selected disks are shown
         r.check_disk("vda", "16.1 GB vda (0x1af4)")
 
