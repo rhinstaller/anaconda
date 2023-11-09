@@ -283,6 +283,7 @@ class MainWindow(Gtk.Window):
           :param bool fullscreen: if True, fullscreen the window, if false maximize
         """
         super().__init__()
+
         # Keep the latest main window.
         self.__class__.__instance = self
 
@@ -672,6 +673,7 @@ class GraphicalUserInterface(UserInterface):
         return obj
 
     def run(self):
+        log.debug("AAA: GTK PID/PPID %d/%d", os.getpid(), os.getppid())
         (success, _args) = Gtk.init_check(None)
         if not success:
             raise RuntimeError("Failed to initialize Gtk")

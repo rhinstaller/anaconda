@@ -23,6 +23,23 @@
 # ...still messy (2013-07-12)
 # A lot less messy now. :) (2016-10-13)
 
+print("AAA MINIMAL GTK EXAMPLE")
+
+import time
+import os
+import shlex
+import subprocess
+
+
+print("AAA set ENV early")
+# FIXME: check if we need to define these env vars here or not
+os.environ["XDG_RUNTIME_DIR"] = "/run/user/0"
+os.environ["GDK_BACKEND"] = "wayland"
+os.environ["XDG_SESSION_TYPE"] = "wayland"
+
+print("AAA: ENVIRON")
+print(os.environ)
+
 import os
 import atexit
 import sys
@@ -172,6 +189,13 @@ if __name__ == "__main__":
         print("anaconda must be run as root.")
         sys.exit(1)
 
+    # FIXME: try setting XDG_RUNTIME_DIR early
+    os.environ["XDG_RUNTIME_DIR"] = "/run/user/0"
+    # FIXME: enable GTK startup debugging
+    os.environ["G_MESSAGES_DEBUG"] = "all"
+    os.environ["GDK_DEBUG"] = "all"
+#    os.environ["GTK_DEBUG"] = "all"
+
     print("Starting installer, one moment...")
 
     # Allow a file to be loaded as early as possible
@@ -225,6 +249,8 @@ if __name__ == "__main__":
     # see if we're on s390x and if we've got an ssh connection
     if startup_utils.prompt_for_ssh(opts):
         sys.exit(0)
+
+    log.debug("AAA: MAIN PID/PPID %d/%d", os.getpid(), os.getppid())
 
     log.info("%s %s", sys.argv[0], util.get_anaconda_version_string(build_time_version=True))
     # Do not exceed default 8K limit on message length in rsyslog

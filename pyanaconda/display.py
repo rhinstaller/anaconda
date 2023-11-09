@@ -28,6 +28,7 @@ import signal
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.process_watchers import WatchProcesses
+from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda import startup_utils
 from pyanaconda.core import util, constants, hw
 from pyanaconda import vnc
@@ -49,6 +50,10 @@ from simpleline.render.screen_handler import ScreenHandler
 from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger
 log = get_module_logger(__name__)
 stdout_log = get_stdout_logger()
+
+import gi
+gi.require_version("Gdk", "3.0")
+from gi.repository import Gdk
 
 X_TIMEOUT_ADVICE = \
     "Do not load the stage2 image over a slow network link.\n" \
@@ -245,6 +250,87 @@ def write_xdriver(driver, root=None):
     f.close()
 
 
+# Wayland
+
+def start_wayland_compositor():
+    """Start Wayland compositor for the Anaconda GUI.
+
+    Add XDG_DATA_DIRS to the environment to pull in our overridden schema
+    files.
+
+    FIXME: Will XDG_DATA_DIRS work with Wayland compositor ?
+    """
+    datadir = os.environ.get('ANACONDA_DATADIR', '/usr/share/anaconda')
+    if 'XDG_DATA_DIRS' in os.environ:
+        xdg_data_dirs = datadir + '/window-manager:' + os.environ['XDG_DATA_DIRS']
+    else:
+        xdg_data_dirs = datadir + '/window-manager:/usr/share'
+
+    def wayland_preexec():
+        # to set GUI subprocess SIGINT handler
+        # FIXME: does this even work with a Wayland compoitor ?
+        signal.signal(signal.SIGINT, signal.SIG_IGN)
+
+#    childproc = util.startProgram(["gnome-kiosk", "--sm-disable", "--wayland"],
+#                                  env_add={
+#                                      'XDG_DATA_DIRS': xdg_data_dirs,
+#                                      'XDG_RUNTIME_DIR': "/run/user/0"},
+#                                  preexec_fn=wayland_preexec)
+
+
+#"/run-in-new-session.py --user root --service anaconda-session --session-type wayland --session-class user /bin/gnome-kiosk --wayland --sm-disable"
+
+    log.debug("AAA: DISPLAY PID/PPID %d/%d", os.getpid(), os.getppid())
+
+    # FIXME: try to force wayland
+    Gdk.set_allowed_backends("wayland")
+
+    childproc = util.startProgram(["run-in-new-session.py", "--user", "root",
+                                   "--service", "anaconda-session",
+                                   "--vt", "6",
+                                   "--session-type", "wayland", "--session-class", "user",
+                                   "gnome-kiosk", "--sm-disable"],
+                                  env_add={
+                                      'XDG_DATA_DIRS': xdg_data_dirs,
+                                      'XDG_RUNTIME_DIR': "/run/user/0"},
+                                  preexec_fn=wayland_preexec)
+
+    #WatchProcesses.watch_process(childproc, "gnome-kiosk")
+
+    WatchProcesses.watch_process(childproc, "run-in-new-session.py")
+
+    # FIXME: could WatchProcesses do this & what is it for actually ?
+    # Make sure gnome-kiosk is running, before continuing. Otherwise the GUI
+    # might try to connect to the Wayland compositor before its ready &
+    # will fail to to start.
+    log.debug("waiting for Wayland compositor (gnome-kiosk) to start")
+    while not os.path.exists('/run/user/0/wayland-0'):
+        time.sleep(0.1)
+    log.debug("Wayland compositor (gnome-kiosk) startup finished & ready to use")
+
+def set_wayland_resolution(runres):
+    """Set Wayland server screen resolution.
+
+    FIXME: implement this using Mutter DBus API
+    FIXME: keep runres or use horizontal/vertical resolution instead ?
+
+    :param str runres: a resolution specification string
+    """
+    log.error("FIXME: set screen resolution - not yet implemented on Wayland")
+
+
+def do_extra_wayland_actions(runres, gui_mode):
+    """Perform Wayland related actions not related to startup.
+
+    :param str runres: a resolution specification string
+    :param gui_mode: an Anaconda display mode
+    """
+    if runres and gui_mode and not flags.usevnc:
+        set_wayland_resolution(runres)
+
+    start_user_systemd()
+
+
 # general display startup
 def setup_display(anaconda, options):
     """Setup the display for the installation environment.
@@ -320,16 +406,35 @@ def setup_display(anaconda, options):
         for error_message in vnc_error_messages:
             stdout_log.warning(error_message)
 
-    # Should we try to start Xorg?
-    want_x = anaconda.gui_mode and not (flags.preexisting_x11 or flags.usevnc)
+    # Xorg or Wayland?
+    want_x = False
+    want_wayland = False
 
-    # Is Xorg is actually available?
-    if want_x and not os.access("/usr/bin/Xorg", os.X_OK):
-        stdout_log.warning(_("Graphical installation is not available. "
-                             "Starting text mode."))
-        time.sleep(2)
-        anaconda.display_mode = constants.DisplayModes.TUI
-        want_x = False
+    # try to run in local GUI mode
+    if anaconda.gui_mode and not (flags.preexisting_x11 or flags.usevnc):
+        # is Xorg actually available?
+        xorg_server_available = os.access("/usr/bin/Xorg", os.X_OK)
+
+        # is our Wayland compositor available ?
+        wayland_compositor_available = os.access("/usr/bin/gnome-kiosk", os.X_OK)
+
+        # do we have at least one of the needed deps we need to run in graphical mode ?
+        if xorg_server_available:
+            # check for Wayland override
+            if "wayland" in kernel_arguments and wayland_compositor_available:
+                # this way we can test if insaller on Wayland works on a given system
+                want_wayland = True
+            else:
+                # no Wayland override or no Wayland, just use X
+                want_x = True
+        elif wayland_compositor_available:
+            want_wayland = True
+        else:
+            # neither X or Wayland is available
+            anaconda.display_mode = constants.DisplayModes.TUI
+            stdout_log.warning(_("Graphical installation is not available. "
+                                 "Starting text mode."))
+            time.sleep(2)
 
     if anaconda.tui_mode and flags.vncquestion:
         # we prefer vnc over text mode, so ask about that
@@ -347,7 +452,13 @@ def setup_display(anaconda, options):
 
     # check_memory may have changed the display mode
     want_x = want_x and (anaconda.gui_mode)
-    if want_x:
+    want_wayland = want_wayland and (anaconda.gui_mode)
+
+    if want_wayland:
+        log.debug("Using Wayland compositor to provide locally running graphical interface.")
+        start_wayland_compositor()
+    elif want_x:
+        log.debug("Using Xorg server to provide locally running graphical interface.")
         try:
             start_x11(xtimeout)
             do_startup_x11_actions()

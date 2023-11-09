@@ -258,6 +258,11 @@ Requires: nm-connection-editor
 Requires: librsvg2
 Requires: gnome-kiosk
 Requires: brltty
+# Wayland support dependecies
+# FIXME: conditionalize this ?
+Requires: python3-pam
+Requires: sssd-client
+Requires: xorg-x11-server-Xwayland
 # dependencies for rpm-ostree payload module
 Requires: rpm-ostree >= %{rpmostreever}
 Requires: ostree
@@ -405,7 +410,6 @@ rm -rf \
 %license COPYING
 %{_unitdir}/*
 %{_prefix}/lib/systemd/system-generators/*
-%{_bindir}/instperf
 %{_bindir}/run-in-new-session.py
 %{_bindir}/anaconda-disable-nm-ibft-plugin
 %{_bindir}/anaconda-nm-disable-autocons
