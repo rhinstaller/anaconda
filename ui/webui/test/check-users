@@ -51,6 +51,22 @@ class TestUsers(anacondalib.VirtInstallMachineCase):
         self.assertIn('"is-crypted" b false', users)
         self.assertIn('"password" s "password"', users)
 
+    @staticmethod
+    def _test_user_account(user, installer, valid, invalid):
+        installer.check_next_disabled(disabled=False)
+
+        n_valid = len(valid) - 1
+        n_invalid = len(invalid) - 1
+
+        # Set valid and invalid value in turns and check the next button
+        for i in range(max(n_valid, n_invalid)):
+            i_valid = min(i, n_valid)
+            i_invalid = min(i, n_invalid)
+            user.set_user_account(invalid[i_invalid])
+            installer.check_next_disabled()
+            user.set_user_account(valid[i_valid])
+            installer.check_next_disabled(disabled=False)
+
     def testAccessAndValidation(self):
         b = self.browser
         i = Installer(b, self.machine)
@@ -100,8 +116,35 @@ class TestUsers(anacondalib.VirtInstallMachineCase):
         u.set_full_name(full_name)
 
         # Test account validation
-        u.set_user_account("")
-        i.check_next_disabled()
+        # FIXME this should be tested by unit tests?
+        invalid_user_accounts = [
+            "",
+            # reserved
+            "root", "system", "daemon", "home",
+            "33333",
+            ".",
+            "..",
+            "-tester",
+            "123",
+            "$",
+            "$tester",
+            "tester?",
+            "longer_than_32_characteeeeeeeeeeeeeeeeeeers",
+        ]
+        valid_user_accounts = [
+            "tester-",
+            "...",
+            "12.3",
+            "tester1",
+            "tester$",
+            "test-er",
+            "test_er",
+            "test.er",
+            "_tester",
+            ".tester",
+            "_",
+        ]
+        self._test_user_account(u, i, valid_user_accounts, invalid_user_accounts)
         u.set_user_account(user_account)
 
         # Test password validation
