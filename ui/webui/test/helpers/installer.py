@@ -40,6 +40,10 @@ class InstallerSteps(UserDict):
     _steps_jump[REVIEW] = PROGRESS
     _steps_jump[PROGRESS] = []
 
+    _parent_steps = {}
+    _parent_steps[DISK_ENCRYPTION] = DISK_CONFIGURATION
+    _parent_steps[CUSTOM_MOUNT_POINT] = DISK_CONFIGURATION
+
     _steps_callbacks = {}
     _steps_callbacks[ACCOUNTS] = create_user
 
@@ -139,9 +143,9 @@ class Installer():
         self.browser.click(f"#{step}")
 
     @log_step()
-    def reach_on_sidebar(self, target_page, parent_step=None):
-        if parent_step:
-            self.click_step_on_sidebar(parent_step)
+    def reach_on_sidebar(self, target_page):
+        if target_page in self.steps._parent_steps:
+            self.click_step_on_sidebar(self.steps._parent_steps[target_page])
         self.click_step_on_sidebar(target_page)
         self.wait_current_page(target_page)
 
