@@ -35,7 +35,7 @@ RUN echo dnf update -y && \
 RUN pip-3.6 install \
   "pylint==2.5.3" \
   "astroid==2.4.2" \
-  pocketlint \
+  "pocketlint==0.24" \
   copr \
   coverage \
   pycodestyle \
