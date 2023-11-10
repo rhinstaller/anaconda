@@ -301,8 +301,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         # Go back to the Disk Configuration page and re-enter the review screen.
         # This should create again a new partitioning object and apply it
         # no matter how many partitioning objects were created before
-        i.back()
-        i.back()
+        i.reach_on_sidebar(i.steps.DISK_ENCRYPTION, parent_step=i.steps.DISK_CONFIGURATION)
         i.reach(i.steps.REVIEW)
         new_applied_partitioning = s.dbus_get_applied_partitioning()
         new_created_partitioning = s.dbus_get_created_partitioning()
@@ -376,6 +375,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         s = Storage(b, m)
         r = Review(b)
 
+
         disk = "/dev/vda"
         dev = "vda"
         btrfsname = "btrfstest"
@@ -428,9 +428,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         applied_partitioning = s.dbus_get_applied_partitioning()
 
         # When adding a new partition a new partitioning should be created
-        i.back()
-        i.back(previous_page=i.steps.CUSTOM_MOUNT_POINT)
-        i.back()
+        i.reach_on_sidebar(i.steps.INSTALLATION_METHOD)
 
         m.execute(f"sgdisk --new=0:0:0 {disk}")
         s.rescan_disks()
@@ -800,9 +798,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         r.check_disk_row(dev, 3, "home, 15.0 GB: mount, /home")
         r.check_disk_row_not_present(dev, f"unused")
 
-        i.back()
-        i.back(previous_page=i.steps.CUSTOM_MOUNT_POINT)
-        i.back()
+        i.reach_on_sidebar(i.steps.INSTALLATION_METHOD)
 
         # Checks for nested btrfs subvolume
         tmp_mount = "/tmp/btrfs-mount-test"
@@ -964,8 +960,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         r.check_disk_row(disk, 3, f"{vgname}-home, 8.12 GB: mount, /home")
         r.check_disk_row(disk, 4, f"{vgname}-swap, 902 MB: mount, swap")
 
-        i.back()
-        i.back(previous_page=i.steps.CUSTOM_MOUNT_POINT)
+        i.reach_on_sidebar(i.steps.CUSTOM_MOUNT_POINT, parent_step=i.steps.DISK_CONFIGURATION)
 
         # remove the /home row and check that row 3 is now swap
         s.remove_mountpoint_row(3)

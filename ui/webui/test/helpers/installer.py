@@ -138,6 +138,13 @@ class Installer():
         step = step or self.get_current_page()
         self.browser.click(f"#{step}")
 
+    @log_step()
+    def reach_on_sidebar(self, target_page, parent_step=None):
+        if parent_step:
+            self.click_step_on_sidebar(parent_step)
+        self.click_step_on_sidebar(target_page)
+        self.wait_current_page(target_page)
+
     def get_current_page(self):
         return self.browser.eval_js('window.location.hash;').replace('#/', '') or self.steps[0]
 
