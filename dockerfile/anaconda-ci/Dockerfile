@@ -38,7 +38,7 @@ RUN set -e; \
 RUN pip install \
   "pylint==2.8.3" \
   "astroid==2.5.6" \
-  pocketlint \
+  "pocketlint==0.24" \
   coverage \
   pycodestyle \
   dogtail \
