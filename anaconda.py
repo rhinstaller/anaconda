@@ -227,7 +227,9 @@ if __name__ == "__main__":
         sys.exit(0)
 
     log.info("%s %s", sys.argv[0], util.get_anaconda_version_string(build_time_version=True))
-    log.debug("Image packages list: %s", util.get_image_packages_info())
+    # Do not exceed default 8K limit on message length in rsyslog
+    for log_line in util.get_image_packages_info(max_string_chars=8096-100):
+        log.debug("Image packages: %s", log_line)
 
     if opts.updates_url:
         log.info("Using updates from: %s", opts.updates_url)

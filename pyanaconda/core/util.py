@@ -985,8 +985,20 @@ def restorecon(paths, root, skip_nonexistent=False):
         return True
 
 
-def get_image_packages_info():
+def get_image_packages_info(max_string_chars=0):
+    """List of strings containing versions of installer image packages.
+
+    The package version specifications are space separated in the strings.
+
+    :param int max_string_chars: maximum number of character in a string
+    :return [str]
+    """
+    info_lines = []
     if os.path.exists(PACKAGES_LIST_FILE):
-        return ' '.join(line.strip() for line in open(PACKAGES_LIST_FILE).readlines())
-    else:
-        return ''
+        with open(PACKAGES_LIST_FILE) as f:
+            while True:
+                lines = f.readlines(max_string_chars)
+                if not lines:
+                    break
+                info_lines.append(' '.join(line.strip() for line in lines))
+    return info_lines
