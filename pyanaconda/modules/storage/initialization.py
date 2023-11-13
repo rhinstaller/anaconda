@@ -41,8 +41,11 @@ def enable_installer_mode():
 
     # We don't want image installs writing backups of the *image* metadata
     # into the *host's* /etc/lvm. This can get real messy on build systems.
+    # Same applies to system.devices file that shouldn't be populated with
+    # PV names from the system that creates the image
     if conf.target.is_image:
         blivet_flags.lvm_metadata_backup = False
+        blivet_flags.lvm_devices_file = False
 
     # Set the flags.
     blivet_flags.auto_dev_updates = True
