@@ -39,7 +39,7 @@ import { getDefaultScenario } from "./storage/InstallationScenario.jsx";
 import { MountPointMapping, getPageProps as getMountPointMappingProps } from "./storage/MountPointMapping.jsx";
 import { DiskEncryption, getStorageEncryptionState, getPageProps as getDiskEncryptionProps } from "./storage/DiskEncryption.jsx";
 import { InstallationLanguage, getPageProps as getInstallationLanguageProps } from "./localization/InstallationLanguage.jsx";
-import { Accounts, getPageProps as getAccountsProps, getAccountsState, accountsToDbusUsers } from "./users/Accounts.jsx";
+import { Accounts, getPageProps as getAccountsProps, getAccountsState, accountsToDbusUsers, cryptUserPassword } from "./users/Accounts.jsx";
 import { InstallationProgress } from "./installation/InstallationProgress.jsx";
 import { ReviewConfiguration, ReviewConfigurationConfirmModal, getPageProps as getReviewConfigurationProps } from "./review/ReviewConfiguration.jsx";
 import { exitGui } from "../helpers/exit.js";
@@ -362,8 +362,12 @@ const Footer = ({
                 },
             });
         } else if (activeStep.id === "accounts") {
-            setUsers(accountsToDbusUsers(accounts));
-            onNext();
+            cryptUserPassword(accounts.password)
+                    .then(cryptedPassword => {
+                        const users = accountsToDbusUsers({ ...accounts, password: cryptedPassword });
+                        setUsers(users);
+                        onNext();
+                    }, onCritFail({ context: N_("Password ecryption failed.") }));
         } else {
             onNext();
         }

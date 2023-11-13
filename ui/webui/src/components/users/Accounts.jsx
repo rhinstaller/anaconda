@@ -45,12 +45,18 @@ export function getAccountsState (
     };
 }
 
+export const cryptUserPassword = async (password) => {
+    const pythonScript = `from random import SystemRandom as sr; import crypt; print(crypt.crypt("${password}", "$y$j9T$" + "".join(sr().choice("./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz") for _sc in range(24))))`;
+    const crypted = await cockpit.spawn(["python3", "-c", pythonScript]);
+    return crypted;
+};
+
 export const accountsToDbusUsers = (accounts) => {
     return [{
         name: cockpit.variant("s", accounts.userAccount || ""),
         gecos: cockpit.variant("s", accounts.fullName || ""),
         password: cockpit.variant("s", accounts.password || ""),
-        "is-crypted": cockpit.variant("b", false),
+        "is-crypted": cockpit.variant("b", true),
         groups: cockpit.variant("as", ["wheel"]),
     }];
 };

@@ -44,8 +44,7 @@ class TestUsers(anacondalib.VirtInstallMachineCase):
 
         users = u.dbus_get_users()
         self.assertIn('"groups" as 1 "wheel"', users)
-        self.assertIn('"is-crypted" b false', users)
-        self.assertIn('"password" s "password"', users)
+        self.assertIn('"is-crypted" b true', users)
 
 if __name__ == '__main__':
     test_main()
