@@ -196,11 +196,12 @@ class ImportRPMKeysTaskTestCase(unittest.TestCase):
                 call("rpm", ["--import", key_2], root=sysroot),
             ])
 
+    @patch("pyanaconda.modules.payloads.payload.dnf.installation.os.uname")
     @patch("pyanaconda.modules.payloads.payload.dnf.installation.util")
-    def test_import_substitution(self, mock_util):
+    def test_import_substitution(self, mock_util, mock_uname):
         """Import GPG keys with variables."""
         mock_util.execWithRedirect.return_value = 0
-        mock_util.execWithCapture.return_value = "s390x"
+        mock_uname.return_value = Mock(machine='s390x')
         mock_util.get_os_release_value.return_value = "34"
 
         key = "/etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch"

@@ -360,7 +360,7 @@ class ImportRPMKeysTask(Task):
 
         # Get substitutions for variables.
         # TODO: replace the interpolation with DNF once possible
-        basearch = util.execWithCapture("uname", ["-i"]).strip().replace("'", "")
+        basearch = os.uname().machine
         releasever = util.get_os_release_value("VERSION_ID", sysroot=self._sysroot) or ""
 
         # Import GPG keys to RPM database.
