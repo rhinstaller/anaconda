@@ -54,14 +54,11 @@ struct _AnacondaBaseWindow {
  *                pointer to be cast to a #GtkBin pointer.
  * @info_bar_clicked : Function pointer called when the #AnacondaBaseWindow::info-bar-clicked
  *                     signal is emitted.
- * @help_button_clicked: Function pointer called when the #AnacondaBaseWindow::help-button-clicked
- *                       signal is emitted.
  */
 struct _AnacondaBaseWindowClass {
     GtkBinClass parent_class;
 
     void (* info_bar_clicked) (AnacondaBaseWindow *window);
-    void (* help_button_clicked) (AnacondaBaseWindow *window);
 };
 
 GType       anaconda_base_window_get_type (void);
@@ -82,7 +79,6 @@ GtkWidget  *anaconda_base_window_get_alignment     (AnacondaBaseWindow *win);
 GtkWidget  *anaconda_base_window_get_main_box      (AnacondaBaseWindow *win);
 GtkWidget  *anaconda_base_window_get_nav_area      (AnacondaBaseWindow *win);
 GtkWidget  *anaconda_base_window_get_nav_area_background_window (AnacondaBaseWindow *win);
-GtkWidget  *anaconda_base_window_get_help_button (AnacondaBaseWindow *win);
 GtkWidget  *anaconda_base_window_get_layout_indicator_box (AnacondaBaseWindow *win);
 
 G_END_DECLS

@@ -18,13 +18,8 @@
 #
 from pyanaconda.ui.common import Spoke, StandaloneSpoke, NormalSpoke
 from pyanaconda.ui.tui.tuiobject import TUIObject
-from pyanaconda.ui.lib.help import get_help_path_for_screen
 from pyanaconda.core.i18n import N_, _
 
-from simpleline.render.adv_widgets import HelpScreen
-from simpleline.render.screen import InputState
-from simpleline.render.screen_handler import ScreenHandler
-from simpleline.render.prompt import Prompt
 from simpleline.render.widgets import Widget, CheckboxWidget
 
 __all__ = ["TUISpoke", "StandaloneSpoke", "NormalTUISpoke"]
@@ -94,31 +89,7 @@ class NormalTUISpoke(TUISpoke, NormalSpoke):
        .. inheritance-diagram:: NormalTUISpoke
           :parts: 3
     """
-
-    def _get_help(self):
-        """Get the help path for this screen."""
-        return get_help_path_for_screen(self.get_screen_id())
-
-    def input(self, args, key):
-        """Handle the input."""
-        if key.lower() == Prompt.HELP:
-            help_path = self._get_help()
-
-            if help_path:
-                ScreenHandler.push_screen_modal(HelpScreen(help_path))
-                return InputState.PROCESSED_AND_REDRAW
-
-        return super().input(args, key)
-
-    def prompt(self, args=None):
-        """Return the prompt."""
-        prompt = TUISpoke.prompt(self, args)
-
-        if self._get_help():
-            prompt.add_help_option()
-
-        return prompt
-
+    pass
 
 class StandaloneTUISpoke(TUISpoke, StandaloneSpoke):
     """

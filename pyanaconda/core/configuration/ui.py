@@ -30,11 +30,6 @@ class UserInterfaceSection(Section):
         return self._get_option("custom_stylesheet", str)
 
     @property
-    def help_directory(self):
-        """The path to a directory with help files."""
-        return self._get_option("help_directory", str)
-
-    @property
     def hidden_spokes(self):
         """A list of spokes to hide in UI.
 
