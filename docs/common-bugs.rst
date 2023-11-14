@@ -329,6 +329,8 @@ Invalid environment block
 
     Actual byte, position, and byte type (start, continuation, ???) vary.
 
+    This is caused by ``efibootmgr`` which prints raw non-UTF-8 data to output.
+
 :Solution: Duplicate of bug `2148480 <https://bugzilla.redhat.com/show_bug.cgi?id=2148480>`_.
 :Example: `rhbz#2238691 <https://bugzilla.redhat.com/show_bug.cgi?id=2238691>`_
 
