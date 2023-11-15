@@ -37,6 +37,7 @@ from pyanaconda.modules.storage.installation import MountFilesystemsTask, Create
     WriteConfigurationTask
 from pyanaconda.modules.storage.iscsi import ISCSIModule
 from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
+from pyanaconda.modules.storage.nvme import NVMEModule
 from pyanaconda.modules.storage.partitioning.constants import PartitioningMethod
 from pyanaconda.modules.storage.partitioning.factory import PartitioningFactory
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
@@ -97,6 +98,9 @@ class StorageService(KickstartService):
 
         self._iscsi_module = ISCSIModule()
         self._modules.add_module(self._iscsi_module)
+
+        self._nvme_module = NVMEModule()
+        self._modules.add_module(self._nvme_module)
 
         self._dasd_module = DASDModule()
         self._modules.add_module(self._dasd_module)

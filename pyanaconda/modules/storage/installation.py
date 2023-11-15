@@ -35,7 +35,7 @@ from pyanaconda.core.i18n import _
 from pyanaconda.core.util import join_paths
 from pyanaconda.core.path import make_directories
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.modules.common.constants.objects import ISCSI, FCOE, ZFCP
+from pyanaconda.modules.common.constants.objects import ISCSI, FCOE, ZFCP, NVME
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.installation import StorageInstallationError
 from pyanaconda.modules.common.task import Task
@@ -292,6 +292,9 @@ class WriteConfigurationTask(Task):
 
         zfcp_proxy = STORAGE.get_proxy(ZFCP)
         zfcp_proxy.WriteConfiguration()
+
+        nvme_proxy = STORAGE.get_proxy(NVME)
+        nvme_proxy.WriteConfiguration()
 
         self._write_dasd_conf(storage, sysroot)
 
