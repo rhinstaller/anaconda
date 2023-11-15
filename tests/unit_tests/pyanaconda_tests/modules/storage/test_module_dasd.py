@@ -83,8 +83,7 @@ class DASDInterfaceTestCase(unittest.TestCase):
                 "dev1",
                 fmt=get_format("ext4"),
                 size=Size("10 GiB"),
-                busid="0.0.0201",
-                opts={}
+                busid="0.0.0201"
             )
         )
 
