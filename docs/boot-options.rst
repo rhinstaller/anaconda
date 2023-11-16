@@ -694,6 +694,10 @@ Use systemd-boot as the bootloader. Note that there's no attempt to validate tha
 this will work for your platform or anything; it assumes that if you ask for it,
 you want to try.
 
+Note that this works only for package-based installations, where the bootloader can be chosen at
+install time. For live images, this can work only if the live image was built with systemd-boot
+instead of grub.
+
 .. inst.leavebootorder:
 
 inst.leavebootorder
