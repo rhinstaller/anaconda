@@ -91,8 +91,9 @@ class TaskQueue(BaseTask):
     TaskQueues and Tasks can be mixed in a single TaskQueue.
     """
 
-    def __init__(self, name, status_message=None):
+    def __init__(self, name, status_message=None, task_category=None):
         super().__init__(name)
+        self._task_category = task_category
         self._status_message = status_message
         # the list backing this TaskQueue instance
         self._queue = []
@@ -102,6 +103,20 @@ class TaskQueue(BaseTask):
         # triggered when a task is started
         self.task_started = Signal()
         self.task_completed = Signal()
+
+    @property
+    def task_category(self):
+        """A category describing the Queue is trying to achieve.
+
+        Eq. "Converting all foo into bar."
+
+        The current main usecase is to set the ProgressHub status message when
+        a TaskQueue is started.
+
+        :returns: a task category
+        :rtype: str
+        """
+        return self._task_category
 
     @property
     def status_message(self):
