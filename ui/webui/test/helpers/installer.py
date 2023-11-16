@@ -32,12 +32,12 @@ class InstallerSteps(UserDict):
     PROGRESS = "installation-progress"
 
     _steps_jump = {}
-    _steps_jump[WELCOME] = INSTALLATION_METHOD
+    _steps_jump[WELCOME] = [INSTALLATION_METHOD]
     _steps_jump[INSTALLATION_METHOD] = [DISK_ENCRYPTION, CUSTOM_MOUNT_POINT]
-    _steps_jump[DISK_ENCRYPTION] = ACCOUNTS
-    _steps_jump[CUSTOM_MOUNT_POINT] = ACCOUNTS
-    _steps_jump[ACCOUNTS] = REVIEW
-    _steps_jump[REVIEW] = PROGRESS
+    _steps_jump[DISK_ENCRYPTION] = [ACCOUNTS]
+    _steps_jump[CUSTOM_MOUNT_POINT] = [ACCOUNTS]
+    _steps_jump[ACCOUNTS] = [REVIEW]
+    _steps_jump[REVIEW] = [PROGRESS]
     _steps_jump[PROGRESS] = []
 
     _parent_steps = {}
@@ -67,7 +67,7 @@ class Installer():
         if should_fail:
             self.wait_current_page(current_page)
         else:
-            self.wait_current_page(self.steps._steps_jump[current_page])
+            self.wait_current_page(self.steps._steps_jump[current_page][0])
 
     def reach(self, target_page, hidden_steps=None):
         hidden_steps = hidden_steps or []
@@ -92,10 +92,7 @@ class Installer():
         current_page = self.get_current_page()
         # If not explicitly specified, get the first item for next page from the steps dict
         if not next_page:
-            if isinstance(self.steps._steps_jump[current_page], list):
-                next_page = self.steps._steps_jump[current_page][0]
-            else:
-                next_page = self.steps._steps_jump[current_page]
+            next_page = self.steps._steps_jump[current_page][0]
 
         # Wait for a disk to be pre-selected before clicking 'Next'.
         # FIXME: Find a better way.
