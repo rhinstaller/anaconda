@@ -48,10 +48,11 @@ class InstallerSteps(UserDict):
     _steps_callbacks[ACCOUNTS] = create_user
 
 class Installer():
-    def __init__(self, browser, machine):
+    def __init__(self, browser, machine, hidden_steps=None):
         self.browser = browser
         self.machine = machine
         self.steps = InstallerSteps()
+        self.hidden_steps = hidden_steps or []
 
     @log_step(snapshot_before=True)
     def begin_installation(self, should_fail=False, confirm_erase=True):
@@ -69,8 +70,10 @@ class Installer():
         else:
             self.wait_current_page(self.steps._steps_jump[current_page][0])
 
-    def reach(self, target_page, hidden_steps=None):
-        hidden_steps = hidden_steps or []
+    def _previous_pages(self, page):
+        return [k for k, v in self.steps._steps_jump.items() if page in v]
+
+    def reach(self, target_page):
         path = []
         prev_pages = [target_page]
         current_page = self.get_current_page()
@@ -78,11 +81,11 @@ class Installer():
         while current_page not in prev_pages:
             page = prev_pages[0]
             path.append(page)
-            prev_pages = [k for k, v in self.steps._steps_jump.items() if page in v]
+            prev_pages = self._previous_pages(page)
 
         while self.get_current_page() != target_page:
             next_page = path.pop()
-            if next_page not in hidden_steps:
+            if next_page not in self.hidden_steps:
                 self.next(next_page=next_page)
                 if next_page in self.steps._steps_callbacks:
                     self.steps._steps_callbacks[next_page](self.browser, self.machine)
@@ -93,6 +96,8 @@ class Installer():
         # If not explicitly specified, get the first item for next page from the steps dict
         if not next_page:
             next_page = self.steps._steps_jump[current_page][0]
+            while next_page in self.hidden_steps:
+                next_page = self.steps._steps_jump[next_page][0]
 
         # Wait for a disk to be pre-selected before clicking 'Next'.
         # FIXME: Find a better way.
@@ -124,12 +129,17 @@ class Installer():
             self.wait_current_page(current_page)
         else:
             if not previous_page:
-                previous_page = [k for k, v in self.steps._steps_jump.items() if current_page in v][0]
+                previous_page = self._previous_pages(current_page)[0]
+                while previous_page in self.hidden_steps:
+                    previous_page = self._previous_pages(previous_page)[0]
 
             self.wait_current_page(previous_page)
 
     @log_step()
-    def open(self, step="installation-language"):
+    def open(self, step=None):
+        step = step or self.steps.WELCOME
+        while step in self.hidden_steps:
+            step = self.steps._steps_jump[step][0]
         self.browser.open(f"/cockpit/@localhost/anaconda-webui/index.html#/{step}")
         self.wait_current_page(step)
         # Ensure that the logo is visible before proceeding as pixel tests get racy otherwise

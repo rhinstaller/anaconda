@@ -78,7 +78,8 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         ]
 
         for step in steps:
-            i.click_step_on_sidebar(step)
+            if step not in i.hidden_steps:
+                i.click_step_on_sidebar(step)
 
         i.reach(i.steps.REVIEW)
 
@@ -88,16 +89,16 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         i = Installer(b, m)
         r = Review(b)
 
-        pretend_live_iso(self)
+        pretend_live_iso(self, i)
 
-        # For live media the first screen is the installation-method
-        i.open(step="installation-method")
+        i.open()
+        i.reach(i.steps.INSTALLATION_METHOD)
 
         # Back button should be disabled on the first screen
         b.wait_visible(f"#installation-back-btn:not([aria-disabled={True}]")
 
         # For live media in the review screen language details should still be displayed
-        i.reach(i.steps.REVIEW, hidden_steps=[i.steps.ACCOUNTS])
+        i.reach(i.steps.REVIEW)
         r.check_language("English (United States)")
 
     def testAboutModal(self):
@@ -205,7 +206,7 @@ class TestBasic(anacondalib.VirtInstallMachineCase):
         s.udevadm_settle()
 
         i.open()
-        i.next()
+        i.reach(i.steps.INSTALLATION_METHOD)
 
         # FIXME: Remove PF5 specific selector: https://github.com/patternfly/patternfly-react/issues/9512
         b.wait_not_present("#critical-error-bz-report-modal.pf-v5-c-modal-box")

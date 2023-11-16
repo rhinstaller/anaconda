@@ -41,7 +41,7 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         s = Storage(b, self.machine)
 
         i.open()
-        i.next()
+        i.reach(i.steps.INSTALLATION_METHOD)
 
         # Check the auto-selected disk's details
         s.check_single_disk_destination("vda", "16.1 GB")
@@ -86,10 +86,10 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
 
         self.addCleanup(m.execute, "killall blivet-gui")
 
-        pretend_live_iso(self)
+        pretend_live_iso(self, i)
 
-        # For live media the first screen is the installation-method
-        i.open(step="installation-method")
+        i.open()
+        i.reach(i.steps.INSTALLATION_METHOD)
 
         disk="vda"
 
@@ -221,7 +221,6 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         p = Password(b, s.encryption_id_prefix)
 
         i.open()
-        # Language selection
 
         i.reach(i.steps.INSTALLATION_METHOD)
 
@@ -334,7 +333,7 @@ class TestStorageExtraDisks(anacondalib.VirtInstallMachineCase, StorageHelpers):
         dev = dev.split("/")[-1]
 
         i.open()
-        i.next()
+        i.reach(i.steps.INSTALLATION_METHOD)
 
         s.wait_no_disks_detected_not_present()
 
@@ -384,7 +383,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         s.udevadm_settle()
 
         i.open()
-        i.next()
+        i.reach(i.steps.INSTALLATION_METHOD)
         s.rescan_disks()
 
         s.select_mountpoint([(dev, True)])
@@ -470,7 +469,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         s.udevadm_settle()
 
         i.open()
-        i.next()
+        i.reach(i.steps.INSTALLATION_METHOD)
         s.rescan_disks()
 
         s.select_mountpoint([(dev, True)])
@@ -510,7 +509,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
 
         # Select first only vdb disk and verify that the partitioning request is correct
         i.open()
-        i.next()
+        i.reach(i.steps.INSTALLATION_METHOD)
 
         s.rescan_disks()
 
@@ -589,7 +588,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         s.udevadm_settle()
 
         i.open()
-        i.next()
+        i.reach(i.steps.INSTALLATION_METHOD)
         s.rescan_disks()
 
         s.select_mountpoint([(dev1, True)])
@@ -654,7 +653,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         s.udevadm_settle()
 
         i.open()
-        i.next()
+        i.reach(i.steps.INSTALLATION_METHOD)
         s.rescan_disks()
 
         # select only vda and check that we don't try to unlock the LUKS partition on vdb
@@ -703,7 +702,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         s.udevadm_settle()
 
         i.open()
-        i.next()
+        i.reach(i.steps.INSTALLATION_METHOD)
         s.rescan_disks()
 
         # select only vda and check that we don't try to unlock the LUKS partition on vdb
@@ -759,7 +758,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         s.udevadm_settle()
 
         i.open()
-        i.next()
+        i.reach(i.steps.INSTALLATION_METHOD)
         s.rescan_disks()
 
         s.select_mountpoint([(dev, True)])
@@ -887,7 +886,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         s.udevadm_settle()
 
         i.open()
-        i.next()
+        i.reach(i.steps.INSTALLATION_METHOD)
         s.rescan_disks()
         s.wait_scenario_available("mount-point-mapping", False)
 
@@ -919,7 +918,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         s.udevadm_settle()
 
         i.open()
-        i.next()
+        i.reach(i.steps.INSTALLATION_METHOD)
         s.rescan_disks()
 
         s.select_mountpoint([(dev, True)])
@@ -991,7 +990,7 @@ class TestStorageMountPoints(anacondalib.VirtInstallMachineCase, StorageHelpers)
         s.udevadm_settle()
 
         i.open()
-        i.next()
+        i.reach(i.steps.INSTALLATION_METHOD)
         s.rescan_disks()
 
         s.select_mountpoint([(dev, True)])
@@ -1018,7 +1017,7 @@ class TestStorageMountPointsEFI(anacondalib.VirtInstallMachineCase):
         s.udevadm_settle()
 
         i.open()
-        i.next()
+        i.reach(i.steps.INSTALLATION_METHOD)
         s.rescan_disks()
 
         s.select_mountpoint([(dev, True)])

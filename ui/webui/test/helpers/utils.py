@@ -26,7 +26,8 @@ def add_public_key(machine):
     machine.execute(f"chmod 700 {sysroot_ssh}")
     machine.write(authorized_keys, public_key, perm="0600")
 
-def pretend_live_iso(test):
+def pretend_live_iso(test, installer):
+    installer.hidden_steps.extend([installer.steps.ACCOUNTS, installer.steps.WELCOME])
     test.restore_file('/run/anaconda/anaconda.conf')
     test.machine.execute("sed -i 's/type = BOOT_ISO/type = LIVE_OS/g' /run/anaconda/anaconda.conf")
 
