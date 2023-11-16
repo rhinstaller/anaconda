@@ -109,8 +109,8 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
         s.modify_storage()
         # Run the tool
         b.click("#modify-storage-modal-modify-btn")
-        b.wait_visible(f"#modify-storage-modal-modify-btn:not([aria-disabled={True}]")
-        b.wait_visible(f"#storage-modified-modal-rescan-btn")
+        b.wait_visible("#modify-storage-modal-modify-btn:not([aria-disabled=false]")
+        b.wait_visible("#storage-modified-modal-rescan-btn")
         b.click("#storage-modified-modal-ignore-btn")
         # The disk is still selected
         s.check_single_disk_destination(disk, "16.1 GB")
@@ -120,8 +120,8 @@ class TestStorage(anacondalib.VirtInstallMachineCase, StorageHelpers):
 
         s.modify_storage()
         b.click("#modify-storage-modal-modify-btn")
-        b.wait_visible(f"#modify-storage-modal-modify-btn:not([aria-disabled={True}]")
-        b.wait_visible(f"#storage-modified-modal-rescan-btn")
+        b.wait_visible("#modify-storage-modal-modify-btn:not([aria-disabled=false]")
+        b.wait_visible("#storage-modified-modal-rescan-btn")
         b.click("#storage-modified-modal-rescan-btn")
         # The disk is still selected
         s.check_single_disk_destination(disk, "16.1 GB")
