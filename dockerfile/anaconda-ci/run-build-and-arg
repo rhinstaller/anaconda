@@ -2,8 +2,7 @@
 set -eux
 
 # Avoid clobbering the host's checkout, so work from a copy
-# Also don't copy bots, it breaks things and is useless
-rsync -a /anaconda /tmp/ --exclude ui/webui/bots
+rsync -a /anaconda /tmp/
 cd /tmp/anaconda
 rm -rf test-logs
 

@@ -17,18 +17,6 @@ updates:
     labels:
       - "infrastructure"
 
-  # Set update schedule for npm packages.
-  # FIXME: Update our npm development dependencies monthly.
-  # See: https://github.com/dependabot/dependabot-core/issues/2390
-  - package-ecosystem: "npm"
-    directory: "/ui/webui"
-    schedule:
-      interval: "weekly"
-    commit-message:
-      prefix: "infra"
-    labels:
-      - "sanity check required"
-
   # Set update schedule for pip in containers
   - package-ecosystem: "pip"
     directory: "/dockerfile"

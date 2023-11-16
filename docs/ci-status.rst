@@ -71,9 +71,6 @@ Anaconda
 
   The PR runs the usual tests, where potential failures caused by translation changes are caught.
 
-|cockpit-lib-update|
-  Updates the COCKPIT_REPO_COMMIT in ui/webui/Makefile.am and opens a pull request.
-
 Dependabot_
   Checks Anaconda dependencies and opens pull requests for new versions.
 

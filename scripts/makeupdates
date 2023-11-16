@@ -275,8 +275,6 @@ def copy_updated_files(tag, updates, cwd, builddir):
             install_to_dir(gitfile, "usr/sbin")
         elif any(gitfile.endswith(libexec_script) for libexec_script in LIBEXEC_SCRIPTS):
             install_to_dir(gitfile, "usr/libexec/anaconda")
-        elif gitfile == "ui/webui/webui-desktop":
-            install_to_dir(gitfile, "usr/libexec")
         elif any(gitfile.endswith(usr_bin_script) for usr_bin_script in USR_BIN_SCRIPTS):
             install_to_dir(gitfile, "usr/bin")
         elif gitfile.endswith("AnacondaWidgets.py"):
