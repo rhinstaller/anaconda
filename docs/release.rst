@@ -230,10 +230,10 @@ This might be both "regular" changes merged and released outside of a freeze per
 and release blocker fixes.
 
 
-Create new localization branch for Anaconda
--------------------------------------------
+Create new localization directory for Anaconda
+----------------------------------------------
 
-First thing which needs to be done before branching in Anaconda is to create a new localization branch which will be used by the new Anaconda branch.
+First thing which needs to be done before branching in Anaconda is to create a new localization directory which will be used by the new Anaconda branch.
 
 Start by cloning translation repository (ideally outside of Anaconda git) and enter this repository:
 
@@ -266,6 +266,43 @@ Push new localization directory. This will be automatically discovered and added
 ::
 
    git push origin
+
+
+Adjust localization update automation
+-------------------------------------
+
+In the ``anaconda-l10n`` repository, the update automation needs to work on the new directory.
+
+Edit the file ``.github/workflows/pot-file-update.yaml``:
+
+::
+
+   vim .github/workflows/pot-file-update.yaml
+
+Update the matrix. For example, for f39 we had:
+
+::
+
+      matrix:
+        branch: [ master, f39, rhel-9 ]
+        include:
+          (...)
+          - branch: f39
+            anaconda-branch: fedora-39
+            container-tag: fedora-39
+
+Commit these changes:
+
+::
+
+   git commit -m "infra: Adjust pot updates for Fedora <version>"
+
+Push the changes:
+
+::
+
+   git push origin
+
 
 Enable Cockpit CI for the new branch
 -------------------------------------------
