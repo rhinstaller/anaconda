@@ -343,12 +343,28 @@ runtime on NFS/HTTP/FTP servers or local disks.
 %configure ANACONDA_RELEASE=%{release} %{!?with_glade:--disable-glade}
 %{__make} %{?_smp_mflags}
 
+# FIXME: pam profile
+cat > anaconda-session <<EOF
+#%PAM-1.0
+auth       sufficient  pam_permit.so
+account    sufficient  pam_permit.so
+password   sufficient  pam_permit.so
+session    required    pam_loginuid.so
+-session   optional    pam_keyinit.so revoke
+-session   optional    pam_limits.so
+session    required    pam_systemd.so
+EOF
+
 %install
 %{make_install}
 find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 
 # Create an empty directory for addons
 mkdir %{buildroot}%{_datadir}/anaconda/addons
+
+# FIXME: pam profile
+mkdir %{buildroot}/etc/pam.d
+install -m 755 anaconda-session %{buildroot}/etc/pam.d/anaconda-session
 
 # Create an empty directory for post-scripts
 mkdir %{buildroot}%{_datadir}/anaconda/post-scripts
@@ -389,6 +405,8 @@ rm -rf \
 %license COPYING
 %{_unitdir}/*
 %{_prefix}/lib/systemd/system-generators/*
+%{_bindir}/instperf
+%{_bindir}/run-in-new-session.py
 %{_bindir}/anaconda-disable-nm-ibft-plugin
 %{_bindir}/anaconda-nm-disable-autocons
 %{_sbindir}/anaconda
@@ -414,6 +432,7 @@ rm -rf \
 %config %{_sysconfdir}/%{name}/conf.d/*
 %dir %{_sysconfdir}/%{name}/profile.d
 %config %{_sysconfdir}/%{name}/profile.d/*
+%config %{_sysconfdir}/pam.d/anaconda-session
 
 %if %{with live}
 # do not provide the live subpackage on RHEL
