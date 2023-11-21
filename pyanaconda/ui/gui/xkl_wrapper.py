@@ -257,10 +257,18 @@ class XklWrapper(object):
                 lang = upcase_first_letter(layout_info.langs[0])
             description = layout_info.desc
 
-        if with_lang and lang and not description.startswith(lang):
-            return "%s (%s)" % (lang, description)
-        else:
-            return description
+        if with_lang and lang:
+            # ISO language/country names can be things like
+            # "Occitan (post 1500); Provencal", or
+            # "Iran, Islamic Republic of", or "Greek, Modern (1453-)"
+            # or "Catalan; Valencian": let's handle that gracefully
+            # let's also ignore case, e.g. in French all translated
+            # language names are lower-case for some reason
+            checklang = lang.split()[0].strip(",;").lower()
+            if checklang not in description.lower():
+                return "%s (%s)" % (lang, description)
+
+        return description
 
     def get_switch_opt_description(self, switch_opt):
         """
