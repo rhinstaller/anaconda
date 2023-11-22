@@ -486,7 +486,9 @@ class BootloaderModule(KickstartBaseModule):
             ),
             InstallBootloaderTask(
                 storage=self.storage,
-                mode=self.bootloader_mode
+                mode=self.bootloader_mode,
+                payload_type=payload_type,
+                sysroot=conf.target.system_root
             ),
             CreateBLSEntriesTask(
                 storage=self.storage,
