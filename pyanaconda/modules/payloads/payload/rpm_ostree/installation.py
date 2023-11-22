@@ -24,10 +24,13 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import format_size_full, create_new_context, Variant, GError
 from pyanaconda.core.i18n import _
 from pyanaconda.core.util import execWithRedirect, mkdirChain, set_system_root
+from pyanaconda.modules.common.errors.installation import PayloadInstallationError, \
+    BootloaderInstallationError
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE, BOOTLOADER
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.structures.storage import DeviceData
+from pyanaconda.modules.payloads.payload.rpm_ostree.util import have_bootupd
 
 import gi
 gi.require_version("OSTree", "1.0")
@@ -417,8 +420,34 @@ class ConfigureBootloader(Task):
         return "Configure OSTree bootloader"
 
     def run(self):
-        self._move_grub_config()
+        if have_bootupd(self._sysroot):
+            self._install_bootupd()
+        else:
+            self._move_grub_config()
         self._set_kargs()
+
+    def _install_bootupd(self):
+        bootloader = STORAGE.get_proxy(BOOTLOADER)
+        device_tree = STORAGE.get_proxy(DEVICE_TREE)
+        dev_data = DeviceData.from_structure(device_tree.GetDeviceData(bootloader.Drive))
+
+        rc = execWithRedirect(
+            "bootupctl",
+            [
+                "backend",
+                "install",
+                "--auto",
+                "--with-static-configs",
+                "--device",
+                dev_data.path,
+                "/",
+            ],
+            root=self._sysroot
+        )
+
+        if rc:
+            raise BootloaderInstallationError(
+                "failed to write boot loader configuration")
 
     def _move_grub_config(self):
         """If using GRUB2, move its config file, also with a compatibility symlink."""

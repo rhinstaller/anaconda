@@ -32,7 +32,6 @@ from pyanaconda.modules.payloads.payload.rpm_ostree.installation import \
     ChangeOSTreeRemoteTask, ConfigureBootloader, DeployOSTreeTask, PullRemoteAndDeleteTask, \
     SetSystemRootTask
 
-
 def _make_config_data():
     """Create OSTree configuration data for testing
 
@@ -664,6 +663,47 @@ class ConfigureBootloaderTaskTestCase(unittest.TestCase):
                 ["admin", "instutil", "set-kargs", "BOOTLOADER-ARGS", "root=FSTAB-SPEC"],
                 root=sysroot
             )
+
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.have_bootupd")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.rename")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.symlink")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.STORAGE")
+    @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.DeviceData")
+    def test_bootupd_run(self, devdata_mock, storage_mock, symlink_mock, rename_mock, exec_mock,
+                         have_bootupd_mock):
+        """Test OSTree bootloader config task, bootupd"""
+        exec_mock.return_value = 0
+        have_bootupd_mock.return_value = True
+
+        proxy_mock = storage_mock.get_proxy()
+        proxy_mock.GetArguments.return_value = ["BOOTLOADER-ARGS"]
+        proxy_mock.GetFstabSpec.return_value = "FSTAB-SPEC"
+        proxy_mock.GetRootDevice.return_value = "device-name"
+        proxy_mock.Drive = "btldr-drv"
+        devdata_mock.from_structure.return_value.type = "something-non-btrfs-subvolume-ish"
+        devdata_mock.from_structure.return_value.path = "/dev/btldr-drv"
+
+        with tempfile.TemporaryDirectory() as sysroot:
+            task = ConfigureBootloader(sysroot)
+            task.run()
+
+            rename_mock.assert_not_called()
+            symlink_mock.assert_not_called()
+            assert exec_mock.call_count == 2
+            exec_mock.assert_has_calls([
+                call(
+                    "bootupctl",
+                    ["backend", "install", "--auto", "--with-static-configs", "--device",
+                     "/dev/btldr-drv", "/"],
+                    root=sysroot
+                ),
+                call(
+                    "ostree",
+                    ["admin", "instutil", "set-kargs", "BOOTLOADER-ARGS", "root=FSTAB-SPEC", "rw"],
+                    root=sysroot
+                )
+            ])
 
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.execWithRedirect")
     @patch("pyanaconda.modules.payloads.payload.rpm_ostree.installation.os.rename")
