@@ -464,6 +464,61 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Nov 22 2023 Katerina Koukiou <kkoukiou@redhat.com> - 40.11-1
+- Remove all support of the built-in help system (vponcova)
+- Make possible to start TUI with installed WebUI (akankovs)
+- workflows: Drop COCKPITUOUS_TOKEN from trigger-webui.yml (kkoukiou)
+- Use 'os.uname().machine' to get machine architecture instead of 'uname -i'
+  (kkoukiou)
+- docs: Describe l10n CI changes for new Fedoras (vslavik)
+- docs: Describe caveats for inst.sdboot and live (vslavik)
+- docs: Mention efibootmgr with the invalid byte bug (vslavik)
+- logging: split image package list message into 8K chunks (rvykydal)
+- webui: pixel tests reference update (account on review screen) (rvykydal)
+- webui: add account information to review screen (rvykydal)
+- Update translations from Weblate for master (github-actions)
+- Remove instperf (mkolman)
+- webui: update pixel test images (rvykydal)
+- webui: fix password strength indicator layout in horizontal form (rvykydal)
+- webui: update end2end tests for the new users screen (rvykydal)
+- webui: create required user when reaching a test step by default (rvykydal)
+- webui: allow to create user more easily for reaching a step in test
+  (rvykydal)
+- webui: add users screen to tests for sidebar navigation (rvykydal)
+- webui: add simple test for users screen (rvykydal)
+- webui: hide user screen on live images (rvykydal)
+- webui: make created user administarator by default (rvykydal)
+- webui: apply the created user to the backend (rvykydal)
+- webui: make partitioning reset on going back more robust (rvykydal)
+- webui: keep the state of Create Account UI (rvykydal)
+- webui: add simplest user name check to Create Accounts (rvykydal)
+- webui: share length password rule between users and disk encryption
+  (rvykydal)
+- webui: use password form component for Create Account screen (rvykydal)
+- webui: add a simple Create Account screen (rvykydal)
+- webui: move pasword form component into a separate file (rvykydal)
+- webui: move also password strength logic into pw form component (rvykydal)
+- webui: use dynamic rules in password form component (rvykydal)
+- spec: Remove dependency on jfsutils (vtrefny)
+- widgets: disable glade in RHEL builds (yselkowi)
+- Adjust test_mount_filesystems to the latest blivet changes (vtrefny)
+- webui: package.json: bump patternfly dependencies (kkoukiou)
+- webui: package.json: update some eslint packages (kkoukiou)
+- webui: package.json: use exact versions of all package dependencies
+  (kkoukiou)
+- webui: don't repeat code in the src/apis/ (kkoukiou)
+- webui: split src/apis/storage.js into multiple files (kkoukiou)
+- webui: tests: expect reboot when killing the webui-desktop script (kkoukiou)
+- webui: when rebooting the machine the dbus clients close and throw error
+  messages (kkoukiou)
+- webui: tests: Robustify JS error modal pixel test (kkoukiou)
+- webui: bump Cockpit version of testlib (kkoukiou)
+- webui: pixel-tests: wait for animations for finish before taking screenshots
+  (kkoukiou)
+- Update translations from Weblate for master (github-actions)
+- Add new substitution members in dnf tests (vslavik)
+- webui: Conditional enable networking hint (akankovs)
+
 * Tue Oct 24 2023 github-actions <github-actions@github.com> - 40.10-1
 - Update translations from Weblate for master (github-actions)
 - webui: use global password policy in DiskEncryption (rvykydal)
