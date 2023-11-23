@@ -99,7 +99,7 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
         :param storage: an instance of the Blivet's storage object
         :param data: an instance of kickstart data
         """
-        if not data.reqpart.reqpart:
+        if not data.reqpart.addBoot:
             return
 
         log.debug("Looking for platform-specific requirements.")
