@@ -30,6 +30,7 @@ class PasswordPolicyTestCase(unittest.TestCase):
         policy = PasswordPolicy.from_defaults("root")
         assert policy.min_quality == 1
         assert policy.min_length == 6
+        assert policy.min_class == 1
         assert policy.allow_empty is False
         assert policy.is_strict is False
 
@@ -38,6 +39,7 @@ class PasswordPolicyTestCase(unittest.TestCase):
         policy = PasswordPolicy.from_defaults("test")
         assert policy.min_quality == 0
         assert policy.min_length == 0
+        assert policy.min_class == 0
         assert policy.allow_empty is True
         assert policy.is_strict is False
 

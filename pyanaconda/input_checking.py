@@ -25,6 +25,7 @@ from pyanaconda.core.i18n import _
 from pyanaconda.core.kernel import kernel_arguments
 from pyanaconda.core import constants, regexes
 from pyanaconda.core import users
+from pyanaconda.core.util import get_password_character_class
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.constants.objects import USER_INTERFACE
 from pyanaconda.modules.common.constants.services import RUNTIME
@@ -244,6 +245,8 @@ class PasswordValidityCheckResult(CheckResult):
         self.password_quality_changed = Signal()
         self._length_ok = False
         self.length_ok_changed = Signal()
+        self._class_ok = False
+        self.class_ok_changed = Signal()
 
     @property
     def password_score(self):
@@ -310,6 +313,20 @@ class PasswordValidityCheckResult(CheckResult):
     def length_ok(self, value):
         self._length_ok = value
         self.length_ok_changed.emit(value)
+
+    @property
+    def class_ok(self):
+        """Reports if the password has enough class of characters type.
+
+        :returns: if the password has enough class of characters type
+        :rtype: bool
+        """
+        return self._class_ok
+
+    @class_ok.setter
+    def class_ok(self, value):
+        self._class_ok = value
+        self.class_ok_changed.emit(value)
 
 
 class InputCheck(object):
@@ -379,6 +396,7 @@ class PasswordValidityCheck(InputCheck):
         """
 
         length_ok = False
+        class_ok = False
         error_message = ""
         pw_quality = 0
         try:
@@ -394,8 +412,10 @@ class PasswordValidityCheck(InputCheck):
         if check_request.policy.allow_empty and not check_request.password:
             # if we are OK with empty passwords, then empty passwords are also fine length wise
             length_ok = True
+            class_ok = True
         else:
             length_ok = len(check_request.password) >= check_request.policy.min_length
+            class_ok = get_password_character_class(check_request.password) >= check_request.policy.min_class
 
         if not check_request.password:
             if check_request.policy.allow_empty:
@@ -411,6 +431,10 @@ class PasswordValidityCheck(InputCheck):
             # This is because the error messages returned by libpwquality
             # for short passwords don't make much sense.
             error_message = _(constants.SECRET_TOO_SHORT[check_request.secret_type])
+        elif not class_ok:
+            pw_score = 0
+            status_text = _(constants.SecretStatus.TOO_FEW_CLASS.value)
+            error_message = _(constants.SECRET_TOO_FEW_CLASS[check_request.secret_type])
         elif error_message:
             pw_score = 1
             status_text = _(constants.SecretStatus.WEAK.value)
@@ -436,6 +460,7 @@ class PasswordValidityCheck(InputCheck):
         self.result.password_quality = pw_quality  # pylint: disable=attribute-defined-outside-init
         self.result.error_message = error_message  # pylint: disable=attribute-defined-outside-init
         self.result.length_ok = length_ok  # pylint: disable=attribute-defined-outside-init
+        self.result.class_ok = class_ok  # pylint: disable=attribute-defined-outside-init
 
 
 class PasswordFIPSCheck(InputCheck):

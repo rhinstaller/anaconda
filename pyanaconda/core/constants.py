@@ -194,6 +194,10 @@ SECRET_TOO_SHORT = {
     SecretType.PASSWORD : N_("The password is too short"),
     SecretType.PASSPHRASE : N_("The passphrase is too short")
 }
+SECRET_TOO_FEW_CLASS = {
+    SecretType.PASSWORD : N_("The password need more character types, upper/lower letters, digits or special character"),
+    SecretType.PASSPHRASE : N_("The password need more character types, upper/lower letters, digits or special character")
+}
 SECRET_WEAK = {
     SecretType.PASSWORD : N_("The password you have provided is weak."),
     SecretType.PASSPHRASE : N_("The passphrase you have provided is weak.")
@@ -216,6 +220,7 @@ PASSWORD_ERROR_CONCATENATION = N_("{}. {}")
 class SecretStatus(Enum):
     EMPTY = N_("Empty")
     TOO_SHORT = N_("Too short")
+    TOO_FEW_CLASS = N_("Class less")
     WEAK = N_("Weak")
     FAIR = N_("Fair")
     GOOD = N_("Good")
