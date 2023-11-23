@@ -135,7 +135,8 @@ class Platform(object):
         """
         return PartSpec(
             mountpoint="/boot",
-            size=Size("1GiB")
+            size=Size("1GiB"),
+            is_required=False
         )
 
 
@@ -429,7 +430,8 @@ class S390(Platform):
         return PartSpec(
             mountpoint="/boot",
             size=Size("1GiB"),
-            lv=False
+            lv=False,
+            is_required=False
         )
 
 

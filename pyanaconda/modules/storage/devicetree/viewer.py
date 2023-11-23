@@ -481,6 +481,7 @@ class DeviceTreeViewer(ABC):
         data.required_filesystem_type = spec.fstype or ""
         data.encryption_allowed = spec.encrypted
         data.logical_volume_allowed = spec.lv
+        data.is_required = bool(spec.is_required)
 
         return data
 
