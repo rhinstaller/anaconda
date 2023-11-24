@@ -142,14 +142,15 @@ class InstallBootloaderTask(Task):
             return
 
         try:
+            self._collect_kernel_arguments()
             self._install_boot_loader()
         except BootLoaderError as e:
             log.exception("Bootloader installation has failed: %s", e)
             raise BootloaderInstallationError(str(e)) from None
 
-    def _install_boot_loader(self):
-        """Do the final write of the bootloader."""
-        log.debug("Installing the boot loader.")
+    def _collect_kernel_arguments(self):
+        """Collect kernel arguments."""
+        log.debug("Collecting the kernel arguments.")
 
         stage1_device = self._bootloader.stage1_device
         log.info("boot loader stage1 target device is %s", stage1_device.name)
@@ -157,10 +158,13 @@ class InstallBootloaderTask(Task):
         stage2_device = self._bootloader.stage2_device
         log.info("boot loader stage2 target device is %s", stage2_device.name)
 
-        # Prepare the bootloader for the installation.
-        self._bootloader.prepare(self._storage)
+        self._bootloader.collect_arguments(self._storage)
 
-        # Install the bootloader.
+    def _install_boot_loader(self):
+        """Do the final write of the bootloader."""
+        log.debug("Installing the boot loader.")
+
+        self._bootloader.prepare()
         self._bootloader.write()
 
 
