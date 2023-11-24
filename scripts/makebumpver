@@ -123,17 +123,18 @@ class MakeBumpVer:
             log.setLevel(logging.DEBUG)
 
         if self.args.bump_major_version and self.args.add_version_number:
-            sys.stderr.write("The --bump-major-version and --add-version-number options can't be used at the same time.\n")
+            print("The --bump-major-version and --add-version-number options can't be used at the same time.",
+                  file=sys.stderr)
             sys.exit(1)
 
         if self.args.unknown_arguments:
             parser.print_usage()
             args_string = " ".join(self.args.unknown_arguments)
-            sys.stderr.write("unknown arguments: %s\n" % args_string)
+            print("unknown arguments: %s" % args_string, file=sys.stderr)
             sys.exit(1)
 
         if not os.path.isfile(self.configure) and not os.path.isfile(self.spec):
-            sys.stderr.write("You must be at the top level of the anaconda source tree.\n")
+            print("You must be at the top level of the anaconda source tree.", file=sys.stderr)
             sys.exit(1)
 
         # general initialization
@@ -231,13 +232,12 @@ class MakeBumpVer:
             # This is only place where bugzilla library is used. Exclude from dependencies and
             # ignore pylint.
             import bugzilla  # pylint: disable=import-error
-            sys.stdout.write("Connecting to %s...\n" % self.bzserver)
+            print(f"Connecting to {self.bzserver}...")
             self.bz = bugzilla.Bugzilla(url=self.bzurl)
 
         if not self.bz.logged_in:
-            sys.stdout.write(
-                "Provide an API key from https://{}/userprefs.cgi?tab=apikey"
-                "\n".format(self.bzserver)
+            print(
+                "Provide an API key from https://{}/userprefs.cgi?tab=apikey".format(self.bzserver)
             )
             self.bz.interactive_save_api_key()
 
