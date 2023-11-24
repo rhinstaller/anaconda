@@ -334,107 +334,7 @@ class MakeBumpVer:
                 continue
 
             if self.rhel:
-                rhbz = set()
-                bad = False
-
-                # look for a bug in the summary line, validate if found
-                m = re.search(r"\(#\d+(\,.*)*\)", summary)
-                if m:
-                    fullbug = summary[m.start():m.end()]
-                    bugstr = summary[m.start() + 2:m.end() - 1]
-
-                    bug = ''
-                    for c in bugstr:
-                        if c.isdigit():
-                            bug += c
-                        else:
-                            break
-
-                    if len(bugstr) > len(bug):
-                        tmp = bugstr[len(bug):]
-
-                        for c in tmp:
-                            if not c.isalpha():
-                                tmp = tmp[1:]
-                            else:
-                                break
-
-                        if len(tmp) > 0:
-                            author = tmp
-
-                    ckbug = self.bugmap.get(bug, bug)
-
-                    valid = self.skip_all or self._isRHELBug(ckbug, commit, summary)
-
-                    if valid:
-                        summary = summary.replace(fullbug, "(%s)" % author)
-                        rhbz.add("Resolves: rhbz#%s" % ckbug)
-
-                        if not self.skip_all:
-                            if not self._isRHELBugInCorrectState(ckbug, commit,
-                                                                 summary):
-                                bad = True
-
-                            if not self._isRHELBugAcked(ckbug, commit, summary):
-                                bad = True
-                    else:
-                        bad = True
-                    summary_bug = ckbug
-                else:
-                    summary = summary.strip()
-                    summary += " (%s)" % author
-                    summary_bug = None
-
-                for bodyline in body:
-                    m = re.match(r"^(Resolves|Related|Conflicts):\ +rhbz#\d+.*$",
-                                 bodyline)
-                    if not m:
-                        continue
-
-                    actionre = re.search("(Resolves|Related|Conflicts)",
-                                         bodyline)
-                    bugre = re.search(r"\d+", bodyline)
-                    if actionre and bugre:
-                        action = actionre.group()
-                        bug = bugre.group()
-                        ckbug = self.bugmap.get(bug, bug)
-
-                        valid = self.skip_all or self._isRHELBug(ckbug, commit, summary)
-
-                        if valid:
-                            rhbz.add("%s: rhbz#%s" % (action, ckbug))
-
-                            # Remove the summary bug's Resolves action if it is for the same bug
-                            if action != 'Resolves':
-                                summary_str = "Resolves: rhbz#%s" % summary_bug
-                                if summary_bug and ckbug == summary_bug and summary_str in rhbz:
-                                    rhbz.remove(summary_str)
-                        else:
-                            bad = True
-
-                        if self.skip_all:
-                            print("*** Bug %s Related commit %s is allowed\n" % (bug, commit))
-                            continue
-
-                        not_correct = not self._isRHELBugInCorrectState(ckbug, commit, summary)
-                        not_acked = not self._isRHELBugAcked(ckbug, commit, summary)
-
-                        if valid and action == 'Resolves' and (not_correct or not_acked):
-                            bad = True
-                        elif valid and action == 'Related':
-                            # A related bug needs to have acks, and if it is the same as the summary
-                            # It overrides the summary having different fixed-in or state
-                            if self._isRHELBugAcked(ckbug, commit, summary):
-                                print("*** Bug %s Related commit %s is allowed\n" % (bug, commit))
-                                if ckbug == summary_bug:
-                                    bad = False
-                            else:
-                                bad = True
-
-                if len(rhbz) == 0 and not self.skip_all:
-                    print("*** No bugs referenced in commit %s\n" % commit)
-                    bad = True
-
+                bad, rhbz = self._check_rhel_bugs(commit, summary, body, author)
                 rpm_log.append((summary.strip(), list(rhbz)))
             else:
                 rpm_log.append(("%s (%s)" % (summary.strip(), author), None))
@@ -446,6 +346,110 @@ class MakeBumpVer:
             sys.exit(1)
 
         return rpm_log
+
+    def _check_rhel_bugs(self, commit, summary, body, author):
+        rhbz = set()
+        bad = False
+
+        # look for a bug in the summary line, validate if found
+        m = re.search(r"\(#\d+(\,.*)*\)", summary)
+        if m:
+            fullbug = summary[m.start():m.end()]
+            bugstr = summary[m.start() + 2:m.end() - 1]
+
+            bug = ''
+            for c in bugstr:
+                if c.isdigit():
+                    bug += c
+                else:
+                    break
+
+            if len(bugstr) > len(bug):
+                tmp = bugstr[len(bug):]
+
+                for c in tmp:
+                    if not c.isalpha():
+                        tmp = tmp[1:]
+                    else:
+                        break
+
+                if len(tmp) > 0:
+                    author = tmp
+
+            ckbug = self.bugmap.get(bug, bug)
+
+            valid = self.skip_all or self._isRHELBug(ckbug, commit, summary)
+
+            if valid:
+                summary = summary.replace(fullbug, "(%s)" % author)
+                rhbz.add("Resolves: rhbz#%s" % ckbug)
+
+                if not self.skip_all:
+                    if not self._isRHELBugInCorrectState(ckbug, commit,
+                                                            summary):
+                        bad = True
+
+                    if not self._isRHELBugAcked(ckbug, commit, summary):
+                        bad = True
+            else:
+                bad = True
+            summary_bug = ckbug
+        else:
+            summary = summary.strip()
+            summary += " (%s)" % author
+            summary_bug = None
+
+        for bodyline in body:
+            m = re.match(r"^(Resolves|Related|Conflicts):\ +rhbz#\d+.*$",
+                            bodyline)
+            if not m:
+                continue
+
+            actionre = re.search("(Resolves|Related|Conflicts)",
+                                    bodyline)
+            bugre = re.search(r"\d+", bodyline)
+            if actionre and bugre:
+                action = actionre.group()
+                bug = bugre.group()
+                ckbug = self.bugmap.get(bug, bug)
+
+                valid = self.skip_all or self._isRHELBug(ckbug, commit, summary)
+
+                if valid:
+                    rhbz.add("%s: rhbz#%s" % (action, ckbug))
+
+                    # Remove the summary bug's Resolves action if it is for the same bug
+                    if action != 'Resolves':
+                        summary_str = "Resolves: rhbz#%s" % summary_bug
+                        if summary_bug and ckbug == summary_bug and summary_str in rhbz:
+                            rhbz.remove(summary_str)
+                else:
+                    bad = True
+
+                if self.skip_all:
+                    print("*** Bug %s Related commit %s is allowed\n" % (bug, commit))
+                    continue
+
+                not_correct = not self._isRHELBugInCorrectState(ckbug, commit, summary)
+                not_acked = not self._isRHELBugAcked(ckbug, commit, summary)
+
+                if valid and action == 'Resolves' and (not_correct or not_acked):
+                    bad = True
+                elif valid and action == 'Related':
+                    # A related bug needs to have acks, and if it is the same as the summary
+                    # It overrides the summary having different fixed-in or state
+                    if self._isRHELBugAcked(ckbug, commit, summary):
+                        print("*** Bug %s Related commit %s is allowed\n" % (bug, commit))
+                        if ckbug == summary_bug:
+                            bad = False
+                    else:
+                        bad = True
+
+        if len(rhbz) == 0 and not self.skip_all:
+            print("*** No bugs referenced in commit %s\n" % commit)
+            bad = True
+
+        return bad, rhbz
 
     def _writeNewConfigure(self, newVersion):
         f = open(self.configure, 'r')
