@@ -36,7 +36,7 @@ from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
 from pyanaconda.modules.storage.bootloader.installation import ConfigureBootloaderTask, \
     InstallBootloaderTask, FixZIPLBootloaderTask, FixBTRFSBootloaderTask, RecreateInitrdsTask, \
-    CreateRescueImagesTask, CreateBLSEntriesTask
+    CreateRescueImagesTask, CreateBLSEntriesTask, CollectKernelArgumentsTask
 from pyanaconda.modules.storage.constants import BootloaderMode, ZIPLSecureBoot
 from pyanaconda.modules.storage.storage_subscriber import StorageSubscriberModule
 
@@ -468,6 +468,10 @@ class BootloaderModule(StorageSubscriberModule):
                 payload_type=payload_type,
                 kernel_versions=kernel_versions,
                 sysroot=conf.target.system_root
+            ),
+            CollectKernelArgumentsTask(
+                storage=self.storage,
+                mode=self.bootloader_mode
             ),
             InstallBootloaderTask(
                 storage=self.storage,
