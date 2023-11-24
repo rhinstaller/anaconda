@@ -723,21 +723,13 @@ class BootLoader(object):
     def timeout(self, seconds):
         self._timeout = seconds
 
-    def prepare(self, storage):
-        """Prepare the bootloader for the installation.
-
-        FIXME: Move this function into a task.
-        """
+    def prepare(self):
+        """Prepare the bootloader for the installation."""
         bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
         self._update_flags(bootloader_proxy)
         self._apply_password(bootloader_proxy)
         self._apply_timeout(bootloader_proxy)
         self._apply_zipl_secure_boot(bootloader_proxy)
-        self._set_extra_boot_args(bootloader_proxy)
-        self._set_storage_boot_args(storage)
-        self._preserve_some_boot_args()
-        self._set_graphical_boot_args()
-        self._set_security_boot_args()
 
     def _update_flags(self, bootloader_proxy):
         """Update flags."""
@@ -775,8 +767,20 @@ class BootLoader(object):
         log.debug("Applying ZIPL Secure Boot: %s", secure_boot)
         self.secure = secure_boot
 
-    def _set_extra_boot_args(self, bootloader_proxy):
+    def collect_arguments(self, storage):
+        """Collect kernel arguments for the installation.
+
+        FIXME: Move this code out of this class.
+        """
+        self._set_extra_boot_args()
+        self._set_storage_boot_args(storage)
+        self._preserve_some_boot_args()
+        self._set_graphical_boot_args()
+        self._set_security_boot_args()
+
+    def _set_extra_boot_args(self):
         """Set the extra boot args."""
+        bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
         self.boot_args.update(bootloader_proxy.ExtraArguments)
 
     def _set_storage_boot_args(self, storage):
