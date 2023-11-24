@@ -18,26 +18,24 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import bugzilla  # pylint: disable=import-error
+import textwrap
+import sys
+import subprocess
+import re
+import os
+import argparse
+import datetime
 import logging
 logging.basicConfig(level=logging.DEBUG)
 log = logging.getLogger("bugzilla")
 log.setLevel(logging.INFO)
 
-# This is only place where bugzilla library is used. Exclude from dependencies and
-# ignore pylint.
-import bugzilla  # pylint: disable=import-error
-import datetime
-import argparse
-import os
-import re
-import subprocess
-import sys
-import textwrap
-
 
 VERSION_NUMBER_INCREMENT = 1
 DEFAULT_ADDED_VERSION_NUMBER = 1
 DEFAULT_MINOR_VERSION_NUMBER = 1
+
 
 def run_program(*args):
     """Run a program with universal newlines on"""
@@ -45,8 +43,10 @@ def run_program(*args):
     return subprocess.Popen(*args, universal_newlines=True, stdout=subprocess.PIPE,
                             stderr=subprocess.PIPE).communicate()
 
+
 class ParseCommaSeparatedList(argparse.Action):
     """A parsing action that parses a comma separated list from the value provided to the option into a list."""
+
     def __call__(self, parser, namespace, values, option_string=None):
         value_list = []
         for value in values.split(","):
@@ -57,6 +57,7 @@ class ParseCommaSeparatedList(argparse.Action):
             if value:
                 value_list.append(value)
         setattr(namespace, self.dest, value_list)
+
 
 class MakeBumpVer:
     def __init__(self):
@@ -80,7 +81,7 @@ class MakeBumpVer:
         regexp = re.compile(r"ANACONDA_RELEASE, \[(.*)\]")
         self.current_release = re.search(regexp, config_ac).groups()[0]
 
-        #argument parsing
+        # argument parsing
         parser = argparse.ArgumentParser(description="Increments version number and adds the RPM spec file changelog block. "
                                                      "Also runs some checks such as ensuring rhel*-branch commits correctly "
                                                      "reference RHEL bugs.",
@@ -91,12 +92,14 @@ class MakeBumpVer:
                                                 "Use -m if you have a commit that needs to reference a RHEL bug and have cloned "
                                                 "the bug, but the original commit was already pushed to the central repo.")
 
-        parser.add_argument("-n", "--name", dest="name", default=current_name, metavar="PACKAGE NAME", help="Package name.")
+        parser.add_argument("-n", "--name", dest="name", default=current_name,
+                            metavar="PACKAGE NAME", help="Package name.")
         parser.add_argument("-v", "--version", dest="version", default=current_version, metavar="CURRENT PACKAGE VERSION",
                             help="Current package version number.")
         parser.add_argument("-r", "--release", dest="release", default=1, metavar="PACKAGE RELEASE NUMBER",
                             help="Package release number.")
-        parser.add_argument("--newrelease", dest="new_release", default=None, help="Value for release in the .spec file.")
+        parser.add_argument("--newrelease", dest="new_release", default=None,
+                            help="Value for release in the .spec file.")
         parser.add_argument("-b", "--bugreport", dest="bugreporting_email", default=current_bug_reporting_mail, metavar="EMAIL ADDRESS",
                             help="Bug reporting email address.")
         parser.add_argument("-i", "--ignore", dest="ignored_commits", default=[], action=ParseCommaSeparatedList,
@@ -147,8 +150,8 @@ class MakeBumpVer:
         self.bz = None
         self._bz_cache = {}
 
-        self.gituser = self._gitConfig('user.name')
-        self.gitemail = self._gitConfig('user.email')
+        self.gituser = self._git_config('user.name')
+        self.gitemail = self._git_config('user.email')
 
         self.name = self.args.name
         self.version = self.args.version
@@ -174,13 +177,13 @@ class MakeBumpVer:
         self.git_branch = None
 
         # RHEL release number or None (also fills in self.git_branch)
-        self.rhel = self._isRHEL()
+        self.rhel = self._is_RHEL()
 
-    def _gitConfig(self, field):
+    def _git_config(self, field):
         proc = run_program(['git', 'config', field])
         return proc[0].strip('\n')
 
-    def _incrementVersion(self, bump_major_version=False, add_version_number=False):
+    def _increment_version(self, bump_major_version=False, add_version_number=False):
         fields = self.version.split('.')
         if add_version_number:  # add another version number to the end
             fields.append(str(int(DEFAULT_ADDED_VERSION_NUMBER)))
@@ -192,7 +195,7 @@ class MakeBumpVer:
         new = ".".join(fields)
         return new
 
-    def _isRHEL(self):
+    def _is_RHEL(self):
         proc = run_program(['git', 'branch'])
         lines = [x for x in proc[0].strip('\n').split('\n') if x.startswith('*')]
 
@@ -217,7 +220,7 @@ class MakeBumpVer:
                 return m.group(1)
         return False
 
-    def _getCommitDetail(self, commit, field):
+    def _get_commit_detail(self, commit, field):
         proc = run_program(['git', 'log', '-1', "--pretty=format:%s" % field, commit])
         ret = proc[0].strip('\n').split('\n')
 
@@ -230,7 +233,7 @@ class MakeBumpVer:
 
         return ret
 
-    def _queryBug(self, bugid):
+    def _query_bug(self, bugid):
         if not self.bz:
             print(f"Connecting to {self.bzserver}...")
             self.bz = bugzilla.Bugzilla(url=self.bzurl)
@@ -253,8 +256,8 @@ class MakeBumpVer:
             self._bz_cache[bugid] = bug
             return bug
 
-    def _isRHELBug(self, bug, commit, summary):
-        bzentry = self._queryBug(bug)
+    def _is_RHEL_bug(self, bug, commit, summary):
+        bzentry = self._query_bug(bug)
 
         if not bzentry:
             print("*** Bugzilla query for %s failed.\n" % bug)
@@ -268,8 +271,8 @@ class MakeBumpVer:
             print("***     %s\n" % summary)
             return False
 
-    def _isRHELBugInCorrectState(self, bug, commit, summary):
-        bzentry = self._queryBug(bug)
+    def _is_RHEL_bug_in_correct_state(self, bug, commit, summary):
+        bzentry = self._query_bug(bug)
 
         if not bzentry:
             print("*** Bugzilla query for %s failed.\n" % bug)
@@ -283,13 +286,13 @@ class MakeBumpVer:
             print("***     %s\n" % summary)
             return False
 
-    def _isRHELBugAcked(self, bug, commit, summary):
+    def _is_RHEL_bug_acked(self, bug, commit, summary):
         """ Check the bug's ack state
         """
         if not self.rhel or self.skip_acks:
             return True
 
-        bzentry = self._queryBug(bug)
+        bzentry = self._query_bug(bug)
         for f in bzentry.flags:
             if f['name'] == 'release' and f['status'] == '+':
                 return True
@@ -299,7 +302,7 @@ class MakeBumpVer:
         print("***     %s\n" % summary)
         return False
 
-    def _rpmLog(self, fixedIn):
+    def _rpm_log(self, fixedIn):
         git_range = "%s-%s-%s.." % (self.name, self.version, self.release)
         proc = run_program(['git', 'log', '--no-merges', '--pretty=oneline', git_range])
         lines = proc[0].strip('\n').split('\n')
@@ -317,9 +320,9 @@ class MakeBumpVer:
             fields = line.split(' ')
             commit = fields[0]
 
-            summary = self._getCommitDetail(commit, "%s")[0]
-            body = self._getCommitDetail(commit, "%b")
-            author = self._getCommitDetail(commit, "%aE")[0]
+            summary = self._get_commit_detail(commit, "%s")[0]
+            body = self._get_commit_detail(commit, "%b")
+            author = self._get_commit_detail(commit, "%aE")[0]
 
             if re.match(r".*(#infra).*", summary) or re.match(r"infra: .*", summary):
                 print("*** Ignoring (#infra) commit %s\n" % commit)
@@ -374,18 +377,18 @@ class MakeBumpVer:
 
             ckbug = self.bugmap.get(bug, bug)
 
-            valid = self.skip_all or self._isRHELBug(ckbug, commit, summary)
+            valid = self.skip_all or self._is_RHEL_bug(ckbug, commit, summary)
 
             if valid:
                 summary = summary.replace(fullbug, "(%s)" % author)
                 rhbz.add("Resolves: rhbz#%s" % ckbug)
 
                 if not self.skip_all:
-                    if not self._isRHELBugInCorrectState(ckbug, commit,
-                                                            summary):
+                    if not self._is_RHEL_bug_in_correct_state(ckbug, commit,
+                                                         summary):
                         bad = True
 
-                    if not self._isRHELBugAcked(ckbug, commit, summary):
+                    if not self._is_RHEL_bug_acked(ckbug, commit, summary):
                         bad = True
             else:
                 bad = True
@@ -397,19 +400,19 @@ class MakeBumpVer:
 
         for bodyline in body:
             m = re.match(r"^(Resolves|Related|Conflicts):\ +rhbz#\d+.*$",
-                            bodyline)
+                         bodyline)
             if not m:
                 continue
 
             actionre = re.search("(Resolves|Related|Conflicts)",
-                                    bodyline)
+                                 bodyline)
             bugre = re.search(r"\d+", bodyline)
             if actionre and bugre:
                 action = actionre.group()
                 bug = bugre.group()
                 ckbug = self.bugmap.get(bug, bug)
 
-                valid = self.skip_all or self._isRHELBug(ckbug, commit, summary)
+                valid = self.skip_all or self._is_RHEL_bug(ckbug, commit, summary)
 
                 if valid:
                     rhbz.add("%s: rhbz#%s" % (action, ckbug))
@@ -426,15 +429,15 @@ class MakeBumpVer:
                     print("*** Bug %s Related commit %s is allowed\n" % (bug, commit))
                     continue
 
-                not_correct = not self._isRHELBugInCorrectState(ckbug, commit, summary)
-                not_acked = not self._isRHELBugAcked(ckbug, commit, summary)
+                not_correct = not self._is_RHEL_bug_in_correct_state(ckbug, commit, summary)
+                not_acked = not self._is_RHEL_bug_acked(ckbug, commit, summary)
 
                 if valid and action == 'Resolves' and (not_correct or not_acked):
                     bad = True
                 elif valid and action == 'Related':
                     # A related bug needs to have acks, and if it is the same as the summary
                     # It overrides the summary having different fixed-in or state
-                    if self._isRHELBugAcked(ckbug, commit, summary):
+                    if self._is_RHEL_bug_acked(ckbug, commit, summary):
                         print("*** Bug %s Related commit %s is allowed\n" % (bug, commit))
                         if ckbug == summary_bug:
                             bad = False
@@ -447,7 +450,7 @@ class MakeBumpVer:
 
         return bad, rhbz
 
-    def _writeNewConfigure(self, newVersion):
+    def _write_new_configure(self, newVersion):
         f = open(self.configure, 'r')
         l = f.readlines()
         f.close()
@@ -466,7 +469,7 @@ class MakeBumpVer:
         f.writelines(l)
         f.close()
 
-    def _writeNewSpec(self, newVersion, rpmlog):
+    def _write_new_spec(self, newVersion, rpmlog):
         f = open(self.spec, 'r')
         l = f.readlines()
         f.close()
@@ -509,7 +512,7 @@ class MakeBumpVer:
         run_program(['git', 'add', self.configure, self.spec])
         # log the changes that will be commited
         proc = run_program(['git', 'diff', '--cached'])
-        #lines = commit_proc[0].strip('\n').split('\n')
+        # lines = commit_proc[0].strip('\n').split('\n')
         log.info("changes to be commited:\n%s", proc[0])
         # make the release commit
         run_program(['git', 'commit', '-m', commit_message])
@@ -520,18 +523,19 @@ class MakeBumpVer:
         log.info("tag: %s", release_tag)
 
     def run(self):
-        newVersion = self._incrementVersion(bump_major_version=self.args.bump_major_version,
+        newVersion = self._increment_version(bump_major_version=self.args.bump_major_version,
                                             add_version_number=self.args.add_version_number)
         fixedIn = "%s-%s-%s" % (self.name, newVersion, self.new_release)
-        rpmlog = self._rpmLog(fixedIn)
+        rpmlog = self._rpm_log(fixedIn)
 
         if not self.dry_run:
-            self._writeNewConfigure(newVersion)
-            self._writeNewSpec(newVersion, rpmlog)
+            self._write_new_configure(newVersion)
+            self._write_new_spec(newVersion, rpmlog)
 
         # do a release commit and tag it with the appropriate tag
         if self.args.commit_and_tag:
             self._do_release_commit(newVersion)
+
 
 if __name__ == "__main__":
     mbv = MakeBumpVer()
