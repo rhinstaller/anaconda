@@ -28,7 +28,7 @@ from pyanaconda.modules.storage.constants import BootloaderMode
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.storage.bootloader.utils import configure_boot_loader, \
-    install_boot_loader, recreate_initrds, create_rescue_images, create_bls_entries
+    recreate_initrds, create_rescue_images, create_bls_entries
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.task import Task
 
@@ -116,7 +116,13 @@ class InstallBootloaderTask(Task):
 
     @property
     def name(self):
+        """Name of the task."""
         return "Install the bootloader"
+
+    @property
+    def _bootloader(self):
+        """Representation of the bootloader."""
+        return self._storage.bootloader
 
     def run(self):
         """Run the task.
@@ -136,10 +142,26 @@ class InstallBootloaderTask(Task):
             return
 
         try:
-            install_boot_loader(storage=self._storage)
+            self._install_boot_loader()
         except BootLoaderError as e:
             log.exception("Bootloader installation has failed: %s", e)
             raise BootloaderInstallationError(str(e)) from None
+
+    def _install_boot_loader(self):
+        """Do the final write of the bootloader."""
+        log.debug("Installing the boot loader.")
+
+        stage1_device = self._bootloader.stage1_device
+        log.info("boot loader stage1 target device is %s", stage1_device.name)
+
+        stage2_device = self._bootloader.stage2_device
+        log.info("boot loader stage2 target device is %s", stage2_device.name)
+
+        # Prepare the bootloader for the installation.
+        self._bootloader.prepare(self._storage)
+
+        # Install the bootloader.
+        self._bootloader.write()
 
 
 class CreateBLSEntriesTask(Task):

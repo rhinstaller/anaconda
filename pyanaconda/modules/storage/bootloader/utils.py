@@ -27,8 +27,7 @@ from pyanaconda.product import productName
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["configure_boot_loader", "install_boot_loader", "recreate_initrds",
-           "create_rescue_images"]
+__all__ = ["configure_boot_loader", "recreate_initrds", "create_rescue_images"]
 
 
 def create_rescue_images(sysroot, kernel_versions):
@@ -192,27 +191,6 @@ def _write_sysconfig_kernel(sysroot, storage):
     f.write("# DEFAULTKERNEL specifies the default kernel package type\n")
     f.write("DEFAULTKERNEL=%s\n" % kernel)
     f.close()
-
-
-def install_boot_loader(storage):
-    """Do the final write of the boot loader.
-
-    :param storage: an instance of the storage
-    :raise: BootLoaderError if the installation fails
-    """
-    log.debug("Installing the boot loader.")
-
-    stage1_device = storage.bootloader.stage1_device
-    log.info("boot loader stage1 target device is %s", stage1_device.name)
-
-    stage2_device = storage.bootloader.stage2_device
-    log.info("boot loader stage2 target device is %s", stage2_device.name)
-
-    # Prepare the bootloader for the installation.
-    storage.bootloader.prepare(storage)
-
-    # Install the bootloader.
-    storage.bootloader.write()
 
 
 def create_bls_entries(sysroot, storage, kernel_versions):
