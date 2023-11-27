@@ -44,6 +44,12 @@ def run_program(*args):
                             stderr=subprocess.PIPE).communicate()
 
 
+def print_failure(msg, bug, commit, summary):
+    print(f"*** Bug {bug}: {msg}.")
+    print(f"***     Commit: {commit}")
+    print(f"***     {summary}\n")
+
+
 class ParseCommaSeparatedList(argparse.Action):
     """A parsing action that parses a comma separated list from the value provided to the option into a list."""
 
@@ -266,9 +272,7 @@ class MakeBumpVer:
         if bzentry.product.startswith('Red Hat Enterprise Linux'):
             return True
         else:
-            print("*** Bug %s is not a RHEL bug." % bug)
-            print("***     Commit: %s" % commit)
-            print("***     %s\n" % summary)
+            print_failure("is not a RHEL bug", bug, commit, summary)
             return False
 
     def _is_RHEL_bug_in_correct_state(self, bug, commit, summary):
@@ -281,9 +285,7 @@ class MakeBumpVer:
         if bzentry.bug_status in ['POST', 'MODIFIED', 'ON_QA']:
             return True
         else:
-            print("*** Bug %s is not in POST, MODIFIED or ON_QA." % bug)
-            print("***     Commit: %s" % commit)
-            print("***     %s\n" % summary)
+            print_failure("is not in POST, MODIFIED or ON_QA", bug, commit, summary)
             return False
 
     def _is_RHEL_bug_acked(self, bug, commit, summary):
@@ -297,9 +299,7 @@ class MakeBumpVer:
             if f['name'] == 'release' and f['status'] == '+':
                 return True
 
-        print("*** Bug %s does not have ACK" % bug)
-        print("***     Commit: %s" % commit)
-        print("***     %s\n" % summary)
+        print_failure("does not have ACK", bug, commit, summary)
         return False
 
     def _rpm_log(self, fixedIn):
