@@ -27,8 +27,7 @@ import sys
 import textwrap
 import logging
 
-logging.basicConfig(level=logging.DEBUG)
-log = logging.getLogger("bugzilla")
+log = logging.getLogger("bumpver")
 log.setLevel(logging.INFO)
 
 VERSION_NUMBER_INCREMENT = 1
@@ -131,7 +130,7 @@ class MakeBumpVer:
 
         self.args = parser.parse_args()
         if self.args.debug:
-            log.setLevel(logging.DEBUG)
+            logging.basicConfig(level=logging.DEBUG)
 
         if self.args.bump_major_version and self.args.add_version_number:
             print("The --bump-major-version and --add-version-number options can't be used at the same time.",
