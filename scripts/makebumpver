@@ -28,14 +28,17 @@ import argparse
 import datetime
 import logging
 
+from jira import JIRA, JIRAError # pylint: disable=import-error
+from functools import cache
+
 log = logging.getLogger("bumpver")
 log.setLevel(logging.INFO)
-
 
 VERSION_NUMBER_INCREMENT = 1
 DEFAULT_ADDED_VERSION_NUMBER = 1
 DEFAULT_MINOR_VERSION_NUMBER = 1
 
+TOKEN_PATH = "~/.config/anaconda/jira"
 
 def run_program(*args):
     """Run a program with universal newlines on"""
@@ -63,6 +66,73 @@ class ParseCommaSeparatedList(argparse.Action):
             if value:
                 value_list.append(value)
         setattr(namespace, self.dest, value_list)
+
+
+class JIRAValidator:
+    def __init__(self):
+        self.jira = None
+
+        self._connect()
+
+    def _connect(self):
+        """Connect to our JIRA instance by provided token file."""
+        token = self._read_token(TOKEN_PATH)
+        self.jira = JIRA("https://issues.redhat.com/", token_auth=token)
+
+    @staticmethod
+    def _read_token(token_path):
+        token_path = os.path.expanduser(token_path)
+        try:
+            with open(token_path, "r", encoding="utf-8") as f:
+                return f.read().strip()
+        except FileNotFoundError:
+            print(f"Token can't be found! Please generate your JIRA token in {TOKEN_PATH}", file=sys.stderr)
+            print("Please generate the token here: https://issues.redhat.com/secure/ViewProfile.jspa?selectedTab=com.atlassian.pats.pats-plugin:jira-user-personal-access-tokens")
+            sys.exit(1)
+
+        return None
+
+    @cache
+    def _query_RHEL_issue(self, bug):
+        try:
+            issue = self.jira.issue(bug)
+        except JIRAError as ex:
+            raise ValueError(f"Error during JIRA query for bug {bug}: {ex.text}") from ex
+
+        return issue
+
+    def check_if_RHEL_issue(self, bug):
+        if not bug.startswith("RHEL-"):
+            return False, "is not the 'RHEL' JIRA project - Skipping"
+
+        self._query_RHEL_issue(bug)
+
+        return True, ""
+
+    def validate_RHEL_issue_status(self, bug):
+        issue = self._query_RHEL_issue(bug)
+
+        valid_statuses = ("Planning", "In Progress")
+        status = issue.fields.status.name
+        if status not in valid_statuses:
+            return False, f"incorrect status '{status}'! Valid values: {valid_statuses}"
+
+        return True, ""
+
+    def validate_RHEL_issue_fixversion(self, bug):
+        issue = self._query_RHEL_issue(bug)
+
+        # TODO: Switch this to template solution "distro_release"
+        valid_fix_version = "rhel-9"
+        fix_version = issue.fields.fixVersions
+        for version in fix_version:
+            # Let's simplify and check only major version (ignore minor RHEL releases)
+            if version.name.startswith(valid_fix_version):
+                return True, ""
+
+        current_versions = ", ".join(map(lambda x: x.name, fix_version))
+        msg = f"incorrect fixVersion '{current_versions}'! It has to start with {valid_fix_version}"
+        return False, msg
 
 
 class MakeBumpVer:
@@ -155,6 +225,8 @@ class MakeBumpVer:
         self.bzurl = "https://%s/xmlrpc.cgi" % self.bzserver
         self.bz = None
         self._bz_cache = {}
+
+        self._jira = JIRAValidator()
 
         self.gituser = self._git_config('user.name')
         self.gitemail = self._git_config('user.email')
@@ -333,8 +405,8 @@ class MakeBumpVer:
                 continue
 
             if self.rhel:
-                bad, rhbz = self._check_rhel_bugs(commit, summary, body, author)
-                rpm_log.append((summary.strip(), list(rhbz)))
+                bad, bugs = self._check_rhel_issues(commit, summary, body, author)
+                rpm_log.append(("%s (%s)" % (summary.strip(), author), list(bugs)))
             else:
                 rpm_log.append(("%s (%s)" % (summary.strip(), author), None))
 
@@ -345,6 +417,53 @@ class MakeBumpVer:
             sys.exit(1)
 
         return rpm_log
+
+    def _check_rhel_issues(self, commit, summary, body, author):
+        issues = set()
+        bad = False
+
+        summary = summary + f" ({author})"
+
+        for bodyline in body:
+            m = re.search(r"^(Resolves|Related):\ +jira#(\w+-\d+).*$", bodyline)
+            if not m:
+                continue
+
+            action = m.group(1)
+            bug = m.group(2)
+
+            if action and bug:
+                # store the bug to output list if checking is disabled and continue
+                if self.skip_all:
+                    issues.add(f"{action}: jira#{bug}")
+                    print(f"*** Bug {bug} Related commit {commit} is skipping checks\n")
+                    continue
+
+                if not self._jira.check_if_RHEL_issue(bug):
+                    print_failure("is not the 'RHEL' JIRA project", bug, commit, summary)
+                    bad = True
+                    continue
+
+                valid_status, msg = self._jira.validate_RHEL_issue_status(bug)
+                if not valid_status:
+                    print_failure(msg, bug, commit, summary)
+                    bad = True
+                    continue
+
+                valid_fixversion, msg = self._jira.validate_RHEL_issue_fixversion(bug)
+                if not valid_fixversion:
+                    print_failure(msg, bug, commit, summary)
+                    bad = True
+                    continue
+
+                print(f"*** Bug {bug} Related commit {commit} is allowed\n")
+                issues.add(f"{action}: jira#{bug}")
+
+        if len(issues) == 0 and not self.skip_all:
+            print("*** No bugs referenced in commit %s\n" % commit)
+            bad = True
+
+        return bad, issues
 
     def _check_rhel_bugs(self, commit, summary, body, author):
         rhbz = set()
@@ -487,7 +606,7 @@ class MakeBumpVer:
         f.write("* %s %s <%s> - %s-%s\n" % (stamp, self.gituser, self.gitemail,
                                             newVersion, self.new_release))
 
-        for msg, rhbz in rpmlog:
+        for msg, bugs in rpmlog:
             msg = re.sub('(?<!%)%%(?!%)|(?<!%%)%(?!%%)', '%%', msg)
             sublines = textwrap.wrap(msg, 77)
             f.write("- %s\n" % sublines[0])
@@ -496,8 +615,8 @@ class MakeBumpVer:
                 for subline in sublines[1:]:
                     f.write("  %s\n" % subline)
 
-            if rhbz:
-                for entry in rhbz:
+            if bugs:
+                for entry in bugs:
                     f.write("  %s\n" % entry)
 
         f.write("\n")
