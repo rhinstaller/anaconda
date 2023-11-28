@@ -132,12 +132,12 @@ The first line should be a succinct description of what the commit does, startin
 Commits for RHEL Branches
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If you are submitting a patch for any rhel-branch, the last line of your commit must identify the bugzilla bug id it fixes, using the ``Resolves`` or ``Related`` keyword, e.g.:
-``Resolves: rhbz#111111``
+If you are submitting a patch for any rhel-branch, the last line of your commit must identify the `JIRA issue <https://issues.redhat.com/projects/RHEL/issues/>`_ id it fixes, using the ``Resolves`` or ``Related`` keyword, e.g.:
+``Resolves: jira#RHEL-11111``
 
 or
 
-``Related: rhbz#1234567``
+``Related: jira#RHEL-12345``
 
 Use ``Resolves`` if the patch fixes the core issue which caused the bug.
 Use ``Related`` if the patch fixes an ancillary issue that is related to, but might not actually fix the bug.
