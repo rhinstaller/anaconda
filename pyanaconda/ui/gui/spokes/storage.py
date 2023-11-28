@@ -464,10 +464,6 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
                 wwpn=device_data.attrs.get("wwpn", ""),
                 lun=device_data.attrs.get("fcp-lun", "")
             )
-        elif device_data.type == "nvdimm":
-            description = _("NVDIMM device {namespace}").format(
-                namespace=device_data.attrs.get("namespace", "")
-            )
         else:
             description = device_data.description
 

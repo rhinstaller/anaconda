@@ -168,11 +168,6 @@ class DeviceData(DBusData):
             target
             path-id
 
-        Attributes for NVDIMM:
-            mode
-            namespace
-            path-id
-
         Attributes for ZFCP:
             fcp-lun
             wwpn

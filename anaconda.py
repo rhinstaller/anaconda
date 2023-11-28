@@ -488,10 +488,6 @@ if __name__ == "__main__":
     from pyanaconda.ui.lib.storage import ignore_oemdrv_disks
     ignore_oemdrv_disks()
 
-    # Ignore nvdimm devices.
-    from pyanaconda.ui.lib.storage import ignore_nvdimm_blockdevs
-    ignore_nvdimm_blockdevs()
-
     # Specify protected devices.
     from pyanaconda.modules.common.constants.services import STORAGE
 

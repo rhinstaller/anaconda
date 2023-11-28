@@ -35,7 +35,6 @@ from pyanaconda.ui.gui.spokes.advstorage.fcoe import FCoEDialog
 from pyanaconda.ui.gui.spokes.advstorage.iscsi import ISCSIDialog
 from pyanaconda.ui.gui.spokes.advstorage.zfcp import ZFCPDialog
 from pyanaconda.ui.gui.spokes.advstorage.dasd import DASDDialog
-from pyanaconda.ui.gui.spokes.advstorage.nvdimm import NVDIMMDialog
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.categories.system import SystemCategory
 
@@ -50,8 +49,7 @@ __all__ = ["FilterSpoke"]
 PAGE_SEARCH = 0
 PAGE_MULTIPATH = 1
 PAGE_OTHER = 2
-PAGE_NVDIMM = 3
-PAGE_Z = 4
+PAGE_Z = 3
 
 DiskStoreRow = namedtuple("DiskStoreRow", [
     "visible", "selected", "mutable",
@@ -431,69 +429,13 @@ class ZPage(FilterPage):
         return False
 
 
-class NvdimmPage(FilterPage):
-    # Match these to nvdimmTypeCombo ids in glade
-    SEARCH_TYPE_NAMESPACE = 'Namespace'
-    SEARCH_TYPE_MODE = 'Mode'
-
-    def __init__(self, builder):
-        super().__init__(builder, "nvdimmModel", "nvdimmTypeCombo")
-        self._tree_view = self._builder.get_object("nvdimmTreeView")
-        self._mode_combo = self._builder.get_object("nvdimmModeCombo")
-        self._namespace_entry = self._builder.get_object("nvdimmNamespaceEntry")
-
-    def is_member(self, device_type):
-        return device_type == "nvdimm"
-
-    def setup(self, store, disks, selected_names, protected_names):
-        modes = set()
-
-        for device_data in disks:
-            mode = device_data.attrs.get("mode")
-            row = create_row(
-                device_data,
-                device_data.name in selected_names and mode == "sector",
-                device_data.name not in protected_names or mode != "sector",
-            )
-
-            store.append([*row])
-            modes.add(mode)
-
-        self._setup_combo(self._mode_combo, modes)
-        self._setup_search_type()
-
-    def clear(self):
-        self._mode_combo.set_active(0)
-        self._namespace_entry.set_text("")
-
-    def _filter_func(self, filter_by, row):
-        if filter_by == self.SEARCH_TYPE_MODE:
-            return self._mode_combo.get_active_text() == row.mode
-
-        if filter_by == self.SEARCH_TYPE_NAMESPACE:
-            return self._namespace_entry.get_text().strip() in row.namespace
-
-        return False
-
-    def get_selected_namespaces(self):
-        namespaces = []
-        selection = self._tree_view.get_selection()
-        store, path_list = selection.get_selected_rows()
-
-        for path in path_list:
-            store_row = DiskStoreRow(*store[store.get_iter(path)])
-            namespaces.append(store_row.namespace)
-
-        return namespaces
-
-
 class FilterSpoke(NormalSpoke):
     """
        .. inheritance-diagram:: FilterSpoke
           :parts: 3
     """
     builderObjects = ["diskStore", "filterWindow",
-                      "searchModel", "multipathModel", "otherModel", "zModel", "nvdimmModel"]
+                      "searchModel", "multipathModel", "otherModel", "zModel"]
     mainWidgetName = "filterWindow"
     uiFile = "spokes/advanced_storage.glade"
     category = SystemCategory
@@ -520,7 +462,6 @@ class FilterSpoke(NormalSpoke):
 
         self._notebook = self.builder.get_object("advancedNotebook")
         self._store = self.builder.get_object("diskStore")
-        self._reconfigure_nvdimm_button = self.builder.get_object("reconfigureNVDIMMButton")
 
     @property
     def indirect(self):
@@ -542,7 +483,6 @@ class FilterSpoke(NormalSpoke):
             PAGE_SEARCH: SearchPage(self.builder),
             PAGE_MULTIPATH: MultipathPage(self.builder),
             PAGE_OTHER: OtherPage(self.builder),
-            PAGE_NVDIMM: NvdimmPage(self.builder),
             PAGE_Z: ZPage(self.builder),
         }
 
@@ -558,9 +498,6 @@ class FilterSpoke(NormalSpoke):
 
         if not STORAGE.get_proxy(ISCSI).IsSupported():
             self.builder.get_object("addISCSIButton").destroy()
-
-        # The button is sensitive only on NVDIMM page
-        self._reconfigure_nvdimm_button.set_sensitive(False)
 
         # report that we are done
         self.initialize_done()
@@ -665,7 +602,6 @@ class FilterSpoke(NormalSpoke):
 
         # Set up the UI.
         notebook.get_nth_page(new_page_num).show_all()
-        self._reconfigure_nvdimm_button.set_sensitive(new_page_num == 3)
 
     def on_row_toggled(self, button, path):
         if not path:
@@ -710,12 +646,6 @@ class FilterSpoke(NormalSpoke):
         dialog = DASDDialog(self.data)
         self._run_dialog_and_refresh(dialog)
 
-    def on_reconfigure_nvdimm_clicked(self, widget, *args):
-        log.debug("Reconfigure a NVDIMM device.")
-        namespaces = self._pages[PAGE_NVDIMM].get_selected_namespaces()
-        dialog = NVDIMMDialog(self.data, namespaces)
-        self._run_dialog_and_refresh(dialog)
-
     def _run_dialog_and_refresh(self, dialog):
         # Run the dialog.
         with self.main_window.enlightbox(dialog.window):
@@ -740,10 +670,6 @@ class FilterSpoke(NormalSpoke):
 
     def on_other_type_combo_changed(self, combo):
         self._set_notebook_page("otherTypeNotebook", combo.get_active())
-        self._refilter_current_page()
-
-    def on_nvdimm_type_combo_changed(self, combo):
-        self._set_notebook_page("nvdimmTypeNotebook", combo.get_active())
         self._refilter_current_page()
 
     def on_z_type_combo_changed(self, combo):
