@@ -27,6 +27,7 @@ import argparse
 import datetime
 import logging
 
+from rhel_version import rhel_version
 from jira import JIRA, JIRAError # pylint: disable=import-error
 from functools import cache
 
@@ -121,8 +122,7 @@ class JIRAValidator:
     def validate_RHEL_issue_fixversion(self, bug):
         issue = self._query_RHEL_issue(bug)
 
-        # TODO: Switch this to template solution "distro_release"
-        valid_fix_version = "rhel-9"
+        valid_fix_version = rhel_version
         fix_version = issue.fields.fixVersions
         for version in fix_version:
             # Let's simplify and check only major version (ignore minor RHEL releases)
