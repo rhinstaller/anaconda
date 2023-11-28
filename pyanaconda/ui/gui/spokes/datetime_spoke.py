@@ -27,7 +27,7 @@ from pyanaconda import ntp
 from pyanaconda import flags
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import constants
-from pyanaconda.core.async_utils import async_action_wait, async_action_nowait
+from pyanaconda.core.async_utils import async_action_nowait
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _, CN_
 from pyanaconda.core.service import is_service_running, start_service, stop_service
@@ -44,15 +44,14 @@ from pyanaconda.ui.categories.localization import LocalizationCategory
 from pyanaconda.ui.gui.utils import blockedHandler
 from pyanaconda.ui.gui.spokes.lib.ntp_dialog import NTPConfigDialog
 from pyanaconda.timezone import NTP_SERVICE, get_all_regions_and_timezones, get_timezone, \
-    is_valid_timezone, set_system_date_time
+    is_valid_timezone, set_system_date_time, parse_timezone
 from pyanaconda.core.threads import thread_manager
 
 import gi
 gi.require_version("Gdk", "3.0")
 gi.require_version("Gtk", "3.0")
-gi.require_version("TimezoneMap", "1.0")
 
-from gi.repository import Gdk, Gtk, TimezoneMap
+from gi.repository import Gdk, Gtk
 
 log = get_module_logger(__name__)
 
@@ -168,11 +167,6 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
     icon = "preferences-system-time-symbolic"
     title = CN_("GUI|Spoke", "_Time & Date")
 
-    # Hack to get libtimezonemap loaded for GtkBuilder
-    # see https://bugzilla.gnome.org/show_bug.cgi?id=712184
-    _hack = TimezoneMap.TimezoneMap()
-    del(_hack)
-
     @staticmethod
     def get_screen_id():
         """Return a unique id of this UI screen."""
@@ -211,7 +205,6 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self._yearsStore = self.builder.get_object("years")
         self._regionsStore = self.builder.get_object("regions")
         self._citiesStore = self.builder.get_object("cities")
-        self._tzmap = self.builder.get_object("tzmap")
         self._dateBox = self.builder.get_object("dateBox")
 
         # we need to know it the new value is the same as previous or not
@@ -306,9 +299,6 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             self.add_to_store_xlated(self._citiesStore, city, xlated)
 
         self._update_datetime_timer = None
-        kickstart_timezone = self._timezone_module.Timezone
-        if is_valid_timezone(kickstart_timezone):
-            self._set_timezone(kickstart_timezone)
 
         time_init_thread = thread_manager.get(constants.THREAD_TIME_INIT)
         if time_init_thread is not None:
@@ -323,25 +313,19 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     @property
     def status(self):
-        kickstart_timezone = self._timezone_module.Timezone
+        timezone = self._timezone_module.Timezone
 
-        if kickstart_timezone:
-            if is_valid_timezone(kickstart_timezone):
-                return _("%s timezone") % get_xlated_timezone(kickstart_timezone)
-            else:
-                return _("Invalid timezone")
-        else:
-            location = self._tzmap.get_location()
-            if location and location.get_property("zone"):
-                return _("%s timezone") % get_xlated_timezone(location.get_property("zone"))
-            else:
-                return _("Nothing selected")
+        if not timezone:
+            return _("Nothing selected")
+
+        if not is_valid_timezone(timezone):
+            return _("Invalid timezone")
+
+        return _("%s timezone") % get_xlated_timezone(timezone)
 
     def apply(self):
         self._shown = False
 
-        # we could use self._tzmap.get_timezone() here, but it returns "" if
-        # Etc/XXXXXX timezone is selected
         region = self._get_active_region()
         city = self._get_active_city()
 
@@ -385,13 +369,10 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self._update_datetime_timer.timeout_sec(1, self._update_datetime)
         self._start_updating_timer = None
 
-        kickstart_timezone = self._timezone_module.Timezone
-
-        if is_valid_timezone(kickstart_timezone):
-            self._tzmap.set_timezone(kickstart_timezone)
-            time.tzset()
-
-        self._update_datetime()
+        # Update the timezone configuration.
+        timezone = self._get_valid_timezone(self._timezone_module.Timezone)
+        self._set_region_and_city_from_timezone(timezone)
+        self._set_timezone(timezone)
 
         # update the ntp configuration
         self._ntp_servers = TimeSourceData.from_structure_list(
@@ -423,29 +404,6 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             ntp_working = self._timezone_module.NTPEnabled
 
         self._ntpSwitch.set_active(ntp_working)
-
-    @async_action_wait
-    def _set_timezone(self, timezone):
-        """
-        Sets timezone to the city/region comboboxes and the timezone map.
-
-        :param timezone: timezone to set
-        :type timezone: str
-        :return: if successfully set or not
-        :rtype: bool
-
-        """
-
-        parts = timezone.split("/", 1)
-        if len(parts) != 2:
-            # invalid timezone cannot be set
-            return False
-
-        region, city = parts
-        self._set_combo_selection(self._regionCombo, region)
-        self._set_combo_selection(self._cityCombo, city)
-
-        return True
 
     @async_action_nowait
     def add_to_store_xlated(self, store, item, xlated):
@@ -558,9 +516,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         """
         Returning False from this method removes the timer that would
         otherwise call it again and again.
-
         """
-
         self._start_updating_timer = None
 
         if not conf.system.can_set_system_clock:
@@ -606,9 +562,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         buttons, self._save_system_time method is invoked. Since it returns
         False, this timer is then removed and only reactivated in this method
         (thus in some date/time-setting button's callback).
-
         """
-
         #do not start timers if the spoke is not shown
         if not self._shown:
             self._update_datetime()
@@ -660,7 +614,8 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         """Restore stored "old" (or last valid) values."""
         # check if there are old values to go back to
         if self._old_region and self._old_city:
-            self._set_timezone(self._old_region + "/" + self._old_city)
+            self._set_combo_selection(self._regionCombo, self._old_region)
+            self._set_combo_selection(self._cityCombo, self._old_city)
 
     def on_up_hours_clicked(self, *args):
         self._stop_and_maybe_start_time_updating()
@@ -748,45 +703,19 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         map and do all necessary actions). Fortunately when entry is being
         edited, self._get_active_city returns None.
         """
-        timezone = None
-
         region = self._get_active_region()
         city = self._get_active_city()
 
-        if not region or not city or (region == self._old_region and
-                                      city == self._old_city):
-            # entry being edited or no change, no actions needed
+        # Both, city and region, are needed to form a valid timezone.
+        if not region or not city:
             return
 
-        if city and region:
-            timezone = region + "/" + city
-        else:
-            # both city and region are needed to form a valid timezone
+        # Entry being edited or no change, no actions needed.
+        if region == self._old_region and city == self._old_city:
             return
 
-        if region == "Etc":
-            # Etc timezones cannot be displayed on the map, so let's reset the
-            # location and manually set a highlight with no location pin.
-            self._tzmap.clear_location()
-            # Some time zones are just the same default.
-            if city in ("GMT", "UTC", "UCT", "Greenwich", "Universal", "Zulu"):
-                offset = 0.0
-            elif "GMT" in city:
-                # Take the part after "GMT"
-                offset = -float(city[3:])
-                # The tzdb data uses POSIX-style signs for the GMT zones, which is
-                # the opposite of whatever everyone else expects. GMT+4 indicates a
-                # zone four hours west of Greenwich; i.e., four hours before. Reverse
-                # the sign to match the libtimezone map.
-            else:
-                log.warning("Unknown time zone selected in GUI: Etc/%s", city)
-
-            self._tzmap.set_selected_offset(offset)
-            time.tzset()
-        else:
-            # we don't want the timezone-changed signal to be emitted
-            self._tzmap.set_timezone(timezone)
-            time.tzset()
+        # Update the local timezone.
+        self._set_timezone(region + "/" + city)
 
         # update "old" values
         self._old_city = city
@@ -837,21 +766,37 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self._stop_and_maybe_start_time_updating(interval=5)
         self._daysFilter.refilter()
 
-    def on_location_changed(self, tz_map, location):
-        if not location:
-            return
+    def _get_valid_timezone(self, preferred_timezone):
+        """Return a valid timezone to use in the user interface."""
+        if not preferred_timezone:
+            return DEFAULT_TZ
 
-        timezone = location.get_property('zone')
+        if not is_valid_timezone(preferred_timezone):
+            return DEFAULT_TZ
 
-        # Updating the timezone will update the region/city combo boxes to match.
-        # The on_city_changed handler will attempt to convert the timezone back
-        # to a location and set it in the map, which we don't want, since we
-        # already have a location. That's why we're here.
+        region, city = parse_timezone(preferred_timezone)
+
+        if not region or not city:
+            return DEFAULT_TZ
+
+        return preferred_timezone
+
+    def _set_region_and_city_from_timezone(self, timezone):
+        """Set up the region and the city from the specified timezone."""
+        # Set up the region and city widgets.
         with blockedHandler(self._cityCombo, self.on_city_changed):
-            if self._set_timezone(timezone):
-                # timezone successfully set
-                self._tz = get_timezone(timezone)
-                self._update_datetime()
+            region, city = parse_timezone(timezone)
+            self._set_combo_selection(self._regionCombo, region)
+            self._set_combo_selection(self._cityCombo, city)
+
+    def _set_timezone(self, timezone):
+        """Set the timezone."""
+        # Update the datetime widgets.
+        self._tz = get_timezone(timezone)
+        self._update_datetime()
+
+        # Set the local timezone to the value stored in os.environ['TZ'].
+        time.tzset()
 
     def on_timeformat_changed(self, button24h, *args):
         hours = int(self._hoursLabel.get_text())

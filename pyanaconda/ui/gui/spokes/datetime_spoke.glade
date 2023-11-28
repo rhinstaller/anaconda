@@ -3,7 +3,6 @@
 <interface>
   <requires lib="gtk+" version="3.12"/>
   <requires lib="AnacondaWidgets" version="1.0"/>
-  <requires lib="TimezoneMap" version="0.4"/>
   <object class="GtkListStore" id="cities">
     <columns>
       <!-- column-name name -->
@@ -312,19 +311,6 @@
                         <property name="expand">False</property>
                         <property name="fill">True</property>
                         <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="CcTimezoneMap" id="tzmap">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <signal name="location-changed" handler="on_location_changed" swapped="no"/>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="padding">6</property>
-                        <property name="position">1</property>
                       </packing>
                     </child>
                     <child>
@@ -674,6 +660,7 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
+                        <property name="pack-type">end</property>
                         <property name="position">2</property>
                       </packing>
                     </child>

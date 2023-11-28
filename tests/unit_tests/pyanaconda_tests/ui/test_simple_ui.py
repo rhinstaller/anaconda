@@ -19,7 +19,6 @@
 #
 import os
 import re
-import sys
 import unittest
 
 from unittest.mock import Mock, patch, create_autospec
@@ -44,12 +43,6 @@ class SimpleUITestCase(unittest.TestCase):
         self.data = Mock()
         self.storage = Mock()
         self.payload = Mock()
-
-        # Mock the TimezoneMap hack.
-        sys.modules["gi.repository.TimezoneMap"] = Mock()
-
-    def tearDown(self):
-        sys.modules.pop("gi.repository.TimezoneMap")
 
     @property
     def paths(self):

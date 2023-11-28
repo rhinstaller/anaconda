@@ -35,7 +35,6 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define libarchivever 3.0.4
 %define libblockdevver 2.1
 %define libreportanacondaver 2.0.21-1
-%define libtimezonemapver 0.4.1-2
 %define libxklavierver 5.4
 %define mehver 0.23-1
 %define nmver 1.0
@@ -70,7 +69,6 @@ BuildRequires: libarchive-devel >= %{libarchivever}
 %ifarch s390 s390x
 BuildRequires: s390utils-devel
 %endif
-BuildRequires: libtimezonemap-devel >= %{libtimezonemapver}
 
 # Tools used by the widgets resource bundle generation
 BuildRequires: gdk-pixbuf2-devel
@@ -278,7 +276,6 @@ Requires: adwaita-icon-theme
 Requires: tigervnc-server-minimal
 Requires: libxklavier >= %{libxklavierver}
 Requires: libgnomekbd
-Requires: libtimezonemap >= %{libtimezonemapver}
 Requires: nm-connection-editor
 %ifnarch s390 s390x
 Requires: NetworkManager-wifi
