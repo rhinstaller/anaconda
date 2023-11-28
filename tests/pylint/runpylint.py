@@ -76,10 +76,13 @@ class AnacondaLintConfig(CensorshipConfig):
                     # going to be valid python anyway.
                     continue
 
-                # Test any file that either ends in .py or contains #!/usr/bin/python
-                # in the first line.
-                if f.endswith(".py") or (lines and str(lines[0]).startswith("#!/usr/bin/python")):
-                    retval.append(root + "/" + f)
+                # Test only files which meets these conditions:
+                # Ignore j2 files which are input for template rendering
+                if not f.endswith(".j2"):
+                    # Either ends in .py or contains #!/usr/bin/python in the first line.
+                    if f.endswith(".py") or \
+                       (lines and str(lines[0]).startswith("#!/usr/bin/python")):
+                        retval.append(root + "/" + f)
 
         return retval
 
