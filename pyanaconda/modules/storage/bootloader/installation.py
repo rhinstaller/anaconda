@@ -28,7 +28,7 @@ from pyanaconda.modules.storage.constants import BootloaderMode
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.storage.bootloader.utils import configure_boot_loader, \
-    install_boot_loader, recreate_initrds, create_rescue_images, create_bls_entries
+    recreate_initrds, create_rescue_images, create_bls_entries
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.task import Task
 
@@ -37,7 +37,7 @@ log = get_module_logger(__name__)
 
 __all__ = ["ConfigureBootloaderTask", "InstallBootloaderTask", "FixBTRFSBootloaderTask",
            "FixZIPLBootloaderTask", "RecreateInitrdsTask", "CreateRescueImagesTask",
-           "CreateBLSEntriesTask"]
+           "CreateBLSEntriesTask", "CollectKernelArgumentsTask"]
 
 
 class CreateRescueImagesTask(Task):
@@ -105,6 +105,50 @@ class ConfigureBootloaderTask(Task):
         )
 
 
+class CollectKernelArgumentsTask(Task):
+    """Installation task for collecting the kernel arguments."""
+
+    def __init__(self, storage, mode):
+        """Create a new task."""
+        super().__init__()
+        self._storage = storage
+        self._mode = mode
+
+    @property
+    def name(self):
+        """Name of the task."""
+        return "Collect kernel arguments"
+
+    @property
+    def _bootloader(self):
+        """Representation of the bootloader."""
+        return self._storage.bootloader
+
+    def run(self):
+        """Run the task."""
+        if conf.target.is_directory:
+            log.debug("The bootloader installation is disabled for dir installations.")
+            return
+
+        if self._mode == BootloaderMode.DISABLED:
+            log.debug("The bootloader installation is disabled.")
+            return
+
+        if self._mode == BootloaderMode.SKIPPED:
+            log.debug("The bootloader installation is skipped.")
+            return
+
+        log.debug("Collecting the kernel arguments.")
+
+        stage1_device = self._bootloader.stage1_device
+        log.info("boot loader stage1 target device is %s", stage1_device.name)
+
+        stage2_device = self._bootloader.stage2_device
+        log.info("boot loader stage2 target device is %s", stage2_device.name)
+
+        self._bootloader.collect_arguments(self._storage)
+
+
 class InstallBootloaderTask(Task):
     """Installation task for the bootloader."""
 
@@ -116,7 +160,13 @@ class InstallBootloaderTask(Task):
 
     @property
     def name(self):
+        """Name of the task."""
         return "Install the bootloader"
+
+    @property
+    def _bootloader(self):
+        """Representation of the bootloader."""
+        return self._storage.bootloader
 
     def run(self):
         """Run the task.
@@ -135,8 +185,11 @@ class InstallBootloaderTask(Task):
             log.debug("The bootloader installation is skipped.")
             return
 
+        log.debug("Installing the boot loader.")
+
         try:
-            install_boot_loader(storage=self._storage)
+            self._bootloader.prepare()
+            self._bootloader.write()
         except BootLoaderError as e:
             log.exception("Bootloader installation has failed: %s", e)
             raise BootloaderInstallationError(str(e)) from None

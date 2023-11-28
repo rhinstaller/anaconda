@@ -51,7 +51,7 @@ from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
 from pyanaconda.modules.storage.bootloader.installation import ConfigureBootloaderTask, \
     InstallBootloaderTask, FixZIPLBootloaderTask, FixBTRFSBootloaderTask, RecreateInitrdsTask, \
-    CreateRescueImagesTask, CreateBLSEntriesTask
+    CreateRescueImagesTask, CreateBLSEntriesTask, CollectKernelArgumentsTask
 
 
 class BootloaderInterfaceTestCase(unittest.TestCase):
@@ -201,6 +201,7 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
         task_classes = [
             CreateRescueImagesTask,
             ConfigureBootloaderTask,
+            CollectKernelArgumentsTask,
             InstallBootloaderTask,
             CreateBLSEntriesTask
         ]
@@ -374,6 +375,20 @@ class BootloaderTasksTestCase(unittest.TestCase):
         assert image.version == version
         assert image.label == "anaconda"
         assert image.device == storage.root_device
+
+    def test_collect_kernel_arguments(self):
+        """Test the collection of the kernel arguments for the installation."""
+        bootloader = Mock()
+        storage = Mock(bootloader=bootloader)
+
+        CollectKernelArgumentsTask(storage, BootloaderMode.DISABLED).run()
+        bootloader.collect_arguments.assert_not_called()
+
+        CollectKernelArgumentsTask(storage, BootloaderMode.SKIPPED).run()
+        bootloader.collect_arguments.assert_not_called()
+
+        CollectKernelArgumentsTask(storage, BootloaderMode.ENABLED).run()
+        bootloader.collect_arguments.assert_called_once_with(storage)
 
     def test_install(self):
         """Test the installation task for the boot loader."""
