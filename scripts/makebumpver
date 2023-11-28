@@ -18,7 +18,6 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import bugzilla  # pylint: disable=import-error
 import textwrap
 import sys
 import subprocess
@@ -162,11 +161,7 @@ class MakeBumpVer:
                                                      "Also runs some checks such as ensuring rhel*-branch commits correctly "
                                                      "reference RHEL bugs.",
                                          epilog="The -i switch is intended for use with utility commits that we do not need to "
-                                                "reference in the spec file changelog.\n"
-                                                "The -m switch is used to map a Fedora BZ number to a RHEL BZ number for "
-                                                "the spec file changelog.\n"
-                                                "Use -m if you have a commit that needs to reference a RHEL bug and have cloned "
-                                                "the bug, but the original commit was already pushed to the central repo.")
+                                                "reference in the spec file changelog.\n")
 
         parser.add_argument("-n", "--name", dest="name", default=current_name,
                             metavar="PACKAGE NAME", help="Package name.")
@@ -180,11 +175,7 @@ class MakeBumpVer:
                             help="Bug reporting email address.")
         parser.add_argument("-i", "--ignore", dest="ignored_commits", default=[], action=ParseCommaSeparatedList,
                             metavar="COMMA SEAPARATED COMMIT IDS", help="Comma separated list of git commits to ignore.")
-        parser.add_argument("-m", "--map", dest="fedora_rhel_bz_map", default=[], action=ParseCommaSeparatedList,
-                            metavar="COMMA SEPARATED BZ MAPPINGS", help="Comma separated list of FEDORA_BZ=RHEL_BZ mappings.")
-        parser.add_argument("-s", "--skip-acks", dest="skip_acks", action="store_true", default=False,
-                            help="Skip checking for rhel-X.X.X ack flags.")
-        parser.add_argument("-S", "--skip-all", dest="skip_all_acks", action="store_true", default=False,
+        parser.add_argument("-S", "--skip-checks", dest="skip_all_checks", action="store_true", default=False,
                             help="Skip all checks.")
         parser.add_argument("-d", "--debug", dest="debug", action="store_true", default=False,
                             help="Enable debug logging to stdout.")
@@ -221,11 +212,6 @@ class MakeBumpVer:
 
         # general initialization
         log.debug("%s", self.args)
-        self.bzserver = 'bugzilla.redhat.com'
-        self.bzurl = "https://%s/xmlrpc.cgi" % self.bzserver
-        self.bz = None
-        self._bz_cache = {}
-
         self._jira = JIRAValidator()
 
         self.gituser = self._git_config('user.name')
@@ -237,20 +223,8 @@ class MakeBumpVer:
         self.new_release = self.args.new_release or self.release
         self.bugreport = self.args.bugreporting_email
         self.ignore = self.args.ignored_commits
-
-        # apply the bug map
-        self.bugmap = {}
-        for mapping in self.args.fedora_rhel_bz_map:
-            bugs = mapping.split('=')
-            if len(bugs) == 2:
-                self.bugmap[bugs[0]] = bugs[1]
-
-        self.skip_acks = self.args.skip_acks
-        self.skip_all = self.args.skip_all_acks
+        self.skip = self.args.skip_all_checks
         self.dry_run = self.args.dry_run
-
-        if self.skip_all:
-            self.skip_acks = True
 
         self.git_branch = None
 
@@ -311,69 +285,6 @@ class MakeBumpVer:
 
         return ret
 
-    def _query_bug(self, bugid):
-        if not self.bz:
-            print(f"Connecting to {self.bzserver}...")
-            self.bz = bugzilla.Bugzilla(url=self.bzurl)
-
-        if not self.bz.logged_in:
-            print(
-                "Provide an API key from https://{}/userprefs.cgi?tab=apikey".format(self.bzserver)
-            )
-            self.bz.interactive_save_api_key()
-
-        if bugid in self._bz_cache:
-            return self._bz_cache[bugid]
-
-        bug = self.bz.getbug(bugid, extra_fields="flags")
-        log.debug("bug = %s", bug)
-
-        if not bug:
-            return None
-        else:
-            self._bz_cache[bugid] = bug
-            return bug
-
-    def _is_RHEL_bug(self, bug, commit, summary):
-        bzentry = self._query_bug(bug)
-
-        if not bzentry:
-            print("*** Bugzilla query for %s failed.\n" % bug)
-            return False
-
-        if bzentry.product.startswith('Red Hat Enterprise Linux'):
-            return True
-        else:
-            print_failure("is not a RHEL bug", bug, commit, summary)
-            return False
-
-    def _is_RHEL_bug_in_correct_state(self, bug, commit, summary):
-        bzentry = self._query_bug(bug)
-
-        if not bzentry:
-            print("*** Bugzilla query for %s failed.\n" % bug)
-            return False
-
-        if bzentry.bug_status in ['POST', 'MODIFIED', 'ON_QA']:
-            return True
-        else:
-            print_failure("is not in POST, MODIFIED or ON_QA", bug, commit, summary)
-            return False
-
-    def _is_RHEL_bug_acked(self, bug, commit, summary):
-        """ Check the bug's ack state
-        """
-        if not self.rhel or self.skip_acks:
-            return True
-
-        bzentry = self._query_bug(bug)
-        for f in bzentry.flags:
-            if f['name'] == 'release' and f['status'] == '+':
-                return True
-
-        print_failure("does not have ACK", bug, commit, summary)
-        return False
-
     def _rpm_log(self, fixedIn):
         git_range = "%s-%s-%s.." % (self.name, self.version, self.release)
         proc = run_program(['git', 'log', '--no-merges', '--pretty=oneline', git_range])
@@ -383,7 +294,6 @@ class MakeBumpVer:
             lines = [x for x in lines if not x.startswith(commit)]
 
         rpm_log = []
-        bad_bump = False
         bad = False
 
         for line in lines:
@@ -410,10 +320,7 @@ class MakeBumpVer:
             else:
                 rpm_log.append(("%s (%s)" % (summary.strip(), author), None))
 
-            if bad:
-                bad_bump = True
-
-        if bad_bump:
+        if bad:
             sys.exit(1)
 
         return rpm_log
@@ -434,7 +341,7 @@ class MakeBumpVer:
 
             if action and bug:
                 # store the bug to output list if checking is disabled and continue
-                if self.skip_all:
+                if self.skip:
                     issues.add(f"{action}: jira#{bug}")
                     print(f"*** Bug {bug} Related commit {commit} is skipping checks\n")
                     continue
@@ -459,115 +366,11 @@ class MakeBumpVer:
                 print(f"*** Bug {bug} Related commit {commit} is allowed\n")
                 issues.add(f"{action}: jira#{bug}")
 
-        if len(issues) == 0 and not self.skip_all:
+        if len(issues) == 0 and not self.skip:
             print("*** No bugs referenced in commit %s\n" % commit)
             bad = True
 
         return bad, issues
-
-    def _check_rhel_bugs(self, commit, summary, body, author):
-        rhbz = set()
-        bad = False
-
-        # look for a bug in the summary line, validate if found
-        m = re.search(r"\(#\d+(\,.*)*\)", summary)
-        if m:
-            fullbug = summary[m.start():m.end()]
-            bugstr = summary[m.start() + 2:m.end() - 1]
-
-            bug = ''
-            for c in bugstr:
-                if c.isdigit():
-                    bug += c
-                else:
-                    break
-
-            if len(bugstr) > len(bug):
-                tmp = bugstr[len(bug):]
-
-                for c in tmp:
-                    if not c.isalpha():
-                        tmp = tmp[1:]
-                    else:
-                        break
-
-                if len(tmp) > 0:
-                    author = tmp
-
-            ckbug = self.bugmap.get(bug, bug)
-
-            valid = self.skip_all or self._is_RHEL_bug(ckbug, commit, summary)
-
-            if valid:
-                summary = summary.replace(fullbug, "(%s)" % author)
-                rhbz.add("Resolves: rhbz#%s" % ckbug)
-
-                if not self.skip_all:
-                    if not self._is_RHEL_bug_in_correct_state(ckbug, commit,
-                                                         summary):
-                        bad = True
-
-                    if not self._is_RHEL_bug_acked(ckbug, commit, summary):
-                        bad = True
-            else:
-                bad = True
-            summary_bug = ckbug
-        else:
-            summary = summary.strip()
-            summary += " (%s)" % author
-            summary_bug = None
-
-        for bodyline in body:
-            m = re.match(r"^(Resolves|Related|Conflicts):\ +rhbz#\d+.*$",
-                         bodyline)
-            if not m:
-                continue
-
-            actionre = re.search("(Resolves|Related|Conflicts)",
-                                 bodyline)
-            bugre = re.search(r"\d+", bodyline)
-            if actionre and bugre:
-                action = actionre.group()
-                bug = bugre.group()
-                ckbug = self.bugmap.get(bug, bug)
-
-                valid = self.skip_all or self._is_RHEL_bug(ckbug, commit, summary)
-
-                if valid:
-                    rhbz.add("%s: rhbz#%s" % (action, ckbug))
-
-                    # Remove the summary bug's Resolves action if it is for the same bug
-                    if action != 'Resolves':
-                        summary_str = "Resolves: rhbz#%s" % summary_bug
-                        if summary_bug and ckbug == summary_bug and summary_str in rhbz:
-                            rhbz.remove(summary_str)
-                else:
-                    bad = True
-
-                if self.skip_all:
-                    print("*** Bug %s Related commit %s is allowed\n" % (bug, commit))
-                    continue
-
-                not_correct = not self._is_RHEL_bug_in_correct_state(ckbug, commit, summary)
-                not_acked = not self._is_RHEL_bug_acked(ckbug, commit, summary)
-
-                if valid and action == 'Resolves' and (not_correct or not_acked):
-                    bad = True
-                elif valid and action == 'Related':
-                    # A related bug needs to have acks, and if it is the same as the summary
-                    # It overrides the summary having different fixed-in or state
-                    if self._is_RHEL_bug_acked(ckbug, commit, summary):
-                        print("*** Bug %s Related commit %s is allowed\n" % (bug, commit))
-                        if ckbug == summary_bug:
-                            bad = False
-                    else:
-                        bad = True
-
-        if len(rhbz) == 0 and not self.skip_all:
-            print("*** No bugs referenced in commit %s\n" % commit)
-            bad = True
-
-        return bad, rhbz
 
     def _write_new_configure(self, newVersion):
         f = open(self.configure, 'r')
