@@ -66,7 +66,14 @@ def enable_installer_mode():
         _load_plugin_s390()
 
     # Set the device name regexes to ignore.
-    udev.ignored_device_names = [r'^mtd', r'^mmcblk.+boot', r'^mmcblk.+rpmb', r'^zram', '^ndblk']
+    udev.ignored_device_names = [
+        r'^mtd',
+        r'^mmcblk.+boot',
+        r'^mmcblk.+rpmb',
+        r'^zram',
+        r'^ndblk',
+        r'^pmem[0-9]+$',
+    ]
 
     # We need this so all the /dev/disk/* stuff is set up.
     udev.trigger(subsystem="block", action="change")
