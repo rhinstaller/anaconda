@@ -164,6 +164,7 @@ system.
 
 %package live
 Summary: Live installation specific files and dependencies
+BuildArchitectures: noarch
 BuildRequires: desktop-file-utils
 # live installation currently implies a graphical installation
 Requires: anaconda-gui = %{version}-%{release}
@@ -180,6 +181,7 @@ for live installations.
 
 %package install-env-deps
 Summary: Installation environment specific dependencies
+BuildArchitectures: noarch
 Requires: udisks2-iscsi
 Requires: libblockdev-plugins-all >= %{libblockdevver}
 %if ! 0%{?rhel}
@@ -228,6 +230,7 @@ dependencies as well.
 
 %package install-img-deps
 Summary: Installation image specific dependencies
+BuildArchitectures: noarch
 # This package must have no weak dependencies.
 # Pull in most stuff with the -env- metapackage
 Requires: anaconda-install-env-deps = %{version}-%{release}
