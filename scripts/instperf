@@ -1,0 +1,55 @@
+#!/usr/bin/python3
+
+import logging
+from subprocess import Popen, PIPE
+import time
+
+# grab the top five memory consuming processes, returning them in a string of
+# of the format:
+#
+# name1:kB1,name2:kB2,...,name5:kB5
+def topProcesses():
+    output = Popen(["ps", "-eo", "comm,rss", "--sort", "-rss", "--no-headers"], stdout=PIPE, universal_newlines=True).communicate()[0]
+    top5 = output.split("\n")[:5]
+    return ",".join("%s:%s" % (proc[0], proc[1]) for proc in (s.split() for s in top5))
+
+def logit():
+    buffers = 0
+    cached = 0
+    memTotal = 0
+    memFree = 0
+    swapTotal = 0
+    swapFree = 0
+
+    with open("/proc/meminfo") as f:
+        for line in f.readlines():
+            if line.startswith("Buffers:"):
+                buffers = line.split()[1]
+            elif line.startswith("Cached:"):
+                cached = line.split()[1]
+            elif line.startswith("MemTotal:"):
+                memTotal = line.split()[1]
+            elif line.startswith("MemFree:"):
+                memFree = line.split()[1]
+            elif line.startswith("SwapTotal:"):
+                swapTotal = line.split()[1]
+            elif line.startswith("SwapFree:"):
+                swapFree = line.split()[1]
+
+    d = {"memUsed": int(memTotal)-int(memFree)-int(cached)-int(buffers),
+         "swapUsed": int(swapTotal)-int(swapFree),
+         "procs": topProcesses()}
+
+    mem_logger.debug("%(memUsed)d %(swapUsed)d %(procs)s", d)
+
+mem_logger = logging.getLogger("memLog")
+mem_logger.setLevel(logging.DEBUG)
+
+handler = logging.FileHandler("/tmp/memory.dat")
+handler.setLevel(logging.DEBUG)
+handler.setFormatter(logging.Formatter("%(asctime)s %(message)s", "%H:%M:%S"))
+mem_logger.addHandler(handler)
+
+while True:
+    logit()
+    time.sleep(1)

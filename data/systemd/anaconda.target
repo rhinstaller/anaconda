@@ -3,6 +3,7 @@ Description=Anaconda System Services
 Requires=basic.target
 After=basic.target
 AllowIsolate=yes
+Wants=instperf.service
 Wants=rsyslog.service
 Wants=systemd-udev-settle.service
 Wants=NetworkManager.service

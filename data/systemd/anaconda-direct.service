@@ -1,7 +1,7 @@
 [Unit]
 Description=the anaconda installation program
-Wants=rsyslog.service systemd-udev-settle.service NetworkManager.service
-After=rsyslog.service systemd-udev-settle.service NetworkManager.service anaconda-sshd.service
+Wants=instperf.service rsyslog.service systemd-udev-settle.service NetworkManager.service
+After=instperf.service rsyslog.service systemd-udev-settle.service NetworkManager.service anaconda-sshd.service
 Requires=anaconda.service
 ConditionPathIsDirectory=|/sys/hypervisor/s390
 ConditionKernelCommandLine=|inst.notmux
