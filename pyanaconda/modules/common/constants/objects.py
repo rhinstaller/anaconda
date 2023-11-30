@@ -89,11 +89,6 @@ ISCSI = DBusObjectIdentifier(
     basename="iSCSI"
 )
 
-NVDIMM = DBusObjectIdentifier(
-    namespace=STORAGE_NAMESPACE,
-    basename="NVDIMM"
-)
-
 SNAPSHOT = DBusObjectIdentifier(
     namespace=STORAGE_NAMESPACE,
     basename="Snapshot"

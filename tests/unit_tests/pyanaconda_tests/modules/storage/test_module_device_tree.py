@@ -26,7 +26,7 @@ from unittest.mock import patch, Mock, PropertyMock
 from tests.unit_tests.pyanaconda_tests import patch_dbus_publish_object, check_task_creation
 
 from blivet.devices import StorageDevice, DiskDevice, DASDDevice, ZFCPDiskDevice, PartitionDevice, \
-    LUKSDevice, iScsiDiskDevice, NVDIMMNamespaceDevice, FcoeDiskDevice, OpticalDevice
+    LUKSDevice, iScsiDiskDevice, FcoeDiskDevice, OpticalDevice
 from blivet.errors import StorageError, FSError
 from blivet.formats import get_format, device_formats, DeviceFormat
 from blivet.formats.fs import FS, Iso9660FS
@@ -223,26 +223,6 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             "initiator": "iqn.1994-05.com.redhat:blabla",
             "lun": "0",
             "target": "iqn.2014-08.com.example:t1",
-            "path-id": "pci-0000:00:00.0-bla-1"
-        })
-
-    def test_get_nvdimm_device_data(self):
-        """Test GetDeviceData for NVDIMM."""
-        self._add_device(NVDIMMNamespaceDevice(
-            "dev1",
-            fmt=get_format("ext4"),
-            size=Size("10 GiB"),
-            mode="sector",
-            devname="namespace0.0",
-            sector_size=512,
-            id_path="pci-0000:00:00.0-bla-1"
-        ))
-
-        data = self.interface.GetDeviceData("dev1")
-        assert data['type'] == get_variant(Str, 'nvdimm')
-        assert data['attrs'] == get_variant(Dict[Str, Str], {
-            "mode": "sector",
-            "namespace": "namespace0.0",
             "path-id": "pci-0000:00:00.0-bla-1"
         })
 

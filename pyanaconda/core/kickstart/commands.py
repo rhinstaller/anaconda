@@ -53,7 +53,7 @@ from pykickstart.commands.method import F34_Method as Method
 from pykickstart.commands.mount import F27_Mount as Mount
 from pykickstart.commands.network import F39_Network as Network
 from pykickstart.commands.nfs import FC6_NFS as NFS
-from pykickstart.commands.nvdimm import F28_Nvdimm as Nvdimm
+from pykickstart.commands.nvdimm import F40_Nvdimm as Nvdimm
 from pykickstart.commands.ostreecontainer import F38_OSTreeContainer as OSTreeContainer
 from pykickstart.commands.ostreesetup import F38_OSTreeSetup as OSTreeSetup
 from pykickstart.commands.partition import F34_Partition as Partition

@@ -25,14 +25,13 @@ from dasbus.typing import unwrap_variant
 from dasbus.client.proxy import get_object_path
 
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import PARTITIONING_METHOD_AUTOMATIC, BOOTLOADER_DRIVE_UNSET, \
     PARTITIONING_METHOD_CUSTOM
 from pyanaconda.core.i18n import P_, _
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, BOOTLOADER, DEVICE_TREE, \
-    DISK_INITIALIZATION, NVDIMM
+    DISK_INITIALIZATION
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError, \
     BootloaderConfigurationError
@@ -331,7 +330,6 @@ def is_local_disk(device_type):
         "iscsi",
         "fcoe",
         "zfcp",
-        "nvdimm"
     )
 
 
@@ -361,25 +359,6 @@ def size_from_input(input_str, units=None):
         return None
 
     return size
-
-
-def ignore_nvdimm_blockdevs():
-    """Add nvdimm devices to be ignored to the ignored disks."""
-    if conf.target.is_directory:
-        return
-
-    nvdimm_proxy = STORAGE.get_proxy(NVDIMM)
-    ignored_nvdimm_devs = nvdimm_proxy.GetDevicesToIgnore()
-
-    if not ignored_nvdimm_devs:
-        return
-
-    log.debug("Adding NVDIMM devices %s to ignored disks", ",".join(ignored_nvdimm_devs))
-
-    disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-    ignored_disks = disk_select_proxy.IgnoredDisks
-    ignored_disks.extend(ignored_nvdimm_devs)
-    disk_select_proxy.IgnoredDisks = ignored_disks
 
 
 def ignore_oemdrv_disks():

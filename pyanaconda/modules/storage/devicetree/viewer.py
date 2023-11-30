@@ -104,8 +104,6 @@ class DeviceTreeViewer(ABC):
             self._set_device_data_fcoe(device, data)
         elif device.type == "iscsi":
             self._set_device_data_iscsi(device, data)
-        elif device.type == "nvdimm":
-            self._set_device_data_nvdimm(device, data)
         elif device.type == "zfcp":
             self._set_device_data_zfcp(device, data)
 
@@ -149,12 +147,6 @@ class DeviceTreeViewer(ABC):
         data.attrs["initiator"] = self._get_attribute(device, "initiator")
         data.attrs["lun"] = self._get_attribute(device, "lun")
         data.attrs["target"] = self._get_attribute(device, "target")
-        data.attrs["path-id"] = self._get_attribute(device, "id_path")
-
-    def _set_device_data_nvdimm(self, device, data):
-        """Set data for an NVDIMM device."""
-        data.attrs["mode"] = self._get_attribute(device, "mode")
-        data.attrs["namespace"] = self._get_attribute(device, "devname")
         data.attrs["path-id"] = self._get_attribute(device, "id_path")
 
     def _set_device_data_zfcp(self, device, data):

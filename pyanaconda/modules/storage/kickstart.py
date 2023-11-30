@@ -19,11 +19,10 @@
 #
 from blivet.fcoe import fcoe
 from blivet.iscsi import iscsi
-from blivet.static_data import nvdimm
 from blivet.zfcp import zfcp
 from blivet.formats import get_format
 from blivet.formats.disklabel import DiskLabel
-from pykickstart.constants import CLEARPART_TYPE_NONE, NVDIMM_ACTION_RECONFIGURE, NVDIMM_ACTION_USE
+from pykickstart.constants import CLEARPART_TYPE_NONE
 from pykickstart.errors import KickstartParseError
 
 from pyanaconda.network import get_supported_devices, wait_for_network_devices
@@ -258,36 +257,6 @@ class LogVol(COMMANDS.LogVol):
 
         return retval
 
-class Nvdimm(COMMANDS.Nvdimm):
-    """The nvdimm kickstart command."""
-
-    def parse(self, args):
-        action = super().parse(args)
-
-        if action.action == NVDIMM_ACTION_RECONFIGURE:
-            if action.namespace not in nvdimm.namespaces:
-                raise KickstartParseError(_("Namespace \"{}\" given in nvdimm command was not "
-                                            "found.").format(action.namespace), lineno=self.lineno)
-
-            log.info("Reconfiguring the namespace %s to %s mode", action.namespace, action.mode)
-            nvdimm.reconfigure_namespace(
-                action.namespace,
-                action.mode,
-                sector_size=action.sectorsize
-            )
-
-        elif action.action == NVDIMM_ACTION_USE:
-            if action.namespace and action.namespace not in nvdimm.namespaces:
-                raise KickstartParseError(_("Namespace \"{}\" given in nvdimm command was not "
-                                            "found.").format(action.namespace), lineno=self.lineno)
-
-            devs = action.blockdevs
-            action.blockdevs = get_device_names(devs, disks_only=True, lineno=self.lineno,
-                                                msg=_("Disk \"{}\" given in nvdimm command does "
-                                                      "not exist."))
-
-        return action
-
 
 class Partition(COMMANDS.Partition):
     def parse(self, args):
@@ -350,7 +319,7 @@ class StorageKickstartSpecification(KickstartSpecification):
         "iscsiname": IscsiName,
         "logvol": LogVol,
         "mount": COMMANDS.Mount,
-        "nvdimm": Nvdimm,
+        "nvdimm": COMMANDS.Nvdimm,
         "part": Partition,
         "partition": Partition,
         "raid": Raid,
