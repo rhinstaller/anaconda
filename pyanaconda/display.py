@@ -260,6 +260,10 @@ def start_wayland_compositor():
 
     FIXME: Will XDG_DATA_DIRS work with Wayland compositor ?
     """
+    # mark Wayland is in use
+    # FIXME: is this the correct place to set this flag ?
+    flags.wayland = True
+
     datadir = os.environ.get('ANACONDA_DATADIR', '/usr/share/anaconda')
     if 'XDG_DATA_DIRS' in os.environ:
         xdg_data_dirs = datadir + '/window-manager:' + os.environ['XDG_DATA_DIRS']
