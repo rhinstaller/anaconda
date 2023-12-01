@@ -266,8 +266,8 @@ class MakeBumpVer:
             m = re.match(branch_pattern, self.git_branch)
             if m:
                 return m.group(1)
-            rhel8_branch_pattern = r"^rhel-(\d+)(.*)"
-            m = re.match(rhel8_branch_pattern, self.git_branch)
+            rhel_branch_pattern = r"^rhel-(\d+)(.*)"
+            m = re.match(rhel_branch_pattern, self.git_branch)
             if m:
                 return m.group(1)
         return False
