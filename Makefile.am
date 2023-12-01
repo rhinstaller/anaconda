@@ -78,7 +78,8 @@ TEMPLATE_RENDERER = scripts/jinja-render
 
 CONTAINER_ENGINE ?= podman
 # build/run tweaks for all containers, such as --cap-add
-CONTAINER_BUILD_ARGS ?= --no-cache
+# we need to add --network=host otherwise podman creates a network which don't have access to VPN
+CONTAINER_BUILD_ARGS ?= --no-cache --network=host
 # HACK: bash's builtin `test -r` fails when running on Ubuntu host (GitHub) due to incompatible seccomp profile
 CONTAINER_TEST_ARGS ?= $(shell grep -q ID=ubuntu /etc/os-release && echo --security-opt=seccomp=unconfined)
 CONTAINER_REGISTRY ?= quay.io
