@@ -28,8 +28,17 @@ import argparse
 import logging
 
 from rhel_version import rhel_version
-from jira import JIRA, JIRAError # pylint: disable=import-error
 from functools import cache
+
+try:
+    from jira import JIRA, JIRAError # pylint: disable=import-error
+except ModuleNotFoundError:
+    print("Can't find jira python library. Please install it ideally by:\n", file=sys.stderr)
+    print("dnf install python3-jira\n", file=sys.stderr)
+    print("Otherwise it could be installed also by pip:\n", file=sys.stderr)
+    print("pip3 install jira", file=sys.stderr)
+
+    sys.exit(2)
 
 log = logging.getLogger("bumpver")
 log.setLevel(logging.INFO)
