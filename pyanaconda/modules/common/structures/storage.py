@@ -455,10 +455,8 @@ class OSData(DBusData):
         return self.mount_points.get("/")
 
 
-class RequiredMountPointData(DBusData):
-    """Constrains (filesystem and device types allowed) for mount points required
-       for the installed system
-    """
+class MountPointConstraintsData(DBusData):
+    """Constrains (filesystem and device types allowed) for mount points"""
 
     def __init__(self):
         self._mount_point = ""

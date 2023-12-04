@@ -22,7 +22,7 @@ from pyanaconda.modules.common.base.base_template import InterfaceTemplate
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.interfaces import DEVICE_TREE_VIEWER
 from pyanaconda.modules.common.structures.storage import DeviceData, DeviceActionData, \
-    DeviceFormatData, OSData, RequiredMountPointData
+    DeviceFormatData, OSData, MountPointConstraintsData
 
 __all__ = ["DeviceTreeViewerInterface"]
 
@@ -196,10 +196,25 @@ class DeviceTreeViewerInterface(InterfaceTemplate):
     def GetRequiredMountPoints(self) -> List[Structure]:
         """Get list of required mount points for the current platform
 
-        This includes mount points required to boot (e.g. /boot and /boot/efi)
+        This includes mount points required to boot (e.g. /boot/efi)
         and the / partition which is always considered to be required.
 
-        :return: a list of mount points
+        FIXME in general /boot is not required, just recommended. Depending on
+        the filesystem on the root partition it may be required (ie crypted
+        root).
+
+        :return: a list of mount points with its constraints
         """
-        return RequiredMountPointData.to_structure_list(
+        return MountPointConstraintsData.to_structure_list(
             self.implementation.get_required_mount_points())
+
+    def GetRecommendedMountPoints(self) -> List[Structure]:
+        """Get list of recommended mount points for the current platform
+
+        Currently it contains only /boot partition if it is default the for
+        platform.
+
+        :return: a list of mount points with its constraints
+        """
+        return MountPointConstraintsData.to_structure_list(
+            self.implementation.get_recommended_mount_points())

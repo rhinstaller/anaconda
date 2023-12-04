@@ -36,7 +36,7 @@ from blivet.size import Size
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.core.kernel import KernelArguments
 from pyanaconda.modules.common.errors.storage import UnknownDeviceError, MountFilesystemError
-from pyanaconda.modules.common.structures.storage import DeviceFormatData, RequiredMountPointData
+from pyanaconda.modules.common.structures.storage import DeviceFormatData, MountPointConstraintsData
 from pyanaconda.modules.storage.devicetree import DeviceTreeModule, create_storage, utils
 from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface
 from pyanaconda.modules.storage.devicetree.populate import FindDevicesTask
@@ -855,7 +855,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         assert isinstance(result, list)
         assert len(result) != 0
 
-        result = RequiredMountPointData.from_structure_list(self.interface.GetRequiredMountPoints())
+        result = MountPointConstraintsData.from_structure_list(self.interface.GetRequiredMountPoints())
         for mp in result:
             assert mp.mount_point is not None
             assert mp.required_filesystem_type is not None
@@ -868,6 +868,19 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         assert root.mount_point == "/"
         assert root.required_filesystem_type == ""
 
+    def test_get_recommended_mount_points(self):
+        """Test GetRecommendedMountPoints."""
+        result = self.interface.GetRecommendedMountPoints()
+        assert isinstance(result, list)
+        assert len(result) == 1
+
+        result = MountPointConstraintsData.from_structure_list(self.interface.GetRecommendedMountPoints())
+        boot = result[0]
+        assert boot is not None
+        assert boot.encryption_allowed is False
+        assert boot.logical_volume_allowed is False
+        assert boot.mount_point == "/boot"
+        assert boot.required_filesystem_type == ""
 
 class DeviceTreeTasksTestCase(unittest.TestCase):
     """Test the storage tasks."""
