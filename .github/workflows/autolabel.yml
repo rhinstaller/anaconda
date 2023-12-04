@@ -15,6 +15,6 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Add labels
-        uses: actions/labeler@v4
+        uses: actions/labeler@v5
         with:
           dot: true
