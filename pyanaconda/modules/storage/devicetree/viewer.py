@@ -493,6 +493,10 @@ class DeviceTreeViewer(ABC):
         :return: a list of mount points
         """
         root_partition = PartSpec(mountpoint="/", lv=True, thin=True, encrypted=True)
+        # FIXME in general /boot is not required, just recommended. Depending
+        # on the filesystem on the root partition it may be required (ie
+        # crypted root).
         ret = list(map(self._get_platform_mount_point_data,
-                       [p for p in platform.partitions if p.mountpoint] + [root_partition]))
+                       [p for p in platform.partitions if p.mountpoint and p.mountpoint != "/boot"]
+                       + [root_partition]))
         return ret
