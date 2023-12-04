@@ -26,7 +26,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.storage import UnknownDeviceError
 from pyanaconda.modules.common.structures.storage import DeviceData, DeviceActionData, \
-    DeviceFormatData, OSData, RequiredMountPointData
+    DeviceFormatData, OSData, MountPointConstraintsData
 from pyanaconda.modules.storage.devicetree.utils import get_required_device_size, \
     get_supported_filesystems
 from pyanaconda.modules.storage.platform import platform
@@ -466,9 +466,9 @@ class DeviceTreeViewer(ABC):
         """Get the mount point data.
 
         :param spec: an instance of PartSpec
-        :return: an instance of RequiredMountPointData
+        :return: an instance of MountPointConstraintsData
         """
-        data = RequiredMountPointData()
+        data = MountPointConstraintsData()
         data.mount_point = spec.mountpoint or ""
         data.required_filesystem_type = spec.fstype or ""
         data.encryption_allowed = spec.encrypted
@@ -479,16 +479,33 @@ class DeviceTreeViewer(ABC):
     def get_required_mount_points(self):
         """Get list of required mount points for the current platform
 
-        This includes mount points required to boot (e.g. /boot and /boot/efi)
+        This includes mount points required to boot (e.g. /boot/efi)
         and the / partition which is always considered to be required.
 
-        :return: a list of mount points
+        FIXME in general /boot is not required, just recommended. Depending on
+        the filesystem on the root partition it may be required (ie crypted
+        root).
+
+        :return: a list of mount points with its constraints
         """
         root_partition = PartSpec(mountpoint="/", lv=True, thin=True, encrypted=True)
-        # FIXME in general /boot is not required, just recommended. Depending
-        # on the filesystem on the root partition it may be required (ie
-        # crypted root).
         ret = list(map(self._get_platform_mount_point_data,
                        [p for p in platform.partitions if p.mountpoint and p.mountpoint != "/boot"]
                        + [root_partition]))
+        return ret
+
+    def get_recommended_mount_points(self):
+        """Get list of recommended mount points for the current platform
+
+        Currently it contains only /boot partition if it is default the for
+        platform.
+
+        :return: a list of mount points with its constraints
+        """
+        # FIXME in general /boot is not required, just recommended. Depending
+        # on the filesystem on the root partition it may be required (ie
+        # crypted root).
+        recommended = ["/boot"]
+        ret = list(map(self._get_platform_mount_point_data,
+                       [p for p in platform.partitions if p.mountpoint in recommended]))
         return ret
