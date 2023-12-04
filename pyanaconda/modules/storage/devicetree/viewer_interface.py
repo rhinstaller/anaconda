@@ -22,7 +22,7 @@ from pyanaconda.modules.common.base.base_template import InterfaceTemplate
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.interfaces import DEVICE_TREE_VIEWER
 from pyanaconda.modules.common.structures.storage import DeviceData, DeviceActionData, \
-    DeviceFormatData, OSData, RequiredMountPointData
+    DeviceFormatData, OSData, MountPointConstraintsData
 
 __all__ = ["DeviceTreeViewerInterface"]
 
@@ -193,13 +193,27 @@ class DeviceTreeViewerInterface(InterfaceTemplate):
         """
         return OSData.to_structure_list(self.implementation.get_existing_systems())
 
+    # FIXME: remove the replaced API
+    def GetMountPointConstraints(self) -> List[Structure]:
+        """Get list of constraints on mountpoints for the current platform
+
+        Also provides hints if the partition is required or recommended.
+
+        This includes mount points required to boot (e.g. /boot/efi, /boot)
+        and the / partition which is always considered to be required.
+
+        :return: a list of mount points with its constraints
+        """
+        return MountPointConstraintsData.to_structure_list(
+            self.implementation.get_mount_point_constraints())
+
     def GetRequiredMountPoints(self) -> List[Structure]:
         """Get list of required mount points for the current platform
 
         This includes mount points required to boot (e.g. /boot and /boot/efi)
         and the / partition which is always considered to be required.
 
-        :return: a list of mount points
+        :return: a list of mount points with its constraints
         """
-        return RequiredMountPointData.to_structure_list(
+        return MountPointConstraintsData.to_structure_list(
             self.implementation.get_required_mount_points())
