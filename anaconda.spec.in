@@ -467,6 +467,19 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Dec 05 2023 github-actions <github-actions@github.com> - 40.12-1
+- Update translations from Weblate for master (github-actions)
+- docs: Add release note for bootupd support (vslavik)
+- bootloader: Detect bootupd and skip regular install (vslavik)
+- ostree: Use bootupd if installed by payload (vslavik)
+- storage: Ignore NVDIMM namespaces in a non-sector mode (vponcova)
+- storage: Remove support for NVDIMM namespaces (vponcova)
+- spec: Add noarch where applicable (vslavik)
+- bootloader: Create an installation task for collecting kernel arguments
+  (vponcova)
+- bootloader: Add the collect_arguments method (vponcova)
+- bootloader: Remove the install_boot_loader function (vponcova)
+
 * Wed Nov 22 2023 Katerina Koukiou <kkoukiou@redhat.com> - 40.11-1
 - Remove all support of the built-in help system (vponcova)
 - Make possible to start TUI with installed WebUI (akankovs)
