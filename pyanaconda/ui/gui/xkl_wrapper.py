@@ -53,7 +53,7 @@ Xkb_ = lambda x: gettext.translation("xkeyboard-config", fallback=True).gettext(
 iso_ = lambda x: gettext.translation("iso_639", fallback=True).gettext(x)
 
 # namedtuple for information about a keyboard layout (its language and description)
-LayoutInfo = namedtuple("LayoutInfo", ["lang", "desc"])
+LayoutInfo = namedtuple("LayoutInfo", ["langs", "desc"])
 
 
 class XklWrapperError(KeyboardConfigError):
@@ -139,11 +139,11 @@ class XklWrapper(object):
             name = item.get_name()
             description = item.get_description()
 
-        #if this layout has already been added for some other language,
-        #do not add it again (would result in duplicates in our lists)
-        if name not in self._layout_infos:
-            with self._layout_infos_lock:
-                self._layout_infos[name] = LayoutInfo(lang, description)
+        with self._layout_infos_lock:
+            if name not in self._layout_infos:
+                self._layout_infos[name] = LayoutInfo([lang], description)
+            else:
+                self._layout_infos[name].langs.append(lang)
 
     def _get_country_variant(self, c_reg, item, subitem, country):
         if subitem:
@@ -153,10 +153,12 @@ class XklWrapper(object):
             name = item.get_name()
             description = item.get_description()
 
-        # if the layout was not added with any language, add it with a country
+        # if the layout was not added with any language, add it with
+        # the first country encountered (but do not append if it's
+        # already there, as we don't want to add countries to langs)
         if name not in self._layout_infos:
             with self._layout_infos_lock:
-                self._layout_infos[name] = LayoutInfo(country, description)
+                self._layout_infos[name] = LayoutInfo([country], description)
 
     def _get_language_variants(self, c_reg, item, user_data=None):
         lang_name, lang_desc = item.get_name(), item.get_description()
@@ -243,20 +245,30 @@ class XklWrapper(object):
         """
 
         layout_info = self._layout_infos[layout_variant]
-
+        lang = ""
         # translate language and upcase its first letter, translate the
         # layout-variant description
         if xlated:
-            lang = iso_(layout_info.lang)
+            if len(layout_info.langs) == 1:
+                lang = iso_(layout_info.langs[0])
             description = Xkb_(layout_info.desc)
         else:
-            lang = upcase_first_letter(layout_info.lang)
+            if len(layout_info.langs) == 1:
+                lang = upcase_first_letter(layout_info.langs[0])
             description = layout_info.desc
 
-        if with_lang and lang and not description.startswith(lang):
-            return "%s (%s)" % (lang, description)
-        else:
-            return description
+        if with_lang and lang:
+            # ISO language/country names can be things like
+            # "Occitan (post 1500); Provencal", or
+            # "Iran, Islamic Republic of", or "Greek, Modern (1453-)"
+            # or "Catalan; Valencian": let's handle that gracefully
+            # let's also ignore case, e.g. in French all translated
+            # language names are lower-case for some reason
+            checklang = lang.split()[0].strip(",;").lower()
+            if checklang not in description.lower():
+                return "%s (%s)" % (lang, description)
+
+        return description
 
     def get_switch_opt_description(self, switch_opt):
         """
