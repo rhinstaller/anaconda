@@ -465,6 +465,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Dec 05 2023 github-actions <github-actions@github.com> - 40.13-1
+- Keyboard layout descriptions: more liberal language name check (awilliam)
+- Don't prepend random language to keyboard layout names (awilliam)
+
 * Tue Dec 05 2023 github-actions <github-actions@github.com> - 40.12-1
 - Update translations from Weblate for master (github-actions)
 - docs: Add release note for bootupd support (vslavik)
