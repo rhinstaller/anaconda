@@ -34,7 +34,6 @@ from pyanaconda.modules.common.structures.requirement import Requirement
 from pyanaconda.modules.common.structures.timezone import TimeSourceData
 from pyanaconda.modules.timezone.installation import ConfigureHardwareClockTask, \
     ConfigureNTPTask, ConfigureTimezoneTask
-from pyanaconda.modules.common.structures.kickstart import KickstartReport
 from pyanaconda.modules.common.structures.timezone import GeolocationData
 from pyanaconda.modules.timezone.timezone import TimezoneService
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
@@ -178,27 +177,14 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    def test_kickstart2(self):
-        """Test the timezone command with flags."""
+    def test_kickstart_utc(self):
+        """Test the timezone command with the UTC flag."""
         ks_in = """
-        timezone --utc --nontp Europe/Prague
-        """
-        ks_out = """
-        timesource --ntp-disable
-        # System timezone
         timezone Europe/Prague --utc
         """
-        self._test_kickstart(ks_in, ks_out)
-
-    def test_kickstart3(self):
-        """Test the timezone command with ntp servers."""
-        ks_in = """
-        timezone --ntpservers ntp.cesnet.cz Europe/Prague
-        """
         ks_out = """
-        timesource --ntp-server=ntp.cesnet.cz
         # System timezone
-        timezone Europe/Prague
+        timezone Europe/Prague --utc
         """
         self._test_kickstart(ks_in, ks_out)
 
@@ -251,23 +237,6 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         ks_out = """
         timesource --ntp-server=ntp.cesnet.cz
         timesource --ntp-pool=0.fedora.pool.ntp.org
-        """
-        self._test_kickstart(ks_in, ks_out)
-
-    def test_kickstart_timezone_timesource(self):
-        """Test the combination of timezone and timesource commands."""
-        ks_in = """
-        timezone --ntpservers ntp.cesnet.cz,0.fedora.pool.ntp.org Europe/Prague
-        timesource --ntp-server ntp.cesnet.cz --nts
-        timesource --ntp-pool 0.fedora.pool.ntp.org
-        """
-        ks_out = """
-        timesource --ntp-server=ntp.cesnet.cz
-        timesource --ntp-server=0.fedora.pool.ntp.org
-        timesource --ntp-server=ntp.cesnet.cz --nts
-        timesource --ntp-pool=0.fedora.pool.ntp.org
-        # System timezone
-        timezone Europe/Prague
         """
         self._test_kickstart(ks_in, ks_out)
 
@@ -355,17 +324,6 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         assert len(obj.implementation._ntp_servers) == 2
         assert compare_data(obj.implementation._ntp_servers[0], server)
         assert compare_data(obj.implementation._ntp_servers[1], pool)
-
-    def test_deprecated_warnings(self):
-        response = self.timezone_interface.ReadKickstart("timezone --isUtc Europe/Bratislava")
-        report = KickstartReport.from_structure(response)
-
-        warning = "The option --isUtc will be deprecated in future releases. " \
-                  "Please modify your kickstart file to replace this option with " \
-                  "its preferred alias --utc."
-
-        assert len(report.warning_messages) == 1
-        assert report.warning_messages[0].message == warning
 
     @patch_dbus_publish_object
     def test_geoloc_interface(self, publisher):

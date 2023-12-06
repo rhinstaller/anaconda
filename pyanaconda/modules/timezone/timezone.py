@@ -81,16 +81,7 @@ class TimezoneService(KickstartService):
         """Process the kickstart data."""
         self.set_timezone_with_priority(data.timezone.timezone, TIMEZONE_PRIORITY_KICKSTART)
         self.set_is_utc(data.timezone.isUtc)
-        self.set_ntp_enabled(not data.timezone.nontp)
-
         sources = []
-
-        for hostname in data.timezone.ntpservers:
-            source = TimeSourceData()
-            source.type = TIME_SOURCE_SERVER
-            source.hostname = hostname
-            source.options = ["iburst"]
-            sources.append(source)
 
         for source_data in data.timesource.dataList():
             if source_data.ntp_disable:
