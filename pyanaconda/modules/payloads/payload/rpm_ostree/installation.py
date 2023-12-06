@@ -437,7 +437,7 @@ class ConfigureBootloader(Task):
                 "backend",
                 "install",
                 "--auto",
-                "--with-static-configs",
+                "--write-uuid",
                 "--device",
                 dev_data.path,
                 "/",
