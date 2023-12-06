@@ -48,7 +48,8 @@ from pyanaconda.ui.gui.utils import override_cell_property
 from pyanaconda.ui.gui.utils import blockedHandler
 from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
 from pyanaconda.ui.helpers import InputCheck
-from pyanaconda.timezone import NTP_SERVICE, get_all_regions_and_timezones, get_timezone, is_valid_timezone
+from pyanaconda.timezone import NTP_SERVICE, get_all_regions_and_timezones, get_timezone, \
+    is_valid_timezone, is_valid_ui_timezone
 from pyanaconda.threading import threadMgr, AnacondaThread
 
 import gi
@@ -532,8 +533,13 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         self._update_datetime_timer = None
         kickstart_timezone = self._timezone_module.Timezone
-        if is_valid_timezone(kickstart_timezone):
+        if is_valid_ui_timezone(kickstart_timezone):
             self._set_timezone(kickstart_timezone)
+        elif is_valid_timezone(kickstart_timezone):
+            log.warning("Timezone specification %s is not offered by installer GUI.",
+                        kickstart_timezone)
+            # Try to get the correct linked timezone via TimezoneMap selection
+            self._tzmap.set_timezone(kickstart_timezone)
 
         time_init_thread = threadMgr.get(constants.THREAD_TIME_INIT)
         if time_init_thread is not None:
