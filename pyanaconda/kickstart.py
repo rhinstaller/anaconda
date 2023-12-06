@@ -191,7 +191,6 @@ class AnacondaKickstartSpecification(KickstartSpecification):
     """The kickstart specification of the main process."""
 
     commands = {
-        "autostep": COMMANDS.AutoStep,
         "cmdline": COMMANDS.DisplayMode,
         "eula": COMMANDS.Eula,
         "graphical": COMMANDS.DisplayMode,
