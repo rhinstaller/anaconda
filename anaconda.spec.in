@@ -411,6 +411,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Dec 06 2023 Jiri Konecny <jkonecny@redhat.com> - 34.25.3.9-1
+- timezone: for kickstart allow also timezones not offered by GUI (rvykydal)
+  Resolves: jira#RHEL-13150
+- Rename Organization to Organization ID on subscription screen (mkolman)
+  Resolves: jira#RHEL-11167
+
 * Wed Aug 09 2023 Jiri Konecny <jkonecny@redhat.com> - 34.25.3.8-1
 - iscsi: Allow changing iSCSI initiator name once set (vtrefny)
   Resolves: rhbz#2223977
