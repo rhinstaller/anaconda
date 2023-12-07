@@ -43,8 +43,3 @@ following are rules to follow when committing a change to the git repo:
    First, it verifies that the bug referenced is a RHEL bug and in correct
    states.  Second, it adds the appropriate Resolves/Related/Reverts line
    to the RPM spec file changelog.
-
-It is recommended to use the pre-push hook checking commit messages for RHEL bug
-numbers and checking the referenced bugs for all the necessary acks. To make it
-work, just copy the scripts/githooks/pre-push and
-scripts/githooks/check_commit_msg.sh scripts to the .git/hooks/ directory.

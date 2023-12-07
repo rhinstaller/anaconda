@@ -1,16 +1,5 @@
 git hooks for anaconda development
 
-commit-msg
-    For rhel*-branch branches, ensures that commits reference an
-    approved RHEL bug for the appropriate release in the correct
-    format.
-
-    To use, copy this script to your .git/hooks directory and make
-    sure you have the python-bugzilla package installed.  You might
-    also want to create a ~/.rhbzauth file containing two shell
-    variables:  RHBZ_USER and RHBZ_PASSWORD to allow automatic login
-    when commiting patches.
-
 pre-commit
     Run the runpylint.sh test on the files changed in the commit.
 
