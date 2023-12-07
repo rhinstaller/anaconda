@@ -345,7 +345,9 @@ class MakeBumpVer:
         summary = summary + f" ({author})"
 
         for bodyline in body:
-            m = re.search(r"^(Resolves|Related):\ +jira#(\w+-\d+).*$", bodyline)
+            # based on recommendation
+            # https://source.redhat.com/groups/public/release-engineering/release_engineering_rcm_wiki/using_gitbz
+            m = re.search(r"^(Resolves|Related|Reverts):\ +(\w+-\d+).*$", bodyline)
             if not m:
                 continue
 
@@ -355,7 +357,7 @@ class MakeBumpVer:
             if action and bug:
                 # store the bug to output list if checking is disabled and continue
                 if self.skip:
-                    issues.add(f"{action}: jira#{bug}")
+                    issues.add(f"{action}: {bug}")
                     print(f"*** Bug {bug} Related commit {commit} is skipping checks\n")
                     continue
 
@@ -377,7 +379,7 @@ class MakeBumpVer:
                     continue
 
                 print(f"*** Bug {bug} Related commit {commit} is allowed\n")
-                issues.add(f"{action}: jira#{bug}")
+                issues.add(f"{action}: {bug}")
 
         if len(issues) == 0 and not self.skip:
             print("*** No bugs referenced in commit %s\n" % commit)
