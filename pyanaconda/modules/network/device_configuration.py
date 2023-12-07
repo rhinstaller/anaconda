@@ -23,7 +23,8 @@ import copy
 from pyanaconda.core.regexes import IBFT_CONFIGURED_DEVICE_NAME
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.network.nm_client import get_iface_from_connection, \
-    get_vlan_interface_name_from_connection, get_config_file_connection_of_device
+    get_vlan_interface_name_from_connection, get_config_file_connection_of_device, \
+    is_bootif_connection
 from pyanaconda.modules.common.structures.network import NetworkDeviceConfiguration
 from pyanaconda.modules.network.constants import NM_CONNECTION_TYPE_WIFI, \
     NM_CONNECTION_TYPE_ETHERNET, NM_CONNECTION_TYPE_VLAN, NM_CONNECTION_TYPE_BOND, \
@@ -232,7 +233,7 @@ class DeviceConfigurations(object):
         # For physical device we need to pick the right connection in some
         # cases.
         else:
-            cons = device.get_available_connections()
+            cons = [c for c in device.get_available_connections() if not is_bootif_connection(c)]
             config_uuid = None
             if not cons:
                 log.debug("no available connection for physical device %s", iface)
@@ -337,6 +338,10 @@ class DeviceConfigurations(object):
         # Ignore unsupported device types
         elif device_type not in supported_device_types:
             decline_reason = "unsupported type"
+
+        # BOOTIF connection created in initramfs
+        elif is_bootif_connection(connection):
+            decline_reason = "BOOTIF connection from initramfs"
 
         # Ignore slave connections
         elif device_type == NM.DeviceType.ETHERNET:

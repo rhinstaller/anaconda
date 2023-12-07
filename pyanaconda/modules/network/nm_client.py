@@ -1753,3 +1753,7 @@ def _update_team_kickstart_network_data(nm_client, iface, connection, network_da
         teamconfig = s_team.get_config()
         if teamconfig:
             network_data.teamconfig = teamconfig.replace("\n", "").replace(" ", "")
+
+
+def is_bootif_connection(con):
+    return con.get_id().startswith("BOOTIF Connection")
