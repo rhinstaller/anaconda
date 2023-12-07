@@ -423,6 +423,8 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 * Wed Aug 09 2023 Jiri Konecny <jkonecny@redhat.com> - 34.25.3.8-1
 - iscsi: Allow changing iSCSI initiator name once set (vtrefny)
   Resolves: rhbz#2223977
+- Missing translation for button labels in Beta dialog
+  Resolves: rhbz#2225450
 
 * Wed Jul 12 2023 Jiri Konecny <jkonecny@redhat.com> - 34.25.3.7-1
 - Allow showing passphrase when unlocking LUKS device (jstodola)
