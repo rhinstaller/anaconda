@@ -10,11 +10,16 @@
 
 # Always apply target fedora version to any changes
 f41:
-- '**'
+- any:
+  - changed-files:
+    - any-glob-to-any-file: ['**']
 
 documentation:
-- 'docs/**'
+- any:
+  - changed-files:
+    - any-glob-to-any-file: ['docs/**']
 
 infrastructure:
-- '.github/**'
-- 'dockerfile/**'
+- any:
+  - changed-files:
+    - any-glob-to-any-file: ['.github/**', 'dockerfile/**']
