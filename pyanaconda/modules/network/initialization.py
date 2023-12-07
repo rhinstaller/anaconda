@@ -25,7 +25,8 @@ from pyanaconda.modules.network.network_interface import NetworkInitializationTa
 from pyanaconda.modules.network.nm_client import get_device_name_from_network_data, \
     update_connection_from_ksdata, add_connection_from_ksdata, bound_hwaddr_of_device, \
     update_connection_values, commit_changes_with_autoconnection_blocked, \
-    get_config_file_connection_of_device, clone_connection_sync, nm_client_in_thread
+    get_config_file_connection_of_device, clone_connection_sync, nm_client_in_thread, \
+    is_bootif_connection
 from pyanaconda.modules.network.device_configuration import supported_wired_device_types, \
     virtual_device_types
 from pyanaconda.modules.network.utils import guard_by_system_configuration
@@ -243,7 +244,7 @@ class DumpMissingConfigFilesTask(Task):
             if device_is_port:
                 # We have to dump persistent ifcfg files for ports created in initramfs
                 # Filter out potenital connection created for BOOTIF option rhbz#2175664
-                port_cons = [c for c in cons if not c.get_id().startswith("BOOTIF Connection")]
+                port_cons = [c for c in cons if not is_bootif_connection(c)]
                 if len(port_cons) == 1 and self._is_initramfs_connection(port_cons[0], iface):
                     log.debug("%s: device %s has an initramfs port connection",
                               self.name, iface)
