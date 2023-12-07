@@ -411,6 +411,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Dec 07 2023 Jiri Konecny <jkonecny@redhat.com> - 34.25.4.1-1
+- Fix versioning on RHEL 9.4 (jkonecny)
+
 * Wed Dec 06 2023 Jiri Konecny <jkonecny@redhat.com> - 34.25.3.9-1
 - timezone: for kickstart allow also timezones not offered by GUI (rvykydal)
   Resolves: jira#RHEL-13150
