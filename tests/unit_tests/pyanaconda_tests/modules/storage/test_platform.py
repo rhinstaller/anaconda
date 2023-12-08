@@ -23,7 +23,7 @@ from blivet.devicelibs import raid
 from blivet.size import Size
 from pyanaconda.modules.storage.partitioning.specification import PartSpec
 from pyanaconda.modules.storage.platform import X86, get_platform, NewWorldPPC, IPSeriesPPC, \
-    PowerNV, PS3, S390, ARM, MacEFI, Aarch64EFI, EFI
+    PowerNV, PS3, S390, ARM, Aarch64EFI, EFI
 
 
 class PlatformTestCase(unittest.TestCase):
@@ -200,44 +200,6 @@ class PlatformTestCase(unittest.TestCase):
             error_message=str(
                 "For a UEFI installation, you must include "
                 "an EFI System Partition on a GPT-formatted "
-                "disk, mounted at /boot/efi."
-            )
-        )
-
-    @patch("pyanaconda.modules.storage.platform.arch")
-    def test_mac_efi(self, arch):
-        """Test the Mac EFI platform."""
-        self._reset_arch(arch)
-        arch.is_efi.return_value = True
-        arch.is_mactel.return_value = True
-
-        self._check_platform(
-            platform_cls=MacEFI,
-            packages=["mactel-boot"],
-            non_linux_format_types=["macefi"],
-        )
-
-        self._check_partitions(
-            PartSpec(mountpoint="/boot/efi", fstype="macefi", grow=True,
-                     size=Size("200MiB"), max_size=Size("600MiB")),
-            PartSpec(mountpoint="/boot", size=Size("1GiB")),
-        )
-
-        self._check_constraints(
-            constraints={
-                "format_types": ["macefi"],
-                "device_types": ["partition", "mdarray"],
-                "mountpoints": ["/boot/efi"],
-                "raid_levels": [raid.RAID1],
-                "raid_metadata": ["1.0"]
-            },
-            descriptions={
-                "partition": "Apple EFI Boot Partition",
-                "mdarray": "RAID Device"
-            },
-            error_message=str(
-                "For a UEFI installation, you must include "
-                "a Linux HFS+ ESP on a GPT-formatted "
                 "disk, mounted at /boot/efi."
             )
         )
