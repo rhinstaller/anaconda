@@ -470,6 +470,54 @@ class DeviceTreeViewer(ABC):
         }
         return data
 
+    def _get_mount_point_constraints_data(self, spec):
+        """Get the mount point data.
+
+        :param spec: an instance of PartSpec
+        :return: an instance of MountPointConstraintsData
+        """
+        data = MountPointConstraintsData()
+        data.mount_point = spec.mountpoint or ""
+        data.required_filesystem_type = spec.fstype or ""
+        data.encryption_allowed = spec.encrypted
+        data.logical_volume_allowed = spec.lv
+
+        return data
+
+    def get_mount_point_constraints(self):
+        """Get list of constraints on mountpoints for the current platform
+
+        Also provides hints if the partition is required or recommended.
+
+        This includes mount points required to boot (e.g. /boot/efi, /boot)
+        and the / partition which is always considered to be required.
+
+        FIXME /boot can be required in some cases, depending on the filesystem
+        on the root partition (ie crypted root).
+
+        :return: a list of mount points with its constraints
+        """
+
+        constraints = []
+
+        # Root partition is required
+        root_partition = PartSpec(mountpoint="/", lv=True, thin=True, encrypted=True)
+        root_constraint = self._get_mount_point_constraints_data(root_partition)
+        root_constraint.required = True
+        constraints.append(root_constraint)
+
+        # Platform partitions are required except for /boot partiotion which is recommended
+        for p in platform.partitions:
+            if p.mountpoint:
+                constraint = self._get_mount_point_constraints_data(p)
+                if p.mountpoint == "/boot":
+                    constraint.recommended = True
+                else:
+                    constraint.required = True
+                constraints.append(constraint)
+
+        return constraints
+
     def _get_platform_mount_point_data(self, spec):
         """Get the mount point data.
 

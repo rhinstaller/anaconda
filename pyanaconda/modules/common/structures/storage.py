@@ -463,6 +463,8 @@ class MountPointConstraintsData(DBusData):
         self._required_filesystem_type = ""
         self._encryption_allowed = False
         self._logical_volume_allowed = False
+        self._required = False
+        self._recommended = False
 
     @property
     def mount_point(self) -> Str:
@@ -511,3 +513,27 @@ class MountPointConstraintsData(DBusData):
     @logical_volume_allowed.setter
     def logical_volume_allowed(self, logical_volume_allowed: Bool):
         self._logical_volume_allowed = logical_volume_allowed
+
+    @property
+    def required(self) -> Bool:
+        """Whether this mount point is required
+
+        :return: bool
+        """
+        return self._required
+
+    @required.setter
+    def required(self, required: Bool):
+        self._required = required
+
+    @property
+    def recommended(self) -> Bool:
+        """Whether this mount point is recommended
+
+        :return: bool
+        """
+        return self._recommended
+
+    @recommended.setter
+    def recommended(self, recommended: Bool):
+        self._recommended = recommended
