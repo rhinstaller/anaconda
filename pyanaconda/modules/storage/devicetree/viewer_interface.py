@@ -221,14 +221,3 @@ class DeviceTreeViewerInterface(InterfaceTemplate):
         """
         return MountPointConstraintsData.to_structure_list(
             self.implementation.get_required_mount_points())
-
-    def GetRecommendedMountPoints(self) -> List[Structure]:
-        """Get list of recommended mount points for the current platform
-
-        Currently it contains only /boot partition if it is default the for
-        platform.
-
-        :return: a list of mount points with its constraints
-        """
-        return MountPointConstraintsData.to_structure_list(
-            self.implementation.get_recommended_mount_points())

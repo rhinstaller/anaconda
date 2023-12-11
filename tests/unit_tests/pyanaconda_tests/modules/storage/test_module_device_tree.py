@@ -874,20 +874,6 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         assert root.mount_point == "/"
         assert root.required_filesystem_type == ""
 
-    def test_get_recommended_mount_points(self):
-        """Test GetRecommendedMountPoints."""
-        result = self.interface.GetRecommendedMountPoints()
-        assert isinstance(result, list)
-        assert len(result) == 1
-
-        result = MountPointConstraintsData.from_structure_list(self.interface.GetRecommendedMountPoints())
-        boot = result[0]
-        assert boot is not None
-        assert boot.encryption_allowed is False
-        assert boot.logical_volume_allowed is False
-        assert boot.mount_point == "/boot"
-        assert boot.required_filesystem_type == ""
-
 class DeviceTreeTasksTestCase(unittest.TestCase):
     """Test the storage tasks."""
 

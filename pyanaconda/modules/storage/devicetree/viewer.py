@@ -541,19 +541,3 @@ class DeviceTreeViewer(ABC):
                        [p for p in platform.partitions if p.mountpoint and p.mountpoint != "/boot"]
                        + [root_partition]))
         return ret
-
-    def get_recommended_mount_points(self):
-        """Get list of recommended mount points for the current platform
-
-        Currently it contains only /boot partition if it is default the for
-        platform.
-
-        :return: a list of mount points with its constraints
-        """
-        # FIXME in general /boot is not required, just recommended. Depending
-        # on the filesystem on the root partition it may be required (ie
-        # crypted root).
-        recommended = ["/boot"]
-        ret = list(map(self._get_platform_mount_point_data,
-                       [p for p in platform.partitions if p.mountpoint in recommended]))
-        return ret
