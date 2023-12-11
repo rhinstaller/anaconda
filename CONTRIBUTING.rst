@@ -132,15 +132,20 @@ The first line should be a succinct description of what the commit does, startin
 Commits for RHEL Branches
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If you are submitting a patch for any rhel-branch, the last line of your commit must identify the `JIRA issue <https://issues.redhat.com/projects/RHEL/issues/>`_ id it fixes, using the ``Resolves`` or ``Related`` keyword, e.g.:
-``Resolves: jira#RHEL-11111``
+If you are submitting a patch for any rhel-branch, the last line of your commit must identify the `JIRA issue <https://issues.redhat.com/projects/RHEL/issues/>`_ id it fixes, using the ``Resolves``, ``Related`` or ``Reverts`` keyword, e.g.:
+``Resolves: RHEL-11111``
 
 or
 
-``Related: jira#RHEL-12345``
+``Related: RHEL-12345``
+
+or
+
+``Reverts: RHEL-22222``
 
 Use ``Resolves`` if the patch fixes the core issue which caused the bug.
 Use ``Related`` if the patch fixes an ancillary issue that is related to, but might not actually fix the bug.
+Use ``Reverts`` if this patch reverts changes introduced by linked bug.
 
 Pull Request Review
 ^^^^^^^^^^^^^^^^^^^^
