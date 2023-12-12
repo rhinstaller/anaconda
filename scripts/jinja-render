@@ -20,6 +20,7 @@
 #
 import os
 
+from shutil import copystat
 from argparse import ArgumentParser
 from jinja2 import Environment, BaseLoader, FileSystemLoader, StrictUndefined
 from yaml import safe_load # pyyaml
@@ -41,15 +42,17 @@ DISCLAIMER = """\
 # The template is located in: {$ template_file_name $}\n
 """
 
+
 def parse_args():
     """Parse command line arguments for quick configuration override."""
     parser = ArgumentParser(description="Render a jinja template.")
-    parser.add_argument("input", help="Path to jinja tempalte.")
-    parser.add_argument("output", help="Path to save the rendered tempalte.")
+    parser.add_argument("input", help="Path to jinja template.")
+    parser.add_argument("output", help="Path to save the rendered template.")
     parser.add_argument("--variables", help="Path to the Jinja variables file.")
 
     config = parser.parse_args()
     return vars(config)
+
 
 def make_env(loader):
     """Create a jinja environment with a given loader."""
@@ -66,6 +69,7 @@ def make_env(loader):
     )
     return env
 
+
 def render_file(config, variables):
     """Renders a file as a Jinja2 template and populates it with variables."""
     env = make_env(FileSystemLoader(os.path.dirname(config["input"])))
@@ -74,43 +78,71 @@ def render_file(config, variables):
 
     return content
 
-def render_string(string, variables):
+
+def render_string(string: str, variables) -> str:
     """Renders a given string as a Jinja2 template and populates it with variables."""
     env = make_env(BaseLoader)
     template = env.from_string(string)
     content = template.render(variables)
     return content
 
-def write_file(content, output_file):
+
+def write_file(content: str, input_file: str, output_file: str):
     """Writes given content to a given path."""
     with open(output_file, "w", encoding="utf8") as file:
         file.write(content)
+
+    copystat(input_file, output_file)
+
 
 def load_file(path: str) -> str:
     """Outputs contents of a file at given path"""
     with open(path, "r", encoding="utf8") as file:
         return file.read()
 
+
+def remove_empty_result(path: str):
+    """Remove empty result of conversion"""
+    print("Empty result, removing {}".format(path))
+    if os.path.exists(path):
+        os.remove(path)
+
+
+def add_disclaimer(disclaimer: str, content: str) -> str:
+    """Add disclaimer to rendered content
+
+    If a hashbang is present, keep it at the beginning of result.
+    """
+    has_hashbang = content.startswith("#!")
+
+    if not has_hashbang:
+        return disclaimer + content
+
+    content_lines = content.splitlines(keepends=True)
+    return content_lines[0] + disclaimer + "".join(content_lines[1:])
+
+
 def main():
     """Entry point of the script."""
     config = parse_args()
-    variables = safe_load(load_file(CONFIG_PATH if config["variables"] is None
-                                    else config["variables"]))
+    var_path = config["variables"] or CONFIG_PATH
+    variables = safe_load(load_file(var_path))
 
     variables.update({"template_file_name": os.path.basename(config["input"])})
 
     print("Loading template {}".format(config["input"]))
     rendered_file = render_file(config, variables)
-    if rendered_file.strip():
-        rendered_disclaimer = render_string(DISCLAIMER, variables)
-        content = rendered_disclaimer + rendered_file
-        print("Saving rendered result to {}".format(config["output"]))
-        write_file(content, config["output"])
-    else:
-        # delete files that end up completely empty
-        print("Empty result, removing {}".format(config["output"]))
-        if os.path.exists(config["output"]):
-            os.remove(config["output"])
+
+    # delete files that end up completely empty
+    if not rendered_file.strip():
+        remove_empty_result(config["output"])
+        return
+
+    rendered_disclaimer = render_string(DISCLAIMER, variables)
+    content = add_disclaimer(rendered_disclaimer, rendered_file)
+    print("Saving rendered result to {}".format(config["output"]))
+    write_file(content, config["input"], config["output"])
+
 
 if __name__ == "__main__":
     main()
