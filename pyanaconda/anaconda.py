@@ -27,6 +27,7 @@ from pyanaconda.core.constants import DisplayModes, PAYLOAD_TYPE_RPM_OSTREE, ADD
 from pyanaconda.core import constants
 from pyanaconda.core.startup.dbus_launcher import AnacondaDBusLauncher
 from pyanaconda.core.kernel import kernel_arguments
+from pyanaconda.core.path import open_with_perm
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.ui.lib.addons import collect_addon_ui_paths
 
@@ -192,7 +193,7 @@ class Anaconda(object):
         os.close(fd)
 
         # append to a given file
-        with open("/tmp/anaconda-tb-all.log", "a+") as f:
+        with open_with_perm("/tmp/anaconda-tb-all.log", "a+", 0o600) as f:
             f.write("--- traceback: %s ---\n" % filename)
             f.write(dump_text + "\n")
 
