@@ -49,11 +49,13 @@ jobs:
     trigger: pull_request
     targets:
       - fedora-rawhide
+      - fedora-eln
 
   - job: copr_build
     trigger: commit
     targets:
       - fedora-rawhide
+      - fedora-eln
     branch: master
     owner: "@rhinstaller"
     project: Anaconda
