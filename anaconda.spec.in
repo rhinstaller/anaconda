@@ -367,6 +367,13 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Dec 13 2023 Jiri Konecny <jkonecny@redhat.com> - 33.16.10.1-1
+- timezone: for kickstart allow also timezones not offered by GUI (rvykydal)
+  Resolves: RHEL-13151
+  Resolves: RHEL-4795
+- Rename Organization to Organization ID on subscription screen (mkolman)
+  Resolves: RHEL-11168
+
 * Mon Sep 18 2023 Jiri Konecny <jkonecny@redhat.com> - 33.16.9.5-1
 - [ja_JP] - Need to update string on anaconda screen for installation completed
   Resolves: rhbz#2216746
