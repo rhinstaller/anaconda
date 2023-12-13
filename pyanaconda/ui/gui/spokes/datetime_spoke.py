@@ -48,7 +48,8 @@ from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.i18n import _, CN_
 from pyanaconda.core.async_utils import async_action_wait, async_action_nowait
-from pyanaconda.timezone import NTP_SERVICE, get_all_regions_and_timezones, get_timezone, is_valid_timezone
+from pyanaconda.timezone import NTP_SERVICE, get_all_regions_and_timezones, get_timezone, \
+    is_valid_timezone, is_valid_ui_timezone
 from pyanaconda.localization import get_xlated_timezone, resolve_date_format
 from pyanaconda.core.timer import Timer
 
@@ -557,8 +558,14 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         self._update_datetime_timer = None
         kickstart_timezone = self._timezone_module.Timezone
-        if is_valid_timezone(kickstart_timezone):
+        if is_valid_ui_timezone(kickstart_timezone):
             self._set_timezone(kickstart_timezone)
+        elif is_valid_timezone(kickstart_timezone):
+            log.warning("Timezone specification %s is not offered by installer GUI.",
+                        kickstart_timezone)
+            # Try to get the correct linked timezone via TimezoneMap selection
+            self._tzmap.set_timezone(kickstart_timezone)
+
         elif not flags.flags.automatedInstall:
             log.warning("%s is not a valid timezone, falling back to default (%s)",
                         kickstart_timezone, DEFAULT_TZ)
