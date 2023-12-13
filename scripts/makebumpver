@@ -328,7 +328,12 @@ class MakeBumpVer:
                 continue
 
             if self.rhel:
-                bad, bugs = self._check_rhel_issues(commit, summary, body, author)
+                bad_commit, bugs = self._check_rhel_issues(commit, summary, body, author)
+
+                # If one of the commits were bad mark whole set as bad
+                if bad_commit:
+                    bad = True
+
                 rpm_log.append(("%s (%s)" % (summary.strip(), author), list(bugs)))
             else:
                 rpm_log.append(("%s (%s)" % (summary.strip(), author), None))
