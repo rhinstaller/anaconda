@@ -229,11 +229,8 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
             if partition_data.onPart:
                 data.onPart[kwargs["name"]] = partition_data.onPart
         elif partition_data.mountpoint == "/boot/efi":
-            if blivet.arch.is_mactel():
-                ty = "macefi"
-            else:
-                ty = "EFI System Partition"
-                partition_data.fsopts = "defaults,uid=0,gid=0,umask=077,shortname=winnt"
+            ty = "EFI System Partition"
+            partition_data.fsopts = "defaults,uid=0,gid=0,umask=077,shortname=winnt"
         else:
             if partition_data.fstype != "":
                 ty = partition_data.fstype

@@ -37,7 +37,7 @@ from pyanaconda.core.path import make_directories, touch
 from pyanaconda.modules.storage import platform
 from pyanaconda.modules.storage.bootloader import BootLoaderFactory
 from pyanaconda.modules.storage.bootloader.base import BootLoader
-from pyanaconda.modules.storage.bootloader.efi import EFIGRUB, MacEFIGRUB, Aarch64EFIGRUB, ArmEFIGRUB
+from pyanaconda.modules.storage.bootloader.efi import EFIGRUB, Aarch64EFIGRUB, ArmEFIGRUB
 from pyanaconda.modules.storage.bootloader.extlinux import EXTLINUX
 from pyanaconda.modules.storage.bootloader.grub2 import GRUB2, IPSeriesGRUB2, PowerNVGRUB2
 from pyanaconda.modules.storage.bootloader.zipl import ZIPL
@@ -784,7 +784,6 @@ class BootLoaderFactoryTestCase(unittest.TestCase):
         boot_loader_by_platform = {
             platform.X86: GRUB2,
             platform.EFI: EFIGRUB,
-            platform.MacEFI: MacEFIGRUB,
             platform.PPC: GRUB2,
             platform.IPSeriesPPC: IPSeriesGRUB2,
             platform.PowerNV: PowerNVGRUB2,

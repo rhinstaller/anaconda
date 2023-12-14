@@ -43,7 +43,6 @@ RAID_DESCRIPTION = N_("RAID Device")
 MBR_DESCRIPTION = N_("Master Boot Record")
 EFI_DESCRIPTION = N_("EFI System Partition")
 PREP_BOOT_DESCRIPTION = N_("PReP Boot Partition")
-APPLE_EFI_DESCRIPTION = N_("Apple EFI Boot Partition")
 APPLE_BOOTSTRAP_DESCRIPTION = N_("Apple Bootstrap Partition")
 DASD_DESCRIPTION = N_("DASD")
 ZFCP_DESCRIPTION = N_("zFCP")
@@ -227,55 +226,6 @@ class EFI(Platform):
             size=Size("500MiB"),
             max_size=Size("600MiB"),
             grow=True
-        )
-
-
-class MacEFI(EFI):
-
-    @property
-    def packages(self):
-        """Packages required for this platform."""
-        return ["mactel-boot"]
-
-    @property
-    def non_linux_format_types(self):
-        """Format types of devices with non-linux operating systems."""
-        return ["macefi"]
-
-    @property
-    def stage1_suggestion(self):
-        """The platform-specific suggestion about the stage1 device."""
-        return _(
-            "For a UEFI installation, you must include "
-            "a Linux HFS+ ESP on a GPT-formatted "
-            "disk, mounted at /boot/efi."
-        )
-
-    @property
-    def stage1_descriptions(self):
-        """The platform-specific descriptions of the stage1 device."""
-        return {
-            "partition": _(APPLE_EFI_DESCRIPTION),
-            "mdarray": _(RAID_DESCRIPTION)
-        }
-
-    @property
-    def stage1_constraints(self):
-        """The platform-specific constraints for the stage1 device."""
-        constraints = {
-            PLATFORM_FORMAT_TYPES: ["macefi"]
-        }
-        return dict(super().stage1_constraints, **constraints)
-
-    @property
-    def _bootloader_partition(self):
-        """The default bootloader partition for this platform."""
-        return PartSpec(
-            mountpoint="/boot/efi",
-            fstype="macefi",
-            size=Size("200MiB"),
-            max_size=Size("600MiB"),
-            grow=True,
         )
 
 
@@ -480,9 +430,7 @@ def get_platform():
     elif arch.is_s390():
         return S390()
     elif arch.is_efi():
-        if arch.is_mactel():
-            return MacEFI()
-        elif arch.is_aarch64():
+        if arch.is_aarch64():
             return Aarch64EFI()
         elif arch.is_arm():
             return ArmEFI()
