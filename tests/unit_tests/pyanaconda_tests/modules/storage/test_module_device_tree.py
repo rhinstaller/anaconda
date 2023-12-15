@@ -36,7 +36,8 @@ from blivet.size import Size
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.core.kernel import KernelArguments
 from pyanaconda.modules.common.errors.storage import UnknownDeviceError, MountFilesystemError
-from pyanaconda.modules.common.structures.storage import DeviceFormatData, RequiredMountPointData
+from pyanaconda.modules.common.structures.storage import DeviceFormatData, \
+    MountPointConstraintsData
 from pyanaconda.modules.storage.devicetree import DeviceTreeModule, create_storage, utils
 from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface
 from pyanaconda.modules.storage.devicetree.populate import FindDevicesTask
@@ -829,13 +830,38 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         self.interface.SetDeviceMountOptions("dev1", "")
         assert dev1.format.options == "defaults"
 
+    def test_get_mount_point_constraints(self):
+        """Test GetMountPointConstraints."""
+        result = self.interface.GetMountPointConstraints()
+        assert isinstance(result, list)
+        assert len(result) == 2
+
+        result = MountPointConstraintsData.from_structure_list(
+            self.interface.GetMountPointConstraints()
+        )
+        for mp in result:
+            assert mp.mount_point is not None
+            assert mp.required_filesystem_type is not None
+
+        # we are always adding / so it's a good candidate for testing
+        root = next(r for r in result if r.mount_point == "/")
+        assert root is not None
+        assert root.encryption_allowed is True
+        assert root.logical_volume_allowed is True
+        assert root.mount_point == "/"
+        assert root.required_filesystem_type == ""
+        assert root.required is True
+        assert root.recommended is False
+
     def test_get_required_mount_points(self):
         """Test GetRequiredMountPoints."""
         result = self.interface.GetRequiredMountPoints()
         assert isinstance(result, list)
         assert len(result) != 0
 
-        result = RequiredMountPointData.from_structure_list(self.interface.GetRequiredMountPoints())
+        result = MountPointConstraintsData.from_structure_list(
+            self.interface.GetRequiredMountPoints()
+        )
         for mp in result:
             assert mp.mount_point is not None
             assert mp.required_filesystem_type is not None
