@@ -29,10 +29,6 @@ Anaconda
    :alt: Make a Rawhide release automatically
    :target: https://github.com/rhinstaller/anaconda/actions/workflows/release-automatically.yml
 
-.. |webui-periodic| image:: https://github.com/rhinstaller/anaconda/actions/workflows/webui-periodic.yml/badge.svg
-   :alt: Run WebUI intergration tests daily
-   :target: https://github.com/rhinstaller/anaconda/actions/workflows/webui-periodic.yml
-
 .. |tests-daily| image:: https://github.com/rhinstaller/anaconda/actions/workflows/tests-daily.yml/badge.svg
    :alt: Run unit and RPM tests daily
    :target: https://github.com/rhinstaller/anaconda/actions/workflows/tests-daily.yml
@@ -41,9 +37,9 @@ Anaconda
    :alt: Update translations
    :target: https://github.com/rhinstaller/anaconda/actions/workflows/l10n-po-update.yml
 
-.. |cockpit-lib-update| image:: https://github.com/rhinstaller/anaconda/actions/workflows/cockpit-lib-update.yml/badge.svg
-   :alt: Updates Cockpit library
-   :target: https://github.com/rhinstaller/anaconda/actions/workflows/cockpit-lib-update.yml
+.. |cockpit-lib-update| image:: https://github.com/rhinstaller/anaconda-webui/actions/workflows/cockpit-lib-update.yml/badge.svg
+   :alt: Updates Cockpit library for Web UI repository
+   :target: https://github.com/rhinstaller/anaconda-webui/actions/workflows/cockpit-lib-update.yml
 
 .. _Dependabot: https://github.com/rhinstaller/anaconda/network/updates
 
@@ -59,9 +55,6 @@ Anaconda
 |release-automatically|
   Makes a Rawhide release automatically with no human oversight for the upstream/non-Fedora part
   of the process.
-
-|webui-periodic|
-  Runs WebUI integration end-to-end tests every day.
 
 |tests-daily|
   Runs unit and RPM tests every day, independent of any changes to code or containers.
