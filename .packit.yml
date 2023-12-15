@@ -50,6 +50,9 @@ jobs:
     targets:
       - fedora-rawhide
       - fedora-eln
+    actions:
+      get-current-version:
+        - grep -oP '^Version:\s+\K\S+' anaconda.spec
 
   - job: copr_build
     trigger: commit
@@ -60,6 +63,9 @@ jobs:
     owner: "@rhinstaller"
     project: Anaconda
     preserve_project: True
+    actions:
+      get-current-version:
+        - grep -oP '^Version:\s+\K\S+' anaconda.spec
 
   - job: koji_build
     trigger: commit
