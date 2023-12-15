@@ -484,6 +484,9 @@ class DeviceTreeViewer(ABC):
         This includes mount points required to boot (e.g. /boot/efi, /boot)
         and the / partition which is always considered to be required.
 
+        /boot is not required in general but can be required in some cases,
+        depending on the filesystem on the root partition (ie crypted root).
+
         :return: a list of mount points with its constraints
         """
 
@@ -499,7 +502,10 @@ class DeviceTreeViewer(ABC):
         for p in platform.partitions:
             if p.mountpoint:
                 constraint = self._get_mount_point_constraints_data(p)
-                constraint.required = True
+                if p.mountpoint == "/boot":
+                    constraint.recommended = True
+                else:
+                    constraint.required = True
                 constraints.append(constraint)
 
         return constraints
