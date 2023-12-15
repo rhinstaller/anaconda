@@ -55,6 +55,11 @@ jobs:
     project: Anaconda
     preserve_project: True
 
+  - job: koji_build
+    trigger: commit
+    dist_git_branches:
+      - fedora-rawhide
+
 {% elif distro_name == "fedora" %}
 
   - job: propose_downstream
@@ -80,4 +85,8 @@ jobs:
       # Mainly useful when there is a package which is not yet in Rawhide but build is available.
       - "https://fedorapeople.org/groups/anaconda/repos/anaconda_fixup_repo/"
 
+  - job: koji_build
+    trigger: commit
+    dist_git_branches:
+      - fedora-{$ distro_release $}
 {% endif %}
