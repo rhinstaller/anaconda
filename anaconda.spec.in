@@ -465,6 +465,8 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Dec 26 2023 github-actions <github-actions@github.com> - 40.16-1
+
 * Tue Dec 19 2023 github-actions <github-actions@github.com> - 40.15-1
 - fix missing emit of zfcp kickstart statements (maier)
 - DeviceTreeViewer: Add path-id attribute to zfcp-attached SCSI disks (maier)
