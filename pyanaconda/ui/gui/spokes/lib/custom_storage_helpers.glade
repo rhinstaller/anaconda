@@ -525,12 +525,6 @@ use.  Try something else?</property>
       <action-widget response="1">addConfirmButton</action-widget>
     </action-widgets>
   </object>
-  <object class="GtkListStore" id="luksVersionStore">
-    <columns>
-      <!-- column-name luks_version -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
   <object class="GtkListStore" id="raidLevelStore">
     <columns>
       <!-- column-name raidLevel -->
@@ -788,39 +782,6 @@ use.  Try something else?</property>
                 <property name="can_focus">False</property>
                 <property name="spacing">6</property>
                 <child>
-                  <object class="GtkLabel" id="luksVersionLabel">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">LUKS Version:</property>
-                    <property name="xalign">0</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkComboBox" id="luksVersionCombo">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="model">luksVersionStore</property>
-                    <child>
-                      <object class="GtkCellRendererText" id="luksVersionRenderer">
-                        <property name="ellipsize">end</property>
-                      </object>
-                      <attributes>
-                        <attribute name="text">0</attribute>
-                      </attributes>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-                <child>
                   <object class="GtkCheckButton" id="containerEncryptedCheckbox">
                     <property name="label" translatable="yes">Encrypt</property>
                     <property name="visible">True</property>
@@ -828,7 +789,6 @@ use.  Try something else?</property>
                     <property name="receives_default">False</property>
                     <property name="xalign">0</property>
                     <property name="draw_indicator">True</property>
-                    <signal name="toggled" handler="on_encrypt_toggled" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>

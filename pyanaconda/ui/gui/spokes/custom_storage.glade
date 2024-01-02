@@ -29,12 +29,6 @@
       <column type="gchararray"/>
     </columns>
   </object>
-  <object class="GtkListStore" id="luksVersionStore">
-    <columns>
-      <!-- column-name luks_version -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
   <object class="GtkListStore" id="mountPointStore">
     <columns>
       <!-- column-name path -->
@@ -917,70 +911,6 @@
                                                 <property name="expand">False</property>
                                                 <property name="fill">True</property>
                                                 <property name="position">1</property>
-                                              </packing>
-                                            </child>
-                                            <child>
-                                              <object class="GtkBox" id="luksSpecBox">
-                                                <property name="visible">True</property>
-                                                <property name="can_focus">False</property>
-                                                <property name="spacing">6</property>
-                                                <child>
-                                                  <object class="GtkBox" id="luksBox">
-                                                    <property name="visible">True</property>
-                                                    <property name="can_focus">False</property>
-                                                    <property name="orientation">vertical</property>
-                                                    <property name="spacing">3</property>
-                                                    <child>
-                                                      <object class="GtkLabel" id="luksVersionLabel">
-                                                        <property name="visible">True</property>
-                                                        <property name="can_focus">False</property>
-                                                        <property name="xalign">0</property>
-                                                        <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">LUK_S Version:</property>
-                                                        <property name="use_underline">True</property>
-                                                        <property name="mnemonic_widget">luksVersionCombo</property>
-                                                        <attributes>
-                                                          <attribute name="weight" value="bold"/>
-                                                        </attributes>
-                                                      </object>
-                                                      <packing>
-                                                        <property name="expand">False</property>
-                                                        <property name="fill">True</property>
-                                                        <property name="position">0</property>
-                                                      </packing>
-                                                    </child>
-                                                    <child>
-                                                      <object class="GtkComboBox" id="luksVersionCombo">
-                                                        <property name="visible">True</property>
-                                                        <property name="can_focus">False</property>
-                                                        <property name="model">luksVersionStore</property>
-                                                        <signal name="changed" handler="on_luks_version_changed" swapped="no"/>
-                                                        <child>
-                                                          <object class="GtkCellRendererText" id="luksVersionRenderer">
-                                                            <property name="ellipsize">end</property>
-                                                          </object>
-                                                          <attributes>
-                                                            <attribute name="text">0</attribute>
-                                                          </attributes>
-                                                        </child>
-                                                      </object>
-                                                      <packing>
-                                                        <property name="expand">False</property>
-                                                        <property name="fill">True</property>
-                                                        <property name="position">1</property>
-                                                      </packing>
-                                                    </child>
-                                                  </object>
-                                                  <packing>
-                                                    <property name="expand">False</property>
-                                                    <property name="fill">True</property>
-                                                    <property name="position">0</property>
-                                                  </packing>
-                                                </child>
-                                              </object>
-                                              <packing>
-                                                <property name="expand">False</property>
-                                                <property name="fill">True</property>
-                                                <property name="position">2</property>
                                               </packing>
                                             </child>
                                           </object>

@@ -490,8 +490,7 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
                       "containerRaidStoreFiltered", "containerRaidLevelLabel",
                       "containerRaidLevelCombo", "raidLevelStore",
                       "containerSizeCombo", "containerSizeEntry",
-                      "containerSizeLabel", "containerEncryptedCheckbox",
-                      "luksVersionCombo", "luksVersionStore", "luksVersionLabel"]
+                      "containerSizeLabel", "containerEncryptedCheckbox"]
     mainWidgetName = "container_dialog"
     uiFile = "spokes/lib/custom_storage_helpers.glade"
 
@@ -504,7 +503,6 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
         self._permissions = permissions
         self._original_name = request.container_name
         self._container_names = names
-        self._original_luks_version = request.luks_version
         self._error = ""
 
         self._title_label = self.builder.get_object("container_dialog_title_label")
@@ -512,9 +510,6 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
         self._error_label = self.builder.get_object("containerErrorLabel")
         self._name_entry = self.builder.get_object("container_name_entry")
         self._encryptCheckbutton = self.builder.get_object("containerEncryptedCheckbox")
-        self._luks_combo = self.builder.get_object("luksVersionCombo")
-        self._luks_store = self.builder.get_object("luksVersionStore")
-        self._luks_label = self.builder.get_object("luksVersionLabel")
         self._raidStoreFilter = self.builder.get_object("containerRaidStoreFiltered")
         self._store = self.builder.get_object("disk_store")
         self._treeview = self.builder.get_object("container_disk_view")
@@ -537,7 +532,6 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
         self._set_name()
         self._set_size()
         self._set_encryption()
-        self._populate_luks()
 
     def _set_labels(self):
         container_type = get_container_type(self._request.device_type)
@@ -661,32 +655,6 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
         if not self._permissions.container_encrypted:
             fancy_set_sensitive(self._encryptCheckbutton, False)
 
-    def _populate_luks(self):
-        """Set up the LUKS version combo box."""
-        # Add the values.
-        self._luks_store.clear()
-        for version in ["luks1", "luks2"]:
-            self._luks_store.append([version])
-
-        # Get the selected value.
-        luks_version = self._request.luks_version or self._device_tree.GetDefaultLUKSVersion()
-
-        # Set the selected value.
-        idx = next(
-            i for i, data in enumerate(self._luks_combo.get_model())
-            if data[0] == luks_version
-        )
-        self._luks_combo.set_active(idx)
-        self._update_luks_combo()
-
-    def _update_luks_combo(self):
-        if self._encryptCheckbutton.get_active():
-            really_show(self._luks_label)
-            really_show(self._luks_combo)
-        else:
-            really_hide(self._luks_label)
-            really_hide(self._luks_combo)
-
     def run(self):
         while True:
             self._error = ""
@@ -724,7 +692,6 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
         self._request.disks = self._get_disks()
         self._request.container_name = self._name_entry.get_text().strip()
         self._request.container_encrypted = self._encryptCheckbutton.get_active()
-        self._request.luks_version = self._get_luks_version()
         self._request.container_size_policy = self._get_size_policy()
         self._request.container_raid_level = get_selected_raid_level(self._raidLevelCombo)
         self._error_label.set_text("")
@@ -789,15 +756,6 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
 
         return size.get_bytes()
 
-    def _get_luks_version(self):
-        if self._encryptCheckbutton.get_active():
-            active_index = self._luks_combo.get_active()
-
-            if active_index != -1:
-                return self._luks_combo.get_model()[active_index][0]
-
-        return self._original_luks_version
-
     def on_size_changed(self, combo):
         active_index = combo.get_active()
         if active_index == 0:
@@ -806,6 +764,3 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
             self._sizeEntry.set_sensitive(False)
         else:
             self._sizeEntry.set_sensitive(True)
-
-    def on_encrypt_toggled(self, widget):
-        self._update_luks_combo()
