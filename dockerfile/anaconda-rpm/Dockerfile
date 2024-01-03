@@ -45,8 +45,6 @@ RUN set -ex; \
     fi; \
     BRANCH=${BRANCH#fedora-}; \
     dnf copr enable -y ${copr_repo} fedora-${BRANCH}-x86_64; \
-    dnf copr enable -y @storage/blivet-daily fedora-${BRANCH}-x86_64; \
-    dnf copr enable -y @storage/udisks-daily fedora-${BRANCH}-x86_64; \
   else \
     dnf copr enable -y ${copr_repo} fedora-eln-x86_64; \
   fi; \
