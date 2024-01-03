@@ -132,7 +132,7 @@ jobs:
 
       - name: Collect logs
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: 'logs'
           path: |
@@ -163,7 +163,7 @@ jobs:
 
       - name: Upload image artifacts
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: images
           path: |

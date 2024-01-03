@@ -293,7 +293,7 @@ jobs:
 
       - name: Collect logs
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: 'logs'
           # skip the /anaconda subdirectories, too large
