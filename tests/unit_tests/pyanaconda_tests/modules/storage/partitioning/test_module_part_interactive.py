@@ -383,7 +383,7 @@ class InteractiveUtilsTestCase(unittest.TestCase):
             "fstype": None,
             "label": None,
             "encrypted": False,
-            "luks_version": None,
+            "luks_version": "luks2",
             "raid_level": None,
             "container_name": "container1",
             "container_size": Size("10 GiB"),

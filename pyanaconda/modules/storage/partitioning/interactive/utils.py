@@ -604,6 +604,7 @@ def change_encryption(storage, device, encrypted, luks_version):
         return device.raw_device
     else:
         log.info("Applying encryption to %s.", device.name)
+        luks_version = luks_version or storage.default_luks_version
         new_fmt = get_format("luks", device=device.path, luks_version=luks_version)
         storage.format_device(device, new_fmt)
         luks_dev = LUKSDevice("luks-" + device.name, parents=[device])
@@ -778,7 +779,7 @@ def get_device_factory_arguments(storage, request: DeviceFactoryRequest, subset=
         "mountpoint": request.mount_point or None,
         "fstype": request.format_type or None,
         "label": request.label or None,
-        "luks_version": request.luks_version or None,
+        "luks_version": request.luks_version or storage.default_luks_version,
         "device_name": request.device_name or None,
         "size": Size(request.device_size) or None,
         "raid_level": get_raid_level_by_name(request.device_raid_level),
