@@ -41,7 +41,7 @@ from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.categories.localization import LocalizationCategory
-from pyanaconda.ui.gui.utils import blockedHandler
+from pyanaconda.ui.gui.utils import blockedHandler as blocked_handler
 from pyanaconda.ui.gui.spokes.lib.ntp_dialog import NTPConfigDialog
 from pyanaconda.timezone import NTP_SERVICE, get_all_regions_and_timezones, get_timezone, \
     is_valid_timezone, set_system_date_time, parse_timezone
@@ -143,7 +143,7 @@ def _new_date_field_box(store):
     combo.set_wrap_width(1)
 
     box.pack_start(combo, False, False, 0)
-    box.pack_start(suffix_label, False, False, 0)
+    box.pack_start(suffix_label, False, False, 6)
 
     return (box, combo, suffix_label)
 
@@ -258,7 +258,9 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self._year_format, suffix = formats[widgets.index(year_box)]
         year_label.set_text(suffix)
 
-        self._ntpSwitch = self.builder.get_object("networkTimeSwitch")
+        self._ntp_radio_button = self.builder.get_object("ntpRadioButton")
+        self._ntp_config_button = self.builder.get_object("ntpConfigButton")
+        self._manual_radio_button = self.builder.get_object("manualRadioButton")
 
         self._regions_zones = get_all_regions_and_timezones()
 
@@ -337,7 +339,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             region + "/" + city,
             constants.TIMEZONE_PRIORITY_USER
         )
-        self._timezone_module.NTPEnabled = self._ntpSwitch.get_active()
+        self._timezone_module.NTPEnabled = self._ntp_radio_button.get_active()
         self._kickstarted = False
 
     def execute(self):
@@ -379,6 +381,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             self._timezone_module.TimeSources
         )
 
+        # Set up the NTP servers.
         if not self._ntp_servers:
             try:
                 self._ntp_servers = ntp.get_servers_from_config()
@@ -388,22 +391,12 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self._ntp_servers_states = NTPServerStatusCache()
         self._ntp_servers_states.changed.connect(self._update_ntp_server_warning)
 
-        has_active_network = self._network_module.Connected
-
-        if not has_active_network:
-            self._show_no_network_warning()
-        else:
-            self.clear_info()
-
+        if self._network_module.Connected:
             for server in self._ntp_servers:
                 self._ntp_servers_states.check_status(server)
 
-        if conf.system.can_set_time_synchronization:
-            ntp_working = has_active_network and is_service_running(NTP_SERVICE)
-        else:
-            ntp_working = self._timezone_module.NTPEnabled
-
-        self._ntpSwitch.set_active(ntp_working)
+        # Set up the NTP widgets.
+        self._set_ntp_enabled(self._timezone_module.NTPEnabled)
 
     @async_action_nowait
     def add_to_store_xlated(self, store, item, xlated):
@@ -784,7 +777,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def _set_region_and_city_from_timezone(self, timezone):
         """Set up the region and the city from the specified timezone."""
         # Set up the region and city widgets.
-        with blockedHandler(self._cityCombo, self.on_city_changed):
+        with blocked_handler(self._cityCombo, self.on_city_changed):
             region, city = parse_timezone(timezone)
             self._set_combo_selection(self._regionCombo, region)
             self._set_combo_selection(self._cityCombo, city)
@@ -817,14 +810,14 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     def _hide_date_time_setting(self):
         #contains all date/time setting widgets
-        footer_alignment = self.builder.get_object("footerAlignment")
-        footer_alignment.set_no_show_all(True)
-        footer_alignment.hide()
+        container_widget = self.builder.get_object("manualGrid")
+        container_widget.set_no_show_all(True)
+        container_widget.hide()
 
     def _set_date_time_setting_sensitive(self, sensitive):
         #contains all date/time setting widgets
-        footer_alignment = self.builder.get_object("footerAlignment")
-        footer_alignment.set_sensitive(sensitive)
+        container_widget = self.builder.get_object("manualGrid")
+        container_widget.set_sensitive(sensitive)
 
     def _get_working_server(self):
         """Get a working NTP server."""
@@ -848,51 +841,91 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         if self._start_updating_timer:
             self._start_updating_timer.cancel()
             self._start_updating_timer = None
+
         # re-enable UI update because it will not be done by the
         # system time update we've just cancelled
         if not self._update_datetime_timer:
             self._update_datetime_timer = Timer()
             self._update_datetime_timer.timeout_sec(1, self._update_datetime)
 
-    def on_ntp_switched(self, switch, *args):
-        if switch.get_active():
+    def on_ntp_button_toggled(self, button):
+        """Toggle the NTP configuration."""
+        log.debug("Toggled the NTP configuration.")
+        self._set_ntp_enabled(self._ntp_radio_button.get_active())
+
+    def _set_ntp_enabled(self, ntp_requested):
+        """Set the NTP enabled configuration."""
+        # Clear warnings.
+        self.clear_info()
+
+        # Try to configure the NTP service.
+        ntp_enabled = self._start_ntp_service() if ntp_requested else self._stop_ntp_service()
+
+        # Update the widgets.
+        with blocked_handler(self._ntp_radio_button, self.on_ntp_button_toggled):
+            self._ntp_radio_button.set_active(ntp_enabled)
+            self._ntp_config_button.set_sensitive(ntp_enabled)
+
+            self._manual_radio_button.set_active(not ntp_enabled)
+            self._set_date_time_setting_sensitive(not ntp_enabled)
+
+        # Update the timers.
+        if ntp_enabled:
             self._cancel_planned_update()
 
-            #turned ON
-            if not conf.system.can_set_time_synchronization:
-                #cannot touch runtime system, not much to do here
-                return
+    def _start_ntp_service(self):
+        """Start the NTP service.
 
-            if not self._network_module.Connected:
-                self._show_no_network_warning()
-                switch.set_active(False)
-                return
-            else:
-                self._update_ntp_server_warning()
+        :return bool: True if NTP is enabled, otherwise False
+        """
+        log.debug("Starting the NTP service...")
 
-            ret = start_service(NTP_SERVICE)
-            self._set_date_time_setting_sensitive(False)
+        # Cannot touch runtime system, not much to do here.
+        # Pretend that the NTP service is enabled.
+        if not conf.system.can_set_time_synchronization:
+            return True
 
-            #if starting chronyd failed and chronyd is not running,
-            #set switch back to OFF
-            if (ret != 0) and not is_service_running(NTP_SERVICE):
-                switch.set_active(False)
+        # Check the network connection.
+        if not self._network_module.Connected:
+            log.debug("No network. The NTP service cannot be started.")
+            self._show_no_network_warning()
+            return False
 
-        else:
-            #turned OFF
-            if not conf.system.can_set_time_synchronization:
-                #cannot touch runtime system, nothing to do here
-                return
+        # Start the NTP service.
+        if start_service(NTP_SERVICE) == 0:
+            self._update_ntp_server_warning()
+            return True
 
-            self._set_date_time_setting_sensitive(True)
-            ret = stop_service(NTP_SERVICE)
+        # Or check if it's running.
+        if is_service_running(NTP_SERVICE):
+            self._update_ntp_server_warning()
+            return True
 
-            #if stopping chronyd failed and chronyd is running,
-            #set switch back to ON
-            if (ret != 0) and is_service_running(NTP_SERVICE):
-                switch.set_active(True)
+        log.debug("Failed to start the NTP service.")
+        return False
 
-            self.clear_info()
+    def _stop_ntp_service(self):
+        """Stop the NTP service.
+
+        :return bool: True if NTP is enabled, otherwise False
+        """
+        log.debug("Stopping the NTP service...")
+
+        # Cannot touch runtime system, not much to do here.
+        # Pretend that the NTP service isn't enabled.
+        if not conf.system.can_set_time_synchronization:
+            return False
+
+        # Stop the NTP service.
+        if stop_service(NTP_SERVICE) == 0:
+            return False
+
+        # Or check if it's NOT running.
+        if not is_service_running(NTP_SERVICE):
+            return False
+
+        log.debug("Failed to stop the NTP service.")
+        return True
 
     def on_ntp_config_clicked(self, *args):
         servers = copy.deepcopy(self._ntp_servers)
@@ -919,7 +952,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     def _update_ntp_server_warning(self):
         """Update the warning about working NTP servers."""
-        if not self._ntpSwitch.get_active():
+        if not self._ntp_radio_button.get_active():
             return
 
         self.clear_info()
