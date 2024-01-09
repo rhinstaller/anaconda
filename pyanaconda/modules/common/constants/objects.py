@@ -94,6 +94,11 @@ NVDIMM = DBusObjectIdentifier(
     basename="NVDIMM"
 )
 
+NVME = DBusObjectIdentifier(
+    namespace=STORAGE_NAMESPACE,
+    basename="NVMe"
+)
+
 SNAPSHOT = DBusObjectIdentifier(
     namespace=STORAGE_NAMESPACE,
     basename="Snapshot"
