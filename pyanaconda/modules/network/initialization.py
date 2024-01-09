@@ -25,7 +25,8 @@ from pyanaconda.modules.network.network_interface import NetworkInitializationTa
 from pyanaconda.modules.network.nm_client import get_device_name_from_network_data, \
     update_connection_from_ksdata, add_connection_from_ksdata, bound_hwaddr_of_device, \
     update_connection_values, commit_changes_with_autoconnection_blocked, \
-    get_config_file_connection_of_device, clone_connection_sync, nm_client_in_thread
+    get_config_file_connection_of_device, clone_connection_sync, nm_client_in_thread, \
+    is_bootif_connection
 from pyanaconda.modules.network.device_configuration import supported_wired_device_types, \
     virtual_device_types
 from pyanaconda.modules.network.utils import guard_by_system_configuration
@@ -242,11 +243,13 @@ class DumpMissingConfigFilesTask(Task):
             device_is_slave = any(con.get_setting_connection().get_master() for con in cons)
             if device_is_slave:
                 # We have to dump persistent ifcfg files for slaves created in initramfs
-                if n_cons == 1 and self._is_initramfs_connection(cons[0], iface):
+                # Filter out potenital connection created for BOOTIF option rhbz#2175664
+                slave_cons = [c for c in cons if not is_bootif_connection(c)]
+                if len(slave_cons) == 1 and self._is_initramfs_connection(slave_cons[0], iface):
                     log.debug("%s: device %s has an initramfs slave connection",
                               self.name, iface)
                     con = self._select_persistent_connection_for_device(
-                        device, cons, allow_slaves=True)
+                        device, slave_cons, allow_slaves=True)
                 else:
                     log.debug("%s: creating default connection for slave device %s",
                               self.name, iface)
