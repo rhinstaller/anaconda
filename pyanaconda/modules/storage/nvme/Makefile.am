@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2018  Red Hat, Inc.
+# Copyright (C) 2023  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -14,11 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = disk_initialization disk_selection bootloader partitioning dasd zfcp fcoe \
-    snapshot devicetree checker iscsi nvme
-
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-storage_moduledir = $(pkgpyexecdir)/modules/storage
-storage_module_PYTHON = $(srcdir)/*.py
+nvme_moduledir = $(pkgpyexecdir)/modules/storage/nvme
+nvme_module_PYTHON = $(srcdir)/*.py
 
 MAINTAINERCLEANFILES = Makefile.in
