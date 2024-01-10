@@ -18,6 +18,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+BACKEND_READY_FLAG=/run/anaconda/backend_ready
+
 # The command needs to be run with root privileges, so if it was started
 # unprivileged, restart running as root.
 if [ "$(id -u)" -ne 0 ]; then
