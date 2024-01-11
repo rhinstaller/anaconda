@@ -108,6 +108,8 @@ class SourceFactory(object):
         :param ks_data: kickstart data from DNF payload
         :return: SourceType value
         """
+        if ks_data.ostreecontainer.seen:
+            return SourceType.RPM_OSTREE_CONTAINER
         if ks_data.ostreesetup.seen:
             return SourceType.RPM_OSTREE
 

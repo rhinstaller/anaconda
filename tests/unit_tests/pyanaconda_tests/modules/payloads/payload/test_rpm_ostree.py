@@ -17,7 +17,7 @@
 #
 import unittest
 
-from pyanaconda.core.constants import SOURCE_TYPE_RPM_OSTREE
+from pyanaconda.core.constants import SOURCE_TYPE_RPM_OSTREE, SOURCE_TYPE_RPM_OSTREE_CONTAINER
 from pyanaconda.modules.payloads.constants import PayloadType
 from pyanaconda.modules.payloads.payload.rpm_ostree.rpm_ostree import RPMOSTreeModule
 from pyanaconda.modules.payloads.payload.rpm_ostree.rpm_ostree_interface import RPMOSTreeInterface
@@ -47,7 +47,8 @@ class RPMOSTreeInterfaceTestCase(unittest.TestCase):
     def test_supported_sources(self):
         """Test the SupportedSourceTypes property."""
         assert self.interface.SupportedSourceTypes == [
-            SOURCE_TYPE_RPM_OSTREE
+            SOURCE_TYPE_RPM_OSTREE,
+            SOURCE_TYPE_RPM_OSTREE_CONTAINER,
         ]
 
 

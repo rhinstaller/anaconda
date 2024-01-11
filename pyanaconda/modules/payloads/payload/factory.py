@@ -58,7 +58,7 @@ class PayloadFactory(object):
         :param data: a kickstart data
         :return: a payload type
         """
-        if data.ostreesetup.seen:
+        if data.ostreesetup.seen or data.ostreecontainer.seen:
             return PayloadType.RPM_OSTREE
 
         if data.liveimg.seen:

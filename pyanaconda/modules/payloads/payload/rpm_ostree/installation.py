@@ -51,6 +51,60 @@ def safe_exec_with_redirect(cmd, argv, successful_return_codes=(0,), **kwargs):
         )
 
 
+def _get_ref(data):
+    """Get ref or name based on source.
+
+    OSTree container don't have ref because it's specified by the container. In that case let's
+    return just url for reporting.
+
+    :param data: OSTree source structure
+    :return str: ref or name based on source
+    """
+    # Variable substitute the ref: https://pagure.io/atomic-wg/issue/299
+    if data.is_container():
+        # we don't have ref with container; there are not multiple references in one container
+        return data.url
+    else:
+        return RpmOstree.varsubst_basearch(data.ref)
+
+
+def _get_stateroot(data):
+    """Get stateroot.
+
+    The OSTree renamed old osname to stateroot for containers.
+
+    :param data: OSTree source structure
+    :return str: stateroot or osname value based on source
+    """
+    if data.is_container():
+        # osname was renamed to stateroot so let's use the new name
+        if data.stateroot:
+            return data.stateroot
+        else:
+            # The stateroot doesn't have to be defined
+            # https://github.com/ostreedev/ostree-rs-ext/pull/462/files
+            # However, it's working just for a subset of calls now.
+            # TODO: Remove this when all ostree commands undestarstands this
+            return "default"
+    else:
+        return data.osname
+
+
+def _get_verification_enabled(data):
+    """Find out if source has enabled verification.
+
+    OSTree sources has different names for enabled verification. This helper function
+    will make the access consistent.
+
+    :param data: OSTree source structure
+    :return bool: True if verification is enabled
+    """
+    if data.is_container():
+        return data.signature_verification_enabled
+    else:
+        return data.gpg_verification_enabled
+
+
 class PrepareOSTreeMountTargetsTask(Task):
     """Task to prepare OSTree mount targets."""
 
@@ -119,7 +173,10 @@ class PrepareOSTreeMountTargetsTask(Task):
 
         :param [] existing_mount_points: a list of existing mount points
         """
-        var_root = '/ostree/deploy/' + self._source_config.osname + '/var'
+        # osname was used for ostreesetup but ostreecontainer renamed it to stateroot
+        stateroot = _get_stateroot(self._source_config)
+
+        var_root = '/ostree/deploy/' + stateroot + '/var'
         if existing_mount_points.get("/var") is None:
             self._setup_internal_bindmount(var_root, dest='/var', recurse=False)
         else:
@@ -325,7 +382,7 @@ class ChangeOSTreeRemoteTask(Task):
 
         remote_options = {}
 
-        if not self._data.gpg_verification_enabled:
+        if not _get_verification_enabled(self._data):
             remote_options['gpg-verify'] = Variant('b', False)
 
         if not conf.payload.verify_ssl:
@@ -336,9 +393,12 @@ class ChangeOSTreeRemoteTask(Task):
         else:
             root = None
 
+        # Remote is set or it should be named as stateroot is
+        remote = self._data.remote or _get_stateroot(self._data)
+
         repo.remote_change(root,
                            OSTree.RepoRemoteChange.ADD_IF_NOT_EXISTS,
-                           self._data.remote,
+                           remote,
                            self._data.url,
                            Variant('a{sv}', remote_options),
                            cancellable)
@@ -413,7 +473,8 @@ class DeployOSTreeTask(Task):
 
     def run(self):
         # Variable substitute the ref: https://pagure.io/atomic-wg/issue/299
-        ref = RpmOstree.varsubst_basearch(self._data.ref)
+        ref = _get_ref(self._data)
+        stateroot = _get_stateroot(self._data)
 
         self.report_progress(_("Deployment starting: {}").format(ref))
 
@@ -422,21 +483,39 @@ class DeployOSTreeTask(Task):
             ["admin",
              "--sysroot=" + self._sysroot,
              "os-init",
-             self._data.osname]
+             stateroot]
         )
 
-        log.info("ostree admin deploy starting")
+        if self._data.is_container():
+            log.info("ostree image deploy starting")
 
-        safe_exec_with_redirect(
-            "ostree",
-            ["admin",
-             "--sysroot=" + self._sysroot,
-             "deploy",
-             "--os=" + self._data.osname,
-             self._data.remote + ':' + ref]
-        )
+            args = ["container", "image", "deploy",
+                    "--sysroot=" + self._sysroot,
+                    "--image=" + ref]
 
-        log.info("ostree admin deploy complete")
+            if self._data.transport:
+                args.append("--transport=" + self._data.transport)
+            if self._data.stateroot:
+                args.append("--stateroot=" + self._data.stateroot)
+            if not self._data.signature_verification_enabled:
+                args.append("--no-signature-verification")
+
+            safe_exec_with_redirect(
+                "ostree",
+                args
+            )
+        else:
+            log.info("ostree admin deploy starting")
+            safe_exec_with_redirect(
+                "ostree",
+                ["admin",
+                 "--sysroot=" + self._sysroot,
+                 "deploy",
+                 "--os=" + stateroot,
+                 self._data.remote + ':' + ref]
+            )
+
+        log.info("ostree deploy complete")
         self.report_progress(_("Deployment complete: {}").format(ref))
 
 

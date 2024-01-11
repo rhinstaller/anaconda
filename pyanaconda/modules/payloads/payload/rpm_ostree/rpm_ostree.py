@@ -45,7 +45,8 @@ class RPMOSTreeModule(PayloadBase):
     def supported_source_types(self):
         """Get list of sources supported by the RPM OSTree module."""
         return [
-            SourceType.RPM_OSTREE
+            SourceType.RPM_OSTREE,
+            SourceType.RPM_OSTREE_CONTAINER,
         ]
 
     def process_kickstart(self, data):
