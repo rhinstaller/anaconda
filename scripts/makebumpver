@@ -30,16 +30,6 @@ import logging
 from rhel_version import rhel_version
 from functools import cache
 
-try:
-    from jira import JIRA, JIRAError # pylint: disable=import-error
-except ModuleNotFoundError:
-    print("Can't find jira python library. Please install it ideally by:\n", file=sys.stderr)
-    print("dnf install python3-jira\n", file=sys.stderr)
-    print("Otherwise it could be installed also by pip:\n", file=sys.stderr)
-    print("pip3 install jira", file=sys.stderr)
-
-    sys.exit(2)
-
 log = logging.getLogger("bumpver")
 log.setLevel(logging.INFO)
 
@@ -81,10 +71,20 @@ class JIRAValidator:
     def __init__(self):
         self.jira = None
 
-        self._connect()
-
-    def _connect(self):
+    def connect(self):
         """Connect to our JIRA instance by provided token file."""
+
+        # Importing JIRA now will remove unnecessary requirements for Fedora use
+        try:
+            from jira import JIRA, JIRAError # pylint: disable=import-error
+        except ModuleNotFoundError:
+            print("Can't find jira python library. Please install it ideally by:\n", file=sys.stderr)
+            print("dnf install python3-jira\n", file=sys.stderr)
+            print("Otherwise it could be installed also by pip:\n", file=sys.stderr)
+            print("pip3 install jira", file=sys.stderr)
+
+            sys.exit(2)
+
         token = self._read_token(TOKEN_PATH)
         self.jira = JIRA("https://issues.redhat.com/", token_auth=token)
 
@@ -328,6 +328,9 @@ class MakeBumpVer:
                 continue
 
             if self.rhel:
+                # First place where we need to use JIRA server, don't require it until now
+                self._jira.connect()
+
                 bad_commit, bugs = self._check_rhel_issues(commit, summary, body, author)
 
                 # If one of the commits were bad mark whole set as bad
