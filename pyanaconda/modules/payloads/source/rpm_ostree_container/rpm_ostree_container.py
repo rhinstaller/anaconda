@@ -58,7 +58,11 @@ class RPMOSTreeContainerSourceModule(RPMOSTreeSourceModule):
 
         :return: True or False
         """
-        # FIXME: Missing network detection logic based on the URL
+        # the 'registry' transport value will most probably require network settings
+        # other transport ways shouldn't require that
+        if self._configuration.transport == "registry":
+            return True
+
         return False
 
     def process_kickstart(self, data):

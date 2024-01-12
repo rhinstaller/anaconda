@@ -80,6 +80,20 @@ class OSTreeContainerSourceTestCase(unittest.TestCase):
         """Test the network_required property."""
         assert self.module.network_required is False
 
+        data = RPMOSTreeContainerConfigurationData()
+
+        data.transport = "oci"
+        self.module.set_configuration(data)
+        assert self.module.network_required is False
+
+        data.transport = "oci-archive"
+        self.module.set_configuration(data)
+        assert self.module.network_required is False
+
+        data.transport = "registry"
+        self.module.set_configuration(data)
+        assert self.module.network_required is True
+
     def test_required_space(self):
         """Test the required_space property."""
         assert self.module.required_space == 0
