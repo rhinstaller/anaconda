@@ -89,8 +89,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     builderObjects = ["customStorageWindow", "containerStore", "deviceTypeStore",
                       "partitionStore", "raidStoreFiltered", "raidLevelStore",
                       "addImage", "removeImage", "settingsImage",
-                      "mountPointCompletion", "mountPointStore", "fileSystemStore",
-                      "luksVersionStore"]
+                      "mountPointCompletion", "mountPointStore", "fileSystemStore"]
     mainWidgetName = "customStorageWindow"
     uiFile = "spokes/custom_storage.glade"
     category = SystemCategory
@@ -173,9 +172,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._encryptCheckbox = self.builder.get_object("encryptCheckbox")
         self._fsCombo = self.builder.get_object("fileSystemTypeCombo")
         self._fsStore = self.builder.get_object("fileSystemStore")
-        self._luksCombo = self.builder.get_object("luksVersionCombo")
-        self._luksStore = self.builder.get_object("luksVersionStore")
-        self._luksLabel = self.builder.get_object("luksVersionLabel")
         self._labelEntry = self.builder.get_object("labelEntry")
         self._mountPointEntry = self.builder.get_object("mountPointEntry")
         self._nameEntry = self.builder.get_object("nameEntry")
@@ -656,27 +652,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         self._raidLevelCombo.set_active(index)
 
-    def _populate_luks(self, luks_version):
-        """Set up the LUKS version combo box.
-
-        :param luks_version: a LUKS version or None
-        """
-        # Add the values.
-        self._luksStore.clear()
-        for version in ["luks1", "luks2"]:
-            self._luksStore.append([version])
-
-        # Get the selected value.
-        luks_version = luks_version or self._device_tree.GetDefaultLUKSVersion()
-
-        # Set the selected value.
-        idx = next(
-            i for i, data in enumerate(self._luksCombo.get_model())
-            if data[0] == luks_version
-        )
-        self._luksCombo.set_active(idx)
-        self._update_luks_combo()
-
     def _get_current_device_type(self):
         """ Return integer for type combo selection.
 
@@ -818,7 +793,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._encryptCheckbox.set_inconsistent(self._request.container_encrypted)
         text = _("The container is encrypted.") if self._request.container_encrypted else ""
         self._encryptCheckbox.set_tooltip_text(text)
-        self._update_luks_combo()
 
         # Set up the filesystem type combo.
         format_types = self._device_tree.GetFileSystemsForDevice(device_name)
@@ -857,7 +831,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         fancy_set_sensitive(self._raidLevelCombo, self._permissions.device_raid_level)
 
         self._populate_container()
-        self._populate_luks(self._request.luks_version)
 
         self._nameEntry.set_text(self._request.device_name)
         fancy_set_sensitive(self._nameEntry, self._permissions.device_name)
@@ -1266,7 +1239,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 self._encryptCheckbox.set_inconsistent(True)
 
             fancy_set_sensitive(self._encryptCheckbox, self._permissions.device_encrypted)
-            self._update_luks_combo()
 
         # Update the UI.
         self._set_devices_label()
@@ -1492,7 +1464,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # Update the UI.
         fancy_set_sensitive(self._labelEntry, self._permissions.label)
         fancy_set_sensitive(self._encryptCheckbox, self._permissions.device_encrypted)
-        self._update_luks_combo()
         fancy_set_sensitive(self._fsCombo, self._permissions.format_type)
         self.on_value_changed()
 
@@ -1521,25 +1492,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     def on_encrypt_toggled(self, widget):
         self._encryptCheckbox.set_inconsistent(False)
         self._request.device_encrypted = self._encryptCheckbox.get_active()
-        self._populate_luks(self._request.luks_version)
-        self.on_value_changed()
-
-    def _update_luks_combo(self):
-        if self._encryptCheckbox.get_active():
-            really_show(self._luksLabel)
-            really_show(self._luksCombo)
-        else:
-            really_hide(self._luksLabel)
-            really_hide(self._luksCombo)
-
-    def on_luks_version_changed(self, widget):
-        if self._encryptCheckbox.get_active():
-            active_index = self._luksCombo.get_active()
-
-            if active_index != -1:
-                luks_version = self._luksCombo.get_model()[active_index][0]
-                self._request.luks_version = luks_version
-
         self.on_value_changed()
 
     def on_mount_point_changed(self, widget):

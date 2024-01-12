@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.19.0 -->
+<!-- Generated with glade 3.40.0 -->
 <interface>
   <requires lib="gtk+" version="3.2"/>
   <object class="GtkDialog" id="confirmDeleteDialog">
-    <property name="can_focus">False</property>
-    <property name="border_width">6</property>
-    <property name="type_hint">dialog</property>
+    <property name="can-focus">False</property>
+    <property name="border-width">6</property>
+    <property name="type-hint">dialog</property>
     <property name="decorated">False</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox2">
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child internal-child="action_area">
           <object class="GtkButtonBox" id="dialog-action_area2">
-            <property name="can_focus">False</property>
-            <property name="layout_style">end</property>
+            <property name="can-focus">False</property>
+            <property name="layout-style">end</property>
             <child>
               <object class="GtkButton" id="deleteCancelButton">
                 <property name="label" translatable="yes" context="GUI|Custom Partitioning|Confirm Delete Dialog">_Cancel</property>
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="can_default">True</property>
-                <property name="has_default">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_underline">True</property>
+                <property name="can-focus">True</property>
+                <property name="can-default">True</property>
+                <property name="has-default">True</property>
+                <property name="receives-default">True</property>
+                <property name="use-underline">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -36,9 +36,9 @@
               <object class="GtkButton" id="deleteConfirmButton">
                 <property name="label" translatable="yes" context="GUI|Custom Partitioning|Confirm Delete Dialog">_Delete It</property>
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_underline">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="use-underline">True</property>
                 <signal name="clicked" handler="on_delete_confirm_clicked" swapped="no"/>
               </object>
               <packing>
@@ -51,14 +51,14 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="pack_type">end</property>
+            <property name="pack-type">end</property>
             <property name="position">2</property>
           </packing>
         </child>
         <child>
           <object class="GtkLabel" id="confirmLabel">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
+            <property name="can-focus">False</property>
             <property name="wrap">True</property>
             <property name="xalign">0</property>
             <property name="yalign">0</property>
@@ -75,11 +75,11 @@
         <child>
           <object class="GtkCheckButton" id="optionalCheckbox">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="use_underline">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="use-underline">True</property>
             <property name="xalign">0</property>
-            <property name="draw_indicator">True</property>
+            <property name="draw-indicator">True</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -107,28 +107,28 @@
     </columns>
   </object>
   <object class="GtkDialog" id="disks_dialog">
-    <property name="width_request">550</property>
-    <property name="height_request">200</property>
-    <property name="can_focus">False</property>
-    <property name="border_width">6</property>
-    <property name="type_hint">dialog</property>
+    <property name="width-request">550</property>
+    <property name="height-request">200</property>
+    <property name="can-focus">False</property>
+    <property name="border-width">6</property>
+    <property name="type-hint">dialog</property>
     <property name="decorated">False</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox4">
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="orientation">vertical</property>
         <property name="spacing">6</property>
         <child internal-child="action_area">
           <object class="GtkButtonBox" id="dialog-action_area4">
-            <property name="can_focus">False</property>
-            <property name="layout_style">end</property>
+            <property name="can-focus">False</property>
+            <property name="layout-style">end</property>
             <child>
               <object class="GtkButton" id="cancel_button">
                 <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure Dialog">_Cancel</property>
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_underline">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="use-underline">True</property>
                 <signal name="clicked" handler="on_cancel_clicked" swapped="no"/>
               </object>
               <packing>
@@ -141,9 +141,9 @@
               <object class="GtkButton" id="select_button">
                 <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure Dialog">_Select</property>
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_underline">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="use-underline">True</property>
                 <signal name="clicked" handler="on_select_clicked" swapped="no"/>
               </object>
               <packing>
@@ -156,20 +156,20 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="pack_type">end</property>
+            <property name="pack-type">end</property>
             <property name="position">0</property>
           </packing>
         </child>
         <child>
           <object class="GtkBox" id="box1">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
+            <property name="can-focus">False</property>
             <property name="orientation">vertical</property>
             <property name="spacing">6</property>
             <child>
               <object class="GtkLabel" id="disk_selection_title_label">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can-focus">False</property>
                 <property name="label" translatable="yes">CONFIGURE MOUNT POINT</property>
                 <property name="xalign">0</property>
                 <attributes>
@@ -185,7 +185,7 @@
             <child>
               <object class="GtkLabel" id="disk_selection_label">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can-focus">False</property>
                 <property name="wrap">True</property>
               </object>
               <packing>
@@ -197,17 +197,17 @@
             <child>
               <object class="GtkScrolledWindow" id="scrolledwindow1">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
+                <property name="can-focus">True</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
-                <property name="shadow_type">in</property>
-                <property name="min_content_height">150</property>
+                <property name="shadow-type">in</property>
+                <property name="min-content-height">150</property>
                 <child>
                   <object class="GtkTreeView" id="disk_view">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
+                    <property name="can-focus">True</property>
                     <property name="model">disk_store</property>
-                    <property name="rubber_banding">True</property>
+                    <property name="rubber-banding">True</property>
                     <child internal-child="selection">
                       <object class="GtkTreeSelection" id="disk_view_selection">
                         <property name="mode">multiple</property>
@@ -215,15 +215,15 @@
                     </child>
                     <child>
                       <object class="GtkTreeViewColumn" id="description_column">
+                        <property name="resizable">True</property>
                         <property name="spacing">6</property>
+                        <property name="min-width">100</property>
                         <property name="title" translatable="yes">Description</property>
                         <property name="expand">True</property>
-                        <property name="resizable">True</property>
-                        <property name="min-width">100</property>
                         <property name="clickable">True</property>
                         <child>
                           <object class="GtkCellRendererText" id="description_renderer">
-                             <property name="ellipsize">middle</property>
+                            <property name="ellipsize">middle</property>
                           </object>
                           <attributes>
                             <attribute name="text">0</attribute>
@@ -304,28 +304,28 @@
     <property name="model">mountPointStore</property>
   </object>
   <object class="GtkDialog" id="addDialog">
-    <property name="can_focus">False</property>
-    <property name="border_width">6</property>
-    <property name="type_hint">dialog</property>
+    <property name="can-focus">False</property>
+    <property name="border-width">6</property>
+    <property name="type-hint">dialog</property>
     <property name="decorated">False</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox1">
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child internal-child="action_area">
           <object class="GtkButtonBox" id="dialog-action_area1">
-            <property name="can_focus">False</property>
-            <property name="margin_top">24</property>
-            <property name="layout_style">end</property>
+            <property name="can-focus">False</property>
+            <property name="margin-top">24</property>
+            <property name="layout-style">end</property>
             <child>
               <object class="GtkButton" id="addCancelButton">
                 <property name="label" translatable="yes" context="GUI|Custom Partitioning|Add Dialog">_Cancel</property>
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">False</property>
                 <property name="halign">end</property>
-                <property name="use_underline">True</property>
+                <property name="use-underline">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -337,12 +337,12 @@
               <object class="GtkButton" id="addConfirmButton">
                 <property name="label" translatable="yes" context="GUI|Custom Partitioning|Add Dialog">_Add mount point</property>
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="can_default">True</property>
-                <property name="has_default">True</property>
-                <property name="receives_default">False</property>
+                <property name="can-focus">True</property>
+                <property name="can-default">True</property>
+                <property name="has-default">True</property>
+                <property name="receives-default">False</property>
                 <property name="halign">end</property>
-                <property name="use_underline">True</property>
+                <property name="use-underline">True</property>
                 <signal name="clicked" handler="on_add_confirm_clicked" swapped="no"/>
               </object>
               <packing>
@@ -355,55 +355,56 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="pack_type">end</property>
+            <property name="pack-type">end</property>
             <property name="position">0</property>
           </packing>
         </child>
         <child>
+          <!-- n-columns=3 n-rows=5 -->
           <object class="GtkGrid" id="grid4">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="column_spacing">6</property>
+            <property name="can-focus">False</property>
+            <property name="column-spacing">6</property>
             <child>
               <object class="GtkLabel" id="label7">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="margin_top">6</property>
+                <property name="can-focus">False</property>
+                <property name="margin-top">6</property>
                 <property name="label" translatable="yes" context="GUI|Custom Partitioning|Add Dialog">Desired _Capacity:</property>
-                <property name="use_underline">True</property>
-                <property name="mnemonic_widget">addSizeEntry</property>
+                <property name="use-underline">True</property>
+                <property name="mnemonic-widget">addSizeEntry</property>
                 <property name="xalign">1</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
               </object>
               <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">4</property>
+                <property name="left-attach">0</property>
+                <property name="top-attach">4</property>
               </packing>
             </child>
             <child>
               <object class="GtkLabel" id="label6">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can-focus">False</property>
                 <property name="label" translatable="yes" context="GUI|Custom Partitioning|Add Dialog">Mount _Point:</property>
-                <property name="use_underline">True</property>
-                <property name="mnemonic_widget">addMountPointEntry</property>
+                <property name="use-underline">True</property>
+                <property name="mnemonic-widget">addMountPointEntry</property>
                 <property name="xalign">0</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
               </object>
               <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">2</property>
+                <property name="left-attach">0</property>
+                <property name="top-attach">2</property>
               </packing>
             </child>
             <child>
               <object class="GtkLabel" id="label8">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="margin_bottom">12</property>
+                <property name="can-focus">False</property>
+                <property name="margin-bottom">12</property>
                 <property name="label" translatable="yes">ADD A NEW MOUNT POINT</property>
                 <property name="xalign">0</property>
                 <attributes>
@@ -412,16 +413,16 @@
                 </attributes>
               </object>
               <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">0</property>
+                <property name="left-attach">0</property>
+                <property name="top-attach">0</property>
                 <property name="width">2</property>
               </packing>
             </child>
             <child>
               <object class="GtkLabel" id="label12">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="margin_bottom">12</property>
+                <property name="can-focus">False</property>
+                <property name="margin-bottom">12</property>
                 <property name="label" translatable="yes">More customization options are available
 after creating the mount point below.</property>
                 <attributes>
@@ -430,21 +431,21 @@ after creating the mount point below.</property>
                 </attributes>
               </object>
               <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">1</property>
+                <property name="left-attach">0</property>
+                <property name="top-attach">1</property>
                 <property name="width">2</property>
               </packing>
             </child>
             <child>
               <object class="GtkBox" id="addLabelWarningBox">
-                <property name="can_focus">False</property>
+                <property name="can-focus">False</property>
                 <property name="valign">start</property>
                 <property name="spacing">6</property>
                 <child>
                   <object class="GtkImage" id="image1">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="icon_name">dialog-warning-symbolic</property>
+                    <property name="can-focus">False</property>
+                    <property name="icon-name">dialog-warning-symbolic</property>
                     <property name="icon_size">2</property>
                   </object>
                   <packing>
@@ -456,7 +457,7 @@ after creating the mount point below.</property>
                 <child>
                   <object class="GtkLabel" id="mountPointWarningLabel">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
+                    <property name="can-focus">False</property>
                     <property name="label" translatable="yes">That mount point is already in
 use.  Try something else?</property>
                     <attributes>
@@ -473,40 +474,55 @@ use.  Try something else?</property>
                 </child>
               </object>
               <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">3</property>
+                <property name="left-attach">1</property>
+                <property name="top-attach">3</property>
               </packing>
             </child>
             <child>
               <object class="GtkEntry" id="addSizeEntry">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="placeholder_text" translatable="yes">Enter size and unit.</property>
-                <property name="activates_default">True</property>
+                <property name="can-focus">True</property>
+                <property name="activates-default">True</property>
+                <property name="placeholder-text" translatable="yes">Enter size and unit.</property>
               </object>
               <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">4</property>
+                <property name="left-attach">1</property>
+                <property name="top-attach">4</property>
               </packing>
             </child>
             <child>
               <object class="GtkComboBoxText" id="addMountPointEntry">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="has_entry">True</property>
+                <property name="can-focus">False</property>
+                <property name="has-entry">True</property>
                 <child internal-child="entry">
                   <object class="GtkEntry" id="comboboxtext-entry">
-                    <property name="can_focus">True</property>
+                    <property name="can-focus">True</property>
                     <property name="buffer">mountPointEntryBuffer</property>
-                    <property name="activates_default">True</property>
+                    <property name="activates-default">True</property>
                     <property name="completion">mountPointCompletion</property>
                   </object>
                 </child>
               </object>
               <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">2</property>
+                <property name="left-attach">1</property>
+                <property name="top-attach">2</property>
               </packing>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
             </child>
             <child>
               <placeholder/>
@@ -525,12 +541,6 @@ use.  Try something else?</property>
       <action-widget response="1">addConfirmButton</action-widget>
     </action-widgets>
   </object>
-  <object class="GtkListStore" id="luksVersionStore">
-    <columns>
-      <!-- column-name luks_version -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
   <object class="GtkListStore" id="raidLevelStore">
     <columns>
       <!-- column-name raidLevel -->
@@ -541,7 +551,7 @@ use.  Try something else?</property>
     <data>
       <row>
         <col id="0" translatable="yes">None</col>
-        <col id="1"></col>
+        <col id="1"/>
       </row>
       <row>
         <col id="0" translatable="yes">Single</col>
@@ -574,29 +584,29 @@ use.  Try something else?</property>
     </data>
   </object>
   <object class="GtkTreeModelFilter" id="containerRaidStoreFiltered">
-    <property name="child_model">raidLevelStore</property>
+    <property name="child-model">raidLevelStore</property>
   </object>
   <object class="GtkDialog" id="container_dialog">
-    <property name="can_focus">False</property>
-    <property name="border_width">6</property>
-    <property name="type_hint">dialog</property>
+    <property name="can-focus">False</property>
+    <property name="border-width">6</property>
+    <property name="type-hint">dialog</property>
     <property name="decorated">False</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox5">
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="orientation">vertical</property>
         <property name="spacing">6</property>
         <child internal-child="action_area">
           <object class="GtkButtonBox" id="dialog-action_area5">
-            <property name="can_focus">False</property>
-            <property name="layout_style">end</property>
+            <property name="can-focus">False</property>
+            <property name="layout-style">end</property>
             <child>
               <object class="GtkButton" id="container_cancel_button">
                 <property name="label" translatable="yes" context="GUI|Custom Partitioning|Container Dialog">_Cancel</property>
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="use_underline">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">False</property>
+                <property name="use-underline">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -608,11 +618,11 @@ use.  Try something else?</property>
               <object class="GtkButton" id="container_save_button">
                 <property name="label" translatable="yes" context="GUI|Custom Partitioning|Container Dialog">_Save</property>
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="can_default">True</property>
-                <property name="has_default">True</property>
-                <property name="receives_default">False</property>
-                <property name="use_underline">True</property>
+                <property name="can-focus">True</property>
+                <property name="can-default">True</property>
+                <property name="has-default">True</property>
+                <property name="receives-default">False</property>
+                <property name="use-underline">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -624,20 +634,20 @@ use.  Try something else?</property>
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="pack_type">end</property>
+            <property name="pack-type">end</property>
             <property name="position">0</property>
           </packing>
         </child>
         <child>
           <object class="GtkBox" id="box10">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
+            <property name="can-focus">False</property>
             <property name="orientation">vertical</property>
             <property name="spacing">6</property>
             <child>
               <object class="GtkLabel" id="container_dialog_title_label">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can-focus">False</property>
                 <property name="label" translatable="yes">CONFIGURE CONTAINER</property>
                 <property name="xalign">0</property>
                 <attributes>
@@ -653,7 +663,7 @@ use.  Try something else?</property>
             <child>
               <object class="GtkLabel" id="container_dialog_label">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can-focus">False</property>
                 <property name="label" translatable="yes">Please create a name for this container and select at least one disk below.</property>
                 <property name="wrap">True</property>
               </object>
@@ -666,15 +676,15 @@ use.  Try something else?</property>
             <child>
               <object class="GtkBox" id="box11">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can-focus">False</property>
                 <property name="spacing">6</property>
                 <child>
                   <object class="GtkLabel" id="nameLabel">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
+                    <property name="can-focus">False</property>
                     <property name="label" translatable="yes" context="GUI|Custom Partitioning|Container Dialog">_Name:</property>
-                    <property name="use_underline">True</property>
-                    <property name="mnemonic_widget">container_name_entry</property>
+                    <property name="use-underline">True</property>
+                    <property name="mnemonic-widget">container_name_entry</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -685,8 +695,8 @@ use.  Try something else?</property>
                 <child>
                   <object class="GtkEntry" id="container_name_entry">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="activates_default">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="activates-default">True</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -703,19 +713,19 @@ use.  Try something else?</property>
             </child>
             <child>
               <object class="GtkScrolledWindow" id="scrolledwindow2">
-                <property name="height_request">150</property>
+                <property name="height-request">150</property>
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
+                <property name="can-focus">True</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
-                <property name="shadow_type">in</property>
+                <property name="shadow-type">in</property>
                 <child>
                   <object class="GtkTreeView" id="container_disk_view">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
+                    <property name="can-focus">True</property>
                     <property name="model">disk_store</property>
-                    <property name="search_column">0</property>
-                    <property name="rubber_banding">True</property>
+                    <property name="search-column">0</property>
+                    <property name="rubber-banding">True</property>
                     <child internal-child="selection">
                       <object class="GtkTreeSelection" id="treeview-selection3">
                         <property name="mode">multiple</property>
@@ -783,76 +793,17 @@ use.  Try something else?</property>
               </packing>
             </child>
             <child>
-              <object class="GtkBox" id="encryptionBox">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="spacing">6</property>
-                <child>
-                  <object class="GtkLabel" id="luksVersionLabel">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">LUKS Version:</property>
-                    <property name="xalign">0</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkComboBox" id="luksVersionCombo">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="model">luksVersionStore</property>
-                    <child>
-                      <object class="GtkCellRendererText" id="luksVersionRenderer">
-                        <property name="ellipsize">end</property>
-                      </object>
-                      <attributes>
-                        <attribute name="text">0</attribute>
-                      </attributes>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkCheckButton" id="containerEncryptedCheckbox">
-                    <property name="label" translatable="yes">Encrypt</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="xalign">0</property>
-                    <property name="draw_indicator">True</property>
-                    <signal name="toggled" handler="on_encrypt_toggled" swapped="no"/>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="pack_type">end</property>
-                    <property name="position">2</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">4</property>
-              </packing>
+              <placeholder/>
             </child>
             <child>
               <object class="GtkBox" id="box3">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can-focus">False</property>
                 <property name="spacing">6</property>
                 <child>
                   <object class="GtkLabel" id="containerRaidLevelLabel">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
+                    <property name="can-focus">False</property>
                     <property name="label" translatable="yes">RAID Level:</property>
                     <property name="xalign">0</property>
                   </object>
@@ -865,7 +816,7 @@ use.  Try something else?</property>
                 <child>
                   <object class="GtkComboBox" id="containerRaidLevelCombo">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
+                    <property name="can-focus">False</property>
                     <property name="model">containerRaidStoreFiltered</property>
                     <child>
                       <object class="GtkCellRendererText" id="containerRaidLevelRenderer"/>
@@ -880,6 +831,22 @@ use.  Try something else?</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
+                <child>
+                  <object class="GtkCheckButton" id="containerEncryptedCheckbox">
+                    <property name="label" translatable="yes">Encrypt</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">False</property>
+                    <property name="xalign">0</property>
+                    <property name="draw-indicator">True</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="pack-type">end</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -888,14 +855,69 @@ use.  Try something else?</property>
               </packing>
             </child>
             <child>
+              <object class="GtkBox" id="containerSizeBox">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="spacing">6</property>
+                <child>
+                  <object class="GtkLabel" id="containerSizeLabel">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes" context="GUI|Custom Partitioning|Container Dialog">Si_ze policy:</property>
+                    <property name="use-underline">True</property>
+                    <property name="mnemonic-widget">containerSizeCombo</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkComboBoxText" id="containerSizeCombo">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <items>
+                      <item translatable="yes">Automatic</item>
+                      <item translatable="yes">As large as possible</item>
+                      <item translatable="yes">Fixed</item>
+                    </items>
+                    <signal name="changed" handler="on_size_changed" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkEntry" id="containerSizeEntry">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="activates-default">True</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">6</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkBox" id="containerErrorBox">
-                <property name="can_focus">False</property>
+                <property name="can-focus">False</property>
                 <property name="spacing">6</property>
                 <child>
                   <object class="GtkImage" id="containerErrorImage">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="icon_name">dialog-warning-symbolic</property>
+                    <property name="can-focus">False</property>
+                    <property name="icon-name">dialog-warning-symbolic</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -906,7 +928,7 @@ use.  Try something else?</property>
                 <child>
                   <object class="GtkLabel" id="containerErrorLabel">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
+                    <property name="can-focus">False</property>
                     <property name="label" translatable="yes">Please enter a valid name.</property>
                     <property name="wrap">True</property>
                     <attributes>
@@ -926,61 +948,6 @@ use.  Try something else?</property>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">7</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkBox" id="containerSizeBox">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="spacing">6</property>
-                <child>
-                  <object class="GtkLabel" id="containerSizeLabel">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes" context="GUI|Custom Partitioning|Container Dialog">Si_ze policy:</property>
-                    <property name="use_underline">True</property>
-                    <property name="mnemonic_widget">containerSizeCombo</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkComboBoxText" id="containerSizeCombo">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <items>
-                      <item translatable="yes">Automatic</item>
-                      <item translatable="yes">As large as possible</item>
-                      <item translatable="yes">Fixed</item>
-                    </items>
-                    <signal name="changed" handler="on_size_changed" swapped="no"/>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkEntry" id="containerSizeEntry">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="activates_default">True</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">2</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">6</property>
               </packing>
             </child>
           </object>
