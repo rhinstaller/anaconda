@@ -42,6 +42,7 @@ Source0: %{name}-%{version}.tar.bz2
 %define simplelinever 1.8.3-1
 %define subscriptionmanagerver 1.29.31
 %define utillinuxver 2.15.1
+%define rpmostreever 2023.2
 
 BuildRequires: audit-libs-devel
 BuildRequires: libtool
@@ -100,6 +101,11 @@ Requires: python3-systemd
 Requires: python3-productmd
 Requires: python3-dasbus >= %{dasbusver}
 Requires: flatpak-libs
+# dependencies for rpm-ostree payload module
+Requires: rpm-ostree >= %{rpmostreever}
+Requires: ostree
+# used by ostree command for native containers
+Requires: skopeo
 %if %{defined rhel} && %{undefined centos}
 Requires: subscription-manager >= %{subscriptionmanagerver}
 %endif
