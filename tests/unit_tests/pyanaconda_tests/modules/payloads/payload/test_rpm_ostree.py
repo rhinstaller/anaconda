@@ -86,6 +86,17 @@ class RPMOSTreeKickstartTestCase(unittest.TestCase):
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_RPM_OSTREE)
 
+    def test_ostree_container_kickstart(self):
+        ks_in = """
+        ostreecontainer --stateroot="fedora-coreos" --transport="repository" --remote="fedora" --url="quay.io/fedora/coreos:stable" --no-signature-verification
+        """
+        ks_out = """
+        # OSTree container setup
+        ostreecontainer --stateroot="fedora-coreos" --remote="fedora" --no-signature-verification --transport="repository" --url="quay.io/fedora/coreos:stable"
+        """
+        self.shared_ks_tests.check_kickstart(ks_in, ks_out)
+        self._check_properties(SOURCE_TYPE_RPM_OSTREE_CONTAINER)
+
     def test_priority_kickstart(self):
         ks_in = """
         ostreesetup --osname="fedora-iot" --url="https://compose/iot/" --ref="fedora/iot"
@@ -97,3 +108,15 @@ class RPMOSTreeKickstartTestCase(unittest.TestCase):
         """
         self.shared_ks_tests.check_kickstart(ks_in, ks_out)
         self._check_properties(SOURCE_TYPE_RPM_OSTREE)
+
+    def test_ostreecontainer_priority_kickstart(self):
+        ks_in = """
+        url --url="https://compose/Everything"
+        ostreecontainer --stateroot="fedora-coreos" --remote="fedora" --url="quay.io/fedora/coreos:stable"
+        """
+        ks_out = """
+        # OSTree container setup
+        ostreecontainer --stateroot="fedora-coreos" --remote="fedora" --url="quay.io/fedora/coreos:stable"
+        """
+        self.shared_ks_tests.check_kickstart(ks_in, ks_out)
+        self._check_properties(SOURCE_TYPE_RPM_OSTREE_CONTAINER)
