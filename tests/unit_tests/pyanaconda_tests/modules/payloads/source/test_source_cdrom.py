@@ -47,13 +47,13 @@ class CdromSourceInterfaceTestCase(unittest.TestCase):
 
     def test_device(self):
         """Test CD-ROM source Device API."""
-        assert self.interface.DeviceName == ""
+        assert self.interface.DeviceID == ""
 
         task = self.module.set_up_with_tasks()[0]
         task.get_result = Mock(return_value="top_secret")
         task.succeeded_signal.emit()
 
-        assert self.interface.DeviceName == "top_secret"
+        assert self.interface.DeviceID == "top_secret"
 
 
 class CdromSourceTestCase(unittest.TestCase):

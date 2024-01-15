@@ -511,7 +511,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
 
         # Make the btrfs format not mountable.
         with patch.object(BTRFS, "_mount_class", return_value=Mock(available=False)):
-            request = self.interface.GenerateDeviceFactoryRequest(dev2.name)
+            request = self.interface.GenerateDeviceFactoryRequest(dev2.device_id)
             permissions = self.interface.GenerateDeviceFactoryPermissions(request)
 
         assert get_native(permissions) == {
@@ -673,9 +673,9 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self._add_device(dev2)
         self._add_device(dev3)
 
-        assert self.interface.IsDeviceLocked("dev1") is False
-        assert self.interface.IsDeviceLocked("dev2") is False
-        assert self.interface.IsDeviceLocked("dev3") is True
+        assert self.interface.IsDeviceLocked(dev1.device_id) is False
+        assert self.interface.IsDeviceLocked(dev2.device_id) is False
+        assert self.interface.IsDeviceLocked(dev3.device_id) is True
 
     def test_check_completeness(self):
         """Test CheckCompleteness."""
@@ -704,21 +704,21 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self._add_device(dev3)
 
         self._check_report(
-            self.interface.CheckCompleteness("dev1")
+            self.interface.CheckCompleteness(dev1.device_id)
         )
         self._check_report(
-            self.interface.CheckCompleteness("dev2"),
+            self.interface.CheckCompleteness(dev2.device_id),
             "This Software RAID array is missing 2 of 2 member partitions. "
             "You can remove it or select a different device."
         )
         self._check_report(
-            self.interface.CheckCompleteness("dev3"),
+            self.interface.CheckCompleteness(dev3.device_id),
             "This LVM Volume Group is missing 2 of 2 physical volumes. "
             "You can remove it or select a different device."
         )
         dev1.complete = False
         self._check_report(
-            self.interface.CheckCompleteness("dev1"),
+            self.interface.CheckCompleteness(dev1.device_id),
             "This blivet device is missing member devices. "
             "You can remove it or select a different device."
         )
@@ -739,8 +739,8 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self._add_device(dev1)
         self._add_device(dev2)
 
-        assert self.interface.IsDeviceEditable("dev1") is False
-        assert self.interface.IsDeviceEditable("dev2") is True
+        assert self.interface.IsDeviceEditable(dev1.device_id) is False
+        assert self.interface.IsDeviceEditable(dev2.device_id) is True
 
     def test_collect_containers(self):
         """Test CollectContainers."""
@@ -757,7 +757,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self._add_device(dev1)
         self._add_device(dev2)
 
-        assert self.interface.CollectContainers(DEVICE_TYPE_BTRFS) == [dev2.name]
+        assert self.interface.CollectContainers(DEVICE_TYPE_BTRFS) == [dev2.device_id]
         assert self.interface.CollectContainers(DEVICE_TYPE_LVM) == []
 
     def test_get_container_free_space(self):
@@ -775,10 +775,10 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self._add_device(dev1)
         self._add_device(dev2)
 
-        free_space = self.interface.GetContainerFreeSpace("dev1")
+        free_space = self.interface.GetContainerFreeSpace(dev1.device_id)
         assert free_space == 0
 
-        free_space = self.interface.GetContainerFreeSpace("dev2")
+        free_space = self.interface.GetContainerFreeSpace(dev2.device_id)
         assert free_space > Size("9 GiB").get_bytes()
         assert free_space < Size("10 GiB").get_bytes()
 
@@ -836,7 +836,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
         self._add_device(lv)
 
         request = DeviceFactoryRequest()
-        request.device_spec = lv.name
+        request.device_spec = lv.device_id
 
         request.device_type = DEVICE_TYPE_LVM
         request = DeviceFactoryRequest.from_structure(
@@ -845,7 +845,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             )
         )
 
-        assert request.container_spec == "testvg"
+        assert request.container_spec == "LVM-testvg"
         assert request.container_name == "testvg"
         assert request.container_encrypted is False
         assert request.container_raid_level == ""
@@ -930,7 +930,7 @@ class DeviceTreeSchedulerTestCase(unittest.TestCase):
             )
         )
 
-        assert request.container_spec == "testvg"
+        assert request.container_spec == "LVM-testvg"
         assert request.container_name == "testvg"
         assert request.container_encrypted is False
         assert request.container_raid_level == ""

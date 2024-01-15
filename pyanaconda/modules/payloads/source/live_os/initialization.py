@@ -132,14 +132,14 @@ class SetUpLiveOSSourceTask(SetUpMountTask):
         device_tree = STORAGE.get_proxy(DEVICE_TREE)
 
         # Get the device name.
-        device_name = device_tree.ResolveDevice(self._image_path)
+        device_id = device_tree.ResolveDevice(self._image_path)
 
-        if not device_name:
+        if not device_id:
             raise SourceSetupError("Failed to resolve the Live OS image.")
 
         # Get the device path.
         device_data = DeviceData.from_structure(
-            device_tree.GetDeviceData(device_name)
+            device_tree.GetDeviceData(device_id)
         )
         device_path = device_data.path
 
