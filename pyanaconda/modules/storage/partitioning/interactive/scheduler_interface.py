@@ -35,40 +35,40 @@ __all__ = ["DeviceTreeSchedulerInterface"]
 class DeviceTreeSchedulerInterface(DeviceTreeInterface):
     """DBus interface for the device tree scheduler."""
 
-    def IsDevice(self, device_name: Str) -> Bool:
+    def IsDevice(self, device_id: Str) -> Bool:
         """Is the specified device in the device tree?
 
         It can recognize also hidden and incomplete devices.
 
-        :param device_name: a name of the device
+        :param device_id: ID of the device
         :return: True or False
         """
-        return self.implementation.is_device(device_name)
+        return self.implementation.is_device(device_id)
 
-    def IsDeviceLocked(self, device_name: Str) -> Bool:
+    def IsDeviceLocked(self, device_id: Str) -> Bool:
         """Is the specified device locked?
 
-        :param device_name: a name of the device
+        :param device_id: ID of the device
         :return: True or False
         """
-        return self.implementation.is_device_locked(device_name)
+        return self.implementation.is_device_locked(device_id)
 
-    def IsDeviceEditable(self, device_name: Str) -> Bool:
+    def IsDeviceEditable(self, device_id: Str) -> Bool:
         """Is the specified device editable?
 
-        :param device_name: a name of the device
+        :param device_id: ID of the device
         :return: True or False
         """
-        return self.implementation.is_device_editable(device_name)
+        return self.implementation.is_device_editable(device_id)
 
-    def CheckCompleteness(self, device_name: Str) -> Structure:
+    def CheckCompleteness(self, device_id: Str) -> Structure:
         """Check that the specified device is complete.
 
-        :param device_name: a name of the device
+        :param device_id: ID of the device
         :return: a validation report
         """
         return ValidationReport.to_structure(
-            self.implementation.check_completeness(device_name)
+            self.implementation.check_completeness(device_id)
         )
 
     def GetDefaultFileSystem(self) -> Str:
@@ -88,7 +88,7 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
     def GetContainerFreeSpace(self, container_name: Str) -> UInt64:
         """Get total free space in the specified container.
 
-        :param container_name: a name of the container
+        :param container_name: device ID of the container
         :return: a size in bytes
         """
         return self.implementation.get_container_free_space(container_name)
@@ -126,17 +126,17 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
         """
         return self.implementation.generate_container_name()
 
-    def GenerateDeviceFactoryRequest(self, device_name: Str) -> Structure:
+    def GenerateDeviceFactoryRequest(self, device_id: Str) -> Structure:
         """Generate a device factory request for the given device.
 
         The request will reflect the current state of the device.
         It can be modified and used to change the device.
 
-        :param device_name: a device name
+        :param device_id: a device ID
         :return: a device factory request
         """
         return DeviceFactoryRequest.to_structure(
-            self.implementation.generate_device_factory_request(device_name)
+            self.implementation.generate_device_factory_request(device_id)
         )
 
     def GenerateDeviceFactoryPermissions(self, request: Structure) -> Structure:
@@ -214,21 +214,21 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
             self.implementation.collect_supported_systems()
         )
 
-    def GetDeviceTypesForDevice(self, device_name: Str) -> List[Int]:
+    def GetDeviceTypesForDevice(self, device_id: Str) -> List[Int]:
         """Collect supported device types for the given device.
 
-        :param device_name: a device name
+        :param device_id: a device ID
         :return: a list of device types
         """
-        return self.implementation.get_device_types_for_device(device_name)
+        return self.implementation.get_device_types_for_device(device_id)
 
-    def GetFileSystemsForDevice(self, device_name: Str) -> List[Str]:
+    def GetFileSystemsForDevice(self, device_id: Str) -> List[Str]:
         """Get supported file system types for the given device.
 
-        :param device_name: a device name
+        :param device_id: a device ID
         :return: a list of file system names
         """
-        return self.implementation.get_file_systems_for_device(device_name)
+        return self.implementation.get_file_systems_for_device(device_id)
 
     def GetSupportedRaidLevels(self, device_type: Int) -> List[Str]:
         """Get RAID levels for the specified device type.
@@ -303,23 +303,23 @@ class DeviceTreeSchedulerInterface(DeviceTreeInterface):
             DeviceFactoryRequest.from_structure(original_request)
         )
 
-    def ResetDevice(self, device_name: Str):
+    def ResetDevice(self, device_id: Str):
         """Reset the specified device in the storage model.
 
         FIXME: Merge with DestroyDevice.
 
-        :param device_name: a name of the device
+        :param device_id: ID of the device
         :raise: StorageConfigurationError in case of failure
         """
-        self.implementation.reset_device(device_name)
+        self.implementation.reset_device(device_id)
 
-    def DestroyDevice(self, device_name: Str):
+    def DestroyDevice(self, device_id: Str):
         """Destroy the specified device in the storage model.
 
-        :param device_name: a name of the device
+        :param device_id: ID of the device
         :raise: StorageConfigurationError in case of failure
         """
-        self.implementation.destroy_device(device_name)
+        self.implementation.destroy_device(device_id)
 
     def SchedulePartitionsWithTask(self, request: Structure) -> ObjPath:
         """Schedule the partitioning actions.

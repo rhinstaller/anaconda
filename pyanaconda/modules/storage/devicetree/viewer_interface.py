@@ -41,7 +41,7 @@ class DeviceTreeViewerInterface(InterfaceTemplate):
     def GetDevices(self) -> List[Str]:
         """Get all devices in the device tree.
 
-        :return: a list of device names
+        :return: a list of device IDs
         """
         return self.implementation.get_devices()
 
@@ -50,37 +50,37 @@ class DeviceTreeViewerInterface(InterfaceTemplate):
 
         Ignored disks are excluded, as are disks with no media present.
 
-        :return: a list of device names
+        :return: a list of device IDs
         """
         return self.implementation.get_disks()
 
     def GetMountPoints(self) -> Dict[Str, Str]:
         """Get all mount points in the device tree.
 
-        :return: a dictionary of mount points and device names
+        :return: a dictionary of mount points and device IDs
         """
         return self.implementation.get_mount_points()
 
-    def GetDeviceData(self, name: Str) -> Structure:
+    def GetDeviceData(self, device_id: Str) -> Structure:
         """Get the device data.
 
-        :param name: a device name
+        :param device_id: device ID
         :return: a structure with device data
         :raise: UnknownDeviceError if the device is not found
         """
-        return DeviceData.to_structure(self.implementation.get_device_data(name))
+        return DeviceData.to_structure(self.implementation.get_device_data(device_id))
 
-    def GetFormatData(self, name: Str) -> Structure:
+    def GetFormatData(self, device_id: Str) -> Structure:
         """Get the device format data.
 
         Return data about a format of the specified device.
 
         For example: sda1
 
-        :param name: a name of the device
+        :param device_id: ID of the device
         :return: a structure with format data
         """
-        return DeviceFormatData.to_structure(self.implementation.get_format_data(name))
+        return DeviceFormatData.to_structure(self.implementation.get_format_data(device_id))
 
     def GetFormatTypeData(self, name: Str) -> Structure:
         """Get the format type data.
@@ -111,20 +111,20 @@ class DeviceTreeViewerInterface(InterfaceTemplate):
         If no device is found, return an empty string.
 
         :param dev_spec: a string describing a block device
-        :return: a device name or an empty string
+        :return: a device ID or an empty string
         """
         return self.implementation.resolve_device(dev_spec)
 
-    def GetAncestors(self, device_names: List[Str]) -> List[Str]:
+    def GetAncestors(self, device_ids: List[Str]) -> List[Str]:
         """Collect ancestors of the specified devices.
 
         Ancestors of a device don't include the device itself.
-        The list is sorted by names of the devices.
+        The list is sorted by IDs of the devices.
 
-        :param device_names: a list of device names
-        :return: a list of device names
+        :param device_ids: a list of device names
+        :return: a list of device IDs
         """
-        return self.implementation.get_ancestors(device_names)
+        return self.implementation.get_ancestors(device_ids)
 
     def GetSupportedFileSystems(self) -> List[Str]:
         """Get the supported types of filesystems.
@@ -149,42 +149,42 @@ class DeviceTreeViewerInterface(InterfaceTemplate):
         """
         return self.implementation.get_file_system_free_space(mount_points)
 
-    def GetDiskFreeSpace(self, disk_names: List[Str]) -> UInt64:
+    def GetDiskFreeSpace(self, disk_ids: List[Str]) -> UInt64:
         """Get total free space on the given disks.
 
         Calculates free space available for use.
 
-        :param disk_names: a list of disk names
+        :param disk_ids: a list of disk IDs
         :return: a total size in bytes
         """
-        return self.implementation.get_disk_free_space(disk_names)
+        return self.implementation.get_disk_free_space(disk_ids)
 
-    def GetDiskReclaimableSpace(self, disk_names: List[Str]) -> UInt64:
+    def GetDiskReclaimableSpace(self, disk_ids: List[Str]) -> UInt64:
         """Get total reclaimable space on the given disks.
 
         Calculates free space unavailable but reclaimable
         from existing partitions.
 
-        :param disk_names: a list of disk names
+        :param disk_ids: a list of disk IDs
         :return: a total size in bytes
         """
-        return self.implementation.get_disk_reclaimable_space(disk_names)
+        return self.implementation.get_disk_reclaimable_space(disk_ids)
 
-    def GetDiskTotalSpace(self, disk_names: List[Str]) -> UInt64:
+    def GetDiskTotalSpace(self, disk_ids: List[Str]) -> UInt64:
         """Get total space on the given disks.
 
-        :param disk_names: a list of disk names
+        :param disk_ids: a list of disk IDs
         :return: a total size in bytes
         """
-        return self.implementation.get_disk_total_space(disk_names)
+        return self.implementation.get_disk_total_space(disk_ids)
 
-    def GetFstabSpec(self, name: Str) -> Str:
+    def GetFstabSpec(self, device_id: Str) -> Str:
         """Get the device specifier for use in /etc/fstab.
 
-        :param name: a name of the device
+        :param device_id: ID of the device
         :return: a device specifier for /etc/fstab
         """
-        return self.implementation.get_fstab_spec(name)
+        return self.implementation.get_fstab_spec(device_id)
 
     def GetExistingSystems(self) -> List[Structure]:
         """Get existing GNU/Linux installations.

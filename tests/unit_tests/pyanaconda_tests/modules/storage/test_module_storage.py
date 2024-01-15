@@ -26,6 +26,7 @@ import pytest
 from unittest.mock import patch, Mock, PropertyMock
 
 from blivet.formats.fs import BTRFS
+from blivet.devices import StorageDevice
 from dasbus.typing import *  # pylint: disable=wildcard-import
 from pykickstart.errors import KickstartParseError
 
@@ -105,6 +106,10 @@ class StorageInterfaceTestCase(unittest.TestCase):
         self.storage_module.created_partitioning_changed.connect(
             self.storage_module._set_applied_partitioning
         )
+
+    def _add_device(self, device):
+        """Add a device to the device tree."""
+        self.storage_module.storage.devicetree._add_device(device)
 
     def test_initialization(self):
         """Test the Blivet initialization."""
@@ -902,6 +907,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         # Mount points configuration
         mount /dev/sda1 /boot
         """
+        self._add_device(StorageDevice("sda1"))
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._check_dbus_partitioning(publisher, PartitioningMethod.MANUAL)
@@ -916,6 +922,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         # Mount points configuration
         mount /dev/sda1 none
         """
+        self._add_device(StorageDevice("sda1"))
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._check_dbus_partitioning(publisher, PartitioningMethod.MANUAL)
@@ -930,6 +937,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         # Mount points configuration
         mount /dev/sda1 /boot --mountoptions="user"
         """
+        self._add_device(StorageDevice("sda1"))
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._check_dbus_partitioning(publisher, PartitioningMethod.MANUAL)
@@ -944,6 +952,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         # Mount points configuration
         mount /dev/sda1 /boot --reformat
         """
+        self._add_device(StorageDevice("sda1"))
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._check_dbus_partitioning(publisher, PartitioningMethod.MANUAL)
@@ -958,6 +967,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         # Mount points configuration
         mount /dev/sda1 /boot --reformat=xfs --mkfsoptions="-L BOOT"
         """
+        self._add_device(StorageDevice("sda1"))
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._check_dbus_partitioning(publisher, PartitioningMethod.MANUAL)
@@ -978,6 +988,10 @@ class StorageInterfaceTestCase(unittest.TestCase):
         mount /dev/sdb1 /home
         mount /dev/sdb2 none
         """
+        self._add_device(StorageDevice("sda1"))
+        self._add_device(StorageDevice("sda2"))
+        self._add_device(StorageDevice("sdb1"))
+        self._add_device(StorageDevice("sdb2"))
         self._apply_partitioning_when_created()
         self._test_kickstart(ks_in, ks_out)
         self._check_dbus_partitioning(publisher, PartitioningMethod.MANUAL)

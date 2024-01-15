@@ -66,9 +66,9 @@ def exitHandler(rebootData):
     device_tree = STORAGE.get_proxy(DEVICE_TREE)  # pylint: disable=possibly-used-before-assignment
     optical_media = []
 
-    for device_name in device_tree.FindOpticalMedia():
+    for device_id in device_tree.FindOpticalMedia():
         device_data = DeviceData.from_structure(
-            device_tree.GetDeviceData(device_name)
+            device_tree.GetDeviceData(device_id)
         )
         optical_media.append(device_data.path)
 

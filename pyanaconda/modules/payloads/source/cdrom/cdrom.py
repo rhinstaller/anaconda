@@ -41,8 +41,8 @@ class CdromSourceModule(PayloadSourceBase, MountingSourceMixin, RPMSourceMixin):
 
     def __init__(self):
         super().__init__()
-        self._device_name = ""
-        self.device_name_changed = Signal()
+        self._device_id = ""
+        self.device_id_changed = Signal()
 
     def __repr__(self):
         return "Source(type='CDROM')"
@@ -79,13 +79,13 @@ class CdromSourceModule(PayloadSourceBase, MountingSourceMixin, RPMSourceMixin):
         return 0
 
     @property
-    def device_name(self):
-        """Get device name of the cdrom found.
+    def device_id(self):
+        """Get device ID of the cdrom found.
 
-        :return: name of the cdrom device
+        :return: device ID of the cdrom device
         :rtype: str
         """
-        return self._device_name
+        return self._device_id
 
     def get_state(self):
         """Get state of this source."""
@@ -126,6 +126,6 @@ class CdromSourceModule(PayloadSourceBase, MountingSourceMixin, RPMSourceMixin):
         data.cdrom.seen = True
 
     def _handle_setup_task_result(self, task):
-        self._device_name = task.get_result()
-        self.device_name_changed.emit()
+        self._device_id = task.get_result()
+        self.device_id_changed.emit()
         self.module_properties_changed.emit()
