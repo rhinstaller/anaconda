@@ -55,46 +55,46 @@ class DeviceTreeViewer(ABC):
     def get_root_device(self):
         """Get the root device.
 
-        :return: a name of the root device
+        :return: device ID of the root device
         """
         device = self.storage.root_device
-        return device.name if device else ""
+        return device.device_id if device else ""
 
     def get_devices(self):
         """Get all devices in the device tree.
 
-        :return: a list of device names
+        :return: a list of device IDs
         """
-        return [d.name for d in self.storage.devices]
+        return [d.device_id for d in self.storage.devices]
 
     def get_disks(self):
         """Get all disks in the device tree.
 
         Ignored disks are excluded, as are disks with no media present.
 
-        :return: a list of device names
+        :return: a list of device IDs
         """
-        return [d.name for d in self.storage.disks]
+        return [d.device_id for d in self.storage.disks]
 
     def get_mount_points(self):
         """Get all mount points in the device tree.
 
-        :return: a dictionary of mount points and device names
+        :return: a dictionary of mount points and device IDs
         """
         return {
-            mount_point: device.name
+            mount_point: device.device_id
             for mount_point, device in self.storage.mountpoints.items()
         }
 
-    def get_device_data(self, name):
+    def get_device_data(self, device_id):
         """Get the device data.
 
-        :param name: a device name
+        :param device_id: a device ID
         :return: an instance of DeviceData
         :raise: UnknownDeviceError if the device is not found
         """
         # Find the device.
-        device = self._get_device(name)
+        device = self._get_device(device_id)
 
         # Collect the device data.
         data = DeviceData()
@@ -118,13 +118,14 @@ class DeviceTreeViewer(ABC):
 
     def _set_device_data(self, device, data):
         """Set data for a device of any type."""
+        data.device_id = device.device_id
         data.type = device.type
         data.name = device.name
         data.path = device.path
         data.links = device.device_links
         data.size = device.size.get_bytes()
-        data.parents = [d.name for d in device.parents]
-        data.children = [d.name for d in device.children]
+        data.parents = [d.device_id for d in device.parents]
+        data.children = [d.device_id for d in device.children]
         data.is_disk = device.is_disk
         data.protected = device.protected
         data.removable = device.removable
@@ -177,7 +178,7 @@ class DeviceTreeViewer(ABC):
         data.attrs["hba-id"] = self._get_attribute(device, "hba_id")
         data.attrs["path-id"] = self._get_attribute(device, "id_path")
 
-    def get_format_data(self, device_name):
+    def get_format_data(self, device_id):
         """Get the device format data.
 
         Return data about a format of the specified device.
@@ -187,7 +188,7 @@ class DeviceTreeViewer(ABC):
         :param device_name: a name of the device
         :return: an instance of DeviceFormatData
         """
-        device = self._get_device(device_name)
+        device = self._get_device(device_id)
         return self._get_format_data(device.format)
 
     def _get_format_data(self, fmt):
@@ -244,29 +245,29 @@ class DeviceTreeViewer(ABC):
         data.description = fmt.name or ""
         return data
 
-    def _get_device(self, name):
-        """Find a device by its name.
+    def _get_device(self, device_id):
+        """Find a device by its device ID.
 
-        :param name: a name of the device
+        :param device_id: an ID of the device
         :return: an instance of the Blivet's device
         :raise: UnknownDeviceError if no device is found
         """
-        device = self.storage.devicetree.get_device_by_name(
-            name, hidden=True, incomplete=True
+        device = self.storage.devicetree.get_device_by_device_id(
+            device_id, hidden=True, incomplete=True
         )
 
         if not device:
-            raise UnknownDeviceError(name)
+            raise UnknownDeviceError(device_id)
 
         return device
 
-    def _get_devices(self, names):
-        """Find devices by their names.
+    def _get_devices(self, device_ids):
+        """Find devices by their device IDs.
 
-        :param names: names of the devices
+        :param device_ids: IDs of the devices
         :return: a list of instances of the Blivet's device
         """
-        return list(map(self._get_device, names))
+        return list(map(self._get_device, device_ids))
 
     def _get_attribute(self, obj, name):
         """Get the attribute of the given object.
@@ -354,6 +355,7 @@ class DeviceTreeViewer(ABC):
         # Collect the device data.
         device = action.device
         data.device_name = device.name
+        data.device_id = device.device_id
 
         if action.is_create or action.is_device or action.is_format:
             data.attrs["mount-point"] = self._get_attribute(action.format, "mountpoint")
@@ -379,7 +381,7 @@ class DeviceTreeViewer(ABC):
         return data
 
     def resolve_device(self, dev_spec):
-        """Get the device matching the provided device specification.
+        """Get the device ID matching the provided device specification.
 
         The spec can be anything from a device name (eg: 'sda3') to a
         device node path (eg: '/dev/mapper/fedora-root') to something
@@ -388,31 +390,31 @@ class DeviceTreeViewer(ABC):
         If no device is found, return an empty string.
 
         :param dev_spec: a string describing a block device
-        :return: a device name or an empty string
+        :return: a device ID or an empty string
         """
         device = self.storage.devicetree.resolve_device(dev_spec)
 
         if not device:
             return ""
 
-        return device.name
+        return device.device_id
 
-    def get_ancestors(self, device_names):
+    def get_ancestors(self, device_ids):
         """Collect ancestors of the specified devices.
 
         Ancestors of a device don't include the device itself.
-        The list is sorted by names of the devices.
+        The list is sorted by IDs of the devices.
 
-        :param device_names: a list of device names
-        :return: a list of device names
+        :param device_ids: a list of device IDs
+        :return: a list of device IDs
         """
-        devices = self._get_devices(device_names)
+        devices = self._get_devices(device_ids)
         ancestors = set()
 
         for device in devices:
             for ancestor in device.ancestors:
                 if ancestor != device:
-                    ancestors.add(ancestor.name)
+                    ancestors.add(ancestor.device_id)
 
         return sorted(ancestors)
 
@@ -439,45 +441,45 @@ class DeviceTreeViewer(ABC):
         """
         return self.storage.get_file_system_free_space(mount_points).get_bytes()
 
-    def get_disk_free_space(self, disk_names):
+    def get_disk_free_space(self, disk_ids):
         """Get total free space on the given disks.
 
         Calculates free space available for use.
 
-        :param disk_names: a list of disk names
+        :param disk_ids: a list of disk IDs
         :return: a total size in bytes
         """
-        disks = self._get_devices(disk_names)
+        disks = self._get_devices(disk_ids)
         return self.storage.get_disk_free_space(disks).get_bytes()
 
-    def get_disk_reclaimable_space(self, disk_names):
+    def get_disk_reclaimable_space(self, disk_ids):
         """Get total reclaimable space on the given disks.
 
         Calculates free space unavailable but reclaimable
         from existing partitions.
 
-        :param disk_names: a list of disk names
+        :param disk_ids: a list of disk IDs
         :return: a total size in bytes
         """
-        disks = self._get_devices(disk_names)
+        disks = self._get_devices(disk_ids)
         return self.storage.get_disk_reclaimable_space(disks).get_bytes()
 
-    def get_disk_total_space(self, disk_names):
+    def get_disk_total_space(self, disk_ids):
         """Get total space on the given disks.
 
-        :param disk_names: a list of disk names
+        :param disk_ids: a list of disk IDs
         :return: a total size in bytes
         """
-        disks = self._get_devices(disk_names)
+        disks = self._get_devices(disk_ids)
         return sum((d.size for d in disks), Size(0)).get_bytes()
 
-    def get_fstab_spec(self, name):
+    def get_fstab_spec(self, device_id):
         """Get the device specifier for use in /etc/fstab.
 
-        :param name: a name of the device
+        :param device_id: ID of the device
         :return: a device specifier for /etc/fstab
         """
-        device = self._get_device(name)
+        device = self._get_device(device_id)
         return device.fstab_spec
 
     def get_existing_systems(self):
@@ -503,10 +505,10 @@ class DeviceTreeViewer(ABC):
         data = OSData()
         data.os_name = root.name or ""
         data.devices = [
-            device.name for device in root.devices
+            device.device_id for device in root.devices
         ]
         data.mount_points = {
-            path: device.name for path, device in root.mounts.items()
+            path: device.device_id for path, device in root.mounts.items()
         }
         return data
 

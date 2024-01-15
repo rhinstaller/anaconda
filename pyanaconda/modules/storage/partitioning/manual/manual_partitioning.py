@@ -67,7 +67,7 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
             # XXX empty request, ignore
             return
 
-        device = storage.devicetree.resolve_device(device_spec)
+        device = storage.devicetree.get_device_by_device_id(device_spec)
         if device is None:
             raise StorageError(
                 _("Unknown or invalid device '{}' specified").format(device_spec)
@@ -80,13 +80,13 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
                 if not fmt:
                     raise StorageError(
                         _("Unknown or invalid format '{}' specified for "
-                          "device '{}'").format(format_type, device_spec)
+                          "device '{}'").format(format_type, device.name)
                     )
             else:
                 old_fmt = device.format
 
                 if not old_fmt or old_fmt.type is None:
-                    raise StorageError(_("No format on device '{}'").format(device_spec))
+                    raise StorageError(_("No format on device '{}'").format(device.name))
 
                 fmt = get_format(old_fmt.type)
 
@@ -97,14 +97,14 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
                 # using these nested subvolumes for other MountPointRequest without also
                 # re-creating them
                 if device.raw_device.type == "btrfs volume":
-                    depending_subvolumes = device.raw_device.subvolumes
+                    dep_subvolumes = device.raw_device.subvolumes
                 elif device.raw_device.type == "btrfs subvolume":
-                    depending_subvolumes = [sub.name for sub in device.raw_device.volume.subvolumes
-                                            if sub.depends_on(device.raw_device)]
+                    dep_subvolumes = [sub.device_id for sub in device.raw_device.volume.subvolumes
+                                      if sub.depends_on(device.raw_device)]
                 problem_subvolumes = [req for req in self._requests if (req.mount_point
                                                                         and not req.reformat
                                                                         and req.device_spec in
-                                                                        depending_subvolumes)]
+                                                                        dep_subvolumes)]
                 if problem_subvolumes:
                     err = (_("{} mounted as {}").format(dep.device_spec,
                                                         dep.mount_point) for dep in problem_subvolumes)
@@ -156,7 +156,7 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
         :param storage: an instance of the Blivet's storage object
         :param dev_spec: a string describing a block device to be recreated
         """
-        device = storage.devicetree.resolve_device(dev_spec)
+        device = storage.devicetree.get_device_by_device_id(dev_spec)
 
         if device.type == "btrfs volume":
             # can't use device factory for just the volume
@@ -166,6 +166,6 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
             destroy_device(storage, device)
             task = AddDeviceTask(storage, request)
             task.run()
-            device = storage.devicetree.resolve_device(dev_spec)
+            device = storage.devicetree.get_device_by_device_id(dev_spec)
 
             return device

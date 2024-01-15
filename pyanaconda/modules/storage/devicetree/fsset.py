@@ -73,6 +73,7 @@ def get_containing_device(path, devicetree):
         # have I told you lately that I love you, device-mapper?
         device_name = blockdev.dm.name_from_node(device_name)
 
+    # XXX we get device name from sysfs so usage of get_device_by_name here is correct
     return devicetree.get_device_by_name(device_name)
 
 

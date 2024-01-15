@@ -32,6 +32,7 @@ from pyanaconda.payload.manager import payloadMgr
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.ui.lib.payload import find_potential_hdiso_sources, get_hdiso_source_info, \
     get_hdiso_source_description
+from pyanaconda.modules.common.structures.storage import DeviceData
 
 from pyanaconda.core.constants import THREAD_SOURCE_WATCHER, THREAD_PAYLOAD, PAYLOAD_TYPE_DNF, \
     SOURCE_TYPE_URL, SOURCE_TYPE_NFS, SOURCE_TYPE_HMC, PAYLOAD_STATUS_SETTING_SOURCE, \
@@ -410,9 +411,11 @@ class SelectDeviceSpoke(NormalTUISpoke):
     def _get_mountable_devices(self):
         disks = []
 
-        for device_name in find_potential_hdiso_sources():
-            device_info = get_hdiso_source_info(self._device_tree, device_name)
+        for device_id in find_potential_hdiso_sources():
+            device_info = get_hdiso_source_info(self._device_tree, device_id)
             device_desc = get_hdiso_source_description(device_info)
+            device_data = DeviceData.from_structure(self._device_tree.GetDeviceData(device_id))
+            device_name = device_data.name
             disks.append([device_name, device_desc])
 
         return disks

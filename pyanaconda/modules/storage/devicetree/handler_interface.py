@@ -30,33 +30,33 @@ __all__ = ["DeviceTreeHandlerInterface"]
 class DeviceTreeHandlerInterface(InterfaceTemplate):
     """DBus interface for the device tree handler."""
 
-    def MountDevice(self, device_name: Str, mount_point: Str, options: Str):
+    def MountDevice(self, device_id: Str, mount_point: Str, options: Str):
         """Mount a filesystem on the device.
 
-        :param device_name: a name of the device
+        :param device_id: ID of the device
         :param mount_point: a path to the mount point
         :param options: a string with mount options or an empty string to use defaults
         :raise: MountFilesystemError if mount fails
         """
-        self.implementation.mount_device(device_name, mount_point, options)
+        self.implementation.mount_device(device_id, mount_point, options)
 
-    def UnmountDevice(self, device_name: Str, mount_point: Str):
+    def UnmountDevice(self, device_id: Str, mount_point: Str):
         """Unmount a filesystem on the device.
 
-        :param device_name: a name of the device
+        :param device_id: ID of the device
         :param mount_point: a path to the mount point
         :raise: MountFilesystemError if unmount fails
         """
-        self.implementation.unmount_device(device_name, mount_point)
+        self.implementation.unmount_device(device_id, mount_point)
 
-    def UnlockDevice(self, device_name: Str, passphrase: Str) -> Bool:
+    def UnlockDevice(self, device_id: Str, passphrase: Str) -> Bool:
         """Unlock a device.
 
-        :param device_name: a name of the device
+        :param device_id: ID of the device
         :param passphrase: a passphrase
         :return: True if success, otherwise False
         """
-        return self.implementation.unlock_device(device_name, passphrase)
+        return self.implementation.unlock_device(device_id, passphrase)
 
     def FindUnconfiguredLUKS(self) -> List[Str]:
         """Find all unconfigured LUKS devices.
@@ -64,37 +64,37 @@ class DeviceTreeHandlerInterface(InterfaceTemplate):
         Returns a list of devices that require to set up
         a passphrase to complete their configuration.
 
-        :return: a list of device names
+        :return: a list of device IDs
         """
         return self.implementation.find_unconfigured_luks()
 
-    def SetDevicePassphrase(self, device_name: Str, passphrase: Str):
+    def SetDevicePassphrase(self, device_id: Str, passphrase: Str):
         """Set a passphrase of the unconfigured LUKS device.
 
-        :param device_name: a name of the device
+        :param device_id: ID of the device
         :param passphrase: a passphrase
         """
-        self.implementation.set_device_passphrase(device_name, passphrase)
+        self.implementation.set_device_passphrase(device_id, passphrase)
 
-    def GetDeviceMountOptions(self, device_name: Str) -> Str:
+    def GetDeviceMountOptions(self, device_id: Str) -> Str:
         """Get mount options of the specified device.
 
-        :param device_name: a name of the device
+        :param device_id: ID of the device
         :return: a string with options
         """
-        return self.implementation.get_device_mount_options(device_name)
+        return self.implementation.get_device_mount_options(device_id)
 
-    def SetDeviceMountOptions(self, device_name: Str, mount_options: Str):
+    def SetDeviceMountOptions(self, device_id: Str, mount_options: Str):
         """Set mount options of the specified device.
 
         Specifies a free form string of options to be used when
         mounting the filesystem. This string will be copied into
         the /etc/fstab file of the installed system.
 
-        :param device_name: a name of the device
+        :param device_id: ID of the device
         :param mount_options: a string with options
         """
-        self.implementation.set_device_mount_options(device_name, mount_options)
+        self.implementation.set_device_mount_options(device_id, mount_options)
 
     def FindDevicesWithTask(self) -> ObjPath:
         """Find new devices.
@@ -110,14 +110,14 @@ class DeviceTreeHandlerInterface(InterfaceTemplate):
     def FindOpticalMedia(self) -> List[Str]:
         """Find all devices with mountable optical media.
 
-        :return: a list of device names
+        :return: a list of device IDs
         """
         return self.implementation.find_optical_media()
 
     def FindMountablePartitions(self) -> List[Str]:
         """Find all mountable partitions.
 
-        :return: a list of device names
+        :return: a list of device IDs
         """
         return self.implementation.find_mountable_partitions()
 
@@ -132,13 +132,13 @@ class DeviceTreeHandlerInterface(InterfaceTemplate):
             self.implementation.find_existing_systems_with_task()
         )
 
-    def MountExistingSystemWithTask(self, device_name: Str, read_only: Bool) -> ObjPath:
+    def MountExistingSystemWithTask(self, device_id: Str, read_only: Bool) -> ObjPath:
         """Mount existing GNU/Linux installation.
 
-        :param device_name: a name of the root device
+        :param device_id: device ID of the root device
         :param read_only: mount the system in read-only mode
         :return: a path to the task
         """
         return TaskContainer.to_object_path(
-            self.implementation.mount_existing_system_with_task(device_name, read_only)
+            self.implementation.mount_existing_system_with_task(device_id, read_only)
         )

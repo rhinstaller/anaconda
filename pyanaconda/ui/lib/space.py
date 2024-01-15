@@ -64,13 +64,13 @@ class FileSystemSpaceChecker(object):
         :param needed: a needed space
         :return: a deficit size or None
         """
-        root_name = self.device_tree.GetRootDevice()
+        root_id = self.device_tree.GetRootDevice()
 
-        if not root_name:
+        if not root_id:
             return None
 
         root_data = DeviceData.from_structure(
-            self.device_tree.GetDeviceData(root_name)
+            self.device_tree.GetDeviceData(root_id)
         )
 
         current = root_data.size
