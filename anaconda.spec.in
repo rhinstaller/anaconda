@@ -274,8 +274,9 @@ Summary: Graphical user interface for the Anaconda installer
 Requires: anaconda-core = %{version}-%{release}
 Requires: anaconda-widgets = %{version}-%{release}
 Requires: python3-meh-gui >= %{mehver}
+# FIXME: we should not have to manually drag in drivers like this :P
+Requires: mesa-dri-drivers
 Requires: adwaita-icon-theme
-Requires: tigervnc-server-minimal
 Requires: libxklavier >= %{libxklavierver}
 Requires: libgnomekbd
 Requires: libtimezonemap >= %{libtimezonemapver}
