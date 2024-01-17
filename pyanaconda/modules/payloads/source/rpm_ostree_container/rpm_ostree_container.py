@@ -69,10 +69,10 @@ class RPMOSTreeContainerSourceModule(RPMOSTreeSourceModule):
         """Process the kickstart data."""
         configuration = RPMOSTreeContainerConfigurationData()
 
-        configuration.stateroot = data.ostreecontainer.stateroot
-        configuration.url = data.ostreecontainer.url
-        configuration.remote = data.ostreecontainer.remote
-        configuration.transport = data.ostreecontainer.transport
+        configuration.stateroot = data.ostreecontainer.stateroot or ""
+        configuration.url = data.ostreecontainer.url or ""
+        configuration.remote = data.ostreecontainer.remote or ""
+        configuration.transport = data.ostreecontainer.transport or ""
         configuration.signature_verification_enabled = not data.ostreecontainer.noSignatureVerification
 
         self.set_configuration(configuration)
