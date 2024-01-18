@@ -1,0 +1,56 @@
+From 3b6fcfc755ee9b2a5b4de7965ee2e3fc41045379 Mon Sep 17 00:00:00 2001
+From: Neal Gompa <ngompa@fedoraproject.org>
+Date: Thu, 18 Jan 2024 11:59:00 -0500
+Subject: [PATCH] templates.d/99-generic/runtime-cleanup: Do not purge sound
+ packages
+
+These cause the build to fail when adding Weston to the boot.iso.
+---
+ share/templates.d/99-generic/runtime-cleanup.tmpl | 10 +---------
+ 1 file changed, 1 insertion(+), 9 deletions(-)
+
+diff --git a/share/templates.d/99-generic/runtime-cleanup.tmpl b/share/templates.d/99-generic/runtime-cleanup.tmpl
+index aad31f77..e4148b7c 100644
+--- a/share/templates.d/99-generic/runtime-cleanup.tmpl
++++ b/share/templates.d/99-generic/runtime-cleanup.tmpl
+@@ -9,8 +9,6 @@ remove usr/share/i18n
+ ## perl needed for powerpc-utils
+ ## perl is needed by /usr/bin/rxe_cfg from libibverbs
+ 
+-## no sound support, thanks
+-removepkg flac-libs libsndfile pipewire pulseaudio* rtkit sound-theme-freedesktop wireplumber*
+ ## we don't create new initramfs/bootloader conf inside anaconda
+ ## (that happens inside the target system after we install dracut/grubby)
+ removepkg dracut-network grubby anaconda-dracut
+@@ -52,7 +50,6 @@ removepkg mtools glibc-gconv-extra
+ 
+ ## various other things we remove to save space
+ removepkg diffutils file
+-removepkg libasyncns
+ removepkg lvm2-libs
+ removepkg mobile-broadband-provider-info
+ removepkg rmt rpcbind squashfs-tools
+@@ -196,7 +193,6 @@ removefrom libidn2 /usr/share/locale/*
+ removefrom libnotify /usr/bin/*
+ removefrom libsemanage /etc/selinux/*
+ removefrom libstdc++ /usr/share/*
+-removefrom libvorbis /usr/${libdir}/libvorbisenc.*
+ removefrom libxml2 /usr/bin/*
+ removefrom linux-firmware /usr/lib/firmware/dvb*
+ removefrom linux-firmware /usr/lib/firmware/*_12mhz*
+@@ -365,11 +361,7 @@ removefrom gstreamer1-plugins-base --allbut \
+ removepkg geoclue2
+ 
+ ## And remove the packages that those extra libraries pulled in
+-removepkg cdparanoia-libs opus libtheora libvisual flac-libs gsm avahi-glib avahi-libs \
+-          ModemManager-glib
+-
+-## metacity requires libvorbis and libvorbisfile, but enc/dec are no longer needed
+-removefrom libvorbis --allbut /usr/${libdir}/libvorbisfile.* /usr/${libdir}/libvorbis.*
++removepkg cdparanoia-libs libvisual avahi-glib avahi-libs ModemManager-glib
+ 
+ ## Remove build-id links, they are used with debuginfo
+ remove /usr/lib/.build-id
+-- 
+2.43.0
+
