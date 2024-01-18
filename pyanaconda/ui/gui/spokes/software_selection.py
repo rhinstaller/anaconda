@@ -32,9 +32,13 @@ from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.spokes.lib.software_selection import GroupListBoxRow, SeparatorRow, \
     EnvironmentListBoxRow
+from pyanaconda.ui.gui.utils import escape_markup
 from pyanaconda.ui.lib.software import SoftwareSelectionCache, get_software_selection_status, \
     is_software_selection_complete, get_group_data, get_environment_data
 from pyanaconda.ui.lib.subscription import is_cdn_registration_required
+from pyanaconda.ui.lib.software import FEATURE_64K, KernelFeatures, get_kernel_from_properties, \
+    get_available_kernel_features, get_kernel_titles_and_descriptions
+from pyanaconda.core.configuration.anaconda import conf
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -93,6 +97,23 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._addon_list_box.set_focus_vadjustment(
             Gtk.Scrollable.get_vadjustment(addon_viewport)
         )
+
+        # Display a group of options for selecting desired properties of a kernel
+        self._kernel_box = self.builder.get_object("kernelBox")
+        self._combo_kernel_page_size = self.builder.get_object("kernelPageSizeCombo")
+        self._label_kernel_page_size = self.builder.get_object("kernelPageSizeLabel")
+
+        # Normally I would create these in the .glade file but due to a bug they weren't
+        # created properly
+        self._model_kernel_page_size = Gtk.ListStore(str, str)
+
+        kernel_labels = get_kernel_titles_and_descriptions()
+        for i in ["4k", "64k"]:
+            self._model_kernel_page_size.append([i, "<b>%s</b>\n%s" %
+                                                (escape_markup(kernel_labels[i][0]),
+                                                 escape_markup(kernel_labels[i][1]))])
+        self._combo_kernel_page_size.set_model(self._model_kernel_page_size)
+        self._available_kernels = get_available_kernel_features(self.payload.proxy)
 
     @property
     def _selection(self):
@@ -214,10 +235,12 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # Create a new software selection cache.
         self._selection_cache = SoftwareSelectionCache(self.payload.proxy)
         self._selection_cache.apply_selection_data(self._selection)
+        self._available_kernels = get_available_kernel_features(self.payload.proxy)
 
         # Refresh up the UI.
         self._refresh_environments()
         self._refresh_groups()
+        self._refresh_kernel_features()
 
         # Set up the info bar.
         self.clear_info()
@@ -291,12 +314,49 @@ class SoftwareSelectionSpoke(NormalSpoke):
             listbox.remove(child)
             del child
 
+    def _refresh_kernel_features(self):
+        """Display options for selecting kernel features."""
+
+        # Only showing parts of kernel box relevant for current system.
+        self._available_kernels = get_available_kernel_features(self.payload.proxy)
+
+        show_kernels = False
+        if conf.ui.show_kernel_options:
+            for (_key, val) in self._available_kernels.items():
+                if val:
+                    show_kernels = True
+                    break
+
+        if show_kernels:
+            self._kernel_box.set_visible(True)
+            self._kernel_box.set_no_show_all(False)
+
+            # Arm 64k page size kernel combo
+            self._combo_kernel_page_size.set_visible(self._available_kernels[FEATURE_64K])
+            self._combo_kernel_page_size.set_no_show_all(not self._available_kernels[FEATURE_64K])
+            self._label_kernel_page_size.set_visible(self._available_kernels[FEATURE_64K])
+            self._label_kernel_page_size.set_no_show_all(not self._available_kernels[FEATURE_64K])
+        else:
+            # Hide the entire box.
+            self._kernel_box.set_visible(False)
+            self._kernel_box.set_no_show_all(True)
+
     def apply(self):
         """Apply the changes."""
         self._kickstarted = False
 
         selection = self._selection_cache.get_selection_data()
         log.debug("Setting new software selection: %s", selection)
+
+        # Select kernel
+        property_64k = self._available_kernels[FEATURE_64K] and \
+            self._combo_kernel_page_size.get_active_id() == FEATURE_64K
+        kernel_properties = KernelFeatures(property_64k)
+        kernel = get_kernel_from_properties(kernel_properties)
+        if kernel is not None and conf.ui.show_kernel_options:
+            log.debug("Selected kernel package: %s", kernel)
+            selection.packages.append(kernel)
+            selection.excluded_packages.append("kernel")
 
         self.payload.set_packages_selection(selection)
 

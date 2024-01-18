@@ -4,24 +4,25 @@
   <requires lib="gtk+" version="3.10"/>
   <requires lib="AnacondaWidgets" version="1.0"/>
   <object class="AnacondaSpokeWindow" id="softwareWindow">
-    <property name="can_focus">False</property>
+    <property name="can-focus">False</property>
     <property name="hexpand">True</property>
     <property name="vexpand">True</property>
-    <property name="window_name" translatable="yes">SOFTWARE SELECTION</property>
+    <property name="window-name" translatable="yes">SOFTWARE SELECTION</property>
     <signal name="button-clicked" handler="on_back_clicked" swapped="no"/>
     <signal name="info-bar-clicked" handler="on_info_bar_clicked" swapped="no"/>
     <child internal-child="main_box">
       <object class="GtkBox" id="AnacondaSpokeWindow-main_box1">
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
         <property name="orientation">vertical</property>
         <child internal-child="nav_box">
           <object class="GtkEventBox" id="AnacondaSpokeWindow-nav_box1">
-            <property name="can_focus">False</property>
+            <property name="can-focus">False</property>
             <child internal-child="nav_area">
+              <!-- n-columns=3 n-rows=3 -->
               <object class="GtkGrid" id="AnacondaSpokeWindow-nav_area1">
-                <property name="can_focus">False</property>
+                <property name="can-focus">False</property>
               </object>
             </child>
           </object>
@@ -33,55 +34,36 @@
         </child>
         <child internal-child="alignment">
           <object class="GtkAlignment" id="AnacondaSpokeWindow-alignment1">
-            <property name="can_focus">False</property>
+            <property name="can-focus">False</property>
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
             <property name="xalign">0</property>
             <property name="yalign">0</property>
-            <property name="top_padding">12</property>
-            <property name="bottom_padding">48</property>
-            <property name="left_padding">24</property>
-            <property name="right_padding">24</property>
+            <property name="top-padding">12</property>
+            <property name="bottom-padding">48</property>
+            <property name="left-padding">24</property>
+            <property name="right-padding">24</property>
             <child internal-child="action_area">
               <object class="GtkBox" id="AnacondaSpokeWindow-action_area1">
-                <property name="can_focus">False</property>
+                <property name="can-focus">False</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
                 <property name="orientation">vertical</property>
                 <child>
+                  <!-- n-columns=2 n-rows=3 -->
                   <object class="GtkGrid" id="grid1">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
+                    <property name="can-focus">False</property>
                     <property name="hexpand">True</property>
                     <property name="vexpand">True</property>
-                    <property name="column_spacing">24</property>
-                    <property name="column_homogeneous">True</property>
-                    <child>
-                      <object class="GtkLabel" id="label1">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="valign">end</property>
-                        <property name="margin_bottom">6</property>
-                        <property name="hexpand">True</property>
-                        <property name="label" translatable="yes">Base Environment</property>
-                        <property name="wrap">True</property>
-                        <property name="xalign">0</property>
-                        <attributes>
-                          <attribute name="font-desc" value="Cantarell 12"/>
-                          <attribute name="weight" value="normal"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">0</property>
-                      </packing>
-                    </child>
+                    <property name="column-spacing">24</property>
+                    <property name="column-homogeneous">True</property>
                     <child>
                       <object class="GtkLabel" id="label2">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
+                        <property name="can-focus">False</property>
                         <property name="valign">end</property>
-                        <property name="margin_bottom">6</property>
+                        <property name="margin-bottom">6</property>
                         <property name="hexpand">True</property>
                         <property name="label" translatable="yes">Additional software for Selected Environment</property>
                         <property name="wrap">True</property>
@@ -92,27 +74,27 @@
                         </attributes>
                       </object>
                       <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">0</property>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">0</property>
                       </packing>
                     </child>
                     <child>
                       <object class="GtkScrolledWindow" id="addonScrolledWindow">
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
+                        <property name="can-focus">True</property>
                         <property name="hexpand">True</property>
                         <property name="vexpand">True</property>
-                        <property name="hscrollbar_policy">never</property>
-                        <property name="shadow_type">in</property>
+                        <property name="hscrollbar-policy">never</property>
+                        <property name="shadow-type">in</property>
                         <child>
                           <object class="GtkViewport" id="addonViewport">
-                            <property name="width_request">250</property>
+                            <property name="width-request">250</property>
                             <property name="visible">True</property>
-                            <property name="can_focus">False</property>
+                            <property name="can-focus">False</property>
                             <child>
                               <object class="GtkListBox" id="addonListBox">
                                 <property name="visible">True</property>
-                                <property name="can_focus">False</property>
+                                <property name="can-focus">False</property>
                                 <property name="hexpand">True</property>
                                 <signal name="row-activated" handler="on_addon_activated" swapped="no"/>
                               </object>
@@ -121,39 +103,159 @@
                         </child>
                       </object>
                       <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">1</property>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">1</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkScrolledWindow" id="environmentScrolledWindow">
+                      <object class="GtkLabel" id="label1">
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="events">GDK_STRUCTURE_MASK | GDK_SCROLL_MASK</property>
+                        <property name="can-focus">False</property>
+                        <property name="valign">end</property>
+                        <property name="margin-bottom">6</property>
                         <property name="hexpand">True</property>
-                        <property name="vexpand">True</property>
-                        <property name="hscrollbar_policy">never</property>
-                        <property name="shadow_type">in</property>
+                        <property name="label" translatable="yes">Base Environment</property>
+                        <property name="wrap">True</property>
+                        <property name="xalign">0</property>
+                        <attributes>
+                          <attribute name="font-desc" value="Cantarell 12"/>
+                          <attribute name="weight" value="normal"/>
+                        </attributes>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="orientation">vertical</property>
                         <child>
-                          <object class="GtkViewport" id="environmentViewport">
-                            <property name="width_request">250</property>
+                          <object class="GtkScrolledWindow" id="environmentScrolledWindow">
                             <property name="visible">True</property>
-                            <property name="can_focus">False</property>
+                            <property name="can-focus">True</property>
+                            <property name="events">GDK_STRUCTURE_MASK | GDK_SCROLL_MASK</property>
+                            <property name="hexpand">True</property>
+                            <property name="vexpand">True</property>
+                            <property name="hscrollbar-policy">never</property>
+                            <property name="shadow-type">in</property>
                             <child>
-                              <object class="GtkListBox" id="environmentListBox">
+                              <object class="GtkViewport" id="environmentViewport">
+                                <property name="width-request">250</property>
                                 <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="hexpand">True</property>
-                                <signal name="row-activated" handler="on_environment_activated" swapped="no"/>
+                                <property name="can-focus">False</property>
+                                <child>
+                                  <object class="GtkListBox" id="environmentListBox">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="hexpand">True</property>
+                                    <signal name="row-activated" handler="on_environment_activated" swapped="no"/>
+                                  </object>
+                                </child>
                               </object>
                             </child>
                           </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkBox" id="kernelBox">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="orientation">vertical</property>
+                            <property name="spacing">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label3">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="valign">end</property>
+                                <property name="margin-top">12</property>
+                                <property name="hexpand">True</property>
+                                <property name="label" translatable="yes">Kernel Options</property>
+                                <property name="wrap">True</property>
+                                <property name="xalign">0</property>
+                                <attributes>
+                                  <attribute name="font-desc" value="Cantarell 12"/>
+                                  <attribute name="weight" value="normal"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <!-- n-columns=2 n-rows=1 -->
+                              <object class="GtkGrid" id="kernelComboGrid">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="row-spacing">12</property>
+                                <child>
+                                  <object class="GtkLabel" id="kernelPageSizeLabel">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="halign">start</property>
+                                    <property name="margin-start">12</property>
+                                    <property name="hexpand">True</property>
+                                    <property name="label" translatable="yes">Page size:</property>
+                                  </object>
+                                  <packing>
+                                    <property name="left-attach">0</property>
+                                    <property name="top-attach">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkComboBox" id="kernelPageSizeCombo">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="hexpand">True</property>
+                                    <property name="active">0</property>
+                                    <property name="id-column">0</property>
+                                    <child>
+                                      <object class="GtkCellRendererText"/>
+                                      <attributes>
+                                        <attribute name="markup">1</attribute>
+                                        <attribute name="single-paragraph-mode">1</attribute>
+                                        <attribute name="text">1</attribute>
+                                      </attributes>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="left-attach">1</property>
+                                    <property name="top-attach">0</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
+                                <property name="position">3</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
+                            <property name="position">1</property>
+                          </packing>
                         </child>
                       </object>
                       <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">1</property>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">1</property>
                       </packing>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
                     </child>
                   </object>
                   <packing>

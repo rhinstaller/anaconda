@@ -226,3 +226,11 @@ class DNFInterface(PayloadBaseInterface):
         return RepoConfigurationData.to_structure_list(
             self.implementation.get_repo_configurations()
         )
+
+    def MatchAvailablePackages(self, pattern: Str) -> List[Str]:
+        """Find available packages that match the specified pattern.
+
+        :param pattern: a pattern for package names
+        :return: a list of matched package names
+        """
+        return self.implementation.match_available_packages(pattern)
