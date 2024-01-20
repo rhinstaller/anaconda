@@ -261,6 +261,9 @@ IPMI_FINISHED = 0x8         # installation finished successfully
 IPMI_ABORTED = 0x9          # installation finished unsuccessfully, due to some non-exn error
 IPMI_FAILED = 0xA           # installation hit an exception
 
+# Wayland socket name to use
+WAYLAND_SOCKET_NAME = "wl-sysinstall-0"
+
 # X display number to use
 X_DISPLAY_NUMBER = 1
 
@@ -315,12 +318,26 @@ INTERACTIVE_MODE_NAME = {
     False: "noninteractive"
 }
 
+# Weston configuration
+WESTON_CONFIG = {
+  "core": {
+    "shell": "kiosk",
+    "xwayland": "true"
+  }
+}
+
 # Loggers
 LOGGER_ANACONDA_ROOT = "anaconda"
 LOGGER_MAIN = "anaconda.main"
 LOGGER_STDOUT = "anaconda.stdout"
 LOGGER_PROGRAM = "program"
 LOGGER_SIMPLELINE = "simpleline"
+
+# Wayland display vars file
+WAYLAND_DISPLAY_VARS_FILE = "/tmp/anaconda-wayland-display-vars"
+
+# Timeout for starting Wayland
+WAYLAND_TIMEOUT = 60
 
 # Timeout for starting X
 X_TIMEOUT = 60

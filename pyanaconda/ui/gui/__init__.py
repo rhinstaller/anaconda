@@ -672,6 +672,9 @@ class GraphicalUserInterface(UserInterface):
         return obj
 
     def run(self):
+        # Ensure we launch as an "X11" application since we do not support anything else yet
+        util.setenv("GDK_BACKEND", "x11")
+
         (success, _args) = Gtk.init_check(None)
         if not success:
             raise RuntimeError("Failed to initialize Gtk")
