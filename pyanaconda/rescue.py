@@ -174,13 +174,18 @@ class Rescue(object):
         task_proxy = STORAGE.get_proxy(task_path)
         sync_run_task(task_proxy)
 
+        # Collect existing systems.
         roots = OSData.from_structure_list(
             self._device_tree_proxy.GetExistingSystems()
         )
 
+        # Ignore systems without a root device.
+        roots = [r for r in roots if r.get_root_device()]
+
         if not roots:
             self.status = RescueModeStatus.ROOT_NOT_FOUND
 
+        log.debug("These systems were found: %s", str(roots))
         return roots
 
     # TODO separate running post scripts?
@@ -451,7 +456,7 @@ class RescueStatusAndShellSpoke(NormalTUISpoke):
                     finish_msg = exit_reboot_msg
                 else:
                     finish_msg = ""
-                text = TextWidget(_("You don't have any Linux partitions.\n") + finish_msg)
+                text = TextWidget(_("No Linux systems found.\n") + finish_msg)
         else:
             if self._rescue.reboot:
                 finish_msg = exit_reboot_msg
