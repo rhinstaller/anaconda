@@ -117,20 +117,38 @@ def get_all_regions_and_timezones():
     Get a dictionary mapping the regions to the list of their timezones.
 
     :rtype: dict
-
     """
-
     result = OrderedDict()
 
     for tz in sorted(all_timezones()):
-        parts = tz.split("/", 1)
+        region, city = parse_timezone(tz)
 
-        if len(parts) > 1:
-            if parts[0] not in result:
-                result[parts[0]] = set()
-            result[parts[0]].add(parts[1])
+        if region and city:
+            result.setdefault(region, set())
+            result[region].add(city)
 
     return result
+
+
+def parse_timezone(timezone):
+    """Parse the specified timezone.
+
+    Return empty strings if the timezone cannot be parsed.
+
+    :return: a region and a city
+    :rtype: a tuple of strings
+    """
+    try:
+        region, city = timezone.split("/", 1)
+
+        if region and city:
+            return region, city
+
+    except ValueError:
+        pass
+
+    log.debug("Invalid timezone: %s", timezone)
+    return "", ""
 
 
 def is_valid_timezone(timezone):

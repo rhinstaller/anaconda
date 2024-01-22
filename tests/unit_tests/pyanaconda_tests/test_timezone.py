@@ -15,30 +15,60 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
-from pyanaconda import timezone
 import unittest
-from unittest.mock import patch
 
+from collections import OrderedDict
 from freezegun import freeze_time
+from unittest.mock import patch
+from pyanaconda import timezone
 
 
 class TimezonesListings(unittest.TestCase):
-    def test_string_timezones(self):
-        """Check if returned timezones are plain strings, not unicode objects."""
-        for (region, zones) in timezone.get_all_regions_and_timezones().items():
-            assert isinstance(region, str)
+
+    def test_get_all_regions_and_timezones(self):
+        """Test the get_all_regions_and_timezones function."""
+        regions_and_timezones = timezone.get_all_regions_and_timezones()
+        assert regions_and_timezones
+
+        for (region, zones) in regions_and_timezones.items():
+            assert region and isinstance(region, str)
+            assert zones and isinstance(zones, set)
 
             for zone in zones:
-                assert isinstance(zone, str)
-
-    def test_all_timezones_valid(self):
-        """Check if all returned timezones are considered valid timezones."""
-
-        for (region, zones) in timezone.get_all_regions_and_timezones().items():
-            for zone in zones:
+                assert zone and isinstance(zone, str)
                 assert timezone.is_valid_timezone(region + "/" + zone)
 
+    def test_get_all_regions_and_timezones_compare(self):
+        """Compare the previous implementation with the current one."""
+        result = OrderedDict()
+
+        for tz in sorted(timezone.all_timezones()):
+            parts = tz.split("/", 1)
+
+            if len(parts) > 1:
+                if parts[0] not in result:
+                    result[parts[0]] = set()
+                result[parts[0]].add(parts[1])
+
+        assert result == timezone.get_all_regions_and_timezones()
+
+    def test_parse_timezone(self):
+        """Test the parse_timezone function."""
+        regions_and_timezones = timezone.get_all_regions_and_timezones()
+
+        # Cover some of the invalid and valid use cases.
+        assert timezone.parse_timezone("") == ("", "")
+        assert timezone.parse_timezone("/") == ("", "")
+        assert timezone.parse_timezone("Europe") == ("", "")
+        assert timezone.parse_timezone("Europe/") == ("", "")
+        assert timezone.parse_timezone("Europe/") == ("", "")
+        assert timezone.parse_timezone("/Prague") == ("", "")
+        assert timezone.parse_timezone("Europe/Prague") == ("Europe", "Prague")
+
+        # Parse all valid timezones.
+        for (region, zones) in regions_and_timezones.items():
+            for zone in zones:
+                assert timezone.parse_timezone(region + "/" + zone) == (region, zone)
 
 class TerritoryTimezones(unittest.TestCase):
     def test_string_valid_territory_zone(self):

@@ -17,13 +17,11 @@
 #
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
-import sys
 import pyanaconda
 import unittest
 
 from importlib import import_module
 from pkgutil import walk_packages
-from unittest.mock import Mock
 
 
 class SimpleImportTestCase(unittest.TestCase):
@@ -31,13 +29,6 @@ class SimpleImportTestCase(unittest.TestCase):
 
     Import all pyanaconda modules.
     """
-
-    def setUp(self):
-        # Mock the TimezoneMap hack.
-        sys.modules["gi.repository.TimezoneMap"] = Mock()
-
-    def tearDown(self):
-        sys.modules.pop("gi.repository.TimezoneMap")
 
     def _check_package(self, package, expected_imports, skipped_imports):
         """Check if all submodules of the package can be imported."""
