@@ -57,7 +57,6 @@ BuildRequires: gobject-introspection-devel
 %if %{with glade}
 BuildRequires: glade-devel
 %endif
-BuildRequires: libgnomekbd-devel
 BuildRequires: libxklavier-devel >= %{libxklavierver}
 BuildRequires: make
 BuildRequires: pango-devel
@@ -273,9 +272,9 @@ Requires: anaconda-core = %{version}-%{release}
 Requires: anaconda-widgets = %{version}-%{release}
 Requires: python3-meh-gui >= %{mehver}
 Requires: adwaita-icon-theme
+Requires: tecla
 Requires: tigervnc-server-minimal
 Requires: libxklavier >= %{libxklavierver}
-Requires: libgnomekbd
 Requires: nm-connection-editor
 %ifnarch s390 s390x
 Requires: NetworkManager-wifi

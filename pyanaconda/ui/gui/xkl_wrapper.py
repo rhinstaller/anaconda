@@ -115,7 +115,6 @@ class XklWrapper(object):
                     # really wrong
                     raise XklWrapperError("Failed to initialize layouts")
 
-        #needed also for Gkbd.KeyboardDrawingDialog
         self.configreg = Xkl.ConfigRegistry.get_instance(self._engine)
         self.configreg.load(False)
 
