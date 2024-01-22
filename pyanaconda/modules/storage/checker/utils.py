@@ -53,7 +53,8 @@ def verify_root(storage, constraints, report_error, report_warning):
                        "which is required for installation of %s"
                        " to continue.") % (get_product_name(),))
 
-    if root and root.format.exists and root.format.mountable and root.format.mountpoint == "/":
+    if root and root.format.exists and root.format.mountable and root.format.mountpoint == "/" \
+       and not root.format.is_empty:
         report_error(_("You must create a new file system on the root device."))
 
     if storage.root_device and constraints[STORAGE_ROOT_DEVICE_TYPES]:
