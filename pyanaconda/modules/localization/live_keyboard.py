@@ -16,6 +16,7 @@
 #
 
 from abc import ABC, abstractmethod
+import ast
 from pyanaconda.core.util import execWithCaptureAsLiveUser
 from pyanaconda.core.configuration.anaconda import conf
 
@@ -81,8 +82,8 @@ class GnomeShellKeyboard(LiveSystemKeyboardBase):
         # convert input "[('xkb', 'us'), ('xkb', 'cz+qwerty')]\n"
         # to a python list of '["us", "cz (qwerty)"]'
         try:
-            sources = eval(sources.rstrip())
-        except SyntaxError:
+            sources = ast.literal_eval(sources.rstrip())
+        except (SyntaxError, ValueError, TypeError):
             log.error("Gnome Shell keyboard configuration can't be obtained from source %s!",
                       sources)
             return []
