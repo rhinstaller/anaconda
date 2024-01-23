@@ -36,6 +36,7 @@ class Flags(object):
         self.usevnc = False
         self.vncquestion = True
         self.preexisting_x11 = False
+        self.wayland = False
         self.automatedInstall = False
         self.eject = True
         # ksprompt is whether or not to prompt for missing ksdata

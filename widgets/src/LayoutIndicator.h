@@ -19,7 +19,7 @@
 #define _LAYOUT_INDICATOR_H
 
 #include <gtk/gtk.h>
-#include <libxklavier/xklavier.h>
+//#include <libxklavier/xklavier.h>
 
 G_BEGIN_DECLS
 
@@ -60,7 +60,7 @@ struct _AnacondaLayoutIndicatorClass {
 
     /* this has to be a class attribute, because XklEngine is a singleton that
        should be used by all instances */
-    XklEngine *engine;
+//    XklEngine *engine;
 };
 
 GType       anaconda_layout_indicator_get_type (void);

@@ -21,7 +21,7 @@ dist_scripts_SCRIPTS = run-anaconda anaconda-pre-log-gen log-capture start-modul
 dist_noinst_SCRIPTS  = makeupdates makebumpver
 
 dist_bin_SCRIPTS = anaconda-cleanup anaconda-disable-nm-ibft-plugin \
-                   anaconda-nm-disable-autocons
+                   anaconda-nm-disable-autocons run-in-new-session.py
 
 miscdir = $(datadir)/$(PACKAGE_NAME)
 

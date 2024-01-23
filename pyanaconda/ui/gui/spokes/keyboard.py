@@ -18,10 +18,11 @@
 #
 
 import gi
-gi.require_version("Gkbd", "3.0")
+#gi.require_version("Gkbd", "3.0")
 gi.require_version("Gtk", "3.0")
 
-from gi.repository import Gkbd, Gtk
+#from gi.repository import Gkbd, Gtk
+from gi.repository import Gtk
 import locale as locale_mod
 
 from pyanaconda.ui.gui import GUIObject
@@ -29,7 +30,9 @@ from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.categories.localization import LocalizationCategory
 from pyanaconda.ui.gui.utils import gtk_call_once, escape_markup, gtk_batch_map, timed_action
 from pyanaconda.ui.gui.utils import override_cell_property
+# FIXME: can we even import this ?
 from pyanaconda.ui.gui.xkl_wrapper import XklWrapper, XklWrapperError
+from pyanaconda.ui.gui.kbd_wrapper import KbdWrapper
 from pyanaconda import keyboard
 from pyanaconda import flags
 from pyanaconda.core.i18n import _, N_, CN_
@@ -67,6 +70,15 @@ def _show_description(column, renderer, model, itr, wrapper):
     return value
 
 
+def _get_keyboard_handling_wrapper():
+    if flags.flags.wayland:
+        log.debug("keyboard: running with Wayland compositor, using KbdWrapper")
+        return KbdWrapper.get_instance()
+    else:
+        log.debug("keyboard - layout: running with Xorg, using XklWrapper")
+        return XklWrapper.get_instance()
+
+
 class AddLayoutDialog(GUIObject):
     builderObjects = ["addLayoutDialog", "newLayoutStore",
                       "newLayoutStoreFilter"]
@@ -75,7 +87,8 @@ class AddLayoutDialog(GUIObject):
 
     def __init__(self, data):
         super().__init__(data)
-        self._xkl_wrapper = XklWrapper.get_instance()
+        # FIXME: rename the variable ?
+        self._xkl_wrapper = _get_keyboard_handling_wrapper()
         self._chosen_layouts = []
 
     def matches_entry(self, model, itr, user_data=None):
@@ -214,7 +227,8 @@ class ConfigureSwitchingDialog(GUIObject):
 
     def __init__(self, data, l12_module):
         super().__init__(data)
-        self._xkl_wrapper = XklWrapper.get_instance()
+        # FIXME: rename the variable ?
+        self._xkl_wrapper = _get_keyboard_handling_wrapper()
 
         self._switchingOptsStore = self.builder.get_object("switchingOptsStore")
 
@@ -311,6 +325,8 @@ class KeyboardSpoke(NormalSpoke):
     @classmethod
     def should_run(cls, environment, data):
         """Should the spoke run?"""
+        # FIXME
+        return False
         if not is_module_available(LOCALIZATION):
             return False
 
@@ -320,7 +336,8 @@ class KeyboardSpoke(NormalSpoke):
         super().__init__(*args)
         self._remove_last_attempt = False
         self._confirmed = False
-        self._xkl_wrapper = XklWrapper.get_instance()
+        # FIXME: rename the variable ?
+        self._xkl_wrapper = _get_keyboard_handling_wrapper()
         self._add_dialog = None
         self._ready = False
 
