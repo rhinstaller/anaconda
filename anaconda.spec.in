@@ -462,6 +462,17 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 23 2024 github-actions <github-actions@github.com> - 40.18-1
+- Use flag file to signal backend is ready (jkonecny)
+- Start Firefox before Anaconda on Live (jkonecny)
+- Update translations from Weblate for master (github-actions)
+- Evaluate live keyboard sources safely (vslavik)
+- rescue: Don't allow to mount systems without a root device (vponcova)
+- gui: Redesign the Time & Date spoke (vponcova)
+- gui: Update the glade file of the Time & Date spoke (vponcova)
+- gui: Remove the timezone map from the Time & Date spoke (vponcova)
+- Update translations from Weblate for master (github-actions)
+
 * Fri Jan 12 2024 github-actions <github-actions@github.com> - 40.17-1
 - tests: Add a test case for the NVMe module (vtrefny)
 - Add a simple NVMe module for NVMe Fabrics support (vtrefny)
