@@ -29,7 +29,7 @@ from unittest.mock import Mock, patch
 from pyanaconda.errors import ExitError
 from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.core import util
-from pyanaconda.core.util import synchronized
+from pyanaconda.core.util import synchronized, LazyObject
 from pyanaconda.core.configuration.anaconda import conf
 
 from timer import timer
@@ -878,3 +878,98 @@ class MiscTests(unittest.TestCase):
         exec_mock.side_effect = FileNotFoundError
         self.assertFalse(util.restorecon(["baz"], root="/root"))
         exec_mock.assert_called_once_with("restorecon", ["-r", "baz"], root="/root")
+
+
+class LazyObjectTestCase(unittest.TestCase):
+
+    class Object(object):
+
+        def __init__(self):
+            self._x = 0
+
+        @property
+        def x(self):
+            return self._x
+
+        @x.setter
+        def x(self, value):
+            self._x = value
+
+        def f(self, value):
+            self._x += value
+
+    def setUp(self):
+        self._obj = None
+
+    @property
+    def obj(self):
+        if not self._obj:
+            self._obj = self.Object()
+
+        return self._obj
+
+    @property
+    def lazy_obj(self):
+        return LazyObject(lambda: self.obj)
+
+    def get_set_test(self):
+        self.assertIsNotNone(self.lazy_obj)
+        self.assertIsNone(self._obj)
+
+        self.assertEqual(self.lazy_obj.x, 0)
+        self.assertIsNotNone(self._obj)
+
+        self.obj.x = -10
+        self.assertEqual(self.obj.x, -10)
+        self.assertEqual(self.lazy_obj.x, -10)
+
+        self.lazy_obj.x = 10
+        self.assertEqual(self.obj.x, 10)
+        self.assertEqual(self.lazy_obj.x, 10)
+
+        self.lazy_obj.f(90)
+        self.assertEqual(self.obj.x, 100)
+        self.assertEqual(self.lazy_obj.x, 100)
+
+    def eq_test(self):
+        a = object()
+        lazy_a1 = LazyObject(lambda: a)
+        lazy_a2 = LazyObject(lambda: a)
+
+        self.assertEqual(a, lazy_a1)
+        self.assertEqual(lazy_a1, a)
+
+        self.assertEqual(a, lazy_a2)
+        self.assertEqual(lazy_a2, a)
+
+        self.assertEqual(lazy_a1, lazy_a2)
+        self.assertEqual(lazy_a2, lazy_a1)
+
+        self.assertEqual(lazy_a1, lazy_a1)
+        self.assertEqual(lazy_a2, lazy_a2)
+
+    def neq_test(self):
+        a = object()
+        lazy_a = LazyObject(lambda: a)
+
+        b = object()
+        lazy_b = LazyObject(lambda: b)
+
+        self.assertNotEqual(b, lazy_a)
+        self.assertNotEqual(lazy_a, b)
+
+        self.assertNotEqual(lazy_a, lazy_b)
+        self.assertNotEqual(lazy_b, lazy_a)
+
+    def hash_test(self):
+        a = object()
+        lazy_a1 = LazyObject(lambda: a)
+        lazy_a2 = LazyObject(lambda: a)
+
+        b = object()
+        lazy_b1 = LazyObject(lambda: b)
+        lazy_b2 = LazyObject(lambda: b)
+
+        self.assertEqual({a, lazy_a1, lazy_a2}, {a})
+        self.assertEqual({b, lazy_b1, lazy_b2}, {b})
+        self.assertEqual({lazy_a1, lazy_b2}, {a, b})
