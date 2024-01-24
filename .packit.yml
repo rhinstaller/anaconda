@@ -34,8 +34,6 @@ actions:
     - 'bash -c "ls -1 anaconda-*.tar.bz2"'
 
 jobs:
-
-
   - job: propose_downstream
     trigger: release
     dist_git_branches: main
@@ -65,4 +63,13 @@ jobs:
     trigger: commit
     dist_git_branches:
       - fedora-rawhide
-
+    allowed_committers:
+      - m4rtink
+      - kkoukiou
+      - rvykydal
+      - jkonecny
+    allowed_pr_authors:
+      - m4rtink
+      - kkoukiou
+      - rvykydal
+      - jkonecny
