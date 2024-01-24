@@ -59,6 +59,7 @@ class PayloadsInterfaceTestCase(TestCase):
             "hmc",
             "liveimg",
             "nfs",
+            "ostreecontainer",
             "ostreesetup",
             "url"
         ]

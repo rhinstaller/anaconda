@@ -66,6 +66,7 @@ class PayloadKickstartSpecification(KickstartSpecification):
         "hmc": COMMANDS.Hmc,
         "liveimg": COMMANDS.Liveimg,
         "nfs": COMMANDS.NFS,
+        "ostreecontainer": COMMANDS.OSTreeContainer,
         "ostreesetup": COMMANDS.OSTreeSetup,
         "url": COMMANDS.Url
     }

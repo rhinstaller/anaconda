@@ -55,6 +55,7 @@ from pykickstart.commands.network import RHEL9_Network as Network
 from pykickstart.commands.nfs import FC6_NFS as NFS
 from pykickstart.commands.nvdimm import F28_Nvdimm as Nvdimm
 from pykickstart.commands.ostreesetup import RHEL9_OSTreeSetup as OSTreeSetup
+from pykickstart.commands.ostreecontainer import RHEL9_OSTreeContainer as OSTreeContainer
 from pykickstart.commands.partition import RHEL9_Partition as Partition
 from pykickstart.commands.raid import RHEL9_Raid as Raid
 from pykickstart.commands.realm import F19_Realm as Realm

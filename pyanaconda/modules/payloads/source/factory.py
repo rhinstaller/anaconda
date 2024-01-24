@@ -70,6 +70,10 @@ class SourceFactory(object):
             from pyanaconda.modules.payloads.source.rpm_ostree.rpm_ostree import \
                 RPMOSTreeSourceModule
             return RPMOSTreeSourceModule()
+        elif source_type == SourceType.RPM_OSTREE_CONTAINER:
+            from pyanaconda.modules.payloads.source.rpm_ostree_container.rpm_ostree_container import \
+                RPMOSTreeContainerSourceModule
+            return RPMOSTreeContainerSourceModule()
 
         raise ValueError("Unknown source type: {}".format(source_type))
 
@@ -104,6 +108,8 @@ class SourceFactory(object):
         :param ks_data: kickstart data from DNF payload
         :return: SourceType value
         """
+        if ks_data.ostreecontainer.seen:
+            return SourceType.RPM_OSTREE_CONTAINER
         if ks_data.ostreesetup.seen:
             return SourceType.RPM_OSTREE
 

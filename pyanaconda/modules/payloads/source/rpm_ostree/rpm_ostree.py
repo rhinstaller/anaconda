@@ -110,6 +110,7 @@ class RPMOSTreeSourceModule(PayloadSourceBase):
         data.ostreesetup.url = self.configuration.url
         data.ostreesetup.ref = self.configuration.ref
         data.ostreesetup.nogpg = not self.configuration.gpg_verification_enabled
+        data.ostreesetup.seen = True
 
     def set_up_with_tasks(self):
         """Set up the installation source for installation.
