@@ -435,6 +435,7 @@ rm -rf \
 %endif
 %{_datadir}/anaconda/window-manager
 %{_datadir}/anaconda/anaconda-gtk.css
+%{_datadir}/anaconda/gtk-4.0/settings.ini
 
 %files tui
 %{python3_sitearch}/pyanaconda/rescue.py

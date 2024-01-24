@@ -111,6 +111,7 @@ AC_CONFIG_FILES([Makefile
                  data/liveinst/gnome/Makefile
                  data/systemd/Makefile
                  data/dbus/Makefile
+                 data/gtk-4.0/Makefile
                  data/window-manager/Makefile
                  data/window-manager/config/Makefile
                  po/Makefile
