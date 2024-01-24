@@ -174,13 +174,18 @@ class Rescue(object):
         task_proxy = STORAGE.get_proxy(task_path)
         sync_run_task(task_proxy)
 
+        # Collect existing systems.
         roots = OSData.from_structure_list(
             self._device_tree_proxy.GetExistingSystems()
         )
 
+        # Ignore systems without a root device.
+        roots = [r for r in roots if r.get_root_device()]
+
         if not roots:
             self.status = RescueModeStatus.ROOT_NOT_FOUND
 
+        log.debug("These systems were found: %s", str(roots))
         return roots
 
     # TODO separate running post scripts?
