@@ -176,6 +176,7 @@ class DeviceTreeViewer(ABC):
         data.attrs["fcp-lun"] = self._get_attribute(device, "fcp_lun")
         data.attrs["wwpn"] = self._get_attribute(device, "wwpn")
         data.attrs["hba-id"] = self._get_attribute(device, "hba_id")
+        data.attrs["path-id"] = self._get_attribute(device, "id_path")
 
     def get_format_data(self, device_name):
         """Get the device format data.

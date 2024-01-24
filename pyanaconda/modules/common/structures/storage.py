@@ -186,6 +186,7 @@ class DeviceData(DBusData):
             fcp-lun
             wwpn
             hba-id
+            path-id
 
         :return: a dictionary of attributes
         """
