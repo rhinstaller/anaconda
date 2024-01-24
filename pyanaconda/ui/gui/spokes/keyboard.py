@@ -17,11 +17,6 @@
 # Red Hat, Inc.
 #
 
-import gi
-gi.require_version("Gkbd", "3.0")
-gi.require_version("Gtk", "3.0")
-
-from gi.repository import Gkbd, Gtk
 import locale as locale_mod
 
 from pyanaconda.ui.gui import GUIObject
@@ -39,6 +34,8 @@ from pyanaconda.core.string import strip_accents, have_word_match
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.common.util import is_module_available
 from pyanaconda.core.threads import thread_manager
+from pyanaconda.core.process_watchers import PidWatcher
+from pyanaconda.core.util import startProgram
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -323,6 +320,8 @@ class KeyboardSpoke(NormalSpoke):
         self._xkl_wrapper = XklWrapper.get_instance()
         self._add_dialog = None
         self._ready = False
+        self._running_tecla = None
+        self._focus_in_signal_id = None
 
         self._upButton = self.builder.get_object("upButton")
         self._downButton = self.builder.get_object("downButton")
@@ -612,19 +611,33 @@ class KeyboardSpoke(NormalSpoke):
         layout, variant = keyboard.parse_layout_variant(layout_row[0])
 
         if variant:
-            lay_var_spec = "%s\t%s" % (layout, variant)
+            lay_var_spec = "%s+%s" % (layout, variant)
         else:
             lay_var_spec = layout
 
-        dialog = Gkbd.KeyboardDrawing.dialog_new()
-        Gkbd.KeyboardDrawing.dialog_set_layout(dialog, self._xkl_wrapper.configreg,
-                                               lay_var_spec)
-        dialog.set_size_request(750, 350)
-        dialog.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
-        with self.main_window.enlightbox(dialog):
-            dialog.show_all()
-            dialog.run()
-            dialog.destroy()
+        self.kill_tecla(msg="keyboard preview button clicked")
+        self.main_window.lightbox_on()
+        self._focus_in_signal_id = self.main_window.connect("focus-in-event", self._on_focus_in)
+        self._running_tecla = startProgram(["tecla", lay_var_spec], reset_lang=False)
+        PidWatcher().watch_process(self._running_tecla.pid, self.on_tecla_exited)
+
+    def kill_tecla(self, msg=""):
+        if not self._running_tecla:
+            return False
+
+        log.debug("killing running tecla %s: %s", self._running_tecla.pid, msg)
+        self._running_tecla.kill()
+        self._running_tecla = None
+        return True
+
+    def on_tecla_exited(self, pid, condition):
+        self.main_window.disconnect(self._focus_in_signal_id)
+        self._focus_in_signal_id = None
+        self._running_tecla = None
+        self.main_window.lightbox_off()
+
+    def _on_focus_in(self, widget, event):
+        self.kill_tecla(msg="keyboard spoke on focus in event")
 
     def on_selection_changed(self, selection, *args):
         # We don't have to worry about multiple rows being selected in this
