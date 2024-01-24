@@ -1,0 +1,38 @@
+From 9212dc01de34f49e2fb2dc63068c48560927ad34 Mon Sep 17 00:00:00 2001
+From: Martin Kolman <mkolman@redhat.com>
+Date: Wed, 17 Jan 2024 18:09:53 +0100
+Subject: [PATCH] Drop tiger-vnc from templates
+
+---
+ share/templates.d/99-generic/runtime-cleanup.tmpl | 1 -
+ share/templates.d/99-generic/runtime-install.tmpl | 2 --
+ 2 files changed, 3 deletions(-)
+
+diff --git a/share/templates.d/99-generic/runtime-cleanup.tmpl b/share/templates.d/99-generic/runtime-cleanup.tmpl
+index aad31f77..bc0b11b5 100644
+--- a/share/templates.d/99-generic/runtime-cleanup.tmpl
++++ b/share/templates.d/99-generic/runtime-cleanup.tmpl
+@@ -56,7 +56,6 @@ removepkg libasyncns
+ removepkg lvm2-libs
+ removepkg mobile-broadband-provider-info
+ removepkg rmt rpcbind squashfs-tools
+-removepkg tigervnc-license xml-common
+ removepkg mkfontscale fonttosfnt
+ removepkg xorg-x11-server-common
+ # do not remove this, required for ppc64le and s390x !!!
+diff --git a/share/templates.d/99-generic/runtime-install.tmpl b/share/templates.d/99-generic/runtime-install.tmpl
+index d6029830..4df2fb99 100644
+--- a/share/templates.d/99-generic/runtime-install.tmpl
++++ b/share/templates.d/99-generic/runtime-install.tmpl
+@@ -131,8 +131,6 @@ installpkg selinux-policy-targeted audit
+ 
+ ## network tools/servers
+ installpkg ethtool openssh-server nfs-utils openssh-clients
+-installpkg tigervnc-server-minimal
+-installpkg tigervnc-server-module
+ installpkg net-tools
+ installpkg bridge-utils
+ installpkg nmap-ncat
+-- 
+2.43.0
+
