@@ -417,6 +417,46 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jan 24 2024 Martin Kolman <mkolman@redhat.com> - 34.25.4.3-1
+- Fix missing emit of zfcp kickstart statements (maier)
+  Related: RHEL-11384
+- DeviceTreeViewer: Add path-id attribute to zfcp-attached SCSI disks (maier)
+  Related: RHEL-11384
+- Fix missing WWID values for multipath devices in advanced storage UI
+  (#2046654) (maier)
+  Resolves: RHEL-11384
+- rescue: Don't allow to mount systems without a root device (vponcova)
+  Resolves: RHEL-14696
+- Do not crash on default None values of ostreecontainer command (rvykydal)
+  Related: RHEL-2250
+- Fix wrong dracut timeout message (jkonecny)
+  Resolves: RHEL-5638
+- Move rpm-ostree deps from Lorax to Anaconda (#2125655) (jkonecny)
+  Related: RHEL-2250
+- Implement needs_network for rpm_ostree_container (#2125655) (jkonecny)
+  Related: RHEL-2250
+- Add tests for RPM Ostree payload with source from container (#2125655)
+  (rvykydal)
+  Related: RHEL-2250
+- Enable RPM OSTree from container source in payload (#2125655) (rvykydal)
+  Resolves: RHEL-2250
+- Add RPM OSTree source from container (#2125655) (rvykydal)
+  Related: RHEL-2250
+
+* Tue Jan 09 2024 Martin Kolman <mkolman@redhat.com> - 34.25.4.2-1
+- tests: Add a test case for the NVMe module (vtrefny)
+  Resolves: RHEL-11543
+  Resolves: RHEL-11544
+- Add a simple NVMe module for NVMe Fabrics support (vtrefny)
+  Resolves: RHEL-11543
+  Resolves: RHEL-11544
+- network: ignore BOOTIF connections when creating device configurations
+  (rvykydal)
+  Resolves: RHEL-4766
+- network: ignore BOOTIF connections when looking for initramfs bond ports
+  (rvykydal)
+  Resolves: RHEL-4766
+
 * Thu Dec 07 2023 Jiri Konecny <jkonecny@redhat.com> - 34.25.4.1-1
 - Fix versioning on RHEL 9.4 (jkonecny)
 
