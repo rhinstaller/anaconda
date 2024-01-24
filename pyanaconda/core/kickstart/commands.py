@@ -45,7 +45,7 @@ from pykickstart.commands.iscsiname import FC6_IscsiName as IscsiName
 from pykickstart.commands.keyboard import F18_Keyboard as Keyboard
 from pykickstart.commands.lang import F19_Lang as Lang
 from pykickstart.commands.liveimg import F19_Liveimg as Liveimg
-from pykickstart.commands.logging import F34_Logging as Logging
+from pykickstart.commands.logging import F40_Logging as Logging
 from pykickstart.commands.logvol import F29_LogVol as LogVol
 from pykickstart.commands.mediacheck import FC4_MediaCheck as MediaCheck
 from pykickstart.commands.mount import F27_Mount as Mount
