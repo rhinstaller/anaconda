@@ -501,7 +501,7 @@ class DeviceTreeViewer(ABC):
 
         # Platform partitions are required except for /boot partiotion which is recommended
         for p in platform.partitions:
-            if p.mountpoint:
+            if p:
                 constraint = self._get_mount_point_constraints_data(p)
                 if p.mountpoint == "/boot":
                     constraint.recommended = True
