@@ -196,7 +196,6 @@ class AnacondaKickstartSpecification(KickstartSpecification):
         "graphical": COMMANDS.DisplayMode,
         "halt": COMMANDS.Reboot,
         "logging": COMMANDS.Logging,
-        "method": COMMANDS.Method,
         "poweroff": COMMANDS.Reboot,
         "reboot": COMMANDS.Reboot,
         "rescue": COMMANDS.Rescue,

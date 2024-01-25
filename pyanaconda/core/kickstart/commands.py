@@ -48,7 +48,6 @@ from pykickstart.commands.liveimg import F19_Liveimg as Liveimg
 from pykickstart.commands.logging import F34_Logging as Logging
 from pykickstart.commands.logvol import F29_LogVol as LogVol
 from pykickstart.commands.mediacheck import FC4_MediaCheck as MediaCheck
-from pykickstart.commands.method import F34_Method as Method
 from pykickstart.commands.mount import F27_Mount as Mount
 from pykickstart.commands.network import F39_Network as Network
 from pykickstart.commands.nfs import FC6_NFS as NFS
