@@ -58,7 +58,7 @@ from pykickstart.commands.partition import F34_Partition as Partition
 from pykickstart.commands.raid import F29_Raid as Raid
 from pykickstart.commands.realm import F19_Realm as Realm
 from pykickstart.commands.reboot import F23_Reboot as Reboot
-from pykickstart.commands.repo import F33_Repo as Repo
+from pykickstart.commands.repo import F40_Repo as Repo
 from pykickstart.commands.reqpart import F23_ReqPart as ReqPart
 from pykickstart.commands.rescue import F10_Rescue as Rescue
 from pykickstart.commands.rhsm import RHEL8_RHSM as RHSM
