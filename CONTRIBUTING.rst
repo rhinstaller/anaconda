@@ -113,7 +113,7 @@ Another way is to build the boot.iso directly (takes more time but it's easier t
 
 Building installation images
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Bulding the ISO is the most precise way to find the behavior of Anaconda in the installation environment. However, it needs a lot of HW resources and time to build.
+Building the ISO is the most precise way to find the behavior of Anaconda in the installation environment. However, it needs a lot of HW resources and time to build.
 During the build, you will be ask for ``sudo`` password. Unfortunately, it is required to run the build as root because the build process needs to work with ``/dev/loop`` devices.
 Please do not use `toolbx <https://github.com/containers/toolbox>`_ or `distrobox <https://github.com/89luca89/distrobox>`_ because the commands below are calling podman under root which is hard to achieve from inside of other container.
 
@@ -144,6 +144,7 @@ To build a Web UI in Live image run::
 
 The resulting ISO will be stored in ``./result/iso`` directory.
 
+Note: You can put additional RPMs to ``./result/build/01-rpm-build`` and these will be automatically used for the ISO build.
 
 Anaconda Installer Branching Policy (the long version)
 -------------------------------------------------------
@@ -300,7 +301,7 @@ Then push the merge to the remote::
 
     git push origin <target branch>
 
-If the pull request has been opened for the ``fedora-38`` branch, then you also need to check if the same change should go to the ``master`` branch in anoter PR.
+If the pull request has been opened for the ``fedora-38`` branch, then you also need to check if the same change should go to the ``master`` branch in another PR.
 
 .. _pure-community-features:
 
