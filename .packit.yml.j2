@@ -27,7 +27,9 @@ actions:
     - 'bash -c "ls -1 anaconda-*.tar.bz2"'
 
 jobs:
+
 {% if distro_release == "rawhide" %}
+
   - job: propose_downstream
     trigger: release
     dist_git_branches: main
@@ -52,7 +54,9 @@ jobs:
     owner: "@rhinstaller"
     project: Anaconda
     preserve_project: True
+
 {% elif distro_name == "fedora" %}
+
   - job: propose_downstream
     trigger: release
     dist_git_branches: f{$ distro_release $}
@@ -75,23 +79,5 @@ jobs:
       # This repository contains fixup of Rawhide broken environment.
       # Mainly useful when there is a package which is not yet in Rawhide but build is available.
       - "https://fedorapeople.org/groups/anaconda/repos/anaconda_fixup_repo/"
-{% endif %}
 
-  - job: koji_build
-    trigger: commit
-    dist_git_branches:
-{% if distro_release == "rawhide" %}
-      - fedora-rawhide
-{% elif distro_name == "fedora" %}
-      - fedora-{$ distro_release $}
 {% endif %}
-    allowed_committers:
-      - m4rtink
-      - kkoukiou
-      - rvykydal
-      - jkonecny
-    allowed_pr_authors:
-      - m4rtink
-      - kkoukiou
-      - rvykydal
-      - jkonecny

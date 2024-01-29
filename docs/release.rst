@@ -55,11 +55,7 @@ The overall workflow can be summarized to 3 steps:
 
 9. if all is good enough, merge the PR
 
-10. Packit should start the package build in koji. You can utilise Fedora Notifications to be informed about the builds.
-
-If packit is down or for any other reason the build does not get triggered by the automation, you can trigger it manually:
-
-10.1. use fedpkg to trigger the build (no, there is no button for this just yet...)
+10. use fedpkg to trigger the build (no, there is no button for this just yet...)
 
 ::
 
@@ -76,7 +72,7 @@ if you already have a distgit checkout, you can do just:
       git pull
       fedpkg build
 
-This should start the package build in koji - wait for it to succeed or debug any failures
+11. this should start the package build in koji - wait for it to succeed or debug any failures
 
 Using the manual ``rpmbuild`` path
 ----------------------------------
