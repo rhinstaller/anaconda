@@ -417,6 +417,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jan 29 2024 Martin Kolman <mkolman@redhat.com> - 34.25.4.4-1
+- rpm-ostree: Setup readonly sysroot for ostree & rw karg (tim)
+  Related: RHEL-2250
+
 * Wed Jan 24 2024 Martin Kolman <mkolman@redhat.com> - 34.25.4.3-1
 - Fix missing emit of zfcp kickstart statements (maier)
   Related: RHEL-11384
