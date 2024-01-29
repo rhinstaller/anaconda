@@ -72,6 +72,19 @@ if you already have a distgit checkout, you can do just:
       git pull
       fedpkg build
 
+If this update contains non backwards compatible changes that might break another package, ex
+`anaconda-webui` you need to follow the procedure below
+
+::
+
+      fedpkg switch-branch rawhide
+      git pull
+      fedpkg request-side-tag
+      fedpkg build --target=${SIDE_TAG}
+
+This process is documented in more detail in the
+[Fedora Packaging Guidelines](https://docs.fedoraproject.org/en-US/package-maintainers/Package_Update_Guide/#multiple_packages)
+
 11. this should start the package build in koji - wait for it to succeed or debug any failures
 
 Using the manual ``rpmbuild`` path
