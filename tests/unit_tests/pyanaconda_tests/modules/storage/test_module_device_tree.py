@@ -836,7 +836,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         """Test GetMountPointConstraints."""
         result = self.interface.GetMountPointConstraints()
         assert isinstance(result, list)
-        assert len(result) == 2
+        assert len(result) == 3
 
         result = MountPointConstraintsData.from_structure_list(
             self.interface.GetMountPointConstraints()
