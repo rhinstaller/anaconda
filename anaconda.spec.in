@@ -272,6 +272,7 @@ Requires: anaconda-core = %{version}-%{release}
 Requires: anaconda-widgets = %{version}-%{release}
 Requires: python3-meh-gui >= %{mehver}
 Requires: adwaita-icon-theme
+Requires: gnome-desktop4-devel
 Requires: tecla
 Requires: tigervnc-server-minimal
 Requires: libxklavier >= %{libxklavierver}
