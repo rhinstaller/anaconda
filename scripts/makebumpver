@@ -121,10 +121,14 @@ class JIRAValidator:
     def validate_RHEL_issue_status(self, bug):
         issue = self._query_RHEL_issue(bug)
 
-        valid_statuses = ("Planning", "In Progress")
-        status = issue.fields.status.name
-        if status not in valid_statuses:
-            return False, f"incorrect status '{status}'! Valid values: {valid_statuses}"
+        # translation from status id to name because JIRA is using locale set in the JIRA account
+        # that can't be changed from REST API
+        valid_status_map = {13521: "Planning",
+                            10018: "In Progress"}
+
+        status = issue.fields.status
+        if int(status.id) not in valid_status_map:
+            return False, f"incorrect status! Valid values: {', '.join(valid_status_map.values())}"
 
         return True, ""
 
