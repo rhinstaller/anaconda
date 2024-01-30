@@ -461,6 +461,16 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 30 2024 github-actions <github-actions@github.com> - 40.19-1
+- Update translations from Weblate for master (github-actions)
+- CONTRIBUTING: Add a note about adding RPMs to built images (vtrefny)
+- Include partitions without mountpoints in GetMountPointConstraints (rvykydal)
+- Do not crash on default None values of ostreecontainer command (rvykydal)
+- Remove libgnomekbd (jexposit)
+- Fix network spokes connectivity check (champetier.etienne)
+- storage: Make GPT-discoverable partitions (vslavik)
+- conf: Add a field for GPT discoverable partitions (vslavik)
+
 * Tue Jan 23 2024 github-actions <github-actions@github.com> - 40.18-1
 - Use flag file to signal backend is ready (jkonecny)
 - Start Firefox before Anaconda on Live (jkonecny)
