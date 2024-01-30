@@ -510,30 +510,3 @@ class DeviceTreeViewer(ABC):
                 constraints.append(constraint)
 
         return constraints
-
-    def _get_platform_mount_point_data(self, spec):
-        """Get the mount point data.
-
-        :param spec: an instance of PartSpec
-        :return: an instance of MountPointConstraintsData
-        """
-        data = MountPointConstraintsData()
-        data.mount_point = spec.mountpoint or ""
-        data.required_filesystem_type = spec.fstype or ""
-        data.encryption_allowed = spec.encrypted
-        data.logical_volume_allowed = spec.lv
-
-        return data
-
-    def get_required_mount_points(self):
-        """Get list of required mount points for the current platform
-
-        This includes mount points required to boot (e.g. /boot and /boot/efi)
-        and the / partition which is always considered to be required.
-
-        :return: a list of mount points with its constraints
-        """
-        root_partition = PartSpec(mountpoint="/", lv=True, thin=True, encrypted=True)
-        ret = list(map(self._get_platform_mount_point_data,
-                       [p for p in platform.partitions if p.mountpoint] + [root_partition]))
-        return ret

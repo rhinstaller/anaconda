@@ -193,7 +193,6 @@ class DeviceTreeViewerInterface(InterfaceTemplate):
         """
         return OSData.to_structure_list(self.implementation.get_existing_systems())
 
-    # FIXME: remove the replaced API
     def GetMountPointConstraints(self) -> List[Structure]:
         """Get list of constraints on mountpoints for the current platform
 
@@ -206,14 +205,3 @@ class DeviceTreeViewerInterface(InterfaceTemplate):
         """
         return MountPointConstraintsData.to_structure_list(
             self.implementation.get_mount_point_constraints())
-
-    def GetRequiredMountPoints(self) -> List[Structure]:
-        """Get list of required mount points for the current platform
-
-        This includes mount points required to boot (e.g. /boot and /boot/efi)
-        and the / partition which is always considered to be required.
-
-        :return: a list of mount points with its constraints
-        """
-        return MountPointConstraintsData.to_structure_list(
-            self.implementation.get_required_mount_points())
