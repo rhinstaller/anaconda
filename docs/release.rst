@@ -55,11 +55,7 @@ The overall workflow can be summarized to 3 steps:
 
 9. if all is good enough, merge the PR
 
-10. Packit should start the package build in koji. You can utilise Fedora Notifications to be informed about the builds.
-
-If packit is down or for any other reason the build does not get triggered by the automation, you can trigger it manually:
-
-10.1. use fedpkg to trigger the build (no, there is no button for this just yet...)
+10. use fedpkg to trigger the build (no, there is no button for this just yet...)
 
 ::
 
@@ -76,7 +72,20 @@ if you already have a distgit checkout, you can do just:
       git pull
       fedpkg build
 
-This should start the package build in koji - wait for it to succeed or debug any failures
+If this update contains non backwards compatible changes that might break another package, ex
+`anaconda-webui` you need to follow the procedure below
+
+::
+
+      fedpkg switch-branch rawhide
+      git pull
+      fedpkg request-side-tag
+      fedpkg build --target=${SIDE_TAG}
+
+This process is documented in more detail in the
+[Fedora Packaging Guidelines](https://docs.fedoraproject.org/en-US/package-maintainers/Package_Update_Guide/#multiple_packages)
+
+11. this should start the package build in koji - wait for it to succeed or debug any failures
 
 Using the manual ``rpmbuild`` path
 ----------------------------------
