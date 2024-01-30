@@ -15,6 +15,9 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from collections import namedtuple
+from blivet.arch import is_aarch64
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.structures.comps import CompsEnvironmentData, CompsGroupData
@@ -22,6 +25,8 @@ from pyanaconda.modules.common.structures.packages import PackagesSelectionData
 
 log = get_module_logger(__name__)
 
+FEATURE_64K = "64k"
+KernelFeatures = namedtuple("KernelFeatures", ["page_size_64k"])
 
 def get_environment_data(dnf_proxy, environment_name):
     """Get the environment data.
@@ -94,6 +99,41 @@ def get_software_selection_status(dnf_proxy, selection, kickstarted=False):
     )
 
     return environment_data.name
+
+
+def get_available_kernel_features(dnf_proxy):
+    """Returns a dictionary with that shows which kernels should be shown in the UI.
+    """
+    features = {
+        FEATURE_64K: is_aarch64() and any(dnf_proxy.MatchAvailablePackages("kernel-64k"))
+    }
+
+    return features
+
+
+def get_kernel_titles_and_descriptions():
+    """Returns a dictionary with descriptions and titles for different kernel options.
+    """
+    kernel_features = {
+        "4k": (_("4k"), _("More efficient memory usage in smaller environments")),
+        "64k": (_("64k"), _("System performance gains for memory-intensive workloads")),
+    }
+
+    return kernel_features
+
+
+def get_kernel_from_properties(features):
+    """Translates the selection of required properties into a kernel package name and returns it
+    or returns None if no properties were selected.
+    """
+    kernels = {
+        # ARM 64k    Package Name
+        (False): None,
+        (True): "kernel-64k",
+    }
+
+    kernel_package = kernels[features[0]]
+    return kernel_package
 
 
 class SoftwareSelectionCache(object):

@@ -477,3 +477,11 @@ class DNFModule(PayloadBase):
                 dnf_manager=self.dnf_manager
             )
         ]
+
+    def match_available_packages(self, pattern):
+        """Find available packages that match the specified pattern.
+
+        :param pattern: a pattern for package names
+        :return: a list of matched package names
+        """
+        return self.dnf_manager.match_available_packages(pattern)

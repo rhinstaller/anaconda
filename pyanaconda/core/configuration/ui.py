@@ -121,3 +121,7 @@ class UserInterfaceSection(Section):
 
         if "quality" not in attrs:
             raise ValueError("The minimal quality is not specified.")
+
+    @property
+    def show_kernel_options(self):
+        return self._get_option("show_kernel_options", bool)

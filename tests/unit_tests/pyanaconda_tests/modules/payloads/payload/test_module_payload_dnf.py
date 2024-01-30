@@ -1181,6 +1181,16 @@ class DNFInterfaceTestCase(unittest.TestCase):
 
         assert self.interface.GetRepoConfigurations() == [expected]
 
+    def test_match_available_packages(self):
+        """Test the MatchAvailablePackages method."""
+        assert self.interface.MatchAvailablePackages("p") == []
+
+        dnf_manager = Mock(spec=DNFManager)
+        dnf_manager.match_available_packages.return_value = ["p1", "p2"]
+        self.module._dnf_manager = dnf_manager
+
+        assert self.interface.MatchAvailablePackages("p") == ["p1", "p2"]
+
 
 class DNFModuleTestCase(unittest.TestCase):
     """Test the DNF module."""
