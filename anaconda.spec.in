@@ -461,6 +461,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 30 2024 github-actions <github-actions@github.com> - 40.20-1
+- docs: add section about multi-package updates (kkoukiou)
+
 * Tue Jan 30 2024 github-actions <github-actions@github.com> - 40.19-1
 - Update translations from Weblate for master (github-actions)
 - CONTRIBUTING: Add a note about adding RPMs to built images (vtrefny)
