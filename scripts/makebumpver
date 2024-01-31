@@ -242,7 +242,7 @@ class MakeBumpVer:
         self.git_branch = None
 
         # RHEL release number or None (also fills in self.git_branch)
-        self.rhel = self._is_RHEL()
+        self.rhel = True if rhel_version else False
 
     def _git_config(self, field):
         proc = run_program(['git', 'config', field])
@@ -259,31 +259,6 @@ class MakeBumpVer:
             fields[-1] = str(int(fields[-1]) + VERSION_NUMBER_INCREMENT)
         new = ".".join(fields)
         return new
-
-    def _is_RHEL(self):
-        proc = run_program(['git', 'branch'])
-        lines = [x for x in proc[0].strip('\n').split('\n') if x.startswith('*')]
-
-        if lines == [] or len(lines) > 1:
-            return False
-
-        fields = lines[0].split(' ')
-
-        if len(fields) == 2:
-            self.git_branch = fields[1]
-        else:
-            return False
-
-        if self.git_branch.startswith('rhel'):
-            branch_pattern = r"^rhel(\d+)-(.*)"
-            m = re.match(branch_pattern, self.git_branch)
-            if m:
-                return m.group(1)
-            rhel_branch_pattern = r"^rhel-(\d+)(.*)"
-            m = re.match(rhel_branch_pattern, self.git_branch)
-            if m:
-                return m.group(1)
-        return False
 
     def _get_commit_detail(self, commit, field):
         proc = run_program(['git', 'log', '-1', "--pretty=format:%s" % field, commit])
