@@ -385,6 +385,7 @@ rm -rf \
 %license COPYING
 %{_unitdir}/*
 %{_prefix}/lib/systemd/system-generators/*
+%{_bindir}/instperf
 %{_bindir}/anaconda-disable-nm-ibft-plugin
 %{_bindir}/anaconda-nm-disable-autocons
 %{_sbindir}/anaconda

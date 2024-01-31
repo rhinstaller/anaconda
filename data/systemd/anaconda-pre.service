@@ -4,6 +4,7 @@ Description=pre-anaconda logging service
 Requires=basic.target
 After=basic.target
 Before=anaconda.target
+Wants=instperf.service
 Wants=rsyslog.service
 Wants=systemd-udev-settle.service
 Wants=NetworkManager.service

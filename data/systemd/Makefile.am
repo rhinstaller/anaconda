@@ -24,6 +24,7 @@ dist_systemd_DATA = anaconda.service \
                     anaconda.target \
                     anaconda-tmux@.service \
                     anaconda-shell@.service \
+                    instperf.service \
                     anaconda-sshd.service \
                     anaconda-nm-config.service \
                     anaconda-nm-disable-autocons.service \
