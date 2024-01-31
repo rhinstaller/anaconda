@@ -70,7 +70,7 @@ from pykickstart.commands.snapshot import F26_Snapshot as Snapshot
 from pykickstart.commands.sshpw import F24_SshPw as SshPw
 from pykickstart.commands.sshkey import F22_SshKey as SshKey
 from pykickstart.commands.syspurpose import RHEL8_Syspurpose as Syspurpose
-from pykickstart.commands.timezone import F33_Timezone as Timezone
+from pykickstart.commands.timezone import F40_Timezone as Timezone
 from pykickstart.commands.timesource import F33_Timesource as Timesource
 from pykickstart.commands.updates import F34_Updates as Updates
 from pykickstart.commands.url import F30_Url as Url
