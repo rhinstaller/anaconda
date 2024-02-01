@@ -33,9 +33,11 @@ gi.require_version("Xkl", "1.0")
 
 from gi.repository import GdkX11, Xkl
 
+import iso639
 import threading
 import gettext
 from collections import namedtuple
+from xkbregistry import rxkb
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import DEFAULT_KEYBOARD
@@ -118,65 +120,38 @@ class XklWrapper(object):
         self.configreg = Xkl.ConfigRegistry.get_instance(self._engine)
         self.configreg.load(False)
 
+        self._rxkb = rxkb.Context()
+
         self._layout_infos = dict()
-        self._layout_infos_lock = threading.RLock()
+        self._build_layout_infos()
+
         self._switch_opt_infos = dict()
-        self._switch_opt_infos_lock = threading.RLock()
+        self._build_switch_opt_infos()
 
-        #this might take quite a long time
-        self.configreg.foreach_language(self._get_language_variants, None)
-        self.configreg.foreach_country(self._get_country_variants, None)
+    def _build_layout_infos(self):
+        for layout in self._rxkb.layouts.values():
+            name = layout.name
+            if layout.variant:
+                name += ' (' + layout.variant + ')'
 
-        #'grp' means that we want layout (group) switching options
-        self.configreg.foreach_option('grp', self._get_switch_option, None)
+            langs = list()
+            for lang in layout.iso639_codes:
+                if iso639.find(iso639_2=lang):
+                    langs.append(iso639.to_name(lang))
 
-    def _get_lang_variant(self, c_reg, item, subitem, lang):
-        if subitem:
-            name = item.get_name() + " (" + subitem.get_name() + ")"
-            description = subitem.get_description()
-        else:
-            name = item.get_name()
-            description = item.get_description()
-
-        with self._layout_infos_lock:
             if name not in self._layout_infos:
-                self._layout_infos[name] = LayoutInfo([lang], description)
+                self._layout_infos[name] = LayoutInfo(langs, layout.description)
             else:
-                self._layout_infos[name].langs.append(lang)
+                self._layout_infos[name].langs.extend(langs)
 
-    def _get_country_variant(self, c_reg, item, subitem, country):
-        if subitem:
-            name = item.get_name() + " (" + subitem.get_name() + ")"
-            description = subitem.get_description()
-        else:
-            name = item.get_name()
-            description = item.get_description()
+    def _build_switch_opt_infos(self):
+        for group in self._rxkb.option_groups:
+            # 'grp' means that we want layout (group) switching options
+            if group.name != 'grp':
+                continue
 
-        # if the layout was not added with any language, add it with
-        # the first country encountered (but do not append if it's
-        # already there, as we don't want to add countries to langs)
-        if name not in self._layout_infos:
-            with self._layout_infos_lock:
-                self._layout_infos[name] = LayoutInfo([country], description)
-
-    def _get_language_variants(self, c_reg, item, user_data=None):
-        lang_name, lang_desc = item.get_name(), item.get_description()
-
-        c_reg.foreach_language_variant(lang_name, self._get_lang_variant, lang_desc)
-
-    def _get_country_variants(self, c_reg, item, user_data=None):
-        country_name, country_desc = item.get_name(), item.get_description()
-
-        c_reg.foreach_country_variant(country_name, self._get_country_variant,
-                                      country_desc)
-
-    def _get_switch_option(self, c_reg, item, user_data=None):
-        """Helper function storing layout switching options in foreach cycle"""
-        desc = item.get_description()
-        name = item.get_name()
-
-        with self._switch_opt_infos_lock:
-            self._switch_opt_infos[name] = desc
+            for option in group.options.values():
+                self._switch_opt_infos[option.name] = option.description
 
     def get_current_layout(self):
         """
@@ -211,8 +186,7 @@ class XklWrapper(object):
     def get_available_layouts(self):
         """A list of layouts"""
 
-        with self._layout_infos_lock:
-            return list(self._layout_infos.keys())
+        return list(self._layout_infos.keys())
 
     def get_common_layouts(self):
         """A list of common layouts"""
@@ -224,8 +198,7 @@ class XklWrapper(object):
     def get_switching_options(self):
         """Method returning list of available layout switching options"""
 
-        with self._switch_opt_infos_lock:
-            return list(self._switch_opt_infos.keys())
+        return list(self._switch_opt_infos.keys())
 
     def get_layout_variant_description(self, layout_variant, with_lang=True, xlated=True):
         """
