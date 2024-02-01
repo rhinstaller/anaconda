@@ -382,11 +382,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler, SourceSwitchHandler):
 
         # Include the section with additional repositories.
         self._additional_repositories = AdditionalRepositoriesSection(
-            self.data,
-            self.payload,
-            self.window
+            payload=self.payload,
+            window=self.window
         )
-        main_box.add(self._additional_repositories.widget)
 
     def initialize(self):
         NormalSpoke.initialize(self)
