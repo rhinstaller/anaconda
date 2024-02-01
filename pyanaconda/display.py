@@ -193,6 +193,11 @@ def do_startup_x11_actions():
     else:
         xdg_data_dirs = datadir + '/window-manager:/usr/share'
 
+    xdg_config_dirs = datadir
+    if 'XDG_CONFIG_DIRS' in os.environ:
+        xdg_config_dirs = datadir + ':' + os.environ['XDG_CONFIG_DIRS']
+    os.environ['XDG_CONFIG_DIRS'] = xdg_config_dirs
+
     def x11_preexec():
         # to set GUI subprocess SIGINT handler
         signal.signal(signal.SIGINT, signal.SIG_IGN)

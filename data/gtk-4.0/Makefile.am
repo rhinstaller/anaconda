@@ -1,4 +1,4 @@
-# data/Makefile.am for anaconda
+# data/gtk-4.0/Makefile.am for anaconda
 #
 # Copyright (C) 2009  Red Hat, Inc.
 #
@@ -15,18 +15,9 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = command-stubs gtk-4.0 liveinst systemd pixmaps window-manager dbus conf.d profile.d
-
 CLEANFILES = *~
 
-dist_pkgdata_DATA          = interactive-defaults.ks \
-			     tmux.conf \
-			     anaconda-gtk.css
-
-helpdir               = $(datadir)/$(PACKAGE_NAME)
-dist_help_DATA        = anaconda_options.txt
-
-configdir           = $(sysconfdir)/$(PACKAGE_NAME)
-dist_config_DATA    = anaconda.conf
+gtk4dir           = $(datadir)/$(PACKAGE_NAME)/gtk-4.0
+dist_gtk4_DATA    = settings.ini
 
 MAINTAINERCLEANFILES = Makefile.in
