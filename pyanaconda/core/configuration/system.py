@@ -176,3 +176,8 @@ class SystemSection(Section):
     def can_use_driver_disks(self):
         """Can the system use driver disks?"""
         return self._is_boot_iso
+
+    @property
+    def supports_web_ui(self):
+        """Can we run Web UI on this system?"""
+        return self._is_boot_iso or self._is_live_os

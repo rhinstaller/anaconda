@@ -76,21 +76,93 @@ class SimpleWebUITestCase(unittest.TestCase):
         self.intf.showDetailedError("My detailed error", "Such a detail!")
         mocked_print_message.assert_called_once_with("My detailed error\n\nSuch a detail!""")
 
-    def test_setup(self):
+    @patch("pyanaconda.ui.webui.flags")
+    def test_setup_automated_installation(self, mocked_flags):
+        """Test webui setup call for automated installation."""
+        mocked_flags.automatedInstall = True
+        mocked_flags.ksprompt = True
+
+        with pytest.raises(RuntimeError) as cm:
+            self._setup_interface()
+
+        assert str(cm.value) == "Automated installations are not supported by Web UI."
+
+    @patch("pyanaconda.ui.webui.flags")
+    def test_setup_non_interactive_installation(self, mocked_flags):
+        """Test webui setup call for automated installation."""
+        mocked_flags.automatedInstall = True
+        mocked_flags.ksprompt = False
+
+        with pytest.raises(RuntimeError) as cm:
+            self._setup_interface()
+
+        assert str(cm.value) == "Non-interactive installations are not supported by Web UI."
+
+    @patch("pyanaconda.ui.webui.conf")
+    def test_setup_dir_installation(self, mocked_conf):
+        """Test webui setup call for a dir installation."""
+        mocked_conf.target.is_directory = True
+        mocked_conf.target.is_image = False
+
+        with pytest.raises(RuntimeError) as cm:
+            self._setup_interface()
+
+        assert str(cm.value) == "Dir and image installations are not supported by Web UI."
+
+    @patch("pyanaconda.ui.webui.conf")
+    def test_setup_image_installation(self, mocked_conf):
+        """Test webui setup call for an image installation."""
+        mocked_conf.target.is_directory = False
+        mocked_conf.target.is_image = True
+
+        with pytest.raises(RuntimeError) as cm:
+            self._setup_interface()
+
+        assert str(cm.value) == "Dir and image installations are not supported by Web UI."
+
+    @patch("pyanaconda.ui.webui.conf")
+    def test_setup_unsupported_system(self, mocked_conf):
+        """Test webui setup call with unsupported system."""
+        mocked_conf.target.is_directory = False
+        mocked_conf.target.is_image = False
+        mocked_conf.system.supports_web_ui = False
+
+        with pytest.raises(RuntimeError) as cm:
+            self._setup_interface()
+
+        assert str(cm.value) == "This installation environment is not supported by Web UI."
+
+    @patch("pyanaconda.ui.webui.conf")
+    def test_setup_unsupported_payload(self, mocked_conf):
+        """Test webui setup call with unsupported payload."""
+        mocked_conf.target.is_directory = False
+        mocked_conf.target.is_image = False
+        mocked_conf.system.supports_web_ui = True
+
+        with pytest.raises(NotImplementedError) as cm:
+            self._setup_interface(payload_type=PAYLOAD_TYPE_DNF)
+
+        assert str(cm.value) == "Package installations are not supported by Web UI."
+
+    @patch("pyanaconda.ui.webui.conf")
+    def test_setup(self, mocked_conf):
         """Test webui setup call."""
-        # test not DNF payload type works fine
-        mocked_payload = Mock()
-        mocked_payload.type = PAYLOAD_TYPE_LIVE_IMAGE
+        mocked_conf.target.is_directory = False
+        mocked_conf.target.is_image = False
+        mocked_conf.system.supports_web_ui = True
+        self._setup_interface()
 
-        self.intf = CockpitUserInterface(None, mocked_payload, 0)
-        self.intf.setup(None)
-
-
-        # test DNF payload raises error because it's not yet implemented
-        mocked_payload.type = PAYLOAD_TYPE_DNF
-        self.intf = CockpitUserInterface(None, mocked_payload, 0)
-        with pytest.raises(ValueError):
-            self.intf.setup(None)
+    @staticmethod
+    def _setup_interface(payload_type=PAYLOAD_TYPE_LIVE_IMAGE):
+        """Create and set up the Web UI."""
+        intf = CockpitUserInterface(
+            payload=Mock(type=payload_type),
+            storage=None,
+            remote=False,
+        )
+        intf.setup(
+            data=None
+        )
 
     def test_backend_ready_file(self):
         """Test webui correctly create and remove beackend ready flag file."""
