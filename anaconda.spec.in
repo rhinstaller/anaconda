@@ -417,6 +417,23 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Feb 01 2024 Martin Kolman <mkolman@redhat.com> - 34.25.4.5-1
+- bootupd: Use --write-uuid (walters)
+  Related: RHEL-17205
+- bootloader: Detect bootupd and skip regular install (vslavik)
+  Related: RHEL-17205
+- ostree: Use bootupd if installed by payload (vslavik)
+  Resolves: RHEL-17205
+- bootloader: Create an installation task for collecting kernel arguments
+  (vponcova)
+  Related: RHEL-17205
+- bootloader: Add the collect_arguments method (vponcova)
+  Related: RHEL-17205
+- bootloader: Remove the install_boot_loader function (vponcova)
+  Related: RHEL-17205
+- Apply the bootloader options before the installation (vponcova)
+  Related: RHEL-17205
+
 * Mon Jan 29 2024 Martin Kolman <mkolman@redhat.com> - 34.25.4.4-1
 - rpm-ostree: Setup readonly sysroot for ostree & rw karg (tim)
   Related: RHEL-2250
