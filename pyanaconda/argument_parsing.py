@@ -527,8 +527,6 @@ def getArgumentParser(version_string, boot_cmdline=None):
 
     ap.add_argument("--selinux", action=ParseSelinux, nargs="?", help=help_parser.help_text("selinux"))
 
-    ap.add_argument("--nompath", dest="mpath", action="store_false", default=True,
-                    help=help_parser.help_text("nompath"))
     ap.add_argument("--mpath", action="store_true", help=help_parser.help_text("mpath"))
 
     ap.add_argument("--disklabel", default=SUPPRESS, help=help_parser.help_text("disklabel"))

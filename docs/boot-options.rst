@@ -874,15 +874,6 @@ ksdevice
 ``ksdevice=<DEV>``
     Replaced with `bootdev`_
 
-.. inst.nompath:
-
-inst.nompath
-^^^^^^^^^^^^
-
-This was used to disable support for multipath devices. Anaconda did not
-support proper multipath disabling for a long time, the only thing this did
-was disable parts of GUI.
-
 Removed Options
 ---------------
 
@@ -1037,6 +1028,15 @@ inst.nodmraid
 
 Anaconda no longer supports dmraid, BIOS/Firmware RAID devices are now handled by
 ``mdadm``.
+
+.. inst.nompath:
+
+inst.nompath
+^^^^^^^^^^^^
+
+This was used to disable support for multipath devices. Anaconda did not
+support proper multipath disabling for a long time, the only thing this did
+was disable parts of GUI.
 
 .. inst.product:
 
