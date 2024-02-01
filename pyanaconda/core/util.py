@@ -18,13 +18,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import configparser
 import os
 import os.path
+import pathlib
 import subprocess
 # Used for ascii_lowercase, ascii_uppercase constants
 import tempfile
+import time
 import re
 import signal
+import stat
 import sys
 import types
 import inspect
@@ -39,8 +43,9 @@ from requests_ftp import FTPAdapter
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.path import make_directories, open_with_perm, join_paths
 from pyanaconda.core.process_watchers import WatchProcesses
-from pyanaconda.core.constants import DRACUT_SHUTDOWN_EJECT, \
-    IPMI_ABORTED, X_TIMEOUT, PACKAGES_LIST_FILE
+from pyanaconda.core.constants import DRACUT_SHUTDOWN_EJECT, IPMI_ABORTED, \
+    WAYLAND_SOCKET_NAME, WAYLAND_DISPLAY_VARS_FILE, WAYLAND_TIMEOUT, \
+    WESTON_CONFIG, X_TIMEOUT, PACKAGES_LIST_FILE
 from pyanaconda.core.live_user import get_live_user
 from pyanaconda.errors import RemovedModuleError
 
@@ -163,6 +168,92 @@ def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subp
             preexec_fn()
 
     return partsubp(preexec_fn=preexec)
+
+
+class WaylandStatus:
+    """Status of Wayland launch.
+
+    Values of an instance can be modified from the handler functions.
+    """
+    def __init__(self):
+        self.started = False
+        self.timed_out = False
+
+    def needs_waiting(self):
+        return not (self.started or self.timed_out)
+
+
+def startWl(weston_config=WESTON_CONFIG, output_redirect=None, timeout=WAYLAND_TIMEOUT):
+    """ Start Weston for Wayland and return once Weston is ready to accept connections.
+
+        We can identify whether Weston is ready by testing if
+        the Wayland socket is open yet. Once it is, we can return success.
+
+        :param weston_config: The weston.ini(5) configuration to use, as a dictionary
+        :param output_redirect: file or file descriptor to redirect stdout and stderr to
+        :param timeout: Number of seconds to timing out.
+    """
+    wl_status = WaylandStatus()
+
+    # Create the wayland vars getenv script file for Weston
+    wl_getenv_script_file = tempfile.NamedTemporaryFile(mode="w",
+                                                        suffix="-wl-weston-getenv-sh",
+                                                        delete=False)
+    wl_getenv_script = f"""#!/bin/sh
+    rm -f {WAYLAND_DISPLAY_VARS_FILE}
+    echo "[wayland_vars]" >> {WAYLAND_DISPLAY_VARS_FILE}
+    echo "WAYLAND_DISPLAY=$WAYLAND_DISPLAY" >> {WAYLAND_DISPLAY_VARS_FILE}
+    echo "DISPLAY=$DISPLAY" >> {WAYLAND_DISPLAY_VARS_FILE}
+    exit 0
+    """
+    wl_getenv_script_file.write(wl_getenv_script)
+    wl_getenv_script_file.close()
+
+    weston_autolaunch_config = {"autolaunch": {"path": wl_getenv_script_file.name}}
+
+    os.chmod(wl_getenv_script_file.name,
+             os.stat(wl_getenv_script_file.name).st_mode | stat.S_IEXEC)
+
+    # Create the config file for Weston
+    weston_config_file = tempfile.NamedTemporaryFile(mode="w",
+                                                     suffix="-wl-weston-sysinstall-ini",
+                                                     delete=False)
+    weston_config_ini = configparser.ConfigParser()
+    for section, options in (weston_config | weston_autolaunch_config).items():
+        weston_config_ini.add_section(section)
+        for key, value in options.items():
+            weston_config_ini.set(section, key, str(value))
+    weston_config_ini.write(weston_config_file, space_around_delimiters=False)
+    weston_config_file.close()
+
+    # Determine whether to use drm or vnc backend
+    weston_backend = "drm"
+    if "vnc" in weston_config:
+        weston_backend = "vnc"
+
+    log.debug("Starting Weston.")
+    argv = ["weston", f"--backend={weston_backend}",
+            f"--config={weston_config_file.name}", "--log=/tmp/weston.log",
+            f"--socket={WAYLAND_SOCKET_NAME}"]
+
+    childproc = startProgram(argv, stdout=output_redirect, stderr=output_redirect)
+    WatchProcesses.watch_process(childproc, argv[0])
+
+    for _ in range(0, timeout):
+        try:
+            xdg_runtime_dir = os.getenv("XDG_RUNTIME_DIR")
+            pathlib.Path(xdg_runtime_dir, WAYLAND_SOCKET_NAME).resolve(strict=True)
+            wl_status.started = True
+            return wl_status.started
+        except Exception:
+            if wl_status.needs_waiting():
+                time.sleep(1)
+    wl_status.timed_out = True
+    WatchProcesses.unwatch_process(childproc)
+    childproc.terminate()
+    log.debug("Exception handler test suspended to prevent accidental activation by "
+              "delayed Weston start.")
+    raise TimeoutError("Timeout trying to start %s" % argv[0])
 
 
 class X11Status:

@@ -1,6 +1,4 @@
-# data/Makefile.am for anaconda
-#
-# Copyright (C) 2009  Red Hat, Inc.
+# Copyright (C) 2024  Neal Gompa.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -15,18 +13,9 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = command-stubs liveinst systemd pixmaps window-manager dbus conf.d profile.d pam
-
 CLEANFILES = *~
 
-dist_pkgdata_DATA          = interactive-defaults.ks \
-			     tmux.conf \
-			     anaconda-gtk.css
-
-helpdir               = $(datadir)/$(PACKAGE_NAME)
-dist_help_DATA        = anaconda_options.txt
-
-configdir           = $(sysconfdir)/$(PACKAGE_NAME)
-dist_config_DATA    = anaconda.conf
+pamdir           = $(sysconfdir)/pam.d
+dist_pam_DATA    = anaconda
 
 MAINTAINERCLEANFILES = Makefile.in
