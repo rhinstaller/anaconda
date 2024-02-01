@@ -258,6 +258,17 @@ if __name__ == "__main__":
         util.ipmi_report(constants.IPMI_ABORTED)
         sys.exit(1)
 
+    if (opts.images or opts.dirinstall) and not opts.ksfile:
+        stdout_log.error("--images and --dirinstall cannot be used without --kickstart")
+        util.ipmi_report(constants.IPMI_ABORTED)
+        sys.exit(1)
+
+    if opts.images or opts.dirinstall:
+        log.debug("Dir and image installations can run only in the non-interactive text mode.")
+        stdout_log.info("Enforcing the non-interactive text mode for dir and image installations.")
+        opts.display_mode = constants.DisplayModes.TUI
+        opts.noninteractive = True
+
     from pyanaconda import vnc
     from pyanaconda import kickstart
     # we are past the --version and --help shortcut so we can import display &
@@ -445,11 +456,6 @@ if __name__ == "__main__":
 
     # now start the interface
     display.setup_display(anaconda, opts)
-    if anaconda.gui_startup_failed:
-        # we need to reinitialize the locale if GUI startup failed,
-        # as we might now be in text mode, which might not be able to display
-        # the characters from our current locale
-        startup_utils.reinitialize_locale(text_mode=anaconda.tui_mode)
 
     # we now know in which mode we are going to run so store the information
     from pykickstart import constants as pykickstart_constants
