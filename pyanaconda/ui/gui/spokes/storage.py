@@ -163,7 +163,8 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             # pylint:disable=unused-import
             # ruff: noqa: F401
             import pyanaconda.ui.gui.spokes.blivet_gui
-        except ImportError:
+        except ImportError as e:
+            log.info("Blivet-GUI is not supported: %s", str(e))
             return False
 
         return True
