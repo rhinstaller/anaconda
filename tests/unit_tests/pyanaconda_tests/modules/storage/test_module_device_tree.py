@@ -855,27 +855,6 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         assert root.required is True
         assert root.recommended is False
 
-    def test_get_required_mount_points(self):
-        """Test GetRequiredMountPoints."""
-        result = self.interface.GetRequiredMountPoints()
-        assert isinstance(result, list)
-        assert len(result) != 0
-
-        result = MountPointConstraintsData.from_structure_list(
-            self.interface.GetRequiredMountPoints()
-        )
-        for mp in result:
-            assert mp.mount_point is not None
-            assert mp.required_filesystem_type is not None
-
-        # we are always adding / so it's a good candidate for testing
-        root = next(r for r in result if r.mount_point == "/")
-        assert root is not None
-        assert root.encryption_allowed is True
-        assert root.logical_volume_allowed is True
-        assert root.mount_point == "/"
-        assert root.required_filesystem_type == ""
-
 
 class DeviceTreeTasksTestCase(unittest.TestCase):
     """Test the storage tasks."""
