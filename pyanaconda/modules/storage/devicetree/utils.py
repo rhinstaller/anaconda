@@ -50,7 +50,7 @@ def is_supported_filesystem(fmt_type):
         and fmt.supported
         and fmt.formattable
         and (isinstance(fmt, FS) or fmt.type in ["biosboot", "prepboot", "swap"])
-        and fmt.type not in ("ntfs", "tmpfs")
+        and fmt.type not in ("ntfs", "tmpfs", "gfs2")
     )
 
 
