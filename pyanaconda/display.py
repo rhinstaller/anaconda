@@ -27,6 +27,7 @@ import pkgutil
 import signal
 
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.path import join_paths
 from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda import startup_utils
 from pyanaconda.core import util, constants, hw
@@ -70,9 +71,18 @@ def start_user_systemd():
         log.debug("Don't start the user instance of systemd.")
         return
 
+    # Start the user instance of systemd. This call will also cause the launch of
+    # dbus-broker and start a session bus at XDG_RUNTIME_DIR/bus.
     childproc = util.startProgram(["/usr/lib/systemd/systemd", "--user"])
     WatchProcesses.watch_process(childproc, "systemd")
 
+    # Set up the session bus address. Some services started by Anaconda might call
+    # dbus-launch with the --autolaunch option to find the existing session bus (or
+    # start a new one), but dbus-launch doesn't check the XDG_RUNTIME_DIR/bus path.
+    xdg_runtime_dir = os.environ.get("XDG_RUNTIME_DIR", "/tmp")
+    session_bus_address = "unix:path=" + join_paths(xdg_runtime_dir, "/bus")
+    os.environ["DBUS_SESSION_BUS_ADDRESS"] = session_bus_address
+    log.info("The session bus address is set to %s.", session_bus_address)
 
 # Spice
 
@@ -232,8 +242,6 @@ def do_extra_x11_actions(runres, gui_mode):
 
     # Load the system-wide Xresources
     util.execWithRedirect("xrdb", ["-nocpp", "-merge", "/etc/X11/Xresources"])
-
-    start_user_systemd()
     start_spice_vd_agent()
 
 

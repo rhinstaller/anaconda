@@ -440,6 +440,9 @@ if __name__ == "__main__":
         target=wait_for_connecting_NM_thread
     )
 
+    # Start the user instance of systemd and the session bus.
+    display.start_user_systemd()
+
     # now start the interface
     display.setup_display(anaconda, opts)
     if anaconda.gui_startup_failed:
