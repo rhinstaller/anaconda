@@ -270,7 +270,9 @@ ensure all Anaconda capabilities are supported in the resulting image.
 Summary: Graphical user interface for the Anaconda installer
 Requires: anaconda-core = %{version}-%{release}
 Requires: anaconda-widgets = %{version}-%{release}
+Requires: python3-iso639
 Requires: python3-meh-gui >= %{mehver}
+Requires: python3-xkbregistry
 Requires: adwaita-icon-theme
 Requires: tecla
 Requires: tigervnc-server-minimal
