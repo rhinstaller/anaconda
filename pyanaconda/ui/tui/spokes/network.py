@@ -255,6 +255,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         """ Check whether this spoke is complete or not."""
         # If we can't configure network, don't require it
         return (not conf.system.can_configure_network
+                or self._network_module.IsConnecting
                 or self._network_module.Connected)
 
     @property

@@ -1540,6 +1540,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         # TODO: check also if source requires updates when implemented
         # If we can't configure network, don't require it
         return (not conf.system.can_configure_network
+                or self._network_module.IsConnecting
                 or self._network_module.Connected)
 
     @property
@@ -1692,6 +1693,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
     def completed(self):
         return (not conf.system.can_configure_network
                 or self._network_module.Connected
+                or self._network_module.IsConnecting
                 or not (self.payload.source_type != conf.payload.default_source
                         and self.payload.needs_network))
 
