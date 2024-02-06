@@ -465,6 +465,31 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 06 2024 github-actions <github-actions@github.com> - 40.21-1
+- Update translations from Weblate for master (github-actions)
+- Deprecate timezone --isUtc, --ntpservers and --nontp kickstart options
+  (vponcova)
+- Remove the repo --ignoregroups kickstart option in Fedora 40 (vponcova)
+- Remove the logging --level kickstart option in Fedora 40 (vponcova)
+- Remove the method kickstart command in Fedora 40 (vponcova)
+- docs: Add a release note for removed/deprecated kickstart commands and
+  options (vponcova)
+- Remove the autostep kickstart command in Fedora 40 (vponcova)
+- Do not write newline to the webui pid file (jkonecny)
+- gui: Log information about blivet-gui failed import (vtrefny)
+- Make network spoke complete also in connecting state. (rvykydal)
+- Do not use libxklavier to list keyboard layouts (jexposit)
+- Do not use stringize and unicodeize from Blivet (vtrefny)
+- Remove the inst.nompath boot option (vponcova)
+- Remove support for timezone --isUtc, --ntpservers and --nontp kickstart
+  options (vponcova)
+- Remove no more used GetRequiredMountPoints API of devicetree viewer.
+  (rvykydal)
+- Set GTK 4 decoration layout (jexposit)
+- Add TUI for installing non-standard kernels (ozobal)
+- Add GUI option for installing 64k ARM kernel (ozobal)
+- Revert "Remove instperf" (vslavik)
+
 * Tue Jan 30 2024 github-actions <github-actions@github.com> - 40.20-1
 - docs: add section about multi-package updates (kkoukiou)
 
