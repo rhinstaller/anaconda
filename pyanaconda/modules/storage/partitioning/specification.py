@@ -18,7 +18,6 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-from blivet.util import stringize, unicodeize
 from pykickstart.constants import AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, \
     AUTOPART_TYPE_LVM_THINP
 
@@ -136,10 +135,7 @@ class PartSpec(object):
         return scheme == AUTOPART_TYPE_BTRFS and self.btr
 
     def __str__(self):
-        return stringize(self._to_string())
-
-    def __unicode__(self):
-        return unicodeize(self._to_string())
+        return self._to_string()
 
     def __eq__(self, other):
         return isinstance(other, PartSpec) and vars(self) == vars(other)
