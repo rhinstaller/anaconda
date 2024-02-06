@@ -25,7 +25,6 @@
 # Supported kickstart commands.
 from pykickstart.commands.authselect import F28_Authselect as Authselect
 from pykickstart.commands.autopart import F38_AutoPart as AutoPart
-from pykickstart.commands.autostep import F34_AutoStep as AutoStep
 from pykickstart.commands.bootloader import F39_Bootloader as Bootloader
 from pykickstart.commands.btrfs import F23_BTRFS as BTRFS
 from pykickstart.commands.cdrom import FC3_Cdrom as Cdrom
@@ -46,10 +45,9 @@ from pykickstart.commands.iscsiname import FC6_IscsiName as IscsiName
 from pykickstart.commands.keyboard import F18_Keyboard as Keyboard
 from pykickstart.commands.lang import F19_Lang as Lang
 from pykickstart.commands.liveimg import F19_Liveimg as Liveimg
-from pykickstart.commands.logging import F34_Logging as Logging
+from pykickstart.commands.logging import F40_Logging as Logging
 from pykickstart.commands.logvol import F29_LogVol as LogVol
 from pykickstart.commands.mediacheck import FC4_MediaCheck as MediaCheck
-from pykickstart.commands.method import F34_Method as Method
 from pykickstart.commands.mount import F27_Mount as Mount
 from pykickstart.commands.network import F39_Network as Network
 from pykickstart.commands.nfs import FC6_NFS as NFS
@@ -60,7 +58,7 @@ from pykickstart.commands.partition import F34_Partition as Partition
 from pykickstart.commands.raid import F29_Raid as Raid
 from pykickstart.commands.realm import F19_Realm as Realm
 from pykickstart.commands.reboot import F23_Reboot as Reboot
-from pykickstart.commands.repo import F33_Repo as Repo
+from pykickstart.commands.repo import F40_Repo as Repo
 from pykickstart.commands.reqpart import F23_ReqPart as ReqPart
 from pykickstart.commands.rescue import F10_Rescue as Rescue
 from pykickstart.commands.rhsm import RHEL8_RHSM as RHSM
@@ -72,7 +70,7 @@ from pykickstart.commands.snapshot import F26_Snapshot as Snapshot
 from pykickstart.commands.sshpw import F24_SshPw as SshPw
 from pykickstart.commands.sshkey import F22_SshKey as SshKey
 from pykickstart.commands.syspurpose import RHEL8_Syspurpose as Syspurpose
-from pykickstart.commands.timezone import F33_Timezone as Timezone
+from pykickstart.commands.timezone import F40_Timezone as Timezone
 from pykickstart.commands.timesource import F33_Timesource as Timesource
 from pykickstart.commands.updates import F34_Updates as Updates
 from pykickstart.commands.url import F30_Url as Url
