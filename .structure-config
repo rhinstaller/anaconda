@@ -11,6 +11,9 @@ INFRASTRUCTURE_FILES=(
 dockerfile/
 scripts/testing/
 scripts/jinja-render
+scripts/makebumpver
+scripts/rhel_version.py
+scripts/rhel_version.py.j2
 dracut/.shellcheckrc
 docs/ci-status.rst
 )
