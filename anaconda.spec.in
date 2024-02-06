@@ -231,8 +231,6 @@ Requires: rsync
 # only WeakRequires elsewhere and not guaranteed to be present
 Requires: device-mapper-multipath
 Requires: zram-generator
-# Submitting bugs to bugzilla
-Requires: libreport-rhel-anaconda-bugzilla
 # External tooling for managing NVMe-FC devices in the installation environment
 Requires: nvme-cli
 
