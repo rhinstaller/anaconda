@@ -91,7 +91,7 @@ def reset_storage(scan_all=False, retry=True):
 
     while True:
         try:
-            task_path = storage_proxy.ScanDevicesWithTask()
+            task_path = storage_proxy.ScanDevicesWithTask(True)
             task_proxy = STORAGE.get_proxy(task_path)
             sync_run_task(task_proxy)
         except DBusError as e:

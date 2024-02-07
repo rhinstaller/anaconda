@@ -241,7 +241,7 @@ class InstallerStorage(Blivet):
 
         return list(filter(is_supported, disks))
 
-    def reset(self, cleanup_only=False):
+    def reset(self, cleanup_only=False, deep=True):
         """ Reset storage configuration to reflect actual system state.
 
             This will cancel any queued actions and rescan from scratch but not
@@ -250,9 +250,16 @@ class InstallerStorage(Blivet):
             :keyword cleanup_only: prepare the tree only to deactivate devices
             :type cleanup_only: bool
 
+            :keyward deep: perform a deep scan and re-read existing installations
+
             See :meth:`devicetree.Devicetree.populate` for more information
             about the cleanup_only keyword argument.
         """
+        if deep:
+            log.debug("resetting storage configuration deep")
+        else:
+            log.debug("resetting storage configuration plain")
+
         # set up the disk images
         if conf.target.is_image:
             self.setup_disk_images()
@@ -266,7 +273,8 @@ class InstallerStorage(Blivet):
 
         # Protect devices from teardown.
         self._mark_protected_devices()
-        self.devicetree.teardown_all()
+        if deep:
+            self.devicetree.teardown_all()
 
         self.fsset = FSSet(self.devicetree)
 
@@ -274,7 +282,8 @@ class InstallerStorage(Blivet):
         self.bootloader.reset()
 
         self.roots = []
-        self.roots = find_existing_installations(self.devicetree)
+        if deep:
+            self.roots = find_existing_installations(self.devicetree)
         self.dump_state("initial")
 
     def _mark_protected_devices(self):

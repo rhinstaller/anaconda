@@ -42,13 +42,14 @@ class ScanDevicesTask(Task):
     This task will reset the given instance of Blivet.
     """
 
-    def __init__(self, storage):
+    def __init__(self, storage, deep):
         """Create a new task.
 
         :param storage: an instance of Blivet
         """
         super().__init__()
         self._storage = storage
+        self._deep = deep
 
     @property
     def name(self):
@@ -81,4 +82,4 @@ class ScanDevicesTask(Task):
 
     def _reset_storage(self, storage):
         """Reset the storage."""
-        storage.reset()
+        storage.reset(False, self._deep)

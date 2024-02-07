@@ -40,7 +40,7 @@ class StorageInterface(KickstartModuleInterface):
             "AppliedPartitioning", self.implementation.applied_partitioning_changed
         )
 
-    def ScanDevicesWithTask(self) -> ObjPath:
+    def ScanDevicesWithTask(self, deep_scan: bool = True) -> ObjPath:
         """Scan all devices with a task.
 
         Create a model of the current storage. This model will be used
@@ -50,7 +50,7 @@ class StorageInterface(KickstartModuleInterface):
         :return: a path to a task
         """
         return TaskContainer.to_object_path(
-            self.implementation.scan_devices_with_task()
+            self.implementation.scan_devices_with_task(deep_scan)
         )
 
     @emits_properties_changed

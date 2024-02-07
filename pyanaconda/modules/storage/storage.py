@@ -229,7 +229,7 @@ class StorageService(KickstartService):
 
         self.storage.protect_devices(protected_devices)
 
-    def scan_devices_with_task(self):
+    def scan_devices_with_task(self, deep_scan: bool = True):
         """Scan all devices with a task.
 
         We will reset a copy of the current storage model
@@ -237,6 +237,11 @@ class StorageService(KickstartService):
 
         :return: a task
         """
+        if not deep_scan:
+            log.debug("Scanning devices without unmounting and deactivating.")
+        else:
+            log.debug("Scanning devices with unmounting and deactivating.")
+
         # Copy the storage.
         storage = self.storage.copy()
 
@@ -247,7 +252,7 @@ class StorageService(KickstartService):
         storage.disk_images = self._disk_selection_module.disk_images
 
         # Create the task.
-        task = ScanDevicesTask(storage)
+        task = ScanDevicesTask(storage, deep_scan)
         task.succeeded_signal.connect(lambda: self._set_storage(storage))
         return task
 
