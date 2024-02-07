@@ -26,6 +26,7 @@ import threading
 from pyanaconda.core.constants import DisplayModes, PAYLOAD_TYPE_RPM_OSTREE, ADDON_PATHS
 from pyanaconda.core import constants
 from pyanaconda.core.startup.dbus_launcher import AnacondaDBusLauncher
+from pyanaconda.core.util import open_with_perm
 from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 from pyanaconda.modules.payloads.payload.rpm_ostree.flatpak_manager import FlatpakManager
@@ -264,7 +265,7 @@ class Anaconda(object):
         os.close(fd)
 
         # append to a given file
-        with open("/tmp/anaconda-tb-all.log", "a+") as f:
+        with open_with_perm("/tmp/anaconda-tb-all.log", "a+", 0o600) as f:
             f.write("--- traceback: %s ---\n" % filename)
             f.write(dump_text + "\n")
 
