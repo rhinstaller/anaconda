@@ -112,13 +112,11 @@ Requires: subscription-manager >= %{subscriptionmanagerver}
 # which is apparently great for containers but unhelpful for the rest of us
 Requires: cracklib-dicts
 
-Requires: teamd
 %ifarch s390 s390x
 Requires: openssh
 %endif
 Requires: NetworkManager >= %{nmver}
 Requires: NetworkManager-libnm >= %{nmver}
-Requires: NetworkManager-team
 Requires: kbd
 Requires: chrony
 Requires: systemd
