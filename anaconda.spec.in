@@ -415,6 +415,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Feb 07 2024 Martin Kolman <mkolman@redhat.com> - 34.25.4.6-1
+- Disable bug reporting to Bugzilla from anaconda (kkoukiou)
+  Resolves: RHEL-24419
+- Fixed file-write operation to a public directory (ataf)
+  Resolves: RHEL-23345
+
 * Thu Feb 01 2024 Martin Kolman <mkolman@redhat.com> - 34.25.4.5-1
 - bootupd: Use --write-uuid (walters)
   Related: RHEL-17205
