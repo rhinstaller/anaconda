@@ -27,6 +27,7 @@ from pyanaconda import addons
 from pyanaconda.core.constants import DisplayModes
 from pyanaconda.core import constants
 from pyanaconda.core.startup.dbus_launcher import AnacondaDBusLauncher
+from pyanaconda.core.util import open_with_perm
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 from pyanaconda.payload.flatpak import FlatpakPayload
 
@@ -249,7 +250,7 @@ class Anaconda(object):
         os.close(fd)
 
         # append to a given file
-        with open("/tmp/anaconda-tb-all.log", "a+") as f:
+        with open_with_perm("/tmp/anaconda-tb-all.log", "a+", 0o600) as f:
             f.write("--- traceback: %s ---\n" % filename)
             f.write(dump_text + "\n")
 
