@@ -60,9 +60,9 @@ WIDGETSDATA = '"$(datadir)/anaconda"'
 noinst_HEADERS = gettext.h intl.h
 
 lib_LTLIBRARIES = libAnacondaWidgets.la
-libAnacondaWidgets_la_CFLAGS = $(GTK_CFLAGS) $(LIBXKLAVIER_CFLAGS) -Wall -g\
+libAnacondaWidgets_la_CFLAGS = $(GTK_CFLAGS) -Wall -g\
 			       -DWIDGETS_DATADIR=$(WIDGETSDATA)
-libAnacondaWidgets_la_LIBADD = $(GTK_LIBS) $(LIBXKLAVIER_LIBS)
+libAnacondaWidgets_la_LIBADD = $(GTK_LIBS)
 libAnacondaWidgets_la_LDFLAGS = $(LTLIBINTL) -version-info 4:0:0
 libAnacondaWidgets_la_SOURCES = $(SOURCES) $(HDRS)
 
@@ -124,7 +124,7 @@ AnacondaWidgets-3.4.gir: libAnacondaWidgets.la
 AnacondaWidgets_3_4_gir_FILES = $(GISOURCES) $(GIHDRS)
 AnacondaWidgets_3_4_gir_LIBS = libAnacondaWidgets.la
 AnacondaWidgets_3_4_gir_SCANNERFLAGS = --warn-all --identifier-prefix=Anaconda --symbol-prefix=anaconda
-AnacondaWidgets_3_4_gir_INCLUDES = Gtk-3.0 Xkl-1.0
+AnacondaWidgets_3_4_gir_INCLUDES = Gtk-3.0
 
 INTROSPECTION_GIRS = AnacondaWidgets-3.4.gir
 
