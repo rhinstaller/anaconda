@@ -15,7 +15,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
+from pyanaconda.core.constants import PAYLOAD_TYPE_DNF
+from pyanaconda.modules.common.constants.services import PAYLOADS
 from pyanaconda.modules.storage.bootloader.base import BootLoader, BootLoaderError
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
@@ -74,6 +75,29 @@ class SystemdBoot(BootLoader):
     def config_file(self):
         """ Full path to configuration file. """
         return "%s/%s" % (self.config_dir, self._config_file)
+
+    def check(self):
+        """Verify the bootloader configuration."""
+        if self._get_payload_type() != PAYLOAD_TYPE_DNF:
+            self.errors.append(_(
+                "Systemd-boot cannot be utilized with the current type of payload. "
+                "Choose an installation media that supports package installation."
+            ))
+            return False
+
+        return super().check()
+
+    @staticmethod
+    def _get_payload_type():
+        """Get the type of the active payload."""
+        payloads_proxy = PAYLOADS.get_proxy()
+        object_path = payloads_proxy.ActivePayload
+
+        if not object_path:
+            return None
+
+        object_proxy = PAYLOADS.get_proxy(object_path)
+        return object_proxy.Type
 
     # copy console update from grub2.py
     def write_config_console(self, config):
@@ -152,7 +176,6 @@ class SystemdBoot(BootLoader):
         if rc:
             raise BootLoaderError(_("bootctl failed to install UEFI boot loader. "
                                     "More information may be found in the log files stored in /tmp"))
-
 
     def write_config_images(self, config):
         return True
