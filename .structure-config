@@ -1,1 +1,16 @@
-INFRASTRUCTURE_FILES='.structure-config .packit.yml .readthedocs.yaml .pep8speaks.yml .codecov.yml .coveragerc .github/ dockerfile/ docs/requirements.txt scripts/testing/ scripts/githooks/'
+INFRASTRUCTURE_FILES=(
+.structure-config
+.packit.yml
+.readthedocs.yaml
+.pep8speaks.yml
+.codecov.yml
+.coveragerc
+.github/
+dockerfile/
+docs/requirements.txt
+scripts/testing/
+scripts/githooks/
+scripts/makebumpver
+scripts/rhel_version.py
+scripts/rhel_version.py.j2
+)

@@ -44,7 +44,7 @@ jobs:
           for f in $changed_files; do
             matched="no"
 
-            for infra_f in $INFRASTRUCTURE_FILES; do
+            for infra_f in "${INFRASTRUCTURE_FILES[@]}"; do
               if [[ "$f" =~ "$infra_f" ]]; then
                 matched="yes"
                 break
