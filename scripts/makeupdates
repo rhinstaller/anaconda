@@ -327,6 +327,15 @@ def check_autotools(srcdir, builddir):
         os.system(os.path.join(srcdir, 'configure') + ' --prefix=`rpm --eval %_prefix`')
         os.chdir(srcdir)
 
+def generate_dbus_code(srcdir):
+    os.system('gdbus-codegen '
+              '--interface-prefix org.fedoraproject.Anaconda.Modules. '
+              '--c-namespace An '
+              '--generate-c-code an-localization '
+              '--output-directory %s/widgets/src '
+              '%s/widgets/src/dbus/org.fedoraproject.Anaconda.Modules.Localization.xml'
+              % (srcdir, srcdir))
+
 def copy_updated_widgets(updates, srcdir, builddir):
     os.chdir(srcdir)
 
@@ -483,6 +492,7 @@ def main():
     copy_updated_files(args.tag, updates, cwd, builddir)
 
     if args.compile:
+        generate_dbus_code(cwd)
         if widgets_changed(args.tag):
             copy_updated_widgets(updates, cwd, builddir)
 
