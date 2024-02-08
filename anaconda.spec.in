@@ -36,7 +36,6 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define libarchivever 3.0.4
 %define libblockdevver 2.1
 %define libreportanacondaver 2.0.21-1
-%define libxklavierver 5.4
 %define mehver 0.23-1
 %define nmver 1.0
 %define pykickstartver 3.58-1
@@ -58,7 +57,6 @@ BuildRequires: gobject-introspection-devel
 %if %{with glade}
 BuildRequires: glade-devel
 %endif
-BuildRequires: libxklavier-devel >= %{libxklavierver}
 BuildRequires: make
 BuildRequires: pango-devel
 BuildRequires: python3-devel
@@ -293,7 +291,6 @@ Requires: python3-xkbregistry
 Requires: adwaita-icon-theme
 Requires: tecla
 Requires: tigervnc-server-minimal
-Requires: libxklavier >= %{libxklavierver}
 Requires: nm-connection-editor
 %ifnarch s390 s390x
 Requires: NetworkManager-wifi
