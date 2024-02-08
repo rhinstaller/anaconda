@@ -32,6 +32,7 @@ class DeviceData(DBusData):
         self._size = 0
         self._parents = []
         self._children = []
+        self._links = []
         self._is_disk = False
         self._protected = False
         self._removable = False
@@ -139,6 +140,18 @@ class DeviceData(DBusData):
     @children.setter
     def children(self, value):
         self._children = value
+
+    @property
+    def links(self) -> List[Str]:
+        """Symbolic links for the device.
+
+        :return: a list of device paths
+        """
+        return self._links
+
+    @links.setter
+    def links(self, value):
+        self._links = value
 
     @property
     def attrs(self) -> Dict[Str, Str]:

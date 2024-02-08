@@ -116,6 +116,7 @@ class DeviceTreeViewer(ABC):
         data.type = device.type
         data.name = device.name
         data.path = device.path
+        data.links = device.device_links
         data.size = device.size.get_bytes()
         data.parents = [d.name for d in device.parents]
         data.children = [d.name for d in device.children]
