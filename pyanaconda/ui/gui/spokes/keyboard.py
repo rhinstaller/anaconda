@@ -24,7 +24,7 @@ from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.categories.localization import LocalizationCategory
 from pyanaconda.ui.gui.utils import gtk_call_once, escape_markup, gtk_batch_map, timed_action
 from pyanaconda.ui.gui.utils import override_cell_property
-from pyanaconda.ui.gui.xkl_wrapper import XklWrapper, XklWrapperError
+from pyanaconda.ui.gui.xkl_wrapper import XklWrapper
 from pyanaconda import keyboard
 from pyanaconda import flags
 from pyanaconda.core.i18n import _, N_, CN_
@@ -331,6 +331,12 @@ class KeyboardSpoke(NormalSpoke):
         self._l12_module = LOCALIZATION.get_proxy()
         self._seen = self._l12_module.KeyboardKickstarted
 
+        self._compositor_initial_layout = self._xkl_wrapper.get_current_layout()
+        self._xkl_wrapper.compositor_selected_layout_changed.connect(
+            self._on_compositor_selected_layout_changed
+        )
+        self._xkl_wrapper.compositor_layouts_changed.connect(self._on_compositor_layouts_changed)
+
     def apply(self):
         # the user has confirmed (seen) the configuration
         self._confirmed = True
@@ -363,7 +369,7 @@ class KeyboardSpoke(NormalSpoke):
 
         # Request user attention if the current activated layout is a different from the
         # selected ones
-        return self._xkl_wrapper.get_current_layout() in self._l12_module.XLayouts
+        return self._compositor_initial_layout in self._l12_module.XLayouts
 
     @property
     def status(self):
@@ -465,12 +471,12 @@ class KeyboardSpoke(NormalSpoke):
         self._refresh_switching_info()
 
     def _addLayout(self, store, name):
-        # first try to add the layout
-        if keyboard.can_configure_keyboard():
-            self._xkl_wrapper.add_layout(name)
+        if not self._xkl_wrapper.is_valid_layout(name):
+            return False
 
         # valid layout, append it to the store
         store.append([name])
+        return True
 
     def _removeLayout(self, store, itr):
         """
@@ -479,8 +485,6 @@ class KeyboardSpoke(NormalSpoke):
 
         """
 
-        if keyboard.can_configure_keyboard():
-            self._xkl_wrapper.remove_layout(store[itr][0])
         store.remove(itr)
 
     def _refresh_switching_info(self):
@@ -526,6 +530,9 @@ class KeyboardSpoke(NormalSpoke):
             # Update the selection information
             self._selection.emit("changed")
 
+            if keyboard.can_configure_keyboard():
+                self._flush_layouts_to_X()
+
     def on_remove_clicked(self, button):
         if not self._selection.count_selected_rows():
             return
@@ -541,6 +548,10 @@ class KeyboardSpoke(NormalSpoke):
                 # Re-emit the selection changed signal now that the backing store is updated
                 # in order to update the first/last/only-based button sensitivities
                 self._selection.emit("changed")
+
+                if keyboard.can_configure_keyboard():
+                    self._flush_layouts_to_X()
+
                 return
 
             #nothing left, run AddLayout dialog to replace the current layout
@@ -561,6 +572,9 @@ class KeyboardSpoke(NormalSpoke):
         self._removeLayout(store, itr)
         self._selection.select_iter(itr2)
 
+        if keyboard.can_configure_keyboard():
+            self._flush_layouts_to_X()
+
     def on_up_clicked(self, button):
         if not self._selection.count_selected_rows():
             return
@@ -574,10 +588,6 @@ class KeyboardSpoke(NormalSpoke):
         if keyboard.can_configure_keyboard():
             self._flush_layouts_to_X()
 
-        if not store.iter_previous(cur):
-            #layout is first in the list (set as default), activate it
-            self._xkl_wrapper.activate_default_layout()
-
         self._selection.emit("changed")
 
     def on_down_clicked(self, button):
@@ -586,9 +596,6 @@ class KeyboardSpoke(NormalSpoke):
 
         (store, cur) = self._selection.get_selected()
 
-        #if default layout (first in the list) changes we need to activate it
-        activate_default = not store.iter_previous(cur)
-
         nxt = store.iter_next(cur)
         if not nxt:
             return
@@ -596,9 +603,6 @@ class KeyboardSpoke(NormalSpoke):
         store.swap(cur, nxt)
         if keyboard.can_configure_keyboard():
             self._flush_layouts_to_X()
-
-        if activate_default:
-            self._xkl_wrapper.activate_default_layout()
 
         self._selection.emit("changed")
 
@@ -698,10 +702,9 @@ class KeyboardSpoke(NormalSpoke):
 
         valid_layouts = []
         for layout in self._l12_module.XLayouts:
-            try:
-                self._addLayout(self._store, layout)
+            if self._addLayout(self._store, layout):
                 valid_layouts += layout
-            except XklWrapperError:
+            else:
                 log.error("Failed to add layout '%s'", layout)
 
         if not valid_layouts:
@@ -716,3 +719,11 @@ class KeyboardSpoke(NormalSpoke):
             layouts_list.append(row[0])
 
         self._xkl_wrapper.replace_layouts(layouts_list)
+
+    def _on_compositor_selected_layout_changed(self, layout):
+        if not self._compositor_initial_layout:
+            self._compositor_initial_layout = layout
+
+    @timed_action(busy_cursor=False)
+    def _on_compositor_layouts_changed(self, layouts):
+        self._xkl_wrapper.activate_default_layout()
