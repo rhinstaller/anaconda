@@ -160,6 +160,10 @@ class PrepareOSTreeMountTargetsTask(Task):
 
         # Canonicalize dest to the full path
         dest = self._sysroot + dest
+        # Resolve symlinks as bind mounting over symlinks does not
+        # seem to work on btrfs:
+        # https://bugzilla.redhat.com/show_bug.cgi?id=2262892
+        dest = os.path.realpath(dest)
 
         if bind_ro:
             safe_exec_with_redirect("mount", ["--bind", src, src])
