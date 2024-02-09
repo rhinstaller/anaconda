@@ -112,7 +112,7 @@ class AnacondaKSScript(KSScript):
             # chroot later.
             messages = "/tmp/%s.log" % os.path.basename(path)
 
-        with open(messages, "w") as fp:
+        with util.open_with_perm(messages, "w", 0o600) as fp:
             rc = util.execWithRedirect(self.interp, ["/tmp/%s" % os.path.basename(path)],
                                        stdout=fp,
                                        root=scriptRoot)
