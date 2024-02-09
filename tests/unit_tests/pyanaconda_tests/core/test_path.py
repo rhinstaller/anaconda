@@ -21,7 +21,7 @@ import unittest
 from unittest.mock import patch, call
 import pytest
 from pyanaconda.core.path import set_system_root, make_directories, get_mount_paths, \
-    open_with_perm, join_paths, touch
+    open_with_perm, join_paths, touch, set_mode
 
 
 class SetSystemRootTests(unittest.TestCase):
@@ -233,5 +233,27 @@ class MiscTests(unittest.TestCase):
 
             # check if the file is empty
             assert os.stat(file_path).st_size == 0
+        finally:
+            shutil.rmtree(test_dir)
+
+    def test_set_mode(self):
+        """Test if the set_mode function"""
+        test_dir = tempfile.mkdtemp()
+        try:
+            file_path = os.path.join(test_dir, "EMPTY_FILE")
+
+            # test default mode - file will be created when it doesn't exists
+            set_mode(file_path)
+
+            # check if it exists & is a file
+            assert os.path.isfile(file_path)
+            # check if the file is empty
+            assert os.stat(file_path).st_mode == 0o100600
+
+            # test change of mode on already created file
+            set_mode(file_path, 0o744)
+
+            # check if the file is empty
+            assert os.stat(file_path).st_mode == 0o100744
         finally:
             shutil.rmtree(test_dir)

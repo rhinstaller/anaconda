@@ -128,3 +128,16 @@ def touch(file_path):
     """
     if not os.path.exists(file_path):
         os.mknod(file_path)
+
+
+def set_mode(file_path, perm=0o600):
+    """Set file permission to a given file
+
+    In case the file doesn't exists - create it.
+
+    :param str file_path: Path to a file
+    :param int perm: File permissions in format of os.chmod()
+    """
+    if not os.path.exists(file_path):
+        touch(file_path)
+    os.chmod(file_path, perm)
