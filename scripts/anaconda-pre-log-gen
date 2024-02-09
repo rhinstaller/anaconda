@@ -8,7 +8,7 @@ TARGET_DIRECTORY=/tmp/pre-anaconda-logs
 # do not produce any logs unless debug is enabled
 grep -E -q "\<debug\>|\<inst\.debug\>" /proc/cmdline || exit 0
 
-mkdir ${TARGET_DIRECTORY}
+mkdir -m 700 ${TARGET_DIRECTORY}
 
 lsblk -a > ${TARGET_DIRECTORY}/block_devices.log
 dmesg > ${TARGET_DIRECTORY}/kernel_ring_buffer.log
