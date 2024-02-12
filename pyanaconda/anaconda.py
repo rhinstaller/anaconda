@@ -202,7 +202,7 @@ class Anaconda(object):
         """The user interface."""
         return self._intf
 
-    def initInterface(self):
+    def initialize_interface(self):
         if self._intf:
             raise RuntimeError("Second attempt to initialize the InstallInterface")
 

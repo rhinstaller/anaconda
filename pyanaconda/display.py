@@ -265,6 +265,16 @@ def setup_display(anaconda, options):
     :param anaconda: instance of the Anaconda class
     :param options: command line/boot options
     """
+    anaconda.display_mode = options.display_mode
+    anaconda.interactive_mode = not options.noninteractive
+
+    if flags.rescue_mode:
+        return
+
+    if conf.target.is_image or conf.target.is_directory:
+        anaconda.log_display_mode()
+        anaconda.initialize_interface()
+        return
 
     try:
         xtimeout = int(options.xtimeout)
@@ -275,9 +285,6 @@ def setup_display(anaconda, options):
     vnc_server = vnc.VncServer()  # The vnc Server object.
     vnc_server.anaconda = anaconda
     vnc_server.timeout = xtimeout
-
-    anaconda.display_mode = options.display_mode
-    anaconda.interactive_mode = not options.noninteractive
 
     if options.vnc:
         flags.usevnc = True
@@ -296,9 +303,6 @@ def setup_display(anaconda, options):
 
     if options.xdriver:
         write_xdriver(options.xdriver, root="/")
-
-    if flags.rescue_mode:
-        return
 
     if anaconda.ksdata.vnc.enabled:
         flags.usevnc = True
@@ -400,4 +404,10 @@ def setup_display(anaconda, options):
         do_startup_x11_actions()
 
     # with X running we can initialize the UI interface
-    anaconda.initInterface()
+    anaconda.initialize_interface()
+
+    if anaconda.gui_startup_failed:
+        # we need to reinitialize the locale if GUI startup failed,
+        # as we might now be in text mode, which might not be able to display
+        # the characters from our current locale
+        startup_utils.reinitialize_locale(text_mode=anaconda.tui_mode)
