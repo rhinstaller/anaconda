@@ -385,6 +385,14 @@ class FSSet(object):
                             "/sys/fs/selinux", "/proc/bus/usb", "/sys/firmware/efi/efivars"):
             # drop these now -- we'll recreate later
             return None
+        elif mountpoint == "/boot":
+            has_context = False
+            for o in options.split(","):
+                if o.startswith("context="):
+                    has_context = True
+                    break
+            if (not has_context):
+                options = options + ",context=system_u:object_r:boot_t:s0"
         else:
             # nodev filesystem -- preserve or drop completely?
             fmt = get_format(fstype)
@@ -766,6 +774,16 @@ class FSSet(object):
                     continue
 
             options = options or "defaults"
+
+            if mountpoint == "/boot":
+                has_context = False
+                for o in options.split(","):
+                    if o.startswith("context="):
+                        has_context = True
+                        break
+                if (not has_context):
+                    options = options + ",context=system_u:object_r:boot_t:s0"
+
             for netdev in netdevs:
                 if device.depends_on(netdev):
                     if root_on_netdev and mountpoint == "/var":
