@@ -26,7 +26,7 @@ class CopyLogsTaskTest(unittest.TestCase):
     @patch("pyanaconda.modules.boss.installation.restorecon")
     @patch("pyanaconda.modules.boss.installation.make_directories")
     @patch("pyanaconda.modules.boss.installation.conf")
-    @patch("pyanaconda.modules.boss.installation.open")
+    @patch("pyanaconda.modules.boss.installation.open_with_perm")
     def test_run_all(self, open_mock, conf_mock, mkdir_mock, restore_mock, exec_wr_mock,
                      glob_mock):
         """Test the log copying task."""
@@ -66,7 +66,7 @@ class CopyLogsTaskTest(unittest.TestCase):
         glob_mock.assert_has_calls([
             call("/tmp/ks-script*.log")
         ])
-        open_mock.assert_called_once_with("/tmp/journal.log", "w")
+        open_mock.assert_called_once_with("/tmp/journal.log", "w", perm=0o600)
         log_file = open_mock().__enter__.return_value
 
         # Warning: Constructing the argument to the exec... call requires a call to one of the
@@ -116,7 +116,7 @@ class CopyLogsTaskTest(unittest.TestCase):
     @patch("pyanaconda.modules.boss.installation.execWithRedirect")
     @patch("pyanaconda.modules.boss.installation.make_directories")
     @patch("pyanaconda.modules.boss.installation.conf")
-    @patch("pyanaconda.modules.boss.installation.open")
+    @patch("pyanaconda.modules.boss.installation.open_with_perm")
     def test_nosave_input_ks(self, open_mock, conf_mock, mkdir_mock, exec_wr_mock, glob_mock):
         """Test nosave for kickstart"""
         glob_mock.side_effect = [

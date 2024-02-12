@@ -21,7 +21,7 @@ import glob
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.path import make_directories, join_paths
+from pyanaconda.core.path import make_directories, join_paths, open_with_perm
 from pyanaconda.core.util import execWithRedirect, restorecon
 from pyanaconda.modules.common.task import Task
 
@@ -129,7 +129,7 @@ class CopyLogsTask(Task):
     def _dump_journal(self):
         """Dump journal from the installation environment"""
         tempfile = "/tmp/journal.log"
-        with open(tempfile, "w") as logfile:
+        with open_with_perm(tempfile, "w", perm=0o600) as logfile:
             execWithRedirect("journalctl", ["-b"], stdout=logfile, log_output=False)
         self._copy_file_to_sysroot(tempfile, join_paths(TARGET_LOG_DIR, "journal.log"))
 

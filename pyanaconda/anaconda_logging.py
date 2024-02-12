@@ -27,6 +27,7 @@ import sys
 import warnings
 
 from pyanaconda.core import constants
+from pyanaconda.core.path import set_mode
 
 ENTRY_FORMAT = "%(asctime)s,%(msecs)03d %(levelname)s %(name)s: %(message)s"
 STDOUT_FORMAT = "%(asctime)s %(message)s"
@@ -117,8 +118,10 @@ class AnacondaSocketHandler(_AnacondaLogFixer, SocketHandler):
 
 
 class AnacondaFileHandler(_AnacondaLogFixer, logging.FileHandler):
-    pass
+    def __init__(self, file_dest):
+        logging.FileHandler.__init__(self, file_dest)
 
+        set_mode(file_dest)
 
 class AnacondaStreamHandler(_AnacondaLogFixer, logging.StreamHandler):
     pass
