@@ -31,6 +31,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.process_watchers import PidWatcher
 from pyanaconda.core.glib import create_main_loop
 from pyanaconda.core.path import touch
+from pyanaconda.flags import flags
 
 log = get_module_logger(__name__)
 
@@ -81,15 +82,32 @@ class CockpitUserInterface(ui.UserInterface):
 
         This method must be provided by all subclasses.
         """
-        # Finish all initialization jobs.
+        # FIXME: Support automated installations in Web UI.
+        if flags.automatedInstall and flags.ksprompt:
+            raise NotImplementedError("Automated installations are not supported by Web UI.")
+
+        # FIXME: Support non-interactive installations in Web UI.
+        if flags.automatedInstall and not flags.ksprompt:
+            raise NotImplementedError("Non-interactive installations are not supported by Web UI.")
+
+        # Make sure that Web UI can be used only for hardware installations.
+        if conf.target.is_directory or conf.target.is_image:
+            raise RuntimeError("Dir and image installations are not supported by Web UI.")
+
+        # Make sure that Web UI can be used only on boot.iso or Live media.
+        if not conf.system.supports_web_ui:
+            raise RuntimeError("This installation environment is not supported by Web UI.")
+
+        # FIXME: Support package installations in Web UI.
+        if self.payload.type == PAYLOAD_TYPE_DNF:
+            raise NotImplementedError("Package installations are not supported by Web UI.")
+
+        # Finish all initialization jobs. Don't remove this unless you fully understand all
+        # consequences of such removal. Web UI is not able to check the initialization threads,
+        # so this waiting is necessary until there is another way of monitoring the initialization.
         # FIXME: Control the initialization via DBus.
         self._print_message("Waiting for all threads to finish...")
         thread_manager.wait_all()
-
-        # Verify the payload type.
-        # FIXME: This is a temporary check.
-        if self.payload.type == PAYLOAD_TYPE_DNF:
-            raise ValueError("The DNF payload is not supported yet!")
 
     def _print_message(self, msg):
         """Print a message to stdout."""
