@@ -232,13 +232,6 @@ def set_resolution(runres):
         log.error("The resolution was not set: %s", error)
 
 
-def do_extra_x11_actions():
-    """Perform X11 actions not related to startup."""
-    # Load the system-wide Xresources
-    util.execWithRedirect("xrdb", ["-nocpp", "-merge", "/etc/X11/Xresources"])
-    start_spice_vd_agent()
-
-
 def write_xdriver(driver, root=None):
     """Write the X driver."""
     if root is None:
@@ -384,8 +377,6 @@ def setup_display(anaconda, options):
             time.sleep(2)
 
         if not anaconda.gui_startup_failed:
-            do_extra_x11_actions()
-
             if options.runres and anaconda.gui_mode and not flags.usevnc:
                 def on_mutter_ready(observer):
                     set_resolution(options.runres)
