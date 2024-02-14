@@ -25,6 +25,7 @@ import textwrap
 import pkgutil
 import signal
 
+from pyanaconda.mutter_display import MutterDisplay, MutterConfigError
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.path import join_paths
 from pyanaconda.core.process_watchers import WatchProcesses
@@ -236,28 +237,21 @@ def do_startup_wl_actions(timeout):
     raise TimeoutError("Timeout trying to start gnome-kiosk")
 
 
-def set_x_resolution(runres):
-    """Set X server screen resolution.
+def set_resolution(runres):
+    """Set the screen resolution.
 
     :param str runres: a resolution specification string
     """
     try:
         log.info("Setting the screen resolution to: %s.", runres)
-        util.execWithRedirect("xrandr", ["-d", ":1", "-s", runres])
-    except RuntimeError:
-        log.error("The X resolution was not set")
-        util.execWithRedirect("xrandr", ["-d", ":1", "-q"])
+        mutter_display = MutterDisplay()
+        mutter_display.set_resolution(runres)
+    except MutterConfigError as error:
+        log.error("The resolution was not set: %s", error)
 
 
-def do_extra_x11_actions(runres, gui_mode):
-    """Perform X11 actions not related to startup.
-
-    :param str runres: a resolution specification string
-    :param gui_mode: an Anaconda display mode
-    """
-    if runres and gui_mode and not flags.usevnc:
-        set_x_resolution(runres)
-
+def do_extra_x11_actions():
+    """Perform X11 actions not related to startup."""
     # Load the system-wide Xresources
     util.execWithRedirect("xrdb", ["-nocpp", "-merge", "/etc/X11/Xresources"])
     start_spice_vd_agent()
@@ -399,7 +393,15 @@ def setup_display(anaconda, options):
             time.sleep(2)
 
         if not anaconda.gui_startup_failed:
-            do_extra_x11_actions(options.runres, gui_mode=anaconda.gui_mode)
+            do_extra_x11_actions()
+
+            if options.runres and anaconda.gui_mode and not flags.usevnc:
+                def on_mutter_ready(observer):
+                    set_resolution(options.runres)
+                    observer.disconnect()
+
+                mutter_display = MutterDisplay()
+                mutter_display.on_service_ready(on_mutter_ready)
 
     if anaconda.tui_mode and anaconda.gui_startup_failed and \
             flags.vncquestion and not vnc_data.enabled:
