@@ -114,3 +114,8 @@ GK_INPUT_SOURCES = DBusServiceIdentifier(
     namespace=("org", "gnome", "Kiosk"),
     message_bus=SessionBus
 )
+
+MUTTER_DISPLAY_CONFIG = DBusServiceIdentifier(
+    namespace=("org", "gnome", "Mutter", "DisplayConfig"),
+    message_bus=SessionBus
+)
