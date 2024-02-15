@@ -465,6 +465,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Feb 15 2024 Martin Kolman <mkolman@redhat.com> - 40.22.1-1
+- Set up the fedora-40 branch (mkolman)
+
 * Tue Feb 13 2024 github-actions <github-actions@github.com> - 40.22-1
 - gui: Enforce the non-interactive text mode for dir and image installations
   (vponcova)
