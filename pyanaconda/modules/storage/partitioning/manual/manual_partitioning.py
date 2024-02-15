@@ -22,9 +22,6 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.storage.partitioning.automatic.noninteractive_partitioning import \
     NonInteractivePartitioningTask
-from pyanaconda.modules.storage.partitioning.interactive.utils import destroy_device, \
-    generate_device_factory_request
-from pyanaconda.modules.storage.partitioning.interactive.add_device import AddDeviceTask
 
 log = get_module_logger(__name__)
 
@@ -112,7 +109,7 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
                         _("Reformatting the '{}' subvolume will remove the following nested "
                           "subvolumes which cannot be reused: {}").format(device.raw_device.name,
                                                                           ", ".join(err)))
-                device = self._recreate_device(storage, device_spec)
+                device = self._recreate_btrfs_device(storage, device_spec)
                 mount_data.mount_options = device.format.options
             else:
                 storage.format_device(device, fmt)
@@ -136,7 +133,7 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
         """Recreate a btrfs volume device by destroying and adding it.
 
         :param storage: an instance of the Blivet's storage object
-        :param dev_spec: a BtrfsVolumeDevice to recreate
+        :param device: a BtrfsVolumeDevice to recreate
         """
         if device.children:
             raise StorageError(
@@ -150,7 +147,20 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
         storage.create_device(new_btrfs)
         return new_btrfs
 
-    def _recreate_device(self, storage, dev_spec):
+    def _recreate_btrfs_subvolume(self, storage, device):
+        """Recreate a btrfs subvolume device by destroying and adding it.
+
+        :param storage: an instance of the Blivet's storage object
+        :param device: a BtrfsSubVolumeDevice to recreate
+        """
+        storage.recursive_remove(device)
+        new_btrfs = storage.new_btrfs(parents=device.parents[:],
+                                      name=device.name,
+                                      subvol=True)
+        storage.create_device(new_btrfs)
+        return new_btrfs
+
+    def _recreate_btrfs_device(self, storage, dev_spec):
         """Recreate a device by destroying and adding it.
 
         :param storage: an instance of the Blivet's storage object
@@ -161,11 +171,7 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
         if device.type == "btrfs volume":
             # can't use device factory for just the volume
             return self._recreate_btrfs_volume(storage, device)
-        else:
-            request = generate_device_factory_request(storage, device)
-            destroy_device(storage, device)
-            task = AddDeviceTask(storage, request)
-            task.run()
-            device = storage.devicetree.get_device_by_device_id(dev_spec)
-
-            return device
+        elif device.type == "btrfs subvolume":
+            # using the factory for subvolumes in some cases removes
+            # the volume too, we don't want that
+            return self._recreate_btrfs_subvolume(storage, device)
