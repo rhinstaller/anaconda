@@ -26,13 +26,8 @@ jobs:
         release: ['']
         include:
           - release: ''
-            target_branch: 'master'
-            ci_tag: 'master'
-          ## add to  release: [...]  also eln if re-enabled by uncommenting the below
-          #- release: eln
-          #  target_branch: 'master'
-          #  ci_tag: 'eln'
-          #  build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
+            target_branch: 'fedora-40'
+            ci_tag: 'fedora-40'
 
     env:
       CI_TAG: '${{ matrix.ci_tag }}'
@@ -96,13 +91,8 @@ jobs:
         release: ['']
         include:
           - release: ''
-            target_branch: 'master'
-            ci_tag: 'master'
-          ## add to  release: [...]  also eln if re-enabled by uncommenting the below
-          #- release: eln
-          #  target_branch: 'master'
-          #  ci_tag: 'eln'
-          #  build-args: '--build-arg=image=quay.io/fedoraci/fedora:eln-x86_64'
+            target_branch: 'fedora-40'
+            ci_tag: 'fedora-40'
 
     env:
       CI_TAG: '${{ matrix.ci_tag }}'

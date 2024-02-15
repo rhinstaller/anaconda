@@ -16,12 +16,6 @@ name: Release automatically
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: 48 4 * * TUE
-    # GH workers run on UTC+0 time. The timing is so that the draft can be reviewed at start of
-    # work day in Brno which is in UTC+1 or UTC+2.
-    # Tuesdays are the traditional rawhide anaconda release day, so that there are enough days to
-    # unbreak things.
 
 permissions:
   contents: write

@@ -22,6 +22,6 @@
 # Red Hat, Inc.
 
 # Import the kickstart version.
-from pykickstart.version import DEVEL as VERSION
+from pykickstart.version import F40 as VERSION
 
 __all__ = ["VERSION"]
