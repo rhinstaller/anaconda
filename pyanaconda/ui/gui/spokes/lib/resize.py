@@ -34,20 +34,21 @@ from gi.repository import Gdk, Gtk
 __all__ = ["ResizeDialog"]
 
 DEVICE_NAME_COL = 0
-DESCRIPTION_COL = 1
-FILESYSTEM_COL = 2
-RECLAIMABLE_COL = 3
-ACTION_COL = 4
-EDITABLE_COL = 5
-TYPE_COL = 6
-TOOLTIP_COL = 7
-RESIZE_TARGET_COL = 8
+DEVICE_ID_COL = 1
+DESCRIPTION_COL = 2
+FILESYSTEM_COL = 3
+RECLAIMABLE_COL = 4
+ACTION_COL = 5
+EDITABLE_COL = 6
+TYPE_COL = 7
+TOOLTIP_COL = 8
+RESIZE_TARGET_COL = 9
 
 TY_NORMAL = 0
 TY_FREE_SPACE = 1
 TY_PROTECTED = 2
 
-PartStoreRow = namedtuple("PartStoreRow", ["name", "desc", "fs", "reclaimable",
+PartStoreRow = namedtuple("PartStoreRow", ["name", "device_id", "desc", "fs", "reclaimable",
                                            "action", "editable", "ty",
                                            "tooltip", "target"])
 
@@ -110,15 +111,18 @@ class ResizeDialog(GUIObject):
         # First, try to find the partition in some known root.
         # If we find it, return the mount point as the description.
         for root in self._roots:
-            for mount_point, device_name in root.mount_points.items():
-                if device_name == device_data.name:
+            for mount_point, device_id in root.mount_points.items():
+                if device_id == device_data.device_id:
                     return "{mount_point} ({os_name})".format(
                         mount_point=mount_point, os_name=root.os_name
                     )
 
         # Otherwise, fall back on increasingly vague information.
         if device_data.children:
-            return device_data.children[0]
+            child_data = DeviceData.from_structure(
+                self._device_tree.GetDeviceData(device_data.children[0])
+            )
+            return child_data.name
 
         if "label" in format_data.attrs:
             return format_data.attrs["label"]
@@ -161,17 +165,17 @@ class ResizeDialog(GUIObject):
         self._reclaim_desc_label.set_text(description)
         self._update_reclaim_button(Size(0))
 
-    def _add_disk(self, device_name):
+    def _add_disk(self, device_id):
         # Get the device data.
         device_data = DeviceData.from_structure(
-            self._device_tree.GetDeviceData(device_name)
+            self._device_tree.GetDeviceData(device_id)
         )
         format_data = DeviceFormatData.from_structure(
-            self._device_tree.GetFormatData(device_name)
+            self._device_tree.GetFormatData(device_id)
         )
 
         # First add the disk itself.
-        is_partitioned = self._device_tree.IsDevicePartitioned(device_name)
+        is_partitioned = self._device_tree.IsDevicePartitioned(device_id)
 
         if is_partitioned:
             fs_type = ""
@@ -186,7 +190,8 @@ class ResizeDialog(GUIObject):
         )
 
         itr = self._disk_store.append(None, [
-            device_name,
+            device_data.name,
+            device_id,
             description,
             fs_type,
             "<span foreground='grey' style='italic'>%s total</span>",
@@ -198,7 +203,7 @@ class ResizeDialog(GUIObject):
         ])
 
         # Then add all its partitions.
-        partitions = self._device_tree.GetDevicePartitions(device_name)
+        partitions = self._device_tree.GetDevicePartitions(device_id)
 
         for child_name in partitions:
             free_size = self._add_partition(itr, child_name)
@@ -206,7 +211,7 @@ class ResizeDialog(GUIObject):
 
         # And then add another uneditable line that lists how much space is
         # already free in the disk.
-        self._add_free_space(itr, device_name)
+        self._add_free_space(itr, device_id)
 
         # And then go back and fill in the total reclaimable space for the
         # disk, now that we know what each partition has reclaimable.
@@ -215,19 +220,19 @@ class ResizeDialog(GUIObject):
 
         return disk_reclaimable_space
 
-    def _add_partition(self, itr, device_name):
+    def _add_partition(self, itr, device_id):
         # Get the device data.
         device_data = DeviceData.from_structure(
-            self._device_tree.GetDeviceData(device_name)
+            self._device_tree.GetDeviceData(device_id)
         )
         format_data = DeviceFormatData.from_structure(
-            self._device_tree.GetFormatData(device_name)
+            self._device_tree.GetFormatData(device_id)
         )
 
         # Calculate the free size.
         # Devices that are not resizable are still deletable.
-        is_shrinkable = self._device_tree.IsDeviceShrinkable(device_name)
-        size_limits = self._device_tree.GetDeviceSizeLimits(device_name)
+        is_shrinkable = self._device_tree.IsDeviceShrinkable(device_id)
+        size_limits = self._device_tree.GetDeviceSizeLimits(device_id)
 
         min_size = Size(size_limits[0])
         device_size = Size(device_data.size)
@@ -257,7 +262,8 @@ class ResizeDialog(GUIObject):
 
         # Add a new row.
         self._disk_store.append(itr, [
-            device_name,
+            device_data.name,
+            device_id,
             description,
             format_data.description,
             resize_string,
@@ -270,9 +276,9 @@ class ResizeDialog(GUIObject):
 
         return free_size
 
-    def _add_free_space(self, itr, device_name):
+    def _add_free_space(self, itr, device_id):
         # Calculate the free space.
-        disk_free = Size(self._device_tree.GetDiskFreeSpace([device_name]))
+        disk_free = Size(self._device_tree.GetDiskFreeSpace([device_id]))
 
         if disk_free < Size("1MiB"):
             return
@@ -287,6 +293,7 @@ class ResizeDialog(GUIObject):
         )
 
         self._disk_store.append(itr, [
+            "",
             "",
             free_space_string,
             "",
@@ -389,18 +396,18 @@ class ResizeDialog(GUIObject):
         if not obj.editable:
             return
 
-        device_name = obj.name
+        device_id = obj.device_id
         device_data = DeviceData.from_structure(
-            self._device_tree.GetDeviceData(device_name)
+            self._device_tree.GetDeviceData(device_id)
         )
 
         # If the selected filesystem does not support shrinking, make that
         # button insensitive.
-        is_shrinkable = self._device_tree.IsDeviceShrinkable(device_name)
+        is_shrinkable = self._device_tree.IsDeviceShrinkable(device_id)
         self._shrink_button.set_sensitive(is_shrinkable)
 
         if is_shrinkable:
-            min_size = self._device_tree.GetDeviceSizeLimits(device_name)[0]
+            min_size = self._device_tree.GetDeviceSizeLimits(device_id)[0]
             self._setup_slider(min_size, device_data.size, Size(obj.target))
 
         # Then, disable the button for whatever action is currently selected.
@@ -444,17 +451,17 @@ class ResizeDialog(GUIObject):
     def _sum_reclaimable_space(self, model, path, itr, *args):
         obj = PartStoreRow(*model[itr])
 
-        if not obj.name:
+        if not obj.device_id:
             return False
 
-        device_name = obj.name
-        is_partitioned = self._device_tree.IsDevicePartitioned(device_name)
+        device_id = obj.device_id
+        is_partitioned = self._device_tree.IsDevicePartitioned(device_id)
 
         if is_partitioned:
             return False
 
         device_data = DeviceData.from_structure(
-            self._device_tree.GetDeviceData(device_name)
+            self._device_tree.GetDeviceData(device_id)
         )
 
         if obj.action == _(PRESERVE):
@@ -488,8 +495,8 @@ class ResizeDialog(GUIObject):
 
         # If that row is a disk header, we need to process all the partitions
         # it contains.
-        device_name = selected_row[DEVICE_NAME_COL]
-        is_partitioned = self._device_tree.IsDevicePartitioned(device_name)
+        device_id = selected_row[DEVICE_ID_COL]
+        is_partitioned = self._device_tree.IsDevicePartitioned(device_id)
 
         if is_partitioned:
             part_itr = self._disk_store.iter_children(itr)
@@ -510,9 +517,9 @@ class ResizeDialog(GUIObject):
                 if new_action == DELETE:
                     self._disk_store[part_itr][EDITABLE_COL] = False
                 elif new_action == PRESERVE:
-                    part_name = self._disk_store[part_itr][DEVICE_NAME_COL]
+                    part_id = self._disk_store[part_itr][DEVICE_ID_COL]
                     part_data = DeviceData.from_structure(
-                        self._device_tree.GetDeviceData(part_name)
+                        self._device_tree.GetDeviceData(part_id)
                     )
                     self._disk_store[part_itr][EDITABLE_COL] = not part_data.protected
 
@@ -530,7 +537,7 @@ class ResizeDialog(GUIObject):
         """Collect rows that can be transformed into actions."""
         obj = PartStoreRow(*model[itr])
 
-        if not obj.name:
+        if not obj.device_id:
             return False
 
         if not obj.editable:
@@ -578,9 +585,9 @@ class ResizeDialog(GUIObject):
                 itr = self._disk_store.iter_next(itr)
                 continue
 
-            device_name = obj.name
+            device_id = obj.device_id
             device_data = DeviceData.from_structure(
-                self._device_tree.GetDeviceData(device_name)
+                self._device_tree.GetDeviceData(device_id)
             )
 
             if device_data.is_disk:
