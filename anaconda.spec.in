@@ -367,6 +367,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Feb 16 2024 Jiri Konecny <jkonecny@redhat.com> - 33.16.10.4-1
+- Lower log file permission in /tmp (jkonecny)
+  Resolves: RHEL-23344
+- Add utility function to set file mode (jkonecny)
+  Related: RHEL-23344
+
 * Wed Feb 07 2024 Martin Kolman <mkolman@redhat.com> - 33.16.10.3-1
 - Fixed file-write operation to a public directory (ataf)
   Resolves: RHEL-23344
