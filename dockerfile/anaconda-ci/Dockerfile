@@ -52,7 +52,6 @@ RUN set -ex; \
   # Install rest of the dependencies
   dnf install -y \
   /usr/bin/xargs \
-  npm \
   rpm-build \
   git \
   bzip2 \
