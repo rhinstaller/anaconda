@@ -127,8 +127,12 @@ class AnacondaSocketHandler(_AnacondaLogFixer, SocketHandler):
 
 
 class AnacondaFileHandler(_AnacondaLogFixer, logging.FileHandler):
-    pass
+    def __init__(self, file_dest):
+        logging.FileHandler.__init__(self, file_dest)
 
+        # do the import here to prevent circular imports
+        from pyanaconda.core.util import set_mode
+        set_mode(file_dest)
 
 class AnacondaStreamHandler(_AnacondaLogFixer, logging.StreamHandler):
     pass

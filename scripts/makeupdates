@@ -36,7 +36,7 @@ RPM_RELEASE_DIR_TEMPLATE = "for_%s"
 SITE_PACKAGES_PATH = "./usr/lib64/python3.9/site-packages/"
 
 # Anaconda scripts that should be installed into the libexec folder
-LIBEXEC_SCRIPTS = ["log-capture", "start-module", "apply-updates"]
+LIBEXEC_SCRIPTS = ["log-capture", "start-module", "apply-updates", "anaconda-pre-log-gen"]
 
 
 def get_archive_tag(configure, spec):

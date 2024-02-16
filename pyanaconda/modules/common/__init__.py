@@ -41,6 +41,10 @@ def init(log_filename=None, log_stream=sys.stderr):
         )
 
     if log_filename:
+        # Set correct permissions on log files from security reasons
+        from pyanaconda.core.util import set_mode
+        set_mode(log_filename)
+
         handlers.append(
             logging.FileHandler(log_filename)
         )

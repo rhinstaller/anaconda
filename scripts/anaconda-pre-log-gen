@@ -12,7 +12,7 @@ DEBUG_ENABLED=`cat $BOOT_OPTIONS_FILE | egrep -c "\<debug\>|\<inst\.debug\>"`
 # do not produce any logs unless debug is enabled
 [ $DEBUG_ENABLED == '0' ] && exit 0
 
-mkdir ${TARGET_DIRECTORY}
+mkdir -m 700 ${TARGET_DIRECTORY}
 
 lsblk -a > ${TARGET_DIRECTORY}/block_devices.log
 dmesg > ${TARGET_DIRECTORY}/kernel_ring_buffer.log

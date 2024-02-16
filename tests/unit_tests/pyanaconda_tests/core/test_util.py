@@ -751,6 +751,28 @@ class MiscTests(unittest.TestCase):
         finally:
             shutil.rmtree(test_dir)
 
+    def test_set_mode(self):
+        """Test if the set_mode function"""
+        test_dir = tempfile.mkdtemp()
+        try:
+            file_path = os.path.join(test_dir, "EMPTY_FILE")
+
+            # test default mode - file will be created when it doesn't exists
+            util.set_mode(file_path)
+
+            # check if it exists & is a file
+            assert os.path.isfile(file_path)
+            # check if the file is empty
+            assert os.stat(file_path).st_mode == 0o100600
+
+            # test change of mode on already created file
+            util.set_mode(file_path, 0o744)
+
+            # check if the file is empty
+            assert os.stat(file_path).st_mode == 0o100744
+        finally:
+            shutil.rmtree(test_dir)
+
     def test_item_counter(self):
         """Test the item_counter generator."""
         # normal usage
