@@ -35,7 +35,7 @@ RPM_RELEASE_DIR_TEMPLATE = "for_%s"
 # Anaconda scripts that should be installed into the libexec folder
 LIBEXEC_SCRIPTS = [
     "zramswapon", "zramswapoff", "log-capture", "start-module",
-    "apply-updates"
+    "apply-updates", "anaconda-pre-log-gen"
 ]
 
 def get_archive_tag(configure, spec):
