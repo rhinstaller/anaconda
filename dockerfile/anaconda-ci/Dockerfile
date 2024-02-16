@@ -51,9 +51,6 @@ RUN mkdir actions-runner && cd actions-runner && \
   LATEST_VER=$(basename $(curl -Ls -o /dev/null -w '%{url_effective}' $URL_BASE/latest)) && \
   curl -L "$URL_BASE/download/$LATEST_VER/actions-runner-linux-x64-${LATEST_VER#v}.tar.gz" | tar xvz
 
-RUN curl https://password.corp.redhat.com/RH-IT-Root-CA.crt -o /etc/pki/ca-trust/source/anchors/Red_Hat_IT_Root_CA.crt && \
-  update-ca-trust
-
 RUN mkdir /anaconda
 
 WORKDIR /anaconda
