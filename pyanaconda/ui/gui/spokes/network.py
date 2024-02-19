@@ -934,7 +934,9 @@ class NetworkControlBox(GObject.GObject):
             device = self.client.get_device_by_iface(dev_cfg.device_name)
             if device:
                 vlanid = device.get_vlan_id()
-                parent = device.get_parent().get_iface()
+                parent = device.get_parent() or ""
+                if parent:
+                    parent = parent.get_iface()
             else:
                 con = self.client.get_connection_by_uuid(dev_cfg.connection_uuid)
                 if con:
