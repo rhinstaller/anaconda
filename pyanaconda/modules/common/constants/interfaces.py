@@ -35,6 +35,11 @@ TASK = DBusInterfaceIdentifier(
     basename="Task"
 )
 
+TASK_CATEGORY = DBusInterfaceIdentifier(
+    namespace=ANACONDA_NAMESPACE,
+    basename="TaskCategory"
+)
+
 DEVICE_TREE_VIEWER = DBusInterfaceIdentifier(
     namespace=DEVICE_TREE_NAMESPACE,
     basename="Viewer"
