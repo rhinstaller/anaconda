@@ -465,6 +465,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 20 2024 github-actions <github-actions@github.com> - 41.2-1
+- Test for task category and category API (akankovs)
+- Creating categories dbus API for installation phases (akankovs)
+
 * Thu Feb 15 2024 Martin Kolman <mkolman@redhat.com> - 41.1-1
 - bump major version number for Rawhide after F40 branching (mkolman)
 
