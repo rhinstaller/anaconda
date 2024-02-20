@@ -465,6 +465,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 20 2024 github-actions <github-actions@github.com> - 40.22.2-1
+- Test for task category and category API (akankovs)
+- Creating categories dbus API for installation phases (akankovs)
+
 * Thu Feb 15 2024 Martin Kolman <mkolman@redhat.com> - 40.22.1-1
 - Set up the fedora-40 branch (mkolman)
 
