@@ -20,7 +20,6 @@
 # Author(s):  Martin Kolman <mkolman@redhat.com>
 #
 import os
-import subprocess
 import time
 import textwrap
 import pkgutil
@@ -52,9 +51,9 @@ from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger
 log = get_module_logger(__name__)
 stdout_log = get_stdout_logger()
 
-X_TIMEOUT_ADVICE = \
+WAYLAND_TIMEOUT_ADVICE = \
     "Do not load the stage2 image over a slow network link.\n" \
-    "Wait longer for the X server startup with the inst.xtimeout=<SECONDS> boot option." \
+    "Wait longer for Wayland startup with the inst.xtimeout=<SECONDS> boot option." \
     "The default is 60 seconds.\n" \
     "Load the stage2 image into memory with the rd.live.ram boot option to decrease access " \
     "time.\n" \
@@ -173,22 +172,7 @@ def check_vnc_can_be_started(anaconda):
     return vnc_startup_possible, error_messages
 
 
-# X11
-
-def start_x11(xtimeout):
-    """Start the X server for the Anaconda GUI."""
-
-    # Start Xorg and wait for it become ready
-    util.startX(["Xorg", "-br", "-logfile", "/tmp/X.log",
-                 ":%s" % constants.X_DISPLAY_NUMBER, "vt6", "-s", "1440", "-ac",
-                 "-nolisten", "tcp", "-dpi", "96",
-                 "-noreset"],
-                output_redirect=subprocess.DEVNULL, timeout=xtimeout)
-
-
-# function to handle X startup special issues for anaconda
-
-def do_startup_x11_actions():
+def do_startup_wl_actions(timeout):
     """Start the window manager.
 
     When window manager actually connects to the X server is unknowable, but
@@ -211,14 +195,35 @@ def do_startup_x11_actions():
     # pylint: disable=environment-modify
     os.environ['XDG_CONFIG_DIRS'] = xdg_config_dirs
 
-    def x11_preexec():
+    os.environ["XDG_SESSION_TYPE"] = "wayland"
+
+    def wl_preexec():
         # to set GUI subprocess SIGINT handler
         signal.signal(signal.SIGINT, signal.SIG_IGN)
 
-    childproc = util.startProgram(["gnome-kiosk", "--display", ":1", "--sm-disable", "--x11"],
-                                  env_add={'XDG_DATA_DIRS': xdg_data_dirs},
-                                  preexec_fn=x11_preexec)
-    WatchProcesses.watch_process(childproc, "gnome-kiosk")
+    argv = ["/usr/libexec/anaconda/run-in-new-session",
+            "--user", "root",
+            "--service", "anaconda",
+            "--vt", "6",
+            "--session-type", "wayland",
+            "--session-class", "user",
+            "gnome-kiosk", "--sm-disable", "--wayland", "--no-x11",
+            "--wayland-display", constants.WAYLAND_SOCKET_NAME]
+
+    childproc = util.startProgram(argv, env_add={'XDG_DATA_DIRS': xdg_data_dirs},
+                                  preexec_fn=wl_preexec)
+    WatchProcesses.watch_process(childproc, argv[0])
+
+    for _i in range(0, int(timeout / 0.1)):
+        wl_socket_path = os.path.join(os.getenv("XDG_RUNTIME_DIR"), constants.WAYLAND_SOCKET_NAME)
+        if os.path.exists(wl_socket_path):
+            return
+
+        time.sleep(0.1)
+
+    WatchProcesses.unwatch_process(childproc)
+    childproc.terminate()
+    raise TimeoutError("Timeout trying to start gnome-kiosk")
 
 
 def set_resolution(runres):
@@ -326,17 +331,6 @@ def setup_display(anaconda, options):
         for error_message in vnc_error_messages:
             stdout_log.warning(error_message)
 
-    # Should we try to start Xorg?
-    want_x = anaconda.gui_mode and not (flags.preexisting_x11 or flags.usevnc)
-
-    # Is Xorg is actually available?
-    if want_x and not os.access("/usr/bin/Xorg", os.X_OK):
-        stdout_log.warning(_("Graphical installation is not available. "
-                             "Starting text mode."))
-        time.sleep(2)
-        anaconda.display_mode = constants.DisplayModes.TUI
-        want_x = False
-
     if anaconda.tui_mode and flags.vncquestion:
         # we prefer vnc over text mode, so ask about that
         message = _("Text mode provides a limited set of installation "
@@ -352,18 +346,17 @@ def setup_display(anaconda, options):
     startup_utils.check_memory(anaconda, options)
 
     # check_memory may have changed the display mode
-    want_x = want_x and (anaconda.gui_mode)
-    if want_x:
+    want_gui = anaconda.gui_mode and not (flags.preexisting_wayland or flags.usevnc)
+    if want_gui:
         try:
-            start_x11(xtimeout)
-            do_startup_x11_actions()
+            do_startup_wl_actions(xtimeout)
         except TimeoutError as e:
-            log.warning("X startup failed: %s", e)
-            print("\nX did not start in the expected time, falling back to text mode. There are "
-                  "multiple ways to avoid this issue:")
+            log.warning("Wayland startup failed: %s", e)
+            print("\nWayland did not start in the expected time, falling back to text mode. "
+                  "There are multiple ways to avoid this issue:")
             wrapper = textwrap.TextWrapper(initial_indent=" * ", subsequent_indent="   ",
                                            width=os.get_terminal_size().columns - 3)
-            for line in X_TIMEOUT_ADVICE.split("\n"):
+            for line in WAYLAND_TIMEOUT_ADVICE.split("\n"):
                 print(wrapper.fill(line))
             util.vtActivate(1)
             anaconda.display_mode = constants.DisplayModes.TUI
@@ -371,8 +364,8 @@ def setup_display(anaconda, options):
             time.sleep(2)
 
         except (OSError, RuntimeError) as e:
-            log.warning("X or window manager startup failed: %s", e)
-            print("\nX or window manager startup failed, falling back to text mode.")
+            log.warning("Wayland startup failed: %s", e)
+            print("\nWayland startup failed, falling back to text mode.")
             util.vtActivate(1)
             anaconda.display_mode = constants.DisplayModes.TUI
             anaconda.gui_startup_failed = True
@@ -396,7 +389,7 @@ def setup_display(anaconda, options):
     # if they want us to use VNC do that now
     if anaconda.gui_mode and flags.usevnc:
         vnc_server.startServer()
-        do_startup_x11_actions()
+        do_startup_wl_actions(xtimeout)
 
     # with X running we can initialize the UI interface
     anaconda.initialize_interface()
