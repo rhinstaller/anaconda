@@ -917,6 +917,7 @@ class DeviceTreeUtilsTestCase(unittest.TestCase):
         assert utils.is_supported_filesystem("disklabel") is False
         assert utils.is_supported_filesystem("ntfs") is False
         assert utils.is_supported_filesystem("tmpfs") is False
+        assert utils.is_supported_filesystem("gfs2") is False
 
     def test_find_stage2_device(self):
         """Test the find_stage2_device function."""
