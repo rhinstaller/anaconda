@@ -267,6 +267,9 @@ IPMI_FINISHED = 0x8         # installation finished successfully
 IPMI_ABORTED = 0x9          # installation finished unsuccessfully, due to some non-exn error
 IPMI_FAILED = 0xA           # installation hit an exception
 
+# Wayland socket name to use
+WAYLAND_SOCKET_NAME = "wl-sysinstall-0"
+
 # X display number to use
 X_DISPLAY_NUMBER = 1
 

@@ -146,6 +146,12 @@ def setup_environment():
     if "LD_PRELOAD" in os.environ:
         del os.environ["LD_PRELOAD"]
 
+    # Go ahead and set $WAYLAND_DISPLAY whether we're going to use Wayland or not
+    if "WAYLAND_DISPLAY" in os.environ:
+        flags.preexisting_wayland = True
+    else:
+        os.environ["WAYLAND_DISPLAY"] = constants.WAYLAND_SOCKET_NAME
+
     # Go ahead and set $DISPLAY whether we're going to use X or not
     if "DISPLAY" in os.environ:
         flags.preexisting_x11 = True
@@ -309,10 +315,11 @@ if __name__ == "__main__":
     except pid.PidFileError as e:
         log.error("Unable to create %s, exiting", pidfile.filename)
 
-        # If we had a $DISPLAY at start and zenity is available, we may be
-        # running in a live environment and we can display an error dialog.
+        # If we had a Wayland/X11 display at start and zenity is available, we may
+        # be running in a live environment and we can display an error dialog.
         # Otherwise just print an error.
-        if flags.preexisting_x11 and os.access("/usr/bin/zenity", os.X_OK):
+        preexisting_graphics = flags.preexisting_wayland or flags.preexisting_x11
+        if preexisting_graphics and os.access("/usr/bin/zenity", os.X_OK):
             # The module-level _() calls are ok here because the language may
             # be set from the live environment in this case, and anaconda's
             # language setup hasn't happened yet.
