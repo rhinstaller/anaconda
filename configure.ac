@@ -118,6 +118,7 @@ AC_CONFIG_FILES([Makefile
                  data/systemd/Makefile
                  data/dbus/Makefile
                  data/gtk-4.0/Makefile
+                 data/pam/Makefile
                  data/window-manager/Makefile
                  data/window-manager/config/Makefile
                  po/Makefile

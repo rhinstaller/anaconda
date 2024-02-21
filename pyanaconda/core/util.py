@@ -255,7 +255,7 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
             log.debug("Exception handler test suspended to prevent accidental activation by "
                       "delayed Xorg start. Next SIGUSR1 will be handled as delayed Xorg start.")
             # Raise an exception to notify the caller that things went wrong. This affects
-            # particularly pyanaconda.display.do_startup_x11_actions(), where the window manager
+            # particularly pyanaconda.display.do_startup_wl_actions(), where the window manager
             # is started immediately after this. The WM would just wait forever.
             raise TimeoutError("Timeout trying to start %s" % argv[0])
 
