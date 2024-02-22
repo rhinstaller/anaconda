@@ -10,8 +10,8 @@ Setting up development container
 --------------------------------
 
 The anaconda team uses a containerized development environment using toolbx.
-If you can install [toolbx](https://containertoolbx.org/) or
-[distrobox](https://distrobox.privatedns.org/) on your system, it is highly
+If you can install `toolbx <https://containertoolbx.org/>`_ or
+`distrobox <https://distrobox.privatedns.org/>`_ on your system, it is highly
 recommended to do that:
 
  - It is known to work and gives you reproducible results.
@@ -29,7 +29,7 @@ To create and enter a development toolbx for Anaconda just run these commands::
 Installing dependencies
 -----------------------
 
-If you are using [cockpit/tasks container](https://quay.io/repository/cockpit/tasks)
+If you are using `cockpit/tasks container <https://quay.io/repository/cockpit/tasks>`_
 for Web UI development only, you can skip this part.
 
 To get all the dependencies and prepare the environment in the container or
