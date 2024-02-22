@@ -122,7 +122,9 @@ Requires: NetworkManager-team
 Requires: kbd
 Requires: chrony
 Requires: systemd
+%if ! 0%{?rhel}
 Requires: systemd-resolved
+%endif
 Requires: python3-pid
 
 # Required by the systemd service anaconda-fips.
