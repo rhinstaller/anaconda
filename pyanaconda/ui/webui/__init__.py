@@ -164,8 +164,8 @@ class CockpitUserInterface(ui.UserInterface):
         try:
             with open(self._viewer_pid_file, "tr") as f:
                 pid = int(f.readline().strip())
-        except ValueError:
-            raise ValueError("Anaconda can't obtain pid of the web UI viewer application")
+        except ValueError as e:
+            raise ValueError("Anaconda can't obtain pid of the web UI viewer application") from e
 
         if pid < 0:
             raise ValueError("Anaconda web UI viewer pid file seems to be broken")
