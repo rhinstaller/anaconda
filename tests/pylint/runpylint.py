@@ -24,7 +24,6 @@ class AnacondaLintConfig(CensorshipConfig):
 
         self.false_positives = [
             FalsePositive(r"^E1101.*: Instance of 'KickstartSpecificationHandler' has no '.*' member$"),
-            FalsePositive(r"^E1101.*: Method 'PropertiesChanged' has no 'connect' member"),
 
             # TODO: BlockDev introspection needs to be added to pylint to handle these
             FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_is_fba' member"),
