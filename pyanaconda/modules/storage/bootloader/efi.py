@@ -282,3 +282,12 @@ class ArmEFIGRUB(EFIGRUB):
         super().__init__()
         self._packages32 = ["grub2-efi-arm"]
         self._is_32bit_firmware = True
+
+
+class RISCV64EFIGRUB(EFIGRUB):
+    _serial_consoles = ["ttyS"]
+    _efi_binary = "\\grubriscv64.efi"
+
+    def __init__(self):
+        super().__init__()
+        self._packages64 = ["grub2-efi-riscv64"]
