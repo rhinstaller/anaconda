@@ -55,51 +55,51 @@ class DeviceTreeHandler(ABC):
         """
         raise UnknownDeviceError(name)
 
-    def mount_device(self, device_name, mount_point, options):
+    def mount_device(self, device_id, mount_point, options):
         """Mount a filesystem on the device.
 
-        :param device_name: a name of the device
+        :param device_id: ID of the device
         :param mount_point: a path to the mount point
         :param options: a string with mount options or an empty string to use defaults
         :raise: MountFilesystemError if mount fails
         """
-        device = self._get_device(device_name)
+        device = self._get_device(device_id)
         try:
             device.format.mount(mountpoint=mount_point, options=options or None)
         except FSError as e:
             msg = "Failed to mount {} at {}: {}". format(
-                device_name,
+                device.name,
                 mount_point,
                 str(e)
             )
             raise MountFilesystemError(msg) from None
 
-    def unmount_device(self, device_name, mount_point):
+    def unmount_device(self, device_id, mount_point):
         """Unmount a filesystem on the device.
 
-        :param device_name: a name of the device
+        :param device_id: ID of the device
         :param mount_point: a path to the mount point
         :raise: MountFilesystemError if unmount fails
         """
-        device = self._get_device(device_name)
+        device = self._get_device(device_id)
         try:
             device.format.unmount(mountpoint=mount_point)
         except FSError as e:
             msg = "Failed to unmount {} from {}: {}". format(
-                device_name,
+                device.name,
                 mount_point,
                 str(e)
             )
             raise MountFilesystemError(msg) from None
 
-    def unlock_device(self, device_name, passphrase):
+    def unlock_device(self, device_id, passphrase):
         """Unlock a device.
 
-        :param device_name: a name of the device
+        :param device_id: ID of the device
         :param passphrase: a passphrase
         :return: True if success, otherwise False
         """
-        device = self._get_device(device_name)
+        device = self._get_device(device_id)
         return unlock_device(self.storage, device, passphrase)
 
     def find_unconfigured_luks(self):
@@ -108,43 +108,43 @@ class DeviceTreeHandler(ABC):
         Returns a list of devices that require to set up
         a passphrase to complete their configuration.
 
-        :return: a list of device names
+        :return: a list of device IDs
         """
         devices = find_unconfigured_luks(self.storage)
-        return [d.name for d in devices]
+        return [d.device_id for d in devices]
 
-    def set_device_passphrase(self, device_name, passphrase):
+    def set_device_passphrase(self, device_id, passphrase):
         """Set a passphrase for the unconfigured LUKS device.
 
-        :param device_name: a name of the device
+        :param device_id: ID of the device
         :param passphrase: a passphrase
         """
-        device = self._get_device(device_name)
+        device = self._get_device(device_id)
         device.format.passphrase = passphrase
         self.storage.save_passphrase(device)
 
-    def get_device_mount_options(self, device_name):
+    def get_device_mount_options(self, device_id):
         """Get mount options of the specified device.
 
-        :param device_name: a name of the device
+        :param device_id: ID of the device
         :return: a string with options
         """
-        device = self._get_device(device_name)
+        device = self._get_device(device_id)
         return device.format.options or ""
 
-    def set_device_mount_options(self, device_name, mount_options):
+    def set_device_mount_options(self, device_id, mount_options):
         """Set mount options of the specified device.
 
         Specifies a free form string of options to be used when
         mounting the filesystem. This string will be copied into
         the /etc/fstab file of the installed system.
 
-        :param device_name: a name of the device
+        :param device_id: ID of the device
         :param mount_options: a string with options
         """
-        device = self._get_device(device_name)
+        device = self._get_device(device_id)
         device.format.options = mount_options or None
-        log.debug("Mount options of %s are set to '%s'.", device_name, mount_options)
+        log.debug("Mount options of %s are set to '%s'.", device.name, mount_options)
 
     def find_devices_with_task(self):
         """Find new devices.
@@ -158,18 +158,18 @@ class DeviceTreeHandler(ABC):
     def find_optical_media(self):
         """Find all devices with mountable optical media.
 
-        :return: a list of device names
+        :return: a list of device IDs
         """
         devices = find_optical_media(self.storage.devicetree)
-        return [d.name for d in devices]
+        return [d.device_id for d in devices]
 
     def find_mountable_partitions(self):
         """Find all mountable partitions.
 
-        :return: a list of device names
+        :return: a list of device IDs
         """
         devices = find_mountable_partitions(self.storage.devicetree)
-        return [d.name for d in devices]
+        return [d.device_id for d in devices]
 
     def find_existing_systems_with_task(self):
         """Find existing GNU/Linux installations.
@@ -191,15 +191,15 @@ class DeviceTreeHandler(ABC):
         """
         self.storage.roots = roots
 
-    def mount_existing_system_with_task(self, device_name, read_only):
+    def mount_existing_system_with_task(self, device_id, read_only):
         """Mount existing GNU/Linux installation.
 
-        :param device_name: a name of the root device
+        :param device_id: ID of the root device
         :param read_only: mount the system in read-only mode
         :return: a task
         """
         return MountExistingSystemTask(
             storage=self.storage,
-            device=self._get_device(device_name),
+            device=self._get_device(device_id),
             read_only=read_only
         )

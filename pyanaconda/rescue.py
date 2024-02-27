@@ -22,7 +22,7 @@ from pyanaconda.core.constants import ANACONDA_CLEANUP, THREAD_STORAGE, QUIT_MES
 from pyanaconda.modules.common.constants.objects import DEVICE_TREE
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.storage import MountFilesystemError
-from pyanaconda.modules.common.structures.storage import OSData, DeviceFormatData
+from pyanaconda.modules.common.structures.storage import OSData, DeviceFormatData, DeviceData
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.core.threads import thread_manager
 from pyanaconda.flags import flags
@@ -245,28 +245,28 @@ class Rescue(object):
         self.status = RescueModeStatus.MOUNTED
         return True
 
-    def get_locked_device_names(self):
-        """Get a list of names of locked LUKS devices.
+    def get_locked_device_ids(self):
+        """Get a list of device IDs of locked LUKS devices.
 
         All LUKS devices are considered locked.
         """
-        device_names = []
+        device_ids = []
 
-        for device_name in self._device_tree_proxy.GetDevices():
+        for device_id in self._device_tree_proxy.GetDevices():
             format_data = DeviceFormatData.from_structure(
-                self._device_tree_proxy.GetFormatData(device_name)
+                self._device_tree_proxy.GetFormatData(device_id)
             )
 
             if not format_data.type == "luks":
                 continue
 
-            device_names.append(device_name)
+            device_ids.append(device_id)
 
-        return device_names
+        return device_ids
 
-    def unlock_device(self, device_name, passphrase):
+    def unlock_device(self, device_id, passphrase):
         """Unlocks LUKS device."""
-        return self._device_tree_proxy.UnlockDevice(device_name, passphrase)
+        return self._device_tree_proxy.UnlockDevice(device_id, passphrase)
 
     def run_shell(self):
         """Launch a shell."""
@@ -385,17 +385,20 @@ class RescueModeSpoke(NormalTUISpoke):
         """Attempt to unlock all locked LUKS devices."""
         passphrase = None
 
-        for device_name in self._rescue.get_locked_device_names():
+        for device_id in self._rescue.get_locked_device_ids():
             while True:
                 if passphrase is None:
-                    dialog = PasswordDialog(device_name)
+                    device_data = DeviceData.from_structure(
+                        self._device_tree_proxy.GetDeviceData(device_id)
+                    )
+                    dialog = PasswordDialog(device_data.name)
                     ScreenHandler.push_screen_modal(dialog)
                     if not dialog.answer:
                         break
 
                     passphrase = dialog.answer.strip()
 
-                if self._rescue.unlock_device(device_name, passphrase):
+                if self._rescue.unlock_device(device_id, passphrase):
                     break
 
                 passphrase = None

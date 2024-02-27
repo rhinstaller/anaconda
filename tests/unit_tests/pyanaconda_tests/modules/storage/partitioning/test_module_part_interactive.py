@@ -226,7 +226,7 @@ class InteractiveUtilsTestCase(unittest.TestCase):
 
         request = utils.generate_device_factory_request(self.storage, lv)
         assert DeviceFactoryRequest.to_structure(request) == {
-            "device-spec": get_variant(Str, "testvg-testlv"),
+            "device-spec": get_variant(Str, lv.device_id),
             "disks": get_variant(List[Str], []),
             "mount-point": get_variant(Str, ""),
             "reformat": get_variant(Bool, True),
@@ -238,7 +238,7 @@ class InteractiveUtilsTestCase(unittest.TestCase):
             "device-size": get_variant(UInt64, Size("508 MiB").get_bytes()),
             "device-encrypted": get_variant(Bool, False),
             "device-raid-level": get_variant(Str, ""),
-            "container-spec": get_variant(Str, "testvg"),
+            "container-spec": get_variant(Str, vg.device_id),
             "container-name": get_variant(Str, "testvg"),
             "container-size-policy": get_variant(Int64, Size("1.5 GiB")),
             "container-encrypted": get_variant(Bool, False),
@@ -263,8 +263,8 @@ class InteractiveUtilsTestCase(unittest.TestCase):
 
         request = utils.generate_device_factory_request(self.storage, device)
         assert DeviceFactoryRequest.to_structure(request) == {
-            "device-spec": get_variant(Str, "dev3"),
-            "disks": get_variant(List[Str], ["dev1", "dev2"]),
+            "device-spec": get_variant(Str, device.device_id),
+            "disks": get_variant(List[Str], [disk1.device_id, disk2.device_id]),
             "mount-point": get_variant(Str, ""),
             "reformat": get_variant(Bool, True),
             "format-type": get_variant(Str, ""),
@@ -303,7 +303,7 @@ class InteractiveUtilsTestCase(unittest.TestCase):
 
         request = utils.generate_device_factory_request(self.storage, dev3)
         assert DeviceFactoryRequest.to_structure(request) == {
-            "device-spec": get_variant(Str, dev3.name),
+            "device-spec": get_variant(Str, dev3.device_id),
             "disks": get_variant(List[Str], []),
             "mount-point": get_variant(Str, "/boot"),
             "reformat": get_variant(Bool, True),
@@ -315,7 +315,7 @@ class InteractiveUtilsTestCase(unittest.TestCase):
             "device-size": get_variant(UInt64, Size("10 GiB").get_bytes()),
             "device-encrypted": get_variant(Bool, False),
             "device-raid-level": get_variant(Str, ""),
-            "container-spec": get_variant(Str, dev2.name),
+            "container-spec": get_variant(Str, dev2.device_id),
             "container-name": get_variant(Str, dev2.name),
             "container-size-policy": get_variant(Int64, Size("10 GiB").get_bytes()),
             "container-encrypted": get_variant(Bool, False),

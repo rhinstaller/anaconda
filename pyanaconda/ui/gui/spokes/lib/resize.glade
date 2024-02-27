@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.40.0 -->
 <interface>
   <requires lib="gtk+" version="3.0"/>
   <object class="GtkTreeStore" id="diskStore">
     <columns>
       <!-- column-name diskName -->
+      <column type="gchararray"/>
+      <!-- column-name diskID -->
       <column type="gchararray"/>
       <!-- column-name diskDesc -->
       <column type="gchararray"/>
@@ -26,41 +28,41 @@
   </object>
   <object class="GtkAdjustment" id="resizeAdjustment">
     <property name="upper">100</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
+    <property name="step-increment">1</property>
+    <property name="page-increment">10</property>
   </object>
   <object class="GtkDialog" id="resizeDialog">
-    <property name="height_request">550</property>
-    <property name="can_focus">False</property>
+    <property name="height-request">550</property>
+    <property name="can-focus">False</property>
     <property name="events">GDK_KEY_RELEASE_MASK | GDK_STRUCTURE_MASK</property>
-    <property name="border_width">6</property>
+    <property name="border-width">6</property>
     <property name="resizable">False</property>
     <property name="modal">True</property>
-    <property name="type_hint">dialog</property>
+    <property name="type-hint">dialog</property>
     <property name="decorated">False</property>
     <signal name="key-release-event" handler="on_key_pressed" swapped="no"/>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox1">
-        <property name="can_focus">False</property>
+        <property name="can-focus">False</property>
         <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child internal-child="action_area">
           <object class="GtkButtonBox" id="dialog-action_area1">
-            <property name="can_focus">False</property>
-            <property name="layout_style">end</property>
+            <property name="can-focus">False</property>
+            <property name="layout-style">end</property>
             <child>
               <object class="GtkButton" id="cancelButton">
                 <property name="label" translatable="yes" context="GUI|Reclaim Dialog">_Cancel</property>
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_underline">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="use-underline">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">0</property>
-                <property name="non_homogeneous">True</property>
+                <property name="non-homogeneous">True</property>
               </packing>
             </child>
             <child>
@@ -68,36 +70,36 @@
                 <property name="label" translatable="yes" context="GUI|Reclaim Dialog">_Reclaim space</property>
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_underline">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="use-underline">True</property>
                 <signal name="clicked" handler="on_resize_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">2</property>
-                <property name="non_homogeneous">True</property>
+                <property name="non-homogeneous">True</property>
               </packing>
             </child>
           </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="pack_type">end</property>
+            <property name="pack-type">end</property>
             <property name="position">0</property>
           </packing>
         </child>
         <child>
           <object class="GtkBox" id="box1">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
+            <property name="can-focus">False</property>
             <property name="orientation">vertical</property>
             <child>
               <object class="GtkLabel" id="label1">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="margin_bottom">6</property>
+                <property name="can-focus">False</property>
+                <property name="margin-bottom">6</property>
                 <property name="label" translatable="yes">RECLAIM DISK SPACE</property>
                 <property name="xalign">0</property>
                 <attributes>
@@ -113,8 +115,8 @@
             <child>
               <object class="GtkLabel" id="reclaimDescLabel">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="margin_bottom">6</property>
+                <property name="can-focus">False</property>
+                <property name="margin-bottom">6</property>
                 <property name="label" translatable="yes">Description goes here.</property>
                 <property name="wrap">True</property>
                 <property name="xalign">0</property>
@@ -128,16 +130,16 @@
             <child>
               <object class="GtkScrolledWindow" id="scrolledwindow1">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="shadow_type">in</property>
+                <property name="can-focus">True</property>
+                <property name="shadow-type">in</property>
                 <child>
                   <object class="GtkTreeView" id="diskView">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
+                    <property name="can-focus">True</property>
                     <property name="model">diskStore</property>
-                    <property name="enable_search">False</property>
-                    <property name="enable_tree_lines">True</property>
-                    <property name="tooltip_column">7</property>
+                    <property name="enable-search">False</property>
+                    <property name="enable-tree-lines">True</property>
+                    <property name="tooltip-column">7</property>
                     <signal name="row-activated" handler="on_row_clicked" swapped="no"/>
                     <child internal-child="selection">
                       <object class="GtkTreeSelection" id="diskView-selection">
@@ -151,7 +153,7 @@
                         <child>
                           <object class="GtkCellRendererText" id="diskRenderer"/>
                           <attributes>
-                            <attribute name="markup">1</attribute>
+                            <attribute name="markup">2</attribute>
                           </attributes>
                         </child>
                       </object>
@@ -173,7 +175,7 @@
                         <child>
                           <object class="GtkCellRendererText" id="fsRenderer"/>
                           <attributes>
-                            <attribute name="text">2</attribute>
+                            <attribute name="text">3</attribute>
                           </attributes>
                         </child>
                       </object>
@@ -184,7 +186,7 @@
                         <child>
                           <object class="GtkCellRendererText" id="reclaimableRenderer"/>
                           <attributes>
-                            <attribute name="markup">3</attribute>
+                            <attribute name="markup">4</attribute>
                           </attributes>
                         </child>
                       </object>
@@ -195,7 +197,7 @@
                         <child>
                           <object class="GtkCellRendererText" id="actionRenderer"/>
                           <attributes>
-                            <attribute name="text">4</attribute>
+                            <attribute name="text">5</attribute>
                           </attributes>
                         </child>
                       </object>
@@ -212,16 +214,16 @@
             <child>
               <object class="GtkBox" id="box2">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="margin_top">6</property>
+                <property name="can-focus">False</property>
+                <property name="margin-top">6</property>
                 <child>
                   <object class="GtkButton" id="preserveButton">
                     <property name="label" translatable="yes" context="GUI|Reclaim Dialog">_Preserve</property>
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
                     <property name="valign">center</property>
-                    <property name="use_underline">True</property>
+                    <property name="use-underline">True</property>
                     <signal name="clicked" handler="on_preserve_clicked" swapped="no"/>
                   </object>
                   <packing>
@@ -234,10 +236,10 @@
                   <object class="GtkButton" id="deleteButton">
                     <property name="label" translatable="yes" context="GUI|Reclaim Dialog">_Delete</property>
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
                     <property name="valign">center</property>
-                    <property name="use_underline">True</property>
+                    <property name="use-underline">True</property>
                     <signal name="clicked" handler="on_delete_clicked" swapped="no"/>
                   </object>
                   <packing>
@@ -250,10 +252,10 @@
                   <object class="GtkButton" id="shrinkButton">
                     <property name="label" translatable="yes" context="GUI|Reclaim Dialog">_Shrink</property>
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
                     <property name="valign">center</property>
-                    <property name="use_underline">True</property>
+                    <property name="use-underline">True</property>
                     <signal name="clicked" handler="on_shrink_clicked" swapped="no"/>
                   </object>
                   <packing>
@@ -266,15 +268,15 @@
                   <object class="GtkButton" id="deleteAllButton">
                     <property name="label" translatable="yes" context="GUI|Reclaim Dialog">Delete _all</property>
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                    <property name="use_underline">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                    <property name="use-underline">True</property>
                     <signal name="clicked" handler="on_delete_all_clicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
-                    <property name="pack_type">end</property>
+                    <property name="pack-type">end</property>
                     <property name="position">3</property>
                   </packing>
                 </child>
@@ -288,9 +290,9 @@
             <child>
               <object class="GtkScale" id="resizeSlider">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="margin_top">12</property>
-                <property name="margin_bottom">12</property>
+                <property name="can-focus">True</property>
+                <property name="margin-top">12</property>
+                <property name="margin-bottom">12</property>
                 <property name="adjustment">resizeAdjustment</property>
                 <signal name="format-value" handler="on_resize_slider_format" swapped="no"/>
                 <signal name="value-changed" handler="on_resize_value_changed" swapped="no"/>
@@ -304,11 +306,11 @@
             <child>
               <object class="GtkLabel" id="reclaimableSpaceLabel">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can-focus">False</property>
                 <property name="halign">start</property>
-                <property name="margin_bottom">6</property>
+                <property name="margin-bottom">6</property>
                 <property name="label">&lt;b&gt;%s disks; %s reclaimable space&lt;/b&gt; (in file systems)</property>
-                <property name="use_markup">True</property>
+                <property name="use-markup">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -319,11 +321,11 @@
             <child>
               <object class="GtkLabel" id="selectedSpaceLabel">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can-focus">False</property>
                 <property name="halign">end</property>
-                <property name="margin_bottom">6</property>
+                <property name="margin-bottom">6</property>
                 <property name="label">Total selected space to reclaim:  &lt;b&gt;%s&lt;/b&gt;</property>
-                <property name="use_markup">True</property>
+                <property name="use-markup">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -334,11 +336,11 @@
             <child>
               <object class="GtkLabel" id="requiredSpaceLabel">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can-focus">False</property>
                 <property name="halign">end</property>
-                <property name="margin_bottom">6</property>
+                <property name="margin-bottom">6</property>
                 <property name="label">Installation requires a total of &lt;b&gt;%s&lt;/b&gt; for system data.</property>
-                <property name="use_markup">True</property>
+                <property name="use-markup">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>

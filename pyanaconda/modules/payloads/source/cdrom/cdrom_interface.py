@@ -34,9 +34,9 @@ class CdromSourceInterface(PayloadSourceBaseInterface):
 
     def connect_signals(self):
         super().connect_signals()
-        self.watch_property("DeviceName", self.implementation.device_name_changed)
+        self.watch_property("DeviceID", self.implementation.device_id_changed)
 
     @property
-    def DeviceName(self) -> Str:
-        """Get device name of the cdrom found."""
-        return self.implementation.device_name
+    def DeviceID(self) -> Str:
+        """Get device ID of the cdrom found."""
+        return self.implementation.device_id

@@ -46,32 +46,33 @@ class SetUpCdromSourceTask(SetUpMountTask):
         device_tree = STORAGE.get_proxy(DEVICE_TREE)
 
         device_candidates = self._get_device_candidate_list(device_tree)
-        device_name = self._choose_installation_device(device_tree, device_candidates)
+        device_id = self._choose_installation_device(device_tree, device_candidates)
 
-        if not device_name:
+        if not device_id:
             raise SourceSetupError("Found no CD-ROM")
 
-        return device_name
+        return device_id
 
     def _get_device_candidate_list(self, device_tree):
         return device_tree.FindOpticalMedia()
 
     def _choose_installation_device(self, device_tree, devices_candidates):
-        device_name = ""
+        device_id = ""
 
-        for dev_name in devices_candidates:
+        for dev_id in devices_candidates:
             try:
-                device_data = DeviceData.from_structure(device_tree.GetDeviceData(dev_name))
+                device_data = DeviceData.from_structure(device_tree.GetDeviceData(dev_id))
                 mount(device_data.path, self._target_mount, "iso9660", "ro")
             except OSError as e:
-                log.debug("Failed to mount %s: %s", dev_name, str(e))
+                log.debug("Failed to mount %s: %s", device_data.path, str(e))
                 continue
 
             if is_valid_install_disk(self._target_mount):
-                device_name = dev_name
-                log.info("using CD-ROM device %s mounted at %s", dev_name, self._target_mount)
+                device_id = dev_id
+                log.info("using CD-ROM device %s mounted at %s",
+                         device_data.name, self._target_mount)
                 break
             else:
                 unmount(self._target_mount)
 
-        return device_name
+        return device_id
