@@ -261,6 +261,13 @@ Requires: gsettings-desktop-schemas
 Requires: nm-connection-editor
 Requires: librsvg2
 Requires: gnome-kiosk
+Requires: gnome-remote-desktop
+# needed to generate RDP certs at runtime
+Requires: openssl
+# needed by GNOME kiosk but not declared a as explicit dep,
+# instead expected to be declared like this according to the
+# maintainers
+Requires: mesa-dri-drivers
 Requires: brltty
 Requires: python3-pam
 # dependencies for rpm-ostree payload module
@@ -287,7 +294,6 @@ Requires: python3-meh-gui >= %{mehver}
 Requires: python3-xkbregistry
 Requires: adwaita-icon-theme
 Requires: tecla
-Requires: tigervnc-server-minimal
 Requires: nm-connection-editor
 %ifnarch s390 s390x
 Requires: NetworkManager-wifi
