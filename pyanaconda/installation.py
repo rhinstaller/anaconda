@@ -390,6 +390,16 @@ class RunInstallationTask(InstallationTask):
             CATEGORY_SOFTWARE
         )
 
+        # Make name resolution work for rpm scripts in chroot.
+        # Also make sure dns resolution works in %post scripts
+        # if systemd-resolved is not available.
+        if conf.system.provides_resolver_config:
+            pre_install.append(Task(
+                "Copy resolv.conf to sysroot",
+                network.copy_resolv_conf_to_root,
+                (conf.target.system_root, )
+            ))
+
         if is_module_available(SECURITY):
             security_proxy = SECURITY.get_proxy()
 
