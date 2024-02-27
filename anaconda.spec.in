@@ -467,6 +467,13 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 27 2024 github-actions <github-actions@github.com> - 41.3-1
+- Update translations from Weblate for master (github-actions)
+- Add riscv64 support (U2FsdGVkX1)
+- Do not use systemd-resolved in installer environment on RHEL (rvykydal)
+- CONTRIBUTING: replace markdown with reStructuredText (pamolloy)
+- Ignore GFS2 when looking for supported filesystems (vtrefny)
+
 * Tue Feb 20 2024 github-actions <github-actions@github.com> - 41.2-1
 - Test for task category and category API (akankovs)
 - Creating categories dbus API for installation phases (akankovs)
