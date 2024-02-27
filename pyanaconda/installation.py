@@ -31,6 +31,7 @@ from pyanaconda.modules.common.util import is_module_available
 from pyanaconda import flags
 from pyanaconda.core import util
 from pyanaconda.core.path import open_with_perm
+from pyanaconda.core.service import is_service_installed
 from pyanaconda import network
 from pyanaconda.core.i18n import _
 from pyanaconda.core.threads import thread_manager
@@ -392,8 +393,9 @@ class RunInstallationTask(InstallationTask):
 
         # Make name resolution work for rpm scripts in chroot.
         # Also make sure dns resolution works in %post scripts
-        # if systemd-resolved is not available.
-        if conf.system.provides_resolver_config:
+        # when systemd-resolved is not available.
+        if conf.system.provides_resolver_config and \
+                not is_service_installed("systemd-resolved.service"):
             pre_install.append(Task(
                 "Copy resolv.conf to sysroot",
                 network.copy_resolv_conf_to_root,
