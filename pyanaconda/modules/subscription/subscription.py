@@ -17,6 +17,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+
+# pylint: skip-file
+# FIXME: https://github.com/pylint-dev/astroid/issues/2391
+# There is a known issue with astroid, remove this when it's fixed upstream.
+
 import copy
 import warnings
 
