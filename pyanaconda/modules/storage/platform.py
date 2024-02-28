@@ -410,6 +410,41 @@ class ARM(Platform):
         return dict(super().stage1_constraints, **constraints)
 
 
+class RISCV64(Platform):
+
+    @property
+    def stage1_suggestion(self):
+        """The platform-specific suggestion about the stage1 device."""
+        return _(
+            "You must include at least one MBR-formatted "
+            "disk as an install target."
+        )
+
+    @property
+    def stage1_descriptions(self):
+        """The platform-specific descriptions of the stage1 device."""
+        return {
+            "disk": _(MBR_DESCRIPTION),
+            "partition": _(PARTITION_DESCRIPTION)
+        }
+
+    @property
+    def stage1_constraints(self):
+        """The platform-specific constraints for the stage1 device."""
+        constraints = {
+            PLATFORM_DEVICE_TYPES: ["disk"]
+        }
+        return dict(super().stage1_constraints, **constraints)
+
+
+class RISCV64EFI(EFI):
+
+    @property
+    def non_linux_format_types(self):
+        """Format types of devices with non-linux operating systems."""
+        return ["vfat", "ntfs"]
+
+
 def get_platform():
     """Check the architecture of the system and return an instance of a
        Platform subclass to match.  If the architecture could not be determined,
@@ -434,12 +469,16 @@ def get_platform():
             return Aarch64EFI()
         elif arch.is_arm():
             return ArmEFI()
+        elif arch.is_riscv64():
+            return RISCV64EFI()
         else:
             return EFI()
     elif arch.is_x86():
         return X86()
     elif arch.is_arm():
         return ARM()
+    elif arch.is_riscv64():
+        return RISCV64()
     else:
         raise SystemError("Could not determine system architecture.")
 

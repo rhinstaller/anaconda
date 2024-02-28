@@ -152,4 +152,12 @@ class BootLoaderFactory(object):
             from pyanaconda.modules.storage.bootloader.efi import ArmEFIGRUB
             return ArmEFIGRUB
 
+        if platform_class is platform.RISCV64:
+            from pyanaconda.modules.storage.bootloader.extlinux import EXTLINUX
+            return EXTLINUX
+
+        if platform_class is platform.RISCV64EFI:
+            from pyanaconda.modules.storage.bootloader.efi import RISCV64EFIGRUB
+            return RISCV64EFIGRUB
+
         return None

@@ -70,6 +70,7 @@ TESTS = \
 	glade_tests/glade_tests.sh \
 	shellcheck/run_shellcheck.sh \
 	ruff/run_ruff.sh \
+	pylint/runpylint.py \
 	unit_tests/unit_tests.sh
 
 clean-local:

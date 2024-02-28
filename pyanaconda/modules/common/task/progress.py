@@ -30,6 +30,7 @@ class ProgressReporter(ABC):
     def __init__(self):
         super().__init__()
         self._progress_changed_signal = Signal()
+        self._category_changed_signal = Signal()
 
         self.__progress_lock = Lock()
         self.__progress_step = 0
@@ -54,6 +55,19 @@ class ProgressReporter(ABC):
     def progress_changed_signal(self):
         """Signal emits when the progress of the task changes."""
         return self._progress_changed_signal
+
+    @property
+    def category_changed_signal(self):
+        """Signal emits when the category of the task changes."""
+        return self._category_changed_signal
+
+    @async_action_nowait
+    def report_category(self, category):
+        if category is None:
+            return
+        else:
+            self._category_changed_signal.emit(category)
+
 
     @async_action_nowait
     def report_progress(self, message, step_number=None, step_size=None):

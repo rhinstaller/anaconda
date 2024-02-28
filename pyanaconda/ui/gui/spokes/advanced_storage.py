@@ -49,14 +49,19 @@ __all__ = ["FilterSpoke"]
 PAGE_SEARCH = 0
 PAGE_MULTIPATH = 1
 PAGE_OTHER = 2
-PAGE_Z = 3
+PAGE_NVMEFABRICS = 3
+PAGE_Z = 4
+# The Z page must be last = highest number, because it is dynamically removed, which would reorder
+# the items and invalidate the indices hardcoded here.
 
 DiskStoreRow = namedtuple("DiskStoreRow", [
     "visible", "selected", "mutable",
     "name", "type", "model", "capacity",
     "vendor", "interconnect", "serial",
     "wwid", "paths", "port", "target",
-    "lun", "ccw", "wwpn", "namespace", "mode"
+    "lun", "ccw", "wwpn", "namespace", "mode",
+    "controllers", "transport", "transport_address",
+    "subsystem_nqn", "namespace_id"
 ])
 
 
@@ -68,26 +73,40 @@ def create_row(device_data, selected, mutable):
     :param mutable: False if the device is protected, otherwise True
     :return: an instance of DiskStoreRow
     """
+    device = device_data
+    attrs = device_data.attrs
+
+    controller_ids = attrs.get("controllers-id", "").split(", ")
+    transports_type = attrs.get("transports-type", "").split(", ")
+    transports_address = attrs.get("transports-address", "").split(", ")
+    subsystems_nqn = attrs.get("subsystems-nqn", "").split(", ")
+    namespace_ids = list(filter(None, map(attrs.get, ["eui64", "nguid", "uuid"])))
+
     return DiskStoreRow(
         visible=True,
         selected=selected,
-        mutable=mutable and not device_data.protected,
-        name=device_data.name,
-        type=device_data.type,
-        model=device_data.attrs.get("model", ""),
-        capacity=str(Size(device_data.size)),
-        vendor=device_data.attrs.get("vendor", ""),
-        interconnect=device_data.attrs.get("bus", ""),
-        serial=device_data.attrs.get("serial", ""),
-        wwid=device_data.attrs.get("path-id", "") or device_data.attrs.get("wwn", ""),
-        paths="\n".join(device_data.parents),
-        port=device_data.attrs.get("port", ""),
-        target=device_data.attrs.get("target", ""),
-        lun=device_data.attrs.get("lun", "") or device_data.attrs.get("fcp-lun", ""),
-        ccw=device_data.attrs.get("hba-id", ""),
-        wwpn=device_data.attrs.get("wwpn", ""),
-        namespace=device_data.attrs.get("namespace", ""),
-        mode=device_data.attrs.get("mode", "")
+        mutable=mutable and not device.protected,
+        name=device.name,
+        type=device.type,
+        model=attrs.get("model", ""),
+        capacity=str(Size(device.size)),
+        vendor=attrs.get("vendor", ""),
+        interconnect=attrs.get("bus", ""),
+        serial=attrs.get("serial", ""),
+        wwid=attrs.get("path-id", ""),
+        paths="\n".join(device.parents),
+        port=attrs.get("port", ""),
+        target=attrs.get("target", ""),
+        lun=attrs.get("lun", "") or attrs.get("fcp-lun", ""),
+        ccw=attrs.get("hba-id", ""),
+        wwpn=attrs.get("wwpn", ""),
+        namespace=attrs.get("namespace", "") or attrs.get("nsid", ""),
+        mode=attrs.get("mode", ""),
+        controllers="\n".join(controller_ids),
+        transport="\n".join(transports_type),
+        transport_address="\n".join(transports_address),
+        subsystem_nqn="\n".join(subsystems_nqn),
+        namespace_id="\n".join(namespace_ids),
     )
 
 
@@ -429,13 +448,73 @@ class ZPage(FilterPage):
         return False
 
 
+class NVMeFabricsPage(FilterPage):
+    # Match these to nvmefTypeCombo ids in glade
+    SEARCH_TYPE_CONTROLLER = 'Controller'
+    SEARCH_TYPE_TRANSPORT = 'Transport'
+    SEARCH_TYPE_SUBSYSTEM_NQN = 'Subsystem NQN'
+    SEARCH_TYPE_NAMESPACE_ID = 'Namespace ID'
+
+    def __init__(self, builder):
+        super().__init__(builder, "nvmefModel", "nvmefTypeCombo")
+        self._controller_entry = self._builder.get_object("nvmefControllerEntry")
+        self._transport_combo = self._builder.get_object("nvmefTransportCombo")
+        self._address_entry = self._builder.get_object("nvmefTransportAddressEntry")
+        self._subsystem_nqn_entry = self._builder.get_object("nvmefSubsystemNqnEntry")
+        self._namespace_id_entry = self._builder.get_object("nvmefNamespaceIdEntry")
+
+    def is_member(self, device_type):
+        return device_type == "nvme-fabrics"
+
+    def setup(self, store, disks, selected_names, protected_names):
+        transports = set()
+
+        for device_data in disks:
+            row = create_row(
+                device_data,
+                device_data.name in selected_names,
+                device_data.name not in protected_names,
+            )
+            store.append([*row])
+            transports.update(row.transport.split("\n"))
+
+        self._setup_combo(self._transport_combo, transports)
+        self._transport_combo.set_active(0)
+        self._setup_search_type()
+
+    def clear(self):
+        self._controller_entry.set_text("")
+        self._transport_combo.set_active(0)
+        self._address_entry.set_text("")
+        self._subsystem_nqn_entry.set_text("")
+        self._namespace_id_entry.set_text("")
+
+    def _filter_func(self, filter_by, row):
+        if filter_by == self.SEARCH_TYPE_CONTROLLER:
+            return self._controller_entry.get_text().strip() in row.controllers
+
+        if filter_by == self.SEARCH_TYPE_TRANSPORT:
+            transports = [""] + row.transport.split("\n")
+
+            return self._transport_combo.get_active_text() in transports \
+                and self._address_entry.get_text().strip() in row.transport_address
+
+        if filter_by == self.SEARCH_TYPE_SUBSYSTEM_NQN:
+            return self._subsystem_nqn_entry.get_text().strip() in row.subsystem_nqn
+
+        if filter_by == self.SEARCH_TYPE_NAMESPACE_ID:
+            return self._namespace_id_entry.get_text().strip() in row.namespace_id
+
+        return False
+
+
 class FilterSpoke(NormalSpoke):
     """
        .. inheritance-diagram:: FilterSpoke
           :parts: 3
     """
     builderObjects = ["diskStore", "filterWindow",
-                      "searchModel", "multipathModel", "otherModel", "zModel"]
+                      "searchModel", "multipathModel", "otherModel", "zModel", "nvmefModel"]
     mainWidgetName = "filterWindow"
     uiFile = "spokes/advanced_storage.glade"
     category = SystemCategory
@@ -483,6 +562,7 @@ class FilterSpoke(NormalSpoke):
             PAGE_SEARCH: SearchPage(self.builder),
             PAGE_MULTIPATH: MultipathPage(self.builder),
             PAGE_OTHER: OtherPage(self.builder),
+            PAGE_NVMEFABRICS: NVMeFabricsPage(self.builder),
             PAGE_Z: ZPage(self.builder),
         }
 
@@ -674,6 +754,10 @@ class FilterSpoke(NormalSpoke):
 
     def on_z_type_combo_changed(self, combo):
         self._set_notebook_page("zTypeNotebook", combo.get_active())
+        self._refilter_current_page()
+
+    def on_nvmef_type_combo_changed(self, combo):
+        self._set_notebook_page("nvmefTypeNotebook", combo.get_active())
         self._refilter_current_page()
 
     def _set_notebook_page(self, notebook_name, page_index):

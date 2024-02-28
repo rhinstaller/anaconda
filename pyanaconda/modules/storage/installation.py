@@ -343,6 +343,10 @@ class WriteConfigurationTask(Task):
         :param Blivet storage: instance of Blivet or a subclass
         :param str sysroot: path to the target OS installation
         """
+        if conf.target.is_image:
+            log.debug("Don't write the LVM devices file during image installation.")
+            return
+
         if not HAVE_LVMDEVICES:
             return
 

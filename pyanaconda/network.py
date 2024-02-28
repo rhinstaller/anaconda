@@ -16,8 +16,10 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+import shutil
 import socket
 import itertools
+import os
 import time
 import threading
 import re
@@ -29,6 +31,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core import util, constants
 from pyanaconda.core.i18n import _
 from pyanaconda.core.kernel import kernel_arguments
+from pyanaconda.core.path import make_directories
 from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, \
     IPV6_ADDRESS_IN_DRACUT_IP_OPTION, MAC_OCTET
 from pyanaconda.core.configuration.anaconda import conf
@@ -53,8 +56,9 @@ _nm_client = None
 
 __all__ = ["get_supported_devices", "status_message", "wait_for_connectivity",
            "wait_for_connecting_NM_thread", "wait_for_network_devices", "wait_for_connected_NM",
-           "initialize_network", "prefix_to_netmask", "netmask_to_prefix", "get_first_ip_address",
-           "is_valid_hostname", "check_ip_address", "get_nm_client", "write_configuration"]
+           "initialize_network", "copy_resolv_conf_to_root", "prefix_to_netmask",
+           "netmask_to_prefix", "get_first_ip_address", "is_valid_hostname", "check_ip_address",
+           "get_nm_client", "write_configuration"]
 
 
 def get_nm_client():
@@ -212,6 +216,22 @@ def iface_for_host_ip(host_ip):
         return ""
 
     return route_info[route_info.index("dev") + 1]
+
+
+def copy_resolv_conf_to_root(root="/"):
+    """Copy resolv.conf to a system root."""
+    src = "/etc/resolv.conf"
+    dst = os.path.join(root, src.lstrip('/'))
+    if not os.path.isfile(src):
+        log.debug("%s does not exist", src)
+        return
+    if os.path.isfile(dst):
+        log.debug("%s already exists", dst)
+        return
+    dst_dir = os.path.dirname(dst)
+    if not os.path.isdir(dst_dir):
+        make_directories(dst_dir)
+    shutil.copyfile(src, dst)
 
 
 def run_network_initialization_task(task_path):

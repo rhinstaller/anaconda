@@ -31,7 +31,6 @@ RUN set -ex; \
   # Install dependencies
   dnf install -y \
   'dnf-command(copr)' \
-  npm \
   git \
   curl \
   python3-polib \

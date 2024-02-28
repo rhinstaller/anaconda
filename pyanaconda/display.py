@@ -81,6 +81,7 @@ def start_user_systemd():
     # start a new one), but dbus-launch doesn't check the XDG_RUNTIME_DIR/bus path.
     xdg_runtime_dir = os.environ.get("XDG_RUNTIME_DIR", "/tmp")
     session_bus_address = "unix:path=" + join_paths(xdg_runtime_dir, "/bus")
+    # pylint: disable=environment-modify
     os.environ["DBUS_SESSION_BUS_ADDRESS"] = session_bus_address
     log.info("The session bus address is set to %s.", session_bus_address)
 
@@ -206,6 +207,7 @@ def do_startup_x11_actions():
     xdg_config_dirs = datadir
     if 'XDG_CONFIG_DIRS' in os.environ:
         xdg_config_dirs = datadir + ':' + os.environ['XDG_CONFIG_DIRS']
+    # pylint: disable=environment-modify
     os.environ['XDG_CONFIG_DIRS'] = xdg_config_dirs
 
     def x11_preexec():

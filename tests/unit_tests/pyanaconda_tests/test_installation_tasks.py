@@ -132,9 +132,11 @@ class InstallTasksTestCase(unittest.TestCase):
     def test_empty_task_queue(self):
         """Check that an empty task queue works correctly."""
         # first check if empty task queue works correctly
-        task_queue = TaskQueue("foo", status_message="foo status message")
+        task_queue = TaskQueue("foo", status_message="foo status message",
+                               task_category="foo category")
         assert task_queue.name == "foo"
         assert task_queue.status_message == "foo status message"
+        assert task_queue.task_category == "foo category"
         assert task_queue.task_count == 0
         assert task_queue.queue_count == 0
         assert task_queue.summary == dedent("""
@@ -186,12 +188,14 @@ class InstallTasksTestCase(unittest.TestCase):
         assert self._queue_completed_count == 0
 
         # create the group 1
-        group1 = TaskQueue(name="group1", status_message="processing group1")
+        group1 = TaskQueue(name="group1", status_message="processing group1",
+                           task_category="group1 category")
         task1 = Task("increment var 1", self._increment_var1)
         group1.append(task1)
 
         # create the group 2
-        group2 = TaskQueue(name="group2", status_message="processing group2")
+        group2 = TaskQueue(name="group2", status_message="processing group2",
+                           task_category="group2 category")
         task2a = Task("increment var 2", self._increment_var2)
         group2.append(task2a)
 
@@ -199,7 +203,8 @@ class InstallTasksTestCase(unittest.TestCase):
         group2.append(task2b)
 
         # create the group 3
-        group3 = TaskQueue(name="group3", status_message="processing group3 (empty)")
+        group3 = TaskQueue(name="group3", status_message="processing group3 (empty)",
+                           task_category="group3 category")
 
         # create the top level queue
         queue1 = TaskQueue(name="queue1")

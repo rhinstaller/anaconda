@@ -122,7 +122,9 @@ Requires: NetworkManager-team
 Requires: kbd
 Requires: chrony
 Requires: systemd
+%if ! 0%{?rhel}
 Requires: systemd-resolved
+%endif
 Requires: python3-pid
 
 # Required by the systemd service anaconda-fips.
@@ -217,6 +219,8 @@ Requires: f2fs-tools
 Requires: xfsprogs
 Requires: dosfstools
 Requires: e2fsprogs
+# External tooling for managing NVMe-FC devices in the installation environment
+Recommends: nvme-cli
 
 %description install-env-deps
 The anaconda-install-env-deps metapackage lists all installation environment
@@ -260,6 +264,8 @@ Requires: rpm-ostree >= %{rpmostreever}
 Requires: ostree
 # used by ostree command for native containers
 Requires: skopeo
+# External tooling for managing NVMe-FC devices in the installation environment
+Requires: nvme-cli
 
 %description install-img-deps
 The anaconda-install-img-deps metapackage lists all boot.iso installation
@@ -465,6 +471,41 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 27 2024 github-actions <github-actions@github.com> - 41.3-1
+- Update translations from Weblate for master (github-actions)
+- Add riscv64 support (U2FsdGVkX1)
+- Do not use systemd-resolved in installer environment on RHEL (rvykydal)
+- CONTRIBUTING: replace markdown with reStructuredText (pamolloy)
+- Ignore GFS2 when looking for supported filesystems (vtrefny)
+
+* Tue Feb 20 2024 github-actions <github-actions@github.com> - 41.2-1
+- Test for task category and category API (akankovs)
+- Creating categories dbus API for installation phases (akankovs)
+
+* Thu Feb 15 2024 Martin Kolman <mkolman@redhat.com> - 41.1-1
+- bump major version number for Rawhide after F40 branching (mkolman)
+
+* Tue Feb 13 2024 github-actions <github-actions@github.com> - 40.22-1
+- gui: Enforce the non-interactive text mode for dir and image installations
+  (vponcova)
+- Update translations from Weblate for master (github-actions)
+- Lower log file permission in /tmp (jkonecny)
+- Add utility function to set file mode (jkonecny)
+- Add release notes about proxy fix (jkonecny)
+- webui: Disable unsupported use cases and installation environments (vponcova)
+- Fix "proxy" boot option is printing inst. warning (#2177219) (jkonecny)
+- Fix kickstart proxy cmd in stage1 (#2177219) (jkonecny)
+- Use inst.proxy in stage1 (#2177219) (jkonecny)
+- startup: Set up the session bus on the boot.iso (vponcova)
+- Bump required version of blivet to 3.9.0 (vtrefny)
+- Allow reusing existing "empty" filesystems for / (vtrefny)
+- storage: Allow systemd-boot only for package installations (vponcova)
+- Resolve symlinks in ostree install bind mount destinations (#2262892)
+  (awilliam)
+- storage: Handle live images and inst.sdboot (jeremy.linton)
+- gui: Remove the graphical support for additional repositories (vponcova)
+- Add the attribute links to the device data (kkoukiou)
+
 * Tue Feb 06 2024 github-actions <github-actions@github.com> - 40.21-1
 - Update translations from Weblate for master (github-actions)
 - Deprecate timezone --isUtc, --ntpservers and --nontp kickstart options
